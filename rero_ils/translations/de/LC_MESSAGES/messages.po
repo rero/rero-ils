@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
-"POT-Creation-Date: 2020-08-12 13:36+0200\n"
-"PO-Revision-Date: 2020-08-20 07:01+0000\n"
+"POT-Creation-Date: 2020-09-21 12:26+0200\n"
+"PO-Revision-Date: 2020-09-21 12:38+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/de/>\n"
@@ -26,119 +26,123 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.2.1-dev\n"
+"X-Generator: Weblate 4.3-dev\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: rero_ils/config.py:121
+#: rero_ils/config.py:120
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:292
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:84
 msgid "French"
 msgstr "Französisch"
 
-#: rero_ils/config.py:122
+#: rero_ils/config.py:121
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:300
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:96
 msgid "German"
 msgstr "Deutsch"
 
-#: rero_ils/config.py:123
+#: rero_ils/config.py:122
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:304
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:92
 msgid "Italian"
 msgstr "Italienisch"
 
-#: rero_ils/config.py:174 rero_ils/config.py:178
+#: rero_ils/config.py:173 rero_ils/config.py:177
 msgid "rero-ils"
 msgstr "RERO ILS"
 
-#: rero_ils/config.py:225
+#: rero_ils/config.py:224
 msgid "Welcome to RERO-ILS!"
 msgstr "Willkommen zu RERO ILS!"
 
-#: rero_ils/config.py:1386
+#: rero_ils/config.py:1394
 msgid "document_type"
 msgstr "Dokumenttyp"
 
-#: rero_ils/config.py:1387
+#: rero_ils/config.py:1395
 msgid "organisation"
 msgstr "Organisation"
 
-#: rero_ils/config.py:1390 rero_ils/config.py:1425 rero_ils/config.py:1464
-#: rero_ils/config.py:1486 rero_ils/config.py:1508
+#: rero_ils/config.py:1398
+msgid "new_acquisition"
+msgstr "new_acquisition"
+
+#: rero_ils/config.py:1399 rero_ils/config.py:1434 rero_ils/config.py:1473
+#: rero_ils/config.py:1495 rero_ils/config.py:1517
 msgid "library"
 msgstr "Bibliothek"
 
-#: rero_ils/config.py:1391
-msgid "author__en"
+#: rero_ils/config.py:1400
+msgid "contribution__en"
 msgstr "Autor"
 
-#: rero_ils/config.py:1392
-msgid "author__fr"
+#: rero_ils/config.py:1401
+msgid "contribution__fr"
 msgstr "Autor"
 
-#: rero_ils/config.py:1393
-msgid "author__de"
+#: rero_ils/config.py:1402
+msgid "contribution__de"
 msgstr "Autor"
 
-#: rero_ils/config.py:1394
-msgid "author__it"
+#: rero_ils/config.py:1403
+msgid "contribution__it"
 msgstr "Autor"
 
-#: rero_ils/config.py:1395
+#: rero_ils/config.py:1404
 msgid "language"
 msgstr "Sprache"
 
-#: rero_ils/config.py:1396
+#: rero_ils/config.py:1405
 msgid "subject"
 msgstr "Schlagwort"
 
-#: rero_ils/config.py:1397 rero_ils/config.py:1427 rero_ils/config.py:1487
-#: rero_ils/config.py:1509
+#: rero_ils/config.py:1406 rero_ils/config.py:1436 rero_ils/config.py:1496
+#: rero_ils/config.py:1518
 msgid "status"
 msgstr "Status"
 
-#: rero_ils/config.py:1424
+#: rero_ils/config.py:1433
 msgid "location"
 msgstr "Standort"
 
-#: rero_ils/config.py:1426
+#: rero_ils/config.py:1435
 msgid "item_type"
 msgstr "Exemplartyp"
 
-#: rero_ils/config.py:1443
+#: rero_ils/config.py:1452
 msgid "roles"
 msgstr "Rollen"
 
-#: rero_ils/config.py:1465
+#: rero_ils/config.py:1474
 msgid "budget"
 msgstr "Budget"
 
-#: rero_ils/config.py:1525
+#: rero_ils/config.py:1534
 msgid "sources"
 msgstr "Quellen"
 
 #: rero_ils/manual_translations.txt:16
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:261
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:262
 msgid "on_loan"
 msgstr "ausgeliehen"
 
 #: rero_ils/manual_translations.txt:17
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:257
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:258
 msgid "on_shelf"
 msgstr "im Regal"
 
 #: rero_ils/manual_translations.txt:18
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:265
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:266
 msgid "missing"
 msgstr "fehlend"
 
 #: rero_ils/manual_translations.txt:19
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:269
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:270
 msgid "in_transit"
 msgstr "in Transit"
 
 #: rero_ils/manual_translations.txt:20
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:273
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:274
 msgid "at_desk"
 msgstr "an der Ausleihe"
 
@@ -242,58 +246,96 @@ msgstr "Entstehung"
 msgid "bf:Place"
 msgstr "Ort"
 
-#: rero_ils/manual_translations.txt:54
+#: rero_ils/manual_translations.txt:52
+msgid "Date(s) uncertain or unknown"
+msgstr "Datum(e) ungewiss oder unbekannt"
+
+#: rero_ils/manual_translations.txt:53
+msgid "Date not available and automatically set to 2050"
+msgstr "Datum nicht verfügbar und automatisch auf 2050 gesetzt"
+
+#: rero_ils/manual_translations.txt:56
 msgid "ebibliomedia"
 msgstr "Zugriff"
 
-#: rero_ils/manual_translations.txt:55
+#: rero_ils/manual_translations.txt:57
 msgid "mv-cantook"
 msgstr "Zugriff"
 
-#: rero_ils/manual_translations.txt:58
+#: rero_ils/manual_translations.txt:60
 msgid "rdami:1001"
 msgstr "einzelne Einheit"
 
-#: rero_ils/manual_translations.txt:59
+#: rero_ils/manual_translations.txt:61
 msgid "rdami:1002"
 msgstr "mehrteilige Monografie"
 
-#: rero_ils/manual_translations.txt:60
+#: rero_ils/manual_translations.txt:62
 msgid "rdami:1003"
 msgstr "fortlaufende Ressource"
 
-#: rero_ils/manual_translations.txt:61
+#: rero_ils/manual_translations.txt:63
 msgid "rdami:1004"
 msgstr "integrierende Ressource"
+
+#: rero_ils/manual_translations.txt:66
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person_link-v0.0.1.json:2
+msgid "Link to person entity"
+msgstr "Link zur Personeneinheit"
+
+#: rero_ils/manual_translations.txt:67
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:2
+#: rero_ils/modules/persons/templates/rero_ils/detailed_view_persons.html:26
+msgid "Person"
+msgstr "Person"
+
+#: rero_ils/manual_translations.txt:68
+#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:76
+#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:311
+#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:177
+#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:242
+#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:91
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:39
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:2
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:102
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:303
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:27
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:118
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:4
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:136
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:56
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:268
+msgid "Organisation"
+msgstr "Organisation"
 
 #: rero_ils/views.py:96
 msgid "Menu"
 msgstr "Menü"
 
-#: rero_ils/views.py:137
+#: rero_ils/views.py:138
 msgid "Help"
 msgstr "Hilfe"
 
-#: rero_ils/views.py:155
+#: rero_ils/views.py:156
 msgid "My Account"
 msgstr "Mein Konto"
 
-#: rero_ils/views.py:180
+#: rero_ils/views.py:181
 msgid "Login"
 msgstr "Login"
 
-#: rero_ils/views.py:193
+#: rero_ils/views.py:194
 msgid "Professional interface"
 msgstr "Professionelles Interface"
 
-#: rero_ils/views.py:212
+#: rero_ils/views.py:213
 msgid "Logout"
 msgstr "Abmelden"
 
 #: rero_ils/templates/rero_ils/forgot_password.html:47
 #: rero_ils/templates/rero_ils/login_user.html:43
 #: rero_ils/templates/rero_ils/register_user.html:45
-#: rero_ils/templates/rero_ils/reset_password.html:47 rero_ils/views.py:225
+#: rero_ils/templates/rero_ils/reset_password.html:47 rero_ils/views.py:226
 msgid "Sign Up"
 msgstr "Registrieren"
 
@@ -1943,1970 +1985,1967 @@ msgstr "Sambia (za)"
 msgid "Language value"
 msgstr "Sprachewert"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:495
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:499
 msgid "lang_aar"
 msgstr "Afar"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:499
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:503
 msgid "lang_abk"
 msgstr "Abchasisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:503
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:507
 msgid "lang_ace"
 msgstr "Achinesisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:507
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:511
 msgid "lang_ach"
 msgstr "Acholi"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:511
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:515
 msgid "lang_ada"
 msgstr "Dangme"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:515
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:519
 msgid "lang_ady"
 msgstr "Adygeisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:519
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:523
 msgid "lang_afa"
 msgstr "Afroasiatische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:523
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:527
 msgid "lang_afh"
 msgstr "Afrihili"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:527
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:531
 msgid "lang_afr"
 msgstr "Afrikaans"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:531
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:535
 msgid "lang_ain"
 msgstr "Ainu"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:535
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:539
 msgid "lang_aka"
 msgstr "Akan"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:539
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:543
 msgid "lang_akk"
 msgstr "Akkadisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:543
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:547
 msgid "lang_alb"
 msgstr "Albanisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:547
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:551
 msgid "lang_ale"
 msgstr "Aleutisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:551
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:555
 msgid "lang_alg"
 msgstr "Algonkin Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:555
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:559
 msgid "lang_alt"
 msgstr "Südaltaisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:559
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:563
 msgid "lang_amh"
 msgstr "Amharisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:563
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:567
 msgid "lang_ang"
 msgstr "Altenglisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:567
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:571
 msgid "lang_anp"
 msgstr "Angika"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:571
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:575
 msgid "lang_apa"
 msgstr "Apache Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:575
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:579
 msgid "lang_ara"
 msgstr "Arabisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:579
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:583
 msgid "lang_arc"
 msgstr "Reichsaramäisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:583
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:587
 msgid "lang_arg"
 msgstr "Aragonesisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:587
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:591
 msgid "lang_arm"
 msgstr "Armenisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:591
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:595
 msgid "lang_arn"
 msgstr "Mapudungun"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:595
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:599
 msgid "lang_arp"
 msgstr "Arapaho"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:599
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:603
 msgid "lang_art"
 msgstr "Konstruierte Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:603
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:607
 msgid "lang_arw"
 msgstr "Arawak"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:607
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:611
 msgid "lang_asm"
 msgstr "Assamesisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:611
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:615
 msgid "lang_ast"
 msgstr "Asturisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:615
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:619
 msgid "lang_ath"
 msgstr "Athapaskische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:619
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:623
 msgid "lang_aus"
 msgstr "Australische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:623
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:627
 msgid "lang_ava"
 msgstr "Awarisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:627
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:631
 msgid "lang_ave"
 msgstr "Avestisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:631
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:635
 msgid "lang_awa"
 msgstr "Awadhi"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:635
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:639
 msgid "lang_aym"
 msgstr "Aymara"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:639
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:643
 msgid "lang_aze"
 msgstr "Aserbaidschanisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:643
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:647
 msgid "lang_bad"
 msgstr "Banda Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:647
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:651
 msgid "lang_bai"
 msgstr "Bamileke Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:651
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:655
 msgid "lang_bak"
 msgstr "Baschkirisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:655
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:659
 msgid "lang_bal"
 msgstr "Belutschisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:659
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:663
 msgid "lang_bam"
 msgstr "Bambara"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:663
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:667
 msgid "lang_ban"
 msgstr "Balinesisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:667
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:671
 msgid "lang_baq"
 msgstr "Baskisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:671
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:675
 msgid "lang_bas"
 msgstr "Basaa"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:675
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:679
 msgid "lang_bat"
 msgstr "Baltische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:679
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:683
 msgid "lang_bej"
 msgstr "Bedscha"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:683
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:687
 msgid "lang_bel"
 msgstr "Weissrussisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:687
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:691
 msgid "lang_bem"
 msgstr "Bemba"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:691
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:695
 msgid "lang_ben"
 msgstr "Bengalisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:695
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:699
 msgid "lang_ber"
 msgstr "Berbersprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:699
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:703
 msgid "lang_bho"
 msgstr "Bhojpuri"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:703
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:707
 msgid "lang_bih"
 msgstr "Bihari"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:707
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:711
 msgid "lang_bik"
 msgstr "Bikolano"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:711
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:715
 msgid "lang_bin"
 msgstr "Edo"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:715
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:719
 msgid "lang_bis"
 msgstr "Bislama"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:719
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:723
 msgid "lang_bla"
 msgstr "Blackfoot"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:723
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:727
 msgid "lang_bnt"
 msgstr "Bantusprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:727
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:731
 msgid "lang_bos"
 msgstr "Bosnisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:731
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:735
 msgid "lang_bra"
 msgstr "Braj-Bhakha"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:735
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:739
 msgid "lang_bre"
 msgstr "Bretonisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:739
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:743
 msgid "lang_btk"
 msgstr "Bataksprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:743
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:747
 msgid "lang_bua"
 msgstr "Burjatisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:747
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:751
 msgid "lang_bug"
 msgstr "Buginesisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:751
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:755
 msgid "lang_bul"
 msgstr "Bulgarisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:755
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:759
 msgid "lang_bur"
 msgstr "Birmanisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:759
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:763
 msgid "lang_byn"
 msgstr "Blin"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:763
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:767
 msgid "lang_cad"
 msgstr "Caddo"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:767
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:771
 msgid "lang_cai"
 msgstr "Mesoamerikanische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:771
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:775
 msgid "lang_car"
 msgstr "Karib"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:775
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:779
 msgid "lang_cat"
 msgstr "Katalanisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:779
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:783
 msgid "lang_cau"
 msgstr "Kaukasisch (anderes)"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:783
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:787
 msgid "lang_ceb"
 msgstr "Cebuano"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:787
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:791
 msgid "lang_cel"
 msgstr "Keltische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:791
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:795
 msgid "lang_cha"
 msgstr "Chamorro"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:795
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:799
 msgid "lang_chb"
 msgstr "Chibcha"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:799
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:803
 msgid "lang_che"
 msgstr "Tschechisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:803
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:807
 msgid "lang_chg"
 msgstr "Tschagataisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:807
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:811
 msgid "lang_chi"
 msgstr "Chinesisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:811
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:815
 msgid "lang_chk"
 msgstr "Chuukesisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:815
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:819
 msgid "lang_chm"
 msgstr "Mari"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:819
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:823
 msgid "lang_chn"
 msgstr "Chinook Wawa"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:823
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:827
 msgid "lang_cho"
 msgstr "Choctaw"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:827
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:831
 msgid "lang_chp"
 msgstr "Chipewyan"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:831
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:835
 msgid "lang_chr"
 msgstr "Cherokee"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:835
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:839
 msgid "lang_chu"
 msgstr "Kirchenslawisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:839
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:843
 msgid "lang_chv"
 msgstr "Tschuwaschisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:843
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:847
 msgid "lang_chy"
 msgstr "Cheyenne"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:847
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:851
 msgid "lang_cmc"
 msgstr "Chamische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:851
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:855
 msgid "lang_cnr"
 msgstr "Montenegrinisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:855
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:859
 msgid "lang_cop"
 msgstr "Koptisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:859
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:863
 msgid "lang_cor"
 msgstr "Kornisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:863
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:867
 msgid "lang_cos"
 msgstr "Korsisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:867
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:871
 msgid "lang_cpe"
 msgstr "Englisch-basierte Kreols und Pidgins"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:871
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:875
 msgid "lang_cpf"
 msgstr "Französisch-basierte Kreols und Pidgins"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:875
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:879
 msgid "lang_cpp"
 msgstr "Portugiesisch-basierte Kreols und Pidgins"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:879
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:883
 msgid "lang_cre"
 msgstr "Cree"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:883
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:887
 msgid "lang_crh"
 msgstr "Krimtatarisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:887
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:891
 msgid "lang_crp"
 msgstr "Kreol- und Pidginsprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:891
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:895
 msgid "lang_csb"
 msgstr "Kaschubisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:895
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:899
 msgid "lang_cus"
 msgstr "Kuschitische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:899
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:903
 msgid "lang_cze"
 msgstr "Tschechisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:903
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:907
 msgid "lang_dak"
 msgstr "Dakota"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:907
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:911
 msgid "lang_dan"
 msgstr "Dänisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:911
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:915
 msgid "lang_dar"
 msgstr "Darginisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:915
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:919
 msgid "lang_day"
 msgstr "Land-Dayak-Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:919
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:923
 msgid "lang_del"
 msgstr "Delawarisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:923
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:927
 msgid "lang_den"
 msgstr "Slavey"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:927
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:931
 msgid "lang_dgr"
 msgstr "Dogrib"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:931
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:935
 msgid "lang_din"
 msgstr "Dinka"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:935
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:939
 msgid "lang_div"
 msgstr "Dhivehi"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:939
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:943
 msgid "lang_doi"
 msgstr "Dogri"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:943
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:947
 msgid "lang_dra"
 msgstr "Dravidische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:947
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:951
 msgid "lang_dsb"
 msgstr "Niedersorbisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:951
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:955
 msgid "lang_dua"
 msgstr "Duala"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:955
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:959
 msgid "lang_dum"
 msgstr "Mittelniederländisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:959
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:963
 msgid "lang_dut"
 msgstr "Niederländisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:963
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:967
 msgid "lang_dyu"
 msgstr "Dioula"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:967
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:971
 msgid "lang_dzo"
 msgstr "Dzongkha"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:971
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:975
 msgid "lang_efi"
 msgstr "Efik"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:975
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:979
 msgid "lang_egy"
 msgstr "Ägyptisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:979
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:983
 msgid "lang_eka"
 msgstr "Ekajuk"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:983
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:987
 msgid "lang_elx"
 msgstr "Elamisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:987
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:991
 msgid "lang_eng"
 msgstr "Englisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:991
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:995
 msgid "lang_enm"
 msgstr "Mittelenglisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:995
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:999
 msgid "lang_epo"
 msgstr "Esperanto"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:999
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1003
 msgid "lang_est"
 msgstr "Estnisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1003
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1007
 msgid "lang_ewe"
 msgstr "Ewe"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1007
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1011
 msgid "lang_ewo"
 msgstr "Ewondo"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1011
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1015
 msgid "lang_fan"
 msgstr "Fang"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1015
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1019
 msgid "lang_fao"
 msgstr "Färöisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1019
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1023
 msgid "lang_fat"
 msgstr "Fante"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1023
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1027
 msgid "lang_fij"
 msgstr "Fidschi"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1027
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1031
 msgid "lang_fil"
 msgstr "Filipino"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1031
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1035
 msgid "lang_fin"
 msgstr "Finnisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1035
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1039
 msgid "lang_fiu"
 msgstr "Finno-ugrische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1039
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1043
 msgid "lang_fon"
 msgstr "Fon"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1043
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1047
 msgid "lang_fre"
 msgstr "Französisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1047
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1051
 msgid "lang_frm"
 msgstr "Mittelfranzösisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1051
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1055
 msgid "lang_fro"
 msgstr "Altfranzösisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1055
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1059
 msgid "lang_frr"
 msgstr "Nordfriesisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1059
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1063
 msgid "lang_frs"
 msgstr "Ostfriesisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1063
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1067
 msgid "lang_fry"
 msgstr "Westfriesisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1067
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1071
 msgid "lang_ful"
 msgstr "Fulfulde"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1071
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1075
 msgid "lang_fur"
 msgstr "Friulian"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1075
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1079
 msgid "lang_gaa"
 msgstr "Ga"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1079
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1083
 msgid "lang_gay"
 msgstr "Gayo"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1083
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1087
 msgid "lang_gba"
 msgstr "Gbaya"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1087
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1091
 msgid "lang_gem"
 msgstr "Germanische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1091
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1095
 msgid "lang_geo"
 msgstr "Georgisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1095
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1099
 msgid "lang_ger"
 msgstr "Deutsch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1099
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1103
 msgid "lang_gez"
 msgstr "Geez"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1103
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1107
 msgid "lang_gil"
 msgstr "Kiribatisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1107
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1111
 msgid "lang_gla"
 msgstr "Schottisch-gälisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1111
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1115
 msgid "lang_gle"
 msgstr "Irisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1115
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1119
 msgid "lang_glg"
 msgstr "Galicisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1119
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1123
 msgid "lang_glv"
 msgstr "Manx"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1123
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1127
 msgid "lang_gmh"
 msgstr "Mittelhochdeutsch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1127
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1131
 msgid "lang_goh"
 msgstr "Althochdeutsch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1131
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1135
 msgid "lang_gon"
 msgstr "Gondi"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1135
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1139
 msgid "lang_gor"
 msgstr "Gorontalo"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1139
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1143
 msgid "lang_got"
 msgstr "Gotisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1143
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1147
 msgid "lang_grb"
 msgstr "Grebo"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1147
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1151
 msgid "lang_grc"
 msgstr "Altgriechisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1151
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1155
 msgid "lang_gre"
 msgstr "Griechisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1155
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1159
 msgid "lang_grn"
 msgstr "Guarani"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1159
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1163
 msgid "lang_gsw"
 msgstr "Schweizerdeutsch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1163
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1167
 msgid "lang_guj"
 msgstr "Gujarati"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1167
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1171
 msgid "lang_gwi"
 msgstr "Gwich'in (Sprache)"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1171
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1175
 msgid "lang_hai"
 msgstr "Haida"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1175
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1179
 msgid "lang_hat"
 msgstr "Haitianisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1179
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1183
 msgid "lang_hau"
 msgstr "Hausa"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1183
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1187
 msgid "lang_haw"
 msgstr "Hawaiisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1187
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1191
 msgid "lang_heb"
 msgstr "Hebräisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1191
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1195
 msgid "lang_her"
 msgstr "Otjiherero"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1195
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1199
 msgid "lang_hil"
 msgstr "Hiligaynon"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1199
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1203
 msgid "lang_him"
 msgstr "West-Paharisprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1203
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1207
 msgid "lang_hin"
 msgstr "Hindi"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1207
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1211
 msgid "lang_hit"
 msgstr "Hethitisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1211
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1215
 msgid "lang_hmn"
 msgstr "Hmong-Sprache"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1215
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1219
 msgid "lang_hmo"
 msgstr "Hiri-Motu"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1219
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1223
 msgid "lang_hrv"
 msgstr "Kroatisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1223
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1227
 msgid "lang_hsb"
 msgstr "Obersorbisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1227
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1231
 msgid "lang_hun"
 msgstr "Ungarisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1231
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1235
 msgid "lang_hup"
 msgstr "Hoopa"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1235
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1239
 msgid "lang_iba"
 msgstr "Iban"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1239
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1243
 msgid "lang_ibo"
 msgstr "Igbo"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1243
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1247
 msgid "lang_ice"
 msgstr "Isländisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1247
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1251
 msgid "lang_ido"
 msgstr "Ido"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1251
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1255
 msgid "lang_iii"
 msgstr "Yi"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1255
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1259
 msgid "lang_ijo"
 msgstr "Ijo-Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1259
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1263
 msgid "lang_iku"
 msgstr "Inuktitut"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1263
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1267
 msgid "lang_ile"
 msgstr "Interlingue"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1267
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1271
 msgid "lang_ilo"
 msgstr "Ilokano"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1271
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1275
 msgid "lang_ina"
 msgstr "Interlingua"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1275
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1279
 msgid "lang_inc"
 msgstr "Indoarische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1279
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1283
 msgid "lang_ind"
 msgstr "Indonesisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1283
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1287
 msgid "lang_ine"
 msgstr "Indogermanische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1287
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1291
 msgid "lang_inh"
 msgstr "Inguschisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1291
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1295
 msgid "lang_ipk"
 msgstr "Inupiaq"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1295
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1299
 msgid "lang_ira"
 msgstr "Iranische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1299
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1303
 msgid "lang_iro"
 msgstr "Irokesische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1303
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1307
 msgid "lang_ita"
 msgstr "Italienisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1307
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1311
 msgid "lang_jav"
 msgstr "Javanisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1311
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1315
 msgid "lang_jbo"
 msgstr "Lojban"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1315
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1319
 msgid "lang_jpn"
 msgstr "Japanisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1319
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1323
 msgid "lang_jpr"
 msgstr "Judäo-Persisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1323
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1327
 msgid "lang_jrb"
 msgstr "Judäo-Arabisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1327
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1331
 msgid "lang_kaa"
 msgstr "Karakalpakisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1331
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1335
 msgid "lang_kab"
 msgstr "Kabylisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1335
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1339
 msgid "lang_kac"
 msgstr "Jingpo"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1339
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1343
 msgid "lang_kal"
 msgstr "Grönländisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1343
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1347
 msgid "lang_kam"
 msgstr "Kikamba"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1347
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1351
 msgid "lang_kan"
 msgstr "Kannada"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1351
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1355
 msgid "lang_kar"
 msgstr "Karenische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1355
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1359
 msgid "lang_kas"
 msgstr "Kaschmiri"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1359
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1363
 msgid "lang_kau"
 msgstr "Kanuri"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1363
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1367
 msgid "lang_kaw"
 msgstr "Kawi"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1367
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1371
 msgid "lang_kaz"
 msgstr "Kasachisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1371
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1375
 msgid "lang_kbd"
 msgstr "Kabardinisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1375
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1379
 msgid "lang_kha"
 msgstr "Khasi"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1379
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1383
 msgid "lang_khi"
 msgstr "Khoisansprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1383
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1387
 msgid "lang_khm"
 msgstr "Khmer"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1387
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1391
 msgid "lang_kho"
 msgstr "Khotanesisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1391
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1395
 msgid "lang_kik"
 msgstr "Kikuyu"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1395
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1399
 msgid "lang_kin"
 msgstr "Kinyarwanda"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1399
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1403
 msgid "lang_kir"
 msgstr "Kirgisisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1403
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1407
 msgid "lang_kmb"
 msgstr "Kimbundu"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1407
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1411
 msgid "lang_kok"
 msgstr "Konkani"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1411
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1415
 msgid "lang_kom"
 msgstr "Komi"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1415
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1419
 msgid "lang_kon"
 msgstr "Kikongo"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1419
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1423
 msgid "lang_kor"
 msgstr "Koreanisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1423
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1427
 msgid "lang_kos"
 msgstr "Kosraeanisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1427
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1431
 msgid "lang_kpe"
 msgstr "Kpelle"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1431
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1435
 msgid "lang_krc"
 msgstr "Karatschai-balkarisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1435
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1439
 msgid "lang_krl"
 msgstr "Karelisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1439
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1443
 msgid "lang_kro"
 msgstr "Kru-Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1443
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1447
 msgid "lang_kru"
 msgstr "Kurukh"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1447
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1451
 msgid "lang_kua"
 msgstr "Kwanyama"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1451
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1455
 msgid "lang_kum"
 msgstr "Kumykisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1455
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1459
 msgid "lang_kur"
 msgstr "Kurdisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1459
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1463
 msgid "lang_kut"
 msgstr "Kutanaha"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1463
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1467
 msgid "lang_lad"
 msgstr "Judenspanisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1467
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1471
 msgid "lang_lah"
 msgstr "Lahnda"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1471
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1475
 msgid "lang_lam"
 msgstr "Lamba"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1475
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1479
 msgid "lang_lao"
 msgstr "Laotisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1479
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1483
 msgid "lang_lat"
 msgstr "Latein"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1483
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1487
 msgid "lang_lav"
 msgstr "Lettisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1487
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1491
 msgid "lang_lez"
 msgstr "Lesgisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1491
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1495
 msgid "lang_lim"
 msgstr "Limburgisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1495
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1499
 msgid "lang_lin"
 msgstr "Lingála"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1499
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1503
 msgid "lang_lit"
 msgstr "Litauisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1503
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1507
 msgid "lang_lol"
 msgstr "Lomongo"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1507
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1511
 msgid "lang_loz"
 msgstr "Lozi"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1511
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1515
 msgid "lang_ltz"
 msgstr "Luxemburgisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1515
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1519
 msgid "lang_lua"
 msgstr "Tschiluba"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1519
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1523
 msgid "lang_lub"
 msgstr "Kiluba"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1523
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1527
 msgid "lang_lug"
 msgstr "Luganda"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1527
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1531
 msgid "lang_lui"
 msgstr "Luiseño"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1531
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1535
 msgid "lang_lun"
 msgstr "Chilunda"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1535
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1539
 msgid "lang_luo"
 msgstr "Luo"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1539
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1543
 msgid "lang_lus"
 msgstr "Mizo"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1543
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1547
 msgid "lang_mac"
 msgstr "Mazedonisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1547
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1551
 msgid "lang_mad"
 msgstr "Maduresisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1551
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1555
 msgid "lang_mag"
 msgstr "Magadhi"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1555
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1559
 msgid "lang_mah"
 msgstr "Marschallesisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1559
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1563
 msgid "lang_mai"
 msgstr "Maithili"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1563
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1567
 msgid "lang_mak"
 msgstr "Makassar"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1567
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1571
 msgid "lang_mal"
 msgstr "Malayalam"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1571
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1575
 msgid "lang_man"
 msgstr "Manding"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1575
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1579
 msgid "lang_mao"
 msgstr "Maori"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1579
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1583
 msgid "lang_map"
 msgstr "Austronesische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1583
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1587
 msgid "lang_mar"
 msgstr "Marathi"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1587
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1591
 msgid "lang_mas"
 msgstr "Maa"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1591
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1595
 msgid "lang_may"
 msgstr "Malaiisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1595
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1599
 msgid "lang_mdf"
 msgstr "Mokschanisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1599
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1603
 msgid "lang_mdr"
 msgstr "Mandar"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1603
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1607
 msgid "lang_men"
 msgstr "Mende"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1607
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1611
 msgid "lang_mga"
 msgstr "Mittelirisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1611
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1615
 msgid "lang_mic"
 msgstr "Míkmawísimk"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1615
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1619
 msgid "lang_min"
 msgstr "Minangkabauisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1619
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1623
 msgid "lang_mis"
 msgstr "Verschiedene Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1623
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1627
 msgid "lang_mkh"
 msgstr "Mon-Khmer-Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1627
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1631
 msgid "lang_mlg"
 msgstr "Malagasy"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1631
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1635
 msgid "lang_mlt"
 msgstr "Maltesisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1635
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1639
 msgid "lang_mnc"
 msgstr "Mandschurisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1639
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1643
 msgid "lang_mni"
 msgstr "Meithei"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1643
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1647
 msgid "lang_mno"
 msgstr "Manobo Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1647
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1651
 msgid "lang_moh"
 msgstr "Mohawk"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1651
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1655
 msgid "lang_mon"
 msgstr "Mongolisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1655
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1659
 msgid "lang_mos"
 msgstr "Mòoré"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1659
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1663
 msgid "lang_mul"
 msgstr "Mehrsprachig"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1663
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1667
 msgid "lang_mun"
 msgstr "Munda-Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1667
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1671
 msgid "lang_mus"
 msgstr "Muskogee-Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1671
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1675
 msgid "lang_mwl"
 msgstr "Mirandés"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1675
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1679
 msgid "lang_mwr"
 msgstr "Marwari"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1679
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1683
 msgid "lang_myn"
 msgstr "Maya Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1683
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1687
 msgid "lang_myv"
 msgstr "Ersjanisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1687
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1691
 msgid "lang_nah"
 msgstr "Nahuatl"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1691
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1695
 msgid "lang_nai"
 msgstr "Nordamerikanische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1695
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1699
 msgid "lang_nap"
 msgstr "Neapolitanisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1699
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1703
 msgid "lang_nau"
 msgstr "Nauruisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1703
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1707
 msgid "lang_nav"
 msgstr "Navajo"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1707
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1711
 msgid "lang_nbl"
 msgstr "Süd-Ndebele"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1711
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1715
 msgid "lang_nde"
 msgstr "Nord-Ndebele"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1715
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1719
 msgid "lang_ndo"
 msgstr "Ndonga"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1719
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1723
 msgid "lang_nds"
 msgstr "Niederdeutsch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1723
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1727
 msgid "lang_nep"
 msgstr "Nepali"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1727
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1731
 msgid "lang_new"
 msgstr "Newari"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1731
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1735
 msgid "lang_nia"
 msgstr "Nias"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1735
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1739
 msgid "lang_nic"
 msgstr "Niger-Kongo-Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1739
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1743
 msgid "lang_niu"
 msgstr "Niueanisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1743
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1747
 msgid "lang_nno"
 msgstr "Nynorsk"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1747
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1751
 msgid "lang_nob"
 msgstr "Bokmål"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1751
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1755
 msgid "lang_nog"
 msgstr "Nogaisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1755
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1759
 msgid "lang_non"
 msgstr "Altnordisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1759
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1763
 msgid "lang_nor"
 msgstr "Norwegisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1763
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1767
 msgid "lang_nqo"
 msgstr "N’Ko"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1767
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1771
 msgid "lang_nso"
 msgstr "Nord-Sotho"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1771
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1775
 msgid "lang_nub"
 msgstr "Nubische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1775
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1779
 msgid "lang_nwc"
 msgstr "Klassisches Newari"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1779
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1783
 msgid "lang_nya"
 msgstr "Chichewa"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1783
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1787
 msgid "lang_nym"
 msgstr "Nyamwesi"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1787
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1791
 msgid "lang_nyn"
 msgstr "Runyankole"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1791
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1795
 msgid "lang_nyo"
 msgstr "Runyoro"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1795
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1799
 msgid "lang_nzi"
 msgstr "Nzema"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1799
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1803
 msgid "lang_oci"
 msgstr "Okzitanisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1803
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1807
 msgid "lang_oji"
 msgstr "Ojibwe"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1807
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1811
 msgid "lang_ori"
 msgstr "Oriya"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1811
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1815
 msgid "lang_orm"
 msgstr "Oromo"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1815
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1819
 msgid "lang_osa"
 msgstr "Osage"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1819
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1823
 msgid "lang_oss"
 msgstr "Ossetisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1823
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1827
 msgid "lang_ota"
 msgstr "Osmanisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1827
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1831
 msgid "lang_oto"
 msgstr "Oto-Pame-Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1831
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1835
 msgid "lang_paa"
 msgstr "Papuasprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1835
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1839
 msgid "lang_pag"
 msgstr "Pangasinensisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1839
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1843
 msgid "lang_pal"
 msgstr "Mittelpersisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1843
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1847
 msgid "lang_pam"
 msgstr "Kapampangan"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1847
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1851
 msgid "lang_pan"
 msgstr "Panjabi"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1851
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1855
 msgid "lang_pap"
 msgstr "Papiamentu"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1855
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1859
 msgid "lang_pau"
 msgstr "Palauisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1859
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1863
 msgid "lang_peo"
 msgstr "Altpersisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1863
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1867
 msgid "lang_per"
 msgstr "Persisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1867
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1871
 msgid "lang_phi"
 msgstr "Philippinische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1871
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1875
 msgid "lang_phn"
 msgstr "Phönizisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1875
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1879
 msgid "lang_pli"
 msgstr "Pali"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1879
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1883
 msgid "lang_pol"
 msgstr "Polnisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1883
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1887
 msgid "lang_pon"
 msgstr "Pohnpeanisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1887
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1891
 msgid "lang_por"
 msgstr "Portugiesisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1891
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1895
 msgid "lang_pra"
 msgstr "Prakrit"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1895
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1899
 msgid "lang_pro"
 msgstr "Altokzitanisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1899
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1903
 msgid "lang_pus"
 msgstr "Paschtunisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1903
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1907
 msgid "lang_que"
 msgstr "Quechua"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1907
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1911
 msgid "lang_raj"
 msgstr "Rajasthani"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1911
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1915
 msgid "lang_rap"
 msgstr "Rapanui"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1915
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1919
 msgid "lang_rar"
 msgstr "Rarotonganisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1919
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1923
 msgid "lang_roa"
 msgstr "Romanische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1923
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1927
 msgid "lang_roh"
 msgstr "Bündnerromanisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1927
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1931
 msgid "lang_rom"
 msgstr "Romani"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1931
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1935
 msgid "lang_rum"
 msgstr "Rumänisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1935
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1939
 msgid "lang_run"
 msgstr "Kirundi"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1939
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1943
 msgid "lang_rup"
 msgstr "Aromunisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1943
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1947
 msgid "lang_rus"
 msgstr "Russisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1947
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1951
 msgid "lang_sad"
 msgstr "Sandawe"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1951
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1955
 msgid "lang_sag"
 msgstr "Sango"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1955
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1959
 msgid "lang_sah"
 msgstr "Jakutisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1959
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1963
 msgid "lang_sai"
 msgstr "Südamerikanische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1963
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1967
 msgid "lang_sal"
 msgstr "Salish-Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1967
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1971
 msgid "lang_sam"
 msgstr "Samaritanisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1971
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1975
 msgid "lang_san"
 msgstr "Sanskrit"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1975
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1979
 msgid "lang_sas"
 msgstr "Sasak"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1979
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1983
 msgid "lang_sat"
 msgstr "Santali"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1983
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1987
 msgid "lang_scn"
 msgstr "Sizilianisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1987
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1991
 msgid "lang_sco"
 msgstr "Scots"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1991
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1995
 msgid "lang_sel"
 msgstr "Selkupisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1995
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1999
 msgid "lang_sem"
 msgstr "Semitische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:1999
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2003
 msgid "lang_sga"
 msgstr "Altirisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2003
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2007
 msgid "lang_sgn"
 msgstr "Gebärdensprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2007
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2011
 msgid "lang_shn"
 msgstr "Shan"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2011
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2015
 msgid "lang_sid"
 msgstr "Sidama"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2015
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2019
 msgid "lang_sin"
 msgstr "Singhalesisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2019
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2023
 msgid "lang_sio"
 msgstr "Sioux-Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2023
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2027
 msgid "lang_sit"
 msgstr "Sinotibetische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2027
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2031
 msgid "lang_sla"
 msgstr "Slawische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2031
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2035
 msgid "lang_slo"
 msgstr "Slowakisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2035
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2039
 msgid "lang_slv"
 msgstr "Slowenisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2039
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2043
 msgid "lang_sma"
 msgstr "Südsamisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2043
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2047
 msgid "lang_sme"
 msgstr "Nordsamisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2047
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2051
 msgid "lang_smi"
 msgstr "Samische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2051
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2055
 msgid "lang_smj"
 msgstr "Lulesamisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2055
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2059
 msgid "lang_smn"
 msgstr "Inarisamisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2059
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2063
 msgid "lang_smo"
 msgstr "Samoanisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2063
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2067
 msgid "lang_sms"
 msgstr "Skoltsamisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2067
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2071
 msgid "lang_sna"
 msgstr "Shona"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2071
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2075
 msgid "lang_snd"
 msgstr "Sindhi"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2075
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2079
 msgid "lang_snk"
 msgstr "Soninke"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2079
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2083
 msgid "lang_sog"
 msgstr "Sogdisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2083
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2087
 msgid "lang_som"
 msgstr "Somali"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2087
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2091
 msgid "lang_son"
 msgstr "Songhai-Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2091
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2095
 msgid "lang_sot"
 msgstr "Sesotho"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2095
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2099
 msgid "lang_spa"
 msgstr "Spanisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2099
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2103
 msgid "lang_srd"
 msgstr "Sardisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2103
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2107
 msgid "lang_srn"
 msgstr "Sranantongo"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2107
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2111
 msgid "lang_srp"
 msgstr "Serbisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2111
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2115
 msgid "lang_srr"
 msgstr "Serer"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2115
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2119
 msgid "lang_ssa"
 msgstr "Nilosaharanische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2119
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2123
 msgid "lang_ssw"
 msgstr "Swahili"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2123
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2127
 msgid "lang_suk"
 msgstr "Sukuma"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2127
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2131
 msgid "lang_sun"
 msgstr "Sundanesisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2131
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2135
 msgid "lang_sus"
 msgstr "Susu"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2135
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2139
 msgid "lang_sux"
 msgstr "Sumerisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2139
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2143
 msgid "lang_swa"
 msgstr "Suaheli"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2143
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2147
 msgid "lang_swe"
 msgstr "Schwedisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2147
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2151
 msgid "lang_syc"
 msgstr "Syrisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2151
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2155
 msgid "lang_syr"
 msgstr "Nordost-Neuaramäisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2155
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2159
 msgid "lang_tah"
 msgstr "Tahitianisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2159
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2163
 msgid "lang_tai"
 msgstr "Tai-Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2163
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2167
 msgid "lang_tam"
 msgstr "Tamil"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2167
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2171
 msgid "lang_tat"
 msgstr "Tatarisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2171
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2175
 msgid "lang_tel"
 msgstr "Telugu"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2175
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2179
 msgid "lang_tem"
 msgstr "Temne"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2179
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2183
 msgid "lang_ter"
 msgstr "Terena"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2183
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2187
 msgid "lang_tet"
 msgstr "Tetum"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2187
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2191
 msgid "lang_tgk"
 msgstr "Tadschikisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2191
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2195
 msgid "lang_tgl"
 msgstr "Tagalog"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2195
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2199
 msgid "lang_tha"
 msgstr "Thai"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2199
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2203
 msgid "lang_tib"
 msgstr "Tibetisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2203
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2207
 msgid "lang_tig"
 msgstr "Tigre"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2207
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2211
 msgid "lang_tir"
 msgstr "Tigrinya"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2211
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2215
 msgid "lang_tiv"
 msgstr "Tiv"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2215
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2219
 msgid "lang_tkl"
 msgstr "Tokelauisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2219
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2223
 msgid "lang_tlh"
 msgstr "Klingonisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2223
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2227
 msgid "lang_tli"
 msgstr "Tlingit"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2227
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2231
 msgid "lang_tmh"
 msgstr "Tuareg"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2231
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2235
 msgid "lang_tog"
 msgstr "Tonga"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2235
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2239
 msgid "lang_ton"
 msgstr "Tongaisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2239
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2243
 msgid "lang_tpi"
 msgstr "Tok Pisin"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2243
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2247
 msgid "lang_tsi"
 msgstr "Tsimshian"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2247
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2251
 msgid "lang_tsn"
 msgstr "Setswana"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2251
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2255
 msgid "lang_tso"
 msgstr "Xitsonga"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2255
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2259
 msgid "lang_tuk"
 msgstr "Turkmenisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2259
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2263
 msgid "lang_tum"
 msgstr "Tumbuka"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2263
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2267
 msgid "lang_tup"
 msgstr "Tupí-Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2267
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2271
 msgid "lang_tur"
 msgstr "Türkisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2271
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2275
 msgid "lang_tut"
 msgstr "Altaische Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2275
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2279
 msgid "lang_tvl"
 msgstr "Tuvaluisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2279
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2283
 msgid "lang_twi"
 msgstr "Twi"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2283
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2287
 msgid "lang_tyv"
 msgstr "Tuwinisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2287
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2291
 msgid "lang_udm"
 msgstr "Udmurtisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2291
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2295
 msgid "lang_uga"
 msgstr "Ugaritisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2295
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2299
 msgid "lang_uig"
 msgstr "Uigurisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2299
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2303
 msgid "lang_ukr"
 msgstr "Ukrainisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2303
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2307
 msgid "lang_umb"
 msgstr "Umbundu"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2307
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2311
 msgid "lang_und"
 msgstr "Unbekannte Sprache"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2311
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2315
 msgid "lang_urd"
 msgstr "Urdu"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2315
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2319
 msgid "lang_uzb"
 msgstr "Usbekisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2319
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2323
 msgid "lang_vai"
 msgstr "Vai"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2323
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2327
 msgid "lang_ven"
 msgstr "Tshivenda"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2327
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2331
 msgid "lang_vie"
 msgstr "Vietnamesisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2331
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2335
 msgid "lang_vol"
 msgstr "Volapük"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2335
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2339
 msgid "lang_vot"
 msgstr "Wotisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2339
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2343
 msgid "lang_wak"
 msgstr "Wakash-Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2343
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2347
 msgid "lang_wal"
 msgstr "Wolaytta"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2347
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2351
 msgid "lang_war"
 msgstr "Wáray-Wáray"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2351
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2355
 msgid "lang_was"
 msgstr "Washo"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2355
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2359
 msgid "lang_wel"
 msgstr "Walisisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2359
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2363
 msgid "lang_wen"
 msgstr "Sorbische Sprache"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2363
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2367
 msgid "lang_wln"
 msgstr "Wallonisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2367
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2371
 msgid "lang_wol"
 msgstr "Wolof"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2371
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2375
 msgid "lang_xal"
 msgstr "Kalmückisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2375
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2379
 msgid "lang_xho"
 msgstr "Xhosa"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2379
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2383
 msgid "lang_yao"
 msgstr "Yao"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2383
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2387
 msgid "lang_yap"
 msgstr "Yapesisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2387
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2391
 msgid "lang_yid"
 msgstr "Jiddisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2391
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2395
 msgid "lang_yor"
 msgstr "Yoruba"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2395
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2399
 msgid "lang_ypk"
 msgstr "Yupik-Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2399
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2403
 msgid "lang_zap"
 msgstr "Zapotekisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2403
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2407
 msgid "lang_zbl"
 msgstr "Bliss-Symbole"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2407
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2411
 msgid "lang_zen"
 msgstr "Zenaga"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2411
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2415
 msgid "lang_zha"
 msgstr "Zhuang"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2415
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2419
 msgid "lang_znd"
 msgstr "Zande-Sprachen"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2419
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2423
 msgid "lang_zul"
 msgstr "Zulu"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2423
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2427
 msgid "lang_zun"
 msgstr "Zuñi"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2427
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2431
 msgid "lang_zxx"
 msgstr "Keine Sprachinhalte"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2431
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2435
 msgid "lang_zza"
 msgstr "Zazaisch"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2441
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2445
 #: rero_ils/modules/documents/jsonschemas/documents/document_language-v0.0.1.json:9
 #: rero_ils/modules/documents/jsonschemas/documents/document_language-v0.0.1.json:31
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:31
 msgid "Language"
 msgstr "Sprache"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2502
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2533
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2565
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2506
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2537
+#: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:98
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:396
 msgid "Values"
 msgstr "Werte"
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2518
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2549
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2581
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2522
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2553
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_identifiedby-v0.0.1.json:43
+#: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:114
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:401
 msgid "Value"
 msgstr "Wert"
-
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2585
-msgid "Example: vol.3"
-msgstr "Beispiel: Bd. 3"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:4
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:41
@@ -3927,7 +3966,7 @@ msgstr "JSON Schema für ein Konto"
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:44
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:24
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:21
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:31
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:32
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:16
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:14
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:28
@@ -3951,8 +3990,8 @@ msgid "Account ID"
 msgstr "ID des Kontos"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:33
-#: rero_ils/modules/documents/jsonschemas/documents/document_authors-v0.0.1.json:45
-#: rero_ils/modules/documents/jsonschemas/documents/document_authors-v0.0.1.json:130
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:32
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:32
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:324
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:351
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:390
@@ -4030,36 +4069,17 @@ msgstr "Bibliothek"
 msgid "Library URI"
 msgstr "URI der Bibliothek"
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:76
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:311
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:174
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:242
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:91
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:39
-#: rero_ils/modules/documents/jsonschemas/documents/document_authors-v0.0.1.json:99
-#: rero_ils/modules/documents/jsonschemas/documents/document_authors-v0.0.1.json:120
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:102
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:302
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:27
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:81
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:4
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:106
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:56
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:268
-msgid "Organisation"
-msgstr "Organisation"
-
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:80
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:315
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:178
+#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:181
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:246
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:95
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:43
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:106
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:306
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:307
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:31
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:85
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:110
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:122
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:140
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:60
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:275
 msgid "Organisation URI"
@@ -4074,6 +4094,7 @@ msgid "JSON schema for Acquisition Invoice resource."
 msgstr "JSON Schema für eine Rechnung."
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:30
+#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:4
 msgid "Acquisition order line"
 msgstr "Bestellzeile"
 
@@ -4089,14 +4110,16 @@ msgstr "URI des Kontos"
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:52
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:156
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:43
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:97
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:98
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:41
 #: rero_ils/modules/patrons/templates/rero_ils/_macro_profile.html:50
 msgid "Document"
 msgstr "Dokument"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:56
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:160
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:101
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:102
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:45
 msgid "Document URI"
 msgstr "URI des Dokuments"
 
@@ -4162,7 +4185,6 @@ msgid "Deleted"
 msgstr "Gelöscht"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:161
-#: rero_ils/modules/documents/jsonschemas/documents/document_authors-v0.0.1.json:70
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:167
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_fees.html:23
 msgid "Date"
@@ -4178,15 +4200,16 @@ msgstr "Wählen Sie ein Datum"
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:63
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:80
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:261
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:192
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:210
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:193
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:211
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:401
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:67
 msgid "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
 msgstr "Sollte im folgenden Format sein: 2022-12-31 (JJJJ-MM-TT)."
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:179
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:3
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:313
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:314
 msgid "Notes"
 msgstr "Anmerkungen"
 
@@ -4250,20 +4273,16 @@ msgstr "URI des Lieferanten"
 msgid "Choose a vendor"
 msgstr "Wählen Sie einen Lieferanten"
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:4
-msgid "AcqOrderLine"
-msgstr "Bestellzeile"
-
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:5
-msgid "JSON schema for Acquisition Order Line."
+msgid "JSON schema for acquisition order line."
 msgstr "JSON Schema für eine Bestellzeile."
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:28
-msgid "Schema to validate Acquisition Order Line records against."
+msgid "Schema to validate acquisition order line records against."
 msgstr "Schema zur Validierung von Bestellzeilen."
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:34
-msgid "AcqOrderLine ID"
+msgid "Acquisition order line ID"
 msgstr "ID der Bestellzeile"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:39
@@ -4314,7 +4333,7 @@ msgstr "Wechselkurs"
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:8
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:212
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:44
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:317
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:318
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:57
 #: rero_ils/modules/patrons/templates/rero_ils/_macro_profile.html:130
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:62
@@ -4326,23 +4345,20 @@ msgid "Select an account"
 msgstr "Wählen Sie ein Konto"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:145
-msgid "Acquisition Order"
+#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:4
+msgid "Acquisition order"
 msgstr "Bestellung"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:149
 msgid "Acquisition order URI"
 msgstr "URI der Bestellung"
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:166
+#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:169
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:37
 msgid ""
 "Should be in the following format: "
 "https://ils.rero.ch/api/documents/<PID>."
 msgstr "Soll im folgenden Format sein: https://ils.rero.ch/api/documents/<PID>."
-
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:4
-msgid "Acquisition order"
-msgstr "Bestellung"
 
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:5
 msgid "JSON schema for Acquisition Order."
@@ -4500,8 +4516,8 @@ msgstr "Anzahl an Tagen vor Rückgabetermin."
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:70
 msgid "Number of days before due date for sending the due_soon notification."
 msgstr ""
-"Anzahl an Tagen vor dem Rückgabetermin, um die Benachrichtigung \"Ablauf der "
-"Ausleihfrist\" zu senden."
+"Anzahl an Tagen vor dem Rückgabetermin, um die Benachrichtigung \"Ablauf "
+"der Ausleihfrist\" zu senden."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:76
 msgid "Number of days after due date"
@@ -4561,7 +4577,7 @@ msgid "Patron type URI"
 msgstr "URI des Lesertypen"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:156
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:131
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:132
 msgid "Item type"
 msgstr "Exemplar Typ"
 
@@ -4570,28 +4586,28 @@ msgid "Item type URI"
 msgstr "URI des Exemplartypen"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:36
-#: rero_ils/modules/documents/views.py:213
+#: rero_ils/modules/documents/views.py:220
 msgid "Journal"
 msgstr "Zeitschrift"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:9
-#: rero_ils/modules/documents/views.py:215
+#: rero_ils/modules/documents/views.py:222
 msgid "Series"
 msgstr "Reihe"
 
-#: rero_ils/modules/documents/views.py:217
+#: rero_ils/modules/documents/views.py:224
 msgid "Published in"
 msgstr "Veröffentlicht in"
 
-#: rero_ils/modules/documents/views.py:233
+#: rero_ils/modules/documents/views.py:240
 msgid "vol"
 msgstr "Bd"
 
-#: rero_ils/modules/documents/views.py:236
+#: rero_ils/modules/documents/views.py:243
 msgid "nr"
 msgstr "Nr"
 
-#: rero_ils/modules/documents/views.py:239
+#: rero_ils/modules/documents/views.py:246
 msgid "p"
 msgstr "S"
 
@@ -4604,7 +4620,7 @@ msgid "Schema to validate document against."
 msgstr "Schema zur Validierung von bibliographischen Aufnahmen."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:50
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:47
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:71
 msgid "Document PID"
 msgstr "PID des Dokuments"
 
@@ -4615,8 +4631,16 @@ msgstr "Gesammelt"
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:131
 msgid "Document is harvested or not, will disable record edition or similar."
 msgstr ""
-"Dokument wird gesammelt oder nicht ; dies deaktiviert die Bearbeitung der "
-"Ressource."
+"Dokument wird gesammelt oder nicht ; dies deaktiviert die Bearbeitung der"
+" Ressource."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:136
+msgid "Draft"
+msgstr "Entwurf"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:137
+msgid "Document is a draft record or not, will disable record validation."
+msgstr "Wenn das Dokument ist ein Entwurf, deaktiviert die Datensatzvalidierung."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_abstract-v0.0.1.json:3
 msgid "Abstracts"
@@ -4630,73 +4654,6 @@ msgstr "Abstrakt der Ressource."
 msgid "Abstract"
 msgstr "Zusammenfassung"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_authors-v0.0.1.json:3
-msgid "Authors"
-msgstr "Autoren"
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_authors-v0.0.1.json:4
-msgid "Author(s) of the resource. Can be either persons or organisations."
-msgstr ""
-"Autor(en) der Ressource. Es können sowohl Personen als auch "
-"Körperschaften sein."
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_authors-v0.0.1.json:8
-#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:93
-#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:82
-msgid "Author"
-msgstr "Autor"
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_authors-v0.0.1.json:12
-#: rero_ils/modules/documents/jsonschemas/documents/document_authors-v0.0.1.json:38
-#: rero_ils/modules/persons/templates/rero_ils/detailed_view_persons.html:26
-msgid "Person"
-msgstr "Person"
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_authors-v0.0.1.json:26
-#: rero_ils/modules/documents/jsonschemas/documents/document_authors-v0.0.1.json:111
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:25
-#: rero_ils/modules/documents/jsonschemas/documents/document_language-v0.0.1.json:21
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:39
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:96
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:145
-#: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:22
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:3
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:113
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:58
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:329
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:49
-msgid "Type"
-msgstr "Typ"
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_authors-v0.0.1.json:46
-msgid "Person's name."
-msgstr "Name der Person."
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_authors-v0.0.1.json:57
-msgid "MEF person reference"
-msgstr "URI der MEF Person"
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_authors-v0.0.1.json:71
-msgid ""
-"Information about the birth and the death of a person. Helpful to "
-"disambiguate people."
-msgstr ""
-"Informationen über die Geburt und den Tod einer Person. Hilfreich, um "
-"Menschen zu unterscheiden."
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_authors-v0.0.1.json:81
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:173
-msgid "Qualifier"
-msgstr "Erläuterung"
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_authors-v0.0.1.json:82
-msgid ""
-"Information about the person, ie her profession. Helpful to disambiguate "
-"people."
-msgstr ""
-"Informationen über die Person (z.B. ihren Beruf). Hilfreich, um Menschen "
-"zu unterscheiden."
-
 #: rero_ils/modules/documents/jsonschemas/documents/document_book_format-v0.0.1.json:3
 msgid "Bibliographic formats"
 msgstr "Bibliographische Formate"
@@ -4708,9 +4665,9 @@ msgid ""
 "is left full, cut, or folded."
 msgstr ""
 "Ein proportionales Verhältnis zwischen einem ganzen Bogen in einer "
-"gedruckten oder handschriftlichen Ressource und den einzelnen Blättern, die "
-"resultieren, wenn der Bogen im Ganzen gelassen, geschnitten oder gefaltet "
-"wird."
+"gedruckten oder handschriftlichen Ressource und den einzelnen Blättern, "
+"die resultieren, wenn der Bogen im Ganzen gelassen, geschnitten oder "
+"gefaltet wird."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_book_format-v0.0.1.json:8
 msgid "Bibliographic format"
@@ -4740,6 +4697,789 @@ msgstr "Monochrom"
 #: rero_ils/modules/documents/jsonschemas/documents/document_color_content-v0.0.1.json:25
 msgid "Polychrome"
 msgstr "Polychrom"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:3
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:93
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:82
+msgid "Contribution"
+msgstr "Verteilung"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:4
+msgid "Relationship to an agent associated with the document"
+msgstr "Beziehung zu einem mit dem Dokument verbundenen Bearbeiter"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:9
+msgid "Agents"
+msgstr "Akteure"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:10
+msgid ""
+"Person, family or corporate body (including conferences). Always create a"
+" link to IdRef or GND, if possible."
+msgstr ""
+"Person, Familie oder Körperschaft (einschließlich Konferenzen). Erstellen"
+" Sie, wenn möglich, immer einen Link zu IdRef oder GND."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:22
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:163
+msgid "Agent"
+msgstr "Akteur"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_identifiedby-v0.0.1.json:2
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:7
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:73
+#: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:107
+msgid "Identifier"
+msgstr "Identifikator"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_identifiedby-v0.0.1.json:15
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:20
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:20
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:25
+#: rero_ils/modules/documents/jsonschemas/documents/document_language-v0.0.1.json:21
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:39
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:96
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:145
+#: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:22
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:3
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:113
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:58
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:330
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:49
+msgid "Type"
+msgstr "Typ"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_identifiedby-v0.0.1.json:23
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:101
+msgid "Local"
+msgstr "Lokaler Identifikator"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_identifiedby-v0.0.1.json:32
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:197
+#: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:147
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:106
+msgid "Source"
+msgstr "Quelle"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:36
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:37
+msgid "Example: M\\u00fcller, Hans"
+msgstr "Beispiel: M\\u00fcller, Hans"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:43
+msgid "Subordinate units"
+msgstr "Abteilungen"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:46
+msgid "Subordinate unit"
+msgstr "Abteilung"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:50
+msgid "Example: Office for Culture"
+msgstr "Beispiel: Amt für Kultur"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:60
+msgid "Location of conference"
+msgstr "Ort der Konferenz"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:64
+msgid "Example: Lausanne"
+msgstr "Beispiel: Lausanne"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:71
+msgid "Number of conference"
+msgstr "Nummer der Konferenz"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:75
+msgid "Example: 4"
+msgstr "Beispiel: 4"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:82
+msgid "Date of conference"
+msgstr "Datum der Konferenz"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:83
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:45
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:57
+msgid "Record only years."
+msgstr "Nur Jahre aufzeichnen."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:87
+msgid "Example: 1989"
+msgstr "Beispiel: 1989"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:94
+msgid "Conference"
+msgstr "Konferenz"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:95
+msgid ""
+"Mark as conference if the access point is directly at the conference name"
+" and not at the corporate body name"
+msgstr ""
+"Als Konferenz markieren, wenn der Sucheinstieg mit dem Konferenznamen, "
+"und nicht mit dem Körperschaftnamen, startet"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:33
+msgid "Agent's name."
+msgstr "Name des Akteuren."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:44
+#: rero_ils/modules/persons/templates/rero_ils/_person_by_source_data.html:22
+#: rero_ils/modules/persons/templates/rero_ils/_person_unified.html:25
+msgid "Birth date"
+msgstr "Geburtsdatum"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:49
+msgid "Example: 1955"
+msgstr "Beispiel: 1955"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:56
+#: rero_ils/modules/persons/templates/rero_ils/_person_by_source_data.html:23
+#: rero_ils/modules/persons/templates/rero_ils/_person_unified.html:26
+msgid "Death date"
+msgstr "Todesdatum"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:61
+msgid "Example: 2012"
+msgstr "Beispiel: 2012"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:68
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:173
+msgid "Qualifier"
+msgstr "Erläuterung"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:72
+msgid "Example: physicist"
+msgstr "Beispiel: Physiker"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:79
+msgid "Numeration"
+msgstr "Nummerierung"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:80
+msgid "Record only a number."
+msgstr "Notieren Sie nur die Nummer."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:84
+msgid "Example: XXIII"
+msgstr "Beispiel: XXIII"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:91
+msgid "Fuller form of Name"
+msgstr "Vollständigere Namensform"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:92
+msgid ""
+"Used only for import. Fuller form of a name represented only by an "
+"initial, abbreviation, or other variant not included in the form chosen "
+"as the preferred name"
+msgstr ""
+"Verwendet nur beim Import. Vollständigere Form eines Namens, der nur "
+"durch eine Initiale, eine Abkürzung oder sonst irgendwie gekürzte oder "
+"veränderte Version in der als bevorzugter Name gewählten Form "
+"repräsentiert wird"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person_link-v0.0.1.json:13
+msgid "MEF agent reference"
+msgstr "URI des MEF Akteurs"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:2
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:197
+msgid "Role"
+msgstr "Rolle"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:165
+msgid "aut"
+msgstr "Verfasser"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:169
+msgid "cmp"
+msgstr "Komponist"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:173
+msgid "ctb"
+msgstr "Mitwirkender"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:177
+msgid "edt"
+msgstr "Herausgeber"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:181
+msgid "hnr"
+msgstr "Gefeierter"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:185
+msgid "ill"
+msgstr "Illustrator"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:189
+msgid "pht"
+msgstr "Fotograf"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:193
+msgid "prf"
+msgstr "Ausführender"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:197
+msgid "trl"
+msgstr "Übersetzer"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:201
+msgid "abr"
+msgstr "Kürzender"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:205
+msgid "act"
+msgstr "Schauspieler"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:209
+msgid "adi"
+msgstr "Dirigent"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:213
+msgid "adp"
+msgstr "Adapter"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:217
+msgid "aft"
+msgstr "Verfasser eines Nachworts"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:221
+msgid "anm"
+msgstr "Trickfilmzeichner"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:225
+msgid "ann"
+msgstr "annotierende Person"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:229
+msgid "ape"
+msgstr "Berufungsbeklagter / Revisionsbeklagter"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:233
+msgid "apl"
+msgstr "Angeklagter"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:237
+msgid "aqt"
+msgstr "Auszugsschreiber"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:241
+msgid "arc"
+msgstr "Architekt"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:245
+msgid "arr"
+msgstr "Arrangeur"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:249
+msgid "art"
+msgstr "Künstler"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:253
+msgid "ato"
+msgstr "beschriftende Person"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:257
+msgid "auc"
+msgstr "Versteigerer"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:261
+msgid "aui"
+msgstr "Verfasser eines Vorworts"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:265
+msgid "aus"
+msgstr "Drehbuchautor"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:269
+msgid "bkd"
+msgstr "Druckgrafiker"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:273
+msgid "bnd"
+msgstr "Buchbinder"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:277
+msgid "brd"
+msgstr "Sender"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:281
+msgid "brl"
+msgstr "Brailleschriftpräger"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:285
+msgid "bsl"
+msgstr "Buchhändler"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:289
+msgid "cas"
+msgstr "Formgiesser"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:293
+msgid "chr"
+msgstr "Choreograf"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:297
+msgid "cll"
+msgstr "Kalligraf"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:301
+msgid "clr"
+msgstr "Colorist"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:305
+msgid "clt"
+msgstr "Lichtdrucker"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:309
+msgid "cwt"
+msgstr "Kommentarverfasser"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:313
+msgid "cmm"
+msgstr "Kommentator"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:317
+msgid "cnd"
+msgstr "Orchesterleiter"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:321
+msgid "cng"
+msgstr "Kameramann"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:325
+msgid "cns"
+msgstr "Zensor"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:329
+msgid "col"
+msgstr "Sammler"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:333
+msgid "com"
+msgstr "Zusammenstellender"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:337
+msgid "cor"
+msgstr "Registrar"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:341
+msgid "cou"
+msgstr "Gericht"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:345
+msgid "cre"
+msgstr "Schöpfer"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:349
+msgid "crt"
+msgstr "Gerichtsstenograf"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:353
+msgid "csl"
+msgstr "Consultant"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:357
+msgid "cst"
+msgstr "Kostümbildner"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:361
+msgid "ctg"
+msgstr "Kartograf"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:365
+msgid "ctr"
+msgstr "Vertragspartner"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:369
+msgid "cur"
+msgstr "Kurator"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:373
+msgid "dfd"
+msgstr "Berufungsbeklagter/Revisionsbeklagter"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:377
+msgid "dgg"
+msgstr "Grad-verleihende Institution"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:381
+msgid "dgs"
+msgstr "Dissertationsberater"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:385
+msgid "dnc"
+msgstr "Tänzer"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:389
+msgid "dnr"
+msgstr "Stifter"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:393
+msgid "dpt"
+msgstr "Leihgeber"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:397
+msgid "drm"
+msgstr "technischer Zeichner"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:401
+msgid "drt"
+msgstr "Regisseur (Film, Radio, Fernsehen, usw.)"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:405
+msgid "dsr"
+msgstr "Designer"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:409
+msgid "dst"
+msgstr "Vertrieb"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:413
+msgid "dte"
+msgstr "Widmungsempfänger"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:417
+msgid "dto"
+msgstr "Datenmanager"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:421
+msgid "dub"
+msgstr "vermeintlicher Autor"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:425
+msgid "edm"
+msgstr "Cutter"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:429
+msgid "egr"
+msgstr "Stecher"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:433
+msgid "enj"
+msgstr "normerlassende Gebietskörperschaft"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:437
+msgid "etr"
+msgstr "Radierer"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:441
+msgid "exp"
+msgstr "Kunstexperte"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:445
+msgid "fac"
+msgstr "Kopist"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:449
+msgid "fds"
+msgstr "Filmvertrieb"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:453
+msgid "fmd"
+msgstr "Filmregisseur"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:457
+msgid "fmk"
+msgstr "Filmemacher"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:461
+msgid "fmo"
+msgstr "früherer Eigentümer"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:465
+msgid "fmp"
+msgstr "Filmproduzent"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:469
+msgid "his"
+msgstr "gastgebende Institution"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:473
+msgid "hst"
+msgstr "Gastgeber"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:477
+msgid "ilu"
+msgstr "Illuminator"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:481
+msgid "ins"
+msgstr "Unterzeichner"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:485
+msgid "inv"
+msgstr "Erfinder"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:489
+msgid "isb"
+msgstr "Verlagslandschaft"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:493
+msgid "itr"
+msgstr "Instrumentalmusiker"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:497
+msgid "ive"
+msgstr "Interviewter"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:501
+msgid "ivr"
+msgstr "Interviewer"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:505
+msgid "jud"
+msgstr "Richter"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:509
+msgid "jug"
+msgstr "andere Gerichtsbarkeit"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:513
+msgid "lbt"
+msgstr "Librettist"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:517
+msgid "lgd"
+msgstr "Lichtgestalter"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:521
+msgid "lsa"
+msgstr "Landschaftsarchitekt"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:525
+msgid "ltg"
+msgstr "Lithograf"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:529
+msgid "lyr"
+msgstr "Textdichter"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:533
+msgid "med"
+msgstr "Channel"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:537
+msgid "mfr"
+msgstr "Hersteller"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:541
+msgid "mod"
+msgstr "Gesprächsleiter"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:545
+msgid "msd"
+msgstr "musikalischer Direktor"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:549
+msgid "mtk"
+msgstr "Protokollant"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:553
+msgid "mus"
+msgstr "Musiker"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:557
+msgid "nrt"
+msgstr "Erzähler"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:561
+msgid "orm"
+msgstr "Tagungsplaner"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:565
+msgid "osp"
+msgstr "On-Screen-Präsentator"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:569
+msgid "oth"
+msgstr "anderes"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:573
+msgid "own"
+msgstr "Eigentümer"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:577
+msgid "pan"
+msgstr "Diskussionsteilnehmer"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:581
+msgid "pat"
+msgstr "Sponsor"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:585
+msgid "pbd"
+msgstr "Verlagsleiter"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:589
+msgid "pbl"
+msgstr "kommerzieller Verlag"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:593
+msgid "plt"
+msgstr "Plattenhersteller"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:597
+msgid "ppm"
+msgstr "Papiermacher"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:601
+msgid "ppt"
+msgstr "Puppenspieler"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:605
+msgid "pra"
+msgstr "Praeses"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:609
+msgid "pre"
+msgstr "Moderator"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:613
+msgid "prg"
+msgstr "Programmierer"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:617
+msgid "prm"
+msgstr "Druckhersteller"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:621
+msgid "prn"
+msgstr "Produktionsfirma"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:625
+msgid "pro"
+msgstr "Produzent"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:629
+msgid "prs"
+msgstr "Produktionsmitarbeiter"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:633
+msgid "prt"
+msgstr "Drucker"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:637
+msgid "ptf"
+msgstr "Kläger"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:641
+msgid "rcd"
+msgstr "Blockflöte"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:645
+msgid "rce"
+msgstr "Tonmeister"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:649
+msgid "rcp"
+msgstr "Adressat"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:653
+msgid "rdd"
+msgstr "Radiodirektor"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:657
+msgid "res"
+msgstr "Forscher"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:661
+msgid "rpc"
+msgstr "Hörfunkproduzent"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:665
+msgid "rsp"
+msgstr "Respondent"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:669
+msgid "rsr"
+msgstr "Restaurator"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:673
+msgid "scl"
+msgstr "Bildhauer"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:677
+msgid "sds"
+msgstr "Tongestalter"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:681
+msgid "sgd"
+msgstr "Bühnenregisseur"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:685
+msgid "sll"
+msgstr "Verkäufer"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:689
+msgid "sng"
+msgstr "Sänger"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:693
+msgid "spk"
+msgstr "Redner"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:697
+msgid "spn"
+msgstr "Sponsor"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:701
+msgid "srv"
+msgstr "Landvermesser"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:705
+msgid "stl"
+msgstr "Geschichtenerzähler"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:709
+msgid "tch"
+msgstr "Lehrer"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:713
+msgid "tld"
+msgstr "Fernsehregisseur"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:717
+msgid "tlp"
+msgstr "Fernsehproduzent"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:721
+msgid "trc"
+msgstr "Transkribierer"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:725
+msgid "vac"
+msgstr "Synchronsprecher"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:729
+msgid "vdg"
+msgstr "Videofilmer"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:733
+msgid "wac"
+msgstr "Kommentarverfasser"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:737
+msgid "wal"
+msgstr "Verfasser von zusätzlichen Lyrics"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:741
+msgid "wat"
+msgstr "Verfasser von Zusatztexten"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:745
+msgid "win"
+msgstr "Verfasser einer Einleitung"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:749
+msgid "wpr"
+msgstr "Verfasser eines Geleitwortes"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:753
+msgid "wst"
+msgstr "Verfasser von ergänzendem Text"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_copyright_date-v0.0.1.json:3
 msgid "Copyright dates"
@@ -5035,12 +5775,6 @@ msgstr "Beispiel: 355 Seiten"
 msgid "Identifiers"
 msgstr "Identifikatoren"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:7
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:73
-#: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:107
-msgid "Identifier"
-msgstr "Identifikator"
-
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:57
 msgid "Audio issue number"
 msgstr "Audioausgabennummer"
@@ -5080,10 +5814,6 @@ msgstr "ISSN"
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:97
 msgid "ISSN-L"
 msgstr "ISSN-L"
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:101
-msgid "Local"
-msgstr "Lokaler Identifikator"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:105
 msgid "Matrix number"
@@ -5145,12 +5875,6 @@ msgstr "Bezugsbedingung"
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:186
 msgid "Acquisition terms of the resource."
 msgstr "Bezugsbedingung der Ressource."
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:197
-#: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:147
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:106
-msgid "Source"
-msgstr "Quelle"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:198
 msgid "Source of the identifier."
@@ -5303,8 +6027,8 @@ msgstr "Enthalten in (Hostdokument)"
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:4
 msgid "Host document, for example a journal or a series (MARC 773, 800, 830)."
 msgstr ""
-"Hostdokument, zum Beispiel eine Zeitschrift oder eine Reihe (MARC 773, 800, "
-"830)."
+"Hostdokument, zum Beispiel eine Zeitschrift oder eine Reihe (MARC 773, "
+"800, 830)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:9
 msgid "Part of"
@@ -5327,14 +6051,14 @@ msgid ""
 "For series, record only the volume. For journals, record every available "
 "information."
 msgstr ""
-"Für Reihen, erfassen Sie nur das Band. Für Zeitschriften, erfassen Sie alle "
-"verfügbaren Informationen."
+"Für Reihen, erfassen Sie nur das Band. Für Zeitschriften, erfassen Sie "
+"alle verfügbaren Informationen."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:51
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:30
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:34
-#: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:64
-#: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:68
+#: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:67
+#: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:71
 msgid "Numbering"
 msgstr "Zählung"
 
@@ -5351,7 +6075,7 @@ msgid "Volume"
 msgstr "Band"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:86
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:143
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:144
 msgid "Issue"
 msgstr "Lieferung"
 
@@ -5508,10 +6232,6 @@ msgstr ""
 "Angabe zum Ort und Akteur von Veröffentlichung, Herstellung, Vertrieb, "
 "Entstehung."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:163
-msgid "Agent"
-msgstr "Akteur"
-
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:180
 msgid "Labels"
 msgstr "Labels"
@@ -5557,8 +6277,8 @@ msgstr "Reihe oder Unterreihe, zu der eine Ressource gehört (MARC 490)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:21
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:25
-#: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:55
-#: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:59
+#: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:58
+#: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:62
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:7
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:37
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:22
@@ -5567,13 +6287,17 @@ msgstr "Reihe oder Unterreihe, zu der eine Ressource gehört (MARC 490)."
 msgid "Title"
 msgstr "Titel"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:39
+#: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:42
 msgid "Subseries statement"
 msgstr "Unterreihenangabe"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:44
+#: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:47
 msgid "Subseries"
 msgstr "Unterreihe"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:118
+msgid "Example: vol.3"
+msgstr "Beispiel: Bd. 3"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:3
 msgid "Subjects"
@@ -5670,6 +6394,8 @@ msgid "E-Book"
 msgstr "E-Book"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:40
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:136
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:106
 msgid "Other"
 msgstr "Anderes"
 
@@ -5754,8 +6480,22 @@ msgstr "Zugreifen"
 msgid "Export Formats"
 msgstr "Exportformate"
 
+#: rero_ils/modules/holdings/api.py:133
+msgid "Document does not exist {pid}."
+msgstr "Das Dokument {pid} existiert nicht."
+
+#: rero_ils/modules/holdings/api.py:140
+msgid "Must have next expected date for regular frequencies."
+msgstr "Regelmässige Frequenzen müssen das nächste erwartete Datum enthalten."
+
+#: rero_ils/modules/holdings/api.py:147
+msgid "Holding is not attached to the correct document type. document: {pid}"
+msgstr ""
+"Der Bestand ist nicht mit dem richtigen Dokumenttyp verbunden. Dokument: "
+"{pid}"
+
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:4
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:290
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:291
 msgid "Holding"
 msgstr "Bestand"
 
@@ -5774,7 +6514,7 @@ msgstr "Permanenter Identifikator"
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:36
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:40
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:72
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:62
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:63
 #: rero_ils/modules/patrons/templates/rero_ils/_macro_profile.html:71
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:102
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:91
@@ -5791,14 +6531,14 @@ msgstr "URI der Ausleihkategorie"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:60
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:50
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:77
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:78
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:4
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:186
 msgid "Location"
 msgstr "Standort"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:67
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:84
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:85
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:189
 msgid "Location URI"
 msgstr "URI des Standortes"
@@ -6036,7 +6776,7 @@ msgid "ID"
 msgstr "ID"
 
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:73
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:43
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:44
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:24
 msgid "Barcode"
 msgstr "Strichcode"
@@ -6083,29 +6823,54 @@ msgstr "Standard"
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:96
 msgid "Another online item type exists in this organisation."
-msgstr ""
-"Ein anderer Online-Exemplartyp existiert bereits in dieser Organisation."
+msgstr "Ein anderer Online-Exemplartyp existiert bereits in dieser Organisation."
 
-#: rero_ils/modules/items/views.py:113
+#: rero_ils/modules/items/views.py:117
 #, python-format
 msgid "The item %(item_id)s has been requested."
 msgstr "Das Exemplar %(item_id)s wurde bestellt."
 
-#: rero_ils/modules/items/views.py:133
+#: rero_ils/modules/items/views.py:137
 msgid "due until"
 msgstr "Fällig am"
 
-#: rero_ils/modules/items/views.py:137
+#: rero_ils/modules/items/views.py:141
 msgid "in transit"
 msgstr "Im Transit"
 
-#: rero_ils/modules/items/views.py:141
+#: rero_ils/modules/items/views.py:145
 msgid "request"
 msgstr "Bestellung"
 
-#: rero_ils/modules/items/views.py:143
+#: rero_ils/modules/items/views.py:147
 msgid "requests"
 msgstr "Bestellungen"
+
+#: rero_ils/modules/items/api/record.py:57
+msgid "Holding does not exist: {pid}."
+msgstr "Bestand existiert nicht: {pid}."
+
+#: rero_ils/modules/items/api/record.py:60
+msgid "Standard item can not attached to a journal."
+msgstr ""
+"Ein Standard-Exemplar kann nicht an eine fortlaufende Publikation "
+"angehängt werden."
+
+#: rero_ils/modules/items/api/record.py:63
+msgid "Standard item can not have a issue field."
+msgstr "Standard Exemplar kann nicht Lieferungfeld haben."
+
+#: rero_ils/modules/items/api/record.py:65
+msgid "Issue item must have an issue field."
+msgstr "Ein Lieferungsexemplar muss ein Lieferungsfeld enthalten."
+
+#: rero_ils/modules/items/api/record.py:68
+msgid "Can not have multiple notes of same type."
+msgstr "Muss nicht mehrere Noten des gleichen Typen enthalten."
+
+#: rero_ils/modules/items/api/record.py:70
+msgid "Must have a first call number to have a second call number"
+msgstr "Eine erste Signatur ist erforderlich für eine 2. Signatur"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:4
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:17
@@ -6116,90 +6881,107 @@ msgstr "Exemplar"
 msgid "JSON schema for an item."
 msgstr "JSON Schema für ein Exemplar."
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:32
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:33
 msgid "Schema to validate item records against."
 msgstr "Schema zur Validierung von Exemplaren."
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:38
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:39
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:82
 msgid "Item ID"
 msgstr "PID des Exemplars"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:53
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:54
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:164
 msgid "The barcode is already taken."
 msgstr "Der Barcode ist bereits vergeben."
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:72
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:73
 msgid "Second call number"
 msgstr "2. Signatur"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:109
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:110
 msgid "Circulation category of the item"
 msgstr "Ausleihkategorie des Exemplars"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:116
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:117
 msgid "Item Type URI"
 msgstr "URI des Exemplartypen"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:162
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:163
 msgid "Issue status"
 msgstr "Status der Lieferung"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:183
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:184
 msgid "displayed text"
 msgstr "Angezeigter Text"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:189
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:190
 msgid "Date of reception"
 msgstr "Empfangsdatum"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:207
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:208
 msgid "Expected date"
 msgstr "Erwartetes Datum"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:225
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:226
 msgid "Regularity"
 msgstr "Regelmässigkeit"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:239
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:240
 msgid "circulation status"
 msgstr "Ausleihstatus"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:277
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:278
 msgid "excluded"
 msgstr "ausgeschlossen"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:291
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:292
 msgid "Holding record for the item."
 msgstr "Bestand des Exemplars."
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:295
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:296
 msgid "Holding URI"
 msgstr "URI des Bestandes"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:343
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:344
 msgid "public note"
 msgstr "öffentliche Anmerkung"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:347
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:348
 msgid "staff note"
 msgstr "Mitarbeiteranmerkung"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:351
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:352
 msgid "checkin note"
 msgstr "Rückgabeanmerkung"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:355
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:356
 msgid "checkout note"
 msgstr "Ausleiheanmerkung"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:368
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:369
 msgid "Content"
 msgstr "Inhalt"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:390
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:391
 msgid "Only one note per type is allowed"
 msgstr "Nur eine Anmerkung pro Typ ist erlaubt"
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:398
+msgid "Acquisition date"
+msgstr "Erwerbsdatum"
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:410
+msgid "New acquisition"
+msgstr "Neuerwerbung"
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:411
+msgid ""
+"If this option is enabled, this item is going to appear in the new "
+"acquisition list of the library."
+msgstr ""
+"Wenn diese Option aktiviert ist, wird dieses Exemplar in der "
+"Neuerwerbungsliste der Bibliothek erscheinen."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:5
 msgid "JSON schema for a library"
@@ -6289,87 +7071,98 @@ msgstr "Schema für ein Loan"
 msgid "Item URI"
 msgstr "URI des Exemplars"
 
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:30
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:29
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:114
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:220
+msgid "Patron"
+msgstr "Leser"
+
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:33
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:118
+msgid "Patron URI"
+msgstr "Leser URI"
+
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:54
 msgid "Loan extension count"
 msgstr "Anzahl der Verlängerungen"
 
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:34
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:58
 msgid "Loan PID"
 msgstr "PID des Loans"
 
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:39
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:63
 msgid "Loan date"
 msgstr "Datum des Loans"
 
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:43
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:67
 msgid "Patron PID"
 msgstr "PID des Lesers"
 
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:51
-msgid "Item PID"
-msgstr "PID des Exemplars"
-
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:55
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:87
 msgid "Transaction user PID"
 msgstr "PID des Transaktionslesers"
 
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:59
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:91
 msgid "Transaction location PID"
 msgstr "PID des Transaktionstandortes"
 
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:63
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:95
 msgid "Request pickup location PID"
 msgstr "PID des Bestellungsabholortes"
 
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:68
-msgid "Request expiry date"
-msgstr "Fälligkeitsdatum der Bestellung"
-
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:73
-msgid "Transaction start date"
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:100
+msgid "Transaction start datetime"
 msgstr "Startdatum der Transaktion"
 
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:78
-msgid "Transaction end date"
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:105
+msgid "Transaction end datetime"
 msgstr "Enddatum der Transaktion"
 
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:93
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:109
+msgid "Request expire datetime"
+msgstr "Ablaufdatum der Bestellung"
+
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:114
+msgid "Request start datetime"
+msgstr "Startdatum der Bestellung"
+
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:130
 msgid "State name"
 msgstr "Zustandsname"
 
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:111
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:148
 msgid "CREATED"
 msgstr "erstellt"
 
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:115
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:152
 msgid "PENDING"
 msgstr "ausstehend"
 
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:119
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:156
 msgid "ITEM_ON_LOAN"
 msgstr "ausgeliehen"
 
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:123
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:160
 msgid "ITEM_RETURNED"
 msgstr "zurückgegeben"
 
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:127
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:164
 msgid "ITEM_IN_TRANSIT_FOR_PICKUP"
 msgstr "in Transit (bestellt)"
 
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:131
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:168
 msgid "ITEM_IN_TRANSIT_TO_HOUSE"
 msgstr "in Transit (zurück zum Regal)"
 
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:135
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:172
 msgid "ITEM_AT_DESK"
 msgstr "an der Ausleihtheke"
 
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:139
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:176
 msgid "CANCELLED"
 msgstr "annulliert"
 
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:152
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:189
 msgid ""
 "The name of the explicit action that triggered the transition to current "
 "state"
@@ -6448,8 +7241,8 @@ msgstr "Bestellungen erlauben"
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:139
 msgid "If enabled, it allows requests for items linked to this location."
 msgstr ""
-"Falls aktiviert, es erlaubt Anfragen für Exemplare, die mit diesem Standort "
-"verknüpft sind."
+"Falls aktiviert, es erlaubt Anfragen für Exemplare, die mit diesem "
+"Standort verknüpft sind."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:143
 msgid "Send notification"
@@ -6498,7 +7291,7 @@ msgid "If enabled, restrict pickup to specific pickup locations."
 msgstr "Falls aktiviert, es schränkt die Abholung auf bestimmte Abholorte ein."
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:4
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:95
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:125
 msgid "Notification"
 msgstr "Benachrichtigung"
 
@@ -6644,7 +7437,55 @@ msgstr "Betreiber"
 msgid "Operator patron URI"
 msgstr "URI des Leserbetreibers"
 
-#: rero_ils/modules/patron_transactions/api.py:253
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:108
+msgid "Fee"
+msgstr "Gebühren"
+
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:124
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:82
+msgid "Overdue"
+msgstr "Überfällig"
+
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:128
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:98
+msgid "Damaged"
+msgstr "Beschädigt"
+
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:132
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:94
+msgid "Lost"
+msgstr "Verloren"
+
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:157
+msgid "payment"
+msgstr "Zahlung"
+
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:173
+msgid "cash"
+msgstr "Bargeld"
+
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:177
+msgid "Debit card"
+msgstr "Debitkarte"
+
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:181
+msgid "Credit card"
+msgstr "Kreditkarte"
+
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:185
+msgid "Paypal"
+msgstr "Paypal"
+
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:208
+msgid "Dispute"
+msgstr "Streit"
+
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:229
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:70
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: rero_ils/modules/patron_transactions/api.py:274
 msgid "Subscription for '{name}' from {start} to {end}"
 msgstr "Abonnement für '{Name}' von {Beginn} bis {Ende}"
 
@@ -6676,20 +7517,24 @@ msgstr "Leser Transaktion Anmerkung"
 msgid "Patron transaction type"
 msgstr "Leser Transaktion Typ"
 
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:84
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:220
-msgid "Patron"
-msgstr "Leser"
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:86
+msgid "Photocopy"
+msgstr "Fotokopie"
 
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:88
-msgid "Patron URI"
-msgstr "Leser URI"
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:90
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:324
+msgid "Subscription"
+msgstr "Abonnement"
 
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:99
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:102
+msgid "Interlibrary loan"
+msgstr "Fernleihe"
+
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:129
 msgid "Notification URI"
 msgstr "URI der Benachrichtigung"
 
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:119
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:149
 msgid "Total calculated amount of the patron transaction"
 msgstr "Berechneter Gesamtbetrag der Leser Transaktion"
 
@@ -6737,38 +7582,38 @@ msgstr ""
 "Aktivierung der Abonnementsgebühren für Leser, die mit diesem Typ "
 "verbunden sind."
 
-#: rero_ils/modules/patrons/views.py:147
+#: rero_ils/modules/patrons/views.py:148
 #, python-format
 msgid "%(icon)s Profile"
 msgstr "%(icon)s Mein Konto"
 
-#: rero_ils/modules/patrons/views.py:169
+#: rero_ils/modules/patrons/views.py:174
 #, python-format
 msgid "The request for item %(item_id)s has been canceled."
 msgstr "Die Bestellung auf dem Exemplar %(item_id)s wurde abgebrochen."
 
-#: rero_ils/modules/patrons/views.py:172
+#: rero_ils/modules/patrons/views.py:177
 #, python-format
 msgid ""
 "Error during the cancellation of the request of                 item "
 "%(item_id)s."
 msgstr "Fehler während des Abbruches der Bestellung auf dem Exemplar %(item_id)s."
 
-#: rero_ils/modules/patrons/views.py:182
+#: rero_ils/modules/patrons/views.py:188
 #, python-format
 msgid "The item %(item_id)s has been renewed."
 msgstr "Das Exemplar %(item_id)s wurde verlängert."
 
-#: rero_ils/modules/patrons/views.py:185
+#: rero_ils/modules/patrons/views.py:191
 #, python-format
 msgid "Error during the renewal of the item %(item_id)s."
 msgstr "Fehler bei der Verlängerung des Exemplares %(item_id)s."
 
-#: rero_ils/modules/patrons/views.py:202
+#: rero_ils/modules/patrons/views.py:208
 msgid "You have a pending subscription fee."
 msgstr "Sie haben eine ausstehende Abonnementsgebühr."
 
-#: rero_ils/modules/patrons/views.py:211
+#: rero_ils/modules/patrons/views.py:217
 #, python-format
 msgid "Your account is currently blocked. Reason: %(reason)s"
 msgstr "Ihr Konto ist derzeit gesperrt. Grund: %(reason)s"
@@ -6881,10 +7726,6 @@ msgstr "Lesers Barcode oder Kartennummer"
 msgid "Library affiliation."
 msgstr "Bibliothekzugehörigkeit."
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:197
-msgid "Role"
-msgstr "Rolle"
-
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:198
 msgid "Define the roles of the user."
 msgstr "Die Rollen des Benutzers definieren."
@@ -6922,10 +7763,6 @@ msgstr "Englisch"
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:320
 msgid "Subscriptions"
 msgstr "Abonnements"
-
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:324
-msgid "Subscription"
-msgstr "Abonnement"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:334
 msgid "Subscription start date"
@@ -7006,7 +7843,7 @@ msgstr "Autor(en)"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:24
 msgid "Return date"
-msgstr "Rückgabedatum"
+msgstr "Rückgabe"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:73
 msgid "Transaction history"
@@ -7076,10 +7913,6 @@ msgstr "ausstehend"
 msgid "<br>(position %(rank)s in waiting list)"
 msgstr "<br>(Position %(rank)s auf der Warteliste)"
 
-#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:70
-msgid "Cancel"
-msgstr "Abbrechen"
-
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:99
 msgid "Transaction date"
 msgstr "Transaktionsdatum"
@@ -7139,16 +7972,6 @@ msgstr "BNF-Autoritäten"
 #: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:90
 msgid "IdRef authorities"
 msgstr "GND-Autoritäten"
-
-#: rero_ils/modules/persons/templates/rero_ils/_person_by_source_data.html:22
-#: rero_ils/modules/persons/templates/rero_ils/_person_unified.html:25
-msgid "Birth date"
-msgstr "Geburtsdatum"
-
-#: rero_ils/modules/persons/templates/rero_ils/_person_by_source_data.html:23
-#: rero_ils/modules/persons/templates/rero_ils/_person_unified.html:26
-msgid "Death date"
-msgstr "Todesdatum"
 
 #: rero_ils/modules/persons/templates/rero_ils/_person_by_source_data.html:24
 #: rero_ils/modules/persons/templates/rero_ils/_person_unified.html:27
@@ -7411,7 +8234,7 @@ msgstr "wurde gelöscht."
 
 #: rero_ils/templates/security/email/reset_instructions.html:21
 msgid "Click here to reset your password"
-msgstr "Hier klicken, um Passwort zurückzusetzen"
+msgstr "Hier klicken, um Ihr Passwort zurückzusetzen"
 
 #~ msgid "Examples: 135, 5-27, ..."
 #~ msgstr ""
@@ -7453,3 +8276,437 @@ msgstr "Hier klicken, um Passwort zurückzusetzen"
 #~ "            "
 #~ msgstr[0] "%(icon)s Mein Konto"
 #~ msgstr[1] ""
+
+#~ msgid "author__en"
+#~ msgstr "Autor"
+
+#~ msgid "author__fr"
+#~ msgstr "Autor"
+
+#~ msgid "author__de"
+#~ msgstr "Autor"
+
+#~ msgid "author__it"
+#~ msgstr "Autor"
+
+#~ msgid "Authors"
+#~ msgstr "Autoren"
+
+#~ msgid "Author(s) of the resource. Can be either persons or organisations."
+#~ msgstr ""
+#~ "Autor(en) der Ressource. Es können "
+#~ "sowohl Personen als auch Körperschaften "
+#~ "sein."
+
+#~ msgid ""
+#~ "Information about the birth and the "
+#~ "death of a person. Helpful to "
+#~ "disambiguate people."
+#~ msgstr ""
+#~ "Informationen über die Geburt und den"
+#~ " Tod einer Person. Hilfreich, um "
+#~ "Menschen zu unterscheiden."
+
+#~ msgid ""
+#~ "Information about the person, ie her "
+#~ "profession. Helpful to disambiguate people."
+#~ msgstr ""
+#~ "Informationen über die Person (z.B. "
+#~ "ihren Beruf). Hilfreich, um Menschen zu"
+#~ " unterscheiden."
+
+#~ msgid "Item PID"
+#~ msgstr "PID des Exemplars"
+
+#~ msgid "composer"
+#~ msgstr ""
+
+#~ msgid "contributor"
+#~ msgstr "Sowjetunion (ur)"
+
+#~ msgid "honouree"
+#~ msgstr "Telefon"
+
+#~ msgid "illustrator"
+#~ msgstr "Illustrationen"
+
+#~ msgid "photographer"
+#~ msgstr "Fotografie"
+
+#~ msgid "performer"
+#~ msgstr "Thermoform"
+
+#~ msgid "translator"
+#~ msgstr "Übersetzt aus"
+
+#~ msgid "abridger"
+#~ msgstr ""
+
+#~ msgid "art Director"
+#~ msgstr ""
+
+#~ msgid "writer of postface"
+#~ msgstr ""
+
+#~ msgid "animator"
+#~ msgstr "Marathi"
+
+#~ msgid "annotator"
+#~ msgstr ""
+
+#~ msgid "appellee"
+#~ msgstr ""
+
+#~ msgid "appellant"
+#~ msgstr ""
+
+#~ msgid "abstractor"
+#~ msgstr "Zusammenfassung"
+
+#~ msgid "architect"
+#~ msgstr ""
+
+#~ msgid "arranger"
+#~ msgstr "Terena"
+
+#~ msgid "artist"
+#~ msgstr "Teile, Untergliederungen, Beilagen"
+
+#~ msgid "autographer"
+#~ msgstr "Fotografie"
+
+#~ msgid "auctioneer"
+#~ msgstr "Entstehung"
+
+#~ msgid "writer of introduction"
+#~ msgstr "Empfangsdatum"
+
+#~ msgid "screenwriter"
+#~ msgstr ""
+
+#~ msgid "book designer"
+#~ msgstr ""
+
+#~ msgid "binder"
+#~ msgstr "Geschlecht"
+
+#~ msgid "broadcaster"
+#~ msgstr "Datum des Loans"
+
+#~ msgid "braille embosser"
+#~ msgstr ""
+
+#~ msgid "bookseller"
+#~ msgstr ""
+
+#~ msgid "choreographer"
+#~ msgstr "Fotografie"
+
+#~ msgid "calligrapher"
+#~ msgstr ""
+
+#~ msgid "colourist"
+#~ msgstr "Farben"
+
+#~ msgid "collotyper"
+#~ msgstr "Lichtdruck (Collotypie)"
+
+#~ msgid "writer of added commentary"
+#~ msgstr ""
+
+#~ msgid "commentator"
+#~ msgstr ""
+
+#~ msgid "instrumental conductor"
+#~ msgstr ""
+
+#~ msgid "director of photography"
+#~ msgstr ""
+
+#~ msgid "collector"
+#~ msgstr ""
+
+#~ msgid "compiler"
+#~ msgstr ""
+
+#~ msgid "collection registrar"
+#~ msgstr ""
+
+#~ msgid "creator"
+#~ msgstr "Betreiber"
+
+#~ msgid "court stenographer"
+#~ msgstr ""
+
+#~ msgid "consultant"
+#~ msgstr ""
+
+#~ msgid "costume designer"
+#~ msgstr ""
+
+#~ msgid "cartographer"
+#~ msgstr "Fotografie"
+
+#~ msgid "participant in a treaty"
+#~ msgstr ""
+
+#~ msgid "defendant"
+#~ msgstr "Teil mit unabhängigem Titel"
+
+#~ msgid "degree granting institution"
+#~ msgstr ""
+
+#~ msgid "thesis advisor"
+#~ msgstr ""
+
+#~ msgid "donor"
+#~ msgstr ""
+
+#~ msgid "depositor"
+#~ msgstr ""
+
+#~ msgid "draftsman"
+#~ msgstr ""
+
+#~ msgid "director (movie, radio, television, etc.)"
+#~ msgstr ""
+
+#~ msgid "designer"
+#~ msgstr ""
+
+#~ msgid "distributor"
+#~ msgstr "Verteilung"
+
+#~ msgid "dedicatee"
+#~ msgstr "Bestelldatum"
+
+#~ msgid "data manager"
+#~ msgstr ""
+
+#~ msgid "supposed author"
+#~ msgstr ""
+
+#~ msgid "editor of moving image work"
+#~ msgstr ""
+
+#~ msgid "engraver"
+#~ msgstr "Rarotonganisch"
+
+#~ msgid "enacting jurisdiction"
+#~ msgstr ""
+
+#~ msgid "art expert"
+#~ msgstr ""
+
+#~ msgid "facsimilist"
+#~ msgstr ""
+
+#~ msgid "film distributor"
+#~ msgstr "Musikvertriebsnummer"
+
+#~ msgid "film director"
+#~ msgstr ""
+
+#~ msgid "filmmaker"
+#~ msgstr ""
+
+#~ msgid "former owner"
+#~ msgstr ""
+
+#~ msgid "film producer"
+#~ msgstr ""
+
+#~ msgid "host institution"
+#~ msgstr ""
+
+#~ msgid "illuminator"
+#~ msgstr ""
+
+#~ msgid "inscriber"
+#~ msgstr "Gravur"
+
+#~ msgid "inventor"
+#~ msgstr "Invenio"
+
+#~ msgid "publishing community"
+#~ msgstr ""
+
+#~ msgid "instrumentalist"
+#~ msgstr ""
+
+#~ msgid "interviewee"
+#~ msgstr ""
+
+#~ msgid "interviewer"
+#~ msgstr ""
+
+#~ msgid "other jurisdiction"
+#~ msgstr "Benachrichtigung"
+
+#~ msgid "librettist"
+#~ msgstr ""
+
+#~ msgid "landscape architect"
+#~ msgstr ""
+
+#~ msgid "lithographer"
+#~ msgstr "Lithografie"
+
+#~ msgid "lyricist"
+#~ msgstr ""
+
+#~ msgid "medium"
+#~ msgstr ""
+
+#~ msgid "manufacturer"
+#~ msgstr "Herstellung"
+
+#~ msgid "moderator"
+#~ msgstr "Betreiber"
+
+#~ msgid "musical director"
+#~ msgstr ""
+
+#~ msgid "minute taker"
+#~ msgstr ""
+
+#~ msgid "musician"
+#~ msgstr "unter Verwendung von"
+
+#~ msgid "narrator"
+#~ msgstr "Betreiber"
+
+#~ msgid "organizer"
+#~ msgstr ""
+
+#~ msgid "on-screen presenter"
+#~ msgstr ""
+
+#~ msgid "panelist"
+#~ msgstr "Spanisch"
+
+#~ msgid "publishing director"
+#~ msgstr ""
+
+#~ msgid "commercial publisher"
+#~ msgstr ""
+
+#~ msgid "platemaker"
+#~ msgstr ""
+
+#~ msgid "printmaker"
+#~ msgstr ""
+
+#~ msgid "puppeteer"
+#~ msgstr ""
+
+#~ msgid "praeses"
+#~ msgstr ""
+
+#~ msgid "presenter"
+#~ msgstr ""
+
+#~ msgid "programmer"
+#~ msgstr ""
+
+#~ msgid "production company"
+#~ msgstr "Entstehung"
+
+#~ msgid "producer"
+#~ msgstr ""
+
+#~ msgid "production staff member"
+#~ msgstr "Entstehungsmethode"
+
+#~ msgid "printer"
+#~ msgstr ""
+
+#~ msgid "plaintiff"
+#~ msgstr ""
+
+#~ msgid "recorder"
+#~ msgstr "Strichcode"
+
+#~ msgid "audio engineer"
+#~ msgstr ""
+
+#~ msgid "addressee"
+#~ msgstr "Adresse"
+
+#~ msgid "radio director"
+#~ msgstr ""
+
+#~ msgid "researcher"
+#~ msgstr "Suche"
+
+#~ msgid "radio producer"
+#~ msgstr ""
+
+#~ msgid "respondent"
+#~ msgstr ""
+
+#~ msgid "restorationist"
+#~ msgstr "Illustrationen"
+
+#~ msgid "sculptor"
+#~ msgstr "Partitur"
+
+#~ msgid "sound designer"
+#~ msgstr ""
+
+#~ msgid "restager"
+#~ msgstr ""
+
+#~ msgid "singer"
+#~ msgstr "unter Verwendung von"
+
+#~ msgid "Speaker"
+#~ msgstr ""
+
+#~ msgid "Sponsor"
+#~ msgstr ""
+
+#~ msgid "surveyor"
+#~ msgstr ""
+
+#~ msgid "storyteller"
+#~ msgstr ""
+
+#~ msgid "teacher"
+#~ msgstr "anderes"
+
+#~ msgid "TV director"
+#~ msgstr ""
+
+#~ msgid "television producer"
+#~ msgstr ""
+
+#~ msgid "transcriber"
+#~ msgstr ""
+
+#~ msgid "voice actor"
+#~ msgstr ""
+
+#~ msgid "videographer"
+#~ msgstr "Lithografie"
+
+#~ msgid "writer of added lyrics"
+#~ msgstr ""
+
+#~ msgid "writer of added text"
+#~ msgstr ""
+
+#~ msgid "writer of foreword"
+#~ msgstr ""
+
+#~ msgid "writer of supplementary textual content"
+#~ msgstr ""
+
+#~ msgid "AcqOrderLine"
+#~ msgstr "Bestellzeile"
+
+#~ msgid "AcqOrderLine ID"
+#~ msgstr "ID der Bestellzeile"
+
+#~ msgid "Acquisition Order"
+#~ msgstr "Bestellung"
