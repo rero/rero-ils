@@ -21,15 +21,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-08-25 13:45+0200\n"
-"PO-Revision-Date: 2020-08-20 07:01+0000\n"
+"PO-Revision-Date: 2020-08-26 07:00+0000\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/fr/>\n"
 "Language: fr\n"
-"Language-Team: French <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.2.1-dev\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: rero_ils/config.py:120
@@ -5552,7 +5553,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dimensions-v0.0.1.json:12
 msgid "Example: 22 cm"
-msgstr "Exemple: 22 cm"
+msgstr "Exemple : 22 cm"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_duration-v0.0.1.json:3
 msgid "Durations"
@@ -5573,7 +5574,7 @@ msgstr "Durée"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_duration-v0.0.1.json:12
 msgid "Example: 1h50"
-msgstr "Exemple: 1h50"
+msgstr "Exemple : 1h50"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_edition_statement-v0.0.1.json:3
 msgid "Edition statements"
@@ -5627,7 +5628,7 @@ msgstr "Entrez une URL unique."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:24
 msgid "Example: https://www.rero.ch/"
-msgstr "Exemple: https://www.rero.ch/"
+msgstr "Exemple : https://www.rero.ch/"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:35
 msgid "Type of link"
@@ -5776,7 +5777,7 @@ msgstr "Texte intégral"
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:228
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:52
 msgid "Video"
-msgstr "vidéo"
+msgstr "Vidéo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:241
 msgid "Public notes"
@@ -5792,7 +5793,7 @@ msgstr "Note publique"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:250
 msgid "Example: Access only from the library"
-msgstr "Exemple: Accès uniquement depuis la bibliothèque"
+msgstr "Exemple : Accès uniquement depuis la bibliothèque"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_extent-v0.0.1.json:3
 msgid "Extent"
@@ -5808,7 +5809,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_extent-v0.0.1.json:8
 msgid "Example: 355 pages"
-msgstr "Exemple: 355 pages"
+msgstr "Exemple : 355 pages"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:3
 msgid "Identifiers"
@@ -5950,8 +5951,7 @@ msgstr "Contenu illustratif"
 #: rero_ils/modules/documents/jsonschemas/documents/document_illustrative_content-v0.0.1.json:12
 msgid "RDA recommended terms: illustrations, maps, photographs, portraits, ..."
 msgstr ""
-"Termes recommandés par RDA: illustrations, cartes, photographies, "
-"portraits, ..."
+"Termes recommandés par RDA : illustrations, cartes, photographies, portraits…"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:3
 msgid "Mode of issuance"
@@ -8257,4 +8257,3 @@ msgstr "Cliquez ici pour réinitialiser votre mot de passe"
 
 #~ msgid "Item PID"
 #~ msgstr "PID de l'exemplaire"
-
