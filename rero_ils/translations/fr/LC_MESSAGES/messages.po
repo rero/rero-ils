@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
-"POT-Creation-Date: 2020-08-12 13:36+0200\n"
-"PO-Revision-Date: 2020-08-20 07:01+0000\n"
+"POT-Creation-Date: 2020-08-25 13:45+0200\n"
+"PO-Revision-Date: 2020-08-26 07:00+0000\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
@@ -4773,7 +4773,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dimensions-v0.0.1.json:12
 msgid "Example: 22 cm"
-msgstr "Exemple: 22 cm"
+msgstr "Exemple : 22 cm"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_duration-v0.0.1.json:3
 msgid "Durations"
@@ -4794,7 +4794,7 @@ msgstr "Durée"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_duration-v0.0.1.json:12
 msgid "Example: 1h50"
-msgstr "Exemple: 1h50"
+msgstr "Exemple : 1h50"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_edition_statement-v0.0.1.json:3
 msgid "Edition statements"
@@ -4848,7 +4848,7 @@ msgstr "Entrez une URL unique."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:24
 msgid "Example: https://www.rero.ch/"
-msgstr "Exemple: https://www.rero.ch/"
+msgstr "Exemple : https://www.rero.ch/"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:35
 msgid "Type of link"
@@ -4997,7 +4997,7 @@ msgstr "Texte intégral"
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:228
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:52
 msgid "Video"
-msgstr "vidéo"
+msgstr "Vidéo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:241
 msgid "Public notes"
@@ -5013,7 +5013,7 @@ msgstr "Note publique"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:250
 msgid "Example: Access only from the library"
-msgstr "Exemple: Accès uniquement depuis la bibliothèque"
+msgstr "Exemple : Accès uniquement depuis la bibliothèque"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_extent-v0.0.1.json:3
 msgid "Extent"
@@ -5029,7 +5029,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_extent-v0.0.1.json:8
 msgid "Example: 355 pages"
-msgstr "Exemple: 355 pages"
+msgstr "Exemple : 355 pages"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:3
 msgid "Identifiers"
@@ -5187,8 +5187,7 @@ msgstr "Contenu illustratif"
 #: rero_ils/modules/documents/jsonschemas/documents/document_illustrative_content-v0.0.1.json:12
 msgid "RDA recommended terms: illustrations, maps, photographs, portraits, ..."
 msgstr ""
-"Termes recommandés par RDA: illustrations, cartes, photographies, "
-"portraits, ..."
+"Termes recommandés par RDA : illustrations, cartes, photographies, portraits…"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:3
 msgid "Mode of issuance"
@@ -7445,3 +7444,43 @@ msgstr "Cliquez ici pour réinitialiser votre mot de passe"
 #~ "            "
 #~ msgstr[0] "%(icon)s Mon compte"
 #~ msgstr[1] ""
+
+#~ msgid "author__en"
+#~ msgstr "auteur"
+
+#~ msgid "author__fr"
+#~ msgstr "auteur"
+
+#~ msgid "author__de"
+#~ msgstr "auteur"
+
+#~ msgid "author__it"
+#~ msgstr "auteur"
+
+#~ msgid "Authors"
+#~ msgstr "Auteurs"
+
+#~ msgid "Author(s) of the resource. Can be either persons or organisations."
+#~ msgstr ""
+#~ "Auteur(s) de la ressource. Peut être "
+#~ "soit une personne soit une collectivité."
+
+#~ msgid ""
+#~ "Information about the birth and the "
+#~ "death of a person. Helpful to "
+#~ "disambiguate people."
+#~ msgstr ""
+#~ "Informations sur les dates de naissance"
+#~ " et de décès d'une personne. Utile"
+#~ " pour distinguer les homonymes."
+
+#~ msgid ""
+#~ "Information about the person, ie her "
+#~ "profession. Helpful to disambiguate people."
+#~ msgstr ""
+#~ "Informations qualifiant la personne, par "
+#~ "exemple sa profession. Utile pour "
+#~ "distinguer les homonymes."
+
+#~ msgid "Item PID"
+#~ msgstr "PID de l'exemplaire"
