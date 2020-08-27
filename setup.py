@@ -95,6 +95,7 @@ setup(
             'notifications = rero_ils.modules.notifications.views:blueprint',
             'holdings = rero_ils.modules.holdings.views:blueprint',
             'ill_requests = rero_ils.modules.ill_requests.views:blueprint',
+            'templates = rero_ils.modules.templates.views:blueprint',
         ],
         'invenio_base.api_blueprints': [
             'rero_ils = rero_ils.modules.views:api_blueprint',
@@ -108,7 +109,6 @@ setup(
             'persons = rero_ils.modules.persons.views:api_blueprint',
             'holdings = rero_ils.modules.holdings.api_views:api_blueprint',
             'monitoring = rero_ils.modules.monitoring:api_blueprint',
-            'templates = rero_ils.modules.templates.views:blueprint',
         ],
         'invenio_config.module': [
             'rero_ils = rero_ils.config',

@@ -1,8 +1,8 @@
 [
   {
     "pid": "1",
-    "name": "Public template for documents",
-    "description": "Public template for documents.",
+    "name": "Book",
+    "description": "Base model for a usual book",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
@@ -11,12 +11,118 @@
     },
     "visibility": "public",
     "template_type": "documents",
-    "data": {}
+    "data": {
+      "contribution": [
+        {
+          "role": [
+            "aut"
+          ]
+        }
+      ],
+      "extent": "",
+      "identifiedBy": [
+        {
+          "type": "bf:Isbn",
+          "value": ""
+        }
+      ],
+      "issuance": {
+        "main_type": "rdami:1001",
+        "subtype": "materialUnit"
+      },
+      "language": [
+        {
+          "type": "bf:Language",
+          "value": ""
+        }
+      ],
+      "provisionActivity": [
+        {
+          "place": [
+            {
+              "canton": "",
+              "country": "",
+              "type": "bf:Place"
+            }
+          ],
+          "statement": [
+            {
+              "label": [
+                {
+                  "value": ""
+                }
+              ],
+              "type": "bf:Place"
+            },
+            {
+              "label": [
+                {
+                  "value": ""
+                }
+              ],
+              "type": "bf:Agent"
+            },
+            {
+              "label": [
+                {
+                  "value": ""
+                }
+              ],
+              "type": "Date"
+            }
+          ],
+          "type": "bf:Publication"
+        }
+      ],
+      "responsibilityStatement": [
+        [
+          {
+            "value": ""
+          }
+        ]
+      ],
+      "seriesStatement": [
+        {
+          "seriesEnumeration": [
+            {
+              "value": ""
+            }
+          ],
+          "seriesTitle": [
+            {
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "subjects": [
+        ""
+      ],
+      "title": [
+        {
+          "mainTitle": [
+            {
+              "value": ""
+            }
+          ],
+          "subtitle": [
+            {
+              "value": ""
+            }
+          ],
+          "type": "bf:Title"
+        }
+      ],
+      "translatedFrom": [
+        ""
+      ],
+      "type": "book"
+    }
   },
   {
     "pid": "2",
-    "name": "Public template for holdings",
-    "description": "Public template for holdings.",
+    "name": "DVD, movies",
+    "description": "Base model for a usual DVD or movie",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
@@ -24,13 +130,108 @@
       "$ref": "https://ils.rero.ch/api/patrons/1"
     },
     "visibility": "public",
-    "template_type": "holdings",
-    "data": {}
+    "template_type": "documents",
+    "data": {
+      "abstracts": [
+        ""
+      ],
+      "contribution": [
+        {
+          "role": [
+            "drt"
+          ]
+        }
+      ],
+      "duration": [
+        ""
+      ],
+      "extent": "",
+      "identifiedBy": [
+        {
+          "type": "bf:VideoRecordingNumber",
+          "value": ""
+        }
+      ],
+      "issuance": {
+        "main_type": "rdami:1001",
+        "subtype": "materialUnit"
+      },
+      "language": [
+        {
+          "type": "bf:Language",
+          "value": ""
+        }
+      ],
+      "provisionActivity": [
+        {
+          "place": [
+            {
+              "canton": "",
+              "country": "",
+              "type": "bf:Place"
+            }
+          ],
+          "statement": [
+            {
+              "label": [
+                {
+                  "value": ""
+                }
+              ],
+              "type": "bf:Place"
+            },
+            {
+              "label": [
+                {
+                  "value": ""
+                }
+              ],
+              "type": "bf:Agent"
+            },
+            {
+              "label": [
+                {
+                  "value": ""
+                }
+              ],
+              "type": "Date"
+            }
+          ],
+          "type": "bf:Publication"
+        }
+      ],
+      "responsibilityStatement": [
+        [
+          {
+            "value": ""
+          }
+        ]
+      ],
+      "subjects": [
+        ""
+      ],
+      "title": [
+        {
+          "mainTitle": [
+            {
+              "value": ""
+            }
+          ],
+          "subtitle": [
+            {
+              "value": ""
+            }
+          ],
+          "type": "bf:Title"
+        }
+      ],
+      "type": "video"
+    }
   },
   {
     "pid": "3",
-    "name": "Public template for items",
-    "description": "Public template for items.",
+    "name": "Aosta bibliography",
+    "description": "Item with no checkout allowed",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
@@ -39,12 +240,18 @@
     },
     "visibility": "public",
     "template_type": "items",
-    "data": {}
+    "data": {
+      "acquisition_date": "",
+      "barcode": "",
+      "call_number": "AO BIB ",
+      "item_type": {},
+      "location": {}
+    }
   },
   {
     "pid": "4",
-    "name": "Public template for patrons",
-    "description": "Public template for patrons.",
+    "name": "Standard patron",
+    "description": "Use this template for a usual registration",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
@@ -53,118 +260,1912 @@
     },
     "visibility": "public",
     "template_type": "patrons",
-    "data": {}
+    "data": {
+      "barcode": "",
+      "birth_date": "",
+      "city": "",
+      "communication_channel": "email",
+      "communication_language": "fre",
+      "email": "",
+      "first_name": "",
+      "last_name": "",
+      "patron_type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/1"
+      },
+      "phone": "",
+      "postal_code": "",
+      "roles": [
+        "patron"
+      ],
+      "street": ""
+    }
   },
   {
     "pid": "5",
-    "name": "Private template for documents - Jean Dupont",
-    "description": "Private template for documents Jean Dupont.",
+    "name": "Quarterly with seasons - French",
+    "description": "Example: Ann\u00e9e 2018, no 3 (automne)",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
     "creator": {
-      "$ref": "https://ils.rero.ch/api/patrons/2"
+      "$ref": "https://ils.rero.ch/api/patrons/1"
     },
-    "visibility": "private",
-    "template_type": "documents",
-    "data": {}
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "frequency": "rdafr:1010",
+        "next_expected_date": "",
+        "template": "Ann\u00e9e {{first.year}}, no {{second.number}} ({{first.season}})",
+        "values": [
+          {
+            "levels": [
+              {
+                "next_value": 2020,
+                "number_name": "year",
+                "starting_value": 2019
+              },
+              {
+                "list_name": "season",
+                "mapping_values": [
+                  "printemps",
+                  "\u00e9t\u00e9",
+                  "automne",
+                  "hiver"
+                ],
+                "next_value": 4
+              }
+            ],
+            "name": "first"
+          },
+          {
+            "levels": [
+              {
+                "next_value": 284,
+                "number_name": "number",
+                "starting_value": 277
+              }
+            ],
+            "name": "second"
+          }
+        ]
+      }
+    }
   },
   {
     "pid": "6",
-    "name": "Private template for holdings - Jean Dupont",
-    "description": "Private template for holdings Jean Dupont.",
+    "name": "Greek book",
+    "description": "Greek with latin transliteration",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
     "creator": {
-      "$ref": "https://ils.rero.ch/api/patrons/2"
-    },
-    "visibility": "private",
-    "template_type": "holdings",
-    "data": {}
-  },
-  {
-    "pid": "7",
-    "name": "Private template for items - Jean Dupont",
-    "description": "Private template for items Jean Dupont.",
-    "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
-    },
-    "creator": {
-      "$ref": "https://ils.rero.ch/api/patrons/2"
-    },
-    "visibility": "private",
-    "template_type": "items",
-    "data": {}
-  },
-  {
-    "pid": "8",
-    "name": "Private template for patrons - Jean Dupont",
-    "description": "Private template for patrons Jean Dupont.",
-    "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
-    },
-    "creator": {
-      "$ref": "https://ils.rero.ch/api/patrons/2"
-    },
-    "visibility": "private",
-    "template_type": "patrons",
-    "data": {}
-  },
-  {
-    "pid": "9",
-    "name": "Private template for documents - Elena Rodriguez",
-    "description": "Private template for documents Elena Rodriguez.",
-    "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
-    },
-    "creator": {
-      "$ref": "https://ils.rero.ch/api/patrons/3"
+      "$ref": "https://ils.rero.ch/api/patrons/1"
     },
     "visibility": "private",
     "template_type": "documents",
-    "data": {}
+    "data": {
+      "contribution": [
+        {
+          "role": [
+            "aut"
+          ]
+        }
+      ],
+      "extent": "",
+      "identifiedBy": [
+        {
+          "type": "bf:Isbn",
+          "value": ""
+        }
+      ],
+      "issuance": {
+        "main_type": "rdami:1001",
+        "subtype": "materialUnit"
+      },
+      "language": [
+        {
+          "type": "bf:Language",
+          "value": "gre"
+        }
+      ],
+      "provisionActivity": [
+        {
+          "place": [
+            {
+              "country": "gr",
+              "type": "bf:Place"
+            }
+          ],
+          "statement": [
+            {
+              "label": [
+                {
+                  "value": ""
+                },
+                {
+                  "language": "gre-grek",
+                  "value": ""
+                }
+              ],
+              "type": "bf:Place"
+            },
+            {
+              "label": [
+                {
+                  "value": ""
+                },
+                {
+                  "language": "gre-grek",
+                  "value": ""
+                }
+              ],
+              "type": "bf:Agent"
+            },
+            {
+              "label": [
+                {
+                  "value": ""
+                },
+                {
+                  "language": "gre-grek",
+                  "value": ""
+                }
+              ],
+              "type": "Date"
+            }
+          ],
+          "type": "bf:Publication"
+        }
+      ],
+      "responsibilityStatement": [
+        [
+          {
+            "value": ""
+          },
+          {
+            "language": "gre-grek",
+            "value": ""
+          }
+        ]
+      ],
+      "seriesStatement": [
+        {
+          "seriesEnumeration": [
+            {
+              "value": ""
+            },
+            {
+              "language": "gre-grek",
+              "value": ""
+            }
+          ],
+          "seriesTitle": [
+            {
+              "value": ""
+            },
+            {
+              "language": "gre-grek",
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "subjects": [
+        ""
+      ],
+      "title": [
+        {
+          "mainTitle": [
+            {
+              "value": ""
+            },
+            {
+              "language": "gre-grek",
+              "value": ""
+            }
+          ],
+          "type": "bf:Title"
+        }
+      ],
+      "type": "book"
+    }
   },
   {
-    "pid": "10",
-    "name": "Private template for holdings - Elena Rodriguez",
-    "description": "Private template for holdings Elena Rodriguez.",
+    "pid": "7",
+    "name": "Russian book",
+    "description": "Russian Cyrillic with latin transliteration",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
     "creator": {
-      "$ref": "https://ils.rero.ch/api/patrons/3"
+      "$ref": "https://ils.rero.ch/api/patrons/6"
+    },
+    "visibility": "private",
+    "template_type": "documents",
+    "data": {
+      "contribution": [
+        {
+          "role": [
+            "aut"
+          ]
+        }
+      ],
+      "extent": "",
+      "identifiedBy": [
+        {
+          "type": "bf:Isbn",
+          "value": ""
+        }
+      ],
+      "issuance": {
+        "main_type": "rdami:1001",
+        "subtype": "materialUnit"
+      },
+      "language": [
+        {
+          "type": "bf:Language",
+          "value": "rus"
+        }
+      ],
+      "provisionActivity": [
+        {
+          "place": [
+            {
+              "country": "ru",
+              "type": "bf:Place"
+            }
+          ],
+          "statement": [
+            {
+              "label": [
+                {
+                  "value": ""
+                },
+                {
+                  "language": "rus-cyrl",
+                  "value": ""
+                }
+              ],
+              "type": "bf:Place"
+            },
+            {
+              "label": [
+                {
+                  "value": ""
+                },
+                {
+                  "language": "rus-cyrl",
+                  "value": ""
+                }
+              ],
+              "type": "bf:Agent"
+            },
+            {
+              "label": [
+                {
+                  "value": ""
+                },
+                {
+                  "language": "rus-cyrl",
+                  "value": ""
+                }
+              ],
+              "type": "Date"
+            }
+          ],
+          "type": "bf:Publication"
+        }
+      ],
+      "responsibilityStatement": [
+        [
+          {
+            "value": ""
+          },
+          {
+            "language": "rus-cyrl",
+            "value": ""
+          }
+        ]
+      ],
+      "seriesStatement": [
+        {
+          "seriesEnumeration": [
+            {
+              "value": ""
+            },
+            {
+              "language": "rus-cyrl",
+              "value": ""
+            }
+          ],
+          "seriesTitle": [
+            {
+              "value": ""
+            },
+            {
+              "language": "rus-cyrl",
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "subjects": [
+        ""
+      ],
+      "title": [
+        {
+          "mainTitle": [
+            {
+              "value": ""
+            },
+            {
+              "language": "rus-cyrl",
+              "value": ""
+            }
+          ],
+          "type": "bf:Title"
+        }
+      ],
+      "type": "book"
+    }
+  },
+  {
+    "pid": "8",
+    "name": "Monthly - German",
+    "description": "Example: Bd. 3(1989), Nr. 2",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "call_number": "",
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "frequency": "rdafr:1008",
+        "next_expected_date": "2021-12-20",
+        "template": "Bd. {{first.bd}}({{second.year}}), Nr. {{first.nr}}",
+        "values": [
+          {
+            "levels": [
+              {
+                "next_value": 55,
+                "number_name": "bd",
+                "starting_value": 1
+              },
+              {
+                "completion_value": 12,
+                "number_name": "nr",
+                "starting_value": 1
+              }
+            ],
+            "name": "first"
+          },
+          {
+            "levels": [
+              {
+                "next_value": 2021,
+                "number_name": "year",
+                "starting_value": 1977
+              },
+              {
+                "completion_value": 12,
+                "number_name": "year_completion",
+                "starting_value": 1
+              }
+            ],
+            "name": "second"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "9",
+    "name": "Monthly - English",
+    "description": "Example: Vol. 5(2007), no. 1",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
     },
     "visibility": "private",
     "template_type": "holdings",
-    "data": {}
+    "data": {
+      "call_number": "",
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "frequency": "rdafr:1008",
+        "next_expected_date": "2021-12-20",
+        "template": "Vol. {{first.vol}}({{second.year}}), no. {{first.no}}",
+        "values": [
+          {
+            "levels": [
+              {
+                "next_value": 55,
+                "number_name": "vol",
+                "starting_value": 1
+              },
+              {
+                "completion_value": 12,
+                "number_name": "no",
+                "starting_value": 1
+              }
+            ],
+            "name": "first"
+          },
+          {
+            "levels": [
+              {
+                "next_value": 2021,
+                "number_name": "year",
+                "starting_value": 1977
+              },
+              {
+                "completion_value": 12,
+                "number_name": "year_completion",
+                "starting_value": 1
+              }
+            ],
+            "name": "second"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "10",
+    "name": "Book",
+    "description": "Base model for a usual book",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "documents",
+    "data": {
+      "contribution": [
+        {
+          "role": [
+            "aut"
+          ]
+        }
+      ],
+      "extent": "",
+      "identifiedBy": [
+        {
+          "type": "bf:Isbn",
+          "value": ""
+        }
+      ],
+      "issuance": {
+        "main_type": "rdami:1001",
+        "subtype": "materialUnit"
+      },
+      "language": [
+        {
+          "type": "bf:Language",
+          "value": ""
+        }
+      ],
+      "provisionActivity": [
+        {
+          "place": [
+            {
+              "canton": "",
+              "country": "",
+              "type": "bf:Place"
+            }
+          ],
+          "statement": [
+            {
+              "label": [
+                {
+                  "value": ""
+                }
+              ],
+              "type": "bf:Place"
+            },
+            {
+              "label": [
+                {
+                  "value": ""
+                }
+              ],
+              "type": "bf:Agent"
+            },
+            {
+              "label": [
+                {
+                  "value": ""
+                }
+              ],
+              "type": "Date"
+            }
+          ],
+          "type": "bf:Publication"
+        }
+      ],
+      "responsibilityStatement": [
+        [
+          {
+            "value": ""
+          }
+        ]
+      ],
+      "seriesStatement": [
+        {
+          "seriesEnumeration": [
+            {
+              "value": ""
+            }
+          ],
+          "seriesTitle": [
+            {
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "subjects": [
+        ""
+      ],
+      "title": [
+        {
+          "mainTitle": [
+            {
+              "value": ""
+            }
+          ],
+          "subtitle": [
+            {
+              "value": ""
+            }
+          ],
+          "type": "bf:Title"
+        }
+      ],
+      "translatedFrom": [
+        ""
+      ],
+      "type": "book"
+    }
   },
   {
     "pid": "11",
-    "name": "Private template for items - Elena Rodriguez",
-    "description": "Private template for items Elena Rodriguez.",
+    "name": "DVD, movies",
+    "description": "Base model for a usual DVD or movie",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://ils.rero.ch/api/organisations/2"
     },
     "creator": {
-      "$ref": "https://ils.rero.ch/api/patrons/3"
+      "$ref": "https://ils.rero.ch/api/patrons/13"
     },
-    "visibility": "private",
-    "template_type": "items",
-    "data": {}
+    "visibility": "public",
+    "template_type": "documents",
+    "data": {
+      "abstracts": [
+        ""
+      ],
+      "contribution": [
+        {
+          "role": [
+            "drt"
+          ]
+        }
+      ],
+      "duration": [
+        ""
+      ],
+      "extent": "",
+      "identifiedBy": [
+        {
+          "type": "bf:VideoRecordingNumber",
+          "value": ""
+        }
+      ],
+      "issuance": {
+        "main_type": "rdami:1001",
+        "subtype": "materialUnit"
+      },
+      "language": [
+        {
+          "type": "bf:Language",
+          "value": ""
+        }
+      ],
+      "provisionActivity": [
+        {
+          "place": [
+            {
+              "canton": "",
+              "country": "",
+              "type": "bf:Place"
+            }
+          ],
+          "statement": [
+            {
+              "label": [
+                {
+                  "value": ""
+                }
+              ],
+              "type": "bf:Place"
+            },
+            {
+              "label": [
+                {
+                  "value": ""
+                }
+              ],
+              "type": "bf:Agent"
+            },
+            {
+              "label": [
+                {
+                  "value": ""
+                }
+              ],
+              "type": "Date"
+            }
+          ],
+          "type": "bf:Publication"
+        }
+      ],
+      "responsibilityStatement": [
+        [
+          {
+            "value": ""
+          }
+        ]
+      ],
+      "subjects": [
+        ""
+      ],
+      "title": [
+        {
+          "mainTitle": [
+            {
+              "value": ""
+            }
+          ],
+          "subtitle": [
+            {
+              "value": ""
+            }
+          ],
+          "type": "bf:Title"
+        }
+      ],
+      "type": "video"
+    }
   },
   {
     "pid": "12",
-    "name": "Private template for patrons - Elena Rodriguez",
-    "description": "Private template for patrons Elena Rodriguez.",
+    "name": "Hogwarts bibliography",
+    "description": "In restricted section",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://ils.rero.ch/api/organisations/2"
     },
     "creator": {
-      "$ref": "https://ils.rero.ch/api/patrons/3"
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "items",
+    "data": {
+      "acquisition_date": "",
+      "barcode": "",
+      "call_number": "HOG BIB ",
+      "item_type": {},
+      "location": {}
+    }
+  },
+  {
+    "pid": "13",
+    "name": "Standard patron",
+    "description": "Use this template for a usual registration",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "patrons",
+    "data": {
+      "barcode": "",
+      "birth_date": "",
+      "city": "",
+      "communication_channel": "email",
+      "communication_language": "fre",
+      "email": "",
+      "first_name": "",
+      "last_name": "",
+      "patron_type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/4"
+      },
+      "phone": "",
+      "postal_code": "",
+      "roles": [
+        "patron"
+      ],
+      "street": ""
+    }
+  },
+  {
+    "pid": "14",
+    "name": "Quarterly with seasons - French",
+    "description": "Example: Ann\u00e9e 2018, no 3 (automne)",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "frequency": "rdafr:1010",
+        "next_expected_date": "",
+        "template": "Ann\u00e9e {{first.year}}, no {{second.number}} ({{first.season}})",
+        "values": [
+          {
+            "levels": [
+              {
+                "next_value": 2020,
+                "number_name": "year",
+                "starting_value": 2019
+              },
+              {
+                "list_name": "season",
+                "mapping_values": [
+                  "printemps",
+                  "\u00e9t\u00e9",
+                  "automne",
+                  "hiver"
+                ],
+                "next_value": 4
+              }
+            ],
+            "name": "first"
+          },
+          {
+            "levels": [
+              {
+                "next_value": 284,
+                "number_name": "number",
+                "starting_value": 277
+              }
+            ],
+            "name": "second"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "15",
+    "name": "Greek book",
+    "description": "Greek with latin transliteration",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
     },
     "visibility": "private",
+    "template_type": "documents",
+    "data": {
+      "contribution": [
+        {
+          "role": [
+            "aut"
+          ]
+        }
+      ],
+      "extent": "",
+      "identifiedBy": [
+        {
+          "type": "bf:Isbn",
+          "value": ""
+        }
+      ],
+      "issuance": {
+        "main_type": "rdami:1001",
+        "subtype": "materialUnit"
+      },
+      "language": [
+        {
+          "type": "bf:Language",
+          "value": "gre"
+        }
+      ],
+      "provisionActivity": [
+        {
+          "place": [
+            {
+              "country": "gr",
+              "type": "bf:Place"
+            }
+          ],
+          "statement": [
+            {
+              "label": [
+                {
+                  "value": ""
+                },
+                {
+                  "language": "gre-grek",
+                  "value": ""
+                }
+              ],
+              "type": "bf:Place"
+            },
+            {
+              "label": [
+                {
+                  "value": ""
+                },
+                {
+                  "language": "gre-grek",
+                  "value": ""
+                }
+              ],
+              "type": "bf:Agent"
+            },
+            {
+              "label": [
+                {
+                  "value": ""
+                },
+                {
+                  "language": "gre-grek",
+                  "value": ""
+                }
+              ],
+              "type": "Date"
+            }
+          ],
+          "type": "bf:Publication"
+        }
+      ],
+      "responsibilityStatement": [
+        [
+          {
+            "value": ""
+          },
+          {
+            "language": "gre-grek",
+            "value": ""
+          }
+        ]
+      ],
+      "seriesStatement": [
+        {
+          "seriesEnumeration": [
+            {
+              "value": ""
+            },
+            {
+              "language": "gre-grek",
+              "value": ""
+            }
+          ],
+          "seriesTitle": [
+            {
+              "value": ""
+            },
+            {
+              "language": "gre-grek",
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "subjects": [
+        ""
+      ],
+      "title": [
+        {
+          "mainTitle": [
+            {
+              "value": ""
+            },
+            {
+              "language": "gre-grek",
+              "value": ""
+            }
+          ],
+          "type": "bf:Title"
+        }
+      ],
+      "type": "book"
+    }
+  },
+  {
+    "pid": "16",
+    "name": "Russian book",
+    "description": "Russian Cyrillic with latin transliteration",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "private",
+    "template_type": "documents",
+    "data": {
+      "contribution": [
+        {
+          "role": [
+            "aut"
+          ]
+        }
+      ],
+      "extent": "",
+      "identifiedBy": [
+        {
+          "type": "bf:Isbn",
+          "value": ""
+        }
+      ],
+      "issuance": {
+        "main_type": "rdami:1001",
+        "subtype": "materialUnit"
+      },
+      "language": [
+        {
+          "type": "bf:Language",
+          "value": "rus"
+        }
+      ],
+      "provisionActivity": [
+        {
+          "place": [
+            {
+              "country": "ru",
+              "type": "bf:Place"
+            }
+          ],
+          "statement": [
+            {
+              "label": [
+                {
+                  "value": ""
+                },
+                {
+                  "language": "rus-cyrl",
+                  "value": ""
+                }
+              ],
+              "type": "bf:Place"
+            },
+            {
+              "label": [
+                {
+                  "value": ""
+                },
+                {
+                  "language": "rus-cyrl",
+                  "value": ""
+                }
+              ],
+              "type": "bf:Agent"
+            },
+            {
+              "label": [
+                {
+                  "value": ""
+                },
+                {
+                  "language": "rus-cyrl",
+                  "value": ""
+                }
+              ],
+              "type": "Date"
+            }
+          ],
+          "type": "bf:Publication"
+        }
+      ],
+      "responsibilityStatement": [
+        [
+          {
+            "value": ""
+          },
+          {
+            "language": "rus-cyrl",
+            "value": ""
+          }
+        ]
+      ],
+      "seriesStatement": [
+        {
+          "seriesEnumeration": [
+            {
+              "value": ""
+            },
+            {
+              "language": "rus-cyrl",
+              "value": ""
+            }
+          ],
+          "seriesTitle": [
+            {
+              "value": ""
+            },
+            {
+              "language": "rus-cyrl",
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "subjects": [
+        ""
+      ],
+      "title": [
+        {
+          "mainTitle": [
+            {
+              "value": ""
+            },
+            {
+              "language": "rus-cyrl",
+              "value": ""
+            }
+          ],
+          "type": "bf:Title"
+        }
+      ],
+      "type": "book"
+    }
+  },
+  {
+    "pid": "17",
+    "name": "Monthly - German",
+    "description": "Example: Bd. 3(1989), Nr. 2",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "call_number": "",
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "frequency": "rdafr:1008",
+        "next_expected_date": "2021-12-20",
+        "template": "Bd. {{first.bd}}({{second.year}}), Nr. {{first.nr}}",
+        "values": [
+          {
+            "levels": [
+              {
+                "next_value": 55,
+                "number_name": "bd",
+                "starting_value": 1
+              },
+              {
+                "completion_value": 12,
+                "number_name": "nr",
+                "starting_value": 1
+              }
+            ],
+            "name": "first"
+          },
+          {
+            "levels": [
+              {
+                "next_value": 2021,
+                "number_name": "year",
+                "starting_value": 1977
+              },
+              {
+                "completion_value": 12,
+                "number_name": "year_completion",
+                "starting_value": 1
+              }
+            ],
+            "name": "second"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "18",
+    "name": "Monthly - English",
+    "description": "Example: Vol. 5(2007), no. 1",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "private",
+    "template_type": "holdings",
+    "data": {
+      "call_number": "",
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "frequency": "rdafr:1008",
+        "next_expected_date": "2021-12-20",
+        "template": "Vol. {{first.vol}}({{second.year}}), no. {{first.no}}",
+        "values": [
+          {
+            "levels": [
+              {
+                "next_value": 55,
+                "number_name": "vol",
+                "starting_value": 1
+              },
+              {
+                "completion_value": 12,
+                "number_name": "no",
+                "starting_value": 1
+              }
+            ],
+            "name": "first"
+          },
+          {
+            "levels": [
+              {
+                "next_value": 2021,
+                "number_name": "year",
+                "starting_value": 1977
+              },
+              {
+                "completion_value": 12,
+                "number_name": "year_completion",
+                "starting_value": 1
+              }
+            ],
+            "name": "second"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "19",
+    "name": "Book",
+    "description": "Base model for a usual book",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "documents",
+    "data": {
+      "contribution": [
+        {
+          "role": [
+            "aut"
+          ]
+        }
+      ],
+      "extent": "",
+      "identifiedBy": [
+        {
+          "type": "bf:Isbn",
+          "value": ""
+        }
+      ],
+      "issuance": {
+        "main_type": "rdami:1001",
+        "subtype": "materialUnit"
+      },
+      "language": [
+        {
+          "type": "bf:Language",
+          "value": ""
+        }
+      ],
+      "provisionActivity": [
+        {
+          "place": [
+            {
+              "canton": "",
+              "country": "",
+              "type": "bf:Place"
+            }
+          ],
+          "statement": [
+            {
+              "label": [
+                {
+                  "value": ""
+                }
+              ],
+              "type": "bf:Place"
+            },
+            {
+              "label": [
+                {
+                  "value": ""
+                }
+              ],
+              "type": "bf:Agent"
+            },
+            {
+              "label": [
+                {
+                  "value": ""
+                }
+              ],
+              "type": "Date"
+            }
+          ],
+          "type": "bf:Publication"
+        }
+      ],
+      "responsibilityStatement": [
+        [
+          {
+            "value": ""
+          }
+        ]
+      ],
+      "seriesStatement": [
+        {
+          "seriesEnumeration": [
+            {
+              "value": ""
+            }
+          ],
+          "seriesTitle": [
+            {
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "subjects": [
+        ""
+      ],
+      "title": [
+        {
+          "mainTitle": [
+            {
+              "value": ""
+            }
+          ],
+          "subtitle": [
+            {
+              "value": ""
+            }
+          ],
+          "type": "bf:Title"
+        }
+      ],
+      "translatedFrom": [
+        ""
+      ],
+      "type": "book"
+    }
+  },
+  {
+    "pid": "20",
+    "name": "DVD, movies",
+    "description": "Base model for a usual DVD or movie",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "documents",
+    "data": {
+      "abstracts": [
+        ""
+      ],
+      "contribution": [
+        {
+          "role": [
+            "drt"
+          ]
+        }
+      ],
+      "duration": [
+        ""
+      ],
+      "extent": "",
+      "identifiedBy": [
+        {
+          "type": "bf:VideoRecordingNumber",
+          "value": ""
+        }
+      ],
+      "issuance": {
+        "main_type": "rdami:1001",
+        "subtype": "materialUnit"
+      },
+      "language": [
+        {
+          "type": "bf:Language",
+          "value": ""
+        }
+      ],
+      "provisionActivity": [
+        {
+          "place": [
+            {
+              "canton": "",
+              "country": "",
+              "type": "bf:Place"
+            }
+          ],
+          "statement": [
+            {
+              "label": [
+                {
+                  "value": ""
+                }
+              ],
+              "type": "bf:Place"
+            },
+            {
+              "label": [
+                {
+                  "value": ""
+                }
+              ],
+              "type": "bf:Agent"
+            },
+            {
+              "label": [
+                {
+                  "value": ""
+                }
+              ],
+              "type": "Date"
+            }
+          ],
+          "type": "bf:Publication"
+        }
+      ],
+      "responsibilityStatement": [
+        [
+          {
+            "value": ""
+          }
+        ]
+      ],
+      "subjects": [
+        ""
+      ],
+      "title": [
+        {
+          "mainTitle": [
+            {
+              "value": ""
+            }
+          ],
+          "subtitle": [
+            {
+              "value": ""
+            }
+          ],
+          "type": "bf:Title"
+        }
+      ],
+      "type": "video"
+    }
+  },
+  {
+    "pid": "21",
+    "name": "Bibliography of fictive libraries",
+    "description": "Very specifal item that must be preserved for eternity!",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "items",
+    "data": {
+      "acquisition_date": "",
+      "barcode": "",
+      "call_number": "FICT BIB ",
+      "item_type": {},
+      "location": {}
+    }
+  },
+  {
+    "pid": "22",
+    "name": "Standard patron",
+    "description": "Use this template for a usual registration",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
     "template_type": "patrons",
-    "data": {}
+    "data": {
+      "barcode": "",
+      "birth_date": "",
+      "city": "",
+      "communication_channel": "email",
+      "communication_language": "fre",
+      "email": "",
+      "first_name": "",
+      "last_name": "",
+      "patron_type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/5"
+      },
+      "phone": "",
+      "postal_code": "",
+      "roles": [
+        "patron"
+      ],
+      "street": ""
+    }
+  },
+  {
+    "pid": "23",
+    "name": "Quarterly with seasons - French",
+    "description": "Example: Ann\u00e9e 2018, no 3 (automne)",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "frequency": "rdafr:1010",
+        "next_expected_date": "",
+        "template": "Ann\u00e9e {{first.year}}, no {{second.number}} ({{first.season}})",
+        "values": [
+          {
+            "levels": [
+              {
+                "next_value": 2020,
+                "number_name": "year",
+                "starting_value": 2019
+              },
+              {
+                "list_name": "season",
+                "mapping_values": [
+                  "printemps",
+                  "\u00e9t\u00e9",
+                  "automne",
+                  "hiver"
+                ],
+                "next_value": 4
+              }
+            ],
+            "name": "first"
+          },
+          {
+            "levels": [
+              {
+                "next_value": 284,
+                "number_name": "number",
+                "starting_value": 277
+              }
+            ],
+            "name": "second"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "24",
+    "name": "Greek book",
+    "description": "Greek with latin transliteration",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "private",
+    "template_type": "documents",
+    "data": {
+      "contribution": [
+        {
+          "role": [
+            "aut"
+          ]
+        }
+      ],
+      "extent": "",
+      "identifiedBy": [
+        {
+          "type": "bf:Isbn",
+          "value": ""
+        }
+      ],
+      "issuance": {
+        "main_type": "rdami:1001",
+        "subtype": "materialUnit"
+      },
+      "language": [
+        {
+          "type": "bf:Language",
+          "value": "gre"
+        }
+      ],
+      "provisionActivity": [
+        {
+          "place": [
+            {
+              "country": "gr",
+              "type": "bf:Place"
+            }
+          ],
+          "statement": [
+            {
+              "label": [
+                {
+                  "value": ""
+                },
+                {
+                  "language": "gre-grek",
+                  "value": ""
+                }
+              ],
+              "type": "bf:Place"
+            },
+            {
+              "label": [
+                {
+                  "value": ""
+                },
+                {
+                  "language": "gre-grek",
+                  "value": ""
+                }
+              ],
+              "type": "bf:Agent"
+            },
+            {
+              "label": [
+                {
+                  "value": ""
+                },
+                {
+                  "language": "gre-grek",
+                  "value": ""
+                }
+              ],
+              "type": "Date"
+            }
+          ],
+          "type": "bf:Publication"
+        }
+      ],
+      "responsibilityStatement": [
+        [
+          {
+            "value": ""
+          },
+          {
+            "language": "gre-grek",
+            "value": ""
+          }
+        ]
+      ],
+      "seriesStatement": [
+        {
+          "seriesEnumeration": [
+            {
+              "value": ""
+            },
+            {
+              "language": "gre-grek",
+              "value": ""
+            }
+          ],
+          "seriesTitle": [
+            {
+              "value": ""
+            },
+            {
+              "language": "gre-grek",
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "subjects": [
+        ""
+      ],
+      "title": [
+        {
+          "mainTitle": [
+            {
+              "value": ""
+            },
+            {
+              "language": "gre-grek",
+              "value": ""
+            }
+          ],
+          "type": "bf:Title"
+        }
+      ],
+      "type": "book"
+    }
+  },
+  {
+    "pid": "25",
+    "name": "Russian book",
+    "description": "Russian Cyrillic with latin transliteration",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "private",
+    "template_type": "documents",
+    "data": {
+      "contribution": [
+        {
+          "role": [
+            "aut"
+          ]
+        }
+      ],
+      "extent": "",
+      "identifiedBy": [
+        {
+          "type": "bf:Isbn",
+          "value": ""
+        }
+      ],
+      "issuance": {
+        "main_type": "rdami:1001",
+        "subtype": "materialUnit"
+      },
+      "language": [
+        {
+          "type": "bf:Language",
+          "value": "rus"
+        }
+      ],
+      "provisionActivity": [
+        {
+          "place": [
+            {
+              "country": "ru",
+              "type": "bf:Place"
+            }
+          ],
+          "statement": [
+            {
+              "label": [
+                {
+                  "value": ""
+                },
+                {
+                  "language": "rus-cyrl",
+                  "value": ""
+                }
+              ],
+              "type": "bf:Place"
+            },
+            {
+              "label": [
+                {
+                  "value": ""
+                },
+                {
+                  "language": "rus-cyrl",
+                  "value": ""
+                }
+              ],
+              "type": "bf:Agent"
+            },
+            {
+              "label": [
+                {
+                  "value": ""
+                },
+                {
+                  "language": "rus-cyrl",
+                  "value": ""
+                }
+              ],
+              "type": "Date"
+            }
+          ],
+          "type": "bf:Publication"
+        }
+      ],
+      "responsibilityStatement": [
+        [
+          {
+            "value": ""
+          },
+          {
+            "language": "rus-cyrl",
+            "value": ""
+          }
+        ]
+      ],
+      "seriesStatement": [
+        {
+          "seriesEnumeration": [
+            {
+              "value": ""
+            },
+            {
+              "language": "rus-cyrl",
+              "value": ""
+            }
+          ],
+          "seriesTitle": [
+            {
+              "value": ""
+            },
+            {
+              "language": "rus-cyrl",
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "subjects": [
+        ""
+      ],
+      "title": [
+        {
+          "mainTitle": [
+            {
+              "value": ""
+            },
+            {
+              "language": "rus-cyrl",
+              "value": ""
+            }
+          ],
+          "type": "bf:Title"
+        }
+      ],
+      "type": "book"
+    }
+  },
+  {
+    "pid": "26",
+    "name": "Monthly - German",
+    "description": "Example: Bd. 3(1989), Nr. 2",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "call_number": "",
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "frequency": "rdafr:1008",
+        "next_expected_date": "2021-12-20",
+        "template": "Bd. {{first.bd}}({{second.year}}), Nr. {{first.nr}}",
+        "values": [
+          {
+            "levels": [
+              {
+                "next_value": 55,
+                "number_name": "bd",
+                "starting_value": 1
+              },
+              {
+                "completion_value": 12,
+                "number_name": "nr",
+                "starting_value": 1
+              }
+            ],
+            "name": "first"
+          },
+          {
+            "levels": [
+              {
+                "next_value": 2021,
+                "number_name": "year",
+                "starting_value": 1977
+              },
+              {
+                "completion_value": 12,
+                "number_name": "year_completion",
+                "starting_value": 1
+              }
+            ],
+            "name": "second"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "27",
+    "name": "Monthly - English",
+    "description": "Example: Vol. 5(2007), no. 1",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "private",
+    "template_type": "holdings",
+    "data": {
+      "call_number": "",
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "frequency": "rdafr:1008",
+        "next_expected_date": "2021-12-20",
+        "template": "Vol. {{first.vol}}({{second.year}}), no. {{first.no}}",
+        "values": [
+          {
+            "levels": [
+              {
+                "next_value": 55,
+                "number_name": "vol",
+                "starting_value": 1
+              },
+              {
+                "completion_value": 12,
+                "number_name": "no",
+                "starting_value": 1
+              }
+            ],
+            "name": "first"
+          },
+          {
+            "levels": [
+              {
+                "next_value": 2021,
+                "number_name": "year",
+                "starting_value": 1977
+              },
+              {
+                "completion_value": 12,
+                "number_name": "year_completion",
+                "starting_value": 1
+              }
+            ],
+            "name": "second"
+          }
+        ]
+      }
+    }
   }
 ]
