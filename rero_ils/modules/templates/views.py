@@ -24,6 +24,7 @@ from flask import Blueprint
 blueprint = Blueprint(
     'templates',
     __name__,
+    url_prefix='/template',
     template_folder='templates',
     static_folder='static',
 )
