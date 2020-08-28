@@ -50,7 +50,6 @@ from invenio_oauth2server.cli import process_scopes, process_user
 from invenio_oauth2server.models import Client, Token
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_records.api import Record
-from invenio_records_rest.utils import obj_or_import_string
 from invenio_search.cli import es_version_check
 from invenio_search.proxies import current_search
 from jsonschema import validate
@@ -66,7 +65,7 @@ from .items.cli import create_items, reindex_items
 from .loans.cli import create_loans
 from .patrons.cli import import_users
 from .tasks import process_bulk_queue
-from .utils import read_json_record
+from .utils import get_record_class_from_schema_or_pid_type, read_json_record
 from ..modules.providers import append_fixtures_new_identifiers
 from ..modules.utils import get_schema_for_resource
 
@@ -257,10 +256,9 @@ def create(infile, append, reindex, dbcommit, verbose, schema, pid_type, lazy,
         ),
         fg='green'
     )
-    record_class = obj_or_import_string(
-        current_app.config
-        .get('RECORDS_REST_ENDPOINTS')
-        .get(pid_type).get('record_class', Record))
+
+    record_class = get_record_class_from_schema_or_pid_type(pid_type=pid_type)
+
     count = 0
     error_records = []
     pids = []
@@ -865,12 +863,8 @@ def reserve_pid_range(pid_type, records_number, unused):
     except ValueError:
         raise ValueError('Parameter records_number must be integer.')
 
-    try:
-        record_class = obj_or_import_string(
-            current_app.config
-            .get('RECORDS_REST_ENDPOINTS')
-            .get(pid_type).get('record_class', Record))
-    except AttributeError:
+    record_class = get_record_class_from_schema_or_pid_type(pid_type=pid_type)
+    if not record_class:
         raise AttributeError('Invalid pid type.')
 
     identifier = record_class.provider.identifier
@@ -1403,11 +1397,7 @@ def export(verbose, pid_type, outfile, pidfile, indent, schema):
         ),
         fg='green'
     )
-
-    record_class = obj_or_import_string(
-        current_app.config
-        .get('RECORDS_REST_ENDPOINTS')
-        .get(pid_type).get('record_class', Record))
+    record_class = get_record_class_from_schema_or_pid_type(pid_type=pid_type)
 
     if pidfile:
         pids = pidfile

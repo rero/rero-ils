@@ -463,14 +463,11 @@ class IlsRecordsIndexer(RecordIndexer):
 
     def _get_record_class(self, payload):
         """Get the record class from payload."""
+        from .utils import get_record_class_from_schema_or_pid_type
+
         # take the first defined doc type for finding the class
         pid_type = payload.get('doc_type', 'rec')
-        record_class = obj_or_import_string(
-            current_app.config.get('RECORDS_REST_ENDPOINTS').get(
-                pid_type
-            ).get('record_class', Record)
-        )
-        return record_class
+        return get_record_class_from_schema_or_pid_type(pid_type=pid_type)
 
     def _actionsiter(self, message_iterator):
         """Iterate bulk actions.

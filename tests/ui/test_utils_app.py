@@ -18,7 +18,9 @@
 """Test utils."""
 
 from rero_ils.modules.documents.api import Document
-from rero_ils.modules.utils import get_ref_for_pid, pids_exists_in_data
+from rero_ils.modules.patrons.api import Patron
+from rero_ils.modules.utils import get_record_class_from_schema_or_pid_type, \
+    get_ref_for_pid, pids_exists_in_data
 from rero_ils.utils import get_current_language
 
 
@@ -87,3 +89,34 @@ def test_pids_exists_in_data(app, org_martigny, lib_martigny):
 def test_get_language(app):
     """Test get the current language of the application."""
     assert get_current_language() == 'en'
+
+
+def test_get_record_class_from_schema_or_pid_type(app):
+    """Test get record class from schema or pid_type."""
+    schema = 'https://ils.rero.ch/schemas/documents/document-v0.0.1.json'
+    assert get_record_class_from_schema_or_pid_type(schema=schema) == Document
+    assert get_record_class_from_schema_or_pid_type(pid_type='doc') == Document
+    assert get_record_class_from_schema_or_pid_type(
+        schema=schema, pid_type='doc') == Document
+    assert get_record_class_from_schema_or_pid_type(
+        schema=schema, pid_type='ptrn') == Document
+
+    schema = 'https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json'
+    assert get_record_class_from_schema_or_pid_type(
+        schema=schema, pid_type='doc') == Patron
+    assert get_record_class_from_schema_or_pid_type(
+        schema=schema, pid_type='ptrn') == Patron
+    assert get_record_class_from_schema_or_pid_type(pid_type='ptrn') == Patron
+
+    assert not get_record_class_from_schema_or_pid_type(pid_type='toto')
+    assert not get_record_class_from_schema_or_pid_type(
+        schema='toto', pid_type=None)
+    assert not get_record_class_from_schema_or_pid_type(
+        schema='toto', pid_type='toto')
+    assert not get_record_class_from_schema_or_pid_type(
+        schema=None, pid_type=None)
+    assert not get_record_class_from_schema_or_pid_type(
+        schema=None, pid_type='toto')
+    assert not get_record_class_from_schema_or_pid_type(schema=None)
+    assert not get_record_class_from_schema_or_pid_type(pid_type=None)
+    assert not get_record_class_from_schema_or_pid_type()
