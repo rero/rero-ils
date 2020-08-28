@@ -376,3 +376,28 @@ def get_ref_for_pid(module, pid):
             route=configuration.get('list_route'),
             pid=pid
         )
+
+
+def get_record_class_from_schema_or_pid_type(schema=None, pid_type=None):
+    """Get the record class from a given schema or a pid type.
+
+    If both the schema and pid_type are given, the record_class of the
+    schema will be returned.
+
+    :param schema: record schema.
+    :param pid_type: record pid type.
+    :return: the record class.
+    """
+    if schema:
+        try:
+            pid_type_schema_value = schema.split('schemas')[1]
+            schemas = current_app.config.get('RECORDS_JSON_SCHEMA')
+            pid_type = [key for key, value in schemas.items()
+                        if value == pid_type_schema_value][0]
+        except IndexError:
+            pass
+    record_class = obj_or_import_string(
+        current_app.config
+        .get('RECORDS_REST_ENDPOINTS')
+        .get(pid_type, {}).get('record_class'))
+    return record_class
