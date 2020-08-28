@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "title": "AcqOrderLine",
-  "description": "JSON schema for Acquisition Order Line.",
+  "title": "Acquisition order line",
+  "description": "JSON schema for acquisition order line.",
   "additionalProperties": false,
   "propertiesOrder": [
     "acq_account",
@@ -25,13 +25,13 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate Acquisition Order Line records against.",
+      "description": "Schema to validate acquisition order line records against.",
       "type": "string",
       "default": "https://ils.rero.ch/schemas/acq_order_lines/acq_order_line-v0.0.1.json",
       "pattern": "^https://ils.rero.ch/schemas/acq_order_lines/acq_order_line-v([0-9]+?\\.){3}json$"
     },
     "pid": {
-      "title": "AcqOrderLine ID",
+      "title": "Acquisition order line ID",
       "type": "string",
       "minLength": 1
     },
@@ -142,7 +142,7 @@
       }
     },
     "acq_order": {
-      "title": "Acquisition Order",
+      "title": "Acquisition order",
       "type": "object",
       "properties": {
         "$ref": {
@@ -161,6 +161,9 @@
           "type": "string",
           "pattern": "^https://ils.rero.ch/api/documents/.+?$",
           "form": {
+            "remoteTypeahead": {
+              "type": "documents"
+            },
             "validation": {
               "messages": {
                 "patternMessage": "Should be in the following format: https://ils.rero.ch/api/documents/<PID>."
