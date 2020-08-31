@@ -272,7 +272,7 @@ def test_template_secure_api_update(client,
         data=json.dumps(data),
         headers=json_header
     )
-    assert res.status_code == 200
+    assert res.status_code == 403
 
     login_user_via_session(client, librarian_martigny_no_email.user)
     data = templ_doc_private_martigny_data
@@ -283,6 +283,25 @@ def test_template_secure_api_update(client,
         headers=json_header
     )
     assert res.status_code == 200
+
+    data = templ_doc_private_martigny_data
+    data['visibility'] = 'public'
+    res = client.put(
+        record_url,
+        data=json.dumps(data),
+        headers=json_header
+    )
+    assert res.status_code == 403
+
+    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    data = templ_doc_private_martigny_data
+    data['visibility'] = 'public'
+    res = client.put(
+        record_url,
+        data=json.dumps(data),
+        headers=json_header
+    )
+    assert res.status_code == 403
 
     login_user_via_session(client, librarian_saxon_no_email.user)
     data = templ_doc_private_martigny_data
@@ -329,7 +348,7 @@ def test_template_secure_api_delete(client,
     # Martigny
     login_user_via_session(client, system_librarian_martigny_no_email.user)
     res = client.delete(record_url)
-    assert res.status_code == 204
+    assert res.status_code == 403
 
     record_url = url_for('invenio_records_rest.tmpl_item',
                          pid_value=templ_doc_public_martigny.pid)
