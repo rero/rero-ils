@@ -1626,6 +1626,32 @@ RECORDS_REST_FACETS = dict(
             _('sources'): and_term_filter('sources')
         }
     ),
+    templates=dict(
+        aggs=dict(
+            template_type=dict(
+                terms=dict(
+                    field='template_type',
+                    # This does not take into account
+                    # env variable or instance config file
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'templates', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            ),
+            visibility=dict(
+                terms=dict(
+                    field='visibility',
+                    # This does not take into account
+                    # env variable or instance config file
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'visibility', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            )
+        ),
+        filters={
+            _('templates'): and_term_filter('templates'),
+            _('visibility'): and_term_filter('visibility')
+        }
+    )
 )
 
 # Elasticsearch fields boosting by index
