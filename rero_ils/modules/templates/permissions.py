@@ -18,6 +18,8 @@
 
 """Templates permissions."""
 
+from flask import request
+
 from rero_ils.modules.organisations.api import current_organisation
 from rero_ils.modules.patrons.api import current_patron
 from rero_ils.modules.permissions import RecordPermission
@@ -32,7 +34,7 @@ class TemplatePermission(RecordPermission):
 
         :param user: Logged user.
         :param record: Record to check.
-        :return: True is action can be done.
+        :return: True if action can be done.
         """
         # Operation allowed only for staff members (lib, sys_lib)
         return current_patron and current_patron.is_librarian
@@ -43,7 +45,7 @@ class TemplatePermission(RecordPermission):
 
         :param user: Logged user.
         :param record: Record to check.
-        :return: True is action can be done.
+        :return: True if action can be done.
         """
         # Check the user is authenticated and a record exists as param.
         if not record or not current_patron:
@@ -65,7 +67,7 @@ class TemplatePermission(RecordPermission):
 
         :param user: Logged user.
         :param record: Record to check.
-        :return: True is action can be done.
+        :return: True if action can be done.
         """
         # only librarian or system_librarian can create templates
         if not current_patron or not current_patron.is_librarian:
@@ -81,21 +83,29 @@ class TemplatePermission(RecordPermission):
 
         :param user: Logged user.
         :param record: Record to check.
-        :return: True is action can be done.
+        :return: True if action can be done.
         """
-        # User must be be authenticated and have (at least) librarian role
+        # User must be authenticated and have (at least) librarian role
         if not current_patron or not current_patron.is_librarian:
             return False
-        # * User can only update record of its own organisation
+        # User can only update record of its own organisation
         if current_organisation['pid'] == record.organisation_pid:
-            #   - 'sys_librarian' could always update any record
+            #   - 'sys_librarian' can update public and his own private records
             if current_patron.is_system_librarian:
+                if record.is_private and \
+                        record.creator_pid != current_patron.pid:
+                    return False
                 return True
-            #   - 'librarian' could only update his own records.
-            elif current_patron.is_librarian and \
-                    record.is_private and \
-                    record.creator_pid == current_patron.pid:
-                return True
+            #   - 'librarian' can only update his own private records
+            #     He cannot change the visibility
+            elif current_patron.is_librarian:
+                new_template = request.get_json()
+                if new_template is not None and \
+                        record['visibility'] != new_template['visibility']:
+                    return False
+                elif record.is_private and \
+                        record.creator_pid == current_patron.pid:
+                    return True
         return False
 
     @classmethod
