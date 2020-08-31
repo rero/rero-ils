@@ -94,8 +94,8 @@ def test_templates_permissions_api(client, patron_martigny_no_email,
     data = get_json(res)
     assert data['read']['can']
     assert data['list']['can']
-    assert data['update']['can']
-    assert data['delete']['can']
+    assert not data['update']['can']
+    assert not data['delete']['can']
 
     res = client.get(templ_sion_pub_url)
     assert res.status_code == 200
@@ -160,9 +160,9 @@ def test_template_permissions(
     ):
         assert TemplatePermission.list(None, templ_doc_private_martigny)
         assert TemplatePermission.read(None, templ_doc_private_martigny)
-        assert TemplatePermission.create(None, templ_doc_private_martigny)
-        assert TemplatePermission.update(None, templ_doc_private_martigny)
-        assert TemplatePermission.delete(None, templ_doc_private_martigny)
+        assert not TemplatePermission.create(None, templ_doc_private_martigny)
+        assert not TemplatePermission.update(None, templ_doc_private_martigny)
+        assert not TemplatePermission.delete(None, templ_doc_private_martigny)
 
         assert not TemplatePermission.read(None, templ_doc_public_sion)
         assert not TemplatePermission.create(None, templ_doc_public_sion)
