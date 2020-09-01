@@ -20,17 +20,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
-"POT-Creation-Date: 2020-08-25 13:45+0200\n"
+"POT-Creation-Date: 2020-09-01 12:25+0200\n"
 "PO-Revision-Date: 2020-08-26 07:00+0000\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
-"rero-ils/fr/>\n"
 "Language: fr\n"
+"Language-Team: French <https://hosted.weblate.org/projects/rero_plus"
+"/rero-ils/fr/>\n"
+"Plural-Forms: nplurals=2; plural=n > 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.2.1-dev\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: rero_ils/config.py:120
@@ -59,74 +58,74 @@ msgstr "RERO ILS"
 msgid "Welcome to RERO-ILS!"
 msgstr "Bienvenue sur RERO-ILS !"
 
-#: rero_ils/config.py:1385
+#: rero_ils/config.py:1390
 msgid "document_type"
 msgstr "Type de document"
 
-#: rero_ils/config.py:1386
+#: rero_ils/config.py:1391
 msgid "organisation"
 msgstr "organisation"
 
-#: rero_ils/config.py:1389
+#: rero_ils/config.py:1394
 #, fuzzy
 msgid "new_acquisition"
 msgstr "Modalité d'acquisition"
 
-#: rero_ils/config.py:1390 rero_ils/config.py:1425 rero_ils/config.py:1464
-#: rero_ils/config.py:1486 rero_ils/config.py:1508
+#: rero_ils/config.py:1395 rero_ils/config.py:1430 rero_ils/config.py:1469
+#: rero_ils/config.py:1491 rero_ils/config.py:1513
 msgid "library"
 msgstr "bibliothèque"
 
-#: rero_ils/config.py:1391
+#: rero_ils/config.py:1396
 #, fuzzy
 msgid "contribution__en"
 msgstr "Diffusion, distribution"
 
-#: rero_ils/config.py:1392
+#: rero_ils/config.py:1397
 #, fuzzy
 msgid "contribution__fr"
 msgstr "Diffusion, distribution"
 
-#: rero_ils/config.py:1393
+#: rero_ils/config.py:1398
 #, fuzzy
 msgid "contribution__de"
 msgstr "Diffusion, distribution"
 
-#: rero_ils/config.py:1394
+#: rero_ils/config.py:1399
 #, fuzzy
 msgid "contribution__it"
 msgstr "Diffusion, distribution"
 
-#: rero_ils/config.py:1395
+#: rero_ils/config.py:1400
 msgid "language"
 msgstr "langue"
 
-#: rero_ils/config.py:1396
+#: rero_ils/config.py:1401
 msgid "subject"
 msgstr "sujet"
 
-#: rero_ils/config.py:1397 rero_ils/config.py:1427 rero_ils/config.py:1487
-#: rero_ils/config.py:1509
+#: rero_ils/config.py:1402 rero_ils/config.py:1432 rero_ils/config.py:1492
+#: rero_ils/config.py:1514
 msgid "status"
 msgstr "statut"
 
-#: rero_ils/config.py:1424
+#: rero_ils/config.py:1429
 msgid "location"
 msgstr "Localisation"
 
-#: rero_ils/config.py:1426
+#: rero_ils/config.py:1431
 msgid "item_type"
 msgstr "Type d'exemplaire"
 
-#: rero_ils/config.py:1443
+#: rero_ils/config.py:1448
 msgid "roles"
 msgstr "rôles"
 
-#: rero_ils/config.py:1465
+#: rero_ils/config.py:1470
 msgid "budget"
 msgstr "budget"
 
-#: rero_ils/config.py:1525
+#: rero_ils/config.py:1530
 msgid "sources"
 msgstr "sources"
 
@@ -4640,6 +4639,16 @@ msgstr "Moissonné"
 msgid "Document is harvested or not, will disable record edition or similar."
 msgstr "Document moissonné ou non ; ceci désactive l'édition de la notice."
 
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:136
+#, fuzzy
+msgid "Draft"
+msgstr "IdRef"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:137
+#, fuzzy
+msgid "Document is a draft record or not, will disable record validation."
+msgstr "Document moissonné ou non ; ceci désactive l'édition de la notice."
+
 #: rero_ils/modules/documents/jsonschemas/documents/document_abstract-v0.0.1.json:3
 msgid "Abstracts"
 msgstr "Résumés"
@@ -5951,7 +5960,8 @@ msgstr "Contenu illustratif"
 #: rero_ils/modules/documents/jsonschemas/documents/document_illustrative_content-v0.0.1.json:12
 msgid "RDA recommended terms: illustrations, maps, photographs, portraits, ..."
 msgstr ""
-"Termes recommandés par RDA : illustrations, cartes, photographies, portraits…"
+"Termes recommandés par RDA : illustrations, cartes, photographies, "
+"portraits…"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:3
 msgid "Mode of issuance"
@@ -8257,3 +8267,4 @@ msgstr "Cliquez ici pour réinitialiser votre mot de passe"
 
 #~ msgid "Item PID"
 #~ msgstr "PID de l'exemplaire"
+

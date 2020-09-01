@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
-"POT-Creation-Date: 2020-08-25 13:45+0200\n"
+"POT-Creation-Date: 2020-09-01 12:25+0200\n"
 "PO-Revision-Date: 2020-08-20 07:01+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language: de\n"
@@ -54,74 +54,74 @@ msgstr "RERO ILS"
 msgid "Welcome to RERO-ILS!"
 msgstr "Willkommen zu RERO ILS!"
 
-#: rero_ils/config.py:1385
+#: rero_ils/config.py:1390
 msgid "document_type"
 msgstr "Dokumenttyp"
 
-#: rero_ils/config.py:1386
+#: rero_ils/config.py:1391
 msgid "organisation"
 msgstr "Organisation"
 
-#: rero_ils/config.py:1389
+#: rero_ils/config.py:1394
 #, fuzzy
 msgid "new_acquisition"
 msgstr "Bezugsbedingung"
 
-#: rero_ils/config.py:1390 rero_ils/config.py:1425 rero_ils/config.py:1464
-#: rero_ils/config.py:1486 rero_ils/config.py:1508
+#: rero_ils/config.py:1395 rero_ils/config.py:1430 rero_ils/config.py:1469
+#: rero_ils/config.py:1491 rero_ils/config.py:1513
 msgid "library"
 msgstr "Bibliothek"
 
-#: rero_ils/config.py:1391
+#: rero_ils/config.py:1396
 #, fuzzy
 msgid "contribution__en"
 msgstr "Verteilung"
 
-#: rero_ils/config.py:1392
+#: rero_ils/config.py:1397
 #, fuzzy
 msgid "contribution__fr"
 msgstr "Verteilung"
 
-#: rero_ils/config.py:1393
+#: rero_ils/config.py:1398
 #, fuzzy
 msgid "contribution__de"
 msgstr "Verteilung"
 
-#: rero_ils/config.py:1394
+#: rero_ils/config.py:1399
 #, fuzzy
 msgid "contribution__it"
 msgstr "Verteilung"
 
-#: rero_ils/config.py:1395
+#: rero_ils/config.py:1400
 msgid "language"
 msgstr "Sprache"
 
-#: rero_ils/config.py:1396
+#: rero_ils/config.py:1401
 msgid "subject"
 msgstr "Schlagwort"
 
-#: rero_ils/config.py:1397 rero_ils/config.py:1427 rero_ils/config.py:1487
-#: rero_ils/config.py:1509
+#: rero_ils/config.py:1402 rero_ils/config.py:1432 rero_ils/config.py:1492
+#: rero_ils/config.py:1514
 msgid "status"
 msgstr "Status"
 
-#: rero_ils/config.py:1424
+#: rero_ils/config.py:1429
 msgid "location"
 msgstr "Standort"
 
-#: rero_ils/config.py:1426
+#: rero_ils/config.py:1431
 msgid "item_type"
 msgstr "Exemplartyp"
 
-#: rero_ils/config.py:1443
+#: rero_ils/config.py:1448
 msgid "roles"
 msgstr "Rollen"
 
-#: rero_ils/config.py:1465
+#: rero_ils/config.py:1470
 msgid "budget"
 msgstr "Budget"
 
-#: rero_ils/config.py:1525
+#: rero_ils/config.py:1530
 msgid "sources"
 msgstr "Quellen"
 
@@ -4633,6 +4633,18 @@ msgstr "Gesammelt"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:131
 msgid "Document is harvested or not, will disable record edition or similar."
+msgstr ""
+"Dokument wird gesammelt oder nicht ; dies deaktiviert die Bearbeitung der"
+" Ressource."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:136
+#, fuzzy
+msgid "Draft"
+msgstr "IdRef"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:137
+#, fuzzy
+msgid "Document is a draft record or not, will disable record validation."
 msgstr ""
 "Dokument wird gesammelt oder nicht ; dies deaktiviert die Bearbeitung der"
 " Ressource."
