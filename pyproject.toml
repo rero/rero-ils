@@ -73,6 +73,7 @@ python-dotenv = "^0.13.0"
 
 ## Third party optional modules used by RERO ILS
 invenio-sip2 = {tag= "v0.2.0", git = "https://github.com/inveniosoftware-contrib/invenio-sip2.git", optional = true}
+flask-cors = ">3.0.8"
 
 [tool.poetry.dev-dependencies]
 ## Python packages development dependencies (order matters)
