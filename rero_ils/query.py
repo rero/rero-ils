@@ -2,6 +2,7 @@
 #
 # RERO ILS
 # Copyright (C) 2019 RERO
+# Copyright (C) 2020 UCLOUVAIN
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,6 +26,7 @@ from elasticsearch_dsl.query import Q
 from flask import current_app, request
 from invenio_records_rest.errors import InvalidQueryRESTError
 
+from .facets import i18n_facets_factory
 from .modules.organisations.api import Organisation, current_organisation
 from .modules.patrons.api import current_patron
 
@@ -270,6 +272,8 @@ def search_factory(self, search, query_parser=None):
         raise InvalidQueryRESTError()
 
     search, urlkwargs = default_facets_factory(search, search_index)
+    # i18n translated facets
+    search = i18n_facets_factory(search, search_index)
     search, sortkwargs = default_sorter_factory(search, search_index)
     for key, value in sortkwargs.items():
         urlkwargs.add(key, value)

@@ -1340,27 +1340,31 @@ DOCUMENTS_AGGREGATION_SIZE = RERO_ILS_AGGREGATION_SIZE.get(
     'documents', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
 RECORDS_REST_FACETS = dict(
     documents=dict(
+        i18n_aggs=dict(
+            author=dict(
+                en=dict(
+                    terms=dict(field='facet_contribution_en',
+                               size=DOCUMENTS_AGGREGATION_SIZE)
+                ),
+                fr=dict(
+                    terms=dict(field='facet_contribution_fr',
+                               size=DOCUMENTS_AGGREGATION_SIZE)
+                ),
+                de=dict(
+                    terms=dict(field='facet_contribution_de',
+                               size=DOCUMENTS_AGGREGATION_SIZE)
+                ),
+                it=dict(
+                    terms=dict(field='facet_contribution_it',
+                               size=DOCUMENTS_AGGREGATION_SIZE)
+                ),
+            ),
+        ),
         aggs=dict(
             # The organisation or library facet is defined
             # dynamically during the query (query.py)
             document_type=dict(
                 terms=dict(field='type',
-                           size=DOCUMENTS_AGGREGATION_SIZE)
-            ),
-            contribution__en=dict(
-                terms=dict(field='facet_contribution_en',
-                           size=DOCUMENTS_AGGREGATION_SIZE)
-            ),
-            contribution__fr=dict(
-                terms=dict(field='facet_contribution_fr',
-                           size=DOCUMENTS_AGGREGATION_SIZE)
-            ),
-            contribution__de=dict(
-                terms=dict(field='facet_contribution_de',
-                           size=DOCUMENTS_AGGREGATION_SIZE)
-            ),
-            contribution__it=dict(
-                terms=dict(field='facet_contribution_it',
                            size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             language=dict(
