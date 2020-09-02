@@ -173,8 +173,7 @@ def test_documents_facets(
     aggs = data['aggregations']
     # check all facets are present
     for facet in [
-        'document_type', 'contribution__en', 'contribution__fr',
-        'contribution__de', 'contribution__it', 'language', 'subject', 'status'
+        'document_type', 'author', 'language', 'subject', 'status'
     ]:
         assert aggs[facet]
 
