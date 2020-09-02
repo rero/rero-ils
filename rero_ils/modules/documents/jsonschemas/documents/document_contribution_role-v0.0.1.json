@@ -161,595 +161,595 @@
     "options": [
       {
         "value": "aut",
-        "label": "author"
+        "label": "aut"
       },
       {
         "value": "cmp",
-        "label": "composer"
+        "label": "cmp"
       },
       {
         "value": "ctb",
-        "label": "contributor"
+        "label": "ctb"
       },
       {
         "value": "edt",
-        "label": "editor"
+        "label": "edt"
       },
       {
         "value": "hnr",
-        "label": "honouree"
+        "label": "hnr"
       },
       {
         "value": "ill",
-        "label": "illustrator"
+        "label": "ill"
       },
       {
         "value": "pht",
-        "label": "photographer"
+        "label": "pht"
       },
       {
         "value": "prf",
-        "label": "performer"
+        "label": "prf"
       },
       {
         "value": "trl",
-        "label": "translator"
+        "label": "trl"
       },
       {
         "value": "abr",
-        "label": "abridger"
+        "label": "abr"
       },
       {
         "value": "act",
-        "label": "actor"
+        "label": "act"
       },
       {
         "value": "adi",
-        "label": "art Director"
+        "label": "adi"
       },
       {
         "value": "adp",
-        "label": "adapter"
+        "label": "adp"
       },
       {
         "value": "aft",
-        "label": "writer of postface"
+        "label": "aft"
       },
       {
         "value": "anm",
-        "label": "animator"
+        "label": "anm"
       },
       {
         "value": "ann",
-        "label": "annotator"
+        "label": "ann"
       },
       {
         "value": "ape",
-        "label": "appellee"
+        "label": "ape"
       },
       {
         "value": "apl",
-        "label": "appellant"
+        "label": "apl"
       },
       {
         "value": "aqt",
-        "label": "abstractor"
+        "label": "aqt"
       },
       {
         "value": "arc",
-        "label": "architect"
+        "label": "arc"
       },
       {
         "value": "arr",
-        "label": "arranger"
+        "label": "arr"
       },
       {
         "value": "art",
-        "label": "artist"
+        "label": "art"
       },
       {
         "value": "ato",
-        "label": "autographer"
+        "label": "ato"
       },
       {
         "value": "auc",
-        "label": "auctioneer"
+        "label": "auc"
       },
       {
         "value": "aui",
-        "label": "writer of introduction"
+        "label": "aui"
       },
       {
         "value": "aus",
-        "label": "screenwriter"
+        "label": "aus"
       },
       {
         "value": "bkd",
-        "label": "book designer"
+        "label": "bkd"
       },
       {
         "value": "bnd",
-        "label": "binder"
+        "label": "bnd"
       },
       {
         "value": "brd",
-        "label": "broadcaster"
+        "label": "brd"
       },
       {
         "value": "brl",
-        "label": "braille embosser"
+        "label": "brl"
       },
       {
         "value": "bsl",
-        "label": "bookseller"
+        "label": "bsl"
       },
       {
         "value": "cas",
-        "label": "caster"
+        "label": "cas"
       },
       {
         "value": "chr",
-        "label": "choreographer"
+        "label": "chr"
       },
       {
         "value": "cll",
-        "label": "calligrapher"
+        "label": "cll"
       },
       {
         "value": "clr",
-        "label": "colourist"
+        "label": "clr"
       },
       {
         "value": "clt",
-        "label": "collotyper"
+        "label": "clt"
       },
       {
         "value": "cwt",
-        "label": "writer of added commentary"
+        "label": "cwt"
       },
       {
         "value": "cmm",
-        "label": "commentator"
+        "label": "cmm"
       },
       {
         "value": "cnd",
-        "label": "instrumental conductor"
+        "label": "cnd"
       },
       {
         "value": "cng",
-        "label": "director of photography"
+        "label": "cng"
       },
       {
         "value": "cns",
-        "label": "censor"
+        "label": "cns"
       },
       {
         "value": "col",
-        "label": "collector"
+        "label": "col"
       },
       {
         "value": "com",
-        "label": "compiler"
+        "label": "com"
       },
       {
         "value": "cor",
-        "label": "collection registrar"
+        "label": "cor"
       },
       {
         "value": "cou",
-        "label": "court"
+        "label": "cou"
       },
       {
         "value": "cre",
-        "label": "creator"
+        "label": "cre"
       },
       {
         "value": "crt",
-        "label": "court stenographer"
+        "label": "crt"
       },
       {
         "value": "csl",
-        "label": "consultant"
+        "label": "csl"
       },
       {
         "value": "cst",
-        "label": "costume designer"
+        "label": "cst"
       },
       {
         "value": "ctg",
-        "label": "cartographer"
+        "label": "ctg"
       },
       {
         "value": "ctr",
-        "label": "participant in a treaty"
+        "label": "ctr"
       },
       {
         "value": "cur",
-        "label": "collector"
+        "label": "cur"
       },
       {
         "value": "dfd",
-        "label": "defendant"
+        "label": "dfd"
       },
       {
         "value": "dgg",
-        "label": "degree granting institution"
+        "label": "dgg"
       },
       {
         "value": "dgs",
-        "label": "thesis advisor"
+        "label": "dgs"
       },
       {
         "value": "dnc",
-        "label": "dancer"
+        "label": "dnc"
       },
       {
         "value": "dnr",
-        "label": "donor"
+        "label": "dnr"
       },
       {
         "value": "dpt",
-        "label": "depositor"
+        "label": "dpt"
       },
       {
         "value": "drm",
-        "label": "draftsman"
+        "label": "drm"
       },
       {
         "value": "drt",
-        "label": "director (movie, radio, television, etc.)"
+        "label": "drt"
       },
       {
         "value": "dsr",
-        "label": "designer"
+        "label": "dsr"
       },
       {
         "value": "dst",
-        "label": "distributor"
+        "label": "dst"
       },
       {
         "value": "dte",
-        "label": "dedicatee"
+        "label": "dte"
       },
       {
         "value": "dto",
-        "label": "data manager"
+        "label": "dto"
       },
       {
         "value": "dub",
-        "label": "supposed author"
+        "label": "dub"
       },
       {
         "value": "edm",
-        "label": "editor of moving image work"
+        "label": "edm"
       },
       {
         "value": "egr",
-        "label": "engraver"
+        "label": "egr"
       },
       {
         "value": "enj",
-        "label": "enacting jurisdiction"
+        "label": "enj"
       },
       {
         "value": "etr",
-        "label": "etcher"
+        "label": "etr"
       },
       {
         "value": "exp",
-        "label": "art expert"
+        "label": "exp"
       },
       {
         "value": "fac",
-        "label": "facsimilist"
+        "label": "fac"
       },
       {
         "value": "fds",
-        "label": "film distributor"
+        "label": "fds"
       },
       {
         "value": "fmd",
-        "label": "film director"
+        "label": "fmd"
       },
       {
         "value": "fmk",
-        "label": "filmmaker"
+        "label": "fmk"
       },
       {
         "value": "fmo",
-        "label": "former owner"
+        "label": "fmo"
       },
       {
         "value": "fmp",
-        "label": "film producer"
+        "label": "fmp"
       },
       {
         "value": "his",
-        "label": "host institution"
+        "label": "his"
       },
       {
         "value": "hst",
-        "label": "host"
+        "label": "hst"
       },
       {
         "value": "ilu",
-        "label": "illuminator"
+        "label": "ilu"
       },
       {
         "value": "ins",
-        "label": "inscriber"
+        "label": "ins"
       },
       {
         "value": "inv",
-        "label": "inventor"
+        "label": "inv"
       },
       {
         "value": "isb",
-        "label": "publishing community"
+        "label": "isb"
       },
       {
         "value": "itr",
-        "label": "instrumentalist"
+        "label": "itr"
       },
       {
         "value": "ive",
-        "label": "interviewee"
+        "label": "ive"
       },
       {
         "value": "ivr",
-        "label": "interviewer"
+        "label": "ivr"
       },
       {
         "value": "jud",
-        "label": "judge"
+        "label": "jud"
       },
       {
         "value": "jug",
-        "label": "other jurisdiction"
+        "label": "jug"
       },
       {
         "value": "lbt",
-        "label": "librettist"
+        "label": "lbt"
       },
       {
         "value": "lgd",
-        "label": "illuminator"
+        "label": "lgd"
       },
       {
         "value": "lsa",
-        "label": "landscape architect"
+        "label": "lsa"
       },
       {
         "value": "ltg",
-        "label": "lithographer"
+        "label": "ltg"
       },
       {
         "value": "lyr",
-        "label": "lyricist"
+        "label": "lyr"
       },
       {
         "value": "med",
-        "label": "medium"
+        "label": "med"
       },
       {
         "value": "mfr",
-        "label": "manufacturer"
+        "label": "mfr"
       },
       {
         "value": "mod",
-        "label": "moderator"
+        "label": "mod"
       },
       {
         "value": "msd",
-        "label": "musical director"
+        "label": "msd"
       },
       {
         "value": "mtk",
-        "label": "minute taker"
+        "label": "mtk"
       },
       {
         "value": "mus",
-        "label": "musician"
+        "label": "mus"
       },
       {
         "value": "nrt",
-        "label": "narrator"
+        "label": "nrt"
       },
       {
         "value": "orm",
-        "label": "organizer"
+        "label": "orm"
       },
       {
         "value": "osp",
-        "label": "on-screen presenter"
+        "label": "osp"
       },
       {
         "value": "oth",
-        "label": "other"
+        "label": "oth"
       },
       {
         "value": "own",
-        "label": "owner"
+        "label": "own"
       },
       {
         "value": "pan",
-        "label": "panelist"
+        "label": "pan"
       },
       {
         "value": "pat",
-        "label": "patron"
+        "label": "pat"
       },
       {
         "value": "pbd",
-        "label": "publishing director"
+        "label": "pbd"
       },
       {
         "value": "pbl",
-        "label": "commercial publisher"
+        "label": "pbl"
       },
       {
         "value": "plt",
-        "label": "platemaker"
+        "label": "plt"
       },
       {
         "value": "ppm",
-        "label": "printmaker"
+        "label": "ppm"
       },
       {
         "value": "ppt",
-        "label": "puppeteer"
+        "label": "ppt"
       },
       {
         "value": "pra",
-        "label": "praeses"
+        "label": "pra"
       },
       {
         "value": "pre",
-        "label": "presenter"
+        "label": "pre"
       },
       {
         "value": "prg",
-        "label": "programmer"
+        "label": "prg"
       },
       {
         "value": "prm",
-        "label": "printmaker"
+        "label": "prm"
       },
       {
         "value": "prn",
-        "label": "production company"
+        "label": "prn"
       },
       {
         "value": "pro",
-        "label": "producer"
+        "label": "pro"
       },
       {
         "value": "prs",
-        "label": "production staff member"
+        "label": "prs"
       },
       {
         "value": "prt",
-        "label": "printer"
+        "label": "prt"
       },
       {
         "value": "ptf",
-        "label": "plaintiff"
+        "label": "ptf"
       },
       {
         "value": "rcd",
-        "label": "recorder"
+        "label": "rcd"
       },
       {
         "value": "rce",
-        "label": "audio engineer"
+        "label": "rce"
       },
       {
         "value": "rcp",
-        "label": "addressee"
+        "label": "rcp"
       },
       {
         "value": "rdd",
-        "label": "radio director"
+        "label": "rdd"
       },
       {
         "value": "res",
-        "label": "researcher"
+        "label": "res"
       },
       {
         "value": "rpc",
-        "label": "radio producer"
+        "label": "rpc"
       },
       {
         "value": "rsp",
-        "label": "respondent"
+        "label": "rsp"
       },
       {
         "value": "rsr",
-        "label": "restorationist"
+        "label": "rsr"
       },
       {
         "value": "scl",
-        "label": "sculptor"
+        "label": "scl"
       },
       {
         "value": "sds",
-        "label": "sound designer"
+        "label": "sds"
       },
       {
         "value": "sgd",
-        "label": "restager"
+        "label": "sgd"
       },
       {
         "value": "sll",
-        "label": "seller"
+        "label": "sll"
       },
       {
         "value": "sng",
-        "label": "singer"
+        "label": "sng"
       },
       {
         "value": "spk",
-        "label": "Speaker"
+        "label": "spk"
       },
       {
         "value": "spn",
-        "label": "Sponsor"
+        "label": "spn"
       },
       {
         "value": "srv",
-        "label": "surveyor"
+        "label": "srv"
       },
       {
         "value": "stl",
-        "label": "storyteller"
+        "label": "stl"
       },
       {
         "value": "tch",
-        "label": "teacher"
+        "label": "tch"
       },
       {
         "value": "tld",
-        "label": "TV director"
+        "label": "tld"
       },
       {
         "value": "tlp",
-        "label": "television producer"
+        "label": "tlp"
       },
       {
         "value": "trc",
-        "label": "transcriber"
+        "label": "trc"
       },
       {
         "value": "vac",
-        "label": "voice actor"
+        "label": "vac"
       },
       {
         "value": "vdg",
-        "label": "videographer"
+        "label": "vdg"
       },
       {
         "value": "wac",
-        "label": "writer of added commentary"
+        "label": "wac"
       },
       {
         "value": "wal",
-        "label": "writer of added lyrics"
+        "label": "wal"
       },
       {
         "value": "wat",
-        "label": "writer of added text"
+        "label": "wat"
       },
       {
         "value": "win",
-        "label": "writer of introduction"
+        "label": "win"
       },
       {
         "value": "wpr",
-        "label": "writer of foreword"
+        "label": "wpr"
       },
       {
         "value": "wst",
-        "label": "writer of supplementary textual content"
+        "label": "wst"
       }
     ],
     "templateOptions": {
