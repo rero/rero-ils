@@ -541,10 +541,6 @@ def test_regular_issue_creation_update_delete_api(
     issue.update(data=item, dbcommit=True, reindex=True)
     created_issue = Item.get_record_by_pid(issue.pid)
     assert created_issue.get('issue').get('status') == 'deleted'
-    # Validation error if you try to create an issue with no holdings links
-    item.pop('holding')
-    with pytest.raises(RecordValidationError):
-        issue.update(data=item, dbcommit=True, reindex=True)
     # Unable to delete a regular issue
     with pytest.raises(IlsRecordError.NotDeleted):
         created_issue.delete(dbcommit=True, delindex=True)

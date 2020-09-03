@@ -217,15 +217,14 @@ def test_create_holdings_with_pattern(
     )
     assert res.status_code == 403
 
-    # test will fail when creating a standard holding for a journal document.
+    # test will not fail when creating a standard holding for a journal doc.
     holding_lib_martigny_w_patterns_data['holdings_type'] = 'standard'
     del holding_lib_martigny_w_patterns_data['patterns']
-    with pytest.raises(RecordValidationError):
-        Holding.create(
-            data=holding_lib_martigny_w_patterns_data,
-            delete_pid=True,
-            dbcommit=True,
-            reindex=True)
+    Holding.create(
+        data=holding_lib_martigny_w_patterns_data,
+        delete_pid=True,
+        dbcommit=True,
+        reindex=True)
 
     journal_pids = list(Document.get_all_serial_pids())
     assert journal_pids == [journal.pid]
@@ -352,7 +351,7 @@ def test_irregular_issue_creation_update_delete_api(
     assert new_issue_display == issue_display
     assert new_expected_date == expected_date
 
-    # Validation error if you try to create an issue with no holdings links
+    # No Validation error if you try to create an issue with no holdings links
     item = {
         'issue': {
             'status': 'received',
@@ -367,19 +366,18 @@ def test_irregular_issue_creation_update_delete_api(
         'item_type': holding.get('circulation_category'),
         'type': 'issue'
     }
-    with pytest.raises(RecordValidationError):
-        res, data = postdata(
-            client,
-            'invenio_records_rest.item_list',
-            item
-        )
+    res, data = postdata(
+        client,
+        'invenio_records_rest.item_list',
+        item
+    )
     # NO validation error if you try to update an issue with a holdings link
     item = deepcopy(created_item)
     created_item.update(data=item, dbcommit=True, reindex=True)
     # Validation error if you try to update an issue with no holdings links
     item.pop('holding')
-    with pytest.raises(RecordValidationError):
-        created_item.update(data=item, dbcommit=True, reindex=True)
+    # with pytest.raises(RecordValidationError):
+    created_item.update(data=item, dbcommit=True, reindex=True)
     # no errors when deleting an irregular issue
     pid = created_item.pid
     created_item.delete(dbcommit=True, delindex=True)
