@@ -13,15 +13,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-09-01 12:25+0200\n"
-"PO-Revision-Date: 2020-08-22 12:46+0000\n"
+"PO-Revision-Date: 2020-09-03 04:45+0000\n"
 "Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/es/>\n"
 "Language: es\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/es/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3-dev\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: rero_ils/config.py:120
@@ -59,9 +60,8 @@ msgid "organisation"
 msgstr "organización"
 
 #: rero_ils/config.py:1394
-#, fuzzy
 msgid "new_acquisition"
-msgstr "Términos de adquisición"
+msgstr "Novedades"
 
 #: rero_ils/config.py:1395 rero_ils/config.py:1430 rero_ils/config.py:1469
 #: rero_ils/config.py:1491 rero_ils/config.py:1513
@@ -69,24 +69,20 @@ msgid "library"
 msgstr "biblioteca"
 
 #: rero_ils/config.py:1396
-#, fuzzy
 msgid "contribution__en"
-msgstr "Difusión"
+msgstr "Contribución"
 
 #: rero_ils/config.py:1397
-#, fuzzy
 msgid "contribution__fr"
-msgstr "Difusión"
+msgstr "Contribución"
 
 #: rero_ils/config.py:1398
-#, fuzzy
 msgid "contribution__de"
-msgstr "Difusión"
+msgstr "Contribución"
 
 #: rero_ils/config.py:1399
-#, fuzzy
 msgid "contribution__it"
-msgstr "Difusión"
+msgstr "Contribución"
 
 #: rero_ils/config.py:1400
 msgid "language"
@@ -275,7 +271,7 @@ msgstr "recurso integrable"
 #: rero_ils/manual_translations.txt:64
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person_link-v0.0.1.json:2
 msgid "Link to person entity"
-msgstr ""
+msgstr "Enlace a la entidad de persona"
 
 #: rero_ils/manual_translations.txt:65
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:2
@@ -4637,9 +4633,8 @@ msgid "Document is harvested or not, will disable record edition or similar."
 msgstr "El documento importado o no, no permitirá la edición de noticia."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:136
-#, fuzzy
 msgid "Draft"
-msgstr "idref"
+msgstr "Borrador"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:137
 #, fuzzy
@@ -4706,22 +4701,25 @@ msgstr "Polícromo"
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:82
 #, fuzzy
 msgid "Contribution"
-msgstr "Difusión"
+msgstr "Contribución"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:4
+#, fuzzy
 msgid "Relationship to an agent associated with the document"
-msgstr ""
+msgstr "Relación a un agente asociado con el documento"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:9
-#, fuzzy
 msgid "Agents"
-msgstr "Agente"
+msgstr "Agentes"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:10
+#, fuzzy
 msgid ""
 "Person, family or corporate body (including conferences). Always create a"
 " link to IdRef or GND, if possible."
 msgstr ""
+"Persona, familia o entidad corporativa (incluyendo conferencias). Siempre "
+"que sea posible, cree un vínculo con el IdRef o el GND."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:22
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:163
@@ -4767,58 +4765,61 @@ msgstr "Fuente"
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:36
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:37
 msgid "Example: M\\u00fcller, Hans"
-msgstr ""
+msgstr "Ejemplo: M\\u00fcller, Hans"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:43
+#, fuzzy
 msgid "Subordinate units"
-msgstr ""
+msgstr "Unidades subordinadas"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:46
+#, fuzzy
 msgid "Subordinate unit"
-msgstr ""
+msgstr "Unidad subordinada"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:50
+#, fuzzy
 msgid "Example: Office for Culture"
-msgstr ""
+msgstr "Ejemplo: Oficina para la Cultura"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:60
+#, fuzzy
 msgid "Location of conference"
-msgstr ""
+msgstr "Lugar de la conferencia"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:64
+#, fuzzy
 msgid "Example: Lausanne"
-msgstr ""
+msgstr "Ejemplo: Lausanne"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:71
 #, fuzzy
 msgid "Number of conference"
-msgstr "Número máximo de renovaciones"
+msgstr "Número de la conferencia"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:75
-#, fuzzy
 msgid "Example: 4"
-msgstr "Ejemplo: 1h50"
+msgstr "Ejemplo: 4"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:82
 #, fuzzy
 msgid "Date of conference"
-msgstr "Tabla de contenidos"
+msgstr "Fecha de la conferencia"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:83
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:45
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:57
 msgid "Record only years."
-msgstr ""
+msgstr "Registra sólo el año."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:87
-#, fuzzy
 msgid "Example: 1989"
-msgstr "Ejemplo: 1985-12-29"
+msgstr "Ejemplo: 1985"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:94
 #, fuzzy
 msgid "Conference"
-msgstr "Países Bajos (ne)"
+msgstr "Conferencia"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:95
 msgid ""
@@ -8279,4 +8280,3 @@ msgstr "Haga clic aquí para restablecer su contraseña"
 
 #~ msgid "Item PID"
 #~ msgstr "PID del ejemplar"
-
