@@ -142,7 +142,8 @@ class Holding(IlsRecord):
         is_electronic = self.holdings_type == 'electronic'
         is_issuance = \
             document.get('issuance', {}).get('main_type') == 'rdami:1003'
-        if (is_issuance ^ is_serial) or (document.harvested ^ is_electronic):
+        if (is_serial and not is_issuance) \
+                or (document.harvested ^ is_electronic):
             msg = _('Holding is not attached to the correct document type.'
                     ' document: {pid}')
             return _(msg.format(pid=document_pid))
