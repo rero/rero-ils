@@ -18,15 +18,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-09-03 11:43+0200\n"
-"PO-Revision-Date: 2020-09-02 06:37+0000\n"
+"PO-Revision-Date: 2020-09-03 14:30+0000\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/en/>\n"
 "Language: en\n"
-"Language-Team: English <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/en/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3-dev\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: rero_ils/config.py:120
@@ -4544,7 +4545,7 @@ msgstr "The amount of reminder fee"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:84
 msgid "Overdue amount."
-msgstr "Amount of reminder fee"
+msgstr "Overdue amount."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:89
 msgid "Maximum number of renewals"
@@ -4608,15 +4609,15 @@ msgstr "Series"
 
 #: rero_ils/modules/documents/views.py:224
 msgid "Published in"
-msgstr ""
+msgstr "Published in"
 
 #: rero_ils/modules/documents/views.py:240
 msgid "vol"
-msgstr ""
+msgstr "vol"
 
 #: rero_ils/modules/documents/views.py:243
 msgid "nr"
-msgstr ""
+msgstr "nr"
 
 #: rero_ils/modules/documents/views.py:246
 msgid "p"
@@ -4874,9 +4875,8 @@ msgid "Numeration"
 msgstr "Duration"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:80
-#, fuzzy
 msgid "Record only a number."
-msgstr "Call number"
+msgstr "Record only a number."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:84
 msgid "Example: XXIII"
@@ -6412,7 +6412,7 @@ msgstr "Other title information"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:78
 msgid "Parts"
-msgstr "Parts, sections, supplements "
+msgstr "Parts, sections, supplements"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:82
 msgid "Part"
@@ -8759,4 +8759,3 @@ msgstr "Click here to reset your password"
 
 #~ msgid "MEF person reference"
 #~ msgstr "MEF person URI"
-
