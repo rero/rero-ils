@@ -99,10 +99,12 @@ class TemplatePermission(RecordPermission):
             #   - 'librarian' can only update his own private records
             #     He cannot change the visibility
             elif current_patron.is_librarian:
-                new_template = request.get_json()
-                if new_template is not None and \
-                        record['visibility'] != new_template['visibility']:
+                incoming_record = request.get_json(silent=True) or {}
+                # a librarian cannot change visibility of a template
+                if incoming_record and incoming_record.get('visibility') \
+                   != record.get('visibility'):
                     return False
+                # a librarian can update its own private record
                 elif record.is_private and \
                         record.creator_pid == current_patron.pid:
                     return True
