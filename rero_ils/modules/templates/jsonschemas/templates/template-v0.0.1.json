@@ -41,7 +41,13 @@
     "description": {
       "title": "Description",
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "form": {
+        "type": "textarea",
+        "templateOptions": {
+          "rows": 3
+        }
+      }
     },
     "organisation": {
       "title": "Organisation",
@@ -75,6 +81,7 @@
         "private"
       ],
       "form": {
+        "fieldMap": "visibility",
         "type": "selectWithSort",
         "wrappers": [
           "form-field-horizontal"
@@ -106,10 +113,7 @@
         "patrons"
       ],
       "form": {
-        "type": "selectWithSort",
-        "wrappers": [
-          "form-field-horizontal"
-        ],
+        "hideExpression": "true",
         "options": [
           {
             "label": "documents",
@@ -127,12 +131,7 @@
             "label": "patrons",
             "value": "patrons"
           }
-        ],
-        "templateOptions": {
-          "selectWithSortOptions": {
-            "order": "label"
-          }
-        }
+        ]
       }
     },
     "data": {
