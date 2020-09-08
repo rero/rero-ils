@@ -48,21 +48,12 @@ Cypress.Commands.add("goToMenu", (menuId) => {
   cy.get('#' + menuId).click()
 })
 
-Cypress.Commands.add("goToDocumentDetailView", (itemBarcode) => {
+Cypress.Commands.add("goToPublicDocumentDetailView", (itemBarcode) => {
   // Go to homepage
   cy.get('#homepage-logo').click()
-  cy.url(1000).then((url) => {
-    if (url.includes('/professional/')) {
-      // on professional context
-      cy.get('.form-control').clear()
-      cy.get('.form-control').type(itemBarcode).type('{enter}')
-    }
-    else {
-       // on public context
-      cy.get('.d-none > main-search-bar > .flex-grow-1 > .rero-ils-autocomplete > .form-control').clear()
-      cy.get('.d-none > main-search-bar > .flex-grow-1 > .rero-ils-autocomplete > .form-control').type(itemBarcode).type('{enter}')
-    }
-  })
+  // on public context
+  cy.get('.d-none > main-search-bar > .flex-grow-1 > .rero-ils-autocomplete > .form-control').clear()
+  cy.get('.d-none > main-search-bar > .flex-grow-1 > .rero-ils-autocomplete > .form-control').type(itemBarcode).type('{enter}')
   // Use first element
   cy.get('.card-title > a').click()
 })

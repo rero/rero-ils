@@ -79,6 +79,7 @@ describe('Template: librarian request', function() {
     console.log('after');
     // TODO: find a way to preserve cookies (auth) and server after a test
     cy.server();
+    cy.route({method: 'DELETE', url: '/api/items/*'}).as('deleteItem');
     cy.adminLogin(this.users.librarians.spock.email, this.common.uniquePwd);
     // Go to item detail view
     cy.goToProfessionalDocumentDetailView(this.itemBarcode);
@@ -90,6 +91,8 @@ describe('Template: librarian request', function() {
     cy.goToProfessionalDocumentDetailView(this.itemBarcode);
     cy.get('#item-' + this.itemBarcode + ' [name=buttons] > [name=delete]').click();
     cy.get('#modal-confirm-button').click();
+    cy.wait('@deleteItem');
+
     // Remove document
     cy.reload(); // Bug: need to reload the page to unable the remove button
     cy.deleteRecordFromDetailView();

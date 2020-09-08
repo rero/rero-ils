@@ -21,6 +21,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 Cypress.Commands.add("logout", () => {
   // click on username
   cy.get('#my-account-menu').click()
+  // Wait for the menu to open
+  // TODO: find a better way (same as setLanguageToEnglish command)
+  cy.wait(1000)
   // then click on Logout link
   cy.get('#logout-menu').click()
 })
@@ -28,6 +31,7 @@ Cypress.Commands.add("logout", () => {
 Cypress.Commands.add("login", (email, password) => {
   // click on "My account"
   cy.get('#my-account-menu').click()
+  cy.wait(1000)
   cy.get('#login-menu').click()
   cy.get('#email').type(email)
   cy.get('#password').type(password)
