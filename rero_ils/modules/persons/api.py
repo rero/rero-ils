@@ -72,29 +72,35 @@ class Person(IlsRecord):
     def get_record_by_ref(cls, ref):
         """Get a record from DB.
 
-        If the record dos not exist get it from MEF and creat it.
+        If the record dos not exist get it from MEF and create it.
         """
-        pers = None
+        def get_person(ref_type, ref_pid):
+            """Get person."""
+            pers = None
+            if ref_type == 'mef':
+                pers = cls.get_record_by_pid(ref_pid)
+            else:
+                if ref_type == 'viaf':
+                    result = PersonsSearch().filter(
+                        'term', viaf_pid=ref_pid
+                    ).source('pid').scan()
+                else:
+                    result = PersonsSearch().filter(
+                        {'term': {'{type}.pid'.format(type=ref_type): ref_pid}}
+                    ).source('pid').scan()
+                try:
+                    pid = next(result).pid
+                    pers = cls.get_record_by_pid(pid)
+                except StopIteration:
+                    pass
+            return pers
+
+        online = False
         ref_split = ref.split('/')
         ref_type = ref_split[-2]
         ref_pid = ref_split[-1]
         db.session.begin_nested()
-        if ref_type == 'mef':
-            pers = cls.get_record_by_pid(ref_pid)
-        else:
-            if ref_type == 'viaf':
-                result = PersonsSearch().filter(
-                    'term', viaf_pid=ref_pid
-                ).source('pid').scan()
-            else:
-                result = PersonsSearch().filter(
-                    {'term': {'{type}.pid'.format(type=ref_type): ref_pid}}
-                ).source('pid').scan()
-            try:
-                pid = next(result).pid
-                pers = cls.get_record_by_pid(pid)
-            except StopIteration:
-                pass
+        pers = get_person(ref_type, ref_pid)
         if not pers:
             # We dit not find the record in DB get it from MEF and create it.
             try:
@@ -106,18 +112,22 @@ class Person(IlsRecord):
                 # we have to commit because create
                 # uses db.session.begin_nested
                 pers = cls.create(metadata, dbcommit=True)
+                online = True
             except Exception as err:
                 db.session.rollback()
-                current_app.logger.error('Get MEF record: {type}:{pid}'.format(
-                    type=ref_type,
-                    pid=ref_pid
-                ))
-                current_app.logger.error(err)
-                return None
+                if metadata:
+                    pers = cls.get_record_by_pid(metadata.get('pid'))
+                if not pers:
+                    current_app.logger.error(
+                        'Get MEF record: {type}:{pid} >>{err}<<'.format(
+                            type=ref_type,
+                            pid=ref_pid,
+                            err=err
+                        )
+                    )
+                return pers, online
         db.session.commit()
-        if pers:
-            pers.reindex()
-        return pers
+        return pers, online
 
     def dumps_for_document(self):
         """Transform the record into document contribution format."""
@@ -229,6 +239,26 @@ class Person(IlsRecord):
             key='authorized_access_point_representing_a_person',
             language=language
         )
+
+    def update_online(self, dbcommit=False, reindex=False):
+        """Update record online.
+
+        :param reindex: reindex record by record
+        :param dbcommit: commit record to database
+        :return: updated record status and updated record
+        """
+        updated = False
+        viaf_pid = self.get('viaf_pid')
+        if viaf_pid:
+            data = self._get_mef_data_by_type(viaf_pid, 'viaf')
+            if data:
+                metadata = data['metadata']
+                metadata['$schema'] = self['$schema']
+                if dict(self) != metadata:
+                    updated = True
+                    self.replace(data=metadata, dbcommit=dbcommit,
+                                 reindex=reindex)
+        return updated, self
 
 
 class PersonsIndexer(IlsRecordsIndexer):

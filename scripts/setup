@@ -86,6 +86,7 @@ CREATE_LAZY=""
 DONT_STOP=""
 PREFIX=""
 ES_MAPPING=false
+ENQUEUE=""
 # Permit user to set it with system var. Default is true.
 ENABLE_WARNINGS=${ENABLE_WARNINGS:=true}
 
@@ -98,7 +99,7 @@ if [[ -z "${VIRTUAL_ENV}" ]]; then
 fi
 
 # options may be followed by one colon to indicate they have a required argument
-if ! options=$(getopt -o dPsbclptmwD: -l deployment,persons,create_items_holdings_small,create_items_holdings_big,lazy,pursue,time,es-mapping,warnings,data_path: -- "$@")
+if ! options=$(getopt -o dPsbclptmwkD: -l deployment,persons,create_items_holdings_small,create_items_holdings_big,lazy,pursue,time,es-mapping,warnings,enqueue,data_path: -- "$@")
 then
     # something went wrong, getopt will put out an error message for us
     exit 1
@@ -136,6 +137,9 @@ do
       ;;
     -w|--warnings)
       invert_warning_option
+      ;;
+    -k|--enqueue)
+      ENQUEUE="--enqueue --wait"
       ;;
     -D|--data_path)
       DATA_PATH=$2
@@ -318,6 +322,9 @@ then
     info_msg "Indexing Persons:"
     eval ${PREFIX} invenio utils reindex -t pers --yes-i-know --no-info
     eval ${PREFIX} invenio utils runindex --raise-on-error
+else
+    info_msg "- Persons from MEF: ${DOCUMENTS} ${CREATE_LAZY} ${ENQUEUE}"
+    eval ${PREFIX} invenio fixtures get_all_mef_records ${DOCUMENTS} ${CREATE_LAZY} ${ENQUEUE}
 fi
 
 info_msg "- Documents: ${DOCUMENTS} ${CREATE_LAZY} ${DONT_STOP}"
@@ -369,7 +376,7 @@ eval ${PREFIX} invenio utils reindex -t pers --yes-i-know --no-info
 eval ${PREFIX} invenio utils runindex --raise-on-error
 
 # create serials patterns
-info_msg "Serials patterns: ${DATA_PATH}/patterns.json ${CREATE_LAZY} ${DONT_STOP}"
+info_msg "Serials patterns: ${DATA_PATH}/patterns.json"
 eval ${PREFIX} invenio fixtures create_patterns ${DATA_PATH}/patterns.json
 
 # # ACQUISITION
