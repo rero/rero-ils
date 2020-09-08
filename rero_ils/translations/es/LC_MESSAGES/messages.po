@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-09-03 11:43+0200\n"
-"PO-Revision-Date: 2020-09-05 14:36+0000\n"
+"PO-Revision-Date: 2020-09-07 12:58+0000\n"
 "Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/es/>\n"
@@ -4997,7 +4997,7 @@ msgstr "guionista"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:269
 msgid "bkd"
-msgstr "dibujante"
+msgstr "diseñador de libros"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:273
 msgid "bnd"
@@ -5013,7 +5013,7 @@ msgstr "grabador de braille"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:285
 msgid "bsl"
-msgstr ""
+msgstr "librero"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:289
 msgid "cas"
@@ -5024,145 +5024,128 @@ msgid "chr"
 msgstr "coreógrafo (expresión)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:297
-#, fuzzy
 msgid "cll"
-msgstr "reclamación"
+msgstr "caligrafísta"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:301
 msgid "clr"
-msgstr ""
+msgstr "colorista"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:305
 msgid "clt"
-msgstr ""
+msgstr "fototipista"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:309
 msgid "cwt"
-msgstr ""
+msgstr "autor del comentario"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:313
 msgid "cmm"
-msgstr ""
+msgstr "comentarista"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:317
-#, fuzzy
 msgid "cnd"
-msgstr "GND"
+msgstr "director de orquesta"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:321
-#, fuzzy
 msgid "cng"
-msgstr "Etching"
+msgstr "director de fotografía"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:325
-#, fuzzy
 msgid "cns"
-msgstr "Proveedor"
+msgstr "censor"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:329
-#, fuzzy
 msgid "col"
-msgstr "vol."
+msgstr "coleccionista"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:333
 msgid "com"
-msgstr ""
+msgstr "compilador"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:337
-#, fuzzy
 msgid "cor"
-msgstr "o"
+msgstr "conservador de colección"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:341
-#, fuzzy
 msgid "cou"
-msgstr "Descuento"
+msgstr "tribunal regido"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:345
-#, fuzzy
 msgid "cre"
-msgstr "partición"
+msgstr "creador"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:349
-#, fuzzy
 msgid "crt"
-msgstr "Descuento"
+msgstr "relator del tribunal"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:353
 msgid "csl"
-msgstr ""
+msgstr "consultor"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:357
-#, fuzzy
 msgid "cst"
-msgstr "Póster"
+msgstr "diseñador de vestuario"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:361
 msgid "ctg"
-msgstr ""
+msgstr "cartógrafo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:365
-#, fuzzy
 msgid "ctr"
-msgstr "córnico"
+msgstr "participante en un tratado"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:369
-#, fuzzy
 msgid "cur"
-msgstr "Descuento"
+msgstr "curador"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:373
 msgid "dfd"
-msgstr ""
+msgstr "acusado"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:377
 msgid "dgg"
-msgstr ""
+msgstr "institución que otorga el grado"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:381
 msgid "dgs"
-msgstr ""
+msgstr "supervisor de grado"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:385
-#, fuzzy
 msgid "dnc"
-msgstr "Cancelar"
+msgstr "bailarín"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:389
-#, fuzzy
 msgid "dnr"
-msgstr "n."
+msgstr "donante"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:393
-#, fuzzy
 msgid "dpt"
-msgstr "Fecha de préstamo"
+msgstr "depositante"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:397
 msgid "drm"
-msgstr ""
+msgstr "dibujante"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:401
 msgid "drt"
-msgstr ""
+msgstr "director general"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:405
 msgid "dsr"
-msgstr ""
+msgstr "diseñador"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:409
 msgid "dst"
-msgstr ""
+msgstr "distributor cinematográfico"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:413
-#, fuzzy
 msgid "dte"
-msgstr "Fecha de préstamo"
+msgstr "destinatario de dedicatoria en el ítem"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:417
-#, fuzzy
 msgid "dto"
-msgstr "Proveedor"
+msgstr "administrador de la base de datos"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:421
 msgid "dub"
