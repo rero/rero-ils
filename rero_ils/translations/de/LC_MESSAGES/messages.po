@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-09-03 11:43+0200\n"
-"PO-Revision-Date: 2020-09-07 12:58+0000\n"
-"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"PO-Revision-Date: 2020-09-07 14:34+0000\n"
+"Last-Translator: Pascal Repond <pascalr.92@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/de/>\n"
 "Language: de\n"
@@ -73,7 +73,6 @@ msgid "library"
 msgstr "Bibliothek"
 
 #: rero_ils/config.py:1396
-#, fuzzy
 msgid "contribution__en"
 msgstr "Verteilung"
 
@@ -83,12 +82,10 @@ msgid "contribution__fr"
 msgstr "Verteilung"
 
 #: rero_ils/config.py:1398
-#, fuzzy
 msgid "contribution__de"
 msgstr "Verteilung"
 
 #: rero_ils/config.py:1399
-#, fuzzy
 msgid "contribution__it"
 msgstr "Verteilung"
 
@@ -251,12 +248,13 @@ msgid "bf:Place"
 msgstr "Ort"
 
 #: rero_ils/manual_translations.txt:52
+#, fuzzy
 msgid "Date(s) uncertain or unknown"
-msgstr ""
+msgstr "Datum(e) ungewiss oder unbekannt"
 
 #: rero_ils/manual_translations.txt:53
 msgid "Date not available and automatically set to 2050"
-msgstr ""
+msgstr "Datum nicht verfügbar und automatisch auf 2050 gesetzt"
 
 #: rero_ils/manual_translations.txt:56
 msgid "ebibliomedia"
@@ -284,8 +282,9 @@ msgstr "integrierende Ressource"
 
 #: rero_ils/manual_translations.txt:66
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person_link-v0.0.1.json:2
+#, fuzzy
 msgid "Link to person entity"
-msgstr ""
+msgstr "Link zur Personeneinheit"
 
 #: rero_ils/manual_translations.txt:67
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:2
@@ -4645,16 +4644,14 @@ msgstr ""
 " Ressource."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:136
-#, fuzzy
 msgid "Draft"
-msgstr "IdRef"
+msgstr "Entwurf"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:137
 #, fuzzy
 msgid "Document is a draft record or not, will disable record validation."
 msgstr ""
-"Dokument wird gesammelt oder nicht ; dies deaktiviert die Bearbeitung der"
-" Ressource."
+"Wenn das Dokument ist ein Entwurf, deaktiviert die Datensatzvalidierung."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_abstract-v0.0.1.json:3
 msgid "Abstracts"
@@ -4720,8 +4717,9 @@ msgid "Contribution"
 msgstr "Verteilung"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:4
+#, fuzzy
 msgid "Relationship to an agent associated with the document"
-msgstr ""
+msgstr "Beziehung zu einem mit dem Dokument verbundenen Bearbeiter"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:9
 #, fuzzy
@@ -4733,6 +4731,8 @@ msgid ""
 "Person, family or corporate body (including conferences). Always create a"
 " link to IdRef or GND, if possible."
 msgstr ""
+"Person, Familie oder Körperschaft (einschließlich Konferenzen). Erstellen "
+"Sie, wenn möglich, immer einen Link zu IdRef oder GND."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:22
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:163
@@ -4778,7 +4778,7 @@ msgstr "Quelle"
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:36
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:37
 msgid "Example: M\\u00fcller, Hans"
-msgstr ""
+msgstr "Beispiel: M\\u00fcller, Hans"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:43
 msgid "Subordinate units"
@@ -4790,46 +4790,41 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:50
 msgid "Example: Office for Culture"
-msgstr ""
+msgstr "Beispiel: Amt für Kultur"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:60
 msgid "Location of conference"
-msgstr ""
+msgstr "Ort der Konferenz"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:64
 msgid "Example: Lausanne"
-msgstr ""
+msgstr "Beispiel: Lausanne"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:71
-#, fuzzy
 msgid "Number of conference"
-msgstr "Maximale Anzahl von Verlängerungen"
+msgstr "Nummer der Konferenz"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:75
-#, fuzzy
 msgid "Example: 4"
-msgstr "Beispiel: 1h50"
+msgstr "Beispiel: 4"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:82
-#, fuzzy
 msgid "Date of conference"
-msgstr "Inhaltsverzeichnis"
+msgstr "Datum der Konferenz"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:83
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:45
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:57
 msgid "Record only years."
-msgstr ""
+msgstr "Nur Jahre aufzeichnen."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:87
-#, fuzzy
 msgid "Example: 1989"
-msgstr "Beispiel: 1985-12-29"
+msgstr "Beispiel: 1989"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:94
-#, fuzzy
 msgid "Conference"
-msgstr "Niederlande (ne)"
+msgstr "Konferenz"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:95
 msgid ""
@@ -4838,9 +4833,8 @@ msgid ""
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:33
-#, fuzzy
 msgid "Agent's name."
-msgstr "Name der Person."
+msgstr "Name des Akteuren."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:44
 #: rero_ils/modules/persons/templates/rero_ils/_person_by_source_data.html:22
@@ -4849,9 +4843,8 @@ msgid "Birth date"
 msgstr "Geburtsdatum"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:49
-#, fuzzy
 msgid "Example: 1955"
-msgstr "Beispiel: 1h50"
+msgstr "Beispiel: 1955"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:56
 #: rero_ils/modules/persons/templates/rero_ils/_person_by_source_data.html:23
@@ -4860,9 +4853,8 @@ msgid "Death date"
 msgstr "Todesdatum"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:61
-#, fuzzy
 msgid "Example: 2012"
-msgstr "Beispiel: 22 cm"
+msgstr "Beispiel: 2012"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:68
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:173
@@ -4871,21 +4863,19 @@ msgstr "Erläuterung"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:72
 msgid "Example: physicist"
-msgstr ""
+msgstr "Beispiel: Physiker"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:79
-#, fuzzy
 msgid "Numeration"
-msgstr "Dauer"
+msgstr "Nummerierung"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:80
-#, fuzzy
 msgid "Record only a number."
-msgstr "2. Signatur"
+msgstr "Notieren Sie nur die Nummer."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:84
 msgid "Example: XXIII"
-msgstr ""
+msgstr "Beispiel: XXIII"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:91
 msgid "Fuller form of Name"
@@ -4909,656 +4899,596 @@ msgid "Role"
 msgstr "Rolle"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:165
-#, fuzzy
 msgid "aut"
-msgstr "Autor"
+msgstr "Verfasser"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:169
 msgid "cmp"
-msgstr ""
+msgstr "Komponist"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:173
 msgid "ctb"
-msgstr ""
+msgstr "Mitwirkender"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:177
-#, fuzzy
 msgid "edt"
-msgstr "Lieferant"
+msgstr "Herausgeber"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:181
-#, fuzzy
 msgid "hnr"
-msgstr "Nr"
+msgstr "Gefeierter"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:185
 msgid "ill"
-msgstr ""
+msgstr "Illustrator"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:189
 msgid "pht"
-msgstr ""
+msgstr "Fotograf"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:193
 msgid "prf"
-msgstr ""
+msgstr "Ausführender"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:197
 msgid "trl"
-msgstr ""
+msgstr "Übersetzer"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:201
 msgid "abr"
-msgstr ""
+msgstr "Kürzender"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:205
-#, fuzzy
 msgid "act"
-msgstr "Kornisch"
+msgstr "Schauspieler"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:209
 msgid "adi"
-msgstr ""
+msgstr "Dirigent"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:213
-#, fuzzy
 msgid "adp"
-msgstr "Datum des Loans"
+msgstr "Adapter"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:217
-#, fuzzy
 msgid "aft"
-msgstr "IdRef"
+msgstr "Verfasser eines Nachworts"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:221
 msgid "anm"
-msgstr ""
+msgstr "Trickfilmzeichner"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:225
-#, fuzzy
 msgid "ann"
-msgstr "Kantone"
+msgstr "annotierende Person"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:229
-#, fuzzy
 msgid "ape"
-msgstr "Datum des Loans"
+msgstr "Berufungsbeklagter / Revisionsbeklagter"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:233
 msgid "apl"
-msgstr ""
+msgstr "Angeklagter"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:237
 msgid "aqt"
-msgstr ""
+msgstr "Auszugsschreiber"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:241
-#, fuzzy
 msgid "arc"
-msgstr "Suche"
+msgstr "Architekt"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:245
 msgid "arr"
-msgstr ""
+msgstr "Arrangeur"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:249
-#, fuzzy
 msgid "art"
-msgstr "Teil, Untergliederung, Beilage"
+msgstr "Künstler"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:253
-#, fuzzy
 msgid "ato"
-msgstr "Kornisch"
+msgstr "beschriftende Person"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:257
 msgid "auc"
-msgstr ""
+msgstr "Versteigerer"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:261
 msgid "aui"
-msgstr ""
+msgstr "Verfasser eines Vorworts"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:265
-#, fuzzy
 msgid "aus"
-msgstr "Status"
+msgstr "Drehbuchautor"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:269
 msgid "bkd"
-msgstr ""
+msgstr "Druckgrafiker"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:273
-#, fuzzy
 msgid "bnd"
-msgstr "GND"
+msgstr "Buchbinder"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:277
 msgid "brd"
-msgstr ""
+msgstr "Sender"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:281
 msgid "brl"
-msgstr ""
+msgstr "Brailleschriftpräger"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:285
 msgid "bsl"
-msgstr ""
+msgstr "Buchhändler"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:289
-#, fuzzy
 msgid "cas"
-msgstr "Plakat"
+msgstr "Formgiesser"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:293
-#, fuzzy
 msgid "chr"
-msgstr "anderes"
+msgstr "Choreograf"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:297
-#, fuzzy
 msgid "cll"
-msgstr "Rückruf"
+msgstr "Kalligraf"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:301
 msgid "clr"
-msgstr ""
+msgstr "Colorist"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:305
 msgid "clt"
-msgstr ""
+msgstr "Lichtdrucker"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:309
 msgid "cwt"
-msgstr ""
+msgstr "Kommentarverfasser"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:313
 msgid "cmm"
-msgstr ""
+msgstr "Kommentator"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:317
-#, fuzzy
 msgid "cnd"
-msgstr "GND"
+msgstr "Orchesterleiter"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:321
-#, fuzzy
 msgid "cng"
-msgstr "Radierung"
+msgstr "Kameramann"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:325
-#, fuzzy
 msgid "cns"
-msgstr "Lieferant"
+msgstr "Zensor"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:329
-#, fuzzy
 msgid "col"
-msgstr "Bd"
+msgstr "Sammler"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:333
 msgid "com"
-msgstr ""
+msgstr "Zusammenstellender"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:337
-#, fuzzy
 msgid "cor"
-msgstr "oder"
+msgstr "Registrar"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:341
-#, fuzzy
 msgid "cou"
-msgstr "Rabattbetrag"
+msgstr "Gericht"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:345
-#, fuzzy
 msgid "cre"
-msgstr "Partitur"
+msgstr "Schöpfer"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:349
-#, fuzzy
 msgid "crt"
-msgstr "Rabattbetrag"
+msgstr "Gerichtsstenograf"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:353
 msgid "csl"
-msgstr ""
+msgstr "Consultant"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:357
-#, fuzzy
 msgid "cst"
-msgstr "Plakat"
+msgstr "Kostümbildner"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:361
 msgid "ctg"
-msgstr ""
+msgstr "Kartograf"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:365
-#, fuzzy
 msgid "ctr"
-msgstr "Kornisch"
+msgstr "Vertragspartner"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:369
-#, fuzzy
 msgid "cur"
-msgstr "Rabattbetrag"
+msgstr "Kurator"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:373
 msgid "dfd"
-msgstr ""
+msgstr "Berufungsbeklagter/Revisionsbeklagter"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:377
 msgid "dgg"
-msgstr ""
+msgstr "Grad-verleihende Institution"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:381
 msgid "dgs"
-msgstr ""
+msgstr "Dissertationsberater"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:385
-#, fuzzy
 msgid "dnc"
-msgstr "Abbrechen"
+msgstr "Tänzer"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:389
-#, fuzzy
 msgid "dnr"
-msgstr "Nr"
+msgstr "Stifter"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:393
-#, fuzzy
 msgid "dpt"
-msgstr "Datum des Loans"
+msgstr "Leihgeber"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:397
 msgid "drm"
-msgstr ""
+msgstr "technischer Zeichner"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:401
 msgid "drt"
-msgstr ""
+msgstr "Regisseur (Film, Radio, Fernsehen, usw.)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:405
 msgid "dsr"
-msgstr ""
+msgstr "Designer"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:409
 msgid "dst"
-msgstr ""
+msgstr "Vertrieb"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:413
-#, fuzzy
 msgid "dte"
-msgstr "Datum des Loans"
+msgstr "Widmungsempfänger"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:417
-#, fuzzy
 msgid "dto"
-msgstr "Lieferant"
+msgstr "Datenmanager"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:421
 msgid "dub"
-msgstr ""
+msgstr "vermeintlicher Autor"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:425
 msgid "edm"
-msgstr ""
+msgstr "Cutter"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:429
 msgid "egr"
-msgstr ""
+msgstr "Stecher"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:433
 msgid "enj"
-msgstr ""
+msgstr "normerlassende Gebietskörperschaft"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:437
-#, fuzzy
 msgid "etr"
-msgstr "anderes"
+msgstr "Radierer"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:441
 msgid "exp"
-msgstr ""
+msgstr "Kunstexperte"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:445
 msgid "fac"
-msgstr ""
+msgstr "Kopist"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:449
 msgid "fds"
-msgstr ""
+msgstr "Filmvertrieb"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:453
 msgid "fmd"
-msgstr ""
+msgstr "Filmregisseur"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:457
 msgid "fmk"
-msgstr ""
+msgstr "Filmemacher"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:461
 msgid "fmo"
-msgstr ""
+msgstr "früherer Eigentümer"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:465
 msgid "fmp"
-msgstr ""
+msgstr "Filmproduzent"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:469
 msgid "his"
-msgstr ""
+msgstr "gastgebende Institution"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:473
-#, fuzzy
 msgid "hst"
-msgstr "Plakat"
+msgstr "Gastgeber"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:477
 msgid "ilu"
-msgstr ""
+msgstr "Illuminator"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:481
 msgid "ins"
-msgstr ""
+msgstr "Unterzeichner"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:485
 msgid "inv"
-msgstr ""
+msgstr "Erfinder"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:489
 msgid "isb"
-msgstr ""
+msgstr "Verlagslandschaft"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:493
-#, fuzzy
 msgid "itr"
-msgstr "Lieferant"
+msgstr "Instrumentalmusiker"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:497
-#, fuzzy
 msgid "ive"
-msgstr "Aktiv"
+msgstr "Interviewter"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:501
 msgid "ivr"
-msgstr ""
+msgstr "Interviewer"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:505
-#, fuzzy
 msgid "jud"
-msgstr "Budget"
+msgstr "Richter"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:509
-#, fuzzy
 msgid "jug"
-msgstr "Budget"
+msgstr "andere Gerichtsbarkeit"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:513
 msgid "lbt"
-msgstr ""
+msgstr "Librettist"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:517
-#, fuzzy
 msgid "lgd"
-msgstr "GND"
+msgstr "Lichtgestalter"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:521
 msgid "lsa"
-msgstr ""
+msgstr "Landschaftsarchitekt"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:525
 msgid "ltg"
-msgstr ""
+msgstr "Lithograf"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:529
 msgid "lyr"
-msgstr ""
+msgstr "Textdichter"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:533
 msgid "med"
-msgstr ""
+msgstr "Channel"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:537
 msgid "mfr"
-msgstr ""
+msgstr "Hersteller"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:541
 msgid "mod"
-msgstr ""
+msgstr "Gesprächsleiter"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:545
 msgid "msd"
-msgstr ""
+msgstr "musikalischer Direktor"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:549
 msgid "mtk"
-msgstr ""
+msgstr "Protokollant"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:553
 msgid "mus"
-msgstr ""
+msgstr "Musiker"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:557
-#, fuzzy
 msgid "nrt"
-msgstr "Nr"
+msgstr "Erzähler"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:561
-#, fuzzy
 msgid "orm"
-msgstr "oder"
+msgstr "Tagungsplaner"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:565
 msgid "osp"
-msgstr ""
+msgstr "On-Screen-Präsentator"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:569
-#, fuzzy
 msgid "oth"
 msgstr "anderes"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:573
-#, fuzzy
 msgid "own"
-msgstr "anderes"
+msgstr "Eigentümer"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:577
-#, fuzzy
 msgid "pan"
-msgstr "Benutzer"
+msgstr "Diskussionsteilnehmer"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:581
-#, fuzzy
 msgid "pat"
-msgstr "Benutzer"
+msgstr "Sponsor"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:585
 msgid "pbd"
-msgstr ""
+msgstr "Verlagsleiter"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:589
 msgid "pbl"
-msgstr ""
+msgstr "kommerzieller Verlag"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:593
 msgid "plt"
-msgstr ""
+msgstr "Plattenhersteller"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:597
 msgid "ppm"
-msgstr ""
+msgstr "Papiermacher"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:601
 msgid "ppt"
-msgstr ""
+msgstr "Puppenspieler"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:605
 msgid "pra"
-msgstr ""
+msgstr "Praeses"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:609
 msgid "pre"
-msgstr ""
+msgstr "Moderator"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:613
 msgid "prg"
-msgstr ""
+msgstr "Programmierer"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:617
 msgid "prm"
-msgstr ""
+msgstr "Druckhersteller"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:621
-#, fuzzy
 msgid "prn"
-msgstr "Benutzer"
+msgstr "Produktionsfirma"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:625
-#, fuzzy
 msgid "pro"
-msgstr "Benutzer"
+msgstr "Produzent"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:629
-#, fuzzy
 msgid "prs"
-msgstr "Benutzer"
+msgstr "Produktionsmitarbeiter"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:633
 msgid "prt"
-msgstr ""
+msgstr "Drucker"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:637
 msgid "ptf"
-msgstr ""
+msgstr "Kläger"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:641
-#, fuzzy
 msgid "rcd"
-msgstr "Strichcode"
+msgstr "Blockflöte"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:645
-#, fuzzy
 msgid "rce"
-msgstr "Quelle"
+msgstr "Tonmeister"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:649
 msgid "rcp"
-msgstr ""
+msgstr "Adressat"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:653
-#, fuzzy
 msgid "rdd"
-msgstr "Bestellt"
+msgstr "Radiodirektor"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:657
-#, fuzzy
 msgid "res"
-msgstr "Rollen"
+msgstr "Forscher"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:661
 msgid "rpc"
-msgstr ""
+msgstr "Hörfunkproduzent"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:665
 msgid "rsp"
-msgstr ""
+msgstr "Respondent"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:669
 msgid "rsr"
-msgstr ""
+msgstr "Restaurator"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:673
 msgid "scl"
-msgstr ""
+msgstr "Bildhauer"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:677
 msgid "sds"
-msgstr ""
+msgstr "Tongestalter"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:681
-#, fuzzy
 msgid "sgd"
-msgstr "GND"
+msgstr "Bühnenregisseur"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:685
-#, fuzzy
 msgid "sll"
-msgstr "Benutzer"
+msgstr "Verkäufer"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:689
-#, fuzzy
 msgid "sng"
-msgstr "unter Verwendung von"
+msgstr "Sänger"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:693
 msgid "spk"
-msgstr ""
+msgstr "Redner"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:697
-#, fuzzy
 msgid "spn"
-msgstr "Ist geöffnet"
+msgstr "Sponsor"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:701
 msgid "srv"
-msgstr ""
+msgstr "Landvermesser"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:705
 msgid "stl"
-msgstr ""
+msgstr "Geschichtenerzähler"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:709
-#, fuzzy
 msgid "tch"
-msgstr "anderes"
+msgstr "Lehrer"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:713
 msgid "tld"
-msgstr ""
+msgstr "Fernsehregisseur"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:717
 msgid "tlp"
-msgstr ""
+msgstr "Fernsehproduzent"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:721
-#, fuzzy
 msgid "trc"
-msgstr "Auszug"
+msgstr "Transkribierer"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:725
 msgid "vac"
-msgstr ""
+msgstr "Synchronsprecher"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:729
 msgid "vdg"
-msgstr ""
+msgstr "Videofilmer"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:733
 msgid "wac"
-msgstr ""
+msgstr "Kommentarverfasser"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:737
 msgid "wal"
-msgstr ""
+msgstr "Verfasser von zusätzlichen Lyrics"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:741
-#, fuzzy
 msgid "wat"
-msgstr "ausstehend"
+msgstr "Verfasser von Zusatztexten"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:745
-#, fuzzy
 msgid "win"
-msgstr "ausstehend"
+msgstr "Verfasser einer Einleitung"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:749
 msgid "wpr"
-msgstr ""
+msgstr "Verfasser eines Geleitwortes"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:753
 msgid "wst"
-msgstr ""
+msgstr "Verfasser von ergänzendem Text"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_copyright_date-v0.0.1.json:3
 msgid "Copyright dates"
@@ -6558,8 +6488,9 @@ msgid "Export Formats"
 msgstr "Exportformate"
 
 #: rero_ils/modules/holdings/api.py:133
+#, fuzzy
 msgid "Document does not exist {pid}."
-msgstr ""
+msgstr "Dokument existiert nicht {pid}."
 
 #: rero_ils/modules/holdings/api.py:140
 msgid "Must have next expected date for regular frequencies."
@@ -6923,15 +6854,16 @@ msgstr "Bestellungen"
 
 #: rero_ils/modules/items/api/record.py:57
 msgid "Holding does not exist: {pid}."
-msgstr ""
+msgstr "Bestand existiert nicht: {pid}."
 
 #: rero_ils/modules/items/api/record.py:60
+#, fuzzy
 msgid "Standard item can not attached to a journal."
-msgstr ""
+msgstr "Standard Exemplar kann nicht an ein Journal angehängt werden."
 
 #: rero_ils/modules/items/api/record.py:63
 msgid "Standard item can not have a issue field."
-msgstr ""
+msgstr "Standard Exemplar kann nicht Lieferungfeld haben."
 
 #: rero_ils/modules/items/api/record.py:65
 msgid "Issue item must have an issue field."
@@ -7048,13 +6980,16 @@ msgstr "Bezugsbedingung"
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:410
 #, fuzzy
 msgid "New acquisition"
-msgstr "Bezugsbedingung"
+msgstr "Neuerwerbung"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:411
+#, fuzzy
 msgid ""
 "If this option is enabled, this item is going to appear in the new "
 "acquisition list of the library."
 msgstr ""
+"Wenn diese Option aktiviert ist, wird dieses Element in der "
+"Neuerwerbungsliste der Bibliothek erscheinen."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:5
 msgid "JSON schema for a library"
