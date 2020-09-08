@@ -38,7 +38,7 @@ Cypress.Commands.add('setLanguageToEnglish', () => {
     })
   })
   // Wait for the menu to close
-  // TODO: find a better way
+  // TODO: find a better way (same as logout command)
   cy.wait(1000)
 })
 

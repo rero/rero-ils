@@ -29,7 +29,7 @@
 
 {% if requests|length > 0 %}
   {% for loan in requests %}
-  <div class="row mb-1">
+  <div id="item-{{ loan.item_barcode }}" class="row mb-1">
     <div class="col mr-1 p-2 border rounded{% if loan.state == 'ITEM_AT_DESK' %} border-success{% endif %}">
       <div class="row pl-2 pr-2">
         <div class="col-lg-4">
@@ -37,12 +37,13 @@
             <i class="fa fa-caret-right pr-0"></i>
           </button>
           <a
+            id="item-{{ loan.item_barcode }}-title"
             href="{{ url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=loan.document.pid) }}"
           >
           {{ loan.document.title[0]._text }}
           </a>
         </div>
-        <div class="col-lg-4">
+        <div id="item-{{ loan.item_barcode }}-pickup-name" class="col-lg-4">
           {{ loan.pickup_name }}
         </div>
         <div class="col-lg-2{% if loan.state == 'ITEM_AT_DESK' %} text-success{% endif %}">
@@ -66,7 +67,7 @@
           <form class="mt-0" action="{{ url_for('patrons.profile') }}" method="POST" name="cancel_request">
             <input type="hidden" name="type" value="cancel">
             <input type="hidden" name="loan_pid" value="{{ loan.pid }}">
-            <button type="submit" class="btn btn-outline-primary mt-1">
+            <button id="item-{{ loan.item_barcode }}-cancel-button" type="submit" class="btn btn-outline-primary mt-1">
               {{ _('Cancel') }}
             </button>
           </form>
@@ -90,7 +91,7 @@
           <div class="col-lg-2 col-sm-4 text-right label-title">
             <b>{{ _('Call number') }}</b>
           </div>
-          <div class="col-lg-10 col-sm-8">
+          <div id="item-{{ loan.item_barcode }}-call-number" class="col-lg-10 col-sm-8">
             {{ loan.item_call_number }}
           </div>
         </div>
@@ -98,7 +99,7 @@
           <div class="col-lg-2 col-sm-4 text-right label-title">
             <b>{{ _('Transaction date') }}</b>
           </div>
-          <div class="col-lg-10 col-sm-8">
+          <div id="item-{{ loan.item_barcode }}-transaction-date" class="col-lg-10 col-sm-8">
             {{ loan.transaction_date|format_date(
               locale=current_i18n.locale.language
             )}}
