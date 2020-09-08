@@ -47,5 +47,13 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/2"
     }
+  },
+  {
+    "pid": "7",
+    "name": "Standard",
+    "description": "Standard patron.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/4"
+    }
   }
 ]

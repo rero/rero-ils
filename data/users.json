@@ -913,5 +913,80 @@
     "street": "Ranftweg 1",
     "communication_channel": "email",
     "communication_language": "eng"
+  },
+  {
+    "birth_date": "1927-05-14",
+    "city": "New York",
+    "email": "reroilstest+leonard@gmail.com",
+    "first_name": "Leonard",
+    "roles": [
+      "system_librarian",
+      "librarian"
+    ],
+    "last_name": "McCoy",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/22"
+    },
+    "password": "123456",
+    "phone": "+39324993599",
+    "postal_code": "11101",
+    "street": "Central Park"
+  },
+  {
+    "birth_date": "1930-05-14",
+    "city": "Vulcan",
+    "email": "reroilstest+spock@gmail.com",
+    "first_name": "Spock",
+    "roles": [
+      "librarian"
+    ],
+    "last_name": "Grayson",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/23"
+    },
+    "password": "123456",
+    "phone": "+39324993596",
+    "postal_code": "11102",
+    "street": "Illogical street, 44"
+  },
+  {
+    "barcode": "cypress-1",
+    "birth_date": "1931-03-22",
+    "city": "Betelgeuse",
+    "email": "reroilstest+james@gmail.com",
+    "first_name": "James",
+    "roles": [
+      "patron"
+    ],
+    "last_name": "Kirk",
+    "password": "123456",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/7"
+    },
+    "phone": "+41324883598",
+    "postal_code": "4242",
+    "street": "Galaxy street",
+    "communication_channel": "email",
+    "communication_language": "eng"
+  },
+  {
+    "barcode": "cypress-2",
+    "birth_date": "1932-12-28",
+    "city": "Betelgeuse",
+    "email": "reroilstest+nyota@gmail.com",
+    "first_name": "Nyota",
+    "roles": [
+      "patron"
+    ],
+    "last_name": "Uhura",
+    "password": "123456",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/7"
+    },
+    "phone": "+41324883123",
+    "postal_code": "4242",
+    "street": "Milky Way street",
+    "communication_channel": "email",
+    "communication_language": "eng"
   }
 ]

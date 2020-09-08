@@ -125,7 +125,9 @@
           <h3>{{ _('Organisations\' catalogues') }}</h3>
           <ul class="list-unstyled">
             {% for org in organisations %}
-            <li><a href="{{ url_for('rero_ils.index_with_view_code', viewcode=org.code) }}">{{ org.name }}</a></li>
+              {% if  not org.is_test_organisation() %}
+                <li><a href="{{ url_for('rero_ils.index_with_view_code', viewcode=org.code) }}">{{ org.name }}</a></li>
+              {% endif %}
             {% endfor %}
           </ul>
         {% else %}
