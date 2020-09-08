@@ -161,5 +161,8 @@ invenio collect -v
 info_msg "Build web assets: check (build command)"
 invenio assets build
 
+info_msg "Build web assets: using webpack for invenio-admin"
+invenio webpack buildall
+
 success_msg "${PROGRAM} finished!"
 exit 0
