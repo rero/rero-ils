@@ -1841,5 +1841,169 @@
         ]
       }
     ]
+  },
+  {
+    "pid": "22",
+    "address": "On board the Enterprise",
+    "code": "ENTERPRISE",
+    "email": "reroilstest+cypress1@gmail.com",
+    "name": "Starfleet library",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/4"
+    },
+    "opening_hours": [
+      {
+        "day": "monday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "01:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "tuesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "01:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "wednesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "01:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "thursday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "01:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "friday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "01:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "saturday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "01:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "sunday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "01:00",
+            "end_time": "23:59"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "pid": "23",
+    "address": "Somewhere on Vulcan",
+    "code": "VULCAN",
+    "email": "reroilstest+cypress2@gmail.com",
+    "name": "Vulcan Sciences Academy",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/4"
+    },
+    "opening_hours": [
+      {
+        "day": "monday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "01:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "tuesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "01:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "wednesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "01:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "thursday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "01:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "friday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "01:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "saturday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "01:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "sunday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "01:00",
+            "end_time": "23:59"
+          }
+        ]
+      }
+    ]
   }
 ]
