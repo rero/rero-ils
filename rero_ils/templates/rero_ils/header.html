@@ -123,12 +123,14 @@
       </div>
     </nav>
   {%- endblock navbar %}
-  {%- block flashmessages %}
-    {%- from "rero_ils/macros/messages.html" import flashed_messages with context -%}
-      {{ flashed_messages() }}
-  {%- endblock flashmessages %}
-  {%- block breadcrumbs %}
-    {# TODO: to be served by RERO ILS #}
-    {%- include "invenio_theme/breadcrumbs.html" %}
-  {%- endblock breadcrumbs %}
 </header>
+{%- block flashmessages %}
+{%- from "rero_ils/macros/messages.html" import flashed_messages with context -%}
+{{ flashed_messages() }}
+{%- endblock flashmessages %}
+
+<div class="container mt-4">
+  {%- block breadcrumbs %}
+  {%- include "rero_ils/breadcrumbs.html" %}
+  {%- endblock breadcrumbs %}
+</div>
