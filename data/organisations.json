@@ -24,5 +24,13 @@
     "code": "fictive",
     "default_currency": "CHF",
     "current_budget_pid": "5"
+  },
+  {
+    "pid": "4",
+    "address": "The front-end",
+    "name": "Institute of user interface tests",
+    "code": "cypress",
+    "default_currency": "CHF",
+    "current_budget_pid": "6"
   }
 ]

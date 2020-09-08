@@ -173,6 +173,12 @@ class Organisation(IlsRecord):
             cannot_delete['links'] = links
         return cannot_delete
 
+    def is_test_organisation(self):
+        """Check if this is a test organisation."""
+        if self.get('code') == 'cypress':
+            return True
+        return False
+
 
 class OrganisationsIndexer(IlsRecordsIndexer):
     """Holdings indexing class."""
