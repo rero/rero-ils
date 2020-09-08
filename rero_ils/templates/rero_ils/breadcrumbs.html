@@ -1,4 +1,4 @@
-/*
+{# -*- coding: utf-8 -*-
 
   RERO ILS
   Copyright (C) 2019 RERO
@@ -15,39 +15,24 @@
   You should have received a copy of the GNU Affero General Public License
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-*/
+#}
 
-.rero-ils-logo {
-  max-height: $navbar-brand-height;
-  margin: 7px 0;
-}
-
-header {
-  position: relative;
-}
-
-.rero-ils-page-body {
-  height: calc(100vh - 0px);
-  overflow: auto;
-}
-
-.nav-link,
-.navbar-toggler:focus,
-.navbar-brand {
-  outline: 0;
-}
-
-.nav-item a.collapsed .fa-caret-down {
-  transform: rotate(-90deg);
-}
-
-
-#mobileHide {
-  @include media-breakpoint-up(md) {
-    position: fixed;
-    top: 0;
-    z-index: 1000;
-    width: 60%;
-    border: solid lightgray 1px;
-  }
-}
+{%- if breadcrumbs|length > 1 %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      {%- for breadcrumb in breadcrumbs %}
+        {%- if loop.last %}
+          <li class="breadcrumb-item active">
+            {{ breadcrumb.text|safe }}
+          </li>
+        {%- else %}
+          <li class="breadcrumb-item">
+            <a href="{{ breadcrumb.url }}">
+              {{ breadcrumb.text|safe }}
+            </a>
+          </li>
+        {%- endif %}
+      {%- endfor %}
+    </ul>
+  </nav>
+{%- endif %}

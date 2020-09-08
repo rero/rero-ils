@@ -93,16 +93,21 @@
     {%- block page_header %}
     {% include 'rero_ils/header.html' %}
     {%- endblock page_header %}
+
     {%- block page_body %}
-    <div class="container flex-grow-1 mt-4">
+    <div class="container flex-grow-1 mt-1">
+
       {%- block body %}
       {%- endblock body %}
     </div>
     {%- endblock page_body %}
+
     {%- block page_footer %}
     {% include 'rero_ils/footer.html' %}
     {%- endblock page_footer %}
+
     {%- endblock body_inner %}
+
     {%- block javascript %}
     {% include 'rero_ils/javascript.html' %}
     {%- endblock javascript %}
