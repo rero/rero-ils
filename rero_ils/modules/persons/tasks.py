@@ -28,7 +28,12 @@ from .api import Person
 
 @shared_task(ignore_result=True)
 def create_mef_records(records, verbose=False):
-    """Records creation and indexing."""
+    """Records creation and indexing.
+
+    :param records: records to create
+    :param verbose: verbose output
+    :return: count of records
+    """
     # TODO: check update an existing record
     for record in records:
         rec = Person.create(
@@ -45,10 +50,20 @@ def create_mef_records(records, verbose=False):
 
 
 @shared_task(ignore_result=True)
-def delete_records(records, force=False, delindex=True, verbose=False):
-    """Records deletion and indexing."""
+def delete_records(records, verbose=False):
+    """Records deletion and indexing.
+
+    :param records: records to delete
+    :param verbose: verbose output
+    :return: count of records
+    """
     for record in records:
-        status = Person.delete(record, force=force, delindex=delindex)
+        status = Person.delete(
+            record,
+            force=False,
+            dbcommit=True,
+            delindex=True
+        )
         current_app.logger.info(
             'record: {id} | DELETED {status}'.format(
                 id=record.id,
@@ -61,3 +76,19 @@ def delete_records(records, force=False, delindex=True, verbose=False):
             'records deleted: {count}'.format(count=len(records))
         )
     return len(records)
+
+
+@shared_task(ignore_result=True)
+def create_mef_record_online(ref):
+    """Get a record from DB.
+
+    If the record dos not exist get it from MEF and create it.
+
+    :param ref: referer to person record on MEF
+    :return: person pid, online = True if person was loaded from MEF
+    """
+    person, online = Person.get_record_by_ref(ref)
+    pid = None
+    if person:
+        pid = person.get('pid')
+    return pid, online

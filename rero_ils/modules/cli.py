@@ -22,6 +22,7 @@ from __future__ import absolute_import, print_function
 
 import difflib
 import gc
+import itertools
 import json
 import logging
 import multiprocessing
@@ -32,6 +33,7 @@ import traceback
 from collections import OrderedDict
 from glob import glob
 from pprint import pprint
+from time import sleep
 
 import click
 import polib
@@ -40,6 +42,7 @@ import requests
 import xmltodict
 import yaml
 from babel import Locale, core
+from celery.task.control import inspect
 from dojson.contrib.marc21.utils import create_record, split_stream
 from flask import current_app
 from flask.cli import with_appcontext
@@ -65,6 +68,7 @@ from .holdings.cli import create_patterns
 from .items.cli import create_items, reindex_items
 from .loans.cli import create_loans
 from .patrons.cli import import_users
+from .persons.tasks import create_mef_record_online
 from .tasks import process_bulk_queue
 from .utils import get_record_class_from_schema_or_pid_type, read_json_record
 from ..modules.providers import append_fixtures_new_identifiers
@@ -110,6 +114,53 @@ def manual_confirm_user(user):
 @click.group()
 def utils():
     """Misc management commands."""
+
+
+def queue_count():
+    """Count tasks in celery."""
+    inspector = inspect()
+    task_count = 0
+    reserved = inspector.reserved()
+    if reserved:
+        for key, values in reserved.items():
+            task_count += len(values)
+    active = inspector.active()
+    if active:
+        for key, values in active.items():
+            task_count += len(values)
+    return task_count
+
+
+def wait_empty_tasks(delay, verbose=False):
+    """Wait for tasks to be empty."""
+    if verbose:
+        spinner = itertools.cycle(['-', '\\', '|', '/'])
+        click.echo(
+            'Waiting: {spinner}\r'.format(spinner=next(spinner)),
+            nl=False
+        )
+    count = queue_count()
+    sleep(5)
+    count += queue_count()
+    while count:
+        if verbose:
+            click.echo(
+                'Waiting: {spinner}\r'.format(spinner=next(spinner)),
+                nl=False
+            )
+        sleep(delay)
+        count = queue_count()
+        sleep(5)
+        count += queue_count()
+
+
+@utils.command('wait_empty_tasks')
+@click.option('-d', '--delay', 'delay', default=3)
+@with_appcontext
+def wait_empty_tasks_cli(delay):
+    """Wait for tasks to be empty."""
+    wait_empty_tasks(delay=delay, verbose=True)
+    click.secho('No active celery tasks.', fg='green')
 
 
 @utils.command('show')
@@ -222,7 +273,7 @@ def init(force):
             bar.label = name
 
 
-@click.command('create')
+@fixtures.command('create')
 @click.option('-a', '--append', 'append', is_flag=True, default=False)
 @click.option('-r', '--reindex', 'reindex', is_flag=True, default=False)
 @click.option('-c', '--dbcommit', 'dbcommit', is_flag=True, default=False)
@@ -337,13 +388,10 @@ def create(infile, append, reindex, dbcommit, verbose, debug, schema, pid_type,
             error_file.write(']')
 
 
-fixtures.add_command(create)
-
-
-@click.command('count')
+@fixtures.command('count')
 @click.option('-l', '--lazy', 'lazy', is_flag=True, default=False)
 @click.argument('infile', type=click.File('r'), default=sys.stdin)
-def count(infile, lazy):
+def count_cli(infile, lazy):
     """Count records in file.
 
     :param infile: Json file
@@ -351,9 +399,7 @@ def count(infile, lazy):
     :return: count of records
     """
     click.secho(
-        'Count records from {file_name}.'.format(
-            file_name=infile.name
-        ),
+        'Count records from {file_name}.'.format(file_name=infile.name),
         fg='green'
     )
     if lazy:
@@ -368,7 +414,54 @@ def count(infile, lazy):
     click.echo('Count: {count}'.format(count=count))
 
 
-fixtures.add_command(count)
+@fixtures.command('get_all_mef_records')
+@click.argument('infile', type=click.File('r'), default=sys.stdin)
+@click.option('-l', '--lazy', 'lazy', is_flag=True, default=False,
+              help="lazy reads file")
+@click.option('-k', '--enqueue', 'enqueue', is_flag=True, default=False,
+              help="Enqueue record creation.")
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=True,
+              help='verbose')
+@click.option('-w', '--wait', 'wait', is_flag=True, default=False,
+              help="wait for enqueued tasks to finish")
+@with_appcontext
+def get_all_mef_records(infile, lazy, verbose, enqueue, wait):
+    """Get all persons for given document file."""
+    click.secho(
+        'Get all persons for {file_name}.'.format(file_name=infile.name),
+        fg='green'
+    )
+    if lazy:
+        # try to lazy read json file (slower, better memory management)
+        records = read_json_record(infile)
+    else:
+        # load everything in memory (faster, bad memory management)
+        records = json.load(infile)
+    count = 0
+    refs = {}
+    for record in records:
+        for contribution in record.get('contribution', []):
+            ref = contribution['agent'].get('$ref')
+            if ref and not refs.get(ref):
+                count += 1
+                refs[ref] = 1
+                if enqueue:
+                    msg = create_mef_record_online.delay(ref)
+                else:
+                    pid, online = create_mef_record_online(ref)
+                    msg = 'person pid: {pid} {online}'.format(
+                        pid=pid,
+                        online=online
+                    )
+                if verbose:
+                    click.echo("{count:<10}ref: {ref}\t{msg}".format(
+                        count=count,
+                        ref=ref,
+                        msg=msg
+                    ))
+    if enqueue and wait:
+        wait_empty_tasks(delay=3, verbose=True)
+    click.echo('Count refs: {count}'.format(count=count))
 
 
 @utils.command('check_license')

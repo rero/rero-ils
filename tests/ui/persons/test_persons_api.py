@@ -71,15 +71,17 @@ def test_person_mef_create(mock_persons_mef_get, app, person_data_tmp,
     mock_persons_mef_get.return_value = mock_response(
         json_data=person_response_data
     )
-    pers_mef = Person.get_record_by_ref(
+    pers_mef, online = Person.get_record_by_ref(
         'https://mef.rero.ch/api/rero/A017671081')
     flush_index(PersonsSearch.Meta.index)
     assert pers_mef == person_data_tmp
+    assert online
     assert Person.count() == count + 1
     pers_mef.pop('rero')
     pers_mef.pop('gnd')
     pers_mef['sources'] = ['bnf']
     pers_mef.replace(pers_mef, dbcommit=True)
-    pers_db = Person.get_record_by_ref(
+    pers_db, online = Person.get_record_by_ref(
         'https://mef.rero.ch/api/gnd/172759757')
     assert pers_db['sources'] == ['bnf']
+    assert not online

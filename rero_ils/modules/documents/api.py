@@ -206,7 +206,7 @@ class Document(IlsRecord):
             person = None
             ref = contribution['agent'].get('$ref')
             if ref:
-                person = Person.get_record_by_ref(ref)
+                person, online = Person.get_record_by_ref(ref)
             pid = contribution['agent'].get('pid')
             if pid:
                 person = Person.get_record_by_pid(pid)
@@ -253,7 +253,7 @@ class Document(IlsRecord):
         for idx, contribution in enumerate(contributions):
             ref = contribution['agent'].get('$ref')
             if ref:
-                person = Person.get_record_by_ref(ref)
+                person, online = Person.get_record_by_ref(ref)
                 if person:
                     contributions[idx]['agent'] = person
         return super(Document, self).replace_refs()
