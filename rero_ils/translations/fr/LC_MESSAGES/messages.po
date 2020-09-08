@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-09-03 11:43+0200\n"
-"PO-Revision-Date: 2020-09-03 13:41+0000\n"
+"PO-Revision-Date: 2020-09-07 14:34+0000\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
@@ -78,15 +78,15 @@ msgstr "bibliothèque"
 
 #: rero_ils/config.py:1396
 msgid "contribution__en"
-msgstr "contribution__en"
+msgstr "auteur"
 
 #: rero_ils/config.py:1397
 msgid "contribution__fr"
-msgstr "contribution__fr"
+msgstr "auteur"
 
 #: rero_ils/config.py:1398
 msgid "contribution__de"
-msgstr "contribution__de"
+msgstr "auteur"
 
 #: rero_ils/config.py:1399
 msgid "contribution__it"
