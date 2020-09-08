@@ -1,0 +1,64 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2019 RERO
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+
+{%- extends config.THEME_BASE_TEMPLATE %}
+
+{%- block body scoped %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3 col-md-3 col-pad-left-0">
+      {%- block settings_menu scoped %}
+      <ul class="list-group">
+        {%- for item in current_menu.submenu('settings').children if item.visible %}
+        {%- block settings_menu_item scoped %}
+        <a href="{{ item.url }}" class="list-group-item{% if item.active %} active{% endif %}">
+          {{ item.text|safe }}
+        </a>
+        {%- endblock %}
+        {%- endfor %}
+      </ul>
+      {%- endblock %}
+    </div>
+    <div class="col-sm-9 col-md-9 col-pad-right-0">
+      {%- block settings_content scoped %}
+      <div class="panel-group panel-bot-margin">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            {%- block settings_content_title scoped %}
+            {%- if panel_icon %}
+            {%- block settings_content_title_icon scoped %}
+            <i class="{{panel_icon}}"></i>
+            {%- endblock %}
+            {%- endif %}
+            <strong>{{ panel_title|default("") }}</strong>
+            {%- endblock %}
+          </div>
+          {%- block settings_body scoped %}
+          <div class="panel-body">
+            {%- block settings_form scoped %}
+            {%- endblock settings_form %}
+          </div>
+          {%- endblock settings_body %}
+        </div>
+      </div>
+      {%- endblock %}
+    </div>
+  </div>
+</div>
+{%- endblock %}

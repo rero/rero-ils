@@ -136,9 +136,7 @@ FOOTER_TEMPLATE = 'rero_ils/footer.html'
 #: Header base template.
 HEADER_TEMPLATE = 'rero_ils/header.html'
 #: Settings base template
-SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
-#: Admin base template
-ADMIN_BASE_TEMPLATE = BASE_TEMPLATE
+SETTINGS_TEMPLATE = 'rero_ils/page_settings.html'
 
 # Miscellaneous variable around templates
 # =======================
@@ -163,7 +161,6 @@ SEARCH_UI_SEARCH_MIMETYPE = 'application/rero+json'
 SEARCH_UI_HEADER_TEMPLATE = 'rero_ils/search_header.html'
 REROILS_SEARCHBAR_TEMPLATE = 'templates/rero_ils/searchbar.html'
 RERO_ILS_EDITOR_TEMPLATE = 'rero_ils/editor.html'
-SECURITY_LOGIN_USER_TEMPLATE = 'rero_ils/login_user.html'
 
 # Theme configuration
 # ===================
@@ -230,7 +227,7 @@ ACCOUNTS_SESSION_REDIS_URL = 'redis://localhost:6379/1'
 #: client. Set to False, in case of doubt.
 ACCOUNTS_USERINFO_HEADERS = False
 # Disable User Profiles
-USERPROFILES = False
+USERPROFILES = True
 # make security blueprints available to the REST API
 ACCOUNTS_REGISTER_BLUEPRINT = True
 
@@ -1757,7 +1754,7 @@ RECORDS_JSON_SCHEMA = {
 # Login Configuration
 # ===================
 #: Allow password change by users.
-SECURITY_CHANGEABLE = False
+SECURITY_CHANGEABLE = True
 
 #: Allow user to confirm their email address.
 SECURITY_CONFIRMABLE = True
@@ -1996,7 +1993,6 @@ CIRCULATION_ACTIONS_VALIDATION = {
     ]
 }
 
-WEBPACKEXT_PROJECT = 'rero_ils.webpack:project'
 
 # WIKI
 # ====

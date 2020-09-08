@@ -62,12 +62,6 @@
             <span class="badge badge-light font-weight-normal">{{ history | length }}</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link{% if tab == 'personal' %} active{% endif %}" href="#personal-data" data-toggle="tab" id="personal-data-tab"
-            title="{{ _('Personal data') }}" role="tab" aria-controls="personal-data" aria-selected="false">
-            {{ _('Personal data') }}
-          </a>
-        </li>
       </ul>
     </nav>
   </header>
@@ -104,14 +98,6 @@
       aria-labelledby="history-tab"
     >
       {% include('rero_ils/_patron_profile_history.html') %}
-    </section>
-    <section
-      class="pl-3 pr-2 tab-pane show py-2{% if tab == 'personal' %} active{% endif %}"
-      id="personal-data"
-      role="tabpanel"
-      aria-labelledby="personal-data-tab"
-    >
-      {% include('rero_ils/_patron_profile_personal.html') %}
     </section>
   </article>
 </article>

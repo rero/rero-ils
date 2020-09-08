@@ -212,8 +212,21 @@ def init_menu_profile():
             icon='<i class="fa fa-sign-out"></i>',
             logout=_('Logout')
         ),
-        order=1,
+        order=2,
         id='logout-menu',
+    )
+
+    item = current_menu.submenu('main.profile.profile')
+    rero_register(
+        item,
+        endpoint='invenio_userprofiles.profile',
+        visible_when=lambda: current_user.is_authenticated,
+        text='{icon} {profile}'.format(
+            icon='<i class="fa fa-user"></i>',
+            profile=_('Profile')
+        ),
+        order=1,
+        id='profile-menu',
     )
 
     item = current_menu.submenu('main.profile.signup')

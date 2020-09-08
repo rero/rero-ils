@@ -144,8 +144,8 @@ def logged_user():
 @login_required
 @register_menu(
     blueprint,
-    'main.profile.profile',
-    _('%(icon)s Profile', icon='<i class="fa fa-user fa-fw"></i>'),
+    'main.profile.patron_profile',
+    _('%(icon)s Patron Profile', icon='<i class="fa fa-book fa-fw"></i>'),
     visible_when=user_has_patron,
     id="my-profile-menu"
 )
