@@ -24,13 +24,12 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 Cypress.Commands.add("createItemFromDocumentDetailView", (barcode, item) => {
   // Click on "Add…" button to add an item
   cy.get('.col > .btn').click()
-  // Fill in Item barcode
+  // Fill in the form
   cy.get('#barcode').type(barcode)
-  // Fill in Item Call number with barcode content
   cy.get('#call_number').type(barcode)
-  // Fill in Item Category
+  // Select item type
   cy.get('select').first().select(item.itemTypeUri)
-  // Fill in localisation (could be 0, 1, etc. to select first element from select list)
+  // Select location
   cy.get('select').eq(1).select(item.location)
   // Submit form
   cy.get('.mt-4 > [type="submit"]').click()
