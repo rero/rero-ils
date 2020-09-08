@@ -88,5 +88,14 @@
       "$ref": "https://ils.rero.ch/api/organisations/3"
     },
     "type": "standard"
+  },
+  {
+    "pid": "11",
+    "name": "Default",
+    "description": "Default item type",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/4"
+    },
+    "type": "standard"
   }
 ]
