@@ -983,13 +983,11 @@ def reindex(pid_type, no_info):
             fg='green'
         )
 
-        query = (x[0] for x in PersistentIdentifier.query.filter_by(
-            object_type='rec', status=PIDStatus.REGISTERED
-        ).filter(
-            PersistentIdentifier.pid_type == type
-        ).values(
-            PersistentIdentifier.object_uuid
-        ))
+        query = (
+            x[0] for x in PersistentIdentifier.query.
+            filter_by(object_type='rec', status=PIDStatus.REGISTERED).
+            filter_by(pid_type=type).values(PersistentIdentifier.object_uuid)
+        )
         IlsRecordsIndexer().bulk_index(query, doc_type=type)
     if no_info:
         click.secho(

@@ -78,16 +78,16 @@ def test_monitoring_check_es_db_counts(app, client, person_data,
     assert res.status_code == 200
     assert get_json(res) == {
         'data': {'status': 'red'},
-        'error': {
+        'errors': [{
             'code': 'DB_ES_COUNTER_MISSMATCH',
-            'details': ['There are 1 items from pers missing in ES.'],
+            'details': 'There are 1 items from pers missing in ES.',
             'id': 'DB_ES_COUNTER_MISSMATCH',
             'links': {
                 'about': 'http://localhost/monitoring/check_es_db_counts',
                 'pers': 'http://localhost/monitoring/missing_pids/pers'
             },
             'title': "DB items counts don't match ES items count."
-        }
+        }]
     }
 
     # this view is only accessible by admin
@@ -117,6 +117,6 @@ def test_monitoring_check_es_db_counts(app, client, person_data,
         'data': {
             'DB': [],
             'ES': ['http://localhost/persons/pers1'],
-            'ES duplicate': {}
+            'ES duplicate': []
         }
     }
