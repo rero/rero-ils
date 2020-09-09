@@ -69,3 +69,11 @@ def create_subscription_patron_transaction(sender, record=None, **kwargs):
         start_date = datetime.now()
         end_date = add_years(start_date, 1)
         record.add_subscription(ptty, start_date, end_date)
+
+
+def update_from_profile(sender, profile=None, **kwargs):
+    """Update the patron linked with the user profile data.
+
+    :param profile - the rero user profile
+    """
+    Patron.update_from_profile(profile)

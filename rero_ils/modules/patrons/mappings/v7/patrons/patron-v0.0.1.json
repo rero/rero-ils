@@ -45,6 +45,15 @@
           }
         }
       },
+      "username": {
+        "type": "keyword",
+        "fields": {
+          "analyzed": {
+            "type": "text",
+            "analyzer": "custom_keyword"
+          }
+        }
+      },
       "street": {
         "type": "text"
       },
