@@ -2577,6 +2577,7 @@
       "$ref": "https://ils.rero.ch/api/libraries/lib1"
     },
     "email": "simolibri07@gmail.com",
+    "username": "simonetta",
     "phone": "+41324993585",
     "roles": [
       "system_librarian",
@@ -2596,6 +2597,7 @@
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib1"
     },
+    "username": "marie",
     "email": "mpedronni@gmail.com",
     "phone": "+41324993578",
     "roles": [
@@ -2614,6 +2616,7 @@
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib1"
     },
+    "username": "marcel",
     "email": "msaudan@gmail.com",
     "phone": "+41324993541",
     "roles": [
@@ -2632,6 +2635,7 @@
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib2"
     },
+    "username": "elena",
     "email": "elena_rodriguez@gmail.com",
     "phone": "+41324993515",
     "roles": [
@@ -2650,6 +2654,7 @@
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib3"
     },
+    "username": "virgile",
     "email": "virgile_charbonnet@gmail.com",
     "phone": "+41324111515",
     "roles": [
@@ -2669,6 +2674,7 @@
     "patron_type": {
       "$ref": "https://ils.rero.ch/api/patron_types/ptty1"
     },
+    "username": "louis",
     "email": "lroduit@gmail.com",
     "phone": "+41324993156",
     "communication_language": "eng",
@@ -2692,6 +2698,7 @@
     "patron_type": {
       "$ref": "https://ils.rero.ch/api/patron_types/ptty2"
     },
+    "username": "louise",
     "email": "lmoret@gmail.com",
     "phone": "+41324993151",
     "communication_language": "eng",
@@ -2705,6 +2712,7 @@
     "pid": "ptrn8",
     "birth_date": "2001-12-12",
     "city": "Sion",
+    "username": "philippe",
     "email": "reroilstest+philippe@gmail.com",
     "first_name": "Philippe",
     "last_name": "Monnet",
@@ -2723,6 +2731,7 @@
     "pid": "ptrn9",
     "birth_date": "1990-12-12",
     "city": "Sion",
+    "username": "eric",
     "email": "ecarron@gmail.com",
     "first_name": "Eric",
     "last_name": "Carron",
@@ -2748,6 +2757,7 @@
     "patron_type": {
       "$ref": "https://ils.rero.ch/api/patron_types/ptty4"
     },
+    "username": "jules",
     "email": "reroilstest+jules@gmail.com",
     "phone": "+41324993673",
     "communication_language": "eng",
@@ -2769,6 +2779,7 @@
     "patron_type": {
       "$ref": "https://ils.rero.ch/api/patron_types/ptty2"
     },
+    "username": "marvin",
     "email": "mlorgne@gmail.com",
     "phone": "+41324993142",
     "communication_language": "eng",
@@ -2796,6 +2807,7 @@
       "$ref": "https://ils.rero.ch/api/patron_types/ptty2"
     },
     "email": "sharifo@gmail.com",
+    "username": "omar",
     "phone": "+41324991231",
     "communication_language": "fre",
     "communication_channel": "email",

@@ -26,6 +26,7 @@ from flask import current_app
 from flask.cli import with_appcontext
 from flask_security.confirmable import confirm_user
 from invenio_accounts.ext import hash_password
+from invenio_db import db
 from werkzeug.local import LocalProxy
 
 from ..patrons.api import Patron
@@ -66,18 +67,16 @@ def import_users(infile, verbose, password):
                 if user:
                     click.secho('\tUser exist: ' + email, fg='yellow')
                 else:
-                    pwd = hash_password(password)
-                    datastore.create_user(
-                        email=email,
-                        password=pwd
+                    patron = Patron.create(
+                        patron_data,
+                        dbcommit=False,
+                        reindex=False,
+                        email_notification=False
                     )
-                    datastore.commit()
-                    user = datastore.find_user(email=email)
-                    confirm_user(user)
-                    datastore.commit()
-                patron = Patron.create(
-                    patron_data,
-                    dbcommit=True,
-                    reindex=True
-                )
-                patron.reindex()
+                    patron.reindex()
+                    user = patron.user
+                user.password = hash_password(password)
+                user.active = True
+                db.session.merge(user)
+                db.session.commit()
+                confirm_user(user)

@@ -38,6 +38,7 @@ def test_system_librarian_permissions(
         "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
         "first_name": "first_name",
         "last_name": "Last_name",
+        "username": "user",
         "street": "Avenue Leopold-Robert, 132",
         "postal_code": "1920",
         "city": "Martigny",
@@ -85,6 +86,7 @@ def test_system_librarian_permissions(
         data['roles'] = record['role']
         data['barcode'] = 'barcode' + str(counter)
         data['email'] = str(counter) + '@domain.com'
+        data['username'] = 'user' + str(counter)
         if record.get('patron_type'):
             data['patron_type'] = record['patron_type']
         if record.get('library'):

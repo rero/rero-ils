@@ -52,15 +52,43 @@ require([
       });
     });
 
-    // $(function () {
-    //   'use strict';
+  $("#login-user").submit(function (e) {
 
-    //   $('.navbar').bootstrapAutoHideNavbar({
-    //     disableAutoHide: false,
-    //     delta: 5,
-    //     duration: 250,
-    //     shadow: false
-    //   });
-    // });
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+
+    var form = $(this);
+    var url = form.attr('data-action');
+
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: form.serialize(), // serializes the form's elements.
+      success: function (data) {
+        var next = getUrlParameter('next');
+        window.location.replace(next? next : '/');
+      },
+      error: function (data) {
+        var response = $.parseJSON(data.responseText);
+        var alert = $("#js-alert");
+        var msg = $("#js-alert span.msg").html(response.errors[0].message);
+        alert.show();
+      }
+    });
+  });
+
+  var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+      sURLVariables = sPageURL.split('&'),
+      sParameterName,
+      i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+      sParameterName = sURLVariables[i].split('=');
+
+      if (sParameterName[0] === sParam) {
+        return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+      }
+    }
+  };
   });
 });

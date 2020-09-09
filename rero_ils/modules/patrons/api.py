@@ -26,7 +26,11 @@ from flask_login import current_user
 from flask_security.confirmable import confirm_user
 from flask_security.recoverable import send_reset_password_instructions
 from invenio_accounts.ext import hash_password
+from invenio_accounts.models import User
 from invenio_circulation.proxies import current_circulation
+from invenio_db import db
+from invenio_userprofiles.models import UserProfile
+from sqlalchemy.orm.exc import NoResultFound
 from werkzeug.local import LocalProxy
 from werkzeug.utils import cached_property
 
@@ -90,6 +94,12 @@ class Patron(IlsRecord):
     provider = PatronProvider
     model_cls = PatronMetadata
 
+    # field list to be in sync
+    profile_fields = [
+        'first_name', 'last_name', 'street', 'postal_code',
+        'city', 'birth_date', 'username', 'phone'
+    ]
+
     available_roles = [ROLE_SYSTEM_LIBRARIAN, ROLE_LIBRARIAN, ROLE_PATRON]
 
     def validate(self, **kwargs):
@@ -148,17 +158,47 @@ class Patron(IlsRecord):
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,
-               dbcommit=False, reindex=False, **kwargs):
-        """Patron record creation."""
+               dbcommit=False, reindex=False,
+               email_notification=True, **kwargs):
+        """Patron record creation.
+
+        :param cls - class object
+        :param data - dictionary representing a library user
+        :param id_ - UUID, it would be generated if it is not given
+        :param delete_pid - remove the pid present in the data if True
+        :param dbcommit - commit the changes in the db after the creation
+        :param reindex - index the record after the creation
+        :param email_notification - send a reset password link to the user
+        """
+        # remove spaces
         data = trim_barcode_for_record(data=data)
-        record = super(Patron, cls).create(
-            data, id_, delete_pid, dbcommit, reindex, **kwargs)
-        record._update_roles()
+        # synchronize the rero id user profile data
+        user = cls.sync_user_and_profile(data)
+
+        try:
+            # for a fresh created user
+            if user:
+                # link by id
+                data.setdefault('user_id', user.id)
+            record = super(Patron, cls).create(
+                data, id_, delete_pid, dbcommit, reindex, **kwargs)
+            record._update_roles()
+        except Exception as e:
+            db.session.rollback()
+            raise e
+        if user:
+            # send the reset password notification
+            if (email_notification and data.get('email')):
+                send_reset_password_instructions(user)
+            confirm_user(user)
         return record
 
     def update(self, data, dbcommit=False, reindex=False):
         """Update data for record."""
+        # remove spaces
         data = trim_barcode_for_record(data=data)
+        # synchronize the rero id user profile data
+        self.sync_user_and_profile(dict(self, **data))
         super(Patron, self).update(data, dbcommit, reindex)
         self._update_roles()
         return self
@@ -190,20 +230,84 @@ class Patron(IlsRecord):
         super(Patron, self).delete(force, delindex)
         return self
 
+    @classmethod
+    def update_from_profile(cls, profile):
+        """Update the current record with the user profile data.
+
+        :param profile - the rero user profile
+        """
+        # retrieve the user
+        patron = Patron.get_patron_by_user(profile.user)
+        if patron:
+            for field in cls.profile_fields:
+                # date field requires conversion
+                if field == 'birth_date':
+                    patron[field] = getattr(
+                        profile, field).strftime('%Y-%m-%d')
+                else:
+                    patron[field] = getattr(profile, field)
+            super(Patron, patron).update(dict(patron), True, True)
+
+    @classmethod
+    def _get_user_by_data(cls, data):
+        """Get the user using a dict representing a patron.
+
+        Try to get an existing user by: user_id, email, username.
+        :param cls: Class itself.
+        :param data: dict representing a patron.
+        :return: a patron object or None.
+        """
+        user = None
+        if data.get('user_id'):
+            user = User.query.filter_by(id=data.get('user_id')).first()
+        if not user and data.get('username'):
+            try:
+                user = UserProfile.get_by_username(data.get('username')).user
+            except NoResultFound:
+                user = None
+        if not user and data.get('email'):
+            user = User.query.filter_by(email=data.get('email')).first()
+        return user
+
+    @classmethod
+    def sync_user_and_profile(cls, data):
+        """Create or update the rero user with the patron data.
+
+        :param data - dict representing the patron data
+        """
+        # start a session to be able to rollback if the data are not valid
+        with db.session.begin_nested():
+            user = cls._get_user_by_data(data)
+            # need to create the user
+            if not user:
+                birth_date = data.get('birth_date')
+                # sanity check
+                if not birth_date:
+                    raise RecordValidationError('birth_date field is required')
+                # the default password is the birth date
+                user = User(
+                    email=data.get('email'),
+                    password=hash_password(birth_date),
+                    profile=dict(), active=True)
+                db.session.add(user)
+            # update all common fields
+            for field in cls.profile_fields:
+                # date field need conversion
+                if field == 'birth_date':
+                    setattr(
+                        user.profile, field,
+                        datetime.strptime(data.get(field), '%Y-%m-%d'))
+                else:
+                    setattr(user.profile, field, data.get(field, ''))
+            db.session.merge(user)
+            if not data.get('user_id'):
+                # the fresh created user
+                return user
+
     @cached_property
     def user(self):
         """Invenio user of a patron."""
-        email = self.get('email')
-        user = _datastore.find_user(email=email)
-        if not user:
-            password = hash_password(email)
-
-            _datastore.create_user(email=email, password=password)
-            _datastore.commit()
-            # send password reset
-            user = _datastore.find_user(email=email)
-            send_reset_password_instructions(user)
-            confirm_user(user)
+        user = _datastore.find_user(id=self.get('user_id'))
         return user
 
     def _update_roles(self):

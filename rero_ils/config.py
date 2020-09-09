@@ -139,6 +139,8 @@ FOOTER_TEMPLATE = 'rero_ils/footer.html'
 HEADER_TEMPLATE = 'rero_ils/header.html'
 #: Settings base template
 SETTINGS_TEMPLATE = 'rero_ils/page_settings.html'
+#: Admin base template
+# ADMIN_BASE_TEMPLATE = BASE_TEMPLATE
 
 # Miscellaneous variable around templates
 # =======================
@@ -230,8 +232,31 @@ ACCOUNTS_SESSION_REDIS_URL = 'redis://localhost:6379/1'
 ACCOUNTS_USERINFO_HEADERS = False
 # Disable User Profiles
 USERPROFILES = True
-# make security blueprints available to the REST API
+
+# Custom login view
+ACCOUNTS_REST_AUTH_VIEWS = {
+    "login": "rero_ils.accounts_views:LoginView",
+    "logout": "invenio_accounts.views.rest:LogoutView",
+    "user_info": "invenio_accounts.views.rest:UserInfoView",
+    "register": "invenio_accounts.views.rest:RegisterView",
+    "forgot_password": "invenio_accounts.views.rest:ForgotPasswordView",
+    "reset_password": "invenio_accounts.views.rest:ResetPasswordView",
+    "change_password": "invenio_accounts.views.rest:ChangePasswordView",
+    "send_confirmation":
+        "invenio_accounts.views.rest:SendConfirmationEmailView",
+    "confirm_email": "invenio_accounts.views.rest:ConfirmEmailView",
+    "sessions_list": "invenio_accounts.views.rest:SessionsListView",
+    "sessions_item": "invenio_accounts.views.rest:SessionsItemView"
+}
+
 ACCOUNTS_REGISTER_BLUEPRINT = True
+"""Needed to generate reset password link."""
+
+SECURITY_LOGIN_URL = '/signin/'
+"""URL endpoint for login."""
+
+SECURITY_LOGOUT_URL = '/signout/'
+"""URL endpoint for logout."""
 
 
 # Celery configuration
@@ -2040,7 +2065,6 @@ CIRCULATION_ACTIONS_VALIDATION = {
         Item.can_extend
     ]
 }
-
 
 # WIKI
 # ====

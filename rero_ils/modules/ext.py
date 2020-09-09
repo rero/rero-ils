@@ -27,6 +27,7 @@ from invenio_circulation.signals import loan_state_changed
 from invenio_indexer.signals import before_record_index
 from invenio_oaiharvester.signals import oaiharvest_finished
 from invenio_records.signals import after_record_insert, after_record_update
+from invenio_userprofiles.signals import after_profile_update
 
 from .apiharvester.signals import apiharvest_part
 from .documents.listener import enrich_document_data
@@ -43,7 +44,7 @@ from .patron_transaction_events.listener import \
     enrich_patron_transaction_event_data
 from .patron_transactions.listener import enrich_patron_transaction_data
 from .patrons.listener import create_subscription_patron_transaction, \
-    enrich_patron_data
+    enrich_patron_data, update_from_profile
 from .persons.listener import enrich_persons_data
 from .persons.receivers import publish_api_harvested_records
 from ..filter import format_date_filter, jsondumps, text_to_id, to_pretty_json
@@ -150,3 +151,6 @@ class REROILSAPP(object):
         oaiharvest_finished.connect(publish_harvested_records, weak=False)
 
         apiharvest_part.connect(publish_api_harvested_records, weak=False)
+
+        # invenio-userprofiles signal
+        after_profile_update.connect(update_from_profile)
