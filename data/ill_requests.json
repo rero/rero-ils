@@ -1,0 +1,81 @@
+[
+  {
+    "status": "pending",
+    "copy": false,
+    "document": {
+      "title": "Histoire d'\u00c9gypte",
+      "authors": "Aly Badr, Cairo University",
+      "publisher": "Cairo University Press",
+      "year": "1920",
+      "identifier": "9780123456789"
+    },
+    "found_in": {
+      "source": "BGE",
+      "url": "http://data.rero.ch/01-R007878671/html?view=GE_V1"
+    }
+  },
+  {
+    "status": "pending",
+    "copy": true,
+    "document": {
+      "title": "L'invention du pain",
+      "year": "1920",
+      "authors": "Erken Beno\u00eet",
+      "published_in": {
+        "journal_title": "Le quotidien du pain",
+        "volume": "2020",
+        "number": "122"
+      }
+    },
+    "found_in": {
+      "source": "BGE",
+      "url": "http://data.rero.ch/01-R007878671/html?view=GE_V1"
+    },
+    "pages": "18-24",
+    "note": "Could you please add the front page of the journal issue? Thanks a lot!"
+  },
+  {
+    "status": "pending",
+    "copy": false,
+    "document": {
+      "title": "Python for dummies",
+      "year": "2006",
+      "authors": "Stef Maruch, Aahz Maruch"
+    },
+    "found_in": {
+      "source": "Amazon",
+      "url": "https://www.amazon.fr/Python-Dummies-Stef-Maruch/dp/0471778648"
+    }
+  },
+  {
+    "status": "pending",
+    "copy": true,
+    "document": {
+      "title": "Le grand roman des maths",
+      "year": "2016",
+      "authors": "Micka\u00ebl Launay",
+      "publisher": "FLAMMARION"
+    },
+    "found_in": {
+      "source": "Amazon",
+      "url": "https://www.amazon.fr/grand-roman-maths-pr%C3%A9histoire-jours/dp/2081378760"
+    },
+    "pages": "19-44",
+    "note": "Je voudrais obtenir le chapitre 2 de ce livre."
+  },
+  {
+    "status": "pending",
+    "copy": false,
+    "document": {
+      "title": "Harry Potter and the Philosopher's Stone",
+      "year": "2014",
+      "authors": "J.K. Rowling",
+      "publisher": "Bloomsbury Childrens Books"
+    },
+    "found_in": {
+      "source": "Amazon",
+      "url": "https://read.amazon.com/kp/embed?asin=B019PIOJYU&preview=newtab&linkCode=kpe&ref_=cm_sw_r_kb_dp_MBjwFb8A8N94P"
+    },
+    "note": "In english please."
+  }
+]

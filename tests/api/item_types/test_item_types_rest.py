@@ -49,6 +49,7 @@ def test_item_types_permissions(client, item_type_standard_martigny,
         data={},
         headers=json_header
     )
+    assert res.status_code == 401
 
     res = client.delete(item_url)
     assert res.status_code == 401

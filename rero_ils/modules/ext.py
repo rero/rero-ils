@@ -32,6 +32,7 @@ from .apiharvester.signals import apiharvest_part
 from .documents.listener import enrich_document_data
 from .ebooks.receivers import publish_harvested_records
 from .holdings.listener import enrich_holding_data
+from .ill_requests.listener import enrich_ill_request_data
 from .imports.views import ImportsListResource, ImportsResource, \
     ResultNotFoundOnTheRemoteServer
 from .items.listener import enrich_item_data
@@ -53,7 +54,6 @@ class REROILSAPP(object):
 
     def __init__(self, app=None):
         """RERO ILS App module."""
-        from ..permissions import can_access_item, can_edit
         if app:
             self.init_app(app)
             # force to load ils template before others
@@ -68,11 +68,6 @@ class REROILSAPP(object):
             # register filters
             app.add_template_filter(format_date_filter, name='format_date')
             app.add_template_filter(to_pretty_json, name='tojson_pretty')
-            app.add_template_filter(can_edit, name='can_edit')
-            app.add_template_filter(
-                can_access_item,
-                name='can_access_item'
-            )
             app.add_template_filter(text_to_id, name='text_to_id')
             app.add_template_filter(jsondumps, name='jsondumps')
             app.jinja_env.add_extension('jinja2.ext.do')
@@ -145,6 +140,7 @@ class REROILSAPP(object):
         before_record_index.connect(enrich_patron_transaction_event_data,
                                     sender=app)
         before_record_index.connect(enrich_patron_transaction_data, sender=app)
+        before_record_index.connect(enrich_ill_request_data, sender=app)
 
         after_record_insert.connect(create_subscription_patron_transaction)
         after_record_update.connect(create_subscription_patron_transaction)
