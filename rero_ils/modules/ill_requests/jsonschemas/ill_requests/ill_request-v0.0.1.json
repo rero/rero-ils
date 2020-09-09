@@ -1,0 +1,223 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "ILLRequest",
+  "description": "JSON schema for ill_request.",
+  "additionalProperties": false,
+  "propertiesOrder": [
+    "document",
+    "pickup_location",
+    "status",
+    "copy",
+    "pages",
+    "found_in",
+    "note"
+  ],
+  "required": [
+    "$schema",
+    "pid",
+    "status",
+    "patron",
+    "pickup_location",
+    "copy",
+    "document"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate ILL request records against.",
+      "type": "string",
+      "minLength": 9,
+      "default": "https://ils.rero.ch/schema/ill-requests/ill-request-v0.0.1.json"
+    },
+    "pid": {
+      "title": "ILL request ID",
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "title": "Status",
+      "type": "string",
+      "enum": [
+        "pending",
+        "validated",
+        "denied",
+        "closed"
+      ],
+      "default": "pending",
+      "form": {
+        "type": "selectWithSort",
+        "wrappers": [
+          "form-field-horizontal"
+        ],
+        "options": [
+          {
+            "value": "pending",
+            "label": "pending"
+          },
+          {
+            "value": "validated",
+            "label": "validated"
+          },
+          {
+            "value": "denied",
+            "label": "denied"
+          },
+          {
+            "value": "closed",
+            "label": "closed"
+          }
+        ],
+        "templateOptions": {
+          "selectWithSortOptions": {
+            "order": "label"
+          }
+        }
+      }
+    },
+    "copy": {
+      "title": "Copy",
+      "description": "Define if the request is for a copy or an actual document.",
+      "type": "boolean"
+    },
+    "patron": {
+      "title": "Patron",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Patron URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/patrons/.*?$"
+        }
+      }
+    },
+    "pickup_location": {
+      "title": "Pickup location",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Pickup location URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/locations/.+?$"
+        }
+      }
+    },
+    "document": {
+      "type": "object",
+      "title": "Document",
+      "required": [
+        "title"
+      ],
+      "propertiesOrder": [
+        "title",
+        "authors",
+        "publisher",
+        "year",
+        "identifier",
+        "source"
+      ],
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "minLength": 3
+        },
+        "authors": {
+          "title": "Authors",
+          "type": "string",
+          "minLength": 3
+        },
+        "publisher": {
+          "title": "Publisher",
+          "type": "string",
+          "minLength": 3
+        },
+        "year": {
+          "title": "Year",
+          "type": "string",
+          "pattern": "^\\d{4}$",
+          "form": {
+            "validation": {
+              "messages": {
+                "patternMessage": "Should be in the following format: YYYY (2020)."
+              }
+            }
+          }
+        },
+        "identifier": {
+          "title": "Identifier",
+          "type": "string"
+        },
+        "source": {
+          "title": "Source",
+          "type": "object",
+          "required": [
+            "journal_title"
+          ],
+          "propertiesOrder": [
+            "journal_title",
+            "volume",
+            "number"
+          ],
+          "properties": {
+            "journal_title": {
+              "title": "Journal title",
+              "type": "string",
+              "minLength": 3
+            },
+            "volume": {
+              "title": "Volume",
+              "type": "string"
+            },
+            "number": {
+              "title": "Number",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "pages": {
+      "title": "Pages",
+      "type": "string"
+    },
+    "found_in": {
+      "title": "Found in",
+      "type": "object",
+      "required": [
+        "source",
+        "url"
+      ],
+      "propertiesOrder": [
+        "source",
+        "url"
+      ],
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string",
+          "minLength": 3
+        },
+        "url": {
+          "title": "URL",
+          "type": "string",
+          "placeholder": "Example: https://www.rero.ch/",
+          "format": "uri",
+          "minLength": 7
+        }
+      }
+    },
+    "note": {
+      "title": "Note",
+      "description": "Add further information to the librarian.",
+      "type": "string",
+      "maxLength": 2000,
+      "form": {
+        "type": "textarea",
+        "templateOptions": {
+          "rows": 3
+        }
+      }
+    }
+  }
+}

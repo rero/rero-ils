@@ -19,36 +19,7 @@
 from utils import login_user_for_view
 
 from rero_ils.modules.permissions import has_superuser_access
-from rero_ils.permissions import can_access_item, can_edit, \
-    librarian_update_permission_factory
-
-
-def test_can_access_item_librarian(
-        client, json_header,
-        librarian_martigny_no_email, item_lib_martigny):
-    """Test a librarian can access an item."""
-    user = librarian_martigny_no_email.user
-    assert not can_access_item(user=user)
-    login_user_for_view(client, librarian_martigny_no_email)
-    assert not can_access_item(user=user)
-    assert can_access_item(user=user, item=item_lib_martigny)
-
-
-def test_can_access_item_patron(
-        client, json_header,
-        patron_martigny_no_email, item_lib_martigny):
-    """Test a patron can access an item."""
-
-    login_user_for_view(client, patron_martigny_no_email)
-    assert not can_access_item()
-    assert not can_access_item(item=item_lib_martigny)
-
-
-def test_can_access_item_no_user(
-        client, json_header, item_lib_martigny):
-    """Test can access an item no user."""
-    assert not can_access_item()
-    assert not can_access_item(item=item_lib_martigny)
+from rero_ils.permissions import librarian_update_permission_factory
 
 
 def test_has_superuser_access(app):
@@ -56,12 +27,6 @@ def test_has_superuser_access(app):
     assert not has_superuser_access()
     app.config['RERO_ILS_APP_DISABLE_PERMISSION_CHECKS'] = True
     assert has_superuser_access()
-
-
-def test_can_edit(app, client, librarian_martigny_no_email, item_lib_martigny):
-    """Test can_edit function."""
-    login_user_for_view(client, librarian_martigny_no_email)
-    assert can_edit()
 
 
 def test_librarian_update_permission_factory(client, document, ebook_1,

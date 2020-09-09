@@ -55,6 +55,8 @@ from .modules.documents.api import Document
 from .modules.documents.permissions import DocumentPermission
 from .modules.holdings.api import Holding
 from .modules.holdings.permissions import HoldingPermission
+from .modules.ill_requests.api import ILLRequest
+from .modules.ill_requests.permissions import ILLRequestPermission
 from .modules.item_types.api import ItemType
 from .modules.item_types.permissions import ItemTypePermission
 from .modules.items.api import Item
@@ -460,6 +462,51 @@ RECORDS_REST_ENDPOINTS = dict(
             action='update', record=record, cls=DocumentPermission),
         delete_permission_factory_imp=lambda record: record_permission_factory(
             action='delete', record=record, cls=DocumentPermission)
+    ),
+    illr=dict(
+        pid_type='illr',
+        pid_minter='ill_request_id',
+        pid_fetcher='ill_request_id',
+        search_class='rero_ils.modules.ill_requests.api:ILLRequestsSearch',
+        search_index='ill_requests',
+        search_type=None,
+        indexer_class='rero_ils.modules.ill_requests.api:ILLRequestsIndexer',
+        record_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_response'
+            ),
+            'application/rero+json': (
+                'rero_ils.modules.items.serializers:json_item_search'
+            )
+        },
+        search_serializers_aliases={
+            'json': 'application/json',
+            'rero+json': 'application/rero+json',
+        },
+        search_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_search'
+            )
+        },
+        record_loaders={
+            'application/json': lambda: ILLRequest(request.get_json()),
+        },
+        record_class='rero_ils.modules.ill_requests.api:ILLRequest',
+        list_route='/ill_requests/',
+        item_route='/ill_requests/<pid(illr, record_class="rero_ils.modules.ill_requests.api:ILLRequest"):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+        search_factory_imp='rero_ils.query:loans_search_factory',
+        list_permission_factory_imp=lambda record: record_permission_factory(
+            action='list', record=record, cls=ILLRequestPermission),
+        read_permission_factory_imp=lambda record: record_permission_factory(
+            action='read', record=record, cls=ILLRequestPermission),
+        create_permission_factory_imp=lambda record: record_permission_factory(
+            action='create', record=record, cls=ILLRequestPermission),
+        update_permission_factory_imp=lambda record: record_permission_factory(
+            action='update', record=record, cls=ILLRequestPermission),
+        delete_permission_factory_imp=lambda record: record_permission_factory(
+            action='delete', record=record, cls=ILLRequestPermission)
     ),
     item=dict(
         pid_type='item',
@@ -1732,26 +1779,27 @@ RECORDS_UI_EXPORT_FORMATS = {
 }
 
 RECORDS_JSON_SCHEMA = {
+    'acac': '/acq_accounts/acq_account-v0.0.1.json',
+    'acol': '/acq_order_lines/acq_order_line-v0.0.1.json',
+    'acor': '/acq_orders/acq_order-v0.0.1.json',
+    'acin': '/acq_invoices/acq_invoice-v0.0.1.json',
+    'budg': '/budgets/budget-v0.0.1.json',
     'cipo': '/circ_policies/circ_policy-v0.0.1.json',
     'doc': '/documents/document-v0.0.1.json',
+    'hold': '/holdings/holding-v0.0.1.json',
+    'illr': '/ill_requests/ill_request-v0.0.1.json',
     'item': '/items/item-v0.0.1.json',
     'itty': '/item_types/item_type-v0.0.1.json',
     'lib': '/libraries/library-v0.0.1.json',
     'loc': '/locations/location-v0.0.1.json',
-    'org': '/organisations/organisation-v0.0.1.json',
-    'ptrn': '/patrons/patron-v0.0.1.json',
-    'ptty': '/patron_types/patron_type-v0.0.1.json',
     'notif': '/notifications/notification-v0.0.1.json',
-    'hold': '/holdings/holding-v0.0.1.json',
+    'org': '/organisations/organisation-v0.0.1.json',
     'pers': '/persons/person-v0.0.1.json',
-    'vndr': '/vendors/vendor-v0.0.1.json',
-    'acac': '/acq_accounts/acq_account-v0.0.1.json',
-    'budg': '/budgets/budget-v0.0.1.json',
-    'acor': '/acq_orders/acq_order-v0.0.1.json',
-    'acol': '/acq_order_lines/acq_order_line-v0.0.1.json',
-    'acin': '/acq_invoices/acq_invoice-v0.0.1.json',
     'pttr': '/patron_transactions/patron_transaction-v0.0.1.json',
-    'ptre': '/patron_transaction_events/patron_transaction_event-v0.0.1.json'
+    'ptty': '/patron_types/patron_type-v0.0.1.json',
+    'ptre': '/patron_transaction_events/patron_transaction_event-v0.0.1.json',
+    'ptrn': '/patrons/patron-v0.0.1.json',
+    'vndr': '/vendors/vendor-v0.0.1.json',
 }
 
 # Login Configuration

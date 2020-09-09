@@ -26,8 +26,7 @@ from invenio_access import Permission
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
-from rero_ils.permissions import librarian_delete_permission_factory, \
-    user_has_roles
+from rero_ils.permissions import librarian_delete_permission_factory
 
 
 def test_librarian_delete_permission_factory(
@@ -190,22 +189,3 @@ def test_librarian_permissions(
 
     res = client.delete(record_url)
     assert res.status_code == 403
-
-
-def test_user_has_roles(system_librarian_martigny_no_email,
-                        librarian_martigny_no_email):
-    """Test if user has roles permissions."""
-    with mock.patch('rero_ils.permissions.current_user',
-                    librarian_martigny_no_email.user):
-        assert user_has_roles(None, roles=['system_librarian', 'librarian'],
-                              condition='or')
-
-    assert user_has_roles(system_librarian_martigny_no_email.user,
-                          roles=['system_librarian', 'librarian'],
-                          condition='and')
-    assert user_has_roles(librarian_martigny_no_email.user,
-                          roles=['system_librarian', 'librarian'],
-                          condition='or')
-    assert user_has_roles(librarian_martigny_no_email.user,
-                          roles=['system_librarian', 'librarian'],
-                          condition='and') is False
