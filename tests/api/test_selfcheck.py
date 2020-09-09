@@ -49,8 +49,9 @@ def test_selfcheck_login(sip2_librarian_martigny_no_email):
     assert not response
 
     # test success login
-    response = selfcheck_login(sip2_librarian_martigny_no_email.get('email'),
-                               '123456')
+    response = selfcheck_login(
+        sip2_librarian_martigny_no_email.get('email'),
+        sip2_librarian_martigny_no_email.get('birth_date'))
     assert response
     assert response.get('authenticated')
 
@@ -64,15 +65,16 @@ def test_authorize_patron(sip2_patron_martigny_no_email):
     assert not response
 
     # authorize success
-    response = authorize_patron(sip2_patron_martigny_no_email.get('barcode'),
-                                '123456')
+    response = authorize_patron(
+        sip2_patron_martigny_no_email.get('barcode'),
+        sip2_patron_martigny_no_email.get('birth_date'))
     assert response
 
 
-def test_validate_patron(patron_martigny_data):
+def test_validate_patron(patron_martigny):
     """Test validate patron."""
     # test valid patron barcode
-    assert validate_patron_account(patron_martigny_data.get('barcode'))
+    assert validate_patron_account(patron_martigny.get('barcode'))
 
     # test invalid patron barcode
     assert not validate_patron_account('invalid_barcode')

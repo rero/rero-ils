@@ -62,7 +62,7 @@ def login_user(client, user):
 
 def login_user_for_view(client, user):
     """Sign in user for view."""
-    user.user.password_plaintext = user.get('email')
+    user.user.password_plaintext = user.get('birth_date')
     login_user_via_view(client, user=user.user)
 
 

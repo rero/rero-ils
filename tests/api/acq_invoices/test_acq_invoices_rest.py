@@ -178,7 +178,6 @@ def test_acquisition_invoices_can_delete(client, acq_invoice_fiction_martigny):
     assert acq_invoice_fiction_martigny.can_delete
 
     reasons = acq_invoice_fiction_martigny.reasons_not_to_delete()
-    print(reasons)
     assert not reasons
 
 

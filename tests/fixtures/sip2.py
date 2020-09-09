@@ -22,7 +22,6 @@ from copy import deepcopy
 
 import mock
 import pytest
-from invenio_accounts.testutils import create_test_user
 from utils import flush_index
 
 from rero_ils.modules.patrons.api import Patron, PatronsSearch
@@ -42,9 +41,6 @@ def sip2_librarian_martigny_no_email(
         lib_martigny,
         sip2_librarian_martigny_data):
     """Create Martigny librarian without sending reset password instruction."""
-    # create invenio user with default password
-    user = create_test_user(sip2_librarian_martigny_data.get('email'))
-
     # create patron account
     patron = Patron.create(
         data=sip2_librarian_martigny_data,
@@ -70,9 +66,6 @@ def sip2_patron_martigny_no_email(
         patron_type_children_martigny,
         sip2_patron_martigny_data):
     """Create Martigny patron without sending reset password instruction."""
-    # create invenio user with default password
-    create_test_user(sip2_patron_martigny_data.get('email'))
-
     # create patron account
     patron = Patron.create(
         data=sip2_patron_martigny_data,

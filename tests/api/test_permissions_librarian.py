@@ -53,6 +53,7 @@ def test_librarian_permissions(
         "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
         "first_name": "first_name",
         "last_name": "Last_name",
+        "username": "username",
         "street": "Avenue Leopold-Robert, 132",
         "postal_code": "1920",
         "city": "Martigny",
@@ -99,6 +100,7 @@ def test_librarian_permissions(
         data['roles'] = [record['role']]
         data['barcode'] = 'barcode' + str(counter)
         data['email'] = str(counter) + '@domain.com'
+        data['username'] = 'user' + str(counter)
         with mock.patch('rero_ils.modules.patrons.api.'
                         'send_reset_password_instructions'):
             res, _ = postdata(
