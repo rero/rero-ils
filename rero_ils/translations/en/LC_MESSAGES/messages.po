@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-09-03 11:43+0200\n"
-"PO-Revision-Date: 2020-09-07 14:34+0000\n"
+"PO-Revision-Date: 2020-09-09 11:34+0000\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
 "Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/en/>\n"
@@ -75,19 +75,19 @@ msgstr "library"
 
 #: rero_ils/config.py:1396
 msgid "contribution__en"
-msgstr "author"
+msgstr "Author"
 
 #: rero_ils/config.py:1397
 msgid "contribution__fr"
-msgstr "author"
+msgstr "Author"
 
 #: rero_ils/config.py:1398
 msgid "contribution__de"
-msgstr "author"
+msgstr "Author"
 
 #: rero_ils/config.py:1399
 msgid "contribution__it"
-msgstr "author"
+msgstr "Author"
 
 #: rero_ils/config.py:1400
 msgid "language"
@@ -4452,7 +4452,7 @@ msgstr "The budget name is already taken."
 
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:54
 msgid "Start date"
-msgstr "Start date"
+msgstr "Date 1"
 
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:71
 msgid "End date"
@@ -5097,7 +5097,7 @@ msgstr "participant in a treaty"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:369
 msgid "cur"
-msgstr "collector"
+msgstr "curator"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:373
 msgid "dfd"
@@ -5245,7 +5245,7 @@ msgstr "librettist"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:517
 msgid "lgd"
-msgstr "illuminator"
+msgstr "lighting designer"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:521
 msgid "lsa"
@@ -6244,7 +6244,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:238
 msgid "End date of publication"
-msgstr "Date of publication 2"
+msgstr "End date of publication"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:239
 msgid ""

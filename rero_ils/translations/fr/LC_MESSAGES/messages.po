@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-09-03 11:43+0200\n"
-"PO-Revision-Date: 2020-09-07 14:34+0000\n"
+"PO-Revision-Date: 2020-09-09 06:43+0000\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
@@ -78,19 +78,19 @@ msgstr "bibliothèque"
 
 #: rero_ils/config.py:1396
 msgid "contribution__en"
-msgstr "auteur"
+msgstr "Auteur"
 
 #: rero_ils/config.py:1397
 msgid "contribution__fr"
-msgstr "auteur"
+msgstr "Auteur"
 
 #: rero_ils/config.py:1398
 msgid "contribution__de"
-msgstr "auteur"
+msgstr "Auteur"
 
 #: rero_ils/config.py:1399
 msgid "contribution__it"
-msgstr "contribution__it"
+msgstr "Auteur"
 
 #: rero_ils/config.py:1400
 msgid "language"
@@ -5938,7 +5938,7 @@ msgstr "Sous-type"
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:31
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:24
 msgid "Article"
-msgstr "article"
+msgstr "Article"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:35
 msgid "Material unit"
@@ -6391,7 +6391,7 @@ msgstr "Langue de laquelle la ressource a été traduite."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:28
 msgid "Book"
-msgstr "livre"
+msgstr "Livre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:32
 msgid "E-Book"
@@ -6403,11 +6403,11 @@ msgstr "Autre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:44
 msgid "Score"
-msgstr "partition"
+msgstr "Partition"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:48
 msgid "Sound"
-msgstr "son"
+msgstr "Son"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:46
 msgid "Physical details"
@@ -6659,7 +6659,7 @@ msgstr "La date prévue pour le prochain fascicule"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:275
 msgid "Prediction patterns"
-msgstr "schémas de prédiction"
+msgstr "Schémas de prédiction"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:279
 msgid "numbering"
@@ -6671,7 +6671,7 @@ msgstr "chronologie"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:311
 msgid "Prediction pattern"
-msgstr "schéma de prédiction"
+msgstr "Schéma de prédiction"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:326
 msgid "It should be used in the display template. i.e. chronology, enumeration."
@@ -6701,7 +6701,7 @@ msgstr ""
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:357
 msgid "Starting value"
-msgstr "valeur de départ"
+msgstr "Valeur de départ"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:358
 msgid "First value of the sequence."
@@ -6967,7 +6967,7 @@ msgstr "Contenu"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:391
 msgid "Only one note per type is allowed"
-msgstr "Une seule note par type autorisée"
+msgstr "Une seule note par type de note est autorisée"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:398
 msgid "Acquisition date"
