@@ -201,7 +201,8 @@ class Person(IlsRecord):
     def organisation_pids(self):
         """Get organisations pids."""
         organisations = set()
-        search = DocumentsSearch().filter('term', contribution__pid=self.pid)
+        search = DocumentsSearch().filter(
+            'term', contribution__agent__pid=self.pid)
         size = current_app.config.get(
             'RERO_ILS_AGGREGATION_SIZE'
         ).get('organisations')

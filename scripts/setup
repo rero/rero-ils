@@ -363,6 +363,11 @@ eval ${PREFIX} invenio utils runindex --raise-on-error
 eval ${PREFIX} invenio utils reindex -t doc --yes-i-know --no-info
 eval ${PREFIX} invenio utils runindex --raise-on-error
 
+# index persons
+# We have to reindex persons to get the oraganisations pids indexed correctly.
+eval ${PREFIX} invenio utils reindex -t pers --yes-i-know --no-info
+eval ${PREFIX} invenio utils runindex --raise-on-error
+
 # create serials patterns
 info_msg "Serials patterns: ${DATA_PATH}/patterns.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create_patterns ${DATA_PATH}/patterns.json
