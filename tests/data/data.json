@@ -2940,5 +2940,37 @@
     "operator": {
       "$ref": "https://ils.rero.ch/api/patrons/ptrn8"
     }
+  },
+  "illr1": {
+    "$schema": "https://ils.rero.ch/schemas/ill_requests/ill_request-v0.0.1.json",
+    "pid": "illr1",
+    "status": "pending",
+    "copy": false,
+    "document": {
+      "title": "Histoire d'\u00c9gypte",
+      "authors": "Aly Badr, Cairo University"
+    },
+    "patron": {
+      "$ref": "https://ils.rero.ch/api/patrons/ptrn6"
+    },
+    "pickup_location": {
+      "$ref": "https://ils.rero.ch/api/locations/loc1"
+    }
+  },
+  "illr2": {
+    "$schema": "https://ils.rero.ch/schemas/ill_requests/ill_request-v0.0.1.json",
+    "pid": "illr2",
+    "status": "pending",
+    "copy": true,
+    "document": {
+      "title": "Python fr dummies."
+    },
+    "pages": "23-77",
+    "patron": {
+      "$ref": "https://ils.rero.ch/api/patrons/ptrn10"
+    },
+    "pickup_location": {
+      "$ref": "https://ils.rero.ch/api/locations/loc7"
+    }
   }
 }

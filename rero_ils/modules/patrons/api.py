@@ -239,6 +239,16 @@ class Patron(IlsRecord):
         return roles
 
     @classmethod
+    def get_all_pids_for_organisation(cls, organisation_pid):
+        """Get all patron pids for a specific organisation."""
+        query = PatronsSearch()\
+            .filter('term', organisation__pid=organisation_pid)\
+            .source(includes='pid')\
+            .scan()
+        for hit in query:
+            yield hit['pid']
+
+    @classmethod
     def get_patron_by_user(cls, user):
         """Get patron by user."""
         if hasattr(user, 'email'):
