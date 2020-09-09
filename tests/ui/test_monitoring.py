@@ -65,7 +65,7 @@ def test_monitoring(app, document_sion_items_data, script_info):
     doc_pid = doc.pid
     assert mon.get_db_count('doc') == 1
     assert mon.get_es_count('documents') == 0
-    assert mon.check() == {'doc': 1}
+    assert mon.check() == {'doc': {'db_es': 1}}
     assert mon.missing('doc') == {'DB': [], 'ES': ['doc3'], 'ES duplicate': []}
     assert mon.info() == {
         'acac': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'acq_accounts'},
@@ -116,5 +116,5 @@ def test_monitoring(app, document_sion_items_data, script_info):
     doc.delete(dbcommit=True)
     assert mon.get_db_count('doc') == 0
     assert mon.get_es_count('documents') == 1
-    assert mon.check() == {'doc': -1}
-    assert mon.missing('doc') == {'DB': [], 'ES': [], 'ES duplicate': []}
+    assert mon.check() == {'doc': {'db_es': -1}}
+    assert mon.missing('doc') == {'DB': ['doc3'], 'ES': [], 'ES duplicate': []}
