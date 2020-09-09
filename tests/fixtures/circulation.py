@@ -25,6 +25,7 @@ import pytest
 from invenio_circulation.search.api import LoansSearch
 from utils import flush_index, item_record_to_a_specific_loan_state
 
+from rero_ils.modules.ill_requests.api import ILLRequest, ILLRequestsSearch
 from rero_ils.modules.items.api import ItemsSearch
 from rero_ils.modules.loans.api import Loan, LoanState
 from rero_ils.modules.notifications.api import NotificationsSearch, \
@@ -1559,3 +1560,48 @@ def item6_in_transit_martigny_patron_and_loan_to_house(
         loan_state=LoanState.ITEM_IN_TRANSIT_TO_HOUSE,
         params=params, copy_item=True)
     return item, patron_martigny_no_email, loan
+
+
+# -------------- ILL requests ----------------------
+@pytest.fixture(scope="module")
+def ill_request_martigny_data(data):
+    """Load ill request for Martigny location."""
+    return deepcopy(data.get('illr1'))
+
+
+@pytest.fixture(scope="function")
+def ill_request_martigny_data_tmp(data):
+    """Load ill request for Martigny location."""
+    return deepcopy(data.get('illr1'))
+
+
+@pytest.fixture(scope="module")
+def ill_request_martigny(app, loc_public_martigny, patron_martigny_no_email,
+                         ill_request_martigny_data):
+    """Create ill request for Martigny location."""
+    illr = ILLRequest.create(
+        data=ill_request_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ILLRequestsSearch.Meta.index)
+    return illr
+
+
+@pytest.fixture(scope="module")
+def ill_request_sion_data(data):
+    """Load ill request for Sion location."""
+    return deepcopy(data.get('illr2'))
+
+
+@pytest.fixture(scope="module")
+def ill_request_sion(app, loc_public_sion, patron_sion_no_email,
+                     ill_request_sion_data):
+    """Create ill request for Sion location."""
+    illr = ILLRequest.create(
+        data=ill_request_sion_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ILLRequestsSearch.Meta.index)
+    return illr

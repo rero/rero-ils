@@ -202,3 +202,14 @@ def test_get_all_roles_for_role():
     assert len(roles) == 2
     assert Patron.ROLE_LIBRARIAN in roles
     assert Patron.ROLE_SYSTEM_LIBRARIAN in roles
+
+
+def test_get_patron_for_organisation(patron_martigny_no_email,
+                                     patron_sion_no_email,
+                                     org_martigny, org_sion):
+    """Test get patron_pid for organisation."""
+
+    pids = Patron.get_all_pids_for_organisation(org_martigny.pid)
+    assert len(list(pids)) > 0
+    pids = Patron.get_all_pids_for_organisation(org_sion.pid)
+    assert len(list(pids)) > 0

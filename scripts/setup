@@ -294,6 +294,10 @@ eval ${PREFIX} invenio utils runindex --raise-on-error
 info_msg "- Users: ${DATA_PATH}/users.json"
 eval ${PREFIX} invenio fixtures import_users ${DATA_PATH}/users.json -v
 
+info_msg "- ILL requests: ${DATA_PATH}/ill_request.json"
+eval ${PREFIX} invenio fixtures create_ill_requests -f ${DATA_PATH}/ill_requests.json
+eval ${PREFIX} invenio utils reindex -t illr --yes-i-know --no-info
+
 #: - xml to json transformation for rero marcxml --------------------------------
 #: don't forget to recreat the documents json schema files:
 # SIZE=big # SIZE=small

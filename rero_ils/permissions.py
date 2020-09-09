@@ -33,17 +33,6 @@ admin_permission = Permission(RoleNeed('admin'))
 editor_permission = Permission(RoleNeed('editor'), RoleNeed('admin'))
 
 
-def user_is_authenticated(user=None):
-    """Checks if user is authenticated.
-
-    :return: True if user is logged in and authenticated.
-    :return: False if user is not logged or not authenticated.
-    """
-    if not user:
-        user = current_user
-    return user.is_authenticated
-
-
 def staffer_is_authenticated(user=None):
     """Checks if user (librarian or system_librarian) is authenticated.
 
@@ -58,67 +47,6 @@ def staffer_is_authenticated(user=None):
         if patron and (patron.is_librarian or patron.is_system_librarian):
             return patron
     return None
-
-
-def user_has_roles(user=None, roles=[], condition='or'):
-    """Check if user is authenticated and has requested roles.
-
-    :param user: the user to check (if None, the current user will be used)
-    :param roles: the list of roles to check for the user
-    :param condition: 'or'|'and'. Check if all (for and) roles or any (for or)
-                      roles should be present for the user
-    """
-    if not user:
-        user = current_user
-    if user.is_authenticated:
-        patron = Patron.get_patron_by_user(user)
-        function = all if condition == 'and' else any
-        return function(role in patron.get('roles', []) for role in roles)
-    return False
-
-
-def can_access_organisation_records_factory(record, *args, **kwargs):
-    """Checks if the logged user have access to records of its organisation.
-
-    user must have librarian or system_librarian role.
-    """
-    def can(self):
-        patron = staffer_is_authenticated()
-        if patron and patron.organisation_pid == record.organisation_pid:
-            if patron.is_librarian or patron.is_system_librarian:
-                return True
-        return False
-    return type('Check', (), {'can': can})()
-
-
-def can_access_organisation_patrons_factory(record, *args, **kwargs):
-    """Logged user permissions to access patron records."""
-    def can(self):
-        patron = staffer_is_authenticated()
-        if patron:
-            return True
-        return False
-    return type('Check', (), {'can': can})()
-
-
-def can_access_item(user=None, item=None):
-    """Checks if user has the librarian role.
-
-    and is in the same organisation as the given item.
-    """
-    if item:
-        if not user:
-            user = current_user
-        if user.is_authenticated:
-            patron = Patron.get_patron_by_user(user)
-            if patron and patron.organisation_pid == item.organisation_pid:
-                return librarian_permission.can()
-    return False
-
-
-def can_edit(user=None):
-    """User has editor role."""
-    return user_is_authenticated(user) and librarian_permission.can()
 
 
 def librarian_permission_factory(record, *args, **kwargs):

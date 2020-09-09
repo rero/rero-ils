@@ -185,3 +185,12 @@ def holding_schema(monkeypatch):
         'rero_ils.modules.holdings.jsonschemas',
         '/holdings/holding-v0.0.1.json')
     return get_schema(monkeypatch, schema_in_bytes)
+
+
+@pytest.fixture()
+def ill_request_schema(monkeypatch):
+    """ILL requests JSONSchema for records."""
+    schema_in_bytes = resource_string(
+        'rero_ils.modules.ill_requests.jsonschemas',
+        '/ill_requests/ill_request-v0.0.1.json')
+    return get_schema(monkeypatch, schema_in_bytes)
