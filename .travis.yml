@@ -78,7 +78,7 @@ before_install:
   # Start docker services
   - "docker-compose up -d"
   - "nvm install 8; nvm use 8"
-  - "travis_retry pip install --upgrade pip setuptools py poetry"
+  - "travis_retry pip install --upgrade pip setuptools py 'poetry<1.1'"
   - "travis_retry pip install twine wheel coveralls"
   - "travis_retry pip install --upgrade numpy"
 

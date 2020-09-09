@@ -294,7 +294,7 @@ description = "Check MANIFEST.in in a Python source package for completeness"
 name = "check-manifest"
 optional = false
 python-versions = ">=3.5"
-version = "0.43"
+version = "0.44"
 
 [package.dependencies]
 pep517 = "*"
@@ -894,7 +894,7 @@ Markdown = "*"
 WTForms = "*"
 
 [package.source]
-reference = "9e3a164a99e58b165833a9c303b02836a93e4ab6"
+reference = "828e213784510341067065b5993e2ce00c79dd55"
 type = "git"
 url = "https://github.com/rero/flask-wiki.git"
 [[package]]
@@ -947,7 +947,7 @@ description = "Python Git Library"
 name = "gitpython"
 optional = false
 python-versions = ">=3.4"
-version = "3.1.8"
+version = "3.1.9"
 
 [package.dependencies]
 gitdb = ">=4.0.1,<5"
@@ -1357,14 +1357,14 @@ description = "Database management for Invenio."
 name = "invenio-db"
 optional = false
 python-versions = "*"
-version = "1.0.5"
+version = "1.0.6"
 
 [package.dependencies]
 Flask-Alembic = ">=2.0.1"
 Flask-SQLAlchemy = ">=2.1"
-SQLAlchemy = ">=1.1.0"
+SQLAlchemy = ">=1.2.18"
 SQLAlchemy-Utils = ">=0.33.1,<0.36"
-invenio-base = ">=1.2.2"
+invenio-base = ">=1.2.3"
 
 [package.dependencies.SQLAlchemy-Continuum]
 optional = true
@@ -1375,11 +1375,11 @@ optional = true
 version = ">=2.7.4"
 
 [package.extras]
-all = ["Sphinx (>=1.8.0)", "pymysql (>=0.6.7)", "psycopg2-binary (>=2.7.4)", "SQLAlchemy-Continuum (>=1.3.6)", "check-manifest (>=0.25)", "coverage (>=4.0)", "cryptography (>=2.1.4)", "isort (>=4.2.2)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=3.8.0,<5.0.0)"]
-docs = ["Sphinx (>=1.8.0)"]
+all = ["Sphinx (>=3.0.0)", "pymysql (>=0.6.7)", "psycopg2-binary (>=2.7.4)", "SQLAlchemy-Continuum (>=1.3.6)", "pytest-invenio (>=1.4.0)", "cryptography (>=2.1.4)", "mock (>=1.3.0)"]
+docs = ["Sphinx (>=3.0.0)"]
 mysql = ["pymysql (>=0.6.7)"]
 postgresql = ["psycopg2-binary (>=2.7.4)"]
-tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "cryptography (>=2.1.4)", "isort (>=4.2.2)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=3.8.0,<5.0.0)"]
+tests = ["pytest-invenio (>=1.4.0)", "cryptography (>=2.1.4)", "mock (>=1.3.0)"]
 versioning = ["SQLAlchemy-Continuum (>=1.3.6)"]
 
 [[package]]
@@ -1611,14 +1611,14 @@ description = "Invenio module that provides OAuth web authorization support."
 name = "invenio-oauthclient"
 optional = false
 python-versions = "*"
-version = "1.3.3"
+version = "1.3.4"
 
 [package.dependencies]
 Flask-Breadcrumbs = ">=0.5.0"
 Flask-OAuthlib = ">=0.9.5"
 blinker = ">=1.4"
 invenio-accounts = ">=1.3.0"
-invenio-base = ">=1.2.2"
+invenio-base = ">=1.2.3"
 invenio-i18n = ">=1.2.0"
 invenio-mail = ">=1.0.0"
 oauthlib = ">=1.1.2,<3.0.0"
@@ -1627,13 +1627,13 @@ uritools = ">=1.0.1"
 
 [package.extras]
 admin = ["invenio-admin (>=1.0.0)"]
-all = ["invenio-admin (>=1.0.0)", "Sphinx (>=1.5.1)", "github3.py (>=1.0.0a4)", "uritemplate.py (>=0.2.0,<2.0)", "pytest-invenio (>=1.3.2)", "SQLAlchemy-Continuum (>=1.2.1)", "httpretty (>=0.8.14)", "invenio-userprofiles (>=1.0.0)", "requests-oauthlib (>=0.6.2,<1.2.0)", "oauthlib (>=1.1.2,<3.0.0)", "mock (>=1.3.0)", "simplejson (>=3.8)"]
-docs = ["Sphinx (>=1.5.1)"]
+all = ["invenio-admin (>=1.0.0)", "Sphinx (>=3.0.0)", "github3.py (>=1.0.0a4)", "uritemplate.py (>=0.2.0,<2.0)", "pytest-invenio (>=1.4.0)", "SQLAlchemy-Continuum (>=1.2.1)", "httpretty (>=0.8.14)", "invenio-userprofiles (>=1.0.0)", "requests-oauthlib (>=0.6.2,<1.2.0)", "oauthlib (>=1.1.2,<3.0.0)", "mock (>=1.3.0)", "simplejson (>=3.8)"]
+docs = ["Sphinx (>=3.0.0)"]
 github = ["github3.py (>=1.0.0a4)", "uritemplate.py (>=0.2.0,<2.0)"]
 mysql = ["invenio-db (>=1.0.5)"]
 postgresql = ["invenio-db (>=1.0.5)"]
 sqlite = ["invenio-db (>=1.0.5)"]
-tests = ["pytest-invenio (>=1.3.2)", "SQLAlchemy-Continuum (>=1.2.1)", "httpretty (>=0.8.14)", "invenio-userprofiles (>=1.0.0)", "requests-oauthlib (>=0.6.2,<1.2.0)", "oauthlib (>=1.1.2,<3.0.0)", "mock (>=1.3.0)", "simplejson (>=3.8)"]
+tests = ["pytest-invenio (>=1.4.0)", "SQLAlchemy-Continuum (>=1.2.1)", "httpretty (>=0.8.14)", "invenio-userprofiles (>=1.0.0)", "requests-oauthlib (>=0.6.2,<1.2.0)", "oauthlib (>=1.1.2,<3.0.0)", "mock (>=1.3.0)", "simplejson (>=3.8)"]
 
 [[package]]
 category = "main"
@@ -1864,13 +1864,17 @@ invenio-i18n = ">=1.2.0"
 
 [package.extras]
 admin = ["invenio-admin (>=1.2.0)"]
-all = ["invenio-admin (>=1.2.0)", "Sphinx (>=1.4.2)", "invenio-mail (>=1.0.0)", "SQLAlchemy-Continuum (>=1.2.1)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=3.8.0,<5.0.0)"]
+all = ["invenio-admin (>=1.2.0)", "Sphinx (>=1.4.2)", "invenio-mail (>=1.0.0)", "SQLAlchemy-Continuum (>=1.2.1)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=3.8.0,<5.0.0)", "invenio-admin (>=1.2.0)", "Sphinx (>=1.4.2)", "invenio-mail (>=1.0.0)", "SQLAlchemy-Continuum (>=1.2.1)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=3.8.0,<5.0.0)"]
 docs = ["Sphinx (>=1.4.2)", "invenio-mail (>=1.0.0)"]
 mysql = ["invenio-db (>=1.0.0)"]
 postgresql = ["invenio-db (>=1.0.0)"]
 sqlite = ["invenio-db (>=1.0.0)"]
 tests = ["SQLAlchemy-Continuum (>=1.2.1)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=3.8.0,<5.0.0)"]
 
+[package.source]
+reference = "52ccd5bf6b93626d7829120e6b562f21cef79e91"
+type = "git"
+url = "https://github.com/rero/invenio-userprofiles.git"
 [[package]]
 category = "main"
 description = "IPython: Productive Interactive Computing"
@@ -3457,7 +3461,7 @@ marker = "python_version < \"3.8\" or python_version >= \"3.7\" and python_versi
 name = "zipp"
 optional = false
 python-versions = ">=3.6"
-version = "3.2.0"
+version = "3.3.0"
 
 [package.extras]
 docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
@@ -3467,7 +3471,8 @@ testing = ["pytest (>=3.5,<3.7.3 || >3.7.3)", "pytest-checkdocs (>=1.2.3)", "pyt
 sip2 = ["invenio-sip2"]
 
 [metadata]
-content-hash = "8cc380e3876f4560be8d5187e3f6f6aae2b3c5ff68c0e9995aa960910a3380bb"
+content-hash = "0e251aa4742959ecea31e0c66092d6e9fdf361907d9c219844b1bc93d03f8471"
+lock-version = "1.0"
 python-versions = ">= 3.6, < 3.8"
 
 [metadata.files]
@@ -3595,8 +3600,8 @@ chardet = [
     {file = "chardet-3.0.4.tar.gz", hash = "sha256:84ab92ed1c4d4f16916e05906b6b75a6c0fb5db821cc65e70cbd64a3e2a5eaae"},
 ]
 check-manifest = [
-    {file = "check-manifest-0.43.tar.gz", hash = "sha256:1f787b81e5a2a3c69a9e4a2a44788ab672efbac43d7d5bd0b9e8fe49a0929e55"},
-    {file = "check_manifest-0.43-py2.py3-none-any.whl", hash = "sha256:885a867d6d3f6ed68bb2862f2580c3bc3ec52d20d49ad601f1b112a89d74ae15"},
+    {file = "check-manifest-0.44.tar.gz", hash = "sha256:1d09db87162a70aa2877660c0ac1a1153e62b8e69bbde5e6155af7507e417af1"},
+    {file = "check_manifest-0.44-py2.py3-none-any.whl", hash = "sha256:5866028482fb05c411f5e0dc27d4d86209959c1334645f223667cec445be363d"},
 ]
 ciso8601 = [
     {file = "ciso8601-2.1.3.tar.gz", hash = "sha256:bdbb5b366058b1c87735603b23060962c439ac9be66f1ae91e8c7dbd7d59e262"},
@@ -3824,8 +3829,8 @@ gitdb = [
     {file = "gitdb-4.0.5.tar.gz", hash = "sha256:c9e1f2d0db7ddb9a704c2a0217be31214e91a4fe1dea1efad19ae42ba0c285c9"},
 ]
 gitpython = [
-    {file = "GitPython-3.1.8-py3-none-any.whl", hash = "sha256:1858f4fd089abe92ae465f01d5aaaf55e937eca565fb2c1fce35a51b5f85c910"},
-    {file = "GitPython-3.1.8.tar.gz", hash = "sha256:080bf8e2cf1a2b907634761c2eaefbe83b69930c94c66ad11b65a8252959f912"},
+    {file = "GitPython-3.1.9-py3-none-any.whl", hash = "sha256:138016d519bf4dd55b22c682c904ed2fd0235c3612b2f8f65ce218ff358deed8"},
+    {file = "GitPython-3.1.9.tar.gz", hash = "sha256:a03f728b49ce9597a6655793207c6ab0da55519368ff5961e4a74ae475b9fa8e"},
 ]
 html5lib = [
     {file = "html5lib-1.1-py2.py3-none-any.whl", hash = "sha256:0d78f8fde1c230e99fe37986a60526d7049ed4bf8a9fadbad5f00e22e58e041d"},
@@ -3891,8 +3896,8 @@ invenio-config = [
     {file = "invenio_config-1.0.3-py2.py3-none-any.whl", hash = "sha256:238ab074991e7f0d6ee7ebc6eb2f5e41658749dd977ab6e86476e862c0efaf28"},
 ]
 invenio-db = [
-    {file = "invenio-db-1.0.5.tar.gz", hash = "sha256:6d59a73fe7076d86dad36c8118816366b48ceda79f7f3527fe179f69946210a0"},
-    {file = "invenio_db-1.0.5-py2.py3-none-any.whl", hash = "sha256:9045acaf03d16319544733f333dd7ad94853cbda910e4caadc08f71e9cc54b91"},
+    {file = "invenio-db-1.0.6.tar.gz", hash = "sha256:da7c3fcecfcfed7b4aaf241c4f8542c04dbe7e5860dc5bf62298d9dcad64ffa8"},
+    {file = "invenio_db-1.0.6-py2.py3-none-any.whl", hash = "sha256:d67bfaf1169289bf3afb4ff88b6eeaa39b34ed0f42122f5e1a2de2d3484cd223"},
 ]
 invenio-formatter = [
     {file = "invenio-formatter-1.0.3.tar.gz", hash = "sha256:e0bde8cd4c99915bc358ea2450e98267a743620126cf8d28cebf547255db4fd7"},
@@ -3927,8 +3932,8 @@ invenio-oauth2server = [
     {file = "invenio_oauth2server-1.2.0-py2.py3-none-any.whl", hash = "sha256:07b00c6018bdcf4749f30c56da9232289605f5edac0c3dab6b73ecb984bcbb6d"},
 ]
 invenio-oauthclient = [
-    {file = "invenio-oauthclient-1.3.3.tar.gz", hash = "sha256:ada5922f06fce662effec8a381aa2a218130625d812c6218898fb1935332e2f6"},
-    {file = "invenio_oauthclient-1.3.3-py2.py3-none-any.whl", hash = "sha256:12e9d7fcc9faa7f777f1df61c7f1c8852fdcef834e1c91552c8f8e6c05e8ede2"},
+    {file = "invenio-oauthclient-1.3.4.tar.gz", hash = "sha256:fc632990b2d8c5d25cc625b47363c437b1a467970baf3c9962ef3acd2d88582e"},
+    {file = "invenio_oauthclient-1.3.4-py2.py3-none-any.whl", hash = "sha256:b88fa804d62886a75d1cc21d030e1d3c17c87b4087fb9f26b155aa9f7c45ead0"},
 ]
 invenio-pidstore = [
     {file = "invenio-pidstore-1.2.1.tar.gz", hash = "sha256:2b81fd46694617f034746160c3d9c5870e7a6cf37f2e2a39ebe5008291c7d624"},
@@ -3959,10 +3964,7 @@ invenio-theme = [
     {file = "invenio-theme-1.1.4.tar.gz", hash = "sha256:d642c08df6a8af099188a48043aedfe8a44971ebaf67bc8ae21cf1a96eae2916"},
     {file = "invenio_theme-1.1.4-py2.py3-none-any.whl", hash = "sha256:b98224b54fd94615d6588d3606c73b3cefa3963cafb8d859bd7c715036ba556a"},
 ]
-invenio-userprofiles = [
-    {file = "invenio-userprofiles-1.1.1.tar.gz", hash = "sha256:36276409dc891c5f13ff2b3456a56f4eb24ab0cb1773f847b22d90eb33740fa4"},
-    {file = "invenio_userprofiles-1.1.1-py2.py3-none-any.whl", hash = "sha256:3e68d8df373ffbf0ac647687ee2e531b22ac385fb660ae9863615d819a51cf56"},
-]
+invenio-userprofiles = []
 ipython = [
     {file = "ipython-7.16.1-py3-none-any.whl", hash = "sha256:2dbcc8c27ca7d3cfe4fcdff7f45b27f9a8d3edfa70ff8024a71c7a8eb5f09d64"},
     {file = "ipython-7.16.1.tar.gz", hash = "sha256:9f4fcb31d3b2c533333893b9172264e4821c1ac91839500f31bd43f2c59b3ccf"},
@@ -4686,6 +4688,6 @@ xmltodict = [
     {file = "xmltodict-0.12.0.tar.gz", hash = "sha256:50d8c638ed7ecb88d90561beedbf720c9b4e851a9fa6c47ebd64e99d166d8a21"},
 ]
 zipp = [
-    {file = "zipp-3.2.0-py3-none-any.whl", hash = "sha256:43f4fa8d8bb313e65d8323a3952ef8756bf40f9a5c3ea7334be23ee4ec8278b6"},
-    {file = "zipp-3.2.0.tar.gz", hash = "sha256:b52f22895f4cfce194bc8172f3819ee8de7540aa6d873535a8668b730b8b411f"},
+    {file = "zipp-3.3.0-py3-none-any.whl", hash = "sha256:eed8ec0b8d1416b2ca33516a37a08892442f3954dee131e92cfd92d8fe3e7066"},
+    {file = "zipp-3.3.0.tar.gz", hash = "sha256:64ad89efee774d1897a58607895d80789c59778ea02185dd846ac38394a8642b"},
 ]

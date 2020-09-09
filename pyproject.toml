@@ -58,6 +58,7 @@ jsonpickle = "*"
 ciso8601 = "*"
 # TODO: to be removed when the thumbnail will be refactored
 angular-gettext-babel= ">=0.1"
+invenio-userprofiles = {git = "https://github.com/rero/invenio-userprofiles.git", tag = "reroprofile"}
 
 ## Additionnal constraints on python modules
 # solves fixture 'celery_config' not found

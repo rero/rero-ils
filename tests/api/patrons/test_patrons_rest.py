@@ -265,19 +265,22 @@ def test_patrons_get(client, librarian_martigny_no_email):
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_patrons_post_put_delete(client, lib_martigny,
                                  patron_type_children_martigny,
-                                 librarian_martigny_data, json_header,
+                                 librarian_martigny_data_tmp, json_header,
                                  roles, mailbox):
     """Test record retrieval."""
-    item_url = url_for('invenio_records_rest.ptrn_item', pid_value='1')
-    list_url = url_for('invenio_records_rest.ptrn_list', q='pid:1')
-    patron_data = librarian_martigny_data
+    pid_value = 'ptrn_1'
+    item_url = url_for('invenio_records_rest.ptrn_item', pid_value=pid_value)
+    list_url = url_for(
+        'invenio_records_rest.ptrn_list', q='pid:%s' % pid_value)
+    patron_data = librarian_martigny_data_tmp
 
     pids = Patron.count()
     assert len(mailbox) == 0
 
     # Create record / POST
-    patron_data['pid'] = '1'
-    patron_data['email'] = 'test@rero.ch'
+    patron_data['pid'] = pid_value
+    patron_data['email'] = 'test_librarian@rero.ch'
+    patron_data['username'] = 'test_librarian'
 
     res, _ = postdata(
         client,
@@ -292,11 +295,16 @@ def test_patrons_post_put_delete(client, lib_martigny,
 
     # Check that the returned record matches the given data
     data = get_json(res)
+    # remove dynamic property
+    del data['metadata']['user_id']
     assert data['metadata'] == patron_data
 
     res = client.get(item_url)
     assert res.status_code == 200
     data = get_json(res)
+    # add dynamic property
+    patron_data['user_id'] = data['metadata']['user_id']
+    data['metadata']['user_id']
     assert patron_data == data['metadata']
 
     # Update record/PUT

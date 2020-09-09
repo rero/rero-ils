@@ -9,6 +9,7 @@
     "last_name",
     "birth_date",
     "email",
+    "username",
     "street",
     "postal_code",
     "city",
@@ -29,6 +30,7 @@
     "last_name",
     "birth_date",
     "email",
+    "username",
     "roles"
   ],
   "properties": {
@@ -40,8 +42,12 @@
       "default": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json"
     },
     "pid": {
-      "title": "User ID",
+      "title": "Patron ID",
       "type": "string"
+    },
+    "user_id": {
+      "title": "User ID",
+      "type": "number"
     },
     "first_name": {
       "title": "First name",
@@ -90,6 +96,12 @@
           }
         }
       }
+    },
+    "username": {
+      "title": "Username",
+      "description": "Login username for the web interface.",
+      "type": "string",
+      "minLength": 3
     },
     "street": {
       "title": "Street",
