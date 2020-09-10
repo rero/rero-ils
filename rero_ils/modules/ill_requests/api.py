@@ -65,6 +65,39 @@ class ILLRequest(IlsRecord):
             return 'Required property : `pages`'
         return True
 
+    @classmethod
+    def _build_requests_query(cls, patron_pid, status=None):
+        """Private function to build a request query linked to a patron."""
+        query = ILLRequestsSearch() \
+            .filter('term', patron__pid=patron_pid)
+        if status:
+            query = query.filter('term', status=status)
+        return query
+
+    @classmethod
+    def get_request_pids_by_patron_pid(cls, patron_pid, status=None):
+        """Get request pids related to a patron pid.
+
+        :param patron_pid: the patron pid
+        :param status: the requests status
+        :return a generator of request pid
+        """
+        query = cls._build_requests_query(patron_pid, status)
+        results = query.source('pid').scan()
+        for result in results:
+            yield result.pid
+
+    @classmethod
+    def get_requests_by_patron_pid(cls, patron_pid, status=None):
+        """Get request pids related to a patron pid.
+
+        :param patron_pid: the patron pid
+        :param status: the requests status
+        :return a generator of ILLRequest
+        """
+        for pid in cls.get_request_pids_by_patron_pid(patron_pid, status):
+            yield ILLRequest.get_record_by_pid(pid)
+
     @property
     def is_copy(self):
         """Is request is a request copy."""

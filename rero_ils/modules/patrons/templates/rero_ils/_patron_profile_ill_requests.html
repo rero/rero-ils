@@ -1,0 +1,116 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2020 RERO
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+<div id="history-section" class="row mb-1 align-items-center">
+  <div class="col mr-1 d-none d-lg-block">
+    <div class="row p-2 bg-dark rounded text-light">
+      <div class="col-lg-6">{{ _('Title') }}</div>
+      <div class="col-lg-5">{{ _('Authors') }}</div>
+      <div class="col-lg-1 text-lg-right">{{ _('Status') }}</div>
+    </div>
+  </div>
+</div>
+
+{%- if ill_requests|length > 0 %}
+  {%- for request in ill_requests %}
+    {% set badge_color = {
+         "pending": "secondary",
+         "validated": "success",
+         "denied": "danger",
+         "closed": "light"
+       }[request.status] | default("light") -%}
+    <div class="row mb-1">
+      <div class="col mr-1 p-2 border rounded">
+        <div class="row pl-2 pr-2">
+          <div class="col-lg-6">
+            <button class="pl-0 pt-0 btn btn-toogle" type="button" data-target-id="request-{{ request.pid }}">
+              <i class="fa fa-caret-right pr-0"></i>
+            </button>
+            {{ request.document.title }}
+            </a>
+          </div>
+          <div class="col-lg-5">
+            {{ request.document.authors }}
+          </div>
+          <div class="col-lg-1 text-lg-right">
+            <span class="badge badge-{{ badge_color }} px-2 py-1 font-weight-normal">
+              {{ request.status }}
+            </span>
+          </div>
+        </div>
+
+        <div id="request-{{ request.pid }}" class="mt-1 ng-star-inserted d-none">
+          <h6 class="mt-2 mb-2 ng-star-inserted">{{ _('Details') }}</h6>
+          <section class="col">
+            <div class="row">
+              <div class="col-12 label-title font-weight-bold">{{ _('Document information') }}</div>
+              {%- if request.document.publisher %}
+              <div class="col-md-2 col-sm-4 pl-5"><b>{{ _('Publisher')}}</b></div>
+                <div class="col-md-10 col-sm-8">{{ request.document.publisher }}</div>
+              {%- endif %}
+              {%- if request.document.year %}
+                <div class="col-md-2 col-sm-4 pl-5 font-weight-bold">{{ _('Year')}}</div>
+                <div class="col-md-10 col-sm-8">{{ request.document.year }}</div>
+              {%- endif %}
+              {%- if request.document.identifier %}
+                <div class="col-md-2 col-sm-4 pl-5 font-weight-bold">{{ _('Identifier')}}</div>
+                <div class="col-md-10 col-sm-8">{{ request.document.identifier }}</div>
+              {%- endif %}
+              {%- if request.document.source %}
+                <div class="col-md-2 col-sm-4 pl-5 font-weight-bold">{{ _('Source')}}</div>
+                <div class="col-md-10 col-sm-8">
+                  {{ request.document.source.journal_title }}
+                  {%- if request.document.source.volume or request.document.source.number %}
+                    <span class="pl-3">(
+                      {%- if request.document.source.volume %}Vol.{{ request.document.source.volume }}{%- endif %}
+                      {%- if request.document.source.volume and request.document.source.number %} -- {%- endif %}
+                      {%- if request.document.source.number %}n°.{{ request.document.source.number }}{%- endif %}
+                    )</span>
+                  {%- endif %}
+                </div>
+              {%- endif %}
+              <div class="col-md-2 col-sm-4 font-weight-bold">{{ _('Pickup location')}}</div>
+              <div class="col-md-10 col-sm-8">{{ request.pickup_location.name }}</div>
+              <div class="col-md-2 col-sm-4 font-weight-bold">{{ _('Is request copy')}}</div>
+              <div class="col-md-10 col-sm-8">
+                <i class="fa fa-{%- if request.is_copy %}check text-success{%- else %}times text-danger{%- endif %}"></i>
+              </div>
+              {%- if request.pages %}
+                <div class="col-md-2 col-sm-4 font-weight-bold">{{ _('Pages')}}</div>
+                <div class="col-md-10 col-sm-8">{{ request.pages }}</div>
+              {%- endif %}
+              {%- if request.found_in %}
+                <div class="col-md-2 col-sm-4 font-weight-bold">{{ _('Found in')}}</div>
+                <div class="col-md-10 col-sm-8">
+                  <span>({{ request.found_in.source }})</span>
+                  <a href="{{ request.found_in.url }}" target="_blank">{{ request.found_in.url }}</a>
+                </div>
+              {%- endif %}
+              {%- if request.note %}
+                <div class="col-md-2 col-sm-4 font-weight-bold">{{ _('Note')}}</div>
+                <div class="col-md-10 col-sm-8"><blockquote>{{ request.note }}</blockquote></div>
+              {%- endif %}
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  {%- endfor %}
+{%- else %}
+  <p>{{ _('No request') }}</p>
+{%- endif %}

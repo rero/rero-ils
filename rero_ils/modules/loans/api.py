@@ -36,6 +36,7 @@ from ..api import IlsRecord, IlsRecordError, IlsRecordsIndexer, \
     IlsRecordsSearch
 from ..documents.api import Document
 from ..errors import NoCirculationActionIsPermitted
+from ..ill_requests.api import ILLRequest
 from ..items.models import ItemCirculationAction, ItemStatus
 from ..items.utils import item_pid_to_object
 from ..libraries.api import Library
@@ -492,7 +493,7 @@ def patron_profile(patron):
     """Return formatted loans for patron profile display.
 
     :param patron: the patron resource
-    :return: array of loans, requests, fees and history
+    :return: array of loans, requests, fees, history and ill_requests
     """
     from ..items.api import Item
 
@@ -521,11 +522,9 @@ def patron_profile(patron):
             pickup_location = Location.get_record_by_pid(
                 loan.get('pickup_location_pid'))
             if pickup_location:
-                pickup_location.get('pickup_name')
-                if pickup_location.get('pickup_name'):
-                    loan['pickup_name'] = pickup_location.get('pickup_name')
-                else:
-                    loan['pickup_name'] = pickup_location.get('name')
+                loan['pickup_name'] = pickup_location.get(
+                    'pickup_name', pickup_location.get('name')
+                )
         if loan['state'] == LoanState.ITEM_ON_LOAN:
             can, reasons = item.can(
                 ItemCirculationAction.EXTEND,
@@ -568,10 +567,21 @@ def patron_profile(patron):
         'open': _process_patron_profile_fees(patron, organisation, 'open'),
         'closed': _process_patron_profile_fees(patron, organisation, 'closed')
     }
-    return sorted(loans, key=attrgetter('end_date')),\
+    # ILL request
+    ill_requests = []
+    for request in ILLRequest.get_requests_by_patron_pid(patron_pid):
+        location_pid = request.replace_refs()['pickup_location']['pid']
+        location = Location.get_record_by_pid(location_pid)
+        loc_name = location.get('pickup_name', location.get('name'))
+        request['pickup_location']['name'] = loc_name
+        ill_requests.append(request)
+
+    return \
+        sorted(loans, key=attrgetter('end_date')),\
         sorted(requests, key=attrgetter('rank', 'request_creation_date')),\
         fees,\
-        history
+        history,\
+        ill_requests
 
 
 def _process_patron_profile_fees(patron, organisation, status='open'):
