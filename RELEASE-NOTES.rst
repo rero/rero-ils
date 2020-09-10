@@ -18,6 +18,268 @@
 Release notes
 =============
 
+v0.12.0rc
+---------
+
+This release note includes the changes of the ``rero-ils-ui`` project
+[`link`_].
+
+User interface
+~~~~~~~~~~~~~~
+
+-  Replaces the legacy ``authors`` by ``contribution`` filed in the
+   search results view (brief view), detailed view and the loan
+   transaction history of the public and professional interface. In the same
+   move, the search input in the document editor, that allows to link a
+   document to an authority record, is adapted to the new field (see below, in
+   the `metadata`_ section).
+
+Public interface
+^^^^^^^^^^^^^^^^
+
+-  Adds a tab for the fees in the patron account view.
+-  Updates the entry menu link to the help page, to be consistent with
+   the structure of the help section (``help/public``).
+
+Professional interface
+^^^^^^^^^^^^^^^^^^^^^^
+
+-  Circulation interface:
+
+   -  Adapts the circulation module interface after updating
+      ``invenio-circulation`` and refactoring the RERO ILS circulation
+      module (see below the `circulation`_ section).
+   -  Fixes the renewal badge to prevent it to be displayed when an item
+      that has been renewed is checked in.
+   -  Replaces the pickup location name by the item’s library name of
+      the item details.
+   -  Adds an alert message to inform the librarian of the destination of a
+      checked in item that goes in transit.
+   -  Fixes the checkout view to allow removing the displayed patron
+      information in order to switch to the checkin view. Removes a
+      wrong flash error message that appears in such a move.
+   -  Allows requests by a librarian in the name of a patron on all the
+      organisation items, not on the library items only.
+
+-  Document editor:
+
+   -  Updates the document detailed view to display the
+      ``new_acquisition`` field (see below, in the `metadata`_ section,
+      the description of the *new acquisition* functionality).
+   -  Fills the document editor with the data of a record imported
+      through an external client using the REST API. As the librarian
+      saves the record, the ``_draft`` boolean field is set to false to
+      allow its validation (see below, in the `API`_ section).
+
+Search
+~~~~~~
+
+-  Adapts the author facet to the new ``contribution`` field of the
+   metadata model.
+-  Fixes the total result count of the public search interface of an
+   organisation view that is broken by the new ``contribution`` field
+   implementation.
+
+Circulation
+~~~~~~~~~~~
+
+-  Upgrades ``invenio-circulation`` from ``v1.0.0a16`` to ``v1.0.0a21``,
+   then to ``v1.0.0a23``, ``v1.0.0a25``, ``v1.0.0a26``.
+-  Fixes automatic item assignment on pending loans, preventing a
+   checked-in item to be assigned to all pending loans of its document,
+   by adding the ``assign_item`` parameter to all ``ITEM_RETURNED``
+   transitions. Fixes `inveniosoftware/invenio-circulation#127`_.
+-  Uses ``datetime`` to manage start and end date fields of the loans in
+   ``rero-ils``, since ``invenio-circulation`` ``v1.0.0a21`` uses
+   ``date`` format.
+-  Implements `circulation actions`_, after an effort to extensively model all
+   circulation use cases, for library network complex workflows:
+
+   -  ``add_requests`` actions. Fixes issues when multiple requests are
+      allowed for the same patron on the same item, and when loans with
+      state ``ITEM_IN_TRANSIT_TO_HOUSE`` were blocking new requests.
+   -  ``checkin`` actions.
+   -  ``validate`` request actions. Fixes the issue when a manual
+      validation of a request validates all requests on the same items.
+   -  ``extend`` actions. Fixes an issue that allowed extension of a
+      checked out item even if pending loans (requests) were associated
+      to it.
+   -  ``cancel_request`` actions.
+   -  ``change_pickup_location`` actions.
+
+-  Adds a ``LoanState`` class to better handle loan states.
+-  Creates a ``item_record_to_a_specific_loan_state`` method to change
+   the item record status.
+-  Adds a configuration named ``CIRCULATION_LOAN_LOCATIONS_VALIDATIONS``
+   to extend validation of loan locations (integrated to
+   ``invenio-circulation`` ``v1.0.0a25``).
+-  Fixes issues raising when placing several requests simultaneously
+   (``invenio-circulation`` ``v1.0.0a26``).
+-  Extends circulation fixtures to reflect improvements in the circulation
+   module.
+-  Allows an item having loans attached in ``CREATED`` state to be deleted.
+   Such loans have no impact on circulation, as they are the result of
+   interrupted circulation actions.
+-  Fixes an issue preventing an item to be checked out if two pending loans
+   (requests) are attached to it.
+-  Allows circulation actions to be linked either to a transaction
+   location or to a transaction library.
+-  Renames the ``validate`` API call to ``validate_request``.
+-  Fixes an issue occurring when multiple requests are being validated
+   simultaneously.
+-  Adds missing parameters to the renew button in the patron profile of
+   the public interface.
+-  Uses the loan field ``_created`` instead of ``transaction.date`` to
+   sort requests. ``request_creation_date`` is equal to ``_created``.
+-  Allows requests to be placed on ``ITEM_IN_TRANSIT_TO_HOUSE`` loans.
+-  Adds item destination library name and code, and item destination
+   location name and code to the loan dump to improve the circulation
+   interface accuracy.
+-  Fixes an issue that prevents the pickup location of a request of
+   ``ITEM_IN_TRANSIT_TO_PICKUP`` loans to be changed.
+-  Fixes an issue that prevents ``ITEM_IN_TRANSIT_TO_HOUSE`` loan to be checked
+   out to a patron that does not own that loan.
+-  Rewrites the loan permission factory and adds a specific class for
+   ``invenio-circulation`` resource. Simplifies the ``search_factory``
+   method. Fixes an error in the loan ``search_factory`` method when the
+   user has both ``patron`` and ``librarian`` roles.
+-  Implements the patron information in the ``invenio-sip2`` module`_, allowing
+   patrons to access their information through the selfcheck machine: checked
+   out items, requests, overdues, fees…
+
+Metadata
+~~~~~~~~
+
+-  Improves ``marc2json`` and ``validate`` CLI commands to work properly
+   with JSON references.
+-  Moves a field of the document JSON schema that was badly situated
+   after the splitting of the schema, from
+   ``rero_ils/jsonschemas/common/languages.v0.0.1.json`` to
+   ``rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json``.
+-  Implements the new ``contribution`` field (that replaces of the ``authors``
+   field).
+-  Replaces, in the document JSON schema, the labels of the agent roles
+   by their code (ie, the content of the value key), in order to avoid
+   translating the code and the label.
+-  Adds a functionality in the *Reports & monitoring* section that
+   allows a professional to export an item inventory list to a ``CSV``
+   file. Before the creation of the export file, items can be
+   filtered by library, location, item type and item status. The search
+   itself retrieves items based on all their fields, such as the
+   barcode or call number. That points to the list presented as a search
+   result on RERO ILS.
+-  Improves ``marc21tojson`` transformations with a better
+   identification of empty values, and their replacement with default
+   values.
+- Allows (temporarily) to attach a serial holdings or a standard holdings to a
+  document of journal type or periodical issuance type. This is necessary for
+  migrating all the legacy system records to RERO ILS.
+
+Acquisition
+~~~~~~~~~~~
+
+-  Updates the document and item JSON schemas for the new acquisition
+   list management. These lists are generated through an ES query that
+   filters the newly acquired items with a specific time span. This
+   allows a librarian to define a permalink to be shared through the
+   library website (or elsewhere), that points to a RERO ILS search
+   result presenting the list.
+-  Adds a search input in the order line editor to find a specific
+   document and to save the librarian the burden of typing the full REST
+   API document URL.
+
+API
+~~~
+
+-  Adds ``marcxml`` support to the document API, thus allowing an
+   authenticated user to post ``marcxml`` records using an external
+   script. The record is added to the database with the ``_draft`` flag
+   set to true, to disable the validation of the data and to avoid the
+   record to be found in the catalog.
+
+Permission
+~~~~~~~~~~
+
+-  Adds the ``document_importer`` role to users posting records
+   (documents) through the REST API. A new CLI command creates a
+   personal OAuth token for authentication.
+-  Adds a method to return a record class from a given ``pid_type``.
+   This method is available globally.
+
+Tests
+~~~~~
+
+-  Adds fixture data for end to end (e2e) tests with `Cypress`_.
+-  Splits ``commands.js`` `file`_ into multiple files to improve its
+   readability and adds circulation custom commands to it.
+-  Tests the creation of a simple document (required fields only).
+-  Adds HTML ``id=""`` or ``name=""`` attributes in public and
+   professional interfaces to ease the writing of the `Cypress`_ tests.
+-  Fixes the item status of newly created items by copying an existing
+   item through a function, with the existing status. This function,
+   obviously, is only used for circulation unit tests, not for the
+   regular item creation.
+-  Adapts existing circulation unit tests to the new `circulation
+   actions`_.
+-  Extends circulation unit tests to cover all `circulation actions`_.
+-  Adds circulation unit tests to cover all `circulation scenarios`_.
+
+Scripts
+~~~~~~~
+
+-  Adds a script, called ``russian_dolls`` to package ``ng-core``,
+   include it in ``rero-ils-ui``, and then package ``rero-ils-ui`` and
+   include it in ``rero-ils``, to ease some development processes.
+
+Instance
+~~~~~~~~
+
+-  Upgrades python dependencies after upgrading ``invenio-circulation``:
+   removes constraints on ``marshmallow``, adds ``ciso8601``, fixes
+   ``isort`` errors.
+-  Fixes python imports after upgrading ``isort`` to ``v5``.
+-  Fixes ``autoflake`` errors, signaling unused python imports.
+-  Upgrades ``ngx-formly`` (the library that generates the editors,
+   based on the JSON schemas) to ``5.9.1``.
+
+Fixed issues
+~~~~~~~~~~~~
+
+-  `#797`_: The renewal badges appears in the circulation interface when
+   a renewed item is checked in.
+-  `#927`_: As a librarian, I cannot request (the request button is not
+   displayed) an item that do not belongs to my library.
+-  `#1030`_: In the document detailed view of the professional
+   interface, the contributors that aren’t a link to an authority record
+   (MEF link), but only a plain string, aren’t displayed.
+-  `#1085`_: Item search by barcode is not filtered by organisation,
+   resulting in possible circulation actions in the wrong organisation.
+-  `#1137`_: The patron account view, in the public interface, crashes
+   when an item of the loan transaction history is deleted.
+-  `#1158`_: A missing configuration prevented the Celery scheduler to
+   locate the ``task_clear_and_renew_subscriptions`` method.
+-  `#1160`_: Checking out an item ready at desk to the patron that
+   requested it is impossible. The error is “This item is requested by
+   another patron”.
+
+.. _link: https://github.com/rero/rero-ils-ui
+.. _metadata: #metadata
+.. _circulation: #circulation
+.. _API: #api
+.. _inveniosoftware/invenio-circulation#127: https://github.com/inveniosoftware/invenio-circulation/issues/127
+.. _circulation actions: https://github.com/rero/rero-ils/blob/dev/doc/circulation/actions.md
+.. _``invenio-sip2`` module: https://github.com/inveniosoftware-contrib/invenio-sip2
+.. _Cypress: https://www.cypress.io/
+.. _file: https://github.com/rero/rero-ils/tree/dev/tests/e2e/cypress/cypress/support
+.. _circulation scenarios: https://github.com/rero/rero-ils/blob/dev/doc/circulation/scenarios.md
+.. _#797: https://github.com/rero/rero-ils/issues/797
+.. _#927: https://github.com/rero/rero-ils/issues/927
+.. _#1030: https://github.com/rero/rero-ils/issues/1030
+.. _#1085: https://github.com/rero/rero-ils/issues/1085
+.. _#1137: https://github.com/rero/rero-ils/issues/1137
+.. _#1158: https://github.com/rero/rero-ils/issues/1158
+.. _#1160: https://github.com/rero/rero-ils/issues/1160g
+
 v0.11.0
 -------
 
@@ -42,9 +304,9 @@ Professional interface
 ~~~~~~~~~~~~~~~~~~~~~~
 
 -  Adds inventory list functionality and view based on ``item``
-   resources. The librarian can access them using the ``Reports & Monitoring`` menu. 
-   This functionality allows the librarian to display a list of 
-   items, search and filter them and extract them to a CSV file for 
+   resources. The librarian can access them using the ``Reports & Monitoring`` menu.
+   This functionality allows the librarian to display a list of
+   items, search and filter them and extract them to a CSV file for
    inventory purposes.
 
    -  Adds ``CSVSerializer`` to render list results to CSV.
@@ -165,12 +427,12 @@ Fixed issues
    of public interface
 -  `#917`_: Document type “Other” not translated in document detailed
    view (public interface)
--  `#1003`_: editor : multiple provision activity lost when editing a 
+-  `#1003`_: editor : multiple provision activity lost when editing a
    document
 -  `#1035`_: Editor: “jump to” not always working
 -  `#1078`_: The tab order of the document detailed view (pro interface)
    should be: get / description
--  `#1102`_: Authors and issuance fields: organisation as author and 
+-  `#1102`_: Authors and issuance fields: organisation as author and
    subtype are not loaded correctly when editing a record with those fields
 
 .. _Transifex: https://www.transifex.com/

@@ -17,6 +17,155 @@
 Changes
 =======
 
+`v0.12.0rc`_ (2020-09-14)
+-------------------------
+
+`Full Changelog`_
+
+**Implemented enhancements:**
+
+-  The help menu should point to the public help page if clicked from
+   public interface `#1127`_
+-  scripts: install ng-core and ui in main project `#1142`_
+   (`blankoworld`_)
+-  cypress: enhance Cypress commands precision `#1136`_ (`blankoworld`_)
+-  tests: enhance Cypress with fixtures `#1125`_ (`blankoworld`_)
+
+**Fixed bugs:**
+
+-  message ‘prêt impossible’ : l’exemplaire est demandé par un autre
+   lecteur `#1160`_
+-  celery scheduler can not locate the method
+   task_clear_and_renew_subscriptions `#1158`_
+-  Selects aren’t alphabetically sorted when the form options have the
+   code as value of the ``lablel`` and ``value`` keys `#1149`_
+-  Public patron profile view raises an error 500 `#1145`_
+-  Patron profile view raises an error 410 (error 500 displayed) when an
+   item of the history is deleted `#1137`_
+-  The circulation interface mixes item barcodes between organisations.
+   `#1085`_
+-  Contributors without MEF links not displayed in pro detailed view
+   `#1030`_
+-  documents: import EAN - some abstracts are HTML encoded `#743`_
+-  test: fix autoflake errors `#1176`_ (`rerowep`_)
+
+**Closed issues:**
+
+-  The property numbering_script is either in the wrong file, or to be
+   deleted `#1147`_
+-  Impossible to request a document of another library `#927`_
+-  Renewal badge irrelevant for checked in items `#797`_
+-  UI : Replace RXJS “combineLatest” `#549`_
+
+**Merged pull requests:**
+
+-  persons: fix public search count `#1205`_ (`rerowep`_)
+-  holdings: allow creating std holdings on journal `#1197`_
+   (`BadrAly`_)
+-  search: remove useless translated facets `#1195`_ (`lauren-d`_)
+-  document: replace role label content with values `#1194`_
+   (`iGormilhit`_)
+-  editor: fix error 400 when saving a simple document `#1192`_
+   (`AoNoOokami`_)
+-  package: update dependencies `#1191`_ (`BadrAly`_)
+-  US1546 marcxml support `#1189`_ (`BadrAly`_)
+-  acquisition: add document selector for order lines `#1185`_
+   (`lauren-d`_)
+-  utils: new method to return record class `#1183`_ (`BadrAly`_)
+-  cypress: create model test `#1180`_ (`AoNoOokami`_)
+-  circulation: fix validate request return type `#1177`_ (`zannkukai`_)
+-  circulation: fix change pickup location on loans `#1174`_
+   (`BadrAly`_)
+-  help: update the public help menu entry url `#1172`_ (`zannkukai`_)
+-  Translations update from Weblate `#1171`_ (`weblate`_)
+-  permission: refactoring the loan permission factory `#1170`_
+   (`zannkukai`_)
+-  circulation: allow requests on ITEM_IN_TRANSIT_TO_HOUSE loans.
+   `#1169`_ (`BadrAly`_)
+-  US1394 invenio circulation `#1166`_ (`BadrAly`_)
+-  inventory: export document creator field `#1163`_ (`lauren-d`_)
+-  wiki: update the public help menu entry url `#1162`_ (`zannkukai`_)
+-  data: reorganisation of json schema. `#1156`_ (`rerowep`_)
+-  Translations update from Weblate `#1154`_ (`weblate`_)
+-  Translations update from Weblate `#1153`_ (`weblate`_)
+-  patron profile: fix for plural translation `#1148`_ (`Garfield-fr`_)
+-  Translations update from Weblate `#1141`_ (`weblate`_)
+-  patron: no history returned for deleted items `#1139`_ (`BadrAly`_)
+-  Translations update from Weblate `#1138`_ (`weblate`_)
+-  marc21tojson: fix transformation errors `#1134`_ (`rerowep`_)
+-  Translations update from Weblate `#1131`_ (`weblate`_)
+-  item: update item/doc for new acquisition `#1130`_ (`zannkukai`_)
+-  data model: implement contribution `#1129`_ (`rerowep`_)
+-  patron account: add fees tab `#1124`_ (`Garfield-fr`_)
+-  cli: marc21json cli function to use splitted json schemas `#1120`_
+   (`rerowep`_)
+-  cypress: test the creation of a simple document `#1116`_
+   (`AoNoOokami`_)
+-  SIP2: implement patron information `#1096`_ (`lauren-d`_)
+
+.. _v0.12.0rc: https://github.com/rero/rero-ils/tree/v0.12.0rc
+.. _Full Changelog: https://github.com/rero/rero-ils/compare/v0.11.0...v0.12.0rc
+.. _#1127: https://github.com/rero/rero-ils/issues/1127
+.. _#1142: https://github.com/rero/rero-ils/pull/1142
+.. _blankoworld: https://github.com/blankoworld
+.. _#1136: https://github.com/rero/rero-ils/pull/1136
+.. _#1125: https://github.com/rero/rero-ils/pull/1125
+.. _#1160: https://github.com/rero/rero-ils/issues/1160
+.. _#1158: https://github.com/rero/rero-ils/issues/1158
+.. _#1149: https://github.com/rero/rero-ils/issues/1149
+.. _#1145: https://github.com/rero/rero-ils/issues/1145
+.. _#1137: https://github.com/rero/rero-ils/issues/1137
+.. _#1085: https://github.com/rero/rero-ils/issues/1085
+.. _#1030: https://github.com/rero/rero-ils/issues/1030
+.. _#743: https://github.com/rero/rero-ils/issues/743
+.. _#1176: https://github.com/rero/rero-ils/pull/1176
+.. _rerowep: https://github.com/rerowep
+.. _#1147: https://github.com/rero/rero-ils/issues/1147
+.. _#927: https://github.com/rero/rero-ils/issues/927
+.. _#797: https://github.com/rero/rero-ils/issues/797
+.. _#549: https://github.com/rero/rero-ils/issues/549
+.. _#1205: https://github.com/rero/rero-ils/pull/1205
+.. _#1197: https://github.com/rero/rero-ils/pull/1197
+.. _BadrAly: https://github.com/BadrAly
+.. _#1195: https://github.com/rero/rero-ils/pull/1195
+.. _lauren-d: https://github.com/lauren-d
+.. _#1194: https://github.com/rero/rero-ils/pull/1194
+.. _iGormilhit: https://github.com/iGormilhit
+.. _#1192: https://github.com/rero/rero-ils/pull/1192
+.. _AoNoOokami: https://github.com/AoNoOokami
+.. _#1191: https://github.com/rero/rero-ils/pull/1191
+.. _#1189: https://github.com/rero/rero-ils/pull/1189
+.. _#1185: https://github.com/rero/rero-ils/pull/1185
+.. _#1183: https://github.com/rero/rero-ils/pull/1183
+.. _#1180: https://github.com/rero/rero-ils/pull/1180
+.. _#1177: https://github.com/rero/rero-ils/pull/1177
+.. _zannkukai: https://github.com/zannkukai
+.. _#1174: https://github.com/rero/rero-ils/pull/1174
+.. _#1172: https://github.com/rero/rero-ils/pull/1172
+.. _#1171: https://github.com/rero/rero-ils/pull/1171
+.. _weblate: https://github.com/weblate
+.. _#1170: https://github.com/rero/rero-ils/pull/1170
+.. _#1169: https://github.com/rero/rero-ils/pull/1169
+.. _#1166: https://github.com/rero/rero-ils/pull/1166
+.. _#1163: https://github.com/rero/rero-ils/pull/1163
+.. _#1162: https://github.com/rero/rero-ils/pull/1162
+.. _#1156: https://github.com/rero/rero-ils/pull/1156
+.. _#1154: https://github.com/rero/rero-ils/pull/1154
+.. _#1153: https://github.com/rero/rero-ils/pull/1153
+.. _#1148: https://github.com/rero/rero-ils/pull/1148
+.. _Garfield-fr: https://github.com/Garfield-fr
+.. _#1141: https://github.com/rero/rero-ils/pull/1141
+.. _#1139: https://github.com/rero/rero-ils/pull/1139
+.. _#1138: https://github.com/rero/rero-ils/pull/1138
+.. _#1134: https://github.com/rero/rero-ils/pull/1134
+.. _#1131: https://github.com/rero/rero-ils/pull/1131
+.. _#1130: https://github.com/rero/rero-ils/pull/1130
+.. _#1129: https://github.com/rero/rero-ils/pull/1129
+.. _#1124: https://github.com/rero/rero-ils/pull/1124
+.. _#1120: https://github.com/rero/rero-ils/pull/1120
+.. _#1116: https://github.com/rero/rero-ils/pull/1116
+.. _#1096: https://github.com/rero/rero-ils/pull/1096
+
 `v0.11.0 <https://github.com/rero/rero-ils/tree/v0.11.0>`__ (2020-08-03)
 ------------------------------------------------------------------------
 

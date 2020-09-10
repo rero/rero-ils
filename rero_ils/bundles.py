@@ -24,7 +24,7 @@ import os
 from invenio_assets import AngularGettextFilter, GlobBundle, NpmBundle
 from pkg_resources import resource_filename
 
-RERO_ILS_UI_VERSION = '0.4.0'
+RERO_ILS_UI_VERSION = '0.5.1'
 
 
 def catalog(domain):
