@@ -19,6 +19,8 @@
 
 from __future__ import absolute_import, print_function
 
+from rero_ils.modules.ill_requests.api import ILLRequest
+
 
 def test_ill_request_properties(ill_request_martigny, ill_request_sion,
                                 loc_public_martigny_data, org_martigny_data):
@@ -29,3 +31,14 @@ def test_ill_request_properties(ill_request_martigny, ill_request_sion,
     assert ill_request_martigny.get_pickup_location().pid \
         == loc_public_martigny_data['pid']
     assert ill_request_martigny.organisation_pid == org_martigny_data['pid']
+
+
+def test_ill_request_get_request(ill_request_martigny, ill_request_sion,
+                                 patron_martigny_no_email):
+    """Test ill request get_request functions."""
+    assert len(list(ILLRequest.get_requests_by_patron_pid(
+        patron_martigny_no_email.pid, status='pending'
+    ))) == 1
+    assert len(list(ILLRequest.get_requests_by_patron_pid(
+        patron_martigny_no_email.pid, status='denied'
+    ))) == 0

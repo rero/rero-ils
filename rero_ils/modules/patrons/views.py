@@ -152,7 +152,15 @@ def logged_user():
 def profile(viewcode):
     """Patron Profile Page."""
     tab = request.args.get('tab', 'loans')
-    if tab not in ['loans', 'requests', 'fees', 'history', 'personal']:
+    allowed_tabs = [
+        'loans',
+        'requests',
+        'fees',
+        'history',
+        'ill_request',
+        'personal'
+    ]
+    if tab not in allowed_tabs:
         abort(400)
     patron = Patron.get_patron_by_user(current_user)
     if patron is None:
@@ -193,7 +201,7 @@ def profile(viewcode):
         return redirect(url_for(
             'patrons.profile', viewcode=viewcode) + '?tab={0}'.format(tab))
 
-    loans, requests, fees, history = patron_profile(patron)
+    loans, requests, fees, history, ill_requests = patron_profile(patron)
 
     # patron alert list
     #   each alert dictionary key represent an alert category (subscription,
@@ -226,6 +234,7 @@ def profile(viewcode):
         requests=requests,
         fees=fees,
         history=history,
+        ill_requests=ill_requests,
         alerts=alerts,
         viewcode=viewcode,
         tab=tab

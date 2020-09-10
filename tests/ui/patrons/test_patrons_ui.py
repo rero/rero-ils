@@ -32,7 +32,7 @@ def test_patrons_profile(
         client, librarian_martigny_no_email, loan_pending_martigny,
         patron_martigny_no_email, loc_public_martigny,
         item_type_standard_martigny, item_lib_martigny, json_header,
-        circ_policy_short_martigny):
+        circ_policy_short_martigny, ill_request_martigny):
     """Test patron profile."""
     # check redirection
     res = client.get(url_for('patrons.profile'))
