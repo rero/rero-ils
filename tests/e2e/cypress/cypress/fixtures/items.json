@@ -10,5 +10,11 @@
     "location": "Default location for Starfleet library",
     "pickupName": "Starfleet library",
     "itemTypeUri": "Default"
+  },
+  "starfleetStandardLoanWithTransit": {
+    "code": "VULCAN-BIB",
+    "location": "Default location for Starfleet library",
+    "pickupName": "Vulcan library",
+    "itemTypeUri": "Default"
   }
 }
