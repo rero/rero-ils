@@ -92,7 +92,6 @@ describe('Template: librarian request', function() {
     cy.get('#item-' + this.itemBarcode + ' [name=buttons] > [name=delete]').click();
     cy.get('#modal-confirm-button').click();
     cy.wait('@deleteItem');
-
     // Remove document
     cy.reload(); // Bug: need to reload the page to unable the remove button
     cy.deleteRecordFromDetailView();
