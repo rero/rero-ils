@@ -19,7 +19,7 @@
 
 from functools import wraps
 
-from flask import abort, current_app
+from flask import abort, current_app, redirect, url_for
 from flask_login import current_user
 from flask_principal import RoleNeed
 from flask_security import login_required, roles_required
@@ -93,6 +93,28 @@ def can_access_professional_view(func):
             else:
                 abort(403)
     return decorated_view
+
+
+def check_user_is_authenticated(redirect_to=None, code=302):
+    """Check if user is authenticated.
+
+    If user isn't authenticated :
+      - either it is redirect to a page if 'redirect_to' is defined.
+      - either request is aborted (HTTP 403).
+    :param redirect_to: the URL to redirect the user if it's not authenticated.
+    :param code: the HTTP code to use for redirect (default=302)
+    """
+    def inner_function(func):
+        @wraps(func)
+        def decorated_view(*args, **kwargs):
+            if current_user.is_authenticated:
+                return func(*args, **kwargs)
+            elif redirect_to:
+                return redirect(url_for(redirect_to), code)
+            else:
+                abort(403)
+        return decorated_view
+    return inner_function
 
 
 def wiki_edit_view_permission():

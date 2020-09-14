@@ -1,0 +1,70 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2020 RERO
+  Copyright (C) 2020 UCLouvain
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+{%- extends 'rero_ils/page.html' %}
+{% from "rero_ils/_macro_form.html" import render_field, render_simple_field %}
+
+{%- block body %}
+  <form action="{{ url_for('ill_requests.ill_request_form') }}" method="POST" class="form" role="form" novalidate>
+    {{ form.hidden_tag() }}
+    {%- if form.csrf_token and form.csrf_token.errors %}
+      <div class="alert alert-danger" role="alert">
+        {{ _('You have submitted an invalid CSRF token') }}
+      </div>
+    {%- endif %}
+    <section>
+      <h3>{{ _('Document information') }}</h3>
+      {{ render_field(form.document.title) }}
+      {{ render_field(form.document.authors) }}
+      {{ render_field(form.document.publisher) }}
+      {{ render_field(form.document.year) }}
+      {{ render_field(form.document.identifier) }}
+      <div class="form-group row">
+        <label class="col-md-2 col-sm-4 col-form-label">{{ form.document.source.label }}</label>
+        <div class="col-md-6 col-sm-4">{{ render_simple_field(form.document.source.journal_title) }}</div>
+        <div class="col-md-2 col-sm-2">{{ render_simple_field(form.document.source.volume) }}</div>
+        <div class="col-md-2 col-sm-2">{{ render_simple_field(form.document.source.number) }}</div>
+      </div>
+    </section>
+    <section>
+      <h3>{{ _('Request information') }}</h3>
+      {{ render_field(form.request_copy) }}
+      {{ render_field(form.pages) }}
+      <div class="form-group row">
+        <label class="col-md-2 col-sm-4 col-form-label">{{ form.source.label }}</label>
+        <div class="col-md-2 col-sm-1">{{ render_simple_field(form.source.origin) }}</div>
+        <div class="col-md-8 col-sm-7">{{ render_simple_field(form.source.url) }}</div>
+      </div>
+      {{ render_field(form.pickup_location) }}
+      {{ render_field(form.note) }}
+    </section>
+    <div class="row pt-3">
+      <div class="col text-right">
+        <input type="submit" id="submit" class="btn btn-primary" value="{{ _('Create request') }}"/>
+      </div>
+    </div>
+  </form>
+{%- endblock body %}
+
+{%- block javascript %}
+  {{ super() }}
+  {%- assets "rero_ils_ill_request_form_js" %}
+    <script src="{{ ASSET_URL }}"></script>
+  {%- endassets %}
+{% endblock javascript %}

@@ -33,7 +33,7 @@ from invenio_jsonschemas import current_jsonschemas
 from invenio_jsonschemas.errors import JSONSchemaNotFound
 
 from rero_ils.modules.organisations.api import Organisation
-from rero_ils.modules.patrons.api import current_patron
+from rero_ils.modules.patrons.api import Patron, current_patron
 from rero_ils.permissions import can_access_professional_view
 
 from .version import __version__
@@ -79,6 +79,34 @@ def rero_register(
         visible_when,
         expected_args,
         **kwargs)
+
+
+def init_menu_tools():
+    """Create the header tool menu."""
+    item = current_menu.submenu('main.tool')
+    rero_register(
+        item,
+        endpoint=None,
+        text='{icon} <span class="{visible}">{menu}'.format(
+            icon='<i class="fa fa-wrench"></i>',
+            visible='visible-md-inline visible-lg-inline',
+            menu=_('Tools')
+        ),
+        order=0,
+        id='tools-menu'
+    )
+    item = current_menu.submenu('main.tool.ill_request')
+    rero_register(
+        item,
+        endpoint='ill_requests.ill_request_form',
+        visible_when=lambda: Patron.get_patron_by_user(current_user).is_patron,
+        text='{icon} {help}'.format(
+            icon='<i class="fa fa-shopping-basket"></i>',
+            help=_('Interlibrary loan request')
+        ),
+        order=10,
+        id='ill-request-menu'
+    )
 
 
 def init_menu_lang():
@@ -241,6 +269,7 @@ def init_menu():
                                  'patrons.logged_user',
                                  '_debug_toolbar.static'] and
             request.method == 'GET'):
+        init_menu_tools()
         init_menu_lang()
         init_menu_profile()
 
