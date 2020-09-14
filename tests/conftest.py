@@ -158,6 +158,7 @@ def app_config(app_config):
     app_config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/2'
     app_config['CELERY_REDIS_SCHEDULER_URL'] = 'redis://localhost:6379/4'
     app_config['RATELIMIT_STORAGE_URL'] = 'redis://localhost:6379/3'
+    app_config['WTF_CSRF_ENABLED'] = False
     return app_config
 
 

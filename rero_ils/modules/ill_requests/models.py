@@ -33,3 +33,12 @@ class ILLRequestIdentifier(RecordIdentifier):
         db.BigInteger().with_variant(db.Integer, 'sqlite'),
         primary_key=True, autoincrement=True,
     )
+
+
+class ILLRequestStatus:
+    """Available status for an ILL request."""
+
+    PENDING = 'pending'
+    VALIDATED = 'validated'
+    DENIED = 'denied'
+    CLOSED = 'closed'

@@ -71,6 +71,8 @@ def test_ill_requests_get(client, ill_request_martigny):
     data = get_json(res)
 
     metadata = data['hits']['hits'][0]['metadata']
+    from pprint import pprint
+    pprint(metadata)
     del metadata['organisation']  # organisation is added only for indexation
     assert metadata == ill_request.replace_refs()
 
@@ -147,7 +149,7 @@ def test_filtered_ill_requests_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total'] == 1
+    assert data['hits']['total']['value'] == 1
     hit = data['hits']['hits'][0]['metadata']
     assert hit['pid'] == ill_request_martigny.pid
 
@@ -156,7 +158,7 @@ def test_filtered_ill_requests_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total'] == 1
+    assert data['hits']['total']['value'] == 1
     hit = data['hits']['hits'][0]['metadata']
     assert hit['pid'] == ill_request_sion.pid
 

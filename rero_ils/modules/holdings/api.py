@@ -69,7 +69,6 @@ class HoldingsSearch(RecordsSearch):
 
         default_filter = None
 
-
     @classmethod
     def flush(cls):
         """Flush indexes."""
