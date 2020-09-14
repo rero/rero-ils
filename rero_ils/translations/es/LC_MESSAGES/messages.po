@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-09-03 11:43+0200\n"
-"PO-Revision-Date: 2020-09-09 06:43+0000\n"
+"PO-Revision-Date: 2020-09-14 13:15+0000\n"
 "Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/es/>\n"
@@ -5197,81 +5197,75 @@ msgstr "productor cinematográfico"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:469
 msgid "his"
-msgstr ""
+msgstr "institución sede"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:473
-#, fuzzy
 msgid "hst"
-msgstr "Póster"
+msgstr "anfitrión"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:477
 msgid "ilu"
-msgstr ""
+msgstr "iluminador"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:481
 msgid "ins"
-msgstr ""
+msgstr "autor de dedicatoria"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:485
 msgid "inv"
-msgstr ""
+msgstr "inventor"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:489
 msgid "isb"
-msgstr ""
+msgstr "entidad editora"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:493
-#, fuzzy
 msgid "itr"
-msgstr "Proveedor"
+msgstr "instrumentista"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:497
-#, fuzzy
 msgid "ive"
-msgstr "Activo"
+msgstr "entrevistado"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:501
 msgid "ivr"
-msgstr ""
+msgstr "entrevistador"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:505
-#, fuzzy
 msgid "jud"
-msgstr "presupuesto"
+msgstr "juez"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:509
-#, fuzzy
 msgid "jug"
-msgstr "presupuesto"
+msgstr "jurisdicción regulada"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:513
 msgid "lbt"
-msgstr ""
+msgstr "libretista"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:517
-#, fuzzy
 msgid "lgd"
-msgstr "GND"
+msgstr "diseñador de iluminación"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:521
 msgid "lsa"
-msgstr ""
+msgstr "arquitecto paisajista"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:525
 msgid "ltg"
-msgstr ""
+msgstr "litógrafo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:529
 msgid "lyr"
-msgstr ""
+msgstr "letrista"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:533
 msgid "med"
-msgstr ""
+msgstr "médium"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:537
 msgid "mfr"
-msgstr ""
+msgstr "fabricante"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:541
 msgid "mod"
