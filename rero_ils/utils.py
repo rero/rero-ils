@@ -40,3 +40,19 @@ def get_i18n_supported_languages():
     languages = [current_app.config.get('BABEL_DEFAULT_LANGUAGE')]
     i18n_languages = current_app.config.get('I18N_LANGUAGES')
     return languages + [ln[0] for ln in i18n_languages]
+
+
+def remove_empties_from_dict(a_dict):
+    """Remove empty values from a multi level dictionary.
+
+    :return a cleaned dictionary.
+    """
+    new_dict = {}
+    for k, v in a_dict.items():
+        if isinstance(v, dict):
+            v = remove_empties_from_dict(v)
+        elif isinstance(v, list):
+            v = [el for el in v if el]
+        if v:
+            new_dict[k] = v
+    return new_dict or None

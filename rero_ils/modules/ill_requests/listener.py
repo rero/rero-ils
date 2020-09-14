@@ -29,7 +29,7 @@ def enrich_ill_request_data(sender, json=None, record=None, index=None,
     :param index: The index in which the record will be indexed.
     :param doc_type: The doc_type for the record.
     """
-    if index == '-'.join([ILLRequestsSearch.Meta.index, doc_type]):
+    if index.split('-')[0] == ILLRequestsSearch.Meta.index:
         if not isinstance(record, ILLRequest):
             record = ILLRequest.get_record_by_pid(record.get('pid'))
         json['organisation'] = {

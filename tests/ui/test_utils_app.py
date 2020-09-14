@@ -21,7 +21,7 @@ from rero_ils.modules.documents.api import Document
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.utils import get_record_class_from_schema_or_pid_type, \
     get_ref_for_pid, pids_exists_in_data
-from rero_ils.utils import get_current_language
+from rero_ils.utils import get_current_language, remove_empties_from_dict
 
 
 def test_get_ref_for_pid(app):
@@ -33,7 +33,19 @@ def test_get_ref_for_pid(app):
     assert get_ref_for_pid('test', '3') is None
 
 
-# def test_pids_exists_in_data(app, org_martigny, lib_martigny, document):
+def test_remove_empties_form_dict():
+    """Test remove empties data from dict."""
+    data = {
+        'key1': '',
+        'key2': [],
+        'key3': {
+            'key31': None
+        }
+    }
+    cleaned_data = remove_empties_from_dict(data)
+    assert not cleaned_data
+
+
 def test_pids_exists_in_data(app, org_martigny, lib_martigny):
     """Test pid exists."""
     ok = pids_exists_in_data(

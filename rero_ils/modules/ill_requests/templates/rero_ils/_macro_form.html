@@ -1,0 +1,103 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2020 RERO
+  Copyright (C) 2020 UCLouvain
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+
+{# ---- INPUT FIELD RENDER MACRO ------------------------------------------- #}
+{#    Display the input field corresponding to the formField. #}
+{#    Adds required boostrap classes and display errors of the field below  #}
+{#    the input field if needed #}
+
+{% macro render_simple_field(field) %}
+    {% do kwargs.update({'class': 'form-control ' + kwargs.pop('class', '')}) %}
+    {% if field.errors %}
+      {% do kwargs.update({'class': kwargs.pop('class', '') + ' is-invalid'}) %}
+    {% endif %}
+    {% set helpBlockId = field.id + 'HelpBlock' %}
+    {% do kwargs.update({'aria-describedby': helpBlockId}) %}
+    {{ field(**kwargs)|safe }}
+    {%- if field.description %}
+      <small id="{{ helpBlockId }}" class="form-text text-muted">{{ field.description|safe }}</small>
+    {%- endif %}
+    {%- if field.errors %}
+    <ul class="list-unstyled invalid-feedback">
+      {%- for error in field.errors %}
+        <li><i class="fa fa-exclamation-circle"></i> {{ error }}</li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+{% endmacro %}
+
+
+{# ---- DEFAULT FIELD RENDER MACRO ----------------------------------------- #}
+{#    Display a list of radio button inline #}
+
+{% macro render_radio_field(field) %}
+   {% set helpBlockId = field.id + 'HelpBlock' %}
+   <div class="form-group row" data-form-id="{{ field.id }}">
+     {{ render_field_label(field) }}
+     <div class="col-md-10 col-sm-8 pt-2">
+       {%- for item in field %}
+         <span class="pr-3">
+           {{ item(**kwargs) }}
+           {{ item.label.text|safe }}
+         </span>
+       {%- endfor %}
+       {%- if field.description %}
+         <small id="{{ helpBlockId }}" class="form-text text-muted">{{ field.description|safe }}</small>
+       {%- endif %}
+     </div>
+   </div>
+{% endmacro %}
+
+
+{# ---- DEFAULT FIELD RENDER MACRO ----------------------------------------- #}
+{% macro render_default_field(field) %}
+    <div
+      class="form-group row{%- if field.errors %} has-error has-feedback{%- endif %}"
+      data-form-id="{{ field.id }}"
+    >
+      {{ render_field_label(field) }}
+      <div class="col-md-10 col-sm-8">
+        {{ render_simple_field(field) }}
+      </div>
+    </div>
+{% endmacro %}
+
+
+{# ---- LABEL FIELD RENDER MACRO ------------------------------------------- #}
+{#     Display the label of a formField with a red star if field is required #}
+{% macro render_field_label(field) %}
+
+    <label class="col-md-2 col-sm-4 col-form-label{%- if field.flags.required %} required{% endif %}">
+      {{ field.label }}
+    </label>
+{% endmacro %}
+
+
+{# ---- MAIN RENDER MACRO -------------------------------------------------- #}
+
+
+{% macro render_field(field) %}
+  {% if field.type == 'RadioField' %}
+    {{ render_radio_field(field) }}
+  {% else %}
+    {{ render_default_field(field) }}
+  {% endif %}
+{% endmacro %}
+
