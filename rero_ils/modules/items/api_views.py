@@ -305,14 +305,16 @@ def requested_loans(library_pid):
 def loans(patron_pid):
     """HTTP GET request for sorted loans for a patron pid."""
     sort_by = flask_request.args.get('sort')
-    items_loans = Item.get_checked_out_items(
-        patron_pid=patron_pid, sort_by=sort_by)
+    items = Item.get_checked_out_items(patron_pid=patron_pid, sort_by=sort_by)
     metadata = []
-    for item, loan in items_loans:
-        item_dumps = item.dumps_for_circulation(sort_by=sort_by)
+    for item in items:
+        item_data = item.replace_refs()
         metadata.append({
-            'item': item_dumps,
-            'loan': loan.dumps_for_circulation()
+            'item': {
+                'pid': item.pid,
+                'organisation_pid': item_data.get('organisation').get('pid'),
+                'barcode': item.get('barcode')
+            }
         })
     return jsonify({
         'hits': {
@@ -339,31 +341,26 @@ def item(item_barcode):
     patron_pid = flask_request.args.get('patron_pid')
 
     if patron_pid:
-        patron_type_pid = Patron.get_record_by_pid(
-            patron_pid).patron_type_pid
-
+        patron = Patron.get_record_by_pid(patron_pid)
         circ_policy = CircPolicy.provide_circ_policy(
             item.library_pid,
-            patron_type_pid,
+            patron.patron_type_pid,
             item.item_type_pid
         )
-        actions = item_dumps.get('actions')
         new_actions = []
-        for action in actions:
-            if action == 'checkout' and circ_policy.get('allow_checkout'):
-                if item.number_of_requests() > 0:
-                    patron_barcode = Patron.get_record_by_pid(
-                        patron_pid).get('patron', {}).get('barcode')
-                    if item.patron_request_rank(patron_barcode) == 1:
+        # If circulation policy doesn't allow checkout operation no need to
+        # perform special check describe below.
+        if circ_policy.get('allow_checkout', False):
+            for action in item_dumps.get('actions', []):
+                if action == 'checkout':
+                    if item.number_of_requests() > 0:
+                        patron_barcode = patron.get('barcode')
+                        if item.patron_request_rank(patron_barcode) == 1:
+                            new_actions.append(action)
+                    else:
                         new_actions.append(action)
-                else:
-                    new_actions.append(action)
-            if (
-                    action == 'receive' and
-                    circ_policy.get('allow_checkout') and
-                    item.number_of_requests() == 0
-            ):
-                new_actions.append('checkout')
+                elif action == 'receive' and item.number_of_requests() == 0:
+                    new_actions.append('checkout')
         item_dumps['actions'] = new_actions
     return jsonify({
         'metadata': {

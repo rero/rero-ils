@@ -544,7 +544,6 @@ def test_extend_possible_actions(client, item_lib_martigny,
                                  circ_policy_short_martigny):
     """Extend action changes according to params of cipo."""
     login_user_via_session(client, librarian_martigny_no_email.user)
-    circ_policy = circ_policy_short_martigny
     item = item_lib_martigny
     patron_pid = patron_martigny_no_email.pid
     res, _ = postdata(
@@ -558,13 +557,23 @@ def test_extend_possible_actions(client, item_lib_martigny,
         )
     )
 
+    # check the item is now in patron loaned item
     res = client.get(
         url_for('api_item.loans', patron_pid=patron_pid)
     )
     assert res.status_code == 200
     data = get_json(res)
     assert data['hits']['total']['value'] == 1
-    actions = data.get('hits').get('hits')[0].get('item').get('actions')
+    hit = data.get('hits').get('hits')[0].get('item')
+    assert hit.get('barcode') == item.get('barcode')
+
+    # check the item can be checked-in
+    res = client.get(
+        url_for('api_item.item', item_barcode=item.get('barcode'))
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    actions = data.get('metadata').get('item').get('actions', [])
     assert 'checkin' in actions
 
     from rero_ils.modules.circ_policies.api import CircPolicy
@@ -573,24 +582,19 @@ def test_extend_possible_actions(client, item_lib_martigny,
         'ptty1',
         'itty1'
     )
-
     circ_policy['number_renewals'] = 0
-    circ_policy.update(
-        circ_policy,
-        dbcommit=True,
-        reindex=True
-    )
+    circ_policy.update(circ_policy, dbcommit=True, reindex=True)
     res = client.get(
-        url_for('api_item.loans', patron_pid=patron_pid)
+        url_for('api_item.item', item_barcode=item.get('barcode'))
     )
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total']['value'] == 1
-    actions = data.get('hits').get('hits')[0].get('item').get('actions')
+    actions = data.get('metadata').get('item').get('actions', [])
     assert 'extend_loan' not in actions
     assert 'checkin' in actions
-    loan_pid = data.get('hits').get('hits')[0].get('loan').get('pid')
+
     # reset used objects
+    loan_pid = data.get('metadata').get('loan').get('pid')
     res, _ = postdata(
         client,
         'api_item.checkin',
@@ -602,7 +606,6 @@ def test_extend_possible_actions(client, item_lib_martigny,
         )
     )
     assert res.status_code == 200
-
     circ_policy['number_renewals'] = 1
     circ_policy.update(
         circ_policy,
