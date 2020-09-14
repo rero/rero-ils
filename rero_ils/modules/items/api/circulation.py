@@ -38,7 +38,7 @@ from ..utils import item_pid_to_object
 from ...api import IlsRecord
 from ...circ_policies.api import CircPolicy
 from ...documents.api import Document
-from ...errors import InvalidRecordID, NoCirculationAction
+from ...errors import NoCirculationAction
 from ...libraries.api import Library
 from ...loans.api import Loan, LoanAction, LoanState, \
     get_last_transaction_loc_for_item, get_request_by_item_pid_by_patron_pid
@@ -930,13 +930,8 @@ class ItemCirculation(IlsRecord):
             yield Loan.get_record_by_pid(loan.pid)
 
     @classmethod
-    def get_checked_out_loans(
-            cls, patron_pid=None, sort_by='_created'):
+    def get_checked_out_loan_infos(cls, patron_pid, sort_by='_created'):
         """Returns sorted checked out loans for a given patron."""
-        # check library exists
-        patron = Patron.get_record_by_pid(patron_pid)
-        if not patron:
-            raise InvalidRecordID('Invalid Patron PID')
         # the '-' prefix means a desc order.
         sort_by = sort_by or '_created'
         order_by = 'asc'
@@ -944,14 +939,15 @@ class ItemCirculation(IlsRecord):
             sort_by = sort_by[1:]
             order_by = 'desc'
 
-        results = current_circulation.loan_search_cls()\
-            .params(preserve_order=True)\
-            .filter('term', state=LoanState.ITEM_ON_LOAN)\
-            .filter('term', patron_pid=patron_pid)\
-            .sort({sort_by: {"order": order_by}})\
-            .source(includes='pid').scan()
-        for loan in results:
-            yield Loan.get_record_by_pid(loan.pid)
+        results = search_by_patron_item_or_document(
+            patron_pid=patron_pid,
+            filter_states=[LoanState.ITEM_ON_LOAN]
+        ).params(preserve_order=True)\
+         .sort({sort_by: {"order": order_by}})\
+         .source(['pid', 'item_pid.value'])\
+         .scan()
+        for data in results:
+            yield data.pid, data.item_pid.value
 
     def get_library_of_last_location(self):
         """Returns the library record of the circulation transaction location.
@@ -1350,13 +1346,13 @@ class ItemCirculation(IlsRecord):
     @classmethod
     def get_checked_out_items(cls, patron_pid=None, sort_by=None):
         """Return sorted checked out items for a given patron."""
-        loans = cls.get_checked_out_loans(
-            patron_pid=patron_pid, sort_by=sort_by)
+        from .api import Item
+        loan_infos = cls.get_checked_out_loan_infos(
+            patron_pid=patron_pid,
+            sort_by=sort_by
+        )
         returned_item_pids = []
-        for loan in loans:
-            item_pid = loan.get('item_pid', {}).get('value')
-            item = cls.get_record_by_pid(item_pid)
-            if item.status == ItemStatus.ON_LOAN and \
-                    item_pid not in returned_item_pids:
+        for loan_pid, item_pid in loan_infos:
+            if item_pid not in returned_item_pids:
                 returned_item_pids.append(item_pid)
-                yield item, loan
+                yield Item.get_record_by_pid(item_pid)
