@@ -95,6 +95,7 @@ def init_menu_tools():
         order=0,
         id='tools-menu'
     )
+
     item = current_menu.submenu('main.tool.ill_request')
     rero_register(
         item,
@@ -106,6 +107,41 @@ def init_menu_tools():
         ),
         order=10,
         id='ill-request-menu'
+    )
+
+    item = current_menu.submenu('main.tool.collections')
+    rero_register(
+        item,
+        endpoint='rero_ils.collections',
+        endpoint_arguments_constructor=lambda: dict(
+            viewcode=request.view_args.get(
+                'viewcode', current_app.config.get(
+                    'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))
+        ),
+        visible_when=lambda: current_app.config.get(
+            'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'
+            ) != request.view_args.get(
+                'viewcode', current_app.config.get(
+                    'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE')),
+        text='{icon} {help}'.format(
+            icon='<i class="fa fa-graduation-cap"></i>',
+            help=_('Collections')
+        ),
+        order=2,
+        id='collections-menu'
+    )
+
+    item = current_menu.submenu('main.tool.help')
+    rero_register(
+        item,
+        endpoint='wiki.page',
+        endpoint_arguments_constructor=lambda: {'url': 'public'},
+        text='{icon} {help}'.format(
+            icon='<i class="fa fa-info"></i>',
+            help=_('Help')
+        ),
+        order=100,
+        id='help-menu'
     )
 
 
@@ -154,20 +190,6 @@ def init_menu_lang():
             id='language-menu-{language}'.format(
                 language=language_item.language))
         order += 1
-
-        item = current_menu.submenu('main.menu.help')
-
-        rero_register(
-            item,
-            endpoint='wiki.page',
-            endpoint_arguments_constructor=lambda: {'url': 'public'},
-            text='{icon} {help}'.format(
-                icon='<i class="fa fa-info"></i>',
-                help=_('Help')
-            ),
-            order=100,
-            id='help-menu'
-        )
 
 
 def init_menu_profile():
@@ -353,6 +375,15 @@ def search(viewcode, recordType):
     """Search page ui."""
     return render_template(current_app.config.get('SEARCH_UI_SEARCH_TEMPLATE'),
                            viewcode=viewcode)
+
+
+@blueprint.route('/<string:viewcode>/search/collections')
+@check_organisation_viewcode
+def collections(viewcode):
+    """Collections page ui."""
+    return render_template(current_app.config.get(
+        'RERO_ILS_COLLECTIONS_TEMPLATE'
+        ), viewcode=viewcode)
 
 
 @blueprint.app_template_filter()

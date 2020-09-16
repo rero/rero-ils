@@ -35,6 +35,7 @@ from .utils import create_authorized_access_point, \
     publication_statement_text, series_statement_format_text, \
     title_format_text_alternate_graphic, title_format_text_head, \
     title_variant_format_text
+from ..collections.api import CollectionsSearch
 from ..holdings.api import Holding
 from ..items.models import ItemCirculationAction
 from ..libraries.api import Library
@@ -515,3 +516,17 @@ def create_title_responsibilites(responsibilityStatement):
                 else:
                     output.append(value)
     return output
+
+
+@blueprint.app_template_filter()
+def in_collection(item_pid):
+    """Find item in collection(s).
+
+    :param item_pid: item pid
+    :return: list of collections whose item is present
+    """
+    return list(
+        CollectionsSearch().filter(
+            'term', items__pid=item_pid
+        ).scan()
+    )

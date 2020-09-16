@@ -63,6 +63,7 @@ from werkzeug.local import LocalProxy
 from werkzeug.security import gen_salt
 
 from .api import IlsRecordsIndexer
+from .collections.cli import create_collections
 from .documents.dojson.contrib.marc21tojson import marc21
 from .holdings.cli import create_patterns
 from .ill_requests.cli import create_ill_requests
@@ -96,6 +97,7 @@ fixtures.add_command(reindex_items)
 fixtures.add_command(create_loans)
 fixtures.add_command(create_patterns)
 fixtures.add_command(create_ill_requests)
+fixtures.add_command(create_collections)
 
 
 @users.command('confirm')

@@ -23,6 +23,7 @@ import pytest
 from utils import flush_index
 
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch, CircPolicy
+from rero_ils.modules.collections.api import Collection, CollectionsSearch
 from rero_ils.modules.item_types.api import ItemType, ItemTypesSearch
 from rero_ils.modules.libraries.api import LibrariesSearch, Library
 from rero_ils.modules.locations.api import Location, LocationsSearch
@@ -868,3 +869,60 @@ def circulation_policies(
         circ_policy_ebooks_martigny,
         circ_policy_ebooks_sion
     ]
+
+
+@pytest.fixture(scope="module")
+def coll_martigny_1_data(data):
+    """Load collection Martigny 1."""
+    return deepcopy(data.get('coll_martigny_1'))
+
+
+@pytest.fixture(scope="module")
+def coll_martigny_1(
+        app, org_martigny, lib_martigny, coll_martigny_1_data):
+    """Create collection Martigny 1."""
+    coll = Collection.create(
+        data=coll_martigny_1_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(CollectionsSearch.Meta.index)
+    return coll
+
+
+@pytest.fixture(scope="module")
+def coll_sion_1_data(data):
+    """Load collection Sion 1."""
+    return deepcopy(data.get('coll_sion_1'))
+
+
+@pytest.fixture(scope="module")
+def coll_sion_1(
+        app, org_sion, lib_sion, coll_sion_1_data):
+    """Create collection Sion 1."""
+    coll = Collection.create(
+        data=coll_sion_1_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(CollectionsSearch.Meta.index)
+    return coll
+
+
+@pytest.fixture(scope="module")
+def coll_saxon_1_data(data):
+    """Load collection Saxon 1."""
+    return deepcopy(data.get('coll_saxon_1'))
+
+
+@pytest.fixture(scope="module")
+def coll_saxon_1(
+        app, org_martigny, lib_saxon, coll_saxon_1_data):
+    """Create collection Saxon 1."""
+    coll = Collection.create(
+        data=coll_saxon_1_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(CollectionsSearch.Meta.index)
+    return coll
