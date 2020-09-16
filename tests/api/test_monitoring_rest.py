@@ -40,6 +40,7 @@ def test_monitoring_es_db_counts(client):
             'acor': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'acq_orders'},
             'budg': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'budgets'},
             'cipo': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'circ_policies'},
+            'coll': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'collections'},
             'doc': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'documents'},
             'hold': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'holdings'},
             'illr': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'ill_requests'},

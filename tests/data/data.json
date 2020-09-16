@@ -3062,5 +3062,103 @@
     "pickup_location": {
       "$ref": "https://ils.rero.ch/api/locations/loc7"
     }
+  },
+  "coll_martigny_1": {
+    "pid": "coll_martigny_1",
+    "collection_id": "CRS 1",
+    "title": "Course number 1",
+    "collection_type": "course",
+    "teachers": [
+      {
+        "name": "Pr. Smith, John"
+      },
+      {
+        "name": "Pr. Nonyme, Anne"
+      }
+    ],
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/lib1"
+      }
+    ],
+    "description": "List of items for course 1",
+    "subjects": [
+      {
+        "name": "Smith, John"
+      },
+      {
+        "name": "geographic"
+      }
+    ],
+    "start_date": "2020-09-01",
+    "end_date": "2020-12-31",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
+    },
+    "items": [
+      {
+        "$ref": "https://ils.rero.ch/api/items/item1"
+      },
+      {
+        "$ref": "https://ils.rero.ch/api/items/item5"
+      }
+    ],
+    "published": true
+  },
+  "coll_saxon_1": {
+    "pid": "coll_saxon_1",
+    "collection_id": "CRS 1",
+    "title": "Course number 1",
+    "collection_type": "course",
+    "teachers": [
+      {
+        "name": "Pr. Smith, Will"
+      }
+    ],
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/lib2"
+      }
+    ],
+    "description": "List of items for course 1",
+    "subjects": [
+      {
+        "name": "geographic"
+      }
+    ],
+    "start_date": "2020-09-01",
+    "end_date": "2020-12-31",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
+    },
+    "published": true
+  },
+  "coll_sion_1": {
+    "pid": "coll_sion_1",
+    "collection_id": "CRS 1",
+    "title": "Course number 1",
+    "collection_type": "course",
+    "teachers": [
+      {
+        "name": "Pr. Smith, John"
+      }
+    ],
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/lib4"
+      }
+    ],
+    "description": "List of items for course 1",
+    "subjects": [
+      {
+        "name": "geographic"
+      }
+    ],
+    "start_date": "2020-09-01",
+    "end_date": "2020-12-31",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org2"
+    },
+    "published": true
   }
 }

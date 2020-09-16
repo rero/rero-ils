@@ -6,7 +6,8 @@
     "code": "aoste",
     "default_currency": "EUR",
     "current_budget_pid": "1",
-    "online_harvested_source": "ebibliomedia"
+    "online_harvested_source": "ebibliomedia",
+    "collection_enabled_on_public_view": true
   },
   {
     "pid": "2",
@@ -15,7 +16,8 @@
     "code": "highlands",
     "default_currency": "GBP",
     "current_budget_pid": "4",
-    "online_harvested_source": "mv-cantook"
+    "online_harvested_source": "mv-cantook",
+    "collection_enabled_on_public_view": false
   },
   {
     "pid": "3",
@@ -23,7 +25,8 @@
     "name": "Network of fictive libraries",
     "code": "fictive",
     "default_currency": "CHF",
-    "current_budget_pid": "5"
+    "current_budget_pid": "5",
+    "collection_enabled_on_public_view": false
   },
   {
     "pid": "4",
@@ -31,6 +34,7 @@
     "name": "Institute of user interface tests",
     "code": "cypress",
     "default_currency": "CHF",
-    "current_budget_pid": "6"
+    "current_budget_pid": "6",
+    "collection_enabled_on_public_view": true
   }
 ]

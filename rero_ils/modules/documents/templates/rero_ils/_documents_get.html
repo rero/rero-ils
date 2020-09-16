@@ -175,6 +175,19 @@
             </div>
           </div>
         </div>
+        {% set collections = item.pid|in_collection %}
+        {% if collections|length > 0 %}
+        <div class="row my-2">
+          <div class="offset-1 col-10">
+           {{ _('In') }}:
+           {% for collection in collections %}
+            <a href="{{ url_for('invenio_records_ui.coll', viewcode=viewcode, pid_value=collection.pid) }}">
+              {{ collection.title }}{{ '' if loop.last else '; ' }}
+            </a>
+           {% endfor %}
+          </div>
+        </div>
+        {% endif %}
         {% if item|get_note('public_note') %}
         <div class="row">
           <div class="offset-1 col-sm-1 text-right pr-2">

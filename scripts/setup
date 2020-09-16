@@ -383,6 +383,10 @@ eval ${PREFIX} invenio utils runindex --raise-on-error
 info_msg "Serials patterns: ${DATA_PATH}/patterns.json"
 eval ${PREFIX} invenio fixtures create_patterns ${DATA_PATH}/patterns.json
 
+info_msg "- Collections: ${DATA_PATH}/collections.json"
+eval ${PREFIX} invenio fixtures create_collections -f ${DATA_PATH}/collections.json
+eval ${PREFIX} invenio utils reindex -t coll --yes-i-know --no-info
+
 # # ACQUISITION
 # create vendors
 info_msg "Acquisition vendors: ${DATA_PATH}/vendors.json ${CREATE_LAZY} ${DONT_STOP}"
