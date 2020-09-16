@@ -1019,30 +1019,43 @@ def test_unimarc_publishers_provision_activity():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('provisionActivity') == [{
-        'type': 'bf:Publication',
-        'statement': [
-            {
-                'label': [
-                    {'value': 'Lausanne'}
-                ],
-                'type': 'bf:Place'
-            },
-            {
-                'label': [
-                    {'value': 'Payot'}
-                ],
-                'type': 'bf:Agent'
-            },
-            {
-                'label': [
-                    {'value': '2015'}
-                ],
-                'type': 'Date'
-            }
-        ],
-        'startDate': 2015,
-    }]
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Publication',
+            'statement': [
+                {
+                    'label': [
+                        {'value': 'Lausanne'}
+                    ],
+                    'type': 'bf:Place'
+                },
+                {
+                    'label': [
+                        {'value': 'Payot'}
+                    ],
+                    'type': 'bf:Agent'
+                },
+                {
+                    'label': [
+                        {'value': '2015'}
+                    ],
+                    'type': 'Date'
+                }
+            ],
+            'startDate': 2015,
+        },
+        {
+            'statement': [
+                {
+                    'label': [
+                        {'value': 'Lausanne'}
+                    ],
+                    'type': 'bf:Place'
+                }
+            ],
+            'type': 'bf:Manufacture'
+        }
+    ]
 
     unimarcxml = """
     <record>
@@ -1092,9 +1105,7 @@ def test_unimarc_publishers_provision_activity():
                 ],
                 'type': 'Date'
             }
-        ],
-        'startDate': 1969,
-        'endDate': 1999
+        ]
     }]
 
     unimarcxml = """
@@ -1143,9 +1154,7 @@ def test_unimarc_publishers_provision_activity():
                 ],
                 'type': 'Date'
             }
-        ],
-        'startDate': 1912,
-        'endDate': 1955
+        ]
     }]
 
     unimarcxml = """

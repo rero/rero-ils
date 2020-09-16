@@ -51,6 +51,241 @@ _ISSUANCE_SUBTYPE_PER_SERIAL_TYPE = {
     'h': 'updatingWebsite'
 }
 
+_COUNTRY_UNIMARC_MARC21 = {
+    'AD': 'an',
+    'AE': 'ts',
+    'AF': 'af',
+    'AG': 'aq',
+    'AI': 'am',
+    'AL': 'aa',
+    'AM': 'ai',
+    'AO': 'ao',
+    'AQ': 'ay',
+    'AR': 'ag',
+    'AS': 'as',
+    'AT': 'au',
+    'AU': 'at',
+    'AUT': 'at',
+    'AW': 'aw',
+    'AZ': 'aj',
+    'BA': 'bn',
+    'BB': 'bb',
+    'BD': 'bg',
+    'BE': 'be',
+    'BF': 'uv',
+    'BG': 'bu',
+    'BH': 'ba',
+    'BI': 'bd',
+    'BJ': 'dm',
+    'BL': 'sc',
+    'BM': 'bm',
+    'BN': 'bx',
+    'BO': 'bo',
+    'BR': 'bl',
+    'BS': 'bf',
+    'BT': 'bt',
+    'BV': 'bv',
+    'BW': 'bs',
+    'BZ': 'bh',
+    'CA': 'xxc',
+    'CC': 'xb',
+    'CD': 'cf',
+    'CF': 'cx',
+    'CG': 'cg',
+    'CH': 'sz',
+    'CI': 'iv',
+    'CK': 'cw',
+    'CL': 'cl',
+    'CM': 'cm',
+    'CN': 'cc',
+    'CO': 'ck',
+    'CR': 'cr',
+    'CU': 'cu',
+    'CW': 'co',
+    'CX': 'xa',
+    'CY': 'cy',
+    'DE': 'gw',
+    'DJ': 'ft',
+    'DK': 'dk',
+    'DM': 'dq',
+    'DZ': 'ae',
+    'EC': 'ec',
+    'EE': 'er',
+    'EG': 'ua',
+    'EH': 'ss',
+    'ER': 'ea',
+    'ES': 'sp',
+    'ET': 'et',
+    'FI': 'fi',
+    'FJ': 'fj',
+    'FM': 'fm',
+    'FO': 'fa',
+    'FR': 'fr',
+    'GA': 'go',
+    'GB': 'xxk',
+    'GD': 'gd',
+    'GE': 'gau',
+    'GF': 'fg',
+    'GG': 'gg',
+    'GH': 'gh',
+    'GI': 'gi',
+    'GL': 'gl',
+    'GM': 'gm',
+    'GN': 'gv',
+    'GP': 'gp',
+    'GQ': 'eg',
+    'GR': 'gr',
+    'GS': 'xs',
+    'GT': 'gt',
+    'GU': 'gu',
+    'GW': 'pg',
+    'GY': 'gy',
+    'HM': 'hm',
+    'HN': 'ho',
+    'HR': 'ci',
+    'HT': 'ht',
+    'HU': 'hu',
+    'ID': 'io',
+    'IE': 'ie',
+    'IL': 'is',
+    'IM': 'im',
+    'IN': 'ii',
+    'IQ': 'iq',
+    'IR': 'ir',
+    'IS': 'ic',
+    'IT': 'it',
+    'JE': 'je',
+    'JM': 'jm',
+    'JO': 'jo',
+    'JP': 'ja',
+    'KE': 'ke',
+    'KG': 'kg',
+    'KH': 'cb',
+    'KI': 'gb',
+    'KM': 'cq',
+    'KN': 'xd',
+    'KP': 'kn',
+    'KR': 'ko',
+    'KW': 'ku',
+    'KY': 'cj',
+    'KZ': 'kz',
+    'LA': 'ls',
+    'LB': 'le',
+    'LC': 'xk',
+    'LI': 'lh',
+    'LK': 'ce',
+    'LR': 'lb',
+    'LS': 'lo',
+    'LT': 'li',
+    'LU': 'lu',
+    'LV': 'lv',
+    'LY': 'ly',
+    'MA': 'mr',
+    'MC': 'mc',
+    'MD': 'mv',
+    'ME': 'mo',
+    'MG': 'mg',
+    'MH': 'xe',
+    'MK': 'xn',
+    'ML': 'ml',
+    'MM': 'br',
+    'MN': 'mp',
+    'MP': 'nw',
+    'MQ': 'mq',
+    'MR': 'mu',
+    'MS': 'mj',
+    'MT': 'mm',
+    'MU': 'mf',
+    'MV': 'xc',
+    'MW': 'mw',
+    'MX': 'mx',
+    'MY': 'my',
+    'MZ': 'mz',
+    'NA': 'sx',
+    'NC': 'nl',
+    'NE': 'ng',
+    'NF': 'nx',
+    'NG': 'nr',
+    'NI': 'nq',
+    'NL': 'ne',
+    'NO': 'no',
+    'NP': 'np',
+    'NR': 'nu',
+    'NU': 'xh',
+    'NZ': 'nz',
+    'OM': 'mk',
+    'PA': 'pn',
+    'PE': 'pe',
+    'PF': 'fp',
+    'PG': 'pp',
+    'PH': 'ph',
+    'PK': 'pk',
+    'PL': 'pl',
+    'PM': 'xl',
+    'PN': 'pc',
+    'PR': 'pr',
+    'PT': 'po',
+    'PW': 'pw',
+    'PY': 'py',
+    'QA': 'qa',
+    'RE': 're',
+    'RO': 'rm',
+    'RU': 'ru',
+    'RW': 'rw',
+    'SA': 'su',
+    'SB': 'bp',
+    'SC': 'se',
+    'SD': 'sj',
+    'SE': 'sw',
+    'SG': 'si',
+    'SH': 'xj',
+    'SI': 'xv',
+    'SK': 'xo',
+    'SL': 'sl',
+    'SM': 'st',
+    'SN': 'sg',
+    'SO': 'so',
+    'SR': 'sr',
+    'SS': 'sd',
+    'ST': 'sf',
+    'SV': 'es',
+    'SX': 'sn',
+    'SZ': 'sq',
+    'TC': 'tc',
+    'TD': 'cd',
+    'TF': 'fs',
+    'TG': 'tg',
+    'TH': 'th',
+    'TJ': 'ta',
+    'TK': 'tl',
+    'TL': 'em',
+    'TM': 'tk',
+    'TN': 'ti',
+    'TO': 'to',
+    'TR': 'tu',
+    'TT': 'tr',
+    'TV': 'tv',
+    'TZ': 'tz',
+    'UA': 'un',
+    'UG': 'ug',
+    'US': 'xxu',
+    'UY': 'uy',
+    'UZ': 'uz',
+    'VA': 'vc',
+    'VC': 'xm',
+    'VE': 've',
+    'VN': 'vm',
+    'VU': 'nn',
+    'WF': 'wf',
+    'WS': 'ws',
+    'XX': 'xx',
+    'YE': 'ye',
+    'YT': 'ot',
+    'ZA': 'sa',
+    'ZM': 'za',
+    'ZW': 'rh',
+}
+
 unimarc = ReroIlsUnimarcOverdo()
 
 
@@ -422,7 +657,9 @@ def unimarc_publishers_provision_activity_publication(self, key, value):
     def build_place_or_agent_data(code, label, index):
         type_per_code = {
             'a': 'bf:Place',
-            'c': 'bf:Agent'
+            'c': 'bf:Agent',
+            'e': 'bf:Place',
+            'g': 'bf:Agent'
         }
         place_or_agent_data = {
             'type': type_per_code[code],
@@ -438,10 +675,13 @@ def unimarc_publishers_provision_activity_publication(self, key, value):
             field_102 = field_102[0]
             country_codes = unimarc.get_subfields(field_102, 'a')
             if country_codes:
-                place['country'] = country_codes[0].lower()
-                place['type'] = 'bf:Place'
+                country = _COUNTRY_UNIMARC_MARC21.get(country_codes[0])
+                if country:
+                    place['country'] = country
+                    place['type'] = 'bf:Place'
         return place
 
+    # only take 214 if exists
     publication = {}
     ind2 = key[4]
     type_per_ind2 = {
@@ -463,45 +703,143 @@ def unimarc_publishers_provision_activity_publication(self, key, value):
                 copyright_date.append('© ' + field_d)
             self['copyrightDate'] = copyright_date
     else:
-        publication = {
-            'type': type_per_ind2[ind2],
-            'statement': [],
-        }
-        statement = []
-        items = get_field_items(value)
-        index = 1
-        for blob_key, blob_value in items:
-            if blob_key in ('a', 'c'):
-                place_or_agent_data = build_place_or_agent_data(
-                    blob_key, blob_value, index)
-                statement.append(place_or_agent_data)
-            if blob_key != '__order__':
-                index += 1
-        if statement:
-            publication['statement'] = statement
-        if ind2 in (' ', '_', '0'):
-            place = build_place()
-            if place:
-                publication['place'] = [place]
+        start_date = None
+        end_date = None
+        place = build_place()
+        field_100 = unimarc.get_fields('100')
+        if field_100:
+            field_100 = field_100[0]
+            subfield_a = unimarc.get_subfields(field_100, 'a')
+            if subfield_a:
+                subfield_a = subfield_a[0]
+                start_date = make_year(subfield_a[9:13])
+                end_date = make_year(subfield_a[14:17])
 
-        subfields_d = utils.force_list(value.get('d'))
-        if subfields_d:
-            subfield_d = subfields_d[0]
-            publication['statement'].append({
-                'label': [{'value': subfield_d}],
-                'type': 'Date'
-            })
-            if ind2 in (' ', '_', '0'):
-                dates = subfield_d.replace('[', '').replace(']', '').split('-')
-                start_date = make_year(dates[0])
+        if key[:3] == '210':
+            if not unimarc.get_fields(tag='214'):
+                publications = self.setdefault('provisionActivity', [])
+                items = get_field_items(value)
+                index = 1
+                publication = {}
+                statement = []
+                for blob_key, blob_value in items:
+                    if blob_key in ('a', 'c'):
+                        type = 'bf:Publication'
+                        if index == 1:
+                            old_type = 'bf:Publication'
+                            publication = {'type': type, 'statement': []}
+                        if type != old_type:
+                            subfields_h = utils.force_list(value.get('h'))
+                            publication['statement'] = statement
+                            if subfields_h:
+                                subfields_h = subfields_h[0]
+                                publication['statement'].append({
+                                    'label': [{'value': subfields_h}],
+                                    'type': 'Date'
+                                })
+                            statement = []
+                            publications.append(publication)
+                            publication = {
+                                'type': type,
+                                'statement': [],
+                            }
+                            old_type = type
+
+                        place_or_agent_data = build_place_or_agent_data(
+                            blob_key, blob_value, index)
+                        statement.append(place_or_agent_data)
+                    if blob_key in ('e', 'g'):
+                        type = 'bf:Manufacture'
+                        if index == 1:
+                            old_type = 'bf:Manufacture'
+                            publication = {'type': type, 'statement': []}
+                        if type != old_type:
+                            subfields_d = utils.force_list(value.get('d'))
+                            publication['statement'] = statement
+                            if subfields_d:
+                                subfield_d = subfields_d[0]
+                                publication['statement'].append({
+                                    'label': [{'value': subfield_d}],
+                                    'type': 'Date'
+                                })
+                            if start_date:
+                                publication['startDate'] = start_date
+                            if end_date:
+                                publication['endDate'] = end_date
+                            if place:
+                                publication['place'] = [place]
+                            statement = []
+                            publications.append(publication)
+                            publication = {
+                                'type': type,
+                                'statement': [],
+                            }
+                            old_type = type
+                        place_or_agent_data = build_place_or_agent_data(
+                            blob_key, blob_value, index)
+                        statement.append(place_or_agent_data)
+                    if blob_key != '__order__':
+                        index += 1
+                if statement:
+                    publication = {
+                        'type': type,
+                        'statement': statement,
+                    }
+                    date_subfield = 'd'
+                    if type == 'bf:Manufacture':
+                        date_subfield = 'h'
+                    subfields = utils.force_list(value.get(date_subfield))
+                    if subfields:
+                        subfield = subfields[0]
+                        publication['statement'].append({
+                            'label': [{'value': subfield}],
+                            'type': 'Date'
+                        })
+                    if publication['type'] == 'bf:Publication':
+                        if start_date:
+                            publication['startDate'] = start_date
+                        if end_date:
+                            publication['endDate'] = end_date
+                        if place:
+                            publication['place'] = [place]
+
+                    publications.append(publication)
+                if publications:
+                    self['provisionActivity'] = publications
+                return None
+        else:
+            publication = {
+                'type': type_per_ind2[ind2],
+                'statement': [],
+            }
+            statement = []
+            items = get_field_items(value)
+            index = 1
+            for blob_key, blob_value in items:
+                if blob_key in ('a', 'c'):
+                    place_or_agent_data = build_place_or_agent_data(
+                        blob_key, blob_value, index)
+                    statement.append(place_or_agent_data)
+                if blob_key != '__order__':
+                    index += 1
+            if statement:
+                publication['statement'] = statement
+            if publication['type'] == 'bf:Publication':
+                if place:
+                    publication['place'] = [place]
+
+            subfields_d = utils.force_list(value.get('d'))
+            if subfields_d:
+                subfield_d = subfields_d[0]
+                publication['statement'].append({
+                    'label': [{'value': subfield_d}],
+                    'type': 'Date'
+                })
+            if publication['type'] == 'bf:Publication':
                 if start_date:
                     publication['startDate'] = start_date
-                try:
-                    end_date = make_year(dates[1])
-                    if end_date:
-                        publication['endDate'] = end_date
-                except Exception:
-                    pass
+                if end_date:
+                    publication['endDate'] = end_date
 
     if not publication.get('statement'):
         publication = None
