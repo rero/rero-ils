@@ -1,0 +1,250 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Collection",
+  "description": "JSON schema for collection.",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "pid",
+    "collection_id",
+    "title",
+    "collection_type",
+    "start_date",
+    "end_date",
+    "organisation",
+    "published"
+  ],
+  "propertiesOrder": [
+    "collection_type",
+    "start_date",
+    "end_date",
+    "title",
+    "collection_id",
+    "teachers",
+    "description",
+    "subjects",
+    "teachers",
+    "libraries",
+    "items",
+    "published"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate collection records against.",
+      "type": "string",
+      "minLength": 9,
+      "default": "https://ils.rero.ch/schema/collections/collection-v0.0.1.json"
+    },
+    "pid": {
+      "title": "Internal collection PID",
+      "type": "string",
+      "minLength": 1
+    },
+    "collection_id": {
+      "title": "Local identifier of the collection",
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "title": "Title of the Collection",
+      "type": "string",
+      "minLength": 1
+    },
+    "collection_type": {
+      "title": "Type",
+      "type": "string",
+      "enum": [
+        "course",
+        "exhibition"
+      ],
+      "form": {
+        "type": "selectWithSort",
+        "wrappers": [
+          "form-field"
+        ],
+        "options": [
+          {
+            "label": "course",
+            "value": "course"
+          },
+          {
+            "label": "exhibition",
+            "value": "exhibition"
+          }
+        ],
+        "templateOptions": {
+          "selectWithSortOptions": {
+            "order": "label"
+          }
+        }
+      }
+    },
+    "teachers": {
+      "title": "Teachers",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Teacher",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "title": "Name of the teacher",
+            "type": "string"
+          }
+        }
+      },
+      "form": {
+        "templateOptions": {
+          "cssClass": "editor-title"
+        },
+        "hideExpression": "field.parent.model.collection_type !== 'course'",
+        "expressionProperties": {
+          "templateOptions.required": "field.parent.model.collection_type === 'course'"
+        }
+      }
+    },
+    "subjects": {
+      "title": "Subjects",
+      "type": "array",
+      "minLength": 1,
+      "items": {
+        "title": "Subject",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "title": "Subject name",
+            "type": "string"
+          }
+        }
+      },
+      "form": {
+        "templateOptions": {
+          "cssClass": "editor-title"
+        }
+      }
+    },
+    "description": {
+      "title": "Description about the collection",
+      "type": "string",
+      "minLength": 1
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Start date",
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
+      "form": {
+        "type": "datepicker",
+        "wrappers": [
+          "form-field"
+        ],
+        "validation": {
+          "messages": {
+            "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+          }
+        }
+      }
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date",
+      "title": "End date",
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
+      "form": {
+        "type": "datepicker",
+        "wrappers": [
+          "form-field"
+        ],
+        "validation": {
+          "messages": {
+            "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+          }
+        }
+      }
+    },
+    "libraries": {
+      "title": "Libraries",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Library",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "$ref"
+        ],
+        "properties": {
+          "$ref": {
+            "title": "Library",
+            "type": "string",
+            "pattern": "^https://ils.rero.ch/api/libraries/.*?$",
+            "form": {
+              "fieldMap": "library"
+            }
+          }
+        }
+      },
+      "form": {
+        "templateOptions": {
+          "cssClass": "editor-title"
+        }
+      }
+    },
+    "items": {
+      "title": "Items in the collection",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Item",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "$ref"
+        ],
+        "properties": {
+          "$ref": {
+            "title": "Item",
+            "type": "string",
+            "pattern": "^https://ils.rero.ch/api/items/.*?$",
+            "form": {
+              "remoteTypeahead": {
+                "type": "items"
+              }
+            }
+          }
+        }
+      },
+      "form": {
+        "templateOptions": {
+          "cssClass": "editor-title"
+        }
+      }
+    },
+    "organisation": {
+      "title": "Organisation",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Organisation URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/organisations/.*?$"
+        }
+      }
+    },
+    "published": {
+      "type": "boolean",
+      "title": "Published",
+      "default": true
+    }
+  }
+}

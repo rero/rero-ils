@@ -51,6 +51,8 @@ from .modules.budgets.api import Budget
 from .modules.budgets.permissions import BudgetPermission
 from .modules.circ_policies.api import CircPolicy
 from .modules.circ_policies.permissions import CirculationPolicyPermission
+from .modules.collections.api import Collection
+from .modules.collections.permissions import CollectionPermission
 from .modules.documents.api import Document
 from .modules.documents.permissions import DocumentPermission
 from .modules.holdings.api import Holding
@@ -167,6 +169,7 @@ SEARCH_UI_SEARCH_MIMETYPE = 'application/rero+json'
 SEARCH_UI_HEADER_TEMPLATE = 'rero_ils/search_header.html'
 REROILS_SEARCHBAR_TEMPLATE = 'templates/rero_ils/searchbar.html'
 RERO_ILS_EDITOR_TEMPLATE = 'rero_ils/editor.html'
+RERO_ILS_COLLECTIONS_TEMPLATE = 'rero_ils/collections.html'
 SECURITY_LOGIN_USER_TEMPLATE = 'rero_ils/login_user.html'
 
 # Theme configuration
@@ -405,6 +408,47 @@ REST_MIMETYPE_QUERY_ARG_NAME = 'format'
 """Name of the query argument to specify the mimetype wanted for the output."""
 
 RECORDS_REST_ENDPOINTS = dict(
+    coll=dict(
+        pid_type='coll',
+        pid_minter='collection_id',
+        pid_fetcher='collection_id',
+        search_class='rero_ils.modules.collections.api:CollectionsSearch',
+        search_index='collections',
+        search_type=None,
+        indexer_class='rero_ils.modules.collections.api:CollectionsIndexer',
+        record_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_response'
+            )
+        },
+        search_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_search'
+            ),
+            'application/rero+json': (
+                'rero_ils.modules.collections.serializers:json_coll_search'
+            )
+        },
+        record_loaders={
+            'application/json': lambda: Collection(request.get_json()),
+        },
+        record_class='rero_ils.modules.collections.api:Collection',
+        list_route='/collections/',
+        item_route='/collections/<pid(coll, record_class="rero_ils.modules.collections.api:Collection"):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+        search_factory_imp='rero_ils.query:view_search_collection_factory',
+        list_permission_factory_imp=lambda record: record_permission_factory(
+            action='list', record=record, cls=CollectionPermission),
+        read_permission_factory_imp=lambda record: record_permission_factory(
+            action='read', record=record, cls=CollectionPermission),
+        create_permission_factory_imp=lambda record: record_permission_factory(
+            action='create', record=record, cls=CollectionPermission),
+        update_permission_factory_imp=lambda record: record_permission_factory(
+            action='update', record=record, cls=CollectionPermission),
+        delete_permission_factory_imp=lambda record: record_permission_factory(
+            action='delete', record=record, cls=CollectionPermission)
+    ),
     doc=dict(
         pid_type='doc',
         pid_minter='document_id',
@@ -1425,7 +1469,8 @@ RERO_ILS_DEFAULT_AGGREGATION_SIZE = 30
 # Number of aggregation by index name
 RERO_ILS_AGGREGATION_SIZE = {
     'documents': 50,
-    'organisations': 10
+    'organisations': 10,
+    'collections': 20
 }
 
 DOCUMENTS_AGGREGATION_SIZE = RERO_ILS_AGGREGATION_SIZE.get(
@@ -1651,6 +1696,52 @@ RECORDS_REST_FACETS = dict(
             _('type'): and_term_filter('template_type'),
             _('visibility'): and_term_filter('visibility')
         }
+    ),
+    collections=dict(
+        aggs=dict(
+            type=dict(
+                terms=dict(
+                    field='collection_type',
+                    # This does not take into account
+                    # env variable or instance config file
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'collections', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            ),
+            library=dict(
+                terms=dict(
+                    field='libraries.pid',
+                    # This does not take into account
+                    # env variable or instance config file
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'collections', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            ),
+            subject=dict(
+                terms=dict(
+                    field='subjects.name',
+                    # This does not take into account
+                    # env variable or instance config file
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'collections', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            ),
+            teacher=dict(
+                terms=dict(
+                    field='teachers.facet',
+                    # This does not take into account
+                    # env variable or instance config file
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'collections', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            )
+        ),
+        filters={
+            _('type'): and_term_filter('collection_type'),
+            _('library'): and_term_filter('libraries.pid'),
+            _('subject'): and_term_filter('subjects.name'),
+            _('teacher'): and_term_filter('teachers.facet')
+        }
     )
 )
 
@@ -1671,6 +1762,7 @@ RERO_ILS_QUERY_BOOSTING = {
 indexes = [
     'budgets',
     'circ_policies',
+    'collections',
     'documents',
     'items',
     'item_types',
@@ -1804,9 +1896,30 @@ RECORDS_REST_SORT_OPTIONS['templates']['name'] = dict(
 RECORDS_REST_DEFAULT_SORT['templates'] = dict(
     query='bestmatch', noquery='name')
 
+# ------ COLLECTIONS SORT
+RECORDS_REST_SORT_OPTIONS['collections']['start_date'] = dict(
+    fields=['start_date', 'title_sort'], title='Start date and title',
+    default_order='asc'
+)
+RECORDS_REST_SORT_OPTIONS['collections']['title'] = dict(
+    fields=['title_sort'], title='title',
+    default_order='asc'
+)
+
+RECORDS_REST_DEFAULT_SORT['collections'] = dict(
+    query='bestmatch', noquery='start_date')
+
+
 # Detailed View Configuration
 # ===========================
 RECORDS_UI_ENDPOINTS = {
+    'coll': dict(
+        pid_type='coll',
+        route='/<string:viewcode>/collections/<pid_value>',
+        template='rero_ils/detailed_view_collections.html',
+        record_class='rero_ils.modules.collections.api:Collection',
+        view_imp='rero_ils.modules.collections.views.collection_view_method'
+    ),
     'doc': dict(
         pid_type='doc',
         route='/<string:viewcode>/documents/<pid_value>',
@@ -1865,6 +1978,7 @@ RECORDS_JSON_SCHEMA = {
     'acin': '/acq_invoices/acq_invoice-v0.0.1.json',
     'budg': '/budgets/budget-v0.0.1.json',
     'cipo': '/circ_policies/circ_policy-v0.0.1.json',
+    'coll': '/collections/collection-v0.0.1.json',
     'doc': '/documents/document-v0.0.1.json',
     'hold': '/holdings/holding-v0.0.1.json',
     'illr': '/ill_requests/ill_request-v0.0.1.json',

@@ -29,6 +29,7 @@ from invenio_oaiharvester.signals import oaiharvest_finished
 from invenio_records.signals import after_record_insert, after_record_update
 
 from .apiharvester.signals import apiharvest_part
+from .collections.listener import enrich_collection_data
 from .documents.listener import enrich_document_data
 from .ebooks.receivers import publish_harvested_records
 from .holdings.listener import enrich_holding_data
@@ -129,6 +130,7 @@ class REROILSAPP(object):
         # example:
         # before_record_index.dynamic_connect(
         #    enrich_patron_data, sender=app, index='patrons-patron-v0.0.1')
+        before_record_index.connect(enrich_collection_data, sender=app)
         before_record_index.connect(enrich_loan_data, sender=app)
         before_record_index.connect(enrich_document_data, sender=app)
         before_record_index.connect(enrich_persons_data, sender=app)
