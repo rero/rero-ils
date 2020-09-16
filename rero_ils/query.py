@@ -152,6 +152,25 @@ def organisation_search_factory(self, search, query_parser=None):
     return search, urlkwargs
 
 
+def view_search_collection_factory(self, search, query_parser=None):
+    """Search factory with view code parameter."""
+    view = request.args.get(
+        'view', current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))
+    search, urlkwargs = search_factory(self, search)
+    if view != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
+        org = Organisation.get_record_by_viewcode(view)
+        search = search.filter(
+            'term', organisation__pid=org['pid']
+        )
+    published = request.args.get('published')
+    if (published):
+        search = search.filter(
+            'term', published=bool(int(published))
+        )
+
+    return search, urlkwargs
+
+
 def loans_search_factory(self, search, query_parser=None):
     """Loan search factory.
 

@@ -1,0 +1,89 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "max_result_window": 20000
+  },
+  "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
+    "properties": {
+      "$schema": {
+        "type": "keyword"
+      },
+      "pid": {
+        "type": "keyword"
+      },
+      "collection_id": {
+        "type": "text"
+      },
+      "title": {
+        "type": "text",
+        "copy_to": "title_sort"
+      },
+      "title_sort": {
+        "type": "keyword"
+      },
+      "collection_type": {
+        "type": "keyword"
+      },
+      "teachers": {
+        "properties": {
+          "name": {
+            "type": "text",
+            "copy_to": "teachers.facet"
+          },
+          "facet": {
+            "type": "keyword"
+          }
+        }
+      },
+      "description": {
+        "type": "text"
+      },
+      "subjects": {
+        "properties": {
+          "name": {
+            "type": "keyword"
+          }
+        }
+      },
+      "start_date": {
+        "type": "date"
+      },
+      "end_date": {
+        "type": "date"
+      },
+      "libraries": {
+        "properties": {
+          "pid": {
+            "type": "keyword"
+          }
+        }
+      },
+      "items": {
+        "properties": {
+          "pid": {
+            "type": "keyword"
+          }
+        }
+      },
+      "organisation": {
+        "properties": {
+          "pid": {
+            "type": "keyword"
+          }
+        }
+      },
+      "published": {
+        "type": "boolean"
+      },
+      "_created": {
+        "type": "date"
+      },
+      "_updated": {
+        "type": "date"
+      }
+    }
+  }
+}

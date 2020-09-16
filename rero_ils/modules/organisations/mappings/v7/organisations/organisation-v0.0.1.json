@@ -36,6 +36,9 @@
       "online_harvested_source": {
         "type": "keyword"
       },
+      "collection_enabled_on_public_view": {
+        "type": "boolean"
+      },
       "_created": {
         "type": "date"
       },
