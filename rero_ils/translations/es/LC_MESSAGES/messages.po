@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-09-03 11:43+0200\n"
-"PO-Revision-Date: 2020-09-14 13:15+0000\n"
+"PO-Revision-Date: 2020-09-17 04:50+0000\n"
 "Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/es/>\n"
@@ -70,19 +70,19 @@ msgstr "biblioteca"
 
 #: rero_ils/config.py:1396
 msgid "contribution__en"
-msgstr "Contribución"
+msgstr "Autor"
 
 #: rero_ils/config.py:1397
 msgid "contribution__fr"
-msgstr "Contribución"
+msgstr "Autor"
 
 #: rero_ils/config.py:1398
 msgid "contribution__de"
-msgstr "Contribución"
+msgstr "Autor"
 
 #: rero_ils/config.py:1399
 msgid "contribution__it"
-msgstr "Contribución"
+msgstr "Autor"
 
 #: rero_ils/config.py:1400
 msgid "language"
@@ -184,7 +184,7 @@ msgstr "video"
 
 #: rero_ils/manual_translations.txt:33
 msgid "other"
-msgstr "Otro"
+msgstr "otro"
 
 #: rero_ils/manual_translations.txt:35
 #: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:57
@@ -204,7 +204,7 @@ msgstr "RERO"
 #: rero_ils/manual_translations.txt:38
 #: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:65
 msgid "idref"
-msgstr "idref"
+msgstr "Idref"
 
 #: rero_ils/manual_translations.txt:41
 msgid "ui_language_en"
@@ -3447,7 +3447,7 @@ msgstr "sakha"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1963
 msgid "lang_sai"
-msgstr "lenguas indígenas sudamericanas "
+msgstr "lenguas indígenas sudamericanas"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1967
 msgid "lang_sal"
@@ -3926,7 +3926,7 @@ msgstr "zazaki"
 #: rero_ils/modules/documents/jsonschemas/documents/document_language-v0.0.1.json:31
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:31
 msgid "Language"
-msgstr "idioma"
+msgstr "Idioma"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2506
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2537
@@ -4004,7 +4004,7 @@ msgstr "Nombre"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:34
 msgid "Name of the acquisition account."
-msgstr "Nombre de la cuenta"
+msgstr "Nombre de la cuenta."
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:42
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:107
@@ -4019,7 +4019,7 @@ msgstr "Descripción"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:43
 msgid "Description of the acquisition account."
-msgstr "Descripción de la cuenta"
+msgstr "Descripción de la cuenta."
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:48
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:4
@@ -5269,247 +5269,219 @@ msgstr "fabricante"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:541
 msgid "mod"
-msgstr ""
+msgstr "moderador"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:545
 msgid "msd"
-msgstr ""
+msgstr "director musical"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:549
 msgid "mtk"
-msgstr ""
+msgstr "relator"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:553
 msgid "mus"
-msgstr ""
+msgstr "músico"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:557
-#, fuzzy
 msgid "nrt"
-msgstr "n."
+msgstr "narrador"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:561
-#, fuzzy
 msgid "orm"
-msgstr "o"
+msgstr "organizador de reuniones"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:565
 msgid "osp"
-msgstr ""
+msgstr "presentador en pantalla"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:569
-#, fuzzy
 msgid "oth"
-msgstr "Otro"
+msgstr "otro"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:573
-#, fuzzy
 msgid "own"
-msgstr "Otro"
+msgstr "proprietario"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:577
-#, fuzzy
 msgid "pan"
-msgstr "usuarios"
+msgstr "panelista"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:581
-#, fuzzy
 msgid "pat"
-msgstr "usuarios"
+msgstr "patrocinador"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:585
 msgid "pbd"
-msgstr ""
+msgstr "director editorial"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:589
 msgid "pbl"
-msgstr ""
+msgstr "editor comercial"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:593
 msgid "plt"
-msgstr ""
+msgstr "grabador de planchas"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:597
 msgid "ppm"
-msgstr ""
+msgstr "productor de papel"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:601
 msgid "ppt"
-msgstr ""
+msgstr "titiritero"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:605
 msgid "pra"
-msgstr ""
+msgstr "miembro del comité de grado"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:609
-#, fuzzy
 msgid "pre"
-msgstr "partición"
+msgstr "presentador"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:613
 msgid "prg"
-msgstr ""
+msgstr "programador"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:617
-#, fuzzy
 msgid "prm"
-msgstr "o"
+msgstr "grabador de estampas"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:621
-#, fuzzy
 msgid "prn"
-msgstr "usuarios"
+msgstr "compañía productora"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:625
-#, fuzzy
 msgid "pro"
-msgstr "usuarios"
+msgstr "productor (cine, televisión ...)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:629
-#, fuzzy
 msgid "prs"
-msgstr "usuarios"
+msgstr "personal de producción"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:633
-#, fuzzy
 msgid "prt"
-msgstr "usuarios"
+msgstr "impresor"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:637
-#, fuzzy
 msgid "ptf"
-msgstr "usuarios"
+msgstr "demandante"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:641
-#, fuzzy
 msgid "rcd"
-msgstr "Código de barras"
+msgstr "técnico de grabación"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:645
-#, fuzzy
 msgid "rce"
-msgstr "Extracto"
+msgstr "ingeniero de grabación"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:649
 msgid "rcp"
-msgstr ""
+msgstr "destinatario"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:653
-#, fuzzy
 msgid "rdd"
-msgstr "Pedido"
+msgstr "director de radio"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:657
-#, fuzzy
 msgid "res"
-msgstr "funcciones"
+msgstr "investigador"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:661
 msgid "rpc"
-msgstr ""
+msgstr "productor de radio"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:665
 msgid "rsp"
-msgstr ""
+msgstr "aspirante"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:669
 msgid "rsr"
-msgstr ""
+msgstr "restaurador"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:673
-#, fuzzy
 msgid "scl"
-msgstr "vol."
+msgstr "escultor"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:677
 msgid "sds"
-msgstr ""
+msgstr "diseñador de sonido"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:681
-#, fuzzy
 msgid "sgd"
-msgstr "GND"
+msgstr "director de escena"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:685
-#, fuzzy
 msgid "sll"
-msgstr "reclamación"
+msgstr "vendedor"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:689
-#, fuzzy
 msgid "sng"
-msgstr "con"
+msgstr "cantante"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:693
 msgid "spk"
-msgstr ""
+msgstr "conferenciante"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:697
-#, fuzzy
 msgid "spn"
-msgstr "usuarios"
+msgstr "entidad patrocinadora"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:701
 msgid "srv"
-msgstr ""
+msgstr "topógrafo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:705
-#, fuzzy
 msgid "stl"
-msgstr "Póster"
+msgstr "narrador de cuentos"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:709
-#, fuzzy
 msgid "tch"
-msgstr "Extracto"
+msgstr "profesor"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:713
-#, fuzzy
 msgid "tld"
-msgstr "GND"
+msgstr "director de televisión"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:717
 msgid "tlp"
-msgstr ""
+msgstr "productor de televisión"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:721
-#, fuzzy
 msgid "trc"
-msgstr "Extracto"
+msgstr "transcriptor"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:725
 msgid "vac"
-msgstr ""
+msgstr "actor de voz"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:729
 msgid "vdg"
-msgstr ""
+msgstr "videógrafo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:733
 msgid "wac"
-msgstr ""
+msgstr "autor de comentario adicional"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:737
 msgid "wal"
-msgstr ""
+msgstr "autor de letra adicional"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:741
-#, fuzzy
 msgid "wat"
-msgstr "Impresión"
+msgstr "autor de texto adicional"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:745
-#, fuzzy
 msgid "win"
-msgstr "Impresión"
+msgstr "autor de introducción"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:749
 msgid "wpr"
-msgstr ""
+msgstr "autor de prefacio"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:753
 msgid "wst"
-msgstr ""
+msgstr "autor de contenido textual suplementario"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_copyright_date-v0.0.1.json:3
 msgid "Copyright dates"
@@ -5805,7 +5777,7 @@ msgstr "Identificadores"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:57
 msgid "Audio issue number"
-msgstr "Audio issue number"
+msgstr "Referencia del editor (documentos de audio)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:61
 msgid "DOI"
@@ -5849,15 +5821,15 @@ msgstr "Matrix number"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:109
 msgid "Music distributor number"
-msgstr "Music distributor number"
+msgstr "Referencia del distribuidor (música)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:113
 msgid "Music plate"
-msgstr "Music plate"
+msgstr "Número de placa (música impresa)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:117
 msgid "Music publisher number"
-msgstr "Music publisher number"
+msgstr "Número de editor (música)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:121
 msgid "Publisher number"
@@ -5873,7 +5845,7 @@ msgstr "URN"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:133
 msgid "Video recording number"
-msgstr "Video recording number"
+msgstr "Número de grabación de video"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:137
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:101
@@ -6091,32 +6063,32 @@ msgstr "Numeración"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:61
 msgid "Year"
-msgstr ""
+msgstr "Año"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:67
 msgid "Should be in the following format: AAAA (2020)."
-msgstr ""
+msgstr "Debería estar en el siguiente formato: AAAA (2020)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:76
 msgid "Volume"
-msgstr ""
+msgstr "Volumen"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:86
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:144
 msgid "Issue"
-msgstr ""
+msgstr "Número"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:96
 msgid "Pages"
-msgstr ""
+msgstr "Páginas"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:100
 msgid "Ex: 135, 5-27, ..."
-msgstr ""
+msgstr "Ej: 135, 5-27, ..."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:103
 msgid "Should be in the following format: 135 or 5-27."
-msgstr ""
+msgstr "Debería estar en el siguiente formato: 135 o 5-27."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:3
 msgid "Production methods"
@@ -6141,7 +6113,7 @@ msgstr "Blueprint process"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:47
 msgid "Collotype"
-msgstr "Collotype"
+msgstr "Colotipia"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:51
 msgid "Daguerreotype process"
@@ -6149,11 +6121,11 @@ msgstr "Daguerreotype process"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:55
 msgid "Engraving"
-msgstr "Engraving"
+msgstr "Grabado"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:59
 msgid "Etching"
-msgstr "Etching"
+msgstr "Aguafuerte"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:63
 msgid "Lithography"
@@ -6201,7 +6173,7 @@ msgstr "Embutición"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:107
 msgid "Solid dot"
-msgstr "Solid dot"
+msgstr "Punto sólido"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:111
 msgid "Swell paper"
@@ -6294,11 +6266,12 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:3
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:63
 msgid "Series statement"
-msgstr ""
+msgstr "Mención de la serie"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:4
 msgid "Series and eventual subseries to which a resource belongs (MARC 490)."
 msgstr ""
+"Series y eventuales subseries a las que pertenece un recurso (MARC 490)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:21
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:25
@@ -6314,11 +6287,11 @@ msgstr "Título"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:42
 msgid "Subseries statement"
-msgstr ""
+msgstr "Mención de subseries"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:47
 msgid "Subseries"
-msgstr ""
+msgstr "Subseries"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:118
 msgid "Example: vol.3"
@@ -6490,7 +6463,7 @@ msgstr "Volver"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:136
 msgid "No holdings"
-msgstr "No holdings"
+msgstr "Ningún holdings"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:138
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:140
@@ -6505,15 +6478,17 @@ msgstr "Formatos de exportación"
 
 #: rero_ils/modules/holdings/api.py:133
 msgid "Document does not exist {pid}."
-msgstr ""
+msgstr "El documento no existe {pid}."
 
 #: rero_ils/modules/holdings/api.py:140
 msgid "Must have next expected date for regular frequencies."
 msgstr ""
+"Las frecuencias regulares deben tener la siguiente fecha prevista rellenada."
 
 #: rero_ils/modules/holdings/api.py:146
 msgid "Holding is not attached to the correct document type. document: {pid}"
 msgstr ""
+"El holding no se adjunta al tipo de documento correcto. Documento: {pid}"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:4
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:291
@@ -6578,11 +6553,11 @@ msgstr "Información necesaria para localizar y acceder a un recurso electrónic
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:126
 msgid "Serial configuration"
-msgstr "Serial configuration"
+msgstr "Configuración de publicación en serie"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:142
 msgid "Issue display template"
-msgstr "Issue display template"
+msgstr "Plantilla para la enumeración y cronología del número"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:143
 msgid ""
@@ -6676,7 +6651,7 @@ msgstr "La fecha prevista para el próximo número"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:275
 msgid "Prediction patterns"
-msgstr "Prediction patterns"
+msgstr "Esquemas de predicción"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:279
 msgid "numbering"
@@ -6688,7 +6663,7 @@ msgstr "cronología"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:311
 msgid "Prediction pattern"
-msgstr "Prediction pattern"
+msgstr "Esquema de predicción"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:326
 msgid "It should be used in the display template. i.e. chronology, enumeration."
@@ -6869,27 +6844,28 @@ msgstr "Reservaciones"
 
 #: rero_ils/modules/items/api/record.py:57
 msgid "Holding does not exist: {pid}."
-msgstr ""
+msgstr "El holding no existe: {pid}."
 
 #: rero_ils/modules/items/api/record.py:60
 msgid "Standard item can not attached to a journal."
-msgstr ""
+msgstr "Un ejemplar estándar no se puede adjuntar a un periódico."
 
 #: rero_ils/modules/items/api/record.py:63
 msgid "Standard item can not have a issue field."
-msgstr ""
+msgstr "Un ejemplar estándar no puede tener un campo para un número."
 
 #: rero_ils/modules/items/api/record.py:65
 msgid "Issue item must have an issue field."
 msgstr ""
+"El ejemplar correspondiente a un número debe tener un campo para un número."
 
 #: rero_ils/modules/items/api/record.py:68
 msgid "Can not have multiple notes of same type."
-msgstr ""
+msgstr "No puede tener múltiples notas del mismo tipo."
 
 #: rero_ils/modules/items/api/record.py:70
 msgid "Must have a first call number to have a second call number"
-msgstr ""
+msgstr "Tiene que tener una primera marca de estante para tener una segunda"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:4
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:17
@@ -6915,9 +6891,8 @@ msgid "The barcode is already taken."
 msgstr "El código de barras está utilisado."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:73
-#, fuzzy
 msgid "Second call number"
-msgstr "Número de clasificación"
+msgstr "2.ª marca de estante"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:110
 msgid "Circulation category of the item"
@@ -6988,20 +6963,20 @@ msgid "Only one note per type is allowed"
 msgstr "Sólo se permite una nota por tipo"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:398
-#, fuzzy
 msgid "Acquisition date"
-msgstr "Términos de adquisición"
+msgstr "Fecha de adquisición"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:410
-#, fuzzy
 msgid "New acquisition"
-msgstr "Términos de adquisición"
+msgstr "Nueva adquisición"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:411
 msgid ""
 "If this option is enabled, this item is going to appear in the new "
 "acquisition list of the library."
 msgstr ""
+"Si esta opción está activada, este documento aparecerá en la lista de las "
+"nuevas adquisiciones de la biblioteca."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:5
 msgid "JSON schema for a library"
@@ -7131,22 +7106,18 @@ msgid "Request pickup location PID"
 msgstr "PID del lugar de recogida de una reservación"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:100
-#, fuzzy
 msgid "Transaction start datetime"
 msgstr "Fecha de inicio de la transacción"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:105
-#, fuzzy
 msgid "Transaction end datetime"
 msgstr "Fecha de fin de la transacción"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:109
-#, fuzzy
 msgid "Request expire datetime"
 msgstr "Fecha de expiración de una reservación"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:114
-#, fuzzy
 msgid "Request start datetime"
 msgstr "Fecha de inicio de la transacción"
 
@@ -7463,7 +7434,7 @@ msgstr "Usuario operador URI"
 
 #: rero_ils/modules/patron_transactions/api.py:274
 msgid "Subscription for '{name}' from {start} to {end}"
-msgstr "Subscription for '{name}' from {start} to {end}"
+msgstr "Suscripción para '{name}' de {start} a {end}"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:4
 msgid "Patron Transaction"
@@ -7775,26 +7746,24 @@ msgstr ""
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:57
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:88
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:77
-#, fuzzy
 msgid "Details"
-msgstr "correo electrónico"
+msgstr "Detalles"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_macro_profile.html:80
 msgid "Loan started at"
-msgstr ""
+msgstr "Prestado el"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_macro_profile.html:97
-#, fuzzy
 msgid "Transactions history"
-msgstr "Fecha de inicio de la transacción"
+msgstr "Histórico de las transacciones"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_fees.html:24
 msgid "Category"
-msgstr ""
+msgstr "Categoría"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_fees.html:34
 msgid "No fee"
-msgstr ""
+msgstr "Sin costes"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_fees.html:39
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:59
@@ -7803,29 +7772,24 @@ msgid "History"
 msgstr "Historial"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:23
-#, fuzzy
 msgid "Author(s)"
-msgstr "Autores"
+msgstr "Autor(es)"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:24
-#, fuzzy
 msgid "Return date"
-msgstr "Fecha del pedido"
+msgstr "Fecha de devolución"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:73
-#, fuzzy
 msgid "Transaction history"
-msgstr "Fecha de inicio de la transacción"
+msgstr "Histórico de la transacción"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:88
-#, fuzzy
 msgid "Checkin"
-msgstr "Nota de devolución"
+msgstr "Devolución"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:109
-#, fuzzy
 msgid "Checkout"
-msgstr "Nota de préstamo"
+msgstr "Préstamo"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:124
 msgid "No history"
@@ -7836,22 +7800,21 @@ msgid "Due date"
 msgstr "Fecha de vencimiento"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:57
-#, fuzzy, python-format
+#, python-format
 msgid "%(count)s renewal"
 msgid_plural "%(count)s renewals"
-msgstr[0] "%(count)s perfil"
-msgstr[1] ""
+msgstr[0] "%(count)s renovación"
+msgstr[1] "%(count)s renovaciones"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:80
 msgid "Renew"
-msgstr "Renovación"
+msgstr "Renovar"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:114
 msgid "No loan"
 msgstr "Ningún préstamo"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:21
-#, fuzzy
 msgid "Personal details"
 msgstr "Datos personales"
 
@@ -7860,47 +7823,41 @@ msgid "Phone"
 msgstr "Teléfono"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:23
-#, fuzzy
 msgid "Pickup location"
-msgstr "Es un lugar de recogida"
+msgstr "Lugar de recogida"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:50
-#, fuzzy
 msgid "item at desk"
 msgstr "al mostrador de préstamo"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:51
 msgid "ready"
-msgstr ""
+msgstr "listo"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:53
-#, fuzzy
 msgid "pending"
-msgstr "Pendiente"
+msgstr "pendiente"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:56
-#, fuzzy
 msgid "waiting"
-msgstr "Impresión"
+msgstr "pendiente"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:59
 #, python-format
 msgid "<br>(position %(rank)s in waiting list)"
-msgstr ""
+msgstr "<br>(posición %(rank)s en la lista de espera)"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:70
 msgid "Cancel"
 msgstr "Cancelar"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:99
-#, fuzzy
 msgid "Transaction date"
-msgstr "Fecha de fin de la transacción"
+msgstr "Fecha de la transacción"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:113
-#, fuzzy
 msgid "No request"
-msgstr "reservación"
+msgstr "Ninguna reservación"
 
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:38
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:40
@@ -7909,15 +7866,13 @@ msgstr "Préstamos"
 
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:45
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:47
-#, fuzzy
 msgid "Requests"
-msgstr "reservaciones"
+msgstr "Reservaciones"
 
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:52
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:54
-#, fuzzy
 msgid "Fees"
-msgstr "Series"
+msgstr "Tasas"
 
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:67
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:68
