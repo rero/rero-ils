@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-09-03 11:43+0200\n"
-"PO-Revision-Date: 2020-09-09 07:00+0000\n"
-"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"PO-Revision-Date: 2020-09-17 04:50+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/de/>\n"
 "Language: de\n"
@@ -4775,11 +4775,11 @@ msgstr "Beispiel: M\\u00fcller, Hans"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:43
 msgid "Subordinate units"
-msgstr ""
+msgstr "Abteilungen"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:46
 msgid "Subordinate unit"
-msgstr ""
+msgstr "Abteilung"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:50
 msgid "Example: Office for Culture"
@@ -4824,6 +4824,8 @@ msgid ""
 "Mark as conference if the access point is directly at the conference name"
 " and not at the corporate body name"
 msgstr ""
+"Als Konferenz markieren, wenn der Sucheinstieg mit dem Konferenznamen, und "
+"nicht mit dem Körperschaftnamen, startet"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:33
 msgid "Agent's name."
@@ -4872,7 +4874,7 @@ msgstr "Beispiel: XXIII"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:91
 msgid "Fuller form of Name"
-msgstr ""
+msgstr "Vollständigere Namensform"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:92
 msgid ""
@@ -4880,11 +4882,13 @@ msgid ""
 "initial, abbreviation, or other variant not included in the form chosen "
 "as the preferred name"
 msgstr ""
+"Verwendet nur beim Import. Vollständigere Form eines Namens, der nur durch "
+"eine Initiale, eine Abkürzung oder sonst irgendwie gekürzte oder veränderte "
+"Version in der als bevorzugter Name gewählten Form repräsentiert wird"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person_link-v0.0.1.json:13
-#, fuzzy
 msgid "MEF agent reference"
-msgstr "URI der MEF Person"
+msgstr "URI des MEF Akteurs"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:2
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:197
@@ -6481,17 +6485,18 @@ msgid "Export Formats"
 msgstr "Exportformate"
 
 #: rero_ils/modules/holdings/api.py:133
-#, fuzzy
 msgid "Document does not exist {pid}."
-msgstr "Dokument existiert nicht {pid}."
+msgstr "Das Dokument {pid} existiert nicht."
 
 #: rero_ils/modules/holdings/api.py:140
 msgid "Must have next expected date for regular frequencies."
-msgstr ""
+msgstr "Regelmässige Frequenzen müssen das nächste erwartete Datum enthalten."
 
 #: rero_ils/modules/holdings/api.py:146
 msgid "Holding is not attached to the correct document type. document: {pid}"
 msgstr ""
+"Der Bestand ist nicht mit dem richtigen Dokumenttyp verbunden. Dokument: "
+"{pid}"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:4
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:291
@@ -6850,9 +6855,10 @@ msgid "Holding does not exist: {pid}."
 msgstr "Bestand existiert nicht: {pid}."
 
 #: rero_ils/modules/items/api/record.py:60
-#, fuzzy
 msgid "Standard item can not attached to a journal."
-msgstr "Standard Exemplar kann nicht an ein Journal angehängt werden."
+msgstr ""
+"Ein Standard-Exemplar kann nicht an eine fortlaufende Publikation angehängt "
+"werden."
 
 #: rero_ils/modules/items/api/record.py:63
 msgid "Standard item can not have a issue field."
@@ -6860,15 +6866,15 @@ msgstr "Standard Exemplar kann nicht Lieferungfeld haben."
 
 #: rero_ils/modules/items/api/record.py:65
 msgid "Issue item must have an issue field."
-msgstr ""
+msgstr "Ein Lieferungsexemplar muss ein Lieferungsfeld enthalten."
 
 #: rero_ils/modules/items/api/record.py:68
 msgid "Can not have multiple notes of same type."
-msgstr ""
+msgstr "Muss nicht mehrere Noten des gleichen Typen enthalten."
 
 #: rero_ils/modules/items/api/record.py:70
 msgid "Must have a first call number to have a second call number"
-msgstr ""
+msgstr "Eine erste Signatur ist erforderlich für eine 2. Signatur"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:4
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:17
@@ -6966,21 +6972,19 @@ msgid "Only one note per type is allowed"
 msgstr "Nur eine Anmerkung pro Typ ist erlaubt"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:398
-#, fuzzy
 msgid "Acquisition date"
-msgstr "Bezugsbedingung"
+msgstr "Erwerbsdatum"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:410
 msgid "New acquisition"
 msgstr "Neuerwerbung"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:411
-#, fuzzy
 msgid ""
 "If this option is enabled, this item is going to appear in the new "
 "acquisition list of the library."
 msgstr ""
-"Wenn diese Option aktiviert ist, wird dieses Element in der "
+"Wenn diese Option aktiviert ist, wird dieses Exemplar in der "
 "Neuerwerbungsliste der Bibliothek erscheinen."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:5
@@ -7111,24 +7115,20 @@ msgid "Request pickup location PID"
 msgstr "PID des Bestellungsabholortes"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:100
-#, fuzzy
 msgid "Transaction start datetime"
 msgstr "Startdatum der Transaktion"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:105
-#, fuzzy
 msgid "Transaction end datetime"
 msgstr "Enddatum der Transaktion"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:109
-#, fuzzy
 msgid "Request expire datetime"
-msgstr "Fälligkeitsdatum der Bestellung"
+msgstr "Ablaufdatum der Bestellung"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:114
-#, fuzzy
 msgid "Request start datetime"
-msgstr "Startdatum der Transaktion"
+msgstr "Startdatum der Bestellung"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:130
 msgid "State name"
@@ -8185,7 +8185,7 @@ msgstr "wurde gelöscht."
 
 #: rero_ils/templates/security/email/reset_instructions.html:21
 msgid "Click here to reset your password"
-msgstr "Hier klicken, um Passwort zurückzusetzen"
+msgstr "Hier klicken, um Ihr Passwort zurückzusetzen"
 
 #~ msgid "Examples: 135, 5-27, ..."
 #~ msgstr ""
