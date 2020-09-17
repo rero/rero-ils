@@ -33,7 +33,7 @@
               )}}
           </div>
           <div class="col-lg-7 d-inline-block text-truncate">
-            {{ fee.type }}
+            {{ _(fee.type) }}
           </div>
           <div class="col-lg-3 text-lg-right">
             {{ fee.total_amount | format_currency(fee.currency) }}
@@ -115,7 +115,7 @@
                   <div class="col-lg-9 event-content">
                       <div class="row">
                         <div class="col-lg-10 col-sm-10 d-inline-block text-truncate label">
-                          {{ event.type }} [{{ event.subtype }}]
+                          {{ _(event.type) }} [{{ _(event.subtype) }}]
                         </div>
                         <div class="col-lg-2 col-sm-2 amount">
                           <span

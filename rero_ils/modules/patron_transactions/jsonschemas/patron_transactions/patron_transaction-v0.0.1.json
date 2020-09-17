@@ -76,7 +76,37 @@
           "selectWithSortOptions": {
             "order": "label"
           }
-        }
+        },
+        "options": [
+          {
+            "label": "Overdue",
+            "value": "overdue"
+          },
+          {
+            "label": "Photocopy",
+            "value": "photocopy"
+          },
+          {
+            "label": "Subscription",
+            "value": "subscription"
+          },
+          {
+            "label": "Lost",
+            "value": "lost"
+          },
+          {
+            "label": "Damaged",
+            "value": "damaged"
+          },
+          {
+            "label": "Interlibrary loan",
+            "value": "interlibrary_loan"
+          },
+          {
+            "label": "Other",
+            "value": "other"
+          }
+        ]
       },
       "default": "overdue"
     },
