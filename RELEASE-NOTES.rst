@@ -18,8 +18,8 @@
 Release notes
 =============
 
-v0.12.0rc
----------
+v0.12.0
+-------
 
 This release note includes the changes of the ``rero-ils-ui`` project
 [`link`_].
