@@ -19,15 +19,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-09-21 12:26+0200\n"
-"PO-Revision-Date: 2020-09-17 04:50+0000\n"
+"PO-Revision-Date: 2020-09-21 12:38+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/it/>\n"
 "Language: it\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/it/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3-dev\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: rero_ils/config.py:120
@@ -289,7 +290,7 @@ msgstr "risorsa integrativa"
 #: rero_ils/manual_translations.txt:66
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person_link-v0.0.1.json:2
 msgid "Link to person entity"
-msgstr ""
+msgstr "Link all'entità persona"
 
 #: rero_ils/manual_translations.txt:67
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:2
@@ -4713,9 +4714,8 @@ msgstr "Policromatico"
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:3
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:93
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:82
-#, fuzzy
 msgid "Contribution"
-msgstr "Distribuzione"
+msgstr "Contributo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:4
 #, fuzzy
@@ -5786,7 +5786,7 @@ msgstr "Esempio: 355 pagine"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:3
 msgid "Identifiers"
-msgstr "Identificativi"
+msgstr "Identificatori"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:57
 msgid "Audio issue number"
@@ -6462,7 +6462,7 @@ msgstr "disponibile"
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:109
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:111
 msgid "not available"
-msgstr "indisponibile"
+msgstr "non disponibile"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:158
 msgid "Request"
@@ -6842,7 +6842,7 @@ msgstr "richiesta"
 
 #: rero_ils/modules/items/views.py:147
 msgid "requests"
-msgstr "Richieste"
+msgstr "richieste"
 
 #: rero_ils/modules/items/api/record.py:57
 msgid "Holding does not exist: {pid}."
@@ -6969,9 +6969,8 @@ msgid "Acquisition date"
 msgstr "Condizioni di disponibilità"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:410
-#, fuzzy
 msgid "New acquisition"
-msgstr "Condizioni di disponibilità"
+msgstr "Nuova acquisizione"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:411
 msgid ""
@@ -7431,7 +7430,7 @@ msgstr "URI dell'operatore lettore"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:108
 msgid "Fee"
-msgstr ""
+msgstr "Tasse"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:124
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:82
@@ -7463,11 +7462,11 @@ msgstr "fonditore"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:177
 msgid "Debit card"
-msgstr ""
+msgstr "Carta di debito"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:181
 msgid "Credit card"
-msgstr ""
+msgstr "Carta di credito"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:185
 #, fuzzy
@@ -7475,9 +7474,8 @@ msgid "Paypal"
 msgstr "appellante"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:208
-#, fuzzy
 msgid "Dispute"
-msgstr "dedicatario"
+msgstr "Controversia"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:229
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:70
@@ -8706,4 +8704,3 @@ msgstr "Cliccare qui per ripristinare la parola d'ordine"
 
 #~ msgid "Acquisition Order"
 #~ msgstr "Ordine"
-
