@@ -343,7 +343,7 @@ class Loan(IlsRecord):
         data['patron'] = {}
         data['patron']['barcode'] = ptrn_data['barcode']
         data['patron']['name'] = ', '.join((
-            ptrn_data['first_name'], ptrn_data['last_name']))
+            ptrn_data['last_name'], ptrn_data['first_name']))
         if loan.get('pickup_location_pid'):
             location = Location.get_record_by_pid(loan['pickup_location_pid'])
             data['pickup_location'] = {
