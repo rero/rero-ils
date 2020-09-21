@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
-"POT-Creation-Date: 2020-09-17 08:38+0200\n"
+"POT-Creation-Date: 2020-09-21 12:26+0200\n"
 "PO-Revision-Date: 2020-09-17 04:50+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language: fr\n"
@@ -305,7 +305,7 @@ msgstr "Personne"
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:27
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:118
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:4
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:106
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:136
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:56
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:268
 msgid "Organisation"
@@ -4082,7 +4082,7 @@ msgstr "URI de la bibliothèque"
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:307
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:31
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:122
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:110
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:140
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:60
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:275
 msgid "Organisation URI"
@@ -6391,6 +6391,8 @@ msgid "E-Book"
 msgstr "e-book"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:40
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:136
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:106
 msgid "Other"
 msgstr "Autre"
 
@@ -7069,13 +7071,13 @@ msgid "Item URI"
 msgstr "URI de l'exemplaire"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:29
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:84
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:114
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:220
 msgid "Patron"
 msgstr "Lecteur"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:33
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:88
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:118
 msgid "Patron URI"
 msgstr "URI du lecteur"
 
@@ -7284,7 +7286,7 @@ msgid "If enabled, restrict pickup to specific pickup locations."
 msgstr "Activé, cela restreint le retrait à certains lieux de retrait."
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:4
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:95
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:125
 msgid "Notification"
 msgstr "Notification"
 
@@ -7430,6 +7432,62 @@ msgstr "Opérateur"
 msgid "Operator patron URI"
 msgstr "URI du lecteur opérateur"
 
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:108
+#, fuzzy
+msgid "Fee"
+msgstr "Aucun frais"
+
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:124
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:82
+#, fuzzy
+msgid "Overdue"
+msgstr "en retard"
+
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:128
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:98
+#, fuzzy
+msgid "Damaged"
+msgstr "médium"
+
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:132
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:94
+#, fuzzy
+msgid "Lost"
+msgstr "Affiche"
+
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:157
+#, fuzzy
+msgid "payment"
+msgstr "Mention"
+
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:173
+#, fuzzy
+msgid "cash"
+msgstr "fondeur"
+
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:177
+msgid "Debit card"
+msgstr ""
+
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:181
+msgid "Credit card"
+msgstr ""
+
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:185
+#, fuzzy
+msgid "Paypal"
+msgstr "appelant"
+
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:208
+#, fuzzy
+msgid "Dispute"
+msgstr "dédicataire"
+
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:229
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:70
+msgid "Cancel"
+msgstr "Annuler"
+
 #: rero_ils/modules/patron_transactions/api.py:274
 msgid "Subscription for '{name}' from {start} to {end}"
 msgstr "Cotisation pour '{name}' de {start} à {end}"
@@ -7462,11 +7520,26 @@ msgstr "note de frais"
 msgid "Patron transaction type"
 msgstr "type de frais"
 
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:99
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:86
+#, fuzzy
+msgid "Photocopy"
+msgstr "Photocopie"
+
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:90
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:324
+msgid "Subscription"
+msgstr "cotisation"
+
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:102
+#, fuzzy
+msgid "Interlibrary loan"
+msgstr "bibliothécaire"
+
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:129
 msgid "Notification URI"
 msgstr "URI de la notification"
 
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:119
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:149
 msgid "Total calculated amount of the patron transaction"
 msgstr "montant total calculé des frais"
 
@@ -7692,10 +7765,6 @@ msgstr "Anglais"
 msgid "Subscriptions"
 msgstr "cotisations"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:324
-msgid "Subscription"
-msgstr "cotisation"
-
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:334
 msgid "Subscription start date"
 msgstr "date de début de cotisation"
@@ -7844,10 +7913,6 @@ msgstr "en attente"
 #, python-format
 msgid "<br>(position %(rank)s in waiting list)"
 msgstr "<br>(position %(rank)s dans la liste d'attente)"
-
-#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:70
-msgid "Cancel"
-msgstr "Annuler"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:99
 msgid "Transaction date"
