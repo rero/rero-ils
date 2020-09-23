@@ -86,6 +86,9 @@ CREATE_LAZY=""
 DONT_STOP=""
 PREFIX=""
 ES_MAPPING=false
+ES_SHARDS=""
+ES_REPLICAS=""
+ES_MAX_RESULT_WINDOW=""
 # Permit user to set it with system var. Default is true.
 ENABLE_WARNINGS=${ENABLE_WARNINGS:=true}
 
@@ -98,7 +101,10 @@ if [[ -z "${VIRTUAL_ENV}" ]]; then
 fi
 
 # options may be followed by one colon to indicate they have a required argument
-if ! options=$(getopt -o dPsbclptmwD: -l deployment,persons,create_items_holdings_small,create_items_holdings_big,lazy,pursue,time,es-mapping,warnings,data_path: -- "$@")
+if ! options=$(getopt \
+  -o dPsbclptmwD:S:R:W: \
+  -l deployment,persons,create_items_holdings_small,create_items_holdings_big,lazy,pursue,time,es-mapping,warnings,data_path:,shards:,replicas:,result_window: \
+  -- "$@")
 then
     # something went wrong, getopt will put out an error message for us
     exit 1
@@ -137,10 +143,18 @@ do
     -w|--warnings)
       invert_warning_option
       ;;
-    -D|--data_path)
-      DATA_PATH=$2
+    -S|--shards)
+      ES_SCHARD="--shards $2"
       shift
       ;;
+    -R|--replicas)
+      ES_REPLICAS="--replicas $2"
+      shift      ;;
+    -W|--result_window)
+      ES_MAX_RESULT_WINDOW="--result_window $2"
+      shift
+      ;;
+
     (--) shift; break;;
     (-*) error_msg+exit "$0: Unrecognized option $1";;
     (*) break;;
@@ -192,6 +206,11 @@ eval ${PREFIX} invenio db init create
 eval ${PREFIX} invenio index queue purge delete
 set -e
 eval ${PREFIX} invenio index destroy --force --yes-i-know
+
+if [ -z "$ES_SCHARD" ] | [ -z "$ES_REPLICAS" ] | [ -z "$ES_MAX_RESULT_WINDOW" ]
+then
+  invenio utils change_es_mapping_settings $ES_SCHARD $ES_REPLICAS $ES_MAX_RESULT_WINDOW
+fi
 # Override index init to load templates before mapping
 # TODO: check if invenio index init --force works (to delete utils init --force)
 info_msg "Override index init to load templates before mapping"

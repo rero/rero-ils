@@ -1538,3 +1538,73 @@ def tokens_create(name, user, scopes, internal, access_token):
         access_token=access_token)
     db.session.commit()
     click.secho(token.access_token, fg='blue')
+
+
+@utils.command('change_es_mapping_settings')
+@click.option('-s', '--shards', 'shards', type=click.INT, default=1,
+              help='Number of shards to set.')
+@click.option('-r', '--replicas', 'replicas', type=click.INT, default=0,
+              help='Number of replicas to set.')
+@click.option('-w', '--result_window', 'result_window', type=click.INT,
+              default=20000, help='Size of result window.')
+@click.option('-t', '--resource_type', 'resource_type', multiple=True,
+              default=['all'], help='With schema to change, default=all.')
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+@with_appcontext
+def change_es_mapping_settings(shards, replicas, resource_type, result_window,
+                               verbose):
+    """Change number of shards and replicas in json mapping files."""
+    click.secho(
+        'Change schard:{shards} replica:{replicas}'
+        ' max_result_window:{result_window}'.format(
+            shards=shards,
+            replicas=replicas,
+            result_window=result_window
+        ),
+        fg='green'
+    )
+    aliases = current_search.aliases
+    if 'all' in resource_type:
+        resource_types = [v for v in aliases if v != 'loan']
+    else:
+        resource_types = resource_type
+    for resource_type in resource_types:
+        alias = aliases.get(resource_type)
+        if alias:
+            file_name = list(aliases.get(resource_type).values())[0]
+            if verbose:
+                click.echo(
+                    'Change number_of_shards, number_of_replicas and'
+                    ' max_result_window for: {resource_type}'
+                    ' in {file_name}'.format(
+                        resource_type=resource_type,
+                        file_name=file_name
+                    )
+                )
+            with open(file_name) as json_file:
+                json_data = json.load(json_file)
+                number_of_shards = json_data.get(
+                    'settings', {}
+                ).get('number_of_shards', -1)
+                if number_of_shards > 0:
+                    json_data['settings']['number_of_shards'] = shards
+                number_of_replicas = json_data.get(
+                    'settings', {}
+                ).get('number_of_replicas', -1)
+                if number_of_replicas >= 0:
+                    json_data['settings']['number_of_replicas'] = replicas
+                    print('xxxxx', replicas)
+                max_result_window = json_data.get(
+                    'settings', {}
+                ).get('max_result_window', -1)
+                if max_result_window > 0:
+                    json_data['settings']['max_result_window'] = result_window
+            with open(file_name, 'w') as outfile:
+                json.dump(json_data, outfile, indent=2)
+        else:
+            click.secho(
+                'Error resource not found: {resource_type}'.format(
+                    resource_type=resource_type,
+                ),
+                fg='red'
+            )
