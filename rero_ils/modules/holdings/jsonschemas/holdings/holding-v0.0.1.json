@@ -257,7 +257,7 @@
           "type": "string",
           "format": "date",
           "title": "The expected date for the next issue",
-          "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
           "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
           "form": {
             "type": "datepicker",
