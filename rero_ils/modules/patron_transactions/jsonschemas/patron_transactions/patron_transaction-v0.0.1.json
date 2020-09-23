@@ -63,31 +63,31 @@
         "type": "selectWithSort",
         "options": [
           {
-            "label": "Overdue",
+            "label": "overdue",
             "value": "overdue"
           },
           {
-            "label": "Photocopy",
+            "label": "photocopy",
             "value": "photocopy"
           },
           {
-            "label": "Subscription",
+            "label": "subscription",
             "value": "subscription"
           },
           {
-            "label": "Lost",
+            "label": "lost",
             "value": "lost"
           },
           {
-            "label": "Damaged",
+            "label": "damaged",
             "value": "damaged"
           },
           {
-            "label": "Interlibrary loan",
+            "label": "interlibrary_loan",
             "value": "interlibrary_loan"
           },
           {
-            "label": "Other",
+            "label": "other",
             "value": "other"
           }
         ]

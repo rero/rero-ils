@@ -21,7 +21,7 @@
 
 {{ dl(_('Birth date'), data.date_of_birth) }}
 {{ dl(_('Death date'), data.date_of_death) }}
-{{ dl(_('Language of person'), data.language_of_person) }}
+{{ dl(_('Language of person'), data.language_of_person, 'lang_{v}') }}
 {{ dl(_('Gender'), data.gender) }}
 {{ dl(_('Biographical information'), data.biographical_information) }}
 {{ dl_permalink_by_source(_('ID'), data) }}

@@ -52,27 +52,27 @@
         "options": [
           {
             "value": "approved",
-            "label": "Approved"
+            "label": "approved"
           },
           {
             "value": "canceled",
-            "label": "Canceled"
+            "label": "canceled"
           },
           {
             "value": "ordered",
-            "label": "Ordered"
+            "label": "ordered"
           },
           {
             "value": "requested",
-            "label": "Requested"
+            "label": "requested"
           },
           {
             "value": "pending",
-            "label": "Pending"
+            "label": "pending"
           },
           {
             "value": "received",
-            "label": "Received"
+            "label": "received"
           }
         ]
       }
