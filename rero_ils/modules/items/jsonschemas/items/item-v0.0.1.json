@@ -189,7 +189,7 @@
           "format": "date",
           "title": "Date of reception",
           "type": "string",
-          "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
           "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
           "form": {
             "type": "datepicker",
@@ -207,7 +207,7 @@
           "format": "date",
           "title": "Expected date",
           "type": "string",
-          "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
           "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
           "form": {
             "hideExpression": "field.parent.model.regular",
@@ -397,7 +397,7 @@
       "format": "date",
       "title": "Acquisition date",
       "type": "string",
-      "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$",
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
       "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
       "form": {
         "type": "datepicker",
