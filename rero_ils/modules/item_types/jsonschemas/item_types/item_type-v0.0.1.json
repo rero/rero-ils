@@ -68,11 +68,11 @@
         "options": [
           {
             "value": "standard",
-            "label": "Standard"
+            "label": "standard"
           },
           {
             "value": "online",
-            "label": "Online"
+            "label": "online"
           }
         ],
         "validation": {

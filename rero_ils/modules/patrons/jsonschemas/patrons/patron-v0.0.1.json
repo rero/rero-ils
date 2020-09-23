@@ -273,19 +273,19 @@
             "type": "selectWithSort",
             "options": [
               {
-                "label": "French",
+                "label": "lang_fre",
                 "value": "fre"
               },
               {
-                "label": "English",
+                "label": "lang_eng",
                 "value": "eng"
               },
               {
-                "label": "German",
+                "label": "lang_ger",
                 "value": "ger"
               },
               {
-                "label": "Italian",
+                "label": "lang_ita",
                 "value": "ita"
               }
             ]
@@ -421,15 +421,15 @@
           "type": "selectWithSort",
           "options": [
             {
-              "label": "Patron",
+              "label": "patron",
               "value": "patron"
             },
             {
-              "label": "Librarian",
+              "label": "librarian",
               "value": "librarian"
             },
             {
-              "label": "System Librarian",
+              "label": "system_librarian",
               "value": "system_librarian"
             }
           ]
@@ -468,11 +468,11 @@
               "type": "selectWithSort",
               "options": [
                 {
-                  "label": "public note",
+                  "label": "public_note",
                   "value": "public_note"
                 },
                 {
-                  "label": "staff note",
+                  "label": "staff_note",
                   "value": "staff_note"
                 }
               ]

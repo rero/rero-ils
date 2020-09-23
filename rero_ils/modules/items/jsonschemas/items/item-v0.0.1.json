@@ -162,7 +162,21 @@
             "deleted"
           ],
           "form": {
-            "type": "selectWithSort"
+            "type": "selectWithSort",
+            "options": [
+              {
+                "label": "received",
+                "value": "received"
+              },
+              {
+                "label": "claimed",
+                "value": "claimed"
+              },
+              {
+                "label": "deleted",
+                "value": "deleted"
+              }
+            ]
           }
         },
         "display_text": {
@@ -312,19 +326,19 @@
               "type": "selectWithSort",
               "options": [
                 {
-                  "label": "public note",
+                  "label": "public_note",
                   "value": "public_note"
                 },
                 {
-                  "label": "staff note",
+                  "label": "staff_note",
                   "value": "staff_note"
                 },
                 {
-                  "label": "checkin note",
+                  "label": "checkin_note",
                   "value": "checkin_note"
                 },
                 {
-                  "label": "checkout note",
+                  "label": "checkout_note",
                   "value": "checkout_note"
                 }
               ]

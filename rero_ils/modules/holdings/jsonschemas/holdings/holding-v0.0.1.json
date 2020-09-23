@@ -188,67 +188,67 @@
             "type": "selectWithSort",
             "options": [
               {
-                "label": "Annual",
+                "label": "rdafr:1013",
                 "value": "rdafr:1013"
               },
               {
-                "label": "Biennial",
+                "label": "rdafr:1014",
                 "value": "rdafr:1014"
               },
               {
-                "label": "Bimonthly",
+                "label": "rdafr:1007",
                 "value": "rdafr:1007"
               },
               {
-                "label": "Biweekly",
+                "label": "rdafr:1003",
                 "value": "rdafr:1003"
               },
               {
-                "label": "Daily",
+                "label": "rdafr:1001",
                 "value": "rdafr:1001"
               },
               {
-                "label": "Irregular",
+                "label": "rdafr:1016",
                 "value": "rdafr:1016"
               },
               {
-                "label": "Monthly",
+                "label": "rdafr:1008",
                 "value": "rdafr:1008"
               },
               {
-                "label": "Quarterly",
+                "label": "rdafr:1010",
                 "value": "rdafr:1010"
               },
               {
-                "label": "Semiannual",
+                "label": "rdafr:1012",
                 "value": "rdafr:1012"
               },
               {
-                "label": "Semimonthly",
+                "label": "rdafr:1009",
                 "value": "rdafr:1009"
               },
               {
-                "label": "Semiweekly",
+                "label": "rdafr:1005",
                 "value": "rdafr:1005"
               },
               {
-                "label": "Three times a month",
+                "label": "rdafr:1006",
                 "value": "rdafr:1006"
               },
               {
-                "label": "Three times a week",
+                "label": "rdafr:1002",
                 "value": "rdafr:1002"
               },
               {
-                "label": "Three times a year",
+                "label": "rdafr:1011",
                 "value": "rdafr:1011"
               },
               {
-                "label": "Triennial",
+                "label": "rdafr:1015",
                 "value": "rdafr:1015"
               },
               {
-                "label": "Weekly",
+                "label": "rdafr:1004",
                 "value": "rdafr:1004"
               }
             ]

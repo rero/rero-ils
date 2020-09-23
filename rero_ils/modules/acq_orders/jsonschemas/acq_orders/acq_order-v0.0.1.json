@@ -70,27 +70,27 @@
         "options": [
           {
             "value": "monograph",
-            "label": "Monograph"
+            "label": "monograph"
           },
           {
             "value": "serial",
-            "label": "Serial"
+            "label": "serial"
           },
           {
             "value": "standing_order",
-            "label": "Standing order"
+            "label": "standing_order"
           },
           {
             "value": "monographic_set",
-            "label": "Monographic set"
+            "label": "monographic_set"
           },
           {
             "value": "planned_order",
-            "label": "Planned order"
+            "label": "planned_order"
           },
           {
             "value": "multi_volume",
-            "label": "Multi-volume"
+            "label": "multi_volume"
           }
         ]
       }
@@ -117,27 +117,27 @@
         "options": [
           {
             "value": "approved",
-            "label": "Approved"
+            "label": "approved"
           },
           {
             "value": "canceled",
-            "label": "Canceled"
+            "label": "canceled"
           },
           {
             "value": "ordered",
-            "label": "Ordered"
+            "label": "ordered"
           },
           {
             "value": "requested",
-            "label": "Requested"
+            "label": "requested"
           },
           {
             "value": "pending",
-            "label": "Pending"
+            "label": "pending"
           },
           {
             "value": "received",
-            "label": "Received"
+            "label": "received"
           }
         ]
       }

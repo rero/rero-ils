@@ -105,7 +105,7 @@
           "form": {
             "options": [
               {
-                "label": "Fee",
+                "label": "fee",
                 "value": "fee"
               }
             ]
@@ -121,19 +121,19 @@
           "form": {
             "options": [
               {
-                "label": "Overdue",
+                "label": "overdue",
                 "value": "overdue"
               },
               {
-                "label": "Damaged",
+                "label": "damaged",
                 "value": "damaged"
               },
               {
-                "label": "Lost",
+                "label": "lost",
                 "value": "lost"
               },
               {
-                "label": "Other",
+                "label": "other",
                 "value": "other"
               }
             ]
@@ -174,15 +174,15 @@
                 "value": "cash"
               },
               {
-                "label": "Debit card",
+                "label": "debit_card",
                 "value": "debit_card"
               },
               {
-                "label": "Credit card",
+                "label": "credit_card",
                 "value": "credit_card"
               },
               {
-                "label": "Paypal",
+                "label": "paypal",
                 "value": "paypal"
               }
             ]
@@ -205,8 +205,8 @@
         "form": {
           "options": [
             {
-              "label": "Dispute",
-              "value": "Dispute"
+              "label": "dispute",
+              "value": "dispute"
             }
           ]
         }
@@ -226,8 +226,8 @@
         "form": {
           "options": [
             {
-              "label": "Cancel",
-              "value": "Cancel"
+              "label": "cancel",
+              "value": "cancel"
             }
           ]
         }

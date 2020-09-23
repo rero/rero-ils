@@ -17,18 +17,27 @@
 
 #}
 
-{% macro dl(name, value) %}
+{% macro dl(name, value, prefix) %}
   {% if value %}
     <dt class="col-md-3 col-lg-2 rero-ils-term">
       {{ name }}:
     </dt>
     <dd class="col-md-9 col-lg-10">
       {% if value is string %}
-        {{ value }}
+        {% if prefix %}
+          {{ _(prefix.format(v=value)) }}
+        {% else %}
+          {{ value }}
+        {% endif %}
       {% else %}
         <ul class="list-unstyled rero-ils-person mb-0">
           {% for element in value %}
-          <li>{{ element }}
+          <li>
+            {% if prefix %}
+              {{ _(prefix.format(v=element)) }}
+            {% else %}
+              {{ element }}
+            {% endif %}
             {% for source in value[element] %}
             <small class="badge badge-secondary text-uppercase">{{ source }}</small>
             {% endfor %}

@@ -250,7 +250,25 @@
                     "selectWithSortOptions": {
                       "order": "label"
                     }
-                  }
+                  },
+                  "options": [
+                    {
+                      "label": "daily",
+                      "value": "daily"
+                    },
+                    {
+                      "label": "weekly",
+                      "value": "weekly"
+                    },
+                    {
+                      "label": "monthly",
+                      "value": "monthly"
+                    },
+                    {
+                      "label": "yearly",
+                      "value": "yearly"
+                    }
+                  ]
                 }
               },
               "data": {
