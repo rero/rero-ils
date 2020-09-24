@@ -122,6 +122,13 @@ def create_patterns(infile, verbose, debug, lazy):
             except IndexError as error:
                 break
         patterns = record.get('patterns')
+        enumerationAndChronology = record.get('enumerationAndChronology')
+        supplementaryContent = record.get('supplementaryContent')
+        index = record.get('index')
+        missing_issues = record.get('missing_issues')
+        notes = record.get('notes')
+        call_number = record.get('call_number')
+        second_call_number = record.get('second_call_number')
         for org_pid in Organisation.get_all_pids():
             circ_category_pid = get_circ_category(org_pid)
             location_pid = get_random_location(org_pid)
@@ -130,6 +137,13 @@ def create_patterns(infile, verbose, debug, lazy):
                 location_pid=location_pid,
                 item_type_pid=circ_category_pid,
                 holdings_type='serial',
+                enumerationAndChronology=enumerationAndChronology,
+                supplementaryContent=supplementaryContent,
+                index=index,
+                missing_issues=missing_issues,
+                notes=notes,
+                call_number=call_number,
+                second_call_number=second_call_number,
                 patterns=patterns)
             # create minimum 3 and max 9 received issues for this holdings
             create_issues_from_holding(holdings_record)

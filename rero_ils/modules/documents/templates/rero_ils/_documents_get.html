@@ -76,15 +76,19 @@
   {% for holding in holdings %}
   {% set items = holding.get_items %}
   {% set number_items = holding.get_items_count_by_holding_pid %}
-  {% if record.harvested or number_items > 0 %}
+  {% if record.harvested or number_items >= 0 %}
   <!-- Card header -->
   <div class="card mt-2">
     <div id="{{ holding.pid }}" class="card-header p-2">
       <div class="row">
         <div class="col-1">
-          <a class="collapse-link" data-toggle="collapse" href="#collapse-{{ holding.pid }}" aria-expanded="false">
-            <i class="fa fa-caret-down fa-lg"></i>
-          </a>
+          {% if number_items > 0 %}
+              <a class="collapse-link" data-toggle="collapse" href="#collapse-{{ holding.pid }}" aria-expanded="false">
+              <i class="fa fa-caret-down fa-lg"></i>
+            </a>
+           {% else %}
+            &nbsp;
+          {% endif %}
         </div>
         <div class="col-10">
           <div class="row">
@@ -95,26 +99,63 @@
               {{ holding|holding_circulation_category }}
             </div>
             <div class="col-sm-2">
-              {% if not record.harvested %}
+              {% if not record.harvested and number_items > 0 %}
                 {{ number_items }} {{ _('items') if number_items > 1 else _('item') }}
               {% else %}
                 &nbsp;
               {% endif %}
             </div>
 
-            <div class="col-sm-2 availability d-none">
+            <div class="col-sm-3 availability{% if number_items > 0 %}d-none{% endif %}">
               {% if not record.harvested %}
-                {% if number_items > 0 %}
-                  <i class="fa fa-circle text-{{ 'success' if holding.available else 'danger' }}"></i>
-                  {{ _('available') if holding.available else _('not available') }}
+                {% if holding.holding_is_serial %}
+                  <i class="fa fa-circle text-warning"></i>
+                  {% if number_items > 0 %}
+                    {{ _('see collections and items')}}
+                  {% else %}
+                    {{ _('no items received')}}
+                  {% endif %}
                 {% else %}
-                  <i class="fa fa-circle text-{{ 'danger' }}"></i> {{ _('not available') }}
+                  {% if number_items > 0 %}
+                    <i class="fa fa-circle text-{{ 'success' if holding.available else 'danger' }}"></i>
+                    {{ _('available') if holding.available else _('not available') }}
+                  {% else %}
+                    <i class="fa fa-circle text-{{ 'danger' }}"></i> {{ _('not available') }}
+                  {% endif %}
                 {% endif %}
               {% else %}
                 &nbsp;
               {% endif %}
             </div>
+
+            <!-- display data for serials holdings -->
+            {% if holding.holding_is_serial %}
+            <div class="row col-sm-12 mt-3">
+            <!-- a line break only for serials holdings -->
+              {% if holding.call_number or holding.second_call_number %}
+                {{ dl(_('Call number'), holding | format_record_call_number ) }}
+              {% endif %}
+              {% if holding.enumerationAndChronology %}
+                {{ dl(_('Available collection'), holding.enumerationAndChronology) }}
+              {% endif %}
+              {% if holding.supplementaryContent %}
+                {{ dl(_('Supplementary content'), holding.supplementaryContent) }}
+              {% endif %}
+              {% if holding.index %}
+                {{ dl(_('Indexes'), holding.index) }}
+              {% endif %}
+              {% if holding.missing_issues %}
+                {{ dl(_('Missing issues'), holding.missing_issues) }}
+              {% endif %}
+              {% if holding|get_note('general_note') %}
+                {{ dl(_('Note'), holding|get_note('general_note')|nl2br) }}
+              {% endif %}
+            </div>
+          {% endif %}
+
           </div>
+         
+          
         </div>
       </div>
     </div>
@@ -147,7 +188,7 @@
               </div>
               <div class="col-sm-2">
                 {% if item.call_number %}
-                  {{ item | format_item_call_number }}
+                  {{ item | format_record_call_number }}
                 {% endif %}
               </div>
               {% set locations = item|item_library_pickup_locations %}

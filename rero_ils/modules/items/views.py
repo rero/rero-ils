@@ -157,9 +157,10 @@ def item_availability_text(item):
 
 
 @blueprint.app_template_filter()
-def format_item_call_number(item):
-    """Returns formatted text to display call number for item."""
-    return ' | '.join([
-        item.get('call_number'),
-        item.get('second_call_number')]
-    ) if item.get('second_call_number') else item.get('call_number')
+def format_record_call_number(record):
+    """Returns formatted text to display call number for item or holding."""
+    call_numbers = [
+        record.get('call_number'), record.get('second_call_number')]
+
+    return ' | '.join(
+        call_number for call_number in call_numbers if call_number)

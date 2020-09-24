@@ -225,6 +225,16 @@
       "$ref": "https://ils.rero.ch/api/locations/loc1"
     },
     "holdings_type": "serial",
+    "enumerationAndChronology": "enumerationAndChronology",
+    "supplementaryContent": "supplementaryContent",
+    "index": "index",
+    "missing_issues": "missing_issues",
+    "notes": [
+      {
+        "type": "general_note",
+        "content": "general_note..."
+      }
+    ],
     "patterns": {
       "template": "no {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1010",

@@ -17,6 +17,9 @@
       "call_number": {
         "type": "keyword"
       },
+      "second_call_number": {
+        "type": "keyword"
+      },
       "circulation_category": {
         "properties": {
           "pid": {
@@ -108,6 +111,28 @@
             }
           }
         }
+      },
+      "notes": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "content": {
+            "type": "text"
+          }
+        }
+      },
+      "enumerationAndChronology": {
+        "type": "keyword"
+      },
+      "supplementaryContent": {
+        "type": "keyword"
+      },
+      "index": {
+        "type": "keyword"
+      },
+      "missing_issues": {
+        "type": "keyword"
       },
       "_created": {
         "type": "date"

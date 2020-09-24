@@ -31,6 +31,8 @@ from invenio_search import current_search
 from invenio_search.api import RecordsSearch
 from jinja2 import Template
 
+from rero_ils.modules.items.models import ItemIssueStatus
+
 from .models import HoldingIdentifier
 from ..api import IlsRecord, IlsRecordsIndexer
 from ..documents.api import Document
@@ -41,7 +43,7 @@ from ..locations.api import Location
 from ..minters import id_minter
 from ..organisations.api import Organisation
 from ..providers import Provider
-from ..utils import extracted_data_from_ref, get_base_url, get_ref_for_pid, \
+from ..utils import extracted_data_from_ref, get_ref_for_pid, \
     get_schema_for_resource
 
 # holing provider
@@ -129,6 +131,8 @@ class Holding(IlsRecord):
             - document type is not ebook and holding type is electronic.
             - holding type is serial and the next_expected_date
               is not given for a regular frequency.
+            - if not a serial holdings contain one of optional serials fields.
+            - if notes array has multiple notes with same type
         """
         document_pid = extracted_data_from_ref(
             self.get('document').get('$ref'))
@@ -151,6 +155,22 @@ class Holding(IlsRecord):
             msg = _('Holding is not attached to the correct document type.'
                     ' document: {pid}')
             return _(msg.format(pid=document_pid))
+        # the enumeration and chronology optional fields are only allowed for
+        # serial holdings
+        if not is_serial:
+            fields = [
+                'enumerationAndChronology', 'notes', 'index', 'missing_issues',
+                'supplementaryContent'
+            ]
+            for field in fields:
+                if self.get(field):
+                    msg = _('{field} is allowed only for serial holdings')
+                    return _(msg.format(field=field))
+        # No multiple notes with same type
+        note_types = [note.get('type') for note in self.get('notes', [])]
+        if len(note_types) != len(set(note_types)):
+            return _('Can not have multiple notes of same type.')
+
         return True
 
     @property
@@ -161,6 +181,11 @@ class Holding(IlsRecord):
         is_issuance = \
             document.get('issuance', {}).get('main_type') == 'rdami:1003'
         return is_serial and is_issuance
+
+    @property
+    def holding_is_serial(self):
+        """Shortcut to check if holding is a serial holding record."""
+        return self.holdings_type == 'serial'
 
     @property
     def holdings_type(self):
@@ -199,6 +224,25 @@ class Holding(IlsRecord):
         for item_pid in Item.get_items_pid_by_holding_pid(self.pid):
             items.append(Item.get_record_by_pid(item_pid))
         return Holding.isAvailable(items)
+
+    @property
+    def notes(self):
+        """Return notes related to this holding.
+
+        :return an array of all notes related to the holding. Each note should
+                have two keys : `type` and `content`.
+        """
+        return self.get('notes', [])
+
+    def get_note(self, note_type):
+        """Return an holdings note by its type.
+
+        :param note_type: the type of note (see ``HoldingNoteTypes``)
+        :return the content of the note, None if note type is not found
+        """
+        notes = [note.get('content') for note in self.notes
+                 if note.get('type') == note_type]
+        return next(iter(notes), None)
 
     @classmethod
     def isAvailable(cls, items):
@@ -281,9 +325,9 @@ class Holding(IlsRecord):
     def get_items(self):
         """Return items of holding record."""
         for item_pid in Item.get_items_pid_by_holding_pid(self.pid):
-            yield Item.get_record_by_pid(item_pid)
-        # return [Item.get_record_by_pid(item_pid)
-        #         for item_pid in Item.get_items_pid_by_holding_pid(self.pid)]
+            item = Item.get_record_by_pid(item_pid)
+            if item.issue_status != ItemIssueStatus.DELETED:
+                yield item
 
     def get_number_of_items(self):
         """Get holding number of items."""
@@ -551,40 +595,62 @@ def get_holdings_by_document_item_type(
 
 def create_holding(
         document_pid=None, location_pid=None, item_type_pid=None,
-        electronic_location=None, holdings_type=None, patterns=None):
-    """Create a new holding."""
+        electronic_location=None, holdings_type=None, patterns=None,
+        enumerationAndChronology=None, supplementaryContent=None, index=None,
+        missing_issues=None, call_number=None, second_call_number=None,
+        notes=[]):
+    """Create a new holdings record from a given list of fields.
+
+    :param document_pid: the document pid.
+    :param location_pid: the location pid.
+    :param item_type_pid: the item type pid.
+    :param electronic_location: the location for online items.
+    :param holdings_type: the type of holdings record.
+    :param patterns: the patterns and chronology for the holdings.
+    :param enumerationAndChronology: the Enumeration and Chronology.
+    :param supplementaryContent: the Supplementary Content.
+    :param index: the index of the holdings.
+    :param missing_issues: the missing issues.
+    :param notes: the notes of the holdings record.
+    :param call_number: the call_number of the holdings record.
+    :param second_call_number: the second_call_number of the holdings record.
+    :return: the created holdings record.
+    """
     if not (document_pid and location_pid and item_type_pid):
         raise MissingRequiredParameterError(
             "One of the parameters 'document_pid' "
             "or 'location_pid' or 'item_type_pid' is required."
         )
     data = {}
+    # add mandatory holdings fields
     data['$schema'] = get_schema_for_resource('hold')
-    base_url = get_base_url()
-    url_api = '{base_url}/api/{doc_type}/{pid}'
-    data['location'] = {
-        '$ref': url_api.format(
-            base_url=base_url,
-            doc_type='locations',
-            pid=location_pid)
-    }
+    data['location'] = {'$ref': get_ref_for_pid('loc', location_pid)}
     data['circulation_category'] = {
-        '$ref': url_api.format(
-            base_url=base_url,
-            doc_type='item_types',
-            pid=item_type_pid)
-    }
-    data['document'] = {
-        '$ref': url_api.format(
-            base_url=base_url,
-            doc_type='documents',
-            pid=document_pid)
-    }
-    if electronic_location:
-        data['electronic_location'] = [electronic_location]
+        '$ref': get_ref_for_pid('itty', item_type_pid)}
+    data['document'] = {'$ref': get_ref_for_pid('doc', document_pid)}
+
     if not holdings_type:
         holdings_type = 'standard'
     data['holdings_type'] = holdings_type
+
+    # add optional holdings fields if given
+    holdings_fields = [
+        {'key': 'enumerationAndChronology', 'value': enumerationAndChronology},
+        {'key': 'supplementaryContent', 'value': supplementaryContent},
+        {'key': 'index', 'value': index},
+        {'key': 'missing_issues', 'value': missing_issues},
+        {'key': 'notes', 'value': notes},
+        {'key': 'call_number', 'value': call_number},
+        {'key': 'second_call_number', 'value': second_call_number}
+    ]
+    for field in holdings_fields:
+        value = field['value']
+        if value:
+            data[field['key']] = field['value']
+
+    if electronic_location:
+        data['electronic_location'] = [electronic_location]
+
     if patterns and holdings_type == 'serial':
         data['patterns'] = patterns
     holding = Holding.create(

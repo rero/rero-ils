@@ -2,6 +2,20 @@
   {
     "template_name": "quarterly_one_level",
     "rero_control_number": "R003826164",
+    "call_number": "SM af-82",
+    "second_call_number": "EN 4624",
+    "enumerationAndChronology": "No 61(2020)-",
+    "missing_issues": "Hors s\u00e9rie 18 (2020)",
+    "notes": [
+      {
+        "type": "general_note",
+        "content": "3 derniers fascicules en salle de lecture"
+      },
+      {
+        "type": "conservation_note",
+        "content": "3 derni\u00e8res ann\u00e9es"
+      }
+    ],
     "patterns": {
       "template": "no {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1010",
@@ -141,6 +155,21 @@
   {
     "template_name": "quarterly_two_levels",
     "rero_control_number": "R003301493",
+    "second_call_number": "CDU 904(374)",
+    "enumerationAndChronology": "Jg. 20(2020)-",
+    "index": "1 vol. (2020-2021)",
+    "supplementaryContent": "Sonderausgabe \"Teacher's guide\"",
+    "missing_issues": "Hors s\u00e9rie 18 (2020)",
+    "notes": [
+      {
+        "type": "reception_note",
+        "content": "A transmettre \u00e0 Astrid pour d\u00e9pouillement"
+      },
+      {
+        "type": "claim_note",
+        "content": "Contacter M. Filipini, par t\u00e9l\u00e9phone, pour les r\u00e9clamations"
+      }
+    ],
     "patterns": {
       "template": "Jg. {{first_enumeration.level_1}} Heft {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1010",

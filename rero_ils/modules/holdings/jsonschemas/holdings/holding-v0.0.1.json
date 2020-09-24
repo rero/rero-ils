@@ -14,9 +14,15 @@
   ],
   "propertiesOrder": [
     "call_number",
+    "second_call_number",
     "circulation_category",
     "location",
     "holdings_type",
+    "enumerationAndChronology",
+    "supplementaryContent",
+    "index",
+    "missing_issues",
+    "notes",
     "patterns"
   ],
   "properties": {
@@ -34,8 +40,11 @@
     },
     "call_number": {
       "title": "Call number",
-      "type": "string",
-      "minLength": 4
+      "type": "string"
+    },
+    "second_call_number": {
+      "title": "Second call number",
+      "type": "string"
     },
     "circulation_category": {
       "title": "Circulation type",
@@ -411,6 +420,133 @@
       "form": {
         "expressionProperties": {
           "templateOptions.required": "true"
+        }
+      }
+    },
+    "enumerationAndChronology": {
+      "title": "Available collection",
+      "description": "Textual description of the basic bibliographic unit of the holding.",
+      "type": "string",
+      "minLength": 1
+    },
+    "supplementaryContent": {
+      "title": "Supplementary content",
+      "description": "Textual description of supplementary contents (special issues, etc.).",
+      "type": "string",
+      "minLength": 1
+    },
+    "index": {
+      "title": "Indexes",
+      "description": "Textual description of the indexes.",
+      "type": "string",
+      "minLength": 1
+    },
+    "missing_issues": {
+      "title": "Missing issues",
+      "description": "Textual description of the missing issues.",
+      "type": "string",
+      "minLength": 1
+    },
+    "notes": {
+      "title": "Notes",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "title": "Note",
+        "propertiesOrder": [
+          "type",
+          "content"
+        ],
+        "required": [
+          "type",
+          "content"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type",
+            "enum": [
+              "general_note",
+              "staff_note",
+              "conservation_note",
+              "reception_note",
+              "claim_note",
+              "routing_note",
+              "binding_note",
+              "acquisition_note"
+            ],
+            "form": {
+              "type": "selectWithSort",
+              "wrappers": [
+                "form-field-horizontal"
+              ],
+              "options": [
+                {
+                  "label": "general note",
+                  "value": "general_note"
+                },
+                {
+                  "label": "staff note",
+                  "value": "staff_note"
+                },
+                {
+                  "label": "conservation note",
+                  "value": "conservation_note"
+                },
+                {
+                  "label": "reception note",
+                  "value": "reception_note"
+                },
+                {
+                  "label": "claim note",
+                  "value": "claim_note"
+                },
+                {
+                  "label": "routing note",
+                  "value": "routing_note"
+                },
+                {
+                  "label": "binding note",
+                  "value": "binding_note"
+                },
+                {
+                  "label": "acquisition note",
+                  "value": "acquisition_note"
+                }
+              ],
+              "templateOptions": {
+                "selectWithSortOptions": {
+                  "order": "label"
+                }
+              }
+            }
+          },
+          "content": {
+            "type": "string",
+            "title": "Content",
+            "maxLength": 2000,
+            "minLength": 3,
+            "form": {
+              "type": "textarea",
+              "templateOptions": {
+                "rows": 3
+              }
+            }
+          }
+        }
+      },
+      "form": {
+        "validation": {
+          "validators": {
+            "uniqueValueKeysInObject": {
+              "keys": [
+                "type"
+              ]
+            }
+          },
+          "messages": {
+            "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
+          }
         }
       }
     }

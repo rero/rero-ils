@@ -132,14 +132,14 @@ def can_request(item):
 
 
 @blueprint.app_template_filter()
-def get_note(item, note_type):
-    """Get a item note by its type.
+def get_note(record, note_type):
+    """Get a note by its type for a given holdings or item.
 
-    :param item: the item to check.
+    :param record: the record to check.
     :param note_type: the type of note to find.
     :return the requested note, None if no corresponding note is found.
     """
-    return item.get_note(note_type)
+    return record.get_note(note_type)
 
 
 @blueprint.app_template_filter()

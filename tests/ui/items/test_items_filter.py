@@ -17,15 +17,19 @@
 
 """Item filters tests."""
 
-from rero_ils.modules.items.views import format_item_call_number
+from rero_ils.modules.items.views import format_record_call_number
 
 
 def test_items_call_number_filter(app):
     """Test call number format."""
     item = {'call_number': '00123'}
     results = '00123'
-    assert results == format_item_call_number(item)
+    assert results == format_record_call_number(item)
 
     item = {'call_number': '00123', 'second_call_number': '00456'}
     results = '00123 | 00456'
-    assert results == format_item_call_number(item)
+    assert results == format_record_call_number(item)
+
+    item = {'second_call_number': '00456'}
+    results = '00456'
+    assert results == format_record_call_number(item)

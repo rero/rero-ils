@@ -219,7 +219,13 @@ def test_create_holdings_with_pattern(
 
     # test will not fail when creating a standard holding for a journal doc.
     holding_lib_martigny_w_patterns_data['holdings_type'] = 'standard'
-    del holding_lib_martigny_w_patterns_data['patterns']
+    # delete serials fields
+    fields = [
+        'enumerationAndChronology', 'notes', 'index', 'missing_issues',
+        'supplementaryContent', 'patterns'
+    ]
+    for field in fields:
+        del holding_lib_martigny_w_patterns_data[field]
     Holding.create(
         data=holding_lib_martigny_w_patterns_data,
         delete_pid=True,
