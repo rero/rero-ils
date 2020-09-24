@@ -30,6 +30,7 @@ from invenio_accounts.testutils import login_user_via_session
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.errors import RecordValidationError
 from rero_ils.modules.holdings.api import Holding
+from rero_ils.modules.holdings.models import HoldingNoteTypes
 from rero_ils.modules.items.api import Item
 
 
@@ -550,3 +551,38 @@ def test_regular_issue_creation_update_delete_api(
     created_issue.get('issue')['regular'] = False
     created_issue.delete(dbcommit=True, delindex=True)
     assert not Item.get_record_by_pid(pid)
+
+
+def test_holding_notes(client, librarian_martigny_no_email,
+                       holding_lib_martigny_w_patterns, json_header):
+    """Test holdings notes."""
+
+    holding = holding_lib_martigny_w_patterns
+    login_user_via_session(client, librarian_martigny_no_email.user)
+
+    # holdings has only on general note
+    assert len(holding.notes) == 1
+
+    # add other note types
+    holding['notes'] = [
+        {'type': HoldingNoteTypes.STAFF, 'content': 'Staff note'},
+        {'type': HoldingNoteTypes.CLAIM, 'content': 'Claim note'}
+    ]
+    holding.update(holding, dbcommit=True, reindex=True)
+    assert len(holding.notes) == 2
+
+    # will receive a validation error if tries to add a note type already exist
+    holding['notes'].append(
+        {'type': HoldingNoteTypes.CLAIM, 'content': 'new cliam note'}
+    )
+    with pytest.raises(RecordValidationError):
+        holding.update(holding, dbcommit=True, reindex=True)
+    holding['notes'] = holding.notes[:-1]
+
+    # get a specific type of notes
+    #  --> staff : should return a note
+    #  --> routing : should return nothing
+    #  --> dummy : should never return something !
+    assert holding.get_note(HoldingNoteTypes.STAFF)
+    assert holding.get_note(HoldingNoteTypes.ROUTING) is None
+    assert holding.get_note('dummy') is None

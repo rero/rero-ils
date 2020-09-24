@@ -66,9 +66,6 @@ class ItemRecord(IlsRecord):
         note_types = [note.get('type') for note in self.get('notes', [])]
         if len(note_types) != len(set(note_types)):
             return _('Can not have multiple notes of same type.')
-        if not self.get('call_number') and self.get('second_call_number'):
-            return _(
-                'Must have a first call number to have a second call number')
 
         return True
 
@@ -183,7 +180,7 @@ class ItemRecord(IlsRecord):
         holding_pid = get_holding_pid_by_doc_location_item_type(
             document_pid, location_pid, item_type_pid, item_record_type)
 
-        # we will NOT create serials holdings for items
+        # we will NOT create serial holdings for items
         if not holding_pid and item_record_type != 'serial':
             holdings_record = create_holding(
                 document_pid=document_pid,

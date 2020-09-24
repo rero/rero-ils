@@ -40,3 +40,16 @@ class HoldingMetadata(db.Model, RecordMetadataBase):
     """Holding record metadata."""
 
     __tablename__ = 'holding_metadata'
+
+
+class HoldingNoteTypes:
+    """Class to list all holdings possible note types."""
+
+    GENERAL = 'general_note'
+    STAFF = 'staff_note'
+    CONSERVATION = 'conservation_note'
+    RECEPTION = 'reception_note'
+    CLAIM = 'claim_note'
+    ROUTING = 'routing_note'
+    BINDING = 'binding_note'
+    ACQUISITION = 'acquisition_note'

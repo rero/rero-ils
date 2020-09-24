@@ -61,18 +61,11 @@
     },
     "call_number": {
       "title": "Call number",
-      "type": "string",
-      "minLength": 4,
-      "form": {
-        "expressionProperties": {
-          "templateOptions.required": "field.parent.model.second_call_number !== ''"
-        }
-      }
+      "type": "string"
     },
     "second_call_number": {
       "title": "Second call number",
-      "type": "string",
-      "minLength": 1
+      "type": "string"
     },
     "location": {
       "title": "Location",

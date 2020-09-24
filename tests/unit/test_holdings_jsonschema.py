@@ -60,78 +60,27 @@ def test_required_patterns_frequency(
             holding, holding_schema)
 
 
-def test_pid(
+def test_holdings_all_jsonschema_keys_values(
         holding_schema, holding_lib_martigny_w_patterns_data):
-    """Test pid for holding jsonschemas."""
-    validate(holding_lib_martigny_w_patterns_data, holding_schema)
-
-    with pytest.raises(ValidationError):
-        data = copy.deepcopy(holding_lib_martigny_w_patterns_data)
-        data['pid'] = 25
-        validate(data, holding_schema)
-
-
-def test_call_number(holding_schema,
-                     holding_lib_martigny_w_patterns_data):
-    """Test call_number for holding jsonschemas."""
-    validate(holding_lib_martigny_w_patterns_data, holding_schema)
-
-    with pytest.raises(ValidationError):
-        data = copy.deepcopy(holding_lib_martigny_w_patterns_data)
-        data['call_number'] = 25
-        validate(data, holding_schema)
-
-
-def test_document(holding_schema,
-                  holding_lib_martigny_w_patterns_data):
-    """Test document for holding jsonschemas."""
-    validate(holding_lib_martigny_w_patterns_data, holding_schema)
-
-    with pytest.raises(ValidationError):
-        data = copy.deepcopy(holding_lib_martigny_w_patterns_data)
-        data['document'] = 25
-        validate(data, holding_schema)
-
-
-def test_circulation_category(
-        holding_schema, holding_lib_martigny_w_patterns_data):
-    """Test circulation_category for holding jsonschemas."""
-    validate(holding_lib_martigny_w_patterns_data, holding_schema)
-
-    with pytest.raises(ValidationError):
-        data = copy.deepcopy(holding_lib_martigny_w_patterns_data)
-        data['circulation_category'] = 25
-        validate(data, holding_schema)
-
-
-def test_location(
-        holding_schema, holding_lib_martigny_w_patterns_data):
-    """Test location for holding jsonschemas."""
-    validate(holding_lib_martigny_w_patterns_data, holding_schema)
-
-    with pytest.raises(ValidationError):
-        data = copy.deepcopy(holding_lib_martigny_w_patterns_data)
-        data['location'] = 25
-        validate(data, holding_schema)
-
-
-def test_holdings_type(
-        holding_schema, holding_lib_martigny_w_patterns_data):
-    """Test holdings_type for holding jsonschemas."""
-    validate(holding_lib_martigny_w_patterns_data, holding_schema)
-
-    with pytest.raises(ValidationError):
-        data = copy.deepcopy(holding_lib_martigny_w_patterns_data)
-        data['holdings_type'] = 1
-        validate(data, holding_schema)
-
-
-def test_patterns(
-        holding_schema, holding_lib_martigny_w_patterns_data):
-    """Test patterns for holding jsonschemas."""
-    validate(holding_lib_martigny_w_patterns_data, holding_schema)
-
-    with pytest.raises(ValidationError):
-        data = copy.deepcopy(holding_lib_martigny_w_patterns_data)
-        data['patterns'] = 25
-        validate(data, holding_schema)
+    """Test all keys and values for holdings jsonschema."""
+    record = holding_lib_martigny_w_patterns_data
+    validate(record, holding_schema)
+    validator = [
+        {'key': 'pid', 'value': 25},
+        {'key': 'call_number', 'value': 25},
+        {'key': 'second_call_number', 'value': 25},
+        {'key': 'document', 'value': 25},
+        {'key': 'circulation_category', 'value': 25},
+        {'key': 'location', 'value': 25},
+        {'key': 'holdings_type', 'value': 25},
+        {'key': 'patterns', 'value': 25},
+        {'key': 'enumerationAndChronology', 'value': 25},
+        {'key': 'supplementaryContent', 'value': 25},
+        {'key': 'index', 'value': 25},
+        {'key': 'missing_issues', 'value': 25},
+        {'key': 'notes', 'value': 25}
+    ]
+    for element in validator:
+        with pytest.raises(ValidationError):
+            record[element['key']] = element['value']
+            validate(record, holding_schema)
