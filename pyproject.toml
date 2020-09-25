@@ -60,8 +60,8 @@ ciso8601 = "*"
 angular-gettext-babel= ">=0.1"
 
 ## Additionnal constraints on python modules
-# solves datetime serialize error
-# celery = "<4.3.0"
+# solves fixture 'celery_config' not found
+celery = "<5.0.0"
 flask-wiki = {git = "https://github.com/rero/flask-wiki.git"}
 markdown-captions = "*"
 
