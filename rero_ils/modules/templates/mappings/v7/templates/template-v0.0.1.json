@@ -5,7 +5,7 @@
     "max_result_window": 20000
   },
   "mappings": {
-   "date_detection": false,
+    "date_detection": false,
     "numeric_detection": false,
     "properties": {
       "$schema": {
@@ -15,7 +15,11 @@
         "type": "keyword"
       },
       "name": {
-        "type": "text"
+        "type": "text",
+        "copy_to": "name_sort"
+      },
+      "name_sort": {
+        "type": "keyword"
       },
       "description": {
         "type": "text"
