@@ -733,6 +733,7 @@ class Patron(IlsRecord):
 
         * check if the user is blocked ?
         * check if the user reaches the maximum loans limit ?
+        * check if the user reaches the maximum fee amount limit ?
 
         :param public: is messages are for public interface ?
         :return an array of messages. Each message is a dictionary with a level

@@ -27,7 +27,6 @@ from invenio_circulation.errors import ItemNotAvailableError, \
 from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_patron_item_or_document, \
     search_by_pid
-from invenio_i18n.ext import current_i18n
 from invenio_pidstore.errors import PersistentIdentifierError
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_search import current_search
@@ -1251,18 +1250,27 @@ class ItemCirculation(ItemRecord):
         """Get availability for item."""
         return self.item_has_active_loan_or_request() == 0
 
-    def get_item_end_date(self, format='short', time_format='medium'):
-        """Get item due date for a given item."""
+    def get_item_end_date(self, format='short', time_format='medium',
+                          language=None):
+        """Get item due date for a given item.
+
+        :param format: The date format, ex: 'full', 'medium', 'short'
+                        or custom
+        :param time_format: The time format, ex: 'medium', 'short' or custom
+        :param language: The language to fix the language format
+        :return: original date, formatted date or None
+        """
         loan = get_loan_for_item(item_pid_to_object(self.pid))
         if loan:
             end_date = loan['end_date']
-            due_date = format_date_filter(
-                end_date,
-                date_format=format,
-                time_format=time_format,
-                locale=current_i18n.locale.language,
-            )
-            return due_date
+            if format:
+                return format_date_filter(
+                    end_date,
+                    date_format=format,
+                    time_format=time_format,
+                    locale=language,
+                )
+            return end_date
         return None
 
     def get_extension_count(self):
