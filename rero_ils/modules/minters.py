@@ -21,7 +21,7 @@ from __future__ import absolute_import, print_function, unicode_literals
 
 
 def id_minter(record_uuid, data, provider, pid_key='pid', object_type='rec'):
-    """RERIOLS minter."""
+    """RERO ILS minter."""
     provider = provider.create(
         object_type=object_type,
         object_uuid=record_uuid,

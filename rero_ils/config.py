@@ -1628,7 +1628,7 @@ RECORDS_REST_FACETS = dict(
     ),
     templates=dict(
         aggs=dict(
-            template_type=dict(
+            type=dict(
                 terms=dict(
                     field='template_type',
                     # This does not take into account
@@ -1648,7 +1648,7 @@ RECORDS_REST_FACETS = dict(
             )
         ),
         filters={
-            _('templates'): and_term_filter('templates'),
+            _('type'): and_term_filter('template_type'),
             _('visibility'): and_term_filter('visibility')
         }
     )
@@ -1796,6 +1796,13 @@ RECORDS_REST_SORT_OPTIONS['items']['issue_expected_date'] = dict(
     fields=['issue.expected_date'], title='Issue expected date',
     default_order='asc'
 )
+# ------ TEMPLATES SORT
+RECORDS_REST_SORT_OPTIONS['templates']['name'] = dict(
+    fields=['name_sort'], title='Template name',
+    default_order='asc'
+)
+RECORDS_REST_DEFAULT_SORT['templates'] = dict(
+    query='bestmatch', noquery='name')
 
 # Detailed View Configuration
 # ===========================
