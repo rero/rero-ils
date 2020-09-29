@@ -1786,7 +1786,7 @@ description = "Invenio module that add SIP2 communication for self-check"
 name = "invenio-sip2"
 optional = true
 python-versions = "*"
-version = "0.2.0"
+version = "0.3.0"
 
 [package.dependencies]
 Flask-BabelEx = ">=0.9.3"
@@ -1797,10 +1797,11 @@ cryptography = ">=2.1.4"
 email-validator = ">=1.0.5"
 invenio-access = ">=1.3.1"
 invenio-base = ">=1.2.1"
+pycountry = ">=19.7.15"
 six = ">=1.12.0"
 
 [package.extras]
-all = ["Sphinx (>=1.5.1)", "check-manifest (>=0.35)", "coverage (>=4.5.3)", "invenio-app (>=1.2.3)", "autoflake (>=1.3.1)", "isort (>=5.0.0)", "pydocstyle (>=3.0.0)", "pytest (>=4.6.4,<6.0.0)", "pytest-cache (>=1.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest-invenio (>=1.2.1)", "Sphinx (>=1.5.1)", "check-manifest (>=0.35)", "coverage (>=4.5.3)", "invenio-app (>=1.2.3)", "autoflake (>=1.3.1)", "isort (>=5.0.0)", "pydocstyle (>=3.0.0)", "pytest (>=4.6.4,<6.0.0)", "pytest-cache (>=1.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest-invenio (>=1.2.1)"]
+all = ["Sphinx (>=1.5.1)", "check-manifest (>=0.35)", "coverage (>=4.5.3)", "invenio-app (>=1.2.3)", "autoflake (>=1.3.1)", "isort (>=5.0.0)", "pydocstyle (>=3.0.0)", "pytest (>=4.6.4,<6.0.0)", "pytest-cache (>=1.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest-invenio (>=1.2.1,<1.3.0)", "Sphinx (>=1.5.1)", "check-manifest (>=0.35)", "coverage (>=4.5.3)", "invenio-app (>=1.2.3)", "autoflake (>=1.3.1)", "isort (>=5.0.0)", "pydocstyle (>=3.0.0)", "pytest (>=4.6.4,<6.0.0)", "pytest-cache (>=1.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest-invenio (>=1.2.1,<1.3.0)"]
 docs = ["Sphinx (>=1.5.1)"]
 elasticsearch5 = ["invenio-search (>=1.2.1)"]
 elasticsearch6 = ["invenio-search (>=1.2.1)"]
@@ -1808,13 +1809,12 @@ elasticsearch7 = ["invenio-search (>=1.2.1)"]
 mysql = ["invenio-db (>=1.0.4)"]
 postgresql = ["invenio-db (>=1.0.4)"]
 sqlite = ["invenio-db (>=1.0.4)"]
-tests = ["check-manifest (>=0.35)", "coverage (>=4.5.3)", "invenio-app (>=1.2.3)", "autoflake (>=1.3.1)", "isort (>=5.0.0)", "pydocstyle (>=3.0.0)", "pytest (>=4.6.4,<6.0.0)", "pytest-cache (>=1.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest-invenio (>=1.2.1)"]
+tests = ["check-manifest (>=0.35)", "coverage (>=4.5.3)", "invenio-app (>=1.2.3)", "autoflake (>=1.3.1)", "isort (>=5.0.0)", "pydocstyle (>=3.0.0)", "pytest (>=4.6.4,<6.0.0)", "pytest-cache (>=1.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest-invenio (>=1.2.1,<1.3.0)"]
 
 [package.source]
-reference = "f639099e8aa143f2c57b324fa2fa67d4969374de"
+reference = "e9b319f65bc6f23e6b527c422eb8e6a4f6299b4f"
 type = "git"
 url = "https://github.com/inveniosoftware-contrib/invenio-sip2.git"
-
 [[package]]
 category = "main"
 description = "Invenio standard theme."
