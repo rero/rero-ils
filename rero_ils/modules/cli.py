@@ -42,7 +42,7 @@ import requests
 import xmltodict
 import yaml
 from babel import Locale, core
-from celery.task.control import inspect
+from celery.bin.control import inspect
 from dojson.contrib.marc21.utils import create_record, split_stream
 from flask import current_app
 from flask.cli import with_appcontext
