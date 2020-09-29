@@ -330,15 +330,9 @@ def test_item_holding_document_availability(
     data = get_json(res)
     assert not data.get('can_request')
 
-    class current_i18n:
-        class locale:
-            language = 'en'
-    with mock.patch(
-        'rero_ils.modules.items.api.circulation.current_i18n',
-        current_i18n
-    ):
-        end_date = item.get_item_end_date(time_format=None)
-        assert item_availability_text(item) == 'due until ' + end_date
+    end_date = item.get_item_end_date(time_format=None,
+                                      language='en')
+    assert item_availability_text(item) == 'due until ' + end_date
 
     """
     request second item with another patron and test document and holding

@@ -26,6 +26,9 @@ from flask import current_app
 from flask_security.utils import verify_password
 from werkzeug.local import LocalProxy
 
+from ..items.models import ItemStatus
+from ..patron_types.api import PatronType
+
 datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
 
@@ -62,3 +65,79 @@ def format_patron_address(patron):
         postal_code=patron.get('postal_code'),
         city=patron.get('city')
     )
+
+
+def get_patron_status(patron):
+    """Return patron status useful for sip2.
+
+    * check if the user is blocked ?
+    * check if the user reaches the maximum loans limit ?
+    * check if the user reaches the maximum fee amount limit ?
+
+    add PatronStatusType e.g.:
+        patron_status.add_patron_status_type(
+            SelfcheckPatronStatusTypes.CARD_REPORTED_LOST)
+
+    :return SelfcheckPatronStatus object or None.
+    """
+    if check_sip2_module():
+        from invenio_sip2.models import SelfcheckPatronStatus, \
+            SelfcheckPatronStatusTypes
+
+        patron_status = SelfcheckPatronStatus()
+        # check if patron is blocked
+        if patron.is_blocked:
+            patron_status.add_patron_status_type(
+                SelfcheckPatronStatusTypes.CHARGE_PRIVILEGES_DENIED)
+            patron_status.add_patron_status_type(
+                SelfcheckPatronStatusTypes.RENEWAL_PRIVILEGES_DENIED)
+            patron_status.add_patron_status_type(
+                SelfcheckPatronStatusTypes.RECALL_PRIVILEGES_DENIED)
+            patron_status.add_patron_status_type(
+                SelfcheckPatronStatusTypes.HOLD_PRIVILEGES_DENIED)
+
+        patron_type = PatronType.get_record_by_pid(patron.patron_type_pid)
+        # check the patron type checkout limit
+        if not patron_type.check_checkout_count_limit(patron):
+            patron_status.add_patron_status_type(
+                SelfcheckPatronStatusTypes.TOO_MANY_ITEMS_CHARGED)
+        # check the patron type fee amount limit
+        if not patron_type.check_fee_amount_limit(patron):
+            patron_status.add_patron_status_type(
+                SelfcheckPatronStatusTypes.EXCESSIVE_OUTSTANDING_FINES)
+            patron_status.add_patron_status_type(
+                SelfcheckPatronStatusTypes.EXCESSIVE_OUTSTANDING_FEES)
+        # check the patron type overdue limit
+        if not patron_type.check_overdue_items_limit(patron):
+            patron_status.add_patron_status_type(
+                SelfcheckPatronStatusTypes.TOO_MANY_ITEMS_OVERDUE)
+
+        return patron_status
+
+
+def map_media_type(media_type):
+    """Get mapped media type.
+
+    :param media_type: Document type
+    :return: sip2 media type (see invenio_sip2.models.SelfcheckMediaType)
+    """
+    return current_app.config.get('SIP2_MEDIA_TYPES').get(media_type, 'OTHER')
+
+
+def map_item_circulation_status(item_status):
+    """Get mapped item status.
+
+    :param item_status: Item circulation status
+    :return: sip2 circulation status
+             (see invenio_sip2.models.SelfcheckCirculationStatus)
+    """
+    circulation_status = {
+        ItemStatus.ON_SHELF: 'AVAILABLE',
+        ItemStatus.AT_DESK: 'WAITING_ON_HOLD_SHELF',
+        ItemStatus.ON_LOAN: 'CHARGED',
+        ItemStatus.IN_TRANSIT: 'IN_TRANSIT',
+        ItemStatus.EXCLUDED: 'OTHER',
+        ItemStatus.MISSING: 'MISSING',
+    }
+
+    return circulation_status.get(item_status, 'OTHER')
