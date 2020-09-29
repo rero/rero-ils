@@ -2362,5 +2362,16 @@ SIP2_REMOTE_ACTION_HANDLERS = dict(
             enable_patron='rero_ils.modules.selfcheck.api:enable_patron',
             account='rero_ils.modules.selfcheck.api:patron_information'
         ),
+        item_handlers=dict(
+            item='rero_ils.modules.selfcheck.api:item_information'
+        ),
     )
+)
+
+SIP2_MEDIA_TYPES = dict(
+    article='MAGAZINE',
+    book='BOOK',
+    journal='MAGAZINE',
+    sound='AUDIO',
+    video='VIDEO',
 )

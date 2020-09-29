@@ -25,6 +25,7 @@ from flask import Blueprint, current_app, flash, jsonify, redirect, \
     render_template, url_for
 from flask_babelex import gettext as _
 from flask_login import current_user
+from invenio_i18n.ext import current_i18n
 from invenio_records_ui.signals import record_viewed
 
 from .api import Item
@@ -132,7 +133,9 @@ def item_availability_text(item):
     else:
         text = ''
         if item.status == ItemStatus.ON_LOAN:
-            due_date = item.get_item_end_date(format='short', time_format=None)
+            due_date = item.get_item_end_date(
+                format='short', time_format=None,
+                language=current_i18n.locale.language)
             text = '{msg} {date}'.format(
                 msg=_('due until'),
                 date=due_date)
