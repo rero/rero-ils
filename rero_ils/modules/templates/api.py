@@ -26,15 +26,15 @@ from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
 
-# tmpl provider
+# provider
 TemplateProvider = type(
     'TemplateProvider',
     (Provider,),
     dict(identifier=TemplateIdentifier, pid_type='tmpl')
 )
-# tmpl minter
+# minter
 template_id_minter = partial(id_minter, provider=TemplateProvider)
-# tmpl fetcher
+# fetcher
 template_id_fetcher = partial(id_fetcher, provider=TemplateProvider)
 
 
@@ -46,6 +46,10 @@ class TemplatesSearch(IlsRecordsSearch):
 
         index = 'templates'
         doc_types = None
+        fields = ('*', )
+        facets = {}
+
+        default_filter = None
 
 
 class Template(IlsRecord):

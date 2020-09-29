@@ -26,31 +26,6 @@ from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
 
 
-def test_templates_permissions(
-        client, templ_doc_public_martigny, json_header):
-    """Test public template for document retrieval."""
-    item_url = url_for('invenio_records_rest.tmpl_item', pid_value='tmpl1')
-
-    res = client.get(item_url)
-    assert res.status_code == 401
-
-    res, _ = postdata(
-        client,
-        'invenio_records_rest.tmpl_list',
-        {}
-    )
-    assert res.status_code == 401
-
-    res = client.put(
-        url_for('invenio_records_rest.tmpl_item', pid_value='tmpl1'),
-        data={},
-        headers=json_header
-    )
-
-    res = client.delete(item_url)
-    assert res.status_code == 401
-
-
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_templates_get(client, templ_doc_public_martigny):
@@ -60,9 +35,7 @@ def test_templates_get(client, templ_doc_public_martigny):
 
     res = client.get(item_url)
     assert res.status_code == 200
-
     assert res.headers['ETag'] == '"{}"'.format(template.revision_id)
-
     data = get_json(res)
     assert template.dumps() == data['metadata']
 
@@ -77,11 +50,10 @@ def test_templates_get(client, templ_doc_public_martigny):
     assert data == json
     assert template.dumps() == data['metadata']
 
-    list_url = url_for('invenio_records_rest.tmpl_list', pid='tmpl1')
+    list_url = url_for('invenio_records_rest.tmpl_list', q='pid:tmpl1')
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-
     assert data['hits']['hits'][0]['metadata'] == template.replace_refs()
 
 
@@ -99,7 +71,7 @@ def test_filtered_templates_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total'] == 2
+    assert data['hits']['total']['value'] == 2
 
     # librarian martigny can have access to all public and his templates
     login_user_via_session(client, librarian_martigny_no_email.user)
@@ -108,7 +80,7 @@ def test_filtered_templates_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total'] == 2
+    assert data['hits']['total']['value'] == 2
 
     # librarian fully can have access to all public templates only
     login_user_via_session(client, librarian_fully_no_email.user)
@@ -117,7 +89,7 @@ def test_filtered_templates_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total'] == 1
+    assert data['hits']['total']['value'] == 1
 
     # Sion
     # librarian sion can have access to no templates
@@ -127,7 +99,7 @@ def test_filtered_templates_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total'] == 0
+    assert data['hits']['total']['value'] == 0
 
     # system librarian sion can have access to no templates
     login_user_via_session(client, system_librarian_sion_no_email.user)
@@ -136,19 +108,20 @@ def test_filtered_templates_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total'] == 0
+    assert data['hits']['total']['value'] == 0
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_templates_post_put_delete(client, org_martigny,
+                                   system_librarian_martigny_no_email,
                                    templ_doc_public_martigny_data,
                                    json_header):
     """Test template post."""
     # Create policy / POST
-    item_url = url_for('invenio_records_rest.tmpl_item', pid_value='1')
-    list_url = url_for('invenio_records_rest.tmpl_list', q='pid:1')
-    del templ_doc_public_martigny_data['pid']
+    item_url = url_for('invenio_records_rest.tmpl_item', pid_value='foo1')
+    list_url = url_for('invenio_records_rest.tmpl_list', q='pid:foo1')
+    templ_doc_public_martigny_data['pid'] = 'foo1'
     res, data = postdata(
         client,
         'invenio_records_rest.tmpl_list',
@@ -157,8 +130,7 @@ def test_templates_post_put_delete(client, org_martigny,
     assert res.status_code == 201
 
     # Check that the returned template matches the given data
-    templ_doc_public_martigny_data['pid'] = '1'
-
+    templ_doc_public_martigny_data['pid'] = 'foo1'
     assert data['metadata'] == templ_doc_public_martigny_data
 
     res = client.get(item_url)
@@ -175,7 +147,6 @@ def test_templates_post_put_delete(client, org_martigny,
         headers=json_header
     )
     assert res.status_code == 200
-    # assert res.headers['ETag'] != '"{}"'.format(librarie.revision_id)
 
     # Check that the returned template matches the given data
     data = get_json(res)
