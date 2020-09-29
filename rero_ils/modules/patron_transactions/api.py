@@ -165,6 +165,27 @@ class PatronTransaction(IlsRecord):
             .sort({'creation_date': {'order': 'asc'}})\
             .scan()
 
+    @classmethod
+    def get_last_transaction_by_loan_pid(cls, loan_pid, status=None):
+        """Return last fee for loan.
+
+        :param loan_pid: the loan PID
+        :param status: the status of transaction
+        :return: return last transaction transaction
+        """
+        query = PatronTransactionsSearch() \
+            .filter('term', loan__pid=loan_pid)
+        if status:
+            query = query.filter('term', status=status)
+        results = query\
+            .sort({'creation_date': {'order': 'desc'}})\
+            .source('pid').scan()
+        try:
+            pid = next(results).pid
+            return PatronTransaction.get_record_by_pid(pid)
+        except StopIteration:
+            pass
+
     @property
     def loan_pid(self):
         """Return the loan pid of the the overdue patron transaction."""
