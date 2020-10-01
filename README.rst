@@ -18,9 +18,13 @@
  `RERO ILS <https://github.com/rero/rero-ils>`_
 ==================================================
 
-.. image:: https://img.shields.io/travis/rero/rero-ils.svg
-        :alt: Travis status
-        :target: https://travis-ci.org/rero/rero-ils
+.. image:: https://github.com/rero/rero-ils/workflows/locked/badge.svg
+        :alt: Github actions status
+        :target: https://github.com/rero/rero-ils/actions?query=workflow%3Alocked
+
+.. image:: https://github.com/rero/rero-ils/workflows/deploy/badge.svg
+        :alt: Github actions status deploy
+        :target: https://github.com/rero/rero-ils/actions?query=workflow%3Adeploy
 
 .. image:: https://img.shields.io/coveralls/rero/rero-ils.svg
         :target: https://coveralls.io/r/rero/rero-ils

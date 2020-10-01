@@ -1,0 +1,32 @@
+name: deploy
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  test-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker compose up
+      run: docker-compose up -d
+    - name: Set up Python 3.6
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.6
+    - name: Install Poetry
+      uses: dschep/install-poetry-action@v1.2
+      with:
+        version: 1.0.10
+    - name: Use Python Dependency Cache
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/poetry.lock') }}
+    - name: Bootstrap
+      run: |
+        poetry run bootstrap --ci --deploy E2E=yes
+        poetry install --no-root --extras sip2
+        poetry run pip install --upgrade pip
+    - name: Run Test
+      run: |
+        poetry run run-tests

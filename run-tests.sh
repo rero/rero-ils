@@ -96,38 +96,38 @@ function pretests () {
 
 function tests () {
   info_msg "Tests All:"
-  unset PYTEST_ADDOPTS
+  export PYTEST_ADDOPTS="--color=yes"
   poetry run tests
 }
 
 function tests_api () {
   info_msg "Tests API:"
-  unset PYTEST_ADDOPTS
+  export PYTEST_ADDOPTS="--color=yes"
   poetry run pytest ./tests/api
 }
 function tests_e2e () {
   info_msg "Tests E2E:"
-  unset PYTEST_ADDOPTS
+  export PYTEST_ADDOPTS="--color=yes"
   poetry run pytest ./tests/e2e
 }
 function tests_scheduler () {
   info_msg "Tests Scheduler:"
-  unset PYTEST_ADDOPTS
+  export PYTEST_ADDOPTS="--color=yes"
   poetry run pytest ./tests/scheduler
 }
 function tests_ui () {
   info_msg "Tests UI:"
-  unset PYTEST_ADDOPTS
+  export PYTEST_ADDOPTS="--color=yes"
   poetry run pytest ./tests/ui
 }
 function tests_unit () {
   info_msg "Tests Unit:"
-  unset PYTEST_ADDOPTS
+  export PYTEST_ADDOPTS="--color=yes"
   poetry run pytest ./tests/unit
 }
 function tests_other () {
   info_msg "Tests Other:"
-  unset PYTEST_ADDOPTS
+  export PYTEST_ADDOPTS="--color=yes"
   poetry run pytest ./tests/conftest.py ./tests/test_version.py ./tests/utils.py
 }
 
@@ -170,9 +170,10 @@ if [ "$1" = "unit" ]
 fi
 if [ "$1" = "external" ]
   then
-    export PYTEST_ADDOPTS="--cov-append -m "external""
+    export PYTEST_ADDOPTS="--color=yes --cov-append -m "external""
     info_msg "External tests:"
-    poetry run tests ${@:2}
+    #poetry run tests ${@:2}
+    poetry run pytest tests/api/test_external_services.py
 fi
 
 
