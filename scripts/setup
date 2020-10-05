@@ -292,7 +292,7 @@ eval ${PREFIX} invenio utils reindex -t cipo --yes-i-know --no-info
 eval ${PREFIX} invenio utils runindex --raise-on-error
 
 info_msg "- Users: ${DATA_PATH}/users.json"
-eval ${PREFIX} invenio fixtures import_users ${DATA_PATH}/users.json -v --dbcommit --reindex
+eval ${PREFIX} invenio fixtures import_users ${DATA_PATH}/users.json -v
 
 info_msg "- ILL requests: ${DATA_PATH}/ill_request.json"
 eval ${PREFIX} invenio fixtures create_ill_requests -f ${DATA_PATH}/ill_requests.json

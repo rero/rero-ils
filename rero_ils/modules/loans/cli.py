@@ -136,8 +136,8 @@ def create_loans(infile, verbose, debug):
     for patron_data in to_block:
         barcode = patron_data.get('barcode')
         patron = Patron.get_patron_by_barcode(barcode)
-        patron['blocked'] = True
-        patron['blocked_note'] = patron_data.get('blocked', "")
+        patron['patron']['blocked'] = True
+        patron['patron']['blocked_note'] = patron_data.get('blocked', "")
         patron.update(
             patron,
             dbcommit=True,
@@ -386,22 +386,22 @@ def get_random_pickup_location(patron_pid, item):
 def get_random_patron(exclude_this_barcode):
     """Find a qualified patron other than exclude_this_barcode."""
     ptrn_to_exclude = Patron.get_patron_by_barcode(exclude_this_barcode)
-    ptty_pid = ptrn_to_exclude.replace_refs()['patron_type']['pid']
+    ptty_pid = ptrn_to_exclude.replace_refs()['patron']['type']['pid']
     org_pid = PatronType.get_record_by_pid(
         ptty_pid).replace_refs()['organisation']['pid']
     patrons = PatronsSearch()\
         .filter('term', roles='patron')\
         .filter('term', organisation__pid=org_pid)\
-        .source(['barcode']).scan()
+        .source(['patron']).scan()
     for patron in patrons:
-        if patron.barcode != exclude_this_barcode:
-            return Patron.get_patron_by_barcode(barcode=patron.barcode)
+        if patron.patron.barcode != exclude_this_barcode:
+            return Patron.get_patron_by_barcode(barcode=patron.patron.barcode)
     return None
 
 
 def get_random_librarian(patron):
     """Find a qualified staff user."""
-    ptty_pid = patron.replace_refs()['patron_type']['pid']
+    ptty_pid = patron.replace_refs()['patron']['type']['pid']
     org_pid = PatronType.get_record_by_pid(
         ptty_pid).replace_refs()['organisation']['pid']
     patrons = PatronsSearch()\

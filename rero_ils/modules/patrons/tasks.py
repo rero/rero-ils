@@ -45,12 +45,12 @@ def clean_obsolete_subscriptions():
         return sub_end_date < end_date
 
     for patron in Patron.patrons_with_obsolete_subscription_pids():
-        subscriptions = patron.get('subscriptions', [])
+        subscriptions = patron.patron.get('subscriptions', [])
         subscriptions = [sub for sub in subscriptions if not is_obsolete(sub)]
-        if not subscriptions and 'subscriptions' in patron:
-            del patron['subscriptions']
+        if not subscriptions and 'subscriptions' in patron.patron:
+            del patron['patron']['subscriptions']
         else:
-            patron['subscriptions'] = subscriptions
+            patron['patron']['subscriptions'] = subscriptions
 
         # NOTE : this update will trigger the listener
         #        `create_subscription_patron_transaction`. This listener will

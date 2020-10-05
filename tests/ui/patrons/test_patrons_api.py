@@ -63,7 +63,16 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
         )
 
     wrong_librarian_martigny_data_tmp = deepcopy(librarian_martigny_data_tmp)
-    wrong_librarian_martigny_data_tmp['subscriptions'] = [{
+    wrong_librarian_martigny_data_tmp.setdefault('patron', {
+        'expiration_date': '2023-10-07',
+        'barcode': '2050124311',
+        'type': {
+          '$ref': 'https://ils.rero.ch/api/patron_types/ptty2'
+        },
+        'communication_channel': 'email',
+        'communication_language': 'ita'
+    })
+    wrong_librarian_martigny_data_tmp['patron']['subscriptions'] = [{
         'start_date': '2000-01-01',
         'end_date': '2001-01-01',
         'patron_type': {'$ref': 'https://ils.rero.ch/api/patron_types/xxx'},
@@ -123,7 +132,15 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
     roles = Patron.available_roles
     data = {
         'roles': Patron.available_roles,
-        'patron_type': {'$ref': 'https://ils.rero.ch/api/patron_types/ptty2'}
+        'patron': {
+            'expiration_date': '2023-10-07',
+            'barcode': '2050124311',
+            'type': {
+              '$ref': 'https://ils.rero.ch/api/patron_types/ptty2'
+            },
+            'communication_channel': 'email',
+            'communication_language': 'ita'
+        }
     }
     ptrn.update(data, dbcommit=True)
     user_roles = [r.name for r in user.roles]
@@ -164,7 +181,8 @@ def test_get_patron(patron_martigny_no_email):
     patron = patron_martigny_no_email
     assert Patron.get_patron_by_email(patron.get('email')) == patron
     assert not Patron.get_patron_by_email('not exists')
-    assert Patron.get_patron_by_barcode(patron.get('barcode')) == patron
+    assert Patron.get_patron_by_barcode(
+        patron.patron.get('barcode')) == patron
     assert not Patron.get_patron_by_barcode('not exists')
 
     class user:
@@ -181,8 +199,7 @@ def test_user_librarian_can_delete(librarian_martigny):
 def test_get_patron_blocked_field(patron_martigny_no_email):
     """Test patron blocked field retrieval."""
     patron = Patron.get_patron_by_email(patron_martigny_no_email.get('email'))
-    assert 'blocked' in patron
-    assert patron.get('blocked', {}) is False
+    assert patron.patron.get('blocked') is False
 
 
 def test_get_patron_blocked_field_absent(patron2_martigny_no_email):

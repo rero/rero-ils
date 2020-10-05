@@ -45,7 +45,7 @@ def get_circ_policy(loan):
     )
 
     # checkouts and request are not allowed anymore for blocked patrons
-    if patron.get('blocked', False):
+    if patron.patron.get('blocked', False):
         result.update({
             "allow_checkout": False,
             "allow_requests": False,

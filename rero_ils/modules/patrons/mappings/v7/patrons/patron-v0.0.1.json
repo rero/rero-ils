@@ -66,15 +66,84 @@
       "phone": {
         "type": "keyword"
       },
-      "patron_type": {
+      "patron": {
         "properties": {
-          "pid": {
+          "type": {
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              }
+            }
+          },
+          "barcode": {
+            "type": "keyword",
+            "copy_to": "barcode"
+          },
+          "libraries": {
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              }
+            }
+          },
+          "expiration_date": {
+            "type": "date",
+            "fields": {
+              "analyzed": {
+                "type": "text"
+              }
+            }
+          },
+          "blocked": {
+            "type": "boolean"
+          },
+          "blocked_note": {
+            "type": "text"
+          },
+          "communication_channel": {
             "type": "keyword"
+          },
+          "communication_language": {
+            "type": "keyword"
+          },
+          "subscriptions": {
+            "properties": {
+              "patron_type": {
+                "properties": {
+                  "pid": {
+                    "type": "keyword"
+                  }
+                }
+              },
+              "patron_transaction": {
+                "properties": {
+                  "pid": {
+                    "type": "keyword"
+                  }
+                }
+              },
+              "start_date": {
+                "type": "date"
+              },
+              "end_date": {
+                "type": "date"
+              }
+            }
           }
         }
       },
-      "barcode": {
+      "roles": {
         "type": "keyword"
+      },
+      "notes": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "content": {
+            "type": "text"
+          }
+        }
       },
       "library": {
         "properties": {
@@ -87,48 +156,6 @@
         "properties": {
           "pid": {
             "type": "keyword"
-          }
-        }
-      },
-      "blocked": {
-        "type": "boolean"
-      },
-      "blocked_note": {
-        "type": "text"
-      },
-      "circulation_location_pid": {
-        "type": "keyword"
-      },
-      "roles": {
-        "type": "keyword"
-      },
-      "communication_channel": {
-        "type": "keyword"
-      },
-      "communication_language": {
-        "type": "keyword"
-      },
-      "subscriptions": {
-        "properties": {
-          "patron_type": {
-            "properties": {
-              "pid": {
-                "type": "keyword"
-              }
-            }
-          },
-          "patron_transaction": {
-            "properties": {
-              "pid": {
-                "type": "keyword"
-              }
-            }
-          },
-          "start_date": {
-            "type": "date"
-          },
-          "end_date": {
-            "type": "date"
           }
         }
       },

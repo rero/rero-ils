@@ -104,7 +104,7 @@ def test_due_soon_loans(client, librarian_martigny_no_email,
     assert not get_last_transaction_loc_for_item(item_pid)
 
     assert not item.patron_has_an_active_loan_on_item(
-        patron_martigny_no_email.get('barcode'))
+        patron_martigny_no_email.get('patron', {}).get('barcode'))
     assert item.can_delete
     assert item.available
 
@@ -525,14 +525,13 @@ def test_librarian_request_on_blocked_user(
 
     # request
     login_user_via_session(client, librarian_martigny_no_email.user)
-
     res, data = postdata(
         client,
         'api_item.librarian_request',
         dict(
             item_pid=item_lib_martigny.pid,
             patron_pid=patron3_martigny_blocked_no_email.pid,
-            pickup_location_pid=loc_public_martigny,
+            pickup_location_pid=loc_public_martigny.pid,
             transaction_library_pid=lib_martigny.pid,
             transaction_user_pid=librarian_martigny_no_email.pid
         )

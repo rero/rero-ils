@@ -66,31 +66,41 @@ def test_system_librarian_permissions(
     patron = deepcopy(record)
     counter = 1
     records = [{
-        'data': patron, 'role': ['patron'], 'patron_type': {
-            '$ref': 'https://ils.rero.ch/api/patron_types/ptty2'
+        'user': patron,
+        'patch': {
+            'roles': ['patron'],
+            'patron': {
+                'expiration_date': '2023-10-07',
+                'communication_channel': 'email',
+                'communication_language': 'ita',
+                'type': {
+                    '$ref': 'https://ils.rero.ch/api/patron_types/ptty2'
+                }
+            }
         }
     }, {
-        'data': librarian, 'role': ['librarian'], 'library': {
-            '$ref': 'https://ils.rero.ch/api/libraries/lib1'
+        'user': librarian,
+        'patch': {
+            'roles': ['librarian'],
+            'library': {'$ref': 'https://ils.rero.ch/api/libraries/lib1'}
         }
     }, {
-        'data': system_librarian, 'role': [
-            'librarian', 'system_librarian'
-        ], 'library': {
-            '$ref': 'https://ils.rero.ch/api/libraries/lib1'
+        'user': system_librarian,
+        'patch': {
+            'roles': ['librarian', 'system_librarian'],
+            'library': {
+                '$ref': 'https://ils.rero.ch/api/libraries/lib1'
+            }
         }
     }]
     for record in records:
         counter += 1
-        data = record['data']
-        data['roles'] = record['role']
-        data['barcode'] = 'barcode' + str(counter)
+        data = record['user']
+        data.update(record['patch'])
+        if data.get('patron'):
+            data['patron']['barcode'] = 'barcode' + str(counter)
         data['email'] = str(counter) + '@domain.com'
         data['username'] = 'user' + str(counter)
-        if record.get('patron_type'):
-            data['patron_type'] = record['patron_type']
-        if record.get('library'):
-            data['library'] = record['library']
         with mock.patch('rero_ils.modules.patrons.api.'
                         'send_reset_password_instructions'):
             res, _ = postdata(

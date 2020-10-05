@@ -37,11 +37,9 @@ datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 @click.command('import_users')
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
 @click.option('-p', '--password', 'password', default='123456')
-@click.option('-r', '--reindex', 'reindex', is_flag=True, default=False)
-@click.option('-c', '--dbcommit', 'dbcommit', is_flag=True, default=False)
 @click.argument('infile', type=click.File('r'))
 @with_appcontext
-def import_users(infile, verbose, password, dbcommit, reindex):
+def import_users(infile, verbose, password):
     """Import users.
 
     :param verbose: this function will be verbose.

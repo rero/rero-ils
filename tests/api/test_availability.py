@@ -47,7 +47,8 @@ def test_item_can_request(
             'api_item.can_request',
             item_pid=item_lib_martigny.pid,
             library_pid=lib_martigny.pid,
-            patron_barcode=patron_martigny_no_email.get('barcode')
+            patron_barcode=patron_martigny_no_email.get(
+                'patron', {}).get('barcode')
         )
     )
     assert res.status_code == 401
@@ -62,7 +63,8 @@ def test_item_can_request(
             'api_item.can_request',
             item_pid=item_lib_martigny.pid,
             library_pid=lib_martigny.pid,
-            patron_barcode=patron_martigny_no_email.get('barcode')
+            patron_barcode=patron_martigny_no_email.get(
+                'patron', {}).get('barcode')
         )
     )
     assert res.status_code == 200
@@ -75,7 +77,8 @@ def test_item_can_request(
             'api_item.can_request',
             item_pid=item_lib_martigny.pid,
             library_pid=lib_martigny.pid,
-            patron_barcode=system_librarian_martigny_no_email.get('barcode')
+            patron_barcode=system_librarian_martigny_no_email.get(
+                'patron', {}).get('barcode')
         )
     )
     assert res.status_code == 200
@@ -88,7 +91,8 @@ def test_item_can_request(
             'api_item.can_request',
             item_pid='no_item',
             library_pid=lib_martigny.pid,
-            patron_barcode=patron_martigny_no_email.get('barcode')
+            patron_barcode=patron_martigny_no_email.get(
+                'patron', {}).get('barcode')
         )
     )
     assert res.status_code == 404
@@ -99,7 +103,8 @@ def test_item_can_request(
             'api_item.can_request',
             item_pid=item_lib_martigny.pid,
             library_pid='no_library',
-            patron_barcode=patron_martigny_no_email.get('barcode')
+            patron_barcode=patron_martigny_no_email.get(
+                'patron', {}).get('barcode')
         )
     )
     assert res.status_code == 404
@@ -123,7 +128,8 @@ def test_item_can_request(
             'api_item.can_request',
             item_pid=item_lib_martigny.pid,
             library_pid=lib_martigny.pid,
-            patron_barcode=patron_martigny_no_email.get('barcode')
+            patron_barcode=patron_martigny_no_email.get(
+                'patron', {}).get('barcode')
         )
     )
     assert res.status_code == 200
@@ -316,7 +322,8 @@ def test_item_holding_document_availability(
             'api_item.can_request',
             item_pid=item_lib_martigny.pid,
             library_pid=lib_martigny.pid,
-            patron_barcode=patron_martigny_no_email.get('barcode')
+            patron_barcode=patron_martigny_no_email.get(
+                'patron', {}).get('barcode')
         )
     )
     assert res.status_code == 200
@@ -436,7 +443,8 @@ def test_availability_cipo_allow_request(
         url_for(
             'api_item.can_request',
             item_pid=item_lib_martigny.pid,
-            patron_barcode=patron_martigny_no_email.get('barcode')
+            patron_barcode=patron_martigny_no_email.get(
+                'patron', {}).get('barcode')
         )
     )
     assert res.status_code == 200
