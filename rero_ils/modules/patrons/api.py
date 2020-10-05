@@ -109,11 +109,9 @@ class Patron(IlsRecord):
         and test of pid existence.
         """
         super(Patron, self).validate(**kwargs)
-        validation_message = self.extended_validation(**kwargs)
-        self.pids_exist_check = self.get_pid_exist_test(self)
         # We only like to run pids_exist_check if validation_message is True
         # and not a string with error from extended_validation
-        if validation_message and self.pid_check:
+        if self.pid_check:
             from ..utils import pids_exists_in_data
             if self.is_patron:
                 validation_message = pids_exists_in_data(
@@ -121,8 +119,8 @@ class Patron(IlsRecord):
                         pid_type=self.provider.pid_type,
                         pid=self.pid
                     ),
-                    data=self,
-                    required={'ptty': 'patron_type'},
+                    data=self.get('patron'),
+                    required={'ptty': 'type'},
                     not_required={}
                 ) or True
             if self.is_librarian:
@@ -135,7 +133,7 @@ class Patron(IlsRecord):
                     required={'lib': 'library'},
                     not_required={}
                 ) or True
-        subscriptions = self.get('subscriptions')
+        subscriptions = self.get('patron', {}).get('subscriptions')
         if subscriptions and validation_message:
             for subscription in subscriptions:
                 subscription_validation_message = pids_exists_in_data(
@@ -203,27 +201,6 @@ class Patron(IlsRecord):
         self._update_roles()
         return self
 
-    @classmethod
-    def get_pid_exist_test(cls, data):
-        """Test if library or patron type $ref pid exist.
-
-        :param data: Data to find the information for the pids to test.
-        :return: dictionary with pid types to test.
-        """
-        roles = data.get('roles', [])
-        if 'system_librarian' in roles or 'librarian' in roles:
-            return {
-                'required': {
-                    'lib': 'library'
-                }
-            }
-        elif 'patron' in roles:
-            return {
-                'required': {
-                    'ptty': 'patron_type'
-                }
-            }
-
     def delete(self, force=False, delindex=False):
         """Delete record and persistent identifier."""
         self._remove_roles()
@@ -245,7 +222,9 @@ class Patron(IlsRecord):
                     patron[field] = getattr(
                         profile, field).strftime('%Y-%m-%d')
                 else:
-                    patron[field] = getattr(profile, field)
+                    value = getattr(profile, field)
+                    if value not in [None, '']:
+                        patron[field] = value
             super(Patron, patron).update(dict(patron), True, True)
 
     @classmethod
@@ -399,7 +378,7 @@ class Patron(IlsRecord):
         search = PatronsSearch()
         result = search.filter(
             'term',
-            barcode=barcode
+            patron__barcode=barcode
         ).source(includes='pid').scan()
         try:
             patron_pid = next(result).pid
@@ -425,7 +404,7 @@ class Patron(IlsRecord):
             or Patron.get_patron_by_barcode(kwargs.get('patron_barcode')) \
             or Patron.get_record_by_pid(kwargs.get('patron_pid'))
         # a blocked patron can't request any item
-        if patron.get('blocked', False):
+        if patron.patron.get('blocked', False):
             return False, ['Patron is blocked']
         return True, []
 
@@ -436,7 +415,7 @@ class Patron(IlsRecord):
             end_date = datetime.now()
         end_date = end_date.strftime('%Y-%m-%d')
         results = PatronsSearch()\
-            .filter('range', subscriptions__end_date={'lt': end_date})\
+            .filter('range', patron__subscriptions__end_date={'lt': end_date})\
             .source('pid')\
             .scan()
         for result in results:
@@ -446,8 +425,9 @@ class Patron(IlsRecord):
     def get_patrons_without_subscription(cls, patron_type_pid):
         """Get patrons linked to patron_type that haven't any subscription."""
         query = PatronsSearch() \
-            .filter('term', patron_type__pid=patron_type_pid) \
-            .filter('bool', must_not=[Q('exists', field="subscriptions")])
+            .filter('term', patron__type__pid=patron_type_pid) \
+            .filter('bool', must_not=[
+                Q('exists', field="patron__subscriptions")])
         for res in query.source('pid').scan():
             yield Patron.get_record_by_pid(res.pid)
 
@@ -478,6 +458,11 @@ class Patron(IlsRecord):
         return initial
 
     @property
+    def patron(self):
+        """Patron property shorcut."""
+        return self.get('patron', {})
+
+    @property
     def formatted_name(self):
         """Return the best possible human readable patron name."""
         name_parts = [
@@ -490,7 +475,7 @@ class Patron(IlsRecord):
     @property
     def patron_type_pid(self):
         """Shortcut for patron type pid."""
-        return self.replace_refs().get('patron_type', {}).get('pid')
+        return self.replace_refs().get('patron', {}).get('type', {}).get('pid')
 
     def get_number_of_loans(self):
         """Get number of loans."""
@@ -593,7 +578,7 @@ class Patron(IlsRecord):
         if self.patron_type_pid:
             patron_type = PatronType.get_record_by_pid(self.patron_type_pid)
             if patron_type.is_subscription_required:
-                for sub in self.get('subscriptions', []):
+                for sub in self.get('patron', {}).get('subscriptions', []):
                     # not need to check if the subscription is for the
                     # current patron.patron_type. If patron.patron_type
                     # change while a subscription is still pending, this
@@ -611,7 +596,9 @@ class Patron(IlsRecord):
             start = datetime.strptime(subscription['start_date'], '%Y-%m-%d')
             end = datetime.strptime(subscription['end_date'], '%Y-%m-%d')
             return start < datetime.now() < end
-        subs = filter(is_subscription_valid, self.get('subscriptions', []))
+        subs = filter(
+            is_subscription_valid,
+            self.get('patron', {}).get('subscriptions', []))
         return list(subs)
 
     def add_subscription(self, patron_type, start_date, end_date,
@@ -626,7 +613,7 @@ class Patron(IlsRecord):
             self, patron_type, start_date, end_date,
             dbcommit=dbcommit, reindex=reindex, delete_pid=delete_pids)
         if transaction:
-            subscriptions = self.get('subscriptions', [])
+            subscriptions = self.get('patron', {}).get('subscriptions', [])
             subscriptions.append({
                 'patron_type': {
                     '$ref': get_ref_for_pid('ptty', patron_type.pid)
@@ -637,7 +624,7 @@ class Patron(IlsRecord):
                 'start_date': start_date.strftime('%Y-%m-%d'),
                 'end_date': end_date.strftime('%Y-%m-%d'),
             })
-            self['subscriptions'] = subscriptions
+            self['patron']['subscriptions'] = subscriptions
             self.update(self, dbcommit=dbcommit, reindex=reindex)
 
     def get_pending_subscriptions(self):
@@ -646,7 +633,7 @@ class Patron(IlsRecord):
         # In a normal process, the maximum number of subscriptions for a patron
         # is two : current subscription and possibly next one.
         pending_subs = []
-        for sub in self.get('subscriptions', []):
+        for sub in self.get('patron', {}).get('subscriptions', []):
             trans_pid = extracted_data_from_ref(
                 sub['patron_transaction'], data='pid')
             transaction = PatronTransaction.get_record_by_pid(trans_pid)

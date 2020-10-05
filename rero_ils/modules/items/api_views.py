@@ -138,7 +138,7 @@ def do_item_jsonify_action(func):
             if data.get('patron_pid'):
                 patron = Patron.get_record_by_pid(data.get('patron_pid'))
             # Add more info in case of blocked patron (for UI)
-            if patron and patron.get('blocked', {}) is True:
+            if patron and patron.patron.get('blocked') is True:
                 abort(403, "BLOCKED USER")
             abort(403, str(error))
         except NotFound as error:
@@ -353,7 +353,7 @@ def item(item_barcode):
             if action == 'checkout' and circ_policy.get('allow_checkout'):
                 if item.number_of_requests() > 0:
                     patron_barcode = Patron.get_record_by_pid(
-                        patron_pid).get('barcode')
+                        patron_pid).get('patron', {}).get('barcode')
                     if item.patron_request_rank(patron_barcode) == 1:
                         new_actions.append(action)
                 else:

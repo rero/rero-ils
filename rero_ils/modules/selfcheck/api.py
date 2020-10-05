@@ -104,7 +104,7 @@ def enable_patron(barcode, **kwargs):
             'patron_status': patron_status,
             'language': patron.get('communication_language', 'und'),
             'institution_id': patron.get_organisation().get('code'),
-            'patron_id': patron.get('barcode'),
+            'patron_id': patron.patron.get('barcode'),
             'patron_name': patron.formatted_name
         }
 

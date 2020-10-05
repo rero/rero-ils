@@ -2583,7 +2583,15 @@
       "system_librarian",
       "librarian"
     ],
-    "barcode": "sys_ptrn1"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "sys_ptrn1",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/ptty1"
+      },
+      "communication_channel": "email",
+      "communication_language": "eng"
+    }
   },
   "ptrn2": {
     "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
@@ -2665,47 +2673,68 @@
     "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
     "pid": "ptrn6",
     "first_name": "Louis",
-    "barcode": "4098124352",
     "last_name": "Roduit",
     "street": "Avenue Leopold-Robert, 13",
     "postal_code": "1920",
     "city": "Martigny",
     "birth_date": "1947-06-07",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/ptty1"
-    },
     "username": "louis",
     "email": "lroduit@gmail.com",
     "phone": "+41324993156",
-    "communication_language": "eng",
-    "communication_channel": "email",
     "roles": [
       "patron"
     ],
-    "blocked": false,
-    "blocked_note": "Check that even if blocking block exists, user is safe."
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "blocked": false,
+      "blocked_note": "Check that even if blocking block exists, user is safe.",
+      "barcode": "4098124352",
+      "libraries": [
+        {
+          "$ref": "https://ils.rero.ch/api/libraries/lib1"
+        }
+      ],
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/ptty1"
+      },
+      "communication_channel": "email",
+      "communication_language": "eng"
+    },
+    "notes": [
+      {
+        "type": "public_note",
+        "content": "This person will be in vacations.\nWill be back in february."
+      },
+      {
+        "type": "staff_note",
+        "content": "A kind person."
+      }
+    ]
   },
   "ptrn7": {
     "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
     "pid": "ptrn7",
     "first_name": "Louise",
-    "barcode": "40981212452",
     "last_name": "Moret",
     "street": "Avenue de la Gare, 13",
     "postal_code": "1920",
     "city": "Martigny",
     "birth_date": "1967-07-07",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/ptty2"
-    },
     "username": "louise",
     "email": "lmoret@gmail.com",
     "phone": "+41324993151",
-    "communication_language": "eng",
-    "communication_channel": "email",
     "roles": [
       "patron"
-    ]
+    ],
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "40981212452",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/ptty2"
+      },
+      "communication_channel": "email",
+      "communication_language": "eng"
+    }
   },
   "ptrn8": {
     "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
@@ -2748,75 +2777,89 @@
     "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
     "pid": "ptrn10",
     "first_name": "Jules",
-    "barcode": "4090124789243",
     "last_name": "Rard",
     "street": "Avenue de la Gare, 132",
     "postal_code": "1950",
     "city": "Sion",
     "birth_date": "1967-06-07",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/ptty4"
-    },
     "username": "jules",
     "email": "reroilstest+jules@gmail.com",
     "phone": "+41324993673",
-    "communication_language": "eng",
-    "communication_channel": "email",
     "roles": [
       "patron"
-    ]
+    ],
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "4090124789243",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/ptty4"
+      },
+      "communication_channel": "email",
+      "communication_language": "eng"
+    }
   },
   "ptrn11": {
     "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
     "pid": "ptrn11",
     "first_name": "Marvin",
-    "barcode": "42421313000",
     "last_name": "Lorgne",
     "street": "Avenue de la Gare, 42",
     "postal_code": "1920",
     "city": "Martigny",
     "birth_date": "1958-01-12",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/ptty2"
-    },
     "username": "marvin",
     "email": "mlorgne@gmail.com",
     "phone": "+41324993142",
-    "communication_language": "eng",
-    "communication_channel": "email",
+    "roles": [
+      "patron"
+    ],
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "blocked": true,
+      "blocked_note": "Lost card",
+      "barcode": "42421313000",
+      "libraries": [
+        {
+          "$ref": "https://ils.rero.ch/api/libraries/lib1"
+        },
+        {
+          "$ref": "https://ils.rero.ch/api/libraries/lib2"
+        }
+      ],
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/ptty2"
+      },
+      "communication_channel": "email",
+      "communication_language": "eng"
+    }
+  },
+  "ptrn12": {
+    "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
+    "pid": "ptrn12",
+    "first_name": "Omar",
+    "last_name": "Sharif",
+    "street": "Avenue de la Gare, 26",
+    "postal_code": "1920",
+    "city": "Martigny",
+    "birth_date": "1928-01-01",
+    "email": "sharifo@gmail.com",
+    "username": "omar",
+    "phone": "+41324991231",
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib1"
     },
     "roles": [
       "patron"
     ],
-    "blocked": true,
-    "blocked_note": "Lost card"
-  },
-  "ptrn12": {
-    "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
-    "pid": "ptrn12",
-    "first_name": "Omar",
-    "barcode": "5127891213",
-    "last_name": "Sharif",
-    "street": "Avenue de la Gare, 26",
-    "postal_code": "1920",
-    "city": "Martigny",
-    "birth_date": "1928-01-01",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/ptty2"
-    },
-    "email": "sharifo@gmail.com",
-    "username": "omar",
-    "phone": "+41324991231",
-    "communication_language": "fre",
-    "communication_channel": "email",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/lib1"
-    },
-    "roles": [
-      "patron"
-    ]
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "5127891213",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/ptty2"
+      },
+      "communication_channel": "email",
+      "communication_language": "fre"
+    }
   },
   "dummy_notif": {
     "$schema": "https://ils.rero.ch/schemas/notifications/notification-v0.0.1.json",

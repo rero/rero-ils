@@ -60,13 +60,13 @@ def test_authorize_patron(sip2_patron_martigny_no_email):
     """Test authorize patron."""
 
     # authorize failed login
-    response = authorize_patron(sip2_patron_martigny_no_email.get('barcode'),
-                                'invalid_password')
+    response = authorize_patron(sip2_patron_martigny_no_email.get(
+        'patron', {}).get('barcode'), 'invalid_password')
     assert not response
 
     # authorize success
     response = authorize_patron(
-        sip2_patron_martigny_no_email.get('barcode'),
+        sip2_patron_martigny_no_email.get('patron', {}).get('barcode'),
         sip2_patron_martigny_no_email.get('birth_date'))
     assert response
 
@@ -74,7 +74,8 @@ def test_authorize_patron(sip2_patron_martigny_no_email):
 def test_validate_patron(patron_martigny):
     """Test validate patron."""
     # test valid patron barcode
-    assert validate_patron_account(patron_martigny.get('barcode'))
+    assert validate_patron_account(
+        patron_martigny.get('patron', {}).get('barcode'))
 
     # test invalid patron barcode
     assert not validate_patron_account('invalid_barcode')
@@ -88,7 +89,8 @@ def test_system_status(sip2_librarian_martigny_no_email):
 
 def test_enable_patron(sip2_patron_martigny_no_email):
     """Test enable patron."""
-    response = enable_patron(sip2_patron_martigny_no_email.get('barcode'))
+    response = enable_patron(
+        sip2_patron_martigny_no_email.get('patron', {}).get('barcode'))
     assert response['institution_id'] == sip2_patron_martigny_no_email\
         .organisation_pid
     assert response['patron_id']
@@ -116,5 +118,6 @@ def test_patron_information(client, sip2_librarian_martigny_no_email,
     actions = data.get('action_applied')
     loan_pid = actions[LoanAction.CHECKOUT].get('pid')
 
-    response = patron_information(sip2_patron_martigny_no_email.get('barcode'))
+    response = patron_information(sip2_patron_martigny_no_email.get(
+        'patron', {}).get('barcode'))
     assert response

@@ -45,7 +45,7 @@ class Dispatcher:
                 #  ...
             }
             dispatcher_function = communication_switcher.get(
-                data['loan']['patron']['communication_channel'],
+                data['loan']['patron']['patron']['communication_channel'],
                 not_yet_implemented
             )
             dispatcher_function(data)
@@ -55,7 +55,8 @@ class Dispatcher:
                     ('Notification: {pid} chanel: {chanel} type:'
                      '{type} loan: {lpid}').format(
                         pid=notification['pid'],
-                        chanel=data['loan']['patron']['communication_channel'],
+                        chanel=data['loan']['patron']
+                                   ['patron']['communication_channel'],
                         type=notification['notification_type'],
                         lpid=data['loan']['pid']
                     )
@@ -66,7 +67,7 @@ class Dispatcher:
     def send_mail(data):
         """Send the notification by email."""
         notification_type = data.get('notification_type')
-        language = data['loan']['patron']['communication_language']
+        language = data['loan']['patron']['patron']['communication_language']
         template = 'email/{type}/{lang}.txt'.format(
             type=notification_type,
             lang=language

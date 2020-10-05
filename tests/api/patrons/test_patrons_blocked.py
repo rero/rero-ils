@@ -40,8 +40,8 @@ def test_blocked_field_exists(
     res = client.get(non_blocked_patron_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert 'blocked' in data['metadata']
-    assert data['metadata']['blocked'] is False
+    assert 'blocked' in data['metadata']['patron']
+    assert data['metadata']['patron']['blocked'] is False
 
     # blocked patron
     blocked_patron_url = url_for(
@@ -50,8 +50,8 @@ def test_blocked_field_exists(
     res = client.get(blocked_patron_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert 'blocked' in data['metadata']
-    assert data['metadata']['blocked'] is True
+    assert 'blocked' in data['metadata']['patron']
+    assert data['metadata']['patron']['blocked'] is True
 
 
 def test_blocked_field_not_present(
@@ -66,7 +66,7 @@ def test_blocked_field_not_present(
     res = client.get(item_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert 'blocked' not in data['metadata']
+    assert 'blocked' not in data['metadata']['patron']
 
 
 def test_blocked_patron_cannot_request(client,
@@ -82,7 +82,8 @@ def test_blocked_patron_cannot_request(client,
             'api_item.can_request',
             item_pid=item_lib_martigny.pid,
             library_pid=lib_martigny.pid,
-            patron_barcode=patron3_martigny_blocked_no_email.get('barcode')
+            patron_barcode=patron3_martigny_blocked_no_email.get(
+                'patron', {}).get('barcode')
         )
     )
     assert res.status_code == 200
@@ -95,7 +96,8 @@ def test_blocked_patron_cannot_request(client,
             'api_item.can_request',
             item_pid=item_lib_martigny.pid,
             library_pid=lib_martigny.pid,
-            patron_barcode=patron_martigny_no_email.get('barcode')
+            patron_barcode=patron_martigny_no_email.get(
+                'patron', {}).get('barcode')
         )
     )
     assert res.status_code == 200

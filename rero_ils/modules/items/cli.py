@@ -301,7 +301,7 @@ def get_patrons_barcodes():
     barcodes = []
     for uuid in patrons_ids:
         patron = Patron.get_record_by_id(uuid)
-        barcode = patron.get('barcode')
+        barcode = patron.patron.get('barcode')
         if barcode:
             barcodes.append(barcode)
     return barcodes

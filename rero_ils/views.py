@@ -251,7 +251,7 @@ def init_menu_profile():
         visible_when=lambda: current_user.is_authenticated,
         text='{icon} {profile}'.format(
             icon='<i class="fa fa-user"></i>',
-            profile=_('Profile')
+            profile=_('RERO ID')
         ),
         order=1,
         id='profile-menu',

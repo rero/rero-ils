@@ -78,7 +78,7 @@ def test_extract_data_from_ref(app, patron_sion_data,
                                patron_type_grown_sion):
     """Test extract_data_from_ref."""
     # Check real data
-    ptty = patron_sion_data['patron_type']
+    ptty = patron_sion_data['patron']['type']
     assert extracted_data_from_ref(ptty, data='pid') == 'ptty4'
     assert extracted_data_from_ref(ptty, data='resource') == 'patron_types'
     assert extracted_data_from_ref(ptty, data='record_class') == PatronType

@@ -48,7 +48,12 @@ def test_patron_permissions(
         "postal_code": "1920",
         "city": "Martigny",
         "birth_date": "1967-06-07",
-        "patron_type": {"$ref": "https://ils.rero.ch/api/patron_types/ptty1"},
+        "patron": {
+            "expiration_date": "2023-10-07",
+            "type": {"$ref": "https://ils.rero.ch/api/patron_types/ptty1"},
+            "communication_channel": "email",
+            "communication_language": "ita"
+        },
         "phone": "+41324993111"
     }
 
@@ -75,7 +80,7 @@ def test_patron_permissions(
         counter += 1
         data = record['data']
         data['roles'] = [record['role']]
-        data['barcode'] = 'barcode' + str(counter)
+        data['patron']['barcode'] = 'barcode' + str(counter)
         data['email'] = str(counter) + '@domain.com'
         with mock.patch('rero_ils.modules.patrons.api.'
                         'send_reset_password_instructions'):

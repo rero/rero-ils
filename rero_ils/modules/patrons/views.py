@@ -55,6 +55,7 @@ api_blueprint = Blueprint(
 
 _PID_REGEX = re.compile(r'NOT\s+pid:\s*(\w+)\s*')
 _EMAIL_REGEX = re.compile(r'email:"\s*(.*?)\s*"')
+_USERNAME_REGEX = re.compile(r'username:"\s*(.*?)\s*"')
 
 
 def check_permission(fn):
@@ -78,17 +79,24 @@ def number_of_patrons():
     The query should be one of the following forms:
       - `/api/patrons/count/?q=email:"test@test.ch"
       - `/api/patrons/count/?q=email:"test@test.ch" NOT pid:1
+      - `/api/patrons/count/?q=username:"test"
+      - `/api/patrons/count/?q=username:"test" NOT pid:1
 
     :return: The number of existing user account corresponding to the given
-    email.
+    email or username.
     :rtype: A JSON of the form:{"hits": {"total": 1}}
     """
     query = request.args.get('q')
     email = _EMAIL_REGEX.search(query)
-    if not email:
+    username = _USERNAME_REGEX.search(query)
+    if not email and not username:
         abort(400)
-    email = email.group(1)
-    s = PatronsSearch().query('match', email__analyzed=email)
+    if email:
+        email = email.group(1)
+        s = PatronsSearch().query('match', email__analyzed=email)
+    else:
+        username = username.group(1)
+        s = PatronsSearch().query('match', username__analyzed=username)
     exclude_pid = _PID_REGEX.search(query)
     if exclude_pid:
         exclude_pid = exclude_pid.group(1)
@@ -145,7 +153,7 @@ def logged_user():
 @register_menu(
     blueprint,
     'main.profile.patron_profile',
-    _('%(icon)s Patron Profile', icon='<i class="fa fa-book fa-fw"></i>'),
+    _('%(icon)s Profile', icon='<i class="fa fa-book fa-fw"></i>'),
     visible_when=user_has_patron,
     id="my-profile-menu"
 )
@@ -218,11 +226,11 @@ def profile(viewcode):
             ),
             'level': 'warning'  # bootstrap alert level
         }
-    if patron.get('blocked'):
+    if patron.patron.get('blocked'):
         alerts['blocking'] = {
             'messages': [
                 _('Your account is currently blocked. Reason: %(reason)s',
-                    reason=patron.get('blocked_note', ''))
+                    reason=patron.patron.get('blocked_note', ''))
             ],
             'level': 'danger'
         }

@@ -17,6 +17,7 @@
 
 """Invenio Account custom views."""
 
+from flask import current_app
 from invenio_accounts.views.rest import LoginView as CoreLoginView
 from invenio_accounts.views.rest import use_kwargs
 from invenio_userprofiles.models import UserProfile

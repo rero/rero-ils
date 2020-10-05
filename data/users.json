@@ -15,7 +15,13 @@
     },
     "phone": "+39324993597",
     "postal_code": "11100",
-    "street": "Viale Rue Gran Paradiso, 44"
+    "street": "Viale Rue Gran Paradiso, 44",
+    "notes": [
+      {
+        "type": "staff_note",
+        "content": "The first system librarian account."
+      }
+    ]
   },
   {
     "birth_date": "1974-03-21",
@@ -52,7 +58,6 @@
     "street": "Viale Carlo Cattaneo, 52"
   },
   {
-    "barcode": "2050124311",
     "birth_date": "1969-06-07",
     "city": "Aosta",
     "email": "reroilstest+simonetta@gmail.com",
@@ -62,19 +67,31 @@
       "patron"
     ],
     "last_name": "Casalini",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/1"
-    },
     "phone": "+39324993585",
     "postal_code": "11100",
     "street": "Via Croix Noire 3",
-    "communication_channel": "email",
-    "communication_language": "ita",
-    "blocked": false,
-    "blocked_note": "Test functionnality when active is false"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "blocked": false,
+      "barcode": "2050124311",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/1"
+      },
+      "communication_channel": "email",
+      "communication_language": "ita"
+    },
+    "notes": [
+      {
+        "type": "public_note",
+        "content": "This person will be in vacations.\nWill be back in february."
+      },
+      {
+        "type": "staff_note",
+        "content": "A kind person."
+      }
+    ]
   },
   {
-    "barcode": "2030124287",
     "birth_date": "2004-10-11",
     "city": "Aosta",
     "email": "reroilstest+helder@gmail.com",
@@ -84,13 +101,17 @@
       "patron"
     ],
     "last_name": "de Figueiredo Santos",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/2"
-    },
     "postal_code": "11100",
     "street": "Panoramica Collinare, 47",
-    "communication_channel": "email",
-    "communication_language": "ita"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "2030124287",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/2"
+      },
+      "communication_channel": "email",
+      "communication_language": "ita"
+    }
   },
   {
     "birth_date": "1969-02-01",
@@ -110,7 +131,6 @@
     "street": "Frazione Plan"
   },
   {
-    "barcode": "reroils1",
     "birth_date": "2001-12-12",
     "city": "Sion",
     "email": "reroilstest+philippe@gmail.com",
@@ -120,16 +140,19 @@
       "patron"
     ],
     "last_name": "Monnet",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/3"
-    },
     "postal_code": "1950",
     "street": "Rue du Nord 7",
-    "communication_channel": "email",
-    "communication_language": "fre"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "reroils1",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/3"
+      },
+      "communication_channel": "email",
+      "communication_language": "fre"
+    }
   },
   {
-    "barcode": "2000000001",
     "birth_date": "1970-05-25",
     "city": "Santa Clara",
     "email": "reroilstest+john@gmail.com",
@@ -139,17 +162,20 @@
       "patron"
     ],
     "last_name": "John",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/3"
-    },
     "phone": "+1408492280015",
     "postal_code": "95054",
     "street": "520 Scott Blvd",
-    "communication_channel": "email",
-    "communication_language": "eng"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "2000000001",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/3"
+      },
+      "communication_channel": "email",
+      "communication_language": "eng"
+    }
   },
   {
-    "barcode": "10000001",
     "birth_date": "1976-09-07",
     "city": "Lavey",
     "email": "reroilstest+alain@gmail.com",
@@ -159,17 +185,20 @@
       "patron"
     ],
     "last_name": "Premand",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/1"
-    },
     "phone": "+41795762233",
     "postal_code": "1892",
     "street": "Route du Village 6",
-    "communication_channel": "email",
-    "communication_language": "fre"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "10000001",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/1"
+      },
+      "communication_channel": "email",
+      "communication_language": "fre"
+    }
   },
   {
-    "barcode": "2050124312",
     "birth_date": "1961-11-24",
     "city": "Bellinzona",
     "email": "reroilstest+giulia@gmail.com",
@@ -179,17 +208,20 @@
       "patron"
     ],
     "last_name": "Broglio",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/1"
-    },
     "phone": "+41918264239",
     "postal_code": "6500",
     "street": "Piazza Collegiata 12",
-    "communication_channel": "email",
-    "communication_language": "ita"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "2050124312",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/1"
+      },
+      "communication_channel": "email",
+      "communication_language": "ita"
+    }
   },
   {
-    "barcode": "kad001",
     "birth_date": "1980-10-01",
     "city": "Martigny",
     "email": "reroilstest+katie@gmail.com",
@@ -199,17 +231,20 @@
       "patron"
     ],
     "last_name": "Carron",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/1"
-    },
     "phone": "+41792001020",
     "postal_code": "1920",
     "street": "Gare 45",
-    "communication_channel": "email",
-    "communication_language": "eng"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "kad001",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/1"
+      },
+      "communication_channel": "email",
+      "communication_language": "eng"
+    }
   },
   {
-    "barcode": "kad002",
     "birth_date": "1965-02-10",
     "city": "Fully",
     "email": "reroilstest+jules@gmail.com",
@@ -219,14 +254,18 @@
       "patron"
     ],
     "last_name": "Rard",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/1"
-    },
     "phone": "+41792500512",
     "postal_code": "1926",
     "street": "Vignettes 25",
-    "communication_channel": "email",
-    "communication_language": "ger"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "kad002",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/1"
+      },
+      "communication_channel": "email",
+      "communication_language": "ger"
+    }
   },
   {
     "birth_date": "1955-01-30",
@@ -247,7 +286,6 @@
     "street": "High Street"
   },
   {
-    "barcode": "3050124311",
     "birth_date": "1980-07-31",
     "city": "London",
     "email": "reroilstest+harry@gmail.com",
@@ -257,16 +295,19 @@
       "patron"
     ],
     "last_name": "Potter",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/4"
-    },
     "postal_code": "55555",
     "street": "Magic Street 3",
-    "communication_channel": "email",
-    "communication_language": "eng"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "3050124311",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/4"
+      },
+      "communication_channel": "email",
+      "communication_language": "eng"
+    }
   },
   {
-    "barcode": "3050124312",
     "birth_date": "1979-09-19",
     "city": "London",
     "email": "reroilstest+hermione@gmail.com",
@@ -276,13 +317,17 @@
       "patron"
     ],
     "last_name": "Granger",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/4"
-    },
     "postal_code": "55555",
     "street": "Diagon Alley 72",
-    "communication_channel": "email",
-    "communication_language": "eng"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "3050124312",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/4"
+      },
+      "communication_channel": "email",
+      "communication_language": "eng"
+    }
   },
   {
     "birth_date": "1900-01-01",
@@ -575,7 +620,6 @@
     "street": "no indication"
   },
   {
-    "barcode": "920001",
     "birth_date": "1941-01-31",
     "city": "Pregny-Chamb\u00e9sy",
     "email": "reroilstest+920001@gmail.com",
@@ -585,17 +629,20 @@
       "patron"
     ],
     "last_name": "Rh\u00e9aume",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/5"
-    },
     "phone": "+41316126321",
     "postal_code": "1292",
     "street": "Faubourg du Lac 6",
-    "communication_channel": "email",
-    "communication_language": "fre"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "920001",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/5"
+      },
+      "communication_channel": "email",
+      "communication_language": "fre"
+    }
   },
   {
-    "barcode": "920002",
     "birth_date": "1945-02-28",
     "city": "Franex",
     "email": "reroilstest+920002@gmail.com",
@@ -605,17 +652,20 @@
       "patron"
     ],
     "last_name": "Rocher",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/5"
-    },
     "phone": "+41913843044",
     "postal_code": "1489",
     "street": "Rue du Tr\u00e9sor 9",
-    "communication_channel": "email",
-    "communication_language": "fre"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "920002",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/5"
+      },
+      "communication_channel": "email",
+      "communication_language": "fre"
+    }
   },
   {
-    "barcode": "920003",
     "birth_date": "1950-03-27",
     "city": "Fregi\u00e9court",
     "email": "reroilstest+920003@gmail.com",
@@ -625,17 +675,20 @@
       "patron"
     ],
     "last_name": "Chalifour",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/5"
-    },
     "phone": "+41628609930",
     "postal_code": "2953",
     "street": "Rue de l'Industrie 46",
-    "communication_channel": "email",
-    "communication_language": "fre"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "920003",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/5"
+      },
+      "communication_channel": "email",
+      "communication_language": "fre"
+    }
   },
   {
-    "barcode": "920004",
     "birth_date": "1955-04-25",
     "city": "Neuch\u00e2tel",
     "email": "reroilstest+920004@gmail.com",
@@ -645,17 +698,20 @@
       "patron"
     ],
     "last_name": "Lamarre",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/5"
-    },
     "phone": "+41613956062",
     "postal_code": "2000",
     "street": "Avenue Max-Huber 2",
-    "communication_channel": "email",
-    "communication_language": "fre"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "920004",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/5"
+      },
+      "communication_channel": "email",
+      "communication_language": "fre"
+    }
   },
   {
-    "barcode": "920005",
     "birth_date": "1960-05-23",
     "city": "Sierre",
     "email": "reroilstest+920005@gmail.com",
@@ -665,17 +721,20 @@
       "patron"
     ],
     "last_name": "Boileau",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/5"
-    },
     "phone": "+41815333591",
     "postal_code": "3960",
     "street": "Rue de Montsalvens 3",
-    "communication_channel": "email",
-    "communication_language": "fre"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "920005",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/5"
+      },
+      "communication_channel": "email",
+      "communication_language": "fre"
+    }
   },
   {
-    "barcode": "920006",
     "birth_date": "1965-06-21",
     "city": "Bulle",
     "email": "reroilstest+920006@gmail.com",
@@ -685,17 +744,20 @@
       "patron"
     ],
     "last_name": "Doiron",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/5"
-    },
     "phone": "+41316126321",
     "postal_code": "1630",
     "street": "Rue du Vieux-Pont 3",
-    "communication_channel": "email",
-    "communication_language": "fre"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "920006",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/5"
+      },
+      "communication_channel": "email",
+      "communication_language": "fre"
+    }
   },
   {
-    "barcode": "920007",
     "birth_date": "1970-07-19",
     "city": "Unterrindal",
     "email": "reroilstest+920007@gmail.com",
@@ -705,17 +767,20 @@
       "patron"
     ],
     "last_name": "Beich",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/5"
-    },
     "phone": "+41562747247",
     "postal_code": "9604",
     "street": "Seefeldstrasse 37",
-    "communication_channel": "email",
-    "communication_language": "ger"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "920007",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/5"
+      },
+      "communication_channel": "email",
+      "communication_language": "ger"
+    }
   },
   {
-    "barcode": "920008",
     "birth_date": "1975-08-17",
     "city": "Kempten",
     "email": "reroilstest+920008@gmail.com",
@@ -725,17 +790,20 @@
       "patron"
     ],
     "last_name": "Fischer",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/5"
-    },
     "phone": "+41449166744",
     "postal_code": "8620",
     "street": "In Stierwisen 98",
-    "communication_channel": "email",
-    "communication_language": "ger"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "920008",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/5"
+      },
+      "communication_channel": "email",
+      "communication_language": "ger"
+    }
   },
   {
-    "barcode": "920009",
     "birth_date": "1980-09-15",
     "city": "Mettmenhasli",
     "email": "reroilstest+920009@gmail.com",
@@ -745,17 +813,20 @@
       "patron"
     ],
     "last_name": "Freeh",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/5"
-    },
     "phone": "+41523734083",
     "postal_code": "8155",
     "street": "Im Wingert 117",
-    "communication_channel": "email",
-    "communication_language": "ger"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "920009",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/5"
+      },
+      "communication_channel": "email",
+      "communication_language": "ger"
+    }
   },
   {
-    "barcode": "920010",
     "birth_date": "1985-10-13",
     "city": "Lenggenwil",
     "email": "reroilstest+920010@gmail.com",
@@ -765,17 +836,20 @@
       "patron"
     ],
     "last_name": "Schuhmacher",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/5"
-    },
     "phone": "+41318033434",
     "postal_code": "9525",
     "street": "Werkstrasse 136",
-    "communication_channel": "email",
-    "communication_language": "ger"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "920010",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/5"
+      },
+      "communication_channel": "email",
+      "communication_language": "ger"
+    }
   },
   {
-    "barcode": "920011",
     "birth_date": "1990-11-09",
     "city": "Thun",
     "email": "reroilstest+920011@gmail.com",
@@ -785,17 +859,20 @@
       "patron"
     ],
     "last_name": "Trommler",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/5"
-    },
     "phone": "+41278023434",
     "postal_code": "3605",
     "street": "L\u00fctzelfl\u00fchstrasse 120",
-    "communication_channel": "email",
-    "communication_language": "ger"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "920011",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/5"
+      },
+      "communication_channel": "email",
+      "communication_language": "ger"
+    }
   },
   {
-    "barcode": "920012",
     "birth_date": "1995-12-07",
     "city": "Brunnwil",
     "email": "reroilstest+920012@gmail.com",
@@ -805,17 +882,20 @@
       "patron"
     ],
     "last_name": "Ziegler",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/5"
-    },
     "phone": "+41222747247",
     "postal_code": "5637",
     "street": "\u00dcerklisweg 55",
-    "communication_channel": "email",
-    "communication_language": "ger"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "920012",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/5"
+      },
+      "communication_channel": "email",
+      "communication_language": "ger"
+    }
   },
   {
-    "barcode": "920013",
     "birth_date": "2000-01-05",
     "city": "Cevio",
     "email": "reroilstest+920013@gmail.com",
@@ -825,17 +905,20 @@
       "patron"
     ],
     "last_name": "Marcelo",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/5"
-    },
     "phone": "+41322747447",
     "postal_code": "6675",
     "street": "Via Verbano 109",
-    "communication_channel": "email",
-    "communication_language": "ita"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "920013",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/5"
+      },
+      "communication_channel": "email",
+      "communication_language": "ita"
+    }
   },
   {
-    "barcode": "920014",
     "birth_date": "2005-02-03",
     "city": "Tenna",
     "email": "reroilstest+920014@gmail.com",
@@ -845,17 +928,20 @@
       "patron"
     ],
     "last_name": "Folliero",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/5"
-    },
     "phone": "+41328619930",
     "postal_code": "7106",
     "street": "Quadra 93",
-    "communication_channel": "email",
-    "communication_language": "ita"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "920014",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/5"
+      },
+      "communication_channel": "email",
+      "communication_language": "ita"
+    }
   },
   {
-    "barcode": "920015",
     "birth_date": "2010-03-01",
     "city": "Caslano",
     "email": "reroilstest+920015@gmail.com",
@@ -865,17 +951,20 @@
       "patron"
     ],
     "last_name": "Bellucci",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/5"
-    },
     "phone": "+41313966062",
     "postal_code": "6987",
     "street": "Via Camischolas sura 63",
-    "communication_channel": "email",
-    "communication_language": "ita"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "920015",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/5"
+      },
+      "communication_channel": "email",
+      "communication_language": "ita"
+    }
   },
   {
-    "barcode": "920016",
     "birth_date": "1993-04-02",
     "city": "Bellinzona",
     "email": "reroilstest+920016@gmail.com",
@@ -885,17 +974,20 @@
       "patron"
     ],
     "last_name": "Colombo",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/5"
-    },
     "phone": "+41274865229",
     "postal_code": "6500",
     "street": "Lungolago 118",
-    "communication_channel": "email",
-    "communication_language": "ita"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "920016",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/5"
+      },
+      "communication_channel": "email",
+      "communication_language": "ita"
+    }
   },
   {
-    "barcode": "999999",
     "birth_date": "1970-01-01",
     "city": "Flueli-Ranft",
     "email": "reroilstest+guillaumeB@gmail.com",
@@ -905,14 +997,18 @@
       "patron"
     ],
     "last_name": "de Baskerville",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/5"
-    },
     "phone": "+41324993585",
     "postal_code": "6073",
     "street": "Ranftweg 1",
-    "communication_channel": "email",
-    "communication_language": "eng"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "999999",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/5"
+      },
+      "communication_channel": "email",
+      "communication_language": "eng"
+    }
   },
   {
     "birth_date": "1927-05-14",
@@ -952,7 +1048,6 @@
     "street": "Illogical street, 44"
   },
   {
-    "barcode": "cypress-1",
     "birth_date": "1931-03-22",
     "city": "Betelgeuse",
     "email": "reroilstest+james@gmail.com",
@@ -963,17 +1058,20 @@
     ],
     "last_name": "Kirk",
     "password": "123456",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/7"
-    },
     "phone": "+41324883598",
     "postal_code": "4242",
     "street": "Galaxy street",
-    "communication_channel": "email",
-    "communication_language": "eng"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "cypress-1",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/7"
+      },
+      "communication_channel": "email",
+      "communication_language": "eng"
+    }
   },
   {
-    "barcode": "cypress-2",
     "birth_date": "1932-12-28",
     "city": "Betelgeuse",
     "email": "reroilstest+nyota@gmail.com",
@@ -984,13 +1082,17 @@
     ],
     "last_name": "Uhura",
     "password": "123456",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/7"
-    },
     "phone": "+41324883123",
     "postal_code": "4242",
     "street": "Milky Way street",
-    "communication_channel": "email",
-    "communication_language": "eng"
+    "patron": {
+      "expiration_date": "2023-10-07",
+      "barcode": "cypress-2",
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/7"
+      },
+      "communication_channel": "email",
+      "communication_language": "eng"
+    }
   }
 ]

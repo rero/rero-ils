@@ -344,13 +344,13 @@ def test_patron_types_subscription(
     # Test 'get_linked_patrons' functions.
     assert len(list(patron_type_grown_sion.get_linked_patron())) == 1
     assert len(list(patron_type_youngsters_sion.get_linked_patron())) == 0
-    patron_sion_no_email['patron_type']['$ref'] = get_ref_for_pid(
+    patron_sion_no_email['patron']['type']['$ref'] = get_ref_for_pid(
         'ptty', patron_type_youngsters_sion.pid)
     patron_sion_no_email.update(patron_sion_no_email, dbcommit=True)
     patron_sion_no_email.reindex()
     assert len(list(patron_type_grown_sion.get_linked_patron())) == 0
     assert len(list(patron_type_youngsters_sion.get_linked_patron())) == 1
-    patron_sion_no_email['patron_type']['$ref'] = get_ref_for_pid(
+    patron_sion_no_email['patron']['type']['$ref'] = get_ref_for_pid(
         'ptty', patron_type_grown_sion.pid)
     patron_sion_no_email.update(patron_sion_no_email, dbcommit=True)
     patron_sion_no_email.reindex()

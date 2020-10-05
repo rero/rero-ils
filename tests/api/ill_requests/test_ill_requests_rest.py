@@ -71,8 +71,6 @@ def test_ill_requests_get(client, ill_request_martigny):
     data = get_json(res)
 
     metadata = data['hits']['hits'][0]['metadata']
-    from pprint import pprint
-    pprint(metadata)
     del metadata['organisation']  # organisation is added only for indexation
     assert metadata == ill_request.replace_refs()
 
