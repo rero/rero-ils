@@ -11,4 +11,4 @@ Document title   : {{ document.title_text }} / {{ document.responsibility_statem
 
 Patron name      : {{ patron.formatted_name }}
 Patron email     : {{ patron.email }}
-Patron barcode   : {{ patron.get('barcode') }}
+Patron barcode   : {{ patron.patron.get('barcode') }}

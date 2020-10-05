@@ -346,7 +346,7 @@ class Loan(IlsRecord):
         patron = Patron.get_record_by_pid(loan['patron_pid'])
         ptrn_data = patron.dumps()
         data['patron'] = {}
-        data['patron']['barcode'] = ptrn_data['barcode']
+        data['patron']['barcode'] = ptrn_data['patron']['barcode']
         data['patron']['name'] = ', '.join((
             ptrn_data['last_name'], ptrn_data['first_name']))
         if loan.get('pickup_location_pid'):
@@ -545,7 +545,8 @@ def patron_profile(patron):
                 loan['rank'] = 0
             if loan['state'] in [
                     LoanState.PENDING, LoanState.ITEM_IN_TRANSIT_FOR_PICKUP]:
-                loan['rank'] = item.patron_request_rank(patron['barcode'])
+                loan['rank'] = item.patron_request_rank(
+                    patron.patron['barcode'])
             requests.append(loan)
         elif loan['state'] in [
                 LoanState.ITEM_RETURNED, LoanState.CANCELLED]:

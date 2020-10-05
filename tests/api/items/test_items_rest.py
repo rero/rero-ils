@@ -353,7 +353,7 @@ def test_items_receive(client, librarian_martigny_no_email,
     item_pid = item.pid
     patron_pid = patron_martigny_no_email.pid
     assert not item.patron_has_an_active_loan_on_item(
-        patron_martigny_no_email.get('barcode'))
+        patron_martigny_no_email.get('patron', {}).get('barcode'))
     location = loc_public_martigny
     # checkout
     res, data = postdata(
@@ -372,7 +372,7 @@ def test_items_receive(client, librarian_martigny_no_email,
     assert item_data.get('status') == ItemStatus.ON_LOAN
     assert actions.get(LoanAction.CHECKOUT)
     assert item.patron_has_an_active_loan_on_item(
-        patron_martigny_no_email.get('barcode'))
+        patron_martigny_no_email.get('patron', {}).get('barcode'))
     loan_pid = actions[LoanAction.CHECKOUT].get('pid')
 
     # checkin
@@ -521,7 +521,7 @@ def test_items_deny_requests(client, librarian_martigny_no_email,
             'api_item.can_request',
             item_pid=item_pid,
             library_pid=lib_martigny.pid,
-            patron_barcode=patron.get('barcode')
+            patron_barcode=patron.patron.get('barcode')
         )
     )
     assert res.status_code == 200

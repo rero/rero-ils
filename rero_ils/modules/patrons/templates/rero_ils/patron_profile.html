@@ -28,6 +28,12 @@
       <div class="alert alert-{{ data['level'] }}" role="alert">{{ message }}</div>
     {% endfor %}
   {% endfor %}
+  {% set note=record.notes|selectattr('type', '==', 'public_note')|list|last%}
+  {% if note %}
+  <div class="alert alert-warning" role="alert">
+    {{note. content.replace('\n', '<br>')|safe}}
+  </div>
+  {% endif %}
 </section>
 
 <article class="mt-4">

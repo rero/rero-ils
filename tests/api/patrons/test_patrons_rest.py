@@ -40,7 +40,7 @@ def test_patrons_shortcuts(
     new_patron = deepcopy(patron_martigny_no_email)
     assert new_patron.patron_type_pid
     assert new_patron.organisation_pid
-    del new_patron['patron_type']
+    del new_patron['patron']['type']
     assert not new_patron.patron_type_pid
     assert not new_patron.organisation_pid
     assert new_patron.formatted_name == "Roduit, Louis"
@@ -86,8 +86,8 @@ def test_patron_has_valid_subscriptions(
 
     # 'patron_type_grown_sion' require a subscription
     # removed all stored subscription and test if subscription exists
-    if patron_sion.get('subscriptions'):
-        del patron_sion['subscriptions']
+    if patron_sion.get('patron', {}).get('subscriptions'):
+        del patron_sion['patron']['subscriptions']
     assert patron_type_grown_sion.is_subscription_required
     assert not patron_sion.has_valid_subscription
 
@@ -105,12 +105,12 @@ def test_patron_has_valid_subscriptions(
     start = datetime.now() - timedelta(days=20)
     end = start + timedelta(days=10)
     patron_sion.add_subscription(patron_type_grown_sion, start, end)
-    assert len(patron_sion.get('subscriptions', [])) == 2
+    assert len(patron_sion.get('patron', {}).get('subscriptions', [])) == 2
     assert len(patron_sion.get_valid_subscriptions()) == 1
 
     # remove old subscriptions. Create an old one and check the patron doesn't
     # have any valid subscription
-    del patron_sion['subscriptions']
+    del patron_sion['patron']['subscriptions']
     patron_sion.add_subscription(patron_type_grown_sion, start, end)
     # !! As `add_subscription` use the method `Patron.update`, then the signal
     #    `after_record_update` are send by invenio_records and the patron
@@ -118,13 +118,13 @@ def test_patron_has_valid_subscriptions(
     #    listener found that user doesn't have any subscription and add a valid
     #    one for this patron. So after `add_subscription` call, i just removed
     #    the valid subscription created.
-    del patron_sion['subscriptions'][1]
+    del patron_sion['patron']['subscriptions'][1]
     assert not patron_sion.has_valid_subscription
 
     # remove all subscriptions. Create a valid subscription other patron_type
     # than current patron.patron_type. Check if the patron has a valid
     # subscription
-    del patron_sion['subscriptions']
+    del patron_sion['patron']['subscriptions']
     start = datetime.now() - timedelta(seconds=10)
     end = datetime.now() + timedelta(days=10)
     patron_sion.add_subscription(patron_type_youngsters_sion, start, end)
@@ -145,7 +145,7 @@ def test_patron_has_valid_subscriptions(
     assert len(patrons) == 0
 
     # Reset the patron as at the beginning
-    del patron_sion['subscriptions']
+    del patron_sion['patron']['subscriptions']
     start = datetime.now()
     end = datetime.now() + timedelta(days=10)
     patron_sion.add_subscription(patron_type_grown_sion, start, end)
@@ -450,19 +450,19 @@ def test_patron_secure_api_delete(client, json_header,
 def test_patrons_dirty_barcode(
         client, patron_martigny_no_email, librarian_martigny_no_email):
     """Test patron update with dirty barcode."""
-    barcode = patron_martigny_no_email.get('barcode')
-    patron_martigny_no_email['barcode'] = ' {barcode} '.format(
+    barcode = patron_martigny_no_email.get('patron', {}).get('barcode')
+    patron_martigny_no_email['patron']['barcode'] = ' {barcode} '.format(
                 barcode=barcode
             )
     patron_martigny_no_email.update(
         patron_martigny_no_email, dbcommit=True, reindex=True)
     patron = Patron.get_record_by_pid(patron_martigny_no_email.pid)
-    assert patron.get('barcode') == barcode
+    assert patron.patron.get('barcode') == barcode
 
     # Ensure that users with no patron role will not have a barcode
     librarian_martigny_no_email.update(
         librarian_martigny_no_email, dbcommit=True, reindex=True)
-    assert not librarian_martigny_no_email.get('barcode')
+    assert not librarian_martigny_no_email.get('patron', {}).get('barcode')
 
 
 def test_patrons_count(client, patron_sion_no_email,
@@ -542,4 +542,13 @@ def test_patrons_count(client, patron_sion_no_email,
                     email=system_librarian_sion_no_email.get('email').upper()
                   ))
     res = client.get(url)
+    assert get_json(res) == dict(hits=dict(total=1))
+
+    # patron username
+    url = url_for('api_patrons.number_of_patrons',
+                  q='username:"{username}"'.format(
+                    username=patron_sion_no_email.get('username')
+                  ))
+    res = client.get(url)
+    assert res.status_code == 200
     assert get_json(res) == dict(hits=dict(total=1))

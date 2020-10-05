@@ -166,10 +166,11 @@
 </div>
 {% endmacro %}
 
-{% macro render_field(field, icon="", autofocus=False, errormsg=True, size="input-group-lg") %}
+{% macro render_field(field, icon="", autofocus=False, errormsg=True, size="input-group-lg", placeholder=None) %}
+{%- set placeholder = placeholder if placeholder else _(field.label.text | string) -%}
   <div class="input-group {{size}}{% if icon %} has-feedback{% endif %}{% if field.errors %} has-error{% endif %} mb-2">
     {%- set extras = dict(autofocus="") if autofocus else dict() %}
-    {{field(class_="form-control", placeholder=_(field.label.text | string), **extras)}}
+    {{field(class_="form-control", placeholder=placeholder, **extras)}}
     {%- if icon %}
     <div class="input-group-append">
     <span class="input-group-text">

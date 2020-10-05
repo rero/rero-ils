@@ -321,7 +321,8 @@ def item_record_to_a_specific_loan_state(
         item, actions = item.request(**params)
         loan = Loan.get_record_by_pid(actions[LoanAction.REQUEST].get('pid'))
         assert item.number_of_requests() >= 1
-        assert item.is_requested_by_patron(patron.get('barcode'))
+        assert item.is_requested_by_patron(patron.get(
+            'patron', {}).get('barcode'))
     if loan_state in [
             LoanState.ITEM_AT_DESK,
             LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,

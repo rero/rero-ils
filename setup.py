@@ -154,7 +154,7 @@ setup(
             'apiharvester = rero_ils.modules.apiharvester.cli:apiharvester',
             'fixtures = rero_ils.modules.cli:fixtures',
             'monitoring = rero_ils.modules.monitoring:monitoring',
-            'notifications = rero_ils.modules.notifications.cli:notifications'
+            'notifications = rero_ils.modules.notifications.cli:notifications',
             'oaiharvester = rero_ils.modules.ebooks.cli:oaiharvester',
             'scheduler = rero_ils.schedulers:scheduler',
             'utils = rero_ils.modules.cli:utils',

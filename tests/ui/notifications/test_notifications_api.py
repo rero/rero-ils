@@ -111,7 +111,9 @@ def test_notification_dispatch(app, mailbox):
             return {'loan': {
                 'pid': 'dummy_notification_loan_pid',
                 'patron': {
-                    'communication_channel': self.communication_channel
+                    'patron': {
+                        'communication_channel': self.communication_channel
+                    }
                 }
             }}
 

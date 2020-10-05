@@ -224,6 +224,9 @@ def trim_barcode_for_record(data=None):
     """
     if data and data.get('barcode'):
         data['barcode'] = data.get('barcode').strip()
+    if data and data.get('patron', {}).get('barcode'):
+        data['patron']['barcode'] = data.get(
+            'patron', {}).get('barcode').strip()
     return data
 
 
@@ -237,6 +240,9 @@ def generate_item_barcode(data=None):
     """
     if not data.get('barcode'):
         data['barcode'] = 'f-{}'.format(
+            datetime.now().strftime('%Y%m%d%I%M%S%f'))
+    if data.get('patron') and not data.get('patron', {}).get('barcode'):
+        data['patron']['barcode'] = 'f-{}'.format(
             datetime.now().strftime('%Y%m%d%I%M%S%f'))
     return data
 

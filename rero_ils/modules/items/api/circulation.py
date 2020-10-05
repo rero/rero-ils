@@ -1037,8 +1037,9 @@ class ItemCirculation(IlsRecord):
             if patron.organisation_pid != item.organisation_pid:
                 reasons.append("Item and patron are not in the same "
                                "organisation.")
-            if patron.get('barcode') and \
-               item.patron_has_an_active_loan_on_item(patron.get('barcode')):
+            if patron.patron.get('barcode') and \
+               item.patron_has_an_active_loan_on_item(
+                   patron.patron.get('barcode')):
                 reasons.append("Item is already checked-out or requested by "
                                "patron.")
         return len(reasons) == 0, reasons

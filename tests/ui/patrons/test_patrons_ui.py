@@ -125,10 +125,9 @@ def test_patrons_logged_user(client, librarian_martigny_no_email):
 
 def test_patrons_logged_user_resolve(
         client,
-        lib_martigny,
-        patron3_martigny_blocked_no_email):
+        librarian_martigny_no_email):
     """Test that patron library is resolved in JSON data."""
-    login_user_via_session(client, patron3_martigny_blocked_no_email.user)
+    login_user_via_session(client, librarian_martigny_no_email.user)
     res = client.get(url_for('patrons.logged_user', resolve=1))
     assert res.status_code == 200
     data = get_json(res)

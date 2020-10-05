@@ -39,7 +39,7 @@ def test_patron_can_delete(client, librarian_martigny_no_email,
     location = loc_public_martigny
 
     data = deepcopy(patron_martigny_no_email)
-    del data['patron_type']
+    del data['patron']['type']
     assert not data.get_organisation()
 
     # request
@@ -99,7 +99,8 @@ def test_patron_utils(client, librarian_martigny_no_email,
     assert not get_checkout_loan_for_item(item.pid)
 
     from rero_ils.modules.patrons.views import get_patron_from_barcode
-    assert get_patron_from_barcode(patron.get('barcode')) == patron
+    assert get_patron_from_barcode(
+        patron.patron.get('barcode')) == patron
 
 
 def test_librarian_pickup_locations(client, librarian_martigny_no_email,

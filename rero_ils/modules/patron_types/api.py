@@ -95,14 +95,14 @@ class PatronType(IlsRecord):
     def get_linked_patron(self):
         """Get patron linked to this patron type."""
         results = PatronsSearch()\
-            .filter('term', patron_type__pid=self.pid).source('pid').scan()
+            .filter('term', patron__type__pid=self.pid).source('pid').scan()
         for result in results:
             yield Patron.get_record_by_pid(result.pid)
 
     def get_number_of_patrons(self):
         """Get number of patrons."""
         return PatronsSearch()\
-            .filter('term', patron_type__pid=self.pid).source().count()
+            .filter('term', patron__type__pid=self.pid).source().count()
 
     def get_number_of_circ_policies(self):
         """Get number of circulation policies."""

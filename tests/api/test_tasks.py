@@ -125,20 +125,20 @@ def test_clear_and_renew_subscription(patron_type_grown_sion,
 
     # first step : clear all subscription for the patron and crate an new
     # obsolete subscription.
-    if 'subscriptions' in patron_sion_no_email:
-        del patron_sion_no_email['subscriptions']
+    if 'subscriptions' in patron_sion_no_email.get('patron', {}):
+        del patron_sion_no_email['patron']['subscriptions']
     start = datetime.now() - timedelta(days=200)
     end = start + timedelta(days=100)
     patron_sion.add_subscription(patron_type_grown_sion, start, end)
-    assert len(patron_sion.get('subscriptions', [])) == 1
-    assert patron_sion['subscriptions'][0]['end_date'] == \
+    assert len(patron_sion.get('patron', {}).get('subscriptions', [])) == 1
+    assert patron_sion.get('patron', {})['subscriptions'][0]['end_date'] == \
         end.strftime('%Y-%m-%d')
 
     # clean old subscription - Reload the patron and check they are no more
     # subscriptions
     clean_obsolete_subscriptions()
     patron_sion = Patron.get_record_by_pid(patron_sion.pid)
-    assert len(patron_sion.get('subscriptions', [])) == 0
+    assert len(patron_sion.get('patron', {}).get('subscriptions', [])) == 0
 
     # check for patron needed subscriptions and create new subscription if
     # needed. As our patron has no subscription and is still connected to
@@ -146,21 +146,21 @@ def test_clear_and_renew_subscription(patron_type_grown_sion,
     # new subscription for this patron
     check_patron_types_and_add_subscriptions()
     patron_sion = Patron.get_record_by_pid(patron_sion.pid)
-    assert len(patron_sion.get('subscriptions', [])) == 1
-    assert patron_sion['subscriptions'][0]['end_date'] == \
+    assert len(patron_sion.get('patron', {}).get('subscriptions', [])) == 1
+    assert patron_sion.get('patron', {})['subscriptions'][0]['end_date'] == \
         add_years(datetime.now(), 1).strftime('%Y-%m-%d')
 
     # run both operation using task_clear_and_renew_subscriptions` and check
     # the result. The patron should still have one subscription but end_date
     # must be today.
-    del patron_sion_no_email['subscriptions']
+    del patron_sion['patron']['subscriptions']
     start = datetime.now() - timedelta(days=200)
     end = start + timedelta(days=100)
     patron_sion.add_subscription(patron_type_grown_sion, start, end)
     task_clear_and_renew_subscriptions()
     patron_sion = Patron.get_record_by_pid(patron_sion.pid)
-    assert len(patron_sion.get('subscriptions', [])) == 1
-    assert patron_sion['subscriptions'][0]['end_date'] != \
+    assert len(patron_sion.get('patron', {}).get('subscriptions', [])) == 1
+    assert patron_sion.get('patron', {})['subscriptions'][0]['end_date'] != \
         end.strftime('%Y-%m-%d')
 
     # as we disconnect the `create_subscription_patron_transaction` listener

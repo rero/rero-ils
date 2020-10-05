@@ -62,6 +62,7 @@ def system_librarian_martigny(
         app,
         roles,
         lib_martigny,
+        patron_type_children_martigny,
         system_librarian_martigny_data):
     """Create Martigny system librarian record."""
     ptrn = Patron.create(
@@ -79,6 +80,7 @@ def system_librarian_martigny_no_email(
         app,
         roles,
         lib_martigny,
+        patron_type_children_martigny,
         system_librarian_martigny_data):
     """Create Martigny system librarian without sending reset password."""
     ptrn = Patron.create(
@@ -372,6 +374,7 @@ def patron_martigny(
 def patron_martigny_no_email(
         app,
         roles,
+        lib_martigny,
         patron_type_children_martigny,
         patron_martigny_data):
     """Create Martigny patron without sending reset password instruction."""
@@ -437,6 +440,7 @@ def patron3_martigny_blocked(
         app,
         roles,
         lib_martigny,
+        lib_saxon,
         patron_type_adults_martigny,
         patron3_martigny_blocked_data):
     """Create Martigny patron record."""
@@ -454,6 +458,8 @@ def patron3_martigny_blocked(
 def patron3_martigny_blocked_no_email(
         app,
         roles,
+        lib_martigny,
+        lib_saxon,
         patron_type_adults_martigny,
         patron3_martigny_blocked_data):
     """Create Martigny patron without sending reset password instruction."""
