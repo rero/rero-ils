@@ -17,34 +17,30 @@ You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
-// Logout
+
 Cypress.Commands.add("logout", () => {
-  // click on username
-  cy.get('#my-account-menu').click()
-  // Wait for the menu to open
-  // TODO: find a better way (same as setLanguageToEnglish command)
-  cy.wait(1000)
-  // then click on Logout link
-  cy.get('#logout-menu').click()
-})
+  cy.visit('/signout');
+  cy.contains('My account');
+});
 
 Cypress.Commands.add("login", (email, password) => {
-  // click on "My account"
-  cy.get('#my-account-menu').click()
-  cy.wait(1000)
-  cy.get('#login-menu').click()
-  cy.get('#email').type(email)
-  cy.get('#password').type(password)
-  cy.get('form[name="login_user_form"]').submit()
-})
+  cy.request({
+    method: 'POST',
+    url: '/api/login',
+    followRedirect: false,
+    body: {
+      'email': email,
+      'password': password
+    }
+  }).then(() => {
+    cy.visit('/lang/en'); // this forces the language to englis and preserves it even while using cy.visit
+    cy.get('body').should('contain', 'RERO ID');
+  });
+});
 
 // Login to professional interface
 Cypress.Commands.add("adminLogin", (email, password) => {
-  cy.login(email, password)
-  // set language to english BEFORE going to professional interface
-  cy.setLanguageToEnglish()
-  // go to professional interface
-  cy.get('#my-account-menu').click()
-  cy.get('#professional-interface-menu').click()
-  cy.url(60000).should('include', '/professional/')
- })
+  cy.login(email, password);
+  cy.visit('/professional');
+  cy.get('body').should('contain', 'RERO ILS administration');
+ });

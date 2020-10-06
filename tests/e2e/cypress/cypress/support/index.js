@@ -15,12 +15,14 @@
 
 // Import commands.js using ES2015 syntax:
 import './api'
-import './commands'
-import './utils'
 import './circulation'
-import './user'
+import './collection'
+import './commands'
+import './commands'
 import './navigation'
 import './record'
+import './user'
+import './utils'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

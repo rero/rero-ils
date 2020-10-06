@@ -1,0 +1,44 @@
+{
+  "course": {
+    "collection_id": "CRS 1",
+    "title": "Course number 1",
+    "collection_type": "course",
+    "teachers": [
+      {
+        "name": "Pr. Smith, John"
+      }
+    ],
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/22"
+      }
+    ],
+    "description": "List of items for course 1",
+    "subjects": [
+      {
+        "name": "Anne Nonyme"
+      },
+      {
+        "name": "geographic"
+      }
+    ],
+    "start_date": "2020-09-01",
+    "end_date": "2020-12-31",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/4"
+    },
+    "published": true
+  },
+  "exhibition": {
+    "collection_id": "Expo 1",
+    "title": "Expo \u2013 The Number 1",
+    "collection_type": "exhibition",
+    "description": "List of items for the exhibition",
+    "start_date": "2020-10-01",
+    "end_date": "2021-06-30",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/4"
+    },
+    "published": true
+  }
+}

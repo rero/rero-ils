@@ -46,15 +46,11 @@ describe('Circulation scenario A: standard loan', function() {
   before('Login as a professional and create a document and an item', function() {
     // Create server to watch api requests
     cy.server();
-    // Open app on frontpage
-    cy.visit('');
-    // Check language and force to english
-    cy.setLanguageToEnglish();
     // Login as librarian (Leonard)
     cy.adminLogin(this.users.librarians.leonard.email, this.common.uniquePwd);
     // Create a document
     // Go to document editor
-    cy.goToMenu('create-bibliographic-record-menu-frontpage');
+    cy.visit('/professional/records/documents/new');
     // Populate form with simple record
     cy.populateSimpleRecord(this.documents.book);
     //Save record
@@ -69,7 +65,7 @@ describe('Circulation scenario A: standard loan', function() {
   });
 
   after('Clean data: remove item and document', function() {
-    // TODO: find a way to preserve cookies (auth) and server after a test
+    cy.logout();
     cy.server();
     cy.route({method: 'DELETE', url: '/api/items/*'}).as('deleteItem');
     cy.adminLogin(this.users.librarians.leonard.email, this.common.uniquePwd);
@@ -106,7 +102,8 @@ describe('Circulation scenario A: standard loan', function() {
      */
     cy.adminLogin(this.users.librarians.leonard.email, this.common.uniquePwd);
     // Go to requests list
-    cy.goToMenu('requests-menu-frontpage')
+    cy.get('#user-services-menu').click();
+    cy.get('#requests-menu').click();
     // Check that the document is present
     cy.get('table').should('contain', this.itemBarcode)
     // Enter the barcode and validate
@@ -114,7 +111,8 @@ describe('Circulation scenario A: standard loan', function() {
 
     // The item should be marked as available in user profile view
     // Go to patrons list
-    cy.goToMenu('users-menu-frontpage')
+    cy.get('#user-services-menu').click();
+    cy.get('#users-menu').click();
     // Go to James patron profile
     cy.get('#' + this.users.patrons.james.barcode + '-loans').click()
     // Click on tab called "To pick up"
@@ -129,7 +127,8 @@ describe('Circulation scenario A: standard loan', function() {
      */
     cy.adminLogin(this.users.librarians.leonard.email, this.common.uniquePwd);
     // Go to circulation search bar
-    cy.goToMenu('circulation-menu-frontpage');
+    cy.get('#user-services-menu').click();
+    cy.get('#circulation-menu').click();
     // Checkout
     cy.scanPatronBarcodeThenItemBarcode(this.users.patrons.james, this.itemBarcode);
     // Item barcode should be present
@@ -143,13 +142,13 @@ describe('Circulation scenario A: standard loan', function() {
      */
     cy.adminLogin(this.users.librarians.leonard.email, this.common.uniquePwd);
     // Go to circulation search bar
-    cy.goToMenu('circulation-menu-frontpage');
+    cy.get('#user-services-menu').click();
+    cy.get('#circulation-menu').click();
     // Checkin
     cy.scanItemBarcode(this.itemBarcode);
     // CHeck that the item was checked in and that it is on shelf
     cy.get('#item-' + this.itemBarcode).should('contain', this.itemBarcode);
     cy.get('#item-' + this.itemBarcode).should('contain', 'on shelf');
     cy.get('#item-' + this.itemBarcode).should('contain', 'checked in');
-    cy.logout();
   });
 });

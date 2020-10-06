@@ -21,36 +21,30 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 before(function () {
   cy.fixture('users').then(function (userData) {
     this.users = userData;
-  })
+  });
   cy.fixture('common').then(function (commonData) {
     this.common = commonData;
-  })
+  });
   cy.fixture('templates').then(function (templateData) {
     this.templates = templateData;
-  })
-  cy.server();
-  cy.route({method: 'GET', url:'/api/templates/?q=*'}).as('api_template_search')
-  cy.route({method: 'GET', url:'**/professional/records/document**)'}).as('document_editor')
-  cy.route({method: 'POST', url:'/api/templates/'}).as('api_template_create')
-})
+    this.templateName = this.templates.templateA.name + cy.getCurrentDateAndHour();
+  });
+});
 
 describe('Templates: Create and use template for a document', function() {
 
-  before('Setting defaults', function() {
-    cy.visit('')
-    cy.setLanguageToEnglish()
-  })
+  before('Login as librarian', function() {
+    cy.login(this.users.librarians.spock.email, this.common.uniquePwd)
+    cy.server();
+    cy.route({method: 'GET', url:'/api/templates/?q=*'}).as('api_template_search');
+    cy.route({method: 'GET', url:'**/professional/records/document**)'}).as('document_editor');
+    cy.route({method: 'POST', url:'/api/templates/'}).as('api_template_create');
+  });
 
-  beforeEach('Login as admin and clean templates', function() {
-    const template = this.templates.templateA
-    cy.apiLogout()
-    cy.apiLogin(this.users.librarians.spock, this.common.uniquePwd)
-    cy.apiDeleteResources('templates', 'name:"'+template.name+'"')
-  })
-
-  after('Logout user', function() {
-    cy.apiLogout()
-  })
+  after('Delete resources and logout', function() {
+    cy.apiDeleteResources('templates', 'name:"'+this.templateName+'"');
+    cy.logout();
+  });
 
   it('Create a new template and use it in the editor', function() {
     const template = this.templates.templateA
@@ -63,7 +57,7 @@ describe('Templates: Create and use template for a document', function() {
     cy.get('#editor-save-button-dropdown-split')
       .find('li a.dropdown-item:nth-child(1)')  // TODO: Find a better way to retrieve the correct link to click
       .click()
-    cy.get('.modal-content #name').type(template.name)
+    cy.get('.modal-content #name').type(this.templateName)
     cy.get('.modal-content button:submit').click()
     cy.wait('@api_template_create')
     cy.url().should('include', 'records/templates/detail')
@@ -72,7 +66,7 @@ describe('Templates: Create and use template for a document', function() {
     cy.wait(2000)
     cy.get('#editor-load-template-button').click()
     cy.wait('@api_template_search')
-    cy.get('.modal-content #template').select(template.name)
+    cy.get('.modal-content #template').select(this.templateName)
     cy.get('.modal-content button:submit').click()
 
     cy.url(5000).should('include', '?source=templates&pid=')
