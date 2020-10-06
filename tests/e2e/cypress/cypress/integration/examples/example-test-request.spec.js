@@ -42,7 +42,6 @@ describe('Template: librarian request', function() {
   // the app in the right state to run the test
   before('Login as a professional and create an item', function() {
     console.log('before');
-    Cypress.Cookies.debug(true);
     // Create server to watch api requests
     cy.server();
     // Open app on frontpage
@@ -53,7 +52,8 @@ describe('Template: librarian request', function() {
     cy.adminLogin(this.users.librarians.spock.email, this.common.uniquePwd);
     // Create a document
     // Go to document editor
-    cy.goToMenu('create-bibliographic-record-menu-frontpage');
+    cy.get('#catalog-menu').click();
+    cy.get('#create-bibliographic-record-menu').click();
     // Populate form with simple record
     cy.populateSimpleRecord(this.documents.book);
     //Save record
@@ -65,6 +65,8 @@ describe('Template: librarian request', function() {
   // Runs before each test in the block
   beforeEach('Action to perform before each test', function() {
     console.log('before each');
+    // Preserve authentication information between the tests
+    Cypress.Cookies.preserveOnce('session');
   });
 
   // Runs after each test in the block
@@ -74,13 +76,10 @@ describe('Template: librarian request', function() {
 
   // Run after all tests in the block
   // Is used to restore data as they were before the test
-  // TODO: use token and API rest calls
   after('Clean data: remove request, item and document', function() {
     console.log('after');
-    // TODO: find a way to preserve cookies (auth) and server after a test
     cy.server();
     cy.route({method: 'DELETE', url: '/api/items/*'}).as('deleteItem');
-    cy.adminLogin(this.users.librarians.spock.email, this.common.uniquePwd);
     // Go to item detail view
     cy.goToProfessionalDocumentDetailView(this.itemBarcode);
     cy.get('#item-' + this.itemBarcode + ' div a[name=barcode]').click();
@@ -93,8 +92,9 @@ describe('Template: librarian request', function() {
     cy.get('#modal-confirm-button').click();
     cy.wait('@deleteItem');
     // Remove document
-    cy.reload(); // Bug: need to reload the page to unable the remove button
+    cy.reload(); // Bug: need to reload the page to enable the remove button
     cy.deleteRecordFromDetailView();
+    cy.logout();
   });
 
   // First test
@@ -112,17 +112,15 @@ describe('Template: librarian request', function() {
     cy.get('#item-' + this.itemBarcode + ' div a[name=barcode]').click({force:true});
     // Check that the request has been done
     cy.get('.card').should('contain', this.users.patrons.james.barcode);
-    cy.logout();
   });
 
   // Second test
   it('Second test: check the request in admin patron profile view', function() {
     console.log('second test');
-    cy.adminLogin(this.users.librarians.spock.email, this.common.uniquePwd);
-    cy.goToMenu('users-menu-frontpage');
+    cy.get('#user-services-menu').click();
+    cy.get('#users-menu').click();
     cy.get('#' + this.users.patrons.james.barcode + '-loans').click();
     cy.get('#pending-tab').click();
     cy.get('admin-main.ng-star-inserted > :nth-child(2)').should('contain', this.itemBarcode);
-    cy.logout();
   });
 });
