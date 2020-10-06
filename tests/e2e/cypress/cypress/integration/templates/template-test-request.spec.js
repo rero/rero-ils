@@ -119,7 +119,7 @@ describe('Template: librarian request', function() {
   it('Second test: check the request in admin patron profile view', function() {
     console.log('second test');
     cy.adminLogin(this.users.librarians.spock.email, this.common.uniquePwd);
-    cy.goToMenu('patrons-menu-frontpage');
+    cy.goToMenu('users-menu-frontpage');
     cy.get('#' + this.users.patrons.james.barcode + '-loans').click();
     cy.get('#pending-tab').click();
     cy.get('admin-main.ng-star-inserted > :nth-child(2)').should('contain', this.itemBarcode);
