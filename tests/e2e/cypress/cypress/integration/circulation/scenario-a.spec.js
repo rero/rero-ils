@@ -114,7 +114,7 @@ describe('Circulation scenario A: standard loan', function() {
 
     // The item should be marked as available in user profile view
     // Go to patrons list
-    cy.goToMenu('patrons-menu-frontpage')
+    cy.goToMenu('users-menu-frontpage')
     // Go to James patron profile
     cy.get('#' + this.users.patrons.james.barcode + '-loans').click()
     // Click on tab called "To pick up"
