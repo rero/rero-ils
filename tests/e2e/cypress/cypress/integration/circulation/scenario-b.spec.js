@@ -46,15 +46,11 @@ describe('Circulation scenario B: standard loan with transit', function() {
    * 6. The item is received at owning library and goes on shelf.
    */
   before('Login as a professional and create a document and an item', function() {
-    // Open app on frontpage
-    cy.visit('');
-    // Check language and force to english
-    cy.setLanguageToEnglish();
     // Login as librarian (Leonard)
     cy.adminLogin(this.users.librarians.leonard.email, this.common.uniquePwd);
     // Create a document
     // Go to document editor
-    cy.goToMenu('create-bibliographic-record-menu-frontpage');
+    cy.visit('/professional/records/documents/new');
     // Populate form with simple record
     cy.populateSimpleRecord(this.documents.book);
     //Save record
@@ -69,7 +65,7 @@ describe('Circulation scenario B: standard loan with transit', function() {
   });
 
   after('Clean data: remove item and document', function() {
-    // TODO: find a way to preserve cookies (auth) and server after a test
+    cy.logout();
     cy.server();
     cy.adminLogin(this.users.librarians.leonard.email, this.common.uniquePwd);
     // Go to document detail view and remove item
@@ -106,7 +102,8 @@ describe('Circulation scenario B: standard loan with transit', function() {
     // Login as librarian (Leonard)
     cy.adminLogin(this.users.librarians.leonard.email, this.common.uniquePwd);
     // Go to requests list
-    cy.goToMenu('requests-menu-frontpage')
+    cy.get('#user-services-menu').click();
+    cy.get('#requests-menu').click();
     // Check that the document is present
     cy.get('table').should('contain', this.itemBarcode);
     // Enter the barcode and validate
@@ -122,7 +119,8 @@ describe('Circulation scenario B: standard loan with transit', function() {
     // Login as librarian
     cy.adminLogin(this.users.librarians.spock.email, this.common.uniquePwd);
     // Go to checkin view
-    cy.goToMenu('circulation-menu-frontpage');
+    cy.get('#user-services-menu').click();
+    cy.get('#circulation-menu').click();
     // Enter item barcode for receive
     cy.get('#search').type(this.itemBarcode).type('{enter}');
     // Check that the item has been received
@@ -135,7 +133,8 @@ describe('Circulation scenario B: standard loan with transit', function() {
     // Login as librarian
     cy.adminLogin(this.users.librarians.spock.email, this.common.uniquePwd);
     // Go to checkin view
-    cy.goToMenu('circulation-menu-frontpage');
+    cy.get('#user-services-menu').click();
+    cy.get('#circulation-menu').click();
     // Checkout
     cy.scanPatronBarcodeThenItemBarcode(james, this.itemBarcode)
     // Check that the checkout has been done
@@ -148,7 +147,8 @@ describe('Circulation scenario B: standard loan with transit', function() {
     // Login as librarian
     cy.adminLogin(this.users.librarians.spock.email, this.common.uniquePwd);
     // Go to checkin view
-    cy.goToMenu('circulation-menu-frontpage');
+    cy.get('#user-services-menu').click();
+    cy.get('#circulation-menu').click();
     // Checkin
     cy.scanItemBarcode(this.itemBarcode);
     // Check that the checkin has been done
@@ -164,7 +164,8 @@ describe('Circulation scenario B: standard loan with transit', function() {
     // Login as librarian
     cy.adminLogin(this.users.librarians.leonard.email, this.common.uniquePwd);
     // Go to checkin view
-    cy.goToMenu('circulation-menu-frontpage');
+    cy.get('#user-services-menu').click();
+    cy.get('#circulation-menu').click();
     // Receive
     cy.scanItemBarcode(this.itemBarcode);
     // Check that the item has been received
@@ -172,6 +173,5 @@ describe('Circulation scenario B: standard loan with transit', function() {
     // Check that the item is on shelf
     cy.get('#item-' + this.itemBarcode + ' [name="circ-info"] [name="status"]')
     .should('contain', 'on shelf');
-    cy.logout();
   });
 });

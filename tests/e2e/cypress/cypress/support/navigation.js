@@ -29,28 +29,10 @@ Cypress.Commands.add("userProfile", (tabId) => {
   }
 })
 
-// Go to a specific menu from professional homepage
-// menuId: `id=` attribute content
-Cypress.Commands.add("goToMenu", (menuId) => {
-  // Go to professional homepage
-  cy.get('#homepage-logo').click()
-  // if already on professional, do nothing
-  cy.url().then((url) => {
-    if (!url.includes('/professional/')) {
-      cy.get('#my-account-menu').click()
-      cy.get('#professional-interface-menu').click()
-    }
-  })
-
-  // Check we're on admin page
-  cy.url(1000).should('include', '/professional/')
-  // Click on 'menuTitle' from Catalog menu
-  cy.get('#' + menuId).click()
-})
-
 Cypress.Commands.add("goToPublicDocumentDetailView", (itemBarcode) => {
   // Go to homepage
-  cy.get('#homepage-logo').click()
+  cy.visit('');
+  cy.setLanguageToEnglish();
   // on public context
   cy.get('.d-none > main-search-bar > .flex-grow-1 > .rero-ils-autocomplete > .form-control').clear()
   cy.get('.d-none > main-search-bar > .flex-grow-1 > .rero-ils-autocomplete > .form-control').type(itemBarcode).type('{enter}')

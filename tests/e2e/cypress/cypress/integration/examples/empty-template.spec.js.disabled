@@ -1,0 +1,55 @@
+/// <reference types="Cypress" />
+/*
+
+RERO ILS
+Copyright (C) 2020 RERO
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, version 3 of the License.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+*/
+
+before(function () {
+  // Run once before all
+  // Use to load fixtures and set variable needed in all tests
+  cy.fixture('users').then(function (userData) {
+    this.users = userData;
+  });
+  cy.fixture('common').then(function (commonData) {
+    this.common = commonData;
+  });
+});
+
+describe('Describe test suite here', function() {
+  // Run once before all tests in the block
+  // These steps are not part of the test, but need to be done in order to have
+  // the app in the right state to run the test
+  before('Login and prepare app for tests', function() {
+
+  });
+
+  beforeEach('Add description if needed', function() {
+    // Preserve authentication information between the tests
+    Cypress.Cookies.preserveOnce('session');
+  });
+
+  afterEach('Add description if needed', function() {
+  });
+
+  after('Clean data: ...', function() {
+
+  });
+
+  it('Describe the test here', function() {
+
+  });
+});

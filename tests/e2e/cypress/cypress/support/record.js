@@ -32,7 +32,7 @@ Cypress.Commands.add("createItemFromDocumentDetailView", (barcode, item) => {
   // Select location
   cy.get('select').eq(1).select(item.location)
   // Submit form
-  cy.get('.mt-4 > [type="submit"]').click()
+  cy.get('#editor-save-button').click()
   // Assert that the item has been created
   cy.get('.main-content').should('contain', barcode)
 })

@@ -32,10 +32,6 @@ before(function () {
 describe('Document editor', function() {
   before('Login as a professional and create an item', function() {
     this.spock = this.users.librarians.spock;
-    //Open app on frontpage
-    cy.visit('');
-    // Check language and force to english
-    cy.setLanguageToEnglish();
     // Login as librarian
     cy.adminLogin(this.spock.email, this.common.uniquePwd);
   });
@@ -43,11 +39,12 @@ describe('Document editor', function() {
   after('Clean data: remove document', function() {
     // Delete record
     cy.deleteRecordFromDetailView();
+    cy.logout();
   });
 
   it('Creates a document with only essential fields', function() {
     // Go to document editor
-    cy.goToMenu('create-bibliographic-record-menu-frontpage');
+    cy.visit('/professional/records/documents/new');
     // Populate form with simple record
     cy.populateSimpleRecord(this.documents.book);
     //Save record
