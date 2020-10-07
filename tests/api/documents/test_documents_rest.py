@@ -24,7 +24,8 @@ from datetime import datetime, timedelta
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata
+from utils import VerifyRecordPermissionPatch, get_json, mock_response, \
+    postdata
 
 from rero_ils.modules.documents.utils import clean_text
 from rero_ils.modules.documents.views import can_request, \
@@ -178,7 +179,7 @@ def test_documents_facets(
         assert aggs[facet]
 
     # FILTERS
-    # person contribution
+    # contribution
     list_url = url_for('invenio_records_rest.doc_list', view='global',
                        author='Peter James')
     res = client.get(list_url, headers=rero_json_header)
@@ -192,7 +193,7 @@ def test_documents_facets(
     data = get_json(res)
     assert data['hits']['total']['value'] == 1
 
-    # an other person contribution
+    # an other contribution
     list_url = url_for('invenio_records_rest.doc_list', view='global',
                        author='J.K. Rowling')
     res = client.get(list_url, headers=rero_json_header)
@@ -287,13 +288,17 @@ def test_documents_post_put_delete(
     assert res.status_code == 201
 
     # Check that the returned record matches the given data
-    assert clean_text(data['metadata']) == document_chinese_data
+    test_data = data['metadata']
+    test_data.pop('sort_title')
+    assert clean_text(test_data) == document_chinese_data
 
     res = client.get(item_url)
     assert res.status_code == 200
     data = get_json(res)
 
-    assert clean_text(data['metadata']) == document_chinese_data
+    test_data = data['metadata']
+    test_data.pop('sort_title')
+    assert clean_text(test_data) == document_chinese_data
     expected_title = [
         {
             '_text': '\u56fd\u9645\u6cd5 : subtitle (Chinese). '
@@ -502,8 +507,10 @@ def test_document_boosting(
     assert data['pid'] == ebook_1_data.get('pid')
 
 
+@mock.patch('requests.get')
 def test_documents_resolve(
-        client, loc_public_martigny, document_ref
+        mock_contributions_mef_get, client, loc_public_martigny, document_ref,
+        contribution_person_response_data
 ):
     """Test document detailed view with items filter."""
     res = client.get(url_for(
@@ -511,19 +518,24 @@ def test_documents_resolve(
         pid_value='doc2'
     ))
     assert res.json['metadata']['contribution'] == [{
-        'agent': {'$ref': 'https://mef.rero.ch/api/rero/A017671081'},
+        'agent': {
+            '$ref': 'https://mef.rero.ch/api/rero/A017671081',
+            'type': 'bf:Person'
+            },
         'role': ['aut']
     }]
     assert res.status_code == 200
 
+    mock_contributions_mef_get.return_value = mock_response(
+        json_data=contribution_person_response_data
+    )
     res = client.get(url_for(
         'invenio_records_rest.doc_item',
         pid_value='doc2',
         resolve='1'
     ))
-
     assert res.json['metadata']['contribution'][0]['agent']['sources'] == [
-        'rero', 'gnd', 'bnf'
+        'gnd', 'idref'
     ]
     assert res.status_code == 200
 

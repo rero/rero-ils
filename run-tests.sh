@@ -75,12 +75,10 @@ function pretests () {
   info_msg "Test isort:"
   isort --check-only --diff "${SCRIPT_PATH}"
   info_msg "Test useless imports:"
-  autoflake -c -r \
-    --remove-all-unused-imports \
-    --ignore-init-module-imports . \
-    &> /dev/null || \
-    error_msg+exit "\nUse this command to check imports: \n\tautoflake --remove-all-unused-imports -r --ignore-init-module-imports .\n"
-
+  autoflake -c -r --remove-all-unused-imports --ignore-init-module-imports . &> /dev/null || {
+    autoflake --remove-all-unused-imports -r --ignore-init-module-imports .
+    exit 1
+  }
   # info_msg "Check-manifest:"
   # TODO: check if this is required when rero-ils will be published
   # check-manifest --ignore ".travis-*,docs/_build*"

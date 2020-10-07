@@ -1,0 +1,46 @@
+{
+  "title": "Link to organisation entity",
+  "type": "object",
+  "additionalProperties": false,
+  "propertiesOrder": [
+    "type",
+    "$ref"
+  ],
+  "required": [
+    "type",
+    "$ref"
+  ],
+  "properties": {
+    "type": {
+      "title": "Type",
+      "type": "string",
+      "readOnly": true,
+      "default": "bf:Organisation",
+      "const": "bf:Organisation",
+      "form": {
+        "wrappers": [
+          "hide"
+        ]
+      }
+    },
+    "$ref": {
+      "title": "Organisation",
+      "type": "string",
+      "pattern": "^https://mef.rero.ch/api/gnd|idref|rero/.*?$",
+      "form": {
+        "remoteTypeahead": {
+          "type": "mef-organisations",
+          "enableGroupField": true
+        },
+        "templateOptions": {
+          "cssClass": "col-lg-12"
+        }
+      }
+    }
+  },
+  "form": {
+    "templateOptions": {
+      "cssClass": "row"
+    }
+  }
+}

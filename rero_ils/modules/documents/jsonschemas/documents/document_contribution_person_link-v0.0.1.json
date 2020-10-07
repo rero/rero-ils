@@ -3,19 +3,33 @@
   "type": "object",
   "additionalProperties": false,
   "propertiesOrder": [
+    "type",
     "$ref"
   ],
   "required": [
+    "type",
     "$ref"
   ],
   "properties": {
-    "$ref": {
-      "title": "MEF agent reference",
+    "type": {
+      "title": "Type",
       "type": "string",
-      "pattern": "^https://mef.rero.ch/api/bnf|gnd|idref|rero/.*?$",
+      "readOnly": true,
+      "default": "bf:Person",
+      "const": "bf:Person",
+      "form": {
+        "wrappers": [
+          "hide"
+        ]
+      }
+    },
+    "$ref": {
+      "title": "Person",
+      "type": "string",
+      "pattern": "^https://mef.rero.ch/api/gnd|idref|rero/.*?$",
       "form": {
         "remoteTypeahead": {
-          "type": "mef",
+          "type": "mef-persons",
           "enableGroupField": true
         },
         "templateOptions": {

@@ -36,13 +36,13 @@ from .utils import create_authorized_access_point, \
     title_format_text_alternate_graphic, title_format_text_head, \
     title_variant_format_text
 from ..collections.api import CollectionsSearch
+from ..contributions.api import Contribution
 from ..holdings.api import Holding
 from ..items.models import ItemCirculationAction, ItemNoteTypes
 from ..libraries.api import Library
 from ..locations.api import Location
 from ..organisations.api import Organisation
 from ..patrons.api import Patron, current_patron
-from ..persons.api import Person
 from ..utils import extracted_data_from_ref
 from ...permissions import login_and_librarian
 
@@ -169,18 +169,23 @@ def contribution_format(pid, language, viewcode, role=False):
     doc = doc.replace_refs()
     output = []
     for contribution in doc.get('contribution', []):
-        pers_pid = contribution['agent'].get('pid')
-        if pers_pid:
-            person = Person.get_record_by_pid(pers_pid)
+        cont_pid = contribution['agent'].get('pid')
+        if cont_pid:
+            contrib = Contribution.get_record_by_pid(cont_pid)
             # add link <a href="url">link text</a>
-            authorized_access_point = person.get_authorized_access_point(
+            authorized_access_point = contrib.get_authorized_access_point(
                 language=language
             )
-            line = '<a href="/{viewcode}/persons/{pid}">{text}</a>'.format(
-                viewcode=viewcode,
-                pid=pers_pid,
-                text=authorized_access_point
-            )
+            contribution_type = 'persons'
+            if contrib.get('type') == 'bf:Organisation':
+                contribution_type = 'corporate-bodies'
+            line = \
+                '<a href="/{viewcode}/{c_type}/{pid}">{text}</a>'.format(
+                    viewcode=viewcode,
+                    c_type=contribution_type,
+                    pid=cont_pid,
+                    text=authorized_access_point
+                )
         else:
             line = create_authorized_access_point(contribution['agent'])
 

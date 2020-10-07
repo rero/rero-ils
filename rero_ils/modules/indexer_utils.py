@@ -39,9 +39,9 @@ def record_to_index(record):
         schema = schema.get('$ref', '')
 
     # authorities specific transformation
-    if re.search(r'/authorities/', schema):
-        schema = re.sub(r'/authorities/', '/persons/', schema)
-        schema = re.sub(r'mef-person', 'person', schema)
+    if re.search(r'/mef/', schema):
+        schema = re.sub(r'/mef/', '/contributions/', schema)
+        schema = re.sub(r'mef-contribution', 'contribution', schema)
     index, doc_type = schema_to_index(schema, index_names=index_names)
 
     if index and doc_type:

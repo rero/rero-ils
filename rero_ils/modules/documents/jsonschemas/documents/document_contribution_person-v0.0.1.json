@@ -30,7 +30,6 @@
     },
     "preferred_name": {
       "title": "Name",
-      "description": "Agent's name.",
       "type": "string",
       "minLength": 1,
       "form": {

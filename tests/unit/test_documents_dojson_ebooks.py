@@ -570,8 +570,8 @@ def test_marc21_to_contribution():
                 'type': 'bf:Organisation',
                 'preferred_name': 'Biennale de céramique contemporaine',
                 'conference_date': '2003',
-                'conference_number': '17',
-                'conference_place': 'Châteauroux',
+                'numbering': '17',
+                'place': 'Châteauroux',
                 'conference': True
             },
             'role': ['aut']

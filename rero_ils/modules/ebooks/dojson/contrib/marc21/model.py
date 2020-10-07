@@ -192,20 +192,24 @@ def marc21_to_contribution(self, key, value):
                     subordinate_units.append(subordinate_unit.rstrip('.'))
                 agent['subordinate_unit'] = subordinate_units
             if value.get('n'):
-                conference_number = utils.force_list(value.get('n'))[0]
-                agent['conference_number'] = remove_trailing_punctuation(
-                    conference_number
+                numbering = utils.force_list(value.get('n'))[0]
+                agent['numbering'] = remove_trailing_punctuation(
+                    numbering
                 ).lstrip('(').rstrip(')')
             if value.get('d'):
                 conference_date = utils.force_list(value.get('d'))[0]
-                agent['conference_date'] = remove_trailing_punctuation(
+                conference_date = remove_trailing_punctuation(
                     conference_date
                 ).lstrip('(').rstrip(')')
+                if conference_date:
+                    agent['conference_date'] = conference_date
             if value.get('c'):
-                conference_place = utils.force_list(value.get('c'))[0]
-                agent['conference_place'] = remove_trailing_punctuation(
-                    conference_place
+                place = utils.force_list(value.get('c'))[0]
+                place = remove_trailing_punctuation(
+                    place
                 ).lstrip('(').rstrip(')')
+                if place:
+                    agent['place'] = place
         roles = ['aut']
         if value.get('4'):
             roles = []

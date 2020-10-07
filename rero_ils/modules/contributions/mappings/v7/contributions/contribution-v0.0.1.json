@@ -1,0 +1,370 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 1,
+    "max_result_window": 20000,
+    "analysis": {
+      "filter": {
+        "autocomplete_filter": {
+          "type": "edge_ngram",
+          "min_gram": 1,
+          "max_gram": 20
+        }
+      },
+      "analyzer": {
+        "autocomplete": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "autocomplete_filter"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
+    "properties": {
+      "autocomplete_name": {
+        "type": "text",
+        "analyzer": "autocomplete",
+        "search_analyzer": "standard"
+      },
+      "$schema": {
+        "type": "keyword"
+      },
+      "pid": {
+        "type": "keyword"
+      },
+      "type": {
+        "type": "keyword"
+      },
+      "viaf_pid": {
+        "type": "keyword"
+      },
+      "sources": {
+        "type": "keyword"
+      },
+      "gnd": {
+        "type": "object",
+        "properties": {
+          "$schema": {
+            "type": "keyword"
+          },
+          "pid": {
+            "type": "keyword"
+          },
+          "bf:Agent": {
+            "type": "keyword"
+          },
+          "md5": {
+            "type": "keyword"
+          },
+          "language": {
+            "type": "keyword"
+          },
+          "gender": {
+            "type": "keyword"
+          },
+          "identifier": {
+            "type": "keyword"
+          },
+          "date_of_birth": {
+            "type": "keyword"
+          },
+          "date_of_death": {
+            "type": "keyword"
+          },
+          "biographical_information": {
+            "type": "text",
+            "fields": {
+              "eng": {
+                "type": "text",
+                "analyzer": "english"
+              },
+              "fre": {
+                "type": "text",
+                "analyzer": "french"
+              },
+              "ger": {
+                "type": "text",
+                "analyzer": "german"
+              },
+              "ita": {
+                "type": "text",
+                "analyzer": "italian"
+              }
+            }
+          },
+          "preferred_name": {
+            "type": "text"
+          },
+          "authorized_access_point": {
+            "type": "text",
+            "copy_to": "autocomplete_name"
+          },
+          "qualifier": {
+            "type": "keyword"
+          },
+          "numeration": {
+            "type": "keyword"
+          },
+          "variant_name": {
+            "type": "text"
+          },
+          "date_of_establishment": {
+            "type": "text"
+          },
+          "date_of_termination": {
+            "type": "text"
+          },
+          "conference": {
+            "type": "keyword"
+          },
+          "variant_access_point": {
+            "type": "text",
+            "copy_to": "autocomplete_name"
+          },
+          "parallel_access_point": {
+            "type": "text",
+            "copy_to": "autocomplete_name"
+          },
+          "country_associated": {
+            "type": "keyword"
+          },
+          "deleted": {
+            "type": "date"
+          },
+          "relation_pid": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "keyword"
+              },
+              "type": {
+                "type": "keyword"
+              }
+            }
+          }
+        }
+      },
+      "idref": {
+        "type": "object",
+        "properties": {
+          "$schema": {
+            "type": "keyword"
+          },
+          "pid": {
+            "type": "keyword"
+          },
+          "bf:Agent": {
+            "type": "keyword"
+          },
+          "md5": {
+            "type": "keyword"
+          },
+          "language": {
+            "type": "keyword"
+          },
+          "gender": {
+            "type": "keyword"
+          },
+          "identifier": {
+            "type": "keyword"
+          },
+          "date_of_birth": {
+            "type": "keyword"
+          },
+          "date_of_death": {
+            "type": "keyword"
+          },
+          "biographical_information": {
+            "type": "text",
+            "fields": {
+              "eng": {
+                "type": "text",
+                "analyzer": "english"
+              },
+              "fre": {
+                "type": "text",
+                "analyzer": "french"
+              },
+              "ger": {
+                "type": "text",
+                "analyzer": "german"
+              },
+              "ita": {
+                "type": "text",
+                "analyzer": "italian"
+              }
+            }
+          },
+          "preferred_name": {
+            "type": "text"
+          },
+          "authorized_access_point": {
+            "type": "text",
+            "copy_to": "autocomplete_name"
+          },
+          "qualifier": {
+            "type": "keyword"
+          },
+          "numeration": {
+            "type": "keyword"
+          },
+          "variant_name": {
+            "type": "text"
+          },
+          "date_of_establishment": {
+            "type": "text"
+          },
+          "date_of_termination": {
+            "type": "text"
+          },
+          "conference": {
+            "type": "keyword"
+          },
+          "variant_access_point": {
+            "type": "text",
+            "copy_to": "autocomplete_name"
+          },
+          "parallel_access_point": {
+            "type": "text",
+            "copy_to": "autocomplete_name"
+          },
+          "country_associated": {
+            "type": "keyword"
+          },
+          "deleted": {
+            "type": "date"
+          },
+          "relation_pid": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "keyword"
+              },
+              "type": {
+                "type": "keyword"
+              }
+            }
+          }
+        }
+      },
+      "rero": {
+        "type": "object",
+        "properties": {
+          "$schema": {
+            "type": "keyword"
+          },
+          "pid": {
+            "type": "keyword"
+          },
+          "bf:Agent": {
+            "type": "keyword"
+          },
+          "md5": {
+            "type": "keyword"
+          },
+          "language": {
+            "type": "keyword"
+          },
+          "gender": {
+            "type": "keyword"
+          },
+          "identifier": {
+            "type": "keyword"
+          },
+          "date_of_birth": {
+            "type": "keyword"
+          },
+          "date_of_death": {
+            "type": "keyword"
+          },
+          "biographical_information": {
+            "type": "text",
+            "fields": {
+              "eng": {
+                "type": "text",
+                "analyzer": "english"
+              },
+              "fre": {
+                "type": "text",
+                "analyzer": "french"
+              },
+              "ger": {
+                "type": "text",
+                "analyzer": "german"
+              },
+              "ita": {
+                "type": "text",
+                "analyzer": "italian"
+              }
+            }
+          },
+          "preferred_name": {
+            "type": "text"
+          },
+          "authorized_access_point": {
+            "type": "text",
+            "copy_to": "autocomplete_name"
+          },
+          "qualifier": {
+            "type": "keyword"
+          },
+          "numeration": {
+            "type": "keyword"
+          },
+          "variant_name": {
+            "type": "text"
+          },
+          "date_of_establishment": {
+            "type": "text"
+          },
+          "date_of_termination": {
+            "type": "text"
+          },
+          "conference": {
+            "type": "keyword"
+          },
+          "variant_access_point": {
+            "type": "text",
+            "copy_to": "autocomplete_name"
+          },
+          "parallel_access_point": {
+            "type": "text",
+            "copy_to": "autocomplete_name"
+          },
+          "country_associated": {
+            "type": "keyword"
+          },
+          "deleted": {
+            "type": "date"
+          },
+          "relation_pid": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "keyword"
+              },
+              "type": {
+                "type": "keyword"
+              }
+            }
+          }
+        }
+      },
+      "organisations": {
+        "type": "keyword"
+      },
+      "_created": {
+        "type": "date"
+      },
+      "_updated": {
+        "type": "date"
+      }
+    }
+  }
+}

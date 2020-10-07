@@ -527,12 +527,12 @@ def unimarc_to_contribution(self, key, value):
     agent = {}
     agent['preferred_name'] = ', '.join(utils.force_list(value.get('a', '')))
     agent['type'] = 'bf:Person'
-    if agent['preferred_name']:
-        if value.get('b'):
-            agent['preferred_name'] += \
-                ', ' + ', '.join(utils.force_list(value.get('b')))
 
     if key[:3] in ['700', '701', '702', '703']:
+        if agent['preferred_name']:
+            if value.get('b'):
+                agent['preferred_name'] += \
+                    ', ' + ', '.join(utils.force_list(value.get('b')))
         if value.get('d'):
             agent['numeration'] = value.get('d')
 
@@ -563,15 +563,17 @@ def unimarc_to_contribution(self, key, value):
             if value.get('c'):
                 agent['preferred_name'] += \
                     ', ' + ', '.join(utils.force_list(value.get('c')))
+        if value.get('b'):
+            agent['subordinate_unit'] = utils.force_list(value.get('b'))
         if value.get('d'):
-            conference_number = utils.force_list(value.get('d'))[0]
-            agent['conference_number'] = remove_trailing_punctuation(
-                conference_number
+            numbering = utils.force_list(value.get('d'))[0]
+            agent['numbering'] = remove_trailing_punctuation(
+                numbering
             ).lstrip('(').rstrip(')')
         if value.get('e'):
-            conference_place = utils.force_list(value.get('e'))[0]
-            agent['conference_place'] = remove_trailing_punctuation(
-                conference_place
+            place = utils.force_list(value.get('e'))[0]
+            agent['place'] = remove_trailing_punctuation(
+                place
             ).lstrip('(').rstrip(')')
         if value.get('f'):
             conference_date = utils.force_list(value.get('f'))[0]

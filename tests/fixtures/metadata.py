@@ -25,10 +25,11 @@ import mock
 import pytest
 from utils import flush_index, mock_response
 
+from rero_ils.modules.contributions.api import Contribution, \
+    ContributionsSearch
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.items.api import Item, ItemsSearch
-from rero_ils.modules.persons.api import Person, PersonsSearch
 from rero_ils.modules.templates.api import Template, TemplatesSearch
 
 
@@ -205,26 +206,26 @@ def journal(app, journal_data):
 
 
 @pytest.fixture(scope="module")
-def person_data(data):
-    """Load mef person data."""
-    return deepcopy(data.get('pers1'))
+def contribution_person_data(data):
+    """Load mef contribution person data."""
+    return deepcopy(data.get('cont_pers'))
 
 
 @pytest.fixture(scope="function")
-def person_data_tmp(data):
-    """Load mef person data scope function."""
-    return deepcopy(data.get('pers1'))
+def contribution_person_data_tmp(data):
+    """Load mef contribution data person scope function."""
+    return deepcopy(data.get('cont_pers'))
 
 
 @pytest.fixture(scope="module")
-def person_response_data(person_data):
-    """Load mef person response data."""
+def contribution_person_response_data(contribution_person_data):
+    """Load mef contribution person response data."""
     json_data = {
         'hits': {
             'hits': [
                 {
-                    'id': person_data['pid'],
-                    'metadata': person_data
+                    'id': contribution_person_data['pid'],
+                    'metadata': contribution_person_data
                 }
             ]
         }
@@ -233,27 +234,55 @@ def person_response_data(person_data):
 
 
 @pytest.fixture(scope="module")
-def person(app, person_data):
-    """Create mef person record."""
-    pers = Person.create(
-        data=person_data,
+def contribution_organisation_data(data):
+    """Load mef contribution organisation data."""
+    return deepcopy(data.get('cont_org'))
+
+
+@pytest.fixture(scope="function")
+def contribution_organisation_data_tmp(data):
+    """Load mef contribution data organisation scope function."""
+    return deepcopy(data.get('cont_oeg'))
+
+
+@pytest.fixture(scope="module")
+def contribution_organisation_response_data(contribution_organisation_data):
+    """Load mef contribution organisation response data."""
+    json_data = {
+        'hits': {
+            'hits': [
+                {
+                    'id': contribution_organisation_data['pid'],
+                    'metadata': contribution_organisation_data
+                }
+            ]
+        }
+    }
+    return json_data
+
+
+@pytest.fixture(scope="module")
+def contribution_person(app, contribution_person_data):
+    """Create mef contribution record."""
+    pers = Contribution.create(
+        data=contribution_person_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PersonsSearch.Meta.index)
+    flush_index(ContributionsSearch.Meta.index)
     return pers
 
 
 @pytest.fixture(scope="module")
 def person2_data(data):
     """Load mef person data."""
-    return deepcopy(data.get('pers2'))
+    return deepcopy(data.get('cont_pers2'))
 
 
 @pytest.fixture(scope="function")
 def person2_data_tmp(data):
     """Load mef person data scope function."""
-    return deepcopy(data.get('pers2'))
+    return deepcopy(data.get('cont_pers2'))
 
 
 @pytest.fixture(scope="module")
@@ -286,11 +315,11 @@ def person2(app, person2_data):
 
 @pytest.fixture(scope="module")
 @mock.patch('requests.get')
-def document_ref(mock_persons_mef_get,
-                 app, document_data_ref, person_response_data):
+def document_ref(mock_contributions_mef_get,
+                 app, document_data_ref, contribution_person_response_data):
     """Load document with mef records reference."""
-    mock_persons_mef_get.return_value = mock_response(
-        json_data=person_response_data
+    mock_contributions_mef_get.return_value = mock_response(
+        json_data=contribution_person_response_data
     )
     doc = Document.create(
         data=document_data_ref,

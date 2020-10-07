@@ -569,7 +569,10 @@ def patron_profile(patron):
                     patron.patron['barcode'])
             requests.append(loan)
         elif loan['state'] in [
-                LoanState.ITEM_RETURNED, LoanState.CANCELLED]:
+                LoanState.ITEM_RETURNED,
+                LoanState.ITEM_IN_TRANSIT_TO_HOUSE,
+                LoanState.CANCELLED
+        ]:
             end_date = loan.get('end_date')
             if end_date:
                 end_date = ciso8601.parse_datetime(end_date)

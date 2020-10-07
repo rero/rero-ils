@@ -17,14 +17,12 @@
 
 """Signals connector for Document."""
 
-from .utils import create_authorized_access_point
+from .utils import create_contributions, title_format_text_head
 from ..documents.api import Document, DocumentsSearch
 from ..holdings.api import Holding, HoldingsSearch
 from ..items.api import ItemsSearch
 from ..items.models import ItemNoteTypes
-from ..persons.api import Person
 from ..utils import extracted_data_from_ref
-from ...utils import get_i18n_supported_languages
 
 
 def enrich_document_data(sender, json=None, record=None, index=None,
@@ -102,27 +100,11 @@ def enrich_document_data(sender, json=None, record=None, index=None,
         if holdings:
             json['holdings'] = holdings
 
-        # MEF person ES index update
-        contributions = []
-        for contribution in json.get('contribution', []):
-            pid = contribution['agent'].get('pid')
-            if pid:
-                person = Person.get_record_by_pid(pid)
-                if person:
-                    contribution['agent'] = person.dumps_for_document()
-            else:
-                authorized_access_point = create_authorized_access_point(
-                    contribution['agent']
-                )
-                for language in get_i18n_supported_languages():
-                    contribution['agent'][
-                        'authorized_access_point_{language}'.format(
-                            language=language
-                        )
-                    ] = authorized_access_point
-            contributions.append(contribution)
-        # Put contribution in JSON
-        json['contribution'] = contributions
+        # MEF contribution ES index update
+        contributions = create_contributions(json.get('contribution', []))
+        if contributions:
+            json.pop('contribution', None)
+            json['contribution'] = contributions
         # TODO: compare record with those in DB to check which authors have
         # to be deleted from index
         # Index host document title in child document (part of)
@@ -139,3 +121,8 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                             'mainTitle'
                         )
             json['title'].append(title)
+
+        json['sort_title'] = title_format_text_head(
+            json.get('title', []),
+            with_subtitle=True
+        )

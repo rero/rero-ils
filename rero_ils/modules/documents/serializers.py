@@ -21,16 +21,14 @@ from flask import current_app, request
 from invenio_records_rest.serializers.response import record_responsify, \
     search_responsify
 
-from .utils import create_authorized_access_point
+from .utils import create_contributions
 from ..documents.api import Document
 from ..documents.utils import title_format_text_head
 from ..documents.views import create_title_alternate_graphic, \
     create_title_responsibilites, create_title_variants
 from ..libraries.api import Library
 from ..organisations.api import Organisation
-from ..persons.api import Person
 from ..serializers import JSONSerializer, RecordSchemaJSONV1
-from ...utils import get_i18n_supported_languages
 
 
 class DocumentJSONSerializer(JSONSerializer):
@@ -63,25 +61,9 @@ class DocumentJSONSerializer(JSONSerializer):
             rec['ui_title_variants'] = variant_titles
         if request and request.args.get('resolve') == '1':
             rec = record.replace_refs()
-            contributions = []
-            for contribution in rec.get('contribution', []):
-                pers_pid = contribution['agent'].get('pid')
-                if pers_pid:
-                    person = Person.get_record_by_pid(pers_pid)
-                    if person:
-                        contribution['agent'] = person.dumps_for_document()
-                else:
-                    authorized_access_point = create_authorized_access_point(
-                        contribution['agent']
-                    )
-                    for language in get_i18n_supported_languages():
-                        contribution['agent'][
-                            'authorized_access_point_{language}'.format(
-                                language=language
-                            )
-                        ] = authorized_access_point
-                contributions.append(contribution)
-            rec['contribution'] = contributions
+            contributions = create_contributions(rec.get('contribution', []))
+            if contributions:
+                rec['contribution'] = contributions
         return super(JSONSerializer, self).preprocess_record(
             pid=pid, record=rec, links_factory=links_factory, kwargs=kwargs)
 

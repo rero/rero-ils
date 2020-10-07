@@ -140,18 +140,17 @@ def logged_user():
             patron['library']['organisation'] = {
                 'pid': library['organisation']['pid']
             }
-    personsLabelOrder = current_app.config.get(
-        'RERO_ILS_PERSONS_LABEL_ORDER', {}
-    )
     data = {
         'settings': {
             'language': current_i18n.locale.language,
             'global_view': current_app.config.get(
                 'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'),
             'baseUrl': get_base_url(),
-            'personsLabelOrder': personsLabelOrder.get(
-                current_i18n.locale.language,
-                personsLabelOrder.get(personsLabelOrder.get('fallback')))
+            'contributionsLabelOrder': current_app.config.get(
+                'RERO_ILS_CONTRIBUTIONS_LABEL_ORDER', {}),
+            'contributionSources': current_app.config.get(
+                'RERO_ILS_CONTRIBUTIONS_SOURCES', []
+            )
         }
     }
     if patron:

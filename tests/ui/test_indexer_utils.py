@@ -33,11 +33,11 @@ def test_record_to_index(app):
         'documents/document-v0.0.1.json'
     }) == ('documents-document-v0.0.1', '_doc')
 
-    # for mef-persons
+    # for mef-mef-contributions
     assert record_to_index({
-        '$schema': 'http://mef.rero.ch/schemas/'
-        'authorities/mef-person-v0.0.1.json'
-    }) == ('persons-person-v0.0.1', '_doc')
+        '$schema': 'https://mef.rero.ch/schemas/'
+        'mef/mef-contribution-v0.0.1.json'
+    }) == ('contributions-contribution-v0.0.1', '_doc')
 
     # for others
     assert record_to_index({

@@ -405,11 +405,26 @@ def nl2br(string):
     return string.replace("\n", "<br>")
 
 
+@blueprint.app_template_filter('urlActive')
+def url_active(string, target):
+    """Add link url on text if http detected."""
+    result = re.findall('(https?://[\\w|.|\\-|\\/]+)', string)
+    for link in result:
+        if link:
+            string = string.replace(
+                link,
+                '<a href="{url}" target="{target}">{url}</a>'.format(
+                    url=link,
+                    target=target
+                )
+            )
+    return string
+
+
 def prepare_jsonschema(schema):
     """Json schema prep."""
     schema = copy.deepcopy(schema)
-    if schema.get('$schema'):
-        del schema['$schema']
+    schema.pop('$schema', None)
     schema['required'].remove('pid')
     return schema
 

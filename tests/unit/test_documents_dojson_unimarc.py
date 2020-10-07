@@ -913,8 +913,8 @@ def test_unimarc_contribution():
                 'type': 'bf:Organisation',
                 'preferred_name': 'LOC',
                 'conference': False,
-                'conference_number': '1',
-                'conference_place': 'London',
+                'numbering': '1',
+                'place': 'London',
                 'conference_date': '2020-02-02'
             },
             'role': ['aut']
