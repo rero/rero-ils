@@ -16,9 +16,6 @@
     "minLength": 4,
     "form": {
       "type": "selectWithSort",
-      "wrappers": [
-        "form-field-horizontal"
-      ],
       "options": [
         {
           "label": "Article",
@@ -54,10 +51,7 @@
         }
       ],
       "templateOptions": {
-        "cssClass": "editor-max-width editor-title",
-        "selectWithSortOptions": {
-          "order": "label"
-        }
+        "cssClass": "editor-max-width editor-title"
       }
     }
   }

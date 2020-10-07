@@ -49,9 +49,6 @@
           ],
           "form": {
             "type": "selectWithSort",
-            "wrappers": [
-              "form-field-horizontal"
-            ],
             "options": [
               {
                 "label": "Audio issue number",
@@ -139,10 +136,7 @@
               }
             ],
             "templateOptions": {
-              "cssClass": "col-lg-6",
-              "selectWithSortOptions": {
-                "order": "label"
-              }
+              "cssClass": "col-lg-6"
             }
           }
         },

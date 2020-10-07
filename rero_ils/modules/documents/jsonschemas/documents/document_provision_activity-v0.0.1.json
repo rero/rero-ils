@@ -46,9 +46,6 @@
           ],
           "form": {
             "type": "selectWithSort",
-            "wrappers": [
-              "form-field-horizontal"
-            ],
             "options": [
               {
                 "label": "Publication",
@@ -68,10 +65,7 @@
               }
             ],
             "templateOptions": {
-              "cssClass": "col-lg-4",
-              "selectWithSortOptions": {
-                "order": "label"
-              }
+              "cssClass": "col-lg-4"
             }
           }
         },
@@ -151,9 +145,6 @@
                 ],
                 "form": {
                   "type": "selectWithSort",
-                  "wrappers": [
-                    "form-field-horizontal"
-                  ],
                   "options": [
                     {
                       "label": "Place",
@@ -169,10 +160,7 @@
                     }
                   ],
                   "templateOptions": {
-                    "cssClass": "col-lg-4",
-                    "selectWithSortOptions": {
-                      "order": "label"
-                    }
+                    "cssClass": "col-lg-4"
                   }
                 }
               },

@@ -521,13 +521,14 @@ def create_title_responsibilites(responsibilityStatement):
 
 @blueprint.app_template_filter()
 def in_collection(item_pid):
-    """Find item in collection(s).
+    """Find item in published collection(s).
 
     :param item_pid: item pid
     :return: list of collections whose item is present
     """
     return list(
-        CollectionsSearch().filter(
-            'term', items__pid=item_pid
-        ).scan()
+        CollectionsSearch()
+        .filter('term', items__pid=item_pid)
+        .filter('term', published=True)
+        .scan()
     )

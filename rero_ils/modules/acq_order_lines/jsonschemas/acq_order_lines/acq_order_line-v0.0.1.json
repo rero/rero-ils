@@ -49,9 +49,6 @@
       "default": "pending",
       "form": {
         "type": "selectWithSort",
-        "wrappers": [
-          "form-field"
-        ],
         "options": [
           {
             "value": "approved",
@@ -77,12 +74,7 @@
             "value": "received",
             "label": "Received"
           }
-        ],
-        "templateOptions": {
-          "selectWithSortOptions": {
-            "order": "label"
-          }
-        }
+        ]
       }
     },
     "quantity": {
@@ -171,6 +163,9 @@
               "messages": {
                 "patternMessage": "Should be in the following format: https://ils.rero.ch/api/documents/<PID>."
               }
+            },
+            "templateOptions": {
+              "label": ""
             }
           }
         }

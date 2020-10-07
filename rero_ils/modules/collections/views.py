@@ -23,9 +23,9 @@ from flask import Blueprint, abort, current_app, render_template
 from invenio_records_ui.signals import record_viewed
 
 from rero_ils.filter import format_date_filter
-from rero_ils.modules.items.api import Item
 
 from ..documents.api import Document
+from ..libraries.api import Library
 from ..organisations.api import Organisation
 
 blueprint = Blueprint(
@@ -48,21 +48,30 @@ def collection_view_method(pid, record, template=None, **kwargs):
     viewcode = kwargs['viewcode']
     org_pid = Organisation.get_record_by_viewcode(viewcode)['pid']
     rec = record.replace_refs()
+    libraries = []
 
     if org_pid != rec.get('organisation').get('pid'):
         abort(
             404, 'The collections is not referenced for this organisation'
         )
-    record['items'] = record.get_items()
-    for item in record['items']:
+    # Get items and document title
+    rec['items'] = record.get_items()
+    for item in rec['items']:
         item['document'] = Document.get_record_by_pid(
             item.replace_refs().get('document').get('pid'))
-    record['date'] = _start_end_date(
+    # Get libraries names
+    for library in rec.get('libraries'):
+        libraries.append(
+            Library.get_record_by_pid(library['pid']).get('name')
+        )
+    rec['libraries'] = ', '.join(libraries)
+    # Format date
+    rec['date'] = _start_end_date(
         record.get('start_date'), record.get('end_date'))
 
     return render_template(
         template,
-        record=record,
+        record=rec,
         viewcode=viewcode
     )
 
@@ -87,16 +96,3 @@ def get_teachers(record):
         None, [teacher.get('name') for teacher in record.get('teachers', [])]
     )
     return ', '.join(teachers)
-
-
-@blueprint.app_template_filter()
-def get_location(item):
-    """Get item location.
-
-    :param item: item
-    :return: location to display
-    """
-    location = Item.get_location(item)
-    library = Item.get_library(item)
-    output = [library.get('name'), location.get('name')]
-    return ': '.join(output)
