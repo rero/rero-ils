@@ -3041,6 +3041,14 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org1"
     },
+    "items": [
+      {
+        "$ref": "https://ils.rero.ch/api/items/item1"
+      },
+      {
+        "$ref": "https://ils.rero.ch/api/items/item5"
+      }
+    ],
     "published": true
   },
   "coll_sion_1": {
@@ -3069,6 +3077,14 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org2"
     },
+    "items": [
+      {
+        "$ref": "https://ils.rero.ch/api/items/item4"
+      },
+      {
+        "$ref": "https://ils.rero.ch/api/items/item6"
+      }
+    ],
     "published": true
   }
 }

@@ -45,9 +45,6 @@
         ],
         "form": {
           "type": "selectWithSort",
-          "wrappers": [
-            "form-field-horizontal"
-          ],
           "options": [
             {
               "label": "rero",
@@ -65,12 +62,7 @@
               "label": "idref",
               "value": "idref"
             }
-          ],
-          "templateOptions": {
-            "selectWithSortOptions": {
-              "order": "label"
-            }
-          }
+          ]
         }
       }
     },

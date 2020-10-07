@@ -879,7 +879,8 @@ def coll_martigny_1_data(data):
 
 @pytest.fixture(scope="module")
 def coll_martigny_1(
-        app, org_martigny, lib_martigny, coll_martigny_1_data):
+        app, org_martigny, lib_martigny, coll_martigny_1_data,
+        item_lib_martigny, item2_lib_martigny):
     """Create collection Martigny 1."""
     coll = Collection.create(
         data=coll_martigny_1_data,
@@ -898,7 +899,8 @@ def coll_sion_1_data(data):
 
 @pytest.fixture(scope="module")
 def coll_sion_1(
-        app, org_sion, lib_sion, coll_sion_1_data):
+        app, org_sion, lib_sion, coll_sion_1_data, item_lib_sion,
+        item2_lib_sion):
     """Create collection Sion 1."""
     coll = Collection.create(
         data=coll_sion_1_data,
@@ -917,7 +919,8 @@ def coll_saxon_1_data(data):
 
 @pytest.fixture(scope="module")
 def coll_saxon_1(
-        app, org_martigny, lib_saxon, coll_saxon_1_data):
+        app, org_martigny, lib_saxon, coll_saxon_1_data, item2_lib_martigny,
+        item_lib_martigny):
     """Create collection Saxon 1."""
     coll = Collection.create(
         data=coll_saxon_1_data,

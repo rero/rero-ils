@@ -140,9 +140,6 @@
       ],
       "form": {
         "type": "selectWithSort",
-        "wrappers": [
-          "form-field-horizontal"
-        ],
         "options": [
           {
             "label": "CREATED",
@@ -176,12 +173,7 @@
             "label": "CANCELLED",
             "value": "CANCELLED"
           }
-        ],
-        "templateOptions": {
-          "selectWithSortOptions": {
-            "order": "label"
-          }
-        }
+        ]
       }
     },
     "trigger": {
