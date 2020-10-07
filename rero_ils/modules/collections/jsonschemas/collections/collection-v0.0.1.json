@@ -2,7 +2,6 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "title": "Collection",
-  "description": "JSON schema for collection.",
   "additionalProperties": false,
   "required": [
     "$schema",
@@ -13,6 +12,7 @@
     "start_date",
     "end_date",
     "organisation",
+    "items",
     "published"
   ],
   "propertiesOrder": [
@@ -136,7 +136,13 @@
     "description": {
       "title": "Description about the collection",
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "form": {
+        "type": "textarea",
+        "templateOptions": {
+          "rows": 5
+        }
+      }
     },
     "start_date": {
       "type": "string",
@@ -145,12 +151,17 @@
       "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
       "form": {
         "type": "datepicker",
-        "wrappers": [
-          "form-field"
-        ],
         "validation": {
           "messages": {
-            "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+            "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
+            "dateMustBeLessThan": "The start date must be less than the end date."
+          },
+          "validators": {
+            "dateMustBeLessThan": {
+              "startDate": "start_date",
+              "endDate": "end_date",
+              "strict": true
+            }
           }
         }
       }
@@ -162,12 +173,17 @@
       "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
       "form": {
         "type": "datepicker",
-        "wrappers": [
-          "form-field"
-        ],
         "validation": {
           "messages": {
-            "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+            "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
+            "datesMustBeGreaterThan": "The end date must be greater than the start date."
+          },
+          "validators": {
+            "dateMustBeGreaterThan": {
+              "startDate": "start_date",
+              "endDate": "end_date",
+              "strict": true
+            }
           }
         }
       }

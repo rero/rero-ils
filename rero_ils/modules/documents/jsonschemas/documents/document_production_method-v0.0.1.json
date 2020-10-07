@@ -31,9 +31,6 @@
       ],
       "form": {
         "type": "selectWithSort",
-        "wrappers": [
-          "form-field-horizontal"
-        ],
         "options": [
           {
             "label": "Blueline process",
@@ -115,12 +112,7 @@
             "label": "Thermoform",
             "value": "rdapm:1021"
           }
-        ],
-        "templateOptions": {
-          "selectWithSortOptions": {
-            "order": "label"
-          }
-        }
+        ]
       }
     },
     "form": {

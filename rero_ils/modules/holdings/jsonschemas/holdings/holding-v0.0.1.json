@@ -177,9 +177,6 @@
           ],
           "form": {
             "type": "selectWithSort",
-            "wrappers": [
-              "form-field-horizontal"
-            ],
             "options": [
               {
                 "label": "Annual",
@@ -245,12 +242,7 @@
                 "label": "Weekly",
                 "value": "rdafr:1004"
               }
-            ],
-            "templateOptions": {
-              "selectWithSortOptions": {
-                "order": "label"
-              }
-            }
+            ]
           }
         },
         "next_expected_date": {
@@ -261,9 +253,6 @@
           "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
           "form": {
             "type": "datepicker",
-            "wrappers": [
-              "form-field"
-            ],
             "validation": {
               "messages": {
                 "pattern": "Should be in the ISO 8601, YYYY-MM-DD."

@@ -75,9 +75,6 @@
       ],
       "form": {
         "type": "selectWithSort",
-        "wrappers": [
-          "form-field-horizontal"
-        ],
         "options": [
           {
             "value": "fre",
@@ -99,12 +96,7 @@
             "value": "spa",
             "label": "Spanish"
           }
-        ],
-        "templateOptions": {
-          "selectWithSortOptions": {
-            "order": "label"
-          }
-        }
+        ]
       }
     },
     "default_contact": {
@@ -247,15 +239,7 @@
       "default": "CHF",
       "pattern": "^[A-Z]{3}$",
       "form": {
-        "type": "selectWithSort",
-        "wrappers": [
-          "form-field-horizontal"
-        ],
-        "templateOptions": {
-          "selectWithSortOptions": {
-            "order": "label"
-          }
-        }
+        "type": "selectWithSort"
       }
     },
     "vat_rate": {

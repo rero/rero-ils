@@ -25,9 +25,6 @@
           ],
           "form": {
             "type": "selectWithSort",
-            "wrappers": [
-              "form-field-horizontal"
-            ],
             "options": [
               {
                 "label": "Accompanying material",
@@ -43,10 +40,7 @@
               }
             ],
             "templateOptions": {
-              "cssClass": "col-lg-12",
-              "selectWithSortOptions": {
-                "order": "label"
-              }
+              "cssClass": "col-lg-12"
             }
           }
         },

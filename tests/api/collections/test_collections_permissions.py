@@ -28,6 +28,7 @@ from rero_ils.modules.collections.permissions import CollectionPermission
 def test_collections_permissions_api(client, document,
                                      item_type_standard_martigny,
                                      item_lib_martigny, item2_lib_martigny,
+                                     item_lib_sion, item2_lib_sion,
                                      loc_public_martigny, coll_martigny_1,
                                      coll_sion_1, patron_martigny_no_email,
                                      system_librarian_martigny_no_email,
