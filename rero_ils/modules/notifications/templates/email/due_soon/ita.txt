@@ -5,7 +5,6 @@ La durata di prestito dei seguenti documenti sta per scadere:
 
 Titolo : {{ document.title_text }} / {{ document.responsibility_statement }}
 Scadenza: {{ end_date }}
-Nota: Non prorogabile
 
 Lei può consultare il Suo conto et prorogare la durata di prestito dei Suoi documenti al seguente indirizzo: {{ profile_url }}
 
