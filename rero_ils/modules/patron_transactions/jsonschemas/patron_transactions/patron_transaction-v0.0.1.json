@@ -43,15 +43,7 @@
         "closed"
       ],
       "form": {
-        "type": "selectWithSort",
-        "wrappers": [
-          "form-field-horizontal"
-        ],
-        "templateOptions": {
-          "selectWithSortOptions": {
-            "order": "label"
-          }
-        }
+        "type": "selectWithSort"
       },
       "default": "open"
     },
@@ -69,14 +61,6 @@
       ],
       "form": {
         "type": "selectWithSort",
-        "wrappers": [
-          "form-field-horizontal"
-        ],
-        "templateOptions": {
-          "selectWithSortOptions": {
-            "order": "label"
-          }
-        },
         "options": [
           {
             "label": "Overdue",

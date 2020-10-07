@@ -43,9 +43,6 @@
           ],
           "form": {
             "Type": "selectWithSort",
-            "wrappers": [
-              "form-field-horizontal"
-            ],
             "options": [
               {
                 "label": "Resource",
@@ -69,10 +66,7 @@
               }
             ],
             "templateOptions": {
-              "cssClass": "col-lg-6",
-              "selectWithSortOptions": {
-                "order": "label"
-              }
+              "cssClass": "col-lg-6"
             }
           }
         },
@@ -112,9 +106,6 @@
           ],
           "form": {
             "type": "selectWithSort",
-            "wrappers": [
-              "form-field-horizontal"
-            ],
             "options": [
               {
                 "label": "Poster",
@@ -230,10 +221,7 @@
               }
             ],
             "templateOptions": {
-              "cssClass": "col-lg-6",
-              "selectWithSortOptions": {
-                "order": "label"
-              }
+              "cssClass": "col-lg-6"
             }
           }
         },
