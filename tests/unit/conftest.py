@@ -170,11 +170,11 @@ def patron_martigny_data_tmp_with_id(patron_martigny_data_tmp):
 
 
 @pytest.fixture()
-def persons_schema(monkeypatch):
+def contributions_schema(monkeypatch):
     """Patron Jsonschema for records."""
     schema_in_bytes = resource_string(
-        'rero_ils.modules.persons.jsonschemas',
-        '/persons/person-v0.0.1.json'
+        'rero_ils.modules.contributions.jsonschemas',
+        '/contributions/contribution-v0.0.1.json'
     )
     return get_schema(monkeypatch, schema_in_bytes)
 

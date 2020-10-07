@@ -54,6 +54,8 @@ from .modules.circ_policies.api import CircPolicy
 from .modules.circ_policies.permissions import CirculationPolicyPermission
 from .modules.collections.api import Collection
 from .modules.collections.permissions import CollectionPermission
+from .modules.contributions.api import Contribution
+from .modules.contributions.permissions import ContributionPermission
 from .modules.documents.api import Document
 from .modules.documents.permissions import DocumentPermission
 from .modules.holdings.api import Holding
@@ -91,8 +93,6 @@ from .modules.patron_types.permissions import PatronTypePermission
 from .modules.patrons.api import Patron
 from .modules.patrons.permissions import PatronPermission
 from .modules.permissions import record_permission_factory
-from .modules.persons.api import Person
-from .modules.persons.permissions import PersonPermission
 from .modules.templates.api import Template
 from .modules.templates.permissions import TemplatePermission
 from .modules.vendors.api import Vendor
@@ -1042,13 +1042,13 @@ RECORDS_REST_ENDPOINTS = dict(
         delete_permission_factory_imp=lambda record: record_permission_factory(
             action='delete', record=record, cls=LocationPermission)
     ),
-    pers=dict(
-        pid_type='pers',
-        pid_minter='person_id',
-        pid_fetcher='person_id',
-        search_class='rero_ils.modules.persons.api:PersonsSearch',
-        search_index='persons',
-        indexer_class='rero_ils.modules.persons.api:PersonsIndexer',
+    cont=dict(
+        pid_type='cont',
+        pid_minter='contribution_id',
+        pid_fetcher='contribution_id',
+        search_class='rero_ils.modules.contributions.api:ContributionsSearch',
+        search_index='contributions',
+        indexer_class='rero_ils.modules.contributions.api:ContributionsIndexer',
         search_type=None,
         record_serializers={
             'application/json': (
@@ -1063,26 +1063,26 @@ RECORDS_REST_ENDPOINTS = dict(
                 'rero_ils.modules.serializers:json_v1_search'
             )
         },
-        list_route='/persons/',
+        list_route='/contributions/',
         record_loaders={
-            'application/json': lambda: Person(request.get_json()),
+            'application/json': lambda: Contribution(request.get_json()),
         },
-        record_class='rero_ils.modules.persons.api:Person',
-        item_route=('/persons/<pid(pers, record_class='
-                    '"rero_ils.modules.persons.api:Person"):pid_value>'),
+        record_class='rero_ils.modules.contributions.api:Contribution',
+        item_route=('/contributions/<pid(cont, record_class='
+                    '"rero_ils.modules.contributions.api:Contribution"):pid_value>'),
         default_media_type='application/json',
         max_result_window=10000,
-        search_factory_imp='rero_ils.query:person_view_search_factory',
+        search_factory_imp='rero_ils.query:contribution_view_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=PersonPermission),
+            action='list', record=record, cls=ContributionPermission),
         read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=PersonPermission),
+            action='read', record=record, cls=ContributionPermission),
         create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=PersonPermission),
+            action='create', record=record, cls=ContributionPermission),
         update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=PersonPermission),
+            action='update', record=record, cls=ContributionPermission),
         delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=PersonPermission)
+            action='delete', record=record, cls=ContributionPermission)
     ),
     cipo=dict(
         pid_type='cipo',
@@ -1696,7 +1696,7 @@ RECORDS_REST_FACETS = dict(
             _('status'): and_term_filter('order_status')
         },
     ),
-    persons=dict(
+    contributions=dict(
         aggs=dict(
             sources=dict(
                 terms=dict(
@@ -1704,12 +1704,22 @@ RECORDS_REST_FACETS = dict(
                     # This does not take into account
                     # env variable or instance config file
                     size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'persons', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                        'contribution', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            ),
+            type=dict(
+                terms=dict(
+                    field='type',
+                    # This does not take into account
+                    # env variable or instance config file
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'contribution', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
                 )
             )
         ),
         filters={
-            _('sources'): and_term_filter('sources')
+            _('sources'): and_term_filter('sources'),
+            _('type'): and_term_filter('type')
         }
     ),
     templates=dict(
@@ -1807,6 +1817,7 @@ indexes = [
     'budgets',
     'circ_policies',
     'collections',
+    'contributions',
     'documents',
     'items',
     'item_types',
@@ -1817,7 +1828,6 @@ indexes = [
     'organisations',
     'patrons',
     'patron_types',
-    'persons',
     'vendors',
     'templates'
 ]
@@ -2004,12 +2014,13 @@ RECORDS_UI_ENDPOINTS = {
         permission_factory_imp='rero_ils.permissions.'
                                'librarian_permission_factory',
     ),
-    'pers': dict(
-        pid_type='pers',
-        route='/<string:viewcode>/persons/<pid_value>',
-        template='rero_ils/detailed_view_persons.html',
-        record_class='rero_ils.modules.persons.api:Person',
-        view_imp='rero_ils.modules.persons.views.person_view_method'
+    'cont': dict(
+        pid_type='cont',
+        route='/<string:viewcode>/contributions/<pid_value>',
+        template='rero_ils/detailed_view_contribution.html',
+        record_class='rero_ils.modules.contributions.api:Contribution',
+        view_imp='rero_ils.modules.contributions.'
+                 'views.contribution_view_method'
     )
 }
 
@@ -2031,6 +2042,7 @@ RECORDS_JSON_SCHEMA = {
     'budg': '/budgets/budget-v0.0.1.json',
     'cipo': '/circ_policies/circ_policy-v0.0.1.json',
     'coll': '/collections/collection-v0.0.1.json',
+    'cont': '/contributions/contribution-v0.0.1.json',
     'doc': '/documents/document-v0.0.1.json',
     'hold': '/holdings/holding-v0.0.1.json',
     'illr': '/ill_requests/ill_request-v0.0.1.json',
@@ -2040,7 +2052,6 @@ RECORDS_JSON_SCHEMA = {
     'loc': '/locations/location-v0.0.1.json',
     'notif': '/notifications/notification-v0.0.1.json',
     'org': '/organisations/organisation-v0.0.1.json',
-    'pers': '/persons/person-v0.0.1.json',
     'pttr': '/patron_transactions/patron_transaction-v0.0.1.json',
     'ptty': '/patron_types/patron_type-v0.0.1.json',
     'ptre': '/patron_transaction_events/patron_transaction_event-v0.0.1.json',
@@ -2100,14 +2111,14 @@ RERO_ILS_APP_HELP_PAGE = (
 #: Cover service
 RERO_ILS_THUMBNAIL_SERVICE_URL = 'https://services.test.rero.ch/cover'
 
-#: Persons
-RERO_ILS_PERSONS_MEF_SCHEMA = 'persons/person-v0.0.1.json'
-RERO_ILS_PERSONS_SOURCES = ['rero', 'bnf', 'gnd', 'idref']
+#: Contributions
+RERO_ILS_CONTRIBUTIONS_MEF_SCHEMA = 'contributions/contribution-v0.0.1.json'
+RERO_ILS_CONTRIBUTIONS_SOURCES = ['idref', 'gnd', 'rero']
 
-RERO_ILS_PERSONS_LABEL_ORDER = {
+RERO_ILS_CONTRIBUTIONS_LABEL_ORDER = {
     'fallback': 'fr',
-    'fr': ['rero', 'idref', 'bnf', 'gnd'],
-    'de': ['gnd', 'rero', 'idref', 'bnf'],
+    'fr': ['idref', 'rero', 'gnd'],
+    'de': ['gnd', 'idref', 'rero'],
 }
 
 # JSONSchemas

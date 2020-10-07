@@ -20,6 +20,7 @@
 
 import csv
 
+from flask import current_app, request
 from invenio_i18n.ext import current_i18n
 from invenio_records_rest.serializers.csv import CSVSerializer, Line
 
@@ -28,6 +29,7 @@ from rero_ils.modules.documents.api import search_document_by_pid
 from rero_ils.modules.documents.utils import title_format_text_head
 from rero_ils.modules.items.api import search_active_loans_for_item
 from rero_ils.modules.locations.api import LocationsSearch
+from rero_ils.utils import get_i18n_supported_languages
 
 role_filter = [
     'rsp',
@@ -79,6 +81,8 @@ class ItemCSVSerializer(CSVSerializer):
         :param record_hit: Record metadata retrieved via search.
         :param links_factory: Factory function for record links.
         """
+        language = kwargs.get('language')
+
         record = record_hit['_source']
         item_pid = pid.pid_value
 
@@ -91,15 +95,20 @@ class ItemCSVSerializer(CSVSerializer):
         document = search_document_by_pid(record['document']['pid'])
         record['document_title'] = title_format_text_head(document.title,
                                                           with_subtitle=True)
+
+        # process contributions
         creator = []
-        for contribution in document.contribution:
-            if any(role in contribution.role for role in role_filter):
-                try:
-                    creator.append(contribution['agent']['preferred_name'])
-                except KeyError:
-                    creator.append(
-                        contribution['agent']['authorized_access_point_en']
-                    )
+        if 'contribution' in document:
+            for contribution in document.contribution:
+                if any(role in contribution.role for role in role_filter):
+                    authorized_access_point = \
+                        'authorized_access_point_{language}'.format(
+                            language=language
+                        )
+                    if authorized_access_point in contribution['agent']:
+                        creator.append(
+                            contribution['agent'][authorized_access_point]
+                        )
         if creator:
             record['document_creator'] = ' ; '.join(creator)
         record['document_type'] = document.type
@@ -113,13 +122,13 @@ class ItemCSVSerializer(CSVSerializer):
             record['last_transaction_date'] = format_date_filter(
                 loan.transaction_date,
                 date_format='short',
-                locale=current_i18n.locale.language,
+                locale=language,
             )
 
         record['created'] = format_date_filter(
             record['_created'],
             date_format='short',
-            locale=current_i18n.locale.language,
+            locale=language,
         )
 
         # prevent csv key error
@@ -137,6 +146,11 @@ class ItemCSVSerializer(CSVSerializer):
         :param links: Dictionary of links to add to response.
         :param item_links_factory: Factory function for record links.
         """
+        # language
+        language = request.args.get("lang", current_i18n.language)
+        if not language or language not in get_i18n_supported_languages():
+            language = current_app.config.get('BABEL_DEFAULT_LANGUAGE', 'en')
+
         records = []
         locations_map = {}
         for location in LocationsSearch().filter().scan():
@@ -146,7 +160,8 @@ class ItemCSVSerializer(CSVSerializer):
                 pid_fetcher(hit['_id'], hit['_source']),
                 hit,
                 links_factory=item_links_factory,
-                locations_map=locations_map
+                locations_map=locations_map,
+                language=language
             )
             records.append(self.process_dict(processed_hit))
 

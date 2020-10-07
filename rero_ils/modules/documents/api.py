@@ -198,25 +198,26 @@ class Document(IlsRecord):
         """Return pure Python dictionary with record metadata."""
         return self.post_process(super(Document, self).dumps(**kwargs))
 
-    def index_persons(self, bulk=False):
-        """Index all attached persons."""
-        from ..persons.api import Person
-        persons_ids = []
+    def index_contributions(self, bulk=False):
+        """Index all attached contributions."""
+        from ..contributions.api import Contribution
+        contributions_ids = []
         for contribution in self.get('contribution', []):
-            person = None
+            contrib = None
             ref = contribution['agent'].get('$ref')
             if ref:
-                person, online = Person.get_record_by_ref(ref)
-            pid = contribution['agent'].get('pid')
-            if pid:
-                person = Person.get_record_by_pid(pid)
-            if person:
+                contrib, online = Contribution.get_record_by_ref(ref)
+            cont_pid = contribution['agent'].get('pid')
+            if cont_pid:
+                contrib = Contribution.get_record_by_pid(cont_pid)
+            if contrib:
                 if bulk:
-                    persons_ids.append(person.id)
+                    contributions_ids.append(contrib.id)
                 else:
-                    person.reindex()
-        if persons_ids:
-            IlsRecordsIndexer().bulk_index(persons_ids, doc_type=['pers'])
+                    contrib.reindex()
+        if contributions_ids:
+            IlsRecordsIndexer().bulk_index(
+                contributions_ids, doc_type=['cont'])
 
     @classmethod
     def get_all_serial_pids(cls):
@@ -248,14 +249,14 @@ class Document(IlsRecord):
 
     def replace_refs(self):
         """Replace $ref with real data."""
-        from ..persons.api import Person
+        from ..contributions.api import Contribution
         contributions = self.get('contribution', [])
         for idx, contribution in enumerate(contributions):
             ref = contribution['agent'].get('$ref')
             if ref:
-                person, online = Person.get_record_by_ref(ref)
-                if person:
-                    contributions[idx]['agent'] = person
+                contribution, online = Contribution.get_record_by_ref(ref)
+                if contribution:
+                    contributions[idx]['agent'] = contribution
         return super(Document, self).replace_refs()
 
 
@@ -267,7 +268,7 @@ class DocumentsIndexer(IlsRecordsIndexer):
     def index(self, record):
         """Index an document."""
         return_value = super(DocumentsIndexer, self).index(record)
-        record.index_persons()
+        record.index_contributions()
         return return_value
 
     def bulk_index(self, record_id_iterator):

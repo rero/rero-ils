@@ -64,13 +64,13 @@ from werkzeug.security import gen_salt
 
 from .api import IlsRecordsIndexer
 from .collections.cli import create_collections
+from .contributions.tasks import create_mef_record_online
 from .documents.dojson.contrib.marc21tojson import marc21
 from .holdings.cli import create_patterns
 from .ill_requests.cli import create_ill_requests
 from .items.cli import create_items, reindex_items
 from .loans.cli import create_loans
 from .patrons.cli import import_users
-from .persons.tasks import create_mef_record_online
 from .tasks import process_bulk_queue
 from .utils import get_record_class_from_schema_or_pid_type, read_json_record
 from ..modules.providers import append_fixtures_new_identifiers
@@ -284,7 +284,7 @@ def init(force):
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=True)
 @click.option('-d', '--debug', 'debug', is_flag=True, default=False)
 @click.option('-s', '--schema', 'schema', default=None)
-@click.option('-p', '--pid_type', 'pid_type', default=None)
+@click.option('-t', '--pid_type', 'pid_type', default=None)
 @click.option('-l', '--lazy', 'lazy', is_flag=True, default=False)
 @click.option('-o', '--dont-stop', 'dont_stop_on_error',
               is_flag=True, default=False)
@@ -430,9 +430,9 @@ def count_cli(infile, lazy):
               help="wait for enqueued tasks to finish")
 @with_appcontext
 def get_all_mef_records(infile, lazy, verbose, enqueue, wait):
-    """Get all persons for given document file."""
+    """Get all contributions for given document file."""
     click.secho(
-        'Get all persons for {file_name}.'.format(file_name=infile.name),
+        'Get all contributions for {file_name}.'.format(file_name=infile.name),
         fg='green'
     )
     if lazy:
@@ -453,7 +453,7 @@ def get_all_mef_records(infile, lazy, verbose, enqueue, wait):
                     msg = create_mef_record_online.delay(ref)
                 else:
                     pid, online = create_mef_record_online(ref)
-                    msg = 'person pid: {pid} {online}'.format(
+                    msg = 'contribution pid: {pid} {online}'.format(
                         pid=pid,
                         online=online
                     )
@@ -949,9 +949,8 @@ def marc21json(xml_file, json_file_ok, xml_file_error, parallel, chunk,
     path = current_jsonschemas.url_to_path(get_schema_for_resource('doc'))
     schema = current_jsonschemas.get_schema(path=path)
     schema = _records_state.replace_refs(schema)
-    transform = Marc21toJson(xml_file, json_file_ok, xml_file_error,
-                             parallel, chunk, verbose, debug, pid_required,
-                             schema)
+    transform = Marc21toJson(xml_file, json_file_ok, xml_file_error, parallel,
+                             chunk, verbose, debug, pid_required, schema)
 
     count, count_ok, count_ko = transform.counts()
 
@@ -968,7 +967,7 @@ def marc21json(xml_file, json_file_ok, xml_file_error, parallel, chunk,
 
 
 @utils.command('reserve_pid_range')
-@click.option('-p', '--pid_type', 'pid_type', default=None,
+@click.option('-t', '--pid_type', 'pid_type', default=None,
               help='pid type of the resource')
 @click.option('-n', '--records_number', 'records_number', default=None,
               help='Number of records to load')
@@ -1497,7 +1496,7 @@ def dump_es_mappings(verbose, outfile):
 
 @utils.command('export')
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
-@click.option('-p', '--pid_type', 'pid_type', default='doc')
+@click.option('-t', '--pid_type', 'pid_type', default='doc')
 @click.option('-o', '--outfile', 'outfile', required=True,
               type=click.File('w'))
 @click.option('-i', '--pidfile', 'pidfile', type=click.File('r'),
@@ -1549,12 +1548,12 @@ def export(verbose, pid_type, outfile, pidfile, indent, schema):
             if count > 1:
                 outfile.write(',')
             if not schema:
-                del rec['$schema']
-                persons_sources = current_app.config.get(
-                    'RERO_ILS_PERSONS_SOURCES', [])
-                for persons_source in persons_sources:
+                rec.pop('$schema', None)
+                contributions_sources = current_app.config.get(
+                    'RERO_ILS_CONTRIBUTIONS_SOURCES', [])
+                for contributions_source in contributions_sources:
                     try:
-                        del rec[persons_source]['$schema']
+                        del rec[contributions_source]['$schema']
                     except:
                         pass
             output = ''

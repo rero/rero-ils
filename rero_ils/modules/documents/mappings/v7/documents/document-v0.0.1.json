@@ -130,6 +130,9 @@
         "analyzer": "autocomplete",
         "search_analyzer": "standard"
       },
+      "sort_title": {
+        "type": "keyword"
+      },
       "responsibilityStatement": {
         "type": "object",
         "properties": {
@@ -263,55 +266,11 @@
               "authorized_access_point": {
                 "type": "text"
               },
-              "preferred_name": {
+              "variant_access_point": {
                 "type": "text"
               },
-              "variant_name": {
+              "parallel_access_point": {
                 "type": "text"
-              },
-              "date_of_birth": {
-                "type": "keyword"
-              },
-              "date_of_death": {
-                "type": "keyword"
-              },
-              "qualifier": {
-                "type": "keyword"
-              },
-              "numeration": {
-                "type": "keyword"
-              },
-              "fuller_form_of_name": {
-                "type": "text"
-              },
-              "subordinate_unit": {
-                "type": "text"
-              },
-              "conference_place": {
-                "type": "text"
-              },
-              "conference_number": {
-                "type": "keyword"
-              },
-              "conference_date": {
-                "type": "keyword"
-              },
-              "conference": {
-                "type": "boolean"
-              },
-              "identifiedBy": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "keyword"
-                  },
-                  "source": {
-                    "type": "keyword"
-                  },
-                  "value": {
-                    "type": "text"
-                  }
-                }
               }
             }
           },

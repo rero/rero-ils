@@ -31,6 +31,8 @@ from invenio_userprofiles.signals import after_profile_update
 
 from .apiharvester.signals import apiharvest_part
 from .collections.listener import enrich_collection_data
+from .contributions.listener import enrich_contributions_data
+from .contributions.receivers import publish_api_harvested_records
 from .documents.listener import enrich_document_data
 from .ebooks.receivers import publish_harvested_records
 from .holdings.listener import enrich_holding_data
@@ -46,8 +48,6 @@ from .patron_transaction_events.listener import \
 from .patron_transactions.listener import enrich_patron_transaction_data
 from .patrons.listener import create_subscription_patron_transaction, \
     enrich_patron_data, update_from_profile
-from .persons.listener import enrich_persons_data
-from .persons.receivers import publish_api_harvested_records
 from ..filter import empty_data, format_date_filter, jsondumps, text_to_id, \
     to_pretty_json
 
@@ -136,7 +136,7 @@ class REROILSAPP(object):
         before_record_index.connect(enrich_collection_data, sender=app)
         before_record_index.connect(enrich_loan_data, sender=app)
         before_record_index.connect(enrich_document_data, sender=app)
-        before_record_index.connect(enrich_persons_data, sender=app)
+        before_record_index.connect(enrich_contributions_data, sender=app)
         before_record_index.connect(enrich_item_data, sender=app)
         before_record_index.connect(enrich_patron_data, sender=app)
         before_record_index.connect(enrich_location_data, sender=app)

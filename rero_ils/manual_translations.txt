@@ -33,7 +33,6 @@ _('video')
 _('other')
 
 _('gnd')
-_('bnf')
 _('rero')
 _('idref')
 

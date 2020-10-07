@@ -62,6 +62,7 @@ class ImportsListResource(ContentNegotiatedMethodView):
 
     def get(self, **kwargs):
         """Implement the GET /test."""
+        no_cache = True if flask_request.args.get('no_cache') else False
         query = flask_request.args.get('q')
         try:
             query_split = query.split(':')
@@ -75,7 +76,7 @@ class ImportsListResource(ContentNegotiatedMethodView):
         size = flask_request.args.get('size', self.import_size)
         do_import = obj_or_import_string(self.import_class)()
         do_import.search_records(what=what, relation=relation,
-                                 where=where, max=size)
+                                 where=where, max=size, no_cache=no_cache)
         results = do_import.results
         filter_year = flask_request.args.get('year')
         if filter_year:

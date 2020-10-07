@@ -76,8 +76,8 @@ _CONTRIBUTION_ROLE = [
 marc21 = ReroIlsMarc21Overdo()
 
 
-def get_person_link(bibid, reroid, id, key, value):
-    """Get MEF person link."""
+def get_contribution_link(bibid, reroid, id, key, value):
+    """Get MEF contribution link."""
     # https://mef.test.rero.ch/api/mef/?q=rero.rero_pid:A012327677
     prod_host = 'mef.rero.ch'
     test_host = os.environ.get('RERO_ILS_MEF_HOST', 'mef.rero.ch')
@@ -404,10 +404,15 @@ def marc21_to_contribution(self, key, value):
         if value.get('0'):
             refs = utils.force_list(value.get('0'))
             for ref in refs:
-                ref = get_person_link(
+                ref = get_contribution_link(
                     marc21.bib_id, marc21.rero_id, ref, key, value)
                 if ref:
                     agent['$ref'] = ref
+                    if key[:3] in ['100', '700']:
+                        agent['type'] = 'bf:Person'
+                    elif key[:3] in ['710', '711']:
+                        agent['type'] = 'bf:Organisation'
+
         # we do not have a $ref
         if not agent.get('$ref') and value.get('a'):
             agent = {'type': 'bf:Person'}
@@ -419,6 +424,7 @@ def marc21_to_contribution(self, key, value):
 
             # 100|700 Person
             if key[:3] in ['100', '700']:
+                agent['type'] = 'bf:Person'
                 if value.get('b'):
                     numeration = not_repetitive(
                         marc21.bib_id, marc21.rero_id, key, value, 'b')
@@ -473,13 +479,13 @@ def marc21_to_contribution(self, key, value):
                         subordinate_units.append(subordinate_unit.rstrip('.'))
                     agent['subordinate_unit'] = subordinate_units
                 if value.get('n'):
-                    conference_number = not_repetitive(
+                    numbering = not_repetitive(
                         marc21.bib_id, marc21.rero_id, key, value, 'n')
-                    conference_number = remove_trailing_punctuation(
-                        conference_number
+                    numbering = remove_trailing_punctuation(
+                        numbering
                     ).lstrip('(').rstrip(')')
-                    if conference_number:
-                        agent['conference_number'] = conference_number
+                    if numbering:
+                        agent['numbering'] = numbering
                 if value.get('d'):
                     conference_date = not_repetitive(
                         marc21.bib_id, marc21.rero_id, key, value, 'd')
@@ -489,13 +495,13 @@ def marc21_to_contribution(self, key, value):
                     if conference_date:
                         agent['conference_date'] = conference_date
                 if value.get('c'):
-                    conference_place = not_repetitive(
+                    place = not_repetitive(
                         marc21.bib_id, marc21.rero_id, key, value, 'c')
-                    conference_place = remove_trailing_punctuation(
-                        conference_place
+                    place = remove_trailing_punctuation(
+                        place
                     ).lstrip('(').rstrip(')')
-                    if conference_place:
-                        agent['conference_place'] = conference_place
+                    if place:
+                        agent['place'] = place
 
         if value.get('4'):
             roles = []

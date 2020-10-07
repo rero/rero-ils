@@ -24,6 +24,7 @@ import re
 from elasticsearch_dsl.utils import AttrDict
 
 from .dojson.contrib.marc21tojson.model import remove_trailing_punctuation
+from ...utils import get_i18n_supported_languages
 
 
 def clean_text(data):
@@ -397,8 +398,11 @@ def create_authorized_access_point(agent):
     :param agent: Agent to create the authorized_access_point for.
     :returns: authorized access point.
     """
-    authorized_access_point = agent['preferred_name']
-    if agent['type'] == "bf:Person":
+    if not agent:
+        return None
+    authorized_access_point = agent.get('preferred_name')
+    from ..contributions.api import ContributionType
+    if agent.get('type') == ContributionType.PERSON:
         date = ''
         date_of_birth = agent.get('date_of_birth')
         date_of_death = agent.get('date_of_death')
@@ -438,24 +442,60 @@ def create_authorized_access_point(agent):
                 authorized_access_point += ', {qualifier}'.format(
                     qualifier=qualifier
                 )
-    elif agent['type'] == "bf:Organisation":
+    elif agent.get('type') == ContributionType.ORGANISATION:
         subordinate_unit = agent.get('subordinate_unit')
         if subordinate_unit:
             authorized_access_point += '. {sub_unit}'.format(
                 sub_unit='. '.join(subordinate_unit)
             )
         conference_data = []
-        conference_number = agent.get('conference_number')
-        if conference_number:
-            conference_data.append(conference_number)
+        numbering = agent.get('numbering')
+        if numbering:
+            conference_data.append(numbering)
         conference_date = agent.get('conference_date')
         if conference_date:
             conference_data.append(conference_date)
-        conference_place = agent.get('conference_place')
-        if conference_place:
-            conference_data.append(conference_place)
+        place = agent.get('place')
+        if place:
+            conference_data.append(place)
         if conference_data:
             authorized_access_point += ' ({conference})'.format(
                 conference=' : '.join(conference_data)
             )
     return authorized_access_point
+
+
+def create_contributions(contributions):
+    """Create contribution."""
+    from ..contributions.api import Contribution
+    calculated_contributions = []
+    for contribution in contributions:
+        cont_pid = contribution['agent'].get('pid')
+        if cont_pid:
+            contrib = Contribution.get_record_by_pid(cont_pid)
+            if contrib:
+                contribution['agent'] = contrib.dumps_for_document()
+        else:
+            # transform local data for indexing
+            agent = {}
+            agent['type'] = contribution['agent']['type']
+            authorized_access_point = create_authorized_access_point(
+                contribution['agent']
+            )
+            agent['authorized_access_point'] = authorized_access_point
+            for language in get_i18n_supported_languages():
+                agent['authorized_access_point_{language}'.format(
+                    language=language
+                )] = authorized_access_point
+            variant_access_point = contribution['agent'].get(
+                'variant_access_point')
+            if variant_access_point:
+                agent['variant_access_point'] = variant_access_point
+            parallel_access_point = contribution['agent'].get(
+                'parallel_access_point')
+            if parallel_access_point:
+                agent['parallel_access_point'] = parallel_access_point
+            contribution['agent'] = agent
+
+        calculated_contributions.append(contribution)
+    return calculated_contributions

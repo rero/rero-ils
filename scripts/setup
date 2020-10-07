@@ -78,7 +78,7 @@ invert_warning_option() {
 
 
 DEPLOYMENT=false
-LOADPERSONS=false
+LOADCONTRIBUTIONS=false
 CREATE_ITEMS_HOLDINGS_SMALL=false
 CREATE_ITEMS_HOLDINGS_BIG=false
 STOP_EXECUTION=true
@@ -99,7 +99,7 @@ if [[ -z "${VIRTUAL_ENV}" ]]; then
 fi
 
 # options may be followed by one colon to indicate they have a required argument
-if ! options=$(getopt -o dPsbclptmwkD: -l deployment,persons,create_items_holdings_small,create_items_holdings_big,lazy,pursue,time,es-mapping,warnings,enqueue,data_path: -- "$@")
+if ! options=$(getopt -o dCsbclptmwkD: -l deployment,contributions,create_items_holdings_small,create_items_holdings_big,lazy,pursue,time,es-mapping,warnings,enqueue,data_path: -- "$@")
 then
     # something went wrong, getopt will put out an error message for us
     exit 1
@@ -111,8 +111,8 @@ do
     -d|--deployment)
       DEPLOYMENT=true
       ;;
-    -P|--persons)
-      LOADPERSONS=true
+    -C|--contributions)
+      LOADCONTRIBUTIONS=true
       ;;
     -s|--create_items_holdings_small)
       CREATE_ITEMS_HOLDINGS_SMALL=true
@@ -303,31 +303,31 @@ eval ${PREFIX} invenio utils reindex -t illr --yes-i-know --no-info
 # SIZE=big # SIZE=small
 # export RERO_ILS_MEF_HOST=mef.test.rero.ch
 # invenio utils marc21tojson ${DATA_PATH}/documents_${SIZE}.xml ${DATA_PATH}/documents_${SIZE}.json ${DATA_PATH}/documents_${SIZE}_errors.xml -v -r
-#: after recreation and loading of the new documents we have to recreate the person file
-# invenio utils export -p pers -o ${DATA_PATH}/persons_${SIZE}.json -v
+# Save the contribution after setup for later use.
+# invenio utils export -t cont -o ${DATA_PATH}/contributions_${SIZE}.json -v
 
 if ${DEPLOYMENT}
 then
     DOCUMENTS=${DATA_PATH}/documents_big.json
     ITEMS=${DATA_PATH}/items_big.json
     HOLDINGS=${DATA_PATH}/holdings_big.json
-    PERSONS=${DATA_PATH}/persons_big.json
+    CONTRIBUTIONS=${DATA_PATH}/contributions_big.json
 else
     DOCUMENTS=${DATA_PATH}/documents_small.json
     ITEMS=${DATA_PATH}/items_small.json
     HOLDINGS=${DATA_PATH}/holdings_small.json
-    PERSONS=${DATA_PATH}/persons_small.json
+    CONTRIBUTIONS=${DATA_PATH}/contributions_small.json
 fi
 
-if ${LOADPERSONS}
+if ${LOADCONTRIBUTIONS}
 then
-    info_msg "- PERSONS: ${DOCUMENTS} ${CREATE_LAZY} ${DONT_STOP}"
-    eval ${PREFIX} invenio fixtures create --pid_type pers --schema 'http://ils.rero.ch/schemas/persons/person-v0.0.1.json' ${PERSONS} --append ${CREATE_LAZY} ${DONT_STOP}
-    info_msg "Indexing Persons:"
-    eval ${PREFIX} invenio utils reindex -t pers --yes-i-know --no-info
+    info_msg "- CONTRIBUTIONS: ${DOCUMENTS} ${CREATE_LAZY} ${DONT_STOP}"
+    eval ${PREFIX} invenio fixtures create --pid_type cont --schema 'http://ils.rero.ch/schemas/contributions/contribution-v0.0.1.json' ${CONTRIBUTIONS} --append ${CREATE_LAZY} ${DONT_STOP}
+    info_msg "Indexing Contributions:"
+    eval ${PREFIX} invenio utils reindex -t cont --yes-i-know --no-info
     eval ${PREFIX} invenio utils runindex --raise-on-error
 else
-    info_msg "- Persons from MEF: ${DOCUMENTS} ${CREATE_LAZY} ${ENQUEUE}"
+    info_msg "- Contributions from MEF: ${DOCUMENTS} ${CREATE_LAZY} ${ENQUEUE}"
     eval ${PREFIX} invenio fixtures get_all_mef_records ${DOCUMENTS} ${CREATE_LAZY} ${ENQUEUE}
 fi
 
@@ -374,9 +374,9 @@ eval ${PREFIX} invenio utils runindex --raise-on-error
 eval ${PREFIX} invenio utils reindex -t doc --yes-i-know --no-info
 eval ${PREFIX} invenio utils runindex --raise-on-error
 
-# index persons
-# We have to reindex persons to get the oraganisations pids indexed correctly.
-eval ${PREFIX} invenio utils reindex -t pers --yes-i-know --no-info
+# index contributions
+# We have to reindex contributions to get the oraganisations pids indexed correctly.
+eval ${PREFIX} invenio utils reindex -t cont --yes-i-know --no-info
 eval ${PREFIX} invenio utils runindex --raise-on-error
 
 # create vendors

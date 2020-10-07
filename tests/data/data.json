@@ -1033,153 +1033,138 @@
     "policy_library_level": false,
     "is_default": false
   },
-  "pers1": {
-    "$schema": "https://ils.rero.ch/schemas/persons/person-v0.0.1.json",
-    "pid": "pers1",
-    "viaf_pid": "56597999",
-    "sources": [
-      "rero",
-      "gnd",
-      "bnf"
-    ],
-    "bnf": {
-      "$schema": "https://mef.test.rero.ch/schemas/authorities/bnf-person-v0.0.1.json",
-      "authorized_access_point_representing_a_person": "Aernoudt, Pierre, 1811-1865",
-      "biographical_information": [
-        "\u00c9crivit aussi en latin",
-        "J\u00e9suite (\u00e0 partir de 1835 ; ordonn\u00e9 pr\u00eatre en 1843)",
-        "V\u00e9cut aux \u00c9tats-Unis \u00e0 partir de 1835"
-      ],
-      "date_of_birth": "1811-05-17",
-      "date_of_death": "1865-07-29",
-      "gender": "male",
-      "identifier_for_person": "http://catalogue.bnf.fr/ark:/12148/cb10001899h",
-      "language_of_person": [
-        "fre"
-      ],
-      "md5": "ecc9695462cd840462e3d0af39386fa3",
-      "pid": "10001899",
-      "preferred_name_for_person": "Aernoudt, Pierre",
-      "variant_name_for_person": [
-        "Arnoudt, Pierre",
-        "Aernoudt, Pierre-Jacques-Marie",
-        "Arnold, Pierre",
-        "Arnoldus, Petrus",
-        "Arnoldo, Pierre",
-        "Arnold, J."
-      ]
-    },
+  "cont_pers": {
+    "$schema": "https://ils.rero.ch/schemas/contributions/contribution-v0.0.1.json",
     "gnd": {
-      "$schema": "https://mef.test.rero.ch/schemas/authorities/gnd-person-v0.0.1.json",
-      "authorized_access_point_representing_a_person": "Arnoudt, Pierre J., 1811-1865",
+      "$schema": "https://mef.test.rero.ch/schemas/gnd/gnd-contribution-v0.0.1.json",
+      "bf:Agent": "bf:Person",
       "biographical_information": [
-        "Vollsta\u0308ndiger Vorname: Peter Joseph"
+        "Diss. philosophische Fakulta\u0308t"
       ],
-      "date_of_birth": "11.05.1811",
-      "date_of_death": "29.07.1865",
-      "identifier_for_person": "http://d-nb.info/gnd/172759757",
-      "md5": "81734e9587b85ef91f895999de92861e",
-      "pid": "172759757",
-      "preferred_name_for_person": "Arnoudt, Pierre J.",
-      "variant_name_for_person": [
-        "Arnoudt, Pierre Joseph",
-        "Arnoudt, Pierre",
-        "Arnold, Petrus",
-        "Arnoudt, P. J.",
-        "Arnoudt, P.",
-        "Arnold, P. J.",
-        "Arnold, Peter J.",
-        "Arnold, Peter Joseph",
-        "Arnold, Joseph",
-        "Arnold, J.",
-        "Arnoudt, Petrus",
-        "Aernoudt, Pierre",
-        "Arnoudt, Peter J.",
-        "Arnoudt, Pierre Jean",
-        "Arnold, Pierre",
-        "Arnold, Josef"
+      "date_of_birth": "1885",
+      "identifier": "http://d-nb.info/gnd/13343771X",
+      "md5": "5dad1e77d5a47d39e87bb0ec37aaf51e",
+      "pid": "13343771X",
+      "authorized_access_point": "Loy, Georg, 1885",
+      "preferred_name": "Loy, Georg",
+      "variant_name": [
+        "Loy, George, di Madeiros"
       ]
-    },
-    "rero": {
-      "$schema": "https://mef.test.rero.ch/schemas/authorities/rero-person-v0.0.1.json",
-      "authorized_access_point_representing_a_person": "Arnoudt, Pierre J., 1811-1865",
-      "biographical_information": [
-        "J\u00e9suite (\u00e0 partir de 1835 ; ordonn\u00e9 pr\u00eatre en 1843) ; v\u00e9cut aux Etats-Unis \u00e0 partir de 1835, \u00e9crivit aussi en latin"
-      ],
-      "date_of_birth": "1811",
-      "date_of_death": "1865",
-      "identifier_for_person": "http://data.rero.ch/02-A017671081",
-      "md5": "a33cbda21ed35959bcac921de5523b5c",
-      "pid": "A017671081",
-      "preferred_name_for_person": "Arnoudt, Pierre J.",
-      "variant_name_for_person": [
-        "Aernoudt, Pierre",
-        "Arnold, Joseph"
-      ]
-    }
-  },
-  "pers2": {
-    "$schema": "https://ils.rero.ch/schemas/persons/person-v0.0.1.json",
-    "pid": "pers2",
-    "sources": [
-      "rero",
-      "gnd",
-      "bnf",
-      "idref"
-    ],
-    "viaf_pid": "108158722",
-    "bnf": {
-      "md5": "9e3b6c4727f0370b48fe3c729f0c0805",
-      "pid": "12096646",
-      "date_of_birth": "1909",
-      "language_of_person": [
-        "ger"
-      ],
-      "identifier_for_person": "http://catalogue.bnf.fr/ark:/12148/cb12096646q",
-      "biographical_information": [
-        "Antiquaire et critique d'art d'origine allemande"
-      ],
-      "preferred_name_for_person": "Nebehay, Christian Michael",
-      "authorized_access_point_representing_a_person": "Nebehay, Christian Michael, 1909-...."
-    },
-    "gnd": {
-      "md5": "6f5b92c626f7db7113c9b59e18aa18e6",
-      "pid": "119294907",
-      "gender": "male",
-      "date_of_birth": "11.05.1909",
-      "date_of_death": "25.11.2003",
-      "identifier_for_person": "http://d-nb.info/gnd/119294907",
-      "variant_name_for_person": [
-        "Nebehay, Christian M."
-      ],
-      "biographical_information": [
-        "O\u0308sterr. Kunstha\u0308ndler u. Antiquar dt. Herkunft"
-      ],
-      "preferred_name_for_person": "Nebehay, Christian Michael",
-      "authorized_access_point_representing_a_person": "Nebehay, Christian Michael, 1909-2003"
-    },
-    "rero": {
-      "md5": "1bc73340be92280b30fb81366f9a474b",
-      "pid": "A003633163",
-      "identifier_for_person": "http://data.rero.ch/02-A003633163",
-      "preferred_name_for_person": "Nebehay, Christian Michael",
-      "authorized_access_point_representing_a_person": "Nebehay, Christian Michael"
     },
     "idref": {
-      "md5": "abb76b52604b212a196e845b3a41fd0f",
-      "pid": "029314100",
-      "date_of_birth": "1909-05-11",
-      "date_of_death": "2003-11-25",
-      "language_of_person": [
+      "$schema": "https://mef.test.rero.ch/schemas/idref/idref-contribution-v0.0.1.json",
+      "bf:Agent": "bf:Person",
+      "country_associated": "gw",
+      "date_of_birth": "1885-05-14",
+      "date_of_death": "19..",
+      "identifier": "http://www.idref.fr/223977268",
+      "language": [
         "ger"
       ],
-      "identifier_for_person": "http://www.idref.fr/029314100",
+      "md5": "3dd3788c64af4200676a35a5ea35b180",
+      "pid": "223977268",
+      "authorized_access_point": "Loy, Georg, 1885-19..",
+      "preferred_name": "Loy, Georg"
+    },
+    "pid": "cont_pers",
+    "type": "bf:Person",
+    "sources": [
+      "gnd",
+      "idref"
+    ],
+    "viaf_pid": "70119347"
+  },
+  "cont_org": {
+    "$schema": "https://ils.rero.ch/schemas/contributions/contribution-v0.0.1.json",
+    "gnd": {
+      "$schema": "https://mef.rero.ch/schemas/gnd/gnd-contribution-v0.0.1.json",
+      "bf:Agent": "bf:Organisation",
+      "conference": true,
+      "country_associated": "rm",
+      "identifier": "http://d-nb.info/gnd/1161956409",
+      "md5": "215b8b7fc6fd58fdb149258f5e385bf3",
+      "pid": "1161956409",
+      "preferred_name": "Convegno internazionale di italianistica Craiova",
+      "variant_access_point": [
+        "VIII Convegno internazionale di italianistica dell'Universita\u0300 di Craiova, 16-17 settembre 2016"
+      ]
+    },
+    "rero": {
+      "$schema": "https://mef.test.rero.ch/schemas/rero/rero-contribution-v0.0.1.json",
+      "bf:Agent": "bf:Organisation",
+      "conference": true,
+      "identifier": "http://data.rero.ch/02-A027711299",
+      "md5": "4e68fe5569c8ab038b8069e883ebae2b",
+      "pid": "A027711299",
+      "preferred_name": "Convegno internazionale di Italianistica"
+    },
+    "pid": "cont_org",
+    "type": "bf:Organisation",
+    "sources": [
+      "rero",
+      "gnd"
+    ],
+    "viaf_pid": "3117153063217219320007"
+  },
+  "cont_pers2": {
+    "$schema": "https://mef.rero.ch/schemas/mef/mef-v0.0.1.json",
+    "type": "bf:Person",
+    "gnd": {
+      "$schema": "https://mef.rero.ch/schemas/agents_gnd/gnd-agent-v0.0.1.json",
+      "authorized_access_point": "Nebehay, Christian Michael, 1909-2003",
+      "bf:Agent": "bf:Person",
+      "country_associated": "au",
+      "date_of_birth": "11.05.1909",
+      "date_of_death": "25.11.2003",
+      "gender": "male",
+      "identifier": "http://d-nb.info/gnd/119294907",
+      "md5": "4b1f7780953b7d26e801bb63959c040a",
+      "parallel_access_point": [
+        "Nebehay, Christian Michael, 1909-2003"
+      ],
+      "pid": "119294907",
+      "preferred_name": "Nebehay, Christian Michael",
+      "variant_access_point": [
+        "Nebehay, Christian M., 1909-2003"
+      ],
+      "variant_name": [
+        "Nebehay, Christian M."
+      ]
+    },
+    "idref": {
+      "$schema": "https://mef.rero.ch/schemas/agents_idref/idref-agent-v0.0.1.json",
+      "authorized_access_point": "Nebehay, Christian Michael",
+      "bf:Agent": "bf:Person",
       "biographical_information": [
         "Antiquaire et critique d'art d'origine allemande"
       ],
-      "preferred_name_for_person": "Nebehay, Christian Michael",
-      "authorized_access_point_representing_a_person": "Nebehay, Christian Michael, 1909-2003"
-    }
+      "country_associated": "au",
+      "date_of_birth": "1909-05-11",
+      "date_of_death": "2003-11-25",
+      "identifier": "http://www.idref.fr/029314100",
+      "language": [
+        "ger"
+      ],
+      "md5": "dc937fa47f66b23ee2451abfb8716174",
+      "pid": "029314100",
+      "preferred_name": "Nebehay, Christian Michael"
+    },
+    "pid": "cont_pers2",
+    "rero": {
+      "$schema": "https://mef.rero.ch/schemas/agents_rero/rero-agent-v0.0.1.json",
+      "authorized_access_point": "Nebehay, Christian Michael",
+      "bf:Agent": "bf:Person",
+      "identifier": "http://data.rero.ch/02-A003633163",
+      "md5": "2f217265e5fa5fc2a361e46fd3a07f8f",
+      "pid": "A003633163",
+      "preferred_name": "Nebehay, Christian Michael"
+    },
+    "sources": [
+      "rero",
+      "gnd",
+      "idref"
+    ],
+    "viaf_pid": "108158722"
   },
   "doc1": {
     "$schema": "https://ils.rero.ch/schemas/documents/document-v0.0.1.json",
@@ -1444,6 +1429,7 @@
     "contribution": [
       {
         "agent": {
+          "type": "bf:Person",
           "$ref": "https://mef.rero.ch/api/rero/A017671081"
         },
         "role": [
@@ -1570,9 +1556,9 @@
           "subordinate_unit": [
             "Martigny"
           ],
-          "conference_number": "1",
+          "numbering": "1",
           "conference_date": "2020-02-02",
-          "conference_place": "Martigny",
+          "place": "Martigny",
           "conference": false
         },
         "role": [
@@ -2113,7 +2099,8 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/029314100"
+          "$ref": "https://mef.rero.ch/api/idref/029314100",
+          "type": "bf:Person"
         },
         "role": [
           "ctb"

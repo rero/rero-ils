@@ -28,7 +28,7 @@ from utils import mock_response
 from rero_ils.dojson.utils import not_repetitive
 from rero_ils.modules.documents.dojson.contrib.marc21tojson import marc21
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.model import \
-    get_person_link
+    get_contribution_link
 from rero_ils.modules.documents.views import create_publication_statement, \
     get_accesses, get_cover_art, get_other_accesses
 
@@ -1265,8 +1265,8 @@ def test_marc21_to_contribution(mock_get):
                 'type': 'bf:Organisation',
                 'preferred_name': 'Biennale de céramique contemporaine',
                 'conference_date': '2003',
-                'conference_number': '17',
-                'conference_place': 'Châteauroux',
+                'numbering': '17',
+                'place': 'Châteauroux',
                 'conference': True
             },
             'role': ['aut']
@@ -1284,7 +1284,10 @@ def test_marc21_to_contribution(mock_get):
     mock_get.return_value = mock_response(json_data={
         'hits': {
             'hits': [{
-                'metadata': {'rero': {'pid': 'XXXXXXXX'}}
+                'metadata': {
+                    'type': 'bf:Person',
+                    'rero': {'pid': 'XXXXXXXX'}
+                }
             }]
         }
     })
@@ -1293,6 +1296,7 @@ def test_marc21_to_contribution(mock_get):
     contribution = data.get('contribution')
     assert contribution == [{
         'agent': {
+            'type': 'bf:Person',
             '$ref': 'https://mef.rero.ch/api/rero/XXXXXXXX'
         },
         'role': ['cre']
@@ -3686,8 +3690,8 @@ def test_marc21_to_identifiedBy_from_930():
 
 
 @mock.patch('requests.get')
-def test_get_person_link(mock_get, capsys):
-    """Test get mef person link"""
+def test_get_contribution_link(mock_get, capsys):
+    """Test get mef contribution link"""
     os.environ['RERO_ILS_MEF_HOST'] = 'mef.xxx.rero.ch'
 
     mock_get.return_value = mock_response(json_data={
@@ -3695,7 +3699,7 @@ def test_get_person_link(mock_get, capsys):
             'hits': [{'metadata': {'idref': {'pid': 'idref_pid'}}}]
         }
     })
-    mef_url = get_person_link(
+    mef_url = get_contribution_link(
         bibid='1',
         reroid='1',
         id='(RERO)A003945843',
@@ -3706,10 +3710,13 @@ def test_get_person_link(mock_get, capsys):
 
     mock_get.return_value = mock_response(json_data={
         'hits': {
-            'hits': [{'metadata': {'gnd': {'pid': 'gnd_pid'}}}]
+            'hits': [{'metadata': {
+                'type': 'bf:Person',
+                'gnd': {'pid': 'gnd_pid'}
+            }}]
         }
     })
-    mef_url = get_person_link(
+    mef_url = get_contribution_link(
         bibid='1',
         reroid='1',
         id='(RERO)A003945843',
@@ -3720,10 +3727,13 @@ def test_get_person_link(mock_get, capsys):
 
     mock_get.return_value = mock_response(json_data={
         'hits': {
-            'hits': [{'metadata': {'rero': {'pid': 'rero_pid'}}}]
+            'hits': [{'metadata': {
+                'type': 'bf:Person',
+                'rero': {'pid': 'rero_pid'}
+            }}]
         }
     })
-    mef_url = get_person_link(
+    mef_url = get_contribution_link(
         bibid='1',
         reroid='1',
         id='(RERO)A003945843',
@@ -3733,7 +3743,7 @@ def test_get_person_link(mock_get, capsys):
     assert mef_url == 'https://mef.rero.ch/api/rero/rero_pid'
 
     mock_get.return_value = mock_response(status=400)
-    mef_url = get_person_link(
+    mef_url = get_contribution_link(
         bibid='1',
         reroid='1',
         id='(RERO)A123456789',
@@ -3746,7 +3756,7 @@ def test_get_person_link(mock_get, capsys):
         'https://mef.xxx.rero.ch/api/mef/?q=rero.pid:A123456789\t400\t\n'
 
     mock_get.return_value = mock_response(status=400)
-    mef_url = get_person_link(
+    mef_url = get_contribution_link(
         bibid='1',
         reroid='1',
         id='X123456789',

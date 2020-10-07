@@ -212,7 +212,8 @@ class Import(object):
             ids = bucket[0]['ids']
         return ids
 
-    def search_records(self, what, relation, where='anywhere', max=0):
+    def search_records(self, what, relation, where='anywhere', max=0,
+                       no_cache=False):
         """Get the records.
 
         :param what: what term to search
@@ -232,7 +233,7 @@ class Import(object):
                 max=max
             )
             cache = self.cache.get(cache_key)
-            if cache:
+            if cache and not no_cache:
                 cache_data = pickle.loads(cache)
                 self.results['hits'] = cache_data['hits']
                 self.data = cache_data['data']

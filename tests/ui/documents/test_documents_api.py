@@ -137,8 +137,9 @@ def test_document_can_delete_with_loans(
     assert 'links' in reasons
 
 
-def test_document_person_resolve_exception(es_clear, db, document_data_ref):
-    """Test document person resolve."""
+def test_document_contribution_resolve_exception(es_clear, db,
+                                                 document_data_ref):
+    """Test document contribution resolve."""
     document_data_ref['contribution'] = [{
         '$ref': 'https://mef.rero.ch/api/rero/XXXXXX'
     }],
