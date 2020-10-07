@@ -5,7 +5,6 @@ Le délai de prêt des documents mentionnés ci-dessous arrive à échéance :
 
 Titre : {{ document.title_text }} / {{ document.responsibility_statement }}
 Echéance : {{ end_date }}
-Note : Non prolongeable
 
 Vous pouvez consulter votre compte et prolonger la durée de prêt de vos documents à l'adresse : {{ profile_url }}
 
