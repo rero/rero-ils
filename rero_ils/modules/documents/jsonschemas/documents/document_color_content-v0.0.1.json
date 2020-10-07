@@ -13,9 +13,6 @@
       ],
       "form": {
         "type": "selectWithSort",
-        "wrappers": [
-          "form-field-horizontal"
-        ],
         "options": [
           {
             "label": "Monochrome",

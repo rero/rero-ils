@@ -47,9 +47,6 @@
       "default": "pending",
       "form": {
         "type": "selectWithSort",
-        "wrappers": [
-          "form-field-horizontal"
-        ],
         "options": [
           {
             "value": "pending",
@@ -67,12 +64,7 @@
             "value": "closed",
             "label": "closed"
           }
-        ],
-        "templateOptions": {
-          "selectWithSortOptions": {
-            "order": "label"
-          }
-        }
+        ]
       }
     },
     "copy": {

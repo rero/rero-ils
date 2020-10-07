@@ -67,9 +67,6 @@
       "default": "monograph",
       "form": {
         "type": "selectWithSort",
-        "wrappers": [
-          "form-field-horizontal"
-        ],
         "options": [
           {
             "value": "monograph",
@@ -95,12 +92,7 @@
             "value": "multi_volume",
             "label": "Multi-volume"
           }
-        ],
-        "templateOptions": {
-          "selectWithSortOptions": {
-            "order": "label"
-          }
-        }
+        ]
       }
     },
     "description": {
@@ -122,9 +114,6 @@
       "default": "pending",
       "form": {
         "type": "selectWithSort",
-        "wrappers": [
-          "form-field-horizontal"
-        ],
         "options": [
           {
             "value": "approved",
@@ -150,12 +139,7 @@
             "value": "received",
             "label": "Received"
           }
-        ],
-        "templateOptions": {
-          "selectWithSortOptions": {
-            "order": "label"
-          }
-        }
+        ]
       }
     },
     "currency": {
@@ -167,15 +151,7 @@
         "USD"
       ],
       "form": {
-        "type": "selectWithSort",
-        "wrappers": [
-          "form-field-horizontal"
-        ],
-        "templateOptions": {
-          "selectWithSortOptions": {
-            "order": "label"
-          }
-        }
+        "type": "selectWithSort"
       },
       "default": "CHF"
     },
@@ -187,9 +163,6 @@
       "form": {
         "type": "datepicker",
         "placeholder": "Select a date",
-        "wrappers": [
-          "form-field"
-        ],
         "validation": {
           "messages": {
             "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."

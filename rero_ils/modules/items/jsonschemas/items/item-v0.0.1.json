@@ -169,15 +169,7 @@
             "deleted"
           ],
           "form": {
-            "type": "selectWithSort",
-            "wrappers": [
-              "form-field-horizontal"
-            ],
-            "templateOptions": {
-              "selectWithSortOptions": {
-                "order": "label"
-              }
-            }
+            "type": "selectWithSort"
           }
         },
         "display_text": {
@@ -212,9 +204,6 @@
           "form": {
             "hideExpression": "field.parent.model.regular",
             "type": "datepicker",
-            "wrappers": [
-              "form-field"
-            ],
             "validation": {
               "messages": {
                 "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
@@ -250,9 +239,6 @@
       ],
       "form": {
         "type": "selectWithSort",
-        "wrappers": [
-          "form-field-horizontal"
-        ],
         "options": [
           {
             "label": "on_shelf",
@@ -279,11 +265,6 @@
             "value": "excluded"
           }
         ],
-        "templateOptions": {
-          "selectWithSortOptions": {
-            "order": "label"
-          }
-        },
         "hideExpression": "true"
       }
     },
@@ -336,9 +317,6 @@
             ],
             "form": {
               "type": "selectWithSort",
-              "wrappers": [
-                "form-field-horizontal"
-              ],
               "options": [
                 {
                   "label": "public note",
@@ -356,12 +334,7 @@
                   "label": "checkout note",
                   "value": "checkout_note"
                 }
-              ],
-              "templateOptions": {
-                "selectWithSortOptions": {
-                  "order": "label"
-                }
-              }
+              ]
             }
           },
           "content": {
@@ -401,9 +374,6 @@
       "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
       "form": {
         "type": "datepicker",
-        "wrappers": [
-          "toggle-switch"
-        ],
         "templateOptions": {
           "label": "",
           "toggle-switch": {

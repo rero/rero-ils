@@ -19,20 +19,13 @@
 
 
 from rero_ils.modules.collections.api import Collection
-from rero_ils.modules.collections.views import _start_end_date, get_location, \
-    get_teachers
+from rero_ils.modules.collections.views import _start_end_date, get_teachers
 
 
 def test_get_teachers(db, coll_martigny_1_data):
     """Test get teachers."""
     result = 'Pr. Smith, John, Pr. Nonyme, Anne'
     assert get_teachers(coll_martigny_1_data) == result
-
-
-def test_get_location(loc_public_martigny, item_lib_martigny):
-    """Test get location."""
-    result = 'Library of Martigny-ville: Martigny Library Public Space'
-    assert get_location(item_lib_martigny) == result
 
 
 def test_start_end_date(db, coll_martigny_1_data):

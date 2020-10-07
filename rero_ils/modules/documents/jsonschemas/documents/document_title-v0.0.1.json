@@ -29,9 +29,6 @@
           ],
           "form": {
             "type": "selectWithSort",
-            "wrappers": [
-              "form-field-horizontal"
-            ],
             "options": [
               {
                 "label": "Title",
@@ -47,10 +44,7 @@
               }
             ],
             "templateOptions": {
-              "cssClass": "editor-max-width",
-              "selectWithSortOptions": {
-                "order": "label"
-              }
+              "cssClass": "editor-max-width"
             }
           }
         },
