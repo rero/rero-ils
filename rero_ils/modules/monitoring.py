@@ -24,6 +24,7 @@ from elasticsearch.exceptions import NotFoundError
 from flask import Blueprint, current_app, jsonify, request, url_for
 from flask.cli import with_appcontext
 from flask_login import current_user
+from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_search import RecordsSearch
 
@@ -34,6 +35,93 @@ api_blueprint = Blueprint(
     __name__,
     url_prefix='/monitoring'
 )
+
+
+def check_authentication(func):
+    """Decorator to check authentication for items HTTP API."""
+    @wraps(func)
+    def decorated_view(*args, **kwargs):
+        if not current_user.is_authenticated:
+            return jsonify({'status': 'error: Unauthorized'}), 401
+        if not admin_permission.require().can():
+            return jsonify({'status': 'error: Forbidden'}), 403
+        return func(*args, **kwargs)
+    return decorated_view
+
+
+@api_blueprint.route('/db_connection_counts')
+@check_authentication
+def db_connection_counts():
+    """Display DB connection counts.
+
+    :return: jsonified count for db connections
+    """
+    query = """
+        select
+            max_conn, used, res_for_super,
+            max_conn-used-res_for_super res_for_normal
+        from
+            (
+                select count(*) used
+                from pg_stat_activity
+            ) t1,
+            (
+                select setting::int res_for_super
+                from pg_settings
+                where name=$$superuser_reserved_connections$$
+            ) t2,
+            (
+                select setting::int max_conn
+                from pg_settings
+                where name=$$max_connections$$
+            ) t3
+        """
+    try:
+        max_conn, used, res_for_super, free = db.session.execute(query).first()
+    except Exception as error:
+        return jsonify({'ERROR': error})
+    return jsonify({'data': {
+        'max': max_conn,
+        'used': used,
+        'res_super': res_for_super,
+        'free': free
+    }})
+
+
+@api_blueprint.route('/db_connections')
+@check_authentication
+def db_connections():
+    """Display DB connections.
+
+    :return: jsonified connections for db
+    """
+    query = """
+        SELECT
+            pid, application_name, client_addr, client_port, backend_start,
+            xact_start, query_start,  wait_event, state, left(query, 64)
+        FROM
+            pg_stat_activity
+        ORDER BY query_start DESC
+    """
+    try:
+        results = db.session.execute(query).fetchall()
+    except Exception as error:
+        return jsonify({'ERROR': error})
+    data = {}
+    for pid, application_name, client_addr, client_port, backend_start, \
+            xact_start, query_start, wait_event, state, left in results:
+        data[pid] = {
+            'application_name': application_name,
+            'client_addr': client_addr,
+            'client_port': client_port,
+            'backend_start': backend_start,
+            'xact_start': xact_start,
+            'query_start': query_start,
+            'wait_event': wait_event,
+            'state': state,
+            'left': left
+        }
+    return jsonify({'data': data})
 
 
 @api_blueprint.route('/es_db_counts')
@@ -124,21 +212,7 @@ def check_es_db_counts():
                         'details': msg
                     })
         result['errors'] = errors
-
     return jsonify(result)
-
-
-def check_authentication(func):
-    """Decorator to check authentication for items HTTP API."""
-    @wraps(func)
-    def decorated_view(*args, **kwargs):
-        if not current_user.is_authenticated:
-            return jsonify({'status': 'error: Unauthorized'}), 401
-        if not admin_permission.require().can():
-            return jsonify({'status': 'error: Forbidden'}), 403
-        return func(*args, **kwargs)
-
-    return decorated_view
 
 
 @api_blueprint.route('/missing_pids/<doc_type>')
