@@ -40,18 +40,16 @@ datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 @click.option('-c', '--dbcommit', 'dbcommit', is_flag=True, default=False)
 @click.argument('infile', type=click.File('r'))
 @with_appcontext
-def import_users(infile, verbose, password, append, dbcommit, reindex):
+def import_users(infile, verbose, password, dbcommit, reindex):
     """Import users.
 
     :param verbose: this function will be verbose.
     :param password: the password to use for user by default.
     :param infile: Json user file.
-    :param append: appends pids to database
     """
     click.secho('Import users:', fg='green')
 
     data = json.load(infile)
-    pids = []
     for patron_data in data:
         email = patron_data.get('email')
         if email is None:
@@ -87,5 +85,3 @@ def import_users(infile, verbose, password, append, dbcommit, reindex):
                     reindex=reindex
                 )
                 patron.reindex()
-                if patron:
-                    pids.append(patron.pid)
