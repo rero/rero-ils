@@ -418,10 +418,6 @@
       "form": {
         "type": "datepicker",
         "wrappers": [
-          "toggle-switch",
-          "form-field"
-        ],
-        "wrappers": [
           "toggle-switch"
         ],
         "templateOptions": {
