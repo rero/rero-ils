@@ -1813,6 +1813,10 @@ for index in indexes:
             fields=['-_updated'], title='Last updated', default_order='desc',
             order=3
         ),
+        created=dict(
+            fields=['_created'], title='Most recent', default_order='asc',
+            order=4
+        ),
     )
     RECORDS_REST_DEFAULT_SORT[index] = dict(
         query='bestmatch', noquery='mostrecent')
@@ -1859,12 +1863,16 @@ RECORDS_REST_DEFAULT_SORT['libraries'] = dict(
     query='bestmatch', noquery='name')
 
 # ------ LOANS SORT
-RECORDS_REST_SORT_OPTIONS['loans'] = dict(
-    transactiondate=dict(
-        fields=['-transaction_date'], title='Transaction date',
-        default_order='asc'
-    )
+RECORDS_REST_SORT_OPTIONS['loans']['transactiondate'] = dict(
+    fields=['-transaction_date'], title='Transaction date',
+    default_order='desc'
 )
+RECORDS_REST_SORT_OPTIONS['loans']['duedate'] = dict(
+    fields=['end_date'], title='Due date',
+    default_order='asc'
+)
+RECORDS_REST_DEFAULT_SORT['loans'] = dict(
+    query='bestmatch', noquery='transactiondate')
 
 # ------ LOCATIONS SORT
 RECORDS_REST_SORT_OPTIONS['locations']['name'] = dict(
