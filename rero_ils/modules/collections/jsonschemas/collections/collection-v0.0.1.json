@@ -12,7 +12,6 @@
     "start_date",
     "end_date",
     "organisation",
-    "items",
     "published"
   ],
   "propertiesOrder": [
@@ -219,7 +218,6 @@
     "items": {
       "title": "Items in the collection",
       "type": "array",
-      "minItems": 1,
       "items": {
         "title": "Item",
         "type": "object",
