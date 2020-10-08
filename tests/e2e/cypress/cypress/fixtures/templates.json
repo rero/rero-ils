@@ -1,0 +1,11 @@
+{
+  "templateA": {
+    "name": "Cypress template",
+    "document": {
+      "type": "sound",
+      "title": {
+        "mainTitle": "Template title"
+      }
+    }
+  }
+}
