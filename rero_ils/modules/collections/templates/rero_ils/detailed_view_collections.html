@@ -24,6 +24,11 @@
 <div class="row">
   <div class="col-sm-12 col-md-12">
     <h1>{{ record.title }}</h1>
+    {%- for subject in record.subjects %}
+      <span class="badge badge-secondary mr-1 ng-star-inserted">
+        <i class="fa fa-tag"></i> {{ subject.name }}
+      </span>
+    {%- endfor %}
     <dl class="row pt-0 ml-0">
       {%- if record.teachers %}
         {{ dl(_('Teachers'), record|get_teachers) }}
@@ -32,7 +37,9 @@
       {{ dl(_('Type'), record.collection_type) }}
       {{ dl(_('Description'), record.description) }}
       {{ dl(_('Date'), record.date) }}
-    </dl>
+      {%- if record.libraries %}
+        {{ dl(_('Libraries'), record.libraries) }}
+      {%- endif %}
   </div>
 </div>
 
@@ -67,13 +74,9 @@
           {%- if item.call_number %}
             {{ dl(_('Call number'), item.call_number) }}
           {%- endif %}
-          <!-- LOCATION -->
-          {%- if item|get_location %}
-            {{ dl(_('Location'), item|get_location) }}
-          {% endif %}
         </dl>
       </li>
-    {% endfor %}
+    {%- endfor %}
   </ul>
-{% endif %}
+{%- endif %}
 {%- endblock %}
