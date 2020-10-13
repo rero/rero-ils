@@ -42,12 +42,13 @@
       "minLength": 1
     },
     "collection_id": {
-      "title": "Local identifier of the collection",
+      "title": "Identifier",
+      "description": "Identifier or code used locally for this collection",
       "type": "string",
       "minLength": 1
     },
     "title": {
-      "title": "Title of the Collection",
+      "title": "Title",
       "type": "string",
       "minLength": 1
     },
@@ -93,7 +94,7 @@
         ],
         "properties": {
           "name": {
-            "title": "Name of the teacher",
+            "title": "Name",
             "type": "string"
           }
         }
@@ -121,7 +122,7 @@
         ],
         "properties": {
           "name": {
-            "title": "Subject name",
+            "title": "Name",
             "type": "string"
           }
         }
@@ -133,7 +134,7 @@
       }
     },
     "description": {
-      "title": "Description about the collection",
+      "title": "Description",
       "type": "string",
       "minLength": 1,
       "form": {
@@ -200,7 +201,7 @@
         ],
         "properties": {
           "$ref": {
-            "title": "Library",
+            "title": "Name",
             "type": "string",
             "pattern": "^https://ils.rero.ch/api/libraries/.*?$",
             "form": {
@@ -216,7 +217,7 @@
       }
     },
     "items": {
-      "title": "Items in the collection",
+      "title": "Items",
       "type": "array",
       "items": {
         "title": "Item",
@@ -258,6 +259,7 @@
     "published": {
       "type": "boolean",
       "title": "Published",
+      "description": "\"Published\" indicates that the collection appears in the public interface.",
       "default": true
     }
   }
