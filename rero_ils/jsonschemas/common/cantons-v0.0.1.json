@@ -139,7 +139,8 @@
       ],
       "templateOptions": {
         "cssClass": "col-lg-4"
-      }
+      },
+      "hideExpression": "field.parent.model.country !== 'sz'"
     }
   }
 }
