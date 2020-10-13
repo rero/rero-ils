@@ -26,6 +26,7 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, to_relative_url
 
 from rero_ils.modules.loans.api import Loan, LoanState
+from rero_ils.modules.patrons.views import format_currency_filter
 
 
 def test_patrons_profile(
@@ -145,3 +146,10 @@ def test_patrons_blocked_user_profile(
     assert res.status_code == 200
     # The profile displays the patron a blocked account message.
     assert "Your account is currently blocked." in res.get_data(as_text=True)
+
+
+def test_patron_format_currency_filter(app):
+    """Test format currency filter."""
+    assert format_currency_filter(3, 'EUR') == '€3.00'
+    assert format_currency_filter(4.5, 'CHF') == 'CHF4.50'
+    assert format_currency_filter(None, 'EUR') is None

@@ -252,7 +252,8 @@ def profile(viewcode):
 @blueprint.app_template_filter('format_currency')
 def format_currency_filter(value, currency):
     """Format currency with current locale."""
-    return format_currency(value, currency)
+    if value:
+        return format_currency(value, currency)
 
 
 @api_blueprint.route('/roles_management_permissions', methods=['GET'])
