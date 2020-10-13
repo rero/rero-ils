@@ -113,35 +113,38 @@
                     )}}
                   </div>
                   <div class="col-lg-9 event-content">
-                      <div class="row">
-                        <div class="col-lg-10 col-sm-10 d-inline-block text-truncate label">
-                          {{ _(event.type) }} [{{ _(event.subtype) }}]
-                        </div>
-                        <div class="col-lg-2 col-sm-2 amount">
-                          <span
-                            class="badge badge-{% if event.type == 'payment' %}success{% else %}danger{% endif %}">
+                    <div class="row {% if event.type == 'dispute' %}event-highlight{% endif %}">
+                      <div class="col-lg-10 col-sm-10 d-inline-block text-truncate label">
+                        {{ _(event.type) }} {% if event.subtype %} [{{ _(event.subtype) }}] {% endif %}
+                      </div>
+                      <div class="col-lg-2 col-sm-2 amount">
+                        {%- if event.amount %}
+                          <span class="badge badge-{% if event.type == 'payment' %}success{% else %}danger{% endif %}">
                             {{ event.amount | format_currency(event.currency) }}
                           </span>
-                        </div>
+                        {%- endif %}
                       </div>
+                    </div>
+                    {%- if event.note %}
                       <div class="row">
                         <div class="col-lg-2 col-sm-1 label-title">
-                          {% if 'note' in event %}
-                            <i class="fa fa-comment-o pr-1" title="{{ _('Note') }}"></i>
-                          {% endif %}
-                          {% if event.library %}
-                            <i class="fa fa-map-marker pr-1" title="{{ _('Library') }}"></i>
-                          {% endif %}
+                          <i class="fa fa-comment-o pr-1" title="{{ _('Note') }}"></i>
                         </div>
                         <div class="col-lg-10 col-sm-11">
-                          {% if event.note %}
-                            {{ event.note }}
-                          {% endif %}
-                          {% if event.library %}
-                            {{ event.library.name }}
-                          {% endif %}
+                          <blockquote>{{ event.note }}</blockquote>
                         </div>
-                    </div>
+                      </div>
+                    {%- endif %}
+                    {%- if event.library %}
+                      <div class="row">
+                        <div class="col-lg-2 col-sm-1 label-title">
+                          <i class="fa fa-map-marker pr-1" title="{{ _('Library') }}"></i>
+                        </div>
+                        <div class="col-lg-10 col-sm-11">
+                          {{ event.library.name }}
+                        </div>
+                      </div>
+                    {%- endif %}
                   </div>
                 </div>
             </div>

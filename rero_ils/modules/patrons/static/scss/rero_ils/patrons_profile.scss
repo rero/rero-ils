@@ -97,6 +97,19 @@
               width: 100%;
             }
           }
+          blockquote {
+            font-style: italic;
+            margin: 0;
+            &:before, &:after {
+	            color: #AAA;
+            }
+            &:before {
+	            content: '“ ';
+	          }
+            &:after {
+	            content: ' ”';
+	          }
+          }
         }
         .force-display {
           display: block !important;
