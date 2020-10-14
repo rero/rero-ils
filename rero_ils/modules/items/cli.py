@@ -267,23 +267,38 @@ def create_random_item(item_pid, location_pid, missing, item_type_pid,
         item['acquisition_date'] = acquisition_date.strftime('%Y-%m-%d')
 
     # RANDOMLY ADD NOTES
-    #   we will add a note to +/- 30% of the items.
-    #   if an item has notes, between one and 4 notes will be add
-    if random.random() < 0.3:
+    #   we will add a note to +/- 60% of the items.
+    #   if an item has notes, between one and 9 notes will be add
+    if random.random() < 0.6:
         item['notes'] = random.sample([{
-            'type': ItemNoteTypes.PUBLIC,
-            'content': 'Public note lorem ipsum....'
+            'type': ItemNoteTypes.GENERAL,
+            'content': 'Here you can read a general/public note'
         }, {
             'type': ItemNoteTypes.STAFF,
-            'content': 'Eius dolorem dolorem labore neque.'
+            'content': 'This is a staff note only visible by staff members.'
         }, {
             'type': ItemNoteTypes.CHECKIN,
-            'content': 'Nullam non porta urna'
+            'content': 'Checkin note for {0}'.format(barcode)
         }, {
             'type': ItemNoteTypes.CHECKOUT,
-            'content': 'Interdum et malesuada fames ac ante ipsum primis in '
-                       'faucibus'
-        }], k=random.randint(1, 4))
+            'content': 'Checkout note for {0}'.format(barcode)
+        }, {
+            'type': ItemNoteTypes.ACQUISITION,
+            'content': 'Acquisition note content'
+        }, {
+            'type': ItemNoteTypes.BINDING,
+            'content': 'Link with an other item (same subject) : '
+                       '<a href="javascript:void()">dummy_link</a>'
+        }, {
+            'type': ItemNoteTypes.PROVENANCE,
+            'content': 'Antique library collection'
+        }, {
+            'type': ItemNoteTypes.CONDITION,
+            'content': 'Missing some pages :-('
+        }, {
+            'type': ItemNoteTypes.PATRIMONIAL,
+            'content': 'Part of the UNESCO books collection'
+        }], k=random.randint(1, 9))
 
     # RANDOMLY ADD SECOND CALL NUMBER
     #   we will add a second call number to +/- 25% of the items.

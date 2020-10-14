@@ -95,7 +95,7 @@ def test_item_notes(item_schema, item_lib_martigny_data_tmp):
     validate(item_lib_martigny_data_tmp, item_schema)
     item_lib_martigny_data_tmp['notes'] = []
 
-    public_note = dict(type=ItemNoteTypes.PUBLIC, content='public note')
+    public_note = dict(type=ItemNoteTypes.GENERAL, content='public note')
     staff_note = dict(type=ItemNoteTypes.STAFF, content='staff note')
     dummy_note = dict(type='dummy', content='dummy note')
     long_note = dict(type=ItemNoteTypes.CHECKIN, content='note' * 501)

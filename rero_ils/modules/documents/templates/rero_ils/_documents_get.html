@@ -66,14 +66,14 @@
   {% endif %}
 
   <!-- Holdings -->
-  {% if holdings %}
+  {%- if holdings %}
   <!-- User login -->
   {%- if current_user.is_anonymous %}
   <a class="btn btn-primary btn-sm" href="{{ url_for_security('login') + "?next=" + request.path }}">
     <i class="fa fa-sign-in"></i> {{ _('Login (to see request options)') }}
   </a>
-  {% endif %}
-  {% for holding in holdings %}
+  {%- endif %}
+  {%- for holding in holdings %}
   {% set items = holding.get_items %}
   {% set number_items = holding.get_items_count_by_holding_pid %}
   {% if record.harvested or number_items >= 0 %}
@@ -106,7 +106,7 @@
               {% endif %}
             </div>
 
-            <div class="col-sm-3 availability{% if number_items > 0 %}d-none{% endif %}">
+            <div class="col-sm-3 availability{% if number_items > 0 %} d-none{% endif %}">
               {% if not record.harvested %}
                 {% if holding.holding_is_serial %}
                   <i class="fa fa-circle text-warning"></i>
@@ -154,8 +154,6 @@
           {% endif %}
 
           </div>
-         
-          
         </div>
       </div>
     </div>
@@ -164,36 +162,54 @@
     <div id="collapse-{{ holding.pid }}" data-holding-id="{{ holding.pid }}" class="collapse show" role="tabpanel">
       <div class="card-body p-2">
         <!-- display holding electronic location -->
-        {% if record.harvested %}
-          {% for elocation in holding.electronic_location %}
+        {%- if record.harvested %}
+          {%- for elocation in holding.electronic_location %}
             <div class="row my-2">
               <div class="offset-1 col-10">
                 <a href="{{ elocation.uri }}" target="_blank">{{ _(elocation.source) }}</a>
               </div>
             </div>
-          {% endfor %}
-        {% endif %}
+          {%- endfor %}
+        {%- endif %}
         <!-- display items -->
-        {% if number_items > 0 %}
-        {% for item in items %}
-        <div id="{{ item.barcode }}-detail" class="row my-2">
-          <div class="offset-1 col-10">
-            <div class="row">
-              <div class="col-sm-4">
-                {{ item.barcode }}
-              </div>
-              <div class="col-sm-3">
-                <i class="fa fa-circle text-{{ 'success' if item.available else 'danger' }}"></i>
-                {{ item|item_availability_text }}
-              </div>
-              <div class="col-sm-2">
-                {% if item.call_number %}
-                  {{ item | format_record_call_number }}
-                {% endif %}
-              </div>
-              {% set locations = item|item_library_pickup_locations %}
-              {% if item|can_request and locations %}
-              <div class="col">
+        {%- if number_items > 0 %}
+        {%- for item in items %}
+          <div id="{{ item.barcode }}-detail" class="row item-row">
+            <dt class="offset-1 col-lg-2 col-sm-3">{{ _('Call number') }}</dt>
+            <dd class="col-lg-3 col-sm-3">{{ item | format_record_call_number }}</dd>
+            <dd class="col-lg-6 col-sm-5">
+              <i class="fa fa-circle text-{{ 'success' if item.available else 'danger' }}"></i>
+              {{ item|item_availability_text }}
+            </dd>
+            {%- set collections = item.pid|in_collection %}
+            {%- if collections|length > 0 %}
+              <dt class="offset-1 col-lg-2 col-sm-3">{{ _('Temporary location') }}</dt>
+              <dd class="col-lg-9 col-sm-8">
+                {%- for collection in collections %}
+                {%- if collection.published %}
+                  <a href="{{ url_for('invenio_records_ui.coll', viewcode=viewcode, pid_value=collection.pid) }}">
+                    {{ collection.title }}{{ '' if loop.last else '; ' }}
+                  </a>
+                {%- endif %}
+                {%- endfor %}
+              </dd>
+            {%- endif %}
+            {%- if item.get('enumerationAndChronology') %}
+              <dt class="offset-1 col-lg-2 col-sm-3">{{ _('Unit') }}</dt>
+              <dd class="col-lg-9 col-sm-8">{{ item.get('enumerationAndChronology') }}</dd>
+            {%- endif %}
+            <dt class="offset-1 col-lg-2 col-sm-3">{{ _('Barcode') }}</dt>
+            <dd class="col-lg-9 col-sm-8">{{ item.barcode }}</dd>
+            {%- set public_notes = item|get_public_notes %}
+            {%- for note in public_notes %}
+              <dt class="offset-1 col-lg-2 col-sm-3">{{ _(note.get('type')) }}</dt>
+              <dd class="col-lg-9 col-sm-8">{{ note.get('content') | nl2br | safe }}</dd>
+            {%- endfor %}
+
+            <!-- action button : Should be at the end to be render above and be clickabke -->
+            {%- set locations = item|item_library_pickup_locations %}
+            {%- if item|can_request and locations %}
+              <div class="action-buttons">
                 <a href="#" type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true"
                   aria-expanded="false" id="{{ item.barcode }}-dropdownMenu">
                   {{ _('Request') }}
@@ -212,43 +228,14 @@
                   {% endfor %}
                 </div>
               </div>
-              {% endif %}
-            </div>
-          </div>
-        </div>
-        {%- set collections = item.pid|in_collection %}
-        {%- if collections|length > 0 %}
-        <div class="row my-2">
-          <div class="offset-1 col-10">
-           {{ _('In') }}:
-           {%- for collection in collections %}
-            {%- if collection.published %}
-              <a href="{{ url_for('invenio_records_ui.coll', viewcode=viewcode, pid_value=collection.pid) }}">
-                {{ collection.title }}{{ '' if loop.last else '; ' }}
-              </a>
             {%- endif %}
-           {%- endfor %}
           </div>
-        </div>
-        {%- endif %}
-        {% if item|get_note('public_note') %}
-        <div class="row">
-          <div class="offset-1 col-sm-1 text-right pr-2">
-            <i class="fa fa-level-up fa-rotate-90"></i>
-            <i class="fa fa-sticky-note-o text-warning pl-1"></i>
-          </div>
-          <div class="col">
-            {{ item|get_note('public_note') }}
-          </div>
-        </div>
-        {% endif %}
-        {% endfor %}
-        {% endif %}
+       {%- endfor %}
+       {%- endif %}
       </div>
     </div>
   </div>
-  {% endif %}
-  {% endfor %}
-  {% endif %}
-  <!-- Accordion card -->
+  {%- endif %}
+  {%- endfor %}
+  {%- endif %}
 {% endif %}

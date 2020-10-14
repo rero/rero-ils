@@ -74,7 +74,20 @@ class ItemCirculationAction:
 class ItemNoteTypes:
     """Class to list all possible note types."""
 
-    PUBLIC = 'public_note'
-    STAFF = 'staff_note'
+    ACQUISITION = 'acquisition_note'
+    BINDING = 'binding_note'
     CHECKIN = 'checkin_note'
     CHECKOUT = 'checkout_note'
+    CONDITION = 'condition_note'
+    GENERAL = 'general_note'
+    PATRIMONIAL = 'patrimonial_note'
+    PROVENANCE = 'provenance_note'
+    STAFF = 'staff_note'
+
+    PUBLIC = [
+        GENERAL,
+        BINDING,
+        PROVENANCE,
+        CONDITION,
+        PATRIMONIAL
+    ]
