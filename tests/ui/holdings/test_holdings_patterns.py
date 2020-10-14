@@ -86,7 +86,7 @@ def test_receive_regular_issue(holding_lib_martigny_w_patterns):
     assert issue.get('issue', {}).get('regular')
     assert issue.issue_status == 'received'
     assert issue.expected_date == '2023-03-01'
-    assert issue.display_text == 'no 73 mars 2023'
+    assert issue.get('enumerationAndChronology') == 'no 73 mars 2023'
     assert issue.received_date == datetime.now().strftime('%Y-%m-%d')
 
     holding = Holding.get_record_by_pid(holding.pid)
@@ -94,7 +94,7 @@ def test_receive_regular_issue(holding_lib_martigny_w_patterns):
     assert issue.get('issue', {}).get('regular')
     assert issue.issue_status == 'received'
     assert issue.expected_date == '2020-06-01'
-    assert issue.display_text == 'no 62 juin 2020'
+    assert issue.get('enumerationAndChronology') == 'no 62 juin 2020'
     assert issue.received_date == datetime.now().strftime('%Y-%m-%d')
     # test create customized regular issue
     record = {
@@ -102,9 +102,9 @@ def test_receive_regular_issue(holding_lib_martigny_w_patterns):
             'regular': True,
             'status': 'received',
             'expected_date': datetime.now().strftime('%Y-%m-%d'),
-            'received_date': datetime.now().strftime('%Y-%m-%d'),
-            'display_text': 'free_text'
-        }
+            'received_date': datetime.now().strftime('%Y-%m-%d')
+        },
+        'enumerationAndChronology': 'free_text'
     }
     holding = Holding.get_record_by_pid(holding.pid)
     issue = holding.receive_regular_issue(
@@ -112,7 +112,7 @@ def test_receive_regular_issue(holding_lib_martigny_w_patterns):
     assert issue.get('issue', {}).get('regular')
     assert issue.issue_status == 'received'
     assert issue.expected_date == datetime.now().strftime('%Y-%m-%d')
-    assert issue.display_text == 'free_text'
+    assert issue.get('enumerationAndChronology') == 'free_text'
     assert issue.received_date == datetime.now().strftime('%Y-%m-%d')
 
 

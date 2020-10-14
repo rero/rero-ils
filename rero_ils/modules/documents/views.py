@@ -37,7 +37,7 @@ from .utils import create_authorized_access_point, \
     title_variant_format_text
 from ..collections.api import CollectionsSearch
 from ..holdings.api import Holding
-from ..items.models import ItemCirculationAction
+from ..items.models import ItemCirculationAction, ItemNoteTypes
 from ..libraries.api import Library
 from ..locations.api import Location
 from ..organisations.api import Organisation
@@ -129,6 +129,12 @@ def can_request(item):
             )
             return can
     return False
+
+
+@blueprint.app_template_filter()
+def get_public_notes(item):
+    """Get public notes related to an item."""
+    return [n for n in item.notes if n.get('type') in ItemNoteTypes.PUBLIC]
 
 
 @blueprint.app_template_filter()

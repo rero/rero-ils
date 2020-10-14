@@ -48,6 +48,9 @@
       "second_call_number": {
         "type": "keyword"
       },
+      "enumerationAndChronology": {
+        "type": "keyword"
+      },
       "location": {
         "properties": {
           "pid": {
@@ -84,9 +87,6 @@
       },
       "issue": {
         "properties": {
-          "display_text": {
-            "type": "keyword"
-          },
           "received_date": {
             "type": "date"
           },

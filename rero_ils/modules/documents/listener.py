@@ -21,6 +21,7 @@ from .utils import create_authorized_access_point
 from ..documents.api import Document, DocumentsSearch
 from ..holdings.api import Holding, HoldingsSearch
 from ..items.api import ItemsSearch
+from ..items.models import ItemNoteTypes
 from ..persons.api import Person
 from ..utils import extracted_data_from_ref
 from ...utils import get_i18n_supported_languages
@@ -84,6 +85,16 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                         'location_pid': holding['location']['pid'],
                         'date': acq_date
                     }
+                # item notes content.
+                #   index the content of the public notes into the document.
+                public_notes_content = [
+                    n['content']
+                    for n in item.to_dict().get('notes', [])
+                    if n['type'] in ItemNoteTypes.PUBLIC
+                ]
+                if public_notes_content:
+                    item_record['notes'] = public_notes_content
+
                 data.setdefault('items', []).append(item_record)
             data['available'] = Holding.isAvailable(es_items)
             holdings.append(data)
