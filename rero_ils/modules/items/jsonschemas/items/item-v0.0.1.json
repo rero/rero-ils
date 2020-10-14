@@ -18,6 +18,7 @@
     "barcode",
     "call_number",
     "second_call_number",
+    "enumerationAndChronology",
     "item_type",
     "location",
     "type",
@@ -65,6 +66,18 @@
     "second_call_number": {
       "title": "Second call number",
       "type": "string"
+    },
+    "enumerationAndChronology": {
+      "title": "Enumeration and chronology",
+      "type": "string",
+      "minLength": 1,
+      "description": "Numbering, enumeration, or other indication associated with the item.",
+      "form": {
+        "placeholder": "Example: Volume 1",
+        "expressionProperties": {
+          "templateOptions.required": "model.type === 'issue'"
+        }
+      }
     },
     "location": {
       "title": "Location",
@@ -136,14 +149,12 @@
       "title": "Issue",
       "type": "object",
       "required": [
-        "display_text",
         "received_date",
         "expected_date",
         "regular",
         "status"
       ],
       "propertiesOrder": [
-        "display_text",
         "received_date",
         "expected_date",
         "regular",
@@ -177,11 +188,6 @@
               }
             ]
           }
-        },
-        "display_text": {
-          "title": "displayed text",
-          "type": "string",
-          "minLength": 1
         },
         "received_date": {
           "format": "date",
@@ -316,21 +322,26 @@
             "type": "string",
             "title": "Type",
             "enum": [
-              "public_note",
-              "staff_note",
+              "acquisition_note",
+              "binding_note",
               "checkin_note",
-              "checkout_note"
+              "checkout_note",
+              "condition_note",
+              "general_note",
+              "patrimonial_note",
+              "provenance_note",
+              "staff_note"
             ],
             "form": {
               "type": "selectWithSort",
               "options": [
                 {
-                  "label": "public_note",
-                  "value": "public_note"
+                  "label": "acquisition_note",
+                  "value": "acquisition_note"
                 },
                 {
-                  "label": "staff_note",
-                  "value": "staff_note"
+                  "label": "binding_note",
+                  "value": "binding_note"
                 },
                 {
                   "label": "checkin_note",
@@ -339,6 +350,26 @@
                 {
                   "label": "checkout_note",
                   "value": "checkout_note"
+                },
+                {
+                  "label": "condition_note",
+                  "value": "condition_note"
+                },
+                {
+                  "label": "general_note",
+                  "value": "general_note"
+                },
+                {
+                  "label": "patrimonial_note",
+                  "value": "patrimonial_note"
+                },
+                {
+                  "label": "provenance_note",
+                  "value": "provenance_note"
+                },
+                {
+                  "label": "staff_note",
+                  "value": "staff_note"
                 }
               ]
             }
@@ -380,8 +411,15 @@
       "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
       "form": {
         "type": "datepicker",
+        "wrappers": [
+          "toggle-switch",
+          "form-field"
+        ],
         "templateOptions": {
           "label": "",
+          "wrappers": [
+            "toggle-switch"
+          ],
           "toggle-switch": {
             "label": "New acquisition",
             "description": "If this option is enabled, this item is going to appear in the new acquisition list of the library."

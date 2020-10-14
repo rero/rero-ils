@@ -164,16 +164,16 @@ def test_receive_regular_issue_api(
     )
     assert res.status_code == 200
     issue = get_json(res).get('issue')
-    assert issue.get('issue').get('display_text') == issue_display
+    assert issue.get('enumerationAndChronology') == issue_display
     assert issue.get('issue').get('expected_date') == expected_date
     item = {
         'issue': {
             'regular': True,
             'status': 'received',
             'expected_date': datetime.now().strftime('%Y-%m-%d'),
-            'received_date': datetime.now().strftime('%Y-%m-%d'),
-            'display_text': 'free_text'
-        }
+            'received_date': datetime.now().strftime('%Y-%m-%d')
+        },
+        'enumerationAndChronology': 'free_text'
     }
     res, data = postdata(
         client,
@@ -183,7 +183,7 @@ def test_receive_regular_issue_api(
     )
     assert res.status_code == 200
     issue = get_json(res).get('issue')
-    assert issue.get('issue').get('display_text') == 'free_text'
+    assert issue.get('enumerationAndChronology') == 'free_text'
     assert issue.get('issue').get('expected_date') == \
         datetime.now().strftime('%Y-%m-%d')
 
@@ -326,11 +326,11 @@ def test_irregular_issue_creation_update_delete_api(
     item = {
         'issue': {
             'status': 'received',
-            'display_text': 'irregular_issue',
             'received_date': datetime.now().strftime('%Y-%m-%d'),
             'expected_date': datetime.now().strftime('%Y-%m-%d'),
             'regular': False
         },
+        'enumerationAndChronology': 'irregular_issue',
         'status': 'on_shelf',
         'holding': {'$ref': get_ref_for_pid('hold', holding.pid)},
         '$schema': get_schema_for_resource(Item),
@@ -351,7 +351,7 @@ def test_irregular_issue_creation_update_delete_api(
     assert created_item.get('barcode').startswith('f-')
     assert created_item.get('type') == 'issue'
     assert not created_item.get('issue').get('regular')
-    assert created_item.get('issue').get('display_text') == 'irregular_issue'
+    assert created_item.get('enumerationAndChronology') == 'irregular_issue'
     new_issue_display, new_expected_date = \
         holding._get_next_issue_display_text(holding.get('patterns'))
     assert new_issue_display == issue_display
@@ -361,11 +361,11 @@ def test_irregular_issue_creation_update_delete_api(
     item = {
         'issue': {
             'status': 'received',
-            'display_text': 'irregular_issue',
             'received_date': datetime.now().strftime('%Y-%m-%d'),
             'expected_date': datetime.now().strftime('%Y-%m-%d'),
             'regular': False
         },
+        'enumerationAndChronology': 'irregular_issue',
         'status': 'on_shelf',
         'location': holding.get('location'),
         'document': holding.get('document'),

@@ -39,6 +39,7 @@ class ItemRecord(IlsRecord):
         holdings of type serials.
 
         Ensures that item of type issue has the issue field.
+        Ensures that item of type issue has the enumAndChrono field required.
 
         Ensures that standard item has no issue field.
 
@@ -61,8 +62,12 @@ class ItemRecord(IlsRecord):
         issue = self.get('issue', {})
         if issue and self.get('type') == 'standard':
             return _('Standard item can not have a issue field.')
-        if self.get('type') == 'issue' and not issue:
-            return _('Issue item must have an issue field.')
+        if self.get('type') == 'issue':
+            if not issue:
+                return _('Issue item must have an issue field.')
+            if not self.get('enumerationAndChronology'):
+                return _('enumerationAndChronology field is required '
+                         'for an issue item')
         note_types = [note.get('type') for note in self.get('notes', [])]
         if len(note_types) != len(set(note_types)):
             return _('Can not have multiple notes of same type.')
