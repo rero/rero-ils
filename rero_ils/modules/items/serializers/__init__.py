@@ -37,6 +37,7 @@ csv_item = ItemCSVSerializer(
         'barcode',
         'call_number',
         'second_call_number',
+        'enumerationAndChronology',
         'loans_count',
         'last_transaction_date',
         'status',
