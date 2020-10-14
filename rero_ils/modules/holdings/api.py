@@ -509,11 +509,11 @@ class Holding(IlsRecord):
         data = {
             'issue': {
                 'status': 'received',
-                'display_text': issue_display,
                 'received_date': datetime.now().strftime('%Y-%m-%d'),
                 'expected_date': expected_date,
                 'regular': True
             },
+            'enumerationAndChronology': issue_display,
             'status': 'on_shelf'
         }
         if item:

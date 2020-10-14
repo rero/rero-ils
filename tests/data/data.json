@@ -2639,7 +2639,7 @@
     },
     "notes": [
       {
-        "type": "public_note",
+        "type": "general_note",
         "content": "This is a public note !"
       },
       {

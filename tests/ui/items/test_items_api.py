@@ -108,14 +108,14 @@ def test_item_extended_validation(client, holding_lib_martigny_w_patterns):
         'holding': {
             '$ref': 'https://ils.rero.ch/api/holdings/holding5'
         },
-        'status': 'on_shelf'
-    }
-    data['issue'] = {
-        'status': 'received',
-        'display_text': 'irregular_issue',
-        'received_date': datetime.now().strftime('%Y-%m-%d'),
-        'expected_date': datetime.now().strftime('%Y-%m-%d'),
-        'regular': False
+        'status': 'on_shelf',
+        'enumerationAndChronology': 'irregular_issue',
+        'issue': {
+            'status': 'received',
+            'received_date': datetime.now().strftime('%Y-%m-%d'),
+            'expected_date': datetime.now().strftime('%Y-%m-%d'),
+            'regular': False
+        }
     }
     Item.create(data, dbcommit=True, reindex=True, delete_pid=True)
 

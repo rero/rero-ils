@@ -823,7 +823,7 @@ def test_items_notes(client, librarian_martigny_no_email, item_lib_martigny,
 
     # set one public & one staff note
     item['notes'] = [
-        {'type': ItemNoteTypes.PUBLIC, 'content': 'Public note'},
+        {'type': ItemNoteTypes.GENERAL, 'content': 'Public note'},
         {'type': ItemNoteTypes.STAFF, 'content': 'Staff note'}
     ]
     res = client.put(
@@ -836,7 +836,7 @@ def test_items_notes(client, librarian_martigny_no_email, item_lib_martigny,
     # add a second public note -- This should fail because we can only have one
     # note of each type for an item
     item['notes'].append(
-        {'type': ItemNoteTypes.PUBLIC, 'content': 'Second public note'}
+        {'type': ItemNoteTypes.GENERAL, 'content': 'Second public note'}
     )
     with pytest.raises(RecordValidationError):
         client.put(
@@ -850,7 +850,7 @@ def test_items_notes(client, librarian_martigny_no_email, item_lib_martigny,
     #  --> public : should return a note
     #  --> checkin : should return nothing
     #  --> dummy : should never return something !
-    assert item.get_note(ItemNoteTypes.PUBLIC)
+    assert item.get_note(ItemNoteTypes.GENERAL)
     assert item.get_note(ItemNoteTypes.CHECKIN) is None
     assert item.get_note('dummy') is None
 
