@@ -421,7 +421,7 @@ eval ${PREFIX} invenio notifications process
 # if the environement variable INVENIO_RERO_ACCESS_TOKEN_NGSCAN is not set a new
 # token will be generated
 info_msg "Create token for: gipi@ngscan.com"
-if [ -z ${INVENIO_RERO_ACCESS_TOKEN_NGSCAN}]
+if [ -z ${INVENIO_RERO_ACCESS_TOKEN_NGSCAN} ]
 then
     eval ${PREFIX} invenio utils tokens_create -n ezpump -u gipi@ngscan.com
 else
