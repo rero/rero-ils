@@ -66,6 +66,9 @@
       "phone": {
         "type": "keyword"
       },
+      "barcode": {
+        "type": "keyword"
+      },
       "patron": {
         "properties": {
           "type": {
