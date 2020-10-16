@@ -405,6 +405,7 @@ class Patron(IlsRecord):
         # a blocked patron can't request any item
         if patron.is_blocked:
             return False, [patron.blocked_message]
+
         return True, []
 
     @classmethod
@@ -425,6 +426,7 @@ class Patron(IlsRecord):
         # a blocked patron can't request any item
         if patron.is_blocked:
             return False, [patron.blocked_message]
+
         return True, []
 
     @classmethod
@@ -683,6 +685,39 @@ class Patron(IlsRecord):
         :returns: True if valid user otherwise false.
         """
         return Patron.record_pid_exists(user_pid)
+
+    def get_circulation_messages(self):
+        """Return messages useful for circulation.
+
+        * check if the user is blocked ?
+        * check if the user reaches the maximum loans limit ?
+
+        :return an array of messages. Each message is a dictionary with a level
+                and a content. The level could be used to filters messages if
+                needed.
+        """
+        from ..patron_types.api import PatronType
+
+        # if patron is blocked - error type message
+        #   if patron is blocked, no need to return any other circulation
+        #   messages !
+        if self.is_blocked:
+            return [{
+                'type': 'error',
+                'content': self.blocked_message
+            }]
+
+        messages = []
+        # check the patron type define limit
+        patron_type = PatronType.get_record_by_pid(self.patron_type_pid)
+        valid, message = patron_type.check_checkout_count_limit(self)
+        if not valid:
+            messages.append({
+                'type': 'error',
+                'content': message
+            })
+
+        return messages
 
 
 class PatronsIndexer(IlsRecordsIndexer):

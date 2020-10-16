@@ -53,6 +53,10 @@ def test_blocked_field_exists(
     assert 'blocked' in data['metadata']['patron']
     assert data['metadata']['patron']['blocked'] is True
 
+    assert patron3_martigny_blocked_no_email.is_blocked
+    note = patron3_martigny_blocked_no_email.patron.get('blocked_note')
+    assert note and note in patron3_martigny_blocked_no_email.blocked_message
+
 
 def test_blocked_field_not_present(
         client,
