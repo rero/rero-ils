@@ -473,6 +473,23 @@ def get_loans_by_item_pid_by_patron_pid(
     return {}
 
 
+def get_loans_stats_by_patron_pid(patron_pid):
+    """Search loans for patron and aggregate result on loan state.
+
+    :param patron_pid: The patron pid
+    :return: a dict with loans state as key, number of loans as value
+    """
+    agg = A('terms', field='state')
+    search = search_by_patron_item_or_document(patron_pid=patron_pid)
+    search.aggs.bucket('state', agg)
+    search = search[0:0]
+    results = search.execute()
+    stats = {}
+    for result in results.aggregations.state.buckets:
+        stats[result.key] = result.doc_count
+    return stats
+
+
 def get_loans_by_patron_pid(patron_pid, filter_states=[]):
     """Search all loans for patron to the given filter_states.
 
