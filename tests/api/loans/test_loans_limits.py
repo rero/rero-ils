@@ -18,8 +18,9 @@
 """Loan Record limits."""
 from copy import deepcopy
 
+from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
+from utils import get_json, postdata
 
 from rero_ils.modules.loans.api import LoanAction
 from rero_ils.modules.patron_types.api import PatronType
@@ -132,6 +133,17 @@ def test_loans_limits_checkout_library_limits(
     ))
     assert res.status_code == 403
     assert 'Checkout denied' in data['message']
+
+    # check the circulation information API
+    url = url_for(
+        'api_patrons.patron_circulation_informations',
+        patron_pid=patron.pid
+    )
+    res = client.get(url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert 'error' == data['messages'][0]['type']
+    assert 'Checkout denied' in data['messages'][0]['content']
 
     # reset fixtures
     #   --> checkin both loaned item

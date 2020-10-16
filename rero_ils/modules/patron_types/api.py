@@ -220,14 +220,14 @@ class PatronType(IlsRecord):
             return limit > len(overdue_items)
         return True
 
-    def check_checkout_count_limit(self, patron, item):
+    def check_checkout_count_limit(self, patron, item=None):
         """Check if a patron reached the checkout limits.
 
         * check the global general limit (if exists).
         * check the library exception limit (if exists).
         * check the library default limit (if exists).
         :param patron: the patron who tries to execute the checkout.
-        :param item: the item related to the loan.
+        :param item: the item related to the loan (optionnal).
         :return a tuple of two values ::
           - True|False : to know if the check is success or not.
           - message(string) : the reason why the check fails.
@@ -248,18 +248,20 @@ class PatronType(IlsRecord):
             return False, _('Checkout denied: the maximal checkout number '
                             'is reached.')
 
-        # [3] check library_limit
-        item_library_pid = item.library_pid
-        library_limit_value = checkout_limits.get('library_limit')
-        # try to find an exception rule for this library
-        for exception in checkout_limits.get('library_exceptions', []):
-            if exception['library']['pid'] == item_library_pid:
-                library_limit_value = exception['value']
-                break
-        if library_limit_value and item_library_pid in patron_library_stats:
-            if patron_library_stats[item_library_pid] >= library_limit_value:
-                return False, _('Checkout denied: the maximal checkout number '
-                                'of items for this library is reached.')
+        # [3] check library_limit if item is not none
+        if item:
+            item_lib_pid = item.library_pid
+            library_limit_value = checkout_limits.get('library_limit')
+            # try to find an exception rule for this library
+            for exception in checkout_limits.get('library_exceptions', []):
+                if exception['library']['pid'] == item_lib_pid:
+                    library_limit_value = exception['value']
+                    break
+            if library_limit_value and item_lib_pid in patron_library_stats:
+                if patron_library_stats[item_lib_pid] >= library_limit_value:
+                    return False, _('Checkout denied: the maximal checkout '
+                                    'number of items for this library is '
+                                    'reached.')
 
         # [4] no problem detected, checkout is allowed
         return True, None

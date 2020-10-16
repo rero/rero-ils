@@ -552,3 +552,38 @@ def test_patrons_count(client, patron_sion_no_email,
     res = client.get(url)
     assert res.status_code == 200
     assert get_json(res) == dict(hits=dict(total=1))
+
+
+def test_patrons_circulation_informations(
+     client, patron_sion_no_email, librarian_martigny_no_email,
+     patron3_martigny_blocked_no_email):
+    """test patron circulation informations."""
+    url = url_for(
+        'api_patrons.patron_circulation_informations',
+        patron_pid=patron_sion_no_email.pid
+    )
+    res = client.get(url)
+    assert res.status_code == 401
+
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    res = client.get(url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert len(data['messages']) == 0
+
+    url = url_for(
+        'api_patrons.patron_circulation_informations',
+        patron_pid=patron3_martigny_blocked_no_email.pid
+    )
+    res = client.get(url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert 'error' == data['messages'][0]['type']
+    assert 'This patron is currently blocked' in data['messages'][0]['content']
+
+    url = url_for(
+        'api_patrons.patron_circulation_informations',
+        patron_pid='dummy_pid'
+    )
+    res = client.get(url)
+    assert res.status_code == 404
