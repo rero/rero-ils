@@ -64,7 +64,7 @@ class LoanState(object):
 
 
 class LoanAction(object):
-    """Class holding all availabe circulation loan actions."""
+    """Class holding all available circulation loan actions."""
 
     REQUEST = 'request'
     CHECKOUT = 'checkout'
@@ -72,7 +72,7 @@ class LoanAction(object):
     VALIDATE = 'validate'
     RECEIVE = 'receive'
     RETURN_MISSING = 'return_missing'
-    EXTEND = 'extend'
+    EXTEND = 'extend_loan'
     CANCEL = 'cancel'
     NO = 'no'
     UPDATE = 'update'
