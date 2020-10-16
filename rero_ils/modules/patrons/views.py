@@ -39,7 +39,7 @@ from .utils import user_has_patron
 from ..items.api import Item
 from ..items.utils import item_pid_to_object
 from ..libraries.api import Library
-from ..loans.api import Loan, patron_profile
+from ..loans.api import Loan, get_loans_stats_by_patron_pid, patron_profile
 from ..locations.api import Location
 from ..utils import get_base_url
 from ...permissions import login_and_librarian
@@ -103,6 +103,19 @@ def number_of_patrons():
         s = s.filter('bool', must_not=[Q('term', pid=exclude_pid)])
     response = dict(hits=dict(total=s.count()))
     return jsonify(response)
+
+
+@api_blueprint.route('/<patron_pid>/circulation_informations', methods=['GET'])
+@check_permission
+def patron_circulation_informations(patron_pid):
+    """Get the circulation statistics and info messages about a patron."""
+    patron = Patron.get_record_by_pid(patron_pid)
+    if not patron:
+        abort(404, 'Patron not found')
+    return jsonify({
+        'statistics': get_loans_stats_by_patron_pid(patron_pid),
+        'messages': patron.get_circulation_messages()
+    })
 
 
 blueprint = Blueprint(
