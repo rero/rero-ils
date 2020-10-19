@@ -34,6 +34,48 @@
       "subscription_amount": {
         "type": "float"
       },
+      "limits": {
+        "properties": {
+          "fee_amount_limits": {
+            "properties": {
+              "default_value": {
+                "type": "float"
+              }
+            }
+          },
+          "overdue_items_limits": {
+            "properties": {
+              "default_value": {
+                "type": "integer"
+              }
+            }
+          },
+          "checkout_limits": {
+            "properties": {
+              "global_limit": {
+                "type": "integer"
+              },
+              "library_limit": {
+                "type": "integer"
+              },
+              "library_exceptions": {
+                "properties": {
+                  "library": {
+                    "properties": {
+                      "pid": {
+                        "type": "keyword"
+                      }
+                    }
+                  },
+                  "value": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "_created": {
         "type": "date"
       },
