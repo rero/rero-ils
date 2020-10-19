@@ -2263,6 +2263,10 @@ CIRCULATION_ACTIONS_VALIDATION = {
     ],
     ItemCirculationAction.EXTEND: [
         Item.can_extend
+    ],
+    ItemCirculationAction.CHECKOUT: [
+        Patron.can_checkout,
+        PatronType.allow_checkout
     ]
 }
 

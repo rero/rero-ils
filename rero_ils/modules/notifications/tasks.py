@@ -50,9 +50,7 @@ def create_over_and_due_soon_notifications(overdue=True, due_soon=True,
             loan.create_notification(notification_type='due_soon')
             no_due_soon_loans += 1
     if overdue:
-        over_due_loans = get_overdue_loans()
-
-        for loan in over_due_loans:
+        for loan in get_overdue_loans():
             loan.create_notification(notification_type='overdue')
             no_over_due_loans += 1
 

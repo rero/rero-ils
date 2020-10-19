@@ -19,7 +19,6 @@
 
 from copy import deepcopy
 from datetime import datetime, timezone
-from functools import wraps
 
 from flask import current_app
 from invenio_circulation.api import get_loan_for_item
@@ -33,6 +32,8 @@ from invenio_pidstore.errors import PersistentIdentifierError
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_search import current_search
 
+from ..decorators import add_action_parameters_and_flush_indexes, \
+    check_operation_allowed
 from ..models import ItemCirculationAction, ItemStatus
 from ..utils import item_pid_to_object
 from ...api import IlsRecord
@@ -45,49 +46,6 @@ from ...loans.api import Loan, LoanAction, LoanState, \
 from ...locations.api import Location
 from ...patrons.api import Patron
 from ....filter import format_date_filter
-
-
-def add_action_parameters_and_flush_indexes(function):
-    """Add missing action and validate parameters.
-
-    For each circulation action, this method ensures that all required
-    paramters are given. Adds missing parameters if any. Ensures the right
-    loan transition for the given action.
-    """
-    @wraps(function)
-    def wrapper(item, *args, **kwargs):
-        """Executed before loan action."""
-        checkin_loan = None
-        if function.__name__ == 'validate_request':
-            # checks if the given loan pid can be validated
-            item.prior_validate_actions(**kwargs)
-        elif function.__name__ == 'checkin':
-            # the smart checkin requires extra checks/actions before a checkin
-            loan, kwargs = item.prior_checkin_actions(**kwargs)
-            checkin_loan = loan
-        # CHECKOUT: Case where no loan PID
-        elif function.__name__ == 'checkout' and not kwargs.get('pid'):
-            patron_pid = kwargs['patron_pid']
-            item_pid = item.pid
-            request = get_request_by_item_pid_by_patron_pid(
-                item_pid=item_pid, patron_pid=patron_pid)
-            if request:
-                kwargs['pid'] = request.pid
-        elif function.__name__ == 'extend_loan':
-            loan, kwargs = item.prior_extend_loan_actions(**kwargs)
-            checkin_loan = loan
-
-        loan, kwargs = item.complete_action_missing_params(
-                item=item, checkin_loan=checkin_loan, **kwargs)
-        Loan.check_required_params(loan, function.__name__, **kwargs)
-
-        item, action_applied = function(item, loan, *args, **kwargs)
-
-        item.change_status_commit_and_reindex_item(item)
-
-        return item, action_applied
-
-    return wrapper
 
 
 class ItemCirculation(IlsRecord):
@@ -431,16 +389,20 @@ class ItemCirculation(IlsRecord):
             data['transaction_pickup_libraries'] = True
         return data
 
+    @check_operation_allowed(ItemCirculationAction.CHECKOUT)
     @add_action_parameters_and_flush_indexes
     def checkout(self, current_loan, **kwargs):
         """Checkout item to the user."""
         action_params, actions = self.prior_checkout_actions(kwargs)
         loan = Loan.get_record_by_pid(action_params.get('pid'))
-        current_loan = loan or Loan.create(action_params,
-                                           dbcommit=True,
-                                           reindex=True)
+        current_loan = loan or Loan.create(
+            action_params,
+            dbcommit=True,
+            reindex=True
+        )
         loan = current_circulation.circulation.trigger(
-            current_loan, **dict(action_params, trigger='checkout')
+            current_loan,
+            **dict(action_params, trigger='checkout')
         )
         actions.update({LoanAction.CHECKOUT: loan})
         return self, actions
@@ -581,6 +543,7 @@ class ItemCirculation(IlsRecord):
             LoanAction.EXTEND: loan
         }
 
+    @check_operation_allowed(ItemCirculationAction.REQUEST)
     @add_action_parameters_and_flush_indexes
     def request(self, current_loan, **kwargs):
         """Request item for the user and create notifications."""

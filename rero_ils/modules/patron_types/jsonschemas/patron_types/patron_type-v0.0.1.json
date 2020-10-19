@@ -68,7 +68,6 @@
       "title": "Amount",
       "description": "Yearly amount due by patrons linked to this patron type.",
       "type": "number",
-      "default": 0,
       "minimum": 0,
       "form": {
         "wrappers": [
