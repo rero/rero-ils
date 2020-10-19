@@ -86,7 +86,7 @@ def test_create_over_and_due_soon_notifications_task(
     loan['end_date'] = end_date.isoformat()
     loan.update(loan, dbcommit=True, reindex=True)
 
-    overdue_loans = get_overdue_loans()
+    overdue_loans = list(get_overdue_loans())
     assert overdue_loans[0].get('pid') == loan_pid
 
     create_over_and_due_soon_notifications()

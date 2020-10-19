@@ -22,6 +22,10 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json
 
+from rero_ils.modules.items.utils import item_pid_to_object
+from rero_ils.modules.loans.api import Loan
+from rero_ils.modules.loans.utils import can_be_requested
+
 
 def test_item_pickup_location(
         client, librarian_martigny_no_email, item2_lib_martigny):
@@ -45,3 +49,25 @@ def test_item_pickup_location(
     assert res.status_code == 200
     data = get_json(res)
     assert 'locations' in data
+
+
+def test_location_disallow_request(item_lib_martigny, loc_public_martigny,
+                                   loc_public_martigny_data, lib_martigny,
+                                   patron_martigny_no_email):
+    """Test a request when location disallow request."""
+
+    # update location to disallow request
+    location = loc_public_martigny
+    location['allow_request'] = False
+    location.update(location, dbcommit=True, reindex=True)
+
+    # Create "virtual" Loan (not registered)
+    loan = Loan({
+        'item_pid': item_pid_to_object(item_lib_martigny.pid),
+        'library_pid': lib_martigny.pid,
+        'patron_pid': patron_martigny_no_email.pid
+    })
+    assert not can_be_requested(loan)
+
+    # reset the location to original data
+    location.update(loc_public_martigny_data, dbcommit=True, reindex=True)
