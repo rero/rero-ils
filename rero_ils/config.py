@@ -99,7 +99,7 @@ from .modules.vendors.permissions import VendorPermission
 from .permissions import librarian_delete_permission_factory, \
     librarian_permission_factory, librarian_update_permission_factory, \
     wiki_edit_ui_permission, wiki_edit_view_permission
-from .query import acquisition_filter, and_term_filter
+from .query import acquisition_filter, and_i18n_term_filter, and_term_filter
 from .utils import get_current_language
 
 
@@ -1556,10 +1556,7 @@ RECORDS_REST_FACETS = dict(
             ),
             _('new_acquisition'): acquisition_filter(),
             _('library'): and_term_filter('holdings.organisation.library_pid'),
-            _('contribution__en'): and_term_filter('facet_contribution_en'),
-            _('contribution__fr'): and_term_filter('facet_contribution_fr'),
-            _('contribution__de'): and_term_filter('facet_contribution_de'),
-            _('contribution__it'): and_term_filter('facet_contribution_it'),
+            _('author'): and_i18n_term_filter('facet_contribution'),
             _('language'): and_term_filter('language.value'),
             _('subject'): and_term_filter('facet_subjects'),
             _('status'): and_term_filter('holdings.items.status'),
