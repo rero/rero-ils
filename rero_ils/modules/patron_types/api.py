@@ -23,6 +23,7 @@ from __future__ import absolute_import, print_function
 from functools import partial
 
 from elasticsearch_dsl import Q
+from flask_babelex import gettext as _
 
 from .models import PatronTypeIdentifier, PatronTypeMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
@@ -70,6 +71,38 @@ class PatronType(IlsRecord):
             'org': 'organisation',
         }
     }
+
+    def extended_validation(self, **kwargs):
+        """Add additional record validation.
+
+        Ensure than checkout limits are coherent.
+        Ensure than library limit exceptions are coherent.
+
+        """
+        # validate checkout limits
+        checkout_limits_data = self.get('limits', {}).get('checkout_limits')
+        if checkout_limits_data:
+            global_limit = checkout_limits_data.get('global_limit')
+            library_limit = checkout_limits_data.get('library_limit')
+            if library_limit:
+                # Library limit cannot be higher than global limit
+                if library_limit > global_limit:
+                    return _('Library limit cannot be higher than global '
+                             'limit.')
+                # Exception limit cannot have same value than library limit
+                # Only one exception per library
+                exceptions_lib = []
+                exceptions = checkout_limits_data.get('library_exceptions', [])
+                for exception in exceptions:
+                    if exception.get('value') == library_limit:
+                        return _('Exception limit cannot have same value than '
+                                 'library limit')
+                    ref = exception.get('library').get('$ref')
+                    if ref in exceptions_lib:
+                        return _('Only one specific limit by library if '
+                                 'allowed.')
+                    exceptions_lib.append(ref)
+        return True
 
     @classmethod
     def exist_name_and_organisation_pid(cls, name, organisation_pid):

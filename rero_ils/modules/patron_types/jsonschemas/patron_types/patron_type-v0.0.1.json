@@ -7,7 +7,8 @@
   "propertiesOrder": [
     "name",
     "description",
-    "subscription_amount"
+    "subscription_amount",
+    "limits"
   ],
   "required": [
     "$schema",
@@ -78,6 +79,151 @@
           "toggle-switch": {
             "label": "Yearly subscription",
             "description": "Activation of subscription fees for patrons linked to this type."
+          }
+        }
+      }
+    },
+    "limits": {
+      "title": "Limits",
+      "type": "object",
+      "propertiesOrder": [
+        "checkout_limits",
+        "fee_amount_limits",
+        "overdue_items_limits"
+      ],
+      "properties": {
+        "checkout_limits": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "global_limit"
+          ],
+          "propertiesOrder": [
+            "global_limit",
+            "library_limit",
+            "library_exceptions"
+          ],
+          "properties": {
+            "global_limit": {
+              "title": "Global checkout limit",
+              "description": "The checkout is blocked once the specified checkout number is reached by the patron. This is a global checkout limit.",
+              "type": "number",
+              "minimum": 1
+            },
+            "library_limit": {
+              "title": "Default checkout limit by library",
+              "description": "The checkout is blocked once the specified checkout number is reached by the patron for items of the same owning library. This is the same limit for all libraries.",
+              "type": "number",
+              "minimum": 1
+            },
+            "library_exceptions": {
+              "type": "array",
+              "title": "Library checkout limit exceptions",
+              "items": {
+                "type": "object",
+                "title": "Exception",
+                "required": [
+                  "library",
+                  "value"
+                ],
+                "propertiesOrder": [
+                  "library",
+                  "value"
+                ],
+                "properties": {
+                  "library": {
+                    "title": "Library",
+                    "type": "object",
+                    "required": [
+                      "$ref"
+                    ],
+                    "properties": {
+                      "$ref": {
+                        "title": "Library URI",
+                        "type": "string",
+                        "pattern": "^https://ils.rero.ch/api/libraries/.*?$",
+                        "form": {
+                          "remoteOptions": {
+                            "type": "libraries"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "value": {
+                    "title": "Checkout limit",
+                    "type": "number",
+                    "minimum": 1
+                  }
+                }
+              },
+              "form": {
+                "hideExpression": "field.parent.model.library_limit == 0 || !field.parent.model.library_limit"
+              }
+            }
+          },
+          "form": {
+            "wrappers": [
+              "toggle-switch",
+              "form-field"
+            ],
+            "templateOptions": {
+              "toggle-switch": {
+                "label": "Limit by checkouts"
+              }
+            }
+          }
+        },
+        "fee_amount_limits": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "default_value"
+          ],
+          "properties": {
+            "default_value": {
+              "title": "Default fee amount limit",
+              "description": "The checkout, renewal and the request are blocked once the specified fee amount is reached by the patron.",
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "form": {
+            "wrappers": [
+              "toggle-switch",
+              "form-field"
+            ],
+            "templateOptions": {
+              "toggle-switch": {
+                "label": "Limit by fee amount"
+              }
+            }
+          }
+        },
+        "overdue_items_limits": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "default_value"
+          ],
+          "properties": {
+            "default_value": {
+              "title": "Default overdue items limit",
+              "description": "The checkout, renewal and the request are blocked once the specified number of overdue items is reached by the patron.",
+              "type": "number",
+              "minimum": 1
+            }
+          },
+          "form": {
+            "wrappers": [
+              "toggle-switch",
+              "form-field"
+            ],
+            "templateOptions": {
+              "toggle-switch": {
+                "label": "Limit by overdue items"
+              }
+            }
           }
         }
       }
