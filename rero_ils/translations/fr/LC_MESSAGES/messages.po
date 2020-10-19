@@ -22,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-10-14 16:29+0200\n"
 "PO-Revision-Date: 2020-10-15 10:45+0000\n"
-"Last-Translator: Marion Davis <marion.davis@rero.ch>\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
 "Language: fr\n"
@@ -120,19 +120,16 @@ msgid "sources"
 msgstr "sources"
 
 #: rero_ils/config.py:1718 rero_ils/config.py:1762
-#, fuzzy
 msgid "type"
-msgstr "Type"
+msgstr "type"
 
 #: rero_ils/config.py:1719
-#, fuzzy
 msgid "visibility"
-msgstr "Disponibilité"
+msgstr "visibilité"
 
 #: rero_ils/config.py:1765
-#, fuzzy
 msgid "teacher"
-msgstr "autre"
+msgstr "professeur"
 
 #: rero_ils/manual_translations.txt:16
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:255
@@ -328,9 +325,8 @@ msgid "Organisation"
 msgstr "Organisation"
 
 #: rero_ils/views.py:93
-#, fuzzy
 msgid "Tools"
-msgstr "rôles"
+msgstr "Outils"
 
 #: rero_ils/views.py:106
 #, fuzzy
@@ -8609,9 +8605,8 @@ msgid "Template ID"
 msgstr "au bureau de prêt"
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:64
-#, fuzzy
 msgid "Creator"
-msgstr "Opérateur"
+msgstr "Créateur"
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:68
 #, fuzzy

@@ -18,15 +18,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-10-14 16:29+0200\n"
-"PO-Revision-Date: 2020-09-21 12:38+0000\n"
+"PO-Revision-Date: 2020-10-15 15:32+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/en/>\n"
 "Language: en\n"
-"Language-Team: English <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/en/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3-dev\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: rero_ils/config.py:126
@@ -7757,8 +7758,7 @@ msgid ""
 "Select locations where items linked to the current location could be "
 "requested."
 msgstr ""
-"Select locations where items linked to the current location could be "
-"requested."
+"Select the authorised pick up locations for items linked to this location."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:210
 msgid "If enabled, restrict pickup to specific pickup locations."
@@ -8584,6 +8584,8 @@ msgid ""
 "Public templates are visible by all users of the organisation. Private "
 "templates are visible only by its creator (you)."
 msgstr ""
+"Public templates are visible by all users of the organisation. Private "
+"templates are visible only by their creator (you)."
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:91
 #, fuzzy
@@ -9444,4 +9446,3 @@ msgstr "Click here to reset your password"
 
 #~ msgid "Spanish"
 #~ msgstr "Spanish"
-
