@@ -22,6 +22,7 @@ from functools import partial
 
 from elasticsearch_dsl import Q
 from flask import current_app
+from flask_babelex import gettext as _
 from flask_login import current_user
 from flask_security.confirmable import confirm_user
 from flask_security.recoverable import send_reset_password_instructions
@@ -35,6 +36,7 @@ from werkzeug.local import LocalProxy
 from werkzeug.utils import cached_property
 
 from .models import PatronIdentifier, PatronMetadata
+from .utils import get_patron_from_arguments
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..errors import RecordValidationError
 from ..fetchers import id_fetcher
@@ -375,11 +377,11 @@ class Patron(IlsRecord):
     @classmethod
     def get_patron_by_barcode(cls, barcode=None):
         """Get patron by barcode."""
-        search = PatronsSearch()
-        result = search.filter(
-            'term',
-            patron__barcode=barcode
-        ).source(includes='pid').scan()
+        if not barcode:
+            return None
+        result = PatronsSearch()\
+            .filter('term', patron__barcode=barcode)\
+            .source(includes='pid').scan()
         try:
             patron_pid = next(result).pid
             return super(Patron, cls).get_record_by_pid(patron_pid)
@@ -395,17 +397,35 @@ class Patron(IlsRecord):
                         'patron' argument.
         :return a tuple with True|False and reasons to disallow if False.
         """
-        required_arguments = ['patron', 'patron_barcode', 'patron_pid']
-        if not any(k in required_arguments for k in kwargs):
+        patron = get_patron_from_arguments(**kwargs)
+        if not patron:
             # 'patron' argument are present into kwargs. This check can't
             # be relevant --> return True by default
             return True, []
-        patron = kwargs.get('patron') \
-            or Patron.get_patron_by_barcode(kwargs.get('patron_barcode')) \
-            or Patron.get_record_by_pid(kwargs.get('patron_pid'))
+
         # a blocked patron can't request any item
-        if patron.patron.get('blocked', False):
-            return False, ['Patron is blocked']
+        if patron.is_blocked:
+            return False, [patron.blocked_message]
+        return True, []
+
+    @classmethod
+    def can_checkout(cls, item, **kwargs):
+        """Check if a patron can checkout an item.
+
+        :param item: the item to check
+        :param kwargs: To be relevant, additional arguments should contains
+                       'patron' argument.
+        :return a tuple with True|False and reasons to disallow if False.
+        """
+        patron = get_patron_from_arguments(**kwargs)
+        if not patron:
+            # 'patron' argument are present into kwargs. This check can't
+            # be relevant --> return True by default
+            return True, []
+
+        # a blocked patron can't request any item
+        if patron.is_blocked:
+            return False, [patron.blocked_message]
         return True, []
 
     @classmethod
@@ -550,6 +570,21 @@ class Patron(IlsRecord):
     def is_patron(self):
         """Shortcut to check if user has patron role."""
         return Patron.ROLE_PATRON in self.get('roles', [])
+
+    @property
+    def is_blocked(self):
+        """Shortcut to know if user is blocked."""
+        return self.patron.get('blocked', False)
+
+    @property
+    def blocked_message(self):
+        """Get the message in case of patron is blocked."""
+        if self.is_blocked:
+            return '{main} {reason_str}: {reason}'.format(
+                main=_('This patron is currently blocked.'),
+                reason_str=_('Reason'),
+                reason=self.patron.get('blocked_note')
+            )
 
     @property
     def organisation_pid(self):

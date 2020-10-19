@@ -665,19 +665,35 @@ def get_due_soon_loans():
     return due_soon_loans
 
 
-def get_overdue_loans():
-    """Return all overdue loans."""
-    overdue_loans = []
-    results = current_circulation.loan_search_cls()\
-        .filter('term', state=LoanState.ITEM_ON_LOAN)\
-        .params(preserve_order=True)\
-        .sort({'_created': {'order': 'asc'}})\
+def get_overdue_loan_pids(patron_pid=None):
+    """Return all overdue loan pids optionally filtered for a patron pid.
+
+    :param patron_pid: the patron pid. If none, return all overdue loans.
+    :return a generator of loan pid
+    """
+    end_date = datetime.now()
+    end_date = end_date.strftime('%Y-%m-%d')
+    query = current_circulation.loan_search_cls() \
+        .filter('term', state=LoanState.ITEM_ON_LOAN) \
+        .filter('range', end_date={'lte': end_date})
+    if patron_pid:
+        query = query.filter('term', patron_pid=patron_pid)
+    results = query\
+        .params(preserve_order=True) \
+        .sort({'_created': {'order': 'asc'}}) \
         .source(['pid']).scan()
-    for record in results:
-        loan = Loan.get_record_by_pid(record.pid)
-        if is_overdue_loan(loan):
-            overdue_loans.append(loan)
-    return overdue_loans
+    for hit in results:
+        yield hit.pid
+
+
+def get_overdue_loans(patron_pid=None):
+    """Return all overdue loans optionally filtered for a patron pid.
+
+    :param patron_pid: the patron pid. If none, return all overdue loans.
+    :return a generator of Loan
+    """
+    for pid in get_overdue_loan_pids(patron_pid):
+        yield Loan.get_record_by_pid(pid)
 
 
 def is_due_soon_loan(loan):
