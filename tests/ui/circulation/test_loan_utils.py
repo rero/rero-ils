@@ -20,7 +20,7 @@
 from copy import deepcopy
 
 import pytest
-from invenio_circulation.errors import RecordCannotBeRequestedError
+from invenio_circulation.errors import CirculationException
 from utils import flush_index, item_record_to_a_specific_loan_state
 
 from rero_ils.modules.api import IlsRecordError
@@ -97,7 +97,7 @@ def test_loan_utils(client, patron_martigny_no_email,
         'transaction_user_pid': librarian_martigny_no_email.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
-    with pytest.raises(RecordCannotBeRequestedError):
+    with pytest.raises(CirculationException):
         item, loan_pending_martigny = item_record_to_a_specific_loan_state(
             item=item_lib_martigny, loan_state=LoanState.PENDING,
             params=params, copy_item=True)

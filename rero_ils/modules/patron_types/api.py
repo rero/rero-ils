@@ -29,8 +29,10 @@ from .models import PatronTypeIdentifier, PatronTypeMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..circ_policies.api import CircPoliciesSearch
 from ..fetchers import id_fetcher
+from ..loans.api import get_overdue_loan_pids
 from ..minters import id_minter
 from ..patrons.api import Patron, PatronsSearch
+from ..patrons.utils import get_patron_from_arguments
 from ..providers import Provider
 
 # provider
@@ -125,6 +127,27 @@ class PatronType(IlsRecord):
         for result in results:
             yield cls.get_record_by_pid(result.pid)
 
+    @classmethod
+    def allow_checkout(cls, item, **kwargs):
+        """Check if a patron type allow checkout loan operation.
+
+        :param item : the item to check
+        :param kwargs : To be relevant, additional arguments should contains
+                        'patron' argument.
+        :return a tuple with True|False and reasons to disallow if False.
+        """
+        patron = get_patron_from_arguments(**kwargs)
+        if not patron:
+            # 'patron' argument are present into kwargs. This check can't
+            # be relevant --> return True by default
+            return True, []
+
+        patron_type = PatronType.get_record_by_pid(patron.patron_type_pid)
+        if not patron_type.check_overdue_items_limit(patron):
+            return False, ['Patron has too much overdue items']
+
+        return True, []
+
     def get_linked_patron(self):
         """Get patron linked to this patron type."""
         results = PatronsSearch()\
@@ -176,6 +199,22 @@ class PatronType(IlsRecord):
         if links:
             cannot_delete['links'] = links
         return cannot_delete
+
+    # CHECK LIMITS METHODS ====================================================
+
+    def check_overdue_items_limit(self, patron):
+        """Check if a patron reaches the overdue items limit.
+
+        :param patron: the patron to check.
+        :return False if patron has more overdue items than defined limit. True
+                in all other cases.
+        """
+        limit = self.get('limits', {}).get('overdue_items_limits', {})\
+            .get('default_value')
+        if limit:
+            overdue_items = list(get_overdue_loan_pids(patron.pid))
+            return limit > len(overdue_items)
+        return True
 
 
 class PatronTypesIndexer(IlsRecordsIndexer):

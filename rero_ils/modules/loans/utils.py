@@ -43,14 +43,6 @@ def get_circ_policy(loan):
         patron_type_pid,
         holding_circulation_category
     )
-
-    # checkouts and request are not allowed anymore for blocked patrons
-    if patron.patron.get('blocked', False):
-        result.update({
-            "allow_checkout": False,
-            "allow_requests": False,
-        })
-
     return result
 
 
@@ -169,22 +161,28 @@ def can_be_requested(loan):
     if not loan.item_pid:
         raise Exception('Transaction on document is not implemented.')
 
-    # 1) Check if there is already a loan for same patron+item
+    # 1) Check patron is not blocked
+    patron = Patron.get_record_by_pid(loan.patron_pid)
+    if patron.patron.get('blocked', False):
+        return False
+
+    # 2) Check if location allows request
+    location = Location.get_record_by_pid(loan.location_pid)
+    if not location or not location.get('allow_request'):
+        return False
+
+    # 3) Check if there is already a loan for same patron+item
     if get_any_loans_by_item_pid_by_patron_pid(
             loan.get('item_pid', {}).get('value'),
             loan.get('patron_pid')
     ):
         return False
 
-    # 2) Check if circulation_policy allows request
+    # 4) Check if circulation_policy allows request
     policy = get_circ_policy(loan)
     if not policy.get('allow_requests'):
         return False
 
-    # 3) Check if location allows request
-    location = Location.get_record_by_pid(loan.location_pid)
-    if not location or not location.get('allow_request'):
-        return False
     # All checks are successful, the request is allowed
     return True
 

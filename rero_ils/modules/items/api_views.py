@@ -133,14 +133,7 @@ def do_item_jsonify_action(func):
             # Return error 400 when there is a missing required parameter
             abort(400, str(error))
         except CirculationException as error:
-            patron = False
-            # Detect patron details
-            if data.get('patron_pid'):
-                patron = Patron.get_record_by_pid(data.get('patron_pid'))
-            # Add more info in case of blocked patron (for UI)
-            if patron and patron.patron.get('blocked') is True:
-                abort(403, "BLOCKED USER")
-            abort(403, str(error))
+            abort(403, error.description or str(error))
         except NotFound as error:
             raise error
         except exceptions.RequestError as error:
@@ -413,7 +406,7 @@ def can_request(item_pid):
         if not kwargs['library']:
             abort(404, 'Library not found')
 
-    # as to item if the request is possible with these data.
+    # ask to item if the request is possible with these data.
     can, reasons = item.can(ItemCirculationAction.REQUEST, **kwargs)
 
     # check the `reasons_not_request` array. If it's empty, the request is
