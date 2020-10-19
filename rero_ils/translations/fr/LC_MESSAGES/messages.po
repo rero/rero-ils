@@ -21,15 +21,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-10-14 16:29+0200\n"
-"PO-Revision-Date: 2020-09-21 12:38+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2020-10-15 10:45+0000\n"
+"Last-Translator: Marion Davis <marion.davis@rero.ch>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/fr/>\n"
 "Language: fr\n"
-"Language-Team: French <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.3-dev\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: rero_ils/config.py:126
@@ -337,9 +338,8 @@ msgid "Interlibrary loan request"
 msgstr "Prêt entre bibliothèques"
 
 #: rero_ils/views.py:128
-#, fuzzy
 msgid "Collections"
-msgstr "Localisation"
+msgstr "Collections"
 
 #: rero_ils/views.py:141
 msgid "Help"
@@ -368,7 +368,7 @@ msgstr "Se déconnecter"
 #: rero_ils/views.py:276
 #, fuzzy
 msgid "RERO ID"
-msgstr "RERO"
+msgstr "RERO ID"
 
 #: rero_ils/templates/rero_ils/forgot_password.html:47
 #: rero_ils/templates/rero_ils/login_user.html:53
@@ -4231,7 +4231,6 @@ msgid "Invoice status"
 msgstr "Statut de la facture"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:142
-#, fuzzy
 msgid "in_progress"
 msgstr "En cours"
 
@@ -4298,12 +4297,10 @@ msgid "shipping_and_handling"
 msgstr "Expédition et manutention"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:215
-#, fuzzy
 msgid "state_taxes"
 msgstr "Taxes étatiques"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:219
-#, fuzzy
 msgid "miscellaneous"
 msgstr "Divers"
 
@@ -4371,13 +4368,11 @@ msgstr "Annulé"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:63
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:128
-#, fuzzy
 msgid "ordered"
 msgstr "Commandé"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:67
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:132
-#, fuzzy
 msgid "requested"
 msgstr "Demandé"
 
@@ -4391,7 +4386,6 @@ msgstr "en attente"
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:75
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:140
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:168
-#, fuzzy
 msgid "received"
 msgstr "reçu"
 
@@ -4487,7 +4481,6 @@ msgid "monographic_set"
 msgstr "Série"
 
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:89
-#, fuzzy
 msgid "planned_order"
 msgstr "Commande planifiée"
 
@@ -4679,9 +4672,8 @@ msgid "Item type URI"
 msgstr "URI du type d'exemplaire"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:4
-#, fuzzy
 msgid "Collection"
-msgstr "Localisation"
+msgstr "Collection"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:34
 #, fuzzy
@@ -4689,8 +4681,9 @@ msgid "Schema to validate collection records against."
 msgstr "Schéma de validation des états de collection."
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:40
+#, fuzzy
 msgid "Internal collection PID"
-msgstr ""
+msgstr "Collection interne PID"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:45
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_identifiedby-v0.0.1.json:2
@@ -4704,8 +4697,9 @@ msgid "Identifier"
 msgstr "Identifiant"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:46
+#, fuzzy
 msgid "Identifier or code used locally for this collection"
-msgstr ""
+msgstr "Identifiant ou code utilisé localement pour cette collection"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:51
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:21
@@ -4747,22 +4741,22 @@ msgstr "Type"
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:69
 #, fuzzy
 msgid "course"
-msgstr "Seychelles (se)"
+msgstr "cours"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:73
 msgid "exhibition"
-msgstr ""
+msgstr "exposition"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:85
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:34
 #, fuzzy
 msgid "Teachers"
-msgstr "Mallette pédagogique"
+msgstr "Enseignants"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:89
 #, fuzzy
 msgid "Teacher"
-msgstr "autre"
+msgstr "Enseignant"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:113
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:3
@@ -4778,7 +4772,7 @@ msgstr "Sujet"
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:41
 #, fuzzy
 msgid "Libraries"
-msgstr "bibliothécaire"
+msgstr "Bibliothèques"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:220
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:48
@@ -4796,15 +4790,17 @@ msgstr "Exemplaire"
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:261
 #, fuzzy
 msgid "Published"
-msgstr "Publié dans"
+msgstr "Publié"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:262
+#, fuzzy
 msgid "\\"
-msgstr ""
+msgstr "\\"
 
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:36
+#, fuzzy
 msgid "Collection ID"
-msgstr ""
+msgstr "Identifiant de collection"
 
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:61
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:3
@@ -6654,12 +6650,14 @@ msgid "item"
 msgstr "exemplaire"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:114
+#, fuzzy
 msgid "see collections and items"
-msgstr ""
+msgstr "voir collections et exemplaires"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:116
+#, fuzzy
 msgid "no items received"
-msgstr ""
+msgstr "pas d'exemplaire reçu"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:121
 msgid "available"
@@ -6674,24 +6672,24 @@ msgstr "non disponible"
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:427
 #, fuzzy
 msgid "Available collection"
-msgstr "disponible"
+msgstr "collection disponible"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:142
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:433
 msgid "Supplementary content"
-msgstr ""
+msgstr "Contenu supplémentaire"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:145
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:439
 #, fuzzy
 msgid "Indexes"
-msgstr "auteur d'une mention de représentation"
+msgstr "Index"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:148
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:445
 #, fuzzy
 msgid "Missing issues"
-msgstr "manquant"
+msgstr "éditions manquantes"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:199
 msgid "Request"
@@ -6702,9 +6700,8 @@ msgid "Select a Pickup Location"
 msgstr "Choisir un lieu de retrait"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:223
-#, fuzzy
 msgid "In"
-msgstr "auteur d'une introduction"
+msgstr "Dans"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:24
 msgid "Back"
@@ -6742,8 +6739,9 @@ msgstr ""
 "{pid}."
 
 #: rero_ils/modules/holdings/api.py:167
+#, fuzzy
 msgid "{field} is allowed only for serial holdings"
-msgstr ""
+msgstr "{champ} est seulement permis pour les états de collection"
 
 #: rero_ils/modules/holdings/api.py:172 rero_ils/modules/items/api/record.py:68
 msgid "Can not have multiple notes of same type."
@@ -7019,25 +7017,27 @@ msgstr ""
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:428
 msgid "Textual description of the basic bibliographic unit of the holding."
 msgstr ""
+"Description textuelle de l'unité bibliographique de base de l'état de "
+"collection."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:434
 msgid "Textual description of supplementary contents (special issues, etc.)."
 msgstr ""
+"Description textuelle de contenu supplémentaire (éditions spéciales, etc.)."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:440
-#, fuzzy
 msgid "Textual description of the indexes."
-msgstr "La description du type de lecteur"
+msgstr "La description textuelle des index"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:446
 #, fuzzy
 msgid "Textual description of the missing issues."
-msgstr "La description du type de lecteur"
+msgstr "Description textuelles des éditions manquantes"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:485
 #, fuzzy
 msgid "general note"
-msgstr "Général"
+msgstr "Remarque générale"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:489
 msgid "staff note"
@@ -7108,7 +7108,7 @@ msgstr "ID"
 
 #: rero_ils/modules/ill_requests/forms.py:45
 msgid "Journal or book title"
-msgstr ""
+msgstr "Titre du journal ou du livre"
 
 #: rero_ils/modules/ill_requests/forms.py:52
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:165
@@ -7124,8 +7124,9 @@ msgid "Authors"
 msgstr "Auteur(s)"
 
 #: rero_ils/modules/ill_requests/forms.py:80
+#, fuzzy
 msgid "author#1; author#2"
-msgstr ""
+msgstr "auteur#1; auteur#2"
 
 #: rero_ils/modules/ill_requests/forms.py:91
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:123
@@ -7135,16 +7136,18 @@ msgid "Publisher"
 msgstr "Publié dans"
 
 #: rero_ils/modules/ill_requests/forms.py:99
+#, fuzzy
 msgid "Example: 978-0-901690-54-6 (ISBN), 2049-3630 (ISSN), ..."
-msgstr ""
+msgstr "Exemple: 978-0-901690-54-6 (ISBN), 2049-3630 (ISSN), ..."
 
 #: rero_ils/modules/ill_requests/forms.py:101
 msgid "ISBN, ISSN"
-msgstr ""
+msgstr "ISBN, ISSN"
 
 #: rero_ils/modules/ill_requests/forms.py:118
+#, fuzzy
 msgid "Library catalog name"
-msgstr ""
+msgstr "Nom du catalogue de la bibliothèque"
 
 #: rero_ils/modules/ill_requests/forms.py:125
 #, fuzzy
@@ -7169,7 +7172,7 @@ msgstr "Photocopie"
 
 #: rero_ils/modules/ill_requests/forms.py:139
 msgid "Define if the request is for a copy or full document."
-msgstr ""
+msgstr "Définir si la demande concerne une copie ou le document complet."
 
 #: rero_ils/modules/ill_requests/forms.py:146
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:177
@@ -7186,16 +7189,21 @@ msgid "Pickup location"
 msgstr "Lieu de retrait"
 
 #: rero_ils/modules/ill_requests/forms.py:157
+#, fuzzy
 msgid "Select the location where this request will be operated"
-msgstr ""
+msgstr "Choisir la localisation où la demande sera traitée"
 
 #: rero_ils/modules/ill_requests/forms.py:170
+#, fuzzy
 msgid "As you request a document part, you need to specify requested pages"
 msgstr ""
+"Lorsque vous demandez une partie de document, vous devez spécifier les pages "
+"demandées"
 
 #: rero_ils/modules/ill_requests/views.py:59
+#, fuzzy
 msgid "The request has been transmitted to your library."
-msgstr ""
+msgstr "La demande a été transmise à votre bibliothèque."
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:4
 #, fuzzy
@@ -7218,8 +7226,9 @@ msgid "ILL request ID"
 msgstr "Autoriser les demandes"
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:57
+#, fuzzy
 msgid "validated"
-msgstr ""
+msgstr "validé"
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:61
 #, fuzzy
@@ -7227,12 +7236,14 @@ msgid "denied"
 msgstr "Identifiant"
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:65
+#, fuzzy
 msgid "closed"
-msgstr ""
+msgstr "fermé"
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:72
+#, fuzzy
 msgid "Define if the request is for a copy or an actual document."
-msgstr ""
+msgstr "Définir si la demande porte sur une copie ou un document original."
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:76
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:29
@@ -7262,12 +7273,14 @@ msgid "Journal title"
 msgstr "revue"
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:204
+#, fuzzy
 msgid "Add further information to the librarian."
-msgstr ""
+msgstr "Ajouter un complément d'information pour le/la bibliothécaire."
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:28
+#, fuzzy
 msgid "You have submitted an invalid CSRF token"
-msgstr ""
+msgstr "Vous avez soumis un code CSRF non valide"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:32
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_ill_requests.html:61
@@ -7897,7 +7910,7 @@ msgstr "Source moissonnée en ligne, comme configuré dans le serveur d'ebooks."
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:61
 msgid "Collection enabled on public view"
-msgstr ""
+msgstr "Collection activée en vue publique"
 
 #: rero_ils/modules/patron_transaction_events/api.py:119
 msgid "Initial charge"
@@ -8170,8 +8183,9 @@ msgid "Username"
 msgstr "utilisateur"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:98
+#, fuzzy
 msgid "Login username for the web interface."
-msgstr ""
+msgstr "Identifiant de connexion pour l'interface web."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:110
 #, fuzzy
@@ -8353,8 +8367,10 @@ msgid "system_librarian"
 msgstr "bibliothécaire système"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:444
+#, fuzzy
 msgid "The public note is visible for the patron in his/her account."
 msgstr ""
+"La note publique est visible pour la/le lecteur/lectrice dans son compte."
 
 #: rero_ils/modules/patrons/templates/rero_ils/_macro_profile.html:45
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:57
@@ -8448,8 +8464,9 @@ msgid "Phone"
 msgstr "Téléphone"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:40
+#, fuzzy
 msgid "Account expiration"
-msgstr ""
+msgstr "Expiration du compte"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:51
 msgid "item at desk"
@@ -8611,6 +8628,9 @@ msgid ""
 "Public templates are visible by all users of the organisation. Private "
 "templates are visible only by its creator (you)."
 msgstr ""
+"Les modèles publics sont visibles par tous les utilisateurs d'une "
+"organisation. Les modèles privés sont visibles seulement par leur créateur "
+"(vous)."
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:91
 #, fuzzy
@@ -8639,7 +8659,7 @@ msgstr "Aucun état de collection"
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:138
 msgid "Template json data"
-msgstr ""
+msgstr "Modèle json data"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:5
 msgid "JSON schema for a vendor"
@@ -8706,7 +8726,7 @@ msgstr "aquafortiste"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:257
 msgid "GBP"
-msgstr ""
+msgstr "GBP"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:261
 #, fuzzy
@@ -8858,7 +8878,7 @@ msgstr "Se connecter à votre compte"
 
 #: rero_ils/templates/rero_ils/login_user.html:41
 msgid "E-mail or username"
-msgstr ""
+msgstr "E-mail ou identifiant"
 
 #: rero_ils/templates/rero_ils/login_user.html:52
 #, python-format
@@ -9470,4 +9490,3 @@ msgstr "Cliquez ici pour réinitialiser votre mot de passe"
 
 #~ msgid "Spanish"
 #~ msgstr "espagnol"
-
