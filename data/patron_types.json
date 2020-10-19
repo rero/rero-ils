@@ -55,5 +55,36 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/4"
     }
+  },
+  {
+    "pid": "8",
+    "name": "Limited",
+    "description": "Patron with restriction on checkout",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "limits": {
+      "checkout_limits": {
+        "global_limit": 10,
+        "library_limit": 5,
+        "library_exceptions": [
+          {
+            "library": {
+              "$ref": "https://ils.rero.ch/api/libraries/1"
+            },
+            "value": 5
+          },
+          {
+            "library": {
+              "$ref": "https://ils.rero.ch/api/libraries/2"
+            },
+            "value": 12
+          }
+        ]
+      },
+      "overdue_items_limits": {
+        "default_value": 3
+      }
+    }
   }
 ]
