@@ -102,7 +102,7 @@
             <b>{{ _('Call number') }}</b>
           </div>
           <div class="col-lg-10 col-sm-8">
-            {{ loan.item_call_number }}
+            {{ loan.item_call_number | empty_data(_('Call number unavailable')) }}
           </div>
         </div>
       </section>

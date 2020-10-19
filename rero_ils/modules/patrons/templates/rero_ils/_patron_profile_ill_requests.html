@@ -86,11 +86,9 @@
               {%- endif %}
               <div class="col-md-2 col-sm-4 font-weight-bold">{{ _('Pickup location')}}</div>
               <div class="col-md-10 col-sm-8">{{ request.pickup_location.name }}</div>
-              <div class="col-md-2 col-sm-4 font-weight-bold">{{ _('Is request copy')}}</div>
-              <div class="col-md-10 col-sm-8">
-                <i class="fa fa-{%- if request.is_copy %}check text-success{%- else %}times text-danger{%- endif %}"></i>
-              </div>
-              {%- if request.pages %}
+              <div class="col-md-2 col-sm-4 font-weight-bold">{{ _('Scope')}}</div>
+              <div class="col-md-10 col-sm-8">{{ _('Copy') if request.copy else _('Loan') }}</div>
+              {%- if request.pages and request.copy %}
                 <div class="col-md-2 col-sm-4 font-weight-bold">{{ _('Pages')}}</div>
                 <div class="col-md-10 col-sm-8">{{ request.pages }}</div>
               {%- endif %}

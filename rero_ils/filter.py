@@ -24,6 +24,7 @@ import dateparser
 from babel.dates import format_date, format_datetime, format_time
 from flask import current_app
 from invenio_i18n.ext import current_i18n
+from markupsafe import Markup
 
 
 def format_date_filter(
@@ -87,3 +88,12 @@ def jsondumps(data):
 def text_to_id(text):
     """Text to id."""
     return re.sub(r'\W', '', text)
+
+
+def empty_data(data, replacement_string='No data'):
+    """Return default string if no data."""
+    if data:
+        return data
+    else:
+        msg = '<em class="no-data">{0}</em>'.format(replacement_string)
+        return Markup(msg)
