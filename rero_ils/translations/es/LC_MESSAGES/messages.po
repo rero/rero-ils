@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-10-14 16:29+0200\n"
-"PO-Revision-Date: 2020-10-15 15:32+0000\n"
-"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"PO-Revision-Date: 2020-10-19 06:44+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/es/>\n"
 "Language: es\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3-dev\n"
+"X-Generator: Weblate 4.3.1-dev\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: rero_ils/config.py:126
@@ -4507,12 +4507,12 @@ msgstr "El nombre del presupuesto está utilizado."
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:54
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:150
 msgid "Start date"
-msgstr "Fecha 1"
+msgstr "Fecha de inicio"
 
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:68
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:172
 msgid "End date"
-msgstr "Fecha 2"
+msgstr "Fecha de fin"
 
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:81
 msgid "Active"
@@ -6157,7 +6157,7 @@ msgstr "Título independiente"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:132
 msgid "Serial"
-msgstr "Seriada"
+msgstr "Publicación seriada"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:155
 msgid "Serial in serial"
@@ -8476,9 +8476,8 @@ msgid "Template ID"
 msgstr "ID del template"
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:64
-#, fuzzy
 msgid "Creator"
-msgstr "Operador"
+msgstr "Creador"
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:68
 msgid "Creator URI"
