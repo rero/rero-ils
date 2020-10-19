@@ -32,12 +32,12 @@
     {% do kwargs.update({'aria-describedby': helpBlockId}) %}
     {{ field(**kwargs)|safe }}
     {%- if field.description %}
-      <small id="{{ helpBlockId }}" class="form-text text-muted">{{ field.description|safe }}</small>
+      <small id="{{ helpBlockId }}" class="form-text text-muted">{{ _(field.description)|safe }}</small>
     {%- endif %}
     {%- if field.errors %}
     <ul class="list-unstyled invalid-feedback">
       {%- for error in field.errors %}
-        <li><i class="fa fa-exclamation-circle"></i> {{ error }}</li>
+        <li><i class="fa fa-exclamation-circle"></i> {{ _(error) }}</li>
       {%- endfor %}
     </ul>
     {%- endif %}
@@ -59,7 +59,7 @@
          </span>
        {%- endfor %}
        {%- if field.description %}
-         <small id="{{ helpBlockId }}" class="form-text text-muted">{{ field.description|safe }}</small>
+         <small id="{{ helpBlockId }}" class="form-text text-muted">{{ _(field.description)|safe }}</small>
        {%- endif %}
      </div>
    </div>
@@ -85,7 +85,7 @@
 {% macro render_field_label(field) %}
 
     <label class="col-md-2 col-sm-4 col-form-label{%- if field.flags.required %} required{% endif %}">
-      {{ field.label }}
+      {{ _(field.label.text) }}
     </label>
 {% endmacro %}
 

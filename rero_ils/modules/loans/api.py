@@ -512,7 +512,7 @@ def patron_profile(patron):
         document = Document.get_record_by_pid(
             item.replace_refs()['document']['pid'])
         loan['document'] = document.replace_refs().dumps()
-        loan['item_call_number'] = item['call_number']
+        loan['item_call_number'] = item.get('call_number')
         loan['item_barcode'] = item['barcode']
         if loan['state'] == LoanState.ITEM_ON_LOAN:
             loan['overdue'] = loan.is_loan_overdue()
@@ -611,12 +611,12 @@ def _process_patron_profile_fees(patron, organisation, status='open'):
             item_pid = Loan.get_record_by_pid(transaction.loan.pid)\
                 .get('item_pid')
             item = Item.get_record_by_pid(item_pid.get('value'))
-            transaction['item_call_number'] = item['call_number']
-        if (transaction.status == 'closed'):
+            transaction['item_call_number'] = item.get('call_number')
+        if transaction.status == 'closed':
             transaction.total_amount = PatronTransactionEvent\
                 .get_initial_amount_transaction_event(transaction.pid)
         transaction['events'] = []
-        if (transaction.type == 'overdue'):
+        if transaction.type == 'overdue':
             transaction['document'] = Document.get_record_by_pid(
                 transaction.document.pid)
             transaction['loan'] = Loan.get_record_by_pid(transaction.loan.pid)
@@ -625,7 +625,7 @@ def _process_patron_profile_fees(patron, organisation, status='open'):
             event['currency'] = Organisation\
                 .get_record_by_pid(event.organisation.pid)\
                 .get('default_currency')
-            if ('library' in event):
+            if 'library' in event:
                 event.library = Library\
                     .get_record_by_pid(event.library.pid)
             transaction['events'].append(event)

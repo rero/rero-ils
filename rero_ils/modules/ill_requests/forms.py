@@ -118,14 +118,22 @@ class ILLRequestSourceForm(FlaskForm):
         description=_('Library catalog name')
     )
     url = URLField(
-        validators=[
-            validators.Optional(),
-            validators.URL()
-        ],
         description=_('Link of the document'),
         render_kw={'placeholder': 'https://...'}
-
     )
+
+    def validate(self):
+        """Custom validation for this form."""
+        if self.url.data:
+            self.origin.validators = [
+                validators.DataRequired()
+            ]
+        if self.origin.data:
+            self.url.validators = [
+                validators.DataRequired(),
+                validators.URL()
+            ]
+        return super().validate()
 
 
 class ILLRequestForm(FlaskForm):
@@ -180,7 +188,7 @@ class ILLRequestForm(FlaskForm):
                 'title': self.document.title.data,
                 'authors': self.document.authors.data,
                 'publisher': self.document.publisher.data,
-                'year': str(self.document.year.data),
+                'year': str(self.document.year.data or ''),
                 'identifier': self.document.identifier.data,
                 'source': {
                     'journal_title': self.document.source.journal_title.data,
@@ -198,6 +206,7 @@ class ILLRequestForm(FlaskForm):
             },
             'note': self.note.data
         })
+
         # if we put 'copy' in the dict before the dict cleaning and if 'copy'
         # is set to 'No', then it will be removed by `remove_empties_from_dict`
         # So we need to add it after the cleaning

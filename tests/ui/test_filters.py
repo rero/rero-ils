@@ -17,8 +17,8 @@
 
 """Jinja2 filters tests."""
 
-from rero_ils.filter import format_date_filter, jsondumps, text_to_id, \
-    to_pretty_json
+from rero_ils.filter import empty_data, format_date_filter, jsondumps, \
+    text_to_id, to_pretty_json
 
 
 def test_date_filter_format_timestamp_en(app):
@@ -109,3 +109,10 @@ def test_to_pretty():
 def test_text_to_id():
     """Test text to id."""
     assert 'LoremIpsum' == text_to_id('Lorem Ipsum')
+
+
+def test_empty_data():
+    """Test empty data."""
+    assert 'data' == empty_data('data')
+    substitution_text = 'no data available'
+    assert substitution_text in empty_data(None, substitution_text)
