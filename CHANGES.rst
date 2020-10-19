@@ -17,6 +17,122 @@
 Changes
 =======
 
+`v0.13.0 <https://github.com/rero/rero-ils/tree/v0.13.0>`__ (2020-10-19)
+------------------------------------------------------------------------
+
+`Full
+Changelog <https://github.com/rero/rero-ils/compare/v0.12.0...v0.13.0>`__
+
+**Implemented enhancements:**
+
+-  Holding : expected date should be today’s date by default
+   `#1249 <https://github.com/rero/rero-ils/issues/1249>`__
+-  circulation: need a better response time for the patron account
+   (public/pro interface)
+   `#1246 <https://github.com/rero/rero-ils/issues/1246>`__
+-  The date in the data should be better checked.
+   `#1187 <https://github.com/rero/rero-ils/issues/1187>`__
+-  Every document should have a ``provisionActivity`` field
+   `#1132 <https://github.com/rero/rero-ils/issues/1132>`__
+-  maximum number of results
+   `#112 <https://github.com/rero/rero-ils/issues/112>`__
+
+**Fixed bugs:**
+
+-  New due date is not displayed after a renewal in pro interface.
+   `#1279 <https://github.com/rero/rero-ils/issues/1279>`__
+-  circulation: unable to display a patron account in public view when
+   he has a dispute.
+   `#1272 <https://github.com/rero/rero-ils/issues/1272>`__
+-  Write a full sentence: The edit button should not be activated for
+   not logged in users.
+   `#1265 <https://github.com/rero/rero-ils/issues/1265>`__
+-  circulation: change text in courtesy notification
+   `#1264 <https://github.com/rero/rero-ils/issues/1264>`__
+-  Holdings for journals have various problems
+   `#1252 <https://github.com/rero/rero-ils/issues/1252>`__
+
+**Closed issues:**
+
+-  A call number (1st and 2nd) should not have a minimum caracter
+   constraint. `#1284 <https://github.com/rero/rero-ils/issues/1284>`__
+-  The patron first and last names are inverted in circulation UI.
+   `#1230 <https://github.com/rero/rero-ils/issues/1230>`__
+-  Make isort consistent for Travis and local development
+   `#816 <https://github.com/rero/rero-ils/issues/816>`__
+-  elasticsearch document_type deprecated
+   `#83 <https://github.com/rero/rero-ils/issues/83>`__
+-  new cookiecutter `#80 <https://github.com/rero/rero-ils/issues/80>`__
+
+**Merged pull requests:**
+
+-  patrons: fix patrons search api
+   `#1307 <https://github.com/rero/rero-ils/pull/1307>`__
+   (`jma <https://github.com/jma>`__)
+-  Maj us1590 user resource
+   `#1302 <https://github.com/rero/rero-ils/pull/1302>`__
+   (`jma <https://github.com/jma>`__)
+-  patron: fix patron profile for dispute event
+   `#1299 <https://github.com/rero/rero-ils/pull/1299>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  patron: Fix user import problem.
+   `#1292 <https://github.com/rero/rero-ils/pull/1292>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  Us1642 template resource
+   `#1275 <https://github.com/rero/rero-ils/pull/1275>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  monitoring: display db connection counts
+   `#1271 <https://github.com/rero/rero-ils/pull/1271>`__
+   (`rerowep <https://github.com/rerowep>`__)
+-  merge US1591 collection resource
+   `#1267 <https://github.com/rero/rero-ils/pull/1267>`__
+   (`AoNoOokami <https://github.com/AoNoOokami>`__)
+-  circulation: change text in courtesy notification
+   `#1266 <https://github.com/rero/rero-ils/pull/1266>`__
+   (`benerken <https://github.com/benerken>`__)
+-  document: fix internal server error when display view
+   `#1263 <https://github.com/rero/rero-ils/pull/1263>`__
+   (`lauren-d <https://github.com/lauren-d>`__)
+-  circulation: increase loan API performance
+   `#1262 <https://github.com/rero/rero-ils/pull/1262>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  tests: Use github actions
+   `#1258 <https://github.com/rero/rero-ils/pull/1258>`__
+   (`rerowep <https://github.com/rerowep>`__)
+-  ill_request: merge US to dev
+   `#1251 <https://github.com/rero/rero-ils/pull/1251>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  deploy: fix lxml error
+   `#1248 <https://github.com/rero/rero-ils/pull/1248>`__
+   (`jma <https://github.com/jma>`__)
+-  celery: use celery 5.0.0
+   `#1247 <https://github.com/rero/rero-ils/pull/1247>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  celery: fix ‘celery-config’ fixture
+   `#1245 <https://github.com/rero/rero-ils/pull/1245>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  holdings: add optional fields for holdings display
+   `#1244 <https://github.com/rero/rero-ils/pull/1244>`__
+   (`BadrAly <https://github.com/BadrAly>`__)
+-  general: use better regular expression for date
+   `#1239 <https://github.com/rero/rero-ils/pull/1239>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  translation: standardization of enumerations with form options
+   `#1238 <https://github.com/rero/rero-ils/pull/1238>`__
+   (`Garfield-fr <https://github.com/Garfield-fr>`__)
+-  loan: fix patron name
+   `#1232 <https://github.com/rero/rero-ils/pull/1232>`__
+   (`AoNoOokami <https://github.com/AoNoOokami>`__)
+-  merge US1489 circulation cypress tests
+   `#1215 <https://github.com/rero/rero-ils/pull/1215>`__
+   (`AoNoOokami <https://github.com/AoNoOokami>`__)
+-  indexer: fix bulk indexing
+   `#1202 <https://github.com/rero/rero-ils/pull/1202>`__
+   (`rerowep <https://github.com/rerowep>`__)
+-  dependencies: update to ES7 and invenio 3.3
+   `#1175 <https://github.com/rero/rero-ils/pull/1175>`__
+   (`rerowep <https://github.com/rerowep>`__)
+
 `v0.12.0 <https://github.com/rero/rero-ils/tree/v0.12.0>`__ (2020-09-21)
 ------------------------------------------------------------------------
 
