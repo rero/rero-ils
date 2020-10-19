@@ -24,12 +24,14 @@ import re
 
 from elasticsearch_dsl.query import Q
 from flask import current_app, request
+from invenio_i18n.ext import current_i18n
 from invenio_records_rest.errors import InvalidQueryRESTError
 
 from .facets import i18n_facets_factory
 from .modules.organisations.api import Organisation, current_organisation
 from .modules.patrons.api import current_patron
 from .modules.templates.api import TemplateVisibility
+from .utils import get_i18n_supported_languages
 
 _PUNCTUATION_REGEX = re.compile(r'[:,\?,\,,\.,;,!,=,-]+(\s+|$)')
 
@@ -44,6 +46,27 @@ def and_term_filter(field):
         must = []
         for value in values:
             must.append(Q('term', **{field: value}))
+        return Q('bool', must=must)
+    return inner
+
+
+def and_i18n_term_filter(field):
+    """Create a i18n term filter.
+
+    :param field: Field name.
+    :return: Function that returns a boolean AND query between term values.
+    """
+    def inner(values):
+        language = request.args.get("lang", current_i18n.language)
+        if not language or language not in get_i18n_supported_languages():
+            language = current_app.config.get('BABEL_DEFAULT_LANGUAGE', 'en')
+        i18n_field = '{field}_{language}'.format(
+            field=field,
+            language=language
+        )
+        must = []
+        for value in values:
+            must.append(Q('term', **{i18n_field: value}))
         return Q('bool', must=must)
     return inner
 
@@ -320,6 +343,5 @@ def search_factory(self, search, query_parser=None):
     search, sortkwargs = default_sorter_factory(search, search_index)
     for key, value in sortkwargs.items():
         urlkwargs.add(key, value)
-
     urlkwargs.add('q', query_string)
     return search, urlkwargs

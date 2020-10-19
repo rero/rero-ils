@@ -162,7 +162,7 @@ def test_documents_newacq_filters(app, client,
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_documents_facets(
-    client, document, ebook_1, ebook_2, ebook_3, ebook_4,
+    client, document, document2_ref, ebook_1, ebook_2, ebook_3, ebook_4,
     item_lib_martigny, rero_json_header
 ):
     """Test record retrieval."""
@@ -180,38 +180,61 @@ def test_documents_facets(
     # FILTERS
     # person contribution
     list_url = url_for('invenio_records_rest.doc_list', view='global',
-                       contribution__de='Peter James')
+                       author='Peter James')
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
     assert data['hits']['total']['value'] == 2
 
     # organisation contribution
     list_url = url_for('invenio_records_rest.doc_list', view='global',
-                       contribution__de='Great Edition')
+                       author='Great Edition')
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
     assert data['hits']['total']['value'] == 1
 
     # an other person contribution
     list_url = url_for('invenio_records_rest.doc_list', view='global',
-                       contribution__de='J.K. Rowling')
+                       author='J.K. Rowling')
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
     assert data['hits']['total']['value'] == 1
 
     # two contributions in the same document
     list_url = url_for('invenio_records_rest.doc_list', view='global',
-                       contribution__de=['Great Edition', 'Peter James'])
+                       author=['Great Edition', 'Peter James'])
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
     assert data['hits']['total']['value'] == 1
 
     # two contributions each in a separate document
     list_url = url_for('invenio_records_rest.doc_list', view='global',
-                       contribution__de=['J.K. Rowling', 'Peter James'])
+                       author=['J.K. Rowling', 'Peter James'])
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
     assert data['hits']['total']['value'] == 0
+
+    # Test i18n facet author
+    # 1. with the defalut language
+    list_url = url_for('invenio_records_rest.doc_list', view='global',
+                       author='Nebehay, Christian Michael')
+    res = client.get(list_url, headers=rero_json_header)
+    data = get_json(res)
+    assert data['hits']['total']['value'] == 1
+
+    # 2. test deutsch language
+    list_url = url_for('invenio_records_rest.doc_list', view='global',
+                       author='Nebehay, Christian Michael, 1909-2003',
+                       lang='de')
+    res = client.get(list_url, headers=rero_json_header)
+    data = get_json(res)
+    assert data['hits']['total']['value'] == 1
+
+    # 3. test unsupported language (tlh for klingon)
+    list_url = url_for('invenio_records_rest.doc_list', view='global',
+                       author='Nebehay, Christian Michael', lang='thl')
+    res = client.get(list_url, headers=rero_json_header)
+    data = get_json(res)
+    assert data['hits']['total']['value'] == 1
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',

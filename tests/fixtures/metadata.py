@@ -169,6 +169,12 @@ def document_data_ref(data):
 
 
 @pytest.fixture(scope="module")
+def document2_data_ref(data):
+    """Load document ref data."""
+    return deepcopy(data.get('doc7'))
+
+
+@pytest.fixture(scope="module")
 def journal_data_with_issn(data):
     """Load journal document with issn data."""
     return deepcopy(data.get('doc5'))
@@ -239,6 +245,46 @@ def person(app, person_data):
 
 
 @pytest.fixture(scope="module")
+def person2_data(data):
+    """Load mef person data."""
+    return deepcopy(data.get('pers2'))
+
+
+@pytest.fixture(scope="function")
+def person2_data_tmp(data):
+    """Load mef person data scope function."""
+    return deepcopy(data.get('pers2'))
+
+
+@pytest.fixture(scope="module")
+def person2_response_data(person2_data):
+    """Load mef person response data."""
+    json_data = {
+        'hits': {
+            'hits': [
+                {
+                    'id': person2_data['pid'],
+                    'metadata': person2_data
+                }
+            ]
+        }
+    }
+    return json_data
+
+
+@pytest.fixture(scope="module")
+def person2(app, person2_data):
+    """Create mef person record."""
+    pers = Person.create(
+        data=person2_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PersonsSearch.Meta.index)
+    return pers
+
+
+@pytest.fixture(scope="module")
 @mock.patch('requests.get')
 def document_ref(mock_persons_mef_get,
                  app, document_data_ref, person_response_data):
@@ -248,6 +294,23 @@ def document_ref(mock_persons_mef_get,
     )
     doc = Document.create(
         data=document_data_ref,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(DocumentsSearch.Meta.index)
+    return doc
+
+
+@pytest.fixture(scope="module")
+@mock.patch('requests.get')
+def document2_ref(mock_persons_mef_get,
+                  app, document2_data_ref, person2_response_data):
+    """Load document with mef records reference."""
+    mock_persons_mef_get.return_value = mock_response(
+        json_data=person2_response_data
+    )
+    doc = Document.create(
+        data=document2_data_ref,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
