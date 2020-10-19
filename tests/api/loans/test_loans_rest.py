@@ -34,9 +34,10 @@ from rero_ils.modules.loans.api import Loan, LoanAction, LoanState, \
     get_due_soon_loans, get_last_transaction_loc_for_item, get_overdue_loans
 from rero_ils.modules.notifications.api import NotificationsSearch, \
     number_of_reminders_sent
+from rero_ils.modules.patron_types.api import PatronType
 
 # Display current system time
-print("\n#### PYTHON KNOWN DATE: %s ####\n" % datetime.now())
+# print("\n#### PYTHON KNOWN DATE: %s ####\n" % datetime.now())
 
 
 def test_loans_permissions(client, loan_pending_martigny, json_header):
@@ -167,8 +168,10 @@ def test_due_soon_loans(client, librarian_martigny_no_email,
 def test_overdue_loans(client, librarian_martigny_no_email,
                        patron_martigny_no_email, loc_public_martigny,
                        item_type_standard_martigny,
-                       item_lib_martigny,
-                       circ_policy_short_martigny):
+                       item_lib_martigny, item2_lib_martigny,
+                       patron_type_children_martigny,
+                       circ_policy_short_martigny,
+                       patron3_martigny_blocked_no_email):
     """Test overdue loans."""
     login_user_via_session(client, librarian_martigny_no_email.user)
     item = item_lib_martigny
@@ -199,16 +202,59 @@ def test_overdue_loans(client, librarian_martigny_no_email,
         reindex=True
     )
 
-    overdue_loans = get_overdue_loans()
+    overdue_loans = list(get_overdue_loans(patron_pid=patron_pid))
     assert overdue_loans[0].get('pid') == loan_pid
-
     assert number_of_reminders_sent(loan) == 0
 
     loan.create_notification(notification_type='overdue')
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
-
     assert number_of_reminders_sent(loan) == 1
+
+    # Update the patron_type to set a overdue_items_limit rule
+    patron_type = patron_type_children_martigny
+    patron_type\
+        .setdefault('limits', {})\
+        .setdefault('overdue_items_limits', {})\
+        .setdefault('default_value', 1)
+    patron_type.update(patron_type, dbcommit=True, reindex=True)
+    patron_type = PatronType.get_record_by_pid(patron_type.pid)
+    assert patron_type.get('limits', {}).get('overdue_items_limits', {})\
+        .get('default_value') == 1
+
+    # Try a new checkout :: It should be blocked due to new limit rules
+    res, data = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item2_lib_martigny.pid,
+            patron_pid=patron_pid,
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid,
+        )
+    )
+    assert res.status_code == 403
+    assert data['message'] == 'Patron has too much overdue items'
+
+    # Try a checkout for a blocked user :: It should be blocked
+    res, data = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item2_lib_martigny.pid,
+            patron_pid=patron3_martigny_blocked_no_email.pid,
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid,
+        )
+    )
+    assert res.status_code == 403
+    assert 'This patron is currently blocked' in data['message']
+
+    # reset the patron_type with default value
+    del patron_type['limits']
+    patron_type.update(patron_type, dbcommit=True, reindex=True)
+    patron_type = PatronType.get_record_by_pid(patron_type.pid)
+    assert patron_type.get('limits') is None
 
     # checkin the item to put it back to it's original state
     res, _ = postdata(
@@ -538,4 +584,4 @@ def test_librarian_request_on_blocked_user(
     )
     assert res.status_code == 403
     data = get_json(res)
-    assert data.get('message') == 'BLOCKED USER'
+    assert 'blocked' in data.get('message')
