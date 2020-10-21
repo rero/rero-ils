@@ -17,6 +17,68 @@
 Changes
 =======
 
+`v0.13.1 <https://github.com/rero/rero-ils/tree/v0.13.1>`__ (2020-11-05)
+------------------------------------------------------------------------
+
+`Full
+Changelog <https://github.com/rero/rero-ils/compare/v0.13.0...v0.13.1>`__
+
+**Implemented enhancements:**
+
+-  A value for the field “title” with type “bf:Title” should be
+   required. `#1286 <https://github.com/rero/rero-ils/issues/1286>`__
+-  The non required fields of the document editor should support default
+   values. `#1119 <https://github.com/rero/rero-ils/issues/1119>`__
+
+**Fixed bugs:**
+
+-  ILSPILOT: Add a subscription for patron
+   `#1349 <https://github.com/rero/rero-ils/issues/1349>`__
+-  The “Home” link in the help is not translated.
+   `#1333 <https://github.com/rero/rero-ils/issues/1333>`__
+-  Patron lastname/firstname are reversed for the requests
+   `#1297 <https://github.com/rero/rero-ils/issues/1297>`__
+-  Fees are not updated instantly.
+   `#1294 <https://github.com/rero/rero-ils/issues/1294>`__
+-  The help link on home page is deprecated.
+   `#1277 <https://github.com/rero/rero-ils/issues/1277>`__
+-  Selector with possible multiple value are not alphabetically sorted
+   `#1231 <https://github.com/rero/rero-ils/issues/1231>`__
+-  Default values for prediction patterns are translated
+   `#1022 <https://github.com/rero/rero-ils/issues/1022>`__
+-  circulation: fix bug on checkout with request
+   `#1346 <https://github.com/rero/rero-ils/pull/1346>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+
+**Closed issues:**
+
+-  Version v0.12.0rc is missing existing translations
+   `#1222 <https://github.com/rero/rero-ils/issues/1222>`__
+
+**Merged pull requests:**
+
+-  tests: force npm version for github actions
+   `#1388 <https://github.com/rero/rero-ils/pull/1388>`__
+   (`jma <https://github.com/jma>`__)
+-  patrons: fix patron editor
+   `#1368 <https://github.com/rero/rero-ils/pull/1368>`__
+   (`jma <https://github.com/jma>`__)
+-  users: make the email optional
+   `#1343 <https://github.com/rero/rero-ils/pull/1343>`__
+   (`jma <https://github.com/jma>`__)
+-  editor: restore default value for hidden field
+   `#1338 <https://github.com/rero/rero-ils/pull/1338>`__
+   (`jma <https://github.com/jma>`__)
+-  facets: fix contribution filter
+   `#1316 <https://github.com/rero/rero-ils/pull/1316>`__
+   (`lauren-d <https://github.com/lauren-d>`__)
+-  ill_request: fix form validation problem
+   `#1315 <https://github.com/rero/rero-ils/pull/1315>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  app: update help link on the frontpage
+   `#1304 <https://github.com/rero/rero-ils/pull/1304>`__
+   (`AoNoOokami <https://github.com/AoNoOokami>`__)
+
 `v0.13.0 <https://github.com/rero/rero-ils/tree/v0.13.0>`__ (2020-10-19)
 ------------------------------------------------------------------------
 
@@ -36,6 +98,12 @@ Changelog <https://github.com/rero/rero-ils/compare/v0.12.0...v0.13.0>`__
    `#1132 <https://github.com/rero/rero-ils/issues/1132>`__
 -  maximum number of results
    `#112 <https://github.com/rero/rero-ils/issues/112>`__
+-  The help menu should point to the public help page if clicked from
+   public interface
+   `#1127 <https://github.com/rero/rero-ils/issues/1127>`__
+-  monitoring: fix es duplicate monitoring
+   `#1206 <https://github.com/rero/rero-ils/pull/1206>`__
+   (`rerowep <https://github.com/rerowep>`__)
 
 **Fixed bugs:**
 
@@ -51,6 +119,10 @@ Changelog <https://github.com/rero/rero-ils/compare/v0.12.0...v0.13.0>`__
    `#1264 <https://github.com/rero/rero-ils/issues/1264>`__
 -  Holdings for journals have various problems
    `#1252 <https://github.com/rero/rero-ils/issues/1252>`__
+-  A due_soon notification should not have “Not renewable”
+   `#1342 <https://github.com/rero/rero-ils/issues/1342>`__
+-  The circulation interface mixes item barcodes between organisations.
+   `#1085 <https://github.com/rero/rero-ils/issues/1085>`__
 
 **Closed issues:**
 
@@ -63,30 +135,29 @@ Changelog <https://github.com/rero/rero-ils/compare/v0.12.0...v0.13.0>`__
 -  elasticsearch document_type deprecated
    `#83 <https://github.com/rero/rero-ils/issues/83>`__
 -  new cookiecutter `#80 <https://github.com/rero/rero-ils/issues/80>`__
+-  Results page: Unable to extend a search to all organisations in
+   professional view.
+   `#975 <https://github.com/rero/rero-ils/issues/975>`__
+-  Impossible to request a document of another library
+   `#927 <https://github.com/rero/rero-ils/issues/927>`__
 
 **Merged pull requests:**
 
--  patrons: fix patrons search api
-   `#1307 <https://github.com/rero/rero-ils/pull/1307>`__
+-  release: 0.13.0
+   `#1313 <https://github.com/rero/rero-ils/pull/1313>`__
    (`jma <https://github.com/jma>`__)
--  Maj us1590 user resource
+-  refactors user resource
    `#1302 <https://github.com/rero/rero-ils/pull/1302>`__
    (`jma <https://github.com/jma>`__)
--  patron: fix patron profile for dispute event
-   `#1299 <https://github.com/rero/rero-ils/pull/1299>`__
-   (`zannkukai <https://github.com/zannkukai>`__)
 -  patron: Fix user import problem.
    `#1292 <https://github.com/rero/rero-ils/pull/1292>`__
    (`zannkukai <https://github.com/zannkukai>`__)
--  Us1642 template resource
-   `#1275 <https://github.com/rero/rero-ils/pull/1275>`__
+-  implements template resource for document, holdings, item and patron
+   records `#1275 <https://github.com/rero/rero-ils/pull/1275>`__
    (`zannkukai <https://github.com/zannkukai>`__)
 -  monitoring: display db connection counts
    `#1271 <https://github.com/rero/rero-ils/pull/1271>`__
    (`rerowep <https://github.com/rerowep>`__)
--  merge US1591 collection resource
-   `#1267 <https://github.com/rero/rero-ils/pull/1267>`__
-   (`AoNoOokami <https://github.com/AoNoOokami>`__)
 -  circulation: change text in courtesy notification
    `#1266 <https://github.com/rero/rero-ils/pull/1266>`__
    (`benerken <https://github.com/benerken>`__)
@@ -111,12 +182,21 @@ Changelog <https://github.com/rero/rero-ils/compare/v0.12.0...v0.13.0>`__
 -  celery: fix ‘celery-config’ fixture
    `#1245 <https://github.com/rero/rero-ils/pull/1245>`__
    (`zannkukai <https://github.com/zannkukai>`__)
--  holdings: add optional fields for holdings display
-   `#1244 <https://github.com/rero/rero-ils/pull/1244>`__
-   (`BadrAly <https://github.com/BadrAly>`__)
 -  general: use better regular expression for date
    `#1239 <https://github.com/rero/rero-ils/pull/1239>`__
    (`zannkukai <https://github.com/zannkukai>`__)
+-  patrons: fix patrons search api
+   `#1307 <https://github.com/rero/rero-ils/pull/1307>`__
+   (`jma <https://github.com/jma>`__)
+-  patron: fix patron profile for dispute event
+   `#1299 <https://github.com/rero/rero-ils/pull/1299>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  implements collection resource
+   `#1267 <https://github.com/rero/rero-ils/pull/1267>`__
+   (`AoNoOokami <https://github.com/AoNoOokami>`__)
+-  holdings: add optional fields for holdings display
+   `#1244 <https://github.com/rero/rero-ils/pull/1244>`__
+   (`BadrAly <https://github.com/BadrAly>`__)
 -  translation: standardization of enumerations with form options
    `#1238 <https://github.com/rero/rero-ils/pull/1238>`__
    (`Garfield-fr <https://github.com/Garfield-fr>`__)
@@ -126,12 +206,18 @@ Changelog <https://github.com/rero/rero-ils/compare/v0.12.0...v0.13.0>`__
 -  merge US1489 circulation cypress tests
    `#1215 <https://github.com/rero/rero-ils/pull/1215>`__
    (`AoNoOokami <https://github.com/AoNoOokami>`__)
--  indexer: fix bulk indexing
-   `#1202 <https://github.com/rero/rero-ils/pull/1202>`__
-   (`rerowep <https://github.com/rerowep>`__)
+-  acquisition: add document selector for order lines
+   `#1185 <https://github.com/rero/rero-ils/pull/1185>`__
+   (`lauren-d <https://github.com/lauren-d>`__)
 -  dependencies: update to ES7 and invenio 3.3
    `#1175 <https://github.com/rero/rero-ils/pull/1175>`__
    (`rerowep <https://github.com/rerowep>`__)
+-  help: update the public help menu entry url
+   `#1172 <https://github.com/rero/rero-ils/pull/1172>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  wiki: update the public help menu entry url
+   `#1162 <https://github.com/rero/rero-ils/pull/1162>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
 
 `v0.12.0 <https://github.com/rero/rero-ils/tree/v0.12.0>`__ (2020-09-21)
 ------------------------------------------------------------------------
