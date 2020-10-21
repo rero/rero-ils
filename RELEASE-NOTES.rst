@@ -18,6 +18,304 @@
 Release notes
 =============
 
+v0.13.1
+-------
+
+This release note includes the changes of the ``rero-ils-ui`` project
+[`link`_].
+
+User Interface
+~~~~~~~~~~~~~~
+
+-  Updates the help link of the homepage to the actual help instead of
+   the old GitHub wiki page.
+
+Circulation
+~~~~~~~~~~~
+
+-  Fixes ILL request form validation issues that prevents ILL requests to
+   be saved, or that saves ILL requests with wrong data.
+-  Fixes a bug that raises an internal server error when checking out an
+   item with requests.
+
+Metadata
+~~~~~~~~
+
+-  Restores default value for hidden field in the cataloguing editor.
+-  Improves the method to hide field in the cataloguing editor.
+
+Search
+~~~~~~
+
+-  Fixes the contribution facets with an internationalization (i18n)
+   filter.
+
+User management
+~~~~~~~~~~~~~~~
+
+-  Fixes an error in the user editor when the role `patron` is
+   selected.
+
+Documentation
+~~~~~~~~~~~~~
+
+-  Removes from the pull request template checklist the item related to
+   the translations, as they are managed in a specific branch.
+
+Test
+~~~~
+
+-  Forces the version of Node.js used by the GitHub actions tests.
+
+Instance
+~~~~~~~~
+
+-  Upgrades ``lxml`` and ``cryptography`` dependencies for security
+   reasons.
+-  Upgrades ``formly`` to ``v0.5.10.5``.
+-  Upgrades ``@rero/ng-core`` to ``v0.13.0``.
+
+Issues
+~~~~~~
+
+-  `rero-ils#1119`_: Non required fields of the document editor
+   should support default values.
+-  `rero-ils#1277`_: The help link on the homepage is deprecated.
+
+.. _link: https://github.com/rero/rero-ils-ui
+.. _rero-ils#1119: https://github.com/rero/rero-ils/issues/1119
+.. _rero-ils#1277: https://github.com/rero/rero-ils/issues/1277
+
+v0.13.0
+-------
+
+This release note includes the changes of the ``rero-ils-ui`` project
+[`link`_].
+
+User interface
+~~~~~~~~~~~~~~
+
+-  Displays the `new collection resource`_ on the public and
+   professional interface: brief views for the search results and the
+   collection detailed view.
+-  Adds a link to extend the search to the union catalog when a search
+   within a specific organisation retrieves no results.
+
+Public interface
+^^^^^^^^^^^^^^^^
+
+-  Fixes the ``can_request`` JINJA filter of the document detailed view
+   template, because it prevents a self registered user to display this
+   view, and raises an internal server error.
+-  Adds the new “collection” resource public detailed view.
+-  Moves the *help* submenu entry to the new *Tools* menu.
+-  Adds a RERO ID menu entry in the user menu. The profile displays the
+   patron account, its loans, requests, fees… and the RERO ID displays
+   the user personnal data, its credentials.
+-  Allows the user to sign in with the username or the email.
+
+Professional interface
+^^^^^^^^^^^^^^^^^^^^^^
+
+-  Adds a new resource to allow the librarian and the system librarian
+   to create templates for several resources such as document,
+   holdings, item, patron. The template JSON has a non validated filed,
+   labelled `data`, that contains the pre-validated data.
+   A template can be private, thus available only to its
+   creator, or public and available to all librarians of the related
+   organisation. Only system librarians can create or edit public
+   templates.
+-  Adds a new menu entry in the *Admin* menu to access the template
+   search list.
+-  Allows to group menu entries in the menu blocks of the professional
+   interface homepage.
+-  Creates the template brief view (search results) and detailed view.
+-  Removes the possibility to add a template from the brief view, as it
+   has to be done from the relevant resource.
+-  Adapts the document, item, holdings, patron routes in order to be
+   able to load data from an existing template in the editor.
+-  Adds a *use it* functionality through a ``canUse`` permission that
+   allows the user to use a template.
+-  Allows duplication of records from the record detailed view. This
+   leverages the creation of a new record similar to an existing one.
+-  Updates the *Switch library* button to be compatible with the `new
+   angular application initialization`_.
+-  Displays the holdings depending on the ``holding_type`` metadata from
+   the holdings itself, and not on the parent document type.
+-  Renames the *patrons* entry of the *User services* menu into *users*.
+
+Circulation
+~~~~~~~~~~~
+
+-  Fixes the requesting patron last name and surname when a requested
+   item is checked in.
+-  Adds a new resource for ILL requests, with related permissions (API)
+   and tests.
+-  Displays the ILL requests in a new tab of the patron profile.
+-  Adds a new form for ILL requests, available to the patron in
+   the public interface. This form allows the patron to place a request
+   for a document not available in the patron’s organisation, and to
+   select the pickup library.
+-  Improves the loan API performance to render the patron account
+   (public and professional) quicker.
+-  Improves the performance of the patron account information in the
+   checkin-checkout: a first call is requested to get linked item pids
+   and barcode, then for each barcode, a second call is done to get the
+   item details.
+
+Metadata
+~~~~~~~~
+
+-  Improves the regular expression used in the JSON schema to validate
+   dates, in all relevant resources.
+-  Create the new “collection” resource, to group items together.
+-  Adds optional fields to holdings that are displayed on the document
+   detailed view:
+
+   -  ``enumerationAndChronology``.
+   -  ``supplementaryContent``.
+   -  ``index``.
+   -  ``missing_issues``.
+   -  ``notes``.
+
+-  Removes conditionality of the 2nd call number depending on an
+   existing 1st call number.
+-  Extends availability of the 2nd call number to all holdings types.
+-  Prevents deleted serial issues to be displayed on the public
+   interface.
+-  Harmonizes the use of JSON schema custom options to sort items of
+   selects in the editor.
+
+Data
+~~~~
+
+-  Adds template records fixtures.
+-  Fixes ``import_users`` CLI to prevent storing pids in the
+   ``patron_pid`` database table, because it results in issues when
+   creating new users after the initial setup.
+-  Removes the ``append`` argument from the ``import_users`` function.
+-  Adds a username to the user fixtures.
+
+Search
+~~~~~~
+
+-  Fixes ElasticSearch bulk indexing to improve performance of parallel
+   indexing with MEF authority link creation.
+-  Adds facets to the template search view, to filter results by
+   resource type (document, holdings, item, patron) and visibility
+   (public, private).
+-  Improves ES mapping configuration for users to prevent that searching
+   for patron by barcode retrieves multiple results, if the barcode
+   contains dashes.
+-  Updates the total results display to ElasticSearch ``7.9.0``.
+
+User management
+~~~~~~~~~~~~~~~
+
+-  Moves the user personal data from the user resource (JSON of the user
+   module) to the RERO ID profile (the user profile database).
+-  Extends the user resource with the following fields for patron:
+
+   -  Notes (displayed in the patron profile).
+   -  Expiration date (displayed in the patron profile).
+   -  Library affiliation.
+
+-  Group the patron data of the user in a nested structure.
+-  Adds a new Invenio account login view REST API.
+-  Moves the link between the patron record and the user profile from
+   the email to the id.
+-  Synchronizes the patron record and RERO ID profile data in both
+   directions.
+-  Sets the default user password as the birth date.
+-  Renames the patron API endpoints from ``patrons`` to ``rero_users``.
+-  Adds a user web API to return the number of patrons given a username
+   in order to ensure that usernames are unique.
+
+Tests
+~~~~~
+
+-  Adds fixtures for a new organisation for testing purpose.
+   Existing records, such as organisation, library, patron type, etc.,
+   makes the writing process of Cypress tests much easier.
+-  Adds a model of a Cypress test to ease further the creation of
+   Cypress tests and to provide a list of good practices.
+-  Replaces ``cy.wait()`` by timeouts or by waiting for aliases to
+   harden Cypress tests robustness.
+-  Tests with Cypress the `circulation scenario A`_.
+-  Tests with Cypress the `circulation scenario B`_.
+-  Moves from Travis CI to GitHub actions to improve the preformance of
+   running tests at each pull request or merged commit.
+-  Updates Cypress tests to the patron module refactoring (renamed
+   ``users``).
+
+Angular application (Professional interface, search)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-  Initializes the application according to Angular standards.
+
+Instance
+~~~~~~~~
+
+-  Updates Cypress to ``v4.12.1``.
+-  Updates ElasticSearch to ``7.9.0``.
+-  Updates Invenio to ``3.3``.
+-  Updates Celery to ``5.0.0``
+-  Improves ElasticSearch monitoring by fixing ElasticSearch duplicate
+   records computation.
+-  Fixes an issue that prevented the Celery configuration fixture to be
+   found by setting the constraint on the celery python package version
+   (``<5.0.0``).
+-  Fixes ``LXML`` errors during deployment. See `this Invenio pull
+   request`_.
+-  Enables ``invenio-admin`` and ``invenio-userprofiles``.
+-  Adds an API to display the database connection counts. It allows to
+   monitor the DB usage and to have statistics in order to decide how to
+   improve the performance of a deployed instance.
+
+Issues
+~~~~~~
+
+-  `rero-ils#83`_: Types are deprecated in ElasticSearch, then
+   ``document_type`` parameter should not be used anymore. Fixed by
+   upgrading Invenio to ``3.3``.
+-  `rero-ils#1187`_: Date validation in JSON schema (editor) are not
+   robust as it allows date such as 2020-67-74.
+-  `rero-ils#1230`_: The requesting patron last and first name are
+   inverted in circulation module interface when a requested item is
+   checked in.
+-  `rero-ils#1246`_: Displaying the patron account, either on the public
+   or on the Professional interface is too slow, because the API
+   response is not optimized.
+-  `rero-ils#1252`_: Holdings for journals have several issues: hidden
+   issues (items) cannot be expanded; the *description* tab is empty;
+   receiving an issue is not possible when the holdings is imported from
+   the legacy system (Virtua) with the wrong type (*standard* instead of
+   *serial*); sometimes the library is not displayed in the holdings
+   (only the location)…
+-  `rero-ils#1264`_: A note is hardcoded in the courtesy notice
+   (circulation notification). It should be removed from all
+   notification templates.
+-  `rero-ils#1284`_: Call numbers (1st and 2nd) should not have
+   validation constraints, such as minimal number of characters.
+-  `rero-ils#1272`_: As a logged patron displays his or her patron
+   account, if a fee is on dispute, the view crashes and displays an
+   internal server error.
+
+.. _``rero-ils-ui``: https://github.com/rero/rero-ils-ui
+.. _new collection resource: #metadata
+.. _new angular application initialization: #angular-application-professional-interface-search
+.. _circulation scenario A: https://github.com/rero/rero-ils/blob/dev/doc/circulation/scenarios.md#scenario_a-standard-loan
+.. _circulation scenario B: https://github.com/rero/rero-ils/blob/dev/doc/circulation/scenarios.md#scenario_b-standard-loan-with-transit
+.. _this Invenio pull request: https://github.com/inveniosoftware/cookiecutter-invenio-rdm/pull/88
+.. _rero-ils#83: https://github.com/rero/rero-ils/issues/83
+.. _rero-ils#1187: https://github.com/rero/rero-ils/issues/1187
+.. _rero-ils#1230: https://github.com/rero/rero-ils/issues/1230
+.. _rero-ils#1246: https://github.com/rero/rero-ils/issues/1246
+.. _rero-ils#1252: https://github.com/rero/rero-ils/issues/1252
+.. _rero-ils#1264: https://github.com/rero/rero-ils/issues/1264
+.. _rero-ils#1284: https://github.com/rero/rero-ils/issues/1284
+.. _rero-ils#1272: https://github.com/rero/rero-ils/issues/1272
+
 v0.12.0
 -------
 
