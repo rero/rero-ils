@@ -22,6 +22,7 @@ from datetime import datetime, timedelta, timezone
 from operator import attrgetter
 
 import ciso8601
+from elasticsearch_dsl import A
 from flask import current_app
 from invenio_circulation.errors import MissingRequiredParameterError
 from invenio_circulation.pidstore.fetchers import loan_pid_fetcher
@@ -648,6 +649,28 @@ def get_last_transaction_loc_for_item(item_pid):
             loan_pid).get('transaction_location_pid')
     except StopIteration:
         return None
+
+
+def get_loans_count_by_library_for_patron_pid(patron_pid, filter_states=None):
+    """Get loans count for patron and aggregate result on library_pid.
+
+    :param patron_pid: The patron pid
+    :param filter_states: loans type to filters
+    :return: a dict with library_pid as key, number of loans as value
+    """
+    filter_states = filter_states or []  # prevent mutable argument warning
+    agg = A('terms', field='library_pid')
+    search = search_by_patron_item_or_document(
+        patron_pid=patron_pid,
+        filter_states=filter_states
+    )
+    search.aggs.bucket('library', agg)
+    search = search[0:0]
+    results = search.execute()
+    stats = {}
+    for result in results.aggregations.library.buckets:
+        stats[result.key] = result.doc_count
+    return stats
 
 
 def get_due_soon_loans():
