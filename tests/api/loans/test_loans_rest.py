@@ -234,7 +234,7 @@ def test_overdue_loans(client, librarian_martigny_no_email,
         )
     )
     assert res.status_code == 403
-    assert data['message'] == 'Patron has too much overdue items'
+    assert 'Checkout denied' in data['message']
 
     # Try a checkout for a blocked user :: It should be blocked
     res, data = postdata(
