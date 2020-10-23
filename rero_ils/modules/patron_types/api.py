@@ -29,7 +29,8 @@ from .models import PatronTypeIdentifier, PatronTypeMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..circ_policies.api import CircPoliciesSearch
 from ..fetchers import id_fetcher
-from ..loans.api import get_overdue_loan_pids
+from ..loans.api import LoanState, get_loans_count_by_library_for_patron_pid, \
+    get_overdue_loan_pids
 from ..minters import id_minter
 from ..patrons.api import Patron, PatronsSearch
 from ..patrons.utils import get_patron_from_arguments
@@ -144,7 +145,11 @@ class PatronType(IlsRecord):
 
         patron_type = PatronType.get_record_by_pid(patron.patron_type_pid)
         if not patron_type.check_overdue_items_limit(patron):
-            return False, ['Patron has too much overdue items']
+            return False, [_('Checkout denied: the maximal number of overdue '
+                             'items is reached')]
+        valid, message = patron_type.check_checkout_count_limit(patron, item)
+        if not valid:
+            return False, [message]
 
         return True, []
 
@@ -201,11 +206,10 @@ class PatronType(IlsRecord):
         return cannot_delete
 
     # CHECK LIMITS METHODS ====================================================
-
     def check_overdue_items_limit(self, patron):
-        """Check if a patron reaches the overdue items limit.
+        """Check if a patron reached the overdue items limit.
 
-        :param patron: the patron to check.
+        :param patron: the patron who tries to execute the checkout.
         :return False if patron has more overdue items than defined limit. True
                 in all other cases.
         """
@@ -215,6 +219,50 @@ class PatronType(IlsRecord):
             overdue_items = list(get_overdue_loan_pids(patron.pid))
             return limit > len(overdue_items)
         return True
+
+    def check_checkout_count_limit(self, patron, item):
+        """Check if a patron reached the checkout limits.
+
+        * check the global general limit (if exists).
+        * check the library exception limit (if exists).
+        * check the library default limit (if exists).
+        :param patron: the patron who tries to execute the checkout.
+        :param item: the item related to the loan.
+        :return a tuple of two values ::
+          - True|False : to know if the check is success or not.
+          - message(string) : the reason why the check fails.
+        """
+        checkout_limits = self.replace_refs().get('limits', {})\
+            .get('checkout_limits', {})
+        general_limit = checkout_limits.get('global_limit')
+        if not general_limit:
+            return True, None
+
+        # [0] get the stats fr this patron by library
+        patron_library_stats = get_loans_count_by_library_for_patron_pid(
+            patron.pid, [LoanState.ITEM_ON_LOAN])
+
+        # [1] check the general limit
+        patron_total_count = sum(patron_library_stats.values()) or 0
+        if patron_total_count >= general_limit:
+            return False, _('Checkout denied: the maximal checkout number '
+                            'is reached.')
+
+        # [3] check library_limit
+        item_library_pid = item.library_pid
+        library_limit_value = checkout_limits.get('library_limit')
+        # try to find an exception rule for this library
+        for exception in checkout_limits.get('library_exceptions', []):
+            if exception['library']['pid'] == item_library_pid:
+                library_limit_value = exception['value']
+                break
+        if library_limit_value and item_library_pid in patron_library_stats:
+            if patron_library_stats[item_library_pid] >= library_limit_value:
+                return False, _('Checkout denied: the maximal checkout number '
+                                'of items for this library is reached.')
+
+        # [4] no problem detected, checkout is allowed
+        return True, None
 
 
 class PatronTypesIndexer(IlsRecordsIndexer):
