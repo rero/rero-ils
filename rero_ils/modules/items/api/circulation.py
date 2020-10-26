@@ -547,14 +547,15 @@ class ItemCirculation(IlsRecord):
             # CANCEL_REQUEST_5_1_2: when item at desk with pending loan, cancel
             # the loan triggers an automatic validation of first pending loan.
             actions_to_execute['validate_first_pending'] = True
-        elif loan['state'] == LoanState.PENDING and (
-            LoanState.ITEM_AT_DESK in loans_list or
-            LoanState.ITEM_ON_LOAN in loans_list or
-            LoanState.ITEM_IN_TRANSIT_FOR_PICKUP in loans_list or
-            LoanState.ITEM_IN_TRANSIT_TO_HOUSE in loans_list
-        ):
-            # CANCEL_REQUEST_2_2, CANCEL_REQUEST_3_2, CANCEL_REQUEST_4_2,
-            # CANCEL_REQUEST_5_2:
+        elif loan['state'] == LoanState.PENDING and \
+                any(state in loans_list for state in [
+                LoanState.ITEM_AT_DESK,
+                LoanState.ITEM_ON_LOAN,
+                LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
+                LoanState.ITEM_IN_TRANSIT_TO_HOUSE,
+                LoanState.PENDING]):
+            # CANCEL_REQUEST_1_2, CANCEL_REQUEST_2_2, CANCEL_REQUEST_3_2,
+            # CANCEL_REQUEST_4_2 CANCEL_REQUEST_5_2:
             # canceling a pending loan does not affect the other active loans.
             actions_to_execute['cancel_loan'] = True
 
