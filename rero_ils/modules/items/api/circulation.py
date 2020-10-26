@@ -534,6 +534,7 @@ class ItemCirculation(IlsRecord):
         }
 
     @add_action_parameters_and_flush_indexes
+    @check_operation_allowed(ItemCirculationAction.EXTEND)
     def extend_loan(self, current_loan, **kwargs):
         """Extend checkout duration for this item."""
         loan = current_circulation.circulation.trigger(
