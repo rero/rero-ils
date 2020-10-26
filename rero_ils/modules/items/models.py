@@ -60,6 +60,7 @@ class ItemIssueStatus:
     RECEIVED = 'received'
     CLAIMED = 'claimed'
     DELETED = 'deleted'
+    LATE = 'late'
 
 
 class ItemCirculationAction:
