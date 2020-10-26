@@ -2251,10 +2251,12 @@ CIRCULATION_ACTIONS_VALIDATION = {
         Location.allow_request,
         Item.can_request,
         CircPolicy.allow_request,
-        Patron.can_request
+        Patron.can_request,
+        PatronType.allow_request
     ],
     ItemCirculationAction.EXTEND: [
-        Item.can_extend
+        Item.can_extend,
+        PatronType.allow_extend
     ],
     ItemCirculationAction.CHECKOUT: [
         Patron.can_checkout,
