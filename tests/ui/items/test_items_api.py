@@ -24,6 +24,7 @@ from datetime import datetime, timedelta
 from utils import get_mapping
 
 from rero_ils.modules.items.api import Item, ItemsSearch, item_id_fetcher
+from rero_ils.modules.items.models import ItemIssueStatus, ItemStatus
 from rero_ils.modules.items.utils import item_location_retriever, \
     item_pid_to_object
 
@@ -108,10 +109,10 @@ def test_item_extended_validation(client, holding_lib_martigny_w_patterns):
         'holding': {
             '$ref': 'https://ils.rero.ch/api/holdings/holding5'
         },
-        'status': 'on_shelf',
+        'status': ItemStatus.ON_SHELF,
         'enumerationAndChronology': 'irregular_issue',
         'issue': {
-            'status': 'received',
+            'status': ItemIssueStatus.RECEIVED,
             'received_date': datetime.now().strftime('%Y-%m-%d'),
             'expected_date': datetime.now().strftime('%Y-%m-%d'),
             'regular': False

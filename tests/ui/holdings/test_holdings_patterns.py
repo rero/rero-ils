@@ -23,6 +23,7 @@ from __future__ import absolute_import, print_function
 from copy import deepcopy
 from datetime import datetime
 
+import ciso8601
 import jinja2
 import pytest
 from invenio_accounts.testutils import login_user_via_session
@@ -32,6 +33,7 @@ from rero_ils.modules.errors import RecordValidationError
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.holdings.models import HoldingNoteTypes
 from rero_ils.modules.items.api import Item
+from rero_ils.modules.items.models import ItemIssueStatus, ItemStatus
 
 
 def test_patterns_functions(holding_lib_martigny_w_patterns,
@@ -80,19 +82,29 @@ def test_receive_regular_issue(holding_lib_martigny_w_patterns):
     assert issue.item_type_pid == holding.circulation_category_pid
     assert issue.document_pid == holding.document_pid
     assert issue.holding_pid == holding.pid
-    assert issue.get('status') == 'on_shelf'
+    assert issue.get('status') == ItemStatus.ON_SHELF
     assert issue.item_record_type == 'issue'
     assert issue.organisation_pid == holding.organisation_pid
     assert issue.get('issue', {}).get('regular')
-    assert issue.issue_status == 'received'
+    assert issue.issue_status == ItemIssueStatus.RECEIVED
     assert issue.expected_date == '2023-03-01'
     assert issue.get('enumerationAndChronology') == 'no 73 mars 2023'
     assert issue.received_date == datetime.now().strftime('%Y-%m-%d')
+    issue_status_date = ciso8601.parse_datetime(issue.issue_status_date)
+    assert issue_status_date.strftime('%Y-%m-%d') == \
+        datetime.now().strftime('%Y-%m-%d')
+    # test change status_date with status changes
+    issue['issue']['status'] = ItemIssueStatus.CLAIMED
+    new_issues = issue.update(issue, dbcommit=True, reindex=True)
+    assert new_issues.issue_status == ItemIssueStatus.CLAIMED
+    new_issue_status_date = ciso8601.parse_datetime(
+        new_issues.issue_status_date)
+    assert new_issue_status_date > issue_status_date
 
     holding = Holding.get_record_by_pid(holding.pid)
     issue = holding.receive_regular_issue(dbcommit=True, reindex=True)
     assert issue.get('issue', {}).get('regular')
-    assert issue.issue_status == 'received'
+    assert issue.issue_status == ItemIssueStatus.RECEIVED
     assert issue.expected_date == '2020-06-01'
     assert issue.get('enumerationAndChronology') == 'no 62 juin 2020'
     assert issue.received_date == datetime.now().strftime('%Y-%m-%d')
@@ -100,7 +112,7 @@ def test_receive_regular_issue(holding_lib_martigny_w_patterns):
     record = {
         'issue': {
             'regular': True,
-            'status': 'received',
+            'status': ItemIssueStatus.RECEIVED,
             'expected_date': datetime.now().strftime('%Y-%m-%d'),
             'received_date': datetime.now().strftime('%Y-%m-%d')
         },
@@ -110,7 +122,7 @@ def test_receive_regular_issue(holding_lib_martigny_w_patterns):
     issue = holding.receive_regular_issue(
         item=record, dbcommit=True, reindex=True)
     assert issue.get('issue', {}).get('regular')
-    assert issue.issue_status == 'received'
+    assert issue.issue_status == ItemIssueStatus.RECEIVED
     assert issue.expected_date == datetime.now().strftime('%Y-%m-%d')
     assert issue.get('enumerationAndChronology') == 'free_text'
     assert issue.received_date == datetime.now().strftime('%Y-%m-%d')
@@ -538,10 +550,10 @@ def test_regular_issue_creation_update_delete_api(
                         holding.get('patterns'))
     issue = holding.receive_regular_issue(dbcommit=True, reindex=True)
     item = deepcopy(issue)
-    item['issue']['status'] = 'deleted'
+    item['issue']['status'] = ItemIssueStatus.DELETED
     issue.update(data=item, dbcommit=True, reindex=True)
     created_issue = Item.get_record_by_pid(issue.pid)
-    assert created_issue.get('issue').get('status') == 'deleted'
+    assert created_issue.get('issue').get('status') == ItemIssueStatus.DELETED
     # Unable to delete a regular issue
     with pytest.raises(IlsRecordError.NotDeleted):
         created_issue.delete(dbcommit=True, delindex=True)

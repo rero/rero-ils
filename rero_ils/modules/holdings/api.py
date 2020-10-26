@@ -21,7 +21,7 @@ from __future__ import absolute_import, print_function
 
 from builtins import classmethod
 from copy import deepcopy
-from datetime import datetime
+from datetime import datetime, timezone
 from functools import partial
 
 from dateutil.relativedelta import relativedelta
@@ -323,10 +323,11 @@ class Holding(IlsRecord):
 
     @property
     def get_items(self):
-        """Return items of holding record."""
+        """Return standard items and received issues for a holding record."""
         for item_pid in Item.get_items_pid_by_holding_pid(self.pid):
             item = Item.get_record_by_pid(item_pid)
-            if item.issue_status != ItemIssueStatus.DELETED:
+            if not item.issue_status or \
+                    item.issue_status == ItemIssueStatus.RECEIVED:
                 yield item
 
     def get_number_of_items(self):
@@ -508,7 +509,8 @@ class Holding(IlsRecord):
         """Prepare the issue record before creating the item."""
         data = {
             'issue': {
-                'status': 'received',
+                'status': ItemIssueStatus.RECEIVED,
+                'status_date': datetime.now(timezone.utc).isoformat(),
                 'received_date': datetime.now().strftime('%Y-%m-%d'),
                 'expected_date': expected_date,
                 'regular': True

@@ -32,6 +32,7 @@ from rero_ils.modules.documents.api import Document
 from rero_ils.modules.errors import RecordValidationError
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.items.api import Item
+from rero_ils.modules.items.models import ItemIssueStatus, ItemStatus
 from rero_ils.modules.utils import get_ref_for_pid, get_schema_for_resource
 
 
@@ -169,7 +170,7 @@ def test_receive_regular_issue_api(
     item = {
         'issue': {
             'regular': True,
-            'status': 'received',
+            'status': ItemIssueStatus.RECEIVED,
             'expected_date': datetime.now().strftime('%Y-%m-%d'),
             'received_date': datetime.now().strftime('%Y-%m-%d')
         },
@@ -325,13 +326,13 @@ def test_irregular_issue_creation_update_delete_api(
     login_user_via_session(client, librarian_martigny_no_email.user)
     item = {
         'issue': {
-            'status': 'received',
+            'status': ItemIssueStatus.RECEIVED,
             'received_date': datetime.now().strftime('%Y-%m-%d'),
             'expected_date': datetime.now().strftime('%Y-%m-%d'),
             'regular': False
         },
         'enumerationAndChronology': 'irregular_issue',
-        'status': 'on_shelf',
+        'status': ItemStatus.ON_SHELF,
         'holding': {'$ref': get_ref_for_pid('hold', holding.pid)},
         '$schema': get_schema_for_resource(Item),
         'location': holding.get('location'),
@@ -360,13 +361,13 @@ def test_irregular_issue_creation_update_delete_api(
     # No Validation error if you try to create an issue with no holdings links
     item = {
         'issue': {
-            'status': 'received',
+            'status': ItemIssueStatus.RECEIVED,
             'received_date': datetime.now().strftime('%Y-%m-%d'),
             'expected_date': datetime.now().strftime('%Y-%m-%d'),
             'regular': False
         },
         'enumerationAndChronology': 'irregular_issue',
-        'status': 'on_shelf',
+        'status': ItemStatus.ON_SHELF,
         'location': holding.get('location'),
         'document': holding.get('document'),
         'item_type': holding.get('circulation_category'),

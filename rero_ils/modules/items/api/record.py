@@ -16,7 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating item records."""
-import datetime
+from datetime import datetime, timezone
 
 from flask_babelex import gettext as _
 
@@ -94,6 +94,7 @@ class ItemRecord(IlsRecord):
         :param reindex: boolean to reindex the record or not.
         :return: The updated item record.
         """
+        data = self._set_issue_status_date(data)
         data = self._prepare_item_record(data=data, mode='update')
         super(ItemRecord, self).update(data, dbcommit, reindex)
         # TODO: some item updates do not require holding re-linking
@@ -112,6 +113,20 @@ class ItemRecord(IlsRecord):
         data = generate_item_barcode(data=data)
         super(ItemRecord, self).replace(data, dbcommit, reindex)
         return self
+
+    @classmethod
+    def _set_issue_status_date(cls, data):
+        """Set the status date to current timestamp for an issue.
+
+        :param data: The record to update.
+        :return: The updated record.
+        """
+        status = data.get('issue', {}).get('status')
+        item = cls.get_record_by_pid(data.get('pid'))
+        if status and item and status != item.issue_status:
+            data['issue']['status_date'] = \
+                datetime.now(timezone.utc).isoformat()
+        return data
 
     @classmethod
     def _increment_next_prediction_for_holding(
@@ -420,6 +435,6 @@ class ItemRecord(IlsRecord):
         """
         acquisition_date = self.get('acquisition_date')
         if acquisition_date:
-            return datetime.datetime.strptime(
-                acquisition_date, '%Y-%m-%d') < datetime.datetime.now()
+            return datetime.strptime(
+                acquisition_date, '%Y-%m-%d') < datetime.now()
         return False
