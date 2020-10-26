@@ -170,6 +170,7 @@
           "default": "received",
           "enum": [
             "received",
+            "late",
             "claimed",
             "deleted"
           ],
@@ -181,6 +182,10 @@
                 "value": "received"
               },
               {
+                "label": "late",
+                "value": "late"
+              },
+              {
                 "label": "claimed",
                 "value": "claimed"
               },
@@ -190,6 +195,11 @@
               }
             ]
           }
+        },
+        "status_date": {
+          "format": "date-time",
+          "title": "Status date",
+          "type": "string"
         },
         "received_date": {
           "format": "date",
