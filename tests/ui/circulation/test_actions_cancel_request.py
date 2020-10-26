@@ -29,7 +29,8 @@ from rero_ils.modules.loans.api import Loan, LoanState
 
 def test_cancel_request_on_item_on_shelf(
         item_lib_martigny, item_on_shelf_martigny_patron_and_loan_pending,
-        loc_public_martigny, librarian_martigny_no_email):
+        loc_public_martigny, librarian_martigny_no_email,
+        patron2_martigny_no_email):
     """Test cancel request on an on_shelf item."""
     # the following tests the circulation action CANCEL_REQUEST_1_1
     # on_shelf item with no pending requests, not possible to cancel a request.
@@ -42,6 +43,17 @@ def test_cancel_request_on_item_on_shelf(
     # on_shelf item with pending requests, cancel a pending loan is possible.
     # the item remains on_shelf
     item, patron, loan = item_on_shelf_martigny_patron_and_loan_pending
+    # add request for another patron
+    params = {
+        'patron_pid': patron2_martigny_no_email.pid,
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'pickup_location_pid': loc_public_martigny.pid
+    }
+    item, requested_loan = item_record_to_a_specific_loan_state(
+        item=item, loan_state=LoanState.PENDING,
+        params=params, copy_item=False)
+    # cancel request
     params = {
         'pid': loan.pid,
         'transaction_location_pid': loc_public_martigny.pid,
