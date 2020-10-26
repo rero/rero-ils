@@ -32,6 +32,7 @@ from ..fetchers import id_fetcher
 from ..loans.api import LoanState, get_loans_count_by_library_for_patron_pid, \
     get_overdue_loan_pids
 from ..minters import id_minter
+from ..patron_transactions.api import PatronTransaction
 from ..patrons.api import Patron, PatronsSearch
 from ..patrons.utils import get_patron_from_arguments
 from ..providers import Provider
@@ -143,14 +144,77 @@ class PatronType(IlsRecord):
             # be relevant --> return True by default
             return True, []
 
+        # check overdue items limits
         patron_type = PatronType.get_record_by_pid(patron.patron_type_pid)
         if not patron_type.check_overdue_items_limit(patron):
             return False, [_('Checkout denied: the maximal number of overdue '
                              'items is reached')]
+
+        # check checkout count limit
         valid, message = patron_type.check_checkout_count_limit(patron, item)
         if not valid:
             return False, [message]
 
+        # check fee amount limit
+        if not patron_type.check_fee_amount_limit(patron):
+            return False, [_('Checkout denied: the maximal fee amount is '
+                             'reached')]
+
+        return True, []
+
+    @classmethod
+    def allow_request(cls, item, **kwargs):
+        """Check if a patron type allow request item operation.
+
+        :param item : the item to check
+        :param kwargs : To be relevant, additional arguments should contains
+                        'patron' argument.
+        :return a tuple with True|False and reasons to disallow if False.
+        """
+        patron = get_patron_from_arguments(**kwargs)
+        if not patron:
+            # 'patron' argument are present into kwargs. This check can't
+            # be relevant --> return True by default
+            return True, []
+
+        # check overdue items limits
+        patron_type = PatronType.get_record_by_pid(patron.patron_type_pid)
+        if not patron_type.check_overdue_items_limit(patron):
+            return False, [_('Request denied: the maximal number of overdue '
+                             'items is reached')]
+
+        # check fee amount limit
+        if not patron_type.check_fee_amount_limit(patron):
+            return False, [_('Request denied: the maximal fee amount is '
+                             'reached')]
+
+        return True, []
+
+    @classmethod
+    def allow_extend(cls, item, **kwargs):
+        """Check if a patron type allow extend loan operation.
+
+        :param item : the item to check
+        :param kwargs : To be relevant, additional arguments should contains
+                        'patron' argument.
+        :return a tuple with True|False and reasons to disallow if False.
+        """
+        patron = get_patron_from_arguments(**kwargs)
+        if not patron:
+            # 'patron' argument are present into kwargs. This check can't
+            # be relevant --> return True by default
+            return True, []
+
+        # check overdue items limit
+        patron_type = PatronType.get_record_by_pid(patron.patron_type_pid)
+        if not patron_type.check_overdue_items_limit(patron):
+            return False, [_('Renewal denied: the maximal number of overdue '
+                             'items is reached')]
+
+        # check fee amount limit
+        if not patron_type.check_fee_amount_limit(patron):
+            return False, [_('Renewal denied: the maximal fee amount is '
+                             'reached')]
         return True, []
 
     def get_linked_patron(self):
@@ -234,8 +298,8 @@ class PatronType(IlsRecord):
         """
         checkout_limits = self.replace_refs().get('limits', {})\
             .get('checkout_limits', {})
-        general_limit = checkout_limits.get('global_limit')
-        if not general_limit:
+        global_limit = checkout_limits.get('global_limit')
+        if not global_limit:
             return True, None
 
         # [0] get the stats fr this patron by library
@@ -244,7 +308,7 @@ class PatronType(IlsRecord):
 
         # [1] check the general limit
         patron_total_count = sum(patron_library_stats.values()) or 0
-        if patron_total_count >= general_limit:
+        if patron_total_count >= global_limit:
             return False, _('Checkout denied: the maximal checkout number '
                             'is reached.')
 
@@ -265,6 +329,30 @@ class PatronType(IlsRecord):
 
         # [4] no problem detected, checkout is allowed
         return True, None
+
+    def check_fee_amount_limit(self, patron):
+        """Check if a patron reached the fee amount limits.
+
+        * check the fee amount limit (if exists).
+        :param patron: the patron who tries to execute the checkout.
+        :param item: the item related to the loan.
+        :return a tuple of two values ::
+          - True|False : to know if the check is success or not.
+          - message(string) : the reason why the check fails.
+        """
+        # get fee amount limit
+        fee_amount_limits = self.replace_refs().get('limits', {}) \
+            .get('fee_amount_limits', {})
+        default_limit = fee_amount_limits.get('default_value')
+        if default_limit:
+            # get total amount for open transactions on overdue and without
+            # subscription fee
+            patron_total_amount = PatronTransaction. \
+                get_transactions_total_amount_for_patron(
+                    patron.pid, status='open', types=['overdue'],
+                    with_subscription=False)
+            return patron_total_amount < default_limit
+        return True
 
 
 class PatronTypesIndexer(IlsRecordsIndexer):

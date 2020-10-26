@@ -716,6 +716,14 @@ class Patron(IlsRecord):
                 'type': 'error',
                 'content': message
             })
+        # check fee amount limit
+        valid = patron_type.check_fee_amount_limit(self)
+        if not valid:
+            messages.append({
+                'type': 'error',
+                'content': _(
+                    'Transactions denied: the maximal fee amount is reached.')
+            })
 
         return messages
 
