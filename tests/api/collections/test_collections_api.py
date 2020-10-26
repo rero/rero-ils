@@ -19,6 +19,7 @@
 
 
 from rero_ils.modules.collections.api import Collection
+from rero_ils.modules.items.models import ItemStatus
 
 
 def test_get_items(document, item_type_standard_martigny,
@@ -40,7 +41,7 @@ def test_get_items(document, item_type_standard_martigny,
                 '$ref': 'https://ils.rero.ch/api/organisations/org1'
             },
             'pid': 'item1',
-            'status': 'on_shelf',
+            'status': ItemStatus.ON_SHELF,
             'type': 'standard'},
         {'$schema': 'https://ils.rero.ch/schemas/items/item-v0.0.1.json',
             'barcode': '8712133',
@@ -53,7 +54,7 @@ def test_get_items(document, item_type_standard_martigny,
                 '$ref': 'https://ils.rero.ch/api/organisations/org1'
             },
             'pid': 'item5',
-            'status': 'on_shelf',
+            'status': ItemStatus.ON_SHELF,
             'type': 'standard'
          }
     ]

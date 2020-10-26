@@ -98,6 +98,9 @@
           },
           "status": {
             "type": "keyword"
+          },
+          "status_date": {
+            "type": "date"
           }
         }
       },
