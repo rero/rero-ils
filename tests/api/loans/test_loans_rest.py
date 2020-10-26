@@ -34,7 +34,6 @@ from rero_ils.modules.loans.api import Loan, LoanAction, LoanState, \
     get_due_soon_loans, get_last_transaction_loc_for_item, get_overdue_loans
 from rero_ils.modules.notifications.api import NotificationsSearch, \
     number_of_reminders_sent
-from rero_ils.modules.patron_types.api import PatronType
 
 # Display current system time
 # print("\n#### PYTHON KNOWN DATE: %s ####\n" % datetime.now())
@@ -211,31 +210,6 @@ def test_overdue_loans(client, librarian_martigny_no_email,
     flush_index(LoansSearch.Meta.index)
     assert number_of_reminders_sent(loan) == 1
 
-    # Update the patron_type to set a overdue_items_limit rule
-    patron_type = patron_type_children_martigny
-    patron_type\
-        .setdefault('limits', {})\
-        .setdefault('overdue_items_limits', {})\
-        .setdefault('default_value', 1)
-    patron_type.update(patron_type, dbcommit=True, reindex=True)
-    patron_type = PatronType.get_record_by_pid(patron_type.pid)
-    assert patron_type.get('limits', {}).get('overdue_items_limits', {})\
-        .get('default_value') == 1
-
-    # Try a new checkout :: It should be blocked due to new limit rules
-    res, data = postdata(
-        client,
-        'api_item.checkout',
-        dict(
-            item_pid=item2_lib_martigny.pid,
-            patron_pid=patron_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
-        )
-    )
-    assert res.status_code == 403
-    assert 'Checkout denied' in data['message']
-
     # Try a checkout for a blocked user :: It should be blocked
     res, data = postdata(
         client,
@@ -249,12 +223,6 @@ def test_overdue_loans(client, librarian_martigny_no_email,
     )
     assert res.status_code == 403
     assert 'This patron is currently blocked' in data['message']
-
-    # reset the patron_type with default value
-    del patron_type['limits']
-    patron_type.update(patron_type, dbcommit=True, reindex=True)
-    patron_type = PatronType.get_record_by_pid(patron_type.pid)
-    assert patron_type.get('limits') is None
 
     # checkin the item to put it back to it's original state
     res, _ = postdata(

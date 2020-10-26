@@ -90,12 +90,20 @@ class PatronTransaction(IlsRecord):
         return record
 
     @classmethod
-    def _build_transaction_query(cls, patron_pid, status=None):
-        """Private function to build a transaction query linked to a patron."""
+    def _build_transaction_query(cls, patron_pid, status=None, types=None):
+        """Private function to build a transaction query linked to a patron.
+
+        :param patron_pid: the patron pid being searched
+        :param status: (optional) array of transaction status filter,
+        :param types: (optional) array of transaction types filter,
+        :return: return prepared query.
+        """
         query = PatronTransactionsSearch() \
             .filter('term', patron__pid=patron_pid)
         if status:
             query = query.filter('term', status=status)
+        if types:
+            query = query.filter('terms', type=types)
         return query
 
     @classmethod
@@ -112,16 +120,18 @@ class PatronTransaction(IlsRecord):
 
     @classmethod
     def get_transactions_total_amount_for_patron(cls, patron_pid, status=None,
+                                                 types=None,
                                                  with_subscription=True):
         """Get total amount transactions linked to a patron.
 
         :param patron_pid: the patron pid being searched
         :param status: (optional) transaction status filter,
+        :param types: (optional) transaction type filter,
         :param with_subscription: (optional) include or exclude subscription
         type filter.
         :return: return total amount of transactions.
         """
-        search = cls._build_transaction_query(patron_pid, status)
+        search = cls._build_transaction_query(patron_pid, status, types)
         if not with_subscription:
             search = search.exclude('terms', type=['subscription'])
         search.aggs.metric('transactions_total_amount',
