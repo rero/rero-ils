@@ -309,11 +309,12 @@ def test_notifications_post_put_delete(
 def test_recall_notification(client, patron_martigny_no_email, lib_martigny,
                              json_header, patron2_martigny_no_email,
                              item_lib_martigny, librarian_martigny_no_email,
-                             circulation_policies, loc_public_martigny):
+                             circulation_policies, loc_public_martigny,
+                             mailbox):
     """Test recall notification."""
     # process all notifications still in the queue
     Notification.process_notifications()
-
+    mailbox.clear()
     login_user_via_session(client, librarian_martigny_no_email.user)
     res, data = postdata(
         client,
@@ -331,6 +332,52 @@ def test_recall_notification(client, patron_martigny_no_email, lib_martigny,
 
     assert not loan.is_notified(notification_type='recall')
     # test notification permissions
+    res, data = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pickup_location_pid=loc_public_martigny.pid,
+            patron_pid=patron2_martigny_no_email.pid,
+            transaction_library_pid=lib_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid
+        )
+    )
+    assert res.status_code == 200
+
+    request_loan_pid = data.get(
+        'action_applied')[LoanAction.REQUEST].get('pid')
+
+    flush_index(NotificationsSearch.Meta.index)
+
+    assert loan.is_notified(notification_type='recall')
+
+    notification = get_recall_notification(loan)
+    assert notification.loan_pid == loan.pid
+
+    assert not loan.is_notified(notification_type='availability')
+    assert not get_availability_notification(loan)
+    assert Notification.process_notifications() == {
+        'send': 1, 'reject': 0, 'error': 0}
+
+    # one new email
+    assert len(mailbox) == 1
+    mailbox.clear()
+
+    # cancel request
+    res, _ = postdata(
+        client,
+        'api_item.cancel_item_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pid=request_loan_pid,
+            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_location_pid=loc_public_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+
+    # no new notification is send for the second time
     res, _ = postdata(
         client,
         'api_item.librarian_request',
@@ -354,7 +401,69 @@ def test_recall_notification(client, patron_martigny_no_email, lib_martigny,
     assert not loan.is_notified(notification_type='availability')
     assert not get_availability_notification(loan)
     assert Notification.process_notifications() == {
+        'send': 0, 'reject': 0, 'error': 0}
+    # no new email
+    assert len(mailbox) == 0
+
+
+def test_recall_notification_without_email(
+                              client, patron_sion_without_email, lib_martigny,
+                              json_header, patron2_martigny_no_email,
+                              item3_lib_martigny, librarian_martigny_no_email,
+                              circulation_policies, loc_public_martigny,
+                              mailbox):
+    """Test recall notification."""
+    # process all notifications still in the queue
+    Notification.process_notifications()
+    mailbox.clear()
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    res, data = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item3_lib_martigny.pid,
+            patron_pid=patron_sion_without_email.pid,
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid,
+        )
+    )
+    assert res.status_code == 200
+    loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
+    loan = Loan.get_record_by_pid(loan_pid)
+
+    assert not loan.is_notified(notification_type='recall')
+    # test notification
+    res, data = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item3_lib_martigny.pid,
+            pickup_location_pid=loc_public_martigny.pid,
+            patron_pid=patron2_martigny_no_email.pid,
+            transaction_library_pid=lib_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid
+        )
+    )
+    assert res.status_code == 200
+
+    request_loan_pid = data.get(
+        'action_applied')[LoanAction.REQUEST].get('pid')
+
+    flush_index(NotificationsSearch.Meta.index)
+
+    assert loan.is_notified(notification_type='recall')
+
+    notification = get_recall_notification(loan)
+    assert notification.loan_pid == loan.pid
+
+    assert not loan.is_notified(notification_type='availability')
+    assert not get_availability_notification(loan)
+    assert Notification.process_notifications() == {
         'send': 1, 'reject': 0, 'error': 0}
+
+    # no email as the patron does not have an email
+    assert len(mailbox) == 0
+    mailbox.clear()
 
 
 def test_availability_notification(
