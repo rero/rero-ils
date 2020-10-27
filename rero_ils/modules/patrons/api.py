@@ -338,17 +338,38 @@ class Patron(IlsRecord):
     @classmethod
     def get_patron_by_user(cls, user):
         """Get patron by user."""
-        if hasattr(user, 'email'):
-            return cls.get_patron_by_email(email=user.email)
+        if hasattr(user, 'id'):
+            result = PatronsSearch().filter(
+                'term',
+                user_id=user.id
+            ).source(includes='pid').scan()
+            try:
+                pid = next(result).pid
+            except StopIteration:
+                return None
+            return cls.get_record_by_pid(pid)
 
     @classmethod
-    def get_patron_by_email(cls, email=None):
+    def get_patron_by_email(cls, email):
         """Get patron by email."""
         pid_value = cls.get_pid_by_email(email)
         if pid_value:
             return cls.get_record_by_pid(pid_value)
         else:
             return None
+
+    @classmethod
+    def get_patron_by_username(cls, username):
+        """Get patron by username."""
+        result = PatronsSearch().filter(
+            'term',
+            username=username
+        ).source(includes='pid').scan()
+        try:
+            pid = next(result).pid
+        except StopIteration:
+            return None
+        return cls.get_record_by_pid(pid)
 
     @classmethod
     def get_pid_by_email(cls, email):

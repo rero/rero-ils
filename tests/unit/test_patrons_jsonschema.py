@@ -87,7 +87,7 @@ def test_city(patron_schema, patron_martigny_data_tmp):
         validate(patron_martigny_data_tmp, patron_schema)
 
 
-def test_username_email(patron_schema, patron_martigny_data_tmp):
+def test_username(patron_schema, patron_martigny_data_tmp):
     """Test username for patron jsonschemas."""
     validate(patron_martigny_data_tmp, patron_schema)
     del(patron_martigny_data_tmp['username'])
@@ -117,6 +117,11 @@ def test_email(patron_schema, patron_martigny_data_tmp):
     """Test email for patron jsonschemas."""
     validate(patron_martigny_data_tmp, patron_schema)
 
+    # email is optional
+    del patron_martigny_data_tmp['email']
+    validate(patron_martigny_data_tmp, patron_schema)
+
+    # email with a bad format
     with pytest.raises(ValidationError):
         patron_martigny_data_tmp['email'] = 25
         validate(patron_martigny_data_tmp, patron_schema)

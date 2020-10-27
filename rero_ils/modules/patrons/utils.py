@@ -25,7 +25,7 @@ from .api import Patron
 
 def user_has_patron(user=current_user):
     """Test if user has a patron."""
-    patron = Patron.get_patron_by_email(email=user.email)
+    patron = Patron.get_patron_by_user(user=user)
     if patron and 'patron' in patron.get('roles'):
         return True
     return False

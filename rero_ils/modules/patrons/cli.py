@@ -27,6 +27,8 @@ from flask.cli import with_appcontext
 from flask_security.confirmable import confirm_user
 from invenio_accounts.ext import hash_password
 from invenio_db import db
+from invenio_userprofiles.models import UserProfile
+from sqlalchemy.orm.exc import NoResultFound
 from werkzeug.local import LocalProxy
 
 from ..patrons.api import Patron
@@ -51,34 +53,40 @@ def import_users(infile, verbose, password):
     data = json.load(infile)
     for patron_data in data:
         email = patron_data.get('email')
+        password = patron_data.get('password', password)
+        username = patron_data['username']
         if email is None:
-            click.secho('\tUser email not defined!', fg='red')
-        else:
-            # create User
-            password = patron_data.get('password', password)
+            click.secho('\tUser {username} do not have email!'.format(
+                username=username), fg='yellow')
+        if password:
             patron_data.pop('password', None)
-            patron = Patron.get_patron_by_email(email)
-            if patron:
-                click.secho('\tUser exist: ' + email, fg='yellow')
-            else:
-                if verbose:
-                    click.echo('\tUser: ' + email)
+        # do nothing if the patron alredy exists
+        patron = Patron.get_patron_by_username(username)
+        if patron:
+            click.secho('\tPatron already exist: {username}'.format(
+                username=username), fg='yellow')
+            continue
 
-                # create user
-                user = datastore.find_user(email=email)
-                if user:
-                    click.secho('\tUser exist: ' + email, fg='yellow')
-                else:
-                    patron = Patron.create(
-                        patron_data,
-                        dbcommit=False,
-                        reindex=False,
-                        email_notification=False
-                    )
-                    patron.reindex()
-                    user = patron.user
-                user.password = hash_password(password)
-                user.active = True
-                db.session.merge(user)
-                db.session.commit()
-                confirm_user(user)
+        if verbose:
+            click.secho('\tCreating user: {username}'.format(
+                username=username), fg='green')
+            try:
+                profile = UserProfile.get_by_username(username)
+                click.secho('\tUser already exist: {username}'.format(
+                    username=username), fg='yellow')
+            except NoResultFound:
+                pass
+        # patron creation
+        patron = Patron.create(
+            patron_data,
+            dbcommit=False,
+            reindex=False,
+            email_notification=False
+        )
+        user = patron.user
+        user.password = hash_password(password)
+        user.active = True
+        db.session.merge(user)
+        db.session.commit()
+        confirm_user(user)
+        patron.reindex()

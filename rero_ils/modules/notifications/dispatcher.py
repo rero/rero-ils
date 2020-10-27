@@ -38,6 +38,7 @@ class Dispatcher:
 
         if notification:
             data = notification.replace_pids_and_refs()
+            patron = data['loan']['patron']
             communication_switcher = {
                 'email': Dispatcher.send_mail,
                 #  'sms': not_yet_implemented
@@ -45,9 +46,14 @@ class Dispatcher:
                 #  ...
             }
             dispatcher_function = communication_switcher.get(
-                data['loan']['patron']['patron']['communication_channel'],
+                patron['patron']['communication_channel'],
                 not_yet_implemented
             )
+            if dispatcher_function == not_yet_implemented:
+                current_app.logger.warning(
+                    'The communication channel of the patron (pid: {pid})'
+                    'is not yet implemented'.format(
+                        pid=patron['pid']))
             dispatcher_function(data)
             notification = notification.update_process_date()
             if verbose:
@@ -55,8 +61,7 @@ class Dispatcher:
                     ('Notification: {pid} chanel: {chanel} type:'
                      '{type} loan: {lpid}').format(
                         pid=notification['pid'],
-                        chanel=data['loan']['patron']
-                                   ['patron']['communication_channel'],
+                        chanel=patron['patron']['communication_channel'],
                         type=notification['notification_type'],
                         lpid=data['loan']['pid']
                     )
@@ -66,14 +71,22 @@ class Dispatcher:
     @staticmethod
     def send_mail(data):
         """Send the notification by email."""
+        patron = data['loan']['patron']
+        # get the recipient email from loan.patron.patron.email
+        recipient = patron.get('email')
+        # do nothing if the patron does not have an email
+        if not recipient:
+            current_app.logger.warning(
+                'Patron (pid: {pid}) does not have an email'.format(
+                    pid=patron['pid']))
+            return
         notification_type = data.get('notification_type')
-        language = data['loan']['patron']['patron']['communication_language']
+        language = patron['patron']['communication_language']
         template = 'email/{type}/{lang}.txt'.format(
             type=notification_type,
             lang=language
         )
-        # get the recipient email from loan.patron.email
-        recipient = data['loan']['patron']['email']
+
         # get the sender email from
         # loan.pickup_location_pid.location.library.email
         library = Location.get_record_by_pid(
@@ -85,6 +98,10 @@ class Dispatcher:
             recipients=[recipient],
             ctx=data['loan']
         )
+        # additional recipient
+        add_recipient = patron['patron'].get('additional_communication_email')
+        if add_recipient:
+            msg.add_recipient(add_recipient)
         text = msg.body.split('\n')
         msg.subject = text[0]
         msg.body = '\n'.join(text[1:])
