@@ -24,7 +24,7 @@ from flask_login import current_user
 def user_has_patron(user=current_user):
     """Test if user has a patron."""
     from .api import Patron
-    patron = Patron.get_patron_by_email(email=user.email)
+    patron = Patron.get_patron_by_user(user=user)
     if patron and 'patron' in patron.get('roles'):
         return True
     return False

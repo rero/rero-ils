@@ -25,7 +25,6 @@
     "first_name",
     "last_name",
     "birth_date",
-    "email",
     "username",
     "roles"
   ],
@@ -157,6 +156,7 @@
         "barcode",
         "type",
         "communication_channel",
+        "additional_communication_email",
         "communication_language",
         "expiration_date",
         "libraries",
@@ -241,6 +241,7 @@
         },
         "communication_channel": {
           "title": "Communication channel",
+          "description": "For the email channel, the user must have an e-mail. Otherwise, no notifications will be sent.",
           "type": "string",
           "enum": [
             "email",
@@ -258,6 +259,19 @@
                 "value": "mail"
               }
             ]
+          }
+        },
+        "additional_communication_email": {
+          "title": "Additional communication email",
+          "type": "string",
+          "format": "email",
+          "pattern": "^.*@.*\\..*$",
+          "minLength": 6,
+          "form": {
+            "hideExpression": "model.communication_channel === 'email'",
+            "messages": {
+              "patternMessage": "Email should have at least one <code>@</code> and one <code>.</code>."
+            }
           }
         },
         "communication_language": {

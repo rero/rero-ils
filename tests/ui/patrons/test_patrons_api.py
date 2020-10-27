@@ -184,10 +184,11 @@ def test_get_patron(patron_martigny_no_email):
     assert Patron.get_patron_by_barcode(
         patron.patron.get('barcode')) == patron
     assert not Patron.get_patron_by_barcode('not exists')
+    assert Patron.get_patron_by_user(patron.user) == patron
 
     class user:
-        email = patron.get('email')
-    assert Patron.get_patron_by_user(user) == patron
+        pass
+    assert Patron.get_patron_by_user(user) is None
 
 
 def test_user_librarian_can_delete(librarian_martigny):

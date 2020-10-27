@@ -646,6 +646,27 @@ def patron_sion_no_email(
     return ptrn
 
 
+@pytest.fixture(scope="module")
+@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
+def patron_sion_without_email(
+        app,
+        roles,
+        lib_sion,
+        patron_type_grown_sion,
+        patron_sion_data):
+    """Create Sion patron without sending reset password instruction."""
+    del patron_sion_data['email']
+    patron_sion_data['pid'] = 'ptrn10wthoutemail'
+    patron_sion_data['username'] = 'withoutemail'
+    ptrn = Patron.create(
+        data=patron_sion_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    return ptrn
+
+
 # ------------ Loans: pending loan ----------
 @pytest.fixture(scope="module")
 def loan_pending_martigny(
