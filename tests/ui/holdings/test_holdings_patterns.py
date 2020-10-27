@@ -72,6 +72,11 @@ def test_patterns_quarterly_one_level(holding_lib_martigny_w_patterns):
     # test preview
     issues = holding.prediction_issues_preview(13)
     assert issues[-1]['issue'] == 'no 85 mars 2026'
+    # test expected date
+    new_holding = deepcopy(holding_lib_martigny_w_patterns)
+    template = '{{expected_date.day}} {{expected_date.month}}'
+    new_holding['patterns']['template'] = template
+    assert new_holding.next_issue_display_text == '1 3'
 
 
 def test_receive_regular_issue(holding_lib_martigny_w_patterns):
