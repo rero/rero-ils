@@ -434,10 +434,14 @@
       "form": {
         "type": "datepicker",
         "wrappers": [
-          "toggle-switch"
+          "toggle-switch",
+          "form-field"
         ],
         "templateOptions": {
           "label": "",
+          "wrappers": [
+            "toggle-switch"
+          ],
           "toggle-switch": {
             "label": "New acquisition",
             "description": "If this option is enabled, this item is going to appear in the new acquisition list of the library."

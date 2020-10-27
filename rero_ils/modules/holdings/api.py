@@ -29,7 +29,7 @@ from flask import current_app
 from flask_babelex import gettext as _
 from invenio_search import current_search
 from invenio_search.api import RecordsSearch
-from jinja2 import Template
+from jinja2 import Environment
 
 from rero_ils.modules.items.models import ItemIssueStatus
 
@@ -46,6 +46,7 @@ from ..providers import Provider
 from ..utils import extracted_data_from_ref, get_ref_for_pid, \
     get_schema_for_resource
 from ..vendors.api import Vendor
+from ...filter import format_date_filter
 
 # holing provider
 HoldingProvider = type(
@@ -57,6 +58,10 @@ HoldingProvider = type(
 holding_id_minter = partial(id_minter, provider=HoldingProvider)
 # holing fetcher
 holding_id_fetcher = partial(id_fetcher, provider=HoldingProvider)
+
+# load jinja Environment
+JINJA_ENV = Environment()
+JINJA_ENV.filters['format_date_filter'] = format_date_filter
 
 
 class HoldingsSearch(RecordsSearch):
@@ -439,9 +444,21 @@ class Holding(IlsRecord):
                     ): str(text_value)
                 })
             issue_data[pattern_name] = level_data
+
+        # TODO: inform the PO about the use of filter format_date_filter
+        # for additional manipulation of the expected date
+        tmpl = JINJA_ENV.from_string(patterns.get('template'))
+
         next_expected_date = patterns.get('next_expected_date')
-        return Template(patterns.get('template')).render(
-            **issue_data), next_expected_date
+        # send the expected date info with the issue data
+        expected_date = datetime.strptime(next_expected_date, '%Y-%m-%d')
+        issue_data['next_expected_date'] = next_expected_date
+        issue_data['expected_date'] = {
+                    'day': expected_date.day,
+                    'month': expected_date.month,
+                    'year': expected_date.year
+                }
+        return tmpl.render(**issue_data), next_expected_date
 
     def increment_next_prediction(self):
         """Increment next prediction."""

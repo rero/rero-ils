@@ -281,60 +281,6 @@
     }
   },
   {
-    "pid": "5",
-    "name": "Quarterly with seasons - French",
-    "description": "Example: Ann\u00e9e 2018, no 3 (automne)",
-    "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
-    },
-    "creator": {
-      "$ref": "https://ils.rero.ch/api/patrons/1"
-    },
-    "visibility": "public",
-    "template_type": "holdings",
-    "data": {
-      "circulation_category": {},
-      "location": {},
-      "patterns": {
-        "frequency": "rdafr:1010",
-        "next_expected_date": "",
-        "template": "Ann\u00e9e {{first.year}}, no {{second.number}} ({{first.season}})",
-        "values": [
-          {
-            "levels": [
-              {
-                "next_value": 2020,
-                "number_name": "year",
-                "starting_value": 2019
-              },
-              {
-                "list_name": "season",
-                "mapping_values": [
-                  "printemps",
-                  "\u00e9t\u00e9",
-                  "automne",
-                  "hiver"
-                ],
-                "next_value": 4
-              }
-            ],
-            "name": "first"
-          },
-          {
-            "levels": [
-              {
-                "next_value": 284,
-                "number_name": "number",
-                "starting_value": 277
-              }
-            ],
-            "name": "second"
-          }
-        ]
-      }
-    }
-  },
-  {
     "pid": "6",
     "name": "Greek book",
     "description": "Greek with latin transliteration",
@@ -610,116 +556,6 @@
         }
       ],
       "type": "book"
-    }
-  },
-  {
-    "pid": "8",
-    "name": "Monthly - German",
-    "description": "Example: Bd. 3(1989), Nr. 2",
-    "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
-    },
-    "creator": {
-      "$ref": "https://ils.rero.ch/api/patrons/1"
-    },
-    "visibility": "public",
-    "template_type": "holdings",
-    "data": {
-      "call_number": "",
-      "circulation_category": {},
-      "location": {},
-      "patterns": {
-        "frequency": "rdafr:1008",
-        "next_expected_date": "2021-12-20",
-        "template": "Bd. {{first.bd}}({{second.year}}), Nr. {{first.nr}}",
-        "values": [
-          {
-            "levels": [
-              {
-                "next_value": 55,
-                "number_name": "bd",
-                "starting_value": 1
-              },
-              {
-                "completion_value": 12,
-                "number_name": "nr",
-                "starting_value": 1
-              }
-            ],
-            "name": "first"
-          },
-          {
-            "levels": [
-              {
-                "next_value": 2021,
-                "number_name": "year",
-                "starting_value": 1977
-              },
-              {
-                "completion_value": 12,
-                "number_name": "year_completion",
-                "starting_value": 1
-              }
-            ],
-            "name": "second"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "pid": "9",
-    "name": "Monthly - English",
-    "description": "Example: Vol. 5(2007), no. 1",
-    "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
-    },
-    "creator": {
-      "$ref": "https://ils.rero.ch/api/patrons/1"
-    },
-    "visibility": "private",
-    "template_type": "holdings",
-    "data": {
-      "call_number": "",
-      "circulation_category": {},
-      "location": {},
-      "patterns": {
-        "frequency": "rdafr:1008",
-        "next_expected_date": "2021-12-20",
-        "template": "Vol. {{first.vol}}({{second.year}}), no. {{first.no}}",
-        "values": [
-          {
-            "levels": [
-              {
-                "next_value": 55,
-                "number_name": "vol",
-                "starting_value": 1
-              },
-              {
-                "completion_value": 12,
-                "number_name": "no",
-                "starting_value": 1
-              }
-            ],
-            "name": "first"
-          },
-          {
-            "levels": [
-              {
-                "next_value": 2021,
-                "number_name": "year",
-                "starting_value": 1977
-              },
-              {
-                "completion_value": 12,
-                "number_name": "year_completion",
-                "starting_value": 1
-              }
-            ],
-            "name": "second"
-          }
-        ]
-      }
     }
   },
   {
@@ -1004,60 +840,6 @@
     }
   },
   {
-    "pid": "14",
-    "name": "Quarterly with seasons - French",
-    "description": "Example: Ann\u00e9e 2018, no 3 (automne)",
-    "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/2"
-    },
-    "creator": {
-      "$ref": "https://ils.rero.ch/api/patrons/13"
-    },
-    "visibility": "public",
-    "template_type": "holdings",
-    "data": {
-      "circulation_category": {},
-      "location": {},
-      "patterns": {
-        "frequency": "rdafr:1010",
-        "next_expected_date": "",
-        "template": "Ann\u00e9e {{first.year}}, no {{second.number}} ({{first.season}})",
-        "values": [
-          {
-            "levels": [
-              {
-                "next_value": 2020,
-                "number_name": "year",
-                "starting_value": 2019
-              },
-              {
-                "list_name": "season",
-                "mapping_values": [
-                  "printemps",
-                  "\u00e9t\u00e9",
-                  "automne",
-                  "hiver"
-                ],
-                "next_value": 4
-              }
-            ],
-            "name": "first"
-          },
-          {
-            "levels": [
-              {
-                "next_value": 284,
-                "number_name": "number",
-                "starting_value": 277
-              }
-            ],
-            "name": "second"
-          }
-        ]
-      }
-    }
-  },
-  {
     "pid": "15",
     "name": "Greek book",
     "description": "Greek with latin transliteration",
@@ -1333,116 +1115,6 @@
         }
       ],
       "type": "book"
-    }
-  },
-  {
-    "pid": "17",
-    "name": "Monthly - German",
-    "description": "Example: Bd. 3(1989), Nr. 2",
-    "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/2"
-    },
-    "creator": {
-      "$ref": "https://ils.rero.ch/api/patrons/13"
-    },
-    "visibility": "public",
-    "template_type": "holdings",
-    "data": {
-      "call_number": "",
-      "circulation_category": {},
-      "location": {},
-      "patterns": {
-        "frequency": "rdafr:1008",
-        "next_expected_date": "2021-12-20",
-        "template": "Bd. {{first.bd}}({{second.year}}), Nr. {{first.nr}}",
-        "values": [
-          {
-            "levels": [
-              {
-                "next_value": 55,
-                "number_name": "bd",
-                "starting_value": 1
-              },
-              {
-                "completion_value": 12,
-                "number_name": "nr",
-                "starting_value": 1
-              }
-            ],
-            "name": "first"
-          },
-          {
-            "levels": [
-              {
-                "next_value": 2021,
-                "number_name": "year",
-                "starting_value": 1977
-              },
-              {
-                "completion_value": 12,
-                "number_name": "year_completion",
-                "starting_value": 1
-              }
-            ],
-            "name": "second"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "pid": "18",
-    "name": "Monthly - English",
-    "description": "Example: Vol. 5(2007), no. 1",
-    "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/2"
-    },
-    "creator": {
-      "$ref": "https://ils.rero.ch/api/patrons/13"
-    },
-    "visibility": "private",
-    "template_type": "holdings",
-    "data": {
-      "call_number": "",
-      "circulation_category": {},
-      "location": {},
-      "patterns": {
-        "frequency": "rdafr:1008",
-        "next_expected_date": "2021-12-20",
-        "template": "Vol. {{first.vol}}({{second.year}}), no. {{first.no}}",
-        "values": [
-          {
-            "levels": [
-              {
-                "next_value": 55,
-                "number_name": "vol",
-                "starting_value": 1
-              },
-              {
-                "completion_value": 12,
-                "number_name": "no",
-                "starting_value": 1
-              }
-            ],
-            "name": "first"
-          },
-          {
-            "levels": [
-              {
-                "next_value": 2021,
-                "number_name": "year",
-                "starting_value": 1977
-              },
-              {
-                "completion_value": 12,
-                "number_name": "year_completion",
-                "starting_value": 1
-              }
-            ],
-            "name": "second"
-          }
-        ]
-      }
     }
   },
   {
@@ -1727,60 +1399,6 @@
     }
   },
   {
-    "pid": "23",
-    "name": "Quarterly with seasons - French",
-    "description": "Example: Ann\u00e9e 2018, no 3 (automne)",
-    "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
-    },
-    "creator": {
-      "$ref": "https://ils.rero.ch/api/patrons/16"
-    },
-    "visibility": "public",
-    "template_type": "holdings",
-    "data": {
-      "circulation_category": {},
-      "location": {},
-      "patterns": {
-        "frequency": "rdafr:1010",
-        "next_expected_date": "",
-        "template": "Ann\u00e9e {{first.year}}, no {{second.number}} ({{first.season}})",
-        "values": [
-          {
-            "levels": [
-              {
-                "next_value": 2020,
-                "number_name": "year",
-                "starting_value": 2019
-              },
-              {
-                "list_name": "season",
-                "mapping_values": [
-                  "printemps",
-                  "\u00e9t\u00e9",
-                  "automne",
-                  "hiver"
-                ],
-                "next_value": 4
-              }
-            ],
-            "name": "first"
-          },
-          {
-            "levels": [
-              {
-                "next_value": 284,
-                "number_name": "number",
-                "starting_value": 277
-              }
-            ],
-            "name": "second"
-          }
-        ]
-      }
-    }
-  },
-  {
     "pid": "24",
     "name": "Greek book",
     "description": "Greek with latin transliteration",
@@ -2059,9 +1677,4111 @@
     }
   },
   {
-    "pid": "26",
-    "name": "Monthly - German",
-    "description": "Example: Bd. 3(1989), Nr. 2",
+    "pid": "28",
+    "name": "Annually with one level of enumeration",
+    "description": "Example:\n No 37 2018\nNo 38 2019",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "No {{first_enumeration.level_1}} {{first_chronology.level_1}} ",
+        "frequency": "rdafr:1013",
+        "next_expected_date": "2018-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "level_1",
+                "starting_value": 37
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "level_1",
+                "starting_value": 2018
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "29",
+    "name": "Annually without enumeration",
+    "description": "Example: 2019",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": " {{first_enumeration.year}}",
+        "frequency": "rdafr:1013",
+        "next_expected_date": "2020-02-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "year",
+                "starting_value": 2019
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "30",
+    "name": "Annually with two years",
+    "description": "Example: 2020-2021",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": " {{first_enumeration.year}}-{{second_enumeration.year}} ",
+        "frequency": "rdafr:1013",
+        "next_expected_date": "2020-02-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "year",
+                "starting_value": 2020
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "year",
+                "starting_value": 2021
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "31",
+    "name": "Quarterly with two levels of enumeration",
+    "description": "Example: ann\u00e9e 95 no 3 juil./sept. 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "ann\u00e9e {{first_enumeration.annee}} no {{first_enumeration.numero}} {{first_chronology.mois}} {{first_chronology.annee}} ",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2020-07-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 95
+              },
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "completion_value": 4,
+                "next_value": 3
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "completion_value": 4,
+                "next_value": 2020
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "janv./mars",
+                  "avril/juin",
+                  "juil./sept.",
+                  "oct./dec."
+                ],
+                "next_value": 3
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "32",
+    "name": "Quarterly with one level of enumeration",
+    "description": "Example: 2020 no 146 oct.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{first_enumeration.annee}} no {{second_enumeration.numero}} {{first_enumeration.mois}}  ",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2020-10-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "completion_value": 4,
+                "next_value": 2020
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "janv.",
+                  "avril",
+                  "juil.",
+                  "oct."
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 146
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "33",
+    "name": "Quarterly with seasons",
+    "description": "Example: no 2 printemps 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "no {{first_enumeration.numero}} {{first_chronology.saison}} {{first_chronology.annee}} ",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2020-01-01",
+        "values": [
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "completion_value": 4,
+                "next_value": 2020
+              },
+              {
+                "list_name": "saison",
+                "mapping_values": [
+                  "printemps",
+                  "\u00e9t\u00e9",
+                  "automne",
+                  "hivers"
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 2
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "34",
+    "name": "Quarterly with one level of enumeration starting on feb.",
+    "description": "Example: 2008 no 2 nov.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": " {{first_chronology.annee}} no {{first_enumeration.numero}} {{first_chronology.mois}} ",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2008-10-02",
+        "values": [
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2008,
+                "completion_value": 4,
+                "next_value": 2008
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "fev.",
+                  "mai",
+                  "ao\u00fbt",
+                  "nov."
+                ],
+                "next_value": 4
+              }
+            ]
+          },
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 2
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "35",
+    "name": "Quarterly with three levels of enumeration",
+    "description": "Example: N.s., A. 26 no 109 janv. 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": " N.s., A. {{second_enumeration.article}} no {{first_enumeration.numero}} {{second_enumeration.mois}} {{first_enumeration.annee}}",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2020-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 109
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "article",
+                "starting_value": 26,
+                "next_value": 26
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "janv.",
+                  "avril",
+                  "juil.",
+                  "oct."
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "next_value": 2020,
+                "completion_value": 4
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "janv.",
+                  "avril",
+                  "juil.",
+                  "oct."
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "36",
+    "name": "Quarterly with one level of enumeration - month - year",
+    "description": "Example: no. 172 Dec. 2019",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": " no. {{first_enumeration.numero}} {{first_chronology.mois}} {{first_chronology.annee}} ",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2019-12-23",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 172
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2019,
+                "completion_value": 4,
+                "next_value": 2019
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "mars",
+                  "juin",
+                  "sept.",
+                  "dec."
+                ],
+                "next_value": 4
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "37",
+    "name": "Quarterly with one level of enumeration - trimester",
+    "description": "Example: 2007 no 18 4e trimestre",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": " {{first_chronology.annee}} no {{first_enumeration.numero}} {{first_chronology.trimestre}} trimestre",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2007-10-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 18
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2007,
+                "next_value": 2007,
+                "completion_value": 4
+              },
+              {
+                "list_name": "trimestre",
+                "mapping_values": [
+                  "1er",
+                  "2e",
+                  "3e",
+                  "4e"
+                ],
+                "next_value": 4
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "38",
+    "name": "Quarterly with three levels of enumeration and two levels of chronology starting on march",
+    "description": "Example: anno 100 1er trimestre no 20 2020 mars ",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "anno {{second_enumeration.annee}} {{second_enumeration.trimestre}} trimestre no {{first_enumeration.numero}} {{first_chronology.annee}} {{first_chronology.mois}} ",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2007-10-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 20
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 100,
+                "next_value": 100
+              },
+              {
+                "list_name": "trimestre",
+                "mapping_values": [
+                  "1er",
+                  "2e",
+                  "3e",
+                  "4e"
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "next_value": 2020
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "mars",
+                  "juin",
+                  "septembre",
+                  "decembre"
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "39",
+    "name": "Quarterly with two levels of enumeration and two levels of chronology",
+    "description": "Example: anno 100 no 20 2020 janv.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "anno {{second_enumeration.annee}} no {{first_enumeration.numero}} {{first_chronology.annee}} {{first_chronology.mois}} ",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2007-10-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 20
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 100,
+                "next_value": 100
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "janv.",
+                  "avril",
+                  "juil.",
+                  "oct."
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "next_value": 2020,
+                "completion_value": 4
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "janv.",
+                  "avril",
+                  "juil.",
+                  "oct."
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "40",
+    "name": "Semiannual with three levels of enumeration",
+    "description": "Example: A. 50 vol. 45 no 196 2017",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "A. {{second_enumeration.article}} vol. {{third_enumeration.volume}} no {{first_enumeration.numero}} {{first_chronology.annee}}",
+        "frequency": "rdafr:1012",
+        "next_expected_date": "2017-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 196
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "article",
+                "starting_value": 50,
+                "next_value": 50
+              },
+              {
+                "list_name": "demi_annee",
+                "mapping_values": [
+                  "first",
+                  "second"
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "third_enumeration",
+            "levels": [
+              {
+                "number_name": "volume",
+                "starting_value": 45,
+                "next_value": 45,
+                "completion_value": 2
+              },
+              {
+                "list_name": "demi_annee",
+                "mapping_values": [
+                  "first",
+                  "second"
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2017,
+                "next_value": 2017
+              },
+              {
+                "list_name": "demi_annee",
+                "mapping_values": [
+                  "first",
+                  "second"
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "41",
+    "name": "Semiannual with three levels of enumeration - German",
+    "description": "Example: Jg. 37 Nr. 99 Dez. 2017",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "Jg. {{second_enumeration.Jg}} Nr. {{first_enumeration.numero}} {{third_enumeration.mois}} {{third_enumeration.annee}}",
+        "frequency": "rdafr:1012",
+        "next_expected_date": "2007-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 99
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "Jg",
+                "starting_value": 37,
+                "next_value": 37
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "Aug.",
+                  "Dez."
+                ],
+                "next_value": 2
+              }
+            ]
+          },
+          {
+            "name": "third_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2017,
+                "next_value": 2017
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "Aug.",
+                  "Dez."
+                ],
+                "next_value": 2
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "42",
+    "name": "Semiannual with two levels of chronology",
+    "description": "Example: juin 2019",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{first_chronology.mois}} {{first_chronology.annee}}",
+        "frequency": "rdafr:1012",
+        "next_expected_date": "2019-06-01",
+        "values": [
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2019,
+                "next_value": 2019,
+                "completion_value": 2
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "juin",
+                  "nov."
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "43",
+    "name": "Monthly without Jan. and Aug.",
+    "description": "Example: no 901 Sept 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "no {{first_enumeration.numero}} {{first_chronology.mois}} {{first_chronology.annee}}",
+        "frequency": "rdafr:1008",
+        "next_expected_date": "2020-09-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 901
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "next_value": 2020,
+                "completion_value": 10
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "Fev.",
+                  "Mars",
+                  "Avril",
+                  "Mai",
+                  "Juin",
+                  "Juil.",
+                  "Sept.",
+                  "Oct.",
+                  "Nov.",
+                  "Dec."
+                ],
+                "next_value": 7
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "44",
+    "name": "Monthly with July/Aug. combined ",
+    "description": "Example: no 15 mars 2012",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "no {{first_enumeration.numero}} {{first_chronology.mois}} {{first_chronology.annee}}",
+        "frequency": "rdafr:1008",
+        "next_expected_date": "2012-03-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 15
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2012,
+                "next_value": 2012,
+                "completion_value": 11
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "Janv.",
+                  "Fev.",
+                  "Mars",
+                  "Avril",
+                  "Mai",
+                  "Juin",
+                  "Juil./Ao\u00fbt",
+                  "Sept.",
+                  "Oct.",
+                  "Nov.",
+                  "Dec."
+                ],
+                "next_value": 3
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "45",
+    "name": "Monthly with 12 months",
+    "description": "Example: no 9 Sept. 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "no {{first_enumeration.numero}} {{first_chronology.mois}} {{first_chronology.annee}}",
+        "frequency": "rdafr:1008",
+        "next_expected_date": "2020-09-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 9
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "next_value": 2020,
+                "completion_value": 11
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "Janv.",
+                  "Fev.",
+                  "Mars",
+                  "Avril",
+                  "Mai",
+                  "Juin",
+                  "Juil.",
+                  "Ao\u00fbt",
+                  "Sept.",
+                  "Oct.",
+                  "Nov.",
+                  "Dec."
+                ],
+                "next_value": 9
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "46",
+    "name": "Bimonthly with three levels of enumeration",
+    "description": "Example: vol. 146 partie 1 livr. 2 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "vol. {{third_enumeration.volume}} partie {{second_enumeration.partie}} livr. {{first_enumeration.livre}} {{first_chronology. annee}}",
+        "frequency": "rdafr:1007",
+        "next_expected_date": "2020-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "livre",
+                "starting_value": 2
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "partie",
+                "starting_value": 1,
+                "completion_value": 1
+              }
+            ]
+          },
+          {
+            "name": "third_enumeration",
+            "levels": [
+              {
+                "number_name": "volume",
+                "starting_value": 146,
+                "next_value": 146,
+                "completion_value": 6
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "first",
+                  "second",
+                  "third",
+                  "fourth",
+                  "fifth",
+                  "sixth"
+                ],
+                "next_value": 2
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "next_value": 2020,
+                "completion_value": 6
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "first",
+                  "second",
+                  "third",
+                  "fourth",
+                  "fifth",
+                  "sixth"
+                ],
+                "next_value": 2
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "47",
+    "name": "Bimonthly with days, months and year",
+    "description": "Example: 2009 no 80 4 juin/juil.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{first_chronology.annee}} no {{first_enumeration.numero}} {{second_chronology.jours}} {{first_chronology.mois}}",
+        "frequency": "rdafr:1007",
+        "next_expected_date": "2020-03-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 80
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2009,
+                "next_value": 2009,
+                "completion_value": 6
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "fev./mars",
+                  "avril/mai",
+                  "juin/juil.",
+                  "ao\u00fbt/sept.",
+                  "oct./nov.",
+                  "dec./janv."
+                ],
+                "next_value": 3,
+                "completion_value": 6
+              }
+            ]
+          },
+          {
+            "name": "second_chronology",
+            "levels": [
+              {
+                "number_name": "jours",
+                "starting_value": 4,
+                "completion_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "48",
+    "name": "Bimonthly with one level of enumeration",
+    "description": "Example: no 257 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "no {{first_enumeration.numero}} {{first_chronology.annee}}",
+        "frequency": "rdafr:1007",
+        "next_expected_date": "2020-09-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 257
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "next_value": 2020,
+                "completion_value": 6
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "first",
+                  "second",
+                  "third",
+                  "fourth",
+                  "fifth",
+                  "sixth"
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "49",
+    "name": "Three times a year with two levels of enumeration and season",
+    "description": "Example: ann\u00e9e 30 no 115 printemps 2013",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "ann\u00e9e {{second_enumeration.annee}} no {{first_enumeration.numero}} {{second_enumeration.saisons}} {{first_chronology.annee}}",
+        "frequency": "rdafr:1011",
+        "next_expected_date": "2020-04-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 115
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 30,
+                "next_value": 30,
+                "completion_value": 3
+              },
+              {
+                "list_name": "saisons",
+                "mapping_values": [
+                  "printemps",
+                  "\u00e9t\u00e9",
+                  "automne/hiver"
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2013,
+                "next_value": 2013,
+                "completion_value": 3
+              },
+              {
+                "list_name": "saisons",
+                "mapping_values": [
+                  "printemps",
+                  "\u00e9t\u00e9",
+                  "automne/hiver"
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "50",
+    "name": "Three times a year with two levels of enumeration",
+    "description": "Example: Vol. 62 no 175 2018",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "Vol {{second_enumeration.volume}} no {{first_enumeration.numero}} {{first_chronology.annee}} ",
+        "frequency": "rdafr:1011",
+        "next_expected_date": "2020-04-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 175
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "volume",
+                "starting_value": 30,
+                "next_value": 30,
+                "completion_value": 3
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "first",
+                  "second",
+                  "third"
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2018,
+                "next_value": 2018,
+                "completion_value": 3
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "first",
+                  "second",
+                  "third"
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "51",
+    "name": "Weekly - two levels of enumeration",
+    "description": "Example: ann\u00e9e 10 no 1 01 01 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "ann\u00e9e  {{first_enumeration.annee}} no {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}} {{expected_date.year}}",
+        "frequency": "rdafr:1004",
+        "next_expected_date": "2020-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 10
+              },
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 1,
+                "completion_value": 52
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "52",
+    "name": "Weekly - volume changes every 8 weeks",
+    "description": "Example: Vol. 557 No 7707 31 05 2018",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "Vol. {{second_enumeration.volume}} No {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}} {{expected_date.year}} ",
+        "frequency": "rdafr:1004",
+        "next_expected_date": "2018-05-31",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 7707
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "volume",
+                "starting_value": 1,
+                "next_value": 557,
+                "completion_value": 8
+              },
+              {
+                "list_name": "semaines",
+                "mapping_values": [
+                  "first",
+                  "snd",
+                  "third",
+                  "fourth",
+                  "fifth",
+                  "sixth",
+                  "sevth",
+                  "eighth"
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "53",
+    "name": "Weekly - volume changes every 13 weeks",
+    "description": "Example: Vol. 369 no 6502 24 07 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "Vol. {{second_enumeration.volume}} No {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}} {{expected_date.year}} ",
+        "frequency": "rdafr:1004",
+        "next_expected_date": "2020-07-24",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 6502
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "volume",
+                "starting_value": 1,
+                "next_value": 369,
+                "completion_value": 13
+              },
+              {
+                "list_name": "semaines",
+                "mapping_values": [
+                  "first",
+                  "snd",
+                  "third",
+                  "fourth",
+                  "fifth",
+                  "sixth",
+                  "sevth",
+                  "eighth",
+                  "nineth",
+                  "tenth",
+                  "elvnth",
+                  "twlth",
+                  "thirtnth"
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "54",
+    "name": "Weekly - 51 weeks",
+    "description": "Example: 2010 no 224 27 02",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{expected_date.year}} no {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}}",
+        "frequency": "rdafr:1004",
+        "next_expected_date": "2010-02-27",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 224
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "55",
+    "name": "Weekly - one level of enumeration",
+    "description": "Example: no 3888 26 06 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "no {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}} {{expected_date.year}}",
+        "frequency": "rdafr:1004",
+        "next_expected_date": "2020-06-26",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 3888
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "56",
+    "name": "Published 10 times",
+    "description": "Example: Jg. 10 no 1 janv. 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "Jg. {{first_enumeration.Jg}} Nr. {{first_enumeration.numero}} {{first_chronology.annee}} {{first_chronology.mois}}",
+        "frequency": "rdafr:1008",
+        "next_expected_date": "2020-04-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "Jg",
+                "starting_value": 10
+              },
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 1,
+                "completion_value": 10
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "janv",
+                  "fev.",
+                  "mars",
+                  "avril",
+                  "mai",
+                  "juin",
+                  "juil./ao\u00fbt.",
+                  "sept.",
+                  "oct.",
+                  "nov./dec."
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "57",
+    "name": "Biennial - one edition",
+    "description": "Example: \u00e9d. 13 2019",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "\u00e9d. {{first_enumeration.\u00e9dition}} {{expected_date.year}}",
+        "frequency": "rdafr:1014",
+        "next_expected_date": "2019-05-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "\u00e9dition",
+                "starting_value": 13
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "27",
+    "name": "Biennial - with two years",
+    "description": "Example: 2019/2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{expected_date.year}}/{{expected_date.year+1}}",
+        "frequency": "rdafr:1014",
+        "next_expected_date": "2019-05-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "\u00e9dition",
+                "starting_value": 13
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "59",
+    "name": "Biennial",
+    "description": "Example: no 13 2021",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": " no {{first_enumeration.numero}} {{expected_date.year}}",
+        "frequency": "rdafr:1014",
+        "next_expected_date": "2021-05-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 13
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "60",
+    "name": "Published 11 times",
+    "description": "Example: no 2 fev. 2020 ",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "no {{first_enumeration.numero}} {{first_chronology.mois}} {{first_chronology.annee}}",
+        "frequency": "rdafr:1008",
+        "next_expected_date": "2020-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "dec./janv",
+                  "fev.",
+                  "mars",
+                  "avril",
+                  "mai",
+                  "juin",
+                  "juil./ao\u00fbt.",
+                  "sept.",
+                  "oct.",
+                  "nov."
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "61",
+    "name": "Semiweekly",
+    "description": "Example: Jg. 10 Nr. 1 01 01 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "Jg. {{first_enumeration.annee}} Nr. {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}} {{expected_date.year}}",
+        "frequency": "rdafr:1005",
+        "next_expected_date": "2020-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 10
+              },
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 1,
+                "completion_value": 104
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "62",
+    "name": "Biweekly",
+    "description": "Example: ann\u00e9e 10 no 1 01 01 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "ann\u00e9e {{first_enumeration.annee}} no {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}} {{expected_date.year}}",
+        "frequency": "rdafr:1003",
+        "next_expected_date": "2020-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 10
+              },
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 1,
+                "completion_value": 26
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "63",
+    "name": "Triennial",
+    "description": "17 Rapport 139",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{first_enumeration.annee}} Rapport {{first_enumeration.numero}}",
+        "frequency": "rdafr:1015",
+        "next_expected_date": "2020-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 17
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 139
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "64",
+    "name": "Triennial - display day month",
+    "description": "2020 no 1708 28 03",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{expected_date.year}} no {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}}",
+        "frequency": "rdafr:1015",
+        "next_expected_date": "2020-03-28",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 1708
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "65",
+    "name": "Semimonthly",
+    "description": "2020 no 1708 28 mars",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{expected_date.year}} no {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}}",
+        "frequency": "rdafr:1015",
+        "next_expected_date": "2020-03-28",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 1708
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "80",
+    "name": "Annually with one level of enumeration",
+    "description": "Example: No 37 2018",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "No {{first_enumeration.level_1}} {{first_chronology.level_1}} ",
+        "frequency": "rdafr:1013",
+        "next_expected_date": "2018-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "level_1",
+                "starting_value": 37
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "level_1",
+                "starting_value": 2018
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "81",
+    "name": "Annually without enumeration",
+    "description": "Example: 2019",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": " {{first_enumeration.year}}",
+        "frequency": "rdafr:1013",
+        "next_expected_date": "2020-02-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "year",
+                "starting_value": 2019
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "82",
+    "name": "Annually with two years",
+    "description": "Example: 2020-2021",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": " {{first_enumeration.year}}-{{second_enumeration.year}} ",
+        "frequency": "rdafr:1013",
+        "next_expected_date": "2020-02-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "year",
+                "starting_value": 2020
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "year",
+                "starting_value": 2021
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "83",
+    "name": "Quarterly with two levels of enumeration",
+    "description": "Example: ann\u00e9e 95 no 3 juil./sept. 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "ann\u00e9e {{first_enumeration.annee}} no {{first_enumeration.numero}} {{first_chronology.mois}} {{first_chronology.annee}} ",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2020-07-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 95
+              },
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "completion_value": 4,
+                "next_value": 3
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "completion_value": 4,
+                "next_value": 2020
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "janv./mars",
+                  "avril/juin",
+                  "juil./sept.",
+                  "oct./dec."
+                ],
+                "next_value": 3
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "84",
+    "name": "Quarterly with one level of enumeration",
+    "description": "Example: 2020 no 146 oct.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{first_enumeration.annee}} no {{second_enumeration.numero}} {{first_enumeration.mois}}  ",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2020-10-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "completion_value": 4,
+                "next_value": 2020
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "janv.",
+                  "avril",
+                  "juil.",
+                  "oct."
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 146
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "85",
+    "name": "Quarterly with seasons",
+    "description": "Example: no 2 printemps 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "no {{first_enumeration.numero}} {{first_chronology.saison}} {{first_chronology.annee}} ",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2020-01-01",
+        "values": [
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "completion_value": 4,
+                "next_value": 2020
+              },
+              {
+                "list_name": "saison",
+                "mapping_values": [
+                  "printemps",
+                  "\u00e9t\u00e9",
+                  "automne",
+                  "hivers"
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 2
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "86",
+    "name": "Quarterly with one level of enumeration starting on feb.",
+    "description": "Example: 2008 no 2 nov.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": " {{first_chronology.annee}} no {{first_enumeration.numero}} {{first_chronology.mois}} ",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2008-10-02",
+        "values": [
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2008,
+                "completion_value": 4,
+                "next_value": 2008
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "fev.",
+                  "mai",
+                  "ao\u00fbt",
+                  "nov."
+                ],
+                "next_value": 4
+              }
+            ]
+          },
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 2
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "87",
+    "name": "Quarterly with three levels of enumeration",
+    "description": "Example: N.s., A. 26 no 109 janv. 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": " N.s., A. {{second_enumeration.article}} no {{first_enumeration.numero}} {{second_enumeration.mois}} {{first_enumeration.annee}}",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2020-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 109
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "article",
+                "starting_value": 26,
+                "next_value": 26
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "janv.",
+                  "avril",
+                  "juil.",
+                  "oct."
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "next_value": 2020,
+                "completion_value": 4
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "janv.",
+                  "avril",
+                  "juil.",
+                  "oct."
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "88",
+    "name": "Quarterly with one level of enumeration - month - year",
+    "description": "Example: no. 172 Dec. 2019",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": " no. {{first_enumeration.numero}} {{first_chronology.mois}} {{first_chronology.annee}} ",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2019-12-23",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 172
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2019,
+                "completion_value": 4,
+                "next_value": 2019
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "mars",
+                  "juin",
+                  "sept.",
+                  "dec."
+                ],
+                "next_value": 4
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "89",
+    "name": "Quarterly with one level of enumeration - trimester",
+    "description": "Example: 2007 no 18 4e trimestre",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": " {{first_chronology.annee}} no {{first_enumeration.numero}} {{first_chronology.trimestre}} trimestre",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2007-10-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 18
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2007,
+                "next_value": 2007,
+                "completion_value": 4
+              },
+              {
+                "list_name": "trimestre",
+                "mapping_values": [
+                  "1er",
+                  "2e",
+                  "3e",
+                  "4e"
+                ],
+                "next_value": 4
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "90",
+    "name": "Quarterly with three levels of enumeration and two levels of chronology starting on march",
+    "description": "Example: anno 100 1er trimestre no 20 2020 mars ",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "anno {{second_enumeration.annee}} {{second_enumeration.trimestre}} trimestre no {{first_enumeration.numero}} {{first_chronology.annee}} {{first_chronology.mois}} ",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2007-10-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 20
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 100,
+                "next_value": 100
+              },
+              {
+                "list_name": "trimestre",
+                "mapping_values": [
+                  "1er",
+                  "2e",
+                  "3e",
+                  "4e"
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "next_value": 2020
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "mars",
+                  "juin",
+                  "septembre",
+                  "decembre"
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "91",
+    "name": "Quarterly with two levels of enumeration and two levels of chronology",
+    "description": "Example: anno 100 no 20 2020 janv.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "anno {{second_enumeration.annee}} no {{first_enumeration.numero}} {{first_chronology.annee}} {{first_chronology.mois}} ",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2007-10-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 20
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 100,
+                "next_value": 100
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "janv.",
+                  "avril",
+                  "juil.",
+                  "oct."
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "next_value": 2020,
+                "completion_value": 4
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "janv.",
+                  "avril",
+                  "juil.",
+                  "oct."
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "92",
+    "name": "Semiannual with three levels of enumeration",
+    "description": "Example: A. 50 vol. 45 no 196 2017",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "A. {{second_enumeration.article}} vol. {{third_enumeration.volume}} no {{first_enumeration.numero}} {{first_chronology.annee}}",
+        "frequency": "rdafr:1012",
+        "next_expected_date": "2017-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 196
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "article",
+                "starting_value": 50,
+                "next_value": 50
+              },
+              {
+                "list_name": "demi_annee",
+                "mapping_values": [
+                  "first",
+                  "second"
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "third_enumeration",
+            "levels": [
+              {
+                "number_name": "volume",
+                "starting_value": 45,
+                "next_value": 45,
+                "completion_value": 2
+              },
+              {
+                "list_name": "demi_annee",
+                "mapping_values": [
+                  "first",
+                  "second"
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2017,
+                "next_value": 2017
+              },
+              {
+                "list_name": "demi_annee",
+                "mapping_values": [
+                  "first",
+                  "second"
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "93",
+    "name": "Semiannual with three levels of enumeration - German",
+    "description": "Example: Jg. 37 Nr. 99 Dez. 2017",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "Jg. {{second_enumeration.Jg}} Nr. {{first_enumeration.numero}} {{third_enumeration.mois}} {{third_enumeration.annee}}",
+        "frequency": "rdafr:1012",
+        "next_expected_date": "2007-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 99
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "Jg",
+                "starting_value": 37,
+                "next_value": 37
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "Aug.",
+                  "Dez."
+                ],
+                "next_value": 2
+              }
+            ]
+          },
+          {
+            "name": "third_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2017,
+                "next_value": 2017
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "Aug.",
+                  "Dez."
+                ],
+                "next_value": 2
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "94",
+    "name": "Semiannual with two levels of chronology",
+    "description": "Example: juin 2019",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{first_chronology.mois}} {{first_chronology.annee}}",
+        "frequency": "rdafr:1012",
+        "next_expected_date": "2019-06-01",
+        "values": [
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2019,
+                "next_value": 2019,
+                "completion_value": 2
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "juin",
+                  "nov."
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "95",
+    "name": "Monthly without Jan. and Aug.",
+    "description": "Example: no 901 Sept 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "no {{first_enumeration.numero}} {{first_chronology.mois}} {{first_chronology.annee}}",
+        "frequency": "rdafr:1008",
+        "next_expected_date": "2020-09-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 901
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "next_value": 2020,
+                "completion_value": 10
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "Fev.",
+                  "Mars",
+                  "Avril",
+                  "Mai",
+                  "Juin",
+                  "Juil.",
+                  "Sept.",
+                  "Oct.",
+                  "Nov.",
+                  "Dec."
+                ],
+                "next_value": 7
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "96",
+    "name": "Monthly with July/Aug. combined ",
+    "description": "Example: no 15 mars 2012",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "no {{first_enumeration.numero}} {{first_chronology.mois}} {{first_chronology.annee}}",
+        "frequency": "rdafr:1008",
+        "next_expected_date": "2012-03-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 15
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2012,
+                "next_value": 2012,
+                "completion_value": 11
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "Janv.",
+                  "Fev.",
+                  "Mars",
+                  "Avril",
+                  "Mai",
+                  "Juin",
+                  "Juil./Ao\u00fbt",
+                  "Sept.",
+                  "Oct.",
+                  "Nov.",
+                  "Dec."
+                ],
+                "next_value": 3
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "97",
+    "name": "Monthly with 12 months",
+    "description": "Example: no 9 Sept. 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "no {{first_enumeration.numero}} {{first_chronology.mois}} {{first_chronology.annee}}",
+        "frequency": "rdafr:1008",
+        "next_expected_date": "2020-09-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 9
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "next_value": 2020,
+                "completion_value": 11
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "Janv.",
+                  "Fev.",
+                  "Mars",
+                  "Avril",
+                  "Mai",
+                  "Juin",
+                  "Juil.",
+                  "Ao\u00fbt",
+                  "Sept.",
+                  "Oct.",
+                  "Nov.",
+                  "Dec."
+                ],
+                "next_value": 9
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "98",
+    "name": "Bimonthly with three levels of enumeration",
+    "description": "Example: vol. 146 partie 1 livr. 2 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "vol. {{third_enumeration.volume}} partie {{second_enumeration.partie}} livr. {{first_enumeration.livre}} {{first_chronology. annee}}",
+        "frequency": "rdafr:1007",
+        "next_expected_date": "2020-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "livre",
+                "starting_value": 2
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "partie",
+                "starting_value": 1,
+                "completion_value": 1
+              }
+            ]
+          },
+          {
+            "name": "third_enumeration",
+            "levels": [
+              {
+                "number_name": "volume",
+                "starting_value": 146,
+                "next_value": 146,
+                "completion_value": 6
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "first",
+                  "second",
+                  "third",
+                  "fourth",
+                  "fifth",
+                  "sixth"
+                ],
+                "next_value": 2
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "next_value": 2020,
+                "completion_value": 6
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "first",
+                  "second",
+                  "third",
+                  "fourth",
+                  "fifth",
+                  "sixth"
+                ],
+                "next_value": 2
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "99",
+    "name": "Bimonthly with days, months and year",
+    "description": "Example: 2009 no 80 4 juin/juil.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{first_chronology.annee}} no {{first_enumeration.numero}} {{second_chronology.jours}} {{first_chronology.mois}}",
+        "frequency": "rdafr:1007",
+        "next_expected_date": "2020-03-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 80
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2009,
+                "next_value": 2009,
+                "completion_value": 6
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "fev./mars",
+                  "avril/mai",
+                  "juin/juil.",
+                  "ao\u00fbt/sept.",
+                  "oct./nov.",
+                  "dec./janv."
+                ],
+                "next_value": 3,
+                "completion_value": 6
+              }
+            ]
+          },
+          {
+            "name": "second_chronology",
+            "levels": [
+              {
+                "number_name": "jours",
+                "starting_value": 4,
+                "completion_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "100",
+    "name": "Bimonthly with one level of enumeration",
+    "description": "Example: no 257 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "no {{first_enumeration.numero}} {{first_chronology.annee}}",
+        "frequency": "rdafr:1007",
+        "next_expected_date": "2020-09-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 257
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "next_value": 2020,
+                "completion_value": 6
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "first",
+                  "second",
+                  "third",
+                  "fourth",
+                  "fifth",
+                  "sixth"
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "101",
+    "name": "Three times a year with two levels of enumeration and season",
+    "description": "Example: ann\u00e9e 30 no 115 printemps 2013",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "ann\u00e9e {{second_enumeration.annee}} no {{first_enumeration.numero}} {{second_enumeration.saisons}} {{first_chronology.annee}}",
+        "frequency": "rdafr:1011",
+        "next_expected_date": "2020-04-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 115
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 30,
+                "next_value": 30,
+                "completion_value": 3
+              },
+              {
+                "list_name": "saisons",
+                "mapping_values": [
+                  "printemps",
+                  "\u00e9t\u00e9",
+                  "automne/hiver"
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2013,
+                "next_value": 2013,
+                "completion_value": 3
+              },
+              {
+                "list_name": "saisons",
+                "mapping_values": [
+                  "printemps",
+                  "\u00e9t\u00e9",
+                  "automne/hiver"
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "102",
+    "name": "Three times a year with two levels of enumeration",
+    "description": "Example: Vol. 62 no 175 2018",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "Vol {{second_enumeration.volume}} no {{first_enumeration.numero}} {{first_chronology.annee}} ",
+        "frequency": "rdafr:1011",
+        "next_expected_date": "2020-04-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 175
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "volume",
+                "starting_value": 30,
+                "next_value": 30,
+                "completion_value": 3
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "first",
+                  "second",
+                  "third"
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2018,
+                "next_value": 2018,
+                "completion_value": 3
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "first",
+                  "second",
+                  "third"
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "103",
+    "name": "Weekly - two levels of enumeration",
+    "description": "Example: ann\u00e9e 10 no 1 01 01 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "ann\u00e9e  {{first_enumeration.annee}} no {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}} {{expected_date.year}}",
+        "frequency": "rdafr:1004",
+        "next_expected_date": "2020-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 10
+              },
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 1,
+                "completion_value": 52
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "104",
+    "name": "Weekly - volume changes every 8 weeks",
+    "description": "Example: Vol. 557 No 7707 31 05 2018",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "Vol. {{second_enumeration.volume}} No {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}} {{expected_date.year}} ",
+        "frequency": "rdafr:1004",
+        "next_expected_date": "2018-05-31",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 7707
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "volume",
+                "starting_value": 1,
+                "next_value": 557,
+                "completion_value": 8
+              },
+              {
+                "list_name": "semaines",
+                "mapping_values": [
+                  "first",
+                  "snd",
+                  "third",
+                  "fourth",
+                  "fifth",
+                  "sixth",
+                  "sevth",
+                  "eighth"
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "105",
+    "name": "Weekly - volume changes every 13 weeks",
+    "description": "Example: Vol. 369 no 6502 24 07 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "Vol. {{second_enumeration.volume}} No {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}} {{expected_date.year}} ",
+        "frequency": "rdafr:1004",
+        "next_expected_date": "2020-07-24",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 6502
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "volume",
+                "starting_value": 1,
+                "next_value": 369,
+                "completion_value": 13
+              },
+              {
+                "list_name": "semaines",
+                "mapping_values": [
+                  "first",
+                  "snd",
+                  "third",
+                  "fourth",
+                  "fifth",
+                  "sixth",
+                  "sevth",
+                  "eighth",
+                  "nineth",
+                  "tenth",
+                  "elvnth",
+                  "twlth",
+                  "thirtnth"
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "106",
+    "name": "Weekly - 51 weeks",
+    "description": "Example: 2010 no 224 27 02",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{expected_date.year}} no {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}}",
+        "frequency": "rdafr:1004",
+        "next_expected_date": "2010-02-27",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 224
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "107",
+    "name": "Weekly - one level of enumeration",
+    "description": "Example: no 3888 26 06 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "no {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}} {{expected_date.year}}",
+        "frequency": "rdafr:1004",
+        "next_expected_date": "2020-06-26",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 3888
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "108",
+    "name": "Published 10 times",
+    "description": "Example: Jg. 10 no 1 janv. 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "Jg. {{first_enumeration.Jg}} Nr. {{first_enumeration.numero}} {{first_chronology.annee}} {{first_chronology.mois}}",
+        "frequency": "rdafr:1008",
+        "next_expected_date": "2020-04-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "Jg",
+                "starting_value": 10
+              },
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 1,
+                "completion_value": 10
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "janv",
+                  "fev.",
+                  "mars",
+                  "avril",
+                  "mai",
+                  "juin",
+                  "juil./ao\u00fbt.",
+                  "sept.",
+                  "oct.",
+                  "nov./dec."
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "109",
+    "name": "Biennial - one edition",
+    "description": "Example: \u00e9d. 13 2019",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "\u00e9d. {{first_enumeration.\u00e9dition}} {{expected_date.year}}",
+        "frequency": "rdafr:1014",
+        "next_expected_date": "2019-05-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "\u00e9dition",
+                "starting_value": 13
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "111",
+    "name": "Biennial - with two years",
+    "description": "Example: 2019/2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{expected_date.year}}/{{expected_date.year+1}}",
+        "frequency": "rdafr:1014",
+        "next_expected_date": "2019-05-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "\u00e9dition",
+                "starting_value": 13
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "112",
+    "name": "Biennial",
+    "description": "Example: no 13 2021",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": " no {{first_enumeration.numero}} {{expected_date.year}}",
+        "frequency": "rdafr:1014",
+        "next_expected_date": "2021-05-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 13
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "113",
+    "name": "Published 11 times",
+    "description": "Example: no 2 fev. 2020 ",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "no {{first_enumeration.numero}} {{first_chronology.mois}} {{first_chronology.annee}}",
+        "frequency": "rdafr:1008",
+        "next_expected_date": "2020-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "dec./janv",
+                  "fev.",
+                  "mars",
+                  "avril",
+                  "mai",
+                  "juin",
+                  "juil./ao\u00fbt.",
+                  "sept.",
+                  "oct.",
+                  "nov."
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "114",
+    "name": "Semiweekly",
+    "description": "Example: Jg. 10 Nr. 1 01 01 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "Jg. {{first_enumeration.annee}} Nr. {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}} {{expected_date.year}}",
+        "frequency": "rdafr:1005",
+        "next_expected_date": "2020-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 10
+              },
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 1,
+                "completion_value": 104
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "115",
+    "name": "Biweekly",
+    "description": "Example: ann\u00e9e 10 no 1 01 01 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "ann\u00e9e {{first_enumeration.annee}} no {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}} {{expected_date.year}}",
+        "frequency": "rdafr:1003",
+        "next_expected_date": "2020-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 10
+              },
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 1,
+                "completion_value": 26
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "116",
+    "name": "Triennial",
+    "description": "17 Rapport 139",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{first_enumeration.annee}} Rapport {{first_enumeration.numero}}",
+        "frequency": "rdafr:1015",
+        "next_expected_date": "2020-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 17
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 139
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "117",
+    "name": "Triennial - display day month",
+    "description": "2020 no 1708 28 03",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{expected_date.year}} no {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}}",
+        "frequency": "rdafr:1015",
+        "next_expected_date": "2020-03-28",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 1708
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "118",
+    "name": "Semimonthly",
+    "description": "2020 no 1708 28 mars",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{expected_date.year}} no {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}}",
+        "frequency": "rdafr:1015",
+        "next_expected_date": "2020-03-28",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 1708
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "130",
+    "name": "Annually with one level of enumeration",
+    "description": "Example: No 37 2018",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/3"
     },
@@ -2071,98 +5791,2141 @@
     "visibility": "public",
     "template_type": "holdings",
     "data": {
-      "call_number": "",
       "circulation_category": {},
       "location": {},
       "patterns": {
-        "frequency": "rdafr:1008",
-        "next_expected_date": "2021-12-20",
-        "template": "Bd. {{first.bd}}({{second.year}}), Nr. {{first.nr}}",
+        "template": "No {{first_enumeration.level_1}} {{first_chronology.level_1}} ",
+        "frequency": "rdafr:1013",
+        "next_expected_date": "2018-01-01",
         "values": [
           {
+            "name": "first_enumeration",
             "levels": [
               {
-                "next_value": 55,
-                "number_name": "bd",
-                "starting_value": 1
-              },
-              {
-                "completion_value": 12,
-                "number_name": "nr",
-                "starting_value": 1
+                "number_name": "level_1",
+                "starting_value": 37
               }
-            ],
-            "name": "first"
+            ]
           },
           {
+            "name": "first_chronology",
             "levels": [
               {
-                "next_value": 2021,
-                "number_name": "year",
-                "starting_value": 1977
-              },
-              {
-                "completion_value": 12,
-                "number_name": "year_completion",
-                "starting_value": 1
+                "number_name": "level_1",
+                "starting_value": 2018
               }
-            ],
-            "name": "second"
+            ]
           }
         ]
       }
     }
   },
   {
-    "pid": "27",
-    "name": "Monthly - English",
-    "description": "Example: Vol. 5(2007), no. 1",
+    "pid": "131",
+    "name": "Annually without enumeration",
+    "description": "Example: 2019",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/3"
     },
     "creator": {
       "$ref": "https://ils.rero.ch/api/patrons/16"
     },
-    "visibility": "private",
+    "visibility": "public",
     "template_type": "holdings",
     "data": {
-      "call_number": "",
       "circulation_category": {},
       "location": {},
       "patterns": {
-        "frequency": "rdafr:1008",
-        "next_expected_date": "2021-12-20",
-        "template": "Vol. {{first.vol}}({{second.year}}), no. {{first.no}}",
+        "template": " {{first_enumeration.year}}",
+        "frequency": "rdafr:1013",
+        "next_expected_date": "2020-02-01",
         "values": [
           {
+            "name": "first_enumeration",
             "levels": [
               {
-                "next_value": 55,
-                "number_name": "vol",
-                "starting_value": 1
-              },
-              {
-                "completion_value": 12,
-                "number_name": "no",
-                "starting_value": 1
+                "number_name": "year",
+                "starting_value": 2019
               }
-            ],
-            "name": "first"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "132",
+    "name": "Annually with two years",
+    "description": "Example: 2020-2021",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": " {{first_enumeration.year}}-{{second_enumeration.year}} ",
+        "frequency": "rdafr:1013",
+        "next_expected_date": "2020-02-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "year",
+                "starting_value": 2020
+              }
+            ]
           },
           {
+            "name": "second_enumeration",
             "levels": [
               {
-                "next_value": 2021,
                 "number_name": "year",
-                "starting_value": 1977
+                "starting_value": 2021
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "133",
+    "name": "Quarterly with two levels of enumeration",
+    "description": "Example: ann\u00e9e 95 no 3 juil./sept. 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "ann\u00e9e {{first_enumeration.annee}} no {{first_enumeration.numero}} {{first_chronology.mois}} {{first_chronology.annee}} ",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2020-07-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 95
               },
               {
-                "completion_value": 12,
-                "number_name": "year_completion",
+                "number_name": "numero",
+                "starting_value": 1,
+                "completion_value": 4,
+                "next_value": 3
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "completion_value": 4,
+                "next_value": 2020
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "janv./mars",
+                  "avril/juin",
+                  "juil./sept.",
+                  "oct./dec."
+                ],
+                "next_value": 3
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "134",
+    "name": "Quarterly with one level of enumeration",
+    "description": "Example: 2020 no 146 oct.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{first_enumeration.annee}} no {{second_enumeration.numero}} {{first_enumeration.mois}}  ",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2020-10-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "completion_value": 4,
+                "next_value": 2020
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "janv.",
+                  "avril",
+                  "juil.",
+                  "oct."
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 146
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "135",
+    "name": "Quarterly with seasons",
+    "description": "Example: no 2 printemps 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "no {{first_enumeration.numero}} {{first_chronology.saison}} {{first_chronology.annee}} ",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2020-01-01",
+        "values": [
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "completion_value": 4,
+                "next_value": 2020
+              },
+              {
+                "list_name": "saison",
+                "mapping_values": [
+                  "printemps",
+                  "\u00e9t\u00e9",
+                  "automne",
+                  "hivers"
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 2
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "136",
+    "name": "Quarterly with one level of enumeration starting on feb.",
+    "description": "Example: 2008 no 2 nov.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": " {{first_chronology.annee}} no {{first_enumeration.numero}} {{first_chronology.mois}} ",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2008-10-02",
+        "values": [
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2008,
+                "completion_value": 4,
+                "next_value": 2008
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "fev.",
+                  "mai",
+                  "ao\u00fbt",
+                  "nov."
+                ],
+                "next_value": 4
+              }
+            ]
+          },
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 2
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "137",
+    "name": "Quarterly with three levels of enumeration",
+    "description": "Example: N.s., A. 26 no 109 janv. 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": " N.s., A. {{second_enumeration.article}} no {{first_enumeration.numero}} {{second_enumeration.mois}} {{first_enumeration.annee}}",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2020-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 109
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "article",
+                "starting_value": 26,
+                "next_value": 26
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "janv.",
+                  "avril",
+                  "juil.",
+                  "oct."
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "next_value": 2020,
+                "completion_value": 4
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "janv.",
+                  "avril",
+                  "juil.",
+                  "oct."
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "138",
+    "name": "Quarterly with one level of enumeration - month - year",
+    "description": "Example: no. 172 Dec. 2019",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": " no. {{first_enumeration.numero}} {{first_chronology.mois}} {{first_chronology.annee}} ",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2019-12-23",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 172
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2019,
+                "completion_value": 4,
+                "next_value": 2019
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "mars",
+                  "juin",
+                  "sept.",
+                  "dec."
+                ],
+                "next_value": 4
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "139",
+    "name": "Quarterly with one level of enumeration - trimester",
+    "description": "Example: 2007 no 18 4e trimestre",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": " {{first_chronology.annee}} no {{first_enumeration.numero}} {{first_chronology.trimestre}} trimestre",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2007-10-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 18
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2007,
+                "next_value": 2007,
+                "completion_value": 4
+              },
+              {
+                "list_name": "trimestre",
+                "mapping_values": [
+                  "1er",
+                  "2e",
+                  "3e",
+                  "4e"
+                ],
+                "next_value": 4
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "140",
+    "name": "Quarterly with three levels of enumeration and two levels of chronology starting on march",
+    "description": "Example: anno 100 1er trimestre no 20 2020 mars ",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "anno {{second_enumeration.annee}} {{second_enumeration.trimestre}} trimestre no {{first_enumeration.numero}} {{first_chronology.annee}} {{first_chronology.mois}} ",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2007-10-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 20
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 100,
+                "next_value": 100
+              },
+              {
+                "list_name": "trimestre",
+                "mapping_values": [
+                  "1er",
+                  "2e",
+                  "3e",
+                  "4e"
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "next_value": 2020
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "mars",
+                  "juin",
+                  "septembre",
+                  "decembre"
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "141",
+    "name": "Quarterly with two levels of enumeration and two levels of chronology",
+    "description": "Example: anno 100 no 20 2020 janv.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "anno {{second_enumeration.annee}} no {{first_enumeration.numero}} {{first_chronology.annee}} {{first_chronology.mois}} ",
+        "frequency": "rdafr:1010",
+        "next_expected_date": "2007-10-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 20
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 100,
+                "next_value": 100
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "janv.",
+                  "avril",
+                  "juil.",
+                  "oct."
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "next_value": 2020,
+                "completion_value": 4
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "janv.",
+                  "avril",
+                  "juil.",
+                  "oct."
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "142",
+    "name": "Semiannual with three levels of enumeration",
+    "description": "Example: A. 50 vol. 45 no 196 2017",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "A. {{second_enumeration.article}} vol. {{third_enumeration.volume}} no {{first_enumeration.numero}} {{first_chronology.annee}}",
+        "frequency": "rdafr:1012",
+        "next_expected_date": "2017-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 196
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "article",
+                "starting_value": 50,
+                "next_value": 50
+              },
+              {
+                "list_name": "demi_annee",
+                "mapping_values": [
+                  "first",
+                  "second"
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "third_enumeration",
+            "levels": [
+              {
+                "number_name": "volume",
+                "starting_value": 45,
+                "next_value": 45,
+                "completion_value": 2
+              },
+              {
+                "list_name": "demi_annee",
+                "mapping_values": [
+                  "first",
+                  "second"
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2017,
+                "next_value": 2017
+              },
+              {
+                "list_name": "demi_annee",
+                "mapping_values": [
+                  "first",
+                  "second"
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "143",
+    "name": "Semiannual with three levels of enumeration - German",
+    "description": "Example: Jg. 37 Nr. 99 Dez. 2017",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "Jg. {{second_enumeration.Jg}} Nr. {{first_enumeration.numero}} {{third_enumeration.mois}} {{third_enumeration.annee}}",
+        "frequency": "rdafr:1012",
+        "next_expected_date": "2007-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 99
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "Jg",
+                "starting_value": 37,
+                "next_value": 37
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "Aug.",
+                  "Dez."
+                ],
+                "next_value": 2
+              }
+            ]
+          },
+          {
+            "name": "third_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2017,
+                "next_value": 2017
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "Aug.",
+                  "Dez."
+                ],
+                "next_value": 2
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "144",
+    "name": "Semiannual with two levels of chronology",
+    "description": "Example: juin 2019",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{first_chronology.mois}} {{first_chronology.annee}}",
+        "frequency": "rdafr:1012",
+        "next_expected_date": "2019-06-01",
+        "values": [
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2019,
+                "next_value": 2019,
+                "completion_value": 2
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "juin",
+                  "nov."
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "145",
+    "name": "Monthly without Jan. and Aug.",
+    "description": "Example: no 901 Sept 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "no {{first_enumeration.numero}} {{first_chronology.mois}} {{first_chronology.annee}}",
+        "frequency": "rdafr:1008",
+        "next_expected_date": "2020-09-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 901
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "next_value": 2020,
+                "completion_value": 10
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "Fev.",
+                  "Mars",
+                  "Avril",
+                  "Mai",
+                  "Juin",
+                  "Juil.",
+                  "Sept.",
+                  "Oct.",
+                  "Nov.",
+                  "Dec."
+                ],
+                "next_value": 7
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "146",
+    "name": "Monthly with July/Aug. combined ",
+    "description": "Example: no 15 mars 2012",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "no {{first_enumeration.numero}} {{first_chronology.mois}} {{first_chronology.annee}}",
+        "frequency": "rdafr:1008",
+        "next_expected_date": "2012-03-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 15
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2012,
+                "next_value": 2012,
+                "completion_value": 11
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "Janv.",
+                  "Fev.",
+                  "Mars",
+                  "Avril",
+                  "Mai",
+                  "Juin",
+                  "Juil./Ao\u00fbt",
+                  "Sept.",
+                  "Oct.",
+                  "Nov.",
+                  "Dec."
+                ],
+                "next_value": 3
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "147",
+    "name": "Monthly with 12 months",
+    "description": "Example: no 9 Sept. 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "no {{first_enumeration.numero}} {{first_chronology.mois}} {{first_chronology.annee}}",
+        "frequency": "rdafr:1008",
+        "next_expected_date": "2020-09-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 9
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "next_value": 2020,
+                "completion_value": 11
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "Janv.",
+                  "Fev.",
+                  "Mars",
+                  "Avril",
+                  "Mai",
+                  "Juin",
+                  "Juil.",
+                  "Ao\u00fbt",
+                  "Sept.",
+                  "Oct.",
+                  "Nov.",
+                  "Dec."
+                ],
+                "next_value": 9
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "148",
+    "name": "Bimonthly with three levels of enumeration",
+    "description": "Example: vol. 146 partie 1 livr. 2 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "vol. {{third_enumeration.volume}} partie {{second_enumeration.partie}} livr. {{first_enumeration.livre}} {{first_chronology. annee}}",
+        "frequency": "rdafr:1007",
+        "next_expected_date": "2020-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "livre",
+                "starting_value": 2
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "partie",
+                "starting_value": 1,
+                "completion_value": 1
+              }
+            ]
+          },
+          {
+            "name": "third_enumeration",
+            "levels": [
+              {
+                "number_name": "volume",
+                "starting_value": 146,
+                "next_value": 146,
+                "completion_value": 6
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "first",
+                  "second",
+                  "third",
+                  "fourth",
+                  "fifth",
+                  "sixth"
+                ],
+                "next_value": 2
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "next_value": 2020,
+                "completion_value": 6
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "first",
+                  "second",
+                  "third",
+                  "fourth",
+                  "fifth",
+                  "sixth"
+                ],
+                "next_value": 2
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "149",
+    "name": "Bimonthly with days, months and year",
+    "description": "Example: 2009 no 80 4 juin/juil.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{first_chronology.annee}} no {{first_enumeration.numero}} {{second_chronology.jours}} {{first_chronology.mois}}",
+        "frequency": "rdafr:1007",
+        "next_expected_date": "2020-03-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 80
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2009,
+                "next_value": 2009,
+                "completion_value": 6
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "fev./mars",
+                  "avril/mai",
+                  "juin/juil.",
+                  "ao\u00fbt/sept.",
+                  "oct./nov.",
+                  "dec./janv."
+                ],
+                "next_value": 3,
+                "completion_value": 6
+              }
+            ]
+          },
+          {
+            "name": "second_chronology",
+            "levels": [
+              {
+                "number_name": "jours",
+                "starting_value": 4,
+                "completion_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "150",
+    "name": "Bimonthly with one level of enumeration",
+    "description": "Example: no 257 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "no {{first_enumeration.numero}} {{first_chronology.annee}}",
+        "frequency": "rdafr:1007",
+        "next_expected_date": "2020-09-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 257
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020,
+                "next_value": 2020,
+                "completion_value": 6
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "first",
+                  "second",
+                  "third",
+                  "fourth",
+                  "fifth",
+                  "sixth"
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "151",
+    "name": "Three times a year with two levels of enumeration and season",
+    "description": "Example: ann\u00e9e 30 no 115 printemps 2013",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "ann\u00e9e {{second_enumeration.annee}} no {{first_enumeration.numero}} {{second_enumeration.saisons}} {{first_chronology.annee}}",
+        "frequency": "rdafr:1011",
+        "next_expected_date": "2020-04-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 115
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 30,
+                "next_value": 30,
+                "completion_value": 3
+              },
+              {
+                "list_name": "saisons",
+                "mapping_values": [
+                  "printemps",
+                  "\u00e9t\u00e9",
+                  "automne/hiver"
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2013,
+                "next_value": 2013,
+                "completion_value": 3
+              },
+              {
+                "list_name": "saisons",
+                "mapping_values": [
+                  "printemps",
+                  "\u00e9t\u00e9",
+                  "automne/hiver"
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "152",
+    "name": "Three times a year with two levels of enumeration",
+    "description": "Example: Vol. 62 no 175 2018",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "Vol {{second_enumeration.volume}} no {{first_enumeration.numero}} {{first_chronology.annee}} ",
+        "frequency": "rdafr:1011",
+        "next_expected_date": "2020-04-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 175
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "volume",
+                "starting_value": 30,
+                "next_value": 30,
+                "completion_value": 3
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "first",
+                  "second",
+                  "third"
+                ],
+                "next_value": 1
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2018,
+                "next_value": 2018,
+                "completion_value": 3
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "first",
+                  "second",
+                  "third"
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "153",
+    "name": "Weekly - two levels of enumeration",
+    "description": "Example: ann\u00e9e 10 no 1 01 01 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "ann\u00e9e  {{first_enumeration.annee}} no {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}} {{expected_date.year}}",
+        "frequency": "rdafr:1004",
+        "next_expected_date": "2020-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 10
+              },
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 1,
+                "completion_value": 52
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "154",
+    "name": "Weekly - volume changes every 8 weeks",
+    "description": "Example: Vol. 557 No 7707 31 05 2018",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "Vol. {{second_enumeration.volume}} No {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}} {{expected_date.year}} ",
+        "frequency": "rdafr:1004",
+        "next_expected_date": "2018-05-31",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 7707
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "volume",
+                "starting_value": 1,
+                "next_value": 557,
+                "completion_value": 8
+              },
+              {
+                "list_name": "semaines",
+                "mapping_values": [
+                  "first",
+                  "snd",
+                  "third",
+                  "fourth",
+                  "fifth",
+                  "sixth",
+                  "sevth",
+                  "eighth"
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "155",
+    "name": "Weekly - volume changes every 13 weeks",
+    "description": "Example: Vol. 369 no 6502 24 07 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "Vol. {{second_enumeration.volume}} No {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}} {{expected_date.year}} ",
+        "frequency": "rdafr:1004",
+        "next_expected_date": "2020-07-24",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 6502
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "volume",
+                "starting_value": 1,
+                "next_value": 369,
+                "completion_value": 13
+              },
+              {
+                "list_name": "semaines",
+                "mapping_values": [
+                  "first",
+                  "snd",
+                  "third",
+                  "fourth",
+                  "fifth",
+                  "sixth",
+                  "sevth",
+                  "eighth",
+                  "nineth",
+                  "tenth",
+                  "elvnth",
+                  "twlth",
+                  "thirtnth"
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "156",
+    "name": "Weekly - 51 weeks",
+    "description": "Example: 2010 no 224 27 02",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{expected_date.year}} no {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}}",
+        "frequency": "rdafr:1004",
+        "next_expected_date": "2010-02-27",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 224
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "157",
+    "name": "Weekly - one level of enumeration",
+    "description": "Example: no 3888 26 06 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "no {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}} {{expected_date.year}}",
+        "frequency": "rdafr:1004",
+        "next_expected_date": "2020-06-26",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 3888
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "158",
+    "name": "Published 10 times",
+    "description": "Example: Jg. 10 no 1 janv. 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "Jg. {{first_enumeration.Jg}} Nr. {{first_enumeration.numero}} {{first_chronology.annee}} {{first_chronology.mois}}",
+        "frequency": "rdafr:1008",
+        "next_expected_date": "2020-04-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "Jg",
+                "starting_value": 10
+              },
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 1,
+                "completion_value": 10
+              }
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "janv",
+                  "fev.",
+                  "mars",
+                  "avril",
+                  "mai",
+                  "juin",
+                  "juil./ao\u00fbt.",
+                  "sept.",
+                  "oct.",
+                  "nov./dec."
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "159",
+    "name": "Biennial - one edition",
+    "description": "Example: \u00e9d. 13 2019",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "\u00e9d. {{first_enumeration.\u00e9dition}} {{expected_date.year}}",
+        "frequency": "rdafr:1014",
+        "next_expected_date": "2019-05-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "\u00e9dition",
+                "starting_value": 13
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "161",
+    "name": "Biennial - with two years",
+    "description": "Example: 2019/2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{expected_date.year}}/{{expected_date.year+1}}",
+        "frequency": "rdafr:1014",
+        "next_expected_date": "2019-05-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "\u00e9dition",
+                "starting_value": 13
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "162",
+    "name": "Biennial",
+    "description": "Example: no 13 2021",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": " no {{first_enumeration.numero}} {{expected_date.year}}",
+        "frequency": "rdafr:1014",
+        "next_expected_date": "2021-05-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 13
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "163",
+    "name": "Published 11 times",
+    "description": "Example: no 2 fev. 2020 ",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "no {{first_enumeration.numero}} {{first_chronology.mois}} {{first_chronology.annee}}",
+        "frequency": "rdafr:1008",
+        "next_expected_date": "2020-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
                 "starting_value": 1
               }
-            ],
-            "name": "second"
+            ]
+          },
+          {
+            "name": "first_chronology",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 2020
+              },
+              {
+                "list_name": "mois",
+                "mapping_values": [
+                  "dec./janv",
+                  "fev.",
+                  "mars",
+                  "avril",
+                  "mai",
+                  "juin",
+                  "juil./ao\u00fbt.",
+                  "sept.",
+                  "oct.",
+                  "nov."
+                ],
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "164",
+    "name": "Semiweekly",
+    "description": "Example: Jg. 10 Nr. 1 01 01 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "Jg. {{first_enumeration.annee}} Nr. {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}} {{expected_date.year}}",
+        "frequency": "rdafr:1005",
+        "next_expected_date": "2020-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 10
+              },
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 1,
+                "completion_value": 104
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "165",
+    "name": "Biweekly",
+    "description": "Example: ann\u00e9e 10 no 1 01 01 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "ann\u00e9e {{first_enumeration.annee}} no {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}} {{expected_date.year}}",
+        "frequency": "rdafr:1003",
+        "next_expected_date": "2020-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 10
+              },
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 1,
+                "completion_value": 26
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "166",
+    "name": "Triennial",
+    "description": "17 Rapport 139",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{first_enumeration.annee}} Rapport {{first_enumeration.numero}}",
+        "frequency": "rdafr:1015",
+        "next_expected_date": "2020-01-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "annee",
+                "starting_value": 17
+              }
+            ]
+          },
+          {
+            "name": "second_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 139
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "167",
+    "name": "Triennial - display day month",
+    "description": "2020 no 1708 28 03",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{expected_date.year}} no {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}}",
+        "frequency": "rdafr:1015",
+        "next_expected_date": "2020-03-28",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 1708
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "168",
+    "name": "Semimonthly",
+    "description": "2020 no 1708 28 mars",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{expected_date.year}} no {{first_enumeration.numero}} {{expected_date.day}} {{expected_date.month}}",
+        "frequency": "rdafr:1015",
+        "next_expected_date": "2020-03-28",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 1708
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "169",
+    "name": "Daily",
+    "description": "1 10 2020\n2 10 2020\n3 10 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{expected_date.day}} {{expected_date.month}} {{expected_date.year}}",
+        "frequency": "rdafr:1001",
+        "next_expected_date": "2020-10-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "170",
+    "name": "Daily",
+    "description": "1 10 2020\n2 10 2020\n3 10 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/13"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{expected_date.day}} {{expected_date.month}} {{expected_date.year}}",
+        "frequency": "rdafr:1001",
+        "next_expected_date": "2020-10-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "pid": "171",
+    "name": "Daily",
+    "description": "1 10 2020\n2 10 2020\n3 10 2020",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/16"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {
+      "circulation_category": {},
+      "location": {},
+      "patterns": {
+        "template": "{{expected_date.day}} {{expected_date.month}} {{expected_date.year}}",
+        "frequency": "rdafr:1001",
+        "next_expected_date": "2020-10-01",
+        "values": [
+          {
+            "name": "first_enumeration",
+            "levels": [
+              {
+                "number_name": "numero",
+                "starting_value": 1,
+                "next_value": 1
+              }
+            ]
           }
         ]
       }
