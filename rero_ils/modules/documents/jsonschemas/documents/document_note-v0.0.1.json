@@ -18,6 +18,7 @@
         "noteType": {
           "title": "Type of note",
           "type": "string",
+          "default": "general",
           "enum": [
             "accompanyingMaterial",
             "general",

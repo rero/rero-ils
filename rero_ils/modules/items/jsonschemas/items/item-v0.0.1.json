@@ -129,7 +129,9 @@
       ],
       "default": "standard",
       "form": {
-        "hideExpression": "true"
+        "wrappers": [
+          "hide"
+        ]
       }
     },
     "issue": {
@@ -222,7 +224,9 @@
           "type": "boolean",
           "default": true,
           "form": {
-            "hideExpression": "true"
+            "wrappers": [
+              "hide"
+            ]
           }
         }
       },
@@ -271,7 +275,9 @@
             "value": "excluded"
           }
         ],
-        "hideExpression": "true"
+        "wrappers": [
+          "hide"
+        ]
       }
     },
     "holding": {
@@ -380,6 +386,9 @@
       "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
       "form": {
         "type": "datepicker",
+        "wrappers": [
+          "toggle-switch"
+        ],
         "templateOptions": {
           "label": "",
           "toggle-switch": {

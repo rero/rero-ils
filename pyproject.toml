@@ -74,6 +74,8 @@ python-dotenv = "^0.13.0"
 invenio-sip2 = {tag= "v0.2.0", git = "https://github.com/inveniosoftware-contrib/invenio-sip2.git", optional = true}
 flask-cors = ">3.0.8"
 celery = "^5.0.0"
+lxml = ">=4.6.1"
+cryptography = ">3.2"
 
 [tool.poetry.dev-dependencies]
 ## Python packages development dependencies (order matters)

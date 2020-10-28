@@ -3,6 +3,9 @@
   "type": "array",
   "minItems": 1,
   "uniqueItems": true,
+  "default": [
+    "aut"
+  ],
   "items": {
     "type": "string",
     "enum": [

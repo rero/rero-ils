@@ -24,6 +24,7 @@
         "type": {
           "title": "Type",
           "type": "string",
+          "default": "bf:Isbn",
           "enum": [
             "bf:AudioIssueNumber",
             "bf:Doi",

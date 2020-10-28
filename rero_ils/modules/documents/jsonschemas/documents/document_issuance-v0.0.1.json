@@ -56,9 +56,9 @@
             "default": "rdami:1001",
             "const": "rdami:1001",
             "form": {
-              "templateOptions": {
-                "cssClass": "col-lg-6"
-              }
+              "wrappers": [
+                "hide"
+              ]
             }
           }
         },
@@ -116,9 +116,9 @@
             "default": "rdami:1002",
             "const": "rdami:1002",
             "form": {
-              "templateOptions": {
-                "cssClass": "col-lg-6"
-              }
+              "wrappers": [
+                "hide"
+              ]
             }
           }
         },
@@ -176,9 +176,9 @@
             "default": "rdami:1003",
             "const": "rdami:1003",
             "form": {
-              "templateOptions": {
-                "cssClass": "col-lg-6"
-              }
+              "wrappers": [
+                "hide"
+              ]
             }
           }
         },
@@ -231,9 +231,9 @@
             "default": "rdami:1004",
             "const": "rdami:1004",
             "form": {
-              "templateOptions": {
-                "cssClass": "col-lg-6"
-              }
+              "wrappers": [
+                "hide"
+              ]
             }
           }
         },

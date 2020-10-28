@@ -34,6 +34,7 @@
         "type": {
           "title": "Type of link",
           "type": "string",
+          "default": "resource",
           "enum": [
             "resource",
             "versionOfResource",
@@ -74,6 +75,7 @@
           "title": "Content type",
           "description": "Is displayed as the text of the link.",
           "type": "string",
+          "default": "fullText",
           "enum": [
             "poster",
             "audio",
