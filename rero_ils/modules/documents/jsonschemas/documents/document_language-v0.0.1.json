@@ -25,7 +25,9 @@
             "bf:Language"
           ],
           "form": {
-            "hideExpression": "true",
+            "wrappers": [
+              "hide"
+            ],
             "options": [
               {
                 "label": "Language",

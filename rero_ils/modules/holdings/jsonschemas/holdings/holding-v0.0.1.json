@@ -128,7 +128,9 @@
         "serial"
       ],
       "form": {
-        "hideExpression": "true"
+        "wrappers": [
+          "hide"
+        ]
       }
     },
     "patterns": {

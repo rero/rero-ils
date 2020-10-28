@@ -23,9 +23,9 @@
       "default": "bf:Person",
       "const": "bf:Person",
       "form": {
-        "templateOptions": {
-          "cssClass": "col-lg-4"
-        }
+        "wrappers": [
+          "hide"
+        ]
       }
     },
     "preferred_name": {

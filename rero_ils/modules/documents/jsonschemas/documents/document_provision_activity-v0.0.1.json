@@ -38,6 +38,7 @@
         "type": {
           "title": "Type",
           "type": "string",
+          "default": "bf:Publication",
           "enum": [
             "bf:Publication",
             "bf:Manufacture",
@@ -93,9 +94,9 @@
                 "default": "bf:Place",
                 "readOnly": true,
                 "form": {
-                  "templateOptions": {
-                    "cssClass": "col-lg-4"
-                  }
+                  "wrappers": [
+                    "hide"
+                  ]
                 }
               },
               "country": {

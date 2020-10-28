@@ -138,7 +138,9 @@
       "type": "boolean",
       "default": false,
       "form": {
-        "hideExpression": "true"
+        "wrappers": [
+          "hide"
+        ]
       }
     }
   }
