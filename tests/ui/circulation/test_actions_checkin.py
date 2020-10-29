@@ -51,11 +51,13 @@ def test_checkin_on_item_on_shelf_no_requests(
     params['transaction_library_pid'] = lib_fully.pid
     with pytest.raises(NoCirculationAction):
         item, actions = item_lib_martigny.checkin(**params)
-        assert item.status == ItemStatus.IN_TRANSIT
-    params['transaction_library_pid'] = lib_fully.pid
+    item = Item.get_record_by_pid(item_lib_martigny.pid)
+    assert item.status == ItemStatus.IN_TRANSIT
+    params['transaction_library_pid'] = lib_martigny.pid
     with pytest.raises(NoCirculationAction):
         item, actions = item_lib_martigny.checkin(**params)
-        assert item.status == ItemStatus.IN_TRANSIT
+    item = Item.get_record_by_pid(item_lib_martigny.pid)
+    assert item.status == ItemStatus.ON_SHELF
 
 
 def test_checkin_on_item_on_shelf_with_requests(
