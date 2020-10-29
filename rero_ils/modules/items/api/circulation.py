@@ -67,7 +67,7 @@ class ItemCirculation(IlsRecord):
         from . import ItemsSearch
         current_search.flush_and_refresh(
             current_circulation.loan_search_cls.Meta.index)
-        item.status_update(dbcommit=True, reindex=True, forceindex=True)
+        item.status_update(item, dbcommit=True, reindex=True, forceindex=True)
         ItemsSearch.flush()
 
     def prior_validate_actions(self, **kwargs):
@@ -195,15 +195,21 @@ class ItemCirculation(IlsRecord):
         if transaction_item_libraries:
             # CHECKIN_1_1_1, item library = transaction library
             # item will be checked in in home library, no action
+            if self.status != ItemStatus.ON_SHELF:
+                self.status_update(self, dbcommit=True,
+                                   reindex=True, forceindex=True)
+                raise NoCirculationAction(
+                    'Item returned at owning library')
             raise NoCirculationAction(
                 'No circulation action performed')
         else:
             # CHECKIN_1_1_2: item library != transaction library
             # item will be checked-in in an external library, no
             # circulation action performed, add item status in_transit
-            self['status'] == ItemStatus.IN_TRANSIT
+            self['status'] = ItemStatus.IN_TRANSIT
             self.status_update(
-                dbcommit=True, reindex=True, forceindex=True)
+                self, on_shelf=False, dbcommit=True, reindex=True,
+                forceindex=True)
             raise NoCirculationAction('in_transit status added')
 
     def checkin_item_at_desk(self, **kwargs):
@@ -226,12 +232,13 @@ class ItemCirculation(IlsRecord):
         else:
             # CHECKIN_2_2: pickup location != transaction library
             # item is: in_transit
-            at_desk_loan['state'] == 'IN_TRANSIT_FOR_PICKUP'
+            at_desk_loan['state'] = LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
             at_desk_loan.update(
                 at_desk_loan, dbcommit=True, reindex=True)
-            self['status'] == ItemStatus.IN_TRANSIT
+            self['status'] = ItemStatus.IN_TRANSIT
             self.status_update(
-                dbcommit=True, reindex=True, forceindex=True)
+                self, on_shelf=False, dbcommit=True, reindex=True,
+                forceindex=True)
             raise NoCirculationAction(
                 'in_transit status added')
 
@@ -435,7 +442,8 @@ class ItemCirculation(IlsRecord):
         elif actions_to_execute.get('loan_update', {}).get('state'):
             loan['state'] = actions_to_execute['loan_update']['state']
             loan.update(loan, dbcommit=True, reindex=True)
-            self.status_update(dbcommit=True, reindex=True, forceindex=True)
+            self.status_update(
+                self, dbcommit=True, reindex=True, forceindex=True)
             actions.update({LoanAction.UPDATE: loan})
             item = self
         elif actions_to_execute.get('validate_first_pending'):
@@ -1109,17 +1117,30 @@ class ItemCirculation(IlsRecord):
         #     actions.add('lose')
         return actions
 
-    def status_update(self, dbcommit=False, reindex=False, forceindex=False):
-        """Update item status."""
-        loan = get_loan_for_item(item_pid_to_object(self.pid))
+    @classmethod
+    def status_update(
+            cls, item, on_shelf=True, dbcommit=False, reindex=False,
+            forceindex=False):
+        """Update item status.
+
+        The item normally inherits its status from its active loan. In other
+        cases it goes back to on_shelf
+
+        :param item: the item record
+        :param on_shelf: A boolean to indicate that item is candidate to go
+        on_shelf
+        :param reindex: reindex record
+        :param dbcommit: commit record to database
+        """
+        loan = get_loan_for_item(item_pid_to_object(item.pid))
         if loan:
-            self['status'] = self.statuses[loan['state']]
+            item['status'] = cls.statuses[loan['state']]
         else:
-            if self['status'] != ItemStatus.MISSING:
-                self['status'] = ItemStatus.ON_SHELF
+            if item['status'] != ItemStatus.MISSING and on_shelf is True:
+                item['status'] = ItemStatus.ON_SHELF
         if dbcommit:
-            self.commit()
-            self.dbcommit(reindex=True, forceindex=True)
+            item.commit()
+            item.dbcommit(reindex=True, forceindex=True)
 
     def item_has_active_loan_or_request(self):
         """Return True if active loan or a request found for item."""
@@ -1139,7 +1160,7 @@ class ItemCirculation(IlsRecord):
         """
         # TODO: check transaction location
         self['status'] = ItemStatus.ON_SHELF
-        self.status_update(dbcommit=True, reindex=True, forceindex=True)
+        self.status_update(self, dbcommit=True, reindex=True, forceindex=True)
         return self, {
             LoanAction.RETURN_MISSING: None
         }
