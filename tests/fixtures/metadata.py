@@ -30,6 +30,7 @@ from rero_ils.modules.contributions.api import Contribution, \
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.items.api import Item, ItemsSearch
+from rero_ils.modules.local_fields.api import LocalField, LocalFieldsSearch
 from rero_ils.modules.templates.api import Template, TemplatesSearch
 
 
@@ -965,3 +966,42 @@ def templ_patron_public_martigny(
         reindex=True)
     flush_index(TemplatesSearch.Meta.index)
     return template
+
+
+# --- LOCAL FIELDS
+@pytest.fixture(scope="module")
+def local_field_martigny_data(local_fields):
+    """Load Local field 1 data."""
+    return deepcopy(local_fields.get('lofi1'))
+
+
+@pytest.fixture(scope="module")
+def local_field_martigny(
+        app, org_martigny, document, local_field_martigny_data):
+    """Load local field."""
+    local_field = LocalField.create(
+        data=local_field_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LocalFieldsSearch.Meta.index)
+    return local_field
+
+
+@pytest.fixture(scope="module")
+def local_field_sion_data(local_fields):
+    """Load Local field 2 data."""
+    return deepcopy(local_fields.get('lofi2'))
+
+
+@pytest.fixture(scope="module")
+def local_field_sion(
+        app, org_martigny, document, local_field_sion_data):
+    """Load local field."""
+    local_field = LocalField.create(
+        data=local_field_sion_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LocalFieldsSearch.Meta.index)
+    return local_field

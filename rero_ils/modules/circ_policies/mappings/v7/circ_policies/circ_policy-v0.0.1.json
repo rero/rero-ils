@@ -26,6 +26,9 @@
       },
       "organisation": {
         "properties": {
+          "type": {
+            "type": "keyword"
+          },
           "pid": {
             "type": "keyword"
           }
@@ -63,6 +66,9 @@
       },
       "libraries": {
         "properties": {
+          "type": {
+            "type": "keyword"
+          },
           "pid": {
             "type": "keyword"
           }
@@ -73,6 +79,9 @@
         "properties": {
           "patron_type": {
             "properties": {
+              "type": {
+                "type": "keyword"
+              },
               "pid": {
                 "type": "keyword"
               }
@@ -80,6 +89,9 @@
           },
           "item_type": {
             "properties": {
+              "type": {
+                "type": "keyword"
+              },
               "pid": {
                 "type": "keyword"
               }

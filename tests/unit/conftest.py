@@ -104,6 +104,15 @@ def library_schema(monkeypatch):
 
 
 @pytest.fixture()
+def local_fields_schema(monkeypatch):
+    """Local fields Jsonschema for records."""
+    schema_in_bytes = resource_string(
+        'rero_ils.modules.local_fields.jsonschemas',
+        'local_fields/local_field-v0.0.1.json')
+    return get_schema(monkeypatch, schema_in_bytes)
+
+
+@pytest.fixture()
 def location_schema(monkeypatch):
     """Location Jsonschema for records."""
     schema_in_bytes = resource_string(

@@ -28,7 +28,9 @@ def test_holdings_jsonresolver(holding_lib_martigny):
     rec = Record.create({
         'holding': {'$ref': 'https://ils.rero.ch/api/holdings/holding1'}
     })
-    assert rec.replace_refs().get('holding') == {'pid': 'holding1'}
+    assert rec.replace_refs().get('holding') == {
+        'type': 'hold', 'pid': 'holding1'
+    }
 
     # deleted record
     holding_lib_martigny.delete()

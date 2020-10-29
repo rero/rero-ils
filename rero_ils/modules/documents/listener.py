@@ -22,6 +22,7 @@ from ..documents.api import Document, DocumentsSearch
 from ..holdings.api import Holding, HoldingsSearch
 from ..items.api import ItemsSearch
 from ..items.models import ItemNoteTypes
+from ..local_fields.api import LocalField
 from ..utils import extracted_data_from_ref
 
 
@@ -56,6 +57,10 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                     'library_pid': holding['library']['pid']
                 }
             }
+            # Local fields on the holding
+            if 'local_fields' in holding:
+                data['local_fields'] = holding.to_dict()['local_fields']
+
             # items linked to the holding
             es_items = list(
                 ItemsSearch().filter('term', holding__pid=holding.pid).scan()
@@ -67,6 +72,12 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                     'status': item.status,
                     'available': item.available
                 }
+
+                # Local fields on the item
+                if 'local_fields' in item:
+                    item_record['local_fields'] =\
+                        item.to_dict()['local_fields']
+
                 call_number = item.to_dict().get('call_number')
                 if call_number:
                     item_record['call_number'] = call_number
@@ -111,10 +122,10 @@ def enrich_document_data(sender, json=None, record=None, index=None,
         if 'partOf' in record:
             title = {'type': 'partOf'}
             for part_of in record['partOf']:
-                document_pid = extracted_data_from_ref(
+                doc_pid = extracted_data_from_ref(
                     part_of.get('document')
                 )
-                document = Document.get_record_by_pid(document_pid)
+                document = Document.get_record_by_pid(doc_pid)
                 for part_of_title in document.get('title', []):
                     if 'mainTitle' in part_of_title:
                         title['partOfTitle'] = part_of_title.get(
@@ -126,3 +137,8 @@ def enrich_document_data(sender, json=None, record=None, index=None,
             json.get('title', []),
             with_subtitle=True
         )
+        # Local fields in JSON
+        local_fields = LocalField.get_local_fields_by_resource(
+            'doc', document_pid)
+        if local_fields:
+            json['local_fields'] = local_fields

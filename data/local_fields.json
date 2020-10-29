@@ -1,0 +1,62 @@
+[
+  {
+    "pid": "1",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "parent": {
+      "$ref": "https://ils.rero.ch/api/documents/1"
+    },
+    "fields": {
+      "field_1": [
+        "Auteur vald\u00f4tain",
+        "Bibliographie vald\u00f4taine"
+      ]
+    }
+  },
+  {
+    "pid": "2",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "parent": {
+      "$ref": "https://ils.rero.ch/api/documents/1"
+    },
+    "fields": {
+      "field_1": [
+        "Production by Hogwarts' students"
+      ]
+    }
+  },
+  {
+    "pid": "3",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "parent": {
+      "$ref": "https://ils.rero.ch/api/documents/93"
+    },
+    "fields": {
+      "field_1": [
+        "Don \u00c9mile Chanoux"
+      ],
+      "field_2": [
+        "Fonds de la Fondation Grand Paradis"
+      ]
+    }
+  },
+  {
+    "pid": "4",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "parent": {
+      "$ref": "https://ils.rero.ch/api/documents/93"
+    },
+    "fields": {
+      "field_1": [
+        "Donation Albus Dumbledore"
+      ]
+    }
+  }
+]

@@ -27,7 +27,9 @@ def test_patrons_jsonresolver(system_librarian_martigny_no_email):
     rec = Record.create({
         'patron': {'$ref': 'https://ils.rero.ch/api/patrons/ptrn1'}
     })
-    assert rec.replace_refs().get('patron') == {'pid': 'ptrn1'}
+    assert rec.replace_refs().get('patron') == {
+        'type': 'ptrn', 'pid': 'ptrn1'
+    }
 
     # deleted record
     system_librarian_martigny_no_email.delete()

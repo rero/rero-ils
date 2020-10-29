@@ -379,11 +379,15 @@ eval ${PREFIX} invenio utils runindex --raise-on-error
 eval ${PREFIX} invenio utils reindex -t cont --yes-i-know --no-info
 eval ${PREFIX} invenio utils runindex --raise-on-error
 
+info_msg "- Local fields ${DATA_PATH}/local_fields.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio fixtures create --pid_type lofi ${DATA_PATH}/local_fields.json --append ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio utils reindex -t lofi --yes-i-know --no-info
+eval ${PREFIX} invenio utils runindex --raise-on-error
+
 # create vendors
 info_msg "Acquisition vendors: ${DATA_PATH}/vendors.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type vndr ${DATA_PATH}/vendors.json --append  ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} invenio utils reindex -t vndr --yes-i-know --no-info
-
 eval ${PREFIX} invenio utils runindex --raise-on-error
 
 # create serials patterns

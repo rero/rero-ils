@@ -27,7 +27,9 @@ def test_organisations_jsonresolver(app, organisation_temp):
     rec = Record.create({
         'organisation': {'$ref': 'https://ils.rero.ch/api/organisations/1'}
     })
-    assert rec.replace_refs().get('organisation') == {'pid': '1'}
+    assert rec.replace_refs().get('organisation') == {
+        'type': 'org', 'pid': '1'
+    }
 
     # deleted record
     organisation_temp.delete()

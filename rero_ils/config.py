@@ -76,6 +76,8 @@ from .modules.loans.utils import can_be_requested, get_default_loan_duration, \
     get_extension_params, is_item_available_for_checkout, \
     loan_build_document_ref, loan_build_item_ref, loan_build_patron_ref, \
     loan_satisfy_circ_policies, validate_item_pickup_transaction_locations
+from .modules.local_fields.api import LocalField
+from .modules.local_fields.permissions import LocalFieldPermission
 from .modules.locations.api import Location
 from .modules.locations.permissions import LocationPermission
 from .modules.notifications.api import Notification
@@ -447,7 +449,8 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_class='rero_ils.modules.collections.api:Collection',
         list_route='/collections/',
-        item_route='/collections/<pid(coll, record_class="rero_ils.modules.collections.api:Collection"):pid_value>',
+        item_route='/collections/<pid(coll, record_class='
+        '"rero_ils.modules.collections.api:Collection"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:view_search_collection_factory',
@@ -491,7 +494,8 @@ RECORDS_REST_ENDPOINTS = dict(
             ),
         },
         record_loaders={
-            'application/marcxml+xml': 'rero_ils.modules.documents.loaders:marcxml_loader',
+            'application/marcxml+xml':
+            'rero_ils.modules.documents.loaders:marcxml_loader',
             'application/json': lambda: Document(request.get_json()),
         },
 
@@ -555,7 +559,8 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_class='rero_ils.modules.ill_requests.api:ILLRequest',
         list_route='/ill_requests/',
-        item_route='/ill_requests/<pid(illr, record_class="rero_ils.modules.ill_requests.api:ILLRequest"):pid_value>',
+        item_route='/ill_requests/<pid(illr, record_class='
+        '"rero_ils.modules.ill_requests.api:ILLRequest"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:loans_search_factory',
@@ -706,6 +711,48 @@ RECORDS_REST_ENDPOINTS = dict(
             action='update', record=record, cls=HoldingPermission),
         delete_permission_factory_imp=lambda record: record_permission_factory(
             action='delete', record=record, cls=HoldingPermission)
+    ),
+    lofi=dict(
+        pid_type='lofi',
+        pid_minter='local_field_id',
+        pid_fetcher='local_field_id',
+        search_class='rero_ils.modules.local_fields.api:LocalFieldsSearch',
+        search_index='local_fields',
+        search_type=None,
+        indexer_class='rero_ils.modules.local_fields.api:LocalFieldsIndexer',
+        record_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_response'
+            )
+        },
+        record_serializers_aliases={
+            'json': 'application/json',
+        },
+        search_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_search'
+            )
+        },
+        record_loaders={
+            'application/json': lambda: LocalField(request.get_json()),
+        },
+        record_class='rero_ils.modules.local_fields.api:LocalField',
+        list_route='/local_fields/',
+        item_route='/local_fields/<pid(lofi, record_class='
+        '"rero_ils.modules.local_fields.api:LocalField"):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+        search_factory_imp='rero_ils.query:organisation_search_factory',
+        list_permission_factory_imp=lambda record: record_permission_factory(
+            action='list', record=record, cls=LocalFieldPermission),
+        read_permission_factory_imp=lambda record: record_permission_factory(
+            action='read', record=record, cls=LocalFieldPermission),
+        create_permission_factory_imp=lambda record: record_permission_factory(
+            action='create', record=record, cls=LocalFieldPermission),
+        update_permission_factory_imp=lambda record: record_permission_factory(
+            action='update', record=record, cls=LocalFieldPermission),
+        delete_permission_factory_imp=lambda record: record_permission_factory(
+            action='delete', record=record, cls=LocalFieldPermission)
     ),
     ptrn=dict(
         pid_type='ptrn',
@@ -1848,6 +1895,7 @@ indexes = [
     'item_types',
     'ill_requests',
     'libraries',
+    'local_fields',
     'loans',
     'locations',
     'organisations',
@@ -2046,6 +2094,14 @@ RECORDS_UI_ENDPOINTS = {
         record_class='rero_ils.modules.contributions.api:Contribution',
         view_imp='rero_ils.modules.contributions.'
                  'views.contribution_view_method'
+    ),
+    'lofi': dict(
+        pid_type='lofi',
+        route='/local_fields/<pid_value>',
+        template='rero_ils/detailed_view_local_fields.html',
+        record_class='rero_ils.modules.local_fields.api:LocalField',
+        permission_factory_imp='rero_ils.permissions.'
+                               'librarian_permission_factory',
     )
 }
 
@@ -2075,6 +2131,7 @@ RECORDS_JSON_SCHEMA = {
     'itty': '/item_types/item_type-v0.0.1.json',
     'lib': '/libraries/library-v0.0.1.json',
     'loc': '/locations/location-v0.0.1.json',
+    'lofi': '/local_fields/local_field-v0.0.1.json',
     'notif': '/notifications/notification-v0.0.1.json',
     'org': '/organisations/organisation-v0.0.1.json',
     'pttr': '/patron_transactions/patron_transaction-v0.0.1.json',

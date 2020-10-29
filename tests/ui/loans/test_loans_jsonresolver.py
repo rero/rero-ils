@@ -27,7 +27,7 @@ def test_loans_jsonresolver(loan_pending_martigny):
     rec = Record.create({
         'loan': {'$ref': 'https://ils.rero.ch/api/loans/1'}
     })
-    assert rec.replace_refs().get('loan') == {'pid': '1'}
+    assert rec.replace_refs().get('loan') == {'type': 'loanid', 'pid': '1'}
 
     # deleted record
     loan_pending_martigny.delete()

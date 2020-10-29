@@ -92,6 +92,14 @@ def holdings():
         return data
 
 
+@pytest.fixture(scope="module")
+def local_fields():
+    """Load local fields file."""
+    with open(join(dirname(__file__), 'data/local_fields.json')) as f:
+        data = json.load(f)
+        return data
+
+
 @pytest.fixture(scope="session")
 def csv_header():
     """Load json headers."""

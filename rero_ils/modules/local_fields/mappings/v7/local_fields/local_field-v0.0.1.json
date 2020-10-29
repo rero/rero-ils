@@ -1,7 +1,7 @@
 {
   "settings": {
     "number_of_shards": 1,
-    "number_of_replicas": 1,
+    "number_of_replicas": 0,
     "max_result_window": 20000
   },
   "mappings": {
@@ -14,32 +14,18 @@
       "pid": {
         "type": "keyword"
       },
-      "acq_account": {
-        "properties": {
-          "pid": {
-            "type": "keyword"
-          }
-        }
-      },
-      "acq_order": {
-        "properties": {
-          "pid": {
-            "type": "keyword"
-          }
-        }
-      },
-      "document": {
-        "properties": {
-          "type": {
-            "type": "keyword"
-          },
-          "pid": {
-            "type": "keyword"
-          }
-        }
-      },
       "organisation": {
         "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          }
+        }
+      },
+      "parent": {
+        "properties": {
           "type": {
             "type": "keyword"
           },
@@ -48,26 +34,39 @@
           }
         }
       },
-      "order_line_status": {
-        "type": "keyword"
-      },
-      "quantity": {
-        "type": "integer"
-      },
-      "amount": {
-        "type": "float"
-      },
-      "discount_amount": {
-        "type": "float"
-      },
-      "total_amount": {
-        "type": "float"
-      },
-      "exchange_rate": {
-        "type": "float"
-      },
-      "note": {
-        "type": "text"
+      "fields": {
+        "properties": {
+          "field_1": {
+            "type": "text"
+          },
+          "field_2": {
+            "type": "text"
+          },
+          "field_3": {
+            "type": "text"
+          },
+          "field_4": {
+            "type": "text"
+          },
+          "field_5": {
+            "type": "text"
+          },
+          "field_6": {
+            "type": "text"
+          },
+          "field_7": {
+            "type": "text"
+          },
+          "field_8": {
+            "type": "text"
+          },
+          "field_9": {
+            "type": "text"
+          },
+          "field_10": {
+            "type": "text"
+          }
+        }
       },
       "_created": {
         "type": "date"
