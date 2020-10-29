@@ -27,7 +27,9 @@ def test_patron_types_jsonresolver(app, patron_type_tmp):
     rec = Record.create({
         'patron_type': {'$ref': 'https://ils.rero.ch/api/patron_types/1'}
     })
-    assert rec.replace_refs().get('patron_type') == {'pid': '1'}
+    assert rec.replace_refs().get('patron_type') == {
+        'type': 'ptty', 'pid': '1'
+    }
 
     # deleted record
     patron_type_tmp.delete()

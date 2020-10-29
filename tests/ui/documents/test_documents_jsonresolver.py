@@ -27,7 +27,7 @@ def test_documents_jsonresolver(document):
     rec = Record.create({
         'document': {'$ref': 'https://ils.rero.ch/api/documents/doc1'}
     })
-    assert rec.replace_refs().get('document') == {'pid': 'doc1'}
+    assert rec.replace_refs().get('document') == {'type': 'doc', 'pid': 'doc1'}
 
     # deleted record
     document.delete()

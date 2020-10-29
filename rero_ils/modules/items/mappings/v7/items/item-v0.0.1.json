@@ -53,6 +53,9 @@
       },
       "location": {
         "properties": {
+          "type": {
+            "type": "keyword"
+          },
           "pid": {
             "type": "keyword"
           }
@@ -60,6 +63,9 @@
       },
       "library": {
         "properties": {
+          "type": {
+            "type": "keyword"
+          },
           "pid": {
             "type": "keyword"
           }
@@ -67,6 +73,9 @@
       },
       "document": {
         "properties": {
+          "type": {
+            "type": "keyword"
+          },
           "pid": {
             "type": "keyword"
           }
@@ -74,6 +83,9 @@
       },
       "item_type": {
         "properties": {
+          "type": {
+            "type": "keyword"
+          },
           "pid": {
             "type": "keyword"
           }
@@ -112,6 +124,9 @@
       },
       "organisation": {
         "properties": {
+          "type": {
+            "type": "keyword"
+          },
           "pid": {
             "type": "keyword"
           }
@@ -119,6 +134,9 @@
       },
       "holding": {
         "properties": {
+          "type": {
+            "type": "keyword"
+          },
           "pid": {
             "type": "keyword"
           }
@@ -139,8 +157,53 @@
       },
       "vendor": {
         "properties": {
+          "type": {
+            "type": "keyword"
+          },
           "pid": {
             "type": "keyword"
+          }
+        }
+      },
+      "local_fields": {
+        "properties": {
+          "organisation_pid": {
+            "type": "keyword"
+          },
+          "fields": {
+            "type": "object",
+            "properties": {
+              "field_1": {
+                "type": "text"
+              },
+              "field_2": {
+                "type": "text"
+              },
+              "field_3": {
+                "type": "text"
+              },
+              "field_4": {
+                "type": "text"
+              },
+              "field_5": {
+                "type": "text"
+              },
+              "field_6": {
+                "type": "text"
+              },
+              "field_7": {
+                "type": "text"
+              },
+              "field_8": {
+                "type": "text"
+              },
+              "field_9": {
+                "type": "text"
+              },
+              "field_10": {
+                "type": "text"
+              }
+            }
           }
         }
       },

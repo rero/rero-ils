@@ -28,7 +28,7 @@ def test_libraries_jsonresolver(lib_martigny):
     rec = Record.create({
         'library': {'$ref': 'https://ils.rero.ch/api/libraries/lib1'}
     })
-    assert rec.replace_refs().get('library') == {'pid': 'lib1'}
+    assert rec.replace_refs().get('library') == {'type': 'lib', 'pid': 'lib1'}
 
     # deleted record
     library.delete()

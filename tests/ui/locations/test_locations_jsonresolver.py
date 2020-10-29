@@ -27,7 +27,7 @@ def test_locations_jsonresolver(loc_public_martigny):
     rec = Record.create({
         'location': {'$ref': 'https://ils.rero.ch/api/locations/loc1'}
     })
-    assert rec.replace_refs().get('location') == {'pid': 'loc1'}
+    assert rec.replace_refs().get('location') == {'type': 'loc', 'pid': 'loc1'}
 
     # deleted record
     loc_public_martigny.delete()

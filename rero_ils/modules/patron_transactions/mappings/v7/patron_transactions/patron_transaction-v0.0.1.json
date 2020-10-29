@@ -28,6 +28,9 @@
       },
       "patron": {
         "properties": {
+          "type": {
+            "type": "keyword"
+          },
           "pid": {
             "type": "keyword"
           }
@@ -35,6 +38,9 @@
       },
       "document": {
         "properties": {
+          "type": {
+            "type": "keyword"
+          },
           "pid": {
             "type": "keyword"
           }
@@ -42,6 +48,9 @@
       },
       "loan": {
         "properties": {
+          "type": {
+            "type": "keyword"
+          },
           "pid": {
             "type": "keyword"
           }
@@ -49,6 +58,9 @@
       },
       "notification": {
         "properties": {
+          "type": {
+            "type": "keyword"
+          },
           "pid": {
             "type": "keyword"
           }
@@ -56,6 +68,9 @@
       },
       "organisation": {
         "properties": {
+          "type": {
+            "type": "keyword"
+          },
           "pid": {
             "type": "keyword"
           }

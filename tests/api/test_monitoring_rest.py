@@ -51,6 +51,7 @@ def test_monitoring_es_db_counts(client):
             'lib': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'libraries'},
             'loanid': {'db': 0},
             'loc': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'locations'},
+            'lofi': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'local_fields'},
             'notif': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'notifications'},
             'org': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'organisations'},
             'ptre': {'db': 0, 'db-es': 0, 'es': 0,

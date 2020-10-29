@@ -26,6 +26,9 @@
       },
       "organisation": {
         "properties": {
+          "type": {
+            "type": "keyword"
+          },
           "pid": {
             "type": "keyword"
           }

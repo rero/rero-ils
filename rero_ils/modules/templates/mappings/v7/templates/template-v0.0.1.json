@@ -26,6 +26,9 @@
       },
       "organisation": {
         "properties": {
+          "type": {
+            "type": "keyword"
+          },
           "pid": {
             "type": "keyword"
           }
@@ -33,6 +36,9 @@
       },
       "creator": {
         "properties": {
+          "type": {
+            "type": "keyword"
+          },
           "pid": {
             "type": "keyword"
           }

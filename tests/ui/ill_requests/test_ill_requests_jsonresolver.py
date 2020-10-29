@@ -27,7 +27,9 @@ def test_ill_requests_jsonresolver(ill_request_martigny):
     rec = Record.create({
         'ill_request': {'$ref': 'https://ils.rero.ch/api/ill_requests/illr1'}
     })
-    assert rec.replace_refs().get('ill_request') == {'pid': 'illr1'}
+    assert rec.replace_refs().get('ill_request') == {
+        'type': 'illr', 'pid': 'illr1'
+    }
 
     # deleted record
     ill_request_martigny.delete()
