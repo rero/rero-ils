@@ -17,43 +17,102 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-/** API call to logout method ============================================== */
-Cypress.Commands.add('apiLogout', () => {
-  cy.request({
-    method: 'GET',
-    url: '/signout/',
-    followRedirect: false
-  })
-})
-
-/** API call to login method ==================================================
-  *  :param user - object: a user object from the 'users' fixtures file
-  *  :param password - string: the password to log in
+/** API call to create a document ==================================================
+  * Create a document
+  * :param document - the document to create
   */
-Cypress.Commands.add('apiLogin', (user, password) => {
-  cy.request('/signin')
-  .its('body')
-  .then(body => {
-    const $html = Cypress.$(body)
-    const csrf_token = $html.find('input[name=csrf_token]').val()
-    cy.log(csrf_token)
-
-    cy.request({
-      method: 'POST',
-      url: '/signin/',
-      followRedirect: false,
-      body: {
-        'email': user.email,
-        'password': password,
-        'csrf_token': csrf_token
+ Cypress.Commands.add('apiCreateDocument', (document, titleSuffix) => {
+  cy.request({
+    method: 'POST',
+    url: '/api/documents/',
+    followRedirect: false,
+    body: {
+      "type": (document.type).toLowerCase(),
+      "title":[{
+        "type":"bf:Title",
+        "mainTitle":[{
+          "value": (document.title.mainTitle + titleSuffix)
+        }]
+      }],
+      "language":[{
+        "type":"bf:Language",
+        "value": document.languageCode1
+      }],
+      "provisionActivity":[{
+        "statement":[
+          {
+            "type":"bf:Place",
+            "label":[{"value":document.provisionActivity.statement.place}]
+          },
+          {
+            "type":"bf:Agent",
+            "label":[{"value":document.provisionActivity.statement.agent}]
+          },
+          {
+            "type":"Date",
+            "label":[{"value":document.provisionActivity.statement.date}]
+          }
+        ],
+        "type":"bf:Publication",
+        "place":[{
+          "type":"bf:Place",
+          "country":"xx"
+        }],
+        "startDate": parseInt(document.provisionActivity.publicationDate1)
+      }],
+      "issuance":{
+        "main_type":"rdami:1001",
+        "subtype":"materialUnit"
       }
-    }).then(response => {
-      cy.visit('/')
-      cy.get('#logout-menu')  // raise an error if not found
-    })
+    }
   })
-})
+  .its('body').then((body) => {
+    cy.wrap(body.id).as('getDocumentPid');
+  })
+  .then(() => {
+    cy.get('@getDocumentPid').then((pid) => {
+      cy.log('Document created, pid = ' + pid);
+    });
+  });
+});
 
+
+/** API call to create an item ==================================================
+  * Create an item
+  * :param resourceName - string: the resource type
+  * :param query - string: criteria to find items to delete
+  */
+ Cypress.Commands.add('apiCreateItem', (item, barcode, documentPid) => {
+  cy.request({
+    method: 'POST',
+    url: '/api/items/',
+    followRedirect: false,
+    body: {
+      "acquisition_date":cy.getCurrentDate(),
+      "item_type":{
+        "$ref":('https://ils.rero.ch/api/item_types/' + item.itemTypePid)
+      },
+      "location":{
+        "$ref":('https://ils.rero.ch/api/locations/' + item.locationPid)
+      }
+      ,"type":"standard",
+      "status":"on_shelf"
+      ,"barcode":barcode
+      ,"call_number":barcode
+      ,"document":{
+        "$ref":('https://ils.rero.ch/api/documents/' + documentPid)
+      }
+    }
+  })
+  .its('body').then((body) => {
+    cy.wrap(body.id).as('getItemPid');
+  })
+  .then(() => {
+    cy.get('@getItemPid').then((pid) => {
+      cy.log('Item created, pid = ' + pid);
+    });
+  });
+});
 
 /** API call to delete items ==================================================
   * Delete resource items based on a query
@@ -67,9 +126,9 @@ Cypress.Commands.add('apiDeleteResources', (resourceName, query) => {
       const pid = hit.metadata.pid
       cy.request({
         method: 'DELETE',
-        url: '/api/'+resourceName+'/'+pid
+        url: '/api/' + resourceName+'/'+ pid
       })
-      cy.log('Template#'+pid+' deleted')
+      cy.log(resourceName + ' #' + pid + ' deleted')
     })
   })
-})
+});

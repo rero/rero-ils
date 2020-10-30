@@ -27,7 +27,7 @@ before(function () {
   });
   cy.fixture('templates').then(function (templateData) {
     this.templates = templateData;
-    this.templateName = this.templates.templateA.name + cy.getCurrentDateAndHour();
+    this.templateName = this.templates.templateA.name + ' ' + cy.getCurrentDateAndHour();
   });
 });
 
@@ -49,29 +49,36 @@ describe('Templates: Create and use template for a document', function() {
   it('Create a new template and use it in the editor', function() {
     const template = this.templates.templateA
 
+    // Go to document editor
     cy.visit('/professional/records/documents/new')
     cy.wait(2000)
+    // Fill some fields
     cy.get('ng-core-editor #type').select(template.document.type)
     cy.get('#title-0-mainTitle-0-value').type(template.document.title.mainTitle, {force: true})
+    // Save as a template
     cy.get('#editor-save-button-split').click()
     cy.get('#editor-save-button-dropdown-split')
       .find('li a.dropdown-item:nth-child(1)')  // TODO: Find a better way to retrieve the correct link to click
       .click()
+    // Confirm save
     cy.get('.modal-content #name').type(this.templateName)
     cy.get('.modal-content button:submit').click()
     cy.wait('@api_template_create')
+    // Assert that the template was saved
     cy.url().should('include', 'records/templates/detail')
 
+    // Go back to document editor
     cy.visit('/professional/records/documents/new')
     cy.wait(2000)
+    // Load template
     cy.get('#editor-load-template-button').click()
     cy.wait('@api_template_search')
     cy.get('.modal-content #template').select(this.templateName)
     cy.get('.modal-content button:submit').click()
-
+    // Assert that the template was correctly loaded
     cy.url(5000).should('include', '?source=templates&pid=')
-    cy.get('ng-core-editor #type').invoke('val').should('eq', template.document.type)
-    cy.get('#title-0-mainTitle-0-value').invoke('val').should('eq', template.document.title.mainTitle)
+    cy.get('ng-core-editor #type').should('have.value', template.document.type_value)
+    cy.get('#title-0-mainTitle-0-value').should('have.value', template.document.title.mainTitle)
     cy.log('Template loaded successfully !')
   })
 })

@@ -10,6 +10,8 @@
     },
     "language1": "French",
     "language2": "English",
+    "languageCode1": "fre",
+    "languageCode2": "eng",
     "provisionActivity": {
       "type": "Distribution",
       "publicationDate1": "2019",

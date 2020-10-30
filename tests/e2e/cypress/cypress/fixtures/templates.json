@@ -2,7 +2,8 @@
   "templateA": {
     "name": "Cypress template",
     "document": {
-      "type": "sound",
+      "type": "Sound",
+      "type_value": "6: sound",
       "title": {
         "mainTitle": "Template title"
       }
