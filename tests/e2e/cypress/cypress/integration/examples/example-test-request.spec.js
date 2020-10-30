@@ -34,32 +34,34 @@ before(function () {
     this.items = items;
   });
   this.itemBarcode = 'request-' + cy.getCurrentDateAndHour();
+  this.documentTitleSuffix = ' ' + cy.getCurrentDate();
 });
 
 describe('Template: librarian request', function() {
-  // Run once before all tests in the block
+  // Runs once before all tests in the block
   // These steps are not part of the test, but need to be done in order to have
   // the app in the right state to run the test
+
+  let documentPid;
+  let itemPid;
+
   before('Login as a professional and create an item', function() {
     console.log('before');
-    // Create server to watch api requests
     cy.server();
-    // Open app on frontpage
-    cy.visit('');
-    // Check language and force to english
-    cy.setLanguageToEnglish();
     // Login as librarian
     cy.adminLogin(this.users.librarians.spock.email, this.common.uniquePwd);
     // Create a document
-    // Go to document editor
-    cy.get('#catalog-menu').click();
-    cy.get('#create-bibliographic-record-menu').click();
-    // Populate form with simple record
-    cy.populateSimpleRecord(this.documents.book);
-    //Save record
-    cy.saveRecord();
-    // Create an item
-    cy.createItemFromDocumentDetailView(this.itemBarcode, this.items.vulcanDefault);
+    cy.apiCreateDocument(this.documents.book, this.documentTitleSuffix);
+    cy.get('@getDocumentPid').then((pid) => {
+      // Store document pid to re-use it later (an alias in deleted in the 'after' part of the test)
+      documentPid = pid;
+      // Create item
+      cy.apiCreateItem(this.items.vulcanDefault, this.itemBarcode, pid);
+    });
+    cy.get('@getItemPid').then((pid) => {
+      // Store item pid
+      itemPid = pid;
+    });
   });
 
   // Runs before each test in the block
@@ -81,26 +83,30 @@ describe('Template: librarian request', function() {
     cy.server();
     cy.route({method: 'DELETE', url: '/api/items/*'}).as('deleteItem');
     // Go to item detail view
-    cy.goToProfessionalDocumentDetailView(this.itemBarcode);
+    cy.goToProfessionalDocumentDetailView(documentPid);
     cy.get('#item-' + this.itemBarcode + ' div a[name=barcode]').click();
     // Remove request
     cy.get('#' + this.users.patrons.james.barcode + ' div [name=cancel]').click();
     cy.get('#modal-confirm-button').click();
-    // Go back to document detail view and remove item
-    cy.goToProfessionalDocumentDetailView(this.itemBarcode);
-    cy.get('#item-' + this.itemBarcode + ' [name=buttons] > [name=delete]').click();
-    cy.get('#modal-confirm-button').click();
-    cy.wait('@deleteItem');
+    // Go back to document detail view
+    cy.goToProfessionalDocumentDetailView(documentPid);
+    // Remove item
+    cy.apiDeleteResources('items', 'pid:"'+ itemPid + '"');
     // Remove document
-    cy.reload(); // Bug: need to reload the page to enable the remove button
-    cy.deleteRecordFromDetailView();
+    cy.apiDeleteResources('documents', 'pid:"'+ documentPid + '"');
     cy.logout();
   });
 
   // First test
   it('First test: a librarian makes a request for a patron', function() {
     console.log('first test');
-    cy.route('/api/item/*/can_request?library_pid=' + this.users.librarians.spock.libraryPid + '&patron_barcode=' + this.users.patrons.james.barcode).as('getCanRequest');
+    cy.route('/api/item/*/can_request?library_pid='
+      + this.users.librarians.spock.libraryPid
+      + '&patron_barcode='
+      + this.users.patrons.james.barcode)
+      .as('getCanRequest');
+    // Go to document detailed view
+    cy.goToProfessionalDocumentDetailView(documentPid);
     // Create a request
     cy.get('#item-' + this.itemBarcode + ' > [name=buttons] > [name=request]').click();
     cy.get('#patronBarcode').type(this.users.patrons.james.barcode);
@@ -108,8 +114,8 @@ describe('Template: librarian request', function() {
     // Wait for the button unabled
     cy.wait('@getCanRequest');
     cy.get('#new-request-button').click();
-    // Go to item detail view (force = true to do it even if modal window is not already closed)
-    cy.get('#item-' + this.itemBarcode + ' div a[name=barcode]').click({force:true});
+    // Go to item detail view
+    cy.goToItemDetailView(itemPid);
     // Check that the request has been done
     cy.get('.card').should('contain', this.users.patrons.james.barcode);
   });
@@ -117,10 +123,12 @@ describe('Template: librarian request', function() {
   // Second test
   it('Second test: check the request in admin patron profile view', function() {
     console.log('second test');
-    cy.get('#user-services-menu').click();
-    cy.get('#users-menu').click();
+    // Go to patron profile view
+    cy.visit('/professional/records/patrons');
     cy.get('#' + this.users.patrons.james.barcode + '-loans').click();
+    // Go to request tab
     cy.get('#pending-tab').click();
+    // Assert that the item is requested
     cy.get('admin-main.ng-star-inserted > :nth-child(2)').should('contain', this.itemBarcode);
   });
 });

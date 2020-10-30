@@ -45,18 +45,26 @@ describe('Circulation scenario B: standard loan with transit', function() {
    * 5. The item is returned at second library. The item goes in transit.
    * 6. The item is received at owning library and goes on shelf.
    */
+
+  let documentPid;
+  let itemPid;
+  let documentTitleSuffix = ' ' + cy.getCurrentDateAndHour();
+
   before('Login as a professional and create a document and an item', function() {
     // Login as librarian (Leonard)
     cy.adminLogin(this.users.librarians.leonard.email, this.common.uniquePwd);
     // Create a document
-    // Go to document editor
-    cy.visit('/professional/records/documents/new');
-    // Populate form with simple record
-    cy.populateSimpleRecord(this.documents.book);
-    //Save record
-    cy.saveRecord();
-    // Create an item
-    cy.createItemFromDocumentDetailView(this.itemBarcode, this.items.starfleetStandardLoanWithTransit);
+    cy.apiCreateDocument(this.documents.book, documentTitleSuffix);
+    cy.get('@getDocumentPid').then((pid) => {
+      // Store document pid to re-use it later (an alias in deleted in the 'after' part of the test)
+      documentPid = pid;
+      // Create item
+      cy.apiCreateItem(this.items.starfleetStandardLoan, this.itemBarcode, pid);
+    });
+    cy.get('@getItemPid').then((pid) => {
+      // Store item pid
+      itemPid = pid;
+    });
   });
 
   beforeEach('Action to perform before each test', function() {
@@ -65,16 +73,11 @@ describe('Circulation scenario B: standard loan with transit', function() {
   });
 
   after('Clean data: remove item and document', function() {
-    cy.logout();
-    cy.server();
-    cy.adminLogin(this.users.librarians.leonard.email, this.common.uniquePwd);
-    // Go to document detail view and remove item
-    cy.goToProfessionalDocumentDetailView(this.itemBarcode);
-    cy.get('#item-' + this.itemBarcode + ' [name=buttons] > [name=delete]').click();
-    cy.get('#modal-confirm-button').click();
+    // Remove item
+    cy.apiDeleteResources('items', 'pid:"'+ itemPid + '"');
     // Remove document
-    cy.reload(); // Bug: need to reload the page to enable the remove button
-    cy.deleteRecordFromDetailView();
+    cy.apiDeleteResources('documents', 'pid:"'+ documentPid + '"');
+    cy.logout();
   });
 
   it('1. A patron makes a request', function() {
@@ -84,13 +87,14 @@ describe('Circulation scenario B: standard loan with transit', function() {
     // Login as patron
     cy.login(this.users.patrons.james.email, this.common.uniquePwd);
     // Search for the item
-    cy.goToPublicDocumentDetailView(this.itemBarcode);
+    cy.goToPublicDocumentDetailView(documentPid);
     // Request the item
     cy.get('#' + this.itemBarcode + '-dropdownMenu').click();
     // Select pickup location (force because menu can go over browser view)
     cy.get('#' + this.items.starfleetStandardLoanWithTransit.code).click({force: true});
     // Go to user profile, directly on requests-tab
-    cy.userProfile('requests-tab');
+    cy.visit('/global/patrons/profile');
+    cy.get('#requests-tab').click();
     // Check barcode exists and that it's requested
     cy.get('#item-' + this.itemBarcode + '-call-number').should('contain', this.itemBarcode);
   });
@@ -109,7 +113,7 @@ describe('Circulation scenario B: standard loan with transit', function() {
     // Enter the barcode and validate
     cy.get('#search').type(this.itemBarcode).type('{enter}');
     // Go to document detail view
-    cy.goToProfessionalDocumentDetailView(this.itemBarcode);
+    cy.goToProfessionalDocumentDetailView(documentPid);
     // Check that the item is in transit
     cy.get('#item-' + this.itemBarcode + ' > [name="status"]').should('contain', 'transit');
   });

@@ -79,9 +79,6 @@ Cypress.Commands.add("saveRecord", () => {
 });
 
 Cypress.Commands.add("checkDocumentEssentialFields", (document) => {
-  cy.fixture('documents').then(function (documents) {
-    this.documents = documents;
-  });
   cy.get('#doc-language-0').should('contain', document.language1);
   cy.get('#doc-issuance').should('contain', document.issuance.mainTypeCode + ' / materialUnit');
   cy.get('#doc-title').should('contain', document.title.mainTitle);

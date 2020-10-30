@@ -29,7 +29,7 @@ before(function () {
   });
 })
 
-describe('Document editor', function() {
+describe('Create a document', function() {
   before('Login as a professional and create an item', function() {
     this.spock = this.users.librarians.spock;
     // Login as librarian
@@ -37,9 +37,12 @@ describe('Document editor', function() {
   });
 
   after('Clean data: remove document', function() {
-    // Delete record
-    cy.deleteRecordFromDetailView();
+    // Delete document
+    cy.get('@documentPid').then((pid) => {
+      cy.apiDeleteResources('documents', 'pid:"'+ pid + '"');
+    });
     cy.logout();
+    cy.log('End of the test');
   });
 
   it('Creates a document with only essential fields', function() {
@@ -50,7 +53,12 @@ describe('Document editor', function() {
     //Save record
     cy.saveRecord();
     // Go to description tab
-    cy.get('#documents-description-tab-link').click()
+    cy.get('#documents-description-tab-link').click();
+    // Get document pid for the API call in 'after' part
+    cy.url().then((url) => {
+      const urlParts = url.split('/');
+      cy.wrap(urlParts[urlParts.length-1]).as('documentPid');
+    });
     // Assert that the values are correctly displayed
     cy.checkDocumentEssentialFields(this.documents.book);
   });

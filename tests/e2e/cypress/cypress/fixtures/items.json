@@ -2,19 +2,25 @@
   "vulcanDefault": {
     "code": "VULCAN-BIB",
     "location": "Default location for Vulcan library",
+    "locationPid": 36,
     "pickupName": "Vulcan library",
-    "itemTypeUri": "Default"
+    "itemTypeUri": "Default",
+    "itemTypePid": 11
   },
   "starfleetStandardLoan": {
     "code": "STARFLEET-BIB",
     "location": "Default location for Starfleet library",
+    "locationPid": 35,
     "pickupName": "Starfleet library",
-    "itemTypeUri": "Default"
+    "itemTypeUri": "Default",
+    "itemTypePid": 11
   },
   "starfleetStandardLoanWithTransit": {
     "code": "VULCAN-BIB",
     "location": "Default location for Starfleet library",
+    "locationPid": 36,
     "pickupName": "Vulcan library",
-    "itemTypeUri": "Default"
+    "itemTypeUri": "Default",
+    "itemTypePid": 11
   }
 }
