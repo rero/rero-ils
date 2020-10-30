@@ -354,7 +354,8 @@ def item(item_barcode):
             for action in item_dumps.get('actions', []):
                 if action == 'checkout':
                     if item.number_of_requests() > 0:
-                        patron_barcode = patron.get('barcode')
+                        patron_barcode = patron.get('patron', {})\
+                            .get('barcode')
                         if item.patron_request_rank(patron_barcode) == 1:
                             new_actions.append(action)
                     else:
