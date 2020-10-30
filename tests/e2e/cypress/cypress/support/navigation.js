@@ -29,25 +29,23 @@ Cypress.Commands.add("userProfile", (tabId) => {
   }
 })
 
-Cypress.Commands.add("goToPublicDocumentDetailView", (itemBarcode) => {
-  // Go to homepage
-  cy.visit('');
-  cy.setLanguageToEnglish();
-  // on public context
-  cy.get('.d-none > main-search-bar > .flex-grow-1 > .rero-ils-autocomplete > .form-control').clear()
-  cy.get('.d-none > main-search-bar > .flex-grow-1 > .rero-ils-autocomplete > .form-control').type(itemBarcode).type('{enter}')
-  // Use first element
-  cy.get('.card-title > a').click()
-})
+Cypress.Commands.add("goToPublicDocumentDetailView", (pid, viewcode) => {
+  if (viewcode == undefined) {
+    cy.visit('/global/documents/' + pid);
+  } else {
+    cy.visit('/' + viewcode + '/documents/' + pid);
+  }
+});
 
-Cypress.Commands.add("goToProfessionalDocumentDetailView", (itemBarcode) => {
-  cy.route('/api/permissions/documents/*').as('getDocumentPermissions');
-  // Go to homepage
-  cy.get('#homepage-logo').click();
-  // on professional context
-  cy.get('.form-control').clear();
-  cy.get('.form-control').type(itemBarcode).type('{enter}');
-  // Use first element
-  cy.wait('@getDocumentPermissions');
-  cy.get('[name=document-title]').click();
-})
+Cypress.Commands.add("goToProfessionalDocumentDetailView", (pid) => {
+  cy.visit('/professional/records/documents/detail/' + pid);
+});
+
+/**
+ * Go to item detailed view. Needs to have the item pid stored in '@getItemPid' alias
+ *
+ * @param itemPid - item pid
+ */
+Cypress.Commands.add("goToItemDetailView", (pid) => {
+    cy.visit('/professional/records/items/detail/' + pid);
+});

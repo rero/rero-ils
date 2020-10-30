@@ -20,7 +20,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 Cypress.Commands.add("logout", () => {
   cy.visit('/signout');
-  cy.contains('My account');
+  cy.get('body').should('contain', 'My account');
 });
 
 Cypress.Commands.add("login", (email, password) => {
@@ -33,7 +33,7 @@ Cypress.Commands.add("login", (email, password) => {
       'password': password
     }
   }).then(() => {
-    cy.visit('/lang/en'); // this forces the language to englis and preserves it even while using cy.visit
+    cy.visit('/lang/en'); // this forces the language to english and preserves it even while using cy.visit
     cy.get('body').should('contain', 'RERO ID');
   });
 });
@@ -43,4 +43,4 @@ Cypress.Commands.add("adminLogin", (email, password) => {
   cy.login(email, password);
   cy.visit('/professional');
   cy.get('body').should('contain', 'RERO ILS administration');
- });
+});
