@@ -32,6 +32,7 @@ def test_blocked_field_exists(
         patron3_martigny_blocked_no_email):
     """Test ptrn6 have blocked field present and set to False."""
     login_user_via_session(client, librarian_martigny_no_email.user)
+    patron3 = patron3_martigny_blocked_no_email
 
     # non blocked patron
     non_blocked_patron_url = url_for(
@@ -53,9 +54,9 @@ def test_blocked_field_exists(
     assert 'blocked' in data['metadata']['patron']
     assert data['metadata']['patron']['blocked'] is True
 
-    assert patron3_martigny_blocked_no_email.is_blocked
-    note = patron3_martigny_blocked_no_email.patron.get('blocked_note')
-    assert note and note in patron3_martigny_blocked_no_email.blocked_message
+    assert patron3.is_blocked
+    note = patron3.patron.get('blocked_note')
+    assert note and note in patron3.get_blocked_message()
 
 
 def test_blocked_field_not_present(

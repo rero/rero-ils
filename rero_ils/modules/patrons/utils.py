@@ -39,4 +39,4 @@ def get_patron_from_arguments(**kwargs):
     return kwargs.get('patron') \
         or Patron.get_patron_by_barcode(kwargs.get('patron_barcode')) \
         or Patron.get_record_by_pid(kwargs.get('patron_pid')) \
-        or Patron.get_record_by_pid(kwargs.get('loan').get('patron_id'))
+        or Patron.get_record_by_pid(kwargs.get('loan').get('patron_pid'))

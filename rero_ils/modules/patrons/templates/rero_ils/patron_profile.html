@@ -23,15 +23,13 @@
 {% include('rero_ils/_patron_profile_head.html') %}
 
 <section>
-  {% for key, data in alerts.items() %}
-    {% for message in data['messages'] %}
-      <div class="alert alert-{{ data['level'] }}" role="alert">{{ message }}</div>
-    {% endfor %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message['type'] }}" role="alert">{{ message['content'] }}</div>
   {% endfor %}
   {% set note=record.notes|selectattr('type', '==', 'public_note')|list|last%}
   {% if note %}
   <div class="alert alert-warning" role="alert">
-    {{note. content.replace('\n', '<br>')|safe}}
+    {{note.content.replace('\n', '<br>')|safe}}
   </div>
   {% endif %}
 </section>

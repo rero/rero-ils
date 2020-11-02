@@ -457,14 +457,17 @@ def test_document_can_request_view(
         'rero_ils.modules.documents.views.current_user',
         patron_martigny_no_email.user
     ):
-        assert can_request(item_lib_fully)
-        assert not can_request(item_lib_sion)
+        can, _ = can_request(item_lib_fully)
+        assert can
+        can, _ = can_request(item_lib_sion)
+        assert not can
 
     with mock.patch(
         'rero_ils.modules.documents.views.current_user',
         patron2_martigny_no_email.user
     ):
-        assert not can_request(item_lib_fully)
+        can, _ = can_request(item_lib_fully)
+        assert not can
 
     picks = item_library_pickup_locations(item_lib_fully)
     assert len(picks) == 3
