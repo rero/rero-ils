@@ -49,7 +49,7 @@
         <div class="col-lg-2{% if loan.state == 'ITEM_AT_DESK' %} text-success{% endif %}">
           {% if loan.state == 'ITEM_AT_DESK' %}
           <i class="fa fa-check"  title="{{ _('item at desk') }}" aria-hidden="true"></i>
-          {{ _('ready') }}
+          {{ _('to pick up') }}
           {% elif loan.state in ['PENDING', 'ITEM_IN_TRANSIT_FOR_PICKUP'] %}
           <i class="fa fa-bullseye"  title="{{ _('pending') }}" aria-hidden="true"></i>
           <!-- TODO: Add expired date and remove "waiting" text

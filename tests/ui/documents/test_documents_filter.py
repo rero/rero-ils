@@ -17,10 +17,12 @@
 
 """Document filters tests."""
 
+from flask_login.utils import login_user
 
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.views import contribution_format, get_note, \
-    get_public_notes, identifiedby_format, language_format, note_format, \
+    get_public_notes, identifiedby_format, \
+    item_and_patron_in_same_organisation, language_format, note_format, \
     part_of_format, series_format
 from rero_ils.modules.items.models import ItemNoteTypes
 
@@ -37,6 +39,26 @@ def test_note_filters(item_lib_martigny):
     public_notes = get_public_notes(item_lib_martigny)
     assert len(item_lib_martigny['notes']) == 2
     assert len(public_notes) == 1
+
+
+def test_item_and_patron_in_same_organisation(
+        app, item_lib_martigny, patron_martigny_no_email,
+        patron_sion_no_email):
+    """Test item and patron are in the same organisation."""
+
+    # NOTE : Why with use app_context and login_user
+    #   As we try to test a function requiring an HTTP request context, we need
+    #   to specified it with app.app_context.
+    #   we use the function `login_user` from flask_login instead of classic
+    #   login_user_via_session, because the last one will write user data into
+    #   cookie for the next request. But as we don't create any request (we
+    #   called directly the function requiring context) the current_user/patron
+    #   will always be unknown from the current context.
+    with app.app_context():
+        login_user(patron_martigny_no_email.user)
+        assert item_and_patron_in_same_organisation(item_lib_martigny)
+        login_user(patron_sion_no_email.user)
+        assert not item_and_patron_in_same_organisation(item_lib_martigny)
 
 
 def test_contribution_format(db, document_data):

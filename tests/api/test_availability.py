@@ -53,8 +53,8 @@ def test_item_can_request(
     )
     assert res.status_code == 401
 
-    result = can_request(item_lib_martigny)
-    assert not result
+    can, _ = can_request(item_lib_martigny)
+    assert not can
 
     login_user_via_session(client, librarian_martigny_no_email.user)
     # valid test
