@@ -404,7 +404,7 @@ class Patron(IlsRecord):
 
         # a blocked patron can't request any item
         if patron.is_blocked:
-            return False, [patron.blocked_message]
+            return False, [patron.get_blocked_message()]
 
         return True, []
 
@@ -425,7 +425,7 @@ class Patron(IlsRecord):
 
         # a blocked patron can't request any item
         if patron.is_blocked:
-            return False, [patron.blocked_message]
+            return False, [patron.get_blocked_message()]
 
         return True, []
 
@@ -576,12 +576,16 @@ class Patron(IlsRecord):
         """Shortcut to know if user is blocked."""
         return self.patron.get('blocked', False)
 
-    @property
-    def blocked_message(self):
-        """Get the message in case of patron is blocked."""
+    def get_blocked_message(self, public=False):
+        """Get the message in case of patron is blocked.
+
+        :param public: Is the message is for public interface ?
+        """
+        main = _('Your account is currently blocked.') if public \
+            else _('This patron is currently blocked.')
         if self.is_blocked:
             return '{main} {reason_str}: {reason}'.format(
-                main=_('This patron is currently blocked.'),
+                main=main,
                 reason_str=_('Reason'),
                 reason=self.patron.get('blocked_note')
             )
@@ -686,12 +690,13 @@ class Patron(IlsRecord):
         """
         return Patron.record_pid_exists(user_pid)
 
-    def get_circulation_messages(self):
+    def get_circulation_messages(self, public=False):
         """Return messages useful for circulation.
 
         * check if the user is blocked ?
         * check if the user reaches the maximum loans limit ?
 
+        :param public: is messages are for public interface ?
         :return an array of messages. Each message is a dictionary with a level
                 and a content. The level could be used to filters messages if
                 needed.
@@ -704,27 +709,35 @@ class Patron(IlsRecord):
         if self.is_blocked:
             return [{
                 'type': 'error',
-                'content': self.blocked_message
+                'content': self.get_blocked_message(public)
             }]
 
         messages = []
-        # check the patron type define limit
-        patron_type = PatronType.get_record_by_pid(self.patron_type_pid)
-        valid, message = patron_type.check_checkout_count_limit(self)
-        if not valid:
-            messages.append({
-                'type': 'error',
-                'content': message
-            })
-        # check fee amount limit
-        valid = patron_type.check_fee_amount_limit(self)
-        if not valid:
-            messages.append({
-                'type': 'error',
-                'content': _(
-                    'Transactions denied: the maximal fee amount is reached.')
-            })
-
+        # other messages must be only rendered for the professional interface
+        if not public:
+            # check the patron type define limit
+            patron_type = PatronType.get_record_by_pid(self.patron_type_pid)
+            valid, message = patron_type.check_checkout_count_limit(self)
+            if not valid:
+                messages.append({
+                    'type': 'error',
+                    'content': message
+                })
+            # check fee amount limit
+            if not patron_type.check_fee_amount_limit(self):
+                messages.append({
+                    'type': 'error',
+                    'content': _(
+                        'Transactions denied: the maximal overdue fee amount '
+                        'is reached.')
+                })
+            # check the patron type overdue limit
+            if not patron_type.check_overdue_items_limit(self):
+                messages.append({
+                    'type': 'error',
+                    'content': _('Checkout denied: the maximal number of '
+                                 'overdue items is reached')
+                })
         return messages
 
 

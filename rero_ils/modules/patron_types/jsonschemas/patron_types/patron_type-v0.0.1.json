@@ -104,13 +104,13 @@
           ],
           "properties": {
             "global_limit": {
-              "title": "Global checkout limit",
+              "title": "Number of checkouts in the organisation",
               "description": "The checkout is blocked once the specified checkout number is reached by the patron. This is a global checkout limit.",
               "type": "number",
               "minimum": 1
             },
             "library_limit": {
-              "title": "Default checkout limit by library",
+              "title": "Number of checkouts by library",
               "description": "The checkout is blocked once the specified checkout number is reached by the patron for items of the same owning library. This is the same limit for all libraries.",
               "type": "number",
               "minimum": 1
@@ -181,8 +181,8 @@
           ],
           "properties": {
             "default_value": {
-              "title": "Default fee amount limit",
-              "description": "The checkout, renewal and the request are blocked once the specified fee amount is reached by the patron.",
+              "title": "Fee amount",
+              "description": "The checkout, renewal and the request are blocked once the specified overdue fee amount is reached by the patron.",
               "type": "number",
               "minimum": 0
             }
@@ -194,7 +194,7 @@
             ],
             "templateOptions": {
               "toggle-switch": {
-                "label": "Limit by fee amount"
+                "label": "Limit by overdue fee amount"
               }
             }
           }
@@ -207,7 +207,7 @@
           ],
           "properties": {
             "default_value": {
-              "title": "Default overdue items limit",
+              "title": "Number of overdue items",
               "description": "The checkout, renewal and the request are blocked once the specified number of overdue items is reached by the patron.",
               "type": "number",
               "minimum": 1

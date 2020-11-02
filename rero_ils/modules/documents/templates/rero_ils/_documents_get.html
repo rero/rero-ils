@@ -207,27 +207,38 @@
             {%- endfor %}
 
             <!-- action button : Should be at the end to be render above and be clickabke -->
-            {%- set locations = item|item_library_pickup_locations %}
-            {%- if item|can_request and locations %}
-              <div class="action-buttons">
-                <a href="#" type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false" id="{{ item.barcode }}-dropdownMenu">
-                  {{ _('Request') }}
-                  <i class="fa fa-caret-down fa-fw"></i>
-                </a>
-                <!-- TODO: Style the dropdown header -->
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
-                  <h6 class="dropdown-header">{{ _('Select a Pickup Location') }}</h6>
-                  <div class="dropdown-divider"></div>
-                  {% for location in locations %}
-                  <a class="dropdown-item"
-                    id="{{ location.code }}"
-                    href="{{ url_for('item.patron_request', viewcode=viewcode, item_pid=item.pid, pickup_location_pid=location.pid)}}">
-                    {{ location.pickup_name }}
+            {%- if item|item_and_patron_in_same_organisation %}
+              {%- set can_request, reasons = item|can_request %}
+              {%- set locations = item|item_library_pickup_locations %}
+              {%- if can_request and locations %}
+                <div class="action-buttons">
+                  <a href="#" type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false" id="{{ item.barcode }}-dropdownMenu">
+                    {{ _('Request') }}
+                    <i class="fa fa-caret-down fa-fw"></i>
                   </a>
-                  {% endfor %}
+                  <!-- TODO: Style the dropdown header -->
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
+                    <h6 class="dropdown-header">{{ _('Select a Pickup Location') }}</h6>
+                    <div class="dropdown-divider"></div>
+                    {% for location in locations %}
+                    <a class="dropdown-item"
+                      id="{{ location.code }}"
+                      href="{{ url_for('item.patron_request', viewcode=viewcode, item_pid=item.pid, pickup_location_pid=location.pid)}}">
+                      {{ location.pickup_name }}
+                    </a>
+                    {% endfor %}
+                  </div>
                 </div>
-              </div>
+              {%- elif reasons %}
+                <div class="action-buttons">
+                  <span class="d-inline-block" tabindex="0" data-toggle="tooltip" data-html="true" title="{{ reasons | join('<br/>') }}">
+                    <button type="submit" class="btn btn-primary mt-1" disabled>
+                      {{ _('Request') }}
+                    </button>
+                  </span>
+                </div>
+              {%- endif %}
             {%- endif %}
           </div>
        {%- endfor %}
