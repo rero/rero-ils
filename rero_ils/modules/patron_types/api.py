@@ -157,8 +157,8 @@ class PatronType(IlsRecord):
 
         # check fee amount limit
         if not patron_type.check_fee_amount_limit(patron):
-            return False, [_('Checkout denied: the maximal fee amount is '
-                             'reached')]
+            return False, [_('Checkout denied: the maximal overdue fee amount '
+                             'is reached')]
 
         return True, []
 
@@ -185,8 +185,8 @@ class PatronType(IlsRecord):
 
         # check fee amount limit
         if not patron_type.check_fee_amount_limit(patron):
-            return False, [_('Request denied: the maximal fee amount is '
-                             'reached')]
+            return False, [_('Request denied: the maximal overdue fee amount '
+                             'is reached')]
 
         return True, []
 
@@ -213,8 +213,8 @@ class PatronType(IlsRecord):
 
         # check fee amount limit
         if not patron_type.check_fee_amount_limit(patron):
-            return False, [_('Renewal denied: the maximal fee amount is '
-                             'reached')]
+            return False, [_('Renewal denied: the maximal overdue fee amount '
+                             'is reached')]
         return True, []
 
     def get_linked_patron(self):
@@ -302,7 +302,7 @@ class PatronType(IlsRecord):
         if not global_limit:
             return True, None
 
-        # [0] get the stats fr this patron by library
+        # [0] get the stats for this patron by library
         patron_library_stats = get_loans_count_by_library_for_patron_pid(
             patron.pid, [LoanState.ITEM_ON_LOAN])
 

@@ -71,8 +71,8 @@
           {% endif %}
         </div>
         <div class="col-lg-2 text-right">
-          {% if loan.can_renew %}
-          {%- with form = can_renew_form %}
+          {% if loan.can_renew -%}
+            {%- with form = can_renew_form %}
             <form action="{{ url_for('patrons.profile') }}" method="POST" name="can_renew_form">
               <input type="hidden" name="type" value="renew">
               <input type="hidden" name="loan_pid" value="{{ loan.pid }}">
@@ -80,8 +80,14 @@
                 {{ _('Renew') }}
               </button>
             </form>
-          {%- endwith %}
-          {% endif %}
+            {%- endwith %}
+          {%- else -%}
+            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" data-html="true" title="{{ loan.can_renew_reasons | join('<br/>') }}">
+            <button type="submit" class="btn btn-primary mt-1" disabled>
+              {{ _('Renew') }}
+            </button>
+            </span>
+          {%- endif %}
         </div>
       </div>
       <div id="loan-{{ loan.pid }}" class="mt-1 ng-star-inserted d-none">

@@ -224,29 +224,19 @@ def profile(viewcode):
 
     loans, requests, fees, history, ill_requests = patron_profile(patron)
 
-    # patron alert list
-    #   each alert dictionary key represent an alert category (subscription,
-    #   fees, blocked, ...). For each category, we define a bootstrap level
-    #   (https://getbootstrap.com/docs/4.0/components/alerts/) and a list of
-    #   message. Each message will be displayed into a separate alert box.
-    alerts = {}
-    pending_subscriptions = patron.get_pending_subscriptions()
-    if pending_subscriptions:
-        alerts['subscriptions'] = {
-            'messages': map(
-                lambda sub: _('You have a pending subscription fee.'),
-                pending_subscriptions
-            ),
-            'level': 'warning'  # bootstrap alert level
-        }
-    if patron.patron.get('blocked'):
-        alerts['blocking'] = {
-            'messages': [
-                _('Your account is currently blocked. Reason: %(reason)s',
-                    reason=patron.patron.get('blocked_note', ''))
-            ],
-            'level': 'danger'
-        }
+    # patron messages list
+    messages = patron.get_circulation_messages(True)
+    if patron.get_pending_subscriptions():
+        messages.append({
+            'type': 'warning',
+            'content': _('You have a pending subscription fee.')
+        })
+    bootstrap_alert_mapping = {
+        'error': 'danger'
+    }
+    for message in messages:
+        msg_type = message['type']
+        message['type'] = bootstrap_alert_mapping.get(msg_type, msg_type)
 
     return render_template(
         'rero_ils/patron_profile.html',
@@ -256,7 +246,7 @@ def profile(viewcode):
         fees=fees,
         history=history,
         ill_requests=ill_requests,
-        alerts=alerts,
+        messages=messages,
         viewcode=viewcode,
         tab=tab
     )

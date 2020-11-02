@@ -549,6 +549,8 @@ def patron_profile(patron):
                 loan=loan
             )
             loan['can_renew'] = can
+            if not can:
+                loan['can_renew_reasons'] = reasons
             loans.append(loan)
         elif loan['state'] in [
                 LoanState.PENDING,

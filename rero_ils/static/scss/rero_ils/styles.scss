@@ -92,6 +92,15 @@ html [type=button] {
   color: $secondary;
 }
 
+button:disabled:hover {
+  cursor: not-allowed;
+}
+
+div.tooltip div.tooltip-inner{
+  text-align: left;
+  max-width: 400px;
+}
+
 /*
  *********************************
 
