@@ -19,6 +19,8 @@
 
 from __future__ import absolute_import, print_function
 
+from copy import deepcopy
+
 import pytest
 from pkg_resources import resource_string
 from utils import get_schema
@@ -156,6 +158,15 @@ def patron_schema(monkeypatch):
         '/patrons/patron-v0.0.1.json'
     )
     return get_schema(monkeypatch, schema_in_bytes)
+
+
+@pytest.fixture(scope="function")
+def patron_martigny_data_tmp_with_id(patron_martigny_data_tmp):
+    """Load Martigny patron data scope function with a mocked user_id."""
+    patron = deepcopy(patron_martigny_data_tmp)
+    # mock the user_id which is add by the Patron API.
+    patron['user_id'] = 100
+    return patron
 
 
 @pytest.fixture()

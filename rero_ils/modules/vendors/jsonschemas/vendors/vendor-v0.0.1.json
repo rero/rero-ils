@@ -151,7 +151,7 @@
           "title": "Email",
           "type": "string",
           "format": "email",
-          "pattern": "^.*@.*\\..*$",
+          "pattern": "^.*@.*\\..+$",
           "minLength": 6,
           "form": {
             "validation": {
@@ -213,7 +213,7 @@
           "title": "Email",
           "type": "string",
           "format": "email",
-          "pattern": "^.*@.*\\..*$",
+          "pattern": "^.*@.*\\..+$",
           "minLength": 6,
           "form": {
             "validation": {

@@ -17,6 +17,7 @@
 
 """Test User Authentication API."""
 from flask import url_for
+from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
 
@@ -96,5 +97,80 @@ def test_login_without_email(client, patron_sion_without_email):
     assert res.status_code == 200
     data = get_json(res)
     assert data.get('id')
+    # logout for the next test
+    client.post(url_for('invenio_accounts_rest_auth.logout'))
+
+
+def test_change_password(client, patron_martigny_no_email,
+                         librarian_sion_no_email,
+                         librarian_martigny_no_email):
+    """Test login with several scenarios."""
+
+    # try to change password with an anonymous user
+    res, _ = postdata(
+        client,
+        'invenio_accounts_rest_auth.change_password',
+        {
+            'password': patron_martigny_no_email.get('birth_date'),
+            'new_password': 'new'
+        }
+    )
+    data = get_json(res)
+    assert res.status_code == 401
+
+    # with a logged but the password is too short
+    login_user_via_session(client, patron_martigny_no_email.user)
+    res, _ = postdata(
+        client,
+        'invenio_accounts_rest_auth.change_password',
+        {
+            'password': patron_martigny_no_email.get('birth_date'),
+            'new_password': 'new'
+        }
+    )
+    data = get_json(res)
+    assert res.status_code == 400
+    assert data.get('message') == 'Validation error.'
+
+    # with a logged user
+    res, _ = postdata(
+        client,
+        'invenio_accounts_rest_auth.change_password',
+        {
+            'password': patron_martigny_no_email.get('birth_date'),
+            'new_password': 'new_passwd'
+        }
+    )
+    data = get_json(res)
+    assert res.status_code == 200
+    assert data.get('message') == 'You successfully changed your password.'
+
+    # with a librarian of a different organisation
+    login_user_via_session(client, librarian_sion_no_email.user)
+    res, _ = postdata(
+        client,
+        'invenio_accounts_rest_auth.change_password',
+        {
+            'username': patron_martigny_no_email.get('username'),
+            'new_password': 'new_passwd2'
+        }
+    )
+    data = get_json(res)
+    assert res.status_code == 401
+
+    # with a librarian of the same organisation
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    res, _ = postdata(
+        client,
+        'invenio_accounts_rest_auth.change_password',
+        {
+            'username': patron_martigny_no_email.get('username'),
+            'new_password': 'new_passwd2'
+        }
+    )
+    data = get_json(res)
+    assert res.status_code == 200
+    assert data.get('message') == 'You successfully changed your password.'
+
     # logout for the next test
     client.post(url_for('invenio_accounts_rest_auth.logout'))

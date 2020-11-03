@@ -26,6 +26,7 @@
     "last_name",
     "birth_date",
     "username",
+    "user_id",
     "roles"
   ],
   "properties": {
@@ -75,7 +76,7 @@
       "title": "Email",
       "type": "string",
       "format": "email",
-      "pattern": "^.*@.*\\..*$",
+      "pattern": "^.*@.*\\..+$",
       "minLength": 6,
       "form": {
         "validation": {
@@ -113,7 +114,7 @@
     },
     "street": {
       "title": "Street",
-      "description": "Street and number of the address, separated by a coma.",
+      "description": "Street and number of the address.",
       "type": "string",
       "minLength": 3
     },
@@ -265,10 +266,10 @@
           "title": "Additional communication email",
           "type": "string",
           "format": "email",
-          "pattern": "^.*@.*\\..*$",
+          "pattern": "^.*@.*\\..+$",
           "minLength": 6,
           "form": {
-            "hideExpression": "model.communication_channel === 'email'",
+            "hideExpression": "field.parent.model && field.parent.model.communication_channel !== 'email'",
             "messages": {
               "patternMessage": "Email should have at least one <code>@</code> and one <code>.</code>."
             }
