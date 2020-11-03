@@ -2767,8 +2767,7 @@
     "username": "simonetta",
     "phone": "+41324993585",
     "roles": [
-      "system_librarian",
-      "librarian"
+      "system_librarian"
     ],
     "patron": {
       "expiration_date": "2023-10-07",

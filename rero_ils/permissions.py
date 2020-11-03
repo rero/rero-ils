@@ -28,7 +28,8 @@ from invenio_access.permissions import Permission
 from .modules.patrons.api import Patron
 
 request_item_permission = Permission(RoleNeed('patron'))
-librarian_permission = Permission(RoleNeed('librarian'))
+librarian_permission = Permission(
+    RoleNeed('librarian'), RoleNeed('system_librarian'))
 admin_permission = Permission(RoleNeed('admin'))
 editor_permission = Permission(RoleNeed('editor'), RoleNeed('admin'))
 
