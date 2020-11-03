@@ -246,7 +246,7 @@ ACCOUNTS_REST_AUTH_VIEWS = {
     "register": "invenio_accounts.views.rest:RegisterView",
     "forgot_password": "invenio_accounts.views.rest:ForgotPasswordView",
     "reset_password": "invenio_accounts.views.rest:ResetPasswordView",
-    "change_password": "invenio_accounts.views.rest:ChangePasswordView",
+    "change_password": "rero_ils.accounts_views:ChangePasswordView",
     "send_confirmation":
         "invenio_accounts.views.rest:SendConfirmationEmailView",
     "confirm_email": "invenio_accounts.views.rest:ConfirmEmailView",
@@ -1774,6 +1774,9 @@ RERO_ILS_QUERY_BOOSTING = {
         'publicationYearText': 2,
         'freeFormedPublicationDate': 2,
         'subjects.*': 2
+    },
+    'patrons': {
+        'barcode': 3
     }
 }
 
