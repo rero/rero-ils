@@ -26,6 +26,7 @@
     "last_name",
     "birth_date",
     "username",
+    "user_id",
     "roles"
   ],
   "properties": {

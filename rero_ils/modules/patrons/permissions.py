@@ -61,7 +61,19 @@ class PatronPermission(RecordPermission):
         """Create permission check.
 
         :param user: Logged user.
-        :param record: Record to check.
+        :param record: pre-existing Record to check.
+        :return: True is action can be done.
+        """
+        incoming_record = request.get_json(silent=True) or {}
+        return cls.can_create(user, record, incoming_record)
+
+    @classmethod
+    def can_create(cls, user, record, incoming_record):
+        """Create permission check.
+
+        :param user: Logged user.
+        :param record: pre-existing Record to check.
+        :param record: new incoming Record data.
         :return: True is action can be done.
         """
         # only staff members (lib, sys_lib) can create patrons ...
@@ -75,7 +87,6 @@ class PatronPermission(RecordPermission):
                     return True
                 # librarian user has some restrictions...
                 if current_patron.is_librarian:
-                    incoming_record = request.get_json(silent=True) or {}
                     # a librarian cannot manage a system_librarian patron
                     if 'system_librarian' in incoming_record.get('roles', [])\
                        or 'system_librarian' in record.get('roles', []):
