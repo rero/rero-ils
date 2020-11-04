@@ -20,7 +20,6 @@
 from datetime import datetime
 from functools import partial
 
-from elasticsearch_dsl import Q
 from flask import current_app
 from flask_login import current_user
 from flask_security.confirmable import confirm_user
@@ -426,8 +425,7 @@ class Patron(IlsRecord):
         """Get patrons linked to patron_type that haven't any subscription."""
         query = PatronsSearch() \
             .filter('term', patron__type__pid=patron_type_pid) \
-            .filter('bool', must_not=[
-                Q('exists', field="patron__subscriptions")])
+            .exclude('exists', field='patron.subscriptions')
         for res in query.source('pid').scan():
             yield Patron.get_record_by_pid(res.pid)
 
