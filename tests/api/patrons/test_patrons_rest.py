@@ -114,9 +114,9 @@ def test_patron_has_valid_subscriptions(
     patron_sion.add_subscription(patron_type_grown_sion, start, end)
     # !! As `add_subscription` use the method `Patron.update`, then the signal
     #    `after_record_update` are send by invenio_records and the patron
-    #    listener `reate_subscription_patron_transaction` is called. This
+    #    listener `create_subscription_patron_transaction` is called. This
     #    listener found that user doesn't have any subscription and add a valid
-    #    one for this patron. So after `add_subscription` call, i just removed
+    #    one for this patron. So after `add_subscription` call, I just removed
     #    the valid subscription created.
     del patron_sion['patron']['subscriptions'][1]
     assert not patron_sion.has_valid_subscription
