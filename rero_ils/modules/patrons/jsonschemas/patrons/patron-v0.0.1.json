@@ -359,9 +359,9 @@
           "type": "string",
           "description": "The reason is displayed in the circulation module and is visible by the patron in his account.",
           "form": {
-            "hideExpression": "field.model.blocked !== true",
+            "hideExpression": "field.parent.model &&  field.parent.model.blocked !== true",
             "expressionProperties": {
-              "templateOptions.required": "model.blocked === true"
+              "templateOptions.required": "true"
             }
           }
         }
