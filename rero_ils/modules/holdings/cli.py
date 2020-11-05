@@ -72,6 +72,13 @@ def get_random_location(org_pid):
     return get_location(next(iter(libraries or []), None))
 
 
+def get_random_vendor(org_pid):
+    """Return random vendor for an organisation pid."""
+    org = Organisation.get_record_by_pid(org_pid)
+    vendors = [vendor.pid for vendor in org.get_vendors()]
+    return next(iter(random.choices(vendors) or []), None)
+
+
 def create_issues_from_holding(holding, min=3, max=9):
     """Receive randomly new issues.
 
@@ -132,6 +139,7 @@ def create_patterns(infile, verbose, debug, lazy):
         for org_pid in Organisation.get_all_pids():
             circ_category_pid = get_circ_category(org_pid)
             location_pid = get_random_location(org_pid)
+            vendor_pid = get_random_vendor(org_pid)
             holdings_record = create_holding(
                 document_pid=document_pid,
                 location_pid=location_pid,
@@ -144,6 +152,7 @@ def create_patterns(infile, verbose, debug, lazy):
                 notes=notes,
                 call_number=call_number,
                 second_call_number=second_call_number,
+                vendor_pid=vendor_pid,
                 patterns=patterns)
             # create minimum 3 and max 9 received issues for this holdings
             create_issues_from_holding(holdings_record)
