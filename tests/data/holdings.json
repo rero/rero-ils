@@ -239,6 +239,9 @@
       "template": "no {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1010",
       "next_expected_date": "2020-03-01",
+      "max_number_of_claims": 3,
+      "days_before_first_claim": 7,
+      "days_before_next_claim": 7,
       "values": [
         {
           "name": "first_enumeration",
@@ -288,6 +291,9 @@
       "template": "no {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1010",
       "next_expected_date": "2020-03-01",
+      "max_number_of_claims": 3,
+      "days_before_first_claim": 7,
+      "days_before_next_claim": 7,
       "values": [
         {
           "name": "first_enumeration",
@@ -325,6 +331,9 @@
       "template": "no {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1010",
       "next_expected_date": "2020-03-01",
+      "max_number_of_claims": 3,
+      "days_before_first_claim": 7,
+      "days_before_next_claim": 7,
       "values": [
         {
           "name": "first_enumeration",
@@ -362,6 +371,9 @@
       "template": "{{first_enumeration.level_1}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1013",
       "next_expected_date": "2020-01-02",
+      "max_number_of_claims": 3,
+      "days_before_first_claim": 7,
+      "days_before_next_claim": 7,
       "values": [
         {
           "name": "first_enumeration",
@@ -390,6 +402,9 @@
       "template": "{{first_enumeration.level_1}} Edition {{first_chronology.level_1}}",
       "frequency": "rdafr:1013",
       "next_expected_date": "2020-06-01",
+      "max_number_of_claims": 3,
+      "days_before_first_claim": 7,
+      "days_before_next_claim": 7,
       "values": [
         {
           "name": "first_enumeration",
@@ -418,6 +433,9 @@
       "template": "Jg. {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1014",
       "next_expected_date": "2020-03-03",
+      "max_number_of_claims": 3,
+      "days_before_first_claim": 7,
+      "days_before_next_claim": 7,
       "values": [
         {
           "name": "first_enumeration",
@@ -460,6 +478,9 @@
       "template": "Jg. {{first_enumeration.level_1}} Heft {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1012",
       "next_expected_date": "2020-09-01",
+      "max_number_of_claims": 3,
+      "days_before_first_claim": 7,
+      "days_before_next_claim": 7,
       "values": [
         {
           "name": "first_enumeration",
@@ -498,6 +519,9 @@
       "template": "ann\u00e9e {{first_chronology.level_1}} no {{first_enumeration.level_1}} {{second_chronology.level_2}} {{second_chronology.level_1}}",
       "frequency": "rdafr:1010",
       "next_expected_date": "2020-03-20",
+      "max_number_of_claims": 3,
+      "days_before_first_claim": 7,
+      "days_before_next_claim": 7,
       "values": [
         {
           "name": "first_chronology",
@@ -549,6 +573,9 @@
       "template": "N\u02da {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1012",
       "next_expected_date": "2020-03-20",
+      "max_number_of_claims": 3,
+      "days_before_first_claim": 7,
+      "days_before_next_claim": 7,
       "values": [
         {
           "name": "first_enumeration",
@@ -584,6 +611,9 @@
       "template": "{{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1007",
       "next_expected_date": "2020-01-15",
+      "max_number_of_claims": 3,
+      "days_before_first_claim": 7,
+      "days_before_next_claim": 7,
       "values": [
         {
           "name": "first_enumeration",
@@ -623,6 +653,9 @@
       "template": "Ann\u00e9e {{first_enumeration.level_1}} no {{second_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1012",
       "next_expected_date": "2020-06-01",
+      "max_number_of_claims": 3,
+      "days_before_first_claim": 7,
+      "days_before_next_claim": 7,
       "values": [
         {
           "name": "first_enumeration",
@@ -671,6 +704,9 @@
       "template": "Jg {{first_enumeration.level_1}} Nr {{second_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1007",
       "next_expected_date": "2020-01-05",
+      "max_number_of_claims": 3,
+      "days_before_first_claim": 7,
+      "days_before_next_claim": 7,
       "values": [
         {
           "name": "first_enumeration",

@@ -109,6 +109,22 @@
                 }
               }
             }
+          },
+          "max_number_of_claims": {
+            "type": "integer"
+          },
+          "days_before_first_claim": {
+            "type": "integer"
+          },
+          "days_before_next_claim": {
+            "type": "integer"
+          }
+        }
+      },
+      "vendor": {
+        "properties": {
+          "pid": {
+            "type": "keyword"
           }
         }
       },
