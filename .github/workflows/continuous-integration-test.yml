@@ -16,6 +16,11 @@ jobs:
 
     - uses: actions/checkout@v2
 
+    - name: Setup node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12'
+
     - name: Docker compose up
       run: docker-compose up -d
 
