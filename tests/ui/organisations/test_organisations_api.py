@@ -30,6 +30,11 @@ def test_organisation_libararies(org_martigny, lib_martigny):
     assert list(org_martigny.get_libraries()) == [lib_martigny]
 
 
+def test_organisation_libararies(org_martigny, vendor_martigny):
+    """Test vendors retrival."""
+    assert list(org_martigny.get_vendors()) == [vendor_martigny]
+
+
 def test_organisation_organisation_pid(org_martigny):
     """Test organisation_pid property."""
     assert org_martigny.organisation_pid == 'org1'

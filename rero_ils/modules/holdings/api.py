@@ -600,7 +600,7 @@ def create_holding(
         electronic_location=None, holdings_type=None, patterns=None,
         enumerationAndChronology=None, supplementaryContent=None, index=None,
         missing_issues=None, call_number=None, second_call_number=None,
-        notes=[]):
+        notes=[], vendor_pid=None):
     """Create a new holdings record from a given list of fields.
 
     :param document_pid: the document pid.
@@ -616,6 +616,7 @@ def create_holding(
     :param notes: the notes of the holdings record.
     :param call_number: the call_number of the holdings record.
     :param second_call_number: the second_call_number of the holdings record.
+    :param vendor_pid: the vendor of the holdings record.
     :return: the created holdings record.
     """
     if not (document_pid and location_pid and item_type_pid):
@@ -630,6 +631,9 @@ def create_holding(
     data['circulation_category'] = {
         '$ref': get_ref_for_pid('itty', item_type_pid)}
     data['document'] = {'$ref': get_ref_for_pid('doc', document_pid)}
+
+    if vendor_pid:
+        data['vendor'] = {'$ref': get_ref_for_pid('vndr', vendor_pid)}
 
     if not holdings_type:
         holdings_type = 'standard'
