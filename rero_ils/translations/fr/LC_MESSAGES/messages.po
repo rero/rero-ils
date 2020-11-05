@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-10-14 16:29+0200\n"
-"PO-Revision-Date: 2020-10-19 06:44+0000\n"
+"PO-Revision-Date: 2020-11-05 10:43+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
@@ -30,7 +30,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.3.1-dev\n"
+"X-Generator: Weblate 4.3.2-dev\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: rero_ils/config.py:126
@@ -4789,7 +4789,7 @@ msgstr "Contribution"
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:44
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:38
 msgid "Barcode"
-msgstr "Code-barre"
+msgstr "Code-barres"
 
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:75
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:136
@@ -5092,7 +5092,7 @@ msgstr "contributeur - collaborateur"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:177
 msgid "edt"
-msgstr "éditeur intellectuel (sous la dir de)"
+msgstr "éditeur intellectuel"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:181
 msgid "hnr"
