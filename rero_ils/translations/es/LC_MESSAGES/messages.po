@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-10-14 16:29+0200\n"
-"PO-Revision-Date: 2020-10-19 06:44+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2020-11-04 16:26+0000\n"
+"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/es/>\n"
 "Language: es\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3.1-dev\n"
+"X-Generator: Weblate 4.3.2-dev\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: rero_ils/config.py:126
@@ -6803,11 +6803,11 @@ msgstr "bienal"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:199
 msgid "rdafr:1007"
-msgstr "bimensual"
+msgstr "bimestral"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:203
 msgid "rdafr:1003"
-msgstr "quincenal"
+msgstr "bisemanal"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:207
 msgid "rdafr:1001"
@@ -6835,11 +6835,11 @@ msgstr "bimensual"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:231
 msgid "rdafr:1005"
-msgstr "bisemanal"
+msgstr "semisemanal"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:235
 msgid "rdafr:1006"
-msgstr "tres veces al mes"
+msgstr "tres veces en un mes"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:239
 msgid "rdafr:1002"

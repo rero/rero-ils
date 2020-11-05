@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-10-14 16:29+0200\n"
-"PO-Revision-Date: 2020-10-19 06:44+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2020-11-04 16:26+0000\n"
+"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/rero_plus/rero-ils/"
 "nl/>\n"
 "Language: nl\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3.1-dev\n"
+"X-Generator: Weblate 4.3.2-dev\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: rero_ils/config.py:126
@@ -263,11 +263,11 @@ msgstr "bf:Place"
 
 #: rero_ils/manual_translations.txt:52
 msgid "Date(s) uncertain or unknown"
-msgstr ""
+msgstr "Datum(en) onzeker of onbekend"
 
 #: rero_ils/manual_translations.txt:53
 msgid "Date not available and automatically set to 2050"
-msgstr ""
+msgstr "Datum niet beschikbaar en automatisch ingesteld op 2050"
 
 #: rero_ils/manual_translations.txt:56
 msgid "ebibliomedia"
@@ -279,24 +279,24 @@ msgstr "Toegang"
 
 #: rero_ils/manual_translations.txt:60
 msgid "rdami:1001"
-msgstr ""
+msgstr "enkele unit"
 
 #: rero_ils/manual_translations.txt:61
 msgid "rdami:1002"
-msgstr ""
+msgstr "meerdelige monografie"
 
 #: rero_ils/manual_translations.txt:62
 msgid "rdami:1003"
-msgstr ""
+msgstr "seriële publicatie"
 
 #: rero_ils/manual_translations.txt:63
 msgid "rdami:1004"
-msgstr ""
+msgstr "integrerende ressource"
 
 #: rero_ils/manual_translations.txt:66
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person_link-v0.0.1.json:2
 msgid "Link to person entity"
-msgstr ""
+msgstr "Link naar persoon entiteit"
 
 #: rero_ils/manual_translations.txt:67
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:2
@@ -4697,7 +4697,7 @@ msgstr "Schema om holdings records tegen te valideren."
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:40
 msgid "Internal collection PID"
-msgstr ""
+msgstr "Interne collectie PID"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:45
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_identifiedby-v0.0.1.json:2
@@ -4712,7 +4712,7 @@ msgstr "Identificator"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:46
 msgid "Identifier or code used locally for this collection"
-msgstr ""
+msgstr "ID of code die lokaal voor deze collectie wordt gebruikt"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:51
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:21
@@ -4758,7 +4758,7 @@ msgstr "Seychellen (se)"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:73
 msgid "exhibition"
-msgstr ""
+msgstr "tentoonstelling"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:85
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:34
@@ -4807,11 +4807,11 @@ msgstr "openbare nota"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:262
 msgid "\\"
-msgstr ""
+msgstr "\\"
 
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:36
 msgid "Collection ID"
-msgstr ""
+msgstr "Collectie ID"
 
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:61
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:3
@@ -4853,19 +4853,19 @@ msgstr "Serie"
 #: rero_ils/modules/documents/views.py:226
 #: rero_ils/modules/ill_requests/forms.py:105
 msgid "Published in"
-msgstr ""
+msgstr "Gepubliceerd in"
 
 #: rero_ils/modules/documents/views.py:242
 msgid "vol"
-msgstr ""
+msgstr "vol"
 
 #: rero_ils/modules/documents/views.py:245
 msgid "nr"
-msgstr ""
+msgstr "nr"
 
 #: rero_ils/modules/documents/views.py:248
 msgid "p"
-msgstr ""
+msgstr "p"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:3
 msgid "Bibliographic Document"
@@ -6894,67 +6894,67 @@ msgstr "Frequentie"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:191
 msgid "rdafr:1013"
-msgstr ""
+msgstr "jaarlijks"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:195
 msgid "rdafr:1014"
-msgstr ""
+msgstr "eens per twee jaar"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:199
 msgid "rdafr:1007"
-msgstr ""
+msgstr "eens per twee maanden"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:203
 msgid "rdafr:1003"
-msgstr ""
+msgstr "eens per twee weken"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:207
 msgid "rdafr:1001"
-msgstr ""
+msgstr "dagelijks"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:211
 msgid "rdafr:1016"
-msgstr ""
+msgstr "onregelmatig"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:215
 msgid "rdafr:1008"
-msgstr ""
+msgstr "maandelijks"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:219
 msgid "rdafr:1010"
-msgstr ""
+msgstr "eens per kwartaal"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:223
 msgid "rdafr:1012"
-msgstr ""
+msgstr "twee keer per jaar"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:227
 msgid "rdafr:1009"
-msgstr ""
+msgstr "twee keer per maand"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:231
 msgid "rdafr:1005"
-msgstr ""
+msgstr "twee keer per week"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:235
 msgid "rdafr:1006"
-msgstr ""
+msgstr "drie keer per maand"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:239
 msgid "rdafr:1002"
-msgstr ""
+msgstr "drie keer per week"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:243
 msgid "rdafr:1011"
-msgstr ""
+msgstr "drie keer per jaar"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:247
 msgid "rdafr:1015"
-msgstr ""
+msgstr "eens per drie jaar"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:251
 msgid "rdafr:1004"
-msgstr ""
+msgstr "wekelijks"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:260
 msgid "The expected date for the next issue"
