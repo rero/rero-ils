@@ -30,6 +30,7 @@ from ..item_types.api import ItemTypesSearch
 from ..libraries.api import LibrariesSearch, Library
 from ..minters import id_minter
 from ..providers import Provider
+from ..vendors.api import Vendor, VendorsSearch
 
 current_organisation = LocalProxy(
     lambda: Organisation.get_record_by_user(current_user))
@@ -153,6 +154,20 @@ class Organisation(IlsRecord):
         pids = self.get_libraries_pids()
         for pid in pids:
             yield Library.get_record_by_pid(pid)
+
+    def get_vendor_pids(self):
+        """Get all vendor pids related to the organisation."""
+        results = VendorsSearch().source(['pid'])\
+            .filter('term', organisation__pid=self.pid)\
+            .scan()
+        for result in results:
+            yield result.pid
+
+    def get_vendors(self):
+        """Get all vendors related to the organisation."""
+        pids = self.get_vendor_pids()
+        for pid in pids:
+            yield Vendor.get_record_by_pid(pid)
 
     def get_number_of_libraries(self):
         """Get number of libraries."""

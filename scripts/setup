@@ -379,6 +379,13 @@ eval ${PREFIX} invenio utils runindex --raise-on-error
 eval ${PREFIX} invenio utils reindex -t pers --yes-i-know --no-info
 eval ${PREFIX} invenio utils runindex --raise-on-error
 
+# create vendors
+info_msg "Acquisition vendors: ${DATA_PATH}/vendors.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio fixtures create --pid_type vndr ${DATA_PATH}/vendors.json --append  ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio utils reindex -t vndr --yes-i-know --no-info
+
+eval ${PREFIX} invenio utils runindex --raise-on-error
+
 # create serials patterns
 info_msg "Serials patterns: ${DATA_PATH}/patterns.json"
 eval ${PREFIX} invenio fixtures create_patterns ${DATA_PATH}/patterns.json
@@ -388,11 +395,6 @@ eval ${PREFIX} invenio fixtures create_collections -f ${DATA_PATH}/collections.j
 eval ${PREFIX} invenio utils reindex -t coll --yes-i-know --no-info
 
 # # ACQUISITION
-# create vendors
-info_msg "Acquisition vendors: ${DATA_PATH}/vendors.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio fixtures create --pid_type vndr ${DATA_PATH}/vendors.json --append  ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio utils reindex -t vndr --yes-i-know --no-info
-
 # create library budgets
 info_msg "Library budgets: ${DATA_PATH}/budgets.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type budg ${DATA_PATH}/budgets.json --append  ${CREATE_LAZY} ${DONT_STOP}
