@@ -128,16 +128,25 @@ class PatronTransactionEvent(IlsRecord):
 
     def update_parent_patron_transaction(self):
         """Update parent patron transaction amount and status."""
+        # NOTE :
+        #   due to bit representation of float number
+        #   (https://en.wikipedia.org/wiki/IEEE_754), the arithmetic operation
+        #   with float can cause some strange behavior
+        #     >>> 10 - 9.54
+        #     0.46000000000000085
+        #   To solve this problem in our case, as we keep only 2 decimal
+        #   digits, we can multiply amounts by 100, cast result as integer,
+        #   do operation with these values, and (at the end) divide the result
+        #   by 100.
         patron_transaction = self.patron_transaction()
-        total_amount = patron_transaction.get('total_amount')
+        total_amount = int(patron_transaction.get('total_amount') * 100)
         if self.event_type == 'fee':
-            total_amount = total_amount + self.amount
+            total_amount = total_amount + int(self.amount * 100)
         elif self.event_type in ('payment', 'cancel'):
-            total_amount = total_amount - self.amount
-        patron_transaction['total_amount'] = total_amount
+            total_amount = total_amount - int(self.amount * 100)
+        patron_transaction['total_amount'] = total_amount / 100
         if total_amount == 0:
             patron_transaction['status'] = 'closed'
-
         patron_transaction.update(
             patron_transaction, dbcommit=True, reindex=True)
 

@@ -46,7 +46,7 @@ def test_patron_payment(
     del payment['pid']
     payment['type'] = 'payment'
     payment['subtype'] = 'cash'
-    payment['amount'] = 1.00
+    payment['amount'] = 0.54
     payment['operator'] = {'$ref': get_ref_for_pid(
         'patrons', librarian_martigny_no_email.pid)}
     res, _ = postdata(
@@ -56,13 +56,13 @@ def test_patron_payment(
     )
     assert res.status_code == 201
     transaction = PatronTransaction.get_record_by_pid(transaction.pid)
-    assert transaction.total_amount == calculated_amount - 1.00
+    assert transaction.total_amount == 1.46
     assert transaction.status == 'open'
 
     # full payment
     payment['type'] = 'payment'
     payment['subtype'] = 'cash'
-    payment['amount'] = transaction.total_amount
+    payment['amount'] = 1.46
     res, _ = postdata(
         client,
         post_entrypoint,
