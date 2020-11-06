@@ -52,87 +52,87 @@
             "type": "selectWithSort",
             "options": [
               {
-                "label": "Audio issue number",
+                "label": "bf:AudioIssueNumber",
                 "value": "bf:AudioIssueNumber"
               },
               {
-                "label": "DOI",
+                "label": "bf:Doi",
                 "value": "bf:Doi"
               },
               {
-                "label": "EAN",
+                "label": "bf:Ean",
                 "value": "bf:Ean"
               },
               {
-                "label": "GTIN 14",
+                "label": "bf:Gtin14Number",
                 "value": "bf:Gtin14Number"
               },
               {
-                "label": "Identifier",
+                "label": "bf:Identifier",
                 "value": "bf:Identifier"
               },
               {
-                "label": "ISAN",
+                "label": "bf:Isan",
                 "value": "bf:Isan"
               },
               {
-                "label": "ISBN",
+                "label": "bf:Isbn",
                 "value": "bf:Isbn"
               },
               {
-                "label": "ISMN",
+                "label": "bf:Ismn",
                 "value": "bf:Ismn"
               },
               {
-                "label": "ISRC",
+                "label": "bf:Isrc",
                 "value": "bf:Isrc"
               },
               {
-                "label": "ISSN",
+                "label": "bf:Issn",
                 "value": "bf:Issn"
               },
               {
-                "label": "ISSN-L",
+                "label": "bf:IssnL",
                 "value": "bf:IssnL"
               },
               {
-                "label": "Local",
+                "label": "bf:Local",
                 "value": "bf:Local"
               },
               {
-                "label": "Matrix number",
+                "label": "bf:MatrixNumber",
                 "value": "bf:MatrixNumber"
               },
               {
-                "label": "Music distributor number",
+                "label": "bf:MusicDistributorNumber",
                 "value": "bf:MusicDistributorNumber"
               },
               {
-                "label": "Music plate",
+                "label": "bf:MusicPlate",
                 "value": "bf:MusicPlate"
               },
               {
-                "label": "Music publisher number",
+                "label": "bf:MusicPublisherNumber",
                 "value": "bf:MusicPublisherNumber"
               },
               {
-                "label": "Publisher number",
+                "label": "bf:PublisherNumber",
                 "value": "bf:PublisherNumber"
               },
               {
-                "label": "UPC",
+                "label": "bf:Upc",
                 "value": "bf:Upc"
               },
               {
-                "label": "URN",
+                "label": "bf:Urn",
                 "value": "bf:Urn"
               },
               {
-                "label": "Video recording number",
+                "label": "bf:VideoRecordingNumber",
                 "value": "bf:VideoRecordingNumber"
               },
               {
-                "label": "URI",
+                "label": "uri",
                 "value": "uri"
               }
             ],

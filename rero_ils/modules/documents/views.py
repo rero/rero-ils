@@ -306,12 +306,23 @@ def identifiedby_format(identifiedby):
     """Format identifiedby for template."""
     output = []
     for identifier in identifiedby:
-        status = identifier.get('status')
+        details = []
+        # Replace bf:Local by source
         id_type = identifier.get('type')
-        if (not status or status == 'valid') and id_type != 'bf:Local':
-            if id_type.find(':') != -1:
-                id_type = id_type.split(':')[1]
-            output.append({'type': id_type, 'value': identifier.get('value')})
+        if id_type == 'bf:Local':
+            id_type = identifier.get('source')
+        # Format qualifier, status and note
+        if identifier.get('qualifier'):
+            details.append(identifier.get('qualifier'))
+        if identifier.get('status'):
+            details.append(identifier.get('status'))
+        if identifier.get('note'):
+            details.append(identifier.get('note'))
+        output.append({
+            'type': id_type,
+            'value': identifier.get('value'),
+            'details': ', '.join(details)
+        })
     return output
 
 
