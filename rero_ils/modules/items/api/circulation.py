@@ -1251,7 +1251,7 @@ class ItemCirculation(IlsRecord):
         """Get availability for item."""
         return self.item_has_active_loan_or_request() == 0
 
-    def get_item_end_date(self, format='short'):
+    def get_item_end_date(self, format='short', time_format='medium'):
         """Get item due date for a given item."""
         loan = get_loan_for_item(item_pid_to_object(self.pid))
         if loan:
@@ -1259,7 +1259,7 @@ class ItemCirculation(IlsRecord):
             due_date = format_date_filter(
                 end_date,
                 date_format=format,
-                time_format=None,
+                time_format=time_format,
                 locale=current_i18n.locale.language,
             )
             return due_date

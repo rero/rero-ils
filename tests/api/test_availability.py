@@ -337,7 +337,7 @@ def test_item_holding_document_availability(
         'rero_ils.modules.items.api.circulation.current_i18n',
         current_i18n
     ):
-        end_date = item.get_item_end_date()
+        end_date = item.get_item_end_date(time_format=None)
         assert item_availability_text(item) == 'due until ' + end_date
 
     """

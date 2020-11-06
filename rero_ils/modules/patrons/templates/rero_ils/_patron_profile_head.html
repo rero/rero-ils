@@ -20,16 +20,7 @@
   <div class="rero-ils-person-icon col-sm-2 col-lg-1">
     <i class="fa fa-user fa-5x"></i>
   </div>
-  <hgroup class="col-sm-10 col-lg-11 align-self-end">
+  <hgroup class="col-sm-10 col-lg-11 align-self-center">
     <h1 class="mb-0">{{ record.first_name }} {{ record.last_name }}</h1>
-    {% if record.birth_date %}
-      <p>
-        <b>{{ _('Date of birth') }}:</b> {{ record.birth_date | format_date(
-          date_format='medium',
-          time_format=None,
-          locale=current_i18n.locale.language
-        )}}
-      </p>
-    {% endif %}
   </hgroup>
 </header>
