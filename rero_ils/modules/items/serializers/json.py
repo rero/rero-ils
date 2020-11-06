@@ -24,6 +24,7 @@ from rero_ils.modules.item_types.api import ItemType
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.locations.api import Location
 from rero_ils.modules.serializers import JSONSerializer
+from rero_ils.modules.vendors.api import Vendor
 
 
 class ItemsJSONSerializer(JSONSerializer):
@@ -58,11 +59,17 @@ class ItemsJSONSerializer(JSONSerializer):
             loc = Location.get_record_by_pid(loc_term.get('key'))
             loc_term['name'] = loc.get('name')
 
-        # Add library name
+        # Add item type name
         for item_type_term in results.get('aggregations', {}).get(
                 'item_type', {}).get('buckets', []):
             item_type = ItemType.get_record_by_pid(item_type_term.get('key'))
             item_type_term['name'] = item_type.get('name')
+
+        # Add vendor name
+        for vendor_term in results.get('aggregations', {}).get(
+                'vendor', {}).get('buckets', []):
+            vendor = Vendor.get_record_by_pid(vendor_term.get('key'))
+            vendor_term['name'] = vendor.get('name')
 
         return super(
             ItemsJSONSerializer, self).post_process_serialize_search(

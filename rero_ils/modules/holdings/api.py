@@ -45,6 +45,7 @@ from ..organisations.api import Organisation
 from ..providers import Provider
 from ..utils import extracted_data_from_ref, get_ref_for_pid, \
     get_schema_for_resource
+from ..vendors.api import Vendor
 
 # holing provider
 HoldingProvider = type(
@@ -224,6 +225,33 @@ class Holding(IlsRecord):
         for item_pid in Item.get_items_pid_by_holding_pid(self.pid):
             items.append(Item.get_record_by_pid(item_pid))
         return Holding.isAvailable(items)
+
+    @property
+    def max_number_of_claims(self):
+        """Shortcut to return the max_number_of_claims."""
+        return self.get('patterns', {}).get('max_number_of_claims')
+
+    @property
+    def days_before_first_claim(self):
+        """Shortcut to return the days_before_first_claim."""
+        return self.get('patterns', {}).get('days_before_first_claim')
+
+    @property
+    def days_before_next_claim(self):
+        """Shortcut to return the days_before_next_claim."""
+        return self.get('patterns', {}).get('days_before_next_claim')
+
+    @property
+    def vendor_pid(self):
+        """Shortcut for vendor pid of the holding."""
+        return self.replace_refs().get('vendor', {}).get('pid')
+
+    @property
+    def vendor(self):
+        """Shortcut to return the vendor record."""
+        if self.vendor_pid:
+            return Vendor.get_record_by_pid(self.vendor_pid)
+        return None
 
     @property
     def notes(self):

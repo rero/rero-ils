@@ -32,11 +32,11 @@ from invenio_pidstore.errors import PersistentIdentifierError
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_search import current_search
 
+from .record import ItemRecord
 from ..decorators import add_action_parameters_and_flush_indexes, \
     check_operation_allowed
 from ..models import ItemCirculationAction, ItemStatus
 from ..utils import item_pid_to_object
-from ...api import IlsRecord
 from ...circ_policies.api import CircPolicy
 from ...documents.api import Document
 from ...errors import NoCirculationAction
@@ -48,7 +48,7 @@ from ...patrons.api import Patron
 from ....filter import format_date_filter
 
 
-class ItemCirculation(IlsRecord):
+class ItemCirculation(ItemRecord):
     """Item circulation class."""
 
     statuses = {

@@ -38,6 +38,7 @@ from invenio_circulation.transitions.transitions import CreatedToPending, \
     ItemOnLoanToItemInTransitHouse, ItemOnLoanToItemOnLoan, \
     ItemOnLoanToItemReturned, PendingToItemAtDesk, \
     PendingToItemInTransitPickup, ToCancelled, ToItemOnLoan
+from invenio_records_rest.facets import terms_filter
 
 from .modules.acq_accounts.api import AcqAccount
 from .modules.acq_accounts.permissions import AcqAccountPermission
@@ -62,7 +63,7 @@ from .modules.ill_requests.permissions import ILLRequestPermission
 from .modules.item_types.api import ItemType
 from .modules.item_types.permissions import ItemTypePermission
 from .modules.items.api import Item
-from .modules.items.models import ItemCirculationAction
+from .modules.items.models import ItemCirculationAction, ItemIssueStatus
 from .modules.items.permissions import ItemPermission
 from .modules.items.utils import item_location_retriever
 from .modules.libraries.api import Library
@@ -296,6 +297,12 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(minute="*/5"),
         'enabled': False
         # TODO: in production set this up once a day
+    },
+    'claims-creation': {
+        'task': ('rero_ils.modules.items.tasks'
+                 '.process_late_claimed_issues'),
+        'schedule': crontab(minute=0, hour=6),  # Every day at 06:00 UTC,
+        'enabled': False
     },
     'clear_and_renew_subscriptions': {
         'task':
@@ -1583,14 +1590,29 @@ RECORDS_REST_FACETS = dict(
                 terms=dict(
                     field='status',
                     size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+            ),
+            issue_status=dict(
+                terms=dict(
+                    field='issue.status',
+                    size=RERO_ILS_DEFAULT_AGGREGATION_SIZE,
+                    include=[ItemIssueStatus.LATE, ItemIssueStatus.CLAIMED])
+            ),
+            vendor=dict(
+                terms=dict(
+                    field='vendor.pid',
+                    size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)
             )
         ),
         filters={
             _('location'): and_term_filter('location.pid'),
             _('library'): and_term_filter('library.pid'),
             _('item_type'): and_term_filter('item_type.pid'),
-            _('status'): and_term_filter('status')
-        },
+            _('vendor'): and_term_filter('vendor.pid'),
+            _('issue_status'): and_term_filter('issue.status'),
+            # to allow multiple filters support, in this case to filter by
+            # "late or claimed"
+            'or_issue_status': terms_filter('issue.status')
+        }
     ),
     patrons=dict(
         aggs=dict(
