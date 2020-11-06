@@ -101,6 +101,9 @@
           },
           "status_date": {
             "type": "date"
+          },
+          "claims_count": {
+            "type": "integer"
           }
         }
       },
@@ -133,6 +136,13 @@
       },
       "acquisition_date": {
         "type": "date"
+      },
+      "vendor": {
+        "properties": {
+          "pid": {
+            "type": "keyword"
+          }
+        }
       },
       "_created": {
         "type": "date"

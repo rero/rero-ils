@@ -224,6 +224,9 @@
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/loc1"
     },
+    "vendor": {
+      "$ref": "https://ils.rero.ch/api/vendors/vndr1"
+    },
     "holdings_type": "serial",
     "enumerationAndChronology": "enumerationAndChronology",
     "supplementaryContent": "supplementaryContent",
@@ -239,7 +242,7 @@
       "template": "no {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1010",
       "next_expected_date": "2020-03-01",
-      "max_number_of_claims": 3,
+      "max_number_of_claims": 2,
       "days_before_first_claim": 7,
       "days_before_next_claim": 7,
       "values": [

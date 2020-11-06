@@ -316,59 +316,5 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/3"
     }
-  },
-  {
-    "pid": "19",
-    "name": "Flourish and Blotts Bookseller",
-    "website": "http://www.flourishandblotts.com",
-    "communication_language": "eng",
-    "default_contact": {
-      "city": "London",
-      "email": "reroilstest+vendor7@gmail.com",
-      "phone": "+448444825000",
-      "street": "Diagon Alley",
-      "country": "UK"
-    },
-    "currency": "EUR",
-    "vat_rate": 20,
-    "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
-    }
-  },
-  {
-    "pid": "20",
-    "name": "Flourish and Blotts Bookseller",
-    "website": "http://www.flourishandblotts.com",
-    "communication_language": "eng",
-    "default_contact": {
-      "city": "London",
-      "email": "reroilstest+vendor7@gmail.com",
-      "phone": "+448444825000",
-      "street": "Diagon Alley",
-      "country": "UK"
-    },
-    "currency": "EUR",
-    "vat_rate": 20,
-    "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/2"
-    }
-  },
-  {
-    "pid": "21",
-    "name": "Flourish and Blotts Bookseller",
-    "website": "http://www.flourishandblotts.com",
-    "communication_language": "eng",
-    "default_contact": {
-      "city": "London",
-      "email": "reroilstest+vendor7@gmail.com",
-      "phone": "+448444825000",
-      "street": "Diagon Alley",
-      "country": "UK"
-    },
-    "currency": "EUR",
-    "vat_rate": 20,
-    "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
-    }
   }
 ]

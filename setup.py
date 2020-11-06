@@ -298,6 +298,7 @@ setup(
             'notifications = rero_ils.modules.notifications.tasks',
             'patrons = rero_ils.modules.patrons.tasks',
             'rero_ils_collections = rero_ils.modules.collections.tasks',
+            'claims = rero_ils.modules.items.tasks',
         ],
         'invenio_records.jsonresolver': [
             'acq_accounts = rero_ils.modules.acq_accounts.jsonresolver',

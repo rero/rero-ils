@@ -21,6 +21,7 @@ from __future__ import absolute_import, print_function
 
 import json
 import random
+from datetime import datetime, timedelta, timezone
 
 import click
 from flask.cli import with_appcontext
@@ -28,6 +29,9 @@ from flask.cli import with_appcontext
 from ..documents.api import Document, DocumentsSearch
 from ..holdings.api import Holding, create_holding
 from ..item_types.api import ItemTypesSearch
+from ..items.api import Item
+from ..items.models import ItemIssueStatus
+from ..items.tasks import process_late_claimed_issues
 from ..locations.api import LocationsSearch
 from ..organisations.api import Organisation
 from ..utils import read_json_record
@@ -76,7 +80,8 @@ def get_random_vendor(org_pid):
     """Return random vendor for an organisation pid."""
     org = Organisation.get_record_by_pid(org_pid)
     vendors = [vendor.pid for vendor in org.get_vendors()]
-    return next(iter(random.choices(vendors) or []), None)
+    if vendors:
+        return next(iter(random.choices(vendors) or []), None)
 
 
 def create_issues_from_holding(holding, min=3, max=9):
@@ -168,3 +173,13 @@ def create_patterns(infile, verbose, debug, lazy):
                     document=document_pid
                 ))
         record_index = record_index + 1
+    # create some late issues.
+    process_late_claimed_issues(dbcommit=True, reindex=True)
+    # make late issues ready for a claim
+    for item in Item.get_issues_by_status(issue_status=ItemIssueStatus.LATE):
+        holding = Holding.get_record_by_pid(item.holding_pid)
+        item['issue']['status_date'] = \
+            (datetime.now(timezone.utc) - timedelta(days=8)).isoformat()
+        item.update(item, dbcommit=True, reindex=True)
+    # create claims
+    process_late_claimed_issues(dbcommit=True, reindex=True)

@@ -244,6 +244,12 @@
               "hide"
             ]
           }
+        },
+        "claims_count": {
+          "title": "Issue claims count",
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
         }
       },
       "form": {

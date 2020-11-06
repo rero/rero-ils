@@ -67,6 +67,19 @@ class Vendor(IlsRecord):
         }
     }
 
+    @property
+    def order_email(self):
+        """Shortcut for vendor order email.
+
+        if the order email does not exist, it returns the default contact email
+        """
+        vendor = self.replace_refs()
+        if vendor:
+            return vendor.get(
+                'order_contact', vendor.get(
+                    'default_contact', {})).get('email')
+        return None
+
     def get_number_of_acq_orders(self):
         """Get number of acquisition orders."""
         return AcqOrdersSearch().filter(
