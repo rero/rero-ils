@@ -1259,6 +1259,7 @@ class ItemCirculation(IlsRecord):
             due_date = format_date_filter(
                 end_date,
                 date_format=format,
+                time_format=None,
                 locale=current_i18n.locale.language,
             )
             return due_date
