@@ -512,35 +512,35 @@
               ],
               "options": [
                 {
-                  "label": "general note",
+                  "label": "general_note",
                   "value": "general_note"
                 },
                 {
-                  "label": "staff note",
+                  "label": "staff_note",
                   "value": "staff_note"
                 },
                 {
-                  "label": "conservation note",
+                  "label": "conservation_note",
                   "value": "conservation_note"
                 },
                 {
-                  "label": "reception note",
+                  "label": "reception_note",
                   "value": "reception_note"
                 },
                 {
-                  "label": "claim note",
+                  "label": "claim_note",
                   "value": "claim_note"
                 },
                 {
-                  "label": "routing note",
+                  "label": "routing_note",
                   "value": "routing_note"
                 },
                 {
-                  "label": "binding note",
+                  "label": "binding_note",
                   "value": "binding_note"
                 },
                 {
-                  "label": "acquisition note",
+                  "label": "acquisition_note",
                   "value": "acquisition_note"
                 }
               ],
