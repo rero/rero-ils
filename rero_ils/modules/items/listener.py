@@ -42,3 +42,8 @@ def enrich_item_data(sender, json=None, record=None, index=None,
             'pid': lib_pid
         }
         json['available'] = item.available
+        # add vendor name
+        if item.vendor_pid:
+            json['vendor'] = {
+                'pid': item.vendor_pid
+            }

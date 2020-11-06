@@ -36,58 +36,31 @@ def test_required(item_schema, item_lib_martigny_data_tmp):
         validate({}, item_schema)
 
 
-def test_pid(item_schema, item_lib_martigny_data_tmp):
-    """Test pid for item jsonschemas."""
-    validate(item_lib_martigny_data_tmp, item_schema)
-
-    with pytest.raises(ValidationError):
-        item_lib_martigny_data_tmp['pid'] = 25
-        validate(item_lib_martigny_data_tmp, item_schema)
-
-
-def test_type(item_schema, item_lib_martigny_data_tmp):
-    """Test type for item jsonschemas."""
-    validate(item_lib_martigny_data_tmp, item_schema)
-
-    with pytest.raises(ValidationError):
-        item_lib_martigny_data_tmp['type'] = 25
-        validate(item_lib_martigny_data_tmp, item_schema)
-
-
-def test_barcode(item_schema, item_lib_martigny_data_tmp):
-    """Test barcode for item jsonschemas."""
-    validate(item_lib_martigny_data_tmp, item_schema)
-
-    with pytest.raises(ValidationError):
-        item_lib_martigny_data_tmp['barcode'] = 2
-        validate(item_lib_martigny_data_tmp, item_schema)
-
-
-def test_call_number(item_schema, item_lib_martigny_data_tmp):
-    """Test call_number for item jsonschemas."""
-    validate(item_lib_martigny_data_tmp, item_schema)
-
-    with pytest.raises(ValidationError):
-        item_lib_martigny_data_tmp['callNumber'] = 25
-        validate(item_lib_martigny_data_tmp, item_schema)
-
-
-def test_location(item_schema, item_lib_martigny_data_tmp):
-    """Test location for item jsonschemas."""
-    validate(item_lib_martigny_data_tmp, item_schema)
-
-    with pytest.raises(ValidationError):
-        item_lib_martigny_data_tmp['location'] = 25
-        validate(item_lib_martigny_data_tmp, item_schema)
-
-
-def test_item_type(item_schema, item_lib_martigny_data_tmp):
-    """Test location for item jsonschemas."""
-    validate(item_lib_martigny_data_tmp, item_schema)
-
-    with pytest.raises(ValidationError):
-        item_lib_martigny_data_tmp['item_type_pid'] = 25
-        validate(item_lib_martigny_data_tmp, item_schema)
+def test_item_all_jsonschema_keys_values(
+        item_schema, item_lib_martigny_data_tmp):
+    """Test all keys and values for item jsonschema."""
+    record = item_lib_martigny_data_tmp
+    validate(record, item_schema)
+    validator = [
+        {'key': 'pid', 'value': 25},
+        {'key': 'type', 'value': 25},
+        {'key': 'barcode', 'value': 25},
+        {'key': 'call_number', 'value': 25},
+        {'key': 'second_call_number', 'value': 25},
+        {'key': 'item_type', 'value': 25},
+        {'key': 'location', 'value': 25},
+        {'key': 'enumerationAndChronology', 'value': 25},
+        {'key': 'document', 'value': 25},
+        {'key': 'type', 'value': 25},
+        {'key': 'issue', 'value': 25},
+        {'key': 'status', 'value': 25},
+        {'key': 'holding', 'value': 25},
+        {'key': 'organisation', 'value': 25}
+    ]
+    for element in validator:
+        with pytest.raises(ValidationError):
+            record[element['key']] = element['value']
+            validate(record, item_schema)
 
 
 def test_item_notes(item_schema, item_lib_martigny_data_tmp):

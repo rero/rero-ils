@@ -74,7 +74,7 @@
   </a>
   {%- endif %}
   {%- for holding in holdings %}
-  {% set items = holding.get_items %}
+  {% set items = holding.get_items | sort(attribute='enumerationAndChronology', reverse=True) %}
   {% set number_items = holding.get_items_count_by_holding_pid %}
   {% if record.harvested or number_items >= 0 %}
   <!-- Card header -->

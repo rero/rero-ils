@@ -669,7 +669,8 @@ def holding_lib_martigny_w_patterns_data(holdings):
 @pytest.fixture(scope="module")
 def holding_lib_martigny_w_patterns(
     app, journal, holding_lib_martigny_w_patterns_data,
-        loc_public_martigny, item_type_standard_martigny):
+        loc_public_martigny, item_type_standard_martigny,
+        vendor_martigny):
     """Create holding of martigny library with patterns."""
     holding = Holding.create(
         data=holding_lib_martigny_w_patterns_data,

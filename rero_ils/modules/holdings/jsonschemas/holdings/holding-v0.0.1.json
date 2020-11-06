@@ -18,6 +18,7 @@
     "circulation_category",
     "location",
     "holdings_type",
+    "vendor",
     "enumerationAndChronology",
     "supplementaryContent",
     "index",
@@ -142,6 +143,9 @@
         "frequency"
       ],
       "propertiesOrder": [
+        "max_number_of_claims",
+        "days_before_first_claim",
+        "days_before_next_claim",
         "template",
         "frequency",
         "next_expected_date",
@@ -449,11 +453,19 @@
     "vendor": {
       "title": "Vendor",
       "type": "object",
+      "required": [
+        "$ref"
+      ],
       "properties": {
         "$ref": {
           "title": "Vendor URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/vendors/.*?$"
+          "pattern": "^https://ils.rero.ch/api/vendors/.*?$",
+          "form": {
+            "remoteOptions": {
+              "type": "vendors"
+            }
+          }
         }
       }
     },
