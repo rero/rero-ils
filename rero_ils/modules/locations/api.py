@@ -163,7 +163,7 @@ class Location(IlsRecord):
         :return a tuple with True|False and reasons to disallow if False.
         """
         if item and not item.get_location().get('allow_request', False):
-            return False, ["Item location disallows request."]
+            return False, [_('Item location disallows request.')]
         return True, []
 
     def transaction_location_validator(self, location_pid):
