@@ -115,7 +115,10 @@
         {% else %}
         {{ identifier.value }}
         {% endif %}
-        <small class="badge badge-secondary text-uppercase">{{ identifier.type }}</small>
+        {% if identifier.details != '' %}
+         - {{ identifier.details }}
+        {% endif %}
+        <small class="badge badge-secondary text-uppercase">{{ _(identifier.type)|safe }}</small>
       </li>
       {% endfor %}
     </ul>

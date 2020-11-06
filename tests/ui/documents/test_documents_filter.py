@@ -125,9 +125,13 @@ def test_identifiedby_format():
             'source': 'RERO',
             'value': 'R008745599'
         }, {
+            'note':	'Lorem ipsun dolor',
+            'qualifier': 'Qualifier',
+            'status': 'cancelled',
             'type': 'bf:Isbn',
             'value': '9782844267788'
         }, {
+            'note':	'Lorem ipsun dolor',
             'type': 'bf:Local',
             'source': 'BNF',
             'value': 'FRBNF452959040000002'
@@ -138,10 +142,25 @@ def test_identifiedby_format():
     ]
     results = [
         {
-            'type': 'Isbn', 'value': '9782844267788'},
+            'details': '',
+            'type': 'RERO',
+            'value': 'R008745599'
+        },
         {
+            'details': 'Qualifier, cancelled, Lorem ipsun dolor',
+            'type': 'bf:Isbn',
+            'value': '9782844267788'
+        },
+        {
+            'details': 'Lorem ipsun dolor',
+            'type': 'BNF',
+            'value': 'FRBNF452959040000002'
+        },
+        {
+            'details': '',
             'type': 'uri',
-            'value': 'http://catalogue.bnf.fr/ark:/12148/cb45295904f'}
+            'value': 'http://catalogue.bnf.fr/ark:/12148/cb45295904f'
+        }
     ]
     assert results == identifiedby_format(identifiedby)
 
