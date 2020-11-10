@@ -18,6 +18,278 @@
 Release notes
 =============
 
+v0.14.0
+-------
+
+This release note includes the changes of the ``rero-ils-ui`` project
+[`link`_] .
+
+User interface
+~~~~~~~~~~~~~~
+
+-  Displays the qualifier, status and note of the identifier in the
+   document detailed view.
+-  Translates the identifier types.
+-  Displays in the patron account history, both professional and public
+   interface, the item on loans that are in transit to house.
+
+Professional interface
+^^^^^^^^^^^^^^^^^^^^^^
+
+-  Displays the new item note categories (see the `metadata`_ section),
+   with an icon to identify public note.
+-  Orders the requests in the modal to edit the request queue on an item
+   by creation date.
+-  Updates the patron type detailed view to display the circulation
+   restrictions (see `circulation`_ section).
+-  Updates the message displayed to the librarian when a patron is
+   blocked.
+-  Adds counters on the patron account tabs title of the professional
+   interface.
+-  Limits the payment account to 2 decimals in the transaction payment
+   form (fee tab of the patron account of the circulation module).
+
+Circulation
+~~~~~~~~~~~
+
+-  Fixes the loan API to include the correct action name ``extend``
+   instead of ``extend_loan`` when a loan is renewed.
+-  Fixes the cancellation of a request when there are several requests
+   on the item.
+-  Sort loan API response by loan creation date.
+-  Implements circulation restrictions:
+
+   -  Adds a limit on the total number of checkouts. Once the limit is
+      reached, checkouts for this patron is blocked.
+   -  Adds a limit depending the total amount of fees for a patron.
+   -  Adds a limit on the number of overdue items. The limit is set in
+      the ``patron_type`` record. Once the limit is reached, the patron
+      cannot check out any items.
+
+-  Rewrites the blocked patron restrictions to adapt to the new
+   implemented restrictions.
+-  Hides circulation actions in the public interface, either in document
+   detailed view or in the patron account when the patron cannot operate
+   these actions. The *renew* button is always displayed, but disabled
+   when the action is not possible and an explanation is added in a
+   tooltip.
+-  Fixes a bug when checking in ``on_shelf`` or ``in_transit`` item
+   (with no loan) that did not receive the correct item status.
+-  Removes the time from the due date of a checked out item on the
+   document detailed view of the public interface.
+-  Fixes a bug with paid fees. In the patron account of the circulation
+   module (professional interface), some paid fees still appeared, due
+   to arithmetic operation (10 - 9,54 = 0.460000000000085).
+-  Displays the pickup location name instead of the location name in the
+   *to pickup* tab of the circulation module.
+-  Updates circulation HTML template after the ``v0.13.0`` release to
+   fix Cypress tests.
+-  Allows librarians to cancel requests on item with *at desk* status.
+   The ``cancel_request`` permissions had to be updated. A flash message
+   warns the librarian about the item status. The item detailed view is
+   updated after the request cancellation.
+-  Adapts the patron name link, in the circulation module, to the
+   context: in the checkin mode, the link points to the patron account
+   of the circulation module, but in the patron account of the
+   circulation module, it points to the patron detailed view of the
+   professional interface.
+-  Adds the patron age to the patron birth date in the patron account of
+   the circulation module, to quicker identify children.
+-  Allows the librarians to sort the checked out item of the patron
+   account of the professional interface.
+-  Improves the patron search of the circulation module to allow
+   searching by barcode or patron name. A warning is displayed if the
+   system found more than one result. The first result is displayed in
+   the circulation module.
+
+Metadata
+~~~~~~~~
+
+-  Makes the ``cantons`` field conditional of the ``sz`` (Switzerland)
+   value of the ``county`` field.
+-  Adds the following note categories to the item JSON schema:
+
+   -  *binding note*.
+   -  *provenance note.*
+   -  *patrimonial note*.
+   -  *acquisition note*.
+
+-  Renames the *public note* to *general note*.
+-  Adds the ``enumerationAndChronology`` filed to all type of items
+   (issue and others).
+-  Sorts the contribution roles in the document editor (with
+   ``selectWithSort`` form option).
+-  Improves the email validation message in several resources JSON
+   schema.
+-  Renames person module into contribution module.
+-  Makes the holdings `vendor` field optional. It should not be required.
+
+Acquisitions
+~~~~~~~~~~~~
+
+-  Adds a complete list of serial pattern templates, that are the most
+   used patterns. These templates are now available to all librarians of
+   all organisations.
+-  Allows to use the expected date of a serial issue in the serial
+   pattern template. This leverage the setting of the enumeration and
+   chronology of the issue.
+-  Improves the serial pattern preview. The number of HTTP calls have
+   been reduced.
+-  Displays late and claimed serial issues in the professional interface
+   and in the public interface.
+
+User management
+~~~~~~~~~~~~~~~
+
+-  Allows users without email. When a user without email attempt to
+   reset his or her password, a warning message propose to contact a
+   librarian.
+-  Allows the librarian to change a patron password, with a button in
+   the patron information of the patron account of the circulation
+   module. The patron editor can be opened directly from the circulation
+   module.
+-  Displays the patron role in the circulation module and in the patron
+   detailed view.
+-  Allows users to give a second email for notification only, thus
+   allowing a child to give its parent email.
+-  Fixes a subscription renewal issue preventing to add to patron a
+   subscription when they already have a valid one.
+-  Requires an email for a user with librarian or system librarian role
+   in the user editor.
+-  Sets a default expiration date value to now + 3 years.
+
+Permissions
+~~~~~~~~~~~
+
+-  Grants to the system librarian all the librarian rights.
+
+API
+~~~
+
+-  Adds a configuration option to sort the API response by the record
+   creation date.
+-  Optimizes the number of API calls when requesting permissions from
+   the professional interface.
+-  Adds an ``invenio-account`` API to change a user password.
+
+Tests
+~~~~~
+
+-  Cypress tests:
+
+   -  Adds tests for resource template and template usage.
+   -  Adds tests for the collections.
+   -  Adds template fixtures.
+   -  Adds cookie preservation to keep authentication information
+      between tests.
+   -  Adds a ``goToMenu`` command to Cypress to ease navigating the
+      application.
+   -  Adds tests for login and logout.
+   -  Uses API calls to login and logout.
+   -  Replaces UI actions by API calls in order to speed up the tests.
+   -  Replaces UI navigation by ``cy.visit`` when relevant.
+   -  Adds a method to get the current date and hour in order to use it
+      in the API requests.
+   -  Adds a method to create a document and an item with API calls.
+
+Instance
+~~~~~~~~
+
+-  Fixes ``poetry`` version to ``<1.1.0``.
+
+Issues
+~~~~~~
+
+-  `#918`_: Identifier type are not translated in the document detailed
+   view.
+-  `#1220`_: A method to keep authentication information for Cypress
+   tests is needed.
+-  `#1231`_: Selector with multiple choice are not alphabetically
+   sorted.
+-  `#1256`_: After a renewal, the new due date is not displayed in the
+   professional view.
+-  `#1278`_: The tab titles of the patron account of the professional
+   interface should display a count of the items of the list.
+-  `#1281`_: *Fees* is not translated in the patron account of the
+   professional interface.
+-  `#1285`_: The *canton* selector, in the document editor, should
+   appear only if *Switzerland* is selected in the *country* selector.
+-  `#1293`_: It’s not possible to cancel a request on an item with the
+   *at desk* status.
+-  `#1300`_: Display the pickup location name instead of the location
+   name in the circulation module.
+-  `#1303`_: Cannot delete a request of an item with multiple requests.
+-  `#1314`_: Requests in the modal to edit the request queue are not
+   ordered by creation date.
+-  `#1317`_: The patron subscription renewal task raise issues in
+   Sentry, because the ``get_patrons_without_subscriptions`` has a bug.
+-  `#1334`_: The `circulation action`_ ``CHECKIN_1_1_2`` does not work
+   as expected.
+-  `#1340`_: A system librarian without the librarian role doesn’t have
+   all librarian rights, resulting in bugs.
+-  `#1355`_: The authors should be displayed in the requests (pending
+   and at desk) of the patron account of the professional interface.
+-  `#1356`_: Rename the request status *ready* into *to pick up* in the
+   patron account of the public interface.
+-  `#1357`_: Display the *renew* button in the patron account of the
+   public interface, even if the action is disabled, and add
+   explanations in the tooltip.
+-  `#1360`_: The loan in transit to house are not displayed in the
+   patron history (professional and public interface).
+-  `#1364`_: Search by patron name in the checkin/checkout form
+   (circulation module).
+-  `#1373`_: In the patron account of the professional interface, some
+   paid fees still appear.
+-  `#1378`_: In the checkin form of the circulation module, the patron
+   information should contain a different link depending if the module
+   is in checkin or checkout mode, and display the age of the patron to
+   identify children quicker.
+-  `#1381`_: Email without full domain name can be saved in the patron
+   and vendor editor.
+-  `#1382`_: In the patron editor (JSON schema), the description of the
+   ``street`` field should not ask for a coma.
+-  `#1385`_: Replace *patron barcode* by *patron number* label in the
+   patron account of the public interface.
+-  `#1386`_: Do not display the patron birth date in the upper part of
+   the patron account of the public interface. Instead, display it in
+   the personal data tab, below.
+-  `#1398`_: In the document detailed view of the public interface, when
+   an item is on loan, the due date should not display the ``datetime``.
+-  `#1403`_: The qualifier, status and note of the identifier should be
+   displayed in the document detailed view.
+
+.. _link: https://github.com/rero/rero-ils-ui
+.. _metadata: #metadata
+.. _circulation: #circulation
+.. _#918: https://github.com/rero/rero-ils/issues/918
+.. _#1220: https://github.com/rero/rero-ils/issues/1220
+.. _#1231: https://github.com/rero/rero-ils/issues/1231
+.. _#1256: https://github.com/rero/rero-ils/issues/1256
+.. _#1278: https://github.com/rero/rero-ils/issues/1278
+.. _#1281: https://github.com/rero/rero-ils/issues/1281
+.. _#1285: https://github.com/rero/rero-ils/issues/1285
+.. _#1293: https://github.com/rero/rero-ils/issues/1293
+.. _#1300: https://github.com/rero/rero-ils/issues/1300
+.. _#1303: https://github.com/rero/rero-ils/issues/1303
+.. _#1314: https://github.com/rero/rero-ils/issues/1314
+.. _#1317: https://github.com/rero/rero-ils/issues/1317
+.. _#1334: https://github.com/rero/rero-ils/issues/1334
+.. _circulation action: https://github.com/rero/rero-ils/blob/dev/doc/circulation/actions.md#checkin-form
+.. _#1340: https://github.com/rero/rero-ils/issues/1340
+.. _#1355: https://github.com/rero/rero-ils/issues/1355
+.. _#1356: https://github.com/rero/rero-ils/issues/1356
+.. _#1357: https://github.com/rero/rero-ils/issues/1357
+.. _#1360: https://github.com/rero/rero-ils/issues/1360
+.. _#1364: https://github.com/rero/rero-ils/issues/1364
+.. _#1373: https://github.com/rero/rero-ils/issues/1373
+.. _#1378: https://github.com/rero/rero-ils/issues/1378
+.. _#1381: https://github.com/rero/rero-ils/issues/1381
+.. _#1382: https://github.com/rero/rero-ils/issues/1382
+.. _#1385: https://github.com/rero/rero-ils/issues/1385
+.. _#1386: https://github.com/rero/rero-ils/issues/1386
+.. _#1398: https://github.com/rero/rero-ils/issues/1398
+.. _#1403: https://github.com/rero/rero-ils/issues/1403
+
 v0.13.1
 -------
 
