@@ -342,6 +342,42 @@ def test_patrons_post_put_delete(client, lib_martigny,
     assert res.status_code == 410
 
 
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_patrons_post_without_email(client, lib_martigny,
+                                    patron_type_children_martigny,
+                                    patron_martigny_data_tmp, json_header,
+                                    roles, mailbox):
+    """Test record retrieval."""
+    patron_data = patron_martigny_data_tmp
+
+    pids = Patron.count()
+    assert len(mailbox) == 0
+
+    # Create record / POST
+    del patron_data['pid']
+    del patron_data['email']
+    # patron_data['email'] = 'test_librarian@rero.ch'
+    patron_data['username'] = 'test_patron'
+
+    res, _ = postdata(
+        client,
+        'invenio_records_rest.ptrn_list',
+        patron_data
+    )
+
+    assert res.status_code == 201
+    assert Patron.count() == pids + 1
+    assert len(mailbox) == 0
+
+    # Check that the returned record matches the given data
+    data = get_json(res)
+    # remove dynamic property
+    del data['metadata']['user_id']
+    del data['metadata']['pid']
+    assert data['metadata'] == patron_data
+
+
 def test_patron_secure_api(client, json_header,
                            librarian_martigny_no_email,
                            librarian_sion_no_email):

@@ -42,7 +42,7 @@ def test_document_create(db, document_data_tmp):
     assert fetched_pid.pid_value == '1'
     assert fetched_pid.pid_type == 'doc'
 
-    with pytest.raises(IlsRecordError.PidAlradyUsed):
+    with pytest.raises(IlsRecordError.PidAlreadyUsed):
         new_doc = Document.create(doc)
 
 

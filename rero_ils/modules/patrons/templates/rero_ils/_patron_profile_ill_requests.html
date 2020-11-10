@@ -38,7 +38,7 @@
       <div class="col mr-1 p-2 border rounded">
         <div class="row pl-2 pr-2">
           <div class="col-lg-6">
-            <button class="pl-0 pt-0 btn btn-toogle" type="button" data-target-id="request-{{ request.pid }}">
+            <button class="pl-0 pt-0 btn btn-toogle" type="button" data-target-id="ill-request-{{ request.pid }}">
               <i class="fa fa-caret-right pr-0"></i>
             </button>
             {{ request.document.title }}
@@ -54,7 +54,7 @@
           </div>
         </div>
 
-        <div id="request-{{ request.pid }}" class="mt-1 ng-star-inserted d-none">
+        <div id="ill-request-{{ request.pid }}" class="mt-1 ng-star-inserted d-none">
           <h6 class="mt-2 mb-2 ng-star-inserted">{{ _('Details') }}</h6>
           <section class="col">
             <div class="row">

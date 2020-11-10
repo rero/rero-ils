@@ -270,6 +270,9 @@ class Patron(IlsRecord):
                     password=hash_password(birth_date),
                     profile=dict(), active=True)
                 db.session.add(user)
+            else:
+                if user.email != data.get('email'):
+                    user.email = data.get('email')
             # update all common fields
             for field in cls.profile_fields:
                 # date field need conversion
