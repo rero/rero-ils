@@ -164,6 +164,59 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
     ds.delete_user(user)
 
 
+def test_patron_create_without_email(app, roles, patron_type_children_martigny,
+                                     patron_martigny_data_tmp, mailbox):
+    """Test Patron creation without an email."""
+    del patron_martigny_data_tmp['email']
+
+    # no data has been created
+    mailbox.clear()
+    # assert User.query.count() == 0
+    # assert UserProfile.query.count() == 0
+
+    ptrn = Patron.create(
+        patron_martigny_data_tmp,
+        dbcommit=True,
+        delete_pid=True
+    )
+    user = User.query.filter_by(id=ptrn.get('user_id')).first()
+    assert user
+    assert not user.email
+    assert user == ptrn.user
+    assert user.active
+    assert len(mailbox) == 0
+
+    patron_martigny_data_tmp['email'] = 'test@test.ch'
+    ptrn.replace(
+        data=patron_martigny_data_tmp,
+        dbcommit=True
+    )
+    assert user == ptrn.user
+    assert user.email == patron_martigny_data_tmp['email']
+    assert user.active
+    assert len(mailbox) == 0
+
+    patron_martigny_data_tmp['email'] = 'test@test1.ch'
+    ptrn.replace(
+        data=patron_martigny_data_tmp,
+        dbcommit=True
+    )
+    assert user == ptrn.user
+    assert user.email == patron_martigny_data_tmp['email']
+    assert user.active
+    assert len(mailbox) == 0
+
+    del patron_martigny_data_tmp['email']
+    ptrn.replace(
+        data=patron_martigny_data_tmp,
+        dbcommit=True
+    )
+    assert user == ptrn.user
+    assert not user.email
+    assert user.active
+    assert len(mailbox) == 0
+
+
 def test_patron_organisation_pid(org_martigny, patron_martigny_no_email,
                                  librarian_martigny_no_email):
     """Test organisation pid has been added during the indexing."""

@@ -130,7 +130,7 @@ def test_ilsrecord(app, es_default_index, ils_record, ils_record_2):
         delete_pid=True
     )
     assert record_created_pid.pid == '1'
-    with pytest.raises(IlsRecordError.PidAlradyUsed):
+    with pytest.raises(IlsRecordError.PidAlreadyUsed):
         RecordTest.create(
             data=ils_record,
             dbcommit=True,

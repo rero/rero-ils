@@ -79,6 +79,9 @@
       "pattern": "^.*@.*\\..+$",
       "minLength": 6,
       "form": {
+        "expressionProperties": {
+          "templateOptions.required": "field.parent.model.roles.some(v => (v === 'librarian' || v === 'system_librarian'))"
+        },
         "validation": {
           "validators": {
             "valueAlreadyExists": {
@@ -87,7 +90,7 @@
             }
           },
           "messages": {
-            "patternMessage": "Email should have at least one <code>@</code> and one <code>.</code>.",
+            "patternMessage": "The email is not valid.",
             "alreadyTakenMessage": "This email is already taken."
           }
         }
@@ -270,8 +273,10 @@
           "minLength": 6,
           "form": {
             "hideExpression": "field.parent.model && field.parent.model.communication_channel !== 'email'",
-            "messages": {
-              "patternMessage": "Email should have at least one <code>@</code> and one <code>.</code>."
+            "validation": {
+              "messages": {
+                "patternMessage": "The email is not valid."
+              }
             }
           }
         },
@@ -417,7 +422,7 @@
     },
     "roles": {
       "title": "Role",
-      "description": "Define the roles of the user.",
+      "description": "Define the roles of the user. Please do not remove existing user role, this can have unintended side effects.",
       "type": "array",
       "uniqueItems": true,
       "minItems": 1,

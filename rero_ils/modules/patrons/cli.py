@@ -31,17 +31,19 @@ from invenio_userprofiles.models import UserProfile
 from sqlalchemy.orm.exc import NoResultFound
 from werkzeug.local import LocalProxy
 
-from ..patrons.api import Patron
+from ..patrons.api import Patron, PatronProvider
+from ..providers import append_fixtures_new_identifiers
 
 datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
 
 @click.command('import_users')
+@click.option('-a', '--append', 'append', is_flag=True, default=False)
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
 @click.option('-p', '--password', 'password', default='123456')
 @click.argument('infile', type=click.File('r'))
 @with_appcontext
-def import_users(infile, verbose, password):
+def import_users(infile, append, verbose, password):
     """Import users.
 
     :param verbose: this function will be verbose.
@@ -51,6 +53,7 @@ def import_users(infile, verbose, password):
     click.secho('Import users:', fg='green')
 
     data = json.load(infile)
+    pids = []
     for patron_data in data:
         email = patron_data.get('email')
         password = patron_data.get('password', password)
@@ -79,6 +82,7 @@ def import_users(infile, verbose, password):
         # patron creation
         patron = Patron.create(
             patron_data,
+            # delete_pid=True,
             dbcommit=False,
             reindex=False,
             email_notification=False
@@ -90,3 +94,20 @@ def import_users(infile, verbose, password):
         db.session.commit()
         confirm_user(user)
         patron.reindex()
+        pids.append(patron.pid)
+    if append:
+        click.secho(
+            'Append fixtures new identifiers: {len}'.format(len=len(pids))
+        )
+        identifier = Patron.provider.identifier
+        try:
+            append_fixtures_new_identifiers(
+                identifier,
+                sorted(pids, key=lambda x: int(x)),
+                PatronProvider.pid_type
+            )
+        except Exception as err:
+            click.secho(
+                "ERROR append fixtures new identifiers: {err}".format(err=err),
+                fg='red'
+            )

@@ -60,7 +60,7 @@ class IlsRecordError:
     class PidChange(Exception):
         """IlsRecord pid change."""
 
-    class PidAlradyUsed(Exception):
+    class PidAlreadyUsed(Exception):
         """IlsRecord pid already used."""
 
     class PidDoesNotExist(Exception):
@@ -161,15 +161,14 @@ class IlsRecord(Record):
                 from .utils import get_schema_for_resource
                 data['$schema'] = get_schema_for_resource(type)
         pid = data.get('pid')
-        if delete_pid:
-            if pid:
-                del data['pid']
+        if delete_pid and pid:
+            del data['pid']
         else:
             if pid:
                 test_rec = cls.get_record_by_pid(pid)
                 if test_rec is not None:
-                    raise IlsRecordError.PidAlradyUsed(
-                        'PidAlradyUsed {pid_type} {pid} {uuid}'.format(
+                    raise IlsRecordError.PidAlreadyUsed(
+                        'PidAlreadyUsed {pid_type} {pid} {uuid}'.format(
                             pid_type=cls.provider.pid_type,
                             pid=test_rec.pid,
                             uuid=test_rec.id
