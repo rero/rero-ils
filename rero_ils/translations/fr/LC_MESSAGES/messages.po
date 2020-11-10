@@ -22,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-11-09 12:07+0100\n"
 "PO-Revision-Date: 2020-11-10 17:24+0000\n"
-"Last-Translator: Marion Davis <marion.davis@rero.ch>\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
 "Language: fr\n"
@@ -7411,7 +7411,7 @@ msgstr "note générale"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:369
 msgid "patrimonial_note"
-msgstr ""
+msgstr "aspects patrimoniaux"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:373
 msgid "provenance_note"
