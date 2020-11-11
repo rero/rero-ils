@@ -27,6 +27,7 @@ from flask import Blueprint, abort, current_app, flash, jsonify, \
     render_template, request, url_for
 from flask_babelex import format_currency
 from flask_babelex import gettext as _
+from flask_babelex import lazy_gettext
 from flask_login import current_user, login_required
 from flask_menu import register_menu
 from invenio_i18n.ext import current_i18n
@@ -165,7 +166,7 @@ def logged_user():
 @register_menu(
     blueprint,
     'main.profile.patron_profile',
-    _('%(icon)s Profile', icon='<i class="fa fa-book fa-fw"></i>'),
+    lazy_gettext('%(icon)s Profile', icon='<i class="fa fa-book fa-fw"></i>'),
     visible_when=user_has_patron,
     id="my-profile-menu"
 )
