@@ -17,15 +17,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-11-09 12:07+0100\n"
-"PO-Revision-Date: 2020-11-07 16:26+0000\n"
+"PO-Revision-Date: 2020-11-11 18:28+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/de/>\n"
 "Language: de\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.4-dev\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: rero_ils/config.py:126
@@ -6655,14 +6656,12 @@ msgid "Missing issues"
 msgstr "Fehlende Lieferungen"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:186
-#, fuzzy
 msgid "Temporary location"
-msgstr "JSON Schema für einen Standort"
+msgstr "Temporärer Standort"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:198
-#, fuzzy
 msgid "Unit"
-msgstr "Anzahl"
+msgstr "Einheit"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:217
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:237
@@ -7305,7 +7304,7 @@ msgstr "Ein Lieferungsexemplar muss ein Lieferungsfeld enthalten."
 
 #: rero_ils/modules/items/api/record.py:69
 msgid "enumerationAndChronology field is required for an issue item"
-msgstr ""
+msgstr "Das Feld Zählung und Chronologie ist für eine Lieferung erforderlich"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:5
 msgid "JSON schema for an item."
@@ -7327,16 +7326,15 @@ msgstr "Der Barcode ist bereits vergeben."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:71
 msgid "Enumeration and chronology"
-msgstr ""
+msgstr "Zählung und Chronologie"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:74
 msgid "Numbering, enumeration, or other indication associated with the item."
-msgstr ""
+msgstr "Zählung, Chronologie, oder andere mit dem Exemplar verbundene Angaben."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:76
-#, fuzzy
 msgid "Example: Volume 1"
-msgstr "Beispiel: Bd. 3"
+msgstr "Beispiel: Band 1"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:115
 msgid "Circulation category of the item"
@@ -7383,14 +7381,12 @@ msgid "Holding URI"
 msgstr "URI des Bestandes"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:345
-#, fuzzy
 msgid "acquisition_note"
 msgstr "Anmerkung zum Erwerb"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:349
-#, fuzzy
 msgid "binding_note"
-msgstr "Anmerkung zur Bindung"
+msgstr "Bindung"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:353
 msgid "checkin_note"
@@ -7401,22 +7397,20 @@ msgid "checkout_note"
 msgstr "Ausleihanmerkung"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:361
-#, fuzzy
 msgid "condition_note"
-msgstr "Anmerkung zur Aufbewahrung"
+msgstr "Aufbewahrung"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:365
-#, fuzzy
 msgid "general_note"
-msgstr "Allgemeine Anmerkung"
+msgstr "allgemeine Anmerkung"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:369
 msgid "patrimonial_note"
-msgstr ""
+msgstr "Kulturgut-Aspekte"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:373
 msgid "provenance_note"
-msgstr ""
+msgstr "Herkunft"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:377
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:475
@@ -7997,48 +7991,64 @@ msgstr "Berechneter Gesamtbetrag der Leser Transaktion"
 #: rero_ils/modules/patron_types/api.py:94
 msgid "Library limit cannot be higher than global limit."
 msgstr ""
+"Die Begrenzung pro Bibliothek darf nicht höher als die globale Begrenzung "
+"sein."
 
 #: rero_ils/modules/patron_types/api.py:102
 msgid "Exception limit cannot have same value than library limit"
 msgstr ""
+"Eine Ausnahme der Begrenzung darf nicht denselben Wert wie die Begrenzung "
+"pro Bibliothek haben"
 
 #: rero_ils/modules/patron_types/api.py:106
 msgid "Only one specific limit by library if allowed."
-msgstr ""
+msgstr "Nur eine spezielle Begrenzung pro Bibliothek ist erlaubt."
 
 #: rero_ils/modules/patron_types/api.py:150 rero_ils/modules/patrons/api.py:738
 msgid "Checkout denied: the maximal number of overdue items is reached"
 msgstr ""
+"Ausleihe verweigert: die maximale Anzahl überfälliger Exemplare ist erreicht"
 
 #: rero_ils/modules/patron_types/api.py:160
 msgid "Checkout denied: the maximal overdue fee amount is reached"
 msgstr ""
+"Ausleihe verweigert: der maximale Betrag der Erinnerungsgebühren ist erreicht"
 
 #: rero_ils/modules/patron_types/api.py:183
 msgid "Request denied: the maximal number of overdue items is reached"
 msgstr ""
+"Bestellung verweigert: die maximale Anzahl überfälliger Exemplare ist "
+"erreicht"
 
 #: rero_ils/modules/patron_types/api.py:188
 msgid "Request denied: the maximal overdue fee amount is reached"
 msgstr ""
+"Bestellung verweigert: der maximale Gebührenbetrag überfälliger Exemplare "
+"ist erreicht"
 
 #: rero_ils/modules/patron_types/api.py:211
 msgid "Renewal denied: the maximal number of overdue items is reached"
 msgstr ""
+"Verlängerung verweigert: die maximale Anzahl überfälliger Exemplare ist "
+"erreicht"
 
 #: rero_ils/modules/patron_types/api.py:216
 msgid "Renewal denied: the maximal overdue fee amount is reached"
 msgstr ""
+"Verlängerung verweigert: der maximale Gebührenbetrag überfälliger Exemplare "
+"ist erreicht"
 
 #: rero_ils/modules/patron_types/api.py:312
 msgid "Checkout denied: the maximal checkout number is reached."
-msgstr ""
+msgstr "Ausleihe verweigert: die maximale Anzahl von Ausleihen ist erreicht."
 
 #: rero_ils/modules/patron_types/api.py:326
 msgid ""
 "Checkout denied: the maximal checkout number of items for this library is"
 " reached."
 msgstr ""
+"Ausleihe verweigert: die maximale Anzahl von Ausleihen für Exemplare aus "
+"dieser Bibliothek ist erreicht."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:4
 msgid "PatronType"
@@ -8086,23 +8096,23 @@ msgstr ""
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:86
 msgid "Limits"
-msgstr ""
+msgstr "Begrenzungen"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:107
-#, fuzzy
 msgid "Number of checkouts in the organisation"
-msgstr "Organisationscode."
+msgstr "Anzahl der Ausleihen in der Organisation"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:108
 msgid ""
 "The checkout is blocked once the specified checkout number is reached by "
 "the patron. This is a global checkout limit."
 msgstr ""
+"Die Ausleihe wird gesperrt, sobald der Benutzer die angegebene Anzahl von "
+"Ausleihen erreicht hat. Dies ist eine globale Begrenzung der Ausleihen."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:113
-#, fuzzy
 msgid "Number of checkouts by library"
-msgstr "Name der Bibliothek."
+msgstr "Anzahl der Ausleihen pro Bibliothek"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:114
 msgid ""
@@ -8110,64 +8120,67 @@ msgid ""
 "the patron for items of the same owning library. This is the same limit "
 "for all libraries."
 msgstr ""
+"Die Ausleihe wird gesperrt, sobald der Benutzer die angegebene Anzahl von "
+"Ausleihen von Exemplaren aus derselben besitzenden Bibliothek erreicht hat. "
+"Dies ist für alle Bibliotheken dieselbe Begrenzung."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:120
 msgid "Library checkout limit exceptions"
-msgstr ""
+msgstr "Ausnahmen pro Bibliothek der Ausleihbegrenzungen"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:123
-#, fuzzy
 msgid "Exception"
-msgstr "Beschreibung"
+msgstr "Ausnahme"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:153
-#, fuzzy
 msgid "Checkout limit"
-msgstr "Ausleihanmerkung"
+msgstr "Ausleihbegrenzung"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:171
 msgid "Limit by checkouts"
-msgstr ""
+msgstr "Begrenzung nach Ausleihen"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:184
-#, fuzzy
 msgid "Fee amount"
-msgstr "Betrag der Erinnerungsgebühr."
+msgstr "Gebührenbetrag"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:185
 msgid ""
 "The checkout, renewal and the request are blocked once the specified "
 "overdue fee amount is reached by the patron."
 msgstr ""
+"Ausleihen, Verlängerungen und Bestellungen werden gesperrt, sobald der "
+"Benutzer den angegebenen Gebührenbetrag für überfällige Exemplare erreicht "
+"hat."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:197
-#, fuzzy
 msgid "Limit by overdue fee amount"
-msgstr "Betrag der Erinnerungsgebühr."
+msgstr "Begrenzung nach Gebührenbetrag der überfälligen Exemplaren"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:210
-#, fuzzy
 msgid "Number of overdue items"
-msgstr "Anzahl der Einheiten"
+msgstr "Anzahl der überfälligen Exemplare"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:211
 msgid ""
 "The checkout, renewal and the request are blocked once the specified "
 "number of overdue items is reached by the patron."
 msgstr ""
+"Ausleihen, Verlängerungen und Bestellungen werden gesperrt, sobald der "
+"Benutzer die angegebene Anzahl überfälliger Exemplare erreicht hat."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:223
 msgid "Limit by overdue items"
-msgstr ""
+msgstr "Begrenzung nach überfälligen Exemplaren"
 
 #: rero_ils/modules/patrons/api.py:584
-#, fuzzy, python-format
+#, python-format
 msgid "Your account is currently blocked."
-msgstr "Ihr Konto ist derzeit gesperrt. Grund: %(reason)s"
+msgstr "Ihr Konto ist derzeit gesperrt."
 
 #: rero_ils/modules/patrons/api.py:585
 msgid "This patron is currently blocked."
-msgstr ""
+msgstr "Dieser Leser ist zurzeit gesperrt."
 
 #: rero_ils/modules/patrons/api.py:589
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:358
@@ -8177,6 +8190,8 @@ msgstr "Grund"
 #: rero_ils/modules/patrons/api.py:730
 msgid "Transactions denied: the maximal overdue fee amount is reached."
 msgstr ""
+"Transaktion verweigert: der maximale Gebührenbetrag überfälliger Exemplare "
+"ist erreicht."
 
 #: rero_ils/modules/patrons/views.py:169
 #, python-format
@@ -8535,7 +8550,7 @@ msgstr "an der Ausleihtheke"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:52
 msgid "to pick up"
-msgstr ""
+msgstr "abholbereit"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:57
 msgid "waiting"
@@ -9527,4 +9542,3 @@ msgstr "Hier klicken, um Ihr Passwort zurückzusetzen"
 
 #~ msgid "ready"
 #~ msgstr "bereit"
-

@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-11-09 12:07+0100\n"
-"PO-Revision-Date: 2020-11-10 17:24+0000\n"
-"Last-Translator: Marion Davis <marion.davis@rero.ch>\n"
+"PO-Revision-Date: 2020-11-11 18:28+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/en/>\n"
 "Language: en\n"
@@ -7959,7 +7959,7 @@ msgstr "Exception limit cannot have same value as library limit"
 
 #: rero_ils/modules/patron_types/api.py:106
 msgid "Only one specific limit by library if allowed."
-msgstr "Only one specific limit per library if allowed."
+msgstr "Only one specific limit per library is allowed."
 
 #: rero_ils/modules/patron_types/api.py:150 rero_ils/modules/patrons/api.py:738
 msgid "Checkout denied: the maximal number of overdue items is reached"
@@ -8051,7 +8051,7 @@ msgid ""
 "the patron. This is a global checkout limit."
 msgstr ""
 "The checkout is blocked once the specified checkout number is reached by the "
-"patron. This is a global checkout limit."
+"patron. This is a global limit of the checkouts."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:113
 msgid "Number of checkouts by library"
