@@ -12,15 +12,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-11-09 12:07+0100\n"
-"PO-Revision-Date: 2020-11-04 16:26+0000\n"
+"PO-Revision-Date: 2020-11-14 10:28+0000\n"
 "Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/rero_plus/rero-ils/"
+"nl/>\n"
 "Language: nl\n"
-"Language-Team: Dutch <https://hosted.weblate.org/projects/rero_plus/rero-"
-"ils/nl/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.4-dev\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: rero_ils/config.py:126
@@ -62,9 +63,8 @@ msgid "library"
 msgstr "bibliotheek"
 
 #: rero_ils/config.py:1559
-#, fuzzy
 msgid "author"
-msgstr "Auteurs"
+msgstr "auteur"
 
 #: rero_ils/config.py:1560
 msgid "language"
@@ -6748,9 +6748,8 @@ msgid "Temporary location"
 msgstr "JSON-schema voor een lokatie"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:198
-#, fuzzy
 msgid "Unit"
-msgstr "Hoeveelheid"
+msgstr "Eenheid"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:217
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:237
@@ -8198,23 +8197,23 @@ msgstr "Activering van abonnementsgelden voor dit Patron type."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:86
 msgid "Limits"
-msgstr ""
+msgstr "Limieten"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:107
-#, fuzzy
 msgid "Number of checkouts in the organisation"
-msgstr "Code van de organisatie."
+msgstr "Aantal leningen in de organisatie"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:108
 msgid ""
 "The checkout is blocked once the specified checkout number is reached by "
 "the patron. This is a global checkout limit."
 msgstr ""
+"De lening wordt geblokkeerd zodra het opgegeven aantal leningen is bereikt. "
+"Dit is een algemene leningslimiet."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:113
-#, fuzzy
 msgid "Number of checkouts by library"
-msgstr "Naam van de bibliotheek."
+msgstr "Aantal leningen per bibliotheek"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:114
 msgid ""
@@ -8222,64 +8221,66 @@ msgid ""
 "the patron for items of the same owning library. This is the same limit "
 "for all libraries."
 msgstr ""
+"De uitlening wordt geblokkeerd wanneer het opgegeven aantal uitleningen "
+"wordt bereikt voor exemplaren uit dezelfde eigen bibliotheek. De limiet is "
+"voor alle bibliotheken gelijk."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:120
 msgid "Library checkout limit exceptions"
-msgstr ""
+msgstr "Uitzonderingen per bibliotheek op uitleenlimieten"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:123
-#, fuzzy
 msgid "Exception"
-msgstr "Beschrijving"
+msgstr "Uitzondering"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:153
-#, fuzzy
 msgid "Checkout limit"
-msgstr "checkout nota"
+msgstr "Uitleenlimiet"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:171
 msgid "Limit by checkouts"
-msgstr ""
+msgstr "Limiet per lening"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:184
-#, fuzzy
 msgid "Fee amount"
-msgstr "Achterstallig bedrag."
+msgstr "Achterstallig bedrag"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:185
 msgid ""
 "The checkout, renewal and the request are blocked once the specified "
 "overdue fee amount is reached by the patron."
 msgstr ""
+"Leningen, verlengingen en aanvragen worden geblokkeerd wanneer het opgegeven "
+"bedrag van de achterstallige vergoeding door de lezer wordt bereikt."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:197
-#, fuzzy
 msgid "Limit by overdue fee amount"
-msgstr "Achterstallig bedrag."
+msgstr "Limiet door achterstallig bedrag"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:210
-#, fuzzy
 msgid "Number of overdue items"
-msgstr "Aantal units"
+msgstr "Aantal laattijdige exemplaren"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:211
 msgid ""
 "The checkout, renewal and the request are blocked once the specified "
 "number of overdue items is reached by the patron."
 msgstr ""
+"Lenen, verlenging en aanvraag worden geblokkeerd wanneer het opgegeven "
+"aantal achterstallige exemplaren door de lezer wordt bereikt."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:223
 msgid "Limit by overdue items"
-msgstr ""
+msgstr "Limiet per laattijdig exemplaar"
 
 #: rero_ils/modules/patrons/api.py:584
-#, fuzzy, python-format
+#, python-format
 msgid "Your account is currently blocked."
-msgstr "Uw account is momenteel geblokkeerd. Reden: %(reason)s"
+msgstr "Uw account is momenteel geblokkeerd."
 
 #: rero_ils/modules/patrons/api.py:585
 msgid "This patron is currently blocked."
-msgstr ""
+msgstr "Deze lezer is momenteel geblokkeerd."
 
 #: rero_ils/modules/patrons/api.py:589
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:358
@@ -8289,6 +8290,8 @@ msgstr "Reden"
 #: rero_ils/modules/patrons/api.py:730
 msgid "Transactions denied: the maximal overdue fee amount is reached."
 msgstr ""
+"Weigering van transacties: het maximale bedrag aan laattijdige vergoedingen "
+"wordt bereikt."
 
 #: rero_ils/modules/patrons/views.py:169
 #, python-format
@@ -8669,7 +8672,7 @@ msgstr "bij het uitleenkantoor"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:52
 msgid "to pick up"
-msgstr ""
+msgstr "te halen"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:57
 #, fuzzy
@@ -9052,12 +9055,11 @@ msgstr "Link naar de RERO Twitter account"
 
 #: rero_ils/templates/rero_ils/frontpage.html:122
 msgid "More test logins and documentation is available on the"
-msgstr ""
+msgstr "Meer testlogins en documentatie zijn beschikbaar onder"
 
 #: rero_ils/templates/rero_ils/frontpage.html:123
-#, fuzzy
 msgid "help page"
-msgstr "Titelpagina"
+msgstr "hulppagina"
 
 #: rero_ils/templates/rero_ils/frontpage.html:129
 msgid "Organisations' catalogues"
@@ -9694,4 +9696,3 @@ msgstr "Klik hier om uw wachtwoord opnieuw in te stellen"
 
 #~ msgid "ready"
 #~ msgstr ""
-

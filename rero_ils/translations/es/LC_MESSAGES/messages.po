@@ -13,15 +13,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-11-09 12:07+0100\n"
-"PO-Revision-Date: 2020-11-04 16:26+0000\n"
+"PO-Revision-Date: 2020-11-14 10:28+0000\n"
 "Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/es/>\n"
 "Language: es\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/es/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.4-dev\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: rero_ils/config.py:126
@@ -62,9 +63,8 @@ msgid "library"
 msgstr "biblioteca"
 
 #: rero_ils/config.py:1559
-#, fuzzy
 msgid "author"
-msgstr "Autores"
+msgstr "autor"
 
 #: rero_ils/config.py:1560
 msgid "language"
@@ -5917,7 +5917,7 @@ msgstr "Video"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:231
 msgid "Public notes"
-msgstr "Nota pública"
+msgstr "Notas públicas"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:232
 msgid "Is displayed next to the link, as additional information."
@@ -6647,14 +6647,12 @@ msgid "Missing issues"
 msgstr "Números faltantes"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:186
-#, fuzzy
 msgid "Temporary location"
-msgstr "Esquema JSON para un depósito"
+msgstr "Ubicación temporal"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:198
-#, fuzzy
 msgid "Unit"
-msgstr "Cantidad"
+msgstr "Unidad"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:217
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:237
@@ -7295,7 +7293,7 @@ msgstr ""
 
 #: rero_ils/modules/items/api/record.py:69
 msgid "enumerationAndChronology field is required for an issue item"
-msgstr ""
+msgstr "El campo enumerationAndChronology es obligatorio para un número"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:5
 msgid "JSON schema for an item."
@@ -7317,16 +7315,15 @@ msgstr "El código de barras está utilisado."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:71
 msgid "Enumeration and chronology"
-msgstr ""
+msgstr "Enumeración y cronología"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:74
 msgid "Numbering, enumeration, or other indication associated with the item."
-msgstr ""
+msgstr "Numeración, enumeración u otra indicación asociada con el ejemplar."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:76
-#, fuzzy
 msgid "Example: Volume 1"
-msgstr "Ejemplo: vol. 3"
+msgstr "Ejemplo: Volumen 1"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:115
 msgid "Circulation category of the item"
@@ -7373,12 +7370,10 @@ msgid "Holding URI"
 msgstr "URI de la holding"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:345
-#, fuzzy
 msgid "acquisition_note"
 msgstr "nota de adquisición"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:349
-#, fuzzy
 msgid "binding_note"
 msgstr "nota sobre la vinculación"
 
@@ -7391,22 +7386,20 @@ msgid "checkout_note"
 msgstr "Nota de préstamo"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:361
-#, fuzzy
 msgid "condition_note"
 msgstr "nota de conservación"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:365
-#, fuzzy
 msgid "general_note"
 msgstr "nota general"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:369
 msgid "patrimonial_note"
-msgstr ""
+msgstr "aspectos patrimoniales"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:373
 msgid "provenance_note"
-msgstr ""
+msgstr "nota de origen"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:377
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:475
@@ -7986,49 +7979,57 @@ msgstr "Monto total de la tasa"
 
 #: rero_ils/modules/patron_types/api.py:94
 msgid "Library limit cannot be higher than global limit."
-msgstr ""
+msgstr "El límite de biblioteca no puede ser superior al límite global."
 
 #: rero_ils/modules/patron_types/api.py:102
 msgid "Exception limit cannot have same value than library limit"
 msgstr ""
+"El límite de excepciones no puede tener el mismo valor que el límite de "
+"biblioteca"
 
 #: rero_ils/modules/patron_types/api.py:106
 msgid "Only one specific limit by library if allowed."
-msgstr ""
+msgstr "Solo se permite un límite específico por biblioteca."
 
 #: rero_ils/modules/patron_types/api.py:150 rero_ils/modules/patrons/api.py:738
 msgid "Checkout denied: the maximal number of overdue items is reached"
-msgstr ""
+msgstr "Préstamo rechazado: se alcanza el número máximo de ejemplares atrasados"
 
 #: rero_ils/modules/patron_types/api.py:160
 msgid "Checkout denied: the maximal overdue fee amount is reached"
-msgstr ""
+msgstr "Préstamo rechazado: se alcanza el monto máximo de tasas"
 
 #: rero_ils/modules/patron_types/api.py:183
 msgid "Request denied: the maximal number of overdue items is reached"
 msgstr ""
+"Reservación denegada: se alcanza el número máximo de ejemplares atrasados"
 
 #: rero_ils/modules/patron_types/api.py:188
 msgid "Request denied: the maximal overdue fee amount is reached"
 msgstr ""
+"Reservación denegada: se ha alcanzado el monto máximo de tasas por retraso"
 
 #: rero_ils/modules/patron_types/api.py:211
 msgid "Renewal denied: the maximal number of overdue items is reached"
 msgstr ""
+"Renovación denegada: se alcanza el número máximo de ejemplares atrasados"
 
 #: rero_ils/modules/patron_types/api.py:216
 msgid "Renewal denied: the maximal overdue fee amount is reached"
 msgstr ""
+"Renovación denegada: se ha alcanzado el monto máximo de tasas por retraso"
 
 #: rero_ils/modules/patron_types/api.py:312
 msgid "Checkout denied: the maximal checkout number is reached."
-msgstr ""
+msgstr "Préstamo rechazado: se alcanza el número máximo de préstamos."
 
 #: rero_ils/modules/patron_types/api.py:326
 msgid ""
 "Checkout denied: the maximal checkout number of items for this library is"
 " reached."
 msgstr ""
+"Préstamo rechazado: se ha alcanzado el número máximo de préstamos para esta "
+"biblioteca."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:4
 msgid "PatronType"
@@ -8072,23 +8073,23 @@ msgstr "Activación de las tasas de suscripción para estos Patron types."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:86
 msgid "Limits"
-msgstr ""
+msgstr "Límites"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:107
-#, fuzzy
 msgid "Number of checkouts in the organisation"
-msgstr "Código de la organización."
+msgstr "Número de préstamos en la organización"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:108
 msgid ""
 "The checkout is blocked once the specified checkout number is reached by "
 "the patron. This is a global checkout limit."
 msgstr ""
+"El préstamo se bloquea una vez que se alcanza el número especificado de "
+"préstamos. Este es un límite de préstamo general."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:113
-#, fuzzy
 msgid "Number of checkouts by library"
-msgstr "Nombre de la biblioteca."
+msgstr "Número de préstamos por biblioteca"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:114
 msgid ""
@@ -8096,64 +8097,66 @@ msgid ""
 "the patron for items of the same owning library. This is the same limit "
 "for all libraries."
 msgstr ""
+"El préstamo se bloquea cuando se alcanza el número especificado de préstamos "
+"para ejemplares de la misma biblioteca. El límite es el mismo para todas las "
+"bibliotecas."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:120
 msgid "Library checkout limit exceptions"
-msgstr ""
+msgstr "Excepciones por biblioteca a los límites de préstamo"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:123
-#, fuzzy
 msgid "Exception"
-msgstr "Descripción"
+msgstr "Excepción"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:153
-#, fuzzy
 msgid "Checkout limit"
-msgstr "Nota de préstamo"
+msgstr "Límite de préstamo"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:171
 msgid "Limit by checkouts"
-msgstr ""
+msgstr "Límite por préstamos"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:184
-#, fuzzy
 msgid "Fee amount"
-msgstr "El monto de las tasas de los avisos."
+msgstr "Monto de las tasas"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:185
 msgid ""
 "The checkout, renewal and the request are blocked once the specified "
 "overdue fee amount is reached by the patron."
 msgstr ""
+"Los préstamos, las renovaciones y las reservaciones se bloquean cuando el "
+"usuario alcanza el monto especificado de la tasa vencida."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:197
-#, fuzzy
 msgid "Limit by overdue fee amount"
-msgstr "El monto de las tasas de los avisos."
+msgstr "Límite por monto de las tasas atrasadas"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:210
-#, fuzzy
 msgid "Number of overdue items"
-msgstr "Número de unidades"
+msgstr "Número de ejemplares atrasados"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:211
 msgid ""
 "The checkout, renewal and the request are blocked once the specified "
 "number of overdue items is reached by the patron."
 msgstr ""
+"Los préstamos, las renovaciones y las reservaciones se bloquean cuando el "
+"usuario alcanza el número especificado de ejemplares atrasados."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:223
 msgid "Limit by overdue items"
-msgstr ""
+msgstr "Límite por ejemplar atrasado"
 
 #: rero_ils/modules/patrons/api.py:584
-#, fuzzy, python-format
+#, python-format
 msgid "Your account is currently blocked."
-msgstr "Su cuenta está actualmente bloqueada. Razón: %(reason)s"
+msgstr "Su cuenta está actualmente bloqueada."
 
 #: rero_ils/modules/patrons/api.py:585
 msgid "This patron is currently blocked."
-msgstr ""
+msgstr "Este usuario está actualmente bloqueado."
 
 #: rero_ils/modules/patrons/api.py:589
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:358
@@ -8163,6 +8166,7 @@ msgstr "Motivo"
 #: rero_ils/modules/patrons/api.py:730
 msgid "Transactions denied: the maximal overdue fee amount is reached."
 msgstr ""
+"Transacciones rechazadas: se alcanza el monto máximo de las tasas atrasadas."
 
 #: rero_ils/modules/patrons/views.py:169
 #, python-format
@@ -8496,9 +8500,8 @@ msgid "Renew"
 msgstr "Renovar"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:111
-#, fuzzy
 msgid "Call number unavailable"
-msgstr "no disponible"
+msgstr "Signatura topográfica no disponible"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:120
 msgid "No loan"
@@ -8522,7 +8525,7 @@ msgstr "al mostrador de préstamo"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:52
 msgid "to pick up"
-msgstr ""
+msgstr "para recoger"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:57
 msgid "waiting"
@@ -8886,12 +8889,11 @@ msgstr "Enlace a la cuenta de Twitter RERO"
 
 #: rero_ils/templates/rero_ils/frontpage.html:122
 msgid "More test logins and documentation is available on the"
-msgstr ""
+msgstr "Se pueden consultar más logins de test y documentación en"
 
 #: rero_ils/templates/rero_ils/frontpage.html:123
-#, fuzzy
 msgid "help page"
-msgstr "Página de título"
+msgstr "Página de ayuda"
 
 #: rero_ils/templates/rero_ils/frontpage.html:129
 msgid "Organisations' catalogues"
@@ -9559,4 +9561,3 @@ msgstr "Haga clic aquí para restablecer su contraseña"
 
 #~ msgid "ready"
 #~ msgstr "listo"
-
