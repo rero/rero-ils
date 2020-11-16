@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-11-16 07:38+0100\n"
-"PO-Revision-Date: 2020-11-16 11:17+0000\n"
-"Last-Translator: Marion Davis <marion.davis@rero.ch>\n"
+"PO-Revision-Date: 2020-11-16 11:18+0000\n"
+"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
 "Language: fr\n"
@@ -95,12 +95,10 @@ msgid "item_type"
 msgstr "Type d'exemplaire"
 
 #: rero_ils/config.py:1610
-#, fuzzy
 msgid "vendor"
 msgstr "Fournisseur"
 
 #: rero_ils/config.py:1611
-#, fuzzy
 msgid "issue_status"
 msgstr "Statut du fascicule"
 
@@ -5932,7 +5930,7 @@ msgstr "Vidéo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:231
 msgid "Public notes"
-msgstr "Note publique"
+msgstr "Notes publiques"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:232
 msgid "Is displayed next to the link, as additional information."
@@ -5967,99 +5965,88 @@ msgid "Identifiers"
 msgstr "Identifiants"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:55
-#, fuzzy
 msgid "bf:AudioIssueNumber"
 msgstr "Référence de l'éditeur (documents audio)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:59
 msgid "bf:Doi"
-msgstr ""
+msgstr "DOI (Digital Object Identifier)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:63
 msgid "bf:Ean"
-msgstr ""
+msgstr "EAN (International Article Number)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:67
 msgid "bf:Gtin14Number"
-msgstr ""
+msgstr "Global Trade Item Number 14"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:71
-#, fuzzy
 msgid "bf:Identifier"
 msgstr "Identifiant"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:75
 msgid "bf:Isan"
-msgstr ""
+msgstr "ISAN (International Standard Audiovisual Number)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:79
-#, fuzzy
 msgid "bf:Isbn"
-msgstr "Diffusion, distribution"
+msgstr "ISBN (International Standard Book Number)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:83
 msgid "bf:Ismn"
-msgstr ""
+msgstr "ISMN (International Standard Music Number)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:87
 msgid "bf:Isrc"
-msgstr ""
+msgstr "ISRC (International Standard Recording Code)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:91
 msgid "bf:Issn"
-msgstr ""
+msgstr "ISSN (International Standard Serial Number)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:95
 msgid "bf:IssnL"
-msgstr ""
+msgstr "ISSN-L (ISSN de liaison)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:99
-#, fuzzy
 msgid "bf:Local"
-msgstr "Lieu"
+msgstr "Identifiant local"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:103
-#, fuzzy
 msgid "bf:MatrixNumber"
 msgstr "Numéro de matrice (sons)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:107
-#, fuzzy
 msgid "bf:MusicDistributorNumber"
 msgstr "Référence du distributeur (musique)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:111
-#, fuzzy
 msgid "bf:MusicPlate"
-msgstr "Cotage (musique imprimée)"
+msgstr "Cotage (partitions)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:115
-#, fuzzy
 msgid "bf:MusicPublisherNumber"
 msgstr "Autre référence de l'éditeur (musique)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:119
-#, fuzzy
 msgid "bf:PublisherNumber"
 msgstr "Numéro de l'éditeur"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:123
 msgid "bf:Upc"
-msgstr ""
+msgstr "UPC (Universal Product Code)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:127
 msgid "bf:Urn"
-msgstr ""
+msgstr "URN (Uniform Resource Name)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:131
-#, fuzzy
 msgid "bf:VideoRecordingNumber"
 msgstr "Numéro d'enregistrement vidéo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:135
-#, fuzzy
 msgid "uri"
-msgstr "conservateur d'exposition"
+msgstr "URI"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:145
 msgid "Identifier value"
@@ -6999,37 +6986,40 @@ msgstr ""
 "valeur est la position de la valeur dans la liste."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:426
-#, fuzzy
 msgid "Maximum number of claims"
-msgstr "Nombre maximal de prolongations"
+msgstr "Nombre maximal de réclamations"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:427
 msgid ""
 "After this number, no further claims will be sent. 0 means that no claims"
 " will be sent."
 msgstr ""
+"Après cette valeur, aucune réclamation supplémentaire ne sera envoyée. 0 "
+"signifie qu'aucune réclamation ne sera envoyée."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:433
-#, fuzzy
 msgid "Number of days before 1st claim"
-msgstr "Nombre de jours avant l'échéance."
+msgstr "Nombre de jours avant la première réclamation"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:434
 msgid ""
 "If the item is not received, this defines the number of days from the "
 "expected date after which it is claimed."
 msgstr ""
+"Si l'exemplaire n'est pas reçu, cette valeur définit le nombre de jours "
+"entre la date prévue et l'envoi de la réclamation."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:440
-#, fuzzy
 msgid "Number of days before next claims"
-msgstr "Nombre de jours avant l'échéance."
+msgstr "Nombre de jours avant la prochaine réclamation"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:441
 msgid ""
 "If the item is not received, this defines the number of days from the "
 "last claim date after which it is claimed again."
 msgstr ""
+"Si l'exemplaire n'est pas reçu, cette valeur définit le nombre de jours "
+"entre la dernière réclamation et la prochaine."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:474
 msgid "Textual description of the basic bibliographic unit of the holding."
@@ -7418,18 +7408,16 @@ msgid "Issue status"
 msgstr "Statut du fascicule"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:185
-#, fuzzy
 msgid "late"
-msgstr "Date"
+msgstr "en retard"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:189
 msgid "claimed"
 msgstr "réclamé"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:201
-#, fuzzy
 msgid "Status date"
-msgstr "Date de début"
+msgstr "Date du statut"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:206
 msgid "Date of reception"
@@ -7445,7 +7433,7 @@ msgstr "Régularité"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:249
 msgid "Issue claims count"
-msgstr ""
+msgstr "Compteur de réclamations de fascicule"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:261
 msgid "circulation status"
@@ -7806,7 +7794,7 @@ msgstr "Spécifiez une adresse e-mail générique utilisée pour les notificatio
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:159
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:221
 msgid "The email is not valid."
-msgstr ""
+msgstr "L'e-mail n'est pas correct."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:179
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:209
@@ -8351,9 +8339,8 @@ msgid "Street"
 msgstr "Rue"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:120
-#, fuzzy
 msgid "Street and number of the address."
-msgstr "Rue et numéro de l'adresse, séparés par une virgule."
+msgstr "Rue et numéro de l'adresse."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:125
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:131
@@ -8433,6 +8420,8 @@ msgid ""
 "For the email channel, the user must have an e-mail. Otherwise, no "
 "notifications will be sent."
 msgstr ""
+"Pour le canal de communication par e-mail, l'utilisateur doit avoir un e-"
+"mail. Sinon, aucune notification ne sera envoyée."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:258
 #: rero_ils/templates/rero_ils/forgot_password.html:41
@@ -8444,9 +8433,8 @@ msgid "mail"
 msgstr "poste"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:269
-#, fuzzy
 msgid "Additional communication email"
-msgstr "E-mail de notification"
+msgstr "E-mail de communication supplémentaire"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:284
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:67
@@ -8510,6 +8498,8 @@ msgid ""
 "Define the roles of the user. Please do not remove existing user role, "
 "this can have unintended side effects."
 msgstr ""
+"Définir les rôle de l'utilisateur. Merci de ne pas supprimer de rôle "
+"existant, car cela peut avoir des conséquences non désirées."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:444
 msgid "patron"
@@ -8619,9 +8609,8 @@ msgid "Phone"
 msgstr "Téléphone"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:38
-#, fuzzy
 msgid "Patron number"
-msgstr "Numéro de matrice (sons)"
+msgstr "Numéro de lecteur"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:40
 msgid "Account expiration"
@@ -8928,6 +8917,8 @@ msgstr ""
 #: rero_ils/templates/rero_ils/forgot_password.html:37
 msgid "If you are registered without email, please contact your library."
 msgstr ""
+"Si vous êtes inscrit sans avoir d'e-mail, merci de contacter votre "
+"bibliothèque."
 
 #: rero_ils/templates/rero_ils/forgot_password.html:51
 #: rero_ils/templates/rero_ils/login_user.html:44
