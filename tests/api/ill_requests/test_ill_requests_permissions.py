@@ -58,7 +58,7 @@ def test_ill_requests_permissions_api(client, librarian_martigny_no_email,
     assert data['read']['can']
     assert data['create']['can']
     assert data['update']['can']
-    assert data['delete']['can']
+    assert not data['delete']['can']
     res = client.get(illr_sion_permissions_url)
     data = get_json(res)
     assert not data['read']['can']
@@ -68,6 +68,7 @@ def test_ill_requests_permissions_api(client, librarian_martigny_no_email,
 
 def test_ill_requests_permissions(patron_martigny_no_email,
                                   librarian_martigny_no_email,
+                                  system_librarian_martigny_no_email,
                                   ill_request_martigny, ill_request_sion,
                                   org_martigny):
     """Test patron types permissions class."""
@@ -111,10 +112,24 @@ def test_ill_requests_permissions(patron_martigny_no_email,
         assert ILLRequestPermission.read(None, ill_request_martigny)
         assert ILLRequestPermission.create(None, ill_request_martigny)
         assert ILLRequestPermission.update(None, ill_request_martigny)
-        assert ILLRequestPermission.delete(None, ill_request_martigny)
+        assert not ILLRequestPermission.delete(None, ill_request_martigny)
 
         assert ILLRequestPermission.list(None, ill_request_sion)
         assert not ILLRequestPermission.read(None, ill_request_sion)
         assert ILLRequestPermission.create(None, ill_request_sion)
         assert not ILLRequestPermission.update(None, ill_request_sion)
         assert not ILLRequestPermission.delete(None, ill_request_sion)
+
+    # As System-librarian
+    with mock.patch(
+        'rero_ils.modules.ill_requests.permissions.current_patron',
+        system_librarian_martigny_no_email
+    ), mock.patch(
+        'rero_ils.modules.ill_requests.permissions.current_organisation',
+        org_martigny
+    ):
+        assert ILLRequestPermission.list(None, ill_request_martigny)
+        assert ILLRequestPermission.read(None, ill_request_martigny)
+        assert ILLRequestPermission.create(None, ill_request_martigny)
+        assert ILLRequestPermission.update(None, ill_request_martigny)
+        assert not ILLRequestPermission.delete(None, ill_request_martigny)

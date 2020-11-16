@@ -24,6 +24,23 @@
         "properties": {
           "pid": {
             "type": "keyword"
+          },
+          "name": {
+            "type": "text",
+            "copy_to": "patron.facet"
+          },
+          "facet": {
+            "type": "keyword"
+          }
+        }
+      },
+      "loan_status": {
+        "type": "keyword"
+      },
+      "library": {
+        "properties": {
+          "pid": {
+            "type": "keyword"
           }
         }
       },
@@ -80,6 +97,16 @@
         "properties": {
           "pid": {
             "type": "keyword"
+          }
+        }
+      },
+      "notes": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "content": {
+            "type": "text"
           }
         }
       },

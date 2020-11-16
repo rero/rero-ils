@@ -79,8 +79,14 @@ class ILLRequestPermission(RecordPermission):
         # record cannot be null
         if not current_patron or not current_patron.is_librarian or not record:
             return False
-        return current_organisation['pid'] \
-            == ILLRequest(record).organisation_pid
+        if current_organisation['pid'] == ILLRequest(record).organisation_pid:
+            # 'sys_lib' can update all request
+            if current_patron.is_system_librarian:
+                return True
+            # 'lib' can only update request linked to its own library
+            return current_patron.library_pid and \
+                record.get_library().pid == current_patron.library_pid
+        return False
 
     @classmethod
     def delete(cls, user, record):
@@ -90,7 +96,5 @@ class ILLRequestPermission(RecordPermission):
         :param record: Record to check.
         :return: True if action can be done.
         """
-        if not record:
-            return False
-        # same as create
-        return cls.update(user, record)
+        # no one can delete an ill_request. (Use closed status instead)
+        return False

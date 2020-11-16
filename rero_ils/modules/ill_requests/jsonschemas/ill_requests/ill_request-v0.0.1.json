@@ -6,12 +6,14 @@
   "additionalProperties": false,
   "propertiesOrder": [
     "document",
+    "found_in",
+    "patron",
     "pickup_location",
     "status",
+    "loan_status",
     "copy",
     "pages",
-    "found_in",
-    "note"
+    "notes"
   ],
   "required": [
     "$schema",
@@ -24,20 +26,20 @@
   ],
   "properties": {
     "$schema": {
+      "type": "string",
       "title": "Schema",
       "description": "Schema to validate ILL request records against.",
-      "type": "string",
       "minLength": 9,
       "default": "https://ils.rero.ch/schema/ill-requests/ill-request-v0.0.1.json"
     },
     "pid": {
-      "title": "ILL request ID",
       "type": "string",
+      "title": "ILL request ID",
       "minLength": 1
     },
     "status": {
-      "title": "Status",
       "type": "string",
+      "title": "Status",
       "enum": [
         "pending",
         "validated",
@@ -46,7 +48,6 @@
       ],
       "default": "pending",
       "form": {
-        "type": "selectWithSort",
         "options": [
           {
             "value": "pending",
@@ -68,35 +69,96 @@
       }
     },
     "copy": {
+      "type": "boolean",
       "title": "Copy",
       "description": "Define if the request is for a copy or an actual document.",
-      "type": "boolean"
+      "default": false
     },
     "patron": {
-      "title": "Patron",
       "type": "object",
+      "title": "Patron",
+      "required": [
+        "$ref"
+      ],
       "properties": {
         "$ref": {
-          "title": "Patron URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/patrons/.*?$"
+          "title": "Patron URI",
+          "pattern": "^https://ils.rero.ch/api/patrons/.*?$",
+          "form": {
+            "remoteTypeahead": {
+              "type": "patrons"
+            },
+            "validation": {
+              "messages": {
+                "patternMessage": "Should be in the following format: https://ils.rero.ch/api/patrons/<PID>."
+              }
+            },
+            "templateOptions": {
+              "label": ""
+            }
+          }
         }
       }
     },
+    "loan_status": {
+      "type": "string",
+      "title": "Loan state",
+      "enum": [
+        "PENDING",
+        "ITEM_AT_DESK",
+        "ITEM_ON_LOAN",
+        "ITEM_RETURNED"
+      ],
+      "form": {
+        "placeholder": "Choose a status",
+        "options": [
+          {
+            "value": "PENDING",
+            "label": "PENDING"
+          },
+          {
+            "value": "ITEM_AT_DESK",
+            "label": "ITEM_AT_DESK"
+          },
+          {
+            "value": "ITEM_ON_LOAN",
+            "label": "ITEM_ON_LOAN"
+          },
+          {
+            "value": "ITEM_RETURNED",
+            "label": "ITEM_RETURNED"
+          }
+        ]
+      }
+    },
     "pickup_location": {
-      "title": "Pickup location",
       "type": "object",
+      "title": "Pickup location",
+      "required": [
+        "$ref"
+      ],
       "properties": {
         "$ref": {
-          "title": "Pickup location URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/locations/.+?$"
+          "title": "Pickup location URI",
+          "pattern": "^https://ils.rero.ch/api/locations/.+?$",
+          "form": {
+            "remoteOptions": {
+              "type": "locations",
+              "query": "is_pickup:true",
+              "labelField": "pickup_name"
+            },
+            "templateOptions": {
+              "label": ""
+            }
+          }
         }
       }
     },
     "document": {
       "type": "object",
-      "title": "Document",
+      "title": "Document information",
       "required": [
         "title"
       ],
@@ -110,39 +172,62 @@
       ],
       "properties": {
         "title": {
-          "title": "Title",
           "type": "string",
-          "minLength": 3
+          "title": "Title",
+          "minLength": 3,
+          "form": {
+            "wrappers": [
+              "form-field-horizontal"
+            ]
+          }
         },
         "authors": {
-          "title": "Authors",
           "type": "string",
-          "minLength": 3
+          "title": "Authors",
+          "minLength": 3,
+          "form": {
+            "wrappers": [
+              "form-field-horizontal"
+            ]
+          }
         },
         "publisher": {
-          "title": "Publisher",
           "type": "string",
-          "minLength": 3
+          "title": "Publisher",
+          "minLength": 3,
+          "form": {
+            "wrappers": [
+              "form-field-horizontal"
+            ]
+          }
         },
         "year": {
-          "title": "Year",
           "type": "string",
+          "title": "Year",
           "pattern": "^\\d{4}$",
           "form": {
             "validation": {
               "messages": {
                 "patternMessage": "Should be in the following format: YYYY (2020)."
               }
-            }
+            },
+            "wrappers": [
+              "form-field-horizontal"
+            ]
           }
         },
         "identifier": {
+          "type": "string",
           "title": "Identifier",
-          "type": "string"
+          "form": {
+            "wrappers": [
+              "form-field-horizontal"
+            ]
+          }
         },
         "source": {
-          "title": "Source",
           "type": "object",
+          "title": "Source",
           "required": [
             "journal_title"
           ],
@@ -153,29 +238,67 @@
           ],
           "properties": {
             "journal_title": {
-              "title": "Journal title",
               "type": "string",
-              "minLength": 3
+              "title": "Journal title",
+              "minLength": 3,
+              "form": {
+                "expressionProperties": {
+                  "templateOptions.required": "false"
+                },
+                "wrappers": [
+                  "form-field-horizontal"
+                ]
+              }
             },
             "volume": {
+              "type": "string",
               "title": "Volume",
-              "type": "string"
+              "form": {
+                "wrappers": [
+                  "form-field-horizontal"
+                ],
+                "templateOptions": {
+                  "cssClass": "col-md-3 p-0"
+                }
+              }
             },
             "number": {
+              "type": "string",
               "title": "Number",
-              "type": "string"
+              "form": {
+                "wrappers": [
+                  "form-field-horizontal"
+                ],
+                "templateOptions": {
+                  "cssClass": "col-md-3 p-0"
+                }
+              }
             }
           }
+        }
+      },
+      "form": {
+        "templateOptions": {
+          "cssClass": "editor-title"
         }
       }
     },
     "pages": {
+      "type": "string",
       "title": "Pages",
-      "type": "string"
+      "form": {
+        "hideExpression": "model.copy === false",
+        "expressionProperties": {
+          "templateOptions.required": "model.copy === true"
+        },
+        "wrappers": [
+          "form-field-horizontal"
+        ]
+      }
     },
     "found_in": {
-      "title": "Found in",
       "type": "object",
+      "title": "Found in",
       "required": [
         "source",
         "url"
@@ -186,28 +309,96 @@
       ],
       "properties": {
         "source": {
-          "title": "Source",
           "type": "string",
-          "minLength": 3
+          "title": "Source",
+          "minLength": 3,
+          "form": {
+            "expressionProperties": {
+              "templateOptions.required": "field.parent.model.url !== undefined && field.parent.model.url !== ''"
+            }
+          }
         },
         "url": {
-          "title": "URL",
           "type": "string",
+          "title": "URL",
           "placeholder": "Example: https://www.rero.ch/",
           "format": "uri",
-          "minLength": 7
+          "minLength": 7,
+          "form": {
+            "expressionProperties": {
+              "templateOptions.required": "field.parent.model.source !== undefined && field.parent.model.source !== ''"
+            }
+          }
         }
       }
     },
-    "note": {
-      "title": "Note",
-      "description": "Add further information to the librarian.",
-      "type": "string",
-      "maxLength": 2000,
+    "notes": {
+      "type": "array",
+      "title": "Notes",
+      "items": {
+        "type": "object",
+        "title": "Note",
+        "additionalProperties": false,
+        "propertiesOrder": [
+          "type",
+          "content"
+        ],
+        "required": [
+          "type",
+          "content"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type",
+            "enum": [
+              "public_note",
+              "staff_note"
+            ],
+            "default": "public_note",
+            "form": {
+              "type": "selectWithSort",
+              "options": [
+                {
+                  "label": "public_note",
+                  "value": "public_note"
+                },
+                {
+                  "label": "staff_note",
+                  "value": "staff_note"
+                }
+              ]
+            }
+          },
+          "content": {
+            "type": "string",
+            "title": "Content",
+            "maxLength": 2000,
+            "minLength": 3,
+            "form": {
+              "type": "textarea",
+              "templateOptions": {
+                "rows": 3
+              }
+            }
+          }
+        }
+      },
       "form": {
-        "type": "textarea",
         "templateOptions": {
-          "rows": 3
+          "cssClass": "editor-title"
+        },
+        "validation": {
+          "validators": {
+            "uniqueValueKeysInObject": {
+              "keys": [
+                "type"
+              ]
+            }
+          },
+          "messages": {
+            "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
+          }
         }
       }
     }

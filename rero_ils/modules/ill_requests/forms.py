@@ -203,9 +203,13 @@ class ILLRequestForm(FlaskForm):
             'found_in': {
                 'source': self.source.origin.data,
                 'url': self.source.url.data
-            },
-            'note': self.note.data
+            }
         })
+        if self.note.data:
+            data['notes'] = [{
+                'type': 'public_note',
+                'content': self.note.data
+            }]
 
         # if we put 'copy' in the dict before the dict cleaning and if 'copy'
         # is set to 'No', then it will be removed by `remove_empties_from_dict`

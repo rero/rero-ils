@@ -55,7 +55,7 @@
        {%- for item in field %}
          <span class="pr-3">
            {{ item(**kwargs) }}
-           {{ item.label.text|safe }}
+           {{ _(item.label.text)|safe }}
          </span>
        {%- endfor %}
        {%- if field.description %}

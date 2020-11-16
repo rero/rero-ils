@@ -535,7 +535,7 @@ RECORDS_REST_ENDPOINTS = dict(
                 'rero_ils.modules.serializers:json_v1_response'
             ),
             'application/rero+json': (
-                'rero_ils.modules.items.serializers:json_item_search'
+                'rero_ils.modules.ill_requests.serializers:json_ill_request'
             )
         },
         search_serializers_aliases={
@@ -545,6 +545,9 @@ RECORDS_REST_ENDPOINTS = dict(
         search_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_search'
+            ),
+            'application/rero+json': (
+                'rero_ils.modules.ill_requests.serializers:json_ill_request_search'
             )
         },
         record_loaders={
@@ -1777,7 +1780,45 @@ RECORDS_REST_FACETS = dict(
             _('subject'): and_term_filter('subjects.name'),
             _('teacher'): and_term_filter('teachers.facet')
         }
-    )
+    ),
+    ill_requests=dict(
+        aggs=dict(
+            status=dict(
+                terms=dict(
+                    field='status',
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'ill_requests', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            ),
+            loan_status=dict(
+                terms=dict(
+                    field='loan_status',
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'ill_requests', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            ),
+            requester=dict(
+                terms=dict(
+                    field='patron.facet',
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'ill_requests', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            ),
+            library=dict(
+                terms=dict(
+                    field='library.pid',
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'ill_requests', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            )
+        ),
+        filters={
+            _('status'): and_term_filter('status'),
+            _('loan_status'): and_term_filter('loan_status'),
+            _('requester'): and_term_filter('patron.facet'),
+            _('library'): and_term_filter('library.pid')
+        }
+    ),
 )
 
 # Elasticsearch fields boosting by index
