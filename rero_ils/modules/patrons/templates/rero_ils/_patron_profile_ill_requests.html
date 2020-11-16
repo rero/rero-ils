@@ -99,9 +99,9 @@
                   <a href="{{ request.found_in.url }}" target="_blank">{{ request.found_in.url }}</a>
                 </div>
               {%- endif %}
-              {%- if request.note %}
+              {%- if request.public_note %}
                 <div class="col-md-2 col-sm-4 font-weight-bold">{{ _('Note')}}</div>
-                <div class="col-md-10 col-sm-8"><blockquote>{{ request.note }}</blockquote></div>
+                <div class="col-md-10 col-sm-8"><blockquote>{{ request.public_note }}</blockquote></div>
               {%- endif %}
             </div>
           </section>

@@ -16,7 +16,6 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Record serialization."""
-
 from flask import json, request, url_for
 from invenio_records_rest.schemas import \
     RecordSchemaJSONV1 as _RecordSchemaJSONV1
@@ -45,27 +44,25 @@ class JSONSerializer(_JSONSerializer):
         rec = record
         if request and request.args.get('resolve') == '1':
             rec = record.replace_refs()
+            # because the replace_refs loose the record original model. We need
+            # to resetting it to have correct 'created'/'updated' output data
+            rec.model = record.model
         return super(JSONSerializer, self).preprocess_record(
             pid=pid, record=rec, links_factory=links_factory, kwargs=kwargs)
 
     @staticmethod
     def preprocess_search_hit(pid, record_hit, links_factory=None, **kwargs):
         """Prepare a record hit from Elasticsearch for serialization."""
-        super(JSONSerializer, JSONSerializer).preprocess_search_hit(
+        record = _JSONSerializer.preprocess_search_hit(
             pid=pid,
             record_hit=record_hit,
             links_factory=links_factory,
             kwargs=kwargs
         )
-        search_hit = dict(
-            pid=pid,
-            metadata=record_hit['_source'],
-            links=links_factory(pid, record_hit=record_hit, **kwargs),
-            revision=record_hit['_version']
-        )
-        if record_hit.get('_explanation'):
-            search_hit['explanation'] = record_hit.get('_explanation')
-        return search_hit
+        if record.get('_explanation'):
+            record[1:] = record.get('_explanation')
+            del record['_explanation']
+        return record
 
     def post_process_serialize_search(self, results, pid_fetcher):
         """Post process the search results."""

@@ -19,7 +19,10 @@
 
 from functools import partial
 
-from .models import ILLRequestIdentifier
+from flask_babelex import gettext as _
+
+from .models import ILLRequestIdentifier, ILLRequestMetadata, \
+    ILLRequestNoteStatus
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..locations.api import Location
@@ -54,15 +57,22 @@ class ILLRequest(IlsRecord):
     minter = ill_request_id_minter
     fetcher = ill_request_id_fetcher
     provider = ILLRequestProvider
+    model_cls = ILLRequestMetadata
 
     def extended_validation(self, **kwargs):
         """Validate record against schema.
 
-        If record is a copy request (copy==true) then `pages` property is
-        required
+        * If record is a copy request (copy==true) then `pages` property is
+          required
+        * Ensures that only one note of each type is present.
         """
         if self.is_copy and self.get('pages') is None:
             return 'Required property : `pages`'
+
+        note_types = [note.get('type') for note in self.get('notes', [])]
+        if len(note_types) != len(set(note_types)):
+            return _('Can not have multiple notes of same type.')
+
         return True
 
     @classmethod
@@ -113,10 +123,21 @@ class ILLRequest(IlsRecord):
         """Get organisation pid for ill_request."""
         return self.get_pickup_location().organisation_pid
 
+    @property
+    def public_note(self):
+        """Get the public note for ill_requests."""
+        notes = [note.get('content') for note in self.get('notes', [])
+                 if note.get('type') == ILLRequestNoteStatus.PUBLIC_NOTE]
+        return next(iter(notes or []), None)
+
     def get_pickup_location(self):
         """Get the pickup location."""
         location_pid = self.replace_refs()['pickup_location']['pid']
         return Location.get_record_by_pid(location_pid)
+
+    def get_library(self):
+        """Get the library linked to the ill_request."""
+        return self.get_pickup_location().get_library()
 
 
 class ILLRequestsIndexer(IlsRecordsIndexer):

@@ -18,6 +18,8 @@
 """Signals connector for Item."""
 
 from .api import ILLRequest, ILLRequestsSearch
+from ..locations.api import Location
+from ..utils import extracted_data_from_ref
 
 
 def enrich_ill_request_data(sender, json=None, record=None, index=None,
@@ -35,3 +37,14 @@ def enrich_ill_request_data(sender, json=None, record=None, index=None,
         json['organisation'] = {
             'pid': record.organisation_pid
         }
+        # add patron name to ES index (for faceting)
+        patron = extracted_data_from_ref(
+            record.get('patron').get('$ref'), 'record')
+        json['patron']['name'] = patron.formatted_name
+        # add library informations to ES index (for faceting)
+        loc_pid = json.get('pickup_location', {}).get('pid')
+        if loc_pid:
+            parent_lib = Location.get_record_by_pid(loc_pid).get_library()
+            json['library'] = {
+                'pid': parent_lib.pid
+            }

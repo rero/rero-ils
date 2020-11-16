@@ -35,6 +35,13 @@ def test_patrons_serializers(
     response = client.get(list_url, headers=json_header)
     assert response.status_code == 200
 
+    # Get the first result and check if it contains all desired keys.
+    data = get_json(response)
+    hit = data['hits']['hits'][0]
+    for key in ['created', 'updated', 'id', 'links', 'metadata']:
+        assert key in hit
+        assert hit[key]
+
 
 def test_items_serializers(
     client,
@@ -56,21 +63,25 @@ def test_items_serializers(
     response = client.get(item_url, headers=json_header)
     assert response.status_code == 200
     data = get_json(response)
-    assert data['metadata'].get('item_type').get('$ref')
+    assert data['metadata'].get('item_type', {}).get('$ref')
 
     item_url = url_for(
         'invenio_records_rest.item_item', pid_value=item_lib_martigny.pid)
     response = client.get(item_url, headers=json_header)
     assert response.status_code == 200
     data = get_json(response)
-    assert data['metadata'].get('item_type').get('$ref')
+    assert data['metadata'].get('item_type', {}).get('$ref')
 
     item_url = url_for(
         'invenio_records_rest.item_item',
         pid_value=item_lib_fully.pid, resolve=1)
     response = client.get(item_url, headers=json_header)
-    data = get_json(response)['metadata']
-    assert data.get('item_type').get('pid')
+    data = get_json(response)
+    assert data['metadata'].get('item_type', {}).get('pid')
+    # test if all key exist into response with a value
+    for key in ['created', 'updated', 'id', 'links', 'metadata']:
+        assert key in data
+        assert data[key]
 
     list_url = url_for('invenio_records_rest.item_list')
     response = client.get(list_url, headers=rero_json_header)

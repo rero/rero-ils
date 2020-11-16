@@ -32,7 +32,12 @@
       "url": "http://data.rero.ch/01-R007878671/html?view=GE_V1"
     },
     "pages": "18-24",
-    "note": "Could you please add the front page of the journal issue? Thanks a lot!"
+    "notes": [
+      {
+        "type": "public_note",
+        "content": "Could you please add the front page of the journal issue? Thanks a lot!"
+      }
+    ]
   },
   {
     "status": "pending",
@@ -61,10 +66,20 @@
       "url": "https://www.amazon.fr/grand-roman-maths-pr%C3%A9histoire-jours/dp/2081378760"
     },
     "pages": "19-44",
-    "note": "Je voudrais obtenir le chapitre 2 de ce livre."
+    "notes": [
+      {
+        "type": "public_note",
+        "content": "Je voudrais obtenir le chapitre 2 de ce livre."
+      },
+      {
+        "type": "staff_note",
+        "content": "Ce livre ne comprend pas de chapitre"
+      }
+    ]
   },
   {
-    "status": "pending",
+    "status": "validated",
+    "loan_status": "ITEM_AT_DESK",
     "copy": false,
     "document": {
       "title": "Harry Potter and the Philosopher's Stone",
@@ -76,6 +91,11 @@
       "source": "Amazon",
       "url": "https://read.amazon.com/kp/embed?asin=B019PIOJYU&preview=newtab&linkCode=kpe&ref_=cm_sw_r_kb_dp_MBjwFb8A8N94P"
     },
-    "note": "In english please."
+    "notes": [
+      {
+        "type": "public_note",
+        "content": "In english please."
+      }
+    ]
   }
 ]

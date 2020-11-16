@@ -21,6 +21,7 @@ from __future__ import absolute_import
 
 from invenio_db import db
 from invenio_pidstore.models import RecordIdentifier
+from invenio_records.models import RecordMetadataBase
 
 
 class ILLRequestIdentifier(RecordIdentifier):
@@ -35,6 +36,12 @@ class ILLRequestIdentifier(RecordIdentifier):
     )
 
 
+class ILLRequestMetadata(db.Model, RecordMetadataBase):
+    """ILLRequest record metadata."""
+
+    __tablename__ = 'ill_request_metadata'
+
+
 class ILLRequestStatus:
     """Available status for an ILL request."""
 
@@ -42,3 +49,10 @@ class ILLRequestStatus:
     VALIDATED = 'validated'
     DENIED = 'denied'
     CLOSED = 'closed'
+
+
+class ILLRequestNoteStatus:
+    """Available note status for an ILL request."""
+
+    PUBLIC_NOTE = 'public_note'
+    STAFF_NOTE = 'staff_note'

@@ -19,12 +19,15 @@
 
 from __future__ import absolute_import, print_function
 
+import copy
+
 import pytest
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
 from rero_ils.modules.errors import RecordValidationError
 from rero_ils.modules.ill_requests.api import ILLRequest
+from rero_ils.modules.ill_requests.models import ILLRequestNoteStatus
 
 
 def test_required(ill_request_schema, ill_request_martigny_data_tmp):
@@ -60,11 +63,25 @@ def test_required(ill_request_schema, ill_request_martigny_data_tmp):
 
 def test_extended_validation(app, ill_request_martigny_data_tmp):
     """Test extended validation for ill request."""
-    data = ill_request_martigny_data_tmp
+    data = copy.deepcopy(ill_request_martigny_data_tmp)
 
-    # pages are reqiured if request is a request copy
+    # pages are required if request is a request copy
     data['copy'] = True
     if 'pages' in data:
         del data['pages']
     with pytest.raises(RecordValidationError):
+        ILLRequest.validate(ILLRequest(data))
+
+    # test on 'notes' field :: have 2 note of the same type is disallowed
+    data = copy.deepcopy(ill_request_martigny_data_tmp)
+    data['notes'] = [{
+        'type': ILLRequestNoteStatus.PUBLIC_NOTE,
+        'content': 'dummy content'
+    }]
+    ILLRequest.validate(ILLRequest(data))
+    with pytest.raises(RecordValidationError):
+        data['notes'].append({
+            'type': ILLRequestNoteStatus.PUBLIC_NOTE,
+            'content': 'second dummy note'
+        })
         ILLRequest.validate(ILLRequest(data))

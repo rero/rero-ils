@@ -47,9 +47,11 @@ def create_ill_requests(input_file):
                 if 'pid' in request_data:
                     del request_data['pid']
                 if organisation_pid not in patron_pids:
-                    patron_pids[organisation_pid] = list(
-                        Patron.get_all_pids_for_organisation(organisation_pid)
-                    )
+                    patron_pids[organisation_pid] = [
+                        pid for pid in Patron.get_all_pids_for_organisation(
+                            organisation_pid)
+                        if Patron.get_record_by_pid(pid).is_patron
+                    ]
                 patron_pid = random.choice(patron_pids[organisation_pid])
                 request_data['patron'] = {
                     '$ref': get_ref_for_pid('patrons', patron_pid)
