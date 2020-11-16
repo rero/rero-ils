@@ -157,11 +157,10 @@
           "title": "Issue display template",
           "description": "This template define how a prediction is displayed. i.e. year 2020; vol.1, iss. 4. It should contains the variable field between {{}} with the corresponding pattern and level name.",
           "type": "string",
-          "default": "Vol. {{numbering.volume}}({{chronology.year}}), no {{numbering.number}} {{chronology.season}}",
           "minLength": 3,
           "pattern": ".*?\\{\\{.*?\\}\\}.*?",
           "form": {
-            "placeholder": "Vol. {{numbering.vol}}, {{chronology.year}}",
+            "placeholder": "Example: Vol. {{numbering.volume}}, {{expected_date.year}}",
             "validation": {
               "messages": {
                 "patternMessage": "Should contains at least one variable between {{ }}."
@@ -278,38 +277,6 @@
         "values": {
           "title": "Prediction patterns",
           "type": "array",
-          "default": [
-            {
-              "name": "numbering",
-              "levels": [
-                {
-                  "number_name": "volume"
-                },
-                {
-                  "number_name": "number",
-                  "completion_value": 4
-                }
-              ]
-            },
-            {
-              "name": "chronology",
-              "levels": [
-                {
-                  "number_name": "year",
-                  "next_value": 1990
-                },
-                {
-                  "list_name": "season",
-                  "mapping_values": [
-                    "printemps",
-                    "\u00e9t\u00e9",
-                    "automne",
-                    "hiver"
-                  ]
-                }
-              ]
-            }
-          ],
           "minItems": 1,
           "items": {
             "title": "Prediction pattern",
@@ -328,7 +295,10 @@
                 "title": "Name",
                 "type": "string",
                 "description": "It should be used in the display template. i.e. chronology, enumeration.",
-                "minLength": 1
+                "minLength": 1,
+                "form": {
+                  "placeholder": "Example: numbering"
+                }
               },
               "levels": {
                 "title": "Chronology levels",
@@ -355,25 +325,37 @@
                           "title": "Name",
                           "type": "string",
                           "description": "It should be used in the display template. i.e. year, month, volume, issue, etc.",
-                          "minLength": 1
+                          "minLength": 1,
+                          "form": {
+                            "placeholder": "Example: volume"
+                          }
                         },
                         "starting_value": {
                           "title": "Starting value",
                           "description": "First value of the sequence.",
                           "type": "integer",
-                          "minimum": 1
+                          "minimum": 1,
+                          "form": {
+                            "placeholder": "Example: 1"
+                          }
                         },
                         "completion_value": {
                           "title": "Completion of the values",
                           "description": "Last value of the sequence. If it is not defined the sequence will continue until the infinity.",
                           "type": "integer",
-                          "minimum": 1
+                          "minimum": 1,
+                          "form": {
+                            "placeholder": "Example: 12"
+                          }
                         },
                         "next_value": {
                           "title": "Next predicted value",
                           "description": "Can be used to correct the next current prediction.",
                           "type": "integer",
-                          "minimum": 1
+                          "minimum": 1,
+                          "form": {
+                            "placeholder": "Example: 3"
+                          }
                         }
                       }
                     },
@@ -458,10 +440,12 @@
       ],
       "properties": {
         "$ref": {
-          "title": "Vendor URI",
           "type": "string",
           "pattern": "^https://ils.rero.ch/api/vendors/.*?$",
           "form": {
+            "expressionProperties": {
+              "templateOptions.required": "false"
+            },
             "remoteOptions": {
               "type": "vendors"
             }
