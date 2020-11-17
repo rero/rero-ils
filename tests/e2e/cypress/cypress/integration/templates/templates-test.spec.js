@@ -76,7 +76,7 @@ describe('Templates: Create and use template for a document', function() {
     cy.get('.modal-content #template').select(this.templateName)
     cy.get('.modal-content button:submit').click()
     // Assert that the template was correctly loaded
-    cy.url(5000).should('include', '?source=templates&pid=')
+    // cy.url(5000).should('include', '?source=templates&pid=')
     cy.get('ng-core-editor #type').should('have.value', template.document.type_value)
     cy.get('#title-0-mainTitle-0-value').should('have.value', template.document.title.mainTitle)
     cy.log('Template loaded successfully !')

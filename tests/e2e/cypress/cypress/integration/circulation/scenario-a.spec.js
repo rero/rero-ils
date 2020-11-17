@@ -102,23 +102,22 @@ describe('Circulation scenario A: standard loan', function() {
      */
     cy.adminLogin(this.users.librarians.leonard.email, this.common.uniquePwd);
     // Go to requests list
-    cy.get('#user-services-menu').click();
-    cy.get('#requests-menu').click();
+    cy.visit('/professional/circulation/requests');
     // Check that the document is present
-    cy.get('table').should('contain', this.itemBarcode)
+    cy.get('#request-' + this.itemBarcode + ' [name="barcode"]').should('contain', this.itemBarcode);
     // Enter the barcode and validate
-    cy.get('#search').type(this.itemBarcode).type('{enter}')
+    cy.get('#search').type(this.itemBarcode).type('{enter}');
 
     // The item should be marked as available in user profile view
     // Go to patrons list
     cy.get('#user-services-menu').click();
     cy.get('#users-menu').click();
     // Go to James patron profile
-    cy.get('#' + this.users.patrons.james.barcode + '-loans').click()
+    cy.get('#' + this.users.patrons.james.barcode + '-loans').click();
     // Click on tab called "To pick up"
-    cy.get('#pick-up-tab').click()
+    cy.get('#pick-up-tab').click();
     // The item should be present
-    cy.get('.content').should('contain', this.itemBarcode)
+    cy.get('.content').should('contain', this.itemBarcode);
   });
 
   it('3. The item is checked out for patron at owning library', function() {

@@ -46,9 +46,12 @@ describe('Create a document', function() {
   });
 
   it('Creates a document with only essential fields', function() {
+    cy.server();
+    cy.route('/schemaform/documents').as('documentSchemaform');
     // Go to document editor
     cy.visit('/professional/records/documents/new');
     // Populate form with simple record
+    cy.wait('@documentSchemaform');
     cy.populateSimpleRecord(this.documents.book);
     //Save record
     cy.saveRecord();
