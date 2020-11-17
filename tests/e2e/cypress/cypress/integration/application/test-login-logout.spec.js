@@ -51,7 +51,8 @@ describe('Login and logout', function() {
     cy.get('#password').type(this.common.uniquePwd);
     cy.get('form[name="login_user_form"]').submit();
     // Check that the user is logged
-    cy.get('#my-account-menu').should('contain', this.users.librarians.leonard.initials);
+    const name = [this.users.librarians.leonard.last_name, this.users.librarians.leonard.first_name]
+    cy.get('#my-account-menu').should('contain', name.join(', '));
     // Check professional interface access
     cy.visit('/professional');
     cy.get('body').should('contain','RERO ILS administration');
@@ -77,6 +78,7 @@ describe('Login and logout', function() {
     cy.get('#password').type(this.common.uniquePwd);
     cy.get('form[name="login_user_form"]').submit();
     // Check that the user is logged
-    cy.get('#my-account-menu').should('contain', this.users.patrons.james.initials);
+    const name = [this.users.patrons.james.last_name, this.users.patrons.james.first_name]
+    cy.get('#my-account-menu').should('contain', name.join(', '));
   });
 });

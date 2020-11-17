@@ -106,10 +106,9 @@ describe('Circulation scenario B: standard loan with transit', function() {
     // Login as librarian (Leonard)
     cy.adminLogin(this.users.librarians.leonard.email, this.common.uniquePwd);
     // Go to requests list
-    cy.get('#user-services-menu').click();
-    cy.get('#requests-menu').click();
+    cy.visit('/professional/circulation/requests');
     // Check that the document is present
-    cy.get('table').should('contain', this.itemBarcode);
+    cy.get('#request-' + this.itemBarcode + ' [name="barcode"]').should('contain', this.itemBarcode);
     // Enter the barcode and validate
     cy.get('#search').type(this.itemBarcode).type('{enter}');
     // Go to document detail view
