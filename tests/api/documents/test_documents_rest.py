@@ -289,7 +289,7 @@ def test_documents_post_put_delete(
 
     # Check that the returned record matches the given data
     test_data = data['metadata']
-    test_data.pop('sort_title')
+    test_data.pop('sort_title', None)
     assert clean_text(test_data) == document_chinese_data
 
     res = client.get(item_url)
@@ -297,7 +297,7 @@ def test_documents_post_put_delete(
     data = get_json(res)
 
     test_data = data['metadata']
-    test_data.pop('sort_title')
+    test_data.pop('sort_title', None)
     assert clean_text(test_data) == document_chinese_data
     expected_title = [
         {
