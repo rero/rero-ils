@@ -55,12 +55,15 @@
       ],
       "properties": {
         "$ref": {
-          "title": "Circulation type URI",
+          "title": "Circulation category URI",
           "type": "string",
           "pattern": "^https://ils.rero.ch/api/item_types/.*?$",
           "form": {
             "remoteOptions": {
               "type": "item_types"
+            },
+            "templateOptions": {
+              "label": ""
             }
           }
         }
@@ -78,7 +81,13 @@
           "type": "string",
           "pattern": "^https://ils.rero.ch/api/locations/.+?$",
           "form": {
-            "fieldMap": "location"
+            "fieldMap": "location",
+            "remoteOptions": {
+              "type": "locations"
+            },
+            "templateOptions": {
+              "label": ""
+            }
           }
         }
       }
@@ -440,14 +449,19 @@
       ],
       "properties": {
         "$ref": {
+          "title": "Vendor URI",
           "type": "string",
           "pattern": "^https://ils.rero.ch/api/vendors/.*?$",
           "form": {
+            "remoteOptions": {
+              "type": "vendors"
+            },
             "expressionProperties": {
               "templateOptions.required": "false"
             },
-            "remoteOptions": {
-              "type": "vendors"
+            "placeholder": "Choose a vendor",
+            "templateOptions": {
+              "label": ""
             }
           }
         }
