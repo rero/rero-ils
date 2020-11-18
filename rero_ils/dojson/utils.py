@@ -1502,14 +1502,14 @@ def build_responsibility_data(responsibility_data):
     for data_std in data_std_items:
         out_data = []
         data_value = remove_trailing_punctuation(
-                        data_std.lstrip(), ',.[]', ':;/-=')
+                        data_std.lstrip(), ',.', ':;/-=')
         if data_value:
             out_data.append({'value': data_value})
             if lang:
                 try:
                     data_lang_value = \
                         remove_trailing_punctuation(
-                            data_lang_items[index].lstrip(), ',.[]', ':;/-=')
+                            data_lang_items[index].lstrip(), ',.', ':;/-=')
                     if not data_lang_value:
                         raise Exception('missing data')
                 except Exception as err:

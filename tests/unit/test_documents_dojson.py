@@ -354,6 +354,52 @@ def test_marc21_to_pid():
     assert data.get('pid') is None
 
 
+def test_marc21_to_title_245_with_sufield_c_having_square_bracket():
+    """Test dojson test_marc21_to_title_245_without_246.
+
+    - field 245 with subfields $a $b $c
+    - subfields 245 $a without '='
+    - subfields 245 $c with '[]'
+    - field 246 is not present
+    """
+
+    marc21xml = """
+    <record>
+      <controlfield tag=
+          "008">110729s2011    xx ||| |  ||||00|  |und d</controlfield>
+      <datafield tag="035" ind1=" " ind2=" ">
+        <subfield code="a">R006114538</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="245">
+        <subfield code="a">Ma ville en vert :</subfield>
+        <subfield code="b">pour un retour de la nature /</subfield>
+        <subfield code="c">[Robert Klant ... [et al.] ; [Kitty B.]</subfield>
+        </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('title') == [
+        {
+            'type': 'bf:Title',
+            'mainTitle': [
+                {'value': 'Ma ville en vert'}
+            ],
+            'subtitle': [
+                {'value': 'pour un retour de la nature'}
+            ],
+        }
+    ]
+    assert data.get('responsibilityStatement') == [
+        [
+            {'value': '[Robert Klant ... [et al.]'}
+        ],
+        [
+            {'value': '[Kitty B.]'}
+        ]
+    ]
+
+
 def test_marc21_to_title_245_with_two_246():
     """Test dojson title with a 245 and two 246.
 
