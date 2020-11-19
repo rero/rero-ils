@@ -58,7 +58,7 @@
             {%- for item in current_menu.submenu('main').children|sort(attribute='order') if item.visible %}
             {%- if item.children %}
             <li class="nav-item{{ ' active' if item.active else ''}}">
-              <a class="nav-link collapsed" data-toggle="collapse" role="button"
+              <a class="nav-link collapsed {{ item.cssClass }}" data-toggle="collapse" role="button"
                  aria-controls="collapseExample" aria-expanded="false"
                  href="#{{ item.name }}"
                  {{ "id={}".format(item.id) if item.id }}

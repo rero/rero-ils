@@ -196,25 +196,29 @@ def init_menu_profile():
     """Create the profile header menu."""
     item = current_menu.submenu('main.profile')
     if current_patron:
-        session['user_initials'] = current_patron.initial
+        session['user_name'] = current_patron.formatted_name
     else:
         try:
-            session['user_initials'] = current_user.email
+            session['user_name'] = current_user.email
         # AnonymousUser
         except AttributeError:
-            session.pop('user_initials', None)
-    account = session.get('user_initials', _('My Account'))
+            session.pop('user_name', None)
+    account = session.get('user_name', _('My Account'))
+    if len(account) > 30:
+        account = account[:30] + '…'
 
     rero_register(
         item,
         endpoint=None,
-        text='{icon} <span class="{visible}">{account}</span>'.format(
-            icon='<i class="fa fa-user"></i>',
-            visible='visible-md-inline visible-lg-inline',
-            account=account
-        ),
+        text='<span class="btn btn-sm btn-success">{icon} '
+             '<span class="{visible}">{account}</span><span>'.format(
+                 icon='<i class="fa fa-user"></i>',
+                 visible='visible-md-inline visible-lg-inline',
+                 account=account
+             ),
         order=1,
         id='my-account-menu',
+        cssClass='py-1'
     )
 
     item = current_menu.submenu('main.profile.login')
