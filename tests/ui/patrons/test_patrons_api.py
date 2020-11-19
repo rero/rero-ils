@@ -25,6 +25,7 @@ from datetime import datetime
 
 import pytest
 from invenio_accounts.models import User
+from invenio_accounts.testutils import create_test_user
 from invenio_userprofiles import UserProfile
 from jsonschema.exceptions import ValidationError
 
@@ -167,18 +168,19 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
 def test_patron_create_without_email(app, roles, patron_type_children_martigny,
                                      patron_martigny_data_tmp, mailbox):
     """Test Patron creation without an email."""
-    del patron_martigny_data_tmp['email']
+    patron_martigny_data_tmp = deepcopy(patron_martigny_data_tmp)
 
     # no data has been created
     mailbox.clear()
-    # assert User.query.count() == 0
-    # assert UserProfile.query.count() == 0
 
+    # create a patron without email
+    del patron_martigny_data_tmp['email']
     ptrn = Patron.create(
         patron_martigny_data_tmp,
         dbcommit=True,
         delete_pid=True
     )
+    # user has been created
     user = User.query.filter_by(id=ptrn.get('user_id')).first()
     assert user
     assert not user.email
@@ -186,26 +188,31 @@ def test_patron_create_without_email(app, roles, patron_type_children_martigny,
     assert user.active
     assert len(mailbox) == 0
 
+    # add an email of a non existing user
     patron_martigny_data_tmp['email'] = 'test@test.ch'
     ptrn.replace(
         data=patron_martigny_data_tmp,
         dbcommit=True
     )
+    # the user remains the same
     assert user == ptrn.user
     assert user.email == patron_martigny_data_tmp['email']
     assert user.active
     assert len(mailbox) == 0
 
+    # update with a new email in the system
     patron_martigny_data_tmp['email'] = 'test@test1.ch'
     ptrn.replace(
         data=patron_martigny_data_tmp,
         dbcommit=True
     )
+    # the user remains the same
     assert user == ptrn.user
     assert user.email == patron_martigny_data_tmp['email']
     assert user.active
     assert len(mailbox) == 0
 
+    # remove the email
     del patron_martigny_data_tmp['email']
     ptrn.replace(
         data=patron_martigny_data_tmp,
@@ -215,6 +222,26 @@ def test_patron_create_without_email(app, roles, patron_type_children_martigny,
     assert not user.email
     assert user.active
     assert len(mailbox) == 0
+
+    # create a new invenio user in the system
+    rero_id_user = create_test_user(email='reroid@test.com', active=True)
+
+    # update the patron with the email of the freshed create invenio user
+    patron_martigny_data_tmp['email'] = 'reroid@test.com'
+    patron_martigny_data_tmp['username'] = 'reroid'
+    ptrn.replace(
+        data=patron_martigny_data_tmp,
+        dbcommit=True
+    )
+    # the user linked with the patron has been changed
+    assert rero_id_user == ptrn.user
+    # the username is updated on both user profile and patron
+    assert rero_id_user.profile.username == ptrn.get('username') == 'reroid'
+
+    # clean up created users
+    ds = app.extensions['invenio-accounts'].datastore
+    ds.delete_user(user)
+    ds.delete_user(rero_id_user)
 
 
 def test_patron_organisation_pid(org_martigny, patron_martigny_no_email,

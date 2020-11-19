@@ -32,7 +32,6 @@ from invenio_db import db
 from invenio_userprofiles.models import UserProfile
 from sqlalchemy.orm.exc import NoResultFound
 from werkzeug.local import LocalProxy
-from werkzeug.utils import cached_property
 
 from .models import PatronIdentifier, PatronMetadata
 from .utils import get_patron_from_arguments
@@ -173,12 +172,7 @@ class Patron(IlsRecord):
         data = trim_barcode_for_record(data=data)
         # synchronize the rero id user profile data
         user = cls.sync_user_and_profile(data)
-
         try:
-            # for a fresh created user
-            if user:
-                # link by id
-                data.setdefault('user_id', user.id)
             record = super(Patron, cls).create(
                 data, id_, delete_pid, dbcommit, reindex, **kwargs)
             record._update_roles()
@@ -197,7 +191,8 @@ class Patron(IlsRecord):
         # remove spaces
         data = trim_barcode_for_record(data=data)
         # synchronize the rero id user profile data
-        self.sync_user_and_profile(dict(self, **data))
+        data = dict(self, **data)
+        self.sync_user_and_profile(data)
         super(Patron, self).update(data, dbcommit, reindex)
         self._update_roles()
         return self
@@ -226,6 +221,17 @@ class Patron(IlsRecord):
                     value = getattr(profile, field)
                     if value not in [None, '']:
                         patron[field] = value
+            # update the email
+            if profile.user.email != patron.get('email'):
+                # the email is not defined or removed in the user profile
+                if not profile.user.email:
+                    try:
+                        del patron['email']
+                    except KeyError:
+                        pass
+                else:
+                    # the email has been updated in the user profile
+                    patron['email'] = profile.user.email
             super(Patron, patron).update(dict(patron), True, True)
 
     @classmethod
@@ -238,8 +244,6 @@ class Patron(IlsRecord):
         :return: a patron object or None.
         """
         user = None
-        if data.get('user_id'):
-            user = User.query.filter_by(id=data.get('user_id')).first()
         if not user and data.get('username'):
             try:
                 user = UserProfile.get_by_username(data.get('username')).user
@@ -247,6 +251,8 @@ class Patron(IlsRecord):
                 user = None
         if not user and data.get('email'):
             user = User.query.filter_by(email=data.get('email')).first()
+        if not user and not data.get('user_id'):
+            user = User.query.filter_by(id=data.get('user_id')).first()
         return user
 
     @classmethod
@@ -255,9 +261,10 @@ class Patron(IlsRecord):
 
         :param data - dict representing the patron data
         """
+        created = False
         # start a session to be able to rollback if the data are not valid
+        user = cls._get_user_by_data(data)
         with db.session.begin_nested():
-            user = cls._get_user_by_data(data)
             # need to create the user
             if not user:
                 birth_date = data.get('birth_date')
@@ -270,24 +277,31 @@ class Patron(IlsRecord):
                     password=hash_password(birth_date),
                     profile=dict(), active=True)
                 db.session.add(user)
+                created = True
             else:
                 if user.email != data.get('email'):
                     user.email = data.get('email')
             # update all common fields
+            if user.profile is None:
+                user.profile = UserProfile(user_id=user.id)
+            profile = user.profile
             for field in cls.profile_fields:
                 # date field need conversion
                 if field == 'birth_date':
                     setattr(
-                        user.profile, field,
+                        profile, field,
                         datetime.strptime(data.get(field), '%Y-%m-%d'))
                 else:
-                    setattr(user.profile, field, data.get(field, ''))
+                    setattr(profile, field, data.get(field, ''))
             db.session.merge(user)
-            if not data.get('user_id'):
+            data['user_id'] = user.id
+            if created:
                 # the fresh created user
                 return user
 
-    @cached_property
+    # TODO: use cached property one we found how to invalidate the cache when
+    #       the user change
+    @property
     def user(self):
         """Invenio user of a patron."""
         user = _datastore.find_user(id=self.get('user_id'))

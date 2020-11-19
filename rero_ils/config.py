@@ -2080,6 +2080,10 @@ SECURITY_SEND_REGISTER_EMAIL = True
 #: Allow users to login without first confirming their email address.
 SECURITY_LOGIN_WITHOUT_CONFIRMATION = False
 
+#: TODO: remove this when the email is sent only if the user has an email
+# address
+SECURITY_SEND_PASSWORD_CHANGE_EMAIL = False
+
 # Misc
 INDEXER_REPLACE_REFS = True
 INDEXER_RECORD_TO_INDEX = 'rero_ils.modules.indexer_utils.record_to_index'
