@@ -80,7 +80,7 @@
       "minLength": 6,
       "form": {
         "expressionProperties": {
-          "templateOptions.required": "field.parent.model.roles.some(v => (v === 'librarian' || v === 'system_librarian'))"
+          "templateOptions.required": "field.parent.model.roles.some(v => (v === 'librarian' || v === 'system_librarian')) || field.parent.model.patron.communication_channel === 'email'"
         },
         "validation": {
           "validators": {
