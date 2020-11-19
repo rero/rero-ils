@@ -18,6 +18,100 @@
 Release notes
 =============
 
+v0.14.1
+-------
+
+**This release note includes the changes of the ``rero-ils-ui`` project
+[`link`_].**
+
+User interface
+~~~~~~~~~~~~~~
+
+Professional interface
+^^^^^^^^^^^^^^^^^^^^^^
+
+-  Fixes a wrong behaviour of the cancel button in the editor. If the
+   user had a template loaded, or even worse multiple templates to
+   select the one needed, then the cancel button was reloading each
+   previous state of the editor. To fix this, when a template has been
+   loaded, the cancel button skips the previous “loading template URL”.
+
+Metadata
+~~~~~~~~
+
+-  Adds corporate bodies to the contribution agents. The `MEF server`_
+   has been extended with the corporate bodies records. The corporate
+   bodies can be added through the document editor, as a link to the
+   authority record. The contribution agents data is displayed on the
+   brief and detailed views of the professional and public interface,
+   but also in the circulation module, patron account (both professional
+   and public).
+-  Renames the RERO ILS *person* module into *contribution* module.
+-  Fixes the missing content of the item notes of the item detailed view
+   of the professional interface.
+
+-  Acquisition
+
+-  Improves the holdings editor to ensure the pattern preview is more
+   robust when an invalid pattern configuration syntax is occurring.
+
+Tests
+~~~~~
+
+-  Fixes the way ``poetry`` is installed in GitHub actions.
+
+Issues
+~~~~~~
+
+-  `#1282`_: The roles are not translated in the user editor.
+-  `#1283`_: The link to the patron profile of the public interface is
+   not translated.
+-  `#1319`_: Note labels for holdings are not translated in the
+   professional interface.
+-  `#1360`_: The loans *in transit to house* are not displayed in the
+   patron history, both in professional and public interface.
+-  `#1367`_: Message for a request that is denied is partially
+   untranslated.
+-  `#1371`_: Labels in the fees tab of the patron account (professional
+   interface) are not translated.
+-  `#1406`_: Brackets and parenthesis should not be removed by the
+   conversion script from the source data for the
+   ``responsibilitySatement`` field.
+-  `#1450`_: Patterns preview in the holdings editor do not work anymore
+   after an error 400.
+-  `#1451`_: In the holdings editor, once an editor is selected, it can
+   not be deselected.
+-  `#1452`_: In the holdings editor, some unnecessary labels are
+   displayed.
+-  `#1453`_: The cancel button does not work as expected after loading a
+   template.
+-  `#1454`_: Creating a user with the patron role and with an existing
+   RERO ID email causes the spinner to run forever.
+-  `#1455`_: The patron email should be required if the communication
+   channel is ``email``.
+-  `#1458`_: Changing the patron email in the RERO ID does not sync to
+   the patron record (user resource).
+-  `#1459`_: Patron without email is not able to change his personal
+   informations
+
+.. _link: https://github.com/rero/rero-ils-ui
+.. _MEF server: https://mef.test.rero.ch
+.. _#1282: https://github.com/rero/rero-ils/issues/1282
+.. _#1283: https://github.com/rero/rero-ils/issues/1283
+.. _#1319: https://github.com/rero/rero-ils/issues/1319
+.. _#1360: https://github.com/rero/rero-ils/issues/1360
+.. _#1367: https://github.com/rero/rero-ils/issues/1367
+.. _#1371: https://github.com/rero/rero-ils/issues/1371
+.. _#1406: https://github.com/rero/rero-ils/issues/1406
+.. _#1450: https://github.com/rero/rero-ils/issues/1450
+.. _#1451: https://github.com/rero/rero-ils/issues/1451
+.. _#1452: https://github.com/rero/rero-ils/issues/1452
+.. _#1453: https://github.com/rero/rero-ils/issues/1453
+.. _#1454: https://github.com/rero/rero-ils/issues/1454
+.. _#1455: https://github.com/rero/rero-ils/issues/1455
+.. _#1458: https://github.com/rero/rero-ils/issues/1458
+.. _#1459: https://github.com/rero/rero-ils/issues/1459
+
 v0.14.0
 -------
 
@@ -32,6 +126,8 @@ User interface
 -  Translates the identifier types.
 -  Displays in the patron account history, both professional and public
    interface, the item on loans that are in transit to house.
+-  Fixes an internal server error on the collection public view caused by
+   wrongfully displayed data.
 
 Professional interface
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -117,12 +213,25 @@ Metadata
 -  Renames the *public note* to *general note*.
 -  Adds the ``enumerationAndChronology`` filed to all type of items
    (issue and others).
+-  Renames person module into contribution module.
 -  Sorts the contribution roles in the document editor (with
    ``selectWithSort`` form option).
+-  Updates the conversion of documents with contribution references from
+   IdRef.
+-  Corrects MARC to JSON conversion for subjects.
 -  Improves the email validation message in several resources JSON
    schema.
--  Renames person module into contribution module.
 -  Makes the holdings `vendor` field optional. It should not be required.
+-  Sets the holdings, patron and item notes `minLength` to 1 instead of
+   three, to allow codes in the notes of the legacy system to be imported
+   without data loss.
+-  Sets the `mingLength` to 1 for the following fields, in order to avoid
+   losing data (will be fixed later):
+
+   - `patron.city`.
+   - `patron.postal_code`.
+   - `patron.street`.
+   - `item.barcode`.
 
 Acquisitions
 ~~~~~~~~~~~~
@@ -257,6 +366,8 @@ Issues
    an item is on loan, the due date should not display the ``datetime``.
 -  `#1403`_: The qualifier, status and note of the identifier should be
    displayed in the document detailed view.
+-  `#1481`_: Internal server error when an exhibition (collection) has an
+   empty library field.
 
 .. _link: https://github.com/rero/rero-ils-ui
 .. _metadata: #metadata
@@ -289,6 +400,7 @@ Issues
 .. _#1386: https://github.com/rero/rero-ils/issues/1386
 .. _#1398: https://github.com/rero/rero-ils/issues/1398
 .. _#1403: https://github.com/rero/rero-ils/issues/1403
+.. _#1481: https://github.com/rero/rero-ils/issues/1481
 
 v0.13.1
 -------
