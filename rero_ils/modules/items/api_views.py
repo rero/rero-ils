@@ -191,6 +191,8 @@ def checkout(item, data):
         transaction_location_pid,
         transaction_user_pid
     """
+    data['override_blocking'] = flask_request.args.get(
+        'override_blocking', False)
     return item.checkout(**data)
 
 

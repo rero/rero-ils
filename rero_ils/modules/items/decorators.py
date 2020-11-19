@@ -70,6 +70,11 @@ def add_action_parameters_and_flush_indexes(function):
 def check_operation_allowed(action):
     """Check if a specific action is allowed on an item.
 
+    Check if an 'override_blocking' parameter is present. If this param is
+    present and set to True (or corresponding True values [1, 'true', ...])
+    then no CIRCULATION_ACTIONS_VALIDATION should be tested.
+    Remove this parameter from the data arguments.
+
     Check the CIRCULATION_ACTIONS_VALIDATION configuration file and execute
     function corresponding to the action specified. All function are execute
     until one return False (action denied) or all actions are successful.
@@ -80,13 +85,16 @@ def check_operation_allowed(action):
     def inner_function(func):
         @wraps(func)
         def decorated_view(*args, **kwargs):
-            actions = current_app.config.get(
-                'CIRCULATION_ACTIONS_VALIDATION', {})
-            for func_name in actions.get(action, []):
-                func_callback = obj_or_import_string(func_name)
-                can, reasons = func_callback(args[0], **kwargs)
-                if not can:
-                    raise CirculationException(description=reasons[0])
+            override_blocking = kwargs.pop('override_blocking', False)
+            override_blocking = bool(override_blocking)
+            if not override_blocking:
+                actions = current_app.config.get(
+                    'CIRCULATION_ACTIONS_VALIDATION', {})
+                for func_name in actions.get(action, []):
+                    func_callback = obj_or_import_string(func_name)
+                    can, reasons = func_callback(args[0], **kwargs)
+                    if not can:
+                        raise CirculationException(description=reasons[0])
             return func(*args, **kwargs)
         return decorated_view
     return inner_function

@@ -149,10 +149,27 @@ def test_checkout_library_limit(
     assert 'error' == data['messages'][0]['type']
     assert 'Checkout denied' in data['messages'][0]['content']
 
+    # try a checkout with 'override_blocking' parameter.
+    #   --> the restriction is no longer checked, the checkout will be success.
+    res, data = postdata(client, 'api_item.checkout', dict(
+        item_pid=item3.pid,
+        patron_pid=patron.pid,
+        transaction_location_pid=loc_public_martigny.pid,
+        transaction_user_pid=librarian_martigny_no_email.pid,
+    ), url_data={'override_blocking': 'true'})
+    assert res.status_code == 200
+    loan3_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
+
     # reset fixtures
-    #   --> checkin both loaned item
+    #   --> checkin three loaned item
     #   --> reset patron_type to original value
     #   --> reset items to original values
+    res, data = postdata(client, 'api_item.checkin', dict(
+        item_pid=item3.pid,
+        pid=loan3_pid,
+        transaction_location_pid=loc_public_martigny.pid,
+        transaction_user_pid=librarian_martigny_no_email.pid,
+    ))
     res, data = postdata(client, 'api_item.checkin', dict(
         item_pid=item2.pid,
         pid=loan2_pid,

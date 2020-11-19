@@ -15,11 +15,11 @@
         "type": "selectWithSort",
         "options": [
           {
-            "label": "Monochrome",
+            "label": "rdacc:1002",
             "value": "rdacc:1002"
           },
           {
-            "label": "Polychrome",
+            "label": "rdacc:1003",
             "value": "rdacc:1003"
           }
         ],
