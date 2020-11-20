@@ -258,14 +258,12 @@ def acq_accounts_search_factory(self, search, query_parser=None):
     Restricts results to library level for librarians.
     """
     search, urlkwargs = search_factory(self, search)
-    if current_patron:
-        if current_patron.is_system_librarian:
-            search = search.filter(
-                'term', organisation__pid=current_organisation.pid
-            )
-        elif current_patron.is_librarian:
-            search = search.filter(
-                'term', library__pid=current_patron.library_pid)
+
+    if current_patron and (
+            current_patron.is_librarian or current_patron.is_system_librarian):
+        search = search.filter(
+            'term', organisation__pid=current_organisation.pid
+        )
     return search, urlkwargs
 
 

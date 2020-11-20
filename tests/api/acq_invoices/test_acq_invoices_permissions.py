@@ -78,7 +78,7 @@ def test_invoice_permissions_api(client, org_sion, patron_martigny_no_email,
     res = client.get(invoice_saxon_permission_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['read']['can']
+    assert not data['read']['can']
     assert data['list']['can']
     assert not data['update']['can']
     assert not data['delete']['can']
@@ -156,7 +156,7 @@ def test_invoice_permissions(patron_martigny_no_email,
         assert AcqInvoicePermission.update(None, invoice_martigny)
         assert AcqInvoicePermission.delete(None, invoice_martigny)
 
-        assert AcqInvoicePermission.read(None, invoice_saxon)
+        assert not AcqInvoicePermission.read(None, invoice_saxon)
         assert not AcqInvoicePermission.create(None, invoice_saxon)
         assert not AcqInvoicePermission.update(None, invoice_saxon)
         assert not AcqInvoicePermission.delete(None, invoice_saxon)

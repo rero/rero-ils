@@ -2747,9 +2747,11 @@
     "postal_code": "1920",
     "city": "Martigny",
     "birth_date": "1967-06-07",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/lib1"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/lib1"
+      }
+    ],
     "email": "simolibri07@gmail.com",
     "username": "simonetta",
     "phone": "+41324993585",
@@ -2775,9 +2777,11 @@
     "postal_code": "1920",
     "city": "Martigny",
     "birth_date": "1965-02-07",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/lib1"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/lib1"
+      }
+    ],
     "username": "marie",
     "email": "mpedronni@gmail.com",
     "phone": "+41324993578",
@@ -2794,9 +2798,11 @@
     "postal_code": "1920",
     "city": "Martigny",
     "birth_date": "1975-02-07",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/lib1"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/lib1"
+      }
+    ],
     "username": "marcel",
     "email": "msaudan@gmail.com",
     "phone": "+41324993541",
@@ -2813,9 +2819,11 @@
     "postal_code": "1907",
     "city": "Saxon",
     "birth_date": "1967-06-07",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/lib2"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/lib2"
+      }
+    ],
     "username": "elena",
     "email": "elena_rodriguez@gmail.com",
     "phone": "+41324993515",
@@ -2832,9 +2840,11 @@
     "postal_code": "1926",
     "city": "Fully",
     "birth_date": "1967-06-07",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/lib3"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/lib3"
+      }
+    ],
     "username": "virgile",
     "email": "virgile_charbonnet@gmail.com",
     "phone": "+41324111515",
@@ -2920,9 +2930,11 @@
     "last_name": "Monnet",
     "postal_code": "1950",
     "street": "Rue du Nord 7",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/lib4"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/lib4"
+      }
+    ],
     "roles": [
       "system_librarian",
       "librarian"
@@ -2939,9 +2951,11 @@
     "last_name": "Carron",
     "postal_code": "1950",
     "street": "Rue du Nord 17",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/lib4"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/lib4"
+      }
+    ],
     "roles": [
       "librarian"
     ]
@@ -3018,9 +3032,11 @@
     "email": "sharifo@gmail.com",
     "username": "omar",
     "phone": "+41324991231",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/lib1"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/lib1"
+      }
+    ],
     "roles": [
       "patron"
     ],

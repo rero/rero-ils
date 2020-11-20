@@ -151,7 +151,7 @@
           }
         }
       },
-      "library": {
+      "libraries": {
         "properties": {
           "pid": {
             "type": "keyword"

@@ -157,6 +157,9 @@
     "amount_allocated": 15000,
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib1"
+    },
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
     }
   },
   "acac2": {
@@ -170,6 +173,9 @@
     "amount_allocated": 10000,
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib2"
+    },
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
     }
   },
   "acac3": {
@@ -183,6 +189,9 @@
     "amount_allocated": 12000,
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib3"
+    },
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
     }
   },
   "acac4": {
@@ -196,6 +205,9 @@
     "amount_allocated": 11000,
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib4"
+    },
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org2"
     }
   },
   "acac5": {
@@ -209,6 +221,9 @@
     "amount_allocated": 14000,
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib5"
+    },
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org2"
     }
   },
   "acac6": {
@@ -222,6 +237,9 @@
     "amount_allocated": 16000,
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib1"
+    },
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
     }
   },
   "acor1": {
@@ -356,6 +374,9 @@
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib1"
     },
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
+    },
     "invoice_number": "IN-1",
     "invoice_status": "in_progress",
     "invoice_date": "2020-01-06",
@@ -399,6 +420,9 @@
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib2"
     },
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
+    },
     "invoice_number": "IN-2",
     "invoice_status": "in_progress",
     "invoice_date": "2020-01-06",
@@ -430,6 +454,9 @@
     },
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib4"
+    },
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org2"
     },
     "invoice_number": "IN-3",
     "invoice_status": "in_progress",

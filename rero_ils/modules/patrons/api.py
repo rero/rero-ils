@@ -112,6 +112,7 @@ class Patron(IlsRecord):
         # and not a string with error from extended_validation
         if self.pid_check:
             from ..utils import pids_exists_in_data
+            validation_message = True
             if self.is_patron:
                 validation_message = pids_exists_in_data(
                     info='{pid_type} ({pid})'.format(
@@ -123,15 +124,17 @@ class Patron(IlsRecord):
                     not_required={}
                 ) or True
             if self.is_librarian:
-                validation_message = pids_exists_in_data(
-                    info='{pid_type} ({pid})'.format(
-                        pid_type=self.provider.pid_type,
-                        pid=self.pid
-                    ),
-                    data=self,
-                    required={'lib': 'library'},
-                    not_required={}
-                ) or True
+                libraries = self.get('libraries')
+                if not libraries:
+                    validation_message = 'Missing libraries'
+                for library_pid in self.library_pids:
+                    library = Library.get_record_by_pid(library_pid)
+                    if library is None:
+                        validation_message =\
+                            'Library {library_pid} doesn\'t exist.'.format(
+                                library_pid=library_pid
+                            )
+                        break
         subscriptions = self.get('patron', {}).get('subscriptions')
         if subscriptions and validation_message:
             for subscription in subscriptions:
@@ -401,16 +404,6 @@ class Patron(IlsRecord):
             return None
 
     @classmethod
-    def get_librarian_pickup_location_pid(cls):
-        """Returns pickup locations for a librarian."""
-        if 'librarian' in current_patron['roles']:
-            library = Library.get_record_by_pid(
-                current_patron.replace_refs()['library']['pid']
-            )
-            return library.get_pickup_location_pid()
-        return None
-
-    @classmethod
     def get_patron_by_barcode(cls, barcode=None):
         """Get patron by barcode."""
         if not barcode:
@@ -577,10 +570,17 @@ class Patron(IlsRecord):
     @property
     def library_pid(self):
         """Shortcut for patron library pid."""
+        if self.library_pids:
+            return self.library_pids[0]
+
+    @property
+    def library_pids(self):
+        """Shortcut for patron libraries pid."""
         if self.is_librarian:
-            return self.replace_refs()['library']['pid']
-        else:
-            return None
+            return [
+                library['pid'] for library
+                in self.replace_refs().get('libraries', [])
+            ]
 
     @property
     def is_system_librarian(self):
@@ -619,10 +619,9 @@ class Patron(IlsRecord):
 
     @property
     def organisation_pid(self):
-        """Get organisation pid for patron."""
-        library_pid = self.library_pid
-        if library_pid:
-            library = Library.get_record_by_pid(library_pid)
+        """Get organisation pid for patron with first library."""
+        if self.library_pid:
+            library = Library.get_record_by_pid(self.library_pid)
             return library.organisation_pid
         patron_type_pid = self.patron_type_pid
         if patron_type_pid:

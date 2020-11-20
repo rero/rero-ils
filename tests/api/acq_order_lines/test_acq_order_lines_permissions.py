@@ -80,7 +80,7 @@ def test_order_lines_permissions_api(client, document, org_martigny,
     res = client.get(acq_oline_saxon_permission_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['read']['can']
+    assert not data['read']['can']
     assert data['list']['can']
     assert not data['update']['can']
     assert not data['delete']['can']
@@ -159,7 +159,7 @@ def test_order_lines_permissions(patron_martigny_no_email,
         assert AcqOrderLinePermission.update(None, acq_oline_martigny)
         assert AcqOrderLinePermission.delete(None, acq_oline_martigny)
 
-        assert AcqOrderLinePermission.read(None, acq_oline_saxon)
+        assert not AcqOrderLinePermission.read(None, acq_oline_saxon)
         assert not AcqOrderLinePermission.create(None, acq_oline_saxon)
         assert not AcqOrderLinePermission.update(None, acq_oline_saxon)
         assert not AcqOrderLinePermission.delete(None, acq_oline_saxon)

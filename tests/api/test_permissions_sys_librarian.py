@@ -82,15 +82,15 @@ def test_system_librarian_permissions(
         'user': librarian,
         'patch': {
             'roles': ['librarian'],
-            'library': {'$ref': 'https://ils.rero.ch/api/libraries/lib1'}
+            'libraries': [{'$ref': 'https://ils.rero.ch/api/libraries/lib1'}]
         }
     }, {
         'user': system_librarian,
         'patch': {
             'roles': ['librarian', 'system_librarian'],
-            'library': {
+            'libraries': [{
                 '$ref': 'https://ils.rero.ch/api/libraries/lib1'
-            }
+            }]
         }
     }]
     for record in records:

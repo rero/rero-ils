@@ -48,11 +48,12 @@ class AcqAccountPermission(RecordPermission):
         # user should be authenticated
         if not current_patron:
             return False
-        # only staff members (lib, sys_lib) are allowed to read an organisation
-        if not current_patron.is_librarian:
-            return False
-        # For staff users, they can read only their own organisation.
-        return current_organisation['pid'] == record.organisation_pid
+        # 'lib' can only update account linked to its own library
+        if current_patron.is_system_librarian:
+            return current_organisation['pid'] == record.organisation_pid
+        else:
+            return current_patron.library_pids and \
+                record.library_pid in current_patron.library_pids
 
     @classmethod
     def create(cls, user, record=None):
@@ -83,14 +84,13 @@ class AcqAccountPermission(RecordPermission):
         # record cannot be null
         if not current_patron or not current_patron.is_librarian or not record:
             return False
-        if current_organisation['pid'] == record.organisation_pid:
-            # 'sys_lib' can update all account
-            if current_patron.is_system_librarian:
-                return True
-            # 'lib' can only update account linked to its own library
-            if current_patron.is_librarian:
-                return current_patron.library_pid and \
-                   record.library_pid == current_patron.library_pid
+        # 'sys_lib' can update all account
+        if current_patron.is_system_librarian:
+            return current_organisation['pid'] == record.organisation_pid
+        # 'lib' can only update account linked to its own library
+        if current_patron.is_librarian:
+            return current_patron.library_pids and \
+                record.library_pid in current_patron.library_pids
         return False
 
     @classmethod

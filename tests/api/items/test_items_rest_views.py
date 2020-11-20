@@ -213,7 +213,8 @@ def test_pending_loans_order(client, librarian_martigny_no_email,
                              circulation_policies):
     """Test sort of pending loans."""
     login_user_via_session(client, librarian_martigny_no_email.user)
-    library_pid = librarian_martigny_no_email.replace_refs()['library']['pid']
+    library_pid = librarian_martigny_no_email\
+        .replace_refs()['libraries'][0]['pid']
 
     res, _ = postdata(
         client,

@@ -236,7 +236,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
             payment = create_payment_record(
                 patron_transaction,
                 user_pid,
-                user['library']['pid']
+                random.choice(user['libraries'])['pid']
             )
             PatronTransactionEvent.create(
                 payment,
@@ -416,7 +416,8 @@ def get_random_librarian(patron):
 def get_random_librarian_and_transaction_location(patron):
     """Find a qualified user data."""
     user = get_random_librarian(patron).replace_refs()
-    library = Library.get_record_by_pid(user['library']['pid'])
+    library = Library.get_record_by_pid(
+        random.choice(user['libraries'])['pid'])
     return user.pid, library.get_pickup_location_pid()
 
 

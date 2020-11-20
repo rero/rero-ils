@@ -87,8 +87,8 @@ class LibraryPermission(RecordPermission):
                 return True
             # 'lib' can only update library linked to its own library
             if current_patron.is_librarian:
-                return current_patron.library_pid and \
-                       record['pid'] == current_patron.library_pid
+                return current_patron.library_pids and \
+                       record['pid'] in current_patron.library_pids
         return False
 
     @classmethod

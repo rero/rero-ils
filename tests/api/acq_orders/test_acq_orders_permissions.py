@@ -79,7 +79,7 @@ def test_orders_permissions_api(client, org_martigny, vendor2_martigny,
     res = client.get(acq_order_saxon_permission_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['read']['can']
+    assert not data['read']['can']
     assert data['list']['can']
     assert not data['update']['can']
     assert not data['delete']['can']
@@ -157,7 +157,7 @@ def test_orders_permissions(patron_martigny_no_email,
         assert AcqOrderPermission.update(None, acq_order_martigny)
         assert AcqOrderPermission.delete(None, acq_order_martigny)
 
-        assert AcqOrderPermission.read(None, acq_order_saxon)
+        assert not AcqOrderPermission.read(None, acq_order_saxon)
         assert not AcqOrderPermission.create(None, acq_order_saxon)
         assert not AcqOrderPermission.update(None, acq_order_saxon)
         assert not AcqOrderPermission.delete(None, acq_order_saxon)
