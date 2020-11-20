@@ -131,8 +131,6 @@ class Holding(IlsRecord):
         frequency the next_expected_date should be given.
 
         :return: False if
-            - document type is not journal and holding type is serial.
-            - document type is journal and holding type is not serial.
             - document type is ebook and holding type is not electronic.
             - document type is not ebook and holding type is electronic.
             - holding type is serial and the next_expected_date
@@ -157,10 +155,9 @@ class Holding(IlsRecord):
         is_electronic = self.holdings_type == 'electronic'
         is_issuance = \
             document.get('issuance', {}).get('main_type') == 'rdami:1003'
-        if (is_serial and not is_issuance) \
-                or (document.harvested ^ is_electronic):
-            msg = _('Holding is not attached to the correct document type.'
-                    ' document: {pid}')
+        if (document.harvested ^ is_electronic):
+            msg = _('Electronic Holding is not attached to the correct \
+                    document type. document: {pid}')
             return _(msg.format(pid=document_pid))
         # the enumeration and chronology optional fields are only allowed for
         # serial holdings

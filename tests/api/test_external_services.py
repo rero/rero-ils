@@ -164,7 +164,8 @@ def test_documents_import_bnf_ean(client):
     res = client.get(url_for(
         'api_imports.imports_search',
         q='peter',
-        type='book',
+        document_type='docmaintype_book',
+        document_subtype='docsubtype_other_book',
         format='rerojson'
     ))
     assert res.status_code == 200
