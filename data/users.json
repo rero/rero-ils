@@ -11,9 +11,11 @@
       "librarian"
     ],
     "last_name": "M\u00fcller",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/4"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/4"
+      }
+    ],
     "phone": "+39324993597",
     "postal_code": "11100",
     "street": "Viale Rue Gran Paradiso, 44",
@@ -35,9 +37,14 @@
       "librarian"
     ],
     "last_name": "Dupont",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/2"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/2"
+      },
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/4"
+      }
+    ],
     "phone": "+41261234567",
     "postal_code": "1700",
     "street": "Avenue de la Gare, 80"
@@ -53,9 +60,11 @@
       "librarian"
     ],
     "last_name": "Rodriguez",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/3"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/3"
+      }
+    ],
     "phone": "+41911234567",
     "postal_code": "6900",
     "street": "Viale Carlo Cattaneo, 52"
@@ -129,9 +138,11 @@
     "roles": [
       "librarian"
     ],
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/4"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/4"
+      }
+    ],
     "phone": "+39244857275",
     "postal_code": "11010",
     "street": "Frazione Plan"
@@ -291,9 +302,11 @@
       "librarian"
     ],
     "last_name": "Pince",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/5"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/5"
+      }
+    ],
     "phone": "+01411234567",
     "postal_code": "0000",
     "street": "High Street"
@@ -356,9 +369,11 @@
       "librarian"
     ],
     "last_name": "Fictive",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/6"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/6"
+      }
+    ],
     "phone": "+765554433",
     "postal_code": "7878",
     "street": "Imagination Street 48"
@@ -374,9 +389,11 @@
       "librarian"
     ],
     "last_name": "Nu",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/6"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/6"
+      }
+    ],
     "phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
@@ -392,9 +409,11 @@
       "librarian"
     ],
     "last_name": "Hightower",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/7"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/7"
+      }
+    ],
     "phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
@@ -410,9 +429,11 @@
       "librarian"
     ],
     "last_name": "Beast",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/8"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/8"
+      }
+    ],
     "phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
@@ -428,9 +449,11 @@
       "librarian"
     ],
     "last_name": "Dream",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/9"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/9"
+      }
+    ],
     "phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
@@ -446,9 +469,11 @@
       "librarian"
     ],
     "last_name": "Lux",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/10"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/10"
+      }
+    ],
     "phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
@@ -464,9 +489,11 @@
       "librarian"
     ],
     "last_name": "Pince",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/11"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/11"
+      }
+    ],
     "phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
@@ -482,9 +509,11 @@
       "librarian"
     ],
     "last_name": "Borges",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/12"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/12"
+      }
+    ],
     "phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
@@ -500,9 +529,11 @@
       "librarian"
     ],
     "last_name": "de Hildesheim",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/13"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/13"
+      }
+    ],
     "phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
@@ -518,9 +549,11 @@
       "librarian"
     ],
     "last_name": "Lorren",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/14"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/14"
+      }
+    ],
     "phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
@@ -536,9 +569,11 @@
       "librarian"
     ],
     "last_name": "de Torres",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/15"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/15"
+      }
+    ],
     "phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
@@ -554,9 +589,11 @@
       "librarian"
     ],
     "last_name": "Smith",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/16"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/16"
+      }
+    ],
     "phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
@@ -572,9 +609,11 @@
       "librarian"
     ],
     "last_name": "Half-elven",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/17"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/17"
+      }
+    ],
     "phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
@@ -590,9 +629,11 @@
       "librarian"
     ],
     "last_name": "Phelps",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/18"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/18"
+      }
+    ],
     "phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
@@ -608,9 +649,11 @@
       "librarian"
     ],
     "last_name": "Librarian",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/19"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/19"
+      }
+    ],
     "phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
@@ -626,9 +669,11 @@
       "librarian"
     ],
     "last_name": "Shi Tong",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/20"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/20"
+      }
+    ],
     "phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
@@ -644,9 +689,11 @@
       "librarian"
     ],
     "last_name": "Giles",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/21"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/21"
+      }
+    ],
     "phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
@@ -1070,9 +1117,11 @@
       "librarian"
     ],
     "last_name": "McCoy",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/22"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/22"
+      }
+    ],
     "password": "123456",
     "phone": "+39324993599",
     "postal_code": "11101",
@@ -1089,9 +1138,11 @@
       "librarian"
     ],
     "last_name": "Grayson",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/23"
-    },
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/23"
+      }
+    ],
     "password": "123456",
     "phone": "+39324993596",
     "postal_code": "11102",

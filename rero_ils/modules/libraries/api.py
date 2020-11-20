@@ -289,7 +289,7 @@ class Library(IlsRecord):
         """Get number of librarians."""
         from ..patrons.api import PatronsSearch
         results = PatronsSearch().filter(
-            'term', library__pid=self.pid).filter(
+            'term', libraries__pid=self.pid).filter(
                 'term', roles='librarian').source().count()
         return results
 

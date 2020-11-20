@@ -24,10 +24,8 @@ from .models import AcqAccountIdentifier, AcqAccountMetadata
 from ..acq_order_lines.api import AcqOrderLinesSearch
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
-from ..libraries.api import Library
 from ..minters import id_minter
 from ..providers import Provider
-from ..utils import get_ref_for_pid
 
 # provider
 AcqAccountProvider = type(
@@ -71,33 +69,6 @@ class AcqAccount(IlsRecord):
             'org': 'organisation'
         }
     }
-
-    @classmethod
-    def create(cls, data, id_=None, delete_pid=False,
-               dbcommit=False, reindex=False, **kwargs):
-        """Create acq account record."""
-        cls._acq_account_build_org_ref(data)
-        record = super(AcqAccount, cls).create(
-            data, id_, delete_pid, dbcommit, reindex, **kwargs)
-        return record
-
-    def update(self, data, dbcommit=False, reindex=False):
-        """Update acq account record."""
-        self._acq_account_build_org_ref(data)
-        super(AcqAccount, self).update(data, dbcommit, reindex)
-        return self
-
-    @classmethod
-    def _acq_account_build_org_ref(cls, data):
-        """Build $ref for the organisation of the acq account."""
-        library = data.get('library', {})
-        library_pid = library.get('pid') or \
-            library.get('$ref').split('libraries/')[1]
-        data['organisation'] = {'$ref': get_ref_for_pid(
-            'org',
-            Library.get_record_by_pid(library_pid).organisation_pid
-        )}
-        return data
 
     @property
     def library_pid(self):

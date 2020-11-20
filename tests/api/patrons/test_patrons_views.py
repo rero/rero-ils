@@ -19,13 +19,11 @@
 
 from copy import deepcopy
 
-import mock
 from invenio_accounts.testutils import login_user_via_session
 from utils import postdata
 
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.api import LoanAction
-from rero_ils.modules.patrons.utils import user_has_patron
 
 
 def test_patron_can_delete(client, librarian_martigny_no_email,
@@ -101,30 +99,3 @@ def test_patron_utils(client, librarian_martigny_no_email,
     from rero_ils.modules.patrons.views import get_patron_from_barcode
     assert get_patron_from_barcode(
         patron.patron.get('barcode')) == patron
-
-
-def test_librarian_pickup_locations(client, librarian_martigny_no_email,
-                                    lib_martigny, loc_public_martigny,
-                                    patron_martigny_no_email,
-                                    patron_martigny):
-    """Test get librarian pickup locations."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
-
-    with mock.patch(
-        'rero_ils.modules.patrons.api.current_patron',
-        librarian_martigny_no_email
-    ):
-        assert user_has_patron
-        pick = librarian_martigny_no_email.get_librarian_pickup_location_pid()
-        assert pick == loc_public_martigny.pid
-
-    with mock.patch(
-        'rero_ils.modules.patrons.api.current_patron',
-        patron_martigny
-    ):
-        assert user_has_patron
-        pick = librarian_martigny_no_email.get_librarian_pickup_location_pid()
-        assert not pick
-        record = patron_martigny
-        del record['roles']
-        assert user_has_patron

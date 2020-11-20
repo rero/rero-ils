@@ -39,7 +39,6 @@ from .permissions import get_allowed_roles_management
 from .utils import user_has_patron
 from ..items.api import Item
 from ..items.utils import item_pid_to_object
-from ..libraries.api import Library
 from ..loans.api import Loan, get_loans_stats_by_patron_pid, patron_profile
 from ..locations.api import Location
 from ..utils import get_base_url
@@ -132,15 +131,17 @@ def logged_user():
     """Current logged user informations in JSON."""
     patron = Patron.get_patron_by_user(current_user)
     if patron and 'resolve' in request.args:
+        organisation_pid = patron.organisation_pid
         patron = patron.replace_refs()
         patron = patron.dumps()
-        if patron.get('library'):
-            library = Library.get_record_by_pid(
-                patron['library']['pid']
-            ).replace_refs()
-            patron['library']['organisation'] = {
-                'pid': library['organisation']['pid']
+        for index, library in enumerate(patron.get('libraries')):
+            data = {
+                'pid': library['pid'],
+                'organisation': {
+                    'pid': organisation_pid
+                }
             }
+            patron['libraries'][index] = data
     data = {
         'settings': {
             'language': current_i18n.locale.language,

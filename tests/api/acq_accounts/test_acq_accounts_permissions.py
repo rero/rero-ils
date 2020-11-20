@@ -80,7 +80,7 @@ def test_acq_accounts_permissions_api(client, patron_martigny_no_email,
     res = client.get(acq_account_saxon_permission_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['read']['can']
+    assert not data['read']['can']
     assert data['list']['can']
     assert not data['update']['can']
     assert not data['delete']['can']
@@ -158,7 +158,7 @@ def test_acq_accounts_permissions(patron_martigny_no_email,
         assert AcqAccountPermission.update(None, acq_account_martigny)
         assert AcqAccountPermission.delete(None, acq_account_martigny)
 
-        assert AcqAccountPermission.read(None, acq_account_saxon)
+        assert not AcqAccountPermission.read(None, acq_account_saxon)
         assert not AcqAccountPermission.create(None, acq_account_saxon)
         assert not AcqAccountPermission.update(None, acq_account_saxon)
         assert not AcqAccountPermission.delete(None, acq_account_saxon)

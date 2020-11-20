@@ -95,7 +95,9 @@ class CirculationPolicyPermission(RecordPermission):
                 cipo_library_pids = \
                     [lib['pid'] for lib in
                      record.replace_refs().get('libraries', [])]
-                return current_patron.library_pid in cipo_library_pids
+                # Intersection patron libraries pid and cipo library pids
+                return len(set(current_patron.library_pids).intersection(
+                    cipo_library_pids)) > 0
         return False
 
     @classmethod

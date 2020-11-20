@@ -64,7 +64,7 @@ def test_librarian_permissions(
             "communication_channel": "email",
             "communication_language": "ita"
         },
-        "library": {"$ref": "https://ils.rero.ch/api/libraries/lib1"},
+        "libraries": [{"$ref": "https://ils.rero.ch/api/libraries/lib1"}],
         "phone": "+41324993111"
     }
 
@@ -88,13 +88,13 @@ def test_librarian_permissions(
     system_librarian = deepcopy(record)
     librarian = deepcopy(record)
     librarian_saxon = deepcopy(record)
-    librarian_saxon['library'] = \
-        {"$ref": "https://ils.rero.ch/api/libraries/lib2"}
-    librarian['library'] = \
-        {"$ref": "https://ils.rero.ch/api/libraries/lib3"}
+    librarian_saxon['libraries'] = \
+        [{"$ref": "https://ils.rero.ch/api/libraries/lib2"}]
+    librarian['libraries'] = \
+        [{"$ref": "https://ils.rero.ch/api/libraries/lib3"}]
     patron = deepcopy(record)
-    patron['library'] = \
-        {"$ref": "https://ils.rero.ch/api/libraries/lib3"}
+    patron['libraries'] = \
+        [{"$ref": "https://ils.rero.ch/api/libraries/lib3"}]
     counter = 1
     for record in [
         {'data': patron, 'role': 'patron'},

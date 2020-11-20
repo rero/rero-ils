@@ -81,8 +81,8 @@ class ItemPermission(RecordPermission):
                 return True
             # 'lib' can only update items linked to its own library
             if current_patron.is_librarian:
-                return current_patron.library_pid and \
-                       record.library_pid == current_patron.library_pid
+                return current_patron.library_pids and \
+                       record.library_pid in current_patron.library_pids
         return False
 
     @classmethod

@@ -152,8 +152,8 @@ def can_receive_regular_issue(holding):
         if patron.is_system_librarian:
             return True
         if patron.is_librarian:
-            if patron.library_pid and holding.library_pid and \
-                    holding.library_pid != patron.library_pid:
+            if patron.library_pids and holding.library_pid and \
+                    holding.library_pid not in patron.library_pids:
                 return False
             return True
     return False

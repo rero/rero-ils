@@ -82,9 +82,6 @@
           "pattern": "^https://ils.rero.ch/api/locations/.+?$",
           "form": {
             "fieldMap": "location",
-            "remoteOptions": {
-              "type": "locations"
-            },
             "templateOptions": {
               "label": ""
             }

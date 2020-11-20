@@ -107,7 +107,7 @@ def test_patrons_logged_user(client, librarian_martigny_no_email):
     res = client.get(url_for('patrons.logged_user', resolve=1))
     assert res.status_code == 200
     data = get_json(res)
-    assert 'organisation' in data['metadata']['library']
+    assert 'organisation' in data['metadata']['libraries'][0]
 
     class current_i18n:
         class locale:
@@ -132,7 +132,7 @@ def test_patrons_logged_user_resolve(
     res = client.get(url_for('patrons.logged_user', resolve=1))
     assert res.status_code == 200
     data = get_json(res)
-    assert data.get('metadata', {}).get('library')
+    assert data.get('metadata', {}).get('libraries')
 
 
 def test_patrons_blocked_user_profile(

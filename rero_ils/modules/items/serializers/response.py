@@ -23,11 +23,9 @@ from __future__ import absolute_import, print_function
 
 from datetime import datetime
 
+import pytz
 from flask import current_app
 from invenio_records_rest.serializers.response import add_link_header
-
-from ...patrons.api import current_patron
-from ...utils import extracted_data_from_ref
 
 
 def search_responsify_csv(serializer, mimetype):
@@ -49,16 +47,9 @@ def search_responsify_csv(serializer, mimetype):
         if headers is not None:
             response.headers.extend(headers)
 
-        tz = None
-        if current_patron:
-            library = extracted_data_from_ref(
-                current_patron.get('library'),
-                data='record'
-            )
-            tz = library.get_timezone()
-
         file_name = '{date}-inventory.csv'.format(
-            date=datetime.now(tz=tz).strftime('%Y%m%d')
+            date=datetime.now(
+                tz=pytz.timezone('Europe/Zurich')).strftime('%Y%m%d')
         )
         if not response.headers.get('Content-Disposition'):
             response.headers['Content-Disposition'] = \

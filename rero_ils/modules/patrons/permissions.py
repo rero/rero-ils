@@ -93,8 +93,8 @@ class PatronPermission(RecordPermission):
                         return False
                     # a librarian can only manage other librarian from its own
                     # library
-                    if current_patron.library_pid and record.library_pid and\
-                       record.library_pid != current_patron.library_pid:
+                    if current_patron.library_pids and record.library_pid and\
+                       record.library_pid not in current_patron.library_pids:
                         return False
                     return True
             return False

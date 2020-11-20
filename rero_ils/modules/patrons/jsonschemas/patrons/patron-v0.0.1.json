@@ -16,7 +16,7 @@
     "phone",
     "roles",
     "patron",
-    "library",
+    "libraries",
     "notes"
   ],
   "required": [
@@ -100,6 +100,7 @@
       "title": "Username",
       "description": "Login username for the web interface.",
       "type": "string",
+      "pattern": "^[a-zA-Z][a-zA-Z0-9-_]{2}[a-zA-Z0-9-_]*$",
       "minLength": 3,
       "form": {
         "validation": {
@@ -110,6 +111,7 @@
             }
           },
           "messages": {
+            "patternMessage": "Username must start with a letter, be at least three characters long and only contain alphanumeric characters, dashes and underscores.",
             "alreadyTakenMessage": "This username is already taken."
           }
         }
@@ -220,9 +222,7 @@
                 "type": "string",
                 "pattern": "^https://ils.rero.ch/api/libraries/.*?$",
                 "form": {
-                  "remoteOptions": {
-                    "type": "libraries"
-                  }
+                  "fieldMap": "libraries"
                 }
               }
             }
@@ -393,21 +393,29 @@
         }
       }
     },
-    "library": {
-      "title": "Library",
-      "description": "Library affiliation.",
-      "additionalProperties": false,
-      "type": "object",
-      "required": [
-        "$ref"
-      ],
-      "properties": {
-        "$ref": {
-          "type": "string",
-          "pattern": "^https://ils.rero.ch/api/libraries/.*?$",
-          "form": {
-            "remoteOptions": {
-              "type": "libraries"
+    "libraries": {
+      "title": "libraries",
+      "description": "Library affiliations for the librarian.",
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 1,
+      "items": {
+        "title": "Library",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "$ref"
+        ],
+        "properties": {
+          "$ref": {
+            "title": "Library URI",
+            "type": "string",
+            "pattern": "^https://ils.rero.ch/api/libraries/.*?$",
+            "form": {
+              "fieldMap": "libraries",
+              "templateOptions": {
+                "label": ""
+              }
             }
           }
         }
@@ -416,8 +424,7 @@
         "hideExpression": "!field.parent.model.roles.some(v => (v === 'librarian' || v === 'system_librarian'))",
         "expressionProperties": {
           "templateOptions.required": "field.parent.model.roles.some(v => (v === 'librarian' || v === 'system_librarian'))"
-        },
-        "fieldMap": "library"
+        }
       }
     },
     "roles": {

@@ -55,7 +55,7 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
         )
 
     wrong_librarian_martigny_data_tmp = deepcopy(librarian_martigny_data_tmp)
-    wrong_librarian_martigny_data_tmp.pop('library')
+    wrong_librarian_martigny_data_tmp.pop('libraries')
     with pytest.raises(RecordValidationError):
         ptrn = Patron.create(
             wrong_librarian_martigny_data_tmp,
