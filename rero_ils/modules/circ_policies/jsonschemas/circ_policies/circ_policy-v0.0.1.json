@@ -56,7 +56,7 @@
       "title": "Checkout duration in days",
       "description": "The duration of the checkout in days.",
       "type": "integer",
-      "minimum": 1,
+      "minimum": 0,
       "default": 7
     },
     "allow_requests": {

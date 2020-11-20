@@ -1033,6 +1033,30 @@
     "policy_library_level": false,
     "is_default": false
   },
+  "cipo7": {
+    "$schema": "https://ils.rero.ch/schemas/circ_policies/circ_policy-v0.0.1.json",
+    "pid": "cipo7",
+    "name": "Less than one day",
+    "description": "Less than one day.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
+    },
+    "allow_checkout": true,
+    "checkout_duration": 0,
+    "allow_requests": false,
+    "policy_library_level": false,
+    "is_default": false,
+    "settings": [
+      {
+        "patron_type": {
+          "$ref": "https://ils.rero.ch/api/patron_types/ptty2"
+        },
+        "item_type": {
+          "$ref": "https://ils.rero.ch/api/item_types/itty1"
+        }
+      }
+    ]
+  },
   "cont_pers": {
     "$schema": "https://ils.rero.ch/schemas/contributions/contribution-v0.0.1.json",
     "gnd": {

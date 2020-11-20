@@ -94,3 +94,6 @@ tests/e2e/cypress/node_modules
 tests/e2e/cypress/cypress/videos
 tests/e2e/cypress/cypress/screenshots
 tests/e2e/cypress/cypress/integration/test
+
+# Dependencies
+/node_modules
