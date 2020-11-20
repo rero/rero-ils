@@ -43,7 +43,7 @@ jobs:
           ~/.npm
         key: ${{ runner.os }}-pip-venv-${{ hashFiles('**/poetry.lock') }}
 
-    - name: Bootstrap locked
+    - name: Bootstrap
       if: ${{ matrix.dependencies == 'locked' }}
       run: |
         poetry run bootstrap --ci

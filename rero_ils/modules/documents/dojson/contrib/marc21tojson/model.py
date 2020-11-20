@@ -73,6 +73,8 @@ _CONTRIBUTION_ROLE = [
     'trc', 'vac', 'vdg', 'wac', 'wal', 'wat', 'win', 'wpr', 'wst'
 ]
 
+IDREF_REF_REGEX = re.compile(r'^\(IDREF\)(.*)?')
+
 marc21 = ReroIlsMarc21Overdo()
 
 
@@ -82,46 +84,30 @@ def get_contribution_link(bibid, reroid, id, key, value):
     prod_host = 'mef.rero.ch'
     test_host = os.environ.get('RERO_ILS_MEF_HOST', 'mef.rero.ch')
     mef_url = 'https://{host}/api/'.format(host=test_host)
-    mef_link = None
-    try:
-        identifier = id[1:].split(')')
-        url = "{mef}mef/?q={org}.pid:{pid}".format(
-            mef=mef_url,
-            org=identifier[0].lower(),
-            pid=identifier[1]
-        )
-        request = requests.get(url=url)
-        if request.status_code == requests.codes.ok:
-            pid = None
-            data = request.json()
-            hits = data.get('hits', {}).get('hits')
-            if hits:
-                idref = hits[0].get('metadata', {}).get('idref')
-                gnd = hits[0].get('metadata', {}).get('gnd')
-                rero = hits[0].get('metadata', {}).get('rero')
-                if idref:
-                    pid_type = 'idref'
-                    pid = idref['pid']
-                elif gnd:
-                    pid_type = 'gnd'
-                    pid = gnd['pid']
-                elif rero:
-                    pid_type = 'rero'
-                    pid = rero['pid']
-            if pid:
-                mef_link = "{url}{pid_type}/{pid}".format(
-                    url=mef_url,
-                    pid_type=pid_type,
-                    pid=pid
-                )
-                mef_link = mef_link.replace(test_host, prod_host)
-        else:
-            error_print('ERROR MEF REQUEST:', bibid, reroid, url,
-                        request.status_code)
 
-    except Exception as err:
-        error_print('WARNING NOT MEF REF:', bibid, id, key, value, err)
-    return mef_link
+    match = IDREF_REF_REGEX.search(id)
+    if match:
+        pid = match.group(1)
+        if key[:3] in ['100', '600', '610', '611', '700', '710', '711']:
+            # contribution
+            url = "{mef}idref/{pid}".format(mef=mef_url, pid=pid)
+            try:
+                request = requests.get(url=url)
+            except requests.exceptions.RequestException as err:
+                error_print('ERROR MEF ACCESS:', bibid, reroid, url, err)
+                return None
+            if request.status_code == requests.codes.ok:
+                return url.replace(test_host, prod_host)
+            else:
+                subfiels = []
+                for v, k in value.items():
+                    if v != '__order__':
+                        subfiels.append('${v} {k}'.format(v=v, k=k))
+                subfiels = ' '.join(subfiels)
+                field = '{key} {subfiels}'.format(key=key, subfiels=subfiels)
+                error_print('WARNING MEF CONTRIBUTION IDREF NOT FOUND:',
+                            bibid, reroid, field, url,
+                            request.status_code)
 
 
 @marc21.over('type_and_issuance', 'leader')
@@ -1301,4 +1287,12 @@ def marc21_to_subjects(self, key, value):
     subjects: 6xx [duplicates could exist between several vocabularies,
         if possible deduplicate]
     """
-    return value.get('a')
+    subjects = self.get('subjects', [])
+    subfields_a = utils.force_list(value.get('a'))
+    if subfields_a:
+        for subfield_a in subfields_a:
+            if subfield_a not in subjects:
+                subjects.append(subfield_a)
+        if subjects:
+            self['subjects'] = subjects
+    # we will return None because we have set subjects directly in self

@@ -56,14 +56,14 @@ class VerifyRecordPermissionPatch(object):
 
 def login_user(client, user):
     """Sign in user."""
-    user.user.password_plaintext = user.get('email')
     login_user_via_session(client, user=user.user)
 
 
 def login_user_for_view(client, user):
     """Sign in user for view."""
-    user.user.password_plaintext = user.get('birth_date')
-    login_user_via_view(client, user=user.user)
+    invenio_user = user.user
+    invenio_user.password_plaintext = user.get('birth_date')
+    login_user_via_view(client, user=invenio_user)
 
 
 def get_json(response):
