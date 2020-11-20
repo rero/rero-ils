@@ -43,7 +43,7 @@
     "barcode": {
       "title": "Barcode",
       "type": "string",
-      "minLength": 4,
+      "minLength": 1,
       "form": {
         "focus": true,
         "validation": {

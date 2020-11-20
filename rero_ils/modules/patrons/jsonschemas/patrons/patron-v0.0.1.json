@@ -119,17 +119,17 @@
       "title": "Street",
       "description": "Street and number of the address.",
       "type": "string",
-      "minLength": 3
+      "minLength": 1
     },
     "postal_code": {
       "title": "Postal code",
       "type": "string",
-      "minLength": 4
+      "minLength": 1
     },
     "city": {
       "title": "City",
       "type": "string",
-      "minLength": 3
+      "minLength": 1
     },
     "phone": {
       "title": "Phone number",
