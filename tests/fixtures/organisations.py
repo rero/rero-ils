@@ -853,6 +853,28 @@ def circ_policy_ebooks_sion(
 
 
 @pytest.fixture(scope="module")
+def circ_policy_less_than_one_day_martigny_data(data):
+    """Load short circ policy for organisation martigny."""
+    return deepcopy(data.get('cipo7'))
+
+
+@pytest.fixture(scope="module")
+def circ_policy_less_than_one_day_martigny(
+        app,
+        patron_type_adults_martigny,
+        item_type_standard_martigny,
+        circ_policy_less_than_one_day_martigny_data):
+    """Create short circ policy for organisation martigny."""
+    cipo = CircPolicy.create(
+        data=circ_policy_less_than_one_day_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(CircPoliciesSearch.Meta.index)
+    return cipo
+
+
+@pytest.fixture(scope="module")
 def circulation_policies(
         circ_policy_default_martigny,
         circ_policy_default_sion,
@@ -867,7 +889,8 @@ def circulation_policies(
         circ_policy_short_martigny,
         circ_policy_temp_martigny,
         circ_policy_ebooks_martigny,
-        circ_policy_ebooks_sion
+        circ_policy_ebooks_sion,
+        circ_policy_less_than_one_day_martigny
     ]
 
 

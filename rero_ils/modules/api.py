@@ -349,9 +349,9 @@ class IlsRecord(Record):
         """Reindex record."""
         indexer = self.get_indexer_class()
         if forceindex:
-            indexer(version_type="external_gte").index(self)
+            return indexer(version_type="external_gte").index(self)
         else:
-            indexer().index(self)
+            return indexer().index(self)
 
     def delete_from_index(self):
         """Delete record from index."""
