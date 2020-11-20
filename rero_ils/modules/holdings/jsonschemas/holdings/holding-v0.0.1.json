@@ -569,7 +569,7 @@
             "type": "string",
             "title": "Content",
             "maxLength": 2000,
-            "minLength": 3,
+            "minLength": 1,
             "form": {
               "type": "textarea",
               "templateOptions": {
