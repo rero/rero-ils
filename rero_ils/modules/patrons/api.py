@@ -307,6 +307,11 @@ class Patron(IlsRecord):
         user = _datastore.find_user(id=self.get('user_id'))
         return user
 
+    @property
+    def keep_history(self):
+        """Shortcut for user keep history."""
+        return self.get('patron', {}).get('keep_history', True)
+
     def _update_roles(self):
         """Update user roles."""
         db_roles = self.user.roles
