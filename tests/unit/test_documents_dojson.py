@@ -1323,7 +1323,7 @@ def test_marc21_to_contribution(mock_get):
     marc21xml = """
     <record>
       <datafield tag="100" ind1=" " ind2=" ">
-        <subfield code="0">(RERO)XXXXXXXX</subfield>
+        <subfield code="0">(IDREF)XXXXXXXX</subfield>
       </datafield>
     </record>
     """
@@ -1343,7 +1343,7 @@ def test_marc21_to_contribution(mock_get):
     assert contribution == [{
         'agent': {
             'type': 'bf:Person',
-            '$ref': 'https://mef.rero.ch/api/rero/XXXXXXXX'
+            '$ref': 'https://mef.rero.ch/api/idref/XXXXXXXX'
         },
         'role': ['cre']
     }]
@@ -3740,66 +3740,29 @@ def test_get_contribution_link(mock_get, capsys):
     """Test get mef contribution link"""
     os.environ['RERO_ILS_MEF_HOST'] = 'mef.xxx.rero.ch'
 
-    mock_get.return_value = mock_response(json_data={
-        'hits': {
-            'hits': [{'metadata': {'idref': {'pid': 'idref_pid'}}}]
-        }
-    })
+    mock_get.return_value = mock_response(json_data={})
     mef_url = get_contribution_link(
         bibid='1',
         reroid='1',
-        id='(RERO)A003945843',
+        id='(IDREF)003945843',
         key='100..',
-        value={'0': '(RERO)A003945843'}
+        value={'0': '(IDREF)003945843'}
     )
-    assert mef_url == 'https://mef.rero.ch/api/idref/idref_pid'
+    assert mef_url == 'https://mef.rero.ch/api/idref/003945843'
 
-    mock_get.return_value = mock_response(json_data={
-        'hits': {
-            'hits': [{'metadata': {
-                'type': 'bf:Person',
-                'gnd': {'pid': 'gnd_pid'}
-            }}]
-        }
-    })
+    mock_get.return_value = mock_response(status=404)
     mef_url = get_contribution_link(
         bibid='1',
         reroid='1',
-        id='(RERO)A003945843',
+        id='(IDREF)123456789',
         key='100..',
-        value={'0': '(RERO)A003945843'}
-    )
-    assert mef_url == 'https://mef.rero.ch/api/gnd/gnd_pid'
-
-    mock_get.return_value = mock_response(json_data={
-        'hits': {
-            'hits': [{'metadata': {
-                'type': 'bf:Person',
-                'rero': {'pid': 'rero_pid'}
-            }}]
-        }
-    })
-    mef_url = get_contribution_link(
-        bibid='1',
-        reroid='1',
-        id='(RERO)A003945843',
-        key='100..',
-        value={'0': '(RERO)A003945843'}
-    )
-    assert mef_url == 'https://mef.rero.ch/api/rero/rero_pid'
-
-    mock_get.return_value = mock_response(status=400)
-    mef_url = get_contribution_link(
-        bibid='1',
-        reroid='1',
-        id='(RERO)A123456789',
-        key='100..',
-        value={'0': '(RERO)A123456789'}
+        value={'0': '(IDREF)123456789'}
     )
     assert not mef_url
     out, err = capsys.readouterr()
-    assert out == "ERROR MEF REQUEST:\t1\t1\t" + \
-        'https://mef.xxx.rero.ch/api/mef/?q=rero.pid:A123456789\t400\t\n'
+    assert out == "WARNING MEF CONTRIBUTION IDREF NOT FOUND:\t1\t1\t" + \
+        '100.. $0 (IDREF)123456789\t' + \
+        'https://mef.xxx.rero.ch/api/idref/123456789\t404\t\n'
 
     mock_get.return_value = mock_response(status=400)
     mef_url = get_contribution_link(
@@ -3810,6 +3773,3 @@ def test_get_contribution_link(mock_get, capsys):
         value={'0': 'X123456789'}
     )
     assert not mef_url
-    out, err = capsys.readouterr()
-    assert out == 'WARNING NOT MEF REF:\t1\tX123456789\t100..\t' + \
-        "{'0': 'X123456789'}\tlist index out of range\t\n"
