@@ -166,6 +166,7 @@
         "communication_language",
         "expiration_date",
         "libraries",
+        "keep_history",
         "blocked",
         "blocked_note"
       ],
@@ -384,6 +385,12 @@
               "templateOptions.required": "true"
             }
           }
+        },
+        "keep_history": {
+          "title": "Keep circulation history",
+          "description": "When enabled, track of the loan history of the 6 last months will be kept.",
+          "type": "boolean",
+          "default": true
         }
       },
       "form": {

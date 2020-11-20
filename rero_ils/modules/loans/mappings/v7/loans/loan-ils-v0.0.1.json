@@ -85,6 +85,9 @@
       "transaction_user_pid": {
         "type": "keyword"
       },
+      "to_anonymize": {
+        "type": "boolean"
+      },
       "organisation": {
         "properties": {
           "pid": {
