@@ -46,7 +46,8 @@ from ..notifications.api import Notification, NotificationsSearch, \
     number_of_reminders_sent
 from ..organisations.api import Organisation
 from ..patron_transaction_events.api import PatronTransactionEvent
-from ..patron_transactions.api import PatronTransaction
+from ..patron_transactions.api import PatronTransaction, \
+    PatronTransactionsSearch
 from ..patrons.api import Patron
 from ..utils import get_base_url, get_ref_for_pid
 
@@ -418,6 +419,33 @@ class Loan(IlsRecord):
             notification = notification.dispatch()
         return notification
 
+    @property
+    def concluded(self):
+        """Check if loan is concluded.
+
+        Loan is considered concluded if it has either ITEM_RETURNED or
+        CANCELLED states and has no open patron_transactions.
+
+        :return True|False
+        """
+        states = [LoanState.ITEM_RETURNED, LoanState.CANCELLED]
+        return (
+            self.get('state') in states and
+            not loan_has_open_events(loan_pid=self.pid)
+        )
+
+    def can_anonymize(self):
+        """Check if a loan can be anonymized  and excluded from loan searches.
+
+        Loan can be anonymized if its patron has the keep_history set to False
+        and the loan is concluded.
+
+        :return True|False.
+        """
+        keep_history = Patron.get_record_by_pid(
+            self.patron_pid).keep_history
+        return not keep_history and self.concluded
+
 
 def get_request_by_item_pid_by_patron_pid(item_pid, patron_pid):
     """Get pending, item_in_transit, item_at_desk loans for item, patron.
@@ -773,6 +801,25 @@ def is_overdue_loan(loan):
 
     days_after = circ_policy.get('number_of_days_after_due_date')
     return now > due_date + timedelta(days=days_after)
+
+
+def loan_has_open_events(loan_pid=None):
+    """Check if a loan has open patron transactions.
+
+    Loan has no open_events if the he has no related patron transaction with
+    the status open.
+
+    :return True|False.
+    """
+    search = NotificationsSearch().filter(
+        'term', loan__pid=loan_pid).source(['pid']).scan()
+    for record in search:
+        transactions_count = PatronTransactionsSearch().filter(
+            'term', notification__pid=record.pid).filter(
+                'term', status='open').source().count()
+        if transactions_count:
+            return True
+    return False
 
 
 class LoansIndexer(IlsRecordsIndexer):

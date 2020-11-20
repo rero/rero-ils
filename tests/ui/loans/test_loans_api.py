@@ -20,13 +20,18 @@
 from __future__ import absolute_import, print_function
 
 from copy import deepcopy
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
 
 from invenio_circulation.proxies import current_circulation
-from utils import get_mapping
+from invenio_circulation.search.api import LoansSearch
+from utils import flush_index, get_mapping
 
-from rero_ils.modules.loans.api import LoanState, get_loans_by_patron_pid
+from rero_ils.modules.loans.api import Loan, LoanState, \
+    get_loans_by_patron_pid, get_overdue_loans
 from rero_ils.modules.loans.utils import get_default_loan_duration
+from rero_ils.modules.notifications.api import NotificationsSearch
+from rero_ils.modules.notifications.tasks import \
+    create_over_and_due_soon_notifications
 
 
 def test_loan_es_mapping(es_clear, db):
@@ -59,3 +64,54 @@ def test_item_loans_elements(
         circ_policy_default_martigny, dbcommit=True, reindex=True)
 
     assert get_default_loan_duration(new_loan, None) == timedelta(0)
+
+
+def test_loan_keep_and_to_anonymize(
+        item_on_loan_martigny_patron_and_loan_on_loan,
+        item2_on_loan_martigny_patron_and_loan_on_loan,
+        librarian_martigny_no_email, loc_public_martigny):
+    """Test anonymize and keep loan based on open transactions."""
+    item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
+    assert not loan.concluded
+    assert not loan.can_anonymize()
+
+    params = {
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny_no_email.pid
+    }
+    item, actions = item.checkin(**params)
+    loan = Loan.get_record_by_pid(loan.pid)
+    # item checkedin and has no open events
+    assert loan.concluded
+    assert not loan.can_anonymize()
+
+    patron['patron']['keep_history'] = False
+    patron.update(patron, dbcommit=True, reindex=True)
+
+    # when the patron asks to anonymize history the can_anonymize is true
+    assert loan.concluded
+    assert loan.can_anonymize()
+
+    # test loans with fees
+    item, patron, loan = item2_on_loan_martigny_patron_and_loan_on_loan
+    assert not loan.concluded
+    assert not loan.can_anonymize()
+    end_date = datetime.now(timezone.utc) - timedelta(days=7)
+    loan['end_date'] = end_date.isoformat()
+    loan.update(loan, dbcommit=True, reindex=True)
+
+    create_over_and_due_soon_notifications()
+    flush_index(NotificationsSearch.Meta.index)
+    flush_index(LoansSearch.Meta.index)
+    overdue_loans = list(get_overdue_loans())
+
+    params = {
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny_no_email.pid
+    }
+    item, actions = item.checkin(**params)
+
+    loan = Loan.get_record_by_pid(loan.pid)
+
+    assert not loan.concluded
+    assert not loan.can_anonymize()
