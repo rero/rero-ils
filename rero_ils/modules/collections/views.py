@@ -60,11 +60,12 @@ def collection_view_method(pid, record, template=None, **kwargs):
         item['document'] = Document.get_record_by_pid(
             item.replace_refs().get('document').get('pid'))
     # Get libraries names
-    for library in rec.get('libraries'):
-        libraries.append(
-            Library.get_record_by_pid(library['pid']).get('name')
-        )
-    rec['libraries'] = ', '.join(libraries)
+    if rec.get('libraries'):
+        for library in rec.get('libraries'):
+            libraries.append(
+                Library.get_record_by_pid(library['pid']).get('name')
+            )
+        rec['libraries'] = ', '.join(libraries)
     # Format date
     rec['date'] = _start_end_date(
         record.get('start_date'), record.get('end_date'))

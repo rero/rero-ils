@@ -3343,11 +3343,6 @@
         "name": "Pr. Smith, Will"
       }
     ],
-    "libraries": [
-      {
-        "$ref": "https://ils.rero.ch/api/libraries/lib2"
-      }
-    ],
     "description": "List of items for course 1",
     "subjects": [
       {

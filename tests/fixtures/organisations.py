@@ -879,7 +879,7 @@ def coll_martigny_1_data(data):
 
 @pytest.fixture(scope="module")
 def coll_martigny_1(
-        app, org_martigny, lib_martigny, coll_martigny_1_data,
+        app, org_martigny, coll_martigny_1_data,
         item_lib_martigny, item2_lib_martigny):
     """Create collection Martigny 1."""
     coll = Collection.create(
