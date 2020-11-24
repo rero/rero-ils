@@ -7,24 +7,40 @@ assignees: ''
 
 ---
 
-**Remove unused sections. Thanks a lot for helping us!**
+<!--
+    Please, fill the bug report as precisely as possible.
+    Write a full sentence in the issue title.
+    Thanks a lot for helping us!
+ -->
 
 **Describe your question**
 
-What are you trying to do? What surprised you in the way RERO ILS is
-functioning?
+<!--
+    What are you trying to do? What surprised you in the way RERO ILS
+    is functioning?
+-->
 
 **Context**
 
-Tell us on which server the question relates to.
+<!--
+    Tell us on which server the question relates to.
+-->
 
 * server: [ils.test.rero.ch][1] or [ilsdev.test.rero.ch][2]?
-* version: *Check the version on homepage*. Do you see the version
-  number such as `0.5.0` or a hash such as `2493ca6`?
+* version: `v0.14.0` or the commit hash (see frontpage).
 * browser: [if relevant, e.g. chrome, safari, version 78]
 
+[1]: https://ils.test.rero.ch
+[2]: https://ilsdev.test.rero.ch
+
 **Screenshots**
-If applicable, add screenshots to help explain your problem.
+
+<!--
+    If applicable, add screenshots to help explain your problem.
+-->
 
 **Additional context**
-Add any other context about the problem here.
+
+<!--
+    Add any other context about the problem here.
+-->
