@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-11-16 07:38+0100\n"
-"PO-Revision-Date: 2020-11-16 12:49+0000\n"
+"PO-Revision-Date: 2020-11-24 12:48+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/de/>\n"
@@ -5969,15 +5969,15 @@ msgstr "Verlagsreferenz (Audiodokumente)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:59
 msgid "bf:Doi"
-msgstr "DOI (Digital Object Identifier)"
+msgstr "DOI"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:63
 msgid "bf:Ean"
-msgstr "EAN (International Article Number)"
+msgstr "EAN"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:67
 msgid "bf:Gtin14Number"
-msgstr "Global Trade Item Number 14"
+msgstr "GTIN-14"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:71
 msgid "bf:Identifier"
@@ -5985,27 +5985,27 @@ msgstr "Identifikator"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:75
 msgid "bf:Isan"
-msgstr "ISAN (International Standard Audiovisual Number)"
+msgstr "ISAN"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:79
 msgid "bf:Isbn"
-msgstr "ISBN (International Standard Book Number)"
+msgstr "ISBN"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:83
 msgid "bf:Ismn"
-msgstr "ISMN (International Standard Music Number)"
+msgstr "ISMN"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:87
 msgid "bf:Isrc"
-msgstr "ISRC (International Standard Recording Code)"
+msgstr "ISRC"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:91
 msgid "bf:Issn"
-msgstr "ISSN (International Standard Serial Number)"
+msgstr "ISSN"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:95
 msgid "bf:IssnL"
-msgstr "ISSN-L (linking ISSN)"
+msgstr "ISSN-L"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:99
 msgid "bf:Local"
@@ -6033,11 +6033,11 @@ msgstr "Verlagsnummer"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:123
 msgid "bf:Upc"
-msgstr "UPC (Universal Product Code)"
+msgstr "UPC"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:127
 msgid "bf:Urn"
-msgstr "URN (Uniform Resource Name)"
+msgstr "URN"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:131
 msgid "bf:VideoRecordingNumber"
@@ -6045,7 +6045,7 @@ msgstr "Videoaufzeichnungsnummer"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:135
 msgid "uri"
-msgstr "URI (Uniform Resource Identifier)"
+msgstr "URI"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:145
 msgid "Identifier value"
