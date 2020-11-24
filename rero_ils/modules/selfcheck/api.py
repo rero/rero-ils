@@ -29,8 +29,9 @@ from ..documents.utils import title_format_text_head
 from ..items.api import Item
 from ..items.models import ItemNoteTypes
 from ..libraries.api import Library
-from ..loans.api import Loan, LoanState, get_loans_by_item_pid_by_patron_pid, \
-    get_loans_by_patron_pid, is_overdue_loan
+from ..loans.api import Loan, LoanAction, LoanState, \
+    get_loans_by_item_pid_by_patron_pid, get_loans_by_patron_pid, \
+    is_overdue_loan
 from ..patron_transactions.api import PatronTransaction
 from ..patrons.api import Patron
 from ...filter import format_date_filter
@@ -49,7 +50,7 @@ def selfcheck_login(login, password):
         return {
             'authenticated': staffer.is_librarian,
             'user_id': staffer.get('pid'),
-            'institution_id': staffer.get_organisation().get('code'),
+            'institution_id': staffer.library_pid,
             'library_name': Library.get_record_by_pid(
                 staffer.library_pid).get('name')
         }
@@ -79,16 +80,16 @@ def authorize_patron(barcode, password):
     return False
 
 
-def system_status(login, *kwargs):
+def system_status(user_id, *kwargs):
     """Selfcheck system status handler.
 
     Get status of automated circulation system.
-    :param login: selfcheck client login.
+    :param user_id: selfcheck client id.
     :return: The status object.
     """
-    staffer = Patron.get_patron_by_email(login)
+    staffer = Patron.get_record_by_pid(user_id)
     return {
-        'institution_id': staffer.get_organisation().get('code')
+        'institution_id': staffer.library_pid
     }
 
 
@@ -105,10 +106,42 @@ def enable_patron(barcode, **kwargs):
         return {
             'patron_status': get_patron_status(patron),
             'language': patron.get('communication_language', 'und'),
-            'institution_id': patron.get_organisation().get('code'),
+            'institution_id': patron.library_pid,
             'patron_id': patron.patron.get('barcode'),
             'patron_name': patron.formatted_name
         }
+
+
+def patron_status(barcode, **kwargs):
+    """Selfcheck patron status handler.
+
+    Get patron status according 'barcode' from selfcheck user.
+    :param barcode: patron barcode.
+    :return: The SelfcheckPatronInformation object.
+    """
+    # check if invenio_sip2 module is present
+    if check_sip2_module():
+        from invenio_sip2.models import SelfcheckPatronStatus
+
+        patron = Patron.get_patron_by_barcode(barcode)
+
+        patron_status_response = SelfcheckPatronStatus(
+            patron_status=get_patron_status(patron),
+            language=patron.get('communication_language', 'und'),
+            patron_id=barcode,
+            patron_name=patron.formatted_name,
+            institution_id=patron.library_pid,
+            currency_type=patron.get_organisation().get('default_currency'),
+            valid_patron=patron.is_patron
+        )
+
+        fee_amount = PatronTransaction \
+            .get_transactions_total_amount_for_patron(
+                patron.pid, status='open',
+                with_subscription=False)
+        patron_status_response['fee_amount'] = fee_amount
+
+        return patron_status_response
 
 
 def patron_information(barcode, **kwargs):
@@ -131,11 +164,12 @@ def patron_information(barcode, **kwargs):
         patron_account_information = SelfcheckPatronInformation(
             patron_id=barcode,
             patron_name=patron.formatted_name,
+            patron_status=get_patron_status(patron),
+            institution_id=patron.library_pid,
+            language=patron.get('communication_language', 'und'),
             email=patron.get('email'),
             home_phone=patron.get('phone'),
             home_address=format_patron_address(patron),
-            institution_id=patron.get_organisation().get('code'),
-            language=patron.get('communication_language', 'und'),
             currency_type=patron.get_organisation().get('default_currency'),
             valid_patron=patron.is_patron
         )
@@ -262,3 +296,52 @@ def item_information(patron_barcode, item_pid, **kwargs):
                 item_information.get('screen_messages').append(public_note)
 
             return item_information
+
+
+def selfcheck_checkout(user_pid, institution_id, patron_barcode,
+                       item_barcode, **kwargs):
+    """SIP2 Handler to perform checkout.
+
+    perform checkout action received from the selfcheck.
+    :param user_pid: identifier of the staff user.
+    :param institution_id: library id of the staff user.
+    :param patron_barcode: barcode of the patron.
+    :param item_barcode: item identifier.
+    :return: The SelfcheckCheckout object.
+    """
+    if check_sip2_module():
+        from invenio_sip2.models import SelfcheckCheckout
+        library = Library.get_record_by_pid(institution_id)
+        item = Item.get_item_by_barcode(
+            barcode=item_barcode,
+            organisation_pid=library.organisation_pid
+        )
+        document = Document.get_record_by_pid(item.document_pid)
+        checkout = SelfcheckCheckout(
+            title_id=title_format_text_head(document.get('title')),
+        )
+        staffer = Patron.get_record_by_pid(user_pid)
+        if staffer.is_librarian:
+            patron = Patron.get_patron_by_barcode(barcode=patron_barcode)
+            # TODO: check if item is already checked out (see sip2 renewal_ok)
+            # do checkout
+            result, data = item.checkout(
+                patron_pid=patron.pid,
+                transaction_user_pid=staffer.pid,
+                transaction_library_pid=staffer.library_pid,
+                item_pid=item.pid,
+            )
+            loan_pid = data[LoanAction.CHECKOUT].get('pid')
+            loan = Loan.get_record_by_pid(loan_pid)
+            if loan:
+                language = kwargs.get('language', current_app.config
+                                      .get('BABEL_DEFAULT_LANGUAGE'))
+                with current_app.test_request_context() as ctx:
+                    ctx.babel_locale = language
+                    checkout['checkout'] = True
+                    checkout['due_date'] = loan.get_loan_end_date(
+                        time_format=None, language=language)
+                    # TODO: When is possible, try to return fields:
+                    #       magnetic_media, desensitize
+
+        return checkout
