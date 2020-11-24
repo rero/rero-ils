@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-11-16 07:38+0100\n"
 "PO-Revision-Date: 2020-11-24 12:48+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/es/>\n"
 "Language: es\n"
@@ -5983,7 +5983,7 @@ msgstr "ISAN"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:79
 msgid "bf:Isbn"
-msgstr "ISBN (International Standard Book Number)"
+msgstr "ISBN"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:83
 msgid "bf:Ismn"
@@ -6027,11 +6027,11 @@ msgstr "Número del editor"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:123
 msgid "bf:Upc"
-msgstr "UPC (Universal Product Code)"
+msgstr "UPC"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:127
 msgid "bf:Urn"
-msgstr "URN (Uniform Resource Name)"
+msgstr "URN"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:131
 msgid "bf:VideoRecordingNumber"
