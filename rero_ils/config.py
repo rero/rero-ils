@@ -2439,11 +2439,15 @@ SIP2_REMOTE_ACTION_HANDLERS = dict(
             validate_patron='rero_ils.modules.selfcheck.api:validate_patron_account',
             authorize_patron='rero_ils.modules.selfcheck.api:authorize_patron',
             enable_patron='rero_ils.modules.selfcheck.api:enable_patron',
+            patron_status='rero_ils.modules.selfcheck.api:patron_status',
             account='rero_ils.modules.selfcheck.api:patron_information'
         ),
         item_handlers=dict(
             item='rero_ils.modules.selfcheck.api:item_information'
         ),
+        circulation_handlers=dict(
+            checkout='rero_ils.modules.selfcheck.api:selfcheck_checkout',
+        )
     )
 )
 

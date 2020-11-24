@@ -49,6 +49,7 @@ from ..patron_transaction_events.api import PatronTransactionEvent
 from ..patron_transactions.api import PatronTransaction
 from ..patrons.api import Patron
 from ..utils import get_base_url, get_ref_for_pid
+from ...filter import format_date_filter
 
 
 class LoanState(object):
@@ -338,6 +339,26 @@ class Loan(IlsRecord):
             self.provider.pid_type,
             'library_pid'
         )
+
+    def get_loan_end_date(self, format='short', time_format='medium',
+                          language=None):
+        """Get loan end date.
+
+        :param format: The date format, ex: 'full', 'medium', 'short'
+                        or custom
+        :param time_format: The time format, ex: 'medium', 'short' or custom
+        :param language: The language to fix the language format
+        :return: original date or formatted date
+        """
+        end_date = self.end_date
+        if format:
+            return format_date_filter(
+                end_date,
+                date_format=format,
+                time_format=time_format,
+                locale=language,
+            )
+        return end_date
 
     def dumps_for_circulation(self):
         """Dumps for circulation."""
