@@ -31,8 +31,8 @@ from rero_ils.modules.loans.api import Loan, LoanAction, LoanState
 from rero_ils.modules.notifications.api import NotificationsSearch, \
     number_of_reminders_sent
 from rero_ils.modules.selfcheck.api import authorize_patron, enable_patron, \
-    item_information, patron_information, selfcheck_login, system_status, \
-    validate_patron_account
+    item_information, patron_information, selfcheck_checkout, \
+    selfcheck_login, system_status, validate_patron_account
 from rero_ils.modules.selfcheck.utils import check_sip2_module
 
 # skip tests if invenio-sip2 module is not installed
@@ -92,8 +92,9 @@ def test_validate_patron(patron_martigny):
 
 def test_system_status(sip2_librarian_martigny_no_email):
     """Test automated circulation system status."""
-    response = system_status(sip2_librarian_martigny_no_email.get('email'))
-    assert response.get('institution_id') == 'org1'
+    response = system_status(sip2_librarian_martigny_no_email.get('pid'))
+    assert response.get('institution_id') == \
+        sip2_librarian_martigny_no_email.library_pid
 
 
 def test_enable_patron(sip2_patron_martigny_no_email):
@@ -101,7 +102,7 @@ def test_enable_patron(sip2_patron_martigny_no_email):
     response = enable_patron(
         sip2_patron_martigny_no_email.get('patron', {}).get('barcode'))
     assert response['institution_id'] == sip2_patron_martigny_no_email\
-        .organisation_pid
+        .library_pid
     assert response['patron_id']
     assert response['patron_name']
 
@@ -242,6 +243,40 @@ def test_item_information(client, sip2_librarian_martigny_no_email,
             item_pid=item_lib_martigny.pid,
             pid=loan_pid,
             transaction_user_pid=sip2_librarian_martigny_no_email.pid,
+            transaction_location_pid=loc_public_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+
+
+def test_selfcheck_checkout(client, sip2_librarian_martigny_no_email,
+                            sip2_patron_martigny_no_email, loc_public_martigny,
+                            item_lib_martigny, librarian2_martigny_no_email,
+                            circulation_policies):
+    """Test selfcheck checkout."""
+    patron_barcode = sip2_patron_martigny_no_email \
+        .get('patron', {}).get('barcode')
+    item_barcode = item_lib_martigny.get('barcode')
+
+    # selfcheck checkout
+    checkout = selfcheck_checkout(
+        user_pid=sip2_librarian_martigny_no_email.pid,
+        institution_id=sip2_librarian_martigny_no_email.library_pid,
+        patron_barcode=patron_barcode,
+        item_barcode=item_barcode,
+    )
+    assert checkout
+    assert checkout.is_success
+    assert checkout.due_date
+
+    # librarian checkin
+    login_user_via_session(client, librarian2_martigny_no_email.user)
+    res, _ = postdata(
+        client,
+        'api_item.checkin',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            transaction_user_pid=librarian2_martigny_no_email.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )

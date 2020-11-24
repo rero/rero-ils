@@ -81,36 +81,55 @@ def get_patron_status(patron):
     :return SelfcheckPatronStatus object or None.
     """
     if check_sip2_module():
-        from invenio_sip2.models import SelfcheckPatronStatus, \
-            SelfcheckPatronStatusTypes
+        from invenio_sip2.models import PatronStatus, PatronStatusTypes
 
-        patron_status = SelfcheckPatronStatus()
+        patron_status = PatronStatus()
         # check if patron is blocked
         if patron.is_blocked:
             patron_status.add_patron_status_type(
-                SelfcheckPatronStatusTypes.CHARGE_PRIVILEGES_DENIED)
+                PatronStatusTypes.CHARGE_PRIVILEGES_DENIED)
             patron_status.add_patron_status_type(
-                SelfcheckPatronStatusTypes.RENEWAL_PRIVILEGES_DENIED)
+                PatronStatusTypes.RENEWAL_PRIVILEGES_DENIED)
             patron_status.add_patron_status_type(
-                SelfcheckPatronStatusTypes.RECALL_PRIVILEGES_DENIED)
+                PatronStatusTypes.RECALL_PRIVILEGES_DENIED)
             patron_status.add_patron_status_type(
-                SelfcheckPatronStatusTypes.HOLD_PRIVILEGES_DENIED)
+                PatronStatusTypes.HOLD_PRIVILEGES_DENIED)
 
         patron_type = PatronType.get_record_by_pid(patron.patron_type_pid)
         # check the patron type checkout limit
         if not patron_type.check_checkout_count_limit(patron):
             patron_status.add_patron_status_type(
-                SelfcheckPatronStatusTypes.TOO_MANY_ITEMS_CHARGED)
+                PatronStatusTypes.CHARGE_PRIVILEGES_DENIED)
+            patron_status.add_patron_status_type(
+                PatronStatusTypes.RENEWAL_PRIVILEGES_DENIED)
+            patron_status.add_patron_status_type(
+                PatronStatusTypes.HOLD_PRIVILEGES_DENIED)
+            patron_status.add_patron_status_type(
+                PatronStatusTypes.TOO_MANY_ITEMS_CHARGED)
+
         # check the patron type fee amount limit
         if not patron_type.check_fee_amount_limit(patron):
             patron_status.add_patron_status_type(
-                SelfcheckPatronStatusTypes.EXCESSIVE_OUTSTANDING_FINES)
+                PatronStatusTypes.CHARGE_PRIVILEGES_DENIED)
             patron_status.add_patron_status_type(
-                SelfcheckPatronStatusTypes.EXCESSIVE_OUTSTANDING_FEES)
+                PatronStatusTypes.RENEWAL_PRIVILEGES_DENIED)
+            patron_status.add_patron_status_type(
+                PatronStatusTypes.HOLD_PRIVILEGES_DENIED)
+            patron_status.add_patron_status_type(
+                PatronStatusTypes.EXCESSIVE_OUTSTANDING_FINES)
+            patron_status.add_patron_status_type(
+                PatronStatusTypes.EXCESSIVE_OUTSTANDING_FEES)
+
         # check the patron type overdue limit
         if not patron_type.check_overdue_items_limit(patron):
             patron_status.add_patron_status_type(
-                SelfcheckPatronStatusTypes.TOO_MANY_ITEMS_OVERDUE)
+                PatronStatusTypes.CHARGE_PRIVILEGES_DENIED)
+            patron_status.add_patron_status_type(
+                PatronStatusTypes.RENEWAL_PRIVILEGES_DENIED)
+            patron_status.add_patron_status_type(
+                PatronStatusTypes.HOLD_PRIVILEGES_DENIED)
+            patron_status.add_patron_status_type(
+                PatronStatusTypes.TOO_MANY_ITEMS_OVERDUE)
 
         return patron_status
 
