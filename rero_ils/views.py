@@ -148,6 +148,7 @@ def init_menu_tools():
 def init_menu_lang():
     """Create the header language menu."""
     item = current_menu.submenu('main.menu')
+    ui_language = 'ui_language_{lang}'.format(lang=current_i18n.language)
     # Bug: when you reload the page with register(**kwargs), it failed
     # We so check that 'id' already exists. If yes, do not create again
     # the item.
@@ -155,9 +156,9 @@ def init_menu_lang():
         item,
         endpoint=None,
         text='{icon} <span class="{visible}">{menu}'.format(
-            icon='<i class="fa fa-bars"></i>',
+            icon='<i class="fa fa-language"></i>',
             visible='visible-md-inline visible-lg-inline',
-            menu=_('Menu')
+            menu=_(ui_language)
         ),
         order=0,
         id='language-menu'
