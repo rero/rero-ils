@@ -29,6 +29,7 @@ from ..fetchers import id_fetcher
 from ..libraries.api import Library
 from ..minters import id_minter
 from ..providers import Provider
+from ..utils import get_patron_from_arguments
 
 # cipo provider
 CircPolicyProvider = type(
@@ -252,15 +253,11 @@ class CircPolicy(IlsRecord):
                         'patron' argument.
         :return a tuple with True|False and reasons to disallow if False.
         """
-        from ..patrons.api import Patron
-        required_arguments = ['patron', 'patron_barcode', 'patron_pid']
-        if not any(k in required_arguments for k in kwargs):
-            # 'patron' argument are present into kwargs. This check can't
+        patron = get_patron_from_arguments(**kwargs)
+        if not patron:
+            # none patron get be load from kwargs argument. This check can't
             # be relevant --> return True by default
             return True, []
-        patron = kwargs.get('patron') \
-            or Patron.get_patron_by_barcode(kwargs.get('patron_barcode')) \
-            or Patron.get_record_by_pid(kwargs.get('patron_pid'))
         if 'patron' not in patron.get('roles', []):
             # without 'patron' role, we can't find any patron_type and so we
             # can't find any corresponding cipo --> return False
@@ -273,6 +270,35 @@ class CircPolicy(IlsRecord):
             item.item_type_pid
         )
         if not cipo.get('allow_requests', False):
+            return False, ["Circulation policy disallows the operation."]
+        return True, []
+
+    @classmethod
+    def allow_checkout(cls, item, **kwargs):
+        """Check if the cipo corresponding to item/patron allow request.
+
+        :param item : the item to check
+        :param kwargs : To be relevant, additional arguments should contains
+                        'patron' argument.
+        :return a tuple with True|False and reasons to disallow if False.
+        """
+        patron = get_patron_from_arguments(**kwargs)
+        if not patron:
+            # none patron get be load from kwargs argument. This check can't
+            # be relevant --> return True by default
+            return True, []
+        if 'patron' not in patron.get('roles', []):
+            # without 'patron' role, we can't find any patron_type and so we
+            # can't find any corresponding cipo --> return False
+            return False, ["Patron doesn't have the correct role"]
+        library_pid = kwargs['library'].pid if kwargs.get('library') \
+            else item.library_pid
+        cipo = cls.provide_circ_policy(
+            library_pid,
+            patron.patron_type_pid,
+            item.item_type_pid
+        )
+        if not cipo.get('allow_checkout', False):
             return False, ["Circulation policy disallows the operation."]
         return True, []
 
