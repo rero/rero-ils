@@ -28,10 +28,12 @@ from utils import flush_index, get_mapping
 
 from rero_ils.modules.loans.api import Loan, LoanState, \
     get_loans_by_patron_pid, get_overdue_loans
+from rero_ils.modules.loans.tasks import loan_anonymizer
 from rero_ils.modules.loans.utils import get_default_loan_duration
 from rero_ils.modules.notifications.api import NotificationsSearch
 from rero_ils.modules.notifications.tasks import \
     create_over_and_due_soon_notifications
+from rero_ils.modules.patron_transactions.api import PatronTransaction
 
 
 def test_loan_es_mapping(es_clear, db):
@@ -72,8 +74,8 @@ def test_loan_keep_and_to_anonymize(
         librarian_martigny_no_email, loc_public_martigny):
     """Test anonymize and keep loan based on open transactions."""
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
-    assert not loan.concluded
-    assert not loan.can_anonymize()
+    assert not loan.concluded(loan)
+    assert not loan.can_anonymize(loan)
 
     params = {
         'transaction_location_pid': loc_public_martigny.pid,
@@ -82,20 +84,22 @@ def test_loan_keep_and_to_anonymize(
     item, actions = item.checkin(**params)
     loan = Loan.get_record_by_pid(loan.pid)
     # item checkedin and has no open events
-    assert loan.concluded
-    assert not loan.can_anonymize()
+    assert loan.concluded(loan)
+    assert not loan.can_anonymize(loan)
 
     patron['patron']['keep_history'] = False
     patron.update(patron, dbcommit=True, reindex=True)
 
-    # when the patron asks to anonymize history the can_anonymize is true
-    assert loan.concluded
-    assert loan.can_anonymize()
+    # when the patron asks to anonymise history the can_anonymize is true
+    loan = Loan.get_record_by_pid(loan.pid)
+    assert loan.concluded(loan)
+    assert loan.can_anonymize(loan)
+    loan = loan.update(loan, dbcommit=True, reindex=True)
 
     # test loans with fees
     item, patron, loan = item2_on_loan_martigny_patron_and_loan_on_loan
-    assert not loan.concluded
-    assert not loan.can_anonymize()
+    assert not loan.concluded(loan)
+    assert not loan.can_anonymize(loan)
     end_date = datetime.now(timezone.utc) - timedelta(days=7)
     loan['end_date'] = end_date.isoformat()
     loan.update(loan, dbcommit=True, reindex=True)
@@ -113,5 +117,52 @@ def test_loan_keep_and_to_anonymize(
 
     loan = Loan.get_record_by_pid(loan.pid)
 
-    assert not loan.concluded
-    assert not loan.can_anonymize()
+    assert not loan.concluded(loan)
+    assert not loan.can_anonymize(loan)
+
+
+def test_anonymizer_job(
+        item_on_loan_martigny_patron_and_loan_on_loan,
+        librarian_martigny_no_email, loc_public_martigny):
+    """Test loan anonymizer job."""
+    msg = loan_anonymizer(dbcommit=True, reindex=True)
+
+    item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
+    # make the loan overdue
+    end_date = datetime.now(timezone.utc) - timedelta(days=10)
+    loan['end_date'] = end_date.isoformat()
+    loan.update(loan, dbcommit=True, reindex=True)
+
+    create_over_and_due_soon_notifications()
+    flush_index(NotificationsSearch.Meta.index)
+    flush_index(LoansSearch.Meta.index)
+
+    assert not loan.concluded(loan)
+    assert not loan.can_anonymize(loan)
+
+    patron['patron']['keep_history'] = True
+    patron.update(patron, dbcommit=True, reindex=True)
+
+    params = {
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny_no_email.pid
+    }
+    item, actions = item.checkin(**params)
+    loan = Loan.get_record_by_pid(loan.pid)
+    # item checked-in and has no open events
+    assert not loan.concluded(loan)
+    assert not loan.can_anonymize(loan)
+
+    msg = loan_anonymizer(dbcommit=True, reindex=True)
+    assert msg == 'number_of_loans_anonymized: 0'
+
+    patron['patron']['keep_history'] = False
+    patron.update(patron, dbcommit=True, reindex=True)
+    # close open transactions and notifications
+    for transaction in PatronTransaction.get_transactions_by_patron_pid(
+                patron.get('pid'), 'open'):
+        transaction = PatronTransaction.get_record_by_pid(transaction.pid)
+        transaction['status'] = 'closed'
+        transaction.update(transaction, dbcommit=True, reindex=True)
+    msg = loan_anonymizer(dbcommit=True, reindex=True)
+    assert msg == 'number_of_loans_anonymized: 2'

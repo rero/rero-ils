@@ -440,7 +440,7 @@ then
     info_msg "Start OAI harvesting asynchrone"
     eval ${PREFIX} invenio oaiharvester harvest -n ebooks -q -k
 else
-    eval ${PREFIX} invenio scheduler enable_tasks -n bulk-indexer -n claims-creation -n notification-creation -n accounts -n clear_and_renew_subscriptions -v
+    eval ${PREFIX} invenio scheduler enable_tasks -n bulk-indexer -n anonymize-loans -n claims-creation -n notification-creation -n accounts -n clear_and_renew_subscriptions -v
     info_msg "For ebooks harvesting run:"
     msg "\tinvenio oaiharvester harvest -n ebooks -a max=100 -q"
 fi
