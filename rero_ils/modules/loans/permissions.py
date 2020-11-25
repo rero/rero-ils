@@ -45,6 +45,9 @@ class LoanPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
+        # Read is denied for to_anonymize loans.
+        if record.get('to_anonymize'):
+            return False
         if current_patron \
            and current_organisation.pid == Loan(record).organisation_pid:
             # staff member (lib, sys_lib) can always read loans
