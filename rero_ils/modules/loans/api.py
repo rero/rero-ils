@@ -188,11 +188,24 @@ class Loan(IlsRecord):
     @classmethod
     def create(cls, data, id_=None, delete_pid=True,
                dbcommit=False, reindex=False, **kwargs):
-        """Create a new ils record."""
+        """Create the loan record.
+
+        :param cls - class object
+        :param data - dictionary representing a loan record.
+        :param id_ - UUID, it would be generated if it is not given.
+        :param delete_pid - remove the pid present in the data if True,
+        :param dbcommit - commit the changes in the db after the creation.
+        :param reindex - index the record after the creation.
+        """
         data['$schema'] = current_jsonschemas.path_to_url(cls._schema)
         if delete_pid and data.get(cls.pid_field):
             del(data[cls.pid_field])
         cls._loan_build_org_ref(data)
+        # set the field to_anonymize
+        to_anonymize = False
+        data['to_anonymize'] = \
+            cls.can_anonymize(data) and not data.get('to_anonymize')
+
         record = super(Loan, cls).create(
             data=data, id_=id_, delete_pid=delete_pid, dbcommit=dbcommit,
             reindex=reindex, **kwargs)
@@ -201,7 +214,21 @@ class Loan(IlsRecord):
     def update(self, data, dbcommit=False, reindex=False):
         """Update loan record."""
         self._loan_build_org_ref(data)
+        # set the field to_anonymize
+        if Loan.can_anonymize(data) and not self.get('to_anonymize'):
+            data['to_anonymize'] = True
         super(Loan, self).update(data, dbcommit, reindex)
+        return self
+
+    def anonymize(self, loan, dbcommit=False, reindex=False):
+        """Anonymize a loan.
+
+        :param loan: the loan to update.
+        :param dbcommit - commit the changes in the db after the creation.
+        :param reindex - index the record after the creation.
+        """
+        loan['to_anonymize'] = True
+        super(Loan, self).update(loan, dbcommit, reindex)
         return self
 
     def date_fields2datetime(self):
@@ -440,32 +467,56 @@ class Loan(IlsRecord):
             notification = notification.dispatch()
         return notification
 
-    @property
-    def concluded(self):
+    @classmethod
+    def concluded(cls, loan):
         """Check if loan is concluded.
 
         Loan is considered concluded if it has either ITEM_RETURNED or
         CANCELLED states and has no open patron_transactions.
 
+        :param loan: the loan to check.
         :return True|False
         """
         states = [LoanState.ITEM_RETURNED, LoanState.CANCELLED]
         return (
-            self.get('state') in states and
-            not loan_has_open_events(loan_pid=self.pid)
+            loan.get('state') in states and
+            not loan_has_open_events(loan_pid=loan.get('pid'))
         )
 
-    def can_anonymize(self):
-        """Check if a loan can be anonymized  and excluded from loan searches.
+    @classmethod
+    def age(cls, loan):
+        """Return the age of a loan in days.
 
-        Loan can be anonymized if its patron has the keep_history set to False
-        and the loan is concluded.
+        The age of a loan is calculated based on the loan transaction date.
 
+        :param loan: the loan to check.
+        :return loan_age in number of days
+        """
+        transaction_date = ciso8601.parse_datetime(
+            loan.get('transaction_date'))
+        loan_age = (transaction_date.replace(tzinfo=None) - datetime.utcnow())
+        return loan_age.days
+
+    @classmethod
+    def can_anonymize(cls, loan_data):
+        """Check if a loan can be anonymized and excluded from loan searches.
+
+        Loan can be anonymized if:
+        1. it is concluded and 6 months old
+        2. patron has the keep_history set to False and the loan is concluded.
+
+        This method is classmethod because it needs to check the loan record
+        during the loan.update process. this way, you can have access to the
+        old and new version of the loan.
+
+        :param loan_data: the loan to check.
         :return True|False.
         """
+        if cls.concluded(loan_data) and cls.age(loan_data) > 6*365/12:
+            return True
         keep_history = Patron.get_record_by_pid(
-            self.patron_pid).keep_history
-        return not keep_history and self.concluded
+            loan_data.get('patron_pid')).keep_history
+        return not keep_history and cls.concluded(loan_data)
 
 
 def get_request_by_item_pid_by_patron_pid(item_pid, patron_pid):
@@ -539,9 +590,10 @@ def get_loans_stats_by_patron_pid(patron_pid):
     return stats
 
 
-def get_loans_by_patron_pid(patron_pid, filter_states=[]):
+def get_loans_by_patron_pid(patron_pid, filter_states=[], to_anonymize=False):
     """Search all loans for patron to the given filter_states.
 
+    :param to_anonymize: filter by field to_anonymize.
     :param patron_pid: The patron pid.
     :param filter_states: loan states to use as a filter.
     :return: loans for given patron.
@@ -552,6 +604,7 @@ def get_loans_by_patron_pid(patron_pid, filter_states=[]):
         .params(preserve_order=True)\
         .sort({'_created': {'order': 'asc'}})\
         .source(['pid'])
+    search = search.filter('term', to_anonymize=to_anonymize)
     for loan in search.scan():
         yield Loan.get_record_by_pid(loan.pid)
 
@@ -571,7 +624,7 @@ def patron_profile(patron):
     requests = []
     history = []
 
-    for loan in get_loans_by_patron_pid(patron_pid):
+    for loan in get_loans_by_patron_pid(patron_pid, to_anonymize=False):
         item = Item.get_record_by_pid(loan.item_pid, with_deleted=True)
         if item == {}:
             # loans for deleted items are temporarily skipped.
@@ -841,6 +894,44 @@ def loan_has_open_events(loan_pid=None):
         if transactions_count:
             return True
     return False
+
+
+def get_non_anonymized_loans(patron_pid=None, org_pid=None):
+    """Search all loans for non anonymized loans.
+
+    :param patron_pid: optional parameter to filter by patron_pid.
+    :param org_pid: optional parameter to filter by organisation.
+    :return: loans.
+    """
+    search = current_circulation.loan_search_cls()\
+        .filter('term', to_anonymize=False)\
+        .filter('terms', state=[LoanState.CANCELLED, LoanState.ITEM_RETURNED])\
+        .source(['pid'])
+    if patron_pid:
+        search = search.filter('term', patron__pid=patron_pid)
+    if org_pid:
+        search = search.filter('term', organisation__pid=org_pid)
+    for record in search.scan():
+        yield Loan.get_record_by_pid(record.pid)
+
+
+def anonymize_loans(
+        patron_pid=None, org_pid=None, dbcommit=False, reindex=False):
+    """Anonymise loans.
+
+    :param dbcommit - commit the changes in the db after the creation.
+    :param reindex - index the record after the creation.
+    :param patron_pid: optional parameter to filter by patron_pid.
+    :param org_pid: optional parameter to filter by organisation.
+    :return: loans.
+    """
+    counter = 0
+    for loan in get_non_anonymized_loans(
+            patron_pid=patron_pid, org_pid=org_pid):
+        if Loan.can_anonymize(loan):
+            loan.anonymize(loan, dbcommit=dbcommit, reindex=reindex)
+            counter += 1
+    return counter
 
 
 class LoansIndexer(IlsRecordsIndexer):
