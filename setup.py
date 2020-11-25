@@ -299,6 +299,7 @@ setup(
             'patrons = rero_ils.modules.patrons.tasks',
             'rero_ils_collections = rero_ils.modules.collections.tasks',
             'claims = rero_ils.modules.items.tasks',
+            'loans = rero_ils.modules.loans.tasks',
         ],
         'invenio_records.jsonresolver': [
             'acq_accounts = rero_ils.modules.acq_accounts.jsonresolver',

@@ -198,9 +198,11 @@ def loans_search_factory(self, search, query_parser=None):
     """Loan search factory.
 
     Restricts results to organisation level for librarian and sys_lib.
-    Restricts results to his loans for users with role patron.
+    Restricts results to its loans for users with role patron.
+    Exclude to_anonymize loans from results.
     """
     search, urlkwargs = search_factory(self, search)
+
     if current_patron:
         if current_patron.is_librarian:
             search = search.filter(
@@ -208,6 +210,9 @@ def loans_search_factory(self, search, query_parser=None):
             )
         elif current_patron.is_patron:
             search = search.filter('term', patron__pid=current_patron.pid)
+    # exclude to_anonymize records
+    search = search.filter('bool', must_not=[Q('term', to_anonymize=True)])
+
     return search, urlkwargs
 
 
