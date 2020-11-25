@@ -34,7 +34,6 @@ from sqlalchemy.orm.exc import NoResultFound
 from werkzeug.local import LocalProxy
 
 from .models import PatronIdentifier, PatronMetadata
-from .utils import get_patron_from_arguments
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..errors import RecordValidationError
 from ..fetchers import id_fetcher
@@ -43,8 +42,8 @@ from ..minters import id_minter
 from ..organisations.api import Organisation
 from ..patron_transactions.api import PatronTransaction
 from ..providers import Provider
-from ..utils import extracted_data_from_ref, get_ref_for_pid, \
-    trim_barcode_for_record
+from ..utils import extracted_data_from_ref, get_patron_from_arguments, \
+    get_ref_for_pid, trim_barcode_for_record
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
@@ -439,7 +438,6 @@ class Patron(IlsRecord):
             # 'patron' argument are present into kwargs. This check can't
             # be relevant --> return True by default
             return True, []
-
         # a blocked patron can't request any item
         if patron.is_blocked:
             return False, [patron.get_blocked_message()]
@@ -448,24 +446,15 @@ class Patron(IlsRecord):
 
     @classmethod
     def can_checkout(cls, item, **kwargs):
-        """Check if a patron can checkout an item.
+        """Check if a patron can checkout an item."""
+        # Same logic than can_request :: a blocked patron can't do a checkout
+        return cls.can_request(item, **kwargs)
 
-        :param item: the item to check
-        :param kwargs: To be relevant, additional arguments should contains
-                       'patron' argument.
-        :return a tuple with True|False and reasons to disallow if False.
-        """
-        patron = get_patron_from_arguments(**kwargs)
-        if not patron:
-            # 'patron' argument are present into kwargs. This check can't
-            # be relevant --> return True by default
-            return True, []
-
-        # a blocked patron can't request any item
-        if patron.is_blocked:
-            return False, [patron.get_blocked_message()]
-
-        return True, []
+    @classmethod
+    def can_extend(cls, item, **kwargs):
+        """Check if a patron can extend a loan."""
+        # Same logic than can_request :: a blocked patron can't extend a loan
+        return cls.can_request(item, **kwargs)
 
     @classmethod
     def patrons_with_obsolete_subscription_pids(cls, end_date=None):

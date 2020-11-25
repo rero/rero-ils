@@ -1608,6 +1608,7 @@ RECORDS_REST_FACETS = dict(
             _('library'): and_term_filter('library.pid'),
             _('item_type'): and_term_filter('item_type.pid'),
             _('vendor'): and_term_filter('vendor.pid'),
+            _('status'): and_term_filter('status'),
             _('issue_status'): and_term_filter('issue.status'),
             # to allow multiple filters support, in this case to filter by
             # "late or claimed"
@@ -2304,10 +2305,12 @@ CIRCULATION_ACTIONS_VALIDATION = {
     ],
     ItemCirculationAction.EXTEND: [
         Item.can_extend,
+        Patron.can_extend,
         PatronType.allow_extend
     ],
     ItemCirculationAction.CHECKOUT: [
         Patron.can_checkout,
+        CircPolicy.allow_checkout,
         PatronType.allow_checkout
     ]
 }

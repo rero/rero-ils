@@ -407,3 +407,15 @@ def get_record_class_from_schema_or_pid_type(schema=None, pid_type=None):
         .get('RECORDS_REST_ENDPOINTS')
         .get(pid_type, {}).get('record_class'))
     return record_class
+
+
+def get_patron_from_arguments(**kwargs):
+    """Try to load a patron from potential arguments."""
+    from .patrons.api import Patron
+    required_arguments = ['patron', 'patron_barcode', 'patron_pid', 'loan']
+    if not any(k in required_arguments for k in kwargs):
+        return None
+    return kwargs.get('patron') \
+        or Patron.get_patron_by_barcode(kwargs.get('patron_barcode')) \
+        or Patron.get_record_by_pid(kwargs.get('patron_pid')) \
+        or Patron.get_record_by_pid(kwargs.get('loan').get('patron_pid'))

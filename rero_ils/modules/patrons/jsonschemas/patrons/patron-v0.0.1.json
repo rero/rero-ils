@@ -371,7 +371,7 @@
         },
         "blocked": {
           "title": "Blocking",
-          "description": "A patron with a blocked account cannot request and borrow items, but can still renew and check in items.",
+          "description": "A patron with a blocked account cannot extend, request and borrow items.",
           "type": "boolean"
         },
         "blocked_note": {

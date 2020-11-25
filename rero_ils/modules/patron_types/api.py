@@ -34,8 +34,8 @@ from ..loans.api import LoanState, get_loans_count_by_library_for_patron_pid, \
 from ..minters import id_minter
 from ..patron_transactions.api import PatronTransaction
 from ..patrons.api import Patron, PatronsSearch
-from ..patrons.utils import get_patron_from_arguments
 from ..providers import Provider
+from ..utils import get_patron_from_arguments
 
 # provider
 PatronTypeProvider = type(
