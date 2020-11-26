@@ -2447,6 +2447,7 @@ SIP2_REMOTE_ACTION_HANDLERS = dict(
         ),
         circulation_handlers=dict(
             checkout='rero_ils.modules.selfcheck.api:selfcheck_checkout',
+            checkin='rero_ils.modules.selfcheck.api:selfcheck_checkin',
         )
     )
 )
