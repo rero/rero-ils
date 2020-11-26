@@ -31,8 +31,9 @@ from rero_ils.modules.loans.api import Loan, LoanAction, LoanState
 from rero_ils.modules.notifications.api import NotificationsSearch, \
     number_of_reminders_sent
 from rero_ils.modules.selfcheck.api import authorize_patron, enable_patron, \
-    item_information, patron_information, selfcheck_checkout, \
-    selfcheck_login, system_status, validate_patron_account
+    item_information, patron_information, selfcheck_checkin, \
+    selfcheck_checkout, selfcheck_login, system_status, \
+    validate_patron_account
 from rero_ils.modules.selfcheck.utils import check_sip2_module
 
 # skip tests if invenio-sip2 module is not installed
@@ -281,3 +282,43 @@ def test_selfcheck_checkout(client, sip2_librarian_martigny_no_email,
         )
     )
     assert res.status_code == 200
+
+
+def test_selfcheck_checkin(client, sip2_librarian_martigny_no_email,
+                           librarian2_martigny_no_email, loc_public_martigny,
+                           sip2_patron_martigny_no_email, item_lib_martigny,
+                           document, circulation_policies):
+    """Test selfcheck checkin."""
+    patron_barcode = sip2_patron_martigny_no_email \
+        .get('patron', {}).get('barcode')
+    item_barcode = item_lib_martigny.get('barcode')
+
+    # librarian checkout
+    login_user_via_session(client, librarian2_martigny_no_email.user)
+    res, data = postdata(client, 'api_item.checkout', dict(
+        item_pid=item_lib_martigny.pid,
+        patron_pid=sip2_patron_martigny_no_email.pid,
+        transaction_location_pid=loc_public_martigny.pid,
+        transaction_user_pid=librarian2_martigny_no_email.pid,
+    ))
+    assert res.status_code == 200
+
+    # test selfcheck checkin with invalid item barcode
+    checkin = selfcheck_checkin(
+        user_pid=sip2_librarian_martigny_no_email.pid,
+        institution_id=sip2_librarian_martigny_no_email.library_pid,
+        patron_barcode=patron_barcode,
+        item_barcode='wrong_item_barcode',
+    )
+    assert checkin
+    assert not checkin.is_success
+
+    # selfcheck checkin
+    checkin = selfcheck_checkin(
+        user_pid=sip2_librarian_martigny_no_email.pid,
+        institution_id=sip2_librarian_martigny_no_email.library_pid,
+        patron_barcode=patron_barcode,
+        item_barcode=item_barcode,
+    )
+    assert checkin
+    assert checkin.is_success

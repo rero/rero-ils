@@ -227,7 +227,7 @@ def item_information(patron_barcode, item_pid, **kwargs):
     """Get item information handler.
 
     get item information according 'item_identifier' from selfcheck user.
-    :param barcode: barcode of the patron.
+    :param patron_barcode: barcode of the patron.
     :param item_pid: item identifier.
     :return: The SelfcheckItemInformation object.
     """
@@ -345,3 +345,51 @@ def selfcheck_checkout(user_pid, institution_id, patron_barcode,
                     #       magnetic_media, desensitize
 
         return checkout
+
+
+def selfcheck_checkin(user_pid, institution_id, patron_barcode,
+                      item_barcode, **kwargs):
+    """SIP2 Handler to perform checkin.
+
+    perform checkin action received from the selfcheck.
+    :param user_pid: identifier of the staff user.
+    :param institution_id: library pid of the staff user.
+    :param patron_barcode: barcode of the patron.
+    :param item_barcode: item identifier.
+    :return: The SelfcheckCheckin object.
+    """
+    if check_sip2_module():
+        from invenio_sip2.models import SelfcheckCheckin
+        library = Library.get_record_by_pid(institution_id)
+        item = Item.get_item_by_barcode(
+            barcode=item_barcode,
+            organisation_pid=library.organisation_pid
+        )
+        checkin = SelfcheckCheckin(
+            permanent_location=library.get('name')
+        )
+        if item:
+            document = Document.get_record_by_pid(item.document_pid)
+            checkin['title_id'] = title_format_text_head(
+                document.get('title')
+            )
+            staffer = Patron.get_record_by_pid(user_pid)
+            if staffer.is_librarian:
+                patron = Patron.get_patron_by_barcode(barcode=patron_barcode)
+                # do checkin
+                result, data = item.checkin(
+                    patron_pid=patron.pid,
+                    transaction_user_pid=staffer.pid,
+                    transaction_library_pid=staffer.library_pid,
+                    item_pid=item.pid,
+                )
+                if data[LoanAction.CHECKIN]:
+                    language = kwargs.get('language', current_app.config
+                                          .get('BABEL_DEFAULT_LANGUAGE'))
+                    with current_app.test_request_context() as ctx:
+                        ctx.babel_locale = language
+                        checkin['checkin'] = True
+                        # TODO: When is possible, try to return fields:
+                        #       magnetic_media, resensitize
+
+        return checkin
