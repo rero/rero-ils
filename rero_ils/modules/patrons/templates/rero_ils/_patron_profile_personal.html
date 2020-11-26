@@ -18,29 +18,124 @@
 #}
 {% from 'rero_ils/macros/macro.html' import dl %}
 
-<h4 class="text-secondary border-bottom mt-3 pb-1">{{ _('Personal details') }}</h4>
+<div id="patronrecord-section" class="row mb-1 align-items-center">
+  <div class="col mr-1 d-none d-lg-block">
+    <div class="row p-2 bg-dark rounded text-light">
+      <div class="col-lg-9">{{ _('Personal details') }}</div>
+    </div>
+  </div>
+</div>
 
-<dl class="row">
-  {% if record.username %}
-  <dt class="col-lg-3">{{_('Username')}}:</dt>
-  <dd class="col-lg-9 mb-0">{{ record.username }}</dd>
-  {% endif %}
-  <dt class="col-lg-3">{{_('Street')}}:</dt>
-  <dd class="col-lg-9 mb-0">{{ record.street }}</dd>
-  <dt class="col-lg-3">{{_('City')}}:</dt>
-  <dd class="col-lg-9 mb-0">{{ record.postal_code }} {{ record.city }}</dd>
-  <dt class="col-lg-3">{{_('Phone')}}:</dt>
-  <dd class="col-lg-9 mb-0">{{ record.phone }}</dd>
-  {% if record.email %}
-  <dt class="col-lg-3">{{_('Email')}}:</dt>
-  <dd class="col-lg-9 mb-0">{{ record.email }}</dd>
-  {% endif %}
-  <dt class="col-lg-3">{{_('Patron number')}}:</dt>
-  <dd class="col-lg-9 mb-0">{{ record.patron.barcode }}</dd>
-  <dt class="col-lg-3">{{_('Account expiration')}}:</dt>
-  <dd class="col-lg-9 mb-0">{{ record.patron.expiration_date | format_date(
-      date_format='medium',
-      time_format=None,
-      locale=current_i18n.locale.language
-    )}}</dd>
-</dl>
+
+<div class="row mb-1">
+  <div class="col mr-1 p-2 border rounded">
+    {% if record.username %}
+    <div class="row pl-2 pr-2">
+      <div class="col-lg-3 font-weight-bold">
+        {{_('Username')}}:
+        </a>
+      </div>
+      <div class="col-lg-9">
+        {{ record.username }}
+      </div>
+    </div>
+    {% endif %}
+    {% if record.street %}
+    <div class="row pl-2 pr-2">
+      <div class="col-lg-3 font-weight-bold">
+        {{_('Street')}}:
+        </a>
+      </div>
+      <div class="col-lg-9">
+        {{ record.street }}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if record.city %}
+    <div class="row pl-2 pr-2">
+      <div class="col-lg-3 font-weight-bold">
+        {{_('City')}}:
+        </a>
+      </div>
+      <div class="col-lg-9">
+        {{ record.postal_code }} {{ record.city }}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if record.phone %}
+    <div class="row pl-2 pr-2">
+      <div class="col-lg-3 font-weight-bold">
+        {{_('Phone')}}:
+        </a>
+      </div>
+      <div class="col-lg-9">
+        {{ record.phone }}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if record.email %}
+    <div class="row pl-2 pr-2">
+      <div class="col-lg-3 font-weight-bold">
+        {{_('Email')}}:
+        </a>
+      </div>
+      <div class="col-lg-9">
+        {{ record.email }}
+      </div>
+    </div>
+    {% endif %}
+
+
+    {% if record.patron.barcode %}
+    <div class="row pl-2 pr-2">
+      <div class="col-lg-3 font-weight-bold">
+        {{_('Patron number')}}:
+        </a>
+      </div>
+      <div class="col-lg-9">
+        {{ record.patron.barcode }}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if record.patron.expiration_date %}
+    <div class="row pl-2 pr-2">
+      <div class="col-lg-3 font-weight-bold">
+        {{_('Account expiration')}}:
+        </a>
+      </div>
+      <div class="col-lg-9">
+        {{ record.patron.expiration_date | format_date(
+       date_format='medium',
+       time_format=None,
+       locale=current_i18n.locale.language
+     )}}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if record.patron.barcode %}
+    <div class="row pl-2 pr-2">
+      <div class="col-lg-3 font-weight-bold">
+        {{_('Keep history')}}:
+        </a>
+      </div>
+      <div class="col-lg-9">
+        <i class="fa fa-circle mr- text-{{ 'success' if record.patron.keep_history else 'danger' }}"></i>
+        {% if record.patron.keep_history %}
+            {{_('Keep history')}}<br>
+            {{_('The loan history is saved for a maximum of six months. It is visible to you and the library staff.')}}
+          {%- else %}
+            {{_('Discard history')}}<br>
+            {{_('The loan history is not saved.')}}
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+<a href="/account/settings/profile/" class="btn btn-primary mt-1">Edit</a>

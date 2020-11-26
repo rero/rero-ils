@@ -2881,7 +2881,8 @@
         "$ref": "https://ils.rero.ch/api/patron_types/ptty1"
       },
       "communication_channel": "email",
-      "communication_language": "eng"
+      "communication_language": "eng",
+      "keep_history": true
     },
     "notes": [
       {
