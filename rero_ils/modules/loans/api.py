@@ -204,7 +204,7 @@ class Loan(IlsRecord):
         # set the field to_anonymize
         to_anonymize = False
         data['to_anonymize'] = \
-            cls.can_anonymize(data) and not data.get('to_anonymize')
+            cls.can_anonymize(loan_data=data) and not data.get('to_anonymize')
 
         record = super(Loan, cls).create(
             data=data, id_=id_, delete_pid=delete_pid, dbcommit=dbcommit,
@@ -215,7 +215,7 @@ class Loan(IlsRecord):
         """Update loan record."""
         self._loan_build_org_ref(data)
         # set the field to_anonymize
-        if Loan.can_anonymize(data) and not self.get('to_anonymize'):
+        if Loan.can_anonymize(loan_data=data) and not self.get('to_anonymize'):
             data['to_anonymize'] = True
         super(Loan, self).update(data, dbcommit, reindex)
         return self
@@ -498,7 +498,7 @@ class Loan(IlsRecord):
         return loan_age.days
 
     @classmethod
-    def can_anonymize(cls, loan_data):
+    def can_anonymize(cls, loan_data=None, patron_data=None):
         """Check if a loan can be anonymized and excluded from loan searches.
 
         Loan can be anonymized if:
@@ -510,12 +510,14 @@ class Loan(IlsRecord):
         old and new version of the loan.
 
         :param loan_data: the loan to check.
+        :param patron_data: the patron to check.
         :return True|False.
         """
         if cls.concluded(loan_data) and cls.age(loan_data) > 6*365/12:
             return True
-        keep_history = Patron.get_record_by_pid(
-            loan_data.get('patron_pid')).keep_history
+        if not patron_data:
+            patron_data = Patron.get_record_by_pid(loan_data.get('patron_pid'))
+        keep_history = patron_data.get('patron', {}).get('keep_history')
         return not keep_history and cls.concluded(loan_data)
 
 
@@ -908,7 +910,7 @@ def get_non_anonymized_loans(patron_pid=None, org_pid=None):
         .filter('terms', state=[LoanState.CANCELLED, LoanState.ITEM_RETURNED])\
         .source(['pid'])
     if patron_pid:
-        search = search.filter('term', patron__pid=patron_pid)
+        search = search.filter('term', patron_pid=patron_pid)
     if org_pid:
         search = search.filter('term', organisation__pid=org_pid)
     for record in search.scan():
@@ -916,19 +918,21 @@ def get_non_anonymized_loans(patron_pid=None, org_pid=None):
 
 
 def anonymize_loans(
-        patron_pid=None, org_pid=None, dbcommit=False, reindex=False):
+        patron_pid=None, patron_data=None, org_pid=None,
+        dbcommit=False, reindex=False):
     """Anonymise loans.
 
     :param dbcommit - commit the changes in the db after the creation.
     :param reindex - index the record after the creation.
     :param patron_pid: optional parameter to filter by patron_pid.
     :param org_pid: optional parameter to filter by organisation.
+    :param patron_data: patron data to check.
     :return: loans.
     """
     counter = 0
     for loan in get_non_anonymized_loans(
             patron_pid=patron_pid, org_pid=org_pid):
-        if Loan.can_anonymize(loan):
+        if Loan.can_anonymize(loan_data=loan, patron_data=patron_data):
             loan.anonymize(loan, dbcommit=dbcommit, reindex=reindex)
             counter += 1
     return counter
