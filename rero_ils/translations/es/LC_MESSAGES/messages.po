@@ -13,15 +13,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-11-24 13:57+0100\n"
-"PO-Revision-Date: 2020-11-24 12:48+0000\n"
+"PO-Revision-Date: 2020-11-26 13:40+0000\n"
 "Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/es/>\n"
 "Language: es\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/es/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.4-dev\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: rero_ils/config.py:127
@@ -4799,7 +4800,6 @@ msgid "Call number"
 msgstr "Número de clasificación"
 
 #: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:4
-#, fuzzy
 msgid "Mef contribution"
 msgstr "Contribución"
 
@@ -7160,7 +7160,7 @@ msgstr "Descripción textual de los números faltantes."
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:529
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:381
 msgid "general_note"
-msgstr "nota general"
+msgstr "Nota general"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:533
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:393
@@ -7169,34 +7169,30 @@ msgid "staff_note"
 msgstr "Nota para el personal"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:537
-#, fuzzy
 msgid "conservation_note"
-msgstr "nota de conservación"
+msgstr "Nota de conservación"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:541
-#, fuzzy
 msgid "reception_note"
-msgstr "nota de recepción"
+msgstr "Nota de recepción"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:545
-#, fuzzy
 msgid "claim_note"
-msgstr "nota de reclamación"
+msgstr "Nota de reclamación"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:549
-#, fuzzy
 msgid "routing_note"
-msgstr "nota de envio"
+msgstr "Nota de envio"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:553
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:365
 msgid "binding_note"
-msgstr "nota sobre la vinculación"
+msgstr "Nota sobre la vinculación"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:557
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:361
 msgid "acquisition_note"
-msgstr "nota de adquisición"
+msgstr "Nota de adquisición"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:570
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:401
@@ -7578,15 +7574,15 @@ msgstr "Nota de préstamo"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:377
 msgid "condition_note"
-msgstr "nota de conservación"
+msgstr "Nota de condición material"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:385
 msgid "patrimonial_note"
-msgstr "aspectos patrimoniales"
+msgstr "Aspectos patrimoniales"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:389
 msgid "provenance_note"
-msgstr "nota de origen"
+msgstr "Nota de origen"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:430
 msgid "Acquisition date"
@@ -9774,4 +9770,3 @@ msgstr "Haga clic aquí para restablecer su contraseña"
 
 #~ msgid "{prefix}{data}"
 #~ msgstr ""
-
