@@ -75,7 +75,7 @@ def test_loan_keep_and_to_anonymize(
     """Test anonymize and keep loan based on open transactions."""
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
     assert not loan.concluded(loan)
-    assert not loan.can_anonymize(loan)
+    assert not loan.can_anonymize(loan_data=loan)
 
     params = {
         'transaction_location_pid': loc_public_martigny.pid,
@@ -85,7 +85,7 @@ def test_loan_keep_and_to_anonymize(
     loan = Loan.get_record_by_pid(loan.pid)
     # item checkedin and has no open events
     assert loan.concluded(loan)
-    assert not loan.can_anonymize(loan)
+    assert not loan.can_anonymize(loan_data=loan)
 
     patron['patron']['keep_history'] = False
     patron.update(patron, dbcommit=True, reindex=True)
@@ -93,13 +93,13 @@ def test_loan_keep_and_to_anonymize(
     # when the patron asks to anonymise history the can_anonymize is true
     loan = Loan.get_record_by_pid(loan.pid)
     assert loan.concluded(loan)
-    assert loan.can_anonymize(loan)
+    assert loan.can_anonymize(loan_data=loan)
     loan = loan.update(loan, dbcommit=True, reindex=True)
 
     # test loans with fees
     item, patron, loan = item2_on_loan_martigny_patron_and_loan_on_loan
     assert not loan.concluded(loan)
-    assert not loan.can_anonymize(loan)
+    assert not loan.can_anonymize(loan_data=loan)
     end_date = datetime.now(timezone.utc) - timedelta(days=7)
     loan['end_date'] = end_date.isoformat()
     loan.update(loan, dbcommit=True, reindex=True)
@@ -118,7 +118,7 @@ def test_loan_keep_and_to_anonymize(
     loan = Loan.get_record_by_pid(loan.pid)
 
     assert not loan.concluded(loan)
-    assert not loan.can_anonymize(loan)
+    assert not loan.can_anonymize(loan_data=loan)
 
 
 def test_anonymizer_job(
@@ -138,7 +138,7 @@ def test_anonymizer_job(
     flush_index(LoansSearch.Meta.index)
 
     assert not loan.concluded(loan)
-    assert not loan.can_anonymize(loan)
+    assert not loan.can_anonymize(loan_data=loan)
 
     patron['patron']['keep_history'] = True
     patron.update(patron, dbcommit=True, reindex=True)
@@ -151,7 +151,7 @@ def test_anonymizer_job(
     loan = Loan.get_record_by_pid(loan.pid)
     # item checked-in and has no open events
     assert not loan.concluded(loan)
-    assert not loan.can_anonymize(loan)
+    assert not loan.can_anonymize(loan_data=loan)
 
     msg = loan_anonymizer(dbcommit=True, reindex=True)
     assert msg == 'number_of_loans_anonymized: 0'

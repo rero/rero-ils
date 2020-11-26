@@ -59,6 +59,7 @@
             <span class="badge badge-danger font-weight-normal">{{ fees.open.total_amount | format_currency(fees.open.currency) }}</span>
           </a>
         </li>
+        {% if record.patron.keep_history %}
         <li class="nav-item">
           <a class="nav-link{% if tab == 'history' %} active{% endif %}" href="#history" data-toggle="tab" id="history-tab" title="{{ _('History') }}" role="tab"
             aria-controls="history" aria-selected="false">
@@ -66,6 +67,7 @@
             <span class="badge badge-light font-weight-normal">{{ history | length }}</span>
           </a>
         </li>
+        {% endif %}
         <li class="nav-item">
           <a class="nav-link{% if tab == 'ill_request' %} active{% endif %}" href="#ill_request" data-toggle="tab" id="ill_request-tab" title="{{ _('ILL requests') }}" role="tab"
             aria-controls="history" aria-selected="false">
