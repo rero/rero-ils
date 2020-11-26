@@ -387,10 +387,10 @@
           }
         },
         "keep_history": {
-          "title": "Keep circulation history",
-          "description": "When enabled, track of the loan history of the 6 last months will be kept.",
+          "title": "Keep history",
+          "description": "If enabled, the loan history is saved for a maximum of six months. It is visible to the user and the library staff.",
           "type": "boolean",
-          "default": true
+          "default": false
         }
       },
       "form": {

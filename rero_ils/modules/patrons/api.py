@@ -96,7 +96,7 @@ class Patron(IlsRecord):
     # field list to be in sync
     profile_fields = [
         'first_name', 'last_name', 'street', 'postal_code',
-        'city', 'birth_date', 'username', 'phone'
+        'city', 'birth_date', 'username', 'phone', 'keep_history'
     ]
 
     available_roles = [ROLE_SYSTEM_LIBRARIAN, ROLE_LIBRARIAN, ROLE_PATRON]
@@ -191,10 +191,28 @@ class Patron(IlsRecord):
         data = trim_barcode_for_record(data=data)
         # synchronize the rero id user profile data
         data = dict(self, **data)
+        old_keep_history = self.keep_history
         self.sync_user_and_profile(data)
         super(Patron, self).update(data, dbcommit, reindex)
         self._update_roles()
+        Patron._anonymize_loans(
+            patron_data=data, old_keep_history=old_keep_history)
         return self
+
+    @classmethod
+    def _anonymize_loans(
+            cls, patron_data=None, old_keep_history=None):
+        """Anonymize patron loans.
+
+        :param patron_data - dictionary representing a patron record.
+        :param old_keep_history - old settings of keep_history.
+        """
+        from ..loans.api import anonymize_loans
+        new_keep_history = patron_data.get('patron', {}).get('keep_history')
+        if old_keep_history and not new_keep_history:
+            anonymize_loans(
+                patron_data=patron_data,
+                patron_pid=patron_data.get('pid'), dbcommit=True, reindex=True)
 
     def delete(self, force=False, delindex=False):
         """Delete record and persistent identifier."""
@@ -211,11 +229,15 @@ class Patron(IlsRecord):
         # retrieve the user
         patron = Patron.get_patron_by_user(profile.user)
         if patron:
+            old_keep_history = patron.patron.get('keep_history')
             for field in cls.profile_fields:
                 # date field requires conversion
                 if field == 'birth_date':
                     patron[field] = getattr(
                         profile, field).strftime('%Y-%m-%d')
+                elif field == 'keep_history':
+                    new_keep_history = getattr(profile, field)
+                    patron['patron']['keep_history'] = new_keep_history
                 else:
                     value = getattr(profile, field)
                     if value not in [None, '']:
@@ -232,6 +254,10 @@ class Patron(IlsRecord):
                     # the email has been updated in the user profile
                     patron['email'] = profile.user.email
             super(Patron, patron).update(dict(patron), True, True)
+        # anonymize user loans if keep_history is changed
+        if old_keep_history and not new_keep_history:
+            from ..loans.api import anonymize_loans
+            anonymize_loans(patron_pid=patron.pid, dbcommit=True, reindex=True)
 
     @classmethod
     def _get_user_by_data(cls, data):
@@ -290,6 +316,9 @@ class Patron(IlsRecord):
                     setattr(
                         profile, field,
                         datetime.strptime(data.get(field), '%Y-%m-%d'))
+                elif field == 'keep_history':
+                    setattr(profile, field, data.get(
+                        'patron', {}).get(field, True))
                 else:
                     setattr(profile, field, data.get(field, ''))
             db.session.merge(user)
