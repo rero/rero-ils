@@ -20,7 +20,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 // Scan the patron barcode, then the item barcode (this does a checkout)
 Cypress.Commands.add('scanPatronBarcodeThenItemBarcode', (patron, itemBarcode) => {
   // Enter patron barcode
-  cy.get('#search').type(patron.barcode).type('{enter}');
+  cy.get('#search').type(patron.patron.barcode).type('{enter}');
   // Assert that patron info is displayed
   cy.get('#patron-last-name').should('contain', patron.last_name);
   cy.get('#patron-first-name').should('contain', ', ' + patron.first_name);

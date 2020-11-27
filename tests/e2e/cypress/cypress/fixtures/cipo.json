@@ -1,0 +1,51 @@
+{
+  "on_site": {
+    "organisation_pid": 4,
+    "name": "On site",
+    "allow_requests": false,
+    "allow_checkout": true,
+    "checkout_duration": 0,
+    "policy_library_level": false,
+    "is_default": false
+  },
+  "extended": {
+    "organisation_pid": 4,
+    "name":"Extended",
+    "description":"Extended loan (3 months).",
+    "allow_requests":true,
+    "allow_checkout":true,
+    "checkout_duration":84,
+    "number_of_days_after_due_date":5,
+    "number_of_days_before_due_date":5,
+    "number_renewals":3,
+    "renewal_duration":84,
+    "reminder_fee_amount":2,
+    "policy_library_level":false,
+    "is_default":false
+  },
+  "default": {
+    "pid": 7,
+    "organisation_pid": 4,
+    "name":"Default",
+    "description":"Default circulation policy.",
+    "allow_requests":true,
+    "allow_checkout":true,
+    "checkout_duration":30,
+    "number_of_days_after_due_date":5,
+    "number_of_days_before_due_date":5,
+    "number_renewals":3,
+    "renewal_duration":30,
+    "reminder_fee_amount":2,
+    "policy_library_level":false,
+    "is_default":true
+  },
+  "no_checkout": {
+    "organisation_pid": 4,
+    "name":"No checkout",
+    "description":"Ebooks circulation policy.",
+    "allow_requests":false,
+    "allow_checkout":false,
+    "policy_library_level":false,
+    "is_default":false
+  }
+}

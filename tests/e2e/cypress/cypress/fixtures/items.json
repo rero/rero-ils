@@ -22,5 +22,13 @@
     "pickupName": "Vulcan library",
     "itemTypeUri": "Default",
     "itemTypePid": 11
+  },
+  "starfleet_on_site": {
+    "code": "STARFLEET-BIB",
+    "location": "Default location for Starfleet library",
+    "locationPid": 35,
+    "pickupName": "Starfleet library",
+    "itemTypeUri": "On site",
+    "itemTypePid": ""
   }
 }

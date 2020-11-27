@@ -102,7 +102,8 @@ describe('Circulation scenario A: standard loan', function() {
      */
     cy.adminLogin(this.users.librarians.leonard.email, this.common.uniquePwd);
     // Go to requests list
-    cy.visit('/professional/circulation/requests');
+    cy.get('#user-services-menu').click();
+    cy.get('#requests-menu').click();
     // Check that the document is present
     cy.get('#request-' + this.itemBarcode + ' [name="barcode"]').should('contain', this.itemBarcode);
     // Enter the barcode and validate
@@ -113,7 +114,7 @@ describe('Circulation scenario A: standard loan', function() {
     cy.get('#user-services-menu').click();
     cy.get('#users-menu').click();
     // Go to James patron profile
-    cy.get('#' + this.users.patrons.james.barcode + '-loans').click();
+    cy.get('#' + this.users.patrons.james.patron.barcode + '-loans').click();
     // Click on tab called "To pick up"
     cy.get('#pick-up-tab').click();
     // The item should be present

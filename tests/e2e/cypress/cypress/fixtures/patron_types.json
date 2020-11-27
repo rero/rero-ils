@@ -1,0 +1,13 @@
+{
+  "visitors": {
+    "name": "Visitor",
+    "description": "Visitor for on site consultation.",
+    "organisation_pid": 4
+  },
+  "standard": {
+    "name": "Standard",
+    "description": "Standard patron.",
+    "organisation_pid": 4,
+    "pid": 7
+  }
+}

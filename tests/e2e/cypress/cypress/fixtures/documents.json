@@ -25,9 +25,10 @@
       "place": "Afghanistan (af)"
     },
     "issuance": {
-     "mainType": "Serial",
+     "mainType": "single unit",
      "mainTypeCode": "rdami:1001",
-     "subtype": "Material unit"
+     "subtype": "Material unit",
+     "subtypeCode": "materialUnit"
     },
     "authors": {
       "person":{
