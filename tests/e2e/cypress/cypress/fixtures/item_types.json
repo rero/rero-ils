@@ -1,0 +1,16 @@
+{
+  "on_site": {
+    "pid": 11,
+    "type": "standard",
+    "name": "On site",
+    "description": "On site consultation",
+    "organisation_pid": 4
+  },
+  "default": {
+    "pid": 11,
+    "type": "standard",
+    "name": "Default",
+    "description": "Default item type",
+    "organisation_pid": 4
+  }
+}
