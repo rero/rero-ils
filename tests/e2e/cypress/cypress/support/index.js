@@ -17,7 +17,7 @@
 import './api'
 import './circulation'
 import './collection'
-import './commands'
+import './cipo'
 import './commands'
 import './navigation'
 import './record'

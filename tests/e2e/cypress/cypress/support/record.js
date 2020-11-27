@@ -80,7 +80,7 @@ Cypress.Commands.add("saveRecord", () => {
 
 Cypress.Commands.add("checkDocumentEssentialFields", (document) => {
   cy.get('#doc-language-0').should('contain', document.language1);
-  cy.get('#doc-issuance').should('contain', document.issuance.mainTypeCode + ' / materialUnit');
+  cy.get('#doc-issuance').should('contain', document.issuance.mainType + ' / ' + document.issuance.subtypeCode);
   cy.get('#doc-title').should('contain', document.title.mainTitle);
   cy.get('#doc-provision-activity-0').should('contain', document.provisionActivity.statement.place + ' : ' + document.provisionActivity.statement.agent + ', ' + document.provisionActivity.statement.date);
 });

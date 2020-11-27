@@ -1,18 +1,34 @@
 {
   "patrons": {
     "james": {
+      "patron":{
+        "barcode": "cypress-1"
+      },
       "email": "reroilstest+james@gmail.com",
       "first_name": "James",
       "last_name": "Kirk",
-      "barcode": "cypress-1",
       "initials": "JK"
     },
     "nyota": {
-      "email": "reroilstest+nyota@gmail.com",
-      "first_name": "Nyota",
-      "last_name": "Uhura",
-      "barcode": "cypress-2",
-      "initials": "NU"
+      "patron": {
+        "barcode":"cypress-2",
+        "communication_channel":"email",
+        "communication_language":"eng",
+        "expiration_date":"2023-10-07",
+        "type": 7
+      },
+      "birth_date":"1932-12-28",
+      "city":"Betelgeuse",
+      "email":"reroilstest+nyota@gmail.com",
+      "first_name":"Nyota",
+      "last_name":"Uhura",
+      "phone":"+41324883123",
+      "pid":"53",
+      "postal_code":"4242",
+      "roles":["patron"],
+      "street":"Milky Way street",
+      "user_id":56,
+      "username":"Nyota"
     }
   },
   "librarians": {

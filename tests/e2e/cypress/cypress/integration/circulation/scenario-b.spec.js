@@ -56,7 +56,7 @@ describe('Circulation scenario B: standard loan with transit', function() {
     // Create a document
     cy.apiCreateDocument(this.documents.book, documentTitleSuffix);
     cy.get('@getDocumentPid').then((pid) => {
-      // Store document pid to re-use it later (an alias in deleted in the 'after' part of the test)
+      // Store document pid to re-use it later (an alias in the 'after' part of the test)
       documentPid = pid;
       // Create item
       cy.apiCreateItem(this.items.starfleetStandardLoan, this.itemBarcode, pid);
@@ -106,7 +106,8 @@ describe('Circulation scenario B: standard loan with transit', function() {
     // Login as librarian (Leonard)
     cy.adminLogin(this.users.librarians.leonard.email, this.common.uniquePwd);
     // Go to requests list
-    cy.visit('/professional/circulation/requests');
+    cy.get('#user-services-menu').click();
+    cy.get('#requests-menu').click();
     // Check that the document is present
     cy.get('#request-' + this.itemBarcode + ' [name="barcode"]').should('contain', this.itemBarcode);
     // Enter the barcode and validate
