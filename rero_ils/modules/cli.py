@@ -281,6 +281,7 @@ def init(force):
 @click.option('-a', '--append', 'append', is_flag=True, default=False)
 @click.option('-r', '--reindex', 'reindex', is_flag=True, default=False)
 @click.option('-c', '--dbcommit', 'dbcommit', is_flag=True, default=False)
+@click.option('-C', '--commit', 'commit', default=100000)
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=True)
 @click.option('-d', '--debug', 'debug', is_flag=True, default=False)
 @click.option('-s', '--schema', 'schema', default=None)
@@ -292,14 +293,15 @@ def init(force):
               is_flag=True, default=False)
 @click.argument('infile', type=click.File('r'), default=sys.stdin)
 @with_appcontext
-def create(infile, append, reindex, dbcommit, verbose, debug, schema, pid_type,
-           lazy, dont_stop_on_error, pid_check):
+def create(infile, append, reindex, dbcommit, commit, verbose, debug, schema,
+           pid_type, lazy, dont_stop_on_error, pid_check):
     """Load REROILS record.
 
     :param infile: Json file
     :param append: appends pids to database
     :param reindex: reindex record by record
     :param dbcommit: commit record to database
+    :param commit: commit to database every count records
     :param pid_type: record type
     :param schema: recoord schema
     :param lazy: lazy reads file
@@ -316,7 +318,6 @@ def create(infile, append, reindex, dbcommit, verbose, debug, schema, pid_type,
 
     record_class = get_record_class_from_schema_or_pid_type(pid_type=pid_type)
 
-    count = 0
     error_records = []
     pids = []
     if lazy:
@@ -325,8 +326,8 @@ def create(infile, append, reindex, dbcommit, verbose, debug, schema, pid_type,
     else:
         # load everything in memory (faster, bad memory management)
         records = json.load(infile)
-    for record in records:
-        count += 1
+    count = 0
+    for count, record in enumerate(records):
         if schema:
             record['$schema'] = schema
         try:
@@ -359,6 +360,11 @@ def create(infile, append, reindex, dbcommit, verbose, debug, schema, pid_type,
             if not dont_stop_on_error:
                 sys.exit(1)
         db.session.flush()
+        if count > 0 and count % commit == 0:
+            if verbose:
+                click.echo('DB commit: {count}'.format(count=count))
+            db.session.commit()
+    click.echo('DB commit: {count}'.format(count=count))
     db.session.commit()
 
     if append:
@@ -379,10 +385,8 @@ def create(infile, append, reindex, dbcommit, verbose, debug, schema, pid_type,
             )
 
     if error_records:
-        err_file_name = os.path.join(
-            os.path.dirname(infile),
-            '{pid_type}_error.json'.format(pid_type=pid_type)
-        )
+        name, ext = os.path.splitext(infile.name)
+        err_file_name = '{name}_errors{ext}'.format(name=name, ext=ext)
         click.secho('Write error file: {name}'.format(name=err_file_name))
         with open(err_file_name, 'w') as error_file:
             error_file.write('[\n')
@@ -1049,7 +1053,10 @@ def run(delayed, concurrency, with_stats, version_type=None, queue=None,
         if queue is not None:
             celery_kwargs.update({'queue': queue})
         for c in range(0, concurrency):
-            process_bulk_queue.apply_async(**celery_kwargs)
+            process_id = process_bulk_queue.apply_async(**celery_kwargs)
+            click.secho('index async: {process_id}'.format(
+                process_id=process_id), fg='yellow')
+
     else:
         click.secho('Indexing records...', fg='green')
         indexed, error = IlsRecordsIndexer(version_type=version_type)\
@@ -1420,8 +1427,8 @@ def check_pid_dependencies(dependency_file, directory, verbose):
                         file_name=file_name
                     ))
                 records = read_json_record(infile)
-                for self.record in records:
-                    self.pid = self.record['pid']
+                for idx, self.record in enumerate(records, 1):
+                    self.pid = self.record.get('pid', idx)
                     if self.test_data[self.name].get(self.pid):
                         click.secho(
                             'Double pid in {name}: {pid}'.format(

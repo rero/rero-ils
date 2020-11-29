@@ -22,8 +22,8 @@
     ]
   },
   {
-    "name": "document",
-    "filename": "documents_big.json"
+    "name": "pickup_location",
+    "filename": "locations.json"
   },
   {
     "name": "item_type",
@@ -40,6 +40,15 @@
     "dependencies": [
       {
         "name": "organisation"
+      },
+      {
+        "name": "library_exceptions",
+        "optional": "True",
+        "sublist": [
+          {
+            "name": "library"
+          }
+        ]
       }
     ]
   },
@@ -64,10 +73,42 @@
       },
       {
         "name": "library",
-        "ref": "libraries",
         "optional": "True"
       }
     ]
+  },
+  {
+    "name": "vendor",
+    "filename": "vendors.json",
+    "dependencies": [
+      {
+        "name": "organisation"
+      }
+    ]
+  },
+  {
+    "name": "patron",
+    "filename": "users.json",
+    "dependencies": [
+      {
+        "name": "library",
+        "optional": "True"
+      },
+      {
+        "name": "patron",
+        "optional": "True",
+        "sublist": [
+          {
+            "name": "patron_type",
+            "optional": "True"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "document",
+    "filename": "documents_big.json"
   },
   {
     "name": "holding",
@@ -93,13 +134,102 @@
         "name": "location"
       },
       {
-        "name": "item_type"
-      },
-      {
         "name": "document"
       },
       {
-        "name": "holding"
+        "name": "item_type"
+      },
+      {
+        "name": "holding",
+        "optional": "True"
+      },
+      {
+        "name": "organisation",
+        "optional": "True"
+      }
+    ]
+  },
+  {
+    "name": "patterns",
+    "filename": "patterns.json"
+  },
+  {
+    "name": "budget",
+    "filename": "budgets.json",
+    "dependencies": [
+      {
+        "name": "organisation",
+        "optional": "True"
+      }
+    ]
+  },
+  {
+    "name": "collection",
+    "filename": "collections.json",
+    "dependencies": [
+      {
+        "name": "librarie",
+        "ref": "libraries",
+        "optional": "True"
+      },
+      {
+        "name": "item",
+        "ref": "items",
+        "optional": "True"
+      },
+      {
+        "name": "organisation"
+      }
+    ]
+  },
+  {
+    "name": "acq_account",
+    "filename": "acq_accounts.json",
+    "dependencies": [
+      {
+        "name": "budget"
+      },
+      {
+        "name": "library"
+      },
+      {
+        "name": "organisation",
+        "optional": "True"
+      }
+    ]
+  },
+  {
+    "name": "template",
+    "filename": "templates.json",
+    "dependencies": [
+      {
+        "name": "organisation"
+      },
+      {
+        "name": "creator",
+        "ref": "patron"
+      }
+    ]
+  },
+  {
+    "name": "loan",
+    "filename": "loans.json",
+    "dependencies": [
+      {
+        "name": "item",
+        "optional": "True"
+      },
+      {
+        "name": "patron",
+        "optional": "True"
+      },
+      {
+        "name": "document",
+        "optional": "True"
+      },
+      {
+        "name": "organisation",
+        "optional": "True"
       }
     ]
   }

@@ -20,6 +20,9 @@
 from __future__ import absolute_import, print_function
 
 import json
+import os
+import sys
+import traceback
 
 import click
 from flask import current_app
@@ -33,6 +36,7 @@ from werkzeug.local import LocalProxy
 
 from ..patrons.api import Patron, PatronProvider
 from ..providers import append_fixtures_new_identifiers
+from ..utils import read_json_record
 
 datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
@@ -41,60 +45,99 @@ datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 @click.option('-a', '--append', 'append', is_flag=True, default=False)
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
 @click.option('-p', '--password', 'password', default='123456')
-@click.argument('infile', type=click.File('r'))
+@click.option('-l', '--lazy', 'lazy', is_flag=True, default=False)
+@click.option('-o', '--dont-stop', 'dont_stop_on_error',
+              is_flag=True, default=False)
+@click.option('-d', '--debug', 'debug', is_flag=True, default=False)
+@click.argument('infile', type=click.File('r'), default=sys.stdin)
 @with_appcontext
-def import_users(infile, append, verbose, password):
+def import_users(infile, append, verbose, password, lazy, dont_stop_on_error,
+                 debug):
     """Import users.
 
     :param verbose: this function will be verbose.
     :param password: the password to use for user by default.
+    :param lazy: lazy reads file
+    :param dont_stop_on_error: don't stop on error
     :param infile: Json user file.
     """
     click.secho('Import users:', fg='green')
 
-    data = json.load(infile)
+    if lazy:
+        # try to lazy read json file (slower, better memory management)
+        data = read_json_record(infile)
+    else:
+        # load everything in memory (faster, bad memory management)
+        data = json.load(infile)
     pids = []
-    for patron_data in data:
+    error_records = []
+    for count, patron_data in enumerate(data):
         email = patron_data.get('email')
         password = patron_data.get('password', password)
         username = patron_data['username']
         if email is None:
-            click.secho('\tUser {username} do not have email!'.format(
-                username=username), fg='yellow')
+            click.secho(
+                '{count: <8} User {username} do not have email!'.format(
+                    count=count,
+                    username=username
+                ), fg='yellow')
         if password:
             patron_data.pop('password', None)
         # do nothing if the patron alredy exists
         patron = Patron.get_patron_by_username(username)
         if patron:
-            click.secho('\tPatron already exist: {username}'.format(
+            click.secho('{count: <8} Patron already exist: {username}'.format(
+                count=count,
                 username=username), fg='yellow')
             continue
 
         if verbose:
-            click.secho('\tCreating user: {username}'.format(
-                username=username), fg='green')
+            click.secho('{count: <8} Creating user: {username}'.format(
+                count=count,
+                username=username))
             try:
                 profile = UserProfile.get_by_username(username)
-                click.secho('\tUser already exist: {username}'.format(
-                    username=username), fg='yellow')
+                click.secho(
+                    '{count: <8} User already exist: {username}'.format(
+                        count=count,
+                        username=username
+                    ), fg='yellow')
             except NoResultFound:
                 pass
-        # patron creation
-        patron = Patron.create(
-            patron_data,
-            # delete_pid=True,
-            dbcommit=False,
-            reindex=False,
-            email_notification=False
-        )
-        user = patron.user
-        user.password = hash_password(password)
-        user.active = True
-        db.session.merge(user)
-        db.session.commit()
-        confirm_user(user)
-        patron.reindex()
-        pids.append(patron.pid)
+        try:
+            # patron creation
+            patron = Patron.create(
+                patron_data,
+                # delete_pid=True,
+                dbcommit=False,
+                reindex=False,
+                email_notification=False
+            )
+            user = patron.user
+            user.password = hash_password(password)
+            user.active = True
+            db.session.merge(user)
+            db.session.commit()
+            confirm_user(user)
+            patron.reindex()
+            pids.append(patron.pid)
+        except Exception as err:
+            error_records.append(data)
+            click.secho(
+                '{count: <8} User create error: {err}'.format(
+                    count=count,
+                    err=err
+                ),
+                fg='red'
+            )
+            if debug:
+                traceback.print_exc()
+            if not dont_stop_on_error:
+                sys.exit(1)
+            if debug:
+                traceback.print_exc()
+            if not dont_stop_on_error:
+                sys.exit(1)
     if append:
         click.secho(
             'Append fixtures new identifiers: {len}'.format(len=len(pids))
@@ -111,3 +154,13 @@ def import_users(infile, append, verbose, password):
                 "ERROR append fixtures new identifiers: {err}".format(err=err),
                 fg='red'
             )
+    if error_records:
+        name, ext = os.path.splitext(infile.name)
+        err_file_name = '{name}_errors{ext}'.format(name=name, ext=ext)
+        click.secho('Write error file: {name}'.format(name=err_file_name))
+        with open(err_file_name, 'w') as error_file:
+            error_file.write('[\n')
+            for error_record in error_records:
+                for line in json.dumps(error_record, indent=2).split('\n'):
+                    error_file.write('  ' + line + '\n')
+            error_file.write(']')
