@@ -359,6 +359,9 @@
       "organisations": {
         "type": "keyword"
       },
+      "deleted": {
+        "type": "date"
+      },
       "_created": {
         "type": "date"
       },

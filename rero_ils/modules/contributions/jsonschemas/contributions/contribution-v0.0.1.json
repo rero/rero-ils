@@ -80,6 +80,10 @@
     "idref": {
       "title": "IdRef authorities",
       "type": "object"
+    },
+    "deleted": {
+      "title": "Deletion date",
+      "type": "string"
     }
   }
 }
