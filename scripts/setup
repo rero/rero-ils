@@ -87,6 +87,7 @@ DONT_STOP=""
 PREFIX=""
 ES_MAPPING=false
 ENQUEUE=""
+INDEX_PARALLEL=0
 # Permit user to set it with system var. Default is true.
 ENABLE_WARNINGS=${ENABLE_WARNINGS:=true}
 
@@ -99,7 +100,7 @@ if [[ -z "${VIRTUAL_ENV}" ]]; then
 fi
 
 # options may be followed by one colon to indicate they have a required argument
-if ! options=$(getopt -o dCsbclptmwkD: -l deployment,contributions,create_items_holdings_small,create_items_holdings_big,lazy,pursue,time,es-mapping,warnings,enqueue,data_path: -- "$@")
+if ! options=$(getopt -o dCsbclptmwkD:i: -l deployment,contributions,create_items_holdings_small,create_items_holdings_big,lazy,pursue,time,es-mapping,warnings,enqueue,data_path:index_parallel: -- "$@")
 then
     # something went wrong, getopt will put out an error message for us
     exit 1
@@ -143,6 +144,10 @@ do
       ;;
     -D|--data_path)
       DATA_PATH=$2
+      shift
+      ;;
+    -i|--index_parallel)
+      INDEX_PARALLEL=$2
       shift
       ;;
     (--) shift; break;;
@@ -289,6 +294,14 @@ eval ${PREFIX} invenio utils reindex -t ptty --yes-i-know --no-info
 info_msg "- Circulation policies: ${DATA_PATH}/circulation_policies.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type cipo ${DATA_PATH}/circulation_policies.json --append ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} invenio utils reindex -t cipo --yes-i-know --no-info
+
+info_msg "Acquisition vendors: ${DATA_PATH}/vendors.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio fixtures create --pid_type vndr ${DATA_PATH}/vendors.json --append  ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio utils reindex -t vndr --yes-i-know --no-info
+
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio utils runindex -d -c ${INDEX_PARALLEL} --raise-on-error
+fi
 eval ${PREFIX} invenio utils runindex --raise-on-error
 
 info_msg "- Users: ${DATA_PATH}/users.json"
@@ -325,6 +338,9 @@ then
     eval ${PREFIX} invenio fixtures create --pid_type cont --schema 'http://ils.rero.ch/schemas/contributions/contribution-v0.0.1.json' ${CONTRIBUTIONS} --append ${CREATE_LAZY} ${DONT_STOP}
     info_msg "Indexing Contributions:"
     eval ${PREFIX} invenio utils reindex -t cont --yes-i-know --no-info
+    if [ ${INDEX_PARALLEL} -gt 0 ]; then
+        eval ${PREFIX} invenio utils runindex -d -c ${INDEX_PARALLEL} --raise-on-error
+    fi
     eval ${PREFIX} invenio utils runindex --raise-on-error
 else
     info_msg "- Contributions from MEF: ${DOCUMENTS} ${CREATE_LAZY} ${ENQUEUE}"
@@ -361,6 +377,9 @@ fi
 info_msg "- Holdings: ${HOLDINGS} ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type hold --schema 'http://ils.rero.ch/schemas/holdings/holding-v0.0.1.json' ${HOLDINGS} --append ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} invenio utils reindex -t hold --yes-i-know --no-info
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio utils runindex -d -c ${INDEX_PARALLEL} --raise-on-error
+fi
 eval ${PREFIX} invenio utils runindex --raise-on-error
 
 info_msg "- Items: ${ITEMS} ${CREATE_LAZY} ${DONT_STOP}"
@@ -368,27 +387,29 @@ eval ${PREFIX} invenio fixtures create --pid_type item --schema 'http://ils.rero
 
 # index items
 eval ${PREFIX} invenio utils reindex -t item --yes-i-know --no-info
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio utils runindex -d -c ${INDEX_PARALLEL} --raise-on-error
+fi
 eval ${PREFIX} invenio utils runindex --raise-on-error
 
 # index documents
 eval ${PREFIX} invenio utils reindex -t doc --yes-i-know --no-info
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio utils runindex -d -c ${INDEX_PARALLEL} --raise-on-error
+fi
 eval ${PREFIX} invenio utils runindex --raise-on-error
 
 # index contributions
 # We have to reindex contributions to get the oraganisations pids indexed correctly.
 eval ${PREFIX} invenio utils reindex -t cont --yes-i-know --no-info
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio utils runindex -d -c ${INDEX_PARALLEL} --raise-on-error
+fi
 eval ${PREFIX} invenio utils runindex --raise-on-error
 
 info_msg "- Local fields ${DATA_PATH}/local_fields.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type lofi ${DATA_PATH}/local_fields.json --append ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} invenio utils reindex -t lofi --yes-i-know --no-info
-eval ${PREFIX} invenio utils runindex --raise-on-error
-
-# create vendors
-info_msg "Acquisition vendors: ${DATA_PATH}/vendors.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio fixtures create --pid_type vndr ${DATA_PATH}/vendors.json --append  ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio utils reindex -t vndr --yes-i-know --no-info
-eval ${PREFIX} invenio utils runindex --raise-on-error
 
 # create serials patterns
 info_msg "Serials patterns: ${DATA_PATH}/patterns.json"
@@ -414,6 +435,9 @@ info_msg "Resource templates:"
 eval ${PREFIX} invenio fixtures create --pid_type tmpl ${DATA_PATH}/templates.json --append  ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} invenio utils reindex -t tmpl --yes-i-know --no-info
 
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio utils runindex -d -c ${INDEX_PARALLEL} --raise-on-error
+fi
 eval ${PREFIX} invenio utils runindex --raise-on-error
 
 # create circulation transactions

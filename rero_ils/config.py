@@ -428,6 +428,9 @@ RECORDS_REST_DEFAULT_DELETE_PERMISSION_FACTORY = librarian_delete_permission_fac
 REST_MIMETYPE_QUERY_ARG_NAME = 'format'
 """Name of the query argument to specify the mimetype wanted for the output."""
 
+MAX_RESULT_WINDOW = 20000
+"""max result window for ES, must be the same in json mapping files."""
+
 RECORDS_REST_ENDPOINTS = dict(
     coll=dict(
         pid_type='coll',
@@ -458,7 +461,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/collections/<pid(coll, record_class='
         '"rero_ils.modules.collections.api:Collection"):pid_value>',
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:view_search_collection_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=CollectionPermission),
@@ -519,7 +522,7 @@ RECORDS_REST_ENDPOINTS = dict(
         #     },
         # ),
         default_media_type='application/json',
-        max_result_window=5000000,
+        max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:view_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=DocumentPermission),
@@ -568,7 +571,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/ill_requests/<pid(illr, record_class='
         '"rero_ils.modules.ill_requests.api:ILLRequest"):pid_value>',
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:loans_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=ILLRequestPermission),
@@ -621,7 +624,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route=('/items/<pid(item, record_class='
                     '"rero_ils.modules.items.api:Item"):pid_value>'),
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=ItemPermission),
@@ -663,7 +666,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route=('/item_types/<pid(itty, record_class='
                     '"rero_ils.modules.item_types.api:ItemType"):pid_value>'),
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=ItemTypePermission),
@@ -705,7 +708,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route=('/holdings/<pid(hold, record_class='
                     '"rero_ils.modules.holdings.api:Holding"):pid_value>'),
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=HoldingPermission),
@@ -747,7 +750,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/local_fields/<pid(lofi, record_class='
         '"rero_ils.modules.local_fields.api:LocalField"):pid_value>',
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=LocalFieldPermission),
@@ -789,7 +792,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route=('/patrons/<pid(ptrn, record_class='
                     '"rero_ils.modules.patrons.api:Patron"):pid_value>'),
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=PatronPermission),
@@ -835,7 +838,7 @@ RECORDS_REST_ENDPOINTS = dict(
                     '"rero_ils.modules.patron_transactions.api:'
                     'PatronTransaction"):pid_value>'),
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:patron_transactions_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=PatronTransactionPermission),
@@ -882,7 +885,7 @@ RECORDS_REST_ENDPOINTS = dict(
                     '"rero_ils.modules.patron_transaction_events.api:'
                     'PatronTransactionEvent"):pid_value>'),
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:patron_transactions_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list',
@@ -940,7 +943,7 @@ RECORDS_REST_ENDPOINTS = dict(
                     '"rero_ils.modules.patron_types.api:'
                     'PatronType"):pid_value>'),
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=PatronTypePermission),
@@ -984,7 +987,7 @@ RECORDS_REST_ENDPOINTS = dict(
                     '"rero_ils.modules.organisations.api:'
                     'Organisation"):pid_value>'),
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp=('rero_ils.query:'
                             'organisation_organisation_search_factory'),
         list_permission_factory_imp=lambda record: record_permission_factory(
@@ -1027,7 +1030,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route=('/libraries/<pid(lib, record_class='
                     '"rero_ils.modules.libraries.api:Library"):pid_value>'),
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=LibraryPermission),
@@ -1069,7 +1072,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route=('/locations/<pid(loc, record_class='
                     '"rero_ils.modules.locations.api:Location"):pid_value>'),
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=LocationPermission),
@@ -1111,7 +1114,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route=('/contributions/<pid(cont, record_class='
                     '"rero_ils.modules.contributions.api:Contribution"):pid_value>'),
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:contribution_view_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=ContributionPermission),
@@ -1154,7 +1157,7 @@ RECORDS_REST_ENDPOINTS = dict(
                     '"rero_ils.modules.circ_policies.api:'
                     'CircPolicy"):pid_value>'),
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=CirculationPolicyPermission),
@@ -1198,7 +1201,7 @@ RECORDS_REST_ENDPOINTS = dict(
                     '"rero_ils.modules.notifications.api:'
                     'Notification"):pid_value>'),
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=NotificationPermission),
@@ -1240,7 +1243,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route=('/vendors/<pid(vndr, record_class='
                     '"rero_ils.modules.vendors.api:Vendor"):pid_value>'),
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=VendorPermission),
@@ -1287,7 +1290,7 @@ RECORDS_REST_ENDPOINTS = dict(
                     '"rero_ils.modules.acq_accounts.api:'
                     'AcqAccount"):pid_value>'),
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:acq_accounts_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=AcqAccountPermission),
@@ -1329,7 +1332,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route=('/budgets/<pid(budg, record_class='
                     '"rero_ils.modules.budgets.api:Budget"):pid_value>'),
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=BudgetPermission),
@@ -1374,7 +1377,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route=('/acq_orders/<pid(acor, record_class='
                     '"rero_ils.modules.acq_orders.api:AcqOrder"):pid_value>'),
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=AcqOrderPermission),
@@ -1419,7 +1422,7 @@ RECORDS_REST_ENDPOINTS = dict(
                     '"rero_ils.modules.acq_order_lines.api:'
                     'AcqOrderLine"):pid_value>'),
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=AcqOrderLinePermission),
@@ -1468,7 +1471,7 @@ RECORDS_REST_ENDPOINTS = dict(
                     '"rero_ils.modules.acq_invoices.api:'
                     'AcquisitionInvoice"):pid_value>'),
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=AcqInvoicePermission),
@@ -1511,7 +1514,7 @@ RECORDS_REST_ENDPOINTS = dict(
                     '"rero_ils.modules.templates.api:'
                     'Template"):pid_value>'),
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:templates_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=TemplatePermission),
@@ -2282,7 +2285,7 @@ CIRCULATION_REST_ENDPOINTS = dict(
         item_route='/loans/<{0}:pid_value>'.format(
             _LOANID_CONVERTER),
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=20000,
         error_handlers=dict(),
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=LoanPermission),

@@ -630,13 +630,13 @@ def get_holding_pid_by_doc_location_item_type(
 def get_holdings_by_document_item_type(
         document_pid, item_type_pid):
     """Returns holding locations for document/item type."""
-    results = HoldingsSearch().filter(
-        'term',
-        document__pid=document_pid
-    ).filter(
-        'term',
-        circulation_category__pid=item_type_pid
-    ).source(['pid']).scan()
+    results = HoldingsSearch() \
+        .params(preserve_order=True)\
+        .filter('term', document__pid=document_pid) \
+        .filter('term', circulation_category__pid=item_type_pid) \
+        .sort({'pid': {"order": "asc"}}) \
+        .source(['pid']) \
+        .scan()
     return [Holding.get_record_by_pid(result.pid) for result in results]
 
 

@@ -240,8 +240,10 @@ class ItemRecord(IlsRecord):
     def get_items_pid_by_holding_pid(cls, holding_pid):
         """Returns item pids from holding pid."""
         from . import ItemsSearch
-        results = ItemsSearch()\
-            .filter('term', holding__pid=holding_pid)\
+        results = ItemsSearch() \
+            .params(preserve_order=True)\
+            .filter('term', holding__pid=holding_pid) \
+            .sort({'pid': {"order": "asc"}}) \
             .source(['pid']).scan()
         for item in results:
             yield item.pid
