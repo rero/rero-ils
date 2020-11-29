@@ -181,10 +181,10 @@ def error_print(*args):
 
 
 def make_year(date):
-    """Test if string is integer and between -9999 to 9999."""
+    """Test if string is integer and between 1000 to 9999."""
     try:
         int_date = int(date)
-        if int_date >= -9999 and int_date < 9999:
+        if int_date >= 1000 and int_date < 9999:
             return int_date
     except:
         pass

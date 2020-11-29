@@ -39,10 +39,14 @@ def test_documents_get(client, document):
         for contribution in data.get('contribution', []):
             agent = {}
             for item in contribution['agent']:
-                if not item.startswith('authorized_access_point'):
+                if item == 'authorized_access_point':
+                    agent['preferred_name'] = contribution['agent'][item]
+                elif not item.startswith('authorized_access_point_'):
                     agent[item] = contribution['agent'][item]
             contribution['agent'] = agent
             contributions.append(contribution)
+
+        data.pop('sort_title', None)
         return data
 
     item_url = url_for('invenio_records_rest.doc_item', pid_value='doc1')
@@ -65,12 +69,11 @@ def test_documents_get(client, document):
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    document = document.replace_refs()
-
     data_clean = clean_authorized_access_point(
         data['hits']['hits'][0]['metadata']
     )
-    assert document.replace_refs().dumps() == data_clean
+    document = document.replace_refs().dumps()
+    assert document == data_clean
 
     list_url = url_for('invenio_records_rest.doc_list', q="Vincent Berthe")
     res = client.get(list_url)

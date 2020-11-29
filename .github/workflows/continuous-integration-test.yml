@@ -34,14 +34,14 @@ jobs:
       with:
         version: 1.0.10
 
-    - name: Use Cache
-      uses: actions/cache@v2
-      with:
-        path: |
-          ~/.cache/pip
-          ~/.cache/pypoetry/virtualenvs
-          ~/.npm
-        key: ${{ runner.os }}-pip-venv-${{ hashFiles('**/poetry.lock') }}
+    # - name: Use Cache
+    #   uses: actions/cache@v2
+    #   with:
+    #     path: |
+    #       ~/.cache/pip
+    #       ~/.cache/pypoetry/virtualenvs
+    #       ~/.npm
+    #     key: ${{ runner.os }}-pip-venv-${{ hashFiles('**/poetry.lock') }}
 
     - name: Bootstrap
       if: ${{ matrix.dependencies == 'dev' }}

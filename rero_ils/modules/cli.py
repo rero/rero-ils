@@ -281,6 +281,7 @@ def init(force):
 @click.option('-a', '--append', 'append', is_flag=True, default=False)
 @click.option('-r', '--reindex', 'reindex', is_flag=True, default=False)
 @click.option('-c', '--dbcommit', 'dbcommit', is_flag=True, default=False)
+@click.option('-C', '--commit', 'commit', default=100000)
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=True)
 @click.option('-d', '--debug', 'debug', is_flag=True, default=False)
 @click.option('-s', '--schema', 'schema', default=None)
@@ -292,14 +293,15 @@ def init(force):
               is_flag=True, default=False)
 @click.argument('infile', type=click.File('r'), default=sys.stdin)
 @with_appcontext
-def create(infile, append, reindex, dbcommit, verbose, debug, schema, pid_type,
-           lazy, dont_stop_on_error, pid_check):
+def create(infile, append, reindex, dbcommit, commit, verbose, debug, schema,
+           pid_type, lazy, dont_stop_on_error, pid_check):
     """Load REROILS record.
 
     :param infile: Json file
     :param append: appends pids to database
     :param reindex: reindex record by record
     :param dbcommit: commit record to database
+    :param commit: commit to database every count records
     :param pid_type: record type
     :param schema: recoord schema
     :param lazy: lazy reads file
@@ -316,7 +318,6 @@ def create(infile, append, reindex, dbcommit, verbose, debug, schema, pid_type,
 
     record_class = get_record_class_from_schema_or_pid_type(pid_type=pid_type)
 
-    count = 0
     error_records = []
     pids = []
     if lazy:
@@ -325,8 +326,8 @@ def create(infile, append, reindex, dbcommit, verbose, debug, schema, pid_type,
     else:
         # load everything in memory (faster, bad memory management)
         records = json.load(infile)
-    for record in records:
-        count += 1
+    count = 0
+    for count, record in enumerate(records):
         if schema:
             record['$schema'] = schema
         try:
@@ -359,6 +360,11 @@ def create(infile, append, reindex, dbcommit, verbose, debug, schema, pid_type,
             if not dont_stop_on_error:
                 sys.exit(1)
         db.session.flush()
+        if count > 0 and count % commit == 0:
+            if verbose:
+                click.echo('DB commit: {count}'.format(count=count))
+            db.session.commit()
+    click.echo('DB commit: {count}'.format(count=count))
     db.session.commit()
 
     if append:
@@ -379,10 +385,8 @@ def create(infile, append, reindex, dbcommit, verbose, debug, schema, pid_type,
             )
 
     if error_records:
-        err_file_name = os.path.join(
-            os.path.dirname(infile),
-            '{pid_type}_error.json'.format(pid_type=pid_type)
-        )
+        name, ext = os.path.splitext(infile.name)
+        err_file_name = '{name}_errors{ext}'.format(name=name, ext=ext)
         click.secho('Write error file: {name}'.format(name=err_file_name))
         with open(err_file_name, 'w') as error_file:
             error_file.write('[\n')
@@ -1049,7 +1053,10 @@ def run(delayed, concurrency, with_stats, version_type=None, queue=None,
         if queue is not None:
             celery_kwargs.update({'queue': queue})
         for c in range(0, concurrency):
-            process_bulk_queue.apply_async(**celery_kwargs)
+            process_id = process_bulk_queue.apply_async(**celery_kwargs)
+            click.secho('index async: {process_id}'.format(
+                process_id=process_id), fg='yellow')
+
     else:
         click.secho('Indexing records...', fg='green')
         indexed, error = IlsRecordsIndexer(version_type=version_type)\
@@ -1321,6 +1328,11 @@ def check_pid_dependencies(dependency_file, directory, verbose):
             """Get pid from end of $ref string."""
             return data['$ref'].split('/')[-1]
 
+        def get_pid_type(self, data):
+            """Get pid and type from end of $ref string."""
+            data_split = data['$ref'].split('/')
+            return data_split[-1], data_split[-2]
+
         def get_ref_pids(self, data, dependency_name):
             """Get pids from data."""
             pids = []
@@ -1330,6 +1342,23 @@ def check_pid_dependencies(dependency_file, directory, verbose):
                         pids.append(self.get_pid(dat))
                 else:
                     pids = [self.get_pid(data[dependency_name])]
+            except Exception as err:
+                pass
+            return pids
+
+        def get_ref_type_pids(self, data, dependency_name, ref_type):
+            """Get pids from data."""
+            pids = []
+            try:
+                if isinstance(data[dependency_name], list):
+                    for dat in data[dependency_name]:
+                        pid, pid_type = self.get_pid_type(dat)
+                        if pid_type == ref_type:
+                            pids.append(pid)
+                else:
+                    pid, pid_type = self.get_pid_type(data[dependency_name])
+                    if pid_type == ref_type:
+                        pids.append(pid)
             except Exception as err:
                 pass
             return pids
@@ -1356,6 +1385,7 @@ def check_pid_dependencies(dependency_file, directory, verbose):
             self.dependencies_pids = []
             for dependency in dependencies:
                 dependency_ref = dependency.get('ref')
+                dependency_refs = dependency.get('refs')
                 if not dependency_ref:
                     dependency_ref = dependency['name']
                 sublist = dependency.get('sublist', [])
@@ -1365,9 +1395,9 @@ def check_pid_dependencies(dependency_file, directory, verbose):
                         click.secho(
                             ('{name}: sublist not found:'
                              ' {dependency_name}').format(
-                                name=self.name,
-                                dependency_name=dependency['name']
-                            ),
+                                 name=self.name,
+                                 dependency_name=dependency['name']
+                             ),
                             fg='red'
                         )
                         self.not_found += 1
@@ -1382,11 +1412,24 @@ def check_pid_dependencies(dependency_file, directory, verbose):
                                 sub.get('optional')
                             )
                 if not sublist:
-                    self.add_pids_to_dependencies(
-                        dependency_ref,
-                        self.get_ref_pids(self.record, dependency['name']),
-                        dependency.get('optional')
-                    )
+                    if dependency_refs:
+                        for ref, ref_type in dependency_refs.items():
+                            pids = self.get_ref_type_pids(
+                                self.record,
+                                dependency['name'],
+                                ref_type
+                            )
+                            self.add_pids_to_dependencies(
+                                ref,
+                                pids,
+                                dependency.get('optional')
+                            )
+                    else:
+                        self.add_pids_to_dependencies(
+                            dependency_ref,
+                            self.get_ref_pids(self.record, dependency['name']),
+                            dependency.get('optional')
+                        )
 
         def test_dependencies(self):
             """Test all dependencies."""
@@ -1399,11 +1442,11 @@ def check_pid_dependencies(dependency_file, directory, verbose):
                             click.secho(
                                 ('{name}: {pid} missing '
                                  '{ref_name}: {ref_pid}').format(
-                                    ref_name=key,
-                                    ref_pid=value,
-                                    name=self.name,
-                                    pid=self.pid
-                                ),
+                                     name=self.name,
+                                     pid=self.pid,
+                                     ref_name=key,
+                                     ref_pid=value
+                                 ),
                                 fg='red'
                             )
                             self.missing += 1
@@ -1420,8 +1463,8 @@ def check_pid_dependencies(dependency_file, directory, verbose):
                         file_name=file_name
                     ))
                 records = read_json_record(infile)
-                for self.record in records:
-                    self.pid = self.record['pid']
+                for idx, self.record in enumerate(records, 1):
+                    self.pid = self.record.get('pid', idx)
                     if self.test_data[self.name].get(self.pid):
                         click.secho(
                             'Double pid in {name}: {pid}'.format(
@@ -1461,7 +1504,7 @@ def check_pid_dependencies(dependency_file, directory, verbose):
 
     # start of tests
     click.secho(
-        'Check dependencies {dependency_file}: {directory}'.format(
+        'Check dependencies {dependency_file.name}: {directory}'.format(
             dependency_file=dependency_file,
             directory=directory
         ),
@@ -1505,7 +1548,7 @@ def dump_es_mappings(verbose, outfile):
 @click.option('-s', '--schema', 'schema', is_flag=True, default=False)
 @with_appcontext
 def export(verbose, pid_type, outfile, pidfile, indent, schema):
-    """Load REROILS record.
+    """Export REROILS record.
 
     :param verbose: verbose
     :param pid_type: record type

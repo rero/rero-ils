@@ -19,6 +19,7 @@
 
 from __future__ import absolute_import, print_function
 
+import click
 import sqlalchemy
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
@@ -28,15 +29,20 @@ from invenio_pidstore.providers.base import BaseProvider
 
 def append_fixtures_new_identifiers(identifier, pids, pid_type):
     """Insert pids into the indentifier table and update its sequence."""
-    with db.session.begin_nested():
-        for pid in pids:
-            db.session.add(identifier(recid=pid))
-        max_pid = PersistentIdentifier.query.filter_by(
-            pid_type=pid_type
-        ).order_by(sqlalchemy.desc(
-            sqlalchemy.cast(PersistentIdentifier.pid_value, sqlalchemy.Integer)
-        )).first().pid_value
-        identifier._set_sequence(max_pid)
+    idx = 0
+    for idx, pid in enumerate(pids):
+        db.session.add(identifier(recid=pid))
+        if idx > 0 and idx % 100000 == 0:
+            click.echo('DB commit append: {idx}'.format(idx=idx))
+            db.session.commit()
+    max_pid = PersistentIdentifier.query.filter_by(
+        pid_type=pid_type
+    ).order_by(sqlalchemy.desc(
+        sqlalchemy.cast(PersistentIdentifier.pid_value, sqlalchemy.Integer)
+    )).first().pid_value
+    identifier._set_sequence(max_pid)
+    click.echo('DB commit append: {idx}'.format(idx=idx))
+    db.session.commit()
 
 
 class Provider(BaseProvider):
