@@ -21,15 +21,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-11-24 13:57+0100\n"
-"PO-Revision-Date: 2020-11-24 12:48+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2020-11-28 16:29+0000\n"
+"Last-Translator: Marion Davis <marion.davis@rero.ch>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/fr/>\n"
 "Language: fr\n"
-"Language-Team: French <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.4-dev\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: rero_ils/config.py:127
@@ -4860,7 +4861,7 @@ msgstr "Date de naissance"
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:26
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:55
 msgid "Death date"
-msgstr "Date de mort"
+msgstr "Date de décès"
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:27
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:30
@@ -6332,7 +6333,7 @@ msgstr "Autres détails physiques"
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:49
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:173
 msgid "Label"
-msgstr "Label"
+msgstr "Etiquette"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:3
 msgid "Part of (host document)"
@@ -6782,7 +6783,7 @@ msgstr "Fascicules manquants"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:186
 msgid "Temporary location"
-msgstr "localisation provisoire"
+msgstr "Localisation provisoire"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:198
 msgid "Unit"
@@ -7870,7 +7871,7 @@ msgstr "Le nom du lieu de retrait doit être unique dans votre bibliothèque."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:137
 msgid "Allow request"
-msgstr "Autoriser les demandes"
+msgstr "Autoriser la demande"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:139
 msgid "If enabled, it allows requests for items linked to this location."
@@ -9786,4 +9787,3 @@ msgstr "Cliquez ici pour réinitialiser votre mot de passe"
 
 #~ msgid "{prefix}{data}"
 #~ msgstr ""
-

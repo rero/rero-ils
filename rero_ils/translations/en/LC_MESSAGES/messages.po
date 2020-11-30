@@ -18,15 +18,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-11-24 13:57+0100\n"
-"PO-Revision-Date: 2020-11-24 12:48+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2020-11-28 16:29+0000\n"
+"Last-Translator: Marion Davis <marion.davis@rero.ch>\n"
+"Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/en/>\n"
 "Language: en\n"
-"Language-Team: English <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/en/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.4-dev\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: rero_ils/config.py:127
@@ -4800,14 +4801,12 @@ msgid "Call number"
 msgstr "Call number"
 
 #: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:4
-#, fuzzy
 msgid "Mef contribution"
-msgstr "Contribution"
+msgstr "Mef Contribution"
 
 #: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:5
-#, fuzzy
 msgid "JSON schema for a mef contribution"
-msgstr "JSON schema for a MEF person"
+msgstr "JSON schema for a MEF contribution"
 
 #: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:16
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:17
@@ -4823,9 +4822,8 @@ msgid "Library ID"
 msgstr "Library ID"
 
 #: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:29
-#, fuzzy
 msgid "Agent type"
-msgstr "Main type"
+msgstr "Agent type"
 
 #: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:37
 msgid "VIAF ID"
@@ -4886,7 +4884,7 @@ msgstr "Numeration"
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:31
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:34
 msgid "Date establishment"
-msgstr ""
+msgstr "Date establishment"
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:32
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:35
@@ -4901,9 +4899,8 @@ msgstr "Conference"
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:35
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:38
-#, fuzzy
 msgid "Associated country"
-msgstr "Allocated amount"
+msgstr "Associated country"
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:37
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:40
@@ -4918,15 +4915,13 @@ msgstr "Authorized access point"
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:39
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:42
-#, fuzzy
 msgid "Variant access point"
-msgstr "Authorized access point"
+msgstr "Variant access point"
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:40
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:43
-#, fuzzy
 msgid "Parallel access point"
-msgstr "Authorized access point"
+msgstr "Parallel access point"
 
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:42
 msgid "All sources"
@@ -5146,9 +5141,8 @@ msgid "Example: 1989"
 msgstr "Example: 1989"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation_link-v0.0.1.json:2
-#, fuzzy
 msgid "Link to organisation entity"
-msgstr "Link to person entity"
+msgstr "Link to organisation entity"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:48
 msgid "Example: 1955"
@@ -6846,9 +6840,8 @@ msgid "Circulation type"
 msgstr "Circulation type"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:58
-#, fuzzy
 msgid "Circulation category URI"
-msgstr "Circulation category"
+msgstr "Circulation category URI"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:73
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:50
@@ -6899,9 +6892,8 @@ msgstr ""
 " corresponding pattern and level name."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:172
-#, fuzzy
 msgid "Example: Vol. {{numbering.volume}}, {{expected_date.year}}"
-msgstr "Vol. {{numbering.vol}}, {{chronology.year}}"
+msgstr "Example: Vol. {{numbering.volume}}, {{expected_date.year}}"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:175
 msgid "Should contains at least one variable between {{ }}."
@@ -6992,9 +6984,8 @@ msgid "It should be used in the display template. i.e. chronology, enumeration."
 msgstr "It should be used in the display template. i.e. chronology, numbering."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:309
-#, fuzzy
 msgid "Example: numbering"
-msgstr "numbering"
+msgstr "Example: numbering"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:313
 msgid "Chronology levels"
@@ -7017,9 +7008,8 @@ msgstr ""
 "issue, etc."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:339
-#, fuzzy
 msgid "Example: volume"
-msgstr "Example: Volume 1"
+msgstr "Example: volume"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:343
 msgid "Starting value"
@@ -7030,9 +7020,8 @@ msgid "First value of the sequence."
 msgstr "First value of the sequence."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:348
-#, fuzzy
 msgid "Example: 1"
-msgstr "Example: 4"
+msgstr "Example: 1"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:352
 msgid "Completion of the values"
@@ -7047,9 +7036,8 @@ msgstr ""
 "continue until infinity."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:357
-#, fuzzy
 msgid "Example: 12"
-msgstr "Example: 2012"
+msgstr "Example: 12"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:361
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:403
@@ -7061,9 +7049,8 @@ msgid "Can be used to correct the next current prediction."
 msgstr "Can be used to correct the next current prediction."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:366
-#, fuzzy
 msgid "Example: 3"
-msgstr "Example: 4"
+msgstr "Example: 3"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:372
 msgid "List based prediction (used for seasons, months...)"
@@ -7153,22 +7140,18 @@ msgid "staff_note"
 msgstr "staff note"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:537
-#, fuzzy
 msgid "conservation_note"
 msgstr "conservation note"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:541
-#, fuzzy
 msgid "reception_note"
 msgstr "reception note"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:545
-#, fuzzy
 msgid "claim_note"
 msgstr "claim note"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:549
-#, fuzzy
 msgid "routing_note"
 msgstr "routing note"
 
@@ -7773,7 +7756,7 @@ msgstr "Pickup location name field is required."
 
 #: rero_ils/modules/locations/api.py:166
 msgid "Item location disallows request."
-msgstr ""
+msgstr "Item location does not allow for request."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:5
 msgid "JSON schema for an location"
@@ -9733,4 +9716,3 @@ msgstr "Click here to reset your password"
 
 #~ msgid "{prefix}{data}"
 #~ msgstr ""
-
