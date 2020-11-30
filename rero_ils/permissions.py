@@ -89,10 +89,10 @@ def can_access_professional_view(func):
             return current_app.login_manager.unauthorized()
         else:
             patron = Patron.get_patron_by_user(current_user)
-            if patron.is_librarian or patron.is_system_librarian:
-                return func(*args, **kwargs)
-            else:
+            if not patron or (not patron.is_librarian and
+                              not patron.is_system_librarian):
                 abort(403)
+            return func(*args, **kwargs)
     return decorated_view
 
 
