@@ -19,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-11-24 13:57+0100\n"
 "PO-Revision-Date: 2020-11-28 16:29+0000\n"
-"Last-Translator: Marion Davis <marion.davis@rero.ch>\n"
+"Last-Translator: JoelleDosimont <joelle.dosimont@uclouvain.be>\n"
 "Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/en/>\n"
 "Language: en\n"
@@ -7131,13 +7131,13 @@ msgstr "Textual description of the missing issues."
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:529
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:381
 msgid "general_note"
-msgstr "general note"
+msgstr "General note"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:533
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:393
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:495
 msgid "staff_note"
-msgstr "staff note"
+msgstr "Staff note"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:537
 msgid "conservation_note"
