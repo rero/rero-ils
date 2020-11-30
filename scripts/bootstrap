@@ -136,7 +136,7 @@ info_msg "Install npm assets utils in: ${virtualenv_path}"
 npm install npm@latest -g --prefix "${virtualenv_path}" \
   && success_msg "Latest NPM: installed." \
   || error_msg+exit "Failed to install latest NPM."
-npm install --prefix "${virtualenv_path}" --silent --force -g node-sass@4.14.1 clean-css-cli@4.3.0 uglify-js@3.9.4 requirejs@2.3.6 \
+npm install --prefix "${virtualenv_path}" --silent --force -g clean-css-cli@4.3.0 requirejs@2.3.6 \
   && success_msg "NPM assets utils: installed." \
   || error_msg+exit "NPM assets utils installation failed."
 

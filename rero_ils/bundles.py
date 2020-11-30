@@ -64,19 +64,26 @@ js = NpmBundle(
     npm={
         'almond': '~0.3.3',
         'angular': '~1.6.9',
-        'bootstrap': '~4.2.1',
+        'bootstrap': '~4.5.3',
         'angular-gettext': '~2.3.8',
         'jquery': '~1.9.1',
+        'popper.js': '1.16.1'
     },
     output='gen/rero_ils.main.%(version)s.js'
 )
 
+admin_ui_css = NpmBundle(
+    'node_modules/@rero/rero-ils-ui/dist/admin/styles*.css',
+    output='gen/rero_ils_admin_ui.%(version)s.css',
+    npm={
+        '@rero/rero-ils-ui': '~{version}'.format(version=RERO_ILS_UI_VERSION)
+    }
+)
+
 admin_ui_js = NpmBundle(
-    'node_modules/@rero/rero-ils-ui/dist/admin/runtime.*.js',
-    'node_modules/@rero/rero-ils-ui/dist/admin/polyfills.*.js',
-    'node_modules/@rero/rero-ils-ui/dist/admin/styles.*.js',
-    'node_modules/@rero/rero-ils-ui/dist/admin/scripts.*.js',
-    'node_modules/@rero/rero-ils-ui/dist/admin/main.*.js',
+    'node_modules/@rero/rero-ils-ui/dist/admin/runtime*.js',
+    'node_modules/@rero/rero-ils-ui/dist/admin/polyfills*.js',
+    'node_modules/@rero/rero-ils-ui/dist/admin/main*.js',
     output='gen/rero_ils_admin_ui.%(version)s.js',
     npm={
         '@rero/rero-ils-ui': '~{version}'.format(version=RERO_ILS_UI_VERSION)
@@ -84,11 +91,9 @@ admin_ui_js = NpmBundle(
 )
 
 public_search_ui_js = NpmBundle(
-    'node_modules/@rero/rero-ils-ui/dist/public-search/runtime.*.js',
-    'node_modules/@rero/rero-ils-ui/dist/public-search/polyfills.*.js',
-    'node_modules/@rero/rero-ils-ui/dist/public-search/styles.*.js',
-    'node_modules/@rero/rero-ils-ui/dist/public-search/scripts.*.js',
-    'node_modules/@rero/rero-ils-ui/dist/public-search/main.*.js',
+    'node_modules/@rero/rero-ils-ui/dist/public-search/runtime*.js',
+    'node_modules/@rero/rero-ils-ui/dist/public-search/polyfills*.js',
+    'node_modules/@rero/rero-ils-ui/dist/public-search/main*.js',
     output='gen/rero_ils_public-search_ui.%(version)s.js',
     npm={
         '@rero/rero-ils-ui': '~{version}'.format(version=RERO_ILS_UI_VERSION)
@@ -96,8 +101,8 @@ public_search_ui_js = NpmBundle(
 )
 
 search_bar_ui_js = NpmBundle(
-    'node_modules/@rero/rero-ils-ui/dist/search-bar/polyfills.*.js',
-    'node_modules/@rero/rero-ils-ui/dist/search-bar/main.*.js',
+    'node_modules/@rero/rero-ils-ui/dist/search-bar/polyfills*.js',
+    'node_modules/@rero/rero-ils-ui/dist/search-bar/main*.js',
     output='gen/rero_ils_search-bar_ui.%(version)s.js',
     npm={
         '@rero/rero-ils-ui': '~{version}'.format(version=RERO_ILS_UI_VERSION)

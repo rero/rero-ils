@@ -110,7 +110,7 @@ get_version "${NG_DIR}"
 NG_PACKAGE="${NG_DIR}/${PACKAGE_NAME}"
 # fetch rero-ils-ui version
 get_version "${FRONTEND_DIR}"
-FRONTEND_PACKAGE="${FRONTEND_DIR}/${PACKAGE_NAME}"
+FRONTEND_PACKAGE="${FRONTEND_DIR}/build/${PACKAGE_NAME}"
 
 # packages ng-core
 info_msg "NG-CORE ❯ packaging…"
