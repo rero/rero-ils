@@ -3167,6 +3167,60 @@ def test_marc21_to_part_of_without_link():
     ]
 
 
+def test_marc21_to_part_of_with_multiple_800():
+    """Test dojson partOf when multiple link specified.
+
+    When multiple fields 800 having the same link exists
+    """
+    marc21xml = """
+    <record>
+      <datafield tag="245" ind1="1" ind2="0">
+        <subfield code="a">Finis Africae /</subfield>
+        <subfield code="c">dessins: Mirallès, scénario: Ruiz</subfield>
+      </datafield>
+      <datafield tag="490" ind1="1" ind2=" ">
+        <subfield code="a">A la recherche de la Licorne / Mirallès</subfield>
+        <subfield code="v">3</subfield>
+      </datafield>
+      <datafield tag="490" ind1="1" ind2=" ">
+        <subfield code="a">Collection &quot;Vécu&quot;</subfield>
+      </datafield>
+      <datafield tag="800" ind1="1" ind2=" ">
+        <subfield code="a">Mirallés, Ana. -</subfield>
+        <subfield code="t">A la recherche de la Licorne</subfield>
+        <subfield code="v">3</subfield>
+        <subfield code="w">780067</subfield>
+      </datafield>
+      <datafield tag="800" ind1="1" ind2=" ">
+        <subfield code="a">Ruiz, Emilio. -</subfield>
+        <subfield code="t">A la recherche de la Licorne</subfield>
+        <subfield code="v">3</subfield>
+        <subfield code="w">780067</subfield>
+      </datafield>
+      <datafield tag="830" ind1=" " ind2="0">
+        <subfield code="a">Collection &quot;Vécu&quot;.</subfield>
+        <subfield code="p">Glénat</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('partOf') == [{
+            'document': {'$ref': 'https://ils.rero.ch/api/documents/780067'},
+            'numbering': [{
+                    'volume': 3
+                }]
+        }]
+    # the seriesStatement is generated form 490 and not from the 800
+    assert data.get('seriesStatement') == [{
+        'seriesTitle': [{'value': 'A la recherche de la Licorne / Mirallès'}],
+        'seriesEnumeration': [{'value': '3'}],
+        }, {
+        'seriesTitle': [{'value': 'Collection "Vécu"'}],
+        }
+    ]
+
+
 # subjects: 6xx [duplicates could exist between several vocabularies,
 # if possible deduplicate]
 def test_marc21_to_subjects():

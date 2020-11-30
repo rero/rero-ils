@@ -1257,7 +1257,8 @@ def marc21_to_part_of(self, key, value):
             if numbering_list:
                 part_of['numbering'] = numbering_list
             self['partOf'] = self.get('partOf', [])
-            self['partOf'].append(part_of)
+            if part_of not in self['partOf']:
+                self['partOf'].append(part_of)
     else:  # no link found
         if key[:3] == '773':
             if not marc21.has_field_580:
