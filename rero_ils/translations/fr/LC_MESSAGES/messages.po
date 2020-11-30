@@ -22,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-11-24 13:57+0100\n"
 "PO-Revision-Date: 2020-11-28 16:29+0000\n"
-"Last-Translator: Marion Davis <marion.davis@rero.ch>\n"
+"Last-Translator: JoelleDosimont <joelle.dosimont@uclouvain.be>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
 "Language: fr\n"
@@ -7176,7 +7176,7 @@ msgstr "Description textuelle des fascicules manquants."
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:529
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:381
 msgid "general_note"
-msgstr "note générale"
+msgstr "Note générale"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:533
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:393
@@ -7185,34 +7185,30 @@ msgid "staff_note"
 msgstr "Note professionnelle"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:537
-#, fuzzy
 msgid "conservation_note"
-msgstr "note sur la conservation"
+msgstr "Conservation"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:541
-#, fuzzy
 msgid "reception_note"
-msgstr "Note sur la réception"
+msgstr "Réception"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:545
-#, fuzzy
 msgid "claim_note"
-msgstr "note sur la réclamation"
+msgstr "Réclamation"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:549
-#, fuzzy
 msgid "routing_note"
-msgstr "note sur la transmission"
+msgstr "Routage"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:553
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:365
 msgid "binding_note"
-msgstr "reliure"
+msgstr "Reliure"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:557
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:361
 msgid "acquisition_note"
-msgstr "note sur l'acquisition"
+msgstr "Acquisition"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:570
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:401
@@ -7596,15 +7592,15 @@ msgstr "Note au prêt"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:377
 msgid "condition_note"
-msgstr "conservation"
+msgstr "État matériel"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:385
 msgid "patrimonial_note"
-msgstr "aspects patrimoniaux"
+msgstr "Aspects patrimoniaux"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:389
 msgid "provenance_note"
-msgstr "note sur la provenance"
+msgstr "Provenance"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:430
 msgid "Acquisition date"
