@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-11-24 13:57+0100\n"
-"PO-Revision-Date: 2020-11-26 13:40+0000\n"
-"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"PO-Revision-Date: 2020-11-28 16:29+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/es/>\n"
 "Language: es\n"
@@ -7574,7 +7574,7 @@ msgstr "Nota de préstamo"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:377
 msgid "condition_note"
-msgstr "Nota de condición material"
+msgstr "Estado físico"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:385
 msgid "patrimonial_note"

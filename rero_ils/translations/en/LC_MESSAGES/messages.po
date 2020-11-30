@@ -19,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-11-24 13:57+0100\n"
 "PO-Revision-Date: 2020-11-28 16:29+0000\n"
-"Last-Translator: JoelleDosimont <joelle.dosimont@uclouvain.be>\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/en/>\n"
 "Language: en\n"
@@ -7533,23 +7533,23 @@ msgstr "Holding URI"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:369
 msgid "checkin_note"
-msgstr "checkin note"
+msgstr "Checkin note"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:373
 msgid "checkout_note"
-msgstr "checkout note"
+msgstr "Checkout note"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:377
 msgid "condition_note"
-msgstr "condition note"
+msgstr "Physical condition"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:385
 msgid "patrimonial_note"
-msgstr "patrimonial note"
+msgstr "Patrimonial aspects"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:389
 msgid "provenance_note"
-msgstr "provenance note"
+msgstr "Provenance"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:430
 msgid "Acquisition date"
