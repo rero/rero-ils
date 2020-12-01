@@ -16,8 +16,9 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests REST checkout API methods in the item api_views."""
+from datetime import datetime, timedelta
 
-
+import ciso8601
 from invenio_accounts.testutils import login_user_via_session
 from utils import postdata
 
@@ -103,7 +104,7 @@ def test_checkout(
     )
     assert res.status_code == 200
 
-    # test WITH loan PID
+    # test WITH loan PID & WITH SPECIFIED END-DATE
     item, patron_pid, loan = item_on_shelf_martigny_patron_and_loan_pending
     assert item.status == ItemStatus.ON_SHELF
     params['item_pid'] = item.pid
@@ -114,3 +115,43 @@ def test_checkout(
         params
     )
     assert res.status_code == 200
+
+    # TEST CHECKOUT WITH SPECIFIED END-DATE
+    #   0) do a check-in for the item
+    #   1) Ensure than Saturday is a closed day for the loc_public_martigny
+    #   2) Try a checkout
+    #   3) Ensure than checkout response return a transaction end_date == next
+    #      business open day
+    res, _ = postdata(
+        client,
+        'api_item.checkin',
+        dict(
+            item_pid=item.pid,
+            transaction_library_pid=lib_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid
+        )
+    )
+    assert res.status_code == 200
+
+    now = datetime.now()
+    delta = timedelta((12 - now.weekday()) % 7)
+    next_saturday = now + delta
+    assert not lib_martigny.is_open(next_saturday, True)
+
+    params = dict(
+        item_pid=item.pid,
+        patron_pid=patron_martigny_no_email.pid,
+        transaction_user_pid=librarian_martigny_no_email.pid,
+        transaction_location_pid=loc_public_martigny.pid,
+        end_date=next_saturday.isoformat()
+    )
+    res, data = postdata(
+        client,
+        'api_item.checkout',
+        params
+    )
+    assert res.status_code == 200
+    transaction_end_date = data['action_applied']['checkout']['end_date']
+    transaction_end_date = ciso8601.parse_datetime(transaction_end_date)
+    next_open_date = lib_martigny.next_open(next_saturday)
+    assert next_open_date.date() == transaction_end_date.date()

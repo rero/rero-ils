@@ -407,6 +407,18 @@ class ItemCirculation(ItemRecord):
             dbcommit=True,
             reindex=True
         )
+
+        # If 'end_date' is specified, we need to check if the selected date is
+        # not a closed date. If it's a closed date, then we need to update the
+        # value to the next open day.
+        if 'end_date' in action_params:
+            library = Library.get_record_by_pid(self.library_pid)
+            if not library.is_open(action_params['end_date'], True):
+                new_end_date = library.next_open(action_params['end_date'])
+                new_end_date = new_end_date.astimezone()\
+                    .replace(microsecond=0).isoformat()
+                action_params['end_date'] = new_end_date
+
         loan = current_circulation.circulation.trigger(
             current_loan,
             **dict(action_params, trigger='checkout')
