@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-11-24 13:57+0100\n"
-"PO-Revision-Date: 2020-11-28 16:29+0000\n"
+"PO-Revision-Date: 2020-12-01 09:11+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/de/>\n"
@@ -5005,7 +5005,7 @@ msgstr "Wenn das Dokument ein Entwurf ist, wird die Datenvalidierung deaktiviert
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_abstract-v0.0.1.json:3
 msgid "Abstracts"
-msgstr "Zusammenfassungen"
+msgstr "Abstracts"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_abstract-v0.0.1.json:4
 msgid "Abstract of the resource."
@@ -5013,7 +5013,7 @@ msgstr "Abstrakt der Ressource."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_abstract-v0.0.1.json:8
 msgid "Abstract"
-msgstr "Zusammenfassung"
+msgstr "Abstract"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_book_format-v0.0.1.json:3
 msgid "Bibliographic formats"
@@ -8956,8 +8956,8 @@ msgid ""
 "Enter your email address below and we will send you a link to reset your "
 "password."
 msgstr ""
-"Geben Sie bitte unten Ihre E-Mail-Adresse ein und wir werden Ihnen einen "
-"Link senden, um Ihren Passwort zurückzusetzen."
+"Geben Sie bitte unten Ihre E-Mail-Adresse ein, und wir werden Ihnen einen "
+"Link senden, um Ihr Passwort zurückzusetzen."
 
 #: rero_ils/templates/rero_ils/forgot_password.html:37
 msgid "If you are registered without email, please contact your library."
