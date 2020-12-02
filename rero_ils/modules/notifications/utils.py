@@ -44,6 +44,12 @@ def _build_notification_email_context(loan, item, location):
         loan.get('pickup_location_pid')
     )
     patron = Patron.get_record_by_pid(loan.patron_pid)
+
+    # inherit holdings call number when possible
+    issue_call_number = item.issue_inherited_first_call_number
+    if issue_call_number:
+        item['call_number'] = issue_call_number
+
     ctx = {
         'loan': loan.replace_refs().dumps(),
         'item': item.replace_refs().dumps(),

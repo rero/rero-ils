@@ -361,6 +361,10 @@ class Holding(IlsRecord):
             item = Item.get_record_by_pid(item_pid)
             if not item.issue_status or \
                     item.issue_status == ItemIssueStatus.RECEIVED:
+                # inherit holdings first call# for issues with no 1st call#.
+                issue_call_number = item.issue_inherited_first_call_number
+                if issue_call_number:
+                    item['call_number'] = issue_call_number
                 yield item
 
     def get_number_of_items(self):

@@ -70,8 +70,15 @@ class Collection(IlsRecord):
         :param self: self
         :return: list of items linked to collection
         """
-        return [Item.get_record_by_pid(item['pid']) for
-                item in self.replace_refs().get('items', [])]
+        items = []
+        for item in self.replace_refs().get('items', []):
+            item = Item.get_record_by_pid(item['pid'])
+            # inherit holdings call number when possible
+            issue_call_number = item.issue_inherited_first_call_number
+            if issue_call_number:
+                item['call_number'] = issue_call_number
+            items.append(item)
+        return items
 
 
 class CollectionsIndexer(IlsRecordsIndexer):

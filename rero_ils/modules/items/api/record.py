@@ -361,6 +361,18 @@ class ItemRecord(IlsRecord):
         return circulation_category_pid
 
     @property
+    def issue_inherited_first_call_number(self):
+        """Get issue inherited first call number.
+
+        For item of type issue, when the issue first call number is missing,
+        it returns the parent holdings first call number if exists.
+        """
+        from ...holdings.api import Holding
+        if self.get('type') == 'issue' and not self.get('call_number'):
+            return Holding.get_record_by_pid(
+                self.holding_pid).get('call_number')
+
+    @property
     def location_pid(self):
         """Shortcut for item location pid."""
         location_pid = None
