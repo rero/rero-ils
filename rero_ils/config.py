@@ -154,22 +154,7 @@ SECURITY_LOGIN_USER_TEMPLATE = 'rero_ils/login_user.html'
 SECURITY_REGISTER_USER_TEMPLATE = 'rero_ils/register_user.html'
 SECURITY_FORGOT_PASSWORD_TEMPLATE = 'rero_ils/forgot_password.html'
 SECURITY_RESET_PASSWORD_TEMPLATE = 'rero_ils/reset_password.html'
-#: Template for tombstone page.
-RECORDS_UI_TOMBSTONE_TEMPLATE = "rero_ils/tombstone.html"
-#: Miscellaneous templates
-SEARCH_UI_JSTEMPLATE_RESULTS = (
-    'templates/rero_ils/brief_view_documents.html'
-)
-SEARCH_UI_SEARCH_TEMPLATE = 'rero_ils/search.html'
-SEARCH_UI_JSTEMPLATE_FACETS = 'templates/rero_ils/facets.html'
-SEARCH_UI_JSTEMPLATE_RANGE = 'templates/rero_ils/range.html'
-SEARCH_UI_JSTEMPLATE_COUNT = 'templates/rero_ils/count.html'
-SEARCH_UI_JSTEMPLATE_PAGINATION = 'templates/rero_ils/pagination.html'
-SEARCH_UI_SEARCH_MIMETYPE = 'application/rero+json'
-
-SEARCH_UI_HEADER_TEMPLATE = 'rero_ils/search_header.html'
-REROILS_SEARCHBAR_TEMPLATE = 'templates/rero_ils/searchbar.html'
-RERO_ILS_EDITOR_TEMPLATE = 'rero_ils/editor.html'
+RERO_ILS_SEARCH_TEMPLATE = 'rero_ils/search.html'
 RERO_ILS_COLLECTIONS_TEMPLATE = 'rero_ils/collections.html'
 
 # Theme configuration
@@ -196,14 +181,13 @@ THEME_HEADER_TEMPLATE = HEADER_TEMPLATE
 THEME_SETTINGS_TEMPLATE = SETTINGS_TEMPLATE
 #: Template for error pages.
 THEME_ERROR_TEMPLATE = 'rero_ils/page_error.html'
-#: RERO-ils search endpoint (i.e /search/documents)
-RERO_ILS_THEME_SEARCH_ENDPOINT = '/search/documents'
 # External CSS for each organisation customization
 RERO_ILS_THEME_ORGANISATION_CSS_ENDPOINT = 'https://resources.rero.ch/ils/test/css/'
 #: Template for including a tracking code for web analytics.
 THEME_TRACKINGCODE_TEMPLATE = 'rero_ils/trackingcode.html'
 THEME_JAVASCRIPT_TEMPLATE = 'rero_ils/javascript.html'
 
+# WEBPACKEXT_PROJECT = 'rero_ils.webpack.project'
 # Logings
 # =======
 #: Sentry level
@@ -1486,7 +1470,6 @@ RECORDS_REST_ENDPOINTS = dict(
     ),
 )
 
-SEARCH_UI_SEARCH_INDEX = 'documents'
 
 # Default view code for all organisations view
 # TODO: Should be taken into angular
@@ -2088,8 +2071,6 @@ SECURITY_SEND_PASSWORD_CHANGE_EMAIL = False
 # Misc
 INDEXER_REPLACE_REFS = True
 INDEXER_RECORD_TO_INDEX = 'rero_ils.modules.indexer_utils.record_to_index'
-
-SEARCH_UI_SEARCH_API = '/api/documents/'
 
 RERO_ILS_APP_URL_SCHEME = 'https'
 RERO_ILS_APP_HOST = 'ils.rero.ch'

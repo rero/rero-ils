@@ -15,24 +15,27 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-# Extraction from Python source files
-[python: **.py]
-encoding = utf-8
-[python: **/manual_translations.txt]
-encoding = utf-8
+"""JS/CSS bundles for rero-ils-ui.
 
-# Extraction from Jinja2 templates
-[jinja2: **/templates/**.html]
-encoding = utf-8
-extensions = jinja2.ext.autoescape, jinja2.ext.with_, webassets.ext.jinja2.AssetsExtension, jinja2.ext.do
-silent=false
+You include one of the bundles in a page like the example below (using
+``base`` bundle as an example):
+.. code-block:: html
+    {{ webpack['base.js']}}
+"""
 
-# Extraction from JavaScript files
-[ignore: static/js/rero_ils/admin/**]
-[javascript: **.js]
-encoding = utf-8
-extract_messages = $._, jQuery._
+from flask_webpackext import WebpackBundle
 
-# Extraction from json files (schema, form)
-[json: **.json]
-keys_to_translate = ['^title$', '^label$', 'description', 'placeholder', 'name', 'add', '403', '.*Message']
+theme = WebpackBundle(
+    __name__,
+    'assets',
+    entry={
+        'global': './scss/rero_ils/styles.scss',
+        'reroils_public': './js/reroils/public.js'
+    },
+    dependencies={
+        'popper.js': '1.16.1',
+        'jquery': '~3.2.1',
+        'bootstrap': '~4.5.3',
+        'font-awesome': '~4.7.0'
+    }
+)

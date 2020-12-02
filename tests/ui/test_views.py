@@ -23,7 +23,7 @@ import pytest
 from flask import session, url_for
 from utils import postdata
 
-from rero_ils.views import nl2br
+from rero_ils.theme.views import nl2br
 
 
 def test_nl2br():

@@ -20,5 +20,5 @@ API Docs
 Views
 -----
 
-.. automodule:: rero_ils.views
+.. automodule:: rero_ils.theme.views
    :members:

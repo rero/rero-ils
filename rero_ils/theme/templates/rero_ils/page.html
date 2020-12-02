@@ -1,0 +1,119 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2019 RERO
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+<!DOCTYPE html>
+<html{% if html_css_classes %} class="{{ html_css_classes|join(' ') }}" {% endif %}
+  lang="{{ current_i18n.locale.language|safe }}" dir="{{ current_i18n.locale.text_direction }}">
+
+  <head>
+    {%- block head %}
+    {%- block head_base %}
+    {% if admin_page %}
+    <base href="/admin">
+    {% elif request.path.find('search') >= 0 %}
+    <base href="/">
+    {% else %}
+    <base href="{{ request.path }}">
+    {% endif %}
+    {%- endblock head_base %}
+    {%- block head_meta %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {%- if description %}
+    <meta name="description" content="{{ description }}" />{% endif %}
+    {%- if keywords %}
+    <meta name="keywords" content="{{ keywords }}" />{% endif %}
+    {%- if config.get('THEME_GOOGLE_SITE_VERIFICATION', None) %}
+    {%- for google_id in config.THEME_GOOGLE_SITE_VERIFICATION %}
+    <meta name="google-site-verification" content="{{google_id}}" />
+    {%- endfor %}
+    {%- endif %}
+    {%- endblock head_meta %}
+    {%- block head_title %}
+    {%- set title = title or _(config.THEME_SITENAME) or _('Invenio') %}
+    <title>{{title}}</title>
+    {%- endblock head_title %}
+    {%- block head_links %}
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+    {%- if keywords %}
+    <link rel="canonical" href="{{ canonical_url }}" />{% endif %}
+    {%- block head_links_langs %}
+    {%- if alternate_urls %}
+    {%- for alt_ln, alternate_url in alternate_urls.items() %}
+    <link rel="alternate" hreflang="{{ alt_ln }}" href="{{ alternate_url }}" />
+    {%- endfor %}
+    {%- endif %}
+    {%- endblock %}
+    {%- block head_apple_icons %}
+    {# TODO: generate the appropriate files #}
+    {%- for size in [144, 114, 72, 57] %}
+    {%- set icon_name = 'apple-touch-icon-%d-precomposed.png' | format(size) %}
+    <link rel="apple-touch-icon-precomposed" sizes="{{ size }}x{{ size }}"
+      href="{{ url_for('static', filename=icon_name) }}" />
+    {%- endfor %}
+    {%- endblock head_apple_icons %}
+    {%- endblock head_links %}
+    {%- block header %}{% endblock header %}
+    {%- block css %}
+      {{ webpack['global.css'] }}
+      <link href="{{ config.get('RERO_ILS_THEME_ORGANISATION_CSS_ENDPOINT') }}{{ viewcode }}.css" rel="stylesheet"
+      title="{{ viewcode }}">
+    {%- endblock css %}
+    {%- endblock head %}
+  </head>
+
+  <body ng-csp {% if body_css_classes %} class="{{ body_css_classes|join(' ') }}" {% else %} class="d-flex flex-column"
+    {% endif %}{% if g.ln %} lang="{{ g.ln.split('_', 1)[0]|safe }}" {% if rtl_direction %}
+    {{ rtl_direction|safe }}{% endif %}{% endif %} itemscope itemtype="http://schema.org/WebPage" data-spy="scroll"
+    data-target=".scrollspy-target" {% if viewcode %}id="view-{{ viewcode }}" {% endif %}>
+    {%- block outer_body %}
+    {%- block browserupgrade %}
+    <!--[if lt IE 8]>
+          <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your   browser</a> to improve your experience.</p>
+        <![endif]-->
+    {%- endblock browserupgrade %}
+    {%- block body_inner %}
+    {%- block page_header %}
+    {% include 'rero_ils/header.html' %}
+    {%- endblock page_header %}
+
+    {%- block page_body %}
+    <div class="container flex-grow-1 mt-1">
+
+      {%- block body %}
+      {%- endblock body %}
+    </div>
+    {%- endblock page_body %}
+
+    {%- block page_footer %}
+    {% include 'rero_ils/footer.html' %}
+    {%- endblock page_footer %}
+
+    {%- endblock body_inner %}
+
+    {%- block javascript %}
+    {% include 'rero_ils/javascript.html' %}
+    {%- endblock javascript %}
+    {%- block trackingcode %}
+    {% include 'rero_ils/trackingcode.html' %}
+    {%- endblock %}
+    {%- endblock outer_body %}
+  </body>
+
+  </html>

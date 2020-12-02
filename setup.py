@@ -73,9 +73,7 @@ setup(
             'rero-ils = invenio_app.cli:cli',
         ],
         'babel.extractors': [
-            'json = rero_ils.modules.babel_extractors:extract_json',
-            # TODO: remove once the thumbnail are done in angular
-            'angular_gettext = angular_gettext_babel.extract:extract_angular'
+            'json = rero_ils.modules.babel_extractors:extract_json'
         ],
         'invenio_base.apps': [
             # 'flask_debugtoolbar = flask_debugtoolbar:DebugToolbarExtension',
@@ -95,7 +93,7 @@ setup(
             'libraries = rero_ils.modules.libraries.views:blueprint',
             'notifications = rero_ils.modules.notifications.views:blueprint',
             'patrons = rero_ils.modules.patrons.views:blueprint',
-            'rero_ils = rero_ils.views:blueprint',
+            'rero_ils = rero_ils.theme.views:blueprint',
             'templates = rero_ils.modules.templates.views:blueprint',
         ],
         'invenio_base.api_blueprints': [
@@ -118,21 +116,8 @@ setup(
             'messages = rero_ils',
             'messages_wiki = flask_wiki',
         ],
-        'invenio_assets.bundles': [
-            'rero_ils_main_css = rero_ils.bundles:main_css',
-            'rero_ils_main_js = rero_ils.bundles:js',
-            'rero_ils_documents_detailed_js = \
-                rero_ils.modules.documents.bundles:detailed_js',
-            'rero_ils_admin_ui_js = rero_ils.bundles:admin_ui_js',
-            'rero_ils_search_bar_ui_js = rero_ils.bundles:search_bar_ui_js',
-            'rero_ils_public_search_ui_js = \
-                 rero_ils.bundles:public_search_ui_js',
-            'rero_ils_persons_detailed_js = \
-                rero_ils.modules.contributions.bundles:detailed_js',
-            'rero_ils_patron_profile_js = \
-                rero_ils.modules.patrons.bundles:patron_profile_js',
-            'rero_ils_ill_request_form_js =  \
-                rero_ils.modules.ill_requests.bundles:ill_request_form_js'
+        'invenio_assets.webpack': [
+            'reroils_theme = rero_ils.theme.webpack:theme'
         ],
         'dojson.cli': [
             'reverse = rero_ils.dojson.cli:reverse',

@@ -24,29 +24,14 @@
     <a href="javascript:history.back()"><i class="fa fa-arrow-left"></i> {{ _('Back') }}</a>
 </header>
 <div class="row">
-  {% if record | get_cover_art%}
-  <a id="thumbnail" class="col-sm-2 col-md-2 d-flex justify-content-start" href="{{ (record | get_cover_art) }}" target="_blank">
-    <icon-thumbnail class="thumb"
-      thumbnailurl='{{ (record | get_cover_art) }}'
-      type="{{ record.type }}"
-      config='{{ {"thumbnail_service_url": config.RERO_ILS_THUMBNAIL_SERVICE_URL} | tojson }}'>
-    </icon-thumbnail>
-  </a>
-  {% else %}
   <div id="thumbnail" class="col-sm-2 col-md-2 d-flex justify-content-start">
-    <icon-thumbnail class="thumb"
-      thumbnailurl="/static/images/icon_{{ record.type }}.png"
-        {% if record.identifiedBy %} identifiers='{{ (record.identifiedBy|document_isbn)|tojson }}'
-        {% else %} thumbnailurl=""
-          {% if record.identifiedBy %} identifiers='{{ (record.identifiedBy|document_isbn)|tojson }}'
-          {% else %} identifiers=""
-          {% endif %}
-        {% endif %}
-      type="{{ record.type }}"
-      config='{{ {"thumbnail_service_url": config.RERO_ILS_THUMBNAIL_SERVICE_URL} | tojson }}'>
-    </icon-thumbnail>
+  <figure class="mb-0 thumb">
+    <img class="img-responsive border border-light"
+         src="{{record | get_cover_art}}"
+         onerror="this.src='{{url_for("static", filename="images/icon_%s.png" % record.type) }}'" >
+    <figcaption class="text-center ng-binding">{{ _(record.type) }}</figcaption>
+  </figure>
   </div>
-  {% endif %}
   <div class="col-sm-10 col-md-10">
     <h2>
       {{ record.title | create_title_text }}
@@ -132,7 +117,7 @@
     {% if accesses|length < 1 and  not holdings %}
     <header>
       <nav>
-        <ul class="nav nav-tabs" id="nav-tab" role="tablist">
+        <ul class="nav nav-tabs" role="tablist">
           <li class="nav-item" title="{{ _('No holdings') }}">
             <a class="nav-link disabled" href="#documents-get" data-toggle="tab"
                id="documents-get-tab" title="{{ _('Get') }}" role="tab"
@@ -159,7 +144,7 @@
     {% else %}
     <header>
       <nav>
-        <ul class="nav nav-tabs" id="nav-tab" role="tablist">
+        <ul class="nav nav-tabs" role="tablist">
           <li class="nav-item">
             <a class="nav-link active" href="#documents-get" data-toggle="tab"
                id="documents-get-tab" title="{{ _('Get') }}" role="tab"

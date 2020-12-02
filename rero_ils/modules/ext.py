@@ -48,8 +48,8 @@ from .patron_transaction_events.listener import \
 from .patron_transactions.listener import enrich_patron_transaction_data
 from .patrons.listener import create_subscription_patron_transaction, \
     enrich_patron_data, update_from_profile
-from ..filter import empty_data, format_date_filter, jsondumps, text_to_id, \
-    to_pretty_json
+from ..filter import empty_data, format_date_filter, jsondumps, node_assets, \
+    text_to_id, to_pretty_json
 
 
 class REROILSAPP(object):
@@ -70,6 +70,7 @@ class REROILSAPP(object):
 
             # register filters
             app.add_template_filter(format_date_filter, name='format_date')
+            app.add_template_global(node_assets, name='node_assets')
             app.add_template_filter(to_pretty_json, name='tojson_pretty')
             app.add_template_filter(text_to_id, name='text_to_id')
             app.add_template_filter(jsondumps, name='jsondumps')

@@ -1,0 +1,66 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2019 RERO
+  Copyright (C) 2015-2018 CERN
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+{% extends 'rero_ils/page.html' %}
+{%- set body_css_classes=['bg-dark', 'd-flex', 'flex-column'] %}
+
+{%- block outer_body %}
+  {%- block browserupgrade %}
+    <!--[if lt IE 8]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade  your   browser</a> to improve your experience.</p>
+    <![endif]-->
+  {%- endblock browserupgrade %}
+  {%- block flashmessages %}
+    {%- from "rero_ils/macros/messages.html" import flashed_messages with context -%}
+    {{ flashed_messages() }}
+  {%- endblock flashmessages %}
+  <div class="d-flex flex-column flex-grow-1 align-items-center justify-content-center">
+  {% block page_header %}
+    <header class="">
+      {%- block brand %}
+        {%- if config.THEME_LOGO %}
+          <a href="/" id="homepage-logo">
+            <img class="text-center rero-ils-cover-logo"
+            src="{{ url_for('static', filename=config.THEME_LOGO)}}"
+            alt="{{ _(config.THEME_SITENAME) }}" />
+          </a>
+          {%- elif config.THEME_SITENAME %}
+          <a href="/" class="text-center mb-4" id="homepage-logo">
+            {{ _(config.THEME_SITENAME) }}
+        </a>
+        {% endif %}
+      {%- endblock brand %}
+    </header>
+  {% endblock page_header%}
+  {% block page_body%}
+    <section class="text-center">
+      {% block panel %}
+      {% endblock panel %}
+    </section>
+  {% endblock page_body%}
+  {% block page_footer %}
+  {% endblock page_footer %}
+</div>
+{%- block javascript %}
+{% include 'rero_ils/javascript.html' %}
+{%- endblock javascript %}
+{%- block trackingcode %}
+{% include 'rero_ils/trackingcode.html' %}
+{%- endblock %}
+{%- endblock outer_body %}

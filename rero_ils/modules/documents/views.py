@@ -19,10 +19,8 @@
 
 from __future__ import absolute_import, print_function
 
-import json
 from functools import wraps
 
-import requests
 from flask import Blueprint, abort, current_app, jsonify, render_template
 from flask import request as flask_request
 from flask_babelex import gettext as _
@@ -31,7 +29,7 @@ from invenio_records_ui.signals import record_viewed
 
 from .api import Document
 from .utils import create_authorized_access_point, \
-    display_alternate_graphic_first, edition_format_text, \
+    display_alternate_graphic_first, edition_format_text, get_remote_cover, \
     publication_statement_text, series_statement_format_text, \
     title_format_text_alternate_graphic, title_format_text_head, \
     title_variant_format_text
@@ -100,12 +98,7 @@ def check_permission(fn):
 @api_blueprint.route('/cover/<isbn>')
 def cover(isbn):
     """Document cover service."""
-    cover_service = current_app.config.get('RERO_ILS_THUMBNAIL_SERVICE_URL')
-    url = cover_service + '?height=60px&jsonpCallbackParam=callback'\
-                          '&type=isbn&width=60px&callback=thumb&value=' + isbn
-    response = requests.get(
-        url, headers={'referer': flask_request.host_url})
-    return jsonify(json.loads(response.text[len('thumb('):-1]))
+    return jsonify(get_remote_cover(isbn))
 
 
 blueprint = Blueprint(
@@ -392,12 +385,18 @@ def get_cover_art(record):
     :param record: record
     :return: url for cover art or None
     """
+    # electronic
     for electronic_locator in record.get('electronicLocator', []):
         type = electronic_locator.get('type')
         content = electronic_locator.get('content')
         if type == 'relatedResource' and content == 'coverImage':
             return electronic_locator.get('url')
-    return None
+    # isbn
+    isbn = document_isbn(record.get('identifiedBy', [])).get('isbn')
+    if not isbn:
+        return None
+    res = get_remote_cover(isbn)
+    return res.get('image')
 
 
 @blueprint.app_template_filter()
