@@ -64,6 +64,8 @@ def test_holding_create(db, es_clear, document, org_martigny,
     holding = next(search.filter('term', pid=holding.pid).scan())
     holding_record = Holding.get_record_by_pid(holding.pid)
     assert holding_record.organisation_pid == org_martigny.get('pid')
+    # holdings does not exist
+    assert not Holding.get_holdings_type_by_holding_pid('toto')
 
 
 def test_holdings_call_number_filter(app):

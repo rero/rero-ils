@@ -27,7 +27,7 @@ from invenio_records_rest.serializers.csv import CSVSerializer, Line
 from rero_ils.filter import format_date_filter
 from rero_ils.modules.documents.api import search_document_by_pid
 from rero_ils.modules.documents.utils import title_format_text_head
-from rero_ils.modules.items.api import search_active_loans_for_item
+from rero_ils.modules.items.api import Item, search_active_loans_for_item
 from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.utils import get_i18n_supported_languages
 
@@ -84,6 +84,11 @@ class ItemCSVSerializer(CSVSerializer):
         language = kwargs.get('language')
 
         record = record_hit['_source']
+        # inherit holdings call number when possible
+        item = Item(record)
+        issue_call_number = item.issue_inherited_first_call_number
+        if issue_call_number:
+            record['call_number'] = issue_call_number
         item_pid = pid.pid_value
 
         # process location

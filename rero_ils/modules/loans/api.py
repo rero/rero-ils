@@ -631,6 +631,12 @@ def patron_profile(patron):
         if item == {}:
             # loans for deleted items are temporarily skipped.
             continue
+
+        # inherit holdings call number when possible
+        issue_call_number = item.issue_inherited_first_call_number
+        if issue_call_number:
+            item['call_number'] = issue_call_number
+
         document = Document.get_record_by_pid(
             item.replace_refs()['document']['pid'])
         loan['document'] = document.replace_refs().dumps()
