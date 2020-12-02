@@ -27,7 +27,6 @@ RUN pip install --upgrade setuptools wheel pip "poetry<1.1.0"
 # Install Node
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get install --no-install-recommends -y nodejs && rm -rf /var/lib/apt/lists/*
-RUN npm install --silent  node-sass@4.14.1 clean-css-cli@4.3.0 uglify-js@3.9.4 requirejs@2.3.6
 
 # RUN npm update
 

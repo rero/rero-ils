@@ -17,6 +17,7 @@
 
 """Utilities functions for rero-ils."""
 
+
 from flask import current_app
 from invenio_i18n.ext import current_i18n
 

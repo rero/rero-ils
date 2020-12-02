@@ -19,9 +19,13 @@
 
 from __future__ import absolute_import, print_function
 
+import json
 import re
 
+import requests
 from elasticsearch_dsl.utils import AttrDict
+from flask import current_app
+from flask import request as flask_request
 
 from .dojson.contrib.marc21tojson.model import remove_trailing_punctuation
 from ...utils import get_i18n_supported_languages
@@ -499,3 +503,18 @@ def create_contributions(contributions):
 
         calculated_contributions.append(contribution)
     return calculated_contributions
+
+
+def get_remote_cover(isbn):
+    """Document cover service."""
+    cover_service = current_app.config.get('RERO_ILS_THUMBNAIL_SERVICE_URL')
+    url = cover_service + '?height=60px&jsonpCallbackParam=callback'\
+                          '&type=isbn&width=60px&callback=thumb&value=' + isbn
+    response = requests.get(
+        url, headers={'referer': flask_request.host_url})
+
+    if response.status_code != 200:
+        current_app.logger.debug(
+            'Unable to get cover for isbn: {0}'.format(isbn))
+        return dict(success=False)
+    return json.loads(response.text[len('thumb('):-1])

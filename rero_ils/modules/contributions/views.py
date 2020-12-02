@@ -26,11 +26,10 @@ from flask_babelex import gettext as _
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records_ui.signals import record_viewed
 
-from rero_ils.modules.contributions.api import Contribution, ContributionType
-from rero_ils.modules.organisations.api import Organisation
-
+from .api import Contribution, ContributionType
 from ..documents.api import DocumentsSearch
-from ...views import url_active
+from ..organisations.api import Organisation
+from ...theme.views import url_active
 
 blueprint = Blueprint(
     'contributions',

@@ -1,0 +1,149 @@
+/*
+
+  RERO ILS
+  Copyright (C) 2019 RERO
+  Copyright (C) 2015-2018 CERN
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+ */
+
+@import "variables";
+
+// Setting the path to fonts files.
+$fa-font-path: "~font-awesome/fonts";
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+@import '~bootstrap/scss/bootstrap';
+@import "~font-awesome/scss/font-awesome";
+
+// general styles
+@import "page";
+@import "header";
+@import "footer";
+@import "search";
+@import "frontpage";
+@import "thumbnail";
+
+// modules
+@import "contributions/detailed";
+@import "patrons/profile";
+@import "documents/detailed";
+
+// cover
+.rero-ils-cover-logo {
+  width: 10em;
+}
+
+// CSS code to allow `ng-csp="no-inline-css"`
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak,
+.ng-hide:not(.ng-hide-animate) {
+  display: none !important;
+}
+
+ng\:form {
+  display: block;
+}
+
+.ng-animate-shim {
+  visibility:hidden;
+}
+
+.ng-anchor {
+  position:absolute;
+}
+
+
+// TODO: to correct a display bug with webkit browsers
+
+html [type=button] {
+  -webkit-appearance: none;
+}
+
+/*
+ *********************************
+
+         GLOBAL
+
+ ********************************
+*/
+
+.rero-ils-external-link:after {
+  font-family: 'FontAwesome';
+  font-size: $font-size-very-small;
+  vertical-align: top;
+  content: " \f08e";
+}
+
+.required::after {
+  content: " *";
+  color: $red;
+  font-weight: bold;
+}
+
+.no-data {
+  color: $secondary;
+}
+
+button:disabled {
+  pointer-events: none;
+}
+
+div.tooltip div.tooltip-inner{
+  text-align: left;
+  max-width: 400px;
+}
+
+/*
+ *********************************
+
+         TOAST
+
+ ********************************
+*/
+
+.toast {
+  min-width: 350px;
+}
+
+.toast-container {
+  position: fixed;
+  z-index: 9999999;
+  top: 0;
+  right: 0;
+}
+
+.toast-top-right {
+  top: 12px;
+  right: 24px;
+}
+
+.toast-success .toast-body {
+  background-color: $green;
+  color: white;
+}
+
+.toast-warning .toast-body {
+  background-color: $orange;
+  color: white;
+}
+
+.toast-error .toast-body,
+.toast-danger .toast-body {
+  background-color: $red;
+  color: white;
+}

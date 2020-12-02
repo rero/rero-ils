@@ -97,6 +97,7 @@ do
   shift
 done
 
+
 # Poetry is a mandatory condition to launch this program!
 if [[ -z "${VIRTUAL_ENV}" ]]; then
   error_msg+exit "Error - Launch this script via poetry command:\n\tpoetry run ${PROGRAM}"
@@ -118,6 +119,10 @@ if $sip2  ; then
   flags+=("--extras sip2")
 fi
 
+# create virtualenv and upgrade pip
+info_msg "Upgrade pip"
+poetry run pip install --upgrade pip
+
 # BOOTSTRAP START
 # install the application and all the dependencies
 info_msg "Install with command: ${cmd} ${flags[@]}"
@@ -130,39 +135,41 @@ if ! $deploy ; then
     fi
 fi
 
-# install assets utils
-virtualenv_path=`poetry env info -p`
-info_msg "Install npm assets utils in: ${virtualenv_path}"
-npm install npm@latest -g --prefix "${virtualenv_path}" \
-  && success_msg "Latest NPM: installed." \
-  || error_msg+exit "Failed to install latest NPM."
-npm install --prefix "${virtualenv_path}" --silent --force -g node-sass@4.14.1 clean-css-cli@4.3.0 uglify-js@3.9.4 requirejs@2.3.6 \
-  && success_msg "NPM assets utils: installed." \
-  || error_msg+exit "NPM assets utils installation failed."
-
 # collect static files and compile html/css assets
 # ------------------------------------------------
 # install the npm dependencies
-info_msg "Install npm dependencies"
-invenio npm
 info_msg "Search static folder location"
 static_folder=$(poetry run invenio shell --no-term-title -c "print('static_folder:%s' % app.static_folder)"|grep static_folder| cut -d: -f2-)
+
+# install rero-ils-ui
 info_msg "Install static folder npm dependencies in: ${static_folder}"
-npm install --prefix "${static_folder}"
 if [[ -f "${tgz_file}" ]]
 then
   info_msg "Install RERO-ILS-UI from tgz: ${tgz_file}"
-  npm install "${tgz_file}" --prefix "${static_folder}"
+  npm install --no-save --only=prod --no-fund --no-audit  "${tgz_file}" --prefix "${static_folder}"
+else
+  npm install --no-save --only=prod --no-fund --no-audit  @rero/rero-ils-ui --prefix "${static_folder}"
 fi
 
 # build the web assets
 info_msg "Build web assets: collect"
-invenio collect -v
-info_msg "Build web assets: check (build command)"
-invenio assets build
+invenio collect
 
 info_msg "Build web assets: using webpack for invenio-admin"
 invenio webpack buildall
+
+if $deploy ; then
+  if ! $ci ; then
+    info_msg "Clean web assets"
+    invenio webpack clean
+
+    info_msg "Clean npm cache"
+    npm cache clean --force
+
+    info_msg "Clean pip cache"
+    pip cache purge
+  fi
+fi
 
 success_msg "${PROGRAM} finished!"
 exit 0
