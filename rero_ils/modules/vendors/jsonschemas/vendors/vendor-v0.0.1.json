@@ -239,33 +239,7 @@
       "default": "CHF",
       "pattern": "^[A-Z]{3}$",
       "form": {
-        "type": "selectWithSort",
-        "options": [
-          {
-            "label": "CHF",
-            "value": "CHF"
-          },
-          {
-            "label": "CAD",
-            "value": "CAD"
-          },
-          {
-            "label": "EUR",
-            "value": "EUR"
-          },
-          {
-            "label": "GBP",
-            "value": "GBP"
-          },
-          {
-            "label": "USD",
-            "value": "USD"
-          },
-          {
-            "label": "AUD",
-            "value": "AUD"
-          }
-        ]
+        "type": "selectWithSort"
       }
     },
     "vat_rate": {
