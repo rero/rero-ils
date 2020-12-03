@@ -1,0 +1,70 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2020 RERO
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+<!-- action button : Should be at the end to be rendered above and be clickable -->
+{%- if item|item_and_patron_in_same_organisation %}
+  {%- set can_request, reasons = item|can_request %}
+  {%- set locations = item|item_library_pickup_locations %}
+  {%- if can_request and locations %}
+    <dd class="{% if class %}{{ class }} {% endif %}col-lg-12 col-sm-12 mt-2">
+      <a
+        href="#"
+        type="button"
+        class="btn btn-primary btn-mini"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+        id="{{ item.barcode }}-dropdownMenu"
+      >
+        {{ _('Request') }}
+        <i class="fa fa-caret-down fa-fw"></i>
+      </a>
+      <div
+        class="dropdown-menu dropdown-menu-left"
+        aria-labelledby="dropdownMenu"
+      >
+        <h6 class="dropdown-header">{{ _('Select a Pickup Location') }}</h6>
+        <div class="dropdown-divider"></div>
+        {% for location in locations %}
+        <a
+          class="dropdown-item"
+          id="{{ location.code }}"
+          href="{{ url_for('item.patron_request', viewcode=viewcode, item_pid=item.pid, pickup_location_pid=location.pid)}}"
+        >
+          {{ location.pickup_name }}
+        </a>
+        {% endfor %}
+      </div>
+    </dd>
+    {%- elif reasons %}
+    <dd class="col-lg-12 col-sm-12 mt-2">
+      <span
+        class="d-inline-block"
+        tabindex="0"
+        data-toggle="tooltip"
+        data-html="true"
+        title="{{ reasons | join('<br/>') }}"
+      >
+        <button type="submit" class="btn btn-primary btn-mini" disabled>
+          {{ _('Request') }}
+          <i class="fa fa-caret-down fa-fw"></i>
+        </button>
+      </span>
+    </dd>
+  {%- endif %}
+{%- endif %}

@@ -59,14 +59,28 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
         current_app._get_current_object(), pid=pid, record=record)
 
     viewcode = kwargs['viewcode']
+    organisation = None
+    if viewcode != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
+        organisation = Organisation.get_record_by_viewcode(viewcode)
 
     record['available'] = record.is_available(viewcode)
 
+    # TODO: later Refactoring this part
+    # Use ES to order holdings records
+    # Pass directly the ES holdings to the template
+    # and create some pipe to process record
+    from ..holdings.api import HoldingsSearch
+    query = results = HoldingsSearch()\
+        .filter('term', document__pid=pid.pid_value)
+    if organisation:
+        query = query.filter('term', organisation__pid=organisation.pid)
+    results = query\
+        .sort({'library_location': {"order": "asc"}})\
+        .source('pid').scan()
+
     holdings = [
         Holding.get_record_by_pid(holding_pid).replace_refs()
-        for holding_pid in Holding.get_holdings_by_document_by_view_code(
-            document_pid=pid.pid_value, viewcode=viewcode
-        )
+        for holding_pid in [r.pid for r in results]
     ]
 
     return render_template(

@@ -21,49 +21,8 @@
 
 {% set accesses = record|get_accesses %}
 {% if accesses|length > 0 or holdings %}
-  <!-- ACCESS -->
-  {% if accesses|length > 0 %}
-  <div class="card mb-2">
-    <!-- Card header -->
-    <div id="online_access" class="card-header p-2">
-      <div class="row">
-        <div class="col-1">
-          <a class="collapse-link" data-toggle="collapse" href="#collapse-access" aria-expanded="false">
-            <i class="fa fa-caret-down fa-lg"></i>
-          </a>
-        </div>
-        <div class="col-10">
-              {{ _("Online") }}
-        </div>
-      </div>
-    </div>
-    <!-- Card body -->
-    <div id="collapse-access" class="collapse show" role="tabpanel">
-      <div class="card-body p-2">
-        {% for access in accesses %}
-        <div class="row my-2">
-          <div class="col-12">
-            <div class="row">
-              <div class="col-sm-1">
-                &nbsp;
-              </div>
-              <div class="col-sm-2">
-                {{ access.type }}
-              </div>
-              <div class="col-sm-9">
-                <a class="rero-ils-external-link" href={{ access.url }}>{{ access.content }}</a>
-                {% if access.public_note %}
-                  ({{ access.public_note }})
-                {% endif %}
-              </div>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-  {% endif %}
+  <!-- ONLINE -->
+  {% include('rero_ils/_document_online.html') %}
 
   <!-- Holdings -->
   {%- if holdings %}
@@ -174,13 +133,12 @@
         <!-- display items -->
         {%- if number_items > 0 %}
         {%- for item in items %}
-          <div id="{{ item.barcode }}-detail" class="row item-row">
+          <div id="{{ item.barcode }}-detail" class="row item-row mt-2">
+          {%- set call_number = item | format_record_call_number -%}
+            {%- if call_number %}
             <dt class="offset-1 col-lg-2 col-sm-3">{{ _('Call number') }}</dt>
-            <dd class="col-lg-3 col-sm-3">{{ item | format_record_call_number }}</dd>
-            <dd class="col-lg-6 col-sm-5">
-              <i class="fa fa-circle text-{{ 'success' if item.available else 'danger' }}"></i>
-              {{ item|item_availability_text }}
-            </dd>
+            <dd class="col-lg-10 col-sm-9">{{ item | format_record_call_number }}</dd>
+            {%- endif %}
             {%- set collections = item.pid|in_collection %}
             {%- if collections|length > 0 %}
               <dt class="offset-1 col-lg-2 col-sm-3">{{ _('Temporary location') }}</dt>
@@ -206,40 +164,16 @@
               <dd class="col-lg-9 col-sm-8">{{ note.get('content') | nl2br | safe }}</dd>
             {%- endfor %}
 
-            <!-- action button : Should be at the end to be render above and be clickabke -->
-            {%- if item|item_and_patron_in_same_organisation %}
-              {%- set can_request, reasons = item|can_request %}
-              {%- set locations = item|item_library_pickup_locations %}
-              {%- if can_request and locations %}
-                <div class="action-buttons">
-                  <a href="#" type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false" id="{{ item.barcode }}-dropdownMenu">
-                    {{ _('Request') }}
-                    <i class="fa fa-caret-down fa-fw"></i>
-                  </a>
-                  <!-- TODO: Style the dropdown header -->
-                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
-                    <h6 class="dropdown-header">{{ _('Select a Pickup Location') }}</h6>
-                    <div class="dropdown-divider"></div>
-                    {% for location in locations %}
-                    <a class="dropdown-item"
-                      id="{{ location.code }}"
-                      href="{{ url_for('item.patron_request', viewcode=viewcode, item_pid=item.pid, pickup_location_pid=location.pid)}}">
-                      {{ location.pickup_name }}
-                    </a>
-                    {% endfor %}
-                  </div>
-                </div>
-              {%- elif reasons %}
-                <div class="action-buttons">
-                  <span class="d-inline-block mt-1" tabindex="0" data-toggle="tooltip" data-html="true" title="{{ reasons | join('<br/>') }}">
-                    <button type="submit" class="btn btn-primary" disabled>
-                      {{ _('Request') }}
-                    </button>
-                  </span>
-                </div>
-              {%- endif %}
-            {%- endif %}
+            <dt class="offset-1 col-lg-2 col-sm-3">{{ _('Status') }}</dt>
+            <dd class="col-lg-9 col-sm-8">
+              <i
+                class="fa fa-circle text-{{ 'success' if item.available else 'danger' }}"
+              ></i>
+              {{ item|item_availability_text }}
+            </dd>
+            {% with class = 'offset-1' %}
+              {% include('rero_ils/_request_button.html') %}
+            {% endwith %}
           </div>
        {%- endfor %}
        {%- endif %}

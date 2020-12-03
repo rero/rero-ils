@@ -331,6 +331,11 @@ class ItemRecord(IlsRecord):
         return self.get('status', '')
 
     @property
+    def enumerationAndChronology(self):
+        """Shortcut for item enumarationAndChronology."""
+        return self.get('enumerationAndChronology', '')
+
+    @property
     def item_type_pid(self):
         """Shortcut for item type pid."""
         item_type_pid = None

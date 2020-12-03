@@ -134,7 +134,7 @@ def logged_user():
         organisation_pid = patron.organisation_pid
         patron = patron.replace_refs()
         patron = patron.dumps()
-        for index, library in enumerate(patron.get('libraries')):
+        for index, library in enumerate(patron.get('libraries', [])):
             data = {
                 'pid': library['pid'],
                 'organisation': {
