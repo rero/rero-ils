@@ -118,13 +118,6 @@
     <header>
       <nav>
         <ul class="nav nav-tabs" role="tablist">
-          <li class="nav-item" title="{{ _('No holdings') }}">
-            <a class="nav-link disabled" href="#documents-get" data-toggle="tab"
-               id="documents-get-tab" title="{{ _('Get') }}" role="tab"
-               aria-controls="documents-get" aria-selected="true">
-              <i class="fa fa-list-ul"></i> {{ _('Get') }}
-            </a>
-          </li>
           <li class="nav-item">
             <a class="nav-link active" href="#documents-description" data-toggle="tab"
                id="documents-description-tab" title="{{ _('Description') }}" role="tab"
@@ -164,7 +157,11 @@
     </header>
     <article class="tab-content">
       <section class="tab-pane show active p-4" id="documents-get" role="tabpanel" aria-labelledby="documents-get-tab">
-        {% include('rero_ils/_documents_get.html') %}
+        {%- if record.type == 'book' %}
+          {% include('rero_ils/_documents_get_book.html') %}
+        {%- else %}
+          {% include('rero_ils/_documents_get.html') %}
+        {%- endif %}
       </section>
       <section class="tab-pane row" id="documents-description" role="tabpanel" aria-labelledby="documents-description-tab">
         {% include('rero_ils/_documents_description.html') %}

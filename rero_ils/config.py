@@ -1900,6 +1900,7 @@ indexes = [
     'collections',
     'contributions',
     'documents',
+    'holdings',
     'items',
     'item_types',
     'ill_requests',
@@ -1963,6 +1964,15 @@ RECORDS_REST_SORT_OPTIONS['circ_policies']['name'] = dict(
 )
 RECORDS_REST_DEFAULT_SORT['circ_policies'] = dict(
     query='bestmatch', noquery='name')
+
+# ------ HOLDINGS SORT
+RECORDS_REST_SORT_OPTIONS['holdings']['library_location'] = dict(
+    fields=['library.pid', 'location.pid'],
+    title='Holdings library location sort',
+    default_order='asc'
+)
+RECORDS_REST_DEFAULT_SORT['holdings'] = dict(
+    query='bestmatch', noquery='library_location')
 
 # ------ ITEM TYPES SORT
 RECORDS_REST_SORT_OPTIONS['item_types']['name'] = dict(
