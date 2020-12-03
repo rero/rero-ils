@@ -77,6 +77,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "blocked": false,
+      "keep_history": false,
       "barcode": "2050124311",
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/1"
@@ -111,6 +112,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "2030124287",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/2"
       },
@@ -152,6 +154,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "reroils1",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/3"
       },
@@ -176,6 +179,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "2000000001",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/3"
       },
@@ -200,6 +204,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "10000001",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/1"
       },
@@ -224,6 +229,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "2050124312",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/1"
       },
@@ -248,6 +254,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "kad001",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/1"
       },
@@ -272,6 +279,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "kad002",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/1"
       },
@@ -314,6 +322,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "3050124311",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/4"
       },
@@ -337,6 +346,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "3050124312",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/4"
       },
@@ -668,6 +678,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "920001",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
       },
@@ -692,6 +703,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "920002",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
       },
@@ -716,6 +728,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "920003",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
       },
@@ -740,6 +753,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "920004",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
       },
@@ -764,6 +778,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "920005",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
       },
@@ -788,6 +803,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "920006",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
       },
@@ -812,6 +828,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "920007",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
       },
@@ -836,6 +853,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "920008",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
       },
@@ -860,6 +878,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "920009",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
       },
@@ -884,6 +903,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "920010",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
       },
@@ -908,6 +928,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "920011",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
       },
@@ -932,6 +953,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "920012",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
       },
@@ -956,6 +978,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "920013",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
       },
@@ -979,6 +1002,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "920014",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
       },
@@ -1003,6 +1027,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "920015",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
       },
@@ -1027,6 +1052,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "920016",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
       },
@@ -1051,6 +1077,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "999999",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
       },
@@ -1115,6 +1142,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "cypress-1",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/7"
       },
@@ -1140,6 +1168,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "barcode": "cypress-2",
+      "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/7"
       },
