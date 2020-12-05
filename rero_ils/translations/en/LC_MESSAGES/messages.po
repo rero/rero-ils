@@ -18,15 +18,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-12-01 10:23+0100\n"
-"PO-Revision-Date: 2020-11-28 16:29+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2020-12-05 19:29+0000\n"
+"Last-Translator: Marion Davis <marion.davis@rero.ch>\n"
+"Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/en/>\n"
 "Language: en\n"
-"Language-Team: English <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/en/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.4-dev\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: rero_ils/config.py:127
@@ -8556,7 +8557,7 @@ msgstr "Details"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_macro_profile.html:80
 msgid "Loan started at"
-msgstr "Loan started at"
+msgstr "Loan started on"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_macro_profile.html:97
 msgid "Transactions history"
@@ -8582,7 +8583,7 @@ msgstr "Author(s)"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:24
 msgid "Return date"
-msgstr "Checkin"
+msgstr "Checkin date"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:73
 msgid "Transaction history"
@@ -9753,4 +9754,3 @@ msgstr "Click here to reset your password"
 #~ "results. Once this field is set, a"
 #~ " free formed date of publication can"
 #~ " be added in the next field."
-
