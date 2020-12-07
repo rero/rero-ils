@@ -20,6 +20,7 @@
 from datetime import datetime, timezone
 
 import ciso8601
+from flask import current_app
 
 from .record import ItemRecord
 from ..models import ItemIssueStatus
@@ -141,12 +142,20 @@ class ItemIssue(ItemRecord):
         created_issues = 0
         pids = cls.get_late_serial_holdings_pids()
         for pid in pids:
-            holding = Holding.get_record_by_pid(pid)
-            issue = holding.receive_regular_issue(
-                dbcommit=dbcommit, reindex=reindex)
-            issue['issue']['status'] = ItemIssueStatus.LATE
-            issue = issue.update(issue, dbcommit=dbcommit, reindex=reindex)
-            created_issues += 1
+            try:
+                holding = Holding.get_record_by_pid(pid)
+                issue = holding.receive_regular_issue(
+                    dbcommit=dbcommit, reindex=reindex)
+                issue['issue']['status'] = ItemIssueStatus.LATE
+                issue = issue.update(issue, dbcommit=dbcommit, reindex=reindex)
+                created_issues += 1
+            except Execption as e:
+                current_app.logger.error(
+                    'Can not receive next late expected issue for serial '
+                    'holding: {pid}'.format(
+                        pid=pid
+                    )
+                )
         return created_issues
 
     @classmethod
@@ -229,22 +238,31 @@ class ItemIssue(ItemRecord):
             issues = cls.get_issues_by_status(issue_status=issue_status)
 
         for issue in issues:
-            email = None
-            holding = Holding.get_record_by_pid(issue.holding_pid)
-            vendor = holding.vendor
-            if vendor:
-                email = vendor.order_email
-            max_number_of_claims = holding.max_number_of_claims
-            if email and max_number_of_claims and \
-                    max_number_of_claims > issue.claims_count:
-                if issue.claims_count == 0 and holding.days_before_first_claim:
-                    modified_issues = cls._process_issue_claim(
-                        issue, issue.claims_count,
-                        holding.days_before_first_claim,
-                        modified_issues, dbcommit=dbcommit, reindex=reindex)
-                elif issue.claims_count and holding.days_before_next_claim:
-                    modified_issues = cls._process_issue_claim(
-                        issue, issue.claims_count,
-                        holding.days_before_next_claim,
-                        modified_issues, dbcommit=dbcommit, reindex=reindex)
+            try:
+                email = None
+                holding = Holding.get_record_by_pid(issue.holding_pid)
+                vendor = holding.vendor
+                if vendor:
+                    email = vendor.order_email
+                max_number_of_claims = holding.max_number_of_claims
+                if email and max_number_of_claims and \
+                        max_number_of_claims > issue.claims_count:
+                    if issue.claims_count == 0 and \
+                            holding.days_before_first_claim:
+                        modified_issues = cls._process_issue_claim(
+                            issue, issue.claims_count,
+                            holding.days_before_first_claim,
+                            modified_issues, dbcommit=dbcommit,
+                            reindex=reindex)
+                    elif issue.claims_count and holding.days_before_next_claim:
+                        modified_issues = cls._process_issue_claim(
+                            issue, issue.claims_count,
+                            holding.days_before_next_claim,
+                            modified_issues, dbcommit=dbcommit,
+                            reindex=reindex)
+            except Execption as e:
+                current_app.logger.error(
+                    'Can not create {claim_type} claim for issue: {pid}'
+                    .format(claim_type=claim_type, pid=issue.pid)
+                )
         return modified_issues
