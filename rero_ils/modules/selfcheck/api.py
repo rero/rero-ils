@@ -20,6 +20,7 @@
 
 from flask import current_app
 from flask_babelex import gettext as _
+from invenio_circulation.errors import ItemNotAvailableError
 
 from .utils import authorize_selfckeck_user, check_sip2_module, \
     format_patron_address, get_patron_status, map_item_circulation_status, \
@@ -323,27 +324,40 @@ def selfcheck_checkout(user_pid, institution_id, patron_barcode,
         staffer = Patron.get_record_by_pid(user_pid)
         if staffer.is_librarian:
             patron = Patron.get_patron_by_barcode(barcode=patron_barcode)
-            # TODO: check if item is already checked out (see sip2 renewal_ok)
-            # do checkout
-            result, data = item.checkout(
-                patron_pid=patron.pid,
-                transaction_user_pid=staffer.pid,
-                transaction_library_pid=staffer.library_pid,
-                item_pid=item.pid,
-            )
-            loan_pid = data[LoanAction.CHECKOUT].get('pid')
-            loan = Loan.get_record_by_pid(loan_pid)
-            if loan:
+            with current_app.test_request_context() as ctx:
                 language = kwargs.get('language', current_app.config
                                       .get('BABEL_DEFAULT_LANGUAGE'))
-                with current_app.test_request_context() as ctx:
-                    ctx.babel_locale = language
-                    checkout['checkout'] = True
-                    checkout['due_date'] = loan.get_loan_end_date(
-                        time_format=None, language=language)
-                    # TODO: When is possible, try to return fields:
-                    #       magnetic_media, desensitize
-
+                ctx.babel_locale = language
+                try:
+                    # TODO: check if item is already checked out
+                    #  (see sip2 renewal_ok)
+                    # do checkout
+                    result, data = item.checkout(
+                        patron_pid=patron.pid,
+                        transaction_user_pid=staffer.pid,
+                        transaction_library_pid=staffer.library_pid,
+                        item_pid=item.pid,
+                    )
+                    loan_pid = data[LoanAction.CHECKOUT].get('pid')
+                    loan = Loan.get_record_by_pid(loan_pid)
+                    if loan:
+                        checkout['checkout'] = True
+                        checkout['due_date'] = loan.get_loan_end_date(
+                            time_format=None, language=language)
+                        # checkout note
+                        checkout_note = item.get_note(ItemNoteTypes.CHECKOUT)
+                        if checkout_note:
+                            checkout.get('screen_messages')\
+                                .append(checkout_note)
+                        # TODO: When is possible, try to return fields:
+                        #       magnetic_media, desensitize
+                except ItemNotAvailableError:
+                    checkout.get('screen_messages').append(
+                        _('Checkout impossible: the item is requested by '
+                          'another patron'))
+                except Exception:
+                    checkout.get('screen_messages').append(
+                        _('Error encountered: please contact a librarian'))
         return checkout
 
 
@@ -376,20 +390,28 @@ def selfcheck_checkin(user_pid, institution_id, patron_barcode,
             staffer = Patron.get_record_by_pid(user_pid)
             if staffer.is_librarian:
                 patron = Patron.get_patron_by_barcode(barcode=patron_barcode)
-                # do checkin
-                result, data = item.checkin(
-                    patron_pid=patron.pid,
-                    transaction_user_pid=staffer.pid,
-                    transaction_library_pid=staffer.library_pid,
-                    item_pid=item.pid,
-                )
-                if data[LoanAction.CHECKIN]:
+                with current_app.test_request_context() as ctx:
                     language = kwargs.get('language', current_app.config
                                           .get('BABEL_DEFAULT_LANGUAGE'))
-                    with current_app.test_request_context() as ctx:
-                        ctx.babel_locale = language
-                        checkin['checkin'] = True
-                        # TODO: When is possible, try to return fields:
-                        #       magnetic_media, resensitize
-
+                    ctx.babel_locale = language
+                    try:
+                        # do checkin
+                        result, data = item.checkin(
+                            # patron_pid=patron.pid,
+                            transaction_user_pid=staffer.pid,
+                            transaction_library_pid=staffer.library_pid,
+                            item_pid=item.pid,
+                        )
+                        if data[LoanAction.CHECKIN]:
+                            checkin['checkin'] = True
+                            # checkin note
+                            checkin_note = item.get_note(ItemNoteTypes.CHECKIN)
+                            if checkin_note:
+                                checkin.get('screen_messages')\
+                                    .append(checkin_note)
+                            # TODO: When is possible, try to return fields:
+                            #       magnetic_media, resensitize
+                    except Exception:
+                        checkin.get('screen_messages').append(
+                            _('Error encountered: please contact a librarian'))
         return checkin
