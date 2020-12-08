@@ -50,18 +50,11 @@
                     <b>{{ _('Document') }}</b>
                   </div>
                   <div class="col-lg-10 col-sm-10">
-                    {% if fee.document.title and fee.document.title | count == 1 %}
+                    {% if fee.document.title %}
                       <a
                         id="document-{{ fee.document.pid }}"
                         href="{{ url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=fee.document.pid) }}"
-                      >
-                        {% if fee.document.title[0].mainTitle and fee.document.title[0].mainTitle[0].value %}
-                          {{ fee.document.title[0].mainTitle[0].value }}
-                        {% endif %}
-                        {% if fee.document.title[0].subtitle and fee.document.title[0].subtitle[0].value %}
-                          {{ fee.document.title[0].subtitle[0].value }}
-                        {% endif %}
-                      </a>
+                      >{{ fee.document.title | create_title_text }}</a>
                     {% endif %}
                   </div>
               </div>
