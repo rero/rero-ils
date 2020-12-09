@@ -18,7 +18,7 @@
 """API for manipulating item circulation transactions."""
 
 from copy import deepcopy
-from datetime import datetime, timezone
+from datetime import datetime
 
 from flask import current_app
 from invenio_circulation.api import get_loan_for_item
@@ -166,7 +166,7 @@ class ItemCirculation(ItemRecord):
 
         kwargs['item_pid'] = item_pid_to_object(item.pid)
 
-        kwargs['transaction_date'] = datetime.now(timezone.utc).isoformat()
+        kwargs['transaction_date'] = datetime.utcnow().isoformat()
         kwargs.setdefault('document_pid', item.replace_refs().get(
             'document', {}).get('pid'))
         transaction_location_pid = kwargs.get(
