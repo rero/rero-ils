@@ -18,6 +18,324 @@
 Release notes
 =============
 
+v0.15.0
+-------
+
+This release note includes the changes of the ``rero-ils-ui`` project
+[`link`_] .
+
+User interface
+~~~~~~~~~~~~~~
+
+-  Increase the visibility of the user account menu entry by displaying
+   the full patron name and place it in a green button.
+-  Removes the *menu* menu and replaces it by the language selector. The
+   menu entry is the activated language.
+
+Public interface
+^^^^^^^^^^^^^^^^
+
+-  Fixes the document title in the fee tab of the patron account. This
+   is done through the ``create_title_text`` general function, used in
+   the document detailed view.
+-  Allows the patron to edit the ``keep_history`` setting (see `User
+   management`_) in the RERO ID form.
+-  Adds an edit button in the personal data tab of the patron account to
+   open the RERO ID form.
+-  Groups the holdings of the document detailed view by library.
+-  Removes the holdings structure of the document detailed view layout
+   for book type document.
+-  Align the button vertically below the data.
+
+Professional interface
+^^^^^^^^^^^^^^^^^^^^^^
+
+-  Fixes the permission check when accessing the professional interface,
+   even if an invenio user has not any of the patron, librarian, system
+   librarian role. The message provided to the user is *Permission
+   denied* instead of *Internal server error*.
+-  Improve access control with multiple validation on the logged in
+   user:
+
+   -  Checks its role.
+   -  Checks if the user is attached to at least one library.
+   -  Checks if the user is attached to an invenio user.
+
+-  Extends the use of the switch library menu to the librarian also. In
+   the process, the switch library mechanism has been rewritten.
+
+   -  Ensures the redirection of the library switch occurs after the
+      user confirmation.
+   -  Tests that the user isn’t trying to switch to the already active
+      library.
+
+-  Fixes the link of the fees in the history tab. It rightfully points
+   to the item.
+-  Display item note content instead of the post-it icon in the document
+   detailed view.
+-  Fix dashboard layout after updating *Angular* to version ``11``.
+-  Improves the circulation policy editor:
+
+   -  Moves the button to the top to harmonizes with other editors.
+   -  Corrects fields validation.
+   -  Improves the layout.
+
+-  Improves the document detailed view of the professional interface:
+
+   -  Groups the *duplicate* button with other buttons.
+   -  Applies the outline style to the *duplicate* button.
+   -  Enlarge margins around the abstract to improve readability.
+   -  Spaces out basic information to allow long abstract to be
+      correctly displayed.
+
+-  Improves the generation of menus (using *Angular* services) to
+   leverage further menu addition in the future.
+
+Search
+~~~~~~
+
+-  Corrects the status facet to display the correct value.
+-  Changes ``max_result_window`` for several resources to 20’000 as it
+   is in the ``config.py`` file.
+-  Sets the ``number_of_shards`` to 8 and the ``number_or_replicas`` to
+   1 to improve ES performance.
+
+User management
+~~~~~~~~~~~~~~~
+
+-  Fixes issue on the patron editor when the *patron* role is removed.
+   In this case, the ``expiration_date`` (and other patron related data)
+   should be cleaned to allow the record to be saved.
+-  Allows the patron to decide if the loan history has to be kept or
+   not. Both the patron and the librarian can set this parameter. If the
+   ``keep_history`` parameter is set to false, then the loans are
+   defined as ``to_anonymize``.
+
+   -  Adds a scheduled task to anonymize loans after a patron changed
+      the ``keep_history`` setting.
+   -  Once the ``keep_history`` parameter is set to false, loans are
+      automatically anonymized after updates.
+
+-  Allows a librarian to work by multiple libraries (in the same
+   organisation).
+-  Improves the validation message of the ``username`` field in the user
+   editor.
+-  Allows the second patron email to be the only one. A patron without
+   primary email, can set a secondary email for communication purpose,
+   thus allowing a child to set the parents email for the notifications.
+
+Circulation
+~~~~~~~~~~~
+
+-  Improves wording of the circulation interface:
+
+   -  Rewords the *checkin/checkout* tab into *on loan*.
+   -  Rewords *Circulation* menu entry intro *Checkout/checkin*.
+   -  Adds a title to the checkin view.
+
+-  Allows the librarian to override circulation limitations with an
+   ``override_blocking`` parameter added to the API URL.
+-  Improves the message displayed to the librarian when a circulation
+   policy prevents a checkout operation.
+-  Prevents a blocked patron to renew any active loan.
+-  Allows the librarian to basically manage the ILL requests:
+
+   -  Adds a *ILL requests* menu entry.
+   -  Allows ILL requests to be edited by librarians.
+   -  Allows librarians to create ILL requests on behalf of the patron.
+   -  Allows to update manually the loan status of the ILL requests.
+   -  Adds public and staff notes.
+   -  Provides an ILL requests search view (list) with faceting.
+   -  Allows to search ILL requests by creation and update date.
+
+      -  Adds a brief and detailed view
+
+   -  Fixes translation issues on the user ILL request form.
+
+-  Ensures the transaction end date of a checkout is a library business
+   day. If not, the transaction end date will be updated to the next
+   business day.
+-  Implements support of SIP2 protocol for:
+
+   -  Item information.
+   -  Checkout and checkin actions.
+   -  Display of circulation notes.
+
+-  Changes minimum checkout duration in the circulation policy JSON
+   schema to allow *less than one day* checkout.
+-  Improves wordings of the circulation interface:
+
+   -  Renames the *checkin/checkout* tab into *on loan*.
+   -  Renames *Circulation* menu entry into *Checkout/checkin*.
+   -  Adds a title to the checkin view.
+
+-  Adds counters on the tab title of the patron account as seen in the
+   circulation interface. The counters are dynamically updated.
+-  Allows checkout with fixed due date:
+
+   -  Adds a *settings* button in the circulation interface which
+      provides to the librarian options to be applied on checkout
+      operation for the current displayed patron:
+
+      -  Fixed checkout due date selected through a date picker.
+      -  Override blocking to ignore limits or circulation policies.
+
+Metadata
+~~~~~~~~
+
+-  Improves title and description of dates in provision activity field.
+-  Fixes when the same ``partOf`` field is generated twice.
+-  Implements local fields:
+
+   -  Creates a new resource that can be attached to document, holdings
+      and item.
+
+-  Adds a ``deletion_date`` in the contribution JSON schema to track
+   deletion of MEF record.
+
+Acquisition
+~~~~~~~~~~~
+
+-  Removes currency codes from the string to be translated.
+-  Fixes the task processing serial claims to prevent it to stop when
+   errors are encountered. Instead, the task catches and log the error.
+-  Make the acquisition default date optional for new issue item.
+
+API
+~~~
+
+-  Allows to sort notifications.
+
+Tests
+~~~~~
+
+-  Updates Cypress tests after RERO ILS ``v0.14.0``.
+-  Moves ``rero-ils-ui`` CI checks from Travis to GitHub Actions.
+
+Instance
+~~~~~~~~
+
+-  Updates dependencies after RERO ILS ``v0.14.1``.
+-  Updates ``lxml`` to version ``4.6.2``.
+-  Updates ``ini`` to ``1.3.8``.
+-  Updates ``invenio-circulation`` to ``v1.0.0a29``.
+-  Update *Angular* from version ``8`` to version ``11``.
+-  Update ``ngx-bootstrap``, ``ngx-formly``, etc.
+-  Moves assets management to webpack:
+
+   -  Removes ``npm utils`` from the ``bootstrap`` script.
+   -  Removes ``angularjs`` translation extraction.
+   -  Moves all theme related fields to a specific directory.
+   -  Removes all bundles files.
+   -  Removes all ``INVENIO_SEARCH_UI`` useless configuration variables.
+   -  Customizes the *Angular* application inclusion to avoid double
+      optimisation.
+   -  Removes the *JS* script to store the last HTML tab visited in the
+      document detailed view.
+   -  Removes ``angularjs`` dependencies.
+   -  Uses simple code to generate thumbnails in the document detailed
+      view.
+   -  Reduces the docker image size by cleaning several cache files.
+
+-  Fixes GitHub actions for continuous integration by setting
+   ``invenio-celery`` to version ``1.2.1`` because ``1.2.2`` version
+   causes issues with ``pytest-celery``.
+-  Fixes ``russian_dolls`` script to use webpack integration instead of
+   invenio bundles.
+-  Implements lazy loading for patron fixture to improve performance of
+   patron records importation (setup).
+-  Imports vendor before holdings fixtures because holdings have
+   ``$ref`` reference to vendors.
+-  Implements parallel indexing during setup.
+
+Documentation
+~~~~~~~~~~~~~
+
+-  Adds a check box about Cypress tests in the GitHub PR template.
+-  Improves GitHub issue template.
+
+Issues
+~~~~~~
+
+-  `#713`_: Static files on production delivers more files than
+   expected, ie. ``package-lock.json``.
+-  `#1242`_: Same ``partOf`` field generated twice.
+-  `#1280`_: Put better labels for checkin/checkout pages.
+-  `#1281`_: Put better labels for checkin/checkout pages.
+-  `#1305`_: Labels of the circulation policy editor should be improved.
+-  `#1320`_: ILL request form is not translated.
+-  `#1363`_: The application section of the circulation policy editor
+   does not behave as expected.
+-  `#1363`_: Some fields of the circulation policy editor can have
+   negative values or be set to zero.
+-  `#1383`_: The manual blocking of a user should block also the
+   renewals.
+-  `#1394`_: The tab displayed when opening a detailed view seems to be
+   random.
+-  `#1399`_: Holdings should be grouped by libraries.
+-  `#1400`_: *Show more* button wrongly displayed and the counter
+   display the variable instead of the value.
+-  `#1424`_: Fields ``startDate`` and ``endDate`` in
+   ``provisionActivity`` title and description should be improved.
+-  `#1449`_: The *new acquisition* toggle should be disabled by default
+   for issue items.
+-  `#1466`_: Language menu in the public interface should not be *Menu*.
+-  `#1470`_: Error message when checking out a *no checkout* item should
+   be useful to the librarian.
+-  `#1482`_: The counter of the *to pickup* tab is not refreshed
+   automatically.
+-  `#1487`_: Fee history: the link of the item is wrong.
+-  `#1488`_: Series statement, color content, mode of issuance should be
+   translated on professional interface.
+-  `#1499`_: In the patron account, the email should not depend on the
+   communication channel.
+-  `#1501`_: Notes on items should be displayed in professional document
+   detailed view.
+-  `#1507`_: Status facet is not working in the inventory list.
+-  `#1508`_: Loading the professional interface with the role editor
+   should display a permission error.
+-  `#1510`_: Changing the affiliation library of a librarian makes the
+   editor spin for ever.
+-  `#1515`_: Counter is missing in the history tab of the patron account
+   in the professional interface (circulation interface).
+-  `#1519`_: Do not expose currency codes to the translation workflow.
+-  `#1543`_: User profile: sometimes the document field of the overdue
+   in the fees tab is empty.
+-  `#1549`_: Notification history is not in the chronological order in
+   the circulation interface (item information expanded).
+-  `#1562`_: Holdings detailed view page layout is broken.
+
+.. _link: https://github.com/rero/rero-ils-ui
+.. _User management: user-management
+.. _#713: https://github.com/rero/rero-ils/issues/713
+.. _#1242: https://github.com/rero/rero-ils/issues/1399
+.. _#1280: https://github.com/rero/rero-ils/issues/1280
+.. _#1281: https://github.com/rero/rero-ils/issues/1280
+.. _#1305: https://github.com/rero/rero-ils/issues/1305
+.. _#1320: https://github.com/rero/rero-ils/issues/1320
+.. _#1363: https://github.com/rero/rero-ils/issues/1363
+.. _#1383: https://github.com/rero/rero-ils/issues/1383
+.. _#1394: https://github.com/rero/rero-ils/issues/1394
+.. _#1399: https://github.com/rero/rero-ils/issues/1399
+.. _#1400: https://github.com/rero/rero-ils/issues/1400
+.. _#1424: https://github.com/rero/rero-ils/issues/1424
+.. _#1449: https://github.com/rero/rero-ils/issues/1449
+.. _#1466: https://github.com/rero/rero-ils/issues/1466
+.. _#1470: https://github.com/rero/rero-ils/issues/1470
+.. _#1482: https://github.com/rero/rero-ils/issues/1482
+.. _#1487: https://github.com/rero/rero-ils/issues/1487
+.. _#1488: https://github.com/rero/rero-ils/issues/1488
+.. _#1499: https://github.com/rero/rero-ils/issues/1499
+.. _#1501: https://github.com/rero/rero-ils/issues/1501
+.. _#1507: https://github.com/rero/rero-ils/issues/1507
+.. _#1508: https://github.com/rero/rero-ils/issues/1508
+.. _#1510: https://github.com/rero/rero-ils/issues/1510
+.. _#1515: https://github.com/rero/rero-ils/issues/1515
+.. _#1519: https://github.com/rero/rero-ils/issues/1519
+.. _#1543: https://github.com/rero/rero-ils/issues/1543
+.. _#1549: https://github.com/rero/rero-ils/issues/1549
+.. _#1562: https://github.com/rero/rero-ils/issues/1562
+
 v0.14.1
 -------
 
@@ -49,8 +367,6 @@ Metadata
 -  Renames the RERO ILS *person* module into *contribution* module.
 -  Fixes the missing content of the item notes of the item detailed view
    of the professional interface.
-
--  Acquisition
 
 -  Improves the holdings editor to ensure the pattern preview is more
    robust when an invalid pattern configuration syntax is occurring.
@@ -134,7 +450,7 @@ Professional interface
 
 -  Displays the new item note categories (see the `metadata`_ section),
    with an icon to identify public note.
--  Orders the requests in the modal to edit the request queue on an item
+-  Sorts the requests in the modal to edit the request queue on an item
    by creation date.
 -  Updates the patron type detailed view to display the circulation
    restrictions (see `circulation`_ section).
@@ -211,8 +527,8 @@ Metadata
    -  *acquisition note*.
 
 -  Renames the *public note* to *general note*.
--  Adds the ``enumerationAndChronology`` filed to all type of items
-   (issue and others).
+-  Adds the ``enumerationAndChronology`` field to all type of items (issue and
+   others).
 -  Renames person module into contribution module.
 -  Sorts the contribution roles in the document editor (with
    ``selectWithSort`` form option).
@@ -503,7 +819,7 @@ Professional interface
 
 -  Adds a new resource to allow the librarian and the system librarian
    to create templates for several resources such as document,
-   holdings, item, patron. The template JSON has a non validated filed,
+   holdings, item, patron. The template JSON has a non validated field,
    labelled `data`, that contains the pre-validated data.
    A template can be private, thus available only to its
    creator, or public and available to all librarians of the related
@@ -709,7 +1025,7 @@ This release note includes the changes of the ``rero-ils-ui`` project
 User interface
 ~~~~~~~~~~~~~~
 
--  Replaces the legacy ``authors`` by ``contribution`` filed in the
+-  Replaces the legacy ``authors`` by ``contribution`` field in the
    search results view (brief view), detailed view and the loan
    transaction history of the public and professional interface. In the same
    move, the search input in the document editor, that allows to link a
@@ -825,7 +1141,7 @@ Circulation
    ``invenio-circulation`` resource. Simplifies the ``search_factory``
    method. Fixes an error in the loan ``search_factory`` method when the
    user has both ``patron`` and ``librarian`` roles.
--  Implements the patron information in the ``invenio-sip2`` module`_, allowing
+-  Implements the patron information in the ``invenio-sip2`` module, allowing
    patrons to access their information through the selfcheck machine: checked
    out items, requests, overdues, fees…
 
@@ -1671,8 +1987,8 @@ User management
 -  Implements scheduled tasks to:
 
    -  Clean old subscriptions.
-   -  Create new subscriptions for patrons linked to a patron type with
-     a subscription but that are missing the subscription fee.
+   -  Create new subscriptions for patrons linked to a patron type with a
+      subscription but that are missing the subscription fee.
 
 -  Displays an alert to the patron, in the patron profile for pending
    subscription.
