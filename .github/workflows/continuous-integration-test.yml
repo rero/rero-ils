@@ -7,7 +7,7 @@ jobs:
     strategy:
       matrix:
         tests: ['', 'external']
-        dependencies: ['locked', 'deploy']
+        dependencies: ['dev', 'deploy']
     steps:
     # - name: Cancel Previous Runs
     #   uses: styfle/cancel-workflow-action@0.5.0
@@ -44,11 +44,10 @@ jobs:
         key: ${{ runner.os }}-pip-venv-${{ hashFiles('**/poetry.lock') }}
 
     - name: Bootstrap
-      if: ${{ matrix.dependencies == 'locked' }}
+      if: ${{ matrix.dependencies == 'dev' }}
       run: |
         poetry run bootstrap --ci
         poetry install --no-root --extras sip2
-        poetry run pip install --upgrade pip
         poetry run pip install --upgrade coveralls
 
     - name: Bootstrap deploy
@@ -56,7 +55,6 @@ jobs:
       run: |
         poetry run bootstrap --ci --deploy E2E=yes
         poetry install --no-root --extras sip2
-        poetry run pip install --upgrade pip
         poetry run pip install --upgrade coveralls
 
     - name: Run Test
@@ -82,7 +80,7 @@ jobs:
     #       { "summary": "TEST EXTERNAL FAILED!!!" }
 
     - name: Upload Coverage ${{ matrix.tests }}
-      if: ${{ matrix.dependencies == 'locked' }}
+      if: ${{ matrix.dependencies == 'dev' }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         COVERALLS_FLAG_NAME: test-${{ matrix.tests }}
