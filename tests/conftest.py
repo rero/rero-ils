@@ -146,25 +146,29 @@ def can_delete_json_header():
 
 
 @pytest.fixture(scope='module')
+def celery_config_ext(celery_config_ext):
+    celery_config_ext['CELERY_BROKER_URL'] = 'memory://'
+    celery_config_ext['CELERY_RESULT_BACKEND'] = 'cache'
+    celery_config_ext['CELERY_REDIS_SCHEDULER_URL'] = 'cache'
+    # celery_config_ext['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/2'
+    # celery_config_ext[
+    #    'CELERY_REDIS_SCHEDULER_URL'] = 'redis://localhost:6379/4'
+    return celery_config_ext
+
+
+@pytest.fixture(scope='module')
 def app_config(app_config):
     """Create temporary instance dir for each test."""
     app_config['BROKER_URL'] = 'memory://'
-    app_config['CELERY_BROKER_URL'] = 'memory://'
     app_config['RATELIMIT_STORAGE_URL'] = 'memory://'
     app_config['CACHE_TYPE'] = 'simple'
     app_config['SEARCH_ELASTIC_HOSTS'] = None
     app_config['DB_VERSIONING'] = True
-    app_config['CELERY_CACHE_BACKEND'] = "memory"
-    app_config['CELERY_RESULT_BACKEND'] = "cache"
-    app_config['CELERY_TASK_ALWAYS_EAGER'] = True
-    app_config['CELERY_TASK_EAGER_PROPAGATES'] = True
     help_test_dir = join(dirname(__file__), 'data', 'help')
     app_config['WIKI_CONTENT_DIR'] = help_test_dir
     app_config['WIKI_UPLOAD_FOLDER'] = join(help_test_dir, 'files')
     app_config['ACCOUNTS_SESSION_REDIS_URL'] = 'redis://localhost:6379/1'
     app_config['CACHE_REDIS_URL'] = 'redis://localhost:6379/0'
-    app_config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/2'
-    app_config['CELERY_REDIS_SCHEDULER_URL'] = 'redis://localhost:6379/4'
     app_config['RATELIMIT_STORAGE_URL'] = 'redis://localhost:6379/3'
     app_config['WTF_CSRF_ENABLED'] = False
     return app_config
