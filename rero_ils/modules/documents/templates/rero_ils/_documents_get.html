@@ -28,9 +28,11 @@
   {%- if holdings %}
   <!-- User login -->
   {%- if current_user.is_anonymous %}
-  <a class="btn btn-primary btn-sm" href="{{ url_for_security('login') + "?next=" + request.path }}">
-    <i class="fa fa-sign-in"></i> {{ _('Login (to see request options)') }}
-  </a>
+  <div class="d-flex flex-row-reverse">
+    <a class="btn btn-primary btn-sm" href="{{ url_for_security('login') + "?next=" + request.path }}">
+      <i class="fa fa-sign-in"></i> {{ _('Login (to see request options)') }}
+    </a>
+  </div>
   {%- endif %}
   {%- for holding in holdings %}
   {% set items = holding.get_items | sort(attribute='enumerationAndChronology', reverse=True) %}
