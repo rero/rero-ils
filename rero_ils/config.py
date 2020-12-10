@@ -1904,11 +1904,12 @@ indexes = [
     'local_fields',
     'loans',
     'locations',
+    'notifications',
     'organisations',
     'patrons',
     'patron_types',
-    'vendors',
-    'templates'
+    'templates',
+    'vendors'
 ]
 
 RECORDS_REST_SORT_OPTIONS = dict()
