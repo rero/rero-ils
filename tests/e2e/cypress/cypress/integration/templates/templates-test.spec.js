@@ -35,10 +35,9 @@ describe('Templates: Create and use template for a document', function() {
 
   before('Login as librarian', function() {
     cy.login(this.users.librarians.spock.email, this.common.uniquePwd)
-    cy.server();
-    cy.route({method: 'GET', url:'/api/templates/?q=*'}).as('api_template_search');
-    cy.route({method: 'GET', url:'**/professional/records/document**)'}).as('document_editor');
-    cy.route({method: 'POST', url:'/api/templates/'}).as('api_template_create');
+    cy.intercept('GET', '**/professional/records/document**)').as('documentEditor');
+    cy.intercept('POST', '/api/templates/').as('createTemplate');
+    cy.intercept('GET', '/schemaform/documents').as('getDocumentSchemaform');
   });
 
   after('Delete resources and logout', function() {
@@ -50,35 +49,33 @@ describe('Templates: Create and use template for a document', function() {
     const template = this.templates.templateA
 
     // Go to document editor
-    cy.visit('/professional/records/documents/new')
-    cy.wait(2000)
+    cy.visit('/professional/records/documents/new');
+    cy.wait('@getDocumentSchemaform');
     // Fill some fields
-    cy.get('ng-core-editor #type').select(template.document.type)
-    cy.get('#title-0-mainTitle-0-value').type(template.document.title.mainTitle, {force: true})
+    cy.get('ng-core-editor #type').select(template.document.type);
+    cy.get('#title-0-mainTitle-0-value').type(template.document.title.mainTitle, {force: true});
     // Save as a template
-    cy.get('#editor-save-button-split').click()
+    cy.get('#editor-save-button-split').click();
     cy.get('#editor-save-button-dropdown-split')
       .find('li a.dropdown-item:nth-child(1)')  // TODO: Find a better way to retrieve the correct link to click
-      .click()
+      .click();
     // Confirm save
-    cy.get('.modal-content #name').type(this.templateName)
-    cy.get('.modal-content button:submit').click()
-    cy.wait('@api_template_create')
+    cy.get('.modal-content #name').type(this.templateName);
+    cy.get('.modal-content button:submit').click();
+    cy.wait('@createTemplate');
     // Assert that the template was saved
-    cy.url().should('include', 'records/templates/detail')
+    cy.url().should('include', 'records/templates/detail');
 
     // Go back to document editor
-    cy.visit('/professional/records/documents/new')
-    cy.wait(2000)
+    cy.visit('/professional/records/documents/new');
+    cy.wait('@getDocumentSchemaform');
     // Load template
-    cy.get('#editor-load-template-button').click()
-    cy.wait('@api_template_search')
-    cy.get('.modal-content #template').select(this.templateName)
-    cy.get('.modal-content button:submit').click()
+    cy.get('#editor-load-template-button').click();
+    cy.get('.modal-content #template').select(this.templateName);
+    cy.get('.modal-content button:submit').click(),
     // Assert that the template was correctly loaded
-    // cy.url(5000).should('include', '?source=templates&pid=')
-    cy.get('ng-core-editor #type').should('have.value', template.document.type_value)
-    cy.get('#title-0-mainTitle-0-value').should('have.value', template.document.title.mainTitle)
-    cy.log('Template loaded successfully !')
+    cy.get('ng-core-editor #type').should('have.value', template.document.type_value);
+    cy.get('#title-0-mainTitle-0-value').should('have.value', template.document.title.mainTitle);
+    cy.log('Template loaded successfully !');
   })
 })

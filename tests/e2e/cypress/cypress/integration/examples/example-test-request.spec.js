@@ -47,7 +47,6 @@ describe('Example: librarian request', function() {
 
   before('Login as a professional and create an item', function() {
     console.log('before');
-    cy.server();
     // Login as librarian
     cy.adminLogin(this.users.librarians.spock.email, this.common.uniquePwd);
     // Create a document
@@ -80,9 +79,8 @@ describe('Example: librarian request', function() {
   // Is used to restore data as they were before the test
   after('Clean data: remove request, item and document', function() {
     console.log('after');
-    cy.server();
-    cy.route('POST', '/api/item/cancel_item_request').as('cancelRequest');
-    cy.route({method: 'DELETE', url: '/api/items/*'}).as('deleteItem');
+    cy.intercept('POST', '/api/item/cancel_item_request').as('cancelRequest');
+    cy.intercept({method: 'DELETE', url: '/api/items/*'}).as('deleteItem');
     // Go to item detail view
     cy.goToProfessionalDocumentDetailView(documentPid);
     cy.get('#item-' + this.itemBarcode + ' div a[name=barcode]').click();
@@ -102,20 +100,13 @@ describe('Example: librarian request', function() {
   // First test
   it('First test: a librarian makes a request for a patron', function() {
     console.log('first test');
-    cy.route('/api/item/*/can_request?library_pid='
-      + this.users.librarians.spock.libraryPid
-      + '&patron_barcode='
-      + this.users.patrons.james.patron.barcode)
-      .as('getCanRequest');
-      cy.route('POST', '/api/item/request').as('createRequest');
+    cy.intercept('POST', '/api/item/request').as('createRequest');
     // Go to document detailed view
     cy.goToProfessionalDocumentDetailView(documentPid);
     // Create a request
     cy.get('#item-' + this.itemBarcode + ' > [name=buttons] > [name=request]').click();
     cy.get('#patronBarcode').type(this.users.patrons.james.patron.barcode);
     cy.get('#pickupPid').select(this.items.vulcanDefault.pickupName);
-    // Wait for the button unabled
-    cy.wait('@getCanRequest');
     cy.get('#new-request-button').click();
     cy.wait('@createRequest');
     // Go to item detail view

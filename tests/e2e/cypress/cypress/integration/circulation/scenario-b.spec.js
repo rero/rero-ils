@@ -102,7 +102,7 @@ describe('Circulation scenario B: standard loan with transit', function() {
   it('2. A librarian validates the request', function() {
     // Leonard validates James' request
     // Create server to watch api requests
-    cy.server();
+    cy.intercept('POST', '/api/item/validate_request').as('validateRequest');
     // Login as librarian (Leonard)
     cy.adminLogin(this.users.librarians.leonard.email, this.common.uniquePwd);
     // Go to requests list
@@ -112,6 +112,7 @@ describe('Circulation scenario B: standard loan with transit', function() {
     cy.get('#request-' + this.itemBarcode + ' [name="barcode"]').should('contain', this.itemBarcode);
     // Enter the barcode and validate
     cy.get('#search').type(this.itemBarcode).type('{enter}');
+    cy.wait('@validateRequest');
     // Go to document detail view
     cy.goToProfessionalDocumentDetailView(documentPid);
     // Check that the item is in transit

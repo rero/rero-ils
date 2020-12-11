@@ -59,10 +59,7 @@ describe('Create and edit a circulation policy', function() {
   });
 
   it('Creates an extended circulation policy', function() {
-    cy.server();
-    cy.route('/api/item_types/*').as('getItemTypes');
-    cy.route('/api/patron_types/*').as('getpatronTypes');
-    cy.route('POST', 'api/circ_policies').as('createCiPo');
+    cy.intercept('POST', 'api/circ_policies').as('createCiPo');
     // Go to ci-po editor
     cy.get('#admin-and-monitoring-menu').click();
     cy.get('#circulation-policies-menu').click();
@@ -79,7 +76,6 @@ describe('Create and edit a circulation policy', function() {
       cipoPid = res.body.id;
       cy.log('Circulation policy #' + cipoPid + ' created');
     });
-    cy.wait(['@getItemTypes', '@getpatronTypes']);
     cy.checkCipoCreated(this.cipo.extended, this.patronTypes.standard.pid, this.itemTypes.on_site.pid);
   });
 });

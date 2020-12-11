@@ -46,10 +46,7 @@ describe('Create a document', function() {
   });
 
   it('Creates a document with only essential fields', function() {
-    cy.server();
-    // The json schema form is loaded 2 times, which can make this test fail. This should be corrected.
-    // See https://github.com/rero/rero-ils/issues/1531
-    cy.route('/schemaform/documents').as('documentSchemaform');
+    cy.intercept('/schemaform/documents').as('documentSchemaform');
     // Go to document editor
     cy.visit('/professional/records/documents/new');
     // Populate form with simple record

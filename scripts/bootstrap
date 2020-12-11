@@ -84,7 +84,7 @@ do
       tgz_file=$2
       if [[ ! -f "${tgz_file}" ]]
       then
-        error_msg+exit "package tgz file dos not exist: ${tgz_file}"
+        error_msg+exit "package tgz file does not exist: ${tgz_file}"
       fi
       shift ;;
     -s|--sip2)

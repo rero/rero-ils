@@ -70,9 +70,35 @@ msg "PROGRAM: ${PROGRAM}"
 set -e
 export PATH=${PATH}:${DIR}/../tests/e2e/cypress/node_modules/.bin/
 
+# Manage errors with given options
+if ! options=$(getopt -o r -l reinstall -- "$@"); then
+  error_msg+exit "Error in given options!"
+fi
+
+# Manage options
+update=false
+while test $# -gt 0
+do
+  case "$1" in
+    -r|--reinstall)
+      # Update cypress to package.json version
+      update=true ;;
+    (--) shift; break;;
+    (*) break;;
+  esac
+  shift
+done
+
+# Install cypress if not already done
 command_exists "cypress" || install_cypress
 export CYPRESS_CMD=`which cypress` \
   && info_msg "Found cypress: $(which cypress)"
 
+# Update cypress with -r parameter
+if $update ; then
+  npm ci --prefix "tests/e2e/cypress"
+fi
+
+# Run cypress tests
 info_msg "Run e2e tests with cypress"
 ${CYPRESS_CMD} run -P ./tests/e2e/cypress
