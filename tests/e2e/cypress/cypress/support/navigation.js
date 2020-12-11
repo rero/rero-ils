@@ -38,8 +38,7 @@ Cypress.Commands.add("goToPublicDocumentDetailView", (pid, viewcode) => {
 });
 
 Cypress.Commands.add("goToProfessionalDocumentDetailView", (pid) => {
-  cy.server();
-  cy.route('/api/permissions/documents/' + pid).as('getPermission');
+  cy.intercept('/api/permissions/documents/' + pid).as('getPermission');
   cy.visit('/professional/records/documents/detail/' + pid);
   cy.wait('@getPermission');
 });
