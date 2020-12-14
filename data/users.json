@@ -1053,7 +1053,7 @@
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
       },
-      "communication_channel": "email",
+      "communication_channel": "mail",
       "communication_language": "ita"
     }
   },

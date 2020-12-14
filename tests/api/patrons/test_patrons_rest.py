@@ -357,7 +357,9 @@ def test_patrons_post_without_email(client, lib_martigny,
     # Create record / POST
     del patron_data['pid']
     del patron_data['email']
-    # patron_data['email'] = 'test_librarian@rero.ch'
+    patron_data['patron']['communication_channel'] = 'mail'
+    patron_data['patron'][
+        'additional_communication_email'] = 'test@rero.ch'
     patron_data['username'] = 'test_patron'
 
     res, _ = postdata(

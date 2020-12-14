@@ -110,9 +110,9 @@ class Patron(IlsRecord):
         super(Patron, self).validate(**kwargs)
         # We only like to run pids_exist_check if validation_message is True
         # and not a string with error from extended_validation
+        validation_message = True
         if self.pid_check:
             from ..utils import pids_exists_in_data
-            validation_message = True
             if self.is_patron:
                 validation_message = pids_exists_in_data(
                     info='{pid_type} ({pid})'.format(
@@ -153,8 +153,22 @@ class Patron(IlsRecord):
                 if subscription_validation_message is not True:
                     validation_message = subscription_validation_message
                     break
+        self._validate_emails()
         if validation_message is not True:
             raise RecordValidationError(validation_message)
+
+    def _validate_emails(self):
+        """Check if emails are required.
+
+        Check if the user has at least one email if the communication channel
+        is email.
+        """
+        patron = self.get('patron')
+        if patron and patron.get('communication_channel') == 'email'\
+           and self.get('email') is None\
+           and patron.get('additional_communication_email') is None:
+            raise RecordValidationError('At least one email should be defined '
+                                        'for an email communication channel.')
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,

@@ -658,6 +658,7 @@ def patron_sion_without_email(
     del patron_sion_data['email']
     patron_sion_data['pid'] = 'ptrn10wthoutemail'
     patron_sion_data['username'] = 'withoutemail'
+    patron_sion_data['patron']['communication_channel'] = 'mail'
     ptrn = Patron.create(
         data=patron_sion_data,
         delete_pid=False,
