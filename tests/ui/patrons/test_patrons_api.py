@@ -173,8 +173,19 @@ def test_patron_create_without_email(app, roles, patron_type_children_martigny,
     # no data has been created
     mailbox.clear()
 
-    # create a patron without email
     del patron_martigny_data_tmp['email']
+
+    # comminication channel require at least one email
+    patron_martigny_data_tmp['patron']['communication_channel'] = 'email'
+    with pytest.raises(RecordValidationError):
+        ptrn = Patron.create(
+            patron_martigny_data_tmp,
+            dbcommit=True,
+            delete_pid=True
+        )
+
+    # create a patron without email
+    patron_martigny_data_tmp['patron']['communication_channel'] = 'mail'
     ptrn = Patron.create(
         patron_martigny_data_tmp,
         dbcommit=True,

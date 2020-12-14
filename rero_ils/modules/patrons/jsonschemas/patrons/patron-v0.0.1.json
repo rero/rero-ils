@@ -80,7 +80,7 @@
       "minLength": 6,
       "form": {
         "expressionProperties": {
-          "templateOptions.required": "field.parent.model.roles.some(v => (v === 'librarian' || v === 'system_librarian')) || field.parent.model.patron.communication_channel === 'email'"
+          "templateOptions.required": "field.parent.model.roles.some(v => (v === 'librarian' || v === 'system_librarian')) || (field.parent.model.patron.communication_channel === 'email' && !field.parent.model.patron.additional_communication_email)"
         },
         "validation": {
           "validators": {
@@ -246,7 +246,7 @@
         },
         "communication_channel": {
           "title": "Communication channel",
-          "description": "For the email channel, the user must have an e-mail. Otherwise, no notifications will be sent.",
+          "description": "For the email channel, the user must have an e-mail or an additional e-mail.",
           "type": "string",
           "enum": [
             "email",
