@@ -131,8 +131,8 @@ class Import(object):
         :param id: id for the record
         :param indexd: index of the record
         """
-        type = record.get('type')
-        self.calculate_aggregations_add('type', type, id)
+        document_type = record.get('type')
+        self.calculate_aggregations_add('document_type', document_type, id)
 
         provision_activitys = record.get('provisionActivity', [])
         for provision_activity in provision_activitys:
@@ -141,8 +141,13 @@ class Import(object):
 
         contribution = record.get('contribution', [])
         for agent in contribution:
-            name = agent.get('name')
-            self.calculate_aggregations_add('contribution', name, id)
+            name = agent.get('agent', {}).get('preferred_name')
+            self.calculate_aggregations_add('author', name, id)
+
+        languages = record.get('language', [])
+        for language in languages:
+            lang = language.get('value')
+            self.calculate_aggregations_add('language', lang, id)
 
     def create_aggregations(self, results):
         """Create aggregations.
@@ -151,9 +156,10 @@ class Import(object):
         :return: dictionary with results and added aggregations
         """
         self.aggregations_creation = {
-            'type': {},
-            'contribution': {},
-            'year': {}
+            'document_type': {},
+            'author': {},
+            'year': {},
+            'language': {}
         }
         results['aggregations'] = {}
         for data in results['hits']['hits']:
