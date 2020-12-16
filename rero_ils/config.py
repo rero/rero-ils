@@ -157,7 +157,6 @@ SECURITY_REGISTER_USER_TEMPLATE = 'rero_ils/register_user.html'
 SECURITY_FORGOT_PASSWORD_TEMPLATE = 'rero_ils/forgot_password.html'
 SECURITY_RESET_PASSWORD_TEMPLATE = 'rero_ils/reset_password.html'
 RERO_ILS_SEARCH_TEMPLATE = 'rero_ils/search.html'
-RERO_ILS_COLLECTIONS_TEMPLATE = 'rero_ils/collections.html'
 
 # Theme configuration
 # ===================
