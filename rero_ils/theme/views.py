@@ -112,11 +112,12 @@ def init_menu_tools():
     item = current_menu.submenu('main.tool.collections')
     rero_register(
         item,
-        endpoint='rero_ils.collections',
+        endpoint='rero_ils.search',
         endpoint_arguments_constructor=lambda: dict(
             viewcode=request.view_args.get(
                 'viewcode', current_app.config.get(
-                    'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))
+                    'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE')),
+            recordType='collections'
         ),
         visible_when=lambda: current_app.config.get(
             'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'
@@ -393,15 +394,6 @@ def search(viewcode, recordType):
     """Search page ui."""
     return render_template(current_app.config.get('RERO_ILS_SEARCH_TEMPLATE'),
                            viewcode=viewcode)
-
-
-@blueprint.route('/<string:viewcode>/search/collections')
-@check_organisation_viewcode
-def collections(viewcode):
-    """Collections page ui."""
-    return render_template(current_app.config.get(
-        'RERO_ILS_COLLECTIONS_TEMPLATE'
-        ), viewcode=viewcode)
 
 
 @blueprint.app_template_filter()
