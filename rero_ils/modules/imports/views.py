@@ -102,6 +102,14 @@ class ImportsListResource(ContentNegotiatedMethodView):
                 key=filter_author
             )
             results = do_import.filter_records(results, ids)
+        filter_language = flask_request.args.get('language')
+        if filter_language:
+            ids = do_import.get_ids_for_aggregation(
+                results=results,
+                aggregation='language',
+                key=filter_language
+            )
+            results = do_import.filter_records(results, ids)
         return None, results
 
 

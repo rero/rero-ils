@@ -100,7 +100,7 @@ if [[ -z "${VIRTUAL_ENV}" ]]; then
 fi
 
 # options may be followed by one colon to indicate they have a required argument
-if ! options=$(getopt -o dCsbclptmwkD:i: -l deployment,contributions,create_items_holdings_small,create_items_holdings_big,lazy,pursue,time,es-mapping,warnings,enqueue,data_path:index_parallel: -- "$@")
+if ! options=$(getopt -o dCsbclptmwkD:i: -l deployment,contributions,create_items_holdings_small,create_items_holdings_big,lazy,pursue,time,es-mapping,warnings,enqueue,data_path:,index_parallel: -- "$@")
 then
     # something went wrong, getopt will put out an error message for us
     exit 1

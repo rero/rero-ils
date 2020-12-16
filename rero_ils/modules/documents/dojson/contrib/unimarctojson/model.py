@@ -893,12 +893,18 @@ def unimarc_series_statement(self, key, value):
         if blob_key in subfield_selection:
             if blob_key == 'a':
                 fist_a_value = blob_value
-                subfield_selection.remove('a')
+                try:
+                    subfield_selection.remove('a')
+                except KeyError:
+                    pass
             elif blob_key == 'e':
                 fist_a_value += ': ' + blob_value
             elif blob_key == 'i':
                 # we keep on the $e associeted to the $a
-                subfield_selection.remove('e')
+                try:
+                    subfield_selection.remove('e')
+                except KeyError:
+                    pass
                 if fist_a_value:
                     new_data.append(('a', fist_a_value))
                     for v_value in pending_v_values:
