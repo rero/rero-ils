@@ -17,8 +17,6 @@
 
 #}
 {%- block javascript %}
-{{ webpack['manifest.js']}}
-{{ webpack['vendor.js']}}
 {{ webpack['reroils_public.js']}}
 {{ node_assets('@rero/rero-ils-ui/dist/search-bar', patterns=['polyfills-es5*.js','main-es5*.js'], tags='nomodule defer') }}
 {{ node_assets('@rero/rero-ils-ui/dist/search-bar', patterns=['polyfills-es2015*.js','main-es2015*.js'], tags='type="module"') }}

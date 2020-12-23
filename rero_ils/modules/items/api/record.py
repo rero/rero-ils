@@ -80,7 +80,7 @@ class ItemRecord(IlsRecord):
         """Create item record."""
         cls._item_build_org_ref(data)
         data = cls._prepare_item_record(data=data, mode='create')
-        record = super(ItemRecord, cls).create(
+        record = super().create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
         cls._increment_next_prediction_for_holding(
             record, dbcommit=dbcommit, reindex=reindex)
@@ -90,13 +90,13 @@ class ItemRecord(IlsRecord):
         """Update an item record.
 
         :param data: The record to update.
-        :param dbcommit: boolean to commit the record to the database or not.
+        :param dbcommit: boolean to   the record to the database or not.
         :param reindex: boolean to reindex the record or not.
         :return: The updated item record.
         """
         data = self._set_issue_status_date(data)
         data = self._prepare_item_record(data=data, mode='update')
-        super(ItemRecord, self).update(data, dbcommit, reindex)
+        super().update(data, dbcommit, reindex)
         # TODO: some item updates do not require holding re-linking
 
         return self
@@ -111,7 +111,7 @@ class ItemRecord(IlsRecord):
         """
         # update item record with a generated barcode if does not exist
         data = generate_item_barcode(data=data)
-        super(ItemRecord, self).replace(data, dbcommit, reindex)
+        super().replace(data, dbcommit, reindex)
         return self
 
     @classmethod
@@ -142,7 +142,8 @@ class ItemRecord(IlsRecord):
             holding = Holding.get_record_by_pid(item.holding_pid)
             holding.update(data=updated_holding,
                            dbcommit=dbcommit, reindex=reindex)
-            holding.commit()
+            holding = holding.update(data=updated_holding, dbcommit=dbcommit,
+                                     reindex=reindex)
 
     @classmethod
     def _item_build_org_ref(cls, data):

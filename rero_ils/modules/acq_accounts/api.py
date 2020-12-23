@@ -108,5 +108,4 @@ class AcqAccountsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super(AcqAccountsIndexer, self).bulk_index(record_id_iterator,
-                                                   doc_type='acac')
+        super().bulk_index(record_id_iterator, doc_type='acac')

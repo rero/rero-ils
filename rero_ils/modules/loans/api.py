@@ -122,7 +122,7 @@ class Loan(IlsRecord):
     def __init__(self, data, model=None):
         """Loan init."""
         self['state'] = current_app.config['CIRCULATION_LOAN_INITIAL_STATE']
-        super(Loan, self).__init__(data, model)
+        super().__init__(data, model)
 
     def action_required_params(self, action=None):
         """List of required parameters for circulation actions."""
@@ -206,6 +206,8 @@ class Loan(IlsRecord):
         data['to_anonymize'] = \
             cls.can_anonymize(loan_data=data) and not data.get('to_anonymize')
 
+        if not data.get('state'):
+            data['state'] = LoanState.CREATED
         record = super(Loan, cls).create(
             data=data, id_=id_, delete_pid=delete_pid, dbcommit=dbcommit,
             reindex=reindex, **kwargs)
@@ -228,7 +230,7 @@ class Loan(IlsRecord):
         :param reindex - index the record after the creation.
         """
         loan['to_anonymize'] = True
-        super(Loan, self).update(loan, dbcommit, reindex)
+        super().update(loan, dbcommit, reindex)
         return self
 
     def date_fields2datetime(self):
@@ -954,5 +956,4 @@ class LoansIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super(LoansIndexer, self).bulk_index(record_id_iterator,
-                                             doc_type='loan')
+        super().bulk_index(record_id_iterator, doc_type='loan')

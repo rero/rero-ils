@@ -36,9 +36,7 @@ class AcqAccountJSONSerializer(JSONSerializer):
             lib_term['key'] = pid
             lib_term['name'] = name
 
-        return super(
-            AcqAccountJSONSerializer, self).post_process_serialize_search(
-                results, pid_fetcher)
+        return super().post_process_serialize_search(results, pid_fetcher)
 
 
 json_acq_account = AcqAccountJSONSerializer(RecordSchemaJSONV1)

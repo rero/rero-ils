@@ -90,6 +90,7 @@ def create_issues_from_holding(holding, min=3, max=9):
     :param holding: the holding record.
     :param min, max: the min and max range to randomly create number of issues.
     """
+    count = 0
     for issue_number in range(0, random.randint(min, max)):
         # prepare some fields for the issue to ensure a variable recv dates.
         issue_display, expected_date = holding._get_next_issue_display_text(
@@ -101,6 +102,8 @@ def create_issues_from_holding(holding, min=3, max=9):
         }
         holding.receive_regular_issue(item=item, dbcommit=True, reindex=True)
         holding = Holding.get_record_by_pid(holding.pid)
+        count += 1
+    return count
 
 
 @click.command('create_patterns')
@@ -160,18 +163,22 @@ def create_patterns(infile, verbose, debug, lazy):
                 vendor_pid=vendor_pid,
                 patterns=patterns)
             # create minimum 3 and max 9 received issues for this holdings
-            create_issues_from_holding(holdings_record)
-            text = '> created (& between 3 and 9 rcvd issues) for holdings_pid'
+            count = create_issues_from_holding(holding=holdings_record,
+                                               min=3, max=9)
+            text = '> created {count} received issues for holdings: '.format(
+                count=count
+            )
             click.echo(
                 '{ptr_str}{template}{hld_str} {holding} {doc_str} {document}'
                 .format(
                     ptr_str='Pattern <',
-                    hld_str=text,
-                    doc_str='and document_pid',
                     template=template_name,
+                    hld_str=text,
                     holding=holdings_record.pid,
+                    doc_str='and document: ',
                     document=document_pid
-                ))
+                )
+            )
         record_index = record_index + 1
     # create some late issues.
     process_late_claimed_issues(dbcommit=True, reindex=True)

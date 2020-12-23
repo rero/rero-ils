@@ -149,7 +149,7 @@ class ItemIssue(ItemRecord):
                 issue['issue']['status'] = ItemIssueStatus.LATE
                 issue = issue.update(issue, dbcommit=dbcommit, reindex=reindex)
                 created_issues += 1
-            except Execption as e:
+            except Execption as err:
                 current_app.logger.error(
                     'Can not receive next late expected issue for serial '
                     'holding: {pid}'.format(
@@ -249,18 +249,18 @@ class ItemIssue(ItemRecord):
                         max_number_of_claims > issue.claims_count:
                     if issue.claims_count == 0 and \
                             holding.days_before_first_claim:
-                        modified_issues = cls._process_issue_claim(
-                            issue, issue.claims_count,
-                            holding.days_before_first_claim,
-                            modified_issues, dbcommit=dbcommit,
-                            reindex=reindex)
+                        claims_days = holding.days_before_first_claim
                     elif issue.claims_count and holding.days_before_next_claim:
-                        modified_issues = cls._process_issue_claim(
-                            issue, issue.claims_count,
-                            holding.days_before_next_claim,
-                            modified_issues, dbcommit=dbcommit,
-                            reindex=reindex)
-            except Execption as e:
+                        claims_days = holding.days_before_next_claim
+                    modified_issues = cls._process_issue_claim(
+                        issue=issue,
+                        claims_count=issue.claims_count,
+                        claims_days=claims_days,
+                        modified_issues=modified_issues,
+                        dbcommit=dbcommit,
+                        reindex=reindex
+                    )
+            except Execption as err:
                 current_app.logger.error(
                     'Can not create {claim_type} claim for issue: {pid}'
                     .format(claim_type=claim_type, pid=issue.pid)

@@ -150,5 +150,4 @@ class ILLRequestsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super(ILLRequestsIndexer, self).bulk_index(record_id_iterator,
-                                                   doc_type='illr')
+        super().bulk_index(record_id_iterator, doc_type='illr')

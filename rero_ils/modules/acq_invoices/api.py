@@ -78,14 +78,14 @@ class AcquisitionInvoice(IlsRecord):
         """Create acquisition invoice record."""
         cls._acquisition_invoice_build_org_ref(data)
         cls._build_total_amount_of_invoice(data)
-        record = super(AcquisitionInvoice, cls).create(
+        record = super().create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
         return record
 
     def update(self, data, dbcommit=True, reindex=True):
         """Update Acquisition Invoice record."""
         self._build_total_amount_of_invoice(data)
-        super(AcquisitionInvoice, self).update(data, dbcommit, reindex)
+        super().update(data, dbcommit, reindex)
         return self
 
     @classmethod
@@ -156,8 +156,7 @@ class AcquisitionInvoicesIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super(AcquisitionInvoicesIndexer, self).bulk_index(record_id_iterator,
-                                                           doc_type='acin')
+        super().bulk_index(record_id_iterator, doc_type='acin')
 
 
 class InvoiceLine(object):

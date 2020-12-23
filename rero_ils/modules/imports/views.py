@@ -42,7 +42,7 @@ class ImportsListResource(ContentNegotiatedMethodView):
         """Init."""
         self.import_class = kwargs.pop('import_class')
         self.import_size = kwargs.pop('import_size', 50)
-        super(ImportsListResource, self).__init__(
+        super().__init__(
             method_serializers={
                 'GET': {
                     'application/json': json_v1_import_search,
@@ -119,7 +119,7 @@ class ImportsResource(ContentNegotiatedMethodView):
     def __init__(self, **kwargs):
         """Init."""
         self.import_class = kwargs.pop('import_class')
-        super(ImportsResource, self).__init__(
+        super().__init__(
             method_serializers={
                 'GET': {
                     'application/json': json_v1_import_record,

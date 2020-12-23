@@ -59,7 +59,7 @@ def test_contribution_create(app, contribution_person_data_tmp, caplog):
     # test the messages from current_app.logger
     assert caplog.records[0].name == 'elasticsearch'
     assert caplog.record_tuples[1] == (
-        'flask.app', 30, 'Can not delete from index Contribution: 2'
+        'invenio', 30, 'Can not delete from index Contribution: 2'
     )
 
 

@@ -187,5 +187,4 @@ class LocationsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super(LocationsIndexer, self).bulk_index(record_id_iterator,
-                                                 doc_type='loc')
+        super().bulk_index(record_id_iterator, doc_type='loc')

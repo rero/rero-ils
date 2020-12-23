@@ -134,6 +134,7 @@ I18N_LANGUAGES = [
 # this parameter using the 'default_currency' field
 RERO_ILS_DEFAULT_CURRENCY = 'CHF'
 
+
 # Base templates
 # ==============
 #: Global base template.
@@ -183,7 +184,8 @@ THEME_SETTINGS_TEMPLATE = SETTINGS_TEMPLATE
 #: Template for error pages.
 THEME_ERROR_TEMPLATE = 'rero_ils/page_error.html'
 # External CSS for each organisation customization
-RERO_ILS_THEME_ORGANISATION_CSS_ENDPOINT = 'https://resources.rero.ch/ils/test/css/'
+RERO_ILS_THEME_ORGANISATION_CSS_ENDPOINT = \
+    'https://resources.rero.ch/ils/test/css/'
 #: Template for including a tracking code for web analytics.
 THEME_TRACKINGCODE_TEMPLATE = 'rero_ils/trackingcode.html'
 THEME_JAVASCRIPT_TEMPLATE = 'rero_ils/javascript.html'
@@ -296,8 +298,8 @@ CELERY_BEAT_SCHEDULE = {
         'enabled': False
     },
     'clear_and_renew_subscriptions': {
-        'task':
-            'rero_ils.modules.patrons.tasks.task_clear_and_renew_subscriptions',
+        'task': ('rero_ils.modules.patrons.tasks'
+                 '.task_clear_and_renew_subscriptions'),
         'schedule': crontab(minute='2', hour='2'),
         'enabled': False
     }
@@ -418,10 +420,12 @@ RECORDS_REST_DEFAULT_LIST_PERMISSION_FACTORY = librarian_permission_factory
 RECORDS_REST_DEFAULT_READ_PERMISSION_FACTORY = librarian_permission_factory
 """Default read permission factory: check if the record exists."""
 
-RECORDS_REST_DEFAULT_UPDATE_PERMISSION_FACTORY = librarian_update_permission_factory
+RECORDS_REST_DEFAULT_UPDATE_PERMISSION_FACTORY = \
+    librarian_update_permission_factory
 """Default update permission factory: reject any request."""
 
-RECORDS_REST_DEFAULT_DELETE_PERMISSION_FACTORY = librarian_delete_permission_factory
+RECORDS_REST_DEFAULT_DELETE_PERMISSION_FACTORY = \
+    librarian_delete_permission_factory
 """Default delete permission factory: reject any request."""
 
 REST_MIMETYPE_QUERY_ARG_NAME = 'format'
@@ -559,7 +563,8 @@ RECORDS_REST_ENDPOINTS = dict(
                 'rero_ils.modules.serializers:json_v1_search'
             ),
             'application/rero+json': (
-                'rero_ils.modules.ill_requests.serializers:json_ill_request_search'
+                'rero_ils.modules.ill_requests.serializers:'
+                'json_ill_request_search'
             )
         },
         record_loaders={
@@ -1111,7 +1116,8 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_class='rero_ils.modules.contributions.api:Contribution',
         item_route=('/contributions/<pid(cont, record_class='
-                    '"rero_ils.modules.contributions.api:Contribution"):pid_value>'),
+                    '"rero_ils.modules.contributions.api:Contribution"):'
+                    'pid_value>'),
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:contribution_view_search_factory',
@@ -2330,8 +2336,16 @@ CIRCULATION_LOAN_TRANSITIONS = {
         dict(dest=LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
              transition=PendingToItemInTransitPickup,
              trigger='validate_request'),
-        dict(dest=LoanState.ITEM_ON_LOAN, transition=ToItemOnLoan, trigger='checkout'),
-        dict(dest=LoanState.CANCELLED, trigger='cancel', transition=ToCancelled)
+        dict(
+            dest=LoanState.ITEM_ON_LOAN,
+            transition=ToItemOnLoan,
+            trigger='checkout'
+        ),
+        dict(
+            dest=LoanState.CANCELLED,
+            trigger='cancel',
+            transition=ToCancelled
+        )
     ],
     'ITEM_AT_DESK': [
         dict(
@@ -2339,14 +2353,22 @@ CIRCULATION_LOAN_TRANSITIONS = {
             transition=ItemAtDeskToItemOnLoan,
             trigger='checkout'
         ),
-        dict(dest=LoanState.CANCELLED, trigger='cancel', transition=ToCancelled)
+        dict(
+            dest=LoanState.CANCELLED,
+            trigger='cancel',
+            transition=ToCancelled
+        )
     ],
     'ITEM_IN_TRANSIT_FOR_PICKUP': [
         dict(
             dest=LoanState.ITEM_AT_DESK,
             trigger='receive'
         ),
-        dict(dest=LoanState.CANCELLED, trigger='cancel', transition=ToCancelled)
+        dict(
+            dest=LoanState.CANCELLED,
+            trigger='cancel',
+            transition=ToCancelled
+        )
     ],
     'ITEM_ON_LOAN': [
         dict(
@@ -2355,11 +2377,21 @@ CIRCULATION_LOAN_TRANSITIONS = {
             trigger='checkin',
             assign_item=False
         ),
-        dict(dest=LoanState.ITEM_IN_TRANSIT_TO_HOUSE,
-             transition=ItemOnLoanToItemInTransitHouse, trigger='checkin'),
-        dict(dest=LoanState.ITEM_ON_LOAN, transition=ItemOnLoanToItemOnLoan,
-             trigger='extend'),
-        dict(dest=LoanState.CANCELLED, trigger='cancel', transition=ToCancelled)
+        dict(
+            dest=LoanState.ITEM_IN_TRANSIT_TO_HOUSE,
+            transition=ItemOnLoanToItemInTransitHouse,
+            trigger='checkin'
+        ),
+        dict(
+            dest=LoanState.ITEM_ON_LOAN,
+            transition=ItemOnLoanToItemOnLoan,
+            trigger='extend'
+        ),
+        dict(
+            dest=LoanState.CANCELLED,
+            trigger='cancel',
+            transition=ToCancelled
+        )
     ],
     'ITEM_IN_TRANSIT_TO_HOUSE': [
         dict(
@@ -2368,7 +2400,11 @@ CIRCULATION_LOAN_TRANSITIONS = {
             trigger='receive',
             assign_item=False
         ),
-        dict(dest=LoanState.CANCELLED, trigger='cancel', transition=ToCancelled)
+        dict(
+            dest=LoanState.CANCELLED,
+            trigger='cancel',
+            transition=ToCancelled
+        )
     ],
     'ITEM_RETURNED': [],
     'CANCELLED': [],
@@ -2455,7 +2491,8 @@ SIP2_REMOTE_ACTION_HANDLERS = dict(
         logout_handler='rero_ils.modules.selfcheck.api:selfcheck_logout',
         system_status_handler='rero_ils.modules.selfcheck.api:system_status',
         patron_handlers=dict(
-            validate_patron='rero_ils.modules.selfcheck.api:validate_patron_account',
+            validate_patron=
+                'rero_ils.modules.selfcheck.api:validate_patron_account',
             authorize_patron='rero_ils.modules.selfcheck.api:authorize_patron',
             enable_patron='rero_ils.modules.selfcheck.api:enable_patron',
             patron_status='rero_ils.modules.selfcheck.api:patron_status',

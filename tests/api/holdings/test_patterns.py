@@ -289,9 +289,9 @@ def test_automatic_item_creation_no_serials(
         holding_lib_martigny_w_patterns.get('circulation_category')
 
 
-def test_validate_next_expected_date(
+def test_pattern_validate_next_expected_date(
         client, librarian_martigny_no_email,
-        journal, loc_public_sion, item_type_internal_sion, document,
+        journal, loc_public_sion, item_type_regular_sion, document,
         pattern_yearly_two_times_data, json_header,
         holding_lib_sion_w_patterns_data):
     """Test create holding with regular frequency and missing

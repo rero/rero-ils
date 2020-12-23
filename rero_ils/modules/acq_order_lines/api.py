@@ -78,7 +78,7 @@ class AcqOrderLine(IlsRecord):
         """Create Acquisition Order Line record."""
         cls._acq_order_line_build_org_ref(data)
         cls._build_total_amount_for_order_line(data)
-        record = super(AcqOrderLine, cls).create(
+        record = super().create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
         return record
 
@@ -88,7 +88,7 @@ class AcqOrderLine(IlsRecord):
         new_data.update(data)
         self._acq_order_line_build_org_ref(new_data)
         self._build_total_amount_for_order_line(new_data)
-        super(AcqOrderLine, self).update(new_data, dbcommit, reindex)
+        super().update(new_data, dbcommit, reindex)
         return self
 
     @classmethod
@@ -146,14 +146,14 @@ class AcqOrderLinesIndexer(IlsRecordsIndexer):
 
     def index(self, record):
         """Index an Acquisition Order Line and update total amount of order."""
-        return_value = super(AcqOrderLinesIndexer, self).index(record)
+        return_value = super().index(record)
         self._update_order_total_amount(record)
 
         return return_value
 
     def delete(self, record):
         """Delete a Acquisition Order Line and update total amount of order."""
-        return_value = super(AcqOrderLinesIndexer, self).delete(record)
+        return_value = super().delete(record)
         self._update_order_total_amount(record)
 
         return return_value
@@ -172,5 +172,4 @@ class AcqOrderLinesIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super(AcqOrderLinesIndexer, self).bulk_index(record_id_iterator,
-                                                     doc_type='acol')
+        super().bulk_index(record_id_iterator, doc_type='acol')

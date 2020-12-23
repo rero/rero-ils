@@ -365,5 +365,4 @@ class PatronTypesIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super(PatronTypesIndexer, self).bulk_index(record_id_iterator,
-                                                   doc_type='ptty')
+        super().bulk_index(record_id_iterator, doc_type='ptty')

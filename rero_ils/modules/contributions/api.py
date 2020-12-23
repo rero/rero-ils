@@ -288,5 +288,4 @@ class ContributionsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super(ContributionsIndexer, self).bulk_index(record_id_iterator,
-                                                     doc_type='cont')
+        super().bulk_index(record_id_iterator, doc_type='cont')

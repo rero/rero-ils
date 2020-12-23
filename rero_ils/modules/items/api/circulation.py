@@ -1150,7 +1150,7 @@ class ItemCirculation(ItemRecord):
             if item['status'] != ItemStatus.MISSING and on_shelf is True:
                 item['status'] = ItemStatus.ON_SHELF
         if dbcommit:
-            item.commit()
+            # item.commit()
             item.dbcommit(reindex=True, forceindex=True)
 
     def item_has_active_loan_or_request(self):

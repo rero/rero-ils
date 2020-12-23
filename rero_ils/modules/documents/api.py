@@ -196,7 +196,7 @@ class Document(IlsRecord):
 
     def dumps(self, **kwargs):
         """Return pure Python dictionary with record metadata."""
-        return self.post_process(super(Document, self).dumps(**kwargs))
+        return self.post_process(super().dumps(**kwargs))
 
     def index_contributions(self, bulk=False):
         """Index all attached contributions."""
@@ -257,7 +257,7 @@ class Document(IlsRecord):
                 contribution, online = Contribution.get_record_by_ref(ref)
                 if contribution:
                     contributions[idx]['agent'] = contribution
-        return super(Document, self).replace_refs()
+        return super().replace_refs()
 
 
 class DocumentsIndexer(IlsRecordsIndexer):
@@ -267,7 +267,7 @@ class DocumentsIndexer(IlsRecordsIndexer):
 
     def index(self, record):
         """Index an document."""
-        return_value = super(DocumentsIndexer, self).index(record)
+        return_value = super().index(record)
         record.index_contributions()
         return return_value
 
@@ -276,5 +276,4 @@ class DocumentsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super(DocumentsIndexer, self).bulk_index(record_id_iterator,
-                                                 doc_type='doc')
+        super().bulk_index(record_id_iterator, doc_type='doc')

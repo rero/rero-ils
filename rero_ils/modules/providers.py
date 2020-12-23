@@ -30,7 +30,7 @@ from invenio_pidstore.providers.base import BaseProvider
 def append_fixtures_new_identifiers(identifier, pids, pid_type):
     """Insert pids into the indentifier table and update its sequence."""
     idx = 0
-    for idx, pid in enumerate(pids):
+    for idx, pid in enumerate(pids, 1):
         db.session.add(identifier(recid=pid))
         if idx > 0 and idx % 100000 == 0:
             click.echo('DB commit append: {idx}'.format(idx=idx))
@@ -81,6 +81,6 @@ class Provider(BaseProvider):
             kwargs.setdefault('status', cls.default_status)
             if object_type and object_uuid:
                 kwargs['status'] = PIDStatus.REGISTERED
-            return super(Provider, cls).create(
+            return super().create(
                 object_type=object_type, object_uuid=object_uuid, **kwargs
             )

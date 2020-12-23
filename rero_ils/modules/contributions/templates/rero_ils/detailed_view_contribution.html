@@ -80,10 +80,3 @@
 {% endif %}
 
 {% endblock body %}
-
-{%- block javascript %}
-{{ super() }}
-{% assets "rero_ils_contributions_detailed_js" %}
-<script src="{{ ASSET_URL }}"></script>
-{% endassets %}
-{% endblock javascript %}

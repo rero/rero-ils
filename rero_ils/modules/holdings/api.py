@@ -33,7 +33,7 @@ from jinja2 import Environment
 
 from rero_ils.modules.items.models import ItemIssueStatus
 
-from .models import HoldingIdentifier
+from .models import HoldingIdentifier, HoldingMetadata
 from ..api import IlsRecord, IlsRecordsIndexer
 from ..documents.api import Document
 from ..errors import MissingRequiredParameterError, RegularReceiveNotAllowed
@@ -89,7 +89,7 @@ class Holding(IlsRecord):
     minter = holding_id_minter
     fetcher = holding_id_fetcher
     provider = HoldingProvider
-    # model_cls = HoldingMetadata
+    model_cls = HoldingMetadata
     pids_exist_check = {
         'required': {
             'doc': 'document',
@@ -146,6 +146,7 @@ class Holding(IlsRecord):
         if not document:
             return _('Document does not exist {pid}.'.format(pid=document_pid))
         is_serial = self.holdings_type == 'serial'
+
         if is_serial:
             patterns = self.get('patterns', {})
             if patterns and \
@@ -176,7 +177,6 @@ class Holding(IlsRecord):
         note_types = [note.get('type') for note in self.get('notes', [])]
         if len(note_types) != len(set(note_types)):
             return _('Can not have multiple notes of same type.')
-
         return True
 
     @property
@@ -603,28 +603,20 @@ class Holding(IlsRecord):
         data = self._prepare_issue_record(
             item=item, issue_display=issue_display,
             expected_date=expected_date)
-
+        pid = self.pid
         issue = Item.create(data=data, dbcommit=dbcommit, reindex=reindex)
-
         return issue
-
 
 def get_holding_pid_by_doc_location_item_type(
         document_pid, location_pid, item_type_pid, holdings_type='standard'):
     """Returns standard holding pid for document/location/item type."""
-    result = HoldingsSearch().filter(
-        'term',
-        document__pid=document_pid
-    ).filter(
-        'term',
-        holdings_type=holdings_type
-    ).filter(
-        'term',
-        circulation_category__pid=item_type_pid
-    ).filter(
-        'term',
-        location__pid=location_pid
-    ).source('pid').scan()
+    result = HoldingsSearch() \
+        .filter('term', document__pid=document_pid) \
+        .filter('term', holdings_type=holdings_type) \
+        .filter('term', circulation_category__pid=item_type_pid) \
+        .filter('term', location__pid=location_pid) \
+        .source('pid') \
+        .scan()
     try:
         return next(result).pid
     except StopIteration:
@@ -720,7 +712,7 @@ class HoldingsIndexer(IlsRecordsIndexer):
 
     def index(self, record):
         """Indexing a holding record."""
-        return_value = super(HoldingsIndexer, self).index(record)
+        return_value = super().index(record)
         # current_search.flush_and_refresh(HoldingsSearch.Meta.index)
         return return_value
 
@@ -729,5 +721,4 @@ class HoldingsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super(HoldingsIndexer, self).bulk_index(record_id_iterator,
-                                                doc_type='hold')
+        super().bulk_index(record_id_iterator, doc_type='hold')

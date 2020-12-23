@@ -71,6 +71,4 @@ class ItemsJSONSerializer(JSONSerializer):
             vendor = Vendor.get_record_by_pid(vendor_term.get('key'))
             vendor_term['name'] = vendor.get('name')
 
-        return super(
-            ItemsJSONSerializer, self).post_process_serialize_search(
-            results, pid_fetcher)
+        return super().post_process_serialize_search(results, pid_fetcher)

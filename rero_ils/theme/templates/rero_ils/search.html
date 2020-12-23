@@ -27,7 +27,6 @@
 {%- endblock page_body -%}
 
 {%- block javascript %}
-{{ webpack['vendor.js']}}
 {{ webpack['reroils_public.js']}}
-{{ node_assets('@rero/rero-ils-ui/dist/public-search', tags='defer') }}}
+{{ node_assets('@rero/rero-ils-ui/dist/public-search', tags='defer') }}
 {%- endblock javascript %}

@@ -47,5 +47,5 @@ class JsonLoader(JsonRefLoader):
         if path:
             result = current_jsonschemas.get_schema(path=path)
         else:
-            result = super(JsonLoader, self).get_remote_json(uri, **kwargs)
+            result = super().get_remote_json(uri, **kwargs)
         return result
