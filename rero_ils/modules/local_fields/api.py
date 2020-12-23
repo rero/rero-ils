@@ -113,7 +113,7 @@ class LocalFieldsIndexer(IlsRecordsIndexer):
 
         :param record: Record instance.
         """
-        return_value = super(LocalFieldsIndexer, self).index(record)
+        return_value = super().index(record)
         resource = extracted_data_from_ref(record['parent']['$ref'], 'record')
         resource.reindex()
         return return_value
@@ -123,7 +123,7 @@ class LocalFieldsIndexer(IlsRecordsIndexer):
 
         :param record: Record instance.
         """
-        return_value = super(LocalFieldsIndexer, self).delete(record)
+        return_value = super().delete(record)
         resource = extracted_data_from_ref(record['parent']['$ref'], 'record')
         resource.reindex()
         return return_value
@@ -133,5 +133,4 @@ class LocalFieldsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super(LocalFieldsIndexer, self).bulk_index(
-            record_id_iterator, doc_type='lofi')
+        super().bulk_index(record_id_iterator, doc_type='lofi')

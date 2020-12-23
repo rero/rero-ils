@@ -71,7 +71,7 @@ def import_users(infile, append, verbose, password, lazy, dont_stop_on_error,
         data = json.load(infile)
     pids = []
     error_records = []
-    for count, patron_data in enumerate(data):
+    for count, patron_data in enumerate(data, 1):
         email = patron_data.get('email')
         password = patron_data.get('password', password)
         username = patron_data['username']

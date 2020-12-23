@@ -73,7 +73,7 @@ class RedisScheduler(OriginalRedisScheduler):
         ))
         kwargs['app'] = app
         kwargs['lazy'] = lazy
-        super(RedisScheduler, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def get(self, name):
         """Get schedule from REDIS DB.
@@ -106,7 +106,7 @@ class RedisScheduler(OriginalRedisScheduler):
             enabled = tasks[name].pop('enabled', True)
             if not self.rdb.get(self.enabled_name(name)):
                 self.rdb[self.enabled_name(name)] = int(enabled)
-        super(RedisScheduler, self).merge_inplace(tasks)
+        super().merge_inplace(tasks)
 
     def setup_schedule(self):
         """Init entries from CELERY_BEAT_SCHEDULE."""
@@ -165,7 +165,7 @@ class RedisScheduler(OriginalRedisScheduler):
         enabled_name = self.enabled_name(name)
         if self.rdb.get(enabled_name):
             del self.rdb[enabled_name]
-        return super(RedisScheduler, self).remove(task_key=name)
+        return super().remove(task_key=name)
 
     def reset(self):
         """Reset all scheduled tasks."""

@@ -421,7 +421,7 @@ class ReroIlsOverdo(Overdo):
 
     def __init__(self, bases=None, entry_point_group=None):
         """Reroilsoverdo init."""
-        super(ReroIlsOverdo, self).__init__(
+        super().__init__(
             bases=bases, entry_point_group=entry_point_group)
 
     def do(self, blob, ignore_missing=True, exception_handlers=None):
@@ -431,7 +431,7 @@ class ReroIlsOverdo(Overdo):
         if self.leader:
             self.record_type = self.leader[6]  # LDR 06
             self.bib_level = self.leader[7]  # LDR 07
-        result = super(ReroIlsOverdo, self).do(
+        result = super().do(
             blob,
             ignore_missing=ignore_missing,
             exception_handlers=exception_handlers
@@ -786,7 +786,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
 
     def __init__(self, bases=None, entry_point_group=None):
         """Reroilsmarc21overdo init."""
-        super(ReroIlsMarc21Overdo, self).__init__(
+        super().__init__(
             bases=bases, entry_point_group=entry_point_group)
         self.count = 0
         self.extract_description_subfield = {
@@ -861,7 +861,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
             # check presence of specific fields
             self.has_field_490 = len(self.get_fields(tag='490')) > 0
             self.has_field_580 = len(self.get_fields(tag='580')) > 0
-            result = super(ReroIlsMarc21Overdo, self).do(
+            result = super().do(
                 blob,
                 ignore_missing=ignore_missing,
                 exception_handlers=exception_handlers
@@ -1162,7 +1162,7 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
 
     def __init__(self, bases=None, entry_point_group=None):
         """Constructor."""
-        super(ReroIlsUnimarcOverdo, self).__init__(
+        super().__init__(
             bases=bases, entry_point_group=entry_point_group)
         self.count = 0
         self.extract_description_subfield = {
@@ -1204,7 +1204,7 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
                 if field_110_a and len(field_110_a[0]) > 0:
                     self.serial_type = field_110_a[0][0]
 
-            result = super(ReroIlsUnimarcOverdo, self).do(
+            result = super().do(
                 blob,
                 ignore_missing=ignore_missing,
                 exception_handlers=exception_handlers

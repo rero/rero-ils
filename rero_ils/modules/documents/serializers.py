@@ -64,7 +64,7 @@ class DocumentJSONSerializer(JSONSerializer):
             contributions = create_contributions(rec.get('contribution', []))
             if contributions:
                 rec['contribution'] = contributions
-        return super(JSONSerializer, self).preprocess_record(
+        return super().preprocess_record(
             pid=pid, record=rec, links_factory=links_factory, kwargs=kwargs)
 
     def post_process_serialize_search(self, results, pid_fetcher):

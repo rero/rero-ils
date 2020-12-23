@@ -91,5 +91,4 @@ class CollectionsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super(CollectionsIndexer, self).bulk_index(record_id_iterator,
-                                                   doc_type='coll')
+        super().bulk_index(record_id_iterator, doc_type='coll')

@@ -136,7 +136,7 @@ class Item(ItemCirculation, ItemIssue):
 
     def dumps(self, **kwargs):
         """Return pure Python dictionary with record metadata."""
-        dump = super(Item, self).dumps(**kwargs)
+        dump = super().dumps(**kwargs)
         dump['available'] = self.available
         return dump
 
@@ -184,7 +184,7 @@ class ItemsIndexer(IlsRecordsIndexer):
         if items_search.total.value:
             holding_pid = items_search[0].holding.pid
 
-        return_value = super(ItemsIndexer, self).index(record)
+        return_value = super().index(record)
 
         document_pid = record.replace_refs()['document']['pid']
         document = Document.get_record_by_pid(document_pid)
@@ -210,7 +210,7 @@ class ItemsIndexer(IlsRecordsIndexer):
         """
         from ...holdings.api import Holding
 
-        return_value = super(ItemsIndexer, self).delete(record)
+        return_value = super().delete(record)
         rec_with_refs = record.replace_refs()
         document_pid = rec_with_refs['document']['pid']
         document = Document.get_record_by_pid(document_pid)
@@ -233,5 +233,4 @@ class ItemsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super(ItemsIndexer, self).bulk_index(record_id_iterator,
-                                             doc_type='item')
+        super().bulk_index(record_id_iterator, doc_type='item')

@@ -101,13 +101,13 @@ class Patron(IlsRecord):
 
     available_roles = [ROLE_SYSTEM_LIBRARIAN, ROLE_LIBRARIAN, ROLE_PATRON]
 
-    def validate(self, **kwargs):
+    def _validate(self, **kwargs):
         """Validate record against schema.
 
         extended validation per record class
         and test of pid existence.
         """
-        super(Patron, self).validate(**kwargs)
+        json = super()._validate(**kwargs)
         # We only like to run pids_exist_check if validation_message is True
         # and not a string with error from extended_validation
         validation_message = True
@@ -156,6 +156,7 @@ class Patron(IlsRecord):
         self._validate_emails()
         if validation_message is not True:
             raise RecordValidationError(validation_message)
+        return json
 
     def _validate_emails(self):
         """Check if emails are required.
@@ -189,12 +190,12 @@ class Patron(IlsRecord):
         # synchronize the rero id user profile data
         user = cls.sync_user_and_profile(data)
         try:
-            record = super(Patron, cls).create(
+            record = super().create(
                 data, id_, delete_pid, dbcommit, reindex, **kwargs)
             record._update_roles()
-        except Exception as e:
+        except Exception as err:
             db.session.rollback()
-            raise e
+            raise err
         if user:
             # send the reset password notification
             if (email_notification and data.get('email')):
@@ -210,7 +211,7 @@ class Patron(IlsRecord):
         data = dict(self, **data)
         old_keep_history = self.keep_history
         self.sync_user_and_profile(data)
-        super(Patron, self).update(data, dbcommit, reindex)
+        super().update(data, dbcommit, reindex)
         self._update_roles()
         Patron._anonymize_loans(
             patron_data=data, old_keep_history=old_keep_history)
@@ -234,7 +235,7 @@ class Patron(IlsRecord):
     def delete(self, force=False, delindex=False):
         """Delete record and persistent identifier."""
         self._remove_roles()
-        super(Patron, self).delete(force, delindex)
+        super().delete(force, delindex)
         return self
 
     @classmethod
@@ -270,7 +271,7 @@ class Patron(IlsRecord):
                 else:
                     # the email has been updated in the user profile
                     patron['email'] = profile.user.email
-            super(Patron, patron).update(dict(patron), True, True)
+            super().update(dict(patron), True, True)
         # anonymize user loans if keep_history is changed
         if old_keep_history and not new_keep_history:
             from ..loans.api import anonymize_loans
@@ -461,7 +462,7 @@ class Patron(IlsRecord):
             .source(includes='pid').scan()
         try:
             patron_pid = next(result).pid
-            return super(Patron, cls).get_record_by_pid(patron_pid)
+            return super().get_record_by_pid(patron_pid)
         except StopIteration:
             return None
 
@@ -826,5 +827,4 @@ class PatronsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super(PatronsIndexer, self).bulk_index(record_id_iterator,
-                                               doc_type='ptrn')
+        super().bulk_index(record_id_iterator, doc_type='ptrn')

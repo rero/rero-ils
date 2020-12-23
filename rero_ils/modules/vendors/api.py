@@ -121,5 +121,4 @@ class VendorsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super(VendorsIndexer, self).bulk_index(record_id_iterator,
-                                               doc_type='vndr')
+        super().bulk_index(record_id_iterator, doc_type='vndr')

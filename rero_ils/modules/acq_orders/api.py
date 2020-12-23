@@ -77,14 +77,14 @@ class AcqOrder(IlsRecord):
                dbcommit=False, reindex=False, **kwargs):
         """Create acquisition order record."""
         cls._acq_order_build_org_ref(data)
-        record = super(AcqOrder, cls).create(
+        record = super().create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
         return record
 
     def update(self, data, dbcommit=False, reindex=False):
         """Update acq order record."""
         self._acq_order_build_org_ref(data)
-        super(AcqOrder, self).update(data, dbcommit, reindex)
+        super().update(data, dbcommit, reindex)
         return self
 
     @classmethod
@@ -150,5 +150,4 @@ class AcqOrdersIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super(AcqOrdersIndexer, self).bulk_index(record_id_iterator,
-                                                 doc_type='acor')
+        super().bulk_index(record_id_iterator, doc_type='acor')

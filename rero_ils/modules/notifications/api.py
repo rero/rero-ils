@@ -91,7 +91,7 @@ class Notification(IlsRecord):
     def create(cls, data, id_=None, delete_pid=False,
                dbcommit=False, reindex=False, **kwargs):
         """Create notification record."""
-        record = super(Notification, cls).create(
+        record = super().create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
         PatronTransaction.create_patron_transaction_from_notification(
             notification=record, dbcommit=dbcommit, reindex=reindex,
@@ -344,8 +344,7 @@ class NotificationsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super(NotificationsIndexer, self).bulk_index(record_id_iterator,
-                                                     doc_type='notif')
+        super().bulk_index(record_id_iterator, doc_type='notif')
 
 
 def get_availability_notification(loan):

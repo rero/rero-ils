@@ -113,7 +113,7 @@ class IlsRecord(Record):
             indexer = IlsRecordsIndexer
         return indexer
 
-    def validate(self, **kwargs):
+    def _validate(self, **kwargs):
         """Validate record against schema.
 
         extended validation per record class
@@ -121,8 +121,8 @@ class IlsRecord(Record):
         """
         if self.get('_draft'):
             # No validation is needed for draft records
-            return True
-        super(IlsRecord, self).validate(**kwargs)
+            return self
+        json = super()._validate(**kwargs)
         validation_message = self.extended_validation(**kwargs)
         # We only like to run pids_exist_check if validation_message is True
         # and not a string with error from extended_validation
@@ -140,6 +140,7 @@ class IlsRecord(Record):
             ) or True
         if validation_message is not True:
             raise RecordValidationError(validation_message)
+        return json
 
     def extended_validation(self, **kwargs):
         """Returns reasons for validation failures, otherwise True.
@@ -178,7 +179,7 @@ class IlsRecord(Record):
             id_ = uuid4()
         cls.minter(id_, data)
         cls.pid_check = pidcheck
-        record = super(IlsRecord, cls).create(data=data, id_=id_, **kwargs)
+        record = super().create(data=data, id_=id_, **kwargs)
         if dbcommit:
             record.dbcommit(reindex)
         return record
@@ -192,7 +193,7 @@ class IlsRecord(Record):
                 cls.provider.pid_type,
                 pid
             )
-            return super(IlsRecord, cls).get_record(
+            return super().get_record(
                 persistent_identifier.object_uuid,
                 with_deleted=with_deleted
             )
@@ -231,7 +232,7 @@ class IlsRecord(Record):
     @classmethod
     def get_record_by_id(cls, id, with_deleted=False):
         """Get ils record by uuid."""
-        return super(IlsRecord, cls).get_record(id, with_deleted=with_deleted)
+        return super().get_record(id, with_deleted=with_deleted)
 
     @classmethod
     def get_persistent_identifier(cls, id):
@@ -276,9 +277,11 @@ class IlsRecord(Record):
         if self.can_delete:
             persistent_identifier = self.get_persistent_identifier(self.id)
             persistent_identifier.delete()
-            self = super(IlsRecord, self).delete(force=force)
+            if force:
+                db.session.delete(persistent_identifier)
+            self = super().delete(force=force)
             if dbcommit:
-                self.dbcommit()
+                db.session.commit()
             if delindex:
                 self.delete_from_index()
             return self
@@ -298,11 +301,11 @@ class IlsRecord(Record):
                         new_pid=pid
                     )
                 )
-        super(IlsRecord, self).update(data)
+        record = self
+        super().update(data)
         if dbcommit:
-            self = super(IlsRecord, self).commit()
-            self.dbcommit(reindex)
-        return self
+            record = self.dbcommit(reindex)
+        return record
 
     def replace(self, data, dbcommit=False, reindex=False):
         """Replace data in record."""
@@ -321,7 +324,7 @@ class IlsRecord(Record):
         persistent_identifier = self.get_persistent_identifier(self.id)
         if persistent_identifier.is_deleted():
             raise IlsRecordError.Deleted()
-        self = super(IlsRecord, self).revert(revision_id=revision_id)
+        self = super().revert(revision_id=revision_id)
         if reindex:
             self.reindex(forceindex=False)
         return self
@@ -341,9 +344,11 @@ class IlsRecord(Record):
 
     def dbcommit(self, reindex=False, forceindex=False):
         """Commit changes to db."""
+        self = super().commit()
         db.session.commit()
         if reindex:
             self.reindex(forceindex=forceindex)
+        return self
 
     def reindex(self, forceindex=False):
         """Reindex record."""
@@ -404,7 +409,7 @@ class IlsRecordsIndexer(RecordIndexer):
 
     def index(self, record):
         """Indexing a record."""
-        return_value = super(IlsRecordsIndexer, self).index(record)
+        return_value = super().index(record)
         index_name, doc_type = current_record_to_index(record)
         # TODO: Do we need to flush everytime the ES index?
         # Tests depends on this at the moment.
@@ -416,7 +421,7 @@ class IlsRecordsIndexer(RecordIndexer):
 
         :param record: Record instance.
         """
-        return_value = super(IlsRecordsIndexer, self).delete(record)
+        return_value = super().delete(record)
         index_name, doc_type = current_record_to_index(record)
         current_search.flush_and_refresh(index_name)
         return return_value

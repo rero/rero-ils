@@ -320,7 +320,7 @@ def test_bimonthly_every_two_months_two_levels(
     assert issues[-1]['issue'] == 'Jg 57 Nr 3 Mai 2026'
 
 
-def test_validate_next_expected_date(
+def test_holding_validate_next_expected_date(
         client, librarian_martigny_no_email,
         journal, loc_public_sion, item_type_internal_sion, document,
         pattern_yearly_two_times_data, json_header,

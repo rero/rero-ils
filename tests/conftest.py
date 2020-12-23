@@ -26,13 +26,14 @@ from os.path import dirname, join
 import pytest
 from dotenv import load_dotenv
 
-pytest_plugins = [
+pytest_plugins = (
+    'celery.contrib.pytest',
     'fixtures.circulation',
     'fixtures.metadata',
     'fixtures.organisations',
     'fixtures.acquisition',
-    'fixtures.sip2',
-]
+    'fixtures.sip2'
+)
 
 
 @pytest.fixture(scope='module')

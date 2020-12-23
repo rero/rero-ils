@@ -336,5 +336,4 @@ class LibrariesIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super(LibrariesIndexer, self).bulk_index(record_id_iterator,
-                                                 doc_type='lib')
+        super().bulk_index(record_id_iterator, gdoc_type='lib')

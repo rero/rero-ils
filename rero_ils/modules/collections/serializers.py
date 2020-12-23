@@ -38,9 +38,7 @@ class CollectionJSONSerializer(JSONSerializer):
             lib_term['name'] = name
             lib_buckets.append(lib_term)
 
-        return super(
-            CollectionJSONSerializer, self).post_process_serialize_search(
-                results, pid_fetcher)
+        return super().post_process_serialize_search(results, pid_fetcher)
 
 
 json_coll = CollectionJSONSerializer(RecordSchemaJSONV1)

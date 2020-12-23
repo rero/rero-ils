@@ -28,6 +28,6 @@ def id_minter(record_uuid, data, provider, pid_key='pid', object_type='rec'):
         pid_value=data.get(pid_key)
     )
 
-    pid = provider.pid
-    data[pid_key] = pid.pid_value
-    return pid
+    persistent_identifier = provider.pid
+    data[pid_key] = persistent_identifier.pid_value
+    return persistent_identifier

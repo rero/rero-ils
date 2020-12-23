@@ -327,7 +327,7 @@ def create(infile, append, reindex, dbcommit, commit, verbose, debug, schema,
         # load everything in memory (faster, bad memory management)
         records = json.load(infile)
     count = 0
-    for count, record in enumerate(records):
+    for count, record in enumerate(records, 1):
         if schema:
             record['$schema'] = schema
         try:

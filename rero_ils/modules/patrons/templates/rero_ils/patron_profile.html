@@ -137,10 +137,3 @@
   </article>
 </article>
 {%- endblock body %}
-
-{%- block javascript %}
-{{ super() }}
-{% assets "rero_ils_patron_profile_js" %}
-<script src="{{ ASSET_URL }}"></script>
-{% endassets %}
-{% endblock javascript %}

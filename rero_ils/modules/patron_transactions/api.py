@@ -82,11 +82,19 @@ class PatronTransaction(IlsRecord):
     def create(cls, data, id_=None, delete_pid=False,
                dbcommit=False, reindex=False, **kwargs):
         """Create patron transaction record."""
-        record = super(PatronTransaction, cls).create(
+        record = super().create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
         PatronTransactionEvent.create_event_from_patron_transaction(
             patron_transaction=record, dbcommit=dbcommit, reindex=reindex,
             delete_pid=delete_pid, update_parent=False)
+        return record
+
+    # TODO: do we have to set dbcomit and reindex to True so the
+    # of the rest api for create and update works properly ?
+    # For PatronTransaction we have to set it to True for the tests.
+    def update(self, data, dbcommit=True, reindex=True):
+        """Update data for record."""
+        record = super().update(data=data, dbcommit=dbcommit, reindex=reindex)
         return record
 
     @classmethod
@@ -368,5 +376,4 @@ class PatronTransactionsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super(PatronTransactionsIndexer, self).bulk_index(record_id_iterator,
-                                                          doc_type='pttr')
+        super().bulk_index(record_id_iterator, doc_type='pttr')

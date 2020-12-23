@@ -36,9 +36,7 @@ class AcquisitionInvoiceJSONSerializer(JSONSerializer):
             lib_term['key'] = pid
             lib_term['name'] = name
 
-        return super(
-            AcquisitionInvoiceJSONSerializer,
-            self).post_process_serialize_search(results, pid_fetcher)
+        return super().post_process_serialize_search(results, pid_fetcher)
 
 
 json_acquisition_invoice = AcquisitionInvoiceJSONSerializer(RecordSchemaJSONV1)

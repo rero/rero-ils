@@ -92,8 +92,7 @@ class TemplatesIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super(TemplatesIndexer, self).bulk_index(record_id_iterator,
-                                                 doc_type='tmpl')
+        super().bulk_index(record_id_iterator, doc_type='tmpl')
 
 
 class TemplateVisibility(object):

@@ -168,5 +168,4 @@ class ItemTypesIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super(ItemTypesIndexer, self).bulk_index(record_id_iterator,
-                                                 doc_type='itty')
+        super().bulk_index(record_id_iterator, doc_type='itty')

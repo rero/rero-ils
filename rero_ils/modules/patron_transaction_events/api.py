@@ -82,16 +82,19 @@ class PatronTransactionEvent(IlsRecord):
         """Create patron transaction event record."""
         if 'creation_date' not in data:
             data['creation_date'] = datetime.now(timezone.utc).isoformat()
-        record = super(PatronTransactionEvent, cls).create(
+        record = super().create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
         if update_parent:
             cls.update_parent_patron_transaction(record)
         return record
 
-    def update(self, data, dbcommit=False, reindex=False):
+    # TODO: do we have to set dbcomit and reindex to True so the
+    # of the rest api for create and update works properly ?
+    # For PatronTransaction we have to set it to True for the tests.
+    def update(self, data, dbcommit=True, reindex=True):
         """Update data for record."""
-        super(PatronTransactionEvent, self).update(data, dbcommit, reindex)
-        return self
+        record = super().update(data=data, dbcommit=dbcommit, reindex=reindex)
+        return record
 
     @classmethod
     def create_event_from_patron_transaction(
@@ -225,6 +228,4 @@ class PatronTransactionEventsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super(PatronTransactionEventsIndexer, self).bulk_index(
-            record_id_iterator,
-            doc_type='ptre')
+        super().bulk_index(record_id_iterator, doc_type='ptre')

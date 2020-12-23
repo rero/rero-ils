@@ -51,8 +51,7 @@ def test_late_expected_and_claimed_issues(
 
     # for these holdings records, the next expected date is already passed
     # system will receive the issue and change its status to late
-    process_late_claimed_issues(dbcommit=True, reindex=True)
-
+    msg = process_late_claimed_issues(dbcommit=True, reindex=True)
     assert count_issues(martigny) == [1, 0]
     assert count_issues(sion) == [1, 0]
 
@@ -67,8 +66,7 @@ def test_late_expected_and_claimed_issues(
     martigny['patterns']['next_expected_date'] = yesterday
     martigny.update(martigny, dbcommit=True, reindex=True)
 
-    process_late_claimed_issues(dbcommit=True, reindex=True)
-
+    msg = process_late_claimed_issues(dbcommit=True, reindex=True)
     assert count_issues(martigny) == [2, 0]
     assert count_issues(sion) == [1, 0]
 
@@ -77,31 +75,34 @@ def test_late_expected_and_claimed_issues(
     # create a first claim for an issue and the claim_counts will increment
     late_issue = list(Item.get_issues_by_status(
         issue_status=ItemIssueStatus.LATE, holdings_pid=martigny.pid))[0]
-    late_issue['issue']['status_date'] = \
-        (datetime.now(timezone.utc) - timedelta(
-            days=martigny.days_before_first_claim + 1)).isoformat()
+    late_issue['issue']['status_date'] = (
+        datetime.now(timezone.utc)
+        - timedelta(days=martigny.days_before_first_claim + 1)
+    ).isoformat()
     late_issue.update(late_issue, dbcommit=True, reindex=True)
 
     assert late_issue.claims_count == 0
 
-    process_late_claimed_issues(
+    msg = process_late_claimed_issues(
         create_next_claim=False, dbcommit=True, reindex=True)
-
     assert count_issues(martigny) == [1, 1]
     assert count_issues(sion) == [1, 0]
     late_issue = Item.get_record_by_pid(late_issue.pid)
     assert late_issue.claims_count == 1
 
     # create the next claim for an issue and the claim_counts will increment
-    process_late_claimed_issues(dbcommit=True, reindex=True)
-
+    late_issue['issue']['status_date'] = (
+        datetime.now(timezone.utc)
+        - timedelta(days=martigny.days_before_next_claim + 1)
+    ).isoformat()
+    late_issue.update(late_issue, dbcommit=True, reindex=True)
+    msg = process_late_claimed_issues(dbcommit=True, reindex=True)
     assert count_issues(martigny) == [1, 1]
     late_issue = Item.get_record_by_pid(late_issue.pid)
     assert late_issue.claims_count == 2
 
     # No more claims will be generated because the max claims reached
-    process_late_claimed_issues(dbcommit=True, reindex=True)
-
+    msg = process_late_claimed_issues(dbcommit=True, reindex=True)
     assert count_issues(martigny) == [1, 1]
     late_issue = Item.get_record_by_pid(late_issue.pid)
     assert late_issue.claims_count == 2

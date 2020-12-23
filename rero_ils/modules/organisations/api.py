@@ -207,5 +207,4 @@ class OrganisationsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super(OrganisationsIndexer, self).bulk_index(record_id_iterator,
-                                                     doc_type='org')
+        super().bulk_index(record_id_iterator, doc_type='org')

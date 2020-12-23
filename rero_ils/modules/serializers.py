@@ -47,7 +47,7 @@ class JSONSerializer(_JSONSerializer):
             # because the replace_refs loose the record original model. We need
             # to resetting it to have correct 'created'/'updated' output data
             rec.model = record.model
-        return super(JSONSerializer, self).preprocess_record(
+        return super().preprocess_record(
             pid=pid, record=rec, links_factory=links_factory, kwargs=kwargs)
 
     @staticmethod
