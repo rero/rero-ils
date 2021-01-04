@@ -57,7 +57,7 @@ polib = "*"
 pycountry = ">=19.7.15"
 xmltodict = "*"
 redisbeat = "*"
-jsonpickle = "*"
+jsonpickle = ">=1.4.1"
 ciso8601 = "*"
 # TODO: to be removed when the thumbnail will be refactored
 invenio-userprofiles = {git = "https://github.com/rero/invenio-userprofiles.git", tag = "reroprofile"}
@@ -78,13 +78,15 @@ flask-cors = ">3.0.8"
 celery = "^5.0.0"
 lxml = ">=4.6.2"
 cryptography = ">3.2"
+# TODO: to be removed when dependency is corrected in pypi
+py = ">=1.9.0"
 
 [tool.poetry.dev-dependencies]
 ## Python packages development dependencies (order matters)
 #----------------------------------------------------------
 ## Default from Invenio
 Flask-Debugtoolbar = ">=0.10.1"
-Sphinx = ">=3.0.4"
+Sphinx = ">=3.0.4,<3.4"
 check-manifest = ">=0.35"
 coverage = ">=4.5.3"
 isort = ">=4.3"
