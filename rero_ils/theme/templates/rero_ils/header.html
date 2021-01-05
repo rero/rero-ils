@@ -36,7 +36,11 @@
 
         {%- block navbar_search %}
           <div class="align-self-center pr-2 flex-grow-1">
-            <main-search-bar placeholder="{{ _('Search') }}" viewcode="{{ viewcode or config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE }}"></main-search-bar>
+            <main-search-bar
+              placeholder="{{ _('Search') }}"
+              viewcode="{{ viewcode or config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE }}"
+              language="{{ current_i18n.locale.language[:2] }}"
+            ></main-search-bar>
           </div>
         {%- endblock navbar_search %}
 
