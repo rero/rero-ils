@@ -28,6 +28,8 @@ from flask import current_app
 from invenio_i18n.ext import current_i18n
 from markupsafe import Markup
 
+from .modules.patrons.api import Patron
+
 
 def node_assets(package, patterns=[
         'runtime*.js', 'polyfills*.js', 'main*.js'], _type='js', tags=''):
@@ -134,3 +136,18 @@ def empty_data(data, replacement_string='No data'):
     else:
         msg = '<em class="no-data">{0}</em>'.format(replacement_string)
         return Markup(msg)
+
+
+def lib_url(user):
+    """Return organisation viewcode.
+
+    :param user - invenio user to get viewcode
+    """
+    viewcode = current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE')
+    patron = Patron.get_patron_by_user(user)
+    if patron is not None:
+        viewcode = patron.get_organisation().get('code')
+    return '{base_url}/{viewcode}'.format(
+            base_url=current_app.config.get('RERO_ILS_APP_URL'),
+            viewcode=viewcode
+        )

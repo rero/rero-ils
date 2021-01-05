@@ -16,7 +16,10 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Test User Authentication API."""
+import re
+
 from flask import url_for
+from flask_security.recoverable import send_password_reset_notice
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
@@ -174,3 +177,15 @@ def test_change_password(client, patron_martigny_no_email,
 
     # logout for the next test
     client.post(url_for('invenio_accounts_rest_auth.logout'))
+
+
+def test_patron_reset_notice(patron_martigny_no_email, mailbox):
+    """Test password reset notice template."""
+    send_password_reset_notice(patron_martigny_no_email.user)
+    assert len(mailbox) == 1
+    assert re.search(
+        r'Your password has been successfully reset.', mailbox[0].body
+    )
+    assert re.search(
+        r'Best regards', mailbox[0].body
+    )
