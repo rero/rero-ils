@@ -33,11 +33,20 @@
     </header>
 
     <div class="container d-none d-md-block">
-      <main-search-bar placeholder="{{ _('What\'s on your mind?') }}" size="large" viewcode="{{ viewcode or config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE }}"></main-search-bar>
+      <main-search-bar
+        placeholder="{{ _('What\'s on your mind?') }}"
+        viewcode="{{ viewcode or config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE }}"
+        language="{{ current_i18n.locale.language[:2] }}"
+        size="large"
+      ></main-search-bar>
     </div>
 
     <div class="container d-block d-md-none">
-      <main-search-bar placeholder="{{ _('What\'s on your mind?') }}" viewcode="{{ viewcode or config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE }}"></main-search-bar>
+      <main-search-bar
+        placeholder="{{ _('What\'s on your mind?') }}"
+        viewcode="{{ viewcode or config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE }}"
+        language="{{ current_i18n.locale.language[:2] }}"
+      ></main-search-bar>
     </div>
 
     <footer class="text-center bg-danger text-white">
