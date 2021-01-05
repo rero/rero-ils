@@ -216,6 +216,9 @@ COLLECT_STORAGE = 'flask_collect.storage.link'
 SECURITY_EMAIL_SENDER = SUPPORT_EMAIL
 #: Email subject for account registration emails.
 SECURITY_EMAIL_SUBJECT_REGISTER = _("Welcome to RERO-ILS!")
+#: Email subjects for password reset
+SECURITY_EMAIL_SUBJECT_PASSWORD_RESET = _('RERO ID password reset')
+SECURITY_EMAIL_SUBJECT_PASSWORD_NOTICE = _('Your RERO ID password has been reset')
 #: Redis session storage URL.
 ACCOUNTS_SESSION_REDIS_URL = 'redis://localhost:6379/1'
 #: Enable session/user id request tracing. This feature will add X-Session-ID

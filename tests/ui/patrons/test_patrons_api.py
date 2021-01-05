@@ -113,6 +113,13 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
     assert set(user_roles) == set(ptrn.get('roles'))
     assert len(mailbox) == 1
     assert re.search(r'localhost/lost-password', mailbox[0].body)
+    assert re.search(
+        r'Someone requested that the password' +
+        ' for your RERO ID account be reset.', mailbox[0].body
+    )
+    assert re.search(
+        r'Best regards', mailbox[0].body
+    )
     assert ptrn.get('email') in mailbox[0].recipients
     librarian_martigny_data_tmp['user_id'] = 1
     assert ptrn == librarian_martigny_data_tmp

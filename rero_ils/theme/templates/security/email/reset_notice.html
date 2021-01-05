@@ -1,7 +1,7 @@
 {# -*- coding: utf-8 -*-
 
     RERO ILS
-    Copyright (C) 2019 RERO
+    Copyright (C) 2021 RERO
     Copyright (C) 2015-2018 CERN
 
     This program is free software: you can redistribute it and/or modify
@@ -23,9 +23,7 @@
 {%- else %}
 <p>{{ _('Dear patron') }},</p>
 {%- endif %}
-<p>{{ _('Someone requested that the password for your RERO ID account be reset.') }}</p>
-<p><a href="{{ reset_link.replace('/api', '') }}">{{ _('Reset my password') }}</a></p>
-<p>{{ _("If you didn't request this, you can ignore this e-mail. Your password won't change until you create a new password.") }}</p>
+<p>{{ _('Your password has been successfully reset.') }}</p>
 <p>{{ _('Best regards') }}</p>
 <p>{{ _('Your library') }}</p>
 <p>{{ user | lib_url }}</p>
