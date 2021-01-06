@@ -276,20 +276,22 @@ def item_library_pickup_locations(item):
     if 'restrict_pickup_to' in location:
         # Get all pickup locations as Location objects and append it to the
         # location item (removing possible None values)
-        pickup_locations = list(filter(None, [
+        pickup_locations = [
             Location.get_record_by_pid(loc_pid)
             for loc_pid in location.restrict_pickup_to
-        ]))
+        ]
     else:
         org = Organisation.get_record_by_pid(location.organisation_pid)
         # Get the pickup location from each library of the item organisation
         # (removing possible None value)
-        pickup_locations = list(filter(None, [
-            Location.get_record_by_pid(library.get_pickup_location_pid())
-            for library in org.get_libraries()
-        ]))
+        pickup_locations = []
+        for library in org.get_libraries():
+            for location_pid in list(library.get_pickup_locations_pids()):
+                pickup_locations.append(
+                    Location.get_record_by_pid(location_pid))
+
     return sorted(
-        pickup_locations,
+        list(filter(None, pickup_locations)),
         key=lambda location: location.get('pickup_name', location.get('code'))
     )
 

@@ -94,13 +94,21 @@ class Library(IlsRecord):
         from ..organisations.api import Organisation
         return Organisation.get_record_by_pid(self.organisation_pid)
 
-    def get_pickup_location_pid(self):
-        """Returns libraries first pickup location."""
-        results = LocationsSearch().filter(
+    def pickup_location_query(self):
+        """Search the location index for pickup locations."""
+        return LocationsSearch().filter(
             'term', library__pid=self.pid).filter(
                 'term', is_pickup=True).source(['pid']).scan()
+
+    def get_pickup_locations_pids(self):
+        """Returns libraries all pickup locations pids."""
+        for location in self.pickup_location_query():
+            yield location.pid
+
+    def get_pickup_location_pid(self):
+        """Returns libraries first pickup location pid."""
         try:
-            return next(results).pid
+            return next(self.pickup_location_query()).pid
         except StopIteration:
             return None
 
