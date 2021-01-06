@@ -127,7 +127,6 @@
     },
     "to_anonymize": {
       "title": "Set loan to be anonymized",
-      "description": "If enabled, loan is set to be anonymized.",
       "type": "boolean",
       "default": false
     },

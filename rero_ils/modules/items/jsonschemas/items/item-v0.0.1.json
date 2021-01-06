@@ -8,7 +8,6 @@
     "$schema",
     "pid",
     "location",
-    "barcode",
     "item_type",
     "type",
     "document",
