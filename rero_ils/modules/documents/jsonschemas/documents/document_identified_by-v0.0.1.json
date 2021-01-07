@@ -143,7 +143,6 @@
         },
         "value": {
           "title": "Identifier value",
-          "description": "Identifier value.",
           "type": "string",
           "minLength": 1,
           "form": {
