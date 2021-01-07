@@ -28,7 +28,7 @@ from flask_login import current_user
 from invenio_records_ui.signals import record_viewed
 
 from .api import Document
-from .utils import create_authorized_access_point, \
+from .utils import cache_image, create_authorized_access_point, \
     display_alternate_graphic_first, edition_format_text, get_remote_cover, \
     publication_statement_text, series_statement_format_text, \
     title_format_text_alternate_graphic, title_format_text_head, \
@@ -396,21 +396,24 @@ def create_publication_statement(provision_activity):
 def get_cover_art(record):
     """Get cover art.
 
-    :param record: record
+    :param isbn: isbn of document
     :return: url for cover art or None
     """
-    # electronic
+    # electronicLocator
     for electronic_locator in record.get('electronicLocator', []):
-        type = electronic_locator.get('type')
-        content = electronic_locator.get('content')
-        if type == 'relatedResource' and content == 'coverImage':
-            return electronic_locator.get('url')
-    # isbn
-    isbn = document_isbn(record.get('identifiedBy', [])).get('isbn')
-    if not isbn:
-        return None
-    res = get_remote_cover(isbn)
-    return res.get('image')
+        e_content = electronic_locator.get('content')
+        e_type = electronic_locator.get('type')
+        if e_content == 'coverImage' and e_type == 'relatedResource':
+            url = electronic_locator.get('url')
+            if cache_image(url):
+                return url
+    # ISBN
+    for identified_by in record.get('identifiedBy', []):
+        if identified_by.get('type') == 'bf:Isbn':
+            isbn = identified_by.get('value')
+            isbn_cover = get_remote_cover(isbn)
+            if isbn_cover.get('success'):
+                return isbn_cover.get('image')
 
 
 @blueprint.app_template_filter()
@@ -574,3 +577,32 @@ def in_collection(item_pid):
         .filter('term', published=True)
         .scan()
     )
+
+
+@blueprint.app_template_filter()
+def document_types(record, translate=True):
+    """Get docuement types.
+
+    :param record: record
+    :param translate: translate document type
+    :return: dictonary list of document types
+    """
+    doc_types = record.document_types
+    if translate:
+        for idx, doc_type in enumerate(doc_types):
+            doc_types[idx] = _(doc_type)
+    return doc_types
+
+
+@blueprint.app_template_filter()
+def document_main_type(record, translate=True):
+    """Get first docuement main type.
+
+    :param record: record
+    :param translate: translate document type
+    :return: document main type
+    """
+    doc_type = record['type'][0]['main_type']
+    if translate:
+        doc_type = _(doc_type)
+    return doc_type

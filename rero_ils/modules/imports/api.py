@@ -131,7 +131,7 @@ class Import(object):
         :param id: id for the record
         :param indexd: index of the record
         """
-        type = record.get('type')
+        type = record['type'][0]['main_type']
         self.calculate_aggregations_add('type', type, id)
 
         provision_activitys = record.get('provisionActivity', [])
@@ -246,6 +246,7 @@ class Import(object):
                     where=self.search.get(where)
                 )
                 with requests.get(url_api) as response:
+                    print('>>>>>', url_api)
                     if not response.ok:
                         self.status_code = 502
                         response = {
@@ -285,6 +286,7 @@ class Import(object):
 
                             # convert marc json to local json format
                             record = unimarc.do(json_data)
+
                             id = self.get_id(json_data)
                             data = {
                                 'id': id,

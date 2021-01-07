@@ -28,12 +28,12 @@ from rero_ils.modules.selfcheck.utils import map_item_circulation_status, \
 def test_media_type(client):
     """Test invenio-sip2 media type mapping."""
     # TODO: test all document types
-    assert 'MAGAZINE' == map_media_type('article')
-    assert 'MAGAZINE' == map_media_type('journal')
-    assert 'BOOK' == map_media_type('book')
-    assert 'AUDIO' == map_media_type('sound')
-    assert 'VIDEO' == map_media_type('video')
-    assert 'OTHER' == map_media_type('other')
+    assert 'BOOK' == map_media_type('docmaintype_book')
+    assert 'MAGAZINE' == map_media_type('docmaintype_article')
+    assert 'MAGAZINE' == map_media_type('docmaintype_serial')
+    assert 'BOUND_JOURNAL' == map_media_type('docmaintype_series')
+    assert 'AUDIO' == map_media_type('docmaintype_audio')
+    assert 'VIDEO' == map_media_type('docmaintype_movie_series')
 
 
 def test_circulation_status():

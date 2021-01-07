@@ -256,11 +256,11 @@ def schedules():
         click.echo(value)
 
 
-@utils.command()
+@utils.command('init_index')
 @click.option('--force', is_flag=True, default=False)
 @with_appcontext
 @es_version_check
-def init(force):
+def init_index(force):
     """Initialize registered templates, aliases and mappings."""
     # TODO: to remove once it is fixed in invenio-search module
     click.secho('Putting templates...', fg='green', bold=True, file=sys.stderr)

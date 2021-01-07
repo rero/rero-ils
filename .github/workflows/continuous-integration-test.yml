@@ -83,9 +83,9 @@ jobs:
       if: ${{ matrix.dependencies == 'dev' }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        COVERALLS_SERVICE_NAME: github
         COVERALLS_FLAG_NAME: test-${{ matrix.tests }}
         COVERALLS_PARALLEL: true
-        COVERALLS_SERVICE_NAME: github
       run: poetry run coveralls
 
 
@@ -106,8 +106,8 @@ jobs:
     - name: Finished
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        COVERALLS_PARALLEL_FINISHED: true
         COVERALLS_SERVICE_NAME: github
+        COVERALLS_PARALLEL_FINISHED: true
       run: |
         pip install --upgrade coveralls
         coveralls --finish

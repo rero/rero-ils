@@ -1571,7 +1571,7 @@ RECORDS_REST_FACETS = dict(
             # The organisation or library facet is defined
             # dynamically during the query (query.py)
             document_type=dict(
-                terms=dict(field='type',
+                terms=dict(field='type.main_type',
                            size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             language=dict(
@@ -1598,7 +1598,7 @@ RECORDS_REST_FACETS = dict(
             )
         ),
         filters={
-            _('document_type'): and_term_filter('type'),
+            _('document_type'): and_term_filter('type.main_type'),
             _('organisation'): and_term_filter(
                 'holdings.organisation.organisation_pid'
             ),
@@ -2471,10 +2471,12 @@ SIP2_REMOTE_ACTION_HANDLERS = dict(
     )
 )
 
+#: see invenio_sip2.models.SelfcheckMediaType
 SIP2_MEDIA_TYPES = dict(
-    article='MAGAZINE',
-    book='BOOK',
-    journal='MAGAZINE',
-    sound='AUDIO',
-    video='VIDEO',
+    docmaintype_book='BOOK',
+    docmaintype_article='MAGAZINE',
+    docmaintype_serial='MAGAZINE',
+    docmaintype_series='BOUND_JOURNAL',
+    docmaintype_audio='AUDIO',
+    docmaintype_movie_series='VIDEO',
 )

@@ -303,20 +303,36 @@ def unimarc_type_and_issuance(self, key, value):
     Sounds: LDR/6: i|j
     E-books (imported from Cantook)
     """
-    type = None
+    type = [{"main_type": "docmaintype_other"}]
     if unimarc.record_type == 'a':
         if unimarc.bib_level == 'm':
-            type = 'book'
+            type = [{
+                "main_type": "docmaintype_book",
+                "subtype": "docsubtype_other_book"
+            }]
         elif unimarc.bib_level == 's':
-            type = 'journal'
+            type = [{
+                "main_type": "docmaintype_serial"
+            }]
         elif unimarc.bib_level == 'a':
-            type = 'article'
+            type = [{
+                "main_type": "docmaintype_article",
+            }]
     elif unimarc.record_type in ['c', 'd']:
-        type = 'score'
+        type = [{
+            "main_type": "docmaintype_score",
+            "subtype": "docsubtype_printed_score"
+        }]
     elif unimarc.record_type in ['i', 'j']:
-        type = 'sound'
+        type = [{
+            "main_type": "docmaintype_audio",
+            "subtype": "docsubtype_music"
+        }]
     elif unimarc.record_type == 'g':
-        type = 'video'
+        type = [{
+            "main_type": "docmaintype_movie_series",
+            "subtype": "docsubtype_movie"
+        }]
         # Todo 007
     self['type'] = type
 

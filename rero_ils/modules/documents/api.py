@@ -259,6 +259,30 @@ class Document(IlsRecord):
                     contributions[idx]['agent'] = contribution
         return super(Document, self).replace_refs()
 
+    @property
+    def document_type(self):
+        """Get first document type of document."""
+        document_type = 'docmaintype_other'
+        document_types = self.get('type', [])
+        if document_types:
+            document_type = document_types[0]['main_type']
+            document_subtype = document_types[0].get('subtype')
+            if document_subtype:
+                document_type = document_subtype
+        return document_type
+
+    @property
+    def document_types(self):
+        """All types of document."""
+        document_types = []
+        for document_type in self.get('type', []):
+            main_type = document_type.get('main_type')
+            sub_type = document_type.get('subtype')
+            if sub_type:
+                main_type = sub_type
+            document_types.append(main_type)
+        return document_types or ['docmaintype_other']
+
 
 class DocumentsIndexer(IlsRecordsIndexer):
     """Indexing documents in Elasticsearch."""

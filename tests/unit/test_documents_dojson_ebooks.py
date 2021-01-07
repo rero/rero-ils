@@ -110,7 +110,10 @@ def test_marc21_to_type_ebooks():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('type') == 'ebook'
+    assert data.get('type') == [{
+        'main_type': 'docmaintype_book',
+        'subtype': 'docsubtype_e-book'
+    }]
 
 
 def test_marc21_to_identifier_rero_id():

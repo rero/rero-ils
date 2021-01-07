@@ -140,7 +140,9 @@ def map_media_type(media_type):
     :param media_type: Document type
     :return: sip2 media type (see invenio_sip2.models.SelfcheckMediaType)
     """
-    return current_app.config.get('SIP2_MEDIA_TYPES').get(media_type, 'OTHER')
+    return current_app.config.get('SIP2_MEDIA_TYPES').get(
+        media_type, 'docmaintype_other'
+    )
 
 
 def map_item_circulation_status(item_status):

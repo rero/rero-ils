@@ -80,6 +80,9 @@ lxml = ">=4.6.2"
 cryptography = ">3.2"
 # TODO: to be removed when dependency is corrected in pypi
 py = ">=1.9.0"
+# TODO: completetion not workin in console woth version 0.18.0
+jedi = "<0.18.0"
+requests_cache = ">0.5.0"
 
 [tool.poetry.dev-dependencies]
 ## Python packages development dependencies (order matters)

@@ -23,12 +23,15 @@ import json
 import re
 
 import requests
+import requests_cache
 from elasticsearch_dsl.utils import AttrDict
 from flask import current_app
 from flask import request as flask_request
 
 from .dojson.contrib.marc21tojson.model import remove_trailing_punctuation
 from ...utils import get_i18n_supported_languages
+
+requests_cache.install_cache('image_cache', backend='sqlite', expire_after=300)
 
 
 def clean_text(data):
@@ -507,14 +510,68 @@ def create_contributions(contributions):
 
 def get_remote_cover(isbn):
     """Document cover service."""
-    cover_service = current_app.config.get('RERO_ILS_THUMBNAIL_SERVICE_URL')
-    url = cover_service + '?height=60px&jsonpCallbackParam=callback'\
-                          '&type=isbn&width=60px&callback=thumb&value=' + isbn
-    response = requests.get(
-        url, headers={'referer': flask_request.host_url})
+    if isbn:
+        cover_service = current_app.config.get(
+            'RERO_ILS_THUMBNAIL_SERVICE_URL'
+        )
+        url = '{cover_service}' \
+              '?height=100px' \
+              '&width=244px' \
+              '&jsonpCallbackParam=callback' \
+              '&callback=thumb' \
+              '&type=isbn' \
+              '&value={isbn}'.format(
+                cover_service=cover_service,
+                isbn=isbn
+              )
+        response = requests.get(url,
+                                headers={'referer': flask_request.host_url})
+        requests_cache.remove_expired_responses()
 
-    if response.status_code != 200:
+        if response.status_code != 200:
+            current_app.logger.debug(
+                'Unable to get cover for isbn: {isbn} {code}'.format(
+                    isbn=isbn,
+                    code=response.status_code
+                )
+            )
+            return None
+
+        result = json.loads(response.text[len('thumb('):-1])
+        if result['success']:
+            result['image'] = result['image'].replace(
+                'http://images.amazon.com',
+                'https://images-na.ssl-images-amazon.com/'
+            )
+            print('---->', result)
+            return result
         current_app.logger.debug(
-            'Unable to get cover for isbn: {0}'.format(isbn))
-        return dict(success=False)
-    return json.loads(response.text[len('thumb('):-1])
+            'Unable to get cover for isbn: {isbn}'.format(isbn=isbn)
+        )
+
+
+# def get_remote_cover(isbn):
+#     """Document cover service."""
+#     url = '{url}/b/isbn/{isbn}-M.jpg{default}'.format(
+#         url=http://covers.openlibrary.org,
+#         isbn=isbn,
+#         default='?default=false'
+#     )
+#     response = requests.get(url)
+#     requests_cache.remove_expired_responses()
+#
+#     if response.status_code != 200:
+#         current_app.logger.debug(
+#             'Unable to get cover for isbn: {isbn}'.format(isbn=isbn))
+#         return None
+#     return url
+
+
+def cache_image(url):
+    """Cache image."""
+    response = requests.get(url)
+    requests_cache.remove_expired_responses()
+    if response.status_code != 200:
+        current_app.logger.debug('Unable to get cover: {url}'.format(url=url))
+        return False
+    return True

@@ -97,3 +97,6 @@ tests/e2e/cypress/cypress/integration/test
 
 # Dependencies
 /node_modules
+
+# requests_cache sqlight
+image_cache.sqlite

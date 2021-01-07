@@ -1,6 +1,10 @@
 [
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -102,7 +106,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -235,7 +244,12 @@
     ]
   },
   {
-    "type": "sound",
+    "type": [
+      {
+        "main_type": "docmaintype_audio",
+        "subtype": "docsubtype_music"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -376,7 +390,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -485,7 +504,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -607,7 +631,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -703,7 +732,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -809,7 +842,12 @@
     ]
   },
   {
-    "type": "score",
+    "type": [
+      {
+        "main_type": "docmaintype_score",
+        "subtype": "docsubtype_printed_score"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -956,7 +994,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -1037,7 +1079,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -1129,7 +1175,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -1237,7 +1287,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -1333,7 +1387,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -1435,7 +1493,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -1553,7 +1616,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -1659,7 +1727,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -1824,7 +1897,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -2041,7 +2119,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -2160,7 +2243,12 @@
     ]
   },
   {
-    "type": "video",
+    "type": [
+      {
+        "main_type": "docmaintype_movie_series",
+        "subtype": "docsubtype_movie"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -2317,7 +2405,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -2401,7 +2493,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -2538,7 +2635,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -2646,7 +2747,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -2818,7 +2924,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -2955,7 +3066,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -3047,7 +3162,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -3176,7 +3296,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -3301,7 +3426,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -3404,7 +3533,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -3507,7 +3640,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -3662,7 +3800,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -3751,7 +3893,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -3892,7 +4039,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -4022,7 +4174,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -4136,7 +4293,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -4256,7 +4417,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -4379,7 +4545,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -4481,7 +4651,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -4647,7 +4822,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -4724,7 +4903,12 @@
     "extent": "1 Bd."
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -4870,7 +5054,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -5001,7 +5190,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -5111,7 +5305,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -5234,7 +5433,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -5341,7 +5544,12 @@
     ]
   },
   {
-    "type": "score",
+    "type": [
+      {
+        "main_type": "docmaintype_score",
+        "subtype": "docsubtype_printed_score"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -5470,7 +5678,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -5556,7 +5768,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -5698,7 +5915,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -5844,7 +6066,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -5966,7 +6193,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -6090,7 +6322,12 @@
     ]
   },
   {
-    "type": "sound",
+    "type": [
+      {
+        "main_type": "docmaintype_audio",
+        "subtype": "docsubtype_music"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -6191,7 +6428,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -6311,7 +6553,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -6415,7 +6662,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -6491,7 +6742,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -6652,7 +6908,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -6769,7 +7029,12 @@
     ]
   },
   {
-    "type": "score",
+    "type": [
+      {
+        "main_type": "docmaintype_score",
+        "subtype": "docsubtype_printed_score"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -6909,7 +7174,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -7032,7 +7302,12 @@
     ]
   },
   {
-    "type": "sound",
+    "type": [
+      {
+        "main_type": "docmaintype_audio",
+        "subtype": "docsubtype_music"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -7195,7 +7470,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -7272,7 +7551,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -7340,7 +7623,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -7402,7 +7689,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -7521,7 +7813,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -7626,7 +7923,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -7696,7 +7997,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -7832,7 +8138,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -7947,7 +8258,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -8095,7 +8411,12 @@
     ]
   },
   {
-    "type": "sound",
+    "type": [
+      {
+        "main_type": "docmaintype_audio",
+        "subtype": "docsubtype_music"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -8214,7 +8535,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -8286,7 +8611,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -8443,7 +8773,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -8516,7 +8850,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -8641,7 +8980,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -8752,7 +9095,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -8844,7 +9191,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -8990,7 +9342,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -9107,7 +9464,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -9221,7 +9583,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -9293,7 +9659,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -9416,7 +9787,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -9524,7 +9900,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -9648,7 +10029,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -9776,7 +10162,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -9933,7 +10324,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -10009,7 +10404,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -10118,7 +10518,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -10227,7 +10632,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -10339,7 +10749,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -10470,7 +10885,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -10548,7 +10967,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -10670,7 +11093,12 @@
     "extent": "CD-ROM"
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -10809,7 +11237,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -10928,7 +11361,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -11059,7 +11496,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -11168,7 +11610,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -11240,7 +11686,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -11319,7 +11769,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -11406,7 +11860,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -11505,7 +11964,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -11624,7 +12088,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -11733,7 +12202,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -11879,7 +12353,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -11968,7 +12446,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -12068,7 +12551,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -12149,7 +12636,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -12274,7 +12766,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -12409,7 +12906,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -12527,7 +13029,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -12637,7 +13144,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -12733,7 +13244,11 @@
     "extent": "P. 297-311."
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -12820,7 +13335,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -12933,7 +13453,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -13056,7 +13581,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -13147,7 +13676,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -13262,7 +13796,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -13398,7 +13937,12 @@
     ]
   },
   {
-    "type": "score",
+    "type": [
+      {
+        "main_type": "docmaintype_score",
+        "subtype": "docsubtype_printed_score"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -13573,7 +14117,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -13639,7 +14187,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -13751,7 +14304,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -13881,7 +14439,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -14022,7 +14585,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -14144,7 +14712,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -14254,7 +14827,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -14368,7 +14946,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -14505,7 +15088,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -14577,7 +15164,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -14662,7 +15253,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -14790,7 +15386,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -14948,7 +15549,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -15071,7 +15676,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -15181,7 +15791,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -15327,7 +15942,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -15454,7 +16074,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -15590,7 +16215,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -15679,7 +16308,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -15782,7 +16416,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -15911,7 +16550,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -16092,7 +16735,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -16267,7 +16915,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -16400,7 +17053,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -16493,7 +17150,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -16571,7 +17232,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -16697,7 +17363,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -16825,7 +17496,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -16981,7 +17657,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -17114,7 +17795,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -17256,7 +17941,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -17324,7 +18013,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -17424,7 +18117,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -17544,7 +18242,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -17620,7 +18322,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -17746,7 +18453,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -17871,7 +18583,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -17996,7 +18712,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -18095,7 +18815,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -18221,7 +18946,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -18357,7 +19087,12 @@
     ]
   },
   {
-    "type": "sound",
+    "type": [
+      {
+        "main_type": "docmaintype_audio",
+        "subtype": "docsubtype_music"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -18478,7 +19213,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -18608,7 +19348,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -18785,7 +19530,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -18890,7 +19640,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -18988,7 +19743,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -19090,7 +19849,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -19163,7 +19926,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -19305,7 +20072,12 @@
     ]
   },
   {
-    "type": "video",
+    "type": [
+      {
+        "main_type": "docmaintype_movie_series",
+        "subtype": "docsubtype_movie"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -19429,7 +20201,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -19535,7 +20312,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -19689,7 +20471,12 @@
     ]
   },
   {
-    "type": "video",
+    "type": [
+      {
+        "main_type": "docmaintype_movie_series",
+        "subtype": "docsubtype_movie"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -19889,7 +20676,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -19966,7 +20757,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -20085,7 +20881,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -20194,7 +20995,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -20336,7 +21142,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -20479,7 +21290,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -20592,7 +21408,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -20692,7 +21513,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -20833,7 +21658,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -20938,7 +21768,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -21080,7 +21914,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -21202,7 +22041,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -21356,7 +22199,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -21479,7 +22327,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -21595,7 +22448,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -21713,7 +22571,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -21868,7 +22731,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -21996,7 +22864,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -22106,7 +22979,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -22189,7 +23066,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -22309,7 +23191,12 @@
     ]
   },
   {
-    "type": "sound",
+    "type": [
+      {
+        "main_type": "docmaintype_audio",
+        "subtype": "docsubtype_music"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -22408,7 +23295,12 @@
     ]
   },
   {
-    "type": "sound",
+    "type": [
+      {
+        "main_type": "docmaintype_audio",
+        "subtype": "docsubtype_music"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -22509,7 +23401,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -22610,7 +23507,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -22688,7 +23589,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -22847,7 +23753,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -22950,7 +23860,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -23085,7 +24000,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -23196,7 +24116,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -23310,7 +24235,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -23432,7 +24362,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -23504,7 +24438,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -23613,7 +24552,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -23750,7 +24694,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -23873,7 +24822,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -24017,7 +24971,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -24173,7 +25131,12 @@
     ]
   },
   {
-    "type": "score",
+    "type": [
+      {
+        "main_type": "docmaintype_score",
+        "subtype": "docsubtype_printed_score"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -24360,7 +25323,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -24486,7 +25454,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -24576,7 +25548,12 @@
     ]
   },
   {
-    "type": "sound",
+    "type": [
+      {
+        "main_type": "docmaintype_audio",
+        "subtype": "docsubtype_music"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -24686,7 +25663,12 @@
     ]
   },
   {
-    "type": "sound",
+    "type": [
+      {
+        "main_type": "docmaintype_audio",
+        "subtype": "docsubtype_music"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -24850,7 +25832,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -24966,7 +25953,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -25087,7 +26079,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -25249,7 +26246,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -25406,7 +26408,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -25540,7 +26547,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -25718,7 +26729,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -25908,7 +26924,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -26019,7 +27040,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -26110,7 +27136,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -26228,7 +27259,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -26352,7 +27388,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -26450,7 +27491,11 @@
     "extent": "335 p."
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -26554,7 +27599,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -26633,7 +27682,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -26763,7 +27817,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -26864,7 +27922,12 @@
     ]
   },
   {
-    "type": "score",
+    "type": [
+      {
+        "main_type": "docmaintype_score",
+        "subtype": "docsubtype_printed_score"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -26996,7 +28059,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -27103,7 +28171,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -27256,7 +28329,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -27388,7 +28466,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -27479,7 +28561,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -27596,7 +28683,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -27758,7 +28850,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -27828,7 +28924,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -27953,7 +29054,12 @@
     ]
   },
   {
-    "type": "score",
+    "type": [
+      {
+        "main_type": "docmaintype_score",
+        "subtype": "docsubtype_printed_score"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -28072,7 +29178,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -28190,7 +29300,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -28297,7 +29411,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -28434,7 +29553,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -28539,7 +29662,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -28666,7 +29794,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -28839,7 +29971,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -28928,7 +30064,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -29030,7 +30170,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -29134,7 +30279,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -29247,7 +30396,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -29365,7 +30519,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -29537,7 +30696,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -29617,7 +30780,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -29764,7 +30931,12 @@
     ]
   },
   {
-    "type": "video",
+    "type": [
+      {
+        "main_type": "docmaintype_movie_series",
+        "subtype": "docsubtype_movie"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -29903,7 +31075,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -30033,7 +31210,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -30182,7 +31364,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -30271,7 +31457,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -30375,7 +31565,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -30477,7 +31671,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -30564,7 +31763,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -30668,7 +31872,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -30779,7 +31988,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -30850,7 +32063,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -30968,7 +32186,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -31114,7 +32337,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -31247,7 +32475,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -31355,7 +32588,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -31427,7 +32664,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -31563,7 +32805,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -31699,7 +32946,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -31813,7 +33065,12 @@
     ]
   },
   {
-    "type": "score",
+    "type": [
+      {
+        "main_type": "docmaintype_score",
+        "subtype": "docsubtype_printed_score"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -31931,7 +33188,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -32036,7 +33298,12 @@
     ]
   },
   {
-    "type": "sound",
+    "type": [
+      {
+        "main_type": "docmaintype_audio",
+        "subtype": "docsubtype_music"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -32138,7 +33405,11 @@
     "extent": "2 vol."
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -32235,7 +33506,12 @@
     ]
   },
   {
-    "type": "sound",
+    "type": [
+      {
+        "main_type": "docmaintype_audio",
+        "subtype": "docsubtype_music"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -32333,7 +33609,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -32451,7 +33732,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -32568,7 +33854,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -32672,7 +33963,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -32786,7 +34081,12 @@
     ]
   },
   {
-    "type": "sound",
+    "type": [
+      {
+        "main_type": "docmaintype_audio",
+        "subtype": "docsubtype_music"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -32974,7 +34274,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -33095,7 +34400,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -33210,7 +34520,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -33298,7 +34612,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -33458,7 +34777,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -33546,7 +34869,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -33677,7 +35005,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -33775,7 +35107,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -33875,7 +35211,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -33989,7 +35330,12 @@
     ]
   },
   {
-    "type": "score",
+    "type": [
+      {
+        "main_type": "docmaintype_score",
+        "subtype": "docsubtype_printed_score"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -34138,7 +35484,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -34251,7 +35601,11 @@
     ]
   },
   {
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -34371,7 +35725,11 @@
     ]
   },
   {
-    "type": "article",
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "article"
@@ -34449,7 +35807,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"

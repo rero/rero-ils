@@ -17,17 +17,11 @@
 
  */
 
-.thumb {
-  img {
-    max-height: 244px;
-    width: 160px;
-  }
-}
 
-@media (max-width: 960px) {
-  .thumb {
-    img {
-      max-width: 48px;
-    }
-  }
-}
+ figure.thumb {
+
+   max-width: 244px;
+   figcaption {
+     overflow-wrap: anywhere;
+   }
+ }
