@@ -58,10 +58,10 @@ class ItemRecord(IlsRecord):
             return _('Holdings does not exist: {pid}.'.format(pid=holding_pid))
         is_serial = holding.holdings_type == 'serial'
         if is_serial and self.get('type') == 'standard':
-            return _('Standard item can not attached to a journal.')
+            return _('Standard item can not be attached to a journal.')
         issue = self.get('issue', {})
         if issue and self.get('type') == 'standard':
-            return _('Standard item can not have a issue field.')
+            return _('Standard item can not have an issue field.')
         if self.get('type') == 'issue':
             if not issue:
                 return _('Issue item must have an issue field.')
