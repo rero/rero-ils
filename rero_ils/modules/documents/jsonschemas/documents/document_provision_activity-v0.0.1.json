@@ -126,7 +126,6 @@
           "items": {
             "type": "object",
             "title": "Statement",
-            "description": "Statement of place and agent of the provision activity.",
             "propertiesOrder": [
               "type",
               "label"
