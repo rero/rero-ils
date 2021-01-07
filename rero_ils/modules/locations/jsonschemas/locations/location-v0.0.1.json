@@ -177,7 +177,7 @@
     },
     "restrict_pickup_to": {
       "title": "Restrict pickup to",
-      "description": "Select locations where items linked to the current location could be requested.",
+      "description": "Select authorised pickup locations for items linked to this location.",
       "type": "array",
       "minItems": 1,
       "uniqueItems": true,
