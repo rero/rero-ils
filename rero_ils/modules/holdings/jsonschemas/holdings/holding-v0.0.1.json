@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "title": "Holding",
+  "title": "Holdings",
   "description": "JSON schema for holdings.",
   "additionalProperties": false,
   "required": [
@@ -466,7 +466,7 @@
     },
     "enumerationAndChronology": {
       "title": "Available collection",
-      "description": "Textual description of the basic bibliographic unit of the holding.",
+      "description": "Textual description of the basic bibliographic unit of the holdings.",
       "type": "string",
       "minLength": 1
     },
