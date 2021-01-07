@@ -159,8 +159,8 @@
       "additionalProperties": false,
       "properties": {
         "template": {
-          "title": "Issue display template",
-          "description": "This template defines how a prediction is displayed. i.e. year 2020; vol.1, iss. 4. It should contains the variable field between {{}} with the corresponding pattern and level name.",
+          "title": "Template for the enumeration and chronology of the issue",
+          "description": "This template defines how a prediction is displayed. i.e. year 2020; vol.1, iss. 4. It should contain the variable field between {{}} with the corresponding pattern and level name.",
           "type": "string",
           "minLength": 3,
           "pattern": ".*?\\{\\{.*?\\}\\}.*?",
