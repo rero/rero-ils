@@ -144,7 +144,7 @@ class Holding(IlsRecord):
             self.get('document').get('$ref'))
         document = Document.get_record_by_pid(document_pid)
         if not document:
-            return _('Document does not exist {pid}.'.format(pid=document_pid))
+            return _('The document {pid} does not exist.'.format(pid=document_pid))
         is_serial = self.holdings_type == 'serial'
         if is_serial:
             patterns = self.get('patterns', {})
