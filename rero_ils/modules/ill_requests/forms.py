@@ -144,7 +144,7 @@ class ILLRequestForm(FlaskForm):
         label=_('Scope'),
         choices=[(0, _('Loan')), (1, _('Copy'))],
         default=0,
-        description=_('Define if the request is for a copy or full document.')
+        description=_('Define if the request is for a copy or an actual document.')
     )
     pages = StringField(
         label=_('Pages')
