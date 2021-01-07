@@ -32,7 +32,7 @@
       "pattern": "^https://ils.rero.ch/schemas/acq_orders/acq_order-v([0-9]+?\\.){3}json$"
     },
     "pid": {
-      "title": "AcqOrder ID",
+      "title": "Acquisition order ID",
       "type": "string",
       "minLength": 1
     },
