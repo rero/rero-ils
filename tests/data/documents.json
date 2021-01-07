@@ -1,6 +1,11 @@
 [
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -130,7 +135,12 @@
     ]
   },
   {
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"

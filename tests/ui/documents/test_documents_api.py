@@ -37,6 +37,7 @@ def test_document_create(db, document_data_tmp):
     ]
     doc = Document.get_record_by_pid('1')
     assert doc == document_data_tmp
+    assert doc.document_type == 'docsubtype_other_book'
 
     fetched_pid = document_id_fetcher(ptty.id, ptty)
     assert fetched_pid.pid_value == '1'
@@ -44,6 +45,23 @@ def test_document_create(db, document_data_tmp):
 
     with pytest.raises(IlsRecordError.PidAlreadyUsed):
         new_doc = Document.create(doc)
+
+
+def test_document_add_cover_url(db, document):
+    """Test add url."""
+    document.add_cover_url(url='http://images.rero.ch/cover.png')
+    assert document.get('electronicLocator') == [{
+        'content': 'coverImage',
+        'type': 'relatedResource',
+        'url': 'http://images.rero.ch/cover.png'
+    }]
+    # don't add the same url
+    document.add_cover_url(url='http://images.rero.ch/cover.png')
+    assert document.get('electronicLocator') == [{
+        'content': 'coverImage',
+        'type': 'relatedResource',
+        'url': 'http://images.rero.ch/cover.png'
+    }]
 
 
 def test_document_can_not_delete(document, item_lib_martigny):

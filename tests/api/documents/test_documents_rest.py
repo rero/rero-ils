@@ -27,7 +27,7 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, mock_response, \
     postdata
 
-from rero_ils.modules.documents.utils import clean_text
+from rero_ils.modules.documents.utils import clean_text, get_remote_cover
 from rero_ils.modules.documents.views import can_request, \
     item_library_pickup_locations
 from rero_ils.modules.utils import get_ref_for_pid
@@ -442,6 +442,19 @@ def test_documents_post_put_delete(
     assert res.status_code == 410
 
 
+def test_documents_get_resolve_rero_json(
+    client, document_ref, contribution_person_data, rero_json_header,
+):
+    """Test record get with resolve and mimetype rero+json."""
+    api_url = url_for('invenio_records_rest.doc_item', pid_value='doc2',
+                      resolve='1')
+    res = client.get(api_url, headers=rero_json_header)
+    assert res.status_code == 200
+    metadata = get_json(res).get('metadata', {})
+    pid = metadata['contribution'][0]['agent']['pid']
+    assert pid == contribution_person_data['pid']
+
+
 def test_document_can_request_view(
         client, item_lib_fully,
         loan_pending_martigny, document,
@@ -480,10 +493,9 @@ def test_document_can_request_view(
     picks = item_library_pickup_locations(item_lib_martigny)
     assert len(picks) == 3
 
+
 @pytest.mark.skip(reason="Remove this when boosting problem is fixed")
-def test_document_boosting(
-    client, ebook_1, ebook_1_data, ebook_4, ebook_4_data
-):
+def test_document_boosting(client, ebook_1, ebook_4):
     """Test document boosting."""
     list_url = url_for(
         'invenio_records_rest.doc_list',
@@ -493,7 +505,7 @@ def test_document_boosting(
     hits = get_json(res)['hits']
     assert hits['total']['value'] == 2
     data = hits['hits'][0]['metadata']
-    assert data['pid'] == ebook_1_data.get('pid')
+    assert data['pid'] == ebook_1.pid
 
     list_url = url_for(
         'invenio_records_rest.doc_list',
@@ -504,7 +516,7 @@ def test_document_boosting(
     hits = get_json(res)['hits']
     assert hits['total']['value'] == 1
     data = hits['hits'][0]['metadata']
-    assert data['pid'] == ebook_1_data.get('pid')
+    assert data['pid'] == ebook_1.pid
 
 
 @mock.patch('requests.get')
@@ -535,7 +547,7 @@ def test_documents_resolve(
         resolve='1'
     ))
     assert res.json['metadata']['contribution'][0]['agent']['sources'] == [
-        'gnd', 'idref'
+        'gnd', 'idref', 'rero'
     ]
     assert res.status_code == 200
 
@@ -573,3 +585,22 @@ def test_document_exclude_draft_records(client, document):
     res = client.get(list_url)
     hits = get_json(res)['hits']
     assert hits['total']['value'] == 1
+
+
+@mock.patch('requests.get')
+def test_get_remote_cover(mock_get_cover, app):
+    """Test get remote cover."""
+    mock_get_cover.return_value = mock_response(status=400)
+    assert get_remote_cover('YYYYYYYYY') is None
+
+    mock_get_cover.return_value = mock_response(
+        content='thumb({'
+            '"success": true,'
+            '"image": "https:\/\/i.test.com\/images\/P\/XXXXXXXXXX_.jpg"'
+            '})'
+    )
+    cover = get_remote_cover('XXXXXXXXXX')
+    assert cover == {
+        'success': True,
+        'image': 'https://i.test.com/images/P/XXXXXXXXXX_.jpg'
+    }

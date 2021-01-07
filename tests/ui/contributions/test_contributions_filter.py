@@ -43,45 +43,50 @@ def test_contribution_merge_data_values(app, contribution_person_data):
             'https://mef.test.rero.ch/schemas/gnd/'
             'gnd-contribution-v0.0.1.json': ['gnd'],
             'https://mef.test.rero.ch/schemas/idref/'
-            'idref-contribution-v0.0.1.json': ['idref']
+            'idref-contribution-v0.0.1.json': ['idref'],
+            'https://mef.test.rero.ch/schemas/rero/'
+            'rero-contribution-v0.0.1.json': ['rero']
         },
         'authorized_access_point': {
             'Loy, Georg, 1885': ['gnd'],
-            'Loy, Georg, 1885-19..': ['idref']
+            'Loy, Georg, 1885-19..': ['idref', 'rero']
         },
         'bf:Agent': {
-            'bf:Person': ['idref', 'gnd']
+            'bf:Person': ['idref', 'gnd', 'rero']
         },
         'biographical_information': {
             'Diss. philosophische Fakultät': ['gnd']
         },
         'country_associated': {
-            'gw': ['idref']
+            'gw': ['idref', 'rero']
         },
         'date_of_birth': {
             '1885': ['gnd'],
-            '1885-05-14': ['idref']
+            '1885-05-14': ['idref', 'rero']
         },
         'date_of_death': {
-            '19..': ['idref']
+            '19..': ['idref', 'rero']
         },
         'identifier': {
             'http://d-nb.info/gnd/13343771X': ['gnd'],
-            'http://www.idref.fr/223977268': ['idref']
+            'http://www.idref.fr/223977268': ['idref'],
+            'http://data.rero.ch/02-A017671081': ['rero']
         },
         'language': {
-            'ger': ['idref']
+            'ger': ['idref', 'rero']
         },
         'md5': {
             '3dd3788c64af4200676a35a5ea35b180': ['idref'],
+            '3dd3788c64af4200676a35a5ea35b181': ['rero'],
             '5dad1e77d5a47d39e87bb0ec37aaf51e': ['gnd']
         },
         'pid': {
             '13343771X': ['gnd'],
-            '223977268': ['idref']
+            '223977268': ['idref'],
+            'A017671081': ['rero']
         },
         'preferred_name': {
-            'Loy, Georg': ['idref', 'gnd']
+            'Loy, Georg': ['idref', 'gnd', 'rero']
         },
         'variant_name': {
             'Loy, George, di Madeiros': ['gnd']
@@ -93,5 +98,10 @@ def test_contribution_merge_data_values(app, contribution_person_data):
         'idref': {
             'identifier': 'http://www.idref.fr/223977268',
             'pid': '223977268'
+        },
+        'rero': {
+            'identifier': 'http://data.rero.ch/02-A017671081',
+            'pid': 'A017671081'
         }
+
     }

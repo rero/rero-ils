@@ -17,17 +17,26 @@
 
  */
 
-.thumb {
-  img {
-    max-height: 244px;
-    width: 160px;
+
+figure#thumbnail .thumb {
+  max-width: 244px;
+  max-height: 244px;
+  figcaption {
+    overflow-wrap: anywhere;
   }
 }
 
-@media (max-width: 960px) {
-  .thumb {
-    img {
-      max-width: 48px;
+figure#thumbnail .figure-caption {
+  line-height: 1.2em;
+}
+
+@media (max-width: map_get($grid-breakpoints, md)) {
+
+  figure#thumbnail .thumb {
+    max-width: 70px;
+    max-height: 70px;
+    figcaption {
+      overflow-wrap: anywhere;
     }
   }
 }

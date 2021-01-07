@@ -163,7 +163,15 @@
         }
       },
       "type": {
-        "type": "keyword"
+        "type": "object",
+        "properties": {
+          "main_type": {
+            "type": "keyword"
+          },
+          "subtype": {
+            "type": "keyword"
+          }
+        }
       },
       "language": {
         "type": "object",
@@ -339,6 +347,9 @@
         "properties": {
           "publicNote": {
             "type": "text"
+          },
+          "content": {
+            "type": "keyword"
           },
           "type": {
             "type": "keyword"

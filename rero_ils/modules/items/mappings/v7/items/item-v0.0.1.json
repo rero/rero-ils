@@ -75,6 +75,17 @@
           },
           "pid": {
             "type": "keyword"
+          },
+          "document_type": {
+            "type": "object",
+            "properties": {
+              "main_type": {
+                "type": "keyword"
+              },
+              "subtype": {
+                "type": "keyword"
+              }
+            }
           }
         }
       },

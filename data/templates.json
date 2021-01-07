@@ -116,7 +116,12 @@
       "translatedFrom": [
         ""
       ],
-      "type": "book"
+      "type": [
+        {
+          "main_type": "docmaintype_book",
+          "subtype": "docsubtype_other_book"
+        }
+      ]
     }
   },
   {
@@ -225,7 +230,12 @@
           "type": "bf:Title"
         }
       ],
-      "type": "video"
+      "type": [
+        {
+          "main_type": "docmaintype_movie_series",
+          "subtype": "docsubtype_movie"
+        }
+      ]
     }
   },
   {
@@ -416,7 +426,12 @@
           "type": "bf:Title"
         }
       ],
-      "type": "book"
+      "type": [
+        {
+          "main_type": "docmaintype_book",
+          "subtype": "docsubtype_other_book"
+        }
+      ]
     }
   },
   {
@@ -555,7 +570,12 @@
           "type": "bf:Title"
         }
       ],
-      "type": "book"
+      "type": [
+        {
+          "main_type": "docmaintype_book",
+          "subtype": "docsubtype_other_book"
+        }
+      ]
     }
   },
   {
@@ -675,7 +695,12 @@
       "translatedFrom": [
         ""
       ],
-      "type": "book"
+      "type": [
+        {
+          "main_type": "docmaintype_book",
+          "subtype": "docsubtype_other_book"
+        }
+      ]
     }
   },
   {
@@ -784,7 +809,12 @@
           "type": "bf:Title"
         }
       ],
-      "type": "video"
+      "type": [
+        {
+          "main_type": "docmaintype_movie_series",
+          "subtype": "docsubtype_movie"
+        }
+      ]
     }
   },
   {
@@ -975,7 +1005,12 @@
           "type": "bf:Title"
         }
       ],
-      "type": "book"
+      "type": [
+        {
+          "main_type": "docmaintype_book",
+          "subtype": "docsubtype_other_book"
+        }
+      ]
     }
   },
   {
@@ -1114,7 +1149,12 @@
           "type": "bf:Title"
         }
       ],
-      "type": "book"
+      "type": [
+        {
+          "main_type": "docmaintype_book",
+          "subtype": "docsubtype_other_book"
+        }
+      ]
     }
   },
   {
@@ -1234,7 +1274,12 @@
       "translatedFrom": [
         ""
       ],
-      "type": "book"
+      "type": [
+        {
+          "main_type": "docmaintype_book",
+          "subtype": "docsubtype_other_book"
+        }
+      ]
     }
   },
   {
@@ -1343,7 +1388,12 @@
           "type": "bf:Title"
         }
       ],
-      "type": "video"
+      "type": [
+        {
+          "main_type": "docmaintype_movie_series",
+          "subtype": "docsubtype_movie"
+        }
+      ]
     }
   },
   {
@@ -1534,7 +1584,12 @@
           "type": "bf:Title"
         }
       ],
-      "type": "book"
+      "type": [
+        {
+          "main_type": "docmaintype_book",
+          "subtype": "docsubtype_other_book"
+        }
+      ]
     }
   },
   {
@@ -1673,7 +1728,12 @@
           "type": "bf:Title"
         }
       ],
-      "type": "book"
+      "type": [
+        {
+          "main_type": "docmaintype_book",
+          "subtype": "docsubtype_other_book"
+        }
+      ]
     }
   },
   {

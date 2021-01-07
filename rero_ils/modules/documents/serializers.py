@@ -60,8 +60,10 @@ class DocumentJSONSerializer(JSONSerializer):
         if variant_titles:
             rec['ui_title_variants'] = variant_titles
         if request and request.args.get('resolve') == '1':
-            rec = record.replace_refs()
-            contributions = create_contributions(rec.get('contribution', []))
+            rec_refs = record.replace_refs()
+            contributions = create_contributions(
+                rec_refs.get('contribution', [])
+            )
             if contributions:
                 rec['contribution'] = contributions
         return super().preprocess_record(

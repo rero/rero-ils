@@ -44,6 +44,7 @@ import yaml
 from babel import Locale, core
 from celery.bin.control import inspect
 from dojson.contrib.marc21.utils import create_record, split_stream
+from elasticsearch_dsl.query import Q
 from flask import current_app
 from flask.cli import with_appcontext
 from flask_security.confirmable import confirm_user
@@ -65,7 +66,9 @@ from werkzeug.security import gen_salt
 from .api import IlsRecordsIndexer
 from .collections.cli import create_collections
 from .contributions.tasks import create_mef_record_online
+from .documents.api import Document, DocumentsSearch
 from .documents.dojson.contrib.marc21tojson import marc21
+from .documents.views import get_cover_art
 from .holdings.cli import create_patterns
 from .ill_requests.cli import create_ill_requests
 from .items.cli import create_items, reindex_items
@@ -256,11 +259,11 @@ def schedules():
         click.echo(value)
 
 
-@utils.command()
+@utils.command('init_index')
 @click.option('--force', is_flag=True, default=False)
 @with_appcontext
 @es_version_check
-def init(force):
+def init_index(force):
     """Initialize registered templates, aliases and mappings."""
     # TODO: to remove once it is fixed in invenio-search module
     click.secho('Putting templates...', fg='green', bold=True, file=sys.stderr)
@@ -1533,6 +1536,7 @@ def dump_es_mappings(verbose, outfile):
             if verbose or not outfile:
                 print(json.dumps(mapping, indent=2))
             if outfile:
+                outfile.write('{alias}\n'.format(alias=alias))
                 json.dump(mapping, outfile, indent=2)
                 outfile.write('\n')
 
@@ -1628,22 +1632,22 @@ def create_personal(
     with db.session.begin_nested():
         scopes = " ".join(scopes) if scopes else ""
 
-        c = Client(
+        client = Client(
             name=name,
             user_id=user_id,
             is_internal=True,
             is_confidential=False,
             _default_scopes=scopes
         )
-        c.gen_salt()
+        client.gen_salt()
 
         if not access_token:
             access_token = gen_salt(
                 current_app.config.get(
                     'OAUTH2SERVER_TOKEN_PERSONAL_SALT_LEN')
             )
-        t = Token(
-            client_id=c.client_id,
+        token = Token(
+            client_id=client.client_id,
             user_id=user_id,
             access_token=access_token,
             expires=None,
@@ -1652,10 +1656,10 @@ def create_personal(
             is_internal=is_internal,
         )
 
-        db.session.add(c)
-        db.session.add(t)
+        db.session.add(client)
+        db.session.add(token)
 
-    return t
+    return token
 
 
 @utils.command('tokens_create')
@@ -1677,3 +1681,28 @@ def tokens_create(name, user, scopes, internal, access_token):
         access_token=access_token)
     db.session.commit()
     click.secho(token.access_token, fg='blue')
+
+
+@utils.command('add_cover_urls')
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+@with_appcontext
+def add_cover_urls(verbose):
+    """Add cover urls to all documents with isbns."""
+    click.secho('Add cover urls.', fg='green')
+    search = DocumentsSearch() \
+        .filter('term', identifiedBy__type='bf:Isbn') \
+        .filter('bool', must_not=[
+            Q('term', electronicLocator__content='coverImage')]) \
+        .params(preserve_order=True) \
+        .sort({'pid': {"order": "asc"}}) \
+        .source('pid')
+    for idx, hit in enumerate(search.scan()):
+        pid = hit.pid
+        record = Document.get_record_by_pid(pid)
+        url = get_cover_art(record=record, save_cover_url=True)
+        if verbose:
+            click.echo('{count}:\tdocument: {pid}\t{url}'.format(
+                count=idx,
+                pid=pid,
+                url=url
+            ))

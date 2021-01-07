@@ -173,9 +173,11 @@ def mock_response(status=200, content="CONTENT", json_data=None,
     # set status code and content
     mock_resp.status_code = status
     mock_resp.content = content
+    mock_resp.text = content
     # add json data if provided
     if json_data:
         mock_resp.json = mock.Mock(return_value=json_data)
+        mock_resp.text = json.dumps(json_data)
     return mock_resp
 
 

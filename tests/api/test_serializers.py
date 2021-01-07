@@ -93,6 +93,7 @@ def test_items_serializers(
     data = get_csv(response)
     assert data
     assert '"pid","document_pid","document_title","document_creator",' \
-           '"document_type","location_name","barcode","call_number",' \
-           '"second_call_number","enumerationAndChronology",' \
-           '"loans_count","last_transaction_date","status","created"' in data
+           '"document_main_type","document_sub_type","location_name",' \
+           '"barcode","call_number","second_call_number",' \
+           '"enumerationAndChronology","loans_count",' \
+           '"last_transaction_date","status","created"' in data

@@ -235,6 +235,19 @@ def contribution_person_response_data(contribution_person_data):
 
 
 @pytest.fixture(scope="module")
+def contribution_person(contribution_person_data):
+    """Load contribution person record."""
+    cont = Contribution.create(
+        data=contribution_person_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ContributionsSearch.Meta.index)
+    return cont
+
+
+
+@pytest.fixture(scope="module")
 def contribution_organisation_data(data):
     """Load mef contribution organisation data."""
     return deepcopy(data.get('cont_org'))

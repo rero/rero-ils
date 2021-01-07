@@ -39,7 +39,11 @@ def doc_title_travailleurs(app):
     data = {
         '$schema': 'https://ils.rero.ch/schemas/documents/'
                    'document-v0.0.1.json',
-        'pid': 'doc_title_test1', 'type': 'book',
+        'pid': 'doc_title_test1',
+        'type': [{
+            "main_type": "docmaintype_book",
+            "subtype": "docsubtype_other_book"
+        }],
         'language': [{'type': 'bf:Language', 'value': 'fre'}],
         'title': [{
             'type': 'bf:Title',
@@ -74,7 +78,11 @@ def doc_title_travailleuses(app):
     data = {
         '$schema': 'https://ils.rero.ch/schemas/documents/'
                    'document-v0.0.1.json',
-        'pid': 'doc_title_test2', 'type': 'book',
+        'pid': 'doc_title_test2',
+        'type': [{
+            "main_type": "docmaintype_book",
+            "subtype": "docsubtype_other_book"
+        }],
         'language': [{'type': 'bf:Language', 'value': 'fre'}],
         'title': [{
             'type': 'bf:Title',
