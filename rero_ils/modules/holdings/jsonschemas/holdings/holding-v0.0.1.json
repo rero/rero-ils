@@ -424,7 +424,7 @@
           "default": 7
         },
         "days_before_next_claim": {
-          "title": "Number of days before next claims",
+          "title": "Number of days before next claim",
           "description": "If the item is not received, this defines the number of days from the last claim date after which it is claimed again.",
           "type": "integer",
           "minimum": 1,
