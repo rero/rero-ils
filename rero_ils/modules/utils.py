@@ -18,6 +18,7 @@
 """Utilities for rero-ils editor."""
 
 from datetime import date, datetime, time
+from functools import wraps
 from json import JSONDecodeError, JSONDecoder
 from time import sleep
 
@@ -25,10 +26,26 @@ import click
 import pytz
 from dateutil import parser
 from flask import current_app
+from invenio_cache.proxies import current_cache
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records_rest.utils import obj_or_import_string
 
 from .api import IlsRecordError, IlsRecordsIndexer
+
+
+def cached(timeout=50, key_prefix='default', query_string=False):
+    """Cache traffic."""
+    def caching(f):
+        @wraps(f)
+        def wrapper(*args, **kwargs):
+            cache_fun = current_cache.cached(
+                timeout=timeout,
+                key_prefix=key_prefix,
+                query_string=query_string
+            )
+            return cache_fun(f)(*args, **kwargs)
+        return wrapper
+    return caching
 
 
 def strtotime(strtime):

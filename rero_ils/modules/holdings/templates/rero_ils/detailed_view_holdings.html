@@ -19,73 +19,71 @@
 {% from 'rero_ils/macros/macro.html' import dl %}
 {%- extends 'rero_ils/page.html' %}
 {%- block body %}
-    <header class="row">
-      <!-- TODO: Add cover -->
-      <div id="thumbnail" class="col-sm-2 col-md-1 d-flex justify-content-start">
-        <div class="thumb">
-          <figure class="mb-0">
-            <img class="img-responsive border border-light" src="{{ url_for('static', filename='images/icon_') }}{{ document.type }}.png">
-            <figcaption class="text-center">{{ _(document.type) }}</figcaption>
-          </figure>
-        </div>
-      </div>
-     <h1 class="col-sm-11 col-md-11">{{ _('PID') }} {{ record.pid }}</h1>
-    </header>
-    <section>
-      <!-- Holding data -->
-      <section class="py-4">
-        <article>
-          <dl class="row mb-0">
-            {% if record.call_number %}
-              {{ dl(_('Call number'), record.call_number) }}
-            {% endif %}
-            {{ dl(
-              _('Document'),
-              '<a href="{}">{}</a>'.format(
-                url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=document.pid),
-                document.title | create_title_text)
-              )
-            }}
-            {{ dl(_('Library'), library.name) }}
-            {{ dl(_('Location'), location.name) }}
-            {{ dl(_('Circulation category'), circulation_category.name) }}
-            {% if record.available %}
-                {{ dl(_('Availability'),'<i class="fa fa-circle text-'+ ('success') +'"></i> ') }}
-              {% else %}
-                {{ dl(_('Availability'),'<i class="fa fa-circle text-'+ ('danger') +'"></i> ' + record.pid|holding_loan_condition_filter) }}
-            {% endif %}
+<header class="row py-2">
+  {%- set icon_name = record | document_main_type %}
+  <figure id="thumbnail" class="thumb col-sm-3 d-none d-sm-block figure">
+    <img class="figure-img img-thumbnail"
+         src="{{record | get_cover_art}}"
+         onerror="this.src='{{url_for("static", filename="images/icon_%s.svg" % icon_name) }}'" >
+    <figcaption class="figure-caption text-center">{{ document | document_types | join(', ') }}</figcaption>
+  </figure>
+  <h2 class="col-sm-9">{{ _('PID') }} {{ record.pid }}</h2>
+</header>
+<section>
+  <!-- Holding data -->
+  <section class="py-4">
+    <article>
+      <dl class="row mb-0">
+        {% if record.call_number %}
+          {{ dl(_('Call number'), record.call_number) }}
+        {% endif %}
+        {{ dl(
+          _('Document'),
+          '<a href="{}">{}</a>'.format(
+            url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=document.pid),
+            document.title | create_title_text)
+          )
+        }}
+        {{ dl(_('Library'), library.name) }}
+        {{ dl(_('Location'), location.name) }}
+        {{ dl(_('Circulation category'), circulation_category.name) }}
+        {% if record.available %}
+            {{ dl(_('Availability'),'<i class="fa fa-circle text-'+ ('success') +'"></i> ') }}
+          {% else %}
+            {{ dl(_('Availability'),'<i class="fa fa-circle text-'+ ('danger') +'"></i> ' + record.pid|holding_loan_condition_filter) }}
+        {% endif %}
 
-          </dl>
-        </article>
-      </section>
-    </section>
-    {% if items %}
-        <!-- Items data -->
-          <header>
-              <h3>{{ _('Items') }}</h3>
-          </header>
-              {% for item in items %}
-              <section class="py-4">
-                  <article>
-                  <dl class="row mb-0">
-                  {{ dl(_('ID'), item.pid) }}
-                  {{ dl(_('Call number'), item.call_number) }}
-                  {{ dl(_('Barcode'), item.barcode) }}
-                  {% if item.status %}
-                    {{ dl(_('Status'), item.status) }}
-                  {% endif %}
-                  {% if item.available %}
-                      {{ dl(_('Availability'),'<i class="fa fa-circle text-'+ ('success') +'"></i> ') }}
-                    {% else %}
-                      {{ dl(_('Availability'),'<i class="fa fa-circle text-'+ ('danger') +'"></i> ' + item|item_availability_text) }}
-                  {% endif %}
-                </dl>
-              </article>
-              {% endfor %}
+      </dl>
+    </article>
+  </section>
+</section>
+{% if items %}
+    <!-- Items data -->
+      <header>
+          <h3>{{ _('Items') }}</h3>
+      </header>
+          {% for item in items %}
+          <section class="py-4">
+              <article>
+              <dl class="row mb-0">
+              {{ dl(_('ID'), item.pid) }}
+              {{ dl(_('Call number'), item.call_number) }}
+              {{ dl(_('Barcode'), item.barcode) }}
+              {% if item.status %}
+                {{ dl(_('Status'), item.status) }}
+              {% endif %}
+              {% if item.available %}
+                  {{ dl(_('Availability'),'<i class="fa fa-circle text-'+ ('success') +'"></i> ') }}
+                {% else %}
+                  {{ dl(_('Availability'),'<i class="fa fa-circle text-'+ ('danger') +'"></i> ' + item|item_availability_text) }}
+              {% endif %}
+            </dl>
+          </article>
+          {% endfor %}
 
-              </section>
-      </section>
-    {% endif %}
+          </section>
+  </section>
+{% endif %}
 
 
 {%- endblock body %}

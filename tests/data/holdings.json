@@ -2,7 +2,11 @@
   "doc4": {
     "$schema": "https://ils.rero.ch/schemas/documents/document-v0.0.1.json",
     "pid": "doc4",
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"

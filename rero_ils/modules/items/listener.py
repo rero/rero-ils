@@ -18,6 +18,7 @@
 """Signals connector for Item."""
 
 from .api import Item, ItemsSearch
+from ..documents.api import Document
 from ..local_fields.api import LocalField
 
 
@@ -54,3 +55,7 @@ def enrich_item_data(sender, json=None, record=None, index=None,
             'item', item.get('pid'))
         if local_fields:
             json['local_fields'] = local_fields
+
+        # Document type
+        document = Document.get_record_by_pid(json['document']['pid'])
+        json['document']['document_type'] = document['type']

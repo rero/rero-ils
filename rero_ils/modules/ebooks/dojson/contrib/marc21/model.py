@@ -75,19 +75,12 @@ def marc21_to_identifier_isbn(self, key, value):
 
 @marc21.over('type', '^0248.$')
 def marc21_to_type(self, key, value):
-    """
-    Get document type.
-
-    Books: LDR/6-7: am
-    Journals: LDR/6-7: as
-    Articles: LDR/6-7: aa + add field 773 (journal title)
-    Scores: LDR/6: c|d
-    Videos: LDR/6: g + 007/0: m|v
-    Sounds: LDR/6: i|j
-    E-books (imported from Cantook)
-    """
+    """Get document type."""
     if value.get('a').find('cantook') > -1:
-        return 'ebook'
+        return [{
+            'main_type': 'docmaintype_book',
+            'subtype': 'docsubtype_e-book'
+        }]
     return None
 
 

@@ -24,15 +24,20 @@
     <a href="javascript:history.back()"><i class="fa fa-arrow-left"></i> {{ _('Back') }}</a>
 </header>
 <div class="row">
-  <div id="thumbnail" class="col-sm-2 col-md-2 d-flex justify-content-start">
-  <figure class="mb-0 thumb">
-    <img class="img-responsive border border-light"
+  {%- set icon_name = record | document_main_type %}
+  <figure id="thumbnail" class="figure-img col-sm-2 d-sm-block figure">
+    <img class="img-fluid img-thumbnail thumb"
          src="{{record | get_cover_art}}"
-         onerror="this.src='{{url_for("static", filename="images/icon_%s.png" % record.type) }}'" >
-    <figcaption class="text-center ng-binding">{{ _(record.type) }}</figcaption>
+         onerror="this.src='{{url_for("static", filename="images/icon_%s.svg" % icon_name) }}'" >
+    <figcaption class="figure-caption mt-2">
+      <ul class="list-unstyled">
+        {% for document_type in record | document_types %}
+          <li>{{ document_type }}</li>
+        {% endfor %}
+      </ui>
+    </figcaption>
   </figure>
-  </div>
-  <div class="col-sm-10 col-md-10">
+  <div class="col-sm-10">
     <h2>
       {{ record.title | create_title_text }}
     </h2>
@@ -157,7 +162,7 @@
     </header>
     <article class="tab-content">
       <section class="tab-pane show active p-4" id="documents-get" role="tabpanel" aria-labelledby="documents-get-tab">
-        {%- if record.type == 'book' %}
+        {%- if record | document_main_type == 'docmaintype_book' %}
           {% include('rero_ils/_documents_get_book.html') %}
         {%- else %}
           {% include('rero_ils/_documents_get.html') %}
@@ -169,6 +174,21 @@
     </article>
     {% endif %}
   </article>
+  {%- set articles = record | get_articles %}
+  <!-- {% if articles|length > 0 %}
+    <section class="pt-4 border-top">
+      <header class="mb-2">
+        <h3>{{ _('Articles') }}</h3>
+      </header>
+      <ul class="list-group">
+      {% for article in articles %}
+        <li class="list-group-item border-0">
+            <a class="font-weight-bold" href="{{ url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=article.pid) }}">{{ article.title }}</a>
+        </li>
+      {% endfor %}
+      </ul>
+    </section>
+  {% endif %} -->
 </section>
 
 <footer class="pt-4 border-top rero-ils-detailed-view-footer">

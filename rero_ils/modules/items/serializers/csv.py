@@ -116,7 +116,14 @@ class ItemCSVSerializer(CSVSerializer):
                         )
         if creator:
             record['document_creator'] = ' ; '.join(creator)
-        record['document_type'] = document.type
+        document_main_type = []
+        document_sub_type = []
+        for document_type in document.type:
+            data = document_type.to_dict()
+            document_main_type.append(data.get('main_type'))
+            document_sub_type.append(data.get('subtype',  ''))
+        record['document_main_type'] = ', '.join(document_main_type)
+        record['document_sub_type'] = ', '.join(document_sub_type)
 
         # get loans information
         loans_count, loans = search_active_loans_for_item(item_pid)

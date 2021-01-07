@@ -110,39 +110,10 @@ def get_contribution_link(bibid, reroid, id, key, value):
                             request.status_code)
 
 
-@marc21.over('type_and_issuance', 'leader')
+@marc21.over('issuance', 'leader')
 @utils.ignore_value
 def marc21_to_type_and_issuance(self, key, value):
-    """
-    Get document type and the mode of issuance.
-
-    Books: LDR/6-7: am
-    Journals: LDR/6-7: as
-    Articles: LDR/6-7: aa
-    Scores: LDR/6: c|d
-    Videos: LDR/6: g + 007/0: m|v
-    Sounds: LDR/6: i|j
-    E-books (imported from Cantook)
-    """
-    # get the document type
-    type = 'other'
-    if marc21.record_type == 'a':
-        if marc21.bib_level == 'm':
-            type = 'book'
-        elif marc21.bib_level == 's':
-            type = 'journal'
-        elif marc21.bib_level == 'a':
-            type = 'article'
-    elif marc21.record_type in ['c', 'd']:
-        type = 'score'
-    elif marc21.record_type in ['i', 'j']:
-        type = 'sound'
-    elif marc21.record_type == 'g':
-        type = 'video'
-        # Todo 007
-    self['type'] = type
-
-    # get the mode of issuance
+    """Get document type and the mode of issuance."""
     self['issuance'] = {}
     main_type = _ISSUANCE_MAIN_TYPE_PER_BIB_LEVEL.get(
         marc21.bib_level, 'rdami:1001')
@@ -184,7 +155,7 @@ def marc21_to_type_and_issuance(self, key, value):
     if error:
         error_print('WARNING ISSUANCE:', marc21.bib_id, marc21.rero_id,
                     main_type, sub_type, marc21.bib_level, marc21.serial_type)
-    self['issuance'] = {'main_type': main_type, 'subtype': sub_type}
+    return {'main_type': main_type, 'subtype': sub_type}
 
 
 @marc21.over('pid', '^001')
@@ -700,6 +671,21 @@ def marc21_to_description(self, key, value):
     """
     marc21.extract_description_from_marc_field(key, value, self)
     return None
+
+
+@marc21.over('type', '^339..')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_type(self, key, value):
+    """Get document type."""
+    document_type = {}
+    main_type = value.get('a')
+    if main_type:
+        document_type["main_type"] = main_type
+    sub_type = value.get('b')
+    if sub_type:
+        document_type["subtype"] = sub_type
+    return document_type or None
 
 
 @marc21.over('seriesStatement', '^490..')

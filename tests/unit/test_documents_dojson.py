@@ -68,84 +68,53 @@ def test_marc21_to_type():
     """
     Test dojson marc21_to_type.
 
-    Books: LDR/6-7: am
-    Journals: LDR/6-7: as
-    Articles: LDR/6-7: aa
-    Scores: LDR/6: c|d
-    Videos: LDR/6: g + 007/0: m|v
-    Sounds: LDR/6: i|j
-    E-books (imported from Cantook)
+    339
+    $a: main_type
+    $b: subtype
     """
 
     marc21xml = """
     <record>
         <leader>00501nam a2200133 a 4500</leader>
+        <datafield tag="339" ind1=" " ind2=" ">
+            <subfield code="a">docmaintype_book</subfield>
+            <subfield code="b">docsubtype_other_book</subfield>
+        </datafield>
     </record>
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('type') == 'book'
+    assert data.get('type') == [{
+        'main_type': 'docmaintype_book',
+        'subtype': 'docsubtype_other_book'
+    }]
 
     marc21xml = """
     <record>
-        <leader>00501nas a2200133 a 4500</leader>
+        <leader>00501nam a2200133 a 4500</leader>
+        <datafield tag="339" ind1=" " ind2=" ">
+            <subfield code="a">docmaintype_book</subfield>
+            <subfield code="b">docsubtype_other_book</subfield>
+        </datafield>
+        <datafield tag="339" ind1=" " ind2=" ">
+            <subfield code="a">docmaintype_score</subfield>
+            <subfield code="b">docsubtype_printed_score</subfield>
+        </datafield>
     </record>
     """
-    marc21json = create_record(marc21xml)
-    data = marc21.do(marc21json)
-    assert data.get('type') == 'journal'
 
-    marc21xml = """
-    <record>
-        <leader>00501naa a2200133 a 4500</leader>
-    </record>
-    """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('type') == 'article'
-
-    marc21xml = """
-    <record>
-        <leader>00501nca a2200133 a 4500</leader>
-    </record>
-    """
-    marc21json = create_record(marc21xml)
-    data = marc21.do(marc21json)
-    assert data.get('type') == 'score'
-    marc21xml = """
-    <record>
-        <leader>00501nda a2200133 a 4500</leader>
-    </record>
-    """
-    marc21json = create_record(marc21xml)
-    data = marc21.do(marc21json)
-    assert data.get('type') == 'score'
-
-    marc21xml = """
-    <record>
-        <leader>00501nia a2200133 a 4500</leader>
-    </record>
-    """
-    marc21json = create_record(marc21xml)
-    data = marc21.do(marc21json)
-    assert data.get('type') == 'sound'
-    marc21xml = """
-    <record>
-        <leader>00501nja a2200133 a 4500</leader>
-    </record>
-    """
-    marc21json = create_record(marc21xml)
-    data = marc21.do(marc21json)
-    assert data.get('type') == 'sound'
-
-    marc21xml = """
-    <record>
-        <leader>00501nga a2200133 a 4500</leader>
-    </record>
-    """
-    marc21json = create_record(marc21xml)
-    data = marc21.do(marc21json)
-    assert data.get('type') == 'video'
+    assert data.get('type') == [
+        {
+            'main_type': 'docmaintype_book',
+            'subtype': 'docsubtype_other_book'
+        },
+        {
+            'main_type': 'docmaintype_score',
+            'subtype': 'docsubtype_printed_score'
+        }
+    ]
 
 
 def test_marc21_to_mode_of_issuance():
@@ -3632,7 +3601,8 @@ def test_marc21_to_identifiedBy_from_035():
     ]
 
 
-def test_marc21_to_electronicLocator_from_856():
+@mock.patch('requests.get')
+def test_marc21_to_electronicLocator_from_856(mock_cover_get):
     """Test dojson electronicLocator from 856."""
 
     marc21xml = """
@@ -3732,6 +3702,7 @@ def test_marc21_to_electronicLocator_from_856():
             'url': 'http://d-nb.info/image2.png'
         }
     ]
+    mock_cover_get.return_value = mock_response(json_data={})
     assert get_cover_art(data) == 'http://d-nb.info/image.png'
     assert get_accesses(data) == [
         {

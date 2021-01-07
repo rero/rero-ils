@@ -86,13 +86,23 @@ class ImportsListResource(ContentNegotiatedMethodView):
                 key=int(filter_year)
             )
             results = do_import.filter_records(results, ids)
-        filter_type = flask_request.args.get('type')
+        filter_type = flask_request.args.get('document_type')
         if filter_type:
-            ids = do_import.get_ids_for_aggregation(
-                results=results,
-                aggregation='type',
-                key=filter_type
-            )
+            sub_filter_type = flask_request.args.get('document_subtype')
+            if sub_filter_type:
+                ids = do_import.get_ids_for_aggregation_sub(
+                    results=results,
+                    agg='document_type',
+                    key=filter_type,
+                    sub_agg='document_subtype',
+                    sub_key=sub_filter_type
+                )
+            else:
+                ids = do_import.get_ids_for_aggregation(
+                    results=results,
+                    aggregation='document_type',
+                    key=filter_type
+                )
             results = do_import.filter_records(results, ids)
         filter_author = flask_request.args.get('author')
         if filter_author:
