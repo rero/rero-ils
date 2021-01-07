@@ -365,7 +365,7 @@
                       }
                     },
                     {
-                      "title": "List based prediction (used for seasons, months...)",
+                      "title": "List based prediction (used for seasons, months…)",
                       "required": [
                         "list_name",
                         "mapping_values"
@@ -390,7 +390,7 @@
                           "minItems": 1,
                           "items": {
                             "title": "Value",
-                            "description": "Use a value instead of a number. i.e. january, 2nd, quarter.",
+                            "description": "Use a value instead of a number. i.e. January, 2nd, quarter.",
                             "type": "string",
                             "minLength": 1
                           }
@@ -411,7 +411,7 @@
         },
         "max_number_of_claims": {
           "title": "Maximum number of claims",
-          "description": "After this number, no further claims will be sent. 0 means that no claims will be sent.",
+          "description": "After this number, no further claims will be sent. 0 means no claims will be sent.",
           "type": "integer",
           "minimum": 0,
           "default": 3
