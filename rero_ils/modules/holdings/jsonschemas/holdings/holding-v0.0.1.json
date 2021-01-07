@@ -168,7 +168,7 @@
             "placeholder": "Example: Vol. {{numbering.volume}}, {{expected_date.year}}",
             "validation": {
               "messages": {
-                "patternMessage": "Should contains at least one variable between {{ }}."
+                "patternMessage": "Should contain at least one variable between {{ }}."
               }
             }
           }
