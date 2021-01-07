@@ -21,6 +21,7 @@ from __future__ import absolute_import, print_function
 
 from functools import wraps
 
+import click
 from flask import Blueprint, abort, current_app, jsonify, render_template
 from flask import request as flask_request
 from flask_babelex import gettext as _
@@ -41,7 +42,7 @@ from ..libraries.api import Library
 from ..locations.api import Location
 from ..organisations.api import Organisation
 from ..patrons.api import Patron, current_patron
-from ..utils import extracted_data_from_ref
+from ..utils import cached, extracted_data_from_ref
 from ...permissions import login_and_librarian
 
 
@@ -110,6 +111,7 @@ def check_permission(fn):
 
 
 @api_blueprint.route('/cover/<isbn>')
+@cached(timeout=300, query_string=True)
 def cover(isbn):
     """Document cover service."""
     return jsonify(get_remote_cover(isbn))
@@ -393,24 +395,41 @@ def create_publication_statement(provision_activity):
 
 
 @blueprint.app_template_filter()
-def get_cover_art(record):
+def get_cover_art(record, save_cover_url=True, verbose=False):
     """Get cover art.
 
-    :param record: record
+    :param isbn: isbn of document
+    :param save_cover_url: save cover url from isbn if no electronicLocator
+                           with coverImage exists
+    :param verbose: verbose
     :return: url for cover art or None
     """
-    # electronic
+    # electronicLocator
     for electronic_locator in record.get('electronicLocator', []):
-        type = electronic_locator.get('type')
-        content = electronic_locator.get('content')
-        if type == 'relatedResource' and content == 'coverImage':
+        e_content = electronic_locator.get('content')
+        e_type = electronic_locator.get('type')
+        if e_content == 'coverImage' and e_type == 'relatedResource':
             return electronic_locator.get('url')
-    # isbn
-    isbn = document_isbn(record.get('identifiedBy', [])).get('isbn')
-    if not isbn:
-        return None
-    res = get_remote_cover(isbn)
-    return res.get('image')
+    # ISBN
+    isbns = []
+    for identified_by in record.get('identifiedBy', []):
+        if identified_by.get('type') == 'bf:Isbn':
+            isbns.append(identified_by.get('value'))
+    for isbn in sorted(isbns):
+        isbn_cover = get_remote_cover(isbn)
+        if isbn_cover and isbn_cover.get('success'):
+            url = isbn_cover.get('image')
+            if save_cover_url:
+                pid = record.get('pid')
+                record_db = Document.get_record_by_pid(pid)
+                record_db.add_cover_url(url=url, dbcommit=True, reindex=True)
+                msg = 'Add cover art url: {url} do document: {pid}'.format(
+                    url=url,
+                    pid=pid
+                )
+                if verbose:
+                    click.echo(msg)
+            return url
 
 
 @blueprint.app_template_filter()
@@ -574,3 +593,32 @@ def in_collection(item_pid):
         .filter('term', published=True)
         .scan()
     )
+
+
+@blueprint.app_template_filter()
+def document_types(record, translate=True):
+    """Get docuement types.
+
+    :param record: record
+    :param translate: translate document type
+    :return: dictonary list of document types
+    """
+    doc_types = record.document_types
+    if translate:
+        for idx, doc_type in enumerate(doc_types):
+            doc_types[idx] = _(doc_type)
+    return doc_types
+
+
+@blueprint.app_template_filter()
+def document_main_type(record, translate=True):
+    """Get first docuement main type.
+
+    :param record: record
+    :param translate: translate document type
+    :return: document main type
+    """
+    doc_type = record['type'][0]['main_type']
+    if translate:
+        doc_type = _(doc_type)
+    return doc_type

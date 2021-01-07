@@ -1584,8 +1584,14 @@ RECORDS_REST_FACETS = dict(
             # The organisation or library facet is defined
             # dynamically during the query (query.py)
             document_type=dict(
-                terms=dict(field='type',
-                           size=DOCUMENTS_AGGREGATION_SIZE)
+                terms=dict(field='type.main_type',
+                           size=DOCUMENTS_AGGREGATION_SIZE),
+                aggs=dict(
+                    document_subtype=dict(
+                        terms=dict(field='type.subtype',
+                                   size=DOCUMENTS_AGGREGATION_SIZE)
+                    )
+                )
             ),
             language=dict(
                 terms=dict(field='language.value',
@@ -1611,16 +1617,17 @@ RECORDS_REST_FACETS = dict(
             )
         ),
         filters={
-            _('document_type'): and_term_filter('type'),
+            _('author'): and_i18n_term_filter('facet_contribution'),
+            _('document_type'): and_term_filter('type.main_type'),
+            _('document_subtype'): and_term_filter('type.subtype'),
+            _('language'): and_term_filter('language.value'),
             _('organisation'): and_term_filter(
                 'holdings.organisation.organisation_pid'
             ),
-            _('new_acquisition'): acquisition_filter(),
             _('library'): and_term_filter('holdings.organisation.library_pid'),
-            _('author'): and_i18n_term_filter('facet_contribution'),
-            _('language'): and_term_filter('language.value'),
             _('subject'): and_term_filter('facet_subjects'),
             _('status'): and_term_filter('holdings.items.status'),
+            _('new_acquisition'): acquisition_filter(),
         }
     ),
     items=dict(
@@ -1658,12 +1665,12 @@ RECORDS_REST_FACETS = dict(
             )
         ),
         filters={
-            _('location'): and_term_filter('location.pid'),
             _('library'): and_term_filter('library.pid'),
+            _('location'): and_term_filter('location.pid'),
             _('item_type'): and_term_filter('item_type.pid'),
-            _('vendor'): and_term_filter('vendor.pid'),
             _('status'): and_term_filter('status'),
             _('issue_status'): and_term_filter('issue.status'),
+            _('vendor'): and_term_filter('vendor.pid'),
             # to allow multiple filters support, in this case to filter by
             # "late or claimed"
             'or_issue_status': terms_filter('issue.status')
@@ -2515,10 +2522,12 @@ SIP2_REMOTE_ACTION_HANDLERS = dict(
     )
 )
 
+#: see invenio_sip2.models.SelfcheckMediaType
 SIP2_MEDIA_TYPES = dict(
-    article='MAGAZINE',
-    book='BOOK',
-    journal='MAGAZINE',
-    sound='AUDIO',
-    video='VIDEO',
+    docmaintype_book='BOOK',
+    docmaintype_article='MAGAZINE',
+    docmaintype_serial='MAGAZINE',
+    docmaintype_series='BOUND_JOURNAL',
+    docmaintype_audio='AUDIO',
+    docmaintype_movie_series='VIDEO',
 )

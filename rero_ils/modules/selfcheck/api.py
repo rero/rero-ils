@@ -252,7 +252,7 @@ def item_information(patron_barcode, item_pid, **kwargs):
                 security_marker=SelfcheckSecurityMarkerType.OTHER
             )
             item_information['media_type'] = map_media_type(
-                document.get('type')
+                document['type'][0]['main_type']
             )
             item_information['hold_queue_length'] = item.number_of_requests()
             item_information['owner'] = location.get_library().get('name')
@@ -389,7 +389,6 @@ def selfcheck_checkin(user_pid, institution_id, patron_barcode,
             )
             staffer = Patron.get_record_by_pid(user_pid)
             if staffer.is_librarian:
-                patron = Patron.get_patron_by_barcode(barcode=patron_barcode)
                 with current_app.test_request_context() as ctx:
                     language = kwargs.get('language', current_app.config
                                           .get('BABEL_DEFAULT_LANGUAGE'))
@@ -397,7 +396,6 @@ def selfcheck_checkin(user_pid, institution_id, patron_barcode,
                     try:
                         # do checkin
                         result, data = item.checkin(
-                            # patron_pid=patron.pid,
                             transaction_user_pid=staffer.pid,
                             transaction_library_pid=staffer.library_pid,
                             item_pid=item.pid,

@@ -45,7 +45,10 @@ def test_unimarc_to_type():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('type') == 'book'
+    assert data.get('type') == [{
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+    }]
 
     unimarcxml = """
     <record>
@@ -54,7 +57,9 @@ def test_unimarc_to_type():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('type') == 'journal'
+    assert data.get('type') == [{
+        "main_type": "docmaintype_serial"
+    }]
 
     unimarcxml = """
     <record>
@@ -63,7 +68,9 @@ def test_unimarc_to_type():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('type') == 'article'
+    assert data.get('type') == [{
+        "main_type": "docmaintype_article",
+    }]
 
     unimarcxml = """
     <record>
@@ -72,7 +79,11 @@ def test_unimarc_to_type():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('type') == 'score'
+    assert data.get('type') == [{
+        "main_type": "docmaintype_score",
+        "subtype": "docsubtype_printed_score"
+    }]
+
     unimarcxml = """
     <record>
         <leader>00501nda a2200133 a 4500</leader>
@@ -80,7 +91,10 @@ def test_unimarc_to_type():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('type') == 'score'
+    assert data.get('type') == [{
+        "main_type": "docmaintype_score",
+        "subtype": "docsubtype_printed_score"
+    }]
 
     unimarcxml = """
     <record>
@@ -89,7 +103,11 @@ def test_unimarc_to_type():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('type') == 'sound'
+    assert data.get('type') == [{
+        "main_type": "docmaintype_audio",
+        "subtype": "docsubtype_music"
+    }]
+
     unimarcxml = """
     <record>
         <leader>00501nja a2200133 a 4500</leader>
@@ -97,7 +115,10 @@ def test_unimarc_to_type():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('type') == 'sound'
+    assert data.get('type') == [{
+        "main_type": "docmaintype_audio",
+        "subtype": "docsubtype_music"
+    }]
 
     unimarcxml = """
     <record>
@@ -106,7 +127,10 @@ def test_unimarc_to_type():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('type') == 'video'
+    assert data.get('type') == [{
+        "main_type": "docmaintype_movie_series",
+        "subtype": "docsubtype_movie"
+    }]
 
 
 def test_marc21_to_mode_of_issuance():

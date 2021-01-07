@@ -119,9 +119,29 @@ class Import(object):
         if data:
             ids_indexes = self.aggregations_creation[type].get(
                 data,
-                {'ids': [], 'indexes': []}
+                {'ids': set()}
             )
-            ids_indexes['ids'].append(id)
+            ids_indexes['ids'].add(id)
+            self.aggregations_creation[type][data] = ids_indexes
+
+    def calculate_aggregations_add_sub(self, type, data, sub_type, sub_data,
+                                       id):
+        """Add data to aggregations_creation.
+
+        :param type: type of the aggregation
+        :param data: data for the aggregation
+        :param sub_type: type of the aggregation
+        :param sub_data: data for the aggregation
+
+        :param id: id for the type
+        """
+        if data:
+            ids_indexes = self.aggregations_creation[type].get(
+                data,
+                {'ids': set(), 'sub_type': sub_type, 'sub': {}}
+            )
+            ids_indexes['ids'].add(id)
+            ids_indexes['sub'].setdefault(sub_data, set()).add(id)
             self.aggregations_creation[type][data] = ids_indexes
 
     def calculate_aggregations(self, record, id):
@@ -131,8 +151,14 @@ class Import(object):
         :param id: id for the record
         :param indexd: index of the record
         """
-        document_type = record.get('type')
-        self.calculate_aggregations_add('document_type', document_type, id)
+        for document_type in record['type']:
+            self.calculate_aggregations_add_sub(
+                type='document_type',
+                data=document_type['main_type'],
+                sub_type='document_subtype',
+                sub_data=document_type.get('subtype'),
+                id=id
+            )
 
         provision_activitys = record.get('provisionActivity', [])
         for provision_activity in provision_activitys:
@@ -170,17 +196,33 @@ class Import(object):
         for agg, values in self.aggregations_creation.items():
             buckets = []
             for key, value in values.items():
-                ids = list(set(value['ids']))
-                buckets.append({
+                ids = value['ids']
+                bucket_data = {
+                    'ids': list(ids),
                     'doc_count': len(ids),
-                    'ids': ids,
-                    'key': str(key)
-                })
+                    'key': str(key),
+                    'doc_count_error_upper_bound': 0,
+                    'sum_other_doc_count': 0
+                }
+                subs = value.get('sub')
+                if subs:
+                    sub_buckets = []
+                    for sub_key, sub_value in subs.items():
+                        sub_buckets.append({
+                            'ids': list(sub_value),
+                            'doc_count': len(sub_value),
+                            'key': sub_key
+                        })
+                        sub_buckets.sort(
+                            key=lambda e: (-e['doc_count'], e['key']))
+                        bucket_data[value.get('sub_type')] = {
+                            'buckets': sub_buckets
+                        }
+                buckets.append(bucket_data)
             if agg == 'year':
                 buckets.sort(key=itemgetter('key'), reverse=True)
             else:
                 buckets.sort(key=lambda e: (-e['doc_count'], e['key']))
-
             if buckets:
                 results['aggregations'][agg] = {'buckets': buckets}
         results['hits']['total']['value'] = len(results['hits']['hits'])
@@ -217,6 +259,33 @@ class Import(object):
         if bucket:
             ids = bucket[0]['ids']
         return ids
+
+    def get_ids_for_aggregation_sub(self, results, agg, key, sub_agg, sub_key):
+        """Get ids for aggregation.
+
+        :param results: dictionary with the results in hits hits
+        :param agg: which aggregation to use to use to get the ids
+        :param key: which key in aggregation to use to get the ids
+        :param sub_agg: which aggregation to use to use to get the ids
+        :param sub_key: which sub_key from key in aggregation to use
+                        to get the ids
+        :return: list of ids
+        """
+        ids = []
+        buckets = results.get('aggregations').get(agg, {}).get('buckets', [])
+        bucket = list(
+            filter(lambda bucket: bucket['key'] == str(key), buckets))
+        if bucket:
+            sub_buckets = bucket[0].get(sub_agg, {}).get('buckets', [])
+            sub_bucket = list(
+                filter(
+                    lambda sub_bucket: sub_bucket['key'] == str(sub_key),
+                    sub_buckets
+                )
+            )
+            ids = sub_bucket[0]['ids']
+        return ids
+
 
     def search_records(self, what, relation, where='anywhere', max=0,
                        no_cache=False):
@@ -291,6 +360,7 @@ class Import(object):
 
                             # convert marc json to local json format
                             record = unimarc.do(json_data)
+
                             id = self.get_id(json_data)
                             data = {
                                 'id': id,

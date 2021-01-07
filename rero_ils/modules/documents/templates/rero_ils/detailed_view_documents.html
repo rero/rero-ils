@@ -24,15 +24,20 @@
     <a href="javascript:history.back()"><i class="fa fa-arrow-left"></i> {{ _('Back') }}</a>
 </header>
 <div class="row">
-  <div id="thumbnail" class="col-sm-2 col-md-2 d-flex justify-content-start">
-  <figure class="mb-0 thumb">
-    <img class="img-responsive border border-light"
+  {%- set icon_name = record | document_main_type %}
+  <figure id="thumbnail" class="figure-img col-sm-2 d-sm-block figure">
+    <img class="img-fluid img-thumbnail thumb"
          src="{{record | get_cover_art}}"
-         onerror="this.src='{{url_for("static", filename="images/icon_%s.png" % record.type) }}'" >
-    <figcaption class="text-center ng-binding">{{ _(record.type) }}</figcaption>
+         onerror="this.src='{{url_for("static", filename="images/icon_%s.svg" % icon_name) }}'" >
+    <figcaption class="figure-caption mt-2">
+      <ul class="list-unstyled">
+        {% for document_type in record | document_types %}
+          <li>{{ document_type }}</li>
+        {% endfor %}
+      </ui>
+    </figcaption>
   </figure>
-  </div>
-  <div class="col-sm-10 col-md-10">
+  <div class="col-sm-10">
     <h2>
       {{ record.title | create_title_text }}
     </h2>

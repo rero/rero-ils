@@ -507,14 +507,58 @@ def create_contributions(contributions):
 
 def get_remote_cover(isbn):
     """Document cover service."""
-    cover_service = current_app.config.get('RERO_ILS_THUMBNAIL_SERVICE_URL')
-    url = cover_service + '?height=60px&jsonpCallbackParam=callback'\
-                          '&type=isbn&width=60px&callback=thumb&value=' + isbn
-    response = requests.get(
-        url, headers={'referer': flask_request.host_url})
+    if isbn:
+        cover_service = current_app.config.get(
+            'RERO_ILS_THUMBNAIL_SERVICE_URL'
+        )
+        url = '{cover_service}' \
+            '?height=244px' \
+            '&width=244px' \
+            '&jsonpCallbackParam=callback' \
+            '&callback=thumb' \
+            '&type=isbn' \
+            '&value={isbn}'.format(
+                cover_service=cover_service,
+                isbn=isbn
+            )
+        try:
+            host_url = flask_request.host_url
+        except:
+            host_url = current_app.config.get('RERO_ILS_APP_URL', '??')
+            if host_url[-1] != '/':
+                host_url = '{host_url}/'.format(host_url=host_url)
+        response = requests.get(
+            url,
+            headers={'referer': host_url}
+        )
+        if response.status_code != 200:
+            current_app.logger.debug(
+                'Unable to get cover for isbn: {isbn} {code}'.format(
+                    isbn=isbn,
+                    code=response.status_code
+                )
+            )
+            return None
 
-    if response.status_code != 200:
+        result = json.loads(response.text[len('thumb('):-1])
+        if result['success']:
+            return result
         current_app.logger.debug(
-            'Unable to get cover for isbn: {0}'.format(isbn))
-        return dict(success=False)
-    return json.loads(response.text[len('thumb('):-1])
+            'Unable to get cover for isbn: {isbn}'.format(isbn=isbn)
+        )
+
+
+# def get_remote_cover(isbn):
+#     """Document cover service."""
+#     url = '{url}/b/isbn/{isbn}-M.jpg{default}'.format(
+#         url=http://covers.openlibrary.org,
+#         isbn=isbn,
+#         default='?default=false'
+#     )
+#     response = requests.get(url)
+#
+#     if response.status_code != 200:
+#         current_app.logger.debug(
+#             'Unable to get cover for isbn: {isbn}'.format(isbn=isbn))
+#         return None
+#     return url

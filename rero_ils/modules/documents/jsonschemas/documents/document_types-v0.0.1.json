@@ -1,57 +1,872 @@
 {
   "type": {
-    "title": "Type",
-    "type": "string",
-    "default": "book",
-    "enum": [
-      "article",
-      "book",
-      "ebook",
-      "journal",
-      "other",
-      "score",
-      "sound",
-      "video"
+    "title": "Types",
+    "type": "array",
+    "minItems": 1,
+    "default": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
     ],
-    "minLength": 4,
-    "form": {
-      "type": "selectWithSort",
-      "options": [
+    "items": {
+      "title": "Type",
+      "type": "object",
+      "oneOf": [
         {
-          "label": "Article",
-          "value": "article"
+          "title": "archives",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "main_type"
+          ],
+          "required": [
+            "main_type"
+          ],
+          "properties": {
+            "main_type": {
+              "title": "Main type",
+              "type": "string",
+              "readOnly": true,
+              "default": "docmaintype_archives",
+              "const": "docmaintype_archives",
+              "form": {
+                "wrappers": [
+                  "hide"
+                ]
+              }
+            }
+          },
+          "form": {
+            "templateOptions": {
+              "cssClass": "row"
+            }
+          }
         },
         {
-          "label": "Book",
-          "value": "book"
+          "title": "article",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "main_type"
+          ],
+          "required": [
+            "main_type"
+          ],
+          "properties": {
+            "main_type": {
+              "title": "Main type",
+              "type": "string",
+              "readOnly": true,
+              "default": "docmaintype_article",
+              "const": "docmaintype_article",
+              "form": {
+                "wrappers": [
+                  "hide"
+                ]
+              }
+            }
+          },
+          "form": {
+            "templateOptions": {
+              "cssClass": "row"
+            }
+          }
         },
         {
-          "label": "E-Book",
-          "value": "ebook"
+          "title": "audio document",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "main_type",
+            "subtype"
+          ],
+          "required": [
+            "main_type"
+          ],
+          "properties": {
+            "main_type": {
+              "title": "Main type",
+              "type": "string",
+              "readOnly": true,
+              "default": "docmaintype_audio",
+              "const": "docmaintype_audio",
+              "form": {
+                "wrappers": [
+                  "hide"
+                ]
+              }
+            },
+            "subtype": {
+              "title": "Subtype",
+              "type": "string",
+              "default": "docsubtype_music",
+              "enum": [
+                "docsubtype_music",
+                "docsubtype_sound",
+                "docsubtype_audio_book",
+                "docsubtype_recorded_words"
+              ],
+              "form": {
+                "options": [
+                  {
+                    "label": "docsubtype_music",
+                    "value": "docsubtype_music"
+                  },
+                  {
+                    "label": "docsubtype_music",
+                    "value": "docsubtype_music"
+                  },
+                  {
+                    "label": "docsubtype_sound",
+                    "value": "docsubtype_sound"
+                  },
+                  {
+                    "label": "docsubtype_recorded_words",
+                    "value": "docsubtype_recorded_words"
+                  }
+                ],
+                "templateOptions": {
+                  "cssClass": "col-lg-6"
+                }
+              }
+            }
+          },
+          "form": {
+            "templateOptions": {
+              "cssClass": "row"
+            }
+          }
         },
         {
-          "label": "Journal",
-          "value": "journal"
+          "title": "book",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "main_type",
+            "subtype"
+          ],
+          "required": [
+            "main_type"
+          ],
+          "properties": {
+            "main_type": {
+              "title": "Main type",
+              "type": "string",
+              "readOnly": true,
+              "default": "docmaintype_book",
+              "const": "docmaintype_book",
+              "form": {
+                "wrappers": [
+                  "hide"
+                ]
+              }
+            },
+            "subtype": {
+              "title": "Subtype",
+              "type": "string",
+              "default": "docsubtype_other_book",
+              "enum": [
+                "docsubtype_other_book",
+                "docsubtype_large_print_book",
+                "docsubtype_braille_book",
+                "docsubtype_manuscript",
+                "docsubtype_thesis",
+                "docsubtype_e-book",
+                "docsubtype_microform"
+              ],
+              "form": {
+                "options": [
+                  {
+                    "label": "docsubtype_other_book",
+                    "value": "docsubtype_other_book"
+                  },
+                  {
+                    "label": "docsubtype_large_print_book",
+                    "value": "docsubtype_large_print_book"
+                  },
+                  {
+                    "label": "docsubtype_braille_book",
+                    "value": "docsubtype_braille_book"
+                  },
+                  {
+                    "label": "docsubtype_manuscript",
+                    "value": "docsubtype_manuscript"
+                  },
+                  {
+                    "label": "docsubtype_thesis",
+                    "value": "docsubtype_thesis"
+                  },
+                  {
+                    "label": "docsubtype_e-book",
+                    "value": "docsubtype_e-book"
+                  },
+                  {
+                    "label": "docsubtype_microform",
+                    "value": "docsubtype_microform"
+                  }
+                ],
+                "templateOptions": {
+                  "cssClass": "col-lg-6"
+                }
+              }
+            }
+          },
+          "form": {
+            "templateOptions": {
+              "cssClass": "row"
+            }
+          }
         },
         {
-          "label": "Other",
-          "value": "other"
+          "title": "children's album",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "main_type"
+          ],
+          "required": [
+            "main_type"
+          ],
+          "properties": {
+            "main_type": {
+              "title": "Main type",
+              "type": "string",
+              "readOnly": true,
+              "default": "docmaintype_children",
+              "const": "docmaintype_children",
+              "form": {
+                "wrappers": [
+                  "hide"
+                ]
+              }
+            }
+          },
+          "form": {
+            "templateOptions": {
+              "cssClass": "row"
+            }
+          }
         },
         {
-          "label": "Score",
-          "value": "score"
+          "title": "comic strip",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "main_type",
+            "subtype"
+          ],
+          "required": [
+            "main_type"
+          ],
+          "properties": {
+            "main_type": {
+              "title": "Main type",
+              "type": "string",
+              "readOnly": true,
+              "default": "docmaintype_comic",
+              "const": "docmaintype_comic",
+              "form": {
+                "wrappers": [
+                  "hide"
+                ]
+              }
+            },
+            "subtype": {
+              "title": "Subtype",
+              "type": "string",
+              "default": "docsubtype_comic",
+              "enum": [
+                "docsubtype_comic",
+                "docsubtype_manga"
+              ],
+              "form": {
+                "options": [
+                  {
+                    "label": "docsubtype_comic",
+                    "value": "docsubtype_comic"
+                  },
+                  {
+                    "label": "docsubtype_manga",
+                    "value": "docsubtype_manga"
+                  }
+                ],
+                "templateOptions": {
+                  "cssClass": "col-lg-6"
+                }
+              }
+            }
+          },
+          "form": {
+            "templateOptions": {
+              "cssClass": "row"
+            }
+          }
         },
         {
-          "label": "Sound",
-          "value": "sound"
+          "title": "electronic carrier",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "main_type",
+            "subtype"
+          ],
+          "required": [
+            "main_type"
+          ],
+          "properties": {
+            "main_type": {
+              "title": "Main type",
+              "type": "string",
+              "readOnly": true,
+              "default": "docmaintype_electronic",
+              "const": "docmaintype_electronic",
+              "form": {
+                "wrappers": [
+                  "hide"
+                ]
+              }
+            },
+            "subtype": {
+              "title": "Subtype",
+              "type": "string",
+              "default": "docsubtype_other_electronic_carrier",
+              "enum": [
+                "docsubtype_cdrom_dvdrom",
+                "docsubtype_other_electronic_carrier"
+              ],
+              "form": {
+                "options": [
+                  {
+                    "label": "docsubtype_cdrom_dvdrom",
+                    "value": "docsubtype_cdrom_dvdrom"
+                  },
+                  {
+                    "label": "docsubtype_other_electronic_carrier",
+                    "value": "docsubtype_other_electronic_carrier"
+                  }
+                ]
+              }
+            }
+          },
+          "form": {
+            "templateOptions": {
+              "cssClass": "row"
+            }
+          }
         },
         {
-          "label": "Video",
-          "value": "video"
+          "title": "game",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "main_type",
+            "subtype"
+          ],
+          "required": [
+            "main_type"
+          ],
+          "properties": {
+            "main_type": {
+              "title": "Main type",
+              "type": "string",
+              "readOnly": true,
+              "default": "docmaintype_game",
+              "const": "docmaintype_game",
+              "form": {
+                "wrappers": [
+                  "hide"
+                ]
+              }
+            },
+            "subtype": {
+              "title": "Subtype",
+              "type": "string",
+              "default": "docsubtype_other_game",
+              "enum": [
+                "docsubtype_other_game",
+                "docsubtype_video_game",
+                "docsubtype_role-playing_game",
+                "docsubtype_board_game"
+              ],
+              "form": {
+                "options": [
+                  {
+                    "label": "docsubtype_other_game",
+                    "value": "docsubtype_other_game"
+                  },
+                  {
+                    "label": "docsubtype_video_game",
+                    "value": "docsubtype_video_game"
+                  },
+                  {
+                    "label": "docsubtype_role-playing_game",
+                    "value": "docsubtype_role-playing_game"
+                  },
+                  {
+                    "label": "docsubtype_board_game",
+                    "value": "docsubtype_board_game"
+                  }
+                ],
+                "templateOptions": {
+                  "cssClass": "col-lg-6"
+                }
+              }
+            }
+          },
+          "form": {
+            "templateOptions": {
+              "cssClass": "row"
+            }
+          }
+        },
+        {
+          "title": "image",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "main_type",
+            "subtype"
+          ],
+          "required": [
+            "main_type"
+          ],
+          "properties": {
+            "main_type": {
+              "title": "Main type",
+              "type": "string",
+              "readOnly": true,
+              "default": "docmaintype_image",
+              "const": "docmaintype_image",
+              "form": {
+                "wrappers": [
+                  "hide"
+                ]
+              }
+            },
+            "subtype": {
+              "title": "Subtype",
+              "type": "string",
+              "default": "docsubtype_photography",
+              "enum": [
+                "docsubtype_poster",
+                "docsubtype_postcard",
+                "docsubtype_photography",
+                "docsubtype_print_engraving",
+                "docsubtype_calendar",
+                "docsubtype_other_image"
+              ],
+              "form": {
+                "options": [
+                  {
+                    "label": "docsubtype_poster",
+                    "value": "docsubtype_poster"
+                  },
+                  {
+                    "label": "docsubtype_postcard",
+                    "value": "docsubtype_postcard"
+                  },
+                  {
+                    "label": "docsubtype_photography",
+                    "value": "docsubtype_photography"
+                  },
+                  {
+                    "label": "docsubtype_print_engraving",
+                    "value": "docsubtype_print_engraving"
+                  },
+                  {
+                    "label": "docsubtype_calendar",
+                    "value": "docsubtype_calendar"
+                  },
+                  {
+                    "label": "docsubtype_other_image",
+                    "value": "docsubtype_other_image"
+                  }
+                ],
+                "templateOptions": {
+                  "cssClass": "col-lg-6"
+                }
+              }
+            }
+          },
+          "form": {
+            "templateOptions": {
+              "cssClass": "row"
+            }
+          }
+        },
+        {
+          "title": "language, method",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "main_type"
+          ],
+          "required": [
+            "main_type"
+          ],
+          "properties": {
+            "main_type": {
+              "title": "Main type",
+              "type": "string",
+              "readOnly": true,
+              "default": "docmaintype_language_method",
+              "const": "docmaintype_language_method",
+              "form": {
+                "wrappers": [
+                  "hide"
+                ]
+              }
+            }
+          },
+          "form": {
+            "templateOptions": {
+              "cssClass": "row"
+            }
+          }
+        },
+        {
+          "title": "leaf",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "main_type"
+          ],
+          "required": [
+            "main_type"
+          ],
+          "properties": {
+            "main_type": {
+              "title": "Main type",
+              "type": "string",
+              "readOnly": true,
+              "default": "docmaintype_leaf",
+              "const": "docmaintype_leaf",
+              "form": {
+                "wrappers": [
+                  "hide"
+                ]
+              }
+            }
+          },
+          "form": {
+            "templateOptions": {
+              "cssClass": "row"
+            }
+          }
+        },
+        {
+          "title": "map, atlas",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "main_type",
+            "subtype"
+          ],
+          "required": [
+            "main_type",
+            "subtype"
+          ],
+          "properties": {
+            "main_type": {
+              "title": "Main type",
+              "type": "string",
+              "readOnly": true,
+              "default": "docmaintype_map",
+              "const": "docmaintype_map",
+              "form": {
+                "wrappers": [
+                  "hide"
+                ]
+              }
+            },
+            "subtype": {
+              "title": "Subtype",
+              "type": "string",
+              "default": "docsubtype_map",
+              "enum": [
+                "docsubtype_map",
+                "docsubtype_atlas"
+              ],
+              "form": {
+                "options": [
+                  {
+                    "label": "docsubtype_map",
+                    "value": "docsubtype_map"
+                  },
+                  {
+                    "label": "docsubtype_atlas",
+                    "value": "docsubtype_atlas"
+                  }
+                ]
+              }
+            }
+          },
+          "form": {
+            "templateOptions": {
+              "cssClass": "row"
+            }
+          }
+        },
+        {
+          "title": "movie, series",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "main_type",
+            "subtype"
+          ],
+          "required": [
+            "main_type"
+          ],
+          "properties": {
+            "main_type": {
+              "title": "Main type",
+              "type": "string",
+              "readOnly": true,
+              "default": "docmaintype_movie_series",
+              "const": "docmaintype_movie_series",
+              "form": {
+                "wrappers": [
+                  "hide"
+                ]
+              }
+            },
+            "subtype": {
+              "title": "Subtype",
+              "type": "string",
+              "default": "docsubtype_movie",
+              "enum": [
+                "docsubtype_movie",
+                "docsubtype_series",
+                "docsubtype_documentary"
+              ],
+              "form": {
+                "options": [
+                  {
+                    "label": "docsubtype_movie",
+                    "value": "docsubtype_movie"
+                  },
+                  {
+                    "label": "docsubtype_series",
+                    "value": "docsubtype_series"
+                  },
+                  {
+                    "label": "docsubtype_documentary",
+                    "value": "docsubtype_documentary"
+                  }
+                ],
+                "templateOptions": {
+                  "cssClass": "col-lg-6"
+                }
+              }
+            }
+          },
+          "form": {
+            "templateOptions": {
+              "cssClass": "row"
+            }
+          }
+        },
+        {
+          "title": "object",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "main_type",
+            "subtype"
+          ],
+          "required": [
+            "main_type",
+            "subtype"
+          ],
+          "properties": {
+            "main_type": {
+              "title": "Main type",
+              "type": "string",
+              "readOnly": true,
+              "default": "docmaintype_object",
+              "const": "docmaintype_object",
+              "form": {
+                "wrappers": [
+                  "hide"
+                ]
+              }
+            },
+            "subtype": {
+              "title": "Subtype",
+              "type": "string",
+              "default": "docsubtype_other_object",
+              "enum": [
+                "docsubtype_kamishibai",
+                "docsubtype_tablet",
+                "docsubtype_other_object"
+              ],
+              "form": {
+                "options": [
+                  {
+                    "label": "docsubtype_kamishibai",
+                    "value": "docsubtype_kamishibai"
+                  },
+                  {
+                    "label": "docsubtype_tablet",
+                    "value": "docsubtype_tablet"
+                  },
+                  {
+                    "label": "docsubtype_other_object",
+                    "value": "docsubtype_other_object"
+                  }
+                ],
+                "templateOptions": {
+                  "cssClass": "col-lg-6"
+                }
+              }
+            }
+          },
+          "form": {
+            "templateOptions": {
+              "cssClass": "row"
+            }
+          }
+        },
+        {
+          "title": "other",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "main_type"
+          ],
+          "required": [
+            "main_type"
+          ],
+          "properties": {
+            "main_type": {
+              "title": "Main type",
+              "type": "string",
+              "readOnly": true,
+              "default": "docmaintype_other",
+              "const": "docmaintype_other",
+              "form": {
+                "wrappers": [
+                  "hide"
+                ]
+              }
+            }
+          },
+          "form": {
+            "templateOptions": {
+              "cssClass": "row"
+            }
+          }
+        },
+        {
+          "title": "score",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "main_type",
+            "subtype"
+          ],
+          "required": [
+            "main_type"
+          ],
+          "properties": {
+            "main_type": {
+              "title": "Main type",
+              "type": "string",
+              "readOnly": true,
+              "default": "docmaintype_score",
+              "const": "docmaintype_score",
+              "form": {
+                "wrappers": [
+                  "hide"
+                ]
+              }
+            },
+            "subtype": {
+              "title": "Subtype",
+              "type": "string",
+              "default": "docsubtype_printed_score",
+              "enum": [
+                "docsubtype_printed_score",
+                "docsubtype_music_method",
+                "docsubtype_manuscript_score"
+              ],
+              "form": {
+                "options": [
+                  {
+                    "label": "docsubtype_printed_score",
+                    "value": "docsubtype_printed_score"
+                  },
+                  {
+                    "label": "docsubtype_music_method",
+                    "value": "docsubtype_music_method"
+                  },
+                  {
+                    "label": "docsubtype_manuscript_score",
+                    "value": "docsubtype_manuscript_score"
+                  }
+                ],
+                "templateOptions": {
+                  "cssClass": "col-lg-6"
+                }
+              }
+            }
+          },
+          "form": {
+            "templateOptions": {
+              "cssClass": "row"
+            }
+          }
+        },
+        {
+          "title": "serial",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "main_type"
+          ],
+          "required": [
+            "main_type"
+          ],
+          "properties": {
+            "main_type": {
+              "title": "Main type",
+              "type": "string",
+              "readOnly": true,
+              "default": "docmaintype_serial",
+              "const": "docmaintype_serial",
+              "form": {
+                "wrappers": [
+                  "hide"
+                ]
+              }
+            }
+          },
+          "form": {
+            "templateOptions": {
+              "cssClass": "row"
+            }
+          }
+        },
+        {
+          "title": "editorial series",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "main_type"
+          ],
+          "required": [
+            "main_type"
+          ],
+          "properties": {
+            "main_type": {
+              "title": "Main type",
+              "type": "string",
+              "readOnly": true,
+              "default": "docmaintype_series",
+              "const": "docmaintype_series",
+              "form": {
+                "wrappers": [
+                  "hide"
+                ]
+              }
+            }
+          },
+          "form": {
+            "templateOptions": {
+              "cssClass": "row"
+            }
+          }
         }
-      ],
+      ]
+    },
+    "form": {
+      "hide": true,
       "templateOptions": {
-        "cssClass": "editor-max-width editor-title"
+        "cssClass": "editor-title"
       }
     }
   }

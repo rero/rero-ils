@@ -1193,7 +1193,12 @@
   "doc1": {
     "$schema": "https://ils.rero.ch/schemas/documents/document-v0.0.1.json",
     "pid": "doc1",
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -1416,7 +1421,12 @@
   "doc2": {
     "$schema": "https://ils.rero.ch/schemas/documents/document-v0.0.1.json",
     "pid": "doc2",
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -1509,7 +1519,12 @@
   "doc3": {
     "$schema": "https://ils.rero.ch/schemas/documents/document-v0.0.1.json",
     "pid": "doc3",
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -1656,7 +1671,12 @@
   "doc4": {
     "$schema": "https://ils.rero.ch/schemas/documents/document-v0.0.1.json",
     "pid": "doc4",
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -1908,7 +1928,11 @@
   "doc5": {
     "$schema": "https://ils.rero.ch/schemas/documents/document-v0.0.1.json",
     "pid": "doc5",
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -2005,7 +2029,11 @@
   "doc6": {
     "$schema": "https://ils.rero.ch/schemas/documents/document-v0.0.1.json",
     "pid": "doc6",
-    "type": "journal",
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -2102,7 +2130,12 @@
   "doc7": {
     "$schema": "https://ils.rero.ch/schemas/documents/document-v0.0.1.json",
     "pid": "doc7",
-    "type": "book",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -2226,7 +2259,12 @@
   },
   "ebook1": {
     "pid": "ebook1",
-    "type": "ebook",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_e-book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -2330,7 +2368,12 @@
   },
   "ebook2": {
     "pid": "ebook2",
-    "type": "ebook",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_e-book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -2423,7 +2466,12 @@
         "value": "ebook3"
       }
     ],
-    "type": "ebook",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_e-book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -2509,7 +2557,12 @@
         "value": "ebook4"
       }
     ],
-    "type": "ebook",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_e-book"
+      }
+    ],
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"

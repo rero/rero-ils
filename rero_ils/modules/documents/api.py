@@ -259,6 +259,50 @@ class Document(IlsRecord):
                     contributions[idx]['agent'] = contribution
         return super().replace_refs()
 
+    @property
+    def document_type(self):
+        """Get first document type of document."""
+        document_type = 'docmaintype_other'
+        document_types = self.get('type', [])
+        if document_types:
+            document_type = document_types[0]['main_type']
+            document_subtype = document_types[0].get('subtype')
+            if document_subtype:
+                document_type = document_subtype
+        return document_type
+
+    @property
+    def document_types(self):
+        """All types of document."""
+        document_types = []
+        for document_type in self.get('type', []):
+            main_type = document_type.get('main_type')
+            sub_type = document_type.get('subtype')
+            if sub_type:
+                main_type = sub_type
+            document_types.append(main_type)
+        return document_types or ['docmaintype_other']
+
+    def add_cover_url(self, url, dbcommit=False, reindex=False):
+        """Adds electronicLocator with coverImage to document."""
+        electronic_locators = self.get('electronicLocator', [])
+        for electronic_locator in electronic_locators:
+            e_content = electronic_locator.get('content')
+            e_type = electronic_locator.get('type')
+            if e_content == 'coverImage' and e_type == 'relatedResource':
+                # don't add the same url
+                if electronic_locator.get('url') == url:
+                    return self, False
+        electronic_locators.append({
+            'content': 'coverImage',
+            'type': 'relatedResource',
+            'url': url
+        })
+        self['electronicLocator'] = electronic_locators
+        self = self.update(data=self, dbcommit=dbcommit, reindex=reindex)
+        return self, True
+
+
 
 class DocumentsIndexer(IlsRecordsIndexer):
     """Indexing documents in Elasticsearch."""
