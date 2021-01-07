@@ -166,7 +166,7 @@
             ],
             "templateOptions": {
               "toggle-switch": {
-                "label": "Limit by checkouts"
+                "label": "Limit (per checkout)"
               }
             }
           }
