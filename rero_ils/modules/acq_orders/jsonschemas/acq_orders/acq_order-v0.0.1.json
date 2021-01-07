@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "title": "Acquisition order",
-  "description": "JSON schema for Acquisition Order.",
+  "description": "JSON schema for acquisition order.",
   "additionalProperties": false,
   "propertiesOrder": [
     "vendor",
@@ -26,7 +26,7 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate Acquisition Order records against.",
+      "description": "Schema to validate acquisition order records against.",
       "type": "string",
       "default": "https://ils.rero.ch/schemas/acq_orders/acq_order-v0.0.1.json",
       "pattern": "^https://ils.rero.ch/schemas/acq_orders/acq_order-v([0-9]+?\\.){3}json$"
@@ -48,7 +48,7 @@
             }
           },
           "messages": {
-            "alreadyTakenMessage": "The order number is already taken."
+            "alreadyTakenMessage": "This order number is already in use."
           }
         }
       }
