@@ -303,8 +303,8 @@
       }
     },
     "holding": {
-      "title": "Holding",
-      "description": "Holding record for the item.",
+      "title": "Holdings",
+      "description": "Holdings record for the item.",
       "type": "object",
       "properties": {
         "$ref": {
