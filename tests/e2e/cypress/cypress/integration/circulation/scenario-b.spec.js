@@ -90,10 +90,11 @@ describe('Circulation scenario B: standard loan with transit', function() {
     // Search for the item
     cy.goToPublicDocumentDetailView(documentPid);
     // Request the item
-    cy.get('#item-request-' + itemPid + ' .btn').click();
+    cy.get('#item-' + itemPid + '-request-button').click();
     // Select pickup location (force because menu can go over browser view)
     cy.get('#pickup').select(this.items.starfleetStandardLoanWithTransit.pickupName);
-    cy.get('#pickup-location-' + itemPid + ' .btn').click();    cy.wait('@itemRequest');
+    cy.get('#pickup-location-' + itemPid + '-confirm-button').click();
+    cy.wait('@itemRequest');
     // Go to user profile, directly on requests-tab
     cy.visit('/global/patrons/profile');
     cy.get('#requests-tab').click();
