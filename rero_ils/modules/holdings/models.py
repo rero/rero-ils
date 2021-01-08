@@ -53,3 +53,8 @@ class HoldingNoteTypes:
     ROUTING = 'routing_note'
     BINDING = 'binding_note'
     ACQUISITION = 'acquisition_note'
+
+    # TODO: Add any of the above items to the array
+    # to display them on the interface
+    PUBLIC = [
+    ]

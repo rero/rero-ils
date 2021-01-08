@@ -43,6 +43,26 @@ def test_patrons_serializers(
         assert hit[key]
 
 
+def test_holdings_serializers(
+    client,
+    rero_json_header,
+    librarian_martigny_no_email,
+    lib_martigny,
+    holding_lib_martigny
+):
+    """Test serializers for holdings."""
+    login_user(client, librarian_martigny_no_email)
+
+    holding_url = url_for('invenio_records_rest.hold_list')
+    response = client.get(holding_url, headers=rero_json_header)
+    assert response.status_code == 200
+    data = get_json(response)
+    record = data['hits']['hits'][0]['metadata']
+    assert record.get('location', {}).get('name')
+    assert record.get('library', {}).get('name')
+    assert record.get('circulation_category', {}).get('name')
+
+
 def test_items_serializers(
     client,
     item_lib_martigny,  # on shelf
@@ -55,7 +75,7 @@ def test_items_serializers(
     librarian_sion_no_email,
     loan_pending_martigny
 ):
-    """Test record retrieval."""
+    """Test serializers for items."""
     login_user(client, librarian_martigny_no_email)
 
     item_url = url_for(

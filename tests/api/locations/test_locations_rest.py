@@ -288,13 +288,13 @@ def test_location_secure_api(client, json_header, loc_public_martigny,
                          pid_value=loc_public_martigny.pid)
 
     res = client.get(record_url)
-    # librarian is not authorized to access any location of other organisation
-    assert res.status_code == 403
+    # librarian is authorized to access any location of other organisation
+    assert res.status_code == 200
 
     login_user_via_session(client, system_librarian_sion_no_email.user)
     res = client.get(record_url)
-    # a sys_librarian is not authorized to access any location of other org
-    assert res.status_code == 403
+    # a sys_librarian is authorized to access any location of other org
+    assert res.status_code == 200
 
 
 def test_location_secure_api_create(client, lib_fully, lib_martigny,

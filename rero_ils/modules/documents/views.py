@@ -36,7 +36,7 @@ from .utils import create_authorized_access_point, \
     title_variant_format_text
 from ..collections.api import CollectionsSearch
 from ..contributions.api import Contribution
-from ..holdings.api import Holding
+from ..holdings.models import HoldingNoteTypes
 from ..items.models import ItemCirculationAction, ItemNoteTypes
 from ..libraries.api import Library
 from ..locations.api import Location
@@ -66,35 +66,19 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
 
     record['available'] = record.is_available(viewcode)
 
-    # TODO: later Refactoring this part
-    # Use ES to order holdings records
-    # Pass directly the ES holdings to the template
-    # and create some pipe to process record
-    # return only non-masked holdings records for the public interface.
-    # TODO: this is a temporary implemenation of the masked holdings records.
-    # this functionality will be completed after merging the USs:
-    # US1909: Performance: many items on public document detailed view
-    # US1906: Complete item model
+    # Counting holdings to display the get button
     from ..holdings.api import HoldingsSearch
-    query = results = HoldingsSearch()\
-        .filter('term', document__pid=pid.pid_value) \
-        .filter('term', _masked=False)
+    query = HoldingsSearch()\
+        .filter('term', document__pid=pid.pid_value)
     if organisation:
         query = query.filter('term', organisation__pid=organisation.pid)
-    results = query\
-        .sort({'library_location': {"order": "asc"}})\
-        .source('pid').scan()
-
-    holdings = [
-        Holding.get_record_by_pid(holding_pid).replace_refs()
-        for holding_pid in [r.pid for r in results]
-    ]
+    holdings_count = query.count()
 
     return render_template(
         template,
         pid=pid,
         record=record,
-        holdings=holdings,
+        holdings_count=holdings_count,
         viewcode=viewcode,
         recordType='documents'
     )
@@ -157,17 +141,6 @@ def can_request(item):
 def get_public_notes(item):
     """Get public notes related to an item."""
     return [n for n in item.notes if n.get('type') in ItemNoteTypes.PUBLIC]
-
-
-@blueprint.app_template_filter()
-def get_note(record, note_type):
-    """Get a note by its type for a given holdings or item.
-
-    :param record: the record to check.
-    :param note_type: the type of note to find.
-    :return the requested note, None if no corresponding note is found.
-    """
-    return record.get_note(note_type)
 
 
 @blueprint.app_template_filter()
@@ -430,41 +403,6 @@ def get_cover_art(record, save_cover_url=True, verbose=False):
 
 
 @blueprint.app_template_filter()
-def get_accesses(record):
-    """Get electronic locator text.
-
-    :param record: record
-    :return: dictonary list of access informations
-    """
-    accesses = []
-
-    def filter_type(electronic_locator):
-        """Filter electronic locator for resources and not cover image."""
-        types = ['resource', 'versionOfResource']
-        if electronic_locator.get('type') in types:
-            return True
-        else:
-            return False
-
-    filtered_electronic_locators = filter(
-        filter_type,
-        record.get('electronicLocator', [])
-    )
-    for electronic_locator in filtered_electronic_locators:
-        url = electronic_locator.get('url')
-        content = electronic_locator.get('content', url)
-        public_notes = electronic_locator.get('publicNote', [])
-        public_note = ', '.join(public_notes)
-        accesses.append({
-            'type': electronic_locator.get('type'),
-            'url': url,
-            'content': content,
-            'public_note': public_note
-        })
-    return accesses
-
-
-@blueprint.app_template_filter()
 def get_other_accesses(record):
     """Length for electronic locator.
 
@@ -637,3 +575,36 @@ def get_articles(record):
             'pid':hit.pid
         })
     return articles
+
+
+@blueprint.app_template_filter()
+def online_holdings(document_pid, viewcode='global'):
+    """Find holdings by document pid and viewcode.
+
+    : param document_pid: document pid
+    : param viewcode: symbol of organisation viewcode
+    : return: list of holdings
+    """
+    from ..holdings.api import HoldingsSearch
+    holdings = []
+    organisation = None
+    if viewcode != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
+        organisation = Organisation.get_record_by_viewcode(viewcode)
+    query = HoldingsSearch()\
+        .filter('term', document__pid=document_pid)
+    if organisation:
+        query = query.filter('term', organisation__pid=organisation.pid)
+    results = query.source(['library', 'electronic_location', 'notes']).scan()
+    holdings = []
+    for record in results:
+        library = Library.get_record_by_pid(record.library.pid)
+        record.library.name = library['name']
+        public_notes_content = [
+            n['content']
+            for n in record.to_dict().get('notes', [])
+            if n['type'] in HoldingNoteTypes.PUBLIC
+        ]
+        if public_notes_content:
+            record.notes = public_notes_content
+        holdings.append(record)
+    return holdings

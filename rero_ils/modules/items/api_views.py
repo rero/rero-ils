@@ -49,6 +49,17 @@ api_blueprint = Blueprint(
 )
 
 
+def check_logged_user_authentication(func):
+    """Decorator to check authentication for user HTTP API."""
+    @wraps(func)
+    def decorated_view(*args, **kwargs):
+        if not current_user.is_authenticated:
+            return jsonify({'status': 'error: Unauthorized'}), 401
+        return func(*args, **kwargs)
+
+    return decorated_view
+
+
 def check_authentication(func):
     """Decorator to check authentication for items HTTP API."""
     @wraps(func)
@@ -150,10 +161,10 @@ def do_item_jsonify_action(func):
 
 
 @api_blueprint.route('/request', methods=['POST'])
-@check_authentication
+@check_logged_user_authentication
 @do_item_jsonify_action
 def librarian_request(item, data):
-    """HTTP GET request for Item request action.
+    """HTTP POST request for Item request action.
 
     required_parameters:
         item_pid_value,
@@ -380,7 +391,7 @@ def item_availability(item_pid):
 
 
 @api_blueprint.route('/<item_pid>/can_request', methods=['GET'])
-@check_authentication
+@check_logged_user_authentication
 @jsonify_error
 def can_request(item_pid):
     """HTTP request to check if an item can be requested.
@@ -424,7 +435,7 @@ def can_request(item_pid):
 
 
 @api_blueprint.route('/<item_pid>/pickup_locations', methods=['GET'])
-@check_authentication
+@check_logged_user_authentication
 @jsonify_error
 def get_pickup_locations(item_pid):
     """HTTP request to return the available pickup locations for an item.

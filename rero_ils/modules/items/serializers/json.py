@@ -21,8 +21,11 @@
 from rero_ils.modules.documents.api import search_document_by_pid
 from rero_ils.modules.documents.utils import title_format_text_head
 from rero_ils.modules.item_types.api import ItemType
+from rero_ils.modules.items.api import Item
+from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.locations.api import Location
+from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.serializers import JSONSerializer
 from rero_ils.modules.vendors.api import Vendor
 
@@ -37,7 +40,9 @@ class ItemsJSONSerializer(JSONSerializer):
         :param pid_fetcher: Persistent identifier fetcher.
         """
         records = results.get('hits', {}).get('hits', {})
-
+        orgs = {}
+        libs = {}
+        locs = {}
         for record in records:
             metadata = record.get('metadata', {})
             document = search_document_by_pid(
@@ -47,6 +52,40 @@ class ItemsJSONSerializer(JSONSerializer):
                 document['title'],
                 with_subtitle=True
             )
+
+            item = Item.get_record_by_pid(metadata.get('pid'))
+            metadata['availability'] = {
+                'available': metadata['available'],
+                'status': metadata['status'],
+                'display_text': item.availability_text(),
+                'request': item.number_of_requests()
+            }
+            if not metadata['available']:
+                if metadata['status'] == ItemStatus.ON_LOAN:
+                    metadata['availability']['due_date'] =\
+                        item.get_item_end_date(format='long', language='en')
+            # Item in collection
+            collection = item.in_collection()
+            if collection:
+                metadata['in_collection'] = collection
+            # Organisation
+            organisation = metadata['organisation']
+            if organisation['pid'] not in orgs:
+                orgs[organisation['pid']] = Organisation \
+                    .get_record_by_pid(organisation['pid'])
+            organisation['viewcode'] = orgs[organisation['pid']].get('code')
+            # Library
+            library = metadata['library']
+            if library['pid'] not in libs:
+                libs[library['pid']] = Library \
+                    .get_record_by_pid(library['pid'])
+            library['name'] = libs[library['pid']].get('name')
+            # Location
+            location = metadata['location']
+            if location['pid'] not in locs:
+                locs[location['pid']] = Location \
+                    .get_record_by_pid(location['pid'])
+            location['name'] = locs[location['pid']].get('name')
 
         # Add library name
         for lib_term in results.get('aggregations', {}).get(

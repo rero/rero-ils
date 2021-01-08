@@ -146,6 +146,27 @@ def view_search_factory(self, search, query_parser=None):
     return search, urlkwargs
 
 
+def viewcode_patron_search_factory(self, search, query_parser=None):
+    """Search factory with viewcode or current patron."""
+    search, urlkwargs = search_factory(self, search)
+    view = request.args.get('view')
+    # Public interface
+    if view:
+        if view != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
+            org = Organisation.get_record_by_viewcode(view)
+            search = search.filter(
+                'term', organisation__pid=org['pid']
+            )
+    # Admin interface
+    elif current_patron:
+        search = search.filter(
+            'term', organisation__pid=current_organisation.pid
+        )
+    # exclude draft records
+    search = search.filter('bool', must_not=[Q('term', _draft=True)])
+    return search, urlkwargs
+
+
 def contribution_view_search_factory(self, search, query_parser=None):
     """Search factory with view code parameter."""
     view = request.args.get(

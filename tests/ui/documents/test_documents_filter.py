@@ -20,25 +20,9 @@
 from flask_login.utils import login_user
 
 from rero_ils.modules.documents.api import Document
-from rero_ils.modules.documents.views import contribution_format, get_note, \
-    get_public_notes, identifiedby_format, \
-    item_and_patron_in_same_organisation, language_format, note_format, \
-    part_of_format, series_format
-from rero_ils.modules.items.models import ItemNoteTypes
-
-
-def test_note_filters(item_lib_martigny):
-    """Test document item note filter functions."""
-    assert get_note(item_lib_martigny, ItemNoteTypes.STAFF) is not None
-    assert get_note(item_lib_martigny, ItemNoteTypes.CHECKIN) is None
-
-    item_lib_martigny['notes'].append({
-        'type': 'general_note',
-        'content': 'note_content'
-    })
-    public_notes = get_public_notes(item_lib_martigny)
-    assert len(item_lib_martigny['notes']) == 2
-    assert len(public_notes) == 1
+from rero_ils.modules.documents.views import contribution_format, \
+    identifiedby_format, item_and_patron_in_same_organisation, \
+    language_format, note_format, part_of_format, series_format
 
 
 def test_item_and_patron_in_same_organisation(

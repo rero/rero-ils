@@ -16,45 +16,45 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #}
-{% if accesses|length > 0 %}
+{% set holdings = record.pid|online_holdings(viewcode) %}
 <div class="card mb-2">
   <!-- Card header -->
   <div id="online_access" class="card-header p-2">
     <div class="row">
-      <div class="col-1">
-        <a class="collapse-link" data-toggle="collapse" href="#collapse-access" aria-expanded="false">
-          <i class="fa fa-caret-down fa-lg"></i>
-        </a>
-      </div>
-      <div class="col-10">
-            {{ _("Online") }}
+      <div class="col-12">
+            {{ _('Online') }}
       </div>
     </div>
   </div>
   <!-- Card body -->
   <div id="collapse-access" class="collapse show" role="tabpanel">
     <div class="card-body p-2">
-      {% for access in accesses %}
-      <div class="row my-2">
-        <div class="col-12">
-          <div class="row">
-            <div class="col-sm-1">
-              &nbsp;
+      <ul class="list-unstyled my-1">
+        {% for access in holdings %}
+          <li class="{%if loop.index is divisibleby 2 %} bg-light{% endif %}">
+            <div class="row">
+              <div class="col-6">
+                <ul class="list-unstyled">
+                {% for elocation in access.electronic_location %}
+                  <li>
+                    <a class="rero-ils-external-link" href={{ elocation.uri }}>
+                      {{ access.library.name }}
+                    </a>
+                  </li>
+                {% endfor %}
+                </ul>
+              </div>
+              <div class="col-6">
+                <ul class="list-unstyled">
+                {% for note in access.notes %}
+                  <li>{{ note }}</li>
+                {% endfor %}
+                </ul>
+              </div>
             </div>
-            <div class="col-sm-2">
-              {{ access.type }}
-            </div>
-            <div class="col-sm-9">
-              <a class="rero-ils-external-link" href={{ access.url }}>{{ access.content }}</a>
-              {% if access.public_note %}
-                ({{ access.public_note }})
-              {% endif %}
-            </div>
-          </div>
-        </div>
-      </div>
-      {% endfor %}
+          </li>
+        {% endfor %}
+      </ul>
     </div>
   </div>
 </div>
-{% endif %}

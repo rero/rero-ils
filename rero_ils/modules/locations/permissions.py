@@ -34,8 +34,7 @@ class LocationPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
-        # List locations allowed only for staff members (lib, sys_lib)
-        return current_patron and current_patron.is_librarian
+        return True if current_patron else False
 
     @classmethod
     def read(cls, user, record):
@@ -45,11 +44,7 @@ class LocationPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
-        # only staff members (lib, sys_lib) are allowed to read an location
-        if not current_patron or not current_patron.is_librarian:
-            return False
-        # For staff users, they can read only own organisation locations
-        return current_organisation['pid'] == record.organisation_pid
+        return True if current_patron else False
 
     @classmethod
     def create(cls, user, record=None):

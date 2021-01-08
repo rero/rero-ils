@@ -84,7 +84,7 @@ def test_location_permissions_api(client, patron_martigny_no_email,
     res = client.get(loc_sion_permission_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert not data['read']['can']
+    assert data['read']['can']
     assert data['list']['can']
     assert not data['update']['can']
     assert not data['delete']['can']
@@ -105,12 +105,12 @@ def test_location_permissions_api(client, patron_martigny_no_email,
     res = client.get(loc_sion_permission_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert not data['read']['can']
+    assert data['read']['can']
     assert not data['update']['can']
     assert not data['delete']['can']
 
 
-def test_location_permissions(patron_martigny_no_email,
+def test_location_permissions(client, patron_martigny_no_email,
                               librarian_martigny_no_email,
                               system_librarian_martigny_no_email,
                               org_martigny, loc_public_martigny,
@@ -129,8 +129,8 @@ def test_location_permissions(patron_martigny_no_email,
         'rero_ils.modules.locations.permissions.current_patron',
         patron_martigny_no_email
     ):
-        assert not LocationPermission.list(None, loc_public_martigny)
-        assert not LocationPermission.read(None, loc_public_martigny)
+        assert LocationPermission.list(None, loc_public_martigny)
+        assert LocationPermission.read(None, loc_public_martigny)
         assert not LocationPermission.create(None, loc_public_martigny)
         assert not LocationPermission.update(None, loc_public_martigny)
         assert not LocationPermission.delete(None, loc_public_martigny)
@@ -150,7 +150,7 @@ def test_location_permissions(patron_martigny_no_email,
         assert LocationPermission.delete(None, loc_public_martigny)
 
         assert LocationPermission.list(None, loc_public_sion)
-        assert not LocationPermission.read(None, loc_public_sion)
+        assert LocationPermission.read(None, loc_public_sion)
         assert not LocationPermission.create(None, loc_public_sion)
         assert not LocationPermission.update(None, loc_public_sion)
         assert not LocationPermission.delete(None, loc_public_sion)
@@ -169,7 +169,7 @@ def test_location_permissions(patron_martigny_no_email,
         assert LocationPermission.update(None, loc_public_saxon)
         assert LocationPermission.delete(None, loc_public_saxon)
 
-        assert not LocationPermission.read(None, loc_public_sion)
+        assert LocationPermission.read(None, loc_public_sion)
         assert not LocationPermission.create(None, loc_public_sion)
         assert not LocationPermission.update(None, loc_public_sion)
         assert not LocationPermission.delete(None, loc_public_sion)

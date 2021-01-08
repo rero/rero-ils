@@ -119,7 +119,7 @@
 {%- block record_body %}
 <section>
   <article class="mt-4">
-    {% if accesses|length < 1 and  not holdings %}
+    {% if holdings_count < 1 %}
     <header>
       <nav>
         <ul class="nav nav-tabs" role="tablist">
@@ -143,6 +143,7 @@
     <header>
       <nav>
         <ul class="nav nav-tabs" role="tablist">
+          {% if holdings_count > 0 %}
           <li class="nav-item">
             <a class="nav-link active" href="#documents-get" data-toggle="tab"
                id="documents-get-tab" title="{{ _('Get') }}" role="tab"
@@ -150,6 +151,7 @@
               <i class="fa fa-list-ul"></i> {{ _('Get') }}
             </a>
           </li>
+          {% endif %}
           <li class="nav-item">
             <a class="nav-link" href="#documents-description" data-toggle="tab"
                id="documents-description-tab" title="{{ _('Description') }}" role="tab"
@@ -161,13 +163,20 @@
       </nav>
     </header>
     <article class="tab-content">
+      {% if holdings_count > 0 %}
       <section class="tab-pane show active p-4" id="documents-get" role="tabpanel" aria-labelledby="documents-get-tab">
-        {%- if record | document_main_type == 'docmaintype_book' %}
-          {% include('rero_ils/_documents_get_book.html') %}
-        {%- else %}
-          {% include('rero_ils/_documents_get.html') %}
-        {%- endif %}
+        {% include('rero_ils/_anonymous_button.html') %}
+        {% if record.harvested %}
+          {% include('rero_ils/_document_online.html') %}
+        {% else %}
+          <public-holdings-items
+            documenttype="{{ record | document_main_type }}"
+            documentpid="{{ record.pid }}"
+            viewcode="{{ viewcode }}"
+          ></public-holdings-items>
+        {% endif %}
       </section>
+      {% endif %}
       <section class="tab-pane row" id="documents-description" role="tabpanel" aria-labelledby="documents-description-tab">
         {% include('rero_ils/_documents_description.html') %}
       </section>
@@ -210,3 +219,8 @@
 {%- endblock record_body %}
 
 {%- endblock body %}
+
+{%- block javascript %}
+{{ super() }}
+{{ node_assets('@rero/rero-ils-ui/dist/public-holdings-items', tags='defer') }}
+{% endblock javascript %}

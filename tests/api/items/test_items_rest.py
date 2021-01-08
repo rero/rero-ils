@@ -61,16 +61,16 @@ def test_items_permissions(client, item_lib_martigny,
     res = client.delete(item_url)
     assert res.status_code == 401
 
-    views = [
-        'api_item.checkout',
-        'api_item.checkin',
-        'api_item.cancel_item_request',
-        'api_item.validate_request',
-        'api_item.receive',
-        'api_item.return_missing',
-        'api_item.extend_loan',
-        'api_item.librarian_request'
-    ]
+    views = {
+        'api_item.checkout': 403,
+        'api_item.checkin': 403,
+        'api_item.cancel_item_request': 403,
+        'api_item.validate_request': 403,
+        'api_item.receive': 403,
+        'api_item.return_missing': 403,
+        'api_item.extend_loan': 403,
+        'api_item.librarian_request': 404  # authenticated OK but send bad data
+    }
     for view in views:
         res, _ = postdata(client, view, {})
         assert res.status_code == 401
@@ -80,9 +80,9 @@ def test_items_permissions(client, item_lib_martigny,
     )
     assert res.status_code == 401
     login_user_via_session(client, patron_martigny_no_email.user)
-    for view in views:
+    for view, status in views.items():
         res, _ = postdata(client, view, {})
-        assert res.status_code == 403
+        assert res.status_code == status
     res = client.get(
         url_for('api_item.requested_loans', library_pid='test'),
         data={}
