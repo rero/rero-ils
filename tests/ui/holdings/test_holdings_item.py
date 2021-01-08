@@ -28,8 +28,7 @@ from utils import flush_index
 
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch, \
     get_holdings_by_document_item_type
-from rero_ils.modules.holdings.views import holding_circulation_category, \
-    holding_loan_condition_filter, holding_location
+from rero_ils.modules.holdings.views import holding_loan_condition_filter
 from rero_ils.modules.items.api import Item, ItemsSearch
 
 
@@ -72,9 +71,6 @@ def test_holding_item_links(client, holding_lib_martigny, item_lib_martigny,
         'standard'
     with pytest.raises(Exception):
         assert holding_loan_condition_filter('no pid')
-    assert holding_location(holding_lib_martigny.replace_refs()) == \
-        'Library of Martigny-ville: Martigny Library Public Space'
-    assert holding_circulation_category(holding_lib_martigny) == 'standard'
     holdings = get_holdings_by_document_item_type(
         document.pid, item_type_standard_martigny.pid)
     assert holding_lib_martigny.pid == holdings[1].get('pid')

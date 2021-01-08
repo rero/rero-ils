@@ -74,19 +74,3 @@ def holding_loan_condition_filter(holding_pid):
     if not holding:
         abort(404)
     return holding.get_holding_loan_conditions()
-
-
-@blueprint.app_template_filter()
-def holding_location(holding):
-    """Returns holding location name as text."""
-    location_pid = holding.get('location').get('pid')
-    location = Location.get_record_by_pid(location_pid)
-    return '{lib}: {loc}'.format(
-        lib=location.get_library().get('name'), loc=location.get('name'))
-
-
-@blueprint.app_template_filter()
-def holding_circulation_category(holding):
-    """Returns holding location name as text."""
-    holding = Holding.get_record_by_pid(holding.get('pid'))
-    return holding.get_holding_loan_conditions()

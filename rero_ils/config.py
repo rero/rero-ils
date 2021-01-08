@@ -638,7 +638,7 @@ RECORDS_REST_ENDPOINTS = dict(
                     '"rero_ils.modules.items.api:Item"):pid_value>'),
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
-        search_factory_imp='rero_ils.query:organisation_search_factory',
+        search_factory_imp='rero_ils.query:viewcode_patron_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=ItemPermission),
         read_permission_factory_imp=lambda record: record_permission_factory(
@@ -711,6 +711,9 @@ RECORDS_REST_ENDPOINTS = dict(
         search_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_search'
+            ),
+            'application/rero+json': (
+                'rero_ils.modules.holdings.serializers:json_holdings_search'
             )
         },
         list_route='/holdings/',
@@ -722,7 +725,7 @@ RECORDS_REST_ENDPOINTS = dict(
                     '"rero_ils.modules.holdings.api:Holding"):pid_value>'),
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
-        search_factory_imp='rero_ils.query:organisation_search_factory',
+        search_factory_imp='rero_ils.query:viewcode_patron_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=HoldingPermission),
         read_permission_factory_imp=lambda record: record_permission_factory(
@@ -1086,7 +1089,7 @@ RECORDS_REST_ENDPOINTS = dict(
                     '"rero_ils.modules.locations.api:Location"):pid_value>'),
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
-        search_factory_imp='rero_ils.query:organisation_search_factory',
+        search_factory_imp='rero_ils.query:viewcode_patron_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=LocationPermission),
         read_permission_factory_imp=lambda record: record_permission_factory(
@@ -2052,6 +2055,18 @@ RECORDS_REST_SORT_OPTIONS['holdings']['library_location'] = dict(
 RECORDS_REST_DEFAULT_SORT['holdings'] = dict(
     query='bestmatch', noquery='library_location')
 
+# ------ ITEM SORT
+RECORDS_REST_SORT_OPTIONS['items']['enumeration_chronology'] = dict(
+    fields=['-enumerationAndChronology'], title='Enumeration and Chronology',
+    default_order='desc'
+)
+RECORDS_REST_SORT_OPTIONS['items']['library'] = dict(
+    fields=['library.pid'], title='Library',
+    default_order='asc'
+)
+RECORDS_REST_DEFAULT_SORT['items'] = dict(
+    query='bestmatch', noquery='enum_chronology')
+
 # ------ ITEM TYPES SORT
 RECORDS_REST_SORT_OPTIONS['item_types']['name'] = dict(
     fields=['item_type_name'], title='Item type name',
@@ -2257,7 +2272,7 @@ RERO_ILS_ENABLE_OPERATION_LOG = {
     'holdings': 'hold',
     'items': 'item'
 }
- 
+
 
 # Login Configuration
 # ===================

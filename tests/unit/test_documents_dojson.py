@@ -30,7 +30,7 @@ from rero_ils.modules.documents.dojson.contrib.marc21tojson import marc21
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.model import \
     get_contribution_link
 from rero_ils.modules.documents.views import create_publication_statement, \
-    get_accesses, get_cover_art, get_other_accesses
+    get_cover_art, get_other_accesses
 
 
 def test_not_repetetive(capsys):
@@ -3625,14 +3625,6 @@ def test_marc21_to_electronicLocator_from_856(mock_cover_get):
         }
     ]
     assert get_cover_art(data) is None
-    assert get_accesses(data) == [
-        {
-            'content': 'fullText',
-            'public_note': 'Vol. 1',
-            'type': 'versionOfResource',
-            'url': 'http://reader.digitale-s.de/r/d/XXX.html'
-        }
-    ]
     assert get_other_accesses(data) == []
 
     marc21xml = """
@@ -3655,7 +3647,6 @@ def test_marc21_to_electronicLocator_from_856(mock_cover_get):
         }
     ]
     assert get_cover_art(data) is None
-    assert get_accesses(data) == []
     assert get_other_accesses(data) == [
         {
             'content': 'http://d-nb.info/1071856731/04',
@@ -3704,14 +3695,6 @@ def test_marc21_to_electronicLocator_from_856(mock_cover_get):
     ]
     mock_cover_get.return_value = mock_response(json_data={})
     assert get_cover_art(data) == 'http://d-nb.info/image.png'
-    assert get_accesses(data) == [
-        {
-            'content': 'coverImage',
-            'public_note': '',
-            'type': 'versionOfResource',
-            'url': 'http://d-nb.info/image2.png'
-            }
-    ]
     assert get_other_accesses(data) == [
         {
             'content': 'http://d-nb.info/1071856731/04',

@@ -18,7 +18,7 @@
 #}
 {%- if current_user.is_anonymous %}
 <a
-  class="btn btn-primary btn-sm"
+  class="btn btn-primary btn-sm mb-4"
   href="{{ url_for_security('login') + "
   ?next=" + request.path }}"
 >

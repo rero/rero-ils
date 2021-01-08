@@ -30,6 +30,7 @@ from werkzeug.exceptions import NotFound
 from .api import Holding
 from ..errors import RegularReceiveNotAllowed
 from ..items.api_views import check_authentication
+from ..organisations.api import Organisation
 from ...permissions import can_receive_regular_issue
 
 api_blueprint = Blueprint(
@@ -62,6 +63,25 @@ def jsonify_error(func):
             return jsonify({'status': 'error: {error}'.format(
                 error=error)}), 500
     return decorated_view
+
+
+@api_blueprint.route('/pids/<document_pid>', methods=['GET'])
+def holding_pids(document_pid):
+    """HTTP GET all holdings PIDs by document Pid and viewcode."""
+    from ..holdings.api import HoldingsSearch
+    try:
+        view = flask_request.args.get('view')
+        query = HoldingsSearch().filter('term', document__pid=document_pid) \
+            .sort({'library.pid': {'order': 'asc'}}) \
+            .params(preserve_order=True)
+        if view != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
+            organisation = Organisation.get_record_by_viewcode(view)
+            query = query.filter('term', organisation__pid=organisation['pid'])
+        return jsonify([
+            holdings.pid for holdings in query.source('pid').scan()
+        ])
+    except:
+        return jsonify([])
 
 
 @api_blueprint.route('/availabilty/<holding_pid>', methods=['GET'])
