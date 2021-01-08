@@ -30,7 +30,7 @@ before(function () {
 })
 
 describe('Create a document', function() {
-  before('Login as a professional and create an item', function() {
+  before('Login as a professional', function() {
     this.spock = this.users.librarians.spock;
     // Login as librarian
     cy.adminLogin(this.spock.email, this.common.uniquePwd);

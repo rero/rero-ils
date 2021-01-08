@@ -17,6 +17,7 @@
     "languageCode2": "eng",
     "provisionActivity": {
       "type": "Distribution",
+      "bfType": "bf:Distribution",
       "publicationDate1": "2019",
       "publicationDate2": "2020",
       "statement":{
@@ -39,9 +40,121 @@
         "name": "Plo, Isabelle"
       }
     },
-    "responsibilityStatement": {
-      "value": "Allen J Coombes",
-      "language": "arm-armn"
+    "responsibilityStatement": [
+      {
+        "value": "Georges Bohas",
+        "language": "ara-arab"
+      },
+      {
+        "value": "Christian Jacq"
+      },
+      {
+        "value": "Charlotte Le Van"
+      }
+    ],
+    "format": "in-plano",
+    "extent": "136 p. 22 cm",
+    "dimensions": [
+      "29 cm"
+    ],
+    "subjects": [
+      "Abgaberecht",
+      "Steuer"
+    ],
+    "colorContent": [
+      {
+        "value": "polychrome",
+        "code": "rdacc:1003"
+      }
+    ],
+    "abstracts": [
+      "La reine Ahotep a reconquis une grande partie du sud, au prix de la vie de ceux qu'elle aime."
+    ],
+    "copyrightDate": [
+      "\u00a9 1999"
+    ],
+    "duration": [
+      "231 Min."
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "productionMethod": [
+      {
+        "value": "embossing",
+        "code": "rdapm:1018"
+      }
+    ],
+    "translatedFrom": [
+      "French"
+    ],
+    "titlesProper": [
+      "Babel."
+    ]
+  },
+  "bookPublication": {
+    "type": "Book",
+    "title": {
+      "mainTitle": "Title test",
+      "language": "arm-armn",
+      "subTitle": "Other title",
+      "partNumber": "Part number",
+      "partName": "Part name"
+    },
+    "language1": "French",
+    "language2": "English",
+    "languageCode1": "fre",
+    "languageCode2": "eng",
+    "provisionActivity": {
+      "type": "Publication",
+      "bfType": "bf:Publication",
+      "publicationDate1": "2019",
+      "publicationDate2": "2020",
+      "statement":{
+        "place1": "Place1",
+        "place2": "Place2",
+        "agent": "Agent",
+        "date": "Date"
+      },
+      "note": "Provision activity note",
+      "place": "Afghanistan (af)"
+    },
+    "issuance": {
+     "mainType": "single unit",
+     "mainTypeCode": "rdami:1001",
+     "subtype": "Material unit",
+     "subtypeCode": "materialUnit"
+    },
+    "authors": {
+      "person":{
+        "search": "plo",
+        "name": "Plo, Isabelle"
+      }
+    },
+    "responsibilityStatement": [
+      {
+        "value": "Georges Bohas",
+        "language": "ara-arab"
+      }
+    ]
+  },
+  "bookSimple": {
+    "type":[{
+      "main_type":"docmaintype_book",
+      "subtype":"docsubtype_other_book"
+    }],
+    "title": {
+      "mainTitle": "Title test"
+    },
+    "language1": "French",
+    "language2": "English",
+    "languageCode1": "fre",
+    "languageCode2": "eng",
+    "issuance": {
+     "mainType": "single unit",
+     "mainTypeCode": "rdami:1001",
+     "subtype": "Material unit",
+     "subtypeCode": "materialUnit"
     }
   }
 }
