@@ -1,21 +1,21 @@
 # Translations template for rero-ils.
-# Copyright (C) 2020 RERO
+# Copyright (C) 2021 RERO
 # This file is distributed under the same license as the rero-ils project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: rero-ils 0.14.1\n"
+"Project-Id-Version: rero-ils 0.15.0\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2020-12-16 16:15+0100\n"
+"POT-Creation-Date: 2021-01-12 08:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.8.0\n"
+"Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:129
 msgid "French"
@@ -4347,7 +4347,7 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:8
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:201
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:44
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:110
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:112
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:496
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:340
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:333
@@ -4734,7 +4734,7 @@ msgid "Contribution"
 msgstr ""
 
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:71
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:159
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:161
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get_book.html:48
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:73
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:44
@@ -4742,8 +4742,8 @@ msgid "Barcode"
 msgstr ""
 
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:75
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:95
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:139
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:97
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:141
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get_book.html:37
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:43
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:40
@@ -6125,7 +6125,7 @@ msgid "Source of the identifier."
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:204
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:167
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:169
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get_book.html:72
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:75
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:42
@@ -6650,62 +6650,62 @@ msgstr ""
 msgid "Permalink"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:32
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:33
 msgid "Login (to see request options)"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:62
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:64
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:122
 msgid "items"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:62
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:64
 msgid "item"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:73
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:75
 msgid "see collections and items"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:75
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:77
 msgid "no items received"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:80
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:82
 msgid "available"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:80
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:82
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:84
 msgid "not available"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:98
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:100
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:468
 msgid "Available collection"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:101
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:103
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:474
 msgid "Supplementary content"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:104
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:106
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:480
 msgid "Indexes"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:107
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:109
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:486
 msgid "Missing issues"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:144
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:146
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get_book.html:58
 msgid "Temporary location"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:156
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:158
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get_book.html:42
 msgid "Unit"
 msgstr ""

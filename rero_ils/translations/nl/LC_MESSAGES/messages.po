@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
-"POT-Creation-Date: 2020-12-16 16:15+0100\n"
-"PO-Revision-Date: 2020-11-16 12:49+0000\n"
+"POT-Creation-Date: 2021-01-12 08:01+0100\n"
+"PO-Revision-Date: 2021-01-03 17:32+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language: nl\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/rero_plus/rero-"
@@ -21,7 +21,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.8.0\n"
+"Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:129
 msgid "French"
@@ -4377,7 +4377,7 @@ msgstr "Wisselkoers"
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:8
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:201
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:44
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:110
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:112
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:496
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:340
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:333
@@ -4784,7 +4784,7 @@ msgid "Contribution"
 msgstr "Distributie"
 
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:71
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:159
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:161
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get_book.html:48
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:73
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:44
@@ -4792,8 +4792,8 @@ msgid "Barcode"
 msgstr "Barcode"
 
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:75
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:95
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:139
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:97
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:141
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get_book.html:37
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:43
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:40
@@ -5071,14 +5071,12 @@ msgid "Color content"
 msgstr "Kleur inhoud"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_color_content-v0.0.1.json:18
-#, fuzzy
 msgid "rdacc:1002"
-msgstr "meerdelige monografie"
+msgstr "monochroom"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_color_content-v0.0.1.json:22
-#, fuzzy
 msgid "rdacc:1003"
-msgstr "seriële publicatie"
+msgstr "polychroom"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:4
 msgid "Relationship to an agent associated with the document"
@@ -5458,7 +5456,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:384
 msgid "dgs"
-msgstr ""
+msgstr "graad-begeleider"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:388
 #, fuzzy
@@ -6275,7 +6273,7 @@ msgid "Source of the identifier."
 msgstr "Bron van de identificator."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:204
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:167
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:169
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get_book.html:72
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:75
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:42
@@ -6809,65 +6807,65 @@ msgstr "Formaat"
 msgid "Permalink"
 msgstr "Permalink"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:32
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:33
 msgid "Login (to see request options)"
 msgstr "Login (om de aanvraagopties te zien)"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:62
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:64
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:122
 msgid "items"
 msgstr "exemplaren"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:62
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:64
 msgid "item"
 msgstr "exemplaar"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:73
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:75
 msgid "see collections and items"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:75
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:77
 msgid "no items received"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:80
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:82
 msgid "available"
 msgstr "beschikbaar"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:80
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:82
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:84
 msgid "not available"
 msgstr "niet beschikbaar"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:98
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:100
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:468
 #, fuzzy
 msgid "Available collection"
 msgstr "beschikbaar"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:101
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:103
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:474
 msgid "Supplementary content"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:104
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:106
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:480
 msgid "Indexes"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:107
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:109
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:486
 #, fuzzy
 msgid "Missing issues"
 msgstr "vermist"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:144
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:146
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get_book.html:58
 #, fuzzy
 msgid "Temporary location"
 msgstr "JSON-schema voor een lokatie"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:156
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:158
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get_book.html:42
 msgid "Unit"
 msgstr "Eenheid"
@@ -7457,11 +7455,8 @@ msgid "Patron URI"
 msgstr "Lezer URI"
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:94
-#, fuzzy
 msgid "Should be in the following format: https://ils.rero.ch/api/patrons/<PID>."
-msgstr ""
-"Moet in het volgende formaat zijn: "
-"https://ils.rero.ch/api/documents/<PID>."
+msgstr "Moet in het volgende formaat zijn: https://ils.rero.ch/api/patrons/<PID>."
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:106
 #, fuzzy

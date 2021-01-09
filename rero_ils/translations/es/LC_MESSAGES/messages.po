@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
-"POT-Creation-Date: 2020-12-16 16:15+0100\n"
-"PO-Revision-Date: 2020-12-16 15:10+0000\n"
-"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"POT-Creation-Date: 2021-01-12 08:01+0100\n"
+"PO-Revision-Date: 2021-01-09 10:32+0000\n"
+"Last-Translator: JoelleDosimont <joelle.dosimont@uclouvain.be>\n"
 "Language: es\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus"
 "/rero-ils/es/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.8.0\n"
+"Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:129
 msgid "French"
@@ -120,14 +120,12 @@ msgid "teacher"
 msgstr "profesor"
 
 #: rero_ils/config.py:1872
-#, fuzzy
 msgid "loan_status"
-msgstr "tártaro"
+msgstr "Estado_de préstamo"
 
 #: rero_ils/config.py:1873
-#, fuzzy
 msgid "requester"
-msgstr "reservado"
+msgstr "solicitante"
 
 #: rero_ils/manual_translations.txt:16
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:280
@@ -288,7 +286,7 @@ msgstr "recurso integrable"
 #: rero_ils/manual_translations.txt:65
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person_link-v0.0.1.json:2
 msgid "Link to person entity"
-msgstr "Enlace a la entidad de persona"
+msgstr "Enlace a una persona"
 
 #: rero_ils/manual_translations.txt:66
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:28
@@ -4356,7 +4354,7 @@ msgstr "Tipo de cambio"
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:8
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:201
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:44
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:110
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:112
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:496
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:340
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:333
@@ -4749,7 +4747,7 @@ msgid "Contribution"
 msgstr "Contribución"
 
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:71
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:159
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:161
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get_book.html:48
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:73
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:44
@@ -4757,8 +4755,8 @@ msgid "Barcode"
 msgstr "Código de barras"
 
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:75
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:95
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:139
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:97
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:141
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get_book.html:37
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:43
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:40
@@ -4771,13 +4769,15 @@ msgid "Call number"
 msgstr "Número de clasificación"
 
 #: rero_ils/modules/contributions/views.py:159
+#, fuzzy
 msgid "{prefix}{key}"
-msgstr ""
+msgstr "{prefix}{key}"
 
 #: rero_ils/modules/contributions/views.py:173
 #: rero_ils/modules/contributions/views.py:177
+#, fuzzy
 msgid "{prefix}{data}"
-msgstr ""
+msgstr "{prefix}{data}"
 
 #: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:4
 msgid "Mef contribution"
@@ -5029,11 +5029,11 @@ msgstr "Contenido de color"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_color_content-v0.0.1.json:18
 msgid "rdacc:1002"
-msgstr "monografía en varias partes"
+msgstr "monocromo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_color_content-v0.0.1.json:22
 msgid "rdacc:1003"
-msgstr "publicación seriada"
+msgstr "policromo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:4
 msgid "Relationship to an agent associated with the document"
@@ -5127,7 +5127,7 @@ msgstr "Ejemplo: 1989"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation_link-v0.0.1.json:2
 msgid "Link to organisation entity"
-msgstr "Enlace a la entidad organización"
+msgstr "Enlace a una entidad corporativa"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:48
 msgid "Example: 1955"
@@ -6161,7 +6161,7 @@ msgid "Source of the identifier."
 msgstr "Fuente del identificador."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:204
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:167
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:169
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get_book.html:72
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:75
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:42
@@ -6530,9 +6530,8 @@ msgid "Labels"
 msgstr "Label"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:212
-#, fuzzy
 msgid "Date 1"
-msgstr "destinatario de dedicatoria en el ítem"
+msgstr "Fecha de publicación 1"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:213
 msgid ""
@@ -6544,9 +6543,8 @@ msgstr ""
 " campo \\"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:227
-#, fuzzy
 msgid "Date 2"
-msgstr "destinatario de dedicatoria en el ítem"
+msgstr "Fecha de publicación 2"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:228
 msgid ""
@@ -6707,62 +6705,62 @@ msgstr "Formato"
 msgid "Permalink"
 msgstr "Enlace permanente"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:32
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:33
 msgid "Login (to see request options)"
 msgstr "Login (para ver opciones de reservación)"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:62
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:64
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:122
 msgid "items"
 msgstr "ejemplares"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:62
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:64
 msgid "item"
 msgstr "ejemplar"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:73
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:75
 msgid "see collections and items"
 msgstr "ver colecciones y ejemplares"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:75
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:77
 msgid "no items received"
 msgstr "ningún ejemplar recibido"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:80
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:82
 msgid "available"
 msgstr "disponible"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:80
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:82
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:84
 msgid "not available"
 msgstr "no disponible"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:98
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:100
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:468
 msgid "Available collection"
 msgstr "Colección disponible"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:101
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:103
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:474
 msgid "Supplementary content"
 msgstr "Contenido suplementario"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:104
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:106
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:480
 msgid "Indexes"
 msgstr "Índices"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:107
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:109
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:486
 msgid "Missing issues"
 msgstr "Números faltantes"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:144
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:146
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get_book.html:58
 msgid "Temporary location"
 msgstr "Ubicación temporal"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:156
+#: rero_ils/modules/documents/templates/rero_ils/_documents_get.html:158
 #: rero_ils/modules/documents/templates/rero_ils/_documents_get_book.html:42
 msgid "Unit"
 msgstr "Unidad"
@@ -7148,29 +7146,29 @@ msgstr "Nota para el personal"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:534
 msgid "conservation_note"
-msgstr "Nota de conservación"
+msgstr "Conservación"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:538
 msgid "reception_note"
-msgstr "Nota de recepción"
+msgstr "Recepción"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:542
 msgid "claim_note"
-msgstr "Nota de reclamación"
+msgstr "Reclamación"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:546
 msgid "routing_note"
-msgstr "Nota de envio"
+msgstr "Envio"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:550
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:365
 msgid "binding_note"
-msgstr "Nota sobre la vinculación"
+msgstr "Vinculación"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:554
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:361
 msgid "acquisition_note"
-msgstr "Nota de adquisición"
+msgstr "Adquisición"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:567
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:375
@@ -7335,11 +7333,10 @@ msgid "Patron URI"
 msgstr "Usuario URI"
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:94
-#, fuzzy
 msgid "Should be in the following format: https://ils.rero.ch/api/patrons/<PID>."
 msgstr ""
 "Debería estar en el siguiente formato: "
-"https://ils.rero.ch/api/documents/<PID>."
+"https://ils.rero.ch/api/patrons/<PID>."
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:106
 #, fuzzy
@@ -7395,13 +7392,12 @@ msgid "public_note"
 msgstr "Nota pública"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:25
-#, fuzzy
 msgid "Caution!"
-msgstr "depósito"
+msgstr "Cuidado!"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:27
 msgid "A well detailed request is more likely to be satisfied"
-msgstr ""
+msgstr "Una solicitud bien detallada tiene más probabilidad de ser satisfecho"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:34
 msgid "You have submitted an invalid CSRF token"
@@ -7765,11 +7761,11 @@ msgstr "Fecha de inicio de la transacción"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:129
 msgid "Set loan to be anonymized"
-msgstr ""
+msgstr "Establecer préstamo para ser anonimizado"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:130
 msgid "If enabled, loan is set to be anonymized."
-msgstr ""
+msgstr "Una vez habilitado, el préstamo está puesto para ser anonimizado."
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:136
 msgid "State name"
@@ -7810,6 +7806,8 @@ msgid ""
 "Local fields allows to add data that is available at the organisation "
 "level only."
 msgstr ""
+"Los campos locales permiten añadir dato visible solo a nivel "
+"organizacional."
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:18
 #, fuzzy
@@ -7818,7 +7816,7 @@ msgstr "Esquema para validar la noticia del ejemplar."
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:24
 msgid "Local field PID"
-msgstr ""
+msgstr "PID del campo local"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:40
 #, fuzzy
@@ -7832,43 +7830,43 @@ msgstr "pago"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:71
 msgid "Field 1"
-msgstr ""
+msgstr "Campo 1"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:80
 msgid "Field 2"
-msgstr ""
+msgstr "Campo 2"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:89
 msgid "Field 3"
-msgstr ""
+msgstr "Campo 3"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:98
 msgid "Field 4"
-msgstr ""
+msgstr "Campo 4"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:107
 msgid "Field 5"
-msgstr ""
+msgstr "Campo 5"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:116
 msgid "Field 6"
-msgstr ""
+msgstr "campo 6"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:125
 msgid "Field 7"
-msgstr ""
+msgstr "Campo 7"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:134
 msgid "Field 8"
-msgstr ""
+msgstr "Campo 8"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:143
 msgid "Field 9"
-msgstr ""
+msgstr "Campo 9"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:152
 msgid "Field 10"
-msgstr ""
+msgstr "Campo 10"
 
 #: rero_ils/modules/locations/api.py:79
 msgid "Another online location exists in this library"
@@ -8506,6 +8504,8 @@ msgid ""
 "Username must start with a letter, be at least three characters long and "
 "only contain alphanumeric characters, dashes and underscores."
 msgstr ""
+"El nombre de usuario tiene que empezar con una letra, al menos de tres "
+"caracteres alfanuméricos, guiones o guiones bajos."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:115
 msgid "This username is already taken."
@@ -8678,15 +8678,16 @@ msgid ""
 "If enabled, the loan history is saved for a maximum of six months. It is "
 "visible to the user and the library staff."
 msgstr ""
+"Si habilitado, el historial de préstamo está salvada para un máximo de "
+"seis meses. Es visible al usuario y al personal de biblioteca."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:404
 msgid "libraries"
 msgstr "Bibliotecas"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:405
-#, fuzzy
 msgid "Library affiliations for the librarian."
-msgstr "Biblioteca de afiliación del usuario."
+msgstr "Bibliotecas de afiliación del bibliotecario."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:439
 msgid ""
@@ -8812,6 +8813,8 @@ msgid ""
 "The loan history is saved for a maximum of six months. It is visible to "
 "you and the library staff."
 msgstr ""
+"El historial de préstamo está salvada para un máximo de seis meses. Es "
+"visible al usuario y al personal de biblioteca."
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:131
 #, fuzzy
@@ -8874,7 +8877,7 @@ msgstr "Préstamo imposible : el ejemplar es reservado por otro usuario"
 
 #: rero_ils/modules/selfcheck/api.py:360 rero_ils/modules/selfcheck/api.py:416
 msgid "Error encountered: please contact a librarian"
-msgstr ""
+msgstr "Un error ha occurido: complacer contactar un bibliotecario"
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:4
 msgid "Template"
