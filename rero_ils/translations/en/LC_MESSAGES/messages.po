@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-12-16 16:15+0100\n"
-"PO-Revision-Date: 2020-12-18 14:29+0000\n"
-"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"PO-Revision-Date: 2021-01-03 17:32+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/en/>\n"
 "Language: en\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: rero_ils/config.py:129
@@ -294,7 +294,7 @@ msgstr "integrating resource"
 #: rero_ils/manual_translations.txt:65
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person_link-v0.0.1.json:2
 msgid "Link to person entity"
-msgstr "Link to person entity"
+msgstr "Link to a person"
 
 #: rero_ils/manual_translations.txt:66
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:28
@@ -5029,14 +5029,12 @@ msgid "Color content"
 msgstr "Color content"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_color_content-v0.0.1.json:18
-#, fuzzy
 msgid "rdacc:1002"
-msgstr "multipart monograph"
+msgstr "monocrome"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_color_content-v0.0.1.json:22
-#, fuzzy
 msgid "rdacc:1003"
-msgstr "serial"
+msgstr "polychrome"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:4
 msgid "Relationship to an agent associated with the document"
@@ -5130,7 +5128,7 @@ msgstr "Example: 1989"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation_link-v0.0.1.json:2
 msgid "Link to organisation entity"
-msgstr "Link to organisation entity"
+msgstr "Link to a corporate body"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:48
 msgid "Example: 1955"
@@ -7130,29 +7128,29 @@ msgstr "Staff note"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:534
 msgid "conservation_note"
-msgstr "conservation note"
+msgstr "Conservation"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:538
 msgid "reception_note"
-msgstr "reception note"
+msgstr "Reception"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:542
 msgid "claim_note"
-msgstr "claim note"
+msgstr "Claim"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:546
 msgid "routing_note"
-msgstr "routing note"
+msgstr "Routing"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:550
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:365
 msgid "binding_note"
-msgstr "binding note"
+msgstr "Binding"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:554
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:361
 msgid "acquisition_note"
-msgstr "acquisition note"
+msgstr "Acquisition"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:567
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:375
@@ -7315,11 +7313,9 @@ msgid "Patron URI"
 msgstr "Patron URI"
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:94
-#, fuzzy
 msgid "Should be in the following format: https://ils.rero.ch/api/patrons/<PID>."
 msgstr ""
-"Should be in the following format: "
-"https://ils.rero.ch/api/documents/<PID>."
+"Should be in the following format: https://ils.rero.ch/api/patrons/<PID>."
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:106
 #, fuzzy
@@ -8656,9 +8652,8 @@ msgid "libraries"
 msgstr "Libraries"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:405
-#, fuzzy
 msgid "Library affiliations for the librarian."
-msgstr "Library affiliation of the patron."
+msgstr "Library affiliations of the librarian."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:439
 msgid ""

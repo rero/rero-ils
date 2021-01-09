@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-12-16 16:15+0100\n"
-"PO-Revision-Date: 2020-12-18 14:29+0000\n"
-"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"PO-Revision-Date: 2021-01-03 17:32+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
 "Language: fr\n"
@@ -30,7 +30,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: rero_ils/config.py:129
@@ -297,7 +297,7 @@ msgstr "ressource intégratrice"
 #: rero_ils/manual_translations.txt:65
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person_link-v0.0.1.json:2
 msgid "Link to person entity"
-msgstr "Lien à l'entité personne"
+msgstr "Lien à une personne"
 
 #: rero_ils/manual_translations.txt:66
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:28
@@ -5035,14 +5035,12 @@ msgid "Color content"
 msgstr "Contenu de couleur"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_color_content-v0.0.1.json:18
-#, fuzzy
 msgid "rdacc:1002"
-msgstr "monographie en plusieurs parties"
+msgstr "monochrome"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_color_content-v0.0.1.json:22
-#, fuzzy
 msgid "rdacc:1003"
-msgstr "publication en série"
+msgstr "polychrome"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:4
 msgid "Relationship to an agent associated with the document"
@@ -5136,7 +5134,7 @@ msgstr "Exemple : 1989"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation_link-v0.0.1.json:2
 msgid "Link to organisation entity"
-msgstr "Lien à l'entité organisation"
+msgstr "Lien à une collectivité"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:48
 msgid "Example: 1955"
@@ -7346,9 +7344,8 @@ msgid "Patron URI"
 msgstr "URI du lecteur"
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:94
-#, fuzzy
 msgid "Should be in the following format: https://ils.rero.ch/api/patrons/<PID>."
-msgstr "Devrait être au format suivant : https://ils.rero.ch/api/documents/<PID>."
+msgstr "Doit être au format suivant : https://ils.rero.ch/api/patrons/<PID>."
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:106
 #, fuzzy
@@ -8701,9 +8698,8 @@ msgid "libraries"
 msgstr "Bibliothèques"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:405
-#, fuzzy
 msgid "Library affiliations for the librarian."
-msgstr "Bibliothèque d'affiliation du lecteur."
+msgstr "Bibliothèques d'affiliation du bibliothécaire."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:439
 msgid ""
