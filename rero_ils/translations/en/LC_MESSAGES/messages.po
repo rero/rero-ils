@@ -19,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-12-16 16:15+0100\n"
 "PO-Revision-Date: 2020-12-18 14:29+0000\n"
-"Last-Translator: JoelleDosimont <joelle.dosimont@uclouvain.be>\n"
+"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
 "Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/en/>\n"
 "Language: en\n"
@@ -8786,9 +8786,8 @@ msgid ""
 msgstr ""
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:131
-#, fuzzy
 msgid "The loan history is not saved."
-msgstr "The email is not valid."
+msgstr "The loan history is not saved."
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:51
 msgid "item at desk"
