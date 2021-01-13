@@ -1,0 +1,26 @@
+name: "Mark stale issues and pull requests"
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: "30 1 * * *"
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/stale@v3
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        # Make issue/PR as stale after 6 months
+        days-before-stale: 180
+        # Do not close issue/PR marked as stale (will be changed later)
+        days-before-close: 0
+        stale-issue-message: 'This issue is stale because it has been open 6 months with no activity.'
+        stale-pr-message: 'This PR is stale because it has been open 6 months with no activity.'
+        # Set the label added to issue marked as stale (leave default value)
+        # stale-issue-label: 'stale'
+        # Set the label added to the PR marked stale
+        stale-pr-label: 'stale'
+        # Labels on an issue exempted from being marked as stale
+        exempt-issue-label: 'bug,P: High'
+        exempt-pr-label: 'translations'
