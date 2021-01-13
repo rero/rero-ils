@@ -1,0 +1,42 @@
+# Add translations label to any changes within translations folders and subfolders
+translations:
+  - babel.ini
+  - rero_ils/manual_translations.txt
+  - rero_ils/translations/**/*
+
+# Add data label to any changes in document and item jsonschemas folders
+data:
+  - rero_ils/jsonschemas/**/*
+  - rero_ils/modules/documents/jsonschemas/**/*
+  - rero_ils/modules/items/jsonschemas/**/*
+  - rero_ils/modules/contributions/jsonschemas/**/*
+
+# Add search label to any changes in mappings files
+search:
+  - rero_ils/**/mappings/**/*json
+  - rero_ils/es_templates/v7/record.json
+
+# Add circulation label to any changes in circulation API, circulation
+# policies, item types and loans folders and subfolders
+circulation:
+  - rero_ils/modules/items/api/circulation.py
+  - rero_ils/modules/circ_policies/**/*
+  - rero_ils/modules/item_types/**/*
+  - rero_ils/modules/loans/**/*
+  - rero_ils/modules/ill_requests/**/*
+
+# Add 'user management' label to any changes in users or patrons folders and
+# subfolders
+"user management":
+  - rero_ils/modules/users/**/*
+  - rero_ils/modules/patrons/**/*
+
+# Add acquisition label to any changes in acquisition related folders and
+# subfolders
+acquisition:
+  - rero_ils/modules/acq_accounts/**/*
+  - rero_ils/modules/acq_invoices/**/*
+  - rero_ils/modules/acq_order_lines/**/*
+  - rero_ils/modules/acq_orders/**/*
+  - rero_ils/modules/budgets/**/*
+
