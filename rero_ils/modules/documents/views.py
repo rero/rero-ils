@@ -349,7 +349,7 @@ def document_isbn(identifiedby):
 
 @blueprint.app_template_filter()
 def language_format(langs_list, language_interface):
-    """Converts language code to langauge name.
+    """Converts language code to language name.
 
     langs_list: a code or a list of language codes
     language_interface: the code of the language of the interface
