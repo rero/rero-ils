@@ -22,5 +22,5 @@ jobs:
         # Set the label added to the PR marked stale
         stale-pr-label: 'stale'
         # Labels on an issue exempted from being marked as stale
-        exempt-issue-label: 'bug,P: High'
-        exempt-pr-label: 'translations'
+        exempt-issue-label: ['bug','P: High']
+        exempt-pr-label: ['translations']
