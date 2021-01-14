@@ -18,6 +18,7 @@
 """API for manipulating item records."""
 from datetime import datetime, timezone
 
+import pytz
 from flask_babelex import gettext as _
 
 from ..utils import item_pid_to_object
@@ -25,8 +26,9 @@ from ...api import IlsRecord
 from ...libraries.api import Library
 from ...locations.api import Location
 from ...organisations.api import Organisation
-from ...utils import extracted_data_from_ref, generate_item_barcode, \
-    get_base_url, get_ref_for_pid, trim_barcode_for_record
+from ...utils import date_string_to_utc, extracted_data_from_ref, \
+    generate_item_barcode, get_base_url, get_ref_for_pid, \
+    trim_barcode_for_record
 
 
 class ItemRecord(IlsRecord):
@@ -50,6 +52,9 @@ class ItemRecord(IlsRecord):
             - item type is journal and field issue exists.
             - item type is standard and field issue does not exists.
             - if notes array has multiple notes with same type
+            - `temporary_item_type` has same value than `item_type`
+            - temporary_item_type isn't in the future (if specified)
+
         """
         from ...holdings.api import Holding
         holding_pid = extracted_data_from_ref(self.get('holding').get('$ref'))
@@ -71,6 +76,18 @@ class ItemRecord(IlsRecord):
         note_types = [note.get('type') for note in self.get('notes', [])]
         if len(note_types) != len(set(note_types)):
             return _('Can not have multiple notes of same type.')
+
+        # check temporary item type data
+        tmp_itty = self.get('temporary_item_type')
+        if tmp_itty:
+            if tmp_itty['$ref'] == self['item_type']['$ref']:
+                return _('Temporary circulation category cannot be the same '
+                         'than default circulation category.')
+            if tmp_itty.get('end_date'):
+                end_date = date_string_to_utc(tmp_itty.get('end_date'))
+                if end_date <= pytz.utc.localize(datetime.now()):
+                    return _('Temporary circulation category end date must be '
+                             'a date in the future.')
 
         return True
 
