@@ -82,6 +82,8 @@ from .modules.locations.api import Location
 from .modules.locations.permissions import LocationPermission
 from .modules.notifications.api import Notification
 from .modules.notifications.permissions import NotificationPermission
+from .modules.operation_logs.api import OperationLog
+from .modules.operation_logs.permissions import OperationLogPermission
 from .modules.organisations.api import Organisation
 from .modules.organisations.permissions import OrganisationPermission
 from .modules.patron_transaction_events.api import PatronTransactionEvent
@@ -1532,6 +1534,48 @@ RECORDS_REST_ENDPOINTS = dict(
         delete_permission_factory_imp=lambda record: record_permission_factory(
             action='delete', record=record, cls=TemplatePermission)
     ),
+    oplg=dict(
+        pid_type='oplg',
+        pid_minter='operation_log_id',
+        pid_fetcher='operation_log_id',
+        search_class='rero_ils.modules.operation_logs.api:OperationLogsSearch',
+        search_index='operation_logs',
+        search_type=None,
+        indexer_class='rero_ils.modules.operation_logs.api:OperationLogsIndexer',
+        record_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_response'
+            )
+        },
+        record_serializers_aliases={
+            'json': 'application/json',
+        },
+        search_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_search'
+            )
+        },
+        record_loaders={
+            'application/json': lambda: OperationLog(request.get_json()),
+        },
+        record_class='rero_ils.modules.operation_logs.api:OperationLog',
+        list_route='/operation_logs/',
+        item_route='/operation_logs/<pid(oplg, record_class='
+        '"rero_ils.modules.operation_logs.api:UpdaetLog"):pid_value>',
+        default_media_type='application/json',
+        max_result_window=MAX_RESULT_WINDOW,
+        search_factory_imp='rero_ils.query:organisation_search_factory',
+        list_permission_factory_imp=lambda record: record_permission_factory(
+            action='list', record=record, cls=OperationLogPermission),
+        read_permission_factory_imp=lambda record: record_permission_factory(
+            action='read', record=record, cls=OperationLogPermission),
+        create_permission_factory_imp=lambda record: record_permission_factory(
+            action='create', record=record, cls=OperationLogPermission),
+        update_permission_factory_imp=lambda record: record_permission_factory(
+            action='update', record=record, cls=OperationLogPermission),
+        delete_permission_factory_imp=lambda record: record_permission_factory(
+            action='delete', record=record, cls=OperationLogPermission)
+    )
 )
 
 
@@ -1918,6 +1962,7 @@ indexes = [
     'patrons',
     'patron_types',
     'templates',
+    'operation_logs',
     'vendors'
 ]
 
@@ -2127,6 +2172,14 @@ RECORDS_UI_ENDPOINTS = {
         record_class='rero_ils.modules.local_fields.api:LocalField',
         permission_factory_imp='rero_ils.permissions.'
                                'librarian_permission_factory',
+    ),
+    'oplg': dict(
+        pid_type='oplg',
+        route='/operation_logs/<pid_value>',
+        template='rero_ils/detailed_view_operation_logs.html',
+        record_class='rero_ils.modules.operation_logs.api:OperationLog',
+        permission_factory_imp='rero_ils.permissions.'
+                               'librarian_permission_factory',
     )
 }
 
@@ -2164,6 +2217,7 @@ RECORDS_JSON_SCHEMA = {
     'ptre': '/patron_transaction_events/patron_transaction_event-v0.0.1.json',
     'ptrn': '/patrons/patron-v0.0.1.json',
     'tmpl': '/templates/template-v0.0.1.json',
+    'oplg': '/operation_logs/operation_log-v0.0.1.json',
     'vndr': '/vendors/vendor-v0.0.1.json',
 }
 

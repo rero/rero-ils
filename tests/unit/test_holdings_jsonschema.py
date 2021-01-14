@@ -86,7 +86,8 @@ def test_holdings_all_jsonschema_keys_values(
         {'key': 'acquisition_expected_end_date', 'value': 25},
         {'key': 'general_retention_policy', 'value': 25},
         {'key': 'completeness', 'value': 25},
-        {'key': 'composite_copy_report', 'value': 25}
+        {'key': 'composite_copy_report', 'value': 25},
+        {'key': '_masked', 'value': 25}
     ]
     for element in validator:
         with pytest.raises(ValidationError):

@@ -1,0 +1,64 @@
+{
+  "settings": {
+    "number_of_shards": 8,
+    "number_of_replicas": 1,
+    "max_result_window": 20000
+  },
+  "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
+    "properties": {
+      "$schema": {
+        "type": "keyword"
+      },
+      "pid": {
+        "type": "keyword"
+      },
+      "record": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "pid": {
+            "type": "keyword"
+          }
+        }
+      },
+      "user": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "pid": {
+            "type": "keyword"
+          }
+        }
+      },
+      "organisation": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "pid": {
+            "type": "keyword"
+          }
+        }
+      },
+      "user_name": {
+        "type": "keyword"
+      },
+      "date": {
+        "type": "date"
+      },
+      "type": {
+        "type": "keyword"
+      },
+      "_created": {
+        "type": "date"
+      },
+      "_updated": {
+        "type": "date"
+      }
+    }
+  }
+}
