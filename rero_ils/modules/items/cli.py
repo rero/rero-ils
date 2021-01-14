@@ -172,11 +172,20 @@ def create_items(count, itemscount, missing, items_f, holdings_f):
 
 def create_holding_record(
         holding_pid, location_pid, item_type_pid, document_pid):
-    """Create items with randomised values."""
+    """Prepare holdings record for creation.
+
+    :param holding_pid: holdings pid.
+    :param location_pid: holdings location pid.
+    :param item_type_pid: holdings circulation category pid.
+    :param document_pid: holdings document pid.
+
+    :return holding: unmasked holding record.
+    """
     base_url = get_base_url()
     url_api = '{base_url}/api/{doc_type}/{pid}'
     holding = {
         'pid': str(holding_pid),
+        '_masked': False,
         'location': {
             '$ref': url_api.format(
                 base_url=base_url, doc_type='locations', pid=location_pid)

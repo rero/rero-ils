@@ -170,6 +170,7 @@ setup(
             'patrons = rero_ils.modules.patrons.models',
             'templates = rero_ils.modules.templates.models',
             'vendors = rero_ils.modules.vendors.models',
+            'operation_logs = rero_ils.modules.operation_logs.models',
         ],
         'invenio_pidstore.minters': [
             'acq_account_id = rero_ils.modules.acq_accounts.api:acq_account_id_minter',
@@ -196,6 +197,7 @@ setup(
             'patron_type_id = rero_ils.modules.patron_types.api:patron_type_id_minter',
             'template_id = rero_ils.modules.templates.api:template_id_minter',
             'vendor_id = rero_ils.modules.vendors.api:vendor_id_minter',
+            'operation_log_id = rero_ils.modules.operation_logs.api:operation_log_id_minter',
         ],
         'invenio_pidstore.fetchers': [
             'acq_account_id = rero_ils.modules.acq_accounts.api:acq_account_id_fetcher',
@@ -222,6 +224,7 @@ setup(
             'patron_type_id = rero_ils.modules.patron_types.api:patron_type_id_fetcher',
             'template_id = rero_ils.modules.templates.api:template_id_minter',
             'vendor_id = rero_ils.modules.vendors.api:vendor_id_fetcher',
+            'operation_log_id = rero_ils.modules.operation_logs.api:operation_log_id_fetcher',
         ],
         'invenio_jsonschemas.schemas': [
             'acq_accounts = rero_ils.modules.acq_accounts.jsonschemas',
@@ -250,6 +253,7 @@ setup(
             'patrons = rero_ils.modules.patrons.jsonschemas',
             'templates = rero_ils.modules.templates.jsonschemas',
             'vendors = rero_ils.modules.vendors.jsonschemas',
+            'operation_logs = rero_ils.modules.operation_logs.jsonschemas',
         ],
         'invenio_search.mappings': [
             'acq_accounts = rero_ils.modules.acq_accounts.mappings',
@@ -277,6 +281,7 @@ setup(
             'patrons = rero_ils.modules.patrons.mappings',
             'templates = rero_ils.modules.templates.mappings',
             'vendors = rero_ils.modules.vendors.mappings',
+            'operation_logs = rero_ils.modules.operation_logs.mappings',
         ],
         'invenio_search.templates': [
             'base-record = rero_ils.es_templates:list_es_templates',
@@ -316,6 +321,7 @@ setup(
             'patrons = rero_ils.modules.patrons.jsonresolver',
             'templates = rero_ils.modules.templates.jsonresolver',
             'vendors = rero_ils.modules.vendors.jsonresolver',
+            'operation_logs = rero_ils.modules.operation_logs.jsonresolver',
         ]
     },
     classifiers=[

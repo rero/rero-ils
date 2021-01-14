@@ -18,6 +18,7 @@
     "circulation_category",
     "location",
     "holdings_type",
+    "_masked",
     "vendor",
     "enumerationAndChronology",
     "supplementaryContent",
@@ -851,6 +852,11 @@
           }
         ]
       }
+    },
+    "_masked": {
+      "title": "Masked",
+      "type": "boolean",
+      "default": false
     }
   }
 }
