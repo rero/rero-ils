@@ -216,6 +216,9 @@
           }
         }
       },
+      "_masked": {
+        "type": "boolean"
+      },
       "_created": {
         "type": "date"
       },

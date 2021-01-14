@@ -53,6 +53,7 @@ def test_monitoring_es_db_counts(client):
             'loc': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'locations'},
             'lofi': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'local_fields'},
             'notif': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'notifications'},
+            'oplg': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'operation_logs'},
             'org': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'organisations'},
             'ptre': {'db': 0, 'db-es': 0, 'es': 0,
                      'index': 'patron_transaction_events'},
