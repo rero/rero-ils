@@ -166,7 +166,10 @@ class Holding(IlsRecord):
         if not is_serial:
             fields = [
                 'enumerationAndChronology', 'notes', 'index', 'missing_issues',
-                'supplementaryContent'
+                'supplementaryContent', 'acquisition_status',
+                'acquisition_method', 'acquisition_expected_end_date',
+                'general_retention_policy', 'completeness',
+                'composite_copy_report', 'issue_binding'
             ]
             for field in fields:
                 if self.get(field):
@@ -649,7 +652,10 @@ def create_holding(
         electronic_location=None, holdings_type=None, patterns=None,
         enumerationAndChronology=None, supplementaryContent=None, index=None,
         missing_issues=None, call_number=None, second_call_number=None,
-        notes=[], vendor_pid=None):
+        notes=[], vendor_pid=None, acquisition_status=None,
+        acquisition_expected_end_date=None, acquisition_method=None,
+        general_retention_policy=None, completeness=None,
+        composite_copy_report=None, issue_binding=None):
     """Create a new holdings record from a given list of fields.
 
     :param document_pid: the document pid.
@@ -666,6 +672,13 @@ def create_holding(
     :param call_number: the call_number of the holdings record.
     :param second_call_number: the second_call_number of the holdings record.
     :param vendor_pid: the vendor of the holdings record.
+    :param acquisition_status: the holdings acquisition_status.
+    :param acquisition_expected_end_date: the acquisition_expected_end_date.
+    :param acquisition_method: the acquisition_method.
+    :param general_retention_policy: general_retention_policy.
+    :param completeness: completeness.
+    :param composite_copy_report: composite_copy_report.
+    :param issue_binding: issue_binding.
     :return: the created holdings record.
     """
     if not (document_pid and location_pid and item_type_pid):
@@ -696,7 +709,15 @@ def create_holding(
         {'key': 'missing_issues', 'value': missing_issues},
         {'key': 'notes', 'value': notes},
         {'key': 'call_number', 'value': call_number},
-        {'key': 'second_call_number', 'value': second_call_number}
+        {'key': 'second_call_number', 'value': second_call_number},
+        {'key': 'acquisition_status', 'value': acquisition_status},
+        {'key': 'acquisition_method', 'value': acquisition_method},
+        {'key': 'completeness', 'value': completeness},
+        {'key': 'issue_binding', 'value': issue_binding},
+        {'key': 'composite_copy_report', 'value': composite_copy_report},
+        {'key': 'general_retention_policy', 'value': general_retention_policy},
+        {'key': 'acquisition_expected_end_date',
+            'value': acquisition_expected_end_date}
     ]
     for field in holdings_fields:
         value = field['value']
