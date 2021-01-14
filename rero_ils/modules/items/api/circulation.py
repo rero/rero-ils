@@ -417,7 +417,6 @@ class ItemCirculation(ItemRecord):
                 new_end_date = new_end_date.astimezone()\
                     .replace(microsecond=0).isoformat()
                 action_params['end_date'] = new_end_date
-
         loan = current_circulation.circulation.trigger(
             current_loan,
             **dict(action_params, trigger='checkout')
@@ -1041,7 +1040,7 @@ class ItemCirculation(ItemRecord):
         cipo = CircPolicy.provide_circ_policy(
             item.library_pid,
             patron.patron_type_pid,
-            item.item_type_pid
+            item.item_type_circulation_category_pid
         )
         extension_count = loan.get('extension_count', 0)
         if not (cipo.get('number_renewals', 0) > 0 and
@@ -1064,7 +1063,7 @@ class ItemCirculation(ItemRecord):
         circ_policy = CircPolicy.provide_circ_policy(
             self.library_pid,
             patron_type_pid,
-            self.item_type_pid
+            self.item_type_circulation_category_pid
         )
         data = {
             'action_validated': True,

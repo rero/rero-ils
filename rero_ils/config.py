@@ -134,7 +134,6 @@ I18N_LANGUAGES = [
 # this parameter using the 'default_currency' field
 RERO_ILS_DEFAULT_CURRENCY = 'CHF'
 
-
 # Base templates
 # ==============
 #: Global base template.
@@ -184,8 +183,7 @@ THEME_SETTINGS_TEMPLATE = SETTINGS_TEMPLATE
 #: Template for error pages.
 THEME_ERROR_TEMPLATE = 'rero_ils/page_error.html'
 # External CSS for each organisation customization
-RERO_ILS_THEME_ORGANISATION_CSS_ENDPOINT = \
-    'https://resources.rero.ch/ils/test/css/'
+RERO_ILS_THEME_ORGANISATION_CSS_ENDPOINT = 'https://resources.rero.ch/ils/test/css/'
 #: Template for including a tracking code for web analytics.
 THEME_TRACKINGCODE_TEMPLATE = 'rero_ils/trackingcode.html'
 THEME_JAVASCRIPT_TEMPLATE = 'rero_ils/javascript.html'
@@ -291,6 +289,12 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(minute=0, hour=6),  # Every day at 06:00 UTC,
         'enabled': False
     },
+    'clear_obsolete_temporary_item_types': {
+        'task': ('rero_ils.modules.items.tasks'
+                 '.clean_obsolete_temporary_item_types'),
+        'schedule': crontab(minute=15, hour=2),  # Every day at 02:15 UTC,
+        'enabled': False
+    },
     'anonymize-loans': {
         'task': ('rero_ils.modules.loans.tasks'
                  '.loan_anonymizer'),
@@ -300,7 +304,7 @@ CELERY_BEAT_SCHEDULE = {
     'clear_and_renew_subscriptions': {
         'task': ('rero_ils.modules.patrons.tasks'
                  '.task_clear_and_renew_subscriptions'),
-        'schedule': crontab(minute='2', hour='2'),
+        'schedule': crontab(minute=2, hour=2),  # Every day at 02:02 UTC,
         'enabled': False
     }
     # 'mef-harvester': {

@@ -27,6 +27,43 @@ from rero_ils.modules.items.api import Item, ItemsSearch, item_id_fetcher
 from rero_ils.modules.items.models import ItemIssueStatus, ItemStatus
 from rero_ils.modules.items.utils import item_location_retriever, \
     item_pid_to_object
+from rero_ils.modules.utils import get_ref_for_pid
+
+
+def test_obsolete_temporary_item_types(item_lib_martigny,
+                                       item_type_on_site_martigny):
+    """Test obsolete temporary_item_types."""
+    item = item_lib_martigny
+
+    # First test - No items has temporary_item_type
+    items = Item.get_items_with_obsolete_temporary_item_type()
+    assert len(list(items)) == 0
+
+    # Second test - add an infinite temporary_item_type to an item
+    item['temporary_item_type'] = {
+        '$ref': get_ref_for_pid('itty', item_type_on_site_martigny.pid)
+    }
+    item.update(item, dbcommit=True, reindex=True)
+    items = Item.get_items_with_obsolete_temporary_item_type()
+    assert len(list(items)) == 0
+
+    # Third test - add an expiration date in the future for the temporary
+    # item_type
+    over_2_days = datetime.now() + timedelta(days=2)
+    item['temporary_item_type']['end_date'] = over_2_days.strftime('%Y-%m-%d')
+    item.update(data=item, dbcommit=True, reindex=True)
+    items = Item.get_items_with_obsolete_temporary_item_type()
+    assert len(list(items)) == 0
+
+    # Fourth test - check obsolete with for a specified date in the future
+    over_3_days = datetime.now() + timedelta(days=3)
+    items = Item.get_items_with_obsolete_temporary_item_type(
+        end_date=over_3_days)
+    assert len(list(items)) == 1
+
+    # reset the item to original values
+    del item['temporary_item_type']
+    item.update(data=item, dbcommit=True, reindex=True)
 
 
 def test_item_es_mapping(document, loc_public_martigny,
@@ -150,3 +187,48 @@ def test_items_new_acquisition(item_lib_martigny):
     acq_date = datetime.now() - timedelta(days=1)
     item['acquisition_date'] = acq_date.strftime('%Y-%m-%d')
     assert item.is_new_acquisition
+
+
+def test_replace_refs(item_lib_martigny, item_type_on_site_martigny):
+    """Test specific replace_refs for items."""
+    item_lib_martigny['temporary_item_type'] = {
+        '$ref': get_ref_for_pid('itty', item_type_on_site_martigny.pid),
+        'end_date': '2020-12-31'
+    }
+    assert 'end_date' in item_lib_martigny.replace_refs().\
+        get('temporary_item_type')
+
+
+def test_item_type_circulation_category_pid(item_lib_martigny,
+                                            item_type_on_site_martigny):
+    """Test item_type circulation category pid."""
+    assert item_lib_martigny.item_type_pid == \
+        item_lib_martigny.item_type_circulation_category_pid
+
+    past_2_days = datetime.now() - timedelta(days=2)
+    over_2_days = datetime.now() + timedelta(days=2)
+
+    # add an obsolete temporary item_type end_date :: In this case, the
+    # circulation item_type must be the default item_type
+    item_lib_martigny['temporary_item_type'] = {
+        '$ref': get_ref_for_pid('itty', item_type_on_site_martigny.pid),
+        'end_date': past_2_days.strftime('%Y-%m-%d')
+    }
+    assert item_lib_martigny.item_type_pid == \
+        item_lib_martigny.item_type_circulation_category_pid
+
+    # add a valid temporary item_type end_date :: In this case, the
+    # circulation item_type must be the temporary item_type
+    item_lib_martigny['temporary_item_type']['end_date'] = \
+        over_2_days.strftime('%Y-%m-%d')
+    assert item_type_on_site_martigny.pid == \
+        item_lib_martigny.item_type_circulation_category_pid
+
+    # removing any temporary item_type end_date :: In this case, the
+    # circulation item_type must be the temporary item_type
+    del item_lib_martigny['temporary_item_type']['end_date']
+    assert item_type_on_site_martigny.pid == \
+        item_lib_martigny.item_type_circulation_category_pid
+
+    # reset the object with default value
+    del item_lib_martigny['temporary_item_type']
