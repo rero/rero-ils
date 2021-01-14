@@ -263,7 +263,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
             circ_policy = CircPolicy.provide_circ_policy(
                 item.library_pid,
                 requested_patron.patron_type_pid,
-                item.item_type_pid
+                item.item_type_circulation_category_pid
             )
             if circ_policy.get('allow_requests'):
                 item.request(

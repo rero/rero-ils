@@ -20,8 +20,10 @@
 from __future__ import absolute_import, print_function
 
 from celery import shared_task
+from flask import current_app
 
 from .api import Item
+from ..utils import extracted_data_from_ref
 
 
 @shared_task
@@ -64,3 +66,36 @@ def process_late_claimed_issues(
         )
 
     return msg
+
+
+@shared_task
+def clean_obsolete_temporary_item_types():
+    """Clean obsoletes temporary item_type for items.
+
+    Search for all item with obsolete temporary item_type. For each found item,
+    clean the temporary item_type informations. Update item into database to
+    commit change
+    """
+    current_app.logger.debug("Starting clean_obsolete_temporary_item_types()"
+                             " tasks ...")
+    for item in Item.get_items_with_obsolete_temporary_item_type():
+        # logger information
+        tmp_itty_data = item['temporary_item_type']
+        tmp_itty = extracted_data_from_ref(tmp_itty_data['$ref'], 'record')
+        tmp_itty_enddate = tmp_itty_data['end_date']
+        default_itty = extracted_data_from_ref(item['item_type']['$ref'],
+                                               'record')
+        current_app.logger.info(
+            'Removing temporary itty on item#{item_pid} :: [{tmp_itty}]('
+            '{tmp_date}) --> [{default_itty}]'.format(
+                item_pid=item.pid,
+                tmp_itty=tmp_itty.get('name'),
+                tmp_date=tmp_itty_enddate,
+                default_itty=default_itty.get('name')
+            )
+        )
+
+        # remove the obsolete data
+        del item['temporary_item_type']
+        item.replace(data=item, dbcommit=True, reindex=True)
+    current_app.logger.debug("Ending clean_obsolete_temporary_item_types()")

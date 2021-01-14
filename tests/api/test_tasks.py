@@ -19,11 +19,14 @@
 
 from datetime import datetime, timedelta, timezone
 
+from freezegun import freeze_time
 from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.search.api import LoansSearch
 from invenio_records.signals import after_record_update
 from utils import flush_index, postdata
 
+from rero_ils.modules.items.api import Item
+from rero_ils.modules.items.tasks import clean_obsolete_temporary_item_types
 from rero_ils.modules.loans.api import Loan, LoanAction, get_due_soon_loans, \
     get_overdue_loans
 from rero_ils.modules.notifications.api import NotificationsSearch, \
@@ -38,7 +41,7 @@ from rero_ils.modules.patrons.tasks import \
     check_patron_types_and_add_subscriptions
 from rero_ils.modules.patrons.tasks import clean_obsolete_subscriptions, \
     task_clear_and_renew_subscriptions
-from rero_ils.modules.utils import add_years
+from rero_ils.modules.utils import add_years, get_ref_for_pid
 
 
 def test_create_over_and_due_soon_notifications_task(
@@ -166,3 +169,28 @@ def test_clear_and_renew_subscription(patron_type_grown_sion,
     # as we disconnect the `create_subscription_patron_transaction` listener
     # at the beginning, we need to connect it now.
     after_record_update.connect(create_subscription_patron_transaction)
+
+
+def test_clear_obsolete_temporary_item_type(item_lib_martigny,
+                                            item_type_on_site_martigny):
+    """test task clear_obsolete_temporary_item_type"""
+    item = item_lib_martigny
+    end_date = datetime.now() + timedelta(days=2)
+    item['temporary_item_type'] = {
+        '$ref': get_ref_for_pid('itty', item_type_on_site_martigny.pid),
+        'end_date': end_date.strftime('%Y-%m-%d')
+    }
+    item.update(item, dbcommit=True, reindex=True)
+    assert item.item_type_circulation_category_pid == \
+        item_type_on_site_martigny.pid
+
+    over_4_days = datetime.now() + timedelta(days=4)
+    with freeze_time(over_4_days.strftime('%Y-%m-%d')):
+        items = Item.get_items_with_obsolete_temporary_item_type()
+        assert len(list(items)) == 1
+        # run the tasks
+        clean_obsolete_temporary_item_types()
+        # check after task was ran
+        items = Item.get_items_with_obsolete_temporary_item_type()
+        assert len(list(items)) == 0
+        assert item.item_type_circulation_category_pid == item.item_type_pid
