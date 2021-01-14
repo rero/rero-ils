@@ -222,8 +222,11 @@ def test_create_holdings_with_pattern(
     holding_lib_martigny_w_patterns_data['holdings_type'] = 'standard'
     # delete serials fields
     fields = [
-        'enumerationAndChronology', 'notes', 'index', 'missing_issues',
-        'supplementaryContent', 'patterns'
+                'enumerationAndChronology', 'notes', 'index', 'missing_issues',
+                'supplementaryContent', 'acquisition_status',
+                'acquisition_method', 'acquisition_expected_end_date',
+                'general_retention_policy', 'completeness',
+                'composite_copy_report', 'issue_binding'
     ]
     for field in fields:
         del holding_lib_martigny_w_patterns_data[field]
