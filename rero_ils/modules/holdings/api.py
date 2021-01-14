@@ -647,7 +647,7 @@ def create_holding(
         notes=[], vendor_pid=None, acquisition_status=None,
         acquisition_expected_end_date=None, acquisition_method=None,
         general_retention_policy=None, completeness=None,
-        composite_copy_report=None, issue_binding=None):
+        composite_copy_report=None, issue_binding=None, masked=False):
     """Create a new holdings record from a given list of fields.
 
     :param document_pid: the document pid.
@@ -671,6 +671,7 @@ def create_holding(
     :param completeness: completeness.
     :param composite_copy_report: composite_copy_report.
     :param issue_binding: issue_binding.
+    :param masked: holdings masking.
     :return: the created holdings record.
     """
     if not (document_pid and location_pid and item_type_pid):
@@ -681,6 +682,7 @@ def create_holding(
     data = {}
     # add mandatory holdings fields
     data['$schema'] = get_schema_for_resource('hold')
+    data['_masked'] = masked
     data['location'] = {'$ref': get_ref_for_pid('loc', location_pid)}
     data['circulation_category'] = {
         '$ref': get_ref_for_pid('itty', item_type_pid)}
