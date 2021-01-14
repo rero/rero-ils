@@ -113,6 +113,9 @@
           },
           "days_before_next_claim": {
             "type": "integer"
+          },
+          "language": {
+            "type": "keyword"
           }
         }
       },
@@ -143,6 +146,27 @@
         "type": "keyword"
       },
       "missing_issues": {
+        "type": "keyword"
+      },
+      "issue_binding": {
+        "type": "integer"
+      },
+      "acquisition_status": {
+        "type": "keyword"
+      },
+      "acquisition_method": {
+        "type": "keyword"
+      },
+      "acquisition_expected_end_date": {
+        "type": "date"
+      },
+      "general_retention_policy": {
+        "type": "keyword"
+      },
+      "completeness": {
+        "type": "keyword"
+      },
+      "composite_copy_report": {
         "type": "keyword"
       },
       "local_fields": {
