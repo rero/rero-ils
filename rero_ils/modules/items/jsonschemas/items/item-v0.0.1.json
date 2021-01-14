@@ -19,6 +19,7 @@
     "second_call_number",
     "enumerationAndChronology",
     "item_type",
+    "temporary_item_type",
     "location",
     "type",
     "status",
@@ -45,6 +46,12 @@
       "minLength": 1,
       "form": {
         "focus": true,
+        "templateOptions": {
+          "labelClasses": "col-2 text-right"
+        },
+        "navigation": {
+          "essential": true
+        },
         "validation": {
           "validators": {
             "valueAlreadyExists": {}
@@ -60,11 +67,28 @@
     },
     "call_number": {
       "title": "Call number",
-      "type": "string"
+      "type": "string",
+      "form": {
+        "navigation": {
+          "essential": true
+        },
+        "templateOptions": {
+          "labelClasses": "col-2 text-right"
+        }
+      }
     },
     "second_call_number": {
       "title": "Second call number",
-      "type": "string"
+      "type": "string",
+      "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        },
+        "templateOptions": {
+          "labelClasses": "col-2 text-right"
+        }
+      }
     },
     "enumerationAndChronology": {
       "title": "Enumeration and chronology",
@@ -72,6 +96,13 @@
       "minLength": 1,
       "description": "Numbering, enumeration, or other indication associated with the item.",
       "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        },
+        "templateOptions": {
+          "labelClasses": "col-2 text-right px-0"
+        },
         "placeholder": "Example: Volume 1",
         "expressionProperties": {
           "templateOptions.required": "model.type === 'issue'"
@@ -90,11 +121,17 @@
           "type": "string",
           "pattern": "^https://ils.rero.ch/api/locations/.+?$",
           "form": {
+            "templateOptions": {
+              "hideLabel": true
+            },
             "fieldMap": "location"
           }
         }
       },
       "form": {
+        "templateOptions": {
+          "cssClass": "editor-title"
+        },
         "hideExpression": "field.parent.model.type === 'issue'"
       }
     },
@@ -122,6 +159,9 @@
           "type": "string",
           "pattern": "^https://ils.rero.ch/api/item_types/.+?$",
           "form": {
+            "templateOptions": {
+              "hideLabel": true
+            },
             "remoteOptions": {
               "type": "item_types"
             }
@@ -129,7 +169,60 @@
         }
       },
       "form": {
+        "templateOptions": {
+          "cssClass": "editor-title"
+        },
         "hideExpression": "field.parent.model.type === 'issue'"
+      }
+    },
+    "temporary_item_type": {
+      "title": "Temporary circulation category of the item",
+      "description": "Apply a temporary item circulation category for this item. If specified, this circulation category overrides the default category.",
+      "type": "object",
+      "propertiesOrder": [
+        "$ref",
+        "end_date"
+      ],
+      "required": [
+        "$ref"
+      ],
+      "properties": {
+        "$ref": {
+          "title": "Item Type URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/item_types/.+?$",
+          "form": {
+            "templateOptions": {
+              "hideLabel": true
+            },
+            "remoteOptions": {
+              "type": "item_types"
+            }
+          }
+        },
+        "end_date": {
+          "title": "End date",
+          "type": "string",
+          "format": "date",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
+          "form": {
+            "hideExpression": "false",
+            "type": "datepicker",
+            "validation": {
+              "messages": {
+                "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
+              }
+            }
+          }
+        }
+      },
+      "form": {
+        "templateOptions": {
+          "cssClass": "editor-title"
+        },
+        "navigation": {
+          "essential": true
+        }
       }
     },
     "type": {
@@ -410,6 +503,13 @@
         }
       },
       "form": {
+        "hide": true,
+        "templateOptions": {
+          "cssClass": "editor-title"
+        },
+        "navigation": {
+          "essential": true
+        },
         "validation": {
           "validators": {
             "uniqueValueKeysInObject": {
@@ -437,7 +537,7 @@
           "form-field"
         ],
         "templateOptions": {
-          "label": "",
+          "hideLabel": true,
           "wrappers": [
             "toggle-switch"
           ],
