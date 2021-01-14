@@ -148,7 +148,7 @@
       }
     },
     "item_type": {
-      "title": "Circulation category of the item",
+      "title": "Circulation category",
       "type": "object",
       "required": [
         "$ref"
@@ -176,7 +176,7 @@
       }
     },
     "temporary_item_type": {
-      "title": "Temporary circulation category of the item",
+      "title": "Temporary circulation category",
       "description": "Apply a temporary item circulation category for this item. If specified, this circulation category overrides the default category.",
       "type": "object",
       "propertiesOrder": [
@@ -201,7 +201,7 @@
           }
         },
         "end_date": {
-          "title": "End date",
+          "title": "Deletion date",
           "type": "string",
           "format": "date",
           "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
@@ -220,6 +220,7 @@
         "templateOptions": {
           "cssClass": "editor-title"
         },
+        "hide": true,
         "navigation": {
           "essential": true
         }

@@ -267,7 +267,7 @@ class CircPolicy(IlsRecord):
         cipo = cls.provide_circ_policy(
             library_pid,
             patron.patron_type_pid,
-            item.item_type_pid
+            item.item_type_circulation_category_pid
         )
         if not cipo.get('allow_requests', False):
             return False, ["Circulation policy disallows the operation."]
@@ -296,7 +296,7 @@ class CircPolicy(IlsRecord):
         cipo = cls.provide_circ_policy(
             library_pid,
             patron.patron_type_pid,
-            item.item_type_pid
+            item.item_type_circulation_category_pid
         )
         if not cipo.get('allow_checkout', False):
             return False, ["Circulation policy disallows the operation."]

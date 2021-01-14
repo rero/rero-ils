@@ -61,7 +61,7 @@ def _build_notification_email_context(loan, item, location):
     library = pickup_location.get_library()
     ctx['pickup_location']['library'] = library
     ctx['item']['item_type'] = \
-        ItemType.get_record_by_pid(item.item_type_pid)
+        ItemType.get_record_by_pid(item.item_type_circulation_category_pid)
     titles = [title for title in ctx['document'].get('title', [])
               if title['type'] == 'bf:Title']
     ctx['document']['title_text'] = \

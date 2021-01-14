@@ -340,7 +340,7 @@ def item(item_barcode):
         circ_policy = CircPolicy.provide_circ_policy(
             item.library_pid,
             patron.patron_type_pid,
-            item.item_type_pid
+            item.item_type_circulation_category_pid
         )
         new_actions = []
         # If circulation policy doesn't allow checkout operation no need to

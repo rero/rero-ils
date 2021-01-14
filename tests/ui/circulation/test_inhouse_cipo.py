@@ -22,6 +22,7 @@ from datetime import datetime
 
 import ciso8601
 import pytz
+from freezegun import freeze_time
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
@@ -51,37 +52,43 @@ def test_less_than_one_day_checkout(
     assert not created_item.is_requested_by_patron(
         patron2_martigny_no_email.get('patron', {}).get('barcode'))
 
-    # the following tests the circulation action CHECKOUT_1_1
-    # an ON_SHELF item
-    # WITHOUT pending loan
-    # CAN be CHECKOUT for less than one day
-    params = {
-        'patron_pid': patron2_martigny_no_email.pid,
-        'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
-        'pickup_location_pid': loc_public_martigny.pid
-    }
-    onloan_item, actions = created_item.checkout(**params)
-    loan = Loan.get_record_by_pid(actions[LoanAction.CHECKOUT].get('pid'))
-    # Check loan is ITEM_ON_LOAN and item is ON_LOAN
-    assert onloan_item.number_of_requests() == 0
-    assert onloan_item.status == ItemStatus.ON_LOAN
-    assert loan['state'] == LoanState.ITEM_ON_LOAN
+    # Ensure than the transaction date used will be an open_day.
+    owner_lib = Library.get_record_by_pid(created_item.library_pid)
+    transaction_date = datetime.now()
+    if not owner_lib.is_open(day_only=True):
+        transaction_date = owner_lib.next_open()
 
-    # Check due date
-    loan_end_date = loan.get('end_date')
-    lib = Library.get_record_by_pid(onloan_item.library_pid)
-    today = datetime.now(pytz.utc)
-    # Get next open day
-    next_open_day = lib.next_open(today)
-    if lib.is_open(today):
-        next_open_day = today
-    # Loan date should be in UTC.
-    loan_datetime = ciso8601.parse_datetime(loan_end_date)
-    # Compare year, month and date
-    fail_msg = "Check timezone for Loan and Library. " \
-               "It should be the same date, even if timezone changed."
-    assert loan_datetime.year == next_open_day.year, fail_msg
-    assert loan_datetime.month == next_open_day.month, fail_msg
-    # TODO: find a way for the test will work also after 23:00
-    assert loan_datetime.day == next_open_day.day, fail_msg
+    with freeze_time(transaction_date):
+        # the following tests the circulation action CHECKOUT_1_1
+        # an ON_SHELF item
+        # WITHOUT pending loan
+        # CAN be CHECKOUT for less than one day
+        params = {
+            'patron_pid': patron2_martigny_no_email.pid,
+            'transaction_location_pid': loc_public_martigny.pid,
+            'transaction_user_pid': librarian_martigny_no_email.pid,
+            'pickup_location_pid': loc_public_martigny.pid
+        }
+        onloan_item, actions = created_item.checkout(**params)
+        loan = Loan.get_record_by_pid(actions[LoanAction.CHECKOUT].get('pid'))
+        # Check loan is ITEM_ON_LOAN and item is ON_LOAN
+        assert onloan_item.number_of_requests() == 0
+        assert onloan_item.status == ItemStatus.ON_LOAN
+        assert loan['state'] == LoanState.ITEM_ON_LOAN
+
+        # Check due date
+        loan_end_date = loan.get('end_date')
+        lib = Library.get_record_by_pid(onloan_item.library_pid)
+        today = datetime.now(pytz.utc)
+        # Get next open day
+        next_open_day = lib.next_open(today)
+        if lib.is_open(today):
+            next_open_day = today
+        # Loan date should be in UTC.
+        loan_datetime = ciso8601.parse_datetime(loan_end_date)
+        # Compare year, month and date
+        fail_msg = "Check timezone for Loan and Library. " \
+                   "It should be the same date, even if timezone changed."
+        assert loan_datetime.year == next_open_day.year, fail_msg
+        assert loan_datetime.month == next_open_day.month, fail_msg
+        assert loan_datetime.day == next_open_day.day, fail_msg

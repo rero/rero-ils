@@ -363,6 +363,26 @@ class ItemRecord(IlsRecord):
         return item_type_pid
 
     @property
+    def temporary_item_type_pid(self):
+        """Shortcut for temporary item type pid."""
+        tmp_item_type = self.get('temporary_item_type', {})
+        if tmp_item_type:
+            end_date = tmp_item_type.get('end_date')
+            # check if the temporary item_type.end_date is over. If yes, return
+            # None
+            if end_date:
+                now_date = pytz.utc.localize(datetime.now())
+                end_date = date_string_to_utc(end_date)
+                if now_date > end_date:
+                    return None
+            return extracted_data_from_ref(tmp_item_type.get('$ref'))
+
+    @property
+    def item_type_circulation_category_pid(self):
+        """Shortcut to find the best item_type to use for circulation."""
+        return self.temporary_item_type_pid or self.item_type_pid
+
+    @property
     def item_record_type(self):
         """Shortcut for item type, whether a standard or an issue record."""
         return self.get('type')

@@ -33,7 +33,6 @@ from ..utils import get_ref_for_pid
 def get_circ_policy(loan):
     """Return a circ policy for loan."""
     item = Item.get_record_by_pid(loan.item_pid)
-    holding_circulation_category = item.holding_circulation_category_pid
     library_pid = loan.library_pid
     patron = Patron.get_record_by_pid(loan.get('patron_pid'))
     patron_type_pid = patron.patron_type_pid
@@ -41,7 +40,7 @@ def get_circ_policy(loan):
     result = CircPolicy.provide_circ_policy(
         library_pid,
         patron_type_pid,
-        holding_circulation_category
+        item.temporary_item_type_pid or item.holding_circulation_category_pid
     )
     return result
 

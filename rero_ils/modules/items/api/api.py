@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating items."""
+from datetime import datetime
 from functools import partial
 
 from elasticsearch.exceptions import NotFoundError
@@ -140,6 +141,14 @@ class Item(ItemCirculation, ItemIssue):
         dump['available'] = self.available
         return dump
 
+    def replace_refs(self):
+        """Replace $ref with real data."""
+        tmp_itty_end_date = self.get('temporary_item_type', {}).get('end_date')
+        data = super().replace_refs()
+        if tmp_itty_end_date:
+            data['temporary_item_type']['end_date'] = tmp_itty_end_date
+        return data
+
     @classmethod
     def get_item_record_for_ui(cls, **kwargs):
         """Return the item record for ui calls.
@@ -164,6 +173,27 @@ class Item(ItemCirculation, ItemIssue):
             item_pid = Loan.get_record_by_pid(loan_pid).item_pid
             item = Item.get_record_by_pid(item_pid)
         return item
+
+    @classmethod
+    def get_items_with_obsolete_temporary_item_type(cls, end_date=None):
+        """Get all items with an obsolete temporary item_type.
+
+        An end_date could be attached to the item temporary item_type. If this
+        date is less or equal to sysdate, then the temporary_item_type must be
+        considered as obsolete.
+
+        :param end_date: the end_date to check (`datetime.now()` by default)
+        :return A generator of `ItemRecord` object.
+        """
+        if end_date is None:
+            end_date = datetime.utcnow()
+        end_date = end_date.strftime('%Y-%m-%d')
+        results = ItemsSearch() \
+            .filter('range', temporary_item_type__end_date={'lte': end_date}) \
+            .source('pid') \
+            .scan()
+        for result in results:
+            yield Item.get_record_by_pid(result.pid)
 
 
 class ItemsIndexer(IlsRecordsIndexer):
