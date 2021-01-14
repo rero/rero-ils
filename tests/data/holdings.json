@@ -231,6 +231,13 @@
     "enumerationAndChronology": "enumerationAndChronology",
     "supplementaryContent": "supplementaryContent",
     "index": "index",
+    "issue_binding": 10,
+    "acquisition_status": "currently_received",
+    "acquisition_method": "purchase",
+    "acquisition_expected_end_date": "2025-12-31",
+    "general_retention_policy": "permanently_retained",
+    "completeness": "complete",
+    "composite_copy_report": "separate",
     "missing_issues": "missing_issues",
     "notes": [
       {
@@ -242,6 +249,7 @@
       "template": "no {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1010",
       "next_expected_date": "2020-03-01",
+      "language": "eng",
       "max_number_of_claims": 2,
       "days_before_first_claim": 7,
       "days_before_next_claim": 7,

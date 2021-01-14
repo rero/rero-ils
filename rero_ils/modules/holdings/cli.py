@@ -141,6 +141,14 @@ def create_patterns(infile, verbose, debug, lazy):
         notes = record.get('notes')
         call_number = record.get('call_number')
         second_call_number = record.get('second_call_number')
+        acquisition_status = record.get('acquisition_status')
+        acquisition_method = record.get('acquisition_method')
+        general_retention_policy = record.get('general_retention_policy')
+        composite_copy_report = record.get('composite_copy_report')
+        issue_binding = record.get('issue_binding')
+        completeness = record.get('completeness')
+        acquisition_expected_end_date = record.get(
+            'acquisition_expected_end_date')
         for org_pid in Organisation.get_all_pids():
             circ_category_pid = get_circ_category(org_pid)
             location_pid = get_random_location(org_pid)
@@ -155,6 +163,13 @@ def create_patterns(infile, verbose, debug, lazy):
                 index=index,
                 missing_issues=missing_issues,
                 notes=notes,
+                acquisition_status=acquisition_status,
+                acquisition_method=acquisition_method,
+                acquisition_expected_end_date=acquisition_expected_end_date,
+                composite_copy_report=composite_copy_report,
+                general_retention_policy=general_retention_policy,
+                issue_binding=issue_binding,
+                completeness=completeness,
                 call_number=call_number,
                 second_call_number=second_call_number,
                 vendor_pid=vendor_pid,

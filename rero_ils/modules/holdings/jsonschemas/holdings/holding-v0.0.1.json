@@ -23,6 +23,13 @@
     "supplementaryContent",
     "index",
     "missing_issues",
+    "issue_binding",
+    "acquisition_status",
+    "acquisition_method",
+    "acquisition_expected_end_date",
+    "general_retention_policy",
+    "completeness",
+    "composite_copy_report",
     "notes",
     "patterns"
   ],
@@ -152,6 +159,7 @@
         "max_number_of_claims",
         "days_before_first_claim",
         "days_before_next_claim",
+        "language",
         "template",
         "frequency",
         "next_expected_date",
@@ -430,6 +438,11 @@
           "type": "integer",
           "minimum": 1,
           "default": 7
+        },
+        "language": {
+          "title": "Language",
+          "type": "string",
+          "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/language"
         }
       },
       "form": {
@@ -487,6 +500,11 @@
       "description": "Textual description of the missing issues.",
       "type": "string",
       "minLength": 1
+    },
+    "issue_binding": {
+      "title": "Number of issues to be bound together",
+      "type": "number",
+      "minimum": 0
     },
     "notes": {
       "title": "Notes",
@@ -589,6 +607,249 @@
             "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
           }
         }
+      }
+    },
+    "acquisition_status": {
+      "title": "Acquisition status",
+      "type": "string",
+      "enum": [
+        "unknown",
+        "other_receipt_or_acquisition_status",
+        "received_and_complete_or_ceased",
+        "on_order",
+        "currently_received",
+        "not_currently_received"
+      ],
+      "form": {
+        "type": "selectWithSort",
+        "options": [
+          {
+            "label": "not_currently_received",
+            "value": "not_currently_received"
+          },
+          {
+            "label": "currently_received",
+            "value": "currently_received"
+          },
+          {
+            "label": "received_and_complete_or_ceased",
+            "value": "received_and_complete_or_ceased"
+          },
+          {
+            "label": "on_order",
+            "value": "on_order"
+          },
+          {
+            "label": "other_receipt_or_acquisition_status",
+            "value": "other_receipt_or_acquisition_status"
+          },
+          {
+            "label": "unknown",
+            "value": "unknown"
+          }
+        ]
+      }
+    },
+    "acquisition_method": {
+      "title": "Acquisition method",
+      "type": "string",
+      "enum": [
+        "deposit",
+        "cooperative_or_consortial_purchase",
+        "exchange",
+        "free",
+        "gift",
+        "legal_deposit",
+        "membership",
+        "non_library_purchase",
+        "purchase",
+        "lease",
+        "unknown",
+        "other_method_of_acquisition"
+      ],
+      "form": {
+        "type": "selectWithSort",
+        "options": [
+          {
+            "label": "deposit",
+            "value": "deposit"
+          },
+          {
+            "label": "cooperative_or_consortial_purchase",
+            "value": "cooperative_or_consortial_purchase"
+          },
+          {
+            "label": "exchange",
+            "value": "exchange"
+          },
+          {
+            "label": "free",
+            "value": "free"
+          },
+          {
+            "label": "gift",
+            "value": "gift"
+          },
+          {
+            "label": "legal_deposit",
+            "value": "legal_deposit"
+          },
+          {
+            "label": "membership",
+            "value": "membership"
+          },
+          {
+            "label": "non_library_purchase",
+            "value": "non_library_purchase"
+          },
+          {
+            "label": "purchase",
+            "value": "purchase"
+          },
+          {
+            "label": "lease",
+            "value": "lease"
+          },
+          {
+            "label": "unknown",
+            "value": "unknown"
+          },
+          {
+            "label": "other_method_of_acquisition",
+            "value": "other_method_of_acquisition"
+          }
+        ]
+      }
+    },
+    "acquisition_expected_end_date": {
+      "title": "Expected acquisition end date",
+      "description": "Indicate an intent to cancel, the effective date of a cancellation, or the date of the last expected part of a multipart or serial item.",
+      "type": "string",
+      "format": "date",
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
+      "form": {
+        "type": "datepicker",
+        "validation": {
+          "messages": {
+            "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+          }
+        }
+      }
+    },
+    "general_retention_policy": {
+      "title": "General retention policy",
+      "type": "string",
+      "enum": [
+        "unknown",
+        "other_general_retention_policy",
+        "retained_except_as_replaced_by_updates",
+        "sample_issue_retained",
+        "retained_until_replaced_by_microform",
+        "retained_until_replaced_by_cumulation_replacement_volume_or_revision",
+        "retained_for_a_limited_period",
+        "not_retained",
+        "permanently_retained"
+      ],
+      "form": {
+        "type": "selectWithSort",
+        "options": [
+          {
+            "label": "unknown",
+            "value": "unknown"
+          },
+          {
+            "label": "other_general_retention_policy",
+            "value": "other_general_retention_policy"
+          },
+          {
+            "label": "retained_except_as_replaced_by_updates",
+            "value": "retained_except_as_replaced_by_updates"
+          },
+          {
+            "label": "sample_issue_retained",
+            "value": "sample_issue_retained"
+          },
+          {
+            "label": "retained_until_replaced_by_microform",
+            "value": "retained_until_replaced_by_microform"
+          },
+          {
+            "label": "retained_until_replaced_by_cumulation_replacement_volume_or_revision",
+            "value": "retained_until_replaced_by_cumulation_replacement_volume_or_revision"
+          },
+          {
+            "label": "retained_for_a_limited_period",
+            "value": "retained_for_a_limited_period"
+          },
+          {
+            "label": "not_retained",
+            "value": "not_retained"
+          },
+          {
+            "label": "permanently_retained",
+            "value": "permanently_retained"
+          }
+        ]
+      }
+    },
+    "completeness": {
+      "title": "Completeness",
+      "description": "Estimation of the general extent of the holdings for a multipart.",
+      "type": "string",
+      "enum": [
+        "other",
+        "complete",
+        "incomplete",
+        "sample_issue_retained",
+        "scattered",
+        "not_applicable"
+      ],
+      "form": {
+        "type": "selectWithSort",
+        "options": [
+          {
+            "label": "other",
+            "value": "other"
+          },
+          {
+            "label": "complete",
+            "value": "complete"
+          },
+          {
+            "label": "incomplete",
+            "value": "incomplete"
+          },
+          {
+            "label": "scattered",
+            "value": "scattered"
+          },
+          {
+            "label": "not_applicable",
+            "value": "not_applicable"
+          }
+        ]
+      }
+    },
+    "composite_copy_report": {
+      "title": "Separate or composite copy report",
+      "description": "A separate copy report contains holdings information for one copy/subscription of a serial. If the holdings describes more than one copy/subscription, choose composite.",
+      "type": "string",
+      "enum": [
+        "separate",
+        "composite"
+      ],
+      "form": {
+        "type": "selectWithSort",
+        "options": [
+          {
+            "label": "separate",
+            "value": "separate"
+          },
+          {
+            "label": "composite",
+            "value": "composite"
+          }
+        ]
       }
     }
   }
