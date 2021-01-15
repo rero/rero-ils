@@ -19,15 +19,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-01-12 08:01+0100\n"
-"PO-Revision-Date: 2021-01-03 17:32+0000\n"
+"PO-Revision-Date: 2021-01-15 06:32+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/it/>\n"
 "Language: it\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/it/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.5-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:129
@@ -8341,7 +8342,7 @@ msgstr "Limiti"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:107
 msgid "Number of checkouts in the organisation"
-msgstr "Numero di prestiti nell'organizzazione"
+msgstr "Numero di prestiti in tutta l'organizzazione"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:108
 msgid ""
@@ -9969,4 +9970,3 @@ msgstr "Cliccare qui per ripristinare la parola d'ordine"
 
 #~ msgid "No holdings"
 #~ msgstr "Nessun posseduto"
-

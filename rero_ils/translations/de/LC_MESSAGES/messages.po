@@ -17,15 +17,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-01-12 08:01+0100\n"
-"PO-Revision-Date: 2021-01-03 17:32+0000\n"
+"PO-Revision-Date: 2021-01-15 06:32+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/de/>\n"
 "Language: de\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.5-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:129
@@ -7251,7 +7252,7 @@ msgstr "Umfang"
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:32
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_ill_requests.html:90
 msgid "Loan"
-msgstr "Loan"
+msgstr "Ausleihe"
 
 #: rero_ils/modules/ill_requests/forms.py:145
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:73
@@ -8350,7 +8351,7 @@ msgstr "Begrenzungen"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:107
 msgid "Number of checkouts in the organisation"
-msgstr "Anzahl der Ausleihen in der Organisation"
+msgstr "Anzahl der Ausleihen in der gesamten Organisation"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:108
 msgid ""
@@ -9968,4 +9969,3 @@ msgstr "Hier klicken, um Ihr Passwort zurückzusetzen"
 
 #~ msgid "No holdings"
 #~ msgstr "Kein Bestand"
-
