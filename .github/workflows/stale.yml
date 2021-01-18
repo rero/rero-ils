@@ -1,4 +1,4 @@
-name: "Mark stale issues and pull requests"
+name: "Mark stale issues/PR"
 on:
   workflow_dispatch:
   schedule:
@@ -22,5 +22,5 @@ jobs:
         # Set the label added to the PR marked stale
         stale-pr-label: 'stale'
         # Labels on an issue exempted from being marked as stale
-        exempt-issue-label: ['bug','P: High']
-        exempt-pr-label: ['translations']
+        exempt-issue-labels: 'bug,P: High'
+        exempt-pr-labels: 'translations'
