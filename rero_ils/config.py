@@ -1572,7 +1572,13 @@ RECORDS_REST_FACETS = dict(
             # dynamically during the query (query.py)
             document_type=dict(
                 terms=dict(field='type.main_type',
-                           size=DOCUMENTS_AGGREGATION_SIZE)
+                           size=DOCUMENTS_AGGREGATION_SIZE),
+                aggs=dict(
+                    document_subtype=dict(
+                        terms=dict(field='type.subtype',
+                                   size=DOCUMENTS_AGGREGATION_SIZE)
+                    )
+                )
             ),
             language=dict(
                 terms=dict(field='language.value',
