@@ -39,6 +39,20 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 @import "patrons/profile";
 @import "documents/detailed";
 
+// bootstrap extension
+
+.mw-25 {
+  max-width: 25%;
+}
+
+.mw-50 {
+  max-width: 50%;
+}
+
+.mw-75 {
+  max-width: 75%;
+}
+
 // cover
 .rero-ils-cover-logo {
   width: 10em;
