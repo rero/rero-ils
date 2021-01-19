@@ -28,6 +28,7 @@ from flask import Blueprint, abort, current_app, flash, jsonify, \
 from flask_babelex import format_currency
 from flask_babelex import gettext as _
 from flask_babelex import lazy_gettext
+from flask_breadcrumbs import register_breadcrumb
 from flask_login import current_user, login_required
 from flask_menu import register_menu
 from invenio_i18n.ext import current_i18n
@@ -169,10 +170,14 @@ def logged_user():
 @login_required
 @register_menu(
     blueprint,
-    'main.profile.patron_profile',
-    lazy_gettext('%(icon)s Profile', icon='<i class="fa fa-book fa-fw"></i>'),
+    'settings.patron_profile',
+    lazy_gettext('%(icon)s My loans', icon='<i class="fa fa-book fa-fw"></i>'),
     visible_when=user_has_patron,
-    id="my-profile-menu"
+    id="my-profile-menu",
+    order=-1
+)
+@register_breadcrumb(
+    blueprint, 'breadcrumbs.settings.patron_profile', _('Patron Profile')
 )
 def profile(viewcode):
     """Patron Profile Page."""
