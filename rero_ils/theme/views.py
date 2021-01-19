@@ -273,13 +273,16 @@ def init_menu_profile():
     )
 
     item = current_menu.submenu('main.profile.profile')
+    profile_endpoint = 'invenio_userprofiles.profile'
+    if current_patron and current_patron.is_patron:
+        profile_endpoint = 'patrons.profile'
     rero_register(
         item,
-        endpoint='invenio_userprofiles.profile',
+        endpoint=profile_endpoint,
         visible_when=lambda: current_user.is_authenticated,
         text='{icon} {profile}'.format(
             icon='<i class="fa fa-user"></i>',
-            profile=_('RERO ID')
+            profile=_('My Account')
         ),
         order=1,
         id='profile-menu',
