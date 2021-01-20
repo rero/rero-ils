@@ -19,6 +19,7 @@
 """API for manipulating Circulation policies."""
 from __future__ import absolute_import, print_function
 
+import sys
 from functools import partial
 
 from elasticsearch_dsl import Q
@@ -30,6 +31,9 @@ from ..libraries.api import Library
 from ..minters import id_minter
 from ..providers import Provider
 from ..utils import get_patron_from_arguments
+
+DUE_SOON_REMINDER_TYPE = 'due_soon'
+OVERDUE_REMINDER_TYPE = 'overdue'
 
 # cipo provider
 CircPolicyProvider = type(
@@ -85,11 +89,14 @@ class CircPolicy(IlsRecord):
         from ..item_types.api import ItemType
         from ..patron_types.api import PatronType
 
+        # check if all defines library exists.
         for library in self.replace_refs().get('libraries', []):
             if not Library.get_record_by_pid(library.get('pid')):
                 return 'CircPolicy: no library:  {pid}'.format(
                     pid=library.get('pid')
                 )
+        # check all patron_types & item_types from settings belongs to the
+        # same organisation than the cipo
         org = self.get('organisation')
         for setting in self.replace_refs().get('settings', []):
             patron_type = PatronType.get_record_by_pid(setting.get(
@@ -98,86 +105,114 @@ class CircPolicy(IlsRecord):
             item_type = ItemType.get_record_by_pid(setting.get(
                 'item_type', {}).get('pid')
             )
-            if patron_type.get('organisation') != org or item_type.get(
-                'organisation'
-            ) != org:
+            if patron_type.get('organisation') != org \
+               or item_type.get('organisation') != org:
                 return 'CircPolicy: PatronType ItemType Org diff'
+
+        # check reminders :: only one "due_soon" reminder can be defined
+        reminders = self.get('reminders', [])
+        due_soon_reminders = [r for r in reminders
+                              if r.get('type') == DUE_SOON_REMINDER_TYPE]
+        if len(due_soon_reminders) > 1:
+            return 'Only one "due soon" reminder can be defined by CircPolicy'
+
+        # check fees intervals :
+        #  1) None interval can overlap other one.
+        #  2) Only the last interval can omit an upper limit.
+        intervals = sorted(
+            self.get('overdue_fees', {}).get('intervals', []),
+            key=lambda interval: interval.get('from')
+        )
+        last_lower_limit = -1
+        last_upper_limit = 0
+        for interval in intervals:
+            lower_limit = interval.get('from', 0)
+            upper_limit = interval.get('to')
+            if upper_limit is None and interval != intervals[-1]:
+                return "Only the last interval can omit the upper limit."
+            if lower_limit <= last_upper_limit:
+                return "Another interval covers this lower limit interval " \
+                       ":: [{lower_limit}-{upper_limit}]".format(
+                            lower_limit=lower_limit, upper_limit=upper_limit)
+            if upper_limit and upper_limit <= last_lower_limit:
+                return "Another interval covers this upper limit interval " \
+                       ":: [{lower_limit}-{upper_limit}]".format(
+                            lower_limit=lower_limit, upper_limit=upper_limit)
+            last_lower_limit = lower_limit
+            last_upper_limit = upper_limit
+
         return True
 
     @classmethod
     def exist_name_and_organisation_pid(cls, name, organisation_pid):
-        """Check if the policy name is unique on organisation."""
+        """Check if the policy name is unique on organisation.
+
+        :param name: the name to check if unique.
+        :param organisation_pid: the organisation pid.
+        :return `True` if name already exists, `False` otherwise.
+        """
         result = CircPoliciesSearch()\
             .filter('term', circ_policy_name=name)\
-            .filter('term', organisation__pid=organisation_pid).source().scan()
+            .filter('term', organisation__pid=organisation_pid)\
+            .source().scan()
         try:
             return next(result)
         except StopIteration:
             return None
 
     @classmethod
-    def get_circ_policy_by_LPI(
-            cls, organisation_pid, library_pid, patron_type_pid,
-            item_type_pid):
-        """Check if there is a policy for library/location/item types."""
-        result = CircPoliciesSearch().filter(
-            'term',
-            policy_library_level=True
-        ).filter(
-            'term',
-            organisation__pid=organisation_pid
-        ).filter(
-            'term',
-            libraries__pid=library_pid
-        ).filter(
-            'nested',
-            path='settings',
-            query=Q(
-                'bool',
-                must=[
-                    Q(
-                        'match',
-                        settings__patron_type__pid=patron_type_pid
-                    ),
-                    Q(
-                        'match',
-                        settings__item_type__pid=item_type_pid
-                    )
-                ]
-            )
-        ).source('pid').scan()
+    def get_circ_policy_by_LPI(cls, org_pid, lib_pid, ptty_pid, itty_pid):
+        """Check if there is a policy for library/location/item types.
+
+        :param org_pid: the organisation pid
+        :param lib_pid: the library pid
+        :param ptty_pid: the patron type pid
+        :param itty_pid: the item type pid
+        :return the first circulation policy corresponding to criteria ; `None`
+                if no policy found.
+        """
+        result = CircPoliciesSearch()\
+            .filter('term', policy_library_level=True)\
+            .filter('term', organisation__pid=org_pid)\
+            .filter('term', libraries__pid=lib_pid)\
+            .filter('nested',
+                    path='settings',
+                    query=Q(
+                        'bool',
+                        must=[
+                            Q('match', settings__patron_type__pid=ptty_pid),
+                            Q('match', settings__item_type__pid=itty_pid)
+                        ]
+                    ))\
+            .source('pid').scan()
         try:
             return CircPolicy.get_record_by_pid(next(result).pid)
         except StopIteration:
             return None
 
     @classmethod
-    def get_circ_policy_by_OPI(
-            cls, organisation_pid, patron_type_pid, item_type_pid):
-        """Check if there is a circ policy for location/item types."""
-        result = CircPoliciesSearch().filter(
-            'term',
-            policy_library_level=False
-        ).filter(
-            'term',
-            organisation__pid=organisation_pid
-        ).filter(
-            'nested',
-            path='settings',
-            query=Q(
-                'bool',
-                must=[
-                    Q(
-                        'match',
-                        settings__patron_type__pid=patron_type_pid
-                    ),
-                    Q(
-                        'match',
-                        settings__item_type__pid=item_type_pid
-                    )
-                ]
-            )
-        ).source('pid').scan()
+    def get_circ_policy_by_OPI(cls, org_pid, ptty_pid, itty_pid):
+        """Check if there is a policy for location/item types.
+
+        :param org_pid: the organisation pid
+        :param ptty_pid: the patron type pid
+        :param itty_pid: the item type pid
+        :return the first circulation policy corresponding to criteria ; `None`
+                if no policy found.
+        """
+        result = CircPoliciesSearch()\
+            .filter('term', policy_library_level=False)\
+            .filter('term', organisation__pid=org_pid)\
+            .filter('nested',
+                    path='settings',
+                    query=Q(
+                        'bool',
+                        must=[
+                            Q('match', settings__patron_type__pid=ptty_pid),
+                            Q('match', settings__item_type__pid=itty_pid)
+                        ]
+                    ))\
+            .source('pid').scan()
         try:
             return CircPolicy.get_record_by_pid(next(result).pid)
         except StopIteration:
@@ -185,14 +220,16 @@ class CircPolicy(IlsRecord):
 
     @classmethod
     def get_default_circ_policy(cls, organisation_pid):
-        """Return the default circ policy."""
-        result = CircPoliciesSearch().filter(
-            'term',
-            organisation__pid=organisation_pid
-        ).filter(
-            'term',
-            is_default=True
-        ).source('pid').scan()
+        """Return the default circulation policy for an organisation.
+
+        :param organisation_pid: the organisation pid.
+        :return the first circulation policy corresponding to criteria ; `None`
+                if no policy found.
+        """
+        result = CircPoliciesSearch()\
+            .filter('term', organisation__pid=organisation_pid)\
+            .filter('term', is_default=True)\
+            .source('pid').scan()
         try:
             return CircPolicy.get_record_by_pid(next(result).pid)
         except StopIteration:
@@ -200,9 +237,15 @@ class CircPolicy(IlsRecord):
 
     @classmethod
     def provide_circ_policy(cls, library_pid, patron_type_pid, item_type_pid):
-        """Return a circ policy for library/patron/item."""
+        """Return the best circulation policy for library/patron/item.
+
+        :param library_pid: the library pid.
+        :param patron_type_pid: the patron type_pid.
+        :param item_type_pid: the item_type pid.
+        :return the best circulation policy corresponding to criteria.
+        """
         organisation_pid = Library.get_record_by_pid(
-            library_pid).get_organisation().get('pid')
+            library_pid).organisation_pid
         LPI_policy = CircPolicy.get_circ_policy_by_LPI(
             organisation_pid,
             library_pid,
@@ -243,6 +286,47 @@ class CircPolicy(IlsRecord):
         if links:
             cannot_delete['links'] = links
         return cannot_delete
+
+    @property
+    def due_soon_interval_days(self):
+        """Get number of days to check if loan is considerate as due_soon."""
+        reminder = [r for r in self.get('reminders', [])
+                    if r.get('type') == DUE_SOON_REMINDER_TYPE]
+        return reminder[0].get('days_delay') if reminder else 1
+
+    @property
+    def initial_overdue_days(self):
+        """Get number of days after which loan is considerate as overdue.
+
+        To complete this request, we need to find the minimum day where a
+        notification OR an incremental fees is placed.
+        """
+        intervals = self.get_overdue_intervals()
+        reminder = self.get_reminder(reminder_type=OVERDUE_REMINDER_TYPE)
+        if intervals or reminder:
+            return min([
+                intervals[0].get('from') if intervals else sys.maxsize,
+                reminder.get('days_delay') if reminder else sys.maxsize
+            ])
+
+    def get_overdue_intervals(self):
+        """Return sorted overdue intervals for this circulation policy."""
+        return sorted(
+            self.get('overdue_fees', {}).get('intervals', []),
+            key=lambda interval: interval.get('from')
+        )
+
+    def get_reminder(self, reminder_type=DUE_SOON_REMINDER_TYPE, idx=0):
+        """Get the best possible reminder based on argument criteria.
+
+        :param reminder_type: the type of reminder to search.
+        :param idx: the reminder index to search. First reminder has 0 index.
+        """
+        reminders = [r for r in self.get('reminders', [])
+                     if r.get('type') == reminder_type]
+        if idx < len(reminders):
+            return reminders[idx]
+
 
     @classmethod
     def allow_request(cls, item, **kwargs):
