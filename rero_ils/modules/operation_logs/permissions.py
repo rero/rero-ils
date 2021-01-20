@@ -17,7 +17,6 @@
 
 """Permissions of Operation log."""
 
-from rero_ils.modules.organisations.api import current_organisation
 from rero_ils.modules.patrons.api import current_patron
 from rero_ils.modules.permissions import RecordPermission
 
@@ -33,8 +32,11 @@ class OperationLogPermission(RecordPermission):
         :param record: Record to check.
         :return: "True" if action can be done.
         """
-        # List operation logs allowed only for staff members (lib, sys_lib)
-        return current_patron and current_patron.is_librarian
+        # all users may list operation_log records.
+        # TODO: check with group PO here.
+        if not current_patron:
+            return False
+        return True
 
     @classmethod
     def read(cls, user, record):
@@ -44,13 +46,11 @@ class OperationLogPermission(RecordPermission):
         :param record: Record to check.
         :return: "True" if action can be done.
         """
+        # all users may read operation_log records.
+        # TODO: check with group PO here.
         if not current_patron:
             return False
-        # only staff members (lib, sys_lib) are allowed to read
-        if not current_patron.is_librarian:
-            return False
-        # For staff users, they can read only own organisation
-        return current_organisation['pid'] == record.organisation_pid
+        return True
 
     @classmethod
     def create(cls, user, record=None):

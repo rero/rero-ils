@@ -1005,3 +1005,10 @@ def local_field_sion(
         reindex=True)
     flush_index(LocalFieldsSearch.Meta.index)
     return local_field
+
+# --- OPERATION LOGS
+@pytest.fixture(scope="module")
+def operation_log_1_data(data):
+    """Load operation log record."""
+    return deepcopy(data.get('oplg1'))
+
