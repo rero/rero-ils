@@ -224,3 +224,13 @@ def ill_request_schema(monkeypatch):
         'rero_ils.modules.ill_requests.jsonschemas',
         '/ill_requests/ill_request-v0.0.1.json')
     return get_schema(monkeypatch, schema_in_bytes)
+
+
+@pytest.fixture()
+def operation_log_schema(monkeypatch):
+    """Operation log Jsonschema for records."""
+    schema_in_bytes = resource_string(
+        'rero_ils.modules.operation_logs.jsonschemas',
+        'operation_logs/operation_log-v0.0.1.json'
+    )
+    return get_schema(monkeypatch, schema_in_bytes)
