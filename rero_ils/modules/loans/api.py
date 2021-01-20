@@ -84,7 +84,7 @@ class LoanAction(object):
 class LoansSearch(IlsRecordsSearch):
     """Libraries search."""
 
-    class Meta():
+    class Meta:
         """Meta class."""
 
         index = 'loans'
@@ -264,12 +264,24 @@ class Loan(IlsRecord):
         from .utils import get_circ_policy
         circ_policy = get_circ_policy(self)
         now = datetime.now(timezone.utc)
-        end_date = self.get('end_date')
-        due_date = ciso8601.parse_datetime(end_date)
+        due_date = ciso8601.parse_datetime(self.end_date)
 
-        days_after = circ_policy.get('number_of_days_after_due_date')
-        if now > due_date + timedelta(days=days_after):
+        days_after = circ_policy.initial_overdue_days
+        if days_after and now > due_date + timedelta(days=days_after):
             return True
+        return False
+
+    def is_loan_due_soon(self):
+        """Check if a loan is due soon."""
+        from .utils import get_circ_policy
+        circ_policy = get_circ_policy(self)
+        now = datetime.now(timezone.utc)
+        due_date = ciso8601.parse_datetime(self.end_date).replace(
+            tzinfo=timezone.utc)
+
+        days_before = circ_policy.due_soon_interval_days
+        if days_before:
+            return due_date > now > due_date - timedelta(days=days_before)
         return False
 
     @property
@@ -427,10 +439,8 @@ class Loan(IlsRecord):
 
     def is_notified(self, notification_type=None):
         """Check if a notification exist already for a loan by type."""
-        results = NotificationsSearch().filter(
-            'term', loan__pid=self.pid
-        ).filter('term', notification_type=notification_type).source().count()
-        return results > 0
+        return number_of_reminders_sent(
+            self, notification_type=notification_type) > 0
 
     def create_notification(self, notification_type=None):
         """Creates a recall notification from a checked-out loan."""
@@ -446,27 +456,31 @@ class Loan(IlsRecord):
                 doc_type='loans',
                 pid=self.pid)
         }
+
         notification_to_create = False
-        if notification_type == 'recall':
-            if self.get('state') == LoanState.ITEM_ON_LOAN and \
-                    not self.is_notified(notification_type=notification_type):
-                notification_to_create = True
-        elif notification_type == 'availability' and \
-                not self.is_notified(notification_type=notification_type):
-            notification_to_create = True
-        elif notification_type == 'due_soon':
-            if self.get('state') == LoanState.ITEM_ON_LOAN and \
-                    not self.is_notified(notification_type=notification_type):
-                notification_to_create = True
-        elif notification_type == 'overdue':
-            if self.get('state') == LoanState.ITEM_ON_LOAN and \
-                    not number_of_reminders_sent(self):
-                record['reminder_counter'] = 1
-                notification_to_create = True
+        if notification_type == Notification.RECALL_NOTIFICATION_TYPE:
+            notification_to_create = \
+                self.get('state') == LoanState.ITEM_ON_LOAN \
+                and not self.is_notified(notification_type=notification_type)
+        elif notification_type == Notification.AVAILABILITY_NOTIFICATION_TYPE:
+            notification_to_create = \
+                not self.is_notified(notification_type=notification_type)
+        elif notification_type == Notification.DUE_SOON_NOTIFICATION_TYPE:
+            notification_to_create = \
+                self.get('state') == LoanState.ITEM_ON_LOAN \
+                and not self.is_notified(notification_type=notification_type)
+        elif notification_type == Notification.OVERDUE_NOTIFICATION_TYPE:
+            notification_to_create = \
+                self.get('state') == LoanState.ITEM_ON_LOAN \
+                and not number_of_reminders_sent(
+                    self, notification_type=notification_type)
+            record['reminder_counter'] = number_of_reminders_sent(self) + 1
+
         if notification_to_create:
             notification = Notification.create(
                 data=record, dbcommit=True, reindex=True)
             notification = notification.dispatch()
+
         return notification
 
     @classmethod
@@ -817,7 +831,7 @@ def get_due_soon_loans():
         .source(['pid']).scan()
     for record in results:
         loan = Loan.get_record_by_pid(record.pid)
-        if is_due_soon_loan(loan):
+        if loan.is_loan_due_soon():
             due_soon_loans.append(loan)
     return due_soon_loans
 
@@ -868,23 +882,6 @@ def is_due_soon_loan(loan):
 
     days_before = circ_policy.get('number_of_days_before_due_date')
     return due_date > now > due_date - timedelta(days=days_before)
-
-
-def is_overdue_loan(loan):
-    """Check if loan is in overdue.
-
-    :param loan: loan object to check
-    :returns True if loan is in overdue.
-    """
-    from .utils import get_circ_policy
-    circ_policy = get_circ_policy(loan)
-    now = datetime.now(timezone.utc)
-    end_date = loan.get('end_date')
-    due_date = ciso8601.parse_datetime(end_date).replace(
-        tzinfo=timezone.utc)
-
-    days_after = circ_policy.get('number_of_days_after_due_date')
-    return now > due_date + timedelta(days=days_after)
 
 
 def loan_has_open_events(loan_pid=None):
