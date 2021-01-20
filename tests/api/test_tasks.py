@@ -29,8 +29,8 @@ from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.tasks import clean_obsolete_temporary_item_types
 from rero_ils.modules.loans.api import Loan, LoanAction, get_due_soon_loans, \
     get_overdue_loans
-from rero_ils.modules.notifications.api import NotificationsSearch, \
-    number_of_reminders_sent
+from rero_ils.modules.notifications.api import Notification, \
+    NotificationsSearch, number_of_reminders_sent
 from rero_ils.modules.notifications.tasks import \
     create_over_and_due_soon_notifications
 from rero_ils.modules.patrons.api import Patron
@@ -85,7 +85,8 @@ def test_create_over_and_due_soon_notifications_task(
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
 
-    assert loan.is_notified(notification_type='due_soon')
+    assert loan.is_notified(
+        notification_type=Notification.DUE_SOON_NOTIFICATION_TYPE)
 
     # test overdue notification
     end_date = datetime.now(timezone.utc) - timedelta(days=7)
@@ -99,7 +100,8 @@ def test_create_over_and_due_soon_notifications_task(
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
 
-    assert loan.is_notified(notification_type='overdue')
+    assert loan.is_notified(
+        notification_type=Notification.OVERDUE_NOTIFICATION_TYPE)
     assert number_of_reminders_sent(loan) == 1
 
     # checkin the item to put it back to it's original state

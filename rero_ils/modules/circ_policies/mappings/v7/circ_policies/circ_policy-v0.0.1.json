@@ -41,14 +41,44 @@
       "number_renewals": {
         "type": "integer"
       },
-      "number_of_days_after_due_date": {
-        "type": "integer"
+      "reminders": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "days_delay": {
+            "type": "integer"
+          },
+          "fee_amount": {
+            "type": "float"
+          },
+          "communication_channel": {
+            "type": "keyword"
+          },
+          "template": {
+            "type": "keyword"
+          }
+        }
       },
-      "number_of_days_before_due_date": {
-        "type": "integer"
-      },
-      "reminder_fee_amount": {
-        "type": "float"
+      "overdue_fees": {
+        "properties": {
+          "intervals": {
+            "properties": {
+              "from": {
+                "type": "integer"
+              },
+              "to": {
+                "type": "integer"
+              },
+              "fee_amount": {
+                "type": "float"
+              }
+            }
+          },
+          "maximum_total_amount": {
+            "type": "float"
+          }
+        }
       },
       "renewal_duration": {
         "type": "integer"

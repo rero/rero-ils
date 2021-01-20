@@ -27,9 +27,9 @@ from rero_ils.modules.notifications.permissions import NotificationPermission
 def test_notifications_permissions_api(client, patron_martigny,
                                        system_librarian_martigny,
                                        librarian_martigny,
-                                       notification_overdue_martigny,
-                                       notification_overdue_saxon,
-                                       notification_overdue_sion):
+                                       notification_late_martigny,
+                                       notification_late_saxon,
+                                       notification_late_sion):
     """Test notification permissions api."""
     notif_permissions_url = url_for(
         'api_blueprint.permissions',
@@ -38,17 +38,17 @@ def test_notifications_permissions_api(client, patron_martigny,
     notif_martigny_permission_url = url_for(
         'api_blueprint.permissions',
         route_name='notifications',
-        record_pid=notification_overdue_martigny.pid
+        record_pid=notification_late_martigny.pid
     )
     notif_saxon_permission_url = url_for(
         'api_blueprint.permissions',
         route_name='notifications',
-        record_pid=notification_overdue_saxon.pid
+        record_pid=notification_late_saxon.pid
     )
     notif_sion_permission_url = url_for(
         'api_blueprint.permissions',
         route_name='notifications',
-        record_pid=notification_overdue_sion.pid
+        record_pid=notification_late_sion.pid
     )
 
     # Not logged
@@ -116,9 +116,9 @@ def test_notifcations_permissions(patron_martigny,
                                   librarian_martigny,
                                   system_librarian_martigny,
                                   org_martigny,
-                                  notification_overdue_sion,
-                                  notification_overdue_martigny,
-                                  notification_overdue_saxon):
+                                  notification_late_sion,
+                                  notification_late_martigny,
+                                  notification_late_saxon):
     """Test notifications permissions class."""
 
     # Anonymous user
@@ -129,9 +129,9 @@ def test_notifcations_permissions(patron_martigny,
     assert not NotificationPermission.delete(None, {})
 
     # As Patron
-    notif_martigny = notification_overdue_martigny
-    notif_saxon = notification_overdue_saxon
-    notif_sion = notification_overdue_sion
+    notif_martigny = notification_late_martigny
+    notif_saxon = notification_late_saxon
+    notif_sion = notification_late_sion
     with mock.patch(
         'rero_ils.modules.notifications.permissions.current_patron',
         patron_martigny

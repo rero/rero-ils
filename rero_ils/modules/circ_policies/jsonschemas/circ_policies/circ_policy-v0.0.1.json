@@ -14,7 +14,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate circulation policies records against.",
       "type": "string",
       "minLength": 9,
       "default": "https://ils.rero.ch/schemas/circ_policies/circ_policy-v0.0.1.json"
@@ -26,17 +25,14 @@
     },
     "name": {
       "title": "Circulation policy name",
-      "description": "The name of the circulation policy.",
       "type": "string",
       "minLength": 2
     },
     "description": {
       "title": "Circulation policy description",
-      "description": "The description of the circulation policy.",
       "type": "string"
     },
     "organisation": {
-      "title": "Organisation",
       "type": "object",
       "properties": {
         "$ref": {
@@ -48,53 +44,116 @@
     },
     "allow_checkout": {
       "title": "Allow Checkout",
-      "description": "Checkouts are allowed or not.",
       "type": "boolean",
       "default": true
     },
     "checkout_duration": {
       "title": "Checkout duration in days",
-      "description": "The duration of the checkout in days.",
       "type": "integer",
       "minimum": 0,
       "default": 7
     },
     "allow_requests": {
       "title": "Allow patron requests",
-      "description": "Patron requests are allowed or not.",
       "type": "boolean",
       "default": true
     },
-    "number_of_days_before_due_date": {
-      "title": "Number of days before due date.",
-      "description": "Number of days before due date for sending the due_soon notification.",
-      "type": "integer",
-      "default": 5,
-      "minimum": 0
+    "reminders": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "reminder": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "days_delay",
+            "communication_channel",
+            "template"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "due_soon",
+                "overdue"
+              ]
+            },
+            "days_delay": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "fee_amount": {
+              "type": "number",
+              "multipleOf": 0.01
+            },
+            "communication_channel": {
+              "type": "string",
+              "enum": [
+                "email",
+                "mail"
+              ]
+            },
+            "template": {
+              "type": "string",
+              "minLength": 2
+            }
+          }
+        }
+      }
     },
-    "number_of_days_after_due_date": {
-      "title": "Number of days after due date",
-      "description": "Number of days after due date for sending the first overdue notification.",
-      "type": "integer",
-      "default": 5,
-      "minimum": 1
-    },
-    "reminder_fee_amount": {
-      "title": "The amount of reminder fee",
-      "description": "Overdue amount.",
-      "type": "number",
-      "default": 2.0
+    "overdue_fees": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "intervals"
+      ],
+      "properties": {
+        "intervals": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "interval": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "from",
+                "fee_amount"
+              ],
+              "properties": {
+                "from": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "to": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "fee_amount": {
+                  "type": "number",
+                  "minimum": 0,
+                  "multipleOf": 0.01
+                }
+              }
+            }
+          }
+        },
+        "maximum_total_amount": {
+          "type": "number",
+          "minimum": 0,
+          "multipleOf": 0.01
+        }
+      }
     },
     "number_renewals": {
       "title": "Maximum number of renewals",
-      "description": "Maximum number of renewals allowed.",
       "type": "integer",
       "minimum": 0,
       "default": 0
     },
     "renewal_duration": {
       "title": "Renewal duration in days",
-      "description": "The duration of the renewal in days.",
       "type": "integer",
       "minimum": 1
     },
