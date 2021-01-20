@@ -32,11 +32,8 @@ from rero_ils.modules.items.utils import item_pid_to_object
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.api import Loan, LoanAction, LoanState, \
     get_due_soon_loans, get_last_transaction_loc_for_item, get_overdue_loans
-from rero_ils.modules.notifications.api import NotificationsSearch, \
-    number_of_reminders_sent
-
-# Display current system time
-# print("\n#### PYTHON KNOWN DATE: %s ####\n" % datetime.now())
+from rero_ils.modules.notifications.api import Notification, \
+    NotificationsSearch, number_of_reminders_sent
 
 
 def test_loans_permissions(client, loan_pending_martigny, json_header):
@@ -114,7 +111,7 @@ def test_due_soon_loans(client, librarian_martigny_no_email,
         patron_martigny_no_email.patron_type_pid,
         item.item_type_pid
     )
-    circ_policy['number_of_days_before_due_date'] = 7
+    circ_policy['reminders'][0]['days_delay'] = 7
     circ_policy['checkout_duration'] = 3
     circ_policy.update(
         circ_policy,
@@ -205,7 +202,8 @@ def test_overdue_loans(client, librarian_martigny_no_email,
     assert overdue_loans[0].get('pid') == loan_pid
     assert number_of_reminders_sent(loan) == 0
 
-    loan.create_notification(notification_type='overdue')
+    loan.create_notification(
+        notification_type=Notification.OVERDUE_NOTIFICATION_TYPE)
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
     assert number_of_reminders_sent(loan) == 1
@@ -484,7 +482,7 @@ def test_timezone_due_date(client, librarian_martigny_no_email,
         patron_martigny_no_email.patron_type_pid,
         item.item_type_pid
     )
-    circ_policy['number_of_days_before_due_date'] = 7
+    circ_policy['reminders'][0]['days_delay'] = 7
     circ_policy['checkout_duration'] = checkout_duration
     circ_policy.update(
         circ_policy,

@@ -9,9 +9,21 @@
     "allow_checkout": true,
     "checkout_duration": 30,
     "allow_requests": true,
-    "number_of_days_before_due_date": 5,
-    "number_of_days_after_due_date": 5,
-    "reminder_fee_amount": 2.0,
+    "reminders": [
+      {
+        "type": "due_soon",
+        "days_delay": 5,
+        "communication_channel": "email",
+        "template": "email/due_soon"
+      },
+      {
+        "type": "overdue",
+        "days_delay": 5,
+        "fee_amount": 2.0,
+        "communication_channel": "email",
+        "template": "email/overdue"
+      }
+    ],
     "number_renewals": 3,
     "renewal_duration": 30,
     "policy_library_level": false,
@@ -27,10 +39,22 @@
     "allow_checkout": true,
     "checkout_duration": 30,
     "allow_requests": true,
+    "reminders": [
+      {
+        "type": "due_soon",
+        "days_delay": 5,
+        "communication_channel": "email",
+        "template": "email/due_soon"
+      },
+      {
+        "type": "overdue",
+        "days_delay": 5,
+        "fee_amount": 2.0,
+        "communication_channel": "email",
+        "template": "email/overdue"
+      }
+    ],
     "number_renewals": 3,
-    "number_of_days_before_due_date": 5,
-    "number_of_days_after_due_date": 5,
-    "reminder_fee_amount": 2.0,
     "renewal_duration": 30,
     "policy_library_level": false,
     "is_default": true
@@ -45,10 +69,22 @@
     "allow_checkout": true,
     "checkout_duration": 7,
     "allow_requests": true,
+    "reminders": [
+      {
+        "type": "due_soon",
+        "days_delay": 5,
+        "communication_channel": "email",
+        "template": "email/due_soon"
+      },
+      {
+        "type": "overdue",
+        "days_delay": 5,
+        "fee_amount": 2.0,
+        "communication_channel": "email",
+        "template": "email/overdue"
+      }
+    ],
     "number_renewals": 1,
-    "number_of_days_before_due_date": 5,
-    "number_of_days_after_due_date": 5,
-    "reminder_fee_amount": 2.0,
     "renewal_duration": 7,
     "policy_library_level": true,
     "is_default": false,
@@ -78,10 +114,22 @@
     "allow_checkout": true,
     "checkout_duration": 14,
     "allow_requests": true,
+    "reminders": [
+      {
+        "type": "due_soon",
+        "days_delay": 5,
+        "communication_channel": "email",
+        "template": "email/due_soon"
+      },
+      {
+        "type": "overdue",
+        "days_delay": 5,
+        "fee_amount": 2.0,
+        "communication_channel": "email",
+        "template": "email/overdue"
+      }
+    ],
     "number_renewals": 1,
-    "number_of_days_before_due_date": 5,
-    "number_of_days_after_due_date": 5,
-    "reminder_fee_amount": 2.0,
     "renewal_duration": 14,
     "policy_library_level": false,
     "is_default": false,
@@ -114,10 +162,22 @@
     "allow_checkout": true,
     "checkout_duration": 14,
     "allow_requests": true,
+    "reminders": [
+      {
+        "type": "due_soon",
+        "days_delay": 5,
+        "communication_channel": "email",
+        "template": "email/due_soon"
+      },
+      {
+        "type": "overdue",
+        "days_delay": 5,
+        "fee_amount": 2.0,
+        "communication_channel": "email",
+        "template": "email/overdue"
+      }
+    ],
     "number_renewals": 1,
-    "number_of_days_before_due_date": 5,
-    "number_of_days_after_due_date": 5,
-    "reminder_fee_amount": 2.0,
     "renewal_duration": 14,
     "policy_library_level": false,
     "is_default": false,
@@ -142,10 +202,22 @@
     "allow_checkout": true,
     "checkout_duration": 28,
     "allow_requests": true,
+    "reminders": [
+      {
+        "type": "due_soon",
+        "days_delay": 5,
+        "communication_channel": "email",
+        "template": "email/due_soon"
+      },
+      {
+        "type": "overdue",
+        "days_delay": 5,
+        "fee_amount": 2.0,
+        "communication_channel": "email",
+        "template": "email/overdue"
+      }
+    ],
     "number_renewals": 3,
-    "number_of_days_before_due_date": 5,
-    "number_of_days_after_due_date": 5,
-    "reminder_fee_amount": 2.0,
     "renewal_duration": 28,
     "policy_library_level": false,
     "is_default": false,
@@ -168,12 +240,24 @@
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
     "allow_checkout": true,
+    "reminders": [
+      {
+        "type": "due_soon",
+        "days_delay": 5,
+        "communication_channel": "email",
+        "template": "email/due_soon"
+      },
+      {
+        "type": "overdue",
+        "days_delay": 5,
+        "fee_amount": 2.0,
+        "communication_channel": "email",
+        "template": "email/overdue"
+      }
+    ],
     "checkout_duration": 84,
     "allow_requests": true,
     "number_renewals": 3,
-    "number_of_days_before_due_date": 5,
-    "number_of_days_after_due_date": 5,
-    "reminder_fee_amount": 2.0,
     "renewal_duration": 84,
     "policy_library_level": false,
     "is_default": false,
@@ -372,11 +456,23 @@
       "$ref": "https://ils.rero.ch/api/organisations/3"
     },
     "allow_checkout": true,
+    "reminders": [
+      {
+        "type": "due_soon",
+        "days_delay": 5,
+        "communication_channel": "email",
+        "template": "email/due_soon"
+      },
+      {
+        "type": "overdue",
+        "days_delay": 5,
+        "fee_amount": 2.0,
+        "communication_channel": "email",
+        "template": "email/overdue"
+      }
+    ],
     "checkout_duration": 28,
     "allow_requests": true,
-    "number_of_days_before_due_date": 5,
-    "number_of_days_after_due_date": 5,
-    "reminder_fee_amount": 2.0,
     "number_renewals": 3,
     "renewal_duration": 30,
     "policy_library_level": false,
@@ -390,12 +486,24 @@
       "$ref": "https://ils.rero.ch/api/organisations/4"
     },
     "allow_checkout": true,
+    "reminders": [
+      {
+        "type": "due_soon",
+        "days_delay": 5,
+        "communication_channel": "email",
+        "template": "email/due_soon"
+      },
+      {
+        "type": "overdue",
+        "days_delay": 5,
+        "fee_amount": 2.0,
+        "communication_channel": "email",
+        "template": "email/overdue"
+      }
+    ],
     "checkout_duration": 30,
     "allow_requests": true,
     "number_renewals": 3,
-    "number_of_days_before_due_date": 5,
-    "number_of_days_after_due_date": 5,
-    "reminder_fee_amount": 2.0,
     "renewal_duration": 30,
     "policy_library_level": false,
     "is_default": true
