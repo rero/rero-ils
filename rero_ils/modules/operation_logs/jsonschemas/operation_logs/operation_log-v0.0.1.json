@@ -60,7 +60,7 @@
       "type": "string",
       "format": "date-time"
     },
-    "type": {
+    "operation": {
       "title": "Operation type",
       "type": "string",
       "enum": [
@@ -69,7 +69,7 @@
       ]
     },
     "organisation": {
-      "title": "Organisation",
+      "title": "User organisation",
       "type": "object",
       "properties": {
         "$ref": {

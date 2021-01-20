@@ -1568,7 +1568,7 @@ RECORDS_REST_ENDPOINTS = dict(
         record_class='rero_ils.modules.operation_logs.api:OperationLog',
         list_route='/operation_logs/',
         item_route='/operation_logs/<pid(oplg, record_class='
-        '"rero_ils.modules.operation_logs.api:UpdaetLog"):pid_value>',
+        '"rero_ils.modules.operation_logs.api:OperationLog"):pid_value>',
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
@@ -2227,6 +2227,14 @@ RECORDS_JSON_SCHEMA = {
     'oplg': '/operation_logs/operation_log-v0.0.1.json',
     'vndr': '/vendors/vendor-v0.0.1.json',
 }
+
+# Operation Log Configuration
+# ===================
+# Keep history of peration logs for the following resources
+RERO_ILS_ENABLE_OPERATION_LOG = [
+    'documents', 'items', 'holdings'
+]
+ 
 
 # Login Configuration
 # ===================

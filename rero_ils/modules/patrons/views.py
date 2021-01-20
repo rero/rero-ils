@@ -152,6 +152,9 @@ def logged_user():
                 'RERO_ILS_CONTRIBUTIONS_LABEL_ORDER', {}),
             'contributionSources': current_app.config.get(
                 'RERO_ILS_CONTRIBUTIONS_SOURCES', []
+            ),
+            'operation_logs': current_app.config.get(
+                'RERO_ILS_ENABLE_OPERATION_LOG', []
             )
         }
     }
