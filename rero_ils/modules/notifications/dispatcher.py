@@ -71,6 +71,8 @@ class Dispatcher:
     @staticmethod
     def send_mail(data):
         """Send the notification by email."""
+        from .api import get_template_to_use
+        from ..loans.api import Loan
         patron = data['loan']['patron']
         # get the recipient email from loan.patron.patron.email
         recipient = patron.get('email')
@@ -80,11 +82,13 @@ class Dispatcher:
                 'Patron (pid: {pid}) does not have an email'.format(
                     pid=patron['pid']))
             return
-        notification_type = data.get('notification_type')
         language = patron['patron']['communication_language']
-        template = 'email/{type}/{lang}.txt'.format(
-            type=notification_type,
-            lang=language
+        notification_type = data.get('notification_type')
+        loan = Loan.get_record_by_pid(data['loan']['pid'])
+        tpl_path = get_template_to_use(loan, notification_type).rstrip('/')
+        template = '{tpl_path}/{language}.txt'.format(
+            tpl_path=tpl_path,
+            language=language
         )
 
         # get the sender email from

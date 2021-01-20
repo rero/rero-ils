@@ -28,8 +28,8 @@ from utils import flush_index, item_record_to_a_specific_loan_state
 from rero_ils.modules.ill_requests.api import ILLRequest, ILLRequestsSearch
 from rero_ils.modules.items.api import ItemsSearch
 from rero_ils.modules.loans.api import Loan, LoanState
-from rero_ils.modules.notifications.api import NotificationsSearch, \
-    get_availability_notification
+from rero_ils.modules.notifications.api import Notification, \
+    NotificationsSearch, get_notification
 from rero_ils.modules.patron_transactions.api import PatronTransactionsSearch
 from rero_ils.modules.patrons.api import Patron, PatronsSearch
 
@@ -761,8 +761,10 @@ def loan_validated_martigny(
 @pytest.fixture(scope="module")
 def notification_availability_martigny(loan_validated_martigny):
     """Availability notification of martigny."""
-    notification = get_availability_notification(loan_validated_martigny)
-    return notification
+    return get_notification(
+        loan_validated_martigny,
+        notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE
+    )
 
 
 # ------------ Notifications: dummy notification ----------
@@ -809,26 +811,21 @@ def loan_overdue_martigny(
 
 
 @pytest.fixture(scope="module")
-def notification_overdue_martigny(
-        app,
-        loan_overdue_martigny):
+def notification_late_martigny(app, loan_overdue_martigny):
     """Create an overdue notification for an overdue loan."""
     notification = loan_overdue_martigny.create_notification(
-        notification_type='overdue')
+        notification_type=Notification.OVERDUE_NOTIFICATION_TYPE
+    )
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
     flush_index(PatronTransactionsSearch.Meta.index)
-
     return notification
 
 
 @pytest.fixture(scope="module")
-def patron_transaction_overdue_martigny(
-        app,
-        notification_overdue_martigny):
+def patron_transaction_overdue_martigny(app, notification_late_martigny):
     """Return an overdue patron transaction for an overdue notification."""
-    records = list(notification_overdue_martigny.patron_transactions)
-
+    records = list(notification_late_martigny.patron_transactions)
     return records[0]
 
 
@@ -885,25 +882,21 @@ def loan_overdue_saxon(
 
 
 @pytest.fixture(scope="module")
-def notification_overdue_saxon(
-        app,
-        loan_overdue_saxon):
+def notification_late_saxon(app, loan_overdue_saxon):
     """Create an overdue notification for an overdue loan."""
     notification = loan_overdue_saxon.create_notification(
-        notification_type='overdue')
+        notification_type=Notification.OVERDUE_NOTIFICATION_TYPE
+    )
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
     flush_index(PatronTransactionsSearch.Meta.index)
-
     return notification
 
 
 @pytest.fixture(scope="module")
-def patron_transaction_overdue_saxon(
-        app,
-        notification_overdue_saxon):
+def patron_transaction_overdue_saxon(app, notification_late_saxon):
     """Return an overdue patron transaction for an overdue notification."""
-    records = list(notification_overdue_saxon.patron_transactions)
+    records = list(notification_late_saxon.patron_transactions)
     return records[0]
 
 
@@ -964,25 +957,21 @@ def loan_overdue_sion(
 
 
 @pytest.fixture(scope="module")
-def notification_overdue_sion(
-        app,
-        loan_overdue_sion):
+def notification_late_sion(app, loan_overdue_sion):
     """Create an overdue notification for an overdue loan."""
     notification = loan_overdue_sion.create_notification(
-        notification_type='overdue')
+        notification_type=Notification.OVERDUE_NOTIFICATION_TYPE
+    )
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
     flush_index(PatronTransactionsSearch.Meta.index)
-
     return notification
 
 
 @pytest.fixture(scope="module")
-def patron_transaction_overdue_sion(
-        app,
-        notification_overdue_sion):
+def patron_transaction_overdue_sion(app, notification_late_sion):
     """Return an overdue patron transaction for an overdue notification."""
-    records = list(notification_overdue_sion.patron_transactions)
+    records = list(notification_late_sion.patron_transactions)
     return records[0]
 
 
