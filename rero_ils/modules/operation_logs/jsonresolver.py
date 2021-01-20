@@ -26,10 +26,10 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 def operation_log_resolver(pid):
     """Resolver for operation_log record."""
     persist_id = PersistentIdentifier.get('oplg', pid)
-    if persistent_id.status == PIDStatus.REGISTERED:
-        return dict(pid=persistent_id.pid_value)
+    if persist_id.status == PIDStatus.REGISTERED:
+        return dict(pid=persist_id.pid_value)
     current_app.logger.error(
         'Operation logs resolver error: /api/operation_logs/{pid} {persist_id}'
-        .format(pid=pid, persistent_id=persistent_id)
+        .format(pid=pid, persistent_id=persist_id)
     )
     raise Exception('unable to resolve')

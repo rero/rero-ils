@@ -50,7 +50,7 @@
       "date": {
         "type": "date"
       },
-      "type": {
+      "operation": {
         "type": "keyword"
       },
       "_created": {
