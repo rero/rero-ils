@@ -174,32 +174,17 @@
         "title": {
           "type": "string",
           "title": "Title",
-          "minLength": 3,
-          "form": {
-            "wrappers": [
-              "form-field-horizontal"
-            ]
-          }
+          "minLength": 3
         },
         "authors": {
           "type": "string",
           "title": "Authors",
-          "minLength": 3,
-          "form": {
-            "wrappers": [
-              "form-field-horizontal"
-            ]
-          }
+          "minLength": 3
         },
         "publisher": {
           "type": "string",
           "title": "Publisher",
-          "minLength": 3,
-          "form": {
-            "wrappers": [
-              "form-field-horizontal"
-            ]
-          }
+          "minLength": 3
         },
         "year": {
           "type": "string",
@@ -210,20 +195,12 @@
               "messages": {
                 "patternMessage": "Should be in the following format: YYYY (2020)."
               }
-            },
-            "wrappers": [
-              "form-field-horizontal"
-            ]
+            }
           }
         },
         "identifier": {
           "type": "string",
-          "title": "Identifier",
-          "form": {
-            "wrappers": [
-              "form-field-horizontal"
-            ]
-          }
+          "title": "Identifier"
         },
         "source": {
           "type": "object",
@@ -244,42 +221,30 @@
               "form": {
                 "expressionProperties": {
                   "templateOptions.required": "false"
-                },
-                "wrappers": [
-                  "form-field-horizontal"
-                ]
+                }
               }
             },
             "volume": {
               "type": "string",
               "title": "Volume",
               "form": {
-                "wrappers": [
-                  "form-field-horizontal"
-                ],
                 "templateOptions": {
-                  "cssClass": "col-md-3 p-0"
+                  "itemCssClass": "col-md-3 p-0"
                 }
               }
             },
             "number": {
               "type": "string",
-              "title": "Number",
-              "form": {
-                "wrappers": [
-                  "form-field-horizontal"
-                ],
-                "templateOptions": {
-                  "cssClass": "col-md-3 p-0"
-                }
-              }
+              "title": "Number"
             }
           }
         }
       },
       "form": {
         "templateOptions": {
-          "cssClass": "editor-title"
+          "wrappers": [
+            "card"
+          ]
         }
       }
     },
@@ -290,10 +255,7 @@
         "hideExpression": "model.copy === false",
         "expressionProperties": {
           "templateOptions.required": "model.copy === true"
-        },
-        "wrappers": [
-          "form-field-horizontal"
-        ]
+        }
       }
     },
     "found_in": {
@@ -323,10 +285,16 @@
           "title": "URL",
           "placeholder": "Example: https://www.rero.ch/",
           "format": "uri",
+          "pattern": "^(ftps?|https?)://.*$",
           "minLength": 7,
           "form": {
             "expressionProperties": {
               "templateOptions.required": "field.parent.model.source !== undefined && field.parent.model.source !== ''"
+            },
+            "validation": {
+              "messages": {
+                "patternMessage": "Should be a valid URL format."
+              }
             }
           }
         }
@@ -386,7 +354,9 @@
       },
       "form": {
         "templateOptions": {
-          "cssClass": "editor-title"
+          "wrappers": [
+            "card"
+          ]
         },
         "validation": {
           "validators": {

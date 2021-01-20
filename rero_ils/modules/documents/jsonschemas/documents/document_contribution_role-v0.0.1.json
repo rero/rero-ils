@@ -757,7 +757,7 @@
       }
     ],
     "templateOptions": {
-      "cssClass": "col-lg-6"
+      "itemCssClass": "col-lg-6"
     }
   }
 }

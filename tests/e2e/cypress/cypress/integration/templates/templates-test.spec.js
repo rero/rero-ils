@@ -37,7 +37,7 @@ describe('Templates: Create and use template for a document', function() {
     cy.login(this.users.librarians.spock.email, this.common.uniquePwd)
     cy.intercept('GET', '**/professional/records/document**)').as('documentEditor');
     cy.intercept('POST', '/api/templates/').as('createTemplate');
-    cy.intercept('GET', '/schemaform/documents').as('getDocumentSchemaform');
+    cy.intercept('GET', '/schemas/documents').as('getDocumentSchemaform');
   });
 
   after('Delete resources and logout', function() {

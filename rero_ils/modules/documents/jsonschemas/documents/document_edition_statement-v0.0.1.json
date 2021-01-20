@@ -38,9 +38,6 @@
       "hide": true,
       "navigation": {
         "essential": true
-      },
-      "templateOptions": {
-        "cssClass": "editor-title"
       }
     }
   }

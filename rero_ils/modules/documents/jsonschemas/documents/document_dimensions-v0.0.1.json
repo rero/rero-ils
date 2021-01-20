@@ -9,16 +9,16 @@
       "type": "string",
       "minLength": 1,
       "form": {
-        "placeholder": "Example: 22 cm"
+        "placeholder": "Example: 22 cm",
+        "templateOptions": {
+          "cssClass": "w-md-50"
+        }
       }
     },
     "form": {
       "hide": true,
       "navigation": {
         "essential": true
-      },
-      "templateOptions": {
-        "cssClass": "editor-title"
       }
     }
   }

@@ -41,7 +41,7 @@
               }
             ],
             "templateOptions": {
-              "cssClass": "col-lg-12"
+              "itemCssClass": "col-lg-12"
             }
           }
         },
@@ -51,14 +51,14 @@
           "minLength": 1,
           "form": {
             "templateOptions": {
-              "cssClass": "col-lg-12"
+              "itemCssClass": "col-lg-12"
             }
           }
         }
       },
       "form": {
         "templateOptions": {
-          "cssClass": "row"
+          "containerCssClass": "row"
         }
       }
     },
@@ -66,9 +66,6 @@
       "hide": true,
       "navigation": {
         "essential": true
-      },
-      "templateOptions": {
-        "cssClass": "editor-title"
       }
     }
   }

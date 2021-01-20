@@ -70,11 +70,11 @@
       "type": "number",
       "minimum": 0,
       "form": {
-        "wrappers": [
-          "toggle-switch",
-          "form-field"
-        ],
         "templateOptions": {
+          "wrappers": [
+            "toggle-switch",
+            "form-field"
+          ],
           "toggle-switch": {
             "label": "Yearly subscription",
             "description": "Activation of subscription fees for patrons linked to this type."
@@ -162,11 +162,11 @@
             }
           },
           "form": {
-            "wrappers": [
-              "toggle-switch",
-              "form-field"
-            ],
             "templateOptions": {
+              "wrappers": [
+                "toggle-switch",
+                "form-field"
+              ],
               "toggle-switch": {
                 "label": "Limit by checkouts"
               }
@@ -188,11 +188,11 @@
             }
           },
           "form": {
-            "wrappers": [
-              "toggle-switch",
-              "form-field"
-            ],
             "templateOptions": {
+              "wrappers": [
+                "toggle-switch",
+                "form-field"
+              ],
               "toggle-switch": {
                 "label": "Limit by overdue fee amount"
               }
@@ -214,11 +214,11 @@
             }
           },
           "form": {
-            "wrappers": [
-              "toggle-switch",
-              "form-field"
-            ],
             "templateOptions": {
+              "wrappers": [
+                "toggle-switch",
+                "form-field"
+              ],
               "toggle-switch": {
                 "label": "Limit by overdue items"
               }

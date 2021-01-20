@@ -110,9 +110,11 @@
         "patrons"
       ],
       "form": {
-        "wrappers": [
-          "hide"
-        ],
+        "templateOptions": {
+          "wrappers": [
+            "hide"
+          ]
+        },
         "options": [
           {
             "label": "documents",

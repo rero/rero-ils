@@ -9,14 +9,14 @@
       "pattern": "^([\u00a9\u2117]\\s)?\\d{4}.*",
       "minLength": 4,
       "form": {
-        "placeholder": "Example: \u00a9 2010"
+        "placeholder": "Example: \u00a9 2010",
+        "templateOptions": {
+          "cssClass": "w-md-50"
+        }
       }
     },
     "form": {
-      "hide": true,
-      "templateOptions": {
-        "cssClass": "editor-title"
-      }
+      "hide": true
     }
   }
 }

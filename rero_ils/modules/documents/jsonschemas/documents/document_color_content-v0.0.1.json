@@ -26,15 +26,13 @@
         "templateOptions": {
           "selectWithSortOptions": {
             "order": "label"
-          }
+          },
+          "cssClass": "w-md-50"
         }
       }
     },
     "form": {
-      "hide": true,
-      "templateOptions": {
-        "cssClass": "editor-title"
-      }
+      "hide": true
     }
   }
 }

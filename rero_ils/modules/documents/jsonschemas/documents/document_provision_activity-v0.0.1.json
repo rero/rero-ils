@@ -66,7 +66,7 @@
               }
             ],
             "templateOptions": {
-              "cssClass": "col-lg-4"
+              "itemcCssClass": "col-lg-4"
             }
           }
         },
@@ -94,9 +94,11 @@
                 "default": "bf:Place",
                 "readOnly": true,
                 "form": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "templateOptions": {
+                    "wrappers": [
+                      "hide"
+                    ]
+                  }
                 }
               },
               "country": {
@@ -108,14 +110,14 @@
             },
             "form": {
               "templateOptions": {
-                "cssClass": "row"
+                "containerCssClass": "row"
               }
             }
           },
           "form": {
             "hide": true,
             "templateOptions": {
-              "cssClass": "col-lg-12"
+              "itemCssClass": "col-lg-12"
             }
           }
         },
@@ -161,7 +163,7 @@
                     }
                   ],
                   "templateOptions": {
-                    "cssClass": "col-lg-4"
+                    "itemCssClass": "col-lg-4"
                   }
                 }
               },
@@ -175,25 +177,25 @@
                 },
                 "form": {
                   "templateOptions": {
-                    "cssClass": "col-lg-8"
+                    "itemCssClass": "col-lg-8"
                   }
                 }
               },
               "form": {
                 "templateOptions": {
-                  "cssClass": "col-lg-6"
+                  "itemCssClass": "col-lg-6"
                 }
               }
             },
             "form": {
               "templateOptions": {
-                "cssClass": "row"
+                "containerCssClass": "row"
               }
             }
           },
           "form": {
             "templateOptions": {
-              "cssClass": "col-lg-12"
+              "itemCssClass": "col-lg-12"
             }
           }
         },
@@ -204,7 +206,7 @@
           "form": {
             "hide": true,
             "templateOptions": {
-              "cssClass": "col-lg-6"
+              "itemCssClass": "col-lg-6"
             }
           }
         },
@@ -219,7 +221,7 @@
               "templateOptions.required": "model.type === 'bf:Publication'"
             },
             "templateOptions": {
-              "cssClass": "col-lg-4"
+              "itemCssClass": "col-lg-4"
             }
           }
         },
@@ -232,20 +234,15 @@
           "form": {
             "hide": true,
             "templateOptions": {
-              "cssClass": "col-lg-4"
+              "itemCssClass": "col-lg-4"
             }
           }
         }
       },
       "form": {
         "templateOptions": {
-          "cssClass": "row"
+          "containerCssClass": "row"
         }
-      }
-    },
-    "form": {
-      "templateOptions": {
-        "cssClass": "editor-title"
       }
     }
   }

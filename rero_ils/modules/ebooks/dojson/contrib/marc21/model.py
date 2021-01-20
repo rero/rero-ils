@@ -530,7 +530,7 @@ def marc21_electronicLocator(self, key, value):
     """Get electronic locator."""
     indicator2 = key[4]
     electronic_locator = {}
-    url = utils.force_list(value.get('u'))[0]
+    url = utils.force_list(value.get('u'))[0].strip()
     subfield_3 = value.get('3')
     if subfield_3:
         subfield_3 = utils.force_list(subfield_3)[0]

@@ -7,15 +7,17 @@
     "items": {
       "title": "Subject",
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "form": {
+        "templateOptions": {
+          "cssClass": "w-md-50"
+        }
+      }
     },
     "form": {
       "hide": true,
       "navigation": {
         "essential": true
-      },
-      "templateOptions": {
-        "cssClass": "editor-title"
       }
     }
   }

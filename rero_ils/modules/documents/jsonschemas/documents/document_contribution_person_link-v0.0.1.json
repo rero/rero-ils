@@ -18,9 +18,11 @@
       "default": "bf:Person",
       "const": "bf:Person",
       "form": {
-        "wrappers": [
-          "hide"
-        ]
+        "templateOptions": {
+          "wrappers": [
+            "hide"
+          ]
+        }
       }
     },
     "$ref": {
@@ -33,14 +35,14 @@
           "enableGroupField": true
         },
         "templateOptions": {
-          "cssClass": "col-lg-12"
+          "itemCssClass": "col-lg-12"
         }
       }
     }
   },
   "form": {
     "templateOptions": {
-      "cssClass": "row"
+      "containerCssClass": "row"
     }
   }
 }

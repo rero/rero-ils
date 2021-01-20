@@ -131,7 +131,15 @@
           "uri": {
             "title": "URI",
             "type": "string",
-            "format": "uri"
+            "format": "uri",
+            "pattern": "^(ftps?|https?)://.*$",
+            "form": {
+              "validation": {
+                "messages": {
+                  "patternMessage": "Should be a valid URL format."
+                }
+              }
+            }
           },
           "source": {
             "title": "Source",
@@ -150,9 +158,11 @@
         "serial"
       ],
       "form": {
-        "wrappers": [
-          "hide"
-        ]
+        "templateOptions": {
+          "wrappers": [
+            "hide"
+          ]
+        }
       }
     },
     "patterns": {
@@ -457,9 +467,6 @@
         "hide": true,
         "navigation": {
           "essential": true
-        },
-        "templateOptions": {
-          "cssClass": "editor-title"
         }
       }
     },
@@ -582,9 +589,6 @@
             ],
             "form": {
               "type": "selectWithSort",
-              "wrappers": [
-                "form-field-horizontal"
-              ],
               "options": [
                 {
                   "label": "general_note",

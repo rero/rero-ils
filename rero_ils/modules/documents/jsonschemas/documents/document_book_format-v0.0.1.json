@@ -23,13 +23,15 @@
         "72\u00ba",
         "96\u00ba",
         "128\u00ba"
-      ]
+      ],
+      "form": {
+        "templateOptions": {
+          "cssClass": "w-md-50"
+        }
+      }
     },
     "form": {
-      "hide": true,
-      "templateOptions": {
-        "cssClass": "editor-title"
-      }
+      "hide": true
     }
   }
 }

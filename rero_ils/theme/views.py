@@ -426,7 +426,7 @@ def prepare_jsonschema(schema):
     return schema
 
 
-@blueprint.route('/schemaform/<document_type>')
+@blueprint.route('/schemas/<document_type>')
 def schemaform(document_type):
     """Return schema and form options for the editor."""
     doc_type = document_type

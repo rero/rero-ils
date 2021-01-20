@@ -68,7 +68,7 @@
                     }
                   },
                   "templateOptions": {
-                    "cssClass": "col-lg-6"
+                    "itemCssClass": "col-lg-6"
                   }
                 }
               },
@@ -78,7 +78,7 @@
                 "minimum": 1,
                 "form": {
                   "templateOptions": {
-                    "cssClass": "col-lg-6"
+                    "itemCssClass": "col-lg-6"
                   }
                 }
               },
@@ -88,7 +88,7 @@
                 "minimum": 1,
                 "form": {
                   "templateOptions": {
-                    "cssClass": "col-lg-6"
+                    "itemCssClass": "col-lg-6"
                   }
                 }
               },
@@ -104,14 +104,14 @@
                     }
                   },
                   "templateOptions": {
-                    "cssClass": "col-lg-6"
+                    "itemCssClass": "col-lg-6"
                   }
                 }
               }
             },
             "form": {
               "templateOptions": {
-                "cssClass": "row"
+                "containerCssClass": "row"
               }
             }
           }
@@ -122,9 +122,6 @@
       "hide": true,
       "navigation": {
         "essential": true
-      },
-      "templateOptions": {
-        "cssClass": "editor-title"
       }
     }
   }

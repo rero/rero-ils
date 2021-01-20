@@ -46,7 +46,7 @@ describe('Create a document', function() {
   });
 
   it('Creates a document with only essential fields', function() {
-    cy.intercept('/schemaform/documents').as('documentSchemaform');
+    cy.intercept('/schemas/documents').as('documentSchemaform');
     // Go to document editor
     cy.visit('/professional/records/documents/new');
     // Populate form with simple record

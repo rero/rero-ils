@@ -13,10 +13,7 @@
       }
     },
     "form": {
-      "hide": true,
-      "templateOptions": {
-        "cssClass": "editor-title"
-      }
+      "hide": true
     }
   }
 }

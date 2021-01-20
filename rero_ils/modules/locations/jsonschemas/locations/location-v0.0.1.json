@@ -185,11 +185,12 @@
         }
       },
       "form": {
-        "wrappers": [
-          "toggle-switch"
-        ],
+        "hideExpression": "field.parent.model.allow_request === false",
         "templateOptions": {
           "label": "",
+          "wrappers": [
+            "toggle-switch"
+          ],
           "toggle-switch": {
             "label": "Restrict pickup to",
             "description": "If enabled, restrict pickup to specific pickup locations."
