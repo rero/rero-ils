@@ -31,8 +31,7 @@ from ..items.api import Item
 from ..items.models import ItemNoteTypes
 from ..libraries.api import Library
 from ..loans.api import Loan, LoanAction, LoanState, \
-    get_loans_by_item_pid_by_patron_pid, get_loans_by_patron_pid, \
-    is_overdue_loan
+    get_loans_by_item_pid_by_patron_pid, get_loans_by_patron_pid
 from ..patron_transactions.api import PatronTransaction
 from ..patrons.api import Patron
 from ...filter import format_date_filter
@@ -187,7 +186,7 @@ def patron_information(barcode, **kwargs):
             if loan['state'] == LoanState.ITEM_ON_LOAN:
                 patron_account_information.get('charged_items').append(
                     item.get('pid'))
-                if is_overdue_loan(loan):
+                if loan.is_loan_overdue():
                     patron_account_information.get('overdue_items')\
                         .append(item.get('pid'))
             elif loan['state'] in [

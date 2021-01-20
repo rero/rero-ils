@@ -39,31 +39,26 @@ def process_notifications(verbose=False):
 
 
 @shared_task(ignore_result=True)
-def create_over_and_due_soon_notifications(overdue=True, due_soon=True,
+def create_over_and_due_soon_notifications(late=True, due_soon=True,
                                            process=True, verbose=False):
-    """Creates due soon and overdue notifications."""
+    """Creates due soon and late notifications."""
     no_over_due_loans = 0
     no_due_soon_loans = 0
     if due_soon:
-        due_soon_loans = get_due_soon_loans()
-        for loan in due_soon_loans:
-            loan.create_notification(notification_type='due_soon')
+        for loan in get_due_soon_loans():
+            loan.create_notification(
+                notification_type=Notification.DUE_SOON_NOTIFICATION_TYPE)
             no_due_soon_loans += 1
-    if overdue:
+    if late:
         for loan in get_overdue_loans():
-            loan.create_notification(notification_type='overdue')
+            loan.create_notification(
+                notification_type=Notification.OVERDUE_NOTIFICATION_TYPE)
             no_over_due_loans += 1
 
-    msg = 'loans| overdue: {no_over_due_loans} '\
-        'due soon: {no_due_soon_loans}'.format(
-            no_over_due_loans=no_over_due_loans,
-            no_due_soon_loans=no_due_soon_loans
-        )
-
+    msg = f'loans| late: {no_over_due_loans} due soon: {no_due_soon_loans}'
     if process:
         msg = '{msg}, {process_msg}'.format(
             msg=msg,
             process_msg=process_notifications.run(verbose=verbose)
         )
-
     return msg

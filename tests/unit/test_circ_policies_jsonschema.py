@@ -19,9 +19,14 @@
 
 from __future__ import absolute_import, print_function
 
+from copy import deepcopy
+
 import pytest
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
+
+from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE
+from rero_ils.modules.errors import RecordValidationError
 
 
 def test_required(circ_policy_schema, circ_policy_martigny_data_tmp):
@@ -134,34 +139,70 @@ def test_circ_policy_is_default(
         validate(circ_policy_martigny_data_tmp, circ_policy_schema)
 
 
-def test_circ_policy_number_days_before_due_date(
-    circ_policy_schema, circ_policy_martigny_data_tmp
-):
-    """Test no of days before due date for circulation policy jsonschema."""
-    validate(circ_policy_martigny_data_tmp, circ_policy_schema)
+def test_circ_policy_reminders(circ_policy_schema,
+                               circ_policy_short_martigny):
+    """Test reminders section for circulation policy jsonschemas."""
+    cipo = deepcopy(circ_policy_short_martigny)
+    validate(cipo, circ_policy_schema)
 
+    # Empty reminders array is invalid
     with pytest.raises(ValidationError):
-        circ_policy_martigny_data_tmp['number_of_days_before_due_date'] = '25'
-        validate(circ_policy_martigny_data_tmp, circ_policy_schema)
+        cipo['reminders'] = []
+        validate(cipo, circ_policy_schema)
+
+    due_soon_reminder = {
+        'type': DUE_SOON_REMINDER_TYPE,
+        'days_delay': 3,
+        'communication_channel': 'email',
+        'template': 'dummy_path'
+    }
+    cipo['reminders'].append(due_soon_reminder)
+    validate(cipo, circ_policy_schema)
+    # Tow "DUE_SOON" reminder is disallow
+    with pytest.raises(RecordValidationError):
+        due_soon_reminder_2 = deepcopy(due_soon_reminder)
+        due_soon_reminder_2['days_delay'] = 5
+        cipo['reminders'].append(due_soon_reminder_2)
+        validate(cipo, circ_policy_schema)  # valid for JSON schema
+        cipo.validate()  # invalid against extented_validation rules
 
 
-def test_circ_policy_number_days_after_due_date(
-    circ_policy_schema, circ_policy_martigny_data_tmp
-):
-    """Test number of days after due date for circulation policy jsonschema."""
-    validate(circ_policy_martigny_data_tmp, circ_policy_schema)
+def test_circ_policy_overdue_fees(circ_policy_schema,
+                                  circ_policy_short_martigny):
+    """Test overdue fees section for circulation policy jsonschemas."""
+    cipo = deepcopy(circ_policy_short_martigny)
+    validate(cipo, circ_policy_schema)
 
-    with pytest.raises(ValidationError):
-        circ_policy_martigny_data_tmp['number_of_days_after_due_date'] = '25'
-        validate(circ_policy_martigny_data_tmp, circ_policy_schema)
+    overdue_data = {
+        'maximum_total_amount': 100,
+        'intervals': [
+            {'from': 1, 'to': 5, 'fee_amount': 0.1},
+            {'from': 11, 'fee_amount': 0.5},
+            {'from': 6, 'to': 10, 'fee_amount': 0.1}
+        ]
+    }
+    cipo['overdue_fees'] = overdue_data
+    validate(cipo, circ_policy_schema)
+    cipo.validate()
 
+    # two intervals with no upper limit
+    with pytest.raises(RecordValidationError):
+        invalid_overdue_data = deepcopy(overdue_data)
+        del invalid_overdue_data['intervals'][2]['to']
+        cipo['overdue_fees'] = invalid_overdue_data
+        cipo.validate()
 
-def test_circ_policy_reminder_fee_amount(
-    circ_policy_schema, circ_policy_martigny_data_tmp
-):
-    """Test reminder_fee_amount for circulation policy jsonschema."""
-    validate(circ_policy_martigny_data_tmp, circ_policy_schema)
+    # two intervals with conflict on lower interval limit
+    with pytest.raises(RecordValidationError):
+        invalid_overdue_data = deepcopy(overdue_data)
+        invalid_overdue_data['intervals'][2]['from'] = 4
+        cipo['overdue_fees'] = invalid_overdue_data
+        cipo.validate()
 
-    with pytest.raises(ValidationError):
-        circ_policy_martigny_data_tmp['reminder_fee_amount'] = '25'
-        validate(circ_policy_martigny_data_tmp, circ_policy_schema)
+    # two intervals with conflict on upper interval limit
+    with pytest.raises(RecordValidationError):
+        invalid_overdue_data = deepcopy(overdue_data)
+        invalid_overdue_data['intervals'][0]['to'] = 7
+        cipo['overdue_fees'] = invalid_overdue_data
+        cipo.validate()
+

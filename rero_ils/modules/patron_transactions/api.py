@@ -260,9 +260,10 @@ class PatronTransaction(IlsRecord):
             cls, notification=None, dbcommit=None, reindex=None,
             delete_pid=None):
         """Create a patron transaction from notification."""
-        from ..notifications.api import calculate_overdue_amount
+        from ..notifications.api import calculate_notification_amount
         record = {}
-        if notification.get('notification_type') == 'overdue':
+        total_amount = calculate_notification_amount(notification)
+        if total_amount > 0:  # no need to create transaction if amount <= 0 !
             data = {
                 'notification': {
                     '$ref': get_ref_for_pid('notif', notification.pid)
@@ -276,7 +277,7 @@ class PatronTransaction(IlsRecord):
                         notification.organisation_pid
                     )
                 },
-                'total_amount': calculate_overdue_amount(notification),
+                'total_amount': total_amount,
                 'creation_date': datetime.now(timezone.utc).isoformat(),
                 'type': 'overdue',
                 'status': 'open'
