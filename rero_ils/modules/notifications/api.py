@@ -35,7 +35,8 @@ from sqlalchemy.orm.exc import NoResultFound
 from .dispatcher import Dispatcher
 from .models import NotificationIdentifier, NotificationMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from ..circ_policies.api import CircPolicy
+from ..circ_policies.api import DUE_SOON_REMINDER_TYPE, \
+    OVERDUE_REMINDER_TYPE, CircPolicy
 from ..documents.api import Document
 from ..fetchers import id_fetcher
 from ..libraries.api import Library
@@ -74,6 +75,11 @@ class NotificationsSearch(IlsRecordsSearch):
 
 class Notification(IlsRecord):
     """Notifications class."""
+
+    RECALL_NOTIFICATION_TYPE = 'recall'
+    AVAILABILITY_NOTIFICATION_TYPE = 'availability'
+    DUE_SOON_NOTIFICATION_TYPE = 'due_soon'
+    OVERDUE_NOTIFICATION_TYPE = 'overdue'
 
     minter = notification_id_minter
     fetcher = notification_id_fetcher
@@ -347,11 +353,16 @@ class NotificationsIndexer(IlsRecordsIndexer):
         super().bulk_index(record_id_iterator, doc_type='notif')
 
 
-def get_availability_notification(loan):
-    """Returns availability notification from loan."""
-    results = NotificationsSearch().filter(
-        'term', loan__pid=loan.pid
-        ).filter('term', notification_type='availability').source().scan()
+def get_notification(loan, notification_type):
+    """Returns specific notification from loan.
+
+    :param loan: the parent loan.
+    :param notification_type: the type of notification sent.
+    """
+    results = NotificationsSearch()\
+        .filter('term', loan__pid=loan.pid)\
+        .filter('term', notification_type=notification_type)\
+        .source().scan()
     try:
         pid = next(results).pid
         return Notification.get_record_by_pid(pid)
@@ -359,41 +370,100 @@ def get_availability_notification(loan):
         return None
 
 
-def get_recall_notification(loan):
-    """Returns availability notification from loan."""
-    results = NotificationsSearch().filter(
-        'term', loan__pid=loan.pid
-        ).filter('term', notification_type='recall').source('pid').scan()
-    try:
-        pid = next(results).pid
-        return Notification.get_record_by_pid(pid)
-    except StopIteration:
-        return None
+def number_of_reminders_sent(
+        loan, notification_type=Notification.OVERDUE_NOTIFICATION_TYPE):
+    """Get the number of notifications sent for the given loan.
+
+    :param loan: the parent loan.
+    :param notification_type: the type of notification to find.
+    """
+    return NotificationsSearch()\
+        .filter('term', loan__pid=loan.pid)\
+        .filter('term', notification_type=notification_type) \
+        .source().count()
 
 
-def number_of_reminders_sent(loan):
-    """Get the number of overdue notifications sent for the given loan."""
-    results = NotificationsSearch().filter(
-        'term', loan__pid=loan.pid
-        ).filter('term', notification_type='overdue').source('pid').scan()
-    try:
-        pid = next(results).pid
-        notification = Notification.get_record_by_pid(pid)
-        return notification.get('reminder_counter')
-    except StopIteration:
+def get_template_to_use(loan, notification_type):
+    """Get the template path to use for a notification.
+
+    :param loan: the notification parent loan.
+    :param notification_type: the notification type.
+    """
+    from ..items.api import Item
+
+    # depending of notification to send, the template to use cold be static or
+    # found into the related circulation policy.
+    # TODO : depending of the communication channel, improve the function to
+    #        get the correct template.
+    static_template_mapping = {
+        Notification.RECALL_NOTIFICATION_TYPE: 'email/recall',
+        Notification.AVAILABILITY_NOTIFICATION_TYPE: 'email/availability'
+    }
+    if notification_type in static_template_mapping:
+        return static_template_mapping[notification_type]
+
+    # Find the related circulation policy and check about the template to use
+    # into the defined reminders
+    location_pid = loan.get('transaction_location_pid')
+    patron = Patron.get_record_by_pid(loan.patron_pid)
+    item = Item.get_record_by_pid(loan.get('item_pid', {}).get('value'))
+    cipo = CircPolicy.provide_circ_policy(
+        Location.get_record_by_pid(location_pid).library_pid,
+        patron.patron_type_pid,
+        item.holding_circulation_category_pid
+    )
+    reminders_count = number_of_reminders_sent(
+        loan,
+        notification_type=notification_type
+    )
+    reminder_type = DUE_SOON_REMINDER_TYPE
+    if notification_type != Notification.DUE_SOON_NOTIFICATION_TYPE:
+        reminder_type = OVERDUE_REMINDER_TYPE
+    reminder = cipo.get_reminder(
+        reminder_type=reminder_type,
+        idx=reminders_count - 1
+    )
+    return reminder.get('template')
+
+
+def calculate_notification_amount(notification):
+    """Return amount due for a notification.
+
+    :param notification: the notification for which to compute the amount. At
+                         this time, this is not yet a `Notification`, only a
+                         dict of structured data.
+    :return the amount due for this notification. 0 if no amount could be
+            compute.
+    """
+    # Find the reminder type to use based on the notification that we would
+    # sent. If no reminder type is found, then no amount could be calculated
+    # and we can't return '0'
+    notif_type = notification.get('notification_type')
+    reminder_type_mapping = {
+        Notification.DUE_SOON_NOTIFICATION_TYPE: DUE_SOON_REMINDER_TYPE,
+        Notification.OVERDUE_NOTIFICATION_TYPE: OVERDUE_REMINDER_TYPE
+    }
+    reminder_type = reminder_type_mapping.get(notif_type)
+    if not notif_type or not reminder_type:
         return 0
 
-
-def calculate_overdue_amount(notification):
-    """Return overdue amount for a notification."""
+    # to find the notification due amount, we firstly need to get the
+    # circulation policy linked to the parent loan.
     location_pid = notification.transaction_location_pid
-    library_pid = Location.get_record_by_pid(location_pid).library_pid
-    patron_type_pid = notification.patron.patron_type_pid
-    holding_circulation_category_pid = notification\
-        .item.holding_circulation_category_pid
     cipo = CircPolicy.provide_circ_policy(
-        library_pid,
-        patron_type_pid,
-        holding_circulation_category_pid
+        Location.get_record_by_pid(location_pid).library_pid,
+        notification.patron.patron_type_pid,
+        notification.item.holding_circulation_category_pid
     )
-    return cipo.get('reminder_fee_amount')
+
+    # now we get the circulation policy, we need to find the right reminder
+    # to use for this notification. To know that, we firstly need to know how
+    # many notification are already sent for the parent loan for the same
+    # notification type.
+    reminders_count = number_of_reminders_sent(
+        notification.loan, notification_type=notif_type)
+    reminder = cipo.get_reminder(
+        reminder_type=reminder_type,
+        idx=reminders_count-1
+    )
+    return reminder.get('fee_amount', 0) if reminder else 0
