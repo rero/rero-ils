@@ -234,9 +234,11 @@
       ],
       "default": "standard",
       "form": {
-        "wrappers": [
-          "hide"
-        ]
+        "templateOptions": {
+          "wrappers": [
+            "hide"
+          ]
+        }
       }
     },
     "issue": {
@@ -301,9 +303,11 @@
           "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
           "form": {
             "type": "datepicker",
-            "wrappers": [
-              "form-field"
-            ],
+            "templateOptions": {
+              "wrappers": [
+                "form-field"
+              ]
+            },
             "validation": {
               "messages": {
                 "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
@@ -332,9 +336,11 @@
           "type": "boolean",
           "default": true,
           "form": {
-            "wrappers": [
-              "hide"
-            ]
+            "templateOptions": {
+              "wrappers": [
+                "hide"
+              ]
+            }
           }
         },
         "claims_count": {
@@ -389,9 +395,11 @@
             "value": "excluded"
           }
         ],
-        "wrappers": [
-          "hide"
-        ]
+        "templateOptions": {
+          "wrappers": [
+            "hide"
+          ]
+        }
       }
     },
     "holding": {
@@ -420,6 +428,7 @@
     "notes": {
       "title": "Notes",
       "type": "array",
+      "minItems": 1,
       "items": {
         "type": "object",
         "title": "Note",
@@ -532,10 +541,6 @@
       "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
       "form": {
         "type": "datepicker",
-        "wrappers": [
-          "toggle-switch",
-          "form-field"
-        ],
         "templateOptions": {
           "hideLabel": true,
           "wrappers": [

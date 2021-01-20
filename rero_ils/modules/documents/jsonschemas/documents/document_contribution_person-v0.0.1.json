@@ -23,9 +23,11 @@
       "default": "bf:Person",
       "const": "bf:Person",
       "form": {
-        "wrappers": [
-          "hide"
-        ]
+        "templateOptions": {
+          "wrappers": [
+            "hide"
+          ]
+        }
       }
     },
     "preferred_name": {
@@ -35,7 +37,7 @@
       "form": {
         "placeholder": "Example: M\u00fcller, Hans",
         "templateOptions": {
-          "cssClass": "col-lg-6"
+          "itemCssClass": "col-lg-6"
         }
       }
     },
@@ -47,7 +49,7 @@
       "form": {
         "placeholder": "Example: 1955",
         "templateOptions": {
-          "cssClass": "col-lg-6"
+          "itemCssClass": "col-lg-6"
         }
       }
     },
@@ -59,7 +61,7 @@
       "form": {
         "placeholder": "Example: 2012",
         "templateOptions": {
-          "cssClass": "col-lg-6"
+          "itemCssClass": "col-lg-6"
         }
       }
     },
@@ -70,7 +72,7 @@
       "form": {
         "placeholder": "Example: physicist",
         "templateOptions": {
-          "cssClass": "col-lg-6"
+          "itemCssClass": "col-lg-6"
         }
       }
     },
@@ -82,7 +84,7 @@
       "form": {
         "placeholder": "Example: XXIII",
         "templateOptions": {
-          "cssClass": "col-lg-6"
+          "itemCssClass": "col-lg-6"
         }
       }
     },
@@ -93,7 +95,7 @@
       "minLength": 1,
       "form": {
         "templateOptions": {
-          "cssClass": "col-lg-6"
+          "itemCssClass": "col-lg-6"
         }
       }
     },
@@ -103,7 +105,7 @@
   },
   "form": {
     "templateOptions": {
-      "cssClass": "row"
+      "containerCssClass": "row"
     }
   }
 }

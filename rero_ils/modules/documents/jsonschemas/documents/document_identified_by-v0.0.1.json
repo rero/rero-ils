@@ -137,7 +137,7 @@
               }
             ],
             "templateOptions": {
-              "cssClass": "col-lg-6"
+              "itemCssClass": "col-lg-6"
             }
           }
         },
@@ -148,7 +148,7 @@
           "minLength": 1,
           "form": {
             "templateOptions": {
-              "cssClass": "col-lg-6"
+              "itemCssClass": "col-lg-6"
             }
           }
         },
@@ -160,7 +160,7 @@
           "form": {
             "hide": true,
             "templateOptions": {
-              "cssClass": "col-lg-6"
+              "itemCssClass": "col-lg-6"
             }
           }
         },
@@ -172,7 +172,7 @@
           "form": {
             "hide": true,
             "templateOptions": {
-              "cssClass": "col-lg-4"
+              "itemCssClass": "col-lg-6"
             }
           }
         },
@@ -184,7 +184,7 @@
           "form": {
             "hide": true,
             "templateOptions": {
-              "cssClass": "col-lg-6"
+              "itemCssClass": "col-lg-6"
             }
           }
         },
@@ -196,7 +196,7 @@
           "form": {
             "hide": true,
             "templateOptions": {
-              "cssClass": "col-lg-4"
+              "itemCssClass": "col-lg-6"
             }
           }
         },
@@ -212,14 +212,14 @@
           "form": {
             "hide": true,
             "templateOptions": {
-              "cssClass": "col-lg-4"
+              "itemCssClass": "col-lg-6"
             }
           }
         }
       },
       "form": {
         "templateOptions": {
-          "cssClass": "row"
+          "containerCssClass": "row"
         }
       }
     },
@@ -227,9 +227,6 @@
       "hide": true,
       "navigation": {
         "essential": true
-      },
-      "templateOptions": {
-        "cssClass": "editor-title"
       }
     }
   }

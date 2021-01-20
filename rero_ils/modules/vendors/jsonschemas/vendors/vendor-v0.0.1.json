@@ -56,7 +56,15 @@
       "title": "Website",
       "type": "string",
       "format": "uri",
-      "minLength": 4
+      "pattern": "^(ftps?|https?)://.*$",
+      "minLength": 4,
+      "form": {
+        "validation": {
+          "messages": {
+            "patternMessage": "Should be a valid URL format."
+          }
+        }
+      }
     },
     "note": {
       "title": "Note",

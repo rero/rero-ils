@@ -61,9 +61,6 @@
       ],
       "form": {
         "type": "selectWithSort",
-        "wrappers": [
-          "form-field"
-        ],
         "options": [
           {
             "label": "course",
@@ -75,6 +72,9 @@
           }
         ],
         "templateOptions": {
+          "wrappers": [
+            "form-field"
+          ],
           "selectWithSortOptions": {
             "order": "label"
           }
@@ -92,6 +92,9 @@
         "required": [
           "name"
         ],
+        "propertiesOrder": [
+          "name"
+        ],
         "properties": {
           "name": {
             "title": "Name",
@@ -101,11 +104,13 @@
       },
       "form": {
         "templateOptions": {
-          "cssClass": "editor-title"
+          "wrappers": [
+            "card"
+          ]
         },
         "hideExpression": "field.parent.model.collection_type !== 'course'",
         "expressionProperties": {
-          "templateOptions.required": "field.parent.model.collection_type === 'course'"
+          "templateOptions.required": "true"
         }
       }
     },
@@ -129,7 +134,9 @@
       },
       "form": {
         "templateOptions": {
-          "cssClass": "editor-title"
+          "wrappers": [
+            "card"
+          ]
         }
       }
     },
@@ -212,7 +219,9 @@
       },
       "form": {
         "templateOptions": {
-          "cssClass": "editor-title"
+          "wrappers": [
+            "card"
+          ]
         }
       }
     },
@@ -241,7 +250,9 @@
       },
       "form": {
         "templateOptions": {
-          "cssClass": "editor-title"
+          "wrappers": [
+            "card"
+          ]
         }
       }
     },

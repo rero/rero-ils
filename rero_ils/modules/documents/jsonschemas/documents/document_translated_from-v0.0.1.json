@@ -8,10 +8,7 @@
       "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/language"
     },
     "form": {
-      "hide": true,
-      "templateOptions": {
-        "cssClass": "editor-title"
-      }
+      "hide": true
     }
   }
 }

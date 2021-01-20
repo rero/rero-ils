@@ -2434,7 +2434,7 @@
         }
       ],
       "templateOptions": {
-        "cssClass": "col-lg-6"
+        "itemCssClass": "col-lg-6"
       }
     }
   },
@@ -2537,7 +2537,7 @@
     ],
     "form": {
       "templateOptions": {
-        "cssClass": "col-lg-6"
+        "itemCssClass": "col-lg-6"
       },
       "hide": true
     }
@@ -2554,7 +2554,7 @@
     ],
     "form": {
       "templateOptions": {
-        "cssClass": "row"
+        "containerCssClass": "row"
       }
     },
     "properties": {
@@ -2564,7 +2564,7 @@
         "minLength": 1,
         "form": {
           "templateOptions": {
-            "cssClass": "col-lg-6"
+            "itemCssClass": "col-lg-6"
           }
         }
       },
@@ -2578,7 +2578,7 @@
     "type": "object",
     "form": {
       "templateOptions": {
-        "cssClass": "row"
+        "containerCssClass": "row"
       }
     },
     "propertiesOrder": [
@@ -2595,7 +2595,7 @@
         "minLength": 1,
         "form": {
           "templateOptions": {
-            "cssClass": "col-lg-12"
+            "itemCssClass": "col-lg-12"
           },
           "focus": true
         }

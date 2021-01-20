@@ -23,9 +23,11 @@
       "default": "bf:Organisation",
       "const": "bf:Organisation",
       "form": {
-        "wrappers": [
-          "hide"
-        ]
+        "templateOptions": {
+          "wrappers": [
+            "hide"
+          ]
+        }
       }
     },
     "preferred_name": {
@@ -35,7 +37,7 @@
       "form": {
         "placeholder": "Example: M\u00fcller, Hans",
         "templateOptions": {
-          "cssClass": "col-lg-6"
+          "itemCssClass": "col-lg-6"
         }
       }
     },
@@ -52,7 +54,7 @@
       },
       "form": {
         "templateOptions": {
-          "cssClass": "col-lg-12"
+          "itemCssClass": "col-lg-12"
         }
       }
     },
@@ -63,7 +65,7 @@
       "default": false,
       "form": {
         "templateOptions": {
-          "cssClass": "col-lg-12"
+          "itemCssClass": "col-lg-6"
         }
       }
     },
@@ -74,7 +76,7 @@
       "form": {
         "placeholder": "Example: Lausanne",
         "templateOptions": {
-          "cssClass": "col-lg-4"
+          "itemCssClass": "col-lg-6"
         }
       }
     },
@@ -85,7 +87,7 @@
       "form": {
         "placeholder": "Example: 4",
         "templateOptions": {
-          "cssClass": "col-lg-4"
+          "itemCssClass": "col-lg-6"
         }
       }
     },
@@ -97,7 +99,7 @@
       "form": {
         "placeholder": "Example: 1989",
         "templateOptions": {
-          "cssClass": "col-lg-4"
+          "itemCssClass": "col-lg-6"
         }
       }
     },
@@ -107,7 +109,7 @@
   },
   "form": {
     "templateOptions": {
-      "cssClass": "row"
+      "containerCssClass": "row"
     }
   }
 }

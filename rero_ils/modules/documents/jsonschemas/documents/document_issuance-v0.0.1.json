@@ -45,7 +45,7 @@
                 }
               ],
               "templateOptions": {
-                "cssClass": "col-lg-6"
+                "itemCssClass": "col-lg-6"
               }
             }
           },
@@ -56,15 +56,17 @@
             "default": "rdami:1001",
             "const": "rdami:1001",
             "form": {
-              "wrappers": [
-                "hide"
-              ]
+              "templateOptions": {
+                "wrappers": [
+                  "hide"
+                ]
+              }
             }
           }
         },
         "form": {
           "templateOptions": {
-            "cssClass": "row"
+            "containerCssClass": "row"
           }
         }
       },
@@ -105,7 +107,7 @@
                 }
               ],
               "templateOptions": {
-                "cssClass": "col-lg-6"
+                "itemCssClass": "col-lg-6"
               }
             }
           },
@@ -116,15 +118,17 @@
             "default": "rdami:1002",
             "const": "rdami:1002",
             "form": {
-              "wrappers": [
-                "hide"
-              ]
+              "templateOptions": {
+                "wrappers": [
+                  "hide"
+                ]
+              }
             }
           }
         },
         "form": {
           "templateOptions": {
-            "cssClass": "row"
+            "containerCssClass": "row"
           }
         }
       },
@@ -165,7 +169,7 @@
                 }
               ],
               "templateOptions": {
-                "cssClass": "col-lg-6"
+                "itemCssClass": "col-lg-6"
               }
             }
           },
@@ -176,15 +180,17 @@
             "default": "rdami:1003",
             "const": "rdami:1003",
             "form": {
-              "wrappers": [
-                "hide"
-              ]
+              "templateOptions": {
+                "wrappers": [
+                  "hide"
+                ]
+              }
             }
           }
         },
         "form": {
           "templateOptions": {
-            "cssClass": "row"
+            "containerCssClass": "row"
           }
         }
       },
@@ -220,7 +226,7 @@
                 }
               ],
               "templateOptions": {
-                "cssClass": "col-lg-6"
+                "itemCssClass": "col-lg-6"
               }
             }
           },
@@ -231,23 +237,20 @@
             "default": "rdami:1004",
             "const": "rdami:1004",
             "form": {
-              "wrappers": [
-                "hide"
-              ]
+              "templateOptions": {
+                "wrappers": [
+                  "hide"
+                ]
+              }
             }
           }
         },
         "form": {
           "templateOptions": {
-            "cssClass": "row"
+            "containerCssClass": "row"
           }
         }
       }
-    ],
-    "form": {
-      "templateOptions": {
-        "cssClass": "editor-title"
-      }
-    }
+    ]
   }
 }

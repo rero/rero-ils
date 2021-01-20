@@ -874,7 +874,7 @@
     "form": {
       "hide": true,
       "templateOptions": {
-        "cssClass": "editor-title"
+        "cssClass": "w-md-50"
       }
     }
   }

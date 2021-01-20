@@ -7,15 +7,17 @@
     "items": {
       "title": "Proper title",
       "type": "string",
-      "minLength": 2
+      "minLength": 2,
+      "form": {
+        "templateOptions": {
+          "cssClass": "w-md-50"
+        }
+      }
     },
     "form": {
       "hide": true,
       "navigation": {
         "essential": true
-      },
-      "templateOptions": {
-        "cssClass": "editor-title"
       }
     }
   }

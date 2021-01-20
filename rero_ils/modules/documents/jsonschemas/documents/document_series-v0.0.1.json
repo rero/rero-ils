@@ -87,9 +87,6 @@
       "hide": true,
       "navigation": {
         "essential": true
-      },
-      "templateOptions": {
-        "cssClass": "editor-title"
       }
     }
   },
@@ -106,7 +103,7 @@
       ],
       "form": {
         "templateOptions": {
-          "cssClass": "row"
+          "containerCssClass": "row"
         }
       },
       "properties": {
@@ -117,7 +114,7 @@
           "form": {
             "placeholder": "Example: vol.3",
             "templateOptions": {
-              "cssClass": "col-lg-6"
+              "itemCssClass": "col-lg-6"
             }
           }
         },

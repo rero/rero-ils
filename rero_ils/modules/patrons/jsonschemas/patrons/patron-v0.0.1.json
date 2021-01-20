@@ -8,6 +8,7 @@
     "first_name",
     "last_name",
     "birth_date",
+    "user_id",
     "email",
     "username",
     "street",
@@ -396,7 +397,9 @@
       "form": {
         "hideExpression": "!field.parent.model.roles.some(v => v === 'patron')",
         "templateOptions": {
-          "cssClass": "editor-title"
+          "wrappers": [
+            "card"
+          ]
         }
       }
     },
@@ -528,7 +531,9 @@
       },
       "form": {
         "templateOptions": {
-          "cssClass": "editor-title"
+          "wrappers": [
+            "card"
+          ]
         },
         "validation": {
           "validators": {

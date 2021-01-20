@@ -133,9 +133,6 @@
       "default": "in progress",
       "form": {
         "type": "selectWithSort",
-        "wrappers": [
-          "form-field-horizontal"
-        ],
         "options": [
           {
             "value": "in_progress",
@@ -165,9 +162,6 @@
       "form": {
         "type": "datepicker",
         "placeholder": "Select a date",
-        "wrappers": [
-          "form-field"
-        ],
         "validation": {
           "messages": {
             "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
@@ -202,9 +196,6 @@
             ],
             "form": {
               "type": "selectWithSort",
-              "wrappers": [
-                "form-field-horizontal"
-              ],
               "options": [
                 {
                   "value": "shipping_and_handling",

@@ -112,14 +112,14 @@
             "label": "rdapm:1021",
             "value": "rdapm:1021"
           }
-        ]
+        ],
+        "templateOptions": {
+          "cssClass": "w-md-50"
+        }
       }
     },
     "form": {
-      "hide": true,
-      "templateOptions": {
-        "cssClass": "editor-title"
-      }
+      "hide": true
     }
   }
 }

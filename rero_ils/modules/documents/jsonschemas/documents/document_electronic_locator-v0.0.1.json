@@ -24,10 +24,16 @@
           "placeholder": "Example: https://www.rero.ch/",
           "type": "string",
           "format": "uri",
+          "pattern": "^(ftps?|https?)://.*$",
           "minLength": 7,
           "form": {
             "templateOptions": {
-              "cssClass": "col-lg-12"
+              "itemCssClass": "col-lg-12"
+            },
+            "validation": {
+              "messages": {
+                "patternMessage": "Should be a valid URL format."
+              }
             }
           }
         },
@@ -67,7 +73,7 @@
               }
             ],
             "templateOptions": {
-              "cssClass": "col-lg-6"
+              "itemCssClass": "col-lg-6"
             }
           }
         },
@@ -223,7 +229,7 @@
               }
             ],
             "templateOptions": {
-              "cssClass": "col-lg-6"
+              "itemCssClass": "col-lg-6"
             }
           }
         },
@@ -242,22 +248,19 @@
           },
           "form": {
             "templateOptions": {
-              "cssClass": "col-lg-12"
+              "itemCssClass": "col-lg-12"
             }
           }
         }
       },
       "form": {
         "templateOptions": {
-          "cssClass": "row"
+          "containerCssClass": "row"
         }
       }
     },
     "form": {
-      "hide": true,
-      "templateOptions": {
-        "cssClass": "editor-title"
-      }
+      "hide": true
     }
   }
 }

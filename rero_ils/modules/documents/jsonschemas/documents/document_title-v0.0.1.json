@@ -44,7 +44,7 @@
               }
             ],
             "templateOptions": {
-              "cssClass": "editor-max-width"
+              "cssClass": "w-md-50"
             }
           }
         },
@@ -104,11 +104,6 @@
             "hide": true
           }
         }
-      }
-    },
-    "form": {
-      "templateOptions": {
-        "cssClass": "editor-title"
       }
     }
   }

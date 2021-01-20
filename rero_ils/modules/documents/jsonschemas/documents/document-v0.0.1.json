@@ -138,9 +138,11 @@
       "type": "boolean",
       "default": false,
       "form": {
-        "wrappers": [
-          "hide"
-        ]
+        "templateOptions": {
+          "wrappers": [
+            "hide"
+          ]
+        }
       }
     }
   }
