@@ -744,6 +744,24 @@
               }
             }
           },
+          "call_number": {
+            "type": "text"
+          },
+          "second_call_number": {
+            "type": "text"
+          },
+          "index": {
+            "type": "text"
+          },
+          "enumerationAndChronology": {
+            "type": "text"
+          },
+          "supplementaryContent": {
+            "type": "text"
+          },
+          "notes": {
+            "type": "text"
+          },
           "items": {
             "type": "object",
             "properties": {
