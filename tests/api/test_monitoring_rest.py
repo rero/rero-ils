@@ -17,6 +17,7 @@
 
 """Test REST API monitoring."""
 
+import time
 
 from flask import url_for
 from invenio_access.models import ActionUsers
@@ -27,6 +28,7 @@ from utils import flush_index, get_json
 
 from rero_ils.modules.contributions.api import Contribution, \
     ContributionsSearch
+from rero_ils.modules.utils import get_timestamp, set_timestamp
 
 
 def test_monitoring_es_db_counts(client):
@@ -124,5 +126,36 @@ def test_monitoring_check_es_db_counts(app, client, contribution_person_data,
             'DB': [],
             'ES': ['http://localhost/contributions/cont_pers'],
             'ES duplicate': []
+        }
+    }
+
+
+def test_timestamps(app, client):
+    """Test timestamps"""
+    time_stamp = set_timestamp('test', msg='test msg')
+    assert get_timestamp('test') == {'time': time_stamp, 'msg': 'test msg'}
+    res = client.get(url_for('api_monitoring.timestamps'))
+    assert res.status_code == 401
+
+    ds = app.extensions['invenio-accounts'].datastore
+    user = ds.create_user(
+        email='monitoring@rero.ch',
+        password='1234',
+        active=True
+    )
+    role = ds.create_role(name='monitoring', description='Monitoring Group')
+    ds.add_role_to_user(user, role)
+    ds.commit()
+    user = ds.get_user('monitoring@rero.ch')
+    login_user_via_session(client, user)
+    res = client.get(url_for('api_monitoring.timestamps'))
+    assert res.status_code == 200
+    assert get_json(res) == {
+        'data': {
+            'test': {
+                'msg': 'test msg',
+                'unixtime': time.mktime(time_stamp.timetuple()),
+                'utctime': time_stamp.strftime("%Y-%m-%d %H:%M:%S")
+            }
         }
     }

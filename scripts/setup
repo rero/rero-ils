@@ -218,54 +218,44 @@ then
     invenio utils dump_es_mappings -o tmp/mapping_before_setup.txt
 fi
 
-# Create admin role to restrict access
-info_msg "Create admin role to restrict access"
-eval ${PREFIX} invenio roles create admin
-eval ${PREFIX} invenio access allow superuser-access role admin
+# create roles
+info_msg "Create roles"
+eval ${PREFIX} "invenio roles create -d 'Admins Group' admin"
+eval ${PREFIX} "invenio roles create -d 'Super Users Group' superuser"
+eval ${PREFIX} "invenio roles create -d 'Monitoring Group' monitoring"
+eval ${PREFIX} "invenio roles create -d 'Patron' patron"
+eval ${PREFIX} "invenio roles create -d 'Librarian' librarian"
+eval ${PREFIX} "invenio roles create -d 'System Librarian' system_librarian"
+eval ${PREFIX} "invenio roles create -d 'Documentation Editor' editor"
+eval ${PREFIX} "invenio roles create -d 'Documment Importing' document_importer"
 
-# create new user
-info_msg "Create new admin user"
+# create users
+info_msg "Create users"
 eval ${PREFIX} invenio users create -a admin@rero.ch --password administrator
 eval ${PREFIX} invenio users create -a editor@rero.ch --password editor
-
-info_msg "Create document_importer user"
+eval ${PREFIX} invenio users create -a monitoring@rero.ch --password monitor
 eval ${PREFIX} invenio users create -a gipi@ngscan.com --password ngscan
 
 # confirm users
-info_msg "Confirm admin creation"
+info_msg "Confirm users"
 eval ${PREFIX} invenio users confirm admin@rero.ch
 eval ${PREFIX} invenio users confirm editor@rero.ch
+eval ${PREFIX} invenio users confirm monitoring@rero.ch
 eval ${PREFIX} invenio users confirm gipi@ngscan.com
 
-# create roles
-info_msg "Create roles: admin, patron, librarian and system librarian"
-eval "${PREFIX} invenio roles create -d 'Admins Group' admins"
-eval "${PREFIX} invenio roles create -d 'Super Users Group' superusers"
-# create a role for users qualified as a patron
-eval "${PREFIX} invenio roles create -d 'Patron' patron"
-
-# create a role for users qualified as a staff library
-eval "${PREFIX} invenio roles create -d 'Librarian' librarian"
-
-# create a role for users qualified as a System librarian
-eval "${PREFIX} invenio roles create -d 'System Librarian' system_librarian"
-
-# create a role for users qualified as a Documentation Editor
-eval "${PREFIX} invenio roles create -d 'Documentation Editor' editor"
-
-# create a role for users qualified as a Documment Importing
-eval "${PREFIX} invenio roles create -d 'Documment Importing' document_importer"
-
 # grant accesses to action roles
-info_msg "Grant access to action roles (admins, superusers)"
-eval ${PREFIX} invenio access allow admin-access role admins
-eval ${PREFIX} invenio access allow superuser-access role superusers
+info_msg "Grant access to action roles"
+eval ${PREFIX} invenio access allow superuser-access role admin
+eval ${PREFIX} invenio access allow superuser-access role superuser
+eval ${PREFIX} invenio access allow admin-access role admin
 
 # grant roles to users
 info_msg "Grant roles to users"
-eval ${PREFIX} invenio roles add admin@rero.ch admins
-eval ${PREFIX} invenio roles add admin@rero.ch superusers
+eval ${PREFIX} invenio roles add admin@rero.ch admin
+eval ${PREFIX} invenio roles add admin@rero.ch superuser
+eval ${PREFIX} invenio roles add admin@rero.ch monitoring
 eval ${PREFIX} invenio roles add editor@rero.ch editor
+eval ${PREFIX} invenio roles add monitoring@rero.ch monitoring
 eval ${PREFIX} invenio roles add gipi@ngscan.com document_importer
 
 # Generate fixtures
@@ -447,6 +437,18 @@ eval ${PREFIX} invenio fixtures create_loans ${DATA_PATH}/loans.json
 # process notifications
 eval ${PREFIX} invenio notifications process
 
+
+# create token access for monitoring
+# if the environement variable INVENIO_RERO_ACCESS_TOKEN_MONITORING is not set
+# a new token will be generated
+info_msg "Create token for: monitoring@rero.ch"
+if [ -z ${INVENIO_RERO_ACCESS_TOKEN_MONITORING} ]
+then
+    eval ${PREFIX} invenio utils tokens_create -n monitoring -u monitoring@rero.ch
+else
+    eval ${PREFIX} invenio utils tokens_create -n monitoring -u monitoring@rero.ch -t ${INVENIO_RERO_ACCESS_TOKEN_MONITORING}
+fi
+
 # create token access for ngscan (ezpump)
 # if the environement variable INVENIO_RERO_ACCESS_TOKEN_NGSCAN is not set a new
 # token will be generated
@@ -468,7 +470,7 @@ then
     info_msg "Start OAI harvesting asynchrone"
     eval ${PREFIX} invenio oaiharvester harvest -n ebooks -q -k
 else
-    eval ${PREFIX} invenio scheduler enable_tasks -n bulk-indexer -n anonymize-loans -n claims-creation -n notification-creation -n accounts -n clear_and_renew_subscriptions -v
+    eval ${PREFIX} invenio scheduler enable_tasks -n scheduler-timestamp -n bulk-indexer -n anonymize-loans -n claims-creation -n notification-creation -n accounts -n clear_and_renew_subscriptions -v
     info_msg "For ebooks harvesting run:"
     msg "\tinvenio oaiharvester harvest -n ebooks -a max=100 -q"
 fi

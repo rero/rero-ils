@@ -24,9 +24,9 @@ from datetime import datetime
 from celery import shared_task
 from flask import current_app
 
-from rero_ils.modules.patron_types.api import PatronType
-from rero_ils.modules.patrons.api import Patron
-from rero_ils.modules.utils import add_years
+from .api import Patron
+from ..patron_types.api import PatronType
+from ..utils import add_years, set_timestamp
 
 
 def clean_obsolete_subscriptions():
@@ -88,3 +88,4 @@ def task_clear_and_renew_subscriptions():
     """Clean obsolete subscriptions and renew subscription if needed."""
     clean_obsolete_subscriptions()
     check_patron_types_and_add_subscriptions()
+    set_timestamp('clear_and_renew_subscriptions')

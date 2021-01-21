@@ -21,6 +21,7 @@
 from celery import shared_task
 
 from .api import IlsRecordsIndexer
+from .utils import set_timestamp
 
 
 @shared_task(ignore_result=True)
@@ -56,3 +57,8 @@ def delete_record(record_uuid):
     :param record_uuid: The record UUID.
     """
     IlsRecordsIndexer().delete_by_id(record_uuid)
+
+@shared_task(ignore_result=True)
+def scheduler_timestamp():
+    """Writes a time stamp to current cache."""
+    set_timestamp('scheduler')

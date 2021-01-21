@@ -23,6 +23,7 @@ from celery import shared_task
 
 from .api import Notification
 from ..loans.api import get_due_soon_loans, get_overdue_loans
+from ..utils import set_timestamp
 
 
 @shared_task(ignore_result=True)
@@ -65,5 +66,5 @@ def create_over_and_due_soon_notifications(overdue=True, due_soon=True,
             msg=msg,
             process_msg=process_notifications.run(verbose=verbose)
         )
-
+    set_timestamp('notification-creation', msg=msg)
     return msg

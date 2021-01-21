@@ -17,6 +17,7 @@
 
 """Monitoring utilities."""
 
+import time
 from functools import wraps
 
 import click
@@ -24,11 +25,13 @@ from elasticsearch.exceptions import NotFoundError
 from flask import Blueprint, current_app, jsonify, request, url_for
 from flask.cli import with_appcontext
 from flask_login import current_user
+from invenio_cache import current_cache
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_search import RecordsSearch
+from redis import Redis
 
-from ..permissions import admin_permission
+from ..permissions import monitoring_permission
 
 api_blueprint = Blueprint(
     'api_monitoring',
@@ -43,7 +46,7 @@ def check_authentication(func):
     def decorated_view(*args, **kwargs):
         if not current_user.is_authenticated:
             return jsonify({'status': 'error: Unauthorized'}), 401
-        if not admin_permission.require().can():
+        if not monitoring_permission.require().can():
             return jsonify({'status': 'error: Forbidden'}), 403
         return func(*args, **kwargs)
     return decorated_view
@@ -270,12 +273,54 @@ def missing_pids(doc_type):
         return jsonify({'data': data})
 
 
+@api_blueprint.route('/redis')
+@check_authentication
+def redis():
+    """Displays redis info.
+
+    :return: jsonified redis info.
+    """
+    url = current_app.config.get('ACCOUNTS_SESSION_REDIS_URL',
+                                 'redis://localhost:6379')
+    redis = Redis.from_url(url)
+    info = redis.info()
+    return jsonify({'data': info})
+
+
+@api_blueprint.route('/timestamps')
+@check_authentication
+def timestamps():
+    """Get time stamps from current cache.
+
+    Makes the saved timestamps accessible via url requests.
+
+    :return: jsonified timestamps.
+    """
+    data = {}
+    time_stamps = current_cache.get('timestamps')
+    if time_stamps:
+        for name, values in time_stamps.items():
+            data[name] = {}
+            for key, value in values.items():
+                if key == 'time':
+                    data[name]['utctime'] = value.strftime(
+                        "%Y-%m-%d %H:%M:%S"
+                    )
+                    data[name]['unixtime'] = time.mktime(value.timetuple())
+                else:
+                    data[name][key] = value
+
+    return jsonify({'data': data})
+
+
 class Monitoring(object):
     """Monitoring class.
 
     The main idea here is to check the consistency between the database and
     the search index. We need to check that all documents presents in the
     database are also present in the search index and vice versa.
+    Addidionaly timestamps could be accessed for monitoring of execution
+    times of selected functions.
     """
 
     def __str__(self):
