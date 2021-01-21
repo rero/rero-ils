@@ -23,6 +23,7 @@ from celery import shared_task
 
 from ..loans.api import anonymize_loans
 from ..organisations.api import Organisation
+from ..utils import set_timestamp
 
 
 @shared_task(ignore_result=True)
@@ -41,5 +42,5 @@ def loan_anonymizer(dbcommit=True, reindex=True):
     msg = 'number_of_loans_anonymized: {loans_count}'.format(
             loans_count=loans_count
     )
-
+    set_timestamp('anonymize-loans', msg=msg)
     return msg

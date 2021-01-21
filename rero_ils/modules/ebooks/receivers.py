@@ -22,6 +22,7 @@ from flask import current_app
 
 from .dojson.contrib.marc21 import marc21
 from .tasks import create_records, delete_records
+from ..utils import set_timestamp
 
 
 def publish_harvested_records(sender=None, records=[], *args, **kwargs):
@@ -63,3 +64,8 @@ def publish_harvested_records(sender=None, records=[], *args, **kwargs):
             .format(count=len(deleted_records))
         )
         delete_records(deleted_records)
+    msg = 'deleted: {delet_count}, created: {create_count}'.format(
+        delet_count=len(deleted_records),
+        create_count=len(converted_records)
+    )
+    set_timestamp('ebooks-harvester', msg=msg)

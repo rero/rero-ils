@@ -32,6 +32,7 @@ librarian_permission = Permission(
     RoleNeed('librarian'), RoleNeed('system_librarian'))
 admin_permission = Permission(RoleNeed('admin'))
 editor_permission = Permission(RoleNeed('editor'), RoleNeed('admin'))
+monitoring_permission = Permission(RoleNeed('monitoring'))
 
 
 def staffer_is_authenticated(user=None):

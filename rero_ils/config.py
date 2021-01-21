@@ -265,6 +265,14 @@ CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/2'
 #: Scheduled tasks configuration (aka cronjobs).
 CELERY_BEAT_SCHEDULE = {
+    'scheduler-timestamp': {
+        'task': ('rero_ils.modules.tasks.scheduler_timestamp'),
+        'schedule': timedelta(minutes=1),
+        'enabled': False
+        # Save a timestamp so we can externaly test the timestamp changed
+        # every minute. If the timestamp is not changing the scheduller
+        # is not working.
+    },
     'bulk-indexer': {
         'task': 'rero_ils.modules.tasks.process_bulk_queue',
         'schedule': timedelta(minutes=1),

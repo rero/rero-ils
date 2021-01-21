@@ -436,3 +436,46 @@ def get_patron_from_arguments(**kwargs):
         or Patron.get_patron_by_barcode(kwargs.get('patron_barcode')) \
         or Patron.get_record_by_pid(kwargs.get('patron_pid')) \
         or Patron.get_record_by_pid(kwargs.get('loan').get('patron_pid'))
+
+
+def set_timestamp(name, **kwargs):
+    """Set timestamp in current cache.
+
+    Allows to timestamp functionality and monitoring of the changed
+    timestamps externaly via url requests.
+
+    :param name: name of time stamp.
+    :returns: time of time stamp
+    """
+    time_stamps = current_cache.get('timestamps')
+    if not time_stamps:
+        time_stamps = {}
+    utc_now = datetime.utcnow()
+    time_stamps[name] = {}
+    time_stamps[name]['time'] = utc_now
+    for key, value in kwargs.items():
+        time_stamps[name][key] = value
+    current_cache.set('timestamps', time_stamps)
+    return utc_now
+
+
+def settimestamp(func):
+    """Set timestamp function wrapper."""
+    @wraps(func)
+    def wrapped(*args, **kwargs):
+        result = func(*args, **kwargs)
+        set_timestamp(func.__name__, result=result)
+        return result
+    return wrapped
+
+
+def get_timestamp(name):
+    """Get timestamp in current cache.
+
+    :param name: name of time stamp.
+    :returns: time of time stamp
+    """
+    time_stamps = current_cache.get('timestamps')
+    if not time_stamps:
+        return None
+    return time_stamps.get(name)

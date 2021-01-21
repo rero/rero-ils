@@ -23,7 +23,7 @@ from celery import shared_task
 from flask import current_app
 
 from .api import Item
-from ..utils import extracted_data_from_ref
+from ..utils import extracted_data_from_ref, set_timestamp
 
 
 @shared_task
@@ -64,7 +64,7 @@ def process_late_claimed_issues(
             create_first_claim_count=create_first_claim_count,
             create_next_claim_count=create_next_claim_count
         )
-
+    set_timestamp('claims-creation', msg=msg)
     return msg
 
 
@@ -85,17 +85,16 @@ def clean_obsolete_temporary_item_types():
         tmp_itty_enddate = tmp_itty_data['end_date']
         default_itty = extracted_data_from_ref(item['item_type']['$ref'],
                                                'record')
-        current_app.logger.info(
-            'Removing temporary itty on item#{item_pid} :: [{tmp_itty}]('
+        msg = 'Removing temporary itty on item#{item_pid} :: [{tmp_itty}](' \
             '{tmp_date}) --> [{default_itty}]'.format(
                 item_pid=item.pid,
                 tmp_itty=tmp_itty.get('name'),
                 tmp_date=tmp_itty_enddate,
                 default_itty=default_itty.get('name')
             )
-        )
-
+        current_app.logger.info(msg)
         # remove the obsolete data
         del item['temporary_item_type']
         item.replace(data=item, dbcommit=True, reindex=True)
+    set_timestamp('clean_obsolete_temporary_item_types', msg=msg)
     current_app.logger.debug("Ending clean_obsolete_temporary_item_types()")
