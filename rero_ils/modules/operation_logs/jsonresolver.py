@@ -18,18 +18,11 @@
 """OperationLog resolver."""
 
 import jsonresolver
-from flask import current_app
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+
+from ..jsonresolver import resolve_json_refs
 
 
 @jsonresolver.route('/api/operation_logs/<pid>', host='ils.rero.ch')
 def operation_log_resolver(pid):
     """Resolver for operation_log record."""
-    persist_id = PersistentIdentifier.get('oplg', pid)
-    if persist_id.status == PIDStatus.REGISTERED:
-        return dict(pid=persist_id.pid_value)
-    current_app.logger.error(
-        'Operation logs resolver error: /api/operation_logs/{pid} {persist_id}'
-        .format(pid=pid, persistent_id=persist_id)
-    )
-    raise Exception('unable to resolve')
+    return resolve_json_refs('oplg', pid)

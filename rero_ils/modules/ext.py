@@ -43,7 +43,8 @@ from .items.listener import enrich_item_data
 from .loans.listener import enrich_loan_data, listener_loan_state_changed
 from .locations.listener import enrich_location_data
 from .notifications.listener import enrich_notification_data
-from .operation_logs.listener import create_operation_log_record
+from .operation_logs.listener import operation_log_record_create, \
+    operation_log_record_update
 from .patron_transaction_events.listener import \
     enrich_patron_transaction_event_data
 from .patron_transactions.listener import enrich_patron_transaction_data
@@ -152,7 +153,8 @@ class REROILSAPP(object):
         after_record_insert.connect(create_subscription_patron_transaction)
         after_record_update.connect(create_subscription_patron_transaction)
         
-        after_record_insert.connect(create_operation_log_record)
+        after_record_insert.connect(operation_log_record_create)
+        after_record_update.connect(operation_log_record_update)
 
         loan_state_changed.connect(listener_loan_state_changed, weak=False)
 

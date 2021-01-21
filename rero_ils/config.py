@@ -1564,7 +1564,6 @@ RECORDS_REST_ENDPOINTS = dict(
         '"rero_ils.modules.operation_logs.api:OperationLog"):pid_value>',
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
-        search_factory_imp='rero_ils.query:organisation_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=OperationLogPermission),
         read_permission_factory_imp=lambda record: record_permission_factory(
@@ -1958,11 +1957,11 @@ indexes = [
     'loans',
     'locations',
     'notifications',
+    'operation_logs',
     'organisations',
     'patrons',
     'patron_types',
     'templates',
-    'operation_logs',
     'vendors'
 ]
 
@@ -2224,9 +2223,11 @@ RECORDS_JSON_SCHEMA = {
 # Operation Log Configuration
 # ===================
 # Keep history of peration logs for the following resources
-RERO_ILS_ENABLE_OPERATION_LOG = [
-    'documents', 'items', 'holdings'
-]
+RERO_ILS_ENABLE_OPERATION_LOG = {
+    'documents': 'doc',
+    'holdings': 'hold',
+    'items': 'item'
+}
  
 
 # Login Configuration
