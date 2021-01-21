@@ -45,7 +45,6 @@ def enrich_document_data(sender, json=None, record=None, index=None,
         for holding in es_holdings:
             data = {
                 'pid': holding.pid,
-                # 'available': holding.available,
                 'location': {
                     'pid': holding['location']['pid'],
                 },
@@ -57,11 +56,26 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                     'library_pid': holding['library']['pid']
                 }
             }
-            # Local fields on the holding
+            # Index additional holdings fields into the document record
+            holdings_fields = [
+                'call_number', 'second_call_number', 'index',
+                'enumerationAndChronology', 'supplementaryContent'
+            ]
+            dict_holding = holding.to_dict()
+            for field in holdings_fields:
+                if dict_holding.get(field):
+                    data[field] = dict_holding.get(field)
+            # Index holdings notes
+            notes = [
+                note['content'] for note in dict_holding.get('notes', []) if note
+            ]
+            if notes:
+                data['notes'] = notes
+            # Index holdings local fields
             if 'local_fields' in holding:
-                data['local_fields'] = holding.to_dict()['local_fields']
+                data['local_fields'] = dict_holding['local_fields']
 
-            # items linked to the holding
+            # Index items attached to each holdings record
             es_items = list(
                 ItemsSearch().filter('term', holding__pid=holding.pid).scan()
             )
@@ -73,7 +87,7 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                     'available': item.available
                 }
 
-                # Local fields on the item
+                 # Index item local fields
                 if 'local_fields' in item:
                     item_record['local_fields'] =\
                         item.to_dict()['local_fields']
