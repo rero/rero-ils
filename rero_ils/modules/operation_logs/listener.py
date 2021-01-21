@@ -22,19 +22,41 @@ from datetime import datetime, timezone
 from flask import current_app
 
 from .api import OperationLog
+from .models import OperationLogOperation
 from ..patrons.api import current_patron
 from ..utils import extracted_data_from_ref, get_ref_for_pid
 
 
-def create_operation_log_record(sender, record=None, *args, **kwargs):
-    """Create an operation log entry after record creation and update.
+def operation_log_record_create(sender, record=None, *args, **kwargs):
+    """Create an operation log entry after record creation.
 
-    Checks if the record is configured to keep logs of its creation and update.
+    Checks if the record is configured to keep logs of its creation.
     If enabled, a new operation log entry will be added. Method is called after
-    record creation or update by connecting to signals'after_record_insert'
-    and 'after_record_update'.
+    record creation by connecting to signals'after_record_insert'.
 
     :param record: the record being created.
+    """
+    build_operation_log_record(
+        record=record, operation=OperationLogOperation.CREATE)
+
+
+def operation_log_record_update(sender, record=None, *args, **kwargs):
+    """Create an operation log entry after record update.
+
+    Checks if the record is configured to keep logs of its update.
+    If enabled, a new operation log entry will be added. Method is called after
+    record update by connecting to the 'after_record_update' signal.
+
+    :param record: the record being updated.
+    """
+    build_operation_log_record(
+        record=record, operation=OperationLogOperation.UPDATE)
+
+
+def build_operation_log_record(record=None, operation=None):
+    """Build an operation_log record to load.
+
+    :param record: the record being created or updated.
     """
     if record.get('$schema'):
         resource_name = extracted_data_from_ref(
@@ -45,14 +67,16 @@ def create_operation_log_record(sender, record=None, *args, **kwargs):
                 'date': datetime.now(timezone.utc).isoformat(),
                 'record': {'$ref': get_ref_for_pid(
                     record.provider.pid_type, record.get('pid'))},
-                'operation': 'create'
+                'operation': operation
             }
             if current_patron:
                 oplg['user'] = {
                     '$ref': get_ref_for_pid('ptrn', current_patron.pid)}
                 oplg['user_name'] = current_patron.formatted_name
                 oplg['organisation'] = {
-                    '$ref': get_ref_for_pid('org', current_patron.organisation_pid)}
+                    '$ref': get_ref_for_pid(
+                        'org', current_patron.organisation_pid)}
             else:
                 oplg['user_name'] = 'system'
-            OperationLog.create(oplg)
+            oplg = OperationLog(oplg)
+            oplg.create(oplg, dbcommit=True, reindex=True)

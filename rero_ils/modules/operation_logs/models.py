@@ -40,3 +40,10 @@ class OperationLogMetadata(db.Model, RecordMetadataBase):
     """Operation log record metadata."""
 
     __tablename__ = 'operation_log_metadata'
+
+
+class OperationLogOperation:
+    """Enum class to list all possible operations."""
+
+    CREATE = 'create'
+    UPDATE = 'update'
