@@ -48,7 +48,7 @@ def test_monitoring(app, document_sion_items_data, script_info):
         '      0     loc          0                  locations          0',
         '      0    lofi          0               local_fields          0',
         '      0   notif          0              notifications          0',
-        '      1    oplg          1             operation_logs          0',
+        '      0    oplg          2             operation_logs          2',
         '      0     org          0              organisations          0',
         '      0    ptre          0  patron_transaction_events          0',
         '      0    ptrn          0                    patrons          0',
@@ -70,7 +70,7 @@ def test_monitoring(app, document_sion_items_data, script_info):
     doc_pid = doc.pid
     assert mon.get_db_count('doc') == 1
     assert mon.get_es_count('documents') == 0
-    assert mon.check() == {'doc': {'db_es': 1}, 'oplg': {'db_es': 1}}
+    assert mon.check() == {'doc': {'db_es': 1}}
     assert mon.missing('doc') == {'DB': [], 'ES': ['doc3'], 'ES duplicate': []}
     assert mon.info() == {
         'acac': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'acq_accounts'},
@@ -91,7 +91,7 @@ def test_monitoring(app, document_sion_items_data, script_info):
         'loc': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'locations'},
         'lofi': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'local_fields'},
         'notif': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'notifications'},
-        'oplg': {'db': 1, 'db-es': 1, 'es': 0, 'index': 'operation_logs'},
+        'oplg': {'db': 2, 'db-es': 0, 'es': 2, 'index': 'operation_logs'},
         'org': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'organisations'},
         'ptre': {'db': 0, 'db-es': 0, 'es': 0,
                  'index': 'patron_transaction_events'},
@@ -111,7 +111,7 @@ def test_monitoring(app, document_sion_items_data, script_info):
     res = runner.invoke(es_db_counts_cli, ['-m'], obj=script_info)
     assert res.output.split('\n') == cli_output + [
         'doc: pids missing in ES:',
-        'doc3', 'oplg: pids missing in ES:', '1',
+        'doc3',
         ''
     ]
 
@@ -121,10 +121,10 @@ def test_monitoring(app, document_sion_items_data, script_info):
     doc.reindex()
     flush_index(DocumentsSearch.Meta.index)
     assert mon.get_es_count('documents') == 1
-    assert mon.check() == {'oplg': {'db_es': 1}}
+    assert mon.check() == {}
     assert mon.missing('doc') == {'DB': [], 'ES': [], 'ES duplicate': []}
     doc.delete(dbcommit=True)
     assert mon.get_db_count('doc') == 0
     assert mon.get_es_count('documents') == 1
-    assert mon.check() == {'doc': {'db_es': -1}, 'oplg': {'db_es': 1}}
+    assert mon.check() == {'doc': {'db_es': -1}}
     assert mon.missing('doc') == {'DB': ['doc3'], 'ES': [], 'ES duplicate': []}
