@@ -288,8 +288,8 @@ class Library(IlsRecord):
         )
 
     def count_open(self, start_date=datetime.now(pytz.utc),
-                   end_date=datetime.now(pytz.utc), day_only=False):
-        """Get next open day."""
+                   end_date=datetime.now(pytz.utc)):
+        """Get number of open day between date interval."""
         if isinstance(start_date, str):
             start_date = date_string_to_utc(start_date)
         if isinstance(end_date, str):
