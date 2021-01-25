@@ -27,13 +27,12 @@ from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import LoansSearch
 from utils import flush_index, get_mapping
 
-from rero_ils.modules.loans.api import Loan, LoanState, \
-    get_loans_by_patron_pid, get_overdue_loans
+from rero_ils.modules.loans.api import Loan, LoanState, get_loans_by_patron_pid
 from rero_ils.modules.loans.tasks import loan_anonymizer
 from rero_ils.modules.loans.utils import get_default_loan_duration
-from rero_ils.modules.notifications.api import NotificationsSearch
-from rero_ils.modules.notifications.tasks import \
-    create_over_and_due_soon_notifications
+from rero_ils.modules.notifications.api import Notification, \
+    NotificationsSearch
+from rero_ils.modules.notifications.tasks import create_notifications
 from rero_ils.modules.patron_transactions.api import PatronTransaction
 
 
@@ -83,7 +82,7 @@ def test_loan_keep_and_to_anonymize(
         'transaction_location_pid': loc_public_martigny.pid,
         'transaction_user_pid': librarian_martigny.pid
     }
-    item, actions = item.checkin(**params)
+    item.checkin(**params)
     loan = Loan.get_record_by_pid(loan.pid)
     # item checkedin and has no open events
     assert loan.concluded(loan)
@@ -96,7 +95,7 @@ def test_loan_keep_and_to_anonymize(
     loan = Loan.get_record_by_pid(loan.pid)
     assert loan.concluded(loan)
     assert loan.can_anonymize(loan_data=loan)
-    loan = loan.update(loan, dbcommit=True, reindex=True)
+    loan.update(loan, dbcommit=True, reindex=True)
 
     # test loans with fees
     item, patron, loan = item2_on_loan_martigny_patron_and_loan_on_loan
@@ -106,17 +105,18 @@ def test_loan_keep_and_to_anonymize(
     loan['end_date'] = end_date.isoformat()
     loan.update(loan, dbcommit=True, reindex=True)
 
-    create_over_and_due_soon_notifications()
+    create_notifications(types=[
+        Notification.DUE_SOON_NOTIFICATION_TYPE,
+        Notification.OVERDUE_NOTIFICATION_TYPE
+    ])
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
-    overdue_loans = list(get_overdue_loans())
 
     params = {
         'transaction_location_pid': loc_public_martigny.pid,
         'transaction_user_pid': librarian_martigny.pid
     }
-    item, actions = item.checkin(**params)
-
+    item.checkin(**params)
     loan = Loan.get_record_by_pid(loan.pid)
 
     assert not loan.concluded(loan)
@@ -136,7 +136,10 @@ def test_anonymizer_job(
     loan['end_date'] = end_date.isoformat()
     loan.update(loan, dbcommit=True, reindex=True)
 
-    create_over_and_due_soon_notifications()
+    create_notifications(types=[
+        Notification.DUE_SOON_NOTIFICATION_TYPE,
+        Notification.OVERDUE_NOTIFICATION_TYPE
+    ])
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
 
@@ -150,7 +153,7 @@ def test_anonymizer_job(
         'transaction_location_pid': loc_public_martigny.pid,
         'transaction_user_pid': librarian_martigny.pid
     }
-    item, actions = item.checkin(**params)
+    item.checkin(**params)
     loan = Loan.get_record_by_pid(loan.pid)
     # item checked-in and has no open events
     assert not loan.concluded(loan)

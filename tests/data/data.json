@@ -953,6 +953,13 @@
         "fee_amount": 2.0,
         "communication_channel": "email",
         "template": "email/overdue"
+      },
+      {
+        "type": "overdue",
+        "days_delay": 12,
+        "fee_amount": 2.0,
+        "communication_channel": "email",
+        "template": "email/overdue2"
       }
     ],
     "number_renewals": 1,
@@ -3307,6 +3314,7 @@
     "pid": "notif1",
     "creation_date": "2019-01-09T08:18:22.576291+00:00",
     "notification_type": "availability",
+    "reminder_counter": 0,
     "loan": {
       "$ref": "https://ils.rero.ch/api/loans/x"
     }
