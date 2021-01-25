@@ -290,10 +290,15 @@ CELERY_BEAT_SCHEDULE = {
         'enabled': False
     },
     'notification-creation': {
-        'task': ('rero_ils.modules.notifications.tasks'
-                 '.create_over_and_due_soon_notifications'),
+        'task': 'rero_ils.modules.notifications.tasks.create_notifications',
         'schedule': crontab(minute="*/5"),
-        'enabled': False
+        'kwargs': {
+            'types': [
+                Notification.DUE_SOON_NOTIFICATION_TYPE,
+                Notification.OVERDUE_NOTIFICATION_TYPE
+            ]
+        },
+        'enabled': False,
         # TODO: in production set this up once a day
     },
     'claims-creation': {
@@ -2431,11 +2436,16 @@ CIRCULATION_LOAN_TRANSITIONS = {
         ),
     ],
     'PENDING': [
-        dict(dest=LoanState.ITEM_AT_DESK,
-             transition=PendingToItemAtDesk, trigger='validate_request'),
-        dict(dest=LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
-             transition=PendingToItemInTransitPickup,
-             trigger='validate_request'),
+        dict(
+            dest=LoanState.ITEM_AT_DESK,
+            transition=PendingToItemAtDesk,
+            trigger='validate_request'
+        ),
+        dict(
+            dest=LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
+            transition=PendingToItemInTransitPickup,
+            trigger='validate_request'
+        ),
         dict(
             dest=LoanState.ITEM_ON_LOAN,
             transition=ToItemOnLoan,
