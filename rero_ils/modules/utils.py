@@ -376,6 +376,8 @@ def get_ref_for_pid(module, pid):
     :return: url for record
     """
     configuration = get_endpoint_configuration(module)
+    if module == 'loans':
+        configuration = {'list_route': '/loans/'}
     if configuration and configuration.get('list_route'):
         return '{url}/api{route}{pid}'.format(
             url=get_base_url(),

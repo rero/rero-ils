@@ -31,8 +31,7 @@ from rero_ils.modules.loans.api import Loan, LoanAction, get_due_soon_loans, \
     get_overdue_loans
 from rero_ils.modules.notifications.api import Notification, \
     NotificationsSearch, number_of_reminders_sent
-from rero_ils.modules.notifications.tasks import \
-    create_over_and_due_soon_notifications
+from rero_ils.modules.notifications.tasks import create_notifications
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.patrons.listener import \
     create_subscription_patron_transaction
@@ -44,7 +43,7 @@ from rero_ils.modules.patrons.tasks import clean_obsolete_subscriptions, \
 from rero_ils.modules.utils import add_years, get_ref_for_pid
 
 
-def test_create_over_and_due_soon_notifications_task(
+def test_notifications_task(
         client, librarian_martigny_no_email, patron_martigny_no_email,
         item_lib_martigny, circ_policy_short_martigny,
         loc_public_martigny, lib_martigny):
@@ -53,7 +52,7 @@ def test_create_over_and_due_soon_notifications_task(
     item = item_lib_martigny
     item_pid = item.pid
     patron_pid = patron_martigny_no_email.pid
-    # checkout
+    # First we need to create a checkout
     res, data = postdata(
         client,
         'api_item.checkout',
@@ -65,7 +64,6 @@ def test_create_over_and_due_soon_notifications_task(
         )
     )
     assert res.status_code == 200
-
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
     loan = Loan.get_record_by_pid(loan_pid)
 
@@ -73,33 +71,70 @@ def test_create_over_and_due_soon_notifications_task(
     end_date = datetime.now(timezone.utc) + timedelta(days=3)
     loan['end_date'] = end_date.isoformat()
     loan.update(loan, dbcommit=True, reindex=True)
-
     due_soon_loans = get_due_soon_loans()
-
     assert due_soon_loans[0].get('pid') == loan_pid
 
-    create_over_and_due_soon_notifications()
+    create_notifications(types=[
+        Notification.DUE_SOON_NOTIFICATION_TYPE,
+        Notification.OVERDUE_NOTIFICATION_TYPE
+    ])
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
-
-    assert loan.is_notified(
-        notification_type=Notification.DUE_SOON_NOTIFICATION_TYPE)
+    assert loan.is_notified(Notification.DUE_SOON_NOTIFICATION_TYPE)
 
     # test overdue notification
-    end_date = datetime.now(timezone.utc) - timedelta(days=7)
+    #   For this test, we will update the loan to simulate an overdue of 12
+    #   days. With this delay, regarding the cipo configuration, only the first
+    #   overdue reminder should be sent.
+    #   NOTE : the cipo define the first overdue reminder after 5 days. But we
+    #          use an overdue of 12 days because the overdue is based on
+    #          loan->item->library open days. Using 12 (5 days + 1 week) we
+    #          ensure than the overdue notification will be sent.
+    end_date = datetime.now(timezone.utc) - timedelta(days=12)
     loan['end_date'] = end_date.isoformat()
     loan.update(loan, dbcommit=True, reindex=True)
-
     overdue_loans = list(get_overdue_loans())
     assert overdue_loans[0].get('pid') == loan_pid
 
-    create_over_and_due_soon_notifications()
+    create_notifications(types=[
+        Notification.DUE_SOON_NOTIFICATION_TYPE,
+        Notification.OVERDUE_NOTIFICATION_TYPE
+    ], process=False)
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
+    assert loan.is_notified(Notification.OVERDUE_NOTIFICATION_TYPE, 0)
+    assert number_of_reminders_sent(
+        loan, notification_type=Notification.OVERDUE_NOTIFICATION_TYPE) == 1
 
-    assert loan.is_notified(
-        notification_type=Notification.OVERDUE_NOTIFICATION_TYPE)
-    assert number_of_reminders_sent(loan) == 1
+    # test overdue notification#2
+    #   Now simulate than the previous call crashed. So call the task with a
+    #   fixed date. In our test, no new notifications should be sent
+    create_notifications(types=[
+        Notification.DUE_SOON_NOTIFICATION_TYPE,
+        Notification.OVERDUE_NOTIFICATION_TYPE
+    ], tstamp=datetime.now(timezone.utc), process=False)
+    assert number_of_reminders_sent(
+        loan, notification_type=Notification.OVERDUE_NOTIFICATION_TYPE) == 1
+
+    # test overdue notification#3
+    #   For this test, we will update the loan to simulate an overdue of 40
+    #   days. With this delay, regarding the cipo configuration, the second
+    #   (and last) overdue reminder should be sent.
+    end_date = datetime.now(timezone.utc) - timedelta(days=40)
+    loan['end_date'] = end_date.isoformat()
+    loan.update(loan, dbcommit=True, reindex=True)
+    overdue_loans = list(get_overdue_loans())
+    assert overdue_loans[0].get('pid') == loan_pid
+
+    create_notifications(types=[
+        Notification.DUE_SOON_NOTIFICATION_TYPE,
+        Notification.OVERDUE_NOTIFICATION_TYPE
+    ], process=False)
+    flush_index(NotificationsSearch.Meta.index)
+    flush_index(LoansSearch.Meta.index)
+    assert loan.is_notified(Notification.OVERDUE_NOTIFICATION_TYPE, 1)
+    assert number_of_reminders_sent(
+        loan, notification_type=Notification.OVERDUE_NOTIFICATION_TYPE) == 2
 
     # checkin the item to put it back to it's original state
     res, _ = postdata(
