@@ -83,9 +83,8 @@ class Dispatcher:
                     pid=patron['pid']))
             return
         language = patron['patron']['communication_language']
-        notification_type = data.get('notification_type')
         loan = Loan.get_record_by_pid(data['loan']['pid'])
-        tpl_path = get_template_to_use(loan, notification_type).rstrip('/')
+        tpl_path = get_template_to_use(loan, data).rstrip('/')
         template = '{tpl_path}/{language}.txt'.format(
             tpl_path=tpl_path,
             language=language

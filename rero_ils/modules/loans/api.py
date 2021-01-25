@@ -49,7 +49,7 @@ from ..patron_transaction_events.api import PatronTransactionEvent
 from ..patron_transactions.api import PatronTransaction, \
     PatronTransactionsSearch
 from ..patrons.api import Patron
-from ..utils import get_base_url, get_ref_for_pid
+from ..utils import date_string_to_utc, get_ref_for_pid
 from ...filter import format_date_filter
 
 
@@ -271,17 +271,17 @@ class Loan(IlsRecord):
             return True
         return False
 
-    def is_loan_due_soon(self):
+    def is_loan_due_soon(self, tstamp=None):
         """Check if a loan is due soon."""
         from .utils import get_circ_policy
         circ_policy = get_circ_policy(self)
-        now = datetime.now(timezone.utc)
+        date = tstamp or datetime.now(timezone.utc)
         due_date = ciso8601.parse_datetime(self.end_date).replace(
             tzinfo=timezone.utc)
 
         days_before = circ_policy.due_soon_interval_days
         if days_before:
-            return due_date > now > due_date - timedelta(days=days_before)
+            return due_date > date > due_date - timedelta(days=days_before)
         return False
 
     @property
@@ -318,6 +318,16 @@ class Loan(IlsRecord):
         Used by the sorted function
         """
         return self.get('end_date')
+
+    @property
+    def overdue_date(self):
+        """Get the date when the loan should be considerate as 'overdue'."""
+        if self.end_date:
+            d_after = date_string_to_utc(self.end_date) + timedelta(days=1)
+            return datetime(
+                year=d_after.year, month=d_after.month, day=d_after.day,
+                tzinfo=timezone.utc
+            )
 
     @property
     def item_pid(self):
@@ -437,51 +447,31 @@ class Loan(IlsRecord):
 
         return data
 
-    def is_notified(self, notification_type=None):
-        """Check if a notification exist already for a loan by type."""
+    def is_notified(self, notification_type=None, counter=0):
+        """Check if a notification already exists for a loan by type."""
         return number_of_reminders_sent(
-            self, notification_type=notification_type) > 0
+            self, notification_type=notification_type) > counter
 
-    def create_notification(self, notification_type=None):
-        """Creates a recall notification from a checked-out loan."""
-        notification = {}
-        record = {}
-        creation_date = datetime.now(timezone.utc).isoformat()
-        record['creation_date'] = creation_date
-        record['notification_type'] = notification_type
-        url_api = '{base_url}/api/{doc_type}/{pid}'
-        record['loan'] = {
-            '$ref': url_api.format(
-                base_url=get_base_url(),
-                doc_type='loans',
-                pid=self.pid)
-        }
+    def create_notification(self, notification_type=None, counter=0):
+        """Creates a notification from base on a loan.
 
-        notification_to_create = False
-        if notification_type == Notification.RECALL_NOTIFICATION_TYPE:
-            notification_to_create = \
-                self.get('state') == LoanState.ITEM_ON_LOAN \
-                and not self.is_notified(notification_type=notification_type)
-        elif notification_type == Notification.AVAILABILITY_NOTIFICATION_TYPE:
-            notification_to_create = \
-                not self.is_notified(notification_type=notification_type)
-        elif notification_type == Notification.DUE_SOON_NOTIFICATION_TYPE:
-            notification_to_create = \
-                self.get('state') == LoanState.ITEM_ON_LOAN \
-                and not self.is_notified(notification_type=notification_type)
-        elif notification_type == Notification.OVERDUE_NOTIFICATION_TYPE:
-            notification_to_create = \
-                self.get('state') == LoanState.ITEM_ON_LOAN \
-                and not number_of_reminders_sent(
-                    self, notification_type=notification_type)
-            record['reminder_counter'] = number_of_reminders_sent(self) + 1
-
-        if notification_to_create:
+        :param notification_type: the notification type to create.
+        :param counter: the reminder counter to use (for OVERDUE notification)
+        """
+        if (self.get('state') == LoanState.ITEM_ON_LOAN or
+            notification_type == Notification.AVAILABILITY_NOTIFICATION_TYPE) \
+           and not self.is_notified(notification_type, counter):
+            record = {
+                'creation_date': datetime.now(timezone.utc).isoformat(),
+                'notification_type': notification_type,
+                'loan': {
+                    '$ref': get_ref_for_pid('loans', self.pid)
+                },
+                'reminder_counter': counter
+            }
             notification = Notification.create(
                 data=record, dbcommit=True, reindex=True)
-            notification = notification.dispatch()
-
-        return notification
+            return notification.dispatch()
 
     @classmethod
     def concluded(cls, loan):
@@ -821,7 +811,7 @@ def get_loans_count_by_library_for_patron_pid(patron_pid, filter_states=None):
     return stats
 
 
-def get_due_soon_loans():
+def get_due_soon_loans(tstamp=None):
     """Return all due_soon loans."""
     due_soon_loans = []
     results = current_circulation.loan_search_cls()\
@@ -831,18 +821,20 @@ def get_due_soon_loans():
         .source(['pid']).scan()
     for record in results:
         loan = Loan.get_record_by_pid(record.pid)
-        if loan.is_loan_due_soon():
+        if loan.is_loan_due_soon(tstamp):
             due_soon_loans.append(loan)
     return due_soon_loans
 
 
-def get_overdue_loan_pids(patron_pid=None):
+def get_overdue_loan_pids(patron_pid=None, tstamp=None):
     """Return all overdue loan pids optionally filtered for a patron pid.
 
     :param patron_pid: the patron pid. If none, return all overdue loans.
+    :param tstamp: a timestamp to define the execution time of the function.
+                   Default to `datetime.now()`.
     :return a generator of loan pid
     """
-    end_date = datetime.now()
+    end_date = tstamp or datetime.now()
     end_date = end_date.strftime('%Y-%m-%d')
     query = current_circulation.loan_search_cls() \
         .filter('term', state=LoanState.ITEM_ON_LOAN) \
@@ -857,31 +849,15 @@ def get_overdue_loan_pids(patron_pid=None):
         yield hit.pid
 
 
-def get_overdue_loans(patron_pid=None):
+def get_overdue_loans(patron_pid=None, tstamp=None):
     """Return all overdue loans optionally filtered for a patron pid.
 
     :param patron_pid: the patron pid. If none, return all overdue loans.
+    :param tstamp: a timestamp to define the execution time of the function
     :return a generator of Loan
     """
-    for pid in get_overdue_loan_pids(patron_pid):
+    for pid in get_overdue_loan_pids(patron_pid, tstamp):
         yield Loan.get_record_by_pid(pid)
-
-
-def is_due_soon_loan(loan):
-    """Check if loan is due soon.
-
-    :param loan: loan object to check
-    :returns True if loan is due Soon.
-    """
-    from .utils import get_circ_policy
-    circ_policy = get_circ_policy(loan)
-    now = datetime.now(timezone.utc)
-    end_date = loan.get('end_date')
-    due_date = ciso8601.parse_datetime(end_date).replace(
-        tzinfo=timezone.utc)
-
-    days_before = circ_policy.get('number_of_days_before_due_date')
-    return due_date > now > due_date - timedelta(days=days_before)
 
 
 def loan_has_open_events(loan_pid=None):
