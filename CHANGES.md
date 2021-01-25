@@ -1,5 +1,74 @@
 # Changelog
 
+## [v1.0.0](https://github.com/rero/rero-ils/tree/v1.0.0) (2021-02-08)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v0.15.0...v1.0.0)
+
+**Implemented enhancements:**
+
+- Serial holdings should be allowed on any document types [\#1612](https://github.com/rero/rero-ils/issues/1612)
+- "Label" should be renamed into "Unit" in the professional document detailed view [\#1577](https://github.com/rero/rero-ils/issues/1577)
+- Index both ISBN 10 and 13 format in the document index [\#1486](https://github.com/rero/rero-ils/issues/1486)
+- The "Login \(to see request options\)" button should be more visible on public document detailed view. [\#1473](https://github.com/rero/rero-ils/issues/1473)
+- Performance issue when loading and displaying documents with many items in the public interface [\#1401](https://github.com/rero/rero-ils/issues/1401)
+- Two result counts are not understandable by end users [\#1395](https://github.com/rero/rero-ils/issues/1395)
+- Reset password e-mails are too terse and untranslated [\#1387](https://github.com/rero/rero-ils/issues/1387)
+- The issue call number should be generated according to the holdings call number. [\#1288](https://github.com/rero/rero-ils/issues/1288)
+- Image thumbnails for documents should be displayed in pro interface [\#1188](https://github.com/rero/rero-ils/issues/1188)
+- notification: improve password reset notifications [\#1589](https://github.com/rero/rero-ils/pull/1589) ([AoNoOokami](https://github.com/AoNoOokami))
+
+**Fixed bugs:**
+
+- Button 'login \(to see request options\)' has a wrong URL [\#1639](https://github.com/rero/rero-ils/issues/1639)
+- Help link on ilspilot refers to ils.test [\#1575](https://github.com/rero/rero-ils/issues/1575)
+- Contribution aggregations are missing on the "import from the web" professional interface [\#1571](https://github.com/rero/rero-ils/issues/1571)
+- The search of the public interface does not adapt its suggestions to the browser locale [\#1509](https://github.com/rero/rero-ils/issues/1509)
+- Cannot save a prediction pattern for an existing holding [\#1471](https://github.com/rero/rero-ils/issues/1471)
+- CHECKOUT\_4 or CHECKOUT\_5 does not work as expected. [\#1379](https://github.com/rero/rero-ils/issues/1379)
+- In the pro patron account, the message for item in transit is not translated. [\#1376](https://github.com/rero/rero-ils/issues/1376)
+- The error message in the prediction preview is not for end users. [\#1290](https://github.com/rero/rero-ils/issues/1290)
+- Unable to use dynamic date with a "+" character for the new acquisition URL creation [\#1237](https://github.com/rero/rero-ils/issues/1237)
+- There is no information on the item when a checkin without action is performed [\#1168](https://github.com/rero/rero-ils/issues/1168)
+- holdings: fix several bugs related to version 1.0.0 [\#1681](https://github.com/rero/rero-ils/pull/1681) ([BadrAly](https://github.com/BadrAly))
+- public ui: fix standard coverart in detailed view [\#1678](https://github.com/rero/rero-ils/pull/1678) ([rerowep](https://github.com/rerowep))
+- public ui: fix login button on holdings section [\#1663](https://github.com/rero/rero-ils/pull/1663) ([rerowep](https://github.com/rerowep))
+- test: fix test in house [\#1644](https://github.com/rero/rero-ils/pull/1644) ([zannkukai](https://github.com/zannkukai))
+- search: fix author facet of BnF import search view [\#1572](https://github.com/rero/rero-ils/pull/1572) ([rerowep](https://github.com/rerowep))
+
+**Closed issues:**
+
+- Remove unnecessary description in the loan JSON schema [\#1565](https://github.com/rero/rero-ils/issues/1565)
+- Field `patterns` should be optional in the holdings [\#1539](https://github.com/rero/rero-ils/issues/1539)
+- A library should have as many pickup locations as wanted [\#1341](https://github.com/rero/rero-ils/issues/1341)
+- No notification generation for some loans [\#1308](https://github.com/rero/rero-ils/issues/1308)
+- A barcode should not be required when editing an expected issue instead of receiving it. [\#1287](https://github.com/rero/rero-ils/issues/1287)
+
+**Merged pull requests:**
+
+- tests: fix cypress tests [\#1685](https://github.com/rero/rero-ils/pull/1685) ([AoNoOokami](https://github.com/AoNoOokami))
+- holdings: remove extra enum from the completeness field [\#1665](https://github.com/rero/rero-ils/pull/1665) ([BadrAly](https://github.com/BadrAly))
+- search: index ISBN 10 and 13 format [\#1658](https://github.com/rero/rero-ils/pull/1658) ([rerowep](https://github.com/rerowep))
+- documents: fix form options label/value [\#1657](https://github.com/rero/rero-ils/pull/1657) ([iGormilhit](https://github.com/iGormilhit))
+- editor: display EnumerationAndChronology item field [\#1652](https://github.com/rero/rero-ils/pull/1652) ([BadrAly](https://github.com/BadrAly))
+- holdings: fix is\_serial definition [\#1648](https://github.com/rero/rero-ils/pull/1648) ([BadrAly](https://github.com/BadrAly))
+- tests: fix cypress tests [\#1643](https://github.com/rero/rero-ils/pull/1643) ([AoNoOokami](https://github.com/AoNoOokami))
+- document: document type [\#1638](https://github.com/rero/rero-ils/pull/1638) ([rerowep](https://github.com/rerowep))
+- Complete the holdings record [\#1637](https://github.com/rero/rero-ils/pull/1637) ([BadrAly](https://github.com/BadrAly))
+- Us1376 temporary item type [\#1633](https://github.com/rero/rero-ils/pull/1633) ([zannkukai](https://github.com/zannkukai))
+- monitoring: monitor redis and add monitoring user [\#1626](https://github.com/rero/rero-ils/pull/1626) ([rerowep](https://github.com/rerowep))
+- gh-actions: fix wrong label in stale workflow file [\#1613](https://github.com/rero/rero-ils/pull/1613) ([iGormilhit](https://github.com/iGormilhit))
+- documents: improve holdings display performance [\#1611](https://github.com/rero/rero-ils/pull/1611) ([Garfield-fr](https://github.com/Garfield-fr))
+- gh actions: fix wrong yaml format in stale worflow [\#1607](https://github.com/rero/rero-ils/pull/1607) ([iGormilhit](https://github.com/iGormilhit))
+- gh actions: set the stale workflow [\#1605](https://github.com/rero/rero-ils/pull/1605) ([iGormilhit](https://github.com/iGormilhit))
+- ci: fix coveralls issue [\#1602](https://github.com/rero/rero-ils/pull/1602) ([BadrAly](https://github.com/BadrAly))
+- items: improve automatic barcode generation [\#1590](https://github.com/rero/rero-ils/pull/1590) ([zannkukai](https://github.com/zannkukai))
+- search: adapt suggestions to the locale [\#1588](https://github.com/rero/rero-ils/pull/1588) ([Garfield-fr](https://github.com/Garfield-fr))
+- merge branch v1.0.0 [\#1585](https://github.com/rero/rero-ils/pull/1585) ([AoNoOokami](https://github.com/AoNoOokami))
+- search: improve ES template for configuration [\#1582](https://github.com/rero/rero-ils/pull/1582) ([rerowep](https://github.com/rerowep))
+- dependencies: upgrade invenio to version 3.4 [\#1581](https://github.com/rero/rero-ils/pull/1581) ([rerowep](https://github.com/rerowep))
+- documents: increase login button visibility [\#1556](https://github.com/rero/rero-ils/pull/1556) ([zannkukai](https://github.com/zannkukai))
+- items: inherit holdings first call\_number [\#1538](https://github.com/rero/rero-ils/pull/1538) ([BadrAly](https://github.com/BadrAly))
+
 ## [v0.15.0](https://github.com/rero/rero-ils/tree/v0.15.0) (2020-12-16)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v0.14.1...v0.15.0)
@@ -11,44 +80,44 @@
 - Notes on items should be displayed in professional document detailed view [\#1501](https://github.com/rero/rero-ils/issues/1501)
 - Language menu in the public interface should not be in "Menu" [\#1466](https://github.com/rero/rero-ils/issues/1466)
 - The `new acquisition` toggle should be disabled by default for issue items [\#1449](https://github.com/rero/rero-ils/issues/1449)
-- Fields `startDate` and `endDate` in `provisionActivity` title and description should be improved [\#1424](https://github.com/rero/rero-ils/issues/1424)
 - Holdings should be grouped by libraries [\#1399](https://github.com/rero/rero-ils/issues/1399)
 - The tab displayed when opening a detailed view seems to be random. [\#1394](https://github.com/rero/rero-ils/issues/1394)
+- Prediction pattern: add ability to use ordinal numbers [\#948](https://github.com/rero/rero-ils/issues/948)
+- Set the focus in the forms. [\#542](https://github.com/rero/rero-ils/issues/542)
+- Fields `startDate` and `endDate` in `provisionActivity` title and description should be improved [\#1424](https://github.com/rero/rero-ils/issues/1424)
+- The manual blocking of a user should block also the renewals. [\#1383](https://github.com/rero/rero-ils/issues/1383)
 - The user account should be made more visible, at least on public interface. [\#1332](https://github.com/rero/rero-ils/issues/1332)
 - Labels of the circulation policy editor shoud be improved. [\#1305](https://github.com/rero/rero-ils/issues/1305)
 - Put better labels for checkin/checkout pages [\#1280](https://github.com/rero/rero-ils/issues/1280)
-- Prediction pattern: add ability to use ordinal numbers [\#948](https://github.com/rero/rero-ils/issues/948)
-- Set the focus in the forms. [\#542](https://github.com/rero/rero-ils/issues/542)
 - documents: group holdings by libraries [\#1541](https://github.com/rero/rero-ils/pull/1541) ([Garfield-fr](https://github.com/Garfield-fr))
 
 **Fixed bugs:**
 
-- holdings detailed view page is broken [\#1562](https://github.com/rero/rero-ils/issues/1562)
 - Notification history not in chronological order in the circulation interface [\#1549](https://github.com/rero/rero-ils/issues/1549)
+- Loading the professional interface with the role editor should display a permission error [\#1508](https://github.com/rero/rero-ils/issues/1508)
+- Status facet is not working in the inventory list [\#1507](https://github.com/rero/rero-ils/issues/1507)
+- Error message when checking out a 'no checkout' item should be useful to the librarian [\#1470](https://github.com/rero/rero-ils/issues/1470)
+- The patron loan transaction history does not always display the item and the document title. [\#1369](https://github.com/rero/rero-ils/issues/1369)
+- The link to patron profil in the notification is not correct [\#1353](https://github.com/rero/rero-ils/issues/1353)
+- serial pattern preview type error [\#1351](https://github.com/rero/rero-ils/issues/1351)
+- Save as a template does not always create a template [\#1331](https://github.com/rero/rero-ils/issues/1331)
+- When a new self registered user access to a document detailed view, an internal server error is raised [\#1255](https://github.com/rero/rero-ils/issues/1255)
+- Switching library to place a request for a patron, result in a none displayed requests [\#1150](https://github.com/rero/rero-ils/issues/1150)
+- holdings detailed view page is broken [\#1562](https://github.com/rero/rero-ils/issues/1562)
 - User profile: sometimes the document field of the overdue item in the fees tab is empty. [\#1543](https://github.com/rero/rero-ils/issues/1543)
 - jsonschema form is loaded two times in document editor [\#1531](https://github.com/rero/rero-ils/issues/1531)
 - Counter is missing in the history tab [\#1515](https://github.com/rero/rero-ils/issues/1515)
 - Changing the affiliation library of a librarian makes the editor spin for ever. [\#1510](https://github.com/rero/rero-ils/issues/1510)
-- Loading the professional interface with the role editor should display a permission error [\#1508](https://github.com/rero/rero-ils/issues/1508)
-- Status facet is not working in the inventory list [\#1507](https://github.com/rero/rero-ils/issues/1507)
 - Series statement, color content, mode of issuance should be translated on professional interface [\#1488](https://github.com/rero/rero-ils/issues/1488)
 - Fees history: the link of the item is wrong. [\#1487](https://github.com/rero/rero-ils/issues/1487)
 - The counter of the tab 'to pickup' is not refreshed automatically [\#1482](https://github.com/rero/rero-ils/issues/1482)
-- Error message when checking out a 'no checkout' item should be useful to the librarian [\#1470](https://github.com/rero/rero-ils/issues/1470)
 - "Show more" button displayed wrongly and problematic counter [\#1400](https://github.com/rero/rero-ils/issues/1400)
-- The patron loan transaction history does not always display the item and the document title. [\#1369](https://github.com/rero/rero-ils/issues/1369)
 - The application section of the circulation policy editor does not behave as expected. [\#1363](https://github.com/rero/rero-ils/issues/1363)
-- The link to patron profil in the notification is not correct [\#1353](https://github.com/rero/rero-ils/issues/1353)
-- serial pattern preview type error [\#1351](https://github.com/rero/rero-ils/issues/1351)
-- Save as a template does not always create a template [\#1331](https://github.com/rero/rero-ils/issues/1331)
 - A lot of document country codes have not been imported. [\#1328](https://github.com/rero/rero-ils/issues/1328)
 - Logout from professional interface raises a 404 error [\#1322](https://github.com/rero/rero-ils/issues/1322)
 - ILL request form is not translated [\#1320](https://github.com/rero/rero-ils/issues/1320)
 - Toggle buttons are not translated. [\#1306](https://github.com/rero/rero-ils/issues/1306)
-- When a new self registered user access to a document detailed view, an internal server error is raised [\#1255](https://github.com/rero/rero-ils/issues/1255)
 - Same "partOf" field generated twice [\#1242](https://github.com/rero/rero-ils/issues/1242)
-- Switching library to place a request for a patron, result in a none displayed requests [\#1150](https://github.com/rero/rero-ils/issues/1150)
-- Unused RERO\_ILS environment variables [\#546](https://github.com/rero/rero-ils/issues/546)
 - circulation: add control on circulation operation [\#1502](https://github.com/rero/rero-ils/pull/1502) ([zannkukai](https://github.com/zannkukai))
 
 **Security fixes:**
@@ -58,32 +127,33 @@
 **Closed issues:**
 
 - Do not expose currency codes to the translation worflow [\#1519](https://github.com/rero/rero-ils/issues/1519)
-- In the patron account, the email should not depend on the communication channel. [\#1499](https://github.com/rero/rero-ils/issues/1499)
 - Add a pager to the brief view of the import from BnF [\#1491](https://github.com/rero/rero-ils/issues/1491)
-- Some circulation policy fields can have negative values or be zero. [\#1365](https://github.com/rero/rero-ils/issues/1365)
 - Error : ExpressionChangedAfterItHasBeenCheckedError into console [\#1002](https://github.com/rero/rero-ils/issues/1002)
 - Displayed page after creation/update of a ressource [\#376](https://github.com/rero/rero-ils/issues/376)
+- In the patron account, the email should not depend on the communication channel. [\#1499](https://github.com/rero/rero-ils/issues/1499)
+- Some circulation policy fields can have negative values or be zero. [\#1365](https://github.com/rero/rero-ils/issues/1365)
+- The loans in transit to house are not displayed in the patron history. [\#1360](https://github.com/rero/rero-ils/issues/1360)
 
 **Merged pull requests:**
 
-- document: fix call number display. [\#1568](https://github.com/rero/rero-ils/pull/1568) ([zannkukai](https://github.com/zannkukai))
 - search: fix broken collection search page [\#1567](https://github.com/rero/rero-ils/pull/1567) ([jma](https://github.com/jma))
-- users: allows the 2nd email to be the only one [\#1561](https://github.com/rero/rero-ils/pull/1561) ([jma](https://github.com/jma))
 - build\(deps\): bump ini from 1.3.5 to 1.3.8 in /tests/e2e/cypress [\#1560](https://github.com/rero/rero-ils/pull/1560) ([dependabot[bot]](https://github.com/apps/dependabot))
 - ci: fix github actions [\#1554](https://github.com/rero/rero-ils/pull/1554) ([rerowep](https://github.com/rerowep))
 - configuration: allow notifications sorting [\#1553](https://github.com/rero/rero-ils/pull/1553) ([zannkukai](https://github.com/zannkukai))
+- patrons: fix document title in the fees tab [\#1548](https://github.com/rero/rero-ils/pull/1548) ([zannkukai](https://github.com/zannkukai))
+- document: identify deleted contribution records [\#1545](https://github.com/rero/rero-ils/pull/1545) ([rerowep](https://github.com/rerowep))
+- circulation: fix transaction end\_date. [\#1532](https://github.com/rero/rero-ils/pull/1532) ([zannkukai](https://github.com/zannkukai))
+- permissions: fix error message for users [\#1520](https://github.com/rero/rero-ils/pull/1520) ([Garfield-fr](https://github.com/Garfield-fr))
+- document: fix call number display. [\#1568](https://github.com/rero/rero-ils/pull/1568) ([zannkukai](https://github.com/zannkukai))
+- users: allows the 2nd email to be the only one [\#1561](https://github.com/rero/rero-ils/pull/1561) ([jma](https://github.com/jma))
 - Implement the keep loan history patron setting \(US 1422\) [\#1552](https://github.com/rero/rero-ils/pull/1552) ([BadrAly](https://github.com/BadrAly))
 - invenio-circulation: upgrade to version v1.0.0a29 [\#1551](https://github.com/rero/rero-ils/pull/1551) ([BadrAly](https://github.com/BadrAly))
-- patrons: fix document title in the fees tab [\#1548](https://github.com/rero/rero-ils/pull/1548) ([zannkukai](https://github.com/zannkukai))
 - serials: fix claim task [\#1546](https://github.com/rero/rero-ils/pull/1546) ([lauren-d](https://github.com/lauren-d))
-- document: identify deleted contribution records [\#1545](https://github.com/rero/rero-ils/pull/1545) ([rerowep](https://github.com/rerowep))
 - assets: move to webpack [\#1537](https://github.com/rero/rero-ils/pull/1537) ([jma](https://github.com/jma))
 - vendors: do not translate currency codes [\#1536](https://github.com/rero/rero-ils/pull/1536) ([Garfield-fr](https://github.com/Garfield-fr))
 - Implement SIP2 checkin/checkout actions \(US 1357\) [\#1535](https://github.com/rero/rero-ils/pull/1535) ([lauren-d](https://github.com/lauren-d))
-- circulation: fix transaction end\_date. [\#1532](https://github.com/rero/rero-ils/pull/1532) ([zannkukai](https://github.com/zannkukai))
 - package: update lxml to version 4.6.2 [\#1527](https://github.com/rero/rero-ils/pull/1527) ([Garfield-fr](https://github.com/Garfield-fr))
 - data: fix field partOf multiple generation [\#1523](https://github.com/rero/rero-ils/pull/1523) ([reropag](https://github.com/reropag))
-- permissions: fix error message for users [\#1520](https://github.com/rero/rero-ils/pull/1520) ([Garfield-fr](https://github.com/Garfield-fr))
 - menu: update the language menu entry [\#1504](https://github.com/rero/rero-ils/pull/1504) ([zannkukai](https://github.com/zannkukai))
 - dependencies: update after v0.14.1 [\#1500](https://github.com/rero/rero-ils/pull/1500) ([rerowep](https://github.com/rerowep))
 - documentation: improve issues templates [\#1497](https://github.com/rero/rero-ils/pull/1497) ([iGormilhit](https://github.com/iGormilhit))
@@ -127,7 +197,6 @@
 
 **Closed issues:**
 
-- The loans in transit to house are not displayed in the patron history. [\#1360](https://github.com/rero/rero-ils/issues/1360)
 - \[\] should not be removed from field "responsibilityStatement" [\#1406](https://github.com/rero/rero-ils/issues/1406)
 
 **Merged pull requests:**
@@ -207,7 +276,6 @@
 
 **Implemented enhancements:**
 
-- The manual blocking of a user should block also the renewals. [\#1383](https://github.com/rero/rero-ils/issues/1383)
 - An e-mail without complete domain name can be saved in the patron editor [\#1381](https://github.com/rero/rero-ils/issues/1381)
 - Rename the request status "ready" into "to pick up" in the patron account of the public interface [\#1356](https://github.com/rero/rero-ils/issues/1356)
 - A value for the field "title" with type "bf:Title" should be required. [\#1286](https://github.com/rero/rero-ils/issues/1286)
@@ -249,6 +317,7 @@
 - Every document should have a `provisionActivity` field [\#1132](https://github.com/rero/rero-ils/issues/1132)
 - maximum number of results  [\#112](https://github.com/rero/rero-ils/issues/112)
 - The help menu should point to the public help page if clicked from public interface [\#1127](https://github.com/rero/rero-ils/issues/1127)
+- monitoring: fix es duplicate monitoring [\#1206](https://github.com/rero/rero-ils/pull/1206) ([rerowep](https://github.com/rerowep))
 
 **Fixed bugs:**
 
@@ -277,6 +346,7 @@
 - refactors user resource [\#1302](https://github.com/rero/rero-ils/pull/1302) ([jma](https://github.com/jma))
 - patron: Fix user import problem. [\#1292](https://github.com/rero/rero-ils/pull/1292) ([zannkukai](https://github.com/zannkukai))
 - implements template resource for document, holdings, item and patron records [\#1275](https://github.com/rero/rero-ils/pull/1275) ([zannkukai](https://github.com/zannkukai))
+- monitoring: display db connection counts [\#1271](https://github.com/rero/rero-ils/pull/1271) ([rerowep](https://github.com/rerowep))
 - circulation: change text in courtesy notification [\#1266](https://github.com/rero/rero-ils/pull/1266) ([benerken](https://github.com/benerken))
 - document: fix internal server error when display view [\#1263](https://github.com/rero/rero-ils/pull/1263) ([lauren-d](https://github.com/lauren-d))
 - circulation: increase loan API performance [\#1262](https://github.com/rero/rero-ils/pull/1262) ([zannkukai](https://github.com/zannkukai))
@@ -341,6 +411,7 @@
 - search: remove useless translated facets [\#1195](https://github.com/rero/rero-ils/pull/1195) ([lauren-d](https://github.com/lauren-d))
 - document: replace role label content with values [\#1194](https://github.com/rero/rero-ils/pull/1194) ([iGormilhit](https://github.com/iGormilhit))
 - editor: fix error 400 when saving a simple document [\#1192](https://github.com/rero/rero-ils/pull/1192) ([AoNoOokami](https://github.com/AoNoOokami))
+- package: update dependencies [\#1191](https://github.com/rero/rero-ils/pull/1191) ([BadrAly](https://github.com/BadrAly))
 - US1546 marcxml support [\#1189](https://github.com/rero/rero-ils/pull/1189) ([BadrAly](https://github.com/BadrAly))
 - circulation: fix validate request return type [\#1177](https://github.com/rero/rero-ils/pull/1177) ([zannkukai](https://github.com/zannkukai))
 - circulation: fix change pickup location on loans [\#1174](https://github.com/rero/rero-ils/pull/1174) ([BadrAly](https://github.com/BadrAly))
@@ -379,7 +450,7 @@
 **Merged pull requests:**
 
 - utils: new method to return record class [\#1183](https://github.com/rero/rero-ils/pull/1183) ([BadrAly](https://github.com/BadrAly))
-- document: exclude drafts from search results [\#1173](https://github.com/rero/rero-ils/pull/1173) ([BadrAly](https://github.com/BadrAly))
+- templates: implement record templates [\#1178](https://github.com/rero/rero-ils/pull/1178) ([BadrAly](https://github.com/BadrAly))
 - Translations update from Weblate [\#1171](https://github.com/rero/rero-ils/pull/1171) ([weblate](https://github.com/weblate))
 - US1394 invenio circulation [\#1166](https://github.com/rero/rero-ils/pull/1166) ([BadrAly](https://github.com/BadrAly))
 - patron: fix missing configuration for patron subscriptions [\#1159](https://github.com/rero/rero-ils/pull/1159) ([BadrAly](https://github.com/BadrAly))
@@ -389,6 +460,7 @@
 - Translations update from Weblate [\#1141](https://github.com/rero/rero-ils/pull/1141) ([weblate](https://github.com/weblate))
 - patron: no history returned for deleted items [\#1139](https://github.com/rero/rero-ils/pull/1139) ([BadrAly](https://github.com/BadrAly))
 - Translations update from Weblate [\#1138](https://github.com/rero/rero-ils/pull/1138) ([weblate](https://github.com/weblate))
+- Translations update from Weblate [\#1131](https://github.com/rero/rero-ils/pull/1131) ([weblate](https://github.com/weblate))
 - patron account: add fees tab [\#1124](https://github.com/rero/rero-ils/pull/1124) ([Garfield-fr](https://github.com/Garfield-fr))
 - cli: marc21json cli function to use splitted json schemas [\#1120](https://github.com/rero/rero-ils/pull/1120) ([rerowep](https://github.com/rerowep))
 - cypress: test the creation of a simple document [\#1116](https://github.com/rero/rero-ils/pull/1116) ([AoNoOokami](https://github.com/AoNoOokami))
@@ -487,7 +559,6 @@
 - Merge US1275 on dev [\#1060](https://github.com/rero/rero-ils/pull/1060) ([zannkukai](https://github.com/zannkukai))
 - Zan us1351 items notes [\#1057](https://github.com/rero/rero-ils/pull/1057) ([zannkukai](https://github.com/zannkukai))
 - translation: fix string extraction from JSON file [\#1054](https://github.com/rero/rero-ils/pull/1054) ([zannkukai](https://github.com/zannkukai))
-- cli: correct wrong process bulk queue [\#1037](https://github.com/rero/rero-ils/pull/1037) ([lauren-d](https://github.com/lauren-d))
 - scheduler: use saved enabled state of tasks [\#1034](https://github.com/rero/rero-ils/pull/1034) ([rerowep](https://github.com/rerowep))
 - license: update missing info in the license [\#1031](https://github.com/rero/rero-ils/pull/1031) ([iGormilhit](https://github.com/iGormilhit))
 - notifications: patron url [\#1029](https://github.com/rero/rero-ils/pull/1029) ([rerowep](https://github.com/rerowep))
@@ -550,6 +621,7 @@
 - dependencies: use poetry [\#986](https://github.com/rero/rero-ils/pull/986) ([jma](https://github.com/jma))
 - tests: fix travis trouble with pytest-invenio [\#981](https://github.com/rero/rero-ils/pull/981) ([blankoworld](https://github.com/blankoworld))
 - tests: fix units testing for generated item barcodes [\#979](https://github.com/rero/rero-ils/pull/979) ([BadrAly](https://github.com/BadrAly))
+- holdings: add frequency field to the pattern [\#978](https://github.com/rero/rero-ils/pull/978) ([BadrAly](https://github.com/BadrAly))
 - tests: fix travis [\#977](https://github.com/rero/rero-ils/pull/977) ([rerowep](https://github.com/rerowep))
 - location: unique pickup location for a library [\#976](https://github.com/rero/rero-ils/pull/976) ([zannkukai](https://github.com/zannkukai))
 - rest api: add simple query support [\#973](https://github.com/rero/rero-ils/pull/973) ([jma](https://github.com/jma))
@@ -560,6 +632,7 @@
 - enqueues notifications [\#951](https://github.com/rero/rero-ils/pull/951) ([rerowep](https://github.com/rerowep))
 - data: update JSON schema to draft 07 [\#862](https://github.com/rero/rero-ils/pull/862) ([BadrAly](https://github.com/BadrAly))
 - api: test existence of pid's [\#853](https://github.com/rero/rero-ils/pull/853) ([rerowep](https://github.com/rerowep))
+- serials: create api to preview predicted issues [\#849](https://github.com/rero/rero-ils/pull/849) ([BadrAly](https://github.com/BadrAly))
 - Paging \(stack request\) functionnalities [\#708](https://github.com/rero/rero-ils/pull/708) ([zannkukai](https://github.com/zannkukai))
 - document: delete link to item detail view [\#1011](https://github.com/rero/rero-ils/pull/1011) ([zannkukai](https://github.com/zannkukai))
 - release: v0.9.0 [\#1009](https://github.com/rero/rero-ils/pull/1009) ([iGormilhit](https://github.com/iGormilhit))
@@ -599,11 +672,10 @@
 
 **Merged pull requests:**
 
-- translation: update translations, improve schema [\#967](https://github.com/rero/rero-ils/pull/967) ([iGormilhit](https://github.com/iGormilhit))
 - release: v0.8.0 [\#966](https://github.com/rero/rero-ils/pull/966) ([iGormilhit](https://github.com/iGormilhit))
 - documentation: add dependencies in PR template [\#963](https://github.com/rero/rero-ils/pull/963) ([iGormilhit](https://github.com/iGormilhit))
 - permission: fix organisation permission [\#957](https://github.com/rero/rero-ils/pull/957) ([zannkukai](https://github.com/zannkukai))
-- subscription: adapt code after PO reviewing [\#954](https://github.com/rero/rero-ils/pull/954) ([zannkukai](https://github.com/zannkukai))
+- circulation: adapt reroils [\#955](https://github.com/rero/rero-ils/pull/955) ([BadrAly](https://github.com/BadrAly))
 - publication pattern: create a manual prediction [\#952](https://github.com/rero/rero-ils/pull/952) ([jma](https://github.com/jma))
 - notification: use pickup location email as sender [\#950](https://github.com/rero/rero-ils/pull/950) ([rerowep](https://github.com/rerowep))
 - Us1293 doo invenio32 [\#949](https://github.com/rero/rero-ils/pull/949) ([jma](https://github.com/jma))
@@ -647,7 +719,6 @@
 - Patron to display in the checkin form [\#793](https://github.com/rero/rero-ils/issues/793)
 - Authorisations [\#787](https://github.com/rero/rero-ils/issues/787)
 - Location settings aren't explained in the editor and an online pickup location is possible [\#604](https://github.com/rero/rero-ils/issues/604)
-- Protect the library custom editor [\#575](https://github.com/rero/rero-ils/issues/575)
 
 **Merged pull requests:**
 
@@ -678,7 +749,6 @@
 - Transform "Fees" to "PatronTransaction" data model [\#820](https://github.com/rero/rero-ils/pull/820) ([zannkukai](https://github.com/zannkukai))
 - documentation: update INSTALL.rst [\#818](https://github.com/rero/rero-ils/pull/818) ([AoNoOokami](https://github.com/AoNoOokami))
 - patron editor: add placeholders [\#815](https://github.com/rero/rero-ils/pull/815) ([AoNoOokami](https://github.com/AoNoOokami))
-- cli: fix typo [\#811](https://github.com/rero/rero-ils/pull/811) ([lauren-d](https://github.com/lauren-d))
 - public interface: improve patron request deletion [\#808](https://github.com/rero/rero-ils/pull/808) ([AoNoOokami](https://github.com/AoNoOokami))
 - utils: $ref from pid [\#765](https://github.com/rero/rero-ils/pull/765) ([rerowep](https://github.com/rerowep))
 - metadata: electronicLocator [\#761](https://github.com/rero/rero-ils/pull/761) ([rerowep](https://github.com/rerowep))
@@ -686,6 +756,7 @@
 - acquisition: create invoice resource [\#729](https://github.com/rero/rero-ils/pull/729) ([lauren-d](https://github.com/lauren-d))
 - documentation: update release notes and changelog [\#920](https://github.com/rero/rero-ils/pull/920) ([iGormilhit](https://github.com/iGormilhit))
 - ui: move to rero-ils-ui v0.1.0 [\#915](https://github.com/rero/rero-ils/pull/915) ([jma](https://github.com/jma))
+- location: correct schema to work well with formly [\#914](https://github.com/rero/rero-ils/pull/914) ([zannkukai](https://github.com/zannkukai))
 - project: fix sqlalchemy last releases problems [\#910](https://github.com/rero/rero-ils/pull/910) ([blankoworld](https://github.com/blankoworld))
 - translation: fix key source issues [\#909](https://github.com/rero/rero-ils/pull/909) ([iGormilhit](https://github.com/iGormilhit))
 - Translate '/rero\_ils/translations/messages.pot' in 'en' [\#908](https://github.com/rero/rero-ils/pull/908) ([transifex-integration[bot]](https://github.com/apps/transifex-integration))
@@ -710,6 +781,7 @@
 
 - ui: move to rero-ils-ui 0.0.12 [\#823](https://github.com/rero/rero-ils/pull/823) ([jma](https://github.com/jma))
 - Translate '/rero\_ils/translations/messages.pot' in 'nl' [\#814](https://github.com/rero/rero-ils/pull/814) ([transifex-integration[bot]](https://github.com/apps/transifex-integration))
+- cli: fix typo [\#811](https://github.com/rero/rero-ils/pull/811) ([lauren-d](https://github.com/lauren-d))
 
 ## [v0.6.0](https://github.com/rero/rero-ils/tree/v0.6.0) (2020-02-26)
 
@@ -799,7 +871,6 @@
 - ES: fix mapping [\#705](https://github.com/rero/rero-ils/pull/705) ([rerowep](https://github.com/rerowep))
 - tests: fix run-test [\#702](https://github.com/rero/rero-ils/pull/702) ([rerowep](https://github.com/rerowep))
 - deployment: adaptions for rero-ils-ui [\#700](https://github.com/rero/rero-ils/pull/700) ([rerowep](https://github.com/rerowep))
-- setup: speed up and clean improvements [\#699](https://github.com/rero/rero-ils/pull/699) ([blankoworld](https://github.com/blankoworld))
 - script: add rero-ils-ui install from tgz [\#692](https://github.com/rero/rero-ils/pull/692) ([AoNoOokami](https://github.com/AoNoOokami))
 - editor: move to ngx-formly [\#690](https://github.com/rero/rero-ils/pull/690) ([jma](https://github.com/jma))
 - loans: improve due date timezone consideration [\#684](https://github.com/rero/rero-ils/pull/684) ([blankoworld](https://github.com/blankoworld))
@@ -866,6 +937,7 @@
 - Patron creation by a librarian: reset password link never works [\#608](https://github.com/rero/rero-ils/issues/608)
 - Import document from BnF not working [\#607](https://github.com/rero/rero-ils/issues/607)
 - Render a document detailed view with document even if there's a library without pickup location in the organisation [\#598](https://github.com/rero/rero-ils/issues/598)
+- Protect the library custom editor [\#575](https://github.com/rero/rero-ils/issues/575)
 - "Non extendable" not translated in notification [\#571](https://github.com/rero/rero-ils/issues/571)
 
 **Merged pull requests:**
@@ -916,6 +988,10 @@
 ## [v0.5.0](https://github.com/rero/rero-ils/tree/v0.5.0) (2019-10-23)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v0.4.0...v0.5.0)
+
+**Fixed bugs:**
+
+- Unused RERO\_ILS environment variables [\#546](https://github.com/rero/rero-ils/issues/546)
 
 **Closed issues:**
 
@@ -994,9 +1070,10 @@
 - holdings: display holdings records [\#499](https://github.com/rero/rero-ils/pull/499) ([BadrAly](https://github.com/BadrAly))
 - circulation : fix issue two loans instead of one [\#496](https://github.com/rero/rero-ils/pull/496) ([benerken](https://github.com/benerken))
 - validate json file with schema [\#493](https://github.com/rero/rero-ils/pull/493) ([rerowep](https://github.com/rerowep))
-- US838: display record availability [\#491](https://github.com/rero/rero-ils/pull/491) ([BadrAly](https://github.com/BadrAly))
+- documents: implement record availability [\#489](https://github.com/rero/rero-ils/pull/489) ([lauren-d](https://github.com/lauren-d))
 - \#1011 fix unittest fixtures [\#487](https://github.com/rero/rero-ils/pull/487) ([blankoworld](https://github.com/blankoworld))
 - installation: fix bootstrap script to use npm 6 instead of local one [\#481](https://github.com/rero/rero-ils/pull/481) ([blankoworld](https://github.com/blankoworld))
+- holdings: implement record availability [\#480](https://github.com/rero/rero-ils/pull/480) ([BadrAly](https://github.com/BadrAly))
 - circulation\_ui: add error logs for item API [\#479](https://github.com/rero/rero-ils/pull/479) ([zannkukai](https://github.com/zannkukai))
 - document detailed view: fix missing message on item delete button [\#477](https://github.com/rero/rero-ils/pull/477) ([zannkukai](https://github.com/zannkukai))
 - fix user initials view [\#476](https://github.com/rero/rero-ils/pull/476) ([rerowep](https://github.com/rerowep))
@@ -1004,10 +1081,10 @@
 - global: standardize timezone [\#471](https://github.com/rero/rero-ils/pull/471) ([BadrAly](https://github.com/BadrAly))
 - data\_model: implement copyright date transformation [\#470](https://github.com/rero/rero-ils/pull/470) ([reropag](https://github.com/reropag))
 - circulation ui: check if item or patron is in same organisation [\#469](https://github.com/rero/rero-ils/pull/469) ([jma](https://github.com/jma))
-- circulation ui: enhancement on the text of tab \(checkin/checkout\) [\#465](https://github.com/rero/rero-ils/pull/465) ([Garfield-fr](https://github.com/Garfield-fr))
 - libraries date exceptions: fix bug on repeat button [\#463](https://github.com/rero/rero-ils/pull/463) ([Garfield-fr](https://github.com/Garfield-fr))
 -  circulation: holdings level adaptation [\#461](https://github.com/rero/rero-ils/pull/461) ([BadrAly](https://github.com/BadrAly))
 - US716 holdings level [\#458](https://github.com/rero/rero-ils/pull/458) ([BadrAly](https://github.com/BadrAly))
+- holdings: re-linking item to a new holding after edition [\#457](https://github.com/rero/rero-ils/pull/457) ([BadrAly](https://github.com/BadrAly))
 - oaiharvesting: bulk indexing of oai records [\#456](https://github.com/rero/rero-ils/pull/456) ([rerowep](https://github.com/rerowep))
 - tests: test correct licenses in files [\#451](https://github.com/rero/rero-ils/pull/451) ([rerowep](https://github.com/rerowep))
 - admin: Wrong organisation on select menu [\#448](https://github.com/rero/rero-ils/pull/448) ([Garfield-fr](https://github.com/Garfield-fr))
@@ -1020,6 +1097,7 @@
 
 **Merged pull requests:**
 
+- circulation ui: enhancement on the text of tab \(checkin/checkout\) [\#465](https://github.com/rero/rero-ils/pull/465) ([Garfield-fr](https://github.com/Garfield-fr))
 - translation: fix missing translated strings [\#459](https://github.com/rero/rero-ils/pull/459) ([iGormilhit](https://github.com/iGormilhit))
 
 ## [v0.3.0](https://github.com/rero/rero-ils/tree/v0.3.0) (2019-08-22)
@@ -1062,7 +1140,6 @@
 - tests: workaround when bnf service is down [\#403](https://github.com/rero/rero-ils/pull/403) ([BadrAly](https://github.com/BadrAly))
 - documentation: update INSTALL.rst [\#402](https://github.com/rero/rero-ils/pull/402) ([vrabe](https://github.com/vrabe))
 - search: Replace AND default operator by OR. [\#401](https://github.com/rero/rero-ils/pull/401) ([Garfield-fr](https://github.com/Garfield-fr))
-- license: move from GPLv2 to AGPLv3 \(items\) [\#394](https://github.com/rero/rero-ils/pull/394) ([iGormilhit](https://github.com/iGormilhit))
 - documentation: add an issue template [\#386](https://github.com/rero/rero-ils/pull/386) ([iGormilhit](https://github.com/iGormilhit))
 - documentation: rewrite bad syntax in docstrings [\#382](https://github.com/rero/rero-ils/pull/382) ([iGormilhit](https://github.com/iGormilhit))
 - circulation: improve circulation dates [\#375](https://github.com/rero/rero-ils/pull/375) ([BadrAly](https://github.com/BadrAly))
@@ -1175,7 +1252,6 @@
 - consortium: metada for two organisations [\#287](https://github.com/rero/rero-ils/pull/287) ([jma](https://github.com/jma))
 - global: test coverage and docs for organisations [\#283](https://github.com/rero/rero-ils/pull/283) ([BadrAly](https://github.com/BadrAly))
 - global: test coverage and docs for locations [\#282](https://github.com/rero/rero-ils/pull/282) ([BadrAly](https://github.com/BadrAly))
-- circulation: correct item status after checkin a requested item [\#281](https://github.com/rero/rero-ils/pull/281) ([BadrAly](https://github.com/BadrAly))
 - user interface: patron type name and library name [\#280](https://github.com/rero/rero-ils/pull/280) ([jma](https://github.com/jma))
 - global: test coverage and docs for patron types [\#279](https://github.com/rero/rero-ils/pull/279) ([BadrAly](https://github.com/BadrAly))
 - user interface: pickup library instead of pickup location [\#278](https://github.com/rero/rero-ils/pull/278) ([jma](https://github.com/jma))
@@ -1243,6 +1319,7 @@
 - Scope of search bar not always visible [\#39](https://github.com/rero/rero-ils/issues/39)
 - Search by patron\_full\_name does not check the role "patrons"  [\#29](https://github.com/rero/rero-ils/issues/29)
 - renewal counts [\#28](https://github.com/rero/rero-ils/issues/28)
+- Lost password workflow only in English [\#3](https://github.com/rero/rero-ils/issues/3)
 
 **Merged pull requests:**
 
