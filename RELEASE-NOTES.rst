@@ -18,6 +18,283 @@
 Release notes
 =============
 
+v1.0.0
+--------
+
+This release note includes the changes of the ``rero-ils-ui`` project
+[`link`_] .
+
+User interface
+~~~~~~~~~~~~~~
+
+-  Adds a ``cached`` decorator that allows to cache document covers.
+-  Displays the new document type fields on the brief and detailed views
+   of both interface (public and professional).
+-  Improves elements alignment in document brief and detailed views.
+
+Public interface
+^^^^^^^^^^^^^^^^
+
+-  Increases the visibility of the login button displayed on the
+   document detailed view, to remind the patron to login to access to
+   the request functionality.
+-  Improves the reset password instructions sent to the user
+   (notifications).
+-  Adds a custom template for the reset notification.
+-  Allows to mask holdings from the public interface. This is done by
+   the librarian that can edit the ``_masked`` field in the holdings
+   editor.
+-  Implements in Angular the holdings section of the document detailed
+   view of the public interface to improve the user experience when
+   loading holdings with lots of items. With the JINJA templates, the
+   performance is very bad. Angular allows to lazy load data and will
+   make easier to add dynamic interaction between the user and the
+   interface.
+-  Adapts the APIs to allow Angular application to retrieve data.
+-  Fixes the log in button in the holdings section of the document
+   detailed view.
+
+Professional interface
+^^^^^^^^^^^^^^^^^^^^^^
+
+-  Fixes the wrong label of a menu entry. The **second** *patron types*
+   is in fact *item types*.
+-  Moves the item editor from the *standard* to the *long* editor.
+-  Updates the item brief and detailed view to display the temporary
+   circulation category data.
+-  Displays an operation history button on record detailed views. The
+   button opens a modal that list the operations that occurred on the
+   record (creation, updates, deletion) and the user responsible of the
+   operation.
+-  Enables the ``longmode`` for the holdings editor to improves
+   usability. The following fields are displayed by default:
+
+   -  ``locations``.
+   -  ``circulation_category``.
+   -  ``call_number``.
+   -  ``EnumerationAnyChronology``.
+   -  ``vendor``.
+   -  ``_masked``.
+
+-  Extends the *add* button on the document detailed view to add either
+   an item (which will automatically create a standard holdings) or an
+   holdings (of serial type).
+-  Hides the *add* button on the document detailed view of harvested
+   documents, such as e-books.
+-  Adds thumbnails in professional brief and detailed view:
+
+   -  Moves thumbnail logic in ‘shared’ library as it’s used in both
+      admin and public-search projects.
+   -  Moves ‘type’ field below the thumbnail in admin detailed view.
+
+-  Renames the *Label* column title into *Unit* on the document detailed
+   view.
+-  Adds pagination on holdings.
+
+Search
+~~~~~~
+
+-  Improves ElasticSearch configuration through the use of templates
+-  Moves ElasticSearch configurations from the mapping files (one for
+   each resource) to the ElasticSearch template (``record.json``):
+
+   -  ``number_of_shards``.
+   -  ``number_of_replicas``.
+   -  ``max_result_window``.
+
+-  Fixes an encoding parameter issue in the URL preventing to create a
+   new acquisition dynamic URL with a ``+``.
+-  Indexes the following holdings fields in the document index in order
+   to allow search requests on holdings data:
+
+   -  ``call_number``.
+   -  ``second_call_number``.
+   -  ``index``.
+   -  ``enumerationAndChronology``.
+   -  ``supplementaryContent``.
+   -  ``notes``.
+
+-  Adds document subtypes as subfacets.
+-  Indexes both ISBN 10 and 13 in the document index.
+-  Presents the suggestions, as the query is typed, according to the
+   locale of the user.
+
+Metadata
+~~~~~~~~
+
+-  Inherits the item call number from the holdings first call number
+   when the item has no first call number. Applies to the following
+   views of the public interface:
+
+   -  Document detailed view.
+   -  Patron profile (loans, request and history tabs).
+   -  Collection detailed view.
+   -  Late issues and inventory CSV export interface.
+   -  Generated notifications sent to the patron.
+
+-  Set the item barcode as optional. If an item is created or updated
+   without barcode, the back end will generate a fictive barcode itself.
+   This allows to edit an expected issue (serials) instead of receiving
+   it.
+-  Adds the fields for the temporary item type (temporary circulation
+   category) to the item JSON schema. Adapts accordingly the
+   ElasticSearch item mapping.
+-  Creates a ``cron`` task to remove the obsolete temporary item type
+   (if it has a deletion date).
+-  Completes the holding metadata to cover all the useful data from the
+   legacy system. The following fields are added to the holdings JSON
+   schema:
+
+   -  ``patterns.language``.
+   -  ``issue_binding``.
+   -  ``aquisition_status``.
+   -  ``acquisition_method``.
+   -  ``acquisition_expected_end_date``.
+   -  ``general_retention_policy``.
+   -  ``completeness``.
+   -  ``composite_copy_report``.
+   -  ``_masked`` that allows to mask a specific holdings.
+
+-  Allows to attach:
+
+   -  Holdings of serial type to any type of document.
+   -  Holdings of standard type to document of type journal.
+   -  Items of standard type to holdings of type serial.
+
+-  Adds a type to the holdings JSON schema to define if it is a serial
+   or a standard holdings.
+-  Sets the ``EnumerationAnyChronology`` field input to text area.
+-  Removes the ``sample_issue_retained`` form the completeness
+   enumeration of the holdings JSON schema.
+-  Sets the ``issue_binding`` field type of the holdings to string.
+-  Implements the full list of document types and subtypes, allowing
+   only some subtypes by type through the use of a ``oneOf`` JSON
+   schema property.
+-  Fixes the document JSON schema when the form options still have a
+   different value for the key ``label`` than for the key ``value``.
+   This prevents the translator to translate once the code and once the
+   natural language version of the same concept. The same is done in
+   some ``oneOf`` sections, replacing the value of the ``title`` key by
+   the code instead of the natural language version.
+
+Record importation from the BnF SRU service
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-  Fixes the author facet of the BnF import search view.
+-  Adds the language facet to the same view.
+-  Fixes the crash at ``unimarc_series_statement`` creation.
+-  Removes the local fields tab, as it makes no sense on the import
+   interface.
+
+Circulation
+~~~~~~~~~~~
+
+-  Unifies time management with ``utcnow`` in circulation API for
+   ``transaction_date``.
+-  Uses a temporary item_type (or Circulation category) for circulation
+   operations (checkout, extend, renew) if it’s defined and valid on an
+   item.
+-  Adapts SIP2 type to the new document types.
+-  Allows libraries to have as many pickup locations as the need.
+-  Adds conditions to consider a checkin with no action performed in
+   order to display item info (for example, when an *in transit* item
+   barcode is scanned at a wrong library).
+
+Logging changes
+~~~~~~~~~~~~~~~
+
+-  Creates a new resource named “operation logs” in order to keep
+   history of record updates. Each time a record is created, updated,
+   deleted, an ``operation_log`` record is created with the type of
+   operation, the user responsible for it and the modified record. The
+   tracked resources are *documents*, *holdings* and *items*.
+-  Adds configuration to enable the capture of operation by resource.
+-  Adds listener to add operation_log after record creation.
+
+Documentation
+~~~~~~~~~~~~~
+
+-  Adds a GitHub actions workflow to mark issues and PR with no recent
+   activity as stale.
+
+Tests
+~~~~~
+
+-  Adds a Cypress test to check the *0 day checkout*.
+-  Adds a Cypress test to creation of a circulation policy.
+-  Fixes an issue when GitHub actions submit data to the *coveralls*
+   API.
+-  Fixes Cypress tests according to the new document types.
+
+Monitoring
+----------
+
+-  Adds a user with permissions to access monitoring data.
+-  Monitors the redis service.
+
+Instance
+~~~~~~~~
+
+-  Upgrades Invenio to version ``3.4``.
+-  Uses the ``rero-ils-ui`` version ``0.10.0`` and then ``0.11.0``.
+-  Fixes error message when deploying the Angular application with
+   Invenio ``3.4``. The Angular application should live with the webpack
+   bundle. To fix error message and a blank public search page, the
+   ``zone.js`` script should be included.
+-  Upgrades Cypress to version ``6.1.0``.
+
+   -  Replaces ``cy.routes`` by ``cy.intercept`` because it’s
+      deprecated.
+   -  Adds a parameter to the Cypress script in order to allow updating
+      Cypress (``-r`` or ``--reinstall``).
+
+-  Fix a small typo in the bootstrap script (*dos* to *does*).
+
+Issues
+~~~~~~
+
+-  `#1188`_: Image thumbnails for documents should be displayed in pro
+   interface.
+-  `#1237`_: Unable to use a dynamic date with a ``+`` character for the
+   new acquisition URL creation.
+-  `#1287`_: A barcode should not be required when editing an expected
+   issue instead of receiving it.
+-  `#1288`_: The issue call number should be generated according to the
+   holdings call number.
+-  `#1341`_: A library should have as many pickup locations as wanted.
+-  `#1387`_: Reset password e-mails are too terse and untranslated.
+-  `#1401`_: Performance issue when loading and displaying documents
+   with many items in the public interface.
+-  `#1473`_: The *Login (to see request options)* button should be more
+   visible on the public document detailed view.
+-  `#1486`_: Index both ISBN 10 and 13 format in the document index.
+-  `#1509`_: The search of the public interface does not adapt its
+   suggestions to the browser locale.
+-  `#1565`_: Remove unnecessary description in the loan JSON schema.
+-  `#1571`_: Contribution aggregations are missing on the “import from
+   the web” professional interface
+-  `#1577`_: *Label* should be renamed into *Unit* in the professional
+   document detailed view.
+-  `#1612`_: Serial holdings should be allowed on any document types.
+-  `#1639`_: Button ‘login (to see request options)’ has a wrong URL.
+
+.. _link: https://github.com/rero/rero-ils-ui
+.. _#1188: https://github.com/rero/rero-ils/issues/1188
+.. _#1237: https://github.com/rero/rero-ils/issues/1237
+.. _#1287: https://github.com/rero/rero-ils/issues/1287
+.. _#1288: https://github.com/rero/rero-ils/issues/1288
+.. _#1341: https://github.com/rero/rero-ils/issues/1341
+.. _#1387: https://github.com/rero/rero-ils/issues/1387
+.. _#1401: https://github.com/rero/rero-ils/issues/1401
+.. _#1473: https://github.com/rero/rero-ils/issues/1473
+.. _#1486: https://github.com/rero/rero-ils/issues/1486
+.. _#1509: https://github.com/rero/rero-ils/issues/1509
+.. _#1565: https://github.com/rero/rero-ils/issues/1565
+.. _#1571: https://github.com/rero/rero-ils/issues/1571
+.. _#1577: https://github.com/rero/rero-ils/issues/1577
+.. _#1612: https://github.com/rero/rero-ils/issues/1612
+.. _#1639: https://github.com/rero/rero-ils/issues/1639
+
 v0.15.0
 -------
 
@@ -1625,7 +1902,7 @@ Instance
 Scripts
 ~~~~~~~
 
--  Fixes ``server`` script to make use of the correct scheduler backend
+-  Fixes ``server`` script to make use of the correct scheduler back end
    and prevents ``rero_ils.schedulers.RedisScheduler`` file creation.
 
 Fixed issues
@@ -1893,7 +2170,7 @@ Instance
    processes still running, after the move from ``pipenv`` to
    ``poetry``.
 -  Improves the handling of scheduled tasks with the use of REDIS
-   scheduler backend, allowing to enable, disable, update, create
+   scheduler back end, allowing to enable, disable, update, create
    scheduled tasks dynamically.
 
 Issues
@@ -2215,7 +2492,7 @@ Tests
 -  Fixes issue with the daylight saving timezone that occurs twice
    a year.
 -  Fixes other timezone issues and displays better error messages. Tests
-   for the circulation backend are highly dependent on a good timezone
+   for the circulation back end are highly dependent on a good timezone
    management.
 -  Compares library opening hours in UTC only, to avoid changing
    daylight saving timezones.
@@ -2496,7 +2773,7 @@ Instance
    repositories:
 
    -  The repository `rero-ils <https://github.com/rero/rero-ils>`__
-      contains the backend, the Invenio instance and the flask
+      contains the back end, the Invenio instance and the flask
       application.
    -  `ng-core <https://github.com/rero/ng-core>`__ is an angular
       library for a User Interface, shared between two RERO projects
