@@ -69,9 +69,15 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
     # Use ES to order holdings records
     # Pass directly the ES holdings to the template
     # and create some pipe to process record
+    # return only non-masked holdings records for the public interface.
+    # TODO: this is a temporary implemenation of the masked holdings records.
+    # this functionality will be completed after merging the USs:
+    # US1909: Performance: many items on public document detailed view
+    # US1906: Complete item model
     from ..holdings.api import HoldingsSearch
     query = results = HoldingsSearch()\
-        .filter('term', document__pid=pid.pid_value)
+        .filter('term', document__pid=pid.pid_value) \
+        .filter('term', _masked=False)
     if organisation:
         query = query.filter('term', organisation__pid=organisation.pid)
     results = query\

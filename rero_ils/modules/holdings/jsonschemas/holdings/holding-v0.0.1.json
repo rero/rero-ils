@@ -13,14 +13,13 @@
     "document"
   ],
   "propertiesOrder": [
+    "location",
+    "circulation_category",
     "call_number",
     "second_call_number",
-    "circulation_category",
-    "location",
     "holdings_type",
-    "_masked",
-    "vendor",
     "enumerationAndChronology",
+    "patterns",
     "supplementaryContent",
     "index",
     "missing_issues",
@@ -32,7 +31,8 @@
     "completeness",
     "composite_copy_report",
     "notes",
-    "patterns"
+    "vendor",
+    "_masked"
   ],
   "properties": {
     "$schema": {
@@ -53,7 +53,14 @@
     },
     "second_call_number": {
       "title": "Second call number",
-      "type": "string"
+      "type": "string",
+      "hide": true,
+      "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        }
+      }
     },
     "circulation_category": {
       "title": "Circulation type",
@@ -447,8 +454,9 @@
         }
       },
       "form": {
-        "expressionProperties": {
-          "templateOptions.required": "true"
+        "hide": true,
+        "navigation": {
+          "essential": true
         }
       }
     },
@@ -488,28 +496,53 @@
       "title": "Supplementary content",
       "description": "Textual description of supplementary contents (special issues, etc.).",
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        }
+      }
     },
     "index": {
       "title": "Indexes",
       "description": "Textual description of the indexes.",
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        }
+      }
     },
     "missing_issues": {
       "title": "Missing issues",
       "description": "Textual description of the missing issues.",
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        }
+      }
     },
     "issue_binding": {
       "title": "Number of issues to be bound together",
       "type": "number",
-      "minimum": 0
+      "minimum": 0,
+      "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        }
+      }
     },
     "notes": {
       "title": "Notes",
       "type": "array",
+      "minItems": 1,
       "items": {
         "type": "object",
         "title": "Note",
@@ -596,6 +629,10 @@
         }
       },
       "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        },
         "validation": {
           "validators": {
             "uniqueValueKeysInObject": {
@@ -622,6 +659,10 @@
         "not_currently_received"
       ],
       "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        },
         "type": "selectWithSort",
         "options": [
           {
@@ -669,6 +710,10 @@
         "other_method_of_acquisition"
       ],
       "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        },
         "type": "selectWithSort",
         "options": [
           {
@@ -729,6 +774,10 @@
       "format": "date",
       "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
       "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        },
         "type": "datepicker",
         "validation": {
           "messages": {
@@ -752,6 +801,10 @@
         "permanently_retained"
       ],
       "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        },
         "type": "selectWithSort",
         "options": [
           {
@@ -806,6 +859,10 @@
         "not_applicable"
       ],
       "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        },
         "type": "selectWithSort",
         "options": [
           {
@@ -840,6 +897,10 @@
         "composite"
       ],
       "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        },
         "type": "selectWithSort",
         "options": [
           {
