@@ -35,7 +35,8 @@ from ..items.utils import item_pid_to_object
 from ..libraries.api import Library
 from ..loans.api import Loan
 from ..locations.api import Location
-from ..notifications.tasks import create_over_and_due_soon_notifications
+from ..notifications.api import Notification
+from ..notifications.tasks import create_notifications
 from ..patron_transaction_events.api import PatronTransactionEvent
 from ..patron_types.api import PatronType
 from ..patrons.api import Patron, PatronsSearch
@@ -129,9 +130,14 @@ def create_loans(infile, verbose, debug):
                 errors_count = print_message(item_barcode, 'rank_2',
                                              errors_count)
     # create due soon notifications, overdue notifications are auto created.
-    result = create_over_and_due_soon_notifications(overdue=False,
-                                                    process=False,
-                                                    verbose=verbose)
+    result = create_notifications(
+        types=[
+            Notification.DUE_SOON_NOTIFICATION_TYPE,
+            Notification.OVERDUE_NOTIFICATION_TYPE
+        ],
+        process=False,
+        verbose=verbose
+    )
     # block given patron
     for patron_data in to_block:
         barcode = patron_data.get('barcode')

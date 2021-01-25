@@ -25,7 +25,8 @@ import pytest
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
-from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE
+from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE, \
+    OVERDUE_REMINDER_TYPE
 from rero_ils.modules.errors import RecordValidationError
 
 
@@ -154,7 +155,7 @@ def test_circ_policy_reminders(circ_policy_schema,
         'type': DUE_SOON_REMINDER_TYPE,
         'days_delay': 3,
         'communication_channel': 'email',
-        'template': 'dummy_path'
+        'template': 'email/due_soon/'
     }
     cipo['reminders'].append(due_soon_reminder)
     validate(cipo, circ_policy_schema)
@@ -165,6 +166,23 @@ def test_circ_policy_reminders(circ_policy_schema,
         cipo['reminders'].append(due_soon_reminder_2)
         validate(cipo, circ_policy_schema)  # valid for JSON schema
         cipo.validate()  # invalid against extented_validation rules
+    del cipo['reminders'][1]
+
+    # Tow "OVERDUE" reminders with same delay are disallow
+    overdue_reminder = {
+        'type': OVERDUE_REMINDER_TYPE,
+        'days_delay': 2,
+        'communication_channel': 'email',
+        'template': 'email/overdue'
+    }
+    with pytest.raises(RecordValidationError):
+        overdue_reminder1 = deepcopy(overdue_reminder)
+        overdue_reminder2 = deepcopy(overdue_reminder)
+        overdue_reminder2['template'] = 'email/overdue2'
+        cipo['reminders'].extend([overdue_reminder1, overdue_reminder2])
+        validate(cipo, circ_policy_schema)  # valid for JSON schema
+        cipo.validate()  # invalid against extented_validation rules
+    del cipo['reminders']
 
 
 def test_circ_policy_overdue_fees(circ_policy_schema,

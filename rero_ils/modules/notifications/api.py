@@ -383,18 +383,19 @@ def number_of_reminders_sent(
         .source().count()
 
 
-def get_template_to_use(loan, notification_type):
+def get_template_to_use(loan, notification_data):
     """Get the template path to use for a notification.
 
     :param loan: the notification parent loan.
-    :param notification_type: the notification type.
+    :param notification_data: the notification data.
     """
-    from ..items.api import Item
+    from ..loans.utils import get_circ_policy
 
     # depending of notification to send, the template to use cold be static or
     # found into the related circulation policy.
     # TODO : depending of the communication channel, improve the function to
     #        get the correct template.
+    notification_type = notification_data.get('notification_type')
     static_template_mapping = {
         Notification.RECALL_NOTIFICATION_TYPE: 'email/recall',
         Notification.AVAILABILITY_NOTIFICATION_TYPE: 'email/availability'
@@ -404,24 +405,13 @@ def get_template_to_use(loan, notification_type):
 
     # Find the related circulation policy and check about the template to use
     # into the defined reminders
-    location_pid = loan.get('transaction_location_pid')
-    patron = Patron.get_record_by_pid(loan.patron_pid)
-    item = Item.get_record_by_pid(loan.get('item_pid', {}).get('value'))
-    cipo = CircPolicy.provide_circ_policy(
-        Location.get_record_by_pid(location_pid).library_pid,
-        patron.patron_type_pid,
-        item.holding_circulation_category_pid
-    )
-    reminders_count = number_of_reminders_sent(
-        loan,
-        notification_type=notification_type
-    )
+    cipo = get_circ_policy(loan)
     reminder_type = DUE_SOON_REMINDER_TYPE
     if notification_type != Notification.DUE_SOON_NOTIFICATION_TYPE:
         reminder_type = OVERDUE_REMINDER_TYPE
     reminder = cipo.get_reminder(
         reminder_type=reminder_type,
-        idx=reminders_count - 1
+        idx=notification_data.get('reminder_counter', 0)
     )
     return reminder.get('template')
 

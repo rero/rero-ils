@@ -109,12 +109,19 @@ class CircPolicy(IlsRecord):
                or item_type.get('organisation') != org:
                 return 'CircPolicy: PatronType ItemType Org diff'
 
-        # check reminders :: only one "due_soon" reminder can be defined
+        # check reminders ::
+        #   1) only one "before" reminder can be defined.
+        #   2) each delay of "after" reminder must be unique.
         reminders = self.get('reminders', [])
         due_soon_reminders = [r for r in reminders
                               if r.get('type') == DUE_SOON_REMINDER_TYPE]
         if len(due_soon_reminders) > 1:
             return 'Only one "due soon" reminder can be defined by CircPolicy'
+        overdue_reminder_delays = [r.get('days_delay') for r in reminders
+                                   if r.get('type') == OVERDUE_REMINDER_TYPE]
+        unique_delays = set(overdue_reminder_delays)
+        if len(unique_delays) != len(overdue_reminder_delays):
+            return 'Delay for "overdue" reminder should be unique.'
 
         # check fees intervals :
         #  1) None interval can overlap other one.
@@ -316,17 +323,28 @@ class CircPolicy(IlsRecord):
             key=lambda interval: interval.get('from')
         )
 
+    def get_reminders(self, reminder_type=DUE_SOON_REMINDER_TYPE, limit=None):
+        """Get reminders corresponding to arguments.
+
+        :param reminder_type: the type of reminder to search.
+        :param limit: the number of day limit. All reminders defined after these limit
+                      will not be returned
+        """
+        limit = limit or sys.maxsize
+        for reminder in self.get('reminders', []):
+            if reminder.get('type') == reminder_type \
+               and reminder.get('days_delay') <= limit:
+                yield reminder
+
     def get_reminder(self, reminder_type=DUE_SOON_REMINDER_TYPE, idx=0):
         """Get the best possible reminder based on argument criteria.
 
         :param reminder_type: the type of reminder to search.
         :param idx: the reminder index to search. First reminder has 0 index.
         """
-        reminders = [r for r in self.get('reminders', [])
-                     if r.get('type') == reminder_type]
+        reminders = list(self.get_reminders(reminder_type=reminder_type))
         if idx < len(reminders):
             return reminders[idx]
-
 
     @classmethod
     def allow_request(cls, item, **kwargs):
