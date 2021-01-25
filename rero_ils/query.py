@@ -166,12 +166,24 @@ def organisation_organisation_search_factory(self, search, query_parser=None):
 
 
 def organisation_search_factory(self, search, query_parser=None):
-    """Search factory."""
-    search, urlkwargs = search_factory(self, search)
+    """Search factory with view code parameter.
+
+    Exlcude masked record from public search.
+    """
+    # TODO: this is a temporary implemenation of the masked holdings records.
+    # this functionality will be completed after merging the USs:
+    # US1909: Performance: many items on public document detailed view
+    # US1906: Complete item model
     if current_patron:
         search = search.filter(
             'term', organisation__pid=current_organisation.pid
         )
+    view = request.args.get(
+        'view', current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))
+    search, urlkwargs = search_factory(self, search)
+    if view != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
+        search = search.filter('bool', must_not=[Q('term', _masked=True)])
+
     return search, urlkwargs
 
 
