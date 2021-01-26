@@ -84,6 +84,6 @@ def test_checkout_temporary_item_type(
     transaction_end_date = transaction_end_date.strftime('%Y-%m-%d')
     assert transaction_end_date in expected_dates
 
-    # reset the item to orignal value
+    # reset the item to original value
     del item['temporary_item_type']
     item.update(data=item, dbcommit=True, reindex=True)

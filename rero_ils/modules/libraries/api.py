@@ -245,7 +245,18 @@ class Library(IlsRecord):
                 times_open = not times_open
         return times_open
 
-    def next_open(self, date=datetime.now(pytz.utc), previous=False):
+    def _get_opening_hour_by_day(self, day_name):
+        """Get the library opening hour for a specific day."""
+        day_name = day_name.lower()
+        days = [day for day in self.get('opening_hours', [])
+                if day.get('day') == day_name and day.get('is_open', False)]
+        if days:
+            times = days[0].get('times', [])
+            if times:
+                return times[0].get('start_time')
+
+    def next_open(self, date=datetime.now(pytz.utc), previous=False,
+                  ensure=False):
         """Get next open day."""
         if not self._has_is_open():
             raise LibraryNeverOpen
@@ -257,7 +268,16 @@ class Library(IlsRecord):
         date += timedelta(days=add_day)
         while not self.is_open(date=date, day_only=True):
             date += timedelta(days=add_day)
-        return date
+        if not ensure:
+            return date
+        opening_hour = self._get_opening_hour_by_day(date.strftime('%A'))
+        time = [int(part) for part in opening_hour.split(':')]
+        return date.replace(
+            hour=time[0],
+            minute=time[1],
+            second=0,
+            microsecond=0
+        )
 
     def count_open(self, start_date=datetime.now(pytz.utc),
                    end_date=datetime.now(pytz.utc), day_only=False):
