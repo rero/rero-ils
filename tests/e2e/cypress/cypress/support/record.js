@@ -45,9 +45,10 @@ Cypress.Commands.add("deleteRecordFromDetailView", () => {
 
 Cypress.Commands.add("populateSimpleRecord", (document) => {
   // Choose type
-  if (document.hasOwnProperty('type')) {
-    cy.get('ng-core-editor-select-with-sort-type.ng-star-inserted > #type').select(document.type);
-  }
+  // TODO: find how to manage oneOf with Cypress
+  // if (document.hasOwnProperty('type')) {
+  //   cy.get('ng-core-editor-select-with-sort-type.ng-star-inserted > #type').select(document.type);
+  // }
   // Enter title
   if (document.hasOwnProperty('title')) {
     if (document.title.hasOwnProperty('mainTitle')) {

@@ -1,6 +1,9 @@
 {
   "book": {
-    "type": "Book",
+    "type":[{
+      "main_type":"docmaintype_book",
+      "subtype":"docsubtype_other_book"
+    }],
     "title": {
       "mainTitle": "Title test",
       "language": "arm-armn",
