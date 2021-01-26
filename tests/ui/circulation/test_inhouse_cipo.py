@@ -18,10 +18,8 @@
 """In house circulation policy tests."""
 
 from copy import deepcopy
-from datetime import datetime
 
 import ciso8601
-import pytz
 from freezegun import freeze_time
 
 from rero_ils.modules.items.api import Item
@@ -54,9 +52,7 @@ def test_less_than_one_day_checkout(
 
     # Ensure than the transaction date used will be an open_day.
     owner_lib = Library.get_record_by_pid(created_item.library_pid)
-    transaction_date = datetime.now()
-    if not owner_lib.is_open(day_only=True):
-        transaction_date = owner_lib.next_open()
+    transaction_date = owner_lib.next_open(ensure=True)
 
     with freeze_time(transaction_date):
         # the following tests the circulation action CHECKOUT_1_1
@@ -78,17 +74,11 @@ def test_less_than_one_day_checkout(
 
         # Check due date
         loan_end_date = loan.get('end_date')
-        lib = Library.get_record_by_pid(onloan_item.library_pid)
-        today = datetime.now(pytz.utc)
-        # Get next open day
-        next_open_day = lib.next_open(today)
-        if lib.is_open(today):
-            next_open_day = today
         # Loan date should be in UTC.
         loan_datetime = ciso8601.parse_datetime(loan_end_date)
         # Compare year, month and date
         fail_msg = "Check timezone for Loan and Library. " \
                    "It should be the same date, even if timezone changed."
-        assert loan_datetime.year == next_open_day.year, fail_msg
-        assert loan_datetime.month == next_open_day.month, fail_msg
-        assert loan_datetime.day == next_open_day.day, fail_msg
+
+        assert loan_datetime.strftime('%Y-%m-%d') \
+               == transaction_date.strftime('%Y-%m-%d'), fail_msg
