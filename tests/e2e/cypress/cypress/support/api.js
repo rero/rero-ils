@@ -28,7 +28,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
     url: '/api/documents/',
     followRedirect: false,
     body: {
-      "type": (document.type).toLowerCase(),
+      "type":[{
+        "main_type": document.type[0].main_type,
+        "subtype": document.type[0].subtype
+      }],
       "title":[{
         "type":"bf:Title",
         "mainTitle":[{
