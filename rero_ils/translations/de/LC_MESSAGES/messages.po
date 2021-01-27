@@ -17,15 +17,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-01-25 14:03+0100\n"
-"PO-Revision-Date: 2021-01-23 14:32+0000\n"
+"PO-Revision-Date: 2021-01-27 13:53+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/de/>\n"
 "Language: de\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.5-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:129
@@ -50,11 +51,11 @@ msgstr "Willkommen zu RERO ILS!"
 
 #: rero_ils/config.py:218
 msgid "RERO ID password reset"
-msgstr ""
+msgstr "Zurücksetzung des RERO ID Passworts"
 
 #: rero_ils/config.py:219
 msgid "Your RERO ID password has been reset"
-msgstr ""
+msgstr "Ihr RERO ID-Passwort wurde zurückgesetzt"
 
 #: rero_ils/config.py:1614
 msgid "document_type"
@@ -6892,7 +6893,7 @@ msgstr "Serielle Konfiguration"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:163
 msgid "Issue display template"
-msgstr "Ausgabe-Anzeigevorlage "
+msgstr "Anzeigevorlage der Einheit"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:164
 msgid ""
@@ -7519,10 +7520,12 @@ msgid ""
 "Temporary circulation category cannot be the same than default "
 "circulation category."
 msgstr ""
+"Die temporäre Ausleihkategorie kann nicht gleich sein wie die Basis-"
+"Ausleihkategorie."
 
 #: rero_ils/modules/items/api/record.py:89
 msgid "Temporary circulation category end date must be a date in the future."
-msgstr ""
+msgstr "Das Enddatum der temporärer Ausleihkategorie muss in der Zukunft sein."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:5
 msgid "JSON schema for an item."
@@ -7560,15 +7563,16 @@ msgid "Item Type URI"
 msgstr "URI des Exemplartypen"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:179
-#, fuzzy
 msgid "Temporary circulation category"
-msgstr "Ausleihkategorie"
+msgstr "Temporäre Ausleihkategorie"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:180
 msgid ""
 "Apply a temporary item circulation category for this item. If specified, "
 "this circulation category overrides the default category."
 msgstr ""
+"Diesem Exemplar eine temporäre Ausleihkategorie zuweisen. Diese übergeht "
+"dann die Standard-Ausleihkategorie."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:261
 msgid "Issue status"
@@ -9259,22 +9263,20 @@ msgstr "wurde gelöscht."
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:22
 #: rero_ils/theme/templates/security/email/reset_notice.html:22
-#, fuzzy
 msgid "Dear"
-msgstr "Jahr"
+msgstr "Sehr geehrte(r)"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:24
 #: rero_ils/theme/templates/security/email/reset_notice.html:24
-#, fuzzy
 msgid "Dear patron"
-msgstr "Leser"
+msgstr "Liebe(r) Leser(in)"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:26
 msgid "Someone requested that the password for your RERO ID account be reset."
 msgstr ""
+"Es wurde eine Anfrage zum Zurücksetzen Ihres RERO ID-Passworts gestellt."
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:27
-#, fuzzy
 msgid "Reset my password"
 msgstr "Passwort zurücksetzen"
 
@@ -9283,21 +9285,22 @@ msgid ""
 "If you didn't request this, you can ignore this e-mail. Your password "
 "won't change until you create a new password."
 msgstr ""
+"Wenn Sie dies nicht angefordert haben, können Sie diese E-Mail ignorieren. "
+"Ihr Passwort wird nicht geändert, bis Sie ein neues Passwort erstellen."
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:29
 #: rero_ils/theme/templates/security/email/reset_notice.html:27
 msgid "Best regards"
-msgstr ""
+msgstr "Freundliche Grüsse"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:30
 #: rero_ils/theme/templates/security/email/reset_notice.html:28
-#, fuzzy
 msgid "Your library"
-msgstr "Bibliothek"
+msgstr "Ihre Bibliothek"
 
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
-msgstr ""
+msgstr "Ihr Passwort wurde erfolgreich zurückgesetzt."
 
 #~ msgid "Examples: 135, 5-27, ..."
 #~ msgstr ""
@@ -10039,4 +10042,3 @@ msgstr ""
 
 #~ msgid "Click here to reset your password"
 #~ msgstr "Hier klicken, um Ihr Passwort zurückzusetzen"
-

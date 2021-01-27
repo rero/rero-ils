@@ -13,15 +13,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-01-25 14:03+0100\n"
-"PO-Revision-Date: 2021-01-22 11:32+0000\n"
-"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"PO-Revision-Date: 2021-01-27 13:53+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/es/>\n"
 "Language: es\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/es/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.5-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:129
@@ -6885,7 +6886,7 @@ msgstr "Configuración de publicación en serie"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:163
 msgid "Issue display template"
-msgstr "Plantilla para la enumeración y cronología del número"
+msgstr "Plantilla de la unidad"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:164
 msgid ""
@@ -10066,4 +10067,3 @@ msgstr ""
 
 #~ msgid "Click here to reset your password"
 #~ msgstr "Haga clic aquí para restablecer su contraseña"
-
