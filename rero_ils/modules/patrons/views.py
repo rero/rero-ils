@@ -20,7 +20,6 @@
 from __future__ import absolute_import, print_function
 
 import re
-from functools import wraps
 
 from elasticsearch_dsl import Q
 from flask import Blueprint, abort, current_app, flash, jsonify, \
@@ -37,12 +36,12 @@ from werkzeug.utils import redirect
 from .api import Patron, PatronsSearch
 from .permissions import get_allowed_roles_management
 from .utils import user_has_patron
+from ..decorators import check_logged_as_librarian
 from ..items.api import Item
 from ..items.utils import item_pid_to_object
 from ..loans.api import Loan, get_loans_stats_by_patron_pid, patron_profile
 from ..locations.api import Location
 from ..utils import get_base_url
-from ...permissions import login_and_librarian
 
 api_blueprint = Blueprint(
     'api_patrons',
@@ -58,21 +57,8 @@ _EMAIL_REGEX = re.compile(r'email:"\s*(.*?)\s*"')
 _USERNAME_REGEX = re.compile(r'username:"\s*(.*?)\s*"')
 
 
-def check_permission(fn):
-    """Decorate to check permission access.
-
-    The access is allow when the connected user is a librarian.
-    """
-    @wraps(fn)
-    def is_logged_librarian(*args, **kwargs):
-        """Decorated view."""
-        login_and_librarian()
-        return fn(*args, **kwargs)
-    return is_logged_librarian
-
-
 @api_blueprint.route('/count/', methods=['GET'])
-@check_permission
+@check_logged_as_librarian
 def number_of_patrons():
     """Returns the number of patrons matching the query.
 
@@ -106,7 +92,7 @@ def number_of_patrons():
 
 
 @api_blueprint.route('/<patron_pid>/circulation_informations', methods=['GET'])
-@check_permission
+@check_logged_as_librarian
 def patron_circulation_informations(patron_pid):
     """Get the circulation statistics and info messages about a patron."""
     patron = Patron.get_record_by_pid(patron_pid)
@@ -264,7 +250,7 @@ def format_currency_filter(value, currency):
 
 
 @api_blueprint.route('/roles_management_permissions', methods=['GET'])
-@check_permission
+@check_logged_as_librarian
 def get_roles_management_permissions():
     """Get the roles that current logged user could manage."""
     return jsonify({

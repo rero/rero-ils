@@ -2286,6 +2286,12 @@ RERO_ILS_ENABLE_OPERATION_LOG = {
     'items': 'item'
 }
 
+# Notification Configuration
+# ===========================
+RERO_ILS_NOTIFICATIONS_ALLOWED_TEMPATE_FILES = [
+    '*.txt',
+    '*.tpl.*'
+]
 
 # Login Configuration
 # ===================
