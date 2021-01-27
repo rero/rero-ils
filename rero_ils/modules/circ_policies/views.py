@@ -19,13 +19,11 @@
 
 from __future__ import absolute_import, print_function
 
-from functools import wraps
-
 from flask import Blueprint, jsonify
 
 from ..circ_policies.api import CircPolicy
+from ..decorators import check_logged_as_librarian
 from ..patrons.api import current_patron
-from ...permissions import login_and_librarian
 
 blueprint = Blueprint(
     'circ_policies',
@@ -35,20 +33,10 @@ blueprint = Blueprint(
 )
 
 
-def check_permission(fn):
-    """Decorate to check permission access."""
-    @wraps(fn)
-    def decorated_view(*args, **kwargs):
-        """Decorated view."""
-        login_and_librarian()
-        return fn(*args, **kwargs)
-    return decorated_view
-
-
 @blueprint.route('/circ_policies/name/validate/<name>', methods=["GET"])
-@check_permission
+@check_logged_as_librarian
 def name_validate(name):
-    """Circ policy name Validatation."""
+    """Circulation policy name validation."""
     response = {
         'name': None
     }

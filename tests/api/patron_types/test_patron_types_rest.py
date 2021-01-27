@@ -153,13 +153,11 @@ def test_patron_types_post_put_delete(client, org_martigny,
     assert res.status_code == 410
 
 
-@mock.patch('rero_ils.modules.patron_types.views.login_and_librarian',
+@mock.patch('rero_ils.modules.decorators.login_and_librarian',
             mock.MagicMock())
-def test_patron_types_name_validate(client, patron_type_children_martigny):
+def test_patron_types_name_validate(client):
     """Test patron type name validation."""
-
     url = url_for('patron_types.name_validate', name='children')
-
     class current_patron:
         class organisation:
             pid = 'org1'
