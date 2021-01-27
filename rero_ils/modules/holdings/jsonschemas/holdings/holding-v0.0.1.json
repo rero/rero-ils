@@ -156,7 +156,7 @@
       }
     },
     "patterns": {
-      "title": "Serial configuration",
+      "title": "Predictions",
       "type": "object",
       "required": [
         "values",
@@ -176,7 +176,7 @@
       "additionalProperties": false,
       "properties": {
         "template": {
-          "title": "Issue display template",
+          "title": "Template",
           "description": "This template define how a prediction is displayed. i.e. year 2020; vol.1, iss. 4. It should contains the variable field between {{}} with the corresponding pattern and level name.",
           "type": "string",
           "minLength": 3,
@@ -496,7 +496,13 @@
       "title": "Available collection",
       "description": "Textual description of the basic bibliographic unit of the holding.",
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "form": {
+        "type": "textarea",
+        "templateOptions": {
+          "rows": 2
+        }
+      }
     },
     "supplementaryContent": {
       "title": "Supplementary content",

@@ -205,7 +205,7 @@ def test_create_holdings_with_pattern(
         post_entrypoint,
         holding_lib_martigny_data
     )
-    assert res.status_code == 403
+    assert res.status_code == 201
 
     holding_lib_martigny_data['patterns'] = \
         pattern_yearly_one_level_data['patterns']
@@ -216,7 +216,7 @@ def test_create_holdings_with_pattern(
         post_entrypoint,
         holding_lib_martigny_data
     )
-    assert res.status_code == 403
+    assert res.status_code == 201
 
     # test will not fail when creating a standard holding for a journal doc.
     holding_lib_martigny_w_patterns_data['holdings_type'] = 'standard'
