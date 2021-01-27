@@ -151,13 +151,11 @@ def test_item_types_post_put_delete(client, org_martigny,
     assert res.status_code == 410
 
 
-@mock.patch('rero_ils.modules.item_types.views.login_and_librarian',
+@mock.patch('rero_ils.modules.decorators.login_and_librarian',
             mock.MagicMock())
-def test_item_types_name_validate(client, item_type_standard_martigny):
+def test_item_types_name_validate(client):
     """Test record name validation."""
-
     url = url_for('item_types.name_validate', name='standard')
-
     class current_patron:
         class organisation:
             pid = 'org1'

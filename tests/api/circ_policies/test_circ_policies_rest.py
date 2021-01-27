@@ -178,12 +178,11 @@ def test_circ_policies_post_put_delete(client, org_martigny,
     assert res.status_code == 200
 
 
-@mock.patch('rero_ils.modules.circ_policies.views.login_and_librarian',
+@mock.patch('rero_ils.modules.decorators.login_and_librarian',
             mock.MagicMock())
-def test_circ_policies_name_validate(client, circ_policy_default_martigny):
+def test_circ_policies_name_validate(client):
     """Test policy validation."""
     url = url_for('circ_policies.name_validate', name='Default')
-    circ_policy = circ_policy_default_martigny
 
     class current_patron:
         class organisation:
