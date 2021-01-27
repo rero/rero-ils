@@ -19,8 +19,6 @@
 
 from __future__ import absolute_import, print_function
 
-from functools import wraps
-
 import click
 from flask import Blueprint, abort, current_app, jsonify, render_template
 from flask import request as flask_request
@@ -43,7 +41,6 @@ from ..locations.api import Location
 from ..organisations.api import Organisation
 from ..patrons.api import Patron, current_patron
 from ..utils import cached, extracted_data_from_ref
-from ...permissions import login_and_librarian
 
 
 def doc_item_view_method(pid, record, template=None, **kwargs):
@@ -89,16 +86,6 @@ api_blueprint = Blueprint(
     'api_documents',
     __name__
 )
-
-
-def check_permission(fn):
-    """Check user permissions."""
-    @wraps(fn)
-    def decorated_view(*args, **kwargs):
-        """Decorated view."""
-        login_and_librarian()
-        return fn(*args, **kwargs)
-    return decorated_view
 
 
 @api_blueprint.route('/cover/<isbn>')
