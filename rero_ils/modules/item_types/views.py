@@ -19,13 +19,11 @@
 
 from __future__ import absolute_import, print_function
 
-from functools import wraps
-
 from flask import Blueprint, jsonify
 
+from ..decorators import check_logged_as_librarian
 from ..item_types.api import ItemType
 from ..patrons.api import current_patron
-from ...permissions import login_and_librarian
 
 blueprint = Blueprint(
     'item_types',
@@ -35,18 +33,8 @@ blueprint = Blueprint(
 )
 
 
-def check_permission(fn):
-    """Decorate to check permission access."""
-    @wraps(fn)
-    def decorated_view(*args, **kwargs):
-        """Decorated view."""
-        login_and_librarian()
-        return fn(*args, **kwargs)
-    return decorated_view
-
-
 @blueprint.route('/item_types/name/validate/<name>', methods=["GET"])
-@check_permission
+@check_logged_as_librarian
 def name_validate(name):
     """Item type name validation."""
     response = {
