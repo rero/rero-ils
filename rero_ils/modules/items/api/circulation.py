@@ -1074,12 +1074,12 @@ class ItemCirculation(ItemRecord):
             if not can:
                 data['action_validated'] = False
         if action == 'checkout':
-            if not circ_policy.get('allow_checkout'):
+            if not circ_policy.allow_checkout:
                 data['action_validated'] = False
 
         if action == 'receive':
             if (
-                    circ_policy.get('allow_checkout') and
+                    circ_policy.allow_checkout and
                     loan['state'] ==
                     LoanState.ITEM_IN_TRANSIT_FOR_PICKUP and
                     loan.get('patron_pid') == patron_pid

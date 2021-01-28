@@ -75,7 +75,7 @@ def get_default_loan_duration(loan, initial_loan):
     #  trigger an HTTP 403 response for the frontend, thanks to
     #  loan_satisfy_circ_policies.
 
-    if policy.get('allow_checkout') is True:
+    if policy.allow_checkout:
         due_date_eve = now + timedelta(days=policy.get(
             'checkout_duration')) - timedelta(days=1)
         next_open_date = library.next_open(date=due_date_eve)
@@ -136,8 +136,7 @@ def loan_satisfy_circ_policies(loan):
     """Validate the loan duration."""
     # Validate the loan duration
     policy = get_circ_policy(loan)
-    return loan['end_date'] > loan['start_date'] and \
-        policy.get('allow_checkout')
+    return loan['end_date'] > loan['start_date'] and policy.allow_checkout
 
 
 def is_item_available_for_checkout(item_pid):
