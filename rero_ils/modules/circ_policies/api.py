@@ -295,6 +295,11 @@ class CircPolicy(IlsRecord):
         return cannot_delete
 
     @property
+    def allow_checkout(self):
+        """Shortcut to know if circulation policy allow checkout."""
+        return 'checkout_duration' in self
+
+    @property
     def due_soon_interval_days(self):
         """Get number of days to check if loan is considerate as due_soon."""
         reminder = [r for r in self.get('reminders', [])
@@ -376,7 +381,7 @@ class CircPolicy(IlsRecord):
         return True, []
 
     @classmethod
-    def allow_checkout(cls, item, **kwargs):
+    def can_checkout(cls, item, **kwargs):
         """Check if the cipo corresponding to item/patron allow request.
 
         :param item : the item to check
@@ -400,7 +405,7 @@ class CircPolicy(IlsRecord):
             patron.patron_type_pid,
             item.item_type_circulation_category_pid
         )
-        if not cipo.get('allow_checkout', False):
+        if not cipo.allow_checkout:
             return False, ["Circulation policy disallows the operation."]
         return True, []
 

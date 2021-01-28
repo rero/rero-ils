@@ -3,7 +3,6 @@
     "organisation_pid": 4,
     "name": "On site",
     "allow_requests": false,
-    "allow_checkout": true,
     "checkout_duration": 0,
     "policy_library_level": false,
     "is_default": false
@@ -13,7 +12,6 @@
     "name":"Extended",
     "description":"Extended loan (3 months).",
     "allow_requests":true,
-    "allow_checkout":true,
     "checkout_duration":84,
     "number_of_days_after_due_date":5,
     "number_of_days_before_due_date":5,
@@ -29,7 +27,6 @@
     "name":"Default",
     "description":"Default circulation policy.",
     "allow_requests":true,
-    "allow_checkout":true,
     "checkout_duration":30,
     "number_of_days_after_due_date":5,
     "number_of_days_before_due_date":5,
@@ -44,7 +41,6 @@
     "name":"No checkout",
     "description":"Ebooks circulation policy.",
     "allow_requests":false,
-    "allow_checkout":false,
     "policy_library_level":false,
     "is_default":false
   }

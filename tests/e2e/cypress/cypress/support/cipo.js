@@ -35,7 +35,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
       },
       "name": (cipo.name + nameSuffix),
       "allow_requests": cipo.allow_requests,
-      "allow_checkout": cipo.allow_checkout,
       "checkout_duration": cipo.checkout_duration,
       "policy_library_level": cipo.policy_library_level,
       "is_default": cipo.is_default,
