@@ -33,6 +33,8 @@ def enrich_patron_transaction_data(sender, json=None, record=None, index=None,
     if index.split('-')[0] == PatronTransactionsSearch.Meta.index:
         if not isinstance(record, PatronTransaction):
             record = PatronTransaction.get_record_by_pid(record.get('pid'))
-        if record.notification_pid:
-            json['document'] = {'pid': record.document_pid}
-            json['loan'] = {'pid': record.loan_pid}
+        if record.loan:
+            json['document'] = {
+                'pid': record.document_pid,
+                'type': 'documents'
+            }
