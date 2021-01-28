@@ -42,11 +42,6 @@
         }
       }
     },
-    "allow_checkout": {
-      "title": "Allow Checkout",
-      "type": "boolean",
-      "default": true
-    },
     "checkout_duration": {
       "title": "Checkout duration in days",
       "type": "integer",

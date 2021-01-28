@@ -984,7 +984,9 @@ def test_item_possible_actions(client, item_lib_martigny,
         'itty1'
     )
 
-    circ_policy['allow_checkout'] = False
+    original_checkout_duration = circ_policy.get('checkout_duration')
+    if original_checkout_duration is not None:
+        del circ_policy['checkout_duration']
     circ_policy.update(
         circ_policy,
         dbcommit=True,
@@ -1003,10 +1005,11 @@ def test_item_possible_actions(client, item_lib_martigny,
     actions = data.get('metadata').get('item').get('actions')
     assert 'checkout' not in actions
 
-    circ_policy['allow_checkout'] = True
+    if original_checkout_duration is not None:
+        circ_policy['checkout_duration'] = original_checkout_duration
     circ_policy.update(
         circ_policy,
         dbcommit=True,
         reindex=True
     )
-    assert circ_policy['allow_checkout']
+    assert circ_policy.allow_checkout
