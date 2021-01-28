@@ -96,7 +96,6 @@
       "minLength": 1,
       "description": "Numbering, enumeration, or other indication associated with the item.",
       "form": {
-        "hide": true,
         "navigation": {
           "essential": true
         },
