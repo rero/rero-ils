@@ -116,6 +116,17 @@
         }
       }
     },
+    "loan": {
+      "title": "Loan",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Loan URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/loans/.*?$"
+        }
+      }
+    },
     "organisation": {
       "title": "Organisation",
       "type": "object",

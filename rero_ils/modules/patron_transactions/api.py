@@ -31,7 +31,7 @@ from ..organisations.api import Organisation
 from ..patron_transaction_events.api import PatronTransactionEvent, \
     PatronTransactionEventsSearch
 from ..providers import Provider
-from ..utils import get_ref_for_pid
+from ..utils import extracted_data_from_ref, get_ref_for_pid
 
 # provider
 PatronTransactionProvider = type(
@@ -90,8 +90,8 @@ class PatronTransaction(IlsRecord):
         return record
 
     # TODO: do we have to set dbcomit and reindex to True so the
-    # of the rest api for create and update works properly ?
-    # For PatronTransaction we have to set it to True for the tests.
+    #       of the rest api for create and update works properly ?
+    #       For PatronTransaction we have to set it to True for the tests.
     def update(self, data, dbcommit=True, reindex=True):
         """Update data for record."""
         record = super().update(data=data, dbcommit=dbcommit, reindex=reindex)
@@ -195,25 +195,16 @@ class PatronTransaction(IlsRecord):
             pass
 
     @property
-    def loan_pid(self):
-        """Return the loan pid of the the overdue patron transaction."""
-        from ..notifications.api import Notification
-        if self.notification_pid:
-            notif = Notification.get_record_by_pid(self.notification_pid)
-            return notif.loan_pid
-
-    @property
     def document_pid(self):
-        """Return the document pid of the the overdue patron transaction."""
-        from ..notifications.api import Notification
-        if self.notification_pid:
-            notif = Notification.get_record_by_pid(self.notification_pid)
-            return notif.document_pid
+        """Return the document pid of the the patron transaction."""
+        loan = self.loan
+        if loan:
+            return loan.document_pid
 
     @property
     def patron_pid(self):
         """Return the patron pid of the patron transaction."""
-        return self.replace_refs()['patron']['pid']
+        return extracted_data_from_ref(self['patron'])
 
     @property
     def total_amount(self):
@@ -221,17 +212,31 @@ class PatronTransaction(IlsRecord):
         return self.get('total_amount')
 
     @property
+    def loan_pid(self):
+        """Return the loan pid linked to the patron transaction."""
+        if self.get('loan'):
+            return extracted_data_from_ref(self['loan'])
+
+    @property
+    def loan(self):
+        """Return the `Loan` linked to the patron transaction."""
+        from ..loans.api import Loan
+        pid = self.loan_pid
+        if pid:
+            return Loan.get_record_by_pid(pid)
+
+    @property
     def notification_pid(self):
         """Return the notification pid of the patron transaction."""
         if self.get('notification'):
-            return self.replace_refs()['notification']['pid']
+            return extracted_data_from_ref(self['notification'])
 
     @property
     def notification(self):
         """Return the notification of the patron transaction."""
         from ..notifications.api import Notification
-        if self.get('notification'):
-            pid = self.replace_refs()['notification']['pid']
+        pid = self.notification_pid
+        if pid:
             return Notification.get_record_by_pid(pid)
 
     @property
@@ -267,6 +272,9 @@ class PatronTransaction(IlsRecord):
             data = {
                 'notification': {
                     '$ref': get_ref_for_pid('notif', notification.pid)
+                },
+                'loan': {
+                    '$ref': get_ref_for_pid('loans', notification.loan_pid)
                 },
                 'patron': {
                     '$ref': get_ref_for_pid('ptrn', notification.patron_pid)
