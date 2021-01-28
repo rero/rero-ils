@@ -86,17 +86,6 @@ def test_circ_policy_renewal_duration(
         validate(circ_policy_martigny_data_tmp, circ_policy_schema)
 
 
-def test_circ_policy_allow_checkout(
-    circ_policy_schema, circ_policy_martigny_data_tmp
-):
-    """Test allow_checkout for circulation policy jsonschema."""
-    validate(circ_policy_martigny_data_tmp, circ_policy_schema)
-
-    with pytest.raises(ValidationError):
-        circ_policy_martigny_data_tmp['allow_checkout'] = 25
-        validate(circ_policy_martigny_data_tmp, circ_policy_schema)
-
-
 def test_circ_policy_checkout_duration(
     circ_policy_schema, circ_policy_martigny_data_tmp
 ):

@@ -345,7 +345,7 @@ def item(item_barcode):
         new_actions = []
         # If circulation policy doesn't allow checkout operation no need to
         # perform special check describe below.
-        if circ_policy.get('allow_checkout', False):
+        if circ_policy.allow_checkout:
             for action in item_dumps.get('actions', []):
                 if action == 'checkout':
                     if item.number_of_requests() > 0:

@@ -2270,7 +2270,7 @@ RERO_ILS_ENABLE_OPERATION_LOG = {
     'holdings': 'hold',
     'items': 'item'
 }
- 
+
 
 # Login Configuration
 # ===================
@@ -2554,7 +2554,7 @@ CIRCULATION_ACTIONS_VALIDATION = {
     ],
     ItemCirculationAction.CHECKOUT: [
         Patron.can_checkout,
-        CircPolicy.allow_checkout,
+        CircPolicy.can_checkout,
         PatronType.allow_checkout
     ]
 }
