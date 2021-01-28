@@ -366,10 +366,8 @@ def get_loanable_items(patron_type_pid):
                 patron_type_pid,
                 item.holding_circulation_category_pid
             )
-            if (
-                    circ_policy.get('allow_checkout') and
-                    circ_policy.get('allow_requests')
-            ):
+            if (circ_policy.allow_checkout and
+               circ_policy.get('allow_requests')):
                 if not item.number_of_requests():
                     # exclude the first 16 items of the 3rd organisation
                     barcode = item.get('barcode')

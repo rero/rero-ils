@@ -60,7 +60,7 @@ def test_item_loans_elements(
         get_default_loan_duration(loan_pending_martigny, None)
 
     assert item_lib_fully.last_location_pid == item_lib_fully.location_pid
-    circ_policy_default_martigny['allow_checkout'] = False
+    del circ_policy_default_martigny['checkout_duration']
     circ_policy_default_martigny.update(
         circ_policy_default_martigny, dbcommit=True, reindex=True)
 

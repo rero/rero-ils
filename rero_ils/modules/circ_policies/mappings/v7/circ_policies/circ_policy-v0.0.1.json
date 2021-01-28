@@ -29,9 +29,6 @@
           }
         }
       },
-      "allow_checkout": {
-        "type": "boolean"
-      },
       "checkout_duration": {
         "type": "integer"
       },
