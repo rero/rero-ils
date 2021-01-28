@@ -6,7 +6,6 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
-    "allow_checkout": true,
     "checkout_duration": 30,
     "allow_requests": true,
     "reminders": [
@@ -36,7 +35,6 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/2"
     },
-    "allow_checkout": true,
     "checkout_duration": 30,
     "allow_requests": true,
     "reminders": [
@@ -66,7 +64,6 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
-    "allow_checkout": true,
     "checkout_duration": 7,
     "allow_requests": true,
     "reminders": [
@@ -111,7 +108,6 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
-    "allow_checkout": true,
     "checkout_duration": 14,
     "allow_requests": true,
     "reminders": [
@@ -159,7 +155,6 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
-    "allow_checkout": true,
     "checkout_duration": 14,
     "allow_requests": true,
     "reminders": [
@@ -199,7 +194,6 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
-    "allow_checkout": true,
     "checkout_duration": 28,
     "allow_requests": true,
     "reminders": [
@@ -239,7 +233,6 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
-    "allow_checkout": true,
     "reminders": [
       {
         "type": "due_soon",
@@ -311,7 +304,6 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
-    "allow_checkout": false,
     "allow_requests": false,
     "policy_library_level": false,
     "is_default": false,
@@ -341,7 +333,6 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
-    "allow_checkout": false,
     "allow_requests": false,
     "policy_library_level": false,
     "is_default": false,
@@ -395,7 +386,6 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
-    "allow_checkout": false,
     "allow_requests": false,
     "policy_library_level": false,
     "is_default": false,
@@ -425,7 +415,6 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/2"
     },
-    "allow_checkout": false,
     "allow_requests": false,
     "policy_library_level": false,
     "is_default": false,
@@ -455,7 +444,6 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/3"
     },
-    "allow_checkout": true,
     "reminders": [
       {
         "type": "due_soon",
@@ -485,7 +473,6 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/4"
     },
-    "allow_checkout": true,
     "reminders": [
       {
         "type": "due_soon",
