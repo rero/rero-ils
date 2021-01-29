@@ -19,15 +19,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-01-27 15:27+0100\n"
-"PO-Revision-Date: 2021-01-27 13:53+0000\n"
+"PO-Revision-Date: 2021-01-29 11:38+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/it/>\n"
 "Language: it\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/it/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.5-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:131
@@ -6822,13 +6823,12 @@ msgid "Must have next expected date for regular frequencies."
 msgstr "La prossima data prevista è obbligatoria per le frequenze regolari."
 
 #: rero_ils/modules/holdings/api.py:159
-#, fuzzy
 msgid ""
 "Electronic Holding is not attached to the correct                     "
 "document type. document: {pid}"
 msgstr ""
-"Il posseduto non è allegata al tipo di documento corretto. Documento: "
-"{pid}"
+"Il posseduto elettronico non è allegato al tipo di documento corretto. "
+"Documento: {pid}"
 
 #: rero_ils/modules/holdings/api.py:174
 msgid "{field} is allowed only for serial holdings"
@@ -7156,7 +7156,7 @@ msgstr "Descrizione testuale dei fascicoli mancanti."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:538
 msgid "Number of issues to be bound together"
-msgstr ""
+msgstr "Numero di fascicoli da rilegare insieme"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:584
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:474
@@ -7211,171 +7211,160 @@ msgid "Only one note per type is allowed"
 msgstr "È consentita una sola nota per tipo"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:657
-#, fuzzy
 msgid "Acquisition status"
-msgstr "Data di acquisizione"
+msgstr "Statuto di acquisizione"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:675
-#, fuzzy
 msgid "not_currently_received"
-msgstr "nessun esemplare ricevuto"
+msgstr "attualmente non ricevuto"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:679
-#, fuzzy
 msgid "currently_received"
-msgstr "ricevuto"
+msgstr "attualmente ricevuto"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:683
 msgid "received_and_complete_or_ceased"
-msgstr ""
+msgstr "ricevuto e completato, o cessato"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:687
-#, fuzzy
 msgid "on_order"
-msgstr "ordine planificato"
+msgstr "in ordine"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:691
 msgid "other_receipt_or_acquisition_status"
-msgstr ""
+msgstr "altro statuto di ricezione o acquisizione"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:695
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:766
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:820
-#, fuzzy
 msgid "unknown"
-msgstr "proprietario"
+msgstr "sconosciuto"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:702
-#, fuzzy
 msgid "Acquisition method"
-msgstr "Ordine"
+msgstr "Metodo di acquisizione"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:726
-#, fuzzy
 msgid "deposit"
-msgstr "distributore"
+msgstr "deposito"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:730
 msgid "cooperative_or_consortial_purchase"
-msgstr ""
+msgstr "acquisto cooperativo o consortile"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:734
-#, fuzzy
 msgid "exchange"
-msgstr "Tasso di cambio"
+msgstr "scambio"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:738
-#, fuzzy
 msgid "free"
-msgstr "tassa"
+msgstr "gratuito"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:742
 msgid "gift"
-msgstr ""
+msgstr "dono"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:746
 msgid "legal_deposit"
-msgstr ""
+msgstr "deposito legale"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:750
 msgid "membership"
-msgstr ""
+msgstr "iscrizione"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:754
 msgid "non_library_purchase"
-msgstr ""
+msgstr "acquisto non bibliotecario"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:758
 msgid "purchase"
-msgstr ""
+msgstr "acquisto"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:762
-#, fuzzy
 msgid "lease"
-msgstr "in ritardo"
+msgstr "locazione"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:770
-#, fuzzy
 msgid "other_method_of_acquisition"
-msgstr "new_acquisition"
+msgstr "altro metodo di acquisizione"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:777
-#, fuzzy
 msgid "Expected acquisition end date"
-msgstr "Data di acquisizione"
+msgstr "Data di fine prevista per l'acquisizione"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:778
 msgid ""
 "Indicate an intent to cancel, the effective date of a cancellation, or "
 "the date of the last expected part of a multipart or serial item."
 msgstr ""
+"Indica un'intenzione di cancellazione, la data effettiva di una "
+"cancellazione, o la data dell'ultima parte prevista di un seriale."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:799
-#, fuzzy
 msgid "General retention policy"
-msgstr "Politica di prestito"
+msgstr "Politica generale di conservazione"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:824
 msgid "other_general_retention_policy"
-msgstr ""
+msgstr "altra politica generale di conservazione"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:828
 msgid "retained_except_as_replaced_by_updates"
-msgstr ""
+msgstr "conservato, tranne che per la sostituzione con gli aggiornamenti"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:832
 msgid "sample_issue_retained"
-msgstr ""
+msgstr "campione di fascicolo conservato"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:836
 msgid "retained_until_replaced_by_microform"
-msgstr ""
+msgstr "conservato fino a quando viene sostituito da una microforma"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:840
 msgid "retained_until_replaced_by_cumulation_replacement_volume_or_revision"
 msgstr ""
+"conservato fino alla sostituzione con un cumulo, un volume sostitutivo o una "
+"revisione"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:844
 msgid "retained_for_a_limited_period"
-msgstr ""
+msgstr "conservato per un periodo limitato"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:848
 msgid "not_retained"
-msgstr ""
+msgstr "non conservato"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:852
 msgid "permanently_retained"
-msgstr ""
+msgstr "conservato permanentemente"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:859
 msgid "Completeness"
-msgstr ""
+msgstr "Completezza"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:860
 msgid "Estimation of the general extent of the holdings for a multipart."
-msgstr ""
+msgstr "Stima dell'estensione generale del posseduto per una multiparte."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:882
-#, fuzzy
 msgid "complete"
-msgstr "Modello"
+msgstr "completo"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:886
 msgid "incomplete"
-msgstr ""
+msgstr "incompleto"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:890
 msgid "scattered"
-msgstr ""
+msgstr "sparso"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:894
-#, fuzzy
 msgid "not_applicable"
-msgstr "non disponibile"
+msgstr "non applicabile"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:901
 msgid "Separate or composite copy report"
-msgstr ""
+msgstr "Rapporto di copia separato o composito"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:902
 msgid ""
@@ -7383,20 +7372,21 @@ msgid ""
 "copy/subscription of a serial. If the holdings describes more than one "
 "copy/subscription, choose composite."
 msgstr ""
+"Un rapporto di copia separato contiene informazioni per una copia/"
+"abbonamento di un seriale. Se il posseduto descrive più di una copia/"
+"abbonamento, scegliete composito."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:916
-#, fuzzy
 msgid "separate"
-msgstr "privato"
+msgstr "separato"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:920
 msgid "composite"
-msgstr ""
+msgstr "composito"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:927
-#, fuzzy
 msgid "Masked"
-msgstr "direttore musicale"
+msgstr "Mascherato"
 
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:32
 msgid "PID"
@@ -8274,62 +8264,54 @@ msgid "recall"
 msgstr "reclamo"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:4
-#, fuzzy
 msgid "Operation log"
-msgstr "Numerazione"
+msgstr "Registro delle operazioni"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:5
 msgid "Operation log keeps the operation history of a resource."
 msgstr ""
+"Il registro delle operazioni mantiene il storico delle operazioni di una "
+"risorsa."
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:21
-#, fuzzy
 msgid "Schema to validate operation_log records against."
-msgstr "Schema di convalida per organizzazioni."
+msgstr "Schema di convalida per registri delle operazioni."
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:27
 msgid "Operation log PID"
-msgstr ""
+msgstr "PID del registro delle operazioni"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:32
-#, fuzzy
 msgid "Record"
-msgstr "registratore"
+msgstr "Risorsa"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:36
-#, fuzzy
 msgid "record"
-msgstr "registratore"
+msgstr "risorsa"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:43
-#, fuzzy
 msgid "User"
-msgstr "utente"
+msgstr "Utente"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:47
-#, fuzzy
 msgid "User URI"
-msgstr "utente"
+msgstr "URI dell'utente"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:54
-#, fuzzy
 msgid "User name"
 msgstr "Nome utente"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:59
-#, fuzzy
 msgid "Operation date"
-msgstr "Data di creazione"
+msgstr "Data dell'operazione"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:64
-#, fuzzy
 msgid "Operation type"
-msgstr "Typo di prestito"
+msgstr "Tipo di operazione"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:72
-#, fuzzy
 msgid "User organisation"
-msgstr "organizzazione"
+msgstr "Organizzazione dell'utente"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:5
 msgid "JSON schema for an organisation"
@@ -10302,4 +10284,3 @@ msgstr "La tua parola d'ordine è stata reimposta con successo."
 
 #~ msgid "Standard item can not attached to a journal."
 #~ msgstr "Un esemplare standard non può essere allegato a un seriale."
-
