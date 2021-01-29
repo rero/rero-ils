@@ -13,15 +13,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-01-27 15:27+0100\n"
-"PO-Revision-Date: 2021-01-27 13:53+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2021-01-29 11:38+0000\n"
+"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/es/>\n"
 "Language: es\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/es/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.5-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:131
@@ -46,11 +47,11 @@ msgstr "¡Bienvenido en RERO-ILS!"
 
 #: rero_ils/config.py:220
 msgid "RERO ID password reset"
-msgstr ""
+msgstr "Reinicialización de la contraseña RERO ID"
 
 #: rero_ils/config.py:221
 msgid "Your RERO ID password has been reset"
-msgstr ""
+msgstr "Vuestra RERO ID contraseña ha sido reinicializada"
 
 #: rero_ils/config.py:1657
 msgid "document_type"
@@ -6690,7 +6691,6 @@ msgid "Sound"
 msgstr "Sonido"
 
 #: rero_ils/modules/documents/templates/rero_ils/_anonymous_button.html:25
-#, fuzzy
 msgid "Log in (to see request options)"
 msgstr "Login (para ver opciones de reservación)"
 
@@ -7150,7 +7150,7 @@ msgstr "Descripción textual de los números faltantes."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:538
 msgid "Number of issues to be bound together"
-msgstr ""
+msgstr "Nombre de números para encuadernar"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:584
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:474
@@ -7205,113 +7205,103 @@ msgid "Only one note per type is allowed"
 msgstr "Sólo se permite una nota por tipo"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:657
-#, fuzzy
 msgid "Acquisition status"
-msgstr "Fecha de adquisición"
+msgstr "Estado de adquisición"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:675
-#, fuzzy
 msgid "not_currently_received"
-msgstr "ningún ejemplar recibido"
+msgstr "Ningún ejemplar recibido"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:679
-#, fuzzy
 msgid "currently_received"
 msgstr "recibido"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:683
 msgid "received_and_complete_or_ceased"
-msgstr ""
+msgstr "Recibido y completo or cesado"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:687
-#, fuzzy
 msgid "on_order"
 msgstr "Pedido planificado"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:691
+#, fuzzy
 msgid "other_receipt_or_acquisition_status"
-msgstr ""
+msgstr "Otro recibido or estado de adquisición"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:695
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:766
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:820
-#, fuzzy
 msgid "unknown"
-msgstr "proprietario"
+msgstr "desconocido"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:702
-#, fuzzy
 msgid "Acquisition method"
-msgstr "Pedido"
+msgstr "Método de adquisición"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:726
-#, fuzzy
 msgid "deposit"
-msgstr "distributor"
+msgstr "depósito"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:730
 msgid "cooperative_or_consortial_purchase"
-msgstr ""
+msgstr "cooperativo o consortial"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:734
-#, fuzzy
 msgid "exchange"
-msgstr "Tipo de cambio"
+msgstr "cambio"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:738
-#, fuzzy
 msgid "free"
-msgstr "tasa"
+msgstr "gratuito"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:742
 msgid "gift"
-msgstr ""
+msgstr "regalo"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:746
 msgid "legal_deposit"
-msgstr ""
+msgstr "depósito legal"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:750
 msgid "membership"
-msgstr ""
+msgstr "afiliación"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:754
 msgid "non_library_purchase"
-msgstr ""
+msgstr "compra fuera de la biblioteca"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:758
 msgid "purchase"
-msgstr ""
+msgstr "compra"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:762
-#, fuzzy
 msgid "lease"
-msgstr "en retrasado"
+msgstr "arrendamiento"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:770
-#, fuzzy
 msgid "other_method_of_acquisition"
-msgstr "Novedades"
+msgstr "otro método de adquisición"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:777
-#, fuzzy
 msgid "Expected acquisition end date"
-msgstr "Fecha de adquisición"
+msgstr "Fecha esperada de fin adquisición"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:778
 msgid ""
 "Indicate an intent to cancel, the effective date of a cancellation, or "
 "the date of the last expected part of a multipart or serial item."
 msgstr ""
+"Indique la intención de cancelar, la fecha efectiva de una cancelación o la "
+"fecha de la última parte esperada de un multiparte o periódico."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:799
-#, fuzzy
 msgid "General retention policy"
-msgstr "Política de circulación"
+msgstr "Política de retención general"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:824
 msgid "other_general_retention_policy"
-msgstr ""
+msgstr "otra política general de retención"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:828
 msgid "retained_except_as_replaced_by_updates"
@@ -9523,7 +9513,7 @@ msgstr ""
 #: rero_ils/theme/templates/security/email/reset_instructions.html:29
 #: rero_ils/theme/templates/security/email/reset_notice.html:27
 msgid "Best regards"
-msgstr ""
+msgstr "Cordialmente"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:30
 #: rero_ils/theme/templates/security/email/reset_notice.html:28
@@ -9533,7 +9523,7 @@ msgstr "biblioteca"
 
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
-msgstr ""
+msgstr "Vuestra contraseña ha sido reinicializada."
 
 #~ msgid "Examples: 135, 5-27, ..."
 #~ msgstr ""
@@ -10323,4 +10313,3 @@ msgstr ""
 
 #~ msgid "Standard item can not attached to a journal."
 #~ msgstr "Un ejemplar estándar no se puede adjuntar a un periódico."
-
