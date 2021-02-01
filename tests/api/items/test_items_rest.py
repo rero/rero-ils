@@ -344,7 +344,7 @@ def test_checkout_organisation_policy(client, lib_martigny,
 
 def test_items_receive(client, librarian_martigny,
                        patron_martigny, loc_public_martigny,
-                       item_type_standard_martigny,
+                       item_type_standard_martigny, loc_restricted_martigny,
                        item_lib_martigny, json_header,
                        circulation_policies):
     """Test item receive."""
@@ -382,7 +382,7 @@ def test_items_receive(client, librarian_martigny,
         dict(
             item_pid=item_pid,
             pid=loan_pid,
-            transaction_location_pid='fake',
+            transaction_location_pid=loc_restricted_martigny.pid,
             transaction_user_pid=librarian_martigny.pid,
         )
     )

@@ -33,12 +33,17 @@ def enrich_patron_transaction_event_data(sender, json=None, record=None,
     """
     if index.split('-')[0] == PatronTransactionEventsSearch.Meta.index:
         # ES search reduces number of requests for organisation and patron.
-        es_patron_transaction = next(PatronTransactionsSearch().filter(
-            'term', pid=json['parent']['pid']
-        ).scan())
+        es_hit = next(
+            PatronTransactionsSearch()
+            .filter('term', pid=json['parent']['pid'])
+            .source(['organisation', 'patron'])
+            .scan()
+        )
         json['organisation'] = {
-            'pid': es_patron_transaction.organisation.pid
+            'pid': es_hit.organisation.pid,
+            'type': 'org'
         }
         json['patron'] = {
-            'pid': es_patron_transaction.patron.pid
+            'pid': es_hit.patron.pid,
+            'type': 'ptrn'
         }

@@ -17,7 +17,8 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating Loans."""
-
+import math
+from bisect import bisect_right
 from datetime import datetime, timedelta, timezone
 from operator import attrgetter
 
@@ -266,18 +267,23 @@ class Loan(IlsRecord):
     def is_loan_overdue(self):
         """Check if the loan is overdue."""
         from .utils import get_circ_policy
+        if self.state != LoanState.ITEM_ON_LOAN:
+            return False
+
         circ_policy = get_circ_policy(self)
         now = datetime.now(timezone.utc)
         due_date = ciso8601.parse_datetime(self.end_date)
-
         days_after = circ_policy.initial_overdue_days
-        if days_after and now > due_date + timedelta(days=days_after):
+        if days_after and now > due_date + timedelta(days=days_after-1):
             return True
         return False
 
     def is_loan_due_soon(self, tstamp=None):
         """Check if a loan is due soon."""
         from .utils import get_circ_policy
+        if self.state != LoanState.ITEM_ON_LOAN:
+            return False
+
         circ_policy = get_circ_policy(self)
         date = tstamp or datetime.now(timezone.utc)
         due_date = ciso8601.parse_datetime(self.end_date).replace(
@@ -298,6 +304,11 @@ class Loan(IlsRecord):
     def pid(self):
         """Shortcut for pid."""
         return self.get('pid')
+
+    @property
+    def state(self):
+        """Shortcut for state."""
+        return self.get('state')
 
     @property
     def rank(self):
@@ -395,6 +406,70 @@ class Loan(IlsRecord):
             self.provider.pid_type,
             'library_pid'
         )
+
+    @property
+    def get_overdue_fees(self):
+        """Get all overdue fees based based on incremental fees setting.
+
+        :return An array of tuple. Each tuple are composed with two values :
+                the fee amount and a related timestamp.
+                Ex: [
+                  (0.1, datetime.date('2021-01-28')),
+                  (0.1, datetime.date('2021-01-29')),
+                  (0.5, datetime.date('2021-01-30')),
+                  ...
+                ]
+        """
+        from .utils import get_circ_policy
+        fees = []
+        # if the loan isn't overdue, no need to continue.
+        if not self.is_loan_overdue():
+            return fees
+
+        # find the circulation policy corresponding to the loan and check if
+        # some 'overdue_fees' settings exists. If not, no need to continue.
+        cipo = get_circ_policy(self)
+        overdue_settings = cipo.get('overdue_fees')
+        if overdue_settings is None:
+            return fees
+
+        # At this point, we know that we need to compute an overdue amount.
+        # Initialize some useful variables to perform the job.
+        loan_lib = Library.get_record_by_pid(self.library_pid)
+        # add 1 day to end_date because the first overdue_date is next day
+        # after the due date
+        end_date = date_string_to_utc(self.end_date) + timedelta(days=1)
+        end_date = end_date
+        total = 0
+        max_overdue = overdue_settings.get('maximum_total_amount', math.inf)
+        intervals = cipo.get_overdue_intervals()
+        interval_lower_bounds = [inter['from'] for inter in intervals]
+
+        # For each overdue day, we need to find the correct fee_amount to
+        # charge. In the bellowed loop, `day_idx' is the day number from the
+        # due date ; `day` is the datetime of this day
+
+        for day_idx, day in enumerate(loan_lib.get_open_days(end_date), 1):
+            # a) find the correct interval.
+            # b) check the index found exist into intervals
+            # c) check the upper limit of this interval is grower or equal
+            #    to day index
+            interval_idx = bisect_right(interval_lower_bounds, day_idx)-1
+            if interval_idx == -1:
+                continue
+            if day_idx > intervals[interval_idx]['to']:
+                continue
+            # d) add the corresponding fee_amount to the fees array.
+            # e) if maximum_overdue is reached, exit the loop
+            fee_amount = intervals[interval_idx]['fee_amount']
+            gap = round(max_overdue - total, 2)
+            if fee_amount > gap:
+                fee_amount = gap
+            total = round(math.fsum([total, fee_amount]), 2)
+            fees.append((fee_amount, day))
+            if max_overdue <= total:
+                break
+        return fees
 
     def get_loan_end_date(self, format='short', time_format='medium',
                           language=None):
