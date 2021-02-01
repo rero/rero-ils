@@ -17,6 +17,8 @@
 
 """Signals connector for Document."""
 
+from isbnlib import is_isbn10, is_isbn13, to_isbn10, to_isbn13
+
 from .utils import create_contributions, title_format_text_head
 from ..documents.api import Document, DocumentsSearch
 from ..holdings.api import Holding, HoldingsSearch
@@ -156,3 +158,23 @@ def enrich_document_data(sender, json=None, record=None, index=None,
             'doc', document_pid)
         if local_fields:
             json['local_fields'] = local_fields
+        # index both ISBN 10 and 13 format
+
+        def filter_isbn(identified_by):
+            """Filter identified_by for type bf:Isbn."""
+            return identified_by.get('type') == 'bf:Isbn'
+
+        filtered_identified_by = filter(
+            filter_isbn,
+            json.get('identifiedBy', [])
+        )
+        isbns = set()
+        for identified_by in filtered_identified_by:
+            isbn = identified_by['value']
+            isbns.add(isbn)
+            if is_isbn10(isbn):
+                isbns.add(to_isbn13(isbn))
+            elif is_isbn13(isbn):
+                isbns.add(to_isbn10(isbn))
+        if isbns:
+            json['isbn'] = list(isbns)

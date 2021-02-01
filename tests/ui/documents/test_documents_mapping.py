@@ -51,30 +51,36 @@ def test_document_search_mapping(app, document_records):
     """Test document search mapping."""
     search = DocumentsSearch()
 
-    c = search.query('query_string', query='reine Berthe').count()
-    assert c == 2
+    count = search.query('query_string', query='reine Berthe').count()
+    assert count == 2
 
-    c = search.query('query_string', query='maison').count()
-    assert c == 1
+    count = search.query('query_string', query='maison').count()
+    assert count == 1
 
-    c = search.query('query_string', query='scene').count()
-    assert c == 1
+    count = search.query('query_string', query='scene').count()
+    assert count == 1
 
     query = MultiMatch(query='scène', fields=['abstracts.fre'])
-    c = search.query(query).count()
-    assert c == 1
+    count = search.query(query).count()
+    assert count == 1
 
-    c = search.query('query_string', query='Körper').count()
-    assert c == 1
+    count = search.query('query_string', query='Körper').count()
+    assert count == 1
 
     query = MultiMatch(query='Körper', fields=['abstracts.ger'])
-    c = search.query(query).count()
-    assert c == 1
+    count = search.query(query).count()
+    assert count == 1
 
-    c = search.query('query_string', query='Chamber Secrets').count()
-    assert c == 1
+    count = search.query('query_string', query='Chamber Secrets').count()
+    assert count == 1
 
     query = MultiMatch(query='Chamber of Secrets',
                        fields=['title._text.*'])
-    c = search.query(query).count()
-    assert c == 1
+    count = search.query(query).count()
+    assert count == 1
+
+    count = search.query('query_string', query='9782823855890').count()
+    assert count == 1
+
+    count = search.query('query_string', query='2823855890').count()
+    assert count == 1
