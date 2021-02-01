@@ -27,7 +27,9 @@ from flask import Blueprint, abort, current_app, jsonify
 from flask_babelex import get_domain
 from flask_login import current_user
 
+from .patrons.api import Patron
 from .permissions import record_permissions
+from ..accounts_views import LoginView
 from ..permissions import librarian_permission
 
 api_blueprint = Blueprint(
@@ -92,4 +94,30 @@ def translations(ln):
         abort(404)
     for entry in po:
         data[entry.msgid] = entry.msgstr or entry.msgid
+    return jsonify(data)
+
+
+@api_blueprint.route('/user_info/<email_or_username>')
+@check_authentication
+def user_info(email_or_username):
+    """Get user info for the professionnal view."""
+    user = LoginView.get_user(email_or_username)
+    if not user:
+        return jsonify({})
+    patron = Patron.get_patron_by_user(user)
+    if patron:
+        # TODO: after the multiple org support return this only if the patron
+        # is not used in the current organisation
+        return jsonify({})
+    data = {
+        'id': user.id,
+    }
+    if user.email:
+        data['email'] = user.email
+    profile_attrs = ['username', 'first_name', 'last_name', 'city']
+    if user.profile:
+        for attr in profile_attrs:
+            attr_value = getattr(user.profile, attr)
+            if attr_value:
+                data[attr] = attr_value
     return jsonify(data)
