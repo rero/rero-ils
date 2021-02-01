@@ -47,6 +47,7 @@ def test_documents_get(client, document):
             contributions.append(contribution)
 
         data.pop('sort_title', None)
+        data.pop('isbn', None)
         return data
 
     item_url = url_for('invenio_records_rest.doc_item', pid_value='doc1')
