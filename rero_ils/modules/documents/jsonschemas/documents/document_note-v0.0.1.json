@@ -28,15 +28,15 @@
             "type": "selectWithSort",
             "options": [
               {
-                "label": "Accompanying material",
+                "label": "accompanyingMaterial",
                 "value": "accompanyingMaterial"
               },
               {
-                "label": "General",
+                "label": "general",
                 "value": "general"
               },
               {
-                "label": "Other physical details",
+                "label": "otherPhysicalDetails",
                 "value": "otherPhysicalDetails"
               }
             ],
