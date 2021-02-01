@@ -57,7 +57,8 @@ class LoginView(CoreLoginView):
         'password': fields.String(required=True)
     }
 
-    def get_user(self, email=None, **kwargs):
+    @classmethod
+    def get_user(cls, email=None, **kwargs):
         """Retrieve a user by the provided arguments."""
         try:
             profile = UserProfile.get_by_username(email)
