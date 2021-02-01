@@ -16,13 +16,15 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests REST return an item API methods in the item api_views."""
-
+from datetime import date, datetime, timedelta, timezone
 
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
+from rero_ils.modules.loans.utils import get_circ_policy, sum_for_fees
+from rero_ils.modules.patron_transactions.api import PatronTransaction
 
 
 def test_checkin_an_item(
@@ -115,3 +117,57 @@ def test_auto_checkin_else(client, librarian_martigny_no_email,
     )
     assert res.status_code == 400
     assert get_json(res)['status'] == 'error: No circulation action performed'
+
+
+def test_checkin_overdue_item(
+        client, librarian_martigny_no_email, loc_public_martigny,
+        item_on_loan_martigny_patron_and_loan_on_loan):
+    """Test a checkin for an overdue item with incremental fees."""
+
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
+
+    # Update the circulation policy corresponding to the loan
+    # Update the loan due date
+    cipo = get_circ_policy(loan)
+    cipo['overdue_fees'] = {
+        'intervals': [
+            {'from': 1, 'to': 5, 'fee_amount': 0.50},
+            {'from': 6, 'to': 10, 'fee_amount': 1},
+            {'from': 11, 'fee_amount': 2},
+        ]
+    }
+    cipo.update(data=cipo, dbcommit=True, reindex=True)
+    end = date.today() - timedelta(days=30)
+    end = datetime(end.year, end.month, end.day, tzinfo=timezone.utc)
+    end = end - timedelta(microseconds=1)
+    loan['end_date'] = end.isoformat()
+    loan = loan.update(loan, dbcommit=True, reindex=True)
+
+    fees = loan.get_overdue_fees
+    total_fees = sum_for_fees(fees)
+    assert len(fees) > 0
+    assert total_fees > 0
+
+    # Do the checkin on the item
+    res, data = postdata(
+        client,
+        'api_item.checkin',
+        dict(
+            item_pid=item.pid,
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid
+        )
+    )
+    assert res.status_code == 200
+    item = Item.get_record_by_pid(item.pid)
+    assert item.status == ItemStatus.ON_SHELF
+
+    # check if overdue transaction are created
+    trans = PatronTransaction.get_last_transaction_by_loan_pid(loan.pid)
+    assert trans.total_amount == total_fees
+    assert len(list(trans.events)) == len(fees)
+
+    # reset the cipo
+    del cipo['overdue_fees']
+    cipo.update(data=cipo, dbcommit=True, reindex=True)

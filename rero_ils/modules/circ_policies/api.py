@@ -323,10 +323,10 @@ class CircPolicy(IlsRecord):
 
     def get_overdue_intervals(self):
         """Return sorted overdue intervals for this circulation policy."""
-        return sorted(
-            self.get('overdue_fees', {}).get('intervals', []),
-            key=lambda interval: interval.get('from')
-        )
+        intervals = self.get('overdue_fees', {}).get('intervals', [])
+        if intervals and 'to' not in intervals[-1]:
+            intervals[-1]['to'] = float('+inf')
+        return sorted(intervals, key=lambda interval: interval.get('from'))
 
     def get_reminders(self, reminder_type=DUE_SOON_REMINDER_TYPE, limit=None):
         """Get reminders corresponding to arguments.

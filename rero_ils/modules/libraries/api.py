@@ -279,21 +279,26 @@ class Library(IlsRecord):
             microsecond=0
         )
 
-    def count_open(self, start_date=datetime.now(pytz.utc),
-                   end_date=datetime.now(pytz.utc)):
-        """Get number of open day between date interval."""
+    def get_open_days(self, start_date=datetime.now(pytz.utc),
+                      end_date=datetime.now(pytz.utc)):
+        """Get all open days between date interval."""
         if isinstance(start_date, str):
             start_date = date_string_to_utc(start_date)
         if isinstance(end_date, str):
             end_date = date_string_to_utc(end_date)
 
-        count = 0
+        dates = []
         end_date += timedelta(days=1)
         while end_date > start_date:
             if self.is_open(date=start_date, day_only=True):
-                count += 1
+                dates.append(start_date)
             start_date += timedelta(days=1)
-        return count
+        return dates
+
+    def count_open(self, start_date=datetime.now(pytz.utc),
+                   end_date=datetime.now(pytz.utc)):
+        """Get number of open day between date interval."""
+        return len(self.get_open_days(start_date, end_date))
 
     def in_working_days(self, count, date=datetime.now(pytz.utc)):
         """Get date for given working days."""
