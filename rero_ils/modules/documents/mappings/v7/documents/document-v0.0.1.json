@@ -919,6 +919,9 @@
       "harvested": {
         "type": "boolean"
       },
+      "isbn": {
+        "type": "keyword"
+      },
       "_draft": {
         "type": "boolean"
       },
