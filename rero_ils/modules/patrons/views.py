@@ -39,7 +39,9 @@ from .utils import user_has_patron
 from ..decorators import check_logged_as_librarian
 from ..items.api import Item
 from ..items.utils import item_pid_to_object
-from ..loans.api import Loan, get_loans_stats_by_patron_pid, patron_profile
+from ..loans.api import Loan, get_loans_stats_by_patron_pid, \
+    get_overdue_loans, patron_profile
+from ..loans.utils import sum_for_fees
 from ..locations.api import Location
 from ..utils import get_base_url
 
@@ -102,6 +104,22 @@ def patron_circulation_informations(patron_pid):
         'statistics': get_loans_stats_by_patron_pid(patron_pid),
         'messages': patron.get_circulation_messages()
     })
+
+
+@api_blueprint.route('/<patron_pid>/overdues/preview', methods=['GET'])
+@login_required
+def patron_overdue_preview_api(patron_pid):
+    """Get all overdue preview linked to a patron."""
+    data = []
+    for loan in get_overdue_loans(patron_pid):
+        fees = loan.get_overdue_fees
+        total_amount = sum_for_fees(fees)
+        if total_amount > 0:
+            data.append({
+                'loan': loan.dumps(),
+                'fees': {'total': total_amount, 'steps': fees}
+            })
+    return jsonify(data)
 
 
 blueprint = Blueprint(
