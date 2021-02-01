@@ -16,7 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Loans utils."""
-
+import math
 from datetime import datetime, timedelta, timezone
 
 import ciso8601
@@ -225,3 +225,17 @@ def validate_item_pickup_transaction_locations(loan, destination, **kwargs):
         return pickup_library_pid == transaction_library_pid
     elif destination == 'ITEM_IN_TRANSIT_FOR_PICKUP':
         return pickup_library_pid != transaction_library_pid
+
+
+def sum_for_fees(fee_steps):
+    """Compute the sum of fee steps/intervals.
+
+    :param fee_steps: an array of tuples. Each first tuple element should be
+                      the amount to add (as a float).
+    :return the sum of fee steps rounded with a precision of 2 digits after
+            decimal
+    """
+    if fee_steps:
+        return round(math.fsum([fee[0] for fee in fee_steps]), 2)
+    else:
+        return 0

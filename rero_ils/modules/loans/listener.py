@@ -24,6 +24,7 @@ from ..items.models import ItemStatus
 from ..loans.api import Loan, LoanState
 from ..locations.api import Location
 from ..notifications.utils import send_notification_to_location
+from ..patron_transactions.api import PatronTransaction
 
 
 def enrich_loan_data(sender, json=None, record=None, index=None,
@@ -61,3 +62,9 @@ def listener_loan_state_changed(_, initial_loan, loan, trigger):
             send_notification_to_location(loan, item, item_location)
     elif loan['state'] == LoanState.ITEM_AT_DESK:
         loan.create_notification(notification_type='availability')
+
+    # Create fees for checkin operation
+    if trigger == 'checkin':
+        PatronTransaction.create_patron_transaction_from_overdue_loan(
+            initial_loan
+        )

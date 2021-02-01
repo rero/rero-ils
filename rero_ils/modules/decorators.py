@@ -23,7 +23,7 @@ from rero_ils.permissions import login_and_librarian
 
 
 def check_logged_as_librarian(fn):
-    """Decorate to check if the current logged user is logged as librarian.
+    """Decorator to check if the current logged user is logged as librarian.
 
     If no user is connected: return 401 (unauthorized)
     If current logged user isn't `librarian`: return 403 (forbidden)

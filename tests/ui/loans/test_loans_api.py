@@ -20,16 +20,18 @@
 from __future__ import absolute_import, print_function
 
 from copy import deepcopy
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 
 import pytest
 from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import LoansSearch
 from utils import flush_index, get_mapping
 
+from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.api import Loan, LoanState, get_loans_by_patron_pid
 from rero_ils.modules.loans.tasks import loan_anonymizer
-from rero_ils.modules.loans.utils import get_default_loan_duration
+from rero_ils.modules.loans.utils import get_circ_policy, \
+    get_default_loan_duration, sum_for_fees
 from rero_ils.modules.notifications.api import Notification, \
     NotificationsSearch
 from rero_ils.modules.notifications.tasks import create_notifications
@@ -172,3 +174,104 @@ def test_anonymizer_job(
         transaction.update(transaction, dbcommit=True, reindex=True)
     msg = loan_anonymizer(dbcommit=True, reindex=True)
     assert msg == 'number_of_loans_anonymized: 2'
+
+
+def test_loan_get_overdue_fees(item_on_loan_martigny_patron_and_loan_on_loan):
+    """Test the overdue fees computation."""
+
+    def get_end_date(delta=0):
+        end = date.today() - timedelta(days=delta)
+        end = datetime(end.year, end.month, end.day, tzinfo=timezone.utc)
+        return end - timedelta(microseconds=1)
+
+    _, _, loan = item_on_loan_martigny_patron_and_loan_on_loan
+    cipo = get_circ_policy(loan)
+    library = Library.get_record_by_pid(loan.library_pid)
+
+    # CASE#1 :: classic settings.
+    #    * 3 intervals with no gap into each one.
+    #    * no limit on last interval
+    #    * no maximum overdue
+    cipo['overdue_fees'] = {
+        'intervals': [
+            {'from': 1, 'to': 1, 'fee_amount': 0.10},
+            {'from': 2, 'to': 2, 'fee_amount': 0.20},
+            {'from': 3, 'fee_amount': 0.50},
+        ]
+    }
+    cipo.update(data=cipo, dbcommit=True, reindex=True)
+    expected_due_amount = [0.1, 0.3, 0.8, 1.3, 1.8, 2.3, 2.8, 3.3, 3.8, 4.3]
+    for delta in range(0, len(expected_due_amount)):
+        end = get_end_date(delta)
+        loan['end_date'] = end.isoformat()
+        loan = loan.update(loan, dbcommit=True, reindex=True)
+        count_open = library.count_open(start_date=end + timedelta(days=1))
+        assert sum_for_fees(loan.get_overdue_fees) == \
+               expected_due_amount[count_open-1]
+
+    # CASE#2 :: no more overdue after 3 days.
+    #    * same definition than before, but add a upper limit to the last
+    #      interval
+    cipo['overdue_fees'] = {
+        'intervals': [
+            {'from': 1, 'to': 1, 'fee_amount': 0.10},
+            {'from': 2, 'to': 2, 'fee_amount': 0.20},
+            {'from': 3, 'to': 3, 'fee_amount': 0.50},
+        ]
+    }
+    cipo.update(data=cipo, dbcommit=True, reindex=True)
+    expected_due_amount = [0.1, 0.3, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8]
+    for delta in range(0, len(expected_due_amount)):
+        end = get_end_date(delta)
+        loan['end_date'] = end.isoformat()
+        loan = loan.update(loan, dbcommit=True, reindex=True)
+        count_open = library.count_open(start_date=end + timedelta(days=1))
+        assert sum_for_fees(loan.get_overdue_fees) == \
+               expected_due_amount[count_open - 1]
+
+    # CASE#3 :: classic setting + maximum overdue.
+    #    * 3 intervals with no gap into each one.
+    #    * no limit on last interval
+    #    * maximum overdue = 2
+    cipo['overdue_fees'] = {
+        'intervals': [
+            {'from': 1, 'to': 1, 'fee_amount': 0.10},
+            {'from': 2, 'to': 2, 'fee_amount': 0.20},
+            {'from': 3, 'fee_amount': 0.50},
+        ],
+        'maximum_total_amount': 2
+    }
+    cipo.update(data=cipo, dbcommit=True, reindex=True)
+    expected_due_amount = [0.1, 0.3, 0.8, 1.3, 1.8, 2.0, 2.0, 2.0, 2.0, 2.0]
+    for delta in range(0, len(expected_due_amount)):
+        end = get_end_date(delta)
+        loan['end_date'] = end.isoformat()
+        loan = loan.update(loan, dbcommit=True, reindex=True)
+        count_open = library.count_open(start_date=end + timedelta(days=1))
+        assert sum_for_fees(loan.get_overdue_fees) == \
+               expected_due_amount[count_open - 1]
+
+    # CASE#4 :: intervals with gaps
+    #    * define 2 intervals with gaps between
+    #    * grace period for first overdue day
+    #    * maximum overdue to 2.5 (not a normal step)
+    cipo['overdue_fees'] = {
+        'intervals': [
+            {'from': 2, 'to': 3, 'fee_amount': 0.10},
+            {'from': 5, 'fee_amount': 0.50}
+        ],
+        'maximum_total_amount': 1.1
+    }
+    cipo.update(data=cipo, dbcommit=True, reindex=True)
+    expected_due_amount = [0, 0.1, 0.2, 0.2, 0.7, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1]
+    for delta in range(0, len(expected_due_amount)):
+        end = get_end_date(delta)
+        loan['end_date'] = end.isoformat()
+        loan = loan.update(loan, dbcommit=True, reindex=True)
+        count_open = library.count_open(start_date=end + timedelta(days=1))
+        assert sum_for_fees(loan.get_overdue_fees) == \
+               expected_due_amount[count_open-1]
+
+    # RESET THE CIPO
+    del cipo['overdue_fees']
+    cipo.update(data=cipo, dbcommit=True, reindex=True)
