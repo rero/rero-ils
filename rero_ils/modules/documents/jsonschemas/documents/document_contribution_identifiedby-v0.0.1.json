@@ -20,7 +20,7 @@
         "options": [
           {
             "value": "bf:Local",
-            "label": "Local"
+            "label": "bf:local"
           }
         ],
         "templateOptions": {

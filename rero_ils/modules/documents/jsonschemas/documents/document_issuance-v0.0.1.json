@@ -4,7 +4,7 @@
     "type": "object",
     "oneOf": [
       {
-        "title": "Single unit",
+        "title": "rdami:1001",
         "additionalProperties": false,
         "propertiesOrder": [
           "main_type",
@@ -28,19 +28,19 @@
             "form": {
               "options": [
                 {
-                  "label": "Article",
+                  "label": "article",
                   "value": "article"
                 },
                 {
-                  "label": "Material unit",
+                  "label": "materialUnit",
                   "value": "materialUnit"
                 },
                 {
-                  "label": "Private file",
+                  "label": "privateFile",
                   "value": "privateFile"
                 },
                 {
-                  "label": "Private subfile",
+                  "label": "privateSubfile",
                   "value": "privateSubfile"
                 }
               ],
@@ -69,7 +69,7 @@
         }
       },
       {
-        "title": "Multipart monograph",
+        "title": "rdami:1002",
         "additionalProperties": false,
         "propertiesOrder": [
           "main_type",
@@ -96,11 +96,11 @@
                   "value": "set"
                 },
                 {
-                  "label": "Independant title",
+                  "label": "partIndependentTitle",
                   "value": "partIndependentTitle"
                 },
                 {
-                  "label": "Dependant title",
+                  "label": "partDependantTitle",
                   "value": "partDependantTitle"
                 }
               ],
@@ -129,7 +129,7 @@
         }
       },
       {
-        "title": "Serial",
+        "title": "rdami:1003",
         "additionalProperties": false,
         "propertiesOrder": [
           "main_type",
@@ -152,15 +152,15 @@
             "form": {
               "options": [
                 {
-                  "label": "Serial in serial",
+                  "label": "serialInSerial",
                   "value": "serialInSerial"
                 },
                 {
-                  "label": "Monographic series",
+                  "label": "monographicSeries",
                   "value": "monographicSeries"
                 },
                 {
-                  "label": "Periodical",
+                  "label": "periodical",
                   "value": "periodical"
                 }
               ],
@@ -189,7 +189,7 @@
         }
       },
       {
-        "title": "Integrating resource",
+        "title": "rdami:1004",
         "additionalProperties": false,
         "propertiesOrder": [
           "main_type",
@@ -211,11 +211,11 @@
             "form": {
               "options": [
                 {
-                  "label": "Updating website",
+                  "label": "updatingWebsite",
                   "value": "updatingWebsite"
                 },
                 {
-                  "label": "Updating loose leaf",
+                  "label": "updatingLoose-leaf",
                   "value": "updatingLoose-leaf"
                 }
               ],

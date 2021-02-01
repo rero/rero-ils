@@ -46,23 +46,23 @@
             "Type": "selectWithSort",
             "options": [
               {
-                "label": "Resource",
+                "label": "resource",
                 "value": "resource"
               },
               {
-                "label": "Version of resource",
+                "label": "versionOfResource",
                 "value": "versionOfResource"
               },
               {
-                "label": "Related resource",
+                "label": "relatedResource",
                 "value": "relatedResource"
               },
               {
-                "label": "Hidden URL",
+                "label": "hiddenUrl",
                 "value": "hiddenUrl"
               },
               {
-                "label": "No info",
+                "label": "noInfo",
                 "value": "noInfo"
               }
             ],
@@ -110,115 +110,115 @@
             "type": "selectWithSort",
             "options": [
               {
-                "label": "Poster",
+                "label": "poster",
                 "value": "poster"
               },
               {
-                "label": "Audio",
+                "label": "audio",
                 "value": "audio"
               },
               {
-                "label": "Postcard",
+                "label": "postcard",
                 "value": "postcard"
               },
               {
-                "label": "Addition",
+                "label": "addition",
                 "value": "addition"
               },
               {
-                "label": "Debriefing",
+                "label": "debriefing",
                 "value": "debriefing"
               },
               {
-                "label": "Exhibition documentation",
+                "label": "exhibitionDocumentation",
                 "value": "exhibitionDocumentation"
               },
               {
-                "label": "Erratum",
+                "label": "erratum",
                 "value": "erratum"
               },
               {
-                "label": "Bookplate",
+                "label": "bookplate",
                 "value": "bookplate"
               },
               {
-                "label": "Extract",
+                "label": "extract",
                 "value": "extract"
               },
               {
-                "label": "Educational sheet",
+                "label": "educational sheet",
                 "value": "educationalSheet"
               },
               {
-                "label": "Illustrations",
+                "label": "illustrations",
                 "value": "illustrations"
               },
               {
-                "label": "Cover image",
+                "label": "coverImage",
                 "value": "coverImage"
               },
               {
-                "label": "Delivery information",
+                "label": "deliveryInformation",
                 "value": "deliveryInformation"
               },
               {
-                "label": "Biographical information",
+                "label": "biographicalInformation",
                 "value": "biographicalInformation"
               },
               {
-                "label": "Introduction/preface",
+                "label": "introductionPreface",
                 "value": "introductionPreface"
               },
               {
-                "label": "Class reading",
+                "label": "classReading",
                 "value": "classReading"
               },
               {
-                "label": "Teacher's kit",
+                "label": "teachersKit",
                 "value": "teachersKit"
               },
               {
-                "label": "Publisher's note",
+                "label": "publishersNote",
                 "value": "publishersNote"
               },
               {
-                "label": "Note on content",
+                "label": "noteOnContent",
                 "value": "noteOnContent"
               },
               {
-                "label": "Title page",
+                "label": "titlePage",
                 "value": "titlePage"
               },
               {
-                "label": "Photography",
+                "label": "photography",
                 "value": "photography"
               },
               {
-                "label": "Summarization",
+                "label": "summarization",
                 "value": "summarization"
               },
               {
-                "label": "Online resource via RERO DOC",
+                "label": "onlineResourceViaRERODOC",
                 "value": "onlineResourceViaRERODOC"
               },
               {
-                "label": "Press review",
+                "label": "pressReview",
                 "value": "pressReview"
               },
               {
-                "label": "Web site",
+                "label": "webSite",
                 "value": "webSite"
               },
               {
-                "label": "Table of contents",
+                "label": "tableOfContents",
                 "value": "tableOfContents"
               },
               {
-                "label": "Full text",
+                "label": "fullText",
                 "value": "fullText"
               },
               {
-                "label": "Video",
+                "label": "video",
                 "value": "video"
               }
             ],

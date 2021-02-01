@@ -49,19 +49,19 @@
             "type": "selectWithSort",
             "options": [
               {
-                "label": "Publication",
+                "label": "bf:Publication",
                 "value": "bf:Publication"
               },
               {
-                "label": "Manufacture",
+                "label": "bf:Manufacture",
                 "value": "bf:Manufacture"
               },
               {
-                "label": "Distribution",
+                "label": "bf:Distribution",
                 "value": "bf:Distribution"
               },
               {
-                "label": "Production",
+                "label": "bf:Production",
                 "value": "bf:Production"
               }
             ],
@@ -148,11 +148,11 @@
                   "type": "selectWithSort",
                   "options": [
                     {
-                      "label": "Place",
+                      "label": "bf:Place",
                       "value": "bf:Place"
                     },
                     {
-                      "label": "Agent",
+                      "label": "bf:Agent",
                       "value": "bf:Agent"
                     },
                     {

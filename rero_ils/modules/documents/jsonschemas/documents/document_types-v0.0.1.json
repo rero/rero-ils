@@ -14,7 +14,7 @@
       "type": "object",
       "oneOf": [
         {
-          "title": "archives",
+          "title": "docmaintype_archives",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type"
@@ -43,7 +43,7 @@
           }
         },
         {
-          "title": "article",
+          "title": "docmaintype_article",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type"
@@ -72,7 +72,7 @@
           }
         },
         {
-          "title": "audio document",
+          "title": "docmaintype_audio",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type",
@@ -137,7 +137,7 @@
           }
         },
         {
-          "title": "book",
+          "title": "docmaintype_book",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type",
@@ -217,7 +217,7 @@
           }
         },
         {
-          "title": "children's album",
+          "title": "docmaintype_children",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type"
@@ -246,7 +246,7 @@
           }
         },
         {
-          "title": "comic strip",
+          "title": "docmaintype_comic",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type",
@@ -301,7 +301,7 @@
           }
         },
         {
-          "title": "electronic carrier",
+          "title": "docmaintype_electronic",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type",
@@ -353,7 +353,7 @@
           }
         },
         {
-          "title": "game",
+          "title": "docmaintype_game",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type",
@@ -418,7 +418,7 @@
           }
         },
         {
-          "title": "image",
+          "title": "docmaintype_image",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type",
@@ -493,7 +493,7 @@
           }
         },
         {
-          "title": "language, method",
+          "title": "docmaintype_language_method",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type"
@@ -522,7 +522,7 @@
           }
         },
         {
-          "title": "leaf",
+          "title": "docmaintype_leaf",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type"
@@ -551,7 +551,7 @@
           }
         },
         {
-          "title": "map, atlas",
+          "title": "docmaintype_map",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type",
@@ -603,7 +603,7 @@
           }
         },
         {
-          "title": "movie, series",
+          "title": "docmaintype_movie_series",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type",
@@ -663,7 +663,7 @@
           }
         },
         {
-          "title": "object",
+          "title": "docmaintype_object",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type",
@@ -723,7 +723,7 @@
           }
         },
         {
-          "title": "other",
+          "title": "docmaintype_other",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type"
@@ -752,7 +752,7 @@
           }
         },
         {
-          "title": "score",
+          "title": "docmaintype_score",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type",
@@ -812,7 +812,7 @@
           }
         },
         {
-          "title": "serial",
+          "title": "docmaintype_serial",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type"
@@ -841,7 +841,7 @@
           }
         },
         {
-          "title": "editorial series",
+          "title": "docmaintype_series",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type"

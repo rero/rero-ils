@@ -31,15 +31,15 @@
             "type": "selectWithSort",
             "options": [
               {
-                "label": "Title",
+                "label": "bf:Title",
                 "value": "bf:Title"
               },
               {
-                "label": "Parallel title",
+                "label": "bf:ParallelTitle",
                 "value": "bf:ParallelTitle"
               },
               {
-                "label": "Variant title",
+                "label": "bf:VariantTitle",
                 "value": "bf:VariantTitle"
               }
             ],
