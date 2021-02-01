@@ -19,11 +19,34 @@
 
 from __future__ import absolute_import, print_function
 
+from datetime import datetime
+
 import pytest
+from invenio_accounts.ext import hash_password
+from invenio_accounts.models import User
 from utils import flush_index
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 
+
+@pytest.fixture(scope='function')
+def user_with_profile(db):
+    """Create a simple invenio user with a profile."""
+    with db.session.begin_nested():
+        user = User(
+            email='user_with_profile@test.com',
+            password=hash_password('123456'),
+            profile=dict(), active=True)
+        db.session.add(user)
+        profile = user.profile
+        profile.birth_date = datetime(1990, 1, 1)
+        profile.first_name = 'User'
+        profile.last_name = 'With Profile'
+        profile.city = 'Nowhere'
+        profile.username = 'user_with_profile'
+        db.session.merge(user)
+    db.session.commit()
+    return user
 
 @pytest.fixture(scope='module')
 def create_app():
