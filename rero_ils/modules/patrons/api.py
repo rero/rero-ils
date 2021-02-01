@@ -195,7 +195,7 @@ class Patron(IlsRecord):
             record._update_roles()
         except Exception as err:
             db.session.rollback()
-            raise err
+            raise Exception(err)
         if user:
             # send the reset password notification
             if (email_notification and data.get('email')):

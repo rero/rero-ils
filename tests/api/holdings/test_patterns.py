@@ -142,20 +142,22 @@ def test_receive_regular_issue_api(
     # librarian of another library are not authoritzed to receive issues
     # for another library.
     login_user_via_session(client, librarian_fully_no_email.user)
-    res, data = postdata(
-        client,
-        'api_holding.receive_regular_issue',
-        url_data=dict(holding_pid=holding.pid)
-    )
-    assert res.status_code == 401
+    with pytest.raises(Exception):
+        res, data = postdata(
+            client,
+            'api_holding.receive_regular_issue',
+            url_data=dict(holding_pid=holding.pid)
+        )
+        assert res.status_code == 401
     # only users of same organisation may receive issues.
     login_user_via_session(client, system_librarian_sion_no_email.user)
-    res, data = postdata(
-        client,
-        'api_holding.receive_regular_issue',
-        url_data=dict(holding_pid=holding.pid)
-    )
-    assert res.status_code == 401
+    with pytest.raises(Exception):
+        res, data = postdata(
+            client,
+            'api_holding.receive_regular_issue',
+            url_data=dict(holding_pid=holding.pid)
+        )
+        assert res.status_code == 401
 
     login_user_via_session(client, librarian_martigny_no_email.user)
     res, data = postdata(

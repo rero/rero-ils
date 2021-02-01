@@ -174,7 +174,7 @@ class Notification(IlsRecord):
 
             return data
         except Exception as error:
-            raise(error)
+            raise Exception(error)
 
     def init_loan(self):
         """Set loan of the notification."""

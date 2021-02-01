@@ -71,7 +71,7 @@ def jsonify_error(func):
         except NotFound as error:
             raise(error)
         except Exception as error:
-            # raise(error)
+            # raise Exception(error)
             current_app.logger.error(str(error))
             return jsonify({'status': 'error: {error}'.format(
                 error=error)}), 500
