@@ -35,6 +35,7 @@ from ..item_types.api import ItemType
 from ..libraries.api import Library
 from ..locations.api import Location
 from ..patrons.api import current_patron
+from ..utils import extracted_data_from_ref
 from ...permissions import request_item_permission
 
 
@@ -51,13 +52,14 @@ def item_view_method(pid, record, template=None, **kwargs):
     record_viewed.send(
         current_app._get_current_object(), pid=pid, record=record
     )
-    document = Document.get_record_by_pid(
-        record.replace_refs()['document']['pid'])
-    item = record.replace_refs()
-    location = Location.get_record_by_pid(item['location']['pid'])
-    library = Library.get_record_by_pid(
-        location.replace_refs()['library']['pid'])
-    item_type = ItemType.get_record_by_pid(item['item_type']['pid'])
+    document_pid = extracted_data_from_ref(record.get('document'))
+    document = Document.get_record_by_pid(document_pid)
+    item_pid = extracted_data_from_ref(record.get('location'))
+    location = Location.get_record_by_pid(item_pid)
+    library_pid = extracted_data_from_ref(location.get('library'))
+    library = Library.get_record_by_pid(library_pid)
+    item_type_pid = extracted_data_from_ref(record.get('item_type'))
+    item_type = ItemType.get_record_by_pid(item_type_pid)
     return render_template(
         template, pid=pid, record=record, document=document, location=location,
         library=library, item_type=item_type, viewcode=kwargs['viewcode'])
@@ -117,7 +119,8 @@ def patron_request(viewcode, item_pid=None, pickup_location_pid=None):
     item_data, action_applied = item.request(**data)
     flash(_('The item %(item_id)s has been requested.',
             item_id=item_data.pid), 'success')
-    document_pid = item.replace_refs().get('document', {}).get('pid')
+    document_pid = extracted_data_from_ref(item.get('document'))
+
     return redirect(url_for(
         'invenio_records_ui.doc',
         viewcode=viewcode,

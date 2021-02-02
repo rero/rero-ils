@@ -65,9 +65,9 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
 
     # Counting holdings to display the get button
     from ..holdings.api import HoldingsSearch
-    query = HoldingsSearch()\
-        .filter('term', document__pid=pid.pid_value).filter(
-            'term', _masked=False)
+    query = HoldingsSearch() \
+        .filter('term', document__pid=pid.pid_value) \
+        .filter('term', _masked=False)
     if organisation:
         query = query.filter('term', organisation__pid=organisation.pid)
     holdings_count = query.count()
@@ -167,7 +167,7 @@ def contribution_format(pid, language, viewcode, role=False):
 
         if role:
             roles = []
-            for role in contribution.get('role'):
+            for role in contribution.get('role', []):
                 roles.append(_(role))
             if roles:
                 line += '<span class="text-secondary"> ({role})</span>'.format(
@@ -255,7 +255,7 @@ def series_format(serie):
 @blueprint.app_template_filter()
 def item_library_pickup_locations(item):
     """Get the pickup locations of the library of the given item."""
-    location_pid = item.replace_refs()['location']['pid']
+    location_pid = extracted_data_from_ref(item.get('location'))
     location = Location.get_record_by_pid(location_pid)
     # Either the location defines some 'restrict_pickup_to' either not.
     # * If 'restrict_pickup_to' is defined, then only these locations are

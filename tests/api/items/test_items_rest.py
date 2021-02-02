@@ -203,6 +203,7 @@ def test_checkout_default_policy(client, lib_martigny,
 
     from rero_ils.modules.circ_policies.api import CircPolicy
     circ_policy = CircPolicy.provide_circ_policy(
+        item.organisation_pid,
         item.library_pid,
         'ptty1',
         'itty1'
@@ -578,6 +579,7 @@ def test_extend_possible_actions(client, item_lib_martigny,
 
     from rero_ils.modules.circ_policies.api import CircPolicy
     circ_policy = CircPolicy.provide_circ_policy(
+        item.organisation_pid,
         item.library_pid,
         'ptty1',
         'itty1'
@@ -979,6 +981,7 @@ def test_item_possible_actions(client, item_lib_martigny,
 
     from rero_ils.modules.circ_policies.api import CircPolicy
     circ_policy = CircPolicy.provide_circ_policy(
+        item.organisation_pid,
         item.library_pid,
         'ptty1',
         'itty1'

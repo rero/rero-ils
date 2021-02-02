@@ -44,6 +44,7 @@ from ...loans.api import Loan, LoanAction, LoanState, \
     get_last_transaction_loc_for_item, get_request_by_item_pid_by_patron_pid
 from ...locations.api import Location
 from ...patrons.api import Patron
+from ...utils import extracted_data_from_ref
 from ....filter import format_date_filter
 
 
@@ -57,7 +58,7 @@ class ItemCirculation(ItemRecord):
         LoanState.ITEM_IN_TRANSIT_TO_HOUSE: 'in_transit',
     }
 
-    def change_status_commit_and_reindex_item(self, item):
+    def change_status_commit_and_reindex(self):
         """Change item status after a successfull circulation action.
 
         Commits and reindex the item.
@@ -66,7 +67,7 @@ class ItemCirculation(ItemRecord):
         from . import ItemsSearch
         current_search.flush_and_refresh(
             current_circulation.loan_search_cls.Meta.index)
-        item.status_update(item, dbcommit=True, reindex=True, forceindex=True)
+        self.status_update(self, dbcommit=True, reindex=True, forceindex=True)
         ItemsSearch.flush()
 
     def prior_validate_actions(self, **kwargs):
@@ -167,8 +168,8 @@ class ItemCirculation(ItemRecord):
         kwargs['item_pid'] = item_pid_to_object(item.pid)
 
         kwargs['transaction_date'] = datetime.utcnow().isoformat()
-        kwargs.setdefault('document_pid', item.replace_refs().get(
-            'document', {}).get('pid'))
+        document_pid = extracted_data_from_ref(item.get('document'))
+        kwargs.setdefault('document_pid', document_pid)
         transaction_location_pid = kwargs.get(
             'transaction_location_pid', None)
         if not transaction_location_pid:
@@ -1025,13 +1026,12 @@ class ItemCirculation(ItemRecord):
                                "patron.")
         return len(reasons) == 0, reasons
 
-    def action_filter(self, action, loan):
+    def action_filter(self, action, organisation_pid, library_pid, loan,
+                      patron_pid, patron_type_pid):
         """Filter actions."""
-        patron_pid = loan.get('patron_pid')
-        patron_type_pid = Patron.get_record_by_pid(
-            patron_pid).patron_type_pid
         circ_policy = CircPolicy.provide_circ_policy(
-            self.library_pid,
+            organisation_pid,
+            library_pid,
             patron_type_pid,
             self.item_type_circulation_category_pid
         )
@@ -1056,6 +1056,7 @@ class ItemCirculation(ItemRecord):
             ):
                 data['action_validated'] = False
                 data['new_action'] = 'checkout'
+
         return data
 
     @property
@@ -1065,14 +1066,28 @@ class ItemCirculation(ItemRecord):
         loan = get_loan_for_item(item_pid_to_object(self.pid))
         actions = set()
         if loan:
+            organisation_pid = self.organisation_pid
+            library_pid = self.library_pid
+            patron_pid = loan.get('patron_pid')
+            patron_type_pid = Patron.get_record_by_pid(
+                patron_pid).patron_type_pid
             for transition in transitions.get(loan['state']):
                 action = transition.get('trigger')
-                data = self.action_filter(action, loan)
+                data = self.action_filter(
+                    action=action,
+                    organisation_pid=organisation_pid,
+                    library_pid=library_pid,
+                    loan=loan,
+                    patron_pid=patron_pid,
+                    patron_type_pid=patron_type_pid
+                )
+
                 if data.get('action_validated'):
                     actions.add(action)
                 if data.get('new_action'):
                     actions.add(data.get('new_action'))
         # default actions
+
         if not loan:
             for transition in transitions.get(LoanState.CREATED):
                 action = transition.get('trigger')
@@ -1119,7 +1134,6 @@ class ItemCirculation(ItemRecord):
             if item['status'] != ItemStatus.MISSING and on_shelf is True:
                 item['status'] = ItemStatus.ON_SHELF
         if dbcommit:
-            # item.commit()
             item.dbcommit(reindex=True, forceindex=True)
 
     def item_has_active_loan_or_request(self):

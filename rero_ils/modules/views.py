@@ -27,6 +27,8 @@ from flask import Blueprint, abort, current_app, jsonify
 from flask_babelex import get_domain
 from flask_login import current_user
 
+from rero_ils.modules.utils import cached
+
 from .permissions import record_permissions
 from ..permissions import librarian_permission
 
@@ -52,6 +54,7 @@ def check_authentication(func):
 
 @api_blueprint.route('/permissions/<route_name>', methods=['GET'])
 @api_blueprint.route('/permissions/<route_name>/<record_pid>', methods=['GET'])
+@cached(timeout=10, query_string=False)
 @check_authentication
 def permissions(route_name, record_pid=None):
     """HTTP GET request for record permissions.

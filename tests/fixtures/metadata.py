@@ -1063,4 +1063,3 @@ def local_field_sion(
 def operation_log_1_data(data):
     """Load operation log record."""
     return deepcopy(data.get('oplg1'))
-

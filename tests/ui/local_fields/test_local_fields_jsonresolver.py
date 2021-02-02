@@ -21,6 +21,8 @@ import pytest
 from invenio_records.api import Record
 from jsonref import JsonRefError
 
+from rero_ils.modules.utils import extracted_data_from_ref
+
 
 def test_local_field_jsonresolver(local_field_martigny):
     """Test local fields json resolver."""
@@ -28,7 +30,7 @@ def test_local_field_jsonresolver(local_field_martigny):
     rec = Record.create({
         'local_field': {'$ref': 'https://ils.rero.ch/api/local_fields/lofi1'}
     })
-    assert rec.replace_refs().get('local_field') == {'pid': 'lofi1'}
+    assert extracted_data_from_ref(rec.get('local_field')) == 'lofi1'
 
     # deleted record
     local_field.delete()

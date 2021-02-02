@@ -40,7 +40,8 @@ from ..notifications.tasks import create_notifications
 from ..patron_transaction_events.api import PatronTransactionEvent
 from ..patron_types.api import PatronType
 from ..patrons.api import Patron, PatronsSearch
-from ..utils import get_base_url, get_schema_for_resource
+from ..utils import extracted_data_from_ref, get_base_url, \
+    get_schema_for_resource
 
 
 @click.command('create_loans')
@@ -193,7 +194,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
             transaction_user_pid=user_pid,
             transaction_location_pid=user_location,
             transaction_date=transaction_date,
-            document_pid=item.replace_refs()['document']['pid'],
+            document_pid=extracted_data_from_ref(item.get('document')),
             item_pid=item.pid,
         )
         loan = get_loan_for_item(item_pid_to_object(item.pid))
@@ -259,7 +260,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                 transaction_location_pid=user_location,
                 transaction_user_pid=user_pid,
                 transaction_date=transaction_date,
-                document_pid=item.replace_refs()['document']['pid'],
+                document_pid=extracted_data_from_ref(item.get('document')),
                 item_pid=item.pid,
             )
         elif transaction_type == 'requested_by_others':
@@ -267,6 +268,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
             user_pid, user_location = \
                 get_random_librarian_and_transaction_location(patron)
             circ_policy = CircPolicy.provide_circ_policy(
+                item.organisation_pid,
                 item.library_pid,
                 requested_patron.patron_type_pid,
                 item.item_type_circulation_category_pid
@@ -279,7 +281,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                     transaction_date=transaction_date,
                     pickup_location_pid=get_random_pickup_location(
                         requested_patron.pid, item),
-                    document_pid=item.replace_refs()['document']['pid'],
+                    document_pid=extracted_data_from_ref(item.get('document')),
                 )
                 loan.create_notification(notification_type='recall')
         return item['barcode']
@@ -311,6 +313,7 @@ def create_request(barcode, transaction_type, loanable_items, verbose=False,
                 get_random_librarian_and_transaction_location(patron)
 
             circ_policy = CircPolicy.provide_circ_policy(
+                item.organisation_pid,
                 item.holding_library_pid,
                 rank_1_patron.patron_type_pid,
                 item.holding_circulation_category_pid
@@ -323,7 +326,7 @@ def create_request(barcode, transaction_type, loanable_items, verbose=False,
                     transaction_date=transaction_date,
                     pickup_location_pid=get_random_pickup_location(
                         rank_1_patron.pid, item),
-                    document_pid=item.replace_refs()['document']['pid'],
+                    document_pid=extracted_data_from_ref(item.get('document')),
                 )
         transaction_date = datetime.now(timezone.utc).isoformat()
         user_pid, user_location = \
@@ -334,7 +337,7 @@ def create_request(barcode, transaction_type, loanable_items, verbose=False,
             transaction_user_pid=user_pid,
             transaction_date=transaction_date,
             pickup_location_pid=get_random_pickup_location(patron.pid, item),
-            document_pid=item.replace_refs()['document']['pid'],
+            document_pid=extracted_data_from_ref(item.get('document')),
         )
         return item['barcode']
     except Exception as err:
@@ -353,8 +356,8 @@ def create_request(barcode, transaction_type, loanable_items, verbose=False,
 
 def get_loanable_items(patron_type_pid):
     """Get the list of loanable items."""
-    org_pid = PatronType.get_record_by_pid(patron_type_pid)\
-                        .replace_refs()['organisation']['pid']
+    patron_type = PatronType.get_record_by_pid(patron_type_pid)
+    org_pid = extracted_data_from_ref(patron_type.get('organisation'))
     loanable_items = ItemsSearch()\
         .filter('term', organisation__pid=org_pid)\
         .filter('term', status=ItemStatus.ON_SHELF).source(['pid']).scan()
@@ -362,6 +365,7 @@ def get_loanable_items(patron_type_pid):
         item = Item.get_record_by_pid(loanable_item.pid)
         if item:
             circ_policy = CircPolicy.provide_circ_policy(
+                item.organisation_pid,
                 item.holding_library_pid,
                 patron_type_pid,
                 item.holding_circulation_category_pid
@@ -390,9 +394,12 @@ def get_random_pickup_location(patron_pid, item):
 def get_random_patron(exclude_this_barcode):
     """Find a qualified patron other than exclude_this_barcode."""
     ptrn_to_exclude = Patron.get_patron_by_barcode(exclude_this_barcode)
-    ptty_pid = ptrn_to_exclude.replace_refs()['patron']['type']['pid']
-    org_pid = PatronType.get_record_by_pid(
-        ptty_pid).replace_refs()['organisation']['pid']
+    ptty_pid = extracted_data_from_ref(
+        ptrn_to_exclude.get('patron').get('type')
+    )
+    org_pid = extracted_data_from_ref(
+        PatronType.get_record_by_pid(ptty_pid).get('organisation')
+    )
     patrons = PatronsSearch()\
         .filter('term', roles='patron')\
         .filter('term', organisation__pid=org_pid)\
@@ -404,9 +411,10 @@ def get_random_patron(exclude_this_barcode):
 
 def get_random_librarian(patron):
     """Find a qualified staff user."""
-    ptty_pid = patron.replace_refs()['patron']['type']['pid']
-    org_pid = PatronType.get_record_by_pid(
-        ptty_pid).replace_refs()['organisation']['pid']
+    ptty_pid = extracted_data_from_ref(patron.get('patron').get('type'))
+    org_pid = extracted_data_from_ref(
+        PatronType.get_record_by_pid(ptty_pid).get('organisation')
+    )
     patrons = PatronsSearch()\
         .filter('term', roles='librarian')\
         .filter('term', organisation__pid=org_pid)\

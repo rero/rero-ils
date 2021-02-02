@@ -18,6 +18,7 @@
 """Signals connector for Location."""
 
 from .api import Location, LocationsSearch
+from ..utils import extracted_data_from_ref
 
 
 def enrich_location_data(sender, json=None, record=None, index=None,
@@ -33,7 +34,9 @@ def enrich_location_data(sender, json=None, record=None, index=None,
         location = record
         if not isinstance(record, Location):
             location = Location.get_record_by_pid(record.get('pid'))
-        org_pid = location.get_library().replace_refs()['organisation']['pid']
+        org_pid = extracted_data_from_ref(
+            location.get_library().get('organisation')
+        )
         json['organisation'] = {
             'pid': org_pid
         }

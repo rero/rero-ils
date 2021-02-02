@@ -210,7 +210,7 @@ class PatronTransaction(IlsRecord):
     @property
     def patron_pid(self):
         """Return the patron pid of the patron transaction."""
-        return extracted_data_from_ref(self['patron'])
+        return extracted_data_from_ref(self.get('patron'))
 
     @property
     def total_amount(self):
@@ -235,7 +235,7 @@ class PatronTransaction(IlsRecord):
     def notification_pid(self):
         """Return the notification pid of the patron transaction."""
         if self.get('notification'):
-            return extracted_data_from_ref(self['notification'])
+            return extracted_data_from_ref(self.get('notification'))
 
     @property
     def notification(self):

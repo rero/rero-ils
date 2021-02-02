@@ -38,6 +38,7 @@ def get_circ_policy(loan):
     patron_type_pid = patron.patron_type_pid
 
     result = CircPolicy.provide_circ_policy(
+        loan.organisation_pid,
         library_pid,
         patron_type_pid,
         item.temporary_item_type_pid or item.holding_circulation_category_pid

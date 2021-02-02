@@ -26,6 +26,7 @@ from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
+from ..utils import extracted_data_from_ref
 
 # provider
 LocationProvider = type(
@@ -107,7 +108,7 @@ class Location(IlsRecord):
     def get_library(self):
         """Get library."""
         from ..libraries.api import Library
-        library_pid = self.replace_refs()['library']['pid']
+        library_pid = extracted_data_from_ref(self.get('library'))
         return Library.get_record_by_pid(library_pid)
 
     def get_number_of_items(self):
@@ -136,7 +137,7 @@ class Location(IlsRecord):
     @property
     def library_pid(self):
         """Get library pid for location."""
-        return self.replace_refs()['library']['pid']
+        return extracted_data_from_ref(self.get('library'))
 
     @property
     def organisation_pid(self):
@@ -149,10 +150,10 @@ class Location(IlsRecord):
     @property
     def restrict_pickup_to(self):
         """Get restriction pickup location pid of location."""
-        return [
-            location['pid']
-            for location in self.replace_refs().get('restrict_pickup_to', [])
-        ]
+        location_pids = []
+        for restrict_pickup_to in self.get('restrict_pickup_to', []):
+            location_pids.append(extracted_data_from_ref(restrict_pickup_to))
+        return location_pids
 
     @classmethod
     def allow_request(cls, item, **kwargs):

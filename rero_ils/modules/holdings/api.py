@@ -195,17 +195,17 @@ class Holding(IlsRecord):
     @property
     def document_pid(self):
         """Shortcut for document pid of the holding."""
-        return self.replace_refs()['document']['pid']
+        return extracted_data_from_ref(self.get('document'))
 
     @property
     def circulation_category_pid(self):
         """Shortcut for circulation_category pid of the holding."""
-        return self.replace_refs()['circulation_category']['pid']
+        return extracted_data_from_ref(self.get('circulation_category'))
 
     @property
     def location_pid(self):
         """Shortcut for location pid of the holding."""
-        return self.replace_refs()['location']['pid']
+        return extracted_data_from_ref(self.get('location'))
 
     @property
     def library_pid(self):
@@ -243,14 +243,14 @@ class Holding(IlsRecord):
     @property
     def vendor_pid(self):
         """Shortcut for vendor pid of the holding."""
-        return self.replace_refs().get('vendor', {}).get('pid')
+        if self.get('vendor'):
+            return extracted_data_from_ref(self.get('vendor'))
 
     @property
     def vendor(self):
         """Shortcut to return the vendor record."""
         if self.vendor_pid:
             return Vendor.get_record_by_pid(self.vendor_pid)
-        return None
 
     @property
     def notes(self):
@@ -290,8 +290,8 @@ class Holding(IlsRecord):
     @classmethod
     def get_document_pid_by_holding_pid(cls, holding_pid):
         """Returns document pid for a holding pid."""
-        holding = cls.get_record_by_pid(holding_pid).replace_refs()
-        return holding.get('document', {}).get('pid')
+        holding = cls.get_record_by_pid(holding_pid)
+        return extracted_data_from_ref(holding.get('document'))
 
     @classmethod
     def get_holdings_type_by_holding_pid(cls, holding_pid):
@@ -397,6 +397,7 @@ class Holding(IlsRecord):
 
         if current_patron and current_patron.is_patron:
             cipo = CircPolicy.provide_circ_policy(
+                self.organisation_pid,
                 self.library_pid,
                 current_patron.patron_type_pid,
                 self.circulation_category_pid

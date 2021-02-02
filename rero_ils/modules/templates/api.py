@@ -25,6 +25,7 @@ from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
+from ..utils import extracted_data_from_ref
 
 # provider
 TemplateProvider = type(
@@ -69,7 +70,8 @@ class Template(IlsRecord):
     @property
     def creator_pid(self):
         """Shortcut for template creator pid."""
-        return self.replace_refs().get('creator', {}).get('pid')
+        if self.get('creator'):
+            return extracted_data_from_ref(self.get('creator'))
 
     @property
     def is_public(self):

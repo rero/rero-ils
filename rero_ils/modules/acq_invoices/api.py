@@ -26,7 +26,7 @@ from ..fetchers import id_fetcher
 from ..libraries.api import Library
 from ..minters import id_minter
 from ..providers import Provider
-from ..utils import get_base_url
+from ..utils import extracted_data_from_ref, get_base_url
 
 # provider
 AcquisitionInvoiceProvider = type(
@@ -133,17 +133,17 @@ class AcquisitionInvoice(IlsRecord):
     @property
     def organisation_pid(self):
         """Shortcut for acquisition invoice organisation pid."""
-        return self.replace_refs().get('organisation').get('pid')
+        return extracted_data_from_ref(self.get('organisation'))
 
     @property
     def library_pid(self):
         """Shortcut for acquisition order library pid."""
-        return self.replace_refs().get('library').get('pid')
+        return extracted_data_from_ref(self.get('library'))
 
     @property
     def vendor_pid(self):
         """Shortcut for acquisition order vendor pid."""
-        return self.replace_refs().get('vendor').get('pid')
+        return extracted_data_from_ref(self.get('vendor'))
 
 
 class AcquisitionInvoicesIndexer(IlsRecordsIndexer):

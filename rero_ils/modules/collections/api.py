@@ -26,6 +26,7 @@ from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
+from ..utils import extracted_data_from_ref
 
 # provider
 CollectionProvider = type(
@@ -71,8 +72,9 @@ class Collection(IlsRecord):
         :return: list of items linked to collection
         """
         items = []
-        for item in self.replace_refs().get('items', []):
-            item = Item.get_record_by_pid(item['pid'])
+        for item in self.get('items', []):
+            item_pid = extracted_data_from_ref(item)
+            item = Item.get_record_by_pid(item_pid)
             # inherit holdings call number when possible
             issue_call_number = item.issue_inherited_first_call_number
             if issue_call_number:

@@ -129,7 +129,6 @@ class ItemRecord(IlsRecord):
         data = self._prepare_item_record(data=data, mode='update')
         super().update(data, dbcommit, reindex)
         # TODO: some item updates do not require holding re-linking
-
         return self
 
     def replace(self, data, dbcommit=False, reindex=False):
@@ -284,22 +283,20 @@ class ItemRecord(IlsRecord):
     @property
     def holding_pid(self):
         """Shortcut for item holding pid."""
-        if self.replace_refs().get('holding'):
-            return self.replace_refs()['holding']['pid']
-        return None
+        if self.get('holding'):
+            return extracted_data_from_ref(self.get('holding'))
 
     @property
     def document_pid(self):
         """Shortcut for item document pid."""
-        if self.replace_refs().get('document'):
-            return self.replace_refs()['document']['pid']
-        return None
+        if self.get('document'):
+            return extracted_data_from_ref(self.get('document'))
 
     @classmethod
     def get_document_pid_by_item_pid(cls, item_pid):
         """Returns document pid from item pid."""
-        item = cls.get_record_by_pid(item_pid).replace_refs()
-        return item.get('document', {}).get('pid')
+        item = cls.get_record_by_pid(item_pid)
+        return extracted_data_from_ref(item.get('document'))
 
     @classmethod
     def get_document_pid_by_item_pid_object(cls, item_pid):
@@ -310,8 +307,8 @@ class ItemRecord(IlsRecord):
         :return: the document pid
         :rtype: str
         """
-        item = cls.get_record_by_pid(item_pid.get('value')).replace_refs()
-        return item.get('document', {}).get('pid')
+        item = cls.get_record_by_pid(item_pid.get('value'))
+        return extracted_data_from_ref(item.get('document'))
 
     @classmethod
     def get_items_pid_by_document_pid(cls, document_pid):
@@ -355,7 +352,7 @@ class ItemRecord(IlsRecord):
 
     def get_location(self):
         """Shortcut to the location of the item."""
-        location_pid = self.replace_refs()['location']['pid']
+        location_pid = extracted_data_from_ref(self.get('location'))
         return Location.get_record_by_pid(location_pid)
 
     @property
@@ -371,11 +368,8 @@ class ItemRecord(IlsRecord):
     @property
     def item_type_pid(self):
         """Shortcut for item type pid."""
-        item_type_pid = None
-        item_type = self.replace_refs().get('item_type')
-        if item_type:
-            item_type_pid = item_type.get('pid')
-        return item_type_pid
+        if self.get('item_type'):
+            return extracted_data_from_ref(self.get('item_type'))
 
     @property
     def temporary_item_type_pid(self):
@@ -428,11 +422,8 @@ class ItemRecord(IlsRecord):
     @property
     def location_pid(self):
         """Shortcut for item location pid."""
-        location_pid = None
-        location = self.replace_refs().get('location')
-        if location:
-            location_pid = location.get('pid')
-        return location_pid
+        if self.get('location'):
+            return extracted_data_from_ref(self.get('location'))
 
     @property
     def holding_location_pid(self):
@@ -447,18 +438,15 @@ class ItemRecord(IlsRecord):
     @property
     def library_pid(self):
         """Shortcut for item library pid."""
-        location = Location.get_record_by_pid(self.location_pid).replace_refs()
-        return location.get('library').get('pid')
+        location = Location.get_record_by_pid(self.location_pid)
+        return extracted_data_from_ref(location.get('library'))
 
     @property
     def holding_library_pid(self):
         """Shortcut for holding library pid of an item."""
-        library_pid = None
         if self.holding_location_pid:
-            location = Location.get_record_by_pid(
-                self.holding_location_pid).replace_refs()
-            library_pid = location.get('library').get('pid')
-        return library_pid
+            location = Location.get_record_by_pid(self.holding_location_pid)
+            return extracted_data_from_ref(location.get('library'))
 
     @property
     def organisation_pid(self):

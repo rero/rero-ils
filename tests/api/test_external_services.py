@@ -84,7 +84,7 @@ def test_documents_get(client, document):
 
 
 @pytest.mark.external
-@mock.patch('rero_ils.modules.documents.views.login_and_librarian',
+@mock.patch('rero_ils.permissions.login_and_librarian',
             mock.MagicMock())
 def test_documents_import_bnf_ean(client):
     """Test document import from bnf."""

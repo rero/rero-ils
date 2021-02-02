@@ -23,6 +23,8 @@ from celery import shared_task
 from flask import current_app
 
 from .api import Item
+from ..api import IlsRecordError
+from ..holdings.api import Holding
 from ..utils import extracted_data_from_ref, set_timestamp
 
 
@@ -99,3 +101,18 @@ def clean_obsolete_temporary_item_types():
         item.replace(data=item, dbcommit=True, reindex=True)
     set_timestamp('clean_obsolete_temporary_item_types', msg=msg)
     current_app.logger.debug("Ending clean_obsolete_temporary_item_types()")
+
+
+@shared_task
+def delete_holding(holding_pid, force=False, dbcommit=True, delindex=True):
+    """Delete holding."""
+    if holding_pid:
+        holding_rec = Holding.get_record_by_pid(holding_pid)
+        try:
+            # TODO: Need to split DB and elasticsearch deletion.
+            holding_rec.delete(force=force, dbcommit=dbcommit,
+                               delindex=delindex)
+        except IlsRecordError.NotDeleted:
+            current_app.logger.warning("Holding not deleted: {pid}".format(
+                pid=holding_pid
+            ))

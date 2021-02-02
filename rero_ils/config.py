@@ -2676,8 +2676,7 @@ SIP2_REMOTE_ACTION_HANDLERS = dict(
         logout_handler='rero_ils.modules.selfcheck.api:selfcheck_logout',
         system_status_handler='rero_ils.modules.selfcheck.api:system_status',
         patron_handlers=dict(
-            validate_patron=
-                'rero_ils.modules.selfcheck.api:validate_patron_account',
+            validate_patron='rero_ils.modules.selfcheck.api:validate_patron_account',
             authorize_patron='rero_ils.modules.selfcheck.api:authorize_patron',
             enable_patron='rero_ils.modules.selfcheck.api:enable_patron',
             patron_status='rero_ils.modules.selfcheck.api:patron_status',

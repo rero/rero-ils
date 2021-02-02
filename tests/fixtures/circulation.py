@@ -31,6 +31,7 @@ from rero_ils.modules.loans.api import Loan, LoanState
 from rero_ils.modules.notifications.api import Notification, \
     NotificationsSearch, get_notification
 from rero_ils.modules.patron_transactions.api import PatronTransactionsSearch
+from rero_ils.modules.utils import extracted_data_from_ref
 
 
 @pytest.fixture(scope="module")
@@ -372,7 +373,7 @@ def loan_pending_martigny(
         transaction_user_pid=librarian_martigny.pid,
         transaction_date=transaction_date,
         pickup_location_pid=loc_public_martigny.pid,
-        document_pid=item_lib_fully.replace_refs()['document']['pid']
+        document_pid=extracted_data_from_ref(item_lib_fully.get('document'))
     )
     flush_index(ItemsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
@@ -416,7 +417,8 @@ def loan_validated_martigny(
         transaction_user_pid=librarian_martigny.pid,
         transaction_date=transaction_date,
         pickup_location_pid=loc_public_martigny.pid,
-        document_pid=item2_lib_martigny.replace_refs()['document']['pid']
+        document_pid=extracted_data_from_ref(
+            item2_lib_martigny.get('document'))
     )
     flush_index(ItemsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
@@ -431,7 +433,8 @@ def loan_validated_martigny(
         transaction_user_pid=librarian_martigny.pid,
         transaction_date=transaction_date,
         pickup_location_pid=loc_public_martigny.pid,
-        document_pid=item2_lib_martigny.replace_refs()['document']['pid']
+        document_pid=extracted_data_from_ref(
+            item2_lib_martigny.get('document'))
     )
     flush_index(ItemsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
@@ -481,7 +484,8 @@ def loan_overdue_martigny(
         transaction_location_pid=loc_public_martigny.pid,
         transaction_user_pid=librarian_martigny.pid,
         transaction_date=transaction_date,
-        document_pid=item4_lib_martigny.replace_refs()['document']['pid']
+        document_pid=extracted_data_from_ref(
+            item4_lib_martigny.get('document'))
     )
     flush_index(ItemsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
@@ -552,7 +556,8 @@ def loan_overdue_saxon(
         transaction_location_pid=loc_public_martigny.pid,
         transaction_user_pid=librarian_martigny.pid,
         transaction_date=transaction_date,
-        document_pid=item2_lib_saxon.replace_refs()['document']['pid']
+        document_pid=extracted_data_from_ref(
+            item2_lib_saxon.get('document'))
     )
     flush_index(ItemsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
@@ -627,7 +632,7 @@ def loan_overdue_sion(
         transaction_location_pid=loc_public_sion.pid,
         transaction_user_pid=librarian_sion.pid,
         transaction_date=transaction_date,
-        document_pid=item_lib_sion.replace_refs()['document']['pid']
+        document_pid=extracted_data_from_ref(item_lib_sion.get('document'))
     )
     flush_index(ItemsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)

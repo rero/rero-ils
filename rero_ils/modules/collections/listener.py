@@ -18,6 +18,7 @@
 """Signals connector for Collection."""
 
 from .api import Collection, CollectionsSearch
+from ..utils import extracted_data_from_ref
 
 
 def enrich_collection_data(sender, json=None, record=None, index=None,
@@ -33,7 +34,6 @@ def enrich_collection_data(sender, json=None, record=None, index=None,
         collection = record
         if not isinstance(record, Collection):
             collection = Collection.get_record_by_pid(record.get('pid'))
-        org_pid = collection.replace_refs()['organisation']['pid']
         json['organisation'] = {
-            'pid': org_pid
+            'pid': extracted_data_from_ref(collection.get('organisation'))
         }

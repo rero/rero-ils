@@ -132,6 +132,7 @@ class Loan(IlsRecord):
             return False, [_('The loan cannot be extended')]
         patron = Patron.get_record_by_pid(loan.get('patron_pid'))
         cipo = CircPolicy.provide_circ_policy(
+            item.organisation_pid,
             item.library_pid,
             patron.patron_type_pid,
             item.item_type_circulation_category_pid
@@ -232,7 +233,6 @@ class Loan(IlsRecord):
             del(data[cls.pid_field])
         cls._loan_build_org_ref(data)
         # set the field to_anonymize
-        to_anonymize = False
         data['to_anonymize'] = \
             cls.can_anonymize(loan_data=data) and not data.get('to_anonymize')
 
@@ -548,7 +548,6 @@ class Loan(IlsRecord):
                 'library_name': destination_lib.get('name'),
                 'library_code': destination_lib.get('code')
             }
-
         return data
 
     def is_notified(self, notification_type=None, counter=0):

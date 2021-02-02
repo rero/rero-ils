@@ -28,6 +28,7 @@ from ..documents.api import Document
 from ..item_types.api import ItemType
 from ..libraries.api import Library
 from ..locations.api import Location
+from ..utils import extracted_data_from_ref
 
 
 def holding_view_method(pid, record, template=None, **kwargs):
@@ -43,14 +44,14 @@ def holding_view_method(pid, record, template=None, **kwargs):
     record_viewed.send(
         current_app._get_current_object(), pid=pid, record=record
     )
-    document = Document.get_record_by_pid(
-        record.replace_refs()['document']['pid'])
-    holding = record.replace_refs()
-    location = Location.get_record_by_pid(holding['location']['pid'])
-    library = Library.get_record_by_pid(
-        location.replace_refs()['library']['pid'])
-    circulation_category = ItemType.get_record_by_pid(
-        holding['circulation_category']['pid'])
+    document_pid = extracted_data_from_ref(record.get('document'))
+    document = Document.get_record_by_pid(document_pid)
+    location_pid = extracted_data_from_ref(record.get('location'))
+    location = Location.get_record_by_pid(location_pid)
+    library_pid = extracted_data_from_ref(location.get('library'))
+    library = Library.get_record_by_pid(library_pid)
+    item_type_pid = extracted_data_from_ref(record.get('circulation_category'))
+    circulation_category = ItemType.get_record_by_pid(item_type_pid)
     items = record.get_items_filter_by_viewcode(kwargs['viewcode'])
     return render_template(
         template, pid=pid, record=record, document=document,

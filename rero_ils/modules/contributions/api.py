@@ -119,7 +119,8 @@ class Contribution(IlsRecord):
                 metadata.pop('$schema', None)
                 # we have to commit because create
                 # uses db.session.begin_nested
-                contribution = cls.create(metadata, dbcommit=True)
+                contribution = cls.create(metadata, dbcommit=True,
+                                          reindex=True)
                 online = True
             except Exception as err:
                 db.session.rollback()

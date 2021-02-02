@@ -29,7 +29,7 @@ from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
-from ..utils import get_ref_for_pid
+from ..utils import extracted_data_from_ref, get_ref_for_pid
 
 # provider
 PatronTransactionEventProvider = type(
@@ -196,7 +196,7 @@ class PatronTransactionEvent(IlsRecord):
     @property
     def parent_pid(self):
         """Return the parent pid of the patron transaction event."""
-        return self.replace_refs()['parent']['pid']
+        return extracted_data_from_ref(self.get('parent'))
 
     @property
     def event_type(self):
