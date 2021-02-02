@@ -25,8 +25,8 @@ from rero_ils.modules.permissions import RecordPermission, \
 
 
 def test_document_permissions(
-        client, document, librarian_martigny_no_email,
-        patron_martigny_no_email, ebook_1, circ_policy_short_martigny):
+        client, document, librarian_martigny,
+        patron_martigny, ebook_1, circ_policy_short_martigny):
     """Test document permissions."""
     # failed: invalid document pid is given
     res = client.get(
@@ -48,7 +48,7 @@ def test_document_permissions(
     assert res.status_code == 401
 
     # failed: logged patron and a valid document pid is given
-    login_user_via_session(client, patron_martigny_no_email.user)
+    login_user_via_session(client, patron_martigny.user)
     res = client.get(
         url_for(
             'api_blueprint.permissions',
@@ -59,13 +59,13 @@ def test_document_permissions(
     assert res.status_code == 403
 
     # success: logged user and a valid document pid is given
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     data = call_api_permissions(client, 'documents', document.pid)
     assert 'update' in data
     assert 'delete' in data
 
     # success: logged user and a valid document pid is given
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     data = call_api_permissions(client, 'documents', ebook_1.pid)
     assert 'update' in data
     assert 'delete' in data
@@ -90,59 +90,59 @@ def test_document_permissions(
 
 def test_patrons_permissions(
     client,
-    patron_martigny_no_email,
-    librarian_martigny_no_email,
-    librarian2_martigny_no_email,
-    librarian_saxon_no_email,
-    system_librarian_martigny_no_email,
-    system_librarian2_martigny_no_email,
-    system_librarian_sion_no_email,
-    librarian_sion_no_email
+    patron_martigny,
+    librarian_martigny,
+    librarian2_martigny,
+    librarian_saxon,
+    system_librarian_martigny,
+    system_librarian2_martigny,
+    system_librarian_sion,
+    librarian_sion
 ):
     """Test permissions for patrons."""
 
     # simple librarian -----------------------------------------------
-    login_user(client, librarian_martigny_no_email)
+    login_user(client, librarian_martigny)
     # 1) should update and delete a librarian of the same library
     data = call_api_permissions(client, 'patrons',
-                                librarian2_martigny_no_email.pid)
+                                librarian2_martigny.pid)
     assert data['delete']['can']
     assert data['update']['can']
     # 2) should not update and delete a librarian of an other library
     data = call_api_permissions(client, 'patrons',
-                                librarian_saxon_no_email.pid)
+                                librarian_saxon.pid)
     assert not data['delete']['can']
     assert not data['update']['can']
     # 3) should not update and delete a system librarian
     data = call_api_permissions(client, 'patrons',
-                                system_librarian_martigny_no_email.pid)
+                                system_librarian_martigny.pid)
     assert not data['delete']['can']
     assert not data['update']['can']
 
     # system librarian ----------------------------------------------
-    login_user(client, system_librarian_martigny_no_email)
+    login_user(client, system_librarian_martigny)
     # should update and delete a librarian of the same library
     data = call_api_permissions(client, 'patrons',
-                                librarian2_martigny_no_email.pid)
+                                librarian2_martigny.pid)
     assert data['delete']['can']
     assert data['update']['can']
 
     # should update and delete a librarian of an other library
     data = call_api_permissions(client, 'patrons',
-                                librarian_saxon_no_email.pid)
+                                librarian_saxon.pid)
     assert data['delete']['can']
     assert data['update']['can']
 
     # should update and delete a system librarian of the same organisation
     # but not itself
     data = call_api_permissions(client, 'patrons',
-                                system_librarian2_martigny_no_email.pid)
+                                system_librarian2_martigny.pid)
     assert data['delete']['can']
     assert data['update']['can']
 
     # should not update and delete a system librarian of an other organisation
     data = call_api_permissions(client, 'patrons',
-                                system_librarian_sion_no_email.pid)
+                                system_librarian_sion.pid)
     assert not data['delete']['can']
     assert not data['update']['can']
 
@@ -151,10 +151,10 @@ def test_items_permissions(
     client,
     item_lib_martigny,  # on shelf
     item_lib_fully,  # on loan
-    librarian_martigny_no_email
+    librarian_martigny
 ):
     """Test record retrieval."""
-    login_user(client, librarian_martigny_no_email)
+    login_user(client, librarian_martigny)
 
     data = call_api_permissions(client, 'items', item_lib_fully.pid)
     assert not data['delete']['can']
@@ -187,7 +187,7 @@ def call_api_permissions(client, route_name, pid):
     return get_json(response)
 
 
-def test_record_permission_factory(app, client, librarian_martigny_no_email):
+def test_record_permission_factory(app, client, librarian_martigny):
     """Test record permission factory."""
 
     # disabled all permission, all operation on all resources are available
@@ -203,12 +203,12 @@ def test_record_permission_factory(app, client, librarian_martigny_no_email):
         assert not permission.can()
 
     # test default RecordPermission for super_user
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     for action in actions:
         permission = record_permission_factory(record={}, action=action)
         assert not permission.can()
         permission = RecordPermission.create_permission(
-            {}, action, user=librarian_martigny_no_email.user
+            {}, action, user=librarian_martigny.user
         )
         assert not permission.can()
 

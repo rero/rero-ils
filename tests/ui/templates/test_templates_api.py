@@ -29,7 +29,7 @@ from rero_ils.modules.templates.api import template_id_fetcher as fetcher
 
 def test_template_es_mapping(es_clear, db,
                              templ_doc_public_martigny_data,
-                             org_martigny, system_librarian_martigny_no_email):
+                             org_martigny, system_librarian_martigny):
     """Test template elasticsearch mapping."""
     search = TemplatesSearch()
     mapping = get_mapping(search.Meta.index)
@@ -44,7 +44,7 @@ def test_template_es_mapping(es_clear, db,
 
 
 def test_template_create(db, es_clear, templ_doc_public_martigny_data,
-                         org_martigny, system_librarian_martigny_no_email):
+                         org_martigny, system_librarian_martigny):
     """Test template creation."""
     templ_doc_public_martigny_data['toto'] = 'toto'
     with pytest.raises(ValidationError):

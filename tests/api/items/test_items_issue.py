@@ -29,13 +29,13 @@ from rero_ils.modules.items.api import Item
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_issues_permissions(client, json_header,
                             holding_lib_martigny_w_patterns,
-                            librarian_martigny_no_email):
+                            librarian_martigny):
     """Test specific items issues permissions."""
 
     # receive a regular issue
     holding = holding_lib_martigny_w_patterns
     holding = Holding.get_record_by_pid(holding.pid)
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res, data = postdata(
         client,
         'api_holding.receive_regular_issue',

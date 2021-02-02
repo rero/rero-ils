@@ -870,7 +870,7 @@ def templ_doc_public_martigny_data(data):
 @pytest.fixture(scope="module")
 def templ_doc_public_martigny(
         app, org_martigny, templ_doc_public_martigny_data,
-        system_librarian_martigny_no_email):
+        system_librarian_martigny):
     """Create template for a public document martigny."""
     template = Template.create(
         data=templ_doc_public_martigny_data,
@@ -890,7 +890,7 @@ def templ_doc_private_martigny_data(data):
 @pytest.fixture(scope="module")
 def templ_doc_private_martigny(
         app, org_martigny, templ_doc_private_martigny_data,
-        librarian_martigny_no_email):
+        librarian_martigny):
     """Create template for a private document martigny."""
     template = Template.create(
         data=templ_doc_private_martigny_data,
@@ -910,7 +910,7 @@ def templ_doc_public_sion_data(data):
 @pytest.fixture(scope="module")
 def templ_doc_public_sion(
         app, org_sion, templ_doc_public_sion_data,
-        system_librarian_sion_no_email):
+        system_librarian_sion):
     """Create template for a public document sion."""
     template = Template.create(
         data=templ_doc_public_sion_data,
@@ -930,7 +930,7 @@ def templ_holdings_public_martigny_data(data):
 @pytest.fixture(scope="module")
 def templ_holdings_public_martigny(
         app, org_martigny, templ_holdings_public_martigny_data,
-        system_librarian_martigny_no_email):
+        system_librarian_martigny):
     """Load template for a public holdings martigny."""
     template = Template.create(
         data=templ_holdings_public_martigny_data,
@@ -950,7 +950,7 @@ def templ_item_public_martigny_data(data):
 @pytest.fixture(scope="module")
 def templ_item_public_martigny(
         app, org_martigny, templ_item_public_martigny_data,
-        system_librarian_martigny_no_email):
+        system_librarian_martigny):
     """Load template for a public item martigny."""
     template = Template.create(
         data=templ_item_public_martigny_data,
@@ -970,7 +970,7 @@ def templ_patron_public_martigny_data(data):
 @pytest.fixture(scope="module")
 def templ_patron_public_martigny(
         app, org_martigny, templ_patron_public_martigny_data,
-        system_librarian_martigny_no_email):
+        system_librarian_martigny):
     """Load template for a public item martigny."""
     template = Template.create(
         data=templ_patron_public_martigny_data,

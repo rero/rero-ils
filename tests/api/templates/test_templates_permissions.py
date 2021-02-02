@@ -24,12 +24,12 @@ from utils import get_json
 from rero_ils.modules.templates.permissions import TemplatePermission
 
 
-def test_templates_permissions_api(client, patron_martigny_no_email,
+def test_templates_permissions_api(client, patron_martigny,
                                    templ_doc_private_martigny,
                                    templ_doc_public_martigny,
-                                   librarian_martigny_no_email,
+                                   librarian_martigny,
                                    templ_doc_public_sion,
-                                   system_librarian_martigny_no_email):
+                                   system_librarian_martigny):
     """Test templates permissions api."""
     template_permissions_url = url_for(
         'api_blueprint.permissions',
@@ -56,12 +56,12 @@ def test_templates_permissions_api(client, patron_martigny_no_email,
     assert res.status_code == 401
 
     # Logged as patron
-    login_user_via_session(client, patron_martigny_no_email.user)
+    login_user_via_session(client, patron_martigny.user)
     res = client.get(template_permissions_url)
     assert res.status_code == 403
 
     # Logged as librarian
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res = client.get(templ_doc_pub_martigny_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -88,7 +88,7 @@ def test_templates_permissions_api(client, patron_martigny_no_email,
     assert not data['delete']['can']
 
     # Logged as system librarian
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res = client.get(templ_doc_private_martigny_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -106,8 +106,8 @@ def test_templates_permissions_api(client, patron_martigny_no_email,
 
 
 def test_template_permissions(
-        patron_martigny_no_email, librarian_martigny_no_email,
-        system_librarian_martigny_no_email, org_martigny,
+        patron_martigny, librarian_martigny,
+        system_librarian_martigny, org_martigny,
         templ_doc_public_martigny, templ_doc_private_martigny,
         templ_doc_public_sion):
     """Test template permissions class."""
@@ -122,7 +122,7 @@ def test_template_permissions(
     # As Patron
     with mock.patch(
         'rero_ils.modules.templates.permissions.current_patron',
-        patron_martigny_no_email
+        patron_martigny
     ):
         assert not TemplatePermission.list(None, {})
         assert not TemplatePermission.read(None, {})
@@ -133,7 +133,7 @@ def test_template_permissions(
     # As Librarian
     with mock.patch(
         'rero_ils.modules.templates.permissions.current_patron',
-        librarian_martigny_no_email
+        librarian_martigny
     ), mock.patch(
         'rero_ils.modules.templates.permissions.current_organisation',
         org_martigny
@@ -153,7 +153,7 @@ def test_template_permissions(
     # As SystemLibrarian
     with mock.patch(
         'rero_ils.modules.templates.permissions.current_patron',
-        system_librarian_martigny_no_email
+        system_librarian_martigny
     ), mock.patch(
         'rero_ils.modules.templates.permissions.current_organisation',
         org_martigny

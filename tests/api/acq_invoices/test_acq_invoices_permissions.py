@@ -24,9 +24,9 @@ from utils import get_json
 from rero_ils.modules.acq_invoices.permissions import AcqInvoicePermission
 
 
-def test_invoice_permissions_api(client, org_sion, patron_martigny_no_email,
-                                 system_librarian_martigny_no_email,
-                                 librarian_martigny_no_email,
+def test_invoice_permissions_api(client, org_sion, patron_martigny,
+                                 system_librarian_martigny,
+                                 librarian_martigny,
                                  acq_invoice_fiction_martigny,
                                  acq_invoice_fiction_saxon,
                                  acq_invoice_fiction_sion):
@@ -56,7 +56,7 @@ def test_invoice_permissions_api(client, org_sion, patron_martigny_no_email,
     assert res.status_code == 401
 
     # Logged as patron
-    login_user_via_session(client, patron_martigny_no_email.user)
+    login_user_via_session(client, patron_martigny.user)
     res = client.get(invoice_permissions_url)
     assert res.status_code == 403
 
@@ -65,7 +65,7 @@ def test_invoice_permissions_api(client, org_sion, patron_martigny_no_email,
     #   * lib can 'create', 'update', delete only for its library
     #   * lib can't 'read' acq_account of others organisation.
     #   * lib can't 'create', 'update', 'delete' invoices for other org/lib
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res = client.get(invoice_martigny_permission_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -94,7 +94,7 @@ def test_invoice_permissions_api(client, org_sion, patron_martigny_no_email,
     # Logged as system librarian
     #   * sys_lib can do everything about invoices of its own organisation
     #   * sys_lib can't do anything about invoices of other organisation
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res = client.get(invoice_saxon_permission_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -112,9 +112,9 @@ def test_invoice_permissions_api(client, org_sion, patron_martigny_no_email,
     assert not data['delete']['can']
 
 
-def test_invoice_permissions(patron_martigny_no_email,
-                             librarian_martigny_no_email,
-                             system_librarian_martigny_no_email,
+def test_invoice_permissions(patron_martigny,
+                             librarian_martigny,
+                             system_librarian_martigny,
                              document, org_martigny,
                              acq_invoice_fiction_sion,
                              acq_invoice_fiction_saxon,
@@ -134,7 +134,7 @@ def test_invoice_permissions(patron_martigny_no_email,
     invoice_sion = acq_invoice_fiction_sion
     with mock.patch(
         'rero_ils.modules.acq_accounts.permissions.current_patron',
-        patron_martigny_no_email
+        patron_martigny
     ):
         assert not AcqInvoicePermission.list(None, invoice_martigny)
         assert not AcqInvoicePermission.read(None, invoice_martigny)
@@ -145,7 +145,7 @@ def test_invoice_permissions(patron_martigny_no_email,
     # As Librarian
     with mock.patch(
         'rero_ils.modules.acq_accounts.permissions.current_patron',
-        librarian_martigny_no_email
+        librarian_martigny
     ), mock.patch(
         'rero_ils.modules.acq_accounts.permissions.current_organisation',
         org_martigny
@@ -169,7 +169,7 @@ def test_invoice_permissions(patron_martigny_no_email,
     # As System-librarian
     with mock.patch(
         'rero_ils.modules.acq_accounts.permissions.current_patron',
-        system_librarian_martigny_no_email
+        system_librarian_martigny
     ), mock.patch(
         'rero_ils.modules.acq_accounts.permissions.current_organisation',
         org_martigny

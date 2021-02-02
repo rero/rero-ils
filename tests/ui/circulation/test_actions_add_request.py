@@ -27,8 +27,8 @@ from rero_ils.modules.loans.api import LoanState
 
 def test_add_request_on_item_on_shelf(
         item_on_shelf_martigny_patron_and_loan_pending,
-        loc_public_martigny, librarian_martigny_no_email,
-        patron2_martigny_no_email):
+        loc_public_martigny, librarian_martigny,
+        patron2_martigny):
     """Test requests on an on_shelf item."""
     item, patron, loan = item_on_shelf_martigny_patron_and_loan_pending
 
@@ -42,7 +42,7 @@ def test_add_request_on_item_on_shelf(
     params = {
         'patron_pid': patron.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     with pytest.raises(RecordCannotBeRequestedError):
@@ -53,7 +53,7 @@ def test_add_request_on_item_on_shelf(
     # the following tests the circulation action ADD_REQUEST_1_2_2
     # for an item on_shelf with a pending loan, a patron that does not own the
     # pending loan can add a new pending loan on same item.
-    params['patron_pid'] = patron2_martigny_no_email.pid
+    params['patron_pid'] = patron2_martigny.pid
     item, requested_loan = item_record_to_a_specific_loan_state(
         item=item, loan_state=LoanState.PENDING,
         params=params, copy_item=False)
@@ -62,8 +62,8 @@ def test_add_request_on_item_on_shelf(
 
 def test_add_request_on_item_at_desk(
         client, item_at_desk_martigny_patron_and_loan_at_desk,
-        loc_public_martigny, librarian_martigny_no_email,
-        patron2_martigny_no_email):
+        loc_public_martigny, librarian_martigny,
+        patron2_martigny):
     """Test requests on an at_desk item."""
     item, patron, loan = item_at_desk_martigny_patron_and_loan_at_desk
 
@@ -72,7 +72,7 @@ def test_add_request_on_item_at_desk(
     params = {
         'patron_pid': patron.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     with pytest.raises(RecordCannotBeRequestedError):
@@ -83,7 +83,7 @@ def test_add_request_on_item_at_desk(
     # the following tests the circulation action ADD_REQUEST_2_2
     # a patron who doesnt own the ITEM_AT_DESK loan can add a new pending loan.
 
-    params['patron_pid'] = patron2_martigny_no_email.pid
+    params['patron_pid'] = patron2_martigny.pid
     item, requested_loan = item_record_to_a_specific_loan_state(
         item=item, loan_state=LoanState.PENDING, params=params,
         copy_item=False)
@@ -93,8 +93,8 @@ def test_add_request_on_item_at_desk(
 
 def test_add_request_on_item_on_loan(
         item_on_loan_martigny_patron_and_loan_on_loan,
-        loc_public_martigny, librarian_martigny_no_email,
-        patron2_martigny_no_email, patron4_martigny_no_email):
+        loc_public_martigny, librarian_martigny,
+        patron2_martigny, patron4_martigny):
     """Test requests on an on_loan item."""
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
 
@@ -103,7 +103,7 @@ def test_add_request_on_item_on_loan(
     params = {
         'patron_pid': patron.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     with pytest.raises(RecordCannotBeRequestedError):
@@ -114,7 +114,7 @@ def test_add_request_on_item_on_loan(
     # the following tests the circulation action ADD_REQUEST_3_2_1
     # any patron who does not own the ITEM_ON_LOAN loan can add a new pending
     # loan.
-    params['patron_pid'] = patron2_martigny_no_email.pid
+    params['patron_pid'] = patron2_martigny.pid
     item, requested_loan = item_record_to_a_specific_loan_state(
         item=item, loan_state=LoanState.PENDING, params=params,
         copy_item=False)
@@ -124,7 +124,7 @@ def test_add_request_on_item_on_loan(
     # the following tests the circulation action ADD_REQUEST_3_2_2_1
     # when an item on_loan has pending requests, the patron who owns the
     # pending loan may not add a new pending loan
-    params['patron_pid'] = patron2_martigny_no_email.pid
+    params['patron_pid'] = patron2_martigny.pid
     with pytest.raises(RecordCannotBeRequestedError):
         item, requested_loan = item_record_to_a_specific_loan_state(
             item=item, loan_state=LoanState.PENDING, params=params,
@@ -132,7 +132,7 @@ def test_add_request_on_item_on_loan(
     # the following tests the circulation action ADD_REQUEST_3_2_2_2
     # when an item on_loan has pending requests, any patron who does not own
     # the pending loan may add a new pending loan
-    params['patron_pid'] = patron4_martigny_no_email.pid
+    params['patron_pid'] = patron4_martigny.pid
     item, second_requested_loan = item_record_to_a_specific_loan_state(
         item=item, loan_state=LoanState.PENDING, params=params,
         copy_item=False)
@@ -143,8 +143,8 @@ def test_add_request_on_item_on_loan(
 
 def test_add_request_on_item_in_transit_for_pickup(
         item_in_transit_martigny_patron_and_loan_for_pickup,
-        loc_public_martigny, librarian_martigny_no_email,
-        patron2_martigny_no_email, loc_public_fully):
+        loc_public_martigny, librarian_martigny,
+        patron2_martigny, loc_public_fully):
     """Test requests on an in_transit item for pickup."""
     item, patron, loan = item_in_transit_martigny_patron_and_loan_for_pickup
 
@@ -153,7 +153,7 @@ def test_add_request_on_item_in_transit_for_pickup(
     params = {
         'patron_pid': patron.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_fully.pid
     }
     with pytest.raises(RecordCannotBeRequestedError):
@@ -164,7 +164,7 @@ def test_add_request_on_item_in_transit_for_pickup(
     # the following tests the circulation action ADD_REQUEST_4_2
     # a patron who does not own the IN_TRANSIT_FOR_PICKUP loan can add
     # a new pending loan.
-    params['patron_pid'] = patron2_martigny_no_email.pid
+    params['patron_pid'] = patron2_martigny.pid
     item, requested_loan = item_record_to_a_specific_loan_state(
         item=item, loan_state=LoanState.PENDING, params=params,
         copy_item=False)
@@ -174,9 +174,9 @@ def test_add_request_on_item_in_transit_for_pickup(
 
 def test_add_request_on_item_in_transit_to_house(
         item_in_transit_martigny_patron_and_loan_to_house,
-        loc_public_martigny, librarian_martigny_no_email,
-        patron2_martigny_no_email, loc_public_fully,
-        patron4_martigny_no_email):
+        loc_public_martigny, librarian_martigny,
+        patron2_martigny, loc_public_fully,
+        patron4_martigny):
     """Test requests on an in_transit item to house."""
     item, patron, loan = item_in_transit_martigny_patron_and_loan_to_house
 
@@ -184,9 +184,9 @@ def test_add_request_on_item_in_transit_to_house(
     # any patron can add a new pending loan on an item with a loan equal to
     # ITEM_IN_TRANSIT_TO_HOUSE
     params = {
-        'patron_pid': patron2_martigny_no_email.pid,
+        'patron_pid': patron2_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid,
         'checkin_transaction_location_pid': loc_public_fully.pid,
     }
@@ -207,7 +207,7 @@ def test_add_request_on_item_in_transit_to_house(
     # the following tests the circulation action ADD_REQUEST_5_2_2
     # when a pending loan exist on an item with loan ITEM_IN_TRANSIT_TO_HOUSE,
     # any patron who does now own the pending loan can add a new pending loan.
-    params['patron_pid'] = patron4_martigny_no_email.pid
+    params['patron_pid'] = patron4_martigny.pid
     item, second_requested_loan = item_record_to_a_specific_loan_state(
         item=item, loan_state=LoanState.PENDING, params=params,
         copy_item=False)

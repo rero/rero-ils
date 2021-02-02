@@ -31,7 +31,7 @@ def test_patron_es_mapping(
     assert mapping == get_mapping(search.Meta.index)
 
 
-def test_patron_search_mapping(app, patrons_records, librarian_saxon_no_email):
+def test_patron_search_mapping(app, patrons_records, librarian_saxon):
     """Test patron search mapping."""
     search = PatronsSearch()
 
@@ -52,4 +52,4 @@ def test_patron_search_mapping(app, patrons_records, librarian_saxon_no_email):
 
     pids = [r.pid for r in search.query(
          'match', first_name='Eléna').source(['pid']).scan()]
-    assert librarian_saxon_no_email.pid in pids
+    assert librarian_saxon.pid in pids

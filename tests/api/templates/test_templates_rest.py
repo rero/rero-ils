@@ -58,14 +58,14 @@ def test_templates_get(client, templ_doc_public_martigny):
 
 
 def test_filtered_templates_get(
-        client, librarian_martigny_no_email, templ_doc_public_martigny,
-        templ_doc_private_martigny, librarian_sion_no_email,
-        system_librarian_martigny_no_email, librarian_fully_no_email,
-        system_librarian_sion_no_email):
+        client, librarian_martigny, templ_doc_public_martigny,
+        templ_doc_private_martigny, librarian_sion,
+        system_librarian_martigny, librarian_fully,
+        system_librarian_sion):
     """Test templates filter by organisation."""
     # Martigny
     # system librarian can have access to all templates
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     list_url = url_for('invenio_records_rest.tmpl_list')
 
     res = client.get(list_url)
@@ -74,7 +74,7 @@ def test_filtered_templates_get(
     assert data['hits']['total']['value'] == 2
 
     # librarian martigny can have access to all public and his templates
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     list_url = url_for('invenio_records_rest.tmpl_list')
 
     res = client.get(list_url)
@@ -83,7 +83,7 @@ def test_filtered_templates_get(
     assert data['hits']['total']['value'] == 2
 
     # librarian fully can have access to all public templates only
-    login_user_via_session(client, librarian_fully_no_email.user)
+    login_user_via_session(client, librarian_fully.user)
     list_url = url_for('invenio_records_rest.tmpl_list')
 
     res = client.get(list_url)
@@ -93,7 +93,7 @@ def test_filtered_templates_get(
 
     # Sion
     # librarian sion can have access to no templates
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
     list_url = url_for('invenio_records_rest.tmpl_list')
 
     res = client.get(list_url)
@@ -102,7 +102,7 @@ def test_filtered_templates_get(
     assert data['hits']['total']['value'] == 0
 
     # system librarian sion can have access to no templates
-    login_user_via_session(client, system_librarian_sion_no_email.user)
+    login_user_via_session(client, system_librarian_sion.user)
     list_url = url_for('invenio_records_rest.tmpl_list')
 
     res = client.get(list_url)
@@ -114,7 +114,7 @@ def test_filtered_templates_get(
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_templates_post_put_delete(client, org_martigny,
-                                   system_librarian_martigny_no_email,
+                                   system_librarian_martigny,
                                    templ_doc_public_martigny_data,
                                    json_header):
     """Test template post."""
@@ -174,11 +174,11 @@ def test_templates_post_put_delete(client, org_martigny,
 
 def test_template_secure_api(client, json_header,
                              templ_doc_public_martigny,
-                             librarian_martigny_no_email,
-                             librarian_sion_no_email):
+                             librarian_martigny,
+                             librarian_sion):
     """Test templates secure api access."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     record_url = url_for('invenio_records_rest.tmpl_item',
                          pid_value=templ_doc_public_martigny.pid)
 
@@ -186,7 +186,7 @@ def test_template_secure_api(client, json_header,
     assert res.status_code == 200
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
     record_url = url_for('invenio_records_rest.tmpl_item',
                          pid_value=templ_doc_public_martigny.pid)
 
@@ -195,12 +195,12 @@ def test_template_secure_api(client, json_header,
 
 
 def test_template_secure_api_create(client, json_header,
-                                    system_librarian_martigny_no_email,
-                                    system_librarian_sion_no_email,
+                                    system_librarian_martigny,
+                                    system_librarian_sion,
                                     templ_doc_public_martigny_data):
     """Test templates secure api create."""
     # Martigny
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     post_entrypoint = 'invenio_records_rest.tmpl_list'
 
     del templ_doc_public_martigny_data['pid']
@@ -212,7 +212,7 @@ def test_template_secure_api_create(client, json_header,
     assert res.status_code == 201
 
     # Sion
-    login_user_via_session(client, system_librarian_sion_no_email.user)
+    login_user_via_session(client, system_librarian_sion.user)
 
     res, _ = postdata(
         client,
@@ -225,14 +225,14 @@ def test_template_secure_api_create(client, json_header,
 def test_template_secure_api_update(client,
                                     templ_doc_private_martigny,
                                     templ_doc_private_martigny_data,
-                                    system_librarian_martigny_no_email,
-                                    system_librarian_sion_no_email,
-                                    librarian_martigny_no_email,
-                                    librarian_saxon_no_email,
+                                    system_librarian_martigny,
+                                    system_librarian_sion,
+                                    librarian_martigny,
+                                    librarian_saxon,
                                     json_header):
     """Test templates secure api update."""
     # Martigny
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     record_url = url_for('invenio_records_rest.tmpl_item',
                          pid_value=templ_doc_private_martigny.pid)
 
@@ -245,7 +245,7 @@ def test_template_secure_api_update(client,
     )
     assert res.status_code == 403
 
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     data = templ_doc_private_martigny_data
     data['name'] = 'Test Name'
     res = client.put(
@@ -264,7 +264,7 @@ def test_template_secure_api_update(client,
     )
     assert res.status_code == 403
 
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     data = templ_doc_private_martigny_data
     data['visibility'] = 'public'
     res = client.put(
@@ -274,7 +274,7 @@ def test_template_secure_api_update(client,
     )
     assert res.status_code == 403
 
-    login_user_via_session(client, librarian_saxon_no_email.user)
+    login_user_via_session(client, librarian_saxon.user)
     data = templ_doc_private_martigny_data
     data['name'] = 'Test Name'
     res = client.put(
@@ -285,7 +285,7 @@ def test_template_secure_api_update(client,
     assert res.status_code == 403
 
     # Sion
-    login_user_via_session(client, system_librarian_sion_no_email.user)
+    login_user_via_session(client, system_librarian_sion.user)
     res = client.put(
         record_url,
         data=json.dumps(data),
@@ -296,28 +296,28 @@ def test_template_secure_api_update(client,
 
 def test_template_secure_api_delete(client,
                                     templ_doc_private_martigny,
-                                    system_librarian_martigny_no_email,
-                                    system_librarian_sion_no_email,
+                                    system_librarian_martigny,
+                                    system_librarian_sion,
                                     templ_doc_public_martigny,
-                                    librarian_saxon_no_email,
-                                    librarian_martigny_no_email,
+                                    librarian_saxon,
+                                    librarian_martigny,
                                     json_header):
     """Test templates secure api delete."""
     record_url = url_for('invenio_records_rest.tmpl_item',
                          pid_value=templ_doc_private_martigny.pid)
 
     # Saxon
-    login_user_via_session(client, librarian_saxon_no_email.user)
+    login_user_via_session(client, librarian_saxon.user)
     res = client.delete(record_url)
     assert res.status_code == 403
 
     # Sion
-    login_user_via_session(client, system_librarian_sion_no_email.user)
+    login_user_via_session(client, system_librarian_sion.user)
     res = client.delete(record_url)
     assert res.status_code == 403
 
     # Martigny
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res = client.delete(record_url)
     assert res.status_code == 403
 
@@ -325,10 +325,10 @@ def test_template_secure_api_delete(client,
                          pid_value=templ_doc_public_martigny.pid)
 
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res = client.delete(record_url)
     assert res.status_code == 403
 
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res = client.delete(record_url)
     assert res.status_code == 204

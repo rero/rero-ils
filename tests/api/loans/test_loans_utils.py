@@ -23,7 +23,7 @@ from rero_ils.modules.loans.utils import loan_build_document_ref, \
 from rero_ils.modules.utils import get_ref_for_pid
 
 
-def test_loans_build_refs(item_lib_martigny, patron_martigny_no_email,
+def test_loans_build_refs(item_lib_martigny, patron_martigny,
                           document):
     """Test functions buildings refs."""
 
@@ -31,7 +31,7 @@ def test_loans_build_refs(item_lib_martigny, patron_martigny_no_email,
     loan = Loan({
         'item_pid': item_pid_to_object(item_lib_martigny.pid),
         'document_pid': document.pid,
-        'patron_pid': patron_martigny_no_email.pid
+        'patron_pid': patron_martigny.pid
     })
 
     assert loan_build_item_ref(None, loan) == \
@@ -39,4 +39,4 @@ def test_loans_build_refs(item_lib_martigny, patron_martigny_no_email,
     assert loan_build_document_ref(None, loan) == \
         get_ref_for_pid('doc', document.pid)
     assert loan_build_patron_ref(None, loan) == \
-        get_ref_for_pid('patrons', patron_martigny_no_email.pid)
+        get_ref_for_pid('patrons', patron_martigny.pid)

@@ -28,21 +28,21 @@ from rero_ils.modules.loans.api import LoanAction
 
 
 def test_items_in_transit_between_libraries(
-        client, librarian_martigny_no_email, librarian_saxon_no_email,
-        patron_martigny_no_email, loc_public_martigny,
+        client, librarian_martigny, librarian_saxon,
+        patron_martigny, loc_public_martigny,
         item_type_standard_martigny, loc_public_saxon, item_lib_martigny,
         json_header, circulation_policies):
     """Test item in-transit scenarios."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     # checkout the item at location A
     res, data = postdata(
         client,
         'api_item.checkout',
         dict(
             item_pid=item_lib_martigny.pid,
-            patron_pid=patron_martigny_no_email.pid,
+            patron_pid=patron_martigny.pid,
             transaction_location_pid=loc_public_saxon.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -61,7 +61,7 @@ def test_items_in_transit_between_libraries(
             item_pid=item_lib_martigny.pid,
             pid=loan_pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200

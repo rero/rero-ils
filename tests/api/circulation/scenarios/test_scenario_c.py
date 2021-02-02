@@ -25,11 +25,11 @@ from rero_ils.modules.items.models import ItemStatus
 
 
 def test_circ_scenario_c(
-        client, librarian_martigny_no_email, lib_martigny, lib_saxon,
-        patron_martigny_no_email, loc_public_martigny, item_lib_martigny,
-        circulation_policies, loc_public_saxon, librarian_saxon_no_email,
-        patron2_martigny_no_email, lib_fully, loc_public_fully,
-        librarian_fully_no_email):
+        client, librarian_martigny, lib_martigny, lib_saxon,
+        patron_martigny, loc_public_martigny, item_lib_martigny,
+        circulation_policies, loc_public_saxon, librarian_saxon,
+        patron2_martigny, lib_fully, loc_public_fully,
+        librarian_fully):
     """Test the third circulation scenario."""
     # https://github.com/rero/rero-ils/blob/dev/doc/circulation/scenarios.md
     # A request is made on item of library A, on-shelf without previous
@@ -42,13 +42,13 @@ def test_circ_scenario_c(
     # after the end of first renewal. goes in transit to library A. Received at
     #  library A and goes on shelf.
 
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     circ_params = {
             'item_pid': item_lib_martigny.pid,
-            'patron_pid': patron_martigny_no_email.pid,
+            'patron_pid': patron_martigny.pid,
             'pickup_location_pid': loc_public_saxon.pid,
             'transaction_library_pid': lib_martigny.pid,
-            'transaction_user_pid': librarian_martigny_no_email.pid
+            'transaction_user_pid': librarian_martigny.pid
     }
     res, data = postdata(
         client, 'api_item.librarian_request', dict(circ_params))
@@ -60,14 +60,14 @@ def test_circ_scenario_c(
         client, 'api_item.validate_request', dict(circ_params))
     assert res.status_code == 200
 
-    login_user_via_session(client, librarian_saxon_no_email.user)
+    login_user_via_session(client, librarian_saxon.user)
 
     circ_params = {
             'item_pid': item_lib_martigny.pid,
-            'patron_pid': patron_martigny_no_email.pid,
+            'patron_pid': patron_martigny.pid,
             'pickup_location_pid': loc_public_saxon.pid,
             'transaction_library_pid': lib_saxon.pid,
-            'transaction_user_pid': librarian_saxon_no_email.pid
+            'transaction_user_pid': librarian_saxon.pid
     }
     res, data = postdata(
         client, 'api_item.checkin', dict(circ_params))
@@ -79,10 +79,10 @@ def test_circ_scenario_c(
 
     circ_params = {
             'item_pid': item_lib_martigny.pid,
-            'patron_pid': patron2_martigny_no_email.pid,
+            'patron_pid': patron2_martigny.pid,
             'pickup_location_pid': loc_public_fully.pid,
             'transaction_library_pid': lib_fully.pid,
-            'transaction_user_pid': librarian_fully_no_email.pid
+            'transaction_user_pid': librarian_fully.pid
     }
     res, data = postdata(
         client, 'api_item.librarian_request', dict(circ_params))
@@ -91,23 +91,23 @@ def test_circ_scenario_c(
 
     circ_params = {
             'item_pid': item_lib_martigny.pid,
-            'patron_pid': patron_martigny_no_email.pid,
+            'patron_pid': patron_martigny.pid,
             'pickup_location_pid': loc_public_saxon.pid,
             'transaction_library_pid': lib_saxon.pid,
-            'transaction_user_pid': librarian_saxon_no_email.pid
+            'transaction_user_pid': librarian_saxon.pid
     }
     res, data = postdata(
         client, 'api_item.checkin', dict(circ_params))
     assert res.status_code == 200
     assert item_lib_martigny.status == ItemStatus.ON_SHELF
 
-    login_user_via_session(client, librarian_fully_no_email.user)
+    login_user_via_session(client, librarian_fully.user)
     circ_params = {
             'item_pid': item_lib_martigny.pid,
-            'patron_pid': patron2_martigny_no_email.pid,
+            'patron_pid': patron2_martigny.pid,
             'pickup_location_pid': loc_public_fully.pid,
             'transaction_library_pid': lib_fully.pid,
-            'transaction_user_pid': librarian_fully_no_email.pid
+            'transaction_user_pid': librarian_fully.pid
     }
     res, data = postdata(
         client, 'api_item.checkout', dict(circ_params))
@@ -121,13 +121,13 @@ def test_circ_scenario_c(
         client, 'api_item.checkin', dict(circ_params))
     assert res.status_code == 200
 
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     circ_params = {
             'item_pid': item_lib_martigny.pid,
-            'patron_pid': patron2_martigny_no_email.pid,
+            'patron_pid': patron2_martigny.pid,
             'pickup_location_pid': loc_public_martigny.pid,
             'transaction_library_pid': lib_martigny.pid,
-            'transaction_user_pid': librarian_martigny_no_email.pid
+            'transaction_user_pid': librarian_martigny.pid
     }
     res, data = postdata(
         client, 'api_item.checkin', dict(circ_params))

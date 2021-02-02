@@ -168,11 +168,11 @@ def test_acq_order_lines_document_can_delete(
 
 def test_acq_order_line_secure_api(client, json_header,
                                    acq_order_line_fiction_martigny,
-                                   librarian_martigny_no_email,
-                                   librarian_sion_no_email):
+                                   librarian_martigny,
+                                   librarian_sion):
     """Test acq order line secure api access."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     record_url = url_for('invenio_records_rest.acol_item',
                          pid_value=acq_order_line_fiction_martigny.pid)
 
@@ -180,7 +180,7 @@ def test_acq_order_line_secure_api(client, json_header,
     assert res.status_code == 200
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
     record_url = url_for('invenio_records_rest.acol_item',
                          pid_value=acq_order_line_fiction_martigny.pid)
 
@@ -192,13 +192,13 @@ def test_acq_order_secure_api_create(client, json_header,
                                      org_martigny,
                                      vendor_martigny, vendor2_martigny,
                                      acq_order_line_fiction_martigny,
-                                     librarian_martigny_no_email,
-                                     librarian_sion_no_email,
+                                     librarian_martigny,
+                                     librarian_sion,
                                      acq_order_line_fiction_saxon,
-                                     system_librarian_martigny_no_email):
+                                     system_librarian_martigny):
     """Test acq order line secure api create."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     post_entrypoint = 'invenio_records_rest.acol_list'
 
     data = acq_order_line_fiction_saxon
@@ -219,7 +219,7 @@ def test_acq_order_secure_api_create(client, json_header,
     )
     assert res.status_code == 201
 
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res, _ = postdata(
         client,
         post_entrypoint,
@@ -228,7 +228,7 @@ def test_acq_order_secure_api_create(client, json_header,
     assert res.status_code == 201
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
 
     data = acq_order_line_fiction_saxon
     res, _ = postdata(
@@ -244,12 +244,12 @@ def test_acq_order_line_secure_api_update(client,
                                           vendor_sion,
                                           acq_order_fiction_sion,
                                           acq_order_line_fiction_sion,
-                                          librarian_martigny_no_email,
-                                          librarian_sion_no_email,
+                                          librarian_martigny,
+                                          librarian_sion,
                                           json_header):
     """Test acq order line secure api update."""
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
     record_url = url_for('invenio_records_rest.acol_item',
                          pid_value=acq_order_line_fiction_sion.pid)
     data = acq_order_line_fiction_sion
@@ -262,7 +262,7 @@ def test_acq_order_line_secure_api_update(client,
     assert res.status_code == 200
 
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
 
     res = client.put(
         record_url,

@@ -25,7 +25,7 @@ from rero_ils.modules.documents.permissions import DocumentPermission
 
 
 def test_documents_permissions_api(client, document, ebook_1,
-                                   system_librarian_martigny_no_email):
+                                   system_librarian_martigny):
     """Test documents permissions api."""
     # Logged as system librarian.
     #   * All operation are allowed for normal document
@@ -35,7 +35,7 @@ def test_documents_permissions_api(client, document, ebook_1,
         route_name='documents',
         record_pid=document.pid
     )
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res = client.get(doc_permission_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -50,7 +50,7 @@ def test_documents_permissions_api(client, document, ebook_1,
         route_name='documents',
         record_pid=ebook_1.pid
     )
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res = client.get(doc_permission_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -61,8 +61,8 @@ def test_documents_permissions_api(client, document, ebook_1,
     assert not data['delete']['can']
 
 
-def test_documents_permissions(patron_martigny_no_email,
-                               librarian_martigny_no_email,
+def test_documents_permissions(patron_martigny,
+                               librarian_martigny,
                                document):
     """Test documents permissions class."""
 
@@ -76,7 +76,7 @@ def test_documents_permissions(patron_martigny_no_email,
     # As Patron
     with mock.patch(
         'rero_ils.modules.documents.permissions.current_patron',
-        patron_martigny_no_email
+        patron_martigny
     ):
         assert DocumentPermission.list(None, document)
         assert DocumentPermission.read(None, document)
@@ -87,7 +87,7 @@ def test_documents_permissions(patron_martigny_no_email,
     # As Librarian
     with mock.patch(
         'rero_ils.modules.documents.permissions.current_patron',
-        librarian_martigny_no_email
+        librarian_martigny
     ):
         assert DocumentPermission.list(None, document)
         assert DocumentPermission.read(None, document)

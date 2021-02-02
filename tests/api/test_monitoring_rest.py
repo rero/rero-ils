@@ -70,7 +70,7 @@ def test_monitoring_es_db_counts(client):
 
 
 def test_monitoring_check_es_db_counts(app, client, contribution_person_data,
-                                       system_librarian_martigny_no_email):
+                                       system_librarian_martigny):
     """Test monitoring check_es_db_counts."""
     res = client.get(url_for('api_monitoring.check_es_db_counts'))
     assert res.status_code == 200
@@ -102,7 +102,7 @@ def test_monitoring_check_es_db_counts(app, client, contribution_person_data,
     res = client.get(url_for('api_monitoring.missing_pids', doc_type='cont'))
     assert res.status_code == 401
 
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res = client.get(
         url_for('api_monitoring.missing_pids', doc_type='cont')
     )
@@ -112,7 +112,7 @@ def test_monitoring_check_es_db_counts(app, client, contribution_person_data,
     db.session.add(
         ActionUsers.allow(
             superuser_access,
-            user=system_librarian_martigny_no_email.user
+            user=system_librarian_martigny.user
         )
     )
     db.session.commit()

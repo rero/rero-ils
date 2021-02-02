@@ -24,10 +24,10 @@ from utils import get_json
 from rero_ils.modules.libraries.permissions import LibraryPermission
 
 
-def test_library_permissions_api(client, patron_martigny_no_email,
+def test_library_permissions_api(client, patron_martigny,
                                  lib_martigny, lib_sion, lib_saxon,
-                                 librarian_martigny_no_email,
-                                 system_librarian_martigny_no_email):
+                                 librarian_martigny,
+                                 system_librarian_martigny):
     """Test libraries permissions api."""
     lib_permissions_url = url_for(
         'api_blueprint.permissions',
@@ -54,7 +54,7 @@ def test_library_permissions_api(client, patron_martigny_no_email,
     assert res.status_code == 401
 
     # Logged as patron
-    login_user_via_session(client, patron_martigny_no_email.user)
+    login_user_via_session(client, patron_martigny.user)
     res = client.get(lib_permissions_url)
     assert res.status_code == 403
 
@@ -63,7 +63,7 @@ def test_library_permissions_api(client, patron_martigny_no_email,
     #   * lib can 'create', 'update', delete only for its library
     #   * lib can't 'read' acq_account of others organisation.
     #   * lib can't 'create', 'update', 'delete' acq_account for other org/lib
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res = client.get(lib_martigny_permission_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -93,7 +93,7 @@ def test_library_permissions_api(client, patron_martigny_no_email,
     #   * sys_lib can 'list' organisations
     #   * sys_lib can never 'create' and 'delete' any organisation
     #   * sys_lib can 'read' and 'update' only their own organisation
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res = client.get(lib_saxon_permission_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -110,9 +110,9 @@ def test_library_permissions_api(client, patron_martigny_no_email,
     assert not data['delete']['can']
 
 
-def test_library_permissions(patron_martigny_no_email,
-                             librarian_martigny_no_email,
-                             system_librarian_martigny_no_email,
+def test_library_permissions(patron_martigny,
+                             librarian_martigny,
+                             system_librarian_martigny,
                              org_martigny, lib_martigny, lib_saxon, lib_sion):
     """Test library permissions class."""
 
@@ -126,7 +126,7 @@ def test_library_permissions(patron_martigny_no_email,
     # As Patron
     with mock.patch(
         'rero_ils.modules.libraries.permissions.current_patron',
-        patron_martigny_no_email
+        patron_martigny
     ):
         assert not LibraryPermission.list(None, lib_martigny)
         assert not LibraryPermission.read(None, lib_martigny)
@@ -137,7 +137,7 @@ def test_library_permissions(patron_martigny_no_email,
     # As Librarian
     with mock.patch(
         'rero_ils.modules.libraries.permissions.current_patron',
-        librarian_martigny_no_email
+        librarian_martigny
     ), mock.patch(
         'rero_ils.modules.libraries.permissions.current_organisation',
         org_martigny
@@ -157,7 +157,7 @@ def test_library_permissions(patron_martigny_no_email,
     # As SystemLibrarian
     with mock.patch(
         'rero_ils.modules.libraries.permissions.current_patron',
-        system_librarian_martigny_no_email
+        system_librarian_martigny
     ), mock.patch(
         'rero_ils.modules.libraries.permissions.current_organisation',
         org_martigny

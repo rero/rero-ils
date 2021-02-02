@@ -22,7 +22,7 @@ from utils import get_json
 
 def test_local_fields_permissions_api(
         client, org_martigny, document, local_field_martigny,
-        patron_sion_no_email, librarian_martigny_no_email):
+        patron_sion, librarian_martigny):
     """Test local fields permissions api."""
     local_field_permissions_url = url_for(
         'api_blueprint.permissions',
@@ -39,12 +39,12 @@ def test_local_fields_permissions_api(
     assert res.status_code == 401
 
     # Logged as patron
-    login_user_via_session(client, patron_sion_no_email.user)
+    login_user_via_session(client, patron_sion.user)
     res = client.get(local_field_permissions_url)
     assert res.status_code == 403
 
     # Logged as
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res = client.get(local_field_martigny_permission_url)
     assert res.status_code == 200
     data = get_json(res)

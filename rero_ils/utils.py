@@ -19,6 +19,7 @@
 
 
 from flask import current_app
+from flask_security.confirmable import confirm_user
 from invenio_i18n.ext import current_i18n
 
 
@@ -57,3 +58,53 @@ def remove_empties_from_dict(a_dict):
         if v:
             new_dict[k] = v
     return new_dict or None
+
+def create_user_from_data(data):
+    """Create a user and set the profile fields from a data.
+
+    :param data: A dict containing a mix of patron and user data.
+    :returns: The modified dict.
+    """
+    from datetime import datetime
+
+    from invenio_accounts.ext import hash_password
+    from invenio_accounts.models import User
+    from invenio_db import db
+
+    profile_fields = [
+        'first_name', 'last_name', 'street', 'postal_code',
+        'city', 'birth_date', 'username', 'phone', 'keep_history'
+    ]
+    with db.session.begin_nested():
+        # create the user
+        user = User(
+            password=hash_password(data.get('birth_date', '123456')),
+            profile=dict(), active=True)
+        db.session.add(user)
+        # set the user fields
+        if data.get('email') is not None:
+            user.email = data.get('email')
+        profile = user.profile
+        # set the profile
+        for field in profile_fields:
+            value = data.get(field)
+            if field == 'keep_history':
+                value = data.get('patron', {}).get(field)
+            if value is not None:
+                if field == 'birth_date':
+                    value = datetime.strptime(value, '%Y-%m-%d')
+                setattr(profile, field, value)
+        db.session.merge(user)
+    db.session.commit()
+    confirm_user(user)
+    # remove the user fields from the data
+    for field in profile_fields:
+        try:
+            if field == 'keep_history':
+                del data['patron'][field]
+            else:
+                del data[field]
+        except KeyError:
+            pass
+    data['user_id'] = user.id
+    return data

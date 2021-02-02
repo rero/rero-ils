@@ -24,9 +24,9 @@ from utils import get_json
 from rero_ils.modules.organisations.permissions import OrganisationPermission
 
 
-def test_organisation_permissions_api(client, patron_martigny_no_email,
+def test_organisation_permissions_api(client, patron_martigny,
                                       org_martigny, org_sion,
-                                      system_librarian_martigny_no_email):
+                                      system_librarian_martigny):
     """Test organisations permissions api."""
     org_permissions_url = url_for(
         'api_blueprint.permissions',
@@ -48,7 +48,7 @@ def test_organisation_permissions_api(client, patron_martigny_no_email,
     assert res.status_code == 401
 
     # Logged as patron
-    login_user_via_session(client, patron_martigny_no_email.user)
+    login_user_via_session(client, patron_martigny.user)
     res = client.get(org_permissions_url)
     assert res.status_code == 403
 
@@ -56,7 +56,7 @@ def test_organisation_permissions_api(client, patron_martigny_no_email,
     #   * sys_lib can 'list' organisations
     #   * sys_lib can never 'create' and 'delete' any organisation
     #   * sys_lib can 'read' and 'update' only their own organisation
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res = client.get(org_martigny_permission_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -73,9 +73,9 @@ def test_organisation_permissions_api(client, patron_martigny_no_email,
     assert not data['update']['can']
 
 
-def test_organisation_permissions(patron_martigny_no_email,
-                                  librarian_martigny_no_email,
-                                  system_librarian_martigny_no_email,
+def test_organisation_permissions(patron_martigny,
+                                  librarian_martigny,
+                                  system_librarian_martigny,
                                   org_martigny_data, org_martigny):
     """Test organisation permissions class."""
 
@@ -89,7 +89,7 @@ def test_organisation_permissions(patron_martigny_no_email,
     # As Patron
     with mock.patch(
         'rero_ils.modules.organisations.permissions.current_patron',
-        patron_martigny_no_email
+        patron_martigny
     ):
         assert not OrganisationPermission.list(None, org_martigny_data)
         assert not OrganisationPermission.read(None, org_martigny_data)
@@ -100,7 +100,7 @@ def test_organisation_permissions(patron_martigny_no_email,
     # As Librarian
     with mock.patch(
         'rero_ils.modules.organisations.permissions.current_patron',
-        librarian_martigny_no_email
+        librarian_martigny
     ), mock.patch(
         'rero_ils.modules.organisations.permissions.current_organisation',
         org_martigny
@@ -114,7 +114,7 @@ def test_organisation_permissions(patron_martigny_no_email,
     # As SystemLibrarian
     with mock.patch(
         'rero_ils.modules.organisations.permissions.current_patron',
-        system_librarian_martigny_no_email
+        system_librarian_martigny
     ), mock.patch(
         'rero_ils.modules.organisations.permissions.current_organisation',
         org_martigny
