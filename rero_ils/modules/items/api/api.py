@@ -35,6 +35,7 @@ from ...fetchers import id_fetcher
 from ...minters import id_minter
 from ...organisations.api import Organisation, current_organisation
 from ...providers import Provider
+from ...utils import extracted_data_from_ref
 
 # provider
 ItemProvider = type(
@@ -229,12 +230,14 @@ class ItemsIndexer(IlsRecordsIndexer):
 
     def index(self, record):
         """Index an item."""
-        from ...holdings.api import Holding, HoldingsSearch
+        from ..tasks import delete_holding
+        from ...documents.api import DocumentsIndexer
+        from ...holdings.api import HoldingsSearch
 
         # get the old holding record if exists
-        items_search = ItemsSearch().filter(
-            'term', pid=record.get('pid')
-        ).source('holding').execute().hits
+        items_search = ItemsSearch(). \
+            filter('term', pid=record.get('pid')). \
+            source('holding').execute().hits
 
         holding_pid = None
         if items_search.total.value:
@@ -242,20 +245,16 @@ class ItemsIndexer(IlsRecordsIndexer):
 
         return_value = super().index(record)
 
-        document_pid = record.replace_refs()['document']['pid']
-        document = Document.get_record_by_pid(document_pid)
-        document.reindex()
-        current_search.flush_and_refresh(DocumentsSearch.Meta.index)
+        # reindex document in background
+        document_pid = extracted_data_from_ref(record.get('document'))
+        uid = Document.get_id_by_pid(document_pid)
+        DocumentsIndexer().index_by_id(uid)
         current_search.flush_and_refresh(HoldingsSearch.Meta.index)
+        current_search.flush_and_refresh(DocumentsSearch.Meta.index)
 
         # check if old holding can be deleted
-        if holding_pid:
-            holding_rec = Holding.get_record_by_pid(holding_pid)
-            try:
-                # TODO: Need to split DB and elasticsearch deletion.
-                holding_rec.delete(force=False, dbcommit=True, delindex=True)
-            except IlsRecordError.NotDeleted:
-                pass
+        delete_holding.delay(holding_pid=holding_pid, force=False,
+                             dbcommit=True, delindex=True)
 
         return return_value
 

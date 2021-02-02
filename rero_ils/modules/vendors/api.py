@@ -73,12 +73,9 @@ class Vendor(IlsRecord):
 
         if the order email does not exist, it returns the default contact email
         """
-        vendor = self.replace_refs()
-        if vendor:
-            return vendor.get(
-                'order_contact', vendor.get(
-                    'default_contact', {})).get('email')
-        return None
+        return self.get(
+            'order_contact', self.get('default_contact', {})
+        ).get('email')
 
     def get_number_of_acq_orders(self):
         """Get number of acquisition orders."""

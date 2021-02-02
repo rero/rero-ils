@@ -21,6 +21,8 @@ import pytest
 from invenio_records.api import Record
 from jsonref import JsonRefError
 
+from rero_ils.modules.utils import extracted_data_from_ref
+
 
 def test_patron_transaction_event_jsonresolver(
         patron_transaction_overdue_event_saxon):
@@ -31,7 +33,7 @@ def test_patron_transaction_event_jsonresolver(
             }
          }
     )
-    assert rec.replace_refs().get('patron_transaction_event') == {'pid': '1'}
+    assert extracted_data_from_ref(rec.get('patron_transaction_event')) == '1'
 
     # deleted record
     patron_transaction_overdue_event_saxon.delete()

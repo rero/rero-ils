@@ -21,13 +21,15 @@ import pytest
 from invenio_records.api import Record
 from jsonref import JsonRefError
 
+from rero_ils.modules.utils import extracted_data_from_ref
+
 
 def test_budgets_jsonresolver(budget_2017_martigny):
     """Budgets resolver tests."""
     rec = Record.create({
         'budget': {'$ref': 'https://ils.rero.ch/api/budgets/budg5'}
     })
-    assert rec.replace_refs().get('budget') == {'pid': 'budg5'}
+    assert extracted_data_from_ref(rec.get('budget')) == 'budg5'
 
     # deleted record
     budget_2017_martigny.delete()

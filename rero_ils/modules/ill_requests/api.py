@@ -28,6 +28,7 @@ from ..fetchers import id_fetcher
 from ..locations.api import Location
 from ..minters import id_minter
 from ..providers import Provider
+from ..utils import extracted_data_from_ref
 
 # provider
 ILLRequestProvider = type(
@@ -116,7 +117,7 @@ class ILLRequest(IlsRecord):
     @property
     def patron_pid(self):
         """Get patron pid for ill_request."""
-        return self.replace_refs()['patron']['pid']
+        return extracted_data_from_ref(self.get('patron'))
 
     @property
     def organisation_pid(self):
@@ -132,7 +133,7 @@ class ILLRequest(IlsRecord):
 
     def get_pickup_location(self):
         """Get the pickup location."""
-        location_pid = self.replace_refs()['pickup_location']['pid']
+        location_pid = extracted_data_from_ref(self.get('pickup_location'))
         return Location.get_record_by_pid(location_pid)
 
     def get_library(self):

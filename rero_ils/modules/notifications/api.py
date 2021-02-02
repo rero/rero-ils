@@ -473,8 +473,10 @@ def calculate_notification_amount(notification):
     # to find the notification due amount, we firstly need to get the
     # circulation policy linked to the parent loan.
     location_pid = notification.transaction_location_pid
+    location = Location.get_record_by_pid(location_pid)
     cipo = CircPolicy.provide_circ_policy(
-        Location.get_record_by_pid(location_pid).library_pid,
+        location.organisation_pid,
+        location.library_pid,
         notification.patron.patron_type_pid,
         notification.item.holding_circulation_category_pid
     )

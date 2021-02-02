@@ -21,6 +21,8 @@ import pytest
 from invenio_records.api import Record
 from jsonref import JsonRefError
 
+from rero_ils.modules.utils import extracted_data_from_ref
+
 
 def test_acq_order_lines_jsonresolver(
         document, acq_order_line_fiction_martigny):
@@ -30,7 +32,7 @@ def test_acq_order_lines_jsonresolver(
             '$ref': 'https://ils.rero.ch/api/acq_order_lines/acol1'
         }
     })
-    assert rec.replace_refs().get('acq_order_line') == {'pid': 'acol1'}
+    assert extracted_data_from_ref(rec.get('acq_order_line')) == 'acol1'
     # deleted record
     acq_order_line_fiction_martigny.delete()
     with pytest.raises(JsonRefError):

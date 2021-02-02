@@ -26,7 +26,7 @@ from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
-from ..utils import get_ref_for_pid
+from ..utils import extracted_data_from_ref, get_ref_for_pid
 
 # provider
 AcqOrderLineProvider = type(
@@ -115,7 +115,7 @@ class AcqOrderLine(IlsRecord):
     @property
     def order_pid(self):
         """Shortcut for acquisition order pid."""
-        return self.replace_refs().get('acq_order').get('pid')
+        return extracted_data_from_ref(self.get('acq_order'))
 
     @property
     def organisation_pid(self):
@@ -162,7 +162,7 @@ class AcqOrderLinesIndexer(IlsRecordsIndexer):
         """Update total amount of the order."""
         from ..acq_orders.api import AcqOrder
 
-        order_pid = record.replace_refs()['acq_order']['pid']
+        order_pid = extracted_data_from_ref(record.get('acq_order'))
         order = AcqOrder.get_record_by_pid(order_pid)
         order['total_amount'] = order.get_order_total_amount()
         order.update(order, dbcommit=True, reindex=True)

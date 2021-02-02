@@ -200,24 +200,26 @@ class Document(IlsRecord):
 
     def index_contributions(self, bulk=False):
         """Index all attached contributions."""
-        from ..contributions.api import Contribution
+        from ..contributions.api import Contribution, ContributionsIndexer
+        from ..tasks import process_bulk_queue
         contributions_ids = []
         for contribution in self.get('contribution', []):
             contrib = None
             ref = contribution['agent'].get('$ref')
             if ref:
                 contrib, online = Contribution.get_record_by_ref(ref)
-            cont_pid = contribution['agent'].get('pid')
-            if cont_pid:
-                contrib = Contribution.get_record_by_pid(cont_pid)
-            if contrib:
-                if bulk:
-                    contributions_ids.append(contrib.id)
-                else:
-                    contrib.reindex()
+            else:
+                cont_pid = contribution['agent'].get('pid')
+                if cont_pid:
+                    if bulk:
+                        uid = Contribution.get_id_by_pid(cont_pid)
+                        contributions_ids.append(uid)
+                    else:
+                        contrib = Contribution.get_record_by_pid(cont_pid)
+                        contrib.reindex()
         if contributions_ids:
-            IlsRecordsIndexer().bulk_index(
-                contributions_ids, doc_type=['cont'])
+            ContributionsIndexer().bulk_index(contributions_ids)
+            process_bulk_queue.apply_async()
 
     @classmethod
     def get_all_serial_pids(cls):
@@ -312,7 +314,7 @@ class DocumentsIndexer(IlsRecordsIndexer):
     def index(self, record):
         """Index an document."""
         return_value = super().index(record)
-        record.index_contributions()
+        record.index_contributions(bulk=True)
         return return_value
 
     def bulk_index(self, record_id_iterator):

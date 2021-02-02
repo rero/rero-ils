@@ -24,6 +24,7 @@ from utils import flush_index, get_mapping
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.local_fields.api import LocalField, LocalFieldsSearch
 from rero_ils.modules.local_fields.api import local_field_id_fetcher as fetcher
+from rero_ils.modules.utils import extracted_data_from_ref
 
 
 def test_local_fields_es(client, local_field_martigny):
@@ -57,7 +58,7 @@ def test_local_fields_es_mapping(db, org_sion, document,
     assert fetched_pid.pid_value == '1'
     assert fetched_pid.pid_type == 'lofi'
 
-    document_pid = lofi.replace_refs()['parent']['pid']
+    document_pid = extracted_data_from_ref(lofi.get('parent'))
     search = DocumentsSearch().filter(
             'term', pid=document_pid)
     document = list(search.scan())[0].to_dict()

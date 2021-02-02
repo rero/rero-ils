@@ -55,11 +55,13 @@ class DocumentJSONSerializer(JSONSerializer):
         if altgr_titles_responsibilities:
             rec['ui_title_altgr_responsibilities'] = \
                 altgr_titles_responsibilities
+
         variant_titles = create_title_variants(titles)
         # build variant title data for display purpose
         if variant_titles:
             rec['ui_title_variants'] = variant_titles
         if request and request.args.get('resolve') == '1':
+            # We really have to replace the refs for the MEF here!
             rec_refs = record.replace_refs()
             contributions = create_contributions(
                 rec_refs.get('contribution', [])

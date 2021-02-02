@@ -21,6 +21,7 @@
 from rero_ils.modules.organisations.api import current_organisation
 from rero_ils.modules.patrons.api import current_patron
 from rero_ils.modules.permissions import RecordPermission
+from rero_ils.modules.utils import extracted_data_from_ref
 
 
 class CirculationPolicyPermission(RecordPermission):
@@ -91,10 +92,10 @@ class CirculationPolicyPermission(RecordPermission):
             if current_patron.is_system_librarian:
                 return True
             if current_patron.is_librarian and \
-               record.get('policy_library_level', False):
-                cipo_library_pids = \
-                    [lib['pid'] for lib in
-                     record.replace_refs().get('libraries', [])]
+                    record.get('policy_library_level', False):
+                cipo_library_pids = []
+                for library in record.get('libraries', []):
+                    cipo_library_pids.append(extracted_data_from_ref(library))
                 # Intersection patron libraries pid and cipo library pids
                 return len(set(current_patron.library_pids).intersection(
                     cipo_library_pids)) > 0

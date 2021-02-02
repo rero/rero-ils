@@ -27,6 +27,7 @@ from rero_ils.filter import format_date_filter
 from ..documents.api import Document
 from ..libraries.api import Library
 from ..organisations.api import Organisation
+from ..utils import extracted_data_from_ref
 
 blueprint = Blueprint(
     'collections',
@@ -47,23 +48,24 @@ def collection_view_method(pid, record, template=None, **kwargs):
 
     viewcode = kwargs['viewcode']
     org_pid = Organisation.get_record_by_viewcode(viewcode)['pid']
-    rec = record.replace_refs()
+    rec = record
     libraries = []
 
-    if org_pid != rec.get('organisation').get('pid'):
+    if org_pid != extracted_data_from_ref(record.get('organisation')):
         abort(
             404, 'The collections is not referenced for this organisation'
         )
     # Get items and document title
     rec['items'] = record.get_items()
     for item in rec['items']:
-        item['document'] = Document.get_record_by_pid(
-            item.replace_refs().get('document').get('pid'))
+        document_pid = extracted_data_from_ref(item.get('document'))
+        item['document'] = Document.get_record_by_pid(document_pid)
     # Get libraries names
     if rec.get('libraries'):
         for library in rec.get('libraries'):
+            library_pid = extracted_data_from_ref(library)
             libraries.append(
-                Library.get_record_by_pid(library['pid']).get('name')
+                Library.get_record_by_pid(library_pid).get('name')
             )
         rec['libraries'] = ', '.join(libraries)
     # Format date

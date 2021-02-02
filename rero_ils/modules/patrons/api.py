@@ -451,7 +451,8 @@ class Patron(IlsRecord):
     @property
     def patron_type_pid(self):
         """Shortcut for patron type pid."""
-        return self.replace_refs().get('patron', {}).get('type', {}).get('pid')
+        if self.get('patron', {}).get('type'):
+            return extracted_data_from_ref(self.get('patron').get('type'))
 
     def get_number_of_loans(self):
         """Get number of loans."""
@@ -513,10 +514,10 @@ class Patron(IlsRecord):
     def library_pids(self):
         """Shortcut for patron libraries pid."""
         if self.is_librarian:
-            return [
-                library['pid'] for library
-                in self.replace_refs().get('libraries', [])
-            ]
+            pids = []
+            for library in self.get('libraries', []):
+                pids.append(extracted_data_from_ref(library))
+            return pids
 
     @property
     def is_system_librarian(self):

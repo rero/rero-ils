@@ -21,6 +21,7 @@
 from copy import deepcopy
 from uuid import uuid4
 
+import click
 import pytz
 from celery import current_app as current_celery_app
 from elasticsearch import VERSION as ES_VERSION
@@ -44,6 +45,7 @@ from sqlalchemy import text
 from sqlalchemy.orm.exc import NoResultFound
 
 from .errors import RecordValidationError
+from .utils import extracted_data_from_ref
 
 
 class IlsRecordError:
@@ -109,7 +111,7 @@ class IlsRecord(Record):
                     cls.provider.pid_type
                 ]['indexer_class']
             )
-        except:
+        except Exception:
             # provide default indexer if no indexer is defined in config.
             indexer = IlsRecordsIndexer
         return indexer
@@ -186,23 +188,28 @@ class IlsRecord(Record):
         return record
 
     @classmethod
-    def get_record_by_pid(cls, pid, with_deleted=False):
+    def get_record_by_pid(cls, pid, with_deleted=False, verbose=False):
         """Get ils record by pid value."""
-        assert cls.provider
-        try:
-            persistent_identifier = PersistentIdentifier.get(
-                cls.provider.pid_type,
-                pid
-            )
-            return super().get_record(
-                persistent_identifier.object_uuid,
-                with_deleted=with_deleted
-            )
-        # TODO: is it better to raise a error or to return None?
-        except NoResultFound:
-            return None
-        except PIDDoesNotExistError:
-            return None
+        if verbose:
+            click.echo('\t\tget_record_by_pid: {name} {pid}'.format(
+                name=cls.__name__,
+                pid=pid
+            ))
+        if pid:
+            assert cls.provider
+            try:
+                persistent_identifier = PersistentIdentifier.get(
+                    cls.provider.pid_type,
+                    pid
+                )
+                record = super().get_record(
+                    persistent_identifier.object_uuid,
+                    with_deleted=with_deleted
+                )
+                return record
+            # TODO: is it better to raise a error or to return None?
+            except (NoResultFound, PIDDoesNotExistError):
+                return None
 
     @classmethod
     def record_pid_exists(cls, pid):
@@ -219,9 +226,7 @@ class IlsRecord(Record):
             )
             return True
 
-        except NoResultFound:
-            return False
-        except PIDDoesNotExistError:
+        except (NoResultFound, PIDDoesNotExistError):
             return False
 
     @classmethod
@@ -229,6 +234,19 @@ class IlsRecord(Record):
         """Get pid by uuid."""
         persistent_identifier = cls.get_persistent_identifier(id)
         return str(persistent_identifier.pid_value)
+
+    @classmethod
+    def get_id_by_pid(cls, pid):
+        """Get uuid by pid."""
+        assert cls.provider
+        try:
+            persistent_identifier = PersistentIdentifier.get(
+                cls.provider.pid_type,
+                pid
+            )
+            return persistent_identifier.object_uuid
+        except Exception:
+            return None
 
     @classmethod
     def get_record_by_id(cls, id, with_deleted=False):
@@ -328,6 +346,7 @@ class IlsRecord(Record):
         super().update(data)
         if dbcommit:
             record = self.dbcommit(reindex)
+            record = self.get_record_by_id(self.id)
         return record
 
     def replace(self, data, dbcommit=False, reindex=False):
@@ -420,9 +439,7 @@ class IlsRecord(Record):
     @property
     def organisation_pid(self):
         """Get organisation pid for circulation policy."""
-        if self.get('organisation'):
-            return self.replace_refs()['organisation']['pid']
-        return None
+        return extracted_data_from_ref(self.get('organisation'))
 
 
 class IlsRecordsIndexer(RecordIndexer):

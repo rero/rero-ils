@@ -21,6 +21,7 @@ from __future__ import absolute_import, print_function
 
 from rero_ils.modules.patron_types.api import PatronType, \
     patron_type_id_fetcher
+from rero_ils.modules.utils import extracted_data_from_ref
 
 
 def test_patron_type_create(
@@ -42,11 +43,13 @@ def test_patron_type_create(
 def test_patron_type_exist_name_and_organisation_pid(
         patron_type_children_martigny):
     """Test patron type name uniquness."""
-    ptty = patron_type_children_martigny.replace_refs()
+    org_pid = extracted_data_from_ref(
+        patron_type_children_martigny.get('organisation')
+    )
     assert PatronType.exist_name_and_organisation_pid(
-        ptty.get('name'), ptty.get('organisation', {}).get('pid'))
+        patron_type_children_martigny.get('name'), org_pid)
     assert not PatronType.exist_name_and_organisation_pid(
-        'not exists yet', ptty.get('organisation', {}).get('pid'))
+        'not exists yet', org_pid)
 
 
 def test_patron_type_can_delete(patron_type_children_martigny):

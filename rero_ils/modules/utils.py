@@ -17,6 +17,8 @@
 
 """Utilities for rero-ils editor."""
 
+import cProfile
+import pstats
 from datetime import date, datetime, time
 from functools import wraps
 from json import JSONDecodeError, JSONDecoder
@@ -31,8 +33,6 @@ from invenio_pidstore.models import PersistentIdentifier
 from invenio_records_rest.utils import obj_or_import_string
 from lazyreader import lazyread
 from lxml import etree
-
-from .api import IlsRecordError, IlsRecordsIndexer
 
 
 def cached(timeout=50, key_prefix='default', query_string=False):
@@ -98,6 +98,7 @@ def do_bulk_index(uuids, doc_type='rec', process=False, verbose=False):
     """Bulk index records."""
     if verbose:
         click.echo(' add to index: {count}'.format(count=len(uuids)))
+    from .api import IlsRecordsIndexer
     indexer = IlsRecordsIndexer()
     retry = True
     minutes = 1
@@ -325,6 +326,7 @@ def trim_patron_barcode_for_record(data=None):
             d.strip() for d in data['patron']['barcode']]
     return data
 
+
 def trim_item_barcode_for_record(data=None):
     """Trim the barcode for a patron or an item record.
 
@@ -336,6 +338,7 @@ def trim_item_barcode_for_record(data=None):
     if data and data.get('patron', {}).get('barcode'):
         data['patron']['barcode'][0] = data['patron']['barcode'][0].strip()
     return data
+
 
 def generate_item_barcode(data=None):
     """Generate a barcode for an item record that does not have one.
@@ -390,6 +393,7 @@ def pid_exists(info, pid_type, pid, raise_on_error=False):
         return True
     else:
         if raise_on_error:
+            from .api import IlsRecordError
             raise IlsRecordError.PidDoesNotExist(info, pid_type, pid)
         return False
 
@@ -416,7 +420,7 @@ def pids_exists_in_data(info, data, required={}, not_required={}):
                     list_route = endpoints[pid_type]['list_route']
                     data_pid = data_to_test.get('pid') or \
                         data_to_test.get('$ref').split(list_route)[1]
-                except:
+                except Exception:
                     data_pid = None
                 if not data_pid and is_required:
                     return_value.append(
@@ -557,6 +561,74 @@ def settimestamp(func):
     def wrapped(*args, **kwargs):
         result = func(*args, **kwargs)
         set_timestamp(func.__name__, result=result)
+        return result
+    return wrapped
+
+
+def profile(output_file=None, sort_by='cumulative', lines_to_print=None,
+            strip_dirs=False):
+    """A time profiler decorator.
+
+    Inspired by and modified the profile decorator of Giampaolo Rodola:
+    http://code.activestate.com/recipes/577817-profile-decorator/
+    Args:
+        output_file: str or None. Default is None
+            Path of the output file. If only name of the file is given, it's
+            saved in the current directory.
+            If it's None, the name of the decorated function is used.
+        sort_by: str or SortKey enum or tuple/list of str/SortKey enum
+            Sorting criteria for the Stats object.
+            For a list of valid string and SortKey refer to:
+            https://docs.python.org/3/library/profile.html#pstats.Stats.sort_stats
+        lines_to_print: int or None
+            Number of lines to print. Default (None) is for all the lines.
+            This is useful in reducing the size of the printout, especially
+            that sorting by 'cumulative', the time consuming operations
+            are printed toward the top of the file.
+        strip_dirs: bool
+            Whether to remove the leading path info from file names.
+            This is also useful in reducing the size of the printout
+    Returns:
+        Profile of the decorated function
+    """
+
+    def inner(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            _output_file = output_file or func.__name__ + '.prof'
+            pr = cProfile.Profile()
+            pr.enable()
+            retval = func(*args, **kwargs)
+            pr.disable()
+            pr.dump_stats(_output_file)
+
+            with open(_output_file, 'w') as f:
+                ps = pstats.Stats(pr, stream=f)
+                if strip_dirs:
+                    ps.strip_dirs()
+                if isinstance(sort_by, (tuple, list)):
+                    ps.sort_stats(*sort_by)
+                else:
+                    ps.sort_stats(sort_by)
+                ps.print_stats(lines_to_print)
+            return retval
+
+        return wrapper
+
+    return inner
+
+
+def timeit(func):
+    """Output how long a function took to execute."""
+    @wraps(func)
+    def wrapped(*args, **kwargs):
+        start_time = datetime.now()
+        result = func(*args, **kwargs)
+        click.echo('\t>> timeit: {time} {func_name} {args}'.format(
+            time=datetime.now() - start_time,
+            func_name=func,
+            args=type(args[0])
+        ))
         return result
     return wrapped
 

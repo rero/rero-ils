@@ -44,6 +44,7 @@ def test_checkout_temporary_item_type(
 
     # test basic behavior
     cipo_used = CircPolicy.provide_circ_policy(
+        lib_martigny.organisation_pid,
         lib_martigny.pid,
         patron_martigny.patron_type_pid,
         item.item_type_circulation_category_pid
@@ -58,6 +59,7 @@ def test_checkout_temporary_item_type(
     }
     item = item.update(data=item, dbcommit=True, reindex=True)
     cipo_tmp_used = CircPolicy.provide_circ_policy(
+        lib_martigny.organisation_pid,
         lib_martigny.pid,
         patron_martigny.patron_type_pid,
         item.item_type_circulation_category_pid

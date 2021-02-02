@@ -21,13 +21,15 @@ import pytest
 from invenio_records.api import Record
 from jsonref import JsonRefError
 
+from rero_ils.modules.utils import extracted_data_from_ref
+
 
 def test_vendors_jsonresolver(app, vendor_martigny):
     """Test vendor resolver."""
     rec = Record.create({
         'vendor': {'$ref': 'https://ils.rero.ch/api/vendors/vndr1'}
     })
-    assert rec.replace_refs().get('vendor') == {'pid': 'vndr1'}
+    assert extracted_data_from_ref(rec.get('vendor')) == 'vndr1'
 
     # deleted record
     vendor_martigny.delete()

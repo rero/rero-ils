@@ -30,7 +30,7 @@ from ..fetchers import id_fetcher
 from ..libraries.api import Library
 from ..minters import id_minter
 from ..providers import Provider
-from ..utils import get_patron_from_arguments
+from ..utils import extracted_data_from_ref, get_patron_from_arguments
 
 DUE_SOON_REMINDER_TYPE = 'due_soon'
 OVERDUE_REMINDER_TYPE = 'overdue'
@@ -89,24 +89,25 @@ class CircPolicy(IlsRecord):
         from ..item_types.api import ItemType
         from ..patron_types.api import PatronType
 
-        # check if all defines library exists.
-        for library in self.replace_refs().get('libraries', []):
-            if not Library.get_record_by_pid(library.get('pid')):
+        for library in self.get('libraries', []):
+            library_pid = extracted_data_from_ref(library)
+            if not Library.get_record_by_pid(library_pid):
                 return 'CircPolicy: no library:  {pid}'.format(
                     pid=library.get('pid')
                 )
         # check all patron_types & item_types from settings belongs to the
         # same organisation than the cipo
         org = self.get('organisation')
-        for setting in self.replace_refs().get('settings', []):
-            patron_type = PatronType.get_record_by_pid(setting.get(
-                'patron_type', {}).get('pid')
-            )
-            item_type = ItemType.get_record_by_pid(setting.get(
-                'item_type', {}).get('pid')
-            )
-            if patron_type.get('organisation') != org \
-               or item_type.get('organisation') != org:
+        for setting in self.get('settings', []):
+            patron_type_pid = extracted_data_from_ref(setting.get(
+                'patron_type'
+            ))
+            patron_type = PatronType.get_record_by_pid(patron_type_pid)
+            patron_type_org = patron_type.get('organisation')
+            item_type_pid = extracted_data_from_ref(setting.get('item_type'))
+            item_type = ItemType.get_record_by_pid(item_type_pid)
+            item_type_org = item_type.get('organisation')
+            if patron_type_org != org or item_type_org != org:
                 return 'CircPolicy: PatronType ItemType Org diff'
 
         # check reminders ::
@@ -243,16 +244,16 @@ class CircPolicy(IlsRecord):
             return None
 
     @classmethod
-    def provide_circ_policy(cls, library_pid, patron_type_pid, item_type_pid):
-        """Return the best circulation policy for library/patron/item.
+    def provide_circ_policy(cls, organisation_pid, library_pid,
+                            patron_type_pid, item_type_pid):
+        """Return a circ policy for library/patron/item.
 
+        :param organisation_pid: the organisation_pid.
         :param library_pid: the library pid.
         :param patron_type_pid: the patron type_pid.
         :param item_type_pid: the item_type pid.
         :return the best circulation policy corresponding to criteria.
         """
-        organisation_pid = Library.get_record_by_pid(
-            library_pid).organisation_pid
         LPI_policy = CircPolicy.get_circ_policy_by_LPI(
             organisation_pid,
             library_pid,
@@ -377,6 +378,7 @@ class CircPolicy(IlsRecord):
         library_pid = kwargs['library'].pid if kwargs.get('library') \
             else item.library_pid
         cipo = cls.provide_circ_policy(
+            item.organisation_pid,
             library_pid,
             patron.patron_type_pid,
             item.item_type_circulation_category_pid
@@ -406,6 +408,7 @@ class CircPolicy(IlsRecord):
         library_pid = kwargs['library'].pid if kwargs.get('library') \
             else item.library_pid
         cipo = cls.provide_circ_policy(
+            item.organisation_pid,
             library_pid,
             patron.patron_type_pid,
             item.item_type_circulation_category_pid

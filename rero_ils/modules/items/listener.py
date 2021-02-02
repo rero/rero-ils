@@ -20,6 +20,7 @@
 from .api import Item, ItemsSearch
 from ..documents.api import Document
 from ..local_fields.api import LocalField
+from ..utils import extracted_data_from_ref
 
 
 def enrich_item_data(sender, json=None, record=None, index=None,
@@ -35,13 +36,12 @@ def enrich_item_data(sender, json=None, record=None, index=None,
         item = record
         if not isinstance(record, Item):
             item = Item.get_record_by_pid(record.get('pid'))
-        org_pid = item.get_library().replace_refs()['organisation']['pid']
+        library = item.get_library()
         json['organisation'] = {
-            'pid': org_pid
+            'pid': extracted_data_from_ref(library.get('organisation'))
         }
-        lib_pid = item.get_library().replace_refs()['pid']
         json['library'] = {
-            'pid': lib_pid
+            'pid': library.pid
         }
         json['available'] = item.available
         # add vendor name
@@ -52,7 +52,7 @@ def enrich_item_data(sender, json=None, record=None, index=None,
 
         # Local fields in JSON
         local_fields = LocalField.get_local_fields_by_resource(
-            'item', item.get('pid'))
+            'item', item.pid)
         if local_fields:
             json['local_fields'] = local_fields
 

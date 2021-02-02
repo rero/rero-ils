@@ -31,6 +31,7 @@ from ..circ_policies.api import CircPoliciesSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
+from ..utils import extracted_data_from_ref
 
 # provider
 ItemTypeProvider = type(
@@ -81,7 +82,7 @@ class ItemType(IlsRecord):
     def get_organisation(self):
         """Get organisation."""
         from ..organisations.api import Organisation
-        org_pid = self.replace_refs()['organisation']['pid']
+        org_pid = extracted_data_from_ref(self.get('organisation'))
         return Organisation.get_record_by_pid(org_pid)
 
     @classmethod

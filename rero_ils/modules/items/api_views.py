@@ -42,6 +42,8 @@ from ..organisations.api import current_organisation
 from ..patrons.api import Patron
 from ...permissions import librarian_permission
 
+# from rero_ils.modules.utils import profile
+
 api_blueprint = Blueprint(
     'api_item',
     __name__,
@@ -137,7 +139,7 @@ def do_item_jsonify_action(func):
                 'metadata': item_data.dumps_for_circulation(),
                 'action_applied': action_applied
             })
-        except NoCirculationActionIsPermitted as error:
+        except NoCirculationActionIsPermitted:
             # The circulation specs do not allow updates on some loan states.
             return jsonify({'status': 'error: Forbidden'}), 403
         except MissingRequiredParameterError as error:
@@ -191,6 +193,7 @@ def cancel_item_request(item, data):
 
 
 @api_blueprint.route('/checkout', methods=['POST'])
+# @profile(sort_by='cumulative', lines_to_print=100)
 @check_authentication
 @do_item_jsonify_action
 def checkout(item, data):
@@ -208,6 +211,7 @@ def checkout(item, data):
 
 
 @api_blueprint.route("/checkin", methods=['POST'])
+# @profile(sort_by='cumulative', lines_to_print=100)
 @check_authentication
 @do_item_jsonify_action
 def checkin(item, data):
@@ -348,10 +352,15 @@ def item(item_barcode):
 
     if patron_pid:
         patron = Patron.get_record_by_pid(patron_pid)
+        organisation_pid = item.organisation_pid
+        library_pid = item.library_pid
+        patron_type_pid = patron.patron_type_pid
+        item_type_pid = item.item_type_circulation_category_pid
         circ_policy = CircPolicy.provide_circ_policy(
-            item.library_pid,
-            patron.patron_type_pid,
-            item.item_type_circulation_category_pid
+            organisation_pid=organisation_pid,
+            library_pid=library_pid,
+            patron_type_pid=patron_type_pid,
+            item_type_pid=item_type_pid
         )
         new_actions = []
         # If circulation policy doesn't allow checkout operation no need to

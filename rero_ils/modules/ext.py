@@ -92,6 +92,9 @@ class REROILSAPP(object):
         app.extensions['rero-ils'] = self
         self.register_import_api_blueprint(app)
         self.register_users_api_blueprint(app)
+        # import logging
+        # logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
+
 
     def register_import_api_blueprint(self, app):
         """Imports bluprint initialization."""

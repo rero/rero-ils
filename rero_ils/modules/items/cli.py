@@ -35,7 +35,7 @@ from ..item_types.api import ItemType
 from ..items.api import Item
 from ..locations.api import Location
 from ..patrons.api import Patron
-from ..utils import get_base_url
+from ..utils import extracted_data_from_ref, get_base_url
 
 
 class StreamArray(list):
@@ -218,8 +218,9 @@ def get_locations():
     for pid in Location.get_all_pids():
         record = Location.get_record_by_pid(pid)
         if not record.get('is_online'):
-            org_pid = record.get_library()\
-                            .replace_refs().get('organisation').get('pid')
+            org_pid = extracted_data_from_ref(
+                record.get_library().get('organisation')
+            )
             to_return.setdefault(org_pid, []).append(pid)
     return to_return
 
@@ -231,9 +232,9 @@ def get_item_types():
     """
     to_return = {}
     for pid in ItemType.get_all_pids():
-        record = ItemType.get_record_by_pid(pid).replace_refs()
+        record = ItemType.get_record_by_pid(pid)
         if record.get('type') != 'online':
-            org_pid = record['organisation']['pid']
+            org_pid = extracted_data_from_ref(record.get('organisation'))
             to_return.setdefault(org_pid, []).append(pid)
     return to_return
 

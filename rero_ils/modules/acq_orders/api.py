@@ -27,7 +27,7 @@ from ..fetchers import id_fetcher
 from ..libraries.api import Library
 from ..minters import id_minter
 from ..providers import Provider
-from ..utils import get_ref_for_pid
+from ..utils import extracted_data_from_ref, get_ref_for_pid
 
 # provider
 AcqOrderProvider = type(
@@ -102,12 +102,12 @@ class AcqOrder(IlsRecord):
     @property
     def organisation_pid(self):
         """Shortcut for acquisition order pid."""
-        return self.replace_refs().get('organisation').get('pid')
+        return extracted_data_from_ref(self.get('organisation'))
 
     @property
     def library_pid(self):
         """Shortcut for acquisition order library pid."""
-        return self.replace_refs()['library']['pid']
+        return extracted_data_from_ref(self.get('library'))
 
     def get_number_of_acq_order_lines(self):
         """Get number of acquisition order lines."""
