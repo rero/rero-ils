@@ -23,13 +23,13 @@ from utils import postdata
 
 
 def test_cancel_an_item_request(
-        client, librarian_martigny_no_email, lib_martigny,
+        client, librarian_martigny, lib_martigny,
         item_at_desk_martigny_patron_and_loan_at_desk,
         item_on_shelf_martigny_patron_and_loan_pending, loc_public_martigny,
         circulation_policies):
     """Test the frontend cancel an item request action."""
     # test passes when all required parameters are given
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item, patron, loan = item_on_shelf_martigny_patron_and_loan_pending
 
     # test fails when there is a missing required parameter
@@ -60,7 +60,7 @@ def test_cancel_an_item_request(
         'api_item.cancel_item_request',
         dict(
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 404
@@ -72,13 +72,13 @@ def test_cancel_an_item_request(
         dict(
             pid=loan.pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
 
     # test passes when the transaction library pid is given
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item, patron, loan = item_at_desk_martigny_patron_and_loan_at_desk
     res, data = postdata(
         client,
@@ -86,7 +86,7 @@ def test_cancel_an_item_request(
         dict(
             pid=loan.pid,
             transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200

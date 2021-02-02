@@ -25,21 +25,21 @@ from rero_ils.modules.operation_logs.models import OperationLogOperation
 
 
 def test_operation_log_entries(
-    client, librarian_martigny_no_email, document):
+    client, librarian_martigny, document):
     """Test operation log entries after record update."""
     with mock.patch(
         'rero_ils.modules.operation_logs.listener.current_patron',
-        librarian_martigny_no_email
+        librarian_martigny
     ):
-        login_user_via_session(client, librarian_martigny_no_email.user)
+        login_user_via_session(client, librarian_martigny.user)
         print('_start_here')
         document.update(
             document, dbcommit=True, reindex=True)
     search = OperationLogsSearch()
-    results = search.filter('term', 
+    results = search.filter('term',
         operation=OperationLogOperation.UPDATE).filter(
         'term', record__pid=document.pid).filter(
-        'term', user_name=librarian_martigny_no_email.formatted_name
+        'term', user_name=librarian_martigny.formatted_name
     ).source().count()
 
     assert results == 1

@@ -53,11 +53,11 @@ def test_ill_request_properties(ill_request_martigny, ill_request_sion,
 
 
 def test_ill_request_get_request(ill_request_martigny, ill_request_sion,
-                                 patron_martigny_no_email):
+                                 patron_martigny):
     """Test ill request get_request functions."""
     assert len(list(ILLRequest.get_requests_by_patron_pid(
-        patron_martigny_no_email.pid, status='pending'
+        patron_martigny.pid, status='pending'
     ))) == 1
     assert len(list(ILLRequest.get_requests_by_patron_pid(
-        patron_martigny_no_email.pid, status='denied'
+        patron_martigny.pid, status='denied'
     ))) == 0

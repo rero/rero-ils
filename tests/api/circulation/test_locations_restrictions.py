@@ -28,9 +28,9 @@ from rero_ils.modules.loans.utils import can_be_requested
 
 
 def test_item_pickup_location(
-        client, librarian_martigny_no_email, item2_lib_martigny):
+        client, librarian_martigny, item2_lib_martigny):
     """Test get item pickup locations."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     # test with dummy data will return 404
     res = client.get(
         url_for(
@@ -53,7 +53,7 @@ def test_item_pickup_location(
 
 def test_location_disallow_request(item_lib_martigny, loc_public_martigny,
                                    loc_public_martigny_data, lib_martigny,
-                                   patron_martigny_no_email):
+                                   patron_martigny):
     """Test a request when location disallow request."""
 
     # update location to disallow request
@@ -65,7 +65,7 @@ def test_location_disallow_request(item_lib_martigny, loc_public_martigny,
     loan = Loan({
         'item_pid': item_pid_to_object(item_lib_martigny.pid),
         'library_pid': lib_martigny.pid,
-        'patron_pid': patron_martigny_no_email.pid
+        'patron_pid': patron_martigny.pid
     })
     assert not can_be_requested(loan)
 

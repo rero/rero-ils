@@ -25,21 +25,21 @@ from rero_ils.modules.items.models import ItemStatus
 
 
 def test_circ_scenario_a(
-        client, librarian_martigny_no_email, lib_martigny,
-        patron_martigny_no_email, loc_public_martigny, item_lib_martigny,
+        client, librarian_martigny, lib_martigny,
+        patron_martigny, loc_public_martigny, item_lib_martigny,
         circulation_policies):
     """Test the first circulation scenario."""
     # https://github.com/rero/rero-ils/blob/dev/doc/circulation/scenarios.md
     # A request is made on on-shelf item, that has no requests, to be picked
     # up at the owning library. Validated by the librarian. Picked up at same
     # owning library. and returned on-time at the owning library
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     circ_params = {
             'item_pid': item_lib_martigny.pid,
-            'patron_pid': patron_martigny_no_email.pid,
+            'patron_pid': patron_martigny.pid,
             'pickup_location_pid': loc_public_martigny.pid,
             'transaction_library_pid': lib_martigny.pid,
-            'transaction_user_pid': librarian_martigny_no_email.pid
+            'transaction_user_pid': librarian_martigny.pid
     }
     # ADD_REQUEST_1.1
     res, data = postdata(

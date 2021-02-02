@@ -20,19 +20,20 @@
 import json
 from copy import deepcopy
 
-import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
+from rero_ils.utils import create_user_from_data
+
 
 def test_system_librarian_permissions(
-        client, json_header, system_librarian_martigny_no_email,
-        patron_martigny_no_email, patron_type_adults_martigny,
-        librarian_fully_no_email):
+        client, json_header, system_librarian_martigny,
+        patron_martigny, patron_type_adults_martigny,
+        librarian_fully):
     """Test system_librarian permissions."""
     # Login as system_librarian
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
 
     record = {
         "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
@@ -46,6 +47,7 @@ def test_system_librarian_permissions(
         "phone": "+41324993111"
     }
 
+    record = create_user_from_data(record)
     # can retrieve all type of users.
     list_url = url_for('invenio_records_rest.ptrn_list')
     res = client.get(list_url)
@@ -73,6 +75,7 @@ def test_system_librarian_permissions(
                 'expiration_date': '2023-10-07',
                 'communication_channel': 'email',
                 'communication_language': 'ita',
+                'additional_communication_email': 'test@test.com',
                 'type': {
                     '$ref': 'https://ils.rero.ch/api/patron_types/ptty2'
                 }
@@ -99,36 +102,31 @@ def test_system_librarian_permissions(
         data.update(record['patch'])
         if data.get('patron'):
             data['patron']['barcode'] = 'barcode' + str(counter)
-        data['email'] = str(counter) + '@domain.com'
-        data['username'] = 'user' + str(counter)
-        with mock.patch('rero_ils.modules.patrons.api.'
-                        'send_reset_password_instructions'):
-            res, _ = postdata(
-                client,
-                'invenio_records_rest.ptrn_list',
-                data
-            )
-            assert res.status_code == 201
-            user = get_json(res)['metadata']
-            user_pid = user.get('pid')
-            record_url = url_for('invenio_records_rest.ptrn_item',
-                                 pid_value=user_pid)
-            res = client.get(record_url)
-            assert res.status_code == 200
-            user = get_json(res)['metadata']
+        res, _ = postdata(
+            client,
+            'invenio_records_rest.ptrn_list',
+            data
+        )
+        assert res.status_code == 201
+        user = get_json(res)['metadata']
+        user_pid = user.get('pid')
+        record_url = url_for('invenio_records_rest.ptrn_item',
+                             pid_value=user_pid)
+        res = client.get(record_url)
+        assert res.status_code == 200
+        user = get_json(res)['metadata']
 
-    # can update all type of user records.
-            user['first_name'] = 'New Name' + str(counter)
-            res = client.put(
-                record_url,
-                data=json.dumps(user),
-                headers=json_header
-            )
-            assert res.status_code == 200
+        # can update all type of user records.
+        res = client.put(
+            record_url,
+            data=json.dumps(user),
+            headers=json_header
+        )
+        assert res.status_code == 200
 
-    # can delete all type of user records.
-            record_url = url_for('invenio_records_rest.ptrn_item',
-                                 pid_value=user_pid)
+        # can delete all type of user records.
+        record_url = url_for('invenio_records_rest.ptrn_item',
+                             pid_value=user_pid)
 
-            res = client.delete(record_url)
-            assert res.status_code == 204
+        res = client.delete(record_url)
+        assert res.status_code == 204

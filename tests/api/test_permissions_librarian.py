@@ -20,19 +20,19 @@
 import json
 from copy import deepcopy
 
-import mock
 from flask import url_for
 from invenio_access import Permission
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
 from rero_ils.permissions import librarian_delete_permission_factory
+from rero_ils.utils import create_user_from_data
 
 
 def test_librarian_delete_permission_factory(
-        client, librarian_fully_no_email, org_martigny, lib_martigny):
+        client, librarian_fully, org_martigny, lib_martigny):
     """Test librarian_delete_permission_factory """
-    login_user_via_session(client, librarian_fully_no_email.user)
+    login_user_via_session(client, librarian_fully.user)
     assert type(
         librarian_delete_permission_factory(None, credentials_only=True)
     ) == Permission
@@ -40,14 +40,14 @@ def test_librarian_delete_permission_factory(
 
 
 def test_librarian_permissions(
-        client, system_librarian_martigny_no_email, json_header,
-        patron_martigny_no_email,
-        librarian_fully_no_email,
+        client, system_librarian_martigny, json_header,
+        patron_martigny,
+        librarian_fully,
         patron_martigny_data_tmp,
         lib_saxon):
     """Test librarian permissions."""
     # Login as librarian
-    login_user_via_session(client, librarian_fully_no_email.user)
+    login_user_via_session(client, librarian_fully.user)
 
     record = {
         "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
@@ -61,13 +61,13 @@ def test_librarian_permissions(
         "patron": {
             "expiration_date": "2023-10-07",
             "type": {"$ref": "https://ils.rero.ch/api/patron_types/ptty1"},
-            "communication_channel": "email",
+            "communication_channel": "mail",
             "communication_language": "ita"
         },
         "libraries": [{"$ref": "https://ils.rero.ch/api/libraries/lib1"}],
         "phone": "+41324993111"
     }
-
+    record = create_user_from_data(record)
     # can retrieve all type of users.
     list_url = url_for('invenio_records_rest.ptrn_list')
     res = client.get(list_url)
@@ -104,48 +104,45 @@ def test_librarian_permissions(
         data = record['data']
         data['roles'] = [record['role']]
         data['patron']['barcode'] = 'barcode' + str(counter)
-        data['email'] = str(counter) + '@domain.com'
-        data['username'] = 'user' + str(counter)
-        with mock.patch('rero_ils.modules.patrons.api.'
-                        'send_reset_password_instructions'):
-            res, _ = postdata(
-                client,
-                post_entrypoint,
-                data
-            )
-            assert res.status_code == 201
-            user = get_json(res)['metadata']
-            user_pid = user.get('pid')
-            record_url = url_for('invenio_records_rest.ptrn_item',
-                                 pid_value=user_pid)
-            res = client.get(record_url)
-            assert res.status_code == 200
-            user = get_json(res)['metadata']
 
-    # can update all type of user records except system_librarian.
-            user['first_name'] = 'New Name' + str(counter)
-            res = client.put(
-                record_url,
-                data=json.dumps(user),
-                headers=json_header
-            )
-            assert res.status_code == 200
+        res, _ = postdata(
+            client,
+            post_entrypoint,
+            data
+        )
+        assert res.status_code == 201
+        user = get_json(res)['metadata']
+        user_pid = user.get('pid')
+        record_url = url_for('invenio_records_rest.ptrn_item',
+                             pid_value=user_pid)
+        res = client.get(record_url)
+        assert res.status_code == 200
+        user = get_json(res)['metadata']
 
-    # can not add the role system_librarian to user
-            user['roles'] = ['system_librarian']
-            res = client.put(
-                record_url,
-                data=json.dumps(user),
-                headers=json_header
-            )
-            assert res.status_code == 403
+        # can update all type of user records except system_librarian.
+        user['first_name'] = 'New Name' + str(counter)
+        res = client.put(
+            record_url,
+            data=json.dumps(user),
+            headers=json_header
+        )
+        assert res.status_code == 200
 
-    # can delete all type of user records except system_librarian.
-            record_url = url_for('invenio_records_rest.ptrn_item',
-                                 pid_value=user_pid)
+        # can not add the role system_librarian to user
+        user['roles'] = ['system_librarian']
+        res = client.put(
+            record_url,
+            data=json.dumps(user),
+            headers=json_header
+        )
+        assert res.status_code == 403
 
-            res = client.delete(record_url)
-            assert res.status_code == 204
+        # can delete all type of user records except system_librarian.
+        record_url = url_for('invenio_records_rest.ptrn_item',
+                             pid_value=user_pid)
+
+        res = client.delete(record_url)
+        assert res.status_code == 204
 
     # can not create librarians of same libray.
     counter = 1
@@ -156,41 +153,36 @@ def test_librarian_permissions(
         data = record['data']
         data['roles'] = [record['role']]
         data['patron']['barcode'] = 'barcode' + str(counter)
-        data['email'] = str(counter) + '@domain.com'
-        with mock.patch('rero_ils.modules.patrons.api.'
-                        'send_reset_password_instructions'):
-            res, _ = postdata(
-                client,
-                post_entrypoint,
-                data
-            )
-            assert res.status_code == 403
-
-    system_librarian['roles'] = ['system_librarian']
-    system_librarian['patron']['barcode'] = 'barcode'
-    system_librarian['email'] = '4@domain.com'
-    with mock.patch('rero_ils.modules.patrons.api.'
-                    'send_reset_password_instructions'):
         res, _ = postdata(
             client,
             post_entrypoint,
-            system_librarian,
+            data
         )
         assert res.status_code == 403
 
+    system_librarian['roles'] = ['system_librarian']
+    system_librarian['patron']['barcode'] = 'barcode'
+
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        system_librarian,
+    )
+    assert res.status_code == 403
+
     # can update all type of user records except system_librarian.
     record_url = url_for('invenio_records_rest.ptrn_item',
-                         pid_value=system_librarian_martigny_no_email.pid)
-    system_librarian_martigny_no_email['first_name'] = 'New Name'
+                         pid_value=system_librarian_martigny.pid)
+    system_librarian_martigny['first_name'] = 'New Name'
     res = client.put(
         record_url,
-        data=json.dumps(system_librarian_martigny_no_email),
+        data=json.dumps(system_librarian_martigny),
         headers=json_header
     )
     assert res.status_code == 403
 
     # can delete all type of user records except system_librarian.
-    sys_librarian_pid = system_librarian_martigny_no_email.get('pid')
+    sys_librarian_pid = system_librarian_martigny.get('pid')
     record_url = url_for('invenio_records_rest.ptrn_item',
                          pid_value=sys_librarian_pid)
 

@@ -24,10 +24,10 @@ from utils import get_json
 from rero_ils.modules.loans.permissions import LoanPermission
 
 
-def test_loans_permissions_api(client, patron_martigny_no_email,
+def test_loans_permissions_api(client, patron_martigny,
                                loan_overdue_martigny, loan_overdue_sion,
                                loan_overdue_saxon,
-                               system_librarian_martigny_no_email):
+                               system_librarian_martigny):
     """Test loans permissions api."""
     loan_permissions_url = url_for(
         'api_blueprint.permissions',
@@ -54,14 +54,14 @@ def test_loans_permissions_api(client, patron_martigny_no_email,
     assert res.status_code == 401
 
     # Logged as patron
-    login_user_via_session(client, patron_martigny_no_email.user)
+    login_user_via_session(client, patron_martigny.user)
     res = client.get(loan_permissions_url)
     assert res.status_code == 403
 
     # Logged as system librarian
     #   * sys_lib can 'list' and 'read' all loans
     #   * sys_lib can't 'read' 'update', 'delete' loans
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res = client.get(loan_martigny_permission_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -90,9 +90,9 @@ def test_loans_permissions_api(client, patron_martigny_no_email,
     assert not data['delete']['can']
 
 
-def test_loan_permissions(patron_martigny_no_email,
-                          librarian_martigny_no_email,
-                          system_librarian_martigny_no_email,
+def test_loan_permissions(patron_martigny,
+                          librarian_martigny,
+                          system_librarian_martigny,
                           loan_overdue_saxon, loan_overdue_martigny,
                           loan_overdue_sion, org_martigny):
     """Test library permissions class."""
@@ -110,7 +110,7 @@ def test_loan_permissions(patron_martigny_no_email,
     # As Patron
     with mock.patch(
         'rero_ils.modules.loans.permissions.current_patron',
-        patron_martigny_no_email
+        patron_martigny
     ), mock.patch(
         'rero_ils.modules.loans.permissions.current_organisation',
         org_martigny
@@ -124,7 +124,7 @@ def test_loan_permissions(patron_martigny_no_email,
     # As SystemLibrarian
     with mock.patch(
         'rero_ils.modules.loans.permissions.current_patron',
-        system_librarian_martigny_no_email
+        system_librarian_martigny
     ), mock.patch(
         'rero_ils.modules.loans.permissions.current_organisation',
         org_martigny

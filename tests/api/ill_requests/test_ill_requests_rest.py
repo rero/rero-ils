@@ -80,7 +80,7 @@ def test_ill_requests_get(client, ill_request_martigny):
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_ill_requests_post_put_delete(client, org_martigny, json_header,
-                                      patron_martigny_no_email,
+                                      patron_martigny,
                                       loc_public_martigny,
                                       ill_request_martigny_data):
     """Test record retrieval."""
@@ -134,12 +134,12 @@ def test_ill_requests_can_delete(client, ill_request_martigny):
 
 
 def test_filtered_ill_requests_get(
-        client, librarian_martigny_no_email, ill_request_martigny,
-        librarian_sion_no_email, ill_request_sion):
+        client, librarian_martigny, ill_request_martigny,
+        librarian_sion, ill_request_sion):
     """Test ill_requests filter by organisation."""
     list_url = url_for('invenio_records_rest.illr_list')
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -147,7 +147,7 @@ def test_filtered_ill_requests_get(
     assert ill_request_martigny.pid in pids
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -157,8 +157,8 @@ def test_filtered_ill_requests_get(
 
 def test_ill_request_secure_api(client, json_header, ill_request_martigny,
                                 ill_request_martigny_data, ill_request_sion,
-                                librarian_martigny_no_email,
-                                system_librarian_sion_no_email):
+                                librarian_martigny,
+                                system_librarian_sion):
     """Test ill request secure api access."""
     martigny_url = url_for('invenio_records_rest.illr_item',
                            pid_value=ill_request_martigny.pid)
@@ -167,7 +167,7 @@ def test_ill_request_secure_api(client, json_header, ill_request_martigny,
     # Logged as Martigny librarian
     #   * can read martigny request
     #   * can't read sion request
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res = client.get(martigny_url)
     assert res.status_code == 200
     res = client.get(sion_url)
@@ -177,15 +177,15 @@ def test_ill_request_secure_api(client, json_header, ill_request_martigny,
 def test_ill_request_secure_api_update(client, json_header,
                                        ill_request_martigny_data,
                                        ill_request_martigny, ill_request_sion,
-                                       system_librarian_martigny_no_email,
-                                       system_librarian_sion_no_email):
+                                       system_librarian_martigny,
+                                       system_librarian_sion):
     """Test ill request secure api update."""
     martigny_url = url_for('invenio_records_rest.illr_item',
                            pid_value=ill_request_martigny.pid)
     sion_url = url_for('invenio_records_rest.illr_item',
                        pid_value=ill_request_sion.pid)
     # Martigny
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     data = ill_request_martigny_data
     data['document']['title'] = 'Test title'
     res = client.put(
@@ -196,7 +196,7 @@ def test_ill_request_secure_api_update(client, json_header,
     assert res.status_code == 200
 
     # Sion
-    login_user_via_session(client, system_librarian_sion_no_email.user)
+    login_user_via_session(client, system_librarian_sion.user)
     res = client.put(
         martigny_url,
         data=json.dumps(data),
@@ -207,9 +207,9 @@ def test_ill_request_secure_api_update(client, json_header,
 
 def test_ill_request_secure_api_delete(client, ill_request_martigny,
                                        ill_request_sion,
-                                       system_librarian_martigny_no_email):
+                                       system_librarian_martigny):
     """Test ill requests secure api delete."""
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     record_url = url_for(
         'invenio_records_rest.illr_item',
         pid_value=ill_request_sion.pid

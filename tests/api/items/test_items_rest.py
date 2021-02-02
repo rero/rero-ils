@@ -37,7 +37,7 @@ from rero_ils.modules.loans.utils import get_extension_params
 
 
 def test_items_permissions(client, item_lib_martigny,
-                           patron_martigny_no_email,
+                           patron_martigny,
                            json_header):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.item_item', pid_value='item1')
@@ -79,7 +79,7 @@ def test_items_permissions(client, item_lib_martigny,
         data={}
     )
     assert res.status_code == 401
-    login_user_via_session(client, patron_martigny_no_email.user)
+    login_user_via_session(client, patron_martigny.user)
     for view in views:
         res, _ = postdata(client, view, {})
         assert res.status_code == 403
@@ -189,17 +189,17 @@ def test_items_post_put_delete(client, document, loc_public_martigny,
 
 
 def test_checkout_default_policy(client, lib_martigny,
-                                 librarian_martigny_no_email,
-                                 patron_martigny_no_email,
+                                 librarian_martigny,
+                                 patron_martigny,
                                  loc_public_martigny,
                                  item_type_standard_martigny,
                                  item_lib_martigny, json_header,
                                  circulation_policies):
     """Test circ policy parameters"""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
     item_pid = item.pid
-    patron_pid = patron_martigny_no_email.pid
+    patron_pid = patron_martigny.pid
 
     from rero_ils.modules.circ_policies.api import CircPolicy
     circ_policy = CircPolicy.provide_circ_policy(
@@ -215,7 +215,7 @@ def test_checkout_default_policy(client, lib_martigny,
         dict(
             item_pid=item_pid,
             patron_pid=patron_pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -237,7 +237,7 @@ def test_checkout_default_policy(client, lib_martigny,
         dict(
             item_pid=item_pid,
             pid=loan.get('pid'),
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -245,17 +245,17 @@ def test_checkout_default_policy(client, lib_martigny,
 
 
 def test_checkout_library_level_policy(client, lib_martigny,
-                                       librarian_martigny_no_email,
-                                       patron_martigny_no_email,
+                                       librarian_martigny,
+                                       patron_martigny,
                                        loc_public_martigny,
                                        item_type_standard_martigny,
                                        item_lib_martigny, json_header,
                                        circ_policy_short_martigny):
     """Test circ policy parameters"""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
     item_pid = item.pid
-    patron_pid = patron_martigny_no_email.pid
+    patron_pid = patron_martigny.pid
 
     # checkout
     res, data = postdata(
@@ -264,7 +264,7 @@ def test_checkout_library_level_policy(client, lib_martigny,
         dict(
             item_pid=item_pid,
             patron_pid=patron_pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -286,7 +286,7 @@ def test_checkout_library_level_policy(client, lib_martigny,
         dict(
             item_pid=item_pid,
             pid=loan.get('pid'),
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -294,17 +294,17 @@ def test_checkout_library_level_policy(client, lib_martigny,
 
 
 def test_checkout_organisation_policy(client, lib_martigny,
-                                      librarian_martigny_no_email,
-                                      patron_martigny_no_email,
+                                      librarian_martigny,
+                                      patron_martigny,
                                       loc_public_martigny,
                                       item_type_standard_martigny,
                                       item_lib_martigny, json_header,
                                       circ_policy_short_martigny):
     """Test circ policy parameters"""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
     item_pid = item.pid
-    patron_pid = patron_martigny_no_email.pid
+    patron_pid = patron_martigny.pid
 
     # checkout
     res, data = postdata(
@@ -313,7 +313,7 @@ def test_checkout_organisation_policy(client, lib_martigny,
         dict(
             item_pid=item_pid,
             patron_pid=patron_pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -335,25 +335,25 @@ def test_checkout_organisation_policy(client, lib_martigny,
         dict(
             item_pid=item_pid,
             pid=loan.get('pid'),
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
     assert res.status_code == 200
 
 
-def test_items_receive(client, librarian_martigny_no_email,
-                       patron_martigny_no_email, loc_public_martigny,
+def test_items_receive(client, librarian_martigny,
+                       patron_martigny, loc_public_martigny,
                        item_type_standard_martigny,
                        item_lib_martigny, json_header,
                        circulation_policies):
     """Test item receive."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
     item_pid = item.pid
-    patron_pid = patron_martigny_no_email.pid
+    patron_pid = patron_martigny.pid
     assert not item.patron_has_an_active_loan_on_item(
-        patron_martigny_no_email.get('patron', {}).get('barcode'))
+        patron_martigny.get('patron', {}).get('barcode'))
     location = loc_public_martigny
     # checkout
     res, data = postdata(
@@ -362,7 +362,7 @@ def test_items_receive(client, librarian_martigny_no_email,
         dict(
             item_pid=item_pid,
             patron_pid=patron_pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -372,7 +372,7 @@ def test_items_receive(client, librarian_martigny_no_email,
     assert item_data.get('status') == ItemStatus.ON_LOAN
     assert actions.get(LoanAction.CHECKOUT)
     assert item.patron_has_an_active_loan_on_item(
-        patron_martigny_no_email.get('patron', {}).get('barcode'))
+        patron_martigny.get('patron', {}).get('barcode'))
     loan_pid = actions[LoanAction.CHECKOUT].get('pid')
 
     # checkin
@@ -383,7 +383,7 @@ def test_items_receive(client, librarian_martigny_no_email,
             item_pid=item_pid,
             pid=loan_pid,
             transaction_location_pid='fake',
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
         )
     )
     assert res.status_code == 200
@@ -399,7 +399,7 @@ def test_items_receive(client, librarian_martigny_no_email,
         dict(
             item_pid=item_pid,
             pid=loan_pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -410,16 +410,16 @@ def test_items_receive(client, librarian_martigny_no_email,
     assert actions.get(LoanAction.RECEIVE)
 
 
-def test_items_no_extend(client, librarian_martigny_no_email,
-                         patron_martigny_no_email, loc_public_martigny,
+def test_items_no_extend(client, librarian_martigny,
+                         patron_martigny, loc_public_martigny,
                          item_type_standard_martigny,
                          item_lib_martigny, json_header,
                          circ_policy_short_martigny):
     """Test items when no renewals is possible."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
     item_pid = item.pid
-    patron_pid = patron_martigny_no_email.pid
+    patron_pid = patron_martigny.pid
     location = loc_public_martigny
 
     # checkout
@@ -429,7 +429,7 @@ def test_items_no_extend(client, librarian_martigny_no_email,
         dict(
             item_pid=item_pid,
             patron_pid=patron_pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -453,7 +453,7 @@ def test_items_no_extend(client, librarian_martigny_no_email,
         dict(
             item_pid=item_pid,
             pid=loan_pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -475,15 +475,15 @@ def test_items_no_extend(client, librarian_martigny_no_email,
         dict(
             item_pid=item_pid,
             pid=loan_pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
     assert res.status_code == 200
 
 
-def test_items_deny_requests(client, librarian_martigny_no_email,
-                             patron_martigny_no_email, loc_public_martigny,
+def test_items_deny_requests(client, librarian_martigny,
+                             patron_martigny, loc_public_martigny,
                              item_type_standard_martigny, lib_martigny,
                              item_lib_martigny, json_header,
                              circ_policy_short_martigny):
@@ -495,10 +495,10 @@ def test_items_deny_requests(client, librarian_martigny_no_email,
         dbcommit=True,
         reindex=True)
     flush_index(CircPoliciesSearch.Meta.index)
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
     item_pid = item.pid
-    patron = patron_martigny_no_email
+    patron = patron_martigny
     patron_pid = patron.pid
 
     # request
@@ -509,7 +509,7 @@ def test_items_deny_requests(client, librarian_martigny_no_email,
             item_pid=item_pid,
             pickup_location_pid=location.pid,
             patron_pid=patron_pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -539,20 +539,20 @@ def test_items_deny_requests(client, librarian_martigny_no_email,
 
 def test_extend_possible_actions(client, item_lib_martigny,
                                  loc_public_martigny,
-                                 librarian_martigny_no_email,
-                                 patron_martigny_no_email,
+                                 librarian_martigny,
+                                 patron_martigny,
                                  circ_policy_short_martigny):
     """Extend action changes according to params of cipo."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
-    patron_pid = patron_martigny_no_email.pid
+    patron_pid = patron_martigny.pid
     res, _ = postdata(
         client,
         'api_item.checkout',
         dict(
             item_pid=item.pid,
             patron_pid=patron_pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -601,7 +601,7 @@ def test_extend_possible_actions(client, item_lib_martigny,
         dict(
             item_pid=item.pid,
             pid=loan_pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -615,17 +615,17 @@ def test_extend_possible_actions(client, item_lib_martigny,
     assert circ_policy['number_renewals'] == 1
 
 
-def test_items_extend_end_date(client, librarian_martigny_no_email,
-                               patron_martigny_no_email,
+def test_items_extend_end_date(client, librarian_martigny,
+                               patron_martigny,
                                loc_public_martigny,
                                item_type_standard_martigny,
                                item_lib_martigny, json_header,
                                circ_policy_short_martigny):
     """Test correct renewal due date for items."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
     item_pid = item.pid
-    patron_pid = patron_martigny_no_email.pid
+    patron_pid = patron_martigny.pid
 
     # checkout
     res, data = postdata(
@@ -634,7 +634,7 @@ def test_items_extend_end_date(client, librarian_martigny_no_email,
         dict(
             item_pid=item_pid,
             patron_pid=patron_pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -657,7 +657,7 @@ def test_items_extend_end_date(client, librarian_martigny_no_email,
         dict(
             item_pid=item_pid,
             pid=loan_pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -686,7 +686,7 @@ def test_items_extend_end_date(client, librarian_martigny_no_email,
         dict(
             item_pid=item_pid,
             pid=loan_pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -694,19 +694,19 @@ def test_items_extend_end_date(client, librarian_martigny_no_email,
 
 
 def test_multiple_loans_on_item_error(client,
-                                      patron_martigny_no_email,
-                                      patron2_martigny_no_email,
+                                      patron_martigny,
+                                      patron2_martigny,
                                       loc_public_martigny,
                                       item_type_standard_martigny,
                                       item_lib_martigny, json_header,
                                       circulation_policies,
                                       loc_public_fully,
-                                      librarian_martigny_no_email):
+                                      librarian_martigny):
     """Test MultipleLoansOnItemError."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
-    checked_patron = patron2_martigny_no_email.pid
-    requested_patron = patron_martigny_no_email.pid
+    checked_patron = patron2_martigny.pid
+    requested_patron = patron_martigny.pid
     location = loc_public_martigny
     # checkout to checked_patron
     res, data = postdata(
@@ -716,7 +716,7 @@ def test_multiple_loans_on_item_error(client,
             item_pid=item.pid,
             patron_pid=checked_patron,
             transaction_location_pid=location.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -736,7 +736,7 @@ def test_multiple_loans_on_item_error(client,
             item_pid=item.pid,
             pickup_location_pid=loc_public_fully.pid,
             patron_pid=requested_patron,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -756,7 +756,7 @@ def test_multiple_loans_on_item_error(client,
             item_pid=item.pid,
             pid=loan_pid,
             transaction_location_pid=loc_public_fully.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -780,7 +780,7 @@ def test_multiple_loans_on_item_error(client,
         dict(
             item_pid=item.pid,
             pid=req_loan_pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -788,12 +788,12 @@ def test_multiple_loans_on_item_error(client,
 
 
 def test_filtered_items_get(
-        client, librarian_martigny_no_email, item_lib_martigny,
+        client, librarian_martigny, item_lib_martigny,
         item_lib_saxon, item_lib_fully,
-        librarian_sion_no_email, item_lib_sion):
+        librarian_sion, item_lib_sion):
     """Test items filter by organisation."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     list_url = url_for('invenio_records_rest.item_list')
 
     res = client.get(list_url)
@@ -802,7 +802,7 @@ def test_filtered_items_get(
     assert data['hits']['total']['value'] == 4
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
     list_url = url_for('invenio_records_rest.item_list')
 
     res = client.get(list_url)
@@ -811,12 +811,12 @@ def test_filtered_items_get(
     assert data['hits']['total']['value'] == 1
 
 
-def test_items_notes(client, librarian_martigny_no_email, item_lib_martigny,
+def test_items_notes(client, librarian_martigny, item_lib_martigny,
                      json_header):
     """Test items notes."""
 
     item = item_lib_martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
 
     # at start the items have one note
     assert len(item.notes) == 1
@@ -855,15 +855,15 @@ def test_items_notes(client, librarian_martigny_no_email, item_lib_martigny,
     assert item.get_note('dummy') is None
 
 
-def test_pending_loans_order(client, librarian_martigny_no_email,
-                             patron_martigny_no_email, loc_public_martigny,
+def test_pending_loans_order(client, librarian_martigny,
+                             patron_martigny, loc_public_martigny,
                              item_type_standard_martigny,
                              item2_lib_martigny, json_header,
-                             patron2_martigny_no_email, patron_sion_no_email,
+                             patron2_martigny, patron_sion,
                              circulation_policies):
     """Test sort of pending loans."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
-    library_pid = librarian_martigny_no_email\
+    login_user_via_session(client, librarian_martigny.user)
+    library_pid = librarian_martigny\
         .replace_refs()['libraries'][0]['pid']
 
     res, _ = postdata(
@@ -871,9 +871,9 @@ def test_pending_loans_order(client, librarian_martigny_no_email,
         'api_item.librarian_request',
         dict(
             item_pid=item2_lib_martigny.pid,
-            patron_pid=patron_sion_no_email.pid,
+            patron_pid=patron_sion.pid,
             pickup_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -883,9 +883,9 @@ def test_pending_loans_order(client, librarian_martigny_no_email,
         'api_item.librarian_request',
         dict(
             item_pid=item2_lib_martigny.pid,
-            patron_pid=patron_martigny_no_email.pid,
+            patron_pid=patron_martigny.pid,
             pickup_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -896,9 +896,9 @@ def test_pending_loans_order(client, librarian_martigny_no_email,
         'api_item.librarian_request',
         dict(
             item_pid=item2_lib_martigny.pid,
-            patron_pid=patron2_martigny_no_email.pid,
+            patron_pid=patron2_martigny.pid,
             pickup_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -942,9 +942,9 @@ def test_pending_loans_order(client, librarian_martigny_no_email,
     assert res.status_code == 200
     data = get_json(res)
     loans = data['hits']['hits'][0]['item']['pending_loans']
-    assert loans[0]['patron_pid'] == patron_sion_no_email.pid
-    assert loans[1]['patron_pid'] == patron_martigny_no_email.pid
-    assert loans[2]['patron_pid'] == patron2_martigny_no_email.pid
+    assert loans[0]['patron_pid'] == patron_sion.pid
+    assert loans[1]['patron_pid'] == patron_martigny.pid
+    assert loans[2]['patron_pid'] == patron2_martigny.pid
 
     # sort by invalid field
     res = client.get(
@@ -957,13 +957,13 @@ def test_pending_loans_order(client, librarian_martigny_no_email,
 
 
 def test_item_possible_actions(client, item_lib_martigny,
-                               librarian_martigny_no_email,
-                               patron_martigny_no_email,
+                               librarian_martigny,
+                               patron_martigny,
                                circulation_policies):
     """Possible action changes according to params of cipo."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
-    patron_pid = patron_martigny_no_email.pid
+    patron_pid = patron_martigny.pid
     res = client.get(
         url_for(
             'api_item.item',

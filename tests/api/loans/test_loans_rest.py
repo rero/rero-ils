@@ -64,10 +64,10 @@ def test_loans_permissions(client, loan_pending_martigny, json_header):
 
 
 def test_loans_logged_permissions(client, loan_pending_martigny,
-                                  librarian_martigny_no_email,
+                                  librarian_martigny,
                                   json_header):
     """Test record retrieval."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item_url = url_for('invenio_records_rest.loanid_item', pid_value='1')
 
     res = client.get(item_url)
@@ -90,28 +90,28 @@ def test_loans_logged_permissions(client, loan_pending_martigny,
     assert res.status_code == 403
 
 
-def test_due_soon_loans(client, librarian_martigny_no_email,
-                        patron_martigny_no_email, loc_public_martigny,
+def test_due_soon_loans(client, librarian_martigny,
+                        patron_martigny, loc_public_martigny,
                         item_type_standard_martigny,
                         item_lib_martigny,
                         circ_policy_short_martigny):
     """Test overdue loans."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
     item_pid = item.pid
-    patron_pid = patron_martigny_no_email.pid
+    patron_pid = patron_martigny.pid
 
     assert not get_last_transaction_loc_for_item(item_pid)
 
     assert not item.patron_has_an_active_loan_on_item(
-        patron_martigny_no_email.get('patron', {}).get('barcode'))
+        patron_martigny.get('patron', {}).get('barcode'))
     assert item.can_delete
     assert item.available
 
     from rero_ils.modules.circ_policies.api import CircPolicy
     circ_policy = CircPolicy.provide_circ_policy(
         item.library_pid,
-        patron_martigny_no_email.patron_type_pid,
+        patron_martigny.patron_type_pid,
         item.item_type_pid
     )
     circ_policy['number_of_days_before_due_date'] = 7
@@ -130,7 +130,7 @@ def test_due_soon_loans(client, librarian_martigny_no_email,
             item_pid=item_pid,
             patron_pid=patron_pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
         )
     )
     assert res.status_code == 200
@@ -158,24 +158,24 @@ def test_due_soon_loans(client, librarian_martigny_no_email,
             item_pid=item_pid,
             pid=loan_pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
 
 
-def test_overdue_loans(client, librarian_martigny_no_email,
-                       patron_martigny_no_email, loc_public_martigny,
+def test_overdue_loans(client, librarian_martigny,
+                       patron_martigny, loc_public_martigny,
                        item_type_standard_martigny,
                        item_lib_martigny, item2_lib_martigny,
                        patron_type_children_martigny,
                        circ_policy_short_martigny,
-                       patron3_martigny_blocked_no_email):
+                       patron3_martigny_blocked):
     """Test overdue loans."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
     item_pid = item.pid
-    patron_pid = patron_martigny_no_email.pid
+    patron_pid = patron_martigny.pid
 
     # checkout
     res, data = postdata(
@@ -185,7 +185,7 @@ def test_overdue_loans(client, librarian_martigny_no_email,
             item_pid=item_pid,
             patron_pid=patron_pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
         )
     )
     assert res.status_code == 200, "It probably failed while \
@@ -216,9 +216,9 @@ def test_overdue_loans(client, librarian_martigny_no_email,
         'api_item.checkout',
         dict(
             item_pid=item2_lib_martigny.pid,
-            patron_pid=patron3_martigny_blocked_no_email.pid,
+            patron_pid=patron3_martigny_blocked.pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
         )
     )
     assert res.status_code == 403
@@ -232,16 +232,16 @@ def test_overdue_loans(client, librarian_martigny_no_email,
             item_pid=item_pid,
             pid=loan_pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
         )
     )
     assert res.status_code == 200
 
 
 def test_checkout_item_transit(client, item2_lib_martigny,
-                               librarian_martigny_no_email,
-                               librarian_saxon_no_email,
-                               patron_martigny_no_email,
+                               librarian_martigny,
+                               librarian_saxon,
+                               patron_martigny,
                                loc_public_saxon, lib_martigny,
                                loc_public_martigny,
                                circulation_policies):
@@ -249,7 +249,7 @@ def test_checkout_item_transit(client, item2_lib_martigny,
     assert item2_lib_martigny.available
 
     # request
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     loc_public_martigny['notification_email'] = 'dummy_email@fake.domain'
     loc_public_martigny['send_notification'] = True
     loc_public_martigny.update(
@@ -264,9 +264,9 @@ def test_checkout_item_transit(client, item2_lib_martigny,
         dict(
             item_pid=item2_lib_martigny.pid,
             pickup_location_pid=loc_public_saxon.pid,
-            patron_pid=patron_martigny_no_email.pid,
+            patron_pid=patron_martigny.pid,
             transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -294,7 +294,7 @@ def test_checkout_item_transit(client, item2_lib_martigny,
             item_pid=item2_lib_martigny.pid,
             pid=loan_pid,
             transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -305,7 +305,7 @@ def test_checkout_item_transit(client, item2_lib_martigny,
     loan = Loan.get_record_by_pid(loan_pid)
     assert loan['state'] == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
 
-    login_user_via_session(client, librarian_saxon_no_email.user)
+    login_user_via_session(client, librarian_saxon.user)
     # receive
     res, _ = postdata(
         client,
@@ -314,7 +314,7 @@ def test_checkout_item_transit(client, item2_lib_martigny,
             item_pid=item2_lib_martigny.pid,
             pid=loan_pid,
             transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -330,9 +330,9 @@ def test_checkout_item_transit(client, item2_lib_martigny,
         'api_item.checkout',
         dict(
             item_pid=item2_lib_martigny.pid,
-            patron_pid=patron_martigny_no_email.pid,
+            patron_pid=patron_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
         )
     )
     assert res.status_code == 200
@@ -342,11 +342,11 @@ def test_checkout_item_transit(client, item2_lib_martigny,
     assert loan_before_checkout.get('pid') == loan_after_checkout.get('pid')
 
 
-def test_loan_access_permissions(client, librarian_martigny_no_email,
+def test_loan_access_permissions(client, librarian_martigny,
                                  loc_public_saxon,
-                                 patron_martigny_no_email,
-                                 item_lib_sion, patron_sion_no_email,
-                                 librarian_sion_no_email,
+                                 patron_martigny,
+                                 item_lib_sion, patron_sion,
+                                 librarian_sion,
                                  circulation_policies
                                  ):
     """Test loans read permissions."""
@@ -356,15 +356,15 @@ def test_loan_access_permissions(client, librarian_martigny_no_email,
     assert res.status_code == 401
 
     # ensure we have loans from the two configured organisation.
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
     res, _ = postdata(
         client,
         'api_item.checkout',
         dict(
             item_pid=item_lib_sion.pid,
-            patron_pid=patron_sion_no_email.pid,
+            patron_pid=patron_sion.pid,
             transaction_location_pid=loc_public_saxon.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
         )
     )
     assert res.status_code == 200
@@ -379,17 +379,17 @@ def test_loan_access_permissions(client, librarian_martigny_no_email,
     assert loans_martigny
     assert loans_sion
     # Test loan list API access.
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     loan_list = url_for('invenio_records_rest.loanid_list', q='pid:1')
     res = client.get(loan_list)
     assert res.status_code == 200
-    login_user_via_session(client, patron_martigny_no_email.user)
+    login_user_via_session(client, patron_martigny.user)
     loan_list = url_for('invenio_records_rest.loanid_list', q='pid:1')
     res = client.get(loan_list)
     assert res.status_code == 200
 
     # librarian or system librarian have access all loans of its org
-    user = librarian_martigny_no_email
+    user = librarian_martigny
     login_user_via_session(client, user.user)
     for loan in loans:
         record_url = url_for(
@@ -401,7 +401,7 @@ def test_loan_access_permissions(client, librarian_martigny_no_email,
             assert res.status_code == 403
 
     # patron can access only its loans
-    user = patron_martigny_no_email
+    user = patron_martigny
     login_user_via_session(client, user.user)
     for loan in loans:
         record_url = url_for(
@@ -416,15 +416,15 @@ def test_loan_access_permissions(client, librarian_martigny_no_email,
             assert res.status_code == 403
 
 
-def test_timezone_due_date(client, librarian_martigny_no_email,
-                           patron_martigny_no_email, loc_public_martigny,
+def test_timezone_due_date(client, librarian_martigny,
+                           patron_martigny, loc_public_martigny,
                            item_type_standard_martigny,
                            item3_lib_martigny,
                            circ_policy_short_martigny,
                            lib_martigny):
     """Test that timezone affects due date regarding library location."""
     # Login to perform action
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
 
     # Close the library all days. Except Monday.
     del lib_martigny['opening_hours']
@@ -477,11 +477,11 @@ def test_timezone_due_date(client, librarian_martigny_no_email,
     checkout_duration = 3
     item = item3_lib_martigny
     item_pid = item.pid
-    patron_pid = patron_martigny_no_email.pid
+    patron_pid = patron_martigny.pid
     from rero_ils.modules.circ_policies.api import CircPolicy
     circ_policy = CircPolicy.provide_circ_policy(
         item.library_pid,
-        patron_martigny_no_email.patron_type_pid,
+        patron_martigny.patron_type_pid,
         item.item_type_pid
     )
     circ_policy['number_of_days_before_due_date'] = 7
@@ -500,7 +500,7 @@ def test_timezone_due_date(client, librarian_martigny_no_email,
             item_pid=item_pid,
             patron_pid=patron_pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
         )
     )
     assert res.status_code == 200
@@ -531,23 +531,23 @@ It should be the same date, even if timezone changed."
 
 def test_librarian_request_on_blocked_user(
         client, item_lib_martigny, lib_martigny,
-        librarian_martigny_no_email, loc_public_martigny,
-        patron3_martigny_blocked_no_email,
+        librarian_martigny, loc_public_martigny,
+        patron3_martigny_blocked,
         circulation_policies):
     """Librarian request on blocked user returns a specific 403 message."""
     assert item_lib_martigny.available
 
     # request
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res, data = postdata(
         client,
         'api_item.librarian_request',
         dict(
             item_pid=item_lib_martigny.pid,
-            patron_pid=patron3_martigny_blocked_no_email.pid,
+            patron_pid=patron3_martigny_blocked.pid,
             pickup_location_pid=loc_public_martigny.pid,
             transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 403

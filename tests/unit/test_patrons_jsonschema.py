@@ -87,14 +87,6 @@ def test_city(patron_schema, patron_martigny_data_tmp_with_id):
         validate(patron_martigny_data_tmp_with_id, patron_schema)
 
 
-def test_username(patron_schema, patron_martigny_data_tmp_with_id):
-    """Test username for patron jsonschemas."""
-    validate(patron_martigny_data_tmp_with_id, patron_schema)
-    del(patron_martigny_data_tmp_with_id['username'])
-    with pytest.raises(ValidationError):
-        validate(patron_martigny_data_tmp_with_id, patron_schema)
-
-
 def test_barcode(patron_schema, patron_martigny_data_tmp_with_id):
     """Test barcode for patron jsonschemas."""
     validate(patron_martigny_data_tmp_with_id, patron_schema)

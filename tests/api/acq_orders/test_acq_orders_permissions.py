@@ -25,9 +25,9 @@ from rero_ils.modules.acq_orders.permissions import AcqOrderPermission
 
 
 def test_orders_permissions_api(client, org_martigny, vendor2_martigny,
-                                patron_martigny_no_email,
-                                system_librarian_martigny_no_email,
-                                librarian_martigny_no_email,
+                                patron_martigny,
+                                system_librarian_martigny,
+                                librarian_martigny,
                                 acq_order_fiction_saxon,
                                 acq_order_fiction_martigny,
                                 acq_order_fiction_sion):
@@ -57,7 +57,7 @@ def test_orders_permissions_api(client, org_martigny, vendor2_martigny,
     assert res.status_code == 401
 
     # Logged as patron
-    login_user_via_session(client, patron_martigny_no_email.user)
+    login_user_via_session(client, patron_martigny.user)
     res = client.get(acq_order_permissions_url)
     assert res.status_code == 403
 
@@ -66,7 +66,7 @@ def test_orders_permissions_api(client, org_martigny, vendor2_martigny,
     #   * lib can 'create', 'update', delete only for its library
     #   * lib can't 'read' acq_account of others organisation.
     #   * lib can't 'create', 'update', 'delete' orders for other org/lib
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res = client.get(acq_order_martigny_permission_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -95,7 +95,7 @@ def test_orders_permissions_api(client, org_martigny, vendor2_martigny,
     # Logged as system librarian
     #   * sys_lib can do everything about orders of its own organisation
     #   * sys_lib can't do anything about orders of other organisation
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res = client.get(acq_order_saxon_permission_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -113,9 +113,9 @@ def test_orders_permissions_api(client, org_martigny, vendor2_martigny,
     assert not data['delete']['can']
 
 
-def test_orders_permissions(patron_martigny_no_email,
-                            librarian_martigny_no_email,
-                            system_librarian_martigny_no_email,
+def test_orders_permissions(patron_martigny,
+                            librarian_martigny,
+                            system_librarian_martigny,
                             org_martigny, vendor2_martigny,
                             acq_order_fiction_sion,
                             acq_order_fiction_saxon,
@@ -135,7 +135,7 @@ def test_orders_permissions(patron_martigny_no_email,
     acq_order_sion = acq_order_fiction_sion
     with mock.patch(
         'rero_ils.modules.acq_accounts.permissions.current_patron',
-        patron_martigny_no_email
+        patron_martigny
     ):
         assert not AcqOrderPermission.list(None, acq_order_martigny)
         assert not AcqOrderPermission.read(None, acq_order_martigny)
@@ -146,7 +146,7 @@ def test_orders_permissions(patron_martigny_no_email,
     # As Librarian
     with mock.patch(
         'rero_ils.modules.acq_accounts.permissions.current_patron',
-        librarian_martigny_no_email
+        librarian_martigny
     ), mock.patch(
         'rero_ils.modules.acq_accounts.permissions.current_organisation',
         org_martigny
@@ -170,7 +170,7 @@ def test_orders_permissions(patron_martigny_no_email,
     # As System-librarian
     with mock.patch(
         'rero_ils.modules.acq_accounts.permissions.current_patron',
-        system_librarian_martigny_no_email
+        system_librarian_martigny
     ), mock.patch(
         'rero_ils.modules.acq_accounts.permissions.current_organisation',
         org_martigny

@@ -21,11 +21,11 @@ import mock
 from rero_ils.modules.patrons.permissions import PatronPermission
 
 
-def test_patrons_permissions(patron_martigny_no_email,
-                             librarian_martigny_no_email,
-                             system_librarian_martigny_no_email,
-                             org_martigny, librarian_saxon_no_email,
-                             patron_sion_no_email):
+def test_patrons_permissions(patron_martigny,
+                             librarian_martigny,
+                             system_librarian_martigny,
+                             org_martigny, librarian_saxon,
+                             patron_sion):
     """Test patrons permissions class."""
 
     # Anonymous user
@@ -36,64 +36,64 @@ def test_patrons_permissions(patron_martigny_no_email,
     assert not PatronPermission.delete(None, {})
 
     # As Patron
-    sys_lib = system_librarian_martigny_no_email
+    sys_lib = system_librarian_martigny
     with mock.patch(
         'rero_ils.modules.patrons.permissions.current_patron',
-        patron_martigny_no_email
+        patron_martigny
     ):
-        assert not PatronPermission.list(None, patron_martigny_no_email)
-        assert not PatronPermission.read(None, patron_martigny_no_email)
-        assert not PatronPermission.create(None, patron_martigny_no_email)
-        assert not PatronPermission.update(None, patron_martigny_no_email)
-        assert not PatronPermission.delete(None, patron_martigny_no_email)
+        assert not PatronPermission.list(None, patron_martigny)
+        assert not PatronPermission.read(None, patron_martigny)
+        assert not PatronPermission.create(None, patron_martigny)
+        assert not PatronPermission.update(None, patron_martigny)
+        assert not PatronPermission.delete(None, patron_martigny)
 
     # As Librarian
     with mock.patch(
         'rero_ils.modules.patrons.permissions.current_patron',
-        librarian_martigny_no_email
+        librarian_martigny
     ), mock.patch(
         'rero_ils.modules.patrons.permissions.current_organisation',
         org_martigny
     ):
-        assert PatronPermission.list(None, patron_martigny_no_email)
-        assert PatronPermission.read(None, patron_martigny_no_email)
-        assert PatronPermission.create(None, patron_martigny_no_email)
-        assert PatronPermission.update(None, patron_martigny_no_email)
-        assert PatronPermission.delete(None, patron_martigny_no_email)
+        assert PatronPermission.list(None, patron_martigny)
+        assert PatronPermission.read(None, patron_martigny)
+        assert PatronPermission.create(None, patron_martigny)
+        assert PatronPermission.update(None, patron_martigny)
+        assert PatronPermission.delete(None, patron_martigny)
 
-        assert PatronPermission.read(None, librarian_saxon_no_email)
-        assert not PatronPermission.create(None, librarian_saxon_no_email)
-        assert not PatronPermission.update(None, librarian_saxon_no_email)
-        assert not PatronPermission.delete(None, librarian_saxon_no_email)
+        assert PatronPermission.read(None, librarian_saxon)
+        assert not PatronPermission.create(None, librarian_saxon)
+        assert not PatronPermission.update(None, librarian_saxon)
+        assert not PatronPermission.delete(None, librarian_saxon)
 
-        assert not PatronPermission.read(None, patron_sion_no_email)
-        assert not PatronPermission.create(None, patron_sion_no_email)
-        assert not PatronPermission.update(None, patron_sion_no_email)
-        assert not PatronPermission.delete(None, patron_sion_no_email)
+        assert not PatronPermission.read(None, patron_sion)
+        assert not PatronPermission.create(None, patron_sion)
+        assert not PatronPermission.update(None, patron_sion)
+        assert not PatronPermission.delete(None, patron_sion)
 
         assert not PatronPermission.create(None, sys_lib)
         assert not PatronPermission.update(None, sys_lib)
         assert not PatronPermission.delete(None, sys_lib)
 
-        assert not PatronPermission.delete(None, librarian_martigny_no_email)
+        assert not PatronPermission.delete(None, librarian_martigny)
 
     # As System-librarian
     with mock.patch(
         'rero_ils.modules.patrons.permissions.current_patron',
-        system_librarian_martigny_no_email
+        system_librarian_martigny
     ), mock.patch(
         'rero_ils.modules.patrons.permissions.current_organisation',
         org_martigny
     ):
-        assert PatronPermission.list(None, librarian_saxon_no_email)
-        assert PatronPermission.read(None, librarian_saxon_no_email)
-        assert PatronPermission.create(None, librarian_saxon_no_email)
-        assert PatronPermission.update(None, librarian_saxon_no_email)
-        assert PatronPermission.delete(None, librarian_saxon_no_email)
+        assert PatronPermission.list(None, librarian_saxon)
+        assert PatronPermission.read(None, librarian_saxon)
+        assert PatronPermission.create(None, librarian_saxon)
+        assert PatronPermission.update(None, librarian_saxon)
+        assert PatronPermission.delete(None, librarian_saxon)
 
-        assert not PatronPermission.read(None, patron_sion_no_email)
-        assert not PatronPermission.create(None, patron_sion_no_email)
-        assert not PatronPermission.update(None, patron_sion_no_email)
-        assert not PatronPermission.delete(None, patron_sion_no_email)
+        assert not PatronPermission.read(None, patron_sion)
+        assert not PatronPermission.create(None, patron_sion)
+        assert not PatronPermission.update(None, patron_sion)
+        assert not PatronPermission.delete(None, patron_sion)
 
         assert not PatronPermission.delete(None, sys_lib)

@@ -25,11 +25,11 @@ from utils import get_csv, get_json, login_user
 def test_patrons_serializers(
     client,
     json_header,
-    librarian_martigny_no_email,
-    librarian2_martigny_no_email
+    librarian_martigny,
+    librarian2_martigny
 ):
     """Test serializers for patrons."""
-    login_user(client, librarian_martigny_no_email)
+    login_user(client, librarian_martigny)
 
     list_url = url_for('invenio_records_rest.ptrn_list')
     response = client.get(list_url, headers=json_header)
@@ -50,13 +50,13 @@ def test_items_serializers(
     csv_header,
     json_header,
     rero_json_header,
-    patron_martigny_no_email,
-    librarian_martigny_no_email,
-    librarian_sion_no_email,
+    patron_martigny,
+    librarian_martigny,
+    librarian_sion,
     loan_pending_martigny
 ):
     """Test record retrieval."""
-    login_user(client, librarian_martigny_no_email)
+    login_user(client, librarian_martigny)
 
     item_url = url_for(
         'invenio_records_rest.item_item', pid_value=item_lib_fully.pid)

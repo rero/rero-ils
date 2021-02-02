@@ -5,15 +5,7 @@
   "description": "JSON schema for a user.",
   "additionalProperties": false,
   "propertiesOrder": [
-    "first_name",
-    "last_name",
-    "birth_date",
-    "email",
-    "username",
-    "street",
-    "postal_code",
-    "city",
-    "phone",
+    "user_id",
     "roles",
     "patron",
     "libraries",
@@ -22,10 +14,6 @@
   "required": [
     "$schema",
     "pid",
-    "first_name",
-    "last_name",
-    "birth_date",
-    "username",
     "user_id",
     "roles"
   ],

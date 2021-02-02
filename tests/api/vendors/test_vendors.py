@@ -24,10 +24,10 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
 
-def test_vendors_get(client, librarian_martigny_no_email, vendor_martigny):
+def test_vendors_get(client, librarian_martigny, vendor_martigny):
     """Test vendor record retrieval."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item_url = url_for(
         'invenio_records_rest.vndr_item',
         pid_value=vendor_martigny.pid)
@@ -48,12 +48,12 @@ def test_vendors_get(client, librarian_martigny_no_email, vendor_martigny):
         assert k in data
 
 
-def test_filtered_vendors_get(client, librarian_martigny_no_email,
-                              librarian_sion_no_email, vendor_martigny,
+def test_filtered_vendors_get(client, librarian_martigny,
+                              librarian_sion, vendor_martigny,
                               vendor2_martigny, vendor_sion, vendor2_sion):
     """Test vendors filter by organisation."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     list_url = url_for('invenio_records_rest.vndr_list')
 
     res = client.get(list_url)
@@ -62,7 +62,7 @@ def test_filtered_vendors_get(client, librarian_martigny_no_email,
     assert data['hits']['total']['value'] == 2
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
     list_url = url_for('invenio_records_rest.vndr_list')
 
     res = client.get(list_url)
@@ -82,10 +82,10 @@ def test_vendors_can_delete(
     assert reasons['links']['acq_invoices']
 
 
-def test_vendor_post_update_delete(client, librarian_martigny_no_email,
+def test_vendor_post_update_delete(client, librarian_martigny,
                                    vendor3_martigny_data, json_header):
     """Test CRUD on vendor."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item_url = url_for('invenio_records_rest.vndr_item', pid_value='vndr3')
 
     # create

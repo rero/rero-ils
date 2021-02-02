@@ -26,17 +26,17 @@ from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.api import LoanAction
 
 
-def test_patron_can_delete(client, librarian_martigny_no_email,
-                           patron_martigny_no_email, loc_public_martigny,
+def test_patron_can_delete(client, librarian_martigny,
+                           patron_martigny, loc_public_martigny,
                            item_lib_martigny, json_header, lib_martigny,
                            circulation_policies):
     """Test patron can delete."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
-    patron = patron_martigny_no_email
+    patron = patron_martigny
     location = loc_public_martigny
 
-    data = deepcopy(patron_martigny_no_email)
+    data = deepcopy(patron_martigny)
     del data['patron']['type']
     assert not data.get_organisation()
 
@@ -49,18 +49,18 @@ def test_patron_can_delete(client, librarian_martigny_no_email,
             pickup_location_pid=location.pid,
             patron_pid=patron.pid,
             transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
     loan_pid = data.get('action_applied')[LoanAction.REQUEST].get('pid')
 
-    links = patron_martigny_no_email.get_links_to_me()
+    links = patron_martigny.get_links_to_me()
     assert 'loans' in links
 
-    assert not patron_martigny_no_email.can_delete
+    assert not patron_martigny.can_delete
 
-    reasons = patron_martigny_no_email.reasons_not_to_delete()
+    reasons = patron_martigny.reasons_not_to_delete()
     assert 'links' in reasons
 
     res, data = postdata(
@@ -69,21 +69,21 @@ def test_patron_can_delete(client, librarian_martigny_no_email,
         dict(
             pid=loan_pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
     assert item.status == ItemStatus.ON_SHELF
 
 
-def test_patron_utils(client, librarian_martigny_no_email,
-                      patron_martigny_no_email, loc_public_martigny,
+def test_patron_utils(client, librarian_martigny,
+                      patron_martigny, loc_public_martigny,
                       item_lib_martigny, json_header,
-                      circulation_policies, librarian_martigny):
+                      circulation_policies):
     """Test patron utils."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
-    patron = patron_martigny_no_email
+    patron = patron_martigny
     location = loc_public_martigny
 
     from rero_ils.modules.patrons.views import get_location_name_from_pid

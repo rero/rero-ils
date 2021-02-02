@@ -24,10 +24,10 @@ from utils import get_json
 from rero_ils.modules.locations.permissions import LocationPermission
 
 
-def test_location_permissions_api(client, patron_martigny_no_email,
+def test_location_permissions_api(client, patron_martigny,
                                   loc_public_martigny, loc_public_saxon,
-                                  loc_public_sion, librarian_martigny_no_email,
-                                  system_librarian_martigny_no_email):
+                                  loc_public_sion, librarian_martigny,
+                                  system_librarian_martigny):
     """Test locations permissions api."""
     loc_permissions_url = url_for(
         'api_blueprint.permissions',
@@ -54,7 +54,7 @@ def test_location_permissions_api(client, patron_martigny_no_email,
     assert res.status_code == 401
 
     # Logged as patron
-    login_user_via_session(client, patron_martigny_no_email.user)
+    login_user_via_session(client, patron_martigny.user)
     res = client.get(loc_permissions_url)
     assert res.status_code == 403
 
@@ -63,7 +63,7 @@ def test_location_permissions_api(client, patron_martigny_no_email,
     #   * lib can 'create', 'update', delete only for its library
     #   * lib can't 'read' acq_account of others organisation.
     #   * lib can't 'create', 'update', 'delete' acq_account for other org/lib
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res = client.get(loc_martigny_permission_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -93,7 +93,7 @@ def test_location_permissions_api(client, patron_martigny_no_email,
     #   * sys_lib can 'list' organisations
     #   * sys_lib can never 'create' and 'delete' any organisation
     #   * sys_lib can 'read' and 'update' only their own organisation
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res = client.get(loc_saxon_permission_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -110,9 +110,9 @@ def test_location_permissions_api(client, patron_martigny_no_email,
     assert not data['delete']['can']
 
 
-def test_location_permissions(patron_martigny_no_email,
-                              librarian_martigny_no_email,
-                              system_librarian_martigny_no_email,
+def test_location_permissions(patron_martigny,
+                              librarian_martigny,
+                              system_librarian_martigny,
                               org_martigny, loc_public_martigny,
                               loc_public_saxon, loc_public_sion):
     """Test location permissions class."""
@@ -127,7 +127,7 @@ def test_location_permissions(patron_martigny_no_email,
     # As Patron
     with mock.patch(
         'rero_ils.modules.locations.permissions.current_patron',
-        patron_martigny_no_email
+        patron_martigny
     ):
         assert not LocationPermission.list(None, loc_public_martigny)
         assert not LocationPermission.read(None, loc_public_martigny)
@@ -138,7 +138,7 @@ def test_location_permissions(patron_martigny_no_email,
     # As Librarian
     with mock.patch(
         'rero_ils.modules.locations.permissions.current_patron',
-        librarian_martigny_no_email
+        librarian_martigny
     ), mock.patch(
         'rero_ils.modules.locations.permissions.current_organisation',
         org_martigny
@@ -158,7 +158,7 @@ def test_location_permissions(patron_martigny_no_email,
     # As SystemLibrarian
     with mock.patch(
         'rero_ils.modules.locations.permissions.current_patron',
-        system_librarian_martigny_no_email
+        system_librarian_martigny
     ), mock.patch(
         'rero_ils.modules.locations.permissions.current_organisation',
         org_martigny

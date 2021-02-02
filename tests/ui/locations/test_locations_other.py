@@ -25,10 +25,10 @@ from rero_ils.modules.locations.api import Location
 
 
 def test_location_get_all_pickup_locations(
-        patron_martigny_no_email, loc_public_martigny, loc_public_sion):
+        patron_martigny, loc_public_martigny, loc_public_sion):
     """Test pickup locations retrieval."""
     locations = Location.get_pickup_location_pids()
     assert set(locations) == {loc_public_martigny.pid, loc_public_sion.pid}
 
-    locations = Location.get_pickup_location_pids(patron_martigny_no_email.pid)
+    locations = Location.get_pickup_location_pids(patron_martigny.pid)
     assert set(locations) == {loc_public_martigny.pid}

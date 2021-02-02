@@ -192,9 +192,9 @@ def test_patron_transaction_shortcuts_utils(
 
 
 def test_filtered_patron_transactions_get(
-        client, librarian_martigny_no_email,
+        client, librarian_martigny,
         patron_transaction_overdue_martigny,
-        librarian_sion_no_email, patron_martigny_no_email
+        librarian_sion, patron_martigny
 ):
     """Test patron transaction filter by organisation."""
     list_url = url_for('invenio_records_rest.pttr_list')
@@ -202,7 +202,7 @@ def test_filtered_patron_transactions_get(
     res = client.get(list_url)
     assert res.status_code == 401
 
-    login_user_via_session(client, patron_martigny_no_email.user)
+    login_user_via_session(client, patron_martigny.user)
 
     res = client.get(list_url)
     assert res.status_code == 200
@@ -210,7 +210,7 @@ def test_filtered_patron_transactions_get(
     assert data['hits']['total']['value'] == 1
 
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
 
     res = client.get(list_url)
     assert res.status_code == 200
@@ -218,7 +218,7 @@ def test_filtered_patron_transactions_get(
     assert data['hits']['total']['value'] == 1
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
     list_url = url_for('invenio_records_rest.pttr_list')
 
     res = client.get(list_url)
@@ -229,11 +229,11 @@ def test_filtered_patron_transactions_get(
 
 def test_patron_transaction_secure_api(
         client, json_header, patron_transaction_overdue_martigny,
-        librarian_martigny_no_email, librarian_sion_no_email,
-        system_librarian_martigny_no_email, system_librarian_sion_no_email,
-        patron_transaction_overdue_saxon, patron_martigny_no_email):
+        librarian_martigny, librarian_sion,
+        system_librarian_martigny, system_librarian_sion,
+        patron_transaction_overdue_saxon, patron_martigny):
     """Test patron transaction secure api access."""
-    login_user_via_session(client, patron_martigny_no_email.user)
+    login_user_via_session(client, patron_martigny.user)
     record_url = url_for('invenio_records_rest.pttr_item',
                          pid_value=patron_transaction_overdue_martigny.pid)
 
@@ -242,7 +242,7 @@ def test_patron_transaction_secure_api(
     assert res.status_code == 200
 
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     record_url = url_for('invenio_records_rest.pttr_item',
                          pid_value=patron_transaction_overdue_martigny.pid)
 
@@ -257,13 +257,13 @@ def test_patron_transaction_secure_api(
     # a librarian can access any patron transaction of its organisation
     assert res.status_code == 200
 
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res = client.get(record_url)
     # a sys_librarian can access any patron transaction of its organisation
     assert res.status_code == 200
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
     record_url = url_for('invenio_records_rest.pttr_item',
                          pid_value=patron_transaction_overdue_martigny.pid)
 
@@ -271,20 +271,20 @@ def test_patron_transaction_secure_api(
     # librarian can not access any patron transaction of other organisation
     assert res.status_code == 403
 
-    login_user_via_session(client, system_librarian_sion_no_email.user)
+    login_user_via_session(client, system_librarian_sion.user)
     res = client.get(record_url)
     # a sys_librarian can not access any patron transaction of other org
     assert res.status_code == 403
 
 
 def test_patron_transaction_secure_api_create(
-        client, librarian_martigny_no_email,
-        librarian_sion_no_email, patron_transaction_overdue_martigny,
-        system_librarian_martigny_no_email,
-        system_librarian_sion_no_email):
+        client, librarian_martigny,
+        librarian_sion, patron_transaction_overdue_martigny,
+        system_librarian_martigny,
+        system_librarian_sion):
     """Test patron transction secure api create."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     post_entrypoint = 'invenio_records_rest.pttr_list'
     patron_transaction = deepcopy(patron_transaction_overdue_martigny)
     del patron_transaction['pid']
@@ -307,7 +307,7 @@ def test_patron_transaction_secure_api_create(
     # librarian is can create a patron transaction in other libraries.
     assert res.status_code == 201
 
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res, _ = postdata(
         client,
         post_entrypoint,
@@ -317,7 +317,7 @@ def test_patron_transaction_secure_api_create(
     assert res.status_code == 201
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
 
     patron_transaction_3 = deepcopy(patron_transaction_overdue_martigny)
     del patron_transaction_3['pid']
@@ -330,7 +330,7 @@ def test_patron_transaction_secure_api_create(
     # librarian is not authorized to create a patron transaction at other org.
     assert res.status_code == 403
 
-    login_user_via_session(client, system_librarian_sion_no_email.user)
+    login_user_via_session(client, system_librarian_sion.user)
     res, _ = postdata(
         client,
         post_entrypoint,
@@ -342,12 +342,12 @@ def test_patron_transaction_secure_api_create(
 
 def test_patron_transaction_secure_api_update(
         client, patron_transaction_overdue_saxon,
-        patron_transaction_overdue_martigny, librarian_martigny_no_email,
-        librarian_sion_no_email, json_header,
-        system_librarian_martigny_no_email, system_librarian_sion_no_email):
+        patron_transaction_overdue_martigny, librarian_martigny,
+        librarian_sion, json_header,
+        system_librarian_martigny, system_librarian_sion):
     """Test patron transaction secure api update."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     record_url = url_for('invenio_records_rest.pttr_item',
                          pid_value=patron_transaction_overdue_martigny.pid)
 
@@ -372,7 +372,7 @@ def test_patron_transaction_secure_api_update(
     # librarian is can update a patron transaction of another library.
     assert res.status_code == 200
 
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res = client.put(
         record_url,
         data=json.dumps(patron_transaction_overdue_saxon),
@@ -382,7 +382,7 @@ def test_patron_transaction_secure_api_update(
     assert res.status_code == 200
 
 #     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
 
     res = client.put(
         record_url,
@@ -392,7 +392,7 @@ def test_patron_transaction_secure_api_update(
     # librarian can not update any patron transaction of another org.
     assert res.status_code == 403
 
-    login_user_via_session(client, system_librarian_sion_no_email.user)
+    login_user_via_session(client, system_librarian_sion.user)
     res = client.put(
         record_url,
         data=json.dumps(patron_transaction_overdue_saxon),
@@ -403,12 +403,12 @@ def test_patron_transaction_secure_api_update(
 
 def test_patron_transaction_secure_api_delete(
         client, patron_transaction_overdue_saxon,
-        patron_transaction_overdue_martigny, librarian_martigny_no_email,
-        librarian_sion_no_email, system_librarian_martigny_no_email,
-        system_librarian_sion_no_email):
+        patron_transaction_overdue_martigny, librarian_martigny,
+        librarian_sion, system_librarian_martigny,
+        system_librarian_sion):
     """Test patron transaction secure api delete."""
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
 
     record_url = url_for('invenio_records_rest.pttr_item',
                          pid_value=patron_transaction_overdue_martigny.pid)
@@ -416,12 +416,12 @@ def test_patron_transaction_secure_api_delete(
     # librarian can not delete any patron transaction of other org.
     assert res.status_code == 403
 
-    login_user_via_session(client, system_librarian_sion_no_email.user)
+    login_user_via_session(client, system_librarian_sion.user)
     res = client.delete(record_url)
     # sys_ibrarian can not delete any patron transaction of other org.
     assert res.status_code == 403
 
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     record_url = url_for('invenio_records_rest.pttr_item',
                          pid_value=patron_transaction_overdue_saxon.pid)
 
@@ -446,7 +446,7 @@ def test_patron_transaction_secure_api_delete(
 
 
 def test_patron_subscription_transaction(
-        patron_type_youngsters_sion, patron_sion_no_email):
+        patron_type_youngsters_sion, patron_sion):
     """Test the creation of a subscription transaction for a patron."""
     subscription_start_date = datetime.now()
     subscription_end_date = add_years(subscription_start_date, 1)
@@ -455,7 +455,7 @@ def test_patron_subscription_transaction(
     assert subscription_end_date.day == subscription_start_date.day
 
     subscription = PatronTransaction.create_subscription_for_patron(
-        patron_sion_no_email,
+        patron_sion,
         patron_type_youngsters_sion,
         subscription_start_date,
         subscription_end_date,
@@ -470,14 +470,14 @@ def test_patron_subscription_transaction(
     assert event.get('amount') == subscription.get('total_amount')
 
 
-def test_get_transactions_pids_for_patron(patron_sion_no_email):
+def test_get_transactions_pids_for_patron(patron_sion):
     """Test function get_transactions_pids_for_patron."""
     assert PatronTransaction.get_transactions_count_for_patron(
-        patron_sion_no_email.pid
+        patron_sion.pid
     ) == 2
     assert len(list(PatronTransaction.get_transactions_pids_for_patron(
-        patron_sion_no_email.pid, status='open'
+        patron_sion.pid, status='open'
     ))) == 2
     assert len(list(PatronTransaction.get_transactions_pids_for_patron(
-        patron_sion_no_email.pid, status='closed'
+        patron_sion.pid, status='closed'
     ))) == 0

@@ -30,8 +30,8 @@ def test_has_superuser_access(app):
 
 
 def test_librarian_update_permission_factory(client, document, ebook_1,
-                                             librarian_martigny_no_email):
+                                             librarian_martigny):
     """Test librarian_update_permission_factory function."""
     assert not librarian_update_permission_factory(ebook_1).can()
-    login_user_for_view(client, librarian_martigny_no_email)
+    login_user_for_view(client, librarian_martigny)
     assert librarian_update_permission_factory(document).can()

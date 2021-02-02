@@ -34,6 +34,7 @@ from invenio_userprofiles.models import UserProfile
 from sqlalchemy.orm.exc import NoResultFound
 from werkzeug.local import LocalProxy
 
+from .api import create_patron_from_data
 from ..patrons.api import Patron, PatronProvider
 from ..providers import append_fixtures_new_identifiers
 from ..utils import read_json_record
@@ -101,17 +102,16 @@ def import_users(infile, append, verbose, password, lazy, dont_stop_on_error,
                     '{count: <8} User already exist: {username}'.format(
                         count=count,
                         username=username
-                    ), fg='yellow')
+                    ), fg='red')
+                continue
             except NoResultFound:
                 pass
         try:
             # patron creation
-            patron = Patron.create(
-                patron_data,
-                # delete_pid=True,
+            patron = create_patron_from_data(
+                data=patron_data,
                 dbcommit=False,
-                reindex=False,
-                email_notification=False
+                reindex=False
             )
             user = patron.user
             user.password = hash_password(password)

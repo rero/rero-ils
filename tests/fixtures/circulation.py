@@ -20,10 +20,10 @@
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 
-import mock
 import pytest
 from invenio_circulation.search.api import LoansSearch
-from utils import flush_index, item_record_to_a_specific_loan_state
+from utils import create_patron, flush_index, \
+    item_record_to_a_specific_loan_state
 
 from rero_ils.modules.ill_requests.api import ILLRequest, ILLRequestsSearch
 from rero_ils.modules.items.api import ItemsSearch
@@ -31,7 +31,6 @@ from rero_ils.modules.loans.api import Loan, LoanState
 from rero_ils.modules.notifications.api import NotificationsSearch, \
     get_availability_notification
 from rero_ils.modules.patron_transactions.api import PatronTransactionsSearch
-from rero_ils.modules.patrons.api import Patron, PatronsSearch
 
 
 @pytest.fixture(scope="module")
@@ -65,31 +64,8 @@ def system_librarian_martigny(
         patron_type_children_martigny,
         system_librarian_martigny_data):
     """Create Martigny system librarian record."""
-    ptrn = Patron.create(
-        data=system_librarian_martigny_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
-
-
-@pytest.fixture(scope="module")
-@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
-def system_librarian_martigny_no_email(
-        app,
-        roles,
-        lib_martigny,
-        patron_type_children_martigny,
-        system_librarian_martigny_data):
-    """Create Martigny system librarian without sending reset password."""
-    ptrn = Patron.create(
-        data=system_librarian_martigny_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
+    data = system_librarian_martigny_data
+    yield create_patron(data)
 
 
 @pytest.fixture(scope="module")
@@ -111,30 +87,8 @@ def system_librarian2_martigny(
         lib_martigny,
         system_librarian2_martigny_data):
     """Create Martigny system librarian record."""
-    ptrn = Patron.create(
-        data=system_librarian2_martigny_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
-
-
-@pytest.fixture(scope="module")
-@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
-def system_librarian2_martigny_no_email(
-        app,
-        roles,
-        lib_martigny,
-        system_librarian2_martigny_data):
-    """Create Martigny system librarian without sending reset password."""
-    ptrn = Patron.create(
-        data=system_librarian2_martigny_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
+    data = system_librarian2_martigny_data
+    yield create_patron(data)
 
 
 # ------------ Org: Martigny, Lib: Martigny, Librarian 1 ----------
@@ -157,39 +111,8 @@ def librarian_martigny(
         lib_martigny,
         librarian_martigny_data):
     """Create Martigny librarian record."""
-    ptrn = Patron.get_record_by_pid(librarian_martigny_data['pid'])
-    if ptrn:
-        ptrn = ptrn.update(
-            data=librarian_martigny_data,
-            dbcommit=True,
-            reindex=True
-        )
-    else:
-        ptrn = Patron.create(
-            data=librarian_martigny_data,
-            delete_pid=False,
-            dbcommit=True,
-            reindex=True
-        )
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
-
-
-@pytest.fixture(scope="module")
-@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
-def librarian_martigny_no_email(
-        app,
-        roles,
-        lib_martigny,
-        librarian_martigny_data):
-    """Create Martigny librarian without sending reset password instruction."""
-    ptrn = Patron.create(
-        data=librarian_martigny_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
+    data = librarian_martigny_data
+    yield create_patron(data)
 
 
 # ------------ Org: Martigny, Lib: Martigny, Librarian 2 ----------
@@ -212,31 +135,8 @@ def librarian2_martigny(
         lib_martigny,
         librarian2_martigny_data):
     """Create Martigny librarian record."""
-    ptrn = Patron.create(
-        data=librarian2_martigny_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
-
-
-# ------------ Org: Martigny, Lib: Saxon, Librarian 1 ----------
-@pytest.fixture(scope="module")
-@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
-def librarian2_martigny_no_email(
-        app,
-        roles,
-        lib_martigny,
-        librarian2_martigny_data):
-    """Create Martigny librarian without sending reset password instruction."""
-    ptrn = Patron.create(
-        data=librarian2_martigny_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
+    data = librarian2_martigny_data
+    yield create_patron(data)
 
 
 # ------------ Org: Martigny, Lib: Saxon, Librarian 1 ----------
@@ -259,30 +159,8 @@ def librarian_saxon(
         lib_saxon,
         librarian_saxon_data):
     """Create Saxon librarian record."""
-    ptrn = Patron.create(
-        data=librarian_saxon_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
-
-
-@pytest.fixture(scope="module")
-@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
-def librarian_saxon_no_email(
-        app,
-        roles,
-        lib_saxon,
-        librarian_saxon_data):
-    """Create Saxon librarian without sending reset password instruction."""
-    ptrn = Patron.create(
-        data=librarian_saxon_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
+    data = librarian_saxon_data
+    yield create_patron(data)
 
 
 # ------------ Org: Martigny, Lib: Fully, Librarian 1 ----------
@@ -305,30 +183,8 @@ def librarian_fully(
         lib_fully,
         librarian_fully_data):
     """Create Fully librarian record."""
-    ptrn = Patron.create(
-        data=librarian_fully_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
-
-
-@pytest.fixture(scope="module")
-@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
-def librarian_fully_no_email(
-        app,
-        roles,
-        lib_fully,
-        librarian_fully_data):
-    """Create Fully librarian without sending reset password instruction."""
-    ptrn = Patron.create(
-        data=librarian_fully_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
+    data = librarian_fully_data
+    yield create_patron(data)
 
 
 # ------------ Org: Martigny Patron 1 ----------
@@ -352,39 +208,8 @@ def patron_martigny(
         patron_type_children_martigny,
         patron_martigny_data):
     """Create Martigny patron record."""
-    ptrn = Patron.get_record_by_pid(patron_martigny_data.get('pid'))
-    if ptrn:
-        ptrn = ptrn.update(
-            data=patron_martigny_data,
-            dbcommit=True,
-            reindex=True
-        )
-    else:
-        ptrn = Patron.create(
-            data=patron_martigny_data,
-            delete_pid=False,
-            dbcommit=True,
-            reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
-
-
-@pytest.fixture(scope="module")
-@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
-def patron_martigny_no_email(
-        app,
-        roles,
-        lib_martigny,
-        patron_type_children_martigny,
-        patron_martigny_data):
-    """Create Martigny patron without sending reset password instruction."""
-    ptrn = Patron.create(
-        data=patron_martigny_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
+    data = patron_martigny_data
+    yield create_patron(data)
 
 
 # ------------ Org: Martigny Patron 2 ----------
@@ -402,30 +227,8 @@ def patron2_martigny(
         patron_type_adults_martigny,
         patron2_martigny_data):
     """Create Martigny patron record."""
-    ptrn = Patron.create(
-        data=patron2_martigny_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
-
-
-@pytest.fixture(scope="module")
-@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
-def patron2_martigny_no_email(
-        app,
-        roles,
-        patron_type_adults_martigny,
-        patron2_martigny_data):
-    """Create Martigny patron without sending reset password instruction."""
-    ptrn = Patron.create(
-        data=patron2_martigny_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
+    data = patron2_martigny_data
+    yield create_patron(data)
 
 
 # ------------ Org: Martigny Patron 3 (blocked) ----------
@@ -444,32 +247,8 @@ def patron3_martigny_blocked(
         patron_type_adults_martigny,
         patron3_martigny_blocked_data):
     """Create Martigny patron record."""
-    ptrn = Patron.create(
-        data=patron3_martigny_blocked_data,
-        delete_pid=True,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
-
-
-@pytest.fixture(scope="module")
-@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
-def patron3_martigny_blocked_no_email(
-        app,
-        roles,
-        lib_martigny,
-        lib_saxon,
-        patron_type_adults_martigny,
-        patron3_martigny_blocked_data):
-    """Create Martigny patron without sending reset password instruction."""
-    ptrn = Patron.create(
-        data=patron3_martigny_blocked_data,
-        delete_pid=True,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
+    data = patron3_martigny_blocked_data
+    yield create_patron(data)
 
 
 @pytest.fixture(scope="module")
@@ -486,30 +265,8 @@ def patron4_martigny(
         patron_type_adults_martigny,
         patron4_martigny_data):
     """Create Martigny patron record."""
-    ptrn = Patron.create(
-        data=patron4_martigny_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
-
-
-@pytest.fixture(scope="module")
-@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
-def patron4_martigny_no_email(
-        app,
-        roles,
-        patron_type_adults_martigny,
-        patron4_martigny_data):
-    """Create Martigny patron without sending reset password instruction."""
-    ptrn = Patron.create(
-        data=patron4_martigny_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
+    data = patron4_martigny_data
+    yield create_patron(data)
 
 
 # ------------ Org: Sion, Lib: Sion, System Librarian ----------
@@ -532,30 +289,8 @@ def system_librarian_sion(
         lib_sion,
         system_librarian_sion_data):
     """Create Sion system librarian record."""
-    ptrn = Patron.create(
-        data=system_librarian_sion_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
-
-
-@pytest.fixture(scope="module")
-@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
-def system_librarian_sion_no_email(
-        app,
-        roles,
-        lib_sion,
-        system_librarian_sion_data):
-    """Create Sion system librarian without sending reset password."""
-    ptrn = Patron.create(
-        data=system_librarian_sion_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
+    data = system_librarian_sion_data
+    yield create_patron(data)
 
 
 # ------------ Org: Sion, Lib: Sion, Librarian ----------
@@ -572,30 +307,8 @@ def librarian_sion(
         lib_sion,
         librarian_sion_data):
     """Create sion librarian record."""
-    ptrn = Patron.create(
-        data=librarian_sion_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
-
-
-@pytest.fixture(scope="module")
-@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
-def librarian_sion_no_email(
-        app,
-        roles,
-        lib_sion,
-        librarian_sion_data):
-    """Create sion librarian without sending reset password instruction."""
-    ptrn = Patron.create(
-        data=librarian_sion_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
+    data = librarian_sion_data
+    yield create_patron(data)
 
 
 # ------------ Org: Sion Patron 1 ----------
@@ -619,53 +332,24 @@ def patron_sion(
         patron_type_grown_sion,
         patron_sion_data):
     """Create Sion patron record."""
-    ptrn = Patron.create(
-        data=patron_sion_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
+    data = patron_sion_data
+    yield create_patron(data)
 
 
 @pytest.fixture(scope="module")
-@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
-def patron_sion_no_email(
+def patron_sion_without_email1(
         app,
         roles,
         lib_sion,
         patron_type_grown_sion,
         patron_sion_data):
     """Create Sion patron without sending reset password instruction."""
-    ptrn = Patron.create(
-        data=patron_sion_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
-
-
-@pytest.fixture(scope="module")
-@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
-def patron_sion_without_email(
-        app,
-        roles,
-        lib_sion,
-        patron_type_grown_sion,
-        patron_sion_data):
-    """Create Sion patron without sending reset password instruction."""
-    del patron_sion_data['email']
-    patron_sion_data['pid'] = 'ptrn10wthoutemail'
-    patron_sion_data['username'] = 'withoutemail'
-    patron_sion_data['patron']['communication_channel'] = 'mail'
-    ptrn = Patron.create(
-        data=patron_sion_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
+    data = deepcopy(patron_sion_data)
+    del data['email']
+    data['pid'] = 'ptrn10wthoutemail'
+    data['username'] = 'withoutemail'
+    data['patron']['communication_channel'] = 'mail'
+    yield create_patron(data)
 
 
 # ------------ Loans: pending loan ----------
@@ -674,8 +358,8 @@ def loan_pending_martigny(
         app,
         item_lib_fully,
         loc_public_martigny,
-        librarian_martigny_no_email,
-        patron2_martigny_no_email,
+        librarian_martigny,
+        patron2_martigny,
         circulation_policies):
     """Create loan record with state pending.
 
@@ -683,9 +367,9 @@ def loan_pending_martigny(
     """
     transaction_date = datetime.now(timezone.utc).isoformat()
     item_lib_fully.request(
-        patron_pid=patron2_martigny_no_email.pid,
+        patron_pid=patron2_martigny.pid,
         transaction_location_pid=loc_public_martigny.pid,
-        transaction_user_pid=librarian_martigny_no_email.pid,
+        transaction_user_pid=librarian_martigny.pid,
         transaction_date=transaction_date,
         pickup_location_pid=loc_public_martigny.pid,
         document_pid=item_lib_fully.replace_refs()['document']['pid']
@@ -717,8 +401,8 @@ def loan_validated_martigny(
         item2_lib_martigny,
         loc_public_martigny,
         item_type_standard_martigny,
-        librarian_martigny_no_email,
-        patron_martigny_no_email,
+        librarian_martigny,
+        patron_martigny,
         circulation_policies):
     """Request and validate item to a patron.
 
@@ -727,9 +411,9 @@ def loan_validated_martigny(
     transaction_date = datetime.now(timezone.utc).isoformat()
 
     item2_lib_martigny.request(
-        patron_pid=patron_martigny_no_email.pid,
+        patron_pid=patron_martigny.pid,
         transaction_location_pid=loc_public_martigny.pid,
-        transaction_user_pid=librarian_martigny_no_email.pid,
+        transaction_user_pid=librarian_martigny.pid,
         transaction_date=transaction_date,
         pickup_location_pid=loc_public_martigny.pid,
         document_pid=item2_lib_martigny.replace_refs()['document']['pid']
@@ -742,9 +426,9 @@ def loan_validated_martigny(
         item_pid=item2_lib_martigny.pid))[0]
     item2_lib_martigny.validate_request(
         pid=loan.pid,
-        patron_pid=patron_martigny_no_email.pid,
+        patron_pid=patron_martigny.pid,
         transaction_location_pid=loc_public_martigny.pid,
-        transaction_user_pid=librarian_martigny_no_email.pid,
+        transaction_user_pid=librarian_martigny.pid,
         transaction_date=transaction_date,
         pickup_location_pid=loc_public_martigny.pid,
         document_pid=item2_lib_martigny.replace_refs()['document']['pid']
@@ -781,8 +465,8 @@ def loan_overdue_martigny(
         item4_lib_martigny,
         loc_public_martigny,
         item_type_standard_martigny,
-        librarian_martigny_no_email,
-        patron_martigny_no_email,
+        librarian_martigny,
+        patron_martigny,
         circulation_policies):
     """Checkout an item to a patron.
 
@@ -791,9 +475,9 @@ def loan_overdue_martigny(
     transaction_date = datetime.now(timezone.utc).isoformat()
 
     item4_lib_martigny.checkout(
-        patron_pid=patron_martigny_no_email.pid,
+        patron_pid=patron_martigny.pid,
         transaction_location_pid=loc_public_martigny.pid,
-        transaction_user_pid=librarian_martigny_no_email.pid,
+        transaction_user_pid=librarian_martigny.pid,
         transaction_date=transaction_date,
         document_pid=item4_lib_martigny.replace_refs()['document']['pid']
     )
@@ -857,8 +541,8 @@ def loan_overdue_saxon(
         item2_lib_saxon,
         loc_public_martigny,
         item_type_standard_martigny,
-        librarian_martigny_no_email,
-        patron_martigny_no_email,
+        librarian_martigny,
+        patron_martigny,
         circulation_policies):
     """Checkout an item to a patron.
 
@@ -867,9 +551,9 @@ def loan_overdue_saxon(
     transaction_date = datetime.now(timezone.utc).isoformat()
 
     item2_lib_saxon.checkout(
-        patron_pid=patron_martigny_no_email.pid,
+        patron_pid=patron_martigny.pid,
         transaction_location_pid=loc_public_martigny.pid,
-        transaction_user_pid=librarian_martigny_no_email.pid,
+        transaction_user_pid=librarian_martigny.pid,
         transaction_date=transaction_date,
         document_pid=item2_lib_saxon.replace_refs()['document']['pid']
     )
@@ -936,8 +620,8 @@ def loan_overdue_sion(
         item_lib_sion,
         loc_public_sion,
         item_type_regular_sion,
-        librarian_sion_no_email,
-        patron_sion_no_email,
+        librarian_sion,
+        patron_sion,
         circulation_policies):
     """Checkout an item to a patron.
 
@@ -946,9 +630,9 @@ def loan_overdue_sion(
     transaction_date = datetime.now(timezone.utc).isoformat()
 
     item_lib_sion.checkout(
-        patron_pid=patron_sion_no_email.pid,
+        patron_pid=patron_sion.pid,
         transaction_location_pid=loc_public_sion.pid,
-        transaction_user_pid=librarian_sion_no_email.pid,
+        transaction_user_pid=librarian_sion.pid,
         transaction_date=transaction_date,
         document_pid=item_lib_sion.replace_refs()['document']['pid']
     )
@@ -1012,9 +696,9 @@ def patron_transaction_overdue_event_sion_data(data):
 @pytest.fixture(scope="module")
 def item_on_shelf_martigny_patron_and_loan_pending(
         app,
-        librarian_martigny_no_email,
+        librarian_martigny,
         item_lib_martigny, loc_public_martigny,
-        patron_martigny_no_email, circulation_policies,):
+        patron_martigny, circulation_policies,):
     """Creates an item on_shelf requested by a patron.
 
     :return item: the created or copied item.
@@ -1022,24 +706,24 @@ def item_on_shelf_martigny_patron_and_loan_pending(
     :return loan: the pending loan.
     """
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     item, loan = item_record_to_a_specific_loan_state(
         item=item_lib_martigny,
         loan_state=LoanState.PENDING,
         params=params, copy_item=True)
-    return item, patron_martigny_no_email, loan
+    return item, patron_martigny, loan
 
 
 @pytest.fixture(scope="module")
 def item2_on_shelf_martigny_patron_and_loan_pending(
         app,
-        librarian_martigny_no_email,
+        librarian_martigny,
         item_lib_martigny, loc_public_martigny,
-        patron_martigny_no_email, circulation_policies,):
+        patron_martigny, circulation_policies,):
     """Creates an item on_shelf requested by a patron.
 
     :return item: the created or copied item.
@@ -1047,24 +731,24 @@ def item2_on_shelf_martigny_patron_and_loan_pending(
     :return loan: the pending loan.
     """
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     item, loan = item_record_to_a_specific_loan_state(
         item=item_lib_martigny,
         loan_state=LoanState.PENDING,
         params=params, copy_item=True)
-    return item, patron_martigny_no_email, loan
+    return item, patron_martigny, loan
 
 
 @pytest.fixture(scope="module")
 def item_at_desk_martigny_patron_and_loan_at_desk(
         app,
-        librarian_martigny_no_email,
+        librarian_martigny,
         item_lib_martigny, loc_public_martigny,
-        patron_martigny_no_email, circulation_policies):
+        patron_martigny, circulation_policies):
     """Creates an item with a validated pending request.
 
     :return item: the created or copied item.
@@ -1072,24 +756,24 @@ def item_at_desk_martigny_patron_and_loan_at_desk(
     :return loan: the validated pending loan.
     """
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     item, loan = item_record_to_a_specific_loan_state(
         item=item_lib_martigny,
         loan_state=LoanState.ITEM_AT_DESK,
         params=params, copy_item=True)
-    return item, patron_martigny_no_email, loan
+    return item, patron_martigny, loan
 
 
 @pytest.fixture(scope="module")
 def item2_at_desk_martigny_patron_and_loan_at_desk(
         app,
-        librarian_martigny_no_email,
+        librarian_martigny,
         item_lib_martigny, loc_public_martigny,
-        patron_martigny_no_email, circulation_policies):
+        patron_martigny, circulation_policies):
     """Creates an item with a validated pending request.
 
     :return item: the created or copied item.
@@ -1097,24 +781,24 @@ def item2_at_desk_martigny_patron_and_loan_at_desk(
     :return loan: the validated pending loan.
     """
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     item, loan = item_record_to_a_specific_loan_state(
         item=item_lib_martigny,
         loan_state=LoanState.ITEM_AT_DESK,
         params=params, copy_item=True)
-    return item, patron_martigny_no_email, loan
+    return item, patron_martigny, loan
 
 
 @pytest.fixture(scope="module")
 def item3_at_desk_martigny_patron_and_loan_at_desk(
         app,
-        librarian_martigny_no_email,
+        librarian_martigny,
         item_lib_martigny, loc_public_martigny,
-        patron_martigny_no_email, circulation_policies):
+        patron_martigny, circulation_policies):
     """Creates an item with a validated pending request.
 
     :return item: the created or copied item.
@@ -1122,24 +806,24 @@ def item3_at_desk_martigny_patron_and_loan_at_desk(
     :return loan: the validated pending loan.
     """
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     item, loan = item_record_to_a_specific_loan_state(
         item=item_lib_martigny,
         loan_state=LoanState.ITEM_AT_DESK,
         params=params, copy_item=True)
-    return item, patron_martigny_no_email, loan
+    return item, patron_martigny, loan
 
 
 @pytest.fixture(scope="module")
 def item4_at_desk_martigny_patron_and_loan_at_desk(
         app,
-        librarian_martigny_no_email,
+        librarian_martigny,
         item_lib_martigny, loc_public_martigny,
-        patron_martigny_no_email, circulation_policies):
+        patron_martigny, circulation_policies):
     """Creates an item with a validated pending request.
 
     :return item: the created or copied item.
@@ -1147,24 +831,24 @@ def item4_at_desk_martigny_patron_and_loan_at_desk(
     :return loan: the validated pending loan.
     """
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     item, loan = item_record_to_a_specific_loan_state(
         item=item_lib_martigny,
         loan_state=LoanState.ITEM_AT_DESK,
         params=params, copy_item=True)
-    return item, patron_martigny_no_email, loan
+    return item, patron_martigny, loan
 
 
 @pytest.fixture(scope="module")
 def item5_at_desk_martigny_patron_and_loan_at_desk(
         app,
-        librarian_martigny_no_email,
+        librarian_martigny,
         item_lib_martigny, loc_public_martigny,
-        patron_martigny_no_email, circulation_policies):
+        patron_martigny, circulation_policies):
     """Creates an item with a validated pending request.
 
     :return item: the created or copied item.
@@ -1172,24 +856,24 @@ def item5_at_desk_martigny_patron_and_loan_at_desk(
     :return loan: the validated pending loan.
     """
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     item, loan = item_record_to_a_specific_loan_state(
         item=item_lib_martigny,
         loan_state=LoanState.ITEM_AT_DESK,
         params=params, copy_item=True)
-    return item, patron_martigny_no_email, loan
+    return item, patron_martigny, loan
 
 
 @pytest.fixture(scope="module")
 def item_on_shelf_fully_patron_and_loan_pending(
         app,
-        librarian_martigny_no_email,
+        librarian_martigny,
         item_lib_fully, loc_public_fully,
-        patron_martigny_no_email, circulation_policies,):
+        patron_martigny, circulation_policies,):
     """Creates an item on_shelf requested by a patron.
 
     :return item: the created or copied item.
@@ -1197,24 +881,24 @@ def item_on_shelf_fully_patron_and_loan_pending(
     :return loan: the pending loan.
     """
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_fully.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_fully.pid
     }
     item, loan = item_record_to_a_specific_loan_state(
         item=item_lib_fully,
         loan_state=LoanState.PENDING,
         params=params, copy_item=True)
-    return item, patron_martigny_no_email, loan
+    return item, patron_martigny, loan
 
 
 @pytest.fixture(scope="module")
 def item_on_loan_martigny_patron_and_loan_on_loan(
         app,
-        librarian_martigny_no_email,
+        librarian_martigny,
         item_lib_martigny, loc_public_martigny,
-        patron_martigny_no_email, circulation_policies):
+        patron_martigny, circulation_policies):
     """Creates an item on_loan.
 
     :return item: the created or copied item.
@@ -1222,24 +906,24 @@ def item_on_loan_martigny_patron_and_loan_on_loan(
     :return loan: the ITEM_ON_LOAN loan.
     """
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     item, loan = item_record_to_a_specific_loan_state(
         item=item_lib_martigny,
         loan_state=LoanState.ITEM_ON_LOAN,
         params=params, copy_item=True)
-    return item, patron_martigny_no_email, loan
+    return item, patron_martigny, loan
 
 
 @pytest.fixture(scope="module")
 def item2_on_loan_martigny_patron_and_loan_on_loan(
         app,
-        librarian_martigny_no_email,
+        librarian_martigny,
         item_lib_martigny, loc_public_martigny,
-        patron_martigny_no_email, circulation_policies):
+        patron_martigny, circulation_policies):
     """Creates an item on_loan.
 
     :return item: the created or copied item.
@@ -1247,24 +931,24 @@ def item2_on_loan_martigny_patron_and_loan_on_loan(
     :return loan: the ITEM_ON_LOAN loan.
     """
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     item, loan = item_record_to_a_specific_loan_state(
         item=item_lib_martigny,
         loan_state=LoanState.ITEM_ON_LOAN,
         params=params, copy_item=True)
-    return item, patron_martigny_no_email, loan
+    return item, patron_martigny, loan
 
 
 @pytest.fixture(scope="module")
 def item3_on_loan_martigny_patron_and_loan_on_loan(
         app,
-        librarian_martigny_no_email,
+        librarian_martigny,
         item_lib_martigny, loc_public_martigny,
-        patron_martigny_no_email, circulation_policies):
+        patron_martigny, circulation_policies):
     """Creates an item on_loan.
 
     :return item: the created or copied item.
@@ -1272,24 +956,24 @@ def item3_on_loan_martigny_patron_and_loan_on_loan(
     :return loan: the ITEM_ON_LOAN loan.
     """
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     item, loan = item_record_to_a_specific_loan_state(
         item=item_lib_martigny,
         loan_state=LoanState.ITEM_ON_LOAN,
         params=params, copy_item=True)
-    return item, patron_martigny_no_email, loan
+    return item, patron_martigny, loan
 
 
 @pytest.fixture(scope="module")
 def item4_on_loan_martigny_patron_and_loan_on_loan(
         app,
-        librarian_martigny_no_email,
+        librarian_martigny,
         item_lib_martigny, loc_public_martigny,
-        patron_martigny_no_email, circulation_policies):
+        patron_martigny, circulation_policies):
     """Creates an item on_loan.
 
     :return item: the created or copied item.
@@ -1297,24 +981,24 @@ def item4_on_loan_martigny_patron_and_loan_on_loan(
     :return loan: the ITEM_ON_LOAN loan.
     """
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     item, loan = item_record_to_a_specific_loan_state(
         item=item_lib_martigny,
         loan_state=LoanState.ITEM_ON_LOAN,
         params=params, copy_item=True)
-    return item, patron_martigny_no_email, loan
+    return item, patron_martigny, loan
 
 
 @pytest.fixture(scope="module")
 def item5_on_loan_martigny_patron_and_loan_on_loan(
         app,
-        librarian_martigny_no_email,
+        librarian_martigny,
         item_lib_martigny, loc_public_martigny,
-        patron_martigny_no_email, circulation_policies):
+        patron_martigny, circulation_policies):
     """Creates an item on_loan.
 
     :return item: the created or copied item.
@@ -1322,24 +1006,24 @@ def item5_on_loan_martigny_patron_and_loan_on_loan(
     :return loan: the ITEM_ON_LOAN loan.
     """
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     item, loan = item_record_to_a_specific_loan_state(
         item=item_lib_martigny,
         loan_state=LoanState.ITEM_ON_LOAN,
         params=params, copy_item=True)
-    return item, patron_martigny_no_email, loan
+    return item, patron_martigny, loan
 
 
 @pytest.fixture(scope="module")
 def item_on_loan_fully_patron_and_loan_on_loan(
         app,
-        librarian_martigny_no_email,
+        librarian_martigny,
         item_lib_fully, loc_public_fully,
-        patron_martigny_no_email, circulation_policies):
+        patron_martigny, circulation_policies):
     """Creates an item on_loan.
 
     :return item: the created or copied item.
@@ -1347,24 +1031,24 @@ def item_on_loan_fully_patron_and_loan_on_loan(
     :return loan: the ITEM_ON_LOAN loan.
     """
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_fully.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_fully.pid
     }
     item, loan = item_record_to_a_specific_loan_state(
         item=item_lib_fully,
         loan_state=LoanState.ITEM_ON_LOAN,
         params=params, copy_item=True)
-    return item, patron_martigny_no_email, loan
+    return item, patron_martigny, loan
 
 
 @pytest.fixture(scope="module")
 def item_in_transit_martigny_patron_and_loan_for_pickup(
         app,
-        librarian_martigny_no_email, loc_public_fully,
+        librarian_martigny, loc_public_fully,
         item_lib_martigny, loc_public_martigny,
-        patron_martigny_no_email, circulation_policies):
+        patron_martigny, circulation_policies):
     """Creates an item in_transit for pickup.
 
     :return item: the created or copied item.
@@ -1372,24 +1056,24 @@ def item_in_transit_martigny_patron_and_loan_for_pickup(
     :return loan: the ITEM_IN_TRANSIT_FOR_PICKUP loan.
     """
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_fully.pid
     }
     item, loan = item_record_to_a_specific_loan_state(
         item=item_lib_martigny,
         loan_state=LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
         params=params, copy_item=True)
-    return item, patron_martigny_no_email, loan
+    return item, patron_martigny, loan
 
 
 @pytest.fixture(scope="module")
 def item2_in_transit_martigny_patron_and_loan_for_pickup(
         app,
-        librarian_martigny_no_email, loc_public_fully,
+        librarian_martigny, loc_public_fully,
         item_lib_martigny, loc_public_martigny,
-        patron_martigny_no_email, circulation_policies):
+        patron_martigny, circulation_policies):
     """Creates an item in_transit for pickup.
 
     :return item: the created or copied item.
@@ -1397,24 +1081,24 @@ def item2_in_transit_martigny_patron_and_loan_for_pickup(
     :return loan: the ITEM_IN_TRANSIT_FOR_PICKUP loan.
     """
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_fully.pid
     }
     item, loan = item_record_to_a_specific_loan_state(
         item=item_lib_martigny,
         loan_state=LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
         params=params, copy_item=True)
-    return item, patron_martigny_no_email, loan
+    return item, patron_martigny, loan
 
 
 @pytest.fixture(scope="module")
 def item3_in_transit_martigny_patron_and_loan_for_pickup(
         app,
-        librarian_martigny_no_email, loc_public_fully,
+        librarian_martigny, loc_public_fully,
         item_lib_martigny, loc_public_martigny,
-        patron_martigny_no_email, circulation_policies):
+        patron_martigny, circulation_policies):
     """Creates an item in_transit for pickup.
 
     :return item: the created or copied item.
@@ -1422,24 +1106,24 @@ def item3_in_transit_martigny_patron_and_loan_for_pickup(
     :return loan: the ITEM_IN_TRANSIT_FOR_PICKUP loan.
     """
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_fully.pid
     }
     item, loan = item_record_to_a_specific_loan_state(
         item=item_lib_martigny,
         loan_state=LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
         params=params, copy_item=True)
-    return item, patron_martigny_no_email, loan
+    return item, patron_martigny, loan
 
 
 @pytest.fixture(scope="module")
 def item_in_transit_martigny_patron_and_loan_to_house(
         app,
-        librarian_martigny_no_email, loc_public_fully,
+        librarian_martigny, loc_public_fully,
         item_lib_martigny, loc_public_martigny,
-        patron_martigny_no_email, circulation_policies):
+        patron_martigny, circulation_policies):
     """Creates an item in_transit to house.
 
     :return item: the created or copied item.
@@ -1447,9 +1131,9 @@ def item_in_transit_martigny_patron_and_loan_to_house(
     :return loan: the ITEM_IN_TRANSIT_TO_HOUSE loan.
     """
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid,
         'checkin_transaction_location_pid': loc_public_fully.pid,
     }
@@ -1457,15 +1141,15 @@ def item_in_transit_martigny_patron_and_loan_to_house(
         item=item_lib_martigny,
         loan_state=LoanState.ITEM_IN_TRANSIT_TO_HOUSE,
         params=params, copy_item=True)
-    return item, patron_martigny_no_email, loan
+    return item, patron_martigny, loan
 
 
 @pytest.fixture(scope="module")
 def item2_in_transit_martigny_patron_and_loan_to_house(
         app,
-        librarian_martigny_no_email, loc_public_fully,
+        librarian_martigny, loc_public_fully,
         item_lib_martigny, loc_public_martigny,
-        patron_martigny_no_email, circulation_policies):
+        patron_martigny, circulation_policies):
     """Creates an item in_transit to house.
 
     :return item: the created or copied item.
@@ -1473,9 +1157,9 @@ def item2_in_transit_martigny_patron_and_loan_to_house(
     :return loan: the ITEM_IN_TRANSIT_TO_HOUSE loan.
     """
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid,
         'checkin_transaction_location_pid': loc_public_fully.pid,
     }
@@ -1483,15 +1167,15 @@ def item2_in_transit_martigny_patron_and_loan_to_house(
         item=item_lib_martigny,
         loan_state=LoanState.ITEM_IN_TRANSIT_TO_HOUSE,
         params=params, copy_item=True)
-    return item, patron_martigny_no_email, loan
+    return item, patron_martigny, loan
 
 
 @pytest.fixture(scope="module")
 def item3_in_transit_martigny_patron_and_loan_to_house(
         app,
-        librarian_martigny_no_email, loc_public_fully,
+        librarian_martigny, loc_public_fully,
         item_lib_martigny, loc_public_martigny,
-        patron_martigny_no_email, circulation_policies):
+        patron_martigny, circulation_policies):
     """Creates an item in_transit to house.
 
     :return item: the created or copied item.
@@ -1499,9 +1183,9 @@ def item3_in_transit_martigny_patron_and_loan_to_house(
     :return loan: the ITEM_IN_TRANSIT_TO_HOUSE loan.
     """
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid,
         'checkin_transaction_location_pid': loc_public_fully.pid,
     }
@@ -1509,15 +1193,15 @@ def item3_in_transit_martigny_patron_and_loan_to_house(
         item=item_lib_martigny,
         loan_state=LoanState.ITEM_IN_TRANSIT_TO_HOUSE,
         params=params, copy_item=True)
-    return item, patron_martigny_no_email, loan
+    return item, patron_martigny, loan
 
 
 @pytest.fixture(scope="module")
 def item4_in_transit_martigny_patron_and_loan_to_house(
         app,
-        librarian_martigny_no_email, loc_public_fully,
+        librarian_martigny, loc_public_fully,
         item_lib_martigny, loc_public_martigny,
-        patron_martigny_no_email, circulation_policies):
+        patron_martigny, circulation_policies):
     """Creates an item in_transit to house.
 
     :return item: the created or copied item.
@@ -1525,9 +1209,9 @@ def item4_in_transit_martigny_patron_and_loan_to_house(
     :return loan: the ITEM_IN_TRANSIT_TO_HOUSE loan.
     """
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid,
         'checkin_transaction_location_pid': loc_public_fully.pid,
     }
@@ -1535,15 +1219,15 @@ def item4_in_transit_martigny_patron_and_loan_to_house(
         item=item_lib_martigny,
         loan_state=LoanState.ITEM_IN_TRANSIT_TO_HOUSE,
         params=params, copy_item=True)
-    return item, patron_martigny_no_email, loan
+    return item, patron_martigny, loan
 
 
 @pytest.fixture(scope="module")
 def item5_in_transit_martigny_patron_and_loan_to_house(
         app,
-        librarian_martigny_no_email, loc_public_fully,
+        librarian_martigny, loc_public_fully,
         item_lib_martigny, loc_public_martigny,
-        patron_martigny_no_email, circulation_policies):
+        patron_martigny, circulation_policies):
     """Creates an item in_transit to house.
 
     :return item: the created or copied item.
@@ -1551,9 +1235,9 @@ def item5_in_transit_martigny_patron_and_loan_to_house(
     :return loan: the ITEM_IN_TRANSIT_TO_HOUSE loan.
     """
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid,
         'checkin_transaction_location_pid': loc_public_fully.pid,
     }
@@ -1561,15 +1245,15 @@ def item5_in_transit_martigny_patron_and_loan_to_house(
         item=item_lib_martigny,
         loan_state=LoanState.ITEM_IN_TRANSIT_TO_HOUSE,
         params=params, copy_item=True)
-    return item, patron_martigny_no_email, loan
+    return item, patron_martigny, loan
 
 
 @pytest.fixture(scope="module")
 def item6_in_transit_martigny_patron_and_loan_to_house(
         app,
-        librarian_martigny_no_email, loc_public_fully,
+        librarian_martigny, loc_public_fully,
         item_lib_martigny, loc_public_martigny,
-        patron_martigny_no_email, circulation_policies):
+        patron_martigny, circulation_policies):
     """Creates an item in_transit to house.
 
     :return item: the created or copied item.
@@ -1577,9 +1261,9 @@ def item6_in_transit_martigny_patron_and_loan_to_house(
     :return loan: the ITEM_IN_TRANSIT_TO_HOUSE loan.
     """
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid,
         'checkin_transaction_location_pid': loc_public_fully.pid,
     }
@@ -1587,7 +1271,7 @@ def item6_in_transit_martigny_patron_and_loan_to_house(
         item=item_lib_martigny,
         loan_state=LoanState.ITEM_IN_TRANSIT_TO_HOUSE,
         params=params, copy_item=True)
-    return item, patron_martigny_no_email, loan
+    return item, patron_martigny, loan
 
 
 # -------------- ILL requests ----------------------
@@ -1604,7 +1288,7 @@ def ill_request_martigny_data_tmp(data):
 
 
 @pytest.fixture(scope="module")
-def ill_request_martigny(app, loc_public_martigny, patron_martigny_no_email,
+def ill_request_martigny(app, loc_public_martigny, patron_martigny,
                          ill_request_martigny_data):
     """Create ill request for Martigny location."""
     illr = ILLRequest.create(
@@ -1623,7 +1307,7 @@ def ill_request_sion_data(data):
 
 
 @pytest.fixture(scope="module")
-def ill_request_sion(app, loc_public_sion, patron_sion_no_email,
+def ill_request_sion(app, loc_public_sion, patron_sion,
                      ill_request_sion_data):
     """Create ill request for Sion location."""
     illr = ILLRequest.create(

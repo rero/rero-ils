@@ -26,14 +26,14 @@ from rero_ils.modules.items.api import Item
 
 
 def test_item_dumps(client, item_lib_martigny, org_martigny,
-                    librarian_martigny_no_email):
+                    librarian_martigny):
     """Test item dumps and elastic search version."""
     item_dumps = Item(item_lib_martigny.dumps()).replace_refs()
 
     assert item_dumps.get('available')
     assert item_dumps.get('organisation').get('pid') == org_martigny.pid
 
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     record_url = url_for('invenio_records_rest.item_item',
                          pid_value=item_lib_martigny.pid)
 
@@ -46,18 +46,18 @@ def test_item_dumps(client, item_lib_martigny, org_martigny,
 
 
 def test_item_secure_api(client, json_header, item_lib_martigny,
-                         librarian_martigny_no_email, librarian_sion_no_email,
+                         librarian_martigny, librarian_sion,
                          loc_public_saxon):
     """Test item secure api access."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     record_url = url_for('invenio_records_rest.item_item',
                          pid_value=item_lib_martigny.pid)
     res = client.get(record_url)
     assert res.status_code == 200
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
     record_url = url_for('invenio_records_rest.item_item',
                          pid_value=item_lib_martigny.pid)
 
@@ -66,14 +66,14 @@ def test_item_secure_api(client, json_header, item_lib_martigny,
 
 
 def test_item_secure_api_create(client, json_header, item_lib_martigny,
-                                librarian_martigny_no_email,
-                                librarian_sion_no_email,
+                                librarian_martigny,
+                                librarian_sion,
                                 item_lib_martigny_data,
                                 item_lib_saxon_data,
-                                system_librarian_martigny_no_email):
+                                system_librarian_martigny):
     """Test item secure api create."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     post_url = 'invenio_records_rest.item_list'
 
     del item_lib_martigny_data['pid']
@@ -94,7 +94,7 @@ def test_item_secure_api_create(client, json_header, item_lib_martigny,
     # librarian can not create items for another library
     assert res.status_code == 403
 
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res, _ = postdata(
         client,
         post_url,
@@ -104,7 +104,7 @@ def test_item_secure_api_create(client, json_header, item_lib_martigny,
     assert res.status_code == 201
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
 
     res, _ = postdata(
         client,
@@ -116,14 +116,14 @@ def test_item_secure_api_create(client, json_header, item_lib_martigny,
 
 
 def test_item_secure_api_update(client, json_header, item_lib_saxon,
-                                librarian_martigny_no_email,
-                                librarian_sion_no_email,
+                                librarian_martigny,
+                                librarian_sion,
                                 item_lib_martigny,
-                                system_librarian_martigny_no_email
+                                system_librarian_martigny
                                 ):
     """Test item secure api update."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     record_url = url_for('invenio_records_rest.item_item',
                          pid_value=item_lib_martigny.pid)
 
@@ -148,7 +148,7 @@ def test_item_secure_api_update(client, json_header, item_lib_saxon,
     # librarian can not update items of other libraries
     assert res.status_code == 403
 
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res = client.put(
         record_url,
         data=json.dumps(item_lib_saxon),
@@ -158,7 +158,7 @@ def test_item_secure_api_update(client, json_header, item_lib_saxon,
     assert res.status_code == 200
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
 
     res = client.put(
         record_url,
@@ -170,14 +170,14 @@ def test_item_secure_api_update(client, json_header, item_lib_saxon,
 
 
 def test_item_secure_api_delete(client, item_lib_saxon,
-                                librarian_martigny_no_email,
-                                librarian_sion_no_email,
+                                librarian_martigny,
+                                librarian_sion,
                                 item_lib_martigny,
                                 json_header,
-                                system_librarian_martigny_no_email):
+                                system_librarian_martigny):
     """Test item secure api delete."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     record_url = url_for('invenio_records_rest.item_item',
                          pid_value=item_lib_martigny.pid)
 
@@ -193,27 +193,27 @@ def test_item_secure_api_delete(client, item_lib_saxon,
     assert res.status_code == 403
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
 
     res = client.delete(record_url)
     # librarian can not delete items of other organisations
     assert res.status_code == 403
 
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res = client.delete(record_url)
     # sys_librarian can delete items in other libraries in same org.
     assert res.status_code == 204
 
 
-def test_pending_loans_order(client, librarian_martigny_no_email,
-                             patron_martigny_no_email, loc_public_martigny,
+def test_pending_loans_order(client, librarian_martigny,
+                             patron_martigny, loc_public_martigny,
                              item_type_standard_martigny,
                              item2_lib_martigny, json_header,
-                             patron2_martigny_no_email, patron_sion_no_email,
+                             patron2_martigny, patron_sion,
                              circulation_policies):
     """Test sort of pending loans."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
-    library_pid = librarian_martigny_no_email\
+    login_user_via_session(client, librarian_martigny.user)
+    library_pid = librarian_martigny\
         .replace_refs()['libraries'][0]['pid']
 
     res, _ = postdata(
@@ -221,9 +221,9 @@ def test_pending_loans_order(client, librarian_martigny_no_email,
         'api_item.librarian_request',
         dict(
             item_pid=item2_lib_martigny.pid,
-            patron_pid=patron_sion_no_email.pid,
+            patron_pid=patron_sion.pid,
             pickup_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -233,9 +233,9 @@ def test_pending_loans_order(client, librarian_martigny_no_email,
         'api_item.librarian_request',
         dict(
             item_pid=item2_lib_martigny.pid,
-            patron_pid=patron_martigny_no_email.pid,
+            patron_pid=patron_martigny.pid,
             pickup_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -246,9 +246,9 @@ def test_pending_loans_order(client, librarian_martigny_no_email,
         'api_item.librarian_request',
         dict(
             item_pid=item2_lib_martigny.pid,
-            patron_pid=patron2_martigny_no_email.pid,
+            patron_pid=patron2_martigny.pid,
             pickup_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -292,9 +292,9 @@ def test_pending_loans_order(client, librarian_martigny_no_email,
     assert res.status_code == 200
     data = get_json(res)
     loans = data['hits']['hits'][0]['item']['pending_loans']
-    assert loans[0]['patron_pid'] == patron_sion_no_email.pid
-    assert loans[1]['patron_pid'] == patron_martigny_no_email.pid
-    assert loans[2]['patron_pid'] == patron2_martigny_no_email.pid
+    assert loans[0]['patron_pid'] == patron_sion.pid
+    assert loans[1]['patron_pid'] == patron_martigny.pid
+    assert loans[2]['patron_pid'] == patron2_martigny.pid
 
     # sort by invalid field
     res = client.get(
@@ -306,21 +306,21 @@ def test_pending_loans_order(client, librarian_martigny_no_email,
     assert 'RequestError(400' in data['status']
 
 
-def test_patron_checkouts_order(client, librarian_martigny_no_email,
-                                patron_martigny_no_email, loc_public_martigny,
+def test_patron_checkouts_order(client, librarian_martigny,
+                                patron_martigny, loc_public_martigny,
                                 item_type_standard_martigny,
                                 item3_lib_martigny, json_header,
                                 item4_lib_martigny,
                                 circulation_policies):
     """Test sort of checkout loans."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res, _ = postdata(
         client,
         'api_item.checkout',
         dict(
             item_pid=item3_lib_martigny.pid,
-            patron_pid=patron_martigny_no_email.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            patron_pid=patron_martigny.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         ),
     )
@@ -331,8 +331,8 @@ def test_patron_checkouts_order(client, librarian_martigny_no_email,
         'api_item.checkout',
         dict(
             item_pid=item4_lib_martigny.pid,
-            patron_pid=patron_martigny_no_email.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            patron_pid=patron_martigny.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         ),
     )
@@ -341,7 +341,7 @@ def test_patron_checkouts_order(client, librarian_martigny_no_email,
     # sort by transaction_date asc
     res = client.get(
         url_for(
-            'api_item.loans', patron_pid=patron_martigny_no_email.pid,
+            'api_item.loans', patron_pid=patron_martigny.pid,
             sort='_created'))
     assert res.status_code == 200
     data = get_json(res)
@@ -353,7 +353,7 @@ def test_patron_checkouts_order(client, librarian_martigny_no_email,
     # sort by transaction_date desc
     res = client.get(
         url_for(
-            'api_item.loans', patron_pid=patron_martigny_no_email.pid,
+            'api_item.loans', patron_pid=patron_martigny.pid,
             sort='-transaction_date'))
     assert res.status_code == 200
     data = get_json(res)
@@ -365,7 +365,7 @@ def test_patron_checkouts_order(client, librarian_martigny_no_email,
     # sort by invalid field
     res = client.get(
         url_for(
-            'api_item.loans', patron_pid=patron_martigny_no_email.pid,
+            'api_item.loans', patron_pid=patron_martigny.pid,
             sort='does not exist'))
     assert res.status_code == 500
     data = get_json(res)
