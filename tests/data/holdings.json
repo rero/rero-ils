@@ -235,7 +235,7 @@
     "enumerationAndChronology": "enumerationAndChronology",
     "supplementaryContent": "supplementaryContent",
     "index": "index",
-    "issue_binding": 10,
+    "issue_binding": "10",
     "acquisition_status": "currently_received",
     "acquisition_method": "purchase",
     "acquisition_expected_end_date": "2025-12-31",
