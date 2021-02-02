@@ -17,15 +17,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-02-01 07:12+0100\n"
-"PO-Revision-Date: 2021-01-27 13:53+0000\n"
+"PO-Revision-Date: 2021-02-02 07:48+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/de/>\n"
 "Language: de\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.5-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:131
@@ -7521,9 +7522,8 @@ msgid "Only one note per type is allowed"
 msgstr "Nur eine Anmerkung pro Typ ist erlaubt"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:663
-#, fuzzy
 msgid "Acquisition status"
-msgstr "Erwerbsdatum"
+msgstr "Erwerbungsstatus"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:681
 #, fuzzy
@@ -7556,9 +7556,8 @@ msgid "unknown"
 msgstr "Eigentümer"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:708
-#, fuzzy
 msgid "Acquisition method"
-msgstr "Bestellung"
+msgstr "Erwerbsmethode"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:732
 #, fuzzy
@@ -7621,9 +7620,8 @@ msgid ""
 msgstr ""
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:805
-#, fuzzy
 msgid "General retention policy"
-msgstr "Ausleihpolitik"
+msgstr "Allgemeine Aufbewahrungspolitik"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:830
 msgid "other_general_retention_policy"
@@ -10629,4 +10627,3 @@ msgstr "Ihr Passwort wurde erfolgreich zurückgesetzt."
 
 #~ msgid "Issue display template"
 #~ msgstr "Anzeigevorlage der Einheit"
-
