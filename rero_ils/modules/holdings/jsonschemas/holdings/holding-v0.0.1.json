@@ -542,8 +542,8 @@
     },
     "issue_binding": {
       "title": "Number of issues to be bound together",
-      "type": "number",
-      "minimum": 0,
+      "type": "string",
+      "minLength": 1,
       "form": {
         "hide": true,
         "navigation": {
@@ -869,7 +869,6 @@
         "other",
         "complete",
         "incomplete",
-        "sample_issue_retained",
         "scattered",
         "not_applicable"
       ],

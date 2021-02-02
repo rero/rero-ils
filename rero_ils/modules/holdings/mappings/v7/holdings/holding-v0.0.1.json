@@ -149,7 +149,7 @@
         "type": "keyword"
       },
       "issue_binding": {
-        "type": "integer"
+        "type": "keyword"
       },
       "acquisition_status": {
         "type": "keyword"
