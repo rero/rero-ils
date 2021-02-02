@@ -19,7 +19,6 @@
 
 from copy import deepcopy
 
-import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import postdata
@@ -33,12 +32,12 @@ def test_anonymous_user():
 
 
 def test_patron_permissions(
-        client, json_header, system_librarian_martigny_no_email,
-        patron_martigny_no_email,
-        librarian_fully_no_email):
+        client, json_header, system_librarian_martigny,
+        patron_martigny,
+        librarian_fully):
     """Test patron permissions."""
     # Login as patron
-    login_user_via_session(client, patron_martigny_no_email.user)
+    login_user_via_session(client, patron_martigny.user)
 
     record = {
         "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
@@ -82,11 +81,9 @@ def test_patron_permissions(
         data['roles'] = [record['role']]
         data['patron']['barcode'] = 'barcode' + str(counter)
         data['email'] = str(counter) + '@domain.com'
-        with mock.patch('rero_ils.modules.patrons.api.'
-                        'send_reset_password_instructions'):
-            res, _ = postdata(
-                client,
-                'invenio_records_rest.ptrn_list',
-                data
-            )
-            assert res.status_code == 403
+        res, _ = postdata(
+            client,
+            'invenio_records_rest.ptrn_list',
+            data
+        )
+        assert res.status_code == 403

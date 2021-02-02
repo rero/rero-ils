@@ -24,13 +24,13 @@ from rero_ils.modules.locations.api import Location
 
 
 def test_ilsrecord_pid_after_validationerror(
-        client, loc_online_martigny_data, librarian_martigny_no_email):
+        client, loc_online_martigny_data, librarian_martigny):
     """Check PID before and after a ValidationError: it should be the same"""
     loc = Location.create(loc_online_martigny_data, delete_pid=True)
     next_pid = str(int(loc.pid) + 1)
 
     # post invalid data and post them
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res, _ = postdata(
         client,
         'invenio_records_rest.loc_list',

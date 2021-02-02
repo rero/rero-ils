@@ -41,12 +41,12 @@ def test_cli_validate(app, script_info):
     ]
 
 
-def test_cli_access_token(app, script_info, patron_martigny_no_email):
+def test_cli_access_token(app, script_info, patron_martigny):
     """Test access token cli."""
     runner = CliRunner()
     res = runner.invoke(
         tokens_create,
-        ['-n', 'test', '-u', patron_martigny_no_email.get('email'),
+        ['-n', 'test', '-u', patron_martigny.get('email'),
          '-t', 'my_token'],
         obj=script_info
     )

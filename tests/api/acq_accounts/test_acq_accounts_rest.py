@@ -177,8 +177,8 @@ def test_acq_accounts_can_delete(
 
 
 def test_filtered_acq_accounts_get(
-        client, librarian_martigny_no_email, acq_account_fiction_martigny,
-        librarian_sion_no_email, acq_account_fiction_sion):
+        client, librarian_martigny, acq_account_fiction_martigny,
+        librarian_sion, acq_account_fiction_sion):
     """Test acq accounts filter by organisation."""
     list_url = url_for('invenio_records_rest.acac_list')
 
@@ -186,7 +186,7 @@ def test_filtered_acq_accounts_get(
     assert res.status_code == 401
 
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     list_url = url_for('invenio_records_rest.acac_list')
 
     res = client.get(list_url)
@@ -195,7 +195,7 @@ def test_filtered_acq_accounts_get(
     assert data['hits']['total']['value'] == 1
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
     list_url = url_for('invenio_records_rest.acac_list')
 
     res = client.get(list_url)
@@ -206,11 +206,11 @@ def test_filtered_acq_accounts_get(
 
 def test_acq_account_secure_api(client, json_header,
                                 acq_account_fiction_martigny,
-                                librarian_martigny_no_email,
-                                librarian_sion_no_email):
+                                librarian_martigny,
+                                librarian_sion):
     """Test acq account secure api access."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     record_url = url_for('invenio_records_rest.acac_item',
                          pid_value=acq_account_fiction_martigny.pid)
 
@@ -218,7 +218,7 @@ def test_acq_account_secure_api(client, json_header,
     assert res.status_code == 200
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
     record_url = url_for('invenio_records_rest.acac_item',
                          pid_value=acq_account_fiction_martigny.pid)
 
@@ -228,13 +228,13 @@ def test_acq_account_secure_api(client, json_header,
 
 def test_acq_account_secure_api_create(client, json_header,
                                        acq_account_fiction_martigny_data,
-                                       librarian_martigny_no_email,
-                                       librarian_sion_no_email,
+                                       librarian_martigny,
+                                       librarian_sion,
                                        acq_account_books_saxon_data,
-                                       system_librarian_martigny_no_email):
+                                       system_librarian_martigny):
     """Test acq account secure api create."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     post_entrypoint = 'invenio_records_rest.acac_list'
 
     acq_account_books_saxon_data.pop('pid')
@@ -253,7 +253,7 @@ def test_acq_account_secure_api_create(client, json_header,
     )
     assert res.status_code == 201
 
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res, _ = postdata(
         client,
         post_entrypoint,
@@ -262,7 +262,7 @@ def test_acq_account_secure_api_create(client, json_header,
     assert res.status_code == 201
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
 
     res, _ = postdata(
         client,
@@ -274,13 +274,13 @@ def test_acq_account_secure_api_create(client, json_header,
 
 def test_acq_account_secure_api_update(client,
                                        acq_account_books_martigny,
-                                       librarian_martigny_no_email,
-                                       librarian_sion_no_email,
+                                       librarian_martigny,
+                                       librarian_sion,
                                        acq_account_books_martigny_data,
                                        json_header):
     """Test acq account secure api update."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     record_url = url_for('invenio_records_rest.acac_item',
                          pid_value=acq_account_books_martigny.pid)
 
@@ -294,7 +294,7 @@ def test_acq_account_secure_api_update(client,
     assert res.status_code == 200
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
 
     res = client.put(
         record_url,
@@ -306,13 +306,13 @@ def test_acq_account_secure_api_update(client,
 
 def test_acq_account_secure_api_delete(client,
                                        acq_account_books_martigny,
-                                       librarian_martigny_no_email,
-                                       librarian_sion_no_email,
+                                       librarian_martigny,
+                                       librarian_sion,
                                        acq_account_general_fully,
                                        json_header):
     """Test acq account secure api delete."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     record_url = url_for('invenio_records_rest.acac_item',
                          pid_value=acq_account_books_martigny.pid)
 
@@ -326,7 +326,7 @@ def test_acq_account_secure_api_delete(client,
     assert res.status_code == 403
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
 
     res = client.delete(record_url)
     assert res.status_code == 403

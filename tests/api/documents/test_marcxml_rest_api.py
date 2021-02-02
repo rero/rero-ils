@@ -26,7 +26,7 @@ from rero_ils.modules.cli import tokens_create
 
 def test_marcxml_documents_create(
         client, document_marcxml, documents_marcxml, rero_marcxml_header,
-        librarian_martigny_no_email):
+        librarian_martigny):
     """Test post of marcxml document for logged users."""
     res, data = postdata(
         client,
@@ -37,7 +37,7 @@ def test_marcxml_documents_create(
     )
     assert res.status_code == 401
 
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res, data = postdata(
         client,
         'invenio_records_rest.doc_list',
@@ -61,12 +61,12 @@ def test_marcxml_documents_create(
 
 def test_marcxml_documents_create_with_a_token(
         app, client, document_marcxml, rero_marcxml_header,
-        librarian_martigny_no_email, script_info):
+        librarian_martigny, script_info):
     """Test post of marcxml document with an access token."""
     runner = CliRunner()
     res = runner.invoke(
         tokens_create,
-        ['-n', 'test', '-u', librarian_martigny_no_email.get('email'),
+        ['-n', 'test', '-u', librarian_martigny.get('email'),
          '-t', 'my_token'],
         obj=script_info
     )

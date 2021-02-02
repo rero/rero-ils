@@ -27,10 +27,10 @@ from rero_ils.modules.items.models import ItemStatus
 
 def test_checkout_missing_parameters(
         client,
-        librarian_martigny_no_email,
+        librarian_martigny,
         lib_martigny,
         loc_public_martigny,
-        patron_martigny_no_email,
+        patron_martigny,
         item_lib_martigny,
         circulation_policies):
     """Test checkout with missing parameters.
@@ -41,7 +41,7 @@ def test_checkout_missing_parameters(
         - transaction_location_pid or transaction_library_pid
         - transaction_user_pid
     """
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
     assert item.status == ItemStatus.ON_SHELF
 
@@ -59,7 +59,7 @@ def test_checkout_missing_parameters(
         'api_item.checkout',
         dict(
             item_pid=item.pid,
-            patron_pid=patron_martigny_no_email.pid
+            patron_pid=patron_martigny.pid
         )
     )
     assert res.status_code == 400
@@ -68,8 +68,8 @@ def test_checkout_missing_parameters(
         'api_item.checkout',
         dict(
             item_pid=item.pid,
-            patron_pid=patron_martigny_no_email.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            patron_pid=patron_martigny.pid,
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 400
@@ -77,22 +77,22 @@ def test_checkout_missing_parameters(
 
 def test_checkout(
         client,
-        librarian_martigny_no_email,
+        librarian_martigny,
         lib_martigny,
         loc_public_martigny,
-        patron_martigny_no_email,
+        patron_martigny,
         item_lib_martigny,
         circulation_policies,
         item_on_shelf_martigny_patron_and_loan_pending):
     """Test a successful frontend checkout action."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
     assert item.status == ItemStatus.ON_SHELF
 
     params = dict(
         item_pid=item.pid,
-        patron_pid=patron_martigny_no_email.pid,
-        transaction_user_pid=librarian_martigny_no_email.pid,
+        patron_pid=patron_martigny.pid,
+        transaction_user_pid=librarian_martigny.pid,
         transaction_location_pid=loc_public_martigny.pid
     )
 
@@ -128,7 +128,7 @@ def test_checkout(
         dict(
             item_pid=item.pid,
             transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -140,8 +140,8 @@ def test_checkout(
 
     params = dict(
         item_pid=item.pid,
-        patron_pid=patron_martigny_no_email.pid,
-        transaction_user_pid=librarian_martigny_no_email.pid,
+        patron_pid=patron_martigny.pid,
+        transaction_user_pid=librarian_martigny.pid,
         transaction_location_pid=loc_public_martigny.pid,
         end_date=next_saturday.isoformat()
     )

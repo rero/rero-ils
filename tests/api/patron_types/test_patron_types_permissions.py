@@ -24,8 +24,8 @@ from utils import get_json
 from rero_ils.modules.patron_types.permissions import PatronTypePermission
 
 
-def test_patron_types_permissions_api(client, librarian_martigny_no_email,
-                                      system_librarian_martigny_no_email,
+def test_patron_types_permissions_api(client, librarian_martigny,
+                                      system_librarian_martigny,
                                       patron_type_adults_martigny,
                                       patron_type_youngsters_sion):
     """Test patron types permissions api."""
@@ -52,7 +52,7 @@ def test_patron_types_permissions_api(client, librarian_martigny_no_email,
     #   * lib can 'list' patron_type
     #   * lib can 'read' patron_type from its own organisation
     #   * lib can't never 'create', 'delete', 'update' patron_type
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res = client.get(ptty_adult_martigny_permissions_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -68,7 +68,7 @@ def test_patron_types_permissions_api(client, librarian_martigny_no_email,
     # Logged as system librarian
     #   * sys_lib can do anything about patron_type for its own organisation
     #   * sys_lib can't do anything about patron_type for other organisation
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res = client.get(ptty_adult_martigny_permissions_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -84,9 +84,9 @@ def test_patron_types_permissions_api(client, librarian_martigny_no_email,
     assert not data['delete']['can']
 
 
-def test_patron_types_permissions(patron_martigny_no_email,
-                                  librarian_martigny_no_email,
-                                  system_librarian_martigny_no_email,
+def test_patron_types_permissions(patron_martigny,
+                                  librarian_martigny,
+                                  system_librarian_martigny,
                                   patron_type_adults_martigny, org_martigny):
     """Test patron types permissions class."""
 
@@ -101,7 +101,7 @@ def test_patron_types_permissions(patron_martigny_no_email,
     ptty = patron_type_adults_martigny
     with mock.patch(
         'rero_ils.modules.patron_types.permissions.current_patron',
-        patron_martigny_no_email
+        patron_martigny
     ), mock.patch(
         'rero_ils.modules.patron_types.permissions.current_organisation',
         org_martigny
@@ -115,7 +115,7 @@ def test_patron_types_permissions(patron_martigny_no_email,
     # As Librarian
     with mock.patch(
         'rero_ils.modules.patron_types.permissions.current_patron',
-        librarian_martigny_no_email
+        librarian_martigny
     ), mock.patch(
         'rero_ils.modules.patron_types.permissions.current_organisation',
         org_martigny
@@ -129,7 +129,7 @@ def test_patron_types_permissions(patron_martigny_no_email,
     # As SystemLibrarian
     with mock.patch(
         'rero_ils.modules.patron_types.permissions.current_patron',
-        system_librarian_martigny_no_email
+        system_librarian_martigny
     ), mock.patch(
         'rero_ils.modules.patron_types.permissions.current_organisation',
         org_martigny

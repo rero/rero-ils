@@ -22,7 +22,7 @@ from invenio_records.api import Record
 from jsonref import JsonRefError
 
 
-def test_patrons_jsonresolver(system_librarian_martigny_no_email):
+def test_patrons_jsonresolver(system_librarian_martigny):
     """Test patron json resolver."""
     rec = Record.create({
         'patron': {'$ref': 'https://ils.rero.ch/api/patrons/ptrn1'}
@@ -32,7 +32,7 @@ def test_patrons_jsonresolver(system_librarian_martigny_no_email):
     }
 
     # deleted record
-    system_librarian_martigny_no_email.delete()
+    system_librarian_martigny.delete()
     with pytest.raises(JsonRefError):
         rec.replace_refs().dumps()
 

@@ -30,11 +30,11 @@ from rero_ils.modules.loans.api import Loan, LoanAction, LoanState
 
 def test_less_than_one_day_checkout(
         circ_policy_less_than_one_day_martigny,
-        patron_martigny_no_email,
-        patron2_martigny_no_email,
+        patron_martigny,
+        patron2_martigny,
         item_lib_martigny,
         loc_public_martigny,
-        librarian_martigny_no_email,
+        librarian_martigny,
         item_on_shelf_martigny_patron_and_loan_pending):
     """Test checkout on an ON_SHELF item with 'less than one day' cipo."""
     # Create a new item in ON_SHELF (without Loan)
@@ -48,7 +48,7 @@ def test_less_than_one_day_checkout(
     assert created_item.number_of_requests() == 0
     assert created_item.status == ItemStatus.ON_SHELF
     assert not created_item.is_requested_by_patron(
-        patron2_martigny_no_email.get('patron', {}).get('barcode'))
+        patron2_martigny.get('patron', {}).get('barcode'))
 
     # Ensure than the transaction date used will be an open_day.
     owner_lib = Library.get_record_by_pid(created_item.library_pid)
@@ -60,9 +60,9 @@ def test_less_than_one_day_checkout(
         # WITHOUT pending loan
         # CAN be CHECKOUT for less than one day
         params = {
-            'patron_pid': patron2_martigny_no_email.pid,
+            'patron_pid': patron2_martigny.pid,
             'transaction_location_pid': loc_public_martigny.pid,
-            'transaction_user_pid': librarian_martigny_no_email.pid,
+            'transaction_user_pid': librarian_martigny.pid,
             'pickup_location_pid': loc_public_martigny.pid
         }
         onloan_item, actions = created_item.checkout(**params)

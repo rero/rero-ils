@@ -30,9 +30,9 @@ def test_collections_permissions_api(client, document,
                                      item_lib_martigny, item2_lib_martigny,
                                      item_lib_sion, item2_lib_sion,
                                      loc_public_martigny, coll_martigny_1,
-                                     coll_sion_1, patron_martigny_no_email,
-                                     system_librarian_martigny_no_email,
-                                     librarian_martigny_no_email):
+                                     coll_sion_1, patron_martigny,
+                                     system_librarian_martigny,
+                                     librarian_martigny):
     """Test collections permissions."""
     coll_permissions_url = url_for(
         'api_blueprint.permissions',
@@ -56,7 +56,7 @@ def test_collections_permissions_api(client, document,
     assert res.status_code == 401
 
     # Logged as patron
-    login_user_via_session(client, patron_martigny_no_email.user)
+    login_user_via_session(client, patron_martigny.user)
     res = client.get(coll_permissions_url)
     assert res.status_code == 403
     data = get_json(res)
@@ -65,7 +65,7 @@ def test_collections_permissions_api(client, document,
     #   * lib can 'list' and 'read' all the collections
     #   * lib can 'create', 'update', delete only for his library
     #   * lib can't 'create', 'update', 'delete' item for other org
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res = client.get(coll_martigny_permissions_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -87,7 +87,7 @@ def test_collections_permissions_api(client, document,
     #   * sys lib can 'list' and 'read' all the collections
     #   * sys lib can 'create', 'update', delete only for his organisation
     #   * sys lib can't 'create', 'update', 'delete' item for other org
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res = client.get(coll_martigny_permissions_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -104,9 +104,9 @@ def test_collections_permissions_api(client, document,
     assert not data['delete']['can']
 
 
-def test_collections_permissions(patron_martigny_no_email,
-                                 librarian_martigny_no_email,
-                                 system_librarian_martigny_no_email,
+def test_collections_permissions(patron_martigny,
+                                 librarian_martigny,
+                                 system_librarian_martigny,
                                  coll_martigny_1, coll_sion_1,
                                  coll_saxon_1, lib_martigny, org_martigny):
     """Test collection permissions class."""
@@ -121,7 +121,7 @@ def test_collections_permissions(patron_martigny_no_email,
     # As Patron
     with mock.patch(
         'rero_ils.modules.collections.permissions.current_patron',
-        patron_martigny_no_email
+        patron_martigny
     ):
         assert CollectionPermission.list(None, coll_martigny_1)
         assert CollectionPermission.read(None, coll_martigny_1)
@@ -132,7 +132,7 @@ def test_collections_permissions(patron_martigny_no_email,
     # As Librarian
     with mock.patch(
         'rero_ils.modules.collections.permissions.current_patron',
-        librarian_martigny_no_email
+        librarian_martigny
     ), mock.patch(
         'rero_ils.modules.collections.permissions.current_organisation',
         org_martigny
@@ -156,7 +156,7 @@ def test_collections_permissions(patron_martigny_no_email,
     # As SystemLibrarian
     with mock.patch(
         'rero_ils.modules.collections.permissions.current_patron',
-        system_librarian_martigny_no_email
+        system_librarian_martigny
     ), mock.patch(
         'rero_ils.modules.collections.permissions.current_organisation',
         org_martigny

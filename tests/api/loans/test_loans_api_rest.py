@@ -27,23 +27,23 @@ from rero_ils.modules.loans.api import Loan, LoanAction, patron_profile
 
 
 def test_patron_profile_loans(
-        client, librarian_martigny_no_email,
-        patron_martigny_no_email, loc_public_martigny,
+        client, librarian_martigny,
+        patron_martigny, loc_public_martigny,
         item_lib_martigny, json_header, circulation_policies):
     """Test patron profile loans sent to patron account."""
 
     # No patron history
-    assert not patron_profile(patron_martigny_no_email)[3]
+    assert not patron_profile(patron_martigny)[3]
 
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res, data = postdata(
         client,
         'api_item.checkout',
         dict(
             item_pid=item_lib_martigny.pid,
-            patron_pid=patron_martigny_no_email.pid,
+            patron_pid=patron_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -57,15 +57,15 @@ def test_patron_profile_loans(
             item_pid=item_lib_martigny.pid,
             pid=loan_pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
 
     # Some history are created
-    assert patron_profile(patron_martigny_no_email)[3][0]['pid'] == loan_pid
+    assert patron_profile(patron_martigny)[3][0]['pid'] == loan_pid
 
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     record_url = url_for(
         'invenio_records_rest.loanid_item', pid_value=loan_pid)
     res = client.get(record_url)
@@ -82,7 +82,7 @@ def test_patron_profile_loans(
     loan = Loan.get_record_by_pid(loan_pid)
     loan['to_anonymize'] = True
     loan.update(loan, dbcommit=True, reindex=True)
-    assert not patron_profile(patron_martigny_no_email)[3]
+    assert not patron_profile(patron_martigny)[3]
 
     # anonymised loans are not readable.
     record_url = url_for(
@@ -101,4 +101,4 @@ def test_patron_profile_loans(
     loan.update(loan, dbcommit=True, reindex=True)
 
     item_lib_martigny.delete(dbcommit=True, delindex=True)
-    assert not patron_profile(patron_martigny_no_email)[3]
+    assert not patron_profile(patron_martigny)[3]

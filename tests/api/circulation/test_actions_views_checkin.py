@@ -26,13 +26,13 @@ from rero_ils.modules.items.models import ItemStatus
 
 
 def test_checkin_an_item(
-        client, librarian_martigny_no_email, lib_martigny,
+        client, librarian_martigny, lib_martigny,
         item_on_loan_martigny_patron_and_loan_on_loan, loc_public_martigny,
         item2_on_loan_martigny_patron_and_loan_on_loan,
         circulation_policies):
     """Test the frontend return a checked-out item action."""
     # test passes when all required parameters are given
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
 
     # test fails when there is a missing required parameter
@@ -63,7 +63,7 @@ def test_checkin_an_item(
         'api_item.checkin',
         dict(
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 404
@@ -75,7 +75,7 @@ def test_checkin_an_item(
         dict(
             item_pid=item.pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -90,7 +90,7 @@ def test_checkin_an_item(
         dict(
             item_pid=item.pid,
             transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -98,19 +98,19 @@ def test_checkin_an_item(
     assert item.status == ItemStatus.ON_SHELF
 
 
-def test_auto_checkin_else(client, librarian_martigny_no_email,
-                           patron_martigny_no_email, loc_public_martigny,
+def test_auto_checkin_else(client, librarian_martigny,
+                           patron_martigny, loc_public_martigny,
                            item_lib_martigny, json_header, lib_martigny,
                            loc_public_saxon):
     """Test item checkin no action."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res, data = postdata(
         client,
         'api_item.checkin',
         dict(
             item_pid=item_lib_martigny.pid,
             transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 400

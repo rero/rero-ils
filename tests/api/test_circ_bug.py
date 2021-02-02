@@ -25,12 +25,12 @@ from rero_ils.modules.loans.api import LoanAction
 
 
 def test_document_with_one_item_attached_bug(
-        client, librarian_martigny_no_email, patron_martigny_no_email,
-        patron2_martigny_no_email, loc_public_martigny,
+        client, librarian_martigny, patron_martigny,
+        patron2_martigny, loc_public_martigny,
         item_type_standard_martigny, item_lib_martigny, json_header,
         circulation_policies, lib_martigny):
     """Test document with one item."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
 
     # checkout first item1 to patron
     res, data = postdata(
@@ -38,9 +38,9 @@ def test_document_with_one_item_attached_bug(
         'api_item.checkout',
         dict(
             item_pid=item_lib_martigny.pid,
-            patron_pid=patron_martigny_no_email.pid,
+            patron_pid=patron_martigny.pid,
             transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -55,9 +55,9 @@ def test_document_with_one_item_attached_bug(
         dict(
             item_pid=item_lib_martigny.pid,
             pickup_location_pid=loc_public_martigny.pid,
-            patron_pid=patron2_martigny_no_email.pid,
+            patron_pid=patron2_martigny.pid,
             transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -72,7 +72,7 @@ def test_document_with_one_item_attached_bug(
             item_pid=item_lib_martigny.pid,
             pid=loan_pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -84,23 +84,23 @@ def test_document_with_one_item_attached_bug(
         dict(
             pid=loan2_pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
     assert item_lib_martigny.number_of_requests() == 0
 
 
-def test_document_with_items_attached_bug(client, librarian_martigny_no_email,
-                                          patron_martigny_no_email,
-                                          patron2_martigny_no_email,
+def test_document_with_items_attached_bug(client, librarian_martigny,
+                                          patron_martigny,
+                                          patron2_martigny,
                                           item2_lib_martigny,
                                           loc_public_martigny,
                                           item_type_standard_martigny,
                                           item_lib_martigny, json_header,
                                           circulation_policies, lib_martigny):
     """Test document with multiple items."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
 
     # checkout first item1 to patron
     res, data = postdata(
@@ -108,9 +108,9 @@ def test_document_with_items_attached_bug(client, librarian_martigny_no_email,
         'api_item.checkout',
         dict(
             item_pid=item_lib_martigny.pid,
-            patron_pid=patron_martigny_no_email.pid,
+            patron_pid=patron_martigny.pid,
             transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -124,9 +124,9 @@ def test_document_with_items_attached_bug(client, librarian_martigny_no_email,
         'api_item.checkout',
         dict(
             item_pid=item2_lib_martigny.pid,
-            patron_pid=patron_martigny_no_email.pid,
+            patron_pid=patron_martigny.pid,
             transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -140,9 +140,9 @@ def test_document_with_items_attached_bug(client, librarian_martigny_no_email,
         dict(
             item_pid=item_lib_martigny.pid,
             pickup_location_pid=loc_public_martigny.pid,
-            patron_pid=patron2_martigny_no_email.pid,
+            patron_pid=patron2_martigny.pid,
             transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -154,9 +154,9 @@ def test_document_with_items_attached_bug(client, librarian_martigny_no_email,
         dict(
             item_pid=item2_lib_martigny.pid,
             pickup_location_pid=loc_public_martigny.pid,
-            patron_pid=patron2_martigny_no_email.pid,
+            patron_pid=patron2_martigny.pid,
             transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -171,7 +171,7 @@ def test_document_with_items_attached_bug(client, librarian_martigny_no_email,
             item_pid=item_lib_martigny.pid,
             pid=loan_pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -187,7 +187,7 @@ def test_document_with_items_attached_bug(client, librarian_martigny_no_email,
             item_pid=item2_lib_martigny.pid,
             pid=loan2_pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200

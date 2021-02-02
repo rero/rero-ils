@@ -23,12 +23,12 @@ from utils import postdata
 
 
 def test_change_pickup_location_request(
-        client, librarian_martigny_no_email, lib_martigny,
+        client, librarian_martigny, lib_martigny,
         item_at_desk_martigny_patron_and_loan_at_desk,
         item_on_shelf_martigny_patron_and_loan_pending, loc_public_martigny,
         circulation_policies, loc_public_fully):
     """Test the frontend update pickup location calls."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item, patron, loan = item_on_shelf_martigny_patron_and_loan_pending
 
     # test fails when there is a missing required parameter
@@ -65,14 +65,14 @@ def test_change_pickup_location_request(
 
 
 def test_change_pickup_location_request_for_other_loans(
-        client, librarian_martigny_no_email, lib_martigny,
+        client, librarian_martigny, lib_martigny,
         item_at_desk_martigny_patron_and_loan_at_desk,
         loc_public_martigny, circulation_policies, loc_public_fully,
         item_on_loan_martigny_patron_and_loan_on_loan,
         item_in_transit_martigny_patron_and_loan_for_pickup,
         item_in_transit_martigny_patron_and_loan_to_house):
     """Test the frontend update pickup location calls of other loan states."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     # CHANGE_PICKUP_LOCATION_2_1: update denied on ITEM_ON_LOAN loans.
     item, patron, loan = item_at_desk_martigny_patron_and_loan_at_desk
     res, data = postdata(

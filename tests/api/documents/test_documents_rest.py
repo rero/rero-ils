@@ -58,13 +58,13 @@ def test_documents_permissions(client, document, json_header):
 
 
 def test_documents_newacq_filters(app, client,
-                                  system_librarian_martigny_no_email,
+                                  system_librarian_martigny,
                                   rero_json_header, document,
                                   holding_lib_martigny, holding_lib_saxon,
                                   loc_public_saxon,
                                   item_lib_martigny_data,
                                   ):
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
 
     # compute useful date
     today = datetime.today()
@@ -458,22 +458,22 @@ def test_documents_get_resolve_rero_json(
 def test_document_can_request_view(
         client, item_lib_fully,
         loan_pending_martigny, document,
-        patron_martigny_no_email,
-        patron2_martigny_no_email,
+        patron_martigny,
+        patron2_martigny,
         item_type_standard_martigny,
         circulation_policies,
-        librarian_martigny_no_email,
+        librarian_martigny,
         item_lib_martigny,
         item_lib_saxon,
         item_lib_sion,
         loc_public_martigny
 ):
     """Test can request on document view."""
-    login_user_via_session(client, patron_martigny_no_email.user)
+    login_user_via_session(client, patron_martigny.user)
 
     with mock.patch(
         'rero_ils.modules.documents.views.current_user',
-        patron_martigny_no_email.user
+        patron_martigny.user
     ):
         can, _ = can_request(item_lib_fully)
         assert can
@@ -482,7 +482,7 @@ def test_document_can_request_view(
 
     with mock.patch(
         'rero_ils.modules.documents.views.current_user',
-        patron2_martigny_no_email.user
+        patron2_martigny.user
     ):
         can, _ = can_request(item_lib_fully)
         assert not can

@@ -24,8 +24,8 @@ from utils import get_json
 from rero_ils.modules.vendors.permissions import VendorPermission
 
 
-def test_vendor_permissions_api(client, org_sion, patron_martigny_no_email,
-                                system_librarian_martigny_no_email,
+def test_vendor_permissions_api(client, org_sion, patron_martigny,
+                                system_librarian_martigny,
                                 vendor_martigny, vendor_sion):
     """Test organisations permissions api."""
     vendor_permissions_url = url_for(
@@ -48,14 +48,14 @@ def test_vendor_permissions_api(client, org_sion, patron_martigny_no_email,
     assert res.status_code == 401
 
     # Logged as patron
-    login_user_via_session(client, patron_martigny_no_email.user)
+    login_user_via_session(client, patron_martigny.user)
     res = client.get(vendor_permissions_url)
     assert res.status_code == 403
 
     # Logged as system librarian
     #   * sys_lib can do everything about vendors of its own organisation
     #   * sys_lib can't do anything about vendors of other organisation
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res = client.get(vendor_martigny_permission_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -73,8 +73,8 @@ def test_vendor_permissions_api(client, org_sion, patron_martigny_no_email,
     assert not data['delete']['can']
 
 
-def test_vendor_permissions(patron_martigny_no_email,
-                            librarian_martigny_no_email,
+def test_vendor_permissions(patron_martigny,
+                            librarian_martigny,
                             org_martigny, org_sion,
                             vendor_martigny, vendor_sion):
     """Test organisation permissions class."""
@@ -89,7 +89,7 @@ def test_vendor_permissions(patron_martigny_no_email,
     # As Patron
     with mock.patch(
         'rero_ils.modules.vendors.permissions.current_patron',
-        patron_martigny_no_email
+        patron_martigny
     ):
         assert not VendorPermission.list(None, vendor_martigny)
         assert not VendorPermission.read(None, vendor_martigny)
@@ -100,7 +100,7 @@ def test_vendor_permissions(patron_martigny_no_email,
     # As Librarian
     with mock.patch(
         'rero_ils.modules.vendors.permissions.current_patron',
-        librarian_martigny_no_email
+        librarian_martigny
     ), mock.patch(
         'rero_ils.modules.vendors.permissions.current_organisation',
         org_martigny
