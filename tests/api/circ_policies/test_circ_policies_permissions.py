@@ -25,8 +25,8 @@ from rero_ils.modules.circ_policies.permissions import \
     CirculationPolicyPermission
 
 
-def test_circ_policies_permissions_api(client, librarian_martigny_no_email,
-                                       system_librarian_martigny_no_email,
+def test_circ_policies_permissions_api(client, librarian_martigny,
+                                       system_librarian_martigny,
                                        circ_policy_short_martigny,
                                        circ_policy_temp_martigny,
                                        circ_policy_default_sion):
@@ -60,7 +60,7 @@ def test_circ_policies_permissions_api(client, librarian_martigny_no_email,
     #   * lib can 'read' cipo from its own organisation
     #   * lib can't never 'create', 'delete', cipo
     #   * lib can update cipo depending of cipo settings
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res = client.get(cipo_martigny_permissions_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -80,7 +80,7 @@ def test_circ_policies_permissions_api(client, librarian_martigny_no_email,
     # Logged as system librarian
     #   * sys_lib can do anything about patron type for its own organisation
     #   * sys_lib can't doo anything about patron type for other organisation
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res = client.get(cipo_martigny_permissions_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -96,9 +96,9 @@ def test_circ_policies_permissions_api(client, librarian_martigny_no_email,
     assert not data['delete']['can']
 
 
-def test_circ_policies_permissions(patron_martigny_no_email,
-                                   librarian_martigny_no_email,
-                                   system_librarian_martigny_no_email,
+def test_circ_policies_permissions(patron_martigny,
+                                   librarian_martigny,
+                                   system_librarian_martigny,
                                    circ_policy_short_martigny,
                                    circ_policy_temp_martigny, org_martigny):
     """Test circulation policies permission class."""
@@ -115,7 +115,7 @@ def test_circ_policies_permissions(patron_martigny_no_email,
     cipo_tmp = circ_policy_temp_martigny
     with mock.patch(
         'rero_ils.modules.circ_policies.permissions.current_patron',
-        patron_martigny_no_email
+        patron_martigny
     ), mock.patch(
         'rero_ils.modules.circ_policies.permissions.current_organisation',
         org_martigny
@@ -129,7 +129,7 @@ def test_circ_policies_permissions(patron_martigny_no_email,
     # As Librarian
     with mock.patch(
         'rero_ils.modules.circ_policies.permissions.current_patron',
-        librarian_martigny_no_email
+        librarian_martigny
     ), mock.patch(
         'rero_ils.modules.circ_policies.permissions.current_organisation',
         org_martigny
@@ -144,7 +144,7 @@ def test_circ_policies_permissions(patron_martigny_no_email,
     # As SystemLibrarian
     with mock.patch(
         'rero_ils.modules.circ_policies.permissions.current_patron',
-        system_librarian_martigny_no_email
+        system_librarian_martigny
     ), mock.patch(
         'rero_ils.modules.circ_policies.permissions.current_organisation',
         org_martigny

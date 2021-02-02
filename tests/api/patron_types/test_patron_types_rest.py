@@ -184,7 +184,7 @@ def test_patron_types_name_validate(client, patron_type_children_martigny):
 
 
 def test_patron_types_can_delete(client, patron_type_children_martigny,
-                                 patron_martigny_no_email,
+                                 patron_martigny,
                                  circulation_policies):
     """Test can delete a patron type."""
     patron_type = patron_type_children_martigny
@@ -199,12 +199,12 @@ def test_patron_types_can_delete(client, patron_type_children_martigny,
 
 
 def test_filtered_patron_types_get(
-        client, librarian_martigny_no_email, patron_type_children_martigny,
-        patron_type_adults_martigny, librarian_sion_no_email,
+        client, librarian_martigny, patron_type_children_martigny,
+        patron_type_adults_martigny, librarian_sion,
         patron_type_youngsters_sion, patron_type_grown_sion):
     """Test patron types filter by organisation."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     list_url = url_for('invenio_records_rest.ptty_list')
 
     res = client.get(list_url)
@@ -213,7 +213,7 @@ def test_filtered_patron_types_get(
     assert data['hits']['total']['value'] == 2
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
     list_url = url_for('invenio_records_rest.ptty_list')
 
     res = client.get(list_url)
@@ -224,11 +224,11 @@ def test_filtered_patron_types_get(
 
 def test_patron_type_secure_api(client, json_header,
                                 patron_type_children_martigny,
-                                librarian_martigny_no_email,
-                                librarian_sion_no_email):
+                                librarian_martigny,
+                                librarian_sion):
     """Test patron type secure api access."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     record_url = url_for('invenio_records_rest.ptty_item',
                          pid_value=patron_type_children_martigny.pid)
 
@@ -236,7 +236,7 @@ def test_patron_type_secure_api(client, json_header,
     assert res.status_code == 200
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
     record_url = url_for('invenio_records_rest.ptty_item',
                          pid_value=patron_type_children_martigny.pid)
 
@@ -246,12 +246,12 @@ def test_patron_type_secure_api(client, json_header,
 
 def test_patron_type_secure_api_create(client, json_header,
                                        patron_type_children_martigny,
-                                       system_librarian_martigny_no_email,
-                                       system_librarian_sion_no_email,
+                                       system_librarian_martigny,
+                                       system_librarian_sion,
                                        patron_type_children_martigny_data):
     """Test patron type secure api create."""
     # Martigny
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     post_entrypoint = 'invenio_records_rest.ptty_list'
 
     del patron_type_children_martigny_data['pid']
@@ -263,7 +263,7 @@ def test_patron_type_secure_api_create(client, json_header,
     assert res.status_code == 201
 
     # Sion
-    login_user_via_session(client, system_librarian_sion_no_email.user)
+    login_user_via_session(client, system_librarian_sion.user)
 
     res, _ = postdata(
         client,
@@ -275,11 +275,11 @@ def test_patron_type_secure_api_create(client, json_header,
 
 def test_patron_type_secure_api_update(client, json_header,
                                        patron_type_adults_martigny,
-                                       system_librarian_martigny_no_email,
-                                       system_librarian_sion_no_email,
+                                       system_librarian_martigny,
+                                       system_librarian_sion,
                                        patron_type_adults_martigny_data):
     """Test patron type secure api create."""
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     record_url = url_for('invenio_records_rest.ptty_item',
                          pid_value=patron_type_adults_martigny.pid)
 
@@ -293,7 +293,7 @@ def test_patron_type_secure_api_update(client, json_header,
     assert res.status_code == 200
 
     # Sion
-    login_user_via_session(client, system_librarian_sion_no_email.user)
+    login_user_via_session(client, system_librarian_sion.user)
 
     res = client.put(
         record_url,
@@ -305,11 +305,11 @@ def test_patron_type_secure_api_update(client, json_header,
 
 def test_patron_type_secure_api_delete(client, json_header,
                                        patron_type_adults_martigny,
-                                       system_librarian_martigny_no_email,
-                                       system_librarian_sion_no_email,
+                                       system_librarian_martigny,
+                                       system_librarian_sion,
                                        patron_type_adults_martigny_data):
     """Test patron type secure api delete."""
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     record_url = url_for('invenio_records_rest.ptty_item',
                          pid_value=patron_type_adults_martigny.pid)
 
@@ -318,7 +318,7 @@ def test_patron_type_secure_api_delete(client, json_header,
         assert res.status_code == 204
 
     # Sion
-    login_user_via_session(client, system_librarian_sion_no_email.user)
+    login_user_via_session(client, system_librarian_sion.user)
 
     res = client.delete(record_url)
     assert res.status_code == 403
@@ -326,7 +326,7 @@ def test_patron_type_secure_api_delete(client, json_header,
 
 def test_patron_types_subscription(
         patron_type_youngsters_sion, patron_type_adults_martigny,
-        patron_type_grown_sion, patron_sion_no_email):
+        patron_type_grown_sion, patron_sion):
     """Test subscription behavior for patron_types."""
     assert patron_type_youngsters_sion.is_subscription_required
 
@@ -344,13 +344,13 @@ def test_patron_types_subscription(
     # Test 'get_linked_patrons' functions.
     assert len(list(patron_type_grown_sion.get_linked_patron())) == 1
     assert len(list(patron_type_youngsters_sion.get_linked_patron())) == 0
-    patron_sion_no_email['patron']['type']['$ref'] = get_ref_for_pid(
+    patron_sion['patron']['type']['$ref'] = get_ref_for_pid(
         'ptty', patron_type_youngsters_sion.pid)
-    patron_sion_no_email.update(patron_sion_no_email, dbcommit=True)
-    patron_sion_no_email.reindex()
+    patron_sion.update(patron_sion, dbcommit=True)
+    patron_sion.reindex()
     assert len(list(patron_type_grown_sion.get_linked_patron())) == 0
     assert len(list(patron_type_youngsters_sion.get_linked_patron())) == 1
-    patron_sion_no_email['patron']['type']['$ref'] = get_ref_for_pid(
+    patron_sion['patron']['type']['$ref'] = get_ref_for_pid(
         'ptty', patron_type_grown_sion.pid)
-    patron_sion_no_email.update(patron_sion_no_email, dbcommit=True)
-    patron_sion_no_email.reindex()
+    patron_sion.update(patron_sion, dbcommit=True)
+    patron_sion.reindex()

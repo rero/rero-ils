@@ -24,7 +24,7 @@ from utils import get_json
 from rero_ils.modules.ill_requests.permissions import ILLRequestPermission
 
 
-def test_ill_requests_permissions_api(client, librarian_martigny_no_email,
+def test_ill_requests_permissions_api(client, librarian_martigny,
                                       ill_request_martigny, ill_request_sion):
     """Test ill_request permissions api."""
     illr_permissions_url = url_for(
@@ -50,7 +50,7 @@ def test_ill_requests_permissions_api(client, librarian_martigny_no_email,
     #   * lib can 'list', 'create' ill_requests
     #   * lib can 'read', 'update', 'delete' ill_request from its own
     #     organisation
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res = client.get(illr_martigny_permissions_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -66,9 +66,9 @@ def test_ill_requests_permissions_api(client, librarian_martigny_no_email,
     assert not data['delete']['can']
 
 
-def test_ill_requests_permissions(patron_martigny_no_email,
-                                  librarian_martigny_no_email,
-                                  system_librarian_martigny_no_email,
+def test_ill_requests_permissions(patron_martigny,
+                                  librarian_martigny,
+                                  system_librarian_martigny,
                                   ill_request_martigny, ill_request_sion,
                                   org_martigny):
     """Test patron types permissions class."""
@@ -83,7 +83,7 @@ def test_ill_requests_permissions(patron_martigny_no_email,
     # As Patron
     with mock.patch(
         'rero_ils.modules.ill_requests.permissions.current_patron',
-        patron_martigny_no_email
+        patron_martigny
     ), mock.patch(
         'rero_ils.modules.ill_requests.permissions.current_organisation',
         org_martigny
@@ -103,7 +103,7 @@ def test_ill_requests_permissions(patron_martigny_no_email,
     # As Librarian
     with mock.patch(
         'rero_ils.modules.ill_requests.permissions.current_patron',
-        librarian_martigny_no_email
+        librarian_martigny
     ), mock.patch(
         'rero_ils.modules.ill_requests.permissions.current_organisation',
         org_martigny
@@ -123,7 +123,7 @@ def test_ill_requests_permissions(patron_martigny_no_email,
     # As System-librarian
     with mock.patch(
         'rero_ils.modules.ill_requests.permissions.current_patron',
-        system_librarian_martigny_no_email
+        system_librarian_martigny
     ), mock.patch(
         'rero_ils.modules.ill_requests.permissions.current_organisation',
         org_martigny

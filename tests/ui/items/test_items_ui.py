@@ -27,7 +27,7 @@ from invenio_accounts.testutils import login_user_via_session
 
 def test_items_ui_permissions(client, item_lib_martigny,
                               loc_public_martigny,
-                              patron_martigny_no_email, json_header,
+                              patron_martigny, json_header,
                               circulation_policies):
     """Test patron request ui permissions."""
     item_pid = item_lib_martigny.pid
@@ -41,7 +41,7 @@ def test_items_ui_permissions(client, item_lib_martigny,
     res = client.get(request_url)
     assert res.status_code == 401
 
-    login_user_via_session(client, patron_martigny_no_email.user)
+    login_user_via_session(client, patron_martigny.user)
     request_url = url_for(
         'item.patron_request',
         viewcode='global',

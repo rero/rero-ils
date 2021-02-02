@@ -27,7 +27,7 @@ from rero_ils.modules.patrons.api import Patron
 
 def test_extend_loan_missing_parameters(
         client,
-        librarian_martigny_no_email,
+        librarian_martigny,
         lib_martigny,
         loc_public_martigny,
         circulation_policies,
@@ -38,7 +38,7 @@ def test_extend_loan_missing_parameters(
         - transaction_location_pid or transaction_library_pid
         - transaction_user_pid
     """
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
     assert item.status == ItemStatus.ON_LOAN
 
@@ -65,7 +65,7 @@ def test_extend_loan_missing_parameters(
         'api_item.extend_loan',
         dict(
             item_pid=item.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 400
@@ -73,13 +73,13 @@ def test_extend_loan_missing_parameters(
 
 def test_extend_loan(
         client,
-        librarian_martigny_no_email,
+        librarian_martigny,
         lib_martigny,
         loc_public_martigny,
         circulation_policies,
         item_on_loan_martigny_patron_and_loan_on_loan):
     """Test frontend extend action."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
     assert item.status == ItemStatus.ON_LOAN
 
@@ -94,7 +94,7 @@ def test_extend_loan(
         'api_item.extend_loan',
         dict(
             item_pid=item.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -110,7 +110,7 @@ def test_extend_loan(
         'api_item.extend_loan',
         dict(
             item_pid=item.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )

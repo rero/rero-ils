@@ -27,7 +27,7 @@ from utils import login_user_for_view
 def test_ill_request_create_request_form(client, app,
                                          ill_request_martigny_data_tmp,
                                          loc_public_martigny,
-                                         patron_martigny_no_email):
+                                         patron_martigny):
     """ test ill request create form."""
     request_form_url = url_for('ill_requests.ill_request_form')
 
@@ -37,7 +37,7 @@ def test_ill_request_create_request_form(client, app,
     assert res.status_code == 302
 
     # logged as user
-    login_user_for_view(client, patron_martigny_no_email)
+    login_user_for_view(client, patron_martigny)
     res = client.get(request_form_url)
     assert res.status_code == 200
 

@@ -28,11 +28,11 @@ from rero_ils.modules.utils import get_ref_for_pid
 
 
 def test_operation_logs_permissions_api(
-        client, document, patron_sion_no_email,
-        librarian_martigny_no_email):
+        client, document, patron_sion,
+        librarian_martigny):
     """Test operation log permissions api."""
     oplg = OperationLog.get_record_by_pid('1')
-        
+
     operation_log_permissions_url = url_for(
         'api_blueprint.permissions',
         route_name='operation_logs'
@@ -48,12 +48,12 @@ def test_operation_logs_permissions_api(
     assert res.status_code == 401
 
     # Logged as patron
-    login_user_via_session(client, patron_sion_no_email.user)
+    login_user_via_session(client, patron_sion.user)
     res = client.get(operation_log_permissions_url)
     assert res.status_code == 403
 
     # Logged as
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res = client.get(operation_log_martigny_permission_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -64,10 +64,10 @@ def test_operation_logs_permissions_api(
     assert not data['update']['can']
 
 
-def test_operation_logs_permissions(patron_martigny_no_email, org_martigny,
-                           librarian_martigny_no_email, org_sion,
-                           item_lib_martigny, 
-                           system_librarian_martigny_no_email):
+def test_operation_logs_permissions(patron_martigny, org_martigny,
+                           librarian_martigny, org_sion,
+                           item_lib_martigny,
+                           system_librarian_martigny):
     """Test operation log permissions class."""
 
     oplg = OperationLog.get_record_by_pid('1')
@@ -82,7 +82,7 @@ def test_operation_logs_permissions(patron_martigny_no_email, org_martigny,
     # As Patron
     with mock.patch(
         'rero_ils.modules.operation_logs.permissions.current_patron',
-        patron_martigny_no_email
+        patron_martigny
     ):
         assert not OperationLogPermission.list(None, oplg)
         assert not OperationLogPermission.read(None, oplg)
@@ -98,7 +98,7 @@ def test_operation_logs_permissions(patron_martigny_no_email, org_martigny,
     # As Librarian
     with mock.patch(
         'rero_ils.modules.operation_logs.permissions.current_patron',
-        librarian_martigny_no_email
+        librarian_martigny
     ):
         assert OperationLogPermission.list(None, oplg)
         assert OperationLogPermission.read(None, oplg)
@@ -119,7 +119,7 @@ def test_operation_logs_permissions(patron_martigny_no_email, org_martigny,
     # # As System-librarian
     # with mock.patch(
     #     'rero_ils.modules.operation_logs.permissions.current_patron',
-    #     system_librarian_martigny_no_email
+    #     system_librarian_martigny
     # ):
     #     assert not OperationLogPermission.list(None, oplg)
     #     assert not OperationLogPermission.read(None, oplg)

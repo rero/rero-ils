@@ -24,8 +24,8 @@ from rero_ils.modules.templates.api import Template, TemplatesSearch
 
 def test_template_es_mapping(es_clear, db, templ_doc_public_martigny_data,
                              templ_doc_private_martigny_data,
-                             org_martigny, system_librarian_martigny_no_email,
-                             librarian_martigny_no_email):
+                             org_martigny, system_librarian_martigny,
+                             librarian_martigny):
     """Test template elasticsearch mapping."""
     search = TemplatesSearch()
     mapping = get_mapping(search.Meta.index)

@@ -22,8 +22,8 @@ from utils import get_json
 
 
 def test_user_info(
-        client, document, user_with_profile, patron_martigny_no_email,
-        system_librarian_martigny_no_email):
+        client, document, user_with_profile, patron_martigny,
+        system_librarian_martigny):
     """Test users API."""
     # failed: no logged user
     res = client.get(
@@ -35,7 +35,7 @@ def test_user_info(
     assert res.status_code == 401
 
     # patron should not have the permission
-    login_user_via_session(client, patron_martigny_no_email.user)
+    login_user_via_session(client, patron_martigny.user)
     res = client.get(
         url_for(
             'api_blueprint.user_info',
@@ -45,7 +45,7 @@ def test_user_info(
     assert res.status_code == 403
 
     # librarian
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
 
     # user does not exists
     res = client.get(

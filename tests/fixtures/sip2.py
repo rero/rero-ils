@@ -20,11 +20,8 @@
 
 from copy import deepcopy
 
-import mock
 import pytest
-from utils import flush_index
-
-from rero_ils.modules.patrons.api import Patron, PatronsSearch
+from utils import create_patron
 
 
 @pytest.fixture(scope="module")
@@ -34,23 +31,14 @@ def sip2_librarian_martigny_data(data):
 
 
 @pytest.fixture(scope="module")
-@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
-def sip2_librarian_martigny_no_email(
+def sip2_librarian_martigny(
         app,
         roles,
         lib_martigny,
         sip2_librarian_martigny_data):
     """Create Martigny librarian without sending reset password instruction."""
-    # create patron account
-    patron = Patron.create(
-        data=sip2_librarian_martigny_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-
-    flush_index(PatronsSearch.Meta.index)
-    return patron
-
+    data = sip2_librarian_martigny_data
+    yield create_patron(data)
 
 @pytest.fixture(scope="module")
 def sip2_patron_martigny_data(data):
@@ -59,19 +47,12 @@ def sip2_patron_martigny_data(data):
 
 
 @pytest.fixture(scope="module")
-@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
-def sip2_patron_martigny_no_email(
+def sip2_patron_martigny(
         app,
         roles,
         patron_type_children_martigny,
         sip2_patron_martigny_data):
     """Create Martigny patron without sending reset password instruction."""
     # create patron account
-    patron = Patron.create(
-        data=sip2_patron_martigny_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-
-    flush_index(PatronsSearch.Meta.index)
-    return patron
+    data = sip2_patron_martigny_data
+    yield create_patron(data)

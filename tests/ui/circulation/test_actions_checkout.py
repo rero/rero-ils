@@ -32,11 +32,11 @@ from rero_ils.modules.loans.api import Loan, LoanAction, LoanState
 
 def test_checkout_on_item_on_shelf(
         circulation_policies,
-        patron_martigny_no_email,
-        patron2_martigny_no_email,
+        patron_martigny,
+        patron2_martigny,
         item_lib_martigny,
         loc_public_martigny,
-        librarian_martigny_no_email,
+        librarian_martigny,
         item_on_shelf_martigny_patron_and_loan_pending):
     """Test checkout on an ON_SHELF item."""
     # Create a new item in ON_SHELF (without Loan)
@@ -50,16 +50,16 @@ def test_checkout_on_item_on_shelf(
     assert created_item.number_of_requests() == 0
     assert created_item.status == ItemStatus.ON_SHELF
     assert not created_item.is_requested_by_patron(
-        patron_martigny_no_email.get('patron', {}).get('barcode'))
+        patron_martigny.get('patron', {}).get('barcode'))
 
     # the following tests the circulation action CHECKOUT_1_1
     # an ON_SHELF item
     # WITHOUT pending loan
     # CAN be CHECKOUT
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     onloan_item, actions = created_item.checkout(**params)
@@ -77,7 +77,7 @@ def test_checkout_on_item_on_shelf(
     # WITH pending loan
     # checkout patron != patron of first PENDING loan
     # can NOT be CHECKOUT
-    params['patron_pid'] = patron2_martigny_no_email.pid
+    params['patron_pid'] = patron2_martigny.pid
     # CHECKOUT patron is DIFFERENT from 1st PENDING LOAN patron
     assert params['patron_pid'] != patron['pid']
     with pytest.raises(ItemNotAvailableError):
@@ -98,7 +98,7 @@ def test_checkout_on_item_on_shelf(
         patron.patron.get('barcode'))
     # Checkout it! CHECKOUT patron == 1st PENDING LOAN patron
     assert patron.get('pid') == loan.get('patron_pid')
-    params['patron_pid'] = patron_martigny_no_email.pid
+    params['patron_pid'] = patron_martigny.pid
     onloan_item, actions = pending_item.checkout(**params, pid=loan.pid)
     loan = Loan.get_record_by_pid(actions[LoanAction.CHECKOUT].get('pid'))
     # Check loan is ITEM_ON_LOAN and item is ON_LOAN
@@ -109,9 +109,9 @@ def test_checkout_on_item_on_shelf(
 
 def test_checkout_on_item_at_desk(
         item_at_desk_martigny_patron_and_loan_at_desk,
-        patron2_martigny_no_email,
+        patron2_martigny,
         loc_public_martigny,
-        librarian_martigny_no_email):
+        librarian_martigny):
     """Test CHECKOUT on an AT_DESK item."""
     # Prepare a new item with ITEM_AT_DESK loan
     atdesk_item, patron, loan = item_at_desk_martigny_patron_and_loan_at_desk
@@ -122,9 +122,9 @@ def test_checkout_on_item_at_desk(
     # checkout patron != patron of first PENDING loan
     # can NOT be CHECKOUT (raise ItemNotAvailableError)
     params = {
-        'patron_pid': patron2_martigny_no_email.pid,
+        'patron_pid': patron2_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     assert params['patron_pid'] != loan['patron_pid']
@@ -156,10 +156,10 @@ def test_checkout_on_item_at_desk(
 
 def test_checkout_on_item_on_loan(
         item_on_loan_martigny_patron_and_loan_on_loan,
-        patron_martigny_no_email,
-        patron2_martigny_no_email,
+        patron_martigny,
+        patron2_martigny,
         loc_public_martigny,
-        librarian_martigny_no_email):
+        librarian_martigny):
     """Test CHECKOUT on an ON_LOAN item."""
     # Prepare a new item with an ITEM_ON_LOAN loan
     onloan_item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
@@ -170,9 +170,9 @@ def test_checkout_on_item_on_loan(
     # checkout patron = patron of current loan
     # can NOT be CHECKOUT
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     # Checkout it! CHECKOUT patron == current LOAN patron
@@ -190,7 +190,7 @@ def test_checkout_on_item_on_loan(
     # an ON_LOAN item
     # checkout patron != patron of current loan
     # can NOT be CHECKOUT
-    params['patron_pid'] = patron2_martigny_no_email.pid
+    params['patron_pid'] = patron2_martigny.pid
     assert params['patron_pid'] != patron['pid']
     with pytest.raises(ItemNotAvailableError):
         asked_item, actions = onloan_item.checkout(**params)
@@ -203,10 +203,10 @@ def test_checkout_on_item_on_loan(
 
 def test_checkout_on_item_in_transit_for_pickup(
         item_in_transit_martigny_patron_and_loan_for_pickup,
-        patron_martigny_no_email,
-        patron2_martigny_no_email,
+        patron_martigny,
+        patron2_martigny,
         loc_public_martigny,
-        librarian_martigny_no_email, loc_public_saxon):
+        librarian_martigny, loc_public_saxon):
     """Test CHECKOUT on an IN_TRANSIT (for pickup) item."""
     # Prepare a new item with an IN_TRANSIT loan
     intransit_item, patron, loan = \
@@ -218,9 +218,9 @@ def test_checkout_on_item_in_transit_for_pickup(
     # checkout patron != patron of current loan
     # can NOT be CHECKOUT
     params = {
-        'patron_pid': patron2_martigny_no_email.pid,
+        'patron_pid': patron2_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_saxon.pid
     }
     assert params['patron_pid'] != patron['pid']
@@ -236,7 +236,7 @@ def test_checkout_on_item_in_transit_for_pickup(
     # an IN_TRANSIT (for pickup) item
     # checkout patron = patron of current loan
     # CAN be CHECKOUT
-    params['patron_pid'] = patron_martigny_no_email.pid
+    params['patron_pid'] = patron_martigny.pid
     # Checkout it! CHECKOUT patron == current LOAN patron
     assert params['patron_pid'] == patron['pid']
     asked_item, actions = intransit_item.checkout(**params, pid=loan.pid)
@@ -249,8 +249,8 @@ def test_checkout_on_item_in_transit_for_pickup(
 
 def test_checkout_on_item_in_transit_to_house(
         item_in_transit_martigny_patron_and_loan_to_house,
-        patron_martigny_no_email,
-        librarian_martigny_no_email,
+        patron_martigny,
+        librarian_martigny,
         loc_public_martigny,
         loc_public_saxon):
     """Test CHECKOUT on an IN_TRANSIT (to house) item."""
@@ -264,9 +264,9 @@ def test_checkout_on_item_in_transit_to_house(
     # WITHOUT pending loan
     # CAN be CHECKOUT
     params = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_saxon.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid,
     }
     # Checkout it!
@@ -281,8 +281,8 @@ def test_checkout_on_item_in_transit_to_house(
 
 def test_checkout_on_item_in_transit_to_house_for_another_patron(
         item2_in_transit_martigny_patron_and_loan_to_house,
-        patron2_martigny_no_email,
-        librarian_martigny_no_email,
+        patron2_martigny,
+        librarian_martigny,
         loc_public_martigny,
         loc_public_saxon):
     """Test CHECKOUT on an IN_TRANSIT (to house) item."""
@@ -296,9 +296,9 @@ def test_checkout_on_item_in_transit_to_house_for_another_patron(
     # WITHOUT pending loan
     # CAN be CHECKOUT
     params = {
-        'patron_pid': patron2_martigny_no_email.pid,
+        'patron_pid': patron2_martigny.pid,
         'transaction_location_pid': loc_public_saxon.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid,
     }
     # Checkout it!
@@ -314,9 +314,9 @@ def test_checkout_on_item_in_transit_to_house_for_another_patron(
 def test_checkout_on_item_in_transit_to_house_with_pending_loan(
         item_in_transit_martigny_patron_and_loan_to_house,
         item_lib_martigny,
-        patron2_martigny_no_email,
+        patron2_martigny,
         loc_public_martigny,
-        librarian_martigny_no_email,
+        librarian_martigny,
         loc_public_fully):
     """Test item IN_TRANSIT (to house), WITHOUT pending loan, same patron."""
     # Create a new item in IN_TRANSIT_TO_HOUSE
@@ -327,7 +327,7 @@ def test_checkout_on_item_in_transit_to_house_with_pending_loan(
     params = {
         'patron_pid': patron['pid'],
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid,
         'checkin_transaction_location_pid': loc_public_fully.pid
     }
@@ -340,7 +340,7 @@ def test_checkout_on_item_in_transit_to_house_with_pending_loan(
             params=params)
 
     # Create a pending loan
-    params['patron_pid'] = patron2_martigny_no_email.pid
+    params['patron_pid'] = patron2_martigny.pid
     checked_item, requested_loan = item_record_to_a_specific_loan_state(
         item=intransit_item,
         loan_state=LoanState.PENDING,

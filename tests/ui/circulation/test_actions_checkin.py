@@ -28,9 +28,9 @@ from rero_ils.modules.loans.api import Loan, LoanState
 
 
 def test_checkin_on_item_on_shelf_no_requests(
-        item_lib_martigny, patron_martigny_no_email, lib_martigny,
-        loc_public_martigny, librarian_martigny_no_email, lib_fully,
-        patron2_martigny_no_email, loc_public_fully, circulation_policies):
+        item_lib_martigny, patron_martigny, lib_martigny,
+        loc_public_martigny, librarian_martigny, lib_fully,
+        patron2_martigny, loc_public_fully, circulation_policies):
     """Test checkin on an on_shelf item with no requests."""
     # the following tests the circulation action CHECKIN_1_1_1
     # an on_shelf item with no pending requests. when the item library equal
@@ -38,7 +38,7 @@ def test_checkin_on_item_on_shelf_no_requests(
     # no circulation action will be performed.
     params = {
         'transaction_library_pid': lib_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid
+        'transaction_user_pid': librarian_martigny.pid
     }
     with pytest.raises(NoCirculationAction):
         item, actions = item_lib_martigny.checkin(**params)
@@ -62,8 +62,8 @@ def test_checkin_on_item_on_shelf_no_requests(
 
 def test_checkin_on_item_on_shelf_with_requests(
         item_on_shelf_martigny_patron_and_loan_pending,
-        loc_public_martigny, librarian_martigny_no_email,
-        patron2_martigny_no_email, loc_public_fully, lib_martigny):
+        loc_public_martigny, librarian_martigny,
+        patron2_martigny, loc_public_fully, lib_martigny):
     """Test checkin on an on_shelf item with requests."""
     item, patron, loan = item_on_shelf_martigny_patron_and_loan_pending
     # the following tests the circulation action CHECKIN_1_2_1
@@ -74,9 +74,9 @@ def test_checkin_on_item_on_shelf_with_requests(
 
     # create a second pending loan on same item
     params = {
-        'patron_pid': patron2_martigny_no_email.pid,
+        'patron_pid': patron2_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_fully.pid
     }
     item, requested_loan = item_record_to_a_specific_loan_state(
@@ -86,7 +86,7 @@ def test_checkin_on_item_on_shelf_with_requests(
 
     params = {
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid
+        'transaction_user_pid': librarian_martigny.pid
     }
     item, actions = item.checkin(**params)
     assert item.status == ItemStatus.AT_DESK
@@ -97,8 +97,8 @@ def test_checkin_on_item_on_shelf_with_requests(
 
 def test_checkin_on_item_on_shelf_with_requests_external(
         item_on_shelf_fully_patron_and_loan_pending,
-        loc_public_fully, librarian_martigny_no_email,
-        patron2_martigny_no_email, lib_martigny, loc_public_martigny):
+        loc_public_fully, librarian_martigny,
+        patron2_martigny, lib_martigny, loc_public_martigny):
     """Test checkin on an on_shelf item with requests."""
     item, patron, loan = item_on_shelf_fully_patron_and_loan_pending
     # the following tests the circulation action CHECKIN_1_2_2
@@ -109,9 +109,9 @@ def test_checkin_on_item_on_shelf_with_requests_external(
 
     # create a second pending loan on same item
     params = {
-        'patron_pid': patron2_martigny_no_email.pid,
+        'patron_pid': patron2_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     item, requested_loan = item_record_to_a_specific_loan_state(
@@ -121,7 +121,7 @@ def test_checkin_on_item_on_shelf_with_requests_external(
 
     params = {
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid
+        'transaction_user_pid': librarian_martigny.pid
     }
     item, actions = item.checkin(**params)
     item = Item.get_record_by_pid(item.pid)
@@ -134,7 +134,7 @@ def test_checkin_on_item_on_shelf_with_requests_external(
 
 def test_checkin_on_item_at_desk(
         item_at_desk_martigny_patron_and_loan_at_desk,
-        librarian_martigny_no_email, loc_public_fully,
+        librarian_martigny, loc_public_fully,
         lib_martigny, loc_public_martigny):
     """Test checkin on an at_desk item."""
     item, patron, loan = item_at_desk_martigny_patron_and_loan_at_desk
@@ -144,7 +144,7 @@ def test_checkin_on_item_at_desk(
     # no action is done, item remains at_desk
     params = {
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid
+        'transaction_user_pid': librarian_martigny.pid
     }
     with pytest.raises(NoCirculationAction):
         item, actions = item.checkin(**params)
@@ -158,7 +158,7 @@ def test_checkin_on_item_at_desk(
 
     params = {
         'transaction_location_pid': loc_public_fully.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid
+        'transaction_user_pid': librarian_martigny.pid
     }
     with pytest.raises(NoCirculationAction):
         item, actions = item.checkin(**params)
@@ -170,7 +170,7 @@ def test_checkin_on_item_on_loan(
         item_on_loan_martigny_patron_and_loan_on_loan,
         item2_on_loan_martigny_patron_and_loan_on_loan,
         item_on_loan_fully_patron_and_loan_on_loan, loc_public_fully,
-        loc_public_martigny, librarian_martigny_no_email):
+        loc_public_martigny, librarian_martigny):
     """Test checkin on an on_loan item."""
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
     # the following tests the circulation action CHECKIN_3_1_1
@@ -179,7 +179,7 @@ def test_checkin_on_item_on_loan(
     # case when the loan pid is given as a parameter
     params = {
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pid': loan.pid
     }
     item, actions = item.checkin(**params)
@@ -192,7 +192,7 @@ def test_checkin_on_item_on_loan(
     item, patron, loan = item_on_loan_fully_patron_and_loan_on_loan
     params = {
         'transaction_location_pid': loc_public_fully.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid
+        'transaction_user_pid': librarian_martigny.pid
     }
     item, actions = item.checkin(**params)
     item = Item.get_record_by_pid(item.pid)
@@ -206,7 +206,7 @@ def test_checkin_on_item_on_loan(
     item, patron, loan = item2_on_loan_martigny_patron_and_loan_on_loan
     params = {
         'transaction_location_pid': loc_public_fully.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pid': loan.pid
     }
     item, actions = item.checkin(**params)
@@ -218,8 +218,8 @@ def test_checkin_on_item_on_loan(
 
 def test_checkin_on_item_on_loan_with_requests(
         item3_on_loan_martigny_patron_and_loan_on_loan,
-        loc_public_martigny, librarian_martigny_no_email,
-        patron2_martigny_no_email):
+        loc_public_martigny, librarian_martigny,
+        patron2_martigny):
     """Test checkin on an on_loan item with requests at local library."""
     item, patron, loan = item3_on_loan_martigny_patron_and_loan_on_loan
     # the following tests the circulation action CHECKIN_3_2_1
@@ -228,9 +228,9 @@ def test_checkin_on_item_on_loan_with_requests(
     # checkin the item and item becomes at_desk.
     # the on_loan is returned and validating the first pending loan request.
     params = {
-        'patron_pid': patron2_martigny_no_email.pid,
+        'patron_pid': patron2_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
 
@@ -250,8 +250,8 @@ def test_checkin_on_item_on_loan_with_requests(
 def test_checkin_on_item_on_loan_with_requests_externally(
         item4_on_loan_martigny_patron_and_loan_on_loan,
         item5_on_loan_martigny_patron_and_loan_on_loan,
-        loc_public_martigny, librarian_martigny_no_email,
-        patron2_martigny_no_email, loc_public_fully, loc_public_saxon):
+        loc_public_martigny, librarian_martigny,
+        patron2_martigny, loc_public_fully, loc_public_saxon):
     """Test checkin on an on_loan item with requests at an external library."""
     item, patron, loan = item4_on_loan_martigny_patron_and_loan_on_loan
     # the following tests the circulation action CHECKIN_3_2_2_1
@@ -262,9 +262,9 @@ def test_checkin_on_item_on_loan_with_requests_externally(
     # the pending loan becomes ITEM_IN_TRANSIT_FOR_PICKUP
 
     params = {
-        'patron_pid': patron2_martigny_no_email.pid,
+        'patron_pid': patron2_martigny.pid,
         'transaction_location_pid': loc_public_fully.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
 
@@ -289,9 +289,9 @@ def test_checkin_on_item_on_loan_with_requests_externally(
     # library, the pending loan becomes ITEM_IN_TRANSIT_FOR_PICKUP
 
     params = {
-        'patron_pid': patron2_martigny_no_email.pid,
+        'patron_pid': patron2_martigny.pid,
         'transaction_location_pid': loc_public_saxon.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_fully.pid
     }
 
@@ -310,7 +310,7 @@ def test_checkin_on_item_on_loan_with_requests_externally(
 
 def test_checkin_on_item_in_transit_for_pickup(
         item_in_transit_martigny_patron_and_loan_for_pickup,
-        loc_public_martigny, librarian_martigny_no_email,
+        loc_public_martigny, librarian_martigny,
         loc_public_fully):
     """Test checkin on an in_transit item for pickup."""
     item, patron, loan = item_in_transit_martigny_patron_and_loan_for_pickup
@@ -323,7 +323,7 @@ def test_checkin_on_item_in_transit_for_pickup(
     params = {
         'patron_pid': patron.pid,
         'transaction_location_pid': loc_public_fully.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid
+        'transaction_user_pid': librarian_martigny.pid
     }
     item, actions = item.checkin(**params)
     item = Item.get_record_by_pid(item.pid)
@@ -334,7 +334,7 @@ def test_checkin_on_item_in_transit_for_pickup(
 
 def test_checkin_on_item_in_transit_for_pickup_externally(
         item2_in_transit_martigny_patron_and_loan_for_pickup,
-        loc_public_martigny, librarian_martigny_no_email,
+        loc_public_martigny, librarian_martigny,
         loc_public_fully, loc_public_saxon):
     """Test checkin on an in_transit item for pickup."""
     item, patron, loan = item2_in_transit_martigny_patron_and_loan_for_pickup
@@ -346,7 +346,7 @@ def test_checkin_on_item_in_transit_for_pickup_externally(
     params = {
         'patron_pid': patron.pid,
         'transaction_location_pid': loc_public_saxon.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid
+        'transaction_user_pid': librarian_martigny.pid
     }
     with pytest.raises(NoCirculationAction):
         item, actions = item.checkin(**params)
@@ -358,7 +358,7 @@ def test_checkin_on_item_in_transit_for_pickup_externally(
 
 def test_checkin_on_item_in_transit_to_house(
         item_in_transit_martigny_patron_and_loan_to_house,
-        loc_public_martigny, librarian_martigny_no_email):
+        loc_public_martigny, librarian_martigny):
     """Test checkin on an in_transit item to house."""
     item, patron, loan = item_in_transit_martigny_patron_and_loan_to_house
 
@@ -369,7 +369,7 @@ def test_checkin_on_item_in_transit_to_house(
     params = {
         'patron_pid': patron.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid
+        'transaction_user_pid': librarian_martigny.pid
     }
     item, actions = item.checkin(**params)
     item = Item.get_record_by_pid(item.pid)
@@ -380,7 +380,7 @@ def test_checkin_on_item_in_transit_to_house(
 
 def test_checkin_on_item_in_transit_to_house_externally(
         item2_in_transit_martigny_patron_and_loan_to_house,
-        loc_public_martigny, librarian_martigny_no_email, loc_public_saxon):
+        loc_public_martigny, librarian_martigny, loc_public_saxon):
     """Test checkin on an in_transit item to house."""
     item, patron, loan = item2_in_transit_martigny_patron_and_loan_to_house
 
@@ -391,7 +391,7 @@ def test_checkin_on_item_in_transit_to_house_externally(
     params = {
         'patron_pid': patron.pid,
         'transaction_location_pid': loc_public_saxon.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid
+        'transaction_user_pid': librarian_martigny.pid
     }
     with pytest.raises(NoCirculationAction):
         item, actions = item.checkin(**params)
@@ -403,8 +403,8 @@ def test_checkin_on_item_in_transit_to_house_externally(
 
 def test_checkin_on_item_in_transit_to_house_with_requests(
         item3_in_transit_martigny_patron_and_loan_to_house,
-        loc_public_martigny, librarian_martigny_no_email,
-        patron2_martigny_no_email):
+        loc_public_martigny, librarian_martigny,
+        patron2_martigny):
     """Test checkin on an in_transit item to house."""
     item, patron, loan = item3_in_transit_martigny_patron_and_loan_to_house
 
@@ -416,9 +416,9 @@ def test_checkin_on_item_in_transit_to_house_with_requests(
     # the item becomes at_desk and the loan is terminated.
     # and will validate the first pending loan
     params = {
-        'patron_pid': patron2_martigny_no_email.pid,
+        'patron_pid': patron2_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     item, requested_loan = item_record_to_a_specific_loan_state(
@@ -427,7 +427,7 @@ def test_checkin_on_item_in_transit_to_house_with_requests(
     assert requested_loan['state'] == LoanState.PENDING
     params = {
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
 
@@ -442,8 +442,8 @@ def test_checkin_on_item_in_transit_to_house_with_requests(
 
 def test_checkin_on_item_in_transit_to_house_with_requests_externally(
         item4_in_transit_martigny_patron_and_loan_to_house,
-        loc_public_martigny, librarian_martigny_no_email,
-        patron2_martigny_no_email, loc_public_saxon):
+        loc_public_martigny, librarian_martigny,
+        patron2_martigny, loc_public_saxon):
     """Test checkin on an in_transit item to house."""
     item, patron, loan = item4_in_transit_martigny_patron_and_loan_to_house
 
@@ -455,9 +455,9 @@ def test_checkin_on_item_in_transit_to_house_with_requests_externally(
     # the item becomes at_desk and will validate the first pending loan
 
     params = {
-        'patron_pid': patron2_martigny_no_email.pid,
+        'patron_pid': patron2_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_saxon.pid
     }
     item, requested_loan = item_record_to_a_specific_loan_state(
@@ -466,7 +466,7 @@ def test_checkin_on_item_in_transit_to_house_with_requests_externally(
     assert requested_loan['state'] == LoanState.PENDING
     params = {
         'transaction_location_pid': loc_public_saxon.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid
+        'transaction_user_pid': librarian_martigny.pid
     }
 
     item, actions = item.checkin(**params)
@@ -480,8 +480,8 @@ def test_checkin_on_item_in_transit_to_house_with_requests_externally(
 
 def test_checkin_on_item_in_transit_to_house_with_external_loans(
         item5_in_transit_martigny_patron_and_loan_to_house,
-        loc_public_martigny, librarian_martigny_no_email,
-        patron2_martigny_no_email, loc_public_saxon):
+        loc_public_martigny, librarian_martigny,
+        patron2_martigny, loc_public_saxon):
     """Test checkin on an in_transit item to house."""
     item, patron, loan = item5_in_transit_martigny_patron_and_loan_to_house
 
@@ -492,9 +492,9 @@ def test_checkin_on_item_in_transit_to_house_with_external_loans(
     # the to the item library, no action performed.
     # the item remains at_desk
     params = {
-        'patron_pid': patron2_martigny_no_email.pid,
+        'patron_pid': patron2_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     item, requested_loan = item_record_to_a_specific_loan_state(
@@ -503,7 +503,7 @@ def test_checkin_on_item_in_transit_to_house_with_external_loans(
     assert requested_loan['state'] == LoanState.PENDING
     params = {
         'transaction_location_pid': loc_public_saxon.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid
+        'transaction_user_pid': librarian_martigny.pid
     }
 
     with pytest.raises(NoCirculationAction):
@@ -518,8 +518,8 @@ def test_checkin_on_item_in_transit_to_house_with_external_loans(
 
 def test_checkin_on_item_in_transit_to_house_with_external_loans_transit(
         item6_in_transit_martigny_patron_and_loan_to_house,
-        loc_public_martigny, librarian_martigny_no_email,
-        patron2_martigny_no_email, loc_public_saxon, loc_public_saillon):
+        loc_public_martigny, librarian_martigny,
+        patron2_martigny, loc_public_saxon, loc_public_saillon):
     """Test checkin on an in_transit item to house."""
     item, patron, loan = item6_in_transit_martigny_patron_and_loan_to_house
 
@@ -531,9 +531,9 @@ def test_checkin_on_item_in_transit_to_house_with_external_loans_transit(
     # the first pending request. item becomes in_transit and becomes
     # ITEM_IN_TRANSIT_FOR_PICKUP
     params = {
-        'patron_pid': patron2_martigny_no_email.pid,
+        'patron_pid': patron2_martigny.pid,
         'transaction_location_pid': loc_public_saxon.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_saxon.pid
     }
     item, requested_loan = item_record_to_a_specific_loan_state(
@@ -542,7 +542,7 @@ def test_checkin_on_item_in_transit_to_house_with_external_loans_transit(
     assert requested_loan['state'] == LoanState.PENDING
     params = {
         'transaction_location_pid': loc_public_saillon.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid
+        'transaction_user_pid': librarian_martigny.pid
     }
     item, actions = item.checkin(**params)
 

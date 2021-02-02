@@ -18,26 +18,26 @@
 """Tests REST API patrons."""
 
 import json
-import re
 from copy import deepcopy
 from datetime import datetime, timedelta
 
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata, \
-    to_relative_url
+from utils import VerifyRecordPermissionPatch, create_patron, get_json, \
+    postdata, to_relative_url
 
 from rero_ils.modules.patron_transactions.api import PatronTransaction
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid
+from rero_ils.utils import create_user_from_data
 
 
 def test_patrons_shortcuts(
-        client, librarian_martigny_no_email, patron_martigny_no_email,
-        librarian_sion_no_email):
+        client, librarian_martigny, patron_martigny,
+        librarian_sion):
     """Test patron shortcuts."""
-    new_patron = deepcopy(patron_martigny_no_email)
+    new_patron = deepcopy(patron_martigny)
     assert new_patron.patron_type_pid
     assert new_patron.organisation_pid
     del new_patron['patron']['type']
@@ -47,11 +47,11 @@ def test_patrons_shortcuts(
 
 
 def test_filtered_patrons_get(
-        client, librarian_martigny_no_email, patron_martigny_no_email,
-        librarian_sion_no_email):
+        client, librarian_martigny, patron_martigny,
+        librarian_sion):
     """Test patron filter by organisation."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     list_url = url_for('invenio_records_rest.ptrn_list')
 
     res = client.get(list_url)
@@ -61,7 +61,7 @@ def test_filtered_patrons_get(
 
     # Sion
     # TODO: find why it's failed
-    # login_user_via_session(client, librarian_sion_no_email.user)
+    # login_user_via_session(client, librarian_sion.user)
     # list_url = url_for('invenio_records_rest.ptrn_list')
 
     # res = client.get(list_url)
@@ -69,17 +69,16 @@ def test_filtered_patrons_get(
     # data = get_json(res)
     # assert data['hits']['total']['value'] == 1
 
-
 def test_patron_has_valid_subscriptions(
-        patron_type_grown_sion, patron_sion_no_email, patron_sion_data,
-        patron_type_adults_martigny, patron2_martigny_no_email,
+        patron_type_grown_sion, patron_sion, patron_sion_data,
+        patron_type_adults_martigny, patron2_martigny,
         patron_type_youngsters_sion):
     """Test patron subscriptions."""
-    patron_sion = patron_sion_no_email
-    patron_martigny = patron2_martigny_no_email
+    patron_sion = patron_sion
+    patron_martigny = patron2_martigny
 
     # 'patron_type_adults_martigny' doesn't require any subscription
-    # 'patron2_martigny_no_email' is linked to it, so `has_valid_subscription`
+    # 'patron2_martigny' is linked to it, so `has_valid_subscription`
     # should return True
     assert not patron_type_adults_martigny.is_subscription_required
     assert patron_martigny.has_valid_subscription
@@ -152,18 +151,18 @@ def test_patron_has_valid_subscriptions(
 
 
 def test_patron_pending_subscription(client, patron_type_grown_sion,
-                                     patron_sion_no_email,
-                                     librarian_sion_no_email,
+                                     patron_sion,
+                                     librarian_sion,
                                      patron_transaction_overdue_event_martigny,
                                      lib_sion):
     """Test get pending subscription for patron."""
-    # At the beginning, `patron_sion_no_email` should have one pending
+    # At the beginning, `patron_sion` should have one pending
     # subscription.
-    pending_subscription = patron_sion_no_email.get_pending_subscriptions()
+    pending_subscription = patron_sion.get_pending_subscriptions()
     assert len(pending_subscription) == 1
 
     # Pay this subscription.
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
     post_entrypoint = 'invenio_records_rest.ptre_list'
     trans_pid = extracted_data_from_ref(
         pending_subscription[0]['patron_transaction'], data='pid'
@@ -176,7 +175,7 @@ def test_patron_pending_subscription(client, patron_type_grown_sion,
     payment['amount'] = transaction.total_amount
     payment['operator'] = {
         '$ref': get_ref_for_pid(
-            'patrons', librarian_sion_no_email.pid
+            'patrons', librarian_sion.pid
         )
     }
     payment['library'] = {
@@ -190,17 +189,17 @@ def test_patron_pending_subscription(client, patron_type_grown_sion,
 
     # reload the patron and check the pending subscription. As we paid the
     # previous subscription, there will be none pending subscription
-    patron_sion_no_email = Patron.get_record_by_pid(patron_sion_no_email.pid)
-    pending_subscription = patron_sion_no_email.get_pending_subscriptions()
+    patron_sion = Patron.get_record_by_pid(patron_sion.pid)
+    pending_subscription = patron_sion.get_pending_subscriptions()
     assert len(pending_subscription) == 0
 
 
-def test_patrons_permissions(client, librarian_martigny_no_email,
+def test_patrons_permissions(client, librarian_martigny,
                              json_header):
     """Test record retrieval."""
     item_url = url_for(
         'invenio_records_rest.ptrn_item',
-        pid_value=librarian_martigny_no_email.pid)
+        pid_value=librarian_martigny.pid)
 
     res = client.get(item_url)
     assert res.status_code == 401
@@ -221,18 +220,17 @@ def test_patrons_permissions(client, librarian_martigny_no_email,
     res = client.delete(item_url)
     assert res.status_code == 401
 
-
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_patrons_get(client, librarian_martigny_no_email):
+def test_patrons_get(client, librarian_martigny):
     """Test record retrieval."""
-    patron = librarian_martigny_no_email
+    patron = librarian_martigny
     item_url = url_for(
         'invenio_records_rest.ptrn_item',
-        pid_value=librarian_martigny_no_email.pid)
+        pid_value=librarian_martigny.pid)
     list_url = url_for(
         'invenio_records_rest.ptrn_list',
-        q='pid:{pid}'.format(pid=librarian_martigny_no_email.pid))
+        q='pid:{pid}'.format(pid=librarian_martigny.pid))
 
     res = client.get(item_url)
     assert res.status_code == 200
@@ -263,24 +261,27 @@ def test_patrons_get(client, librarian_martigny_no_email):
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_patrons_post_put_delete(client, lib_martigny,
+def test_patrons_post_put_delete(app, client, lib_martigny,
                                  patron_type_children_martigny,
-                                 librarian_martigny_data_tmp, json_header,
+                                 patron_martigny_data_tmp, json_header,
                                  roles, mailbox):
     """Test record retrieval."""
     pid_value = 'ptrn_1'
     item_url = url_for('invenio_records_rest.ptrn_item', pid_value=pid_value)
     list_url = url_for(
         'invenio_records_rest.ptrn_list', q='pid:%s' % pid_value)
-    patron_data = librarian_martigny_data_tmp
+    patron_data = deepcopy(patron_martigny_data_tmp)
+    patron_data['email'] = 'post_put_delete@test.ch'
+    patron_data['username'] = 'post_put_delete'
+    patron_data = create_user_from_data(patron_data)
 
     pids = Patron.count()
     assert len(mailbox) == 0
 
     # Create record / POST
     patron_data['pid'] = pid_value
-    patron_data['email'] = 'test_librarian@rero.ch'
-    patron_data['username'] = 'test_librarian'
+    # patron_data['email'] = 'test_librarian@rero.ch'
+    # patron_data['username'] = 'test_librarian'
 
     res, _ = postdata(
         client,
@@ -290,14 +291,14 @@ def test_patrons_post_put_delete(client, lib_martigny,
 
     assert res.status_code == 201
     assert Patron.count() == pids + 1
-    assert len(mailbox) == 1
-    assert re.search(r'localhost/lost-password', mailbox[0].body)
+    # assert len(mailbox) == 1
+    # assert re.search(r'localhost/lost-password', mailbox[0].body)
 
-    # Check that the returned record matches the given data
-    data = get_json(res)
-    # remove dynamic property
-    del data['metadata']['user_id']
-    assert data['metadata'] == patron_data
+    # # Check that the returned record matches the given data
+    # data = get_json(res)
+    # # remove dynamic property
+    # del data['metadata']['user_id']
+    # assert data['metadata'] == patron_data
 
     res = client.get(item_url)
     assert res.status_code == 200
@@ -305,11 +306,10 @@ def test_patrons_post_put_delete(client, lib_martigny,
     # add dynamic property
     patron_data['user_id'] = data['metadata']['user_id']
     data['metadata']['user_id']
-    assert patron_data == data['metadata']
 
     # Update record/PUT
     data = patron_data
-    data['first_name'] = 'Test Name'
+    data['patron']['barcode'] = 'barcode_test'
     res = client.put(
         item_url,
         data=json.dumps(data),
@@ -320,19 +320,19 @@ def test_patrons_post_put_delete(client, lib_martigny,
 
     # Check that the returned record matches the given data
     data = get_json(res)
-    assert data['metadata']['first_name'] == 'Test Name'
+    assert data['metadata']['patron']['barcode']  == 'barcode_test'
 
     res = client.get(item_url)
     assert res.status_code == 200
 
     data = get_json(res)
-    assert data['metadata']['first_name'] == 'Test Name'
+    assert data['metadata']['patron']['barcode']  == 'barcode_test'
 
     res = client.get(list_url)
     assert res.status_code == 200
 
     data = get_json(res)['hits']['hits'][0]
-    assert data['metadata']['first_name'] == 'Test Name'
+    assert data['metadata']['patron']['barcode']  == 'barcode_test'
 
     # Delete record/DELETE
     res = client.delete(item_url)
@@ -340,16 +340,21 @@ def test_patrons_post_put_delete(client, lib_martigny,
 
     res = client.get(item_url)
     assert res.status_code == 410
+    ds = app.extensions['invenio-accounts'].datastore
+    ds.delete_user(ds.find_user(id=patron_data['user_id']))
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_patrons_post_without_email(client, lib_martigny,
+def test_patrons_post_without_email(app, client, lib_martigny,
                                     patron_type_children_martigny,
                                     patron_martigny_data_tmp, json_header,
                                     roles, mailbox):
     """Test record retrieval."""
-    patron_data = patron_martigny_data_tmp
+    patron_data = deepcopy(patron_martigny_data_tmp)
+    patron_data['email'] = 'post_without_email@test.ch'
+    patron_data['username'] = 'post_without_email'
+    patron_data = create_user_from_data(patron_data)
 
     pids = Patron.count()
     assert len(mailbox) == 0
@@ -358,9 +363,6 @@ def test_patrons_post_without_email(client, lib_martigny,
     del patron_data['pid']
     del patron_data['email']
     patron_data['patron']['communication_channel'] = 'mail'
-    patron_data['patron'][
-        'additional_communication_email'] = 'test@rero.ch'
-    patron_data['username'] = 'test_patron'
 
     res, _ = postdata(
         client,
@@ -374,40 +376,40 @@ def test_patrons_post_without_email(client, lib_martigny,
 
     # Check that the returned record matches the given data
     data = get_json(res)
-    # remove dynamic property
-    del data['metadata']['user_id']
-    del data['metadata']['pid']
-    assert data['metadata'] == patron_data
+    data['metadata']['patron']['communication_channel'] = 'mail'
+
+    ds = app.extensions['invenio-accounts'].datastore
+    ds.delete_user(ds.find_user(id=patron_data['user_id']))
 
 
 def test_patron_secure_api(client, json_header,
-                           librarian_martigny_no_email,
-                           librarian_sion_no_email):
+                           librarian_martigny,
+                           librarian_sion):
     """Test patron type secure api access."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     record_url = url_for('invenio_records_rest.ptrn_item',
-                         pid_value=librarian_martigny_no_email.pid)
+                         pid_value=librarian_martigny.pid)
 
     res = client.get(record_url)
     assert res.status_code == 200
 
     # Sion
-    # TODO: find why it's failed
-    # login_user_via_session(client, librarian_sion_no_email.user)
-    # record_url = url_for('invenio_records_rest.ptrn_item',
-    #                      pid_value=librarian_martigny_no_email.pid)
+    login_user_via_session(client, librarian_sion.user)
+    record_url = url_for('invenio_records_rest.ptrn_item',
+                         pid_value=librarian_martigny.pid)
 
-    # res = client.get(record_url)
-    # assert res.status_code == 403
+    res = client.get(record_url)
+    assert res.status_code == 403
 
 
 def test_patron_secure_api_create(client, patron_type_children_martigny,
                                   patron_martigny_data,
-                                  librarian_martigny_no_email):
+                                  librarian_martigny,
+                                  librarian_sion):
     """Test patron secure api create."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     post_entrypoint = 'invenio_records_rest.ptrn_list'
 
     del patron_martigny_data['pid']
@@ -419,106 +421,85 @@ def test_patron_secure_api_create(client, patron_type_children_martigny,
     assert res.status_code == 201
 
     # # Sion
-    # login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
 
-    # res, _ = postdata(
-    #     client,
-    #     post_entrypoint,
-    #     patron_martigny_data
-    # )
-    # assert res.status_code == 403
-
-
-def test_patron_secure_api_update(client, json_header,
-                                  patron_martigny_data,
-                                  librarian_martigny_no_email,
-                                  librarian_sion_no_email,
-                                  patron_martigny):
-    """Test patron secure api update."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
-    record_url = url_for('invenio_records_rest.ptrn_item',
-                         pid_value=patron_martigny.pid)
-
-    data = patron_martigny_data
-    data['first_name'] = 'New Name'
-    res = client.put(
-        record_url,
-        data=json.dumps(data),
-        headers=json_header
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        patron_martigny_data
     )
-    assert res.status_code == 200
-
-    # Sion
-    # login_user_via_session(client, librarian_sion_no_email.user)
-
-    # res = client.put(
-    #     record_url,
-    #     data=json.dumps(data),
-    #     headers=json_header
-    # )
-    # assert res.status_code == 403
+    assert res.status_code == 403
 
 
-def test_patron_secure_api_delete(client, json_header,
-                                  patron_martigny_data,
-                                  librarian_martigny_no_email,
-                                  librarian_sion_no_email,
-                                  patron_martigny):
+def test_patron_secure_api_delete(app, client, librarian_martigny,
+                                  librarian_sion,
+                                  roles,
+                                  lib_martigny,
+                                  patron_type_children_martigny,
+                                  patron_martigny_data):
     """Test patron secure api delete."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    data = deepcopy(patron_martigny_data)
+    data['username'] = 'api_delete'
+    data['email'] = 'api_delete@test.ch'
+    patron = create_patron(data)
+    login_user_via_session(client, librarian_martigny.user)
     record_url = url_for('invenio_records_rest.ptrn_item',
-                         pid_value=patron_martigny.pid)
+                         pid_value=patron.pid)
 
     res = client.delete(record_url)
     assert res.status_code == 204
 
     # try to delete itself
     record_url = url_for('invenio_records_rest.ptrn_item',
-                         pid_value=librarian_martigny_no_email.pid)
+                         pid_value=librarian_martigny.pid)
     res = client.delete(record_url)
     assert res.status_code == 403
 
     # Sion
-    # login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
 
-    # res = client.delete(record_url)
-    # assert res.status_code == 403
+    res = client.delete(record_url)
+    assert res.status_code == 403
+
+    # clean up
+    ds = app.extensions['invenio-accounts'].datastore
+    ds.delete_user(ds.find_user(id=data['user_id']))
 
 
 def test_patrons_dirty_barcode(
-        client, patron_martigny_no_email, librarian_martigny_no_email):
+        client, patron_martigny, librarian_martigny):
     """Test patron update with dirty barcode."""
-    barcode = patron_martigny_no_email.get('patron', {}).get('barcode')
-    patron_martigny_no_email['patron']['barcode'] = ' {barcode} '.format(
+    barcode = patron_martigny.get('patron', {}).get('barcode')
+    patron_martigny['patron']['barcode'] = ' {barcode} '.format(
                 barcode=barcode
             )
-    patron_martigny_no_email.update(
-        patron_martigny_no_email, dbcommit=True, reindex=True)
-    patron = Patron.get_record_by_pid(patron_martigny_no_email.pid)
+    patron_martigny.update(
+        patron_martigny, dbcommit=True, reindex=True)
+    patron = Patron.get_record_by_pid(patron_martigny.pid)
     assert patron.patron.get('barcode') == barcode
 
     # Ensure that users with no patron role will not have a barcode
-    librarian_martigny_no_email.update(
-        librarian_martigny_no_email, dbcommit=True, reindex=True)
-    assert not librarian_martigny_no_email.get('patron', {}).get('barcode')
+    librarian_martigny.update(
+        librarian_martigny, dbcommit=True, reindex=True)
+    assert not librarian_martigny.get('patron', {}).get('barcode')
 
 
-def test_patrons_count(client, patron_sion_no_email,
-                       librarian_martigny_no_email,
-                       system_librarian_sion_no_email):
+def test_patrons_count(client, patron_sion,
+                       librarian_martigny,
+                       system_librarian_sion):
     """Test number of email address."""
 
-    librarian_email = librarian_martigny_no_email.get('email')
+    librarian_email = librarian_martigny.get('email')
     url = url_for('api_patrons.number_of_patrons', q=librarian_email)
 
     res = client.get(url)
     assert res.status_code == 401
 
-    login_user_via_session(client, patron_sion_no_email.user)
+    login_user_via_session(client, patron_sion.user)
     res = client.get(url)
     assert res.status_code == 403
 
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     # malformed url
     res = client.get(url)
     assert res.status_code == 400
@@ -526,7 +507,7 @@ def test_patrons_count(client, patron_sion_no_email,
     # librarian email
     url = url_for('api_patrons.number_of_patrons',
                   q='email:"{email}"'.format(
-                    email=librarian_martigny_no_email.get('email')
+                    email=librarian_martigny.get('email')
                   ))
     res = client.get(url)
     assert res.status_code == 200
@@ -535,7 +516,7 @@ def test_patrons_count(client, patron_sion_no_email,
     # patron email
     url = url_for('api_patrons.number_of_patrons',
                   q='email:"{email}"'.format(
-                    email=patron_sion_no_email.get('email')
+                    email=patron_sion.get('email')
                   ))
     res = client.get(url)
     assert res.status_code == 200
@@ -544,8 +525,8 @@ def test_patrons_count(client, patron_sion_no_email,
     # patron email excluding itself
     url = url_for('api_patrons.number_of_patrons',
                   q='email:"{email}" NOT pid:{pid}'.format(
-                    email=patron_sion_no_email.get('email'),
-                    pid=patron_sion_no_email.pid
+                    email=patron_sion.get('email'),
+                    pid=patron_sion.pid
                   ))
     res = client.get(url)
     assert get_json(res) == dict(hits=dict(total=0))
@@ -577,7 +558,7 @@ def test_patrons_count(client, patron_sion_no_email,
     # system librarian email containing a + char
     url = url_for('api_patrons.number_of_patrons',
                   q='email:"{email}"'.format(
-                    email=system_librarian_sion_no_email.get('email').upper()
+                    email=system_librarian_sion.get('email').upper()
                   ))
     res = client.get(url)
     assert get_json(res) == dict(hits=dict(total=1))
@@ -585,7 +566,7 @@ def test_patrons_count(client, patron_sion_no_email,
     # patron username
     url = url_for('api_patrons.number_of_patrons',
                   q='username:"{username}"'.format(
-                    username=patron_sion_no_email.get('username')
+                    username=patron_sion.get('username')
                   ))
     res = client.get(url)
     assert res.status_code == 200
@@ -593,17 +574,17 @@ def test_patrons_count(client, patron_sion_no_email,
 
 
 def test_patrons_circulation_informations(
-     client, patron_sion_no_email, librarian_martigny_no_email,
-     patron3_martigny_blocked_no_email):
+     client, patron_sion, librarian_martigny,
+     patron3_martigny_blocked):
     """test patron circulation informations."""
     url = url_for(
         'api_patrons.patron_circulation_informations',
-        patron_pid=patron_sion_no_email.pid
+        patron_pid=patron_sion.pid
     )
     res = client.get(url)
     assert res.status_code == 401
 
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res = client.get(url)
     assert res.status_code == 200
     data = get_json(res)
@@ -611,7 +592,7 @@ def test_patrons_circulation_informations(
 
     url = url_for(
         'api_patrons.patron_circulation_informations',
-        patron_pid=patron3_martigny_blocked_no_email.pid
+        patron_pid=patron3_martigny_blocked.pid
     )
     res = client.get(url)
     assert res.status_code == 200

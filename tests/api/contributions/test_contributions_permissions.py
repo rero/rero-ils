@@ -23,9 +23,9 @@ from utils import get_json
 from rero_ils.modules.contributions.permissions import ContributionPermission
 
 
-def test_contribution_permissions_api(client, patron_martigny_no_email,
+def test_contribution_permissions_api(client, patron_martigny,
                                       contribution_person,
-                                      librarian_martigny_no_email):
+                                      librarian_martigny):
     """Test organisations permissions api."""
     prs_permissions_url = url_for(
         'api_blueprint.permissions',
@@ -42,12 +42,12 @@ def test_contribution_permissions_api(client, patron_martigny_no_email,
     assert res.status_code == 401
 
     # Logged as patron
-    login_user_via_session(client, patron_martigny_no_email.user)
+    login_user_via_session(client, patron_martigny.user)
     res = client.get(prs_permissions_url)
     assert res.status_code == 403
 
     # Logged as librarian
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res = client.get(prs_real_permission_url)
     assert res.status_code == 200
     data = get_json(res)

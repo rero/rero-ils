@@ -32,14 +32,14 @@ from rero_ils.modules.utils import get_ref_for_pid
 
 
 def test_checkout_library_limit(
-     client, app, librarian_martigny_no_email, lib_martigny,
+     client, app, librarian_martigny, lib_martigny,
      patron_type_children_martigny, item_lib_martigny, item2_lib_martigny,
      item3_lib_martigny, item_lib_martigny_data, item2_lib_martigny_data,
-     item3_lib_martigny_data, loc_public_martigny, patron_martigny_no_email,
+     item3_lib_martigny_data, loc_public_martigny, patron_martigny,
      circ_policy_short_martigny):
     """Test checkout library limits."""
 
-    patron = patron_martigny_no_email
+    patron = patron_martigny
     item2_original_data = deepcopy(item2_lib_martigny_data)
     item3_original_data = deepcopy(item3_lib_martigny_data)
     item1 = item_lib_martigny
@@ -48,7 +48,7 @@ def test_checkout_library_limit(
     library_ref = get_ref_for_pid('lib', lib_martigny.pid)
     location_ref = get_ref_for_pid('loc', loc_public_martigny.pid)
 
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
 
     # Update fixtures for the tests
     #   * Update the patron_type to set a checkout limits
@@ -76,7 +76,7 @@ def test_checkout_library_limit(
         item_pid=item1.pid,
         patron_pid=patron.pid,
         transaction_location_pid=loc_public_martigny.pid,
-        transaction_user_pid=librarian_martigny_no_email.pid,
+        transaction_user_pid=librarian_martigny.pid,
     ))
     assert res.status_code == 200
     loan1_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
@@ -87,7 +87,7 @@ def test_checkout_library_limit(
         item_pid=item2.pid,
         patron_pid=patron.pid,
         transaction_location_pid=loc_public_martigny.pid,
-        transaction_user_pid=librarian_martigny_no_email.pid,
+        transaction_user_pid=librarian_martigny.pid,
     ))
     assert res.status_code == 403
     assert 'Checkout denied' in data['message']
@@ -107,7 +107,7 @@ def test_checkout_library_limit(
         item_pid=item2.pid,
         patron_pid=patron.pid,
         transaction_location_pid=loc_public_martigny.pid,
-        transaction_user_pid=librarian_martigny_no_email.pid,
+        transaction_user_pid=librarian_martigny.pid,
     ))
     assert res.status_code == 200
     loan2_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
@@ -115,7 +115,7 @@ def test_checkout_library_limit(
         item_pid=item3.pid,
         patron_pid=patron.pid,
         transaction_location_pid=loc_public_martigny.pid,
-        transaction_user_pid=librarian_martigny_no_email.pid,
+        transaction_user_pid=librarian_martigny.pid,
     ))
     assert res.status_code == 403
     assert 'Checkout denied' in data['message']
@@ -133,7 +133,7 @@ def test_checkout_library_limit(
         item_pid=item3.pid,
         patron_pid=patron.pid,
         transaction_location_pid=loc_public_martigny.pid,
-        transaction_user_pid=librarian_martigny_no_email.pid,
+        transaction_user_pid=librarian_martigny.pid,
     ))
     assert res.status_code == 403
     assert 'Checkout denied' in data['message']
@@ -155,7 +155,7 @@ def test_checkout_library_limit(
         item_pid=item3.pid,
         patron_pid=patron.pid,
         transaction_location_pid=loc_public_martigny.pid,
-        transaction_user_pid=librarian_martigny_no_email.pid,
+        transaction_user_pid=librarian_martigny.pid,
     ), url_data={'override_blocking': 'true'})
     assert res.status_code == 200
     loan3_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
@@ -168,20 +168,20 @@ def test_checkout_library_limit(
         item_pid=item3.pid,
         pid=loan3_pid,
         transaction_location_pid=loc_public_martigny.pid,
-        transaction_user_pid=librarian_martigny_no_email.pid,
+        transaction_user_pid=librarian_martigny.pid,
     ))
     res, data = postdata(client, 'api_item.checkin', dict(
         item_pid=item2.pid,
         pid=loan2_pid,
         transaction_location_pid=loc_public_martigny.pid,
-        transaction_user_pid=librarian_martigny_no_email.pid,
+        transaction_user_pid=librarian_martigny.pid,
     ))
     assert res.status_code == 200
     res, data = postdata(client, 'api_item.checkin', dict(
         item_pid=item1.pid,
         pid=loan1_pid,
         transaction_location_pid=loc_public_martigny.pid,
-        transaction_user_pid=librarian_martigny_no_email.pid,
+        transaction_user_pid=librarian_martigny.pid,
     ))
     assert res.status_code == 200
     del patron_type['limits']
@@ -191,19 +191,19 @@ def test_checkout_library_limit(
 
 
 def test_overdue_limit(
-     client, app, librarian_martigny_no_email, lib_martigny, item_lib_martigny,
+     client, app, librarian_martigny, lib_martigny, item_lib_martigny,
      item2_lib_martigny, patron_type_children_martigny,
      item3_lib_martigny, item_lib_martigny_data, item2_lib_martigny_data,
-     item3_lib_martigny_data, loc_public_martigny, patron_martigny_no_email,
+     item3_lib_martigny_data, loc_public_martigny, patron_martigny,
      circ_policy_short_martigny):
     """Test overdue limit."""
 
     item = item_lib_martigny
     item_pid = item.pid
-    patron_pid = patron_martigny_no_email.pid
+    patron_pid = patron_martigny.pid
 
     # [0] prepare overdue transaction
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     # checkout
     res, data = postdata(
         client,
@@ -212,7 +212,7 @@ def test_overdue_limit(
             item_pid=item_pid,
             patron_pid=patron_pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
         )
     )
     assert res.status_code == 200
@@ -260,7 +260,7 @@ def test_overdue_limit(
             item_pid=item2_lib_martigny.pid,
             patron_pid=patron_pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
         )
     )
     assert res.status_code == 403
@@ -275,7 +275,7 @@ def test_overdue_limit(
             patron_pid=patron_pid,
             pickup_location_pid=loc_public_martigny.pid,
             transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 403
@@ -287,7 +287,7 @@ def test_overdue_limit(
         'api_item.extend_loan',
         dict(
             item_pid=item_pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -318,7 +318,7 @@ def test_overdue_limit(
             item_pid=item2_lib_martigny.pid,
             patron_pid=patron_pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
         )
     )
     assert res.status_code == 403
@@ -333,7 +333,7 @@ def test_overdue_limit(
             patron_pid=patron_pid,
             pickup_location_pid=loc_public_martigny.pid,
             transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 403
@@ -345,7 +345,7 @@ def test_overdue_limit(
         'api_item.extend_loan',
         dict(
             item_pid=item_pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -367,7 +367,7 @@ def test_overdue_limit(
             item_pid=item_pid,
             pid=loan_pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
         )
     )
     assert res.status_code == 200

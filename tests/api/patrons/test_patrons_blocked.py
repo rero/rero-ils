@@ -27,17 +27,17 @@ from rero_ils.modules.loans.utils import can_be_requested
 
 def test_blocked_field_exists(
         client,
-        librarian_martigny_no_email,
-        patron_martigny_no_email,
-        patron3_martigny_blocked_no_email):
+        librarian_martigny,
+        patron_martigny,
+        patron3_martigny_blocked):
     """Test ptrn6 have blocked field present and set to False."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
-    patron3 = patron3_martigny_blocked_no_email
+    login_user_via_session(client, librarian_martigny.user)
+    patron3 = patron3_martigny_blocked
 
     # non blocked patron
     non_blocked_patron_url = url_for(
         'invenio_records_rest.ptrn_item',
-        pid_value=patron_martigny_no_email.pid)
+        pid_value=patron_martigny.pid)
     res = client.get(non_blocked_patron_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -47,7 +47,7 @@ def test_blocked_field_exists(
     # blocked patron
     blocked_patron_url = url_for(
         'invenio_records_rest.ptrn_item',
-        pid_value=patron3_martigny_blocked_no_email.pid)
+        pid_value=patron3_martigny_blocked.pid)
     res = client.get(blocked_patron_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -61,13 +61,13 @@ def test_blocked_field_exists(
 
 def test_blocked_field_not_present(
         client,
-        librarian_martigny_no_email,
-        patron2_martigny_no_email):
+        librarian_martigny,
+        patron2_martigny):
     """Test ptrn7 do not have any blocked field."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item_url = url_for(
         'invenio_records_rest.ptrn_item',
-        pid_value=patron2_martigny_no_email.pid)
+        pid_value=patron2_martigny.pid)
     res = client.get(item_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -75,19 +75,19 @@ def test_blocked_field_not_present(
 
 
 def test_blocked_patron_cannot_request(client,
-                                       librarian_martigny_no_email,
+                                       librarian_martigny,
                                        item_lib_martigny,
                                        lib_martigny,
-                                       patron_martigny_no_email,
-                                       patron3_martigny_blocked_no_email,
+                                       patron_martigny,
+                                       patron3_martigny_blocked,
                                        circulation_policies):
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res = client.get(
         url_for(
             'api_item.can_request',
             item_pid=item_lib_martigny.pid,
             library_pid=lib_martigny.pid,
-            patron_barcode=patron3_martigny_blocked_no_email.get(
+            patron_barcode=patron3_martigny_blocked.get(
                 'patron', {}).get('barcode')
         )
     )
@@ -101,7 +101,7 @@ def test_blocked_patron_cannot_request(client,
             'api_item.can_request',
             item_pid=item_lib_martigny.pid,
             library_pid=lib_martigny.pid,
-            patron_barcode=patron_martigny_no_email.get(
+            patron_barcode=patron_martigny.get(
                 'patron', {}).get('barcode')
         )
     )
@@ -113,6 +113,6 @@ def test_blocked_patron_cannot_request(client,
     loan = Loan({
         'item_pid': item_pid_to_object(item_lib_martigny.pid),
         'library_pid': lib_martigny.pid,
-        'patron_pid': patron3_martigny_blocked_no_email.pid
+        'patron_pid': patron3_martigny_blocked.pid
     })
     assert not can_be_requested(loan)

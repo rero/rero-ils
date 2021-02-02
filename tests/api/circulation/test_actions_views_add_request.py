@@ -23,11 +23,11 @@ from utils import postdata
 
 
 def test_add_request_failed_actions(
-        client, librarian_martigny_no_email, lib_martigny,
-        patron_martigny_no_email, loc_public_martigny, item_lib_martigny,
+        client, librarian_martigny, lib_martigny,
+        patron_martigny, loc_public_martigny, item_lib_martigny,
         circulation_policies):
     """Test item failed actions."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
 
     # test fails for a request with a missing parameter pickup_location_pid
     res, data = postdata(
@@ -35,7 +35,7 @@ def test_add_request_failed_actions(
         'api_item.librarian_request',
         dict(
             item_pid=item_lib_martigny.pid,
-            patron_pid=patron_martigny_no_email.pid
+            patron_pid=patron_martigny.pid
         )
     )
     assert res.status_code == 400
@@ -46,7 +46,7 @@ def test_add_request_failed_actions(
         client,
         'api_item.librarian_request',
         dict(
-            patron_pid=patron_martigny_no_email.pid,
+            patron_pid=patron_martigny.pid,
             pickup_location_pid=loc_public_martigny.pid
         )
     )
@@ -69,7 +69,7 @@ def test_add_request_failed_actions(
         'api_item.librarian_request',
         dict(
             item_pid=item_lib_martigny.pid,
-            patron_pid=patron_martigny_no_email.pid,
+            patron_pid=patron_martigny.pid,
             pickup_location_pid=loc_public_martigny.pid
         )
     )
@@ -77,37 +77,37 @@ def test_add_request_failed_actions(
 
 
 def test_add_request(
-        client, librarian_martigny_no_email, lib_martigny,
-        patron_martigny_no_email, loc_public_martigny, item_lib_martigny,
-        circulation_policies, patron2_martigny_no_email):
+        client, librarian_martigny, lib_martigny,
+        patron_martigny, loc_public_martigny, item_lib_martigny,
+        circulation_policies, patron2_martigny):
     """Test a successful frontend add request action."""
     # test passes when all required parameters are given
     # test passes when the transaction libarary pid is given
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res, data = postdata(
         client,
         'api_item.librarian_request',
         dict(
             item_pid=item_lib_martigny.pid,
-            patron_pid=patron_martigny_no_email.pid,
+            patron_pid=patron_martigny.pid,
             pickup_location_pid=loc_public_martigny.pid,
             transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
 
     # test passes when the transaction location pid is given
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res, data = postdata(
         client,
         'api_item.librarian_request',
         dict(
             item_pid=item_lib_martigny.pid,
-            patron_pid=patron2_martigny_no_email.pid,
+            patron_pid=patron2_martigny.pid,
             pickup_location_pid=loc_public_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200

@@ -28,8 +28,8 @@ from rero_ils.modules.loans.api import Loan, LoanState
 
 
 def test_validate_on_item_on_shelf_no_requests(
-        item_lib_martigny, patron_martigny_no_email,
-        loc_public_martigny, librarian_martigny_no_email,
+        item_lib_martigny, patron_martigny,
+        loc_public_martigny, librarian_martigny,
         circulation_policies):
     """Test validate a request on an on_shelf item with no requests."""
     # the following tests the circulation action VALIDATE_1_1
@@ -38,7 +38,7 @@ def test_validate_on_item_on_shelf_no_requests(
 
     params = {
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid
+        'transaction_user_pid': librarian_martigny.pid
     }
     with pytest.raises(NoCirculationAction):
         item, actions = item_lib_martigny.validate_request(**params)
@@ -47,7 +47,7 @@ def test_validate_on_item_on_shelf_no_requests(
 
 def test_validate_on_item_on_shelf_with_requests_at_home(
         item_on_shelf_martigny_patron_and_loan_pending,
-        loc_public_martigny, librarian_martigny_no_email,
+        loc_public_martigny, librarian_martigny,
         circulation_policies):
     """Test validate a request on an on_shelf item with requests at home."""
     # the following tests the circulation action VALIDATE_1_2_1
@@ -57,7 +57,7 @@ def test_validate_on_item_on_shelf_with_requests_at_home(
     item, patron, loan = item_on_shelf_martigny_patron_and_loan_pending
     params = {
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pid': loan.pid
     }
     item, actions = item.validate_request(**params)
@@ -68,7 +68,7 @@ def test_validate_on_item_on_shelf_with_requests_at_home(
 
 def test_validate_on_item_on_shelf_with_requests_externally(
         item2_on_shelf_martigny_patron_and_loan_pending, loc_public_fully,
-        loc_public_martigny, librarian_martigny_no_email,
+        loc_public_martigny, librarian_martigny,
         circulation_policies):
     """Test validate a request on an on_shelf item with requests externally."""
     # the following tests the circulation action VALIDATE_1_2_2
@@ -78,7 +78,7 @@ def test_validate_on_item_on_shelf_with_requests_externally(
     item, patron, loan = item2_on_shelf_martigny_patron_and_loan_pending
     params = {
         'transaction_location_pid': loc_public_fully.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pid': loan.pid
     }
     item, actions = item.validate_request(**params)
@@ -89,15 +89,15 @@ def test_validate_on_item_on_shelf_with_requests_externally(
 
 def test_validate_on_item_at_desk(
         item_at_desk_martigny_patron_and_loan_at_desk,
-        loc_public_martigny, librarian_martigny_no_email,
-        circulation_policies, patron2_martigny_no_email):
+        loc_public_martigny, librarian_martigny,
+        circulation_policies, patron2_martigny):
     """Test validate a request on an item at_desk."""
     # the following tests the circulation action VALIDATE_2
     # on at_desk item, the validation is not possible
     item, patron, loan = item_at_desk_martigny_patron_and_loan_at_desk
     params = {
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pid': loan.pid
     }
     with pytest.raises(NoValidTransitionAvailableError):
@@ -107,9 +107,9 @@ def test_validate_on_item_at_desk(
     assert loan['state'] == LoanState.ITEM_AT_DESK
     # will not be able to validate any requestes for this item
     params = {
-        'patron_pid': patron2_martigny_no_email.pid,
+        'patron_pid': patron2_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     item, requested_loan = item_record_to_a_specific_loan_state(
@@ -126,15 +126,15 @@ def test_validate_on_item_at_desk(
 
 def test_validate_on_item_on_loan(
         item_on_loan_martigny_patron_and_loan_on_loan,
-        loc_public_martigny, librarian_martigny_no_email,
-        circulation_policies, patron2_martigny_no_email):
+        loc_public_martigny, librarian_martigny,
+        circulation_policies, patron2_martigny):
     """Test validate a request on an item on_loan."""
     # the following tests the circulation action VALIDATE_3
     # on on_loan item, the validation is not possible
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
     params = {
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pid': loan.pid
     }
     with pytest.raises(NoValidTransitionAvailableError):
@@ -145,9 +145,9 @@ def test_validate_on_item_on_loan(
 
     # will not be able to validate any requestes for this item
     params = {
-        'patron_pid': patron2_martigny_no_email.pid,
+        'patron_pid': patron2_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     item, requested_loan = item_record_to_a_specific_loan_state(
@@ -164,15 +164,15 @@ def test_validate_on_item_on_loan(
 
 def test_validate_on_item_in_transit_for_pickup(
         item_in_transit_martigny_patron_and_loan_for_pickup,
-        loc_public_martigny, librarian_martigny_no_email,
-        circulation_policies, patron2_martigny_no_email):
+        loc_public_martigny, librarian_martigny,
+        circulation_policies, patron2_martigny):
     """Test validate a request on an item in_transit for pickup."""
     # the following tests the circulation action VALIDATE_4
     # on on_loan item, the validation is not possible
     item, patron, loan = item_in_transit_martigny_patron_and_loan_for_pickup
     params = {
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pid': loan.pid
     }
     with pytest.raises(NoValidTransitionAvailableError):
@@ -183,9 +183,9 @@ def test_validate_on_item_in_transit_for_pickup(
 
     # will not be able to validate any requestes for this item
     params = {
-        'patron_pid': patron2_martigny_no_email.pid,
+        'patron_pid': patron2_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     item, requested_loan = item_record_to_a_specific_loan_state(
@@ -202,15 +202,15 @@ def test_validate_on_item_in_transit_for_pickup(
 
 def test_validate_on_item_in_transit_to_house(
         item_in_transit_martigny_patron_and_loan_to_house,
-        loc_public_martigny, librarian_martigny_no_email,
-        circulation_policies, patron2_martigny_no_email):
+        loc_public_martigny, librarian_martigny,
+        circulation_policies, patron2_martigny):
     """Test validate a request on an item in_transit to house."""
     # the following tests the circulation action VALIDATE_5
     # on on_loan item, the validation is not possible
     item, patron, loan = item_in_transit_martigny_patron_and_loan_to_house
     params = {
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pid': loan.pid
     }
     with pytest.raises(NoValidTransitionAvailableError):
@@ -220,9 +220,9 @@ def test_validate_on_item_in_transit_to_house(
     assert loan['state'] == LoanState.ITEM_IN_TRANSIT_TO_HOUSE
     # will not be able to validate any requestes for this item
     params = {
-        'patron_pid': patron2_martigny_no_email.pid,
+        'patron_pid': patron2_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     item, requested_loan = item_record_to_a_specific_loan_state(

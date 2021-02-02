@@ -321,7 +321,7 @@ def test_bimonthly_every_two_months_two_levels(
 
 
 def test_holding_validate_next_expected_date(
-        client, librarian_martigny_no_email,
+        client, librarian_martigny,
         journal, loc_public_sion, item_type_internal_sion, document,
         pattern_yearly_two_times_data, json_header,
         holding_lib_sion_w_patterns_data):
@@ -329,7 +329,7 @@ def test_holding_validate_next_expected_date(
 
     the next_expected_date.
     """
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     holding = holding_lib_sion_w_patterns_data
     holding['holdings_type'] = 'serial'
     holding['patterns'] = \
@@ -576,12 +576,12 @@ def test_regular_issue_creation_update_delete_api(
     assert not Item.get_record_by_pid(pid)
 
 
-def test_holding_notes(client, librarian_martigny_no_email,
+def test_holding_notes(client, librarian_martigny,
                        holding_lib_martigny_w_patterns, json_header):
     """Test holdings notes."""
 
     holding = holding_lib_martigny_w_patterns
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
 
     # holdings has only on general note
     assert len(holding.notes) == 1

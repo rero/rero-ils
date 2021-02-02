@@ -63,11 +63,11 @@ def test_notifications_permissions(
 
 def test_filtered_notifications_get(
         client, notification_availability_martigny,
-        librarian_martigny_no_email,
-        librarian_sion_no_email):
+        librarian_martigny,
+        librarian_sion):
     """Test notification filter by organisation."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     list_url = url_for('invenio_records_rest.notif_list')
 
     res = client.get(list_url)
@@ -76,7 +76,7 @@ def test_filtered_notifications_get(
     assert data['hits']['total']['value'] == 1
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
     list_url = url_for('invenio_records_rest.notif_list')
 
     res = client.get(list_url)
@@ -86,13 +86,13 @@ def test_filtered_notifications_get(
 
 
 def test_notification_secure_api(client, json_header,
-                                 librarian_martigny_no_email,
-                                 librarian_sion_no_email,
+                                 librarian_martigny,
+                                 librarian_sion,
                                  dummy_notification,
                                  loan_validated_martigny):
     """Test notification secure api create."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     post_entrypoint = 'invenio_records_rest.notif_list'
     item_url = url_for('invenio_records_rest.notif_item', pid_value='notif1')
 
@@ -128,7 +128,7 @@ def test_notification_secure_api(client, json_header,
     assert res.status_code == 200
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
 
     # test get notification
     res = client.get(item_url)
@@ -155,7 +155,7 @@ def test_notification_secure_api(client, json_header,
     res = client.delete(item_url)
     assert res.status_code == 403
 
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     # test notification delete at Martigny
     res = client.delete(item_url)
     assert res.status_code == 204
@@ -306,24 +306,24 @@ def test_notifications_post_put_delete(
     notif.delete(dbcommit=True, delindex=True)
 
 
-def test_recall_notification(client, patron_martigny_no_email, lib_martigny,
-                             json_header, patron2_martigny_no_email,
-                             item_lib_martigny, librarian_martigny_no_email,
+def test_recall_notification(client, patron_martigny, lib_martigny,
+                             json_header, patron2_martigny,
+                             item_lib_martigny, librarian_martigny,
                              circulation_policies, loc_public_martigny,
                              mailbox):
     """Test recall notification."""
     # process all notifications still in the queue
     Notification.process_notifications()
     mailbox.clear()
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res, data = postdata(
         client,
         'api_item.checkout',
         dict(
             item_pid=item_lib_martigny.pid,
-            patron_pid=patron_martigny_no_email.pid,
+            patron_pid=patron_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
         )
     )
     assert res.status_code == 200
@@ -338,9 +338,9 @@ def test_recall_notification(client, patron_martigny_no_email, lib_martigny,
         dict(
             item_pid=item_lib_martigny.pid,
             pickup_location_pid=loc_public_martigny.pid,
-            patron_pid=patron2_martigny_no_email.pid,
+            patron_pid=patron2_martigny.pid,
             transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -371,7 +371,7 @@ def test_recall_notification(client, patron_martigny_no_email, lib_martigny,
         dict(
             item_pid=item_lib_martigny.pid,
             pid=request_loan_pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
@@ -384,9 +384,9 @@ def test_recall_notification(client, patron_martigny_no_email, lib_martigny,
         dict(
             item_pid=item_lib_martigny.pid,
             pickup_location_pid=loc_public_martigny.pid,
-            patron_pid=patron2_martigny_no_email.pid,
+            patron_pid=patron2_martigny.pid,
             transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -407,24 +407,24 @@ def test_recall_notification(client, patron_martigny_no_email, lib_martigny,
 
 
 def test_recall_notification_without_email(
-                              client, patron_sion_without_email, lib_martigny,
-                              json_header, patron2_martigny_no_email,
-                              item3_lib_martigny, librarian_martigny_no_email,
-                              circulation_policies, loc_public_martigny,
-                              mailbox):
+        client, patron_sion_without_email1, lib_martigny,
+        json_header, patron2_martigny,
+        item3_lib_martigny, librarian_martigny,
+        circulation_policies, loc_public_martigny,
+        mailbox):
     """Test recall notification."""
     # process all notifications still in the queue
     Notification.process_notifications()
     mailbox.clear()
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res, data = postdata(
         client,
         'api_item.checkout',
         dict(
             item_pid=item3_lib_martigny.pid,
-            patron_pid=patron_sion_without_email.pid,
+            patron_pid=patron_sion_without_email1.pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny.pid,
         )
     )
     assert res.status_code == 200
@@ -439,9 +439,9 @@ def test_recall_notification_without_email(
         dict(
             item_pid=item3_lib_martigny.pid,
             pickup_location_pid=loc_public_martigny.pid,
-            patron_pid=patron2_martigny_no_email.pid,
+            patron_pid=patron2_martigny.pid,
             transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -468,14 +468,14 @@ def test_recall_notification_without_email(
 
 def test_availability_notification(
         loan_validated_martigny, item2_lib_martigny,
-        patron_martigny_no_email):
+        patron_martigny):
     """Test availability notification created from a loan."""
     loan = loan_validated_martigny
     assert loan.is_notified(notification_type='availability')
     notification = get_availability_notification(loan_validated_martigny)
     assert notification.loan_pid == loan_validated_martigny.get('pid')
     assert notification.item_pid == item2_lib_martigny.pid
-    assert notification.patron_pid == patron_martigny_no_email.pid
+    assert notification.patron_pid == patron_martigny.pid
 
     assert not loan_validated_martigny.is_notified(notification_type='recall')
     assert not get_recall_notification(loan_validated_martigny)

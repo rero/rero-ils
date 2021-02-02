@@ -26,8 +26,8 @@ from rero_ils.modules.documents.views import contribution_format, \
 
 
 def test_item_and_patron_in_same_organisation(
-        app, item_lib_martigny, patron_martigny_no_email,
-        patron_sion_no_email):
+        app, item_lib_martigny, patron_martigny,
+        patron_sion):
     """Test item and patron are in the same organisation."""
 
     # NOTE : Why with use app_context and login_user
@@ -39,9 +39,9 @@ def test_item_and_patron_in_same_organisation(
     #   called directly the function requiring context) the current_user/patron
     #   will always be unknown from the current context.
     with app.app_context():
-        login_user(patron_martigny_no_email.user)
+        login_user(patron_martigny.user)
         assert item_and_patron_in_same_organisation(item_lib_martigny)
-        login_user(patron_sion_no_email.user)
+        login_user(patron_sion.user)
         assert not item_and_patron_in_same_organisation(item_lib_martigny)
 
 

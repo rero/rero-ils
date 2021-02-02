@@ -23,14 +23,8 @@ from functools import partial
 from flask import current_app
 from flask_babelex import gettext as _
 from flask_login import current_user
-from flask_security.confirmable import confirm_user
-from flask_security.recoverable import send_reset_password_instructions
-from invenio_accounts.ext import hash_password
-from invenio_accounts.models import User
 from invenio_circulation.proxies import current_circulation
 from invenio_db import db
-from invenio_userprofiles.models import UserProfile
-from sqlalchemy.orm.exc import NoResultFound
 from werkzeug.local import LocalProxy
 
 from .models import PatronIdentifier, PatronMetadata
@@ -44,10 +38,29 @@ from ..patron_transactions.api import PatronTransaction
 from ..providers import Provider
 from ..utils import extracted_data_from_ref, get_patron_from_arguments, \
     get_ref_for_pid, trim_barcode_for_record
+from ...utils import create_user_from_data
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
 current_patron = LocalProxy(lambda: Patron.get_patron_by_user(current_user))
+
+
+def create_patron_from_data(
+    data, delete_pid=False, dbcommit=False, reindex=False):
+    """Create a patron and a user from a data dict.
+
+    :param data - dictionary representing a library user
+    :param dbcommit - commit the changes in the db after the creation
+    :param reindex - index the record after the creation
+    :returns: - A `Patron` instance
+    """
+    data = create_user_from_data(data)
+    return Patron.create(
+        data=data,
+        delete_pid=delete_pid,
+        dbcommit=dbcommit,
+        reindex=reindex)
+
 
 # provider
 PatronProvider = type(
@@ -165,8 +178,9 @@ class Patron(IlsRecord):
         is email.
         """
         patron = self.get('patron')
+        user = self._get_user_by_user_id(self.get('user_id'))
         if patron and patron.get('communication_channel') == 'email'\
-           and self.get('email') is None\
+           and user.email is None\
            and patron.get('additional_communication_email') is None:
             raise RecordValidationError('At least one email should be defined '
                                         'for an email communication channel.')
@@ -174,7 +188,7 @@ class Patron(IlsRecord):
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,
                dbcommit=False, reindex=False,
-               email_notification=True, **kwargs):
+               **kwargs):
         """Patron record creation.
 
         :param cls - class object
@@ -188,7 +202,8 @@ class Patron(IlsRecord):
         # remove spaces
         data = trim_barcode_for_record(data=data)
         # synchronize the rero id user profile data
-        user = cls.sync_user_and_profile(data)
+        user = cls._get_user_by_user_id(data.get('user_id'))
+        data = cls.merge_data_from_profile(data, user.profile)
         try:
             record = super().create(
                 data, id_, delete_pid, dbcommit, reindex, **kwargs)
@@ -196,41 +211,22 @@ class Patron(IlsRecord):
         except Exception as err:
             db.session.rollback()
             raise err
-        if user:
-            # send the reset password notification
-            if (email_notification and data.get('email')):
-                send_reset_password_instructions(user)
-            confirm_user(user)
+        # TODO: send reset password instruction when a librarian create a user
         return record
 
     def update(self, data, dbcommit=False, reindex=False):
         """Update data for record."""
         # remove spaces
         data = trim_barcode_for_record(data=data)
-        # synchronize the rero id user profile data
         data = dict(self, **data)
-        old_keep_history = self.keep_history
-        self.sync_user_and_profile(data)
+
+        # synchronize the rero id user profile data
+        user = self._get_user_by_user_id(data.get('user_id'))
+        data = self.merge_data_from_profile(data, user.profile)
+
         super().update(data, dbcommit, reindex)
         self._update_roles()
-        Patron._anonymize_loans(
-            patron_data=data, old_keep_history=old_keep_history)
         return self
-
-    @classmethod
-    def _anonymize_loans(
-            cls, patron_data=None, old_keep_history=None):
-        """Anonymize patron loans.
-
-        :param patron_data - dictionary representing a patron record.
-        :param old_keep_history - old settings of keep_history.
-        """
-        from ..loans.api import anonymize_loans
-        new_keep_history = patron_data.get('patron', {}).get('keep_history')
-        if old_keep_history and not new_keep_history:
-            anonymize_loans(
-                patron_data=patron_data,
-                patron_pid=patron_data.get('pid'), dbcommit=True, reindex=True)
 
     def delete(self, force=False, delindex=False):
         """Delete record and persistent identifier."""
@@ -239,7 +235,40 @@ class Patron(IlsRecord):
         return self
 
     @classmethod
-    def update_from_profile(cls, profile):
+    def merge_data_from_profile(cls, data, profile):
+        """Get the profile informations and inject it.
+
+        TODO: move this to the indexing time.
+        """
+        # retrieve the user
+        for field in cls.profile_fields:
+            # date field requires conversion
+            if field == 'birth_date':
+                data[field] = getattr(
+                    profile, field).strftime('%Y-%m-%d')
+            elif field == 'keep_history':
+                if 'patron' in data.get('roles', []):
+                    new_keep_history = getattr(profile, field)
+                    data.setdefault('patron', {})['keep_history'] = new_keep_history
+            else:
+                value = getattr(profile, field)
+                if value not in [None, '']:
+                    data[field] = value
+        # update the email
+        if profile.user.email != data.get('email'):
+            # the email is not defined or removed in the user profile
+            if not profile.user.email:
+                try:
+                    del data['email']
+                except KeyError:
+                    pass
+            else:
+                # the email has been updated in the user profile
+                data['email'] = profile.user.email
+        return data
+
+    @classmethod
+    def update_from_profile(cls, data, profile):
         """Update the current record with the user profile data.
 
         :param profile - the rero user profile
@@ -247,38 +276,16 @@ class Patron(IlsRecord):
         # retrieve the user
         patron = Patron.get_patron_by_user(profile.user)
         if patron:
-            old_keep_history = patron.patron.get('keep_history')
-            for field in cls.profile_fields:
-                # date field requires conversion
-                if field == 'birth_date':
-                    patron[field] = getattr(
-                        profile, field).strftime('%Y-%m-%d')
-                elif field == 'keep_history':
-                    new_keep_history = getattr(profile, field)
-                    patron['patron']['keep_history'] = new_keep_history
-                else:
-                    value = getattr(profile, field)
-                    if value not in [None, '']:
-                        patron[field] = value
-            # update the email
-            if profile.user.email != patron.get('email'):
-                # the email is not defined or removed in the user profile
-                if not profile.user.email:
-                    try:
-                        del patron['email']
-                    except KeyError:
-                        pass
-                else:
-                    # the email has been updated in the user profile
-                    patron['email'] = profile.user.email
+            cls.merge_data_from_profile(dict(patron), profile)
             super().update(dict(patron), True, True)
+        # TODO: do it at the profile changes
         # anonymize user loans if keep_history is changed
-        if old_keep_history and not new_keep_history:
-            from ..loans.api import anonymize_loans
-            anonymize_loans(patron_pid=patron.pid, dbcommit=True, reindex=True)
+        # if old_keep_history and not new_keep_history:
+        #    from ..loans.api import anonymize_loans
+        #    anonymize_loans(patron_pid=patron.pid, dbcommit=True, reindex=True)
 
     @classmethod
-    def _get_user_by_data(cls, data):
+    def _get_user_by_user_id(cls, user_id):
         """Get the user using a dict representing a patron.
 
         Try to get an existing user by: user_id, email, username.
@@ -286,77 +293,14 @@ class Patron(IlsRecord):
         :param data: dict representing a patron.
         :return: a patron object or None.
         """
-        user = None
-        if not user and data.get('username'):
-            try:
-                user = UserProfile.get_by_username(data.get('username')).user
-            except NoResultFound:
-                user = None
-        if not user and data.get('email'):
-            user = User.query.filter_by(email=data.get('email')).first()
-        if not user and not data.get('user_id'):
-            user = User.query.filter_by(id=data.get('user_id')).first()
-        return user
-
-    @classmethod
-    def sync_user_and_profile(cls, data):
-        """Create or update the rero user with the patron data.
-
-        :param data - dict representing the patron data
-        """
-        created = False
-        # start a session to be able to rollback if the data are not valid
-        user = cls._get_user_by_data(data)
-        with db.session.begin_nested():
-            # need to create the user
-            if not user:
-                birth_date = data.get('birth_date')
-                # sanity check
-                if not birth_date:
-                    raise RecordValidationError('birth_date field is required')
-                # the default password is the birth date
-                user = User(
-                    email=data.get('email'),
-                    password=hash_password(birth_date),
-                    profile=dict(), active=True)
-                db.session.add(user)
-                created = True
-            else:
-                if user.email != data.get('email'):
-                    user.email = data.get('email')
-            # update all common fields
-            if user.profile is None:
-                user.profile = UserProfile(user_id=user.id)
-            profile = user.profile
-            for field in cls.profile_fields:
-                # date field need conversion
-                if field == 'birth_date':
-                    setattr(
-                        profile, field,
-                        datetime.strptime(data.get(field), '%Y-%m-%d'))
-                elif field == 'keep_history':
-                    setattr(profile, field, data.get(
-                        'patron', {}).get(field, True))
-                else:
-                    setattr(profile, field, data.get(field, ''))
-            db.session.merge(user)
-            data['user_id'] = user.id
-            if created:
-                # the fresh created user
-                return user
+        return _datastore.find_user(id=user_id)
 
     # TODO: use cached property one we found how to invalidate the cache when
     #       the user change
     @property
     def user(self):
         """Invenio user of a patron."""
-        user = _datastore.find_user(id=self.get('user_id'))
-        return user
-
-    @property
-    def keep_history(self):
-        """Shortcut for user keep history."""
-        return self.get('patron', {}).get('keep_history', True)
+        return self._get_user_by_user_id(self.get('user_id'))
 
     def _update_roles(self):
         """Update user roles."""

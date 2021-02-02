@@ -31,15 +31,15 @@ from rero_ils.modules.loans.utils import can_be_requested
 from rero_ils.modules.locations.api import LocationsSearch
 
 
-def test_loan_utils(client, patron_martigny_no_email,
-                    patron2_martigny_no_email, circulation_policies,
-                    item_lib_martigny, librarian_martigny_no_email,
+def test_loan_utils(client, patron_martigny,
+                    patron2_martigny, circulation_policies,
+                    item_lib_martigny, librarian_martigny,
                     loc_public_martigny):
     """Test loan utils methods."""
     loan_metadata = dict(item_lib_martigny)
     loan_metadata['item_pid'] = item_pid_to_object(item_lib_martigny.pid)
     if 'patron_pid' not in loan_metadata:
-        loan_metadata['patron_pid'] = patron_martigny_no_email.pid
+        loan_metadata['patron_pid'] = patron_martigny.pid
     # Create "virtual" Loan (not registered)
     loan = Loan(loan_metadata)
     # test that loan can successfully move to the pending state
@@ -53,23 +53,23 @@ def test_loan_utils(client, patron_martigny_no_email,
     # test a pending loan will be attached at the right organisation and
     # will not be considered as an active loan
     params = {
-        'patron_pid': patron2_martigny_no_email.pid,
+        'patron_pid': patron2_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     item, loan_pending_martigny = item_record_to_a_specific_loan_state(
         item=item_lib_martigny, loan_state=LoanState.PENDING,
         params=params, copy_item=True)
 
-    assert loan_pending_martigny.patron_pid == patron2_martigny_no_email.pid
+    assert loan_pending_martigny.patron_pid == patron2_martigny.pid
     assert not loan_pending_martigny.is_active
     assert loan_pending_martigny.organisation_pid
 
     # test required parameters for get_loans_by_patron_pid
     with pytest.raises(TypeError):
         assert get_loans_by_patron_pid()
-    assert get_loans_by_patron_pid(patron2_martigny_no_email.pid)
+    assert get_loans_by_patron_pid(patron2_martigny.pid)
 
     # test required parameters for get_last_transaction_loc_for_item
     with pytest.raises(TypeError):
@@ -92,9 +92,9 @@ def test_loan_utils(client, patron_martigny_no_email,
     )
     flush_index(LocationsSearch.Meta.index)
     new_loan = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'transaction_user_pid': librarian_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid
     }
     with pytest.raises(CirculationException):

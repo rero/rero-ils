@@ -24,9 +24,9 @@ from utils import get_json
 from rero_ils.modules.holdings.permissions import HoldingPermission
 
 
-def test_holdings_permissions_api(client, patron_martigny_no_email,
-                                  system_librarian_martigny_no_email,
-                                  librarian_martigny_no_email,
+def test_holdings_permissions_api(client, patron_martigny,
+                                  system_librarian_martigny,
+                                  librarian_martigny,
                                   holding_lib_martigny, holding_lib_saxon,
                                   holding_lib_sion,
                                   holding_lib_martigny_w_patterns):
@@ -61,7 +61,7 @@ def test_holdings_permissions_api(client, patron_martigny_no_email,
     assert res.status_code == 401
 
     # Logged as patron
-    login_user_via_session(client, patron_martigny_no_email.user)
+    login_user_via_session(client, patron_martigny.user)
     res = client.get(holding_permissions_url)
     assert res.status_code == 403
 
@@ -69,7 +69,7 @@ def test_holdings_permissions_api(client, patron_martigny_no_email,
     #   * lib can 'list' and 'read' holding of its own organisation
     #   * lib can 'create', 'update', 'delete' only for its own organisation
     #   * lib can't 'create', 'update', 'delete' item for other organisation
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res = client.get(holding_martigny_permission_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -107,7 +107,7 @@ def test_holdings_permissions_api(client, patron_martigny_no_email,
     # Logged as system librarian
     #   * sys_lib can do everything about patron of its own organisation
     #   * sys_lib can't do anything about patron of other organisation
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res = client.get(holding_saxon_permission_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -134,9 +134,9 @@ def test_holdings_permissions_api(client, patron_martigny_no_email,
     assert not data['delete']['can']
 
 
-def test_holdings_permissions(patron_martigny_no_email, org_martigny,
-                              librarian_martigny_no_email,
-                              system_librarian_martigny_no_email,
+def test_holdings_permissions(patron_martigny, org_martigny,
+                              librarian_martigny,
+                              system_librarian_martigny,
                               holding_lib_sion, holding_lib_saxon,
                               holding_lib_martigny,
                               holding_lib_martigny_w_patterns,
@@ -155,7 +155,7 @@ def test_holdings_permissions(patron_martigny_no_email, org_martigny,
     holding_serial_sion = holding_lib_sion_w_patterns
     with mock.patch(
         'rero_ils.modules.holdings.permissions.current_patron',
-        patron_martigny_no_email
+        patron_martigny
     ):
         assert HoldingPermission.list(None, holding_lib_martigny)
         assert HoldingPermission.read(None, holding_lib_martigny)
@@ -166,7 +166,7 @@ def test_holdings_permissions(patron_martigny_no_email, org_martigny,
     # As Librarian
     with mock.patch(
         'rero_ils.modules.holdings.permissions.current_patron',
-        librarian_martigny_no_email
+        librarian_martigny
     ), mock.patch(
         'rero_ils.modules.holdings.permissions.current_organisation',
         org_martigny
@@ -197,7 +197,7 @@ def test_holdings_permissions(patron_martigny_no_email, org_martigny,
     # As System-librarian
     with mock.patch(
         'rero_ils.modules.holdings.permissions.current_patron',
-        system_librarian_martigny_no_email
+        system_librarian_martigny
     ), mock.patch(
         'rero_ils.modules.holdings.permissions.current_organisation',
         org_martigny

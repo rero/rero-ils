@@ -184,19 +184,19 @@ def test_patron_transaction_event_utils_shortcuts(
 
 
 def test_filtered_patron_transaction_events_get(
-        client, librarian_martigny_no_email,
+        client, librarian_martigny,
         patron_transaction_overdue_event_martigny,
-        librarian_sion_no_email, patron_martigny_no_email
+        librarian_sion, patron_martigny
 ):
     """Test patron transaction event filter by organisation."""
     list_url = url_for('invenio_records_rest.ptre_list')
 
-    login_user_via_session(client, patron_martigny_no_email.user)
+    login_user_via_session(client, patron_martigny.user)
     res = client.get(list_url)
     assert res.status_code == 200
 
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
 
     res = client.get(list_url)
     assert res.status_code == 200
@@ -204,7 +204,7 @@ def test_filtered_patron_transaction_events_get(
     assert data['hits']['total']['value'] == 1
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
     list_url = url_for('invenio_records_rest.ptre_list')
 
     res = client.get(list_url)
@@ -215,9 +215,9 @@ def test_filtered_patron_transaction_events_get(
 
 def test_patron_transaction_event_secure_api(
         client, json_header, patron_transaction_overdue_event_martigny,
-        librarian_martigny_no_email, librarian_sion_no_email,
-        system_librarian_martigny_no_email, system_librarian_sion_no_email,
-        patron_transaction_overdue_event_saxon, patron_martigny_no_email):
+        librarian_martigny, librarian_sion,
+        system_librarian_martigny, system_librarian_sion,
+        patron_transaction_overdue_event_saxon, patron_martigny):
     """Test patron transaction event secure api access."""
     # test if a 'creation_date' attribute is created if not present into data
     trans_data = deepcopy(patron_transaction_overdue_event_martigny)
@@ -229,13 +229,13 @@ def test_patron_transaction_event_secure_api(
         'invenio_records_rest.ptre_item',
         pid_value=patron_transaction_overdue_event_martigny.pid)
 
-    login_user_via_session(client, patron_martigny_no_email.user)
+    login_user_via_session(client, patron_martigny.user)
     res = client.get(record_url)
     # a patron is authorized to access his events
     assert res.status_code == 200
 
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
 
     res = client.get(record_url)
     # a librarian is authorized to access any patron event of its library
@@ -248,13 +248,13 @@ def test_patron_transaction_event_secure_api(
     # a librarian can access any patron event of its organisation
     assert res.status_code == 200
 
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res = client.get(record_url)
     # a sys_librarian can access any patron event of its organisation
     assert res.status_code == 200
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
     record_url = url_for(
         'invenio_records_rest.ptre_item',
         pid_value=patron_transaction_overdue_event_martigny.pid)
@@ -263,20 +263,20 @@ def test_patron_transaction_event_secure_api(
     # librarian can not access any patron event of other organisation
     assert res.status_code == 403
 
-    login_user_via_session(client, system_librarian_sion_no_email.user)
+    login_user_via_session(client, system_librarian_sion.user)
     res = client.get(record_url)
     # a sys_librarian can not access any patron event of other org
     assert res.status_code == 403
 
 
 def test_patron_transaction_event_secure_api_create(
-        client, librarian_martigny_no_email,
-        librarian_sion_no_email, patron_transaction_overdue_event_martigny,
-        system_librarian_martigny_no_email,
-        system_librarian_sion_no_email):
+        client, librarian_martigny,
+        librarian_sion, patron_transaction_overdue_event_martigny,
+        system_librarian_martigny,
+        system_librarian_sion):
     """Test patron transction event secure api create."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     post_entrypoint = 'invenio_records_rest.ptre_list'
     patron_event = deepcopy(patron_transaction_overdue_event_martigny)
     del patron_event['pid']
@@ -299,7 +299,7 @@ def test_patron_transaction_event_secure_api_create(
     # librarian is can create a patron event in other libraries.
     assert res.status_code == 201
 
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res, _ = postdata(
         client,
         post_entrypoint,
@@ -309,7 +309,7 @@ def test_patron_transaction_event_secure_api_create(
     assert res.status_code == 201
 
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
 
     patron_event_3 = deepcopy(patron_transaction_overdue_event_martigny)
     del patron_event_3['pid']
@@ -322,7 +322,7 @@ def test_patron_transaction_event_secure_api_create(
     # librarian is not authorized to create a patron event at other org.
     assert res.status_code == 403
 
-    login_user_via_session(client, system_librarian_sion_no_email.user)
+    login_user_via_session(client, system_librarian_sion.user)
     res, _ = postdata(
         client,
         post_entrypoint,
@@ -334,12 +334,12 @@ def test_patron_transaction_event_secure_api_create(
 
 def test_patron_transaction_event_secure_api_update(
         client, patron_transaction_overdue_event_saxon,
-        patron_transaction_overdue_event_martigny, librarian_martigny_no_email,
-        librarian_sion_no_email, json_header,
-        system_librarian_martigny_no_email, system_librarian_sion_no_email):
+        patron_transaction_overdue_event_martigny, librarian_martigny,
+        librarian_sion, json_header,
+        system_librarian_martigny, system_librarian_sion):
     """Test patron transaction event secure api update."""
     # Martigny
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     record_url = url_for(
         'invenio_records_rest.ptre_item',
         pid_value=patron_transaction_overdue_event_martigny.pid)
@@ -365,7 +365,7 @@ def test_patron_transaction_event_secure_api_update(
     # librarian is can update a patron event of another library.
     assert res.status_code == 200
 
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res = client.put(
         record_url,
         data=json.dumps(patron_transaction_overdue_event_saxon),
@@ -375,7 +375,7 @@ def test_patron_transaction_event_secure_api_update(
     assert res.status_code == 200
 
 #     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
 
     res = client.put(
         record_url,
@@ -385,7 +385,7 @@ def test_patron_transaction_event_secure_api_update(
     # librarian can not update any patron event of another org.
     assert res.status_code == 403
 
-    login_user_via_session(client, system_librarian_sion_no_email.user)
+    login_user_via_session(client, system_librarian_sion.user)
     res = client.put(
         record_url,
         data=json.dumps(patron_transaction_overdue_event_saxon),
@@ -396,12 +396,12 @@ def test_patron_transaction_event_secure_api_update(
 
 def test_patron_transaction_event_secure_api_delete(
         client, patron_transaction_overdue_event_saxon,
-        patron_transaction_overdue_event_martigny, librarian_martigny_no_email,
-        librarian_sion_no_email, system_librarian_martigny_no_email,
-        system_librarian_sion_no_email):
+        patron_transaction_overdue_event_martigny, librarian_martigny,
+        librarian_sion, system_librarian_martigny,
+        system_librarian_sion):
     """Test patron transaction event secure api delete."""
     # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
+    login_user_via_session(client, librarian_sion.user)
 
     record_url = url_for(
         'invenio_records_rest.ptre_item',
@@ -410,12 +410,12 @@ def test_patron_transaction_event_secure_api_delete(
     # librarian can not delete any patron event of other org.
     assert res.status_code == 403
 
-    login_user_via_session(client, system_librarian_sion_no_email.user)
+    login_user_via_session(client, system_librarian_sion.user)
     res = client.delete(record_url)
     # sys_ibrarian can not delete any patron event of other org.
     assert res.status_code == 403
 
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     record_url = url_for('invenio_records_rest.ptre_item',
                          pid_value=patron_transaction_overdue_event_saxon.pid)
 

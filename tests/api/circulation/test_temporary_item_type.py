@@ -29,23 +29,23 @@ from rero_ils.modules.utils import get_ref_for_pid
 
 def test_checkout_temporary_item_type(
         client,
-        librarian_martigny_no_email,
+        librarian_martigny,
         lib_martigny,
         loc_public_martigny,
-        patron_martigny_no_email,
+        patron_martigny,
         item_lib_martigny,
         item_type_on_site_martigny,
         circ_policy_short_martigny,
         circ_policy_default_martigny):
     """Test checkout or item with temporary item_types"""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
     assert item.status == ItemStatus.ON_SHELF
 
     # test basic behavior
     cipo_used = CircPolicy.provide_circ_policy(
         lib_martigny.pid,
-        patron_martigny_no_email.patron_type_pid,
+        patron_martigny.patron_type_pid,
         item.item_type_circulation_category_pid
     )
     assert cipo_used == circ_policy_short_martigny
@@ -59,7 +59,7 @@ def test_checkout_temporary_item_type(
     item = item.update(data=item, dbcommit=True, reindex=True)
     cipo_tmp_used = CircPolicy.provide_circ_policy(
         lib_martigny.pid,
-        patron_martigny_no_email.patron_type_pid,
+        patron_martigny.patron_type_pid,
         item.item_type_circulation_category_pid
     )
     assert cipo_tmp_used == circ_policy_default_martigny
@@ -73,8 +73,8 @@ def test_checkout_temporary_item_type(
     # corresponding to the temporary item_type
     params = dict(
         item_pid=item.pid,
-        patron_pid=patron_martigny_no_email.pid,
-        transaction_user_pid=librarian_martigny_no_email.pid,
+        patron_pid=patron_martigny.pid,
+        transaction_user_pid=librarian_martigny.pid,
         transaction_location_pid=loc_public_martigny.pid
     )
     res, data = postdata(client, 'api_item.checkout', params)

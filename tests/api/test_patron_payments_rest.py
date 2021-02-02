@@ -27,8 +27,8 @@ from rero_ils.modules.utils import get_ref_for_pid
 
 
 def test_patron_payment(
-        client, librarian_martigny_no_email,
-        librarian_sion_no_email, patron_transaction_overdue_event_martigny):
+        client, librarian_martigny,
+        librarian_sion, patron_transaction_overdue_event_martigny):
     """Test patron payment."""
     transaction = \
         patron_transaction_overdue_event_martigny.patron_transaction()
@@ -38,7 +38,7 @@ def test_patron_payment(
     transaction = PatronTransaction.get_record_by_pid(transaction.pid)
     assert calculated_amount == transaction.total_amount == 2.00
 
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     post_entrypoint = 'invenio_records_rest.ptre_list'
     payment = deepcopy(patron_transaction_overdue_event_martigny)
 
@@ -48,7 +48,7 @@ def test_patron_payment(
     payment['subtype'] = 'cash'
     payment['amount'] = 0.54
     payment['operator'] = {'$ref': get_ref_for_pid(
-        'patrons', librarian_martigny_no_email.pid)}
+        'patrons', librarian_martigny.pid)}
     res, _ = postdata(
         client,
         post_entrypoint,

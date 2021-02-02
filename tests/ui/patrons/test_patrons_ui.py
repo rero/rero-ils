@@ -30,8 +30,8 @@ from rero_ils.modules.patrons.views import format_currency_filter
 
 
 def test_patrons_profile(
-        client, librarian_martigny_no_email, loan_pending_martigny,
-        patron_martigny_no_email, loc_public_martigny,
+        client, librarian_martigny, loan_pending_martigny,
+        patron_martigny, loc_public_martigny,
         item_type_standard_martigny, item_lib_martigny, json_header,
         circ_policy_short_martigny, ill_request_martigny):
     """Test patron profile."""
@@ -42,17 +42,17 @@ def test_patrons_profile(
         'security.login', next='/global/patrons/profile'))
 
     # check with logged user
-    login_user_via_session(client, patron_martigny_no_email.user)
+    login_user_via_session(client, patron_martigny.user)
     res = client.get(url_for('patrons.profile'))
     assert res.status_code == 200
 
     # create patron transactions
     data = {
-        'patron_pid': patron_martigny_no_email.pid,
+        'patron_pid': patron_martigny.pid,
         'item_pid': item_lib_martigny.pid,
         'pickup_location_pid': loc_public_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny_no_email.pid
+        'transaction_user_pid': librarian_martigny.pid
     }
     loan = item_lib_martigny.request(**data)
     loan_pid = loan[1].get('request').get('pid')
@@ -95,7 +95,7 @@ def test_patrons_profile(
     loan = item_lib_martigny.checkin(**data)
 
 
-def test_patrons_logged_user(client, librarian_martigny_no_email):
+def test_patrons_logged_user(client, librarian_martigny):
     """Test logged user info API."""
     res = client.get(url_for('patrons.logged_user'))
     assert res.status_code == 200
@@ -103,7 +103,7 @@ def test_patrons_logged_user(client, librarian_martigny_no_email):
     assert not data.get('metadata')
     assert data.get('settings').get('language')
 
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res = client.get(url_for('patrons.logged_user', resolve=1))
     assert res.status_code == 200
     data = get_json(res)
@@ -116,19 +116,19 @@ def test_patrons_logged_user(client, librarian_martigny_no_email):
         'rero_ils.modules.patrons.views.current_i18n',
         current_i18n
     ):
-        login_user_via_session(client, librarian_martigny_no_email.user)
+        login_user_via_session(client, librarian_martigny.user)
         res = client.get(url_for('patrons.logged_user'))
         assert res.status_code == 200
         data = get_json(res)
-        assert data.get('metadata') == librarian_martigny_no_email
+        assert data.get('metadata') == librarian_martigny
         assert data.get('settings').get('language') == 'fr'
 
 
 def test_patrons_logged_user_resolve(
         client,
-        librarian_martigny_no_email):
+        librarian_martigny):
     """Test that patron library is resolved in JSON data."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res = client.get(url_for('patrons.logged_user', resolve=1))
     assert res.status_code == 200
     data = get_json(res)
@@ -138,10 +138,10 @@ def test_patrons_logged_user_resolve(
 def test_patrons_blocked_user_profile(
         client,
         lib_martigny,
-        patron3_martigny_blocked_no_email):
+        patron3_martigny_blocked):
     """Test blocked patron profile."""
     # The patron logged in
-    login_user_via_session(client, patron3_martigny_blocked_no_email.user)
+    login_user_via_session(client, patron3_martigny_blocked.user)
     res = client.get(url_for('patrons.profile'))
     assert res.status_code == 200
     # The profile displays the patron a blocked account message.

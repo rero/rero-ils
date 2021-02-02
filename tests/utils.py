@@ -45,7 +45,8 @@ from rero_ils.modules.loans.api import Loan, LoanAction, LoansSearch, LoanState
 from rero_ils.modules.locations.api import Location
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.patron_types.api import PatronType
-from rero_ils.modules.patrons.api import Patron
+from rero_ils.modules.patrons.api import Patron, PatronsSearch, \
+    create_patron_from_data
 
 
 class VerifyRecordPermissionPatch(object):
@@ -350,3 +351,17 @@ def item_record_to_a_specific_loan_state(
 
     assert loan['state'] == loan_state
     return item, loan
+
+def create_patron(data):
+    """Create a patron with his related user for text fixtures.
+
+    :param data: - A dict containing a mix of user and patron data.
+    :returns: - A freshly created Patron instance.
+    """
+    ptrn = create_patron_from_data(
+        data=data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    return ptrn

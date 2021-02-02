@@ -25,9 +25,9 @@ from rero_ils.modules.patron_transactions.permissions import \
     PatronTransactionPermission
 
 
-def test_pttr_permissions_api(client, patron_martigny_no_email,
-                              system_librarian_martigny_no_email,
-                              librarian_martigny_no_email,
+def test_pttr_permissions_api(client, patron_martigny,
+                              system_librarian_martigny,
+                              librarian_martigny,
                               patron_transaction_overdue_martigny,
                               patron_transaction_overdue_saxon,
                               patron_transaction_overdue_sion):
@@ -57,7 +57,7 @@ def test_pttr_permissions_api(client, patron_martigny_no_email,
     assert res.status_code == 401
 
     # Logged as patron
-    login_user_via_session(client, patron_martigny_no_email.user)
+    login_user_via_session(client, patron_martigny.user)
     res = client.get(pttr_permissions_url)
     assert res.status_code == 403
 
@@ -66,7 +66,7 @@ def test_pttr_permissions_api(client, patron_martigny_no_email,
     #   * lib can 'create', 'update', 'delete' only for its library
     #   * lib can't 'read' acq_account of others organisation.
     #   * lib can't 'create', 'update', 'delete' acq_account for other org/lib
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res = client.get(pttr_martigny_permission_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -97,7 +97,7 @@ def test_pttr_permissions_api(client, patron_martigny_no_email,
     # Logged as system librarian
     #   * sys_lib can do everything about pttr of its own organisation
     #   * sys_lib can't do anything about pttr of other organisation
-    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    login_user_via_session(client, system_librarian_martigny.user)
     res = client.get(pttr_saxon_permission_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -116,9 +116,9 @@ def test_pttr_permissions_api(client, patron_martigny_no_email,
     assert not data['delete']['can']
 
 
-def test_pttr_permissions(patron_martigny_no_email,
-                          librarian_martigny_no_email,
-                          system_librarian_martigny_no_email,
+def test_pttr_permissions(patron_martigny,
+                          librarian_martigny,
+                          system_librarian_martigny,
                           org_martigny, patron_transaction_overdue_saxon,
                           patron_transaction_overdue_sion,
                           patron_transaction_overdue_martigny):
@@ -137,10 +137,10 @@ def test_pttr_permissions(patron_martigny_no_email,
     pttr_si = patron_transaction_overdue_sion
     with mock.patch(
         'rero_ils.modules.patron_transactions.permissions.current_patron',
-        patron_martigny_no_email
+        patron_martigny
     ), mock.patch(
         'rero_ils.modules.patron_transactions.permissions.current_user',
-        patron_martigny_no_email.user
+        patron_martigny.user
     ):
         assert PatronTransactionPermission.list(None, pttr_m)
         assert PatronTransactionPermission.read(None, pttr_m)
@@ -151,10 +151,10 @@ def test_pttr_permissions(patron_martigny_no_email,
     # As Librarian
     with mock.patch(
         'rero_ils.modules.patron_transactions.permissions.current_patron',
-        librarian_martigny_no_email
+        librarian_martigny
     ), mock.patch(
         'rero_ils.modules.patron_transactions.permissions.current_user',
-        librarian_martigny_no_email.user
+        librarian_martigny.user
     ), mock.patch(
         'rero_ils.modules.patron_transactions.permissions.'
         'current_organisation',
@@ -179,10 +179,10 @@ def test_pttr_permissions(patron_martigny_no_email,
     # As System-librarian
     with mock.patch(
         'rero_ils.modules.patron_transactions.permissions.current_patron',
-        system_librarian_martigny_no_email
+        system_librarian_martigny
     ), mock.patch(
         'rero_ils.modules.patron_transactions.permissions.current_user',
-        system_librarian_martigny_no_email.user
+        system_librarian_martigny.user
     ), mock.patch(
         'rero_ils.modules.patron_transactions.permissions.'
         'current_organisation',

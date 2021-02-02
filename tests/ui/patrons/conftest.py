@@ -22,9 +22,9 @@ import pytest
 
 @pytest.yield_fixture(scope='module')
 def patrons_records(
-    patron_martigny_no_email,
-    patron2_martigny_no_email,
-    librarian_sion_no_email,
-    librarian_saxon_no_email
+    patron_martigny,
+    patron2_martigny,
+    librarian_sion,
+    librarian_saxon
 ):
     """Patrons for test mapping."""
