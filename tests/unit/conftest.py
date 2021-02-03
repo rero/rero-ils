@@ -207,6 +207,14 @@ def item_schema(monkeypatch):
     )
     return get_schema(monkeypatch, schema_in_bytes)
 
+@pytest.fixture()
+def user_schema(monkeypatch):
+    """User Jsonschema for records."""
+    schema_in_bytes = resource_string(
+        'rero_ils.modules.users.jsonschemas',
+        'users/user-v0.0.1.json'
+    )
+    return get_schema(monkeypatch, schema_in_bytes)
 
 @pytest.fixture()
 def holding_schema(monkeypatch):

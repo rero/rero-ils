@@ -27,7 +27,9 @@ from invenio_circulation.signals import loan_state_changed
 from invenio_indexer.signals import before_record_index
 from invenio_oaiharvester.signals import oaiharvest_finished
 from invenio_records.signals import after_record_insert, after_record_update
+from invenio_records_rest.errors import JSONSchemaValidationError
 from invenio_userprofiles.signals import after_profile_update
+from jsonschema.exceptions import ValidationError
 
 from .apiharvester.signals import apiharvest_part
 from .collections.listener import enrich_collection_data
@@ -50,6 +52,7 @@ from .patron_transaction_events.listener import \
 from .patron_transactions.listener import enrich_patron_transaction_data
 from .patrons.listener import create_subscription_patron_transaction, \
     enrich_patron_data, update_from_profile
+from .users.views import UsersCreateResource, UsersResource
 from ..filter import empty_data, format_date_filter, jsondumps, lib_url, \
     node_assets, text_to_id, to_pretty_json
 
@@ -87,9 +90,10 @@ class REROILSAPP(object):
         Wiki(app)
         self.init_config(app)
         app.extensions['rero-ils'] = self
-        self.register_api_blueprint(app)
+        self.register_import_api_blueprint(app)
+        self.register_users_api_blueprint(app)
 
-    def register_api_blueprint(self, app):
+    def register_import_api_blueprint(self, app):
         """Imports bluprint initialization."""
         api_blueprint = Blueprint(
             'api_imports',
@@ -106,7 +110,6 @@ class REROILSAPP(object):
                 '/import_{endpoint}/'.format(endpoint=endpoint),
                 view_func=imports_search
             )
-            app.register_blueprint(api_blueprint)
 
             imports_record = ImportsResource.as_view(
                 'imports_record',
@@ -123,6 +126,32 @@ class REROILSAPP(object):
             api_blueprint.register_error_handler(
                 ResultNotFoundOnTheRemoteServer, handle_bad_request)
             app.register_blueprint(api_blueprint)
+
+    def register_users_api_blueprint(self, app):
+        """User bluprint initialization."""
+        api_blueprint = Blueprint(
+            'api_users',
+            __name__
+        )
+        api_blueprint.add_url_rule(
+            '/users/<id>',
+            view_func=UsersResource.as_view(
+            'users_item'
+        )
+        )
+        api_blueprint.add_url_rule(
+            '/users/',
+            view_func=UsersCreateResource.as_view(
+            'users_list'
+        )
+        )
+
+        @api_blueprint.errorhandler(ValidationError)
+        def validation_error(error):
+            """Catch validation errors."""
+            return JSONSchemaValidationError(error=error).get_response()
+
+        app.register_blueprint(api_blueprint)
 
     def init_config(self, app):
         """Initialize configuration."""
