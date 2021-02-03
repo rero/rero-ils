@@ -425,7 +425,8 @@ def prepare_jsonschema(schema):
     """Json schema prep."""
     schema = copy.deepcopy(schema)
     schema.pop('$schema', None)
-    schema['required'].remove('pid')
+    if 'pid' in schema.get('required', []):
+        schema['required'].remove('pid')
     return schema
 
 

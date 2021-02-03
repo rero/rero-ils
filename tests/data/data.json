@@ -3523,5 +3523,17 @@
     "operation": "update",
     "user_name": "updated_user",
     "date": "2021-01-21T09:51:52.879533+00:00"
+  },
+  "user1": {
+    "$schema": "https://ils.rero.ch/schemas/users/user-v0.0.1.json",
+    "first_name": "John",
+    "last_name": "Smith",
+    "birth_date": "1974-03-21",
+    "username": "smith_john",
+    "street": "1600 Donald Trump Avenue NW",
+    "postal_code": "20500",
+    "city": "Washington, D.C.",
+    "phone": "+012024561414",
+    "keep_history": true
   }
 }

@@ -32,6 +32,7 @@ from werkzeug.local import LocalProxy
 
 from .modules.patrons.api import Patron, current_patron
 from .modules.patrons.permissions import PatronPermission
+from .modules.users.api import User
 
 current_datastore = LocalProxy(
     lambda: current_app.extensions['security'].datastore)
@@ -60,12 +61,7 @@ class LoginView(CoreLoginView):
     @classmethod
     def get_user(cls, email=None, **kwargs):
         """Retrieve a user by the provided arguments."""
-        try:
-            profile = UserProfile.get_by_username(email)
-            return profile.user
-        except NoResultFound:
-            pass
-        return current_datastore.get_user(email)
+        return User.get_by_username_or_email(email).user
 
     @use_kwargs(post_args)
     def post(self, **kwargs):

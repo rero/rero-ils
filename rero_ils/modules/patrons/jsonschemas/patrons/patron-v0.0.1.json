@@ -30,8 +30,17 @@
       "type": "string"
     },
     "user_id": {
-      "title": "User ID",
-      "type": "number"
+      "title": "Personal Informations",
+      "description": "",
+      "type": "number",
+      "form": {
+        "templateOptions": {
+          "wrappers": [
+            "form-field",
+            "user-id"
+          ]
+        }
+      }
     },
     "first_name": {
       "title": "First name",

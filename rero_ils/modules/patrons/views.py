@@ -22,7 +22,6 @@ from __future__ import absolute_import, print_function
 import re
 from functools import wraps
 
-from elasticsearch_dsl import Q
 from flask import Blueprint, abort, current_app, flash, jsonify, \
     render_template, request, url_for
 from flask_babelex import format_currency
@@ -35,7 +34,7 @@ from invenio_i18n.ext import current_i18n
 from werkzeug.exceptions import NotFound
 from werkzeug.utils import redirect
 
-from .api import Patron, PatronsSearch
+from .api import Patron
 from .permissions import get_allowed_roles_management
 from .utils import user_has_patron
 from ..items.api import Item
@@ -70,41 +69,6 @@ def check_permission(fn):
         login_and_librarian()
         return fn(*args, **kwargs)
     return is_logged_librarian
-
-
-@api_blueprint.route('/count/', methods=['GET'])
-@check_permission
-def number_of_patrons():
-    """Returns the number of patrons matching the query.
-
-    The query should be one of the following forms:
-      - `/api/patrons/count/?q=email:"test@test.ch"
-      - `/api/patrons/count/?q=email:"test@test.ch" NOT pid:1
-      - `/api/patrons/count/?q=username:"test"
-      - `/api/patrons/count/?q=username:"test" NOT pid:1
-
-    :return: The number of existing user account corresponding to the given
-    email or username.
-    :rtype: A JSON of the form:{"hits": {"total": 1}}
-    """
-    query = request.args.get('q')
-    email = _EMAIL_REGEX.search(query)
-    username = _USERNAME_REGEX.search(query)
-    if not email and not username:
-        abort(400)
-    if email:
-        email = email.group(1)
-        s = PatronsSearch().query('match', email__analyzed=email)
-    else:
-        username = username.group(1)
-        s = PatronsSearch().query('match', username__analyzed=username)
-    exclude_pid = _PID_REGEX.search(query)
-    if exclude_pid:
-        exclude_pid = exclude_pid.group(1)
-        s = s.filter('bool', must_not=[Q('term', pid=exclude_pid)])
-    response = dict(hits=dict(total=s.count()))
-    return jsonify(response)
-
 
 @api_blueprint.route('/<patron_pid>/circulation_informations', methods=['GET'])
 @check_permission
