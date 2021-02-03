@@ -1,0 +1,160 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "User Personal Informations",
+  "description": "JSON schema for a user.",
+  "additionalProperties": false,
+  "propertiesOrder": [
+    "first_name",
+    "last_name",
+    "username",
+    "email",
+    "password",
+    "street",
+    "postal_code",
+    "city",
+    "birth_date",
+    "phone",
+    "keep_history"
+  ],
+  "required": [
+    "$schema",
+    "first_name",
+    "last_name",
+    "birth_date",
+    "username"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate user records against.",
+      "type": "string",
+      "minLength": 9,
+      "default": "https://ils.rero.ch/schemas/users/user-v0.0.1.json"
+    },
+    "first_name": {
+      "title": "First name",
+      "type": "string",
+      "minLength": 2,
+      "widget": {
+        "formlyConfig": {
+          "focus": true
+        }
+      }
+    },
+    "last_name": {
+      "title": "Last name",
+      "type": "string",
+      "minLength": 2
+    },
+    "birth_date": {
+      "title": "Date of birth",
+      "type": "string",
+      "format": "date",
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
+      "widget": {
+        "formlyConfig": {
+          "validation": {
+            "messages": {
+              "pattern": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+            }
+          },
+          "templateOptions": {
+            "placeholder": "Example: 1985-12-29"
+          }
+        }
+      }
+    },
+    "username": {
+      "title": "Username",
+      "description": "Login username for the web interface.",
+      "type": "string",
+      "pattern": "^[a-zA-Z][a-zA-Z0-9-_]{2}[a-zA-Z0-9-_]*$",
+      "minLength": 3,
+      "widget": {
+        "formlyConfig": {
+          "validation": {
+            "messages": {
+              "patternMessage": "Username must start with a letter, be at least three characters long and only contain alphanumeric characters, dashes and underscores.",
+              "uniqueUsernameMessage": "This username is already taken."
+            }
+          }
+        }
+      }
+    },
+    "street": {
+      "title": "Street",
+      "description": "Street and number of the address.",
+      "type": "string",
+      "minLength": 1
+    },
+    "postal_code": {
+      "title": "Postal code",
+      "type": "string",
+      "minLength": 1
+    },
+    "city": {
+      "title": "City",
+      "type": "string",
+      "minLength": 1
+    },
+    "phone": {
+      "title": "Phone number",
+      "description": "Phone number with the international prefix, without spaces.",
+      "type": "string",
+      "pattern": "^\\+[0-9]*$",
+      "widget": {
+        "formlyConfig": {
+          "validation": {
+            "messages": {
+              "pattern": "Phone number with the international prefix, without spaces, ie +41221234567."
+            }
+          },
+          "templateOptions": {
+            "placeholder": "Example: +41791231212"
+          }
+        }
+      }
+    },
+    "keep_history": {
+      "title": "Keep history",
+      "description": "If enabled, the loan history is saved for a maximum of six months. It is visible to the user and the library staff.",
+      "type": "boolean",
+      "default": false
+    },
+    "email": {
+      "title": "Email",
+      "type": "string",
+      "format": "email",
+      "pattern": "^.*@.*\\..+$",
+      "minLength": 6,
+      "widget": {
+        "formlyConfig": {
+          "validation": {
+            "messages": {
+              "patternMessage": "The email is not valid.",
+              "uniqueEmailMessage": "This email is already taken."
+            }
+          }
+        }
+      }
+    },
+    "password": {
+      "title": "Password",
+      "type": "string",
+      "minLength": 6,
+      "widget": {
+        "templateOptions": {
+          "type": "password"
+        }
+      }
+    }
+  },
+  "widget": {
+    "formlyConfig": {
+      "templateOptions": {
+        "hideLabel": true
+      }
+    }
+  }
+}

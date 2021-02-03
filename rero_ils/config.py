@@ -2288,7 +2288,8 @@ RERO_ILS_ENABLE_OPERATION_LOG = {
 SECURITY_CHANGEABLE = True
 
 #: Allow user to confirm their email address.
-SECURITY_CONFIRMABLE = True
+# TODO: decide what should be the workflow of the login user
+SECURITY_CONFIRMABLE = False
 
 #: Allow password recovery by users.
 SECURITY_RECOVERABLE = True
@@ -2300,7 +2301,7 @@ SECURITY_REGISTERABLE = True
 SECURITY_SEND_REGISTER_EMAIL = True
 
 #: Allow users to login without first confirming their email address.
-SECURITY_LOGIN_WITHOUT_CONFIRMATION = False
+SECURITY_LOGIN_WITHOUT_CONFIRMATION = True
 
 #: TODO: remove this when the email is sent only if the user has an email
 # address
