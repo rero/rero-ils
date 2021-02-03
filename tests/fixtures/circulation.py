@@ -1317,3 +1317,10 @@ def ill_request_sion(app, loc_public_sion, patron_sion,
         reindex=True)
     flush_index(ILLRequestsSearch.Meta.index)
     return illr
+
+
+# ------------ users  ----------
+@pytest.fixture(scope="module")
+def user_data_tmp(data):
+    """Load user data."""
+    return deepcopy(data.get('user1'))

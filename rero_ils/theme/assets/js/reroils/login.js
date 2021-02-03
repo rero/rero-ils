@@ -37,7 +37,11 @@ $("#login-user").submit(function (e) {
     error: function (data) {
       var response = JSON.parse(data.responseText);
       var alert = $("#js-alert");
-      var msg = $("#js-alert span.msg").html(response.errors[0].message);
+      var message = response.message;
+      if(response.errors) {
+        message = response.errors[0].message;
+      }
+      $("#js-alert span.msg").html(message);
       alert.show();
     }
   });

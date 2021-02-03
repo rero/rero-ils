@@ -254,6 +254,7 @@ setup(
             'templates = rero_ils.modules.templates.jsonschemas',
             'vendors = rero_ils.modules.vendors.jsonschemas',
             'operation_logs = rero_ils.modules.operation_logs.jsonschemas',
+            'users = rero_ils.modules.users.jsonschemas',
         ],
         'invenio_search.mappings': [
             'acq_accounts = rero_ils.modules.acq_accounts.mappings',
