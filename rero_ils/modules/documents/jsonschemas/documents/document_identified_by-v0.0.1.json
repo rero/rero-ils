@@ -16,7 +16,6 @@
         "source",
         "status",
         "qualifier",
-        "acquisitionTerms",
         "note"
       ],
       "additionalProperties": false,
@@ -173,18 +172,6 @@
         "qualifier": {
           "title": "Qualifier",
           "description": "Qualifier of the identifier.",
-          "type": "string",
-          "minLength": 1,
-          "form": {
-            "hide": true,
-            "templateOptions": {
-              "itemCssClass": "col-lg-6"
-            }
-          }
-        },
-        "acquisitionTerms": {
-          "title": "Acquisition terms",
-          "description": "Acquisition terms of the resource.",
           "type": "string",
           "minLength": 1,
           "form": {

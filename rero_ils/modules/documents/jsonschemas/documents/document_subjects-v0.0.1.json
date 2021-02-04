@@ -1,23 +1,362 @@
 {
   "subjects": {
     "title": "Subjects",
-    "description": "Subject of the resource.",
+    "description": "(MARC 6XX)",
     "type": "array",
     "minItems": 1,
     "items": {
+      "type": "object",
       "title": "Subject",
-      "type": "string",
-      "minLength": 1,
-      "form": {
-        "templateOptions": {
-          "cssClass": "w-md-50"
+      "oneOf": [
+        {
+          "$ref": "https://ils.rero.ch/schemas/documents/document_contribution_person_link-v0.0.1.json"
+        },
+        {
+          "title": "Person (local)",
+          "type": "object",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "type",
+            "preferred_name",
+            "identifiedBy",
+            "source"
+          ],
+          "required": [
+            "type",
+            "preferred_name"
+          ],
+          "properties": {
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "default": "bf:Person",
+              "const": "bf:Person",
+              "form": {
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
+              }
+            },
+            "preferred_name": {
+              "$ref": "#/preferred_name"
+            },
+            "identifiedBy": {
+              "$ref": "#/identifiedBy"
+            },
+            "source": {
+              "$ref": "#/source"
+            }
+          }
+        },
+        {
+          "$ref": "https://ils.rero.ch/schemas/documents/document_contribution_organisation_link-v0.0.1.json"
+        },
+        {
+          "title": "Corporate body (local)",
+          "type": "object",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "type",
+            "preferred_name",
+            "conference",
+            "identifiedBy",
+            "source"
+          ],
+          "required": [
+            "type",
+            "preferred_name",
+            "conference"
+          ],
+          "properties": {
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "default": "bf:Organization",
+              "const": "bf:Organization",
+              "form": {
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
+              }
+            },
+            "preferred_name": {
+              "$ref": "#/preferred_name"
+            },
+            "conference": {
+              "title": "Conference",
+              "description": "Mark as conference if the access point is directly at the conference name and not at the corporate body name",
+              "type": "boolean",
+              "default": false
+            },
+            "identifiedBy": {
+              "$ref": "#/identifiedBy"
+            },
+            "source": {
+              "$ref": "#/source"
+            }
+          }
+        },
+        {
+          "$ref": "https://ils.rero.ch/schemas/documents/document_subjects_links-v0.0.1.json#/work"
+        },
+        {
+          "title": "Work (local)",
+          "type": "object",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "type",
+            "title",
+            "creator",
+            "identifiedBy",
+            "source"
+          ],
+          "required": [
+            "type",
+            "title"
+          ],
+          "properties": {
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "default": "bf:Work",
+              "const": "bf:Work",
+              "form": {
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
+              }
+            },
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "minLength": 1
+            },
+            "creator": {
+              "title": "Creator",
+              "type": "string",
+              "minLength": 1,
+              "form": {
+                "placeholder": "Example: Voltenauer, Marc"
+              }
+            },
+            "identifiedBy": {
+              "$ref": "#/identifiedBy"
+            },
+            "source": {
+              "$ref": "#/source"
+            }
+          }
+        },
+        {
+          "$ref": "https://ils.rero.ch/schemas/documents/document_subjects_links-v0.0.1.json#/concept"
+        },
+        {
+          "title": "Concept (local)",
+          "type": "object",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "type",
+            "term",
+            "identifiedBy",
+            "source"
+          ],
+          "required": [
+            "type",
+            "term"
+          ],
+          "properties": {
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "default": "bf:Topic",
+              "const": "bf:Topic",
+              "form": {
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
+              }
+            },
+            "term": {
+              "title": "Term",
+              "type": "string",
+              "minLength": 1
+            },
+            "identifiedBy": {
+              "$ref": "#/identifiedBy"
+            },
+            "source": {
+              "$ref": "#/source"
+            }
+          }
+        },
+        {
+          "$ref": "https://ils.rero.ch/schemas/documents/document_subjects_links-v0.0.1.json#/place"
+        },
+        {
+          "title": "Place (local)",
+          "type": "object",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "type",
+            "preferred_name",
+            "identifiedBy",
+            "source"
+          ],
+          "required": [
+            "type",
+            "preferred_name"
+          ],
+          "properties": {
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "default": "bf:Place",
+              "const": "bf:Place",
+              "form": {
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
+              }
+            },
+            "preferred_name": {
+              "$ref": "#/preferred_name"
+            },
+            "identifiedBy": {
+              "$ref": "#/identifiedBy"
+            },
+            "source": {
+              "$ref": "#/source"
+            }
+          }
+        },
+        {
+          "$ref": "https://ils.rero.ch/schemas/documents/document_subjects_links-v0.0.1.json#/temporal"
+        },
+        {
+          "title": "Time-span (local)",
+          "type": "object",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "type",
+            "term",
+            "identifiedBy",
+            "source"
+          ],
+          "required": [
+            "type",
+            "term"
+          ],
+          "properties": {
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "default": "bf:Temporal",
+              "const": "bf:Temporal",
+              "form": {
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
+              }
+            },
+            "term": {
+              "title": "Term",
+              "type": "string",
+              "minLength": 1
+            },
+            "identifiedBy": {
+              "$ref": "#/identifiedBy"
+            },
+            "source": {
+              "$ref": "#/source"
+            }
+          }
         }
-      }
+      ]
     },
     "form": {
       "hide": true,
       "navigation": {
         "essential": true
+      }
+    }
+  },
+  "preferred_name": {
+    "title": "Preferred name",
+    "type": "string",
+    "minLength": 3
+  },
+  "source": {
+    "title": "Source",
+    "description": "Source of the subject, for instance MeSH, rero or IdRef.",
+    "type": "string"
+  },
+  "identifiedBy": {
+    "title": "Identifier",
+    "type": "object",
+    "additionalProperties": false,
+    "propertiesOrder": [
+      "type",
+      "source",
+      "value"
+    ],
+    "required": [
+      "value"
+    ],
+    "properties": {
+      "type": {
+        "title": "Type",
+        "type": "string",
+        "default": "bf:Local",
+        "enum": [
+          "bf:Local",
+          "rero-rameau",
+          "gnd"
+        ],
+        "form": {
+          "options": [
+            {
+              "value": "bf:Local",
+              "label": "bf:local"
+            },
+            {
+              "value": "rero-rameau",
+              "label": "rero-rameau"
+            },
+            {
+              "value": "gnd",
+              "label": "gnd"
+            }
+          ],
+          "templateOptions": {
+            "itemCssClass": "col-lg-4"
+          }
+        }
+      },
+      "source": {
+        "title": "Source",
+        "type": "string",
+        "description": "Source in case of a local identifier",
+        "minLength": 1,
+        "form": {
+          "itemCssClass": "col-lg-4"
+        }
+      },
+      "value": {
+        "title": "Value",
+        "type": "string",
+        "minLength": 1
       }
     }
   }

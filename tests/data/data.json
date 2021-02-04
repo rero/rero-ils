@@ -1613,7 +1613,6 @@
       {
         "type": "bf:Isbn",
         "qualifier": "broch\u00e9",
-        "acquisitionTerms": "\u00a3125.00",
         "value": "9786039012641"
       },
       {
@@ -2528,8 +2527,14 @@
       }
     ],
     "subjects": [
-      "thriller",
-      "suspense"
+      {
+        "type": "bf:Topic",
+        "term": "thriller"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "suspense"
+      }
     ]
   },
   "ebook2": {
@@ -2802,8 +2807,14 @@
       }
     ],
     "subjects": [
-      "thriller",
-      "suspense"
+      {
+        "type": "bf:Topic",
+        "term": "thriller"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "suspense"
+      }
     ],
     "note": [
       {
@@ -2900,8 +2911,14 @@
       }
     ],
     "subjects": [
-      "thriller",
-      "suspense"
+      {
+        "type": "bf:Topic",
+        "term": "thriller"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "suspense"
+      }
     ],
     "note": [
       {

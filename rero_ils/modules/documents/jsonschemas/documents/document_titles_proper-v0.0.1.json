@@ -1,7 +1,7 @@
 {
   "titlesProper": {
     "title": "Proper titles",
-    "description": "Uniform title, a related or an analytical title that is controlled by an authority file or list, used as an added access point.",
+    "description": "Proper title, a related or an analytical title that is controlled by an authority file or list, used as an added access point.",
     "type": "array",
     "minItems": 1,
     "items": {

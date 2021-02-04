@@ -21,12 +21,12 @@
         "url": {
           "title": "URL",
           "description": "Record a unique URL here.",
-          "placeholder": "Example: https://www.rero.ch/",
           "type": "string",
           "format": "uri",
           "pattern": "^(ftps?|https?)://.*$",
           "minLength": 7,
           "form": {
+            "placeholder": "Example: https://www.rero.ch/",
             "templateOptions": {
               "itemCssClass": "col-lg-12"
             },

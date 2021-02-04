@@ -1,0 +1,125 @@
+{
+  "temporalCoverage": {
+    "title": "Temporal content coverages",
+    "description": "description: MARC 045",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Temporal content coverage",
+      "type": "object",
+      "oneOf": [
+        {
+          "title": "time",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "type",
+            "date",
+            "period_code"
+          ],
+          "required": [
+            "type"
+          ],
+          "type": "object",
+          "properties": {
+            "type": {
+              "title": "Type",
+              "minLength": 1,
+              "type": "string",
+              "readOnly": true,
+              "default": "time",
+              "const": "time",
+              "form": {
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
+              }
+            },
+            "date": {
+              "title": "Date",
+              "description": "Enter a date in the format (+/-)yyyy. You can add the month, day or time as follows: (+/-)yyyy-mm-ddTHH-MM-SS.",
+              "type": "string",
+              "pattern": "^(\\+|\\-)\\d+(-\\d{2}-\\d{2}T[0-2][0-9]-[0-6][0-9]-[0-2][0-9])?$",
+              "form": {
+                "placeholder": "Example: +1945-05-08"
+              }
+            },
+            "period_code": {
+              "$ref": "#/period_code"
+            }
+          }
+        },
+        {
+          "title": "period",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "type",
+            "start_date",
+            "end_date",
+            "period_code"
+          ],
+          "required": [
+            "type"
+          ],
+          "type": "object",
+          "properties": {
+            "type": {
+              "title": "Type",
+              "minLength": 1,
+              "type": "string",
+              "readOnly": true,
+              "default": "period",
+              "const": "period",
+              "form": {
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
+              }
+            },
+            "start_date": {
+              "title": "Start date",
+              "description": "Enter a date in the format (+/-)yyyy. You can add the month, day or time as follows: (+/-)yyyy-mm-ddTHH-MM-SS.",
+              "type": "string",
+              "pattern": "^(\\+|\\-)\\d+(-\\d{2}-\\d{2}T[0-2][0-9]-[0-6][0-9]-[0-2][0-9])?$",
+              "form": {
+                "placeholder": "Example: +1945-05-08"
+              }
+            },
+            "end_date": {
+              "title": "End date",
+              "description": "Enter a date in the format (+/-)yyyy. You can add the month, day or time as follows: (+/-)yyyy-mm-ddTHH-MM-SS.",
+              "type": "string",
+              "pattern": "^(\\+|\\-)\\d+(-\\d{2}-\\d{2}T[0-2][0-9]-[0-6][0-9]-[0-2][0-9])?$",
+              "form": {
+                "placeholder": "Example: +1945-05-08"
+              }
+            },
+            "period_code": {
+              "$ref": "#/period_code"
+            }
+          }
+        }
+      ]
+    },
+    "form": {
+      "hide": true
+    }
+  },
+  "period_code": {
+    "title": "Period codes",
+    "minItems": 0,
+    "type": "array",
+    "items": {
+      "title": "Period code",
+      "description": "Enter a 4 character code from the MARC time period table.",
+      "type": "string",
+      "pattern": "^([a-z][0-9-]){2}$",
+      "form": {
+        "placeholder": "Example: x1x4"
+      }
+    }
+  }
+}

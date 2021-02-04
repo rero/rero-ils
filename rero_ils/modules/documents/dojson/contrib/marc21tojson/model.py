@@ -722,8 +722,6 @@ def marc21_to_identifiedBy_from_field_020(self, key, value):
         identifier = {'value': subfield_data}
         subfield_c = not_repetitive(marc21.bib_id, marc21.rero_id,
                                     key, value, 'c', default='').strip()
-        if subfield_c:
-            identifier['acquisitionTerms'] = subfield_c
         if value.get('q'):  # $q is repetitive
             identifier['qualifier'] = \
                 ', '.join(utils.force_list(value.get('q')))
@@ -1279,7 +1277,10 @@ def marc21_to_subjects(self, key, value):
     if subfields_a:
         for subfield_a in subfields_a:
             if subfield_a not in subjects:
-                subjects.append(subfield_a)
+                subjects.append({
+                    'type': "bf:Topic",
+                    'term': subfield_a
+                })
         if subjects:
             self['subjects'] = subjects
     # we will return None because we have set subjects directly in self

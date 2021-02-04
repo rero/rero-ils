@@ -1,0 +1,42 @@
+{
+  "frequency": {
+    "title": "Frequencies",
+    "description": "An interval at which an issue or part of a serial or the update to an integrating resource is issued. For former frequencies, repeat the field and specify dates (MARC 310, 321).",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Frequency",
+      "type": "object",
+      "additionalProperties": false,
+      "propertiesOrder": [
+        "label",
+        "date"
+      ],
+      "required": [
+        "label"
+      ],
+      "properties": {
+        "label": {
+          "title": "Label",
+          "type": "string",
+          "minLength": 1,
+          "form": {
+            "placeholder": "RDA recommended terms: monthly, weekly, daily, ..."
+          }
+        },
+        "date": {
+          "title": "Date",
+          "description": "Required if a former frequency is indicated",
+          "type": "string",
+          "minLength": 4,
+          "form": {
+            "placeholder": "Example: 1953-1988"
+          }
+        }
+      }
+    },
+    "form": {
+      "hide": true
+    }
+  }
+}

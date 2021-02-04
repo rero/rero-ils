@@ -1,0 +1,53 @@
+{
+  "summary": {
+    "title": "Summaries",
+    "description": "(MARC 520$a)",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Summary",
+      "type": "object",
+      "additionalProperties": false,
+      "propertiesOrder": [
+        "label",
+        "source"
+      ],
+      "required": [
+        "label"
+      ],
+      "properties": {
+        "label": {
+          "title": "Label",
+          "type": "object",
+          "required": [
+            "value"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "value": {
+              "title": "value",
+              "type": "string",
+              "minLength": 1,
+              "form": {
+                "placeholder": "Example: Internet Movie Database"
+              }
+            },
+            "language": {
+              "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/language_script_code"
+            }
+          }
+        },
+        "source": {
+          "title": "Source",
+          "type": "string",
+          "description": "Provider of the summary (MARC 520$c and 520$9)",
+          "placeholder": "Example: Internet Movie Database",
+          "minLength": 1
+        }
+      }
+    },
+    "form": {
+      "hide": true
+    }
+  }
+}

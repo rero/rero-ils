@@ -1,0 +1,18 @@
+{
+  "tableOfContents": {
+    "title": "Contents",
+    "description": "Titles of the works or parts of the manifestation. Enter one title per field (MARC 505).",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Content",
+      "type": "string",
+      "form": {
+        "placeholder": "Example: Volume 1: Fondements / \u00e9dit\u00e9 par A. M\u00fcller"
+      }
+    },
+    "form": {
+      "hide": true
+    }
+  }
+}

@@ -108,7 +108,41 @@
   },
   {
     "name": "document",
-    "filename": "documents_big.json"
+    "filename": "documents_big.json",
+    "dependencies": [
+      {
+        "name": "supplement",
+        "ref": "document"
+      },
+      {
+        "name": "supplementTo",
+        "ref": "document"
+      },
+      {
+        "name": "otherEdition",
+        "ref": "document"
+      },
+      {
+        "name": "otherPhysicalFormat",
+        "ref": "document"
+      },
+      {
+        "name": "issuedWith",
+        "ref": "document"
+      },
+      {
+        "name": "precededBy",
+        "ref": "document"
+      },
+      {
+        "name": "succeededBy",
+        "ref": "document"
+      },
+      {
+        "name": "relatedTo",
+        "ref": "document"
+      }
+    ]
   },
   {
     "name": "holding",

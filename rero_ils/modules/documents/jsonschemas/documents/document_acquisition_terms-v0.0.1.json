@@ -1,0 +1,18 @@
+{
+  "acquisitionTerms": {
+    "title": "Terms of availability",
+    "description": "A condition under which the document is supplied. This includes the price.",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Term of availability",
+      "type": "string",
+      "form": {
+        "placeholder": "Example: CHF 68.-"
+      }
+    },
+    "form": {
+      "hide": true
+    }
+  }
+}

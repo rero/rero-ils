@@ -1,0 +1,18 @@
+{
+  "supplementaryContent": {
+    "title": "Supplementary contents",
+    "description": "Indication of content that updates or complements the primary content, like an index, a bibliography or an appendix (MARC 504).",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Supplementary content",
+      "type": "string",
+      "form": {
+        "placeholder": "Example: Bibliography: pages 323-346"
+      }
+    },
+    "form": {
+      "hide": true
+    }
+  }
+}

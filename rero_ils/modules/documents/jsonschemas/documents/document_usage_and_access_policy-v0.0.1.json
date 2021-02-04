@@ -1,0 +1,54 @@
+{
+  "usageAndAccessPolicy": {
+    "title": "Usage and access policies",
+    "description": "description: Information about restrictions imposed on access to the described materials, including retention, reproduction, access, and lending (MARC 506, 540).",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "type": "object",
+      "title": "Usage and access policy",
+      "required": [
+        "type",
+        "label"
+      ],
+      "propertiesOrder": [
+        "type",
+        "label"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "const": "bf:UsageAndAccessPolicy",
+          "form": {
+            "templateOptions": {
+              "wrappers": [
+                "hide"
+              ]
+            }
+          }
+        },
+        "label": {
+          "title": "Label",
+          "type": "string",
+          "minLength": 1,
+          "form": {
+            "placeholder": "Example: Copy not allowed",
+            "templateOptions": {
+              "itemCssClass": "col-lg-12"
+            }
+          }
+        }
+      },
+      "form": {
+        "templateOptions": {
+          "containerCssClass": "row"
+        }
+      }
+    },
+    "form": {
+      "hide": true
+    }
+  }
+}

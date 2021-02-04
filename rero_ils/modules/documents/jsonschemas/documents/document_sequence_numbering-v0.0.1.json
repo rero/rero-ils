@@ -1,0 +1,12 @@
+{
+  "sequence_numbering": {
+    "title": "Numbering of sequence",
+    "description": "First and last designations of a sequence for a document is issued in two or more units (MARC 362)",
+    "minLength": 1,
+    "type": "string",
+    "form": {
+      "placeholder": "Example: Volume 1(2006)-volume 9(2014)",
+      "hide": true
+    }
+  }
+}

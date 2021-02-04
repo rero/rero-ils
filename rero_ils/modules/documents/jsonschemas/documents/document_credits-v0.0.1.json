@@ -1,0 +1,18 @@
+{
+  "credits": {
+    "title": "Notes on statement of responsibility",
+    "description": "Note used for agents not named in the statement of responsibility, or for other information about the statement of responsibility (MARC 508, 511).",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Note on statement of responsibility",
+      "type": "string",
+      "form": {
+        "placeholder": "Example: Additional collaborators: Bernard Levrat, Eric Wehrli"
+      }
+    },
+    "form": {
+      "hide": true
+    }
+  }
+}

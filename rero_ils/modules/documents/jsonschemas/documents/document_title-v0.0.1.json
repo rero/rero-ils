@@ -25,7 +25,9 @@
           "enum": [
             "bf:Title",
             "bf:ParallelTitle",
-            "bf:VariantTitle"
+            "bf:VariantTitle",
+            "bf:AbbreviatedTitle",
+            "bf:KeyTitle"
           ],
           "form": {
             "type": "selectWithSort",
@@ -41,6 +43,14 @@
               {
                 "label": "bf:VariantTitle",
                 "value": "bf:VariantTitle"
+              },
+              {
+                "label": "bf:AbbreviatedTitle",
+                "value": "bf:AbbreviatedTitle"
+              },
+              {
+                "label": "bf:KeyTitle",
+                "value": "bf:KeyTitle"
               }
             ],
             "templateOptions": {
