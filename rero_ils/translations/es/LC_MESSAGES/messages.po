@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-02-03 08:42+0100\n"
 "PO-Revision-Date: 2021-02-04 14:34+0000\n"
-"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/es/>\n"
 "Language: es\n"
@@ -6954,7 +6954,7 @@ msgstr "El holding no se adjunta al tipo de documento correcto. Documento: {pid}
 
 #: rero_ils/modules/holdings/api.py:172
 msgid "{field} is allowed only for serial holdings"
-msgstr "{campo} sólo está permitido para holdings de periódicos"
+msgstr "{field} sólo está permitido para holdings de periódicos"
 
 #: rero_ils/modules/holdings/api.py:177 rero_ils/modules/ill_requests/api.py:74
 #: rero_ils/modules/items/api/record.py:76
