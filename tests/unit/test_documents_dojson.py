@@ -3207,7 +3207,16 @@ def test_marc21_to_subjects():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('subjects') == ['subjects 600', 'subjects 666']
+    assert data.get('subjects') == [
+      {
+        "type": "bf:Topic",
+        "term": "subjects 600"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "subjects 666"
+      }
+    ]
 
 
 def test_marc21_to_identifiedBy_from_020():
@@ -3244,7 +3253,6 @@ def test_marc21_to_identifiedBy_from_020():
         {
             'type': 'bf:Isbn',
             'qualifier': 'hbk.',
-            'acquisitionTerms': '£125.00',
             'value': '9788189997212'
         }
     ]

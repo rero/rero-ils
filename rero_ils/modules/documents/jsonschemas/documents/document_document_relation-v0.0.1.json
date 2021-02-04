@@ -1,0 +1,218 @@
+{
+  "supplement": {
+    "title": "Supplements",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Supplement",
+      "description": "A document that updates or otherwise complements the predominant document (MARC 770).",
+      "type": "object",
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "$ref": "#/ref_document"
+        },
+        {
+          "$ref": "#/ref_label"
+        }
+      ]
+    },
+    "form": {
+      "hide": true
+    }
+  },
+  "supplementTo": {
+    "title": "Supplements to",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Supplement to",
+      "description": "A document that is updated or otherwise complemented by the augmenting document (MARC 772).",
+      "type": "object",
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "$ref": "#/ref_document"
+        },
+        {
+          "$ref": "#/ref_label"
+        }
+      ]
+    },
+    "form": {
+      "hide": true
+    }
+  },
+  "otherEdition": {
+    "title": "Other editions",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Other edition",
+      "description": "Other available editions, for example simultaneously published language editions or reprints (MARC 775).",
+      "type": "object",
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "$ref": "#/ref_document"
+        },
+        {
+          "$ref": "#/ref_label"
+        }
+      ]
+    },
+    "form": {
+      "hide": true
+    }
+  },
+  "otherPhysicalFormat": {
+    "title": "Other physical formats",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Other physical format",
+      "description": "A document that embodies the same expression of a work in a different format (MARC 776).",
+      "type": "object",
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "$ref": "#/ref_document"
+        },
+        {
+          "$ref": "#/ref_label"
+        }
+      ]
+    },
+    "form": {
+      "hide": true
+    }
+  },
+  "issuedWith": {
+    "title": "Issued with",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Issued with",
+      "description": "A document that is issued on the same carrier as the document being described (MARC 777).",
+      "type": "object",
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "$ref": "#/ref_document"
+        },
+        {
+          "$ref": "#/ref_label"
+        }
+      ]
+    },
+    "form": {
+      "hide": true
+    }
+  },
+  "precededBy": {
+    "title": "Preceded by",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Preceded by",
+      "description": "A document that precedes the succeeding document (earlier in time or before in a narrative) (MARC 780).",
+      "type": "object",
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "$ref": "#/ref_document"
+        },
+        {
+          "$ref": "#/ref_label"
+        }
+      ]
+    },
+    "form": {
+      "hide": true
+    }
+  },
+  "succeededBy": {
+    "title": "Succeeded by",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Succeeded by",
+      "description": "A document that succeeds, that is, is later in time or after in a narrative, etc., the preceding work (MARC 785).",
+      "type": "object",
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "$ref": "#/ref_document"
+        },
+        {
+          "$ref": "#/ref_label"
+        }
+      ]
+    },
+    "form": {
+      "hide": true
+    }
+  },
+  "relatedTo": {
+    "title": "Related to",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Related to",
+      "description": "Any other relationship between documents (MARC 787).",
+      "type": "object",
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "$ref": "#/ref_document"
+        },
+        {
+          "$ref": "#/ref_label"
+        }
+      ]
+    },
+    "form": {
+      "hide": true
+    }
+  },
+  "ref_document": {
+    "title": "Document link",
+    "type": "object",
+    "propertiesOrder": [
+      "$ref"
+    ],
+    "required": [
+      "$ref"
+    ],
+    "properties": {
+      "$ref": {
+        "type": "string",
+        "pattern": "^https://ils.rero.ch/api/documents/.*?$",
+        "form": {
+          "validation": {
+            "messages": {
+              "patternMessage": "Should be in the following format: https://ils.rero.ch/api/documents/<PID>."
+            }
+          },
+          "placeholder": "Example: https://ils.rero.ch/api/documents/66"
+        }
+      }
+    }
+  },
+  "ref_label": {
+    "title": "Label",
+    "type": "object",
+    "propertiesOrder": [
+      "label"
+    ],
+    "required": [
+      "label"
+    ],
+    "properties": {
+      "label": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

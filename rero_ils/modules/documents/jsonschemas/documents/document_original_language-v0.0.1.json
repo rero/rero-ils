@@ -1,0 +1,15 @@
+{
+  "originalLanguage": {
+    "title": "Language of representative expression",
+    "description": "Language of original work (MARC 041$h)",
+    "type": "array",
+    "minItems": 1,
+    "uniqueItems": true,
+    "items": {
+      "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/language"
+    },
+    "form": {
+      "hide": true
+    }
+  }
+}

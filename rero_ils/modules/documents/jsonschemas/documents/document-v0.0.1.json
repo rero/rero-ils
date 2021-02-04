@@ -12,31 +12,61 @@
     "issuance"
   ],
   "propertiesOrder": [
-    "type",
-    "title",
-    "responsibilityStatement",
-    "titlesProper",
-    "contribution",
-    "subjects",
-    "language",
-    "translatedFrom",
-    "abstracts",
-    "extent",
-    "seriesStatement",
-    "partOf",
     "identifiedBy",
-    "note",
-    "electronicLocator",
-    "copyrightDate",
+    "type",
+    "contentMediaCarrier",
+    "issuance",
+    "genreForm",
+    "genreForm_imported",
+    "title",
+    "originalTitle",
+    "responsibilityStatement",
+    "contribution",
+    "work_access_point",
     "provisionActivity",
+    "copyrightDate",
+    "sequence_numbering",
     "editionStatement",
-    "colorContent",
-    "productionMethod",
-    "bookFormat",
+    "seriesStatement",
+    "extent",
     "dimensions",
+    "bookFormat",
+    "productionMethod",
+    "note",
+    "acquisitionTerms",
+    "electronicLocator",
+    "otherEdition",
+    "otherPhysicalFormat",
+    "language",
+    "originalLanguage",
+    "tableOfContents",
+    "summary",
+    "credits",
     "duration",
     "illustrativeContent",
-    "issuance",
+    "colorContent",
+    "intendedAudience",
+    "scale",
+    "cartographicAttributes",
+    "supplementaryContent",
+    "subjects",
+    "subjects_imported",
+    "classification",
+    "temporalCoverage",
+    "partOf",
+    "supplement",
+    "supplementTo",
+    "issuedWith",
+    "precededBy",
+    "succeededBy",
+    "relatedTo",
+    "frequency",
+    "dissertation",
+    "adminMetadata",
+    "titlesProper",
+    "translatedFrom",
+    "abstracts",
+    "usageAndAccessPolicy",
     "_masked"
   ],
   "additionalProperties": false,
@@ -126,6 +156,124 @@
     },
     "electronicLocator": {
       "$ref": "https://ils.rero.ch/schemas/documents/document_electronic_locator-v0.0.1.json#/electronicLocator"
+    },
+    "intendedAudience": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_intended_audience-v0.0.1.json#/intendedAudience"
+    },
+    "summary": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_summary-v0.0.1.json#/summary"
+    },
+    "supplement": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_document_relation-v0.0.1.json#/supplement"
+    },
+    "supplementTo": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_document_relation-v0.0.1.json#/supplementTo"
+    },
+    "otherEdition": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_document_relation-v0.0.1.json#/otherEdition"
+    },
+    "otherPhysicalFormat": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_document_relation-v0.0.1.json#/otherPhysicalFormat"
+    },
+    "issuedWith": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_document_relation-v0.0.1.json#/issuedWith"
+    },
+    "precededBy": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_document_relation-v0.0.1.json#/precededBy"
+    },
+    "succeededBy": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_document_relation-v0.0.1.json#/succeededBy"
+    },
+    "relatedTo": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_document_relation-v0.0.1.json#/relatedTo"
+    },
+    "contentMediaCarrier": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_content_media_carrier-v0.0.1.json#/contentMediaCarrier"
+    },
+    "originalLanguage": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_original_language-v0.0.1.json#/originalLanguage"
+    },
+    "frequency": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_frequency-v0.0.1.json#/frequency"
+    },
+    "originalTitle": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_titles_original-v0.0.1.json#/originalTitle"
+    },
+    "classification": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_classification-v0.0.1.json#/classification"
+    },
+    "sequence_numbering": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_sequence_numbering-v0.0.1.json#/sequence_numbering"
+    },
+    "dissertation": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_dissertation-v0.0.1.json#/dissertation"
+    },
+    "credits": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_credits-v0.0.1.json#/credits"
+    },
+    "supplementaryContent": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_supplementary_content-v0.0.1.json#/supplementaryContent"
+    },
+    "acquisitionTerms": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_acquisition_terms-v0.0.1.json#/acquisitionTerms"
+    },
+    "tableOfContents": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_table_of_contents-v0.0.1.json#/tableOfContents"
+    },
+    "temporalCoverage": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_temporal_coverage-v0.0.1.json#/temporalCoverage"
+    },
+    "genreForm": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_genre_form-v0.0.1.json#/genreForm"
+    },
+    "scale": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_scale_cartographic-v0.0.1.json#/scale"
+    },
+    "cartographicAttributes": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_scale_cartographic-v0.0.1.json#/cartographicAttributes"
+    },
+    "usageAndAccessPolicy": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_usage_and_access_policy-v0.0.1.json#/usageAndAccessPolicy"
+    },
+    "subjects_imported": {
+      "allOf": [
+        {
+          "title": "Subjects (imported)",
+          "description": "Subject from imported bibliographic data",
+          "form": {
+            "hide": true,
+            "templateOptions": {
+              "cssClass": "editor-title"
+            }
+          }
+        },
+        {
+          "$ref": "https://ils.rero.ch/schemas/documents/document_subjects-v0.0.1.json#/subjects"
+        }
+      ]
+    },
+    "genreForm_imported": {
+      "allOf": [
+        {
+          "title": "Genres, forms (imported)",
+          "description": "Genre of form from imported bibliographic data",
+          "form": {
+            "hide": true,
+            "templateOptions": {
+              "cssClass": "editor-title"
+            }
+          }
+        },
+        {
+          "$ref": "https://ils.rero.ch/schemas/documents/document_subjects-v0.0.1.json#/subjects"
+        }
+      ]
+    },
+    "work_access_point": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_work_access_point-v0.0.1.json#/work_access_point"
+    },
+    "adminMetadata": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_admin_metadata-v0.0.1.json#/adminMetadata"
     },
     "harvested": {
       "title": "Harvested",

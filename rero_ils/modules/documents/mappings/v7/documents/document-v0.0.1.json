@@ -653,29 +653,106 @@
         }
       },
       "subjects": {
-        "type": "text",
-        "copy_to": "facet_subjects",
-        "fields": {
-          "eng": {
-            "type": "text",
-            "analyzer": "english"
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "keyword"
           },
-          "fre": {
-            "type": "text",
-            "analyzer": "french"
+          "preferred_name": {
+            "type": "text"
           },
-          "ger": {
+          "term": {
             "type": "text",
-            "analyzer": "german"
+            "copy_to": "facet_subjects",
+            "fields": {
+              "eng": {
+                "type": "text",
+                "analyzer": "english"
+              },
+              "fre": {
+                "type": "text",
+                "analyzer": "french"
+              },
+              "ger": {
+                "type": "text",
+                "analyzer": "german"
+              },
+              "ita": {
+                "type": "text",
+                "analyzer": "italian"
+              }
+            }
           },
-          "ita": {
-            "type": "text",
-            "analyzer": "italian"
+          "title": {
+            "type": "text"
+          },
+          "creator": {
+            "type": "text"
+          },
+          "conference": {
+            "type": "boolean"
+          },
+          "identifiedBy": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "source": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "keyword"
+              }
+            }
+          },
+          "source": {
+            "type": "keyword"
           }
         }
       },
       "facet_subjects": {
         "type": "keyword"
+      },
+      "subjects_imported": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "preferred_name": {
+            "type": "text"
+          },
+          "term": {
+            "type": "text"
+          },
+          "title": {
+            "type": "text"
+          },
+          "creator": {
+            "type": "text"
+          },
+          "conference": {
+            "type": "boolean"
+          },
+          "identifiedBy": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "source": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "keyword"
+              }
+            }
+          },
+          "source": {
+            "type": "keyword"
+          }
+        }
       },
       "holdings": {
         "type": "object",
@@ -869,6 +946,7 @@
         }
       },
       "local_fields": {
+        "type": "object",
         "properties": {
           "organisation_pid": {
             "type": "keyword"
@@ -907,6 +985,379 @@
                 "type": "text"
               }
             }
+          }
+        }
+      },
+      "supplement": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "text"
+          }
+        }
+      },
+      "supplementTo": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "text"
+          }
+        }
+      },
+      "otherEdition": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "text"
+          }
+        }
+      },
+      "otherPhysicalFormat": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "text"
+          }
+        }
+      },
+      "issuedWith": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "text"
+          }
+        }
+      },
+      "precededBy": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "text"
+          }
+        }
+      },
+      "succeededBy": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "text"
+          }
+        }
+      },
+      "relatedTo": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "text"
+          }
+        }
+      },
+      "intendedAudience": {
+        "type": "object",
+        "properties": {
+          "audienceType": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "keyword"
+          }
+        }
+      },
+      "summary": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "text"
+          },
+          "label": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "text"
+              },
+              "language": {
+                "type": "keyword"
+              }
+            }
+          }
+        }
+      },
+      "originalLanguage": {
+        "type": "keyword"
+      },
+      "frequency": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "text"
+          },
+          "date": {
+            "type": "text"
+          }
+        }
+      },
+      "originalTitle": {
+        "type": "text"
+      },
+      "classification": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "classificationPortion": {
+            "type": "text"
+          },
+          "subdivision": {
+            "type": "text"
+          },
+          "edition": {
+            "type": "text"
+          },
+          "assigner": {
+            "type": "text"
+          }
+        }
+      },
+      "sequence_numbering": {
+        "type": "text"
+      },
+      "dissertation": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "text"
+              },
+              "language": {
+                "type": "keyword"
+              }
+            }
+          }
+        }
+      },
+      "contentMediaCarrier": {
+        "type": "object",
+        "properties": {
+          "contentType": {
+            "type": "keyword"
+          },
+          "mediaType": {
+            "type": "keyword"
+          },
+          "Carrier": {
+            "type": "keyword"
+          }
+        }
+      },
+      "credits": {
+        "type": "text"
+      },
+      "supplementaryContent": {
+        "type": "text"
+      },
+      "acquisitionTerms": {
+        "type": "text"
+      },
+      "tableOfContents": {
+        "type": "text"
+      },
+      "temporalCoverage": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "date": {
+            "type": "text"
+          },
+          "start_date": {
+            "type": "text"
+          },
+          "end_date": {
+            "type": "text"
+          },
+          "period_code": {
+            "type": "keyword"
+          }
+        }
+      },
+      "genreForm": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "term": {
+            "type": "text"
+          },
+          "identifiedBy": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "source": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "keyword"
+              }
+            }
+          },
+          "source": {
+            "type": "keyword"
+          }
+        }
+      },
+      "genreForm_imported": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "term": {
+            "type": "text"
+          },
+          "identifiedBy": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "source": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "keyword"
+              }
+            }
+          },
+          "source": {
+            "type": "keyword"
+          }
+        }
+      },
+      "adminMetadata": {
+        "type": "object",
+        "properties": {
+          "note": {
+            "type": "text"
+          },
+          "encodingLevel": {
+            "type": "keyword"
+          },
+          "source": {
+            "type": "text"
+          },
+          "descriptionModifier": {
+            "type": "text"
+          },
+          "descriptionLanguage": {
+            "type": "keyword"
+          },
+          "descriptionConventions": {
+            "type": "text"
+          }
+        }
+      },
+      "scale": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "label": {
+            "type": "text"
+          },
+          "ratio_linear_horizontal": {
+            "type": "keyword"
+          },
+          "ratio_linear_vertical": {
+            "type": "keyword"
+          }
+        }
+      },
+      "cartographicAttributes": {
+        "type": "object",
+        "properties": {
+          "coordinates": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "text"
+              },
+              "longitude": {
+                "type": "keyword"
+              },
+              "latitude": {
+                "type": "keyword"
+              },
+              "declination": {
+                "type": "keyword"
+              },
+              "rightAscension": {
+                "type": "keyword"
+              }
+            }
+          },
+          "projection": {
+            "type": "text"
+          },
+          "equinox": {
+            "type": "text"
+          }
+        }
+      },
+      "work_access_point": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "text"
+          },
+          "date_of_work": {
+            "type": "text"
+          },
+          "miscellaneous_information": {
+            "type": "text"
+          },
+          "language": {
+            "type": "keyword"
+          },
+          "part": {
+            "type": "object",
+            "properties": {
+              "partNumber": {
+                "type": "text"
+              },
+              "partName": {
+                "type": "text"
+              }
+            }
+          },
+          "form_subdivision": {
+            "type": "text"
+          },
+          "medium_of_performance_for_music": {
+            "type": "text"
+          },
+          "arranged_statement_for_music": {
+            "type": "text"
+          },
+          "key_for_music": {
+            "type": "text"
+          }
+        }
+      },
+      "usageAndAccessPolicy": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "label": {
+            "type": "text"
           }
         }
       },

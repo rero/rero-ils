@@ -1,6 +1,7 @@
 {
   "note": {
     "title": "Notes",
+    "description": "(MARC 500, 510, 530, 545, 555, 580)",
     "type": "array",
     "minItems": 1,
     "items": {
@@ -22,7 +23,8 @@
           "enum": [
             "accompanyingMaterial",
             "general",
-            "otherPhysicalDetails"
+            "otherPhysicalDetails",
+            "cited_by"
           ],
           "form": {
             "type": "selectWithSort",
@@ -38,6 +40,10 @@
               {
                 "label": "otherPhysicalDetails",
                 "value": "otherPhysicalDetails"
+              },
+              {
+                "label": "cited_by",
+                "value": "cited_by"
               }
             ],
             "templateOptions": {

@@ -1,0 +1,165 @@
+{
+  "adminMetadata": {
+    "title": "Admin metadata",
+    "type": "object",
+    "propertiesOrder": [
+      "note",
+      "encodingLevel",
+      "source",
+      "descriptionModifier",
+      "descriptionLanguage",
+      "descriptionConventions"
+    ],
+    "properties": {
+      "note": {
+        "title": "Notes",
+        "description": "Administrative information intended for professionals",
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "title": "Note",
+          "type": "string",
+          "minLength": 1
+        },
+        "form": {
+          "templateOptions": {
+            "itemCssClass": "col-lg-12"
+          }
+        }
+      },
+      "encodingLevel": {
+        "title": "Encoding level",
+        "description": "Indicator of the fullness of the bibliographic information",
+        "type": "string",
+        "default": "Minimal level",
+        "enum": [
+          "Full level",
+          "Full level, material not examined",
+          "Less-than-full level, material not examined",
+          "Abbreviated level",
+          "Core level",
+          "Partial (preliminary) level",
+          "Minimal level",
+          "Prepublication level",
+          "Unknown",
+          "Not applicable"
+        ],
+        "form": {
+          "type": "selectWithSort",
+          "options": [
+            {
+              "label": "Full level",
+              "value": "Full level"
+            },
+            {
+              "label": "Full level, material not examined",
+              "value": "Full level, material not examined"
+            },
+            {
+              "label": "Less-than-full level, material not examined",
+              "value": "Less-than-full level, material not examined"
+            },
+            {
+              "label": "Abbreviated level",
+              "value": "Abbreviated level"
+            },
+            {
+              "label": "Core leve",
+              "value": "Core leve"
+            },
+            {
+              "label": "Partial (preliminary) level",
+              "value": "Partial (preliminary) level"
+            },
+            {
+              "label": "Minimal level",
+              "value": "Minimal level"
+            },
+            {
+              "label": "Prepublication level",
+              "value": "Prepublication level"
+            },
+            {
+              "label": "Unknown",
+              "value": "Unknown"
+            },
+            {
+              "label": "Not applicable",
+              "value": "Not applicable"
+            }
+          ],
+          "templateOptions": {
+            "itemCssClass": "col-lg-6"
+          }
+        }
+      },
+      "source": {
+        "title": "Source",
+        "description": "Original cataloging agency",
+        "type": "string",
+        "minLength": 3,
+        "form": {
+          "templateOptions": {
+            "itemCssClass": "col-lg-4"
+          }
+        }
+      },
+      "descriptionModifier": {
+        "title": "Description modifier",
+        "description": "Agency that modified the description",
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "title": "Description modifier",
+          "type": "string",
+          "minLength": 3
+        },
+        "form": {
+          "templateOptions": {
+            "itemCssClass": "col-lg-4"
+          }
+        }
+      },
+      "descriptionLanguage": {
+        "allOf": [
+          {
+            "title": "Description language",
+            "description": "Language used for the metadata"
+          },
+          {
+            "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/language"
+          },
+          {
+            "form": {
+              "templateOptions": {
+                "itemCssClass": "col-lg-4"
+              }
+            }
+          }
+        ]
+      },
+      "descriptionConventions": {
+        "title": " Description conventions",
+        "description": "Rules used for the descriptive content of the resource description",
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "title": " Description conventions",
+          "type": "string",
+          "minLength": 3
+        },
+        "form": {
+          "templateOptions": {
+            "itemCssClass": "col-lg-4"
+          }
+        }
+      }
+    },
+    "form": {
+      "hide": true,
+      "navigation": {
+        "essential": true
+      }
+    }
+  }
+}

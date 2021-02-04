@@ -1010,7 +1010,11 @@ def unimarc_subjects(self, key, value):
         to_return += ', ' + ', '.join(utils.force_list(value.get('c')))
     if value.get('f'):
         to_return += ', ' + ', '.join(utils.force_list(value.get('f')))
-    return to_return
+    if to_return:
+        return {
+            'type': "bf:Topic",
+            'term': to_return
+        }
 
 
 @unimarc.over('electronicLocator', '^8564.')

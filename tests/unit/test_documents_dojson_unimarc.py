@@ -1585,7 +1585,8 @@ def test_unimarc_subjects():
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
     assert data.get('subjects') == [
-        'subjects 600', 'Capet, Louis III, Jr., 1700-1780'
+        {'term': 'subjects 600', 'type': 'bf:Topic'},
+        {'term': 'Capet, Louis III, Jr., 1700-1780', 'type': 'bf:Topic'}
     ]
 
 

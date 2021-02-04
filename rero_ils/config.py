@@ -2024,7 +2024,7 @@ RERO_ILS_QUERY_BOOSTING = {
         'contribution.name_*': 2,
         'publicationYearText': 2,
         'freeFormedPublicationDate': 2,
-        'subjects.*': 2,
+        'subjects.term': 2,
         'notes.label.*': 1
     },
     'patrons': {

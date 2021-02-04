@@ -507,7 +507,10 @@ def marc21_to_subjects(self, key, value):
     """
     subjects = self.get('subjects', [])
     for subject in utils.force_list(value.get('a')):
-        subjects.append(subject)
+        subjects.append({
+            'type': "bf:Topic",
+            'term': subject
+        })
     self['subjects'] = subjects
     return None
 

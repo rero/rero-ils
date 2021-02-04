@@ -1,0 +1,447 @@
+{
+  "classification": {
+    "title": "Classifications",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Classification",
+      "type": "object",
+      "oneOf": [
+        {
+          "title": "bf:Classification",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "type",
+            "classificationPortion",
+            "subdivision",
+            "assigner"
+          ],
+          "required": [
+            "type",
+            "classificationPortion",
+            "subdivision"
+          ],
+          "type": "object",
+          "properties": {
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "minLength": 1,
+              "readOnly": true,
+              "default": "bf:Classification",
+              "const": "bf:Classification",
+              "form": {
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
+              }
+            },
+            "classificationPortion": {
+              "$ref": "#/ref_classificationPortion"
+            },
+            "subdivision": {
+              "$ref": "#/ref_subdivision"
+            },
+            "assigner": {
+              "$ref": "#/ref_assigner"
+            }
+          }
+        },
+        {
+          "title": "bf:ClassificationLcc",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "type",
+            "classificationPortion",
+            "subdivision",
+            "assigner"
+          ],
+          "required": [
+            "type",
+            "classificationPortion",
+            "subdivision"
+          ],
+          "type": "object",
+          "properties": {
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "minLength": 1,
+              "readOnly": true,
+              "default": "bf:ClassificationLcc",
+              "const": "bf:ClassificationLcc",
+              "form": {
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
+              }
+            },
+            "classificationPortion": {
+              "$ref": "#/ref_classificationPortion"
+            },
+            "subdivision": {
+              "$ref": "#/ref_subdivision"
+            },
+            "assigner": {
+              "$ref": "#/ref_assigner"
+            }
+          }
+        },
+        {
+          "title": "bf:ClassificationNlm",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "type",
+            "classificationPortion",
+            "subdivision",
+            "assigner"
+          ],
+          "required": [
+            "type",
+            "classificationPortion",
+            "subdivision"
+          ],
+          "type": "object",
+          "properties": {
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "minLength": 1,
+              "readOnly": true,
+              "default": "bf:ClassificationNlm",
+              "const": "bf:ClassificationNlm",
+              "form": {
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
+              }
+            },
+            "classificationPortion": {
+              "$ref": "#/ref_classificationPortion"
+            },
+            "subdivision": {
+              "$ref": "#/ref_subdivision"
+            },
+            "assigner": {
+              "$ref": "#/ref_assigner"
+            }
+          }
+        },
+        {
+          "title": "bf:ClassificationUdc",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "type",
+            "classificationPortion",
+            "subdivision",
+            "edition",
+            "assigner"
+          ],
+          "required": [
+            "type",
+            "classificationPortion",
+            "subdivision"
+          ],
+          "type": "object",
+          "properties": {
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "minLength": 1,
+              "readOnly": true,
+              "default": "bf:ClassificationUdc",
+              "const": "bf:ClassificationUdc",
+              "form": {
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
+              }
+            },
+            "classificationPortion": {
+              "$ref": "#/ref_classificationPortion"
+            },
+            "subdivision": {
+              "$ref": "#/ref_subdivision"
+            },
+            "edition": {
+              "$ref": "#/ref_edition"
+            },
+            "assigner": {
+              "$ref": "#/ref_assigner"
+            }
+          }
+        },
+        {
+          "title": "bf:ClassificationDdc",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "type",
+            "classificationPortion",
+            "subdivision",
+            "edition",
+            "assigner"
+          ],
+          "required": [
+            "type",
+            "classificationPortion",
+            "subdivision"
+          ],
+          "type": "object",
+          "properties": {
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "minLength": 1,
+              "readOnly": true,
+              "default": "bf:ClassificationDdc",
+              "const": "bf:ClassificationDdc",
+              "form": {
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
+              }
+            },
+            "classificationPortion": {
+              "$ref": "#/ref_classificationPortion"
+            },
+            "subdivision": {
+              "$ref": "#/ref_subdivision"
+            },
+            "edition": {
+              "$ref": "#/ref_edition"
+            },
+            "assigner": {
+              "$ref": "#/ref_assigner"
+            }
+          }
+        },
+        {
+          "title": "classification_brunetparguez",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "type",
+            "classificationPortion",
+            "subdivision",
+            "assigner"
+          ],
+          "required": [
+            "type",
+            "classificationPortion",
+            "subdivision"
+          ],
+          "type": "object",
+          "properties": {
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "minLength": 1,
+              "readOnly": true,
+              "default": "classification_brunetparguez",
+              "const": "classification_brunetparguez",
+              "form": {
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
+              }
+            },
+            "classificationPortion": {
+              "$ref": "#/ref_classificationPortion"
+            },
+            "subdivision": {
+              "$ref": "#/ref_subdivision"
+            },
+            "assigner": {
+              "$ref": "#/ref_assigner"
+            }
+          }
+        },
+        {
+          "title": "classification_droit",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "type",
+            "classificationPortion",
+            "subdivision",
+            "assigner"
+          ],
+          "required": [
+            "type",
+            "classificationPortion",
+            "subdivision"
+          ],
+          "type": "object",
+          "properties": {
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "minLength": 1,
+              "readOnly": true,
+              "default": "classification_droit",
+              "const": "classification_droit",
+              "form": {
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
+              }
+            },
+            "classificationPortion": {
+              "$ref": "#/ref_classificationPortion"
+            },
+            "subdivision": {
+              "$ref": "#/ref_subdivision"
+            },
+            "assigner": {
+              "$ref": "#/ref_assigner"
+            }
+          }
+        },
+        {
+          "title": "classification_musicale_instruments",
+          "type": "object",
+          "properties": {
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "minLength": 1,
+              "readOnly": true,
+              "default": "classification_musicale_instruments",
+              "const": "classification_musicale_instruments",
+              "form": {
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
+              }
+            },
+            "classificationPortion": {
+              "title": "Notation",
+              "description": "Short alphanumeric string that serves as an identifier for a class",
+              "type": "string",
+              "minLength": 3,
+              "form": {
+                "placeholder": "Example: 001.012"
+              }
+            },
+            "subdivision": {
+              "title": "Subdivisions",
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "title": "Subdivision",
+                "type": "string",
+                "minLength": 3
+              }
+            },
+            "edition": {
+              "title": "Edition",
+              "description": "Used for imported records only. Edition of the classification, identified by a number, a date, or another textual designation.",
+              "type": "string",
+              "minLength": 3,
+              "form": {
+                "placeholder": "Example: Abridged edition, 22"
+              }
+            },
+            "assigner": {
+              "title": "Used for imported records only. Assigning agency.",
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        {
+          "title": "classification_musicale_genres",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "type",
+            "classificationPortion",
+            "subdivision",
+            "assigner"
+          ],
+          "required": [
+            "type",
+            "classificationPortion",
+            "subdivision"
+          ],
+          "type": "object",
+          "properties": {
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "minLength": 1,
+              "readOnly": true,
+              "default": "classification_musicale_genres",
+              "const": "classification_musicale_genres",
+              "form": {
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
+              }
+            },
+            "classificationPortion": {
+              "$ref": "#/ref_classificationPortion"
+            },
+            "subdivision": {
+              "$ref": "#/ref_subdivision"
+            },
+            "assigner": {
+              "$ref": "#/ref_assigner"
+            }
+          }
+        }
+      ]
+    },
+    "form": {
+      "hide": true
+    }
+  },
+  "ref_classificationPortion": {
+    "title": "Notation",
+    "description": "Short alphanumeric string that serves as an identifier for a class",
+    "type": "string",
+    "minLength": 3,
+    "form": {
+      "placeholder": "Example: 001.012"
+    }
+  },
+  "ref_subdivision": {
+    "title": "Subdivisions",
+    "minItems": 0,
+    "type": "array",
+    "items": {
+      "title": "Subdivision",
+      "type": "string",
+      "minLength": 3
+    }
+  },
+  "ref_edition": {
+    "title": "Edition",
+    "description": "Used for imported records only. Edition of the classification, identified by a number, a date, or another textual designation.",
+    "type": "string",
+    "minLength": 3,
+    "form": {
+      "placeholder": "Example: Abridged edition, 22"
+    }
+  },
+  "ref_assigner": {
+    "title": "Used for imported records only. Assigning agency.",
+    "type": "string",
+    "minLength": 1
+  }
+}

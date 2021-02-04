@@ -30,15 +30,17 @@
               "default": "docmaintype_archives",
               "const": "docmaintype_archives",
               "form": {
-                "wrappers": [
-                  "hide"
-                ]
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
               }
             }
           },
           "form": {
             "templateOptions": {
-              "cssClass": "row"
+              "containerCssClass": "row"
             }
           }
         },
@@ -59,15 +61,17 @@
               "default": "docmaintype_article",
               "const": "docmaintype_article",
               "form": {
-                "wrappers": [
-                  "hide"
-                ]
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
               }
             }
           },
           "form": {
             "templateOptions": {
-              "cssClass": "row"
+              "containerCssClass": "row"
             }
           }
         },
@@ -90,9 +94,11 @@
               "default": "docmaintype_audio",
               "const": "docmaintype_audio",
               "form": {
-                "wrappers": [
-                  "hide"
-                ]
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
               }
             },
             "subtype": {
@@ -125,14 +131,14 @@
                   }
                 ],
                 "templateOptions": {
-                  "cssClass": "col-lg-6"
+                  "itemCssClass": "col-lg-6"
                 }
               }
             }
           },
           "form": {
             "templateOptions": {
-              "cssClass": "row"
+              "containerCssClass": "row"
             }
           }
         },
@@ -155,9 +161,11 @@
               "default": "docmaintype_book",
               "const": "docmaintype_book",
               "form": {
-                "wrappers": [
-                  "hide"
-                ]
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
               }
             },
             "subtype": {
@@ -205,14 +213,14 @@
                   }
                 ],
                 "templateOptions": {
-                  "cssClass": "col-lg-6"
+                  "itemCssClass": "col-lg-6"
                 }
               }
             }
           },
           "form": {
             "templateOptions": {
-              "cssClass": "row"
+              "containerCssClass": "row"
             }
           }
         },
@@ -233,15 +241,17 @@
               "default": "docmaintype_children",
               "const": "docmaintype_children",
               "form": {
-                "wrappers": [
-                  "hide"
-                ]
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
               }
             }
           },
           "form": {
             "templateOptions": {
-              "cssClass": "row"
+              "containerCssClass": "row"
             }
           }
         },
@@ -264,9 +274,11 @@
               "default": "docmaintype_comic",
               "const": "docmaintype_comic",
               "form": {
-                "wrappers": [
-                  "hide"
-                ]
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
               }
             },
             "subtype": {
@@ -289,14 +301,14 @@
                   }
                 ],
                 "templateOptions": {
-                  "cssClass": "col-lg-6"
+                  "itemCssClass": "col-lg-6"
                 }
               }
             }
           },
           "form": {
             "templateOptions": {
-              "cssClass": "row"
+              "containerCssClass": "row"
             }
           }
         },
@@ -319,9 +331,11 @@
               "default": "docmaintype_electronic",
               "const": "docmaintype_electronic",
               "form": {
-                "wrappers": [
-                  "hide"
-                ]
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
               }
             },
             "subtype": {
@@ -348,7 +362,7 @@
           },
           "form": {
             "templateOptions": {
-              "cssClass": "row"
+              "containerCssClass": "row"
             }
           }
         },
@@ -371,9 +385,11 @@
               "default": "docmaintype_game",
               "const": "docmaintype_game",
               "form": {
-                "wrappers": [
-                  "hide"
-                ]
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
               }
             },
             "subtype": {
@@ -406,14 +422,14 @@
                   }
                 ],
                 "templateOptions": {
-                  "cssClass": "col-lg-6"
+                  "itemCssClass": "col-lg-6"
                 }
               }
             }
           },
           "form": {
             "templateOptions": {
-              "cssClass": "row"
+              "containerCssClass": "row"
             }
           }
         },
@@ -436,9 +452,11 @@
               "default": "docmaintype_image",
               "const": "docmaintype_image",
               "form": {
-                "wrappers": [
-                  "hide"
-                ]
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
               }
             },
             "subtype": {
@@ -481,14 +499,14 @@
                   }
                 ],
                 "templateOptions": {
-                  "cssClass": "col-lg-6"
+                  "itemCssClass": "col-lg-6"
                 }
               }
             }
           },
           "form": {
             "templateOptions": {
-              "cssClass": "row"
+              "containerCssClass": "row"
             }
           }
         },
@@ -509,15 +527,17 @@
               "default": "docmaintype_language_method",
               "const": "docmaintype_language_method",
               "form": {
-                "wrappers": [
-                  "hide"
-                ]
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
               }
             }
           },
           "form": {
             "templateOptions": {
-              "cssClass": "row"
+              "containerCssClass": "row"
             }
           }
         },
@@ -538,15 +558,17 @@
               "default": "docmaintype_leaf",
               "const": "docmaintype_leaf",
               "form": {
-                "wrappers": [
-                  "hide"
-                ]
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
               }
             }
           },
           "form": {
             "templateOptions": {
-              "cssClass": "row"
+              "containerCssClass": "row"
             }
           }
         },
@@ -569,9 +591,11 @@
               "default": "docmaintype_map",
               "const": "docmaintype_map",
               "form": {
-                "wrappers": [
-                  "hide"
-                ]
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
               }
             },
             "subtype": {
@@ -598,7 +622,7 @@
           },
           "form": {
             "templateOptions": {
-              "cssClass": "row"
+              "containerCssClass": "row"
             }
           }
         },
@@ -621,9 +645,11 @@
               "default": "docmaintype_movie_series",
               "const": "docmaintype_movie_series",
               "form": {
-                "wrappers": [
-                  "hide"
-                ]
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
               }
             },
             "subtype": {
@@ -651,14 +677,14 @@
                   }
                 ],
                 "templateOptions": {
-                  "cssClass": "col-lg-6"
+                  "itemCssClass": "col-lg-6"
                 }
               }
             }
           },
           "form": {
             "templateOptions": {
-              "cssClass": "row"
+              "containerCssClass": "row"
             }
           }
         },
@@ -681,9 +707,11 @@
               "default": "docmaintype_object",
               "const": "docmaintype_object",
               "form": {
-                "wrappers": [
-                  "hide"
-                ]
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
               }
             },
             "subtype": {
@@ -711,14 +739,14 @@
                   }
                 ],
                 "templateOptions": {
-                  "cssClass": "col-lg-6"
+                  "itemCssClass": "col-lg-6"
                 }
               }
             }
           },
           "form": {
             "templateOptions": {
-              "cssClass": "row"
+              "containerCssClass": "row"
             }
           }
         },
@@ -739,15 +767,17 @@
               "default": "docmaintype_other",
               "const": "docmaintype_other",
               "form": {
-                "wrappers": [
-                  "hide"
-                ]
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
               }
             }
           },
           "form": {
             "templateOptions": {
-              "cssClass": "row"
+              "containerCssClass": "row"
             }
           }
         },
@@ -770,9 +800,11 @@
               "default": "docmaintype_score",
               "const": "docmaintype_score",
               "form": {
-                "wrappers": [
-                  "hide"
-                ]
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
               }
             },
             "subtype": {
@@ -800,14 +832,14 @@
                   }
                 ],
                 "templateOptions": {
-                  "cssClass": "col-lg-6"
+                  "itemCssClass": "col-lg-6"
                 }
               }
             }
           },
           "form": {
             "templateOptions": {
-              "cssClass": "row"
+              "containerCssClass": "row"
             }
           }
         },
@@ -828,15 +860,17 @@
               "default": "docmaintype_serial",
               "const": "docmaintype_serial",
               "form": {
-                "wrappers": [
-                  "hide"
-                ]
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
               }
             }
           },
           "form": {
             "templateOptions": {
-              "cssClass": "row"
+              "containerCssClass": "row"
             }
           }
         },
@@ -857,15 +891,17 @@
               "default": "docmaintype_series",
               "const": "docmaintype_series",
               "form": {
-                "wrappers": [
-                  "hide"
-                ]
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
               }
             }
           },
           "form": {
             "templateOptions": {
-              "cssClass": "row"
+              "containerCssClass": "row"
             }
           }
         }

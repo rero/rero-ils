@@ -681,19 +681,58 @@
       }
     ],
     "subjects": [
-      "Syntaxe",
-      "Locutions",
-      "Flexion (linguistique)",
-      "Formation des mots",
-      "Langue parl\u00e9e",
-      "S\u00e9mantique",
-      "Phonologie",
-      "Phon\u00e9tique",
-      "\u00c9criture",
-      "Pragmatique",
-      "Grammaire",
-      "Stylistique",
-      "Allemand (langue)"
+      {
+        "type": "bf:Topic",
+        "term": "Syntaxe"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Locutions"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Flexion (linguistique)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Formation des mots"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Langue parl\u00e9e"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "S\u00e9mantique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Phonologie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Phon\u00e9tique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "\u00c9criture"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Pragmatique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Grammaire"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Stylistique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Allemand (langue)"
+      }
     ],
     "partOf": [
       {
@@ -794,9 +833,18 @@
       }
     ],
     "subjects": [
-      "Arbeitsrecht",
-      "international",
-      "Periodikum"
+      {
+        "type": "bf:Topic",
+        "term": "Arbeitsrecht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "international"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      }
     ],
     "contribution": [
       {
@@ -987,9 +1035,18 @@
       }
     ],
     "subjects": [
-      "Psychiatrie",
-      "Maladies mentales",
-      "[\u00c9tudes diverses]"
+      {
+        "type": "bf:Topic",
+        "term": "Psychiatrie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Maladies mentales"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[\u00c9tudes diverses]"
+      }
     ],
     "partOf": [
       {
@@ -1293,8 +1350,14 @@
       }
     ],
     "subjects": [
-      "Arch\u00e9ologie",
-      "Bavi\u00e8re (Allemagne)"
+      {
+        "type": "bf:Topic",
+        "term": "Arch\u00e9ologie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Bavi\u00e8re (Allemagne)"
+      }
     ]
   },
   {
@@ -1524,8 +1587,14 @@
       }
     ],
     "subjects": [
-      "Peinture flamande",
-      "14e si\u00e8cle-15e si\u00e8cle"
+      {
+        "type": "bf:Topic",
+        "term": "Peinture flamande"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "14e si\u00e8cle-15e si\u00e8cle"
+      }
     ]
   },
   {
@@ -1632,10 +1701,22 @@
       }
     ],
     "subjects": [
-      "Alimentation",
-      "Hygi\u00e8ne",
-      "Suisse",
-      "[Publications officielles]"
+      {
+        "type": "bf:Topic",
+        "term": "Alimentation"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Hygi\u00e8ne"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Publications officielles]"
+      }
     ],
     "contribution": [
       {
@@ -1794,10 +1875,22 @@
       }
     ],
     "subjects": [
-      "Philosophie",
-      "Antiquit\u00e9",
-      "Philosophie grecque",
-      "[Manuels d'enseignement]"
+      {
+        "type": "bf:Topic",
+        "term": "Philosophie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Antiquit\u00e9"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Philosophie grecque"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Manuels d'enseignement]"
+      }
     ],
     "partOf": [
       {
@@ -2675,11 +2768,26 @@
       "Fictions jeunesse: roman, pr\u00e9histoire, science fiction"
     ],
     "subjects": [
-      "Voyages dans le temps",
-      "[Fictions]",
-      "[Ouvrages pour la jeunesse]",
-      "[Roman pour la jeunesse]",
-      "[Science-fiction pour la jeunesse]"
+      {
+        "type": "bf:Topic",
+        "term": "Voyages dans le temps"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Fictions]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Ouvrages pour la jeunesse]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Roman pour la jeunesse]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Science-fiction pour la jeunesse]"
+      }
     ],
     "partOf": [
       {
@@ -2828,8 +2936,14 @@
       }
     ],
     "subjects": [
-      "Allemagne.",
-      "1933-1945"
+      {
+        "type": "bf:Topic",
+        "term": "Allemagne."
+      },
+      {
+        "type": "bf:Topic",
+        "term": "1933-1945"
+      }
     ],
     "partOf": [
       {
@@ -3203,9 +3317,18 @@
       }
     ],
     "subjects": [
-      "Cin\u00e9ma",
-      "Cin\u00e9ma suisse",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Cin\u00e9ma"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Cin\u00e9ma suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -3391,8 +3514,14 @@
       }
     ],
     "subjects": [
-      "Chemins de fer",
-      "Suisse"
+      {
+        "type": "bf:Topic",
+        "term": "Chemins de fer"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      }
     ]
   },
   {
@@ -3523,7 +3652,10 @@
       }
     ],
     "subjects": [
-      "Acier"
+      {
+        "type": "bf:Topic",
+        "term": "Acier"
+      }
     ]
   },
   {
@@ -3541,7 +3673,6 @@
     "identifiedBy": [
       {
         "value": "3297162008 :",
-        "acquisitionTerms": "Fr. 292.-",
         "status": "invalid or cancelled",
         "type": "bf:Isbn"
       },
@@ -3640,8 +3771,14 @@
       }
     ],
     "subjects": [
-      "Contrats de construction",
-      "Suisse"
+      {
+        "type": "bf:Topic",
+        "term": "Contrats de construction"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      }
     ],
     "contribution": [
       {
@@ -3776,9 +3913,18 @@
       }
     ],
     "subjects": [
-      "Civil procedure",
-      "Debtor and creditor",
-      "Executions (Law)"
+      {
+        "type": "bf:Topic",
+        "term": "Civil procedure"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Debtor and creditor"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Executions (Law)"
+      }
     ]
   },
   {
@@ -4206,8 +4352,14 @@
       }
     ],
     "subjects": [
-      "[Mangas]",
-      "[Bandes dessin\u00e9es]"
+      {
+        "type": "bf:Topic",
+        "term": "[Mangas]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Bandes dessin\u00e9es]"
+      }
     ],
     "partOf": [
       {
@@ -4356,14 +4508,38 @@
       }
     ],
     "subjects": [
-      "Foi",
-      "soci\u00e9t\u00e9 (milieu humain)",
-      "Dieu",
-      "\u00c9glise",
-      "Christianisme",
-      "Souffrance",
-      "Mort",
-      "[\u00c9tudes diverses]"
+      {
+        "type": "bf:Topic",
+        "term": "Foi"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "soci\u00e9t\u00e9 (milieu humain)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Dieu"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "\u00c9glise"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Christianisme"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Souffrance"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Mort"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[\u00c9tudes diverses]"
+      }
     ],
     "partOf": [
       {
@@ -4770,18 +4946,54 @@
       }
     ],
     "subjects": [
-      "Christian biography",
-      "Theology",
-      "Th\u00e9ologie",
-      "\u00c9glise",
-      "Biographies",
-      "Christianisme",
-      "Histoire",
-      "Vie intellectuelle",
-      "Chr\u00e9tiens",
-      "[Biobibliographie]",
-      "[Dictionnaires allemands]",
-      "[dictionnaire]"
+      {
+        "type": "bf:Topic",
+        "term": "Christian biography"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Theology"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Th\u00e9ologie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "\u00c9glise"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Biographies"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Christianisme"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Histoire"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Vie intellectuelle"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Chr\u00e9tiens"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Biobibliographie]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Dictionnaires allemands]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[dictionnaire]"
+      }
     ],
     "contribution": [
       {
@@ -5116,8 +5328,8 @@
           "preferred_name": "Binet, Christian"
         },
         "role": [
-          "ill",
-          "aut"
+          "aut",
+          "ill"
         ]
       }
     ],
@@ -5214,7 +5426,10 @@
       }
     ],
     "subjects": [
-      "[Bandes dessin\u00e9es]"
+      {
+        "type": "bf:Topic",
+        "term": "[Bandes dessin\u00e9es]"
+      }
     ]
   },
   {
@@ -5324,9 +5539,18 @@
       }
     ],
     "subjects": [
-      "Litt\u00e9rature sapientiale",
-      "R\u00e9flexion (philosophie)",
-      "Egypte antique"
+      {
+        "type": "bf:Topic",
+        "term": "Litt\u00e9rature sapientiale"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "R\u00e9flexion (philosophie)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Egypte antique"
+      }
     ],
     "contribution": [
       {
@@ -5634,11 +5858,26 @@
       }
     ],
     "subjects": [
-      "air - protection",
-      "Eau",
-      "Pollution",
-      "Lutte contre",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "air - protection"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Eau"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Pollution"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Lutte contre"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -6102,10 +6341,22 @@
       }
     ],
     "subjects": [
-      "Droit fiscal",
-      "1875-1960",
-      "Suisse",
-      "[Bibliographie]"
+      {
+        "type": "bf:Topic",
+        "term": "Droit fiscal"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "1875-1960"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Bibliographie]"
+      }
     ],
     "partOf": [
       {
@@ -6905,8 +7156,14 @@
       }
     ],
     "subjects": [
-      "Giraudoux, Jean.",
-      "[Manuels d'enseignement]"
+      {
+        "type": "bf:Topic",
+        "term": "Giraudoux, Jean."
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Manuels d'enseignement]"
+      }
     ],
     "partOf": [
       {
@@ -7068,8 +7325,14 @@
       }
     ],
     "subjects": [
-      "Afrique",
-      "[Photographies]"
+      {
+        "type": "bf:Topic",
+        "term": "Afrique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Photographies]"
+      }
     ],
     "electronicLocator": [
       {
@@ -7342,9 +7605,18 @@
       }
     ],
     "subjects": [
-      "Alexander",
-      "Engelbert",
-      "[\u00c9ditions de manuscrits]"
+      {
+        "type": "bf:Topic",
+        "term": "Alexander"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Engelbert"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[\u00c9ditions de manuscrits]"
+      }
     ],
     "partOf": [
       {
@@ -7621,9 +7893,18 @@
       }
     ],
     "subjects": [
-      "Formation professionnelle",
-      "Enseignants",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Formation professionnelle"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Enseignants"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -7862,9 +8143,18 @@
       }
     ],
     "subjects": [
-      "Bible.",
-      "Aram\u00e9en (langue)",
-      "Grammaire"
+      {
+        "type": "bf:Topic",
+        "term": "Bible."
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Aram\u00e9en (langue)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Grammaire"
+      }
     ],
     "partOf": [
       {
@@ -7955,9 +8245,18 @@
       }
     ],
     "subjects": [
-      "Agronomie",
-      "recherche exp\u00e9rimentale",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Agronomie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "recherche exp\u00e9rimentale"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -8098,7 +8397,10 @@
       }
     ],
     "subjects": [
-      "[Fantasy]"
+      {
+        "type": "bf:Topic",
+        "term": "[Fantasy]"
+      }
     ],
     "partOf": [
       {
@@ -8239,7 +8541,10 @@
       }
     ],
     "subjects": [
-      "[Fantasy]"
+      {
+        "type": "bf:Topic",
+        "term": "[Fantasy]"
+      }
     ],
     "partOf": [
       {
@@ -8523,10 +8828,22 @@
       }
     ],
     "subjects": [
-      "Blood Cells",
-      "Lymphocytes",
-      "Blood Stains",
-      "Atlas"
+      {
+        "type": "bf:Topic",
+        "term": "Blood Cells"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Lymphocytes"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Blood Stains"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Atlas"
+      }
     ],
     "partOf": [
       {
@@ -8783,11 +9100,26 @@
       "Pendant plus de deux ans, les r\u00e9alisateurs ont suivit l'Ensemble vocal de Lausanne et son chef. Ce film est une immersion intimiste dans l'enregistrement de la Messe en si mineur de Jean-S\u00e9bastien Bach (BWV 232)"
     ],
     "subjects": [
-      "Corboz, Michel",
-      "Bach, Johann Sebastian",
-      "interpr\u00e9tation (ex\u00e9cution artistique)",
-      "Messes (musique)",
-      "[DVD vid\u00e9o]"
+      {
+        "type": "bf:Topic",
+        "term": "Corboz, Michel"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Bach, Johann Sebastian"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "interpr\u00e9tation (ex\u00e9cution artistique)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Messes (musique)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[DVD vid\u00e9o]"
+      }
     ],
     "contribution": [
       {
@@ -8937,13 +9269,34 @@
       }
     ],
     "subjects": [
-      "Football",
-      "1901-2002",
-      "1996-2003",
-      "Stades",
-      "Gen\u00e8ve (Suisse, ville) - Les Charmilles",
-      "La Praille (Suisse, GE)",
-      "[Coupures de presse]"
+      {
+        "type": "bf:Topic",
+        "term": "Football"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "1901-2002"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "1996-2003"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Stades"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Gen\u00e8ve (Suisse, ville) - Les Charmilles"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "La Praille (Suisse, GE)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Coupures de presse]"
+      }
     ],
     "contribution": [
       {
@@ -9257,9 +9610,18 @@
       }
     ],
     "subjects": [
-      "Droit romain",
-      "Jurisprudence",
-      "[document]"
+      {
+        "type": "bf:Topic",
+        "term": "Droit romain"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Jurisprudence"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[document]"
+      }
     ],
     "contribution": [
       {
@@ -9691,7 +10053,10 @@
       }
     ],
     "subjects": [
-      "Illusions d'optique"
+      {
+        "type": "bf:Topic",
+        "term": "Illusions d'optique"
+      }
     ]
   },
   {
@@ -10437,8 +10802,14 @@
       }
     ],
     "subjects": [
-      "Art br\u00e9silien",
-      "[Catalogues d'exposition]"
+      {
+        "type": "bf:Topic",
+        "term": "Art br\u00e9silien"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Catalogues d'exposition]"
+      }
     ],
     "contribution": [
       {
@@ -10732,11 +11103,26 @@
       }
     ],
     "subjects": [
-      "Paysage",
-      "Neige",
-      "Alpes (cha\u00eene)",
-      "Valais (Suisse)",
-      "[Photographies]"
+      {
+        "type": "bf:Topic",
+        "term": "Paysage"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Neige"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Alpes (cha\u00eene)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Valais (Suisse)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Photographies]"
+      }
     ]
   },
   {
@@ -10824,9 +11210,18 @@
       }
     ],
     "subjects": [
-      "cultivar",
-      "Lilium (Liliaceae) [Taxonomie]",
-      "[R\u00e9pertoires]"
+      {
+        "type": "bf:Topic",
+        "term": "cultivar"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Lilium (Liliaceae) [Taxonomie]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[R\u00e9pertoires]"
+      }
     ],
     "contribution": [
       {
@@ -11145,8 +11540,14 @@
       }
     ],
     "subjects": [
-      "Odes",
-      "United States"
+      {
+        "type": "bf:Topic",
+        "term": "Odes"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "United States"
+      }
     ],
     "electronicLocator": [
       {
@@ -11607,12 +12008,30 @@
       }
     ],
     "subjects": [
-      "politique de l'\u00e9ducation",
-      "Socialisme",
-      "Politique sanitaire",
-      "Politique sociale",
-      "Service social",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "politique de l'\u00e9ducation"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Socialisme"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Politique sanitaire"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Politique sociale"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Service social"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -11754,9 +12173,18 @@
       }
     ],
     "subjects": [
-      "Art am\u00e9rindien",
-      "Br\u00e9sil",
-      "[Catalogues d'exposition]"
+      {
+        "type": "bf:Topic",
+        "term": "Art am\u00e9rindien"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Br\u00e9sil"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Catalogues d'exposition]"
+      }
     ],
     "contribution": [
       {
@@ -11882,9 +12310,18 @@
       }
     ],
     "subjects": [
-      "British Rail Pension Fund (Grande-Bretagne)",
-      "Tabati\u00e8res",
-      "[Catalogues de vente]"
+      {
+        "type": "bf:Topic",
+        "term": "British Rail Pension Fund (Grande-Bretagne)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Tabati\u00e8res"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Catalogues de vente]"
+      }
     ]
   },
   {
@@ -12127,13 +12564,34 @@
       }
     ],
     "subjects": [
-      "Lubac, Henri de",
-      "Vatican Council",
-      "Concile de Vatican 2",
-      "Universalism",
-      "Christianisme",
-      "non-chr\u00e9tien",
-      "Salut"
+      {
+        "type": "bf:Topic",
+        "term": "Lubac, Henri de"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Vatican Council"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Concile de Vatican 2"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Universalism"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Christianisme"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "non-chr\u00e9tien"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Salut"
+      }
     ],
     "partOf": [
       {
@@ -12303,12 +12761,30 @@
       }
     ],
     "subjects": [
-      "Pierre",
-      "Gravure",
-      "M\u00e9dailles",
-      "Bataille de Poltava (1709)",
-      "Th\u00e8mes, motifs",
-      "[Catalogues d'exposition]"
+      {
+        "type": "bf:Topic",
+        "term": "Pierre"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Gravure"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "M\u00e9dailles"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Bataille de Poltava (1709)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Th\u00e8mes, motifs"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Catalogues d'exposition]"
+      }
     ],
     "contribution": [
       {
@@ -12950,9 +13426,18 @@
       }
     ],
     "subjects": [
-      "Herp\u00e9tologie",
-      "Afrique",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Herp\u00e9tologie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Afrique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -13098,15 +13583,42 @@
       }
     ],
     "subjects": [
-      "\u00c9volution sociale",
-      "Darwinisme social",
-      "Homme",
-      "\u00c9volution",
-      "Sociobiologie",
-      "Culture",
-      "\u00c9volution (biologie)",
-      "homme (\u00eatre humain)",
-      "Changement social"
+      {
+        "type": "bf:Topic",
+        "term": "\u00c9volution sociale"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Darwinisme social"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Homme"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "\u00c9volution"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Sociobiologie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Culture"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "\u00c9volution (biologie)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "homme (\u00eatre humain)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Changement social"
+      }
     ]
   },
   {
@@ -13273,7 +13785,22 @@
       }
     ],
     "subjects": [
-      "Koreans"
+      {
+        "type": "bf:Topic",
+        "term": "Koreans"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Koreans"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Koreans"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Koreans"
+      }
     ],
     "contribution": [
       {
@@ -13424,9 +13951,18 @@
       }
     ],
     "subjects": [
-      "Co\u00fbt",
-      "dommage",
-      "Environnement"
+      {
+        "type": "bf:Topic",
+        "term": "Co\u00fbt"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "dommage"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Environnement"
+      }
     ]
   },
   {
@@ -13546,10 +14082,22 @@
       }
     ],
     "subjects": [
-      "Langage",
-      "Po\u00e9sie",
-      "Liturgie",
-      "Philosophie"
+      {
+        "type": "bf:Topic",
+        "term": "Langage"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Po\u00e9sie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Liturgie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Philosophie"
+      }
     ],
     "partOf": [
       {
@@ -14231,10 +14779,22 @@
       }
     ],
     "subjects": [
-      "Construction",
-      "Remont\u00e9es m\u00e9caniques",
-      "Perg\u00e9lisols",
-      "Mont-Gel\u00e9 (Suisse, r\u00e9gion, VS)"
+      {
+        "type": "bf:Topic",
+        "term": "Construction"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Remont\u00e9es m\u00e9caniques"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Perg\u00e9lisols"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Mont-Gel\u00e9 (Suisse, r\u00e9gion, VS)"
+      }
     ]
   },
   {
@@ -14370,11 +14930,26 @@
       }
     ],
     "subjects": [
-      "Tourism",
-      "Tourisme",
-      "d\u00e9veloppement touristique",
-      "Politique touristique",
-      "Chine (r\u00e9publique populaire)"
+      {
+        "type": "bf:Topic",
+        "term": "Tourism"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Tourisme"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "d\u00e9veloppement touristique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Politique touristique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Chine (r\u00e9publique populaire)"
+      }
     ]
   },
   {
@@ -14769,8 +15344,14 @@
       }
     ],
     "subjects": [
-      "Simulation",
-      "Technique"
+      {
+        "type": "bf:Topic",
+        "term": "Simulation"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Technique"
+      }
     ],
     "partOf": [
       {
@@ -15031,8 +15612,14 @@
       }
     ],
     "subjects": [
-      "Quartiers anciens",
-      "Fust\u0101t (Egypte)"
+      {
+        "type": "bf:Topic",
+        "term": "Quartiers anciens"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Fust\u0101t (Egypte)"
+      }
     ],
     "partOf": [
       {
@@ -15238,9 +15825,18 @@
       }
     ],
     "subjects": [
-      "Soins infirmiers",
-      "Canc\u00e9rologie",
-      "[\u00c9tudes diverses]"
+      {
+        "type": "bf:Topic",
+        "term": "Soins infirmiers"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Canc\u00e9rologie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[\u00c9tudes diverses]"
+      }
     ],
     "contribution": [
       {
@@ -15344,9 +15940,18 @@
       }
     ],
     "subjects": [
-      "Oecum\u00e9nisme",
-      "\u00c9glise catholique",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Oecum\u00e9nisme"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "\u00c9glise catholique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -15531,21 +16136,66 @@
       }
     ],
     "subjects": [
-      "Schuldbetreibungs- und Konkursrecht",
-      "Zivilrecht",
-      "Zivilprozess",
-      "Bundesrecht",
-      "Gerichts- und Verwaltungspraxis",
-      "richterliche Beh\u00f6rde",
-      "oberstes Gericht",
-      "Bundesgericht",
-      "poursuite pour dettes",
-      "Schweiz",
-      "Suisse",
-      "Entscheidsammlung",
-      "Periodikum",
-      "[Jurisprudence]",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Schuldbetreibungs- und Konkursrecht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Zivilrecht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Zivilprozess"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Bundesrecht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Gerichts- und Verwaltungspraxis"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "richterliche Beh\u00f6rde"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "oberstes Gericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Bundesgericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "poursuite pour dettes"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schweiz"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Entscheidsammlung"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Jurisprudence]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -15651,10 +16301,22 @@
       }
     ],
     "subjects": [
-      "Droit p\u00e9nal",
-      "Proc\u00e9dure p\u00e9nale",
-      "Italie",
-      "[texte l\u00e9gislatif]"
+      {
+        "type": "bf:Topic",
+        "term": "Droit p\u00e9nal"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Proc\u00e9dure p\u00e9nale"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Italie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[texte l\u00e9gislatif]"
+      }
     ],
     "contribution": [
       {
@@ -15783,8 +16445,14 @@
       }
     ],
     "subjects": [
-      "topique (philosophie)",
-      "[\u00c9tudes diverses]"
+      {
+        "type": "bf:Topic",
+        "term": "topique (philosophie)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[\u00c9tudes diverses]"
+      }
     ],
     "contribution": [
       {
@@ -15928,11 +16596,26 @@
       }
     ],
     "subjects": [
-      "lutte contre la pollution atmosph\u00e9rique",
-      "pollution atmosph\u00e9rique",
-      "Droit international",
-      "Droit compar\u00e9",
-      "Europe occidentale"
+      {
+        "type": "bf:Topic",
+        "term": "lutte contre la pollution atmosph\u00e9rique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "pollution atmosph\u00e9rique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Droit international"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Droit compar\u00e9"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Europe occidentale"
+      }
     ]
   },
   {
@@ -16203,12 +16886,30 @@
       }
     ],
     "subjects": [
-      "lutte contre la pollution atmosph\u00e9rique",
-      "politique publique compar\u00e9e",
-      "pollution atmosph\u00e9rique",
-      "Droit international",
-      "Droit compar\u00e9",
-      "Europe occidentale"
+      {
+        "type": "bf:Topic",
+        "term": "lutte contre la pollution atmosph\u00e9rique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "politique publique compar\u00e9e"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "pollution atmosph\u00e9rique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Droit international"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Droit compar\u00e9"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Europe occidentale"
+      }
     ],
     "partOf": [
       {
@@ -16668,9 +17369,18 @@
       }
     ],
     "subjects": [
-      "16e si\u00e8cle-17e si\u00e8cle",
-      "Embl\u00e8mes",
-      "[Manuels d'enseignement]"
+      {
+        "type": "bf:Topic",
+        "term": "16e si\u00e8cle-17e si\u00e8cle"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Embl\u00e8mes"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Manuels d'enseignement]"
+      }
     ],
     "contribution": [
       {
@@ -16804,14 +17514,38 @@
       }
     ],
     "subjects": [
-      "Italien (langue)",
-      "World Wide Web",
-      "Internet",
-      "Web",
-      "Web 2.0",
-      "Blogs",
-      "Forums \u00e9lectroniques",
-      "R\u00e9seaux sociaux (Internet)"
+      {
+        "type": "bf:Topic",
+        "term": "Italien (langue)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "World Wide Web"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Internet"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Web"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Web 2.0"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Blogs"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Forums \u00e9lectroniques"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "R\u00e9seaux sociaux (Internet)"
+      }
     ],
     "partOf": [
       {
@@ -16953,7 +17687,10 @@
       "La reine Ahotep a reconquis une grande partie du sud, au prix de la vie de ceux qu'elle aime. Apr\u00e8s cent ans d'occupation, l'empire va enfin rena\u00eetre de ses cendres."
     ],
     "subjects": [
-      "[Roman historique]"
+      {
+        "type": "bf:Topic",
+        "term": "[Roman historique]"
+      }
     ]
   },
   {
@@ -17385,11 +18122,26 @@
       }
     ],
     "subjects": [
-      "Nationalrat",
-      "Wahl(politische Rechte)",
-      "Statistik",
-      "Schweiz",
-      "Periodikum"
+      {
+        "type": "bf:Topic",
+        "term": "Nationalrat"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Wahl(politische Rechte)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Statistik"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schweiz"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      }
     ],
     "contribution": [
       {
@@ -17620,10 +18372,22 @@
       }
     ],
     "subjects": [
-      "Paleario, Aonio",
-      "16e si\u00e8cle",
-      "R\u00e9forme protestante",
-      "Italie"
+      {
+        "type": "bf:Topic",
+        "term": "Paleario, Aonio"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "16e si\u00e8cle"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "R\u00e9forme protestante"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Italie"
+      }
     ],
     "electronicLocator": [
       {
@@ -17790,8 +18554,14 @@
       }
     ],
     "subjects": [
-      "Protagoras",
-      "Sophistes (philosophie grecque)"
+      {
+        "type": "bf:Topic",
+        "term": "Protagoras"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Sophistes (philosophie grecque)"
+      }
     ]
   },
   {
@@ -17953,10 +18723,22 @@
       }
     ],
     "subjects": [
-      "Fran\u00e7ais (langue)",
-      "Russe (langue)",
-      "[Dictionnaires fran\u00e7ais]",
-      "[Dictionnaires russes]"
+      {
+        "type": "bf:Topic",
+        "term": "Fran\u00e7ais (langue)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Russe (langue)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Dictionnaires fran\u00e7ais]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Dictionnaires russes]"
+      }
     ]
   },
   {
@@ -18416,9 +19198,18 @@
       }
     ],
     "subjects": [
-      "Bourg-Saint-Pierre (Suisse, VS)",
-      "Liddes (Suisse, VS)",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Bourg-Saint-Pierre (Suisse, VS)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Liddes (Suisse, VS)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -18717,9 +19508,18 @@
       }
     ],
     "subjects": [
-      "Religion",
-      "Th\u00e9ologie",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Religion"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Th\u00e9ologie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -18930,11 +19730,26 @@
       }
     ],
     "subjects": [
-      "Rape",
-      "Child Abuse, Sexual",
-      "Sadism",
-      "United States",
-      "Congress"
+      {
+        "type": "bf:Topic",
+        "term": "Rape"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Child Abuse, Sexual"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Sadism"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "United States"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Congress"
+      }
     ],
     "contribution": [
       {
@@ -19251,9 +20066,18 @@
       }
     ],
     "subjects": [
-      "Th\u00e9\u00e2tre",
-      "20e si\u00e8cle (1re moiti\u00e9)",
-      "France"
+      {
+        "type": "bf:Topic",
+        "term": "Th\u00e9\u00e2tre"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "20e si\u00e8cle (1re moiti\u00e9)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "France"
+      }
     ]
   },
   {
@@ -19451,7 +20275,10 @@
       "Analyse : Roman de science-fiction. Nouvelles"
     ],
     "subjects": [
-      "Goonan, Kathleen Ann"
+      {
+        "type": "bf:Topic",
+        "term": "Goonan, Kathleen Ann"
+      }
     ],
     "contribution": [
       {
@@ -19846,10 +20673,22 @@
       }
     ],
     "subjects": [
-      "perception sensorielle",
-      "Toucher",
-      "Philosophie",
-      "Sens et sensations"
+      {
+        "type": "bf:Topic",
+        "term": "perception sensorielle"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Toucher"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Philosophie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Sens et sensations"
+      }
     ]
   },
   {
@@ -20154,9 +20993,18 @@
       }
     ],
     "subjects": [
-      "Copyright",
-      "Mass media",
-      "Performing arts"
+      {
+        "type": "bf:Topic",
+        "term": "Copyright"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Mass media"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Performing arts"
+      }
     ]
   },
   {
@@ -20261,8 +21109,14 @@
       }
     ],
     "subjects": [
-      "1848-1849",
-      "Royaume de Sardaigne"
+      {
+        "type": "bf:Topic",
+        "term": "1848-1849"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Royaume de Sardaigne"
+      }
     ],
     "contribution": [
       {
@@ -20359,10 +21213,22 @@
       }
     ],
     "subjects": [
-      "Gastronomie",
-      "Restaurants",
-      "Paris (France)",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Gastronomie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Restaurants"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Paris (France)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -20565,8 +21431,14 @@
       }
     ],
     "subjects": [
-      "Oecum\u00e9nisme",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Oecum\u00e9nisme"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -20692,9 +21564,18 @@
       }
     ],
     "subjects": [
-      "Alpinisme",
-      "Alpes (cha\u00eene)",
-      "[Photographies]"
+      {
+        "type": "bf:Topic",
+        "term": "Alpinisme"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Alpes (cha\u00eene)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Photographies]"
+      }
     ]
   },
   {
@@ -20868,7 +21749,10 @@
       "Fantastique"
     ],
     "subjects": [
-      "[Films de fiction]"
+      {
+        "type": "bf:Topic",
+        "term": "[Films de fiction]"
+      }
     ],
     "contribution": [
       {
@@ -21146,13 +22030,34 @@
       }
     ],
     "subjects": [
-      "comp\u00e9tence - d\u00e9veloppement",
-      "Enseignement",
-      "Fran\u00e7ais (langue)",
-      "Psychologie de l'\u00e9ducation",
-      "Travail",
-      "Sociologie",
-      "Apprentissage"
+      {
+        "type": "bf:Topic",
+        "term": "comp\u00e9tence - d\u00e9veloppement"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Enseignement"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Fran\u00e7ais (langue)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Psychologie de l'\u00e9ducation"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Travail"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Sociologie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Apprentissage"
+      }
     ],
     "partOf": [
       {
@@ -21382,9 +22287,18 @@
       }
     ],
     "subjects": [
-      "Th\u00e9\u00e2tre",
-      "Suisse",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Th\u00e9\u00e2tre"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -21494,12 +22408,30 @@
       }
     ],
     "subjects": [
-      "Pessoa, Fernando",
-      "15e si\u00e8cle-17e si\u00e8cle",
-      "Art portugais",
-      "Colonies",
-      "Portugal",
-      "[\u00c9tudes diverses]"
+      {
+        "type": "bf:Topic",
+        "term": "Pessoa, Fernando"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "15e si\u00e8cle-17e si\u00e8cle"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Art portugais"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Colonies"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Portugal"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[\u00c9tudes diverses]"
+      }
     ],
     "partOf": [
       {
@@ -21687,8 +22619,22 @@
       }
     ],
     "subjects": [
-      "Wengeroff, Pauline,",
-      "Jews"
+      {
+        "type": "bf:Topic",
+        "term": "Wengeroff, Pauline,"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Jews"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Jews"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Jews"
+      }
     ]
   },
   {
@@ -22200,7 +23146,10 @@
       }
     ],
     "subjects": [
-      "[Bandes dessin\u00e9es]"
+      {
+        "type": "bf:Topic",
+        "term": "[Bandes dessin\u00e9es]"
+      }
     ],
     "partOf": [
       {
@@ -22311,11 +23260,26 @@
       }
     ],
     "subjects": [
-      "Botanique",
-      "v\u00e9g\u00e9tation",
-      "Plantes",
-      "Br\u00e9sil",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Botanique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "v\u00e9g\u00e9tation"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Plantes"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Br\u00e9sil"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -22441,10 +23405,22 @@
       }
     ],
     "subjects": [
-      "20e si\u00e8cle",
-      "Beaut\u00e9 corporelle",
-      "[Photographies]",
-      "[\u00c9tudes diverses]"
+      {
+        "type": "bf:Topic",
+        "term": "20e si\u00e8cle"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Beaut\u00e9 corporelle"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Photographies]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[\u00c9tudes diverses]"
+      }
     ],
     "contribution": [
       {
@@ -23050,9 +24026,18 @@
       }
     ],
     "subjects": [
-      "\u00c9conomie de march\u00e9",
-      "changement \u00e9conomique",
-      "Europe orientale"
+      {
+        "type": "bf:Topic",
+        "term": "\u00c9conomie de march\u00e9"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "changement \u00e9conomique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Europe orientale"
+      }
     ],
     "partOf": [
       {
@@ -23248,11 +24233,26 @@
       }
     ],
     "subjects": [
-      "Medizin",
-      "Neurologie",
-      "Psychiatrie",
-      "N\u00e9vroses",
-      "[Manuels d'enseignement]"
+      {
+        "type": "bf:Topic",
+        "term": "Medizin"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Neurologie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Psychiatrie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "N\u00e9vroses"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Manuels d'enseignement]"
+      }
     ]
   },
   {
@@ -23370,9 +24370,18 @@
       }
     ],
     "subjects": [
-      "Dichotomie",
-      "Psychologie",
-      "[\u00c9tudes diverses]"
+      {
+        "type": "bf:Topic",
+        "term": "Dichotomie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Psychologie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[\u00c9tudes diverses]"
+      }
     ],
     "contribution": [
       {
@@ -23521,10 +24530,22 @@
       }
     ],
     "subjects": [
-      "Vin de Champagne",
-      "Vin mousseux",
-      "Vinification",
-      "Bouteilles de vin"
+      {
+        "type": "bf:Topic",
+        "term": "Vin de Champagne"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Vin mousseux"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Vinification"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Bouteilles de vin"
+      }
     ]
   },
   {
@@ -23812,9 +24833,18 @@
       }
     ],
     "subjects": [
-      "Banz, St\u00e9phane",
-      "1992-2006",
-      "[Catalogues d'exposition]"
+      {
+        "type": "bf:Topic",
+        "term": "Banz, St\u00e9phane"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "1992-2006"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Catalogues d'exposition]"
+      }
     ],
     "contribution": [
       {
@@ -23987,8 +25017,14 @@
       }
     ],
     "subjects": [
-      "Art",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Art"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -24406,14 +25442,38 @@
       }
     ],
     "subjects": [
-      "catholicisme",
-      "Mouvement ouvrier",
-      "1789-1939",
-      "Action catholique",
-      "\u00c9glise catholique",
-      "Action sociale",
-      "association catholique",
-      "Suisse"
+      {
+        "type": "bf:Topic",
+        "term": "catholicisme"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Mouvement ouvrier"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "1789-1939"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Action catholique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "\u00c9glise catholique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Action sociale"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "association catholique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      }
     ]
   },
   {
@@ -24617,9 +25677,18 @@
       }
     ],
     "subjects": [
-      "doctrine sociale",
-      "\u00c9glise catholique",
-      "1991"
+      {
+        "type": "bf:Topic",
+        "term": "doctrine sociale"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "\u00c9glise catholique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "1991"
+      }
     ],
     "partOf": [
       {
@@ -24772,12 +25841,30 @@
       }
     ],
     "subjects": [
-      "Augustin",
-      "Bible.",
-      "5e si\u00e8cle (d\u00e9but)",
-      "Pr\u00e9dication latine",
-      "[document]",
-      "[Commentaires]"
+      {
+        "type": "bf:Topic",
+        "term": "Augustin"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Bible."
+      },
+      {
+        "type": "bf:Topic",
+        "term": "5e si\u00e8cle (d\u00e9but)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Pr\u00e9dication latine"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[document]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Commentaires]"
+      }
     ]
   },
   {
@@ -24852,8 +25939,14 @@
       }
     ],
     "subjects": [
-      "Physique",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Physique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -25114,12 +26207,30 @@
       }
     ],
     "subjects": [
-      "P\u00e9dagogie",
-      "Relations humaines",
-      "Sociologie",
-      "Citoyennet\u00e9",
-      "D\u00e9mocratie",
-      "[\u00c9tudes diverses]"
+      {
+        "type": "bf:Topic",
+        "term": "P\u00e9dagogie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Relations humaines"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Sociologie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Citoyennet\u00e9"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "D\u00e9mocratie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[\u00c9tudes diverses]"
+      }
     ],
     "contribution": [
       {
@@ -25305,12 +26416,34 @@
       }
     ],
     "subjects": [
-      "Fluid mechanics",
-      "Hydrodynamics",
-      "Turbulence",
-      "Fluides, M\u00e9canique des",
-      "Hydrodynamique",
-      "Physique statistique"
+      {
+        "type": "bf:Topic",
+        "term": "Fluid mechanics"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Hydrodynamics"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Turbulence"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Fluides, M\u00e9canique des"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Hydrodynamique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Turbulence"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Physique statistique"
+      }
     ]
   },
   {
@@ -25576,9 +26709,18 @@
       "Contient e.a.: affiches de la M\u00e9diath\u00e8que Valais"
     ],
     "subjects": [
-      "Alpinisme",
-      "Weisshorn (Suisse, mont, VS)",
-      "[\u00c9tudes diverses]"
+      {
+        "type": "bf:Topic",
+        "term": "Alpinisme"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Weisshorn (Suisse, mont, VS)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[\u00c9tudes diverses]"
+      }
     ],
     "contribution": [
       {
@@ -25808,8 +26950,14 @@
       }
     ],
     "subjects": [
-      "juridiction constitutionnelle",
-      "Allemagne f\u00e9d\u00e9rale"
+      {
+        "type": "bf:Topic",
+        "term": "juridiction constitutionnelle"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Allemagne f\u00e9d\u00e9rale"
+      }
     ],
     "contribution": [
       {
@@ -26111,9 +27259,18 @@
       }
     ],
     "subjects": [
-      "Culture",
-      "Moeurs et coutumes",
-      "Finlande"
+      {
+        "type": "bf:Topic",
+        "term": "Culture"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Moeurs et coutumes"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Finlande"
+      }
     ]
   },
   {
@@ -26613,20 +27770,62 @@
       }
     ],
     "subjects": [
-      "Clark, Lygia,",
-      "Freundlich, Otto,",
-      "Lye, Len,",
-      "Palermo,",
-      "Freundlich, Otto",
-      "Lye, Len",
-      "Clark, Lygia",
-      "Palermo, Blinky",
-      "Art",
-      "Art, Abstract",
-      "Art, Modern",
-      "Sculpture",
-      "Video art",
-      "[Catalogues d'exposition]"
+      {
+        "type": "bf:Topic",
+        "term": "Clark, Lygia,"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Freundlich, Otto,"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Lye, Len,"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Palermo,"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Freundlich, Otto"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Lye, Len"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Clark, Lygia"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Palermo, Blinky"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Art"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Art, Abstract"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Art, Modern"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Sculpture"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Video art"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Catalogues d'exposition]"
+      }
     ],
     "contribution": [
       {
@@ -26799,7 +27998,10 @@
       }
     ],
     "subjects": [
-      "[Livres audio]"
+      {
+        "type": "bf:Topic",
+        "term": "[Livres audio]"
+      }
     ]
   },
   {
@@ -26974,7 +28176,10 @@
       }
     ],
     "subjects": [
-      "Environmental policy"
+      {
+        "type": "bf:Topic",
+        "term": "Environmental policy"
+      }
     ],
     "contribution": [
       {
@@ -28101,7 +29306,10 @@
       }
     ],
     "subjects": [
-      "[Roman pour la jeunesse]"
+      {
+        "type": "bf:Topic",
+        "term": "[Roman pour la jeunesse]"
+      }
     ]
   },
   {
@@ -29284,8 +30492,14 @@
       }
     ],
     "subjects": [
-      "Jeu",
-      "[Guides pratiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Jeu"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Guides pratiques]"
+      }
     ]
   },
   {
@@ -29411,8 +30625,14 @@
       }
     ],
     "subjects": [
-      "jeu d'opposition",
-      "[Manuels d'enseignement]"
+      {
+        "type": "bf:Topic",
+        "term": "jeu d'opposition"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Manuels d'enseignement]"
+      }
     ]
   },
   {
@@ -29526,8 +30746,14 @@
       }
     ],
     "subjects": [
-      "Wedelia (Compositae) [Taxonomie]",
-      "Br\u00e9sil"
+      {
+        "type": "bf:Topic",
+        "term": "Wedelia (Compositae) [Taxonomie]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Br\u00e9sil"
+      }
     ]
   },
   {
@@ -29873,10 +31099,22 @@
       }
     ],
     "subjects": [
-      "Russe (langue)",
-      "Langues vivantes",
-      "[Manuels d'enseignement]",
-      "[Multim\u00e9dias]"
+      {
+        "type": "bf:Topic",
+        "term": "Russe (langue)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Langues vivantes"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Manuels d'enseignement]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Multim\u00e9dias]"
+      }
     ],
     "partOf": [
       {
@@ -30209,8 +31447,14 @@
       }
     ],
     "subjects": [
-      "Botanique",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Botanique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -30328,10 +31572,22 @@
       }
     ],
     "subjects": [
-      "politique r\u00e9gionale",
-      "Conditions \u00e9conomiques",
-      "Oberwallis (Suisse, VS)",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "politique r\u00e9gionale"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Conditions \u00e9conomiques"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Oberwallis (Suisse, VS)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -30547,9 +31803,18 @@
       }
     ],
     "subjects": [
-      "animation de groupe",
-      "Jeu",
-      "[Manuels d'enseignement]"
+      {
+        "type": "bf:Topic",
+        "term": "animation de groupe"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Jeu"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Manuels d'enseignement]"
+      }
     ]
   },
   {
@@ -30688,9 +31953,18 @@
       }
     ],
     "subjects": [
-      "m\u00e9canique (physique)",
-      "Tectonique",
-      "Failles (g\u00e9ologie)"
+      {
+        "type": "bf:Topic",
+        "term": "m\u00e9canique (physique)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Tectonique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Failles (g\u00e9ologie)"
+      }
     ],
     "partOf": [
       {
@@ -30833,8 +32107,14 @@
       }
     ],
     "subjects": [
-      "Alcoolisme",
-      "[R\u00e9cits personnels]"
+      {
+        "type": "bf:Topic",
+        "term": "Alcoolisme"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[R\u00e9cits personnels]"
+      }
     ]
   },
   {
@@ -30992,12 +32272,30 @@
       }
     ],
     "subjects": [
-      "n\u00e9cropole grecque antique",
-      "\u00e9poque helladique",
-      "2600 av. J.-C.-410",
-      "Epoque imp\u00e9riale romaine (Rome ; 30 av. J.-C.-476)",
-      "Tombes grecques",
-      "Eleusis (Gr\u00e8ce)"
+      {
+        "type": "bf:Topic",
+        "term": "n\u00e9cropole grecque antique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "\u00e9poque helladique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "2600 av. J.-C.-410"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Epoque imp\u00e9riale romaine (Rome ; 30 av. J.-C.-476)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Tombes grecques"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Eleusis (Gr\u00e8ce)"
+      }
     ],
     "partOf": [
       {
@@ -31132,8 +32430,14 @@
       }
     ],
     "subjects": [
-      "Nicolas",
-      "[Biographies]"
+      {
+        "type": "bf:Topic",
+        "term": "Nicolas"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Biographies]"
+      }
     ]
   },
   {
@@ -31289,8 +32593,14 @@
       }
     ],
     "subjects": [
-      "Biologie",
-      "[dictionnaire]"
+      {
+        "type": "bf:Topic",
+        "term": "Biologie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[dictionnaire]"
+      }
     ],
     "partOf": [
       {
@@ -31435,8 +32745,14 @@
       }
     ],
     "subjects": [
-      "Macro\u00e9conomie",
-      "[Manuels d'enseignement]"
+      {
+        "type": "bf:Topic",
+        "term": "Macro\u00e9conomie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Manuels d'enseignement]"
+      }
     ]
   },
   {
@@ -31640,15 +32956,42 @@
       }
     ],
     "subjects": [
-      "Ecology",
-      "Environmental policy",
-      "Forests and forestry",
-      "Environnement",
-      "Protection",
-      "Dra Wadi (Morocco)",
-      "Morocco",
-      "Maroc",
-      "[Actes de congr\u00e8s]"
+      {
+        "type": "bf:Topic",
+        "term": "Ecology"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Environmental policy"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Forests and forestry"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Environnement"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Protection"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Dra Wadi (Morocco)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Morocco"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Maroc"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Actes de congr\u00e8s]"
+      }
     ],
     "contribution": [
       {
@@ -31832,10 +33175,22 @@
       "Avec de nombreuses contributions [ po\u00e8mes et proses] d'\u00e9crivains vaudois"
     ],
     "subjects": [
-      "Art",
-      "Litt\u00e9rature",
-      "Po\u00e9sie",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Art"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Litt\u00e9rature"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Po\u00e9sie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -32116,7 +33471,10 @@
       }
     ],
     "subjects": [
-      "Ultrasons"
+      {
+        "type": "bf:Topic",
+        "term": "Ultrasons"
+      }
     ]
   },
   {
@@ -32343,9 +33701,18 @@
       }
     ],
     "subjects": [
-      "Litt\u00e9rature autrichienne",
-      "1050-1750",
-      "[\u00c9tudes diverses]"
+      {
+        "type": "bf:Topic",
+        "term": "Litt\u00e9rature autrichienne"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "1050-1750"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[\u00c9tudes diverses]"
+      }
     ],
     "contribution": [
       {
@@ -32901,9 +34268,18 @@
       }
     ],
     "subjects": [
-      "apprentissage verbal",
-      "Aptitude",
-      "Intelligence"
+      {
+        "type": "bf:Topic",
+        "term": "apprentissage verbal"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Aptitude"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Intelligence"
+      }
     ],
     "partOf": [
       {
@@ -33190,8 +34566,14 @@
       }
     ],
     "subjects": [
-      "Van Dongen, Kees",
-      "Fauvisme"
+      {
+        "type": "bf:Topic",
+        "term": "Van Dongen, Kees"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Fauvisme"
+      }
     ]
   },
   {
@@ -33412,9 +34794,18 @@
       }
     ],
     "subjects": [
-      "Surgery",
-      "Laparoscopy",
-      "Periodical"
+      {
+        "type": "bf:Topic",
+        "term": "Surgery"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Laparoscopy"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodical"
+      }
     ]
   },
   {
@@ -33630,8 +35021,14 @@
       }
     ],
     "subjects": [
-      "1917",
-      "Guerre mondiale (1914-1918)"
+      {
+        "type": "bf:Topic",
+        "term": "1917"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Guerre mondiale (1914-1918)"
+      }
     ],
     "partOf": [
       {
@@ -33756,8 +35153,14 @@
       "Analyse: Survol de la ville par l'image et les commentaires de quelques-unes de ses personnalit\u00e9s."
     ],
     "subjects": [
-      "Neuch\u00e2tel (Suisse, ville)",
-      "[Vid\u00e9ocassettes]"
+      {
+        "type": "bf:Topic",
+        "term": "Neuch\u00e2tel (Suisse, ville)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Vid\u00e9ocassettes]"
+      }
     ],
     "contribution": [
       {
@@ -34001,10 +35404,22 @@
       }
     ],
     "subjects": [
-      "Famille",
-      "Nourrissons",
-      "Enfants",
-      "Parents"
+      {
+        "type": "bf:Topic",
+        "term": "Famille"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Nourrissons"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Enfants"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Parents"
+      }
     ]
   },
   {
@@ -34599,7 +36014,10 @@
       }
     ],
     "subjects": [
-      "Kongzi."
+      {
+        "type": "bf:Topic",
+        "term": "Kongzi."
+      }
     ]
   },
   {
@@ -34728,8 +36146,14 @@
       }
     ],
     "subjects": [
-      "Bourdelle, Antoine",
-      "Dessin"
+      {
+        "type": "bf:Topic",
+        "term": "Bourdelle, Antoine"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Dessin"
+      }
     ]
   },
   {
@@ -35103,11 +36527,26 @@
       }
     ],
     "subjects": [
-      "Armoiries",
-      "Mariage",
-      "17e si\u00e8cle",
-      "Coffres",
-      "Neuch\u00e2tel (Suisse, canton)"
+      {
+        "type": "bf:Topic",
+        "term": "Armoiries"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Mariage"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "17e si\u00e8cle"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Coffres"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Neuch\u00e2tel (Suisse, canton)"
+      }
     ],
     "partOf": [
       {
@@ -35620,8 +37059,14 @@
       }
     ],
     "subjects": [
-      "James, Henry",
-      "N\u00e9ant (philosophie)"
+      {
+        "type": "bf:Topic",
+        "term": "James, Henry"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "N\u00e9ant (philosophie)"
+      }
     ]
   },
   {
@@ -35745,14 +37190,38 @@
       }
     ],
     "subjects": [
-      "livre",
-      "restauration (remise en \u00e9tat)",
-      "Photographie",
-      "photographie - conservation",
-      "Archives",
-      "Conservation et restauration",
-      "Livres",
-      "[\u00c9tudes diverses]"
+      {
+        "type": "bf:Topic",
+        "term": "livre"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "restauration (remise en \u00e9tat)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Photographie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "photographie - conservation"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Archives"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Conservation et restauration"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Livres"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[\u00c9tudes diverses]"
+      }
     ],
     "contribution": [
       {
@@ -36104,8 +37573,8 @@
           "type": "bf:Person"
         },
         "role": [
-          "prf",
-          "cmp"
+          "cmp",
+          "prf"
         ]
       },
       {
@@ -36460,12 +37929,30 @@
       }
     ],
     "subjects": [
-      "Aebi, Christoph",
-      "Aebi, Jacob",
-      "facteur d'orgue",
-      "Orgue",
-      "17e si\u00e8cle",
-      "Valais (Suisse)"
+      {
+        "type": "bf:Topic",
+        "term": "Aebi, Christoph"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Aebi, Jacob"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "facteur d'orgue"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Orgue"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "17e si\u00e8cle"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Valais (Suisse)"
+      }
     ],
     "partOf": [
       {
@@ -36747,7 +38234,10 @@
       }
     ],
     "subjects": [
-      "Cellules v\u00e9g\u00e9tales"
+      {
+        "type": "bf:Topic",
+        "term": "Cellules v\u00e9g\u00e9tales"
+      }
     ]
   },
   {
@@ -37144,12 +38634,30 @@
       }
     ],
     "subjects": [
-      "Science",
-      "Research",
-      "Sciences naturelles",
-      "Sciences",
-      "Periodical",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Science"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Research"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Sciences naturelles"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Sciences"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodical"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -37324,15 +38832,42 @@
       }
     ],
     "subjects": [
-      "Bureau international du travail",
-      "Arbeitsrecht",
-      "\u00f6ffentliches Recht",
-      "internationale Arbeitsorganisation",
-      "international",
-      "Droit du travail",
-      "Droit international",
-      "Periodikum",
-      "[Publications officielles]"
+      {
+        "type": "bf:Topic",
+        "term": "Bureau international du travail"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Arbeitsrecht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "\u00f6ffentliches Recht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "internationale Arbeitsorganisation"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "international"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Droit du travail"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Droit international"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Publications officielles]"
+      }
     ],
     "contribution": [
       {
@@ -37481,7 +39016,10 @@
       }
     ],
     "subjects": [
-      "Ritz, Walther"
+      {
+        "type": "bf:Topic",
+        "term": "Ritz, Walther"
+      }
     ]
   },
   {
@@ -37592,11 +39130,26 @@
       }
     ],
     "subjects": [
-      "air - protection",
-      "Eau",
-      "Pollution",
-      "Lutte contre",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "air - protection"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Eau"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Pollution"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Lutte contre"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -37698,9 +39251,18 @@
       }
     ],
     "subjects": [
-      "Missions",
-      "Japon",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Missions"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Japon"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -38011,9 +39573,18 @@
       }
     ],
     "subjects": [
-      "Cin\u00e9ma",
-      "Cin\u00e9ma suisse",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Cin\u00e9ma"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Cin\u00e9ma suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -38324,9 +39895,18 @@
       "\"Travelling\", soutenu par la Cin\u00e9math\u00e8que suisse d\u00e8s 1975, constitue dans le domaine cin\u00e9matographique l'effort le plus soutenu d'une volont\u00e9 d'historiographie s\u00e9rieuse."
     ],
     "subjects": [
-      "Cin\u00e9ma",
-      "Cin\u00e9ma suisse",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Cin\u00e9ma"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Cin\u00e9ma suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -38418,10 +39998,22 @@
       }
     ],
     "subjects": [
-      "\u00c9glise",
-      "soci\u00e9t\u00e9 (milieu humain)",
-      "\u00c9glises r\u00e9form\u00e9es",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "\u00c9glise"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "soci\u00e9t\u00e9 (milieu humain)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "\u00c9glises r\u00e9form\u00e9es"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -39021,13 +40613,34 @@
       }
     ],
     "subjects": [
-      "H\u00e9raldique",
-      "Kunst und Kultur",
-      "Wappen",
-      "Suisse",
-      "Schweiz",
-      "[P\u00e9riodiques]",
-      "Periodikum"
+      {
+        "type": "bf:Topic",
+        "term": "H\u00e9raldique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Kunst und Kultur"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Wappen"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schweiz"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      }
     ],
     "contribution": [
       {
@@ -39159,7 +40772,10 @@
       }
     ],
     "subjects": [
-      "[Bandes dessin\u00e9es]"
+      {
+        "type": "bf:Topic",
+        "term": "[Bandes dessin\u00e9es]"
+      }
     ]
   },
   {
@@ -39370,9 +40986,18 @@
       }
     ],
     "subjects": [
-      "cultivar",
-      "Lilium (Liliaceae) [Taxonomie]",
-      "[R\u00e9pertoires]"
+      {
+        "type": "bf:Topic",
+        "term": "cultivar"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Lilium (Liliaceae) [Taxonomie]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[R\u00e9pertoires]"
+      }
     ],
     "contribution": [
       {
@@ -39466,7 +41091,10 @@
       }
     ],
     "subjects": [
-      "Oecum\u00e9nisme"
+      {
+        "type": "bf:Topic",
+        "term": "Oecum\u00e9nisme"
+      }
     ]
   },
   {
@@ -39565,9 +41193,18 @@
       }
     ],
     "subjects": [
-      "Litt\u00e9rature autrichienne",
-      "1050-1980",
-      "[\u00c9tudes diverses]"
+      {
+        "type": "bf:Topic",
+        "term": "Litt\u00e9rature autrichienne"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "1050-1980"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[\u00c9tudes diverses]"
+      }
     ],
     "contribution": [
       {
@@ -39744,9 +41381,18 @@
       }
     ],
     "subjects": [
-      "F\u00e9d\u00e9ration luth\u00e9rienne mondiale",
-      "\u00c9glise luth\u00e9rienne",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "\u00c9glise luth\u00e9rienne"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -40197,9 +41843,18 @@
       }
     ],
     "subjects": [
-      "Droit fiscal",
-      "Suisse",
-      "[Bibliographie]"
+      {
+        "type": "bf:Topic",
+        "term": "Droit fiscal"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Bibliographie]"
+      }
     ]
   },
   {
@@ -40643,9 +42298,18 @@
       }
     ],
     "subjects": [
-      "Musique",
-      "\u00c9tude et enseignement",
-      "[Multim\u00e9dias]"
+      {
+        "type": "bf:Topic",
+        "term": "Musique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "\u00c9tude et enseignement"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Multim\u00e9dias]"
+      }
     ]
   },
   {
@@ -41002,18 +42666,54 @@
       }
     ],
     "subjects": [
-      "Schuldbetreibungs- und Konkursrecht",
-      "Gerichts- und Verwaltungspraxis",
-      "richterliche Beh\u00f6rde",
-      "oberstes Gericht",
-      "Bundesgericht",
-      "poursuite pour dettes",
-      "Schweiz",
-      "Suisse",
-      "Entscheidsammlung",
-      "Periodikum",
-      "[Jurisprudence]",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Schuldbetreibungs- und Konkursrecht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Gerichts- und Verwaltungspraxis"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "richterliche Beh\u00f6rde"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "oberstes Gericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Bundesgericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "poursuite pour dettes"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schweiz"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Entscheidsammlung"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Jurisprudence]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -41288,10 +42988,22 @@
       "Voir: La Libert\u00e9 ; 15.11.2001 ; 15.07.200 - La Gruy\u00e8re ; 15.11.2001."
     ],
     "subjects": [
-      "Tagliavini, Luigi Ferdinando",
-      "Musicologie",
-      "[M\u00e9langes et hommages]",
-      "[\u00c9tudes diverses]"
+      {
+        "type": "bf:Topic",
+        "term": "Tagliavini, Luigi Ferdinando"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Musicologie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[M\u00e9langes et hommages]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[\u00c9tudes diverses]"
+      }
     ],
     "contribution": [
       {
@@ -41417,10 +43129,22 @@
       }
     ],
     "subjects": [
-      "Litt\u00e9rature",
-      "Litt\u00e9rature fran\u00e7aise",
-      "Litt\u00e9rature canadienne d'expression fran\u00e7aise",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Litt\u00e9rature"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Litt\u00e9rature fran\u00e7aise"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Litt\u00e9rature canadienne d'expression fran\u00e7aise"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -41789,10 +43513,22 @@
       }
     ],
     "subjects": [
-      "Mouvement ouvrier",
-      "1789-1939",
-      "\u00c9glise catholique",
-      "Europe occidentale"
+      {
+        "type": "bf:Topic",
+        "term": "Mouvement ouvrier"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "1789-1939"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "\u00c9glise catholique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Europe occidentale"
+      }
     ],
     "contribution": [
       {
@@ -42571,8 +44307,14 @@
       }
     ],
     "subjects": [
-      "Guerre mondiale (1914-1918)",
-      "[document]"
+      {
+        "type": "bf:Topic",
+        "term": "Guerre mondiale (1914-1918)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[document]"
+      }
     ],
     "partOf": [
       {
@@ -42661,8 +44403,14 @@
       }
     ],
     "subjects": [
-      "Th\u00e9ologie orthodoxe",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Th\u00e9ologie orthodoxe"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -42853,10 +44601,22 @@
       }
     ],
     "subjects": [
-      "Bourg-Saint-Pierre (Suisse, VS)",
-      "Liddes (Suisse, VS)",
-      "Etroubles (Italie)",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Bourg-Saint-Pierre (Suisse, VS)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Liddes (Suisse, VS)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Etroubles (Italie)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -44501,11 +46261,26 @@
       "Analyse: Concerne notamment le canton de Vaud."
     ],
     "subjects": [
-      "Soci\u00e9t\u00e9 suisse du th\u00e9\u00e2tre (Suisse)",
-      "Th\u00e9\u00e2tre",
-      "Th\u00e9\u00e2tre (genre litt\u00e9raire) suisse",
-      "Suisse",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Soci\u00e9t\u00e9 suisse du th\u00e9\u00e2tre (Suisse)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Th\u00e9\u00e2tre"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Th\u00e9\u00e2tre (genre litt\u00e9raire) suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -44617,8 +46392,14 @@
       }
     ],
     "subjects": [
-      "Botanique",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Botanique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -44784,9 +46565,18 @@
       }
     ],
     "subjects": [
-      "Oecum\u00e9nisme",
-      "Th\u00e9ologie",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Oecum\u00e9nisme"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Th\u00e9ologie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -45083,9 +46873,18 @@
       }
     ],
     "subjects": [
-      "Litt\u00e9rature",
-      "Culture",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Litt\u00e9rature"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Culture"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -45161,9 +46960,18 @@
       }
     ],
     "subjects": [
-      "Herp\u00e9tologie",
-      "Afrique",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Herp\u00e9tologie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Afrique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -45750,11 +47558,26 @@
       }
     ],
     "subjects": [
-      "Archivio di Stato di Genova (G\u00eanes)",
-      "Banco di San Giorgio (G\u00eanes)",
-      "Archives",
-      "1407-1805",
-      "[Inventaires]"
+      {
+        "type": "bf:Topic",
+        "term": "Archivio di Stato di Genova (G\u00eanes)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Banco di San Giorgio (G\u00eanes)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Archives"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "1407-1805"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Inventaires]"
+      }
     ],
     "contribution": [
       {
@@ -46606,8 +48429,14 @@
       }
     ],
     "subjects": [
-      "Science-fiction",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Science-fiction"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -46923,8 +48752,14 @@
       }
     ],
     "subjects": [
-      "Protestantisme",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Protestantisme"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -46995,9 +48830,18 @@
       }
     ],
     "subjects": [
-      "Missions",
-      "Japon",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Missions"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Japon"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -47174,8 +49018,14 @@
       }
     ],
     "subjects": [
-      "luth\u00e9ranisme",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "luth\u00e9ranisme"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -47613,13 +49463,34 @@
       }
     ],
     "subjects": [
-      "H\u00e9raldique",
-      "Kunst und Kultur",
-      "Wappen",
-      "Suisse",
-      "Schweiz",
-      "[P\u00e9riodiques]",
-      "Periodikum"
+      {
+        "type": "bf:Topic",
+        "term": "H\u00e9raldique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Kunst und Kultur"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Wappen"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schweiz"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      }
     ],
     "contribution": [
       {
@@ -48031,13 +49902,34 @@
       }
     ],
     "subjects": [
-      "Wappen",
-      "Archiv",
-      "H\u00e9raldique",
-      "Schweiz",
-      "Suisse",
-      "Periodikum",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Wappen"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Archiv"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "H\u00e9raldique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schweiz"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -48144,10 +50036,22 @@
       }
     ],
     "subjects": [
-      "\u00c9glise",
-      "soci\u00e9t\u00e9 (milieu humain)",
-      "\u00c9glises r\u00e9form\u00e9es",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "\u00c9glise"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "soci\u00e9t\u00e9 (milieu humain)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "\u00c9glises r\u00e9form\u00e9es"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -48237,13 +50141,34 @@
       }
     ],
     "subjects": [
-      "Bureau international du travail",
-      "Arbeitsrecht",
-      "international",
-      "Droit du travail",
-      "Droit international",
-      "Periodikum",
-      "[Publications officielles]"
+      {
+        "type": "bf:Topic",
+        "term": "Bureau international du travail"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Arbeitsrecht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "international"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Droit du travail"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Droit international"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Publications officielles]"
+      }
     ],
     "contribution": [
       {
@@ -48729,14 +50654,38 @@
       }
     ],
     "subjects": [
-      "Bureau international du travail",
-      "Arbeitsrecht",
-      "international",
-      "Libert\u00e9 d'association",
-      "Droit compar\u00e9",
-      "Syndicats",
-      "Periodikum",
-      "[Publications officielles]"
+      {
+        "type": "bf:Topic",
+        "term": "Bureau international du travail"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Arbeitsrecht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "international"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Libert\u00e9 d'association"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Droit compar\u00e9"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Syndicats"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Publications officielles]"
+      }
     ],
     "contribution": [
       {
@@ -49169,8 +51118,14 @@
       }
     ],
     "subjects": [
-      "G\u00e9ologie",
-      "Europe"
+      {
+        "type": "bf:Topic",
+        "term": "G\u00e9ologie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Europe"
+      }
     ]
   },
   {
@@ -49271,9 +51226,18 @@
       }
     ],
     "subjects": [
-      "luth\u00e9ranisme",
-      "Religion",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "luth\u00e9ranisme"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Religion"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -49481,18 +51445,54 @@
       }
     ],
     "subjects": [
-      "poursuite pour dettes",
-      "Schuldbetreibungs- und Konkursrecht",
-      "Gerichts- und Verwaltungspraxis",
-      "richterliche Beh\u00f6rde",
-      "oberstes Gericht",
-      "Bundesgericht",
-      "Suisse",
-      "Schweiz",
-      "[Jurisprudence]",
-      "[P\u00e9riodiques]",
-      "Entscheidsammlung",
-      "Periodikum"
+      {
+        "type": "bf:Topic",
+        "term": "poursuite pour dettes"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schuldbetreibungs- und Konkursrecht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Gerichts- und Verwaltungspraxis"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "richterliche Beh\u00f6rde"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "oberstes Gericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Bundesgericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schweiz"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Jurisprudence]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Entscheidsammlung"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      }
     ]
   },
   {
@@ -49571,8 +51571,14 @@
       }
     ],
     "subjects": [
-      "Th\u00e9ologie orthodoxe",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Th\u00e9ologie orthodoxe"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -49677,11 +51683,26 @@
       }
     ],
     "subjects": [
-      "Soci\u00e9t\u00e9 suisse du th\u00e9\u00e2tre (Suisse)",
-      "Th\u00e9\u00e2tre",
-      "Th\u00e9\u00e2tre (genre litt\u00e9raire) suisse",
-      "Suisse",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Soci\u00e9t\u00e9 suisse du th\u00e9\u00e2tre (Suisse)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Th\u00e9\u00e2tre"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Th\u00e9\u00e2tre (genre litt\u00e9raire) suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -49925,8 +51946,14 @@
       }
     ],
     "subjects": [
-      "luth\u00e9ranisme",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "luth\u00e9ranisme"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -50271,8 +52298,14 @@
       }
     ],
     "subjects": [
-      "Cin\u00e9math\u00e8que suisse (Lausanne)",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Cin\u00e9math\u00e8que suisse (Lausanne)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -50367,12 +52400,30 @@
       }
     ],
     "subjects": [
-      "P\u00eache",
-      "Chasse",
-      "Mycologie",
-      "Nature",
-      "Suisse",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "P\u00eache"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Chasse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Mycologie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Nature"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -50584,9 +52635,18 @@
       }
     ],
     "subjects": [
-      "luth\u00e9ranisme",
-      "Religion",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "luth\u00e9ranisme"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Religion"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -50797,22 +52857,70 @@
       }
     ],
     "subjects": [
-      "Gerichts- und Verwaltungspraxis",
-      "richterliche Beh\u00f6rde",
-      "kantonale Beh\u00f6rde",
-      "Schuldbetreibungs- und Konkursrecht",
-      "oberstes Gericht",
-      "Bundesgericht",
-      "Jurisprudence",
-      "poursuite pour dettes",
-      "droit cantonal",
-      "Schweiz",
-      "Waadt",
-      "Suisse",
-      "Entscheidsammlung",
-      "Periodikum",
-      "[Jurisprudence]",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Gerichts- und Verwaltungspraxis"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "richterliche Beh\u00f6rde"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "kantonale Beh\u00f6rde"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schuldbetreibungs- und Konkursrecht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "oberstes Gericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Bundesgericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Jurisprudence"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "poursuite pour dettes"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "droit cantonal"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schweiz"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Waadt"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Entscheidsammlung"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Jurisprudence]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -50964,9 +53072,18 @@
       }
     ],
     "subjects": [
-      "H\u00e9raldique",
-      "Suisse",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "H\u00e9raldique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -51168,8 +53285,14 @@
       }
     ],
     "subjects": [
-      "Th\u00e9ologie",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Th\u00e9ologie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -51374,13 +53497,34 @@
       }
     ],
     "subjects": [
-      "H\u00e9raldique",
-      "Kunst und Kultur",
-      "Wappen",
-      "Suisse",
-      "Schweiz",
-      "[P\u00e9riodiques]",
-      "Periodikum"
+      {
+        "type": "bf:Topic",
+        "term": "H\u00e9raldique"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Kunst und Kultur"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Wappen"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schweiz"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      }
     ],
     "contribution": [
       {
@@ -51487,8 +53631,14 @@
       }
     ],
     "subjects": [
-      "Th\u00e9ologie",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Th\u00e9ologie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -51737,13 +53887,34 @@
       }
     ],
     "subjects": [
-      "P\u00eache",
-      "Chasse",
-      "Mycologie",
-      "excursion",
-      "Nature",
-      "Suisse",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "P\u00eache"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Chasse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Mycologie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "excursion"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Nature"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ],
     "contribution": [
       {
@@ -51904,13 +54075,34 @@
       }
     ],
     "subjects": [
-      "P\u00eache",
-      "Chasse",
-      "Nature",
-      "Mycologie",
-      "excursion",
-      "Suisse",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "P\u00eache"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Chasse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Nature"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Mycologie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "excursion"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -51983,12 +54175,30 @@
       "Analyse: Contient des informations sur la faune."
     ],
     "subjects": [
-      "Nature",
-      "P\u00eache",
-      "Chasse",
-      "Mycologie",
-      "Suisse",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Nature"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "P\u00eache"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Chasse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Mycologie"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -52093,21 +54303,66 @@
       }
     ],
     "subjects": [
-      "Jurisprudence",
-      "Droit",
-      "Gerichts- und Verwaltungspraxis",
-      "richterliche Beh\u00f6rde",
-      "kantonale Beh\u00f6rde",
-      "oberstes Gericht",
-      "Bundesgericht",
-      "eidgen\u00f6ssisches Versicherungsgericht",
-      "Suisse",
-      "Schweiz",
-      "Waadt",
-      "[Jurisprudence]",
-      "[P\u00e9riodiques]",
-      "Entscheidsammlung",
-      "Periodikum"
+      {
+        "type": "bf:Topic",
+        "term": "Jurisprudence"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Droit"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Gerichts- und Verwaltungspraxis"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "richterliche Beh\u00f6rde"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "kantonale Beh\u00f6rde"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "oberstes Gericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Bundesgericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "eidgen\u00f6ssisches Versicherungsgericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schweiz"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Waadt"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Jurisprudence]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Entscheidsammlung"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      }
     ]
   },
   {
@@ -52199,13 +54454,34 @@
       }
     ],
     "subjects": [
-      "Rechtswissenschaft",
-      "Droit",
-      "Jurisprudence",
-      "Schweiz",
-      "Suisse",
-      "Periodikum",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Rechtswissenschaft"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Droit"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Jurisprudence"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schweiz"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -52295,17 +54571,50 @@
       }
     ],
     "subjects": [
-      "Gerichts- und Verwaltungspraxis",
-      "richterliche Beh\u00f6rde",
-      "Jurisprudence",
-      "droit cantonal",
-      "Schweiz",
-      "Waadt",
-      "Suisse",
-      "Entscheidsammlung",
-      "Periodikum",
-      "[Jurisprudence]",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Gerichts- und Verwaltungspraxis"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "richterliche Beh\u00f6rde"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Jurisprudence"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "droit cantonal"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schweiz"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Waadt"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Entscheidsammlung"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Jurisprudence]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -52387,19 +54696,58 @@
       }
     ],
     "subjects": [
-      "Gerichts- und Verwaltungspraxis",
-      "richterliche Beh\u00f6rde",
-      "oberstes Gericht",
-      "Bundesgericht",
-      "eidgen\u00f6ssisches Versicherungsgericht",
-      "Jurisprudence",
-      "Droit",
-      "Schweiz",
-      "Suisse",
-      "Entscheidsammlung",
-      "Periodikum",
-      "[Jurisprudence]",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Gerichts- und Verwaltungspraxis"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "richterliche Beh\u00f6rde"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "oberstes Gericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Bundesgericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "eidgen\u00f6ssisches Versicherungsgericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Jurisprudence"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Droit"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schweiz"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Entscheidsammlung"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Jurisprudence]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -52581,13 +54929,34 @@
       }
     ],
     "subjects": [
-      "Gerichts- und Verwaltungspraxis",
-      "richterliche Beh\u00f6rde",
-      "kantonale Beh\u00f6rde",
-      "Schweiz",
-      "Waadt",
-      "Entscheidsammlung",
-      "Periodikum"
+      {
+        "type": "bf:Topic",
+        "term": "Gerichts- und Verwaltungspraxis"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "richterliche Beh\u00f6rde"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "kantonale Beh\u00f6rde"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schweiz"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Waadt"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Entscheidsammlung"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      }
     ]
   },
   {
@@ -52690,18 +55059,54 @@
       }
     ],
     "subjects": [
-      "Gerichts- und Verwaltungspraxis",
-      "richterliche Beh\u00f6rde",
-      "oberstes Gericht",
-      "Bundesgericht",
-      "eidgen\u00f6ssisches Versicherungsgericht",
-      "Droit",
-      "Schweiz",
-      "Suisse",
-      "Entscheidsammlung",
-      "Periodikum",
-      "[Jurisprudence]",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Gerichts- und Verwaltungspraxis"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "richterliche Beh\u00f6rde"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "oberstes Gericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Bundesgericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "eidgen\u00f6ssisches Versicherungsgericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Droit"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schweiz"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Entscheidsammlung"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Jurisprudence]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -52788,18 +55193,54 @@
       }
     ],
     "subjects": [
-      "Gerichts- und Verwaltungspraxis",
-      "richterliche Beh\u00f6rde",
-      "kantonale Beh\u00f6rde",
-      "Jurisprudence",
-      "droit cantonal",
-      "Schweiz",
-      "Waadt",
-      "Suisse",
-      "Entscheidsammlung",
-      "Periodikum",
-      "[Jurisprudence]",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Gerichts- und Verwaltungspraxis"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "richterliche Beh\u00f6rde"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "kantonale Beh\u00f6rde"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Jurisprudence"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "droit cantonal"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schweiz"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Waadt"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Entscheidsammlung"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Jurisprudence]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -52893,18 +55334,54 @@
       }
     ],
     "subjects": [
-      "Gerichts- und Verwaltungspraxis",
-      "richterliche Beh\u00f6rde",
-      "oberstes Gericht",
-      "Bundesgericht",
-      "Jurisprudence",
-      "Droit",
-      "Schweiz",
-      "Suisse",
-      "Entscheidsammlung",
-      "Periodikum",
-      "[Jurisprudence]",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Gerichts- und Verwaltungspraxis"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "richterliche Beh\u00f6rde"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "oberstes Gericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Bundesgericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Jurisprudence"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Droit"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schweiz"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Entscheidsammlung"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Jurisprudence]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -52988,18 +55465,54 @@
       }
     ],
     "subjects": [
-      "Gerichts- und Verwaltungspraxis",
-      "richterliche Beh\u00f6rde",
-      "kantonale Beh\u00f6rde",
-      "Jurisprudence",
-      "Droit",
-      "Schweiz",
-      "Waadt",
-      "Suisse",
-      "Entscheidsammlung",
-      "Periodikum",
-      "[Jurisprudence]",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Gerichts- und Verwaltungspraxis"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "richterliche Beh\u00f6rde"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "kantonale Beh\u00f6rde"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Jurisprudence"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Droit"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schweiz"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Waadt"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Entscheidsammlung"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Jurisprudence]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -53223,18 +55736,54 @@
       }
     ],
     "subjects": [
-      "Gerichts- und Verwaltungspraxis",
-      "richterliche Beh\u00f6rde",
-      "kantonale Beh\u00f6rde",
-      "Jurisprudence",
-      "droit cantonal",
-      "Schweiz",
-      "Waadt",
-      "Suisse",
-      "Entscheidsammlung",
-      "Periodikum",
-      "[Jurisprudence]",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Gerichts- und Verwaltungspraxis"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "richterliche Beh\u00f6rde"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "kantonale Beh\u00f6rde"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Jurisprudence"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "droit cantonal"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schweiz"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Waadt"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Entscheidsammlung"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Jurisprudence]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -53307,21 +55856,66 @@
       }
     ],
     "subjects": [
-      "Gerichts- und Verwaltungspraxis",
-      "richterliche Beh\u00f6rde",
-      "kantonale Beh\u00f6rde",
-      "oberstes Gericht",
-      "Bundesgericht",
-      "eidgen\u00f6ssisches Versicherungsgericht",
-      "Jurisprudence",
-      "Droit",
-      "Schweiz",
-      "Waadt",
-      "Suisse",
-      "Entscheidsammlung",
-      "Periodikum",
-      "[Jurisprudence]",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Gerichts- und Verwaltungspraxis"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "richterliche Beh\u00f6rde"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "kantonale Beh\u00f6rde"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "oberstes Gericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Bundesgericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "eidgen\u00f6ssisches Versicherungsgericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Jurisprudence"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Droit"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schweiz"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Waadt"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Entscheidsammlung"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Jurisprudence]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -53417,20 +56011,62 @@
       }
     ],
     "subjects": [
-      "Verfassungsrecht",
-      "Staatsorganisation und Verwaltung",
-      "Gerichts- und Verwaltungspraxis",
-      "richterliche Beh\u00f6rde",
-      "oberstes Gericht",
-      "Bundesgericht",
-      "Jurisprudence",
-      "Droit",
-      "Schweiz",
-      "Suisse",
-      "Entscheidsammlung",
-      "Periodikum",
-      "[Jurisprudence]",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Verfassungsrecht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Staatsorganisation und Verwaltung"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Gerichts- und Verwaltungspraxis"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "richterliche Beh\u00f6rde"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "oberstes Gericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Bundesgericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Jurisprudence"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Droit"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schweiz"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Entscheidsammlung"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Jurisprudence]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -53525,19 +56161,58 @@
       }
     ],
     "subjects": [
-      "Strafrecht",
-      "Gerichts- und Verwaltungspraxis",
-      "richterliche Beh\u00f6rde",
-      "oberstes Gericht",
-      "Bundesgericht",
-      "Droit p\u00e9nal",
-      "Jurisprudence",
-      "Schweiz",
-      "Suisse",
-      "Entscheidsammlung",
-      "Periodikum",
-      "[Jurisprudence]",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Strafrecht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Gerichts- und Verwaltungspraxis"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "richterliche Beh\u00f6rde"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "oberstes Gericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Bundesgericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Droit p\u00e9nal"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Jurisprudence"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schweiz"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Entscheidsammlung"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Jurisprudence]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -53632,9 +56307,18 @@
       }
     ],
     "subjects": [
-      "Suisse",
-      "[Jurisprudence]",
-      "[P\u00e9riodiques]"
+      {
+        "type": "bf:Topic",
+        "term": "Suisse"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Jurisprudence]"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[P\u00e9riodiques]"
+      }
     ]
   },
   {
@@ -53730,16 +56414,46 @@
       }
     ],
     "subjects": [
-      "Strafrecht",
-      "Strafprozess",
-      "Bundesrecht",
-      "Gerichts- und Verwaltungspraxis",
-      "richterliche Beh\u00f6rde",
-      "oberstes Gericht",
-      "Bundesgericht",
-      "Schweiz",
-      "Entscheidsammlung",
-      "Periodikum"
+      {
+        "type": "bf:Topic",
+        "term": "Strafrecht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Strafprozess"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Bundesrecht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Gerichts- und Verwaltungspraxis"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "richterliche Beh\u00f6rde"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "oberstes Gericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Bundesgericht"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Schweiz"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Entscheidsammlung"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Periodikum"
+      }
     ]
   },
   {
@@ -53836,9 +56550,18 @@
       }
     ],
     "subjects": [
-      "Droit",
-      "Vaud (Suisse)",
-      "[Jurisprudence]"
+      {
+        "type": "bf:Topic",
+        "term": "Droit"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Vaud (Suisse)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Jurisprudence]"
+      }
     ]
   },
   {
@@ -53918,9 +56641,18 @@
       }
     ],
     "subjects": [
-      "Droit",
-      "Vaud (Suisse)",
-      "[Jurisprudence]"
+      {
+        "type": "bf:Topic",
+        "term": "Droit"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Vaud (Suisse)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Jurisprudence]"
+      }
     ]
   },
   {
@@ -53998,9 +56730,18 @@
       }
     ],
     "subjects": [
-      "Droit",
-      "Vaud (Suisse)",
-      "[Jurisprudence]"
+      {
+        "type": "bf:Topic",
+        "term": "Droit"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Vaud (Suisse)"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "[Jurisprudence]"
+      }
     ]
   }
 ]

@@ -1,0 +1,148 @@
+{
+  "genreForm": {
+    "title": "Genres, forms",
+    "description": "(MARC 655)",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "type": "object",
+      "title": "Genre, form",
+      "oneOf": [
+        {
+          "title": "Link to concept entity",
+          "type": "object",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "$ref"
+          ],
+          "required": [
+            "$ref"
+          ],
+          "properties": {
+            "$ref": {
+              "title": "Concept",
+              "type": "string",
+              "pattern": "^https://mef.rero.ch/api/concepts/rero/.*?$",
+              "form": {
+                "remoteTypeahead": {
+                  "type": "mef-concepts",
+                  "enableGroupField": true
+                },
+                "templateOptions": {
+                  "itemCssClass": "col-lg-12"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Concept (local)",
+          "type": "object",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "type",
+            "term",
+            "identifiedBy",
+            "source"
+          ],
+          "required": [
+            "type",
+            "term"
+          ],
+          "properties": {
+            "source": {
+              "title": "Source",
+              "description": "Source of the subject, for instance rero.",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "default": "bf:Topic",
+              "enum": [
+                "bf:Topic"
+              ],
+              "form": {
+                "Type": "selectWithSort",
+                "options": [
+                  {
+                    "label": "bf:Topic",
+                    "value": "bf:Topic"
+                  }
+                ]
+              }
+            },
+            "term": {
+              "title": "Term",
+              "type": "string",
+              "minLength": 1
+            },
+            "identifiedBy": {
+              "$ref": "#/identifiedBy"
+            }
+          }
+        }
+      ]
+    },
+    "form": {
+      "hide": true
+    }
+  },
+  "identifiedBy": {
+    "title": "Identifier",
+    "type": "object",
+    "additionalProperties": false,
+    "propertiesOrder": [
+      "type",
+      "source",
+      "value"
+    ],
+    "required": [
+      "value"
+    ],
+    "properties": {
+      "type": {
+        "title": "Type",
+        "type": "string",
+        "default": "bf:Local",
+        "enum": [
+          "bf:Local",
+          "rero-rameau",
+          "gnd"
+        ],
+        "form": {
+          "options": [
+            {
+              "value": "bf:Local",
+              "label": "bf:local"
+            },
+            {
+              "value": "rero-rameau",
+              "label": "rero-rameau"
+            },
+            {
+              "value": "gnd",
+              "label": "gnd"
+            }
+          ],
+          "templateOptions": {
+            "itemCssClass": "col-lg-4"
+          }
+        }
+      },
+      "source": {
+        "title": "Source",
+        "type": "string",
+        "minLength": 1,
+        "form": {
+          "itemCssClass": "col-lg-4"
+        }
+      },
+      "value": {
+        "title": "Value",
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

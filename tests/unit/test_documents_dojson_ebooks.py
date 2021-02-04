@@ -474,12 +474,12 @@ def test_marc21_to_subjects():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('subjects') == [
-        'Croissance personnelle',
-        'Self-Help',
-        'Santé',
-        'Health',
-        'Développement Personnel',
-        'Self-Help'
+        {'term': 'Croissance personnelle', 'type': 'bf:Topic'},
+        {'term': 'Self-Help', 'type': 'bf:Topic'},
+        {'term': 'Santé', 'type': 'bf:Topic'},
+        {'term': 'Health', 'type': 'bf:Topic'},
+        {'term': 'Développement Personnel', 'type': 'bf:Topic'},
+        {'term': 'Self-Help', 'type': 'bf:Topic'}
     ]
 
 

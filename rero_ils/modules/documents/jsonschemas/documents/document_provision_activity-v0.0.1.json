@@ -27,9 +27,11 @@
         "type",
         "startDate",
         "endDate",
+        "original_date",
         "note",
         "place",
-        "statement"
+        "statement",
+        "$ref"
       ],
       "required": [
         "type"
@@ -84,7 +86,8 @@
             "propertiesOrder": [
               "type",
               "country",
-              "canton"
+              "canton",
+              "$ref"
             ],
             "properties": {
               "type": {
@@ -106,6 +109,20 @@
               },
               "canton": {
                 "$ref": "https://ils.rero.ch/schemas/common/cantons-v0.0.1.json#/canton"
+              },
+              "$ref": {
+                "title": "Organisation",
+                "type": "string",
+                "pattern": "^https://mef.rero.ch/api/gnd|idref|rero/.*?$",
+                "form": {
+                  "remoteTypeahead": {
+                    "type": "mef-organisations",
+                    "enableGroupField": true
+                  },
+                  "templateOptions": {
+                    "itemCssClass": "col-lg-12"
+                  }
+                }
               }
             },
             "form": {
@@ -237,6 +254,33 @@
             "hide": true,
             "templateOptions": {
               "itemCssClass": "col-lg-4"
+            }
+          }
+        },
+        "original_date": {
+          "title": "Date of the original",
+          "description": "Date of the original in case of a reproduction.",
+          "type": "integer",
+          "minimum": -9999,
+          "maximum": 2050,
+          "form": {
+            "hide": true,
+            "templateOptions": {
+              "itemCssClass": "col-lg-4"
+            }
+          }
+        },
+        "$ref": {
+          "title": "Place",
+          "type": "string",
+          "pattern": "^https://mef.rero.ch/api/places/gnd|idref|rero/.*?$",
+          "form": {
+            "remoteTypeahead": {
+              "type": "mef-places",
+              "enableGroupField": true
+            },
+            "templateOptions": {
+              "itemCssClass": "col-lg-12"
             }
           }
         }
