@@ -13,15 +13,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-02-03 08:42+0100\n"
-"PO-Revision-Date: 2021-01-29 11:38+0000\n"
-"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"PO-Revision-Date: 2021-02-04 07:09+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/es/>\n"
 "Language: es\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/es/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.5-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:131
@@ -6562,9 +6563,8 @@ msgid "Statement of place and agent of the provision activity."
 msgstr "Mención"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:155
-#, fuzzy
 msgid "bf:Agent"
-msgstr "EAN"
+msgstr "agente"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:169
 msgid "Labels"
@@ -6628,9 +6628,8 @@ msgid "Titles"
 msgstr "Títulos"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:34
-#, fuzzy
 msgid "bf:Title"
-msgstr "Subtítulo"
+msgstr "título"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:38
 #, fuzzy
@@ -9488,7 +9487,7 @@ msgstr "Solicitud de préstamo interbibliotecario"
 
 #: rero_ils/theme/views.py:129
 msgid "Collections"
-msgstr "Colecciones"
+msgstr "Collectiones"
 
 #: rero_ils/theme/templates/rero_ils/frontpage.html:129
 #: rero_ils/theme/views.py:142
@@ -10740,4 +10739,3 @@ msgstr "Vuestra contraseña ha sido reinicializada."
 
 #~ msgid "There is already one pickup location in this library."
 #~ msgstr "El lugar de recogida tiene que ser único en esta biblioteca."
-
