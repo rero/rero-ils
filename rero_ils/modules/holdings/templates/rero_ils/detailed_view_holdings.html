@@ -20,7 +20,7 @@
 {%- extends 'rero_ils/page.html' %}
 {%- block body %}
 <header class="row py-2">
-  {%- set icon_name = record | document_main_type %}
+  {%- set icon_name = record | document_main_type(false) %}
   <figure id="thumbnail" class="thumb col-sm-3 d-none d-sm-block figure">
     <img class="figure-img img-thumbnail"
          src="{{record | get_cover_art}}"
