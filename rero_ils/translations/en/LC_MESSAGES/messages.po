@@ -19,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-02-03 08:42+0100\n"
 "PO-Revision-Date: 2021-02-04 14:34+0000\n"
-"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/en/>\n"
 "Language: en\n"
@@ -6281,9 +6281,8 @@ msgid "general"
 msgstr "General"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:39
-#, fuzzy
 msgid "otherPhysicalDetails"
-msgstr "Other physical details"
+msgstr "Other material characteristics"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:49
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:173

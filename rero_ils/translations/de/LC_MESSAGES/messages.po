@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-02-03 08:42+0100\n"
-"PO-Revision-Date: 2021-02-04 07:09+0000\n"
-"Last-Translator: Peter Weber <peter.weber@rero.ch>\n"
+"PO-Revision-Date: 2021-02-04 14:34+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/de/>\n"
 "Language: de\n"
@@ -6292,7 +6292,7 @@ msgstr "Allgemein"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:39
 msgid "otherPhysicalDetails"
-msgstr "Andere physikalische Details"
+msgstr "Sonstige Materialeigenschaften"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:49
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:173
@@ -7280,7 +7280,7 @@ msgstr "Textbeschreibung der fehlenden Lieferungen."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:544
 msgid "Number of issues to be bound together"
-msgstr ""
+msgstr "Anzahl der zu bindenden Lieferungen"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:590
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:473
@@ -7348,7 +7348,7 @@ msgstr "derzeit empfangen"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:689
 msgid "received_and_complete_or_ceased"
-msgstr ""
+msgstr "empfangen und vollständig, oder eingestellt"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:693
 msgid "on_order"
@@ -7356,7 +7356,7 @@ msgstr "bestellt"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:697
 msgid "other_receipt_or_acquisition_status"
-msgstr ""
+msgstr "anderer Empfang- oder Erwerbsstatus"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:701
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:772
@@ -7374,7 +7374,7 @@ msgstr "Ablage"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:736
 msgid "cooperative_or_consortial_purchase"
-msgstr ""
+msgstr "gemeinsamer oder konsortialer Kauf"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:740
 msgid "exchange"
@@ -7386,23 +7386,23 @@ msgstr "kostenlos"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:748
 msgid "gift"
-msgstr ""
+msgstr "Spende"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:752
 msgid "legal_deposit"
-msgstr ""
+msgstr "Pflichtabgabe"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:756
 msgid "membership"
-msgstr ""
+msgstr "Mitgliedschaft"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:760
 msgid "non_library_purchase"
-msgstr ""
+msgstr "Nicht-Bibliotheks-Kauf"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:764
 msgid "purchase"
-msgstr ""
+msgstr "Kauf"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:768
 msgid "lease"
@@ -7421,6 +7421,8 @@ msgid ""
 "Indicate an intent to cancel, the effective date of a cancellation, or "
 "the date of the last expected part of a multipart or serial item."
 msgstr ""
+"Angabe einer Stornierungsabsicht, des effektiven Stornierungsdatums, oder "
+"des Datums des letzten erwarteten Teils einer fortlaufenden Ressource."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:805
 msgid "General retention policy"
@@ -7428,43 +7430,45 @@ msgstr "Allgemeine Aufbewahrungspolitik"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:830
 msgid "other_general_retention_policy"
-msgstr ""
+msgstr "andere allgemeine Aufbewahrungspolitik"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:834
 msgid "retained_except_as_replaced_by_updates"
-msgstr ""
+msgstr "aufbewahrt, ausser bei Ersatz durch Updates"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:838
 msgid "sample_issue_retained"
-msgstr ""
+msgstr "Musterausgabe aufbewahrt"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:842
 msgid "retained_until_replaced_by_microform"
-msgstr ""
+msgstr "aufbewahrt, bis durch Mikroform ersetzt"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:846
 msgid "retained_until_replaced_by_cumulation_replacement_volume_or_revision"
 msgstr ""
+"aufbewahrt, bis es durch eine Kumulierung, einen Ersatzband oder eine "
+"Revision ersetzt wird"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:850
 msgid "retained_for_a_limited_period"
-msgstr ""
+msgstr "für einen begrenzten Zeitraum aufbewahrt"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:854
 msgid "not_retained"
-msgstr ""
+msgstr "nicht aufbewahrt"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:858
 msgid "permanently_retained"
-msgstr ""
+msgstr "dauerhaft aufbewahrt"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:865
 msgid "Completeness"
-msgstr ""
+msgstr "Vollständigkeit"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:866
 msgid "Estimation of the general extent of the holdings for a multipart."
-msgstr ""
+msgstr "Schätzung des allgemeinen Umfangs des Bestandes."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:883
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:136
@@ -7478,11 +7482,11 @@ msgstr "vollständig"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:891
 msgid "incomplete"
-msgstr ""
+msgstr "unvollständig"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:895
 msgid "scattered"
-msgstr ""
+msgstr "verstreut"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:899
 msgid "not_applicable"
@@ -7490,7 +7494,7 @@ msgstr "nicht zutreffend"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:906
 msgid "Separate or composite copy report"
-msgstr ""
+msgstr "Separater oder zusammengesetzter Bericht"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:907
 msgid ""
@@ -7498,6 +7502,9 @@ msgid ""
 "copy/subscription of a serial. If the holdings describes more than one "
 "copy/subscription, choose composite."
 msgstr ""
+"Ein separater Bericht enthält Bestandsinformationen für ein Exemplar/"
+"Abonnement der fortlaufenden Ressource. Wenn der Bestand mehr als ein "
+"Exemplar/Abonnement beschreibt, wählen Sie zusammengesetzt."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:921
 msgid "separate"
@@ -7505,7 +7512,7 @@ msgstr "separat"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:925
 msgid "composite"
-msgstr ""
+msgstr "zusammengesetzt"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:932
 msgid "Masked"
@@ -8392,7 +8399,7 @@ msgstr "Bedienprotokoll"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:5
 msgid "Operation log keeps the operation history of a resource."
-msgstr ""
+msgstr "Das Bedienprotokoll hält die Operationshistorie einer Ressource fest."
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:21
 msgid "Schema to validate operation_log records against."
@@ -8400,7 +8407,7 @@ msgstr "Schema zur Validierung von Bedienprotokollen."
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:27
 msgid "Operation log PID"
-msgstr ""
+msgstr "PID des Bedienprotokolls"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:32
 msgid "Record"
