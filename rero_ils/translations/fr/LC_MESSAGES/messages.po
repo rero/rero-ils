@@ -22,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-02-03 08:42+0100\n"
 "PO-Revision-Date: 2021-02-04 07:09+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
 "Language: fr\n"
@@ -55,11 +55,11 @@ msgstr "Bienvenue sur RERO-ILS !"
 
 #: rero_ils/config.py:220
 msgid "RERO ID password reset"
-msgstr ""
+msgstr "Réinitialiser le mot de passe du RERO ID"
 
 #: rero_ils/config.py:221
 msgid "Your RERO ID password has been reset"
-msgstr ""
+msgstr "Réinitialiser le mot de passe de votre RERO ID"
 
 #: rero_ils/config.py:1674
 msgid "author"
@@ -70,9 +70,8 @@ msgid "document_type"
 msgstr "type de document"
 
 #: rero_ils/config.py:1676 rero_ils/config.py:1734
-#, fuzzy
 msgid "document_subtype"
-msgstr "type de document"
+msgstr "sous-type de document"
 
 #: rero_ils/config.py:1677
 msgid "language"
@@ -142,14 +141,12 @@ msgid "teacher"
 msgstr "professeur"
 
 #: rero_ils/config.py:1960
-#, fuzzy
 msgid "loan_status"
-msgstr "tatar"
+msgstr "Status du prêt"
 
 #: rero_ils/config.py:1961
-#, fuzzy
 msgid "requester"
-msgstr "Demandé"
+msgstr "Demandeur"
 
 #: rero_ils/manual_translations.txt:16
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:372
@@ -5018,7 +5015,6 @@ msgid "Agent"
 msgstr "Agent"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_identifiedby-v0.0.1.json:23
-#, fuzzy
 msgid "bf:local"
 msgstr "Identifiant local"
 
@@ -5841,7 +5837,6 @@ msgid "Type of link"
 msgstr "Type de lien"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:49
-#, fuzzy
 msgid "resource"
 msgstr "Ressource"
 
@@ -5857,7 +5852,7 @@ msgstr "Ressource en lien"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:61
 msgid "hiddenUrl"
-msgstr ""
+msgstr "URL cachée"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:65
 #, fuzzy
@@ -5908,102 +5903,82 @@ msgid "erratum"
 msgstr "Erratum"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:141
-#, fuzzy
 msgid "bookplate"
 msgstr "Ex-libris"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:145
-#, fuzzy
 msgid "extract"
 msgstr "Extrait"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:149
-#, fuzzy
 msgid "educational sheet"
 msgstr "Fiche pédagogique"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:153
-#, fuzzy
 msgid "illustrations"
 msgstr "Illustrations"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:157
-#, fuzzy
 msgid "coverImage"
 msgstr "Image de couverture"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:161
-#, fuzzy
 msgid "deliveryInformation"
 msgstr "Information sur la livraison"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:165
-#, fuzzy
 msgid "biographicalInformation"
 msgstr "Informations biographiques"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:169
-#, fuzzy
 msgid "introductionPreface"
 msgstr "Introduction/préface"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:173
-#, fuzzy
 msgid "classReading"
 msgstr "Lecture suivie"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:177
-#, fuzzy
 msgid "teachersKit"
 msgstr "Mallette pédagogique"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:181
-#, fuzzy
 msgid "publishersNote"
 msgstr "Note de l'éditeur"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:185
-#, fuzzy
 msgid "noteOnContent"
 msgstr "Note sur le contenu"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:189
-#, fuzzy
 msgid "titlePage"
 msgstr "Page de titre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:193
-#, fuzzy
 msgid "photography"
 msgstr "Photographie"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:197
-#, fuzzy
 msgid "summarization"
 msgstr "Résumé"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:201
-#, fuzzy
 msgid "onlineResourceViaRERODOC"
 msgstr "Ressource en ligne via RERO DOC"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:205
-#, fuzzy
 msgid "pressReview"
 msgstr "Revue de presse"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:209
-#, fuzzy
 msgid "webSite"
 msgstr "Site web"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:213
-#, fuzzy
 msgid "tableOfContents"
 msgstr "Table des matières"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:217
-#, fuzzy
 msgid "fullText"
 msgstr "Texte intégral"
 
@@ -6226,17 +6201,14 @@ msgid "article"
 msgstr "article"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:35
-#, fuzzy
 msgid "materialUnit"
 msgstr "Unité matérielle"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:39
-#, fuzzy
 msgid "privateFile"
 msgstr "Dossier privé"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:43
-#, fuzzy
 msgid "privateSubfile"
 msgstr "Sous-dossier privé"
 
@@ -6274,12 +6246,10 @@ msgid "Set"
 msgstr "Description globale"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:99
-#, fuzzy
 msgid "partIndependentTitle"
 msgstr "Partie avec titre indépendant"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:103
-#, fuzzy
 msgid "partDependantTitle"
 msgstr "Partie avec titre indépendant"
 
@@ -6288,17 +6258,14 @@ msgid "rdami:1003"
 msgstr "publication en série"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:155
-#, fuzzy
 msgid "serialInSerial"
 msgstr "série"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:159
-#, fuzzy
 msgid "monographicSeries"
 msgstr "Collection de monographies"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:163
-#, fuzzy
 msgid "periodical"
 msgstr "Périodique"
 
@@ -6307,12 +6274,10 @@ msgid "rdami:1004"
 msgstr "ressource intégratrice"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:214
-#, fuzzy
 msgid "updatingWebsite"
 msgstr "Site web maintenu à jour"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:218
-#, fuzzy
 msgid "updatingLoose-leaf"
 msgstr "Publication à feuillets mobiles à mise à jour"
 
@@ -6321,7 +6286,6 @@ msgid "Languages"
 msgstr "Langues"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_language-v0.0.1.json:33
-#, fuzzy
 msgid "bf:Language"
 msgstr "langue"
 
@@ -6330,17 +6294,14 @@ msgid "Type of note"
 msgstr "Type de note"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:31
-#, fuzzy
 msgid "accompanyingMaterial"
 msgstr "Matériel d'accompagnement"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:35
-#, fuzzy
 msgid "general"
 msgstr "Général"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:39
-#, fuzzy
 msgid "otherPhysicalDetails"
 msgstr "Autres détails physiques"
 
