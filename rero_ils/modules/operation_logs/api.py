@@ -19,7 +19,8 @@
 
 from functools import partial
 
-from .models import OperationLogIdentifier, OperationLogMetadata
+from .models import OperationLogIdentifier, OperationLogMetadata, \
+    OperationLogOperation
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
@@ -59,6 +60,22 @@ class OperationLog(IlsRecord):
     provider = OperationLogProvider
     model_cls = OperationLogMetadata
 
+    @classmethod
+    def get_create_operation_log_by_resource_pid(cls, pid_type, record_pid):
+        """Return a create operation log for a given resource and pid.
+
+        :param pid_type: resource pid type.
+        :param record_pid: record pid.
+        """
+        search = OperationLogsSearch()
+        search = search.filter('term', record__pid=record_pid)\
+            .filter('term', record__type=pid_type)\
+            .filter('term', operation=OperationLogOperation.CREATE)
+        oplgs = search.source(['pid']).scan()
+        try:
+            return OperationLog.get_record_by_pid(next(oplgs).pid)
+        except StopIteration:
+            return None
 
 class OperationLogsIndexer(IlsRecordsIndexer):
     """Operation log indexing class."""

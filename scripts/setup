@@ -483,6 +483,9 @@ then
     diff --suppress-common-lines --side-by-side tmp/mapping_before_setup.txt tmp/mapping_after_setup.txt
 fi
 
+info_msg "- Load Virtua operation logs: ${DATA_PATH}/operation_logs.json"
+eval ${PREFIX} invenio fixtures migrate_virtua_operation_logs ${DATA_PATH}/operation_logs.json  ${CREATE_LAZY} ${DONT_STOP}
+
 date
 success_msg "Perfect ${PROGRAM}! See you soon…"
 exit 0
