@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-02-03 08:42+0100\n"
-"PO-Revision-Date: 2021-02-04 07:09+0000\n"
+"PO-Revision-Date: 2021-02-04 14:34+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/it/>\n"
@@ -6293,7 +6293,7 @@ msgstr "Generale"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:39
 msgid "otherPhysicalDetails"
-msgstr "Altri dettagli fisici"
+msgstr "Altre caratteristiche materiali"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:49
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:173
@@ -7471,7 +7471,7 @@ msgstr "Completezza"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:866
 msgid "Estimation of the general extent of the holdings for a multipart."
-msgstr "Stima dell'estensione generale del posseduto per una multiparte."
+msgstr "Stima dell'estensione generale del posseduto."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:883
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:136
