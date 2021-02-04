@@ -218,6 +218,7 @@ class Document(IlsRecord):
         if contributions_ids:
             IlsRecordsIndexer().bulk_index(
                 contributions_ids, doc_type=['cont'])
+            IlsRecordsIndexer.process_bulk_queue()
 
     @classmethod
     def get_all_serial_pids(cls):
@@ -312,7 +313,7 @@ class DocumentsIndexer(IlsRecordsIndexer):
     def index(self, record):
         """Index an document."""
         return_value = super().index(record)
-        record.index_contributions()
+        record.index_contributions(bulk=True)
         return return_value
 
     def bulk_index(self, record_id_iterator):
