@@ -73,6 +73,7 @@ from .holdings.cli import create_patterns
 from .ill_requests.cli import create_ill_requests
 from .items.cli import create_items, reindex_items
 from .loans.cli import create_loans
+from .operation_logs.cli import migrate_virtua_operation_logs
 from .patrons.cli import import_users
 from .tasks import process_bulk_queue
 from .utils import get_record_class_from_schema_or_pid_type, read_json_record
@@ -101,6 +102,7 @@ fixtures.add_command(create_loans)
 fixtures.add_command(create_patterns)
 fixtures.add_command(create_ill_requests)
 fixtures.add_command(create_collections)
+fixtures.add_command(migrate_virtua_operation_logs)
 
 
 @users.command('confirm')
