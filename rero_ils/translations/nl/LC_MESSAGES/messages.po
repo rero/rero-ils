@@ -12,15 +12,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-02-03 08:42+0100\n"
-"PO-Revision-Date: 2021-01-22 11:32+0000\n"
+"PO-Revision-Date: 2021-02-04 14:34+0000\n"
 "Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/rero_plus/rero-ils/"
+"nl/>\n"
 "Language: nl\n"
-"Language-Team: Dutch <https://hosted.weblate.org/projects/rero_plus/rero-"
-"ils/nl/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.5-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:131
@@ -60,9 +61,8 @@ msgid "document_type"
 msgstr "type van document"
 
 #: rero_ils/config.py:1676 rero_ils/config.py:1734
-#, fuzzy
 msgid "document_subtype"
-msgstr "type van document"
+msgstr "Subtype van document"
 
 #: rero_ils/config.py:1677
 msgid "language"
@@ -5053,9 +5053,8 @@ msgid "Agent"
 msgstr "Agent"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_identifiedby-v0.0.1.json:23
-#, fuzzy
 msgid "bf:local"
-msgstr "bf:Place"
+msgstr "Lokaal identificatienummer"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_identifiedby-v0.0.1.json:32
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:192
@@ -5935,32 +5934,28 @@ msgid "Type of link"
 msgstr "Soort link"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:49
-#, fuzzy
 msgid "resource"
-msgstr "Bron"
+msgstr "bron"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:53
-#, fuzzy
 msgid "versionOfResource"
-msgstr "Versie van de bron"
+msgstr "Andere versie van de bron"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:57
-#, fuzzy
 msgid "relatedResource"
-msgstr "Verbonden bron"
+msgstr "verwante bron"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:61
 msgid "hiddenUrl"
-msgstr ""
+msgstr "verborgen Url"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:65
-#, fuzzy
 msgid "noInfo"
 msgstr "Geen informatie"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:75
 msgid "Content type"
-msgstr "Soort inhoud"
+msgstr "Type inhoud"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:76
 msgid "Is displayed as the text of the link."
@@ -10916,4 +10911,3 @@ msgstr ""
 
 #~ msgid "There is already one pickup location in this library."
 #~ msgstr "Een andere afhaalplaats bestaat in deze bibliotheek"
-
