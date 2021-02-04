@@ -24,7 +24,7 @@
     <a href="javascript:history.back()"><i class="fa fa-arrow-left"></i> {{ _('Back') }}</a>
 </header>
 <div class="row">
-  {%- set icon_name = record | document_main_type %}
+  {%- set icon_name = record | document_main_type(false) %}
   <figure id="thumbnail" class="figure-img col-sm-2 d-sm-block figure">
     <img class="img-fluid img-thumbnail thumb"
          src="{{record | get_cover_art}}"
