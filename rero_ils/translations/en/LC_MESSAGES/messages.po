@@ -19,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-02-03 08:42+0100\n"
 "PO-Revision-Date: 2021-02-04 07:09+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Last-Translator: Peter Weber <peter.weber@rero.ch>\n"
 "Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/en/>\n"
 "Language: en\n"
@@ -6676,11 +6676,11 @@ msgstr "type"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:17
 msgid "docmaintype_archives"
-msgstr ""
+msgstr "Archives"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:46
 msgid "docmaintype_article"
-msgstr ""
+msgstr "Article"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:75
 #, fuzzy
@@ -6690,52 +6690,51 @@ msgstr "document type"
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:111
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:115
 msgid "docsubtype_music"
-msgstr ""
+msgstr "Music"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:119
 msgid "docsubtype_sound"
-msgstr ""
+msgstr "Sound"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:123
 msgid "docsubtype_recorded_words"
-msgstr ""
+msgstr "Recorded words"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:140
-#, fuzzy
 msgid "docmaintype_book"
-msgstr "document type"
+msgstr "book"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:179
 msgid "docsubtype_other_book"
-msgstr ""
+msgstr "Other book"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:183
 msgid "docsubtype_large_print_book"
-msgstr ""
+msgstr "Large print book"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:187
 msgid "docsubtype_braille_book"
-msgstr ""
+msgstr "Braille book"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:191
 msgid "docsubtype_manuscript"
-msgstr ""
+msgstr "Manuscript"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:195
 msgid "docsubtype_thesis"
-msgstr ""
+msgstr "Thesis"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:199
 msgid "docsubtype_e-book"
-msgstr ""
+msgstr "E-book"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:203
 msgid "docsubtype_microform"
-msgstr ""
+msgstr "Microform"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:220
 msgid "docmaintype_children"
-msgstr ""
+msgstr "Children"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:249
 #, fuzzy
@@ -6744,23 +6743,23 @@ msgstr "document type"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:283
 msgid "docsubtype_comic"
-msgstr ""
+msgstr "Comic"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:287
 msgid "docsubtype_manga"
-msgstr ""
+msgstr "Manga"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:304
 msgid "docmaintype_electronic"
-msgstr ""
+msgstr "Electronic"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:338
 msgid "docsubtype_cdrom_dvdrom"
-msgstr ""
+msgstr "CDROM DVDROM"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:342
 msgid "docsubtype_other_electronic_carrier"
-msgstr ""
+msgstr "Other electronic carrier"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:356
 #, fuzzy
@@ -6769,19 +6768,19 @@ msgstr "document type"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:392
 msgid "docsubtype_other_game"
-msgstr ""
+msgstr "Other game"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:396
 msgid "docsubtype_video_game"
-msgstr ""
+msgstr "Video game"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:400
 msgid "docsubtype_role-playing_game"
-msgstr ""
+msgstr "Role-playing game"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:404
 msgid "docsubtype_board_game"
-msgstr ""
+msgstr "Board game"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:421
 #, fuzzy
@@ -6790,11 +6789,11 @@ msgstr "document type"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:459
 msgid "docsubtype_poster"
-msgstr ""
+msgstr "Poster"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:463
 msgid "docsubtype_postcard"
-msgstr ""
+msgstr "Postcard"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:467
 #, fuzzy
@@ -6803,19 +6802,19 @@ msgstr "Photography"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:471
 msgid "docsubtype_print_engraving"
-msgstr ""
+msgstr "Print Engraving"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:475
 msgid "docsubtype_calendar"
-msgstr ""
+msgstr "Calendar"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:479
 msgid "docsubtype_other_image"
-msgstr ""
+msgstr "Other image"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:496
 msgid "docmaintype_language_method"
-msgstr ""
+msgstr "Language method"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:525
 #, fuzzy
@@ -6829,19 +6828,19 @@ msgstr "document type"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:588
 msgid "docsubtype_map"
-msgstr ""
+msgstr "Map"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:592
 msgid "docsubtype_atlas"
-msgstr ""
+msgstr "Atlas"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:606
 msgid "docmaintype_movie_series"
-msgstr ""
+msgstr "Movie Series"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:641
 msgid "docsubtype_movie"
-msgstr ""
+msgstr "Movie"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:645
 #, fuzzy
@@ -6855,19 +6854,19 @@ msgstr "Host document"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:666
 msgid "docmaintype_object"
-msgstr ""
+msgstr "Object"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:701
 msgid "docsubtype_kamishibai"
-msgstr ""
+msgstr "Kamishibai"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:705
 msgid "docsubtype_tablet"
-msgstr ""
+msgstr "Tablet"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:709
 msgid "docsubtype_other_object"
-msgstr ""
+msgstr "Other object"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:726
 #, fuzzy
@@ -6881,23 +6880,23 @@ msgstr "document type"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:790
 msgid "docsubtype_printed_score"
-msgstr ""
+msgstr "Printed score"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:794
 msgid "docsubtype_music_method"
-msgstr ""
+msgstr "Music method"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:798
 msgid "docsubtype_manuscript_score"
-msgstr ""
+msgstr "Manuscript score"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:815
 msgid "docmaintype_serial"
-msgstr ""
+msgstr "Serial"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:844
 msgid "docmaintype_series"
-msgstr ""
+msgstr "Series"
 
 #: rero_ils/modules/documents/templates/rero_ils/_anonymous_button.html:25
 #, fuzzy

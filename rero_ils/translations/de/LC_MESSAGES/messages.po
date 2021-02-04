@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-02-03 08:42+0100\n"
 "PO-Revision-Date: 2021-02-04 07:09+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Last-Translator: Peter Weber <peter.weber@rero.ch>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/de/>\n"
 "Language: de\n"
@@ -5849,7 +5849,7 @@ msgstr "verwandte Ressource"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:61
 msgid "hiddenUrl"
-msgstr ""
+msgstr "Versteckte URL"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:65
 msgid "noInfo"
@@ -6645,11 +6645,11 @@ msgstr "Typen"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:17
 msgid "docmaintype_archives"
-msgstr ""
+msgstr "Archive"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:46
 msgid "docmaintype_article"
-msgstr ""
+msgstr "Artikel"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:75
 msgid "docmaintype_audio"
@@ -6658,7 +6658,7 @@ msgstr "Audio-Dokument"
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:111
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:115
 msgid "docsubtype_music"
-msgstr ""
+msgstr "Musik"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:119
 msgid "docsubtype_sound"
