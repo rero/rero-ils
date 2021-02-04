@@ -21,15 +21,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-02-03 08:42+0100\n"
-"PO-Revision-Date: 2021-01-27 13:53+0000\n"
+"PO-Revision-Date: 2021-02-04 14:34+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/fr/>\n"
 "Language: fr\n"
-"Language-Team: French <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.5-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:131
@@ -54,11 +55,11 @@ msgstr "Bienvenue sur RERO-ILS !"
 
 #: rero_ils/config.py:220
 msgid "RERO ID password reset"
-msgstr ""
+msgstr "Réinitialiser le mot de passe du RERO ID"
 
 #: rero_ils/config.py:221
 msgid "Your RERO ID password has been reset"
-msgstr ""
+msgstr "Le mot de passe de votre compte RERO ID a été réinitialisé"
 
 #: rero_ils/config.py:1674
 msgid "author"
@@ -69,9 +70,8 @@ msgid "document_type"
 msgstr "type de document"
 
 #: rero_ils/config.py:1676 rero_ils/config.py:1734
-#, fuzzy
 msgid "document_subtype"
-msgstr "type de document"
+msgstr "sous-type de document"
 
 #: rero_ils/config.py:1677
 msgid "language"
@@ -141,14 +141,12 @@ msgid "teacher"
 msgstr "professeur"
 
 #: rero_ils/config.py:1960
-#, fuzzy
 msgid "loan_status"
-msgstr "tatar"
+msgstr "Status du prêt"
 
 #: rero_ils/config.py:1961
-#, fuzzy
 msgid "requester"
-msgstr "Demandé"
+msgstr "demandeur"
 
 #: rero_ils/manual_translations.txt:16
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:372
@@ -5017,7 +5015,6 @@ msgid "Agent"
 msgstr "Agent"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_identifiedby-v0.0.1.json:23
-#, fuzzy
 msgid "bf:local"
 msgstr "Identifiant local"
 
@@ -5840,26 +5837,22 @@ msgid "Type of link"
 msgstr "Type de lien"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:49
-#, fuzzy
 msgid "resource"
 msgstr "Ressource"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:53
-#, fuzzy
 msgid "versionOfResource"
 msgstr "Autre version de la ressource"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:57
-#, fuzzy
 msgid "relatedResource"
 msgstr "Ressource en lien"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:61
 msgid "hiddenUrl"
-msgstr ""
+msgstr "URL cachée"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:65
-#, fuzzy
 msgid "noInfo"
 msgstr "Aucune information"
 
@@ -5872,137 +5865,110 @@ msgid "Is displayed as the text of the link."
 msgstr "Est affiché comme texte du lien."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:113
-#, fuzzy
 msgid "poster"
 msgstr "Affiche"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:117
-#, fuzzy
 msgid "audio"
-msgstr "Audio"
+msgstr "audio"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:121
-#, fuzzy
 msgid "postcard"
-msgstr "Carte postale"
+msgstr "carte postale"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:125
-#, fuzzy
 msgid "addition"
-msgstr "Complément"
+msgstr "complément"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:129
-#, fuzzy
 msgid "debriefing"
-msgstr "Compte-rendu"
+msgstr "compte-rendu"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:133
-#, fuzzy
 msgid "exhibitionDocumentation"
-msgstr "Documentation d'exposition"
+msgstr "documentation d'exposition"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:137
-#, fuzzy
 msgid "erratum"
-msgstr "Erratum"
+msgstr "erratum"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:141
-#, fuzzy
 msgid "bookplate"
 msgstr "Ex-libris"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:145
-#, fuzzy
 msgid "extract"
 msgstr "Extrait"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:149
-#, fuzzy
 msgid "educational sheet"
 msgstr "Fiche pédagogique"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:153
-#, fuzzy
 msgid "illustrations"
 msgstr "Illustrations"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:157
-#, fuzzy
 msgid "coverImage"
 msgstr "Image de couverture"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:161
-#, fuzzy
 msgid "deliveryInformation"
 msgstr "Information sur la livraison"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:165
-#, fuzzy
 msgid "biographicalInformation"
 msgstr "Informations biographiques"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:169
-#, fuzzy
 msgid "introductionPreface"
 msgstr "Introduction/préface"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:173
-#, fuzzy
 msgid "classReading"
 msgstr "Lecture suivie"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:177
-#, fuzzy
 msgid "teachersKit"
 msgstr "Mallette pédagogique"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:181
-#, fuzzy
 msgid "publishersNote"
 msgstr "Note de l'éditeur"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:185
-#, fuzzy
 msgid "noteOnContent"
 msgstr "Note sur le contenu"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:189
-#, fuzzy
 msgid "titlePage"
 msgstr "Page de titre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:193
-#, fuzzy
 msgid "photography"
 msgstr "Photographie"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:197
-#, fuzzy
 msgid "summarization"
 msgstr "Résumé"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:201
-#, fuzzy
 msgid "onlineResourceViaRERODOC"
 msgstr "Ressource en ligne via RERO DOC"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:205
-#, fuzzy
 msgid "pressReview"
 msgstr "Revue de presse"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:209
-#, fuzzy
 msgid "webSite"
 msgstr "Site web"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:213
-#, fuzzy
 msgid "tableOfContents"
 msgstr "Table des matières"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:217
-#, fuzzy
 msgid "fullText"
 msgstr "Texte intégral"
 
@@ -6225,17 +6191,14 @@ msgid "article"
 msgstr "article"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:35
-#, fuzzy
 msgid "materialUnit"
 msgstr "Unité matérielle"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:39
-#, fuzzy
 msgid "privateFile"
 msgstr "Dossier privé"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:43
-#, fuzzy
 msgid "privateSubfile"
 msgstr "Sous-dossier privé"
 
@@ -6273,12 +6236,10 @@ msgid "Set"
 msgstr "Description globale"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:99
-#, fuzzy
 msgid "partIndependentTitle"
 msgstr "Partie avec titre indépendant"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:103
-#, fuzzy
 msgid "partDependantTitle"
 msgstr "Partie avec titre indépendant"
 
@@ -6287,17 +6248,14 @@ msgid "rdami:1003"
 msgstr "publication en série"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:155
-#, fuzzy
 msgid "serialInSerial"
 msgstr "série"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:159
-#, fuzzy
 msgid "monographicSeries"
 msgstr "Collection de monographies"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:163
-#, fuzzy
 msgid "periodical"
 msgstr "Périodique"
 
@@ -6306,12 +6264,10 @@ msgid "rdami:1004"
 msgstr "ressource intégratrice"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:214
-#, fuzzy
 msgid "updatingWebsite"
 msgstr "Site web maintenu à jour"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:218
-#, fuzzy
 msgid "updatingLoose-leaf"
 msgstr "Publication à feuillets mobiles à mise à jour"
 
@@ -6320,7 +6276,6 @@ msgid "Languages"
 msgstr "Langues"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_language-v0.0.1.json:33
-#, fuzzy
 msgid "bf:Language"
 msgstr "langue"
 
@@ -6329,19 +6284,16 @@ msgid "Type of note"
 msgstr "Type de note"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:31
-#, fuzzy
 msgid "accompanyingMaterial"
 msgstr "Matériel d'accompagnement"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:35
-#, fuzzy
 msgid "general"
 msgstr "Général"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:39
-#, fuzzy
 msgid "otherPhysicalDetails"
-msgstr "Autres détails physiques"
+msgstr "Autres caractéristiques matérielles"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:49
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:173
@@ -6441,104 +6393,84 @@ msgid "Production method"
 msgstr "Méthode de production"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:36
-#, fuzzy
 msgid "rdapm:1001"
-msgstr "unité isolée"
+msgstr "diazocopie en bleu"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:40
-#, fuzzy
 msgid "rdapm:1002"
-msgstr "monographie en plusieurs parties"
+msgstr "cyanotypie"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:44
-#, fuzzy
 msgid "rdapm:1003"
-msgstr "publication en série"
+msgstr "phototypie"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:48
-#, fuzzy
 msgid "rdapm:1004"
-msgstr "ressource intégratrice"
+msgstr "daguerréotypie"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:52
-#, fuzzy
 msgid "rdapm:1005"
-msgstr "ressource intégratrice"
+msgstr "gravure"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:56
-#, fuzzy
 msgid "rdapm:1006"
-msgstr "ressource intégratrice"
+msgstr "eau-forte"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:60
-#, fuzzy
 msgid "rdapm:1007"
-msgstr "ressource intégratrice"
+msgstr "lithographie"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:64
-#, fuzzy
 msgid "rdapm:1008"
-msgstr "ressource intégratrice"
+msgstr "photocopie"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:68
-#, fuzzy
 msgid "rdapm:1009"
-msgstr "ressource intégratrice"
+msgstr "photogravure"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:72
-#, fuzzy
 msgid "rdapm:1010"
-msgstr "ressource intégratrice"
+msgstr "impression"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:76
-#, fuzzy
 msgid "rdapm:1011"
-msgstr "unité isolée"
+msgstr "diazocopie"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:80
-#, fuzzy
 msgid "rdapm:1012"
-msgstr "monographie en plusieurs parties"
+msgstr "gravure sur bois"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:84
-#, fuzzy
 msgid "rdapm:1014"
-msgstr "ressource intégratrice"
+msgstr "héliogravure"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:88
-#, fuzzy
 msgid "rdapm:1015"
-msgstr "unité isolée"
+msgstr "brûlage"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:92
-#, fuzzy
 msgid "rdapm:1016"
-msgstr "unité isolée"
+msgstr "inscription"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:96
-#, fuzzy
 msgid "rdapm:1017"
-msgstr "unité isolée"
+msgstr "estampage"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:100
-#, fuzzy
 msgid "rdapm:1018"
-msgstr "unité isolée"
+msgstr "embossage"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:104
-#, fuzzy
 msgid "rdapm:1019"
-msgstr "unité isolée"
+msgstr "point rigide"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:108
-#, fuzzy
 msgid "rdapm:1020"
-msgstr "ressource intégratrice"
+msgstr "papier thermogonflé"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:112
-#, fuzzy
 msgid "rdapm:1021"
-msgstr "monographie en plusieurs parties"
+msgstr "thermoformage"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:3
 msgid "Provision activities"
@@ -6570,9 +6502,8 @@ msgid "Statement of place and agent of the provision activity."
 msgstr "Mention"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:155
-#, fuzzy
 msgid "bf:Agent"
-msgstr "EAN"
+msgstr "agent"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:169
 msgid "Labels"
@@ -6587,6 +6518,9 @@ msgid ""
 "Normalised date used for sorting and filtering options (MARC 008). A free"
 " text date (transcripted) can be added in the field \\"
 msgstr ""
+"Date normalisée utilisée pour les options de tri et de filtre (MARC 008). "
+"Une date en texte libre (transcrite) peut être ajoutée dans le champ « "
+"Mentions »."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:227
 msgid "Date 2"
@@ -6598,6 +6532,9 @@ msgid ""
 "and used for sorting and filtering options (MARC 008). A free text date "
 "(transcripted) can be added in the field \\"
 msgstr ""
+"Date de fin normalisée si elle couvre plus qu'une année. Elle est utilisée "
+"pour les options de tri et de filtre (MARC 008). Une date en texte libre "
+"(transcrite) peut être ajoutée dans le champ « Mentions »."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:3
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:63
@@ -6631,19 +6568,16 @@ msgid "Titles"
 msgstr "Titres"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:34
-#, fuzzy
 msgid "bf:Title"
-msgstr "Complément de titre"
+msgstr "titre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:38
-#, fuzzy
 msgid "bf:ParallelTitle"
-msgstr "Titre parallèle"
+msgstr "titre parallèle"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:42
-#, fuzzy
 msgid "bf:VariantTitle"
-msgstr "Variante de titre"
+msgstr "variante de titre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:52
 msgid "Main titles"
@@ -6706,237 +6640,223 @@ msgid "Language from which a resource is translated."
 msgstr "Langue de laquelle la ressource a été traduite."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:3
-#, fuzzy
 msgid "Types"
-msgstr "type"
+msgstr "types"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:17
 msgid "docmaintype_archives"
-msgstr ""
+msgstr "Archives"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:46
 msgid "docmaintype_article"
-msgstr ""
+msgstr "Article"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:75
-#, fuzzy
 msgid "docmaintype_audio"
-msgstr "type de document"
+msgstr "Document sonore"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:111
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:115
 msgid "docsubtype_music"
-msgstr ""
+msgstr "Musique"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:119
 msgid "docsubtype_sound"
-msgstr ""
+msgstr "Son"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:123
 msgid "docsubtype_recorded_words"
-msgstr ""
+msgstr "Parole enregistrée"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:140
-#, fuzzy
 msgid "docmaintype_book"
-msgstr "type de document"
+msgstr "Livre, texte"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:179
 msgid "docsubtype_other_book"
-msgstr ""
+msgstr "Autre livre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:183
 msgid "docsubtype_large_print_book"
-msgstr ""
+msgstr "Livre en gros caractères"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:187
 msgid "docsubtype_braille_book"
-msgstr ""
+msgstr "Livre en braille"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:191
 msgid "docsubtype_manuscript"
-msgstr ""
+msgstr "Manuscrit"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:195
 msgid "docsubtype_thesis"
-msgstr ""
+msgstr "Thèse, mémoire"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:199
 msgid "docsubtype_e-book"
-msgstr ""
+msgstr "E-book"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:203
 msgid "docsubtype_microform"
-msgstr ""
+msgstr "Microforme"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:220
 msgid "docmaintype_children"
-msgstr ""
+msgstr "Album jeunesse"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:249
-#, fuzzy
 msgid "docmaintype_comic"
-msgstr "type de document"
+msgstr "Bande dessinée"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:283
 msgid "docsubtype_comic"
-msgstr ""
+msgstr "Bande dessinée"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:287
 msgid "docsubtype_manga"
-msgstr ""
+msgstr "Manga"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:304
 msgid "docmaintype_electronic"
-msgstr ""
+msgstr "Support électronique"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:338
 msgid "docsubtype_cdrom_dvdrom"
-msgstr ""
+msgstr "CD-Rom, DVD-Rom"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:342
 msgid "docsubtype_other_electronic_carrier"
-msgstr ""
+msgstr "Autre support"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:356
-#, fuzzy
 msgid "docmaintype_game"
-msgstr "type de document"
+msgstr "Jeu"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:392
 msgid "docsubtype_other_game"
-msgstr ""
+msgstr "Autre jeu"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:396
 msgid "docsubtype_video_game"
-msgstr ""
+msgstr "Jeu vidéo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:400
 msgid "docsubtype_role-playing_game"
-msgstr ""
+msgstr "Jeu de rôle"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:404
 msgid "docsubtype_board_game"
-msgstr ""
+msgstr "Jeu de société"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:421
-#, fuzzy
 msgid "docmaintype_image"
-msgstr "type de document"
+msgstr "Image"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:459
 msgid "docsubtype_poster"
-msgstr ""
+msgstr "Affiche"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:463
 msgid "docsubtype_postcard"
-msgstr ""
+msgstr "Carte postale"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:467
-#, fuzzy
 msgid "docsubtype_photography"
-msgstr "Photographie"
+msgstr "photographie"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:471
 msgid "docsubtype_print_engraving"
-msgstr ""
+msgstr "Estampe"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:475
 msgid "docsubtype_calendar"
-msgstr ""
+msgstr "Calendrier"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:479
 msgid "docsubtype_other_image"
-msgstr ""
+msgstr "Autre image"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:496
 msgid "docmaintype_language_method"
-msgstr ""
+msgstr "Méthode de langue"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:525
-#, fuzzy
 msgid "docmaintype_leaf"
-msgstr "type de document"
+msgstr "Feuille mobile"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:554
-#, fuzzy
 msgid "docmaintype_map"
-msgstr "type de document"
+msgstr "Carte, atlas"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:588
 msgid "docsubtype_map"
-msgstr ""
+msgstr "Carte, plan"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:592
 msgid "docsubtype_atlas"
-msgstr ""
+msgstr "Atlas"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:606
 msgid "docmaintype_movie_series"
-msgstr ""
+msgstr "Film, série"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:641
 msgid "docsubtype_movie"
-msgstr ""
+msgstr "Film"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:645
-#, fuzzy
 msgid "docsubtype_series"
-msgstr "Sous-collection"
+msgstr "Série"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:649
-#, fuzzy
 msgid "docsubtype_documentary"
-msgstr "Document hôte"
+msgstr "Documentaire"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:666
 msgid "docmaintype_object"
-msgstr ""
+msgstr "Objet"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:701
 msgid "docsubtype_kamishibai"
-msgstr ""
+msgstr "Kamishibai"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:705
 msgid "docsubtype_tablet"
-msgstr ""
+msgstr "Liseuse, tablette"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:709
 msgid "docsubtype_other_object"
-msgstr ""
+msgstr "Autre objet"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:726
-#, fuzzy
 msgid "docmaintype_other"
-msgstr "type de document"
+msgstr "Autre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:755
-#, fuzzy
 msgid "docmaintype_score"
-msgstr "type de document"
+msgstr "Partition"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:790
 msgid "docsubtype_printed_score"
-msgstr ""
+msgstr "Partition imprimée"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:794
 msgid "docsubtype_music_method"
-msgstr ""
+msgstr "Méthode de musique"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:798
 msgid "docsubtype_manuscript_score"
-msgstr ""
+msgstr "Partition manuscrite"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:815
 msgid "docmaintype_serial"
-msgstr ""
+msgstr "Périodique"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:844
 msgid "docmaintype_series"
-msgstr ""
+msgstr "Collection éditoriale"
 
 #: rero_ils/modules/documents/templates/rero_ils/_anonymous_button.html:25
-#, fuzzy
 msgid "Log in (to see request options)"
 msgstr "S'identifier (pour voir les options de demande)"
 
@@ -6990,9 +6910,8 @@ msgid "Get"
 msgstr "Obtenir"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:190
-#, fuzzy
 msgid "Articles"
-msgstr "article"
+msgstr "articles"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:206
 msgid "Export Formats"
@@ -7009,19 +6928,17 @@ msgstr ""
 "renseignée."
 
 #: rero_ils/modules/holdings/api.py:157
-#, fuzzy
 msgid ""
 "Electronic Holding is not attached to the correct                     "
 "document type. document: {pid}"
 msgstr ""
-"La holdings n'est pas attachée au type correct de document. Document : "
-"{pid}."
+"La holdings n'est pas attachée au type correct de document. Document : {pid}"
 
 #: rero_ils/modules/holdings/api.py:172
 msgid "{field} is allowed only for serial holdings"
 msgstr ""
-"{champ} est autorisé uniquement pour les états de collection de "
-"publications en série"
+"{field} est autorisé uniquement pour les états de collection de publications "
+"en série"
 
 #: rero_ils/modules/holdings/api.py:177 rero_ils/modules/ill_requests/api.py:74
 #: rero_ils/modules/items/api/record.py:76
@@ -7091,9 +7008,8 @@ msgid "URI"
 msgstr "URI"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:159
-#, fuzzy
 msgid "Predictions"
-msgstr "Production"
+msgstr "Prédictions"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:179
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:4
@@ -7112,7 +7028,7 @@ msgstr ""
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:185
 msgid "Example: Vol. {{numbering.volume}}, {{expected_date.year}}"
-msgstr "Exemple : Vol. {{numbering.vol}}, {{chronology.year}}"
+msgstr "Exemple : Vol. {{numbering.vol}}, {{expected_date.year}}"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:188
 msgid "Should contains at least one variable between {{ }}."
@@ -7258,7 +7174,7 @@ msgstr ""
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:370
 msgid "Example: 12"
-msgstr "Exemple : 2"
+msgstr "Exemple : 12"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:374
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:416
@@ -7371,7 +7287,7 @@ msgstr "Description textuelle des fascicules manquants."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:544
 msgid "Number of issues to be bound together"
-msgstr ""
+msgstr "Nombre de fascicules à relier"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:590
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:473
@@ -7387,19 +7303,19 @@ msgstr "Note professionnelle"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:598
 msgid "conservation_note"
-msgstr "Conservation"
+msgstr "Note de conservation"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:602
 msgid "reception_note"
-msgstr "Réception"
+msgstr "Note de réception"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:606
 msgid "claim_note"
-msgstr "Réclamation"
+msgstr "Note de réclamation"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:610
 msgid "routing_note"
-msgstr "Routage"
+msgstr "Transmission"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:614
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:457
@@ -7426,149 +7342,139 @@ msgid "Only one note per type is allowed"
 msgstr "Une seule note par type de note est autorisée"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:663
-#, fuzzy
 msgid "Acquisition status"
-msgstr "Date d'acquisition"
+msgstr "Statut d'acquisition"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:681
-#, fuzzy
 msgid "not_currently_received"
-msgstr "aucun exemplaire reçu"
+msgstr "actuellement non reçu"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:685
-#, fuzzy
 msgid "currently_received"
-msgstr "reçu"
+msgstr "actuellement reçu"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:689
 msgid "received_and_complete_or_ceased"
-msgstr ""
+msgstr "Reçu et complet, ou interrompu"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:693
-#, fuzzy
 msgid "on_order"
-msgstr "Commande planifiée"
+msgstr "commandé"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:697
 msgid "other_receipt_or_acquisition_status"
-msgstr ""
+msgstr "autre statut de réception ou d'acquisition"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:701
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:772
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:826
-#, fuzzy
 msgid "unknown"
-msgstr "propriétaire"
+msgstr "non connu"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:708
-#, fuzzy
 msgid "Acquisition method"
-msgstr "Commande"
+msgstr "Méthode d'acquisition"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:732
-#, fuzzy
 msgid "deposit"
-msgstr "distributeur"
+msgstr "dépôt"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:736
 msgid "cooperative_or_consortial_purchase"
-msgstr ""
+msgstr "acquisition coopérative ou consortiale"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:740
-#, fuzzy
 msgid "exchange"
-msgstr "Taux de change"
+msgstr "échange"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:744
-#, fuzzy
 msgid "free"
-msgstr "frais"
+msgstr "gratuit"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:748
 msgid "gift"
-msgstr ""
+msgstr "don"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:752
 msgid "legal_deposit"
-msgstr ""
+msgstr "dépôt légal"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:756
 msgid "membership"
-msgstr ""
+msgstr "adhésion"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:760
 msgid "non_library_purchase"
-msgstr ""
+msgstr "acquisition non bibliothécaire"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:764
 msgid "purchase"
-msgstr ""
+msgstr "achat"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:768
-#, fuzzy
 msgid "lease"
-msgstr "en retard"
+msgstr "location"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:776
-#, fuzzy
 msgid "other_method_of_acquisition"
-msgstr "Nouvelle acquisition"
+msgstr "autre méthode d'acquisition"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:783
-#, fuzzy
 msgid "Expected acquisition end date"
-msgstr "Date d'acquisition"
+msgstr "Date de fin d'acquisition prévue"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:784
 msgid ""
 "Indicate an intent to cancel, the effective date of a cancellation, or "
 "the date of the last expected part of a multipart or serial item."
 msgstr ""
+"Indique une intention d'annulation, la date effective de l'annulation, ou la "
+"dernière date attendue d'une série."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:805
-#, fuzzy
 msgid "General retention policy"
-msgstr "Politique de prêt"
+msgstr "Politique de conservation générale"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:830
 msgid "other_general_retention_policy"
-msgstr ""
+msgstr "autre politique de conservation"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:834
 msgid "retained_except_as_replaced_by_updates"
-msgstr ""
+msgstr "conservé, excepté les remplacements par mise à jour"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:838
 msgid "sample_issue_retained"
-msgstr ""
+msgstr "exemple de fascicule conservé"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:842
 msgid "retained_until_replaced_by_microform"
-msgstr ""
+msgstr "conservé jusqu'au remplacement par microforme"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:846
 msgid "retained_until_replaced_by_cumulation_replacement_volume_or_revision"
 msgstr ""
+"conservé jusqu'au remplacement par une cumulation, un volume ou une révision"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:850
 msgid "retained_for_a_limited_period"
-msgstr ""
+msgstr "conservé pour une période limitée"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:854
 msgid "not_retained"
-msgstr ""
+msgstr "non conservé"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:858
 msgid "permanently_retained"
-msgstr ""
+msgstr "conservé de manière permanente"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:865
 msgid "Completeness"
-msgstr ""
+msgstr "Intégralité"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:866
 msgid "Estimation of the general extent of the holdings for a multipart."
-msgstr ""
+msgstr "Estimation de l'étendue de la collection."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:883
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:136
@@ -7577,26 +7483,24 @@ msgid "other"
 msgstr "autre"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:887
-#, fuzzy
 msgid "complete"
-msgstr "Modèle"
+msgstr "complet"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:891
 msgid "incomplete"
-msgstr ""
+msgstr "incomplet"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:895
 msgid "scattered"
-msgstr ""
+msgstr "éparpillé"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:899
-#, fuzzy
 msgid "not_applicable"
-msgstr "non disponible"
+msgstr "non applicable"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:906
 msgid "Separate or composite copy report"
-msgstr ""
+msgstr "Rapport en copie séparée ou composite"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:907
 msgid ""
@@ -7604,20 +7508,21 @@ msgid ""
 "copy/subscription of a serial. If the holdings describes more than one "
 "copy/subscription, choose composite."
 msgstr ""
+"Un rapport en copie séparée contient des informations de collection pour un "
+"exemplaire/abonnement à une publication en série. Si la collection décrit "
+"plus qu'un exemplaire/abonnement, choisir le rapport composite."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:921
-#, fuzzy
 msgid "separate"
-msgstr "privé"
+msgstr "séparé"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:925
 msgid "composite"
-msgstr ""
+msgstr "composite"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:932
-#, fuzzy
 msgid "Masked"
-msgstr "directeur musical"
+msgstr "Masqué"
 
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:30
 msgid "PID"
@@ -7773,14 +7678,12 @@ msgid "Should be in the following format: https://ils.rero.ch/api/patrons/<PID>.
 msgstr "Doit être au format suivant : https://ils.rero.ch/api/patrons/<PID>."
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:106
-#, fuzzy
 msgid "Loan state"
 msgstr "Date du prêt"
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:114
-#, fuzzy
 msgid "Choose a status"
-msgstr "Statut du fascicule"
+msgstr "Choisir un statut"
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:118
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:154
@@ -7826,13 +7729,12 @@ msgid "public_note"
 msgstr "Note publique"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:25
-#, fuzzy
 msgid "Caution!"
-msgstr "Localisation"
+msgstr "Attention !"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:27
 msgid "A well detailed request is more likely to be satisfied"
-msgstr ""
+msgstr "Une demande détaillée a plus de chance d'être satisfaite"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:34
 msgid "You have submitted an invalid CSRF token"
@@ -7940,10 +7842,13 @@ msgid ""
 "Temporary circulation category cannot be the same than default "
 "circulation category."
 msgstr ""
+"La catégorie de prêt temporaire ne peut pas être identique à la catégorie de "
+"prêt par défaut."
 
 #: rero_ils/modules/items/api/record.py:87
 msgid "Temporary circulation category end date must be a date in the future."
 msgstr ""
+"La date de fin de la catégorie de prêt temporaire doit être dans le futur."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:5
 msgid "JSON schema for an item."
@@ -7989,6 +7894,8 @@ msgid ""
 "Apply a temporary item circulation category for this item. If specified, "
 "this circulation category overrides the default category."
 msgstr ""
+"Appliquer une catégorie de prêt temporaire à cet exemplaire. Si spécifié, "
+"cette catégorie de prêt outrepasse la catégorie par défaut."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:260
 msgid "Issue status"
@@ -8211,7 +8118,7 @@ msgstr "Date de début de la transaction"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:129
 msgid "Set loan to be anonymized"
-msgstr ""
+msgstr "Détermine que le prêt est à anonymiser"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:135
 msgid "State name"
@@ -8240,9 +8147,8 @@ msgid ""
 msgstr "Le nom de l'action qui a déclenché la transition vers l'état actuel"
 
 #: rero_ils/modules/local_fields/api.py:69
-#, fuzzy
 msgid "Missing fields."
-msgstr "manquant"
+msgstr "Champs manquants."
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:4
 msgid "Local fields"
@@ -8253,65 +8159,64 @@ msgid ""
 "Local fields allows to add data that is available at the organisation "
 "level only."
 msgstr ""
+"Les champs locaux permettent d'ajouter des données qui ne sont accessible "
+"qu'au sein de l'organisation."
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:18
-#, fuzzy
 msgid "Schema to validate local_field records against."
-msgstr "Schéma de validation des exemplaires."
+msgstr "Schéma de validation des champs locaux."
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:24
 msgid "Local field PID"
-msgstr ""
+msgstr "PID du champ local"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:40
-#, fuzzy
 msgid "Parent"
-msgstr "Paiement"
+msgstr "Ressource parente"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:48
-#, fuzzy
 msgid "Parent URI"
-msgstr "Paiement"
+msgstr "URI du parent"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:71
 msgid "Field 1"
-msgstr ""
+msgstr "Champ 1"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:80
 msgid "Field 2"
-msgstr ""
+msgstr "Champ 2"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:89
 msgid "Field 3"
-msgstr ""
+msgstr "Champ 3"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:98
 msgid "Field 4"
-msgstr ""
+msgstr "Champ 4"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:107
 msgid "Field 5"
-msgstr ""
+msgstr "Champ 5"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:116
 msgid "Field 6"
-msgstr ""
+msgstr "Champ 6"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:125
 msgid "Field 7"
-msgstr ""
+msgstr "Champ 7"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:134
 msgid "Field 8"
-msgstr ""
+msgstr "Champ 8"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:143
 msgid "Field 9"
-msgstr ""
+msgstr "Champ 9"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:152
 msgid "Field 10"
-msgstr ""
+msgstr "Champ 10"
 
 #: rero_ils/modules/locations/api.py:79
 msgid "Another online location exists in this library"
@@ -8494,62 +8399,54 @@ msgid "recall"
 msgstr "réclamation"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:4
-#, fuzzy
 msgid "Operation log"
-msgstr "Numérotation"
+msgstr "Journal des opérations"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:5
 msgid "Operation log keeps the operation history of a resource."
 msgstr ""
+"Le journal des opérations enregistre l'historique des opérations sur une "
+"ressource."
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:21
-#, fuzzy
 msgid "Schema to validate operation_log records against."
-msgstr "Schéma de validation des organisations."
+msgstr "Schéma de validation du journal des opérations."
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:27
 msgid "Operation log PID"
-msgstr ""
+msgstr "PID du journal des opérations"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:32
-#, fuzzy
 msgid "Record"
-msgstr "enregistreur"
+msgstr "Ressource"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:36
-#, fuzzy
 msgid "record"
-msgstr "enregistreur"
+msgstr "ressource"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:43
-#, fuzzy
 msgid "User"
 msgstr "utilisateur"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:47
-#, fuzzy
 msgid "User URI"
-msgstr "utilisateur"
+msgstr "URI de l'utilisateur"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:54
-#, fuzzy
 msgid "User name"
-msgstr "Nom d'utilisateur"
+msgstr "Nom de l'utilisateur"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:59
-#, fuzzy
 msgid "Operation date"
-msgstr "Date de création"
+msgstr "Date de l'opération"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:64
-#, fuzzy
 msgid "Operation type"
-msgstr "Catégorie de prêt"
+msgstr "Type d'opération"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:72
-#, fuzzy
 msgid "User organisation"
-msgstr "organisation"
+msgstr "Organisation de l'utilisateur"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:5
 msgid "JSON schema for an organisation"
@@ -9005,6 +8902,9 @@ msgid ""
 "Username must start with a letter, be at least three characters long and "
 "only contain alphanumeric characters, dashes and underscores."
 msgstr ""
+"Le nom d'utilisateur doit commencer par un caractère alphabétique, avoir au "
+"moins trois caractères et ne contenir que des caractères alphanumériques, "
+"des tirets et des underscores."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:115
 msgid "This username is already taken."
@@ -9095,13 +8995,12 @@ msgid "Communication channel"
 msgstr "Canal de communication"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:249
-#, fuzzy
 msgid ""
 "For the email channel, the user must have an e-mail or an additional "
 "e-mail."
 msgstr ""
-"Pour le canal de communication par e-mail, l'utilisateur doit avoir un "
-"e-mail. Sinon, aucune notification ne sera envoyée."
+"Pour le canal de communication par e-mail, l'utilisateur doit avoir un e-"
+"mail ou un e-mail complémentaire."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:259
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:41
@@ -9154,11 +9053,10 @@ msgid "Blocking"
 msgstr "Blocage"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:375
-#, fuzzy
 msgid "A patron with a blocked account cannot extend, request and borrow items."
 msgstr ""
-"Un lecteur dont le compte est bloqué ne peut plus effectuer de demandes "
-"ou de prêts, mais peut toujours prolonger ou rendre des exemplaires."
+"Un lecteur dont le compte est bloqué ne peut plus prolonger ou emprunter des "
+"exemplaires, et effectuer de demandes."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:381
 msgid ""
@@ -9178,6 +9076,9 @@ msgid ""
 "If enabled, the loan history is saved for a maximum of six months. It is "
 "visible to the user and the library staff."
 msgstr ""
+"Si activé, l'historique des prêts est enregistré pour un maximum de six "
+"mois. Il est visible par l'utilisateur et par le personnel de la "
+"bibliothèque."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:404
 msgid "libraries"
@@ -9284,7 +9185,7 @@ msgstr "Prolonger"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:111
 msgid "Call number unavailable"
-msgstr "non disponible"
+msgstr "cote non disponible"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:120
 msgid "No loan"
@@ -9311,6 +9212,8 @@ msgid ""
 "The loan history is saved for a maximum of six months. It is visible to "
 "you and the library staff."
 msgstr ""
+"L'historique de prêt est enregistré pour un maximum de six mois. Il est "
+"visible par vous-même et par le personnel de la bibliothèque."
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:131
 msgid "The loan history is not saved."
@@ -9372,7 +9275,7 @@ msgstr "Prêt impossible : l'exemplaire est demandé par un autre lecteur"
 
 #: rero_ils/modules/selfcheck/api.py:360 rero_ils/modules/selfcheck/api.py:414
 msgid "Error encountered: please contact a librarian"
-msgstr ""
+msgstr "Une erreur est survenue : veuillez contacter un bibliothécaire"
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:5
 msgid "JSON schema for templates."
@@ -9695,11 +9598,11 @@ msgstr "Invenio"
 #: rero_ils/theme/templates/rero_ils/register_user.html:28
 #, python-format
 msgid "Sign up for a %(sitename)s account!"
-msgstr "Inscrivez-vous pour obtenir un compte %(sitename)s!"
+msgstr "Inscrivez-vous pour obtenir un compte %(sitename)s !"
 
 #: rero_ils/theme/templates/rero_ils/register_user.html:50
 msgid "Already have an account?"
-msgstr "Vous avez déjà un compte?"
+msgstr "Vous avez déjà un compte ?"
 
 #: rero_ils/theme/templates/rero_ils/tombstone.html:30
 msgid "The document"
@@ -9715,45 +9618,45 @@ msgstr "a été supprimé."
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:22
 #: rero_ils/theme/templates/security/email/reset_notice.html:22
-#, fuzzy
 msgid "Dear"
-msgstr "Année"
+msgstr "Cher / chère"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:24
 #: rero_ils/theme/templates/security/email/reset_notice.html:24
-#, fuzzy
 msgid "Dear patron"
-msgstr "lecteur"
+msgstr "Cher lecteur / chère lectrice"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:26
 msgid "Someone requested that the password for your RERO ID account be reset."
 msgstr ""
+"Quelqu'un a demandé que le mot de passe de votre compte RERO ID soit "
+"réinitialisé."
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:27
-#, fuzzy
 msgid "Reset my password"
-msgstr "Réinitialiser le mot de passe"
+msgstr "Réinitialiser mon mot de passe"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:28
 msgid ""
 "If you didn't request this, you can ignore this e-mail. Your password "
 "won't change until you create a new password."
 msgstr ""
+"Si vous n'avez pas fait cette demande, vous pouvez ignorer cet e-mail. Votre "
+"mot de passe ne changera tant que vous ne créez pas de nouveau mot de passe."
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:29
 #: rero_ils/theme/templates/security/email/reset_notice.html:27
 msgid "Best regards"
-msgstr ""
+msgstr "Meilleures salutations"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:30
 #: rero_ils/theme/templates/security/email/reset_notice.html:28
-#, fuzzy
 msgid "Your library"
-msgstr "bibliothèque"
+msgstr "Votre bibliothèque"
 
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
-msgstr ""
+msgstr "Votre mot de passe a bien été modifié."
 
 #~ msgid "Examples: 135, 5-27, ..."
 #~ msgstr ""
@@ -10747,4 +10650,3 @@ msgstr ""
 
 #~ msgid "There is already one pickup location in this library."
 #~ msgstr "Il existe déjà un lieu de retrait dans cette bibliothèque."
-

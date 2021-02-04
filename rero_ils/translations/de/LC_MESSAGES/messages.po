@@ -17,15 +17,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-02-03 08:42+0100\n"
-"PO-Revision-Date: 2021-02-02 07:48+0000\n"
+"PO-Revision-Date: 2021-02-04 14:34+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/de/>\n"
 "Language: de\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.5-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:131
@@ -65,9 +66,8 @@ msgid "document_type"
 msgstr "Dokumenttyp"
 
 #: rero_ils/config.py:1676 rero_ils/config.py:1734
-#, fuzzy
 msgid "document_subtype"
-msgstr "Dokumenttyp"
+msgstr "Dokument-Untertyp"
 
 #: rero_ils/config.py:1677
 msgid "language"
@@ -5012,7 +5012,6 @@ msgid "Agent"
 msgstr "Akteur"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_identifiedby-v0.0.1.json:23
-#, fuzzy
 msgid "bf:local"
 msgstr "Lokaler Identifikator"
 
@@ -5837,28 +5836,24 @@ msgid "Type of link"
 msgstr "Typ des Links"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:49
-#, fuzzy
 msgid "resource"
 msgstr "Ressource"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:53
-#, fuzzy
 msgid "versionOfResource"
-msgstr "Andere version der Ressource"
+msgstr "andere Version der Ressource"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:57
-#, fuzzy
 msgid "relatedResource"
-msgstr "Verwandte Ressource"
+msgstr "verwandte Ressource"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:61
 msgid "hiddenUrl"
-msgstr ""
+msgstr "Versteckte URL"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:65
-#, fuzzy
 msgid "noInfo"
-msgstr "Keine Informationen"
+msgstr "Keine Information"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:75
 msgid "Content type"
@@ -5869,137 +5864,110 @@ msgid "Is displayed as the text of the link."
 msgstr "Wird als Text des Links angezeigt."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:113
-#, fuzzy
 msgid "poster"
 msgstr "Plakat"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:117
-#, fuzzy
 msgid "audio"
 msgstr "Audio"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:121
-#, fuzzy
 msgid "postcard"
 msgstr "Postkarte"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:125
-#, fuzzy
 msgid "addition"
 msgstr "Ergänzung"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:129
-#, fuzzy
 msgid "debriefing"
 msgstr "Protokoll"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:133
-#, fuzzy
 msgid "exhibitionDocumentation"
 msgstr "Ausstellungsdokumentation"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:137
-#, fuzzy
 msgid "erratum"
 msgstr "Erratum"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:141
-#, fuzzy
 msgid "bookplate"
 msgstr "Exlibris"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:145
-#, fuzzy
 msgid "extract"
 msgstr "Auszug"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:149
-#, fuzzy
 msgid "educational sheet"
 msgstr "Unterrichtsmaterial"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:153
-#, fuzzy
 msgid "illustrations"
-msgstr "Illustrationen"
+msgstr "Abbildungen"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:157
-#, fuzzy
 msgid "coverImage"
 msgstr "Titelbild"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:161
-#, fuzzy
 msgid "deliveryInformation"
-msgstr "Informationen zum Transport"
+msgstr "Information zum Transport"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:165
-#, fuzzy
 msgid "biographicalInformation"
 msgstr "Biografische Angaben"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:169
-#, fuzzy
 msgid "introductionPreface"
 msgstr "Einführung/Vorwort"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:173
-#, fuzzy
 msgid "classReading"
 msgstr "Klassenlektüre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:177
-#, fuzzy
 msgid "teachersKit"
 msgstr "Themenkoffer"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:181
-#, fuzzy
 msgid "publishersNote"
 msgstr "Hinweis des Verlags"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:185
-#, fuzzy
 msgid "noteOnContent"
 msgstr "Inhaltstext"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:189
-#, fuzzy
 msgid "titlePage"
 msgstr "Titelblatt"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:193
-#, fuzzy
 msgid "photography"
 msgstr "Fotografie"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:197
-#, fuzzy
 msgid "summarization"
 msgstr "Zusammenfassung"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:201
-#, fuzzy
 msgid "onlineResourceViaRERODOC"
 msgstr "Online-Ressource über RERO DOC"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:205
-#, fuzzy
 msgid "pressReview"
 msgstr "Presseschau"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:209
-#, fuzzy
 msgid "webSite"
-msgstr "Webseite"
+msgstr "Website"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:213
-#, fuzzy
 msgid "tableOfContents"
 msgstr "Inhaltsverzeichnis"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:217
-#, fuzzy
 msgid "fullText"
 msgstr "Volltext"
 
@@ -6222,17 +6190,14 @@ msgid "article"
 msgstr "Artikel"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:35
-#, fuzzy
 msgid "materialUnit"
 msgstr "Materialeinheit"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:39
-#, fuzzy
 msgid "privateFile"
 msgstr "Private Aufnahme"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:43
-#, fuzzy
 msgid "privateSubfile"
 msgstr "Private Aufnahme, Teilelement"
 
@@ -6270,45 +6235,38 @@ msgid "Set"
 msgstr "Umfassende Beschreibung"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:99
-#, fuzzy
 msgid "partIndependentTitle"
 msgstr "Teil mit unabhängigem Titel"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:103
-#, fuzzy
 msgid "partDependantTitle"
-msgstr "Teil mit unabhängigem Titel"
+msgstr "Teil mit abhängigem Titel"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:132
 msgid "rdami:1003"
 msgstr "fortlaufende Ressource"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:155
-#, fuzzy
 msgid "serialInSerial"
-msgstr "fortlaufende Ressource"
+msgstr "Fortlaufende Ressource in fortlaufender Ressource"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:159
-#, fuzzy
 msgid "monographicSeries"
-msgstr "Mehrteilige Monografien"
+msgstr "Reihe von Monographien"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:163
-#, fuzzy
 msgid "periodical"
-msgstr "Zeitschrift"
+msgstr "Fortlaufende Ressource"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:192
 msgid "rdami:1004"
 msgstr "integrierende Ressource"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:214
-#, fuzzy
 msgid "updatingWebsite"
-msgstr "Laufend gepflegte Website"
+msgstr "Aktualisierte Website"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:218
-#, fuzzy
 msgid "updatingLoose-leaf"
 msgstr "Laufende Loseblattsammlung"
 
@@ -6317,7 +6275,6 @@ msgid "Languages"
 msgstr "Sprachen"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_language-v0.0.1.json:33
-#, fuzzy
 msgid "bf:Language"
 msgstr "Sprache"
 
@@ -6326,19 +6283,16 @@ msgid "Type of note"
 msgstr "Anmerkungstyp"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:31
-#, fuzzy
 msgid "accompanyingMaterial"
 msgstr "Begleitmaterial"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:35
-#, fuzzy
 msgid "general"
 msgstr "Allgemein"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:39
-#, fuzzy
 msgid "otherPhysicalDetails"
-msgstr "Andere physikalische Details"
+msgstr "Sonstige Materialeigenschaften"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:49
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:173
@@ -6438,104 +6392,84 @@ msgid "Production method"
 msgstr "Entstehungsmethode"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:36
-#, fuzzy
 msgid "rdapm:1001"
-msgstr "einzelne Einheit"
+msgstr "Diazotypie (Blaupause)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:40
-#, fuzzy
 msgid "rdapm:1002"
-msgstr "mehrteilige Monografie"
+msgstr "Cyanotypie (Blaudruck)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:44
-#, fuzzy
 msgid "rdapm:1003"
-msgstr "fortlaufende Ressource"
+msgstr "Lichtdruck (Collotypie)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:48
-#, fuzzy
 msgid "rdapm:1004"
-msgstr "integrierende Ressource"
+msgstr "Daguerreotypie"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:52
-#, fuzzy
 msgid "rdapm:1005"
-msgstr "integrierende Ressource"
+msgstr "Stich"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:56
-#, fuzzy
 msgid "rdapm:1006"
-msgstr "integrierende Ressource"
+msgstr "Radierung"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:60
-#, fuzzy
 msgid "rdapm:1007"
-msgstr "integrierende Ressource"
+msgstr "Lithografie"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:64
-#, fuzzy
 msgid "rdapm:1008"
-msgstr "integrierende Ressource"
+msgstr "Fotokopie"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:68
-#, fuzzy
 msgid "rdapm:1009"
-msgstr "integrierende Ressource"
+msgstr "Fotogravur"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:72
-#, fuzzy
 msgid "rdapm:1010"
-msgstr "integrierende Ressource"
+msgstr "Druckverfahren"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:76
-#, fuzzy
 msgid "rdapm:1011"
-msgstr "einzelne Einheit"
+msgstr "Diazotypie (Lichtpause)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:80
-#, fuzzy
 msgid "rdapm:1012"
-msgstr "mehrteilige Monografie"
+msgstr "Holzschnitt"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:84
-#, fuzzy
 msgid "rdapm:1014"
-msgstr "integrierende Ressource"
+msgstr "Heliogravüre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:88
-#, fuzzy
 msgid "rdapm:1015"
-msgstr "einzelne Einheit"
+msgstr "Einbrennen"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:92
-#, fuzzy
 msgid "rdapm:1016"
-msgstr "einzelne Einheit"
+msgstr "Gravur"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:96
-#, fuzzy
 msgid "rdapm:1017"
-msgstr "einzelne Einheit"
+msgstr "Stempeldruck"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:100
-#, fuzzy
 msgid "rdapm:1018"
-msgstr "einzelne Einheit"
+msgstr "Prägung"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:104
-#, fuzzy
 msgid "rdapm:1019"
-msgstr "einzelne Einheit"
+msgstr "solid dot"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:108
-#, fuzzy
 msgid "rdapm:1020"
-msgstr "integrierende Ressource"
+msgstr "Schwellpapier"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:112
-#, fuzzy
 msgid "rdapm:1021"
-msgstr "mehrteilige Monografie"
+msgstr "Thermoform"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:3
 msgid "Provision activities"
@@ -6569,9 +6503,8 @@ msgstr ""
 "Entstehung."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:155
-#, fuzzy
 msgid "bf:Agent"
-msgstr "EAN"
+msgstr "Akteur"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:169
 msgid "Labels"
@@ -6634,17 +6567,14 @@ msgid "Titles"
 msgstr "Titel"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:34
-#, fuzzy
 msgid "bf:Title"
-msgstr "Titelzusatz"
+msgstr "Titel"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:38
-#, fuzzy
 msgid "bf:ParallelTitle"
 msgstr "Paralleltitel"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:42
-#, fuzzy
 msgid "bf:VariantTitle"
 msgstr "Abweichender Titel"
 
@@ -6710,234 +6640,221 @@ msgid "Language from which a resource is translated."
 msgstr "Sprache, aus deren die Ressource übersetzt wurde."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:3
-#, fuzzy
 msgid "Types"
-msgstr "Typ"
+msgstr "Typen"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:17
 msgid "docmaintype_archives"
-msgstr ""
+msgstr "Archive"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:46
 msgid "docmaintype_article"
-msgstr ""
+msgstr "Artikel"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:75
-#, fuzzy
 msgid "docmaintype_audio"
-msgstr "Dokumenttyp"
+msgstr "Audio-Dokument"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:111
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:115
 msgid "docsubtype_music"
-msgstr ""
+msgstr "Musik"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:119
 msgid "docsubtype_sound"
-msgstr ""
+msgstr "Ton"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:123
 msgid "docsubtype_recorded_words"
-msgstr ""
+msgstr "aufgezeichnete Wörter"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:140
-#, fuzzy
 msgid "docmaintype_book"
-msgstr "Dokumenttyp"
+msgstr "Buch, Text"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:179
 msgid "docsubtype_other_book"
-msgstr ""
+msgstr "anderes Buch"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:183
 msgid "docsubtype_large_print_book"
-msgstr ""
+msgstr "Grossdruckbuch"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:187
 msgid "docsubtype_braille_book"
-msgstr ""
+msgstr "Braille-Buch"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:191
 msgid "docsubtype_manuscript"
-msgstr ""
+msgstr "Manuskript"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:195
 msgid "docsubtype_thesis"
-msgstr ""
+msgstr "Dissertation, Abschlussarbeit"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:199
 msgid "docsubtype_e-book"
-msgstr ""
+msgstr "E-Book"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:203
 msgid "docsubtype_microform"
-msgstr ""
+msgstr "Mikroform"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:220
 msgid "docmaintype_children"
-msgstr ""
+msgstr "Kinderalbum"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:249
-#, fuzzy
 msgid "docmaintype_comic"
-msgstr "Dokumenttyp"
+msgstr "Comic"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:283
 msgid "docsubtype_comic"
-msgstr ""
+msgstr "Comic"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:287
 msgid "docsubtype_manga"
-msgstr ""
+msgstr "Manga"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:304
 msgid "docmaintype_electronic"
-msgstr ""
+msgstr "elektronischer Datenträger"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:338
 msgid "docsubtype_cdrom_dvdrom"
-msgstr ""
+msgstr "CD-ROM, DVD-ROM"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:342
 msgid "docsubtype_other_electronic_carrier"
-msgstr ""
+msgstr "anderer elektronischer Datenträger"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:356
-#, fuzzy
 msgid "docmaintype_game"
-msgstr "Dokumenttyp"
+msgstr "Spiel"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:392
 msgid "docsubtype_other_game"
-msgstr ""
+msgstr "anderes Spiel"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:396
 msgid "docsubtype_video_game"
-msgstr ""
+msgstr "Videospiel"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:400
 msgid "docsubtype_role-playing_game"
-msgstr ""
+msgstr "Rollenspiel"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:404
 msgid "docsubtype_board_game"
-msgstr ""
+msgstr "Gesellschaftsspiel"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:421
-#, fuzzy
 msgid "docmaintype_image"
-msgstr "Dokumenttyp"
+msgstr "Bild"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:459
 msgid "docsubtype_poster"
-msgstr ""
+msgstr "Plakat"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:463
 msgid "docsubtype_postcard"
-msgstr ""
+msgstr "Postkarte"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:467
-#, fuzzy
 msgid "docsubtype_photography"
 msgstr "Fotografie"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:471
 msgid "docsubtype_print_engraving"
-msgstr ""
+msgstr "Grafik"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:475
 msgid "docsubtype_calendar"
-msgstr ""
+msgstr "Kalender"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:479
 msgid "docsubtype_other_image"
-msgstr ""
+msgstr "anderes Bild"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:496
 msgid "docmaintype_language_method"
-msgstr ""
+msgstr "Sprachmethode"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:525
-#, fuzzy
 msgid "docmaintype_leaf"
-msgstr "Dokumenttyp"
+msgstr "mobiles Blatt"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:554
-#, fuzzy
 msgid "docmaintype_map"
-msgstr "Dokumenttyp"
+msgstr "Karte, Atlas"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:588
 msgid "docsubtype_map"
-msgstr ""
+msgstr "Karte, Plan"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:592
 msgid "docsubtype_atlas"
-msgstr ""
+msgstr "Atlas"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:606
 msgid "docmaintype_movie_series"
-msgstr ""
+msgstr "Film, Serie"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:641
 msgid "docsubtype_movie"
-msgstr ""
+msgstr "Film"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:645
-#, fuzzy
 msgid "docsubtype_series"
-msgstr "Unterreihe"
+msgstr "Serie"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:649
-#, fuzzy
 msgid "docsubtype_documentary"
-msgstr "Hostdokument"
+msgstr "Dokumentarfilm"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:666
 msgid "docmaintype_object"
-msgstr ""
+msgstr "Objekt"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:701
 msgid "docsubtype_kamishibai"
-msgstr ""
+msgstr "Kamishibai"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:705
 msgid "docsubtype_tablet"
-msgstr ""
+msgstr "Tablette, E-Book-Reader"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:709
 msgid "docsubtype_other_object"
-msgstr ""
+msgstr "anderes Objekt"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:726
-#, fuzzy
 msgid "docmaintype_other"
-msgstr "Dokumenttyp"
+msgstr "anderes"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:755
-#, fuzzy
 msgid "docmaintype_score"
-msgstr "Dokumenttyp"
+msgstr "Partitur"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:790
 msgid "docsubtype_printed_score"
-msgstr ""
+msgstr "gedruckte Partitur"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:794
 msgid "docsubtype_music_method"
-msgstr ""
+msgstr "Musikmethode"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:798
 msgid "docsubtype_manuscript_score"
-msgstr ""
+msgstr "Manuskript-Partitur"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:815
 msgid "docmaintype_serial"
-msgstr ""
+msgstr "Zeitschrift"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:844
 msgid "docmaintype_series"
-msgstr ""
+msgstr "Verlagsreihe"
 
 #: rero_ils/modules/documents/templates/rero_ils/_anonymous_button.html:25
 msgid "Log in (to see request options)"
@@ -6993,7 +6910,6 @@ msgid "Get"
 msgstr "Zugreifen"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:190
-#, fuzzy
 msgid "Articles"
 msgstr "Artikel"
 
@@ -7010,13 +6926,12 @@ msgid "Must have next expected date for regular frequencies."
 msgstr "Regelmässige Frequenzen müssen das nächste erwartete Datum enthalten."
 
 #: rero_ils/modules/holdings/api.py:157
-#, fuzzy
 msgid ""
 "Electronic Holding is not attached to the correct                     "
 "document type. document: {pid}"
 msgstr ""
-"Der Bestand ist nicht mit dem richtigen Dokumenttyp verbunden. Dokument: "
-"{pid}"
+"Der Online-Bestand ist nicht mit dem richtigen Dokumenttyp verbunden. "
+"Dokument: {pid}"
 
 #: rero_ils/modules/holdings/api.py:172
 msgid "{field} is allowed only for serial holdings"
@@ -7090,9 +7005,8 @@ msgid "URI"
 msgstr "URI"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:159
-#, fuzzy
 msgid "Predictions"
-msgstr "Entstehung"
+msgstr "Vorhersagen"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:179
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:4
@@ -7366,7 +7280,7 @@ msgstr "Textbeschreibung der fehlenden Lieferungen."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:544
 msgid "Number of issues to be bound together"
-msgstr ""
+msgstr "Anzahl der zu bindenden Lieferungen"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:590
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:473
@@ -7425,98 +7339,90 @@ msgid "Acquisition status"
 msgstr "Erwerbungsstatus"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:681
-#, fuzzy
 msgid "not_currently_received"
-msgstr "Kein Exemplar empfangen"
+msgstr "derzeit nicht empfangen"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:685
-#, fuzzy
 msgid "currently_received"
-msgstr "empfangen"
+msgstr "derzeit empfangen"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:689
 msgid "received_and_complete_or_ceased"
-msgstr ""
+msgstr "empfangen und vollständig, oder eingestellt"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:693
-#, fuzzy
 msgid "on_order"
-msgstr "geplante Bestellung"
+msgstr "bestellt"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:697
 msgid "other_receipt_or_acquisition_status"
-msgstr ""
+msgstr "anderer Empfang- oder Erwerbsstatus"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:701
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:772
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:826
-#, fuzzy
 msgid "unknown"
-msgstr "Eigentümer"
+msgstr "unbekannt"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:708
 msgid "Acquisition method"
 msgstr "Erwerbsmethode"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:732
-#, fuzzy
 msgid "deposit"
-msgstr "Vertrieb"
+msgstr "Ablage"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:736
 msgid "cooperative_or_consortial_purchase"
-msgstr ""
+msgstr "gemeinsamer oder konsortialer Kauf"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:740
-#, fuzzy
 msgid "exchange"
-msgstr "Wechselkurs"
+msgstr "Austausch"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:744
-#, fuzzy
 msgid "free"
-msgstr "Gebühr"
+msgstr "kostenlos"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:748
 msgid "gift"
-msgstr ""
+msgstr "Spende"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:752
 msgid "legal_deposit"
-msgstr ""
+msgstr "Pflichtabgabe"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:756
 msgid "membership"
-msgstr ""
+msgstr "Mitgliedschaft"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:760
 msgid "non_library_purchase"
-msgstr ""
+msgstr "Nicht-Bibliotheks-Kauf"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:764
 msgid "purchase"
-msgstr ""
+msgstr "Kauf"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:768
-#, fuzzy
 msgid "lease"
-msgstr "verspätet"
+msgstr "Miete"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:776
-#, fuzzy
 msgid "other_method_of_acquisition"
-msgstr "new_acquisition"
+msgstr "andere Erwerbsmethode"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:783
-#, fuzzy
 msgid "Expected acquisition end date"
-msgstr "Erwerbsdatum"
+msgstr "Erwartetes Enddatum der Erwerbung"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:784
 msgid ""
 "Indicate an intent to cancel, the effective date of a cancellation, or "
 "the date of the last expected part of a multipart or serial item."
 msgstr ""
+"Angabe einer Stornierungsabsicht, des effektiven Stornierungsdatums, oder "
+"des Datums des letzten erwarteten Teils einer fortlaufenden Ressource."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:805
 msgid "General retention policy"
@@ -7524,43 +7430,45 @@ msgstr "Allgemeine Aufbewahrungspolitik"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:830
 msgid "other_general_retention_policy"
-msgstr ""
+msgstr "andere allgemeine Aufbewahrungspolitik"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:834
 msgid "retained_except_as_replaced_by_updates"
-msgstr ""
+msgstr "aufbewahrt, ausser bei Ersatz durch Updates"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:838
 msgid "sample_issue_retained"
-msgstr ""
+msgstr "Musterausgabe aufbewahrt"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:842
 msgid "retained_until_replaced_by_microform"
-msgstr ""
+msgstr "aufbewahrt, bis durch Mikroform ersetzt"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:846
 msgid "retained_until_replaced_by_cumulation_replacement_volume_or_revision"
 msgstr ""
+"aufbewahrt, bis es durch eine Kumulierung, einen Ersatzband oder eine "
+"Revision ersetzt wird"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:850
 msgid "retained_for_a_limited_period"
-msgstr ""
+msgstr "für einen begrenzten Zeitraum aufbewahrt"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:854
 msgid "not_retained"
-msgstr ""
+msgstr "nicht aufbewahrt"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:858
 msgid "permanently_retained"
-msgstr ""
+msgstr "dauerhaft aufbewahrt"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:865
 msgid "Completeness"
-msgstr ""
+msgstr "Vollständigkeit"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:866
 msgid "Estimation of the general extent of the holdings for a multipart."
-msgstr ""
+msgstr "Schätzung des allgemeinen Umfangs des Bestandes."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:883
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:136
@@ -7569,26 +7477,24 @@ msgid "other"
 msgstr "anderes"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:887
-#, fuzzy
 msgid "complete"
-msgstr "Vorlage"
+msgstr "vollständig"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:891
 msgid "incomplete"
-msgstr ""
+msgstr "unvollständig"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:895
 msgid "scattered"
-msgstr ""
+msgstr "verstreut"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:899
-#, fuzzy
 msgid "not_applicable"
-msgstr "nicht verfügbar"
+msgstr "nicht zutreffend"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:906
 msgid "Separate or composite copy report"
-msgstr ""
+msgstr "Separater oder zusammengesetzter Bericht"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:907
 msgid ""
@@ -7596,20 +7502,21 @@ msgid ""
 "copy/subscription of a serial. If the holdings describes more than one "
 "copy/subscription, choose composite."
 msgstr ""
+"Ein separater Bericht enthält Bestandsinformationen für ein Exemplar/"
+"Abonnement der fortlaufenden Ressource. Wenn der Bestand mehr als ein "
+"Exemplar/Abonnement beschreibt, wählen Sie zusammengesetzt."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:921
-#, fuzzy
 msgid "separate"
-msgstr "privat"
+msgstr "separat"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:925
 msgid "composite"
-msgstr ""
+msgstr "zusammengesetzt"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:932
-#, fuzzy
 msgid "Masked"
-msgstr "musikalischer Direktor"
+msgstr "Ausgeblendet"
 
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:30
 msgid "PID"
@@ -8487,62 +8394,52 @@ msgid "recall"
 msgstr "Rückruf"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:4
-#, fuzzy
 msgid "Operation log"
-msgstr "Nummerierung"
+msgstr "Bedienprotokoll"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:5
 msgid "Operation log keeps the operation history of a resource."
-msgstr ""
+msgstr "Das Bedienprotokoll hält die Operationshistorie einer Ressource fest."
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:21
-#, fuzzy
 msgid "Schema to validate operation_log records against."
-msgstr "Schema zur Validierung von Organisationen."
+msgstr "Schema zur Validierung von Bedienprotokollen."
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:27
 msgid "Operation log PID"
-msgstr ""
+msgstr "PID des Bedienprotokolls"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:32
-#, fuzzy
 msgid "Record"
-msgstr "Blockflöte"
+msgstr "Ressource"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:36
-#, fuzzy
 msgid "record"
-msgstr "Blockflöte"
+msgstr "Ressource"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:43
-#, fuzzy
 msgid "User"
 msgstr "Benutzer"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:47
-#, fuzzy
 msgid "User URI"
-msgstr "Benutzer"
+msgstr "Benutzer-URI"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:54
-#, fuzzy
 msgid "User name"
 msgstr "Benutzername"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:59
-#, fuzzy
 msgid "Operation date"
-msgstr "Erstellungsdatum"
+msgstr "Datum der Operation"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:64
-#, fuzzy
 msgid "Operation type"
-msgstr "Ausleihtyp"
+msgstr "Operationstyp"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:72
-#, fuzzy
 msgid "User organisation"
-msgstr "Organisation"
+msgstr "Organisation des Benutzers"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:5
 msgid "JSON schema for an organisation"
@@ -10724,4 +10621,3 @@ msgstr "Ihr Passwort wurde erfolgreich zurückgesetzt."
 
 #~ msgid "There is already one pickup location in this library."
 #~ msgstr "Es gibt bereits einen Abholort in dieser Bibliothek."
-
