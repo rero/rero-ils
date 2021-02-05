@@ -562,7 +562,7 @@ def get_articles(record):
     for hit in search.scan():
         articles.append({
             'title': title_format_text_head(hit.title),
-            'pid':hit.pid
+            'pid': hit.pid
         })
     return articles
 

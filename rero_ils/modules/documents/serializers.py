@@ -21,7 +21,7 @@ from flask import current_app, request
 from invenio_records_rest.serializers.response import record_responsify, \
     search_responsify
 
-from .utils import create_contributions
+from .utils import create_contributions, filter_document_type_buckets
 from ..documents.api import Document
 from ..documents.utils import title_format_text_head
 from ..documents.views import create_title_alternate_graphic, \
@@ -132,6 +132,13 @@ class DocumentJSONSerializer(JSONSerializer):
                     if lib_agg:
                         results['aggregations']['library'] = lib_agg
                         del results['aggregations']['organisation']
+
+        # Correct document type buckets
+        new_type_buckets = []
+        type_buckets = results['aggregations']['document_type']['buckets']
+        results['aggregations']['document_type']['buckets'] = \
+        filter_document_type_buckets(type_buckets)
+
 
         return super(
             DocumentJSONSerializer, self).post_process_serialize_search(

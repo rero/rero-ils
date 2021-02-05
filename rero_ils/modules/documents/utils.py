@@ -26,9 +26,53 @@ import requests
 from elasticsearch_dsl.utils import AttrDict
 from flask import current_app
 from flask import request as flask_request
+from invenio_jsonschemas.proxies import current_jsonschemas
+from werkzeug.local import LocalProxy
 
 from .dojson.contrib.marc21tojson.model import remove_trailing_punctuation
+from ..utils import get_schema_for_resource, memoized
 from ...utils import get_i18n_supported_languages
+
+_records_state = LocalProxy(lambda: current_app.extensions['invenio-records'])
+
+
+@memoized(timeout=3600)
+def get_document_types_from_schema(schema='doc'):
+    """Create document type definition from schema."""
+    path = current_jsonschemas.url_to_path(get_schema_for_resource(schema))
+    schema = current_jsonschemas.get_schema(path=path)
+    schema = _records_state.replace_refs(schema)
+    schema_types = schema.get(
+        'properties', {}).get('type', {}).get('items', {}).get('oneOf', [])
+    doc_types = {}
+    for schema_type in schema_types:
+        doc_types[schema_type['title']] = {}
+        sub_types = schema_type.get(
+            'properties', {}).get('subtype', {}).get('enum', [])
+        for sub_type in sub_types:
+            doc_types[schema_type['title']][sub_type] = True
+    return doc_types
+
+
+def filter_document_type_buckets(buckets):
+    """Removes unwanted sub types from buckets."""
+    doc_types = get_document_types_from_schema()
+    new_type_buckets = buckets
+    if doc_types:
+        new_type_buckets = []
+        for type_bucket in buckets:
+            new_type_bucket = type_bucket
+            main_type = type_bucket['key']
+            new_subtype_buckets = []
+            subtype_buckets = type_bucket['document_subtype']['buckets']
+            for subtype_bucket in subtype_buckets:
+                if doc_types.get(main_type, {}).get(subtype_bucket['key']):
+                    new_subtype_buckets.append(subtype_bucket)
+            new_type_bucket[
+                'document_subtype'
+            ]['buckets'] = new_subtype_buckets
+            new_type_buckets.append(new_type_bucket)
+    return new_type_buckets
 
 
 def clean_text(data):
