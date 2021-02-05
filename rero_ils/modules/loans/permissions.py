@@ -77,7 +77,10 @@ class LoanPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
-        # deny all
+        if current_patron \
+           and current_organisation.pid == Loan(record).organisation_pid:
+            # Only system librarian could update a loan
+            return current_patron.is_system_librarian
         return False
 
     @classmethod

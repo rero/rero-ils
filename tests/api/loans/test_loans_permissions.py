@@ -60,7 +60,8 @@ def test_loans_permissions_api(client, patron_martigny_no_email,
 
     # Logged as system librarian
     #   * sys_lib can 'list' and 'read' all loans
-    #   * sys_lib can't 'read' 'update', 'delete' loans
+    #   * sys_lib can 'update' loans for its own organisation.
+    #   * sys_lib can't 'create', 'delete' loans
     login_user_via_session(client, system_librarian_martigny_no_email.user)
     res = client.get(loan_martigny_permission_url)
     assert res.status_code == 200
@@ -68,7 +69,7 @@ def test_loans_permissions_api(client, patron_martigny_no_email,
     assert data['read']['can']
     assert data['list']['can']
     assert not data['create']['can']
-    assert not data['update']['can']
+    assert data['update']['can']
     assert not data['delete']['can']
 
     res = client.get(loan_saxon_permission_url)
@@ -129,6 +130,12 @@ def test_loan_permissions(patron_martigny_no_email,
         'rero_ils.modules.loans.permissions.current_organisation',
         org_martigny
     ):
+        assert LoanPermission.list(None, loan_martigny)
+        assert LoanPermission.read(None, loan_martigny)
+        assert not LoanPermission.create(None, loan_martigny)
+        assert LoanPermission.update(None, loan_martigny)
+        assert not LoanPermission.delete(None, loan_martigny)
+
         assert LoanPermission.list(None, loan_saxon)
         assert LoanPermission.read(None, loan_saxon)
         assert not LoanPermission.create(None, loan_saxon)

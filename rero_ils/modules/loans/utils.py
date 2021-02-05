@@ -187,17 +187,17 @@ def can_be_requested(loan):
 
 def loan_build_item_ref(loan_pid, loan):
     """Build $ref for the Item attached to the Loan."""
-    return get_ref_for_pid('items', loan.item_pid)
+    return get_ref_for_pid('items', loan['item_pid'])
 
 
 def loan_build_patron_ref(loan_pid, loan):
     """Build $ref for the Patron attached to the Loan."""
-    return get_ref_for_pid('patrons', loan.patron_pid)
+    return get_ref_for_pid('patrons', loan['patron_pid'])
 
 
 def loan_build_document_ref(loan_pid, loan):
     """Build $ref for the Document attached to the Loan."""
-    return get_ref_for_pid('documents', loan.document_pid)
+    return get_ref_for_pid('documents', loan['document_pid'])
 
 
 def validate_item_pickup_transaction_locations(loan, destination, **kwargs):

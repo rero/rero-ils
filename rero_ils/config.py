@@ -902,7 +902,7 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_loaders={
             'application/json': lambda: PatronTransactionEvent(
-                request.get_json()),
+                request.get_json())
         },
         record_class=('rero_ils.modules.patron_transaction_events.api:'
                       'PatronTransactionEvent'),
@@ -2405,6 +2405,8 @@ CIRCULATION_REST_ENDPOINTS = dict(
         },
         record_loaders={
             'application/json': lambda: Loan(request.get_json()),
+            'application/json-patch+json':
+                'invenio_records_rest.loaders.json_patch_loader'
         },
         record_class='rero_ils.modules.loans.api:Loan',
         search_factory_imp='rero_ils.query:loans_search_factory',
