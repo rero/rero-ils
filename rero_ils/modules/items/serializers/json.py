@@ -19,7 +19,8 @@
 """Item serializers."""
 
 from rero_ils.modules.documents.api import search_document_by_pid
-from rero_ils.modules.documents.utils import title_format_text_head
+from rero_ils.modules.documents.utils import filter_document_type_buckets, \
+    title_format_text_head
 from rero_ils.modules.item_types.api import ItemType
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
@@ -110,4 +111,14 @@ class ItemsJSONSerializer(JSONSerializer):
             vendor = Vendor.get_record_by_pid(vendor_term.get('key'))
             vendor_term['name'] = vendor.get('name')
 
+        # Correct document type buckets
+        buckets = results['aggregations']['document_type']['buckets']
+        results['aggregations']['document_type']['buckets'] = \
+            filter_document_type_buckets(buckets)
+
         return super().post_process_serialize_search(results, pid_fetcher)
+
+        # Correct document type buckets
+        buckets = results['aggregations']['document_type']['buckets']
+        results['aggregations']['document_type']['buckets'] = \
+            filter_document_type_buckets(buckets)

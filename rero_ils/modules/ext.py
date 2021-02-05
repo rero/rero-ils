@@ -182,7 +182,7 @@ class REROILSAPP(object):
 
         after_record_insert.connect(create_subscription_patron_transaction)
         after_record_update.connect(create_subscription_patron_transaction)
-        
+
         after_record_insert.connect(operation_log_record_create)
         after_record_update.connect(operation_log_record_update)
 
