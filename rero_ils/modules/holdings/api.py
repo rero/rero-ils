@@ -725,9 +725,13 @@ class HoldingsIndexer(IlsRecordsIndexer):
     record_cls = Holding
 
     def index(self, record):
-        """Indexing a holding record."""
+        """Indexing a holding record.
+
+        Parent document is indexed as well.
+        """
         return_value = super().index(record)
-        # current_search.flush_and_refresh(HoldingsSearch.Meta.index)
+        document = Document.get_record_by_pid(record.document_pid)
+        document.reindex()
         return return_value
 
     def bulk_index(self, record_id_iterator):
