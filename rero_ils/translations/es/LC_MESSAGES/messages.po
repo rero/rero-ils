@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-02-03 08:42+0100\n"
-"PO-Revision-Date: 2021-02-04 15:16+0000\n"
+"PO-Revision-Date: 2021-02-06 11:47+0000\n"
 "Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/es/>\n"
@@ -6242,7 +6242,6 @@ msgid "rdami:1003"
 msgstr "publicación seriada"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:155
-#, fuzzy
 msgid "serialInSerial"
 msgstr "periódico en un periódico"
 
@@ -6444,34 +6443,28 @@ msgid "rdapm:1015"
 msgstr "impresión en caldo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:92
-#, fuzzy
 msgid "rdapm:1016"
-msgstr "unidad individual"
+msgstr "inscripción"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:96
-#, fuzzy
 msgid "rdapm:1017"
-msgstr "unidad individual"
+msgstr "estampación"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:100
-#, fuzzy
 msgid "rdapm:1018"
-msgstr "unidad individual"
+msgstr "gofrado"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:104
-#, fuzzy
 msgid "rdapm:1019"
-msgstr "unidad individual"
+msgstr "punto rígido"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:108
-#, fuzzy
 msgid "rdapm:1020"
-msgstr "recurso integrable"
+msgstr "carta a microcápsula"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:112
-#, fuzzy
 msgid "rdapm:1021"
-msgstr "monografía en varias partes"
+msgstr "termoforma"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:3
 msgid "Provision activities"
@@ -6572,14 +6565,12 @@ msgid "bf:Title"
 msgstr "título"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:38
-#, fuzzy
 msgid "bf:ParallelTitle"
-msgstr "Título paralelo"
+msgstr "título paralelo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:42
-#, fuzzy
 msgid "bf:VariantTitle"
-msgstr "Título alternativo"
+msgstr "título alternativo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:52
 msgid "Main titles"
@@ -6643,9 +6634,8 @@ msgid "Language from which a resource is translated."
 msgstr "Idioma desde el que se traduce un recurso."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:3
-#, fuzzy
 msgid "Types"
-msgstr "tipo"
+msgstr "Tipos"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:17
 msgid "docmaintype_archives"
@@ -6656,9 +6646,8 @@ msgid "docmaintype_article"
 msgstr "Artículo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:75
-#, fuzzy
 msgid "docmaintype_audio"
-msgstr "tipo de documento"
+msgstr "documento audio"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:111
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:115
@@ -6674,9 +6663,8 @@ msgid "docsubtype_recorded_words"
 msgstr "Palabras grabadas"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:140
-#, fuzzy
 msgid "docmaintype_book"
-msgstr "tipo de documento"
+msgstr "libro, texto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:179
 msgid "docsubtype_other_book"
@@ -6711,9 +6699,8 @@ msgid "docmaintype_children"
 msgstr "Niño"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:249
-#, fuzzy
 msgid "docmaintype_comic"
-msgstr "tipo de documento"
+msgstr "cómic"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:283
 msgid "docsubtype_comic"
@@ -6736,9 +6723,8 @@ msgid "docsubtype_other_electronic_carrier"
 msgstr "Otros medios electrónicos"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:356
-#, fuzzy
 msgid "docmaintype_game"
-msgstr "tipo de documento"
+msgstr "juego"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:392
 msgid "docsubtype_other_game"
@@ -6757,9 +6743,8 @@ msgid "docsubtype_board_game"
 msgstr "Juego de mesa"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:421
-#, fuzzy
 msgid "docmaintype_image"
-msgstr "tipo de documento"
+msgstr "imagen"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:459
 msgid "docsubtype_poster"
@@ -6770,9 +6755,8 @@ msgid "docsubtype_postcard"
 msgstr "Tarjeta postal"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:467
-#, fuzzy
 msgid "docsubtype_photography"
-msgstr "Fotografía"
+msgstr "fotografía"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:471
 msgid "docsubtype_print_engraving"
@@ -6791,14 +6775,12 @@ msgid "docmaintype_language_method"
 msgstr "Método lingüístico"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:525
-#, fuzzy
 msgid "docmaintype_leaf"
-msgstr "tipo de documento"
+msgstr "hoja movible"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:554
-#, fuzzy
 msgid "docmaintype_map"
-msgstr "tipo de documento"
+msgstr "mapa, atlas"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:588
 msgid "docsubtype_map"
@@ -6817,14 +6799,12 @@ msgid "docsubtype_movie"
 msgstr "Película"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:645
-#, fuzzy
 msgid "docsubtype_series"
-msgstr "Subseries"
+msgstr "series"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:649
-#, fuzzy
 msgid "docsubtype_documentary"
-msgstr "Documento anfitrión"
+msgstr "documentario"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:666
 msgid "docmaintype_object"
@@ -6843,14 +6823,12 @@ msgid "docsubtype_other_object"
 msgstr "Otro objeto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:726
-#, fuzzy
 msgid "docmaintype_other"
-msgstr "tipo de documento"
+msgstr "otro"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:755
-#, fuzzy
 msgid "docmaintype_score"
-msgstr "tipo de documento"
+msgstr "partición"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:790
 msgid "docsubtype_printed_score"
@@ -6926,9 +6904,8 @@ msgid "Get"
 msgstr "Obtener"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:190
-#, fuzzy
 msgid "Articles"
-msgstr "artículo"
+msgstr "artículos"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:206
 msgid "Export Formats"
@@ -7021,9 +6998,8 @@ msgid "URI"
 msgstr "URI"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:159
-#, fuzzy
 msgid "Predictions"
-msgstr "Producción"
+msgstr "Predicciones"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:179
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:4
@@ -7376,9 +7352,8 @@ msgid "on_order"
 msgstr "Pedido planificado"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:697
-#, fuzzy
 msgid "other_receipt_or_acquisition_status"
-msgstr "Otro recibido or estado de adquisición"
+msgstr "otro estado de recepción o de adquisición"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:701
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:772
@@ -7499,9 +7474,8 @@ msgid "other"
 msgstr "otro"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:887
-#, fuzzy
 msgid "complete"
-msgstr "Template"
+msgstr "completo"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:891
 msgid "incomplete"
@@ -7512,9 +7486,8 @@ msgid "scattered"
 msgstr "esparcido"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:899
-#, fuzzy
 msgid "not_applicable"
-msgstr "no disponible"
+msgstr "no aplicable"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:906
 msgid "Separate or composite copy report"
@@ -7531,18 +7504,16 @@ msgstr ""
 "un ejemplar/suscripción, seleccione compuesto."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:921
-#, fuzzy
 msgid "separate"
-msgstr "privado"
+msgstr "separado"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:925
 msgid "composite"
 msgstr "compuesto"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:932
-#, fuzzy
 msgid "Masked"
-msgstr "director musical"
+msgstr "Enmascarado"
 
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:30
 msgid "PID"
@@ -7700,14 +7671,12 @@ msgstr ""
 "https://ils.rero.ch/api/patrons/<PID>."
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:106
-#, fuzzy
 msgid "Loan state"
-msgstr "Fecha de préstamo"
+msgstr "Estado de préstamo"
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:114
-#, fuzzy
 msgid "Choose a status"
-msgstr "Estado del número"
+msgstr "Elige un estado"
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:118
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:154
@@ -7909,9 +7878,8 @@ msgid "Item Type URI"
 msgstr "URI del tipo de ejemplar"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:178
-#, fuzzy
 msgid "Temporary circulation category"
-msgstr "Categoría de préstamo"
+msgstr "Categoría provisional de circulación"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:179
 msgid ""
