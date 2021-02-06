@@ -158,6 +158,7 @@
   "holding1": {
     "$schema": "https://ils.rero.ch/schemas/holdings/holding-v0.0.1.json",
     "pid": "holding1",
+    "_masked": false,
     "call_number": "h00001",
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/doc1"
@@ -173,6 +174,7 @@
   "holding2": {
     "$schema": "https://ils.rero.ch/schemas/holdings/holding-v0.0.1.json",
     "pid": "holding2",
+    "_masked": false,
     "call_number": "h00002",
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/doc1"
@@ -188,6 +190,7 @@
   "holding3": {
     "$schema": "https://ils.rero.ch/schemas/holdings/holding-v0.0.1.json",
     "pid": "holding3",
+    "_masked": false,
     "call_number": "h00003",
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/doc1"
@@ -203,6 +206,7 @@
   "holding4": {
     "$schema": "https://ils.rero.ch/schemas/holdings/holding-v0.0.1.json",
     "pid": "holding4",
+    "_masked": false,
     "call_number": "h00004",
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/doc1"
@@ -218,6 +222,7 @@
   "holding5": {
     "$schema": "https://ils.rero.ch/schemas/holdings/holding-v0.0.1.json",
     "pid": "holding5",
+    "_masked": false,
     "call_number": "h00005",
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/doc4"
@@ -291,6 +296,7 @@
   "holding6": {
     "$schema": "https://ils.rero.ch/schemas/holdings/holding-v0.0.1.json",
     "pid": "holding6",
+    "_masked": false,
     "call_number": "h00006",
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/doc4"

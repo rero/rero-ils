@@ -71,7 +71,9 @@ def holding_pids(document_pid):
     from ..holdings.api import HoldingsSearch
     try:
         view = flask_request.args.get('view')
-        query = HoldingsSearch().filter('term', document__pid=document_pid) \
+        query = HoldingsSearch().filter(
+            'term', _masked=False).filter(
+            'term', document__pid=document_pid) \
             .sort({'library.pid': {'order': 'asc'}}) \
             .params(preserve_order=True)
         if view != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):

@@ -34,6 +34,19 @@ def test_holdings_pids(es_clear, client, holding_lib_sion, holding_lib_fully):
     assert holding_lib_sion.get('pid') in data
     assert holding_lib_fully.get('pid') in data
 
+    holding_lib_sion['_masked'] = True
+    holding_lib_sion.update(holding_lib_sion, dbcommit=True, reindex=True)
+    url = url_for(
+        'api_holding.holding_pids',
+        document_pid=holding_lib_sion.document_pid,
+        view='global'
+    )
+    res = client.get(url)
+    assert res.status_code == 200
+
+    data = get_json(res)
+    assert len(data) == 1
+
     url = url_for(
         'api_holding.holding_pids',
         document_pid=holding_lib_fully.document_pid,
@@ -45,3 +58,4 @@ def test_holdings_pids(es_clear, client, holding_lib_sion, holding_lib_fully):
     data = get_json(res)
     assert len(data) == 1
     assert holding_lib_fully.get('pid') in data
+

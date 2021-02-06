@@ -155,7 +155,8 @@ def viewcode_patron_search_factory(self, search, query_parser=None):
         if view != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
             org = Organisation.get_record_by_viewcode(view)
             search = search.filter(
-                'term', organisation__pid=org['pid']
+                'term', organisation__pid=org['pid']).filter(
+                    'term', _masked=False
             )
     # Admin interface
     elif current_patron:
