@@ -131,6 +131,7 @@ describe(`Test 'less than one day' checkout`, function() {
     cy.get('#circulation-menu').click();
     cy.scanPatronBarcodeThenItemBarcode(this.users.patrons.nyota, this.itemBarcode);
     cy.get('#item-' + this.itemBarcode + ' [name=circ-info').should('contain', cy.getDateDisplayed(this.currentDate, 'en', '/'));
+    cy.get('#item-' + this.itemBarcode + ' [name=action-done').should('contain', this.common.itemAction.checkedOut);
   });
 
   it('Checkin the item', function() {
@@ -138,7 +139,7 @@ describe(`Test 'less than one day' checkout`, function() {
     cy.scanItemBarcode(this.itemBarcode);
     // Assert that the item was checked in and that it is on shelf
     cy.get('#item-' + this.itemBarcode).should('contain', this.itemBarcode);
-    cy.get('#item-' + this.itemBarcode).should('contain', 'on shelf');
-    cy.get('#item-' + this.itemBarcode).should('contain', 'checked in');
+    cy.get('#item-' + this.itemBarcode).should('contain', this.common.itemStatus.onShelf);
+    cy.get('#item-' + this.itemBarcode).should('contain', this.common.itemAction.checkedIn);
   });
 });

@@ -1,3 +1,13 @@
 {
-  "uniquePwd": "123456"
+  "uniquePwd": "123456",
+  "itemStatus": {
+    "transit": "in transit",
+    "onShelf": "on shelf",
+    "atDesk": "at desk"
+  },
+  "itemAction": {
+    "checkedIn": "checked in",
+    "checkedOut": "checked out",
+    "receive": "receive"
+  }
 }
