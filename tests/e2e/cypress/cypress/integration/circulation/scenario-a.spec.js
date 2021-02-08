@@ -82,13 +82,16 @@ describe('Circulation scenario A: standard loan', function() {
     /**
      * James makes a request on item, to be picked up at Starfleet library.
      */
+    cy.intercept('POST', '/api/item/request').as('itemRequest');
     cy.login(this.users.patrons.james.email, this.common.uniquePwd);
     // Search for the item
     cy.goToPublicDocumentDetailView(documentPid);
     // Request the item
-    cy.get('#' + this.itemBarcode + '-dropdownMenu').click();
+    cy.get('#item-request-' + itemPid + ' .btn').click();
     // Select pickup location (force because menu can go over browser view)
-    cy.get('#' + this.items.starfleetStandardLoan.code).click({force: true});
+    cy.get('#pickup').select(this.items.starfleetStandardLoan.pickupName);
+    cy.get('#pickup-location-' + itemPid + ' .btn').click();
+    cy.wait('@itemRequest');
     // Go to user profile, on requests-tab
     cy.visit('/global/patrons/profile');
     cy.get('#requests-tab').click();
@@ -100,6 +103,7 @@ describe('Circulation scenario A: standard loan', function() {
     /**
      * Leonard validates James' request.
      */
+    cy.intercept('POST', '/api/item/validate_request').as('validateRequest');
     cy.adminLogin(this.users.librarians.leonard.email, this.common.uniquePwd);
     // Go to requests list
     cy.get('#user-services-menu').click();
@@ -108,7 +112,7 @@ describe('Circulation scenario A: standard loan', function() {
     cy.get('#request-' + this.itemBarcode + ' [name="barcode"]').should('contain', this.itemBarcode);
     // Enter the barcode and validate
     cy.get('#search').type(this.itemBarcode).type('{enter}');
-
+    cy.wait('@validateRequest');
     // The item should be marked as available in user profile view
     // Go to patrons list
     cy.get('#user-services-menu').click();
@@ -133,6 +137,7 @@ describe('Circulation scenario A: standard loan', function() {
     cy.scanPatronBarcodeThenItemBarcode(this.users.patrons.james, this.itemBarcode);
     // Item barcode should be present
     cy.get('#item-' + this.itemBarcode).should('contain', this.itemBarcode);
+    cy.get('#item-' + this.itemBarcode).should('contain', this.common.itemAction.checkedOut);
   });
 
   it('4. The item is returned at owning library', function() {
@@ -148,7 +153,7 @@ describe('Circulation scenario A: standard loan', function() {
     cy.scanItemBarcode(this.itemBarcode);
     // Assert that the item was checked in and that it is on shelf
     cy.get('#item-' + this.itemBarcode).should('contain', this.itemBarcode);
-    cy.get('#item-' + this.itemBarcode).should('contain', 'on shelf');
-    cy.get('#item-' + this.itemBarcode).should('contain', 'checked in');
+    cy.get('#item-' + this.itemBarcode).should('contain', this.common.itemStatus.onShelf);
+    cy.get('#item-' + this.itemBarcode).should('contain', this.common.itemAction.checkedIn);
   });
 });

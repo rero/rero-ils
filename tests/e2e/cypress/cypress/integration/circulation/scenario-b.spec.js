@@ -84,14 +84,16 @@ describe('Circulation scenario B: standard loan with transit', function() {
     /**
      * James makes a request on item, to be picked up at Starfleet library
      */
+    cy.intercept('POST', '/api/item/request').as('itemRequest');
     // Login as patron
     cy.login(this.users.patrons.james.email, this.common.uniquePwd);
     // Search for the item
     cy.goToPublicDocumentDetailView(documentPid);
     // Request the item
-    cy.get('#' + this.itemBarcode + '-dropdownMenu').click();
+    cy.get('#item-request-' + itemPid + ' .btn').click();
     // Select pickup location (force because menu can go over browser view)
-    cy.get('#' + this.items.starfleetStandardLoanWithTransit.code).click({force: true});
+    cy.get('#pickup').select(this.items.starfleetStandardLoanWithTransit.pickupName);
+    cy.get('#pickup-location-' + itemPid + ' .btn').click();    cy.wait('@itemRequest');
     // Go to user profile, directly on requests-tab
     cy.visit('/global/patrons/profile');
     cy.get('#requests-tab').click();
@@ -116,7 +118,7 @@ describe('Circulation scenario B: standard loan with transit', function() {
     // Go to document detail view
     cy.goToProfessionalDocumentDetailView(documentPid);
     // Check that the item is in transit
-    cy.get('#item-' + this.itemBarcode + ' > [name="status"]').should('contain', 'transit');
+    cy.get('#item-' + this.itemBarcode + ' [name="status"]').should('contain', 'transit');
   });
 
   it('3. The item is received at destination library', function() {
@@ -129,7 +131,7 @@ describe('Circulation scenario B: standard loan with transit', function() {
     // Enter item barcode for receive
     cy.get('#search').type(this.itemBarcode).type('{enter}');
     // Check that the item has been received
-    cy.get('#item-' + this.itemBarcode + ' [name="action-done"]').should('contain', 'receive');
+    cy.get('#item-' + this.itemBarcode + ' [name="action-done"]').should('contain', this.common.itemAction.receive);
   });
 
   it('4. The item is checked out for patron at second library', function() {
@@ -143,8 +145,8 @@ describe('Circulation scenario B: standard loan with transit', function() {
     // Checkout
     cy.scanPatronBarcodeThenItemBarcode(james, this.itemBarcode)
     // Check that the checkout has been done
-    cy.get('#item-' + this.itemBarcode + ' [name="action-done"] > i')
-    .should('have.class', 'fa-arrow-circle-o-right')
+    cy.get('#item-' + this.itemBarcode + ' [name="action-done"]')
+    .should('contain', this.common.itemAction.checkedOut)
   });
 
   it('5. The item is returned at second library', function() {
@@ -157,11 +159,11 @@ describe('Circulation scenario B: standard loan with transit', function() {
     // Checkin
     cy.scanItemBarcode(this.itemBarcode);
     // Check that the checkin has been done
-    cy.get('#item-' + this.itemBarcode + ' [name="action-done"] > i')
-    .should('have.class', 'fa-arrow-circle-o-down');
+    cy.get('#item-' + this.itemBarcode + ' [name="action-done"]')
+    .should('contain', this.common.itemAction.checkedIn);
     // Check that the item is in transit
     cy.get('#item-' + this.itemBarcode + ' [name="circ-info"] [name="status"]')
-    .should('contain', 'in transit');
+    .should('contain', this.common.itemStatus.transit);
   });
 
   it('6. The item is received at owning library', function() {
@@ -174,9 +176,9 @@ describe('Circulation scenario B: standard loan with transit', function() {
     // Receive
     cy.scanItemBarcode(this.itemBarcode);
     // Check that the item has been received
-    cy.get('#item-' + this.itemBarcode + ' [name="action-done"]').should('contain', 'receive');
+    cy.get('#item-' + this.itemBarcode + ' [name="action-done"]').should('contain', this.common.itemAction.receive);
     // Check that the item is on shelf
     cy.get('#item-' + this.itemBarcode + ' [name="circ-info"] [name="status"]')
-    .should('contain', 'on shelf');
+    .should('contain', this.common.itemStatus.onShelf);
   });
 });
