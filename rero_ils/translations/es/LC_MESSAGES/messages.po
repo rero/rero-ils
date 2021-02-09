@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-02-03 08:42+0100\n"
-"PO-Revision-Date: 2021-02-06 11:47+0000\n"
+"PO-Revision-Date: 2021-02-09 09:24+0000\n"
 "Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/es/>\n"
@@ -8155,23 +8155,20 @@ msgstr ""
 "organizacional."
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:18
-#, fuzzy
 msgid "Schema to validate local_field records against."
-msgstr "Esquema para validar la noticia del ejemplar."
+msgstr "Esquema para validar los campos locales."
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:24
 msgid "Local field PID"
 msgstr "PID del campo local"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:40
-#, fuzzy
 msgid "Parent"
-msgstr "pago"
+msgstr "Recurso padre"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:48
-#, fuzzy
 msgid "Parent URI"
-msgstr "pago"
+msgstr "URI del recurso padre"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:71
 msgid "Field 1"
@@ -8396,9 +8393,8 @@ msgid "recall"
 msgstr "reclamación"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:4
-#, fuzzy
 msgid "Operation log"
-msgstr "Numeración"
+msgstr "Registro de operaciones"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:5
 msgid "Operation log keeps the operation history of a resource."
@@ -8407,53 +8403,44 @@ msgstr ""
 "recurso."
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:21
-#, fuzzy
 msgid "Schema to validate operation_log records against."
-msgstr "Esquema para validar las organizaciones."
+msgstr "Esquema para validar los registros de operaciones."
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:27
 msgid "Operation log PID"
 msgstr "PID del registro de operación"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:32
-#, fuzzy
 msgid "Record"
-msgstr "técnico de grabación"
+msgstr "Recurso"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:36
-#, fuzzy
 msgid "record"
-msgstr "técnico de grabación"
+msgstr "recurso"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:43
-#, fuzzy
 msgid "User"
-msgstr "usuario"
+msgstr "Usuario"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:47
-#, fuzzy
 msgid "User URI"
-msgstr "usuario"
+msgstr "URI del usuario"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:54
-#, fuzzy
 msgid "User name"
 msgstr "Nombre del usuario"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:59
-#, fuzzy
 msgid "Operation date"
-msgstr "Fecha de creación"
+msgstr "Fecha de la operación"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:64
-#, fuzzy
 msgid "Operation type"
-msgstr "Tipo de préstamo"
+msgstr "Tipo de operación"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:72
-#, fuzzy
 msgid "User organisation"
-msgstr "organización"
+msgstr "Organización del usuario"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:5
 msgid "JSON schema for an organisation"
@@ -8997,13 +8984,12 @@ msgid "Communication channel"
 msgstr "Canal de comunicación"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:249
-#, fuzzy
 msgid ""
 "For the email channel, the user must have an e-mail or an additional "
 "e-mail."
 msgstr ""
-"El usuario debe tener un correo electrónico. De lo contrario, no se "
-"enviará ninguna notificación."
+"Para el canal de email, el usuario tiene que tener un email o un email "
+"adicional."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:259
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:41
@@ -9218,9 +9204,8 @@ msgstr ""
 "visible al usuario y al personal de biblioteca."
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:131
-#, fuzzy
 msgid "The loan history is not saved."
-msgstr "El correo electrónico no es válido."
+msgstr "El histórico de préstamo no es salvado."
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:51
 msgid "item at desk"
@@ -9619,15 +9604,13 @@ msgstr "está suprimido."
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:22
 #: rero_ils/theme/templates/security/email/reset_notice.html:22
-#, fuzzy
 msgid "Dear"
-msgstr "Año"
+msgstr "Querido/a"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:24
 #: rero_ils/theme/templates/security/email/reset_notice.html:24
-#, fuzzy
 msgid "Dear patron"
-msgstr "usuario"
+msgstr "Querido usuario"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:26
 msgid "Someone requested that the password for your RERO ID account be reset."
@@ -9636,7 +9619,6 @@ msgstr ""
 "reinicializada."
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:27
-#, fuzzy
 msgid "Reset my password"
 msgstr "Restablecer contraseña"
 
@@ -9655,9 +9637,8 @@ msgstr "Cordialmente"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:30
 #: rero_ils/theme/templates/security/email/reset_notice.html:28
-#, fuzzy
 msgid "Your library"
-msgstr "biblioteca"
+msgstr "Vuestra biblioteca"
 
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
