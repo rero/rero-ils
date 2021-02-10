@@ -444,6 +444,49 @@ def loan_validated_martigny(
     return loan
 
 
+@pytest.fixture(scope="module")
+def loan_validated_sion(
+        app,
+        document,
+        item2_lib_sion,
+        loc_public_sion,
+        item_type_regular_sion,
+        librarian_sion,
+        patron_sion,
+        circulation_policies):
+    """Request and validate item to a patron."""
+    transaction_date = datetime.now(timezone.utc).isoformat()
+
+    item2_lib_sion.request(
+        patron_pid=patron_sion.pid,
+        transaction_location_pid=loc_public_sion.pid,
+        transaction_user_pid=librarian_sion.pid,
+        transaction_date=transaction_date,
+        pickup_location_pid=loc_public_sion.pid,
+        document_pid=item2_lib_sion.replace_refs()['document']['pid']
+    )
+    flush_index(ItemsSearch.Meta.index)
+    flush_index(LoansSearch.Meta.index)
+    flush_index(NotificationsSearch.Meta.index)
+
+    loan = list(item2_lib_sion.get_loans_by_item_pid(
+        item_pid=item2_lib_sion.pid))[0]
+    item2_lib_sion.validate_request(
+        pid=loan.pid,
+        patron_pid=patron_sion.pid,
+        transaction_location_pid=loc_public_sion.pid,
+        transaction_user_pid=librarian_sion.pid,
+        transaction_date=transaction_date,
+        pickup_location_pid=loc_public_sion.pid,
+        document_pid=item2_lib_sion.replace_refs()['document']['pid']
+    )
+    flush_index(ItemsSearch.Meta.index)
+    flush_index(LoansSearch.Meta.index)
+    flush_index(NotificationsSearch.Meta.index)
+    loan = list(item2_lib_sion.get_loans_by_item_pid(
+        item_pid=item2_lib_sion.pid))[0]
+    return loan
+
 # ------------ Notifications: availability ----------
 @pytest.fixture(scope="module")
 def notification_availability_martigny(loan_validated_martigny):
@@ -453,6 +496,13 @@ def notification_availability_martigny(loan_validated_martigny):
         notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE
     )
 
+@pytest.fixture(scope="module")
+def notification_availability_sion(loan_validated_sion):
+    """Availability notification of sion."""
+    return get_notification(
+        loan_validated_sion,
+        notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE
+    )
 
 # ------------ Notifications: dummy notification ----------
 

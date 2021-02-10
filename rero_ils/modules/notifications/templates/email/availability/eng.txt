@@ -1,4 +1,5 @@
 Invitation to pick up a document
+{%- include('email/_patron_address.txt') %}
 Dear patron,
 
 The document you requested is now available. You can pick it up at the loan desk of the library mentioned below.

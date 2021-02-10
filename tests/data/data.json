@@ -118,6 +118,20 @@
         "start_date": "2019-08-01",
         "title": "1er ao\u00fbt"
       }
+    ],
+    "notification_settings": [
+      {
+        "type": "due_soon",
+        "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+martigny@gmail.com"
+      }
     ]
   },
   "lib2": {
@@ -218,6 +232,20 @@
         },
         "start_date": "2019-08-01",
         "title": "1er ao\u00fbt"
+      }
+    ],
+    "notification_settings": [
+      {
+        "type": "due_soon",
+        "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+martigny@gmail.com"
       }
     ]
   },
@@ -320,6 +348,20 @@
         "start_date": "2019-08-01",
         "title": "1er ao\u00fbt"
       }
+    ],
+    "notification_settings": [
+      {
+        "type": "due_soon",
+        "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+martigny@gmail.com"
+      }
     ]
   },
   "lib4": {
@@ -420,6 +462,25 @@
         },
         "start_date": "2019-08-01",
         "title": "1er ao\u00fbt"
+      }
+    ],
+    "notification_settings": [
+      {
+        "type": "availability",
+        "email": "reroilstest+martigny@gmail.com",
+        "delay": 5
+      },
+      {
+        "type": "due_soon",
+        "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+martigny@gmail.com"
       }
     ]
   },
@@ -522,6 +583,20 @@
         "start_date": "2019-08-01",
         "title": "1er ao\u00fbt"
       }
+    ],
+    "notification_settings": [
+      {
+        "type": "due_soon",
+        "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+martigny@gmail.com"
+      }
     ]
   },
   "lib6": {
@@ -622,6 +697,20 @@
         },
         "start_date": "2019-08-01",
         "title": "1er ao\u00fbt"
+      }
+    ],
+    "notification_settings": [
+      {
+        "type": "due_soon",
+        "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+martigny@gmail.com"
       }
     ]
   },
@@ -3101,6 +3190,7 @@
     "street": "Avenue Leopold-Robert, 13",
     "postal_code": "1920",
     "city": "Martigny",
+    "country": "sz",
     "birth_date": "1947-06-07",
     "username": "louis",
     "email": "lroduit@gmail.com",
@@ -3123,8 +3213,8 @@
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/ptty1"
       },
-      "communication_channel": "email",
-      "communication_language": "eng",
+      "communication_channel": "mail",
+      "communication_language": "fre",
       "keep_history": true
     },
     "notes": [

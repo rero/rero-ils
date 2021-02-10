@@ -11,6 +11,62 @@
     "name",
     "organisation"
   ],
+  "definitions": {
+    "default_notification_setting": {
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "email"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "due_soon",
+            "recall",
+            "overdue"
+          ]
+        },
+        "email": {
+          "title": "E-mail",
+          "description": "The notifications for patrons without e-mail are sent to this address. No notification is sent if the field is empty.",
+          "type": "string",
+          "format": "email",
+          "pattern": "^.*@.*\\..+$",
+          "minLength": 6
+        }
+      }
+    },
+    "availability_notification_setting": {
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "email",
+        "delay"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "availability"
+        },
+        "email": {
+          "title": "E-mail",
+          "description": "The notifications for patrons without e-mail are sent to this address. No notification is sent if the field is empty.",
+          "type": "string",
+          "format": "email",
+          "pattern": "^.*@.*\\..+$",
+          "minLength": 6
+        },
+        "delay": {
+          "title": "Delay in minutes",
+          "description": "Sending how many minutes after the item is available.",
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        }
+      }
+    }
+  },
   "properties": {
     "$schema": {
       "title": "Schema",
@@ -260,6 +316,21 @@
             }
           }
         }
+      }
+    },
+    "notification_settings": {
+      "title": "Notification settings",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/definitions/default_notification_setting"
+          },
+          {
+            "$ref": "#/definitions/availability_notification_setting"
+          }
+        ]
       }
     }
   }

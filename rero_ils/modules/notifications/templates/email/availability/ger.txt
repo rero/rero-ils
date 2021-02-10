@@ -1,4 +1,5 @@
 Abholeinladung
+{%- include('email/_patron_address.txt') %}
 Sehr geehrte Leserin, sehr geehrter Leser,
 
 Das von Ihnen bestellte Dokument ist nun verfügbar und kann an der Ausleihtheke der nachstehend genannten Bibliothek abgeholt werden.

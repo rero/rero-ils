@@ -574,7 +574,12 @@ class Loan(IlsRecord):
             }
             notification = Notification.create(
                 data=record, dbcommit=True, reindex=True)
-            return notification.dispatch()
+            enqueue = notification_type not in [
+                Notification.RECALL_NOTIFICATION_TYPE,
+                Notification.AVAILABILITY_NOTIFICATION_TYPE
+            ]
+            # put into the queue only for batch notifications i.e. overdue
+            return notification.dispatch(enqueue=enqueue)
 
     @classmethod
     def concluded(cls, loan):

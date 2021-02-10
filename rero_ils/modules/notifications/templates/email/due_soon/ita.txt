@@ -1,4 +1,5 @@
 Avviso di scadenza
+{%- include('email/_patron_address.txt') %}
 Cara lettrice, caro lettore,
 
 La durata di prestito dei seguenti documenti sta per scadere:

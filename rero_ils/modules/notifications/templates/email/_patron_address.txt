@@ -1,0 +1,8 @@
+{%- if patron.patron.communication_channel == 'mail' %}
+{{ patron.first_name }} {{ patron.last_name }}
+{% if patron.street %}{{ patron.street }}{% endif %}
+{% if patron.postal_code %}{{ patron.postal_code }}{% endif %} {% if patron.city %}{{ patron.city }}{% endif %}
+{% if patron.country %}{{ _('country_'+patron.country) }}{% endif %}
+
+
+{% endif -%}

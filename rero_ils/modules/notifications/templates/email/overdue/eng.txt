@@ -1,6 +1,6 @@
 1st reminder
+{% include('email/_patron_address.txt') %}
 Dear patron,
-
 The loan period of following documents has expired:
 
 Title: {{ document.title_text }} / {{ document.responsibility_statement }}

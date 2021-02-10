@@ -1,4 +1,6 @@
+
 Avis d'échéance
+{%- include('email/_patron_address.txt') %}
 Chère lectrice, cher lecteur,
 
 Le délai de prêt des documents mentionnés ci-dessous arrive à échéance :

@@ -307,24 +307,22 @@ def test_notifications_post_put_delete(
     notif.delete(dbcommit=True, delindex=True)
 
 
-def test_recall_notification(client, patron_martigny, lib_martigny,
-                             json_header, patron2_martigny,
-                             item_lib_martigny, librarian_martigny,
-                             circulation_policies, loc_public_martigny,
+def test_recall_notification(client, patron_sion, lib_sion,
+                             json_header, patron_sion_without_email1,
+                             item_lib_sion, librarian_sion,
+                             circulation_policies, loc_public_sion,
                              mailbox):
     """Test recall notification."""
-    # process all notifications still in the queue
-    Notification.process_notifications()
     mailbox.clear()
-    login_user_via_session(client, librarian_martigny.user)
+    login_user_via_session(client, librarian_sion.user)
     res, data = postdata(
         client,
         'api_item.checkout',
         dict(
-            item_pid=item_lib_martigny.pid,
-            patron_pid=patron_martigny.pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
+            item_pid=item_lib_sion.pid,
+            patron_pid=patron_sion.pid,
+            transaction_location_pid=loc_public_sion.pid,
+            transaction_user_pid=librarian_sion.pid,
         )
     )
     assert res.status_code == 200
@@ -338,11 +336,11 @@ def test_recall_notification(client, patron_martigny, lib_martigny,
         client,
         'api_item.librarian_request',
         dict(
-            item_pid=item_lib_martigny.pid,
-            pickup_location_pid=loc_public_martigny.pid,
-            patron_pid=patron2_martigny.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid
+            item_pid=item_lib_sion.pid,
+            pickup_location_pid=loc_public_sion.pid,
+            patron_pid=patron_sion_without_email1.pid,
+            transaction_library_pid=lib_sion.pid,
+            transaction_user_pid=librarian_sion.pid
         )
     )
     assert res.status_code == 200
@@ -361,14 +359,10 @@ def test_recall_notification(client, patron_martigny, lib_martigny,
         notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
     assert not get_notification(
         loan, notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
-    assert Notification.process_notifications() == {
-        'send': 1,
-        'reject': 0,
-        'error': 0
-    }
 
-    # one new email
-    assert len(mailbox) == 1
+    # one new email for the patron
+    assert mailbox[0].recipients == [patron_sion.dumps()['email']]
+
     mailbox.clear()
 
     # cancel request
@@ -376,10 +370,10 @@ def test_recall_notification(client, patron_martigny, lib_martigny,
         client,
         'api_item.cancel_item_request',
         dict(
-            item_pid=item_lib_martigny.pid,
+            item_pid=item_lib_sion.pid,
             pid=request_loan_pid,
-            transaction_user_pid=librarian_martigny.pid,
-            transaction_location_pid=loc_public_martigny.pid
+            transaction_user_pid=librarian_sion.pid,
+            transaction_location_pid=loc_public_sion.pid
         )
     )
     assert res.status_code == 200
@@ -389,11 +383,11 @@ def test_recall_notification(client, patron_martigny, lib_martigny,
         client,
         'api_item.librarian_request',
         dict(
-            item_pid=item_lib_martigny.pid,
-            pickup_location_pid=loc_public_martigny.pid,
-            patron_pid=patron2_martigny.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid
+            item_pid=item_lib_sion.pid,
+            pickup_location_pid=loc_public_sion.pid,
+            patron_pid=patron_sion_without_email1.pid,
+            transaction_library_pid=lib_sion.pid,
+            transaction_user_pid=librarian_sion.pid
         )
     )
     assert res.status_code == 200
@@ -409,12 +403,6 @@ def test_recall_notification(client, patron_martigny, lib_martigny,
         notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
     assert not get_notification(
         loan, notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
-    assert Notification.process_notifications() == {
-        'send': 0,
-        'reject': 0,
-        'error': 0
-    }
-    # no new email
     assert len(mailbox) == 0
 
 
@@ -425,8 +413,6 @@ def test_recall_notification_without_email(
         circulation_policies, loc_public_martigny,
         mailbox):
     """Test recall notification."""
-    # process all notifications still in the queue
-    Notification.process_notifications()
     mailbox.clear()
     login_user_via_session(client, librarian_martigny.user)
     res, data = postdata(
@@ -473,14 +459,11 @@ def test_recall_notification_without_email(
         notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
     assert not get_notification(
         loan, notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
-    assert Notification.process_notifications() == {
-        'send': 1,
-        'reject': 0,
-        'error': 0
-    }
 
-    # no email as the patron does not have an email
-    assert len(mailbox) == 0
+    # one new email for the librarian
+    assert mailbox[0].recipients == [
+        lib_martigny.email_notification_type(
+            notification['notification_type'])]
     mailbox.clear()
 
 

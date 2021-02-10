@@ -25,8 +25,6 @@ from utils import get_mapping
 
 from rero_ils.modules.notifications.api import Notification, \
     NotificationsSearch
-from rero_ils.modules.notifications.api import \
-    notification_id_fetcher as fetcher
 from rero_ils.modules.notifications.dispatcher import Dispatcher
 
 
@@ -62,35 +60,39 @@ def test_notification_organisation_pid(
     assert notification_availability_martigny.can_delete
 
 
-def test_notification_create(
-        es_clear, dummy_notification, loan_validated_martigny, mailbox):
-    """Test notification creation."""
-    notif = deepcopy(dummy_notification)
-    notif_data = {
-        'loan_url': 'https://ils.rero.ch/api/loans/',
-        'pid': loan_validated_martigny.get('pid')
-    }
-    loan_ref = '{loan_url}{pid}'.format(**notif_data)
-    notif['loan'] = {"$ref": loan_ref}
-
-    notification = Notification.create(
-        notif, dbcommit=True, delete_pid=True, reindex=True)
-    assert notification == notif
-
-    pid = notification.get('pid')
-
-    notification = Notification.get_record_by_pid(pid)
-    assert notification == notif
-
-    fetched_pid = fetcher(notification.id, notification)
-    assert fetched_pid.pid_value == pid
-    assert fetched_pid.pid_type == 'notif'
-
-    notification.dispatch(enqueue=False, verbose=True)
-    assert len(mailbox) == 1
+def test_notification_mail(
+        notification_late_martigny, lib_martigny, mailbox):
+    """Test notification creation.
+        Patron communication channel is mail.
+    """
+    mailbox.clear()
+    notification_late_martigny.dispatch(enqueue=False, verbose=True)
+    assert mailbox[0].recipients == [
+        lib_martigny.email_notification_type(
+            notification_late_martigny['notification_type'])]
 
 
-def test_notification_dispatch(app, mailbox):
+def test_notification_email(
+        notification_late_sion, patron_sion, mailbox):
+    """Test overdue notification.
+        Patron communication channel is email.
+    """
+    mailbox.clear()
+    notification_late_sion.dispatch(enqueue=False, verbose=True)
+    assert mailbox[0].recipients == [patron_sion.dumps()['email']]
+
+
+def test_notification_email_availability(
+        notification_availability_sion, lib_sion, patron_sion, mailbox):
+    """Test availibility notification.
+        Patron communication channel is email.
+    """
+    mailbox.clear()
+    notification_availability_sion.dispatch(enqueue=False, verbose=True)
+    assert mailbox[0].recipients == [patron_sion.dumps()['email']]
+
+
+def test_notification_dispatch(app):
     """Test notification dispatch."""
 
     class DummyNotification(object):
@@ -127,15 +129,6 @@ def test_notification_dispatch(app, mailbox):
 
         def update_process_date(self):
             return self
-
-    notification = DummyNotification('sms')
-    Dispatcher().dispatch_notification(notification=notification, verbose=True)
-
-    notification = DummyNotification('whatsapp')
-    Dispatcher().dispatch_notification(notification=notification, verbose=True)
-
-    notification = DummyNotification('mail')
-    Dispatcher().dispatch_notification(notification=notification, verbose=True)
 
     notification = DummyNotification('XXXX')
     Dispatcher().dispatch_notification(notification=notification, verbose=True)

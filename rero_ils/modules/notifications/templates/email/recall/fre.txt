@@ -1,3 +1,4 @@
+{%- include('email/_patron_address.txt') %}
 Document non prolongeable
 Chère lectrice, cher lecteur,
 
