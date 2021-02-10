@@ -76,7 +76,23 @@
         "male",
         "female",
         "other"
-      ]
+      ],
+      "form": {
+        "options": [
+          {
+            "label": "male",
+            "value": "male"
+          },
+          {
+            "label": "female",
+            "value": "female"
+          },
+          {
+            "label": "other",
+            "value": "other"
+          }
+        ]
+      }
     },
     "username": {
       "title": "Username",

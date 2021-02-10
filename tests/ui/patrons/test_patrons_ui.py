@@ -17,82 +17,12 @@
 
 """Tests UI view for patrons."""
 
-
-from urllib.parse import unquote
-
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, to_relative_url
+from utils import get_json
 
-from rero_ils.modules.loans.api import Loan, LoanState
 from rero_ils.modules.patrons.views import format_currency_filter
-
-
-def test_patrons_profile(
-        client, librarian_martigny, loan_pending_martigny,
-        patron_martigny, loc_public_martigny,
-        item_type_standard_martigny, item_lib_martigny, json_header,
-        circ_policy_short_martigny, ill_request_martigny):
-    """Test patron profile."""
-    # check redirection
-    res = client.get(url_for('patrons.profile'))
-    assert res.status_code == 302
-    assert to_relative_url(res.location) == unquote(url_for(
-        'security.login', next='/global/patrons/profile'))
-
-    # check with logged user
-    login_user_via_session(client, patron_martigny.user)
-    res = client.get(url_for('patrons.profile'))
-    assert res.status_code == 200
-
-    # create patron transactions
-    data = {
-        'patron_pid': patron_martigny.pid,
-        'item_pid': item_lib_martigny.pid,
-        'pickup_location_pid': loc_public_martigny.pid,
-        'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny.pid
-    }
-    loan = item_lib_martigny.request(**data)
-    loan_pid = loan[1].get('request').get('pid')
-    pending_loan = loan_pending_martigny
-    pending_loan_pid = pending_loan.get('pid')
-    assert pending_loan['state'] == LoanState.PENDING
-
-    # patron successfully cancelled the request
-    res = client.post(
-        url_for('patrons.profile'),
-        data={'loan_pid': pending_loan_pid, 'type': 'cancel'}
-    )
-    assert res.status_code == 302  # Check redirect
-    pending_loan = Loan.get_record_by_pid(pending_loan_pid)
-    assert pending_loan['state'] == LoanState.CANCELLED
-    loan = item_lib_martigny.checkout(**data)
-
-    # patron successfully renew the item
-    res = client.post(
-        url_for('patrons.profile'),
-        data={'loan_pid': loan_pid, 'type': 'renew'}
-    )
-    assert res.status_code == 302  # check redirect
-
-    # disable possiblity to renew the item
-    circ_policy_short_martigny['number_renewals'] = 0
-    circ_policy_short_martigny.update(
-        circ_policy_short_martigny, dbcommit=True, reindex=True)
-
-    # patron fails to renew the item
-    res = client.post(
-        url_for('patrons.profile'),
-        data={'loan_pid': loan_pid, 'type': 'renew'}
-    )
-    assert res.status_code == 302  # Check redirect
-
-    # checkin item to create history for this patron
-    data['transaction_location_pid'] = loc_public_martigny.pid
-    data['pid'] = loan_pid
-    loan = item_lib_martigny.checkin(**data)
 
 
 def test_patrons_logged_user(client, librarian_martigny):
@@ -133,19 +63,6 @@ def test_patrons_logged_user_resolve(
     assert res.status_code == 200
     data = get_json(res)
     assert data.get('metadata', {}).get('libraries')
-
-
-def test_patrons_blocked_user_profile(
-        client,
-        lib_martigny,
-        patron3_martigny_blocked):
-    """Test blocked patron profile."""
-    # The patron logged in
-    login_user_via_session(client, patron3_martigny_blocked.user)
-    res = client.get(url_for('patrons.profile'))
-    assert res.status_code == 200
-    # The profile displays the patron a blocked account message.
-    assert "Your account is currently blocked." in res.get_data(as_text=True)
 
 
 def test_patron_format_currency_filter(app):

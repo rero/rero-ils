@@ -352,6 +352,7 @@ def item_record_to_a_specific_loan_state(
     assert loan['state'] == loan_state
     return item, loan
 
+
 def create_patron(data):
     """Create a patron with his related user for text fixtures.
 

@@ -21,8 +21,8 @@ from __future__ import absolute_import, print_function
 
 import re
 
-from flask import Blueprint, abort, current_app, flash, jsonify, \
-    render_template, request, url_for
+from flask import Blueprint, abort, current_app, jsonify, render_template, \
+    request
 from flask_babelex import format_currency
 from flask_babelex import gettext as _
 from flask_babelex import lazy_gettext
@@ -30,17 +30,13 @@ from flask_breadcrumbs import register_breadcrumb
 from flask_login import current_user, login_required
 from flask_menu import register_menu
 from invenio_i18n.ext import current_i18n
-from werkzeug.exceptions import NotFound
-from werkzeug.utils import redirect
 
-from .api import Patron
+from .api import Patron, current_patron
 from .permissions import get_allowed_roles_management
 from .utils import user_has_patron
 from ..decorators import check_logged_as_librarian
-from ..items.api import Item
 from ..items.utils import item_pid_to_object
-from ..loans.api import Loan, get_loans_stats_by_patron_pid, \
-    get_overdue_loans, patron_profile
+from ..loans.api import get_loans_stats_by_patron_pid, get_overdue_loans
 from ..loans.utils import sum_for_fees
 from ..locations.api import Location
 from ..patron_transactions.api import PatronTransaction
@@ -111,14 +107,19 @@ def logged_user():
     """Current logged user informations in JSON."""
     patron = Patron.get_patron_by_user(current_user)
     if patron and 'resolve' in request.args:
-        organisation_pid = patron.organisation_pid
+        organisation = patron.get_organisation()
+        patron['organisation'] = {
+            'pid': organisation.get('pid'),
+            'code': organisation.get('code'),
+            'currency': organisation.get('default_currency')
+        }
         patron = patron.replace_refs()
         patron = patron.dumps()
         for index, library in enumerate(patron.get('libraries', [])):
             data = {
                 'pid': library['pid'],
                 'organisation': {
-                    'pid': organisation_pid
+                    'pid': organisation.get('pid')
                 }
             }
             patron['libraries'][index] = data
@@ -160,84 +161,7 @@ def logged_user():
 )
 def profile(viewcode):
     """Patron Profile Page."""
-    tab = request.args.get('tab', 'loans')
-    allowed_tabs = [
-        'loans',
-        'requests',
-        'fees',
-        'history',
-        'ill_request',
-        'personal'
-    ]
-    if tab not in allowed_tabs:
-        abort(400)
-    patron = Patron.get_patron_by_user(current_user)
-    if patron is None:
-        raise NotFound()
-    if not patron.is_patron:
-        abort(403)
-    if request.method == 'POST':
-        loan = Loan.get_record_by_pid(request.values.get('loan_pid'))
-        item = Item.get_record_by_pid(loan.get('item_pid', {}).get('value'))
-        if request.form.get('type') == 'cancel':
-            tab = 'requests'
-            cancel_params = {
-                'pid': loan.pid,
-                'transaction_location_pid': item.location_pid,
-                'transaction_user_pid': patron.pid
-            }
-            try:
-                item.cancel_item_request(**cancel_params)
-                flash(_('The request for item %(item_id)s has been canceled.',
-                        item_id=item.pid), 'success')
-            except Exception:
-                flash(_('Error during the cancellation of the request of \
-                item %(item_id)s.', item_id=item.pid), 'danger')
-        elif request.form.get('type') == 'renew':
-            data = {
-                'item_pid': item.pid,
-                'pid': request.values.get('loan_pid'),
-                'transaction_location_pid': item.location_pid,
-                'transaction_user_pid': patron.pid
-            }
-            try:
-                item.extend_loan(**data)
-                flash(_('The item %(item_id)s has been renewed.',
-                        item_id=item.pid), 'success')
-            except Exception:
-                flash(_('Error during the renewal of the item %(item_id)s.',
-                        item_id=item.pid), 'danger')
-        return redirect(url_for(
-            'patrons.profile', viewcode=viewcode) + '?tab={0}'.format(tab))
-
-    loans, requests, fees, history, ill_requests = patron_profile(patron)
-
-    # patron messages list
-    messages = patron.get_circulation_messages(True)
-    if patron.get_pending_subscriptions():
-        messages.append({
-            'type': 'warning',
-            'content': _('You have a pending subscription fee.')
-        })
-    bootstrap_alert_mapping = {
-        'error': 'danger'
-    }
-    for message in messages:
-        msg_type = message['type']
-        message['type'] = bootstrap_alert_mapping.get(msg_type, msg_type)
-
-    return render_template(
-        'rero_ils/patron_profile.html',
-        record=patron,
-        loans=loans,
-        requests=requests,
-        fees=fees,
-        history=history,
-        ill_requests=ill_requests,
-        messages=messages,
-        viewcode=viewcode,
-        tab=tab
-    )
+    return render_template('rero_ils/patron_profile.html')
 
 
 @blueprint.app_template_filter('format_currency')
@@ -287,3 +211,27 @@ def get_patron_from_pid(patron_pid):
 def get_location_name_from_pid(location_pid):
     """Get location from pid."""
     return Location.get_record_by_pid(location_pid)['name']
+
+
+@blueprint.route('/patrons/messages', methods=['GET'])
+def get_messages():
+    """Get messages for the current user."""
+    messages = current_patron.get_circulation_messages(True)
+    if current_patron.get_pending_subscriptions():
+        messages.append({
+            'type': 'warning',
+            'content': _('You have a pending subscription fee.')
+        })
+    for note in current_patron.get('notes', []):
+        if note.get('type') == 'public_note':
+            messages.append({
+                'type': 'warning',
+                'content': note.get('content')
+            })
+    bootstrap_alert_mapping = {
+        'error': 'danger'
+    }
+    for message in messages:
+        msg_type = message['type']
+        message['type'] = bootstrap_alert_mapping.get(msg_type, msg_type)
+    return jsonify(messages)

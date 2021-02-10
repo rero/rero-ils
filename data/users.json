@@ -86,7 +86,7 @@
     "patron": {
       "expiration_date": "2023-10-07",
       "blocked": false,
-      "keep_history": false,
+      "keep_history": true,
       "barcode": [
         "2050124311"
       ],

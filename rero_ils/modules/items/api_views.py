@@ -177,7 +177,7 @@ def librarian_request(item, data):
 
 
 @api_blueprint.route('/cancel_item_request', methods=['POST'])
-@check_authentication
+@check_logged_user_authentication
 @do_item_jsonify_action
 def cancel_item_request(item, data):
     """HTTP GET request for cancelling and item request action.
@@ -271,7 +271,7 @@ def return_missing(item, data=None):
 
 
 @api_blueprint.route('/extend_loan', methods=['POST'])
-@check_authentication
+@check_logged_user_authentication
 @do_item_jsonify_action
 def extend_loan(item, data):
     """HTTP request for Item due date extend action.

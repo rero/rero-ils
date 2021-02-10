@@ -1290,6 +1290,25 @@ def ill_request_martigny(app, loc_public_martigny, patron_martigny,
 
 
 @pytest.fixture(scope="module")
+def ill_request_martigny2_data(data):
+    """Load ill request for martigny2 location."""
+    return deepcopy(data.get('illr3'))
+
+
+@pytest.fixture(scope="module")
+def ill_request_martigny2(app, loc_public_martigny, patron_martigny_no_email,
+                          ill_request_martigny2_data):
+    """Create ill request for Martigny2 location."""
+    illr = ILLRequest.create(
+        data=ill_request_martigny2_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ILLRequestsSearch.Meta.index)
+    return illr
+
+
+@pytest.fixture(scope="module")
 def ill_request_sion_data(data):
     """Load ill request for Sion location."""
     return deepcopy(data.get('illr2'))

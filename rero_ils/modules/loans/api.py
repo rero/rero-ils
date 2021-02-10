@@ -20,11 +20,11 @@
 import math
 from bisect import bisect_right
 from datetime import datetime, timedelta, timezone
-from operator import attrgetter
 
 import ciso8601
 from elasticsearch_dsl import A
 from flask import current_app
+from flask_babelex import gettext as _
 from invenio_circulation.errors import MissingRequiredParameterError
 from invenio_circulation.pidstore.fetchers import loan_pid_fetcher
 from invenio_circulation.pidstore.minters import loan_pid_minter
@@ -34,21 +34,18 @@ from invenio_circulation.search.api import search_by_patron_item_or_document
 from invenio_circulation.utils import str2datetime
 from invenio_jsonschemas import current_jsonschemas
 
+from rero_ils.modules.circ_policies.api import CircPolicy
+
 from ..api import IlsRecord, IlsRecordError, IlsRecordsIndexer, \
     IlsRecordsSearch
-from ..documents.api import Document
 from ..errors import NoCirculationActionIsPermitted
-from ..ill_requests.api import ILLRequest
-from ..items.models import ItemCirculationAction, ItemStatus
+from ..items.models import ItemStatus
 from ..items.utils import item_pid_to_object
 from ..libraries.api import Library
 from ..locations.api import Location
 from ..notifications.api import Notification, NotificationsSearch, \
     number_of_reminders_sent
-from ..organisations.api import Organisation
-from ..patron_transaction_events.api import PatronTransactionEvent
-from ..patron_transactions.api import PatronTransaction, \
-    PatronTransactionsSearch
+from ..patron_transactions.api import PatronTransactionsSearch
 from ..patrons.api import Patron
 from ..utils import date_string_to_utc, get_ref_for_pid
 from ...filter import format_date_filter
@@ -123,6 +120,34 @@ class Loan(IlsRecord):
     def __init__(self, data, model=None):
         """Loan init."""
         super().__init__(data, model)
+
+    @classmethod
+    def can_extend(cls, item, **kwargs):
+        """Loan can extend."""
+        from rero_ils.modules.loans.utils import extend_loan_data_is_valid
+        if 'loan' not in kwargs:  # this method is not relevant
+            return True, []
+        loan = kwargs['loan']
+        if loan.get('state') != LoanState.ITEM_ON_LOAN:
+            return False, [_('The loan cannot be extended')]
+        patron = Patron.get_record_by_pid(loan.get('patron_pid'))
+        cipo = CircPolicy.provide_circ_policy(
+            item.library_pid,
+            patron.patron_type_pid,
+            item.item_type_circulation_category_pid
+        )
+        extension_count = loan.get('extension_count', 0)
+        if not (cipo.get('number_renewals', 0) > 0 and
+                extension_count < cipo.get('number_renewals', 0) and
+                extend_loan_data_is_valid(
+                    loan.get('end_date'),
+                    cipo.get('renewal_duration'),
+                    item.library_pid
+               )):
+            return False, [_('Circulation policies disallows the operation.')]
+        if item.number_of_requests():
+            return False, [_('A pending request exists on this item.')]
+        return True, []
 
     def action_required_params(self, action=None):
         """List of required parameters for circulation actions."""
@@ -202,7 +227,7 @@ class Loan(IlsRecord):
         data.setdefault(
             'state',
             current_app.config['CIRCULATION_LOAN_INITIAL_STATE']
-        )        
+        )
         if delete_pid and data.get(cls.pid_field):
             del(data[cls.pid_field])
         cls._loan_build_org_ref(data)
@@ -694,161 +719,6 @@ def get_loans_by_patron_pid(patron_pid, filter_states=[], to_anonymize=False):
     search = search.filter('term', to_anonymize=to_anonymize)
     for loan in search.scan():
         yield Loan.get_record_by_pid(loan.pid)
-
-
-def patron_profile(patron):
-    """Return formatted loans for patron profile display.
-
-    :param patron: the patron resource
-    :return: array of loans, requests, fees, history and ill_requests
-    """
-    from ..items.api import Item
-
-    patron_pid = patron.get('pid')
-    organisation = Organisation.get_record_by_pid(patron.organisation_pid)
-
-    loans = []
-    requests = []
-    history = []
-
-    for loan in get_loans_by_patron_pid(patron_pid, to_anonymize=False):
-        item = Item.get_record_by_pid(loan.item_pid, with_deleted=True)
-        if item == {}:
-            # loans for deleted items are temporarily skipped.
-            continue
-
-        # inherit holdings call number when possible
-        issue_call_number = item.issue_inherited_first_call_number
-        if issue_call_number:
-            item['call_number'] = issue_call_number
-
-        document = Document.get_record_by_pid(
-            item.replace_refs()['document']['pid'])
-        loan['document'] = document.replace_refs().dumps()
-        loan['item_call_number'] = item.get('call_number')
-        loan['item_barcode'] = item['barcode']
-        if loan['state'] == LoanState.ITEM_ON_LOAN:
-            loan['overdue'] = loan.is_loan_overdue()
-            loan['library_name'] = Library.get_record_by_pid(
-                item.holding_library_pid).get('name')
-        else:
-            pickup_location = Location.get_record_by_pid(
-                loan.get('pickup_location_pid'))
-            if pickup_location:
-                loan['pickup_name'] = pickup_location.get(
-                    'pickup_name', pickup_location.get('name')
-                )
-        if loan['state'] == LoanState.ITEM_ON_LOAN:
-            can, reasons = item.can(
-                ItemCirculationAction.EXTEND,
-                loan=loan
-            )
-            loan['can_renew'] = can
-            if not can:
-                loan['can_renew_reasons'] = reasons
-            loans.append(loan)
-        elif loan['state'] in [
-                LoanState.PENDING,
-                LoanState.ITEM_AT_DESK,
-                LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
-        ]:
-            pickup_loc = Location.get_record_by_pid(
-                loan['pickup_location_pid'])
-            loan['pickup_library_name'] = \
-                pickup_loc.get_library().get('name')
-            if loan['state'] == LoanState.ITEM_AT_DESK:
-                loan['rank'] = 0
-            if loan['state'] in [
-                    LoanState.PENDING, LoanState.ITEM_IN_TRANSIT_FOR_PICKUP]:
-                loan['rank'] = item.patron_request_rank(
-                    patron.patron['barcode'][0])
-            requests.append(loan)
-        elif loan['state'] in [
-                LoanState.ITEM_RETURNED,
-                LoanState.ITEM_IN_TRANSIT_TO_HOUSE,
-                LoanState.CANCELLED
-        ]:
-            end_date = loan.get('end_date')
-            if end_date:
-                end_date = ciso8601.parse_datetime(end_date)
-                loan_age = (datetime.utcnow() - end_date.replace(tzinfo=None))
-                # Only history of last six months is displayed
-                if loan_age <= timedelta(6*365/12):
-                    loan['pickup_library_name'] = Location\
-                        .get_record_by_pid(loan['pickup_location_pid'])\
-                        .get_library().get('name')
-                    loan['transaction_library_name'] = Location\
-                        .get_record_by_pid(loan['transaction_location_pid'])\
-                        .get_library().get('name')
-                    history.append(loan)
-    # Fees
-    fees = {
-        'open': _process_patron_profile_fees(patron, organisation, 'open'),
-        'closed': _process_patron_profile_fees(patron, organisation, 'closed')
-    }
-    # ILL request
-    ill_requests = []
-    for request in ILLRequest.get_requests_by_patron_pid(patron_pid):
-        location_pid = request.replace_refs()['pickup_location']['pid']
-        location = Location.get_record_by_pid(location_pid)
-        loc_name = location.get('pickup_name', location.get('name'))
-        request['pickup_location']['name'] = loc_name
-        ill_requests.append(request)
-
-    return \
-        sorted(loans, key=attrgetter('end_date')),\
-        sorted(requests, key=attrgetter('rank', 'request_creation_date')),\
-        fees,\
-        history,\
-        ill_requests
-
-
-def _process_patron_profile_fees(patron, organisation, status='open'):
-    """Process fees by status.
-
-    :param patron: the patron resource
-    :param organsation: the organisation resource
-    :param status: the status of fee transaction
-    :return: array of fees
-    """
-    from ..items.api import Item
-    from ..loans.api import Loan
-
-    fees = {
-        'currency': organisation.get('default_currency'),
-        'total_amount': 0,
-        'lines': []
-    }
-    for transaction in PatronTransaction.get_transactions_by_patron_pid(
-            patron.get('pid'), status):
-        fees['total_amount'] += transaction.total_amount
-        transaction['currency'] = Organisation\
-            .get_record_by_pid(transaction.organisation.pid)\
-            .get('default_currency')
-        if 'loan' in transaction:
-            item_pid = Loan.get_record_by_pid(transaction.loan.pid)\
-                .get('item_pid')
-            item = Item.get_record_by_pid(item_pid.get('value'))
-            transaction['item_call_number'] = item.get('call_number')
-        if transaction.status == 'closed':
-            transaction.total_amount = PatronTransactionEvent\
-                .get_initial_amount_transaction_event(transaction.pid)
-        transaction['events'] = []
-        if transaction.type == 'overdue':
-            transaction['document'] = Document.get_record_by_pid(
-                transaction.document.pid)
-            transaction['loan'] = Loan.get_record_by_pid(transaction.loan.pid)
-        for event in PatronTransactionEvent.get_events_by_transaction_id(
-                transaction.pid):
-            event['currency'] = Organisation\
-                .get_record_by_pid(event.organisation.pid)\
-                .get('default_currency')
-            if 'library' in event:
-                event.library = Library\
-                    .get_record_by_pid(event.library.pid)
-            transaction['events'].append(event)
-        fees['lines'].append(transaction)
-    return fees
 
 
 def get_last_transaction_loc_for_item(item_pid):

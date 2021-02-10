@@ -64,12 +64,12 @@ def test_items_permissions(client, item_lib_martigny,
     views = {
         'api_item.checkout': 403,
         'api_item.checkin': 403,
-        'api_item.cancel_item_request': 403,
+        'api_item.cancel_item_request': 404,  # auth. OK but send bad data
         'api_item.validate_request': 403,
         'api_item.receive': 403,
         'api_item.return_missing': 403,
-        'api_item.extend_loan': 403,
-        'api_item.librarian_request': 404  # authenticated OK but send bad data
+        'api_item.extend_loan': 404,  # auth. OK but send bad data
+        'api_item.librarian_request': 404  # auth. OK but send bad data
     }
     for view in views:
         res, _ = postdata(client, view, {})
