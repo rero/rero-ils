@@ -1,4 +1,5 @@
 Ablauf der Ausleihfrist
+{%- include('email/_patron_address.txt') %}
 Sehr geehrte Leserin, sehr geehrter Leser,
 
 Die Ausleihfrist der folgenden Dokumente läuft ab:

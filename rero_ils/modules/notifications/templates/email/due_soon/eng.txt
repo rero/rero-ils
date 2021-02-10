@@ -1,4 +1,5 @@
 Expiry notice
+{%- include('email/_patron_address.txt') %}
 Dear patron,
 
 The loan period of following documents is expiring:

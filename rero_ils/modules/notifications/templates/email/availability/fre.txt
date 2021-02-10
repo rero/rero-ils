@@ -1,4 +1,5 @@
 Invitation à retirer un document
+{%- include('email/_patron_address.txt') %}
 Chère lectrice, cher lecteur,
 
 Le document que vous avez demandé est maintenant disponible. Vous pouvez venir le retirer au bureau de prêt de la bibliothèque mentionnée ci-dessous.

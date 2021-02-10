@@ -1,4 +1,5 @@
 Documento non prorogabile
+{%- include('email/_patron_address.txt') %}
 Cara lettrice, caro lettore,
 
 Il documento che Lei ha presto in prestito è stato riservato da un'altra persona. Una proroga della durata di prestito non è quindi più possibile e La preghiamo di restituirlo entro la scadenza.

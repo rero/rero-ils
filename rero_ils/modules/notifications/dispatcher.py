@@ -40,7 +40,8 @@ class Dispatcher:
         if notification:
             data = notification.replace_pids_and_refs()
             communication_switcher = {
-                'email': Dispatcher.send_mail,
+                'email': Dispatcher.send_mail_to_patron,
+                'mail': Dispatcher.send_mail_for_printing,
                 #  'sms': not_yet_implemented
                 #  'telepathy': self.madness_mind
                 #  ...
@@ -72,43 +73,73 @@ class Dispatcher:
         return notification
 
     @staticmethod
-    def send_mail(data):
-        """Send the notification by email."""
+    def _create_email(data, patron, library, recipients):
+        """."""
+        from flask_babelex import Locale
+
         from .api import get_template_to_use
         from ..loans.api import Loan
-        patron = data['loan']['patron']
-        # get the recipient email from loan.patron.patron.email
-        recipient = patron.get('email')
-        # do nothing if the patron does not have an email
-        if not recipient:
-            current_app.logger.warning(
-                'Patron (pid: {pid}) does not have an email'.format(
-                    pid=patron['pid']))
-            return
-        language = patron['patron']['communication_language']
-        loan = Loan.get_record_by_pid(data['loan']['pid'])
-        tpl_path = get_template_to_use(loan, data).rstrip('/')
-        template = '{tpl_path}/{language}.txt'.format(
-            tpl_path=tpl_path,
-            language=language
-        )
 
-        # get the sender email from
-        # loan.pickup_location_pid.location.library.email
+        language = patron['patron']['communication_language']
+        # set the current language for translations in template
+        with current_app.test_request_context() as ctx:
+            ctx.babel_locale = Locale.parse(language)
+            loan = Loan.get_record_by_pid(data['loan']['pid'])
+            tpl_path = get_template_to_use(loan, data).rstrip('/')
+            template = '{tpl_path}/{language}.txt'.format(
+                tpl_path=tpl_path,
+                language=language
+            )
+            # get the sender email from
+            # loan.pickup_location_pid.location.library.email
+            sender = library['email']
+            msg = TemplatedMessage(
+                template_body=template,
+                sender=sender,
+                recipients=recipients,
+                ctx=data['loan']
+            )
+            text = msg.body.split('\n')
+            # subject is the first line
+            msg.subject = text[0]
+            # body
+            msg.body = '\n'.join(text[1:])
+            return msg
+
+    @staticmethod
+    def send_mail_for_printing(data):
+        """Send the notification by email."""
+        patron = data['loan']['patron']
         library = Location.get_record_by_pid(
             data['loan']['pickup_location_pid']).get_library()
-        sender = library['email']
-        msg = TemplatedMessage(
-            template_body=template,
-            sender=sender,
-            recipients=[recipient],
-            ctx=data['loan']
-        )
+        # get the recipient email from the library
+        email = library.email_notification_type(data['notification_type'])
+        if not email:
+            current_app.logger.warning(
+                'Notification is lost for patron(pid).'.format(
+                    pid=patron['pid']))
+            return
+        msg = Dispatcher._create_email(data, patron, library, [email])
+        task_send_email.delay(msg.__dict__)
+
+    @staticmethod
+    def send_mail_to_patron(data):
+        """Send the notification by email to the patron."""
+        patron = data['loan']['patron']
+        library = Location.get_record_by_pid(
+            data['loan']['pickup_location_pid']).get_library()
+        # get the recipient email from loan.patron.patron.email
+        recipients = [patron.get('email')]
         # additional recipient
         add_recipient = patron['patron'].get('additional_communication_email')
         if add_recipient:
-            msg.add_recipient(add_recipient)
-        text = msg.body.split('\n')
-        msg.subject = text[0]
-        msg.body = '\n'.join(text[1:])
-        task_send_email.run(msg.__dict__)
+            recipents.push(add_recipient)
+        # delay
+        delay_availability = 0
+        # get notification settings for notification type
+        notification_type = data['notification_type']
+        for setting in library['notification_settings']:
+            if setting['type'] == 'availability':
+                delay_availability = setting['delay']
+        msg = Dispatcher._create_email(data, patron, library, recipients)
+        task_send_email.apply_async((msg.__dict__,), countdown=delay_availability)

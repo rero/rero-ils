@@ -1,4 +1,5 @@
 1. Mahnung
+{%- include('email/_patron_address.txt') %}
 Sehr geehrte Leserin, sehr geehrter Leser,
 
 Die Ausleihfrist folgender Dokumente ist abgelaufen:

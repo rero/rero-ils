@@ -1,4 +1,5 @@
 1er rappel
+{%- include('email/_patron_address.txt') %}
 Chère lectrice, cher lecteur,
 
 La durée du prêt des documents mentionnés ci-dessous est échue :

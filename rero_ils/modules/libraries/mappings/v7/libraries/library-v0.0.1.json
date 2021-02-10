@@ -90,6 +90,19 @@
           }
         }
       },
+      "notification_settings": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "email": {
+            "type": "keyword"
+          },
+          "delay": {
+            "type": "integer"
+          }
+        }
+      },
       "organisation": {
         "properties": {
           "type": {

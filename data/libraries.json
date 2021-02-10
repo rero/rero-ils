@@ -116,6 +116,20 @@
         "start_date": "2019-07-15",
         "end_date": "2019-08-15"
       }
+    ],
+    "notification_settings": [
+      {
+        "type": "due_soon",
+        "email": "reroilstest+aoste1@gmail.com"
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+aoste1@gmail.com"
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+aoste1@gmail.com"
+      }
     ]
   },
   {
@@ -225,6 +239,21 @@
           ]
         }
       }
+    ],
+    "notification_settings": [
+      {
+        "type": "availability",
+        "email": "reroilstest+aoste2@gmail.com",
+        "delay": 5
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+aoste2@gmail.com"
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+aoste2@gmail.com"
+      }
     ]
   },
   {
@@ -332,6 +361,21 @@
           ]
         }
       }
+    ],
+    "notification_settings": [
+      {
+        "type": "availability",
+        "email": "reroilstest+aoste3@gmail.com",
+        "delay": 5
+      },
+      {
+        "type": "due_soon",
+        "email": "reroilstest+aoste3@gmail.com"
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+aoste3@gmail.com"
+      }
     ]
   },
   {
@@ -424,6 +468,21 @@
         "is_open": false,
         "start_date": "2019-07-01",
         "end_date": "2019-08-22"
+      }
+    ],
+    "notification_settings": [
+      {
+        "type": "availability",
+        "email": "reroilstest+aoste4@gmail.com",
+        "delay": 5
+      },
+      {
+        "type": "due_soon",
+        "email": "reroilstest+aoste4@gmail.com"
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+aoste4@gmail.com"
       }
     ]
   },
@@ -528,6 +587,25 @@
           ]
         }
       }
+    ],
+    "notification_settings": [
+      {
+        "type": "availability",
+        "email": "reroilstest+aoste4@gmail.com",
+        "delay": 5
+      },
+      {
+        "type": "due_soon",
+        "email": "reroilstest+aoste4@gmail.com"
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+aoste4@gmail.com"
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+aoste4@gmail.com"
+      }
     ]
   },
   {
@@ -609,6 +687,20 @@
             "end_time": "23:59"
           }
         ]
+      }
+    ],
+    "notification_settings": [
+      {
+        "type": "due_soon",
+        "email": "reroilstest+jedi@gmail.com"
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+jedi@gmail.com"
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+jedi@gmail.com"
       }
     ]
   },
@@ -692,6 +784,21 @@
           }
         ]
       }
+    ],
+    "notification_settings": [
+      {
+        "type": "availability",
+        "email": "reroilstest+citadelle@gmail.com",
+        "delay": 5
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+citadelle@gmail.com"
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+citadelle@gmail.com"
+      }
     ]
   },
   {
@@ -773,6 +880,21 @@
             "end_time": "23:59"
           }
         ]
+      }
+    ],
+    "notification_settings": [
+      {
+        "type": "availability",
+        "email": "reroilstest+beast@gmail.com",
+        "delay": 5
+      },
+      {
+        "type": "due_soon",
+        "email": "reroilstest+beast@gmail.com"
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+beast@gmail.com"
       }
     ]
   },
@@ -856,6 +978,21 @@
           }
         ]
       }
+    ],
+    "notification_settings": [
+      {
+        "type": "availability",
+        "email": "reroilstest+dream@gmail.com",
+        "delay": 5
+      },
+      {
+        "type": "due_soon",
+        "email": "reroilstest+dream@gmail.com"
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+dream@gmail.com"
+      }
     ]
   },
   {
@@ -937,6 +1074,25 @@
             "end_time": "23:59"
           }
         ]
+      }
+    ],
+    "notification_settings": [
+      {
+        "type": "availability",
+        "email": "reroilstest+who@gmail.com",
+        "delay": 5
+      },
+      {
+        "type": "due_soon",
+        "email": "reroilstest+who@gmail.com"
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+who@gmail.com"
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+who@gmail.com"
       }
     ]
   },
@@ -1020,6 +1176,20 @@
           }
         ]
       }
+    ],
+    "notification_settings": [
+      {
+        "type": "due_soon",
+        "email": "reroilstest+hog@gmail.com"
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+hog@gmail.com"
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+hog@gmail.com"
+      }
     ]
   },
   {
@@ -1101,6 +1271,21 @@
             "end_time": "23:59"
           }
         ]
+      }
+    ],
+    "notification_settings": [
+      {
+        "type": "availability",
+        "email": "reroilstest+babel@gmail.com",
+        "delay": 5
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+babel@gmail.com"
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+babel@gmail.com"
       }
     ]
   },
@@ -1184,6 +1369,21 @@
           }
         ]
       }
+    ],
+    "notification_settings": [
+      {
+        "type": "availability",
+        "email": "reroilstest+rose@gmail.com",
+        "delay": 5
+      },
+      {
+        "type": "due_soon",
+        "email": "reroilstest+rose@gmail.com"
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+rose@gmail.com"
+      }
     ]
   },
   {
@@ -1265,6 +1465,21 @@
             "end_time": "23:59"
           }
         ]
+      }
+    ],
+    "notification_settings": [
+      {
+        "type": "availability",
+        "email": "reroilstest+uni@gmail.com",
+        "delay": 5
+      },
+      {
+        "type": "due_soon",
+        "email": "reroilstest+uni@gmail.com"
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+uni@gmail.com"
       }
     ]
   },
@@ -1348,6 +1563,25 @@
           }
         ]
       }
+    ],
+    "notification_settings": [
+      {
+        "type": "availability",
+        "email": "reroilstest+cemetery@gmail.com",
+        "delay": 5
+      },
+      {
+        "type": "due_soon",
+        "email": "reroilstest+cemetery@gmail.com"
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+cemetery@gmail.com"
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+cemetery@gmail.com"
+      }
     ]
   },
   {
@@ -1429,6 +1663,20 @@
             "end_time": "23:59"
           }
         ]
+      }
+    ],
+    "notification_settings": [
+      {
+        "type": "due_soon",
+        "email": "reroilstest+truth@gmail.com"
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+truth@gmail.com"
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+truth@gmail.com"
       }
     ]
   },
@@ -1512,6 +1760,21 @@
           }
         ]
       }
+    ],
+    "notification_settings": [
+      {
+        "type": "availability",
+        "email": "reroilstest+rive@gmail.com",
+        "delay": 5
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+rive@gmail.com"
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+rive@gmail.com"
+      }
     ]
   },
   {
@@ -1593,6 +1856,21 @@
             "end_time": "23:59"
           }
         ]
+      }
+    ],
+    "notification_settings": [
+      {
+        "type": "availability",
+        "email": "reroilstest+matilda@gmail.com",
+        "delay": 5
+      },
+      {
+        "type": "due_soon",
+        "email": "reroilstest+matilda@gmail.com"
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+matilda@gmail.com"
       }
     ]
   },
@@ -1676,6 +1954,21 @@
           }
         ]
       }
+    ],
+    "notification_settings": [
+      {
+        "type": "availability",
+        "email": "reroilstest+unseen@gmail.com",
+        "delay": 5
+      },
+      {
+        "type": "due_soon",
+        "email": "reroilstest+unseen@gmail.com"
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+unseen@gmail.com"
+      }
     ]
   },
   {
@@ -1757,6 +2050,25 @@
             "end_time": "23:59"
           }
         ]
+      }
+    ],
+    "notification_settings": [
+      {
+        "type": "availability",
+        "email": "reroilstest+wan@gmail.com",
+        "delay": 5
+      },
+      {
+        "type": "due_soon",
+        "email": "reroilstest+wan@gmail.com"
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+wan@gmail.com"
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+wan@gmail.com"
       }
     ]
   },
@@ -1840,6 +2152,17 @@
           }
         ]
       }
+    ],
+    "notification_settings": [
+      {
+        "type": "availability",
+        "email": "reroilstest+buffy@gmail.com",
+        "delay": 5
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+buffy@gmail.com"
+      }
     ]
   },
   {
@@ -1922,6 +2245,16 @@
           }
         ]
       }
+    ],
+    "notification_settings": [
+      {
+        "type": "due_soon",
+        "email": "reroilstest+cypress1@gmail.com"
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+cypress1@gmail.com"
+      }
     ]
   },
   {
@@ -2003,6 +2336,25 @@
             "end_time": "23:59"
           }
         ]
+      }
+    ],
+    "notification_settings": [
+      {
+        "type": "availability",
+        "email": "reroilstest+cypress2@gmail.com",
+        "delay": 5
+      },
+      {
+        "type": "due_soon",
+        "email": "reroilstest+cypress2@gmail.com"
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+cypress2@gmail.com"
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+cypress2@gmail.com"
       }
     ]
   }
