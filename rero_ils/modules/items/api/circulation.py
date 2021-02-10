@@ -1025,38 +1025,6 @@ class ItemCirculation(ItemRecord):
                                "patron.")
         return len(reasons) == 0, reasons
 
-    @classmethod
-    def can_extend(cls, item, **kwargs):
-        """Checks if a patron has the rights to renew an item.
-
-        :param item : the item to check.
-        :param kwargs : additional arguments. To be relevant this method
-                        require 'loan' argument.
-        :return a tuple with True|False and reasons to disallow if False.
-        """
-        from rero_ils.modules.loans.utils import extend_loan_data_is_valid
-        if 'loan' not in kwargs:  # this method is not relevant
-            return True, []
-        loan = kwargs['loan']
-        patron = Patron.get_record_by_pid(loan.get('patron_pid'))
-        cipo = CircPolicy.provide_circ_policy(
-            item.library_pid,
-            patron.patron_type_pid,
-            item.item_type_circulation_category_pid
-        )
-        extension_count = loan.get('extension_count', 0)
-        if not (cipo.get('number_renewals', 0) > 0 and
-                extension_count < cipo.get('number_renewals', 0) and
-                extend_loan_data_is_valid(
-                    loan.get('end_date'),
-                    cipo.get('renewal_duration'),
-                    item.library_pid
-               )):
-            return False, ['Circulation policies disallows the operation.']
-        if item.number_of_requests():
-            return False, ['A pending request exists on this item.']
-        return True, []
-
     def action_filter(self, action, loan):
         """Filter actions."""
         patron_pid = loan.get('patron_pid')

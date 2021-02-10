@@ -245,8 +245,8 @@ def view_search_collection_factory(self, search, query_parser=None):
     return search, urlkwargs
 
 
-def loans_search_factory(self, search, query_parser=None):
-    """Loan search factory.
+def ill_request_search_factory(self, search, query_parser=None):
+    """Ill request search factory.
 
     Restricts results to organisation level for librarian and sys_lib.
     Restricts results to its loans for users with role patron.
@@ -261,6 +261,27 @@ def loans_search_factory(self, search, query_parser=None):
             )
         elif current_patron.is_patron:
             search = search.filter('term', patron__pid=current_patron.pid)
+    # exclude to_anonymize records
+    search = search.filter('bool', must_not=[Q('term', to_anonymize=True)])
+
+    return search, urlkwargs
+
+
+def circulation_search_factory(self, search, query_parser=None):
+    """Circulation search factory.
+
+    Restricts results to organisation level for librarian and sys_lib.
+    Restricts results to its loans for users with role patron.
+    Exclude to_anonymize loans from results.
+    """
+    search, urlkwargs = search_factory(self, search)
+    if current_patron:
+        if current_patron.is_librarian:
+            search = search.filter(
+                'term', organisation__pid=current_organisation.pid
+            )
+        if current_patron.is_patron:
+            search = search.filter('term', patron_pid=current_patron.pid)
     # exclude to_anonymize records
     search = search.filter('bool', must_not=[Q('term', to_anonymize=True)])
 

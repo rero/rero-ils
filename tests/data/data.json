@@ -3564,6 +3564,22 @@
       "$ref": "https://ils.rero.ch/api/locations/loc7"
     }
   },
+  "illr3": {
+    "$schema": "https://ils.rero.ch/schemas/ill_requests/ill_request-v0.0.1.json",
+    "pid": "illr3",
+    "status": "pending",
+    "copy": true,
+    "document": {
+      "title": "Python"
+    },
+    "pages": "1-120",
+    "patron": {
+      "$ref": "https://ils.rero.ch/api/patrons/ptrn7"
+    },
+    "pickup_location": {
+      "$ref": "https://ils.rero.ch/api/locations/loc1"
+    }
+  },
   "coll_martigny_1": {
     "pid": "coll_martigny_1",
     "collection_id": "CRS 1",

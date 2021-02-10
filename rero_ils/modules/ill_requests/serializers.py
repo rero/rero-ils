@@ -20,6 +20,7 @@
 from invenio_records_rest.serializers.response import search_responsify
 
 from ..libraries.api import Library
+from ..locations.api import Location
 from ..serializers import JSONSerializer, RecordSchemaJSONV1
 
 
@@ -33,6 +34,14 @@ class ILLRequestJSONSerializer(JSONSerializer):
         for lib_term in aggrs.get('library', {}).get('buckets', []):
             pid = lib_term.get('key')
             lib_term['name'] = Library.get_record_by_pid(pid).get('name')
+        # Populate record
+        records = results.get('hits', {}).get('hits', {})
+        for record in records:
+            metadata = record.get('metadata', {})
+            location_pid = metadata.get('pickup_location', {}).get('pid')
+            location = Location.get_record_by_pid(location_pid)
+            pickup_name = location.get('pickup_name', location.get('name'))
+            metadata['pickup_location']['name'] = pickup_name
 
         return super().post_process_serialize_search(results, pid_fetcher)
 

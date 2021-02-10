@@ -603,7 +603,7 @@ RECORDS_REST_ENDPOINTS = dict(
         '"rero_ils.modules.ill_requests.api:ILLRequest"):pid_value>',
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
-        search_factory_imp='rero_ils.query:loans_search_factory',
+        search_factory_imp='rero_ils.query:ill_request_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=ILLRequestPermission),
         read_permission_factory_imp=lambda record: record_permission_factory(
@@ -864,6 +864,10 @@ RECORDS_REST_ENDPOINTS = dict(
         search_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_search'
+            ),
+            'application/rero+json': (
+                'rero_ils.modules.patron_transactions.serializers'
+                ':json_patron_transactions_search'
             )
         },
         record_loaders={
@@ -910,6 +914,10 @@ RECORDS_REST_ENDPOINTS = dict(
         search_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_search'
+            ),
+            'application/rero+json': (
+                'rero_ils.modules.patron_transaction_events.serializers'
+                ':json_patron_transaction_events_search'
             )
         },
         record_loaders={
@@ -1996,6 +2004,15 @@ RECORDS_REST_FACETS = dict(
             _('library'): and_term_filter('library.pid')
         }
     ),
+    patron_transactions=dict(
+        aggs=dict(
+            total=dict(
+                sum=dict(
+                    field='total_amount'
+                )
+            )
+        )
+    )
 )
 
 # Elasticsearch fields boosting by index
@@ -2034,6 +2051,8 @@ indexes = [
     'operation_logs',
     'organisations',
     'patrons',
+    'patron_transaction_events',
+    'patron_transactions',
     'patron_types',
     'templates',
     'vendors'
@@ -2447,12 +2466,16 @@ CIRCULATION_REST_ENDPOINTS = dict(
         search_serializers={
             'application/json': ('invenio_records_rest.serializers'
                                  ':json_v1_search'),
+            'application/rero+json': (
+                'rero_ils.modules.loans.serializers:'
+                'json_loan_search'
+            )
         },
         record_loaders={
             'application/json': lambda: Loan(request.get_json()),
         },
         record_class='rero_ils.modules.loans.api:Loan',
-        search_factory_imp='rero_ils.query:loans_search_factory',
+        search_factory_imp='rero_ils.query:circulation_search_factory',
         list_route='/loans/',
         item_route='/loans/<{0}:pid_value>'.format(
             _LOANID_CONVERTER),
@@ -2600,7 +2623,7 @@ CIRCULATION_ACTIONS_VALIDATION = {
         PatronType.allow_request
     ],
     ItemCirculationAction.EXTEND: [
-        Item.can_extend,
+        Loan.can_extend,
         Patron.can_extend,
         PatronType.allow_extend
     ],

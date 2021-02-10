@@ -20,6 +20,10 @@
 from flask import Blueprint, abort, jsonify
 from flask_login import login_required
 
+from rero_ils.modules.items.api import Item
+from rero_ils.modules.items.api_views import \
+    check_logged_user_authentication, jsonify_error
+from rero_ils.modules.items.models import ItemCirculationAction
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.utils import sum_for_fees
 
@@ -43,3 +47,27 @@ def preview_loan_overdue(loan_pid):
         'total': sum_for_fees(fees),
         'steps': fees
     })
+
+
+@api_blueprint.route('/<loan_pid>/can_extend', methods=['GET'])
+@check_logged_user_authentication
+@jsonify_error
+def can_extend(loan_pid):
+    """Loan can extend."""
+    loan = Loan.get_record_by_pid(loan_pid)
+    item_pid = loan.get('item_pid', {}).get('value')
+    can_extend = {
+        'can': False,
+        'reasons': []
+    }
+    if item_pid:
+        item = Item.get_record_by_pid(item_pid)
+        can, reasons = item.can(
+            ItemCirculationAction.EXTEND,
+            loan=loan
+        )
+        can_extend = {
+            'can': can,
+            'reasons': reasons
+        }
+    return jsonify(can_extend)

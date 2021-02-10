@@ -16,125 +16,18 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #}
-{%- extends 'rero_ils/page_settings.html' %}
-{% from "rero_ils/_macro_profile.html" import build_fees %}
+{% extends 'rero_ils/page_settings.html' %}
 
-{% set record_dumps = record.dumps() %}
+{%- block css %}
+{{ super() }}
+{{ node_assets('@rero/rero-ils-ui/dist/public-patron-profile', ['styles.*css'], 'css') }}
+{%- endblock css %}
+
 {%- block settings_body %}
-{% include('rero_ils/_patron_profile_head.html') %}
-
-<section>
-  {% for message in messages %}
-    <div class="alert alert-{{ message['type'] }}" role="alert">{{ message['content'] }}</div>
-  {% endfor %}
-  {% set note=record.notes|selectattr('type', '==', 'public_note')|list|last%}
-  {% if note %}
-  <div class="alert alert-warning" role="alert">
-    {{note.content.replace('\n', '<br>')|safe}}
-  </div>
-  {% endif %}
-</section>
-
-<article class="mt-4">
-  <header>
-    <nav>
-      <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item mw-25">
-          <a class="nav-link{% if tab == 'loans' %} active{% endif %}" href="#loans" data-toggle="tab" id="loans-tab" title="{{ _('Loans') }}"
-            role="tab" aria-controls="loans" aria-selected="true">
-            {{ _('Loans') }}
-            <span class="badge badge-light font-weight-normal">{{ loans | length }}</span>
-          </a>
-        </li>
-        <li class="nav-item mw-25">
-          <a class="nav-link{% if tab == 'requests' %} active{% endif %}" href="#requests" data-toggle="tab" id="requests-tab" title="{{ _('Requests') }}" role="tab"
-            aria-controls="requests" aria-selected="false">
-            {{ _('Requests') }}
-            <span class="badge badge-light font-weight-normal">{{ requests | length }}</span>
-          </a>
-        </li>
-         <li class="nav-item mw-25">
-          <a class="nav-link{% if tab == 'fees' %} active{% endif %}" href="#fees" data-toggle="tab" id="fees-tab" title="{{ _('Fees') }}" role="tab"
-            aria-controls="fees" aria-selected="false">
-            {{ _('Fees') }}
-            <span class="badge badge-danger font-weight-normal">{{ fees.open.total_amount | format_currency(fees.open.currency) }}</span>
-          </a>
-        </li>
-        {% if record_dumps.keep_history %}
-        <li class="nav-item mw-25">
-          <a class="nav-link{% if tab == 'history' %} active{% endif %}" href="#history" data-toggle="tab" id="history-tab" title="{{ _('History') }}" role="tab"
-            aria-controls="history" aria-selected="false">
-            {{ _('History') }}
-            <span class="badge badge-light font-weight-normal">{{ history | length }}</span>
-          </a>
-        </li>
-        {% endif %}
-        <li class="nav-item mw-25">
-          <a class="nav-link{% if tab == 'ill_request' %} active{% endif %}" href="#ill_request" data-toggle="tab" id="ill_request-tab" title="{{ _('ILL requests') }}" role="tab"
-            aria-controls="history" aria-selected="false">
-            {{ _('ILL requests') }}
-            <span class="badge badge-light font-weight-normal">{{ ill_requests | length }}</span>
-          </a>
-        </li>
-        <li class="nav-item mw-25">
-          <a class="nav-link{% if tab == 'personal' %} active{% endif %}" href="#personal-data" data-toggle="tab" id="personal-data-tab"
-            title="{{ _('Personal data') }}" role="tab" aria-controls="personal-data" aria-selected="false">
-            {{ _('Personal data') }}
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </header>
-
-  <article class="tab-content">
-    <section
-      class="pl-3 pr-2 tab-pane show py-2{% if tab == 'loans' %} active{% endif %}"
-      id="loans"
-      role="tabpanel"
-      aria-labelledby="loan-tab"
-    >
-      {% include('rero_ils/_patron_profile_loans.html') %}
-    </section>
-    <section
-      class="pl-3 pr-2  tab-pane show py-2{% if tab == 'requests' %} active{% endif %}"
-      id="requests"
-      role="tabpanel"
-      aria-labelledby="request-tab"
-    >
-      {% include('rero_ils/_patron_profile_requests.html') %}
-    </section>
-    <section
-      class="pl-3 pr-2 tab-pane show py-2{% if tab == 'fees' %} active{% endif %}"
-      id="fees"
-      role="tabpanel"
-      aria-labelledby="fee-tab"
-    >
-      {% include('rero_ils/_patron_profile_fees.html') %}
-    </section>
-    <section
-      class="pl-3 pr-2 tab-pane show py-2{% if tab == 'history' %} active{% endif %}"
-      id="history"
-      role="tabpanel"
-      aria-labelledby="history-tab"
-    >
-      {% include('rero_ils/_patron_profile_history.html') %}
-    </section>
-    <section
-      class="pl-3 pr-2 tab-pane show py-2{% if tab == 'ill_request' %} active{% endif %}"
-      id="ill_request"
-      role="tabpanel"
-      aria-labelledby="ill_request-tab"
-    >
-      {% include('rero_ils/_patron_profile_ill_requests.html') %}
-    </section>
-    <section
-      class="pl-3 pr-2 tab-pane show py-2{% if tab == 'personal' %} active{% endif %}"
-      id="personal-data"
-      role="tabpanel"
-      aria-labelledby="personal-data-tab"
-    >
-      {% include('rero_ils/_patron_profile_personal.html') %}
-    </section>
-  </article>
-</article>
+<public-patron-profile language="{{ current_i18n.locale.language[:2] }}"></public-patron-profile>
 {%- endblock settings_body %}
+
+{%- block javascript %}
+{{ super() }}
+{{ node_assets('@rero/rero-ils-ui/dist/public-patron-profile', tags='defer') }}
+{%- endblock javascript %}
