@@ -43,7 +43,6 @@ def enrich_patron_data(sender, json=None, record=None, index=None,
                 'pid': org_pid
             }
 
-
 def create_subscription_patron_transaction(sender, record=None, **kwargs):
     """This method check the patron to know if a subscription is requested.
 
@@ -76,4 +75,15 @@ def update_from_profile(sender, profile=None, **kwargs):
 
     :param profile - the rero user profile
     """
-    Patron.update_from_profile(profile)
+    patron = Patron.get_patron_by_user(profile.user)
+    if patron:
+        old_keep_history = patron.get('patron', {}).get('keep_history')
+        patron.reindex()
+        from ..loans.api import anonymize_loans
+        new_keep_history = profile.keep_history
+        if old_keep_history and not new_keep_history:
+            anonymize_loans(
+                patron_data=patron,
+                patron_pid=patron.get('pid'),
+                dbcommit=True,
+                reindex=True)

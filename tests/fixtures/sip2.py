@@ -50,6 +50,7 @@ def sip2_patron_martigny_data(data):
 def sip2_patron_martigny(
         app,
         roles,
+        lib_martigny,
         patron_type_children_martigny,
         sip2_patron_martigny_data):
     """Create Martigny patron without sending reset password instruction."""

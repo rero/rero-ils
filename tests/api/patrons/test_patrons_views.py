@@ -98,4 +98,4 @@ def test_patron_utils(client, librarian_martigny,
 
     from rero_ils.modules.patrons.views import get_patron_from_barcode
     assert get_patron_from_barcode(
-        patron.patron.get('barcode')) == patron
+        patron.patron.get('barcode')[0]) == patron

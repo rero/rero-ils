@@ -58,7 +58,7 @@
               }
             }
           },
-          "phone": {
+          "home_phone": {
             "type": "keyword"
           },
           "postal_code": {
@@ -89,7 +89,7 @@
               }
             }
           },
-          "phone": {
+          "home_phone": {
             "type": "keyword"
           },
           "postal_code": {

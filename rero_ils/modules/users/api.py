@@ -20,11 +20,14 @@
 from datetime import datetime
 
 from flask import current_app, url_for
+from flask_babelex import lazy_gettext as _
+from flask_login import current_user
 from flask_security.confirmable import confirm_user
 from flask_security.recoverable import send_reset_password_instructions
 from invenio_accounts.ext import hash_password
 from invenio_accounts.models import User as BaseUser
 from invenio_db import db
+from invenio_jsonschemas import current_jsonschemas
 from invenio_records.validators import PartialDraft4Validator
 from invenio_userprofiles.models import UserProfile
 from jsonschema import FormatChecker
@@ -35,13 +38,27 @@ from ...utils import remove_empties_from_dict
 
 _records_state = LocalProxy(lambda: current_app.extensions['invenio-records'])
 
+def get_profile_countries():
+    """Get country list from the jsonschema."""
+    schema = current_jsonschemas.get_schema('common/countries-v0.0.1.json')
+    options = schema['country']['form']['options']
+    return [(option.get('value'), _((option.get('label')))) for option in options]
+
+
+def get_readonly_profile_fields():
+    """Disalow to edit some fields for patrons."""
+    if current_user.has_role('patron'):
+        return ['first_name', 'last_name', 'birth_date']
+    return ['keep_history']
+
 
 class User(object):
     """User API."""
 
     profile_fields = [
-        'first_name', 'last_name', 'street', 'postal_code',
-        'city', 'birth_date', 'username', 'phone', 'keep_history'
+        'first_name', 'last_name', 'street', 'postal_code', 'gender',
+        'city', 'birth_date', 'username', 'home_phone', 'business_phone',
+        'mobile_phone', 'other_phone', 'keep_history', 'country'
     ]
 
     def __init__(self, user):
@@ -59,10 +76,10 @@ class User(object):
             email = data.pop('email', None)
             roles = data.pop('roles', None)
             cls._validate(data=data)
+            password = data.pop('password',
+                data.get('birth_date', '123456'))
             user = BaseUser(
-                password=hash_password(
-                    data.get('password',
-                        data.get('birth_date', '123456'))),
+                password=hash_password(password),
                 profile=data, active=True)
             db.session.add(user)
             profile = user.profile
@@ -148,18 +165,24 @@ class User(object):
             'id': self.user.id,
             'links': {'self': url_for(
                 'api_users.users_item', _external=True, id=self.user.id)},
-            'metadata': {}
+            'metadata': self.dumpsMetadata()
         }
+        return data
+
+    def dumpsMetadata(self):
+        """Dumps the profile, email, roles metadata."""
+        metadata = {}
         if self.user.profile:
             for field in self.profile_fields:
                 value = getattr(self.user.profile, field)
-                if field == 'birth_date':
-                    value = datetime.strftime(value, '%Y-%m-%d')
-                data['metadata'][field] = value
-        data['metadata']['email'] = self.user.email
-        data['metadata']['roles'] = [r.name for r in self.user.roles]
-        data = remove_empties_from_dict(data)
-        return data
+                if value:
+                    if field == 'birth_date':
+                        value = datetime.strftime(value, '%Y-%m-%d')
+                    metadata[field] = value
+        if self.user.email:
+            metadata['email'] = self.user.email
+        metadata['roles'] = [r.name for r in self.user.roles]
+        return remove_empties_from_dict(metadata)
 
     @classmethod
     def get_by_username(cls, username):

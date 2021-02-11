@@ -20,9 +20,8 @@
 {%- extends config.THEME_BASE_TEMPLATE %}
 
 {%- block body scoped %}
-<div class="container">
   <div class="row">
-    <div class="col-sm-3 col-md-3 col-pad-left-0">
+    <div class="col-md-2 col-pad-left-0">
       {%- block settings_menu scoped %}
       <ul class="list-group">
         {%- for item in current_menu.submenu('settings').children if item.visible %}
@@ -35,7 +34,7 @@
       </ul>
       {%- endblock %}
     </div>
-    <div class="col-sm-9 col-md-9 col-pad-right-0">
+    <div class="col-md-10 col-pad-right-0">
       {%- block settings_content scoped %}
       <div class="panel-group panel-bot-margin">
         <div class="panel panel-default">
@@ -60,5 +59,4 @@
       {%- endblock %}
     </div>
   </div>
-</div>
 {%- endblock %}

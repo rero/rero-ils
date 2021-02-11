@@ -427,6 +427,15 @@ def prepare_jsonschema(schema):
     schema.pop('$schema', None)
     if 'pid' in schema.get('required', []):
         schema['required'].remove('pid')
+    default_country = current_app.config.get('USERPROFILES_DEFAULT_COUNTRY')
+    # users
+    field = schema.get('properties', {}).get('country')
+    # patrons: allOf does not works to remove property
+    if not field:
+        field = schema.get('properties', {}).get('second_address', {}).get(
+            'properties', {}).get('country')
+    if field and default_country:
+        field['default'] = default_country
     return schema
 
 

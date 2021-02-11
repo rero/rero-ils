@@ -92,7 +92,7 @@ def test_barcode(patron_schema, patron_martigny_data_tmp_with_id):
     validate(patron_martigny_data_tmp_with_id, patron_schema)
 
     with pytest.raises(ValidationError):
-        patron_martigny_data_tmp_with_id['patron']['barcode'] = 25
+        patron_martigny_data_tmp_with_id['patron']['barcode'][0] = 25
         validate(patron_martigny_data_tmp_with_id, patron_schema)
 
 
@@ -105,26 +105,12 @@ def test_birth_date(patron_schema, patron_martigny_data_tmp_with_id):
         validate(patron_martigny_data_tmp_with_id, patron_schema)
 
 
-def test_email(patron_schema, patron_martigny_data_tmp_with_id):
-    """Test email for patron jsonschemas."""
-    validate(patron_martigny_data_tmp_with_id, patron_schema)
-
-    # email is optional
-    del patron_martigny_data_tmp_with_id['email']
-    validate(patron_martigny_data_tmp_with_id, patron_schema)
-
-    # email with a bad format
-    with pytest.raises(ValidationError):
-        patron_martigny_data_tmp_with_id['email'] = 25
-        validate(patron_martigny_data_tmp_with_id, patron_schema)
-
-
 def test_phone(patron_schema, patron_martigny_data_tmp_with_id):
     """Test phone for patron jsonschemas."""
     validate(patron_martigny_data_tmp_with_id, patron_schema)
 
     with pytest.raises(ValidationError):
-        patron_martigny_data_tmp_with_id['phone'] = 25
+        patron_martigny_data_tmp_with_id['home_phone'] = 25
         validate(patron_martigny_data_tmp_with_id, patron_schema)
 
 

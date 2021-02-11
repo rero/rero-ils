@@ -65,7 +65,7 @@ def test_librarian_permissions(
             "communication_language": "ita"
         },
         "libraries": [{"$ref": "https://ils.rero.ch/api/libraries/lib1"}],
-        "phone": "+41324993111"
+        "home_phone": "+41324993111"
     }
     record = create_user_from_data(record)
     # can retrieve all type of users.
@@ -103,7 +103,7 @@ def test_librarian_permissions(
         counter += 1
         data = record['data']
         data['roles'] = [record['role']]
-        data['patron']['barcode'] = 'barcode' + str(counter)
+        data['patron']['barcode'] = ['barcode' + str(counter)]
 
         res, _ = postdata(
             client,
@@ -152,7 +152,7 @@ def test_librarian_permissions(
         counter += 1
         data = record['data']
         data['roles'] = [record['role']]
-        data['patron']['barcode'] = 'barcode' + str(counter)
+        data['patron']['barcode'] = ['barcode' + str(counter)]
         res, _ = postdata(
             client,
             post_entrypoint,
@@ -161,7 +161,7 @@ def test_librarian_permissions(
         assert res.status_code == 403
 
     system_librarian['roles'] = ['system_librarian']
-    system_librarian['patron']['barcode'] = 'barcode'
+    system_librarian['patron']['barcode'] = ['barcode']
 
     res, _ = postdata(
         client,

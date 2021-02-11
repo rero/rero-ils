@@ -25,6 +25,8 @@ import pytest
 from pkg_resources import resource_string
 from utils import get_schema
 
+from rero_ils.modules.patrons.api import Patron
+
 
 @pytest.fixture(scope='module')
 def create_app():
@@ -172,7 +174,7 @@ def patron_schema(monkeypatch):
 @pytest.fixture(scope="function")
 def patron_martigny_data_tmp_with_id(patron_martigny_data_tmp):
     """Load Martigny patron data scope function with a mocked user_id."""
-    patron = deepcopy(patron_martigny_data_tmp)
+    patron = Patron.removeUserData(deepcopy(patron_martigny_data_tmp))
     # mock the user_id which is add by the Patron API.
     patron['user_id'] = 100
     return patron

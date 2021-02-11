@@ -44,7 +44,7 @@ def test_system_librarian_permissions(
         "postal_code": "1920",
         "city": "Martigny",
         "birth_date": "1967-06-07",
-        "phone": "+41324993111"
+        "home_phone": "+41324993111"
     }
 
     record = create_user_from_data(record)
@@ -101,7 +101,7 @@ def test_system_librarian_permissions(
         data = record['user']
         data.update(record['patch'])
         if data.get('patron'):
-            data['patron']['barcode'] = 'barcode' + str(counter)
+            data['patron']['barcode'] = ['barcode' + str(counter)]
         res, _ = postdata(
             client,
             'invenio_records_rest.ptrn_list',

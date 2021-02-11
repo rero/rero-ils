@@ -394,9 +394,8 @@ def get_random_patron(exclude_this_barcode):
         .filter('term', organisation__pid=org_pid)\
         .source(['patron']).scan()
     for patron in patrons:
-        if patron.patron.barcode != exclude_this_barcode:
-            return Patron.get_patron_by_barcode(barcode=patron.patron.barcode)
-    return None
+        if exclude_this_barcode not in patron.patron.barcode:
+            return Patron.get_patron_by_barcode(barcode=patron.patron.barcode[0])
 
 
 def get_random_librarian(patron):

@@ -13,8 +13,13 @@
     "street",
     "postal_code",
     "city",
+    "country",
     "birth_date",
-    "phone",
+    "gender",
+    "home_phone",
+    "business_phone",
+    "mobile_phone",
+    "other_phone",
     "keep_history"
   ],
   "required": [
@@ -56,7 +61,7 @@
         "formlyConfig": {
           "validation": {
             "messages": {
-              "pattern": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+              "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
             }
           },
           "templateOptions": {
@@ -65,17 +70,25 @@
         }
       }
     },
+    "gender": {
+      "title": "Gender",
+      "enum": [
+        "male",
+        "female",
+        "other"
+      ]
+    },
     "username": {
       "title": "Username",
       "description": "Login username for the web interface.",
       "type": "string",
-      "pattern": "^[a-zA-Z][a-zA-Z0-9-_]{2}[a-zA-Z0-9-_]*$",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_]{2}[a-zA-Z0-9-_]*$",
       "minLength": 3,
       "widget": {
         "formlyConfig": {
           "validation": {
             "messages": {
-              "patternMessage": "Username must start with a letter, be at least three characters long and only contain alphanumeric characters, dashes and underscores.",
+              "patternMessage": "Username must start with a letter or a number, be at least three characters long and only contain alphanumeric characters, dashes and underscores.",
               "uniqueUsernameMessage": "This username is already taken."
             }
           }
@@ -98,16 +111,73 @@
       "type": "string",
       "minLength": 1
     },
-    "phone": {
-      "title": "Phone number",
-      "description": "Phone number with the international prefix, without spaces.",
+    "country": {
+      "$ref": "https://ils.rero.ch/schemas/common/countries-v0.0.1.json#/country"
+    },
+    "home_phone": {
+      "title": "Home phone number",
+      "description": "Home phone number with the international prefix, without spaces.",
       "type": "string",
       "pattern": "^\\+[0-9]*$",
       "widget": {
         "formlyConfig": {
           "validation": {
             "messages": {
-              "pattern": "Phone number with the international prefix, without spaces, ie +41221234567."
+              "patternMessage": "Phone number with the international prefix, without spaces, ie +41221234567."
+            }
+          },
+          "templateOptions": {
+            "placeholder": "Example: +41791231212"
+          }
+        }
+      }
+    },
+    "business_phone": {
+      "title": "Business phone number",
+      "description": "Business phone number with the international prefix, without spaces.",
+      "type": "string",
+      "pattern": "^\\+[0-9]*$",
+      "widget": {
+        "formlyConfig": {
+          "validation": {
+            "messages": {
+              "patternMessage": "Phone number with the international prefix, without spaces, ie +41221234567."
+            }
+          },
+          "templateOptions": {
+            "placeholder": "Example: +41791231212"
+          }
+        }
+      }
+    },
+    "mobile_phone": {
+      "title": "Mobile phone number",
+      "description": "Mobile phone number with the international prefix, without spaces.",
+      "type": "string",
+      "pattern": "^\\+[0-9]*$",
+      "widget": {
+        "formlyConfig": {
+          "validation": {
+            "messages": {
+              "patternMessage": "Phone number with the international prefix, without spaces, ie +41221234567."
+            }
+          },
+          "templateOptions": {
+            "placeholder": "Example: +41791231212"
+          }
+        }
+      }
+    },
+    "other_phone": {
+      "title": "Other phone number",
+      "description": "Other phone number with the international prefix, without spaces.",
+      "type": "string",
+      "pattern": "^\\+[0-9]*$",
+      "widget": {
+        "formlyConfig": {
+          "validation": {
+            "messages": {
+              "patternMessage": "Phone number with the international prefix, without spaces, ie +41221234567."
             }
           },
           "templateOptions": {

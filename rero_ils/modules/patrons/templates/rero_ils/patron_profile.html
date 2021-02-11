@@ -19,6 +19,7 @@
 {%- extends 'rero_ils/page_settings.html' %}
 {% from "rero_ils/_macro_profile.html" import build_fees %}
 
+{% set record_dumps = record.dumps() %}
 {%- block settings_body %}
 {% include('rero_ils/_patron_profile_head.html') %}
 
@@ -59,7 +60,7 @@
             <span class="badge badge-danger font-weight-normal">{{ fees.open.total_amount | format_currency(fees.open.currency) }}</span>
           </a>
         </li>
-        {% if record.patron.keep_history %}
+        {% if record_dumps.keep_history %}
         <li class="nav-item mw-25">
           <a class="nav-link{% if tab == 'history' %} active{% endif %}" href="#history" data-toggle="tab" id="history-tab" title="{{ _('History') }}" role="tab"
             aria-controls="history" aria-selected="false">

@@ -96,7 +96,7 @@
         </a>
       </div>
       <div class="col-lg-9">
-        {{ record.patron.barcode }}
+        {{ record.patron.barcode[0] }}
       </div>
     </div>
     {% endif %}
@@ -117,7 +117,7 @@
     </div>
     {% endif %}
 
-    {% if record.patron.barcode %}
+    {% if record.patron %}
     <div class="row pl-2 pr-2">
       <div class="col-lg-3 font-weight-bold">
         {{_('Keep history')}}:
@@ -125,7 +125,7 @@
       </div>
       <div class="col-lg-9">
         <i class="fa fa-circle mr- text-{{ 'success' if record.patron.keep_history else 'danger' }}"></i>
-        {% if record.patron.keep_history %}
+        {% if record_dumps.keep_history %}
             {{_('The loan history is saved for a maximum of six months. It is visible to you and the library staff.')}}
           {%- else %}
             {{_('The loan history is not saved.')}}

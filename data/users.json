@@ -16,7 +16,7 @@
         "$ref": "https://ils.rero.ch/api/libraries/4"
       }
     ],
-    "phone": "+39324993597",
+    "home_phone": "+39324993597",
     "postal_code": "11100",
     "street": "Viale Rue Gran Paradiso, 44",
     "notes": [
@@ -45,7 +45,7 @@
         "$ref": "https://ils.rero.ch/api/libraries/4"
       }
     ],
-    "phone": "+41261234567",
+    "home_phone": "+41261234567",
     "postal_code": "1700",
     "street": "Avenue de la Gare, 80"
   },
@@ -65,7 +65,7 @@
         "$ref": "https://ils.rero.ch/api/libraries/3"
       }
     ],
-    "phone": "+41911234567",
+    "home_phone": "+41911234567",
     "postal_code": "6900",
     "street": "Viale Carlo Cattaneo, 52"
   },
@@ -80,14 +80,16 @@
       "patron"
     ],
     "last_name": "Casalini",
-    "phone": "+39324993585",
+    "home_phone": "+39324993585",
     "postal_code": "11100",
     "street": "Via Croix Noire 3",
     "patron": {
       "expiration_date": "2023-10-07",
       "blocked": false,
       "keep_history": false,
-      "barcode": "2050124311",
+      "barcode": [
+        "2050124311"
+      ],
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/1"
       },
@@ -120,7 +122,9 @@
     "street": "Panoramica Collinare, 47",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "2030124287",
+      "barcode": [
+        "2030124287"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/2"
@@ -145,7 +149,7 @@
         "$ref": "https://ils.rero.ch/api/libraries/4"
       }
     ],
-    "phone": "+39244857275",
+    "home_phone": "+39244857275",
     "postal_code": "11010",
     "street": "Frazione Plan"
   },
@@ -164,7 +168,9 @@
     "street": "Rue du Nord 7",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "reroils1",
+      "barcode": [
+        "reroils1"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/3"
@@ -184,12 +190,14 @@
       "patron"
     ],
     "last_name": "John",
-    "phone": "+1408492280015",
+    "home_phone": "+1408492280015",
     "postal_code": "95054",
     "street": "520 Scott Blvd",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "2000000001",
+      "barcode": [
+        "2000000001"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/3"
@@ -209,12 +217,14 @@
       "patron"
     ],
     "last_name": "Premand",
-    "phone": "+41795762233",
+    "home_phone": "+41795762233",
     "postal_code": "1892",
     "street": "Route du Village 6",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "10000001",
+      "barcode": [
+        "10000001"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/1"
@@ -234,12 +244,14 @@
       "patron"
     ],
     "last_name": "Broglio",
-    "phone": "+41918264239",
+    "home_phone": "+41918264239",
     "postal_code": "6500",
     "street": "Piazza Collegiata 12",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "2050124312",
+      "barcode": [
+        "2050124312"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/1"
@@ -259,12 +271,14 @@
       "patron"
     ],
     "last_name": "Carron",
-    "phone": "+41792001020",
+    "home_phone": "+41792001020",
     "postal_code": "1920",
     "street": "Gare 45",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "kad001",
+      "barcode": [
+        "kad001"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/1"
@@ -284,12 +298,14 @@
       "patron"
     ],
     "last_name": "Rard",
-    "phone": "+41792500512",
+    "home_phone": "+41792500512",
     "postal_code": "1926",
     "street": "Vignettes 25",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "kad002",
+      "barcode": [
+        "kad002"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/1"
@@ -315,7 +331,7 @@
         "$ref": "https://ils.rero.ch/api/libraries/5"
       }
     ],
-    "phone": "+01411234567",
+    "home_phone": "+01411234567",
     "postal_code": "0000",
     "street": "High Street"
   },
@@ -334,7 +350,9 @@
     "street": "Magic Street 3",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "3050124311",
+      "barcode": [
+        "3050124311"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/4"
@@ -358,7 +376,9 @@
     "street": "Diagon Alley 72",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "3050124312",
+      "barcode": [
+        "3050124312"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/4"
@@ -384,7 +404,7 @@
         "$ref": "https://ils.rero.ch/api/libraries/6"
       }
     ],
-    "phone": "+765554433",
+    "home_phone": "+765554433",
     "postal_code": "7878",
     "street": "Imagination Street 48"
   },
@@ -404,7 +424,7 @@
         "$ref": "https://ils.rero.ch/api/libraries/6"
       }
     ],
-    "phone": "+765554433",
+    "home_phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
   },
@@ -424,7 +444,7 @@
         "$ref": "https://ils.rero.ch/api/libraries/7"
       }
     ],
-    "phone": "+765554433",
+    "home_phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
   },
@@ -444,7 +464,7 @@
         "$ref": "https://ils.rero.ch/api/libraries/8"
       }
     ],
-    "phone": "+765554433",
+    "home_phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
   },
@@ -464,7 +484,7 @@
         "$ref": "https://ils.rero.ch/api/libraries/9"
       }
     ],
-    "phone": "+765554433",
+    "home_phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
   },
@@ -484,7 +504,7 @@
         "$ref": "https://ils.rero.ch/api/libraries/10"
       }
     ],
-    "phone": "+765554433",
+    "home_phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
   },
@@ -504,7 +524,7 @@
         "$ref": "https://ils.rero.ch/api/libraries/11"
       }
     ],
-    "phone": "+765554433",
+    "home_phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
   },
@@ -524,7 +544,7 @@
         "$ref": "https://ils.rero.ch/api/libraries/12"
       }
     ],
-    "phone": "+765554433",
+    "home_phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
   },
@@ -544,7 +564,7 @@
         "$ref": "https://ils.rero.ch/api/libraries/13"
       }
     ],
-    "phone": "+765554433",
+    "home_phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
   },
@@ -564,7 +584,7 @@
         "$ref": "https://ils.rero.ch/api/libraries/14"
       }
     ],
-    "phone": "+765554433",
+    "home_phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
   },
@@ -584,7 +604,7 @@
         "$ref": "https://ils.rero.ch/api/libraries/15"
       }
     ],
-    "phone": "+765554433",
+    "home_phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
   },
@@ -604,7 +624,7 @@
         "$ref": "https://ils.rero.ch/api/libraries/16"
       }
     ],
-    "phone": "+765554433",
+    "home_phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
   },
@@ -624,7 +644,7 @@
         "$ref": "https://ils.rero.ch/api/libraries/17"
       }
     ],
-    "phone": "+765554433",
+    "home_phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
   },
@@ -644,7 +664,7 @@
         "$ref": "https://ils.rero.ch/api/libraries/18"
       }
     ],
-    "phone": "+765554433",
+    "home_phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
   },
@@ -664,7 +684,7 @@
         "$ref": "https://ils.rero.ch/api/libraries/19"
       }
     ],
-    "phone": "+765554433",
+    "home_phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
   },
@@ -684,7 +704,7 @@
         "$ref": "https://ils.rero.ch/api/libraries/20"
       }
     ],
-    "phone": "+765554433",
+    "home_phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
   },
@@ -704,7 +724,7 @@
         "$ref": "https://ils.rero.ch/api/libraries/21"
       }
     ],
-    "phone": "+765554433",
+    "home_phone": "+765554433",
     "postal_code": "no indication",
     "street": "no indication"
   },
@@ -719,12 +739,14 @@
       "patron"
     ],
     "last_name": "Rh\u00e9aume",
-    "phone": "+41316126321",
+    "home_phone": "+41316126321",
     "postal_code": "1292",
     "street": "Faubourg du Lac 6",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "920001",
+      "barcode": [
+        "920001"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
@@ -744,12 +766,14 @@
       "patron"
     ],
     "last_name": "Rocher",
-    "phone": "+41913843044",
+    "home_phone": "+41913843044",
     "postal_code": "1489",
     "street": "Rue du Tr\u00e9sor 9",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "920002",
+      "barcode": [
+        "920002"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
@@ -769,12 +793,14 @@
       "patron"
     ],
     "last_name": "Chalifour",
-    "phone": "+41628609930",
+    "home_phone": "+41628609930",
     "postal_code": "2953",
     "street": "Rue de l'Industrie 46",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "920003",
+      "barcode": [
+        "920003"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
@@ -794,12 +820,14 @@
       "patron"
     ],
     "last_name": "Lamarre",
-    "phone": "+41613956062",
+    "home_phone": "+41613956062",
     "postal_code": "2000",
     "street": "Avenue Max-Huber 2",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "920004",
+      "barcode": [
+        "920004"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
@@ -819,12 +847,14 @@
       "patron"
     ],
     "last_name": "Boileau",
-    "phone": "+41815333591",
+    "home_phone": "+41815333591",
     "postal_code": "3960",
     "street": "Rue de Montsalvens 3",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "920005",
+      "barcode": [
+        "920005"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
@@ -844,12 +874,14 @@
       "patron"
     ],
     "last_name": "Doiron",
-    "phone": "+41316126321",
+    "home_phone": "+41316126321",
     "postal_code": "1630",
     "street": "Rue du Vieux-Pont 3",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "920006",
+      "barcode": [
+        "920006"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
@@ -869,12 +901,14 @@
       "patron"
     ],
     "last_name": "Beich",
-    "phone": "+41562747247",
+    "home_phone": "+41562747247",
     "postal_code": "9604",
     "street": "Seefeldstrasse 37",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "920007",
+      "barcode": [
+        "920007"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
@@ -894,12 +928,14 @@
       "patron"
     ],
     "last_name": "Fischer",
-    "phone": "+41449166744",
+    "home_phone": "+41449166744",
     "postal_code": "8620",
     "street": "In Stierwisen 98",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "920008",
+      "barcode": [
+        "920008"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
@@ -919,12 +955,14 @@
       "patron"
     ],
     "last_name": "Freeh",
-    "phone": "+41523734083",
+    "home_phone": "+41523734083",
     "postal_code": "8155",
     "street": "Im Wingert 117",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "920009",
+      "barcode": [
+        "920009"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
@@ -944,12 +982,14 @@
       "patron"
     ],
     "last_name": "Schuhmacher",
-    "phone": "+41318033434",
+    "home_phone": "+41318033434",
     "postal_code": "9525",
     "street": "Werkstrasse 136",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "920010",
+      "barcode": [
+        "920010"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
@@ -969,12 +1009,14 @@
       "patron"
     ],
     "last_name": "Trommler",
-    "phone": "+41278023434",
+    "home_phone": "+41278023434",
     "postal_code": "3605",
     "street": "L\u00fctzelfl\u00fchstrasse 120",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "920011",
+      "barcode": [
+        "920011"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
@@ -994,12 +1036,14 @@
       "patron"
     ],
     "last_name": "Ziegler",
-    "phone": "+41222747247",
+    "home_phone": "+41222747247",
     "postal_code": "5637",
     "street": "\u00dcerklisweg 55",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "920012",
+      "barcode": [
+        "920012"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
@@ -1019,12 +1063,14 @@
       "patron"
     ],
     "last_name": "Marcelo",
-    "phone": "+41322747447",
+    "home_phone": "+41322747447",
     "postal_code": "6675",
     "street": "Via Verbano 109",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "920013",
+      "barcode": [
+        "920013"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
@@ -1043,12 +1089,14 @@
       "patron"
     ],
     "last_name": "Folliero",
-    "phone": "+41328619930",
+    "home_phone": "+41328619930",
     "postal_code": "7106",
     "street": "Quadra 93",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "920014",
+      "barcode": [
+        "920014"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
@@ -1068,12 +1116,14 @@
       "patron"
     ],
     "last_name": "Bellucci",
-    "phone": "+41313966062",
+    "home_phone": "+41313966062",
     "postal_code": "6987",
     "street": "Via Camischolas sura 63",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "920015",
+      "barcode": [
+        "920015"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
@@ -1093,12 +1143,14 @@
       "patron"
     ],
     "last_name": "Colombo",
-    "phone": "+41274865229",
+    "home_phone": "+41274865229",
     "postal_code": "6500",
     "street": "Lungolago 118",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "920016",
+      "barcode": [
+        "920016"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
@@ -1118,12 +1170,14 @@
       "patron"
     ],
     "last_name": "de Baskerville",
-    "phone": "+41324993585",
+    "home_phone": "+41324993585",
     "postal_code": "6073",
     "street": "Ranftweg 1",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "999999",
+      "barcode": [
+        "999999"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/5"
@@ -1150,7 +1204,7 @@
       }
     ],
     "password": "123456",
-    "phone": "+39324993599",
+    "home_phone": "+39324993599",
     "postal_code": "11101",
     "street": "Central Park"
   },
@@ -1171,7 +1225,7 @@
       }
     ],
     "password": "123456",
-    "phone": "+39324993596",
+    "home_phone": "+39324993596",
     "postal_code": "11102",
     "street": "Illogical street, 44"
   },
@@ -1187,12 +1241,14 @@
     ],
     "last_name": "Kirk",
     "password": "123456",
-    "phone": "+41324883598",
+    "home_phone": "+41324883598",
     "postal_code": "4242",
     "street": "Galaxy street",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "cypress-1",
+      "barcode": [
+        "cypress-1"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/7"
@@ -1213,12 +1269,14 @@
     ],
     "last_name": "Uhura",
     "password": "123456",
-    "phone": "+41324883123",
+    "home_phone": "+41324883123",
     "postal_code": "4242",
     "street": "Milky Way street",
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "cypress-2",
+      "barcode": [
+        "cypress-2"
+      ],
       "keep_history": false,
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/7"
