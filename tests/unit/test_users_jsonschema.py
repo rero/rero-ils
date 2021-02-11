@@ -39,11 +39,16 @@ def test_user_all_jsonschema_keys_values(
         {'key': 'first_name', 'value': 25},
         {'key': 'last_name', 'value': 25},
         {'key': 'birth_date', 'value': 25},
+        {'key': 'gender', 'value': 25},
         {'key': 'username', 'value': 25},
         {'key': 'street', 'value': 25},
         {'key': 'postal_code', 'value': 25},
         {'key': 'city', 'value': 25},
-        {'key': 'phone', 'value': 25},
+        {'key': 'country', 'value': 25},
+        {'key': 'mobile_phone', 'value': 25},
+        {'key': 'business_phone', 'value': 25},
+        {'key': 'mobile_phone', 'value': 25},
+        {'key': 'other_phone', 'value': 25},
         {'key': 'keep_history', 'value': 25},
         {'key': 'user_id', 'value': '25'}
     ]

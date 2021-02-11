@@ -43,7 +43,7 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
     assert len(mailbox) == 0
     assert User.query.count() == 0
     assert UserProfile.query.count() == 0
-
+    l_martigny_data_tmp = librarian_martigny_data_tmp
     librarian_martigny_data_tmp = create_user_from_data(librarian_martigny_data_tmp)
     # wrong_librarian_martigny_data_tmp = deepcopy(librarian_martigny_data_tmp)
     # wrong_librarian_martigny_data_tmp.pop('first_name')
@@ -66,7 +66,7 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
     wrong_librarian_martigny_data_tmp = deepcopy(librarian_martigny_data_tmp)
     wrong_librarian_martigny_data_tmp.setdefault('patron', {
         'expiration_date': '2023-10-07',
-        'barcode': '2050124311',
+        'barcode': ['2050124311'],
         'type': {
           '$ref': 'https://ils.rero.ch/api/patron_types/ptty2'
         },
@@ -103,12 +103,12 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
     assert user.active
     for field in [
         'first_name', 'last_name', 'street', 'postal_code', 'city', 'username',
-        'phone'
+        'home_phone'
     ]:
-        assert getattr(user.profile, field) == librarian_martigny_data_tmp.get(
+        assert getattr(user.profile, field) == l_martigny_data_tmp.get(
             field)
     user.profile.birth_date == datetime.strptime(
-        librarian_martigny_data_tmp.get('birth_date'), '%Y-%m-%d')
+        l_martigny_data_tmp.get('birth_date'), '%Y-%m-%d')
     user_roles = [r.name for r in user.roles]
     assert set(user_roles) == set(ptrn.get('roles'))
     # TODO: make these checks during the librarian POST creation
@@ -143,7 +143,7 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
         'roles': Patron.available_roles,
         'patron': {
             'expiration_date': '2023-10-07',
-            'barcode': '2050124311',
+            'barcode': ['2050124311'],
             'type': {
               '$ref': 'https://ils.rero.ch/api/patron_types/ptty2'
             },
@@ -281,10 +281,10 @@ def test_patron_organisation_pid(org_martigny, patron_martigny,
 def test_get_patron(patron_martigny):
     """Test patron retrieval."""
     patron = patron_martigny
-    assert Patron.get_patron_by_email(patron.get('email')) == patron
+    assert Patron.get_patron_by_email(patron.dumps().get('email')) == patron
     assert not Patron.get_patron_by_email('not exists')
     assert Patron.get_patron_by_barcode(
-        patron.patron.get('barcode')) == patron
+        patron.patron.get('barcode')[0]) == patron
     assert not Patron.get_patron_by_barcode('not exists')
     assert Patron.get_patron_by_user(patron.user) == patron
 
@@ -295,20 +295,19 @@ def test_get_patron(patron_martigny):
 
 def test_user_librarian_can_delete(librarian_martigny):
     """Test can delete a librarian."""
-    print('bla', User.query.all())
     assert librarian_martigny.get_links_to_me() == {}
     assert librarian_martigny.can_delete
 
 
 def test_get_patron_blocked_field(patron_martigny):
     """Test patron blocked field retrieval."""
-    patron = Patron.get_patron_by_email(patron_martigny.get('email'))
+    patron = Patron.get_patron_by_email(patron_martigny.dumps().get('email'))
     assert patron.patron.get('blocked') is False
 
 
 def test_get_patron_blocked_field_absent(patron2_martigny):
     """Test patron blocked field retrieval."""
-    patron = Patron.get_patron_by_email(patron2_martigny.get('email'))
+    patron = Patron.get_patron_by_email(patron2_martigny.dumps().get('email'))
     assert 'blocked' not in patron
 
 

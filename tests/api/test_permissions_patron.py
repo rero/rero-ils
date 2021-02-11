@@ -53,7 +53,7 @@ def test_patron_permissions(
             "communication_channel": "email",
             "communication_language": "ita"
         },
-        "phone": "+41324993111"
+        "home_phone": "+41324993111"
     }
 
     # can not retrieve any type of users.
@@ -79,7 +79,7 @@ def test_patron_permissions(
         counter += 1
         data = record['data']
         data['roles'] = [record['role']]
-        data['patron']['barcode'] = 'barcode' + str(counter)
+        data['patron']['barcode'] = ['barcode' + str(counter)]
         data['email'] = str(counter) + '@domain.com'
         res, _ = postdata(
             client,

@@ -48,7 +48,7 @@ def test_item_can_request(
             item_pid=item_lib_martigny.pid,
             library_pid=lib_martigny.pid,
             patron_barcode=patron_martigny.get(
-                'patron', {}).get('barcode')
+                'patron', {}).get('barcode')[0]
         )
     )
     assert res.status_code == 401
@@ -64,7 +64,7 @@ def test_item_can_request(
             item_pid=item_lib_martigny.pid,
             library_pid=lib_martigny.pid,
             patron_barcode=patron_martigny.get(
-                'patron', {}).get('barcode')
+                'patron', {}).get('barcode')[0]
         )
     )
     assert res.status_code == 200
@@ -78,7 +78,7 @@ def test_item_can_request(
             item_pid=item_lib_martigny.pid,
             library_pid=lib_martigny.pid,
             patron_barcode=system_librarian_martigny.get(
-                'patron', {}).get('barcode')
+                'patron', {}).get('barcode')[0]
         )
     )
     assert res.status_code == 200
@@ -92,7 +92,7 @@ def test_item_can_request(
             item_pid='no_item',
             library_pid=lib_martigny.pid,
             patron_barcode=patron_martigny.get(
-                'patron', {}).get('barcode')
+                'patron', {}).get('barcode')[0]
         )
     )
     assert res.status_code == 404
@@ -104,7 +104,7 @@ def test_item_can_request(
             item_pid=item_lib_martigny.pid,
             library_pid='no_library',
             patron_barcode=patron_martigny.get(
-                'patron', {}).get('barcode')
+                'patron', {}).get('barcode')[0]
         )
     )
     assert res.status_code == 404
@@ -129,7 +129,7 @@ def test_item_can_request(
             item_pid=item_lib_martigny.pid,
             library_pid=lib_martigny.pid,
             patron_barcode=patron_martigny.get(
-                'patron', {}).get('barcode')
+                'patron', {}).get('barcode')[0]
         )
     )
     assert res.status_code == 200
@@ -323,7 +323,7 @@ def test_item_holding_document_availability(
             item_pid=item_lib_martigny.pid,
             library_pid=lib_martigny.pid,
             patron_barcode=patron_martigny.get(
-                'patron', {}).get('barcode')
+                'patron', {}).get('barcode')[0]
         )
     )
     assert res.status_code == 200
@@ -438,7 +438,7 @@ def test_availability_cipo_allow_request(
             'api_item.can_request',
             item_pid=item_lib_martigny.pid,
             patron_barcode=patron_martigny.get(
-                'patron', {}).get('barcode')
+                'patron', {}).get('barcode')[0]
         )
     )
     assert res.status_code == 200

@@ -66,7 +66,7 @@ def test_marcxml_documents_create_with_a_token(
     runner = CliRunner()
     res = runner.invoke(
         tokens_create,
-        ['-n', 'test', '-u', librarian_martigny.get('email'),
+        ['-n', 'test', '-u', librarian_martigny.dumps().get('email'),
          '-t', 'my_token'],
         obj=script_info
     )

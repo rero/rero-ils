@@ -28,7 +28,7 @@ from ...locations.api import Location
 from ...organisations.api import Organisation
 from ...utils import date_string_to_utc, extracted_data_from_ref, \
     generate_item_barcode, get_base_url, get_ref_for_pid, \
-    trim_barcode_for_record
+    trim_item_barcode_for_record
 
 
 class ItemRecord(IlsRecord):
@@ -262,7 +262,7 @@ class ItemRecord(IlsRecord):
         :param mode: update or create mode.
         :return: the modified record.
         """
-        data = trim_barcode_for_record(data=data)
+        data = trim_item_barcode_for_record(data=data)
         # Since the barcode is a mandatory field, we set it to current
         # timestamp if not given
         data = generate_item_barcode(data=data)

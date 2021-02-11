@@ -88,7 +88,7 @@ def test_blocked_patron_cannot_request(client,
             item_pid=item_lib_martigny.pid,
             library_pid=lib_martigny.pid,
             patron_barcode=patron3_martigny_blocked.get(
-                'patron', {}).get('barcode')
+                'patron', {}).get('barcode')[0]
         )
     )
     assert res.status_code == 200
@@ -102,7 +102,7 @@ def test_blocked_patron_cannot_request(client,
             item_pid=item_lib_martigny.pid,
             library_pid=lib_martigny.pid,
             patron_barcode=patron_martigny.get(
-                'patron', {}).get('barcode')
+                'patron', {}).get('barcode')[0]
         )
     )
     assert res.status_code == 200

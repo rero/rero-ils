@@ -26,7 +26,7 @@ from utils import get_json, postdata
 
 def test_login(client, patron_sion):
     """Test login with several scenarios."""
-
+    patron_sion = patron_sion.dumps()
     # user does not exists
     res, _ = postdata(
         client,
@@ -88,6 +88,7 @@ def test_login(client, patron_sion):
 
 def test_login_without_email(client, patron_sion_without_email1):
     """Test login with several scenarios."""
+    patron_sion_without_email1 = patron_sion_without_email1.dumps()
     # login by username without email
     res, _ = postdata(
         client,
@@ -108,7 +109,12 @@ def test_change_password(client, patron_martigny,
                          librarian_sion,
                          librarian_martigny):
     """Test login with several scenarios."""
-
+    p_martigny = patron_martigny
+    patron_martigny = patron_martigny.dumps()
+    l_sion = librarian_sion
+    librarian_sion = librarian_sion.dumps()
+    l_martigny = librarian_martigny
+    librarian_martigny = librarian_martigny.dumps()
     # try to change password with an anonymous user
     res, _ = postdata(
         client,
@@ -122,7 +128,7 @@ def test_change_password(client, patron_martigny,
     assert res.status_code == 401
 
     # with a logged but the password is too short
-    login_user_via_session(client, patron_martigny.user)
+    login_user_via_session(client, p_martigny.user)
     res, _ = postdata(
         client,
         'invenio_accounts_rest_auth.change_password',
@@ -149,7 +155,7 @@ def test_change_password(client, patron_martigny,
     assert data.get('message') == 'You successfully changed your password.'
 
     # with a librarian of a different organisation
-    login_user_via_session(client, librarian_sion.user)
+    login_user_via_session(client, l_sion.user)
     res, _ = postdata(
         client,
         'invenio_accounts_rest_auth.change_password',
@@ -162,7 +168,7 @@ def test_change_password(client, patron_martigny,
     assert res.status_code == 401
 
     # with a librarian of the same organisation
-    login_user_via_session(client, librarian_martigny.user)
+    login_user_via_session(client, l_martigny.user)
     res, _ = postdata(
         client,
         'invenio_accounts_rest_auth.change_password',

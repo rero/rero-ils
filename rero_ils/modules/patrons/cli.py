@@ -84,7 +84,7 @@ def import_users(infile, append, verbose, password, lazy, dont_stop_on_error,
                 ), fg='yellow')
         if password:
             patron_data.pop('password', None)
-        # do nothing if the patron alredy exists
+        # do nothing if the patron already exists
         patron = Patron.get_patron_by_username(username)
         if patron:
             click.secho('{count: <8} Patron already exist: {username}'.format(

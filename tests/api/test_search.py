@@ -293,7 +293,7 @@ def test_patrons_search(
 ):
     """Test document boosting."""
     login_user_via_session(client, librarian_martigny.user)
-    birthdate = librarian_martigny.get('birth_date')
+    birthdate = librarian_martigny.dumps()['birth_date']
     # complete birthdate
     list_url = url_for(
         'invenio_records_rest.ptrn_list',

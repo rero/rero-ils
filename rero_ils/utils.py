@@ -17,9 +17,14 @@
 
 """Utilities functions for rero-ils."""
 
+from copy import deepcopy
+from datetime import datetime
 
 from flask import current_app
 from flask_security.confirmable import confirm_user
+from invenio_accounts.ext import hash_password
+from invenio_accounts.models import User
+from invenio_db import db
 from invenio_i18n.ext import current_i18n
 
 
@@ -65,15 +70,11 @@ def create_user_from_data(data):
     :param data: A dict containing a mix of patron and user data.
     :returns: The modified dict.
     """
-    from datetime import datetime
-
-    from invenio_accounts.ext import hash_password
-    from invenio_accounts.models import User
-    from invenio_db import db
-
+    data = deepcopy(data)
     profile_fields = [
-        'first_name', 'last_name', 'street', 'postal_code',
-        'city', 'birth_date', 'username', 'phone', 'keep_history'
+        'first_name', 'last_name', 'street', 'postal_code', 'gender',
+        'city', 'birth_date', 'username', 'home_phone', 'business_phone',
+        'mobile_phone', 'other_phone', 'keep_history', 'country'
     ]
     with db.session.begin_nested():
         # create the user
@@ -83,7 +84,7 @@ def create_user_from_data(data):
         db.session.add(user)
         # set the user fields
         if data.get('email') is not None:
-            user.email = data.get('email')
+            user.email = data.pop('email')
         profile = user.profile
         # set the profile
         for field in profile_fields:

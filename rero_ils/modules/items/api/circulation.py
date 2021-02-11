@@ -1018,7 +1018,7 @@ class ItemCirculation(ItemRecord):
                                "organisation.")
             if patron.patron.get('barcode') and \
                item.patron_has_an_active_loan_on_item(
-                   patron.patron.get('barcode')):
+                   patron.patron.get('barcode')[0]):
                 reasons.append("Item is already checked-out or requested by "
                                "patron.")
         return len(reasons) == 0, reasons

@@ -2847,13 +2847,15 @@
     ],
     "email": "simolibri07@gmail.com",
     "username": "simonetta",
-    "phone": "+41324993585",
+    "home_phone": "+41324993585",
     "roles": [
       "system_librarian"
     ],
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "sys_ptrn1",
+      "barcode": [
+        "sys_ptrn1"
+      ],
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/ptty1"
       },
@@ -2877,7 +2879,7 @@
     ],
     "username": "marie",
     "email": "mpedronni@gmail.com",
-    "phone": "+41324993578",
+    "home_phone": "+41324993578",
     "roles": [
       "librarian"
     ]
@@ -2898,7 +2900,7 @@
     ],
     "username": "marcel",
     "email": "msaudan@gmail.com",
-    "phone": "+41324993541",
+    "home_phone": "+41324993541",
     "roles": [
       "librarian"
     ]
@@ -2919,7 +2921,7 @@
     ],
     "username": "elena",
     "email": "elena_rodriguez@gmail.com",
-    "phone": "+41324993515",
+    "home_phone": "+41324993515",
     "roles": [
       "librarian"
     ]
@@ -2940,7 +2942,7 @@
     ],
     "username": "virgile",
     "email": "virgile_charbonnet@gmail.com",
-    "phone": "+41324111515",
+    "home_phone": "+41324111515",
     "roles": [
       "librarian"
     ]
@@ -2956,7 +2958,7 @@
     "birth_date": "1947-06-07",
     "username": "louis",
     "email": "lroduit@gmail.com",
-    "phone": "+41324993156",
+    "home_phone": "+41324993156",
     "roles": [
       "patron"
     ],
@@ -2964,7 +2966,9 @@
       "expiration_date": "2023-10-07",
       "blocked": false,
       "blocked_note": "Check that even if blocking block exists, user is safe.",
-      "barcode": "4098124352",
+      "barcode": [
+        "4098124352"
+      ],
       "libraries": [
         {
           "$ref": "https://ils.rero.ch/api/libraries/lib1"
@@ -2999,13 +3003,15 @@
     "birth_date": "1967-07-07",
     "username": "louise",
     "email": "lmoret@gmail.com",
-    "phone": "+41324993151",
+    "home_phone": "+41324993151",
     "roles": [
       "patron"
     ],
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "40981212452",
+      "barcode": [
+        "40981212452"
+      ],
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/ptty2"
       },
@@ -3065,13 +3071,15 @@
     "birth_date": "1967-06-07",
     "username": "jules",
     "email": "reroilstest+jules@gmail.com",
-    "phone": "+41324993673",
+    "home_phone": "+41324993673",
     "roles": [
       "patron"
     ],
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "4090124789243",
+      "barcode": [
+        "4090124789243"
+      ],
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/ptty4"
       },
@@ -3090,7 +3098,7 @@
     "birth_date": "1958-01-12",
     "username": "marvin",
     "email": "mlorgne@gmail.com",
-    "phone": "+41324993142",
+    "home_phone": "+41324993142",
     "roles": [
       "patron"
     ],
@@ -3098,7 +3106,9 @@
       "expiration_date": "2023-10-07",
       "blocked": true,
       "blocked_note": "Lost card",
-      "barcode": "42421313000",
+      "barcode": [
+        "42421313000"
+      ],
       "libraries": [
         {
           "$ref": "https://ils.rero.ch/api/libraries/lib1"
@@ -3125,7 +3135,7 @@
     "birth_date": "1928-01-01",
     "email": "sharifo@gmail.com",
     "username": "omar",
-    "phone": "+41324991231",
+    "home_phone": "+41324991231",
     "libraries": [
       {
         "$ref": "https://ils.rero.ch/api/libraries/lib1"
@@ -3136,7 +3146,9 @@
     ],
     "patron": {
       "expiration_date": "2023-10-07",
-      "barcode": "5127891213",
+      "barcode": [
+        "5127891213"
+      ],
       "type": {
         "$ref": "https://ils.rero.ch/api/patron_types/ptty2"
       },
@@ -3533,7 +3545,7 @@
     "street": "1600 Donald Trump Avenue NW",
     "postal_code": "20500",
     "city": "Washington, D.C.",
-    "phone": "+012024561414",
+    "home_phone": "+012024561414",
     "keep_history": true
   }
 }

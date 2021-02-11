@@ -999,7 +999,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
         """Initialization of alternate graphic representation.
 
         Parse all the 880 fields and populate a dictionary having as first
-        level keys the tag of the linked field and as secound level key the
+        level keys the tag of the linked field and as second level key the
         link code (from $6) of the linked field. The language script is
         extracted from $6 and used to qualify the alternate graphic value.
         """

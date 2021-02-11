@@ -678,7 +678,7 @@ def patron_profile(patron):
             if loan['state'] in [
                     LoanState.PENDING, LoanState.ITEM_IN_TRANSIT_FOR_PICKUP]:
                 loan['rank'] = item.patron_request_rank(
-                    patron.patron['barcode'])
+                    patron.patron['barcode'][0])
             requests.append(loan)
         elif loan['state'] in [
                 LoanState.ITEM_RETURNED,

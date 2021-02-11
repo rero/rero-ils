@@ -26,7 +26,7 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
 
-def test_users_api(
+def test_users_post_put(
     client, user_data_tmp, librarian_martigny, json_header):
     """Test users REST api for retrieve, create and update."""
     first_name = user_data_tmp.get('first_name')
@@ -54,6 +54,7 @@ def test_users_api(
 
     user_data_tmp.pop('toto')
     user_data_tmp['first_name'] = 1
+    user_data_tmp['password'] = '123456'
     res, data = postdata(
         client,
         'api_users.users_list',
@@ -113,6 +114,11 @@ def test_users_api(
 
 def test_users_search_api(client, librarian_martigny, patron_martigny):
     """Test users search REST API."""
+    l_martigny = librarian_martigny
+    librarian_martigny = librarian_martigny.dumps()
+    p_martigny = patron_martigny
+    patron_martigny = patron_martigny.dumps()
+
     res = client.get(
         url_for(
             'api_users.users_list',
@@ -121,7 +127,7 @@ def test_users_search_api(client, librarian_martigny, patron_martigny):
     )
     assert res.status_code == 401
 
-    login_user_via_session(client, librarian_martigny.user)
+    login_user_via_session(client, l_martigny.user)
     # empty query => no result
     res = client.get(
         url_for(

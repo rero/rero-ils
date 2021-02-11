@@ -61,7 +61,40 @@
       "city": {
         "type": "text"
       },
-      "phone": {
+      "facet_city": {
+        "type": "keyword",
+        "copy_to": "facet_city"
+      },
+      "country": {
+        "type": "text"
+      },
+      "second_address": {
+        "properties": {
+          "street": {
+            "type": "text"
+          },
+          "postal_code": {
+            "type": "keyword"
+          },
+          "city": {
+            "type": "text",
+            "copy_to": "facet_city"
+          },
+          "country": {
+            "type": "text"
+          }
+        }
+      },
+      "home_phone": {
+        "type": "keyword"
+      },
+      "business_phone": {
+        "type": "keyword"
+      },
+      "mobile_phone": {
+        "type": "keyword"
+      },
+      "other_phone": {
         "type": "keyword"
       },
       "barcode": {

@@ -2,7 +2,7 @@
   "patrons": {
     "james": {
       "patron":{
-        "barcode": "cypress-1"
+        "barcode": ["cypress-1"]
       },
       "email": "reroilstest+james@gmail.com",
       "first_name": "James",
@@ -11,7 +11,7 @@
     },
     "nyota": {
       "patron": {
-        "barcode":"cypress-2",
+        "barcode": ["cypress-2"],
         "communication_channel":"email",
         "communication_language":"eng",
         "expiration_date":"2023-10-07",
@@ -22,7 +22,7 @@
       "email":"reroilstest+nyota@gmail.com",
       "first_name":"Nyota",
       "last_name":"Uhura",
-      "phone":"+41324883123",
+      "home_phone":"+41324883123",
       "pid":"53",
       "postal_code":"4242",
       "roles":["patron"],
