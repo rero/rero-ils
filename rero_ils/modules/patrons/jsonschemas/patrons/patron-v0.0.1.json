@@ -6,10 +6,13 @@
   "additionalProperties": false,
   "propertiesOrder": [
     "user_id",
+    "second_address",
     "roles",
     "patron",
     "libraries",
-    "notes"
+    "notes",
+    "source",
+    "local_code"
   ],
   "required": [
     "$schema",
@@ -29,8 +32,20 @@
       "title": "Patron ID",
       "type": "string"
     },
+    "source": {
+      "title": "Source",
+      "description": "Source if the record has been loaded in a batch.",
+      "type": "string",
+      "minLength": 2
+    },
+    "local_code": {
+      "title": "Local code",
+      "description": "Code used to classify users, for instance for statistics.",
+      "type": "string",
+      "minLength": 2
+    },
     "user_id": {
-      "title": "Personal Informations",
+      "title": "Personal informations",
       "description": "",
       "type": "number",
       "form": {
@@ -42,106 +57,68 @@
         }
       }
     },
-    "first_name": {
-      "title": "First name",
-      "type": "string",
-      "minLength": 2,
-      "form": {
-        "focus": true
-      }
-    },
-    "last_name": {
-      "title": "Last name",
-      "type": "string",
-      "minLength": 2
-    },
-    "birth_date": {
-      "title": "Date of birth",
-      "type": "string",
-      "format": "date",
-      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
-      "form": {
-        "validation": {
-          "messages": {
-            "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
-          }
-        },
-        "placeholder": "Example: 1985-12-29"
-      }
-    },
-    "email": {
-      "title": "Email",
-      "type": "string",
-      "format": "email",
-      "pattern": "^.*@.*\\..+$",
-      "minLength": 6,
-      "form": {
-        "expressionProperties": {
-          "templateOptions.required": "field.parent.model.roles.some(v => (v === 'librarian' || v === 'system_librarian')) || (field.parent.model.patron.communication_channel === 'email' && !field.parent.model.patron.additional_communication_email)"
-        },
-        "validation": {
-          "validators": {
-            "valueAlreadyExists": {
-              "term": "email",
-              "remoteRecordType": "patrons/count"
+    "second_address": {
+      "title": "Secound address",
+      "type": "object",
+      "additionalProperties": false,
+      "propertiesOrder": [
+        "street",
+        "postal_code",
+        "city",
+        "country"
+      ],
+      "properties": {
+        "street": {
+          "title": "Street",
+          "description": "Street and number of the address.",
+          "type": "string",
+          "minLength": 1,
+          "form": {
+            "templateOptions": {
+              "itemCssClass": "col-lg-12"
             }
-          },
-          "messages": {
-            "patternMessage": "The email is not valid.",
-            "alreadyTakenMessage": "This email is already taken."
-          }
-        }
-      }
-    },
-    "username": {
-      "title": "Username",
-      "description": "Login username for the web interface.",
-      "type": "string",
-      "pattern": "^[a-zA-Z][a-zA-Z0-9-_]{2}[a-zA-Z0-9-_]*$",
-      "minLength": 3,
-      "form": {
-        "validation": {
-          "validators": {
-            "valueAlreadyExists": {
-              "term": "username",
-              "remoteRecordType": "patrons/count"
-            }
-          },
-          "messages": {
-            "patternMessage": "Username must start with a letter, be at least three characters long and only contain alphanumeric characters, dashes and underscores.",
-            "alreadyTakenMessage": "This username is already taken."
-          }
-        }
-      }
-    },
-    "street": {
-      "title": "Street",
-      "description": "Street and number of the address.",
-      "type": "string",
-      "minLength": 1
-    },
-    "postal_code": {
-      "title": "Postal code",
-      "type": "string",
-      "minLength": 1
-    },
-    "city": {
-      "title": "City",
-      "type": "string",
-      "minLength": 1
-    },
-    "phone": {
-      "title": "Phone number",
-      "description": "Phone number with the international prefix, without spaces.",
-      "type": "string",
-      "pattern": "^\\+[0-9]*$",
-      "form": {
-        "validation": {
-          "messages": {
-            "patternMessage": "Phone number with the international prefix, without spaces, ie +41221234567."
           }
         },
-        "placeholder": "Example: +41791231212"
+        "postal_code": {
+          "title": "Postal code",
+          "type": "string",
+          "minLength": 1,
+          "form": {
+            "templateOptions": {
+              "itemCssClass": "col-lg-6"
+            }
+          }
+        },
+        "city": {
+          "title": "City",
+          "type": "string",
+          "minLength": 1,
+          "form": {
+            "templateOptions": {
+              "itemCssClass": "col-lg-6"
+            }
+          }
+        },
+        "country": {
+          "allOf": [
+            {
+              "$ref": "https://ils.rero.ch/schemas/common/countries-v0.0.1.json#/country"
+            },
+            {
+              "form": {
+                "hideExpression": "!(field.parent.model && field.parent.model.city)"
+              }
+            }
+          ]
+        }
+      },
+      "form": {
+        "templateOptions": {
+          "wrappers": [
+            "card"
+          ],
+          "containerCssClass": "row"
+        }
       }
     },
     "patron": {
@@ -163,7 +140,6 @@
         "communication_language",
         "expiration_date",
         "libraries",
-        "keep_history",
         "blocked",
         "blocked_note"
       ],
@@ -188,16 +164,25 @@
           }
         },
         "barcode": {
-          "title": "Patron's barcode or card number",
-          "type": "string",
-          "minLength": 6,
-          "form": {
-            "validation": {
-              "validators": {
-                "valueAlreadyExists": {}
-              },
-              "messages": {
-                "alreadyTakenMessage": "The barcode is already taken."
+          "title": "Patron's barcodes or cards number",
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "title": "Patron's barcode or card number",
+            "type": "string",
+            "minLength": 6,
+            "form": {
+              "validation": {
+                "validators": {
+                  "valueAlreadyExists": {
+                    "term": "barcode"
+                  }
+                },
+                "messages": {
+                  "alreadyTakenMessage": "The barcode is already taken."
+                }
               }
             }
           }
@@ -469,13 +454,19 @@
         }
       },
       "form": {
-        "fieldMap": "roles"
+        "fieldMap": "roles",
+        "templateOptions": {
+          "wrappers": [
+            "card"
+          ]
+        }
       }
     },
     "notes": {
       "title": "Notes",
       "description": "The public note is visible for the patron in his/her account.",
       "type": "array",
+      "minItems": 0,
       "items": {
         "type": "object",
         "additionalProperties": false,

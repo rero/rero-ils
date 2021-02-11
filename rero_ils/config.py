@@ -99,6 +99,8 @@ from .modules.patrons.permissions import PatronPermission
 from .modules.permissions import record_permission_factory
 from .modules.templates.api import Template
 from .modules.templates.permissions import TemplatePermission
+from .modules.users.api import get_profile_countries, \
+    get_readonly_profile_fields
 from .modules.vendors.api import Vendor
 from .modules.vendors.permissions import VendorPermission
 from .permissions import librarian_delete_permission_factory, \
@@ -228,6 +230,9 @@ ACCOUNTS_SESSION_REDIS_URL = 'redis://localhost:6379/1'
 ACCOUNTS_USERINFO_HEADERS = False
 # Disable User Profiles
 USERPROFILES = True
+USERPROFILES_COUNTRIES = get_profile_countries
+USERPROFILES_DEFAULT_COUNTRY = 'sz'
+USERPROFILES_READONLY_FIELDS = get_readonly_profile_fields
 
 # Custom login view
 ACCOUNTS_REST_AUTH_VIEWS = {
@@ -802,15 +807,19 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_serializers_aliases={
             'json': 'application/json',
+            'rero+json': 'application/rero+json',
         },
         search_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_search'
+            ),
+            'application/rero+json': (
+                'rero_ils.modules.patrons.serializers:json_patron_search'
             )
         },
         list_route='/patrons/',
         record_loaders={
-            'application/json': lambda: Patron(request.get_json()),
+            'application/json': lambda: Patron.load(request.get_json()),
         },
         record_class='rero_ils.modules.patrons.api:Patron',
         item_route=('/patrons/<pid(ptrn, record_class='
@@ -1754,10 +1763,30 @@ RECORDS_REST_FACETS = dict(
                     size=RERO_ILS_AGGREGATION_SIZE.get(
                         'patrons', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
                 )
+            ),
+            city=dict(
+                terms=dict(
+                    field='facet_city',
+                    # This does not take into account
+                    # env variable or instance config file
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'facet_city', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            ),
+            patron_type=dict(
+                terms=dict(
+                    field='patron.type.pid',
+                    # This does not take into account
+                    # env variable or instance config file
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'patron__type', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
             )
         ),
         filters={
-            _('roles'): and_term_filter('roles')
+            _('roles'): and_term_filter('roles'),
+            _('city'): and_term_filter('facet_city'),
+            _('patron_type'): and_term_filter('patron.type.pid')
         },
     ),
     acq_accounts=dict(

@@ -77,7 +77,7 @@ def authorize_patron(barcode, password):
     """
     patron = Patron.get_patron_by_barcode(barcode)
     if patron and patron.is_patron:
-        return authorize_selfckeck_user(patron.get('email'), password)
+        return authorize_selfckeck_user(patron.user.email, password)
     return False
 
 

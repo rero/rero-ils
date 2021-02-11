@@ -63,7 +63,7 @@ def login_user(client, user):
 def login_user_for_view(client, user):
     """Sign in user for view."""
     invenio_user = user.user
-    invenio_user.password_plaintext = user.get('birth_date')
+    invenio_user.password_plaintext = user.dumps().get('birth_date')
     login_user_via_view(client, user=invenio_user)
 
 
@@ -325,7 +325,7 @@ def item_record_to_a_specific_loan_state(
         loan = Loan.get_record_by_pid(actions[LoanAction.REQUEST].get('pid'))
         assert item.number_of_requests() >= 1
         assert item.is_requested_by_patron(patron.get(
-            'patron', {}).get('barcode'))
+            'patron', {}).get('barcode')[0])
     if loan_state in [
             LoanState.ITEM_AT_DESK,
             LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,

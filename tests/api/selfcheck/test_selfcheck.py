@@ -56,8 +56,9 @@ def test_selfcheck_login(sip2_librarian_martigny):
 
     # test success login
     response = selfcheck_login(
-        sip2_librarian_martigny.get('email'),
-        sip2_librarian_martigny.get('birth_date'))
+        sip2_librarian_martigny.user.email,
+        sip2_librarian_martigny.dumps().get('birth_date')
+    )
     assert response
     assert response.get('authenticated')
 
@@ -67,7 +68,7 @@ def test_authorize_patron(sip2_patron_martigny):
 
     # try to authorize with wrong password
     response = authorize_patron(sip2_patron_martigny.get(
-        'patron', {}).get('barcode'), 'invalid_password')
+        'patron', {}).get('barcode')[0], 'invalid_password')
     assert not response
 
     # try to authorize with wrong barcode
@@ -76,8 +77,8 @@ def test_authorize_patron(sip2_patron_martigny):
 
     # authorize success
     response = authorize_patron(
-        sip2_patron_martigny.get('patron', {}).get('barcode'),
-        sip2_patron_martigny.get('birth_date'))
+        sip2_patron_martigny.get('patron', {}).get('barcode')[0],
+        sip2_patron_martigny.dumps().get('birth_date'))
     assert response
 
 
@@ -85,7 +86,7 @@ def test_validate_patron(sip2_patron_martigny):
     """Test validate patron."""
     # test valid patron barcode
     assert validate_patron_account(
-        sip2_patron_martigny.get('patron', {}).get('barcode'))
+        sip2_patron_martigny.get('patron', {}).get('barcode')[0])
 
     # test invalid patron barcode
     assert not validate_patron_account('invalid_barcode')
@@ -101,7 +102,7 @@ def test_system_status(sip2_librarian_martigny):
 def test_enable_patron(sip2_patron_martigny):
     """Test enable patron."""
     response = enable_patron(
-        sip2_patron_martigny.get('patron', {}).get('barcode'))
+        sip2_patron_martigny.get('patron', {}).get('barcode')[0])
     assert response['institution_id'] == sip2_patron_martigny\
         .library_pid
     assert response['patron_id']
@@ -159,7 +160,7 @@ def test_patron_information(client, sip2_librarian_martigny,
     assert res.status_code == 200
     # get patron information
     response = patron_information(sip2_patron_martigny.get(
-        'patron', {}).get('barcode'))
+        'patron', {}).get('barcode')[0])
     assert response
 
     # checkin
@@ -216,7 +217,7 @@ def test_item_information(client, sip2_librarian_martigny,
     assert number_of_reminders_sent(loan) == 1
 
     patron_barcode = sip2_patron_martigny\
-        .get('patron', {}).get('barcode')
+        .get('patron', {}).get('barcode')[0]
     item_pid = item_lib_martigny.pid
 
     # get item information
@@ -256,7 +257,7 @@ def test_selfcheck_checkout(client, sip2_librarian_martigny,
                             circulation_policies):
     """Test selfcheck checkout."""
     patron_barcode = sip2_patron_martigny \
-        .get('patron', {}).get('barcode')
+        .get('patron', {}).get('barcode')[0]
     item_barcode = item_lib_martigny.get('barcode')
 
     # selfcheck checkout
@@ -290,7 +291,7 @@ def test_selfcheck_checkin(client, sip2_librarian_martigny,
                            document, circulation_policies):
     """Test selfcheck checkin."""
     patron_barcode = sip2_patron_martigny \
-        .get('patron', {}).get('barcode')
+        .get('patron', {}).get('barcode')[0]
     item_barcode = item_lib_martigny.get('barcode')
 
     # librarian checkout

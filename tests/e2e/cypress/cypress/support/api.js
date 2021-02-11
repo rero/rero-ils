@@ -152,7 +152,7 @@ Cypress.Commands.add('apiDeleteResources', (resourceName, query) => {
         "type": {
           "$ref":('https://ils.rero.ch/api/patron_types/' + patronTypePid)
         },
-        "barcode": patron.patron.barcode,
+        "barcode": [patron.patron.barcode],
         "communication_channel": patron.patron.communication_channel,
         "communication_language": patron.patron.communication_language
       },
@@ -186,7 +186,7 @@ Cypress.Commands.add('apiDeleteResources', (resourceName, query) => {
     followRedirect: false,
     body: {
       "patron": {
-        "barcode": patron.patron.barcode,
+        "barcode": [patron.patron.barcode],
         "communication_channel": patron.patron.communication_channel,
         "communication_language": patron.patron.communication_language,
         "expiration_date": patron.patron.expiration_date,
@@ -200,7 +200,7 @@ Cypress.Commands.add('apiDeleteResources', (resourceName, query) => {
       "email": patron.email,
       "first_name": patron.first_name,
       "last_name": patron.last_name,
-      "phone": patron.phone,
+      "home_phone": patron.home_phone,
       "pid": patron.pid,
       "postal_code": patron.postal_code,
       "roles": patron.roles,

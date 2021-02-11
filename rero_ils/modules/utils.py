@@ -277,7 +277,20 @@ def add_years(initial_date, years):
                                date(initial_date.year, 1, 1))
 
 
-def trim_barcode_for_record(data=None):
+def trim_patron_barcode_for_record(data=None):
+    """Trim the barcode for a patron or an item record.
+
+    :param data: the patron or item record
+    :return: data with trimmed barcode
+    """
+    if data and data.get('barcode'):
+        data['barcode'] = [d.strip() for d in data.get('barcode')]
+    if data and data.get('patron', {}).get('barcode'):
+        data['patron']['barcode'] = [
+            d.strip() for d in data['patron']['barcode']]
+    return data
+
+def trim_item_barcode_for_record(data=None):
     """Trim the barcode for a patron or an item record.
 
     :param data: the patron or item record
@@ -286,10 +299,8 @@ def trim_barcode_for_record(data=None):
     if data and data.get('barcode'):
         data['barcode'] = data.get('barcode').strip()
     if data and data.get('patron', {}).get('barcode'):
-        data['patron']['barcode'] = data.get(
-            'patron', {}).get('barcode').strip()
+        data['patron']['barcode'][0] = data['patron']['barcode'][0].strip()
     return data
-
 
 def generate_item_barcode(data=None):
     """Generate a barcode for an item record that does not have one.
@@ -303,8 +314,8 @@ def generate_item_barcode(data=None):
         data['barcode'] = 'f-{}'.format(
             datetime.now().strftime('%Y%m%d%I%M%S%f'))
     if data.get('patron') and not data.get('patron', {}).get('barcode'):
-        data['patron']['barcode'] = 'f-{}'.format(
-            datetime.now().strftime('%Y%m%d%I%M%S%f'))
+        data['patron']['barcode'] = [
+            'f-{}'.format(datetime.now().strftime('%Y%m%d%I%M%S%f'))]
     return data
 
 

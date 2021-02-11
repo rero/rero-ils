@@ -256,7 +256,7 @@ def test_patrons_get(client, librarian_martigny):
     result = data['hits']['hits'][0]['metadata']
     # organisation has been added during the indexing
     del(result['organisation'])
-    assert result == patron.replace_refs()
+    assert result == patron.replace_refs().dumps()
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
@@ -309,7 +309,7 @@ def test_patrons_post_put_delete(app, client, lib_martigny,
 
     # Update record/PUT
     data = patron_data
-    data['patron']['barcode'] = 'barcode_test'
+    data['patron']['barcode'] = ['barcode_test']
     res = client.put(
         item_url,
         data=json.dumps(data),
@@ -320,19 +320,19 @@ def test_patrons_post_put_delete(app, client, lib_martigny,
 
     # Check that the returned record matches the given data
     data = get_json(res)
-    assert data['metadata']['patron']['barcode']  == 'barcode_test'
+    assert data['metadata']['patron']['barcode'][0]  == 'barcode_test'
 
     res = client.get(item_url)
     assert res.status_code == 200
 
     data = get_json(res)
-    assert data['metadata']['patron']['barcode']  == 'barcode_test'
+    assert data['metadata']['patron']['barcode'][0]  == 'barcode_test'
 
     res = client.get(list_url)
     assert res.status_code == 200
 
     data = get_json(res)['hits']['hits'][0]
-    assert data['metadata']['patron']['barcode']  == 'barcode_test'
+    assert data['metadata']['patron']['barcode'][0]  == 'barcode_test'
 
     # Delete record/DELETE
     res = client.delete(item_url)
@@ -354,16 +354,15 @@ def test_patrons_post_without_email(app, client, lib_martigny,
     patron_data = deepcopy(patron_martigny_data_tmp)
     patron_data['email'] = 'post_without_email@test.ch'
     patron_data['username'] = 'post_without_email'
+    del patron_data['pid']
+    del patron_data['email']
+    patron_data['patron']['communication_channel'] = 'mail'
     patron_data = create_user_from_data(patron_data)
 
     pids = Patron.count()
     assert len(mailbox) == 0
 
     # Create record / POST
-    del patron_data['pid']
-    del patron_data['email']
-    patron_data['patron']['communication_channel'] = 'mail'
-
     res, _ = postdata(
         client,
         'invenio_records_rest.ptrn_list',
@@ -403,7 +402,7 @@ def test_patron_secure_api(client, json_header,
     assert res.status_code == 403
 
 
-def test_patron_secure_api_create(client, patron_type_children_martigny,
+def test_patron_secure_api_create(app, client, patron_type_children_martigny,
                                   patron_martigny_data,
                                   librarian_martigny,
                                   librarian_sion):
@@ -413,10 +412,13 @@ def test_patron_secure_api_create(client, patron_type_children_martigny,
     post_entrypoint = 'invenio_records_rest.ptrn_list'
 
     del patron_martigny_data['pid']
+    patron_martigny_data['email'] = 'secure_api@test.ch'
+    patron_martigny_data['username'] = 'secure_api'
+    data = create_user_from_data(patron_martigny_data)
     res, _ = postdata(
         client,
         post_entrypoint,
-        patron_martigny_data
+        data
     )
     assert res.status_code == 201
 
@@ -426,9 +428,12 @@ def test_patron_secure_api_create(client, patron_type_children_martigny,
     res, _ = postdata(
         client,
         post_entrypoint,
-        patron_martigny_data
+        data
     )
     assert res.status_code == 403
+    ds = app.extensions['invenio-accounts'].datastore
+    ds.delete_user(ds.find_user(id=data['user_id']))
+
 
 
 def test_patron_secure_api_delete(app, client, librarian_martigny,
@@ -463,20 +468,20 @@ def test_patron_secure_api_delete(app, client, librarian_martigny,
 
     # clean up
     ds = app.extensions['invenio-accounts'].datastore
-    ds.delete_user(ds.find_user(id=data['user_id']))
+    ds.delete_user(ds.find_user(id=patron['user_id']))
 
 
 def test_patrons_dirty_barcode(
         client, patron_martigny, librarian_martigny):
     """Test patron update with dirty barcode."""
-    barcode = patron_martigny.get('patron', {}).get('barcode')
-    patron_martigny['patron']['barcode'] = ' {barcode} '.format(
+    barcode = patron_martigny.get('patron', {}).get('barcode')[0]
+    patron_martigny['patron']['barcode'] = [' {barcode} '.format(
                 barcode=barcode
-            )
+            )]
     patron_martigny.update(
         patron_martigny, dbcommit=True, reindex=True)
     patron = Patron.get_record_by_pid(patron_martigny.pid)
-    assert patron.patron.get('barcode') == barcode
+    assert patron.patron.get('barcode') == [barcode]
 
     # Ensure that users with no patron role will not have a barcode
     librarian_martigny.update(

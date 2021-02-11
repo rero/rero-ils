@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating patrons."""
+from copy import deepcopy
 from datetime import datetime
 from functools import partial
 
@@ -24,7 +25,6 @@ from flask import current_app
 from flask_babelex import gettext as _
 from flask_login import current_user
 from invenio_circulation.proxies import current_circulation
-from invenio_db import db
 from werkzeug.local import LocalProxy
 
 from .models import PatronIdentifier, PatronMetadata
@@ -36,8 +36,9 @@ from ..minters import id_minter
 from ..organisations.api import Organisation
 from ..patron_transactions.api import PatronTransaction
 from ..providers import Provider
+from ..users.api import User
 from ..utils import extracted_data_from_ref, get_patron_from_arguments, \
-    get_ref_for_pid, trim_barcode_for_record
+    get_ref_for_pid, trim_patron_barcode_for_record
 from ...utils import create_user_from_data
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
@@ -105,12 +106,6 @@ class Patron(IlsRecord):
     fetcher = patron_id_fetcher
     provider = PatronProvider
     model_cls = PatronMetadata
-
-    # field list to be in sync
-    profile_fields = [
-        'first_name', 'last_name', 'street', 'postal_code',
-        'city', 'birth_date', 'username', 'phone', 'keep_history'
-    ]
 
     available_roles = [ROLE_SYSTEM_LIBRARIAN, ROLE_LIBRARIAN, ROLE_PATRON]
 
@@ -200,30 +195,16 @@ class Patron(IlsRecord):
         :param email_notification - send a reset password link to the user
         """
         # remove spaces
-        data = trim_barcode_for_record(data=data)
-        # synchronize the rero id user profile data
-        user = cls._get_user_by_user_id(data.get('user_id'))
-        data = cls.merge_data_from_profile(data, user.profile)
-        try:
-            record = super().create(
+        data = trim_patron_barcode_for_record(data=data)
+        record = super().create(
                 data, id_, delete_pid, dbcommit, reindex, **kwargs)
-            record._update_roles()
-        except Exception as err:
-            db.session.rollback()
-            raise err
-        # TODO: send reset password instruction when a librarian create a user
+        record._update_roles()
         return record
 
     def update(self, data, dbcommit=False, reindex=False):
         """Update data for record."""
         # remove spaces
-        data = trim_barcode_for_record(data=data)
-        data = dict(self, **data)
-
-        # synchronize the rero id user profile data
-        user = self._get_user_by_user_id(data.get('user_id'))
-        data = self.merge_data_from_profile(data, user.profile)
-
+        data = trim_patron_barcode_for_record(data=data)
         super().update(data, dbcommit, reindex)
         self._update_roles()
         return self
@@ -235,54 +216,29 @@ class Patron(IlsRecord):
         return self
 
     @classmethod
-    def merge_data_from_profile(cls, data, profile):
-        """Get the profile informations and inject it.
-
-        TODO: move this to the indexing time.
-        """
-        # retrieve the user
-        for field in cls.profile_fields:
-            # date field requires conversion
-            if field == 'birth_date':
-                data[field] = getattr(
-                    profile, field).strftime('%Y-%m-%d')
-            elif field == 'keep_history':
-                if 'patron' in data.get('roles', []):
-                    new_keep_history = getattr(profile, field)
-                    data.setdefault('patron', {})['keep_history'] = new_keep_history
-            else:
-                value = getattr(profile, field)
-                if value not in [None, '']:
-                    data[field] = value
-        # update the email
-        if profile.user.email != data.get('email'):
-            # the email is not defined or removed in the user profile
-            if not profile.user.email:
-                try:
-                    del data['email']
-                except KeyError:
-                    pass
-            else:
-                # the email has been updated in the user profile
-                data['email'] = profile.user.email
-        return data
+    def load(cls, data):
+        """Load the data and remove the user data."""
+        return cls(cls.removeUserData(data))
 
     @classmethod
-    def update_from_profile(cls, data, profile):
-        """Update the current record with the user profile data.
+    def removeUserData(cls, data):
+        """Remove the user data."""
+        data = deepcopy(data)
+        profile_fields = User.profile_fields + ['username', 'email']
+        for field in profile_fields:
+            try:
+                del data[field]
+            except KeyError:
+                pass
+        return data
 
-        :param profile - the rero user profile
-        """
-        # retrieve the user
-        patron = Patron.get_patron_by_user(profile.user)
-        if patron:
-            cls.merge_data_from_profile(dict(patron), profile)
-            super().update(dict(patron), True, True)
-        # TODO: do it at the profile changes
-        # anonymize user loans if keep_history is changed
-        # if old_keep_history and not new_keep_history:
-        #    from ..loans.api import anonymize_loans
-        #    anonymize_loans(patron_pid=patron.pid, dbcommit=True, reindex=True)
+    def dumps(self, **kwargs):
+        """Return pure Python dictionary with record metadata."""
+        dump = super().dumps(**kwargs)
+        user = User.get_by_id(self['user_id'])
+        user_info = user.dumpsMetadata()
+        dump.update(user_info)
+        return dump
 
     @classmethod
     def _get_user_by_user_id(cls, user_id):
@@ -477,20 +433,6 @@ class Patron(IlsRecord):
         _datastore.commit()
 
     @property
-    def initial(self):
-        """Return the initials of the patron first name."""
-        initial = ''
-        firsts = self['first_name'].split(' ')
-        for first in firsts:
-            initial += first[0]
-        lasts = self['last_name'].split(' ')
-        for last in lasts:
-            if last[0].isupper():
-                initial += last[0]
-
-        return initial
-
-    @property
     def patron(self):
         """Patron property shorcut."""
         return self.get('patron', {})
@@ -498,9 +440,10 @@ class Patron(IlsRecord):
     @property
     def formatted_name(self):
         """Return the best possible human readable patron name."""
+        profile = self.user.profile
         name_parts = [
-            self.get('last_name', '').strip(),
-            self.get('first_name', '').strip()
+            profile.last_name.strip(),
+            profile.first_name.strip()
         ]
         name_parts = [part for part in name_parts if part]  # remove empty part
         return ', '.join(name_parts)

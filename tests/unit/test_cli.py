@@ -46,7 +46,7 @@ def test_cli_access_token(app, script_info, patron_martigny):
     runner = CliRunner()
     res = runner.invoke(
         tokens_create,
-        ['-n', 'test', '-u', patron_martigny.get('email'),
+        ['-n', 'test', '-u', patron_martigny.dumps().get('email'),
          '-t', 'my_token'],
         obj=script_info
     )

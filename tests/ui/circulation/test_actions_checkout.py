@@ -50,7 +50,7 @@ def test_checkout_on_item_on_shelf(
     assert created_item.number_of_requests() == 0
     assert created_item.status == ItemStatus.ON_SHELF
     assert not created_item.is_requested_by_patron(
-        patron_martigny.get('patron', {}).get('barcode'))
+        patron_martigny.get('patron', {}).get('barcode')[0])
 
     # the following tests the circulation action CHECKOUT_1_1
     # an ON_SHELF item
@@ -95,7 +95,7 @@ def test_checkout_on_item_on_shelf(
     # checkout patron = patron of first PENDING loan
     # CAN be CHECKOUT
     assert pending_item.is_requested_by_patron(
-        patron.patron.get('barcode'))
+        patron.patron.get('barcode')[0])
     # Checkout it! CHECKOUT patron == 1st PENDING LOAN patron
     assert patron.get('pid') == loan.get('patron_pid')
     params['patron_pid'] = patron_martigny.pid
