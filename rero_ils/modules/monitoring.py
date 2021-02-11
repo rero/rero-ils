@@ -28,7 +28,7 @@ from flask_login import current_user
 from invenio_cache import current_cache
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-from invenio_search import RecordsSearch
+from invenio_search import RecordsSearch, current_search_client
 from redis import Redis
 
 from ..permissions import monitoring_permission
@@ -238,7 +238,7 @@ def missing_pids(doc_type):
             'invenio_records_rest.{doc_type}_list'.format(doc_type=doc_type),
             _external=True
         )
-    except:
+    except Exception:
         api_url = None
     mon = Monitoring.missing(doc_type)
     if mon.get('ERROR'):
@@ -284,6 +284,17 @@ def redis():
                                  'redis://localhost:6379')
     redis = Redis.from_url(url)
     info = redis.info()
+    return jsonify({'data': info})
+
+
+@api_blueprint.route('/es')
+@check_authentication
+def elastic_search():
+    """Displays elastic search cluster info.
+
+    :return: jsonified elastic search cluster info.
+    """
+    info = current_search_client.cluster.health()
     return jsonify({'data': info})
 
 
