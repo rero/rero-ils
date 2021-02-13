@@ -29,6 +29,8 @@ from flask import current_app
 from invenio_cache.proxies import current_cache
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records_rest.utils import obj_or_import_string
+from lazyreader import lazyread
+from lxml import etree
 
 from .api import IlsRecordError, IlsRecordsIndexer
 
@@ -113,7 +115,7 @@ def read_json_record(json_file, buf_size=1024, decoder=JSONDecoder()):
             try:
                 buffer = buffer.lstrip()
                 obj, pos = decoder.raw_decode(buffer)
-            except JSONDecodeError as err:
+            except JSONDecodeError:
                 break
             else:
                 yield obj
@@ -125,6 +127,48 @@ def read_json_record(json_file, buf_size=1024, decoder=JSONDecoder()):
                 if buffer.startswith(','):
                     # delete records deliminators
                     buffer = buffer[1:].lstrip()
+
+
+def lazyxmlstrings(file, opening_tag, closing_tag):
+    """Split xml file into sub strings.
+
+    :param file: xml file to parse
+    :param opening_tag: opening tag
+    :param closing_tag: closing tag
+    "returns": generator with xml strings
+    """
+    for doc in lazyread(file, delimiter=closing_tag):
+        if opening_tag not in doc:
+            continue
+        # We want complete XML blocks, so look for the opening tag and
+        # just return its contents
+        block = doc.split(opening_tag)[-1]
+        yield opening_tag + block
+
+
+def lazyxml(file, opening_tag, closing_tag):
+    """Split xml file into sub etrees.
+
+    :param file: xml file to parse
+    :param opening_tag: opening tag
+    :param closing_tag: closing tag
+    "returns": generator with etrees
+    """
+    for xml_string in lazyxmlstrings(file, opening_tag, closing_tag):
+        yield etree.fromstring(xml_string)
+
+
+def read_xml_record(xml_file):
+    """Read lasy xml records from file.
+
+    :return: record Generator
+    """
+    for xml_record in lazyxml(
+        file=xml_file,
+        opening_tag='<record>',
+        closing_tag='</record>'
+    ):
+        yield xml_record
 
 
 def get_record_class_and_permissions_from_route(route_name):

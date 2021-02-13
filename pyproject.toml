@@ -77,6 +77,7 @@ flask-cors = ">3.0.8"
 celery = ">=5.0.0"
 cryptography = ">3.2"
 freezegun = "^1.1.0"
+lazyreader = ">1.0.0"
 
 [tool.poetry.dev-dependencies]
 ## Python packages development dependencies (order matters)

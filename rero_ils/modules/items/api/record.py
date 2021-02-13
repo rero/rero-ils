@@ -150,15 +150,13 @@ class ItemRecord(IlsRecord):
         from ...holdings.api import Holding
         holding = Holding.get_record_by_pid(item.holding_pid)
         if item.get('type') == 'issue' and \
-            item.get('issue', {}).get('regular') and \
+                item.get('issue', {}).get('regular') and \
                 holding.holdings_type == 'serial' and \
+                holding.get('patterns') and \
                 holding.get('patterns', {}).get('frequency') != 'rdafr:1016':
             updated_holding = holding.increment_next_prediction()
-            holding = Holding.get_record_by_pid(item.holding_pid)
             holding.update(data=updated_holding,
                            dbcommit=dbcommit, reindex=reindex)
-            holding = holding.update(data=updated_holding, dbcommit=dbcommit,
-                                     reindex=reindex)
 
     @classmethod
     def _item_build_org_ref(cls, data):

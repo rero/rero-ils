@@ -196,8 +196,14 @@ info_msg "Clean redis"
 eval "${PREFIX} invenio shell --no-term-title -c \"import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')\""
 eval ${PREFIX} invenio scheduler init -r
 
-eval ${PREFIX} invenio db destroy --yes-i-know
-eval ${PREFIX} invenio db init create
+if ${DEPLOYMENT}
+then
+  eval ${PREFIX} invenio db drop --yes-i-know
+  eval ${PREFIX} invenio db create
+else
+  eval ${PREFIX} invenio db destroy --yes-i-know
+  eval ${PREFIX} invenio db init create
+fi
 eval ${PREFIX} invenio index queue purge delete
 set -e
 eval ${PREFIX} invenio index destroy --force --yes-i-know

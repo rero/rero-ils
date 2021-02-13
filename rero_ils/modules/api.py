@@ -40,6 +40,7 @@ from invenio_records_rest.utils import obj_or_import_string
 from invenio_search import current_search
 from invenio_search.api import RecordsSearch
 from kombu.compat import Consumer
+from sqlalchemy import text
 from sqlalchemy.orm.exc import NoResultFound
 
 from .errors import RecordValidationError
@@ -254,18 +255,40 @@ class IlsRecord(Record):
         return query
 
     @classmethod
-    def get_all_pids(cls, with_deleted=False):
+    def get_all_pids(cls, with_deleted=False, limit=100000):
         """Get all records pids. Return a generator iterator."""
         query = cls._get_all(with_deleted=with_deleted)
-        for identifier in query:
-            yield identifier.pid_value
+        if limit:
+            # slower, less memory
+            query = query.order_by(text('pid_value')).limit(limit)
+            offset = 0
+            count = cls.count(with_deleted=with_deleted)
+            while offset < count:
+                for identifier in query.offset(offset):
+                    yield identifier.pid_value
+                offset += limit
+        else:
+            # faster, more memory
+            for identifier in query:
+                yield identifier.pid_value
 
     @classmethod
-    def get_all_ids(cls, with_deleted=False):
+    def get_all_ids(cls, with_deleted=False, limit=100000):
         """Get all records uuids. Return a generator iterator."""
         query = cls._get_all(with_deleted=with_deleted)
-        for identifier in query:
-            yield identifier.object_uuid
+        if limit:
+            # slower, less memory
+            query = query.order_by(text('pid_value')).limit(limit)
+            offset = 0
+            count = cls.count(with_deleted=with_deleted)
+            while offset < count:
+                for identifier in query.limit(limit).offset(offset):
+                    yield identifier.object_uuid
+                offset += limit
+        else:
+            # faster, more memory
+            for identifier in query:
+                yield identifier.object_uuid
 
     @classmethod
     def count(cls, with_deleted=False):

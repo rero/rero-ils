@@ -251,5 +251,43 @@
         }
       }
     ]
+  },
+  {
+    "name": "operation_logs_creations",
+    "filename": "operation_logs_creations.json",
+    "dependencies": [
+      {
+        "name": "organisation",
+        "optional": "True"
+      },
+      {
+        "name": "record",
+        "refs": {
+          "organisation": "organisations",
+          "item": "items",
+          "holding": "holdings",
+          "document": "documents"
+        }
+      }
+    ]
+  },
+  {
+    "name": "operation_logs_updates",
+    "filename": "operation_logs_updates.json",
+    "dependencies": [
+      {
+        "name": "organisation",
+        "optional": "True"
+      },
+      {
+        "name": "record",
+        "refs": {
+          "organisation": "organisations",
+          "item": "items",
+          "holding": "holdings",
+          "document": "documents"
+        }
+      }
+    ]
   }
 ]
