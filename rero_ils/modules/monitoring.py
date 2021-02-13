@@ -31,6 +31,7 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_search import RecordsSearch, current_search_client
 from redis import Redis
 
+from .utils import get_record_class_from_schema_or_pid_type
 from ..permissions import monitoring_permission
 
 api_blueprint = Blueprint(
@@ -410,6 +411,9 @@ class Monitoring(object):
             'RECORDS_REST_ENDPOINTS'
         ).get(doc_type, {})
         index = endpoint.get('search_index')
+        record_class = get_record_class_from_schema_or_pid_type(
+            pid_type=doc_type
+        )
         pids_es_double = []
         pids_es = []
         pids_db = []
@@ -419,15 +423,12 @@ class Monitoring(object):
                 if pids_es.get(hit.pid):
                     pids_es_double.append(hit.pid)
                 pids_es[hit.pid] = 1
-            query = PersistentIdentifier.query.filter_by(pid_type=doc_type)
-            if not with_deleted:
-                query = query.filter_by(status=PIDStatus.REGISTERED)
             pids_db = []
-            for identifier in query:
-                if pids_es.get(identifier.pid_value):
-                    pids_es.pop(identifier.pid_value)
+            for pid in record_class.get_all_pids(with_deleted=with_deleted):
+                if pids_es.get(pid):
+                    pids_es.pop(pid)
                 else:
-                    pids_db.append(identifier.pid_value)
+                    pids_db.append(pid)
             pids_es = [v for v in pids_es]
         return pids_es, pids_db, pids_es_double, index
 

@@ -21,7 +21,6 @@
 from __future__ import absolute_import, print_function
 
 import difflib
-import gc
 import itertools
 import json
 import logging
@@ -43,7 +42,7 @@ import xmltodict
 import yaml
 from babel import Locale, core
 from celery.bin.control import inspect
-from dojson.contrib.marc21.utils import create_record, split_stream
+from dojson.contrib.marc21.utils import create_record
 from elasticsearch_dsl.query import Q
 from flask import current_app
 from flask.cli import with_appcontext
@@ -76,7 +75,8 @@ from .loans.cli import create_loans
 from .operation_logs.cli import migrate_virtua_operation_logs
 from .patrons.cli import import_users
 from .tasks import process_bulk_queue
-from .utils import get_record_class_from_schema_or_pid_type, read_json_record
+from .utils import get_record_class_from_schema_or_pid_type, \
+    read_json_record, read_xml_record
 from ..modules.providers import append_fixtures_new_identifiers
 from ..modules.utils import get_schema_for_resource
 
@@ -296,10 +296,11 @@ def init_index(force):
               is_flag=True, default=False)
 @click.option('-P', '--pid-check', 'pid_check',
               is_flag=True, default=False)
+@click.option('-e', '--save_errors', 'save_errors', type=click.File('w'))
 @click.argument('infile', type=click.File('r'), default=sys.stdin)
 @with_appcontext
 def create(infile, append, reindex, dbcommit, commit, verbose, debug, schema,
-           pid_type, lazy, dont_stop_on_error, pid_check):
+           pid_type, lazy, dont_stop_on_error, pid_check, save_errors):
     """Load REROILS record.
 
     :param infile: Json file
@@ -312,6 +313,7 @@ def create(infile, append, reindex, dbcommit, commit, verbose, debug, schema,
     :param lazy: lazy reads file
     :param dont_stop_on_error: don't stop on error
     :param pidcheck: check pids
+    :param save_errors: save error records to file
     """
     click.secho(
         'Loading {pid_type} records from {file_name}.'.format(
@@ -323,7 +325,14 @@ def create(infile, append, reindex, dbcommit, commit, verbose, debug, schema,
 
     record_class = get_record_class_from_schema_or_pid_type(pid_type=pid_type)
 
-    error_records = []
+    if save_errors:
+        errors = 0
+        name, ext = os.path.splitext(infile.name)
+        err_file_name = '{name}_errors{ext}'.format(name=name, ext=ext)
+        error_file = open(err_file_name, 'w')
+        error_file.write('[\n')
+        error_file.close()
+
     pids = []
     if lazy:
         # try to lazy read json file (slower, better memory management)
@@ -350,7 +359,6 @@ def create(infile, append, reindex, dbcommit, commit, verbose, debug, schema,
                     )
                 )
         except Exception as err:
-            error_records.append(record)
             click.secho(
                 '{count: <8} {type} create error {pid}: {err}'.format(
                     count=count,
@@ -362,6 +370,11 @@ def create(infile, append, reindex, dbcommit, commit, verbose, debug, schema,
             )
             if debug:
                 traceback.print_exc()
+
+            if save_errors:
+                if errors > 0:
+                    error_file.write(',\n')
+                error_file.write(json.dumps(record, indent=2))
             if not dont_stop_on_error:
                 sys.exit(1)
         db.session.flush()
@@ -371,6 +384,9 @@ def create(infile, append, reindex, dbcommit, commit, verbose, debug, schema,
             db.session.commit()
     click.echo('DB commit: {count}'.format(count=count))
     db.session.commit()
+
+    if save_errors:
+        error_file.write(']')
 
     if append:
         click.secho(
@@ -388,17 +404,6 @@ def create(infile, append, reindex, dbcommit, commit, verbose, debug, schema,
                 "ERROR append fixtures new identifiers: {err}".format(err=err),
                 fg='red'
             )
-
-    if error_records:
-        name, ext = os.path.splitext(infile.name)
-        err_file_name = '{name}_errors{ext}'.format(name=name, ext=ext)
-        click.secho('Write error file: {name}'.format(name=err_file_name))
-        with open(err_file_name, 'w') as error_file:
-            error_file.write('[\n')
-            for error_record in error_records:
-                for line in json.dumps(error_record, indent=2).split('\n'):
-                    error_file.write('  ' + line + '\n')
-            error_file.write(']')
 
 
 @fixtures.command('count')
@@ -779,7 +784,7 @@ class Marc21toJson():
                  'schema']
 
     def __init__(self, xml_file, json_file_ok, xml_file_error,
-                 parallel=8, chunk=5000,
+                 parallel=8, chunk=10000,
                  verbose=False, debug=False, pid_required=False, schema=None):
         """Constructor."""
         self.count = 0
@@ -831,8 +836,6 @@ class Marc21toJson():
             else:
                 self.count_ko += 1
                 self.xml_file_error.write(data)
-        # free memory from garbage collector
-        gc.collect()
 
     def wait_free_process(self):
         """Wait for next process to finish."""
@@ -896,7 +899,7 @@ class Marc21toJson():
     def start(self):
         """Start the transformation."""
         self.write_start()
-        for marc21xml in split_stream(self.xml_file):
+        for marc21xml in read_xml_record(self.xml_file):
             marc21json_record = create_record(marc21xml)
             self.active_records.append({
                 'json': marc21json_record,
@@ -937,11 +940,11 @@ class Marc21toJson():
 
 
 @utils.command('marc21tojson')
-@click.argument('xml_file', type=click.File('rb'))
+@click.argument('xml_file', type=click.File('r'))
 @click.argument('json_file_ok', type=click.File('w'))
 @click.argument('xml_file_error', type=click.File('wb'))
 @click.option('-p', '--parallel', 'parallel', default=8)
-@click.option('-c', '--chunk', 'chunk', default=5000)
+@click.option('-c', '--chunk', 'chunk', default=10000)
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
 @click.option('-d', '--debug', 'debug', is_flag=True, default=False)
 @click.option('-r', '--pidrequired', 'pid_required', is_flag=True,
@@ -973,6 +976,77 @@ def marc21json(xml_file, json_file_ok, xml_file_error, parallel, chunk,
     if count_ko:
         click.secho('Records with errors: ', fg='red', nl=False)
         click.secho(str(count_ko))
+
+
+@utils.command('extract_from_xml')
+@click.argument('pid_file', type=click.File('r'))
+@click.argument('xml_file_in', type=click.File('r'))
+@click.argument('xml_file_out', type=click.File('wb'))
+@click.option('-t', '--tag', 'tag', default='001')
+@click.option('-p', '--progress', 'progress', is_flag=True, default=False)
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+def extract_from_xml(pid_file, xml_file_in, xml_file_out, tag, progress,
+                     verbose):
+    """Extracts xml records with pids."""
+    click.secho('Extract pids from xml: ', fg='green')
+    click.secho('PID file    : {file_name}'.format(file_name=pid_file.name))
+    click.secho('XML file in : {file_name}'.format(file_name=xml_file_in.name))
+    click.secho('XML file out: {file_name}'.format(
+        file_name=xml_file_out.name))
+
+    pids = {}
+    found_pids = {}
+    for line in pid_file:
+        pids[line.strip()] = 0
+    count = len(pids)
+    click.secho('Search pids count: {count}'.format(count=count))
+    xml_file_out.write(b'<?xml version="1.0" encoding="UTF-8"?>\n')
+    xml_file_out.write(
+        b'<collection xmlns="http://www.loc.gov/MARC21/slim">\n\n'
+    )
+    found = 0
+    for idx, xml in enumerate(read_xml_record(xml_file_in)):
+        for child in xml:
+            is_controlfield = child.tag == 'controlfield'
+            is_tag = child.get('tag') == tag
+            if is_controlfield and is_tag:
+                if progress:
+                    click.secho(
+                        '{idx} {pid}'.format(
+                            idx=idx,
+                            pid=repr(child.text)
+                        ),
+                        nl='\r'
+                    )
+                if pids.get(child.text, -1) >= 0:
+                    found += 1
+                    pids[child.text] += 1
+                    data = etree.tostring(
+                        xml,
+                        pretty_print=True,
+                        encoding='UTF-8'
+                    ).strip()
+
+                    xml_file_out.write(data)
+                    found_pids[child.text] = True
+                    if verbose:
+                        click.secho('Found: {pid} on position: {idx}'.format(
+                            pid=child.text,
+                            idx=idx
+                        ))
+                    break
+    xml_file_out.write(b'\n</collection>')
+    if count != found:
+        click.secho(
+            'Count: {count} Found: {found}'.format(
+                count=count,
+                found=found
+            ),
+            fg='red'
+        )
+        for key, value in pids.items():
+            if value == 0:
+                click.secho(key)
 
 
 @utils.command('reserve_pid_range')

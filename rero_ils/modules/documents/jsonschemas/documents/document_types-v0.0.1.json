@@ -112,12 +112,12 @@
                     "value": "docsubtype_music"
                   },
                   {
-                    "label": "docsubtype_music",
-                    "value": "docsubtype_music"
-                  },
-                  {
                     "label": "docsubtype_sound",
                     "value": "docsubtype_sound"
+                  },
+                  {
+                    "label": "docsubtype_audio_book",
+                    "value": "docsubtype_audio_book"
                   },
                   {
                     "label": "docsubtype_recorded_words",
