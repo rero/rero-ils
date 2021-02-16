@@ -9,7 +9,23 @@
     "pid",
     "name",
     "organisation",
-    "is_default"
+    "is_default",
+    "allow_requests",
+    "policy_library_level"
+  ],
+  "propertiesOrder": [
+    "name",
+    "description",
+    "checkout_duration",
+    "number_renewals",
+    "renewal_duration",
+    "allow_requests",
+    "is_default",
+    "policy_library_level",
+    "libraries",
+    "reminders",
+    "overdue_fees",
+    "settings"
   ],
   "properties": {
     "$schema": {
@@ -55,51 +71,100 @@
     },
     "reminders": {
       "type": "array",
+      "title": "Reminders",
       "minItems": 1,
       "uniqueItems": true,
       "items": {
-        "reminder": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "type",
-            "days_delay",
-            "communication_channel",
-            "template"
-          ],
-          "properties": {
-            "type": {
-              "type": "string",
-              "enum": [
-                "due_soon",
-                "overdue"
+        "type": "object",
+        "title": "Reminder",
+        "additionalProperties": false,
+        "required": [
+          "type",
+          "days_delay",
+          "communication_channel",
+          "template"
+        ],
+        "propertiesOrder": [
+          "type",
+          "days_delay",
+          "fee_amount",
+          "communication_channel",
+          "template"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type",
+            "enum": [
+              "due_soon",
+              "overdue"
+            ],
+            "form": {
+              "options": [
+                {
+                  "label": "due_soon",
+                  "value": "due_soon"
+                },
+                {
+                  "label": "overdue",
+                  "value": "overdue"
+                }
               ]
-            },
-            "days_delay": {
-              "type": "integer",
-              "minimum": 1
-            },
-            "fee_amount": {
-              "type": "number",
-              "multipleOf": 0.01
-            },
-            "communication_channel": {
-              "type": "string",
-              "enum": [
-                "email",
-                "mail"
+            }
+          },
+          "days_delay": {
+            "type": "integer",
+            "title": "Delay in days",
+            "minimum": 1
+          },
+          "fee_amount": {
+            "type": "number",
+            "title": "Amount",
+            "multipleOf": 0.01,
+            "form": {
+              "hide": true,
+              "fieldMap": "fee_amount"
+            }
+          },
+          "communication_channel": {
+            "type": "string",
+            "title": "Communication channel",
+            "enum": [
+              "email",
+              "mail"
+            ],
+            "form": {
+              "options": [
+                {
+                  "label": "email",
+                  "value": "email"
+                },
+                {
+                  "label": "mail",
+                  "value": "mail"
+                }
               ]
-            },
-            "template": {
-              "type": "string",
-              "minLength": 2
+            }
+          },
+          "template": {
+            "type": "string",
+            "title": "Template",
+            "minLength": 2,
+            "form": {
+              "fieldMap": "notification_template"
             }
           }
+        }
+      },
+      "form": {
+        "navigation": {
+          "essential": true
         }
       }
     },
     "overdue_fees": {
       "type": "object",
+      "title": "Overdue fees",
       "additionalProperties": false,
       "required": [
         "intervals"
@@ -109,26 +174,55 @@
           "type": "array",
           "minItems": 1,
           "items": {
-            "interval": {
-              "type": "object",
-              "additionalProperties": false,
-              "required": [
-                "from",
-                "fee_amount"
-              ],
-              "properties": {
-                "from": {
-                  "type": "integer",
-                  "minimum": 0
-                },
-                "to": {
-                  "type": "integer",
-                  "minimum": 1
-                },
-                "fee_amount": {
-                  "type": "number",
-                  "minimum": 0,
-                  "multipleOf": 0.01
+            "type": "object",
+            "title": "Days intervals",
+            "additionalProperties": false,
+            "required": [
+              "from",
+              "fee_amount"
+            ],
+            "propertiesOrder": [
+              "from",
+              "to",
+              "fee_amount"
+            ],
+            "form": {
+              "templateOptions": {
+                "containerCssClass": "row"
+              }
+            },
+            "properties": {
+              "from": {
+                "type": "integer",
+                "title": "From",
+                "minimum": 0,
+                "form": {
+                  "templateOptions": {
+                    "itemCssClass": "col-lg-3"
+                  }
+                }
+              },
+              "to": {
+                "type": "integer",
+                "title": "To",
+                "minimum": 1,
+                "form": {
+                  "templateOptions": {
+                    "itemCssClass": "col-lg-3"
+                  }
+                }
+              },
+              "fee_amount": {
+                "type": "number",
+                "title": "Amount",
+                "minimum": 0,
+                "multipleOf": 0.01,
+                "form": {
+                  "fieldMap": "amount",
+                  "templateOptions": {
+                    "itemCssClass": "col-lg-4",
+                    "label": ""
+                  }
                 }
               }
             }
@@ -136,8 +230,18 @@
         },
         "maximum_total_amount": {
           "type": "number",
+          "title": "Maximum total amount",
           "minimum": 0,
-          "multipleOf": 0.01
+          "multipleOf": 0.01,
+          "form": {
+            "fieldMap": "amount"
+          }
+        }
+      },
+      "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
         }
       }
     },
@@ -150,7 +254,13 @@
     "renewal_duration": {
       "title": "Renewal duration in days",
       "type": "integer",
-      "minimum": 1
+      "minimum": 1,
+      "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        }
+      }
     },
     "is_default": {
       "title": "Mark as default policy",
@@ -173,11 +283,20 @@
         ],
         "properties": {
           "$ref": {
-            "title": "Library URI",
+            "title": "Library",
             "type": "string",
-            "pattern": "^https://ils.rero.ch/api/libraries/.*?$"
+            "pattern": "^https://ils.rero.ch/api/libraries/.*?$",
+            "form": {
+              "fieldMap": "library"
+            }
           }
         }
+      },
+      "form": {
+        "templateOptions": {
+          "cssClass": "editor-title"
+        },
+        "hideExpression": "field.parent.model.policy_library_level !== true"
       }
     },
     "settings": {
@@ -221,6 +340,15 @@
               }
             }
           }
+        }
+      },
+      "form": {
+        "type": "cipo-pt-it",
+        "templateOptions": {
+          "cssClass": "editor-title"
+        },
+        "navigation": {
+          "essential": true
         }
       }
     }
