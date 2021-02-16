@@ -169,11 +169,10 @@
         {% if record.harvested %}
           {% include('rero_ils/_document_online.html') %}
         {% else %}
-          <public-holdings-items
-            documenttype="{{ record | document_main_type }}"
+          <public-search-holdings
             documentpid="{{ record.pid }}"
             viewcode="{{ viewcode }}"
-          ></public-holdings-items>
+          ></public-search-holdings>
         {% endif %}
       </section>
       {% endif %}
