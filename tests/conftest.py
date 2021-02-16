@@ -207,3 +207,49 @@ def instance_path():
     if not invenio_instance_path:
         os.environ.pop('INVENIO_INSTANCE_PATH', None)
         shutil.rmtree(path)
+
+
+@pytest.fixture(scope="module")
+def bnf_ean_any_123():
+    """Load bnf ean any 123 xml file."""
+    file_name = join(dirname(__file__), 'data/bnf_ean_any_123.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def bnf_ean_any_9782070541270():
+    """Load bnf ean any 9782070541270 xml file."""
+    file_name = join(dirname(__file__), 'data/bnf_ean_any_9782070541270.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def bnf_ean_any_9782072862014():
+    """Load bnf ean any 9782072862014 xml file."""
+    file_name = join(dirname(__file__), 'data/bnf_ean_any_9782072862014.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def bnf_recordid_all_FRBNF370903960000006():
+    """Load bnf recordid all FRBNF370903960000006 xml file."""
+    file_name = join(
+        dirname(__file__),
+        'data/bnf_recordid_all_FRBNF370903960000006.xml'
+    )
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def bnf_anywhere_all_peter():
+    """Load bnf anywhere all peter xml file."""
+    file_name = join(
+        dirname(__file__),
+        'data/bnf_anywhere_all_peter.xml'
+    )
+    with open(file_name, 'rb') as file:
+        return file.read()

@@ -69,7 +69,7 @@ markdown-captions = "*"
 ## Deployment
 # sentry
 invenio-logging = { version = ">=1.3.0,<1.4.0", extras = ["sentry-sdk", "sentry"] }
-python-dotenv = "^0.13.0"
+python-dotenv = ">=0.13.0"
 
 ## Third party optional modules used by RERO ILS
 invenio-sip2 = {git = "https://github.com/inveniosoftware-contrib/invenio-sip2.git", optional = true}
@@ -106,9 +106,10 @@ console = "scripts:run('./scripts/console')"
 cypress = "scripts:run('./scripts/cypress')"
 folding = "scripts:run('./scripts/russian_dolls')"
 run-tests = "scripts:run('./run-tests.sh')"
+tests = "scripts:run('pytest')"
+tests-debug = "scripts:run('pytest', '--no-cov', '-vv', '-s')"
 server = "scripts:run('./scripts/server')"
 setup = "scripts:run('./scripts/setup')"
-tests = "scripts:run('pytest')"
 update = "scripts:run('./scripts/update')"
 
 [build-system]

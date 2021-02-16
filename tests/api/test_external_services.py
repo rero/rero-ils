@@ -21,14 +21,13 @@
 # from utils import get_json, to_relative_url
 
 import mock
-import pytest
 from flask import url_for
-from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
+from utils import VerifyRecordPermissionPatch, get_json, mock_response, \
+    to_relative_url
 
 from rero_ils.modules.documents.api import Document
 
 
-@pytest.mark.external
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_documents_get(client, document):
@@ -83,31 +82,46 @@ def test_documents_get(client, document):
     assert data['hits']['total']['value'] == 1
 
 
-@pytest.mark.external
+@mock.patch('requests.get')
 @mock.patch('rero_ils.permissions.login_and_librarian',
             mock.MagicMock())
-def test_documents_import_bnf_ean(client):
+def test_documents_import_bnf_ean(mock_get, client, bnf_ean_any_123,
+            bnf_ean_any_9782070541270, bnf_ean_any_9782072862014,
+            bnf_anywhere_all_peter, bnf_recordid_all_FRBNF370903960000006):
     """Test document import from bnf."""
+
+    mock_get.return_value = mock_response(
+        content=bnf_ean_any_123
+    )
     res = client.get(url_for(
-        'api_imports.imports_search',
-        q='ean:any:123'
+        'api_imports.import_bnf',
+        q='ean:any:123',
+        no_cache=1
     ))
     assert res.status_code == 200
     data = get_json(res)
     assert not data.get('metadata')
 
+    mock_get.return_value = mock_response(
+        content=bnf_ean_any_9782070541270
+    )
     res = client.get(url_for(
-        'api_imports.imports_search',
-        q='ean:any:9782070541270'
+        'api_imports.import_bnf',
+        q='ean:any:9782070541270',
+        no_cache=1
     ))
     assert res.status_code == 200
     data = get_json(res).get('hits').get('hits')[0].get('metadata')
     assert data['pid'] == 'FRBNF370903960000006'
     assert Document.create(data)
 
+    mock_get.return_value = mock_response(
+        content=bnf_ean_any_9782072862014
+    )
     res = client.get(url_for(
-        'api_imports.imports_search',
-        q='ean:any:9782072862014'
+        'api_imports.import_bnf',
+        q='ean:any:9782072862014',
+        no_cache=1
     ))
     assert res.status_code == 200
     res_j = get_json(res)
@@ -123,8 +137,9 @@ def test_documents_import_bnf_ean(client):
     assert data[0][0] == 'leader'
 
     res = client.get(url_for(
-        'api_imports.imports_search',
-        q=''
+        'api_imports.import_bnf',
+        q='',
+        no_cache=1
     ))
     assert res.status_code == 200
     assert get_json(res) == {
@@ -136,51 +151,59 @@ def test_documents_import_bnf_ean(client):
         }
     }
 
+    mock_get.return_value = mock_response(
+        content=bnf_anywhere_all_peter
+    )
     res = client.get(url_for(
-        'api_imports.imports_search',
-        q='peter'
+        'api_imports.import_bnf',
+        q='peter',
+        no_cache=1
     ))
     assert res.status_code == 200
     unfiltered_total = get_json(res)['hits']['remote_total']
     assert get_json(res)
 
     res = client.get(url_for(
-        'api_imports.imports_search',
+        'api_imports.import_bnf',
         q='peter',
         year=2000,
         format='rerojson'
     ))
     assert res.status_code == 200
-    get_json(res)['hits']['remote_total'] < unfiltered_total
+    assert get_json(res)['hits']['total'] < unfiltered_total
 
     res = client.get(url_for(
-        'api_imports.imports_search',
+        'api_imports.import_bnf',
         q='peter',
         author='Peter Owen',
         format='rerojson'
     ))
     assert res.status_code == 200
-    get_json(res)['hits']['remote_total'] < unfiltered_total
+    assert get_json(res)['hits']['total'] < unfiltered_total
 
     res = client.get(url_for(
-        'api_imports.imports_search',
+        'api_imports.import_bnf',
         q='peter',
         document_type='docmaintype_book',
         document_subtype='docsubtype_other_book',
         format='rerojson'
     ))
     assert res.status_code == 200
-    get_json(res)['hits']['remote_total'] < unfiltered_total
+    assert get_json(res)['hits']['total'] < unfiltered_total
 
+    mock_get.return_value = mock_response(
+        content=bnf_recordid_all_FRBNF370903960000006
+    )
     res = client.get(url_for(
-        'api_imports.imports_record',
-        id='FRBNF370903960000006'
+        'api_imports.import_bnf_record',
+        id='FRBNF370903960000006',
+        no_cache=1
     ))
     assert res.status_code == 200
     assert get_json(res).get('metadata', {}).get('identifiedBy')
 
     res = client.get(url_for(
-        'api_imports.imports_record',
+        'api_imports.import_bnf_record',
         id='FRBNF370903960000006',
         format='rerojson'
     ))
@@ -188,7 +211,7 @@ def test_documents_import_bnf_ean(client):
     assert get_json(res).get('metadata', {}).get('ui_title_text')
 
     res = client.get(url_for(
-        'api_imports.imports_record',
+        'api_imports.import_bnf_record',
         id='FRBNF370903960000006',
         format='marc'
     ))

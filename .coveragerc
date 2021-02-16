@@ -1,4 +1,5 @@
 [run]
+relative_files = True
 omit =
     rero_ils/dojson/cli.py
     rero_ils/modules/apiharvester/cli.py

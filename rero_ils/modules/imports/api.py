@@ -319,62 +319,62 @@ class Import(object):
                     relation=relation,
                     where=self.search.get(where)
                 )
-                with requests.get(url_api) as response:
-                    if not response.ok:
-                        self.status_code = 502
-                        response = {
-                            'metadata': {},
-                            'errors': {
-                                'code': self.status_code,
-                                'title': '{name}: Bad status code!'.format(
-                                    name=self.name
-                                ),
-                                'detail': 'Status code: {code}'.format(
-                                    code=response.status_code
-                                )
-                            }
+                response = requests.get(url_api)
+                if not response.ok:
+                    self.status_code = 502
+                    response = {
+                        'metadata': {},
+                        'errors': {
+                            'code': self.status_code,
+                            'title': '{name}: Bad status code!'.format(
+                                name=self.name
+                            ),
+                            'detail': 'Status code: {code}'.format(
+                                code=response.status_code
+                            )
                         }
-                        current_app.logger.error(
-                            '{title}: {detail}'.format(
-                                title=response.get('title'),
-                                detail=response.get('detail')))
+                    }
+                    current_app.logger.error(
+                        '{title}: {detail}'.format(
+                            title=response.get('title'),
+                            detail=response.get('detail')))
 
-                    else:
-                        def _split_stream(stream):
-                            """Yield record elements from given stream."""
-                            for _, element in etree.iterparse(
-                                    stream,
-                                    tag='{http://www.loc.gov/zing/srw/}'
-                                        'record'):
-                                yield element
-                        xml_records = _split_stream(BytesIO(response.content))
+                else:
+                    def _split_stream(stream):
+                        """Yield record elements from given stream."""
+                        for _, element in etree.iterparse(
+                                stream,
+                                tag='{http://www.loc.gov/zing/srw/}'
+                                    'record'):
+                            yield element
+                    xml_records = _split_stream(BytesIO(response.content))
 
-                        for xml_record in xml_records:
-                            # convert xml in marc json
-                            json_data = create_record(xml_record)
+                    for xml_record in xml_records:
+                        # convert xml in marc json
+                        json_data = create_record(xml_record)
 
-                            # Some BNF records are empty hmm...
-                            if not json_data.values():
-                                continue
+                        # Some BNF records are empty hmm...
+                        if not json_data.values():
+                            continue
 
-                            # convert marc json to local json format
-                            record = unimarc.do(json_data)
+                        # convert marc json to local json format
+                        record = unimarc.do(json_data)
 
-                            id = self.get_id(json_data)
-                            data = {
-                                'id': id,
-                                'links': {
-                                    'self': self.get_link(id),
-                                    'marc21': self.get_marc21_link(id)
-                                },
-                                'metadata': record,
-                                'source': self.name
-                            }
-                            self.data.append(json_data)
-                            self.results['hits']['hits'].append(data)
-                        self.results['hits']['remote_total'] = int(etree.parse(
-                                BytesIO(response.content))
-                                .find('{*}numberOfRecords').text)
+                        id = self.get_id(json_data)
+                        data = {
+                            'id': id,
+                            'links': {
+                                'self': self.get_link(id),
+                                'marc21': self.get_marc21_link(id)
+                            },
+                            'metadata': record,
+                            'source': self.name
+                        }
+                        self.data.append(json_data)
+                        self.results['hits']['hits'].append(data)
+                    self.results['hits']['remote_total'] = int(etree.parse(
+                            BytesIO(response.content))
+                            .find('{*}numberOfRecords').text)
             self.results['hits']['total']['value'] = \
                 len(self.results['hits']['hits'])
             if self.results['hits']['total']['value'] == 0:
@@ -451,4 +451,4 @@ class BnfImport(Import):
             current_app.config.get(
                 'REST_MIMETYPE_QUERY_ARG_NAME', 'format'): 'marc'
         }
-        return url_for('api_imports.imports_record', **args)
+        return url_for('api_imports.import_bnf_record', **args)

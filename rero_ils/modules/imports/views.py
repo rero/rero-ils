@@ -75,8 +75,13 @@ class ImportsListResource(ContentNegotiatedMethodView):
             what = query
         size = flask_request.args.get('size', self.import_size)
         do_import = obj_or_import_string(self.import_class)()
-        do_import.search_records(what=what, relation=relation,
-                                 where=where, max=size, no_cache=no_cache)
+        do_import.search_records(
+            what=what,
+            relation=relation,
+            where=where,
+            max=size,
+            no_cache=no_cache
+        )
         results = do_import.results
         filter_year = flask_request.args.get('year')
         if filter_year:
@@ -151,12 +156,14 @@ class ImportsResource(ContentNegotiatedMethodView):
 
     def get(self, id, **kwargs):
         """Implement the GET."""
+        no_cache = True if flask_request.args.get('no_cache') else False
         do_import = obj_or_import_string(self.import_class)()
         do_import.search_records(
             what=id,
             relation='all',
             where='recordid',
-            max=1
+            max=1,
+            no_cache=no_cache
         )
         if not do_import.data:
             raise ResultNotFoundOnTheRemoteServer

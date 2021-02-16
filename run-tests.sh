@@ -54,6 +54,10 @@ success_msg() {
   colored_msg "${SUCCESS_COLOR}" "SUCCESS" "${1}"
 }
 
+success_msg+exit() {
+  colored_msg "${SUCCESS_COLOR}" "SUCCESS" "${1}" && exit 0
+}
+
 # Displays program name
 msg "PROGRAM: ${PROGRAM}"
 
@@ -63,9 +67,6 @@ if [[ -z "${VIRTUAL_ENV}" ]]; then
 fi
 
 function pretests () {
-  # TODO: find out why we have following error:
-  # | pipenv                     | 2018.11.2 | <2020.5.28               | 38334    |
-  safety check --ignore 38334
   info_msg "Check json:"
   flask utils check_json tests/data rero_ils/modules data
   info_msg "Check license:"
@@ -85,12 +86,6 @@ function pretests () {
   info_msg "Sphinx-build:"
   sphinx-build -qnNW docs docs/_build/html
 }
-
-
-# TODO: we have to test 3 folowing files:
-# tests/conftest.py                                                                                                                                                                                                                                                 [  0%]
-# tests/test_version.py                                                                                                                                                                                                                                            [  0%]
-# tests/utils.py
 
 function tests () {
   info_msg "Tests All:"
@@ -123,6 +118,11 @@ function tests_unit () {
   export PYTEST_ADDOPTS="--color=yes"
   poetry run pytest ./tests/unit
 }
+function tests_external () {
+  info_msg "Tests External:"
+  export PYTEST_ADDOPTS="--color=yes"
+  poetry run pytest tests/api/test_external_services.py
+}
 function tests_other () {
   info_msg "Tests Other:"
   export PYTEST_ADDOPTS="--color=yes"
@@ -135,6 +135,7 @@ if [ $# -eq 0 ]
     pretests
     tests
 fi
+
 if [ "$1" = "other" ]
   then
     set -e
@@ -169,12 +170,7 @@ fi
 if [ "$1" = "external" ]
   then
     set -e
-    export PYTEST_ADDOPTS="--color=yes --cov-append -m "external""
-    info_msg "External tests:"
-    #poetry run tests ${@:2}
-    poetry run pytest tests/api/test_external_services.py
+    tests_external
 fi
 
-
-success_msg "Perfect ${PROGRAM}! See you soon…"
-exit 0
+success_msg+exit "Perfect ${PROGRAM} external! See you soon…"
