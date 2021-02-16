@@ -71,6 +71,8 @@ def test_circ_policy_create(circ_policy_martigny_data_tmp,
             '$ref': 'https://ils.rero.ch/api/organisations/org1'
         },
         'is_default': False,
+        'allow_requests': True,
+        'policy_library_level': False,
         'settings': [{
             'patron_type': {
                 '$ref': 'https://ils.rero.ch/api/patron_types/ptty3'
