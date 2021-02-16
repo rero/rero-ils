@@ -6,7 +6,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        tests: ['', 'external']
         dependencies: ['dev', 'deploy']
     steps:
     # - name: Cancel Previous Runs
@@ -55,17 +54,10 @@ jobs:
       run: |
         poetry run bootstrap --ci --deploy E2E=yes
         poetry install --no-root --extras sip2
-        poetry run pip install --upgrade coveralls
 
     - name: Run Test
-      if: ${{ matrix.tests == '' }}
-      run: poetry run run-tests
-
-    - name: Run Test external
-      if: ${{ matrix.tests == 'external'}}
-      id: test_external
-      continue-on-error: true
-      run: poetry run run-tests external
+      run: |
+        poetry run run-tests
 
     # NOT WORKING BECAUSE OF THIS PROBLEM:
     # https://github.community/t/github-actions-are-severely-limited-on-prs/18179#M9249
@@ -79,35 +71,10 @@ jobs:
     #     output: |
     #       { "summary": "TEST EXTERNAL FAILED!!!" }
 
-    - name: Upload Coverage ${{ matrix.tests }}
+    - name: Coveralls
       if: ${{ matrix.dependencies == 'dev' }}
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        COVERALLS_SERVICE_NAME: github
-        COVERALLS_FLAG_NAME: test-${{ matrix.tests }}
-        COVERALLS_PARALLEL: true
-      run: poetry run coveralls
-
-
-  coveralls:
-    needs: [test]
-    runs-on: ubuntu-latest
-    steps:
-    - name: Cancel Previous Runs
-      uses: styfle/cancel-workflow-action@0.5.0
-      with:
-        access_token: ${{ github.token }}
-
-    - name: Set up Python 3.6
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.6
-
-    - name: Finished
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        COVERALLS_SERVICE_NAME: github
-        COVERALLS_PARALLEL_FINISHED: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERALLS_SERVICE_NAME: github
       run: |
-        pip install --upgrade coveralls
-        coveralls --finish
+          poetry run coveralls

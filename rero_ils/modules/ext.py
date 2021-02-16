@@ -104,7 +104,7 @@ class REROILSAPP(object):
         endpoints = app.config.get('RERO_IMPORT_REST_ENDPOINTS', {})
         for endpoint, options in endpoints.items():
             imports_search = ImportsListResource.as_view(
-                'imports_search',
+                'import_{endpoint}'.format(endpoint=endpoint),
                 import_class=options.get('import_class'),
                 import_size=options.get('import_size')
             )
@@ -114,7 +114,7 @@ class REROILSAPP(object):
             )
 
             imports_record = ImportsResource.as_view(
-                'imports_record',
+                'import_{endpoint}_record'.format(endpoint=endpoint),
                 import_class=options.get('import_class')
             )
             api_blueprint.add_url_rule(

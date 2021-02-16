@@ -28,8 +28,8 @@ import sys
 #     )  # run whatever you like based on 'name'
 
 
-def run(prg_name):  # python 3.7+, otherwise define each script manually
+def run(prg_name, *args):  # python 3.7+, otherwise define each script manually
     def fn():
         # Replace current Python program by prg_name (same PID)
-        os.execvp(prg_name, [prg_name] + sys.argv[1:])
+        os.execvp(prg_name, [prg_name] + list(args) + sys.argv[1:])
     return fn

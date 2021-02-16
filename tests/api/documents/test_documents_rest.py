@@ -21,7 +21,6 @@ from copy import deepcopy
 from datetime import datetime, timedelta
 
 import mock
-import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, mock_response, \
@@ -494,7 +493,6 @@ def test_document_can_request_view(
     assert len(picks) == 3
 
 
-@pytest.mark.skip(reason="Remove this when boosting problem is fixed")
 def test_document_boosting(client, ebook_1, ebook_4):
     """Test document boosting."""
     list_url = url_for(
@@ -510,7 +508,7 @@ def test_document_boosting(client, ebook_1, ebook_4):
     list_url = url_for(
         'invenio_records_rest.doc_list',
         q='autocomplete_title:maison AND' +
-          'contribution.agent.preferred_name:James'
+          'contribution.agent.authorized_access_point:James'
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']

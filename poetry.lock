@@ -173,7 +173,7 @@ description = "A simple, correct PEP517 package builder"
 name = "build"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
-version = "0.3.0"
+version = "0.3.1"
 
 [package.dependencies]
 packaging = "*"
@@ -1042,7 +1042,7 @@ optional = true
 version = ">=1.2.5,<1.3.0"
 
 [package.dependencies.invenio-db]
-extras = ["postgresql", "versioning"]
+extras = ["versioning", "postgresql"]
 optional = true
 version = ">=1.0.8,<1.1.0"
 
@@ -2652,7 +2652,7 @@ description = "Add .env support to your django/flask apps in development and dep
 name = "python-dotenv"
 optional = false
 python-versions = "*"
-version = "0.13.0"
+version = "0.15.0"
 
 [package.extras]
 cli = ["click (>=5.0)"]
@@ -3137,7 +3137,7 @@ description = "URI parsing, classification and composition"
 name = "uritools"
 optional = false
 python-versions = "~=3.5"
-version = "3.0.0"
+version = "3.0.1"
 
 [[package]]
 category = "main"
@@ -3334,7 +3334,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 sip2 = ["invenio-sip2"]
 
 [metadata]
-content-hash = "ac34b24569801d16f830721fe206624d170b8e79690a35f6752d5932a47eb56c"
+content-hash = "6340dd9e780b2817c7d6503afee78ff07c37c7cf6c2fae89a4fb726c87dc230a"
 lock-version = "1.0"
 python-versions = ">= 3.6, <3.8"
 
@@ -3398,8 +3398,8 @@ bootstrap-flask = [
     {file = "Bootstrap_Flask-1.5.1-py2.py3-none-any.whl", hash = "sha256:b2716e60289fa7d636b633614717a338dc5cae144bdf8983680403193b891305"},
 ]
 build = [
-    {file = "build-0.3.0-py2.py3-none-any.whl", hash = "sha256:75bc5676b1a014fb996dc96914428b197d174364392a46778200d5e115ffe76c"},
-    {file = "build-0.3.0.tar.gz", hash = "sha256:0eb95b2c8d770d7c4c9b92c68c227c350bbf65f3ec83551ace9097c18cc15fdd"},
+    {file = "build-0.3.1-py2.py3-none-any.whl", hash = "sha256:db7a2b25c013f84583e06bbe1bb7ae6a784a199463032001995cb7d974813b26"},
+    {file = "build-0.3.1.tar.gz", hash = "sha256:439c1c1708a0292d251f2f76edcfb314b015bbc9a5e0d2bf49d9f4afcb2d4408"},
 ]
 cachelib = [
     {file = "cachelib-0.1.1-py3-none-any.whl", hash = "sha256:7df6e05b8dfccdeb869e171575580e5606cf1e82a166633b3cb406bc4f113fd0"},
@@ -4181,8 +4181,8 @@ python-dateutil = [
     {file = "python_dateutil-2.8.1-py2.py3-none-any.whl", hash = "sha256:75bb3f31ea686f1197762692a9ee6a7550b59fc6ca3a1f4b5d7e32fb98e2da2a"},
 ]
 python-dotenv = [
-    {file = "python-dotenv-0.13.0.tar.gz", hash = "sha256:3b9909bc96b0edc6b01586e1eed05e71174ef4e04c71da5786370cebea53ad74"},
-    {file = "python_dotenv-0.13.0-py2.py3-none-any.whl", hash = "sha256:25c0ff1a3e12f4bde8d592cc254ab075cfe734fc5dd989036716fd17ee7e5ec7"},
+    {file = "python-dotenv-0.15.0.tar.gz", hash = "sha256:587825ed60b1711daea4832cf37524dfd404325b7db5e25ebe88c495c9f807a0"},
+    {file = "python_dotenv-0.15.0-py2.py3-none-any.whl", hash = "sha256:0c8d1b80d1a1e91717ea7d526178e3882732420b03f08afea0406db6402e220e"},
 ]
 python-editor = [
     {file = "python-editor-1.0.4.tar.gz", hash = "sha256:51fda6bcc5ddbbb7063b2af7509e43bd84bfc32a4ff71349ec7847713882327b"},
@@ -4462,8 +4462,8 @@ ua-parser = [
     {file = "ua_parser-0.10.0-py2.py3-none-any.whl", hash = "sha256:46ab2e383c01dbd2ab284991b87d624a26a08f72da4d7d413f5bfab8b9036f8a"},
 ]
 uritools = [
-    {file = "uritools-3.0.0-py3-none-any.whl", hash = "sha256:5ba20a5de979a6a65b3d55998bee86ca1d97075d0f22923b85590b5e39c2b307"},
-    {file = "uritools-3.0.0.tar.gz", hash = "sha256:405917a31ce58a57c8ccd0e4ea290f38baf2f4823819c3688f5331f1aee4ccb0"},
+    {file = "uritools-3.0.1-py3-none-any.whl", hash = "sha256:040b2738890f99844e8619a340cf7b2600f732bd53a86ec4c91683d44496b44f"},
+    {file = "uritools-3.0.1.tar.gz", hash = "sha256:a3e9c794d44fdbd54642dcb7d6ef3ba9866d953eb34f65aeca3754b7ad5c1ea0"},
 ]
 urllib3 = [
     {file = "urllib3-1.26.3-py2.py3-none-any.whl", hash = "sha256:1b465e494e3e0d8939b50680403e3aedaa2bc434b7d5af64dfd3c958d7f5ae80"},
@@ -4522,4 +4522,3 @@ zipp = [
     {file = "zipp-3.4.1-py3-none-any.whl", hash = "sha256:51cb66cc54621609dd593d1787f286ee42a5c0adbb4b29abea5a63edc3e03098"},
     {file = "zipp-3.4.1.tar.gz", hash = "sha256:3607921face881ba3e026887d8150cca609d517579abe052ac81fc5aeffdbd76"},
 ]
-
