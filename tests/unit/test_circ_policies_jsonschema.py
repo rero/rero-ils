@@ -143,7 +143,7 @@ def test_circ_policy_reminders(circ_policy_schema,
     due_soon_reminder = {
         'type': DUE_SOON_REMINDER_TYPE,
         'days_delay': 3,
-        'communication_channel': 'email',
+        'communication_channel': 'patron_setting',
         'template': 'email/due_soon/'
     }
     cipo['reminders'].append(due_soon_reminder)
@@ -161,7 +161,7 @@ def test_circ_policy_reminders(circ_policy_schema,
     overdue_reminder = {
         'type': OVERDUE_REMINDER_TYPE,
         'days_delay': 2,
-        'communication_channel': 'email',
+        'communication_channel': 'mail',
         'template': 'email/overdue'
     }
     with pytest.raises(RecordValidationError):

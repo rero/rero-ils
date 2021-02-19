@@ -63,8 +63,8 @@ def listener_loan_state_changed(_, initial_loan, loan, trigger):
     elif loan['state'] == LoanState.ITEM_AT_DESK:
         loan.create_notification(notification_type='availability')
 
-    # Create fees for checkin operation
-    if trigger == 'checkin':
+    # Create fees for checkin or extend operations
+    if trigger in ['checkin', 'extend']:
         PatronTransaction.create_patron_transaction_from_overdue_loan(
             initial_loan
         )

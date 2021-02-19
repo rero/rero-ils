@@ -78,6 +78,7 @@ def clean_obsolete_temporary_item_types():
     """
     current_app.logger.debug("Starting clean_obsolete_temporary_item_types()"
                              " tasks ...")
+    msg = 'Nothing to do'
     for item in Item.get_items_with_obsolete_temporary_item_type():
         # logger information
         tmp_itty_data = item['temporary_item_type']

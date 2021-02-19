@@ -139,3 +139,30 @@ def test_patron_transaction_events_amount(
         data = copy.deepcopy(patron_transaction_overdue_event_saxon_data)
         data['amount'] = '25'
         validate(data, patron_transaction_event_schema)
+
+
+def test_patron_transaction_steps(
+        patron_transaction_event_schema,
+        patron_transaction_overdue_event_saxon_data):
+    """Test amount for patron transaction event jsonschemas."""
+
+    with pytest.raises(ValidationError):
+        data = copy.deepcopy(patron_transaction_overdue_event_saxon_data)
+        data['steps'] = []
+        validate(data, patron_transaction_event_schema)
+
+    with pytest.raises(ValidationError):
+        data = copy.deepcopy(patron_transaction_overdue_event_saxon_data)
+        data['steps'] = [{
+            'timestamp': '2020-12-31',
+            'amount': '2'
+        }]
+        validate(data, patron_transaction_event_schema)
+
+    with pytest.raises(ValidationError):
+        data = copy.deepcopy(patron_transaction_overdue_event_saxon_data)
+        data['steps'] = [{
+            'dummy': '2020-12-31',
+            'amount': 2
+        }]
+        validate(data, patron_transaction_event_schema)

@@ -80,43 +80,19 @@ class PatronTransaction(IlsRecord):
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,
-               dbcommit=False, reindex=False, **kwargs):
+               dbcommit=False, reindex=False, steps=None, **kwargs):
         """Create patron transaction record."""
-        # if 'events' key is provided, pop the events to create them just after
-        # the parent patron transaction creation.
-        events = []
-        if 'events' in data:
-            events = data['events']
-            del data['events']
-
         # create the record
         record = super().create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
-
-        # if some events are provided, then create each one without updating
-        # the parent (NOTE: the patron transaction total amount should be the
-        # sum of all overdue event ; no check are performed about this fact)
-        if events:
-            for event in events:
-                # for each event we need to add the reference to the current
-                # patron transaction as parent
-                event['parent'] = {'$ref': get_ref_for_pid('pttr', record.pid)}
-                PatronTransactionEvent.create(
-                    data=event,
-                    dbcommit=dbcommit,
-                    reindex=reindex,
-                    delete_pid=delete_pid,
-                    update_parent=False
-                )
-        # no events are provided, then create the initial event
-        else:
-            PatronTransactionEvent.create_event_from_patron_transaction(
-                patron_transaction=record,
-                dbcommit=dbcommit,
-                reindex=reindex,
-                delete_pid=delete_pid,
-                update_parent=False
-            )
+        PatronTransactionEvent.create_event_from_patron_transaction(
+            patron_transaction=record,
+            steps=steps,
+            dbcommit=dbcommit,
+            reindex=reindex,
+            delete_pid=delete_pid,
+            update_parent=False
+        )
         return record
 
     # TODO: do we have to set dbcomit and reindex to True so the
@@ -314,24 +290,18 @@ class PatronTransaction(IlsRecord):
                 'total_amount': total_amount,
                 'creation_date': datetime.now(timezone.utc).isoformat(),
             }
+            steps = []
             for fee in fees:
-                data.setdefault('events', []).append({
-                    'creation_date': fee[1].isoformat(),
-                    'type': 'fee',
-                    'subtype': 'overdue',
-                    'amount': fee[0],
-                    'library': {
-                        '$ref': get_ref_for_pid('lib', loan.library_pid)
-                    },
-                    'note': 'incremental fee for "{date}"'.format(
-                        date=fee[1].strftime('%Y-%m-%d')
-                    )
+                steps.append({
+                    'timestamp': fee[1].isoformat(),
+                    'amount': fee[0]
                 })
             record = cls.create(
                 data,
                 dbcommit=dbcommit,
                 reindex=reindex,
-                delete_pid=delete_pid
+                delete_pid=delete_pid,
+                steps=steps
             )
             return record
 

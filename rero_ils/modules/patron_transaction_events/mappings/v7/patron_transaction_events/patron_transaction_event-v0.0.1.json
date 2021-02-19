@@ -25,6 +25,16 @@
       "amount": {
         "type": "float"
       },
+      "steps": {
+        "properties": {
+          "timestamp": {
+            "type": "keyword"
+          },
+          "amount": {
+            "type": "float"
+          }
+        }
+      },
       "type": {
         "type": "keyword"
       },

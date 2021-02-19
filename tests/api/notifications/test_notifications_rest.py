@@ -513,12 +513,12 @@ def test_transaction_library_pid(notification_late_martigny,
            lib_martigny_data.get('pid')
 
 
-def test_notification_templates_list(client, librarian_martigny_no_email):
+def test_notification_templates_list(client, librarian_martigny):
     """Test notification templates list API."""
     url = url_for('notifications.list_available_template')
     res = client.get(url)
     assert res.status_code == 401
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     res = client.get(url)
     assert res.status_code == 200
     data = get_json(res)

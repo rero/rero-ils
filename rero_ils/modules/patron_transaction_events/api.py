@@ -98,36 +98,43 @@ class PatronTransactionEvent(IlsRecord):
 
     @classmethod
     def create_event_from_patron_transaction(
-            cls, patron_transaction=None, dbcommit=None, reindex=None,
-            delete_pid=None, update_parent=True):
+            cls, patron_transaction=None, steps=None, dbcommit=None,
+            reindex=None, delete_pid=None, update_parent=True):
         """Create a patron transaction event from patron transaction."""
+        parent = patron_transaction
         data = {
-            'creation_date': patron_transaction.get('creation_date'),
+            'creation_date': parent.get('creation_date'),
             'type': 'fee',
-            'amount': patron_transaction.get('total_amount'),
+            'amount': parent.get('total_amount'),
             'parent': {
-                '$ref': get_ref_for_pid('pttr', patron_transaction.pid)
-            }
+                '$ref': get_ref_for_pid('pttr', parent.pid)
+            },
+            'note': _('Initial charge')
         }
-        if patron_transaction.get('type') == 'overdue':
-            data['library'] = {
-                '$ref': get_ref_for_pid(
-                    'lib',
-                    patron_transaction.notification_transaction_library_pid
-                )
-            }
+        if steps:
+            data['steps'] = steps
+        # overdue transaction event
+        if parent.get('type') == 'overdue':
+            if parent.loan_pid:
+                library_pid = parent.loan.library_pid
+            else:
+                library_pid = parent.notification_transaction_library_pid
+            if library_pid:
+                data['library'] = {
+                    '$ref': get_ref_for_pid('lib', library_pid)
+                }
             data['subtype'] = 'overdue'
+        # subscription transaction event
         elif patron_transaction.get('type') == 'subscription':
             data['subtype'] = 'other'
-            data['note'] = _('Initial charge')
-        record = cls.create(
+
+        return cls.create(
             data,
             dbcommit=dbcommit,
             reindex=reindex,
             delete_pid=delete_pid,
             update_parent=update_parent
         )
-        return record
 
     def update_parent_patron_transaction(self):
         """Update parent patron transaction amount and status."""

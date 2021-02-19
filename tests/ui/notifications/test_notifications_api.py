@@ -105,18 +105,25 @@ def test_notification_dispatch(app, mailbox):
 
         def __getitem__(self, key):
             return self.data[key]
-            return self.data[key]
+
+        def get(self, key):
+            return self.__getitem__(key)
+
+        def init_loan(self):
+            return None
 
         def replace_pids_and_refs(self):
-            return {'loan': {
-                'pid': 'dummy_notification_loan_pid',
-                'patron': {
-                    'pid': 'dummy_patron_pid',
+            return {
+                'loan': {
+                    'pid': 'dummy_notification_loan_pid',
                     'patron': {
-                        'communication_channel': self.communication_channel
+                        'pid': 'dummy_patron_pid',
+                        'patron': {
+                            'communication_channel': self.communication_channel
+                        }
                     }
                 }
-            }}
+            }
 
         def update_process_date(self):
             return self
