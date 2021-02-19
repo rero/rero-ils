@@ -64,11 +64,6 @@ describe('Create and edit a circulation policy', function() {
     cy.get('#admin-and-monitoring-menu').click();
     cy.get('#circulation-policies-menu').click();
     cy.get('#search-add-button').click();
-    // Fill the form with an existing name
-    cy.get('#name').type(this.cipo.default.name);
-    // Assert that the name uniqueness is highlighted
-    cy.get('#cipo-name-unique').should('contain', 'This name is already taken.');
-    cy.get('#name').clear();
     // Create a cipo
     cy.uiCreateOrUpdateCipo(this.cipo.extended, this.patronTypes.standard.pid, this.itemTypes.on_site.pid);
     // Assert that the ci-po has been correctly saved

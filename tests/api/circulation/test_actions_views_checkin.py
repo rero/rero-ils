@@ -121,11 +121,11 @@ def test_auto_checkin_else(client, librarian_martigny,
 
 
 def test_checkin_overdue_item(
-        client, librarian_martigny_no_email, loc_public_martigny,
+        client, librarian_martigny, loc_public_martigny,
         item_on_loan_martigny_patron_and_loan_on_loan):
     """Test a checkin for an overdue item with incremental fees."""
 
-    login_user_via_session(client, librarian_martigny_no_email.user)
+    login_user_via_session(client, librarian_martigny.user)
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
 
     # Update the circulation policy corresponding to the loan
@@ -150,7 +150,7 @@ def test_checkin_overdue_item(
     assert len(fees) > 0
     assert total_fees > 0
 
-    # Check overedues preview API and check result
+    # Check overdues preview API and check result
     url = url_for('api_loan.preview_loan_overdue', loan_pid=loan.pid)
     res = client.get(url)
     data = get_json(res)
@@ -177,7 +177,7 @@ def test_checkin_overdue_item(
         dict(
             item_pid=item.pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny_no_email.pid
+            transaction_user_pid=librarian_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -187,7 +187,9 @@ def test_checkin_overdue_item(
     # check if overdue transaction are created
     trans = PatronTransaction.get_last_transaction_by_loan_pid(loan.pid)
     assert trans.total_amount == total_fees
-    assert len(list(trans.events)) == len(fees)
+    events = list(trans.events)
+    assert len(events) == 1
+    assert len(events[0].get('steps', [])) == len(fees)
 
     # reset the cipo
     del cipo['overdue_fees']

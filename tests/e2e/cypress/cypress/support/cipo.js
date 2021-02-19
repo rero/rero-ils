@@ -65,29 +65,27 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
   * :param itemTypePid - item type pid linked to the cipo
   */
 Cypress.Commands.add('uiCreateOrUpdateCipo', (cipo, patronTypePid, itemTypePid) => {
+  cy.get('#name').clear();
   cy.get('#name').type(cipo.name);
   cy.get('#description').type(cipo.description);
-  if (!cipo.allow_checkout) {
-    cy.get('input[formcontrolname="allow_checkout"]').click(); // not working
-  } else {
-    cy.get('#checkoutDuration').clear();
-    cy.get('#checkoutDuration').type(cipo.checkout_duration);
+  if (cipo.checkout_duration) {
+    cy.get('#checkout_duration').clear();
+    cy.get('#checkout_duration').type(cipo.checkout_duration);
   }
   if (!cipo.number_renewals) {
     cy.get('#renewals').check(); // not working
   } else {
-    cy.get('#numberRenewals').clear();
-    cy.get('#numberRenewals').type(cipo.number_renewals);
-    cy.get('#renewalDuration').clear();
-    cy.get('#renewalDuration').type(cipo.renewal_duration);
+    cy.get('#number_renewals').clear();
+    cy.get('#number_renewals').type(cipo.number_renewals);
+    cy.get('#renewal_duration').clear();
+    cy.get('#renewal_duration').type(cipo.renewal_duration);
   }
   if (!cipo.allow_requests) {
     cy.get('#requests').check(); // not working
   }
-  cy.get('#ptty-p' + patronTypePid).check();
-  cy.get('#ptty-p' + patronTypePid + '-itty-i' + itemTypePid).check();
+  cy.get('#reminders-remove-button').click();
   // Save form
-  cy.get('#cipo-save-button').click();
+  cy.get('#editor-save-button').click();
 });
 
 /** Check created circulation policy ==================================================
@@ -96,16 +94,9 @@ Cypress.Commands.add('uiCreateOrUpdateCipo', (cipo, patronTypePid, itemTypePid) 
   * :param itemTypePid - item type pid linked to the cipo
   */
  Cypress.Commands.add('checkCipoCreated', (cipo, patronTypePid, itemTypePid) => {
-  cy.get('#cipo-allow-checkout').should('have.class', 'fa-check');
   cy.get('#cipo-checkout-duration').should('contain', cipo.checkout_duration);
   cy.get('#cipo-cnumber-renewals').should('contain', cipo.number_renewals);
   cy.get('#cipo-renewal-duration').should('contain', cipo.renewal_duration);
   cy.get('#cipo-allow-request').should('have.class', 'fa-check');
   cy.get('#cipo-is-default').should('have.class', 'fa-times');
-  cy.get('#cipo-after-due-date').should('contain', cipo.number_of_days_after_due_date);
-  cy.get('#cipo-before-due-date').should('contain', cipo.number_of_days_before_due_date);
-  cy.get('#cipo-first-reminder-fee-amount').should('contain', cipo.reminder_fee_amount);
-  cy.get('#ptty-' + patronTypePid).should('contain', 'Standard');
-  cy.get('#itty-' + itemTypePid).should('contain', 'Default');
-  cy.get('#ptty-' + patronTypePid + '-itty-' + itemTypePid).should('have.class', 'fa-check');
 });
