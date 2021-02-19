@@ -45,6 +45,30 @@
       "type": "number",
       "minimum": 0
     },
+    "steps": {
+      "title": "Steps",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "minLength": 8
+          },
+          "amount": {
+            "type": "number",
+            "minimum": 0.01,
+            "multipleOf": 0.01
+          }
+        },
+        "required": [
+          "timestamp",
+          "amount"
+        ]
+      }
+    },
     "type": {
       "title": "Type",
       "type": "string"

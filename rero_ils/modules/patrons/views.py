@@ -43,6 +43,7 @@ from ..loans.api import Loan, get_loans_stats_by_patron_pid, \
     get_overdue_loans, patron_profile
 from ..loans.utils import sum_for_fees
 from ..locations.api import Location
+from ..patron_transactions.api import PatronTransaction
 from ..utils import get_base_url
 
 api_blueprint = Blueprint(
@@ -66,7 +67,16 @@ def patron_circulation_informations(patron_pid):
     patron = Patron.get_record_by_pid(patron_pid)
     if not patron:
         abort(404, 'Patron not found')
+    preview_amount = 0
+    for loan in get_overdue_loans(patron.pid):
+        preview_amount += sum_for_fees(loan.get_overdue_fees)
+    engaged_amount = PatronTransaction\
+        .get_transactions_total_amount_for_patron(patron.pid, status='open')
     return jsonify({
+        'fees': {
+          'engaged': engaged_amount,
+          'preview': preview_amount
+        },
         'statistics': get_loans_stats_by_patron_pid(patron_pid),
         'messages': patron.get_circulation_messages()
     })

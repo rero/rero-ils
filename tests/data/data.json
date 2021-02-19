@@ -911,14 +911,14 @@
       {
         "type": "due_soon",
         "days_delay": 5,
-        "communication_channel": "email",
+        "communication_channel": "patron_setting",
         "template": "email/due_soon"
       },
       {
         "type": "overdue",
         "days_delay": 5,
         "fee_amount": 2.0,
-        "communication_channel": "email",
+        "communication_channel": "patron_setting",
         "template": "email/overdue"
       }
     ],
@@ -942,21 +942,21 @@
       {
         "type": "due_soon",
         "days_delay": 5,
-        "communication_channel": "email",
+        "communication_channel": "patron_setting",
         "template": "email/due_soon"
       },
       {
         "type": "overdue",
         "days_delay": 5,
         "fee_amount": 2.0,
-        "communication_channel": "email",
+        "communication_channel": "patron_setting",
         "template": "email/overdue"
       },
       {
         "type": "overdue",
         "days_delay": 12,
         "fee_amount": 2.0,
-        "communication_channel": "email",
+        "communication_channel": "mail",
         "template": "email/overdue2"
       }
     ],
@@ -997,14 +997,14 @@
       {
         "type": "due_soon",
         "days_delay": 5,
-        "communication_channel": "email",
+        "communication_channel": "patron_setting",
         "template": "email/due_soon"
       },
       {
         "type": "overdue",
         "days_delay": 5,
         "fee_amount": 2.0,
-        "communication_channel": "email",
+        "communication_channel": "patron_setting",
         "template": "email/overdue"
       }
     ],
@@ -1041,14 +1041,14 @@
       {
         "type": "due_soon",
         "days_delay": 5,
-        "communication_channel": "email",
+        "communication_channel": "patron_setting",
         "template": "email/due_soon"
       },
       {
         "type": "overdue",
         "days_delay": 5,
         "fee_amount": 2.0,
-        "communication_channel": "email",
+        "communication_channel": "patron_setting",
         "template": "email/overdue"
       }
     ],

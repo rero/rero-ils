@@ -383,6 +383,39 @@ def number_of_reminders_sent(
         .source().count()
 
 
+def get_communication_channel_to_use(loan, notification_data, patron):
+    """Get the communication channel to use for a notification.
+
+    :param loan: the notification parent loan.
+    :param notification_data: the notification data.
+    :param patron: the patron related to this notification
+    :return the communication channel to use for this notification
+    """
+    from ..loans.utils import get_circ_policy
+    communication_channel = 'patron_setting'
+
+    # 'overdue' and 'due_soon' notification type could define a communication
+    # channel that can override the patron setting.
+    notification_type = notification_data.get('notification_type')
+    if notification_type in [Notification.OVERDUE_NOTIFICATION_TYPE,
+                             Notification.DUE_SOON_NOTIFICATION_TYPE]:
+        cipo = get_circ_policy(loan)
+        reminder_type = DUE_SOON_REMINDER_TYPE
+        if notification_type != Notification.DUE_SOON_NOTIFICATION_TYPE:
+            reminder_type = OVERDUE_REMINDER_TYPE
+        reminder = cipo.get_reminder(
+            reminder_type=reminder_type,
+            idx=notification_data.get('reminder_counter', 0)
+        )
+        communication_channel = reminder.get('communication_channel')
+
+    # return the best communication channel
+    if communication_channel == 'patron_setting':
+        return patron['patron']['communication_channel']
+    else:
+        return communication_channel
+
+
 def get_template_to_use(loan, notification_data):
     """Get the template path to use for a notification.
 
@@ -391,7 +424,7 @@ def get_template_to_use(loan, notification_data):
     """
     from ..loans.utils import get_circ_policy
 
-    # depending of notification to send, the template to use cold be static or
+    # depending of notification to send, the template to use could be static or
     # found into the related circulation policy.
     # TODO : depending of the communication channel, improve the function to
     #        get the correct template.

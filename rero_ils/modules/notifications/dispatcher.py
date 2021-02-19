@@ -31,6 +31,7 @@ class Dispatcher:
 
     def dispatch_notification(self, notification=None, verbose=False):
         """Dispatch the notification."""
+        from .api import get_communication_channel_to_use
 
         def not_yet_implemented(*args):
             """Do nothing placeholder for a notification."""
@@ -38,15 +39,17 @@ class Dispatcher:
 
         if notification:
             data = notification.replace_pids_and_refs()
-            patron = data['loan']['patron']
             communication_switcher = {
                 'email': Dispatcher.send_mail,
                 #  'sms': not_yet_implemented
                 #  'telepathy': self.madness_mind
                 #  ...
             }
+            patron = data['loan']['patron']
             dispatcher_function = communication_switcher.get(
-                patron['patron']['communication_channel'],
+                get_communication_channel_to_use(
+                    notification.init_loan(), notification, patron
+                ),
                 not_yet_implemented
             )
             if dispatcher_function == not_yet_implemented:

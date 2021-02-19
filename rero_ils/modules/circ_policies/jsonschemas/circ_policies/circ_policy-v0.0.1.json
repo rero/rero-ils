@@ -19,8 +19,8 @@
     "checkout_duration",
     "number_renewals",
     "renewal_duration",
-    "allow_requests",
     "is_default",
+    "allow_requests",
     "policy_library_level",
     "libraries",
     "reminders",
@@ -40,13 +40,19 @@
       "minLength": 1
     },
     "name": {
-      "title": "Circulation policy name",
+      "title": "Name",
       "type": "string",
       "minLength": 2
     },
     "description": {
-      "title": "Circulation policy description",
-      "type": "string"
+      "title": "Description",
+      "type": "string",
+      "form": {
+        "type": "textarea",
+        "templateOptions": {
+          "rows": 3
+        }
+      }
     },
     "organisation": {
       "type": "object",
@@ -59,10 +65,18 @@
       }
     },
     "checkout_duration": {
-      "title": "Checkout duration in days",
+      "title": "Checkout duration",
+      "description": "Enter 0 if checkout is not allowed.",
       "type": "integer",
       "minimum": 0,
-      "default": 7
+      "default": 7,
+      "form": {
+        "templateOptions": {
+          "addonRight": {
+            "text": "day(s)"
+          }
+        }
+      }
     },
     "allow_requests": {
       "title": "Allow patron requests",
@@ -71,6 +85,7 @@
     },
     "reminders": {
       "type": "array",
+      "description": "They include the loan expiry notices, sent before the due date, and the reminders, sent after the due date.",
       "title": "Reminders",
       "minItems": 1,
       "uniqueItems": true,
@@ -114,8 +129,16 @@
           },
           "days_delay": {
             "type": "integer",
-            "title": "Delay in days",
-            "minimum": 1
+            "description": "Number of days before the due date (for loan expiry notices) or after the due date (for reminders). This number defines when the notification is sent.",
+            "title": "Delay",
+            "minimum": 1,
+            "form": {
+              "templateOptions": {
+                "addonRight": {
+                  "text": "day(s)"
+                }
+              }
+            }
           },
           "fee_amount": {
             "type": "number",
@@ -123,24 +146,24 @@
             "multipleOf": 0.01,
             "form": {
               "hide": true,
-              "fieldMap": "fee_amount"
+              "fieldMap": "amount"
             }
           },
           "communication_channel": {
             "type": "string",
             "title": "Communication channel",
             "enum": [
-              "email",
+              "patron_setting",
               "mail"
             ],
             "form": {
               "options": [
                 {
-                  "label": "email",
-                  "value": "email"
+                  "label": "According to the patron's settings",
+                  "value": "patron_setting"
                 },
                 {
-                  "label": "mail",
+                  "label": "Always per mail",
                   "value": "mail"
                 }
               ]
@@ -176,6 +199,7 @@
           "items": {
             "type": "object",
             "title": "Days intervals",
+            "description": "During an interval, the specified amount will be incremented for each overdue open day.",
             "additionalProperties": false,
             "required": [
               "from",
@@ -218,7 +242,7 @@
                 "minimum": 0,
                 "multipleOf": 0.01,
                 "form": {
-                  "fieldMap": "amount",
+                  "fieldMap": "fee_amount",
                   "templateOptions": {
                     "itemCssClass": "col-lg-4",
                     "label": ""
@@ -230,6 +254,7 @@
         },
         "maximum_total_amount": {
           "type": "number",
+          "description": "This defines the maximum fee amount per document, without considering the reminder fees.",
           "title": "Maximum total amount",
           "minimum": 0,
           "multipleOf": 0.01,
@@ -247,25 +272,38 @@
     },
     "number_renewals": {
       "title": "Maximum number of renewals",
+      "description": "Enter 0 if renewal is not allowed.",
       "type": "integer",
       "minimum": 0,
-      "default": 0
+      "default": 0,
+      "form": {
+        "hideExpression": "model.checkout_duration <= 0"
+      }
     },
     "renewal_duration": {
       "title": "Renewal duration in days",
       "type": "integer",
       "minimum": 1,
       "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
+        "hideExpression": "!model.hasOwnProperty('number_renewals') || model.number_renewals <= 0",
+        "templateOptions": {
+          "addonRight": {
+            "text": "day(s)"
+          }
         }
       }
     },
     "is_default": {
       "title": "Mark as default policy",
       "type": "boolean",
-      "default": false
+      "default": false,
+      "form": {
+        "templateOptions": {
+          "wrappers": [
+            "hide"
+          ]
+        }
+      }
     },
     "policy_library_level": {
       "title": "Library level policy",
@@ -274,16 +312,18 @@
     },
     "libraries": {
       "title": "List of libraries",
+      "uniqueItems": true,
       "type": "array",
+      "minItems": 0,
       "items": {
         "type": "object",
+        "title": "Library",
         "additionalProperties": false,
         "required": [
           "$ref"
         ],
         "properties": {
           "$ref": {
-            "title": "Library",
             "type": "string",
             "pattern": "^https://ils.rero.ch/api/libraries/.*?$",
             "form": {
@@ -293,14 +333,12 @@
         }
       },
       "form": {
-        "templateOptions": {
-          "cssClass": "editor-title"
-        },
         "hideExpression": "field.parent.model.policy_library_level !== true"
       }
     },
     "settings": {
       "title": "Patron + Item types links",
+      "description": "This defines which item categories and patron types this circulation policy applies to.",
       "type": "array",
       "items": {
         "type": "object",
