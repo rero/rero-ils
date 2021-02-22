@@ -29,7 +29,7 @@ from ..utils import extracted_data_from_ref, set_timestamp
 @shared_task
 def process_late_claimed_issues(
     expected_issues_to_late=True, create_first_claim=True,
-        create_next_claim=True, dbcommit=False, reindex=False):
+        create_next_claim=True, dbcommit=True, reindex=True):
     """Job to manage serials claims.
 
     Receives the next late expected issue for all holdings.
