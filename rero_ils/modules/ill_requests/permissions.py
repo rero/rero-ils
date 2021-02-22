@@ -46,14 +46,14 @@ class ILLRequestPermission(RecordPermission):
         :return: True is action can be done.
         """
         if current_patron:
-            # patron an only read their own requests
-            if current_patron.is_patron:
-                return record.patron_pid == current_patron.pid
             # staff member (lib, sys_lib) can always read request from their
             # own organisation
             if current_patron.is_librarian:
                 return current_organisation.pid \
                        == ILLRequest(record).organisation_pid
+            # patron can only read their own requests
+            if current_patron.is_patron:
+                return record.patron_pid == current_patron.pid
         return False
 
     @classmethod
