@@ -97,8 +97,24 @@ class ItemRecord(IlsRecord):
         data = cls._prepare_item_record(data=data, mode='create')
         record = super().create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
-        cls._increment_next_prediction_for_holding(
+        holding = cls._increment_next_prediction_for_holding(
             record, dbcommit=dbcommit, reindex=reindex)
+        # As we potentially update the parent holding when we create an issue
+        # item, we need to commit this holding even if `dbcommit` iss set to
+        # false. Without this commit, only the current (Item) resource will be
+        # committed by `invenio-records` and the holding changes will be lost.
+        #
+        # If `dbcommit` is already set to True, this commit is already done by
+        # the `IlsRecord.update()` function.
+        #
+        # /!\ if we write some other operation after _increement_next_predition
+        #     we need to manage ourself the `rollback()`.
+        #
+        # TODO :: best solution will be to create an invenio `post_create`
+        #         extension for the Item resource.
+        # https://invenio-records.readthedocs.io/en/latest/api.html#module-invenio_records.extensions
+        if not dbcommit and holding:
+            holding.commit()
         return record
 
     def update(self, data, dbcommit=False, reindex=False):
@@ -155,8 +171,11 @@ class ItemRecord(IlsRecord):
                 holding.get('patterns') and \
                 holding.get('patterns', {}).get('frequency') != 'rdafr:1016':
             updated_holding = holding.increment_next_prediction()
-            holding.update(data=updated_holding,
-                           dbcommit=dbcommit, reindex=reindex)
+            return holding.update(
+                data=updated_holding,
+                dbcommit=dbcommit,
+                reindex=reindex
+            )
 
     @classmethod
     def _item_build_org_ref(cls, data):
