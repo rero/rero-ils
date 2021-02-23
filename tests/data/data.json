@@ -2662,6 +2662,104 @@
       }
     ]
   },
+  "ebook5": {
+    "pid": "ebook5",
+    "identifiedBy": [
+      {
+        "type": "bf:Local",
+        "source": "cantook",
+        "value": "ebook5"
+      }
+    ],
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_e-book"
+      }
+    ],
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
+    "harvested": true,
+    "electronicLocator": [
+      {
+        "source": "ebibliomedia",
+        "url": "https://www.site1.org/ebook",
+        "type": "resource"
+      }
+    ],
+    "title": [
+      {
+        "type": "bf:Title",
+        "mainTitle": [
+          {
+            "value": "un autre titre"
+          }
+        ]
+      }
+    ],
+    "language": [
+      {
+        "type": "bf:Language",
+        "value": "fre"
+      }
+    ],
+    "contribution": [
+      {
+        "agent": {
+          "preferred_name": "Peter James",
+          "type": "bf:Person"
+        },
+        "role": [
+          "aut"
+        ]
+      }
+    ],
+    "provisionActivity": [
+      {
+        "type": "bf:Publication",
+        "statement": [
+          {
+            "country": "fr",
+            "label": [
+              {
+                "value": "Paris"
+              }
+            ],
+            "type": "bf:Place"
+          },
+          {
+            "label": [
+              {
+                "value": "12-21"
+              }
+            ],
+            "type": "bf:Agent"
+          },
+          {
+            "label": [
+              {
+                "value": "2019"
+              }
+            ],
+            "type": "Date"
+          }
+        ],
+        "startDate": 2019
+      }
+    ],
+    "subjects": [
+      "thriller",
+      "suspense"
+    ],
+    "note": [
+      {
+        "noteType": "general",
+        "label": "La maison des oubli\u00e9s"
+      }
+    ]
+  },
   "item1": {
     "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
     "pid": "item1",
