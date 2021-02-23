@@ -589,7 +589,6 @@ def online_holdings(document_pid, viewcode='global'):
     : return: list of holdings
     """
     from ..holdings.api import HoldingsSearch
-    holdings = []
     organisation = None
     if viewcode != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
         organisation = Organisation.get_record_by_viewcode(viewcode)
@@ -598,10 +597,13 @@ def online_holdings(document_pid, viewcode='global'):
         .filter('term', _masked=False)
     if organisation:
         query = query.filter('term', organisation__pid=organisation.pid)
-    results = query.source(['library', 'electronic_location', 'notes']).scan()
-    holdings = []
+    results = query.source(['library', 'electronic_location',
+                            'enumerationAndChronology', 'notes']).scan()
+
+    holdings = {}
     for record in results:
         library = Library.get_record_by_pid(record.library.pid)
+        library_holdings = holdings.get(library['name'], [])
         record.library.name = library['name']
         public_notes_content = [
             n['content']
@@ -610,5 +612,6 @@ def online_holdings(document_pid, viewcode='global'):
         ]
         if public_notes_content:
             record.notes = public_notes_content
-        holdings.append(record)
+        library_holdings.append(record)
+        holdings[library['name']] = library_holdings
     return holdings

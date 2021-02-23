@@ -111,6 +111,25 @@ def ebook_4(app, ebook_4_data):
 
 
 @pytest.fixture(scope="module")
+def ebook_5_data(data):
+    """Load ebook 5 data."""
+    return deepcopy(data.get('ebook5'))
+
+
+@pytest.fixture(scope="module")
+def ebook_5(app, ebook_5_data):
+    """Load ebook 5 record."""
+    del ebook_5_data['electronicLocator']
+    doc = Document.create(
+        data=ebook_5_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(DocumentsSearch.Meta.index)
+    return doc
+
+
+@pytest.fixture(scope="module")
 def document_data(data):
     """Load document data."""
     return deepcopy(data.get('doc1'))
@@ -737,6 +756,26 @@ def holding_lib_sion_w_patterns(
     """Create holding of sion library with patterns."""
     holding = Holding.create(
         data=holding_lib_sion_w_patterns_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(HoldingsSearch.Meta.index)
+    return holding
+
+
+@pytest.fixture(scope="module")
+def holding_lib_martiny_electronic_data(holdings):
+    """Load electronic holding of Martigny library."""
+    return deepcopy(holdings.get('holding7'))
+
+
+@pytest.fixture(scope="module")
+def holding_lib_martiny_electronic(
+    app, ebook_5, holding_lib_martiny_electronic_data,
+        loc_public_martigny, item_type_online_martigny):
+    """Create electronic holding of Martigny library."""
+    holding = Holding.create(
+        data=holding_lib_martiny_electronic_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)

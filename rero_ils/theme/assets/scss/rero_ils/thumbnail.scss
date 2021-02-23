@@ -19,8 +19,6 @@
 
 
 figure#thumbnail .thumb {
-  max-width: 244px;
-  max-height: 244px;
   figcaption {
     overflow-wrap: anywhere;
   }
@@ -33,8 +31,6 @@ figure#thumbnail .figure-caption {
 @media (max-width: map_get($grid-breakpoints, md)) {
 
   figure#thumbnail .thumb {
-    max-width: 70px;
-    max-height: 70px;
     figcaption {
       overflow-wrap: anywhere;
     }
