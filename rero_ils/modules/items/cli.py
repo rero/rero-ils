@@ -109,12 +109,10 @@ def create_items(count, itemscount, missing, items_f, holdings_f):
             for document_pid in bar:
                 holdings = [{}]
                 # we will not create holdings for ebook and journal documents
-                doc_type = Document.get_record_by_pid(document_pid).get('type')
-                is_book = doc_type[0]['main_type'] == 'docmaintype_book'
-                is_ebook = doc_type[0]['subtype'] == 'docsubtype_e-book'
-                if is_book and is_ebook:
-                    continue
-                if doc_type[0]['main_type'] == 'docmaintype_serial':
+                doc_type = Document.get_record_by_pid(
+                    document_pid).get('type')[0]
+                if doc_type.get('subtype') == 'docsubtype_e-book' \
+                    or doc_type.get('main_type') == 'docmaintype_serial':
                     continue
 
                 if Document.get_record_by_pid(
