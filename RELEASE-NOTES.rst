@@ -1,6 +1,6 @@
 ..
     RERO ILS
-    Copyright (C) 2019 RERO
+    Copyright (C) 2019, 2020, 2021 RERO
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published by
@@ -17,6 +17,111 @@
 =============
 Release notes
 =============
+
+v1.0.1
+--------
+
+This release note includes the changes of the ``rero-ils-ui`` project
+[`link`_] .
+
+User interface
+~~~~~~~~~~~~~~
+
+-  Displays the ``partOf`` on the brief views of the public and
+   professional interface. Moves the ``partOf`` template and code to a
+   new component in the shared library.
+
+Public interface
+^^^^^^^^^^^^^^^^
+
+-  Adds a *cancel* button to the request dialog.
+-  Improves the *get* tab of the document detailed view of the public
+   interface.
+
+Professional interface
+^^^^^^^^^^^^^^^^^^^^^^
+
+-  Fixes editor options for ``docmaintype_audio`` subtypes.
+-  Ensures that all menu entries are translated.
+-  Fixes holding update when receiving an issue by adding the missing
+   commit into the DB after the holdings update when an issue is created
+   with the item editor (slow received).
+
+Metadata
+~~~~~~~~
+
+-  Update the JSON schema form options for the new ``ng-core``
+   editor.
+-  Fixes item creation for holdings without pattern.
+
+Monitoring
+~~~~~~~~~~
+
+-  Configures the monitoring of the ElasticSearch cluster.
+
+Tests
+~~~~~
+
+-  Adds Cypress tests to check document creation field by field.
+-  Moves the API request commands in the corresponding resource file.
+-  Improves test maintenance.
+-  Add HTML ``id=`` attributes to fix Cypress tests.
+
+CLI
+~~~
+
+-  Adds a CLI to migrate legacy system (Virtua) *create* and *update*
+   operation logs to RERO ILS.
+
+API
+~~~
+
+-  Adds a new search query which takes care of the new masked flag on
+   resources.
+-  Fixes the query filter on resources with the new masked flag.
+-  Improves handling of PIDs and IDs in ``get_all_pids`` and
+   ``get_all_ids``.
+
+Instance
+~~~~~~~~
+
+-  Deployment:
+
+   -  Uses an existing DB for deployement.
+   -  Implements lazy reading of XML files.
+   -  Adds parameter to log errors on record creation.
+
+-  Checks operation log PID dependencies.
+-  Fixes dependency issues.
+
+Issues
+~~~~~~
+
+-  `#1366`_: Restrict pick-up in the location editor should be possible
+   only if requests are enabled.
+-  `#1423`_: Agent is difficult to understand in the provision activity
+   of the document editor.
+-  `#1426`_: Add a validation for field ``electronicLocator.url``.
+-  `#1596`_: Display ``partOf`` on the brief views.
+-  `#1627`_: Admin menu entries cannot be translated.
+-  `#1661`_: Only received issues are displayed on the document detailed
+   view of the public interface.
+-  `#1660`_: Holdings of serial type should be displayed on document
+   detailed view of all kind of document type (public interface).
+-  `#1696`_: Serials: enumeration and chronology field is incorrect in
+   the slow issue receive.
+-  `#1712`_: Document subtype *audio book* is missing.
+
+.. _link: https://github.com/rero/rero-ils-ui
+.. _#1366: https://github.com/rero/rero-ils/issues/1366
+.. _#1423: https://github.com/rero/rero-ils/issues/1423
+.. _#1426: https://github.com/rero/rero-ils/issues/1426
+.. _#1596: https://github.com/rero/rero-ils/issues/1596
+.. _#1627: https://github.com/rero/rero-ils/issues/1627
+.. _#1661: https://github.com/rero/rero-ils/issues/1661
+.. _#1660: https://github.com/rero/rero-ils/issues/1660
+.. _#1696: https://github.com/rero/rero-ils/issues/1696
+.. _#1712: https://github.com/rero/rero-ils/issues/1712
 
 v1.0.0
 --------
