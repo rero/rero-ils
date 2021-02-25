@@ -17,15 +17,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-02-23 11:39+0100\n"
-"PO-Revision-Date: 2021-02-04 14:34+0000\n"
+"PO-Revision-Date: 2021-02-25 12:06+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/de/>\n"
 "Language: de\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.5\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:131
@@ -4705,7 +4706,7 @@ msgstr "Beitrag"
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:71
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:44
 msgid "Barcode"
-msgstr "Strichcode"
+msgstr "Barcode"
 
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:75
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:51
@@ -5835,7 +5836,7 @@ msgstr "Beispiel: https://www.rero.ch/"
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:296
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:64
 msgid "Should be a valid URL format."
-msgstr ""
+msgstr "Muss ein gültiges URL-Format sein."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:41
 msgid "Type of link"
@@ -7807,7 +7808,7 @@ msgstr "Das Exemplar %(item_id)s wurde bestellt."
 
 #: rero_ils/modules/items/views.py:140
 msgid "due until"
-msgstr "Fällig am"
+msgstr "fällig am"
 
 #: rero_ils/modules/items/views.py:144
 msgid "in transit"
@@ -10623,4 +10624,3 @@ msgstr "Ihr Passwort wurde erfolgreich zurückgesetzt."
 
 #~ msgid "yearly"
 #~ msgstr "jährlich"
-

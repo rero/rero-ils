@@ -19,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-02-23 11:39+0100\n"
 "PO-Revision-Date: 2021-02-25 12:06+0000\n"
-"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/en/>\n"
 "Language: en\n"
@@ -4146,7 +4146,7 @@ msgstr "in progress"
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:55
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:120
 msgid "approved"
-msgstr "approved"
+msgstr "validated"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:147
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:287
