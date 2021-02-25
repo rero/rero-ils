@@ -18,15 +18,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-02-23 11:39+0100\n"
-"PO-Revision-Date: 2021-02-04 14:34+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2021-02-25 12:06+0000\n"
+"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/en/>\n"
 "Language: en\n"
-"Language-Team: English <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/en/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.5\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:131
@@ -5828,7 +5829,7 @@ msgstr "Example: https://www.rero.ch/"
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:296
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:64
 msgid "Should be a valid URL format."
-msgstr ""
+msgstr "Should be a valid URL format."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:41
 msgid "Type of link"
@@ -10591,4 +10592,3 @@ msgstr "Your password has been successfully reset."
 
 #~ msgid "yearly"
 #~ msgstr "yearly"
-
