@@ -15,47 +15,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Blueprint used for loading templates."""
+"""Test item collections."""
 
 
 from rero_ils.modules.collections.api import Collection
-from rero_ils.modules.items.models import ItemStatus
 
 
-def test_get_items(document, item_type_standard_martigny,
+def test_get_items(
                    item_lib_martigny, item2_lib_martigny,
-                   loc_public_martigny, coll_martigny_1):
-    """Test get items."""
-    result = [
-        {'$schema': 'https://ils.rero.ch/schemas/items/item-v0.0.1.json',
-            'barcode': '1234',
-            'call_number': '00001',
-            'document': {'$ref': 'https://ils.rero.ch/api/documents/doc1'},
-            'holding': {'$ref': 'https://ils.rero.ch/api/holdings/1'},
-            'item_type': {'$ref': 'https://ils.rero.ch/api/item_types/itty1'},
-            'location': {'$ref': 'https://ils.rero.ch/api/locations/loc1'},
-            'notes': [{
-                'content': 'Lorem ipsum et blablabla...', 'type': 'staff_note'
-            }],
-            'organisation': {
-                '$ref': 'https://ils.rero.ch/api/organisations/org1'
-            },
-            'pid': 'item1',
-            'status': ItemStatus.ON_SHELF,
-            'type': 'standard'},
-        {'$schema': 'https://ils.rero.ch/schemas/items/item-v0.0.1.json',
-            'barcode': '8712133',
-            'call_number': '001313',
-            'document': {'$ref': 'https://ils.rero.ch/api/documents/doc1'},
-            'holding': {'$ref': 'https://ils.rero.ch/api/holdings/1'},
-            'item_type': {'$ref': 'https://ils.rero.ch/api/item_types/itty1'},
-            'location': {'$ref': 'https://ils.rero.ch/api/locations/loc1'},
-            'organisation': {
-                '$ref': 'https://ils.rero.ch/api/organisations/org1'
-            },
-            'pid': 'item5',
-            'status': ItemStatus.ON_SHELF,
-            'type': 'standard'
-         }
-    ]
-    assert Collection.get_items(coll_martigny_1) == result
+                   coll_martigny_1):
+    """Test get items for a collection"""
+    assert Collection.get_items(coll_martigny_1) == \
+        [item_lib_martigny, item2_lib_martigny]

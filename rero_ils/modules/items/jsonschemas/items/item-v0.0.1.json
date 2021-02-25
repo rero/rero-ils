@@ -22,10 +22,14 @@
     "temporary_item_type",
     "location",
     "type",
+    "url",
+    "pac_code",
     "status",
     "issue",
+    "price",
     "notes",
-    "acquisition_date"
+    "acquisition_date",
+    "_masked"
   ],
   "properties": {
     "$schema": {
@@ -550,6 +554,134 @@
             "label": "New acquisition",
             "description": "If this option is enabled, this item is going to appear in the new acquisition list of the library."
           }
+        }
+      }
+    },
+    "url": {
+      "type": "string",
+      "title": "URL",
+      "format": "uri",
+      "pattern": "^(ftp?|http?)://.*$",
+      "minLength": 7,
+      "form": {
+        "validation": {
+          "messages": {
+            "patternMessage": "Should be a valid URL format."
+          }
+        },
+        "templateOptions": {
+          "cssClass": "editor-title"
+        },
+        "hide": true,
+        "navigation": {
+          "essential": true
+        }
+      }
+    },
+    "pac_code": {
+      "title": "PAC code",
+      "description": "Preservation and conservation policy.",
+      "type": "string",
+      "enum": [
+        "0_frozen_collection",
+        "1_reserved",
+        "2_controlled_consumption",
+        "3_consumable",
+        "4_disposable"
+      ],
+      "form": {
+        "type": "selectWithSort",
+        "options": [
+          {
+            "label": "4_disposable",
+            "value": "4_disposable"
+          },
+          {
+            "label": "3_consumable",
+            "value": "3_consumable"
+          },
+          {
+            "label": "2_controlled_consumption",
+            "value": "2_controlled_consumption"
+          },
+          {
+            "label": "1_reserved",
+            "value": "1_reserved"
+          },
+          {
+            "label": "0_frozen_collection",
+            "value": "0_frozen_collection"
+          }
+        ],
+        "templateOptions": {
+          "cssClass": "editor-title"
+        },
+        "hide": true,
+        "navigation": {
+          "essential": true
+        }
+      }
+    },
+    "price": {
+      "title": "Price",
+      "type": "number",
+      "minimum": 0,
+      "form": {
+        "templateOptions": {
+          "cssClass": "editor-title"
+        },
+        "hide": true,
+        "navigation": {
+          "essential": true
+        }
+      }
+    },
+    "legacy_checkout_count": {
+      "title": "Virtua checkout count for item",
+      "type": "integer",
+      "minimum": 0,
+      "default": 0
+    },
+    "legacy_circulation_rules": {
+      "title": "Virtua item circulation rules",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "use_item_specific_rules": {
+          "title": "To use item specific rules or CIPO rules",
+          "type": "boolean",
+          "default": false
+        },
+        "loan_duration": {
+          "title": "Loan duration in days",
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+        "allow_request": {
+          "title": "Allow requests",
+          "type": "boolean",
+          "default": true
+        },
+        "floats": {
+          "title": "Item floats",
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "_masked": {
+      "title": "Masked",
+      "type": "boolean",
+      "description": "A masked item is visible in the professional interface, but not in the public interface.",
+      "default": false,
+      "form": {
+        "templateOptions": {
+          "cssClass": "editor-title"
+        },
+        "hide": true,
+        "navigation": {
+          "essential": true
         }
       }
     }
