@@ -349,7 +349,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Eulenburg's Kleine Orchester-Partitur-Ausgabe</subfield>
 		<subfield code="v">1038</subfield>
-		<subfield code="w">REROILS:1600000</subfield>
+		<subfield code="w">REROILS:2000000</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -980,7 +980,7 @@
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Collection major bac</subfield>
-		<subfield code="w">REROILS:1600001</subfield>
+		<subfield code="w">REROILS:2000001</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -1372,7 +1372,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Beck'sche Reihe</subfield>
 		<subfield code="v">1021</subfield>
-		<subfield code="w">REROILS:1600002</subfield>
+		<subfield code="w">REROILS:2000002</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -2552,7 +2552,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Beck'sche Reihe</subfield>
 		<subfield code="v">1856</subfield>
-		<subfield code="w">REROILS:1600002</subfield>
+		<subfield code="w">REROILS:2000002</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -2779,7 +2779,7 @@
 	<datafield ind1="1" ind2=" " tag="773">
 		<subfield code="t">Valais d'émigration : publication accompagnant l'exposition Ubi bene ibi patria - Valais d'émigration XVIe - XXe siècle, Musée cantonal d'histoire et d'ethnographie Valère 24 mai - 3 novembre 1991 = Auswanderungsland Wallis : Begleitpublikation zur Ausstellung Ubi bene ibi patria - Auswanderungsland Wallis 16. - 20. Jahrhundert, Kantonales Museum für Geschichte und Ethnographie Valère 24. Mai - 3. November 1991</subfield>
 		<subfield code="g">87</subfield>
-		<subfield code="w">REROILS:1600003</subfield>
+		<subfield code="w">REROILS:2000003</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -2955,7 +2955,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Travaux de recherche / Institut des Nations Unies pour la recherche sur le désarmement</subfield>
 		<subfield code="v">23</subfield>
-		<subfield code="w">REROILS:1600004</subfield>
+		<subfield code="w">REROILS:2000004</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -3842,7 +3842,7 @@
 		<subfield code="a">Saggi.</subfield>
 		<subfield code="p">Il Mulino</subfield>
 		<subfield code="v">746</subfield>
-		<subfield code="w">REROILS:1600005</subfield>
+		<subfield code="w">REROILS:2000005</subfield>
 	</datafield>
 	<datafield ind1="4" ind2="2" tag="856">
 		<subfield code="u">http://catdir.loc.gov/catdir/toc/casalini09/10500553.pdf</subfield>
@@ -4067,7 +4067,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="770">
 		<subfield code="t">Hikobia : journal of the Hiroshima Botanical Club. Supplement</subfield>
-		<subfield code="w">REROILS:1600006</subfield>
+		<subfield code="w">REROILS:2000006</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -4672,7 +4672,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="772">
 		<subfield code="t">Freiburger altorientalische Studien</subfield>
-		<subfield code="w">REROILS:1600007</subfield>
+		<subfield code="w">REROILS:2000007</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -4771,7 +4771,7 @@
 		<subfield code="a">Poésie.</subfield>
 		<subfield code="p">Gallimard</subfield>
 		<subfield code="v">331</subfield>
-		<subfield code="w">REROILS:1600008</subfield>
+		<subfield code="w">REROILS:2000008</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -4997,7 +4997,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Dissertationes biocentri viikki universitatis helsingiensis</subfield>
 		<subfield code="v">9/1997</subfield>
-		<subfield code="w">REROILS:1600009</subfield>
+		<subfield code="w">REROILS:2000009</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -5276,7 +5276,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Bulletin de l'Association romande pour la protection des eaux et de l'air</subfield>
-		<subfield code="w">REROILS:1600010</subfield>
+		<subfield code="w">REROILS:2000010</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Arpea mag : Association romande pour la protection de l'environnement</subfield>
@@ -5807,7 +5807,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Bundesgerichtspraxis in Steuersachen</subfield>
 		<subfield code="v">1</subfield>
-		<subfield code="w">REROILS:1600011</subfield>
+		<subfield code="w">REROILS:2000011</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">bds87</subfield>
@@ -5988,7 +5988,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Rororo</subfield>
 		<subfield code="v">21531</subfield>
-		<subfield code="w">REROILS:1600012</subfield>
+		<subfield code="w">REROILS:2000012</subfield>
 	</datafield>
 	<datafield ind1="4" ind2="2" tag="856">
 		<subfield code="3">classReading</subfield>
@@ -6310,7 +6310,7 @@
 		<subfield code="a">Cantin, Marc. -</subfield>
 		<subfield code="t">Les maléfices d'Halequin</subfield>
 		<subfield code="v">1</subfield>
-		<subfield code="w">REROILS:1600013</subfield>
+		<subfield code="w">REROILS:2000013</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -6443,7 +6443,7 @@
 	<datafield ind1="1" ind2=" " tag="787">
 		<subfield code="t">150 ans de mouvement ouvrier chrétien en Europe de l'Ouest, 1789-1939</subfield>
 		<subfield code="g">P. 444-478</subfield>
-		<subfield code="w">REROILS:1600014</subfield>
+		<subfield code="w">REROILS:2000014</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -6727,7 +6727,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Staatsschriften des späteren Mittelalters</subfield>
 		<subfield code="v">1</subfield>
-		<subfield code="w">REROILS:1600015</subfield>
+		<subfield code="w">REROILS:2000015</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -6866,7 +6866,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Italienische Diminutionslehren = Italian diminution tutors</subfield>
 		<subfield code="v">2</subfield>
-		<subfield code="w">REROILS:1600016</subfield>
+		<subfield code="w">REROILS:2000016</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -7063,7 +7063,7 @@
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Cornell paperbacks</subfield>
-		<subfield code="w">REROILS:1600017</subfield>
+		<subfield code="w">REROILS:2000017</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -7890,7 +7890,7 @@
 	</datafield>
 	<datafield ind1=" " ind2="4" tag="830">
 		<subfield code="a">Les livres qui ont fait le monde</subfield>
-		<subfield code="w">REROILS:1600018</subfield>
+		<subfield code="w">REROILS:2000018</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -8379,7 +8379,7 @@
 	<datafield ind1="1" ind2=" " tag="773">
 		<subfield code="t">Schweizerische Zeitschrift für Psychologie und ihre Anwendungen</subfield>
 		<subfield code="g">34, 1975, no 4</subfield>
-		<subfield code="w">REROILS:1600019</subfield>
+		<subfield code="w">REROILS:2000019</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="933">
 		<subfield code="s">Schweizerische Zeitschrift für Psychologie und ihre Anwendungen</subfield>
@@ -8652,11 +8652,11 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Astronomical and meteorological observations made during the year... at the United States Naval Observatory</subfield>
-		<subfield code="w">REROILS:1600021</subfield>
+		<subfield code="w">REROILS:2000021</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Astronomical, magnetic and meteorological observations made during the year... at the United States Naval Observatory</subfield>
-		<subfield code="w">REROILS:1600020</subfield>
+		<subfield code="w">REROILS:2000020</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -8838,7 +8838,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Journal des tribunaux (Lausanne : 1930). 2, Poursuite pour dettes</subfield>
-		<subfield code="w">REROILS:1600022</subfield>
+		<subfield code="w">REROILS:2000022</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">bdscumul</subfield>
@@ -9495,7 +9495,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="772">
 		<subfield code="t">International lily register [1982, including first supplement]</subfield>
-		<subfield code="w">REROILS:1600023</subfield>
+		<subfield code="w">REROILS:2000023</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -10001,7 +10001,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">SD Information : organe officiel d'information des Offices du tourisme de Liddes et Bourg-Saint-Pierre, des Pro-loco et bibliothèques d'Allein, Etroubles, Saint-Oyen et Saint-Rhémy-en-Bosses et l'Agence de promotion touristique du Grand-Saint-Bernard</subfield>
-		<subfield code="w">REROILS:1600024</subfield>
+		<subfield code="w">REROILS:2000024</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -10580,7 +10580,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">GF Texte intégral</subfield>
 		<subfield code="v">848</subfield>
-		<subfield code="w">REROILS:1600025</subfield>
+		<subfield code="w">REROILS:2000025</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -10945,7 +10945,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Astérisque</subfield>
 		<subfield code="v">265</subfield>
-		<subfield code="w">REROILS:1600026</subfield>
+		<subfield code="w">REROILS:2000026</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -11239,7 +11239,7 @@
 	</datafield>
 	<datafield ind1=" " ind2="4" tag="830">
 		<subfield code="a">The classic sound</subfield>
-		<subfield code="w">REROILS:1600027</subfield>
+		<subfield code="w">REROILS:2000027</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -11604,7 +11604,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Journal of the Herpetological Association of Africa</subfield>
-		<subfield code="w">REROILS:1600028</subfield>
+		<subfield code="w">REROILS:2000028</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -11713,7 +11713,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Eastern Churches quarterly</subfield>
-		<subfield code="w">REROILS:1600029</subfield>
+		<subfield code="w">REROILS:2000029</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -11825,7 +11825,7 @@
 		<subfield code="a">Ausgrabungen in Uruk-Warka.</subfield>
 		<subfield code="p">Endberichte</subfield>
 		<subfield code="v">24</subfield>
-		<subfield code="w">REROILS:1600030</subfield>
+		<subfield code="w">REROILS:2000030</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -12066,7 +12066,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Java series.</subfield>
 		<subfield code="p">Sunsoft Press</subfield>
-		<subfield code="w">REROILS:1600031</subfield>
+		<subfield code="w">REROILS:2000031</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -12192,7 +12192,7 @@
 		<subfield code="6">880-05</subfield>
 		<subfield code="a">Vivliothēkē tēs en Athēnais Archaiologikēs Etaireias</subfield>
 		<subfield code="v">81</subfield>
-		<subfield code="w">REROILS:1600032</subfield>
+		<subfield code="w">REROILS:2000032</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="880">
 		<subfield code="6">100-01/(S</subfield>
@@ -12965,7 +12965,7 @@
 		<subfield code="a">Annales Academiae scientiarum fennicae.</subfield>
 		<subfield code="p">Ser. B = Suomalaisen Tiedeakatemian toimituksia. Sarja. B</subfield>
 		<subfield code="v">258</subfield>
-		<subfield code="w">REROILS:1600033</subfield>
+		<subfield code="w">REROILS:2000033</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -13084,7 +13084,7 @@
 		<subfield code="a">Biblioteca Scientifica, Istituto per la Storia del Risorgimento Italiano.</subfield>
 		<subfield code="p">Serie 2: Fonti</subfield>
 		<subfield code="v">54,58,61</subfield>
-		<subfield code="w">REROILS:1600034</subfield>
+		<subfield code="w">REROILS:2000034</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -13568,7 +13568,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Silsilat ḥikāyat Miṣr</subfield>
 		<subfield code="v">25</subfield>
-		<subfield code="w">REROILS:1600035</subfield>
+		<subfield code="w">REROILS:2000035</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="1" tag="880">
 		<subfield code="6">264-01/(3/r</subfield>
@@ -14356,7 +14356,7 @@
 		<subfield code="a">Readings in literary criticism.</subfield>
 		<subfield code="p">University of Miami Press</subfield>
 		<subfield code="v">14</subfield>
-		<subfield code="w">REROILS:1600036</subfield>
+		<subfield code="w">REROILS:2000036</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -14577,7 +14577,7 @@
 		<subfield code="a">Etudes françaises.</subfield>
 		<subfield code="p">Presses de l'Université de Montréal</subfield>
 		<subfield code="v">36,1</subfield>
-		<subfield code="w">REROILS:1600037</subfield>
+		<subfield code="w">REROILS:2000037</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -15188,17 +15188,17 @@
 	<datafield ind1="1" ind2=" " tag="773">
 		<subfield code="t">Vierteljahresschrift für aargauische Rechtsprechung</subfield>
 		<subfield code="g">Jg. 3 (1903), H. 2, S. 84-122</subfield>
-		<subfield code="w">REROILS:1600038</subfield>
+		<subfield code="w">REROILS:2000038</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="773">
 		<subfield code="t">Vierteljahresschrift für aargauische Rechtsprechung</subfield>
 		<subfield code="g">Jg. 4 (1904), S. 193-219</subfield>
-		<subfield code="w">REROILS:1600038</subfield>
+		<subfield code="w">REROILS:2000038</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="773">
 		<subfield code="t">Vierteljahresschrift für aargauische Rechtsprechung</subfield>
 		<subfield code="g">Jg. 5 (1905), H. 3, S. 98-124</subfield>
-		<subfield code="w">REROILS:1600038</subfield>
+		<subfield code="w">REROILS:2000038</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="933">
 		<subfield code="s">Vierteljahresschrift für aargauische Rechtsprechung</subfield>
@@ -15297,10 +15297,6 @@
 	<datafield ind1=" " ind2=" " tag="339">
 		<subfield code="a">docmaintype_electronic</subfield>
 		<subfield code="b">docsubtype_cdrom_dvdrom</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="339">
-		<subfield code="a">docmaintype_book</subfield>
-		<subfield code="b">docsubtype_other_book</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="500">
 		<subfield code="a">&quot;Actas I-X (Oxford, 1962, Barcelona, 1989)&quot;--Etiqueta</subfield>
@@ -15401,7 +15397,7 @@
 	<datafield ind1="1" ind2=" " tag="773">
 		<subfield code="t">St. Vladimir's theological quarterly</subfield>
 		<subfield code="g">vol. 38, no. 1, 1994, p. 73-86</subfield>
-		<subfield code="w">REROILS:1600039</subfield>
+		<subfield code="w">REROILS:2000039</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="957">
 		<subfield code="a">gewcc-</subfield>
@@ -15929,7 +15925,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Music for Brass</subfield>
 		<subfield code="v">216</subfield>
-		<subfield code="w">REROILS:1600040</subfield>
+		<subfield code="w">REROILS:2000040</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -16142,7 +16138,7 @@
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Yūhikaku sensho</subfield>
-		<subfield code="w">REROILS:1600041</subfield>
+		<subfield code="w">REROILS:2000041</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -16959,7 +16955,7 @@
 	<datafield ind1="1" ind2=" " tag="800">
 		<subfield code="a">Steele, Ross. -</subfield>
 		<subfield code="t">Révisions 3 : 350 exercices niveau avancé</subfield>
-		<subfield code="w">REROILS:1600042</subfield>
+		<subfield code="w">REROILS:2000042</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -16982,7 +16978,7 @@
 	<leader>01383naa a22004217a 4500</leader>
 	<controlfield tag="001">REROILS:29</controlfield>
 	<controlfield tag="003">RERO</controlfield>
-	<controlfield tag="005">20201006004900.0</controlfield>
+	<controlfield tag="005">20210212044800.0</controlfield>
 	<controlfield tag="008">110608s2011    fr |||||| ||||00|| |fre d</controlfield>
 	<datafield ind1=" " ind2=" " tag="019">
 		<subfield code="a">Cat. d'après la couv.</subfield>
@@ -16995,13 +16991,13 @@
 		<subfield code="b">1030</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="9" tag="039">
-		<subfield code="a">202010060049</subfield>
+		<subfield code="a">202102120448</subfield>
 		<subfield code="b">VLOAD</subfield>
+		<subfield code="c">202010060049</subfield>
+		<subfield code="d">VLOAD</subfield>
 		<subfield code="c">201706110846</subfield>
 		<subfield code="d">VLOAD</subfield>
 		<subfield code="c">201605160939</subfield>
-		<subfield code="d">VLOAD</subfield>
-		<subfield code="c">201508121458</subfield>
 		<subfield code="d">VLOAD</subfield>
 		<subfield code="y">201106081009</subfield>
 		<subfield code="z">1030</subfield>
@@ -17062,7 +17058,7 @@
 		<subfield code="p">Excelsior Publications.</subfield>
 		<subfield code="p">Hors série</subfield>
 		<subfield code="v">255, 2011</subfield>
-		<subfield code="w">REROILS:1600043</subfield>
+		<subfield code="w">REROILS:2000043</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -17678,7 +17674,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Galaxies : Science-fiction</subfield>
 		<subfield code="v">26, septembre 2002</subfield>
-		<subfield code="w">REROILS:1600044</subfield>
+		<subfield code="w">REROILS:2000044</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -17987,7 +17983,7 @@
 	<datafield ind1=" " ind2="2" tag="830">
 		<subfield code="a">O Instituto do Milênio do Semi Árido (IMSEAR), Brasil (2002-2006)</subfield>
 		<subfield code="v">1</subfield>
-		<subfield code="w">REROILS:1600045</subfield>
+		<subfield code="w">REROILS:2000045</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="1" tag="900">
 		<subfield code="a">LOC</subfield>
@@ -18271,7 +18267,7 @@
 		<subfield code="a">Europäische Hochschulschriften.</subfield>
 		<subfield code="p">Reihe 2, Rechtswissenschaft = Publications universitaires européennes. Série 2, Sciences juridiques = European university papers. Series 2, Law</subfield>
 		<subfield code="v">1231</subfield>
-		<subfield code="w">REROILS:1600046</subfield>
+		<subfield code="w">REROILS:2000046</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="903">
 		<subfield code="a">nwisdc</subfield>
@@ -18704,7 +18700,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">ÖVD Online/adI : öffentliche Verwaltung und Datenverarbeitung : Organ des ADI - Anwenderverband Deutscher Informationsverarbeiter</subfield>
-		<subfield code="w">REROILS:1600047</subfield>
+		<subfield code="w">REROILS:2000047</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -18891,7 +18887,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="770">
 		<subfield code="t">Beiheft zur Ökumenischen Rundschau</subfield>
-		<subfield code="w">REROILS:1600048</subfield>
+		<subfield code="w">REROILS:2000048</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -19390,12 +19386,12 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Classics of International Law</subfield>
 		<subfield code="v">4</subfield>
-		<subfield code="w">REROILS:1600049</subfield>
+		<subfield code="w">REROILS:2000049</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Publications of the Carnegie Endowment for International Peace.</subfield>
 		<subfield code="p">Division of International Law = Publications de la Dotation Carnegie pour la paix internationale. Division de droit international = Publicaciones de la Dotación Carnegie para la paz internacional. División de derecho internacional</subfield>
-		<subfield code="w">REROILS:1600050</subfield>
+		<subfield code="w">REROILS:2000050</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -19690,7 +19686,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Schweizer Theaterjahrbuch</subfield>
-		<subfield code="w">REROILS:1600051</subfield>
+		<subfield code="w">REROILS:2000051</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -19829,7 +19825,7 @@
 		<subfield code="p">Ed. de Minuit.</subfield>
 		<subfield code="p">Revue</subfield>
 		<subfield code="v">495-496</subfield>
-		<subfield code="w">REROILS:1600052</subfield>
+		<subfield code="w">REROILS:2000052</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -20862,7 +20858,7 @@
 		<subfield code="a">U.</subfield>
 		<subfield code="p">A. Colin.</subfield>
 		<subfield code="p">Linguistique</subfield>
-		<subfield code="w">REROILS:1600053</subfield>
+		<subfield code="w">REROILS:2000053</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -21003,7 +20999,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Collection des documents pour l'aménagement national, régional et local = Schriftenreihe zur Orts-, Regional- und Landesplanung = Collection of documents for national, regional and local planning</subfield>
 		<subfield code="v">26</subfield>
-		<subfield code="w">REROILS:1600054</subfield>
+		<subfield code="w">REROILS:2000054</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="933">
 		<subfield code="s">Diss. jur. Zürich</subfield>
@@ -21197,11 +21193,11 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="772">
 		<subfield code="t">Transactions of the Edinburgh Obstetrical Society</subfield>
-		<subfield code="w">REROILS:1600056</subfield>
+		<subfield code="w">REROILS:2000056</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="772">
 		<subfield code="t">Transactions of the Medico-Chirurgical Society of Edinburgh</subfield>
-		<subfield code="w">REROILS:1600057</subfield>
+		<subfield code="w">REROILS:2000057</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Monthly journal of medicine</subfield>
@@ -21211,7 +21207,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Scottish medical &amp; [and] surgical journal</subfield>
-		<subfield code="w">REROILS:1600055</subfield>
+		<subfield code="w">REROILS:2000055</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Scottish medical journal</subfield>
@@ -21557,11 +21553,11 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Travelling J : revue de cinéma et de télévision</subfield>
-		<subfield code="w">REROILS:1600059</subfield>
+		<subfield code="w">REROILS:2000059</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Travelling. Cinémathèque suisse</subfield>
-		<subfield code="w">REROILS:1600058</subfield>
+		<subfield code="w">REROILS:2000058</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -22751,7 +22747,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Romans.</subfield>
 		<subfield code="p">Presses de la Cité</subfield>
-		<subfield code="w">REROILS:1600060</subfield>
+		<subfield code="w">REROILS:2000060</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -23031,7 +23027,7 @@
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Paroles d'Eglise</subfield>
-		<subfield code="w">REROILS:1600061</subfield>
+		<subfield code="w">REROILS:2000061</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -23823,7 +23819,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Documents / Centre national de recherches de psychotechnique scolaire</subfield>
 		<subfield code="v">13A</subfield>
-		<subfield code="w">REROILS:1600062</subfield>
+		<subfield code="w">REROILS:2000062</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -23928,7 +23924,7 @@
 	<datafield ind1="1" ind2=" " tag="787">
 		<subfield code="t">Archivio storico ticinese</subfield>
 		<subfield code="g">1980, n. 84, p. 512-542</subfield>
-		<subfield code="w">REROILS:1600063</subfield>
+		<subfield code="w">REROILS:2000063</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -24125,7 +24121,7 @@
 	<datafield ind1="1" ind2=" " tag="773">
 		<subfield code="a">Ritz, Walther. -</subfield>
 		<subfield code="t">Gesammelte Werke = Oeuvres</subfield>
-		<subfield code="w">REROILS:1600064</subfield>
+		<subfield code="w">REROILS:2000064</subfield>
 	</datafield>
 	<datafield ind1="4" ind2="1" tag="856">
 		<subfield code="3">onlineResourceViaRERODOC</subfield>
@@ -24222,7 +24218,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Cahiers de défense sociale : Bulletin de la Société internationale de défense sociale = Bulletin of the International Society of Social Defence</subfield>
-		<subfield code="w">REROILS:1600065</subfield>
+		<subfield code="w">REROILS:2000065</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -24327,6 +24323,7 @@
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="752">
 		<subfield code="d">Zürich (1450-1800, lieu d'édition ou d'impression)</subfield>
+		<subfield code="0">(IDREF)027418545</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="1" tag="900">
 		<subfield code="a">OCoLC</subfield>
@@ -24664,7 +24661,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Qạṭalôg / Yiśraʾel mûzêʾôn</subfield>
 		<subfield code="v">646</subfield>
-		<subfield code="w">REROILS:1600066</subfield>
+		<subfield code="w">REROILS:2000066</subfield>
 	</datafield>
 	<datafield ind1="0" ind2="0" tag="880">
 		<subfield code="6">245-01/(2/r</subfield>
@@ -24777,10 +24774,6 @@
 	<datafield ind1=" " ind2=" " tag="338">
 		<subfield code="b">sd</subfield>
 		<subfield code="2">rdacarrier</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="339">
-		<subfield code="a">docmaintype_audio</subfield>
-		<subfield code="b">docsubtype_recorded_words</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="339">
 		<subfield code="a">docmaintype_audio</subfield>
@@ -24945,7 +24938,7 @@
 	<datafield ind1="1" ind2=" " tag="773">
 		<subfield code="t">Journées du droit de la circulation routière</subfield>
 		<subfield code="g">1986</subfield>
-		<subfield code="w">REROILS:1600067</subfield>
+		<subfield code="w">REROILS:2000067</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="4" tag="900">
 		<subfield code="a">Attention : indexation ajuri convertie en jurivoc [iftfla/08.2014]</subfield>
@@ -25025,7 +25018,7 @@
 	<datafield ind1="1" ind2=" " tag="773">
 		<subfield code="t">St. Vladimir's theological quarterly</subfield>
 		<subfield code="g">v. 12, no 3, 1968, p. 175-177</subfield>
-		<subfield code="w">REROILS:1600039</subfield>
+		<subfield code="w">REROILS:2000039</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="957">
 		<subfield code="a">gewcc-</subfield>
@@ -26093,7 +26086,7 @@
 		<subfield code="a">Nix, Garth. -</subfield>
 		<subfield code="t">Les sept clefs du pouvoir</subfield>
 		<subfield code="v">6</subfield>
-		<subfield code="w">REROILS:1600068</subfield>
+		<subfield code="w">REROILS:2000068</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -26596,7 +26589,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Historia.</subfield>
 		<subfield code="p">Marcial Pons</subfield>
-		<subfield code="w">REROILS:1600069</subfield>
+		<subfield code="w">REROILS:2000069</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -27638,7 +27631,7 @@
 	<datafield ind1="1" ind2=" " tag="773">
 		<subfield code="t">Fiori musicologici : studi in onore di Luigi Ferdinando Tagliavini nella ricorrenza del suo LXX compleanno</subfield>
 		<subfield code="g">93-118</subfield>
-		<subfield code="w">REROILS:1600070</subfield>
+		<subfield code="w">REROILS:2000070</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -27780,7 +27773,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Histoire de la Guerre mondiale : 1914-1918</subfield>
 		<subfield code="v">3</subfield>
-		<subfield code="w">REROILS:1600071</subfield>
+		<subfield code="w">REROILS:2000071</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -28365,6 +28358,80 @@
 </record>
 
 <record>
+	<leader>01012naa a22002652a 4500</leader>
+	<controlfield tag="001">REROILS:294</controlfield>
+	<controlfield tag="003">RERO</controlfield>
+	<controlfield tag="005">20200820154700.0</controlfield>
+	<controlfield tag="008">061020s1963    xx ||| |  ||||00|  |fre d</controlfield>
+	<datafield ind1=" " ind2=" " tag="019">
+		<subfield code="a">Catalogage d'après ancienne fiche</subfield>
+		<subfield code="9">vsbcvs/01.2006</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="035">
+		<subfield code="a">R004234667</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="9" tag="039">
+		<subfield code="a">202008201547</subfield>
+		<subfield code="b">VLOAD</subfield>
+		<subfield code="c">201705191024</subfield>
+		<subfield code="d">VLOAD</subfield>
+		<subfield code="c">201204211338</subfield>
+		<subfield code="d">VLOAD</subfield>
+		<subfield code="c">201105241847</subfield>
+		<subfield code="d">VLOAD</subfield>
+		<subfield code="y">200610201117</subfield>
+		<subfield code="z">1204</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="040">
+		<subfield code="a">RERO vsbcvs</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="072">
+		<subfield code="a">s1zz</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1="1" ind2=" " tag="100">
+		<subfield code="a">Lobsiger, Georges</subfield>
+		<subfield code="4">cre</subfield>
+	</datafield>
+	<datafield ind1="1" ind2="3" tag="245">
+		<subfield code="a">La légitimité de la souveraineté des rois d'Espagne sur l'ancien royaume des Incas ... 1614 /</subfield>
+		<subfield code="c">Georges Lobsiger</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="336">
+		<subfield code="b">txt</subfield>
+		<subfield code="2">rdacontent</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="337">
+		<subfield code="b">n</subfield>
+		<subfield code="2">rdamedia</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="338">
+		<subfield code="b">nc</subfield>
+		<subfield code="2">rdacarrier</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="339">
+		<subfield code="a">docmaintype_article</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="580">
+		<subfield code="a">Dans: Société suisse Américanistes. Bulletin. - 1963, No. 25, p. 33-54</subfield>
+	</datafield>
+	<datafield ind1="1" ind2=" " tag="773">
+		<subfield code="t">Bulletin / Société suisse des Américanistes = Bulletin / Schweizerische Amerikanisten-Gesellschaft</subfield>
+		<subfield code="g">1963/25/33</subfield>
+		<subfield code="w">REROILS:2000072</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="900">
+		<subfield code="a">noselfmerge</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="906">
+		<subfield code="a">recatvs01</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="973">
+		<subfield code="a">vsbcvs</subfield>
+	</datafield>
+</record>
+
+<record>
 	<leader>01296nam a2200349uia4500</leader>
 	<controlfield tag="001">REROILS:247</controlfield>
 	<controlfield tag="003">RERO</controlfield>
@@ -28629,7 +28696,7 @@
 	<datafield ind1=" " ind2="4" tag="830">
 		<subfield code="a">Das ausseralpine Westeuropa</subfield>
 		<subfield code="v">3</subfield>
-		<subfield code="w">REROILS:1600072</subfield>
+		<subfield code="w">REROILS:2000073</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -28744,7 +28811,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Fac universités.</subfield>
 		<subfield code="p">Mémentos</subfield>
-		<subfield code="w">REROILS:1600073</subfield>
+		<subfield code="w">REROILS:2000074</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -28924,7 +28991,7 @@
 	<datafield ind1="1" ind2=" " tag="773">
 		<subfield code="t">Bulletin Saint Jean-Baptiste</subfield>
 		<subfield code="g">tome VI (juin-juill. 1966) no. 8, p. 349-444</subfield>
-		<subfield code="w">REROILS:1600074</subfield>
+		<subfield code="w">REROILS:2000075</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="957">
 		<subfield code="a">gewcc-</subfield>
@@ -29242,7 +29309,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Slavistische Beiträge</subfield>
 		<subfield code="v">127</subfield>
-		<subfield code="w">REROILS:1600075</subfield>
+		<subfield code="w">REROILS:2000076</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -29743,7 +29810,7 @@
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Libre échange 2</subfield>
-		<subfield code="w">REROILS:1600076</subfield>
+		<subfield code="w">REROILS:2000077</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -30420,12 +30487,8 @@
 		<subfield code="2">rdacarrier</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="339">
-		<subfield code="a">docmaintype_book</subfield>
-		<subfield code="b">docsubtype_other_book</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="339">
 		<subfield code="a">docmaintype_comic</subfield>
-		<subfield code="b">docsubtype_manga</subfield>
+		<subfield code="b">docsubtype_comic</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="490">
 		<subfield code="a">A la recherche de la Licorne / Mirallès, Ruiz</subfield>
@@ -30446,18 +30509,18 @@
 		<subfield code="a">Mirallés, Ana. -</subfield>
 		<subfield code="t">A la recherche de la Licorne</subfield>
 		<subfield code="v">3</subfield>
-		<subfield code="w">REROILS:1600077</subfield>
+		<subfield code="w">REROILS:2000078</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="800">
 		<subfield code="a">Ruiz, Emilio. -</subfield>
 		<subfield code="t">A la recherche de la Licorne</subfield>
 		<subfield code="v">3</subfield>
-		<subfield code="w">REROILS:1600077</subfield>
+		<subfield code="w">REROILS:2000078</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Collection &quot;Vécu&quot;.</subfield>
 		<subfield code="p">Glénat</subfield>
-		<subfield code="w">REROILS:1600078</subfield>
+		<subfield code="w">REROILS:2000079</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -30625,7 +30688,7 @@
 		<subfield code="a">Canadian studies.</subfield>
 		<subfield code="p">P. Lang</subfield>
 		<subfield code="v">21</subfield>
-		<subfield code="w">REROILS:1600079</subfield>
+		<subfield code="w">REROILS:2000080</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="1" tag="900">
 		<subfield code="a">OCoLC</subfield>
@@ -31085,12 +31148,8 @@
 		<subfield code="2">rdacarrier</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="339">
-		<subfield code="a">docmaintype_book</subfield>
-		<subfield code="b">docsubtype_other_book</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="339">
 		<subfield code="a">docmaintype_comic</subfield>
-		<subfield code="b">docsubtype_manga</subfield>
+		<subfield code="b">docsubtype_comic</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="490">
 		<subfield code="a">Ange le Terrible / PoiPoi</subfield>
@@ -31107,7 +31166,7 @@
 		<subfield code="a">PoiPoi. -</subfield>
 		<subfield code="t">Ange le Terrible</subfield>
 		<subfield code="v">4</subfield>
-		<subfield code="w">REROILS:1600080</subfield>
+		<subfield code="w">REROILS:2000081</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -31738,7 +31797,7 @@
 	<datafield ind1="1" ind2=" " tag="773">
 		<subfield code="t">Archives héraldiques suisses. Annuaire</subfield>
 		<subfield code="g">1984/57</subfield>
-		<subfield code="w">REROILS:1600081</subfield>
+		<subfield code="w">REROILS:2000082</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -32076,7 +32135,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Würzburger musikhistorische Beiträge</subfield>
 		<subfield code="v">20</subfield>
-		<subfield code="w">REROILS:1600082</subfield>
+		<subfield code="w">REROILS:2000083</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -32345,7 +32404,7 @@
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Pubblicazioni del Centro di diritto penale europeo</subfield>
-		<subfield code="w">REROILS:1600083</subfield>
+		<subfield code="w">REROILS:2000084</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -32821,7 +32880,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Materialis-Programm</subfield>
 		<subfield code="v">31</subfield>
-		<subfield code="w">REROILS:1600084</subfield>
+		<subfield code="w">REROILS:2000085</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -32931,7 +32990,7 @@
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Renaissances</subfield>
-		<subfield code="w">REROILS:1600085</subfield>
+		<subfield code="w">REROILS:2000086</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -33157,7 +33216,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Pubblicazioni della Facoltà di giurisprudenza, Università di Macerata</subfield>
 		<subfield code="v">95</subfield>
-		<subfield code="w">REROILS:1600086</subfield>
+		<subfield code="w">REROILS:2000087</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -33421,7 +33480,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Unternehmensführung und Marketing</subfield>
 		<subfield code="v">37</subfield>
-		<subfield code="w">REROILS:1600087</subfield>
+		<subfield code="w">REROILS:2000088</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -33461,7 +33520,7 @@
 
 <record>
 	<leader>01580nas a2200349 a 4500</leader>
-	<controlfield tag="001">REROILS:1600021</controlfield>
+	<controlfield tag="001">REROILS:2000021</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170517133200.0</controlfield>
 	<controlfield tag="008">910828d18621885xxu|||p|| ||||0 || 0eng d</controlfield>
@@ -33532,7 +33591,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Astronomical observations made during the year... at the National Observatory</subfield>
-		<subfield code="w">REROILS:1600088</subfield>
+		<subfield code="w">REROILS:2000089</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Observations made during the year... at the United States Naval Observatory</subfield>
@@ -33556,7 +33615,7 @@
 
 <record>
 	<leader>01262nam a2200373 aa4500</leader>
-	<controlfield tag="001">REROILS:1600077</controlfield>
+	<controlfield tag="001">REROILS:2000078</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20190626225000.0</controlfield>
 	<controlfield tag="008">990303m19971999fr ||| |  ||||00|  |fre d</controlfield>
@@ -33626,12 +33685,8 @@
 		<subfield code="2">rdacarrier</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="339">
-		<subfield code="a">docmaintype_book</subfield>
-		<subfield code="b">docsubtype_other_book</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="339">
 		<subfield code="a">docmaintype_comic</subfield>
-		<subfield code="b">docsubtype_manga</subfield>
+		<subfield code="b">docsubtype_comic</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="490">
 		<subfield code="a">Collection &quot;Vécu&quot;</subfield>
@@ -33647,7 +33702,7 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Collection &quot;Vécu&quot;.</subfield>
 		<subfield code="p">Glénat</subfield>
-		<subfield code="w">REROILS:1600078</subfield>
+		<subfield code="w">REROILS:2000079</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -33669,7 +33724,7 @@
 
 <record>
 	<leader>00662nas a22002177a 4500</leader>
-	<controlfield tag="001">REROILS:1600035</controlfield>
+	<controlfield tag="001">REROILS:2000035</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170601161400.0</controlfield>
 	<controlfield tag="008">140130u        xx |||m|  ||||0 |  0und d</controlfield>
@@ -33721,7 +33776,7 @@
 
 <record>
 	<leader>04316nam a2201129 a 4500</leader>
-	<controlfield tag="001">REROILS:1600003</controlfield>
+	<controlfield tag="001">REROILS:2000003</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201016082800.0</controlfield>
 	<controlfield tag="008">910618s1991    sz |||||| ||||00|| |ger d</controlfield>
@@ -33869,12 +33924,12 @@
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Cahiers d'ethnologie valaisanne</subfield>
 		<subfield code="v">2</subfield>
-		<subfield code="w">REROILS:1600089</subfield>
+		<subfield code="w">REROILS:2000090</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Ethnologische Reihe</subfield>
 		<subfield code="v">2</subfield>
-		<subfield code="w">REROILS:1600090</subfield>
+		<subfield code="w">REROILS:2000091</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -34082,7 +34137,7 @@
 
 <record>
 	<leader>01006nam a2200325 aa4500</leader>
-	<controlfield tag="001">REROILS:1600076</controlfield>
+	<controlfield tag="001">REROILS:2000077</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20180827132100.0</controlfield>
 	<controlfield tag="008">941229m19929999fr |||||| ||||00|| |fre d</controlfield>
@@ -34178,7 +34233,7 @@
 
 <record>
 	<leader>01187nam a2200385 aa4500</leader>
-	<controlfield tag="001">REROILS:1600042</controlfield>
+	<controlfield tag="001">REROILS:2000042</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20180827194100.0</controlfield>
 	<controlfield tag="008">951030s1993    fr |||||| ||||00|| |fre d</controlfield>
@@ -34263,7 +34318,7 @@
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Exerçons-nous</subfield>
-		<subfield code="w">REROILS:1600091</subfield>
+		<subfield code="w">REROILS:2000092</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -34297,7 +34352,7 @@
 
 <record>
 	<leader>00660nas a22002297a 4500</leader>
-	<controlfield tag="001">REROILS:1600083</controlfield>
+	<controlfield tag="001">REROILS:2000084</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170518093000.0</controlfield>
 	<controlfield tag="008">980402u        xx |||m|| ||||0 || 0ita d</controlfield>
@@ -34355,7 +34410,7 @@
 
 <record>
 	<leader>01947nas a2200541 a 4500</leader>
-	<controlfield tag="001">REROILS:1600038</controlfield>
+	<controlfield tag="001">REROILS:2000038</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201021124600.0</controlfield>
 	<controlfield tag="008">871117d19011946sz |||p|| ||||0 || 0ger d</controlfield>
@@ -34472,11 +34527,11 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Entscheidungen des aargauischen Obergerichts auf dem Gebiete des Civilrechts</subfield>
-		<subfield code="w">REROILS:1600093</subfield>
+		<subfield code="w">REROILS:2000094</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Aargauische Gerichts- und Verwaltungsentscheide</subfield>
-		<subfield code="w">REROILS:1600092</subfield>
+		<subfield code="w">REROILS:2000093</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -34526,7 +34581,7 @@
 
 <record>
 	<leader>00881nas a22003017a 4500</leader>
-	<controlfield tag="001">REROILS:1600026</controlfield>
+	<controlfield tag="001">REROILS:2000026</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20190705130100.0</controlfield>
 	<controlfield tag="008">860226u19739999fr |||p|| ||||0 || 0und d</controlfield>
@@ -34602,8 +34657,234 @@
 </record>
 
 <record>
+	<leader>02691cas a2200733 a 4500</leader>
+	<controlfield tag="001">REROILS:2000072</controlfield>
+	<controlfield tag="003">RERO</controlfield>
+	<controlfield tag="005">20200820071500.0</controlfield>
+	<controlfield tag="008">000908c19509999sz |||p|| ||||0 || 0ger d</controlfield>
+	<datafield ind1=" " ind2=" " tag="019">
+		<subfield code="a">A des notices analytiques.</subfield>
+		<subfield code="9">25.06.1996/neueth/rw</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="022">
+		<subfield code="a">0582-1592</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="035">
+		<subfield code="a">0107396</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="039">
+		<subfield code="b">6400</subfield>
+		<subfield code="b">6007</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="039">
+		<subfield code="b">4401</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="9" tag="039">
+		<subfield code="a">202008200715</subfield>
+		<subfield code="b">VLOAD</subfield>
+		<subfield code="c">202006290244</subfield>
+		<subfield code="d">VLOAD</subfield>
+		<subfield code="c">202003021348</subfield>
+		<subfield code="d">6207</subfield>
+		<subfield code="c">201912081816</subfield>
+		<subfield code="d">VLOAD</subfield>
+		<subfield code="y">1999022712420000</subfield>
+		<subfield code="z">load</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="040">
+		<subfield code="a">RERO gevbpu</subfield>
+	</datafield>
+	<datafield ind1="0" ind2=" " tag="041">
+		<subfield code="a">eng</subfield>
+		<subfield code="a">fre</subfield>
+		<subfield code="a">ger</subfield>
+		<subfield code="a">spa</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="044">
+		<subfield code="a">sz</subfield>
+		<subfield code="c">ch-ge</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="072">
+		<subfield code="a">s1et</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="072">
+		<subfield code="a">s2go</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1="0" ind2="0" tag="245">
+		<subfield code="a">Bulletin / Société suisse des Américanistes =</subfield>
+		<subfield code="b">Bulletin / Schweizerische Amerikanisten-Gesellschaft</subfield>
+	</datafield>
+	<datafield ind1="3" ind2=" " tag="246">
+		<subfield code="a">Bulletin / Schweizerische Amerikanisten-Gesellschaft</subfield>
+	</datafield>
+	<datafield ind1="3" ind2=" " tag="246">
+		<subfield code="a">Bulletin de la Société suisse des Américanistes</subfield>
+	</datafield>
+	<datafield ind1="3" ind2=" " tag="246">
+		<subfield code="a">Boletín / Sociedad suiza de Americanistas</subfield>
+	</datafield>
+	<datafield ind1="3" ind2=" " tag="246">
+		<subfield code="a">Boletín / Société suisse des Américanistes</subfield>
+	</datafield>
+	<datafield ind1="3" ind2=" " tag="246">
+		<subfield code="a">LARevista : bulletin de la société suisse des américanistes</subfield>
+	</datafield>
+	<datafield ind1="3" ind2=" " tag="246">
+		<subfield code="a">LARevista : boletín Sociedad suiza de Americanistas</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="1" tag="264">
+		<subfield code="a">Genève :</subfield>
+		<subfield code="b">Société suisse des Américanistes</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="300">
+		<subfield code="c">30 cm</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="310">
+		<subfield code="a">Semestriel, puis annuel</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="336">
+		<subfield code="b">txt</subfield>
+		<subfield code="2">rdacontent</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="337">
+		<subfield code="b">n</subfield>
+		<subfield code="2">rdamedia</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="338">
+		<subfield code="b">nc</subfield>
+		<subfield code="2">rdacarrier</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="339">
+		<subfield code="a">docmaintype_serial</subfield>
+	</datafield>
+	<datafield ind1="0" ind2=" " tag="362">
+		<subfield code="a">No 1(sept. 1950)-</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="500">
+		<subfield code="a">Variante du titre dès no 72: LARevista : bulletin de la société suisse des américanistes</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="530">
+		<subfield code="a">Existe aussi sous forme électronique</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="650">
+		<subfield code="a">Indiens d'Amérique</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="650">
+		<subfield code="a">Archéologie</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="650">
+		<subfield code="a">Anthropologie</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="650">
+		<subfield code="a">Linguistique</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="650">
+		<subfield code="a">Noirs américains</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="650">
+		<subfield code="a">Américains</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="650">
+		<subfield code="a">Amérindien (peuple)</subfield>
+		<subfield code="2">rerovoc</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="650">
+		<subfield code="a">Ethnologie</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="651">
+		<subfield code="a">Amérique</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="655">
+		<subfield code="a">[Périodiques]</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1="2" ind2=" " tag="710">
+		<subfield code="a">Société suisse des américanistes</subfield>
+		<subfield code="0">(IDREF)076245470</subfield>
+	</datafield>
+	<datafield ind1="1" ind2=" " tag="776">
+		<subfield code="t">Bulletin / Société suisse des Américanistes</subfield>
+		<subfield code="w">REROILS:2000095</subfield>
+	</datafield>
+	<datafield ind1="4" ind2="1" tag="856">
+		<subfield code="u">http://www.sag-ssa.ch/fr-fr/</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="900">
+		<subfield code="a">noselfmerge</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="902">
+		<subfield code="a">baap</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="919">
+		<subfield code="9">650 _7</subfield>
+		<subfield code="a">Amérindien (peuple)</subfield>
+		<subfield code="x">* ethnographie</subfield>
+		<subfield code="v">[périodique]</subfield>
+		<subfield code="2">chrero</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="919">
+		<subfield code="9">650 _7</subfield>
+		<subfield code="a">archéologie</subfield>
+		<subfield code="z">Amérique</subfield>
+		<subfield code="v">[périodique]</subfield>
+		<subfield code="2">chrero</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="919">
+		<subfield code="9">650 _7</subfield>
+		<subfield code="a">linguistique</subfield>
+		<subfield code="z">Amérique</subfield>
+		<subfield code="v">[périodique]</subfield>
+		<subfield code="2">chrero</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="957">
+		<subfield code="a">geheid geussc gevbaa gevbge geveth</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="962">
+		<subfield code="a">neueth</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="982">
+		<subfield code="2">twse</subfield>
+		<subfield code="a">études latino-américaines</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="982">
+		<subfield code="2">twse</subfield>
+		<subfield code="a">Amérique latine</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="982">
+		<subfield code="2">ge-heid-nc</subfield>
+		<subfield code="a">P 7/346</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="992">
+		<subfield code="a">BGE MF 1386</subfield>
+		<subfield code="x">ge/vbge/l</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="992">
+		<subfield code="a">ET PAM 13</subfield>
+		<subfield code="x">ge/veth/w</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="992">
+		<subfield code="a">PSA 103</subfield>
+		<subfield code="x">ge/veth/w</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="992">
+		<subfield code="a">BAA PER Q 394</subfield>
+		<subfield code="x">ge/vbaa/d</subfield>
+	</datafield>
+</record>
+
+<record>
 	<leader>01899cas a2200529 a 4500</leader>
-	<controlfield tag="001">REROILS:1600010</controlfield>
+	<controlfield tag="001">REROILS:2000010</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20191208191000.0</controlfield>
 	<controlfield tag="008">001226d19641985sz |||p|| ||||0 || 0fre d</controlfield>
@@ -34707,7 +34988,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Eau, air, santé : organe mensuel romand d'informations sur l'environnement et la nature</subfield>
-		<subfield code="w">REROILS:1600094</subfield>
+		<subfield code="w">REROILS:2000096</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Bulletin de l'ARPEA</subfield>
@@ -34760,7 +35041,7 @@
 
 <record>
 	<leader>00676nas a22002177a 4500</leader>
-	<controlfield tag="001">REROILS:1600017</controlfield>
+	<controlfield tag="001">REROILS:2000017</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200121105400.0</controlfield>
 	<controlfield tag="008">960525u        xx |||m|| ||||0 || 0und d</controlfield>
@@ -34817,7 +35098,7 @@
 
 <record>
 	<leader>01359cas a2200445 a 4500</leader>
-	<controlfield tag="001">REROILS:1600059</controlfield>
+	<controlfield tag="001">REROILS:2000059</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200711160300.0</controlfield>
 	<controlfield tag="008">961019d19631969sz |||p|| ||||0 || 0fre d</controlfield>
@@ -34945,7 +35226,7 @@
 
 <record>
 	<leader>01559nas a22004697a 4500</leader>
-	<controlfield tag="001">REROILS:1600025</controlfield>
+	<controlfield tag="001">REROILS:2000025</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200710192800.0</controlfield>
 	<controlfield tag="008">000905c19649999fr |||m|| ||||0 || 0fre d</controlfield>
@@ -35071,7 +35352,7 @@
 
 <record>
 	<leader>01977cas a2200469 a 4500</leader>
-	<controlfield tag="001">REROILS:1600058</controlfield>
+	<controlfield tag="001">REROILS:2000058</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200711160300.0</controlfield>
 	<controlfield tag="008">000809d19751980sz |||m|| ||||0 || 0fre d</controlfield>
@@ -35173,7 +35454,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Documents de cinéma</subfield>
-		<subfield code="w">REROILS:1600095</subfield>
+		<subfield code="w">REROILS:2000097</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Travelling. Lausanne</subfield>
@@ -35211,7 +35492,7 @@
 
 <record>
 	<leader>00770nas a22002417a 4500</leader>
-	<controlfield tag="001">REROILS:1600069</controlfield>
+	<controlfield tag="001">REROILS:2000069</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170518101800.0</controlfield>
 	<controlfield tag="008">000912         sp |||m|  ||||0 |  0spa d</controlfield>
@@ -35273,7 +35554,7 @@
 
 <record>
 	<leader>01066nas a2200301 a 4500</leader>
-	<controlfield tag="001">REROILS:1600056</controlfield>
+	<controlfield tag="001">REROILS:2000056</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170517181400.0</controlfield>
 	<controlfield tag="008">950508d18681939xxk|||p|| ||||0 || 0eng d</controlfield>
@@ -35356,7 +35637,7 @@
 
 <record>
 	<leader>01492ccs a22003017a 4500</leader>
-	<controlfield tag="001">REROILS:1600000</controlfield>
+	<controlfield tag="001">REROILS:2000000</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20190214095500.0</controlfield>
 	<controlfield tag="008">850320u        xx |||m|| ||||  |  |und d</controlfield>
@@ -35431,7 +35712,7 @@
 
 <record>
 	<leader>01334nas a2200373 a 4500</leader>
-	<controlfield tag="001">REROILS:1600033</controlfield>
+	<controlfield tag="001">REROILS:2000033</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200710161900.0</controlfield>
 	<controlfield tag="008">000905c19099999fi |||m|| ||||0 || 0fre d</controlfield>
@@ -35537,7 +35818,7 @@
 
 <record>
 	<leader>00840nas a22002897a 4500</leader>
-	<controlfield tag="001">REROILS:1600008</controlfield>
+	<controlfield tag="001">REROILS:2000008</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200902115900.0</controlfield>
 	<controlfield tag="008">960525c1966    xx |||m|| ||||0 || 0und d</controlfield>
@@ -35616,7 +35897,7 @@
 
 <record>
 	<leader>02749nas a2200745 a 4500</leader>
-	<controlfield tag="001">REROILS:1600081</controlfield>
+	<controlfield tag="001">REROILS:2000082</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201021122800.0</controlfield>
 	<controlfield tag="008">960525d19531986sz |||p|| ||||0 || 0ger d</controlfield>
@@ -35764,11 +36045,11 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Archives héraldiques et sigillographiques</subfield>
-		<subfield code="w">REROILS:1600097</subfield>
+		<subfield code="w">REROILS:2000099</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Archives héraldiques suisses</subfield>
-		<subfield code="w">REROILS:1600096</subfield>
+		<subfield code="w">REROILS:2000098</subfield>
 	</datafield>
 	<datafield ind1="4" ind2="1" tag="856">
 		<subfield code="3">fullText</subfield>
@@ -35857,7 +36138,7 @@
 
 <record>
 	<leader>00977nam a22003137aa4500</leader>
-	<controlfield tag="001">REROILS:1600080</controlfield>
+	<controlfield tag="001">REROILS:2000081</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20190626224400.0</controlfield>
 	<controlfield tag="008">080917s2008    fr ||| |  ||||00|  |fre d</controlfield>
@@ -35921,12 +36202,8 @@
 		<subfield code="2">rdacarrier</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="339">
-		<subfield code="a">docmaintype_book</subfield>
-		<subfield code="b">docsubtype_other_book</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="339">
 		<subfield code="a">docmaintype_comic</subfield>
-		<subfield code="b">docsubtype_manga</subfield>
+		<subfield code="b">docsubtype_comic</subfield>
 	</datafield>
 	<datafield ind1="0" ind2=" " tag="490">
 		<subfield code="a">Tchô! La collec....</subfield>
@@ -35949,7 +36226,7 @@
 
 <record>
 	<leader>01217nam a2200361 aa4500</leader>
-	<controlfield tag="001">REROILS:1600072</controlfield>
+	<controlfield tag="001">REROILS:2000073</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20191208185200.0</controlfield>
 	<controlfield tag="008">900529m19301936gw |||||| ||||00|| |ger d</controlfield>
@@ -36016,7 +36293,7 @@
 		<subfield code="a">Bubnoff, Serge von. -</subfield>
 		<subfield code="t">Geologie von Europa</subfield>
 		<subfield code="v">2</subfield>
-		<subfield code="w">REROILS:1600098</subfield>
+		<subfield code="w">REROILS:2000100</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -36054,7 +36331,7 @@
 
 <record>
 	<leader>01247cam a2200361 a 4500</leader>
-	<controlfield tag="001">REROILS:1600023</controlfield>
+	<controlfield tag="001">REROILS:2000023</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200612160900.0</controlfield>
 	<controlfield tag="008">000921s1982    xxk|||||| ||||00|| |eng d</controlfield>
@@ -36164,7 +36441,7 @@
 
 <record>
 	<leader>01290cas a2200361 a 4500</leader>
-	<controlfield tag="001">REROILS:1600048</controlfield>
+	<controlfield tag="001">REROILS:2000048</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20190705123300.0</controlfield>
 	<controlfield tag="008">961003c19659999gw |||m|| ||||0 || 0ger d</controlfield>
@@ -36237,7 +36514,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="777">
 		<subfield code="t">Studienheft / Kirchliches Aussenamt der Evangelischen Kirche in Deutschland</subfield>
-		<subfield code="w">REROILS:1600099</subfield>
+		<subfield code="w">REROILS:2000101</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -36261,7 +36538,7 @@
 
 <record>
 	<leader>00977nas a22002657a 4500</leader>
-	<controlfield tag="001">REROILS:1600004</controlfield>
+	<controlfield tag="001">REROILS:2000004</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170517133700.0</controlfield>
 	<controlfield tag="008">930714u        xxu|||m|| ||||0 || 0fre d</controlfield>
@@ -36322,7 +36599,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="775">
 		<subfield code="t">Research paper / United Nations Institute for Disarmament Research</subfield>
-		<subfield code="w">REROILS:1600100</subfield>
+		<subfield code="w">REROILS:2000102</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -36334,7 +36611,7 @@
 
 <record>
 	<leader>00583nas a22002297a 4500</leader>
-	<controlfield tag="001">REROILS:1600085</controlfield>
+	<controlfield tag="001">REROILS:2000086</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170517121900.0</controlfield>
 	<controlfield tag="008">920402u        xx |||m|| ||||0 || 0und d</controlfield>
@@ -36390,7 +36667,7 @@
 
 <record>
 	<leader>00934nam a2200313 aa4500</leader>
-	<controlfield tag="001">REROILS:1600068</controlfield>
+	<controlfield tag="001">REROILS:2000068</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20180508132700.0</controlfield>
 	<controlfield tag="008">110415m20069999fr ||| |  ||||00|  |fre d</controlfield>
@@ -36481,7 +36758,7 @@
 
 <record>
 	<leader>01344nam a2200397 a 4500</leader>
-	<controlfield tag="001">REROILS:1600064</controlfield>
+	<controlfield tag="001">REROILS:2000064</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20191208181400.0</controlfield>
 	<controlfield tag="008">000717s1911    fr |||||| ||||00|| |fre d</controlfield>
@@ -36598,7 +36875,7 @@
 
 <record>
 	<leader>01520nam a2200481 aa4500</leader>
-	<controlfield tag="001">REROILS:1600011</controlfield>
+	<controlfield tag="001">REROILS:2000011</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20180419103300.0</controlfield>
 	<controlfield tag="008">870319s1987    sz |||||| ||||00|| |ger d</controlfield>
@@ -36744,7 +37021,7 @@
 
 <record>
 	<leader>01661nas a22004097a 4500</leader>
-	<controlfield tag="001">REROILS:1600062</controlfield>
+	<controlfield tag="001">REROILS:2000062</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170515150400.0</controlfield>
 	<controlfield tag="008">960525         xx |||m|| ||||0 || 0und d</controlfield>
@@ -36848,7 +37125,7 @@
 
 <record>
 	<leader>01081nas a2200301 a 4500</leader>
-	<controlfield tag="001">REROILS:1600057</controlfield>
+	<controlfield tag="001">REROILS:2000057</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170517181400.0</controlfield>
 	<controlfield tag="008">950508d18241954xxk|||p|| ||||0 || 0eng d</controlfield>
@@ -36931,7 +37208,7 @@
 
 <record>
 	<leader>01253cas a2200397 a 4500</leader>
-	<controlfield tag="001">REROILS:1600015</controlfield>
+	<controlfield tag="001">REROILS:2000015</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200712095400.0</controlfield>
 	<controlfield tag="008">960909c19419999gw |||m|| ||||0 || 0lat d</controlfield>
@@ -37046,7 +37323,7 @@
 
 <record>
 	<leader>00798nas a2200289 a 4500</leader>
-	<controlfield tag="001">REROILS:1600075</controlfield>
+	<controlfield tag="001">REROILS:2000076</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200710081800.0</controlfield>
 	<controlfield tag="008">960525c    9999gw |||m|| ||||0 || 0ger d</controlfield>
@@ -37123,7 +37400,7 @@
 
 <record>
 	<leader>00741nas a2200253 a 4500</leader>
-	<controlfield tag="001">REROILS:1600009</controlfield>
+	<controlfield tag="001">REROILS:2000009</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170518092500.0</controlfield>
 	<controlfield tag="008">981124         sw |||m|  ||||0 |  0eng d</controlfield>
@@ -37186,7 +37463,7 @@
 
 <record>
 	<leader>00831nas a22002417a 4500</leader>
-	<controlfield tag="001">REROILS:1600036</controlfield>
+	<controlfield tag="001">REROILS:2000036</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170518103500.0</controlfield>
 	<controlfield tag="008">000913         xxu|||m|| ||||0 || 0eng d</controlfield>
@@ -37247,7 +37524,7 @@
 
 <record>
 	<leader>03895cas a2201069 a 4500</leader>
-	<controlfield tag="001">REROILS:1600022</controlfield>
+	<controlfield tag="001">REROILS:2000022</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201021123600.0</controlfield>
 	<controlfield tag="008">000927d19302010sz |||p|| ||||0 || 0fre d</controlfield>
@@ -37384,7 +37661,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Journal des tribunaux et revue judiciaire. Poursuite pour dettes</subfield>
-		<subfield code="w">REROILS:1600101</subfield>
+		<subfield code="w">REROILS:2000103</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Journal des tribunaux. Lausanne. 2011-. 2, Droit civil, poursuite pour dettes et faillites et procédure civile : jurisprudence fédérale</subfield>
@@ -37601,7 +37878,7 @@
 
 <record>
 	<leader>01100nas a22003257a 4500</leader>
-	<controlfield tag="001">REROILS:1600074</controlfield>
+	<controlfield tag="001">REROILS:2000075</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170518080500.0</controlfield>
 	<controlfield tag="008">980902         fr |||m|  ||||0 |  0fre d</controlfield>
@@ -37666,11 +37943,11 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Bulletin du Cercle Saint Jean-Baptiste</subfield>
-		<subfield code="w">REROILS:1600103</subfield>
+		<subfield code="w">REROILS:2000105</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Axes : recherches pour un dialogue entre christianisme et religions</subfield>
-		<subfield code="w">REROILS:1600102</subfield>
+		<subfield code="w">REROILS:2000104</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -37685,7 +37962,7 @@
 
 <record>
 	<leader>01835nas a2200481 a 4500</leader>
-	<controlfield tag="001">REROILS:1600054</controlfield>
+	<controlfield tag="001">REROILS:2000054</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201013230200.0</controlfield>
 	<controlfield tag="008">000924c19699999sz |||m|| ||||0 || 0ger d</controlfield>
@@ -37829,7 +38106,7 @@
 
 <record>
 	<leader>01134nas a2200337 a 4500</leader>
-	<controlfield tag="001">REROILS:1600039</controlfield>
+	<controlfield tag="001">REROILS:2000039</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200710134100.0</controlfield>
 	<controlfield tag="008">960525c19699999xxu|||p|| ||||0 || 0eng d</controlfield>
@@ -37903,7 +38180,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">St. Vladimir's seminary quarterly</subfield>
-		<subfield code="w">REROILS:1600104</subfield>
+		<subfield code="w">REROILS:2000106</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -37924,7 +38201,7 @@
 
 <record>
 	<leader>01660nas a2200445 a 4500</leader>
-	<controlfield tag="001">REROILS:1600037</controlfield>
+	<controlfield tag="001">REROILS:2000037</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200710200800.0</controlfield>
 	<controlfield tag="008">960525c19659999xxc|||p|| ||||0 || 0fre d</controlfield>
@@ -38055,7 +38332,7 @@
 
 <record>
 	<leader>01567nas a2200373 a 4500</leader>
-	<controlfield tag="001">REROILS:1600065</controlfield>
+	<controlfield tag="001">REROILS:2000065</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20190705130900.0</controlfield>
 	<controlfield tag="008">861021c19739999fr |||p|| ||||0 || 0fre d</controlfield>
@@ -38155,7 +38432,7 @@
 
 <record>
 	<leader>01432cas a2200301 a 4500</leader>
-	<controlfield tag="001">REROILS:1600050</controlfield>
+	<controlfield tag="001">REROILS:2000050</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200712140200.0</controlfield>
 	<controlfield tag="008">960912d19151939xxu|||m|| ||||0 || 0eng d</controlfield>
@@ -38237,7 +38514,7 @@
 
 <record>
 	<leader>01233nas a2200325 a 4500</leader>
-	<controlfield tag="001">REROILS:1600049</controlfield>
+	<controlfield tag="001">REROILS:2000049</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200712140200.0</controlfield>
 	<controlfield tag="008">960525d19111950xxu|||m|| ||||0 || 0eng d</controlfield>
@@ -38322,7 +38599,7 @@
 
 <record>
 	<leader>00836nas a2200277 a 4500</leader>
-	<controlfield tag="001">REROILS:1600055</controlfield>
+	<controlfield tag="001">REROILS:2000055</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170517175700.0</controlfield>
 	<controlfield tag="008">960108d18971908xxk|||p|| ||||0 || 0eng d</controlfield>
@@ -38397,7 +38674,7 @@
 
 <record>
 	<leader>01240nam a22003857a 4500</leader>
-	<controlfield tag="001">REROILS:1600013</controlfield>
+	<controlfield tag="001">REROILS:2000013</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20181119144100.0</controlfield>
 	<controlfield tag="008">040604m20049999fr ||| |  ||||00|  |fre d</controlfield>
@@ -38510,7 +38787,7 @@
 
 <record>
 	<leader>00977nas a22003017a 4500</leader>
-	<controlfield tag="001">REROILS:1600060</controlfield>
+	<controlfield tag="001">REROILS:2000060</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200902120400.0</controlfield>
 	<controlfield tag="008">960525u        xx |||m|| ||||0 || 0und d</controlfield>
@@ -38592,7 +38869,7 @@
 
 <record>
 	<leader>02684cas a2200517 a 4500</leader>
-	<controlfield tag="001">REROILS:1600019</controlfield>
+	<controlfield tag="001">REROILS:2000019</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200712074800.0</controlfield>
 	<controlfield tag="008">961214d19421967sz |||p|| ||||0 || 0ger d</controlfield>
@@ -38688,15 +38965,15 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="770">
 		<subfield code="t">Beiheft zur Schweizerischen Zeitschrift für Psychologie und Ihre Anwendungen = Supplément à la Revue suisse de psychologie pure et appliquée</subfield>
-		<subfield code="w">REROILS:1600106</subfield>
+		<subfield code="w">REROILS:2000108</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Zeitschrift für diagnostische Psychologie und Persönlichkeitsforschung = Revue de psychologie diagnostique et d'étude de la personnalité = Review of diagnostic psychology and personality exploration</subfield>
-		<subfield code="w">REROILS:1600107</subfield>
+		<subfield code="w">REROILS:2000109</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Psychologie : schweizerische Zeitschrift für Psychologie und ihre Anwendungen</subfield>
-		<subfield code="w">REROILS:1600105</subfield>
+		<subfield code="w">REROILS:2000107</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -38739,7 +39016,7 @@
 
 <record>
 	<leader>02049nas a22004817a 4500</leader>
-	<controlfield tag="001">REROILS:1600012</controlfield>
+	<controlfield tag="001">REROILS:2000012</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200117012800.0</controlfield>
 	<controlfield tag="008">000925         xx |||m|| ||||0 || 0und d</controlfield>
@@ -38864,7 +39141,7 @@
 
 <record>
 	<leader>00516nas a22002057a 4500</leader>
-	<controlfield tag="001">REROILS:1600061</controlfield>
+	<controlfield tag="001">REROILS:2000061</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170517150200.0</controlfield>
 	<controlfield tag="008">920127u        xx |||m|| ||||0 || 0und d</controlfield>
@@ -38914,7 +39191,7 @@
 
 <record>
 	<leader>01229nas a2200313 a 4500</leader>
-	<controlfield tag="001">REROILS:1600047</controlfield>
+	<controlfield tag="001">REROILS:2000047</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170516085300.0</controlfield>
 	<controlfield tag="008">861017d19771985gw |||p|| ||||0 || 0ger d</controlfield>
@@ -38983,7 +39260,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Online : Journal für Informationsverarbeitung mit ÖVD : Organ des ADI - Anwenderverband Deutscher Informationsverarbeiter</subfield>
-		<subfield code="w">REROILS:1600108</subfield>
+		<subfield code="w">REROILS:2000110</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -38999,7 +39276,7 @@
 
 <record>
 	<leader>00611nas a22002177a 4500</leader>
-	<controlfield tag="001">REROILS:1600045</controlfield>
+	<controlfield tag="001">REROILS:2000045</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20190705132100.0</controlfield>
 	<controlfield tag="008">170928u20029999bl |||m|  ||||0 |  0por d</controlfield>
@@ -39050,7 +39327,7 @@
 
 <record>
 	<leader>01808nas a2200409 a 4500</leader>
-	<controlfield tag="001">REROILS:1600020</controlfield>
+	<controlfield tag="001">REROILS:2000020</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170517133200.0</controlfield>
 	<controlfield tag="008">910828d18951899xxu|||p|| ||||0 || 0eng d</controlfield>
@@ -39134,7 +39411,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Publications of the United States Naval Observatory</subfield>
-		<subfield code="w">REROILS:1600109</subfield>
+		<subfield code="w">REROILS:2000111</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -39161,7 +39438,7 @@
 
 <record>
 	<leader>00676ncs a2200229 a 4500</leader>
-	<controlfield tag="001">REROILS:1600016</controlfield>
+	<controlfield tag="001">REROILS:2000016</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20191122093100.0</controlfield>
 	<controlfield tag="008">860501c19769999sz |||m|| ||||  |  |ger d</controlfield>
@@ -39224,7 +39501,7 @@
 
 <record>
 	<leader>00578nas a22002177a 4500</leader>
-	<controlfield tag="001">REROILS:1600005</controlfield>
+	<controlfield tag="001">REROILS:2000005</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200116230500.0</controlfield>
 	<controlfield tag="008">960525u        xx |||m|| ||||0 || 0und d</controlfield>
@@ -39282,7 +39559,7 @@
 
 <record>
 	<leader>01249nam a2200337 aa4500</leader>
-	<controlfield tag="001">REROILS:1600071</controlfield>
+	<controlfield tag="001">REROILS:2000071</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20171125075300.0</controlfield>
 	<controlfield tag="008">960525m19361937fr |||||| ||||00|| |fre d</controlfield>
@@ -39354,7 +39631,7 @@
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Collection de mémoires, études et documents pour servir à l'histoire de la guerre mondiale</subfield>
-		<subfield code="w">REROILS:1600110</subfield>
+		<subfield code="w">REROILS:2000112</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -39379,7 +39656,7 @@
 
 <record>
 	<leader>00658nas a22002297a 4500</leader>
-	<controlfield tag="001">REROILS:1600007</controlfield>
+	<controlfield tag="001">REROILS:2000007</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170516100300.0</controlfield>
 	<controlfield tag="008">960525u        xx |||m|| ||||0 || 0und d</controlfield>
@@ -39436,7 +39713,7 @@
 
 <record>
 	<leader>02411nas a2200577 a 4500</leader>
-	<controlfield tag="001">REROILS:1600024</controlfield>
+	<controlfield tag="001">REROILS:2000024</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20181116195200.0</controlfield>
 	<controlfield tag="008">981215d19912003sz |||p|| ||||0 || 0fre d</controlfield>
@@ -39613,7 +39890,7 @@
 
 <record>
 	<leader>01531nas a22003737a 4500</leader>
-	<controlfield tag="001">REROILS:1600046</controlfield>
+	<controlfield tag="001">REROILS:2000046</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200916142600.0</controlfield>
 	<controlfield tag="008">960525c        gw |||m|| ||||0 || 0ger d</controlfield>
@@ -39719,7 +39996,7 @@
 
 <record>
 	<leader>00610nas a22002177a 4500</leader>
-	<controlfield tag="001">REROILS:1600087</controlfield>
+	<controlfield tag="001">REROILS:2000088</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170517095400.0</controlfield>
 	<controlfield tag="008">881117u        xx |||m|| ||||0 || 0und d</controlfield>
@@ -39772,7 +40049,7 @@
 
 <record>
 	<leader>01219nas a22003257a 4500</leader>
-	<controlfield tag="001">REROILS:1600066</controlfield>
+	<controlfield tag="001">REROILS:2000066</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170517085200.0</controlfield>
 	<controlfield tag="008">890620u        xx |||m|| ||||0 || 0und d</controlfield>
@@ -39855,7 +40132,7 @@
 
 <record>
 	<leader>00688nas a22002417a 4500</leader>
-	<controlfield tag="001">REROILS:1600079</controlfield>
+	<controlfield tag="001">REROILS:2000080</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20190705121200.0</controlfield>
 	<controlfield tag="008">090709c00009999be |||m|  ||||0 |  |eng d</controlfield>
@@ -39922,7 +40199,7 @@
 
 <record>
 	<leader>03879nas a2201021 a 4500</leader>
-	<controlfield tag="001">REROILS:1600067</controlfield>
+	<controlfield tag="001">REROILS:2000067</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201007192500.0</controlfield>
 	<controlfield tag="008">000816c19829999sz |||p|| ||||1 || 0fre d</controlfield>
@@ -40062,7 +40339,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="775">
 		<subfield code="t">Strassenverkehrsrechts-Tagung</subfield>
-		<subfield code="w">REROILS:1600111</subfield>
+		<subfield code="w">REROILS:2000113</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">bdscumul</subfield>
@@ -40249,7 +40526,7 @@
 
 <record>
 	<leader>03351cas a2200697 a 4500</leader>
-	<controlfield tag="001">REROILS:1600051</controlfield>
+	<controlfield tag="001">REROILS:2000051</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200712201200.0</controlfield>
 	<controlfield tag="008">000725d19512011sz |||p|| ||||0 || 0ger d</controlfield>
@@ -40387,11 +40664,11 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="777">
 		<subfield code="t">Schweizer Theater-Almanach</subfield>
-		<subfield code="w">REROILS:1600113</subfield>
+		<subfield code="w">REROILS:2000115</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Jahrbuch der Gesellschaft für Schweizerische Theaterkultur</subfield>
-		<subfield code="w">REROILS:1600112</subfield>
+		<subfield code="w">REROILS:2000114</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Mimos : Zeitschrift der Schweizerischen Gesellschaft für Theaterkultur = bulletin de la Société suisse du théâtre = bollettino della Società svizzera di studi teatrali</subfield>
@@ -40452,7 +40729,7 @@
 
 <record>
 	<leader>01175nas a2200385 a 4500</leader>
-	<controlfield tag="001">REROILS:1600006</controlfield>
+	<controlfield tag="001">REROILS:2000006</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20190705130500.0</controlfield>
 	<controlfield tag="008">860624c19819999ja |||p|| ||||0 || 0jpn d</controlfield>
@@ -40564,7 +40841,7 @@
 
 <record>
 	<leader>01471nam a2200421 a 4500</leader>
-	<controlfield tag="001">REROILS:1600014</controlfield>
+	<controlfield tag="001">REROILS:2000014</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200710090600.0</controlfield>
 	<controlfield tag="008">890509s1966    be |||||| ||||00|| |fre d</controlfield>
@@ -40692,7 +40969,7 @@
 
 <record>
 	<leader>00874nas a2200289 a 4500</leader>
-	<controlfield tag="001">REROILS:1600029</controlfield>
+	<controlfield tag="001">REROILS:2000029</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170518085600.0</controlfield>
 	<controlfield tag="008">981029d19361964xxk|||p|| ||||0 || 0eng d</controlfield>
@@ -40765,7 +41042,7 @@
 
 <record>
 	<leader>00593nas a22002177a 4500</leader>
-	<controlfield tag="001">REROILS:1600084</controlfield>
+	<controlfield tag="001">REROILS:2000085</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200121131300.0</controlfield>
 	<controlfield tag="008">860911u        xx |||m|| ||||0 || 0und d</controlfield>
@@ -40820,7 +41097,7 @@
 
 <record>
 	<leader>00606njs a22002297a 4500</leader>
-	<controlfield tag="001">REROILS:1600027</controlfield>
+	<controlfield tag="001">REROILS:2000027</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201019182600.0</controlfield>
 	<controlfield tag="007">s|</controlfield>
@@ -40877,7 +41154,7 @@
 
 <record>
 	<leader>01768cas a2200529 a 4500</leader>
-	<controlfield tag="001">REROILS:1600052</controlfield>
+	<controlfield tag="001">REROILS:2000052</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200712163800.0</controlfield>
 	<controlfield tag="008">970311c19469999fr |||p|| ||||0 || 0fre d</controlfield>
@@ -41039,7 +41316,7 @@
 
 <record>
 	<leader>01144nas a2200373 a 4500</leader>
-	<controlfield tag="001">REROILS:1600028</controlfield>
+	<controlfield tag="001">REROILS:2000028</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20181116223300.0</controlfield>
 	<controlfield tag="008">870915d19651995sa |||p|| ||||0 || 0eng d</controlfield>
@@ -41146,7 +41423,7 @@
 
 <record>
 	<leader>00986nas a2200313 a 4500</leader>
-	<controlfield tag="001">REROILS:1600082</controlfield>
+	<controlfield tag="001">REROILS:2000083</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200710173800.0</controlfield>
 	<controlfield tag="008">960525d19742009gw |||m|| ||||0 || 0ger d</controlfield>
@@ -41239,7 +41516,7 @@
 
 <record>
 	<leader>00767nas a22002657a 4500</leader>
-	<controlfield tag="001">REROILS:1600001</controlfield>
+	<controlfield tag="001">REROILS:2000001</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170517172000.0</controlfield>
 	<controlfield tag="008">000913u        xx |||m|| ||||0 || 0und d</controlfield>
@@ -41309,7 +41586,7 @@
 
 <record>
 	<leader>00658nas a22002177a 4500</leader>
-	<controlfield tag="001">REROILS:1600034</controlfield>
+	<controlfield tag="001">REROILS:2000034</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200416181100.0</controlfield>
 	<controlfield tag="008">200416c        it |||m|| ||||0 || |ita d</controlfield>
@@ -41368,7 +41645,7 @@
 
 <record>
 	<leader>01270cas a2200409 a 4500</leader>
-	<controlfield tag="001">REROILS:1600043</controlfield>
+	<controlfield tag="001">REROILS:2000043</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200712130600.0</controlfield>
 	<controlfield tag="008">890123c19459999fr |||p|| ||||0 || 0fre d</controlfield>
@@ -41485,7 +41762,7 @@
 
 <record>
 	<leader>00530ncs a22001817a 4500</leader>
-	<controlfield tag="001">REROILS:1600040</controlfield>
+	<controlfield tag="001">REROILS:2000040</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170517173300.0</controlfield>
 	<controlfield tag="008">940526         xxu|||m|| ||||  |  |und d</controlfield>
@@ -41526,7 +41803,7 @@
 
 <record>
 	<leader>01883cas a2200529 a 4500</leader>
-	<controlfield tag="001">REROILS:1600063</controlfield>
+	<controlfield tag="001">REROILS:2000063</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200712095100.0</controlfield>
 	<controlfield tag="008">961006c19609999sz |||p|| ||||0 || 0ita d</controlfield>
@@ -41682,7 +41959,7 @@
 
 <record>
 	<leader>01049cas a22003257a 4500</leader>
-	<controlfield tag="001">REROILS:1600030</controlfield>
+	<controlfield tag="001">REROILS:2000030</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170610202000.0</controlfield>
 	<controlfield tag="008">001224u        gw |||m|| ||||0 || 0und d</controlfield>
@@ -41780,7 +42057,7 @@
 
 <record>
 	<leader>01436nas a22003257a 4500</leader>
-	<controlfield tag="001">REROILS:1600032</controlfield>
+	<controlfield tag="001">REROILS:2000032</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200413101100.0</controlfield>
 	<controlfield tag="008">000718u        xx |||m|| ||||0 || 0und d</controlfield>
@@ -41868,7 +42145,7 @@
 
 <record>
 	<leader>02231nam a2200601 a 4500</leader>
-	<controlfield tag="001">REROILS:1600070</controlfield>
+	<controlfield tag="001">REROILS:2000070</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200728124000.0</controlfield>
 	<controlfield tag="008">011207s2001    it |||||| ||||01|  |ita d</controlfield>
@@ -42058,7 +42335,7 @@
 
 <record>
 	<leader>01202nas a22002777a 4500</leader>
-	<controlfield tag="001">REROILS:1600086</controlfield>
+	<controlfield tag="001">REROILS:2000087</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200116231900.0</controlfield>
 	<controlfield tag="008">960525d19692012it |||m|| ||||0 || 0ita d</controlfield>
@@ -42121,7 +42398,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Pubblicazioni del Dipartimento di giurisprudenza, Università di Macerata. Nuova Serie</subfield>
-		<subfield code="w">REROILS:1600114</subfield>
+		<subfield code="w">REROILS:2000116</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">swissbibnomerge</subfield>
@@ -42133,7 +42410,7 @@
 
 <record>
 	<leader>00536nas a22002057a 4500</leader>
-	<controlfield tag="001">REROILS:1600018</controlfield>
+	<controlfield tag="001">REROILS:2000018</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170515141200.0</controlfield>
 	<controlfield tag="008">960525u        xx |||m|| ||||0 || 0und d</controlfield>
@@ -42183,7 +42460,7 @@
 
 <record>
 	<leader>00823nas a22002777a 4500</leader>
-	<controlfield tag="001">REROILS:1600078</controlfield>
+	<controlfield tag="001">REROILS:2000079</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20190626190900.0</controlfield>
 	<controlfield tag="008">931123u        xx |||m|| ||||0 || 0und d</controlfield>
@@ -42236,11 +42513,11 @@
 		<subfield code="2">rdacarrier</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="339">
-		<subfield code="a">docmaintype_series</subfield>
+		<subfield code="a">docmaintype_comic</subfield>
+		<subfield code="b">docsubtype_comic</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="339">
-		<subfield code="a">docmaintype_comic</subfield>
-		<subfield code="b">docsubtype_manga</subfield>
+		<subfield code="a">docmaintype_series</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">[Bandes dessinées]</subfield>
@@ -42260,7 +42537,7 @@
 
 <record>
 	<leader>00600nas a22002297a 4500</leader>
-	<controlfield tag="001">REROILS:1600031</controlfield>
+	<controlfield tag="001">REROILS:2000031</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170518105900.0</controlfield>
 	<controlfield tag="008">960925u        xx |||m|| ||||0 || 0und d</controlfield>
@@ -42317,7 +42594,7 @@
 
 <record>
 	<leader>00798nas a22002657a 4500</leader>
-	<controlfield tag="001">REROILS:1600053</controlfield>
+	<controlfield tag="001">REROILS:2000053</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20190705132400.0</controlfield>
 	<controlfield tag="008">050413c19909999xx |||m|| ||||0 || 0und d</controlfield>
@@ -42394,7 +42671,7 @@
 
 <record>
 	<leader>01362nas a2200385 a 4500</leader>
-	<controlfield tag="001">REROILS:1600044</controlfield>
+	<controlfield tag="001">REROILS:2000044</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20181116192900.0</controlfield>
 	<controlfield tag="008">980526d19962007fr |||p|| ||||0 || 0fre d</controlfield>
@@ -42501,7 +42778,7 @@
 
 <record>
 	<leader>01782nas a22004577a 4500</leader>
-	<controlfield tag="001">REROILS:1600002</controlfield>
+	<controlfield tag="001">REROILS:2000002</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200710192700.0</controlfield>
 	<controlfield tag="008">000717         xx |||m|| ||||0 || 0und d</controlfield>
@@ -42601,7 +42878,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Autorenbücher</subfield>
-		<subfield code="w">REROILS:1600115</subfield>
+		<subfield code="w">REROILS:2000117</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">swissbibnomerge</subfield>
@@ -42623,7 +42900,7 @@
 
 <record>
 	<leader>00523nas a22002057a 4500</leader>
-	<controlfield tag="001">REROILS:1600041</controlfield>
+	<controlfield tag="001">REROILS:2000041</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170517120000.0</controlfield>
 	<controlfield tag="008">910330u        xx |||m|| ||||0 || 0und d</controlfield>
@@ -42673,7 +42950,7 @@
 
 <record>
 	<leader>00906nas a22002777a 4500</leader>
-	<controlfield tag="001">REROILS:1600073</controlfield>
+	<controlfield tag="001">REROILS:2000074</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170518092000.0</controlfield>
 	<controlfield tag="008">970603u        xx |||m|| ||||0 || 0fre d</controlfield>
@@ -42746,7 +43023,7 @@
 
 <record>
 	<leader>02500nas a2200733 a 4500</leader>
-	<controlfield tag="001">REROILS:1600092</controlfield>
+	<controlfield tag="001">REROILS:2000093</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201021123800.0</controlfield>
 	<controlfield tag="008">960525d19472016sz |||p|| ||||0 || 0ger d</controlfield>
@@ -42873,7 +43150,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Vierteljahresschrift für aargauische Rechtsprechung</subfield>
-		<subfield code="w">REROILS:1600038</subfield>
+		<subfield code="w">REROILS:2000038</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -42979,7 +43256,7 @@
 
 <record>
 	<leader>01798nas a2200373 a 4500</leader>
-	<controlfield tag="001">REROILS:1600107</controlfield>
+	<controlfield tag="001">REROILS:2000109</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201006003000.0</controlfield>
 	<controlfield tag="008">890609d19541958sz |||p|| ||||0 || 0ger d</controlfield>
@@ -43063,11 +43340,11 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Rorschachiana : aliorumque methodorum proiectione utentium acta = International review of Rorschach and other projective techniques = Internationale Zeitschrift für Rorschach-Forschung und andere projektive Methoden = Revue internationale de Rorschach et d'autres méthodes projectives</subfield>
-		<subfield code="w">REROILS:1600116</subfield>
+		<subfield code="w">REROILS:2000118</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Schweizerische Zeitschrift für Psychologie und ihre Anwendungen</subfield>
-		<subfield code="w">REROILS:1600019</subfield>
+		<subfield code="w">REROILS:2000019</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -43091,7 +43368,7 @@
 
 <record>
 	<leader>00753nas a2200265 a 4500</leader>
-	<controlfield tag="001">REROILS:1600115</controlfield>
+	<controlfield tag="001">REROILS:2000117</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200712014200.0</controlfield>
 	<controlfield tag="008">960525d19761986gw |||m|| ||||0 || 0ger d</controlfield>
@@ -43152,7 +43429,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Beck'sche Reihe</subfield>
-		<subfield code="w">REROILS:1600002</subfield>
+		<subfield code="w">REROILS:2000002</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -43164,7 +43441,7 @@
 
 <record>
 	<leader>01855nas a2200373 a 4500</leader>
-	<controlfield tag="001">REROILS:1600094</controlfield>
+	<controlfield tag="001">REROILS:2000096</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20180630144500.0</controlfield>
 	<controlfield tag="008">960525d19601972sz |||p|| ||||0 || 0fre d</controlfield>
@@ -43238,15 +43515,15 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Eau et santé : organe mensuel de la Commission franco-suisse pour la protection des eaux du Rhône contre les pollutions et de l'Association romande pour la protection des eaux</subfield>
-		<subfield code="w">REROILS:1600118</subfield>
+		<subfield code="w">REROILS:2000120</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Nature Information : magazine mensuel groupant les revues Pêcheur et chasseur suisse, Bulletin romand de mycologie, Eau, air, santé</subfield>
-		<subfield code="w">REROILS:1600117</subfield>
+		<subfield code="w">REROILS:2000119</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Bulletin de l'Association romande pour la protection des eaux et de l'air</subfield>
-		<subfield code="w">REROILS:1600010</subfield>
+		<subfield code="w">REROILS:2000010</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -43266,7 +43543,7 @@
 
 <record>
 	<leader>03084cas a2200841 a 4500</leader>
-	<controlfield tag="001">REROILS:1600097</controlfield>
+	<controlfield tag="001">REROILS:2000099</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201021124600.0</controlfield>
 	<controlfield tag="008">870923d18871952sz |||p|| ||||0 || 0ger d</controlfield>
@@ -43412,11 +43689,11 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="770">
 		<subfield code="t">Archives héraldiques suisses. Supplément = Schweizer Archiv für Heraldik. Beilage = Archivio araldico svizzero. [Supplemento]</subfield>
-		<subfield code="w">REROILS:1600119</subfield>
+		<subfield code="w">REROILS:2000121</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Archives héraldiques suisses. Annuaire</subfield>
-		<subfield code="w">REROILS:1600081</subfield>
+		<subfield code="w">REROILS:2000082</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Archives héraldiques suisses. Bulletin</subfield>
@@ -43524,7 +43801,7 @@
 
 <record>
 	<leader>01218nas a2200313 a 4500</leader>
-	<controlfield tag="001">REROILS:1600109</controlfield>
+	<controlfield tag="001">REROILS:2000111</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200824143900.0</controlfield>
 	<controlfield tag="008">860403d18451992xxu|||p|| ||||0 || 0eng d</controlfield>
@@ -43588,7 +43865,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Astronomical, magnetic and meteorological observations made during the year... at the United States Naval Observatory</subfield>
-		<subfield code="w">REROILS:1600020</subfield>
+		<subfield code="w">REROILS:2000020</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">swissbibnomerge</subfield>
@@ -43611,7 +43888,7 @@
 
 <record>
 	<leader>00938nas a2200289 a 4500</leader>
-	<controlfield tag="001">REROILS:1600102</controlfield>
+	<controlfield tag="001">REROILS:2000104</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200712175500.0</controlfield>
 	<controlfield tag="008">121106d19691983fr |||p|  ||||0 |  0fre d</controlfield>
@@ -43669,7 +43946,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Bulletin Saint Jean-Baptiste</subfield>
-		<subfield code="w">REROILS:1600074</subfield>
+		<subfield code="w">REROILS:2000075</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -43684,7 +43961,7 @@
 
 <record>
 	<leader>01379nam a2200421 aa4500</leader>
-	<controlfield tag="001">REROILS:1600098</controlfield>
+	<controlfield tag="001">REROILS:2000100</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20191208185200.0</controlfield>
 	<controlfield tag="008">900529m19261936gw |||||| ||||00|| |ger d</controlfield>
@@ -43809,7 +44086,7 @@
 
 <record>
 	<leader>01040nas a22002537a 4500</leader>
-	<controlfield tag="001">REROILS:1600110</controlfield>
+	<controlfield tag="001">REROILS:2000112</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200121123300.0</controlfield>
 	<controlfield tag="008">000802u        xx |||m|| ||||0 || 0und d</controlfield>
@@ -43874,385 +44151,8 @@
 </record>
 
 <record>
-	<leader>01451nas a2200385 a 4500</leader>
-	<controlfield tag="001">REROILS:1600108</controlfield>
-	<controlfield tag="003">RERO</controlfield>
-	<controlfield tag="005">20181116220200.0</controlfield>
-	<controlfield tag="008">861017d19861997gw |||p|| ||||0 || 0ger d</controlfield>
-	<datafield ind1=" " ind2=" " tag="035">
-		<subfield code="a">0764580</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="039">
-		<subfield code="b">0107</subfield>
-	</datafield>
-	<datafield ind1=" " ind2="9" tag="039">
-		<subfield code="a">201811162202</subfield>
-		<subfield code="b">VLOAD</subfield>
-		<subfield code="c">201706101404</subfield>
-		<subfield code="d">VLOAD</subfield>
-		<subfield code="c">200605282054</subfield>
-		<subfield code="d">VLOAD</subfield>
-		<subfield code="c">200410122026</subfield>
-		<subfield code="d">VLOAD</subfield>
-		<subfield code="y">1999022803500000</subfield>
-		<subfield code="z">load</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="040">
-		<subfield code="a">RERO frbcuc</subfield>
-	</datafield>
-	<datafield ind1=" " ind2="7" tag="072">
-		<subfield code="a">s1in</subfield>
-		<subfield code="2">rero</subfield>
-	</datafield>
-	<datafield ind1="0" ind2="0" tag="245">
-		<subfield code="a">Online :</subfield>
-		<subfield code="b">Journal für Informationsverarbeitung mit ÖVD : Organ des ADI - Anwenderverband Deutscher Informationsverarbeiter</subfield>
-	</datafield>
-	<datafield ind1=" " ind2="1" tag="264">
-		<subfield code="a">Köln :</subfield>
-		<subfield code="b">R. Müller</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="300">
-		<subfield code="c">30 cm</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="310">
-		<subfield code="a">Ersch. monatlich</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="336">
-		<subfield code="b">txt</subfield>
-		<subfield code="2">rdacontent</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="337">
-		<subfield code="b">n</subfield>
-		<subfield code="2">rdamedia</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="338">
-		<subfield code="b">nc</subfield>
-		<subfield code="2">rdacarrier</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="339">
-		<subfield code="a">docmaintype_serial</subfield>
-	</datafield>
-	<datafield ind1="0" ind2=" " tag="362">
-		<subfield code="a">1986 - 1997, Nr. 10</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="580">
-		<subfield code="a">Früher: ÖVD Online/adI</subfield>
-	</datafield>
-	<datafield ind1=" " ind2="7" tag="650">
-		<subfield code="a">Administration publique</subfield>
-		<subfield code="2">rero</subfield>
-	</datafield>
-	<datafield ind1=" " ind2="7" tag="650">
-		<subfield code="a">Informatique</subfield>
-		<subfield code="2">rero</subfield>
-	</datafield>
-	<datafield ind1=" " ind2="7" tag="651">
-		<subfield code="a">Allemagne fédérale</subfield>
-		<subfield code="2">rero</subfield>
-	</datafield>
-	<datafield ind1=" " ind2="7" tag="655">
-		<subfield code="a">[Périodiques]</subfield>
-		<subfield code="2">rero</subfield>
-	</datafield>
-	<datafield ind1="2" ind2=" " tag="710">
-		<subfield code="a">Anwenderverband Deutscher Informationsverarbeiter</subfield>
-	</datafield>
-	<datafield ind1="1" ind2="0" tag="780">
-		<subfield code="t">ÖVD Online/adI : öffentliche Verwaltung und Datenverarbeitung : Organ des ADI - Anwenderverband Deutscher Informationsverarbeiter</subfield>
-		<subfield code="w">REROILS:1600047</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="900">
-		<subfield code="a">noselfmerge</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="919">
-		<subfield code="9">650 _7</subfield>
-		<subfield code="a">administration publique</subfield>
-		<subfield code="x">informatique</subfield>
-		<subfield code="v">[périodique]</subfield>
-		<subfield code="2">chrero</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="919">
-		<subfield code="9">650 _7</subfield>
-		<subfield code="a">administration publique</subfield>
-		<subfield code="x">informatique</subfield>
-		<subfield code="z">Allemagne fédérale</subfield>
-		<subfield code="v">[périodique]</subfield>
-		<subfield code="2">chrero</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="956">
-		<subfield code="a">frbcuc</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="980">
-		<subfield code="2">dr-sys</subfield>
-		<subfield code="a">CA/D 40 f</subfield>
-	</datafield>
-</record>
-
-<record>
-	<leader>02757nas a2200661 a 4500</leader>
-	<controlfield tag="001">REROILS:1600105</controlfield>
-	<controlfield tag="003">RERO</controlfield>
-	<controlfield tag="005">20201021124700.0</controlfield>
-	<controlfield tag="008">880427d19671986sz |||p|| ||||0 || 0ger d</controlfield>
-	<datafield ind1=" " ind2=" " tag="022">
-		<subfield code="a">0036-7869</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="035">
-		<subfield code="a">0969994</subfield>
-	</datafield>
-	<datafield ind1=" " ind2="9" tag="039">
-		<subfield code="a">202010211247</subfield>
-		<subfield code="b">VLOAD</subfield>
-		<subfield code="c">202009231615</subfield>
-		<subfield code="d">5008</subfield>
-		<subfield code="c">202007122024</subfield>
-		<subfield code="d">VLOAD</subfield>
-		<subfield code="c">202004081420</subfield>
-		<subfield code="d">1548</subfield>
-		<subfield code="y">1999022808370000</subfield>
-		<subfield code="z">load</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="040">
-		<subfield code="a">RERO frbcuc</subfield>
-	</datafield>
-	<datafield ind1="0" ind2=" " tag="041">
-		<subfield code="a">ger</subfield>
-		<subfield code="a">fre</subfield>
-	</datafield>
-	<datafield ind1=" " ind2="7" tag="072">
-		<subfield code="a">s1ps</subfield>
-		<subfield code="2">rero</subfield>
-	</datafield>
-	<datafield ind1="0" ind2=" " tag="130">
-		<subfield code="a">Psychologie.</subfield>
-		<subfield code="p">Huber</subfield>
-	</datafield>
-	<datafield ind1="1" ind2="0" tag="245">
-		<subfield code="a">Psychologie :</subfield>
-		<subfield code="b">schweizerische Zeitschrift für Psychologie und ihre Anwendungen /</subfield>
-		<subfield code="c">hrsg. von der Schweizerischen Gesellschaft für Psychologie und ihre Anwendungen = revue suisse de psychologie pure et appliquée / éd. par la Société suisse de psychologie et psychologie appliquée</subfield>
-	</datafield>
-	<datafield ind1=" " ind2="1" tag="264">
-		<subfield code="a">Bern ;</subfield>
-		<subfield code="a">Stuttgart [etc.] :</subfield>
-		<subfield code="b">H. Huber</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="300">
-		<subfield code="c">23 cm</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="310">
-		<subfield code="a">Vierteljährlich</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="336">
-		<subfield code="b">txt</subfield>
-		<subfield code="2">rdacontent</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="337">
-		<subfield code="b">n</subfield>
-		<subfield code="2">rdamedia</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="338">
-		<subfield code="b">nc</subfield>
-		<subfield code="2">rdacarrier</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="339">
-		<subfield code="a">docmaintype_serial</subfield>
-	</datafield>
-	<datafield ind1="0" ind2=" " tag="362">
-		<subfield code="a">Bd. 26, H. 3(1967) - Bd. 45(1986)</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="580">
-		<subfield code="a">Früher: Schweizerische Zeitschrift für Psychologie und ihre Anwendungen. Später: Schweizerische Zeitschrift für Psychologie</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="580">
-		<subfield code="a">Suppl. 1967-1974: Szondiana</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="580">
-		<subfield code="a">Suppl.: Beiheft zur Schweizerischen Zeitschrift für Psychologie und ihre Anwendungen = Supplément de la Revue suisse de psychologie et de psychologie appliquée</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="580">
-		<subfield code="a">Suppl.: Rorschachiana</subfield>
-	</datafield>
-	<datafield ind1=" " ind2="7" tag="650">
-		<subfield code="a">Psychologie</subfield>
-		<subfield code="2">rero</subfield>
-	</datafield>
-	<datafield ind1=" " ind2="7" tag="650">
-		<subfield code="a">Psychologie</subfield>
-		<subfield code="2">jurivoc</subfield>
-		<subfield code="9">ger</subfield>
-	</datafield>
-	<datafield ind1=" " ind2="7" tag="655">
-		<subfield code="a">[Périodiques]</subfield>
-		<subfield code="2">rero</subfield>
-	</datafield>
-	<datafield ind1="2" ind2=" " tag="710">
-		<subfield code="a">Société suisse de psychologie et de psychologie appliquée</subfield>
-		<subfield code="4">edt</subfield>
-	</datafield>
-	<datafield ind1="1" ind2=" " tag="770">
-		<subfield code="t">Beiheft zur Schweizerischen Zeitschrift für Psychologie und ihre Anwendungen</subfield>
-	</datafield>
-	<datafield ind1="1" ind2=" " tag="770">
-		<subfield code="t">Rorschachiana</subfield>
-	</datafield>
-	<datafield ind1="1" ind2=" " tag="770">
-		<subfield code="t">Supplément de la Revue suisse de psychologie et de psychologie appliquée</subfield>
-	</datafield>
-	<datafield ind1="1" ind2=" " tag="770">
-		<subfield code="t">Szondiana</subfield>
-		<subfield code="w">REROILS:1600121</subfield>
-	</datafield>
-	<datafield ind1="1" ind2="0" tag="780">
-		<subfield code="t">Schweizerische Zeitschrift für Psychologie und ihre Anwendungen</subfield>
-		<subfield code="w">REROILS:1600019</subfield>
-	</datafield>
-	<datafield ind1="1" ind2="0" tag="780">
-		<subfield code="t">Revue suisse de psychologie et de psychologie appliquée</subfield>
-	</datafield>
-	<datafield ind1="1" ind2="0" tag="785">
-		<subfield code="t">Schweizerische Zeitschrift für Psychologie</subfield>
-		<subfield code="w">REROILS:1600120</subfield>
-	</datafield>
-	<datafield ind1="1" ind2="0" tag="785">
-		<subfield code="t">Revue suisse de psychologie</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="900">
-		<subfield code="a">noselfmerge</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="901">
-		<subfield code="a">frpse</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="903">
-		<subfield code="a">tflabg07P52</subfield>
-		<subfield code="b">200411</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="903">
-		<subfield code="a">tflap</subfield>
-		<subfield code="b">0</subfield>
-		<subfield code="c">CH02</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="919">
-		<subfield code="9">650 _7</subfield>
-		<subfield code="a">psychologie</subfield>
-		<subfield code="v">[périodique]</subfield>
-		<subfield code="2">chrero</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="948">
-		<subfield code="a">Bd. 38(1979), H. 2 + 4</subfield>
-		<subfield code="9">iftfla</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="953">
-		<subfield code="a">iftfla</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="956">
-		<subfield code="a">frbcuc</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="957">
-		<subfield code="a">geufpe gevbge</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="960">
-		<subfield code="a">jusad-</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="962">
-		<subfield code="a">nebpun neusfs</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="973">
-		<subfield code="a">vsbasm</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="983">
-		<subfield code="2">iftfla</subfield>
-		<subfield code="a">TFLa P 8/173</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="992">
-		<subfield code="a">FPEP 479</subfield>
-		<subfield code="x">ge/ufpe/a</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="992">
-		<subfield code="a">BGE CB 1427</subfield>
-		<subfield code="x">ge/vbge/a/45/4738</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="994">
-		<subfield code="a">NP PU 363</subfield>
-		<subfield code="x">ne/bpun/a Bd. 26, H. 3(1967) - Bd. 45(1986)</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="994">
-		<subfield code="a">YR 14</subfield>
-		<subfield code="x">ne/uses/d/ Bd. 26, H. 3(1967) - Bd. 45(1986) [Lacunes.]</subfield>
-	</datafield>
-</record>
-
-<record>
-	<leader>00874nas a22002777a 4500</leader>
-	<controlfield tag="001">REROILS:1600103</controlfield>
-	<controlfield tag="003">RERO</controlfield>
-	<controlfield tag="005">20170520151500.0</controlfield>
-	<controlfield tag="008">150430         fr |||m|  ||||0 |  0fre d</controlfield>
-	<datafield ind1=" " ind2=" " tag="035">
-		<subfield code="a">R008136208</subfield>
-	</datafield>
-	<datafield ind1=" " ind2="9" tag="039">
-		<subfield code="a">201705201515</subfield>
-		<subfield code="b">VLOAD</subfield>
-		<subfield code="c">201507091023</subfield>
-		<subfield code="d">VLOAD</subfield>
-		<subfield code="y">201504301004</subfield>
-		<subfield code="z">1548</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="040">
-		<subfield code="a">RERO vsbasm</subfield>
-	</datafield>
-	<datafield ind1=" " ind2="7" tag="072">
-		<subfield code="a">s1th</subfield>
-		<subfield code="2">rero</subfield>
-	</datafield>
-	<datafield ind1="0" ind2="0" tag="245">
-		<subfield code="a">Bulletin du Cercle Saint Jean-Baptiste</subfield>
-	</datafield>
-	<datafield ind1=" " ind2="1" tag="264">
-		<subfield code="a">Paris :</subfield>
-		<subfield code="b">Cercle Saint Jean-Baptiste</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="336">
-		<subfield code="b">txt</subfield>
-		<subfield code="2">rdacontent</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="337">
-		<subfield code="b">n</subfield>
-		<subfield code="2">rdamedia</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="338">
-		<subfield code="b">nc</subfield>
-		<subfield code="2">rdacarrier</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="339">
-		<subfield code="a">docmaintype_series</subfield>
-	</datafield>
-	<datafield ind1="0" ind2=" " tag="362">
-		<subfield code="a">No 1(oct-nov. 1960) - 32(Juin-juil. 1964)</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="580">
-		<subfield code="a">Devient : Bulletin Saint Jean-Baptiste</subfield>
-	</datafield>
-	<datafield ind1="2" ind2=" " tag="710">
-		<subfield code="a">Cercle Saint Jean-Baptiste</subfield>
-	</datafield>
-	<datafield ind1="1" ind2="0" tag="785">
-		<subfield code="t">Bulletin Saint Jean-Baptiste</subfield>
-		<subfield code="w">REROILS:1600074</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="900">
-		<subfield code="a">noselfmerge</subfield>
-	</datafield>
-	<datafield ind1=" " ind2=" " tag="973">
-		<subfield code="a">vsbasm</subfield>
-	</datafield>
-</record>
-
-<record>
 	<leader>03240nas a2200829 a 4500</leader>
-	<controlfield tag="001">REROILS:1600096</controlfield>
+	<controlfield tag="001">REROILS:2000098</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201021124800.0</controlfield>
 	<controlfield tag="008">010122c19879999sz |||p|| ||||0 || 0ger d</controlfield>
@@ -44411,15 +44311,15 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="776">
 		<subfield code="t">Archives héraldiques suisses</subfield>
-		<subfield code="w">REROILS:1600096</subfield>
+		<subfield code="w">REROILS:2000098</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Archives héraldiques suisses. Annuaire</subfield>
-		<subfield code="w">REROILS:1600081</subfield>
+		<subfield code="w">REROILS:2000082</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Archivum heraldicum : internationales Bulletin : bulletin international = bollettino internazionale</subfield>
-		<subfield code="w">REROILS:1600122</subfield>
+		<subfield code="w">REROILS:2000122</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -44516,8 +44416,475 @@
 </record>
 
 <record>
+	<leader>02757nas a2200661 a 4500</leader>
+	<controlfield tag="001">REROILS:2000107</controlfield>
+	<controlfield tag="003">RERO</controlfield>
+	<controlfield tag="005">20201021124700.0</controlfield>
+	<controlfield tag="008">880427d19671986sz |||p|| ||||0 || 0ger d</controlfield>
+	<datafield ind1=" " ind2=" " tag="022">
+		<subfield code="a">0036-7869</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="035">
+		<subfield code="a">0969994</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="9" tag="039">
+		<subfield code="a">202010211247</subfield>
+		<subfield code="b">VLOAD</subfield>
+		<subfield code="c">202009231615</subfield>
+		<subfield code="d">5008</subfield>
+		<subfield code="c">202007122024</subfield>
+		<subfield code="d">VLOAD</subfield>
+		<subfield code="c">202004081420</subfield>
+		<subfield code="d">1548</subfield>
+		<subfield code="y">1999022808370000</subfield>
+		<subfield code="z">load</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="040">
+		<subfield code="a">RERO frbcuc</subfield>
+	</datafield>
+	<datafield ind1="0" ind2=" " tag="041">
+		<subfield code="a">ger</subfield>
+		<subfield code="a">fre</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="072">
+		<subfield code="a">s1ps</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1="0" ind2=" " tag="130">
+		<subfield code="a">Psychologie.</subfield>
+		<subfield code="p">Huber</subfield>
+	</datafield>
+	<datafield ind1="1" ind2="0" tag="245">
+		<subfield code="a">Psychologie :</subfield>
+		<subfield code="b">schweizerische Zeitschrift für Psychologie und ihre Anwendungen /</subfield>
+		<subfield code="c">hrsg. von der Schweizerischen Gesellschaft für Psychologie und ihre Anwendungen = revue suisse de psychologie pure et appliquée / éd. par la Société suisse de psychologie et psychologie appliquée</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="1" tag="264">
+		<subfield code="a">Bern ;</subfield>
+		<subfield code="a">Stuttgart [etc.] :</subfield>
+		<subfield code="b">H. Huber</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="300">
+		<subfield code="c">23 cm</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="310">
+		<subfield code="a">Vierteljährlich</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="336">
+		<subfield code="b">txt</subfield>
+		<subfield code="2">rdacontent</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="337">
+		<subfield code="b">n</subfield>
+		<subfield code="2">rdamedia</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="338">
+		<subfield code="b">nc</subfield>
+		<subfield code="2">rdacarrier</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="339">
+		<subfield code="a">docmaintype_serial</subfield>
+	</datafield>
+	<datafield ind1="0" ind2=" " tag="362">
+		<subfield code="a">Bd. 26, H. 3(1967) - Bd. 45(1986)</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="580">
+		<subfield code="a">Früher: Schweizerische Zeitschrift für Psychologie und ihre Anwendungen. Später: Schweizerische Zeitschrift für Psychologie</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="580">
+		<subfield code="a">Suppl. 1967-1974: Szondiana</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="580">
+		<subfield code="a">Suppl.: Beiheft zur Schweizerischen Zeitschrift für Psychologie und ihre Anwendungen = Supplément de la Revue suisse de psychologie et de psychologie appliquée</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="580">
+		<subfield code="a">Suppl.: Rorschachiana</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="650">
+		<subfield code="a">Psychologie</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="650">
+		<subfield code="a">Psychologie</subfield>
+		<subfield code="2">jurivoc</subfield>
+		<subfield code="9">ger</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="655">
+		<subfield code="a">[Périodiques]</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1="2" ind2=" " tag="710">
+		<subfield code="a">Société suisse de psychologie et de psychologie appliquée</subfield>
+		<subfield code="4">edt</subfield>
+	</datafield>
+	<datafield ind1="1" ind2=" " tag="770">
+		<subfield code="t">Beiheft zur Schweizerischen Zeitschrift für Psychologie und ihre Anwendungen</subfield>
+	</datafield>
+	<datafield ind1="1" ind2=" " tag="770">
+		<subfield code="t">Rorschachiana</subfield>
+	</datafield>
+	<datafield ind1="1" ind2=" " tag="770">
+		<subfield code="t">Supplément de la Revue suisse de psychologie et de psychologie appliquée</subfield>
+	</datafield>
+	<datafield ind1="1" ind2=" " tag="770">
+		<subfield code="t">Szondiana</subfield>
+		<subfield code="w">REROILS:2000124</subfield>
+	</datafield>
+	<datafield ind1="1" ind2="0" tag="780">
+		<subfield code="t">Schweizerische Zeitschrift für Psychologie und ihre Anwendungen</subfield>
+		<subfield code="w">REROILS:2000019</subfield>
+	</datafield>
+	<datafield ind1="1" ind2="0" tag="780">
+		<subfield code="t">Revue suisse de psychologie et de psychologie appliquée</subfield>
+	</datafield>
+	<datafield ind1="1" ind2="0" tag="785">
+		<subfield code="t">Schweizerische Zeitschrift für Psychologie</subfield>
+		<subfield code="w">REROILS:2000123</subfield>
+	</datafield>
+	<datafield ind1="1" ind2="0" tag="785">
+		<subfield code="t">Revue suisse de psychologie</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="900">
+		<subfield code="a">noselfmerge</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="901">
+		<subfield code="a">frpse</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="903">
+		<subfield code="a">tflabg07P52</subfield>
+		<subfield code="b">200411</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="903">
+		<subfield code="a">tflap</subfield>
+		<subfield code="b">0</subfield>
+		<subfield code="c">CH02</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="919">
+		<subfield code="9">650 _7</subfield>
+		<subfield code="a">psychologie</subfield>
+		<subfield code="v">[périodique]</subfield>
+		<subfield code="2">chrero</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="948">
+		<subfield code="a">Bd. 38(1979), H. 2 + 4</subfield>
+		<subfield code="9">iftfla</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="953">
+		<subfield code="a">iftfla</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="956">
+		<subfield code="a">frbcuc</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="957">
+		<subfield code="a">geufpe gevbge</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="960">
+		<subfield code="a">jusad-</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="962">
+		<subfield code="a">nebpun neusfs</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="973">
+		<subfield code="a">vsbasm</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="983">
+		<subfield code="2">iftfla</subfield>
+		<subfield code="a">TFLa P 8/173</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="992">
+		<subfield code="a">FPEP 479</subfield>
+		<subfield code="x">ge/ufpe/a</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="992">
+		<subfield code="a">BGE CB 1427</subfield>
+		<subfield code="x">ge/vbge/a/45/4738</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="994">
+		<subfield code="a">NP PU 363</subfield>
+		<subfield code="x">ne/bpun/a Bd. 26, H. 3(1967) - Bd. 45(1986)</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="994">
+		<subfield code="a">YR 14</subfield>
+		<subfield code="x">ne/uses/d/ Bd. 26, H. 3(1967) - Bd. 45(1986) [Lacunes.]</subfield>
+	</datafield>
+</record>
+
+<record>
+	<leader>01451nas a2200385 a 4500</leader>
+	<controlfield tag="001">REROILS:2000110</controlfield>
+	<controlfield tag="003">RERO</controlfield>
+	<controlfield tag="005">20181116220200.0</controlfield>
+	<controlfield tag="008">861017d19861997gw |||p|| ||||0 || 0ger d</controlfield>
+	<datafield ind1=" " ind2=" " tag="035">
+		<subfield code="a">0764580</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="039">
+		<subfield code="b">0107</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="9" tag="039">
+		<subfield code="a">201811162202</subfield>
+		<subfield code="b">VLOAD</subfield>
+		<subfield code="c">201706101404</subfield>
+		<subfield code="d">VLOAD</subfield>
+		<subfield code="c">200605282054</subfield>
+		<subfield code="d">VLOAD</subfield>
+		<subfield code="c">200410122026</subfield>
+		<subfield code="d">VLOAD</subfield>
+		<subfield code="y">1999022803500000</subfield>
+		<subfield code="z">load</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="040">
+		<subfield code="a">RERO frbcuc</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="072">
+		<subfield code="a">s1in</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1="0" ind2="0" tag="245">
+		<subfield code="a">Online :</subfield>
+		<subfield code="b">Journal für Informationsverarbeitung mit ÖVD : Organ des ADI - Anwenderverband Deutscher Informationsverarbeiter</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="1" tag="264">
+		<subfield code="a">Köln :</subfield>
+		<subfield code="b">R. Müller</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="300">
+		<subfield code="c">30 cm</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="310">
+		<subfield code="a">Ersch. monatlich</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="336">
+		<subfield code="b">txt</subfield>
+		<subfield code="2">rdacontent</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="337">
+		<subfield code="b">n</subfield>
+		<subfield code="2">rdamedia</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="338">
+		<subfield code="b">nc</subfield>
+		<subfield code="2">rdacarrier</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="339">
+		<subfield code="a">docmaintype_serial</subfield>
+	</datafield>
+	<datafield ind1="0" ind2=" " tag="362">
+		<subfield code="a">1986 - 1997, Nr. 10</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="580">
+		<subfield code="a">Früher: ÖVD Online/adI</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="650">
+		<subfield code="a">Administration publique</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="650">
+		<subfield code="a">Informatique</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="651">
+		<subfield code="a">Allemagne fédérale</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="655">
+		<subfield code="a">[Périodiques]</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1="2" ind2=" " tag="710">
+		<subfield code="a">Anwenderverband Deutscher Informationsverarbeiter</subfield>
+	</datafield>
+	<datafield ind1="1" ind2="0" tag="780">
+		<subfield code="t">ÖVD Online/adI : öffentliche Verwaltung und Datenverarbeitung : Organ des ADI - Anwenderverband Deutscher Informationsverarbeiter</subfield>
+		<subfield code="w">REROILS:2000047</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="900">
+		<subfield code="a">noselfmerge</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="919">
+		<subfield code="9">650 _7</subfield>
+		<subfield code="a">administration publique</subfield>
+		<subfield code="x">informatique</subfield>
+		<subfield code="v">[périodique]</subfield>
+		<subfield code="2">chrero</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="919">
+		<subfield code="9">650 _7</subfield>
+		<subfield code="a">administration publique</subfield>
+		<subfield code="x">informatique</subfield>
+		<subfield code="z">Allemagne fédérale</subfield>
+		<subfield code="v">[périodique]</subfield>
+		<subfield code="2">chrero</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="956">
+		<subfield code="a">frbcuc</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="980">
+		<subfield code="2">dr-sys</subfield>
+		<subfield code="a">CA/D 40 f</subfield>
+	</datafield>
+</record>
+
+<record>
+	<leader>00874nas a22002777a 4500</leader>
+	<controlfield tag="001">REROILS:2000105</controlfield>
+	<controlfield tag="003">RERO</controlfield>
+	<controlfield tag="005">20170520151500.0</controlfield>
+	<controlfield tag="008">150430         fr |||m|  ||||0 |  0fre d</controlfield>
+	<datafield ind1=" " ind2=" " tag="035">
+		<subfield code="a">R008136208</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="9" tag="039">
+		<subfield code="a">201705201515</subfield>
+		<subfield code="b">VLOAD</subfield>
+		<subfield code="c">201507091023</subfield>
+		<subfield code="d">VLOAD</subfield>
+		<subfield code="y">201504301004</subfield>
+		<subfield code="z">1548</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="040">
+		<subfield code="a">RERO vsbasm</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="072">
+		<subfield code="a">s1th</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1="0" ind2="0" tag="245">
+		<subfield code="a">Bulletin du Cercle Saint Jean-Baptiste</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="1" tag="264">
+		<subfield code="a">Paris :</subfield>
+		<subfield code="b">Cercle Saint Jean-Baptiste</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="336">
+		<subfield code="b">txt</subfield>
+		<subfield code="2">rdacontent</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="337">
+		<subfield code="b">n</subfield>
+		<subfield code="2">rdamedia</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="338">
+		<subfield code="b">nc</subfield>
+		<subfield code="2">rdacarrier</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="339">
+		<subfield code="a">docmaintype_series</subfield>
+	</datafield>
+	<datafield ind1="0" ind2=" " tag="362">
+		<subfield code="a">No 1(oct-nov. 1960) - 32(Juin-juil. 1964)</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="580">
+		<subfield code="a">Devient : Bulletin Saint Jean-Baptiste</subfield>
+	</datafield>
+	<datafield ind1="2" ind2=" " tag="710">
+		<subfield code="a">Cercle Saint Jean-Baptiste</subfield>
+	</datafield>
+	<datafield ind1="1" ind2="0" tag="785">
+		<subfield code="t">Bulletin Saint Jean-Baptiste</subfield>
+		<subfield code="w">REROILS:2000075</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="900">
+		<subfield code="a">noselfmerge</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="973">
+		<subfield code="a">vsbasm</subfield>
+	</datafield>
+</record>
+
+<record>
+	<leader>01141nas a2200325 a 4500</leader>
+	<controlfield tag="001">REROILS:2000106</controlfield>
+	<controlfield tag="003">RERO</controlfield>
+	<controlfield tag="005">20200710134100.0</controlfield>
+	<controlfield tag="008">960525d19591968xxu|||p|| ||||0 || 0eng d</controlfield>
+	<datafield ind1=" " ind2=" " tag="035">
+		<subfield code="a">0277121</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="9" tag="039">
+		<subfield code="a">202007101341</subfield>
+		<subfield code="b">VLOAD</subfield>
+		<subfield code="c">201812081039</subfield>
+		<subfield code="d">VLOAD</subfield>
+		<subfield code="c">201811162016</subfield>
+		<subfield code="d">VLOAD</subfield>
+		<subfield code="c">201706101721</subfield>
+		<subfield code="d">VLOAD</subfield>
+		<subfield code="y">1999022716410000</subfield>
+		<subfield code="z">load</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="040">
+		<subfield code="a">RERO</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="072">
+		<subfield code="a">s1th</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1="0" ind2="0" tag="245">
+		<subfield code="a">St. Vladimir's seminary quarterly /</subfield>
+		<subfield code="c">publ. by the Faculty of St. Vladimir's Orthodox Theological Seminary</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="1" tag="264">
+		<subfield code="a">New York ;</subfield>
+		<subfield code="a">[then] Crestwood NY</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="300">
+		<subfield code="c">23 cm</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="336">
+		<subfield code="b">txt</subfield>
+		<subfield code="2">rdacontent</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="337">
+		<subfield code="b">n</subfield>
+		<subfield code="2">rdamedia</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="338">
+		<subfield code="b">nc</subfield>
+		<subfield code="2">rdacarrier</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="339">
+		<subfield code="a">docmaintype_serial</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="580">
+		<subfield code="a">Devient: St. Vladimir's theological quarterly</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="650">
+		<subfield code="a">Théologie orthodoxe</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="655">
+		<subfield code="a">[Périodiques]</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1="2" ind2=" " tag="710">
+		<subfield code="a">Saint Vladimir's Orthodox Theological Seminary (Crestwood NY)</subfield>
+		<subfield code="0">(IDREF)235593176</subfield>
+	</datafield>
+	<datafield ind1="1" ind2="0" tag="785">
+		<subfield code="t">St. Vladimir's theological quarterly</subfield>
+		<subfield code="w">REROILS:2000039</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="900">
+		<subfield code="a">noselfmerge</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="919">
+		<subfield code="9">650 _7</subfield>
+		<subfield code="a">théologie orthodoxe</subfield>
+		<subfield code="v">[périodique]</subfield>
+		<subfield code="2">chrero</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="956">
+		<subfield code="a">frbcuc</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="957">
+		<subfield code="a">gewcc-</subfield>
+	</datafield>
+</record>
+
+<record>
 	<leader>01140cas a22002897a 4500</leader>
-	<controlfield tag="001">REROILS:1600100</controlfield>
+	<controlfield tag="001">REROILS:2000102</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200121204300.0</controlfield>
 	<controlfield tag="008">911108u        xx |||m|| ||||0 || 0und d</controlfield>
@@ -44584,7 +44951,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="775">
 		<subfield code="t">Travaux de recherche / Institut des Nations Unies pour la recherche sur le désarmement</subfield>
-		<subfield code="w">REROILS:1600004</subfield>
+		<subfield code="w">REROILS:2000004</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -44596,7 +44963,7 @@
 
 <record>
 	<leader>01235nas a2200325 a 4500</leader>
-	<controlfield tag="001">REROILS:1600088</controlfield>
+	<controlfield tag="001">REROILS:2000089</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170517133200.0</controlfield>
 	<controlfield tag="008">910828d18511867xxu|||p|| ||||0 || 0eng d</controlfield>
@@ -44666,7 +45033,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Astronomical and meteorological observations made during the year... at the United States Naval Observatory</subfield>
-		<subfield code="w">REROILS:1600021</subfield>
+		<subfield code="w">REROILS:2000021</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -44686,7 +45053,7 @@
 
 <record>
 	<leader>03222cas a2200853 a 4500</leader>
-	<controlfield tag="001">REROILS:1600111</controlfield>
+	<controlfield tag="001">REROILS:2000113</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200710195700.0</controlfield>
 	<controlfield tag="008">000816c19829999sz |||p|| ||||1 || 0ger d</controlfield>
@@ -44816,7 +45183,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="775">
 		<subfield code="t">Journées du droit de la circulation routière</subfield>
-		<subfield code="w">REROILS:1600067</subfield>
+		<subfield code="w">REROILS:2000067</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">bdscumul</subfield>
@@ -44961,7 +45328,7 @@
 
 <record>
 	<leader>01721nas a2200445 a 4500</leader>
-	<controlfield tag="001">REROILS:1600089</controlfield>
+	<controlfield tag="001">REROILS:2000090</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20181116191400.0</controlfield>
 	<controlfield tag="008">901122d19892006sz |||m|| ||||0 || 0fre d</controlfield>
@@ -45058,7 +45425,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="775">
 		<subfield code="t">Ethnologische Reihe</subfield>
-		<subfield code="w">REROILS:1600090</subfield>
+		<subfield code="w">REROILS:2000091</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Cahiers du Musée d'histoire du Valais</subfield>
@@ -45090,7 +45457,7 @@
 
 <record>
 	<leader>00612nas a22002177a 4500</leader>
-	<controlfield tag="001">REROILS:1600091</controlfield>
+	<controlfield tag="001">REROILS:2000092</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170517091800.0</controlfield>
 	<controlfield tag="008">900823u        xx |||m|| ||||0 || 0und d</controlfield>
@@ -45143,7 +45510,7 @@
 
 <record>
 	<leader>01919nam a22005052a 4500</leader>
-	<controlfield tag="001">REROILS:1600093</controlfield>
+	<controlfield tag="001">REROILS:2000094</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200712152400.0</controlfield>
 	<controlfield tag="008">970725m18721901sz ||| |  ||||00|  |ger d</controlfield>
@@ -45295,7 +45662,7 @@
 
 <record>
 	<leader>01060nas a2200313 a 4500</leader>
-	<controlfield tag="001">REROILS:1600113</controlfield>
+	<controlfield tag="001">REROILS:2000115</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170518121800.0</controlfield>
 	<controlfield tag="008">030313u        sz |||p|| ||||0 || 0ger d</controlfield>
@@ -45355,11 +45722,11 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="777">
 		<subfield code="t">Jahrbuch der Gesellschaft für Schweizerische Theaterkultur</subfield>
-		<subfield code="w">REROILS:1600112</subfield>
+		<subfield code="w">REROILS:2000114</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="777">
 		<subfield code="t">Schweizer Theaterjahrbuch</subfield>
-		<subfield code="w">REROILS:1600051</subfield>
+		<subfield code="w">REROILS:2000051</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -45371,7 +45738,7 @@
 
 <record>
 	<leader>02283nas a2200529 a 4500</leader>
-	<controlfield tag="001">REROILS:1600106</controlfield>
+	<controlfield tag="001">REROILS:2000108</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200713082300.0</controlfield>
 	<controlfield tag="008">000829d19431990sz |||p|| ||||0 || 0ger d</controlfield>
@@ -45480,19 +45847,19 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="772">
 		<subfield code="t">Schweizerische Zeitschrift für Psychologie und ihre Anwendungen</subfield>
-		<subfield code="w">REROILS:1600019</subfield>
+		<subfield code="w">REROILS:2000019</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="777">
 		<subfield code="t">Graphologia</subfield>
-		<subfield code="w">REROILS:1600123</subfield>
+		<subfield code="w">REROILS:2000125</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="777">
 		<subfield code="t">Rorschachiana : yearbook of the International Rorschach Society</subfield>
-		<subfield code="w">REROILS:1600124</subfield>
+		<subfield code="w">REROILS:2000126</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="777">
 		<subfield code="t">Szondiana</subfield>
-		<subfield code="w">REROILS:1600121</subfield>
+		<subfield code="w">REROILS:2000124</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -45530,7 +45897,7 @@
 
 <record>
 	<leader>02961cas a2200805 a 4500</leader>
-	<controlfield tag="001">REROILS:1600101</controlfield>
+	<controlfield tag="001">REROILS:2000103</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201021123600.0</controlfield>
 	<controlfield tag="008">000927d19121929sz |||p|| ||||0 || 0fre d</controlfield>
@@ -45655,11 +46022,11 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Journal des tribunaux et revue judiciaire. Poursuite pour dettes et droit cantonal</subfield>
-		<subfield code="w">REROILS:1600125</subfield>
+		<subfield code="w">REROILS:2000127</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Journal des tribunaux (Lausanne : 1930). 2, Poursuite pour dettes</subfield>
-		<subfield code="w">REROILS:1600022</subfield>
+		<subfield code="w">REROILS:2000022</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -45799,7 +46166,7 @@
 
 <record>
 	<leader>00960nas a22002657a 4500</leader>
-	<controlfield tag="001">REROILS:1600114</controlfield>
+	<controlfield tag="001">REROILS:2000116</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20190705125700.0</controlfield>
 	<controlfield tag="008">140307c20139999it |||m|| ||||0 || 0ita d</controlfield>
@@ -45854,7 +46221,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Pubblicazioni della Facoltà di giurisprudenza, Università di Macerata</subfield>
-		<subfield code="w">REROILS:1600086</subfield>
+		<subfield code="w">REROILS:2000087</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -45866,7 +46233,7 @@
 
 <record>
 	<leader>01207nas a2200325 a 4500</leader>
-	<controlfield tag="001">REROILS:1600095</controlfield>
+	<controlfield tag="001">REROILS:2000097</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20180630200700.0</controlfield>
 	<controlfield tag="008">000809d19591966sz |||m|  ||||0 || 0fre d</controlfield>
@@ -45937,15 +46304,15 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Bulletin de la Cinémathèque Suisse</subfield>
-		<subfield code="w">REROILS:1600127</subfield>
+		<subfield code="w">REROILS:2000129</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Travelling. Cinémathèque suisse</subfield>
-		<subfield code="w">REROILS:1600058</subfield>
+		<subfield code="w">REROILS:2000058</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Documents publiés par la Cinémathèque suisse, Lausanne</subfield>
-		<subfield code="w">REROILS:1600126</subfield>
+		<subfield code="w">REROILS:2000128</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -45961,7 +46328,7 @@
 
 <record>
 	<leader>01822nas a2200469 a 4500</leader>
-	<controlfield tag="001">REROILS:1600090</controlfield>
+	<controlfield tag="001">REROILS:2000091</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20190705135500.0</controlfield>
 	<controlfield tag="008">901122c19899999sz |||m|| ||||0 || 0ger d</controlfield>
@@ -46034,7 +46401,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="775">
 		<subfield code="t">Cahiers d'ethnologie valaisanne</subfield>
-		<subfield code="w">REROILS:1600089</subfield>
+		<subfield code="w">REROILS:2000090</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -46097,98 +46464,156 @@
 </record>
 
 <record>
-	<leader>01141nas a2200325 a 4500</leader>
-	<controlfield tag="001">REROILS:1600104</controlfield>
+	<leader>01822nas a2200541 a 4500</leader>
+	<controlfield tag="001">REROILS:2000095</controlfield>
 	<controlfield tag="003">RERO</controlfield>
-	<controlfield tag="005">20200710134100.0</controlfield>
-	<controlfield tag="008">960525d19591968xxu|||p|| ||||0 || 0eng d</controlfield>
+	<controlfield tag="005">20201019195400.0</controlfield>
+	<controlfield tag="006">m    |</controlfield>
+	<controlfield tag="007">c|</controlfield>
+	<controlfield tag="008">131209c19509999sz |||p|  ||||0 |  0spa d</controlfield>
+	<datafield ind1=" " ind2=" " tag="022">
+		<subfield code="a">0582-1592</subfield>
+	</datafield>
 	<datafield ind1=" " ind2=" " tag="035">
-		<subfield code="a">0277121</subfield>
+		<subfield code="a">R007565883</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="037">
+		<subfield code="c">Accès gratuit</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="039">
+		<subfield code="b">6207</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="9" tag="039">
-		<subfield code="a">202007101341</subfield>
+		<subfield code="a">202010191954</subfield>
 		<subfield code="b">VLOAD</subfield>
-		<subfield code="c">201812081039</subfield>
+		<subfield code="c">202006290652</subfield>
 		<subfield code="d">VLOAD</subfield>
-		<subfield code="c">201811162016</subfield>
-		<subfield code="d">VLOAD</subfield>
-		<subfield code="c">201706101721</subfield>
-		<subfield code="d">VLOAD</subfield>
-		<subfield code="y">1999022716410000</subfield>
-		<subfield code="z">load</subfield>
+		<subfield code="c">202003021347</subfield>
+		<subfield code="d">6207</subfield>
+		<subfield code="c">201910231701</subfield>
+		<subfield code="d">6217</subfield>
+		<subfield code="y">201312091315</subfield>
+		<subfield code="z">6207</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="040">
-		<subfield code="a">RERO</subfield>
+		<subfield code="a">RERO gevbaa</subfield>
+	</datafield>
+	<datafield ind1="0" ind2=" " tag="041">
+		<subfield code="a">eng</subfield>
+		<subfield code="a">fre</subfield>
+		<subfield code="a">ger</subfield>
+		<subfield code="a">spa</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="044">
+		<subfield code="a">sz</subfield>
+		<subfield code="c">ch-ge</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="072">
-		<subfield code="a">s1th</subfield>
+		<subfield code="a">s1et</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="072">
+		<subfield code="a">s2go</subfield>
 		<subfield code="2">rero</subfield>
 	</datafield>
 	<datafield ind1="0" ind2="0" tag="245">
-		<subfield code="a">St. Vladimir's seminary quarterly /</subfield>
-		<subfield code="c">publ. by the Faculty of St. Vladimir's Orthodox Theological Seminary</subfield>
+		<subfield code="a">Bulletin / Société suisse des Américanistes</subfield>
+	</datafield>
+	<datafield ind1="3" ind2=" " tag="246">
+		<subfield code="a">Bulletin de la Société suisse des Américanistes</subfield>
+	</datafield>
+	<datafield ind1="3" ind2=" " tag="246">
+		<subfield code="a">Bulletin / Schweizerische Amerikanisten-Gesellschaft</subfield>
+	</datafield>
+	<datafield ind1="3" ind2=" " tag="246">
+		<subfield code="a">Boletin / Sociedad suiza de Americanistas</subfield>
+	</datafield>
+	<datafield ind1="3" ind2=" " tag="246">
+		<subfield code="a">Boletin / Société suisse des Américanistes</subfield>
+	</datafield>
+	<datafield ind1="3" ind2=" " tag="246">
+		<subfield code="a">LARevista : bulletin de la société suisse des américanistes</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="1" tag="264">
-		<subfield code="a">New York ;</subfield>
-		<subfield code="a">[then] Crestwood NY</subfield>
+		<subfield code="a">Genève :</subfield>
+		<subfield code="b">Société suisse des Américanistes</subfield>
 	</datafield>
-	<datafield ind1=" " ind2=" " tag="300">
-		<subfield code="c">23 cm</subfield>
+	<datafield ind1=" " ind2=" " tag="310">
+		<subfield code="a">Semestriel [puis] annuel</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="336">
 		<subfield code="b">txt</subfield>
 		<subfield code="2">rdacontent</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="337">
-		<subfield code="b">n</subfield>
+		<subfield code="b">c</subfield>
 		<subfield code="2">rdamedia</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="338">
-		<subfield code="b">nc</subfield>
+		<subfield code="b">cr</subfield>
 		<subfield code="2">rdacarrier</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="339">
 		<subfield code="a">docmaintype_serial</subfield>
 	</datafield>
-	<datafield ind1=" " ind2=" " tag="580">
-		<subfield code="a">Devient: St. Vladimir's theological quarterly</subfield>
+	<datafield ind1="0" ind2=" " tag="362">
+		<subfield code="a">No 1(1950)-</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="500">
+		<subfield code="a">Ressources en ligne consultées le 09.12.13</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="530">
+		<subfield code="a">Existe aussi sous forme papier</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="650">
-		<subfield code="a">Théologie orthodoxe</subfield>
+		<subfield code="a">Américanistes</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="650">
+		<subfield code="a">Indiens d'Amérique</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="650">
+		<subfield code="a">Ethnologie</subfield>
 		<subfield code="2">rero</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
-		<subfield code="a">[Périodiques]</subfield>
+		<subfield code="a">[Périodiques électroniques]</subfield>
 		<subfield code="2">rero</subfield>
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
-		<subfield code="a">Saint Vladimir's Orthodox Theological Seminary (Crestwood NY)</subfield>
-		<subfield code="0">(IDREF)235593176</subfield>
+		<subfield code="a">Société suisse des américanistes</subfield>
+		<subfield code="0">(IDREF)076245470</subfield>
 	</datafield>
-	<datafield ind1="1" ind2="0" tag="785">
-		<subfield code="t">St. Vladimir's theological quarterly</subfield>
-		<subfield code="w">REROILS:1600039</subfield>
+	<datafield ind1="1" ind2=" " tag="776">
+		<subfield code="t">Bulletin / Société suisse des Américanistes = Bulletin / Schweizerische Amerikanisten-Gesellschaft</subfield>
+		<subfield code="w">REROILS:2000072</subfield>
+	</datafield>
+	<datafield ind1="4" ind2="0" tag="856">
+		<subfield code="u">http://www.sag-ssa.ch/fr-fr/</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
 	</datafield>
-	<datafield ind1=" " ind2=" " tag="919">
-		<subfield code="9">650 _7</subfield>
-		<subfield code="a">théologie orthodoxe</subfield>
-		<subfield code="v">[périodique]</subfield>
-		<subfield code="2">chrero</subfield>
+	<datafield ind1=" " ind2=" " tag="902">
+		<subfield code="a">gedoc</subfield>
 	</datafield>
-	<datafield ind1=" " ind2=" " tag="956">
-		<subfield code="a">frbcuc</subfield>
+	<datafield ind1=" " ind2=" " tag="902">
+		<subfield code="a">epergevbaa</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="902">
+		<subfield code="a">gevbaa</subfield>
+		<subfield code="b">2013/12</subfield>
+		<subfield code="c">801</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="957">
-		<subfield code="a">gewcc-</subfield>
+		<subfield code="a">gedel-</subfield>
 	</datafield>
 </record>
 
 <record>
 	<leader>01872nas a2200493 a 4500</leader>
-	<controlfield tag="001">REROILS:1600112</controlfield>
+	<controlfield tag="001">REROILS:2000114</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200712201200.0</controlfield>
 	<controlfield tag="008">000717d19281950sz |||p|| ||||0 || 0ger d</controlfield>
@@ -46288,11 +46713,11 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="777">
 		<subfield code="t">Schweizer Theater-Almanach</subfield>
-		<subfield code="w">REROILS:1600113</subfield>
+		<subfield code="w">REROILS:2000115</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Schweizer Theaterjahrbuch</subfield>
-		<subfield code="w">REROILS:1600051</subfield>
+		<subfield code="w">REROILS:2000051</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -46339,7 +46764,7 @@
 
 <record>
 	<leader>01019cas a22002657a 4500</leader>
-	<controlfield tag="001">REROILS:1600099</controlfield>
+	<controlfield tag="001">REROILS:2000101</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170516135600.0</controlfield>
 	<controlfield tag="008">001115c9999    xx |||m|| ||||0 || 0und d</controlfield>
@@ -46403,7 +46828,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="777">
 		<subfield code="t">Beiheft zur Ökumenischen Rundschau</subfield>
-		<subfield code="w">REROILS:1600048</subfield>
+		<subfield code="w">REROILS:2000048</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -46415,7 +46840,7 @@
 
 <record>
 	<leader>02884nas a2200793 a 4500</leader>
-	<controlfield tag="001">REROILS:1600122</controlfield>
+	<controlfield tag="001">REROILS:2000122</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200712154400.0</controlfield>
 	<controlfield tag="008">960525d19541987sz |||p|| ||||0 || 0ger d</controlfield>
@@ -46568,7 +46993,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Archives héraldiques suisses</subfield>
-		<subfield code="w">REROILS:1600096</subfield>
+		<subfield code="w">REROILS:2000098</subfield>
 	</datafield>
 	<datafield ind1="4" ind2="0" tag="856">
 		<subfield code="u">https://www.e-periodica.ch/digbib/volumes?UID=ahe-002</subfield>
@@ -46673,7 +47098,7 @@
 
 <record>
 	<leader>02551nas a2200613 a 4500</leader>
-	<controlfield tag="001">REROILS:1600117</controlfield>
+	<controlfield tag="001">REROILS:2000119</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200907161300.0</controlfield>
 	<controlfield tag="008">960525d19731979sz |||p|| ||||0 || 0fre d</controlfield>
@@ -46771,15 +47196,15 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="777">
 		<subfield code="t">Pêcheur suisse = Der Schweizer Fischer = Il pescatore svizzero : revue technique et sportive de l'économie piscicole en Suisse : organe officiel de la Société suisse de pêche et pisciculture</subfield>
-		<subfield code="w">REROILS:1600130</subfield>
+		<subfield code="w">REROILS:2000132</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Pêcheur et Chasseur Suisses : nature-information</subfield>
-		<subfield code="w">REROILS:1600129</subfield>
+		<subfield code="w">REROILS:2000131</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Eau, air, santé : organe mensuel romand d'informations sur l'environnement et la nature</subfield>
-		<subfield code="w">REROILS:1600094</subfield>
+		<subfield code="w">REROILS:2000096</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Aquatica : revue internationale de recherches et de sports subaquatiques : internationale Revue für Unterwassersport und -Forschung</subfield>
@@ -46789,7 +47214,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Pêcheur romand : nature information : mycologie, chasse, nature</subfield>
-		<subfield code="w">REROILS:1600128</subfield>
+		<subfield code="w">REROILS:2000130</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -46867,7 +47292,7 @@
 
 <record>
 	<leader>01961nas a2200493 a 4500</leader>
-	<controlfield tag="001">REROILS:1600120</controlfield>
+	<controlfield tag="001">REROILS:2000123</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200712202400.0</controlfield>
 	<controlfield tag="008">880427d19871993sz |||p|| ||||0 || 0ger d</controlfield>
@@ -46959,11 +47384,11 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Psychologie. Huber</subfield>
-		<subfield code="w">REROILS:1600105</subfield>
+		<subfield code="w">REROILS:2000107</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Swiss journal of psychology : official publication of the Swiss Psychological Society = Schweizerische Zeitschrift für Psychologie = Revue suisse de psychologie</subfield>
-		<subfield code="w">REROILS:1600131</subfield>
+		<subfield code="w">REROILS:2000133</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -47010,7 +47435,7 @@
 
 <record>
 	<leader>01292nas a2200337 a 4500</leader>
-	<controlfield tag="001">REROILS:1600118</controlfield>
+	<controlfield tag="001">REROILS:2000120</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20180630144500.0</controlfield>
 	<controlfield tag="008">960525d19531960sz |||p|| ||||0 || 0fre d</controlfield>
@@ -47083,7 +47508,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Eau, air, santé : organe mensuel romand d'informations sur l'environnement et la nature</subfield>
-		<subfield code="w">REROILS:1600094</subfield>
+		<subfield code="w">REROILS:2000096</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -47103,7 +47528,7 @@
 
 <record>
 	<leader>01588cas a2200397 a 4500</leader>
-	<controlfield tag="001">REROILS:1600124</controlfield>
+	<controlfield tag="001">REROILS:2000126</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20181116203300.0</controlfield>
 	<controlfield tag="008">961109c1945    sz |||p|| ||||0 || 0eng d</controlfield>
@@ -47192,7 +47617,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="777">
 		<subfield code="t">Beiheft zur Schweizerischen Zeitschrift für Psychologie und Ihre Anwendungen = Supplément à la Revue suisse de psychologie pure et appliquée</subfield>
-		<subfield code="w">REROILS:1600106</subfield>
+		<subfield code="w">REROILS:2000108</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -47217,7 +47642,7 @@
 
 <record>
 	<leader>03358cas a2200853 a 4500</leader>
-	<controlfield tag="001">REROILS:1600125</controlfield>
+	<controlfield tag="001">REROILS:2000127</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201021123600.0</controlfield>
 	<controlfield tag="008">000927d18991911sz |||p|| ||||0 || 0fre d</controlfield>
@@ -47366,19 +47791,19 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Journal des tribunaux (Lausanne : 1877)</subfield>
-		<subfield code="w">REROILS:1600133</subfield>
+		<subfield code="w">REROILS:2000135</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Revue judiciaire : journal des tribunaux suisses</subfield>
-		<subfield code="w">REROILS:1600134</subfield>
+		<subfield code="w">REROILS:2000136</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Journal des tribunaux et revue judiciaire. Droit cantonal</subfield>
-		<subfield code="w">REROILS:1600132</subfield>
+		<subfield code="w">REROILS:2000134</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Journal des tribunaux et revue judiciaire. Poursuite pour dettes</subfield>
-		<subfield code="w">REROILS:1600101</subfield>
+		<subfield code="w">REROILS:2000103</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -47505,7 +47930,7 @@
 
 <record>
 	<leader>01099nas a2200349 a 4500</leader>
-	<controlfield tag="001">REROILS:1600127</controlfield>
+	<controlfield tag="001">REROILS:2000129</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20181116201300.0</controlfield>
 	<controlfield tag="008">000809d19541958sz |||p|| ||||0 || 0fre d</controlfield>
@@ -47579,7 +48004,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Documents de cinéma</subfield>
-		<subfield code="w">REROILS:1600095</subfield>
+		<subfield code="w">REROILS:2000097</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -47600,7 +48025,7 @@
 
 <record>
 	<leader>01909nas a2200373 a 4500</leader>
-	<controlfield tag="001">REROILS:1600116</controlfield>
+	<controlfield tag="001">REROILS:2000118</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201006003000.0</controlfield>
 	<controlfield tag="008">890609d19521953sz |||p|| ||||0 || 0eng d</controlfield>
@@ -47686,7 +48111,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Zeitschrift für diagnostische Psychologie und Persönlichkeitsforschung = Revue de psychologie diagnostique et d'étude de la personnalité = Review of diagnostic psychology and personality exploration</subfield>
-		<subfield code="w">REROILS:1600107</subfield>
+		<subfield code="w">REROILS:2000109</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -47710,7 +48135,7 @@
 
 <record>
 	<leader>00958cas a2200277 a 4500</leader>
-	<controlfield tag="001">REROILS:1600123</controlfield>
+	<controlfield tag="001">REROILS:2000125</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20180703215900.0</controlfield>
 	<controlfield tag="008">010327d19451957sz |||p|| ||||0 || 0ger d</controlfield>
@@ -47774,7 +48199,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="777">
 		<subfield code="t">Beiheft zur Schweizerischen Zeitschrift für Psychologie und Ihre Anwendungen = Supplément à la Revue suisse de psychologie pure et appliquée</subfield>
-		<subfield code="w">REROILS:1600106</subfield>
+		<subfield code="w">REROILS:2000108</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -47786,7 +48211,7 @@
 
 <record>
 	<leader>01081nas a2200349 a 4500</leader>
-	<controlfield tag="001">REROILS:1600126</controlfield>
+	<controlfield tag="001">REROILS:2000128</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20190705124900.0</controlfield>
 	<controlfield tag="008">040125c19789999sz |||m|| ||||0 || 0fre d</controlfield>
@@ -47864,7 +48289,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Documents de cinéma</subfield>
-		<subfield code="w">REROILS:1600095</subfield>
+		<subfield code="w">REROILS:2000097</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -47883,7 +48308,7 @@
 
 <record>
 	<leader>01805nas a2200481 a 4500</leader>
-	<controlfield tag="001">REROILS:1600119</controlfield>
+	<controlfield tag="001">REROILS:2000121</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20181116234100.0</controlfield>
 	<controlfield tag="008">890622d19251930sz |||p|| ||||0 || 0ger d</controlfield>
@@ -47981,7 +48406,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="772">
 		<subfield code="t">Archives héraldiques et sigillographiques</subfield>
-		<subfield code="w">REROILS:1600097</subfield>
+		<subfield code="w">REROILS:2000099</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -48027,7 +48452,7 @@
 
 <record>
 	<leader>00928nas a22002417a 4500</leader>
-	<controlfield tag="001">REROILS:1600121</controlfield>
+	<controlfield tag="001">REROILS:2000124</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170515160500.0</controlfield>
 	<controlfield tag="008">960525d19531974xx |||m|| ||||0 || 0ger d</controlfield>
@@ -48078,7 +48503,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="777">
 		<subfield code="t">Beiheft zur Schweizerischen Zeitschrift für Psychologie und Ihre Anwendungen = Supplément à la Revue suisse de psychologie pure et appliquée</subfield>
-		<subfield code="w">REROILS:1600106</subfield>
+		<subfield code="w">REROILS:2000108</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -48090,7 +48515,7 @@
 
 <record>
 	<leader>01896nas a2200481 a 4500</leader>
-	<controlfield tag="001">REROILS:1600131</controlfield>
+	<controlfield tag="001">REROILS:2000133</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200711192500.0</controlfield>
 	<controlfield tag="008">000805c19949999sz |||p|| ||||0 || 0eng d</controlfield>
@@ -48182,7 +48607,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Schweizerische Zeitschrift für Psychologie</subfield>
-		<subfield code="w">REROILS:1600120</subfield>
+		<subfield code="w">REROILS:2000123</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -48224,7 +48649,7 @@
 
 <record>
 	<leader>03123nas a2200697 a 4500</leader>
-	<controlfield tag="001">REROILS:1600130</controlfield>
+	<controlfield tag="001">REROILS:2000132</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20190705122800.0</controlfield>
 	<controlfield tag="008">960525c19389999sz |||p|| ||||0 || 0fre d</controlfield>
@@ -48356,19 +48781,19 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="777">
 		<subfield code="t">Pêcheur et Chasseur Suisses : nature-information</subfield>
-		<subfield code="w">REROILS:1600129</subfield>
+		<subfield code="w">REROILS:2000131</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="777">
 		<subfield code="t">Nature Information : magazine mensuel groupant les revues Pêcheur et chasseur suisse, Bulletin romand de mycologie, Eau, air, santé</subfield>
-		<subfield code="w">REROILS:1600117</subfield>
+		<subfield code="w">REROILS:2000119</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="777">
 		<subfield code="t">Pêcheur romand : nature information : mycologie, chasse, nature</subfield>
-		<subfield code="w">REROILS:1600128</subfield>
+		<subfield code="w">REROILS:2000130</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Bulletin suisse de pêche et pisciculture : supplément français de la &quot;Schweiz. Fischerei-Zeitung&quot; : [puis] organe français de la Société suisse de pêche et pisciculture</subfield>
-		<subfield code="w">REROILS:1600135</subfield>
+		<subfield code="w">REROILS:2000137</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -48438,7 +48863,7 @@
 
 <record>
 	<leader>02784cas a2200697 a 4500</leader>
-	<controlfield tag="001">REROILS:1600129</controlfield>
+	<controlfield tag="001">REROILS:2000131</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200907161300.0</controlfield>
 	<controlfield tag="008">961207d19441972sz |||p|| ||||0 || 0fre d</controlfield>
@@ -48570,11 +48995,11 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="777">
 		<subfield code="t">Pêcheur suisse = Der Schweizer Fischer = Il pescatore svizzero : revue technique et sportive de l'économie piscicole en Suisse : organe officiel de la Société suisse de pêche et pisciculture</subfield>
-		<subfield code="w">REROILS:1600130</subfield>
+		<subfield code="w">REROILS:2000132</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Nature Information : magazine mensuel groupant les revues Pêcheur et chasseur suisse, Bulletin romand de mycologie, Eau, air, santé</subfield>
-		<subfield code="w">REROILS:1600117</subfield>
+		<subfield code="w">REROILS:2000119</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -48655,7 +49080,7 @@
 
 <record>
 	<leader>02848cas a2200805 a 4500</leader>
-	<controlfield tag="001">REROILS:1600132</controlfield>
+	<controlfield tag="001">REROILS:2000134</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201021123600.0</controlfield>
 	<controlfield tag="008">000927d19121929sz |||p|| ||||0 || 0fre d</controlfield>
@@ -48774,11 +49199,11 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Journal des tribunaux et revue judiciaire. Poursuite pour dettes et droit cantonal</subfield>
-		<subfield code="w">REROILS:1600125</subfield>
+		<subfield code="w">REROILS:2000127</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Journal des tribunaux (Lausanne : 1930). 3, Droit cantonal</subfield>
-		<subfield code="w">REROILS:1600136</subfield>
+		<subfield code="w">REROILS:2000138</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -48921,7 +49346,7 @@
 
 <record>
 	<leader>02074nas a2200565 a 4500</leader>
-	<controlfield tag="001">REROILS:1600128</controlfield>
+	<controlfield tag="001">REROILS:2000130</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20181116200600.0</controlfield>
 	<controlfield tag="008">960525d19801991sz |||p|| ||||0 || 0fre d</controlfield>
@@ -49019,11 +49444,11 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="777">
 		<subfield code="t">Pêcheur suisse = Der Schweizer Fischer = Il pescatore svizzero : revue technique et sportive de l'économie piscicole en Suisse : organe officiel de la Société suisse de pêche et pisciculture</subfield>
-		<subfield code="w">REROILS:1600130</subfield>
+		<subfield code="w">REROILS:2000132</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Nature Information : magazine mensuel groupant les revues Pêcheur et chasseur suisse, Bulletin romand de mycologie, Eau, air, santé</subfield>
-		<subfield code="w">REROILS:1600117</subfield>
+		<subfield code="w">REROILS:2000119</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -49101,7 +49526,7 @@
 
 <record>
 	<leader>03464nas a2200865 a 4500</leader>
-	<controlfield tag="001">REROILS:1600133</controlfield>
+	<controlfield tag="001">REROILS:2000135</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201021123600.0</controlfield>
 	<controlfield tag="008">000927d18771898sz |||p|| ||||0 || 0fre d</controlfield>
@@ -49249,19 +49674,19 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Gazette des tribunaux suisses : journal hebdomadaire de jurisprudence et de législation = Schweizerische Gerichts-Zeitung : Wochenschrift für Rechtspflege und Gesetzgebung</subfield>
-		<subfield code="w">REROILS:1600138</subfield>
+		<subfield code="w">REROILS:2000140</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Recueil des arrêts vaudois</subfield>
-		<subfield code="w">REROILS:1600139</subfield>
+		<subfield code="w">REROILS:2000141</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Journal des tribunaux et revue judiciaire. Droit fédéral</subfield>
-		<subfield code="w">REROILS:1600137</subfield>
+		<subfield code="w">REROILS:2000139</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Journal des tribunaux et revue judiciaire. Poursuite pour dettes et droit cantonal</subfield>
-		<subfield code="w">REROILS:1600125</subfield>
+		<subfield code="w">REROILS:2000127</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -49387,7 +49812,7 @@
 
 <record>
 	<leader>02098nas a2200577 a 4500</leader>
-	<controlfield tag="001">REROILS:1600134</controlfield>
+	<controlfield tag="001">REROILS:2000136</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201021123600.0</controlfield>
 	<controlfield tag="008">960525d18841898sz |||p|| ||||0 || 0fre d</controlfield>
@@ -49487,11 +49912,11 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Journal des tribunaux et revue judiciaire. Droit fédéral</subfield>
-		<subfield code="w">REROILS:1600137</subfield>
+		<subfield code="w">REROILS:2000139</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Journal des tribunaux et revue judiciaire. Poursuite pour dettes et droit cantonal</subfield>
-		<subfield code="w">REROILS:1600125</subfield>
+		<subfield code="w">REROILS:2000127</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -49570,7 +49995,7 @@
 
 <record>
 	<leader>03091cas a2200889 a 4500</leader>
-	<controlfield tag="001">REROILS:1600137</controlfield>
+	<controlfield tag="001">REROILS:2000139</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201021123600.0</controlfield>
 	<controlfield tag="008">000927d18991929sz |||p|| ||||0 || 0fre d</controlfield>
@@ -49698,15 +50123,15 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Journal des tribunaux (Lausanne : 1877)</subfield>
-		<subfield code="w">REROILS:1600133</subfield>
+		<subfield code="w">REROILS:2000135</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Revue judiciaire : journal des tribunaux suisses</subfield>
-		<subfield code="w">REROILS:1600134</subfield>
+		<subfield code="w">REROILS:2000136</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Journal des tribunaux (Lausanne : 1930). 1, Droit fédéral</subfield>
-		<subfield code="w">REROILS:1600140</subfield>
+		<subfield code="w">REROILS:2000142</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -49865,7 +50290,7 @@
 
 <record>
 	<leader>01825nas a2200397 a 4500</leader>
-	<controlfield tag="001">REROILS:1600135</controlfield>
+	<controlfield tag="001">REROILS:2000137</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200907163100.0</controlfield>
 	<controlfield tag="008">900525d18981936sz |||p|| ||||0 || 0fre d</controlfield>
@@ -49941,11 +50366,11 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="772">
 		<subfield code="t">Schweizerische Fischerei-Zeitung : offizielles Organ des Schweizerischen Fischerei-Verbandes und seiner Sektionen</subfield>
-		<subfield code="w">REROILS:1600141</subfield>
+		<subfield code="w">REROILS:2000143</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Pêcheur suisse = Der Schweizer Fischer = Il pescatore svizzero : revue technique et sportive de l'économie piscicole en Suisse : organe officiel de la Société suisse de pêche et pisciculture</subfield>
-		<subfield code="w">REROILS:1600130</subfield>
+		<subfield code="w">REROILS:2000132</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -49976,7 +50401,7 @@
 
 <record>
 	<leader>01988nas a2200529 a 4500</leader>
-	<controlfield tag="001">REROILS:1600139</controlfield>
+	<controlfield tag="001">REROILS:2000141</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201021123600.0</controlfield>
 	<controlfield tag="008">000927c1876    sz |||p|| ||||0 || 0fre d</controlfield>
@@ -50082,21 +50507,21 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Journal des tribunaux vaudois : revue de jurisprudence de la Suisse romande</subfield>
-		<subfield code="w">REROILS:1600142</subfield>
+		<subfield code="w">REROILS:2000144</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Journal des tribunaux vaudois</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Journal des tribunaux (Lausanne : 1877)</subfield>
-		<subfield code="w">REROILS:1600133</subfield>
+		<subfield code="w">REROILS:2000135</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Gazette des tribunaux suisses</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Journal des tribunaux : revue de jurisprudence</subfield>
-		<subfield code="w">REROILS:1600133</subfield>
+		<subfield code="w">REROILS:2000135</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Schweizerische Gerichts-Zeitung</subfield>
@@ -50136,7 +50561,7 @@
 
 <record>
 	<leader>03528cas a2201009 a 4500</leader>
-	<controlfield tag="001">REROILS:1600136</controlfield>
+	<controlfield tag="001">REROILS:2000138</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201021123600.0</controlfield>
 	<controlfield tag="008">000927d19302010sz |||p|| ||||0 || 0fre d</controlfield>
@@ -50272,11 +50697,11 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Journal des tribunaux et revue judiciaire. Droit cantonal</subfield>
-		<subfield code="w">REROILS:1600132</subfield>
+		<subfield code="w">REROILS:2000134</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Journal des tribunaux. Lausanne. 2011-. 3, Jurisprudence et pratique des autorités vaudoises</subfield>
-		<subfield code="w">REROILS:1600143</subfield>
+		<subfield code="w">REROILS:2000145</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">bdspch</subfield>
@@ -50468,7 +50893,7 @@
 
 <record>
 	<leader>02511nas a2200625 a 4500</leader>
-	<controlfield tag="001">REROILS:1600138</controlfield>
+	<controlfield tag="001">REROILS:2000140</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201021123600.0</controlfield>
 	<controlfield tag="008">000927d18741876sz |||p|| ||||0 || 0fre d</controlfield>
@@ -50600,11 +51025,11 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Journal des tribunaux vaudois : revue de jurisprudence de la Suisse romande</subfield>
-		<subfield code="w">REROILS:1600142</subfield>
+		<subfield code="w">REROILS:2000144</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Journal des tribunaux (Lausanne : 1877)</subfield>
-		<subfield code="w">REROILS:1600133</subfield>
+		<subfield code="w">REROILS:2000135</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -50668,7 +51093,7 @@
 
 <record>
 	<leader>03980cas a2201093 a 4500</leader>
-	<controlfield tag="001">REROILS:1600140</controlfield>
+	<controlfield tag="001">REROILS:2000142</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201021123600.0</controlfield>
 	<controlfield tag="008">000927d19302010sz |||p|| ||||0 || 0fre d</controlfield>
@@ -50810,15 +51235,15 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="777">
 		<subfield code="t">Journal des tribunaux (Lausanne : 1930). 4, Droit pénal</subfield>
-		<subfield code="w">REROILS:1600144</subfield>
+		<subfield code="w">REROILS:2000146</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Journal des tribunaux et revue judiciaire. Droit fédéral</subfield>
-		<subfield code="w">REROILS:1600137</subfield>
+		<subfield code="w">REROILS:2000139</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Journal des tribunaux. Lausanne. 2011-. 1, Droit public, droit constitutionnel et administratif : jurisprudence fédérale</subfield>
-		<subfield code="w">REROILS:1600145</subfield>
+		<subfield code="w">REROILS:2000147</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">bdspch</subfield>
@@ -51027,7 +51452,7 @@
 
 <record>
 	<leader>03004nas a2200757 a 4500</leader>
-	<controlfield tag="001">REROILS:1600142</controlfield>
+	<controlfield tag="001">REROILS:2000144</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201021123600.0</controlfield>
 	<controlfield tag="008">960525d18681874sz |||p|| ||||0 || 0fre d</controlfield>
@@ -51150,15 +51575,15 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Journal des tribunaux et de jurisprudence</subfield>
-		<subfield code="w">REROILS:1600146</subfield>
+		<subfield code="w">REROILS:2000148</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Gazette des tribunaux suisses : journal hebdomadaire de jurisprudence et de législation = Schweizerische Gerichts-Zeitung : Wochenschrift für Rechtspflege und Gesetzgebung</subfield>
-		<subfield code="w">REROILS:1600138</subfield>
+		<subfield code="w">REROILS:2000140</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Recueil des arrêts vaudois</subfield>
-		<subfield code="w">REROILS:1600139</subfield>
+		<subfield code="w">REROILS:2000141</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -51272,7 +51697,7 @@
 
 <record>
 	<leader>01704nas a2200373 a 4500</leader>
-	<controlfield tag="001">REROILS:1600141</controlfield>
+	<controlfield tag="001">REROILS:2000143</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20170517075300.0</controlfield>
 	<controlfield tag="008">890217d18931969sz |||p|| ||||0 || 0ger d</controlfield>
@@ -51354,7 +51779,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="770">
 		<subfield code="t">Bulletin suisse de pêche et pisciculture : supplément français de la &quot;Schweiz. Fischerei-Zeitung&quot; : [puis] organe français de la Société suisse de pêche et pisciculture</subfield>
-		<subfield code="w">REROILS:1600135</subfield>
+		<subfield code="w">REROILS:2000137</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Fischerei : schweizerische Fischerei-Zeitung : Organ des Schweizerischen Fischerei-Verbandes</subfield>
@@ -51378,7 +51803,7 @@
 
 <record>
 	<leader>03144cas a2200877 a 4500</leader>
-	<controlfield tag="001">REROILS:1600143</controlfield>
+	<controlfield tag="001">REROILS:2000145</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201021130500.0</controlfield>
 	<controlfield tag="008">110520c20119999sz |||p|| ||||0 || 0fre d</controlfield>
@@ -51523,7 +51948,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Journal des tribunaux (Lausanne : 1930). 3, Droit cantonal</subfield>
-		<subfield code="w">REROILS:1600136</subfield>
+		<subfield code="w">REROILS:2000138</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">bdscumul</subfield>
@@ -51657,7 +52082,7 @@
 
 <record>
 	<leader>02809cas a2200769 a 4500</leader>
-	<controlfield tag="001">REROILS:1600146</controlfield>
+	<controlfield tag="001">REROILS:2000148</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201021123600.0</controlfield>
 	<controlfield tag="008">000927d18541867sz |||p|| ||||0 || 0fre d</controlfield>
@@ -51794,11 +52219,11 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Journal des tribunaux (Lausanne : 1846)</subfield>
-		<subfield code="w">REROILS:1600147</subfield>
+		<subfield code="w">REROILS:2000149</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Journal des tribunaux vaudois : revue de jurisprudence de la Suisse romande</subfield>
-		<subfield code="w">REROILS:1600142</subfield>
+		<subfield code="w">REROILS:2000144</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -51908,7 +52333,7 @@
 
 <record>
 	<leader>03200cas a2200865 a 4500</leader>
-	<controlfield tag="001">REROILS:1600145</controlfield>
+	<controlfield tag="001">REROILS:2000147</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201021130500.0</controlfield>
 	<controlfield tag="008">110526c20119999sz |||p|| ||||0 || 0fre d</controlfield>
@@ -52060,7 +52485,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Journal des tribunaux (Lausanne : 1930). 1, Droit fédéral</subfield>
-		<subfield code="w">REROILS:1600140</subfield>
+		<subfield code="w">REROILS:2000142</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">bds1105</subfield>
@@ -52187,7 +52612,7 @@
 
 <record>
 	<leader>03700cas a2201057 a 4500</leader>
-	<controlfield tag="001">REROILS:1600144</controlfield>
+	<controlfield tag="001">REROILS:2000146</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201021123600.0</controlfield>
 	<controlfield tag="008">000927d19432010sz |||p|| ||||0 || 0fre d</controlfield>
@@ -52329,11 +52754,11 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="777">
 		<subfield code="t">Journal des tribunaux (Lausanne : 1930). 1, Droit fédéral</subfield>
-		<subfield code="w">REROILS:1600140</subfield>
+		<subfield code="w">REROILS:2000142</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Journal des tribunaux.Lausanne. 2011-. 4, Droit pénal et procédure pénale : jurisprudence fédérale</subfield>
-		<subfield code="w">REROILS:1600148</subfield>
+		<subfield code="w">REROILS:2000150</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">bdspch</subfield>
@@ -52537,7 +52962,7 @@
 
 <record>
 	<leader>01735nas a2200481 a 4500</leader>
-	<controlfield tag="001">REROILS:1600147</controlfield>
+	<controlfield tag="001">REROILS:2000149</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20181116193300.0</controlfield>
 	<controlfield tag="008">000927d18461852sz |||p|| ||||0 || 0fre d</controlfield>
@@ -52626,11 +53051,11 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Journal de Jurisprudence et Revue des Tribunaux Vaudois</subfield>
-		<subfield code="w">REROILS:1600149</subfield>
+		<subfield code="w">REROILS:2000151</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Journal des tribunaux et de jurisprudence</subfield>
-		<subfield code="w">REROILS:1600146</subfield>
+		<subfield code="w">REROILS:2000148</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">swissbibnomerge</subfield>
@@ -52676,7 +53101,7 @@
 
 <record>
 	<leader>02730cas a2200841 a 4500</leader>
-	<controlfield tag="001">REROILS:1600148</controlfield>
+	<controlfield tag="001">REROILS:2000150</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20201021130500.0</controlfield>
 	<controlfield tag="008">110624c20119999sz |||p|| ||||0 || 0fre d</controlfield>
@@ -52812,7 +53237,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Journal des tribunaux (Lausanne : 1930). 4, Droit pénal</subfield>
-		<subfield code="w">REROILS:1600144</subfield>
+		<subfield code="w">REROILS:2000146</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">bds1106</subfield>
@@ -52949,7 +53374,7 @@
 
 <record>
 	<leader>01423nas a2200397 a 4500</leader>
-	<controlfield tag="001">REROILS:1600149</controlfield>
+	<controlfield tag="001">REROILS:2000151</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200710224600.0</controlfield>
 	<controlfield tag="008">000927c1845    sz |||p|| ||||0 || 0fre d</controlfield>
@@ -53029,11 +53454,11 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Journal de Jurisprudence et des Tribunaux Vaudois</subfield>
-		<subfield code="w">REROILS:1600150</subfield>
+		<subfield code="w">REROILS:2000152</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Journal des tribunaux (Lausanne : 1846)</subfield>
-		<subfield code="w">REROILS:1600147</subfield>
+		<subfield code="w">REROILS:2000149</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">swissbibnomerge</subfield>
@@ -53063,7 +53488,7 @@
 
 <record>
 	<leader>01354nas a2200385 a 4500</leader>
-	<controlfield tag="001">REROILS:1600150</controlfield>
+	<controlfield tag="001">REROILS:2000152</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20200710224600.0</controlfield>
 	<controlfield tag="008">960525d18431844sz |||p|| ||||0 || 0fre d</controlfield>
@@ -53139,11 +53564,11 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Droit. Lausanne</subfield>
-		<subfield code="w">REROILS:1600151</subfield>
+		<subfield code="w">REROILS:2000153</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Journal de Jurisprudence et Revue des Tribunaux Vaudois</subfield>
-		<subfield code="w">REROILS:1600149</subfield>
+		<subfield code="w">REROILS:2000151</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">swissbibnomerge</subfield>
@@ -53173,7 +53598,7 @@
 
 <record>
 	<leader>01266nas a2200349 a 4500</leader>
-	<controlfield tag="001">REROILS:1600151</controlfield>
+	<controlfield tag="001">REROILS:2000153</controlfield>
 	<controlfield tag="003">RERO</controlfield>
 	<controlfield tag="005">20180630180600.0</controlfield>
 	<controlfield tag="008">960525d18391843sz |||p|| ||||0 || 0fre d</controlfield>
@@ -53253,7 +53678,7 @@
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Journal de Jurisprudence et des Tribunaux Vaudois</subfield>
-		<subfield code="w">REROILS:1600150</subfield>
+		<subfield code="w">REROILS:2000152</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">swissbibnomerge</subfield>

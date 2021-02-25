@@ -456,7 +456,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600000"
+          "$ref": "https://ils.rero.ch/api/documents/2000000"
         },
         "numbering": [
           {
@@ -1135,7 +1135,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600001"
+          "$ref": "https://ils.rero.ch/api/documents/2000001"
         }
       }
     ]
@@ -1589,7 +1589,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600002"
+          "$ref": "https://ils.rero.ch/api/documents/2000002"
         },
         "numbering": [
           {
@@ -3051,7 +3051,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600002"
+          "$ref": "https://ils.rero.ch/api/documents/2000002"
         },
         "numbering": [
           {
@@ -3320,7 +3320,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600003"
+          "$ref": "https://ils.rero.ch/api/documents/2000003"
         },
         "numbering": [
           {
@@ -3544,7 +3544,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600004"
+          "$ref": "https://ils.rero.ch/api/documents/2000004"
         },
         "numbering": [
           {
@@ -4416,7 +4416,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600005"
+          "$ref": "https://ils.rero.ch/api/documents/2000005"
         },
         "numbering": [
           {
@@ -5354,7 +5354,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600008"
+          "$ref": "https://ils.rero.ch/api/documents/2000008"
         },
         "numbering": [
           {
@@ -5607,7 +5607,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600009"
+          "$ref": "https://ils.rero.ch/api/documents/2000009"
         }
       }
     ]
@@ -6582,7 +6582,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600011"
+          "$ref": "https://ils.rero.ch/api/documents/2000011"
         },
         "numbering": [
           {
@@ -6730,7 +6730,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600012"
+          "$ref": "https://ils.rero.ch/api/documents/2000012"
         },
         "numbering": [
           {
@@ -7154,7 +7154,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600013"
+          "$ref": "https://ils.rero.ch/api/documents/2000013"
         },
         "numbering": [
           {
@@ -7568,7 +7568,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600015"
+          "$ref": "https://ils.rero.ch/api/documents/2000015"
         },
         "numbering": [
           {
@@ -7732,7 +7732,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600016"
+          "$ref": "https://ils.rero.ch/api/documents/2000016"
         },
         "numbering": [
           {
@@ -7972,7 +7972,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600017"
+          "$ref": "https://ils.rero.ch/api/documents/2000017"
         }
       }
     ]
@@ -8996,7 +8996,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600018"
+          "$ref": "https://ils.rero.ch/api/documents/2000018"
         }
       }
     ]
@@ -9559,7 +9559,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600019"
+          "$ref": "https://ils.rero.ch/api/documents/2000019"
         }
       }
     ]
@@ -11859,7 +11859,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600025"
+          "$ref": "https://ils.rero.ch/api/documents/2000025"
         },
         "numbering": [
           {
@@ -12259,7 +12259,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600026"
+          "$ref": "https://ils.rero.ch/api/documents/2000026"
         },
         "numbering": [
           {
@@ -12623,7 +12623,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600027"
+          "$ref": "https://ils.rero.ch/api/documents/2000027"
         }
       }
     ]
@@ -13218,7 +13218,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600030"
+          "$ref": "https://ils.rero.ch/api/documents/2000030"
         },
         "numbering": [
           {
@@ -13464,7 +13464,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600031"
+          "$ref": "https://ils.rero.ch/api/documents/2000031"
         }
       }
     ]
@@ -13634,7 +13634,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600032"
+          "$ref": "https://ils.rero.ch/api/documents/2000032"
         },
         "numbering": [
           {
@@ -14399,7 +14399,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600033"
+          "$ref": "https://ils.rero.ch/api/documents/2000033"
         },
         "numbering": [
           {
@@ -14528,7 +14528,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600034"
+          "$ref": "https://ils.rero.ch/api/documents/2000034"
         }
       }
     ]
@@ -15117,7 +15117,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600035"
+          "$ref": "https://ils.rero.ch/api/documents/2000035"
         },
         "numbering": [
           {
@@ -15949,7 +15949,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600036"
+          "$ref": "https://ils.rero.ch/api/documents/2000036"
         },
         "numbering": [
           {
@@ -16228,7 +16228,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600037"
+          "$ref": "https://ils.rero.ch/api/documents/2000037"
         }
       }
     ]
@@ -16759,7 +16759,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600038"
+          "$ref": "https://ils.rero.ch/api/documents/2000038"
         }
       }
     ]
@@ -16873,10 +16873,6 @@
       {
         "main_type": "docmaintype_electronic",
         "subtype": "docsubtype_cdrom_dvdrom"
-      },
-      {
-        "main_type": "docmaintype_book",
-        "subtype": "docsubtype_other_book"
       }
     ],
     "contribution": [
@@ -16991,7 +16987,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600039"
+          "$ref": "https://ils.rero.ch/api/documents/2000039"
         }
       }
     ]
@@ -17596,7 +17592,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600040"
+          "$ref": "https://ils.rero.ch/api/documents/2000040"
         },
         "numbering": [
           {
@@ -17843,7 +17839,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600041"
+          "$ref": "https://ils.rero.ch/api/documents/2000041"
         }
       }
     ]
@@ -18829,7 +18825,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600042"
+          "$ref": "https://ils.rero.ch/api/documents/2000042"
         }
       }
     ]
@@ -18943,7 +18939,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600043"
+          "$ref": "https://ils.rero.ch/api/documents/2000043"
         }
       }
     ]
@@ -19655,7 +19651,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600044"
+          "$ref": "https://ils.rero.ch/api/documents/2000044"
         }
       }
     ]
@@ -20042,7 +20038,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600045"
+          "$ref": "https://ils.rero.ch/api/documents/2000045"
         },
         "numbering": [
           {
@@ -20321,7 +20317,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600046"
+          "$ref": "https://ils.rero.ch/api/documents/2000046"
         },
         "numbering": [
           {
@@ -21589,7 +21585,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600049"
+          "$ref": "https://ils.rero.ch/api/documents/2000049"
         },
         "numbering": [
           {
@@ -21599,7 +21595,7 @@
       },
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600050"
+          "$ref": "https://ils.rero.ch/api/documents/2000050"
         }
       }
     ]
@@ -21962,7 +21958,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600052"
+          "$ref": "https://ils.rero.ch/api/documents/2000052"
         }
       }
     ]
@@ -22978,7 +22974,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600053"
+          "$ref": "https://ils.rero.ch/api/documents/2000053"
         }
       }
     ]
@@ -23109,7 +23105,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600054"
+          "$ref": "https://ils.rero.ch/api/documents/2000054"
         },
         "numbering": [
           {
@@ -24885,7 +24881,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600060"
+          "$ref": "https://ils.rero.ch/api/documents/2000060"
         }
       }
     ]
@@ -25173,7 +25169,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600061"
+          "$ref": "https://ils.rero.ch/api/documents/2000061"
         }
       }
     ]
@@ -25995,7 +25991,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600062"
+          "$ref": "https://ils.rero.ch/api/documents/2000062"
         }
       }
     ]
@@ -26325,7 +26321,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600064"
+          "$ref": "https://ils.rero.ch/api/documents/2000064"
         }
       }
     ],
@@ -26948,7 +26944,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600066"
+          "$ref": "https://ils.rero.ch/api/documents/2000066"
         },
         "numbering": [
           {
@@ -27101,10 +27097,6 @@
     "type": [
       {
         "main_type": "docmaintype_audio",
-        "subtype": "docsubtype_recorded_words"
-      },
-      {
-        "main_type": "docmaintype_audio",
         "subtype": "docsubtype_audio_book"
       }
     ],
@@ -27222,7 +27214,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600067"
+          "$ref": "https://ils.rero.ch/api/documents/2000067"
         },
         "numbering": [
           {
@@ -27309,7 +27301,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600039"
+          "$ref": "https://ils.rero.ch/api/documents/2000039"
         }
       }
     ]
@@ -28568,7 +28560,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600068"
+          "$ref": "https://ils.rero.ch/api/documents/2000068"
         },
         "numbering": [
           {
@@ -29136,7 +29128,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600069"
+          "$ref": "https://ils.rero.ch/api/documents/2000069"
         }
       }
     ]
@@ -30323,7 +30315,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600070"
+          "$ref": "https://ils.rero.ch/api/documents/2000070"
         },
         "numbering": [
           {
@@ -30470,7 +30462,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600071"
+          "$ref": "https://ils.rero.ch/api/documents/2000071"
         },
         "numbering": [
           {
@@ -31033,6 +31025,79 @@
   },
   {
     "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "article"
+    },
+    "pid": "294",
+    "provisionActivity": [
+      {
+        "type": "bf:Publication",
+        "startDate": 1963
+      }
+    ],
+    "language": [
+      {
+        "value": "fre",
+        "type": "bf:Language"
+      }
+    ],
+    "identifiedBy": [
+      {
+        "value": "R004234667",
+        "type": "bf:Local",
+        "source": "RERO"
+      }
+    ],
+    "contribution": [
+      {
+        "agent": {
+          "type": "bf:Person",
+          "preferred_name": "Lobsiger, Georges"
+        },
+        "role": [
+          "cre"
+        ]
+      }
+    ],
+    "responsibilityStatement": [
+      [
+        {
+          "value": "Georges Lobsiger"
+        }
+      ]
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "La l\u00e9gitimit\u00e9 de la souverainet\u00e9 des rois d'Espagne sur l'ancien royaume des Incas ... 1614"
+          }
+        ],
+        "type": "bf:Title"
+      }
+    ],
+    "type": [
+      {
+        "main_type": "docmaintype_article"
+      }
+    ],
+    "partOf": [
+      {
+        "document": {
+          "$ref": "https://ils.rero.ch/api/documents/2000072"
+        },
+        "numbering": [
+          {
+            "year": "1963",
+            "issue": 25,
+            "pages": "33"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
     },
@@ -31434,7 +31499,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600072"
+          "$ref": "https://ils.rero.ch/api/documents/2000073"
         },
         "numbering": [
           {
@@ -31565,7 +31630,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600073"
+          "$ref": "https://ils.rero.ch/api/documents/2000074"
         }
       }
     ]
@@ -31746,7 +31811,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600074"
+          "$ref": "https://ils.rero.ch/api/documents/2000075"
         }
       }
     ]
@@ -32079,7 +32144,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600075"
+          "$ref": "https://ils.rero.ch/api/documents/2000076"
         },
         "numbering": [
           {
@@ -32687,7 +32752,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600076"
+          "$ref": "https://ils.rero.ch/api/documents/2000077"
         }
       }
     ]
@@ -33424,12 +33489,8 @@
     ],
     "type": [
       {
-        "main_type": "docmaintype_book",
-        "subtype": "docsubtype_other_book"
-      },
-      {
         "main_type": "docmaintype_comic",
-        "subtype": "docsubtype_manga"
+        "subtype": "docsubtype_comic"
       }
     ],
     "seriesStatement": [
@@ -33459,7 +33520,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600077"
+          "$ref": "https://ils.rero.ch/api/documents/2000078"
         },
         "numbering": [
           {
@@ -33469,7 +33530,7 @@
       },
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600078"
+          "$ref": "https://ils.rero.ch/api/documents/2000079"
         }
       }
     ]
@@ -33652,7 +33713,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600079"
+          "$ref": "https://ils.rero.ch/api/documents/2000080"
         },
         "numbering": [
           {
@@ -33910,8 +33971,8 @@
           "type": "bf:Person"
         },
         "role": [
-          "cmp",
-          "prf"
+          "prf",
+          "cmp"
         ]
       },
       {
@@ -34165,12 +34226,8 @@
     ],
     "type": [
       {
-        "main_type": "docmaintype_book",
-        "subtype": "docsubtype_other_book"
-      },
-      {
         "main_type": "docmaintype_comic",
-        "subtype": "docsubtype_manga"
+        "subtype": "docsubtype_comic"
       }
     ],
     "seriesStatement": [
@@ -34200,7 +34257,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600080"
+          "$ref": "https://ils.rero.ch/api/documents/2000081"
         },
         "numbering": [
           {
@@ -34852,7 +34909,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600081"
+          "$ref": "https://ils.rero.ch/api/documents/2000082"
         },
         "numbering": [
           {
@@ -35261,7 +35318,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600082"
+          "$ref": "https://ils.rero.ch/api/documents/2000083"
         },
         "numbering": [
           {
@@ -35633,7 +35690,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600083"
+          "$ref": "https://ils.rero.ch/api/documents/2000084"
         }
       }
     ]
@@ -36177,7 +36234,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600084"
+          "$ref": "https://ils.rero.ch/api/documents/2000085"
         },
         "numbering": [
           {
@@ -36322,7 +36379,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600085"
+          "$ref": "https://ils.rero.ch/api/documents/2000086"
         }
       }
     ]
@@ -36581,7 +36638,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600086"
+          "$ref": "https://ils.rero.ch/api/documents/2000087"
         },
         "numbering": [
           {
@@ -36900,7 +36957,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600087"
+          "$ref": "https://ils.rero.ch/api/documents/2000088"
         },
         "numbering": [
           {
@@ -36915,7 +36972,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600021",
+    "pid": "2000021",
     "language": [
       {
         "value": "eng",
@@ -37011,7 +37068,7 @@
       "main_type": "rdami:1002",
       "subtype": "set"
     },
-    "pid": "1600077",
+    "pid": "2000078",
     "language": [
       {
         "value": "fre",
@@ -37116,12 +37173,8 @@
     ],
     "type": [
       {
-        "main_type": "docmaintype_book",
-        "subtype": "docsubtype_other_book"
-      },
-      {
         "main_type": "docmaintype_comic",
-        "subtype": "docsubtype_manga"
+        "subtype": "docsubtype_comic"
       }
     ],
     "seriesStatement": [
@@ -37139,7 +37192,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600078"
+          "$ref": "https://ils.rero.ch/api/documents/2000079"
         }
       }
     ]
@@ -37149,7 +37202,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600035",
+    "pid": "2000035",
     "language": [
       {
         "value": "und",
@@ -37215,7 +37268,7 @@
       "main_type": "rdami:1002",
       "subtype": "set"
     },
-    "pid": "1600003",
+    "pid": "2000003",
     "language": [
       {
         "value": "ger",
@@ -37455,7 +37508,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600089"
+          "$ref": "https://ils.rero.ch/api/documents/2000090"
         },
         "numbering": [
           {
@@ -37465,7 +37518,7 @@
       },
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600090"
+          "$ref": "https://ils.rero.ch/api/documents/2000091"
         },
         "numbering": [
           {
@@ -37480,7 +37533,7 @@
       "main_type": "rdami:1002",
       "subtype": "set"
     },
-    "pid": "1600076",
+    "pid": "2000077",
     "language": [
       {
         "value": "fre",
@@ -37561,7 +37614,7 @@
       "main_type": "rdami:1002",
       "subtype": "set"
     },
-    "pid": "1600042",
+    "pid": "2000042",
     "language": [
       {
         "value": "fre",
@@ -37674,7 +37727,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600091"
+          "$ref": "https://ils.rero.ch/api/documents/2000092"
         }
       }
     ]
@@ -37684,7 +37737,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600083",
+    "pid": "2000084",
     "language": [
       {
         "value": "ita",
@@ -37761,7 +37814,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600038",
+    "pid": "2000038",
     "language": [
       {
         "value": "ger",
@@ -37880,7 +37933,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600026",
+    "pid": "2000026",
     "language": [
       {
         "value": "und",
@@ -37960,7 +38013,185 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600010",
+    "pid": "2000072",
+    "language": [
+      {
+        "value": "ger",
+        "type": "bf:Language"
+      },
+      {
+        "value": "eng",
+        "type": "bf:Language"
+      },
+      {
+        "value": "fre",
+        "type": "bf:Language"
+      },
+      {
+        "value": "spa",
+        "type": "bf:Language"
+      }
+    ],
+    "identifiedBy": [
+      {
+        "type": "bf:Issn",
+        "value": "0582-1592"
+      },
+      {
+        "value": "0107396",
+        "type": "bf:Local",
+        "source": "RERO"
+      }
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "Bulletin / Soci\u00e9t\u00e9 suisse des Am\u00e9ricanistes"
+          }
+        ],
+        "type": "bf:Title"
+      },
+      {
+        "type": "bf:ParallelTitle",
+        "mainTitle": [
+          {
+            "value": "Bulletin / Schweizerische Amerikanisten-Gesellschaft"
+          }
+        ]
+      },
+      {
+        "type": "bf:VariantTitle",
+        "mainTitle": [
+          {
+            "value": "Bulletin de la Soci\u00e9t\u00e9 suisse des Am\u00e9ricanistes"
+          }
+        ]
+      },
+      {
+        "type": "bf:VariantTitle",
+        "mainTitle": [
+          {
+            "value": "Bolet\u00edn / Sociedad suiza de Americanistas"
+          }
+        ]
+      },
+      {
+        "type": "bf:VariantTitle",
+        "mainTitle": [
+          {
+            "value": "Bolet\u00edn / Soci\u00e9t\u00e9 suisse des Am\u00e9ricanistes"
+          }
+        ]
+      },
+      {
+        "type": "bf:VariantTitle",
+        "mainTitle": [
+          {
+            "value": "LARevista"
+          }
+        ],
+        "subtitle": [
+          {
+            "value": "bulletin de la soci\u00e9t\u00e9 suisse des am\u00e9ricanistes"
+          }
+        ]
+      },
+      {
+        "type": "bf:VariantTitle",
+        "mainTitle": [
+          {
+            "value": "LARevista"
+          }
+        ],
+        "subtitle": [
+          {
+            "value": "bolet\u00edn Sociedad suiza de Americanistas"
+          }
+        ]
+      }
+    ],
+    "provisionActivity": [
+      {
+        "type": "bf:Publication",
+        "statement": [
+          {
+            "type": "bf:Place",
+            "label": [
+              {
+                "value": "Gen\u00e8ve"
+              }
+            ]
+          },
+          {
+            "type": "bf:Agent",
+            "label": [
+              {
+                "value": "Soci\u00e9t\u00e9 suisse des Am\u00e9ricanistes"
+              }
+            ]
+          }
+        ],
+        "startDate": 1950,
+        "place": [
+          {
+            "canton": "ge",
+            "country": "sz",
+            "type": "bf:Place"
+          }
+        ]
+      }
+    ],
+    "dimensions": [
+      "30 cm"
+    ],
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Variante du titre d\u00e8s no 72: LARevista : bulletin de la soci\u00e9t\u00e9 suisse des am\u00e9ricanistes"
+      }
+    ],
+    "subjects": [
+      "Indiens d'Am\u00e9rique",
+      "Arch\u00e9ologie",
+      "Anthropologie",
+      "Linguistique",
+      "Noirs am\u00e9ricains",
+      "Am\u00e9ricains",
+      "Am\u00e9rindien (peuple)",
+      "Ethnologie",
+      "Am\u00e9rique",
+      "[P\u00e9riodiques]"
+    ],
+    "contribution": [
+      {
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/076245470",
+          "type": "bf:Organisation"
+        },
+        "role": [
+          "ctb"
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "http://www.sag-ssa.ch/fr-fr/",
+        "type": "versionOfResource"
+      }
+    ]
+  },
+  {
+    "issuance": {
+      "main_type": "rdami:1003",
+      "subtype": "periodical"
+    },
+    "pid": "2000010",
     "language": [
       {
         "value": "fre",
@@ -38087,7 +38318,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600017",
+    "pid": "2000017",
     "language": [
       {
         "value": "und",
@@ -38159,7 +38390,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600059",
+    "pid": "2000059",
     "language": [
       {
         "value": "fre",
@@ -38249,7 +38480,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600025",
+    "pid": "2000025",
     "language": [
       {
         "value": "fre",
@@ -38467,7 +38698,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600058",
+    "pid": "2000058",
     "language": [
       {
         "value": "fre",
@@ -38573,7 +38804,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600069",
+    "pid": "2000069",
     "language": [
       {
         "value": "spa",
@@ -38645,7 +38876,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600056",
+    "pid": "2000056",
     "language": [
       {
         "value": "eng",
@@ -38748,7 +38979,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600000",
+    "pid": "2000000",
     "language": [
       {
         "value": "und",
@@ -38864,7 +39095,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600033",
+    "pid": "2000033",
     "language": [
       {
         "value": "fre",
@@ -39029,7 +39260,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600008",
+    "pid": "2000008",
     "language": [
       {
         "value": "und",
@@ -39137,7 +39368,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600081",
+    "pid": "2000082",
     "language": [
       {
         "value": "ger",
@@ -39303,7 +39534,7 @@
       "main_type": "rdami:1002",
       "subtype": "set"
     },
-    "pid": "1600080",
+    "pid": "2000081",
     "language": [
       {
         "value": "fre",
@@ -39395,12 +39626,8 @@
     ],
     "type": [
       {
-        "main_type": "docmaintype_book",
-        "subtype": "docsubtype_other_book"
-      },
-      {
         "main_type": "docmaintype_comic",
-        "subtype": "docsubtype_manga"
+        "subtype": "docsubtype_comic"
       }
     ],
     "seriesStatement": [
@@ -39421,7 +39648,7 @@
       "main_type": "rdami:1002",
       "subtype": "set"
     },
-    "pid": "1600072",
+    "pid": "2000073",
     "language": [
       {
         "value": "ger",
@@ -39520,7 +39747,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600098"
+          "$ref": "https://ils.rero.ch/api/documents/2000100"
         },
         "numbering": [
           {
@@ -39535,7 +39762,7 @@
       "main_type": "rdami:1002",
       "subtype": "set"
     },
-    "pid": "1600023",
+    "pid": "2000023",
     "language": [
       {
         "value": "eng",
@@ -39645,7 +39872,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600048",
+    "pid": "2000048",
     "language": [
       {
         "value": "ger",
@@ -39728,7 +39955,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600004",
+    "pid": "2000004",
     "language": [
       {
         "value": "fre",
@@ -39808,7 +40035,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600085",
+    "pid": "2000086",
     "language": [
       {
         "value": "und",
@@ -39885,7 +40112,7 @@
       "main_type": "rdami:1002",
       "subtype": "set"
     },
-    "pid": "1600068",
+    "pid": "2000068",
     "language": [
       {
         "value": "fre",
@@ -39984,7 +40211,7 @@
       "main_type": "rdami:1002",
       "subtype": "set"
     },
-    "pid": "1600064",
+    "pid": "2000064",
     "language": [
       {
         "value": "fre",
@@ -40121,7 +40348,7 @@
       "main_type": "rdami:1002",
       "subtype": "set"
     },
-    "pid": "1600011",
+    "pid": "2000011",
     "language": [
       {
         "value": "ger",
@@ -40225,7 +40452,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600062",
+    "pid": "2000062",
     "language": [
       {
         "value": "und",
@@ -40437,7 +40664,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600057",
+    "pid": "2000057",
     "language": [
       {
         "value": "eng",
@@ -40540,7 +40767,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600015",
+    "pid": "2000015",
     "language": [
       {
         "value": "lat",
@@ -40691,7 +40918,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600075",
+    "pid": "2000076",
     "language": [
       {
         "value": "ger",
@@ -40770,7 +40997,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600009",
+    "pid": "2000009",
     "language": [
       {
         "value": "eng",
@@ -40843,7 +41070,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600036",
+    "pid": "2000036",
     "language": [
       {
         "value": "eng",
@@ -40909,7 +41136,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600022",
+    "pid": "2000022",
     "language": [
       {
         "value": "fre",
@@ -41007,7 +41234,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600074",
+    "pid": "2000075",
     "language": [
       {
         "value": "fre",
@@ -41085,7 +41312,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600054",
+    "pid": "2000054",
     "language": [
       {
         "value": "ger",
@@ -41236,7 +41463,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600039",
+    "pid": "2000039",
     "language": [
       {
         "value": "eng",
@@ -41330,7 +41557,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600037",
+    "pid": "2000037",
     "language": [
       {
         "value": "fre",
@@ -41421,7 +41648,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600065",
+    "pid": "2000065",
     "language": [
       {
         "value": "fre",
@@ -41533,7 +41760,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600050",
+    "pid": "2000050",
     "language": [
       {
         "value": "eng",
@@ -41674,7 +41901,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600049",
+    "pid": "2000049",
     "language": [
       {
         "value": "eng",
@@ -41779,7 +42006,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600055",
+    "pid": "2000055",
     "language": [
       {
         "value": "eng",
@@ -41848,7 +42075,7 @@
       "main_type": "rdami:1002",
       "subtype": "set"
     },
-    "pid": "1600013",
+    "pid": "2000013",
     "language": [
       {
         "value": "fre",
@@ -41961,7 +42188,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600060",
+    "pid": "2000060",
     "language": [
       {
         "value": "und",
@@ -42083,7 +42310,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600019",
+    "pid": "2000019",
     "language": [
       {
         "value": "ger",
@@ -42217,7 +42444,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600012",
+    "pid": "2000012",
     "language": [
       {
         "value": "und",
@@ -42437,7 +42664,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600061",
+    "pid": "2000061",
     "language": [
       {
         "value": "und",
@@ -42503,7 +42730,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600047",
+    "pid": "2000047",
     "language": [
       {
         "value": "ger",
@@ -42597,7 +42824,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600045",
+    "pid": "2000045",
     "language": [
       {
         "value": "por",
@@ -42662,7 +42889,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600020",
+    "pid": "2000020",
     "language": [
       {
         "value": "eng",
@@ -42758,7 +42985,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600016",
+    "pid": "2000016",
     "language": [
       {
         "value": "ger",
@@ -42847,7 +43074,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600005",
+    "pid": "2000005",
     "language": [
       {
         "value": "und",
@@ -42913,7 +43140,7 @@
       "main_type": "rdami:1002",
       "subtype": "set"
     },
-    "pid": "1600071",
+    "pid": "2000071",
     "language": [
       {
         "value": "fre",
@@ -43007,7 +43234,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1600110"
+          "$ref": "https://ils.rero.ch/api/documents/2000112"
         }
       }
     ]
@@ -43017,7 +43244,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600007",
+    "pid": "2000007",
     "language": [
       {
         "value": "und",
@@ -43083,7 +43310,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600024",
+    "pid": "2000024",
     "language": [
       {
         "value": "fre",
@@ -43225,7 +43452,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600046",
+    "pid": "2000046",
     "language": [
       {
         "value": "ger",
@@ -43403,7 +43630,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600087",
+    "pid": "2000088",
     "language": [
       {
         "value": "und",
@@ -43477,7 +43704,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600066",
+    "pid": "2000066",
     "language": [
       {
         "value": "und",
@@ -43596,7 +43823,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600079",
+    "pid": "2000080",
     "language": [
       {
         "value": "eng",
@@ -43671,7 +43898,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600067",
+    "pid": "2000067",
     "language": [
       {
         "value": "fre",
@@ -43829,7 +44056,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600051",
+    "pid": "2000051",
     "language": [
       {
         "value": "ger",
@@ -44013,7 +44240,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600006",
+    "pid": "2000006",
     "language": [
       {
         "value": "jpn",
@@ -44127,7 +44354,7 @@
       "main_type": "rdami:1002",
       "subtype": "set"
     },
-    "pid": "1600014",
+    "pid": "2000014",
     "language": [
       {
         "value": "fre",
@@ -44282,7 +44509,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600029",
+    "pid": "2000029",
     "language": [
       {
         "value": "eng",
@@ -44351,7 +44578,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600084",
+    "pid": "2000085",
     "language": [
       {
         "value": "und",
@@ -44423,7 +44650,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600027",
+    "pid": "2000027",
     "language": [
       {
         "value": "und",
@@ -44490,7 +44717,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600052",
+    "pid": "2000052",
     "language": [
       {
         "value": "fre",
@@ -44580,7 +44807,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600028",
+    "pid": "2000028",
     "language": [
       {
         "value": "eng",
@@ -44670,7 +44897,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600082",
+    "pid": "2000083",
     "language": [
       {
         "value": "ger",
@@ -44771,7 +44998,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600001",
+    "pid": "2000001",
     "language": [
       {
         "value": "und",
@@ -44849,7 +45076,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600034",
+    "pid": "2000034",
     "language": [
       {
         "value": "ita",
@@ -44924,7 +45151,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600043",
+    "pid": "2000043",
     "language": [
       {
         "value": "fre",
@@ -45028,7 +45255,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600040",
+    "pid": "2000040",
     "language": [
       {
         "value": "und",
@@ -45095,7 +45322,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600063",
+    "pid": "2000063",
     "language": [
       {
         "value": "ita",
@@ -45206,7 +45433,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600030",
+    "pid": "2000030",
     "language": [
       {
         "value": "und",
@@ -45315,7 +45542,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600032",
+    "pid": "2000032",
     "language": [
       {
         "value": "und",
@@ -45450,7 +45677,7 @@
       "main_type": "rdami:1002",
       "subtype": "set"
     },
-    "pid": "1600070",
+    "pid": "2000070",
     "language": [
       {
         "value": "ita",
@@ -45622,7 +45849,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600086",
+    "pid": "2000087",
     "language": [
       {
         "value": "ita",
@@ -45721,7 +45948,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600018",
+    "pid": "2000018",
     "language": [
       {
         "value": "und",
@@ -45787,7 +46014,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600078",
+    "pid": "2000079",
     "language": [
       {
         "value": "und",
@@ -45852,11 +46079,11 @@
     ],
     "type": [
       {
-        "main_type": "docmaintype_series"
+        "main_type": "docmaintype_comic",
+        "subtype": "docsubtype_comic"
       },
       {
-        "main_type": "docmaintype_comic",
-        "subtype": "docsubtype_manga"
+        "main_type": "docmaintype_series"
       }
     ],
     "subjects": [
@@ -45871,7 +46098,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600031",
+    "pid": "2000031",
     "language": [
       {
         "value": "und",
@@ -45937,7 +46164,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600053",
+    "pid": "2000053",
     "language": [
       {
         "value": "und",
@@ -46070,7 +46297,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600044",
+    "pid": "2000044",
     "language": [
       {
         "value": "fre",
@@ -46187,7 +46414,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600002",
+    "pid": "2000002",
     "language": [
       {
         "value": "und",
@@ -46393,7 +46620,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600041",
+    "pid": "2000041",
     "language": [
       {
         "value": "und",
@@ -46459,7 +46686,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600073",
+    "pid": "2000074",
     "language": [
       {
         "value": "fre",
@@ -46582,7 +46809,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600092",
+    "pid": "2000093",
     "language": [
       {
         "value": "ger",
@@ -46727,7 +46954,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600107",
+    "pid": "2000109",
     "language": [
       {
         "value": "ger",
@@ -46833,7 +47060,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600115",
+    "pid": "2000117",
     "language": [
       {
         "value": "ger",
@@ -46918,7 +47145,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600094",
+    "pid": "2000096",
     "language": [
       {
         "value": "fre",
@@ -47035,7 +47262,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600097",
+    "pid": "2000099",
     "language": [
       {
         "value": "ger",
@@ -47205,7 +47432,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600109",
+    "pid": "2000111",
     "language": [
       {
         "value": "eng",
@@ -47285,7 +47512,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600102",
+    "pid": "2000104",
     "language": [
       {
         "value": "fre",
@@ -47360,7 +47587,7 @@
       "main_type": "rdami:1002",
       "subtype": "set"
     },
-    "pid": "1600098",
+    "pid": "2000100",
     "language": [
       {
         "value": "ger",
@@ -47479,7 +47706,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600110",
+    "pid": "2000112",
     "language": [
       {
         "value": "und",
@@ -47567,290 +47794,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600108",
-    "language": [
-      {
-        "value": "ger",
-        "type": "bf:Language"
-      }
-    ],
-    "identifiedBy": [
-      {
-        "value": "0764580",
-        "type": "bf:Local",
-        "source": "RERO"
-      }
-    ],
-    "title": [
-      {
-        "mainTitle": [
-          {
-            "value": "Online"
-          }
-        ],
-        "subtitle": [
-          {
-            "value": "Journal f\u00fcr Informationsverarbeitung mit \u00d6VD : Organ des ADI - Anwenderverband Deutscher Informationsverarbeiter"
-          }
-        ],
-        "type": "bf:Title"
-      }
-    ],
-    "provisionActivity": [
-      {
-        "type": "bf:Publication",
-        "statement": [
-          {
-            "type": "bf:Place",
-            "label": [
-              {
-                "value": "K\u00f6ln"
-              }
-            ]
-          },
-          {
-            "type": "bf:Agent",
-            "label": [
-              {
-                "value": "R. M\u00fcller"
-              }
-            ]
-          }
-        ],
-        "startDate": 1986,
-        "endDate": 1997,
-        "place": [
-          {
-            "country": "gw",
-            "type": "bf:Place"
-          }
-        ]
-      }
-    ],
-    "dimensions": [
-      "30 cm"
-    ],
-    "type": [
-      {
-        "main_type": "docmaintype_serial"
-      }
-    ],
-    "subjects": [
-      "Administration publique",
-      "Informatique",
-      "Allemagne f\u00e9d\u00e9rale",
-      "[P\u00e9riodiques]"
-    ],
-    "contribution": [
-      {
-        "agent": {
-          "type": "bf:Organisation",
-          "preferred_name": "Anwenderverband Deutscher Informationsverarbeiter",
-          "conference": false
-        },
-        "role": [
-          "ctb"
-        ]
-      }
-    ]
-  },
-  {
-    "issuance": {
-      "main_type": "rdami:1003",
-      "subtype": "periodical"
-    },
-    "pid": "1600105",
-    "language": [
-      {
-        "value": "ger",
-        "type": "bf:Language"
-      },
-      {
-        "value": "fre",
-        "type": "bf:Language"
-      }
-    ],
-    "identifiedBy": [
-      {
-        "type": "bf:Issn",
-        "value": "0036-7869"
-      },
-      {
-        "value": "0969994",
-        "type": "bf:Local",
-        "source": "RERO"
-      }
-    ],
-    "responsibilityStatement": [
-      [
-        {
-          "value": "hrsg. von der Schweizerischen Gesellschaft f\u00fcr Psychologie und ihre Anwendungen = revue suisse de psychologie pure et appliqu\u00e9e / \u00e9d. par la Soci\u00e9t\u00e9 suisse de psychologie et psychologie appliqu\u00e9e"
-        }
-      ]
-    ],
-    "title": [
-      {
-        "mainTitle": [
-          {
-            "value": "Psychologie"
-          }
-        ],
-        "subtitle": [
-          {
-            "value": "schweizerische Zeitschrift f\u00fcr Psychologie und ihre Anwendungen"
-          }
-        ],
-        "type": "bf:Title"
-      }
-    ],
-    "provisionActivity": [
-      {
-        "type": "bf:Publication",
-        "statement": [
-          {
-            "type": "bf:Place",
-            "label": [
-              {
-                "value": "Bern"
-              }
-            ]
-          },
-          {
-            "type": "bf:Place",
-            "label": [
-              {
-                "value": "Stuttgart [etc.]"
-              }
-            ]
-          },
-          {
-            "type": "bf:Agent",
-            "label": [
-              {
-                "value": "H. Huber"
-              }
-            ]
-          }
-        ],
-        "startDate": 1967,
-        "endDate": 1986,
-        "place": [
-          {
-            "country": "sz",
-            "type": "bf:Place"
-          }
-        ]
-      }
-    ],
-    "dimensions": [
-      "23 cm"
-    ],
-    "type": [
-      {
-        "main_type": "docmaintype_serial"
-      }
-    ],
-    "subjects": [
-      "Psychologie",
-      "[P\u00e9riodiques]"
-    ],
-    "contribution": [
-      {
-        "agent": {
-          "type": "bf:Organisation",
-          "preferred_name": "Soci\u00e9t\u00e9 suisse de psychologie et de psychologie appliqu\u00e9e",
-          "conference": false
-        },
-        "role": [
-          "edt"
-        ]
-      }
-    ]
-  },
-  {
-    "issuance": {
-      "main_type": "rdami:1003",
-      "subtype": "monographicSeries"
-    },
-    "pid": "1600103",
-    "language": [
-      {
-        "value": "fre",
-        "type": "bf:Language"
-      }
-    ],
-    "identifiedBy": [
-      {
-        "value": "R008136208",
-        "type": "bf:Local",
-        "source": "RERO"
-      }
-    ],
-    "title": [
-      {
-        "mainTitle": [
-          {
-            "value": "Bulletin du Cercle Saint Jean-Baptiste"
-          }
-        ],
-        "type": "bf:Title"
-      }
-    ],
-    "provisionActivity": [
-      {
-        "type": "bf:Publication",
-        "statement": [
-          {
-            "type": "bf:Place",
-            "label": [
-              {
-                "value": "Paris"
-              }
-            ]
-          },
-          {
-            "type": "bf:Agent",
-            "label": [
-              {
-                "value": "Cercle Saint Jean-Baptiste"
-              }
-            ]
-          }
-        ],
-        "startDate": 2050,
-        "note": "Date not available and automatically set to 2050",
-        "place": [
-          {
-            "country": "fr",
-            "type": "bf:Place"
-          }
-        ]
-      }
-    ],
-    "type": [
-      {
-        "main_type": "docmaintype_series"
-      }
-    ],
-    "contribution": [
-      {
-        "agent": {
-          "type": "bf:Organisation",
-          "preferred_name": "Cercle Saint Jean-Baptiste",
-          "conference": false
-        },
-        "role": [
-          "ctb"
-        ]
-      }
-    ]
-  },
-  {
-    "issuance": {
-      "main_type": "rdami:1003",
-      "subtype": "periodical"
-    },
-    "pid": "1600096",
+    "pid": "2000098",
     "language": [
       {
         "value": "ger",
@@ -48007,9 +47951,383 @@
   {
     "issuance": {
       "main_type": "rdami:1003",
+      "subtype": "periodical"
+    },
+    "pid": "2000107",
+    "language": [
+      {
+        "value": "ger",
+        "type": "bf:Language"
+      },
+      {
+        "value": "fre",
+        "type": "bf:Language"
+      }
+    ],
+    "identifiedBy": [
+      {
+        "type": "bf:Issn",
+        "value": "0036-7869"
+      },
+      {
+        "value": "0969994",
+        "type": "bf:Local",
+        "source": "RERO"
+      }
+    ],
+    "responsibilityStatement": [
+      [
+        {
+          "value": "hrsg. von der Schweizerischen Gesellschaft f\u00fcr Psychologie und ihre Anwendungen = revue suisse de psychologie pure et appliqu\u00e9e / \u00e9d. par la Soci\u00e9t\u00e9 suisse de psychologie et psychologie appliqu\u00e9e"
+        }
+      ]
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "Psychologie"
+          }
+        ],
+        "subtitle": [
+          {
+            "value": "schweizerische Zeitschrift f\u00fcr Psychologie und ihre Anwendungen"
+          }
+        ],
+        "type": "bf:Title"
+      }
+    ],
+    "provisionActivity": [
+      {
+        "type": "bf:Publication",
+        "statement": [
+          {
+            "type": "bf:Place",
+            "label": [
+              {
+                "value": "Bern"
+              }
+            ]
+          },
+          {
+            "type": "bf:Place",
+            "label": [
+              {
+                "value": "Stuttgart [etc.]"
+              }
+            ]
+          },
+          {
+            "type": "bf:Agent",
+            "label": [
+              {
+                "value": "H. Huber"
+              }
+            ]
+          }
+        ],
+        "startDate": 1967,
+        "endDate": 1986,
+        "place": [
+          {
+            "country": "sz",
+            "type": "bf:Place"
+          }
+        ]
+      }
+    ],
+    "dimensions": [
+      "23 cm"
+    ],
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
+    "subjects": [
+      "Psychologie",
+      "[P\u00e9riodiques]"
+    ],
+    "contribution": [
+      {
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Soci\u00e9t\u00e9 suisse de psychologie et de psychologie appliqu\u00e9e",
+          "conference": false
+        },
+        "role": [
+          "edt"
+        ]
+      }
+    ]
+  },
+  {
+    "issuance": {
+      "main_type": "rdami:1003",
+      "subtype": "periodical"
+    },
+    "pid": "2000110",
+    "language": [
+      {
+        "value": "ger",
+        "type": "bf:Language"
+      }
+    ],
+    "identifiedBy": [
+      {
+        "value": "0764580",
+        "type": "bf:Local",
+        "source": "RERO"
+      }
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "Online"
+          }
+        ],
+        "subtitle": [
+          {
+            "value": "Journal f\u00fcr Informationsverarbeitung mit \u00d6VD : Organ des ADI - Anwenderverband Deutscher Informationsverarbeiter"
+          }
+        ],
+        "type": "bf:Title"
+      }
+    ],
+    "provisionActivity": [
+      {
+        "type": "bf:Publication",
+        "statement": [
+          {
+            "type": "bf:Place",
+            "label": [
+              {
+                "value": "K\u00f6ln"
+              }
+            ]
+          },
+          {
+            "type": "bf:Agent",
+            "label": [
+              {
+                "value": "R. M\u00fcller"
+              }
+            ]
+          }
+        ],
+        "startDate": 1986,
+        "endDate": 1997,
+        "place": [
+          {
+            "country": "gw",
+            "type": "bf:Place"
+          }
+        ]
+      }
+    ],
+    "dimensions": [
+      "30 cm"
+    ],
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
+    "subjects": [
+      "Administration publique",
+      "Informatique",
+      "Allemagne f\u00e9d\u00e9rale",
+      "[P\u00e9riodiques]"
+    ],
+    "contribution": [
+      {
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Anwenderverband Deutscher Informationsverarbeiter",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
+      }
+    ]
+  },
+  {
+    "issuance": {
+      "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600100",
+    "pid": "2000105",
+    "language": [
+      {
+        "value": "fre",
+        "type": "bf:Language"
+      }
+    ],
+    "identifiedBy": [
+      {
+        "value": "R008136208",
+        "type": "bf:Local",
+        "source": "RERO"
+      }
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "Bulletin du Cercle Saint Jean-Baptiste"
+          }
+        ],
+        "type": "bf:Title"
+      }
+    ],
+    "provisionActivity": [
+      {
+        "type": "bf:Publication",
+        "statement": [
+          {
+            "type": "bf:Place",
+            "label": [
+              {
+                "value": "Paris"
+              }
+            ]
+          },
+          {
+            "type": "bf:Agent",
+            "label": [
+              {
+                "value": "Cercle Saint Jean-Baptiste"
+              }
+            ]
+          }
+        ],
+        "startDate": 2050,
+        "note": "Date not available and automatically set to 2050",
+        "place": [
+          {
+            "country": "fr",
+            "type": "bf:Place"
+          }
+        ]
+      }
+    ],
+    "type": [
+      {
+        "main_type": "docmaintype_series"
+      }
+    ],
+    "contribution": [
+      {
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Cercle Saint Jean-Baptiste",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
+      }
+    ]
+  },
+  {
+    "issuance": {
+      "main_type": "rdami:1003",
+      "subtype": "periodical"
+    },
+    "pid": "2000106",
+    "language": [
+      {
+        "value": "eng",
+        "type": "bf:Language"
+      }
+    ],
+    "identifiedBy": [
+      {
+        "value": "0277121",
+        "type": "bf:Local",
+        "source": "RERO"
+      }
+    ],
+    "responsibilityStatement": [
+      [
+        {
+          "value": "publ. by the Faculty of St. Vladimir's Orthodox Theological Seminary"
+        }
+      ]
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "St. Vladimir's seminary quarterly"
+          }
+        ],
+        "type": "bf:Title"
+      }
+    ],
+    "provisionActivity": [
+      {
+        "type": "bf:Publication",
+        "statement": [
+          {
+            "type": "bf:Place",
+            "label": [
+              {
+                "value": "New York"
+              }
+            ]
+          },
+          {
+            "type": "bf:Place",
+            "label": [
+              {
+                "value": "[then] Crestwood NY"
+              }
+            ]
+          }
+        ],
+        "startDate": 1959,
+        "endDate": 1968,
+        "place": [
+          {
+            "country": "xxu",
+            "type": "bf:Place"
+          }
+        ]
+      }
+    ],
+    "dimensions": [
+      "23 cm"
+    ],
+    "type": [
+      {
+        "main_type": "docmaintype_serial"
+      }
+    ],
+    "subjects": [
+      "Th\u00e9ologie orthodoxe",
+      "[P\u00e9riodiques]"
+    ],
+    "contribution": [
+      {
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/235593176",
+          "type": "bf:Organisation"
+        },
+        "role": [
+          "ctb"
+        ]
+      }
+    ]
+  },
+  {
+    "issuance": {
+      "main_type": "rdami:1003",
+      "subtype": "monographicSeries"
+    },
+    "pid": "2000102",
     "language": [
       {
         "value": "und",
@@ -48103,7 +48421,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600088",
+    "pid": "2000089",
     "language": [
       {
         "value": "eng",
@@ -48203,7 +48521,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600111",
+    "pid": "2000113",
     "language": [
       {
         "value": "ger",
@@ -48351,7 +48669,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600089",
+    "pid": "2000090",
     "language": [
       {
         "value": "fre",
@@ -48497,7 +48815,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600091",
+    "pid": "2000092",
     "language": [
       {
         "value": "und",
@@ -48571,7 +48889,7 @@
       "main_type": "rdami:1002",
       "subtype": "set"
     },
-    "pid": "1600093",
+    "pid": "2000094",
     "language": [
       {
         "value": "ger",
@@ -48689,7 +49007,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600113",
+    "pid": "2000115",
     "language": [
       {
         "value": "ger",
@@ -48764,7 +49082,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600106",
+    "pid": "2000108",
     "language": [
       {
         "value": "ger",
@@ -48907,7 +49225,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600101",
+    "pid": "2000103",
     "language": [
       {
         "value": "fre",
@@ -49008,7 +49326,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600114",
+    "pid": "2000116",
     "language": [
       {
         "value": "ita",
@@ -49093,7 +49411,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600095",
+    "pid": "2000097",
     "language": [
       {
         "value": "fre",
@@ -49199,7 +49517,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600090",
+    "pid": "2000091",
     "language": [
       {
         "value": "ger",
@@ -49321,35 +49639,89 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600104",
+    "pid": "2000095",
     "language": [
       {
+        "value": "spa",
+        "type": "bf:Language"
+      },
+      {
         "value": "eng",
+        "type": "bf:Language"
+      },
+      {
+        "value": "fre",
+        "type": "bf:Language"
+      },
+      {
+        "value": "ger",
         "type": "bf:Language"
       }
     ],
     "identifiedBy": [
       {
-        "value": "0277121",
+        "type": "bf:Issn",
+        "value": "0582-1592"
+      },
+      {
+        "value": "R007565883",
         "type": "bf:Local",
         "source": "RERO"
       }
-    ],
-    "responsibilityStatement": [
-      [
-        {
-          "value": "publ. by the Faculty of St. Vladimir's Orthodox Theological Seminary"
-        }
-      ]
     ],
     "title": [
       {
         "mainTitle": [
           {
-            "value": "St. Vladimir's seminary quarterly"
+            "value": "Bulletin / Soci\u00e9t\u00e9 suisse des Am\u00e9ricanistes"
           }
         ],
         "type": "bf:Title"
+      },
+      {
+        "type": "bf:VariantTitle",
+        "mainTitle": [
+          {
+            "value": "Bulletin de la Soci\u00e9t\u00e9 suisse des Am\u00e9ricanistes"
+          }
+        ]
+      },
+      {
+        "type": "bf:VariantTitle",
+        "mainTitle": [
+          {
+            "value": "Bulletin / Schweizerische Amerikanisten-Gesellschaft"
+          }
+        ]
+      },
+      {
+        "type": "bf:VariantTitle",
+        "mainTitle": [
+          {
+            "value": "Boletin / Sociedad suiza de Americanistas"
+          }
+        ]
+      },
+      {
+        "type": "bf:VariantTitle",
+        "mainTitle": [
+          {
+            "value": "Boletin / Soci\u00e9t\u00e9 suisse des Am\u00e9ricanistes"
+          }
+        ]
+      },
+      {
+        "type": "bf:VariantTitle",
+        "mainTitle": [
+          {
+            "value": "LARevista"
+          }
+        ],
+        "subtitle": [
+          {
+            "value": "bulletin de la soci\u00e9t\u00e9 suisse des am\u00e9ricanistes"
+          }
+        ]
       }
     ],
     "provisionActivity": [
@@ -49360,50 +49732,61 @@
             "type": "bf:Place",
             "label": [
               {
-                "value": "New York"
+                "value": "Gen\u00e8ve"
               }
             ]
           },
           {
-            "type": "bf:Place",
+            "type": "bf:Agent",
             "label": [
               {
-                "value": "[then] Crestwood NY"
+                "value": "Soci\u00e9t\u00e9 suisse des Am\u00e9ricanistes"
               }
             ]
           }
         ],
-        "startDate": 1959,
-        "endDate": 1968,
+        "startDate": 1950,
         "place": [
           {
-            "country": "xxu",
+            "canton": "ge",
+            "country": "sz",
             "type": "bf:Place"
           }
         ]
       }
-    ],
-    "dimensions": [
-      "23 cm"
     ],
     "type": [
       {
         "main_type": "docmaintype_serial"
       }
     ],
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Ressources en ligne consult\u00e9es le 09.12.13"
+      }
+    ],
     "subjects": [
-      "Th\u00e9ologie orthodoxe",
-      "[P\u00e9riodiques]"
+      "Am\u00e9ricanistes",
+      "Indiens d'Am\u00e9rique",
+      "Ethnologie",
+      "[P\u00e9riodiques \u00e9lectroniques]"
     ],
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/235593176",
+          "$ref": "https://mef.rero.ch/api/idref/076245470",
           "type": "bf:Organisation"
         },
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "http://www.sag-ssa.ch/fr-fr/",
+        "type": "resource"
       }
     ]
   },
@@ -49412,7 +49795,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600112",
+    "pid": "2000114",
     "language": [
       {
         "value": "ger",
@@ -49521,7 +49904,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600099",
+    "pid": "2000101",
     "language": [
       {
         "value": "und",
@@ -49641,7 +50024,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600122",
+    "pid": "2000122",
     "language": [
       {
         "value": "ger",
@@ -49786,7 +50169,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600117",
+    "pid": "2000119",
     "language": [
       {
         "value": "fre",
@@ -49875,7 +50258,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600120",
+    "pid": "2000123",
     "language": [
       {
         "value": "ger",
@@ -49991,7 +50374,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600118",
+    "pid": "2000120",
     "language": [
       {
         "value": "fre",
@@ -50085,7 +50468,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600124",
+    "pid": "2000126",
     "language": [
       {
         "value": "eng",
@@ -50199,7 +50582,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600125",
+    "pid": "2000127",
     "language": [
       {
         "value": "fre",
@@ -50319,7 +50702,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600127",
+    "pid": "2000129",
     "language": [
       {
         "value": "fre",
@@ -50396,7 +50779,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600116",
+    "pid": "2000118",
     "language": [
       {
         "value": "eng",
@@ -50507,7 +50890,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600123",
+    "pid": "2000125",
     "language": [
       {
         "value": "ger",
@@ -50585,7 +50968,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600126",
+    "pid": "2000128",
     "language": [
       {
         "value": "fre",
@@ -50686,7 +51069,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600119",
+    "pid": "2000121",
     "language": [
       {
         "value": "ger",
@@ -50851,7 +51234,7 @@
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
     },
-    "pid": "1600121",
+    "pid": "2000124",
     "language": [
       {
         "value": "ger",
@@ -50933,7 +51316,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600131",
+    "pid": "2000133",
     "language": [
       {
         "value": "eng",
@@ -51054,7 +51437,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600130",
+    "pid": "2000132",
     "language": [
       {
         "value": "fre",
@@ -51224,7 +51607,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600129",
+    "pid": "2000131",
     "language": [
       {
         "value": "fre",
@@ -51370,7 +51753,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600132",
+    "pid": "2000134",
     "language": [
       {
         "value": "fre",
@@ -51470,7 +51853,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600128",
+    "pid": "2000130",
     "language": [
       {
         "value": "fre",
@@ -51548,7 +51931,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600133",
+    "pid": "2000135",
     "language": [
       {
         "value": "fre",
@@ -51667,7 +52050,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600134",
+    "pid": "2000136",
     "language": [
       {
         "value": "fre",
@@ -51765,7 +52148,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600137",
+    "pid": "2000139",
     "language": [
       {
         "value": "fre",
@@ -51859,7 +52242,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600135",
+    "pid": "2000137",
     "language": [
       {
         "value": "fre",
@@ -51961,7 +52344,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600139",
+    "pid": "2000141",
     "language": [
       {
         "value": "fre",
@@ -52047,7 +52430,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600136",
+    "pid": "2000138",
     "language": [
       {
         "value": "fre",
@@ -52145,7 +52528,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600138",
+    "pid": "2000140",
     "language": [
       {
         "value": "fre",
@@ -52259,7 +52642,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600140",
+    "pid": "2000142",
     "language": [
       {
         "value": "fre",
@@ -52364,7 +52747,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600142",
+    "pid": "2000144",
     "language": [
       {
         "value": "fre",
@@ -52459,7 +52842,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600141",
+    "pid": "2000143",
     "language": [
       {
         "value": "ger",
@@ -52592,7 +52975,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600143",
+    "pid": "2000145",
     "language": [
       {
         "value": "fre",
@@ -52694,7 +53077,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600146",
+    "pid": "2000148",
     "language": [
       {
         "value": "fre",
@@ -52781,7 +53164,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600145",
+    "pid": "2000147",
     "language": [
       {
         "value": "fre",
@@ -52890,7 +53273,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600144",
+    "pid": "2000146",
     "language": [
       {
         "value": "fre",
@@ -52997,7 +53380,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600147",
+    "pid": "2000149",
     "language": [
       {
         "value": "fre",
@@ -53094,7 +53477,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600148",
+    "pid": "2000150",
     "language": [
       {
         "value": "fre",
@@ -53199,7 +53582,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600149",
+    "pid": "2000151",
     "language": [
       {
         "value": "fre",
@@ -53298,7 +53681,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600150",
+    "pid": "2000152",
     "language": [
       {
         "value": "fre",
@@ -53380,7 +53763,7 @@
       "main_type": "rdami:1003",
       "subtype": "periodical"
     },
-    "pid": "1600151",
+    "pid": "2000153",
     "language": [
       {
         "value": "fre",

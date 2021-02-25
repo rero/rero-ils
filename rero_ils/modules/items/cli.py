@@ -150,6 +150,16 @@ def create_items(count, itemscount, missing, items_f, holdings_f):
 
                     else:
                         barcode = str(10000000000 + item_pid)
+
+                    price = random.randint(1,100)
+                    legacy_checkout_count = random.randint(1,15)
+                    legacy_circulation_rules = {
+                        'use_item_specific_rules': False,
+                        'loan_duration': 15,
+                        'allow_request': False,
+                        'floats': False
+                    }
+
                     missing, item = create_random_item(
                         item_pid=item_pid,
                         location_pid=location_pid,
@@ -159,7 +169,10 @@ def create_items(count, itemscount, missing, items_f, holdings_f):
                         holding_pid=item_holding_pid,
                         barcode=barcode,
                         status=status,
-                        new_acquisition=new_acquisition
+                        new_acquisition=new_acquisition,
+                        price=price,
+                        legacy_checkout_count=legacy_checkout_count,
+                        legacy_circulation_rules=legacy_circulation_rules
                     )
                     item_pid += 1
                     yield item, new_holding
@@ -240,7 +253,9 @@ def get_item_types():
 
 def create_random_item(item_pid, location_pid, missing, item_type_pid,
                        document_pid, holding_pid, barcode, status,
-                       new_acquisition):
+                       new_acquisition, price, legacy_checkout_count, 
+                       legacy_circulation_rules
+):
     """Create items with randomised values."""
     if not status:
         status = ItemStatus.ON_SHELF
@@ -271,7 +286,12 @@ def create_random_item(item_pid, location_pid, missing, item_type_pid,
             '$ref': url_api.format(
                 base_url=base_url, doc_type='holdings', pid=holding_pid)
         },
-        'type': 'standard'
+        'type': 'standard',
+        '_masked': False,
+        'pac_code': '2_controlled_consumption',
+        'price': price,
+        'legacy_checkout_count': legacy_checkout_count,
+        'legacy_circulation_rules': legacy_circulation_rules
     }
     # ACQUISITION DATE
     #   add acquisition date if item is a new acquisition
