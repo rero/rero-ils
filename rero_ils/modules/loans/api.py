@@ -121,7 +121,6 @@ class Loan(IlsRecord):
 
     def __init__(self, data, model=None):
         """Loan init."""
-        self['state'] = current_app.config['CIRCULATION_LOAN_INITIAL_STATE']
         super().__init__(data, model)
 
     def action_required_params(self, action=None):
@@ -198,6 +197,11 @@ class Loan(IlsRecord):
         :param reindex - index the record after the creation.
         """
         data['$schema'] = current_jsonschemas.path_to_url(cls._schema)
+        # default state assignment
+        data.setdefault(
+            'state',
+            current_app.config['CIRCULATION_LOAN_INITIAL_STATE']
+        )        
         if delete_pid and data.get(cls.pid_field):
             del(data[cls.pid_field])
         cls._loan_build_org_ref(data)
