@@ -21,6 +21,7 @@ from copy import deepcopy
 
 import ciso8601
 from freezegun import freeze_time
+from utils import login_user_via_session, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
@@ -29,6 +30,7 @@ from rero_ils.modules.loans.api import Loan, LoanAction, LoanState
 
 
 def test_less_than_one_day_checkout(
+        client,
         circ_policy_less_than_one_day_martigny,
         patron_martigny,
         patron2_martigny,
@@ -59,26 +61,28 @@ def test_less_than_one_day_checkout(
         # an ON_SHELF item
         # WITHOUT pending loan
         # CAN be CHECKOUT for less than one day
-        params = {
-            'patron_pid': patron2_martigny.pid,
-            'transaction_location_pid': loc_public_martigny.pid,
-            'transaction_user_pid': librarian_martigny.pid,
-            'pickup_location_pid': loc_public_martigny.pid
-        }
-        onloan_item, actions = created_item.checkout(**params)
+        login_user_via_session(client, librarian_martigny.user)
+        res, data = postdata(
+            client,
+            'api_item.checkout',
+            dict(
+                item_pid=created_item.pid,
+                patron_pid=patron2_martigny.pid,
+                transaction_location_pid=loc_public_martigny.pid,
+                transaction_user_pid=librarian_martigny.pid,
+                pickup_location_pid=loc_public_martigny.pid
+            )
+        )
+        assert res.status_code == 200
+        actions = data['action_applied']
+        onloan_item = Item.get_record_by_pid(data['metadata']['pid'])
         loan = Loan.get_record_by_pid(actions[LoanAction.CHECKOUT].get('pid'))
         # Check loan is ITEM_ON_LOAN and item is ON_LOAN
         assert onloan_item.number_of_requests() == 0
         assert onloan_item.status == ItemStatus.ON_LOAN
         assert loan['state'] == LoanState.ITEM_ON_LOAN
 
-        # Check due date
-        loan_end_date = loan.get('end_date')
-        # Loan date should be in UTC.
-        loan_datetime = ciso8601.parse_datetime(loan_end_date)
-        # Compare year, month and date
-        fail_msg = "Check timezone for Loan and Library. " \
-                   "It should be the same date, even if timezone changed."
-
-        assert loan_datetime.strftime('%Y-%m-%d') \
-               == transaction_date.strftime('%Y-%m-%d'), fail_msg
+        loan_end_date = ciso8601.parse_datetime(loan.get('end_date'))
+        loan_end_date_formatted = loan_end_date.strftime('%Y-%m-%d')
+        transaction_date_formatted = transaction_date.strftime('%Y-%m-%d')
+        assert loan_end_date_formatted == transaction_date_formatted

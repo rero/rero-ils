@@ -64,24 +64,20 @@ def get_default_loan_duration(loan, initial_loan):
     # Due date should be defined differently from checkout_duration
     # For that we use:
     #   - expected due date (now + checkout_duration)
-    #   - next library open date (the eve of exepected due date is used)
+    #   - next library open date (the eve of expected due date is used)
     # We finally make the difference between next library open date and now.
     # We apply a correction for hour/minute to be 23:59 (end of day).
+
+    # NOTE : Previously this function checks than the cipo allows checkout.
+    #        This check is now done previously by `CircPolicies.allow_checkout`
+    #        method. This was not the place for this ; this function should
+    #        only return the loan duration.
     policy = get_circ_policy(loan)
-
-    # Should block checkouts when a circulation policy found with
-    # allow_checkout is false.
-    # In this case, a checkout duration of zero days is returned, this will
-    #  trigger an HTTP 403 response for the frontend, thanks to
-    #  loan_satisfy_circ_policies.
-
-    if policy.allow_checkout:
-        due_date_eve = now + timedelta(days=policy.get(
-            'checkout_duration')) - timedelta(days=1)
-        next_open_date = library.next_open(date=due_date_eve)
-        return timedelta(days=(next_open_date - now).days) + time_to_eod
-
-    return timedelta(days=0)
+    due_date_eve = now \
+        + timedelta(days=policy.get('checkout_duration', 0)) \
+        - timedelta(days=1)
+    next_open_date = library.next_open(date=due_date_eve)
+    return timedelta(days=(next_open_date - now).days) + time_to_eod
 
 
 def get_extension_params(loan=None, initial_loan=None, parameter_name=None):
@@ -132,11 +128,9 @@ def extend_loan_data_is_valid(end_date, renewal_duration, library_pid):
     return True
 
 
-def loan_satisfy_circ_policies(loan):
+def validate_loan_duration(loan):
     """Validate the loan duration."""
-    # Validate the loan duration
-    policy = get_circ_policy(loan)
-    return loan['end_date'] > loan['start_date'] and policy.allow_checkout
+    return loan['end_date'] > loan['start_date']
 
 
 def is_item_available_for_checkout(item_pid):

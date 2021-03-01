@@ -75,7 +75,7 @@ from .modules.loans.permissions import LoanPermission
 from .modules.loans.utils import can_be_requested, get_default_loan_duration, \
     get_extension_params, is_item_available_for_checkout, \
     loan_build_document_ref, loan_build_item_ref, loan_build_patron_ref, \
-    loan_satisfy_circ_policies, validate_item_pickup_transaction_locations
+    validate_item_pickup_transaction_locations, validate_loan_duration
 from .modules.local_fields.api import LocalField
 from .modules.local_fields.permissions import LocalFieldPermission
 from .modules.locations.api import Location
@@ -2478,7 +2478,8 @@ CIRCULATION_LOAN_TRANSITIONS = {
         dict(
             dest=LoanState.PENDING,
             trigger='request',
-            transition=CreatedToPending),
+            transition=CreatedToPending
+        ),
         dict(
             dest=LoanState.ITEM_ON_LOAN,
             trigger='checkout',
@@ -2575,7 +2576,7 @@ CIRCULATION_LOAN_TRANSITIONS = {
 CIRCULATION_POLICIES = dict(
     checkout=dict(
         duration_default=get_default_loan_duration,
-        duration_validate=loan_satisfy_circ_policies,
+        duration_validate=validate_loan_duration,
         item_can_circulate=is_item_available_for_checkout
     ),
     extension=dict(
