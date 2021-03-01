@@ -67,7 +67,9 @@ def test_item_loans_elements(
     circ_policy_default_martigny.update(
         circ_policy_default_martigny, dbcommit=True, reindex=True)
 
-    assert get_default_loan_duration(new_loan, None) == timedelta(0)
+    today = datetime.now()
+    end_date = today + get_default_loan_duration(new_loan, None)
+    assert today.strftime('%Y-%m-%d') == end_date.strftime('%Y-%m-%d')
 
 
 @pytest.mark.skip(reason="In progress")
