@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
-"POT-Creation-Date: 2021-02-23 11:39+0100\n"
+"POT-Creation-Date: 2021-03-02 11:28+0100\n"
 "PO-Revision-Date: 2021-02-09 09:24+0000\n"
 "Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
 "Language: es\n"
@@ -6656,13 +6656,17 @@ msgid "docmaintype_audio"
 msgstr "documento audio"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:111
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:115
 msgid "docsubtype_music"
 msgstr "Música"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:119
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:115
 msgid "docsubtype_sound"
 msgstr "Sonido"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:119
+#, fuzzy
+msgid "docsubtype_audio_book"
+msgstr "Libro en braille"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:123
 msgid "docsubtype_recorded_words"

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: rero-ils 1.0.0\n"
+"Project-Id-Version: rero-ils 1.0.1\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2021-02-23 11:39+0100\n"
+"POT-Creation-Date: 2021-03-02 11:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6603,12 +6603,15 @@ msgid "docmaintype_audio"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:111
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:115
 msgid "docsubtype_music"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:119
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:115
 msgid "docsubtype_sound"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:119
+msgid "docsubtype_audio_book"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:123
