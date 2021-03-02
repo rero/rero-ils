@@ -58,7 +58,7 @@
       }
     },
     "second_address": {
-      "title": "Secound address",
+      "title": "Second address",
       "type": "object",
       "additionalProperties": false,
       "propertiesOrder": [
