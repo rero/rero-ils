@@ -3781,3 +3781,41 @@ def test_get_contribution_link(mock_get, capsys):
         value={'0': 'X123456789'}
     )
     assert not mef_url
+
+def test_marc21_to_masked():
+    """Test record masking.
+
+    Test masking fields 099.
+    """
+    marc21xml = """
+    <record>
+      <leader>00501nam a2200133 a 4500</leader>
+      <datafield tag="099" ind1=" " ind2=" ">
+        <subfield code="a">masked</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('_masked')
+
+    marc21xml = """
+    <record>
+      <leader>00501nam a2200133 a 4500</leader>
+      <datafield tag="099" ind1=" " ind2=" ">
+        <subfield code="a">toto</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert not data.get('_masked')
+
+    marc21xml = """
+    <record>
+      <leader>00501nam a2200133 a 4500</leader>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert not data.get('_masked')

@@ -925,6 +925,9 @@
       "_draft": {
         "type": "boolean"
       },
+      "_masked": {
+        "type": "boolean"
+      },
       "_created": {
         "type": "date"
       },

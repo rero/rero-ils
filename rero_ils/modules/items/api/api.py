@@ -230,18 +230,17 @@ class ItemsIndexer(IlsRecordsIndexer):
 
     def index(self, record):
         """Index an item."""
-        from ..tasks import delete_holding
         from ...documents.api import DocumentsIndexer
-        from ...holdings.api import HoldingsSearch
+        from ...holdings.api import Holding, HoldingsSearch
 
         # get the old holding record if exists
         items_search = ItemsSearch(). \
             filter('term', pid=record.get('pid')). \
             source('holding').execute().hits
 
-        holding_pid = None
+        old_holdings_pid = None
         if items_search.total.value:
-            holding_pid = items_search[0].holding.pid
+            old_holdings_pid = items_search[0].holding.pid
 
         return_value = super().index(record)
 
@@ -251,10 +250,32 @@ class ItemsIndexer(IlsRecordsIndexer):
         DocumentsIndexer().index_by_id(uid)
         current_search.flush_and_refresh(HoldingsSearch.Meta.index)
         current_search.flush_and_refresh(DocumentsSearch.Meta.index)
-
-        # check if old holding can be deleted
-        delete_holding.delay(holding_pid=holding_pid, force=False,
-                             dbcommit=True, delindex=True)
+        # set holding masking for standard holdings
+        new_holdings_pid = extracted_data_from_ref(record['holding']['$ref'])
+        holding = Holding.get_record_by_pid(new_holdings_pid)
+        if holding.get('holdings_type') == 'standard':
+            number_of_unmasked_items = \
+                Item.get_number_masked_items_by_holdings_pid(new_holdings_pid)
+            update_holdings = False
+            # masking holding if all items are masked
+            if not number_of_unmasked_items and not holding.get('_masked'):
+                holding['_masked'] = True
+                holding.update(
+                    data=holding, dbcommit=True, reindex=True)
+            # unmask holding if at least one of its items is unmasked
+            elif number_of_unmasked_items and holding.get('_masked'):
+                holding['_masked'] = False
+                holding.update(
+                    data=holding, dbcommit=True, reindex=True)
+            # check if old holding can be deleted
+            if old_holdings_pid and new_holdings_pid != old_holdings_pid:
+                old_holding_rec = Holding.get_record_by_pid(old_holdings_pid)
+                try:
+                    # TODO: Need to split DB and elasticsearch deletion.
+                    old_holding_rec.delete(
+                        force=False, dbcommit=True, delindex=True)
+                except IlsRecordError.NotDeleted:
+                    pass
 
         return return_value
 

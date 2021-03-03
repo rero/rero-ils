@@ -115,7 +115,6 @@ def test_holding_delete_after_item_edition(
 
     item_lib_saxon.update(item_lib_saxon, dbcommit=True, reindex=True)
     flush_index(ItemsSearch.Meta.index)
-
     item = Item.get_record_by_pid(item_lib_saxon.pid)
     assert item.holding_pid == holding_lib_fully.pid
 

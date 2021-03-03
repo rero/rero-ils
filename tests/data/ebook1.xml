@@ -15,6 +15,9 @@
   <datafield tag="041" ind1="1" ind2=" ">
     <subfield code="h">eng</subfield>
   </datafield>
+  <datafield ind1=" " ind2=" " tag="099">
+    <subfield code="a">masked</subfield>
+  </datafield> 
   <datafield tag="245" ind1=" " ind2=" ">
     <subfield code="a">Killer Game</subfield>
   </datafield>
