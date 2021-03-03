@@ -28,7 +28,8 @@ from rero_ils.modules.items.tasks import process_late_claimed_issues
 
 
 def test_late_expected_and_claimed_issues(
-         holding_lib_martigny_w_patterns, holding_lib_sion_w_patterns):
+         holding_lib_martigny_w_patterns, holding_lib_sion_w_patterns,
+         yesterday, tomorrow):
     """Test automatic change of late expected issues status to late
     and automatic change to claimed when issue is due"""
     martigny = holding_lib_martigny_w_patterns
@@ -56,14 +57,10 @@ def test_late_expected_and_claimed_issues(
     assert count_issues(sion) == [1, 0]
 
     # create a second late issue for martigny and no more for sion
-    yesterday = (datetime.now(timezone.utc) - timedelta(days=1)
-                 ).strftime('%Y-%m-%d')
-    tomorrow = (datetime.now(timezone.utc) + timedelta(days=1)
-                ).strftime('%Y-%m-%d')
-    sion['patterns']['next_expected_date'] = tomorrow
+    sion['patterns']['next_expected_date'] = tomorrow.strftime('%Y-%m-%d')
     sion.update(sion, dbcommit=True, reindex=True)
 
-    martigny['patterns']['next_expected_date'] = yesterday
+    martigny['patterns']['next_expected_date'] = yesterday.strftime('%Y-%m-%d')
     martigny.update(martigny, dbcommit=True, reindex=True)
 
     msg = process_late_claimed_issues(dbcommit=True, reindex=True)

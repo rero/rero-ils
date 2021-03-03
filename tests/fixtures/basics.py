@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2020 RERO
+# Copyright (C) 2020 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -15,15 +16,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Common pytest patron_types."""
+"""Common pytest fixtures for rero-ils."""
+from datetime import datetime, timedelta, timezone
 
 import pytest
 
 
-@pytest.fixture(scope='module')
-def patron_types_records(
-    patron_type_adults_martigny,
-    patron_type_youngsters_sion,
-    patron_type_grown_sion
-):
-    """Patron types for test mapping."""
+@pytest.fixture(scope="module")
+def yesterday():
+    """Get yesterday timestamp."""
+    return datetime.now(timezone.utc) - timedelta(days=1)
+
+
+@pytest.fixture(scope="module")
+def tomorrow():
+    """Get tomorrow timestamp."""
+    return datetime.now(timezone.utc) + timedelta(days=1)

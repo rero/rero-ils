@@ -20,7 +20,7 @@
 import pytest
 
 
-@pytest.yield_fixture(scope='module')
+@pytest.fixture(scope='module')
 def libraries_records(
     lib_martigny,
     lib_saxon,

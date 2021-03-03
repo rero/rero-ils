@@ -20,7 +20,7 @@
 import pytest
 
 
-@pytest.yield_fixture(scope='module')
+@pytest.fixture(scope='module')
 def document_records(
     document,
     document_ref,

@@ -20,7 +20,7 @@
 import pytest
 
 
-@pytest.yield_fixture(scope='module')
+@pytest.fixture(scope='module')
 def locations_records(
     loc_public_martigny,
     loc_restricted_martigny,

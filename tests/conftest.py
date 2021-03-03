@@ -32,7 +32,8 @@ pytest_plugins = (
     'fixtures.metadata',
     'fixtures.organisations',
     'fixtures.acquisition',
-    'fixtures.sip2'
+    'fixtures.sip2',
+    'fixtures.basics'
 )
 
 

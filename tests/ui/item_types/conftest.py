@@ -20,7 +20,7 @@
 import pytest
 
 
-@pytest.yield_fixture(scope='module')
+@pytest.fixture(scope='module')
 def item_types_records(
     item_type_standard_martigny,
     item_type_on_site_martigny,

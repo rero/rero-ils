@@ -20,7 +20,7 @@
 import pytest
 
 
-@pytest.yield_fixture(scope='module')
+@pytest.fixture(scope='module')
 def local_fields_records(
     local_field_martigny,
     local_field_sion,

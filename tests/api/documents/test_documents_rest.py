@@ -595,9 +595,9 @@ def test_get_remote_cover(mock_get_cover, app):
 
     mock_get_cover.return_value = mock_response(
         content='thumb({'
-            '"success": true,'
-            '"image": "https:\/\/i.test.com\/images\/P\/XXXXXXXXXX_.jpg"'
-            '})'
+                '    "success": true,'
+                '    "image": "https://i.test.com/images/P/XXXXXXXXXX_.jpg"'
+                '})'
     )
     cover = get_remote_cover('XXXXXXXXXX')
     assert cover == {
