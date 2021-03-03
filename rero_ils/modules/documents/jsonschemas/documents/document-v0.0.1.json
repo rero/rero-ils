@@ -36,7 +36,8 @@
     "dimensions",
     "duration",
     "illustrativeContent",
-    "issuance"
+    "issuance",
+    "_masked"
   ],
   "additionalProperties": false,
   "properties": {
@@ -142,6 +143,21 @@
           "wrappers": [
             "hide"
           ]
+        }
+      }
+    },
+    "_masked": {
+      "title": "Masked",
+      "type": "boolean",
+      "description": "A masked document is visible in the professional interface, but not in the public interface.",
+      "default": false,
+      "form": {
+        "templateOptions": {
+          "cssClass": "editor-title"
+        },
+        "hide": true,
+        "navigation": {
+          "essential": true
         }
       }
     }

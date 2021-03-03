@@ -553,7 +553,7 @@ RECORDS_REST_ENDPOINTS = dict(
         # ),
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
-        search_factory_imp='rero_ils.query:view_search_factory',
+        search_factory_imp='rero_ils.query:documents_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=DocumentPermission),
         read_permission_factory_imp=lambda record: record_permission_factory(
@@ -656,7 +656,7 @@ RECORDS_REST_ENDPOINTS = dict(
                     '"rero_ils.modules.items.api:Item"):pid_value>'),
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
-        search_factory_imp='rero_ils.query:viewcode_patron_search_factory',
+        search_factory_imp='rero_ils.query:items_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=ItemPermission),
         read_permission_factory_imp=lambda record: record_permission_factory(
@@ -743,7 +743,7 @@ RECORDS_REST_ENDPOINTS = dict(
                     '"rero_ils.modules.holdings.api:Holding"):pid_value>'),
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
-        search_factory_imp='rero_ils.query:viewcode_patron_search_masked_factory',
+        search_factory_imp='rero_ils.query:holdings_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=HoldingPermission),
         read_permission_factory_imp=lambda record: record_permission_factory(
