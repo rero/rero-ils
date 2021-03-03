@@ -17,15 +17,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-03-02 11:28+0100\n"
-"PO-Revision-Date: 2021-02-25 12:06+0000\n"
+"PO-Revision-Date: 2021-03-03 18:53+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/de/>\n"
 "Language: de\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.5.1-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:131
@@ -6670,9 +6671,8 @@ msgid "docsubtype_sound"
 msgstr "Ton"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:119
-#, fuzzy
 msgid "docsubtype_audio_book"
-msgstr "Braille-Buch"
+msgstr "Hörbuch"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:123
 msgid "docsubtype_recorded_words"
@@ -10627,4 +10627,3 @@ msgstr "Ihr Passwort wurde erfolgreich zurückgesetzt."
 
 #~ msgid "yearly"
 #~ msgstr "jährlich"
-
