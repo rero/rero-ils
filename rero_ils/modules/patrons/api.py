@@ -380,11 +380,16 @@ class Patron(IlsRecord):
             # 'patron' argument are present into kwargs. This check can't
             # be relevant --> return True by default
             return True, []
-        # a blocked patron can't request any item
-        if patron.is_blocked:
-            return False, [patron.get_blocked_message()]
 
-        return True, []
+        messages = []
+        # 1) a blocked patron can't request any item
+        # 2) a patron with obsolete expiration_date can't request any item
+        if patron.is_blocked:
+            messages.append(patron.get_blocked_message())
+        if patron.is_expired:
+            messages.append(_('Patron rights expired.'))
+
+        return len(messages) == 0, messages
 
     @classmethod
     def can_checkout(cls, item, **kwargs):
@@ -434,8 +439,21 @@ class Patron(IlsRecord):
 
     @property
     def patron(self):
-        """Patron property shorcut."""
+        """Patron property shortcut."""
         return self.get('patron', {})
+
+    @property
+    def expiration_date(self):
+        """Shortcut to find the patron expiration date."""
+        date_string = self.patron.get('expiration_date')
+        if date_string:
+            return datetime.strptime(date_string, '%Y-%m-%d')
+
+    @property
+    def is_expired(self):
+        """Check if patron expiration date is obsolete."""
+        expiration_date = self.expiration_date
+        return expiration_date and datetime.now() > expiration_date
 
     @property
     def formatted_name(self):
@@ -677,6 +695,13 @@ class Patron(IlsRecord):
             }]
 
         messages = []
+        # if patron expiration_date has reached - error type message
+        if self.is_expired:
+            messages.append({
+                'type': 'error',
+                'content': _('Patron rights expired.')
+            })
+
         # other messages must be only rendered for the professional interface
         if not public:
             # check the patron type define limit

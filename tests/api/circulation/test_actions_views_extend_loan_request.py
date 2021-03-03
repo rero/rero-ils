@@ -22,7 +22,6 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import postdata
 
 from rero_ils.modules.items.models import ItemStatus
-from rero_ils.modules.patrons.api import Patron
 
 
 def test_extend_loan_missing_parameters(
@@ -77,7 +76,8 @@ def test_extend_loan(
         lib_martigny,
         loc_public_martigny,
         circulation_policies,
-        item_on_loan_martigny_patron_and_loan_on_loan):
+        item_on_loan_martigny_patron_and_loan_on_loan,
+        yesterday):
     """Test frontend extend action."""
     login_user_via_session(client, librarian_martigny.user)
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
@@ -87,31 +87,29 @@ def test_extend_loan(
     patron['patron']['blocked'] = True
     patron['patron']['blocked_note'] = 'Dummy reason'
     patron.update(patron, dbcommit=True, reindex=True)
-    patron = Patron.get_record_by_pid(patron.pid)
 
-    res, _ = postdata(
-        client,
-        'api_item.extend_loan',
-        dict(
-            item_pid=item.pid,
-            transaction_user_pid=librarian_martigny.pid,
-            transaction_location_pid=loc_public_martigny.pid
-        )
+    params = dict(
+        item_pid=item.pid,
+        transaction_user_pid=librarian_martigny.pid,
+        transaction_location_pid=loc_public_martigny.pid
     )
+
+    res, _ = postdata(client, 'api_item.extend_loan', params)
     assert res.status_code == 403
 
+    # Test for an expired patron
     del patron['patron']['blocked']
     del patron['patron']['blocked_note']
+    original_exp_date = patron['patron']['expiration_date']
+    patron['patron']['expiration_date'] = yesterday.strftime('%Y-%m-%d')
+    patron.update(patron, dbcommit=True, reindex=True)
+
+    res, _ = postdata(client, 'api_item.extend_loan', params)
+    assert res.status_code == 403
+
+    patron['patron']['expiration_date'] = original_exp_date
     patron.update(patron, dbcommit=True, reindex=True)
 
     # With only needed parameters
-    res, _ = postdata(
-        client,
-        'api_item.extend_loan',
-        dict(
-            item_pid=item.pid,
-            transaction_user_pid=librarian_martigny.pid,
-            transaction_location_pid=loc_public_martigny.pid
-        )
-    )
+    res, _ = postdata(client, 'api_item.extend_loan', params)
     assert res.status_code == 200

@@ -35,7 +35,7 @@ from rero_ils.utils import create_user_from_data
 
 def test_patrons_shortcuts(
         client, librarian_martigny, patron_martigny,
-        librarian_sion):
+        librarian_sion, yesterday, tomorrow):
     """Test patron shortcuts."""
     new_patron = deepcopy(patron_martigny)
     assert new_patron.patron_type_pid
@@ -44,6 +44,17 @@ def test_patrons_shortcuts(
     assert not new_patron.patron_type_pid
     assert not new_patron.organisation_pid
     assert new_patron.formatted_name == "Roduit, Louis"
+
+    # check for expiration_date
+    expiration_date = new_patron['patron']['expiration_date']
+    expiration_date = datetime.strptime(expiration_date, '%Y-%m-%d')
+    assert new_patron.expiration_date == expiration_date
+
+    new_patron['patron']['expiration_date'] = yesterday.strftime('%Y-%m-%d')
+    assert new_patron.is_expired
+
+    new_patron['patron']['expiration_date'] = tomorrow.strftime('%Y-%m-%d')
+    assert not new_patron.is_expired
 
 
 def test_filtered_patrons_get(
@@ -491,7 +502,7 @@ def test_patrons_dirty_barcode(
 
 def test_patrons_circulation_informations(
      client, patron_sion, librarian_martigny,
-     patron3_martigny_blocked):
+     patron3_martigny_blocked, yesterday, tomorrow):
     """test patron circulation informations."""
     url = url_for(
         'api_patrons.patron_circulation_informations',
@@ -515,6 +526,21 @@ def test_patrons_circulation_informations(
     data = get_json(res)
     assert 'error' == data['messages'][0]['type']
     assert 'This patron is currently blocked' in data['messages'][0]['content']
+
+    patron = patron3_martigny_blocked
+    original_expiration_date = patron['patron']['expiration_date']
+    patron['patron']['expiration_date'] = yesterday.strftime('%Y-%m-%d')
+    patron['patron']['blocked'] = False
+    patron.update(patron, dbcommit=True, reindex=True)
+    res = client.get(url)
+    data = get_json(res)
+    assert 'error' == data['messages'][0]['type']
+    assert 'Patron rights expired.' in data['messages'][0]['content']
+
+    # reset the patron
+    patron['patron']['blocked'] = True
+    patron['patron']['expiration_date'] = original_expiration_date
+    patron.update(patron, dbcommit=True, reindex=True)
 
     url = url_for(
         'api_patrons.patron_circulation_informations',
