@@ -2932,10 +2932,9 @@
       }
     ],
     "status": "on_shelf",
-    "url": "http://lipda.mediatheque.ch/CH-000019-X:223156.file",
+    "url": "https://lipda.mediatheque.ch/CH-000019-X:223156.file",
     "pac_code": "0_frozen_collection",
     "price": 23.2,
-    "_masked": false,
     "legacy_checkout_count": 4,
     "legacy_circulation_rules": {
       "use_item_specific_rules": false,
@@ -2959,8 +2958,7 @@
     "item_type": {
       "$ref": "https://ils.rero.ch/api/item_types/itty1"
     },
-    "status": "on_shelf",
-    "_masked": false
+    "status": "on_shelf"
   },
   "item3": {
     "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
@@ -2987,8 +2985,7 @@
         "content": "Dummy checkout noote"
       }
     ],
-    "status": "on_shelf",
-    "_masked": false
+    "status": "on_shelf"
   },
   "item4": {
     "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
@@ -3005,8 +3002,7 @@
     "item_type": {
       "$ref": "https://ils.rero.ch/api/item_types/itty4"
     },
-    "status": "on_shelf",
-    "_masked": false
+    "status": "on_shelf"
   },
   "item5": {
     "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
@@ -3023,8 +3019,7 @@
     "item_type": {
       "$ref": "https://ils.rero.ch/api/item_types/itty1"
     },
-    "status": "on_shelf",
-    "_masked": false
+    "status": "on_shelf"
   },
   "item6": {
     "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
@@ -3041,8 +3036,7 @@
     "item_type": {
       "$ref": "https://ils.rero.ch/api/item_types/itty4"
     },
-    "status": "on_shelf",
-    "_masked": false
+    "status": "on_shelf"
   },
   "item7": {
     "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
@@ -3059,8 +3053,7 @@
     "item_type": {
       "$ref": "https://ils.rero.ch/api/item_types/itty1"
     },
-    "status": "on_shelf",
-    "_masked": false
+    "status": "on_shelf"
   },
   "item8": {
     "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
@@ -3077,8 +3070,7 @@
     "item_type": {
       "$ref": "https://ils.rero.ch/api/item_types/itty1"
     },
-    "status": "on_shelf",
-    "_masked": false
+    "status": "on_shelf"
   },
   "item9": {
     "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
@@ -3095,8 +3087,7 @@
     "item_type": {
       "$ref": "https://ils.rero.ch/api/item_types/itty1"
     },
-    "status": "on_shelf",
-    "_masked": false
+    "status": "on_shelf"
   },
   "ptrn1": {
     "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
@@ -3437,7 +3428,6 @@
   "holding1": {
     "$schema": "https://ils.rero.ch/schemas/holdings/holding-v0.0.1.json",
     "pid": "holding1",
-    "_masked": false,
     "call_number": "h00001",
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/doc1"
@@ -3452,7 +3442,6 @@
   "holding2": {
     "$schema": "https://ils.rero.ch/schemas/holdings/holding-v0.0.1.json",
     "pid": "holding2",
-    "_masked": false,
     "call_number": "h00002",
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/doc1"
@@ -3467,7 +3456,6 @@
   "holding3": {
     "$schema": "https://ils.rero.ch/schemas/holdings/holding-v0.0.1.json",
     "pid": "holding3",
-    "_masked": false,
     "call_number": "h00003",
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/doc1"
@@ -3482,7 +3470,6 @@
   "holding4": {
     "$schema": "https://ils.rero.ch/schemas/holdings/holding-v0.0.1.json",
     "pid": "holding4",
-    "_masked": false,
     "call_number": "h00004",
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/doc1"

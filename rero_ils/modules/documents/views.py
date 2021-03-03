@@ -20,6 +20,7 @@
 from __future__ import absolute_import, print_function
 
 import click
+from elasticsearch_dsl.query import Q
 from flask import Blueprint, abort, current_app, jsonify, render_template
 from flask import request as flask_request
 from flask_babelex import gettext as _
@@ -65,9 +66,9 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
 
     # Counting holdings to display the get button
     from ..holdings.api import HoldingsSearch
-    query = HoldingsSearch() \
-        .filter('term', document__pid=pid.pid_value) \
-        .filter('term', _masked=False)
+    query = HoldingsSearch()\
+        .filter('term', document__pid=pid.pid_value)
+    query = query.filter('bool', must_not=[Q('term', _masked=True)])
     if organisation:
         query = query.filter('term', organisation__pid=organisation.pid)
     holdings_count = query.count()
@@ -580,8 +581,9 @@ def online_holdings(document_pid, viewcode='global'):
     if viewcode != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
         organisation = Organisation.get_record_by_viewcode(viewcode)
     query = HoldingsSearch()\
-        .filter('term', document__pid=document_pid) \
-        .filter('term', _masked=False)
+        .filter('term', document__pid=document_pid)\
+        .filter('bool', must_not=[Q('term', _masked=True)])
+
     if organisation:
         query = query.filter('term', organisation__pid=organisation.pid)
     results = query.source(['library', 'electronic_location',

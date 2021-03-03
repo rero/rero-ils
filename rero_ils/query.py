@@ -130,16 +130,19 @@ def acquisition_filter():
     return inner
 
 
-def view_search_factory(self, search, query_parser=None):
+def documents_search_factory(self, search, query_parser=None):
     """Search factory with view code parameter."""
-    view = request.args.get(
-        'view', current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))
+    view = request.args.get('view')
     search, urlkwargs = search_factory(self, search)
-    if view != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
-        org = Organisation.get_record_by_viewcode(view)
-        search = search.filter(
-            'term', **{'holdings__organisation__organisation_pid': org['pid']}
-        )
+    # public interface
+    if view:
+        if view != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
+            org = Organisation.get_record_by_viewcode(view)
+            search = search.filter(
+                'term', **{'holdings__organisation__organisation_pid':
+                    org['pid']}
+            )
+        search = search.filter('bool', must_not=[Q('term', _masked=True)])
     # exclude draft records
     search = search.filter('bool', must_not=[Q('term', _draft=True)])
 
@@ -173,8 +176,8 @@ def viewcode_patron_search_masked_factory(self, search, query_parser=None):
     if view:
         if view != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
             org = Organisation.get_record_by_viewcode(view)
-            search = search.filter('term', organisation__pid=org['pid'])\
-                .filter('term', _masked=False)
+            search = search.filter('term', organisation__pid=org['pid'])
+        search = search.filter('bool', must_not=[Q('term', _masked=True)])
     # Admin interface
     elif current_patron:
         search = search.filter(
@@ -184,6 +187,37 @@ def viewcode_patron_search_masked_factory(self, search, query_parser=None):
     search = search.filter('bool', must_not=[Q('term', _draft=True)])
     return search, urlkwargs
 
+def holdings_search_factory(self, search, query_parser=None):
+    """Search factory for holdings records."""
+    search, urlkwargs = search_factory(self, search)
+    view = request.args.get('view')
+    search = search_factory_for_all_interfaces(view, search)
+    return search, urlkwargs
+
+def items_search_factory(self, search, query_parser=None):
+    """Search factory for item records."""
+    search, urlkwargs = search_factory(self, search)
+    view = request.args.get('view')
+    search = search_factory_for_all_interfaces(view, search)
+    return search, urlkwargs
+
+
+def search_factory_for_all_interfaces(view, search):
+    """Search factory for all interfaces based on logged user and view code."""
+    # Logic for public interface
+    if view:
+        # logic for public organisational interface
+        if view != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
+            org = Organisation.get_record_by_viewcode(view)
+            search = search.filter('term', organisation__pid=org['pid'])
+        # masked records are hidden for all public interfaces
+        search = search.filter('bool', must_not=[Q('term', _masked=True)])
+    # Logic for admin interface
+    elif current_patron:
+        search = search.filter(
+            'term', organisation__pid=current_organisation.pid
+        )
+    return search
 
 def contribution_view_search_factory(self, search, query_parser=None):
     """Search factory with view code parameter."""

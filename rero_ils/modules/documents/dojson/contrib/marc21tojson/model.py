@@ -1283,3 +1283,12 @@ def marc21_to_subjects(self, key, value):
         if subjects:
             self['subjects'] = subjects
     # we will return None because we have set subjects directly in self
+
+
+@marc21.over('_masked', '^099..')
+def marc21_to_masked(self, key, value):
+    """Get masked.
+
+    masked: [099$a masked]
+    """
+    return value.get('a') == 'masked'

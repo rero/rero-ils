@@ -204,7 +204,6 @@ def create_holding_record(
     url_api = '{base_url}/api/{doc_type}/{pid}'
     holding = {
         'pid': str(holding_pid),
-        '_masked': False,
         'location': {
             '$ref': url_api.format(
                 base_url=base_url, doc_type='locations', pid=location_pid)
@@ -288,7 +287,6 @@ def create_random_item(item_pid, location_pid, missing, item_type_pid,
                 base_url=base_url, doc_type='holdings', pid=holding_pid)
         },
         'type': 'standard',
-        '_masked': False,
         'pac_code': '2_controlled_consumption',
         'price': price,
         'legacy_checkout_count': legacy_checkout_count,

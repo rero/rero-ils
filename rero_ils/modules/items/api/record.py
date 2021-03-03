@@ -19,6 +19,7 @@
 from datetime import datetime, timezone
 
 import pytz
+from elasticsearch_dsl.query import Q
 from flask_babelex import gettext as _
 
 from ..utils import item_pid_to_object
@@ -498,3 +499,16 @@ class ItemRecord(IlsRecord):
             return datetime.strptime(
                 acquisition_date, '%Y-%m-%d') < datetime.now()
         return False
+
+    @classmethod
+    def get_number_masked_items_by_holdings_pid(cls, holding_pid):
+        """Returns the number of unmasked items and attached to a holding.
+
+        :param holding_pid: the pid of the holdings.
+        :return number of un masked items.
+        """
+        from . import ItemsSearch
+        query = ItemsSearch().filter('term', holding__pid=holding_pid)
+        results = query.filter('bool', must_not=[Q('term', _masked=True)]) \
+            .source(['pid']).count()
+        return results
