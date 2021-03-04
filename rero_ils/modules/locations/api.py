@@ -52,7 +52,6 @@ class LocationsSearch(IlsRecordsSearch):
 
         default_filter = None
 
-
 class Location(IlsRecord):
     """Location class."""
 
@@ -188,3 +187,40 @@ class LocationsIndexer(IlsRecordsIndexer):
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
         super().bulk_index(record_id_iterator, doc_type='loc')
+
+
+def search_locations_by_pid(organisation_pid=None, library_pid=None,
+                            is_online=False, is_pickup=False,
+                            sort_by_field='location_name', sort_order="asc",):
+    """Retrieve locations attached to the given organisation or library."""
+    search = LocationsSearch()
+
+    if organisation_pid:
+        search = search.filter('term', organisation__pid=organisation_pid)
+    elif library_pid:
+        search = search.filter('term', library__pid=library_pid)
+    else:
+        raise MissingRequiredParameterError(
+            description=(
+                "One of the parameters 'organisation_pid' "
+                "or 'library_pid' is required."
+            )
+        )
+
+    if is_online:
+        search = search.filter('terms', is_online=is_online)
+
+    if is_pickup:
+        search = search.filter('terms', is_pickup=is_pickup)
+
+    if sort_by_field:
+        search = search.sort({sort_by_field: {'order': sort_order}})
+
+    return search
+
+
+def get_organisation_pid_by_location_pid(loc_pid):
+    """Get organisation pid for the given location pid."""
+    loc_search = LocationsSearch().filter('term', pid=loc_pid)
+    for location in loc_search.scan():
+        return location.organisation['pid']
