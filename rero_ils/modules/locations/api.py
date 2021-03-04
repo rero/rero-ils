@@ -23,6 +23,7 @@ from flask_babelex import gettext as _
 
 from .models import LocationIdentifier, LocationMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from ..errors import MissingRequiredParameterError
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
@@ -189,3 +190,50 @@ class LocationsIndexer(IlsRecordsIndexer):
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
         super().bulk_index(record_id_iterator, doc_type='loc')
+
+
+def search_locations_by_pid(organisation_pid=None, library_pid=None,
+                            is_online=False, is_pickup=False,
+                            sort_by_field='location_name', sort_order='asc',
+                            preserve_order=False):
+    """Retrieve locations attached to the given organisation or library.
+
+    :param organisation_pid: Organisation pid.
+    :param library_pid: Library pid.
+    :param is_online: Filter only on online location.
+    :param is_pickup: Filter only on pickup location.
+    :param sort_by_field: Location field used for sort.
+    :param sort_order: Sort order `asc` or `desc`.
+    :param preserve_order: Preserve order.
+    :returns: - A Search object.
+    """
+    search = LocationsSearch()
+
+    if organisation_pid:
+        search = search.filter('term', organisation__pid=organisation_pid)
+    elif library_pid:
+        search = search.filter('term', library__pid=library_pid)
+    else:
+        raise MissingRequiredParameterError(
+            "One of the parameters 'organisation_pid' "
+            "or 'library_pid' is required."
+        )
+
+    if is_online:
+        search = search.filter('term', is_online=is_online)
+
+    if is_pickup:
+        search = search.filter('term', is_pickup=is_pickup)
+
+    if sort_by_field:
+        search = search.sort({sort_by_field: {'order': sort_order}})
+        if preserve_order:
+            search = search.params(preserve_order=True)
+    return search
+
+
+def search_location_by_pid(loc_pid):
+    """Search location for the given location pid."""
+    loc_search = LocationsSearch().filter('term', pid=loc_pid)
+    for location in loc_search.scan():
+        return location

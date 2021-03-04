@@ -94,6 +94,10 @@
       "type": "string",
       "title": "Request pickup location PID"
     },
+    "selfcheck_terminal_id": {
+      "type": "string",
+      "title": "Selfcheck terminal id"
+    },
     "start_date": {
       "type": "string",
       "format": "date-time",

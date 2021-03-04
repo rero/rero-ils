@@ -21,15 +21,18 @@
 from __future__ import absolute_import, print_function
 
 import importlib
+from datetime import datetime
 
 from flask import current_app
 from flask_security.utils import verify_password
+from invenio_db import db
+from invenio_oauth2server.provider import get_token
 from werkzeug.local import LocalProxy
 
 from ..items.models import ItemStatus
 from ..patron_types.api import PatronType
 
-datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
+_security = LocalProxy(lambda: current_app.extensions['security'])
 
 
 def check_sip2_module():
@@ -41,7 +44,25 @@ def check_sip2_module():
     return sip2_spec is not None
 
 
-def authorize_selfckeck_user(email, password, **kwargs):
+def authorize_selfckeck_terminal(terminal, access_token, **kwargs):
+    """Authorize selfcheck terminal for given creditential.
+
+    Grant 'token' for terminal.
+    :param terminal: terminal instance.
+    :param access_token: access token.
+    :return: The granted user instance or ``None``.
+    """
+    if terminal and terminal.access_token == access_token:
+        token = get_token(access_token=access_token)
+        if token:
+            terminal.last_login_at = datetime.utcnow()
+            terminal.last_login_ip = kwargs.get('terminal_ip', None)
+            db.session.merge(terminal)
+            db.session.commit()
+            return token.user
+
+
+def authorize_selfckeck_patron(email, password, **kwargs):
     """Get user for sip2 client password.
 
     Grant 'password' for user.
@@ -49,7 +70,7 @@ def authorize_selfckeck_user(email, password, **kwargs):
     :param password: Password.
     :return: The user instance or ``None``.
     """
-    user = datastore.find_user(email=email)
+    user = _security.datastore.find_user(email=email)
     if user and verify_password(password, user.password):
         return user
 

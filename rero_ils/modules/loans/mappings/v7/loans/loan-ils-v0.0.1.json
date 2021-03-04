@@ -80,6 +80,9 @@
       "transaction_user_pid": {
         "type": "keyword"
       },
+      "selfcheck_terminal_id": {
+        "type": "keyword"
+      },
       "to_anonymize": {
         "type": "boolean"
       },
