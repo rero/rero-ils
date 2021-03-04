@@ -75,6 +75,10 @@ setup(
         'babel.extractors': [
             'json = rero_ils.modules.babel_extractors:extract_json'
         ],
+        'invenio_admin.views': [
+            'selfcheck_users_accounts = \
+                rero_ils.modules.selfcheck.admin:selfcheck_terminal_adminview',
+        ],
         'invenio_base.apps': [
             # 'flask_debugtoolbar = flask_debugtoolbar:DebugToolbarExtension',
             'rero-ils = rero_ils.modules.ext:REROILSAPP'
@@ -172,6 +176,7 @@ setup(
             'templates = rero_ils.modules.templates.models',
             'vendors = rero_ils.modules.vendors.models',
             'operation_logs = rero_ils.modules.operation_logs.models',
+            'selfcheck = rero_ils.modules.selfcheck.models',
         ],
         'invenio_pidstore.minters': [
             'acq_account_id = rero_ils.modules.acq_accounts.api:acq_account_id_minter',
