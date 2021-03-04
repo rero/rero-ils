@@ -29,6 +29,8 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session, \
     login_user_via_view
 from invenio_circulation.api import get_loan_for_item
+from invenio_db import db
+from invenio_oauth2server.models import Client, Token
 from invenio_search import current_search
 from pkg_resources import resource_string
 from six.moves.urllib.parse import parse_qs, urlparse
@@ -47,6 +49,7 @@ from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.patron_types.api import PatronType
 from rero_ils.modules.patrons.api import Patron, PatronsSearch, \
     create_patron_from_data
+from rero_ils.modules.selfcheck.models import SelfcheckTerminal
 
 
 class VerifyRecordPermissionPatch(object):
@@ -366,3 +369,40 @@ def create_patron(data):
         reindex=True)
     flush_index(PatronsSearch.Meta.index)
     return ptrn
+
+
+def create_user_token(client_name, user, access_token):
+    """Create a token for the given user."""
+    # Create token for user
+    with db.session.begin_nested():
+        client = Client(
+            name=client_name,
+            user_id=user.id,
+            is_internal=True,
+            is_confidential=False,
+            _default_scopes=''
+        )
+        client.gen_salt()
+        token = Token(
+            client_id=client.client_id,
+            user_id=user.id,
+            access_token=access_token,
+            expires=None,
+            is_personal=True,
+            is_internal=True,
+            _scopes=''
+        )
+        db.session.add(client)
+        db.session.add(token)
+    return token
+
+
+def create_selfcheck_terminal(data):
+    """Create a selfcheck terminal.
+
+    :param data: - A dict containing selfcheck user data.
+    :returns: - A freshly created SelfcheckUser instance.
+    """
+    selfcheck_terminal = SelfcheckTerminal(**data)
+    db.session.add(selfcheck_terminal)
+    return selfcheck_terminal

@@ -22,9 +22,10 @@ from flask import current_app
 from flask_babelex import gettext as _
 from invenio_circulation.errors import ItemNotAvailableError
 
-from .utils import authorize_selfckeck_user, check_sip2_module, \
-    format_patron_address, get_patron_status, map_item_circulation_status, \
-    map_media_type
+from .models import SelfcheckTerminal
+from .utils import authorize_selfckeck_patron, authorize_selfckeck_terminal, \
+    check_sip2_module, format_patron_address, get_patron_status, \
+    map_item_circulation_status, map_media_type
 from ..documents.api import Document
 from ..documents.utils import title_format_text_head
 from ..items.api import Item
@@ -37,26 +38,30 @@ from ..patrons.api import Patron
 from ...filter import format_date_filter
 
 
-def selfcheck_login(login, password):
+def selfcheck_login(name, access_token, **kwargs):
     """Selfcheck login handler.
 
-    Grant 'password' for selfcheck client.
-    :param login: selfcheck client login.
-    :param password: Password.
+    Grant access for selfcheck terminal.
+    :param name: selfcheck terminal name.
+    :param access_token: access token.
     :return: The login object or ``None``.
     """
-    if authorize_selfckeck_user(login, password):
-        staffer = Patron.get_patron_by_email(login)
-        return {
-            'authenticated': staffer.is_librarian,
-            'user_id': staffer.get('pid'),
-            'institution_id': staffer.library_pid,
-            'library_name': Library.get_record_by_pid(
-                staffer.library_pid).get('name')
-        }
+    terminal = SelfcheckTerminal.find_terminal(name=name)
+    user = authorize_selfckeck_terminal(terminal, access_token, **kwargs)
+    if terminal and user:
+        staffer = Patron.get_patron_by_user(user)
+        if staffer.is_librarian:
+            return {
+                'authenticated': terminal.active,
+                'terminal': terminal.name,
+                'transaction_user_id': staffer.pid,
+                'institution_id': terminal.library_pid,
+                'library_name': Library.get_record_by_pid(
+                    terminal.library_pid).get('name')
+            }
 
 
-def validate_patron_account(barcode=None):
+def validate_patron_account(barcode=None, **kwargs):
     """Validate patron account handler.
 
     Validate patron 'barcode' from selfcheck user.
@@ -67,29 +72,32 @@ def validate_patron_account(barcode=None):
     return patron and patron.is_patron
 
 
-def authorize_patron(barcode, password):
+def authorize_patron(barcode, password, **kwargs):
     """Authorize patron handler.
 
     Grant `password` according patron 'barcode' from selfcheck user.
     :param barcode: patron barcode.
+    :param password: patron password.
     :return: ``True`` if patron is authorized or ``False``.
     """
     patron = Patron.get_patron_by_barcode(barcode)
     if patron and patron.is_patron:
-        return authorize_selfckeck_user(patron.user.email, password)
+        return authorize_selfckeck_patron(patron.user.email, password)
     return False
 
 
-def system_status(user_id, *kwargs):
+def system_status(terminal, **kwargs):
     """Selfcheck system status handler.
 
     Get status of automated circulation system.
-    :param user_id: selfcheck client id.
+    :param terminal: selfcheck terminal.
     :return: The status object.
     """
-    staffer = Patron.get_record_by_pid(user_id)
+    terminal = SelfcheckTerminal().find_terminal(name=terminal)
     return {
-        'institution_id': staffer.library_pid
+        'authenticated': terminal.active,
+        'terminal': terminal.name,
+        'institution_id': terminal.library_pid
     }
 
 
@@ -124,7 +132,6 @@ def patron_status(barcode, **kwargs):
         from invenio_sip2.models import SelfcheckPatronStatus
 
         patron = Patron.get_patron_by_barcode(barcode)
-
         patron_status_response = SelfcheckPatronStatus(
             patron_status=get_patron_status(patron),
             language=patron.get('communication_language', 'und'),
@@ -140,7 +147,6 @@ def patron_status(barcode, **kwargs):
                 patron.pid, status='open',
                 with_subscription=False)
         patron_status_response['fee_amount'] = fee_amount
-
         return patron_status_response
 
 
@@ -156,11 +162,6 @@ def patron_information(barcode, **kwargs):
         from invenio_sip2.models import SelfcheckPatronInformation
 
         patron = Patron.get_patron_by_barcode(barcode)
-
-        # TODO: add PatronStatusType according account
-        #  e.g.:
-        #   patron_status.add_patron_status_type(
-        #   SelfcheckPatronStatusTypes.CARD_REPORTED_LOST)
         patron_account_information = SelfcheckPatronInformation(
             patron_id=barcode,
             patron_name=patron.formatted_name,
@@ -184,17 +185,17 @@ def patron_information(barcode, **kwargs):
         for loan in loans:
             item = Item.get_record_by_pid(loan.item_pid)
             if loan['state'] == LoanState.ITEM_ON_LOAN:
-                patron_account_information.get('charged_items').append(
+                patron_account_information.get('charged_items', []).append(
                     item.get('pid'))
                 if loan.is_loan_overdue():
-                    patron_account_information.get('overdue_items')\
+                    patron_account_information.get('overdue_items', [])\
                         .append(item.get('pid'))
             elif loan['state'] in [
                 LoanState.PENDING,
                 LoanState.ITEM_AT_DESK,
                 LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
             ]:
-                patron_account_information.get('hold_items').append(
+                patron_account_information.get('hold_items', []).append(
                     item.get('pid')
                 )
 
@@ -286,56 +287,60 @@ def item_information(patron_barcode, item_pid, **kwargs):
                             transaction.total_amount
                         item_information['currency_type'] = \
                             transaction.currency
-                        item_information.get('screen_messages').append(
+                        item_information.get('screen_messages', []).append(
                             _('overdue'))
                 elif loan['state'] == LoanState.PENDING:
                     item_information['fee_type'] = SelfcheckFeeType.OTHER
             # public note
             public_note = item.get_note(ItemNoteTypes.PUBLIC)
             if public_note:
-                item_information.get('screen_messages').append(public_note)
+                item_information.get('screen_messages', []).append(public_note)
 
             return item_information
 
 
-def selfcheck_checkout(user_pid, institution_id, patron_barcode,
+def selfcheck_checkout(transaction_user_pid, library_pid, patron_barcode,
                        item_barcode, **kwargs):
     """SIP2 Handler to perform checkout.
 
     perform checkout action received from the selfcheck.
-    :param user_pid: identifier of the staff user.
-    :param institution_id: library id of the staff user.
+    :param transaction_user_pid: identifier of the staff user.
+    :param library_pid: library pid of the selfcheck_terminal.
     :param patron_barcode: barcode of the patron.
     :param item_barcode: item identifier.
     :return: The SelfcheckCheckout object.
     """
     if check_sip2_module():
+        from invenio_sip2.errors import SelfcheckCirculationError
         from invenio_sip2.models import SelfcheckCheckout
-        library = Library.get_record_by_pid(institution_id)
+
+        terminal = SelfcheckTerminal.find_terminal(
+            name=kwargs.get('terminal'))
         item = Item.get_item_by_barcode(
             barcode=item_barcode,
-            organisation_pid=library.organisation_pid
+            organisation_pid=terminal.organisation_pid
         )
         document = Document.get_record_by_pid(item.document_pid)
         checkout = SelfcheckCheckout(
             title_id=title_format_text_head(document.get('title')),
         )
-        staffer = Patron.get_record_by_pid(user_pid)
-        if staffer.is_librarian:
-            patron = Patron.get_patron_by_barcode(barcode=patron_barcode)
-            with current_app.test_request_context() as ctx:
-                language = kwargs.get('language', current_app.config
-                                      .get('BABEL_DEFAULT_LANGUAGE'))
-                ctx.babel_locale = language
-                try:
+        try:
+            staffer = Patron.get_record_by_pid(transaction_user_pid)
+            if staffer.is_librarian:
+                patron = Patron.get_patron_by_barcode(barcode=patron_barcode)
+                with current_app.test_request_context() as ctx:
+                    language = kwargs.get('language', current_app.config
+                                          .get('BABEL_DEFAULT_LANGUAGE'))
+                    ctx.babel_locale = language
                     # TODO: check if item is already checked out
                     #  (see sip2 renewal_ok)
                     # do checkout
                     result, data = item.checkout(
                         patron_pid=patron.pid,
                         transaction_user_pid=staffer.pid,
-                        transaction_library_pid=staffer.library_pid,
+                        transaction_library_pid=library_pid,
                         item_pid=item.pid,
+                        selfcheck_terminal_id=str(terminal.id),
                     )
                     loan_pid = data[LoanAction.CHECKOUT].get('pid')
                     loan = Loan.get_record_by_pid(loan_pid)
@@ -346,34 +351,36 @@ def selfcheck_checkout(user_pid, institution_id, patron_barcode,
                         # checkout note
                         checkout_note = item.get_note(ItemNoteTypes.CHECKOUT)
                         if checkout_note:
-                            checkout.get('screen_messages')\
+                            checkout.get('screen_messages', [])\
                                 .append(checkout_note)
                         # TODO: When is possible, try to return fields:
                         #       magnetic_media, desensitize
-                except ItemNotAvailableError:
-                    checkout.get('screen_messages').append(
-                        _('Checkout impossible: the item is requested by '
-                          'another patron'))
-                except Exception:
-                    checkout.get('screen_messages').append(
-                        _('Error encountered: please contact a librarian'))
+        except ItemNotAvailableError:
+            checkout.get('screen_messages', []).append(
+                _('Checkout impossible: the item is requested by '
+                  'another patron'))
+        except Exception:
+            checkout.get('screen_messages', []).append(
+                _('Error encountered: please contact a librarian'))
+            raise SelfcheckCirculationError('self checkout failed', checkout)
         return checkout
 
 
-def selfcheck_checkin(user_pid, institution_id, patron_barcode,
+def selfcheck_checkin(transaction_user_pid, library_pid, patron_barcode,
                       item_barcode, **kwargs):
     """SIP2 Handler to perform checkin.
 
     perform checkin action received from the selfcheck.
-    :param user_pid: identifier of the staff user.
-    :param institution_id: library pid of the staff user.
+    :param transaction_user_pid: identifier of the staff user.
+    :param library_pid: library pid of the selfcheck terminal.
     :param patron_barcode: barcode of the patron.
     :param item_barcode: item identifier.
     :return: The SelfcheckCheckin object.
     """
     if check_sip2_module():
+        from invenio_sip2.errors import SelfcheckCirculationError
         from invenio_sip2.models import SelfcheckCheckin
-        library = Library.get_record_by_pid(institution_id)
+        library = Library.get_record_by_pid(library_pid)
         item = Item.get_item_by_barcode(
             barcode=item_barcode,
             organisation_pid=library.organisation_pid
@@ -381,34 +388,35 @@ def selfcheck_checkin(user_pid, institution_id, patron_barcode,
         checkin = SelfcheckCheckin(
             permanent_location=library.get('name')
         )
-        if item:
+        try:
             document = Document.get_record_by_pid(item.document_pid)
             checkin['title_id'] = title_format_text_head(
                 document.get('title')
             )
-            staffer = Patron.get_record_by_pid(user_pid)
+            staffer = Patron.get_record_by_pid(transaction_user_pid)
             if staffer.is_librarian:
                 with current_app.test_request_context() as ctx:
                     language = kwargs.get('language', current_app.config
                                           .get('BABEL_DEFAULT_LANGUAGE'))
                     ctx.babel_locale = language
-                    try:
-                        # do checkin
-                        result, data = item.checkin(
-                            transaction_user_pid=staffer.pid,
-                            transaction_library_pid=staffer.library_pid,
-                            item_pid=item.pid,
-                        )
-                        if data[LoanAction.CHECKIN]:
-                            checkin['checkin'] = True
-                            # checkin note
-                            checkin_note = item.get_note(ItemNoteTypes.CHECKIN)
-                            if checkin_note:
-                                checkin.get('screen_messages')\
-                                    .append(checkin_note)
-                            # TODO: When is possible, try to return fields:
-                            #       magnetic_media, resensitize
-                    except Exception:
-                        checkin.get('screen_messages').append(
-                            _('Error encountered: please contact a librarian'))
+
+                    # do checkin
+                    result, data = item.checkin(
+                        transaction_user_pid=staffer.pid,
+                        transaction_library_pid=library_pid,
+                        item_pid=item.pid,
+                    )
+                    if data[LoanAction.CHECKIN]:
+                        checkin['checkin'] = True
+                        # checkin note
+                        checkin_note = item.get_note(ItemNoteTypes.CHECKIN)
+                        if checkin_note:
+                            checkin.get('screen_messages', [])\
+                                .append(checkin_note)
+                        # TODO: When is possible, try to return fields:
+                        #       magnetic_media, resensitize
+        except Exception:
+            checkin.get('screen_messages', []).append(
+                _('Error encountered: please contact a librarian'))
+            raise SelfcheckCirculationError('self checkin failed', checkin)
         return checkin

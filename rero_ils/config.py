@@ -97,6 +97,7 @@ from .modules.patron_types.permissions import PatronTypePermission
 from .modules.patrons.api import Patron
 from .modules.patrons.permissions import PatronPermission
 from .modules.permissions import record_permission_factory
+from .modules.selfcheck.permissions import seflcheck_permission_factory
 from .modules.templates.api import Template
 from .modules.templates.permissions import TemplatePermission
 from .modules.users.api import get_profile_countries, \
@@ -2669,6 +2670,8 @@ SIP2_SUPPORT_ONLINE_STATUS = True
 SIP2_SUPPORT_OFFLINE_STATUS = True
 SIP2_SUPPORT_STATUS_UPDATE = True
 SIP2_DATE_FORMAT = '%Y%m%d    %H%M%S'
+
+SIP2_PERMISSIONS_FACTORY = seflcheck_permission_factory
 
 SIP2_REMOTE_ACTION_HANDLERS = dict(
     rero_ils=dict(
