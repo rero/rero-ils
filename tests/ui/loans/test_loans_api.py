@@ -206,8 +206,10 @@ def test_loan_get_overdue_fees(item_on_loan_martigny_patron_and_loan_on_loan):
         loan['end_date'] = end.isoformat()
         loan = loan.update(loan, dbcommit=True, reindex=True)
         count_open = library.count_open(start_date=end + timedelta(days=1))
+        if count_open == 0:
+            continue
         assert sum_for_fees(loan.get_overdue_fees) == \
-               expected_due_amount[count_open-1]
+               expected_due_amount[count_open - 1]
 
     # CASE#2 :: no more overdue after 3 days.
     #    * same definition than before, but add a upper limit to the last
@@ -226,6 +228,8 @@ def test_loan_get_overdue_fees(item_on_loan_martigny_patron_and_loan_on_loan):
         loan['end_date'] = end.isoformat()
         loan = loan.update(loan, dbcommit=True, reindex=True)
         count_open = library.count_open(start_date=end + timedelta(days=1))
+        if count_open == 0:
+            continue
         assert sum_for_fees(loan.get_overdue_fees) == \
                expected_due_amount[count_open - 1]
 
@@ -248,6 +252,8 @@ def test_loan_get_overdue_fees(item_on_loan_martigny_patron_and_loan_on_loan):
         loan['end_date'] = end.isoformat()
         loan = loan.update(loan, dbcommit=True, reindex=True)
         count_open = library.count_open(start_date=end + timedelta(days=1))
+        if count_open == 0:
+            continue
         assert sum_for_fees(loan.get_overdue_fees) == \
                expected_due_amount[count_open - 1]
 
@@ -269,6 +275,8 @@ def test_loan_get_overdue_fees(item_on_loan_martigny_patron_and_loan_on_loan):
         loan['end_date'] = end.isoformat()
         loan = loan.update(loan, dbcommit=True, reindex=True)
         count_open = library.count_open(start_date=end + timedelta(days=1))
+        if count_open == 0:
+            continue
         assert sum_for_fees(loan.get_overdue_fees) == \
                expected_due_amount[count_open-1]
 
