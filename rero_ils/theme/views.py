@@ -272,21 +272,50 @@ def init_menu_profile():
         id='logout-menu',
     )
 
-    item = current_menu.submenu('main.profile.profile')
-    profile_endpoint = 'invenio_userprofiles.profile'
     if current_patron and current_patron.is_patron:
+        item = current_menu.submenu('main.profile.profile')
         profile_endpoint = 'patrons.profile'
+        rero_register(
+            item,
+            endpoint=profile_endpoint,
+            visible_when=lambda: current_user.is_authenticated,
+            text='{icon} {profile}'.format(
+                icon='<i class="fa fa-book"></i>',
+                profile=_('My Account')
+            ),
+            order=1,
+            id='profile-menu',
+        )
+
+    item = current_menu.submenu('main.profile.edit_profile')
     rero_register(
         item,
-        endpoint=profile_endpoint,
+        endpoint='invenio_userprofiles.profile',
         visible_when=lambda: current_user.is_authenticated,
         text='{icon} {profile}'.format(
             icon='<i class="fa fa-user"></i>',
-            profile=_('My Account')
+            profile=_('Edit my profile')
         ),
         order=1,
         id='profile-menu',
     )
+
+    item = current_menu.submenu('main.profile.change_password')
+    rero_register(
+        item,
+        endpoint='security.change_password',
+        visible_when=lambda: current_user.is_authenticated,
+        text='{icon} {profile}'.format(
+            icon='<i class="fa fa-lock"></i>',
+            profile=_('Change password')
+        ),
+        order=1,
+        id='profile-menu',
+    )
+
+    # Endpoint for:
+    # Application: invenio_oauth2server_settings.index
+    # Security: invenio_accounts.security
 
     item = current_menu.submenu('main.profile.signup')
     rero_register(
