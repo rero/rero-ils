@@ -16,16 +16,16 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #}
-{% extends 'rero_ils/page_settings.html' %}
+{% extends 'rero_ils/page.html' %}
 
 {%- block css %}
 {{ super() }}
 {{ node_assets('@rero/rero-ils-ui/dist/public-patron-profile', ['styles.*css'], 'css') }}
 {%- endblock css %}
 
-{%- block settings_body %}
+{%- block body %}
 <public-patron-profile language="{{ current_i18n.locale.language[:2] }}"></public-patron-profile>
-{%- endblock settings_body %}
+{%- endblock body %}
 
 {%- block javascript %}
 {{ super() }}
