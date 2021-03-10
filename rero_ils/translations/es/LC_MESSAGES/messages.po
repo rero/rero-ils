@@ -13,15 +13,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-03-04 07:27+0100\n"
-"PO-Revision-Date: 2021-02-09 09:24+0000\n"
+"PO-Revision-Date: 2021-03-10 16:02+0000\n"
 "Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/es/>\n"
 "Language: es\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/es/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.5.2-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:133
@@ -112,12 +113,10 @@ msgid "roles"
 msgstr "funcciones"
 
 #: rero_ils/config.py:1788
-#, fuzzy
 msgid "city"
-msgstr "Ciudad"
+msgstr "ciudad"
 
 #: rero_ils/config.py:1789
-#, fuzzy
 msgid "patron_type"
 msgstr "Tipo de usuario"
 
@@ -5844,7 +5843,7 @@ msgstr "Ejemplo: https://www.rero.ch/"
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:296
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:64
 msgid "Should be a valid URL format."
-msgstr ""
+msgstr "Tendría que ser un formato de URL válido."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:41
 msgid "Type of link"
@@ -6677,9 +6676,8 @@ msgid "docsubtype_sound"
 msgstr "Sonido"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:119
-#, fuzzy
 msgid "docsubtype_audio_book"
-msgstr "Libro en braille"
+msgstr "audiolibro"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:123
 msgid "docsubtype_recorded_words"
@@ -6945,11 +6943,12 @@ msgstr ""
 "rellenada."
 
 #: rero_ils/modules/holdings/api.py:157
-#, fuzzy
 msgid ""
 "Electronic Holding is not attached to the correct                     "
 "document type. document: {pid}"
-msgstr "El holding no se adjunta al tipo de documento correcto. Documento: {pid}"
+msgstr ""
+"El holding electrónico no se adjunta al tipo de documento correcto. "
+"Documento: {pid}"
 
 #: rero_ils/modules/holdings/api.py:172
 msgid "{field} is allowed only for serial holdings"
@@ -7819,7 +7818,7 @@ msgstr "El ejemplar %(item_id)s ha sido reservado."
 
 #: rero_ils/modules/items/views.py:140
 msgid "due until"
-msgstr "Para devolver el"
+msgstr "devolver el"
 
 #: rero_ils/modules/items/views.py:144
 msgid "in transit"
@@ -8820,9 +8819,8 @@ msgstr ""
 "atrasadas."
 
 #: rero_ils/modules/patrons/views.py:144
-#, fuzzy
 msgid "Patron Profile"
-msgstr "Tipo de usuario"
+msgstr "Perfil de usuario"
 
 #: rero_ils/modules/patrons/views.py:176
 #, python-format
@@ -8870,16 +8868,16 @@ msgstr "ID del usuario"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:37
 msgid "Source if the record has been loaded in a batch."
-msgstr ""
+msgstr "Fuente si el registro ha sido cargado en un lote."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:42
-#, fuzzy
 msgid "Local code"
-msgstr "Código postal"
+msgstr "Código local"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:43
 msgid "Code used to classify users, for instance for statistics."
 msgstr ""
+"Código utilizado para clasificar usuarios, por ejemplo para estadísticas."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:48
 #, fuzzy
@@ -8888,7 +8886,7 @@ msgstr "Información sobre el usuario"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:61
 msgid "Second address"
-msgstr ""
+msgstr "Segunda dirección"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:72
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:46
@@ -10758,4 +10756,3 @@ msgstr "Vuestra contraseña ha sido reinicializada."
 
 #~ msgid "RERO ID"
 #~ msgstr "RERO ID"
-
