@@ -115,9 +115,11 @@
             }
           },
           "form": {
-            "hide": true,
             "templateOptions": {
               "itemCssClass": "col-lg-12"
+            },
+            "expressionProperties": {
+              "templateOptions.required": "field.parent.model.type === 'bf:Publication'"
             }
           }
         },
