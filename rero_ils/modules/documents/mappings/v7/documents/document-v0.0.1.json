@@ -812,6 +812,16 @@
               "notes": {
                 "type": "text"
               },
+              "collections": {
+                "properties": {
+                  "title": {
+                    "type": "text"
+                  },
+                  "description": {
+                    "type": "text"
+                  }
+                }
+              },
               "local_fields": {
                 "properties": {
                   "organisation_pid": {

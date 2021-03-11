@@ -22,7 +22,7 @@ from isbnlib import is_isbn10, is_isbn13, to_isbn10, to_isbn13
 from .utils import create_contributions, title_format_text_head
 from ..documents.api import Document, DocumentsSearch
 from ..holdings.api import Holding, HoldingsSearch
-from ..items.api import ItemsSearch
+from ..items.api import Item, ItemsSearch
 from ..items.models import ItemNoteTypes
 from ..local_fields.api import LocalField
 from ..utils import extracted_data_from_ref
@@ -82,27 +82,23 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                 ItemsSearch().filter('term', holding__pid=holding.pid).scan()
             )
             for item in es_items:
+                item = item.to_dict()
                 item_record = {
-                    'pid': item.pid,
-                    'barcode': item.barcode,
-                    'status': item.status,
-                    'available': item.available
+                    'pid': item['pid'],
+                    'barcode': item['barcode'],
+                    'status': item['status'],
+                    'available': item['available'],
+                    'local_fields': item.get('local_fields'),
+                    'call_number': item.get('call_number')
                 }
+                item_record = {k: v for k, v in item_record.items() if v}
 
-                 # Index item local fields
-                if 'local_fields' in item:
-                    item_record['local_fields'] =\
-                        item.to_dict()['local_fields']
-
-                call_number = item.to_dict().get('call_number')
-                if call_number:
-                    item_record['call_number'] = call_number
                 # item acquisition part.
                 #   We need to store the acquisition data of the items into the
                 #   document. As we need to link acquisition date and
                 #   org/lib/loc, we need to store theses data together in a
                 #   'nested' structure.
-                acq_date = item.to_dict().get('acquisition_date')
+                acq_date = item.get('acquisition_date')
                 if acq_date:
                     item_record['acquisition'] = {
                         'organisation_pid': holding['organisation']['pid'],
@@ -114,11 +110,22 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                 #   index the content of the public notes into the document.
                 public_notes_content = [
                     n['content']
-                    for n in item.to_dict().get('notes', [])
+                    for n in item.get('notes', [])
                     if n['type'] in ItemNoteTypes.PUBLIC
                 ]
                 if public_notes_content:
                     item_record['notes'] = public_notes_content
+
+                # related collection
+                #   index the collection title and description
+                item_obj = Item.get_record_by_pid(item['pid'])
+                for collection in item_obj.in_collection():
+                    coll_data = {
+                        'title': collection.get('title'),
+                        'description': collection.get('description')
+                    }
+                    coll_data = {k: v for k, v in coll_data.items() if v}
+                    item_record.setdefault('collections', []).append(coll_data)
 
                 data.setdefault('items', []).append(item_record)
             data['available'] = Holding.isAvailable(es_items)
