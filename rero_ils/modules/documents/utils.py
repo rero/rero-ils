@@ -395,7 +395,7 @@ def title_format_text(title, with_subtitle=True):
     for main_title in main_titles:
         language = main_title.get('language', 'default')
         value = main_title.get('value', '')
-        main_title_output[language] = value
+        main_title_output.setdefault(language, []).append(value)
 
     # build subtitle string per language
     subtitle_output = {}
@@ -404,7 +404,7 @@ def title_format_text(title, with_subtitle=True):
         for subtitle in subtitles:
             language = subtitle.get('language', 'default')
             value = subtitle.get('value', '')
-            subtitle_output[language] = value
+            subtitle_output.setdefault(language, []).append(value)
 
     # build part strings per language
     parts = title.get('part', [])
@@ -428,9 +428,9 @@ def title_format_text(title, with_subtitle=True):
     # if a vernacular title exists it will be place on top of the title list
     title_text = []
     for key, value in main_title_output.items():
-        value = main_title_output.get(key)
+        value = '. '.join(main_title_output.get(key))
         if subtitle_output and with_subtitle and key in subtitle_output:
-            value = ' : '.join((value, subtitle_output.get(key)))
+            value = ' : '.join((value, ' : '.join(subtitle_output.get(key))))
         if part_output and key in part_output and part_output.get(key):
             value = '. '.join((value, part_output.get(key)))
         if display_alternate_graphic_first(key):
