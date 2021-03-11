@@ -6,7 +6,6 @@
   "required": [
     "$schema",
     "pid",
-    "collection_id",
     "title",
     "collection_type",
     "start_date",

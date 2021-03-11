@@ -149,7 +149,7 @@ class Item(ItemCirculation, ItemIssue):
             .filter('term', published=True) \
             .sort({'title_sort': {'order': 'asc'}}) \
             .params(preserve_order=True) \
-            .source(['pid', 'organisation', 'title'])
+            .source(['pid', 'organisation', 'title', 'description'])
         orgs = {}
         for record in search.scan():
             if record.organisation.pid not in orgs:
@@ -158,6 +158,7 @@ class Item(ItemCirculation, ItemIssue):
             output.append({
                 'pid': record.pid,
                 'title': record.title,
+                'description': record.description,
                 'viewcode': orgs[record.organisation.pid].get('code')
             })
         return output

@@ -23,6 +23,7 @@ from rero_ils.modules.items.api import Item
 
 from .models import CollectionIdentifier
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from ..documents.api import Document, DocumentsIndexer
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
@@ -87,6 +88,17 @@ class CollectionsIndexer(IlsRecordsIndexer):
     """Indexing collections in Elasticsearch."""
 
     record_cls = Collection
+
+    def index(self, record):
+        """Indexing a record."""
+        from ..tasks import process_bulk_queue
+        uuids = set([
+            Document.get_id_by_pid(item.document_pid)
+            for item in record.get_items()
+        ])
+        DocumentsIndexer().bulk_index(uuids)
+        process_bulk_queue.apply_async()
+        return super().index(record)
 
     def bulk_index(self, record_id_iterator):
         """Bulk index records.
