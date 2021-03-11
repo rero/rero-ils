@@ -128,85 +128,6 @@ class Library(IlsRecord):
                                             (time_to_test <= end_time))
         return times_open
 
-    def _is_in_period(self, datetime_to_test, exception_date, day_only):
-        """Test if date is period."""
-        start_date = exception_date['start_date']
-        if isinstance(exception_date['start_date'], str):
-            start_date = date_string_to_utc(start_date)
-        end_date = exception_date.get('end_date')
-        if end_date:
-            if isinstance(end_date, str):
-                end_date = date_string_to_utc(end_date)
-            is_in_period = (
-                datetime_to_test.date() - start_date.date()
-            ).days >= 0
-            is_in_period = is_in_period and (
-                end_date.date() - datetime_to_test.date()
-            ).days >= 0
-            return True, is_in_period
-        if not end_date and day_only:
-            # case when exception if full day
-            if datetime_to_test.date() == start_date.date():
-                return False, True
-        return False, False
-
-    def _is_in_repeat(self, datetime_to_test, start_date, repeat):
-        """Test repeating date."""
-        if repeat:
-            period = repeat['period'].upper()
-            interval = repeat['interval']
-            datelist_to_test = list(
-                rrule(
-                    freq=FREQNAMES.index(period),
-                    until=datetime_to_test,
-                    interval=interval,
-                    dtstart=start_date
-                )
-            )
-            for date in datelist_to_test:
-                if date.date() == datetime_to_test.date():
-                    return True
-        return datetime_to_test.date() == start_date
-
-    def _has_exception(self, _open, date, exception_dates,
-                       day_only=False):
-        """Test the day has an exception."""
-        exception = _open
-        for exception_date in exception_dates:
-            if isinstance(exception_date['start_date'], str):
-                start_date = date_string_to_utc(exception_date['start_date'])
-            repeat = exception_date.get('repeat')
-            if _open:
-                # test for closed exceptions
-                if not exception_date['is_open']:
-                    has_period, is_in_period = self._is_in_period(
-                        date,
-                        exception_date,
-                        day_only
-                    )
-                    if has_period and is_in_period:
-                        exception = False
-                    if not has_period and is_in_period:
-                        # case when exception if full day
-                        exception = exception_date['is_open']
-                    if self._is_in_repeat(date, start_date, repeat):
-                        exception = False
-                    # we found a closing exception
-                    if not exception:
-                        return False
-            else:
-                # test for opened exceptions
-                if exception_date['is_open']:
-                    if self._is_in_repeat(date, start_date, repeat):
-                        exception = True
-                    if not exception and not day_only:
-                        exception = self._is_betweentimes(
-                            date.time(),
-                            exception_date.get('times', [])
-                        )
-                    return exception
-        return exception
-
     def _has_is_open(self):
         """Test if library has opening days."""
         opening_hours = self.get('opening_hours')
@@ -221,47 +142,101 @@ class Library(IlsRecord):
                     return True
         return False
 
+    def _get_exceptions_matching_date(self, date_to_check, day_only=False):
+        """Get all exception matching a given date."""
+        for exception in self.get('exception_dates', []):
+            # Get the start date and the gap (in days) between start date and
+            # end date. If no end_date are supplied, the gap will be 0.
+            start_date = date_string_to_utc(exception['start_date'])
+            end_date = start_date
+            day_gap = 0
+            if exception.get('end_date'):
+                end_date = date_string_to_utc(exception.get('end_date'))
+                day_gap = (end_date - start_date).days
+
+            # If the exception is repeatable, then the start_date should be the
+            # nearest date (lower or equal than date_to_check) related to the
+            # repeat period/interval definition. To know that, we need to know
+            # all exception dates possible (form exception start_date to
+            # date_to_check) and get only the last one.
+            if exception.get('repeat'):
+                period = exception['repeat']['period'].upper()
+                exception_dates = rrule(
+                    freq=FREQNAMES.index(period),
+                    until=date_to_check,
+                    interval=exception['repeat']['interval'],
+                    dtstart=start_date
+                )
+                for start_date in exception_dates:
+                    pass
+                end_date = start_date + timedelta(days=day_gap)
+
+            # Now, check if exception is matching for the date_to_check
+            # If exception defined times, we need to check if the date_to_check
+            # is includes into theses time intervals (only if `day_only` method
+            # argument is set)
+            if start_date.date() <= date_to_check.date() <= end_date.date():
+                if exception.get('times') and not day_only:
+                    times = exception.get('times')
+                    if self._is_betweentimes(date_to_check.time(), times):
+                        yield exception
+                else:
+                    yield exception
+
     def is_open(self, date=datetime.now(pytz.utc), day_only=False):
         """Test library is open."""
-        _open = False
+        is_open = False
+        rule_hours = []
 
-        # Change date to be aware and with timezone.
+        # First of all, change date to be aware and with timezone.
         if isinstance(date, str):
             date = date_string_to_utc(date)
-        if isinstance(date, datetime):
-            if date.tzinfo is None:
-                date = date.replace(tzinfo=pytz.utc)
+        if isinstance(date, datetime) and date.tzinfo is None:
+            date = date.replace(tzinfo=pytz.utc)
+
+        # STEP 1 :: check about regular rules
+        #   Each library could defined if a specific weekday is open or closed.
+        #   Check into this weekday array if the day is open/closed. If the
+        #   searched weekday isn't defined the default value is closed
+        #
+        #   If the find rule defined open time periods, check if date_to_check
+        #   is into this periods (depending of `day_only` method argument).
         day_name = date.strftime("%A").lower()
-        for opening_hour in self['opening_hours']:
-            if day_name == opening_hour['day']:
-                _open = opening_hour['is_open']
-                hours = opening_hour.get('times', [])
-                break
-        times_open = _open
-        if _open and not day_only:
-            times_open = self._is_betweentimes(date.time(), hours)
-        # test the exceptions
-        exception_dates = self.get('exception_dates')
-        if exception_dates:
-            exception = self._has_exception(
-                _open=times_open,
-                date=date,
-                exception_dates=exception_dates,
-                day_only=day_only
-            )
-            if exception != times_open:
-                times_open = not times_open
-        return times_open
+        regular_rule = [
+            rule for rule in self['opening_hours']
+            if rule['day'] == day_name
+        ]
+        if regular_rule:
+            is_open = regular_rule[0].get('is_open', False)
+            rule_hours = regular_rule[0].get('times', [])
+
+        if is_open and not day_only:
+            is_open = self._is_betweentimes(date.time(), rule_hours)
+
+        # STEP 2 :: test each exceptions
+        #   Each library can defined a set of exception dates. These exceptions
+        #   could be repeatable for a specific interval. Check is some
+        #   exceptions are relevant related to date_to_check and if these
+        #   exception changed the behavior of regular rules.
+        #
+        #   Each exception can defined open time periods, check if
+        #   date_to_check is into this periods (depending of `day_only`
+        #   method argument)
+        for exception in self._get_exceptions_matching_date(date, day_only):
+            if is_open != exception['is_open']:
+                is_open = not is_open
+
+        return is_open
 
     def _get_opening_hour_by_day(self, day_name):
         """Get the library opening hour for a specific day."""
         day_name = day_name.lower()
-        days = [day for day in self.get('opening_hours', [])
-                if day.get('day') == day_name and day.get('is_open', False)]
-        if days:
-            times = days[0].get('times', [])
-            if times:
-                return times[0].get('start_time')
+        days = [
+            day for day in self.get('opening_hours', [])
+            if day['day'] == day_name and day['is_open']
+        ]
+        if days and days[0]['times']:
+            return days[0]['times'][0]['start_time']
 
     def next_open(self, date=datetime.now(pytz.utc), previous=False,
                   ensure=False):
