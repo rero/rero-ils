@@ -96,7 +96,11 @@
         "end_date": "2019-01-06",
         "is_open": false,
         "start_date": "2018-12-22",
-        "title": "Vacances de No\u00ebl"
+        "title": "Vacances de No\u00ebl",
+        "repeat": {
+          "interval": 1,
+          "period": "yearly"
+        }
       },
       {
         "is_open": true,
@@ -107,7 +111,7 @@
             "start_time": "10:00"
           }
         ],
-        "title": "Samdi du livre"
+        "title": "Samedi du livre"
       },
       {
         "is_open": false,
@@ -117,6 +121,15 @@
         },
         "start_date": "2019-08-01",
         "title": "1er ao\u00fbt"
+      },
+      {
+        "is_open": false,
+        "repeat": {
+          "interval": 2,
+          "period": "monthly"
+        },
+        "start_date": "2019-01-01",
+        "title": "1er du mois, 1 mois sur 2"
       }
     ],
     "notification_settings": [
