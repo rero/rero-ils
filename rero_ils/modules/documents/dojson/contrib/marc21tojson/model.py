@@ -83,14 +83,14 @@ def get_contribution_link(bibid, reroid, id, key, value):
     # https://mef.test.rero.ch/api/mef/?q=rero.rero_pid:A012327677
     prod_host = 'mef.rero.ch'
     test_host = os.environ.get('RERO_ILS_MEF_HOST', 'mef.rero.ch')
-    mef_url = 'https://{host}/api/'.format(host=test_host)
+    mef_url = f'https://{test_host}/api/'
 
     match = IDREF_REF_REGEX.search(id)
     if match:
         pid = match.group(1)
         if key[:3] in ['100', '600', '610', '611', '700', '710', '711']:
             # contribution
-            url = "{mef}idref/{pid}".format(mef=mef_url, pid=pid)
+            url = f'{mef_url}idref/{pid}'
             try:
                 request = requests.get(url=url)
             except requests.exceptions.RequestException as err:
@@ -102,9 +102,9 @@ def get_contribution_link(bibid, reroid, id, key, value):
                 subfiels = []
                 for v, k in value.items():
                     if v != '__order__':
-                        subfiels.append('${v} {k}'.format(v=v, k=k))
+                        subfiels.append(f'${v} {k}')
                 subfiels = ' '.join(subfiels)
-                field = '{key} {subfiels}'.format(key=key, subfiels=subfiels)
+                field = f'{key} {subfiels}'
                 error_print('WARNING MEF CONTRIBUTION IDREF NOT FOUND:',
                             bibid, reroid, field, url,
                             request.status_code)
@@ -1190,8 +1190,7 @@ def marc21_to_part_of(self, key, value):
         match = re.compile(r'^REROILS:')
         pid = match.sub('', subfield_w)
         part_of['document'] = {
-            '$ref':
-                'https://ils.rero.ch/api/documents/{pid}'.format(pid=pid)
+            '$ref': f'https://ils.rero.ch/api/documents/{pid}'
         }
         if key[:3] == '773':
             discard_numbering = False

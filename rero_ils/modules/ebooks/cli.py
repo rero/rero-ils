@@ -44,7 +44,7 @@ from .utils import add_oai_source
 def add_oai_source_config(name, baseurl, metadataprefix, setspecs, comment,
                           update):
     """Add OAIHarvestConfig."""
-    click.echo('Add OAIHarvestConfig: {0} '.format(name), nl=False)
+    click.echo(f'Add OAIHarvestConfig: {name} ', nl=False)
     msg = add_oai_source(
         name=name,
         baseurl=baseurl,
@@ -70,9 +70,7 @@ def init_oai_harvest_config(configfile, update):
         metadataprefix = values.get('metadataprefix', 'marc21')
         setspecs = values.get('setspecs', '')
         comment = values.get('comment', '')
-        click.echo(
-            'Add OAIHarvestConfig: {0} {1} '.format(name, baseurl), nl=False
-        )
+        click.echo(f'Add OAIHarvestConfig: {name} {baseurl} ', nl=False)
         msg = add_oai_source(
             name=name,
             baseurl=baseurl,

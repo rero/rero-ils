@@ -53,10 +53,7 @@ def search_responsify_csv(serializer, mimetype):
         )
         if not response.headers.get('Content-Disposition'):
             response.headers['Content-Disposition'] = \
-                'attachment; filename="{file_name}"'.format(
-                    file_name=file_name
-                )
-
+                f'attachment; filename="{file_name}"'
         if links is not None:
             add_link_header(response, links)
 

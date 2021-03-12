@@ -26,7 +26,8 @@ from flask_wiki import Wiki
 from invenio_circulation.signals import loan_state_changed
 from invenio_indexer.signals import before_record_index
 from invenio_oaiharvester.signals import oaiharvest_finished
-from invenio_records.signals import after_record_insert, after_record_update
+from invenio_records.signals import after_record_insert, after_record_update, \
+    before_record_update
 from invenio_records_rest.errors import JSONSchemaValidationError
 from invenio_userprofiles.signals import after_profile_update
 from jsonschema.exceptions import ValidationError
@@ -41,6 +42,7 @@ from .holdings.listener import enrich_holding_data
 from .ill_requests.listener import enrich_ill_request_data
 from .imports.views import ImportsListResource, ImportsResource, \
     ResultNotFoundOnTheRemoteServer
+from .item_types.listener import negative_availability_changes
 from .items.listener import enrich_item_data
 from .loans.listener import enrich_loan_data, listener_loan_state_changed
 from .locations.listener import enrich_location_data
@@ -104,21 +106,21 @@ class REROILSAPP(object):
         endpoints = app.config.get('RERO_IMPORT_REST_ENDPOINTS', {})
         for endpoint, options in endpoints.items():
             imports_search = ImportsListResource.as_view(
-                'import_{endpoint}'.format(endpoint=endpoint),
+                f'import_{endpoint}',
                 import_class=options.get('import_class'),
                 import_size=options.get('import_size')
             )
             api_blueprint.add_url_rule(
-                '/import_{endpoint}/'.format(endpoint=endpoint),
+                f'/import_{endpoint}/',
                 view_func=imports_search
             )
 
             imports_record = ImportsResource.as_view(
-                'import_{endpoint}_record'.format(endpoint=endpoint),
+                f'import_{endpoint}_record',
                 import_class=options.get('import_class')
             )
             api_blueprint.add_url_rule(
-                '/import_{endpoint}/<id>'.format(endpoint=endpoint),
+                f'/import_{endpoint}/<id>',
                 view_func=imports_record
             )
 
@@ -183,6 +185,8 @@ class REROILSAPP(object):
 
         after_record_insert.connect(operation_log_record_create)
         after_record_update.connect(operation_log_record_update)
+
+        before_record_update.connect(negative_availability_changes)
 
         loan_state_changed.connect(listener_loan_state_changed, weak=False)
 

@@ -59,13 +59,9 @@ def process_late_claimed_issues(
         create_next_claim_count = Item.create_first_and_next_claims(
             claim_type='next', dbcommit=dbcommit, reindex=reindex)
 
-    msg = 'expected_issues_to_late: {expected_issues_to_late_count} '\
-        'create_first_claim: {create_first_claim_count} '\
-        'create_next_claim: {create_next_claim_count} '.format(
-            expected_issues_to_late_count=expected_issues_to_late_count,
-            create_first_claim_count=create_first_claim_count,
-            create_next_claim_count=create_next_claim_count
-        )
+    msg = f'expected_issues_to_late: {expected_issues_to_late_count} '\
+        f'create_first_claim: {create_first_claim_count} '\
+        f'create_next_claim: {create_next_claim_count} '
     set_timestamp('claims-creation', msg=msg)
     return msg
 
@@ -113,6 +109,4 @@ def delete_holding(holding_pid, force=False, dbcommit=True, delindex=True):
             holding_rec.delete(force=force, dbcommit=dbcommit,
                                delindex=delindex)
         except IlsRecordError.NotDeleted:
-            current_app.logger.warning("Holding not deleted: {pid}".format(
-                pid=holding_pid
-            ))
+            current_app.logger.warning(f'Holding not deleted: {holding_pid}')

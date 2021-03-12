@@ -69,11 +69,21 @@
       "description": "Enter 0 if checkout is not allowed.",
       "type": "integer",
       "minimum": 0,
-      "default": 7,
       "form": {
         "templateOptions": {
           "addonRight": {
             "text": "day(s)"
+          },
+          "wrappers": [
+            "toggle-switch",
+            "card"
+          ],
+          "toggle-switch": {
+            "label": "Allow checkout",
+            "description": "Checkouts are allowed or not."
+          },
+          "navigation": {
+            "essential": true
           }
         }
       }
@@ -180,6 +190,7 @@
         }
       },
       "form": {
+        "hide": true,
         "navigation": {
           "essential": true
         }

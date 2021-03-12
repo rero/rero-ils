@@ -97,7 +97,7 @@ def strtotime(strtime):
 def do_bulk_index(uuids, doc_type='rec', process=False, verbose=False):
     """Bulk index records."""
     if verbose:
-        click.echo(' add to index: {count}'.format(count=len(uuids)))
+        click.echo(f' add to index: {len(uuids)}')
     from .api import IlsRecordsIndexer
     indexer = IlsRecordsIndexer()
     retry = True
@@ -107,10 +107,7 @@ def do_bulk_index(uuids, doc_type='rec', process=False, verbose=False):
             indexer.bulk_index(uuids, doc_type=doc_type)
             retry = False
         except Exception as exc:
-            msg = 'Bulk Index Error: retry in {minutes} min {exc}'.format(
-                exc=exc,
-                minutes=minutes
-            )
+            msg = f'Bulk Index Error: retry in {minutes} min {exc}'
             current_app.logger.error(msg)
             if verbose:
                 click.secho(msg, fg='red')
@@ -349,11 +346,11 @@ def generate_item_barcode(data=None):
     :return: data with a generated barcode
     """
     if not data.get('barcode'):
-        data['barcode'] = 'f-{}'.format(
-            datetime.now().strftime('%Y%m%d%I%M%S%f'))
+        data['barcode'] = 'f-' + datetime.now().strftime('%Y%m%d%I%M%S%f')
     if data.get('patron') and not data.get('patron', {}).get('barcode'):
         data['patron']['barcode'] = [
-            'f-{}'.format(datetime.now().strftime('%Y%m%d%I%M%S%f'))]
+            'f-' + datetime.now().strftime('%Y%m%d%I%M%S%f')
+        ]
     return data
 
 
@@ -424,11 +421,7 @@ def pids_exists_in_data(info, data, required={}, not_required={}):
                     data_pid = None
                 if not data_pid and is_required:
                     return_value.append(
-                        '{info}: No pid found: {pid_type} {data}'.format(
-                            info=info,
-                            pid_type=pid_type,
-                            data=data_to_test
-                        )
+                        f'{info}: No pid found: {pid_type} {data_to_test}'
                     )
                 else:
                     if not pid_exists(
@@ -446,13 +439,7 @@ def pids_exists_in_data(info, data, required={}, not_required={}):
                         )
             else:
                 if is_required:
-                    return_value.append(
-                        '{info}: {text} {key}'.format(
-                            info=info,
-                            text='No data found:',
-                            key=key
-                        )
-                    )
+                    return_value.append(f'{info}: No data found: {key}')
         return return_value
 
     return_value_required = pids_exists_in_data_test(

@@ -39,8 +39,6 @@ def loan_anonymizer(dbcommit=True, reindex=True):
         loans_count_org = anonymize_loans(
             org_pid=org_pid, dbcommit=dbcommit, reindex=reindex)
         loans_count = loans_count + loans_count_org
-    msg = 'number_of_loans_anonymized: {loans_count}'.format(
-            loans_count=loans_count
-    )
+    msg = f'number_of_loans_anonymized: {loans_count}'
     set_timestamp('anonymize-loans', msg=msg)
     return msg

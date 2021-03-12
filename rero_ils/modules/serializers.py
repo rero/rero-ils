@@ -68,10 +68,11 @@ class JSONSerializer(_JSONSerializer):
         """Post process the search results."""
         pid_type = pid_fetcher(None, dict(pid='1')).pid_type
         results['links'].update({
-            'create': url_for('invenio_records_rest.{pid_type}_list'.format(
-                        pid_type=pid_type), _external=True
-                      )
-            })
+            'create': url_for(
+                f'invenio_records_rest.{pid_type}_list',
+                _external=True
+            )
+        })
         return results
 
     def serialize_search(self, pid_fetcher, search_result, links=None,

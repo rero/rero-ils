@@ -7,14 +7,18 @@
   "propertiesOrder": [
     "name",
     "description",
-    "type"
+    "type",
+    "negative_availability",
+    "displayed_status",
+    "circulation_information"
   ],
   "required": [
     "$schema",
     "pid",
     "name",
     "organisation",
-    "type"
+    "type",
+    "negative_availability"
   ],
   "properties": {
     "$schema": {
@@ -86,6 +90,124 @@
           },
           "messages": {
             "alreadyTakenMessage": "Another online item type exists in this organisation."
+          }
+        }
+      }
+    },
+    "negative_availability": {
+      "title": "Mark the items of this category as not available",
+      "description": "If enabled, all items of this circulation category will be displayed as not available, with the red availability symbol.",
+      "type": "boolean",
+      "default": false
+    },
+    "displayed_status": {
+      "title": "Displayed status",
+      "type": "array",
+      "description": "Short text displayed in the interface, for instance \"in acquisition\" or \"missing\".",
+      "minItems": 1,
+      "items": {
+        "title": "Status",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "language",
+          "label"
+        ],
+        "propertiesOrder": [
+          "language",
+          "label"
+        ],
+        "properties": {
+          "language": {
+            "$ref": "https://ils.rero.ch/schemas/common/ui-languages-v0.0.1.json#/language"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string",
+            "maxLength": 30,
+            "minLength": 3,
+            "form": {
+              "templateOptions": {
+                "itemCssClass": "col-lg-10"
+              }
+            }
+          }
+        },
+        "form": {
+          "templateOptions": {
+            "containerCssClass": "row"
+          }
+        }
+      },
+      "form": {
+        "hideExpression": "!field.parent.model.negative_availability",
+        "expressionProperties": {
+          "templateOptions.required": "field.parent.model.negative_availability"
+        },
+        "validation": {
+          "validators": {
+            "uniqueValueKeysInObject": {
+              "keys": [
+                "language"
+              ]
+            }
+          },
+          "messages": {
+            "uniqueValueKeysInObjectMessage": "Only one label per language is allowed."
+          }
+        }
+      }
+    },
+    "circulation_information": {
+      "title": "Circulation information",
+      "type": "array",
+      "description": "This optional text is displayed in the public interface, for instance \"On-site consultation\"",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "title": "Information",
+        "additionalProperties": false,
+        "required": [
+          "language",
+          "label"
+        ],
+        "propertiesOrder": [
+          "language",
+          "label"
+        ],
+        "properties": {
+          "language": {
+            "$ref": "https://ils.rero.ch/schemas/common/ui-languages-v0.0.1.json#/language"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 3,
+            "form": {
+              "templateOptions": {
+                "itemCssClass": "col-lg-10"
+              }
+            }
+          }
+        },
+        "form": {
+          "templateOptions": {
+            "containerCssClass": "row"
+          }
+        }
+      },
+      "form": {
+        "validation": {
+          "validators": {
+            "uniqueValueKeysInObject": {
+              "keys": [
+                "language"
+              ]
+            }
+          },
+          "messages": {
+            "uniqueValueKeysInObjectMessage": "Only one label per language is allowed."
           }
         }
       }

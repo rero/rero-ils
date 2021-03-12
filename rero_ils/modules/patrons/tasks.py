@@ -79,8 +79,8 @@ def check_patron_types_and_add_subscriptions():
     for ptty in PatronType.get_yearly_subscription_patron_types():
         patron_no_subsc = Patron.get_patrons_without_subscription(ptty.pid)
         for patron in patron_no_subsc:
-            msg = 'Add a subscription for patron#{ptrn} ... it shouldn\'t ' \
-                  'happen !!'.format(ptrn=patron.pid)
+            msg = f'Add a subscription for patron#{patron.pid} ... ' \
+                  'it shouldn\'t happen !!'
             current_app.logger.error(msg)
             start_date = datetime.now()
             end_date = add_years(start_date, 1)

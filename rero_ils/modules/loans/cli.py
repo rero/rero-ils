@@ -40,7 +40,7 @@ from ..notifications.tasks import create_notifications
 from ..patron_transaction_events.api import PatronTransactionEvent
 from ..patron_types.api import PatronType
 from ..patrons.api import Patron, PatronsSearch
-from ..utils import extracted_data_from_ref, get_base_url, \
+from ..utils import extracted_data_from_ref, get_ref_for_pid, \
     get_schema_for_resource
 
 
@@ -63,7 +63,7 @@ def create_loans(infile, verbose, debug):
         if barcode is None:
             click.secho('Patron barcode is missing!', fg='red')
         else:
-            click.echo('Patron: {barcode}'.format(barcode=barcode))
+            click.echo(f'Patron: {barcode}')
             loans = patron_data.get('loans', {})
             requests = patron_data.get('requests', {})
             blocked = patron_data.get('blocked', False)
@@ -76,10 +76,7 @@ def create_loans(infile, verbose, debug):
                 loanable_items_count = len(
                     list(get_loanable_items(patron_type_pid))
                 )
-                msg = '\t{patron} loanable_items: {loanable_items}'.format(
-                    patron=patron_data,
-                    loanable_items=loanable_items_count
-                )
+                msg = f'\t{patron_data} loanable_items: {loanable_items_count}'
                 click.echo(msg)
 
             for transaction in range(loans.get('active', 0)):
@@ -150,31 +147,17 @@ def create_loans(infile, verbose, debug):
             dbcommit=True,
             reindex=True
         )
-    for key, val in errors_count.items():
-        click.secho(
-            'Errors {transaction_type}: {count}'.format(
-                transaction_type=key,
-                count=val
-            ),
-            fg='red'
-        )
+    for transaction_type, count in errors_count.items():
+        click.secho(f'Errors {transaction_type}: {count}', fg='red')
     click.echo(result)
 
 
 def print_message(item_barcode, transaction_type, errors_count):
     """Print confirmation message."""
     if item_barcode:
-        click.echo('\titem {item_barcode}: {transaction_type}'.format(
-            transaction_type=transaction_type,
-            item_barcode=item_barcode
-        ))
+        click.echo(f'\titem {item_barcode}: {transaction_type}')
     else:
-        click.secho(
-            '\tcreation error: {transaction_type}'.format(
-                transaction_type=transaction_type,
-            ),
-            fg='red'
-        )
+        click.secho(f'\tcreation error: {transaction_type}', fg='red')
         errors_count.setdefault(transaction_type, 0)
         errors_count[transaction_type] += 1
     return errors_count
@@ -287,13 +270,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
         return item['barcode']
     except Exception as err:
         if verbose:
-            click.secho(
-                '\tException loan {transaction_type}: {err}'.format(
-                    transaction_type=transaction_type,
-                    err=err
-                ),
-                fg='red'
-            )
+            click.secho(f'\tException loan {transaction_type}:{err}', fg='red')
         if debug:
             traceback.print_exc()
         return None
@@ -343,10 +320,7 @@ def create_request(barcode, transaction_type, loanable_items, verbose=False,
     except Exception as err:
         if verbose:
             click.secho(
-                '\tException request {transaction_type}: {err}'.format(
-                    transaction_type=transaction_type,
-                    err=err
-                ),
+                f'\tException request {transaction_type}: {err}',
                 fg='red'
             )
         if debug:
@@ -435,10 +409,9 @@ def get_random_librarian_and_transaction_location(patron):
 
 def create_payment_record(patron_transaction, user_pid, user_library):
     """Create payment record from patron_transaction."""
-    data = {}
-    data['$schema'] = get_schema_for_resource('ptre')
-    base_url = get_base_url()
-    url_api = '{base_url}/api/{doc_type}/{pid}'
+    data = {
+        '$schema': get_schema_for_resource('ptre')
+    }
     for record in [
         {
             'resource': 'parent',
@@ -457,11 +430,8 @@ def create_payment_record(patron_transaction, user_pid, user_library):
         },
     ]:
         data[record['resource']] = {
-            '$ref': url_api.format(
-                base_url=base_url,
-                doc_type='{}'.format(record['doc_type']),
-                pid=record['pid'])
-            }
+            '$ref': get_ref_for_pid(record['doc_type'], record['pid'])
+        }
     data['type'] = 'payment'
     data['subtype'] = 'cash'
     data['amount'] = patron_transaction.get('total_amount')

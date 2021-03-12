@@ -316,10 +316,7 @@ def create(infile, append, reindex, dbcommit, commit, verbose, debug, schema,
     :param save_errors: save error records to file
     """
     click.secho(
-        'Loading {pid_type} records from {file_name}.'.format(
-            pid_type=pid_type,
-            file_name=infile.name
-        ),
+        f'Loading {pid_type} records from {infile.name}.',
         fg='green'
     )
 
@@ -328,7 +325,7 @@ def create(infile, append, reindex, dbcommit, commit, verbose, debug, schema,
     if save_errors:
         errors = 0
         name, ext = os.path.splitext(infile.name)
-        err_file_name = '{name}_errors{ext}'.format(name=name, ext=ext)
+        err_file_name = f'{name}_errors{ext}'
         error_file = open(err_file_name, 'w')
         error_file.write('[\n')
         error_file.close()
@@ -380,7 +377,7 @@ def create(infile, append, reindex, dbcommit, commit, verbose, debug, schema,
         db.session.flush()
         if count > 0 and count % commit == 0:
             if verbose:
-                click.echo('DB commit: {count}'.format(count=count))
+                click.echo(f'DB commit: {count}')
             db.session.commit()
     click.echo('DB commit: {count}'.format(count=count))
     db.session.commit()
@@ -389,9 +386,7 @@ def create(infile, append, reindex, dbcommit, commit, verbose, debug, schema,
         error_file.write(']')
 
     if append:
-        click.secho(
-            'Append fixtures new identifiers: {len}'.format(len=len(pids))
-        )
+        click.secho(f'Append fixtures new identifiers: {len(pids)}')
         identifier = record_class.provider.identifier
         try:
             append_fixtures_new_identifiers(
@@ -401,7 +396,7 @@ def create(infile, append, reindex, dbcommit, commit, verbose, debug, schema,
             )
         except Exception as err:
             click.secho(
-                "ERROR append fixtures new identifiers: {err}".format(err=err),
+                f'ERROR append fixtures new identifiers: {err}',
                 fg='red'
             )
 
@@ -417,7 +412,7 @@ def count_cli(infile, lazy):
     :return: count of records
     """
     click.secho(
-        'Count records from {file_name}.'.format(file_name=infile.name),
+        f'Count records from {infile.name}.',
         fg='green'
     )
     if lazy:
@@ -429,7 +424,7 @@ def count_cli(infile, lazy):
     count = 0
     for record in records:
         count += 1
-    click.echo('Count: {count}'.format(count=count))
+    click.echo(f'Count: {count}')
 
 
 @fixtures.command('get_all_mef_records')
@@ -446,7 +441,7 @@ def count_cli(infile, lazy):
 def get_all_mef_records(infile, lazy, verbose, enqueue, wait):
     """Get all contributions for given document file."""
     click.secho(
-        'Get all contributions for {file_name}.'.format(file_name=infile.name),
+        f'Get all contributions for {infile.name}.',
         fg='green'
     )
     if lazy:
@@ -467,19 +462,12 @@ def get_all_mef_records(infile, lazy, verbose, enqueue, wait):
                     msg = create_mef_record_online.delay(ref)
                 else:
                     pid, online = create_mef_record_online(ref)
-                    msg = 'contribution pid: {pid} {online}'.format(
-                        pid=pid,
-                        online=online
-                    )
+                    msg = f'contribution pid: {pid} {online}'
                 if verbose:
-                    click.echo("{count:<10}ref: {ref}\t{msg}".format(
-                        count=count,
-                        ref=ref,
-                        msg=msg
-                    ))
+                    click.echo(f'{count:<10}ref: {ref}\t{msg}')
     if enqueue and wait:
         wait_empty_tasks(delay=3, verbose=True)
-    click.echo('Count refs: {count}'.format(count=count))
+    click.echo(f'Count refs: {count}')
 
 
 @utils.command('check_license')
@@ -499,9 +487,7 @@ def check_license(configfile, verbose, progress):
             elif os.path.isdir(path):
                 for extension in extensions:
                     files_list += glob(
-                        os.path.join(path, '**/*.{extension}'.format(
-                            extension=extension
-                        )),
+                        os.path.join(path, f'**/*.{extension}'),
                         recursive=recursive
                     )
         return files_list
@@ -530,7 +516,7 @@ def check_license(configfile, verbose, progress):
             text.replace(' ', '◼︎'),
             n_text.replace(' ', '◼︎')
         )
-        click.echo('{linenbr}: '.format(linenbr=linenbr), nl=False)
+        click.echo(f'{linenbr}: ', nl=False)
         for opcode, a0, a1, b0, b1 in seqm.get_opcodes():
             if opcode == 'equal':
                 click.echo(seqm.a[a0:a1], nl=False)
@@ -548,7 +534,7 @@ def check_license(configfile, verbose, progress):
         """Test the license in file."""
         if progress:
             click.secho('License test: ', fg='green', nl=False)
-            click.echo('{file_name}'.format(file_name=file_name))
+            click.echo(file_name)
         with open(file_name, 'r') as file:
             result = test_license(
                 file=file,
@@ -558,10 +544,7 @@ def check_license(configfile, verbose, progress):
             )
             if result != []:
                 click.secho(
-                    'License error in {file} in lines {lines}'.format(
-                        file=file_name,
-                        lines=result
-                    ),
+                    f'License error in {file_name} in lines {result}',
                     fg='red'
                 )
                 # We have an error
@@ -694,7 +677,7 @@ def check_validate(jsonfile, type, verbose, error_file, ok_file):
     for data in datas:
         count += 1
         if verbose:
-            click.echo('\tTest record: {count}'.format(count=count))
+            click.echo(f'\tTest record: {count}')
         if not data.get("$schema"):
             # create dummy schema in data
             data["$schema"] = 'dummy'
@@ -711,8 +694,9 @@ def check_validate(jsonfile, type, verbose, error_file, ok_file):
             if error_file:
                 error_file.write(json.dumps(data, indent=2))
             click.secho(
-                'Error validate in record: {count}'.format(count=count),
-                fg='red')
+                f'Error validate in record: {count}',
+                fg='red'
+            )
             click.secho(str(err))
 
 
@@ -989,17 +973,16 @@ def extract_from_xml(pid_file, xml_file_in, xml_file_out, tag, progress,
                      verbose):
     """Extracts xml records with pids."""
     click.secho('Extract pids from xml: ', fg='green')
-    click.secho('PID file    : {file_name}'.format(file_name=pid_file.name))
-    click.secho('XML file in : {file_name}'.format(file_name=xml_file_in.name))
-    click.secho('XML file out: {file_name}'.format(
-        file_name=xml_file_out.name))
+    click.secho(f'PID file    : {pid_file.name}')
+    click.secho(f'XML file in : {xml_file_in.name}')
+    click.secho(f'XML file out: {xml_file_out.name}')
 
     pids = {}
     found_pids = {}
     for line in pid_file:
         pids[line.strip()] = 0
     count = len(pids)
-    click.secho('Search pids count: {count}'.format(count=count))
+    click.secho(f'Search pids count: {count}')
     xml_file_out.write(b'<?xml version="1.0" encoding="UTF-8"?>\n')
     xml_file_out.write(
         b'<collection xmlns="http://www.loc.gov/MARC21/slim">\n\n'
@@ -1012,10 +995,7 @@ def extract_from_xml(pid_file, xml_file_in, xml_file_out, tag, progress,
             if is_controlfield and is_tag:
                 if progress:
                     click.secho(
-                        '{idx} {pid}'.format(
-                            idx=idx,
-                            pid=repr(child.text)
-                        ),
+                        '{idx} {pid}'.format(idx=idx, pid=repr(child.text)),
                         nl='\r'
                     )
                 if pids.get(child.text, -1) >= 0:
@@ -1037,13 +1017,7 @@ def extract_from_xml(pid_file, xml_file_in, xml_file_out, tag, progress,
                     break
     xml_file_out.write(b'\n</collection>')
     if count != found:
-        click.secho(
-            'Count: {count} Found: {found}'.format(
-                count=count,
-                found=found
-            ),
-            fg='red'
-        )
+        click.secho(f'Count: {count} Found: {found}', fg='red')
         for key, value in pids.items():
             if value == 0:
                 click.secho(key)
@@ -1085,9 +1059,10 @@ def reserve_pid_range(pid_type, records_number, unused):
                                      status=PIDStatus.RESERVED)
         db.session.commit()
     click.secho(
-        ('reserved_pids range, from: {min} to: {max}').format(
+        'reserved_pids range, from: {min} to: {max}'.format(
             min=min(reserved_pids), max=max(reserved_pids)
-        ))
+        )
+    )
     if unused:
         for pid in range(1, identifier.max()):
             if not db.session.query(
@@ -1127,14 +1102,14 @@ def run(delayed, concurrency, with_stats, version_type=None, queue=None,
             }
         }
         click.secho(
-            'Starting {0} tasks for indexing records...'.format(concurrency),
-            fg='green')
+            f'Starting {concurrency} tasks for indexing records...',
+            fg='green'
+        )
         if queue is not None:
             celery_kwargs.update({'queue': queue})
         for c in range(0, concurrency):
             process_id = process_bulk_queue.apply_async(**celery_kwargs)
-            click.secho('index async: {process_id}'.format(
-                process_id=process_id), fg='yellow')
+            click.secho(f'index async: {process_id}', fg='yellow')
 
     else:
         click.secho('Indexing records...', fg='green')
@@ -1143,8 +1118,7 @@ def run(delayed, concurrency, with_stats, version_type=None, queue=None,
                 es_bulk_kwargs={'raise_on_error': raise_on_error},
                 stats_only=not with_stats
         )
-        click.secho('indexed: {indexed}, error: {error}'.format(
-            indexed=indexed, error=error), fg='yellow')
+        click.secho(f'indexed: {indexed}, error: {error}', fg='yellow')
 
 
 @utils.command('reindex')
@@ -1160,10 +1134,7 @@ def reindex(pid_type, no_info):
     :param pid_type: Pid type.
     """
     for type in pid_type:
-        click.secho(
-            'Sending {type} to indexing queue ...'.format(type=type),
-            fg='green'
-        )
+        click.secho(f'Sending {type} to indexing queue ...', fg='green')
 
         query = (
             x[0] for x in PersistentIdentifier.query.
@@ -1197,7 +1168,7 @@ def get_loc_languages(verbose=False):
                 code = code['#text']
         if code:
             if verbose:
-                click.echo('{code}: {name}'.format(name=name, code=code))
+                click.echo(f'{code}: {name}')
             languages[code] = name
     return languages
 
@@ -1214,12 +1185,12 @@ def translate(translate_to, change, title_map, no_loc_en, angular, verbose):
     def print_title_map(name, values):
         """Print out a title map."""
         if title_map:
-            click.secho('Titel map {name}:'.format(name=name), fg='green')
+            click.secho(f'Title map {name}:', fg='green')
             click.echo('"titleMap": [')
             for value in values:
                 click.echo('\t{')
-                click.echo('\t\t"value": "{value}",'.format(value=value))
-                click.echo('\t\t"name": "{value}"'.format(value=value))
+                click.echo(f'\t\t"value": "{value}",')
+                click.echo(f'\t\t"name": "{value}"')
                 if value == values[-1]:
                     click.echo('\t}')
                 else:
@@ -1243,18 +1214,14 @@ def translate(translate_to, change, title_map, no_loc_en, angular, verbose):
     try:
         locale = Locale(translate_to)
 
-        click.secho('Translate country codes to: {translate_to}'.format(
-                translate_to=translate_to
-            ),
-            fg='green'
-        )
+        click.secho(f'Translate country codes to: {translate_to}', fg='green')
         document = ('./rero_ils/modules/documents/jsonschemas/'
                     'documents/document-v0.0.1_src.json')
 
         if change:
             file_name = (
-                './rero_ils/translations/{translate_to}/LC_MESSAGES/'
-                'messages.po'.format(translate_to=translate_to)
+                f'./rero_ils/translations/{translate_to}/LC_MESSAGES/'
+                'messages.po'
             )
             # try to open file. polib.pofile is not raising a good error
             test_file = open(file_name)
@@ -1293,10 +1260,7 @@ def translate(translate_to, change, title_map, no_loc_en, angular, verbose):
                 if trans_name:
                     translated_languages[lang] = trans_name
                 if verbose and trans_name:
-                    click.echo('Language {code}: {translated}'.format(
-                        code=lang,
-                        translated=trans_name
-                    ))
+                    click.echo(f'Language {lang}: {trans_name}')
             if change:
                 change_po(po, translated_languages)
 
@@ -1336,15 +1300,10 @@ def translate(translate_to, change, title_map, no_loc_en, angular, verbose):
             click.secho('// Languages translations')
             for language in languages:
                 click.secho("_('{language}')".format(language=language))
-            click.secho(
-                'Add to i18n/{translate_to}.ts'.format(
-                    translate_to=translate_to
-                ),
-                fg='yellow'
-            )
+            click.secho(f'Add to i18n/{translate_to}.ts', fg='yellow')
             file_po = (
-                './rero_ils/translations/{translate_to}/LC_MESSAGES/'
-                'messages.po'.format(translate_to=translate_to)
+                f'./rero_ils/translations/{translate_to}/LC_MESSAGES/'
+                'messages.po'
             )
             # try to open file. polib.pofile is not raising a good error
             test_file = open(file_po)
@@ -1355,10 +1314,7 @@ def translate(translate_to, change, title_map, no_loc_en, angular, verbose):
                     trans = entry.msgid
                     if entry.msgstr:
                         trans = entry.msgstr
-                    click.secho('  "{language}": "{trans}",'.format(
-                        language=entry.msgid,
-                        trans=trans
-                    ))
+                    click.secho(f'  "{entry.msgid}": "{trans}",')
 
         if change:
             po.save(file_name)
@@ -1366,15 +1322,8 @@ def translate(translate_to, change, title_map, no_loc_en, angular, verbose):
             count=len(languages),
             t_count=len(translated_languages)
         ))
-        # click.echo('Countries: {count} translated: {t_count}'.format(
-        #     count=len(countries),
-        #     t_count=len(translated_countries)
-        # ))
     except core.UnknownLocaleError as err:
-        click.secho(
-            'Unknown locale: {translate_to}'.format(translate_to=translate_to),
-            fg='red'
-        )
+        click.secho(f'Unknown locale: {translate_to}', fg='red')
     except FileNotFoundError as err:
         click.secho(str(err), fg='red')
 
@@ -1446,10 +1395,7 @@ def check_pid_dependencies(dependency_file, directory, verbose):
             """Add pids to dependoencies_pid."""
             if not (pids or optional):
                 click.secho(
-                    '{name}: dependencie not found: {dependency_name}'.format(
-                        name=self.name,
-                        dependency_name=dependency_name
-                    ),
+                    f'{self.name}: dependencies not found: {dependency_name}',
                     fg='red'
                 )
                 self.not_found += 1
@@ -1537,19 +1483,13 @@ def check_pid_dependencies(dependency_file, directory, verbose):
             self.test_data.setdefault(self.name, {})
             with open(file_name, 'r') as infile:
                 if self.verbose:
-                    click.echo('{name}: {file_name}'.format(
-                        name=self.name,
-                        file_name=file_name
-                    ))
+                    click.echo(f'{self.name}: {file_name}')
                 records = read_json_record(infile)
                 for idx, self.record in enumerate(records, 1):
                     self.pid = self.record.get('pid', idx)
                     if self.test_data[self.name].get(self.pid):
                         click.secho(
-                            'Double pid in {name}: {pid}'.format(
-                                name=self.name,
-                                pid=self.pid
-                            ),
+                            f'Double pid in {self.name}: {self.pid}',
                             fg='red'
                         )
                     else:
@@ -1560,33 +1500,20 @@ def check_pid_dependencies(dependency_file, directory, verbose):
                         self.test_dependencies()
                 if self.verbose:
                     for dependency in self.dependencies:
-                        click.echo(
-                            '\tTested dependency: {dependency}'.format(
-                                dependency=dependency
-                            )
-                        )
+                        click.echo(f'\tTested dependency: {dependency}')
 
         def run_tests(self, tests):
             """Run the tests."""
             for test in tests:
                 self.init_and_test_data(test)
             if self.missing:
-                click.secho(
-                    'Missing relations: {nbr}'.format(nbr=self.missing),
-                    fg='red'
-                )
+                click.secho(f'Missing relations: {self.missing}', fg='red')
             if self.not_found:
-                click.secho(
-                    'Relation not found: {nbr}'.format(nbr=self.not_found),
-                    fg='red'
-                )
+                click.secho(f'Relation not found: {self.not_found}', fg='red')
 
     # start of tests
     click.secho(
-        'Check dependencies {dependency_file.name}: {directory}'.format(
-            dependency_file=dependency_file,
-            directory=directory
-        ),
+        f'Check dependencies {dependency_file}: {directory}',
         fg='green'
     )
     dependency_tests = Dependencies(directory, verbose=verbose)
@@ -1608,11 +1535,11 @@ def dump_es_mappings(verbose, outfile):
     for alias in sorted(aliases):
         if alias[0] != '.':
             mapping = mappings.get(alias, {}).get('mappings')
-            click.echo('{alias}'.format(alias=alias))
+            click.echo(alias)
             if verbose or not outfile:
                 print(json.dumps(mapping, indent=2))
             if outfile:
-                outfile.write('{alias}\n'.format(alias=alias))
+                outfile.write(f'{alias}\n')
                 json.dump(mapping, outfile, indent=2)
                 outfile.write('\n')
 
@@ -1637,13 +1564,7 @@ def export(verbose, pid_type, outfile, pidfile, indent, schema):
     :param indent: indent for output
     :param schema: do not delete $schema
     """
-    click.secho(
-        'Export {pid_type} records: {file_name}'.format(
-            pid_type=pid_type,
-            file_name=outfile.name
-        ),
-        fg='green'
-    )
+    click.secho(f'Export {pid_type} records: {outfile.name}', fg='green')
     record_class = get_record_class_from_schema_or_pid_type(pid_type=pid_type)
 
     if pidfile:
@@ -1682,10 +1603,10 @@ def export(verbose, pid_type, outfile, pidfile, indent, schema):
             output = ''
             lines = json.dumps(rec, indent=indent).split('\n')
             for line in lines:
-                output += '\n{offset}{line}'.format(offset=offset, line=line)
+                output += f'\n{offset}{line}'
         except Exception as err:
             click.echo(err)
-            click.echo('ERROR: Can not export pid:{pid}'.format(pid=pid))
+            click.echo(f'ERROR: Can not export pid:{pid}')
     outfile.write(output)
     outfile.write('\n]\n')
 
@@ -1777,8 +1698,4 @@ def add_cover_urls(verbose):
         record = Document.get_record_by_pid(pid)
         url = get_cover_art(record=record, save_cover_url=True)
         if verbose:
-            click.echo('{count}:\tdocument: {pid}\t{url}'.format(
-                count=idx,
-                pid=pid,
-                url=url
-            ))
+            click.echo(f'{idx}:\tdocument: {pid}\t{url}')

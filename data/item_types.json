@@ -2,83 +2,181 @@
   {
     "pid": "1",
     "name": "Standard",
-    "description": "Standard checkout.",
+    "description": "Standard checkout, 28 days",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
-    "type": "standard"
+    "type": "standard",
+    "negative_availability": false
   },
   {
     "pid": "2",
     "name": "Short",
-    "description": "Short checkout.",
+    "description": "Short checkout, 14 days",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
-    "type": "standard"
+    "type": "standard",
+    "circulation_information": [
+      {
+        "label": "Pr\u00eat: 14 jours",
+        "language": "fr"
+      },
+      {
+        "label": "Loan: 14 days",
+        "language": "en"
+      },
+      {
+        "label": "Ausleihe: 14 Tage",
+        "language": "de"
+      },
+      {
+        "label": "Prestito: 14 giorni",
+        "language": "it"
+      }
+    ],
+    "negative_availability": false
   },
   {
     "pid": "3",
     "name": "On-site",
-    "description": "On-site consultation.",
+    "description": "On-site consultation, checkout for the day",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
-    "type": "standard"
+    "type": "standard",
+    "circulation_information": [
+      {
+        "label": "Consultation sur place",
+        "language": "fr"
+      },
+      {
+        "label": "On-site consultation",
+        "language": "en"
+      },
+      {
+        "label": "Vor-Ort-Konsultation",
+        "language": "de"
+      },
+      {
+        "label": "Consultazione in loco",
+        "language": "it"
+      }
+    ],
+    "negative_availability": false
   },
   {
     "pid": "4",
     "name": "No checkout",
-    "description": "No checkout.",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
-    "type": "standard"
+    "type": "standard",
+    "circulation_information": [
+      {
+        "label": "Pr\u00eat non autoris\u00e9",
+        "language": "fr"
+      },
+      {
+        "label": "Checkout not allowed",
+        "language": "en"
+      },
+      {
+        "label": "Ausleihe nicht erlaubt",
+        "language": "de"
+      },
+      {
+        "label": "Prestito non consentito",
+        "language": "it"
+      }
+    ],
+    "negative_availability": false
   },
   {
     "pid": "5",
     "name": "Standard adult",
-    "description": "Standard checkout for adults only (16+).",
+    "description": "Standard checkout for adults only (16+)",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
-    "type": "standard"
+    "type": "standard",
+    "circulation_information": [
+      {
+        "label": "Pr\u00eat aux adultes seulement (16+)",
+        "language": "fr"
+      },
+      {
+        "label": "Loan to adults only (16+)",
+        "language": "en"
+      },
+      {
+        "label": "Ausleihe nur an Erwachsene (16+)",
+        "language": "de"
+      },
+      {
+        "label": "Prestito solo agli adulti (16+)",
+        "language": "it"
+      }
+    ],
+    "negative_availability": false
   },
   {
     "pid": "6",
     "name": "Short adult",
-    "description": "Short checkout for adults only (16+).",
+    "description": "Short checkout for adults only (16+)",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
-    "type": "standard"
+    "type": "standard",
+    "circulation_information": [
+      {
+        "label": "Pr\u00eat 14 jours aux adultes seulement (16+)",
+        "language": "fr"
+      },
+      {
+        "label": "Loan 14 days to adults only (16+)",
+        "language": "en"
+      },
+      {
+        "label": "Ausleihe 14 Tage nur an Erwachsene (16+)",
+        "language": "de"
+      },
+      {
+        "label": "Prestito 14 giorni solo agli adulti (16+)",
+        "language": "it"
+      }
+    ],
+    "negative_availability": false
   },
   {
     "pid": "7",
     "name": "Standard",
-    "description": "Standard checkout.",
+    "description": "Standard checkout",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/2"
     },
-    "type": "standard"
+    "type": "standard",
+    "negative_availability": false
   },
   {
     "pid": "8",
     "name": "Online",
-    "description": "Ebooks dedicated category.",
+    "description": "Ebooks dedicated category",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
-    "type": "online"
+    "type": "online",
+    "negative_availability": false
   },
   {
     "pid": "9",
     "name": "Online",
-    "description": "Ebooks dedicated category.",
+    "description": "Ebooks dedicated category",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/2"
     },
-    "type": "online"
+    "type": "online",
+    "negative_availability": false
   },
   {
     "pid": "10",
@@ -87,7 +185,8 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/3"
     },
-    "type": "standard"
+    "type": "standard",
+    "negative_availability": false
   },
   {
     "pid": "11",
@@ -96,6 +195,115 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/4"
     },
-    "type": "standard"
+    "type": "standard",
+    "negative_availability": false
+  },
+  {
+    "pid": "12",
+    "name": "Missing",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "type": "standard",
+    "negative_availability": true,
+    "displayed_status": [
+      {
+        "label": "missing",
+        "language": "en"
+      },
+      {
+        "label": "manquant",
+        "language": "fr"
+      },
+      {
+        "label": "fehlend",
+        "language": "de"
+      },
+      {
+        "label": "mancante",
+        "language": "it"
+      }
+    ]
+  },
+  {
+    "pid": "13",
+    "name": "Missing",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "type": "standard",
+    "negative_availability": true,
+    "displayed_status": [
+      {
+        "label": "missing",
+        "language": "en"
+      },
+      {
+        "label": "manquant",
+        "language": "fr"
+      },
+      {
+        "label": "fehlend",
+        "language": "de"
+      },
+      {
+        "label": "mancante",
+        "language": "it"
+      }
+    ]
+  },
+  {
+    "pid": "14",
+    "name": "Missing",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "type": "standard",
+    "negative_availability": true,
+    "displayed_status": [
+      {
+        "label": "missing",
+        "language": "en"
+      },
+      {
+        "label": "manquant",
+        "language": "fr"
+      },
+      {
+        "label": "fehlend",
+        "language": "de"
+      },
+      {
+        "label": "mancante",
+        "language": "it"
+      }
+    ]
+  },
+  {
+    "pid": "15",
+    "name": "In acquisition",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "type": "standard",
+    "negative_availability": true,
+    "displayed_status": [
+      {
+        "label": "in acquisition",
+        "language": "en"
+      },
+      {
+        "label": "en acquisition",
+        "language": "fr"
+      },
+      {
+        "label": "in Erwerbung",
+        "language": "de"
+      },
+      {
+        "label": "in acquisizione",
+        "language": "it"
+      }
+    ]
   }
 ]

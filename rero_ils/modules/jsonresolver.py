@@ -30,13 +30,8 @@ def resolve_json_refs(pid_type, pid, raise_on_error=True):
     """
     try:
         persistent_id = PersistentIdentifier.get(pid_type, pid)
-    except Exception as err:
-        current_app.logger.error(
-            'Unable to resolve {pid_type} pid: {pid}'.format(
-                pid_type=pid_type,
-                pid=pid
-            )
-        )
+    except Exception:
+        current_app.logger.error(f'Unable to resolve {pid_type} pid: {pid}')
     else:
         if persistent_id.status == PIDStatus.REGISTERED:
             return dict(
@@ -48,14 +43,7 @@ def resolve_json_refs(pid_type, pid, raise_on_error=True):
         ).get(pid_type, {}).get('item_route', '/???')
         item_route_parts = ['api'] + base_item_route.split('/')[1:-1] + [pid]
         item_route = '/'.join(item_route_parts)
-        msg = ' Resolve {pid_type}: {item_route} {persistent_id}'.format(
-            pid_type=pid_type,
-            item_route=item_route,
-            persistent_id=persistent_id
-        )
+        msg = f' Resolve {pid_type}: {item_route} {persistent_id}'
         current_app.logger.error(msg)
     if raise_on_error:
-        raise Exception('Unable to resolve {pid_type} pid: {pid}'.format(
-            pid=pid,
-            pid_type=pid_type
-        ))
+        raise Exception(f'Unable to resolve {pid_type} pid: {pid}')

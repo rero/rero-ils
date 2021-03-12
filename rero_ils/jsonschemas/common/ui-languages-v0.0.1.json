@@ -1,0 +1,36 @@
+{
+  "language": {
+    "title": "Language",
+    "type": "string",
+    "enum": [
+      "de",
+      "en",
+      "fr",
+      "it"
+    ],
+    "form": {
+      "type": "selectWithSort",
+      "options": [
+        {
+          "label": "lang_fre",
+          "value": "fr"
+        },
+        {
+          "label": "lang_eng",
+          "value": "en"
+        },
+        {
+          "label": "lang_ger",
+          "value": "de"
+        },
+        {
+          "label": "lang_ita",
+          "value": "it"
+        }
+      ],
+      "templateOptions": {
+        "itemCssClass": "col-lg-2"
+      }
+    }
+  }
+}

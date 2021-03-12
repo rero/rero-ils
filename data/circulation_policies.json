@@ -2,7 +2,7 @@
   {
     "pid": "1",
     "name": "Default",
-    "description": "Default circulation policy.",
+    "description": "Default circulation policy",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
@@ -31,7 +31,7 @@
   {
     "pid": "2",
     "name": "Default",
-    "description": "Default circulation policy.",
+    "description": "Default circulation policy",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/2"
     },
@@ -104,7 +104,7 @@
   {
     "pid": "4",
     "name": "Short",
-    "description": "Short loan (14 days).",
+    "description": "Short loan (14 days)",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
@@ -149,48 +149,9 @@
     ]
   },
   {
-    "pid": "5",
-    "name": "Short adults",
-    "description": "Short loan (14 days) for adults only.",
-    "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
-    },
-    "checkout_duration": 14,
-    "allow_requests": true,
-    "reminders": [
-      {
-        "type": "due_soon",
-        "days_delay": 5,
-        "communication_channel": "patron_setting",
-        "template": "email/due_soon"
-      },
-      {
-        "type": "overdue",
-        "days_delay": 5,
-        "fee_amount": 2.0,
-        "communication_channel": "patron_setting",
-        "template": "email/overdue"
-      }
-    ],
-    "number_renewals": 1,
-    "renewal_duration": 14,
-    "policy_library_level": false,
-    "is_default": false,
-    "settings": [
-      {
-        "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/1"
-        },
-        "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/6"
-        }
-      }
-    ]
-  },
-  {
     "pid": "6",
     "name": "Standard adults",
-    "description": "Standard loan (28 days) for adults.",
+    "description": "Standard loan (28 days) for adults",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
@@ -300,11 +261,13 @@
   {
     "pid": "8",
     "name": "On-site",
-    "description": "On-site consultation.",
+    "description": "On-site consultation",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
-    "allow_requests": false,
+    "checkout_duration": 0,
+    "allow_requests": true,
+    "number_renewals": 0,
     "policy_library_level": false,
     "is_default": false,
     "settings": [
@@ -494,5 +457,68 @@
     "renewal_duration": 30,
     "policy_library_level": false,
     "is_default": true
+  },
+  {
+    "pid": "14",
+    "name": "Standard, no request",
+    "description": "Loan 28 days, requests not allowed, used for missing items",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "checkout_duration": 28,
+    "allow_requests": false,
+    "reminders": [
+      {
+        "type": "due_soon",
+        "days_delay": 5,
+        "communication_channel": "patron_setting",
+        "template": "email/due_soon"
+      },
+      {
+        "type": "overdue",
+        "days_delay": 5,
+        "fee_amount": 2.0,
+        "communication_channel": "patron_setting",
+        "template": "email/overdue"
+      }
+    ],
+    "number_renewals": 3,
+    "renewal_duration": 28,
+    "policy_library_level": false,
+    "is_default": true,
+    "settings": [
+      {
+        "patron_type": {
+          "$ref": "https://ils.rero.ch/api/patron_types/1"
+        },
+        "item_type": {
+          "$ref": "https://ils.rero.ch/api/item_types/12"
+        }
+      },
+      {
+        "patron_type": {
+          "$ref": "https://ils.rero.ch/api/patron_types/3"
+        },
+        "item_type": {
+          "$ref": "https://ils.rero.ch/api/item_types/12"
+        }
+      },
+      {
+        "patron_type": {
+          "$ref": "https://ils.rero.ch/api/patron_types/2"
+        },
+        "item_type": {
+          "$ref": "https://ils.rero.ch/api/item_types/12"
+        }
+      },
+      {
+        "patron_type": {
+          "$ref": "https://ils.rero.ch/api/patron_types/8"
+        },
+        "item_type": {
+          "$ref": "https://ils.rero.ch/api/item_types/12"
+        }
+      }
+    ]
   }
 ]

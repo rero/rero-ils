@@ -56,8 +56,8 @@ class Dispatcher:
             if dispatcher_function == not_yet_implemented:
                 current_app.logger.warning(
                     'The communication channel of the patron (pid: {pid})'
-                    'is not yet implemented'.format(
-                        pid=patron['pid']))
+                    'is not yet implemented'.format(pid=patron['pid'])
+                )
             dispatcher_function(data)
             notification = notification.update_process_date()
             if verbose:
@@ -86,10 +86,7 @@ class Dispatcher:
             ctx.babel_locale = Locale.parse(language)
             loan = Loan.get_record_by_pid(data['loan']['pid'])
             tpl_path = get_template_to_use(loan, data).rstrip('/')
-            template = '{tpl_path}/{language}.txt'.format(
-                tpl_path=tpl_path,
-                language=language
-            )
+            template = f'{tpl_path}/{language}.txt'
             # get the sender email from
             # loan.pickup_location_pid.location.library.email
             sender = library['email']
@@ -116,8 +113,8 @@ class Dispatcher:
         email = library.email_notification_type(data['notification_type'])
         if not email:
             current_app.logger.warning(
-                'Notification is lost for patron(pid).'.format(
-                    pid=patron['pid']))
+                f"Notification is lost for patron(patron['pid'])."
+            )
             return
         msg = Dispatcher._create_email(data, patron, library, [email])
         task_send_email.delay(msg.__dict__)

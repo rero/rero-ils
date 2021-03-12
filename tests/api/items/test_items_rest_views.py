@@ -30,7 +30,6 @@ def test_item_dumps(client, item_lib_martigny, org_martigny,
     """Test item dumps and elastic search version."""
     item_dumps = Item(item_lib_martigny.dumps()).replace_refs()
 
-    assert item_dumps.get('available')
     assert item_dumps.get('organisation').get('pid') == org_martigny.pid
 
     login_user_via_session(client, librarian_martigny.user)

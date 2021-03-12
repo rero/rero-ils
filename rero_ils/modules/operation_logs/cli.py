@@ -78,5 +78,4 @@ def migrate_virtua_operation_logs(infile, verbose, debug, lazy):
             except Exception:
                 pass
         index_count += len(data)
-    click.echo('created {index_count} operation logs.'.format(
-        index_count=index_count))
+    click.echo(f'created {index_count} operation logs.')

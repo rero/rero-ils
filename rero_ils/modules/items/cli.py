@@ -35,7 +35,7 @@ from ..item_types.api import ItemType
 from ..items.api import Item
 from ..locations.api import Location
 from ..patrons.api import Patron
-from ..utils import extracted_data_from_ref, get_base_url
+from ..utils import extracted_data_from_ref, get_ref_for_pid
 
 
 class StreamArray(list):
@@ -87,10 +87,7 @@ def create_items(count, itemscount, missing, items_f, holdings_f):
             count = Document.count()
 
         click.secho(
-            'Starting generating {count} items, random {itemsc} ...'.format(
-                count=count,
-                itemsc=itemscount
-            ),
+            f'Starting generating {count} items, random {itemscount} ...',
             fg='green',
         )
 
@@ -142,7 +139,7 @@ def create_items(count, itemscount, missing, items_f, holdings_f):
                             item_type_pid, document_pid)
                     if org == '3':
                         # set a prefix for items of the workshop organisation
-                        barcode = 'fictive{0}'.format(workshop_item)
+                        barcode = f'fictive{workshop_item}'
                         if workshop_item < 17:
                             # fix the status of the first 16 items to ON_SHELF
                             status = ItemStatus.ON_SHELF
@@ -200,22 +197,17 @@ def create_holding_record(
 
     :return holding: unmasked holding record.
     """
-    base_url = get_base_url()
-    url_api = '{base_url}/api/{doc_type}/{pid}'
     holding = {
         'pid': str(holding_pid),
-        'location': {
-            '$ref': url_api.format(
-                base_url=base_url, doc_type='locations', pid=location_pid)
-        },
         'holdings_type': 'standard',
+        'location': {
+            '$ref': get_ref_for_pid('locations', location_pid)
+        },
         'circulation_category': {
-            '$ref': url_api.format(
-                base_url=base_url, doc_type='item_types', pid=item_type_pid)
+            '$ref': get_ref_for_pid('item_types', item_type_pid)
         },
         'document': {
-            '$ref': url_api.format(
-                base_url=base_url, doc_type='documents', pid=document_pid)
+            '$ref': get_ref_for_pid('documents', document_pid)
         }
     }
     return holding
@@ -261,29 +253,22 @@ def create_random_item(item_pid, location_pid, missing, item_type_pid,
         if randint(0, 50) == 0 and missing > 0:
             status = ItemStatus.MISSING
             missing -= 1
-    base_url = get_base_url()
-    url_api = '{base_url}/api/{doc_type}/{pid}'
     item = {
-        # '$schema': 'https://ils.rero.ch/schemas/items/item-v0.0.1.json',
         'pid': str(item_pid),
         'barcode': barcode,
         'call_number': str(item_pid).zfill(5),
         'status': status,
         'location': {
-            '$ref': url_api.format(
-                base_url=base_url, doc_type='locations', pid=location_pid)
+            '$ref': get_ref_for_pid('locations', location_pid)
         },
         'item_type': {
-            '$ref': url_api.format(
-                base_url=base_url, doc_type='item_types', pid=item_type_pid)
+            '$ref': get_ref_for_pid('item_types', item_type_pid)
         },
         'document': {
-            '$ref': url_api.format(
-                base_url=base_url, doc_type='documents', pid=document_pid)
+            '$ref': get_ref_for_pid('documents', document_pid)
         },
         'holding': {
-            '$ref': url_api.format(
-                base_url=base_url, doc_type='holdings', pid=holding_pid)
+            '$ref': get_ref_for_pid('holdings', holding_pid)
         },
         'type': 'standard',
         'pac_code': '2_controlled_consumption',
@@ -311,10 +296,10 @@ def create_random_item(item_pid, location_pid, missing, item_type_pid,
             'content': 'This is a staff note only visible by staff members.'
         }, {
             'type': ItemNoteTypes.CHECKIN,
-            'content': 'Checkin note for {0}'.format(barcode)
+            'content': f'Checkin note for {barcode}'
         }, {
             'type': ItemNoteTypes.CHECKOUT,
-            'content': 'Checkout note for {0}'.format(barcode)
+            'content': f'Checkout note for {barcode}'
         }, {
             'type': ItemNoteTypes.ACQUISITION,
             'content': 'Acquisition note content'

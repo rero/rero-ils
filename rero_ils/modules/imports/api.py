@@ -299,12 +299,7 @@ class Import(object):
         if not what:
             return self.results, 200
         try:
-            cache_key = '{what}_{relation}_{where}_{max}'.format(
-                what=what,
-                relation=relation,
-                where=where,
-                max=max
-            )
+            cache_key = f'{what}_{relation}_{where}_{max}'
             cache = self.cache.get(cache_key)
             if cache and not no_cache:
                 cache_data = pickle.loads(cache)
@@ -325,12 +320,8 @@ class Import(object):
                         'metadata': {},
                         'errors': {
                             'code': self.status_code,
-                            'title': '{name}: Bad status code!'.format(
-                                name=self.name
-                            ),
-                            'detail': 'Status code: {code}'.format(
-                                code=response.status_code
-                            )
+                            'title': f'{self.name}: Bad status code!',
+                            'detail': f'Status code: {response.status_code}'
                         }
                     }
                     current_app.logger.error(
@@ -380,13 +371,8 @@ class Import(object):
                 self.status_code = 404
                 self.results['errors'] = {
                     'code': self.status_code,
-                    'title': ('{name}: Not found: '
-                              '{where} {relation} {what}').format(
-                                name=self.name,
-                                where=where,
-                                relation=relation,
-                                what=what
-                              )
+                    'title': f'{self.name}: Not found: '
+                             f'{where} {relation} {what}'
                     }
             else:
                 cache_data = {
@@ -405,11 +391,11 @@ class Import(object):
         except Exception as error:
             current_app.logger.error(
                 '{title}: {detail}'.format(
-                    title='{name} Error!'.format(name=self.name),
-                    detail='Error: {error}'.format(error=error)
+                    title=f'{self.name} Error!',
+                    detail=f'Error: {error}'
                 )
             )
-            abort(500, description='Error: {error}'.format(error=error))
+            abort(500, description=f'Error: {error}')
         return self.results, self.status_code
 
 

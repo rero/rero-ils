@@ -41,7 +41,7 @@ def process(delayed, verbose):
     click.secho('Process notifications:', fg='green')
     if delayed:
         uid = process_notifications.delay(verbose=verbose)
-        msg = 'Started task: {uid}'.format(uid=uid)
+        msg = f'Started task: {uid}'
     else:
         msg = process_notifications(verbose=verbose)
     click.echo(msg)

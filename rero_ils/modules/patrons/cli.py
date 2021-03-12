@@ -139,9 +139,7 @@ def import_users(infile, append, verbose, password, lazy, dont_stop_on_error,
             if not dont_stop_on_error:
                 sys.exit(1)
     if append:
-        click.secho(
-            'Append fixtures new identifiers: {len}'.format(len=len(pids))
-        )
+        click.secho(f'Append fixtures new identifiers: {len(pids)}')
         identifier = Patron.provider.identifier
         try:
             append_fixtures_new_identifiers(
@@ -151,13 +149,13 @@ def import_users(infile, append, verbose, password, lazy, dont_stop_on_error,
             )
         except Exception as err:
             click.secho(
-                "ERROR append fixtures new identifiers: {err}".format(err=err),
+                f'ERROR append fixtures new identifiers: {err}',
                 fg='red'
             )
     if error_records:
         name, ext = os.path.splitext(infile.name)
-        err_file_name = '{name}_errors{ext}'.format(name=name, ext=ext)
-        click.secho('Write error file: {name}'.format(name=err_file_name))
+        err_file_name = f'{name}_errors{ext}'
+        click.secho(f'Write error file: {err_file_name}')
         with open(err_file_name, 'w') as error_file:
             error_file.write('[\n')
             for error_record in error_records:

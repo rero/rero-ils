@@ -123,10 +123,7 @@ class Patron(IlsRecord):
             from ..utils import pids_exists_in_data
             if self.is_patron:
                 validation_message = pids_exists_in_data(
-                    info='{pid_type} ({pid})'.format(
-                        pid_type=self.provider.pid_type,
-                        pid=self.pid
-                    ),
+                    info=f'{self.provider.pid_type} ({self.pid})',
                     data=self.get('patron'),
                     required={'ptty': 'type'},
                     not_required={}
@@ -139,18 +136,13 @@ class Patron(IlsRecord):
                     library = Library.get_record_by_pid(library_pid)
                     if library is None:
                         validation_message =\
-                            'Library {library_pid} doesn\'t exist.'.format(
-                                library_pid=library_pid
-                            )
+                            f'Library {library_pid} doesn\'t exist.'
                         break
         subscriptions = self.get('patron', {}).get('subscriptions')
         if subscriptions and validation_message:
             for subscription in subscriptions:
                 subscription_validation_message = pids_exists_in_data(
-                    info='{pid_type} ({pid})'.format(
-                        pid_type=self.provider.pid_type,
-                        pid=self.pid
-                    ),
+                    info=f'{self.provider.pid_type} ({self.pid})',
                     data=subscription,
                     required={
                         'ptty': 'patron_type',

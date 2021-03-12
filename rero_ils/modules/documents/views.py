@@ -322,7 +322,7 @@ def language_format(langs_list, language_interface):
     if isinstance(langs_list, str):
         langs_list = [{'type': 'bf:Language', 'value': langs_list}]
     for lang in langs_list:
-        language_code = 'lang_{code}'.format(code=lang.get('value'))
+        language_code = f"lang_{lang.get('value')}"
         output.append(_(language_code))
     return ", ".join(output)
 
@@ -384,10 +384,7 @@ def get_cover_art(record, save_cover_url=True, verbose=False):
                 pid = record.get('pid')
                 record_db = Document.get_record_by_pid(pid)
                 record_db.add_cover_url(url=url, dbcommit=True, reindex=True)
-                msg = 'Add cover art url: {url} do document: {pid}'.format(
-                    url=url,
-                    pid=pid
-                )
+                msg = f'Add cover art url: {url} do document: {pid}'
                 if verbose:
                     click.echo(msg)
             return url

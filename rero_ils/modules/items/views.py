@@ -93,8 +93,7 @@ def jsonify_error(func):
         try:
             return func(*args, **kwargs)
         except Exception as error:
-            return jsonify({'status': 'error: {error}'.format(
-                error=error)}), 500
+            return jsonify({'status': f'error: {error}'}), 500
     return decorated_view
 
 
@@ -143,8 +142,7 @@ def item_availability_text(item):
                 msg=_('due until'),
                 date=due_date)
         elif item.status == ItemStatus.IN_TRANSIT:
-            text = '{msg}'.format(
-                msg=_('in transit'))
+            text = _('in transit')
 
         if item.number_of_requests():
             if item.number_of_requests() == 1:

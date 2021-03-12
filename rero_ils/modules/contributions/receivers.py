@@ -38,11 +38,8 @@ def publish_api_harvested_records(sender=None, records=[], *args, **kwargs):
             converted_records.append(record)
         if records:
             click.echo(
-                'mef harvester: received {count} records: {url}'.format(
-                    count=len(records), url=url
-                )
+                f'mef harvester: received {len(records)} records: {url}'
             )
-
             create_mef_records(converted_records, verbose)
         else:
             current_app.logger.info('publish_harvester: nothing to do')

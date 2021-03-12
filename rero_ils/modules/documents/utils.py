@@ -169,27 +169,18 @@ def series_statement_format_text(serie_statement):
     for key, value in serie_enum.items():
         value = ', '.join(value)
         intermediate_value = intermediate_output.get(key, '')
-        intermediate_value = '{intermediate_value}; {value}'.format(
-            intermediate_value=intermediate_value,
-            value=value
-        )
+        intermediate_value = f'{intermediate_value}; {value}'
         intermediate_output[key] = intermediate_value
     for intermediate_subserie in subserie_data:
         for key, value in intermediate_subserie.get('title', {}).items():
             value = ', '.join(value)
             intermediate_value = intermediate_output.get(key, '')
-            intermediate_value = '{intermediate_value}. {value}'.format(
-                intermediate_value=intermediate_value,
-                value=value
-            )
+            intermediate_value = f'{intermediate_value}. {value}'
             intermediate_output[key] = intermediate_value
         for key, value in subserie_enum.items():
             value = ', '.join(value)
             intermediate_value = intermediate_output.get(key, '')
-            intermediate_value = '{intermediate_value}; {value}'.format(
-                intermediate_value=intermediate_value,
-                value=value
-            )
+            intermediate_value = f'{intermediate_value}; {value}'
             intermediate_output[key] = intermediate_value
 
     serie_statement_text = []
@@ -457,45 +448,28 @@ def create_authorized_access_point(agent):
         if date_of_birth:
             date = date_of_birth
         if date_of_death:
-            date += '-{date_of_death}'.format(
-                date_of_death=date_of_death
-            )
+            date += f'-{date_of_death}'
         numeration = agent.get('numeration')
         fuller_form_of_name = agent.get('fuller_form_of_name')
         qualifier = agent.get('qualifier')
 
         if numeration:
-            authorized_access_point += ' {numeration}'.format(
-                numeration=numeration
-            )
+            authorized_access_point += f' {numeration}'
             if qualifier:
-                authorized_access_point += ', {qualifier}'.format(
-                    qualifier=qualifier
-                )
+                authorized_access_point += f', {qualifier}'
             if date:
-                authorized_access_point += ', {date}'.format(
-                    date=date
-                )
+                authorized_access_point += f', {date}'
         else:
             if fuller_form_of_name:
-                authorized_access_point += \
-                    ' ({fuller_form_of_name})'.format(
-                        fuller_form_of_name=fuller_form_of_name
-                    )
+                authorized_access_point += f' ({fuller_form_of_name})'
             if date:
-                authorized_access_point += ', {date}'.format(
-                    date=date
-                )
+                authorized_access_point += f', {date}'
             if qualifier:
-                authorized_access_point += ', {qualifier}'.format(
-                    qualifier=qualifier
-                )
+                authorized_access_point += f', {qualifier}'
     elif agent.get('type') == ContributionType.ORGANISATION:
         subordinate_unit = agent.get('subordinate_unit')
         if subordinate_unit:
-            authorized_access_point += '. {sub_unit}'.format(
-                sub_unit='. '.join(subordinate_unit)
-            )
+            authorized_access_point += f'. {subordinate_unit}'
         conference_data = []
         numbering = agent.get('numbering')
         if numbering:
@@ -532,9 +506,8 @@ def create_contributions(contributions):
             )
             agent['authorized_access_point'] = authorized_access_point
             for language in get_i18n_supported_languages():
-                agent['authorized_access_point_{language}'.format(
-                    language=language
-                )] = authorized_access_point
+                agent[f'authorized_access_point_{language}'] = \
+                    authorized_access_point
             variant_access_point = contribution['agent'].get(
                 'variant_access_point')
             if variant_access_point:
@@ -555,53 +528,29 @@ def get_remote_cover(isbn):
         cover_service = current_app.config.get(
             'RERO_ILS_THUMBNAIL_SERVICE_URL'
         )
-        url = '{cover_service}' \
+        url = f'{cover_service}' \
             '?height=244px' \
             '&width=244px' \
             '&jsonpCallbackParam=callback' \
             '&callback=thumb' \
             '&type=isbn' \
-            '&value={isbn}'.format(
-                cover_service=cover_service,
-                isbn=isbn
-            )
+            f'&value={isbn}'
         try:
             host_url = flask_request.host_url
         except Exception:
             host_url = current_app.config.get('RERO_ILS_APP_URL', '??')
             if host_url[-1] != '/':
-                host_url = '{host_url}/'.format(host_url=host_url)
+                host_url = f'{host_url}/'
         response = requests.get(
             url,
             headers={'referer': host_url}
         )
         if response.status_code != 200:
             current_app.logger.debug(
-                'Unable to get cover for isbn: {isbn} {code}'.format(
-                    isbn=isbn,
-                    code=response.status_code
-                )
+                f'Unable to get cover for isbn: {isbn} {response.status_code}'
             )
             return None
         result = json.loads(response.text[len('thumb('):-1])
         if result['success']:
             return result
-        current_app.logger.debug(
-            'Unable to get cover for isbn: {isbn}'.format(isbn=isbn)
-        )
-
-
-# def get_remote_cover(isbn):
-#     """Document cover service."""
-#     url = '{url}/b/isbn/{isbn}-M.jpg{default}'.format(
-#         url=http://covers.openlibrary.org,
-#         isbn=isbn,
-#         default='?default=false'
-#     )
-#     response = requests.get(url)
-#
-#     if response.status_code != 200:
-#         current_app.logger.debug(
-#             'Unable to get cover for isbn: {isbn}'.format(isbn=isbn))
-#         return None
-#     return url
+        current_app.logger.debug(f'Unable to get cover for isbn: {isbn}')
