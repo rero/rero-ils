@@ -37,6 +37,7 @@
             "bf:Isrc",
             "bf:Issn",
             "bf:IssnL",
+            "bf:Lccn",
             "bf:Local",
             "bf:MatrixNumber",
             "bf:MusicDistributorNumber",
@@ -94,6 +95,10 @@
               {
                 "label": "bf:IssnL",
                 "value": "bf:IssnL"
+              },
+              {
+                "label": "bf:Lccn",
+                "value": "bf:Lccn"
               },
               {
                 "label": "bf:Local",
