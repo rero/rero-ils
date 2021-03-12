@@ -118,26 +118,19 @@ class ItemType(IlsRecord):
     def get_number_of_items(self):
         """Get number of items."""
         from ..items.api import ItemsSearch
-        results = ItemsSearch().filter(
-            'term', item_type__pid=self.pid).source().count()
-        return results
+        return ItemsSearch()\
+            .filter('term', item_type__pid=self.pid)\
+            .source().count()
 
     def get_number_of_circ_policies(self):
         """Get number of circulation policies."""
-        results = CircPoliciesSearch().filter(
-            'nested',
-            path='settings',
-            query=Q(
-                'bool',
-                must=[
-                    Q(
-                        'match',
-                        settings__item_type__pid=self.pid
-                    )
+        return CircPoliciesSearch()\
+            .filter('nested', path='settings', query=Q(
+                'bool', must=[
+                    Q('match', settings__item_type__pid=self.pid)
                 ]
             )
         ).source().count()
-        return results
 
     def get_links_to_me(self):
         """Get number of links."""
@@ -157,6 +150,22 @@ class ItemType(IlsRecord):
         if links:
             cannot_delete['links'] = links
         return cannot_delete
+
+    def get_label(self, language=None):
+        """Get the best name possible related to the current language.
+
+        :param language: the language ISO code expected label.
+        :return: the best possible label. If none label found for the language,
+                 return the item_type name.
+        """
+        if language:
+            labels = self.get('displayed_status', []) \
+                if self.get('negative_availability', False) \
+                else self.get('circulation_information', [])
+            label = [l['label'] for l in labels if l['language'] == language]
+            if label and label[0]:
+                return label[0]
+        return self.get('name')
 
 
 class ItemTypesIndexer(IlsRecordsIndexer):

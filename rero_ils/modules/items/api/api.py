@@ -109,10 +109,6 @@ class Item(ItemCirculation, ItemIssue):
         }
     }
 
-    def availability_text(self):
-        """Availability text."""
-        return self.status
-
     def delete_from_index(self):
         """Delete record from index."""
         try:
@@ -161,12 +157,6 @@ class Item(ItemCirculation, ItemIssue):
                 'viewcode': orgs[record.organisation.pid].get('code')
             })
         return output
-
-    def dumps(self, **kwargs):
-        """Return pure Python dictionary with record metadata."""
-        dump = super().dumps(**kwargs)
-        dump['available'] = self.available
-        return dump
 
     def replace_refs(self):
         """Replace $ref with real data."""

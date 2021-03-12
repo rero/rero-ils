@@ -19,10 +19,12 @@
 
 from __future__ import absolute_import, print_function
 
+from copy import deepcopy
 from datetime import datetime, timedelta
 
 from utils import get_mapping
 
+from rero_ils.modules.item_types.api import ItemType
 from rero_ils.modules.items.api import Item, ItemsSearch, item_id_fetcher
 from rero_ils.modules.items.models import ItemIssueStatus, ItemStatus
 from rero_ils.modules.items.utils import item_location_retriever, \
@@ -232,3 +234,32 @@ def test_item_type_circulation_category_pid(item_lib_martigny,
 
     # reset the object with default value
     del item_lib_martigny['temporary_item_type']
+
+
+def test_items_availability(item_type_missing_martigny,
+                            item_type_standard_martigny,
+                            item_lib_martigny_data_tmp, loc_public_martigny,
+                            lib_martigny, org_martigny, document):
+    """Test availability for an item."""
+
+    # Create a temporary item with correct data for the test
+    item_data = deepcopy(item_lib_martigny_data_tmp)
+    del item_data['pid']
+    item_data['barcode'] = 'TEST_AVAILABILITY'
+    item_data['temporary_item_type'] = {
+        '$ref': get_ref_for_pid(ItemType, item_type_missing_martigny.pid)
+    }
+    item = Item.create(item_data, dbcommit=True, reindex=True)
+
+    # test the availability and availability_text
+    assert not item.available
+    assert len(item.availability_text) == \
+        len(item_type_missing_martigny.get('displayed_status', [])) + 1
+
+    del item['temporary_item_type']
+    item = item.update(item, dbcommit=True, reindex=True)
+    assert item.available
+    assert len(item.availability_text) == 1  # only default value
+
+    # delete the created item
+    item.delete()

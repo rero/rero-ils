@@ -24,6 +24,7 @@ from flask_babelex import gettext as _
 
 from ..utils import item_pid_to_object
 from ...api import IlsRecord
+from ...item_types.api import ItemType
 from ...libraries.api import Library
 from ...locations.api import Location
 from ...organisations.api import Organisation
@@ -391,6 +392,17 @@ class ItemRecord(IlsRecord):
     def item_type_circulation_category_pid(self):
         """Shortcut to find the best item_type to use for circulation."""
         return self.temporary_item_type_pid or self.item_type_pid
+
+    @property
+    def circulation_category(self):
+        """Shortcut to find the used circulation category for this item.
+
+        :return the in-used circulation category for this item.
+        :rtype rero_ils.modules.item_types.api.ItemType
+        """
+        return ItemType.get_record_by_pid(
+            self.item_type_circulation_category_pid
+        )
 
     @property
     def item_record_type(self):

@@ -935,20 +935,12 @@ class ItemCirculation(ItemRecord):
         for data in results:
             yield data.pid, data.item_pid.value
 
-    def get_library_of_last_location(self):
-        """Returns the library record of the circulation transaction location.
-
-        of the last loan.
-        """
-        return self.get_last_location().get_library()
-
     def get_last_location(self):
         """Returns the location record of the transaction location.
 
         of the last loan.
         """
-        location_pid = self.last_location_pid
-        return Location.get_record_by_pid(location_pid)
+        return Location.get_record_by_pid(self.last_location_pid)
 
     @property
     def last_location_pid(self):
@@ -1123,15 +1115,16 @@ class ItemCirculation(ItemRecord):
 
         :param item: the item record
         :param on_shelf: A boolean to indicate that item is candidate to go
-        on_shelf
-        :param reindex: reindex record
+                         on_shelf
         :param dbcommit: commit record to database
+        :param reindex: reindex record
+        :param forceindex: force the reindexation
         """
         loan = get_loan_for_item(item_pid_to_object(item.pid))
         if loan:
             item['status'] = cls.statuses[loan['state']]
         else:
-            if item['status'] != ItemStatus.MISSING and on_shelf is True:
+            if item['status'] != ItemStatus.MISSING and on_shelf:
                 item['status'] = ItemStatus.ON_SHELF
         if dbcommit:
             item.dbcommit(reindex=True, forceindex=True)
@@ -1164,16 +1157,13 @@ class ItemCirculation(ItemRecord):
 
         Exclude CREATED Loan as it can block Item deletion.
         """
-        search = search_by_pid(
+        return search_by_pid(
             item_pid=item_pid_to_object(self.pid),
             exclude_states=[
                 LoanState.CREATED,
                 LoanState.CANCELLED,
                 LoanState.ITEM_RETURNED,
-            ]
-        )
-        results = search.source().count()
-        return results
+            ]).source().count()
 
     def get_requests(self, sort_by=None):
         """Return sorted pending, item_on_transit, item_at_desk loans.
@@ -1242,8 +1232,33 @@ class ItemCirculation(ItemRecord):
 
     @property
     def available(self):
-        """Get availability for item."""
-        return self.item_has_active_loan_or_request() == 0
+        """Get availability for item.
+
+        An item is 'available' if there are no related request/active_loan and
+        if the related circulation category doesn't specify a negative
+        availability.
+        """
+        if self.item_has_active_loan_or_request() > 0:
+            return False
+        if self.circulation_category.get('negative_availability', False):
+            return False
+        return True
+
+    @property
+    def availability_text(self):
+        """Availability text to display for an item."""
+        circ_category = self.circulation_category
+        if circ_category.get('negative_availability', False):
+            messages = circ_category.get('displayed_status', [])
+            messages.append({
+                'language': 'default',
+                'label': circ_category.get('name')
+            })
+            return messages
+        return [{
+            'language': 'default',
+            'label': self.status
+        }]
 
     def get_item_end_date(self, format='short', time_format='medium',
                           language=None):

@@ -617,6 +617,25 @@ def item_type_online_sion(
 
 
 @pytest.fixture(scope="module")
+def item_type_missing_martigny_data(data):
+    """Load missing item type of martigny."""
+    return deepcopy(data.get('itty9'))
+
+
+@pytest.fixture(scope="module")
+def item_type_missing_martigny(
+        app, org_martigny, item_type_missing_martigny_data):
+    """Create missing item type of martigny."""
+    itty = ItemType.create(
+        data=item_type_missing_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ItemTypesSearch.Meta.index)
+    return itty
+
+
+@pytest.fixture(scope="module")
 def patron_type_children_martigny_data(data):
     """Load children patron type of martigny."""
     return deepcopy(data.get('ptty1'))

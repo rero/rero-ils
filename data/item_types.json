@@ -6,6 +6,7 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
+    "negative_availability": false,
     "type": "standard"
   },
   {
@@ -15,6 +16,7 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
+    "negative_availability": false,
     "type": "standard"
   },
   {
@@ -24,6 +26,17 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
+    "negative_availability": false,
+    "circulation_information": [
+      {
+        "language": "en",
+        "label": "On-site consultation"
+      },
+      {
+        "language": "fr",
+        "label": "Consultation sur place"
+      }
+    ],
     "type": "standard"
   },
   {
@@ -33,6 +46,17 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
+    "negative_availability": true,
+    "displayed_status": [
+      {
+        "language": "en",
+        "label": "Not circulating"
+      },
+      {
+        "language": "fr",
+        "label": "Pas de pr\u00eat possible"
+      }
+    ],
     "type": "standard"
   },
   {
@@ -42,6 +66,7 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
+    "negative_availability": false,
     "type": "standard"
   },
   {
@@ -51,6 +76,7 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
+    "negative_availability": false,
     "type": "standard"
   },
   {
@@ -60,6 +86,7 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/2"
     },
+    "negative_availability": false,
     "type": "standard"
   },
   {
@@ -69,33 +96,65 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
+    "negative_availability": false,
     "type": "online"
   },
   {
     "pid": "9",
+    "name": "Missing",
+    "description": "Missing document",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "negative_availability": true,
+    "displayed_status": [
+      {
+        "language": "en",
+        "label": "Missing"
+      },
+      {
+        "language": "fr",
+        "label": "Manquant"
+      },
+      {
+        "language": "de",
+        "label": "Fehlt"
+      },
+      {
+        "language": "it",
+        "label": "Manca"
+      }
+    ],
+    "type": "online"
+  },
+  {
+    "pid": "10",
     "name": "Online",
     "description": "Ebooks dedicated category.",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/2"
     },
+    "negative_availability": false,
     "type": "online"
-  },
-  {
-    "pid": "10",
-    "name": "Default",
-    "description": "Default item type",
-    "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
-    },
-    "type": "standard"
   },
   {
     "pid": "11",
     "name": "Default",
     "description": "Default item type",
     "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "negative_availability": false,
+    "type": "standard"
+  },
+  {
+    "pid": "12",
+    "name": "Default",
+    "description": "Default item type",
+    "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/4"
     },
+    "negative_availability": false,
     "type": "standard"
   }
 ]

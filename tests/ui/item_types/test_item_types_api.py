@@ -51,7 +51,7 @@ def test_item_type_create(db, item_type_data_tmp, org_martigny,
 
 def test_item_type_exist_name_and_organisation_pid(
         item_type_standard_martigny):
-    """Test item type name uniquness."""
+    """Test item type name uniqueness."""
     item_type = item_type_standard_martigny
     itty = item_type.replace_refs()
     assert ItemType.exist_name_and_organisation_pid(
@@ -61,7 +61,7 @@ def test_item_type_exist_name_and_organisation_pid(
 
 
 def test_item_type_get_pid_by_name(item_type_standard_martigny):
-    """Test item type retrival by name."""
+    """Test item type retrieval by name."""
     assert not ItemType.get_pid_by_name('no exists')
     assert ItemType.get_pid_by_name('standard') == 'itty1'
 
@@ -79,3 +79,35 @@ def test_item_type_can_delete(app, item_type_data_tmp):
     itty = ItemType.create(item_type_data_tmp, delete_pid=True)
     assert itty.get_links_to_me() == {}
     assert itty.can_delete
+
+
+def test_item_type_properties(item_type_standard_martigny):
+    """Test item type properties."""
+    itty = item_type_standard_martigny
+
+    # test 'label'
+    assert itty.get_label() == itty['name']
+    label_strings = {
+        'en': ('info_label_eng', 'disable_text_eng'),
+        'fr': ('info_label_fre', 'disable_text_fre'),
+        'es': (None, 'disable_text_spa')
+    }
+    for language, labels in label_strings.items():
+        itty.setdefault('circulation_information', []).append({
+            'language': language,
+            'label': labels[0]
+        })
+        itty.setdefault('displayed_status', []).append({
+            'language': language,
+            'label': labels[1]
+        })
+    assert itty.get_label('en') == label_strings['en'][0]
+    assert itty.get_label('fr') == label_strings['fr'][0]
+    assert itty.get_label('es') == itty['name']
+    assert itty.get_label('nl') == itty['name']
+    itty['negative_availability'] = True
+    assert itty.get_label('en') == label_strings['en'][1]
+    assert itty.get_label('fr') == label_strings['fr'][1]
+    assert itty.get_label('es') == label_strings['es'][1]
+    assert itty.get_label('nl') == itty['name']
+

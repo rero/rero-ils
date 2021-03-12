@@ -424,7 +424,7 @@
           "$ref": "https://ils.rero.ch/api/patron_types/6"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/9"
+          "$ref": "https://ils.rero.ch/api/item_types/10"
         }
       },
       {
@@ -432,7 +432,7 @@
           "$ref": "https://ils.rero.ch/api/patron_types/4"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/9"
+          "$ref": "https://ils.rero.ch/api/item_types/10"
         }
       }
     ]
