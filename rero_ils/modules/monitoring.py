@@ -236,7 +236,7 @@ def missing_pids(doc_type):
     """
     try:
         api_url = url_for(
-            'invenio_records_rest.{doc_type}_list'.format(doc_type=doc_type),
+            f'invenio_records_rest.{doc_type}_list',
             _external=True
         )
     except Exception:
@@ -255,19 +255,17 @@ def missing_pids(doc_type):
         data = {'DB': [], 'ES': [], 'ES duplicate': []}
         for pid in mon.get('DB'):
             if api_url:
-                data['DB'].append(
-                    '{api_url}?q=pid:{pid}'.format(api_url=api_url, pid=pid))
+                data['DB'].append(f'{api_url}?q=pid:{pid}')
             else:
                 data['DB'].append(pid)
         for pid in mon.get('ES'):
             if api_url:
-                data['ES'].append(
-                    '{api_url}{pid}'.format(api_url=api_url, pid=pid))
+                data['ES'].append(f'{api_url}{pid}')
             else:
                 data['ES'].append(pid)
         for pid in mon.get('ES duplicate'):
             if api_url:
-                url = '{api_url}?q=pid:{pid}'.format(api_url=api_url, pid=pid)
+                url = f'{api_url}?q=pid:{pid}'
                 data['ES duplicate'][url] = len(mon.get('ES duplicate'))
             else:
                 data['ES duplicate'][pid] = len(mon.get('ES duplicate'))
@@ -383,7 +381,7 @@ class Monitoring(object):
         :return: item count.
         """
         if not current_app.config.get('RECORDS_REST_ENDPOINTS').get(doc_type):
-            return 'No >>{doc_type}<< in DB'.format(doc_type=doc_type)
+            return f'No >>{doc_type}<< in DB'
         query = PersistentIdentifier.query.filter_by(pid_type=doc_type)
         if not with_deleted:
             query = query.filter_by(status=PIDStatus.REGISTERED)
@@ -401,7 +399,7 @@ class Monitoring(object):
         try:
             result = RecordsSearch(index=index).query().count()
         except NotFoundError:
-            result = 'No >>{index}<< in ES'.format(index=index)
+            result = f'No >>{index}<< in ES'
         return result
 
     @classmethod
@@ -516,9 +514,7 @@ class Monitoring(object):
                 'ES duplicate': pids_es_double
             }
         else:
-            return {'ERROR': 'Document type not found: {doc_type}'.format(
-                doc_type=doc_type
-            )}
+            return {'ERROR': f'Document type not found: {doc_type}'}
 
     @classmethod
     def print_missing(cls, doc_type):
@@ -531,18 +527,12 @@ class Monitoring(object):
                 if info == 'ES duplicate':
                     msg = 'duplicate in ES'
                 else:
-                    msg = 'pids missing in {info}'.format(info=info)
-                click.secho(
-                    '{doc_type}: {msg}:'.format(doc_type=doc_type, msg=msg),
-                    fg='red'
-                )
+                    msg = f'pids missing in {info}'
+                click.secho(f'{doc_type}: {msg}:', fg='red')
                 if info == 'ES duplicate':
                     pid_counts = []
                     for pid, count in data.items():
-                        pid_counts.append('{pid}: {count}'.format(
-                            pid=pid,
-                            count=count
-                        ))
+                        pid_counts.append(f'{pid}: {count}')
                     click.echo(', '.join(pid_counts))
                 else:
                     click.echo(', '.join(data))

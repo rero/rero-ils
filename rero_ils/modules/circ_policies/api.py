@@ -92,9 +92,7 @@ class CircPolicy(IlsRecord):
         for library in self.get('libraries', []):
             library_pid = extracted_data_from_ref(library)
             if not Library.get_record_by_pid(library_pid):
-                return 'CircPolicy: no library:  {pid}'.format(
-                    pid=library.get('pid')
-                )
+                return f"CircPolicy: no library:  {library.get('pid')}"
         # check all patron_types & item_types from settings belongs to the
         # same organisation than the cipo
         org = self.get('organisation')
@@ -137,15 +135,13 @@ class CircPolicy(IlsRecord):
             lower_limit = interval.get('from', 0)
             upper_limit = interval.get('to')
             if upper_limit is None and interval != intervals[-1]:
-                return "Only the last interval can omit the upper limit."
+                return 'Only the last interval can omit the upper limit.'
             if lower_limit <= last_upper_limit:
-                return "Another interval covers this lower limit interval " \
-                       ":: [{lower_limit}-{upper_limit}]".format(
-                            lower_limit=lower_limit, upper_limit=upper_limit)
+                return 'Another interval covers this lower limit interval ' \
+                       f':: [{lower_limit}-{upper_limit}]'
             if upper_limit and upper_limit <= last_lower_limit:
-                return "Another interval covers this upper limit interval " \
-                       ":: [{lower_limit}-{upper_limit}]".format(
-                            lower_limit=lower_limit, upper_limit=upper_limit)
+                return 'Another interval covers this upper limit interval ' \
+                       f':: [{lower_limit}-{upper_limit}]'
             last_lower_limit = lower_limit
             last_upper_limit = upper_limit
 

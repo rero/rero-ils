@@ -68,19 +68,11 @@ def create_records(records):
                     n_created += 1
                     uuids.append(new_record.id)
         except Exception as err:
-            current_app.logger.error(
-                'EBOOKS CREATE RECORDS: {err} {record}'.format(
-                    err=err,
-                    record=record
-                )
-            )
+            current_app.logger.error(f'EBOOKS CREATE RECORDS: {err} {record}')
     do_bulk_index(uuids, doc_type='doc', process=True)
 
     current_app.logger.info(
-        'create_records: {updated} updated, {created} new'.format(
-            updated=n_updated,
-            created=n_created
-        )
+        f'create_records: {n_updated} updated, {n_created} new'
     )
     return n_created, n_updated
 
@@ -110,13 +102,6 @@ def delete_records(records):
                 # TODO: delete record and linked references
                 count += 1
         except Exception as err:
-            current_app.logger.error(
-                'EBOOKS DELETE RECORDS: {err} {record}'.format(
-                    err=err,
-                    record=record
-                )
-            )
-    current_app.logger.info('delete_records: {count}'.format(
-        count=count
-    ))
+            current_app.logger.error(f'EBOOKS DELETE RECORDS: {err} {record}')
+    current_app.logger.info(f'delete_records: {count}')
     return count

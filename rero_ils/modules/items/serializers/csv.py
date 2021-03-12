@@ -107,9 +107,7 @@ class ItemCSVSerializer(CSVSerializer):
             for contribution in document.contribution:
                 if any(role in contribution.role for role in role_filter):
                     authorized_access_point = \
-                        'authorized_access_point_{language}'.format(
-                            language=language
-                        )
+                        f'authorized_access_point_{language}'
                     if authorized_access_point in contribution['agent']:
                         creator.append(
                             contribution['agent'][authorized_access_point]

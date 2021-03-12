@@ -57,9 +57,7 @@ def create_collections(input_file, max_item=10):
                 dbcommit=True,
                 reindex=True
             )
-            click.echo('\tCollection: #{pid}'.format(
-                pid=request.pid,
-            ))
+            click.echo(f'\tCollection: #{request.pid}')
 
 
 def get_items_by_organisation_pid(organisation_pid):

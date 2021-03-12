@@ -29,7 +29,6 @@ def local_field_resolver(pid):
     if persistent_id.status == PIDStatus.REGISTERED:
         return dict(pid=persistent_id.pid_value)
     current_app.logger.error(
-        'Local fields resolver error: /api/local_fields/{pid} {persistent_id}'
-        .format(pid=pid, persistent_id=persistent_id)
+        f'Local fields resolver error: /api/local_fields/{pid} {persistent_id}'
     )
     raise Exception('unable to resolve')

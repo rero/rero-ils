@@ -104,9 +104,7 @@ def create_document_holding(record):
                         holdings_type='electronic')
         else:
             current_app.logger.warning(
-                'create document holding no org: {source}'.format(
-                    source=harvested_source['source']
-                )
+                f"create document holding no org: {harvested_source['source']}"
             )
     return new_record
 

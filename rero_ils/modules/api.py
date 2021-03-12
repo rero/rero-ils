@@ -133,10 +133,7 @@ class IlsRecord(Record):
                 self.pids_exist_check:
             from .utils import pids_exists_in_data
             validation_message = pids_exists_in_data(
-                info='{pid_type} ({pid})'.format(
-                    pid_type=self.provider.pid_type,
-                    pid=self.pid
-                ),
+                info=f'{self.provider.pid_type} ({self.pid})',
                 data=self,
                 required=self.pids_exist_check.get('required', {}),
                 not_required=self.pids_exist_check.get('not_required', {})
@@ -191,10 +188,7 @@ class IlsRecord(Record):
     def get_record_by_pid(cls, pid, with_deleted=False, verbose=False):
         """Get ils record by pid value."""
         if verbose:
-            click.echo('\t\tget_record_by_pid: {name} {pid}'.format(
-                name=cls.__name__,
-                pid=pid
-            ))
+            click.echo(f'\t\tget_record_by_pid: {cls.__name__} {pid}')
         if pid:
             assert cls.provider
             try:
@@ -354,9 +348,7 @@ class IlsRecord(Record):
         new_data = deepcopy(data)
         pid = new_data.get('pid')
         if not pid:
-            raise IlsRecordError.PidMissing(
-                'missing pid={pid}'.format(pid=self.pid)
-            )
+            raise IlsRecordError.PidMissing(f'missing pid={self.pid}')
         self.clear()
         self = self.update(new_data, dbcommit=dbcommit, reindex=reindex)
         return self

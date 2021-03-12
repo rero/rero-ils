@@ -86,8 +86,7 @@ def jsonify_error(func):
         except Exception as error:
             # raise(error)
             current_app.logger.error(str(error))
-            return jsonify({'status': 'error: {error}'.format(
-                error=error)}), 500
+            return jsonify({'status': f'error: {error}'}), 500
     return decorated_view
 
 
@@ -151,14 +150,12 @@ def do_item_jsonify_action(func):
             raise error
         except exceptions.RequestError as error:
             # missing required parameters
-            return jsonify({'status': 'error: {error}'.format(
-                error=error)}), 400
+            return jsonify({'status': f'error: {error}'}), 400
         except Exception as error:
             # TODO: need to know what type of exception and document there.
             # raise error
             current_app.logger.error(str(error))
-            return jsonify({'status': 'error: {error}'.format(
-                error=error)}), 400
+            return jsonify({'status': f'error: {error}'}), 400
     return decorated_view
 
 

@@ -56,15 +56,16 @@ class ItemsJSONSerializer(JSONSerializer):
 
             item = Item.get_record_by_pid(metadata.get('pid'))
             metadata['availability'] = {
-                'available': metadata['available'],
+                'available': item.available,
                 'status': metadata['status'],
-                'display_text': item.availability_text(),
+                'display_text': item.availability_text,
                 'request': item.number_of_requests()
             }
             if not metadata['available']:
                 if metadata['status'] == ItemStatus.ON_LOAN:
                     metadata['availability']['due_date'] =\
                         item.get_item_end_date(format='long', language='en')
+
             # Item in collection
             collection = item.in_collection()
             if collection:

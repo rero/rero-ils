@@ -33,7 +33,7 @@ def append_fixtures_new_identifiers(identifier, pids, pid_type):
     for idx, pid in enumerate(pids, 1):
         db.session.add(identifier(recid=pid))
         if idx > 0 and idx % 100000 == 0:
-            click.echo('DB commit append: {idx}'.format(idx=idx))
+            click.echo(f'DB commit append: {idx}')
             db.session.commit()
     max_pid = PersistentIdentifier.query.filter_by(
         pid_type=pid_type
@@ -41,7 +41,7 @@ def append_fixtures_new_identifiers(identifier, pids, pid_type):
         sqlalchemy.cast(PersistentIdentifier.pid_value, sqlalchemy.Integer)
     )).first().pid_value
     identifier._set_sequence(max_pid)
-    click.echo('DB commit append: {idx}'.format(idx=idx))
+    click.echo(f'DB commit append: {idx}')
     db.session.commit()
 
 

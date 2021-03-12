@@ -30,9 +30,6 @@ def acquisition_invoice_resolver(pid):
         return dict(pid=persistent_id.pid_value)
     current_app.logger.error(
         'Acquisition invoice resolver error: /api/acq_invoices/'
-        '{pid} {persistent_id}'.format(
-            pid=pid,
-            persistent_id=persistent_id
-        )
+        f'{pid} {persistent_id}'
     )
     raise Exception('unable to resolve')

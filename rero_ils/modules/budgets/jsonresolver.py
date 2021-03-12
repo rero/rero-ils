@@ -29,9 +29,6 @@ def budget_resolver(pid):
     if persistent_id.status == PIDStatus.REGISTERED:
         return dict(pid=persistent_id.pid_value)
     current_app.logger.error(
-        'Doc resolver error: /api/budgets/{pid} {persistent_id}'.format(
-            pid=pid,
-            persistent_id=persistent_id
-        )
+        f'Doc resolver error: /api/budgets/{pid} {persistent_id}'
     )
     raise Exception('unable to resolve')

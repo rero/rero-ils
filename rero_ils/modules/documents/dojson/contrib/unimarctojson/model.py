@@ -473,10 +473,7 @@ def marc21_to_part_of(self, key, value):
             break
     if linked_pid:
         part_of['document'] = {
-            '$ref':
-                'https://ils.rero.ch/api/documents/{pid}'.format(
-                    pid=linked_pid
-                )
+            '$ref': f'https://ils.rero.ch/api/documents/{linked_pid}'
         }
         subfield_v = not_repetitive(
             unimarc.bib_id, 'unimarc', key, value, 'v', default='').strip()

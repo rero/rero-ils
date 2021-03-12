@@ -43,9 +43,7 @@ def create_mef_records(records, verbose=False):
             delete_pid=False
         )
         if verbose:
-            click.echo(
-                'record uuid: {id}'.format(id=rec.id)
-            )
+            click.echo(f'record uuid: {rec.id}')
     return len(records)
 
 
@@ -64,17 +62,10 @@ def delete_records(records, verbose=False):
             dbcommit=True,
             delindex=True
         )
-        current_app.logger.info(
-            'record: {id} | DELETED {status}'.format(
-                id=record.id,
-                status=status
-            )
-        )
+        current_app.logger.info(f'record: {record.id} | DELETED {status}')
         # TODO bulk update and reindexing
     if verbose:
-        click.echo(
-            'records deleted: {count}'.format(count=len(records))
-        )
+        click.echo(f'records deleted: {len(records)}')
     return len(records)
 
 

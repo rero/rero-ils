@@ -152,9 +152,7 @@ class ItemIssue(ItemRecord):
             except Exception:
                 current_app.logger.error(
                     'Can not receive next late expected issue for serial '
-                    'holding: {pid}'.format(
-                        pid=pid
-                    )
+                    f'holding: {pid}'
                 )
         return created_issues
 
@@ -262,7 +260,6 @@ class ItemIssue(ItemRecord):
                     )
             except Exception:
                 current_app.logger.error(
-                    'Can not create {claim_type} claim for issue: {pid}'
-                    .format(claim_type=claim_type, pid=issue.pid)
+                    f'Can not create {claim_type} claim for issue: {issue.pid}'
                 )
         return modified_issues

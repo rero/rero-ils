@@ -88,7 +88,7 @@ class Contribution(IlsRecord):
                 ).source('pid').scan()
             else:
                 result = ContributionsSearch().filter(
-                    {'term': {'{type}.pid'.format(type=ref_type): ref_pid}}
+                    {'term': {f'{ref_type}.pid': ref_pid}}
                 ).source('pid').scan()
             try:
                 pid = next(result).pid
@@ -128,11 +128,7 @@ class Contribution(IlsRecord):
                     contribution = cls.get_record_by_pid(metadata.get('pid'))
                 if not contribution:
                     current_app.logger.error(
-                        'Get MEF record: {type}:{pid} >>{err}<<'.format(
-                            type=ref_type,
-                            pid=ref_pid,
-                            err=err
-                        )
+                        f'Get MEF record: {ref_type}:{ref_pid} >>{err}<<'
                     )
                     # import traceback
                     # traceback.print_exc()
@@ -149,31 +145,24 @@ class Contribution(IlsRecord):
         """Request MEF REST API in JSON format."""
         url = current_app.config.get('RERO_ILS_MEF_URL')
         if pid_type == 'mef':
-            mef_url = "{url}?q=pid:{pid}".format(url=url, pid=pid)
+            mef_url = f'{url}?q=pid:{pid}'
         else:
             if pid_type == 'viaf':
-                mef_url = "{url}?q=viaf_pid:{pid}".format(url=url, pid=pid)
+                mef_url = f'{url}?q=viaf_pid:{pid}'
             else:
-                mef_url = "{url}?q={type}.pid:{pid}".format(
-                    url=url,
-                    type=pid_type,
-                    pid=pid
-                )
+                mef_url = f'{url}?q={pid_type}.pid:{pid}'
         request = requests.get(url=mef_url, params=dict(resolve=1, sources=1))
         if request.status_code == requests_codes.ok:
             try:
                 data = request.json().get('hits', {}).get('hits', [None])
                 return data[0]
             except Exception as err:
-                msg = 'MEF resolver no metadata: {url}'.format(url=mef_url)
+                msg = f'MEF resolver no metadata: {mef_url}'
                 if verbose:
                     current_app.logger.error(msg)
                 raise Exception(msg)
         else:
-            msg = 'Mef http error: {status_code} {url}'.format(
-                status_code=request.status_code,
-                url=mef_url
-            )
+            msg = f'Mef http error: {request.status_code} {mef_url}'
             if verbose:
                 current_app.logger.error(msg)
             raise Exception(msg)
@@ -208,11 +197,9 @@ class Contribution(IlsRecord):
             if self.get(agency):
                 agent['type'] = self[agency]['bf:Agent']
         for language in get_i18n_supported_languages():
-            agent[
-                'authorized_access_point_{language}'.format(language=language)
-            ] = self._get_mef_localized_value(
-                'authorized_access_point', language
-            )
+            value = self._get_mef_localized_value(
+                'authorized_access_point', language)
+            agent[f'authorized_access_point_{language}'] = value
         variant_access_points = []
         parallel_access_points = []
         for source in self.get('sources'):

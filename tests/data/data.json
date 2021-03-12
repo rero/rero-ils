@@ -887,6 +887,7 @@
     "name": "standard",
     "pid": "itty1",
     "description": "Standard checkout.",
+    "negative_availability": false,
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org1"
     },
@@ -897,9 +898,20 @@
     "name": "on-site",
     "pid": "itty2",
     "description": "On-site consultation.",
+    "negative_availability": false,
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org1"
     },
+    "circulation_information": [
+      {
+        "language": "en",
+        "label": "On-site consultation"
+      },
+      {
+        "language": "fr",
+        "label": "Consultation sur place"
+      }
+    ],
     "type": "standard"
   },
   "itty3": {
@@ -907,6 +919,7 @@
     "name": "specific",
     "pid": "itty3",
     "description": "Specific rules.",
+    "negative_availability": false,
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org1"
     },
@@ -917,6 +930,7 @@
     "name": "regular",
     "pid": "itty4",
     "description": "Regular checkout.",
+    "negative_availability": false,
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org2"
     },
@@ -927,6 +941,7 @@
     "name": "internal",
     "pid": "itty5",
     "description": "Internal consultation.",
+    "negative_availability": false,
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org2"
     },
@@ -937,6 +952,7 @@
     "name": "particular",
     "pid": "itty6",
     "description": "Particular rules.",
+    "negative_availability": false,
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org2"
     },
@@ -947,6 +963,7 @@
     "name": "Online",
     "pid": "itty7",
     "type": "online",
+    "negative_availability": false,
     "description": "Ebooks dedicated category.",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org1"
@@ -958,9 +975,31 @@
     "pid": "itty8",
     "type": "online",
     "description": "Ebooks dedicated category.",
+    "negative_availability": false,
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org2"
     }
+  },
+  "itty9": {
+    "$schema": "https://ils.rero.ch/schemas/item_types/item_type-v0.0.1.json",
+    "name": "Missing",
+    "pid": "itty9",
+    "description": "Missing documents.",
+    "negative_availability": true,
+    "displayed_status": [
+      {
+        "language": "fr",
+        "label": "Manquant"
+      },
+      {
+        "language": "en",
+        "label": "Missing"
+      }
+    ],
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
+    },
+    "type": "standard"
   },
   "ptty1": {
     "$schema": "https://ils.rero.ch/schemas/patron_types/patron_type-v0.0.1.json",

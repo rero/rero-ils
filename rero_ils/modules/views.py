@@ -78,20 +78,17 @@ def translations(ln):
     try:
         path = next(p for p in paths if p.find('rero_ils') > -1)
     except StopIteration:
-        current_app.logger.error(
-            'translations for {ln} does not exist'.format(ln=ln))
+        current_app.logger.error(f'translations for {ln} does not exist')
         abort(404)
 
-    po_file_name = '{path}/{ln}/LC_MESSAGES/{domain}.po'.format(
-        path=path, ln=ln, domain=domain.domain)
+    po_file_name = f'{path}/{ln}/LC_MESSAGES/{domain.domain}.po'
     if not os.path.isfile(po_file_name):
         abort(404)
     data = {}
     try:
         po = polib.pofile(po_file_name)
     except Exception:
-        current_app.logger.error(
-            'unable to open po file: {po}'.format(po=po_file_name))
+        current_app.logger.error(f'unable to open po file: {po_file_name}')
         abort(404)
     for entry in po:
         data[entry.msgid] = entry.msgstr or entry.msgid

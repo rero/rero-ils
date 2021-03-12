@@ -50,7 +50,7 @@ def apiharvester():
 @with_appcontext
 def api_source_config(name, url, mimetype, size, comment, update):
     """Add or Update ApiHarvestConfig."""
-    click.echo('ApiHarvesterConfig: {0} '.format(name), nl=False)
+    click.echo(f'ApiHarvesterConfig: {name} ', nl=False)
     msg = api_source(
         name=name,
         url=url,
@@ -76,9 +76,7 @@ def api_source_config_from_file(configfile, update):
         mimetype = values.get('mimetype', '')
         size = values.get('size', 100)
         comment = values.get('comment', '')
-        click.echo(
-            'ApiHarvesterConfig: {0} {1} '.format(name, url), nl=False
-        )
+        click.echo(f'ApiHarvesterConfig: {name} {url} ', nl=False)
         msg = api_source(
             name=name,
             url=url,
@@ -110,9 +108,9 @@ def api_source_config_from_file(configfile, update):
 def harvest(name, from_date, url, enqueue, signals, size, max, verbose):
     """Harvest api."""
     if name:
-        click.secho('Harvest api: {0}'.format(name), fg='green')
+        click.secho(f'Harvest api: {name}', fg='green')
     elif url:
-        click.secho('Harvest api: {0}'.format(url), fg='green')
+        click.secho(f'Harvest api: {url}', fg='green')
     if enqueue:
         harvest_records.delay(url=url, name=name, from_date=from_date,
                               signals=signals, size=size, max=max,
@@ -130,8 +128,8 @@ def info():
     apis = ApiHarvestConfig.query.all()
     for api in apis:
         click.echo(api.name)
-        click.echo('\tlastrun  : {0}'.format(api.lastrun))
-        click.echo('\turl      : {0}'.format(api.url))
-        click.echo('\tmimetype : {0}' .format(api.mimetype))
-        click.echo('\tsize     : {0}' .format(api.size))
-        click.echo('\tcomment  : {0}' .format(api.comment))
+        click.echo(f'\tlastrun  : {api.lastrun}')
+        click.echo(f'\turl      : {api.url}')
+        click.echo(f'\tmimetype : {api.mimetype}')
+        click.echo(f'\tsize     : {api.size}')
+        click.echo(f'\tcomment  : {api.comment}')

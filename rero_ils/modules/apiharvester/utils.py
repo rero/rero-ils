@@ -49,18 +49,18 @@ def api_source(name, url='', mimetype='', size=100, comment='', update=False):
             msg = []
             if url != '':
                 source.url = url
-                msg.append('url:{}'.format(url))
+                msg.append(f'url:{url}')
             if mimetype != '':
                 source.mimetype = mimetype
-                msg.append('mimetype:{}'.format(mimetype))
+                msg.append(f'mimetype:{mimetype}')
             if size != -1:
                 source.size = size
-                msg.append('size:{}'.format(size))
+                msg.append(f'size:{size}')
             if comment != '':
                 source.comment = comment
-                msg.append('comment:{}'.format(comment))
+                msg.append(f'comment:{comment}')
             db.session.commit()
-            return 'Updated: {}'.format(', '.join(msg))
+            return f'Updated: {", ".join(msg)}'
         return 'Not Updated'
 
 
@@ -80,18 +80,18 @@ def extract_records(data):
 def get_records(url=None, name=None, from_date=None, max=0, size=100,
                 signals=True, verbose=False, **kwargs):
     """Harvest multiple records from invenio api."""
-    url += '/?size={0}'.format(size)
+    url += f'/?size={size}'
     if from_date:
         if isinstance(from_date, str):
             from_date = parser.parse(from_date)
         from_date = from_date.isoformat()
         # we have to urlencode the : from the time with \:
         from_date = from_date.replace(':', '%5C:')
-        url += '&q=_updated:>{from_date}'.format(from_date=from_date)
-    url += '&size={size}'.format(size=size)
+        url += f'&q=_updated:>{from_date}'
+    url += f'&size={size}'
 
     if verbose:
-        click.echo('Get records from {url}'.format(url=url))
+        click.echo(f'Get records from {url}')
 
     try:
         count = 0
@@ -99,9 +99,7 @@ def get_records(url=None, name=None, from_date=None, max=0, size=100,
         data = request.json()
 
         total = data['hits']['total']['value']
-        click.echo(
-            'API records found: {total}'.format(total=total)
-        )
+        click.echo(f'API records found: {total}')
 
         next_url = data.get('links', {}).get('self', True)
         while next_url and (count < max or max == 0):
@@ -125,8 +123,7 @@ def get_records(url=None, name=None, from_date=None, max=0, size=100,
             next_url = data.get('links', {}).get('next', None)
     except Exception as error:
         click.secho(
-            'Harvesting API ConnectionRefusedError: {error}'.format(
-                error=error),
+            f'Harvesting API ConnectionRefusedError: {error}',
             fg='red'
         )
         yield url, []

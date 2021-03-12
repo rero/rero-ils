@@ -22,6 +22,29 @@
       "type": {
         "type": "keyword"
       },
+      "negative_availability": {
+        "type": "boolean"
+      },
+      "displayed_status": {
+        "properties": {
+          "language": {
+            "type": "keyword"
+          },
+          "label": {
+            "type": "text"
+          }
+        }
+      },
+      "circulation_information": {
+        "properties": {
+          "language": {
+            "type": "keyword"
+          },
+          "label": {
+            "type": "text"
+          }
+        }
+      },
       "organisation": {
         "properties": {
           "type": {

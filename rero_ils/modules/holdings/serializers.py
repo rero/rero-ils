@@ -39,7 +39,9 @@ class HoldingsJSONSerializer(JSONSerializer):
             # Library name
             self._populate_data(metadata, Library, 'library')
             # Circulation category
-            self._populate_data(metadata, ItemType, 'circulation_category')
+            circ_category_pid = metadata['circulation_category']['pid']
+            circ_category = ItemType.get_record_by_pid(circ_category_pid)
+            metadata['circulation_category'] = circ_category.dumps()
 
         return super(HoldingsJSONSerializer, self)\
             .post_process_serialize_search(results, pid_fetcher)
