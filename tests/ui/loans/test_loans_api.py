@@ -68,7 +68,11 @@ def test_item_loans_elements(
         circ_policy_default_martigny, dbcommit=True, reindex=True)
 
     today = datetime.now()
-    end_date = today + get_default_loan_duration(new_loan, None)
+    library = Library.get_record_by_pid(item_lib_fully.library_pid)
+    eve_end_date = today \
+        + get_default_loan_duration(new_loan, None) \
+        - timedelta(days=1)
+    end_date = library.next_open(eve_end_date)
     assert today.strftime('%Y-%m-%d') == end_date.strftime('%Y-%m-%d')
 
 
