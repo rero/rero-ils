@@ -200,7 +200,12 @@
         },
         "identifier": {
           "type": "string",
-          "title": "Identifier"
+          "title": "Identifier",
+          "form": {
+            "templateOptions": {
+              "doNotSubmitOnEnter": true
+            }
+          }
         },
         "source": {
           "type": "object",

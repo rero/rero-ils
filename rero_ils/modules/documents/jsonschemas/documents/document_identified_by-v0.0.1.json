@@ -153,7 +153,8 @@
           "minLength": 1,
           "form": {
             "templateOptions": {
-              "itemCssClass": "col-lg-6"
+              "itemCssClass": "col-lg-6",
+              "doNotSubmitOnEnter": true
             }
           }
         },

@@ -51,7 +51,8 @@
       "form": {
         "focus": true,
         "templateOptions": {
-          "labelClasses": "col-2 text-right"
+          "labelClasses": "col-2 text-right",
+          "doNotSubmitOnEnter": true
         },
         "navigation": {
           "essential": true
