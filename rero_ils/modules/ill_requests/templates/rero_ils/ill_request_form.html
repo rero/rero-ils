@@ -27,7 +27,7 @@
     <p class="mb-0">{{ _('A well detailed request is more likely to be satisfied') }}</p>
   </div>
 
-  <form action="{{ url_for('ill_requests.ill_request_form') }}" method="POST" class="form" role="form" novalidate>
+  <form id="ill-public-form" action="{{ url_for('ill_requests.ill_request_form') }}" method="POST" class="form" role="form" novalidate>
     {{ form.hidden_tag() }}
     {%- if form.csrf_token and form.csrf_token.errors %}
       <div class="alert alert-danger" role="alert">
@@ -62,8 +62,28 @@
     </section>
     <div class="row pt-3">
       <div class="col text-right">
-        <input type="submit" id="submit" class="btn btn-primary" value="{{ _('Create request') }}"/>
+        <input type="submit" id="submit" class="btn btn-primary" value="{{ _('Submit') }}"/>
       </div>
     </div>
   </form>
+
+  <div id="ill-modal-confirmation" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ _('Confirmation') }}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>{{ _('Costs may apply. By confirming, you agree to the interlibrary loan conditions of the pick-up library.') }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-dismiss="modal">{{ _('Cancel') }}</button>
+          <button id="ill-modal-confirmation-btn" type="button" class="btn btn-primary">{{ _('Confirm') }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
 {%- endblock body %}

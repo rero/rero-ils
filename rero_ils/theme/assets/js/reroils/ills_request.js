@@ -16,9 +16,21 @@ You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
-import 'bootstrap';
-import './tooltip';
-import './toast';
-import './login';
-import './toggle';
-import './ills_request';
+
+import $ from 'jquery';
+
+// show a confirmation modal dialog on form submission
+$("#submit").on("click", function(event){
+  if($(this).data('confirmed') !== true) {
+    $("#ill-modal-confirmation").modal('show');
+    event.preventDefault();
+  }
+});
+
+// close the dialog, confirmed is true and trigger the submit click button
+$("#ill-modal-confirmation-btn").on("click", function(event){
+  $( "#submit" ).data('confirmed', true);
+  $("#ill-modal-confirmation").modal('hide');
+  // form submit does not works
+  $("#submit").trigger('click');
+});
