@@ -203,9 +203,12 @@ class PatronTransaction(IlsRecord):
     @property
     def document_pid(self):
         """Return the document pid of the the patron transaction."""
-        loan = self.loan
-        if loan:
-            return loan.document_pid
+        return self.loan.document_pid if self.loan else None
+
+    @property
+    def library_pid(self):
+        """Return the library pid of the the patron transaction."""
+        return self.loan.library_pid if self.loan else None
 
     @property
     def patron_pid(self):
