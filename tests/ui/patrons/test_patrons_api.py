@@ -23,6 +23,7 @@ from copy import deepcopy
 from datetime import datetime
 
 import pytest
+from flask_login.mixins import UserMixin
 from invenio_accounts.models import User
 from invenio_userprofiles import UserProfile
 
@@ -291,6 +292,17 @@ def test_get_patron(patron_martigny):
     class user:
         pass
     assert Patron.get_patron_by_user(user) is None
+
+
+def test_get_patrons_by_user(patron_martigny):
+    """Test patrons retrieval."""
+    class User(UserMixin):
+        def __init__(self, id):
+            self.id = id
+
+    patrons = Patron.get_patrons_by_user(User('1'))
+    assert type(patrons) is list
+    assert patron_martigny == patrons[0]
 
 
 def test_user_librarian_can_delete(librarian_martigny):

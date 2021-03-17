@@ -2399,12 +2399,19 @@ RERO_ILS_THUMBNAIL_SERVICE_URL = 'https://services.test.rero.ch/cover'
 #: Contributions
 RERO_ILS_CONTRIBUTIONS_MEF_SCHEMA = 'contributions/contribution-v0.0.1.json'
 RERO_ILS_CONTRIBUTIONS_SOURCES = ['idref', 'gnd', 'rero']
-
+RERO_ILS_CONTRIBUTIONS_AGENT_TYPES = {
+    'bf:Person': 'persons',
+    'bf:Organisation': 'corporate-bodies'
+}
 RERO_ILS_CONTRIBUTIONS_LABEL_ORDER = {
     'fallback': 'fr',
     'fr': ['idref', 'rero', 'gnd'],
     'de': ['gnd', 'idref', 'rero'],
 }
+
+#: Admin roles
+RERO_ILS_LIBRARIAN_ROLES = ['librarian', 'system_librarian']
+
 
 # JSONSchemas
 # ===========
