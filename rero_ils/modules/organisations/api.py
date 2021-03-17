@@ -20,9 +20,6 @@
 
 from functools import partial
 
-from flask_login import current_user
-from werkzeug.local import LocalProxy
-
 from .models import OrganisationIdentifier, OrganisationMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
@@ -31,9 +28,6 @@ from ..libraries.api import LibrariesSearch, Library
 from ..minters import id_minter
 from ..providers import Provider
 from ..vendors.api import Vendor, VendorsSearch
-
-current_organisation = LocalProxy(
-    lambda: Organisation.get_record_by_user(current_user))
 
 # provider
 OrganisationProvider = type(
@@ -94,18 +88,6 @@ class Organisation(IlsRecord):
                 'Organisation (get_record_by_viewcode): Result not found.')
 
         return result['hits']['hits'][0]['_source']
-
-    @classmethod
-    def get_record_by_user(cls, user):
-        """Return organisation associated with patron.
-
-        :param user: the user to check.
-        :return: Organisation record or None.
-        """
-        from ..patrons.api import Patron, current_patron
-        patron = Patron.get_patron_by_user(user) or current_patron
-        if patron:
-            return patron.get_organisation()
 
     @classmethod
     def get_record_by_online_harvested_source(cls, source):

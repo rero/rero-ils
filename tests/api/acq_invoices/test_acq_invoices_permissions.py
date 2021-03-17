@@ -128,27 +128,21 @@ def test_invoice_permissions(patron_martigny,
     assert not AcqInvoicePermission.update(None, {})
     assert not AcqInvoicePermission.delete(None, {})
 
-    # As Patron
+    # As non Librarian
     invoice_martigny = acq_invoice_fiction_martigny
     invoice_saxon = acq_invoice_fiction_saxon
     invoice_sion = acq_invoice_fiction_sion
-    with mock.patch(
-        'rero_ils.modules.acq_accounts.permissions.current_patron',
-        patron_martigny
-    ):
-        assert not AcqInvoicePermission.list(None, invoice_martigny)
-        assert not AcqInvoicePermission.read(None, invoice_martigny)
-        assert not AcqInvoicePermission.create(None, invoice_martigny)
-        assert not AcqInvoicePermission.update(None, invoice_martigny)
-        assert not AcqInvoicePermission.delete(None, invoice_martigny)
+
+    assert not AcqInvoicePermission.list(None, invoice_martigny)
+    assert not AcqInvoicePermission.read(None, invoice_martigny)
+    assert not AcqInvoicePermission.create(None, invoice_martigny)
+    assert not AcqInvoicePermission.update(None, invoice_martigny)
+    assert not AcqInvoicePermission.delete(None, invoice_martigny)
 
     # As Librarian
     with mock.patch(
-        'rero_ils.modules.acq_accounts.permissions.current_patron',
+        'rero_ils.modules.acq_accounts.permissions.current_librarian',
         librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.acq_accounts.permissions.current_organisation',
-        org_martigny
     ):
         assert AcqInvoicePermission.list(None, invoice_martigny)
         assert AcqInvoicePermission.read(None, invoice_martigny)
@@ -168,11 +162,8 @@ def test_invoice_permissions(patron_martigny,
 
     # As System-librarian
     with mock.patch(
-        'rero_ils.modules.acq_accounts.permissions.current_patron',
+        'rero_ils.modules.acq_accounts.permissions.current_librarian',
         system_librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.acq_accounts.permissions.current_organisation',
-        org_martigny
     ):
         assert AcqInvoicePermission.list(None, invoice_saxon)
         assert AcqInvoicePermission.read(None, invoice_saxon)

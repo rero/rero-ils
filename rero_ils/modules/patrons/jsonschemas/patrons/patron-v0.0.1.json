@@ -370,12 +370,6 @@
               "templateOptions.required": "true"
             }
           }
-        },
-        "keep_history": {
-          "title": "Keep history",
-          "description": "If enabled, the loan history is saved for a maximum of six months. It is visible to the user and the library staff.",
-          "type": "boolean",
-          "default": false
         }
       },
       "form": {
@@ -460,6 +454,11 @@
         }
       },
       "form": {
+        "validation": {
+          "messages": {
+            "roleMessage": "This user has already a professional role in another organisation. A user can be professional only in one organisation."
+          }
+        },
         "fieldMap": "roles",
         "templateOptions": {
           "wrappers": [

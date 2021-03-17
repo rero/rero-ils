@@ -109,6 +109,7 @@ class User(object):
 
         :param data - dictionary representing a user record to update
         """
+        from ..patrons.listener import update_from_profile
         self._validate(data=data)
         email = data.pop('email', None)
         roles = data.pop('roles', None)
@@ -136,6 +137,7 @@ class User(object):
             db.session.merge(user)
         db.session.commit()
         confirm_user(user)
+        update_from_profile('user', self.user.profile)
         return self
 
     @classmethod
@@ -170,12 +172,13 @@ class User(object):
             'id': self.user.id,
             'links': {'self': url_for(
                 'api_users.users_item', _external=True, id=self.user.id)},
-            'metadata': self.dumpsMetadata()
+            'metadata': self.dumpsMetadata(patronData=True)
         }
         return data
 
-    def dumpsMetadata(self):
+    def dumpsMetadata(self, patronData=False):
         """Dumps the profile, email, roles metadata."""
+        from ..patrons.api import Patron
         metadata = {}
         if self.user.profile:
             for field in self.profile_fields:
@@ -187,6 +190,15 @@ class User(object):
         if self.user.email:
             metadata['email'] = self.user.email
         metadata['roles'] = [r.name for r in self.user.roles]
+        if (patronData):
+            for patron in Patron.get_patrons_by_user(self.user):
+                metadata.setdefault('patrons', []).append({
+                    'pid': patron.pid,
+                    'roles': patron.get('roles'),
+                    'organisation': {
+                        'pid': patron.organisation_pid
+                    }
+                })
         return remove_empties_from_dict(metadata)
 
     @classmethod

@@ -19,12 +19,13 @@
 """Utils methods for ILL requests."""
 
 from rero_ils.modules.locations.api import Location
-from rero_ils.modules.patrons.api import current_patron
+from rero_ils.modules.patrons.api import current_patrons
 
 
 def get_pickup_location_options():
-    """Get all pickup location."""
-    for pid in Location.get_pickup_location_pids(current_patron.pid):
-        location = Location.get_record_by_pid(pid)
-        location_name = location.get('pickup_name', location.get('name'))
-        yield tuple([location.pid, location_name])
+    """Get all pickup location for all patron accounts."""
+    for ptrn_pid in [ptrn.pid for ptrn in current_patrons]:
+        for pid in Location.get_pickup_location_pids(ptrn_pid):
+            location = Location.get_record_by_pid(pid)
+            location_name = location.get('pickup_name', location.get('name'))
+            yield tuple([location.pid, location_name])

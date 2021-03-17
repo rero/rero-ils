@@ -393,13 +393,19 @@ class Holding(IlsRecord):
         """Returns loan conditions for a given holding."""
         from ..circ_policies.api import CircPolicy
         from ..item_types.api import ItemType
-        from ..patrons.api import current_patron
+        from ..patrons.api import current_patrons
 
-        if current_patron and current_patron.is_patron:
+        def find_patron(organisation_pid):
+            for ptrn in current_patrons:
+                if ptrn.organisation_pid == organisation_pid:
+                    return ptrn
+
+        patron = find_patron(self.organisation_pid)
+        if patron:
             cipo = CircPolicy.provide_circ_policy(
                 self.organisation_pid,
                 self.library_pid,
-                current_patron.patron_type_pid,
+                patron.patron_type_pid,
                 self.circulation_category_pid
             )
             text = '{0} {1} days'.format(

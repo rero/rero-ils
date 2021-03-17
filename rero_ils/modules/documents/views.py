@@ -40,7 +40,7 @@ from ..items.models import ItemCirculationAction, ItemNoteTypes
 from ..libraries.api import Library
 from ..locations.api import Location
 from ..organisations.api import Organisation
-from ..patrons.api import Patron, current_patron
+from ..patrons.api import current_patrons
 from ..utils import cached, extracted_data_from_ref
 
 
@@ -105,18 +105,14 @@ blueprint = Blueprint(
 
 
 @blueprint.app_template_filter()
-def item_and_patron_in_same_organisation(item):
-    """Check if the current user belongs to the same organisation than item."""
-    return current_patron and current_patron.organisation_pid == \
-        item.organisation_pid
-
-
-@blueprint.app_template_filter()
 def can_request(item):
     """Check if the current user can request a given item."""
     if current_user.is_authenticated:
-        patron = Patron.get_patron_by_user(current_user)
-        if patron and patron.is_patron:
+        patron = None
+        for p in current_patrons:
+            if p.organisation_pid == item.organisation_pid:
+                patron = p
+        if patron:
             can, reasons = item.can(
                 ItemCirculationAction.REQUEST,
                 patron=patron,

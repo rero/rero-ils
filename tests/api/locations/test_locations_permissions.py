@@ -126,8 +126,8 @@ def test_location_permissions(patron_martigny,
 
     # As Patron
     with mock.patch(
-        'rero_ils.modules.locations.permissions.current_patron',
-        patron_martigny
+        'rero_ils.modules.locations.permissions.current_patrons',
+        [patron_martigny]
     ):
         assert LocationPermission.list(None, loc_public_martigny)
         assert LocationPermission.read(None, loc_public_martigny)
@@ -137,11 +137,8 @@ def test_location_permissions(patron_martigny,
 
     # As Librarian
     with mock.patch(
-        'rero_ils.modules.locations.permissions.current_patron',
+        'rero_ils.modules.locations.permissions.current_librarian',
         librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.locations.permissions.current_organisation',
-        org_martigny
     ):
         assert LocationPermission.list(None, loc_public_martigny)
         assert LocationPermission.read(None, loc_public_martigny)
@@ -157,11 +154,8 @@ def test_location_permissions(patron_martigny,
 
     # As SystemLibrarian
     with mock.patch(
-        'rero_ils.modules.locations.permissions.current_patron',
+        'rero_ils.modules.locations.permissions.current_librarian',
         system_librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.locations.permissions.current_organisation',
-        org_martigny
     ):
         assert LocationPermission.list(None, loc_public_saxon)
         assert LocationPermission.read(None, loc_public_saxon)

@@ -18,8 +18,7 @@
 
 """Circulation policies permissions."""
 
-from rero_ils.modules.organisations.api import current_organisation
-from rero_ils.modules.patrons.api import current_patron
+from rero_ils.modules.patrons.api import current_librarian
 from rero_ils.modules.permissions import RecordPermission
 from rero_ils.modules.utils import extracted_data_from_ref
 
@@ -36,7 +35,7 @@ class CirculationPolicyPermission(RecordPermission):
         :return: True is action can be done.
         """
         # Operation allowed only for staff members (lib, sys_lib)
-        return current_patron and current_patron.is_librarian
+        return bool(current_librarian)
 
     @classmethod
     def read(cls, user, record):
@@ -47,12 +46,11 @@ class CirculationPolicyPermission(RecordPermission):
         :return: True is action can be done.
         """
         # Check the user is authenticated and a record exists as param.
-        if not record or not current_patron:
+        if not record or not current_librarian:
             return False
         # Check if record correspond to user owning organisation and that user
         # is (at least) a librarian
-        return current_organisation['pid'] == record.organisation_pid \
-            and current_patron.is_librarian
+        return current_librarian.organisation_pid == record.organisation_pid
 
     @classmethod
     def create(cls, user, record=None):
@@ -63,11 +61,12 @@ class CirculationPolicyPermission(RecordPermission):
         :return: True is action can be done.
         """
         # only system_librarian can create circulation policy ...
-        if not current_patron or not current_patron.is_system_librarian:
+        if not current_librarian or not current_librarian.is_system_librarian:
             return False
         # ... only for its own organisation
         if record:
-            return current_organisation['pid'] == record.organisation_pid
+            return current_librarian.organisation_pid == \
+                record.organisation_pid
         return True
 
     @classmethod
@@ -79,25 +78,25 @@ class CirculationPolicyPermission(RecordPermission):
         :return: True is action can be done.
         """
         # User must be be authenticated and have (at least) librarian role
-        if not current_patron or not current_patron.is_librarian:
+        if not current_librarian:
             return False
-        if current_patron and not record:  # legacy
+        if current_librarian and not record:  # legacy
             return True
         # * User can only update record of its own organisation
         #   - 'sys_lib' could always update a record
         #   - 'lib' could only update cipo, if :
         #     --> cipo is defined at the library level
         #     --> current user library is into the cipo libraries list
-        if current_organisation['pid'] == record.organisation_pid:
-            if current_patron.is_system_librarian:
+        if current_librarian.organisation_pid == record.organisation_pid:
+            if current_librarian.is_system_librarian:
                 return True
-            if current_patron.is_librarian and \
-                    record.get('policy_library_level', False):
+            # librarian
+            elif record.get('policy_library_level', False):
                 cipo_library_pids = []
                 for library in record.get('libraries', []):
                     cipo_library_pids.append(extracted_data_from_ref(library))
                 # Intersection patron libraries pid and cipo library pids
-                return len(set(current_patron.library_pids).intersection(
+                return len(set(current_librarian.library_pids).intersection(
                     cipo_library_pids)) > 0
         return False
 

@@ -612,7 +612,7 @@ class Loan(IlsRecord):
         return loan_age.days
 
     @classmethod
-    def can_anonymize(cls, loan_data=None, patron_data=None):
+    def can_anonymize(cls, loan_data=None, patron=None):
         """Check if a loan can be anonymized and excluded from loan searches.
 
         Loan can be anonymized if:
@@ -629,9 +629,9 @@ class Loan(IlsRecord):
         """
         if cls.concluded(loan_data) and cls.age(loan_data) > 6*365/12:
             return True
-        if not patron_data:
-            patron_data = Patron.get_record_by_pid(loan_data.get('patron_pid'))
-        keep_history = patron_data.get('patron', {}).get('keep_history')
+        if not patron:
+            patron = Patron.get_record_by_pid(loan_data.get('patron_pid'))
+        keep_history = patron.user.profile.keep_history
         return not keep_history and cls.concluded(loan_data)
 
 
@@ -832,7 +832,7 @@ def loan_has_open_events(loan_pid=None):
     return False
 
 
-def get_non_anonymized_loans(patron_pid=None, org_pid=None):
+def get_non_anonymized_loans(patron=None, org_pid=None):
     """Search all loans for non anonymized loans.
 
     :param patron_pid: optional parameter to filter by patron_pid.
@@ -843,8 +843,8 @@ def get_non_anonymized_loans(patron_pid=None, org_pid=None):
         .filter('term', to_anonymize=False)\
         .filter('terms', state=[LoanState.CANCELLED, LoanState.ITEM_RETURNED])\
         .source(['pid'])
-    if patron_pid:
-        search = search.filter('term', patron_pid=patron_pid)
+    if patron:
+        search = search.filter('term', patron_pid=patron.pid)
     if org_pid:
         search = search.filter('term', organisation__pid=org_pid)
     for record in search.scan():
@@ -852,7 +852,7 @@ def get_non_anonymized_loans(patron_pid=None, org_pid=None):
 
 
 def anonymize_loans(
-        patron_pid=None, patron_data=None, org_pid=None,
+        patron=None, org_pid=None,
         dbcommit=False, reindex=False):
     """Anonymise loans.
 
@@ -865,8 +865,8 @@ def anonymize_loans(
     """
     counter = 0
     for loan in get_non_anonymized_loans(
-            patron_pid=patron_pid, org_pid=org_pid):
-        if Loan.can_anonymize(loan_data=loan, patron_data=patron_data):
+            patron=patron, org_pid=org_pid):
+        if Loan.can_anonymize(loan_data=loan, patron=patron):
             loan.anonymize(loan, dbcommit=dbcommit, reindex=reindex)
             counter += 1
     return counter

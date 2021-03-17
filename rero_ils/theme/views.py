@@ -33,9 +33,10 @@ from invenio_jsonschemas import current_jsonschemas
 from invenio_jsonschemas.errors import JSONSchemaNotFound
 
 from rero_ils.modules.organisations.api import Organisation
-from rero_ils.modules.patrons.api import Patron, current_patron
+from rero_ils.modules.patrons.api import current_librarian, current_patrons
 from rero_ils.permissions import can_access_professional_view
 
+from ..modules.patrons.utils import user_has_patron
 from ..version import __version__
 
 blueprint = Blueprint(
@@ -100,7 +101,7 @@ def init_menu_tools():
     rero_register(
         item,
         endpoint='ill_requests.ill_request_form',
-        visible_when=lambda: Patron.get_patron_by_user(current_user).is_patron,
+        visible_when=lambda: user_has_patron,
         text='{icon} {help}'.format(
             icon='<i class="fa fa-shopping-basket"></i>',
             help=_('Interlibrary loan request')
@@ -197,8 +198,10 @@ def init_menu_lang():
 def init_menu_profile():
     """Create the profile header menu."""
     item = current_menu.submenu('main.profile')
-    if current_patron:
-        session['user_name'] = current_patron.formatted_name
+    if current_librarian:
+        session['user_name'] = current_librarian.formatted_name
+    elif len(current_patrons) > 0:
+        session['user_name'] = current_patrons[0].formatted_name
     else:
         try:
             session['user_name'] = current_user.email
@@ -244,7 +247,7 @@ def init_menu_profile():
     rero_register(
         item,
         endpoint='rero_ils.professional',
-        visible_when=lambda: current_patron.is_librarian,
+        visible_when=lambda: current_librarian,
         text='{icon} {professional}'.format(
             icon='<i class="fa fa-briefcase"></i>',
             professional=_('Professional interface')
@@ -272,20 +275,19 @@ def init_menu_profile():
         id='logout-menu',
     )
 
-    if current_patron and current_patron.is_patron:
-        item = current_menu.submenu('main.profile.profile')
-        profile_endpoint = 'patrons.profile'
-        rero_register(
-            item,
-            endpoint=profile_endpoint,
-            visible_when=lambda: not current_patron.is_librarian,
-            text='{icon} {profile}'.format(
-                icon='<i class="fa fa-book"></i>',
-                profile=_('My Account')
-            ),
-            order=1,
-            id='profile-menu',
-        )
+    item = current_menu.submenu('main.profile.profile')
+    profile_endpoint = 'patrons.profile'
+    rero_register(
+        item,
+        endpoint=profile_endpoint,
+        visible_when=lambda: len(current_patrons) > 0,
+        text='{icon} {profile}'.format(
+            icon='<i class="fa fa-book"></i>',
+            profile=_('My Account')
+        ),
+        order=1,
+        id='profile-menu',
+    )
 
     item = current_menu.submenu('main.profile.edit_profile')
     rero_register(

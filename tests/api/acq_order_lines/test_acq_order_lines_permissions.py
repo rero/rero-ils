@@ -131,27 +131,21 @@ def test_order_lines_permissions(patron_martigny,
     assert not AcqOrderLinePermission.update(None, {})
     assert not AcqOrderLinePermission.delete(None, {})
 
-    # As Patron
+    # As non Librarian
     acq_oline_martigny = acq_order_line_fiction_martigny
     acq_oline_saxon = acq_order_line_fiction_saxon
     acq_oline_sion = acq_order_line_fiction_sion
-    with mock.patch(
-        'rero_ils.modules.acq_accounts.permissions.current_patron',
-        patron_martigny
-    ):
-        assert not AcqOrderLinePermission.list(None, acq_oline_martigny)
-        assert not AcqOrderLinePermission.read(None, acq_oline_martigny)
-        assert not AcqOrderLinePermission.create(None, acq_oline_martigny)
-        assert not AcqOrderLinePermission.update(None, acq_oline_martigny)
-        assert not AcqOrderLinePermission.delete(None, acq_oline_martigny)
+
+    assert not AcqOrderLinePermission.list(None, acq_oline_martigny)
+    assert not AcqOrderLinePermission.read(None, acq_oline_martigny)
+    assert not AcqOrderLinePermission.create(None, acq_oline_martigny)
+    assert not AcqOrderLinePermission.update(None, acq_oline_martigny)
+    assert not AcqOrderLinePermission.delete(None, acq_oline_martigny)
 
     # As Librarian
     with mock.patch(
-        'rero_ils.modules.acq_accounts.permissions.current_patron',
+        'rero_ils.modules.acq_accounts.permissions.current_librarian',
         librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.acq_accounts.permissions.current_organisation',
-        org_martigny
     ):
         assert AcqOrderLinePermission.list(None, acq_oline_martigny)
         assert AcqOrderLinePermission.read(None, acq_oline_martigny)
@@ -171,11 +165,8 @@ def test_order_lines_permissions(patron_martigny,
 
     # As System-librarian
     with mock.patch(
-        'rero_ils.modules.acq_accounts.permissions.current_patron',
+        'rero_ils.modules.acq_accounts.permissions.current_librarian',
         system_librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.acq_accounts.permissions.current_organisation',
-        org_martigny
     ):
         assert AcqOrderLinePermission.list(None, acq_oline_saxon)
         assert AcqOrderLinePermission.read(None, acq_oline_saxon)

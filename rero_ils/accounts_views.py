@@ -30,8 +30,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from webargs import ValidationError, fields, validate
 from werkzeug.local import LocalProxy
 
-from .modules.patrons.api import Patron, current_patron
-from .modules.patrons.permissions import PatronPermission
+from .modules.patrons.api import Patron, current_librarian
 from .modules.users.api import User
 
 current_datastore = LocalProxy(
@@ -114,15 +113,19 @@ class ChangePasswordView(BaseChangePasswordView):
 
         Check if the current user can change a password for an other user.
         """
-        patron = Patron.get_patron_by_username(username)
-        if not PatronPermission.can_create(current_patron, patron, patron):
+        user = User.get_by_username(username)
+        patrons = Patron.get_patrons_by_user(user.user)
+        # logged user is not librarian or no patron account match the logged
+        # user organisation
+        if not current_librarian or current_librarian.organisation_pid not in \
+           [ptrn.organisation_pid for ptrn in patrons]:
             return current_app.login_manager.unauthorized()
 
     def change_password_for_user(self, username, new_password, **kwargs):
         """Perform change password for a specific user."""
         after_this_request(_commit)
-        patron = Patron.get_patron_by_username(username)
-        change_user_password(user=patron.user,
+        user = User.get_by_username(username)
+        change_user_password(user=user.user,
                              password=new_password)
 
     @use_args(make_password_schema)

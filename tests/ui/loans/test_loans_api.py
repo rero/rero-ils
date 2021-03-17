@@ -22,7 +22,6 @@ from __future__ import absolute_import, print_function
 from copy import deepcopy
 from datetime import date, datetime, timedelta, timezone
 
-import pytest
 from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import LoansSearch
 from utils import flush_index, get_mapping
@@ -76,7 +75,6 @@ def test_item_loans_elements(
     assert today.strftime('%Y-%m-%d') == end_date.strftime('%Y-%m-%d')
 
 
-@pytest.mark.skip(reason="In progress")
 def test_loan_keep_and_to_anonymize(
         item_on_loan_martigny_patron_and_loan_on_loan,
         item2_on_loan_martigny_patron_and_loan_on_loan,
@@ -96,9 +94,7 @@ def test_loan_keep_and_to_anonymize(
     assert loan.concluded(loan)
     assert not loan.can_anonymize(loan_data=loan)
 
-    patron['patron']['keep_history'] = False
-    patron.update(patron, dbcommit=True, reindex=True)
-
+    patron.user.profile.keep_history = False
     # when the patron asks to anonymise history the can_anonymize is true
     loan = Loan.get_record_by_pid(loan.pid)
     assert loan.concluded(loan)
@@ -131,7 +127,6 @@ def test_loan_keep_and_to_anonymize(
     assert not loan.can_anonymize(loan_data=loan)
 
 
-@pytest.mark.skip(reason="In progress")
 def test_anonymizer_job(
         item_on_loan_martigny_patron_and_loan_on_loan,
         librarian_martigny, loc_public_martigny):
@@ -154,8 +149,7 @@ def test_anonymizer_job(
     assert not loan.concluded(loan)
     assert not loan.can_anonymize(loan_data=loan)
 
-    patron['patron']['keep_history'] = True
-    patron.update(patron, dbcommit=True, reindex=True)
+    patron.user.profile.keep_history = True
 
     params = {
         'transaction_location_pid': loc_public_martigny.pid,
@@ -170,8 +164,7 @@ def test_anonymizer_job(
     msg = loan_anonymizer(dbcommit=True, reindex=True)
     assert msg == 'number_of_loans_anonymized: 0'
 
-    patron['patron']['keep_history'] = False
-    patron.update(patron, dbcommit=True, reindex=True)
+    patron.user.profile.keep_history = False
     # close open transactions and notifications
     for transaction in PatronTransaction.get_transactions_by_patron_pid(
                 patron.get('pid'), 'open'):

@@ -140,9 +140,6 @@
           "communication_language": {
             "type": "keyword"
           },
-          "keep_history": {
-            "type": "boolean"
-          },
           "subscriptions": {
             "properties": {
               "patron_type": {

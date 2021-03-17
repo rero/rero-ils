@@ -97,28 +97,18 @@ def test_patron_types_permissions(patron_martigny,
     assert not PatronTypePermission.update(None, {})
     assert not PatronTypePermission.delete(None, {})
 
-    # As Patron
+    # As non Librarian
     ptty = patron_type_adults_martigny
-    with mock.patch(
-        'rero_ils.modules.patron_types.permissions.current_patron',
-        patron_martigny
-    ), mock.patch(
-        'rero_ils.modules.patron_types.permissions.current_organisation',
-        org_martigny
-    ):
-        assert not PatronTypePermission.list(None, ptty)
-        assert not PatronTypePermission.read(None, ptty)
-        assert not PatronTypePermission.create(None, ptty)
-        assert not PatronTypePermission.update(None, ptty)
-        assert not PatronTypePermission.delete(None, ptty)
+    assert not PatronTypePermission.list(None, ptty)
+    assert not PatronTypePermission.read(None, ptty)
+    assert not PatronTypePermission.create(None, ptty)
+    assert not PatronTypePermission.update(None, ptty)
+    assert not PatronTypePermission.delete(None, ptty)
 
     # As Librarian
     with mock.patch(
-        'rero_ils.modules.patron_types.permissions.current_patron',
+        'rero_ils.modules.patron_types.permissions.current_librarian',
         librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.patron_types.permissions.current_organisation',
-        org_martigny
     ):
         assert PatronTypePermission.list(None, ptty)
         assert PatronTypePermission.read(None, ptty)
@@ -128,11 +118,8 @@ def test_patron_types_permissions(patron_martigny,
 
     # As SystemLibrarian
     with mock.patch(
-        'rero_ils.modules.patron_types.permissions.current_patron',
+        'rero_ils.modules.patron_types.permissions.current_librarian',
         system_librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.patron_types.permissions.current_organisation',
-        org_martigny
     ):
         assert PatronTypePermission.list(None, ptty)
         assert PatronTypePermission.read(None, ptty)

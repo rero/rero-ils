@@ -516,7 +516,6 @@ def get_patron_from_arguments(**kwargs):
     if not any(k in required_arguments for k in kwargs):
         return None
     return kwargs.get('patron') \
-        or Patron.get_patron_by_barcode(kwargs.get('patron_barcode')) \
         or Patron.get_record_by_pid(kwargs.get('patron_pid')) \
         or Patron.get_record_by_pid(kwargs.get('loan').get('patron_pid'))
 

@@ -25,7 +25,7 @@ from flask_principal import RoleNeed
 from flask_security import login_required, roles_required
 from invenio_access.permissions import Permission
 
-from .modules.patrons.api import Patron, current_patron
+from .modules.patrons.api import current_librarian, current_patrons
 
 request_item_permission = Permission(RoleNeed('patron'))
 librarian_permission = Permission(
@@ -33,22 +33,6 @@ librarian_permission = Permission(
 admin_permission = Permission(RoleNeed('admin'))
 editor_permission = Permission(RoleNeed('editor'), RoleNeed('admin'))
 monitoring_permission = Permission(RoleNeed('monitoring'))
-
-
-def staffer_is_authenticated(user=None):
-    """Checks if user (librarian or system_librarian) is authenticated.
-
-    :return: patron records if user is logged in and authenticated and has
-    librarian or system_librarian role.
-    :return False otherwise.
-    """
-    if not user:
-        user = current_user
-    if user and user.is_authenticated:
-        patron = Patron.get_patron_by_user(user)
-        if patron and (patron.is_librarian or patron.is_system_librarian):
-            return patron
-    return None
 
 
 def librarian_permission_factory(record, *args, **kwargs):
@@ -83,7 +67,7 @@ def login_and_patron():
     """Patron is logged in."""
     if current_user and not current_user.is_authenticated:
         abort(401)
-    if not current_patron or not current_patron.is_patron:
+    if len(current_patrons) == 0:
         abort(403)
 
 
@@ -97,9 +81,7 @@ def can_access_professional_view(func):
         if not current_user.is_authenticated:
             return current_app.login_manager.unauthorized()
         else:
-            patron = Patron.get_patron_by_user(current_user)
-            if not patron or (not patron.is_librarian and
-                              not patron.is_system_librarian):
+            if not current_librarian:
                 abort(403)
             return func(*args, **kwargs)
     return decorated_view
@@ -154,15 +136,12 @@ def can_receive_regular_issue(holding):
     user must have librarian or system_librarian role.
     returns False if a librarian tries to receive anissue of another library.
     """
-    patron = staffer_is_authenticated()
-    if not patron:
+    if not current_librarian:
         return False
-    if patron.organisation_pid == holding.organisation_pid:
-        if patron.is_system_librarian:
+    if current_librarian.organisation_pid == holding.organisation_pid:
+        if current_librarian.is_system_librarian:
             return True
-        if patron.is_librarian:
-            if patron.library_pids and holding.library_pid and \
-                    holding.library_pid not in patron.library_pids:
-                return False
-            return True
+        if holding.library_pid not in current_librarian.library_pids:
+            return False
+        return True
     return False

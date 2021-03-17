@@ -110,29 +110,20 @@ def test_circ_policies_permissions(patron_martigny,
     assert not CirculationPolicyPermission.update(None, {})
     assert not CirculationPolicyPermission.delete(None, {})
 
-    # As Patron
+    # As non Librarian
     cipo = circ_policy_short_martigny
     cipo_tmp = circ_policy_temp_martigny
-    with mock.patch(
-        'rero_ils.modules.circ_policies.permissions.current_patron',
-        patron_martigny
-    ), mock.patch(
-        'rero_ils.modules.circ_policies.permissions.current_organisation',
-        org_martigny
-    ):
-        assert not CirculationPolicyPermission.list(None, cipo)
-        assert not CirculationPolicyPermission.read(None, cipo)
-        assert not CirculationPolicyPermission.create(None, cipo)
-        assert not CirculationPolicyPermission.update(None, cipo)
-        assert not CirculationPolicyPermission.delete(None, cipo)
+
+    assert not CirculationPolicyPermission.list(None, cipo)
+    assert not CirculationPolicyPermission.read(None, cipo)
+    assert not CirculationPolicyPermission.create(None, cipo)
+    assert not CirculationPolicyPermission.update(None, cipo)
+    assert not CirculationPolicyPermission.delete(None, cipo)
 
     # As Librarian
     with mock.patch(
-        'rero_ils.modules.circ_policies.permissions.current_patron',
+        'rero_ils.modules.circ_policies.permissions.current_librarian',
         librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.circ_policies.permissions.current_organisation',
-        org_martigny
     ):
         assert CirculationPolicyPermission.list(None, cipo)
         assert CirculationPolicyPermission.read(None, cipo)
@@ -143,11 +134,8 @@ def test_circ_policies_permissions(patron_martigny,
 
     # As SystemLibrarian
     with mock.patch(
-        'rero_ils.modules.circ_policies.permissions.current_patron',
+        'rero_ils.modules.circ_policies.permissions.current_librarian',
         system_librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.circ_policies.permissions.current_organisation',
-        org_martigny
     ):
         assert CirculationPolicyPermission.list(None, cipo)
         assert CirculationPolicyPermission.read(None, cipo)

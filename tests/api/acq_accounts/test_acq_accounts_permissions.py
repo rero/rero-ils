@@ -130,27 +130,21 @@ def test_acq_accounts_permissions(patron_martigny,
     assert not AcqAccountPermission.update(None, {})
     assert not AcqAccountPermission.delete(None, {})
 
-    # As Patron
+    # As non Librarian
     acq_account_martigny = acq_account_fiction_martigny
     acq_account_saxon = acq_account_books_saxon
     acq_account_sion = acq_account_fiction_sion
-    with mock.patch(
-        'rero_ils.modules.acq_accounts.permissions.current_patron',
-        patron_martigny
-    ):
-        assert not AcqAccountPermission.list(None, acq_account_martigny)
-        assert not AcqAccountPermission.read(None, acq_account_martigny)
-        assert not AcqAccountPermission.create(None, acq_account_martigny)
-        assert not AcqAccountPermission.update(None, acq_account_martigny)
-        assert not AcqAccountPermission.delete(None, acq_account_martigny)
+
+    assert not AcqAccountPermission.list(None, acq_account_martigny)
+    assert not AcqAccountPermission.read(None, acq_account_martigny)
+    assert not AcqAccountPermission.create(None, acq_account_martigny)
+    assert not AcqAccountPermission.update(None, acq_account_martigny)
+    assert not AcqAccountPermission.delete(None, acq_account_martigny)
 
     # As Librarian
     with mock.patch(
-        'rero_ils.modules.acq_accounts.permissions.current_patron',
+        'rero_ils.modules.acq_accounts.permissions.current_librarian',
         librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.acq_accounts.permissions.current_organisation',
-        org_martigny
     ):
         assert AcqAccountPermission.list(None, acq_account_martigny)
         assert AcqAccountPermission.read(None, acq_account_martigny)
@@ -170,11 +164,8 @@ def test_acq_accounts_permissions(patron_martigny,
 
     # As System-librarian
     with mock.patch(
-        'rero_ils.modules.acq_accounts.permissions.current_patron',
+        'rero_ils.modules.acq_accounts.permissions.current_librarian',
         system_librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.acq_accounts.permissions.current_organisation',
-        org_martigny
     ):
         assert AcqAccountPermission.list(None, acq_account_saxon)
         assert AcqAccountPermission.read(None, acq_account_saxon)

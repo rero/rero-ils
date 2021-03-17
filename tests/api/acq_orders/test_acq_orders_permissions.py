@@ -129,27 +129,20 @@ def test_orders_permissions(patron_martigny,
     assert not AcqOrderPermission.update(None, {})
     assert not AcqOrderPermission.delete(None, {})
 
-    # As Patron
+    # As non Librarian
     acq_order_martigny = acq_order_fiction_martigny
     acq_order_saxon = acq_order_fiction_saxon
     acq_order_sion = acq_order_fiction_sion
-    with mock.patch(
-        'rero_ils.modules.acq_accounts.permissions.current_patron',
-        patron_martigny
-    ):
-        assert not AcqOrderPermission.list(None, acq_order_martigny)
-        assert not AcqOrderPermission.read(None, acq_order_martigny)
-        assert not AcqOrderPermission.create(None, acq_order_martigny)
-        assert not AcqOrderPermission.update(None, acq_order_martigny)
-        assert not AcqOrderPermission.delete(None, acq_order_martigny)
+    assert not AcqOrderPermission.list(None, acq_order_martigny)
+    assert not AcqOrderPermission.read(None, acq_order_martigny)
+    assert not AcqOrderPermission.create(None, acq_order_martigny)
+    assert not AcqOrderPermission.update(None, acq_order_martigny)
+    assert not AcqOrderPermission.delete(None, acq_order_martigny)
 
     # As Librarian
     with mock.patch(
-        'rero_ils.modules.acq_accounts.permissions.current_patron',
+        'rero_ils.modules.acq_accounts.permissions.current_librarian',
         librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.acq_accounts.permissions.current_organisation',
-        org_martigny
     ):
         assert AcqOrderPermission.list(None, acq_order_martigny)
         assert AcqOrderPermission.read(None, acq_order_martigny)
@@ -169,11 +162,8 @@ def test_orders_permissions(patron_martigny,
 
     # As System-librarian
     with mock.patch(
-        'rero_ils.modules.acq_accounts.permissions.current_patron',
+        'rero_ils.modules.acq_accounts.permissions.current_librarian',
         system_librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.acq_accounts.permissions.current_organisation',
-        org_martigny
     ):
         assert AcqOrderPermission.list(None, acq_order_saxon)
         assert AcqOrderPermission.read(None, acq_order_saxon)

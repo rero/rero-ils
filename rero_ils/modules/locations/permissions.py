@@ -18,8 +18,7 @@
 
 """Permissions for locations."""
 
-from rero_ils.modules.organisations.api import current_organisation
-from rero_ils.modules.patrons.api import current_patron
+from rero_ils.modules.patrons.api import current_librarian, current_patrons
 from rero_ils.modules.permissions import RecordPermission
 
 
@@ -34,7 +33,7 @@ class LocationPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
-        return True if current_patron else False
+        return bool(current_librarian or current_patrons)
 
     @classmethod
     def read(cls, user, record):
@@ -44,7 +43,7 @@ class LocationPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
-        return True if current_patron else False
+        return bool(current_librarian or current_patrons)
 
     @classmethod
     def create(cls, user, record=None):
@@ -55,7 +54,7 @@ class LocationPermission(RecordPermission):
         :return: True is action can be done.
         """
         # only staff members (sys_lib, lib) can create location
-        if not current_patron or not current_patron.is_librarian:
+        if not current_librarian:
             return False
         if not record:  # Used to to know if user could create some location
             return True
@@ -73,16 +72,16 @@ class LocationPermission(RecordPermission):
         """
         # only staff members (lib, sys_lib) can update location
         # record cannot be null
-        if not current_patron or not current_patron.is_librarian or not record:
+        if not current_librarian or not record:
             return False
-        if current_organisation['pid'] == record.organisation_pid:
+        if current_librarian.organisation_pid == record.organisation_pid:
             # 'sys_lib' can update all locations
-            if current_patron.is_system_librarian:
+            if current_librarian.is_system_librarian:
                 return True
             # 'lib' can only update location linked to its own library
-            if current_patron.is_librarian:
-                return current_patron.library_pids and \
-                       record.library_pid in current_patron.library_pids
+            else:
+                return current_librarian.library_pids and \
+                       record.library_pid in current_librarian.library_pids
         return False
 
     @classmethod

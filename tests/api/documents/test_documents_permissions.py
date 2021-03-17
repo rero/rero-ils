@@ -73,20 +73,16 @@ def test_documents_permissions(patron_martigny,
     assert not DocumentPermission.update(None, document)
     assert not DocumentPermission.delete(None, document)
 
-    # As Patron
-    with mock.patch(
-        'rero_ils.modules.documents.permissions.current_patron',
-        patron_martigny
-    ):
-        assert DocumentPermission.list(None, document)
-        assert DocumentPermission.read(None, document)
-        assert not DocumentPermission.create(None, document)
-        assert not DocumentPermission.update(None, document)
-        assert not DocumentPermission.delete(None, document)
+    # As non Librarian
+    assert DocumentPermission.list(None, document)
+    assert DocumentPermission.read(None, document)
+    assert not DocumentPermission.create(None, document)
+    assert not DocumentPermission.update(None, document)
+    assert not DocumentPermission.delete(None, document)
 
     # As Librarian
     with mock.patch(
-        'rero_ils.modules.documents.permissions.current_patron',
+        'rero_ils.modules.documents.permissions.current_librarian',
         librarian_martigny
     ):
         assert DocumentPermission.list(None, document)

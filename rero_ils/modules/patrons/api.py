@@ -43,7 +43,13 @@ from ...utils import create_user_from_data
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
-current_patron = LocalProxy(lambda: Patron.get_patron_by_user(current_user))
+# current logged professionnal
+current_librarian = LocalProxy(
+    lambda: Patron.get_librarian_by_user(current_user))
+# all patron role accounts releated to the current user
+current_patrons = LocalProxy(
+    lambda: [ptrn for ptrn in Patron.get_patrons_by_user(
+        current_user) if 'patron' in ptrn.get('roles', [])])
 
 
 def create_patron_from_data(data, delete_pid=False, dbcommit=False,
@@ -201,10 +207,10 @@ class Patron(IlsRecord):
         self._update_roles()
         return self
 
-    def delete(self, force=False, delindex=False):
+    def delete(self, force=False, dbcommit=False, delindex=False):
         """Delete record and persistent identifier."""
         self._remove_roles()
-        super().delete(force, delindex)
+        super().delete(force, dbcommit, delindex)
         return self
 
     @classmethod
@@ -226,11 +232,12 @@ class Patron(IlsRecord):
 
     def dumps(self, **kwargs):
         """Return pure Python dictionary with record metadata."""
-        dump = super().dumps(**kwargs)
         user = User.get_by_id(self['user_id'])
         user_info = user.dumpsMetadata()
-        dump.update(user_info)
-        return dump
+        dump = super().dumps(**kwargs)
+        # role should comes from the patron
+        user_info.update(dump)
+        return user_info
 
     @classmethod
     def _get_user_by_user_id(cls, user_id):
@@ -250,12 +257,27 @@ class Patron(IlsRecord):
         """Invenio user of a patron."""
         return self._get_user_by_user_id(self.get('user_id'))
 
+    def get_patrons_roles(self, exclude_self=False):
+        """Get the list of roles for all accounts of the related user."""
+        patrons = self.get_patrons_by_user(self.user)
+        roles = set()
+        if not exclude_self:
+            roles = set(self.get('roles'))
+        for patron in patrons:
+            # already there
+            if patron == self:
+                continue
+            roles.update(patron.get('roles', []))
+        return list(roles)
+
     def _update_roles(self):
         """Update user roles."""
         db_roles = self.user.roles
+        # all the roles of all patron accounts related to the current user
+        patron_roles = self.get_patrons_roles()
         for role in self.available_roles:
             in_db = role in db_roles
-            in_record = role in self.get('roles', [])
+            in_record = role in patron_roles
             if in_record and not in_db:
                 self.add_role(role)
             if not in_record and in_db:
@@ -263,28 +285,18 @@ class Patron(IlsRecord):
 
     def _remove_roles(self):
         """Remove roles."""
+        # soft delete before hard delete
+        if not self.user:
+            return
         db_roles = self.user.roles
-        for role in self.available_roles:
+        # all the roles of all other patron accounts related to the
+        # current user
+        external_patron_roles = self.get_patrons_roles(exclude_self=True)
+        # roles only on the current patron account
+        for role in [r for r in self.get('roles')
+                     if r not in external_patron_roles]:
             if role in db_roles:
                 self.remove_role(role)
-
-    @classmethod
-    def get_reachable_roles(cls, role):
-        """Get list of roles depending on role hierarchy."""
-        if role not in Patron.ROLES_HIERARCHY:
-            return []
-        roles = Patron.ROLES_HIERARCHY[role].copy()
-        roles.append(role)
-        return roles
-
-    @classmethod
-    def get_all_roles_for_role(cls, role):
-        """The list of roles covering given role based on the hierarchy."""
-        roles = [role]
-        for key in Patron.ROLES_HIERARCHY:
-            if role in Patron.ROLES_HIERARCHY[key] and key not in roles:
-                roles.append(key)
-        return roles
 
     @classmethod
     def get_all_pids_for_organisation(cls, organisation_pid):
@@ -297,18 +309,30 @@ class Patron(IlsRecord):
             yield hit['pid']
 
     @classmethod
-    def get_patron_by_user(cls, user):
-        """Get patron by user."""
+    def get_librarian_by_user(cls, user):
+        """Get patron with a role librarian or system_librarian by user."""
+        patrons = cls.get_patrons_by_user(user)
+        librarians = list(filter(lambda ptrn: ptrn.is_librarian, patrons))
+        if len(librarians) > 1:
+            raise Error('more than one librarian account for a user')
+        if len(librarians) == 0:
+            return None
+        return librarians[0]
+
+    @classmethod
+    def get_patrons_by_user(cls, user):
+        """Get all patrons by user."""
         if hasattr(user, 'id'):
             result = PatronsSearch().filter(
                 'term',
                 user_id=user.id
             ).source(includes='pid').scan()
-            try:
-                pid = next(result).pid
-            except StopIteration:
-                return None
-            return cls.get_record_by_pid(pid)
+            patrons = [
+                cls.get_record_by_pid(record.pid)
+                for record in result
+            ]
+            return patrons if patrons else []
+        return []
 
     @classmethod
     def get_patron_by_email(cls, email):
@@ -320,38 +344,26 @@ class Patron(IlsRecord):
             return None
 
     @classmethod
-    def get_patron_by_username(cls, username):
-        """Get patron by username."""
-        result = PatronsSearch().filter(
-            'term',
-            username=username
-        ).source(includes='pid').scan()
-        try:
-            pid = next(result).pid
-        except StopIteration:
-            return None
-        return cls.get_record_by_pid(pid)
-
-    @classmethod
     def get_pid_by_email(cls, email):
         """Get uuid pid by email."""
-        result = PatronsSearch().filter(
-            'term',
-            email=email
-        ).source(includes='pid').scan()
+        result = PatronsSearch()\
+            .filter('term', email=email)\
+            .source(includes='pid').scan()
         try:
             return next(result).pid
         except StopIteration:
             return None
 
     @classmethod
-    def get_patron_by_barcode(cls, barcode=None):
+    def get_patron_by_barcode(cls, barcode=None, filter_by_org_pid=None):
         """Get patron by barcode."""
         if not barcode:
             return None
-        result = PatronsSearch()\
-            .filter('term', patron__barcode=barcode)\
-            .source(includes='pid').scan()
+        search = PatronsSearch()\
+            .filter('term', patron__barcode=barcode)
+        if filter_by_org_pid is not None:
+            search = search.filter('term', organisation__pid=filter_by_org_pid)
+        result = search.source(includes='pid').scan()
         try:
             patron_pid = next(result).pid
             return super().get_record_by_pid(patron_pid)
@@ -469,11 +481,13 @@ class Patron(IlsRecord):
         from ..loans.api import LoanState
         exclude_states = [
             LoanState.CANCELLED, LoanState.ITEM_RETURNED]
-        results = current_circulation.loan_search_cls()\
-            .filter('term', patron_pid=self.pid)\
-            .exclude('terms', state=exclude_states)\
-            .source().count()
-        return results
+        if self.pid:
+            results = current_circulation.loan_search_cls()\
+                .filter('term', patron_pid=self.pid)\
+                .exclude('terms', state=exclude_states)\
+                .source().count()
+            return results
+        return 0
 
     def get_links_to_me(self):
         """Get number of links."""
@@ -481,10 +495,11 @@ class Patron(IlsRecord):
         loans = self.get_number_of_loans()
         if loans:
             links['loans'] = loans
-        transactions = PatronTransaction.get_transactions_count_for_patron(
-            self.pid, status='open')
-        if transactions > 0:
-            links['transactions'] = transactions
+        if self.pid:
+            transactions = PatronTransaction.get_transactions_count_for_patron(
+                self.pid, status='open')
+            if transactions > 0:
+                links['transactions'] = transactions
         return links
 
     def reasons_to_keep(self):
@@ -493,8 +508,8 @@ class Patron(IlsRecord):
         prevent users with role librarian to delete a system_librarian.
         """
         others = {}
-        if current_patron:
-            if not current_patron.is_system_librarian and \
+        if current_librarian:
+            if not current_librarian.is_system_librarian and \
                self.is_system_librarian:
                 others['permission denied'] = True
         return others

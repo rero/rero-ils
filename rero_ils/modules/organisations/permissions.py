@@ -17,8 +17,7 @@
 
 """Permissions for organisations."""
 
-from rero_ils.modules.organisations.api import current_organisation
-from rero_ils.modules.patrons.api import current_patron
+from rero_ils.modules.patrons.api import current_librarian
 from rero_ils.modules.permissions import RecordPermission
 
 
@@ -34,7 +33,7 @@ class OrganisationPermission(RecordPermission):
         :return: True is action can be done.
         """
         # List organisation allowed only for staff members (lib, sys_lib)
-        return current_patron and current_patron.is_librarian
+        return bool(current_librarian)
 
     @classmethod
     def read(cls, user, record):
@@ -44,14 +43,11 @@ class OrganisationPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
-        # user should be authenticated
-        if not current_patron:
-            return False
         # only staff members (lib, sys_lib) are allowed to read an organisation
-        if not current_patron.is_librarian:
+        if not current_librarian:
             return False
         # For staff users, they can read only their own organisation.
-        return current_organisation['pid'] == record['pid']
+        return current_librarian.organisation_pid == record['pid']
 
     @classmethod
     def create(cls, user, record=None):
@@ -74,12 +70,12 @@ class OrganisationPermission(RecordPermission):
         :return: True is action can be done.
         """
         # user should be authenticated
-        if not current_patron:
+        if not current_librarian:
             return False
         # only 'system_librarian' user allowed to update their own organisation
-        if not current_patron.is_system_librarian:
+        if not current_librarian.is_system_librarian:
             return False
-        return current_organisation['pid'] == record['pid']
+        return current_librarian.organisation_pid == record['pid']
 
     @classmethod
     def delete(cls, user, record):
