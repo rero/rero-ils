@@ -33,7 +33,8 @@ from ...api import IlsRecordError, IlsRecordsIndexer, IlsRecordsSearch
 from ...documents.api import Document, DocumentsSearch
 from ...fetchers import id_fetcher
 from ...minters import id_minter
-from ...organisations.api import Organisation, current_organisation
+from ...organisations.api import Organisation
+from ...patrons.api import current_librarian
 from ...providers import Provider
 from ...utils import extracted_data_from_ref
 
@@ -185,7 +186,8 @@ class Item(ItemCirculation, ItemIssue):
         if item_pid:
             item = Item.get_record_by_pid(item_pid)
         elif item_barcode:
-            org_pid = kwargs.get('organisation_pid', current_organisation.pid)
+            org_pid = kwargs.get(
+                'organisation_pid', current_librarian.organisation_pid)
             item = Item.get_item_by_barcode(item_barcode, org_pid)
         elif loan_pid:
             item_pid = Loan.get_record_by_pid(loan_pid).item_pid

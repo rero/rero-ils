@@ -97,28 +97,18 @@ def test_item_types_permissions(patron_martigny,
     assert not ItemTypePermission.update(None, {})
     assert not ItemTypePermission.delete(None, {})
 
-    # As Patron
+    # As non Librarian
     itty = item_type_standard_martigny
-    with mock.patch(
-        'rero_ils.modules.item_types.permissions.current_patron',
-        patron_martigny
-    ), mock.patch(
-        'rero_ils.modules.item_types.permissions.current_organisation',
-        org_martigny
-    ):
-        assert not ItemTypePermission.list(None, itty)
-        assert not ItemTypePermission.read(None, itty)
-        assert not ItemTypePermission.create(None, itty)
-        assert not ItemTypePermission.update(None, itty)
-        assert not ItemTypePermission.delete(None, itty)
+    assert not ItemTypePermission.list(None, itty)
+    assert not ItemTypePermission.read(None, itty)
+    assert not ItemTypePermission.create(None, itty)
+    assert not ItemTypePermission.update(None, itty)
+    assert not ItemTypePermission.delete(None, itty)
 
     # As Librarian
     with mock.patch(
-        'rero_ils.modules.item_types.permissions.current_patron',
+        'rero_ils.modules.item_types.permissions.current_librarian',
         librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.item_types.permissions.current_organisation',
-        org_martigny
     ):
         assert ItemTypePermission.list(None, itty)
         assert ItemTypePermission.read(None, itty)
@@ -128,11 +118,8 @@ def test_item_types_permissions(patron_martigny,
 
     # As SystemLibrarian
     with mock.patch(
-        'rero_ils.modules.item_types.permissions.current_patron',
+        'rero_ils.modules.item_types.permissions.current_librarian',
         system_librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.item_types.permissions.current_organisation',
-        org_martigny
     ):
         assert ItemTypePermission.list(None, itty)
         assert ItemTypePermission.read(None, itty)

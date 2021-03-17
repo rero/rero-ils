@@ -523,7 +523,7 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_serializers_aliases={
             'json': 'application/json',
-            'rero+json': 'application/rero+json'
+            'rero': 'application/rero+json'
         },
         search_serializers={
             'application/json': (
@@ -532,6 +532,10 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/rero+json': (
                 'rero_ils.modules.documents.serializers:json_doc_search'
             ),
+        },
+        search_serializers_aliases={
+            'json': 'application/json',
+            'rero': 'application/rero+json'
         },
         record_loaders={
             'application/marcxml+xml':
@@ -2244,47 +2248,6 @@ RECORDS_UI_ENDPOINTS = {
         view_imp='invenio_records_ui.views.export',
         template='rero_ils/export_documents.html',
         record_class='rero_ils.modules.documents.api:Document',
-    ),
-    'item': dict(
-        pid_type='item',
-        route='/<string:viewcode>/items/<pid_value>',
-        view_imp='rero_ils.modules.items.views.item_view_method',
-        record_class='rero_ils.modules.items.api:Item',
-        permission_factory_imp='rero_ils.permissions.'
-                               'librarian_permission_factory',
-    ),
-    'hold': dict(
-        pid_type='hold',
-        route='/<string:viewcode>/holdings/<pid_value>',
-        template='rero_ils/detailed_view_holdings.html',
-        view_imp='rero_ils.modules.holdings.views.holding_view_method',
-        record_class='rero_ils.modules.holdings.api:Holding',
-        permission_factory_imp='rero_ils.permissions.'
-                               'librarian_permission_factory',
-    ),
-    'cont': dict(
-        pid_type='cont',
-        route='/<string:viewcode>/contributions/<pid_value>',
-        template='rero_ils/detailed_view_contribution.html',
-        record_class='rero_ils.modules.contributions.api:Contribution',
-        view_imp='rero_ils.modules.contributions.'
-                 'views.contribution_view_method'
-    ),
-    'lofi': dict(
-        pid_type='lofi',
-        route='/local_fields/<pid_value>',
-        template='rero_ils/detailed_view_local_fields.html',
-        record_class='rero_ils.modules.local_fields.api:LocalField',
-        permission_factory_imp='rero_ils.permissions.'
-                               'librarian_permission_factory',
-    ),
-    'oplg': dict(
-        pid_type='oplg',
-        route='/operation_logs/<pid_value>',
-        template='rero_ils/detailed_view_operation_logs.html',
-        record_class='rero_ils.modules.operation_logs.api:OperationLog',
-        permission_factory_imp='rero_ils.permissions.'
-                               'librarian_permission_factory',
     )
 }
 
@@ -2399,12 +2362,19 @@ RERO_ILS_THUMBNAIL_SERVICE_URL = 'https://services.test.rero.ch/cover'
 #: Contributions
 RERO_ILS_CONTRIBUTIONS_MEF_SCHEMA = 'contributions/contribution-v0.0.1.json'
 RERO_ILS_CONTRIBUTIONS_SOURCES = ['idref', 'gnd', 'rero']
-
+RERO_ILS_CONTRIBUTIONS_AGENT_TYPES = {
+    'bf:Person': 'persons',
+    'bf:Organisation': 'corporate-bodies'
+}
 RERO_ILS_CONTRIBUTIONS_LABEL_ORDER = {
     'fallback': 'fr',
     'fr': ['idref', 'rero', 'gnd'],
     'de': ['gnd', 'idref', 'rero'],
 }
+
+#: Admin roles
+RERO_ILS_LIBRARIAN_ROLES = ['librarian', 'system_librarian']
+
 
 # JSONSchemas
 # ===========
@@ -2617,21 +2587,21 @@ CIRCULATION_POLICIES = dict(
 
 CIRCULATION_ACTIONS_VALIDATION = {
     ItemCirculationAction.REQUEST: [
-        Location.allow_request,
+        Location.can_request,
         Item.can_request,
-        CircPolicy.allow_request,
+        CircPolicy.can_request,
         Patron.can_request,
-        PatronType.allow_request
+        PatronType.can_request
     ],
     ItemCirculationAction.EXTEND: [
         Loan.can_extend,
         Patron.can_extend,
-        PatronType.allow_extend
+        PatronType.can_extend
     ],
     ItemCirculationAction.CHECKOUT: [
         Patron.can_checkout,
-        CircPolicy.can_checkout,
-        PatronType.allow_checkout
+        CircPolicy.allow_checkout,
+        PatronType.can_checkout
     ]
 }
 

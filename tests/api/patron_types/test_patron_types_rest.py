@@ -159,23 +159,23 @@ def test_patron_types_name_validate(client):
     """Test patron type name validation."""
     url = url_for('patron_types.name_validate', name='children')
 
-    class current_patron:
+    class current_librarian:
         class organisation:
             pid = 'org1'
     with mock.patch(
-        'rero_ils.modules.patron_types.views.current_patron',
-        current_patron
+        'rero_ils.modules.patron_types.views.current_librarian',
+        current_librarian
     ):
         res = client.get(url)
         assert res.status_code == 200
         assert get_json(res) == {'name': 'children'}
 
-    class current_patron:
+    class current_librarian:
         class organisation:
             pid = 'does not exists'
     with mock.patch(
-        'rero_ils.modules.patron_types.views.current_patron',
-        current_patron
+        'rero_ils.modules.patron_types.views.current_librarian',
+        current_librarian
     ):
         res = client.get(url)
         assert res.status_code == 200

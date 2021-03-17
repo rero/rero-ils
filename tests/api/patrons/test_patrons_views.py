@@ -95,7 +95,3 @@ def test_patron_utils(client, librarian_martigny,
 
     from rero_ils.modules.patrons.views import get_checkout_loan_for_item
     assert not get_checkout_loan_for_item(item.pid)
-
-    from rero_ils.modules.patrons.views import get_patron_from_barcode
-    assert get_patron_from_barcode(
-        patron.patron.get('barcode')[0]) == patron

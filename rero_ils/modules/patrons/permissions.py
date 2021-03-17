@@ -19,10 +19,9 @@
 """Permissions for patrons."""
 from flask import request
 
-from rero_ils.modules.organisations.api import current_organisation
 from rero_ils.modules.permissions import RecordPermission
 
-from .api import Patron, current_patron
+from .api import Patron, current_librarian
 
 
 class PatronPermission(RecordPermission):
@@ -37,7 +36,7 @@ class PatronPermission(RecordPermission):
         :return: True is action can be done.
         """
         # All staff members (lib, sys_lib) can list patrons
-        return current_patron and current_patron.is_librarian
+        return bool(current_librarian)
 
     @classmethod
     def read(cls, user, record):
@@ -47,14 +46,9 @@ class PatronPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
-        # user should be authenticated
-        if not current_patron:
-            return False
-        # only staff members (lib, sys_lib) are allowed to read an organisation
-        if not current_patron.is_librarian:
-            return False
         # For staff users, they can read only their own organisation.
-        return current_organisation['pid'] == record.organisation_pid
+        return current_librarian and \
+            current_librarian.organisation_pid == record.organisation_pid
 
     @classmethod
     def create(cls, user, record=None):
@@ -77,28 +71,28 @@ class PatronPermission(RecordPermission):
         :return: True is action can be done.
         """
         # only staff members (lib, sys_lib) can create patrons ...
-        if not current_patron or not current_patron.is_librarian:
-            return False
         # ... only for its own organisation
-        if record:
-            if current_organisation['pid'] == record.organisation_pid:
+        if current_librarian:
+            # can create a record
+            if not record:
+                return True
+            if current_librarian.organisation_pid == record.organisation_pid:
                 # sys_lib can manage all kind of patron
-                if current_patron.is_system_librarian:
+                if current_librarian.is_system_librarian:
                     return True
                 # librarian user has some restrictions...
-                if current_patron.is_librarian:
-                    # a librarian cannot manage a system_librarian patron
-                    if 'system_librarian' in incoming_record.get('roles', [])\
-                       or 'system_librarian' in record.get('roles', []):
-                        return False
-                    # a librarian can only manage other librarian from its own
-                    # library
-                    if current_patron.library_pids and record.library_pid and\
-                       record.library_pid not in current_patron.library_pids:
-                        return False
-                    return True
-            return False
-        return True
+                # a librarian cannot manage a system_librarian patron
+                if 'system_librarian' in incoming_record.get('roles', [])\
+                        or 'system_librarian' in record.get('roles', []):
+                    return False
+                # a librarian can only manage other librarian from its own
+                # library
+                if record.library_pid and \
+                        record.library_pid not in \
+                        current_librarian.library_pids:
+                    return False
+                return True
+        return False
 
     @classmethod
     def update(cls, user, record):
@@ -123,7 +117,7 @@ class PatronPermission(RecordPermission):
         if not record:
             return False
         # It should be not possible to remove itself
-        if current_patron and record.pid == current_patron.pid:
+        if current_librarian and record.pid == current_librarian.pid:
             return False
         return cls.create(user, record)
 
@@ -134,10 +128,9 @@ def get_allowed_roles_management():
     :return An array of allowed role management.
     """
     allowed_roles = []
-    if current_patron and current_patron.is_librarian:
-        if current_patron.is_librarian:
-            allowed_roles.append(Patron.ROLE_PATRON)
-            allowed_roles.append(Patron.ROLE_LIBRARIAN)
-        if current_patron.is_system_librarian:
+    if current_librarian:
+        allowed_roles.append(Patron.ROLE_PATRON)
+        allowed_roles.append(Patron.ROLE_LIBRARIAN)
+        if current_librarian.is_system_librarian:
             allowed_roles.append(Patron.ROLE_SYSTEM_LIBRARIAN)
     return allowed_roles

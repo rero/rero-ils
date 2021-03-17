@@ -184,23 +184,23 @@ def test_circ_policies_name_validate(client):
     """Test policy validation."""
     url = url_for('circ_policies.name_validate', name='Default')
 
-    class current_patron:
+    class current_librarian:
         class organisation:
             pid = 'org1'
     with mock.patch(
-        'rero_ils.modules.circ_policies.views.current_patron',
-        current_patron
+        'rero_ils.modules.circ_policies.views.current_librarian',
+        current_librarian
     ):
         res = client.get(url)
         assert res.status_code == 200
         assert get_json(res) == {'name': 'Default'}
 
-    class current_patron:
+    class current_librarian:
         class organisation:
             pid = 'does not exists'
     with mock.patch(
-        'rero_ils.modules.circ_policies.views.current_patron',
-        current_patron
+        'rero_ils.modules.circ_policies.views.current_librarian',
+        current_librarian
     ):
         res = client.get(url)
         assert res.status_code == 200

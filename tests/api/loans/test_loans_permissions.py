@@ -109,11 +109,8 @@ def test_loan_permissions(patron_martigny,
     loan_sion = loan_overdue_sion
     # As Patron
     with mock.patch(
-        'rero_ils.modules.loans.permissions.current_patron',
-        patron_martigny
-    ), mock.patch(
-        'rero_ils.modules.loans.permissions.current_organisation',
-        org_martigny
+        'rero_ils.modules.loans.permissions.current_patrons',
+        [patron_martigny]
     ):
         assert LoanPermission.list(None, loan_martigny)
         assert LoanPermission.read(None, loan_martigny)
@@ -123,11 +120,8 @@ def test_loan_permissions(patron_martigny,
 
     # As SystemLibrarian
     with mock.patch(
-        'rero_ils.modules.loans.permissions.current_patron',
+        'rero_ils.modules.loans.permissions.current_librarian',
         system_librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.loans.permissions.current_organisation',
-        org_martigny
     ):
         assert LoanPermission.list(None, loan_saxon)
         assert LoanPermission.read(None, loan_saxon)

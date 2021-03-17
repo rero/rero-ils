@@ -18,8 +18,7 @@
 
 """Permissions for vendors."""
 
-from rero_ils.modules.organisations.api import current_organisation
-from rero_ils.modules.patrons.api import current_patron
+from rero_ils.modules.patrons.api import current_librarian
 from rero_ils.modules.permissions import RecordPermission
 
 
@@ -35,7 +34,7 @@ class VendorPermission(RecordPermission):
         :return: True is action can be done.
         """
         # List organisation allowed only for staff members (lib, sys_lib)
-        return current_patron and current_patron.is_librarian
+        return bool(current_librarian)
 
     @classmethod
     def read(cls, user, record):
@@ -45,14 +44,11 @@ class VendorPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
-        # user should be authenticated
-        if not current_patron:
-            return False
         # only staff members (lib, sys_lib) are allowed to read an organisation
-        if not current_patron.is_librarian:
+        if not current_librarian:
             return False
         # For staff users, they can read only their own organisation.
-        return current_organisation['pid'] == record.organisation_pid
+        return current_librarian.organisation_pid == record.organisation_pid
 
     @classmethod
     def create(cls, user, record=None):
@@ -63,11 +59,12 @@ class VendorPermission(RecordPermission):
         :return: True is action can be done.
         """
         # only staff members (lib, sys_lib) can create vendors ...
-        if not current_patron or not current_patron.is_librarian:
+        if not current_librarian:
             return False
         # ... only for its own organisation
         if record:
-            return current_organisation['pid'] == record.organisation_pid
+            return current_librarian.organisation_pid == \
+                    record.organisation_pid
         return True
 
     @classmethod

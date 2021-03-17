@@ -82,11 +82,8 @@ def test_ill_requests_permissions(patron_martigny,
 
     # As Patron
     with mock.patch(
-        'rero_ils.modules.ill_requests.permissions.current_patron',
-        patron_martigny
-    ), mock.patch(
-        'rero_ils.modules.ill_requests.permissions.current_organisation',
-        org_martigny
+        'rero_ils.modules.ill_requests.permissions.current_patrons',
+        [patron_martigny]
     ):
         assert ILLRequestPermission.list(None, ill_request_martigny)
         assert ILLRequestPermission.read(None, ill_request_martigny)
@@ -102,11 +99,8 @@ def test_ill_requests_permissions(patron_martigny,
 
     # As Librarian
     with mock.patch(
-        'rero_ils.modules.ill_requests.permissions.current_patron',
+        'rero_ils.modules.ill_requests.permissions.current_librarian',
         librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.ill_requests.permissions.current_organisation',
-        org_martigny
     ):
         assert ILLRequestPermission.list(None, ill_request_martigny)
         assert ILLRequestPermission.read(None, ill_request_martigny)
@@ -122,11 +116,8 @@ def test_ill_requests_permissions(patron_martigny,
 
     # As System-librarian
     with mock.patch(
-        'rero_ils.modules.ill_requests.permissions.current_patron',
+        'rero_ils.modules.ill_requests.permissions.current_librarian',
         system_librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.ill_requests.permissions.current_organisation',
-        org_martigny
     ):
         assert ILLRequestPermission.list(None, ill_request_martigny)
         assert ILLRequestPermission.read(None, ill_request_martigny)

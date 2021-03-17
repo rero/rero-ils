@@ -21,6 +21,7 @@ from copy import deepcopy
 from datetime import datetime
 
 from flask import current_app
+from flask_babelex import gettext as _
 from invenio_circulation.api import get_loan_for_item
 from invenio_circulation.errors import ItemNotAvailableError, \
     NoValidTransitionAvailableError
@@ -953,7 +954,7 @@ class ItemCirculation(ItemRecord):
             return loan_location_pid
         return self.location_pid
 
-    def patron_has_an_active_loan_on_item(self, patron_barcode):
+    def patron_has_an_active_loan_on_item(self, patron):
         """Return True if patron has an active loan on the item.
 
         The new circ specs do allow requests on ITEM_IN_TRANSIT_TO_HOUSE loans.
@@ -961,7 +962,6 @@ class ItemCirculation(ItemRecord):
         :param patron_barcode: the patron barcode.
         :return: True is requested otherwise False.
         """
-        patron = Patron.get_patron_by_barcode(patron_barcode)
         if patron:
             search = search_by_patron_item_or_document(
                 item_pid=item_pid_to_object(self.pid),
@@ -1005,17 +1005,17 @@ class ItemCirculation(ItemRecord):
         """
         reasons = []
         if item.status in [ItemStatus.MISSING, ItemStatus.EXCLUDED]:
-            reasons.append("Item status disallows the operation.")
+            reasons.append(_('Item status disallows the operation.'))
         if 'patron' in kwargs:
             patron = kwargs['patron']
             if patron.organisation_pid != item.organisation_pid:
-                reasons.append("Item and patron are not in the same "
-                               "organisation.")
+                reasons.append(_('Item and patron are not in the same '
+                               'organisation.'))
             if patron.patron.get('barcode') and \
                item.patron_has_an_active_loan_on_item(
-                   patron.patron.get('barcode')[0]):
-                reasons.append("Item is already checked-out or requested by "
-                               "patron.")
+                   patron):
+                reasons.append(_('Item is already checked-out or requested by '
+                               'patron.'))
         return len(reasons) == 0, reasons
 
     def action_filter(self, action, organisation_pid, library_pid, loan,
@@ -1036,12 +1036,12 @@ class ItemCirculation(ItemRecord):
             if not can:
                 data['action_validated'] = False
         if action == 'checkout':
-            if not circ_policy.allow_checkout:
+            if not circ_policy.can_checkout:
                 data['action_validated'] = False
 
         if action == 'receive':
             if (
-                    circ_policy.allow_checkout and
+                    circ_policy.can_checkout and
                     loan['state'] ==
                     LoanState.ITEM_IN_TRANSIT_FOR_PICKUP and
                     loan.get('patron_pid') == patron_pid
@@ -1137,8 +1137,7 @@ class ItemCirculation(ItemRecord):
             item_pid=item_pid_to_object(self.pid),
             filter_states=states,
         )
-        search_result = search.execute()
-        return search_result.hits.total.value
+        return bool(search.count())
 
     def return_missing(self):
         """Return the missing item.
@@ -1292,9 +1291,8 @@ class ItemCirculation(ItemRecord):
         """Get number of requests for a given item."""
         return len(list(self.get_requests()))
 
-    def patron_request_rank(self, patron_barcode):
+    def patron_request_rank(self, patron):
         """Get the rank of patron in list of requests on this item."""
-        patron = Patron.get_patron_by_barcode(patron_barcode)
         if patron:
             rank = 0
             requests = self.get_requests()
@@ -1306,7 +1304,8 @@ class ItemCirculation(ItemRecord):
 
     def is_requested_by_patron(self, patron_barcode):
         """Check if the item is requested by a given patron."""
-        patron = Patron.get_patron_by_barcode(patron_barcode)
+        patron = Patron.get_patron_by_barcode(
+            patron_barcode, filter_by_org_pid=self.organisation_pid)
         if patron:
             request = get_request_by_item_pid_by_patron_pid(
                 item_pid=self.pid, patron_pid=patron.pid

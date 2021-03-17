@@ -69,7 +69,8 @@ def test_items_permissions(client, item_lib_martigny,
         'api_item.receive': 403,
         'api_item.return_missing': 403,
         'api_item.extend_loan': 404,  # auth. OK but send bad data
-        'api_item.librarian_request': 404  # auth. OK but send bad data
+        'api_item.librarian_request': 403,
+        'api_item.patron_request': 404  # auth. OK but send bad data
     }
     for view in views:
         res, _ = postdata(client, view, {})
@@ -351,8 +352,7 @@ def test_items_receive(client, librarian_martigny,
     item = item_lib_martigny
     item_pid = item.pid
     patron_pid = patron_martigny.pid
-    assert not item.patron_has_an_active_loan_on_item(
-        patron_martigny.get('patron', {}).get('barcode')[0])
+    assert not item.patron_has_an_active_loan_on_item(patron_martigny)
     location = loc_public_martigny
     # checkout
     res, data = postdata(
@@ -370,8 +370,7 @@ def test_items_receive(client, librarian_martigny,
     actions = data.get('action_applied')
     assert item_data.get('status') == ItemStatus.ON_LOAN
     assert actions.get(LoanAction.CHECKOUT)
-    assert item.patron_has_an_active_loan_on_item(
-        patron_martigny.get('patron', {}).get('barcode')[0])
+    assert item.patron_has_an_active_loan_on_item(patron_martigny)
     loan_pid = actions[LoanAction.CHECKOUT].get('pid')
 
     # checkin
@@ -946,14 +945,21 @@ def test_pending_loans_order(client, librarian_martigny,
     assert loans[1]['patron_pid'] == patron_martigny.pid
     assert loans[2]['patron_pid'] == patron2_martigny.pid
 
-    # sort by invalid field
-    res = client.get(
-        url_for(
-            'api_item.requested_loans', library_pid=library_pid,
-            sort='does not exist'))
-    assert res.status_code == 500
-    data = get_json(res)
-    assert 'RequestError(400' in data['status']
+
+def test_patron_request(client, patron_martigny, loc_public_martigny,
+                        item_lib_martigny, circulation_policies):
+    """Test patron request."""
+    login_user_via_session(client, patron_martigny.user)
+
+    res, data = postdata(
+        client,
+        'api_item.patron_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pickup_location_pid=loc_public_martigny.pid
+        )
+    )
+    assert res.status_code == 200
 
 
 def test_item_possible_actions(client, item_lib_martigny,
@@ -971,8 +977,8 @@ def test_item_possible_actions(client, item_lib_martigny,
             patron_pid=patron_pid
         )
     )
-    assert res.status_code == 200
     data = get_json(res)
+    assert res.status_code == 200
 
     actions = data.get('metadata').get('item').get('actions')
     assert 'checkout' in actions
@@ -1013,4 +1019,4 @@ def test_item_possible_actions(client, item_lib_martigny,
         dbcommit=True,
         reindex=True
     )
-    assert circ_policy.allow_checkout
+    assert circ_policy.can_checkout

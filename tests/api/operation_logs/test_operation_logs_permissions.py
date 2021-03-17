@@ -79,16 +79,12 @@ def test_operation_logs_permissions(patron_martigny, org_martigny,
     assert not OperationLogPermission.update(None, {})
     assert not OperationLogPermission.delete(None, {})
 
-    # As Patron
-    with mock.patch(
-        'rero_ils.modules.operation_logs.permissions.current_patron',
-        patron_martigny
-    ):
-        assert not OperationLogPermission.list(None, oplg)
-        assert not OperationLogPermission.read(None, oplg)
-        assert not OperationLogPermission.create(None, oplg)
-        assert not OperationLogPermission.update(None, oplg)
-        assert not OperationLogPermission.delete(None, oplg)
+    # As non Librarian
+    assert not OperationLogPermission.list(None, oplg)
+    assert not OperationLogPermission.read(None, oplg)
+    assert not OperationLogPermission.create(None, oplg)
+    assert not OperationLogPermission.update(None, oplg)
+    assert not OperationLogPermission.delete(None, oplg)
 
     oplg_sion = deepcopy(oplg)
     oplg_sion['organisation'] = {'$ref': get_ref_for_pid('org', org_sion.pid)}
@@ -97,7 +93,7 @@ def test_operation_logs_permissions(patron_martigny, org_martigny,
 
     # As Librarian
     with mock.patch(
-        'rero_ils.modules.operation_logs.permissions.current_patron',
+        'rero_ils.modules.operation_logs.permissions.current_librarian',
         librarian_martigny
     ):
         assert OperationLogPermission.list(None, oplg)
@@ -118,7 +114,7 @@ def test_operation_logs_permissions(patron_martigny, org_martigny,
 
     # # As System-librarian
     # with mock.patch(
-    #     'rero_ils.modules.operation_logs.permissions.current_patron',
+    #     'rero_ils.modules.operation_logs.permissions.current_librarian',
     #     system_librarian_martigny
     # ):
     #     assert not OperationLogPermission.list(None, oplg)

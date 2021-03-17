@@ -23,7 +23,7 @@ from flask import Blueprint, jsonify
 
 from ..decorators import check_logged_as_librarian
 from ..item_types.api import ItemType
-from ..patrons.api import current_patron
+from ..patrons.api import current_librarian
 
 blueprint = Blueprint(
     'item_types',
@@ -40,10 +40,10 @@ def name_validate(name):
     response = {
         'name': None
     }
-    if current_patron:
+    if current_librarian:
         patron_type = ItemType.exist_name_and_organisation_pid(
             name,
-            current_patron.organisation.pid
+            current_librarian.organisation.pid
         )
         if patron_type:
             response = {

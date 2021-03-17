@@ -128,27 +128,20 @@ def test_notifcations_permissions(patron_martigny,
     assert not NotificationPermission.update(None, {})
     assert not NotificationPermission.delete(None, {})
 
-    # As Patron
+    # As non Librarian
     notif_martigny = notification_late_martigny
     notif_saxon = notification_late_saxon
     notif_sion = notification_late_sion
-    with mock.patch(
-        'rero_ils.modules.notifications.permissions.current_patron',
-        patron_martigny
-    ):
-        assert not NotificationPermission.list(None, notif_martigny)
-        assert not NotificationPermission.read(None, notif_martigny)
-        assert not NotificationPermission.create(None, notif_martigny)
-        assert not NotificationPermission.update(None, notif_martigny)
-        assert not NotificationPermission.delete(None, notif_martigny)
+    assert not NotificationPermission.list(None, notif_martigny)
+    assert not NotificationPermission.read(None, notif_martigny)
+    assert not NotificationPermission.create(None, notif_martigny)
+    assert not NotificationPermission.update(None, notif_martigny)
+    assert not NotificationPermission.delete(None, notif_martigny)
 
     # As Librarian
     with mock.patch(
-        'rero_ils.modules.notifications.permissions.current_patron',
+        'rero_ils.modules.notifications.permissions.current_librarian',
         librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.notifications.permissions.current_organisation',
-        org_martigny
     ):
         assert NotificationPermission.list(None, notif_martigny)
         assert NotificationPermission.read(None, notif_martigny)
@@ -168,11 +161,8 @@ def test_notifcations_permissions(patron_martigny,
 
     # As System-librarian
     with mock.patch(
-        'rero_ils.modules.notifications.permissions.current_patron',
+        'rero_ils.modules.notifications.permissions.current_librarian',
         system_librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.notifications.permissions.current_organisation',
-        org_martigny
     ):
         assert NotificationPermission.list(None, notif_saxon)
         assert NotificationPermission.read(None, notif_saxon)

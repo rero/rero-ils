@@ -49,13 +49,13 @@ def selfcheck_login(name, access_token, **kwargs):
     terminal = SelfcheckTerminal.find_terminal(name=name)
     user = authorize_selfckeck_terminal(terminal, access_token, **kwargs)
     if terminal and user:
-        staffer = Patron.get_patron_by_user(user)
-        if staffer.is_librarian:
+        staffer = Patron.get_librarian_by_user(user)
+        if staffer:
             return {
                 'authenticated': terminal.active,
                 'terminal': terminal.name,
                 'transaction_user_id': staffer.pid,
-                'institution_id': terminal.library_pid,
+                'institution_id': terminal.organisation_pid,
                 'library_name': Library.get_record_by_pid(
                     terminal.library_pid).get('name')
             }
@@ -68,7 +68,8 @@ def validate_patron_account(barcode=None, **kwargs):
     :param barcode: patron barcode.
     :return: ``True`` if patron exists or ``False``.
     """
-    patron = Patron.get_patron_by_barcode(barcode)
+    patron = Patron.get_patron_by_barcode(
+        barcode, filter_by_org_pid=kwargs.get('institution_id'))
     return patron and patron.is_patron
 
 
@@ -80,7 +81,8 @@ def authorize_patron(barcode, password, **kwargs):
     :param password: patron password.
     :return: ``True`` if patron is authorized or ``False``.
     """
-    patron = Patron.get_patron_by_barcode(barcode)
+    patron = Patron.get_patron_by_barcode(
+        barcode, filter_by_org_pid=kwargs.get('institution_id'))
     if patron and patron.is_patron:
         return authorize_selfckeck_patron(patron.user.email, password)
     return False
@@ -110,7 +112,8 @@ def enable_patron(barcode, **kwargs):
     """
     # check if invenio_sip2 module is present
     if check_sip2_module():
-        patron = Patron.get_patron_by_barcode(barcode)
+        patron = Patron.get_patron_by_barcode(
+            barcode, filter_by_org_pid=kwargs.get('institution_id'))
         return {
             'patron_status': get_patron_status(patron),
             'language': patron.get('communication_language', 'und'),
@@ -131,7 +134,8 @@ def patron_status(barcode, **kwargs):
     if check_sip2_module():
         from invenio_sip2.models import SelfcheckPatronStatus
 
-        patron = Patron.get_patron_by_barcode(barcode)
+        patron = Patron.get_patron_by_barcode(
+            barcode, filter_by_org_pid=kwargs.get('institution_id'))
         patron_status_response = SelfcheckPatronStatus(
             patron_status=get_patron_status(patron),
             language=patron.get('communication_language', 'und'),
@@ -161,7 +165,8 @@ def patron_information(barcode, **kwargs):
     if check_sip2_module():
         from invenio_sip2.models import SelfcheckPatronInformation
 
-        patron = Patron.get_patron_by_barcode(barcode)
+        patron = Patron.get_patron_by_barcode(
+            barcode, filter_by_org_pid=kwargs.get('institution_id'))
         patron_account_information = SelfcheckPatronInformation(
             patron_id=barcode,
             patron_name=patron.formatted_name,
@@ -236,7 +241,9 @@ def item_information(patron_barcode, item_pid, **kwargs):
     if check_sip2_module():
         from invenio_sip2.models import SelfcheckFeeType, \
             SelfcheckItemInformation, SelfcheckSecurityMarkerType
-        patron = Patron.get_patron_by_barcode(patron_barcode)
+        patron = Patron.get_patron_by_barcode(
+            patron_barcode,
+            filter_by_org_pid=kwargs.get('institution_id'))
         item = Item.get_record_by_pid(item_pid)
         document = Document.get_record_by_pid(item.document_pid)
         location = item.get_location()
@@ -327,7 +334,9 @@ def selfcheck_checkout(transaction_user_pid, library_pid, patron_barcode,
         try:
             staffer = Patron.get_record_by_pid(transaction_user_pid)
             if staffer.is_librarian:
-                patron = Patron.get_patron_by_barcode(barcode=patron_barcode)
+                patron = Patron.get_patron_by_barcode(
+                    patron_barcode,
+                    filter_by_org_pid=kwargs.get('institution_id'))
                 with current_app.test_request_context() as ctx:
                     language = kwargs.get('language', current_app.config
                                           .get('BABEL_DEFAULT_LANGUAGE'))

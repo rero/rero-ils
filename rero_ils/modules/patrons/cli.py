@@ -30,11 +30,9 @@ from flask.cli import with_appcontext
 from flask_security.confirmable import confirm_user
 from invenio_accounts.ext import hash_password
 from invenio_db import db
-from invenio_userprofiles.models import UserProfile
-from sqlalchemy.orm.exc import NoResultFound
 from werkzeug.local import LocalProxy
 
-from .api import create_patron_from_data
+from .api import User, create_patron_from_data
 from ..patrons.api import Patron, PatronProvider
 from ..providers import append_fixtures_new_identifiers
 from ..utils import read_json_record
@@ -73,54 +71,45 @@ def import_users(infile, append, verbose, password, lazy, dont_stop_on_error,
     pids = []
     error_records = []
     for count, patron_data in enumerate(data, 1):
-        email = patron_data.get('email')
         password = patron_data.get('password', password)
         username = patron_data['username']
-        if email is None:
-            click.secho(
-                '{count: <8} User {username} do not have email!'.format(
-                    count=count,
-                    username=username
-                ), fg='yellow')
         if password:
             patron_data.pop('password', None)
-        # do nothing if the patron already exists
-        patron = Patron.get_patron_by_username(username)
-        if patron:
-            click.secho('{count: <8} Patron already exist: {username}'.format(
-                count=count,
-                username=username), fg='yellow')
-            continue
-
         if verbose:
-            click.secho('{count: <8} Creating user: {username}'.format(
-                count=count,
-                username=username))
-            try:
-                profile = UserProfile.get_by_username(username)
-                click.secho(
-                    '{count: <8} User already exist: {username}'.format(
+            if not User.get_by_username(username):
+                click.secho('{count: <8} Creating user: {username}'.format(
+                    count=count,
+                    username=username
+                    )
+                )
+            else:
+                click.secho('{count: <8} Existing user: {username}'.format(
                         count=count,
                         username=username
-                    ), fg='red')
-                continue
-            except NoResultFound:
-                pass
+                    ),
+                    fg='yellow'
+                )
         try:
             # patron creation
-            patron = create_patron_from_data(
-                data=patron_data,
-                dbcommit=False,
-                reindex=False
-            )
-            user = patron.user
-            user.password = hash_password(password)
-            user.active = True
-            db.session.merge(user)
-            db.session.commit()
-            confirm_user(user)
-            patron.reindex()
-            pids.append(patron.pid)
+            if not Patron.get_record_by_pid(patron_data['pid']):
+                patron = create_patron_from_data(
+                    data=patron_data,
+                    dbcommit=False,
+                    reindex=False
+                )
+                user = patron.user
+                user.password = hash_password(password)
+                user.active = True
+                db.session.merge(user)
+                db.session.commit()
+                confirm_user(user)
+                patron.reindex()
+                pids.append(patron.pid)
+            else:
+                if verbose:
+                    click.secho('{count: <8} Existing patron: {username}'
+                                .format(count=count, username=username),
+                                fg='yellow')
         except Exception as err:
             error_records.append(data)
             click.secho(

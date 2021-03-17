@@ -27,7 +27,6 @@ from utils import flush_index, get_mapping
 from rero_ils.modules.errors import RecordValidationError
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.holdings.api import holding_id_fetcher as fetcher
-from rero_ils.modules.items.views import format_record_call_number
 
 
 def test_holding_es_mapping(es, db, holding_lib_martigny,
@@ -116,18 +115,3 @@ def test_holding_extended_validation(client,
     # 2.2 test electronic holding with enumeration and chronology
     holding_tmp['enumerationAndChronology'] = 'enumerationAndChronology'
     holding_tmp.validate()
-
-
-def test_holdings_call_number_filter(app):
-    """Test call number format."""
-    holding = {'call_number': 'first_cn'}
-    results = 'first_cn'
-    assert results == format_record_call_number(holding)
-
-    holding = {'call_number': 'first_cn', 'second_call_number': 'second_cn'}
-    results = 'first_cn | second_cn'
-    assert results == format_record_call_number(holding)
-
-    holding = {'second_call_number': 'second_cn'}
-    results = 'second_cn'
-    assert results == format_record_call_number(holding)

@@ -76,15 +76,13 @@ def update_from_profile(sender, profile=None, **kwargs):
 
     :param profile - the rero user profile
     """
-    patron = Patron.get_patron_by_user(profile.user)
-    if patron:
-        old_keep_history = patron.get('patron', {}).get('keep_history')
+    for patron in Patron.get_patrons_by_user(profile.user):
         patron.reindex()
-        from ..loans.api import anonymize_loans
-        new_keep_history = profile.keep_history
-        if old_keep_history and not new_keep_history:
-            anonymize_loans(
-                patron_data=patron,
-                patron_pid=patron.get('pid'),
-                dbcommit=True,
-                reindex=True)
+        if patron.is_patron:
+            from ..loans.api import anonymize_loans
+            new_keep_history = profile.keep_history
+            if profile.keep_history:
+                anonymize_loans(
+                    patron=patron,
+                    dbcommit=True,
+                    reindex=True)

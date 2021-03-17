@@ -86,24 +86,17 @@ def test_organisation_permissions(patron_martigny,
     assert not OrganisationPermission.update(None, {})
     assert not OrganisationPermission.delete(None, {})
 
-    # As Patron
-    with mock.patch(
-        'rero_ils.modules.organisations.permissions.current_patron',
-        patron_martigny
-    ):
-        assert not OrganisationPermission.list(None, org_martigny_data)
-        assert not OrganisationPermission.read(None, org_martigny_data)
-        assert not OrganisationPermission.create(None, org_martigny_data)
-        assert not OrganisationPermission.update(None, org_martigny_data)
-        assert not OrganisationPermission.delete(None, org_martigny_data)
+    # As non Librarian
+    assert not OrganisationPermission.list(None, org_martigny_data)
+    assert not OrganisationPermission.read(None, org_martigny_data)
+    assert not OrganisationPermission.create(None, org_martigny_data)
+    assert not OrganisationPermission.update(None, org_martigny_data)
+    assert not OrganisationPermission.delete(None, org_martigny_data)
 
     # As Librarian
     with mock.patch(
-        'rero_ils.modules.organisations.permissions.current_patron',
+        'rero_ils.modules.organisations.permissions.current_librarian',
         librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.organisations.permissions.current_organisation',
-        org_martigny
     ):
         assert OrganisationPermission.list(None, org_martigny_data)
         assert OrganisationPermission.read(None, org_martigny_data)
@@ -113,11 +106,8 @@ def test_organisation_permissions(patron_martigny,
 
     # As SystemLibrarian
     with mock.patch(
-        'rero_ils.modules.organisations.permissions.current_patron',
+        'rero_ils.modules.organisations.permissions.current_librarian',
         system_librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.organisations.permissions.current_organisation',
-        org_martigny
     ):
         assert OrganisationPermission.list(None, org_martigny_data)
         assert OrganisationPermission.read(None, org_martigny_data)

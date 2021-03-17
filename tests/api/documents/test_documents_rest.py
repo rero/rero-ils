@@ -473,6 +473,9 @@ def test_document_can_request_view(
     with mock.patch(
         'rero_ils.modules.documents.views.current_user',
         patron_martigny.user
+    ), mock.patch(
+        'rero_ils.modules.documents.views.current_patrons',
+        [patron_martigny]
     ):
         can, _ = can_request(item_lib_fully)
         assert can
@@ -482,6 +485,9 @@ def test_document_can_request_view(
     with mock.patch(
         'rero_ils.modules.documents.views.current_user',
         patron2_martigny.user
+    ), mock.patch(
+        'rero_ils.modules.documents.views.current_patrons',
+        [patron2_martigny]
     ):
         can, _ = can_request(item_lib_fully)
         assert not can

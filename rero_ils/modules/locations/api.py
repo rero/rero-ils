@@ -157,7 +157,7 @@ class Location(IlsRecord):
         return location_pids
 
     @classmethod
-    def allow_request(cls, item, **kwargs):
+    def can_request(cls, item, **kwargs):
         """Check if an item can be requested regarding its location.
 
         :param item : the item to check

@@ -55,8 +55,8 @@ from .patron_transactions.listener import enrich_patron_transaction_data
 from .patrons.listener import create_subscription_patron_transaction, \
     enrich_patron_data, update_from_profile
 from .users.views import UsersCreateResource, UsersResource
-from ..filter import empty_data, format_date_filter, jsondumps, lib_url, \
-    node_assets, text_to_id, to_pretty_json
+from ..filter import empty_data, format_date_filter, jsondumps, node_assets, \
+    text_to_id, to_pretty_json
 
 
 class REROILSAPP(object):
@@ -82,7 +82,6 @@ class REROILSAPP(object):
             app.add_template_filter(text_to_id, name='text_to_id')
             app.add_template_filter(jsondumps, name='jsondumps')
             app.add_template_filter(empty_data, name='empty_data')
-            app.add_template_filter(lib_url, name='lib_url')
             app.jinja_env.add_extension('jinja2.ext.do')
             self.register_signals(app)
 

@@ -13,7 +13,7 @@
     "$schema": "https://ils.rero.ch/schemas/organisations/organisation-v0.0.1.json",
     "pid": "org2",
     "name": "The district of Sion Libraries",
-    "address": "Ave de la gare, Martigny CH-1950",
+    "address": "Ave de la gare, Sion CH-1950",
     "code": "org2",
     "default_currency": "EUR",
     "current_budget_pid": "budg2",
@@ -3164,18 +3164,7 @@
     "home_phone": "+41324993585",
     "roles": [
       "system_librarian"
-    ],
-    "patron": {
-      "expiration_date": "2023-10-07",
-      "barcode": [
-        "sys_ptrn1"
-      ],
-      "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/ptty1"
-      },
-      "communication_channel": "email",
-      "communication_language": "eng"
-    }
+    ]
   },
   "ptrn2": {
     "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
@@ -3274,6 +3263,7 @@
     "username": "louis",
     "email": "lroduit@gmail.com",
     "home_phone": "+41324993156",
+    "keep_history": true,
     "roles": [
       "patron"
     ],
@@ -3293,8 +3283,7 @@
         "$ref": "https://ils.rero.ch/api/patron_types/ptty1"
       },
       "communication_channel": "mail",
-      "communication_language": "fre",
-      "keep_history": true
+      "communication_language": "fre"
     },
     "notes": [
       {
@@ -3451,11 +3440,6 @@
     "email": "sharifo@gmail.com",
     "username": "omar",
     "home_phone": "+41324991231",
-    "libraries": [
-      {
-        "$ref": "https://ils.rero.ch/api/libraries/lib1"
-      }
-    ],
     "roles": [
       "patron"
     ],

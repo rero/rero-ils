@@ -27,17 +27,26 @@ from rero_ils.modules.patrons.views import format_currency_filter
 
 def test_patrons_logged_user(client, librarian_martigny):
     """Test logged user info API."""
+
+    # No logged user (only settings are present)
     res = client.get(url_for('patrons.logged_user'))
     assert res.status_code == 200
     data = get_json(res)
     assert not data.get('metadata')
-    assert data.get('settings').get('language')
+    assert not data.get('patrons')
+    assert data.get('settings')
 
+    # logged user
     login_user_via_session(client, librarian_martigny.user)
     res = client.get(url_for('patrons.logged_user', resolve=1))
     assert res.status_code == 200
     data = get_json(res)
-    assert 'organisation' in data['metadata']['libraries'][0]
+    assert data.get('first_name')
+    assert data.get('last_name')
+    assert data.get('patrons')
+    assert data.get('settings')
+    assert 'organisation' in data.get('patrons')[0].get('libraries')[0]
+    assert data.get('patrons')[0].get('organisation')
 
     class current_i18n:
         class locale:
@@ -50,19 +59,9 @@ def test_patrons_logged_user(client, librarian_martigny):
         res = client.get(url_for('patrons.logged_user'))
         assert res.status_code == 200
         data = get_json(res)
-        assert data.get('metadata') == librarian_martigny
+        assert data.get('patrons')[0]['libraries'][0]['pid'] == \
+            librarian_martigny['libraries'][0]['$ref'].rsplit('/', 1)[-1]
         assert data.get('settings').get('language') == 'fr'
-
-
-def test_patrons_logged_user_resolve(
-        client,
-        librarian_martigny):
-    """Test that patron library is resolved in JSON data."""
-    login_user_via_session(client, librarian_martigny.user)
-    res = client.get(url_for('patrons.logged_user', resolve=1))
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data.get('metadata', {}).get('libraries')
 
 
 def test_patron_format_currency_filter(app):

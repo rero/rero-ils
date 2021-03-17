@@ -99,7 +99,7 @@ class LoanJSONSerializer(JSONSerializer):
                 metadata['patron_pid'])
             item = Item.get_record_by_pid(item_pid)
             metadata['rank'] = item.patron_request_rank(
-                patron.get('barcode'))
+                patron)
 
     def _process_loan_returned_in_transit_to_house_cancelled(
             self, metadata, loan):

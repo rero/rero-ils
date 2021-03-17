@@ -18,8 +18,7 @@
 
 """Permissions for patron types."""
 
-from rero_ils.modules.organisations.api import current_organisation
-from rero_ils.modules.patrons.api import current_patron
+from rero_ils.modules.patrons.api import current_librarian
 from rero_ils.modules.permissions import RecordPermission
 
 
@@ -35,7 +34,7 @@ class PatronTypePermission(RecordPermission):
         :return: True is action can be done.
         """
         # Operation allowed only for staff members (lib, sys_lib)
-        return current_patron and current_patron.is_librarian
+        return bool(current_librarian)
 
     @classmethod
     def read(cls, user, record):
@@ -46,12 +45,11 @@ class PatronTypePermission(RecordPermission):
         :return: True is action can be done.
         """
         # Check the user is authenticated and a record exists as param.
-        if not record or not current_patron:
+        if not record or not current_librarian:
             return False
         # Check if record correspond to user owning organisation and that user
         # is (at least) a librarian
-        return current_organisation['pid'] == record.organisation_pid \
-            and current_patron.is_librarian
+        return current_librarian.organisation_pid == record.organisation_pid
 
     @classmethod
     def create(cls, user, record=None):
@@ -62,11 +60,12 @@ class PatronTypePermission(RecordPermission):
         :return: True is action can be done.
         """
         # only system_librarian can create patron types ...
-        if not current_patron or not current_patron.is_system_librarian:
+        if not current_librarian or not current_librarian.is_system_librarian:
             return False
         # ... only for its own organisation
         if record:
-            return current_organisation['pid'] == record.organisation_pid
+            return current_librarian.organisation_pid == \
+                record.organisation_pid
         return True
 
     @classmethod

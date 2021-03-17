@@ -18,8 +18,7 @@
 
 """Permissions for loans."""
 from rero_ils.modules.loans.api import Loan
-from rero_ils.modules.organisations.api import current_organisation
-from rero_ils.modules.patrons.api import current_patron
+from rero_ils.modules.patrons.api import current_librarian, current_patrons
 from rero_ils.modules.permissions import RecordPermission
 
 
@@ -35,7 +34,7 @@ class LoanPermission(RecordPermission):
         :return: True is action can be done.
         """
         # user must be authenticated
-        return bool(current_patron)
+        return bool(current_patrons or current_librarian)
 
     @classmethod
     def read(cls, user, record):
@@ -48,15 +47,14 @@ class LoanPermission(RecordPermission):
         # Read is denied for to_anonymize loans.
         if record.get('to_anonymize'):
             return False
-        if current_patron \
-           and current_organisation.pid == Loan(record).organisation_pid:
-            # staff member (lib, sys_lib) can always read loans
-            if current_patron.is_librarian:
-                return True
-            # patron can only read their own loans
-            if current_patron.is_patron:
-                return Loan(record).patron_pid == current_patron.pid
-        return False
+        # staff member (lib, sys_lib) can always read loans
+        if current_librarian \
+           and current_librarian.organisation_pid == \
+           Loan(record).organisation_pid:
+            return True
+        # patron can only read their own loans
+        return Loan(
+            record).patron_pid in [ptrn.pid for ptrn in current_patrons]
 
     @classmethod
     def create(cls, user, record=None):

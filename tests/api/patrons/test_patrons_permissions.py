@@ -28,6 +28,7 @@ def test_patrons_permissions(patron_martigny,
                              patron_sion):
     """Test patrons permissions class."""
 
+    sys_lib = system_librarian_martigny
     # Anonymous user
     assert not PatronPermission.list(None, {})
     assert not PatronPermission.read(None, {})
@@ -35,25 +36,10 @@ def test_patrons_permissions(patron_martigny,
     assert not PatronPermission.update(None, {})
     assert not PatronPermission.delete(None, {})
 
-    # As Patron
-    sys_lib = system_librarian_martigny
-    with mock.patch(
-        'rero_ils.modules.patrons.permissions.current_patron',
-        patron_martigny
-    ):
-        assert not PatronPermission.list(None, patron_martigny)
-        assert not PatronPermission.read(None, patron_martigny)
-        assert not PatronPermission.create(None, patron_martigny)
-        assert not PatronPermission.update(None, patron_martigny)
-        assert not PatronPermission.delete(None, patron_martigny)
-
     # As Librarian
     with mock.patch(
-        'rero_ils.modules.patrons.permissions.current_patron',
+        'rero_ils.modules.patrons.permissions.current_librarian',
         librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.patrons.permissions.current_organisation',
-        org_martigny
     ):
         assert PatronPermission.list(None, patron_martigny)
         assert PatronPermission.read(None, patron_martigny)
@@ -79,11 +65,8 @@ def test_patrons_permissions(patron_martigny,
 
     # As System-librarian
     with mock.patch(
-        'rero_ils.modules.patrons.permissions.current_patron',
+        'rero_ils.modules.patrons.permissions.current_librarian',
         system_librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.patrons.permissions.current_organisation',
-        org_martigny
     ):
         assert PatronPermission.list(None, librarian_saxon)
         assert PatronPermission.read(None, librarian_saxon)
