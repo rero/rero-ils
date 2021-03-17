@@ -21,8 +21,7 @@ from __future__ import absolute_import, print_function
 
 import re
 
-from flask import Blueprint, abort, current_app, jsonify, render_template, \
-    request
+from flask import Blueprint, abort, current_app, jsonify, render_template
 from flask_babelex import format_currency
 from flask_babelex import gettext as _
 from flask_babelex import lazy_gettext
@@ -31,15 +30,17 @@ from flask_login import current_user, login_required
 from flask_menu import register_menu
 from invenio_i18n.ext import current_i18n
 
-from .api import Patron, current_patron
+from .api import Patron
 from .permissions import get_allowed_roles_management
 from .utils import user_has_patron
-from ..decorators import check_logged_as_librarian, check_logged_as_patron
+from ..decorators import check_logged_as_librarian, check_logged_as_patron, \
+    check_logged_user_authentication
 from ..items.utils import item_pid_to_object
 from ..loans.api import get_loans_stats_by_patron_pid, get_overdue_loans
 from ..loans.utils import sum_for_fees
 from ..locations.api import Location
 from ..patron_transactions.api import PatronTransaction
+from ..users.api import User
 from ..utils import get_base_url
 
 api_blueprint = Blueprint(
@@ -105,42 +106,58 @@ blueprint = Blueprint(
 @blueprint.route('/patrons/logged_user', methods=['GET'])
 def logged_user():
     """Current logged user informations in JSON."""
-    patron = Patron.get_patron_by_user(current_user)
-    if patron and 'resolve' in request.args:
-        organisation = patron.get_organisation()
-        patron['organisation'] = {
-            'pid': organisation.get('pid'),
-            'code': organisation.get('code'),
-            'currency': organisation.get('default_currency')
-        }
-        patron = patron.replace_refs()
-        patron = patron.dumps()
-        for index, library in enumerate(patron.get('libraries', [])):
-            data = {
-                'pid': library['pid'],
-                'organisation': {
-                    'pid': organisation.get('pid')
-                }
-            }
-            patron['libraries'][index] = data
     data = {
         'settings': {
             'language': current_i18n.locale.language,
-            'global_view': current_app.config.get(
+            'globalView': current_app.config.get(
                 'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'),
             'baseUrl': get_base_url(),
+            'contributionAgentTypes': current_app.config.get(
+                'RERO_ILS_CONTRIBUTIONS_AGENT_TYPES', {}),
             'contributionsLabelOrder': current_app.config.get(
                 'RERO_ILS_CONTRIBUTIONS_LABEL_ORDER', {}),
             'contributionSources': current_app.config.get(
                 'RERO_ILS_CONTRIBUTIONS_SOURCES', []
             ),
-            'operation_logs': current_app.config.get(
+            'operationLogs': current_app.config.get(
                 'RERO_ILS_ENABLE_OPERATION_LOG', []
+            ),
+            'librarianRoles': current_app.config.get(
+                'RERO_ILS_LIBRARIAN_ROLES', []
             )
         }
     }
-    if patron:
-        data['metadata'] = patron
+    if not current_user.is_authenticated:
+        return jsonify(data)
+
+    user = User.get_by_id(current_user.id).dumpsMetadata()
+    user['id'] = current_user.id
+    data = {**data, **user}
+    data['patrons'] = []
+
+    for patron in Patron.get_patrons_by_user(current_user):
+        del patron['$schema']
+        del patron['user_id']
+        # The notes are loaded by another way
+        if 'notes' in patron:
+            del patron['notes']
+        organisation = patron.get_organisation()
+        patron['organisation'] = {
+            'pid': organisation.get('pid'),
+            'name': organisation.get('name'),
+            'code': organisation.get('code'),
+            'currency': organisation.get('default_currency')
+        }
+        patron = patron.replace_refs()
+        for index, library in enumerate(patron.get('libraries', [])):
+            patron['libraries'][index] = {
+                'pid': library['pid'],
+                'organisation': {
+                    'pid': organisation.get('pid')
+                }
+            }
+        data['patrons'].append(patron)
+
     return jsonify(data)
 
 
@@ -213,16 +230,18 @@ def get_location_name_from_pid(location_pid):
     return Location.get_record_by_pid(location_pid)['name']
 
 
-@blueprint.route('/patrons/messages', methods=['GET'])
-def get_messages():
+@api_blueprint.route('/<string:patron_pid>/messages', methods=['GET'])
+@check_logged_user_authentication
+def get_messages(patron_pid):
     """Get messages for the current user."""
-    messages = current_patron.get_circulation_messages(True)
-    if current_patron.get_pending_subscriptions():
+    patron = Patron.get_record_by_pid(patron_pid)
+    messages = patron.get_circulation_messages(True)
+    if patron.get_pending_subscriptions():
         messages.append({
             'type': 'warning',
             'content': _('You have a pending subscription fee.')
         })
-    for note in current_patron.get('notes', []):
+    for note in patron.get('notes', []):
         if note.get('type') == 'public_note':
             messages.append({
                 'type': 'warning',

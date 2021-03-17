@@ -19,6 +19,9 @@
 
 from functools import wraps
 
+from flask import jsonify
+from flask_login import current_user
+
 from rero_ils.permissions import login_and_librarian, login_and_patron
 
 
@@ -46,3 +49,14 @@ def check_logged_as_patron(fn):
         login_and_patron()
         return fn(*args, **kwargs)
     return wrapper
+
+
+def check_logged_user_authentication(func):
+    """Decorator to check authentication for user HTTP API."""
+    @wraps(func)
+    def decorated_view(*args, **kwargs):
+        if not current_user.is_authenticated:
+            return jsonify({'status': 'error: Unauthorized'}), 401
+        return func(*args, **kwargs)
+
+    return decorated_view

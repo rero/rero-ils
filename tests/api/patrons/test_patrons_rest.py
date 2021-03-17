@@ -549,3 +549,21 @@ def test_patrons_circulation_informations(
     )
     res = client.get(url)
     assert res.status_code == 404
+
+
+def test_patron_messages(client, patron_martigny):
+    """Test for patron messages."""
+    patron_pid = patron_martigny.pid
+    url = url_for('api_patrons.get_messages', patron_pid=patron_pid)
+    res = client.get(url)
+    assert res.status_code == 401
+
+    login_user_via_session(client, patron_martigny.user)
+    url = url_for('api_patrons.get_messages', patron_pid=patron_pid)
+    res = client.get(url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert len(data) == 1
+    assert data[0]['type'] == 'warning'
+    assert data[0]['content'] == 'This person will be in vacations.\n' \
+        'Will be back in february.'

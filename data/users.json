@@ -71,6 +71,7 @@
   },
   {
     "pid": "4",
+    "gender": "female",
     "birth_date": "1969-06-07",
     "city": "Aosta",
     "email": "reroilstest+simonetta@gmail.com",
@@ -81,8 +82,12 @@
     ],
     "last_name": "Casalini",
     "home_phone": "+39324993585",
+    "business_phone": "+39324993588",
+    "mobile_phone": "+39624996543",
+    "other_phone": "+39324993589",
     "postal_code": "11100",
     "street": "Via Croix Noire 3",
+    "country": "it",
     "patron": {
       "expiration_date": "2023-10-07",
       "blocked": false,
@@ -1283,6 +1288,45 @@
       },
       "communication_channel": "email",
       "communication_language": "eng"
+    }
+  },
+  {
+    "pid": "54",
+    "birth_date": "1969-06-07",
+    "city": "Aosta",
+    "email": "reroilstest+simonetta@gmail.com",
+    "username": "simonetta",
+    "first_name": "Simonetta",
+    "roles": [
+      "patron"
+    ],
+    "last_name": "Casalini",
+    "home_phone": "+39324993585",
+    "postal_code": "11100",
+    "street": "Via Croix Noire 3",
+    "patron": {
+      "expiration_date": "2024-10-07",
+      "blocked": false,
+      "keep_history": true,
+      "barcode": [
+        "2100154311"
+      ],
+      "type": {
+        "$ref": "https://ils.rero.ch/api/patron_types/4"
+      },
+      "communication_channel": "email",
+      "communication_language": "ita"
+    },
+    "notes": [
+      {
+        "type": "public_note",
+        "content": "Note for organisation 2."
+      }
+    ],
+    "second_address": {
+      "street": "Castel romano",
+      "postal_code": "00128",
+      "city": "Roma"
     }
   }
 ]

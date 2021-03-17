@@ -319,6 +319,15 @@ class Patron(IlsRecord):
             return cls.get_record_by_pid(pid)
 
     @classmethod
+    def get_patrons_by_user(cls, user):
+        """Get all patrons by user."""
+        if hasattr(user, 'id'):
+            result = PatronsSearch()\
+                .filter('term', user_id=user.id)\
+                .source(includes='pid').scan()
+            return [cls.get_record_by_pid(record.pid) for record in result]
+
+    @classmethod
     def get_patron_by_email(cls, email):
         """Get patron by email."""
         pid_value = cls.get_pid_by_email(email)
@@ -343,10 +352,9 @@ class Patron(IlsRecord):
     @classmethod
     def get_pid_by_email(cls, email):
         """Get uuid pid by email."""
-        result = PatronsSearch().filter(
-            'term',
-            email=email
-        ).source(includes='pid').scan()
+        result = PatronsSearch()\
+            .filter('term', email=email)\
+            .source(includes='pid').scan()
         try:
             return next(result).pid
         except StopIteration:
