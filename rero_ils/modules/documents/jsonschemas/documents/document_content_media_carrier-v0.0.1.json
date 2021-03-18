@@ -8,9 +8,23 @@
       "type": "object",
       "oneOf": [
         {
+          "title": "contentType",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "contentType"
+          ],
+          "required": [
+            "contentType"
+          ],
+          "properties": {
+            "contentType": {
+              "$ref": "#/contentType"
+            }
+          }
+        },
+        {
           "title": "rdamt:1001",
-          "description": "Type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 337).",
-          "type": "object",
+          "additionalProperties": false,
           "propertiesOrder": [
             "contentType",
             "mediaType",
@@ -18,8 +32,7 @@
           ],
           "required": [
             "contentType",
-            "mediaType",
-            "carrierType"
+            "mediaType"
           ],
           "properties": {
             "contentType": {
@@ -27,6 +40,7 @@
             },
             "mediaType": {
               "title": "rdamt:1001",
+              "description": "Type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 337).",
               "type": "string",
               "readOnly": true,
               "default": "rdamt:1001",
@@ -101,8 +115,7 @@
         },
         {
           "title": "rdamt:1002",
-          "description": "Type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 337).",
-          "type": "object",
+          "additionalProperties": false,
           "propertiesOrder": [
             "contentType",
             "mediaType",
@@ -110,8 +123,7 @@
           ],
           "required": [
             "contentType",
-            "mediaType",
-            "carrierType"
+            "mediaType"
           ],
           "properties": {
             "contentType": {
@@ -119,6 +131,7 @@
             },
             "mediaType": {
               "title": "rdamt:1002",
+              "description": "Type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 337).",
               "type": "string",
               "readOnly": true,
               "default": "rdamt:1002",
@@ -198,8 +211,7 @@
         },
         {
           "title": "rdamt:1003",
-          "description": "Type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 337).",
-          "type": "object",
+          "additionalProperties": false,
           "propertiesOrder": [
             "contentType",
             "mediaType",
@@ -207,8 +219,7 @@
           ],
           "required": [
             "contentType",
-            "mediaType",
-            "carrierType"
+            "mediaType"
           ],
           "properties": {
             "contentType": {
@@ -216,6 +227,7 @@
             },
             "mediaType": {
               "title": "rdamt:1003",
+              "description": "Type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 337).",
               "type": "string",
               "readOnly": true,
               "default": "rdamt:1003",
@@ -290,8 +302,7 @@
         },
         {
           "title": "rdamt:1004",
-          "description": "Type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 337).",
-          "type": "object",
+          "additionalProperties": false,
           "propertiesOrder": [
             "contentType",
             "mediaType",
@@ -299,8 +310,7 @@
           ],
           "required": [
             "contentType",
-            "mediaType",
-            "carrierType"
+            "mediaType"
           ],
           "properties": {
             "contentType": {
@@ -308,6 +318,7 @@
             },
             "mediaType": {
               "title": "rdamt:1004",
+              "description": "Type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 337).",
               "type": "string",
               "readOnly": true,
               "default": "rdamt:1004",
@@ -347,8 +358,7 @@
         },
         {
           "title": "rdamt:1005",
-          "description": "Type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 337).",
-          "type": "object",
+          "additionalProperties": false,
           "propertiesOrder": [
             "contentType",
             "mediaType",
@@ -356,8 +366,7 @@
           ],
           "required": [
             "contentType",
-            "mediaType",
-            "carrierType"
+            "mediaType"
           ],
           "properties": {
             "contentType": {
@@ -365,6 +374,7 @@
             },
             "mediaType": {
               "title": "rdamt:1005",
+              "description": "Type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 337).",
               "type": "string",
               "readOnly": true,
               "default": "rdamt:1005",
@@ -444,8 +454,7 @@
         },
         {
           "title": "rdamt:1006",
-          "description": "Type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 337).",
-          "type": "object",
+          "additionalProperties": false,
           "propertiesOrder": [
             "contentType",
             "mediaType",
@@ -453,8 +462,7 @@
           ],
           "required": [
             "contentType",
-            "mediaType",
-            "carrierType"
+            "mediaType"
           ],
           "properties": {
             "contentType": {
@@ -462,6 +470,7 @@
             },
             "mediaType": {
               "title": "rdamt:1006",
+              "description": "Type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 337).",
               "type": "string",
               "readOnly": true,
               "default": "rdamt:1006",
@@ -506,8 +515,7 @@
         },
         {
           "title": "rdamt:1007",
-          "description": "Type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 337).",
-          "type": "object",
+          "additionalProperties": false,
           "propertiesOrder": [
             "contentType",
             "mediaType",
@@ -515,8 +523,7 @@
           ],
           "required": [
             "contentType",
-            "mediaType",
-            "carrierType"
+            "mediaType"
           ],
           "properties": {
             "contentType": {
@@ -524,6 +531,7 @@
             },
             "mediaType": {
               "title": "rdamt:1007",
+              "description": "Type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 337).",
               "type": "string",
               "readOnly": true,
               "default": "rdamt:1007",
@@ -588,8 +596,7 @@
         },
         {
           "title": "rdamt:1008",
-          "description": "Type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 337).",
-          "type": "object",
+          "additionalProperties": false,
           "propertiesOrder": [
             "contentType",
             "mediaType",
@@ -597,8 +604,7 @@
           ],
           "required": [
             "contentType",
-            "mediaType",
-            "carrierType"
+            "mediaType"
           ],
           "properties": {
             "contentType": {
@@ -606,6 +612,7 @@
             },
             "mediaType": {
               "title": "rdamt:1008",
+              "description": "Type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 337).",
               "type": "string",
               "readOnly": true,
               "default": "rdamt:1008",
@@ -660,8 +667,7 @@
         },
         {
           "title": "other",
-          "description": "Type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 337).",
-          "type": "object",
+          "additionalProperties": false,
           "propertiesOrder": [
             "contentType",
             "mediaType",
@@ -669,8 +675,7 @@
           ],
           "required": [
             "contentType",
-            "mediaType",
-            "carrierType"
+            "mediaType"
           ],
           "properties": {
             "contentType": {
@@ -678,6 +683,7 @@
             },
             "mediaType": {
               "title": "other",
+              "description": "Type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 337).",
               "type": "string",
               "readOnly": true,
               "default": "other",
@@ -694,7 +700,7 @@
               "title": "Carrier type",
               "type": "string",
               "description": "Format of the storage medium and housing of a carrier in combination with the type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 338).",
-              "default": "other",
+              "default": "unspecified",
               "enum": [
                 "unspecified"
               ],

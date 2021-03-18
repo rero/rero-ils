@@ -25,9 +25,9 @@ from dojson import utils
 from dojson.utils import GroupableOrderedDict
 
 from rero_ils.dojson.utils import ReroIlsMarc21Overdo, TitlePartList, \
-    add_note, build_responsibility_data, error_print, \
-    extract_subtitle_and_parallel_titles_from_field_245_b, get_field_items, \
-    get_field_link_data, make_year, not_repetitive, \
+    add_note, build_responsibility_data, build_string_from_subfields, \
+    error_print, extract_subtitle_and_parallel_titles_from_field_245_b, \
+    get_field_items, get_field_link_data, make_year, not_repetitive, \
     remove_trailing_punctuation
 
 _ISSUANCE_MAIN_TYPE_PER_BIB_LEVEL = {
@@ -73,7 +73,142 @@ _CONTRIBUTION_ROLE = [
     'trc', 'vac', 'vdg', 'wac', 'wal', 'wat', 'win', 'wpr', 'wst'
 ]
 
-IDREF_REF_REGEX = re.compile(r'^\(IDREF\)(.*)?')
+_INTENDED_AUDIENCE_REGEXP = {
+    # understanding_level
+    'target_understanding_children':
+        re.compile(r'^(Enfants*|Kinder)$', re.IGNORECASE),
+    'target_understanding_children_0_3':
+        re.compile(
+            r'(Enfants* \(0-3 ans\)|Kinder \(0-3 Jahre\))', re.IGNORECASE),
+    'target_understanding_children_3_6':
+        re.compile(
+            r'(Enfants* \(3-6 ans\)|Kinder \(3-6 Jahre\))', re.IGNORECASE),
+    'target_understanding_children_6_9':
+        re.compile(
+            r'(Enfants* \(6-9 ans\)|Kinder \(6-9 Jahre\))', re.IGNORECASE),
+    'target_understanding_children_9_12':
+        re.compile(
+            r'(Enfants* \(9-12 ans\)|Kinder \(9-12 Jahre\))', re.IGNORECASE),
+    'target_understanding_teenagers':
+        re.compile(r'^(Adolescents*|Jugendliche)$', re.IGNORECASE),
+    'target_understanding_teenagers_12_15':
+        re.compile(
+            r'(Adolescents* \(12-15 ans\)|Jugendliche \(12-15 Jahre\))',
+            re.IGNORECASE),
+    'target_understanding_teenagers_15_18':
+        re.compile(
+            r'(Adolescents* \(15-18 ans\)|Jugendliche \(15-18 Jahre\))',
+            re.IGNORECASE),
+    'target_understanding_secondary_level_2':
+        re.compile(
+            r'(Degré secondaire 2|Weiterführende Schulen)', re.IGNORECASE),
+    'target_understanding_tertiary':
+        re.compile(r'(Tertiaire|Tertiär)', re.IGNORECASE),
+    'target_understanding_apprentices':
+        re.compile(r'(Apprentis*|Lehrlinge)', re.IGNORECASE),
+    'target_understanding_bachelor_students':
+        re.compile(
+            r'(Etudiants* niveau Bachelor|Studierende Bachelor)',
+            re.IGNORECASE),
+    'target_understanding_master_students':
+        re.compile(
+            r'(Etudiants* niveau Master|Studierende Master)', re.IGNORECASE),
+    'target_understanding_doctoral_students':
+        re.compile(r'(Doctorants*|Doktoranden)', re.IGNORECASE),
+    'target_understanding_beginners':
+        re.compile(r'(Débutants*|Anfänger)', re.IGNORECASE),
+    'target_understanding_intermediaries':
+        re.compile(r'(Intermédiaires*|Mittelstufe)', re.IGNORECASE),
+    'target_understanding_advanced':
+        re.compile(r'(Avancés*|Fortgeschrittene)', re.IGNORECASE),
+    'target_understanding_specialists':
+        re.compile(r'(Spécialistes*|Spezialisten)', re.IGNORECASE),
+    'target_understanding_adults':
+        re.compile(r'^(Adultes*|Erwachsene)$', re.IGNORECASE),
+    'target_understanding_allophone_adults':
+        re.compile(
+            r'(Adultes* allophones*|Fremdsprachige Erwachsene)',
+            re.IGNORECASE),
+    'target_understanding_all_audience':
+        re.compile(r'(Tous publics*|Alle Zielgruppen)', re.IGNORECASE),
+    'target_understanding_teachers_harmos_degree':
+        re.compile(
+            r'(Enseignants* \(degré Harmos\)|Lehrpersonen \(Harmos\))',
+            re.IGNORECASE),
+    'target_understanding_teachers_secondary_level_2':
+        re.compile(
+            r'(Enseignants* Degré secondaire 2|Lehrpersonen Sek II)',
+            re.IGNORECASE),
+    'target_understanding_hep_trainers':
+        re.compile(r'(Formateurs* HEP|PH-Dozierende)', re.IGNORECASE),
+    'target_understanding_parents':
+        re.compile(r'(Parents*|Eltern)', re.IGNORECASE),
+    'target_understanding_caregivers':
+        re.compile(r'(Soignants*|Pflegepersonal)', re.IGNORECASE),
+    # school_level
+    'target_school_harmos1':
+        re.compile(r'(Harmos1|Kindergarten)', re.IGNORECASE),
+    'target_school_harmos2':
+        re.compile(r'(Harmos2|Kindergarten)', re.IGNORECASE),
+    'target_school_harmos3':
+        re.compile(r'(Harmos3|Primarschule \(1\.-2\. Kl\.\))', re.IGNORECASE),
+    'target_school_harmos4':
+        re.compile(r'(Harmos4|Primarschule \(1\.-2\. Kl\.\))', re.IGNORECASE),
+    'target_school_harmos5':
+        re.compile(r'(Harmos5|Primarschule \(3\.-4\. Kl\.\))', re.IGNORECASE),
+    'target_school_harmos6':
+        re.compile(r'(Harmos6|Primarschule \(3\.-4\. Kl\.\))', re.IGNORECASE),
+    'target_school_harmos7':
+        re.compile(r'(Harmos7|Primarschule \(5\.-6\. Kl\.\))', re.IGNORECASE),
+    'target_school_harmos8':
+        re.compile(r'(Harmos8|Primarschule \(5\.-6\. Kl\.\))', re.IGNORECASE),
+    'target_school_harmos9':
+        re.compile(
+            r'(Harmos9|Orientierungsschule \(7\.-9\. Kl\.\))', re.IGNORECASE),
+    'target_school_harmos10':
+        re.compile(
+            r'(Harmos10|Orientierungsschule \(7\.-9\. Kl\.\))', re.IGNORECASE),
+    'target_school_harmos11':
+        re.compile(
+            r'(Harmos11|Orientierungsschule \(7\.-9\. Kl\.\))', re.IGNORECASE),
+    'target_school_upper_secondary':
+        re.compile(
+            r'(Degré secondaire 2|Weiterführende Schulen)', re.IGNORECASE),
+    'target_school_tertiary':
+        re.compile(r'^(Tertiaire|Studierende)$', re.IGNORECASE),
+    'target_school_bachelor':
+        re.compile(
+            r'(Etudiants* niveau Bachelor|Studierende Bachelor)',
+            re.IGNORECASE),
+    'target_school_master':
+        re.compile(
+            r'(Etudiants* niveau Master|Studierende Master)', re.IGNORECASE),
+    # filmage_ch
+    'from the age of 18':
+        re.compile(r'(Dès 18 ans|Ab 18 Jahre)', re.IGNORECASE),
+    'from the age of 16':
+        re.compile(r'(Dès 16 ans|Ab 16 Jahre)', re.IGNORECASE),
+    'from the age of 14':
+        re.compile(r'(Dès 14 ans|Ab 14 Jahre)', re.IGNORECASE),
+    'from the age of 12':
+        re.compile(r'(Dès 12 ans|Ab 12 Jahre)', re.IGNORECASE),
+    'from the age of 10':
+        re.compile(r'(Dès 10 ans|Ab 10 Jahre)', re.IGNORECASE),
+    'from the age of 7':
+        re.compile(r'(Dès 7 ans|Ab 7 Jahre)', re.IGNORECASE),
+    'from the age of 5':
+        re.compile(r'(Dès 5 ans|Ab 5 Jahre)', re.IGNORECASE),
+    'from the age of 2':
+        re.compile(r'(Dès 2 ans|Ab 2 Jahre)', re.IGNORECASE)}
+
+_INTENDED_AUDIENCE_TYPE_REGEXP = {
+    'understanding_level': re.compile(r'^target_understanding'),
+    'school_level': re.compile(r'^target_school'),
+    'filmage_ch': re.compile(r'^from the age of')
+}
+
+_IDREF_REF_REGEX = re.compile(r'^\(IDREF\)(.*)?')
+
 
 marc21 = ReroIlsMarc21Overdo()
 
@@ -85,7 +220,7 @@ def get_contribution_link(bibid, reroid, id, key, value):
     test_host = os.environ.get('RERO_ILS_MEF_HOST', 'mef.rero.ch')
     mef_url = f'https://{test_host}/api/'
 
-    match = IDREF_REF_REGEX.search(id)
+    match = _IDREF_REF_REGEX.search(id)
     if match:
         pid = match.group(1)
         if key[:3] in ['100', '600', '610', '611', '700', '710', '711']:
@@ -113,8 +248,13 @@ def get_contribution_link(bibid, reroid, id, key, value):
 @marc21.over('issuance', 'leader')
 @utils.ignore_value
 def marc21_to_type_and_issuance(self, key, value):
-    """Get document type and the mode of issuance."""
-    self['issuance'] = {}
+    """Get document type, content/Media/Carrier type and mode of issuance."""
+    if marc21.content_media_carrier_type:
+        self['contentMediaCarrier'] = marc21.content_media_carrier_type
+    if marc21.langs_from_041_h:
+        self['originalLanguage'] = marc21.langs_from_041_h
+    if marc21.admin_meta_data:
+        self['adminMetadata'] = marc21.admin_meta_data
     main_type = _ISSUANCE_MAIN_TYPE_PER_BIB_LEVEL.get(
         marc21.bib_level, 'rdami:1001')
     sub_type = 'NOT_DEFINED'
@@ -155,7 +295,7 @@ def marc21_to_type_and_issuance(self, key, value):
     if error:
         error_print('WARNING ISSUANCE:', marc21.bib_id, marc21.rero_id,
                     main_type, sub_type, marc21.bib_level, marc21.serial_type)
-    return {'main_type': main_type, 'subtype': sub_type}
+    self['issuance'] = {'main_type': main_type, 'subtype': sub_type}
 
 
 @marc21.over('pid', '^001')
@@ -225,7 +365,13 @@ def marc21_to_language(self, key, value):
                             marc21.rero_id, marc21.date1_from_008)
             else:
                 self['provisionActivity'][0]['endDate'] = end_date
-
+        original_date = make_year(marc21.original_date_from_008)
+        if original_date:
+            if original_date > 2050:
+                error_print('WARNING ORIGINAL DATE 008:', marc21.bib_id,
+                            marc21.rero_id, marc21.original_date_from_008)
+            else:
+                self['provisionActivity'][0]['original_date'] = original_date
     # if not language:
     #     error_print('ERROR LANGUAGE:', marc21.bib_id, 'set to "und"')
     #     language = [{'value': 'und', 'type': 'bf:Language'}]
@@ -490,7 +636,6 @@ def marc21_to_contribution(self, key, value):
                 'agent': agent,
                 'role': list(set(roles))
             }
-    return None
 
 
 @marc21.over('copyrightDate', '^264.4')
@@ -670,7 +815,6 @@ def marc21_to_description(self, key, value):
     300 [$c repetitive]: dimensions, book_formats
     """
     marc21.extract_description_from_marc_field(key, value, self)
-    return None
 
 
 @marc21.over('type', '^339..')
@@ -698,19 +842,120 @@ def marc21_to_series_statement(self, key, value):
     series.number: [490$v repetitive]
     """
     marc21.extract_series_statement_from_marc_field(key, value, self)
-    return None
 
 
-@marc21.over('abstracts', '^520..')
+@marc21.over('tableOfContents', '^505..')
 @utils.for_each_value
 @utils.ignore_value
-def marc21_to_abstracts(self, key, value):
-    """Get abstracts.
+def marc21_to_summary(self, key, value):
+    """Get tableOfContents from repetitive field 505."""
+    table_of_contents = build_string_from_subfields(value, 'agtr')
+    if table_of_contents:
+        table_of_contents_list = self.get('tableOfContents', [])
+        table_of_contents_list.append(table_of_contents)
+        self['tableOfContents'] = table_of_contents_list
 
-    abstract: [520$a repetitive]
-    """
-    abstracts = ', '.join(utils.force_list(value.get('a', [])))
-    return abstracts
+
+@marc21.over('dissertation', '^502..')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_summary(self, key, value):
+    """Get dissertation from repetitive field 502."""
+    # parse field 502 subfields for extracting dissertation
+    tag_link, link = get_field_link_data(value)
+    items = get_field_items(value)
+    index = 1
+    dissertation = {}
+    subfield_selection = {'a'}
+    for blob_key, blob_value in items:
+        if blob_key in subfield_selection:
+            subfield_selection.remove(blob_key)
+            if blob_key == 'a':
+                dissertation_data = marc21.build_value_with_alternate_graphic(
+                    '502', blob_key, blob_value, index, link, ',.', ':;/-=')
+            else:
+                dissertation_data = blob_value
+            if dissertation_data:
+                dissertation['label'] = dissertation_data
+        if blob_key != '__order__':
+            index += 1
+    if dissertation:
+        dissertation_list = self.get('dissertation', [])
+        dissertation_list.append(dissertation)
+        self['dissertation'] = dissertation_list
+
+
+@marc21.over('summary', '^520..')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_summary(self, key, value):
+    """Get summary from repetitive field 520."""
+    key_per_code = {
+        'a': 'label',
+        'c': 'source'
+    }
+    # parse field 520 subfields for extracting:
+    # summary and source parts
+    tag_link, link = get_field_link_data(value)
+    items = get_field_items(value)
+    index = 1
+    summary = {}
+    subfield_selection = {'a', 'c'}
+    legacy_abstract = ''  # TODO: remove legacy code for abstracts
+    for blob_key, blob_value in items:
+        if blob_key in subfield_selection:
+            subfield_selection.remove(blob_key)
+            if blob_key == 'a':
+                # TODO: remove legacy code for abstracts (next line)
+                legacy_abstract = blob_value
+                summary_data = marc21.build_value_with_alternate_graphic(
+                    '520', blob_key, blob_value, index, link, ',.', ':;/-=')
+            else:
+                summary_data = blob_value
+            if summary_data:
+                summary[key_per_code[blob_key]] = summary_data
+        if blob_key != '__order__':
+            index += 1
+    if summary:
+        summary_list = self.get('summary', [])
+        summary_list.append(summary)
+        self['summary'] = summary_list
+        # TODO: remove legacy code for abstracts (next 3 lines)
+        abstract_list = self.get('abstracts', [])
+        abstract_list.append(legacy_abstract)
+        self['abstracts'] = abstract_list
+
+
+@marc21.over('intendedAudience', '^521..')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_subjects(self, key, value):
+    """Get intendedAudience from field 521."""
+    intended_audience_set = set()
+    subfields_a = utils.force_list(value.get('a'))
+    for subfield_a in subfields_a:
+        audiance_found = False
+        for audiance in _INTENDED_AUDIENCE_REGEXP:
+            regexp = _INTENDED_AUDIENCE_REGEXP[audiance]
+            if regexp.search(subfield_a):
+                intended_audience_set.add(audiance)
+                audiance_found = True
+        if not audiance_found:
+            intended_audience_set.add(subfield_a)
+
+    intended_audience_list = self.get('intendedAudience', [])
+    for intended_audience_str in intended_audience_set:
+        intended_audience = {}
+        # get the audiance_type
+        for audiance_type in _INTENDED_AUDIENCE_TYPE_REGEXP:
+            regexp = _INTENDED_AUDIENCE_TYPE_REGEXP[audiance_type]
+            if regexp.search(intended_audience_str):
+                intended_audience['audienceType'] = audiance_type
+        if 'audienceType' not in intended_audience:
+            intended_audience['audienceType'] = 'undefined'
+        intended_audience['value'] = intended_audience_str
+        intended_audience_list.append(intended_audience)
+        self['intendedAudience'] = intended_audience_list
 
 
 @marc21.over('identifiedBy', '^020..')
@@ -722,6 +967,10 @@ def marc21_to_identifiedBy_from_field_020(self, key, value):
         identifier = {'value': subfield_data}
         subfield_c = not_repetitive(marc21.bib_id, marc21.rero_id,
                                     key, value, 'c', default='').strip()
+        if subfield_c:
+            acquisition_terms = self.get('acquisitionTerms', [])
+            acquisition_terms.append(subfield_c)
+            self['acquisitionTerms'] = acquisition_terms
         if value.get('q'):  # $q is repetitive
             identifier['qualifier'] = \
                 ', '.join(utils.force_list(value.get('q')))
@@ -791,7 +1040,9 @@ def marc21_to_identifiedBy_from_field_024(self, key, value):
         subfield_c = not_repetitive(marc21.bib_id,  marc21.rero_id,
                                     key, value, 'c', default='').strip()
         if subfield_c:
-            identifier['acquisitionTerms'] = subfield_c
+            acquisition_terms = self.get('acquisitionTerms', [])
+            acquisition_terms.append(subfield_c)
+            self['acquisitionTerms'] = acquisition_terms
         subfield_d = not_repetitive(marc21.bib_id, marc21.rero_id,
                                     key, value, 'd', default='').strip()
         if subfield_d:
@@ -957,6 +1208,19 @@ def marc21_to_identifiedBy_from_field_035(self, key, value):
     return identifiedBy or None
 
 
+@marc21.over('acquisitionTerms', '^037..')
+@utils.ignore_value
+def marc21_to_acquisition_terms_from_field_037(self, key, value):
+    """Get acquisition terms field 037."""
+    acquisition_terms = self.get('acquisitionTerms', [])
+    subfields_c = utils.force_list(value.get('c'))
+    if subfields_c:
+        for subfield_c in subfields_c:
+            acquisition_terms.append(subfield_c.strip())
+        self['acquisitionTerms'] = acquisition_terms
+    return None
+
+
 @marc21.over('electronicLocator', '^856..')
 @utils.ignore_value
 def marc21_to_electronicLocator_from_field_856(self, key, value):
@@ -1051,22 +1315,455 @@ def marc21_to_identifiedBy_from_field_930(self, key, value):
     return identifiedBy or None
 
 
-@marc21.over('note', '^500..')
+@marc21.over('note', '^(500|510|530|545|580)..')
 @utils.for_each_value
 @utils.ignore_value
-def marc21_to_notes(self, key, value):
-    """Get  notes.
+def marc21_to_notes_and_original_title(self, key, value):
+    """Get notes and original title."""
+    subfield_a = None
+    if value.get('a'):
+        subfield_a = utils.force_list(value.get('a'))[0]
+        is_original_title_data = False
+        is_general_note_to_add = False
+        if key[:3] == '510':
+            items = get_field_items(value)
+            note_str = ''
+            subfield_selection = {'a', 'c', 'x'}
+            for blob_key, blob_value in items:
+                if blob_key in subfield_selection:
+                    note_str += blob_value + ' '
+            add_note(
+                dict(
+                    noteType='cited_by',
+                    label=note_str.strip()
+                ),
+                self)
+        elif key[:3] == '500':
+            # extract the original title
+            regexp = re.compile(
+                r'\[?(Trad.+?de|Über.+?von|Trans.+?from|Titre original|'
+                r'Originaltitel|Original title)\s?\:\]?\s?(.+)',
+                re.IGNORECASE)
+            match = regexp.search(subfield_a)
+            if match and match.group(2):
+                original_title = match.group(2).strip()
+                original_titles = self.get('originalTitle', [])
+                original_titles.append(original_title)
+                self['originalTitle'] = original_titles
+            else:
+                is_general_note_to_add = True
+        else:
+            is_general_note_to_add = True
 
-    note: [500$a repetitive]
+        if is_general_note_to_add:
+            add_note(
+                dict(
+                    noteType='general',
+                    label=subfield_a
+                ),
+                self)
+
+
+@marc21.over('credits', '^(508|511)..')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_notes_and_original_title(self, key, value):
+    """Get notes and original title."""
+    subfield_a = None
+    if value.get('a'):
+        subfield_a = utils.force_list(value.get('a'))[0]
+        if key[:3] == '511':
+            subfield_a = 'Participants ou interprètes: ' + subfield_a
+        credits = self.get('credits', [])
+        credits.append(subfield_a)
+        self['credits'] = credits
+
+
+@marc21.over('supplementaryContent', '^504..')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_notes_and_original_title(self, key, value):
+    """Get notes and original title."""
+    if value.get('a'):
+        subfield_a = utils.force_list(value.get('a'))[0]
+        supplementary_content = self.get('supplementaryContent', [])
+        supplementary_content.append(subfield_a)
+        self['supplementaryContent'] = supplementary_content
+
+
+@marc21.over('subjects', '^(600|610|611|630|650|651|655)..')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_subjects(self, key, value):
+    """Get subjects.
+
+    - create an object :
+        genreForm : for the field 655
+        subjects :  for 6xx with $2 rero
+        subjects_imported : for 6xx having indicator 2 '0' or '2'
     """
-    add_note(
-        dict(
-            noteType='general',
-            label=not_repetitive(marc21.bib_id, marc21.rero_id,
-                                 key, value, 'a')
-        ),
-        self)
-    return None
+    type_per_tag = {
+        '600': 'bf:Person',
+        '610': 'bf:Organization',
+        '611': 'bf:Organization',
+        '600t': 'bf:Work',
+        '610t': 'bf:Work',
+        '611t': 'bf:Work',
+        '630': 'bf:Work',
+        '650': 'bf:Topic',  # or bf:Temporal, changed by code
+        '651': 'bf:Place',
+        '655': 'bf:Topic'
+    }
+
+    ref_link_per_tag = {
+        '600': 'IdRef agent',
+        '610': 'IdRef agent',
+        '611': 'IdRef agent',
+        '600t': 'IdRef work',
+        '610t': 'IdRef work',
+        '611t': 'IdRef work',
+        '630': 'IdRef work',
+        '650': 'RERO RAMEAU concept',
+        '651': 'Idref place',
+        '655': 'RERO RAMEAU concept'
+    }
+
+    field_data_per_tag = {
+        '600': 'preferred_name',
+        '610': 'preferred_name',
+        '611': 'preferred_name',
+        '600t': 'title',
+        '610t': 'title',
+        '611t': 'title',
+        '630': 'title',
+        '650': 'term',
+        '651': 'preferred_name',
+        '655': 'term'
+    }
+
+    subfield_code_per_tag = {
+        '600': 'abcd',
+        '610': 'ab',
+        '611': 'acden',
+        '600t': 'tpn',
+        '610t': 'tpn',
+        '611t': 't',
+        '630': 'apn',
+        '650': 'a',
+        '651': 'a',
+        '655': 'a'
+    }
+
+    conference_per_tag = {
+        '610': False,
+        '611': True
+    }
+    source_per_prefix = {
+        '(RERO)': 'rero',
+        '(IDREF)': 'idref'
+    }
+
+    source_per_indicator_2 = {
+        '0': 'LCSH',
+        '2': 'MeSH'
+    }
+
+    indicator_2 = key[4]
+    tag_key = key[:3]
+    subfields_2 = utils.force_list(value.get('2'))
+    subfield_2 = None
+    if subfields_2:
+        subfield_2 = subfields_2[0]
+    subfields_a = utils.force_list(value.get('a', []))
+    source_prefix = ''
+
+    if subfield_2 == 'rero':
+        # TODO: create a link to MEF when possible
+        has_dollar_t = value.get('t')
+
+        subfields_0 = utils.force_list(value.get('0'))
+        subfield_0 = None
+        identified_by = None
+        if subfields_0:
+            #  remove the source prefix in parenthesis like '(RERO)'
+            source_prefix = re.sub(r'^(\(.*\)).*$', r'\1', subfields_0[0])
+            subfield_0 = re.sub(r'^\(.*\)(.*)$', r'\1', subfields_0[0])
+            source = source_per_prefix[source_prefix]
+            identified_by = {
+                'value': subfield_0,
+                'source': source,
+                'type': 'bf:Local'
+            }
+
+        if tag_key in ('600', '610', '611') and has_dollar_t:
+            tag_key += 't'
+
+        data_type = type_per_tag[tag_key]
+        start_with_digit = False
+        if tag_key == '650':
+            for subfield_a in subfields_a:
+                start_with_digit_regexp = re.compile(r'^\d')
+                match = start_with_digit_regexp.search(subfield_a)
+                if match:
+                    start_with_digit = True
+                    data_type = 'bf:Temporal'
+                    break
+
+        subject = {
+            'source': 'rero',
+            'type': data_type,
+        }
+        if identified_by:
+            subject['identifiedBy'] = identified_by
+
+        string_build = build_string_from_subfields(
+            value,
+            subfield_code_per_tag[tag_key])
+        if (tag_key == '655'):
+            # remove the square brackets
+            string_build = re.sub(r'^\[(.*)\]$', r'\1', string_build)
+        subject[field_data_per_tag[tag_key]] = string_build
+
+        if tag_key in ('610', '611'):
+            subject['conference'] = conference_per_tag[tag_key]
+
+        if tag_key in ('600t', '610t', '611t'):
+            creator_tag_key = tag_key[:3]  # to keep only tag:  600, 610, 611
+            subject['creator'] = remove_trailing_punctuation(
+                build_string_from_subfields(
+                    value,
+                    subfield_code_per_tag[creator_tag_key]),
+                '.', '.'
+            )
+        field_key = 'subjects'
+        if tag_key == '655':
+            field_key = 'genreForm'
+
+        if subject[field_data_per_tag[tag_key]]:
+            subjects = self.get(field_key, [])
+            subjects.append(subject)
+            self[field_key] = subjects
+    elif subfield_2 == 'rerovoc' or indicator_2 in ['0', '2']:
+        term_string = build_string_from_subfields(
+            value,
+            'abcdefghijklmnopqrstuvwxyz', ' - ')
+        if term_string:
+            if subfield_2 == 'rerovoc':
+                source = 'rerovoc'
+            else:
+                source = source_per_indicator_2[indicator_2]
+            subject_imported = {
+                'type': type_per_tag[tag_key],
+                'source': source
+            }
+            subject_imported[field_data_per_tag[tag_key]] = term_string
+            if tag_key in ('610', '611'):
+                subject_imported['conference'] = conference_per_tag[tag_key]
+            subjects_imported = self.get('subjects_imported', [])
+            if subject_imported:
+                subjects_imported.append(subject_imported)
+                self['subjects_imported'] = subjects_imported
+
+
+@marc21.over('subjects_imported', '^919..')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_subjects_imported(self, key, value):
+    """Get subject and genreForm_imported imported from 919 (L53, L54)."""
+    specific_contains_regexp = \
+        re.compile(r'\[(carte postale|affiche|document photographique)\]')
+    contains_specific_voc_regexp = re.compile(
+            r'^(chrero|rerovoc|ram|rameau|gnd|rerovoc|gatbegr|gnd-content)$')
+
+    subfields_2 = utils.force_list(value.get('2'))
+    term_string = ''
+    data_imported = None
+    field_key = 'subjects_imported'
+    if subfields_2:
+        subfield_2 = subfields_2[0]
+        match = contains_specific_voc_regexp.search(subfield_2)
+        if match:
+            add_data_imported = False
+            if subfield_2 == 'chrero':
+                subfields_9 = utils.force_list(value.get('9'))
+                subfield_9 = subfields_9[0]
+                subfields_v = utils.force_list(value.get('v'))
+                if subfields_v:
+                    subfield_v = subfields_v[0]
+                    match = specific_contains_regexp.search(subfield_v)
+                    if match:
+                        contains_655_regexp = re.compile(r'655')
+                        match = contains_655_regexp.search(subfield_9)
+                        add_data_imported = True
+                        if match:
+                            field_key = 'genreForm_imported'
+            else:
+                add_data_imported = True
+                if subfield_2 == 'gatbegr' or subfield_2 == 'gnd-content':
+                    field_key = 'genreForm_imported'
+            if add_data_imported:
+                term_string = build_string_from_subfields(
+                    value,
+                    'abcdefghijklmnopqrstuvwxyz', ' - ')
+                data_imported = {
+                    'type': 'bf:Topic',
+                    'source': subfield_2,
+                    'term': term_string
+                }
+    else:
+        term_string = build_string_from_subfields(
+            value,
+            'abcdefghijklmnopqrstuvwxyz', ' - ')
+        if term_string:
+            data_imported = {
+                'type': 'bf:Topic',
+                'term': term_string
+            }
+    if data_imported:
+        subjects_or_genre_form_imported_imported = self.get(field_key, [])
+        subjects_or_genre_form_imported_imported.append(data_imported)
+        self[field_key] = subjects_or_genre_form_imported_imported
+
+
+@marc21.over('sequence_numbering', '^362..')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_notes_and_original_title(self, key, value):
+    """Get notes and original title."""
+    if value.get('a'):
+        subfield_a = utils.force_list(value.get('a'))[0]
+        sequence_numbering = self.get('sequence_numbering', '')
+        if sequence_numbering:
+            sequence_numbering += ' ; ' + subfield_a
+        else:
+            sequence_numbering = subfield_a
+        self['sequence_numbering'] = sequence_numbering
+
+
+@marc21.over('classification', '^(050|060|080|082|980)..')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_classification(self, key, value):
+    """Get classification and subject from 980."""
+    classification_type_per_tag = {
+        '050': 'bf:ClassificationLcc',
+        '060': 'bf:ClassificationNlm',
+        '080': 'bf:ClassificationUdc',
+        '082': 'bf:ClassificationDdc',
+    }
+
+    def get_classif_type_and_subdivision_codes_from_980_2(subfield_2):
+
+        classification_type_per_tag_980_2 = {
+            'brp': 'classification_brunetparguez',
+            'dr-sys': 'classification_droit',
+            'musi': 'classification_musicale_instruments',
+            'musg': 'classification_musicale_genres'
+        }
+        subdivision_subfield_codes_per_tag_980_2 = {
+            'brp': {'d'},
+            'musg': {'d', 'e'}
+        }
+        classification_type = None
+        subdivision_subfield_codes = None
+        for key in classification_type_per_tag_980_2:
+            regexp = re.compile(r'{key}'.format(key=key), re.IGNORECASE)
+            if regexp.search(subfield_2):
+                classification_type = classification_type_per_tag_980_2[key]
+                if key in subdivision_subfield_codes_per_tag_980_2:
+                    subdivision_subfield_codes = \
+                        subdivision_subfield_codes_per_tag_980_2[key]
+                break
+        return classification_type, subdivision_subfield_codes
+
+    tag = key[:3]
+    indicator1 = key[3]
+    indicator2 = key[4]
+    subfields_a = utils.force_list(value.get('a', []))
+    subfields_2 = utils.force_list(value.get('2'))
+    subfield_2 = None
+    if subfields_2:
+        subfield_2 = subfields_2[0]
+    for subfield_a in subfields_a:
+        classification = {}
+        classification['classificationPortion'] = subfield_a
+        if tag == '980':
+            contains_factum_regexp = re.compile(r'factum')
+            match = contains_factum_regexp.search(subfield_2)
+            if match:
+                subject = {
+                    'type': 'bf:Person',
+                    'preferred_name': subfield_a,
+                    'source': 'factum'
+                }
+                subjects = self.get('subjects', [])
+                subjects.append(subject)
+                self['subjects'] = subjects
+
+            classif_type, subdivision_subfield_codes = \
+                get_classif_type_and_subdivision_codes_from_980_2(subfield_2)
+            if classif_type:
+                classification['type'] = classif_type
+                if subdivision_subfield_codes:
+                    items = get_field_items(value)
+                    subdivision = []
+                    for blob_key, blob_value in items:
+                        if blob_key in subdivision_subfield_codes:
+                            subdivision.append(blob_value)
+                    if subdivision:
+                        classification['subdivision'] = subdivision
+            else:  # avoid classification if type not found
+                classification = None
+
+        else:
+            classification['type'] = classification_type_per_tag[tag]
+            if tag == '050' and indicator2 == '0':
+                classification['assigner'] = 'LOC'
+            if tag == '060' and indicator2 == '0':
+                classification['assigner'] = 'NLM'
+            if tag == '080':
+                subfields_x = utils.force_list(value.get('x'))
+                if subfields_x:
+                    classification['subdivision'] = []
+                    for subfield_x in subfields_x:
+                        classification['subdivision'].append(subfield_x)
+                edition = None
+                if indicator1 == '0':
+                    edition = 'Full edition'
+                elif indicator1 == '1':
+                    edition = 'Abridged edition'
+                if subfield_2:
+                    if edition:
+                        edition += ', ' + subfield_2
+                    else:
+                        edition = subfield_2
+                if edition:
+                    classification['edition'] = edition
+            elif tag == '082':
+                subfields_q = utils.force_list(value.get('q'))
+                subfield_q = None
+                edition = None
+                if subfields_q:
+                    subfield_q = subfields_q[0]
+                if indicator2 == '0':
+                    classification['assigner'] = 'LOC'
+                elif subfield_q:
+                    classification['assigner'] = subfield_q
+                if indicator1 == '0':
+                    edition = 'Full edition'
+                elif indicator1 == '1':
+                    edition = 'Abridged edition'
+                if subfield_2:
+                    if edition:
+                        edition += ', ' + subfield_2
+                    else:
+                        edition = subfield_2
+                if edition:
+                    classification['edition'] = edition
+        classification_list = self.get('classification', [])
+        if classification:
+            classification_list.append(classification)
+            self['classification'] = classification_list
 
 
 @marc21.over('part_of', '^(773|800|830)..')
@@ -1260,29 +1957,6 @@ def marc21_to_part_of(self, key, value):
                 marc21.extract_series_statement_from_marc_field(
                     key, value, self
                 )
-
-
-@marc21.over('subjects', '^6....')
-@utils.for_each_value
-@utils.ignore_value
-def marc21_to_subjects(self, key, value):
-    """Get subjects.
-
-    subjects: 6xx [duplicates could exist between several vocabularies,
-        if possible deduplicate]
-    """
-    subjects = self.get('subjects', [])
-    subfields_a = utils.force_list(value.get('a'))
-    if subfields_a:
-        for subfield_a in subfields_a:
-            if subfield_a not in subjects:
-                subjects.append({
-                    'type': "bf:Topic",
-                    'term': subfield_a
-                })
-        if subjects:
-            self['subjects'] = subjects
-    # we will return None because we have set subjects directly in self
 
 
 @marc21.over('_masked', '^099..')

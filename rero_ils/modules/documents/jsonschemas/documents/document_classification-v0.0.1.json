@@ -18,8 +18,7 @@
           ],
           "required": [
             "type",
-            "classificationPortion",
-            "subdivision"
+            "classificationPortion"
           ],
           "type": "object",
           "properties": {
@@ -60,8 +59,7 @@
           ],
           "required": [
             "type",
-            "classificationPortion",
-            "subdivision"
+            "classificationPortion"
           ],
           "type": "object",
           "properties": {
@@ -102,8 +100,7 @@
           ],
           "required": [
             "type",
-            "classificationPortion",
-            "subdivision"
+            "classificationPortion"
           ],
           "type": "object",
           "properties": {
@@ -145,8 +142,7 @@
           ],
           "required": [
             "type",
-            "classificationPortion",
-            "subdivision"
+            "classificationPortion"
           ],
           "type": "object",
           "properties": {
@@ -191,8 +187,7 @@
           ],
           "required": [
             "type",
-            "classificationPortion",
-            "subdivision"
+            "classificationPortion"
           ],
           "type": "object",
           "properties": {
@@ -236,8 +231,7 @@
           ],
           "required": [
             "type",
-            "classificationPortion",
-            "subdivision"
+            "classificationPortion"
           ],
           "type": "object",
           "properties": {
@@ -278,8 +272,7 @@
           ],
           "required": [
             "type",
-            "classificationPortion",
-            "subdivision"
+            "classificationPortion"
           ],
           "type": "object",
           "properties": {
@@ -332,7 +325,7 @@
               "title": "Notation",
               "description": "Short alphanumeric string that serves as an identifier for a class",
               "type": "string",
-              "minLength": 3,
+              "minLength": 2,
               "form": {
                 "placeholder": "Example: 001.012"
               }
@@ -344,14 +337,14 @@
               "items": {
                 "title": "Subdivision",
                 "type": "string",
-                "minLength": 3
+                "minLength": 2
               }
             },
             "edition": {
               "title": "Edition",
               "description": "Used for imported records only. Edition of the classification, identified by a number, a date, or another textual designation.",
               "type": "string",
-              "minLength": 3,
+              "minLength": 2,
               "form": {
                 "placeholder": "Example: Abridged edition, 22"
               }
@@ -374,8 +367,7 @@
           ],
           "required": [
             "type",
-            "classificationPortion",
-            "subdivision"
+            "classificationPortion"
           ],
           "type": "object",
           "properties": {
@@ -415,7 +407,7 @@
     "title": "Notation",
     "description": "Short alphanumeric string that serves as an identifier for a class",
     "type": "string",
-    "minLength": 3,
+    "minLength": 1,
     "form": {
       "placeholder": "Example: 001.012"
     }
@@ -427,14 +419,14 @@
     "items": {
       "title": "Subdivision",
       "type": "string",
-      "minLength": 3
+      "minLength": 1
     }
   },
   "ref_edition": {
     "title": "Edition",
     "description": "Used for imported records only. Edition of the classification, identified by a number, a date, or another textual designation.",
     "type": "string",
-    "minLength": 3,
+    "minLength": 1,
     "form": {
       "placeholder": "Example: Abridged edition, 22"
     }

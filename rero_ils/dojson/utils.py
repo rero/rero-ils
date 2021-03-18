@@ -169,6 +169,123 @@ _CANTON = [
     'zg', 'zh'
 ]
 
+# field 336 mapping
+_CONTENT_TYPE_MAPPING = {
+    'cri': 'rdaco:1002',
+    'crm': 'rdaco:1003',
+    'crt': 'rdaco:1004',
+    'crn': 'rdaco:1005',
+    'cod': 'rdaco:1007',
+    'crd': 'rdaco:1001',
+    'crf': 'rdaco:1006',
+    'tdi': 'rdaco:1023',
+    'tdm': 'rdaco:1022',
+    'sti': 'rdaco:1014',
+    'tci': 'rdaco:1015',
+    'prm': 'rdaco:1011',
+    'ntv': 'rdaco:1009',
+    'tcn': 'rdaco:1017',
+    'tdf': 'rdaco:1021',
+    'tcf': 'rdaco:1019',
+    'ntm': 'rdaco:1010',
+    'tcm': 'rdaco:1016',
+    'cop': 'rdaco:1008',
+    'snd': 'rdaco:1012',
+    'txt': 'rdaco:1020',
+    'tct': 'rdaco:1018',
+    'spw': 'rdaco:1013',
+    'xxx': 'other'
+}
+
+# field 337 $b and field 338 (first char of $b) mapping
+_MEDIA_TYPE_MAPPING = {
+    's': 'rdamt:1001',
+    'h': 'rdamt:1002',
+    'c': 'rdamt:1003',
+    'p': 'rdamt:1004',
+    'g': 'rdamt:1005',
+    'm': 'rdamt:1005',  # only in 338 (first char of $b)
+    'e': 'rdamt:1006',
+    'n': 'rdamt:1007',
+    'v': 'rdamt:1008',
+    'x': 'other',
+    'z': 'other'  # only in 338 (first char of $b)
+}
+
+# field 338 mapping
+_CARRIER_TYPE_MAPPING = {
+    'zu': 'unspecified',
+    'sg': 'rdact:1002',
+    'se': 'rdact:1003',
+    'sd': 'rdact:1004',
+    'si': 'rdact:1005',
+    'sq': 'rdact:1006',
+    'ss': 'rdact:1007',
+    'st': 'rdact:1008',
+    'sw': 'rdact:1071',
+    'sz': 'other',
+    'ha': 'rdact:1021',
+    'he': 'rdact:1022',
+    'hf': 'rdact:1023',
+    'hb': 'rdact:1024',
+    'hc': 'rdact:1025',
+    'hd': 'rdact:1026',
+    'hh': 'rdact:1027',
+    'hg': 'rdact:1028',
+    'hj': 'rdact:1056',
+    'hz': 'other',
+    'ck': 'rdact:1011',
+    'cb': 'rdact:1012',
+    'cd': 'rdact:1013',
+    'ce': 'rdact:1014',
+    'ca': 'rdact:1015',
+    'cf': 'rdact:1016',
+    'ch': 'rdact:1017',
+    'cr': 'rdact:1018',
+    'cz': 'other',
+    'pp': 'rdact:1030',
+    'pz': 'other',
+    'mc': 'rdact:1032',
+    'mf': 'rdact:1033',
+    'mr': 'rdact:1034',
+    'gd': 'rdact:1035',
+    'gf': 'rdact:1036',
+    'gc': 'rdact:1037',
+    'gt': 'rdact:1039',
+    'gs': 'rdact:1040',
+    'mo': 'rdact:1069',
+    'mz': 'other',
+    'eh': 'rdact:1042',
+    'es': 'rdact:1043',
+    'ez': 'other',
+    'no': 'rdact:1045',
+    'nn': 'rdact:1046',
+    'na': 'rdact:1047',
+    'nb': 'rdact:1048',
+    'nc': 'rdact:1049',
+    'nr': 'rdact:1059',
+    'nz': 'other',
+    'vc': 'rdact:1051',
+    'vf': 'rdact:1052',
+    'vr': 'rdact:1053',
+    'vd': 'rdact:1060',
+    'vz': 'other'
+}
+
+
+_ENCODING_LEVEL_MAPPING = {
+    ' ': 'Full level',
+    '1': 'Full level, material not examined',
+    '2': 'Less-than-full level, material not examined',
+    '3': 'Abbreviated level',
+    '4': 'Core level',
+    '5': 'Partial (preliminary) level',
+    '7': 'Minimal level',
+    '8': 'Prepublication level',
+    'u': 'Unknown',
+    'z': 'Not applicable'
+}
+
 
 def error_print(*args):
     """Error printing to sdtout."""
@@ -220,6 +337,13 @@ def get_field_items(value):
         return value.iteritems(repeated=True)
     else:
         return utils.iteritems(value)
+
+
+def build_string_from_subfields(value, subfield_selection, separator=' '):
+    """Build a string parsing the selected subfields in order."""
+    items = get_field_items(value)
+    parts = [value for key, value in items if key in subfield_selection]
+    return separator.join(parts)
 
 
 def remove_trailing_punctuation(
@@ -431,6 +555,7 @@ class ReroIlsOverdo(Overdo):
         if self.leader:
             self.record_type = self.leader[6]  # LDR 06
             self.bib_level = self.leader[7]  # LDR 07
+
         result = super().do(
             blob,
             ignore_missing=ignore_missing,
@@ -774,6 +899,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
     lang_from_008 = None
     date1_from_008 = None
     date2_from_008 = None
+    original_date_from_008 = None
     date = {'start_date'}
     date_type_from_008 = ''
     serial_type = ''  # 008 pos 21
@@ -783,6 +909,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
     is_top_level_record = False  # has 019 $a Niveau supérieur
     has_field_490 = False
     has_field_580 = False
+    content_media_carrier_type = None
 
     def __init__(self, bases=None, entry_point_group=None):
         """Reroilsmarc21overdo init."""
@@ -817,7 +944,9 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
         self.count += 1
         result = None
         try:
+            # extract record leader
             self._blob_record = blob
+            self.leader = blob.get('leader', '')
             try:
                 self.bib_id = self.get_fields(tag='001')[0]['data']
             except Exception:
@@ -827,7 +956,6 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                 self.rero_id = self.get_subfields(fields_035[0], 'a')[0]
             except Exception:
                 self.rero_id = '???'
-            # extract record leader
             self.field_008_data = ''
             self.date1_from_008 = None
             self.date2_from_008 = None
@@ -837,27 +965,75 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
             if fields_008:
                 self.field_008_data = self.get_control_field_data(
                     fields_008[0]).rstrip()
+                self.serial_type = self.field_008_data[21]
                 self.date1_from_008 = self.field_008_data[7:11]
                 self.date2_from_008 = self.field_008_data[11:15]
                 self.date_type_from_008 = self.field_008_data[6]
-                self.serial_type = self.field_008_data[21]
+                if self.date_type_from_008 == 'r':
+                    self.original_date_from_008 = self.date2_from_008
+            self.admin_meta_data = {}
+
+            enc_level = ''
+            if self.leader:
+                enc_level = self.leader[17]  # LDR 17
+            if enc_level in _ENCODING_LEVEL_MAPPING:
+                encoding_level = _ENCODING_LEVEL_MAPPING[enc_level]
+            else:
+                encoding_level = _ENCODING_LEVEL_MAPPING['u']
+            self.admin_meta_data['encodingLevel'] = encoding_level
+
             self.init_lang()
             self.init_country()
             self.init_alternate_graphic()
             self.init_date()
+            self.init_content_media_carrier_type()
 
+            # get notes from 019 $a or $b and
             # identifiy a top level record (has 019 $a Niveau supérieur)
             regexp = re.compile(r'Niveau sup[eé]rieur', re.IGNORECASE)
             fields_019 = self.get_fields(tag='019')
+            note = ''
+            notes_from_019_and_351 = []
             for field_019 in fields_019:
                 for subfield_a in self.get_subfields(field_019, 'a'):
+                    note += ' | ' + subfield_a
                     if regexp.search(subfield_a):
                         self.is_top_level_record = True
-                        break
-                else:
-                    continue  # only executed if the inner loop did NOT break
-                break  # only executed if the inner loop DID break
+                for subfield_b in self.get_subfields(field_019, 'b'):
+                    note += ' | ' + subfield_b
+                for subfield_9 in self.get_subfields(field_019, '9'):
+                    note += ' (' + subfield_9 + ')'
+                    break
+                if note:
+                    notes_from_019_and_351.append(note[3:])
 
+            fields_351 = self.get_fields(tag='351')
+            for field_351 in fields_351:
+                note = ' | '.join(self.get_subfields(field_351, 'c'))
+                if note:
+                    notes_from_019_and_351.append(note)
+
+            if notes_from_019_and_351:
+                self.admin_meta_data['note'] = notes_from_019_and_351
+
+            fields_040 = self.get_fields(tag='040')
+            for field_040 in fields_040:
+                for subfield_a in self.get_subfields(field_040, 'a'):
+                    self.admin_meta_data['source'] = subfield_a
+                for subfield_b in self.get_subfields(field_040, 'b'):
+                    self.admin_meta_data['descriptionLanguage'] = subfield_b
+                description_modifier = []
+                for subfield_d in self.get_subfields(field_040, 'd'):
+                    description_modifier.append(subfield_d)
+                if description_modifier:
+                    self.admin_meta_data['descriptionModifier'] = \
+                        description_modifier
+                description_conventions = []
+                for subfield_e in self.get_subfields(field_040, 'e'):
+                    description_conventions.append(subfield_e)
+                if description_conventions:
+                    self.admin_meta_data['descriptionConventions'] = \
+                        description_conventions
             # check presence of specific fields
             self.has_field_490 = len(self.get_fields(tag='490')) > 0
             self.has_field_580 = len(self.get_fields(tag='580')) > 0
@@ -999,8 +1175,8 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
         """Initialization of alternate graphic representation.
 
         Parse all the 880 fields and populate a dictionary having as first
-        level keys the tag of the linked field and as second level key the
-        link code (from $6) of the linked field. The language script is
+        level keys the tag of the linked_data field and as second level key the
+        link code (from $6) of the linked_data field. The language script is
         extracted from $6 and used to qualify the alternate graphic value.
         """
         def get_script_from_lang(asian=False):
@@ -1146,6 +1322,90 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                 # for showing the variant title skipped for debugging purpose
                 # print('variant skipped', subfield_246_a_cleaned)
         return variant_list
+
+    def init_content_media_carrier_type(self):
+        """Initialization content/media/carrier type (336, 337 and 338)."""
+        content_media_carrier_type_per_tag = {
+            '336': 'contentType',
+            '337': 'mediaType',
+            '338': 'carrierType'
+        }
+        content_media_carrier_map_per_tag = {
+            '336': _CONTENT_TYPE_MAPPING,
+            '337': _MEDIA_TYPE_MAPPING,
+            '338': _CARRIER_TYPE_MAPPING
+        }
+
+        content_media_carrier_type = {}
+        media_type_from_unlinked_337 = ''
+        for tag in ['336', '337', '338']:  # parsing tag in the right order
+            type_key = content_media_carrier_type_per_tag[tag]
+            fields = self.get_fields(tag=tag)
+            for field in fields:
+                subfields_8 = self.get_subfields(field, '8')
+                if not subfields_8:
+                    subfields_8 = ['0']
+                for subfield_b in self.get_subfields(field, 'b'):
+                    type_found = False
+                    for link in subfields_8:
+                        linked_data = content_media_carrier_type.get(link, {})
+                        if tag == '336':
+                            linked_data_type_value = \
+                                linked_data.get(type_key, [])
+                            type_value = \
+                                content_media_carrier_map_per_tag[tag].get(
+                                    subfield_b, None)
+                            if type_value and \
+                                    type_value not in linked_data_type_value:
+                                linked_data_type_value.append(type_value)
+                                linked_data[type_key] = linked_data_type_value
+                                type_found = True
+                        else:
+                            if link == '0' and tag == '337':
+                                media_type_from_unlinked_337 = \
+                                    content_media_carrier_map_per_tag[tag].get(
+                                        subfield_b, None)
+                            linked_data_type_value = \
+                                linked_data.get(type_key, '')
+                            type_value = \
+                                content_media_carrier_map_per_tag[tag].get(
+                                    subfield_b, None)
+                            if type_value:
+                                linked_data_type_value = type_value
+                                linked_data[type_key] = linked_data_type_value
+                                type_found = True
+                                if tag == '338':
+                                    # extract mediaType for the fist char of $b
+                                    media_type_from_338 = \
+                                        _MEDIA_TYPE_MAPPING.get(
+                                            subfield_b[0], None)
+                                    if media_type_from_338:
+                                        linked_data['mediaTypeFrom338'] = \
+                                            media_type_from_338
+                        if type_found:
+                            content_media_carrier_type[link] = linked_data
+                    break  # subfield $b in not repetitive
+        self.content_media_carrier_type = []
+        for link, value in content_media_carrier_type.items():
+            media_type = value.get('mediaType', None)
+            media_type_from_338 = value.get('mediaTypeFrom338', None)
+            # set mediaType from 338 if not get it form 337
+            if media_type_from_338:
+                if not media_type:
+                    value['mediaType'] = media_type_from_338
+                elif media_type_from_338 != media_type:
+                    value['mediaType'] = media_type_from_338
+                    error_print(
+                        'MEDIA TYPE ERROR:',
+                        self.bib_id, self.rero_id, media_type)
+
+            if media_type_from_338 and not media_type:
+                value['mediaType'] = media_type_from_338
+            value.pop('mediaTypeFrom338', None)
+            if 'contentType' in value:
+                if media_type_from_unlinked_337 and 'mediaType' not in value:
+                    value['mediaType'] = media_type_from_unlinked_337
+                self.content_media_carrier_type.append(value)
 
 
 class ReroIlsUnimarcOverdo(ReroIlsOverdo):
