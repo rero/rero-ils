@@ -61,22 +61,22 @@ def migrate_virtua_operation_logs(infile, verbose, debug, lazy):
                     oplg.get('record').get('$ref'), data='resource')
                 pid_type = enabled_logs.get(resource)
                 if pid_type and operation == OperationLogOperation.CREATE:
-                    # The virtua create operation log overrides the reroils create
-                    # operation log, the method to use is UPDATE
+                    # The virtua create operation log overrides the reroils
+                    # create operation log, the method to use is UPDATE
                     record_pid = extracted_data_from_ref(
                         oplg.get('record').get('$ref'), data='pid')
-                    
+
                     create_rec = \
                         OperationLog.get_create_operation_log_by_resource_pid(
                             pid_type, record_pid)
                     if create_rec:
                         create_rec.update(oplg, dbcommit=True, reindex=True)
                 elif pid_type and operation == OperationLogOperation.UPDATE:
-                    # The virtua update operation log is a new entry in the reroils
-                    # operation log, the method to use is CREATE
+                    # The virtua update operation log is a new entry in the
+                    # reroils operation log, the method to use is CREATE
                     OperationLog.create(data=oplg, dbcommit=True, reindex=True)
-            except:
+            except Exception:
                 pass
         index_count += len(data)
     click.echo('created {index_count} operation logs.'.format(
-        index_count=index_count)) 
+        index_count=index_count))

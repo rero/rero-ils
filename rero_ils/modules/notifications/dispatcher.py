@@ -142,4 +142,7 @@ class Dispatcher:
             if setting['type'] == 'availability':
                 delay_availability = setting['delay']
         msg = Dispatcher._create_email(data, patron, library, recipients)
-        task_send_email.apply_async((msg.__dict__,), countdown=delay_availability)
+        task_send_email.apply_async(
+            (msg.__dict__,),
+            countdown=delay_availability
+        )

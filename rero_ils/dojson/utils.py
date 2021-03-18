@@ -186,7 +186,7 @@ def make_year(date):
         int_date = int(date)
         if int_date >= 1000 and int_date < 9999:
             return int_date
-    except:
+    except Exception:
         pass
     return None
 
@@ -811,7 +811,6 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                 'series_enumeration': 'v'
             }
         }
-        
 
     def do(self, blob, ignore_missing=True, exception_handlers=None):
         """Translate blob values and instantiate new model instance."""
@@ -821,12 +820,12 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
             self._blob_record = blob
             try:
                 self.bib_id = self.get_fields(tag='001')[0]['data']
-            except Exception as err:
+            except Exception:
                 self.bib_id = '???'
             try:
                 fields_035 = self.get_fields(tag='035')
                 self.rero_id = self.get_subfields(fields_035[0], 'a')[0]
-            except:
+            except Exception:
                 self.rero_id = '???'
             # extract record leader
             self.field_008_data = ''

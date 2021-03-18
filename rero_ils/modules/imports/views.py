@@ -69,7 +69,7 @@ class ImportsListResource(ContentNegotiatedMethodView):
             where = query_split[0]
             relation = query_split[1]
             what = ':'.join(query_split[2:])
-        except:
+        except Exception:
             where = 'anywhere'
             relation = 'all'
             what = query

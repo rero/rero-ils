@@ -80,6 +80,7 @@ class UsersResource(ContentNegotiatedMethodView):
         user = user.update(request.get_json())
         return user.dumps()
 
+
 class UsersCreateResource(ContentNegotiatedMethodView):
     """User REST resource."""
 

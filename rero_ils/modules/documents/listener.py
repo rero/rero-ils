@@ -69,7 +69,9 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                     data[field] = dict_holding.get(field)
             # Index holdings notes
             notes = [
-                note['content'] for note in dict_holding.get('notes', []) if note
+                note['content'] for note in dict_holding.get(
+                    'notes', []
+                ) if note
             ]
             if notes:
                 data['notes'] = notes

@@ -46,8 +46,8 @@ _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 current_patron = LocalProxy(lambda: Patron.get_patron_by_user(current_user))
 
 
-def create_patron_from_data(
-    data, delete_pid=False, dbcommit=False, reindex=False):
+def create_patron_from_data(data, delete_pid=False, dbcommit=False,
+                            reindex=False):
     """Create a patron and a user from a data dict.
 
     :param data - dictionary representing a library user

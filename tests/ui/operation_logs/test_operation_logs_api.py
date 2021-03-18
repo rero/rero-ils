@@ -34,7 +34,7 @@ def test_operation_logs_es_mapping(db, item_lib_sion, operation_log_1_data):
     mapping = get_mapping(search.Meta.index)
     assert mapping
     oplg = OperationLog.create(operation_log_1_data, dbcommit=True,
-                             reindex=True, delete_pid=True)
+                               reindex=True, delete_pid=True)
     flush_index(OperationLogsSearch.Meta.index)
     assert mapping == get_mapping(search.Meta.index)
 
@@ -47,5 +47,5 @@ def test_operation_logs_es_mapping(db, item_lib_sion, operation_log_1_data):
     fetched_pid = fetcher(oplg.id, oplg)
     assert fetched_pid.pid_value == '7'
     assert fetched_pid.pid_type == 'oplg'
-    
+
     assert oplg.get('operation') == OperationLogOperation.UPDATE

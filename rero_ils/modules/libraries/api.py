@@ -344,6 +344,7 @@ class Library(IlsRecord):
             if setting['type'] == notification_type:
                 return setting['email']
 
+
 class LibrariesIndexer(IlsRecordsIndexer):
     """Holdings indexing class."""
 

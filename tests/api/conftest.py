@@ -48,6 +48,7 @@ def user_with_profile(db):
     db.session.commit()
     return user
 
+
 @pytest.fixture(scope='module')
 def create_app():
     """Create test app."""

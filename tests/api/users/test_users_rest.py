@@ -26,8 +26,8 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
 
-def test_users_post_put(
-    client, user_data_tmp, librarian_martigny, json_header):
+def test_users_post_put(client, user_data_tmp, librarian_martigny,
+                        json_header):
     """Test users REST api for retrieve, create and update."""
     first_name = user_data_tmp.get('first_name')
 
@@ -50,7 +50,6 @@ def test_users_post_put(
         user_data_tmp
     )
     assert res.status_code == 400
-
 
     user_data_tmp.pop('toto')
     user_data_tmp['first_name'] = 1

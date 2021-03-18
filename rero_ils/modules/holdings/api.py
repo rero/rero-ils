@@ -602,6 +602,7 @@ class Holding(IlsRecord):
         issue = Item.create(data=data, dbcommit=dbcommit, reindex=reindex)
         return issue
 
+
 def get_holding_pid_by_doc_location_item_type(
         document_pid, location_pid, item_type_pid, holdings_type='standard'):
     """Returns standard holding pid for document/location/item type."""

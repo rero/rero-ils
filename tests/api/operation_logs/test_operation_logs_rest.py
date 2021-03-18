@@ -24,8 +24,7 @@ from rero_ils.modules.operation_logs.api import OperationLogsSearch
 from rero_ils.modules.operation_logs.models import OperationLogOperation
 
 
-def test_operation_log_entries(
-    client, librarian_martigny, document):
+def test_operation_log_entries(client, librarian_martigny, document):
     """Test operation log entries after record update."""
     with mock.patch(
         'rero_ils.modules.operation_logs.listener.current_patron',
@@ -36,7 +35,8 @@ def test_operation_log_entries(
         document.update(
             document, dbcommit=True, reindex=True)
     search = OperationLogsSearch()
-    results = search.filter('term',
+    results = search.filter(
+        'term',
         operation=OperationLogOperation.UPDATE).filter(
         'term', record__pid=document.pid).filter(
         'term', user_name=librarian_martigny.formatted_name

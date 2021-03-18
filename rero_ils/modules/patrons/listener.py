@@ -43,6 +43,7 @@ def enrich_patron_data(sender, json=None, record=None, index=None,
                 'pid': org_pid
             }
 
+
 def create_subscription_patron_transaction(sender, record=None, **kwargs):
     """This method check the patron to know if a subscription is requested.
 

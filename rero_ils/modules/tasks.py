@@ -58,6 +58,7 @@ def delete_record(record_uuid):
     """
     IlsRecordsIndexer().delete_by_id(record_uuid)
 
+
 @shared_task(ignore_result=True)
 def scheduler_timestamp():
     """Writes a time stamp to current cache."""

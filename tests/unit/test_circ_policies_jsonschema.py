@@ -212,4 +212,3 @@ def test_circ_policy_overdue_fees(circ_policy_schema,
         invalid_overdue_data['intervals'][0]['to'] = 7
         cipo['overdue_fees'] = invalid_overdue_data
         cipo.validate()
-

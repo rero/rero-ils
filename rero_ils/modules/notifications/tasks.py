@@ -119,4 +119,3 @@ def create_notifications(types=None, tstamp=None, process=True, verbose=True):
     if process:
         logger.info(process_notifications.run(verbose=verbose))
     set_timestamp('notification-creation')
-

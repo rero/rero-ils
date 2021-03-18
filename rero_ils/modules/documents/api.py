@@ -305,7 +305,6 @@ class Document(IlsRecord):
         return self, True
 
 
-
 class DocumentsIndexer(IlsRecordsIndexer):
     """Indexing documents in Elasticsearch."""
 

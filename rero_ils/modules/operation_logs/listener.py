@@ -62,7 +62,7 @@ def build_operation_log_record(record=None, operation=None):
         resource_name = extracted_data_from_ref(
             record.get('$schema'), data='resource')
         if resource_name in current_app.config.get(
-            'RERO_ILS_ENABLE_OPERATION_LOG'):
+                'RERO_ILS_ENABLE_OPERATION_LOG'):
             oplg = {
                 'date': datetime.now(timezone.utc).isoformat(),
                 'record': {'$ref': get_ref_for_pid(

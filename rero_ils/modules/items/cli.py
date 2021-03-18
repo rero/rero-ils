@@ -112,7 +112,7 @@ def create_items(count, itemscount, missing, items_f, holdings_f):
                 doc_type = Document.get_record_by_pid(
                     document_pid).get('type')[0]
                 if doc_type.get('subtype') == 'docsubtype_e-book' \
-                    or doc_type.get('main_type') == 'docmaintype_serial':
+                        or doc_type.get('main_type') == 'docmaintype_serial':
                     continue
 
                 if Document.get_record_by_pid(
@@ -151,8 +151,8 @@ def create_items(count, itemscount, missing, items_f, holdings_f):
                     else:
                         barcode = str(10000000000 + item_pid)
 
-                    price = random.randint(1,100)
-                    legacy_checkout_count = random.randint(1,15)
+                    price = random.randint(1, 100)
+                    legacy_checkout_count = random.randint(1, 15)
                     legacy_circulation_rules = {
                         'use_item_specific_rules': False,
                         'loan_duration': 15,
@@ -253,9 +253,8 @@ def get_item_types():
 
 def create_random_item(item_pid, location_pid, missing, item_type_pid,
                        document_pid, holding_pid, barcode, status,
-                       new_acquisition, price, legacy_checkout_count, 
-                       legacy_circulation_rules
-):
+                       new_acquisition, price, legacy_checkout_count,
+                       legacy_circulation_rules):
     """Create items with randomised values."""
     if not status:
         status = ItemStatus.ON_SHELF

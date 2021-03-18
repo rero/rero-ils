@@ -129,6 +129,6 @@ def test_circ_policy_can_delete(app, circ_policy_martigny_data_tmp):
     with mock.patch(
             'rero_ils.modules.circ_policies.api.CircPolicy.get_links_to_me'
     ) as a:
-            a.return_value = {'object': 1}
-            reasons = cipo.reasons_not_to_delete()
-            assert 'links' in reasons
+        a.return_value = {'object': 1}
+        reasons = cipo.reasons_not_to_delete()
+        assert 'links' in reasons
