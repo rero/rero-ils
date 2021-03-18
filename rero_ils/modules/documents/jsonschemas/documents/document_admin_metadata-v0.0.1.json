@@ -97,7 +97,7 @@
         "title": "Source",
         "description": "Original cataloging agency",
         "type": "string",
-        "minLength": 3,
+        "minLength": 1,
         "form": {
           "templateOptions": {
             "itemCssClass": "col-lg-4"
@@ -112,7 +112,7 @@
         "items": {
           "title": "Description modifier",
           "type": "string",
-          "minLength": 3
+          "minLength": 1
         },
         "form": {
           "templateOptions": {
@@ -146,7 +146,7 @@
         "items": {
           "title": " Description conventions",
           "type": "string",
-          "minLength": 3
+          "minLength": 2
         },
         "form": {
           "templateOptions": {
