@@ -1647,7 +1647,7 @@ def export(verbose, pid_type, outfile, pidfile, indent, schema):
     record_class = get_record_class_from_schema_or_pid_type(pid_type=pid_type)
 
     if pidfile:
-        pids = pidfile
+        pids = list(filter(None, [line.rstrip() for line in pidfile]))
     else:
         pids = record_class.get_all_pids()
 
