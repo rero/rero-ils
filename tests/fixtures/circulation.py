@@ -487,6 +487,7 @@ def loan_validated_sion(
         item_pid=item2_lib_sion.pid))[0]
     return loan
 
+
 # ------------ Notifications: availability ----------
 @pytest.fixture(scope="module")
 def notification_availability_martigny(loan_validated_martigny):
@@ -495,6 +496,7 @@ def notification_availability_martigny(loan_validated_martigny):
         loan_validated_martigny,
         notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE
     )
+
 
 @pytest.fixture(scope="module")
 def notification_availability_sion(loan_validated_sion):
@@ -505,6 +507,7 @@ def notification_availability_sion(loan_validated_sion):
     )
 
 # ------------ Notifications: dummy notification ----------
+
 
 @pytest.fixture(scope="function")
 def dummy_notification(data):

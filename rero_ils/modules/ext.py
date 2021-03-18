@@ -95,7 +95,6 @@ class REROILSAPP(object):
         # import logging
         # logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 
-
     def register_import_api_blueprint(self, app):
         """Imports bluprint initialization."""
         api_blueprint = Blueprint(
@@ -138,15 +137,11 @@ class REROILSAPP(object):
         )
         api_blueprint.add_url_rule(
             '/users/<id>',
-            view_func=UsersResource.as_view(
-            'users_item'
-        )
+            view_func=UsersResource.as_view('users_item')
         )
         api_blueprint.add_url_rule(
             '/users/',
-            view_func=UsersCreateResource.as_view(
-            'users_list'
-        )
+            view_func=UsersCreateResource.as_view('users_list')
         )
 
         @api_blueprint.errorhandler(ValidationError)

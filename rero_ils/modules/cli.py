@@ -1285,7 +1285,7 @@ def translate(translate_to, change, title_map, no_loc_en, angular, verbose):
                             trans_name = locale.languages.get(
                                 lang_info.alpha_2
                             )
-                        except:
+                        except Exception:
                             # try with alpha_3
                             trans_name = locale.languages.get(
                                 lang_info.alpha_3
@@ -1677,7 +1677,7 @@ def export(verbose, pid_type, outfile, pidfile, indent, schema):
                 for contributions_source in contributions_sources:
                     try:
                         del rec[contributions_source]['$schema']
-                    except:
+                    except Exception:
                         pass
             output = ''
             lines = json.dumps(rec, indent=indent).split('\n')

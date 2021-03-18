@@ -65,9 +65,9 @@ def test_operation_logs_permissions_api(
 
 
 def test_operation_logs_permissions(patron_martigny, org_martigny,
-                           librarian_martigny, org_sion,
-                           item_lib_martigny,
-                           system_librarian_martigny):
+                                    librarian_martigny, org_sion,
+                                    item_lib_martigny,
+                                    system_librarian_martigny):
     """Test operation log permissions class."""
 
     oplg = OperationLog.get_record_by_pid('1')

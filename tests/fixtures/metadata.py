@@ -265,7 +265,6 @@ def contribution_person(contribution_person_data):
     return cont
 
 
-
 @pytest.fixture(scope="module")
 def contribution_organisation_data(data):
     """Load mef contribution organisation data."""
@@ -1007,9 +1006,9 @@ def templ_patron_public_martigny_data(data):
 
 
 @pytest.fixture(scope="module")
-def templ_patron_public_martigny(
-        app, org_martigny, templ_patron_public_martigny_data,
-        system_librarian_martigny):
+def templ_patron_public_martigny(app, org_martigny,
+                                 templ_patron_public_martigny_data,
+                                 system_librarian_martigny):
     """Load template for a public item martigny."""
     template = Template.create(
         data=templ_patron_public_martigny_data,
@@ -1028,8 +1027,8 @@ def local_field_martigny_data(local_fields):
 
 
 @pytest.fixture(scope="module")
-def local_field_martigny(
-        app, org_martigny, document, local_field_martigny_data):
+def local_field_martigny(app, org_martigny, document,
+                         local_field_martigny_data):
     """Load local field."""
     local_field = LocalField.create(
         data=local_field_martigny_data,
@@ -1047,8 +1046,7 @@ def local_field_sion_data(local_fields):
 
 
 @pytest.fixture(scope="module")
-def local_field_sion(
-        app, org_martigny, document, local_field_sion_data):
+def local_field_sion(app, org_martigny, document, local_field_sion_data):
     """Load local field."""
     local_field = LocalField.create(
         data=local_field_sion_data,
@@ -1057,6 +1055,7 @@ def local_field_sion(
         reindex=True)
     flush_index(LocalFieldsSearch.Meta.index)
     return local_field
+
 
 # --- OPERATION LOGS
 @pytest.fixture(scope="module")

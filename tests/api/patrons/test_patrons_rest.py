@@ -80,6 +80,7 @@ def test_filtered_patrons_get(
     # data = get_json(res)
     # assert data['hits']['total']['value'] == 1
 
+
 def test_patron_has_valid_subscriptions(
         patron_type_grown_sion, patron_sion, patron_sion_data,
         patron_type_adults_martigny, patron2_martigny,
@@ -231,6 +232,7 @@ def test_patrons_permissions(client, librarian_martigny,
     res = client.delete(item_url)
     assert res.status_code == 401
 
+
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_patrons_get(client, librarian_martigny):
@@ -331,19 +333,19 @@ def test_patrons_post_put_delete(app, client, lib_martigny,
 
     # Check that the returned record matches the given data
     data = get_json(res)
-    assert data['metadata']['patron']['barcode'][0]  == 'barcode_test'
+    assert data['metadata']['patron']['barcode'][0] == 'barcode_test'
 
     res = client.get(item_url)
     assert res.status_code == 200
 
     data = get_json(res)
-    assert data['metadata']['patron']['barcode'][0]  == 'barcode_test'
+    assert data['metadata']['patron']['barcode'][0] == 'barcode_test'
 
     res = client.get(list_url)
     assert res.status_code == 200
 
     data = get_json(res)['hits']['hits'][0]
-    assert data['metadata']['patron']['barcode'][0]  == 'barcode_test'
+    assert data['metadata']['patron']['barcode'][0] == 'barcode_test'
 
     # Delete record/DELETE
     res = client.delete(item_url)
@@ -444,7 +446,6 @@ def test_patron_secure_api_create(app, client, patron_type_children_martigny,
     assert res.status_code == 403
     ds = app.extensions['invenio-accounts'].datastore
     ds.delete_user(ds.find_user(id=data['user_id']))
-
 
 
 def test_patron_secure_api_delete(app, client, librarian_martigny,

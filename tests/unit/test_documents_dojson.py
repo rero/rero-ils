@@ -1183,8 +1183,8 @@ def test_marc21_to_language():
     data = marc21.do(marc21json)
     assert data.get('language') == [
         {
-           'type': 'bf:Language',
-           'value': 'ara'
+            'type': 'bf:Language',
+            'value': 'ara'
         },
         {
             'type': 'bf:Language',
@@ -3781,6 +3781,7 @@ def test_get_contribution_link(mock_get, capsys):
         value={'0': 'X123456789'}
     )
     assert not mef_url
+
 
 def test_marc21_to_masked():
     """Test record masking.

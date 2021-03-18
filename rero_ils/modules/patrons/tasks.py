@@ -55,7 +55,11 @@ def clean_obsolete_subscriptions():
         # NOTE : this update will trigger the listener
         #        `create_subscription_patron_transaction`. This listener will
         #        create a new subscription if needed
-        patron.update(Patron.removeUserData(patron.dumps()), dbcommit=True, reindex=True)
+        patron.update(
+            Patron.removeUserData(patron.dumps()),
+            dbcommit=True,
+            reindex=True
+        )
 
 
 def check_patron_types_and_add_subscriptions():

@@ -156,6 +156,7 @@ def test_item_types_post_put_delete(client, org_martigny,
 def test_item_types_name_validate(client):
     """Test record name validation."""
     url = url_for('item_types.name_validate', name='standard')
+
     class current_patron:
         class organisation:
             pid = 'org1'

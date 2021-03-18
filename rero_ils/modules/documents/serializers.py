@@ -139,8 +139,7 @@ class DocumentJSONSerializer(JSONSerializer):
         new_type_buckets = []
         type_buckets = results['aggregations']['document_type']['buckets']
         results['aggregations']['document_type']['buckets'] = \
-        filter_document_type_buckets(type_buckets)
-
+            filter_document_type_buckets(type_buckets)
 
         return super(
             DocumentJSONSerializer, self).post_process_serialize_search(

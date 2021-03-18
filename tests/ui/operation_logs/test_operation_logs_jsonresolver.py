@@ -40,7 +40,8 @@ def test_operation_log_jsonresolver(item_lib_martigny):
 
     # non existing record
     rec = Record.create({
-        'operation_logs': {'$ref': 'https://ils.rero.ch/api/operation_logs/n_e'}
+        'operation_logs': {
+            '$ref': 'https://ils.rero.ch/api/operation_logs/n_e'}
     })
     with pytest.raises(JsonRefError):
         rec.replace_refs().dumps()

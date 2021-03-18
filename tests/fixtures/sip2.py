@@ -40,6 +40,7 @@ def sip2_librarian_martigny(
     data = sip2_librarian_martigny_data
     yield create_patron(data)
 
+
 @pytest.fixture(scope="module")
 def sip2_patron_martigny_data(data):
     """Load Martigny librarian data."""

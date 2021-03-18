@@ -158,6 +158,7 @@ def test_patron_types_post_put_delete(client, org_martigny,
 def test_patron_types_name_validate(client):
     """Test patron type name validation."""
     url = url_for('patron_types.name_validate', name='children')
+
     class current_patron:
         class organisation:
             pid = 'org1'

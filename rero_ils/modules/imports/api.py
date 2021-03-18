@@ -285,7 +285,6 @@ class Import(object):
             ids = sub_bucket[0]['ids']
         return ids
 
-
     def search_records(self, what, relation, where='anywhere', max=0,
                        no_cache=False):
         """Get the records.

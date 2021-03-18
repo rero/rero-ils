@@ -69,4 +69,3 @@ def test_library_closed_date_api(client, lib_martigny, librarian_martigny):
     assert data['params']['from'] == params['from']
     assert data['params']['until'] == params['until']
     assert data['closed_dates'] == []
-

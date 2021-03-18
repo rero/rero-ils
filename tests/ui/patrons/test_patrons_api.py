@@ -44,7 +44,8 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
     assert User.query.count() == 0
     assert UserProfile.query.count() == 0
     l_martigny_data_tmp = librarian_martigny_data_tmp
-    librarian_martigny_data_tmp = create_user_from_data(librarian_martigny_data_tmp)
+    librarian_martigny_data_tmp = create_user_from_data(
+        librarian_martigny_data_tmp)
     # wrong_librarian_martigny_data_tmp = deepcopy(librarian_martigny_data_tmp)
     # wrong_librarian_martigny_data_tmp.pop('first_name')
     # with pytest.raises(ValidationError):
@@ -184,7 +185,6 @@ def test_patron_create_without_email(app, roles, patron_type_children_martigny,
 
     patron_martigny_data_tmp = \
         create_user_from_data(patron_martigny_data_tmp)
-
 
     # comminication channel require at least one email
     patron_martigny_data_tmp['patron']['communication_channel'] = 'email'

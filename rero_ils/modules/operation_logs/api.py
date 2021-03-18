@@ -77,6 +77,7 @@ class OperationLog(IlsRecord):
         except StopIteration:
             return None
 
+
 class OperationLogsIndexer(IlsRecordsIndexer):
     """Operation log indexing class."""
 

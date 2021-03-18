@@ -406,7 +406,8 @@ def get_random_patron(exclude_this_barcode):
         .source(['patron']).scan()
     for patron in patrons:
         if exclude_this_barcode not in patron.patron.barcode:
-            return Patron.get_patron_by_barcode(barcode=patron.patron.barcode[0])
+            return Patron.get_patron_by_barcode(
+                barcode=patron.patron.barcode[0])
 
 
 def get_random_librarian(patron):

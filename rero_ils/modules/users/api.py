@@ -38,11 +38,14 @@ from ...utils import remove_empties_from_dict
 
 _records_state = LocalProxy(lambda: current_app.extensions['invenio-records'])
 
+
 def get_profile_countries():
     """Get country list from the jsonschema."""
     schema = current_jsonschemas.get_schema('common/countries-v0.0.1.json')
     options = schema['country']['form']['options']
-    return [(option.get('value'), _((option.get('label')))) for option in options]
+    return [
+        (option.get('value'), _((option.get('label')))) for option in options
+    ]
 
 
 def get_readonly_profile_fields():
@@ -76,8 +79,10 @@ class User(object):
             email = data.pop('email', None)
             roles = data.pop('roles', None)
             cls._validate(data=data)
-            password = data.pop('password',
-                data.get('birth_date', '123456'))
+            password = data.pop(
+                'password',
+                data.get('birth_date', '123456')
+            )
             user = BaseUser(
                 password=hash_password(password),
                 profile=data, active=True)
@@ -220,5 +225,3 @@ class User(object):
         if not user:
             return cls.get_by_username(username_or_email)
         return user
-
-

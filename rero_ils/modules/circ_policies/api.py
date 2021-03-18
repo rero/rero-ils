@@ -338,8 +338,8 @@ class CircPolicy(IlsRecord):
         """Get reminders corresponding to arguments.
 
         :param reminder_type: the type of reminder to search.
-        :param limit: the number of day limit. All reminders defined after these limit
-                      will not be returned
+        :param limit: the number of day limit. All reminders defined after
+                      these limit will not be returned
         """
         limit = limit or sys.maxsize
         for reminder in self.get('reminders', []):

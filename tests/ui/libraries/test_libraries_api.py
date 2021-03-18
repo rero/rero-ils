@@ -48,7 +48,7 @@ def test_libraries_is_open(lib_martigny):
     saturday = '2018-12-15 11:00'
     monday = '2018-12-10 06:00'
     library = lib_martigny
-    
+
     def next_weekday(d, weekday):
         """Get the next weekday after a giver date."""
         # 0=Monday, 1=Tuesday, ...

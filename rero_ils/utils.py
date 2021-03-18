@@ -64,6 +64,7 @@ def remove_empties_from_dict(a_dict):
             new_dict[k] = v
     return new_dict or None
 
+
 def create_user_from_data(data):
     """Create a user and set the profile fields from a data.
 
