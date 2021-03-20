@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-03-04 07:27+0100\n"
-"PO-Revision-Date: 2021-03-05 07:50+0000\n"
-"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"PO-Revision-Date: 2021-03-19 10:18+0000\n"
+"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
 "Language: fr\n"
@@ -30,7 +30,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.5.1-dev\n"
+"X-Generator: Weblate 4.5.2-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:133
@@ -121,9 +121,8 @@ msgid "roles"
 msgstr "rôles"
 
 #: rero_ils/config.py:1788
-#, fuzzy
 msgid "city"
-msgstr "Ville"
+msgstr "ville"
 
 #: rero_ils/config.py:1789
 #, fuzzy
@@ -8831,9 +8830,8 @@ msgstr ""
 "atteinte."
 
 #: rero_ils/modules/patrons/views.py:144
-#, fuzzy
 msgid "Patron Profile"
-msgstr "Type de lecteur"
+msgstr "Profile du lecteur"
 
 #: rero_ils/modules/patrons/views.py:176
 #, python-format
@@ -8884,9 +8882,8 @@ msgid "Source if the record has been loaded in a batch."
 msgstr "La source lorsque la ressource a été chargée dans lot."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:42
-#, fuzzy
 msgid "Local code"
-msgstr "Code postal"
+msgstr "Code local"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:43
 msgid "Code used to classify users, for instance for statistics."
@@ -8895,9 +8892,8 @@ msgstr ""
 "statistiques."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:48
-#, fuzzy
 msgid "Personal informations"
-msgstr "Informations de lecteur"
+msgstr "Informations personnelles"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:61
 msgid "Second address"
@@ -8944,7 +8940,6 @@ msgid "Patron type in terms of circulation policy."
 msgstr "Type de lecteur en termes de politique de circulation."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:167
-#, fuzzy
 msgid "Patron's barcodes or cards number"
 msgstr "Code-barres ou numéro de carte du lecteur"
 
@@ -9242,7 +9237,7 @@ msgstr "Demandes"
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:57
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:59
 msgid "Fees"
-msgstr "Frais"
+msgstr "Amendes"
 
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:73
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:75
@@ -9324,9 +9319,8 @@ msgid "Template json data"
 msgstr "Données JSON du modèle"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:4
-#, fuzzy
 msgid "User Personal Informations"
-msgstr "Informations sur la demande"
+msgstr "Informations personnelles du lecteur"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:41
 msgid "First name"
@@ -9364,7 +9358,6 @@ msgid "This username is already taken."
 msgstr "Ce nom d'utilisateur est déjà utilisé."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:118
-#, fuzzy
 msgid "Home phone number"
 msgstr "Numéro de téléphone"
 
@@ -9392,9 +9385,8 @@ msgid "Example: +41791231212"
 msgstr "Exemple : +41791231212"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:136
-#, fuzzy
 msgid "Business phone number"
-msgstr "Numéro de téléphone"
+msgstr "Numéro de téléphone professionnel"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:137
 #, fuzzy
@@ -9402,9 +9394,8 @@ msgid "Business phone number with the international prefix, without spaces."
 msgstr "Numéro de téléphone avec l'indicatif international, sans espaces."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:154
-#, fuzzy
 msgid "Mobile phone number"
-msgstr "Numéro de téléphone"
+msgstr "Numéro de téléphone (mobile)"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:155
 #, fuzzy
@@ -9412,9 +9403,8 @@ msgid "Mobile phone number with the international prefix, without spaces."
 msgstr "Numéro de téléphone avec l'indicatif international, sans espaces."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:172
-#, fuzzy
 msgid "Other phone number"
-msgstr "Numéro de téléphone"
+msgstr "Numéro de téléphone (autre)"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:173
 #, fuzzy
@@ -9426,9 +9416,8 @@ msgid "This email is already taken."
 msgstr "L'e-mail est déjà utilisé."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:213
-#, fuzzy
 msgid "Password"
-msgstr "Vous avez oublié votre mot de passe ?"
+msgstr "Mot de passe"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:5
 msgid "JSON schema for a vendor"
