@@ -19,15 +19,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-03-04 07:27+0100\n"
-"PO-Revision-Date: 2021-03-04 06:03+0000\n"
+"PO-Revision-Date: 2021-03-20 14:18+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/it/>\n"
 "Language: it\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/it/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.5.2-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:133
@@ -118,12 +119,10 @@ msgid "roles"
 msgstr "ruoli"
 
 #: rero_ils/config.py:1788
-#, fuzzy
 msgid "city"
-msgstr "Città"
+msgstr "città"
 
 #: rero_ils/config.py:1789
-#, fuzzy
 msgid "patron_type"
 msgstr "Tipo di lettore"
 
@@ -5849,7 +5848,7 @@ msgstr "Esempio: https://www.rero.ch/"
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:296
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:64
 msgid "Should be a valid URL format."
-msgstr ""
+msgstr "Deve essere un formato URL valido."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:41
 msgid "Type of link"
@@ -8388,7 +8387,7 @@ msgstr "avviso di scadenza"
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:69
 #: rero_ils/modules/selfcheck/api.py:291
 msgid "overdue"
-msgstr "richiamo"
+msgstr "in ritardo"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:73
 msgid "availability"
@@ -8833,9 +8832,8 @@ msgstr ""
 "raggiunto."
 
 #: rero_ils/modules/patrons/views.py:144
-#, fuzzy
 msgid "Patron Profile"
-msgstr "Tipo di lettore"
+msgstr "Profilo lettore"
 
 #: rero_ils/modules/patrons/views.py:176
 #, python-format
@@ -8883,25 +8881,24 @@ msgstr "ID del lettore"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:37
 msgid "Source if the record has been loaded in a batch."
-msgstr ""
+msgstr "Fonte se la risorsa è stata caricata in un batch."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:42
-#, fuzzy
 msgid "Local code"
-msgstr "Codice postale"
+msgstr "Codice locale"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:43
 msgid "Code used to classify users, for instance for statistics."
 msgstr ""
+"Codice utilizzato per classificare gli utenti, ad esempio per le statistiche."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:48
-#, fuzzy
 msgid "Personal informations"
-msgstr "Informazioni sul lettore"
+msgstr "Dati personali"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:61
 msgid "Second address"
-msgstr ""
+msgstr "Secondo indirizzo"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:72
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:46
@@ -8944,9 +8941,8 @@ msgid "Patron type in terms of circulation policy."
 msgstr "Tipo di lettore in termini di politica di prestito."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:167
-#, fuzzy
 msgid "Patron's barcodes or cards number"
-msgstr "Numero di codice a barre o di tessera del lettore"
+msgstr "Codice a barre o numero di tessera del lettore"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:173
 msgid "Patron's barcode or card number"
@@ -8970,7 +8966,7 @@ msgstr "Data di scadenza del lettore"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:230
 msgid "Communication channel"
-msgstr "Canali di comunicazione"
+msgstr "Canale di comunicazione"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:231
 msgid ""
@@ -9048,7 +9044,7 @@ msgstr ""
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:123
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:190
 msgid "Keep history"
-msgstr "Conservare lo storico dei prestiti"
+msgstr "Conservare lo storico"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:373
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:191
@@ -9196,8 +9192,8 @@ msgid ""
 "The loan history is saved for a maximum of six months. It is visible to "
 "you and the library staff."
 msgstr ""
-"Lo storico dei prestiti viene salvato per un massimo di sei mesi. È "
-"visibile all'utente e al personale della biblioteca."
+"Lo storico dei prestiti viene salvato per un massimo di sei mesi. È visibile "
+"a te e al personale della biblioteca."
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:131
 msgid "The loan history is not saved."
@@ -9322,9 +9318,8 @@ msgid "Template json data"
 msgstr "Dati JSON del modello"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:4
-#, fuzzy
 msgid "User Personal Informations"
-msgstr "Informazioni sulla richiesta"
+msgstr "informazioni personali dell'utente"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:41
 msgid "First name"
@@ -9347,28 +9342,26 @@ msgid "Login username for the web interface."
 msgstr "Nome utente di login per l'interfaccia web."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:91
-#, fuzzy
 msgid ""
 "Username must start with a letter or a number, be at least three "
 "characters long and only contain alphanumeric characters, dashes and "
 "underscores."
 msgstr ""
-"Il nome utente deve iniziare con una lettera, essere lungo almeno tre "
-"caratteri e contenere solo caratteri alfanumerici, trattini e underscore."
+"Il nome utente deve iniziare con una lettera o un numero, essere lungo "
+"almeno tre caratteri e contenere solo caratteri alfanumerici, trattini e "
+"underscore."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:92
 msgid "This username is already taken."
 msgstr "Questo nome utente è già stato utilizzato."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:118
-#, fuzzy
 msgid "Home phone number"
-msgstr "Numero di telefono"
+msgstr "Numero di telefono (casa)"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:119
-#, fuzzy
 msgid "Home phone number with the international prefix, without spaces."
-msgstr "Numero di telefono con il prefisso internazionale, senza spazi."
+msgstr "Numero di telefono (casa) con il prefisso internazionale, senza spazi."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:126
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:144
@@ -9389,43 +9382,38 @@ msgid "Example: +41791231212"
 msgstr "Esempio: +41791231212"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:136
-#, fuzzy
 msgid "Business phone number"
-msgstr "Numero di telefono"
+msgstr "Numero di telefono professionale"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:137
-#, fuzzy
 msgid "Business phone number with the international prefix, without spaces."
-msgstr "Numero di telefono con il prefisso internazionale, senza spazi."
+msgstr ""
+"Numero di telefono professionale con il prefisso internazionale, senza spazi."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:154
-#, fuzzy
 msgid "Mobile phone number"
-msgstr "Numero di telefono"
+msgstr "Numero di telefono cellulare"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:155
-#, fuzzy
 msgid "Mobile phone number with the international prefix, without spaces."
-msgstr "Numero di telefono con il prefisso internazionale, senza spazi."
+msgstr ""
+"Numero di telefono cellulare con il prefisso internazionale, senza spazi."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:172
-#, fuzzy
 msgid "Other phone number"
-msgstr "Numero di telefono"
+msgstr "Altro numero di telefono"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:173
-#, fuzzy
 msgid "Other phone number with the international prefix, without spaces."
-msgstr "Numero di telefono con il prefisso internazionale, senza spazi."
+msgstr "Altro numero di telefono con il prefisso internazionale, senza spazi."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:206
 msgid "This email is already taken."
 msgstr "Questa e-mail è già utilizzata."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:213
-#, fuzzy
 msgid "Password"
-msgstr "Avete dimenticato la parola d'ordine?"
+msgstr "Parola d'ordine"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:5
 msgid "JSON schema for a vendor"
@@ -10738,4 +10726,3 @@ msgstr "La tua parola d'ordine è stata reimposta con successo."
 
 #~ msgid "RERO ID"
 #~ msgstr "RERO ID"
-

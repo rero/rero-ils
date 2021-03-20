@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-03-04 07:27+0100\n"
-"PO-Revision-Date: 2021-03-19 10:18+0000\n"
-"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"PO-Revision-Date: 2021-03-19 13:08+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
 "Language: fr\n"
@@ -125,7 +125,6 @@ msgid "city"
 msgstr "ville"
 
 #: rero_ils/config.py:1789
-#, fuzzy
 msgid "patron_type"
 msgstr "Type de lecteur"
 
@@ -8879,7 +8878,7 @@ msgstr "ID du lecteur"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:37
 msgid "Source if the record has been loaded in a batch."
-msgstr "La source lorsque la ressource a été chargée dans lot."
+msgstr "Source lorsque la ressource a été chargée en lot."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:42
 msgid "Local code"
@@ -8893,7 +8892,7 @@ msgstr ""
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:48
 msgid "Personal informations"
-msgstr "Informations personnelles"
+msgstr "Données personnelles"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:61
 msgid "Second address"
@@ -9320,7 +9319,7 @@ msgstr "Données JSON du modèle"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:4
 msgid "User Personal Informations"
-msgstr "Informations personnelles du lecteur"
+msgstr "Informations personnelles de l'utilisateur"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:41
 msgid "First name"
@@ -9343,15 +9342,14 @@ msgid "Login username for the web interface."
 msgstr "Identifiant de connexion pour l'interface web."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:91
-#, fuzzy
 msgid ""
 "Username must start with a letter or a number, be at least three "
 "characters long and only contain alphanumeric characters, dashes and "
 "underscores."
 msgstr ""
-"Le nom d'utilisateur doit commencer par un caractère alphabétique, avoir "
-"au moins trois caractères et ne contenir que des caractères "
-"alphanumériques, des tirets et des underscores."
+"Le nom d'utilisateur doit commencer par une lettre ou un chiffre, avoir au "
+"moins trois caractères et ne contenir que des caractères alphanumériques, "
+"des tirets et des underscores."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:92
 msgid "This username is already taken."
@@ -9362,7 +9360,6 @@ msgid "Home phone number"
 msgstr "Numéro de téléphone"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:119
-#, fuzzy
 msgid "Home phone number with the international prefix, without spaces."
 msgstr "Numéro de téléphone avec l'indicatif international, sans espaces."
 
@@ -9389,27 +9386,25 @@ msgid "Business phone number"
 msgstr "Numéro de téléphone professionnel"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:137
-#, fuzzy
 msgid "Business phone number with the international prefix, without spaces."
-msgstr "Numéro de téléphone avec l'indicatif international, sans espaces."
+msgstr ""
+"Numéro de téléphone professionnel avec indicatif international, sans espaces."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:154
 msgid "Mobile phone number"
 msgstr "Numéro de téléphone (mobile)"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:155
-#, fuzzy
 msgid "Mobile phone number with the international prefix, without spaces."
-msgstr "Numéro de téléphone avec l'indicatif international, sans espaces."
+msgstr "Numéro de téléphone mobile avec indicatif international, sans espaces."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:172
 msgid "Other phone number"
 msgstr "Numéro de téléphone (autre)"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:173
-#, fuzzy
 msgid "Other phone number with the international prefix, without spaces."
-msgstr "Numéro de téléphone avec l'indicatif international, sans espaces."
+msgstr "Autre numéro de téléphone avec indicatif international, sans espaces."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:206
 msgid "This email is already taken."
