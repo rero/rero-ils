@@ -405,6 +405,22 @@ calendars = ["convertdate", "hijri-converter", "convertdate"]
 
 [[package]]
 category = "main"
+description = "Dublin Core XML generation from Python dictionaries."
+name = "dcxml"
+optional = false
+python-versions = "*"
+version = "0.1.2"
+
+[package.dependencies]
+lxml = ">=4.1.1"
+
+[package.extras]
+all = ["Sphinx (>=1.5.2)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=2.8.0)"]
+docs = ["Sphinx (>=1.5.2)"]
+tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=2.8.0)"]
+
+[[package]]
+category = "main"
 description = "Decorators for Humans"
 name = "decorator"
 optional = false
@@ -2296,14 +2312,6 @@ testing = ["pytest"]
 
 [[package]]
 category = "main"
-description = "Convert any number to word"
-name = "num2word"
-optional = false
-python-versions = "*"
-version = "1.0.1"
-
-[[package]]
-category = "main"
 description = "Modules to convert numbers to words. Easily extensible."
 name = "num2words"
 optional = false
@@ -3615,6 +3623,10 @@ dateparser = [
     {file = "dateparser-1.0.0-py2.py3-none-any.whl", hash = "sha256:17202df32c7a36e773136ff353aa3767e987f8b3e27374c39fd21a30a803d6f8"},
     {file = "dateparser-1.0.0.tar.gz", hash = "sha256:159cc4e01a593706a15cd4e269a0b3345edf3aef8bf9278a57dac8adf5bf1e4a"},
 ]
+dcxml = [
+    {file = "dcxml-0.1.2-py2.py3-none-any.whl", hash = "sha256:36a394f09ebfbb52c2931f259873a7b4ef5468f54b0bc3df66dd0d2fd2633092"},
+    {file = "dcxml-0.1.2.tar.gz", hash = "sha256:484b812517afebf4e119175b5ac2efaee5a9caa2c0b62323e451e49f541e5c17"},
+]
 decorator = [
     {file = "decorator-5.0.9-py3-none-any.whl", hash = "sha256:6e5c199c16f7a9f0e3a61a4a54b3d27e7dad0dbdde92b944426cb20914376323"},
     {file = "decorator-5.0.9.tar.gz", hash = "sha256:72ecfba4320a893c53f9706bebb2d55c270c1e51a28789361aa93e4a21319ed5"},
@@ -4096,10 +4108,6 @@ msgpack = [
 ]
 node-semver = [
     {file = "node-semver-0.1.1.tar.gz", hash = "sha256:e29ee4e51efb6d82c55aef5d569b888842e62e6404ce95df18d80c421f8e7dac"},
-]
-num2word = [
-    {file = "num2word-1.0.1-py3-none-any.whl", hash = "sha256:8ff4c5add7039766827d35138c79a1f87e6a2f82938f478ddaf476e18785e0fa"},
-    {file = "num2word-1.0.1.tar.gz", hash = "sha256:251988feabd38a287583a65a687eaac9aae1ffe56a761f00bf08db6892692b93"},
 ]
 num2words = [
     {file = "num2words-0.5.10-py3-none-any.whl", hash = "sha256:0b6e5f53f11d3005787e206d9c03382f459ef048a43c544e3db3b1e05a961548"},
