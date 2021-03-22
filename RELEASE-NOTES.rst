@@ -18,6 +18,197 @@
 Release notes
 =============
 
+v1.1.0
+------
+
+
+This release note includes the changes of the rero-ils-ui project
+[`link`_].
+
+User interface
+~~~~~~~~~~~~~~
+
+-  Displays, in the multi-level facets, only the sub-types associated
+   with the selected main type.
+-  Renames the cover art files to the correct document main type.
+-  Fixes document thumbnails overflow.
+
+Public interface
+^^^^^^^^^^^^^^^^
+
+-  Reorganises the user menu.
+
+   -  Groups the “RERO ID” (Invenio user profile) and “My account”
+      (patron profile) into a single sub-item “My account”.
+   -  Adds other sub-items “Edit my profile”, “Forgot password?”.
+
+-  Hides masked records.
+
+Professional interface
+^^^^^^^^^^^^^^^^^^^^^^
+
+-  Fixes permissions when the current user has librarian AND patron
+   roles, thus preventing him or her to view/edit an ILL requests.
+-  Adds masking function. When a librarian masks all items of a standard
+   holdings, the system masks the standard holdings automatically. The
+   standard holdings will be unmasked when there is at least one
+   unmasked item attached to it.
+-  Improves the document detailed view to use the complete available
+   width.
+
+User management
+~~~~~~~~~~~~~~~
+
+-  Adds a new ‘user’ resource to manage the user profiles. It contains
+   the user personal data as opposed to the patron data that are link to
+   a specific organisation.
+
+   -  Enables, from the patron editor, to edit in a modal dialogue the
+      user data.
+   -  Adds the following fields in the user data model: home phone,
+      business phone, mobile phone, other phone (instead of phone),
+      country, gender. Adapts the patron detailed and profile view.
+   -  Adds the following fields in the patron data model: second
+      address, local code, source. Makes the barcode repetitive. Removes
+      all user fields from the patron data model. Adapts the patron
+      detailed and profile view.
+   -  Adds 3 invenio-userprofiles configuration to specify the list of
+      countries, the default country and the read only fields.
+   -  Uses the standard ngx-formly ``widget`` field for the user JSON
+      schema.
+
+-  Makes the patron barcode repeatable.
+-  Rewrites the user profile in Angular to optimise performance (when
+   the patron has many loans, requests and/or loan history) and to
+   improve the user experience.
+-  The data is modified only on the profile database and synchronized in
+   only one direction: from profile to patron.
+
+   -  Removes loans anonymization from the patron update/creation.
+
+-  Disables the validation email for freshly created user.
+
+Metadata
+~~~~~~~~
+
+-  Completes the item data model with the following fields: ``url``,
+   ``pac_code``, ``price``, ``_masked``, ``legacy_checkout_count``,
+   ``legacy_circulation_rules``. Adapts the item detailed view.
+-  Adds optional field ``enumerationAndChronology`` for electronic
+   holdings.
+-  Sets the \_masked fields as optional for concerned records.
+
+Circulation and notifications
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-  Allows multiple reminders. They can be defined as loan expiry notices
+   (before the due date) or as reminders.
+-  Allows incremental overdue fees.
+
+   -  A fee amount per day is defined for day intervals in the
+      circulation policy. Adapts circulation policy detailed view.
+   -  Creates only one event with a set of steps instead of one event
+      per fee per day.
+   -  Reorganises the patron circulation fee tab adding the fees preview
+      about the overdue loans. Use a vertical tabs design to keep good
+      readability of all fees categories into the component.
+
+-  Updates the ``circ_policies`` resource JSON schema for the multiple
+   reminders and the incremental overdue fees. Update it to use
+   ``ngx-formly`` instead of a custom editor.
+-  Blocks checkout, request and renew circulation operations if the
+   patron expiration date is reached.
+-  Adds notification settings in the library settings. For patrons with
+   mail communication channel, this enables to send the notifications to
+   the corresponding library e-mail if it is defined.
+
+   -  Adds notifications settings in library custom editor. Improves the
+      editor appearance for large screens.
+   -  Displays notification settings in library detail view.
+
+-  Adds patron information (addressee part) for each e-mail for patrons
+   with mail communication channel. This enables to print the
+   notification as a letter.
+-  Uses the back-end closed dates library API to prevent the user to
+   choose a closed date for a fixed date checkout.
+
+Tests
+~~~~~
+
+-  Adds units testing for users.
+
+API
+~~~
+
+-  Adds GET, POST, PUT methods to create, update and retrieves the
+   patron personal information.
+-  Adds a search endpoint to retrieve the patron personal information
+   given an email or a username.
+-  Adds an entry point to list all templates available for notification
+   creation. Only template directories containing files according to the
+   configuration setting will be considered as valid.
+-  Adds an API entry point to preview the current due fees for a
+   specific loan.
+-  Adds an API entry point to preview all the current due fees for a
+   patron.
+-  Adds a simple API to know all closed dates between two dates for a
+   specific library.
+
+Instance
+~~~~~~~~
+
+-  Upgrades ``invenio-circulation`` to ``v1.0.0a30``.
+-  Upgrades @rero/ng-core to ``v1.6.0``.
+-  Updates security dependencies .
+
+Issues
+~~~~~~
+
+- `#913`_: Send notification “availability” some time after the item is checked in.
+- `#1318`_: Fields name and birth date should not be editable by a user/patron.
+- `#1389`_: In the pro and public patron account, loans are marked as overdue too late.
+- `#1467`_: Creating a patron with a username and an email corresponding to two different invenio user cause unpredictable errors.
+- `#1495`_: Circulation: block checkout/renew/request when patron expiration date is reached.
+- `#1573`_: Impossible to save a circulation policy if only one toggle is enabled.
+- `#1579`_: In the professional patron account, the counter of the “Pending” tab is not updated after a checkout.
+- `#1600`_: Improve response time for circulation operations.
+- `#1625`_: Sort option for items within a holdings.
+- `#1670`_: Patron barcodes should be imported into the username field.
+- `#1684`_: Add a second filter to the organisation facet filter has no effect.
+- `#1697`_: 2nd-level values of hierarchical facets are not always sorted according to their parent value.
+- `#1708`_: ILL request form: patron wrongly displayed.
+- `#1709`_: ILL request detail view: error message if the librarian has also the role patron.
+- `#1715`_: Request - item detail view: request section should be always displayed.
+- `#1717`_: The expected issues are difficult to read, the grey is to light.
+- `#1734`_: Fixed date: closed date with repetition not taken into account.
+- `#1739`_: Place should be required in document field “Provision activity”.
+- `#1745`_: Document main title is not displayed with all subtitles.
+- `#1754`_: Checkout at fixed date doesn’t allow to choose the current date.
+- `#1756`_: Document model : add the type bf:Lccn to identifiers.
+
+.. _link: https://github.com/rero/rero-ils-ui
+.. _#913: https://github.com/rero/rero-ils/issues/913
+.. _#1318: https://github.com/rero/rero-ils/issues/1318
+.. _#1389: https://github.com/rero/rero-ils/issues/1389
+.. _#1467: https://github.com/rero/rero-ils/issues/1467
+.. _#1495: https://github.com/rero/rero-ils/issues/1495
+.. _#1573: https://github.com/rero/rero-ils/issues/1573
+.. _#1579: https://github.com/rero/rero-ils/issues/1579
+.. _#1600: https://github.com/rero/rero-ils/issues/1600
+.. _#1625: https://github.com/rero/rero-ils/issues/1625
+.. _#1670: https://github.com/rero/rero-ils/issues/1670
+.. _#1684: https://github.com/rero/rero-ils/issues/1684
+.. _#1697: https://github.com/rero/rero-ils/issues/1697
+.. _#1708: https://github.com/rero/rero-ils/issues/1708
+.. _#1709: https://github.com/rero/rero-ils/issues/1709
+.. _#1715: https://github.com/rero/rero-ils/issues/1715
+.. _#1717: https://github.com/rero/rero-ils/issues/1717
+.. _#1734: https://github.com/rero/rero-ils/issues/1734
+.. _#1739: https://github.com/rero/rero-ils/issues/1739
+.. _#1745: https://github.com/rero/rero-ils/issues/1745
+.. _#1754: https://github.com/rero/rero-ils/issues/1754
+.. _#1756: https://github.com/rero/rero-ils/issues/1756
+
 v1.0.1
 --------
 

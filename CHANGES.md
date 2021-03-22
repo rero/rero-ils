@@ -1,5 +1,69 @@
 # Changelog
 
+## [v1.1.0](https://github.com/rero/rero-ils/tree/v1.1.0) (2021-03-22)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.0.1...v1.1.0)
+
+**Implemented enhancements:**
+
+- The expected issues are difficult to read, the grey is to light. [\#1717](https://github.com/rero/rero-ils/issues/1717)
+- Patron barcodes should be imported into the username field [\#1670](https://github.com/rero/rero-ils/issues/1670)
+- Sort option for items within a holdings [\#1625](https://github.com/rero/rero-ils/issues/1625)
+- Fields name and birth date should not be editable by a user/patron [\#1318](https://github.com/rero/rero-ils/issues/1318)
+- libraries: closed date API [\#1730](https://github.com/rero/rero-ils/pull/1730) ([zannkukai](https://github.com/zannkukai))
+
+**Fixed bugs:**
+
+- Document main title is not displayed with all subtitles [\#1745](https://github.com/rero/rero-ils/issues/1745)
+- Migrated bibs should have the correct URL format [\#1737](https://github.com/rero/rero-ils/issues/1737)
+- Loan end date is false  [\#1735](https://github.com/rero/rero-ils/issues/1735)
+- Fixed date: closed date with repetition not taken into account [\#1734](https://github.com/rero/rero-ils/issues/1734)
+- Request - item detail view: request section should be always displayed [\#1715](https://github.com/rero/rero-ils/issues/1715)
+- ILL request detail view: error message if the librarian has also the role patron. [\#1709](https://github.com/rero/rero-ils/issues/1709)
+- ILL request form: patron wrongly displayed [\#1708](https://github.com/rero/rero-ils/issues/1708)
+- Search spinner in progress even after search is complete [\#1689](https://github.com/rero/rero-ils/issues/1689)
+- Add a second filter to the organisation facet filter has no effect [\#1684](https://github.com/rero/rero-ils/issues/1684)
+- In the professional patron account, the counter of the "Pending" tab is not updated after a checkout [\#1579](https://github.com/rero/rero-ils/issues/1579)
+- Checkout at fixed date doesn't allow to choose the current date [\#1574](https://github.com/rero/rero-ils/issues/1574)
+- Impossible to save a circulation policy if only one toggle is enabled [\#1573](https://github.com/rero/rero-ils/issues/1573)
+- Creating a patron with a username and an email corresponding to two different invenio user cause unpredictable errors [\#1467](https://github.com/rero/rero-ils/issues/1467)
+- Wrong display of some fields on the circulation interface [\#1447](https://github.com/rero/rero-ils/issues/1447)
+- In the pro and public patron account, loans are marked as overdue too late. [\#1389](https://github.com/rero/rero-ils/issues/1389)
+
+**Closed issues:**
+
+- Document model : add the type bf:Lccn to identifiers [\#1756](https://github.com/rero/rero-ils/issues/1756)
+- Place should be required in document field "Provision activity" [\#1739](https://github.com/rero/rero-ils/issues/1739)
+- Improve response time for circulation operations [\#1600](https://github.com/rero/rero-ils/issues/1600)
+- circulation: block checkout/renew/request when patron expiration date is reached [\#1495](https://github.com/rero/rero-ils/issues/1495)
+- Send notification "availability" some time after the item is checked in [\#913](https://github.com/rero/rero-ils/issues/913)
+
+**Merged pull requests:**
+
+- US1906 complete item model [\#1777](https://github.com/rero/rero-ils/pull/1777) ([BadrAly](https://github.com/BadrAly))
+- document: add 'bf:Lccn' as identifier type [\#1767](https://github.com/rero/rero-ils/pull/1767) ([zannkukai](https://github.com/zannkukai))
+- permissions: correct caching problems [\#1765](https://github.com/rero/rero-ils/pull/1765) ([zannkukai](https://github.com/zannkukai))
+- document: place field required for provision activity [\#1762](https://github.com/rero/rero-ils/pull/1762) ([zannkukai](https://github.com/zannkukai))
+- library: correct exception dates behavior. [\#1761](https://github.com/rero/rero-ils/pull/1761) ([zannkukai](https://github.com/zannkukai))
+- document: resolve the processing of the title field [\#1760](https://github.com/rero/rero-ils/pull/1760) ([Garfield-fr](https://github.com/Garfield-fr))
+- user profile: reorganize menu [\#1759](https://github.com/rero/rero-ils/pull/1759) ([Garfield-fr](https://github.com/Garfield-fr))
+- test: fix break test. [\#1755](https://github.com/rero/rero-ils/pull/1755) ([zannkukai](https://github.com/zannkukai))
+- Us cipo reminders fees [\#1753](https://github.com/rero/rero-ils/pull/1753) ([zannkukai](https://github.com/zannkukai))
+- documents: fix coverart [\#1750](https://github.com/rero/rero-ils/pull/1750) ([rerowep](https://github.com/rerowep))
+- security: update dependencies [\#1748](https://github.com/rero/rero-ils/pull/1748) ([BadrAly](https://github.com/BadrAly))
+- circulation: block operations for expired patron [\#1743](https://github.com/rero/rero-ils/pull/1743) ([zannkukai](https://github.com/zannkukai))
+- US1889 patron edit personnal data [\#1742](https://github.com/rero/rero-ils/pull/1742) ([jma](https://github.com/jma))
+- circulation: Fix in-house checkout [\#1736](https://github.com/rero/rero-ils/pull/1736) ([zannkukai](https://github.com/zannkukai))
+- circulation: update invenio-circulation to v1.0.0a30 [\#1733](https://github.com/rero/rero-ils/pull/1733) ([BadrAly](https://github.com/BadrAly))
+- holdings: allow optional fields for electronic holdings [\#1723](https://github.com/rero/rero-ils/pull/1723) ([lauren-d](https://github.com/lauren-d))
+- patrons: update data for the new patron profile [\#1721](https://github.com/rero/rero-ils/pull/1721) ([Garfield-fr](https://github.com/Garfield-fr))
+- ILL request: fix permissions [\#1714](https://github.com/rero/rero-ils/pull/1714) ([zannkukai](https://github.com/zannkukai))
+- libraries: add notification settings in library definition [\#1691](https://github.com/rero/rero-ils/pull/1691) ([AoNoOokami](https://github.com/AoNoOokami))
+- public ui: better document type facet [\#1680](https://github.com/rero/rero-ils/pull/1680) ([rerowep](https://github.com/rerowep))
+- circulation: improve response time for circulation operations [\#1668](https://github.com/rero/rero-ils/pull/1668) ([rerowep](https://github.com/rerowep))
+
+# Changelog
+
 ## [v1.0.1](https://github.com/rero/rero-ils/tree/v1.0.1) (2021-03-01)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.0.0...v1.0.1)
