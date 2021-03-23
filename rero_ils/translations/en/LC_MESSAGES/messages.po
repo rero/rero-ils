@@ -18,15 +18,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-03-22 08:25+0100\n"
-"PO-Revision-Date: 2021-03-20 14:18+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2021-03-23 09:35+0000\n"
+"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/en/>\n"
 "Language: en\n"
-"Language-Team: English <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/en/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.5.2-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:133
@@ -4460,19 +4461,18 @@ msgid "Circulation policy ID"
 msgstr "Circulation policy ID"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:68
-#, fuzzy
 msgid "Checkout duration"
-msgstr "Checkout duration in days"
+msgstr "Checkout duration"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:69
 msgid "Enter 0 if checkout is not allowed."
-msgstr ""
+msgstr "Enter 0 if checkout is not allowed."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:76
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:138
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:291
 msgid "day(s)"
-msgstr ""
+msgstr "day(s)"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:82
 msgid "Allow patron requests"
@@ -4483,16 +4483,16 @@ msgid ""
 "They include the loan expiry notices, sent before the due date, and the "
 "reminders, sent after the due date."
 msgstr ""
+"They include the loan expiry notices, sent before the due date, and the "
+"reminders, sent after the due date."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:89
-#, fuzzy
 msgid "Reminders"
-msgstr "Gender"
+msgstr "Reminders"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:94
-#, fuzzy
 msgid "Reminder"
-msgstr "Gender"
+msgstr "Reminder"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:112
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:56
@@ -4538,10 +4538,12 @@ msgid ""
 " due date (for reminders). This number defines when the notification is "
 "sent."
 msgstr ""
+"Number of days before the due date (for loan expiry notices) or after the "
+"due date (for reminders). This number defines when the notification is sent."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:133
 msgid "Delay"
-msgstr ""
+msgstr "Delay"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:154
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:230
@@ -4550,11 +4552,11 @@ msgstr "Communication channel"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:162
 msgid "According to the patron's settings"
-msgstr ""
+msgstr "According to the patron's settings"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:166
 msgid "Always per mail"
-msgstr ""
+msgstr "Always per mail"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:174
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:189
@@ -4563,48 +4565,48 @@ msgid "Template"
 msgstr "Template"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:190
-#, fuzzy
 msgid "Overdue fees"
-msgstr "overdue"
+msgstr "Overdue fees"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:201
 msgid "Days intervals"
-msgstr ""
+msgstr "Days intervals"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:202
 msgid ""
 "During an interval, the specified amount will be incremented for each "
 "overdue open day."
 msgstr ""
+"During an interval, the specified amount will be incremented for each "
+"overdue open day."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:221
 msgid "From"
-msgstr ""
+msgstr "From"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:231
-#, fuzzy
 msgid "To"
-msgstr "data manager"
+msgstr "To"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:257
 msgid ""
 "This defines the maximum fee amount per document, without considering the"
 " reminder fees."
 msgstr ""
+"This defines the maximum fee amount per document, without considering the "
+"reminder fees."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:258
-#, fuzzy
 msgid "Maximum total amount"
-msgstr "Total amount"
+msgstr "Maximum total amount"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:274
 msgid "Maximum number of renewals"
 msgstr "Maximum number of renewals"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:275
-#, fuzzy
 msgid "Enter 0 if renewal is not allowed."
-msgstr "Maximum number of renewals allowed."
+msgstr "Enter 0 if renewal is not allowed."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:284
 msgid "Renewal duration in days"
@@ -4631,6 +4633,8 @@ msgid ""
 "This defines which item categories and patron types this circulation "
 "policy applies to."
 msgstr ""
+"This defines which item categories and patron types this circulation policy "
+"applies to."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:352
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:326
@@ -4988,6 +4992,8 @@ msgid ""
 "A masked document is visible in the professional interface, but not in "
 "the public interface."
 msgstr ""
+"A masked document is visible in the professional interface, but not in the "
+"public interface."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_abstract-v0.0.1.json:3
 msgid "Abstracts"
@@ -6113,9 +6119,8 @@ msgid "bf:IssnL"
 msgstr "ISSN-L"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:100
-#, fuzzy
 msgid "bf:Lccn"
-msgstr "Local identifier"
+msgstr "bf:Lccn"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:104
 msgid "bf:Local"
@@ -6916,9 +6921,8 @@ msgid "Online"
 msgstr "Online"
 
 #: rero_ils/modules/documents/templates/rero_ils/_document_online.html:50
-#, fuzzy
 msgid "Unit"
-msgstr "Quantity"
+msgstr "Unit"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:27
 msgid "Variant title"
@@ -8003,74 +8007,68 @@ msgstr ""
 "acquisition list of the library."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:582
-#, fuzzy
 msgid "PAC code"
-msgstr "Local code"
+msgstr "PAC code"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:583
-#, fuzzy
 msgid "Preservation and conservation policy."
-msgstr "The description of the circulation policy."
+msgstr "Preservation and conservation policy."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:596
 msgid "4_disposable"
-msgstr ""
+msgstr "4_disposable"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:600
 msgid "3_consumable"
-msgstr ""
+msgstr "3_consumable"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:604
 msgid "2_controlled_consumption"
-msgstr ""
+msgstr "2_controlled_consumption"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:608
-#, fuzzy
 msgid "1_reserved"
-msgstr "received"
+msgstr "1_reserved"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:612
-#, fuzzy
 msgid "0_frozen_collection"
-msgstr "Collection"
+msgstr "0_frozen_collection"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:626
-#, fuzzy
 msgid "Price"
-msgstr "audio engineer"
+msgstr "Price"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:640
 msgid "Virtua checkout count for item"
-msgstr ""
+msgstr "Virtua checkout count for item"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:646
 msgid "Virtua item circulation rules"
-msgstr ""
+msgstr "Virtua item circulation rules"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:651
 msgid "To use item specific rules or CIPO rules"
-msgstr ""
+msgstr "To use item specific rules or CIPO rules"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:656
-#, fuzzy
 msgid "Loan duration in days"
-msgstr "Renewal duration in days"
+msgstr "Loan duration in days"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:662
-#, fuzzy
 msgid "Allow requests"
-msgstr "Allow request"
+msgstr "Allow requests"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:667
-#, fuzzy
 msgid "Item floats"
-msgstr "at desk"
+msgstr "Item floats"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:676
 msgid ""
 "A masked item is visible in the professional interface, but not in the "
 "public interface."
 msgstr ""
+"A masked item is visible in the professional interface, but not in the "
+"public interface."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:5
 msgid "JSON schema for a library"
@@ -8078,9 +8076,8 @@ msgstr "JSON schema for a library"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:31
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:53
-#, fuzzy
 msgid "E-mail"
-msgstr "email"
+msgstr "E-mail"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:32
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:54
@@ -8088,14 +8085,16 @@ msgid ""
 "The notifications for patrons without e-mail are sent to this address. No"
 " notification is sent if the field is empty."
 msgstr ""
+"The notifications for patrons without e-mail are sent to this address. No "
+"notification is sent if the field is empty."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:61
 msgid "Delay in minutes"
-msgstr ""
+msgstr "Delay in minutes"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:62
 msgid "Sending how many minutes after the item is available."
-msgstr ""
+msgstr "Sending how many minutes after the item is available."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:94
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:39
@@ -8160,22 +8159,20 @@ msgid "Exception opening hours"
 msgstr "Exception opening hours"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:322
-#, fuzzy
 msgid "Notification settings"
-msgstr "Notification email"
+msgstr "Notification settings"
 
 #: rero_ils/modules/loans/api.py:132
 msgid "The loan cannot be extended"
-msgstr ""
+msgstr "The loan cannot be extended"
 
 #: rero_ils/modules/loans/api.py:148
-#, fuzzy
 msgid "Circulation policies disallows the operation."
-msgstr "Circulation policy description"
+msgstr "Circulation policies disallows the operation."
 
 #: rero_ils/modules/loans/api.py:150
 msgid "A pending request exists on this item."
-msgstr ""
+msgstr "A pending request exists on this item."
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:3
 msgid "Schema for loan"
@@ -8626,9 +8623,8 @@ msgid "Creation date"
 msgstr "Creation date"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:49
-#, fuzzy
 msgid "Steps"
-msgstr "items"
+msgstr "Steps"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:97
 msgid "Operator"
@@ -8900,7 +8896,7 @@ msgstr "Limit by overdue items"
 
 #: rero_ils/modules/patrons/api.py:390 rero_ils/modules/patrons/api.py:702
 msgid "Patron rights expired."
-msgstr ""
+msgstr "Patron rights expired."
 
 #: rero_ils/modules/patrons/api.py:566
 msgid "Your account is currently blocked."
@@ -9228,14 +9224,12 @@ msgid "Example: 1985-12-29"
 msgstr "Example: 1985-12-29"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:83
-#, fuzzy
 msgid "male"
-msgstr "mail"
+msgstr "male"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:87
-#, fuzzy
 msgid "female"
-msgstr "email"
+msgstr "female"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:98
 msgid "Username"
@@ -9419,12 +9413,11 @@ msgstr "Logout"
 
 #: rero_ils/theme/views.py:297
 msgid "Edit my profile"
-msgstr ""
+msgstr "Edit my profile"
 
 #: rero_ils/theme/views.py:310
-#, fuzzy
 msgid "Change password"
-msgstr "Forgot password?"
+msgstr "Change password"
 
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:52
 #: rero_ils/theme/templates/rero_ils/login_user.html:53
@@ -10825,4 +10818,3 @@ msgstr "Your password has been successfully reset."
 
 #~ msgid "Personal data"
 #~ msgstr "Personal data"
-
