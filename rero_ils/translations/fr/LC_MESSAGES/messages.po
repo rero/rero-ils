@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-03-22 08:25+0100\n"
-"PO-Revision-Date: 2021-03-23 08:17+0000\n"
-"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"PO-Revision-Date: 2021-03-23 09:35+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
 "Language: fr\n"
@@ -4558,7 +4558,7 @@ msgstr "Selon les paramètres du lecteur"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:166
 msgid "Always per mail"
-msgstr "Toujours par courrier"
+msgstr "Toujours par poste"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:174
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:189
@@ -6126,9 +6126,8 @@ msgid "bf:IssnL"
 msgstr "ISSN-L"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:100
-#, fuzzy
 msgid "bf:Lccn"
-msgstr "bf:Lccn"
+msgstr "LCCN"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:104
 msgid "bf:Local"
@@ -8051,29 +8050,24 @@ msgid "Preservation and conservation policy."
 msgstr "Politique de préservation et de conservation."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:596
-#, fuzzy
 msgid "4_disposable"
-msgstr "4_disposable"
+msgstr "Niveau 4 : aucune conservation (les éliminables)"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:600
-#, fuzzy
 msgid "3_consumable"
-msgstr "3_consumable"
+msgstr "Niveau 3 : conservation à court terme (consommation courante)"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:604
-#, fuzzy
 msgid "2_controlled_consumption"
-msgstr "2_controlled_consumption"
+msgstr "Niveau 2 : conservation à moyen terme (usage contrôlé)"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:608
-#, fuzzy
 msgid "1_reserved"
-msgstr "1_reserved"
+msgstr "Niveau 1 : conservation à long terme"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:612
-#, fuzzy
 msgid "0_frozen_collection"
-msgstr "0_frozen_collection"
+msgstr "Niveau 0 : conservation illimitée"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:626
 msgid "Price"
@@ -8088,9 +8082,9 @@ msgid "Virtua item circulation rules"
 msgstr "Règles de prêt dans Virtua"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:651
-#, fuzzy
 msgid "To use item specific rules or CIPO rules"
-msgstr "Règles spécifiques à l'exemplaire ou à la CIPO"
+msgstr ""
+"Utiliser les règles spécifiques à l'exemplaire ou à la politique de prêt"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:656
 msgid "Loan duration in days"
@@ -8101,7 +8095,6 @@ msgid "Allow requests"
 msgstr "Autoriser les demandes"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:667
-#, fuzzy
 msgid "Item floats"
 msgstr "Item floats"
 
@@ -8136,9 +8129,8 @@ msgid "Delay in minutes"
 msgstr "Délais en minutes"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:62
-#, fuzzy
 msgid "Sending how many minutes after the item is available."
-msgstr "Nombres de minutes avant l'envoi de la disponibilité de l'exemplaire."
+msgstr "Envoi combien de minutes après que l'exemplaire est au bureau de prêt."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:94
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:39
@@ -8211,9 +8203,8 @@ msgid "The loan cannot be extended"
 msgstr "Le prêt ne peut pas être prolongé"
 
 #: rero_ils/modules/loans/api.py:148
-#, fuzzy
 msgid "Circulation policies disallows the operation."
-msgstr "Les politiques de circulation ne permettent pas l’opération."
+msgstr "Les politiques de prêt ne permettent pas l’opération."
 
 #: rero_ils/modules/loans/api.py:150
 msgid "A pending request exists on this item."
