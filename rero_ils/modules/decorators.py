@@ -19,7 +19,7 @@
 
 from functools import wraps
 
-from rero_ils.permissions import login_and_librarian
+from rero_ils.permissions import login_and_librarian, login_and_patron
 
 
 def check_logged_as_librarian(fn):
@@ -31,5 +31,18 @@ def check_logged_as_librarian(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
         login_and_librarian()
+        return fn(*args, **kwargs)
+    return wrapper
+
+
+def check_logged_as_patron(fn):
+    """Decorator to check if the current logged user is logged as patron.
+
+    If no user is connected: return 401 (unauthorized)
+    If current logged user isn't `patron`: return 403 (forbidden)
+    """
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        login_and_patron()
         return fn(*args, **kwargs)
     return wrapper

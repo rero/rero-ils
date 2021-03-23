@@ -278,7 +278,7 @@ def init_menu_profile():
         rero_register(
             item,
             endpoint=profile_endpoint,
-            visible_when=lambda: current_user.is_authenticated,
+            visible_when=lambda: not current_patron.is_librarian,
             text='{icon} {profile}'.format(
                 icon='<i class="fa fa-book"></i>',
                 profile=_('My Account')

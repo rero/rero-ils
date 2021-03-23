@@ -25,7 +25,7 @@ from flask_principal import RoleNeed
 from flask_security import login_required, roles_required
 from invenio_access.permissions import Permission
 
-from .modules.patrons.api import Patron
+from .modules.patrons.api import Patron, current_patron
 
 request_item_permission = Permission(RoleNeed('patron'))
 librarian_permission = Permission(
@@ -76,6 +76,14 @@ def login_and_librarian():
     if not current_user.is_authenticated:
         abort(401)
     if not librarian_permission.can():
+        abort(403)
+
+
+def login_and_patron():
+    """Patron is logged in."""
+    if current_user and not current_user.is_authenticated:
+        abort(401)
+    if not current_patron or not current_patron.is_patron:
         abort(403)
 
 

@@ -34,7 +34,7 @@ from invenio_i18n.ext import current_i18n
 from .api import Patron, current_patron
 from .permissions import get_allowed_roles_management
 from .utils import user_has_patron
-from ..decorators import check_logged_as_librarian
+from ..decorators import check_logged_as_librarian, check_logged_as_patron
 from ..items.utils import item_pid_to_object
 from ..loans.api import get_loans_stats_by_patron_pid, get_overdue_loans
 from ..loans.utils import sum_for_fees
@@ -147,7 +147,7 @@ def logged_user():
 @blueprint.route('/global/patrons/profile', defaults={'viewcode': 'global'},
                  methods=['GET', 'POST'])
 @blueprint.route('/<string:viewcode>/patrons/profile')
-@login_required
+@check_logged_as_patron
 @register_menu(
     blueprint,
     'settings.patron_profile',
