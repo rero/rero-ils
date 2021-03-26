@@ -160,7 +160,9 @@ def test_title_to_marc21(app, marc21_record):
 
 
 def test_contribution_to_marc21(app, marc21_record,
-                                mef_record_1, mef_record_2, mef_record_3):
+                                mef_record_with_idref_rero,
+                                mef_record_with_idref_gnd,
+                                mef_record_with_idref_gnd_rero):
     """Test contribution to MARC21 transformation."""
     record = {
         'contribution': [{
@@ -173,7 +175,8 @@ def test_contribution_to_marc21(app, marc21_record,
             'role': ['ctb', 'aut']
         }, {
             'agent': {
-                '$ref': 'https://mef.rero.ch/api/idref/mef_record_1',
+                '$ref': 'https://mef.rero.ch/api/idref/'
+                        'mef_record_with_idref_rero',
                 'type': 'bf:Person'
             },
             'role': ['trl']
@@ -186,7 +189,8 @@ def test_contribution_to_marc21(app, marc21_record,
             'role': ['ctb']
         }, {
             'agent': {
-                '$ref': 'https://mef.rero.ch/api/gnd/mef_record_2',
+                '$ref': 'https://mef.rero.ch/api/gnd/'
+                        'mef_record_with_idref_gnd',
                 'type': 'bf:Organisation'
             },
             'role': ['aut']
@@ -202,7 +206,8 @@ def test_contribution_to_marc21(app, marc21_record,
             'role': ['aut']
         }, {
             'agent': {
-                '$ref': 'https://mef.rero.ch/api/idref/mef_record_3',
+                '$ref': 'https://mef.rero.ch/api/idref/'
+                        'mef_record_with_idref_gnd_rero',
                 'type': 'bf:Organisation'
             },
             'role': ['aut']
@@ -210,7 +215,8 @@ def test_contribution_to_marc21(app, marc21_record,
     }
     with mock.patch(
         'rero_ils.modules.contributions.api.Contribution.get_contribution',
-        side_effect=[mef_record_1, mef_record_2, mef_record_3]
+        side_effect=[mef_record_with_idref_rero, mef_record_with_idref_gnd,
+                     mef_record_with_idref_gnd_rero]
     ):
         result = to_marc21.do(record)
 
@@ -218,7 +224,6 @@ def test_contribution_to_marc21(app, marc21_record,
     record.update({
         '__order__': ('leader', '008', '7001_', '7001_', '710__', '710__',
                       '711__', '711__'),
-
         '7001_': ({
             '__order__': ('a', 'd', '4', '4'),
             'a': 'Fujimoto, Satoko',
@@ -252,7 +257,10 @@ def test_contribution_to_marc21(app, marc21_record,
             '0': ('(idref)03255608X', '(rero)A005462931', '(gnd)050343211')
         })
     })
-    assert result == record
+    assert result['__order__'] == record['__order__']
+    assert result['7001_'] == record['7001_']
+    assert result['710__'] == record['710__']
+    assert result['711__'] == record['711__']
 
 
 def test_type_to_marc21(app, marc21_record):

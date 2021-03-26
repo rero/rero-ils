@@ -99,9 +99,6 @@ def test_notification_email_aggregated(notification_availability_martigny,
         notification2_availability_martigny['pid']
     ], verbose=True)
     assert len(mailbox) == 1
-    from pprint import pprint
-    pprint(mailbox[0])
-
     recipient = '???'
     for notification_setting in lib_martigny.get('notification_settings'):
         if notification_setting['type'] == \

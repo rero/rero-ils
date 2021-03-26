@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""rero-ils to MARC21 model definition."""
+"""RERO-ILS to MARC21 model definition."""
 
 
 from dojson import utils
@@ -26,7 +26,11 @@ from flask_babelex import gettext as _
 from rero_ils.modules.contributions.api import Contribution
 from rero_ils.modules.documents.utils import display_alternate_graphic_first
 from rero_ils.modules.documents.views import create_title_responsibilites
-from rero_ils.modules.utils import memoized
+from rero_ils.modules.holdings.api import Holding, HoldingsSearch
+from rero_ils.modules.items.api import Item, ItemsSearch
+from rero_ils.modules.libraries.api import Library
+from rero_ils.modules.locations.api import Location
+from rero_ils.modules.organisations.api import Organisation
 
 
 def replace_contribution_sources(contribution, source_order):
@@ -53,28 +57,11 @@ def replace_contribution_sources(contribution, source_order):
                 'source': source,
                 'pid': source_data.get("pid")
             })
-            agent = set_value(
-                source_data, agent, 'bf:Agent')
-            agent = set_value(
-                source_data, agent, 'preferred_name')
-            agent = set_value(
-                source_data, agent, 'numeration')
-            agent = set_value(
-                source_data, agent, 'qualifier')
-            agent = set_value(
-                source_data, agent, 'date_of_birth')
-            agent = set_value(
-                source_data, agent, 'date_of_death')
-            agent = set_value(
-                source_data, agent, 'subordinate_unit')
-            agent = set_value(
-                source_data, agent, 'conference')
-            agent = set_value(
-                source_data, agent, 'conference_number')
-            agent = set_value(
-                source_data, agent, 'conference_date')
-            agent = set_value(
-                source_data, agent, 'conference_place')
+            for key in ['bf:Agent', 'preferred_name', 'numeration',
+                        'qualifier', 'date_of_birth', 'date_of_death',
+                        'subordinate_unit', 'conference', 'conference_number',
+                        'conference_date', 'conference_place']:
+                agent = set_value(source_data, agent, key)
             agent.pop(source)
     agent['refs'] = refs
     if 'bf:Agent' in agent:
@@ -90,13 +77,6 @@ def get_holdings_items(document_pid):
     :returns: list of holding informations with associated organisation,
               library and location pid, name informations.
     """
-    from rero_ils.modules.holdings.api import Holding, HoldingsSearch
-    from rero_ils.modules.items.api import Item, ItemsSearch
-    from rero_ils.modules.libraries.api import Library
-    from rero_ils.modules.locations.api import Location
-    from rero_ils.modules.organisations.api import Organisation
-
-    @memoized()
     def get_name(resource, pid):
         """Get name from resource.
 
@@ -326,7 +306,7 @@ def reverse_pid(self, key, value):
 
 @to_marc21.over('008', '^fixed_length_data_elements')
 def reverse_fixed_length_data_elements(self, key, value):
-    """Reverse - pid."""
+    """Reverse - fixed length data elements."""
     return [value]
 
 

@@ -336,12 +336,12 @@ def person2_response_data(person2_data):
 @pytest.fixture(scope="module")
 def person2(app, person2_data):
     """Create mef person record."""
-    pers = Person.create(
+    pers = Contribution.create(
         data=person2_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PersonsSearch.Meta.index)
+    flush_index(ContributionsSearch.Meta.index)
     return pers
 
 
