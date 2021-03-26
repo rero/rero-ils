@@ -552,19 +552,11 @@ RECORDS_REST_ENDPOINTS = dict(
             ),
             'application/rero+json': (
                 'rero_ils.modules.documents.serializers:json_doc_response'
-            ),
-            'application/xml+dc': (
-                'rero_ils.modules.documents.serializers:json_dc_response'
-            ),
-            'application/xml+marc': (
-                'rero_ils.modules.documents.serializers:xml_marcxml_response'
             )
         },
         record_serializers_aliases={
             'json': 'application/json',
-            'rero': 'application/rero+json',
-            'dc': 'application/xml+dc',
-            'marcxml': 'application/xml+marc'
+            'rero': 'application/rero+json'
         },
         search_serializers={
             'application/json': (
@@ -572,31 +564,17 @@ RECORDS_REST_ENDPOINTS = dict(
             ),
             'application/rero+json': (
                 'rero_ils.modules.documents.serializers:json_doc_search'
-            ),
-            'application/xml+dc': (
-                'rero_ils.modules.documents.serializers:json_dc_search'
-            ),
-            'application/xml+marc': (
-                'rero_ils.modules.documents.serializers:xml_marcxml_search'
-            ),
-            'application/xml+marc+sru': (
-                'rero_ils.modules.documents.serializers:xml_marcxmlsru_search'
             )
-
         },
         search_serializers_aliases={
             'json': 'application/json',
-            'rero': 'application/rero+json',
-            'dc': 'application/xml+dc',
-            'marcxml': 'application/xml+marc',
-            'marcxmlsru': 'application/xml+marc+sru'
+            'rero': 'application/rero+json'
         },
         record_loaders={
             'application/marcxml+xml':
             'rero_ils.modules.documents.loaders:marcxml_loader',
             'application/json': lambda: Document(request.get_json()),
         },
-
         list_route='/documents/',
         record_class='rero_ils.modules.documents.api:Document',
         item_route=('/documents/<pid(doc, record_class='
@@ -2691,6 +2669,11 @@ RERO_IMPORT_REST_ENDPOINTS = dict(
         import_size=50
     )
 )
+
+# SRU
+# ====
+RERO_SRU_NUMBER_OF_RECORDS = 100
+RERO_SRU_MAXIMUM_RECORDS = 1000
 
 # SIP2
 # ====
