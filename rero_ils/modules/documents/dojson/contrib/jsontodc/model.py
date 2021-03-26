@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""rero-ils Doublin Core model definition."""
+"""RERO-ILS Doublin Core model definition."""
 
 from dojson import Overdo, utils
 from flask_babelex import gettext as _
@@ -89,9 +89,8 @@ def json_to_contributors(self, key, value):
         key='authorized_access_point',
         language=dublincore.language
     )
-    if authorized_access_point:
-        result = authorized_access_point
-    else:
+    result = authorized_access_point
+    if result is None:
         result = value.get('agent', {}).get('preferred_name')
 
     if result:
@@ -114,9 +113,7 @@ def json_to_descriptions(self, key, value):
         if key == 'supplementaryContent':
             descriptions.append(data)
         elif key == 'summary':
-            labels = data.get('label', [])
-            for label in labels:
-                descriptions.append(label['value'])
+            descriptions += [label['value'] for label in data.get('label', [])]
         else:
             label = data.get('label')
             if label:
@@ -201,7 +198,11 @@ def json_to_relations(self, key, value):
         return label
     else:
         # TODO: make shure the $ref was replaced and had a _text field.
-        return value.get('_text')
+        titles = []
+        for title in value.get('title', []):
+            titles.append(title['_text'])
+        if titles:
+            return ', '.join(titles)
 
 
 @dublincore.over('subjects', '^subjects')
@@ -232,27 +233,3 @@ def json_to_subject(self, key, value):
     elif subject_type in ['bf:Topic', 'bf:Temporal']:
         result = value.get('term')
     return result or None
-
-
-# @dublincore.over('coverage', '^coverage')
-# @utils.ignore_value
-# def json_to_coverage(self, key, value):
-#     """Get coverage data."""
-
-
-# @dublincore.over('format', '^formats')
-# @utils.ignore_value
-# def json_to_formats(self, key, value):
-#     """Get dates data."""
-
-
-# @dublincore.over('rights', '^rights')
-# @utils.ignore_value
-# def json_to_rights(self, key, value):
-#     """Get rights data."""
-
-
-# @dublincore.over('sources', '^sources')
-# @utils.ignore_value
-# def json_to_sources(self, key, value):
-#     """Get sources data."""

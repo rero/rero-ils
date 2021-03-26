@@ -258,8 +258,8 @@ def marc21_record():
 
 
 @pytest.fixture()
-def mef_record_1():
-    """Mef record 1."""
+def mef_record_with_idref_rero():
+    """Mef record with idref rero."""
     return {
         '$schema': 'https://ils.rero.ch/schemas/'
                    'contributions/contribution-v0.0.1.json',
@@ -294,8 +294,8 @@ def mef_record_1():
 
 
 @pytest.fixture()
-def mef_record_2():
-    """Mef record 2."""
+def mef_record_with_idref_gnd():
+    """Mef record with idref gnd."""
     return {
         '$schema': 'https://mef.rero.ch/schemas/mef/mef-v0.0.1.json',
         'gnd': {
@@ -377,8 +377,8 @@ def mef_record_2():
 
 
 @pytest.fixture()
-def mef_record_3():
-    """Mef record 3."""
+def mef_record_with_idref_gnd_rero():
+    """Mef record with idref gnd rero is conference."""
     return {
         '$schema': 'https://mef.rero.ch/schemas/mef/mef-v0.0.1.json',
         'gnd': {
