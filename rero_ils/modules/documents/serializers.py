@@ -19,7 +19,7 @@
 
 from dcxml import simpledc
 from dojson._compat import iteritems, string_types
-from dojson.contrib.to_marc21.utils import dumps
+# from dojson.contrib.to_marc21.utils import dumps
 from dojson.utils import GroupableOrderedDict
 from flask import current_app, request
 from invenio_records_rest.serializers.dc import \
@@ -148,9 +148,11 @@ class DocumentJSONSerializer(JSONSerializer):
                         del results['aggregations']['organisation']
 
         # Correct document type buckets
-        type_buckets = results['aggregations']['document_type']['buckets']
-        results['aggregations']['document_type']['buckets'] = \
-            filter_document_type_buckets(type_buckets)
+        type_buckets = results[
+            'aggregations'].get('document_type', {}).get('buckets')
+        if type_buckets:
+            results['aggregations']['document_type']['buckets'] = \
+                filter_document_type_buckets(type_buckets)
 
         return super().post_process_serialize_search(results, pid_fetcher)
 
@@ -199,11 +201,13 @@ class DocumentMARCXMLSerializer(JSONSerializer):
         self.schema_class = schema_class
         super().__init__()
 
-    def transform_record(self, pid, record, language,
-                         links_factory=None, **kwargs):
-        """Transform record into an intermediate representation."""
-        return to_marc21.do(record, language=language,
-                            with_holdings_items=True)
+    # Needed if we use it for documents serialization !
+    # def transform_record(self, pid, record, language,
+    #                      links_factory=None, **kwargs):
+    #     """Transform record into an intermediate representation."""
+    #     return to_marc21.do(record, language=language,
+    #                         with_holdings_items=True)
+    #
 
     def transform_search_hit(self, pid, record_hit, language,
                              links_factory=None, **kwargs):
@@ -211,21 +215,22 @@ class DocumentMARCXMLSerializer(JSONSerializer):
         return to_marc21.do(record_hit, language=language,
                             with_holdings_items=True)
 
-    def serialize(self, pid, record, links_factory=None):
-        """Serialize a single record and persistent identifier.
-
-        :param pid: The :class:`invenio_pidstore.models.PersistentIdentifier`
-            instance.
-        :param record: The :class:`invenio_records.api.Record` instance.
-        :param links_factory: Factory function for the link generation,
-            which are added to the response.
-        :returns: The object serialized.
-        """
-        language = request.args.get('ln', DEFAULT_LANGUAGE)
-        return dumps(
-            self.transform_record(pid, record, language, links_factory),
-            **self.dumps_kwargs
-        )
+    # Needed if we use it for documents serialization !
+    # def serialize(self, pid, record, links_factory=None):
+    #     """Serialize a single record and persistent identifier.
+    #
+    #     :param pid: The :class:`invenio_pidstore.models.PersistentIdentifier`
+    #         instance.
+    #     :param record: The :class:`invenio_records.api.Record` instance.
+    #     :param links_factory: Factory function for the link generation,
+    #         which are added to the response.
+    #     :returns: The object serialized.
+    #     """
+    #     language = request.args.get('ln', DEFAULT_LANGUAGE)
+    #     return dumps(
+    #         self.transform_record(pid, record, language, links_factory),
+    #         **self.dumps_kwargs
+    #     )
 
     def transform_records(self, hits, pid_fetcher, language,
                           item_links_factory=None):
@@ -271,24 +276,25 @@ class DocumentMARCXMLSerializer(JSONSerializer):
             records.append(record)
         return records
 
-    def serialize_search(self, pid_fetcher, search_result,
-                         item_links_factory=None, **kwargs):
-        """Serialize a search result.
-
-        :param pid_fetcher: Persistent identifier fetcher.
-        :param search_result: Elasticsearch search result.
-        :param item_links_factory: Factory function for the items in result.
-            (Default: ``None``)
-        :returns: The objects serialized.
-        """
-        language = request.args.get('ln', DEFAULT_LANGUAGE)
-        records = self.transform_records(
-            hits=search_result['hits']['hits'],
-            pid_fetcher=pid_fetcher,
-            language=language,
-            item_links_factory=item_links_factory
-        )
-        return dumps(records, **self.dumps_kwargs)
+    # Needed if we use it for documents serialization !
+    # def serialize_search(self, pid_fetcher, search_result,
+    #                      item_links_factory=None, **kwargs):
+    #     """Serialize a search result.
+    #
+    #     :param pid_fetcher: Persistent identifier fetcher.
+    #     :param search_result: Elasticsearch search result.
+    #     :param item_links_factory: Factory function for the items in result.
+    #         (Default: ``None``)
+    #     :returns: The objects serialized.
+    #     """
+    #     language = request.args.get('ln', DEFAULT_LANGUAGE)
+    #     records = self.transform_records(
+    #         hits=search_result['hits']['hits'],
+    #         pid_fetcher=pid_fetcher,
+    #         language=language,
+    #         item_links_factory=item_links_factory
+    #     )
+    #     return dumps(records, **self.dumps_kwargs)
 
 
 class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
@@ -382,7 +388,8 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
             start_record = sru.get('start_record', 0)
             maximum_records = sru.get('maximum_records', 0)
             query = sru.get('query')
-            next_record = start_record + maximum_records + 1
+            query_es = sru.get('query_es')
+            next_record = start_record + maximum_records
             root = element.searchRetrieveResponse()
             root.append(element.version('1.1'))
             root.append(element.numberOfRecords(str(number_of_records)))
@@ -395,6 +402,8 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
             echoed_search_rr = element.echoedSearchRetrieveRequest()
             if query:
                 echoed_search_rr.append(element.query(query))
+            if query_es:
+                echoed_search_rr.append(element.query_es(query_es))
             if start_record:
                 echoed_search_rr.append(
                     element.startRecord(str(start_record)))
@@ -408,10 +417,11 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
             echoed_search_rr.append(element.resultSetTTL('0'))
             root.append(echoed_search_rr)
 
-        if xslt_filename is not None:
-            xslt_root = etree.parse(open(xslt_filename))
-            transform = etree.XSLT(xslt_root)
-            root = transform(root).getroot()
+        # Needed if we use display with XSLT file.
+        # if xslt_filename is not None:
+        #     xslt_root = etree.parse(open(xslt_filename))
+        #     transform = etree.XSLT(xslt_root)
+        #     root = transform(root).getroot()
 
         return root
 
@@ -450,7 +460,7 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
         )
         return self.dumps(
             total=search_result['hits']['total'],
-            sru=search_result['hits']['total'].get('sru', {}),
+            sru=search_result['hits'].get('sru', {}),
             records=records,
             **self.dumps_kwargs
         )
@@ -504,28 +514,29 @@ class DublinCoreSerializer(BaseDublinCoreSerializer):
             **kwargs
         )
 
-    def serialize(self, pid, record, links_factory=None, **kwargs):
-        """Serialize a single record and persistent identifier.
-
-        :param pid: Persistent identifier instance.
-        :param record: Record instance.
-        :param links_factory: Factory function for record links.
-        """
-        language = request.args.get('ln', DEFAULT_LANGUAGE)
-        element_record = simpledc.dump_etree(
-            self.transform_record(
-                pid=pid,
-                record=record,
-                links_factory=links_factory,
-                language=language,
-                **kwargs
-            ),
-            container=self.container_element,
-            nsmap=self.namespace,
-            attribs=self.container_attribs
-        )
-        return etree.tostring(element_record, encoding='utf-8', method='xml',
-                              pretty_print=True)
+    # Needed if we use it for documents serialization !
+    # def serialize(self, pid, record, links_factory=None, **kwargs):
+    #     """Serialize a single record and persistent identifier.
+    #
+    #     :param pid: Persistent identifier instance.
+    #     :param record: Record instance.
+    #     :param links_factory: Factory function for record links.
+    #     """
+    #     language = request.args.get('ln', DEFAULT_LANGUAGE)
+    #     element_record = simpledc.dump_etree(
+    #         self.transform_record(
+    #             pid=pid,
+    #             record=record,
+    #             links_factory=links_factory,
+    #             language=language,
+    #             **kwargs
+    #         ),
+    #         container=self.container_element,
+    #         nsmap=self.namespace,
+    #         attribs=self.container_attribs
+    #     )
+    #     return etree.tostring(element_record, encoding='utf-8', method='xml',
+    #                           pretty_print=True)
 
     def serialize_search(self, pid_fetcher, search_result, links=None,
                          item_links_factory=None, **kwargs):
@@ -536,10 +547,11 @@ class DublinCoreSerializer(BaseDublinCoreSerializer):
         :param links: Dictionary of links to add to response.
         """
         total = search_result['hits']['total']['value']
-        sru = search_result['hits']['total'].get('sru', {})
+        sru = search_result['hits'].get('sru', {})
         start_record = sru.get('start_record', 0)
         maximum_records = sru.get('maximum_records', 0)
         query = sru.get('query')
+        query_es = sru.get('query_es')
         next_record = start_record + maximum_records + 1
 
         element = ElementMaker()
@@ -574,22 +586,28 @@ class DublinCoreSerializer(BaseDublinCoreSerializer):
             echoed_search_rr = element.echoedSearchRetrieveRequest()
             if query:
                 echoed_search_rr.append(element.query(query))
+            if query_es:
+                echoed_search_rr.append(element.query_es(query_es))
             if start_record:
                 echoed_search_rr.append(element.startRecord(str(start_record)))
+            if next_record > 1 and next_record < total:
+                echoed_search_rr.append(
+                    element.nextRecordPosition(str(next_record)))
             if maximum_records:
                 echoed_search_rr.append(element.maximumRecords(
                     str(maximum_records)))
             echoed_search_rr.append(element.recordPacking('XML'))
             xml_root.append(echoed_search_rr)
-        else:
-            xml_links = element.links()
-            self_link = links.get('self')
-            if self_link:
-                xml_links.append(element.self(f'{self_link}&format=dc'))
-            next_link = links.get('next')
-            if next_link:
-                xml_links.append(element.next(f'{next_link}&format=dc'))
-            xml_root.append(xml_links)
+        # Maybe needed if we use this serialiser directly with documents
+        # else:
+        #     xml_links = element.links()
+        #     self_link = links.get('self')
+        #     if self_link:
+        #         xml_links.append(element.self(f'{self_link}&format=dc'))
+        #     next_link = links.get('next')
+        #     if next_link:
+        #         xml_links.append(element.next(f'{next_link}&format=dc'))
+        #     xml_root.append(xml_links)
         return etree.tostring(xml_root, encoding='utf-8', method='xml',
                               pretty_print=True)
 
@@ -605,8 +623,8 @@ xml_marcxmlsru = DocumentMARCXMLSRUSerializer()
 
 json_doc_search = search_responsify(json_doc, 'application/rero+json')
 json_doc_response = record_responsify(json_doc, 'application/rero+json')
-json_dc_search = search_responsify(xml_dc, 'application/xml')
-json_dc_response = record_responsify(xml_dc, 'application/xml')
+xml_dc_search = search_responsify(xml_dc, 'application/xml')
+xml_dc_response = record_responsify(xml_dc, 'application/xml')
 xml_marcxml_search = search_responsify(xml_marcxml, 'application/xml')
 xml_marcxml_response = record_responsify(xml_marcxml, 'application/xml')
 xml_marcxmlsru_search = search_responsify(xml_marcxmlsru, 'application/xml')

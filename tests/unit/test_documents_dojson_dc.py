@@ -175,12 +175,10 @@ def test_provision_activity_to_dc():
 
 def test_type_to_dc():
     """Test type transformation to Dublin Core."""
-    record = {'type': [
-        {
-            'main_type': 'docmaintype_book',
-            'subtype': 'docsubtype_other_book'
-        }
-    ]}
+    record = {'type': [{
+        'main_type': 'docmaintype_book',
+        'subtype': 'docsubtype_other_book'
+    }]}
     result = dublincore.do(record)
     assert result == {'types': [
         f"{_('docmaintype_book')} / {_('docsubtype_other_book')}"
@@ -189,13 +187,11 @@ def test_type_to_dc():
 
 def test_identified_by_to_dc():
     """Test identifiedBy transformation to Dublin Core."""
-    record = {"identifiedBy": [
-      {
+    record = {"identifiedBy": [{
         "value": "R003461120",
         "type": "bf:Local",
         "source": "RERO"
-      }
-    ]}
+    }]}
     result = dublincore.do(record)
     assert result == {'identifiers': ['bf:Local|R003461120(RERO)']}
     record = {"identifiedBy": [
@@ -222,6 +218,42 @@ def test_identified_by_to_dc():
     ]}
 
 
-# def test_relations():
-#     """Test relations transformation."""
-#     pass
+def test_relations_to_dc():
+    """Test relations transformation."""
+    record = {
+        'supplement': [{
+            'label': 'label supplement'
+        }, {
+            'title': [{'_text': 'title supplement'}]
+        }],
+        'issuedWith': [{
+            'title': [{
+                '_text': 'issuedWith title 1'
+            }, {
+                '_text': 'issuedWith title 2'
+            }]
+        }]
+    }
+    result = dublincore.do(record)
+    assert result == {'relations': ['label supplement', 'title supplement',
+                                    'issuedWith title 1, issuedWith title 2']}
+
+
+def test_subjects_to_dc(app):
+    """Test subjects transformation."""
+    record = {
+        'subjects': [{
+            'type': "bf:Person",
+            'preferred_name': "Preferred name"
+        }, {
+            'type': "bf:Work",
+            'title': 'Title',
+            'creator': "Creator"
+        }, {
+            'type': "bf:Topic",
+            'term': "Term"
+        }]
+    }
+    result = dublincore.do(record)
+    assert result == {'subjects': ['Preferred name', 'Creator. - Title',
+                                   'Term']}

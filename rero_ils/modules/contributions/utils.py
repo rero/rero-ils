@@ -23,12 +23,18 @@ from flask import current_app
 
 
 def get_contribution_localized_value(contribution, key, language):
-    """Get the 1st localized value for given key among MEF source list."""
+    """Get the 1st localized value for given key among MEF source list.
+
+    :params contribution: Contribution data.
+    :params key: Key to find a translated form.
+    :param language: Language to use.
+    :resturns: Valu from key in language if found otherwise the value of key.
+    """
     order = current_app.config.get(
         'RERO_ILS_CONTRIBUTIONS_LABEL_ORDER', [])
     source_order = order.get(language, order.get(order['fallback'], []))
     for source in source_order:
-        value = contribution.get(source, {}).get(key, None)
+        value = contribution.get(source, {}).get(key)
         if value:
             return value
-    return contribution.get(key, None)
+    return contribution.get(key)

@@ -323,25 +323,6 @@ class Holding(IlsRecord):
         for holding in es_query.scan():
             yield holding.pid
 
-    @classmethod
-    def get_holdings_by_document_by_view_code(cls, document_pid, viewcode,
-                                              with_masked=True):
-        """Returns holding PIDs by document and view code."""
-        es_query = HoldingsSearch()\
-            .filter('term', document__pid=document_pid)\
-            .source(['pid'])
-        if not with_masked:
-            es_query = es_query.filter(
-                'bool', must_not=[Q('term', _masked=True)])
-        if (viewcode != current_app.
-                config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE')):
-            org_pid = Organisation.get_record_by_viewcode(viewcode)['pid']
-            es_query = es_query.filter('term', organisation__pid=org_pid)
-        # TODO: can we use a generator here ?
-        # for holding in es_query.scan():
-        #     yield holding.pid
-        return [result.pid for result in es_query.scan()]
-
     def get_items_filter_by_viewcode(self, viewcode):
         """Return items filter by view code."""
         items = []
