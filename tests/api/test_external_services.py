@@ -86,8 +86,10 @@ def test_documents_get(client, document):
 @mock.patch('rero_ils.permissions.login_and_librarian',
             mock.MagicMock())
 def test_documents_import_bnf_ean(mock_get, client, bnf_ean_any_123,
-            bnf_ean_any_9782070541270, bnf_ean_any_9782072862014,
-            bnf_anywhere_all_peter, bnf_recordid_all_FRBNF370903960000006):
+                                  bnf_ean_any_9782070541270,
+                                  bnf_ean_any_9782072862014,
+                                  bnf_anywhere_all_peter,
+                                  bnf_recordid_all_FRBNF370903960000006):
     """Test document import from bnf."""
 
     mock_get.return_value = mock_response(
