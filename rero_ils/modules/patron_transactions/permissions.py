@@ -18,8 +18,7 @@
 
 """Permissions for Patron transaction."""
 
-from rero_ils.modules.organisations.api import current_organisation
-from rero_ils.modules.patrons.api import current_patron, current_user
+from rero_ils.modules.patrons.api import current_librarian, current_patrons
 from rero_ils.modules.permissions import RecordPermission
 
 
@@ -35,7 +34,7 @@ class PatronTransactionPermission(RecordPermission):
         :return: True is action can be done.
         """
         # user should be authenticated
-        return current_user and current_user.is_authenticated
+        return bool(current_patrons or current_librarian)
 
     @classmethod
     def read(cls, user, record):
@@ -45,16 +44,14 @@ class PatronTransactionPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
-        # user should be authenticated
-        if not current_patron:
-            return False
         #  For staff users (lib, sys_lib), they can read only their own
         #  organisation.
-        if current_patron.is_librarian:
-            return current_organisation['pid'] == record.organisation_pid
+        if current_librarian and \
+                current_librarian.organisation_pid == record.organisation_pid:
+            return True
         # For other people (patron), they can read only their own transaction
-        else:
-            return current_patron.pid == record.patron_pid
+        return record and \
+            record.patron_pid in [ptrn.pid for ptrn in current_patrons]
 
     @classmethod
     def create(cls, user, record=None):
@@ -65,7 +62,7 @@ class PatronTransactionPermission(RecordPermission):
         :return: True is action can be done.
         """
         # user should be authenticated
-        if not current_patron:
+        if not current_librarian:
             return False
         if not record:
             return True
@@ -83,9 +80,10 @@ class PatronTransactionPermission(RecordPermission):
         """
         # only staff members (lib, sys_lib) can update acq_account
         # record cannot be null
-        if not current_patron or not current_patron.is_librarian or not record:
+        if not record:
             return False
-        return current_organisation['pid'] == record.organisation_pid
+        return current_librarian and \
+            current_librarian.organisation_pid == record.organisation_pid
 
     @classmethod
     def delete(cls, user, record):

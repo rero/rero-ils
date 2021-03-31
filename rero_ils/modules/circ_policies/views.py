@@ -23,7 +23,7 @@ from flask import Blueprint, jsonify
 
 from ..circ_policies.api import CircPolicy
 from ..decorators import check_logged_as_librarian
-from ..patrons.api import current_patron
+from ..patrons.api import current_librarian
 
 blueprint = Blueprint(
     'circ_policies',
@@ -42,7 +42,7 @@ def name_validate(name):
     }
     circ_policy = CircPolicy.exist_name_and_organisation_pid(
         name,
-        current_patron.organisation.pid
+        current_librarian.organisation.pid
     )
     if circ_policy:
         response = {

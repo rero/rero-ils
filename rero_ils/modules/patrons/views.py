@@ -41,7 +41,7 @@ from ..loans.utils import sum_for_fees
 from ..locations.api import Location
 from ..patron_transactions.api import PatronTransaction
 from ..users.api import User
-from ..utils import get_base_url
+from ..utils import extracted_data_from_ref, get_base_url
 
 api_blueprint = Blueprint(
     'api_patrons',
@@ -136,22 +136,23 @@ def logged_user():
     data['patrons'] = []
 
     for patron in Patron.get_patrons_by_user(current_user):
+        organisation = patron.get_organisation()
+        # TODO: need to be fixed this causes errors in production only
+        # patron = patron.replace_refs()
         del patron['$schema']
         del patron['user_id']
         # The notes are loaded by another way
         if 'notes' in patron:
             del patron['notes']
-        organisation = patron.get_organisation()
         patron['organisation'] = {
             'pid': organisation.get('pid'),
             'name': organisation.get('name'),
             'code': organisation.get('code'),
             'currency': organisation.get('default_currency')
         }
-        patron = patron.replace_refs()
         for index, library in enumerate(patron.get('libraries', [])):
             patron['libraries'][index] = {
-                'pid': library['pid'],
+                'pid': extracted_data_from_ref(library),
                 'organisation': {
                     'pid': organisation.get('pid')
                 }
@@ -195,12 +196,6 @@ def get_roles_management_permissions():
     return jsonify({
         'allowed_roles': get_allowed_roles_management()
     })
-
-
-@blueprint.app_template_filter('get_patron_from_barcode')
-def get_patron_from_barcode(value):
-    """Get patron from barcode."""
-    return Patron.get_patron_by_barcode(value)
 
 
 @blueprint.app_template_filter('get_patron_from_checkout_item_pid')

@@ -111,24 +111,17 @@ def test_budget_permissions(patron_martigny,
     assert not BudgetPermission.update(None, {})
     assert not BudgetPermission.delete(None, {})
 
-    # As Patron
-    with mock.patch(
-        'rero_ils.modules.budgets.permissions.current_patron',
-        patron_martigny
-    ):
-        assert not BudgetPermission.list(None, budget_2018_martigny)
-        assert not BudgetPermission.read(None, budget_2018_martigny)
-        assert not BudgetPermission.create(None, budget_2018_martigny)
-        assert not BudgetPermission.update(None, budget_2018_martigny)
-        assert not BudgetPermission.delete(None, budget_2018_martigny)
+    # As non Librarian
+    assert not BudgetPermission.list(None, budget_2018_martigny)
+    assert not BudgetPermission.read(None, budget_2018_martigny)
+    assert not BudgetPermission.create(None, budget_2018_martigny)
+    assert not BudgetPermission.update(None, budget_2018_martigny)
+    assert not BudgetPermission.delete(None, budget_2018_martigny)
 
     # As Librarian
     with mock.patch(
-        'rero_ils.modules.budgets.permissions.current_patron',
+        'rero_ils.modules.budgets.permissions.current_librarian',
         librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.budgets.permissions.current_organisation',
-        org_martigny
     ):
         assert BudgetPermission.list(None, budget_2018_martigny)
         assert BudgetPermission.read(None, budget_2018_martigny)
@@ -143,11 +136,8 @@ def test_budget_permissions(patron_martigny,
 
     # As System-librarian
     with mock.patch(
-        'rero_ils.modules.budgets.permissions.current_patron',
+        'rero_ils.modules.budgets.permissions.current_librarian',
         system_librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.budgets.permissions.current_organisation',
-        org_martigny
     ):
         assert BudgetPermission.list(None, budget_2018_martigny)
         assert BudgetPermission.read(None, budget_2018_martigny)

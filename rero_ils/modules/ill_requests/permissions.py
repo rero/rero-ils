@@ -18,8 +18,7 @@
 
 """Permissions for ILL request."""
 from rero_ils.modules.ill_requests.api import ILLRequest
-from rero_ils.modules.organisations.api import current_organisation
-from rero_ils.modules.patrons.api import current_patron
+from rero_ils.modules.patrons.api import current_librarian, current_patrons
 from rero_ils.modules.permissions import RecordPermission
 
 
@@ -35,7 +34,7 @@ class ILLRequestPermission(RecordPermission):
         :return: True is action can be done.
         """
         # user must be authenticated
-        return bool(current_patron)
+        return bool(current_patrons or current_librarian)
 
     @classmethod
     def read(cls, user, record):
@@ -45,15 +44,14 @@ class ILLRequestPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
-        if current_patron:
+        if current_librarian:
             # staff member (lib, sys_lib) can always read request from their
             # own organisation
-            if current_patron.is_librarian:
-                return current_organisation.pid \
-                       == ILLRequest(record).organisation_pid
-            # patron can only read their own requests
-            if current_patron.is_patron:
-                return record.patron_pid == current_patron.pid
+            return current_librarian.organisation_pid \
+                    == ILLRequest(record).organisation_pid
+        # patron can only read their own requests
+        elif current_patrons:
+            return record.patron_pid in [ptrn.pid for ptrn in current_patrons]
         return False
 
     @classmethod
@@ -65,7 +63,7 @@ class ILLRequestPermission(RecordPermission):
         :return: True is action can be done.
         """
         # user must be authenticated
-        return bool(current_patron)
+        return bool(current_librarian or current_patrons)
 
     @classmethod
     def update(cls, user, record):
@@ -77,15 +75,16 @@ class ILLRequestPermission(RecordPermission):
         """
         # only staff members (lib, sys_lib) can update request
         # record cannot be null
-        if not current_patron or not current_patron.is_librarian or not record:
+        if not current_librarian or not record:
             return False
-        if current_organisation['pid'] == ILLRequest(record).organisation_pid:
+        if current_librarian.organisation_pid == \
+           ILLRequest(record).organisation_pid:
             # 'sys_lib' can update all request
-            if current_patron.is_system_librarian:
+            if current_librarian.is_system_librarian:
                 return True
             # 'lib' can only update request linked to its own library
-            return current_patron.library_pid and \
-                record.get_library().pid == current_patron.library_pid
+            return current_librarian.library_pid and \
+                record.get_library().pid == current_librarian.library_pid
         return False
 
     @classmethod

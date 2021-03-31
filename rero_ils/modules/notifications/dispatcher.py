@@ -115,9 +115,9 @@ class Dispatcher:
         # get the recipient email from the library
         email = library.email_notification_type(data['notification_type'])
         if not email:
+            pid = patron['pid']
             current_app.logger.warning(
-                'Notification is lost for patron(pid).'.format(
-                    pid=patron['pid']))
+                f'Notification is lost for patron({pid})')
             return
         msg = Dispatcher._create_email(data, patron, library, [email])
         task_send_email.delay(msg.__dict__)

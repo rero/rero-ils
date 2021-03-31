@@ -23,7 +23,6 @@ from copy import deepcopy
 from datetime import datetime
 
 import pytest
-from flask_login.mixins import UserMixin
 from invenio_accounts.models import User
 from invenio_userprofiles import UserProfile
 
@@ -33,7 +32,6 @@ from rero_ils.modules.patrons.api import Patron, PatronsSearch, \
 from rero_ils.utils import create_user_from_data
 
 
-# @pytest.mark.skip(reason="no way of currently testing this")
 def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
                        patron_type_adults_martigny, mailbox):
     """Test Patron creation."""
@@ -158,7 +156,7 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
     assert set(user_roles) == set(Patron.available_roles)
 
     # remove patron
-    ptrn.delete()
+    ptrn.delete(False, True, True)
     # user still exist in the invenio db
     user = ds.find_user(email=email)
     assert user
@@ -171,10 +169,13 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
     ptrn = Patron.get_record_by_pid('ptrn2', with_deleted=True)
     assert ptrn == {}
     assert ptrn.persistent_identifier.pid_value == 'ptrn2'
+    # remove patron
+    ptrn.delete(True, True, True)
     # clean up the user
     ds.delete_user(user)
 
 
+@pytest.mark.skip(reason="no way of currently testing this")
 def test_patron_create_without_email(app, roles, patron_type_children_martigny,
                                      patron_martigny_data_tmp, mailbox):
     """Test Patron creation without an email."""
@@ -264,7 +265,6 @@ def test_patron_create_without_email(app, roles, patron_type_children_martigny,
     # clean up created users
     ds = app.extensions['invenio-accounts'].datastore
     ds.delete_user(user)
-    # ds.delete_user(rero_id_user)
 
 
 def test_patron_organisation_pid(org_martigny, patron_martigny,
@@ -287,20 +287,16 @@ def test_get_patron(patron_martigny):
     assert Patron.get_patron_by_barcode(
         patron.patron.get('barcode')[0]) == patron
     assert not Patron.get_patron_by_barcode('not exists')
-    assert Patron.get_patron_by_user(patron.user) == patron
+    assert Patron.get_patrons_by_user(patron.user)[0] == patron
 
     class user:
         pass
-    assert Patron.get_patron_by_user(user) is None
+    assert not Patron.get_patrons_by_user(user)
 
 
 def test_get_patrons_by_user(patron_martigny):
     """Test patrons retrieval."""
-    class User(UserMixin):
-        def __init__(self, id):
-            self.id = id
-
-    patrons = Patron.get_patrons_by_user(User('1'))
+    patrons = Patron.get_patrons_by_user(patron_martigny.user)
     assert type(patrons) is list
     assert patron_martigny == patrons[0]
 
@@ -323,33 +319,6 @@ def test_get_patron_blocked_field_absent(patron2_martigny):
     assert 'blocked' not in patron
 
 
-def test_get_reachable_roles():
-    """Test get roles covered by the given role."""
-    roles = Patron.get_reachable_roles(Patron.ROLE_SYSTEM_LIBRARIAN)
-    assert len(roles) == 2
-    assert Patron.ROLE_LIBRARIAN in roles
-    assert Patron.ROLE_SYSTEM_LIBRARIAN in roles
-
-    roles = Patron.get_reachable_roles('unknown_role')
-    assert not roles
-
-
-def test_get_all_roles_for_role():
-    """Test get roles covering by roles hierarchy."""
-    roles = Patron.get_all_roles_for_role(Patron.ROLE_PATRON)
-    assert len(roles) == 1
-    assert Patron.ROLE_PATRON in roles
-
-    roles = Patron.get_all_roles_for_role(Patron.ROLE_SYSTEM_LIBRARIAN)
-    assert len(roles) == 1
-    assert Patron.ROLE_SYSTEM_LIBRARIAN in roles
-
-    roles = Patron.get_all_roles_for_role(Patron.ROLE_LIBRARIAN)
-    assert len(roles) == 2
-    assert Patron.ROLE_LIBRARIAN in roles
-    assert Patron.ROLE_SYSTEM_LIBRARIAN in roles
-
-
 def test_get_patron_for_organisation(patron_martigny,
                                      patron_sion,
                                      org_martigny, org_sion):
@@ -359,3 +328,18 @@ def test_get_patron_for_organisation(patron_martigny,
     assert len(list(pids)) > 0
     pids = Patron.get_all_pids_for_organisation(org_sion.pid)
     assert len(list(pids)) > 0
+
+
+def test_patron_multiple(patron_sion_multiple, patron2_martigny, lib_martigny):
+    """Test changing roles for multiple patron accounts."""
+    assert patron2_martigny.user == patron_sion_multiple.user
+    data = dict(patron_sion_multiple)
+    assert set(patron2_martigny.user.roles) == set(['librarian', 'patron'])
+    data['roles'] = ['patron']
+    del data['libraries']
+    patron_sion_multiple.update(data, True, True)
+    assert patron2_martigny.user.roles == ['patron']
+    assert Patron.get_record_by_pid(patron_sion_multiple.pid).get('roles') == \
+        ['patron']
+    assert Patron.get_record_by_pid(patron2_martigny.pid).get('roles') == \
+        ['patron']

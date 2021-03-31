@@ -136,11 +136,8 @@ def test_pttr_permissions(patron_martigny,
     pttr_sa = patron_transaction_overdue_saxon
     pttr_si = patron_transaction_overdue_sion
     with mock.patch(
-        'rero_ils.modules.patron_transactions.permissions.current_patron',
-        patron_martigny
-    ), mock.patch(
-        'rero_ils.modules.patron_transactions.permissions.current_user',
-        patron_martigny.user
+        'rero_ils.modules.patron_transactions.permissions.current_patrons',
+        [patron_martigny]
     ):
         assert PatronTransactionPermission.list(None, pttr_m)
         assert PatronTransactionPermission.read(None, pttr_m)
@@ -150,15 +147,8 @@ def test_pttr_permissions(patron_martigny,
 
     # As Librarian
     with mock.patch(
-        'rero_ils.modules.patron_transactions.permissions.current_patron',
+        'rero_ils.modules.patron_transactions.permissions.current_librarian',
         librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.patron_transactions.permissions.current_user',
-        librarian_martigny.user
-    ), mock.patch(
-        'rero_ils.modules.patron_transactions.permissions.'
-        'current_organisation',
-        org_martigny
     ):
         assert PatronTransactionPermission.list(None, pttr_m)
         assert PatronTransactionPermission.read(None, pttr_m)
@@ -178,15 +168,8 @@ def test_pttr_permissions(patron_martigny,
 
     # As System-librarian
     with mock.patch(
-        'rero_ils.modules.patron_transactions.permissions.current_patron',
+        'rero_ils.modules.patron_transactions.permissions.current_librarian',
         system_librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.patron_transactions.permissions.current_user',
-        system_librarian_martigny.user
-    ), mock.patch(
-        'rero_ils.modules.patron_transactions.permissions.'
-        'current_organisation',
-        org_martigny
     ):
         assert PatronTransactionPermission.list(None, pttr_sa)
         assert PatronTransactionPermission.read(None, pttr_sa)

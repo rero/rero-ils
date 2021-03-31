@@ -18,8 +18,7 @@
 
 """Permissions for Acquisition account."""
 
-from rero_ils.modules.organisations.api import current_organisation
-from rero_ils.modules.patrons.api import current_patron
+from rero_ils.modules.patrons.api import current_librarian
 from rero_ils.modules.permissions import RecordPermission
 
 
@@ -35,7 +34,7 @@ class AcqAccountPermission(RecordPermission):
         :return: True is action can be done.
         """
         # List organisation allowed only for staff members (lib, sys_lib)
-        return current_patron and current_patron.is_librarian
+        return bool(current_librarian)
 
     @classmethod
     def read(cls, user, record):
@@ -46,14 +45,15 @@ class AcqAccountPermission(RecordPermission):
         :return: True is action can be done.
         """
         # user should be authenticated
-        if not current_patron:
+        if not current_librarian:
             return False
         # 'lib' can only update account linked to its own library
-        if current_patron.is_system_librarian:
-            return current_organisation['pid'] == record.organisation_pid
+        if current_librarian.is_system_librarian:
+            return current_librarian.organisation_pid == \
+                record.organisation_pid
         else:
-            return current_patron.library_pids and \
-                record.library_pid in current_patron.library_pids
+            return current_librarian.library_pids and \
+                record.library_pid in current_librarian.library_pids
 
     @classmethod
     def create(cls, user, record=None):
@@ -64,7 +64,7 @@ class AcqAccountPermission(RecordPermission):
         :return: True is action can be done.
         """
         # user should be authenticated
-        if not current_patron:
+        if not current_librarian:
             return False
         if not record:
             return True
@@ -82,15 +82,15 @@ class AcqAccountPermission(RecordPermission):
         """
         # only staff members (lib, sys_lib) can update acq_account
         # record cannot be null
-        if not current_patron or not current_patron.is_librarian or not record:
+        if not current_librarian or not record:
             return False
         # 'sys_lib' can update all account
-        if current_patron.is_system_librarian:
-            return current_organisation['pid'] == record.organisation_pid
+        if current_librarian.is_system_librarian:
+            return current_librarian.organisation_pid == \
+                record.organisation_pid
         # 'lib' can only update account linked to its own library
-        if current_patron.is_librarian:
-            return current_patron.library_pids and \
-                record.library_pid in current_patron.library_pids
+        return current_librarian.library_pids and \
+            record.library_pid in current_librarian.library_pids
         return False
 
     @classmethod

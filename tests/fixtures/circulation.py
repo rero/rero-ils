@@ -338,6 +338,26 @@ def patron_sion(
 
 
 @pytest.fixture(scope="module")
+def patron_sion_multiple(
+        app,
+        roles,
+        lib_sion,
+        patron_type_grown_sion,
+        patron2_martigny_data):
+    """Create a Sion patron with the same user as Martigny patron."""
+    data = deepcopy(patron2_martigny_data)
+    data['pid'] = 'ptrn13'
+    data['patron']['barcode'] = ['42421313123']
+    data['roles'] = ['patron', 'librarian']
+    pid = lib_sion.pid
+    data['libraries'] = [{'$ref':  f'https://ils.rero.ch/api/libraries/{pid}'}]
+    pid = patron_type_grown_sion.pid
+    data['patron']['type'] = {
+        '$ref': f'https://ils.rero.ch/api/patron_types/{pid}'}
+    yield create_patron(data)
+
+
+@pytest.fixture(scope="module")
 def patron_sion_without_email1(
         app,
         roles,

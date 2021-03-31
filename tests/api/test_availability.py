@@ -28,7 +28,6 @@ from rero_ils.modules.documents.views import can_request
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
-from rero_ils.modules.items.views import item_availability_text
 from rero_ils.modules.loans.api import LoanAction
 from rero_ils.modules.locations.api import Location
 from rero_ils.modules.utils import get_ref_for_pid
@@ -70,20 +69,6 @@ def test_item_can_request(
     assert res.status_code == 200
     data = get_json(res)
     assert data.get('can')
-
-    # test no valid -- patron doesn't have correct role
-    res = client.get(
-        url_for(
-            'api_item.can_request',
-            item_pid=item_lib_martigny.pid,
-            library_pid=lib_martigny.pid,
-            patron_barcode=system_librarian_martigny.get(
-                'patron', {}).get('barcode')[0]
-        )
-    )
-    assert res.status_code == 200
-    data = get_json(res)
-    assert not data.get('can')
 
     # test no valid item
     res = client.get(
@@ -189,7 +174,6 @@ def test_item_holding_document_availability(
     assert item_availablity_status(
         client, item_lib_martigny.pid, librarian_martigny.user)
     assert item_lib_martigny.available
-    assert item_availability_text(item_lib_martigny) == 'on shelf'
     assert holding_lib_martigny.available
     assert holding_availablity_status(
         client, holding_lib_martigny.pid, librarian_martigny.user)
@@ -200,8 +184,8 @@ def test_item_holding_document_availability(
 
     # login as patron
     with mock.patch(
-        'rero_ils.modules.patrons.api.current_patron',
-        patron_martigny
+        'rero_ils.modules.patrons.api.current_patrons',
+        [patron_martigny]
     ):
         login_user_via_session(client, patron_martigny.user)
         assert holding_lib_martigny.get_holding_loan_conditions() \
@@ -227,7 +211,6 @@ def test_item_holding_document_availability(
     assert not item_lib_martigny.available
     assert not item_availablity_status(
         client, item_lib_martigny.pid, librarian_martigny.user)
-    assert item_availability_text(item_lib_martigny) == '1 request'
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
     assert holding.available
     assert holding_availablity_status(
@@ -254,7 +237,6 @@ def test_item_holding_document_availability(
         client, item_lib_martigny.pid, librarian_martigny.user)
     assert not item_lib_martigny.available
     item = Item.get_record_by_pid(item_lib_martigny.pid)
-    assert item_availability_text(item) == 'in transit (1 request)'
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
     assert holding.available
     assert holding_availablity_status(
@@ -281,7 +263,6 @@ def test_item_holding_document_availability(
         client, item_lib_martigny.pid, librarian_saxon.user)
     item = Item.get_record_by_pid(item_lib_martigny.pid)
     assert not item.available
-    assert item_availability_text(item) == '1 request'
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
     assert holding.available
     assert holding_availablity_status(
@@ -332,7 +313,6 @@ def test_item_holding_document_availability(
 
     end_date = item.get_item_end_date(time_format=None,
                                       language='en')
-    assert item_availability_text(item) == 'due until ' + end_date
 
     """
     request second item with another patron and test document and holding
@@ -341,8 +321,8 @@ def test_item_holding_document_availability(
 
     # login as patron
     with mock.patch(
-        'rero_ils.modules.patrons.api.current_patron',
-        patron_martigny
+        'rero_ils.modules.patrons.api.current_patrons',
+        [patron_martigny]
     ):
         login_user_via_session(client, patron2_martigny.user)
         assert holding_lib_martigny.get_holding_loan_conditions() \
@@ -367,7 +347,6 @@ def test_item_holding_document_availability(
     assert not item2_lib_martigny.available
     assert not item_availablity_status(
         client, item2_lib_martigny.pid, librarian_martigny.user)
-    assert item_availability_text(item2_lib_martigny) == '1 request'
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
     assert not holding.available
     assert not holding_availablity_status(

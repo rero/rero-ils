@@ -18,8 +18,7 @@
 
 """Permissions for holdings."""
 
-from rero_ils.modules.organisations.api import current_organisation
-from rero_ils.modules.patrons.api import current_patron
+from rero_ils.modules.patrons.api import current_librarian
 from rero_ils.modules.permissions import RecordPermission
 
 
@@ -55,7 +54,7 @@ class HoldingPermission(RecordPermission):
         :return: True is action can be done.
         """
         # only staff members (sys_lib, lib) can create items
-        if not current_patron or not current_patron.is_librarian:
+        if not current_librarian:
             return False
         if not record:  # Used to to know if user may create some item
             return True
@@ -73,19 +72,18 @@ class HoldingPermission(RecordPermission):
         """
         # only staff members (lib, sys_lib) can update item
         # record cannot be null
-        if not current_patron or not current_patron.is_librarian or not record:
+        if not current_librarian or not record:
             return False
         # Only 'serial' holding could be manually created
         if not record.is_serial:
             return False
-        if current_organisation['pid'] == record.organisation_pid:
+        if current_librarian.organisation_pid == record.organisation_pid:
             # 'sys_lib' can update all items
-            if current_patron.is_system_librarian:
+            if current_librarian.is_system_librarian:
                 return True
             # 'lib' can only update items linked to its own library
-            if current_patron.is_librarian:
-                return current_patron.library_pids and \
-                       record.library_pid in current_patron.library_pids
+            return current_librarian.library_pids and \
+                record.library_pid in current_librarian.library_pids
         return False
 
     @classmethod

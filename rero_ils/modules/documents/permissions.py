@@ -21,7 +21,7 @@
 from flask_principal import RoleNeed
 from invenio_access.permissions import Permission
 
-from rero_ils.modules.patrons.api import current_patron
+from rero_ils.modules.patrons.api import current_librarian
 from rero_ils.modules.permissions import RecordPermission
 
 document_importer_permission = Permission(RoleNeed('document_importer'))
@@ -63,11 +63,8 @@ class DocumentPermission(RecordPermission):
         # users with document_importer permission can add new records
         if document_importer_permission:
             return True
-        # user should be authenticated
-        if not current_patron:
-            return False
         # only staff members (lib, sys_lib) are allowed to create any documents
-        return current_patron.is_librarian
+        return bool(current_librarian)
 
     @classmethod
     def update(cls, user, record):

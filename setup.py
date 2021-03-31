@@ -93,7 +93,6 @@ setup(
             'documents = rero_ils.modules.documents.views:blueprint',
             'holdings = rero_ils.modules.holdings.views:blueprint',
             'ill_requests = rero_ils.modules.ill_requests.views:blueprint',
-            'items = rero_ils.modules.items.views:blueprint',
             'notifications = rero_ils.modules.notifications.views:blueprint',
             'patrons = rero_ils.modules.patrons.views:blueprint',
             'rero_ils = rero_ils.theme.views:blueprint',

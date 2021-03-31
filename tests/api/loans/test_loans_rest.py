@@ -87,6 +87,150 @@ def test_loans_logged_permissions(client, loan_pending_martigny,
     assert res.status_code == 403
 
 
+def test_loan_access_permissions(client, librarian_martigny,
+                                 loc_public_saxon,
+                                 patron_martigny,
+                                 item_lib_sion,
+                                 item2_lib_sion,
+                                 patron_sion_multiple,
+                                 librarian_sion,
+                                 patron_sion,
+                                 patron2_martigny,
+                                 circulation_policies,
+                                 loan_pending_martigny,
+                                 item_lib_martigny,
+                                 loc_public_sion
+                                 ):
+    """Test loans read permissions."""
+    # no access to loans for non authenticated users.
+    loan_list = url_for('invenio_records_rest.loanid_list', q='pid:1')
+    res = client.get(loan_list)
+    assert res.status_code == 401
+
+    # ensure we have loans from the two configured organisation.
+    login_user_via_session(client, librarian_sion.user)
+    res, _ = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item_lib_sion.pid,
+            patron_pid=patron_sion.pid,
+            transaction_location_pid=loc_public_saxon.pid,
+            transaction_user_pid=librarian_martigny.pid,
+        )
+    )
+    assert res.status_code == 200
+
+    loan_pids = Loan.get_all_pids()
+    loans = [Loan.get_record_by_pid(pid) for pid in loan_pids]
+    loans_martigny = [
+        loan for loan in loans if loan.organisation_pid == 'org1']
+    loans_sion = [loan for loan in loans if loan.organisation_pid == 'org2']
+    assert loans
+    assert loan_pids
+    assert loans_martigny
+    assert loans_sion
+    # Test loan list API access.
+    login_user_via_session(client, librarian_martigny.user)
+    loan_list = url_for('invenio_records_rest.loanid_list', q='pid:1')
+    res = client.get(loan_list)
+    assert res.status_code == 200
+    login_user_via_session(client, patron_martigny.user)
+    loan_list = url_for('invenio_records_rest.loanid_list', q='pid:1')
+    res = client.get(loan_list)
+    assert res.status_code == 200
+
+    # librarian or system librarian have access all loans of its org
+    user = librarian_martigny
+    login_user_via_session(client, user.user)
+    for loan in loans:
+        record_url = url_for(
+            'invenio_records_rest.loanid_item', pid_value=loan.pid)
+        res = client.get(record_url)
+        if loan.organisation_pid == user.organisation_pid:
+            assert res.status_code == 200
+        if loan.organisation_pid != user.organisation_pid:
+            assert res.status_code == 403
+
+    # patron can access only its loans
+    user = patron_martigny
+    login_user_via_session(client, user.user)
+    for loan in loans:
+        record_url = url_for(
+            'invenio_records_rest.loanid_item', pid_value=loan.pid)
+        res = client.get(record_url)
+        if loan.organisation_pid == user.organisation_pid:
+            if loan.patron_pid == user.pid:
+                assert res.status_code == 200
+            else:
+                assert res.status_code == 403
+        if loan.organisation_pid != user.organisation_pid:
+            assert res.status_code == 403
+
+    # test query filters with a user who is librarian and patron in org2 and
+    # patron in org1
+    login_user_via_session(client, librarian_sion.user)
+    # create a loan for itself
+    res, _ = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item2_lib_sion.pid,
+            patron_pid=patron_sion_multiple.pid,
+            transaction_location_pid=loc_public_sion.pid,
+            transaction_user_pid=librarian_sion.pid,
+        )
+    )
+    assert res.status_code == 200
+
+    # act as multiple patron
+    login_user_via_session(client, patron_sion_multiple.user)
+    # without query filter I should have 3 loans one of mine and two
+    # in my employed organisation, the other patron loan of my patron org
+    # should be filtered
+    loan_list = url_for(
+        'invenio_records_rest.loanid_list',
+        q=f'')
+    res = client.get(loan_list)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert len(data['hits']['hits']) == 3
+
+    # see only my loan
+    loan_list = url_for(
+        'invenio_records_rest.loanid_list',
+        q=f'patron_pid:{patron_sion_multiple.pid}')
+    res = client.get(loan_list)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert len(data['hits']['hits']) == 1
+
+    # checkin the item to put it back to it's original state
+    login_user_via_session(client, librarian_sion.user)
+
+    res, data = postdata(
+        client,
+        'api_item.checkin',
+        dict(
+            item_pid=item2_lib_sion.pid,
+            transaction_location_pid=loc_public_sion.pid,
+            transaction_user_pid=librarian_sion.pid,
+        )
+    )
+    assert res.status_code == 200
+
+    res, _ = postdata(
+        client,
+        'api_item.checkin',
+        dict(
+            item_pid=item_lib_sion.pid,
+            transaction_location_pid=loc_public_saxon.pid,
+            transaction_user_pid=librarian_martigny.pid,
+        )
+    )
+    assert res.status_code == 200
+
+
 def test_due_soon_loans(client, librarian_martigny,
                         patron_martigny, loc_public_martigny,
                         item_type_standard_martigny,
@@ -100,8 +244,7 @@ def test_due_soon_loans(client, librarian_martigny,
 
     assert not get_last_transaction_loc_for_item(item_pid)
 
-    assert not item.patron_has_an_active_loan_on_item(
-        patron_martigny.get('patron', {}).get('barcode')[0])
+    assert not item.patron_has_an_active_loan_on_item(patron_martigny)
     assert item.can_delete
     assert item.available
 
@@ -339,80 +482,6 @@ def test_checkout_item_transit(client, item2_lib_martigny,
     loan_after_checkout = get_loan_for_item(item_pid_to_object(item.pid))
     assert loan_after_checkout.get('state') == LoanState.ITEM_ON_LOAN
     assert loan_before_checkout.get('pid') == loan_after_checkout.get('pid')
-
-
-def test_loan_access_permissions(client, librarian_martigny,
-                                 loc_public_saxon,
-                                 patron_martigny,
-                                 item_lib_sion, patron_sion,
-                                 librarian_sion,
-                                 circulation_policies
-                                 ):
-    """Test loans read permissions."""
-    # no access to loans for non authenticated users.
-    loan_list = url_for('invenio_records_rest.loanid_list', q='pid:1')
-    res = client.get(loan_list)
-    assert res.status_code == 401
-
-    # ensure we have loans from the two configured organisation.
-    login_user_via_session(client, librarian_sion.user)
-    res, _ = postdata(
-        client,
-        'api_item.checkout',
-        dict(
-            item_pid=item_lib_sion.pid,
-            patron_pid=patron_sion.pid,
-            transaction_location_pid=loc_public_saxon.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        )
-    )
-    assert res.status_code == 200
-
-    loan_pids = Loan.get_all_pids()
-    loans = [Loan.get_record_by_pid(pid) for pid in loan_pids]
-    loans_martigny = [
-        loan for loan in loans if loan.organisation_pid == 'org1']
-    loans_sion = [loan for loan in loans if loan.organisation_pid == 'org2']
-    assert loans
-    assert loan_pids
-    assert loans_martigny
-    assert loans_sion
-    # Test loan list API access.
-    login_user_via_session(client, librarian_martigny.user)
-    loan_list = url_for('invenio_records_rest.loanid_list', q='pid:1')
-    res = client.get(loan_list)
-    assert res.status_code == 200
-    login_user_via_session(client, patron_martigny.user)
-    loan_list = url_for('invenio_records_rest.loanid_list', q='pid:1')
-    res = client.get(loan_list)
-    assert res.status_code == 200
-
-    # librarian or system librarian have access all loans of its org
-    user = librarian_martigny
-    login_user_via_session(client, user.user)
-    for loan in loans:
-        record_url = url_for(
-            'invenio_records_rest.loanid_item', pid_value=loan.pid)
-        res = client.get(record_url)
-        if loan.organisation_pid == user.organisation_pid:
-            assert res.status_code == 200
-        if loan.organisation_pid != user.organisation_pid:
-            assert res.status_code == 403
-
-    # patron can access only its loans
-    user = patron_martigny
-    login_user_via_session(client, user.user)
-    for loan in loans:
-        record_url = url_for(
-            'invenio_records_rest.loanid_item', pid_value=loan.pid)
-        res = client.get(record_url)
-        if loan.organisation_pid == user.organisation_pid:
-            if loan.patron_pid == user.pid:
-                assert res.status_code == 200
-            else:
-                assert res.status_code == 403
-        if loan.organisation_pid != user.organisation_pid:
-            assert res.status_code == 403
 
 
 def test_timezone_due_date(client, librarian_martigny,

@@ -18,21 +18,11 @@
 """Patron Transaction resolver."""
 
 import jsonresolver
-from flask import current_app
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+
+from ..jsonresolver import resolve_json_refs
 
 
 @jsonresolver.route('/api/patron_transactions/<pid>', host='ils.rero.ch')
 def patron_transaction_resolver(pid):
     """Resolver for patron transaction record."""
-    persistent_id = PersistentIdentifier.get('pttr', pid)
-    if persistent_id.status == PIDStatus.REGISTERED:
-        return dict(pid=persistent_id.pid_value)
-    current_app.logger.error(
-        'record resolver error: /api/patron_transactions/{pid} \
-            {persistent_id}'.format(
-            pid=pid,
-            persistent_id=persistent_id
-        )
-    )
-    raise Exception('unable to resolve')
+    return resolve_json_refs('pttr', pid)

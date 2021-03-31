@@ -38,9 +38,8 @@ from ..documents.views import item_library_pickup_locations
 from ..errors import NoCirculationActionIsPermitted
 from ..libraries.api import Library
 from ..loans.api import Loan
-from ..organisations.api import current_organisation
-from ..patrons.api import Patron
-from ...permissions import librarian_permission
+from ..patrons.api import Patron, current_librarian, current_patrons
+from ...permissions import librarian_permission, request_item_permission
 
 # from rero_ils.modules.utils import profile
 
@@ -69,6 +68,17 @@ def check_authentication(func):
         if not current_user.is_authenticated:
             return jsonify({'status': 'error: Unauthorized'}), 401
         if not librarian_permission.require().can():
+            return jsonify({'status': 'error: Forbidden'}), 403
+        return func(*args, **kwargs)
+
+    return decorated_view
+
+
+def check_authentication_for_request(func):
+    """Decorator to check authentication for item requests HTTP API."""
+    @wraps(func)
+    def decorated_view(*args, **kwargs):
+        if not request_item_permission.require().can():
             return jsonify({'status': 'error: Forbidden'}), 403
         return func(*args, **kwargs)
 
@@ -162,8 +172,32 @@ def do_item_jsonify_action(func):
     return decorated_view
 
 
-@api_blueprint.route('/request', methods=['POST'])
+@api_blueprint.route('/patron_request', methods=['POST'])
 @check_logged_user_authentication
+@check_authentication_for_request
+@do_item_jsonify_action
+def patron_request(item, data):
+    """HTTP POST request for Item request action by a patron.
+
+    required_parameters:
+        item_pid,
+        pickup_location_pid
+    """
+    # get the patron account of the same org of the location pid
+    def get_patron(item):
+        for ptrn in current_patrons:
+            if ptrn.organisation_pid == item.organisation_pid:
+                return ptrn
+
+    patron_pid = get_patron(item).pid
+    data['patron_pid'] = patron_pid
+    data['transaction_user_pid'] = patron_pid
+    data['transaction_location_pid'] = data['pickup_location_pid']
+    return item.request(**data)
+
+
+@api_blueprint.route('/request', methods=['POST'])
+@check_authentication
 @do_item_jsonify_action
 def librarian_request(item, data):
     """HTTP POST request for Item request action.
@@ -341,7 +375,8 @@ def loans(patron_pid):
 @jsonify_error
 def item(item_barcode):
     """HTTP GET request for requested loans for a library item and patron."""
-    item = Item.get_item_by_barcode(item_barcode, current_organisation.pid)
+    item = Item.get_item_by_barcode(
+        item_barcode, current_librarian.organisation_pid)
     if not item:
         abort(404)
     loan = get_loan_for_item(item_pid_to_object(item.pid))
@@ -365,13 +400,11 @@ def item(item_barcode):
         new_actions = []
         # If circulation policy doesn't allow checkout operation no need to
         # perform special check describe below.
-        if circ_policy.allow_checkout:
+        if circ_policy.can_checkout:
             for action in item_dumps.get('actions', []):
                 if action == 'checkout':
                     if item.number_of_requests() > 0:
-                        patron_barcode = patron.get('patron', {})\
-                            .get('barcode')
-                        if item.patron_request_rank(patron_barcode) == 1:
+                        if item.patron_request_rank(patron) == 1:
                             new_actions.append(action)
                     else:
                         new_actions.append(action)
@@ -420,7 +453,8 @@ def can_request(item_pid):
         abort(404, 'Item not found')
     patron_barcode = flask_request.args.get('patron_barcode')
     if patron_barcode:
-        kwargs['patron'] = Patron.get_patron_by_barcode(patron_barcode)
+        kwargs['patron'] = Patron.get_patron_by_barcode(
+            patron_barcode, item.organisation_pid)
         if not kwargs['patron']:
             abort(404, 'Patron not found')
     library_pid = flask_request.args.get('library_pid')

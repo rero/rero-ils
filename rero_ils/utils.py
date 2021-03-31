@@ -93,8 +93,6 @@ def create_user_from_data(data):
             # set the profile
             for field in profile_fields:
                 value = data.get(field)
-                if field == 'keep_history':
-                    value = data.get('patron', {}).get(field)
                 if value is not None:
                     if field == 'birth_date':
                         value = datetime.strptime(value, '%Y-%m-%d')
@@ -108,10 +106,7 @@ def create_user_from_data(data):
     # remove the user fields from the data
     for field in profile_fields:
         try:
-            if field == 'keep_history':
-                del data['patron'][field]
-            else:
-                del data[field]
+            del data[field]
         except KeyError:
             pass
     data['user_id'] = user_id

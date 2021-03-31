@@ -28,8 +28,8 @@ from invenio_i18n.ext import current_i18n
 from invenio_records_rest.errors import InvalidQueryRESTError
 
 from .facets import i18n_facets_factory
-from .modules.organisations.api import Organisation, current_organisation
-from .modules.patrons.api import current_patron
+from .modules.organisations.api import Organisation
+from .modules.patrons.api import current_librarian, current_patrons
 from .modules.templates.api import TemplateVisibility
 from .utils import get_i18n_supported_languages
 
@@ -158,29 +158,9 @@ def viewcode_patron_search_factory(self, search, query_parser=None):
             org = Organisation.get_record_by_viewcode(view)
             search = search.filter('term', organisation__pid=org['pid'])
     # Admin interface
-    elif current_patron:
+    elif current_librarian:
         search = search.filter(
-            'term', organisation__pid=current_organisation.pid
-        )
-    # exclude draft records
-    search = search.filter('bool', must_not=[Q('term', _draft=True)])
-    return search, urlkwargs
-
-
-def viewcode_patron_search_masked_factory(self, search, query_parser=None):
-    """Search factory with viewcode or current patron."""
-    search, urlkwargs = search_factory(self, search)
-    view = request.args.get('view')
-    # Public interface
-    if view:
-        if view != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
-            org = Organisation.get_record_by_viewcode(view)
-            search = search.filter('term', organisation__pid=org['pid'])
-        search = search.filter('bool', must_not=[Q('term', _masked=True)])
-    # Admin interface
-    elif current_patron:
-        search = search.filter(
-            'term', organisation__pid=current_organisation.pid
+            'term', organisation__pid=current_librarian.organisation_pid
         )
     # exclude draft records
     search = search.filter('bool', must_not=[Q('term', _draft=True)])
@@ -214,9 +194,9 @@ def search_factory_for_all_interfaces(view, search):
         # masked records are hidden for all public interfaces
         search = search.filter('bool', must_not=[Q('term', _masked=True)])
     # Logic for admin interface
-    elif current_patron:
+    elif current_librarian:
         search = search.filter(
-            'term', organisation__pid=current_organisation.pid
+            'term', organisation__pid=current_librarian.organisation_pid
         )
     return search
 
@@ -235,8 +215,8 @@ def contribution_view_search_factory(self, search, query_parser=None):
 def organisation_organisation_search_factory(self, search, query_parser=None):
     """Organisation Search factory."""
     search, urlkwargs = search_factory(self, search)
-    if current_patron:
-        search = search.filter('term', pid=current_organisation.pid)
+    if current_librarian:
+        search = search.filter('term', pid=current_librarian.organisation_pid)
     return search, urlkwargs
 
 
@@ -249,9 +229,9 @@ def organisation_search_factory(self, search, query_parser=None):
     # this functionality will be completed after merging the USs:
     # US1909: Performance: many items on public document detailed view
     # US1906: Complete item model
-    if current_patron:
+    if current_librarian:
         search = search.filter(
-            'term', organisation__pid=current_organisation.pid
+            'term', organisation__pid=current_librarian.organisation_pid
         )
     view = request.args.get(
         'view', current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))
@@ -290,13 +270,14 @@ def ill_request_search_factory(self, search, query_parser=None):
     """
     search, urlkwargs = search_factory(self, search)
 
-    if current_patron:
-        if current_patron.is_librarian:
-            search = search.filter(
-                'term', organisation__pid=current_organisation.pid
-            )
-        elif current_patron.is_patron:
-            search = search.filter('term', patron__pid=current_patron.pid)
+    if current_librarian:
+        search = search.filter(
+            'term', organisation__pid=current_librarian.organisation_pid
+        )
+    elif current_patrons:
+        search = search.filter(
+            'terms',
+            patron__pid=[ptrn.pid for ptrn in current_patrons])
     # exclude to_anonymize records
     search = search.filter('bool', must_not=[Q('term', to_anonymize=True)])
 
@@ -311,13 +292,23 @@ def circulation_search_factory(self, search, query_parser=None):
     Exclude to_anonymize loans from results.
     """
     search, urlkwargs = search_factory(self, search)
-    if current_patron:
-        if current_patron.is_librarian:
-            search = search.filter(
-                'term', organisation__pid=current_organisation.pid
-            )
-        if current_patron.is_patron:
-            search = search.filter('term', patron_pid=current_patron.pid)
+    # a user can be patron and librarian, it should search in his own loan and
+    # the loans of his profesionnal organisation
+
+    # initial filter for OR condition
+    filters = Q('match_none')
+    if current_librarian:
+        filters |= Q(
+            'term', organisation__pid=current_librarian.organisation_pid
+        )
+    if current_patrons:
+        filters |= Q(
+            'terms',
+            patron_pid=[ptrn.pid for ptrn in current_patrons]
+        )
+    if filters is not Q('match_none'):
+        search = search.filter('bool', must=[filters])
+
     # exclude to_anonymize records
     search = search.filter('bool', must_not=[Q('term', to_anonymize=True)])
 
@@ -331,16 +322,16 @@ def templates_search_factory(self, search, query_parser=None):
     Restricts results to private templates for users with role librarian.
     """
     search, urlkwargs = search_factory(self, search)
-    if current_patron:
-        if current_patron.is_system_librarian:
+    if current_librarian:
+        if current_librarian.is_system_librarian:
             search = search.filter(
-                'term', organisation__pid=current_organisation.pid)
-        elif current_patron.is_librarian:
+                'term', organisation__pid=current_librarian.organisation_pid)
+        else:
             search = search.filter(
-                'term', organisation__pid=current_organisation.pid)
+                'term', organisation__pid=current_librarian.organisation_pid)
             search = search.filter('bool', should=[
                 Q('bool', must=[
-                    Q('match', creator__pid=current_patron.pid),
+                    Q('match', creator__pid=current_librarian.pid),
                     Q('match', visibility=TemplateVisibility.PRIVATE)]),
                 Q('match', visibility=TemplateVisibility.PUBLIC)])
 
@@ -354,13 +345,14 @@ def patron_transactions_search_factory(self, search, query_parser=None):
     Restricts results to his transactions for users with role patron.
     """
     search, urlkwargs = search_factory(self, search)
-    if current_patron:
-        if current_patron.is_librarian:
-            search = search.filter(
-                'term', organisation__pid=current_organisation.pid
-            )
-        elif current_patron.is_patron:
-            search = search.filter('term', patron__pid=current_patron.pid)
+    if current_librarian:
+        search = search.filter(
+            'term', organisation__pid=current_librarian.organisation_pid
+        )
+    elif current_patrons:
+        search = search.filter(
+            'terms',
+            patron__pid=[ptrn.pid for ptrn in current_patrons])
     return search, urlkwargs
 
 
@@ -372,10 +364,9 @@ def acq_accounts_search_factory(self, search, query_parser=None):
     """
     search, urlkwargs = search_factory(self, search)
 
-    if current_patron and (
-            current_patron.is_librarian or current_patron.is_system_librarian):
+    if current_librarian:
         search = search.filter(
-            'term', organisation__pid=current_organisation.pid
+            'term', organisation__pid=current_librarian.organisation_pid
         )
     return search, urlkwargs
 

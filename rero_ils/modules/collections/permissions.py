@@ -18,8 +18,7 @@
 
 """Collection permissions."""
 
-from rero_ils.modules.organisations.api import current_organisation
-from rero_ils.modules.patrons.api import current_patron
+from rero_ils.modules.patrons.api import current_librarian
 from rero_ils.modules.permissions import RecordPermission
 
 
@@ -56,11 +55,8 @@ class CollectionPermission(RecordPermission):
         :param record: Record to check.
         :return: True if action can be done.
         """
-        # user should be authenticated
-        if not current_patron:
-            return False
         # only staff members (lib,sys_lib) are allowed to create any collection
-        return current_patron.is_librarian
+        return bool(current_librarian)
 
     @classmethod
     def update(cls, user, record):
@@ -72,11 +68,9 @@ class CollectionPermission(RecordPermission):
         """
         # only staff members (lib, sys_lib) can update collection
         # record cannot be null
-        if not current_patron or not current_organisation:
+        if not current_librarian:
             return False
-        if current_patron.is_librarian:
-            return current_organisation['pid'] == record.organisation_pid
-        return False
+        return current_librarian.organisation_pid == record.organisation_pid
 
     @classmethod
     def delete(cls, user, record):

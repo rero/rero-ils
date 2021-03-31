@@ -150,26 +150,19 @@ def test_holdings_permissions(patron_martigny, org_martigny,
     assert not HoldingPermission.update(None, {})
     assert not HoldingPermission.delete(None, {})
 
-    # As Patron
+    # As non Librarian
     holding_serial_martigny = holding_lib_martigny_w_patterns
     holding_serial_sion = holding_lib_sion_w_patterns
-    with mock.patch(
-        'rero_ils.modules.holdings.permissions.current_patron',
-        patron_martigny
-    ):
-        assert HoldingPermission.list(None, holding_lib_martigny)
-        assert HoldingPermission.read(None, holding_lib_martigny)
-        assert not HoldingPermission.create(None, holding_lib_martigny)
-        assert not HoldingPermission.update(None, holding_lib_martigny)
-        assert not HoldingPermission.delete(None, holding_lib_martigny)
+    assert HoldingPermission.list(None, holding_lib_martigny)
+    assert HoldingPermission.read(None, holding_lib_martigny)
+    assert not HoldingPermission.create(None, holding_lib_martigny)
+    assert not HoldingPermission.update(None, holding_lib_martigny)
+    assert not HoldingPermission.delete(None, holding_lib_martigny)
 
     # As Librarian
     with mock.patch(
-        'rero_ils.modules.holdings.permissions.current_patron',
+        'rero_ils.modules.holdings.permissions.current_librarian',
         librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.holdings.permissions.current_organisation',
-        org_martigny
     ):
         assert HoldingPermission.list(None, holding_lib_martigny)
         assert HoldingPermission.read(None, holding_lib_martigny)
@@ -196,11 +189,8 @@ def test_holdings_permissions(patron_martigny, org_martigny,
 
     # As System-librarian
     with mock.patch(
-        'rero_ils.modules.holdings.permissions.current_patron',
+        'rero_ils.modules.holdings.permissions.current_librarian',
         system_librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.holdings.permissions.current_organisation',
-        org_martigny
     ):
         assert HoldingPermission.list(None, HoldingPermission)
         assert HoldingPermission.read(None, HoldingPermission)

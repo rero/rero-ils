@@ -119,24 +119,17 @@ def test_template_permissions(
     assert not TemplatePermission.update(None, {})
     assert not TemplatePermission.delete(None, {})
 
-    # As Patron
-    with mock.patch(
-        'rero_ils.modules.templates.permissions.current_patron',
-        patron_martigny
-    ):
-        assert not TemplatePermission.list(None, {})
-        assert not TemplatePermission.read(None, {})
-        assert not TemplatePermission.create(None, {})
-        assert not TemplatePermission.update(None, {})
-        assert not TemplatePermission.delete(None, {})
+    # As non Librarian
+    assert not TemplatePermission.list(None, {})
+    assert not TemplatePermission.read(None, {})
+    assert not TemplatePermission.create(None, {})
+    assert not TemplatePermission.update(None, {})
+    assert not TemplatePermission.delete(None, {})
 
     # As Librarian
     with mock.patch(
-        'rero_ils.modules.templates.permissions.current_patron',
+        'rero_ils.modules.templates.permissions.current_librarian',
         librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.templates.permissions.current_organisation',
-        org_martigny
     ):
         assert TemplatePermission.list(None, templ_doc_public_martigny)
         assert TemplatePermission.read(None, templ_doc_public_martigny)
@@ -152,11 +145,8 @@ def test_template_permissions(
 
     # As SystemLibrarian
     with mock.patch(
-        'rero_ils.modules.templates.permissions.current_patron',
+        'rero_ils.modules.templates.permissions.current_librarian',
         system_librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.templates.permissions.current_organisation',
-        org_martigny
     ):
         assert TemplatePermission.list(None, templ_doc_private_martigny)
         assert TemplatePermission.read(None, templ_doc_private_martigny)

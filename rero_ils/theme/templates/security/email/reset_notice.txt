@@ -5,5 +5,4 @@
 {%- endif %}
 <p>{{ _('Your password has been successfully reset.') }}</p>
 <p>{{ _('Best regards') }}</p>
-<p>{{ _('Your library') }}</p>
-<p>{{ user | lib_url }}</p>
+<p>{{ _('Your Libray') }}</p>

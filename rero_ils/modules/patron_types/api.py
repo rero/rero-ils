@@ -130,7 +130,7 @@ class PatronType(IlsRecord):
             yield cls.get_record_by_pid(result.pid)
 
     @classmethod
-    def allow_checkout(cls, item, **kwargs):
+    def can_checkout(cls, item, **kwargs):
         """Check if a patron type allow checkout loan operation.
 
         :param item : the item to check
@@ -163,7 +163,7 @@ class PatronType(IlsRecord):
         return True, []
 
     @classmethod
-    def allow_request(cls, item, **kwargs):
+    def can_request(cls, item, **kwargs):
         """Check if a patron type allow request item operation.
 
         :param item : the item to check
@@ -191,7 +191,7 @@ class PatronType(IlsRecord):
         return True, []
 
     @classmethod
-    def allow_extend(cls, item, **kwargs):
+    def can_extend(cls, item, **kwargs):
         """Check if a patron type allow extend loan operation.
 
         :param item : the item to check

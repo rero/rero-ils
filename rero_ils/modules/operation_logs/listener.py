@@ -23,7 +23,7 @@ from flask import current_app
 
 from .api import OperationLog
 from .models import OperationLogOperation
-from ..patrons.api import current_patron
+from ..patrons.api import current_librarian
 from ..utils import extracted_data_from_ref, get_ref_for_pid
 
 
@@ -69,13 +69,13 @@ def build_operation_log_record(record=None, operation=None):
                     record.provider.pid_type, record.get('pid'))},
                 'operation': operation
             }
-            if current_patron:
+            if current_librarian:
                 oplg['user'] = {
-                    '$ref': get_ref_for_pid('ptrn', current_patron.pid)}
-                oplg['user_name'] = current_patron.formatted_name
+                    '$ref': get_ref_for_pid('ptrn', current_librarian.pid)}
+                oplg['user_name'] = current_librarian.formatted_name
                 oplg['organisation'] = {
                     '$ref': get_ref_for_pid(
-                        'org', current_patron.organisation_pid)}
+                        'org', current_librarian.organisation_pid)}
             else:
                 oplg['user_name'] = 'system'
             oplg = OperationLog(oplg)

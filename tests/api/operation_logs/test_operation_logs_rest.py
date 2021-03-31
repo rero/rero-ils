@@ -27,7 +27,7 @@ from rero_ils.modules.operation_logs.models import OperationLogOperation
 def test_operation_log_entries(client, librarian_martigny, document):
     """Test operation log entries after record update."""
     with mock.patch(
-        'rero_ils.modules.operation_logs.listener.current_patron',
+        'rero_ils.modules.operation_logs.listener.current_librarian',
         librarian_martigny
     ):
         login_user_via_session(client, librarian_martigny.user)

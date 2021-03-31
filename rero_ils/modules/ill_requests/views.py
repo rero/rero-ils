@@ -26,8 +26,9 @@ from .api import ILLRequest
 from .forms import ILLRequestForm
 from .models import ILLRequestStatus
 from .utils import get_pickup_location_options
-from ..patrons.api import current_patron
-from ..utils import get_ref_for_pid
+from ..locations.api import Location
+from ..patrons.api import current_patrons
+from ..utils import extracted_data_from_ref, get_ref_for_pid
 from ...permissions import check_user_is_authenticated
 
 blueprint = Blueprint(
@@ -50,8 +51,19 @@ def ill_request_form():
 
     if request.method == 'POST' and form.validate_on_submit():
         ill_request_data = form.get_data()
+        # get the pickup location pid
+        loc_pid = extracted_data_from_ref(
+            ill_request_data['pickup_location'])
+
+        # get the patron account of the same org of the location pid
+        def get_patron(location_pid):
+            loc = Location.get_record_by_pid(loc_pid)
+            for ptrn in current_patrons:
+                if ptrn.organisation_pid == loc.organisation_pid:
+                    return ptrn
+
         ill_request_data['patron'] = {
-            '$ref': get_ref_for_pid('patrons', current_patron.pid)
+            '$ref': get_ref_for_pid('patrons', get_patron(loc_pid).pid)
         }
         ill_request_data['status'] = ILLRequestStatus.PENDING
         ILLRequest.create(ill_request_data, dbcommit=True, reindex=True)
@@ -59,6 +71,6 @@ def ill_request_form():
             _('The request has been transmitted to your library.'),
             'success'
         )
-        return redirect(url_for('patrons.profile') + '?tab=ill_request')
+        return redirect(url_for('patrons.profile', tab='ill_request'))
 
     return render_template('rero_ils/ill_request_form.html', form=form)

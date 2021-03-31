@@ -157,23 +157,23 @@ def test_item_types_name_validate(client):
     """Test record name validation."""
     url = url_for('item_types.name_validate', name='standard')
 
-    class current_patron:
+    class current_librarian:
         class organisation:
             pid = 'org1'
     with mock.patch(
-        'rero_ils.modules.item_types.views.current_patron',
-        current_patron
+        'rero_ils.modules.item_types.views.current_librarian',
+        current_librarian
     ):
         res = client.get(url)
         assert res.status_code == 200
         assert get_json(res) == {'name': 'standard'}
 
-    class current_patron:
+    class current_librarian:
         class organisation:
             pid = 'does not exists'
     with mock.patch(
-        'rero_ils.modules.item_types.views.current_patron',
-        current_patron
+        'rero_ils.modules.item_types.views.current_librarian',
+        current_librarian
     ):
         res = client.get(url)
         assert res.status_code == 200

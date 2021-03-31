@@ -86,24 +86,17 @@ def test_vendor_permissions(patron_martigny,
     assert not VendorPermission.update(None, {})
     assert not VendorPermission.delete(None, {})
 
-    # As Patron
-    with mock.patch(
-        'rero_ils.modules.vendors.permissions.current_patron',
-        patron_martigny
-    ):
-        assert not VendorPermission.list(None, vendor_martigny)
-        assert not VendorPermission.read(None, vendor_martigny)
-        assert not VendorPermission.create(None, vendor_martigny)
-        assert not VendorPermission.update(None, vendor_martigny)
-        assert not VendorPermission.delete(None, vendor_martigny)
+    # As non Librarian
+    assert not VendorPermission.list(None, vendor_martigny)
+    assert not VendorPermission.read(None, vendor_martigny)
+    assert not VendorPermission.create(None, vendor_martigny)
+    assert not VendorPermission.update(None, vendor_martigny)
+    assert not VendorPermission.delete(None, vendor_martigny)
 
     # As Librarian
     with mock.patch(
-        'rero_ils.modules.vendors.permissions.current_patron',
+        'rero_ils.modules.vendors.permissions.current_librarian',
         librarian_martigny
-    ), mock.patch(
-        'rero_ils.modules.vendors.permissions.current_organisation',
-        org_martigny
     ):
         assert VendorPermission.list(None, vendor_martigny)
         assert VendorPermission.read(None, vendor_martigny)

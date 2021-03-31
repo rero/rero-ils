@@ -18,8 +18,7 @@
 
 """Permissions for libraries."""
 
-from rero_ils.modules.organisations.api import current_organisation
-from rero_ils.modules.patrons.api import current_patron
+from rero_ils.modules.patrons.api import current_librarian
 from rero_ils.modules.permissions import RecordPermission
 
 
@@ -35,7 +34,7 @@ class LibraryPermission(RecordPermission):
         :return: True is action can be done.
         """
         # List libraries allowed only for staff members (lib, sys_lib)
-        return current_patron and current_patron.is_librarian
+        return bool(current_librarian)
 
     @classmethod
     def read(cls, user, record):
@@ -45,13 +44,11 @@ class LibraryPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
-        if not current_patron:
-            return False
         # only staff members (lib, sys_lib) are allowed to read an library
-        if not current_patron.is_librarian:
+        if not current_librarian:
             return False
         # For staff users, they can read only own organisation libraries
-        return current_organisation['pid'] == record.organisation_pid
+        return current_librarian.organisation_pid == record.organisation_pid
 
     @classmethod
     def create(cls, user, record=None):
@@ -62,10 +59,11 @@ class LibraryPermission(RecordPermission):
         :return: True is action can be done.
         """
         # only sys_lib user can create library
-        if not current_patron or not current_patron.is_system_librarian:
+        if not current_librarian or not current_librarian.is_system_librarian:
             return False
         # sys_lib can only create library for its own organisation
-        if record and current_organisation['pid'] != record.organisation_pid:
+        if record and \
+                current_librarian.organisation_pid != record.organisation_pid:
             return False
         return True
 
@@ -79,16 +77,16 @@ class LibraryPermission(RecordPermission):
         """
         # only staff members (lib, sys_lib) can update library
         # record cannot be null
-        if not current_patron or not current_patron.is_librarian or not record:
+        if not current_librarian or not record:
             return False
-        if current_organisation['pid'] == record.organisation_pid:
+        if current_librarian.organisation_pid == record.organisation_pid:
             # 'sys_lib' can update all libraries
-            if current_patron.is_system_librarian:
+            if current_librarian.is_system_librarian:
                 return True
             # 'lib' can only update library linked to its own library
-            if current_patron.is_librarian:
-                return current_patron.library_pids and \
-                       record['pid'] in current_patron.library_pids
+            else:
+                return current_librarian.library_pids and \
+                       record['pid'] in current_librarian.library_pids
         return False
 
     @classmethod
