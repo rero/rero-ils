@@ -308,8 +308,7 @@ CELERY_BEAT_SCHEDULE = {
         # TODO: in production set this up once a day
     },
     'claims-creation': {
-        'task': ('rero_ils.modules.items.tasks'
-                 '.process_late_claimed_issues'),
+        'task': 'rero_ils.modules.items.tasks.process_late_claimed_issues',
         'schedule': crontab(minute=0, hour=6),  # Every day at 06:00 UTC,
         'enabled': False
     },

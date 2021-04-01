@@ -147,7 +147,7 @@ class ItemIssue(ItemRecord):
                 issue = holding.receive_regular_issue(
                     dbcommit=dbcommit, reindex=reindex)
                 issue['issue']['status'] = ItemIssueStatus.LATE
-                issue = issue.update(issue, dbcommit=dbcommit, reindex=reindex)
+                issue.update(issue, dbcommit=dbcommit, reindex=reindex)
                 created_issues += 1
             except Exception:
                 current_app.logger.error(

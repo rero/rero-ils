@@ -22,10 +22,13 @@ from __future__ import absolute_import, print_function
 from copy import deepcopy
 from datetime import date, datetime, timedelta, timezone
 
+import ciso8601
+from freezegun import freeze_time
 from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import LoansSearch
 from utils import flush_index, get_mapping
 
+from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.api import Loan, LoanState, get_loans_by_patron_pid
 from rero_ils.modules.loans.tasks import loan_anonymizer
@@ -66,13 +69,24 @@ def test_item_loans_elements(
     circ_policy_default_martigny.update(
         circ_policy_default_martigny, dbcommit=True, reindex=True)
 
-    today = datetime.now()
-    library = Library.get_record_by_pid(item_lib_fully.library_pid)
-    eve_end_date = today \
-        + get_default_loan_duration(new_loan, None) \
-        - timedelta(days=1)
-    end_date = library.next_open(eve_end_date)
-    assert today.strftime('%Y-%m-%d') == end_date.strftime('%Y-%m-%d')
+
+def test_is_due_soon(
+        item_on_loan_martigny_patron_and_loan_on_loan):
+    """Test 'is due soon' method about a loan."""
+    item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
+
+    # Just after creation the loan isn't yet 'due_soon'.
+    # the corresponding circulation policy define a due_soon notification.
+    assert not loan.is_loan_due_soon()
+    cipo = get_circ_policy(loan)
+    reminder = cipo.get_reminder(reminder_type=DUE_SOON_REMINDER_TYPE)
+    assert reminder.get('days_delay')
+
+    # mock the sysdate to just 5 days before the due_date
+    due_date = ciso8601.parse_datetime(loan.end_date)
+    mock_date = due_date - timedelta(days=reminder.get('days_delay'))
+    with freeze_time(mock_date):
+        assert loan.is_loan_due_soon()
 
 
 def test_loan_keep_and_to_anonymize(
