@@ -58,7 +58,7 @@ def get_default_loan_duration(loan, initial_loan):
     #   - use hours and minutes from now
     #   - check regarding end of day (eod), 23:59
     #   - correct the hours/date regarding library timezone
-    eod = timedelta(hours=23, minutes=59)
+    eod = timedelta(hours=23, minutes=59, seconds=59, milliseconds=999)
     aware_eod = eod - library.get_timezone().utcoffset(now, is_dst=True)
     time_to_eod = aware_eod - timedelta(hours=now.hour, minutes=now.minute)
 

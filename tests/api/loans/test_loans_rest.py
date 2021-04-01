@@ -257,11 +257,7 @@ def test_due_soon_loans(client, librarian_martigny,
     )
     circ_policy['reminders'][0]['days_delay'] = 7
     circ_policy['checkout_duration'] = 3
-    circ_policy.update(
-        circ_policy,
-        dbcommit=True,
-        reindex=True
-    )
+    circ_policy.update(circ_policy, dbcommit=True, reindex=True)
 
     # checkout
     res, data = postdata(
@@ -276,6 +272,13 @@ def test_due_soon_loans(client, librarian_martigny,
     )
     assert res.status_code == 200
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
+    # To be considerate as 'due_soon', we need to update the loan start date
+    # to figure than start_date occurs before due_date.
+    loan = Loan.get_record_by_pid(loan_pid)
+    start_date = ciso8601.parse_datetime(loan.get('start_date'))
+    loan['start_date'] = (start_date - timedelta(days=30)).isoformat()
+    loan.update(loan, dbcommit=True, reindex=True)
+
     due_soon_loans = get_due_soon_loans()
     assert due_soon_loans[0].get('pid') == loan_pid
 
@@ -287,7 +290,6 @@ def test_due_soon_loans(client, librarian_martigny,
     check_timezone_date(pytz.utc, loan_date, [21, 22])
 
     # should be 14:59/15:59 in US/Pacific (because of daylight saving time)
-
     check_timezone_date(pytz.timezone('US/Pacific'), loan_date, [14, 15])
     check_timezone_date(pytz.timezone('Europe/Amsterdam'), loan_date)
 
