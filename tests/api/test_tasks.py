@@ -19,6 +19,7 @@
 
 from datetime import datetime, timedelta, timezone
 
+import ciso8601
 from freezegun import freeze_time
 from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.search.api import LoansSearch
@@ -30,7 +31,7 @@ from rero_ils.modules.items.tasks import clean_obsolete_temporary_item_types
 from rero_ils.modules.loans.api import Loan, LoanAction, get_due_soon_loans, \
     get_overdue_loans
 from rero_ils.modules.notifications.api import Notification, \
-    NotificationsSearch, number_of_reminders_sent
+    NotificationsSearch, get_notification, number_of_reminders_sent
 from rero_ils.modules.notifications.tasks import create_notifications
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.patrons.listener import \
@@ -68,7 +69,10 @@ def test_notifications_task(
     loan = Loan.get_record_by_pid(loan_pid)
 
     # test due_soon notification
-    end_date = datetime.now(timezone.utc) + timedelta(days=3)
+    #   update the loan end_date to reflect the due_soon date. So when we run
+    #   the task to create notification this loan should be considerate as
+    #   due_soon and a notification should be created.
+    end_date = datetime.now(timezone.utc) + timedelta(days=5)
     loan['end_date'] = end_date.isoformat()
     loan.update(loan, dbcommit=True, reindex=True)
     due_soon_loans = get_due_soon_loans()
@@ -81,6 +85,10 @@ def test_notifications_task(
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
     assert loan.is_notified(Notification.DUE_SOON_NOTIFICATION_TYPE)
+
+    notif = get_notification(loan, Notification.DUE_SOON_NOTIFICATION_TYPE)
+    notif_date = ciso8601.parse_datetime(notif.get('creation_date'))
+    assert notif_date.date() == datetime.today().date()
 
     # test overdue notification
     #   For this test, we will update the loan to simulate an overdue of 12

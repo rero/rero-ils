@@ -34,7 +34,8 @@ from invenio_circulation.search.api import search_by_patron_item_or_document
 from invenio_circulation.utils import str2datetime
 from invenio_jsonschemas import current_jsonschemas
 
-from rero_ils.modules.circ_policies.api import CircPolicy
+from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE, \
+    OVERDUE_REMINDER_TYPE, CircPolicy
 
 from ..api import IlsRecord, IlsRecordError, IlsRecordsIndexer, \
     IlsRecordsSearch
@@ -313,10 +314,11 @@ class Loan(IlsRecord):
         date = tstamp or datetime.now(timezone.utc)
         due_date = ciso8601.parse_datetime(self.end_date).replace(
             tzinfo=timezone.utc)
-
         days_before = circ_policy.due_soon_interval_days
         if days_before:
-            return due_date > date > due_date - timedelta(days=days_before)
+            start_date = ciso8601.parse_datetime(self.get('start_date'))
+            due_soon_date = due_date - timedelta(days=days_before)
+            return start_date < due_soon_date <= date < due_date
         return False
 
     @property
@@ -561,9 +563,22 @@ class Loan(IlsRecord):
         :param notification_type: the notification type to create.
         :param counter: the reminder counter to use (for OVERDUE notification)
         """
+        from .utils import get_circ_policy
         if (self.get('state') == LoanState.ITEM_ON_LOAN or
             notification_type == Notification.AVAILABILITY_NOTIFICATION_TYPE) \
            and not self.is_notified(notification_type, counter):
+
+            # We only need to create a notification if a corresponding reminder
+            # exists into the linked cipo.
+            reminder_type = DUE_SOON_REMINDER_TYPE
+            if notification_type != Notification.DUE_SOON_NOTIFICATION_TYPE:
+                reminder_type = OVERDUE_REMINDER_TYPE
+            cipo = get_circ_policy(self)
+            reminder = cipo.get_reminder(reminder_type, counter)
+            if reminder is None:
+                return
+
+            # create the notification and enqueue it if needed.
             record = {
                 'creation_date': datetime.now(timezone.utc).isoformat(),
                 'notification_type': notification_type,
