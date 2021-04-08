@@ -126,7 +126,7 @@ def init_menu_tools():
                     'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE')),
         text='{icon} {help}'.format(
             icon='<i class="fa fa-graduation-cap"></i>',
-            help=_('Collections')
+            help=_('Exhibition/course')
         ),
         order=2,
         id='collections-menu'
