@@ -154,6 +154,29 @@
             "templateOptions": {
               "itemCssClass": "col-lg-6",
               "doNotSubmitOnEnter": true
+            },
+            "validation": {
+              "validators": {
+                "isbn": {
+                  "fieldType": "type",
+                  "fieldTypeValues": [
+                    "bf:Isbn"
+                  ],
+                  "updateOn": "blur"
+                },
+                "issn": {
+                  "fieldType": "type",
+                  "fieldTypeValues": [
+                    "bf:Issn",
+                    "bf:IssnL"
+                  ],
+                  "updateOn": "blur"
+                }
+              },
+              "messages": {
+                "isbnMessage": "This ISBN is not valid",
+                "issnMessage": "This ISSN is not valid"
+              }
             }
           }
         },
@@ -213,6 +236,26 @@
       "form": {
         "templateOptions": {
           "containerCssClass": "row"
+        },
+        "validation": {
+          "validators": {
+            "valueAlreadyExistsMultipleFields": {
+              "remoteRecordType": "documents",
+              "fieldPrefix": "identifiedBy",
+              "fields": [
+                "type",
+                "value"
+              ],
+              "limitToTypeField": "type",
+              "limitToTypes": [
+                "bf:Isbn",
+                "bf:Issn"
+              ]
+            }
+          },
+          "messages": {
+            "valueAlreadyExistsMultipleFieldsMessage": "This value already exists for this type"
+          }
         }
       }
     },
