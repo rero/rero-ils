@@ -67,10 +67,12 @@ if [[ -z "${VIRTUAL_ENV}" ]]; then
 fi
 
 function pretests () {
+  info_msg "Check vulnerabilities:"
+  safety check
   info_msg "Check json:"
-  flask utils check_json tests/data rero_ils/modules data
+  invenio utils check_json tests/data rero_ils/modules data
   info_msg "Check license:"
-  flask utils check_license check_license_config.yml
+  invenio utils check_license check_license_config.yml
   info_msg "Test pydocstyle:"
   pydocstyle rero_ils tests docs
   info_msg "Test isort:"
