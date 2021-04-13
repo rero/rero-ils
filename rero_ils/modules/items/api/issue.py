@@ -149,7 +149,7 @@ class ItemIssue(ItemRecord):
                 issue['issue']['status'] = ItemIssueStatus.LATE
                 issue = issue.update(issue, dbcommit=dbcommit, reindex=reindex)
                 created_issues += 1
-            except Execption as err:
+            except Exception:
                 current_app.logger.error(
                     'Can not receive next late expected issue for serial '
                     'holding: {pid}'.format(
@@ -260,7 +260,7 @@ class ItemIssue(ItemRecord):
                         dbcommit=dbcommit,
                         reindex=reindex
                     )
-            except Execption as err:
+            except Exception:
                 current_app.logger.error(
                     'Can not create {claim_type} claim for issue: {pid}'
                     .format(claim_type=claim_type, pid=issue.pid)
