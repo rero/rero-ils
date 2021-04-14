@@ -22,6 +22,7 @@
       "properties": {
         "type": {
           "title": "Type",
+          "description": "Other identifier types are entered as local identifiers with indication of the source.",
           "type": "string",
           "default": "bf:Isbn",
           "enum": [
@@ -147,19 +148,20 @@
         },
         "value": {
           "title": "Identifier value",
-          "description": "Identifier value.",
           "type": "string",
           "minLength": 1,
           "form": {
             "templateOptions": {
               "itemCssClass": "col-lg-6",
-              "doNotSubmitOnEnter": true
+              "doNotSubmitOnEnter": true,
+              "wrappers": [
+                "identifiedby-value"
+              ]
             }
           }
         },
         "note": {
           "title": "Note",
-          "description": "Note of the identifier.",
           "type": "string",
           "minLength": 1,
           "form": {
@@ -170,11 +172,12 @@
           }
         },
         "qualifier": {
-          "title": "Qualifier",
-          "description": "Qualifier of the identifier.",
+          "title": "Qualification",
+          "description": "Qualification if the resource has more than one identifier of the same, to enter if considered important for identification.",
           "type": "string",
           "minLength": 1,
           "form": {
+            "placeholder": "Example: volume 1",
             "hide": true,
             "templateOptions": {
               "itemCssClass": "col-lg-6"
@@ -183,10 +186,11 @@
         },
         "source": {
           "title": "Source",
-          "description": "Source of the identifier.",
+          "description": "The source is entered only for local identifiers, it indicates the system or agency responsible for the identifier.",
           "type": "string",
           "minLength": 1,
           "form": {
+            "placeholder": "Examples: LCCN, PMID, DNB",
             "hide": true,
             "templateOptions": {
               "itemCssClass": "col-lg-6"
@@ -195,7 +199,6 @@
         },
         "status": {
           "title": "Status",
-          "description": "Status of the ISBN/ISSN identifier.",
           "type": "string",
           "enum": [
             "invalid",
