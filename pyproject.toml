@@ -82,6 +82,7 @@ jinja2 = ">2.11.2"
 jsonmerge = "^1.8.0"
 num2words = "^0.5.10"
 Flask = "<2.0.0"
+dcxml = "^0.1.2"
 
 [tool.poetry.dev-dependencies]
 ## Python packages development dependencies (order matters)
