@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-03-22 08:25+0100\n"
 "PO-Revision-Date: 2021-04-15 15:26+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/es/>\n"
 "Language: es\n"
@@ -4479,6 +4479,9 @@ msgid ""
 "They include the loan expiry notices, sent before the due date, and the "
 "reminders, sent after the due date."
 msgstr ""
+"Incluyen los avisos de vencimiento del préstamo, enviados antes de la fecha "
+"de vencimiento, y los recordatorios, enviados después de la fecha de "
+"vencimiento."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:89
 #, fuzzy
@@ -4575,10 +4578,12 @@ msgid ""
 "During an interval, the specified amount will be incremented for each "
 "overdue open day."
 msgstr ""
+"Durante un intervalo, la cantidad especificada se incrementará por cada día "
+"abierto vencido."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:221
 msgid "From"
-msgstr ""
+msgstr "Desde"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:231
 #, fuzzy
@@ -4590,6 +4595,8 @@ msgid ""
 "This defines the maximum fee amount per document, without considering the"
 " reminder fees."
 msgstr ""
+"Esto define el importe máximo de la tasa por documento, sin tener en cuenta "
+"las tasas de recordatorio."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:258
 #, fuzzy
@@ -4630,6 +4637,8 @@ msgid ""
 "This defines which item categories and patron types this circulation "
 "policy applies to."
 msgstr ""
+"Define a qué categorías de ejemplares y tipos de usuario se aplica esta "
+"política de circulación."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:352
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:326
@@ -4989,6 +4998,8 @@ msgid ""
 "A masked document is visible in the professional interface, but not in "
 "the public interface."
 msgstr ""
+"Un documento enmascarado es visible en la interfaz profesional, pero no en "
+"la interfaz pública."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_abstract-v0.0.1.json:3
 msgid "Abstracts"
