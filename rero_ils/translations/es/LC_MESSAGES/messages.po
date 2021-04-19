@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-03-22 08:25+0100\n"
-"PO-Revision-Date: 2021-04-15 15:26+0000\n"
-"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"PO-Revision-Date: 2021-04-17 07:26+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/es/>\n"
 "Language: es\n"
@@ -6794,7 +6794,7 @@ msgstr "Electrónico"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:338
 msgid "docsubtype_cdrom_dvdrom"
-msgstr "CD-Rom, DVD-Rom"
+msgstr "CD-ROM, DVD-ROM"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:342
 msgid "docsubtype_other_electronic_carrier"
@@ -6878,11 +6878,11 @@ msgstr "Película"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:645
 msgid "docsubtype_series"
-msgstr "series"
+msgstr "Serie"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:649
 msgid "docsubtype_documentary"
-msgstr "documentario"
+msgstr "Documental"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:666
 msgid "docmaintype_object"
@@ -6937,9 +6937,8 @@ msgid "Online"
 msgstr "En línea"
 
 #: rero_ils/modules/documents/templates/rero_ils/_document_online.html:50
-#, fuzzy
 msgid "Unit"
-msgstr "Cantidad"
+msgstr "Unidad"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:27
 msgid "Variant title"
@@ -9284,14 +9283,12 @@ msgid "Example: 1985-12-29"
 msgstr "Ejemplo: 1985-12-29"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:83
-#, fuzzy
 msgid "male"
-msgstr "correo"
+msgstr "masculino"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:87
-#, fuzzy
 msgid "female"
-msgstr "correo electrónico"
+msgstr "femenino"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:98
 msgid "Username"
@@ -9364,9 +9361,8 @@ msgid "Mobile phone number with the international prefix, without spaces."
 msgstr "Número de teléfono con el prefijo internacional, sin espacios."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:188
-#, fuzzy
 msgid "Other phone number"
-msgstr "Número de teléfono"
+msgstr "Otro número telefónico"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:189
 #, fuzzy
@@ -9375,12 +9371,11 @@ msgstr "Número de teléfono con el prefijo internacional, sin espacios."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:222
 msgid "This email is already taken."
-msgstr "El email está utilizado."
+msgstr "Esta dirección de correo electrónico ya se utiliza."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:229
-#, fuzzy
 msgid "Password"
-msgstr "¿Se ha olvidado su contraseña?"
+msgstr "Contraseña"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:5
 msgid "JSON schema for a vendor"
@@ -9392,15 +9387,15 @@ msgstr "Esquema para validar los proveedores."
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:34
 msgid "Vendor ID"
-msgstr "ID del proveedor"
+msgstr "Id. del proveedor"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:50
 msgid "The vendor name is already taken."
-msgstr "El nombre del proveedor está utilizado."
+msgstr "El nombre del proveedor ya se utiliza."
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:56
 msgid "Website"
-msgstr "Página web"
+msgstr "Sitio web"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:111
 msgid "Default contact details"
@@ -9412,7 +9407,7 @@ msgstr "Persona de contacto"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:128
 msgid "Vendor contact person."
-msgstr "Persona de contacto."
+msgstr "Persona de contacto del proveedor."
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:134
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:195
