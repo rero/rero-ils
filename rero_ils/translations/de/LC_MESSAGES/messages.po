@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-03-22 08:25+0100\n"
-"PO-Revision-Date: 2021-03-23 09:35+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2021-04-19 11:45+0000\n"
+"Last-Translator: Ambros Gattlen <ambros.gattlen@admin.vs.ch>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/de/>\n"
 "Language: de\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.5.2-dev\n"
+"X-Generator: Weblate 4.6\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:133
@@ -175,7 +175,7 @@ msgstr "in Transit"
 #: rero_ils/manual_translations.txt:20
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:394
 msgid "at_desk"
-msgstr "an der Ausleihe"
+msgstr "an der Ausleihetheke"
 
 #: rero_ils/manual_translations.txt:22
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:132
@@ -551,11 +551,11 @@ msgstr "Bouvetinsel (bv)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:565
 msgid "country_bw"
-msgstr "Weißrussland (bw)"
+msgstr "Weissrussland (bw)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:569
 msgid "country_bwr"
-msgstr "Weißrussische Sozialistische Sowjetrepublik (bwr)"
+msgstr "Weissrussische Sozialistische Sowjetrepublik (bwr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:573
 msgid "country_bx"
@@ -4480,8 +4480,8 @@ msgid ""
 "They include the loan expiry notices, sent before the due date, and the "
 "reminders, sent after the due date."
 msgstr ""
-"Dazu gehören die Benachrichtigungen zum Ablauf der Ausleihfrist (vor dem "
-"Rückgabetermin gesendet) und die Erinnerungen (nach dem Rückgabetermin "
+"Dazu gehören die Erinnerungen zum Ablauf der Ausleihfrist (vor dem "
+"Rückgabetermin gesendet) und die Mahnungen (nach dem Rückgabetermin "
 "gesendet)."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:89
@@ -4528,7 +4528,7 @@ msgstr "Ablauf der Ausleihfrist"
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:66
 #: rero_ils/modules/selfcheck/api.py:290
 msgid "overdue"
-msgstr "Erinnerung"
+msgstr "Mahnung"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:132
 msgid ""
@@ -4536,9 +4536,9 @@ msgid ""
 " due date (for reminders). This number defines when the notification is "
 "sent."
 msgstr ""
-"Anzahl der Tage vor dem Rückgabetermin (bei Benachrichtigungen zum Ablauf "
-"der Ausleihfrist) oder nach dem Rückgabetermin (bei Erinnerungen). Diese "
-"Zahl definiert, wann die Benachrichtigung gesendet wird."
+"Anzahl der Tage vor dem Rückgabetermin (bei Erinnerungen zum Ablauf der "
+"Ausleihfrist) oder nach dem Rückgabetermin (bei Mahnungen). Diese Zahl "
+"definiert, wann die Benachrichtigung gesendet wird."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:133
 msgid "Delay"
@@ -4577,7 +4577,7 @@ msgid ""
 "overdue open day."
 msgstr ""
 "Während eines Intervalls wird der angegebene Betrag für jeden offenen Tag "
-"der Verspätung inkrementiert."
+"der Verspätung erhöht."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:221
 msgid "From"
@@ -4593,7 +4593,7 @@ msgid ""
 " reminder fees."
 msgstr ""
 "Dies definiert den maximalen Gebührenbetrag pro Dokument, ohne "
-"Berücksichtigung der Erinnerungsgebühren."
+"Berücksichtigung der Mahngebühren."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:258
 msgid "Maximum total amount"
@@ -4755,7 +4755,7 @@ msgstr "Beitrag"
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:71
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:48
 msgid "Barcode"
-msgstr "Barcode"
+msgstr "Strichcode"
 
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:75
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:51
@@ -4993,8 +4993,8 @@ msgid ""
 "A masked document is visible in the professional interface, but not in "
 "the public interface."
 msgstr ""
-"Ein ausgeblendetes Dokument ist in der professionellen Schnittstelle "
-"sichtbar, aber nicht in der öffentlichen Schnittstelle."
+"Ein ausgeblendetes Dokument ist in der professionellen Oberfläche sichtbar, "
+"aber nicht in der öffentlichen Oberfläche."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_abstract-v0.0.1.json:3
 msgid "Abstracts"
@@ -5065,8 +5065,8 @@ msgid ""
 "Person, family or corporate body (including conferences). Always create a"
 " link to IdRef or GND, if possible."
 msgstr ""
-"Person, Familie oder Körperschaft (einschließlich Konferenzen). Erstellen"
-" Sie, wenn möglich, immer einen Link zu IdRef oder GND."
+"Person, Familie oder Körperschaft (einschliesslich Konferenzen). Erstellen "
+"Sie, wenn möglich, immer einen Link zu IdRef oder GND."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:22
 msgid "Agent"
@@ -5821,9 +5821,7 @@ msgstr "Dauer"
 msgid ""
 "A playing time, performance time, running time, etc., of the content of "
 "an expression."
-msgstr ""
-"Eine Wiedergabezeit, Aufführungszeit, Laufzeit usw. des Inhalts einer "
-"Expression."
+msgstr "Eine Wiedergabezeit, Aufführungszeit, Laufzeit usw."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_duration-v0.0.1.json:8
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:76
@@ -6387,7 +6385,7 @@ msgstr "Enthalten in"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:20
 msgid "Host document"
-msgstr "Hostdokument"
+msgstr "Übergeordnetes Dokument"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:31
 msgid "Document link"
@@ -6588,8 +6586,8 @@ msgid ""
 "Normalised date used for sorting and filtering options (MARC 008). A free"
 " text date (transcripted) can be added in the field \\"
 msgstr ""
-"Normalisiertes Datum, das für Sortier- und Filtermöglichkeiten verwendet "
-"wird (MARC 008). Ein Freitextdatum (übertragen) kann im Feld \"Angaben\" "
+"Normiertes Datum, das für Sortier- und Filtermöglichkeiten verwendet wird ("
+"MARC 008). Ein Freitextdatum (übertragen) kann im Feld \"Angaben\" "
 "hinzugefügt werden."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:231
@@ -6738,7 +6736,7 @@ msgstr "Hörbuch"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:123
 msgid "docsubtype_recorded_words"
-msgstr "aufgezeichnete Wörter"
+msgstr "Sprachaufzeichnung"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:140
 msgid "docmaintype_book"
@@ -6850,7 +6848,7 @@ msgstr "anderes Bild"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:496
 msgid "docmaintype_language_method"
-msgstr "Sprachmethode"
+msgstr "Sprachkurs"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:525
 msgid "docmaintype_leaf"
@@ -6930,7 +6928,7 @@ msgstr "Verlagsreihe"
 
 #: rero_ils/modules/documents/templates/rero_ils/_anonymous_button.html:21
 msgid "Log in (to see request options)"
-msgstr "Einloggen (um die Bestelloptionen zu sehen)"
+msgstr "Einloggen, um die Bestellmöglichkeiten zu sehen"
 
 #: rero_ils/modules/documents/templates/rero_ils/_document_online.html:29
 msgid "Online"
@@ -6983,7 +6981,7 @@ msgstr "Zurück"
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:149
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:151
 msgid "Get"
-msgstr "Zugreifen"
+msgstr "Standorte/Bestellen"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:189
 msgid "Articles"
@@ -6999,7 +6997,9 @@ msgstr "Das Dokument {pid} existiert nicht."
 
 #: rero_ils/modules/holdings/api.py:153
 msgid "Must have next expected date for regular frequencies."
-msgstr "Regelmässige Frequenzen müssen das nächste erwartete Datum enthalten."
+msgstr ""
+"Muss für die regelmässige Erscheinungsweise das nächste erwartete Datum "
+"enthalten."
 
 #: rero_ils/modules/holdings/api.py:157
 msgid ""
@@ -7104,7 +7104,7 @@ msgstr "Soll mindestens eine Variable zwischen {{ }} enthalten."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:204
 msgid "Frequency"
-msgstr "Frequenz"
+msgstr "Erscheinungsweise"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:228
 msgid "rdafr:1013"
@@ -7492,8 +7492,8 @@ msgid ""
 "Indicate an intent to cancel, the effective date of a cancellation, or "
 "the date of the last expected part of a multipart or serial item."
 msgstr ""
-"Angabe einer Stornierungsabsicht, des effektiven Stornierungsdatums, oder"
-" des Datums des letzten erwarteten Teils einer fortlaufenden Ressource."
+"Angabe einer Stornierungsabsicht, des effektiven Stornierungsdatums, oder "
+"des Datums des letzten erwarteten Teils einer fortlaufenden Publikation."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:809
 msgid "General retention policy"
@@ -7618,7 +7618,7 @@ msgstr "Autoren"
 
 #: rero_ils/modules/ill_requests/forms.py:80
 msgid "author#1; author#2"
-msgstr "Author#1; Author#2"
+msgstr "Autor#1; Autor#2"
 
 #: rero_ils/modules/ill_requests/forms.py:91
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:186
@@ -7643,7 +7643,7 @@ msgstr "Link des Dokuments"
 
 #: rero_ils/modules/ill_requests/forms.py:144
 msgid "Scope"
-msgstr "Umfang"
+msgstr "Art der Lieferung"
 
 #: rero_ils/modules/ill_requests/forms.py:145
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:32
@@ -7658,9 +7658,7 @@ msgstr "Kopie"
 
 #: rero_ils/modules/ill_requests/forms.py:147
 msgid "Define if the request is for a copy or full document."
-msgstr ""
-"Definiert, ob es sich bei der Bestellung um eine Kopie oder ein "
-"tatsächliches Dokument handelt."
+msgstr "Wollen Sie das Dokument zur Ausleihe oder als Kopie."
 
 #: rero_ils/modules/ill_requests/forms.py:154
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:263
@@ -7716,9 +7714,7 @@ msgstr "geschlossen"
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:74
 msgid "Define if the request is for a copy or an actual document."
-msgstr ""
-"Definiert, ob es sich bei der Bestellung um eine Kopie oder ein "
-"tatsächliches Dokument handelt."
+msgstr "Wollen Sie das Dokument zur Ausleihe oder als Kopie."
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:79
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:29
@@ -7792,7 +7788,9 @@ msgstr "Achtung!"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:27
 msgid "A well detailed request is more likely to be satisfied"
-msgstr "Eine detaillierte Bestellung wird mit grösserer Wahrscheinlichkeit erfüllt"
+msgstr ""
+"Je mehr Angaben Sie machen, umso wahrscheinlich ist es, dass wir das "
+"Dokument finden"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:34
 msgid "You have submitted an invalid CSRF token"
@@ -7804,11 +7802,11 @@ msgstr "Informationen zur Bestellung"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:65
 msgid "Create request"
-msgstr "Bestellung erstellen"
+msgstr "Bestellung aufgeben"
 
 #: rero_ils/modules/item_types/api.py:79
 msgid "Another online item type exists in this organisation"
-msgstr "Ein anderer Exemplartyp \"online\" existiert bereits in Organisation"
+msgstr "Ein anderer Online-Exemplartyp existiert bereits in dieser Organisation"
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:4
 msgid "ItemType"
@@ -7881,7 +7879,7 @@ msgstr "Bestand existiert nicht: {pid}."
 
 #: rero_ils/modules/items/api/record.py:68
 msgid "Standard item can not have a issue field."
-msgstr "Standard Exemplar kann nicht Lieferungfeld haben."
+msgstr "Standard Exemplar kann nicht Lieferungsfeld haben."
 
 #: rero_ils/modules/items/api/record.py:71
 msgid "Issue item must have an issue field."
@@ -7919,7 +7917,7 @@ msgstr "PID des Exemplars"
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:64
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:184
 msgid "The barcode is already taken."
-msgstr "Der Barcode ist bereits vergeben."
+msgstr "Der Strichcode ist bereits vergeben."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:98
 msgid "Enumeration and chronology"
@@ -8048,7 +8046,7 @@ msgstr "Stufe 4: keine Erhaltung (die eliminierbaren)"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:600
 msgid "3_consumable"
-msgstr "Stufe 3 : kurzfristige Erhaltung (gängige Nutzung)"
+msgstr "Stufe 3 : kurzfristige Aufbewahrung (gängige Nutzung)"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:604
 msgid "2_controlled_consumption"
@@ -8056,11 +8054,11 @@ msgstr "Stufe 2: mittelfristige Erhaltung (kontrollierte Nutzung)"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:608
 msgid "1_reserved"
-msgstr "Stufe 1: langfristige Erhaltung"
+msgstr "Stufe 1: langfristige Aufbewahrung"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:612
 msgid "0_frozen_collection"
-msgstr "Stufe 0: unbegrenzte Erhaltung"
+msgstr "Stufe 0: unbegrenzte Aufbewahrung"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:626
 msgid "Price"
@@ -8076,7 +8074,7 @@ msgstr "Ausleihregeln des Exemplars in Virtua"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:651
 msgid "To use item specific rules or CIPO rules"
-msgstr "Exemplar-regeln oder Ausleihpolitik verwenden"
+msgstr "Spezifische Exemplarregeln oder Ausleihpolitik verwenden"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:656
 msgid "Loan duration in days"
@@ -8095,8 +8093,8 @@ msgid ""
 "A masked item is visible in the professional interface, but not in the "
 "public interface."
 msgstr ""
-"Ein ausgeblendetes Exemplar ist in der professionellen Schnittstelle "
-"sichtbar, aber nicht in der öffentlichen Schnittstelle."
+"Ein ausgeblendetes Exemplar ist in der professionellen Oberfläche sichtbar, "
+"aber nicht in der öffentlichen Oberfläche."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:5
 msgid "JSON schema for a library"
@@ -8196,7 +8194,7 @@ msgstr "Die Ausleihe kann nicht verlängert werden"
 
 #: rero_ils/modules/loans/api.py:148
 msgid "Circulation policies disallows the operation."
-msgstr "Operation von der Ausleihpolitik nicht erlaubt."
+msgstr "Die Ausleihpolitik erlaubt diese Aktion nicht."
 
 #: rero_ils/modules/loans/api.py:150
 msgid "A pending request exists on this item."
@@ -8283,7 +8281,7 @@ msgid ""
 "The name of the explicit action that triggered the transition to current "
 "state"
 msgstr ""
-"Der Name der expliziten Aktion, die die Transition zum aktuellen Zustand "
+"Der Name der expliziten Aktion, die den Wechsel zum aktuellen Zustand "
 "ausgelöst hat"
 
 #: rero_ils/modules/local_fields/api.py:69
@@ -8368,7 +8366,7 @@ msgstr "Das Feld des Abholortnamen ist erforderlich."
 
 #: rero_ils/modules/locations/api.py:167
 msgid "Item location disallows request."
-msgstr "Der Exemplarstandord erlaubt keine Bestellungen."
+msgstr "Der Exemplarstandort erlaubt keine Bestellungen."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:5
 msgid "JSON schema for an location"
@@ -8412,7 +8410,7 @@ msgstr "Es gibt bereits einen Online-Standort für diese Bibliothek."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:90
 msgid "Pickup location name"
-msgstr "Abholortname"
+msgstr "Name des Abholorts"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:92
 msgid "Displayed pickup location name, if different from the location name."
@@ -8429,7 +8427,7 @@ msgstr "Bestellungen erlauben"
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:124
 msgid "If enabled, it allows requests for items linked to this location."
 msgstr ""
-"Falls aktiviert, es erlaubt Anfragen für Exemplare, die mit diesem "
+"Falls aktiviert, sind Anfragen für Exemplare erlaubt, die mit diesem "
 "Standort verknüpft sind."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:128
@@ -8475,7 +8473,8 @@ msgstr ""
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:196
 msgid "If enabled, restrict pickup to specific pickup locations."
-msgstr "Falls aktiviert, es schränkt die Abholung auf bestimmte Abholorte ein."
+msgstr ""
+"Falls aktiviert, ist die Abholung auf bestimmte Abholorte eingeschränkt."
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:4
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:109
@@ -8621,7 +8620,7 @@ msgstr "Online gesammelte Quelle, wie im Ebook-Server eingestellt."
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:61
 msgid "Collection enabled on public view"
-msgstr "Sammlung in der öffentlichen Schnittstelle aktiviert"
+msgstr "Sammlung in der öffentlichen Oberfläche aktiviert"
 
 #: rero_ils/modules/patron_transaction_events/api.py:112
 msgid "Initial charge"
@@ -8662,7 +8661,7 @@ msgstr "Schritte"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:97
 msgid "Operator"
-msgstr "Betreiber"
+msgstr "Ausführender"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:101
 msgid "Operator patron URI"
@@ -8799,8 +8798,8 @@ msgstr ""
 #: rero_ils/modules/patron_types/api.py:188
 msgid "Request denied: the maximal overdue fee amount is reached"
 msgstr ""
-"Bestellung verweigert: der maximale Gebührenbetrag überfälliger Exemplare"
-" ist erreicht"
+"Bestellung verweigert: der maximale Betrag der Verspätungsgebühren ist "
+"erreicht"
 
 #: rero_ils/modules/patron_types/api.py:211
 msgid "Renewal denied: the maximal number of overdue items is reached"
@@ -8811,8 +8810,8 @@ msgstr ""
 #: rero_ils/modules/patron_types/api.py:216
 msgid "Renewal denied: the maximal overdue fee amount is reached"
 msgstr ""
-"Verlängerung verweigert: der maximale Gebührenbetrag überfälliger "
-"Exemplare ist erreicht"
+"Verlängerung verweigert: der maximale Betrag der Verspätungsgebühren ist "
+"erreicht"
 
 #: rero_ils/modules/patron_types/api.py:312
 msgid "Checkout denied: the maximal checkout number is reached."
@@ -8969,8 +8968,8 @@ msgstr "Grund"
 #: rero_ils/modules/patrons/api.py:719
 msgid "Transactions denied: the maximal overdue fee amount is reached."
 msgstr ""
-"Transaktion verweigert: der maximale Gebührenbetrag überfälliger "
-"Exemplare ist erreicht."
+"Transaktion verweigert: der maximale Betrag der Verspätungsgebühren ist "
+"erreicht."
 
 #: rero_ils/modules/patrons/views.py:160
 msgid "Patron Profile"
@@ -9060,11 +9059,11 @@ msgstr "Lesertyp in Bezug auf Ausleihpolitik."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:167
 msgid "Patron's barcodes or cards number"
-msgstr "Barcode oder Kartennummer des Lesers"
+msgstr "Leserkartennummer"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:173
 msgid "Patron's barcode or card number"
-msgstr "Lesers Barcode oder Kartennummer"
+msgstr "Leserkartennummer"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:191
 msgid "Affiliation libraries"
@@ -9122,7 +9121,8 @@ msgstr "Startdatum des Abonnements"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:313
 msgid "The subscription start date (selected date included)."
-msgstr "Das Startdatum des Abonnements (einschließlich des ausgewählten Datums)."
+msgstr ""
+"Das Startdatum des Abonnements (einschliesslich des ausgewählten Datums)."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:319
 msgid "Subscription end date"
@@ -9183,7 +9183,7 @@ msgid ""
 "this can have unintended side effects."
 msgstr ""
 "Definiert die Rollen des Benutzers. Bitte entfernen Sie die vorhandene "
-"Benutzerrolle nicht, da dies unbeabsichtigte Nebenwirkungen haben kann."
+"Benutzerrolle nicht, da dies unbeabsichtigte Auswirkungen haben kann."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:442
 msgid "patron"
@@ -9299,7 +9299,7 @@ msgstr "Benutzername"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:99
 msgid "Login username for the web interface."
-msgstr "Login-Benutzername für die Webschnittstelle."
+msgstr "Login-Benutzername für das Onlinekonto."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:107
 msgid ""
@@ -9317,11 +9317,11 @@ msgstr "Dieser Benutzername ist bereits vergeben."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:134
 msgid "Home phone number"
-msgstr "Telefonnummer (Haus)"
+msgstr "Telefonnummer (privat)"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:135
 msgid "Home phone number with the international prefix, without spaces."
-msgstr "Telefonnummer (Haus) mit Landesvorwahl, ohne Leerzeichen."
+msgstr "Telefonnummer (privat) mit Landesvorwahl, ohne Leerzeichen."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:142
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:160
@@ -9467,7 +9467,7 @@ msgstr "Login"
 
 #: rero_ils/theme/views.py:250
 msgid "Professional interface"
-msgstr "Professionelles Interface"
+msgstr "Professionelle Oberfläche"
 
 #: rero_ils/theme/views.py:269
 msgid "Logout"
@@ -9623,7 +9623,7 @@ msgstr "Suche"
 
 #: rero_ils/theme/templates/rero_ils/login_user.html:25
 msgid "Log in to account"
-msgstr "Anmelden zum Konto"
+msgstr "Anmeldung mit"
 
 #: rero_ils/theme/templates/rero_ils/login_user.html:41
 msgid "E-mail or username"
