@@ -155,7 +155,8 @@ def translat_unified(data, prefix=''):
     """
     translated_data = {}
     for key, value in data.items():
-        translated_data[_(f'{prefix}{key}')] = value
+        translated_data[_('{prefix}{key}'.format(
+            prefix=prefix, key=key))] = value
     return translated_data
 
 
@@ -167,10 +168,12 @@ def translat(data, prefix='', seperator=', '):
         if isinstance(data, list):
             translated = []
             for item in data:
-                translated.append(_(f'{prefix}{item}'))
+                translated.append(_('{prefix}{item}'.format(
+                    prefix=prefix, item=item)))
             translated = seperator.join(translated)
         elif isinstance(data, str):
-            translated = _(f'{prefix}{data}')
+            translated = _('{prefix}{data}'.format(
+                prefix=prefix, data=data))
     return translated
 
 
