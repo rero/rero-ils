@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-03-22 08:25+0100\n"
-"PO-Revision-Date: 2021-04-10 13:26+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2021-04-15 15:26+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/es/>\n"
 "Language: es\n"
@@ -4462,7 +4462,7 @@ msgstr "Duración de préstamo en dias"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:69
 msgid "Enter 0 if checkout is not allowed."
-msgstr ""
+msgstr "Introduzca 0 si no se permite el préstamo."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:76
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:138
@@ -4534,10 +4534,13 @@ msgid ""
 " due date (for reminders). This number defines when the notification is "
 "sent."
 msgstr ""
+"Número de días antes de la fecha de vencimiento (para avisos de vencimiento "
+"de préstamos) o después de la fecha de vencimiento (para recordatorios). "
+"Este número define cuándo se envía la notificación."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:133
 msgid "Delay"
-msgstr ""
+msgstr "Demora"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:154
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:230
@@ -4546,11 +4549,11 @@ msgstr "Canal de comunicación"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:162
 msgid "According to the patron's settings"
-msgstr ""
+msgstr "Según los parámetros del usuario"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:166
 msgid "Always per mail"
-msgstr ""
+msgstr "Siempre por correo"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:174
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:189
@@ -4565,7 +4568,7 @@ msgstr "atrasado"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:201
 msgid "Days intervals"
-msgstr ""
+msgstr "Intervalos de días"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:202
 msgid ""
@@ -4737,7 +4740,7 @@ msgstr "\\"
 
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:36
 msgid "Collection ID"
-msgstr "Colección ID"
+msgstr "Id. de colección"
 
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:61
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:3
@@ -9470,12 +9473,11 @@ msgstr "Desconectarse"
 
 #: rero_ils/theme/views.py:297
 msgid "Edit my profile"
-msgstr ""
+msgstr "Editar mi perfil"
 
 #: rero_ils/theme/views.py:310
-#, fuzzy
 msgid "Change password"
-msgstr "¿Se ha olvidado su contraseña?"
+msgstr "Cambiar contraseña"
 
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:52
 #: rero_ils/theme/templates/rero_ils/login_user.html:53
