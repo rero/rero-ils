@@ -283,6 +283,8 @@ def init_index(force):
 
 
 @fixtures.command('create')
+@click.option('-u', '--create_or_update', 'create_or_update', is_flag=True,
+              default=False)
 @click.option('-a', '--append', 'append', is_flag=True, default=False)
 @click.option('-r', '--reindex', 'reindex', is_flag=True, default=False)
 @click.option('-c', '--dbcommit', 'dbcommit', is_flag=True, default=False)
@@ -299,11 +301,13 @@ def init_index(force):
 @click.option('-e', '--save_errors', 'save_errors', type=click.File('w'))
 @click.argument('infile', type=click.File('r'), default=sys.stdin)
 @with_appcontext
-def create(infile, append, reindex, dbcommit, commit, verbose, debug, schema,
-           pid_type, lazy, dont_stop_on_error, pid_check, save_errors):
+def create(infile, create_or_update, append, reindex, dbcommit, commit,
+           verbose, debug, schema, pid_type, lazy, dont_stop_on_error,
+           pid_check, save_errors):
     """Load REROILS record.
 
     :param infile: Json file
+    :param create_or_update: to update or create records.
     :param append: appends pids to database
     :param reindex: reindex record by record
     :param dbcommit: commit record to database
@@ -342,10 +346,18 @@ def create(infile, append, reindex, dbcommit, commit, verbose, debug, schema,
         if schema:
             record['$schema'] = schema
         try:
-            rec = record_class.create(record, dbcommit=dbcommit,
-                                      reindex=reindex, pidcheck=pid_check)
-            if append:
-                pids.append(rec.pid)
+            pid = record.get('pid')
+            if create_or_update and pid and \
+                    record_class.record_pid_exists(pid):
+                db_record = record_class.get_record_by_pid(pid)
+                rec = db_record.update(
+                        record, dbcommit=dbcommit, reindex=reindex)
+            else:
+                rec = record_class.create(
+                        record, dbcommit=dbcommit, reindex=reindex,
+                        pidcheck=pid_check)
+                if append:
+                    pids.append(rec.pid)
             if verbose:
                 click.echo(
                     '{count: <8} {pid_type} created {pid}:{id}'.format(
