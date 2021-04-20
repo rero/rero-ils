@@ -316,7 +316,7 @@ def circulation_search_factory(self, search, query_parser=None):
             search = search.filter(
                 'term', organisation__pid=current_organisation.pid
             )
-        if current_patron.is_patron:
+        elif current_patron.is_patron:
             search = search.filter('term', patron_pid=current_patron.pid)
     # exclude to_anonymize records
     search = search.filter('bool', must_not=[Q('term', to_anonymize=True)])
