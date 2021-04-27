@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-04-22 08:25+0200\n"
-"PO-Revision-Date: 2021-04-23 15:32+0000\n"
-"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"PO-Revision-Date: 2021-04-27 05:15+0000\n"
+"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
 "Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/en/>\n"
 "Language: en\n"
@@ -5366,7 +5366,7 @@ msgstr "contentType"
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:26
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:42
 msgid "rdamt:1001"
-msgstr ""
+msgstr "audio"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:43
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:134
@@ -5416,35 +5416,35 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:76
 msgid "rdact:1002"
-msgstr ""
+msgstr "audio cartridge"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:80
 msgid "rdact:1003"
-msgstr ""
+msgstr "audio cylinder"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:84
 msgid "rdact:1004"
-msgstr ""
+msgstr "audio disc"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:88
 msgid "rdact:1005"
-msgstr ""
+msgstr "sound-track reel"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:92
 msgid "rdact:1006"
-msgstr ""
+msgstr "audio roll"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:96
 msgid "rdact:1007"
-msgstr ""
+msgstr "audiocassette"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:100
 msgid "rdact:1008"
-msgstr ""
+msgstr "audiotape reel"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:104
 msgid "rdact:1071"
-msgstr ""
+msgstr "audio wire reel"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:108
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:204
@@ -5467,56 +5467,56 @@ msgstr "other"
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:117
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:133
 msgid "rdamt:1002"
-msgstr ""
+msgstr "microform"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:168
 msgid "rdact:1021"
-msgstr ""
+msgstr "aperture card"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:172
 msgid "rdact:1022"
-msgstr ""
+msgstr "microfiche"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:176
 msgid "rdact:1023"
-msgstr ""
+msgstr "microfiche cassette"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:180
 msgid "rdact:1024"
-msgstr ""
+msgstr "microfilm cartridge"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:184
 msgid "rdact:1025"
-msgstr ""
+msgstr "microfilm cassette"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:188
 msgid "rdact:1026"
-msgstr ""
+msgstr "microfilm reel"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:192
 msgid "rdact:1027"
-msgstr ""
+msgstr "microfilm slip"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:196
 msgid "rdact:1028"
-msgstr ""
+msgstr "microopaque"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:200
 msgid "rdact:1056"
-msgstr ""
+msgstr "microfilm roll"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:213
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:229
 msgid "rdamt:1003"
-msgstr ""
+msgstr "computer"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:263
 msgid "rdact:1011"
-msgstr ""
+msgstr "computer card"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:267
 msgid "rdact:1012"
-msgstr ""
+msgstr "computer chip cartridge"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:271
 msgid "rdact:1013"
