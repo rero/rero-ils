@@ -17,15 +17,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-04-22 08:25+0200\n"
-"PO-Revision-Date: 2021-04-19 11:45+0000\n"
+"PO-Revision-Date: 2021-04-27 13:37+0000\n"
 "Last-Translator: Ambros Gattlen <ambros.gattlen@admin.vs.ch>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/de/>\n"
 "Language: de\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.7-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:134
@@ -4489,11 +4490,11 @@ msgstr "Tag(e)"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:82
 msgid "Allow checkout"
-msgstr ""
+msgstr "Ausleihe erlauben"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:83
 msgid "Checkouts are allowed or not."
-msgstr ""
+msgstr "Ausleihen sind erlaubt oder nicht."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:92
 msgid "Allow patron requests"
@@ -4706,7 +4707,7 @@ msgstr "URI des Exemplartypen"
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:4
 #: rero_ils/theme/views.py:129
 msgid "Exhibition/course"
-msgstr ""
+msgstr "Ausstellung/Kurs"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:33
 msgid "Schema to validate collection records against."
@@ -5027,19 +5028,19 @@ msgstr "PID des Dokuments"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:241
 msgid "Subjects (imported)"
-msgstr ""
+msgstr "Schlagworte (importiert)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:242
 msgid "Subject from imported bibliographic data"
-msgstr ""
+msgstr "Schlagwort aus importierten bibliografischen Daten"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:258
 msgid "Genres, forms (imported)"
-msgstr ""
+msgstr "Gattungen, Formen (importiert)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:259
 msgid "Genre of form from imported bibliographic data"
-msgstr ""
+msgstr "Genre der Form aus importierten bibliografischen Daten"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:279
 msgid "Harvested"
@@ -5087,11 +5088,13 @@ msgstr "Zusammenfassung"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:3
 msgid "Terms of availability"
-msgstr ""
+msgstr "Bedingungen für die Verfügbarkeit"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:4
 msgid "A condition under which the document is supplied. This includes the price."
 msgstr ""
+"Eine Bedingung, unter der das Dokument geliefert wird. Dazu gehört auch der "
+"Preis."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:8
 msgid "Term of availability"
@@ -5099,7 +5102,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:11
 msgid "Example: CHF 68.-"
-msgstr ""
+msgstr "Beispiel: CHF 68.-"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:3
 msgid "Admin metadata"
@@ -5107,7 +5110,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:16
 msgid "Administrative information intended for professionals"
-msgstr ""
+msgstr "Administrative Informationen, die für Fachleute bestimmt sind"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:31
 msgid "Encoding level"
@@ -5115,15 +5118,15 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:32
 msgid "Indicator of the fullness of the bibliographic information"
-msgstr ""
+msgstr "Indikator für die Vollständigkeit der bibliografischen Informationen"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:51
 msgid "Full level"
-msgstr ""
+msgstr "Vollformat"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:55
 msgid "Full level, material not examined"
-msgstr ""
+msgstr "Vollformat, Material nicht geprüft"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:59
 msgid "Less-than-full level, material not examined"
@@ -5151,11 +5154,11 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:83
 msgid "Unknown"
-msgstr ""
+msgstr "Unbekannt"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:87
 msgid "Not applicable"
-msgstr ""
+msgstr "Nicht anwendbar"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:97
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_identifiedby-v0.0.1.json:32
@@ -5192,7 +5195,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:127
 msgid "Language used for the metadata"
-msgstr ""
+msgstr "Verwendete Sprache für die Metadaten"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:142
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:147
@@ -12516,4 +12519,3 @@ msgstr "Ihr Passwort wurde erfolgreich zurückgesetzt."
 
 #~ msgid "Collections"
 #~ msgstr "Sammlungen"
-
