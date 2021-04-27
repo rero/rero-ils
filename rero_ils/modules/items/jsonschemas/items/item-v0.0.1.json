@@ -96,7 +96,7 @@
       }
     },
     "enumerationAndChronology": {
-      "title": "Enumeration and chronology",
+      "title": "Unit",
       "type": "string",
       "minLength": 1,
       "description": "Numbering, enumeration, or other indication associated with the item.",
@@ -271,7 +271,8 @@
             "received",
             "late",
             "claimed",
-            "deleted"
+            "deleted",
+            "expected"
           ],
           "form": {
             "type": "selectWithSort",
@@ -291,6 +292,10 @@
               {
                 "label": "deleted",
                 "value": "deleted"
+              },
+              {
+                "label": "expected",
+                "value": "expected"
               }
             ]
           }
