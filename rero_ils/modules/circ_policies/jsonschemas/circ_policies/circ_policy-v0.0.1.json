@@ -230,7 +230,7 @@
               "from": {
                 "type": "integer",
                 "title": "From",
-                "minimum": 0,
+                "minimum": 1,
                 "form": {
                   "templateOptions": {
                     "itemCssClass": "col-lg-3"
