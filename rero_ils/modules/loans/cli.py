@@ -20,6 +20,7 @@
 from __future__ import absolute_import, print_function
 
 import json
+import os
 import random
 import traceback
 from datetime import datetime, timedelta, timezone
@@ -38,10 +39,167 @@ from ..locations.api import Location
 from ..notifications.api import Notification
 from ..notifications.tasks import create_notifications
 from ..patron_transaction_events.api import PatronTransactionEvent
+from ..patron_transactions.api import PatronTransaction
 from ..patron_types.api import PatronType
 from ..patrons.api import Patron, PatronsSearch
 from ..utils import extracted_data_from_ref, get_ref_for_pid, \
-    get_schema_for_resource
+    get_schema_for_resource, read_json_record
+
+
+def check_missing_fields(transaction, transaction_type):
+    """Return list of missing fields for a given transaction type.
+
+    transaction: the json transaction record.
+    transaction_type: type of transaction.
+    """
+    if transaction_type == 'checkout':
+        fields = ['item_pid', 'patron_pid', 'end_date', 'transaction_date',
+                  'transaction_location_pid', 'transaction_user_pid',
+                  'organisation', 'start_date']
+    elif transaction_type == 'request':
+        fields = ['item_pid', 'patron_pid', 'organisation', 'transaction_date',
+                  'pickup_location_pid', 'transaction_location_pid',
+                  'transaction_user_pid', 'request_expire_date']
+    elif transaction_type == 'fine':
+        fields = ['note', 'type', 'patron', 'status', 'organisation',
+                  'total_amount', 'creation_date']
+
+    return [field for field in fields if field not in transaction]
+
+
+def build_loan_record(transaction, transaction_type, item):
+    """Build the loan record before inserting into db.
+
+    transaction: the json transaction record.
+    transaction_type: type of transaction.
+    item: the item record.
+    """
+    if transaction_type == 'checkout':
+        transaction['state'] = 'ITEM_ON_LOAN'
+        transaction['trigger'] = 'checkout'
+        transaction['document_pid'] = item.document_pid
+        transaction['to_anonymize'] = False
+        transaction['item_pid'] = {'value': transaction.get('item_pid'),
+                                   'type': 'item'}
+    elif transaction_type == 'request':
+        transaction['state'] = 'PENDING'
+        transaction['trigger'] = 'request'
+        transaction['item_pid'] = {'value': transaction.get('item_pid'),
+                                   'type': 'item'}
+        transaction['document_pid'] = item.document_pid
+        transaction['to_anonymize'] = False
+
+
+@click.command('load_virtua_transactions')
+@click.option('-l', '--lazy', 'lazy', is_flag=True, default=False)
+@click.option('-e', '--save_errors', 'save_errors', type=click.File('w'))
+@click.option('-t', '--transaction_type', 'transaction_type', is_flag=False,
+              default='checkout')
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+@click.option('-d', '--debug', 'debug', is_flag=True, default=False)
+@click.argument('infile', type=click.File('r'))
+@with_appcontext
+def load_virtua_transactions(
+        infile, lazy, save_errors, transaction_type, verbose, debug):
+    """Load Virtua circulation transactions.
+
+    infile: Json Virtua transactions file.
+    transaction_type: Transaction type either checkout, request or fine.
+    :param lazy: lazy reads file.
+    :param save_errors: save error records to file.
+    """
+    # TODO: move this method and other similar methods to a new project that
+    # deals with loading data from other ILS into REROILS.
+    if save_errors:
+        name, ext = os.path.splitext(infile.name)
+        err_file_name = f'{name}_errors{ext}'
+        error_file = open(err_file_name, 'w')
+        error_file.write('[\n')
+
+    if lazy:
+        records = read_json_record(infile)
+    else:
+        file_data = json.load(infile)
+    text = 'Loading Virtua transactions of type {transaction_type}'.format(
+            transaction_type=transaction_type
+        )
+    click.secho(text, fg='green')
+
+    counter = 0
+    for transaction in file_data:
+        counter = counter + 1
+        missing_fields = check_missing_fields(transaction, transaction_type)
+        if missing_fields:
+            text = '\ntransaction # {counter} missing fields: {fields}'.format(
+                    fields=missing_fields,
+                    counter=counter
+                )
+            click.secho(text, fg='red')
+            if save_errors:
+                error_file.write(json.dumps(transaction, indent=2))
+            continue
+
+        if transaction_type == 'fine':
+            patron_pid = extracted_data_from_ref(transaction.get('patron'))
+            patron = Patron.get_record_by_pid(patron_pid)
+            if not patron:
+                text = '\ntransaction # {counter} patron not in db'.format(
+                        counter=counter)
+                click.secho(text, fg='red')
+                if save_errors:
+                    error_file.write(json.dumps(transaction, indent=2))
+                continue
+
+            try:
+                PatronTransaction.create(
+                    transaction, dbcommit=True, reindex=True)
+                click.secho(
+                    '\ntransaction # {counter} created'.format(
+                        counter=counter
+                    ),
+                    fg='green'
+                )
+            except Exception as error:
+                text = 'transaction# {counter} failed creation {error}'.format(
+                        counter=counter,
+                        error=error
+                    )
+                click.secho(text, fg='red')
+                if save_errors:
+                    error_file.write(json.dumps(transaction, indent=2))
+
+        elif transaction_type in ['checkout', 'request']:
+            item = Item.get_record_by_pid(transaction.get('item_pid'))
+            patron = Patron.get_record_by_pid(transaction.get('patron_pid'))
+            if not (item and patron):
+                text = '\ntransaction# {counter} item/patron not in db'.format(
+                        counter=counter
+                    )
+                click.secho(text, fg='red')
+                if save_errors:
+                    error_file.write(json.dumps(transaction, indent=2))
+                    continue
+            else:
+                build_loan_record(transaction, transaction_type, item)
+            try:
+                Loan.create(transaction, dbcommit=True, reindex=True)
+                click.secho(
+                    '\ntransaction # {counter} created'.format(
+                        counter=counter
+                    ),
+                    fg='green'
+                )
+            except Exception as error:
+                text = 'transaction# {counter} failed creation {error}'.format(
+                        counter=counter,
+                        error=error
+                    )
+                click.secho(text, fg='red')
+                if save_errors:
+                    error_file.write(json.dumps(transaction, indent=2))
+    if save_errors:
+        error_file.write(']')
+        error_file.close()
 
 
 @click.command('create_loans')

@@ -492,6 +492,16 @@ fi
 info_msg "- Load Virtua operation logs: ${DATA_PATH}/operation_logs.json"
 eval ${PREFIX} invenio fixtures migrate_virtua_operation_logs ${DATA_PATH}/operation_logs.json  ${CREATE_LAZY} ${DONT_STOP}
 
+# load legacy circulation transactions from Virtua
+info_msg "Checkout transactions: ${DATA_PATH}/checkouts.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio fixtures load_virtua_transactions ${DATA_PATH}/checkouts.json -t checkout
+
+info_msg "Request transactions: ${DATA_PATH}/requests.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio fixtures load_virtua_transactions ${DATA_PATH}/requests.json -t request
+
+info_msg "Fine transactions: ${DATA_PATH}/fines.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio fixtures load_virtua_transactions ${DATA_PATH}/fines.json -t fine
+
 date
 success_msg "Perfect ${PROGRAM}! See you soon…"
 exit 0

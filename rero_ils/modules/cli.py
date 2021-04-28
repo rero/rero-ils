@@ -71,7 +71,7 @@ from .documents.views import get_cover_art
 from .holdings.cli import create_patterns
 from .ill_requests.cli import create_ill_requests
 from .items.cli import create_items, reindex_items
-from .loans.cli import create_loans
+from .loans.cli import create_loans, load_virtua_transactions
 from .operation_logs.cli import migrate_virtua_operation_logs
 from .patrons.cli import import_users
 from .tasks import process_bulk_queue
@@ -99,6 +99,7 @@ fixtures.add_command(import_users)
 fixtures.add_command(create_items)
 fixtures.add_command(reindex_items)
 fixtures.add_command(create_loans)
+fixtures.add_command(load_virtua_transactions)
 fixtures.add_command(create_patterns)
 fixtures.add_command(create_ill_requests)
 fixtures.add_command(create_collections)
