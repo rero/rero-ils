@@ -51,10 +51,12 @@
             }
           },
           "partOfTitle": {
+            "type": "object",
             "properties": {
               "value": {
                 "type": "text",
-                "index": false
+                "index": false,
+                "copy_to": "title._search"
               },
               "language": {
                 "type": "keyword",
@@ -92,13 +94,36 @@
                 "properties": {
                   "value": {
                     "type": "text",
-                    "index": false
+                    "index": false,
+                    "copy_to": "title._search"
                   }
                 }
               }
             }
           },
           "_text": {
+            "type": "text",
+            "index": false,
+            "fields": {
+              "eng": {
+                "type": "text",
+                "analyzer": "english"
+              },
+              "fre": {
+                "type": "text",
+                "analyzer": "french"
+              },
+              "ger": {
+                "type": "text",
+                "analyzer": "german"
+              },
+              "ita": {
+                "type": "text",
+                "analyzer": "italian"
+              }
+            }
+          },
+          "_search": {
             "type": "text",
             "index": false,
             "fields": {
