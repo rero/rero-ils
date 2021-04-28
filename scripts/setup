@@ -233,7 +233,7 @@ eval ${PREFIX} "invenio roles create -d 'Patron' patron"
 eval ${PREFIX} "invenio roles create -d 'Librarian' librarian"
 eval ${PREFIX} "invenio roles create -d 'System Librarian' system_librarian"
 eval ${PREFIX} "invenio roles create -d 'Documentation Editor' editor"
-eval ${PREFIX} "invenio roles create -d 'Documment Importing' document_importer"
+eval ${PREFIX} "invenio roles create -d 'Document Importing' document_importer"
 
 # create users
 info_msg "Create users"
