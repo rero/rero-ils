@@ -77,26 +77,21 @@ class Vendor(IlsRecord):
             'order_contact', self.get('default_contact', {})
         ).get('email')
 
-    def get_number_of_acq_orders(self):
+    def count_links_to_me(self, search_class):
         """Get number of acquisition orders."""
-        return AcqOrdersSearch().filter(
-            'term', vendor__pid=self.pid).source().count()
-
-    def get_number_of_acq_invoices(self):
-        """Get number of acquisition invoices."""
-        return AcquisitionInvoicesSearch().filter(
-            'term', vendor__pid=self.pid).source().count()
+        return search_class()\
+            .filter('term', vendor__pid=self.pid)\
+            .source().count()
 
     def get_links_to_me(self):
         """Get number of links."""
-        links = {}
-        acq_orders = self.get_number_of_acq_orders()
-        if acq_orders:
-            links['acq_orders'] = acq_orders
-
-        acq_invoices = self.get_number_of_acq_invoices()
-        if acq_invoices:
-            links['acq_invoices'] = acq_invoices
+        from rero_ils.modules.holdings.api import HoldingsSearch
+        links = {
+            'acq_orders': self.count_links_to_me(AcqOrdersSearch),
+            'acq_invoices': self.count_links_to_me(AcquisitionInvoicesSearch),
+            'holdings': self.count_links_to_me(HoldingsSearch),
+        }
+        links = {k: v for k, v in links.items() if v}
         return links
 
     def reasons_not_to_delete(self):
