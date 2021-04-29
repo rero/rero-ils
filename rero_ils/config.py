@@ -2073,6 +2073,7 @@ RERO_ILS_QUERY_BOOSTING = {
 
 # sort options
 indexes = [
+    'acq_accounts',
     'budgets',
     'circ_policies',
     'collections',
@@ -2121,6 +2122,13 @@ for index in indexes:
     RECORDS_REST_DEFAULT_SORT[index] = dict(
         query='bestmatch', noquery='mostrecent')
 
+# ------ ACQUISITION ACCOUNTS SORT
+RECORDS_REST_SORT_OPTIONS['acq_accounts']['name'] = dict(
+    fields=['name_sort'], title='Account name',
+    default_order='asc'
+)
+RECORDS_REST_DEFAULT_SORT['acq_accounts'] = dict(
+    query='bestmatch', noquery='name')
 
 # ------ ACQUISITION ORDER LINES SORT
 RECORDS_REST_SORT_OPTIONS['acq_order_lines'] = dict(
