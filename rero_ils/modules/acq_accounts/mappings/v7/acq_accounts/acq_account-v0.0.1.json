@@ -10,7 +10,11 @@
         "type": "keyword"
       },
       "name": {
-        "type": "text"
+        "type": "text",
+        "copy_to": "name_sort"
+      },
+      "name_sort": {
+        "type": "keyword"
       },
       "description": {
         "type": "text"
