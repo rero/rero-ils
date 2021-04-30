@@ -43,7 +43,7 @@
               "$ref": "#/preferred_name"
             },
             "identifiedBy": {
-              "$ref": "#/identifiedBy"
+              "$ref": "https://ils.rero.ch/schemas/documents/document_identifier-v0.0.1.json"
             },
             "source": {
               "$ref": "#/source"
@@ -93,7 +93,7 @@
               "default": false
             },
             "identifiedBy": {
-              "$ref": "#/identifiedBy"
+              "$ref": "https://ils.rero.ch/schemas/documents/document_identifier-v0.0.1.json"
             },
             "source": {
               "$ref": "#/source"
@@ -146,7 +146,7 @@
               }
             },
             "identifiedBy": {
-              "$ref": "#/identifiedBy"
+              "$ref": "https://ils.rero.ch/schemas/documents/document_identifier-v0.0.1.json"
             },
             "source": {
               "$ref": "#/source"
@@ -190,7 +190,7 @@
               "minLength": 1
             },
             "identifiedBy": {
-              "$ref": "#/identifiedBy"
+              "$ref": "https://ils.rero.ch/schemas/documents/document_identifier-v0.0.1.json"
             },
             "source": {
               "$ref": "#/source"
@@ -232,7 +232,7 @@
               "$ref": "#/preferred_name"
             },
             "identifiedBy": {
-              "$ref": "#/identifiedBy"
+              "$ref": "https://ils.rero.ch/schemas/documents/document_identifier-v0.0.1.json"
             },
             "source": {
               "$ref": "#/source"
@@ -276,7 +276,7 @@
               "minLength": 1
             },
             "identifiedBy": {
-              "$ref": "#/identifiedBy"
+              "$ref": "https://ils.rero.ch/schemas/documents/document_identifier-v0.0.1.json"
             },
             "source": {
               "$ref": "#/source"
@@ -301,64 +301,9 @@
     "title": "Source",
     "description": "Source of the subject, for instance MeSH, rero or IdRef.",
     "type": "string",
-    "minLength": 1
-  },
-  "identifiedBy": {
-    "title": "Identifier",
-    "type": "object",
-    "additionalProperties": false,
-    "propertiesOrder": [
-      "type",
-      "source",
-      "value"
-    ],
-    "required": [
-      "value"
-    ],
-    "properties": {
-      "type": {
-        "title": "Type",
-        "type": "string",
-        "default": "bf:Local",
-        "enum": [
-          "bf:Local",
-          "rero-rameau",
-          "gnd"
-        ],
-        "form": {
-          "options": [
-            {
-              "value": "bf:Local",
-              "label": "bf:local"
-            },
-            {
-              "value": "rero-rameau",
-              "label": "rero-rameau"
-            },
-            {
-              "value": "gnd",
-              "label": "gnd"
-            }
-          ],
-          "templateOptions": {
-            "itemCssClass": "col-lg-4"
-          }
-        }
-      },
-      "source": {
-        "title": "Source",
-        "type": "string",
-        "description": "Source in case of a local identifier",
-        "minLength": 1,
-        "form": {
-          "itemCssClass": "col-lg-4"
-        }
-      },
-      "value": {
-        "title": "Value",
-        "type": "string",
-        "minLength": 1
-      }
+    "minLength": 1,
+    "form": {
+      "hide": true
     }
   }
 }

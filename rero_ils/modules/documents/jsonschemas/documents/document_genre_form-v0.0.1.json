@@ -53,6 +53,7 @@
             "source": {
               "title": "Source",
               "description": "Source of the subject, for instance rero.",
+              "default": "rero",
               "type": "string"
             },
             "type": {
@@ -94,17 +95,13 @@
     "additionalProperties": false,
     "propertiesOrder": [
       "type",
-      "source",
-      "value"
-    ],
-    "required": [
-      "value"
+      "value",
+      "source"
     ],
     "properties": {
       "type": {
         "title": "Type",
         "type": "string",
-        "default": "bf:Local",
         "enum": [
           "bf:Local",
           "rero-rameau",
@@ -135,13 +132,30 @@
         "type": "string",
         "minLength": 1,
         "form": {
-          "itemCssClass": "col-lg-4"
+          "hide": true,
+          "templateOptions": {
+            "itemCssClass": "col-lg-4"
+          }
         }
       },
       "value": {
         "title": "Value",
         "type": "string",
-        "minLength": 1
+        "minLength": 1,
+        "form": {
+          "templateOptions": {
+            "itemCssClass": "col"
+          },
+          "expressionProperties": {
+            "templateOptions.required": "true"
+          }
+        }
+      }
+    },
+    "form": {
+      "hide": true,
+      "templateOptions": {
+        "containerCssClass": "row"
       }
     }
   }

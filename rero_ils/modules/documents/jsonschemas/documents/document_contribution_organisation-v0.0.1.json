@@ -9,7 +9,8 @@
     "place",
     "numbering",
     "conference_date",
-    "conference"
+    "conference",
+    "identifiedBy"
   ],
   "required": [
     "type",
@@ -104,7 +105,7 @@
       }
     },
     "identifiedBy": {
-      "$ref": "https://ils.rero.ch/schemas/documents/document_contribution_identifiedby-v0.0.1.json"
+      "$ref": "https://ils.rero.ch/schemas/documents/document_identifier-v0.0.1.json"
     }
   },
   "form": {

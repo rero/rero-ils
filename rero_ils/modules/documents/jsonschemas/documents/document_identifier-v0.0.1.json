@@ -4,18 +4,13 @@
   "additionalProperties": false,
   "propertiesOrder": [
     "type",
-    "source",
-    "value"
-  ],
-  "required": [
-    "value"
+    "value",
+    "source"
   ],
   "properties": {
     "type": {
       "title": "Type",
       "type": "string",
-      "default": "bf:Local",
-      "const": "bf:Local",
       "form": {
         "options": [
           {
@@ -25,15 +20,18 @@
         ],
         "templateOptions": {
           "itemCssClass": "col-lg-4"
+        },
+        "expressionProperties": {
+          "templateOptions.required": "true"
         }
       }
     },
     "source": {
       "title": "Source",
       "type": "string",
-      "default": "IdRef",
       "minLength": 1,
       "form": {
+        "hide": true,
         "templateOptions": {
           "itemCssClass": "col-lg-4"
         }
@@ -42,13 +40,21 @@
     "value": {
       "title": "Value",
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "form": {
+        "templateOptions": {
+          "itemCssClass": "col"
+        },
+        "expressionProperties": {
+          "templateOptions.required": "true"
+        }
+      }
     }
   },
   "form": {
     "hide": true,
     "templateOptions": {
-      "itemCssClass": "col-lg-12"
+      "containerCssClass": "row"
     }
   }
 }
