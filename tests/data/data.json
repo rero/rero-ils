@@ -3591,6 +3591,21 @@
       "$ref": "https://ils.rero.ch/api/patrons/ptrn8"
     }
   },
+  "pttr3": {
+    "$schema": "https://ils.rero.ch/schemas/patron_transactions/patron_transaction-v0.0.1.json",
+    "pid": "pttr3",
+    "creation_date": "2019-01-09T08:18:22.576291+00:00",
+    "type": "photocopy",
+    "total_amount": 5.0,
+    "patron": {
+      "$ref": "https://ils.rero.ch/api/patrons/ptrn1"
+    },
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
+    },
+    "status": "open",
+    "note": "Frais de photocopie sur le copieur Richoh#A.11"
+  },
   "tmpl1": {
     "$schema": "https://ils.rero.ch/schemas/templates/template-v0.0.1.json",
     "pid": "tmpl1",

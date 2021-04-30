@@ -683,6 +683,12 @@ def patron_transaction_overdue_event_saxon_data(data):
     return deepcopy(data.get('dummy_patron_transaction_event'))
 
 
+@pytest.fixture(scope="module")
+def patron_transaction_photocopy_martigny_data(data):
+    """Load photocopy patron transaction data."""
+    return deepcopy(data.get('pttr3'))
+
+
 # ------------ Patron Transactions: Lib Sion overdue scenario ----------
 @pytest.fixture(scope="module")
 def loan_overdue_sion(

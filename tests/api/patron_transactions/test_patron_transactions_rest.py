@@ -128,10 +128,8 @@ def test_patron_transactions_post_put_delete(
         transaction_data
     )
     assert res.status_code == 201
-
     # Check that the returned record matches the given data
     assert data['metadata'] == transaction_data
-
     res = client.get(item_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -170,6 +168,28 @@ def test_patron_transactions_post_put_delete(
 
     res = client.get(item_url)
     assert res.status_code == 410
+
+
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_patron_transaction_photocopy_create(
+    client, lib_martigny,
+    patron_transaction_photocopy_martigny_data, system_librarian_martigny,
+):
+    """Test creation and delete of photocopy fee transaction."""
+    # Create another kind of transaction
+    transaction_data = deepcopy(patron_transaction_photocopy_martigny_data)
+    del transaction_data['pid']
+    res, data = postdata(
+        client,
+        'invenio_records_rest.pttr_list',
+        transaction_data
+    )
+    assert res.status_code == 201
+    pid = data['metadata']['pid']
+    item_url = url_for('invenio_records_rest.pttr_item', pid_value=pid)
+    res = client.delete(item_url)
+    assert res.status_code == 204
 
 
 def test_patron_transaction_shortcuts_utils(

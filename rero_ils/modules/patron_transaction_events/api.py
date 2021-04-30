@@ -105,6 +105,7 @@ class PatronTransactionEvent(IlsRecord):
         data = {
             'creation_date': parent.get('creation_date'),
             'type': 'fee',
+            'subtype': 'other',
             'amount': parent.get('total_amount'),
             'parent': {
                 '$ref': get_ref_for_pid('pttr', parent.pid)
@@ -115,6 +116,7 @@ class PatronTransactionEvent(IlsRecord):
             data['steps'] = steps
         # overdue transaction event
         if parent.get('type') == 'overdue':
+            data['subtype'] = 'overdue'
             if parent.loan_pid:
                 library_pid = parent.loan.library_pid
             else:
@@ -123,10 +125,6 @@ class PatronTransactionEvent(IlsRecord):
                 data['library'] = {
                     '$ref': get_ref_for_pid('lib', library_pid)
                 }
-            data['subtype'] = 'overdue'
-        # subscription transaction event
-        elif patron_transaction.get('type') == 'subscription':
-            data['subtype'] = 'other'
 
         return cls.create(
             data,
