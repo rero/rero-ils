@@ -2023,6 +2023,7 @@ RECORDS_REST_FACETS = dict(
 # Elasticsearch fields boosting by index
 RERO_ILS_QUERY_BOOSTING = {
     'documents': {
+        'autocomplete_title': 3,
         'title._text.*': 3,
         'titlesProper.*': 3,
         'contribution.name': 2,
