@@ -253,12 +253,22 @@ class Document(IlsRecord):
         """Replace $ref with real data."""
         from ..contributions.api import Contribution
         contributions = self.get('contribution', [])
-        for idx, contribution in enumerate(contributions):
+        for contribution in contributions:
             ref = contribution['agent'].get('$ref')
             if ref:
-                contribution, online = Contribution.get_record_by_ref(ref)
-                if contribution:
-                    contributions[idx]['agent'] = contribution
+                agent, _ = Contribution.get_record_by_ref(ref)
+                if agent:
+                    contribution['agent'] = agent
+        subjects = self.get('subjects', [])
+        for subject in subjects:
+            subject_ref = subject.get('$ref')
+            subject_type = subject.get('type')
+            if subject_ref and \
+                    subject_type in ['bf:Person', 'bf:Organisation']:
+                subject, _ = Contribution.get_record_by_ref(subject_ref)
+                if subject:
+                    subject.update({'type': subject_type})
+
         return super().replace_refs()
 
     @property
