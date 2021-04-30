@@ -32,11 +32,12 @@
               "default": "bf:Person",
               "const": "bf:Person",
               "form": {
-                "templateOptions": {
-                  "wrappers": [
-                    "hide"
-                  ]
-                }
+                "options": [
+                  {
+                    "label": "bf:Person",
+                    "value": "bf:Person"
+                  }
+                ]
               }
             },
             "preferred_name": {
@@ -76,6 +77,12 @@
               "default": "bf:Organization",
               "const": "bf:Organization",
               "form": {
+                "options": [
+                  {
+                    "label": "bf:Organization",
+                    "value": "bf:Organization"
+                  }
+                ],
                 "templateOptions": {
                   "wrappers": [
                     "hide"
@@ -125,6 +132,12 @@
               "default": "bf:Work",
               "const": "bf:Work",
               "form": {
+                "options": [
+                  {
+                    "label": "bf:Work",
+                    "value": "bf:Work"
+                  }
+                ],
                 "templateOptions": {
                   "wrappers": [
                     "hide"
@@ -177,6 +190,12 @@
               "default": "bf:Topic",
               "const": "bf:Topic",
               "form": {
+                "options": [
+                  {
+                    "label": "bf:Topic",
+                    "value": "bf:Topic"
+                  }
+                ],
                 "templateOptions": {
                   "wrappers": [
                     "hide"
@@ -221,6 +240,12 @@
               "default": "bf:Place",
               "const": "bf:Place",
               "form": {
+                "options": [
+                  {
+                    "label": "bf:Place",
+                    "value": "bf:Place"
+                  }
+                ],
                 "templateOptions": {
                   "wrappers": [
                     "hide"
@@ -263,6 +288,12 @@
               "default": "bf:Temporal",
               "const": "bf:Temporal",
               "form": {
+                "options": [
+                  {
+                    "label": "bf:Temporal",
+                    "value": "bf:Temporal"
+                  }
+                ],
                 "templateOptions": {
                   "wrappers": [
                     "hide"

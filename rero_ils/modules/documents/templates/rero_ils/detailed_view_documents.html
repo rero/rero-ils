@@ -104,17 +104,16 @@
     </div>
     {% endif %}
 
-    <!-- SUBJECTS TERM -->
+    <!-- SUBJECTS -->
     {% if record.subjects %}
     <div class="pt-2">
     {% for subject in record.subjects %}
-      {% if subject.term %}
-        <p class="badge badge-secondary my-0"><i class="fa fa-tag"></i> {{ subject.term }}</p>
-      {% endif %}
+      <span class="badge badge-secondary my-0" title="{{ _(subject.type) }}">
+        <i class="fa fa-tag"></i> {{ subject | subject_format(current_i18n.language) }}
+      </span>
     {% endfor %}
     </div>
     {% endif %}
-
   </div>
 </div>
 

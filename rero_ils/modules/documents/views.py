@@ -565,9 +565,9 @@ def get_articles(record):
 def online_holdings(document_pid, viewcode='global'):
     """Find holdings by document pid and viewcode.
 
-    : param document_pid: document pid
-    : param viewcode: symbol of organisation viewcode
-    : return: list of holdings
+    :param document_pid: document pid
+    :param viewcode: symbol of organisation viewcode
+    :return: list of holdings
     """
     from ..holdings.api import HoldingsSearch
     organisation = None
@@ -597,3 +597,29 @@ def online_holdings(document_pid, viewcode='global'):
         library_holdings.append(record)
         holdings[library['name']] = library_holdings
     return holdings
+
+
+@blueprint.app_template_filter()
+def subject_format(subject, language):
+    """Format the subject according to the available keys.
+
+    :param subject: the record subject.
+    :param language: current language on interface.
+    """
+    for key in ['$ref', 'term', 'preferred_name', 'title']:
+        value = subject.get(key)
+        # key does not exists try the next one
+        if not value:
+            continue
+        # resolve $ref and retrieve the name in the given language
+        if key == '$ref':
+            sub, _ = Contribution.get_record_by_ref(value)
+            return sub._get_mef_localized_value(
+                'preferred_name', language)
+        # add the creator to the title
+        creator = subject.get('creator')
+        if key == 'title' and creator:
+            value = ' / '.join([value, creator])
+        # do nothing for term and preferred_name
+        if value:
+            return value
