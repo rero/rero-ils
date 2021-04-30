@@ -9,7 +9,8 @@
     "date_of_death",
     "numeration",
     "qualifier",
-    "fuller_form_of_name"
+    "fuller_form_of_name",
+    "identifiedBy"
   ],
   "required": [
     "type",
@@ -100,7 +101,7 @@
       }
     },
     "identifiedBy": {
-      "$ref": "https://ils.rero.ch/schemas/documents/document_contribution_identifiedby-v0.0.1.json"
+      "$ref": "https://ils.rero.ch/schemas/documents/document_identifier-v0.0.1.json"
     }
   },
   "form": {
