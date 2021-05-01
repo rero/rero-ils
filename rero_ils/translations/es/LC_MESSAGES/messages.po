@@ -13,15 +13,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-04-22 08:25+0200\n"
-"PO-Revision-Date: 2021-04-17 07:26+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"PO-Revision-Date: 2021-05-01 13:32+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/es/>\n"
 "Language: es\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/es/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.7-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:134
@@ -8289,7 +8290,7 @@ msgstr "Microforma"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:228
 msgid "docmaintype_children"
-msgstr "Niño"
+msgstr "Álbum para niños"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:259
 msgid "docmaintype_comic"
@@ -12598,4 +12599,3 @@ msgstr "Vuestra contraseña ha sido reinicializada."
 
 #~ msgid "rdaco:1024"
 #~ msgstr ""
-
