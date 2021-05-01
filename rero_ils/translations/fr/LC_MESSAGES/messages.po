@@ -21,15 +21,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-04-22 08:25+0200\n"
-"PO-Revision-Date: 2021-04-27 05:15+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2021-05-01 13:32+0000\n"
+"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/fr/>\n"
 "Language: fr\n"
-"Language-Team: French <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.7-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:134
@@ -4493,11 +4494,11 @@ msgstr "jour(s)"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:82
 msgid "Allow checkout"
-msgstr ""
+msgstr "Permettre le prêt"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:83
 msgid "Checkouts are allowed or not."
-msgstr ""
+msgstr "Autorise ou non les prêts."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:92
 msgid "Allow patron requests"
@@ -4709,7 +4710,7 @@ msgstr "URI du type d'exemplaire"
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:4
 #: rero_ils/theme/views.py:129
 msgid "Exhibition/course"
-msgstr ""
+msgstr "Exposition/cours"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:33
 msgid "Schema to validate collection records against."
@@ -5030,19 +5031,19 @@ msgstr "PID du document"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:241
 msgid "Subjects (imported)"
-msgstr ""
+msgstr "Sujets (importés)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:242
 msgid "Subject from imported bibliographic data"
-msgstr ""
+msgstr "Sujet à partir de données bibliographiques importées"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:258
 msgid "Genres, forms (imported)"
-msgstr ""
+msgstr "Genres, formes (importés)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:259
 msgid "Genre of form from imported bibliographic data"
-msgstr ""
+msgstr "Genre de forme à partir de données bibliographiques importées"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:279
 msgid "Harvested"
@@ -5090,31 +5091,32 @@ msgstr "Résumé"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:3
 msgid "Terms of availability"
-msgstr ""
+msgstr "Conditions de disponibilité"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:4
 msgid "A condition under which the document is supplied. This includes the price."
 msgstr ""
+"Une condition selon laquelle le document est fourni. Cela inclut le prix."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:8
 msgid "Term of availability"
-msgstr ""
+msgstr "Condition de la disponibilité"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:11
 msgid "Example: CHF 68.-"
-msgstr ""
+msgstr "Exemple : CHF 68.-"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:3
 msgid "Admin metadata"
-msgstr ""
+msgstr "Métadonnées administratives"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:16
 msgid "Administrative information intended for professionals"
-msgstr ""
+msgstr "Informations administratives destinées aux professionnels"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:31
 msgid "Encoding level"
-msgstr ""
+msgstr "Niveau d'encodage"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:32
 msgid "Indicator of the fullness of the bibliographic information"
@@ -12581,4 +12583,3 @@ msgstr "Votre mot de passe a bien été modifié."
 
 #~ msgid "rdact:1050"
 #~ msgstr ""
-
