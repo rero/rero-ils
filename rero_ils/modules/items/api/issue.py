@@ -111,18 +111,19 @@ class ItemIssue(ItemRecord):
     def get_late_serial_holdings_pids(cls):
         """Return pids for all late holdings.
 
-        The holdings is considered late if the it is of type serial and the
-        next expected date has passed (greater than current datetime).
+        The holdings is considered late if :
+          * it is of type serial
+          * it is considerate as alive (acq_status='currently_received')
+          * next expected date has passed (greater than current datetime).
 
         :return a generator of holdings pid.
         """
         from ...holdings.api import HoldingsSearch
-        current_date = datetime.now(timezone.utc).strftime('%Y-%m-%d')
-        query = HoldingsSearch() \
+        today = datetime.now(timezone.utc).strftime('%Y-%m-%d')
+        results = HoldingsSearch() \
             .filter('term', holdings_type='serial') \
-            .filter('range',
-                    patterns__next_expected_date={'lte': current_date})
-        results = query\
+            .filter('term', acquisition_status='currently_received') \
+            .filter('range', patterns__next_expected_date={'lte': today}) \
             .params(preserve_order=True) \
             .sort({'_created': {'order': 'asc'}}) \
             .source(['pid']).scan()
