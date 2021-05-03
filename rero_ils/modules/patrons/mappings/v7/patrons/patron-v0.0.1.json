@@ -179,6 +179,9 @@
           }
         }
       },
+      "local_codes": {
+        "type": "keyword"
+      },
       "libraries": {
         "properties": {
           "pid": {
