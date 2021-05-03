@@ -302,6 +302,7 @@
       "$ref": "https://ils.rero.ch/api/locations/loc7"
     },
     "holdings_type": "serial",
+    "acquisition_status": "currently_received",
     "patterns": {
       "template": "no {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1010",

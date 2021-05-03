@@ -19,13 +19,13 @@
     "second_call_number",
     "holdings_type",
     "enumerationAndChronology",
+    "acquisition_status",
     "patterns",
     "vendor",
     "supplementaryContent",
     "index",
     "missing_issues",
     "issue_binding",
-    "acquisition_status",
     "acquisition_method",
     "acquisition_expected_end_date",
     "general_retention_policy",
@@ -666,6 +666,7 @@
     "acquisition_status": {
       "title": "Acquisition status",
       "type": "string",
+      "default": "currently_received",
       "enum": [
         "unknown",
         "other_receipt_or_acquisition_status",
@@ -705,7 +706,10 @@
             "label": "unknown",
             "value": "unknown"
           }
-        ]
+        ],
+        "expressionProperties": {
+          "templateOptions.required": "model.holdings_type === 'serial'"
+        }
       }
     },
     "acquisition_method": {
