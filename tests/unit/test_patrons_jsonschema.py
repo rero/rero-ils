@@ -165,3 +165,19 @@ def test_blocked_note(patron_schema, patron_martigny_data_tmp_with_id):
 
     patron_martigny_data_tmp_with_id['patron']['blocked_note'] = 'Lost card'
     validate(patron_martigny_data_tmp_with_id, patron_schema)
+
+
+def test_local_codes(patron_schema, patron_martigny_data_tmp_with_id):
+    """Test local codes for patron jsonschemas."""
+
+    with pytest.raises(ValidationError):
+        patron_martigny_data_tmp_with_id['local_codes'] = 'data'
+        validate(patron_martigny_data_tmp_with_id, patron_schema)
+
+    with pytest.raises(ValidationError):
+        patron_martigny_data_tmp_with_id['local_codes'] = ['data', 12]
+        validate(patron_martigny_data_tmp_with_id, patron_schema)
+
+    with pytest.raises(ValidationError):
+        patron_martigny_data_tmp_with_id['local_codes'] = ['data', 'data']
+        validate(patron_martigny_data_tmp_with_id, patron_schema)
