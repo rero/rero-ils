@@ -2059,7 +2059,6 @@ RERO_ILS_QUERY_BOOSTING = {
     'documents': {
         'autocomplete_title': 3,
         'title._text.*': 3,
-        'titlesProper.*': 3,
         'contribution.name': 2,
         'contribution.name_*': 2,
         'publicationYearText': 2,
