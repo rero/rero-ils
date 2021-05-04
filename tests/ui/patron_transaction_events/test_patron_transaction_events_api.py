@@ -22,29 +22,11 @@ from __future__ import absolute_import, print_function
 from copy import deepcopy
 
 import pytest
-from utils import get_mapping
 
 from rero_ils.modules.patron_transaction_events.api import \
-    PatronTransactionEvent as PatronTransactionEvent
-from rero_ils.modules.patron_transaction_events.api import \
-    PatronTransactionEventsSearch
+    PatronTransactionEvent
 from rero_ils.modules.patron_transactions.api import \
     patron_transaction_id_fetcher as fetcher
-
-
-def test_patron_transaction_event_es_mapping(
-        es, db, patron_transaction_overdue_event_martigny):
-    """Test patron_transaction event elasticsearch mapping."""
-    search = PatronTransactionEventsSearch()
-    mapping = get_mapping(search.Meta.index)
-    assert mapping
-    PatronTransactionEvent.create(
-        patron_transaction_overdue_event_martigny,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
-    )
-    assert mapping == get_mapping(search.Meta.index)
 
 
 def test_patron_transaction_event_create(

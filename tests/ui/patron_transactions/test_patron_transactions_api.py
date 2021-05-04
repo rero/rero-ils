@@ -22,23 +22,20 @@ from __future__ import absolute_import, print_function
 from copy import deepcopy
 
 import pytest
-from utils import get_mapping
 
-from rero_ils.modules.patron_transactions.api import PatronTransaction, \
-    PatronTransactionsSearch
+from rero_ils.modules.patron_transactions.api import PatronTransaction
 from rero_ils.modules.patron_transactions.api import \
     patron_transaction_id_fetcher as fetcher
 
 
 def test_patron_transaction_create(
-        db, es_clear, patron_transaction_overdue_martigny):
+        db, es_clear, patron_transaction_overdue_martigny, org_martigny):
     """Test patron transaction creation."""
     patron_transaction = deepcopy(patron_transaction_overdue_martigny)
     patron_transaction['status'] = 'no_status'
     import jsonschema
     with pytest.raises(jsonschema.exceptions.ValidationError):
-        record = PatronTransaction.create(patron_transaction, delete_pid=True)
-
+        PatronTransaction.create(patron_transaction, delete_pid=True)
     db.session.rollback()
 
     next_pid = PatronTransaction.provider.identifier.next()
@@ -55,31 +52,9 @@ def test_patron_transaction_create(
     assert fetched_pid.pid_value == str(next_pid)
     assert fetched_pid.pid_type == 'pttr'
 
-
-def test_patron_transaction_es_mapping(
-        es, db, patron_transaction_overdue_martigny):
-    """Test patron_transaction elasticsearch mapping."""
-    search = PatronTransactionsSearch()
-    mapping = get_mapping(search.Meta.index)
-    assert mapping
-    PatronTransaction.create(
-        patron_transaction_overdue_martigny,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
-    )
-    assert mapping == get_mapping(search.Meta.index)
-
-
-def test_patron_transaction_can_delete(patron_transaction_overdue_martigny):
-    """Test can delete."""
     can, reasons = patron_transaction_overdue_martigny.can_delete
     assert not can
     assert reasons['links']['events']
 
-
-def test_patron_transaction_currency(
-        patron_transaction_overdue_martigny, org_martigny):
-    """Test patron transaction currency."""
     assert patron_transaction_overdue_martigny.currency == \
         org_martigny.get('default_currency')

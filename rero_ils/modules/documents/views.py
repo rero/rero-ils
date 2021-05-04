@@ -62,7 +62,7 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
     if viewcode != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
         organisation = Organisation.get_record_by_viewcode(viewcode)
 
-    record['available'] = record.is_available(viewcode)
+    record['available'] = Document.is_available(record.pid, viewcode)
 
     # Counting holdings to display the get button
     from ..holdings.api import HoldingsSearch
@@ -333,7 +333,7 @@ def document_availability(document_pid):
     if not document:
         abort(404)
     return jsonify({
-        'availability': document.is_available(view_code)
+        'availability': Document.is_available(document_pid, view_code)
     })
 
 

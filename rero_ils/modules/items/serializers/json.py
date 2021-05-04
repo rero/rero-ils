@@ -55,8 +55,9 @@ class ItemsJSONSerializer(JSONSerializer):
             )
 
             item = Item.get_record_by_pid(metadata.get('pid'))
+            metadata['available'] = item.available
             metadata['availability'] = {
-                'available': item.available,
+                'available': metadata['available'],
                 'status': metadata['status'],
                 'display_text': item.availability_text,
                 'request': item.number_of_requests()

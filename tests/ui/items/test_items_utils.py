@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2020 RERO
+# Copyright (C) 2021 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -15,18 +15,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Local fields Record tests."""
+"""Items Record utils tests."""
+import pytest
 
-from __future__ import absolute_import, print_function
-
-from rero_ils.modules.local_fields.api import LocalField
+from rero_ils.modules.items.utils import exists_available_item
 
 
-def test_local_fields_es(client, local_field_martigny):
-    """Test."""
-    local_field = LocalField.get_local_fields_by_resource('doc', 'doc1')
-    assert len(local_field) == 1
+def test_exists_available_item(item_lib_martigny):
+    """Test exists_available_items function."""
+    assert not exists_available_item([])
+    assert exists_available_item([item_lib_martigny])
+    assert exists_available_item([item_lib_martigny.pid])
 
-    local_field = LocalField.get_local_fields_by_resource(
-        'doc', 'doc1', 'org2')
-    assert len(local_field) == 0
+    with pytest.raises(ValueError):
+        assert exists_available_item([0, item_lib_martigny.pid])

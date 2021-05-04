@@ -19,7 +19,6 @@
 
 from .api import Item, ItemsSearch
 from ..documents.api import Document
-from ..local_fields.api import LocalField
 from ..utils import extracted_data_from_ref
 
 
@@ -38,27 +37,24 @@ def enrich_item_data(sender, json=None, record=None, index=None,
             item = Item.get_record_by_pid(record.get('pid'))
         library = item.get_library()
         json['organisation'] = {
-            'pid': extracted_data_from_ref(library.get('organisation'))
+            'pid': extracted_data_from_ref(library.get('organisation')),
+            'type': 'org'
         }
         json['library'] = {
-            'pid': library.pid
+            'pid': library.pid,
+            'type': 'lib'
         }
-        json['available'] = item.available
         # add vendor name
         if item.vendor_pid:
             json['vendor'] = {
-                'pid': item.vendor_pid
+                'pid': item.vendor_pid,
+                'type': 'vndr'
             }
         # inherited_first_call_number to issue
         inherited_first_call_number = item.issue_inherited_first_call_number
         if inherited_first_call_number:
             json['issue']['inherited_first_call_number'] = \
                 inherited_first_call_number
-        # Local fields in JSON
-        local_fields = LocalField.get_local_fields_by_resource(
-            'item', item.pid)
-        if local_fields:
-            json['local_fields'] = local_fields
 
         # Document type
         document = Document.get_record_by_pid(json['document']['pid'])

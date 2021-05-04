@@ -24,6 +24,7 @@ from flask_babelex import gettext as _
 
 from .models import LocalFieldIdentifier, LocalFieldMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from ..documents.api import Document
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
@@ -115,7 +116,8 @@ class LocalFieldsIndexer(IlsRecordsIndexer):
         """
         return_value = super().index(record)
         resource = extracted_data_from_ref(record['parent']['$ref'], 'record')
-        resource.reindex()
+        if isinstance(resource, Document):
+            resource.reindex()
         return return_value
 
     def delete(self, record):
@@ -125,7 +127,8 @@ class LocalFieldsIndexer(IlsRecordsIndexer):
         """
         return_value = super().delete(record)
         resource = extracted_data_from_ref(record['parent']['$ref'], 'record')
-        resource.reindex()
+        if isinstance(resource, Document):
+            resource.reindex()
         return return_value
 
     def bulk_index(self, record_id_iterator):

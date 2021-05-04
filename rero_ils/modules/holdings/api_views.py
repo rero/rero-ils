@@ -65,19 +65,6 @@ def jsonify_error(func):
     return decorated_view
 
 
-@api_blueprint.route('/availabilty/<holding_pid>', methods=['GET'])
-@check_authentication
-@jsonify_error
-def holding_availability(holding_pid):
-    """HTTP GET request for holding availability."""
-    holding = Holding.get_record_by_pid(holding_pid)
-    if not holding:
-        abort(404)
-    return jsonify({
-        'availability': holding.available
-    })
-
-
 @api_blueprint.route('/<holding_pid>/patterns/preview', methods=['GET'])
 @check_authentication
 @jsonify_error

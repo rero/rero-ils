@@ -60,12 +60,18 @@
         "properties": {
           "pid": {
             "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
           }
         }
       },
       "organisation": {
         "properties": {
           "pid": {
+            "type": "keyword"
+          },
+          "type": {
             "type": "keyword"
           }
         }
@@ -132,6 +138,9 @@
         "properties": {
           "pid": {
             "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
           }
         }
       },
@@ -177,48 +186,6 @@
       },
       "composite_copy_report": {
         "type": "keyword"
-      },
-      "local_fields": {
-        "properties": {
-          "organisation_pid": {
-            "type": "keyword"
-          },
-          "fields": {
-            "type": "object",
-            "properties": {
-              "field_1": {
-                "type": "text"
-              },
-              "field_2": {
-                "type": "text"
-              },
-              "field_3": {
-                "type": "text"
-              },
-              "field_4": {
-                "type": "text"
-              },
-              "field_5": {
-                "type": "text"
-              },
-              "field_6": {
-                "type": "text"
-              },
-              "field_7": {
-                "type": "text"
-              },
-              "field_8": {
-                "type": "text"
-              },
-              "field_9": {
-                "type": "text"
-              },
-              "field_10": {
-                "type": "text"
-              }
-            }
-          }
-        }
       },
       "_masked": {
         "type": "boolean"

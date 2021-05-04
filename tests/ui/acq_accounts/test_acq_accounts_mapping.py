@@ -15,37 +15,23 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Circulation Policy Record tests."""
-
+"""Acquisition account Record mapping tests."""
 from utils import get_mapping
 
-from rero_ils.modules.circ_policies.api import CircPoliciesSearch, CircPolicy
+from rero_ils.modules.acq_accounts.api import AcqAccount, AcqAccountsSearch
 
 
-def test_circ_policy_es_mapping(es_clear, db, org_martigny,
-                                circ_policy_martigny_data_tmp):
-    """Test circulation policy elasticsearch mapping."""
-    search = CircPoliciesSearch()
+def test_acq_accounts_es_mapping(es, db, acq_account_fiction_martigny_data,
+                                 budget_2020_martigny, lib_martigny):
+    """Test acquisition account elasticsearch mapping."""
+    search = AcqAccountsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
-    CircPolicy.create(
-        circ_policy_martigny_data_tmp,
+    account = AcqAccount.create(
+        acq_account_fiction_martigny_data,
         dbcommit=True,
         reindex=True,
         delete_pid=True
     )
     assert mapping == get_mapping(search.Meta.index)
-
-
-def test_circ_policies_search_mapping(app, circulation_policies):
-    """Test circulation policy search mapping."""
-    search = CircPoliciesSearch()
-
-    c = search.query('query_string', query='policy').count()
-    assert c == 4
-    c = search.query('match', name='default').count()
-    assert c == 2
-    es_query = search.query('match', name='temporary').source(['pid']).scan()
-    pids = [hit.pid for hit in es_query]
-    assert len(pids) == 1
-    assert 'cipo3' in pids
+    account.delete(force=True, dbcommit=True, delindex=True)

@@ -73,6 +73,9 @@
         "properties": {
           "pid": {
             "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
           }
         }
       },
