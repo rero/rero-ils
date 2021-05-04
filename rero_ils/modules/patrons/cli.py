@@ -30,14 +30,19 @@ from flask.cli import with_appcontext
 from flask_security.confirmable import confirm_user
 from invenio_accounts.ext import hash_password
 from invenio_db import db
+from invenio_jsonschemas.proxies import current_jsonschemas
+from jsonmerge import Merger
+from jsonschema import validate
+from jsonschema.exceptions import ValidationError
 from werkzeug.local import LocalProxy
 
 from .api import User, create_patron_from_data
 from ..patrons.api import Patron, PatronProvider
 from ..providers import append_fixtures_new_identifiers
-from ..utils import read_json_record
+from ..utils import get_schema_for_resource, read_json_record
 
 datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
+records_state = LocalProxy(lambda: current_app.extensions['invenio-records'])
 
 
 @click.command('import_users')
@@ -125,8 +130,6 @@ def import_users(infile, append, verbose, password, lazy, dont_stop_on_error,
                 sys.exit(1)
             if debug:
                 traceback.print_exc()
-            if not dont_stop_on_error:
-                sys.exit(1)
     if append:
         click.secho(f'Append fixtures new identifiers: {len(pids)}')
         identifier = Patron.provider.identifier
@@ -151,3 +154,49 @@ def import_users(infile, append, verbose, password, lazy, dont_stop_on_error,
                 for line in json.dumps(error_record, indent=2).split('\n'):
                     error_file.write('  ' + line + '\n')
             error_file.write(']')
+
+
+@click.command('users_validate')
+@click.argument('jsonfile', type=click.File('r'))
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+@click.option('-d', '--debug', 'debug', is_flag=True, default=False)
+@with_appcontext
+def users_validate(jsonfile, verbose, debug):
+    """Check users validation."""
+    click.secho('Validate user file', fg='green')
+
+    path = current_jsonschemas.url_to_path(get_schema_for_resource('ptrn'))
+    ptrn_schema = current_jsonschemas.get_schema(path=path)
+    ptrn_schema = records_state.replace_refs(ptrn_schema)
+    # TODO: get user schema path programaticly
+    # path = current_jsonschemas.url_to_path(get_schema_for_resource('user'))
+    path = 'users/user-v0.0.1.json'
+    user_schema = current_jsonschemas.get_schema(path=path)
+    user_schema = records_state.replace_refs(user_schema)
+
+    merger_schema = {
+        "properties": {
+            "required": {"mergeStrategy": "append"}
+        }
+    }
+    merger = Merger(merger_schema)
+    schema = merger.merge(user_schema, ptrn_schema)
+    schema['required'] = [
+        s for s in schema['required'] if s not in ['$schema', 'user_id']]
+
+    datas = read_json_record(jsonfile)
+    for idx, data in enumerate(datas):
+        if verbose:
+            click.echo(f'\tTest record: {idx}')
+        try:
+            validate(data, schema)
+        except ValidationError as err:
+            click.secho(
+                f'Error validate in record: {idx} pid: {data.get("pid")}',
+                fg='red'
+            )
+            if debug:
+                click.secho(str(err))
+            else:
+                trace_lines = traceback.format_exc(1).split('\n')
+                click.secho(trace_lines[3].strip())

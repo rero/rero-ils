@@ -73,7 +73,7 @@ from .ill_requests.cli import create_ill_requests
 from .items.cli import create_items, reindex_items
 from .loans.cli import create_loans, load_virtua_transactions
 from .operation_logs.cli import migrate_virtua_operation_logs
-from .patrons.cli import import_users
+from .patrons.cli import import_users, users_validate
 from .tasks import process_bulk_queue
 from .utils import get_record_class_from_schema_or_pid_type, \
     read_json_record, read_xml_record
@@ -124,6 +124,9 @@ def manual_confirm_user(user):
 @click.group()
 def utils():
     """Misc management commands."""
+
+
+utils.add_command(users_validate)
 
 
 def queue_count():
