@@ -3200,9 +3200,6 @@
         ]
       }
     ],
-    "abstracts": [
-      "Fictions jeunesse: roman, pr\u00e9histoire, science fiction"
-    ],
     "intendedAudience": [
       {
         "audienceType": "understanding_level",
@@ -7616,9 +7613,6 @@
         ]
       }
     ],
-    "abstracts": [
-      "Klassenlekt\u00fcre"
-    ],
     "intendedAudience": [
       {
         "audienceType": "understanding_level",
@@ -10478,9 +10472,6 @@
         ]
       }
     ],
-    "abstracts": [
-      "Pendant plus de deux ans, les r\u00e9alisateurs ont suivit l'Ensemble vocal de Lausanne et son chef. Ce film est une immersion intimiste dans l'enregistrement de la Messe en si mineur de Jean-S\u00e9bastien Bach (BWV 232)"
-    ],
     "subjects": [
       {
         "$ref": "https://mef.rero.ch/api/idref/082686335",
@@ -12135,9 +12126,6 @@
           }
         ]
       }
-    ],
-    "abstracts": [
-      "Com\u00e9die"
     ],
     "contribution": [
       {
@@ -19254,9 +19242,6 @@
         ]
       }
     ],
-    "abstracts": [
-      "Fictions jeunesse"
-    ],
     "intendedAudience": [
       {
         "audienceType": "school_level",
@@ -19863,9 +19848,6 @@
           }
         ]
       }
-    ],
-    "abstracts": [
-      "Dans le confortable lit de la sombre cave d'une haute maison qui se dresse dans une sombre rue, trois squelettes r\u00eavent qu'ils sont poursuivis par de terrifiants dinosaures..."
     ]
   },
   {
@@ -20361,9 +20343,6 @@
         ]
       }
     ],
-    "abstracts": [
-      "La reine Ahotep a reconquis une grande partie du sud, au prix de la vie de ceux qu'elle aime. Apr\u00e8s cent ans d'occupation, l'empire va enfin rena\u00eetre de ses cendres."
-    ],
     "genreForm": [
       {
         "type": "bf:Topic",
@@ -20511,10 +20490,6 @@
           }
         ]
       }
-    ],
-    "abstracts": [
-      "Crac paissait bien tranquille sous le vieux pommier, jusqu'\u00e0 ce qu'on vienne l'arracher \u00e0 son pr\u00e9 pour en faire un cheval de club. Mais qu'attend-on de lui au juste ? Qui sont tous ces gens ? Que va-t-on lui faire ? Et les autres chevaux pourraient-ils cesser de lui envoyer des coups de pied ?",
-      "Originalit\u00e9 de ce roman: c'est Crac lui-m\u00eame qui s'exprime. On a le point de vue du cheval, aussi bien sur des carottes qui poussent, sur certains cavaliers, que sur les \"choses difficiles\" \u00e0 ex\u00e9cuter lors des reprises. Pendant un an, Crac raconte au jour le jour la vie de son club, avec tant de naturel et de r\u00e9alisme qu'on s'y croit vraiment."
     ],
     "intendedAudience": [
       {
@@ -21725,9 +21700,6 @@
           }
         ]
       }
-    ],
-    "abstracts": [
-      "Roman du terroir"
     ]
   },
   {
@@ -23340,9 +23312,6 @@
           }
         ]
       }
-    ],
-    "abstracts": [
-      "Analyse : Roman de science-fiction. Nouvelles"
     ],
     "subjects": [
       {
@@ -25078,11 +25047,6 @@
           }
         ]
       }
-    ],
-    "abstracts": [
-      "Synopsis : Le jeune savant Victor Frankenstein est persuad\u00e9 que la science peut venir \u00e0 bout de tout et m\u00eame cr\u00e9er la vie. Il s'att\u00e8le \u00e0 cette tache avec ardeur et cr\u00e9e \u00e0 partir de morceaux de cadavres un \u00eatre humain qui sera accul\u00e9 par sa diff\u00e9rence \u00e0 la m\u00e9chancet\u00e9",
-      "Epouvante",
-      "Fantastique"
     ],
     "intendedAudience": [
       {
@@ -27572,9 +27536,6 @@
         ]
       }
     ],
-    "abstracts": [
-      "Egypte des pharaons, comment c'\u00e9tait? Comment vivaient les Egyptiens? Comment \u00e9crivaient-ils ? Qui \u00e9taient les pharaons ? \u00c0 quoi servaient les pyramides ? Avec Justine, r\u00e9ponds \u00e0 toutes ces questions ! Pars \u00e0 la d\u00e9couverte des magnifiques tr\u00e9sors que nous ont laiss\u00e9s les \u00c9gyptiens et qui te feront voyager dans une autre \u00e9poque. Une histoire que l'on peut lire \u00e0 deux, d\u00e8s 4 ans."
-    ],
     "intendedAudience": [
       {
         "audienceType": "understanding_level",
@@ -28811,12 +28772,12 @@
     "sequence_numbering": "No 1(2005)-",
     "intendedAudience": [
       {
-        "audienceType": "school_level",
-        "value": "target_school_tertiary"
-      },
-      {
         "audienceType": "understanding_level",
         "value": "target_understanding_tertiary"
+      },
+      {
+        "audienceType": "school_level",
+        "value": "target_school_tertiary"
       },
       {
         "audienceType": "understanding_level",
@@ -30798,9 +30759,6 @@
           }
         ]
       }
-    ],
-    "abstracts": [
-      "Contient e.a.: affiches de la M\u00e9diath\u00e8que Valais"
     ],
     "subjects": [
       {
@@ -33038,9 +32996,6 @@
           }
         ]
       }
-    ],
-    "abstracts": [
-      "Une femme pr\u00e9pare un d\u00eener aux chandelles pour f\u00eater son anniversaire de mariage. Elle descend dans sa cave pour y chercher une bouteille de vin, qu'elle trouve envelopp\u00e9e dans un papier journal dont elle lit distraitement les petites annonces. Soudain, sa vie bascule : elle remonte les escaliers, \u00e9teint le four, prend sa voiture, quitte tout. En chacun d'entre nous repose peut-\u00eatre, tapie sous l'apparente qui\u00e9tude quotidienne, la possibilit\u00e9 d'\u00eatre un jour requis par son premier amour..."
     ]
   },
   {
@@ -33721,9 +33676,6 @@
           }
         ]
       }
-    ],
-    "abstracts": [
-      "Le premier jour, il y eut une \u00e9nigme. Le deuxi\u00e8me jour, ce fut l'obscurit\u00e9. Le troisi\u00e8me jour vint le d\u00e9luge. Le quatri\u00e8me jour, ce fut la guerre. Le cinqui\u00e8me jour survint l'effroi. Le sixi\u00e8me jour, ce fut le chaos."
     ],
     "intendedAudience": [
       {
@@ -34875,9 +34827,6 @@
           }
         ]
       }
-    ],
-    "abstracts": [
-      "Quelles techniques apprendre, quels trucs et quels tours exercer, quels habits porter"
     ]
   },
   {
@@ -35025,9 +34974,6 @@
           }
         ]
       }
-    ],
-    "abstracts": [
-      "\" -Quelquefois je me demande ce que nous sommes en train d'attendre.Silence.-Qu'il soit trop tard, madame. \""
     ]
   },
   {
@@ -38357,9 +38303,6 @@
         ]
       }
     ],
-    "abstracts": [
-      "Avec de nombreuses contributions [ po\u00e8mes et proses] d'\u00e9crivains vaudois"
-    ],
     "subjects": [
       {
         "type": "bf:Topic",
@@ -40625,9 +40568,6 @@
         ]
       }
     ],
-    "abstracts": [
-      "Analyse: Survol de la ville par l'image et les commentaires de quelques-unes de ses personnalit\u00e9s."
-    ],
     "subjects": [
       {
         "type": "bf:Place",
@@ -42049,9 +41989,6 @@
         ]
       }
     ],
-    "abstracts": [
-      "Roman de science-fiction (space opera)"
-    ],
     "partOf": [
       {
         "document": {
@@ -42548,9 +42485,6 @@
           }
         ]
       }
-    ],
-    "abstracts": [
-      "Voix: Choeur Mixte (4 SATB) ; Langue: Allemand, Anglais ; Usage Liturgique: M\u00e9ditation, Envoi ; Temps Liturgique: 31\u00e8me dimanche TO A, Car\u00eame, P\u00e9nitence, Onction des Malades ; Epoque: Romantique"
     ],
     "classification": [
       {
@@ -43390,8 +43324,8 @@
           "type": "bf:Person"
         },
         "role": [
-          "cmp",
-          "prf"
+          "prf",
+          "cmp"
         ]
       },
       {
@@ -46054,11 +45988,6 @@
           }
         ]
       }
-    ],
-    "abstracts": [
-      "Analyse: Revue de futurs cin\u00e9astes \u00e0 l'origine, \"Travelling\" s'oriente, d\u00e8s les ann\u00e9es 70, vers l'histoire du cin\u00e9ma, portant en particulier son attention au cin\u00e9ma suisse.",
-      "La lecture de la collection dans son ensemble s'av\u00e8re passionnante pour qui chercherait \u00e0 reconstituer l'itin\u00e9raire du nouveau cin\u00e9ma suisse.",
-      "\"Travelling\", soutenu par la Cin\u00e9math\u00e8que suisse d\u00e8s 1975, constitue dans le domaine cin\u00e9matographique l'effort le plus soutenu d'une volont\u00e9 d'historiographie s\u00e9rieuse."
     ],
     "subjects": [
       {
@@ -49657,9 +49586,6 @@
           }
         ]
       }
-    ],
-    "abstracts": [
-      "Voir: La Libert\u00e9 ; 15.11.2001 ; 15.07.200 - La Gruy\u00e8re ; 15.11.2001."
     ],
     "subjects": [
       {
@@ -53276,9 +53202,6 @@
           }
         ]
       }
-    ],
-    "abstracts": [
-      "Analyse: Concerne notamment le canton de Vaud."
     ],
     "subjects": [
       {
@@ -62624,9 +62547,6 @@
           }
         ]
       }
-    ],
-    "abstracts": [
-      "Analyse: Contient des informations sur la faune."
     ],
     "note": [
       {
