@@ -651,27 +651,6 @@
           }
         }
       },
-      "abstracts": {
-        "type": "text",
-        "fields": {
-          "eng": {
-            "type": "text",
-            "analyzer": "english"
-          },
-          "fre": {
-            "type": "text",
-            "analyzer": "french"
-          },
-          "ger": {
-            "type": "text",
-            "analyzer": "german"
-          },
-          "ita": {
-            "type": "text",
-            "analyzer": "italian"
-          }
-        }
-      },
       "identifiedBy": {
         "type": "object",
         "properties": {
