@@ -254,7 +254,7 @@ def contribution_person_response_data(contribution_person_data):
 
 
 @pytest.fixture(scope="module")
-def contribution_person(contribution_person_data):
+def contribution_person(app, contribution_person_data):
     """Load contribution person record."""
     cont = Contribution.create(
         data=contribution_person_data,
@@ -294,15 +294,15 @@ def contribution_organisation_response_data(contribution_organisation_data):
 
 
 @pytest.fixture(scope="module")
-def contribution_person(app, contribution_person_data):
-    """Create mef contribution record."""
-    pers = Contribution.create(
-        data=contribution_person_data,
+def contribution_organisation(app, contribution_organisation_data):
+    """Create mef contribution organisation record."""
+    org = Contribution.create(
+        data=contribution_organisation_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
     flush_index(ContributionsSearch.Meta.index)
-    return pers
+    return org
 
 
 @pytest.fixture(scope="module")
