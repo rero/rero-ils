@@ -18,7 +18,6 @@
 """Signals connector for Holding."""
 
 from .api import HoldingsSearch
-from ..local_fields.api import LocalField
 from ..locations.api import LocationsSearch
 
 
@@ -33,18 +32,16 @@ def enrich_holding_data(sender, json=None, record=None, index=None,
     """
     if index.split('-')[0] == HoldingsSearch.Meta.index:
         # ES search reduces number of requests for organisation and library.
-        es_loc = next(LocationsSearch().filter(
-            'term', pid=json['location']['pid']
-        ).scan())
+        es_loc = next(
+            LocationsSearch()
+            .filter('term', pid=json['location']['pid'])
+            .scan()
+        )
         json['organisation'] = {
-            'pid': es_loc.organisation.pid
+            'pid': es_loc.organisation.pid,
+            'type': 'org'
         }
         json['library'] = {
-            'pid': es_loc.library.pid
+            'pid': es_loc.library.pid,
+            'type': 'lib'
         }
-
-        # Local fields in JSON
-        local_fields = LocalField.get_local_fields_by_resource(
-            'hold', record['pid'])
-        if local_fields:
-            json['local_fields'] = local_fields

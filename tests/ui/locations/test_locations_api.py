@@ -21,34 +21,17 @@ from __future__ import absolute_import, print_function
 
 import pytest
 from jsonschema.exceptions import ValidationError
-from utils import get_mapping
 
 from rero_ils.modules.locations.api import Location, LocationsSearch
 from rero_ils.modules.locations.api import location_id_fetcher as fetcher
 
 
-def test_location_es_mapping(es_clear, db, lib_martigny,
-                             loc_public_martigny_data):
-    """Test location elasticsearch mapping."""
-    search = LocationsSearch()
-    mapping = get_mapping(search.Meta.index)
-    assert mapping
-    Location.create(
-        loc_public_martigny_data,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
-    )
-    assert mapping == get_mapping(search.Meta.index)
-
-
-def test_location_create(db, es_clear, loc_public_martigny_data, lib_martigny,
+def test_location_create(db, es, loc_public_martigny_data, lib_martigny,
                          loc_online_martigny):
     """Test location creation."""
     loc_public_martigny_data['is_online'] = True
     with pytest.raises(ValidationError):
-        loc = Location.create(loc_public_martigny_data, delete_pid=True)
-
+        Location.create(loc_public_martigny_data, delete_pid=True)
     db.session.rollback()
 
     next_pid = Location.provider.identifier.next()
@@ -58,7 +41,7 @@ def test_location_create(db, es_clear, loc_public_martigny_data, lib_martigny,
     assert loc == loc_public_martigny_data
     assert loc.get('pid') == str(next_pid)
 
-    loc = Location.get_record_by_pid(str(next_pid))
+    loc = Location.get_record_by_pid(loc.pid)
     assert loc == loc_public_martigny_data
 
     fetched_pid = fetcher(loc.id, loc)

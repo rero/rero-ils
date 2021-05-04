@@ -15,26 +15,25 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Acquisition order line Record mapping tests."""
+"""Notification record mapping tests."""
+from copy import deepcopy
 
 from utils import get_mapping
 
-from rero_ils.modules.acq_order_lines.api import AcqOrderLine, \
-    AcqOrderLinesSearch
+from rero_ils.modules.notifications.api import Notification, \
+    NotificationsSearch
 
 
-def test_acq_order_lines_es_mapping(
-        es, db, document, acq_account_fiction_martigny,
-        acq_order_fiction_martigny, acq_order_line_fiction_martigny_data):
-    """Test aquisition order line elasticsearch mapping."""
-    search = AcqOrderLinesSearch()
+def test_notification_es_mapping(
+        dummy_notification, loan_validated_martigny):
+    """Test notification elasticsearch mapping."""
+
+    search = NotificationsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
-    acq_line = AcqOrderLine.create(
-        acq_order_line_fiction_martigny_data,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
-    )
+    notif = deepcopy(dummy_notification)
+    validated_pid = loan_validated_martigny.get('pid')
+    loan_ref = f'https://ils.rero.ch/api/loans/{validated_pid}'
+    notif['loan'] = {"$ref": loan_ref}
+    Notification.create(notif, dbcommit=True, delete_pid=True, reindex=True)
     assert mapping == get_mapping(search.Meta.index)
-    acq_line.delete(force=True, dbcommit=True, delindex=True)

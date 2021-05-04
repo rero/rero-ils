@@ -138,7 +138,7 @@ class Item(ItemCirculation, ItemIssue):
                 'description': hit.get('description'),  # optional property
                 'viewcode': orgs[org_pid].get('code')
             }
-            collection_data = {k: v for k, v in collection_data if v}
+            collection_data = {k: v for k, v in collection_data.items() if v}
             output.append(collection_data)
         return output
 

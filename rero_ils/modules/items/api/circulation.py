@@ -1164,25 +1164,34 @@ class ItemCirculation(ItemRecord):
                 LoanState.ITEM_RETURNED,
             ]).source().count()
 
-    def get_requests(self, sort_by=None):
+    def get_requests(self, sort_by=None, count=False):
         """Return sorted pending, item_on_transit, item_at_desk loans.
 
-        default sort is _created.
+        :param sort_by: the sort to appy. default sort is _created.
+        :param count: if True, return the number of request.
+        :return a generator of corresponding request or a request counter.
         """
-        search = search_by_pid(
+
+        def _list_obj():
+            order_by = 'asc'
+            sort_term = sort_by or '_created'
+            if sort_term.startswith('-'):
+                (sort_term, order_by) = (sort_term[1:], 'desc')
+                print("sort_term", sort_term)
+                print("order_by", order_by)
+            es_query = query\
+                .params(preserve_order=True)\
+                .sort({sort_term: {'order': order_by}})
+            for result in es_query.scan():
+                yield Loan.get_record_by_pid(result.pid)
+
+        query = search_by_pid(
             item_pid=item_pid_to_object(self.pid), filter_states=[
                 LoanState.PENDING,
                 LoanState.ITEM_AT_DESK,
                 LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
-            ]).params(preserve_order=True).source(['pid'])
-        order_by = 'asc'
-        sort_by = sort_by or '_created'
-        if sort_by.startswith('-'):
-            sort_by = sort_by[1:]
-            order_by = 'desc'
-        search = search.sort({sort_by: {'order': order_by}})
-        for result in search.scan():
-            yield Loan.get_record_by_pid(result.pid)
+            ]).source(['pid'])
+        return query.count() if count else _list_obj()
 
     def get_first_loan_by_state(self, state=None):
         """Return the first loan with the given state and attached to item.
@@ -1289,7 +1298,7 @@ class ItemCirculation(ItemRecord):
 
     def number_of_requests(self):
         """Get number of requests for a given item."""
-        return len(list(self.get_requests()))
+        return self.get_requests(count=True)
 
     def patron_request_rank(self, patron):
         """Get the rank of patron in list of requests on this item."""

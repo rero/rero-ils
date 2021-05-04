@@ -21,6 +21,7 @@ from invenio_records_rest.serializers.response import search_responsify
 
 from rero_ils.modules.serializers import JSONSerializer, RecordSchemaJSONV1
 
+from .api import Holding
 from ..item_types.api import ItemType
 from ..libraries.api import Library
 from ..locations.api import Location
@@ -34,6 +35,9 @@ class HoldingsJSONSerializer(JSONSerializer):
         records = results.get('hits', {}).get('hits', {})
         for record in records:
             metadata = record.get('metadata', {})
+            holding = Holding.get_record_by_pid(metadata.get('pid'))
+            # available
+            metadata['available'] = holding.available
             # Location name
             self._populate_data(metadata, Location, 'location')
             # Library name

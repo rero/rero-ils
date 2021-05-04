@@ -25,6 +25,7 @@ from flask_babelex import gettext as _
 from ..models import TypeOfItem
 from ..utils import item_pid_to_object
 from ...api import IlsRecord
+from ...holdings.models import HoldingTypes
 from ...item_types.api import ItemType
 from ...libraries.api import Library
 from ...locations.api import Location
@@ -228,7 +229,7 @@ class ItemRecord(IlsRecord):
 
         if (
             mode == 'create' and record.get('holding')) or (
-            old_holding_type in ['serial', 'electronic']
+            old_holding_type in [HoldingTypes.SERIAL, HoldingTypes.ELECTRONIC]
         ):
             return record
 
@@ -284,13 +285,13 @@ class ItemRecord(IlsRecord):
     def get_items_pid_by_holding_pid(cls, holding_pid):
         """Returns item pids from holding pid."""
         from . import ItemsSearch
-        results = ItemsSearch() \
+        search = ItemsSearch() \
             .params(preserve_order=True)\
             .filter('term', holding__pid=holding_pid) \
             .sort({'pid': {"order": "asc"}}) \
-            .source(['pid']).scan()
-        for item in results:
-            yield item.pid
+            .source(['pid'])
+        for hit in search.scan():
+            yield hit.pid
 
     @property
     def holding_pid(self):

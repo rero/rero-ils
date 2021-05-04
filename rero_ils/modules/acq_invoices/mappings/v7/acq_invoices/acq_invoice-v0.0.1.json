@@ -13,6 +13,9 @@
         "properties": {
           "pid": {
             "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
           }
         }
       },
@@ -20,12 +23,18 @@
         "properties": {
           "pid": {
             "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
           }
         }
       },
       "organisation": {
         "properties": {
           "pid": {
+            "type": "keyword"
+          },
+          "type": {
             "type": "keyword"
           }
         }
@@ -72,6 +81,9 @@
             "properties": {
               "pid": {
                 "type": "keyword"
+              },
+              "type": {
+                "type": "keyword"
               }
             }
           },
@@ -79,12 +91,18 @@
             "properties": {
               "pid": {
                 "type": "keyword"
+              },
+              "type": {
+                "type": "keyword"
               }
             }
           },
           "document": {
             "properties": {
               "pid": {
+                "type": "keyword"
+              },
+              "type": {
                 "type": "keyword"
               }
             }

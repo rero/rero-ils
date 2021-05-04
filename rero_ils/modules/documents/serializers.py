@@ -74,15 +74,17 @@ class DocumentJSONSerializer(JSONSerializer):
     def post_process_serialize_search(self, results, pid_fetcher):
         """Post process the search results."""
         # Item filters.
-        viewcode = request.args.get('view',  current_app.config.get(
-                'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'
-        ))
+        global_view_code = current_app.config.get(
+            'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE')
+        viewcode = request.args.get('view', global_view_code)
+        if viewcode != global_view_code:
+            # Maybe one more if here!
+            view_id = Organisation.get_record_by_viewcode(viewcode).pid
         records = results.get('hits', {}).get('hits', {})
         for record in records:
             metadata = record.get('metadata', {})
-            available = Document.get_record_by_pid(
-                metadata.get('pid')).is_available(viewcode)
-            metadata['available'] = available
+            metadata['available'] = Document.is_available(
+                metadata.get('pid'), viewcode)
             titles = metadata.get('title', [])
             text_title = title_format_text_head(titles, with_subtitle=False)
             if text_title:
@@ -93,12 +95,7 @@ class DocumentJSONSerializer(JSONSerializer):
             if text_title:
                 metadata['ui_title_text_responsibility'] = text_title
 
-        if viewcode != current_app.config.get(
-                'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'
-        ):
-            view_id = Organisation.get_record_by_viewcode(viewcode)['pid']
-            for record in records:
-                metadata = record.get('metadata', {})
+            if viewcode != global_view_code:
                 items = metadata.get('items', [])
                 if items:
                     output = []
@@ -109,22 +106,23 @@ class DocumentJSONSerializer(JSONSerializer):
                     record['metadata']['items'] = output
 
         # Add organisation name
+        orgs = {}
         for org_term in results.get('aggregations', {}).get(
                 'organisation', {}).get('buckets', []):
             pid = org_term.get('key')
-            org = Organisation.get_record_by_pid(pid)
-            name = org.get('name')
+            if pid not in orgs:
+                orgs['pid'] = Organisation.get_record_by_pid(pid)
+            name = orgs['pid'].get('name')
             org_term['name'] = name
-            lib_buckets = self._process_library_buckets(org, org_term.get(
-                'library', {}).get('buckets', [])
+            lib_buckets = self._process_library_buckets(
+                orgs['pid'],
+                org_term.get('library', {}).get('buckets', [])
             )
             if lib_buckets:
                 org_term['library']['buckets'] = lib_buckets
 
         # TODO: Move this logic in the front end (needs backend adaptation)
-        if (viewcode is not None) and (viewcode != current_app.config.get(
-            'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'
-        )):
+        if (viewcode is not None) and (viewcode != global_view_code):
             org = Organisation.get_record_by_viewcode(viewcode)
             org_buckets = results.get('aggregations', {}).get(
                 'organisation', {}).get('buckets', [])
@@ -136,14 +134,12 @@ class DocumentJSONSerializer(JSONSerializer):
                         del results['aggregations']['organisation']
 
         # Correct document type buckets
-        new_type_buckets = []
         type_buckets = results['aggregations']['document_type']['buckets']
         results['aggregations']['document_type']['buckets'] = \
             filter_document_type_buckets(type_buckets)
 
-        return super(
-            DocumentJSONSerializer, self).post_process_serialize_search(
-                results, pid_fetcher)
+        return super(DocumentJSONSerializer, self)\
+            .post_process_serialize_search(results, pid_fetcher)
 
     @classmethod
     def _process_library_buckets(cls, org, lib_buckets):

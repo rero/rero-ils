@@ -13,6 +13,9 @@
         "properties": {
           "pid": {
             "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
           }
         }
       },
@@ -20,12 +23,18 @@
         "properties": {
           "pid": {
             "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
           }
         }
       },
       "library": {
         "properties": {
           "pid": {
+            "type": "keyword"
+          },
+          "type": {
             "type": "keyword"
           }
         }

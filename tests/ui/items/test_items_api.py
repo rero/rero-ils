@@ -22,8 +22,6 @@ from __future__ import absolute_import, print_function
 from copy import deepcopy
 from datetime import datetime, timedelta
 
-from utils import get_mapping
-
 from rero_ils.modules.item_types.api import ItemType
 from rero_ils.modules.items.api import Item, ItemsSearch, item_id_fetcher
 from rero_ils.modules.items.models import ItemIssueStatus, ItemStatus
@@ -68,22 +66,6 @@ def test_obsolete_temporary_item_types(item_lib_martigny,
     item.update(data=item, dbcommit=True, reindex=True)
 
 
-def test_item_es_mapping(document, loc_public_martigny,
-                         item_type_standard_martigny,
-                         item_lib_martigny_data_tmp):
-    """Test item elasticsearch mapping."""
-    search = ItemsSearch()
-    mapping = get_mapping(search.Meta.index)
-    assert mapping
-    Item.create(
-        item_lib_martigny_data_tmp,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
-    )
-    assert mapping == get_mapping(search.Meta.index)
-
-
 def test_item_organisation_pid(client, org_martigny, item_lib_martigny):
     """Test organisation pid has been added during the indexing."""
     search = ItemsSearch()
@@ -100,37 +82,22 @@ def test_item_item_location_retriever(item_lib_martigny, loc_public_martigny,
 
 def test_item_get_items_pid_by_document_pid(document, item_lib_martigny):
     """Test get items by document pid."""
-    assert len(list(Item.get_items_pid_by_document_pid(document.pid))) == 2
+    assert len(list(Item.get_items_pid_by_document_pid(document.pid))) == 1
 
 
 def test_item_create(item_lib_martigny_data_tmp, item_lib_martigny):
     """Test itemanisation creation."""
     item = Item.create(item_lib_martigny_data_tmp, delete_pid=True)
     assert item == item_lib_martigny_data_tmp
-    # we have used item_lib_martigny_data_tmp two times -> pid == 2
-    assert item.get('pid') == '2'
-    can, reasons = item.can_delete
-    assert can
-    assert reasons == {}
+    assert item.can_delete == (True, {})
 
-    item = Item.get_record_by_pid('1')
+    item = Item.get_record_by_pid(item.pid)
     item_lib_martigny_data_tmp['pid'] = '1'
     assert item == item_lib_martigny_data_tmp
 
     fetched_pid = item_id_fetcher(item.id, item)
     assert fetched_pid.pid_value == '1'
     assert fetched_pid.pid_type == 'item'
-
-    item_lib_martigny.delete_from_index()
-    assert not item_lib_martigny.delete_from_index()
-    item_lib_martigny.dbcommit(forceindex=True)
-
-
-def test_item_can_delete(item_lib_martigny):
-    """Test can delete"""
-    can, reasons = item_lib_martigny.can_delete
-    assert can
-    assert reasons == {}
 
 
 def test_item_extended_validation(client, holding_lib_martigny_w_patterns):

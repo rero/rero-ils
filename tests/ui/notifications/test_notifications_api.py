@@ -19,32 +19,9 @@
 
 from __future__ import absolute_import, print_function
 
-from copy import deepcopy
-
-from utils import get_mapping
-
 from rero_ils.modules.libraries.api import email_notification_type
-from rero_ils.modules.notifications.api import Notification, \
-    NotificationsSearch
+from rero_ils.modules.notifications.api import Notification
 from rero_ils.modules.notifications.dispatcher import Dispatcher
-
-
-def test_notification_es_mapping(
-        dummy_notification, loan_validated_martigny):
-    """Test notification elasticsearch mapping."""
-
-    search = NotificationsSearch()
-    mapping = get_mapping(search.Meta.index)
-    assert mapping
-
-    notif = deepcopy(dummy_notification)
-    validated_pid = loan_validated_martigny.get('pid')
-    loan_ref = f'https://ils.rero.ch/api/loans/{validated_pid}'
-    notif['loan'] = {"$ref": loan_ref}
-
-    Notification.create(notif, dbcommit=True, delete_pid=True, reindex=True)
-
-    assert mapping == get_mapping(search.Meta.index)
 
 
 def test_notification_organisation_pid(
