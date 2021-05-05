@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-05-03 14:48+0200\n"
-"PO-Revision-Date: 2021-05-04 16:01+0000\n"
-"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"PO-Revision-Date: 2021-05-05 04:51+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
 "Language: fr\n"
@@ -4989,7 +4989,7 @@ msgstr "Une condition selon laquelle le document est fourni. Cela inclut le prix
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:8
 msgid "Term of availability"
-msgstr "Condition de la disponibilité"
+msgstr "Modalité d'acquisition"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:11
 msgid "Example: CHF 68.-"
@@ -5159,7 +5159,7 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:325
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:407
 msgid "Notation"
-msgstr ""
+msgstr "Indice"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:326
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:408
@@ -5238,11 +5238,11 @@ msgstr "polychrome"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:3
 msgid "Content, media, carrier types"
-msgstr "Contenu, médias, types de supports"
+msgstr "Types de contenus, de médias, de supports matériels"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:7
 msgid "Content, media, carrier type"
-msgstr "Contenu, média, type de support"
+msgstr "Type de contenu, de média, de support matériel"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:11
 msgid "contentType"
@@ -5266,6 +5266,8 @@ msgid ""
 "Type of intermediation device required to view, play, run, etc., the "
 "content of a manifestation (MARC 337)."
 msgstr ""
+"Type de dispositif de médiation requis pour visionner, faire fonctionner, "
+"faire défiler, etc. le contenu d’une manifestation (MARC 337)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:57
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:148
@@ -5277,7 +5279,7 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:629
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:700
 msgid "Carrier type"
-msgstr ""
+msgstr "Type de support matériel"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:59
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:150
@@ -5293,6 +5295,9 @@ msgid ""
 " the type of intermediation device required to view, play, run, etc., the"
 " content of a manifestation (MARC 338)."
 msgstr ""
+"Format du support de stockage et du contenant d’un support matériel combiné "
+"avec le type de dispositif de médiation requis pour visionner, faire "
+"fonctionner, faire défiler, etc. le contenu d’une manifestation (MARC 338)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:76
 msgid "rdact:1002"
@@ -5549,6 +5554,8 @@ msgid ""
 "Fundamental form of communication in which the content is expressed and "
 "the human sense through which it is intended to be perceived (MARC 336)."
 msgstr ""
+"Forme fondamentale de communication sous laquelle le contenu est exprimé et "
+"le sens humain par lequel il est destiné à être perçu (MARC 336)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:763
 msgid "rdaco:1002"
@@ -6405,7 +6412,7 @@ msgstr "Exemple : © 2010"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_credits-v0.0.1.json:3
 msgid "Notes on statement of responsibility"
-msgstr ""
+msgstr "Notes sur une mention de responsabilité"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_credits-v0.0.1.json:4
 msgid ""
@@ -6415,7 +6422,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_credits-v0.0.1.json:8
 msgid "Note on statement of responsibility"
-msgstr ""
+msgstr "Note sur une mention de responsabilité"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_credits-v0.0.1.json:11
 msgid "Example: Additional collaborators: Bernard Levrat, Eric Wehrli"
@@ -6443,13 +6450,16 @@ msgstr "Exemple : 22 cm"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dissertation-v0.0.1.json:3
 msgid "Dissertation or thesis information"
-msgstr ""
+msgstr "Information sur une thèse ou un mémoire"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dissertation-v0.0.1.json:4
 msgid ""
 "A statement that identifies an academic institution, degree, or year for "
 "which a work was presented (MARC 502)."
 msgstr ""
+"Mention qui identifie une institution universitaire à laquelle une œuvre a "
+"été présentée, un diplôme universitaire obtenu et une année d’obtention de "
+"diplôme (MARC 502)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dissertation-v0.0.1.json:8
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:203
@@ -6473,101 +6483,115 @@ msgstr "Désignation d'édition"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:3
 msgid "Supplements"
-msgstr ""
+msgstr "Suppléments"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:7
 msgid "Supplement"
-msgstr ""
+msgstr "Supplément"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:8
 msgid ""
 "A document that updates or otherwise complements the predominant document"
 " (MARC 770)."
 msgstr ""
+"Œuvre qui met à jour ou complète d’une autre façon une œuvre prédominante ("
+"MARC 770)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:25
 msgid "Supplements to"
-msgstr ""
+msgstr "Supplément de"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:29
 msgid "Supplement to"
-msgstr ""
+msgstr "Supplément de"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:30
 msgid ""
 "A document that is updated or otherwise complemented by the augmenting "
 "document (MARC 772)."
 msgstr ""
+"Œuvre qui est mise à jour ou complétée d’une autre façon par une œuvre "
+"augmentante (MARC 772)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:47
 msgid "Other editions"
-msgstr ""
+msgstr "Autres éditions"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:51
 msgid "Other edition"
-msgstr ""
+msgstr "Autre édition"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:52
 msgid ""
 "Other available editions, for example simultaneously published language "
 "editions or reprints (MARC 775)."
 msgstr ""
+"Autres éditions disponibles, par exemple des éditions en d'autres langues "
+"publiées simultanément ou des réimpressions (MARC 775)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:69
 msgid "Other physical formats"
-msgstr ""
+msgstr "Autres formats physiques"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:73
 msgid "Other physical format"
-msgstr ""
+msgstr "Autre format physique"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:74
 msgid ""
 "A document that embodies the same expression of a work in a different "
 "format (MARC 776)."
 msgstr ""
+"Un document qui incarne la même expression d'une œuvre dans un format "
+"différent (MARC 776)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:91
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:95
 msgid "Issued with"
-msgstr ""
+msgstr "Publié avec"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:96
 msgid ""
 "A document that is issued on the same carrier as the document being "
 "described (MARC 777)."
 msgstr ""
+"Manifestation qui est publiée sur le même support matériel qu’une "
+"manifestation décrite (MARC 777)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:113
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:117
 msgid "Preceded by"
-msgstr ""
+msgstr "Précédé de"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:118
 msgid ""
 "A document that precedes the succeeding document (earlier in time or "
 "before in a narrative) (MARC 780)."
 msgstr ""
+"Document qui précède un document suivant (antérieur dans le temps ou dans un "
+"récit) (MARC 780)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:135
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:139
 msgid "Succeeded by"
-msgstr ""
+msgstr "Suivi de"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:140
 msgid ""
 "A document that succeeds, that is, is later in time or after in a "
 "narrative, etc., the preceding work (MARC 785)."
 msgstr ""
+"Document qui succède à un document précédent (ultérieur dans le temps ou "
+"dans un récit) (MARC 785)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:157
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:161
 msgid "Related to"
-msgstr ""
+msgstr "Lié à"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:162
 msgid "Any other relationship between documents (MARC 787)."
-msgstr ""
+msgstr "Toute autre relation entre documents (MARC 787)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:179
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:31
@@ -6834,7 +6858,7 @@ msgstr "Exemple : 355 pages"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:3
 msgid "Frequencies"
-msgstr ""
+msgstr "Périodicités"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:4
 msgid ""
