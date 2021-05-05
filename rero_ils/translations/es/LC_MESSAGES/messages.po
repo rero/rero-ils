@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-05-03 14:48+0200\n"
 "PO-Revision-Date: 2021-05-05 04:51+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/es/>\n"
 "Language: es\n"
@@ -9121,7 +9121,7 @@ msgstr "Préstamo"
 #: rero_ils/modules/ill_requests/forms.py:145
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:73
 msgid "Copy"
-msgstr "Copia"
+msgstr "Copiar"
 
 #: rero_ils/modules/ill_requests/forms.py:147
 msgid "Define if the request is for a copy or full document."
@@ -9283,7 +9283,7 @@ msgstr ""
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:83
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:84
 msgid "Confirm"
@@ -10807,7 +10807,7 @@ msgstr "Nombre del usuario"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:99
 msgid "Login username for the web interface."
-msgstr "Login para la interfaz web."
+msgstr "Nombre de usuario para la interfaz web."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:107
 #, fuzzy
