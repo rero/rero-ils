@@ -18,9 +18,272 @@
 Release notes
 =============
 
+v1.2.0
+--------
+
+This release note includes the changes of the ``rero-ils-ui`` project
+[`link`_] .
+
+User interface
+~~~~~~~~~~~~~~
+
+-  Adds a missing icon for documents with the children audience target.
+-  Renames the *collection* resource into *exhibition / course* to
+   ensure that the users understand it correctly.
+-  Updates the availability red/green dot and text accordingly to the
+   new circulation category fields (see below).
+-  Renames the *organisations* tab and facet of the search result list
+   into *corporate bodies*.
+
+Public interface
+^^^^^^^^^^^^^^^^
+
+-  Updates the patron profile to support users registered as patron into
+   several organisations.
+
+Professional interface
+^^^^^^^^^^^^^^^^^^^^^^
+
+-  Fixes a bug preventing to select records to be exported through a
+   file listing PIDs.
+-  Validates the EAN/ISBN/ISSN/ISSN-L identifiers as they are entered in
+   the document editor:
+
+   -  Checks if the identifier already exists in the instance.
+   -  Validates and checks all ``identifiedBy`` values as they are
+      imported.
+
+-  Improves the message when hovering the cursor on the ``identifiedBy``
+   field in the document editor.
+-  Enables a librarian with the patron role to access the request
+   information on the item detailed view.
+-  Allows the librarian to mark all the fees of a patron for his or her
+   library as paid.
+-  Adds the new fields in the circulation category (item type) detailed
+   view (see below). Displays the circulation information label instead
+   of the circulation category name if the label exists in the current
+   interface locale.
+-  Updates the circulation interface to support users registered as
+   patron into several organisations.
+-  Fixes the position of the action buttons on the item detailed view
+   that makes them unusable.
+-  Restore the patron history tab in the circulation interface.
+-  Hides the item availability dot and message on brief views of the
+   import through the web search results.
+
+User management
+~~~~~~~~~~~~~~~
+
+-  Allows patrons to be registered with the same account in several
+   organisations.
+
+   -  Modifies the logged user structure.
+   -  Allows to import users registered in several organisations through
+      the CLI.
+   -  Replaces ``current_patron`` by ``current_librarian`` in the entire
+      project.
+   -  Adds a new ``current_patrons`` which contains the list of the
+      patron accounts of the current logged user.
+   -  Replaces ``current_organisation.pid`` by
+      ``current_librarian.organisation_pid``.
+   -  Prevents several librarian accounts to be attached on the same
+      invenio user.
+
+Search
+~~~~~~
+
+-  Indexes the title and description of *collections* (*exhibition /
+   course*) in the document index in order to enable finding documents
+   associated to a specific collection.
+-  Adds the ``autocomplete_title`` field to the boosting of the document
+   search results.
+
+Circulation
+~~~~~~~~~~~
+
+-  Adds the library PID in the patron transaction index if the
+   transaction is related to a loan.
+-  Implements specific user account for the selfcheck devices (SIP2).
+
+   -  Creates a separate DB table for the selfcheck users.
+   -  Adapts the loan JSON schema to store the device ID on loan
+      creation.
+   -  Adds a command into the Dockerfile to install the SIP2 module.
+
+-  Implements some unavailability features to the circulation category
+   (item type):
+
+   -  Adds the ``disable_circulation`` boolean filed to the JSON schema.
+      Set to true, it disallow every circulation transaction on items
+      attached to it.
+   -  Adds the ``displayed_status`` field, which allows a librarian to
+      define the label to be displayed when ``disable_circulation`` is
+      set to true, to inform users. This field can be written in
+      multiple languages to adapt the message to the browser locale of
+      the user.
+   -  Adds the ``circulation_information`` field, which allows a
+      librarian to define the label to be displayed instead of the
+      circulation category title. This field can also be written in
+      multiple languages.
+   -  Reindexes all items attached to a circulation category when its
+      availability status is modified.
+
+Fees
+~~~~
+
+-  Fixes the creation a non overdue fee, such as a fee for photocopy,
+   which raised a JSON validation error due to the not well generated
+   initial event.
+
+Metadata
+~~~~~~~~
+
+-  Completes the document data model. The following fields have been
+   added to the JSON schema:
+
+   -  ``intendedAudience``.
+   -  ``summary``.
+   -  ``supplement``.
+   -  ``supplementTo``.
+   -  ``otherEdition``.
+   -  ``otherPhysicalFormat``.
+   -  ``issuedWith``.
+   -  ``precededBy``.
+   -  ``succeededBy``.
+   -  ``relatedTo``.
+   -  ``contentMediaCarrier``.
+   -  ``originalLanguage``.
+   -  ``frequency``.
+   -  ``originalTitle``.
+   -  ``classification``.
+   -  ``sequence_numbering``.
+   -  ``dissertation``.
+   -  ``credits``.
+   -  ``supplementaryContent``.
+   -  ``acquisitionTerms``.
+   -  ``tableOfContents``.
+   -  ``temporalCoverage``.
+   -  ``adminMetadata``.
+   -  ``genreForm``.
+   -  ``subjects``.
+   -  ``scale``.
+   -  ``cartographicAttributes``.
+   -  ``subjects_imported``.
+   -  ``genreForm_imported``.
+   -  ``work_access_point``.
+
+-  Complete de document data conversion from MARC21 to RERO ILS JSON for
+   the following fields:
+
+   -  ``intendedAudience``.
+   -  ``summary``.
+   -  ``contentMediaCarrier``.
+   -  ``original_language``.
+   -  ``note``.
+   -  ``originalTitle``.
+   -  ``adminMetadata``.
+   -  ``classification``.
+   -  ``sequence_numbering``.
+   -  ``dissertation``.
+   -  ``credits from``.
+   -  ``supplementaryContent from``.
+   -  ``acquisitionTerms``.
+   -  ``tableOfContents``.
+   -  ``genreForm``.
+   -  ``subjects``.
+   -  ``subjects_imported``.
+   -  ``genreForm_imported``.
+
+-  Fixes an issue with ``ngx-formly`` with a temporary workaround with
+   required values in an object in a ``oneOf``:
+   https://github.com/ngx-formly/ngx-formly/issues/2826
+-  Updates the subject field display to the new data model
+   implementation.
+
+Data
+~~~~
+
+-  Creates a CLI to import prepared circulation transactions from the
+   legacy system (Virtua) into RERO ILS (checkouts, requests, fines).
+
+API
+~~~
+
+-  Allows to update existing records in the database through a CLI
+   (``create_or_update``).
+
+Tests
+~~~~~
+
+-  Fixes the ``test_item_loans_elements`` unit test.
+-  Restores the coding style verification (pycodestyle).
+-  Restores the ``safty`` command to the tests.
+-  Fixes pycodestyle in ``test_documents_import_bnf_ean``.
+-  Mocks the BnF tests to avoid relying on the availability of the BnF
+   SRU service.
+-  Adds ``test-debug`` as an alias for ``pytest --vv -s --no-cov``.
+
+Dependencies
+------------
+
+-  Upgrades ``rero-ils-ui`` to version ``0.14.1``.
+-  Upgrades ``@rero/ng-core`` to    version ``0.17.1``.
+-  Upgrades ``invenio-sip2`` to version ``0.5.1``.
+-  Updates ``python-dotenv`` to the latest version.
+-  Updates several dependencies for security reasons.
+
+Issues
+~~~~~~
+
+-  `#1421`_: Prevent the enter key to submit the form in some fields
+   that may be filled though a scanning device
+-  `#1460`_: A user has an account in multiple organisations.
+-  `#1490`_: No feedback is given to the user if the email is not
+   confirmed.
+-  `#1533`_: A librarian shouldn’t be able to resolve fees of item not
+   belonging to the login location.
+-  `#1583`_: Collection title and description should be indexed in the
+   document index.
+-  `#1584`_: Collection identifier should be optional.
+-  `#1586`_: The availability of a holdings of type *serial* with no
+   items should not be *no items received*.
+-  `#1634`_: The affiliation library disappears in some cases in the
+   patron editor.
+-  `#1664`_: Check for duplicated identifier (ISBN/ISSN) in the document
+   editor.
+-  `#1672`_: *Collection* is renamed into *exhibition/course*.
+-  `#1703`_: The sort by due date is not applied by default in the
+   circulation interface.
+-  `#1728`_: In the brief view, the word *Organisation* is changed in
+   the tab and in the facet.
+-  `#1804`_: Keep history settings enabled but not taken into account.
+-  `#1837`_: “My Account” menu doesn’t appear for user with role
+   librarian.
+-  `#1839`_: User with patron and librarian roles can’t view request
+   info in item detail view.
+-  `#1851`_: Position in the request waiting queue is not displayed
+   anymore to the patron.
+
+.. _link: https://github.com/rero/rero-ils-ui
+.. _#1421: https://github.com/rero/rero-ils/issues/1421
+.. _#1460: https://github.com/rero/rero-ils/issues/1460
+.. _#1490: https://github.com/rero/rero-ils/issues/1490
+.. _#1533: https://github.com/rero/rero-ils/issues/1533
+.. _#1583: https://github.com/rero/rero-ils/issues/1583
+.. _#1584: https://github.com/rero/rero-ils/issues/1584
+.. _#1586: https://github.com/rero/rero-ils/issues/1584
+.. _#1634: https://github.com/rero/rero-ils/issues/1634
+.. _#1664: https://github.com/rero/rero-ils/issues/1664
+.. _#1672: https://github.com/rero/rero-ils/issues/1672
+.. _#1703: https://github.com/rero/rero-ils/issues/1703
+.. _#1728: https://github.com/rero/rero-ils/issues/1728
+.. _#1804: https://github.com/rero/rero-ils/issues/1804
+.. _#1837: https://github.com/rero/rero-ils/issues/1837
+.. _#1839: https://github.com/rero/rero-ils/issues/1839
+.. _#1851: https://github.com/rero/rero-ils/issues/1851
+
 v1.1.0
 ------
-
 
 This release note includes the changes of the rero-ils-ui project
 [`link`_].
