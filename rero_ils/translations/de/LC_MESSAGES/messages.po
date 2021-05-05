@@ -16,16 +16,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
-"POT-Creation-Date: 2021-05-03 14:48+0200\n"
-"PO-Revision-Date: 2021-05-01 13:32+0000\n"
-"Last-Translator: Ambros Gattlen <ambros.gattlen@admin.vs.ch>\n"
+"POT-Creation-Date: 2021-05-05 07:06+0200\n"
+"PO-Revision-Date: 2021-05-06 05:13+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/de/>\n"
 "Language: de\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.7-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:134
@@ -192,8 +193,7 @@ msgstr "Mitarbeiter"
 
 #: rero_ils/manual_translations.txt:26
 #: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:61
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:125
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:340
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:122
 msgid "gnd"
 msgstr "GND"
 
@@ -245,6 +245,7 @@ msgstr "Entstehung"
 
 #: rero_ils/manual_translations.txt:41
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:172
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:245
 msgid "bf:Place"
 msgstr "Ort"
 
@@ -3880,10 +3881,9 @@ msgstr "Werte"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2562
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2593
-#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:43
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:142
+#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:41
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:111
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:358
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:419
 msgid "Value"
 msgstr "Wert"
@@ -3941,8 +3941,8 @@ msgstr "ID des Kontos"
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:99
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:129
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:210
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:34
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:34
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:35
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:35
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:327
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:357
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:408
@@ -3965,10 +3965,10 @@ msgstr "Name des Kontos."
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:48
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:143
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:38
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:130
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:132
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:159
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:161
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:129
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:131
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:158
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:160
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:56
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:52
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:42
@@ -4523,26 +4523,25 @@ msgstr "Erinnerung"
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:280
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:310
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:375
-#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:15
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:20
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:21
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation_link-v0.0.1.json:15
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:20
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:21
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person_link-v0.0.1.json:15
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:59
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:105
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:60
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:103
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:24
+#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:12
 #: rero_ils/modules/documents/jsonschemas/documents/document_language-v0.0.1.json:21
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:41
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:94
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:161
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:18
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:30
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:74
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:123
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:175
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:219
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:261
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:320
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:75
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:130
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:188
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:238
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:286
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:16
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:64
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:112
@@ -4712,10 +4711,9 @@ msgid "Internal collection PID"
 msgstr "Interne Sammlung PID"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:44
-#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:2
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:92
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:93
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:7
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:307
+#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:2
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:107
 #: rero_ils/modules/ill_requests/forms.py:98
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:203
@@ -4731,7 +4729,7 @@ msgstr "Identifikator oder Code, der lokal für diese Sammlung verwendet wird"
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:25
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:58
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:62
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:136
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:149
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:7
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:9
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:23
@@ -4820,7 +4818,7 @@ msgstr "{prefix}{key}"
 
 #: rero_ils/modules/contributions/views.py:171
 msgid "{prefix}{item}"
-msgstr ""
+msgstr "{prefix}{item}"
 
 #: rero_ils/modules/contributions/views.py:175
 msgid "{prefix}{data}"
@@ -4987,7 +4985,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:8
 msgid "Term of availability"
-msgstr ""
+msgstr "Bezugsbedingung"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:11
 msgid "Example: CHF 68.-"
@@ -4995,7 +4993,7 @@ msgstr "Beispiel: CHF 68.-"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:3
 msgid "Admin metadata"
-msgstr ""
+msgstr "Admin-Metadaten"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:16
 msgid "Administrative information intended for professionals"
@@ -5003,7 +5001,7 @@ msgstr "Administrative Informationen, die für Fachleute bestimmt sind"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:31
 msgid "Encoding level"
-msgstr ""
+msgstr "Kodierungsebene"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:32
 msgid "Indicator of the fullness of the bibliographic information"
@@ -5019,27 +5017,27 @@ msgstr "Vollformat, Material nicht geprüft"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:59
 msgid "Less-than-full level, material not examined"
-msgstr ""
+msgstr "Weniger als volles Niveau, Material nicht untersucht"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:63
 msgid "Abbreviated level"
-msgstr ""
+msgstr "Abgekürztes Niveau"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:67
 msgid "Core leve"
-msgstr ""
+msgstr "Kernniveau"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:71
 msgid "Partial (preliminary) level"
-msgstr ""
+msgstr "Teilweises (vorläufiges) Niveau"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:75
 msgid "Minimal level"
-msgstr ""
+msgstr "Minimales Niveau"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:79
 msgid "Prepublication level"
-msgstr ""
+msgstr "Vorveröffentlichungsniveau"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:83
 msgid "Unknown"
@@ -5050,12 +5048,11 @@ msgid "Not applicable"
 msgstr "Nicht anwendbar"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:97
-#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:32
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:54
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:134
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:131
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:188
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:301
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:349
+#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:30
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:332
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:46
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:150
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:145
@@ -5067,20 +5064,20 @@ msgstr "Quelle"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:98
 msgid "Original cataloging agency"
-msgstr ""
+msgstr "Ursprüngliche Katalogisierungsagentur"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:108
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:113
 msgid "Description modifier"
-msgstr ""
+msgstr "Beschreibung Modifikator"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:109
 msgid "Agency that modified the description"
-msgstr ""
+msgstr "Agentur, die die Beschreibung geändert hat"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:126
 msgid "Description language"
-msgstr ""
+msgstr "Sprache der Beschreibung"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:127
 msgid "Language used for the metadata"
@@ -5089,11 +5086,13 @@ msgstr "Verwendete Sprache für die Metadaten"
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:142
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:147
 msgid " Description conventions"
-msgstr ""
+msgstr " Beschreibungskonventionen"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:143
 msgid "Rules used for the descriptive content of the resource description"
 msgstr ""
+"Regeln, die für den beschreibenden Inhalt der Ressourcenbeschreibung "
+"verwendet werden"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_book_format-v0.0.1.json:3
 msgid "Bibliographic formats"
@@ -5116,73 +5115,75 @@ msgstr "Bibliographisches Format"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:3
 msgid "Classifications"
-msgstr ""
+msgstr "Klassifikationen"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:7
 msgid "Classification"
-msgstr ""
+msgstr "Klassifikation"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:11
 msgid "bf:Classification"
-msgstr ""
+msgstr "Klassifikation"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:52
 msgid "bf:ClassificationLcc"
-msgstr ""
+msgstr "Library of Congress Classification (LCC)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:93
 msgid "bf:ClassificationNlm"
-msgstr ""
+msgstr "National Library of Medicine Classification (NLM)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:134
 msgid "bf:ClassificationUdc"
-msgstr ""
+msgstr "Universelle Dezimalklassifikation (UDK)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:179
 msgid "bf:ClassificationDdc"
-msgstr ""
+msgstr "Dewey-Dezimalklassifikation (DDC)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:224
 msgid "classification_brunetparguez"
-msgstr ""
+msgstr "Brunet-Parguez-Klassifikation"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:265
 msgid "classification_droit"
-msgstr ""
+msgstr "Rechtsklassifikation"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:306
 msgid "classification_musicale_instruments"
-msgstr ""
+msgstr "Musikklassifikation (Instrumente)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:325
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:407
 msgid "Notation"
-msgstr ""
+msgstr "Notation"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:326
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:408
 msgid "Short alphanumeric string that serves as an identifier for a class"
 msgstr ""
+"Kurze alphanumerische Zeichenkette, die als Bezeichner für eine Klasse "
+"dient"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:330
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:412
 msgid "Example: 001.012"
-msgstr ""
+msgstr "Beispiel: 001.012"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:334
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:416
 msgid "Subdivisions"
-msgstr ""
+msgstr "Unterteilungen"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:338
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:420
 msgid "Subdivision"
-msgstr ""
+msgstr "Unterteilung"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:344
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:426
 msgid "Edition"
-msgstr ""
+msgstr "Ausgabe"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:345
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:427
@@ -5190,20 +5191,23 @@ msgid ""
 "Used for imported records only. Edition of the classification, identified"
 " by a number, a date, or another textual designation."
 msgstr ""
+"Wird nur für importierte Ressourcen verwendet. Ausgabe der "
+"Klassifikation, gekennzeichnet durch eine Nummer, ein Datum oder eine "
+"andere textliche Bezeichnung."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:349
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:431
 msgid "Example: Abridged edition, 22"
-msgstr ""
+msgstr "Beispiel: Gekürzte Ausgabe, 22"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:353
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:435
 msgid "Used for imported records only. Assigning agency."
-msgstr ""
+msgstr "Wird nur für importierte Ressourcen verwendet. Zuweisende Agentur."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:360
 msgid "classification_musicale_genres"
-msgstr ""
+msgstr "Musikklassifikation (Genres)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_color_content-v0.0.1.json:3
 msgid "Color contents"
@@ -5232,15 +5236,15 @@ msgstr "polychrom"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:3
 msgid "Content, media, carrier types"
-msgstr ""
+msgstr "Inhalts-, Media-, Datenträgertypen"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:7
 msgid "Content, media, carrier type"
-msgstr ""
+msgstr "Inhalts-, Media-, Datenträgertyp"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:11
 msgid "contentType"
-msgstr ""
+msgstr "Inhaltstyp"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:26
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:42
@@ -5260,6 +5264,9 @@ msgid ""
 "Type of intermediation device required to view, play, run, etc., the "
 "content of a manifestation (MARC 337)."
 msgstr ""
+"Art des Hilfsmittels, das erforderlich ist, um den Inhalt einer "
+"Manifestation anzuschauen, abzuspielen oder laufen zu lassen usw. (MARC "
+"337)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:57
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:148
@@ -5271,7 +5278,7 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:629
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:700
 msgid "Carrier type"
-msgstr ""
+msgstr "Datenträgertyp"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:59
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:150
@@ -5287,6 +5294,10 @@ msgid ""
 " the type of intermediation device required to view, play, run, etc., the"
 " content of a manifestation (MARC 338)."
 msgstr ""
+"Format des Speichermediums und Gehäuse eines Datenträgers, in Kombination"
+" mit der Art des Hilfsmittels, das benötigt wird, um den Inhalt einer "
+"Manifestation anzuschauen, abzuspielen oder laufen zu lassen usw. (MARC "
+"338)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:76
 msgid "rdact:1002"
@@ -5531,7 +5542,7 @@ msgstr "Videodisk"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:711
 msgid "unspecified"
-msgstr ""
+msgstr "nicht spezifiziert"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:726
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:81
@@ -5543,6 +5554,9 @@ msgid ""
 "Fundamental form of communication in which the content is expressed and "
 "the human sense through which it is intended to be perceived (MARC 336)."
 msgstr ""
+"Grundlegende Form der Kommunikation, in der der Inhalt ausgedrückt wird, "
+"und menschlicher Sinn, durch den diese wahrgenommen werden soll (MARC "
+"336)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:763
 msgid "rdaco:1002"
@@ -5657,36 +5671,30 @@ msgstr ""
 msgid "Agent"
 msgstr "Akteur"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:23
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:117
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:332
-msgid "bf:local"
-msgstr "Lokaler Identifikator"
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:38
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:38
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:39
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:39
 msgid "Example: M\\u00fcller, Hans"
 msgstr "Beispiel: M\\u00fcller, Hans"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:45
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:46
 msgid "Subordinate units"
 msgstr "Abteilungen"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:48
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:49
 msgid "Subordinate unit"
 msgstr "Abteilung"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:52
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:53
 msgid "Example: Office for Culture"
 msgstr "Beispiel: Amt für Kultur"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:62
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:90
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:63
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:97
 msgid "Conference"
 msgstr "Konferenz"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:63
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:91
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:64
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:98
 msgid ""
 "Mark as conference if the access point is directly at the conference name"
 " and not at the corporate body name"
@@ -5694,33 +5702,33 @@ msgstr ""
 "Als Konferenz markieren, wenn der Sucheinstieg mit dem Konferenznamen, "
 "und nicht mit dem Körperschaftnamen, startet"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:73
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:74
 msgid "Location of conference"
 msgstr "Ort der Konferenz"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:77
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:78
 msgid "Example: Lausanne"
 msgstr "Beispiel: Lausanne"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:84
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:85
 msgid "Number of conference"
 msgstr "Nummer der Konferenz"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:88
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:89
 msgid "Example: 4"
 msgstr "Beispiel: 4"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:95
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:96
 msgid "Date of conference"
 msgstr "Datum der Konferenz"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:96
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:46
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:58
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:97
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:47
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:59
 msgid "Record only years."
 msgstr "Nur Jahre aufzeichnen."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:100
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:101
 msgid "Example: 1989"
 msgstr "Beispiel: 1989"
 
@@ -5733,47 +5741,47 @@ msgstr "Link zu einer Körperschaft"
 msgid "Person"
 msgstr "Person"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:45
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:46
 msgid "Birth date"
 msgstr "Geburtsdatum"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:50
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:51
 msgid "Example: 1955"
 msgstr "Beispiel: 1955"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:57
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:58
 msgid "Death date"
 msgstr "Todesdatum"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:62
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:63
 msgid "Example: 2012"
 msgstr "Beispiel: 2012"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:69
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:70
 msgid "Qualifier"
 msgstr "Erläuterung"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:73
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:74
 msgid "Example: physicist"
 msgstr "Beispiel: Physiker"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:80
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:81
 msgid "Numeration"
 msgstr "Nummerierung"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:81
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:82
 msgid "Record only a number."
 msgstr "Notieren Sie nur die Nummer."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:85
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:86
 msgid "Example: XXIII"
 msgstr "Beispiel: XXIII"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:92
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:93
 msgid "Fuller form of Name"
 msgstr "Vollständigere Namensform"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:93
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:94
 msgid ""
 "Used only for import. Fuller form of a name represented only by an "
 "initial, abbreviation, or other variant not included in the form chosen "
@@ -6400,21 +6408,24 @@ msgstr "Beispiel: \\u00a9 2010"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_credits-v0.0.1.json:3
 msgid "Notes on statement of responsibility"
-msgstr ""
+msgstr "Anmerkungen zur Verantwortlichkeitsangabe"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_credits-v0.0.1.json:4
 msgid ""
 "Note used for agents not named in the statement of responsibility, or for"
 " other information about the statement of responsibility (MARC 508, 511)."
 msgstr ""
+"Anmerkung für Akteure, die nicht in der Verantwortlichkeitsangabe genannt"
+" sind, oder für andere Informationen zur Verantwortlichkeitsangabe (MARC "
+"508, 511)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_credits-v0.0.1.json:8
 msgid "Note on statement of responsibility"
-msgstr ""
+msgstr "Anmerkung zur Verantwortlichkeitsangabe"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_credits-v0.0.1.json:11
 msgid "Example: Additional collaborators: Bernard Levrat, Eric Wehrli"
-msgstr ""
+msgstr "Beispiel: Weitere Mitarbeiter: Bernard Levrat, Eric Wehrli"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dimensions-v0.0.1.json:3
 #: rero_ils/modules/documents/jsonschemas/documents/document_dimensions-v0.0.1.json:8
@@ -6437,13 +6448,15 @@ msgstr "Beispiel: 22 cm"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dissertation-v0.0.1.json:3
 msgid "Dissertation or thesis information"
-msgstr ""
+msgstr "Hochschulschriftenvermerk"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dissertation-v0.0.1.json:4
 msgid ""
 "A statement that identifies an academic institution, degree, or year for "
 "which a work was presented (MARC 502)."
 msgstr ""
+"Eine Angabe, welche eine akademische Institution, einen Grad und ein "
+"Jahr, in dem eine Arbeit präsentiert wurde, bezeichnet (MARC 502)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dissertation-v0.0.1.json:8
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:203
@@ -6467,101 +6480,115 @@ msgstr "Ausgabebezeichnung"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:3
 msgid "Supplements"
-msgstr ""
+msgstr "Supplemente"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:7
 msgid "Supplement"
-msgstr ""
+msgstr "Supplement"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:8
 msgid ""
 "A document that updates or otherwise complements the predominant document"
 " (MARC 770)."
 msgstr ""
+"Ein Werk, das ein Hauptwerk aktualisiert oder in anderer Weise "
+"vervollständigt (MARC 770)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:25
 msgid "Supplements to"
-msgstr ""
+msgstr "Supplement zu"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:29
 msgid "Supplement to"
-msgstr ""
+msgstr "Supplement zu"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:30
 msgid ""
 "A document that is updated or otherwise complemented by the augmenting "
 "document (MARC 772)."
 msgstr ""
+"Ein Werk, das durch ein erweiterte Werk aktualisiert oder in anderer "
+"Weise vervollständigt wird (MARC 772)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:47
 msgid "Other editions"
-msgstr ""
+msgstr "Andere Ausgaben"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:51
 msgid "Other edition"
-msgstr ""
+msgstr "Andere Ausgabe"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:52
 msgid ""
 "Other available editions, for example simultaneously published language "
 "editions or reprints (MARC 775)."
 msgstr ""
+"Andere verfügbare Ausgaben, zum Beispiel gleichzeitig erschienene "
+"Sprachausgaben oder Nachdrucke (MARC 775)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:69
 msgid "Other physical formats"
-msgstr ""
+msgstr "Andere physikalische Formate"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:73
 msgid "Other physical format"
-msgstr ""
+msgstr "Anderes physikalisches Format"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:74
 msgid ""
 "A document that embodies the same expression of a work in a different "
 "format (MARC 776)."
 msgstr ""
+"Ein Dokument, das den gleichen Ausdruck eines Werkes in einem anderen "
+"Format verkörpert (MARC 776)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:91
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:95
 msgid "Issued with"
-msgstr ""
+msgstr "Veröffentlicht mit"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:96
 msgid ""
 "A document that is issued on the same carrier as the document being "
 "described (MARC 777)."
 msgstr ""
+"Ein Dokument, das auf demselben Datenträger veröffentlicht wird wie das "
+"beschriebene Dokument (MARC 777)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:113
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:117
 msgid "Preceded by"
-msgstr ""
+msgstr "Vorangegangen ist"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:118
 msgid ""
 "A document that precedes the succeeding document (earlier in time or "
 "before in a narrative) (MARC 780)."
 msgstr ""
+"Ein Dokument, das einem nachfolgenden Dokument vorangegangen ist "
+"(zeitlich früher oder früher im Erzählstrang) (MARC 780)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:135
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:139
 msgid "Succeeded by"
-msgstr ""
+msgstr "Gefolgt von"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:140
 msgid ""
 "A document that succeeds, that is, is later in time or after in a "
 "narrative, etc., the preceding work (MARC 785)."
 msgstr ""
+"Ein Dokument, das einem vorangehenden Dokument folgt, zeitlich später "
+"oder dem Erzählstrang nachgelagert (MARC 785)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:157
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:161
 msgid "Related to"
-msgstr ""
+msgstr "Verbunden mit"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:162
 msgid "Any other relationship between documents (MARC 787)."
-msgstr ""
+msgstr "Jede andere Beziehung zwischen Dokumenten (MARC 787)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:179
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:31
@@ -6570,7 +6597,7 @@ msgstr "Link des Dokuments"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:197
 msgid "Example: https://ils.rero.ch/api/documents/66"
-msgstr ""
+msgstr "Beispiel: https://ils.rero.ch/api/documents/66"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_duration-v0.0.1.json:3
 msgid "Durations"
@@ -6828,7 +6855,7 @@ msgstr "Beispiel: 355 Seiten"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:3
 msgid "Frequencies"
-msgstr ""
+msgstr "Frequenzen"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:4
 msgid ""
@@ -6836,6 +6863,10 @@ msgid ""
 "integrating resource is issued. For former frequencies, repeat the field "
 "and specify dates (MARC 310, 321)."
 msgstr ""
+"Ein Intervall, in dem die Lieferungen oder die Teile einer fortlaufenden "
+"Ressource oder die Aktualisierungen einer integrierenden Ressource "
+"erscheinen. Für frühere Frequenzen wiederholen Sie das Feld und geben Daten "
+"an (MARC 310, 321)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:8
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:204
@@ -6844,61 +6875,66 @@ msgstr "Erscheinungsweise"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:24
 msgid "RDA recommended terms: monthly, weekly, daily, ..."
-msgstr ""
+msgstr "Von RDA empfohlene Begriffe: monatlich, wöchentlich, täglich, ..."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:29
 msgid "Required if a former frequency is indicated"
-msgstr ""
+msgstr "Erforderlich, wenn eine frühere Frequenz angegeben ist"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:33
 msgid "Example: 1953-1988"
-msgstr ""
+msgstr "Beispiel: 1953-1988"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:3
 msgid "Genres, forms"
-msgstr ""
+msgstr "Genres, Formen"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:4
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:4
 msgid "(MARC 655)"
-msgstr ""
+msgstr "(MARC 655)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:9
 msgid "Genre, form"
-msgstr ""
+msgstr "Genre, Form"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:12
 msgid "Link to concept entity"
-msgstr ""
+msgstr "Link zu einem Konzept"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:23
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:78
 msgid "Concept"
-msgstr ""
+msgstr "Konzept"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:39
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:160
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:173
 msgid "Concept (local)"
-msgstr ""
+msgstr "Konzept (lokal)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:55
 msgid "Source of the subject, for instance rero."
-msgstr ""
+msgstr "Quelle des Themas, zum Beispiel rero."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:69
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:70
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:195
 msgid "bf:Topic"
-msgstr ""
+msgstr "Konzept"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:76
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:188
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:274
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:77
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:207
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:305
 msgid "Term"
-msgstr ""
+msgstr "Begriff"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:121
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:336
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:114
+#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:18
+msgid "bf:local"
+msgstr "Lokaler Identifikator"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:118
 msgid "rero-rameau"
-msgstr ""
+msgstr "RERO-RAMEAU"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:3
 msgid "Identifiers"
@@ -6909,6 +6945,8 @@ msgid ""
 "Other identifier types are entered as local identifiers with indication "
 "of the source."
 msgstr ""
+"Andere Identifikatortypen werden als lokale Identifikatoren mit Angabe der "
+"Quelle erfasst."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:56
 msgid "bf:AudioIssueNumber"
@@ -7004,27 +7042,31 @@ msgstr "Identifikatorwert"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:175
 msgid "Qualification"
-msgstr ""
+msgstr "Erläuterung"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:176
 msgid ""
 "Qualification if the resource has more than one identifier of the same, "
 "to enter if considered important for identification."
 msgstr ""
+"Erläuterung, wenn die Ressource mehr als einen Identifikator desselben hat. "
+"Zu erfassen, wenn dies für die Identifizierung als wichtig erachtet wird."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:180
 msgid "Example: volume 1"
-msgstr ""
+msgstr "Beispiel: Band 1"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:189
 msgid ""
 "The source is entered only for local identifiers, it indicates the system"
 " or agency responsible for the identifier."
 msgstr ""
+"Die Quelle wird nur für lokale Bezeichner erfasst, sie gibt das System oder "
+"die Agentur an, die für den Identifikator verantwortlich ist."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:193
 msgid "Examples: LCCN, PMID, DNB"
-msgstr ""
+msgstr "Beispiele: LCCN, PMID, DNB"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:201
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:42
@@ -7058,20 +7100,20 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:3
 msgid "Intended audiences"
-msgstr ""
+msgstr "Zielgruppen"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:4
 msgid "(MARC 521)"
-msgstr ""
+msgstr "(MARC 521)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:8
 msgid "Intended audience"
-msgstr ""
+msgstr "Zielgruppe"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:12
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:24
 msgid "understanding_level"
-msgstr ""
+msgstr "Lese-/Verständnisniveau"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:38
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:212
@@ -7079,218 +7121,218 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:407
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:32
 msgid "value"
-msgstr ""
+msgstr "Wert"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:74
 msgid "target_understanding_children"
-msgstr ""
+msgstr "Kinder"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:78
 msgid "target_understanding_children_0_3"
-msgstr ""
+msgstr "Kinder (0-3 Jahre)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:82
 msgid "target_understanding_children_3_6"
-msgstr ""
+msgstr "Kinder (3-6 Jahre)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:86
 msgid "target_understanding_children_6_9"
-msgstr ""
+msgstr "Kinder (6-9 Jahre)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:90
 msgid "target_understanding_children_9_12"
-msgstr ""
+msgstr "Kinder (9-12 Jahre)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:94
 msgid "target_understanding_teenagers"
-msgstr ""
+msgstr "Jugendliche"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:98
 msgid "target_understanding_teenagers_12_15"
-msgstr ""
+msgstr "Jugendliche (12-15 Jahre)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:102
 msgid "target_understanding_teenagers_15_18"
-msgstr ""
+msgstr "Jugendliche (15-18 Jahre)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:106
 msgid "target_understanding_secondary_level_2"
-msgstr ""
+msgstr "Weiterführende Schulen"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:110
 msgid "target_understanding_tertiary"
-msgstr ""
+msgstr "Tertiär"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:114
 msgid "target_understanding_apprentices"
-msgstr ""
+msgstr "Lehrlinge"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:118
 msgid "target_understanding_bachelor_students"
-msgstr ""
+msgstr "Studierende Bachelor"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:122
 msgid "target_understanding_master_students"
-msgstr ""
+msgstr "Studierende Master"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:126
 msgid "target_understanding_doctoral_students"
-msgstr ""
+msgstr "Doktoranden"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:130
 msgid "target_understanding_beginners"
-msgstr ""
+msgstr "Anfänger"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:134
 msgid "target_understanding_intermediaries"
-msgstr ""
+msgstr "Mittelstufe"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:138
 msgid "target_understanding_advanced"
-msgstr ""
+msgstr "Fortgeschrittene"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:142
 msgid "target_understanding_specialists"
-msgstr ""
+msgstr "Spezialisten"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:146
 msgid "target_understanding_adults"
-msgstr ""
+msgstr "Erwachsene"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:150
 msgid "target_understanding_allophone_adults"
-msgstr ""
+msgstr "Fremdsprachige Erwachsene"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:154
 msgid "target_understanding_all_audience"
-msgstr ""
+msgstr "Alle Zielgruppen"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:158
 msgid "target_understanding_teachers_harmos_degree"
-msgstr ""
+msgstr "Lehrpersonen (Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:162
 msgid "target_understanding_teachers_secondary_level_2"
-msgstr ""
+msgstr "Lehrpersonen Sek II"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:166
 msgid "target_understanding_hep_trainers"
-msgstr ""
+msgstr "PH-Dozierende"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:170
 msgid "target_understanding_parents"
-msgstr ""
+msgstr "Eltern"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:174
 msgid "target_understanding_caregivers"
-msgstr ""
+msgstr "Pflegepersonal"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:186
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:198
 msgid "school_level"
-msgstr ""
+msgstr "Bildungsniveaus"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:236
 msgid "target_school_harmos1"
-msgstr ""
+msgstr "4-5 Jahre (1. Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:240
 msgid "target_school_harmos2"
-msgstr ""
+msgstr "5-6 Jahre (2. Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:244
 msgid "target_school_harmos3"
-msgstr ""
+msgstr "6-7 Jahre (3. Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:248
 msgid "target_school_harmos4"
-msgstr ""
+msgstr "7-8 Jahre (4. Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:252
 msgid "target_school_harmos5"
-msgstr ""
+msgstr "8-9 Jahre (5. Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:256
 msgid "target_school_harmos6"
-msgstr ""
+msgstr "9-10 Jahre (6. Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:260
 msgid "target_school_harmos7"
-msgstr ""
+msgstr "10-11 Jahre (7. Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:264
 msgid "target_school_harmos8"
-msgstr ""
+msgstr "11-12 Jahre (8. Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:268
 msgid "target_school_harmos9"
-msgstr ""
+msgstr "12-13 Jahre (9. Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:272
 msgid "target_school_harmos10"
-msgstr ""
+msgstr "13-14 Jahre (10. Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:276
 msgid "target_school_harmos11"
-msgstr ""
+msgstr "14-15 Jahre (11. Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:280
 msgid "target_school_upper_secondary"
-msgstr ""
+msgstr "Sekundarstufe II"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:284
 msgid "target_school_tertiary"
-msgstr ""
+msgstr "Tertiär"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:288
 msgid "target_school_bachelor"
-msgstr ""
+msgstr "Studierende Bachelor"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:292
 msgid "target_school_master"
-msgstr ""
+msgstr "Studierende Master"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:301
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:313
 msgid "filmage_ch"
-msgstr ""
+msgstr "Empfohlenes Alter (filmages.ch)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:344
 msgid "from the age of 18"
-msgstr ""
+msgstr "Ab 18 Jahre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:348
 msgid "from the age of 16"
-msgstr ""
+msgstr "Ab 16 Jahre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:352
 msgid "from the age of 14"
-msgstr ""
+msgstr "Ab 14 Jahre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:356
 msgid "from the age of 12"
-msgstr ""
+msgstr "Ab 12 Jahre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:360
 msgid "from the age of 10"
-msgstr ""
+msgstr "Ab 10 Jahre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:364
 msgid "from the age of 7"
-msgstr ""
+msgstr "Ab 7 Jahre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:368
 msgid "from the age of 5"
-msgstr ""
+msgstr "Ab 5 Jahre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:372
 msgid "from the age of 2"
-msgstr ""
+msgstr "Ab 2 Jahre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:381
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:393
 msgid "undefined"
-msgstr ""
+msgstr "undefiniert"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:3
 msgid "Mode of issuance"
@@ -7413,7 +7455,7 @@ msgstr "Sprache"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:4
 msgid "(MARC 500, 510, 530, 545, 555, 580)"
-msgstr ""
+msgstr "(MARC 500, 510, 530, 545, 555, 580)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:20
 msgid "Type of note"
@@ -7433,15 +7475,15 @@ msgstr "Sonstige Materialeigenschaften"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:45
 msgid "cited_by"
-msgstr ""
+msgstr "Zitiert von"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_original_language-v0.0.1.json:3
 msgid "Language of representative expression"
-msgstr ""
+msgstr "Sprache des repräsentativen Expression"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_original_language-v0.0.1.json:4
 msgid "Language of original work (MARC 041$h)"
-msgstr ""
+msgstr "Sprache des Originalwerks (MARC 041$h)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:3
 msgid "Part of (host document)"
@@ -7678,29 +7720,32 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:261
 msgid "Date of the original"
-msgstr ""
+msgstr "Datum des Originals"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:262
 msgid "Date of the original in case of a reproduction."
-msgstr ""
+msgstr "Datum des Originals im Falle einer Reproduktion."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:3
 msgid "Scales"
-msgstr ""
+msgstr "Massstäbe"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:4
 msgid ""
 "Ratio of the dimensions of an image or three-dimensional form to the "
 "dimensions of the thing that is represented. (MARC 034, 255)"
 msgstr ""
+"Verhältnis der Abmessungen eines Bildes oder einer dreidimensionalen Form, "
+"das/die in einer Ressource enthalten oder verkörpert ist, zu den Abmessungen "
+"der Sache, die es/sie repräsentiert (MARC 034, 255)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:8
 msgid "Scale"
-msgstr ""
+msgstr "Massstab"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:30
 msgid "Linear scale"
-msgstr ""
+msgstr "Linearer Massstab"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:34
 msgid "Angular scale"
@@ -7788,7 +7833,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:130
 msgid "Example: N0300000"
-msgstr ""
+msgstr "Beispiel: N0300000"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:134
 msgid "Right ascension"
@@ -7802,7 +7847,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:139
 msgid "Example: 021800"
-msgstr ""
+msgstr "Beispiel: 021800"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:145
 msgid "Projection"
@@ -7822,7 +7867,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:158
 msgid "Example: 1950"
-msgstr ""
+msgstr "Beispiel: 1950"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_sequence_numbering-v0.0.1.json:3
 msgid "Numbering of sequence"
@@ -7836,7 +7881,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_sequence_numbering-v0.0.1.json:8
 msgid "Example: Volume 1(2006)-volume 9(2014)"
-msgstr ""
+msgstr "Beispiel: Band 1(2006)-Band 9(2014)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:3
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:63
@@ -7861,91 +7906,103 @@ msgstr "Beispiel: Bd. 3"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:4
 msgid "(MARC 6XX)"
-msgstr ""
+msgstr "(MARC 6XX)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:15
 msgid "Person (local)"
-msgstr ""
+msgstr "Person (lokal)"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:57
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:37
+msgid "bf:Person"
+msgstr "Person"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:58
 msgid "Corporate body (local)"
-msgstr ""
+msgstr "Körperschaft (lokal)"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:107
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:82
+msgid "bf:Organization"
+msgstr "Körperschaft"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:114
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:39
 msgid "Work (local)"
-msgstr ""
+msgstr "Werk (lokal)"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:141
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:137
+msgid "bf:Work"
+msgstr "Werk"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:154
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:64
 msgid "Creator"
 msgstr "Ersteller"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:145
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:158
 msgid "Example: Voltenauer, Marc"
-msgstr ""
+msgstr "Beispiel: Voltenauer, Marc"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:204
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:223
 msgid "Place (local)"
-msgstr ""
+msgstr "Ort (lokal)"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:246
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:271
 msgid "Time-span (local)"
-msgstr ""
+msgstr "Zeitraum (lokal)"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:296
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:293
+msgid "bf:Temporal"
+msgstr "Zeitraum"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:327
 msgid "Preferred name"
-msgstr ""
+msgstr "Bevorzugter Name"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:302
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:333
 msgid "Source of the subject, for instance MeSH, rero or IdRef."
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:351
-msgid "Source in case of a local identifier"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:3
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:12
 msgid "Link to work"
-msgstr ""
+msgstr "Link zu einem Werk"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:30
 msgid "Work"
-msgstr ""
+msgstr "Werk"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:51
 msgid "Link to concept"
-msgstr ""
+msgstr "Link zu einem Konzept"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:99
 msgid "Link to place"
-msgstr ""
+msgstr "Link zu einem Ort"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:147
 msgid "Link to time-span"
-msgstr ""
+msgstr "Link zu einem Zeitraum"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:174
 msgid "Time-span"
-msgstr ""
+msgstr "Zeitraum"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:3
 msgid "Summaries"
-msgstr ""
+msgstr "Zusammenfassungen"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:4
 msgid "(MARC 520$a)"
-msgstr ""
+msgstr "(MARC 520$a)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:8
 msgid "Summary"
-msgstr ""
+msgstr "Zusammenfassung"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:36
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:49
 msgid "Example: Internet Movie Database"
-msgstr ""
+msgstr "Beispiel: Internet Movie Database"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:48
 msgid "Provider of the summary (MARC 520$c and 520$9)"
@@ -8024,7 +8081,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:54
 msgid "period"
-msgstr ""
+msgstr "Zeitraum"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:112
 msgid "Period codes"
@@ -8114,7 +8171,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_titles_original-v0.0.1.json:8
 msgid "Original title"
-msgstr ""
+msgstr "Originaltitel"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_titles_proper-v0.0.1.json:3
 msgid "Proper titles"
@@ -8371,7 +8428,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:9
 msgid "Usage and access policy"
-msgstr ""
+msgstr "Nutzungs- und Zugangs-Richtlinien"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:37
 msgid "Example: Copy not allowed"
@@ -8395,7 +8452,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:102
 msgid "Designation"
-msgstr ""
+msgstr "Bezeichnung"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:103
 msgid "Numeric designation of the part, section or supplement"
@@ -8481,16 +8538,16 @@ msgstr "Permalink"
 msgid "Back"
 msgstr "Zurück"
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:151
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:153
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:150
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:152
 msgid "Get"
 msgstr "Standorte/Bestellen"
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:191
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:190
 msgid "Articles"
 msgstr "Artikel"
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:207
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:206
 msgid "Export Formats"
 msgstr "Exportformate"
 
@@ -9266,25 +9323,27 @@ msgstr "Informationen zur Bestellung"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:65
 msgid "Submit"
-msgstr ""
+msgstr "Absenden"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:74
 msgid "Confirmation"
-msgstr ""
+msgstr "Bestätigung"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:80
 msgid ""
 "Costs may apply. By confirming, you agree to the interlibrary loan "
 "conditions of the pick-up library."
 msgstr ""
+"Es können Gebühren anfallen. Mit der Bestätigung erklären Sie sich mit "
+"den Fernleihbedingungen der ausgewählten Bibliothek einverstanden."
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:83
 msgid "Cancel"
-msgstr ""
+msgstr "Löschen"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:84
 msgid "Confirm"
-msgstr ""
+msgstr "Bestätigen"
 
 #: rero_ils/modules/item_types/api.py:79
 msgid "Another online item type exists in this organisation"
@@ -9346,7 +9405,7 @@ msgstr ""
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:104
 msgid "Displayed status"
-msgstr ""
+msgstr "Angezeigter Status"
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:106
 msgid "Short text displayed in the interface, for instance \\"
@@ -9359,7 +9418,7 @@ msgstr ""
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:162
 msgid "Circulation information"
-msgstr ""
+msgstr "Information zur Ausleihe"
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:164
 msgid "This optional text is displayed in the public interface, for instance \\"
@@ -9367,7 +9426,7 @@ msgstr ""
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:168
 msgid "Information"
-msgstr ""
+msgstr "Information"
 
 #: rero_ils/modules/items/api/circulation.py:1008
 msgid "Item status disallows the operation."
@@ -12509,3 +12568,6 @@ msgstr "Ihr Passwort wurde erfolgreich zurückgesetzt."
 
 #~ msgid "Your library"
 #~ msgstr "Ihre Bibliothek"
+
+#~ msgid "Source in case of a local identifier"
+#~ msgstr ""
