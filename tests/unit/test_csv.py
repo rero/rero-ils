@@ -41,12 +41,10 @@ def test_create_csv(app, tmpdir, script_info):
     file_name_metadata = join(tmp_dir_name, 'doc_metadata.csv')
     file_name_pids = join(tmp_dir_name, 'doc_pids.csv')
     output = result.output.split('\n')
-    assert output[0] == 'Create CSV files for: doc from: {file_name}'.format(
-        file_name=json_file_name
-    )
-    assert output[1] == '\t{file_name}'.format(file_name=file_name_pidstore)
-    assert output[2] == '\t{file_name}'.format(file_name=file_name_metadata)
-    assert output[3] == '\t{file_name}'.format(file_name=file_name_pids)
+    assert output[0] == f'Create CSV files for: doc from: {json_file_name}'
+    assert output[1] == f'\t{file_name_pidstore}'
+    assert output[2] == f'\t{file_name_metadata}'
+    assert output[3] == f'\t{file_name_pids}'
     assert output[4].split(':')[0] == '1\tdoc\t1'
     assert output[5].split(':')[0] == '2\tdoc\t2'
 
@@ -59,9 +57,9 @@ def test_create_csv(app, tmpdir, script_info):
     assert result.output.split('\n') == [
         'Load doc CSV files into database.',
         '  Number of records to load: 2',
-        '  Load pids: {file_name}'.format(file_name=file_name_pids),
-        '  Load pidstore: {file_name}'.format(file_name=file_name_pidstore),
-        '  Load metatada: {file_name}'.format(file_name=file_name_metadata),
+        f'  Load pids: {file_name_pids}',
+        f'  Load pidstore: {file_name_pidstore}',
+        f'  Load metatada: {file_name_metadata}',
         ''
     ]
     result = runner.invoke(
@@ -72,7 +70,7 @@ def test_create_csv(app, tmpdir, script_info):
     assert result.exit_code == 0
     assert result.output.split('\n') == [
         'Error xxx does not exist!',
-        'Save doc CSV files to directory: {dir}'.format(dir=tmp_dir_name),
+        f'Save doc CSV files to directory: {tmp_dir_name}',
         'Saved records: 2',
         ''
     ]

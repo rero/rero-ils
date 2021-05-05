@@ -156,7 +156,7 @@ def wait_empty_tasks(delay, verbose=False):
     if verbose:
         spinner = itertools.cycle(['-', '\\', '|', '/'])
         click.echo(
-            'Waiting: {spinner}\r'.format(spinner=next(spinner)),
+            f'Waiting: {next(spinner)}\r',
             nl=False
         )
     count = queue_count()
@@ -165,7 +165,7 @@ def wait_empty_tasks(delay, verbose=False):
     while count:
         if verbose:
             click.echo(
-                'Waiting: {spinner}\r'.format(spinner=next(spinner)),
+                f'Waiting: {next(spinner)}\r',
                 nl=False
             )
         sleep(delay)
@@ -358,11 +358,13 @@ def create(infile, create_or_update, append, reindex, dbcommit, commit,
             record['$schema'] = schema
         try:
             pid = record.get('pid')
+            msg = 'created'
             if create_or_update and pid and \
                     record_class.record_pid_exists(pid):
                 db_record = record_class.get_record_by_pid(pid)
                 rec = db_record.update(
                         record, dbcommit=dbcommit, reindex=reindex)
+                msg = 'updated'
             else:
                 rec = record_class.create(
                         record, dbcommit=dbcommit, reindex=reindex,
@@ -371,21 +373,12 @@ def create(infile, create_or_update, append, reindex, dbcommit, commit,
                     pids.append(rec.pid)
             if verbose:
                 click.echo(
-                    '{count: <8} {pid_type} created {pid}:{id}'.format(
-                        count=count,
-                        pid_type=pid_type,
-                        pid=rec.pid,
-                        id=rec.id
-                    )
-                )
+                    f'{count: <8} {pid_type} {msg} {rec.pid}:{rec.id}')
+
         except Exception as err:
+            pid = record.get('pid', '???')
             click.secho(
-                '{count: <8} {type} create error {pid}: {err}'.format(
-                    count=count,
-                    type=pid_type,
-                    pid=record.get('pid', '???'),
-                    err=err
-                ),
+                f'{count: <8} {type} create error {pid}: {err}',
                 fg='red'
             )
             if debug:
@@ -402,7 +395,7 @@ def create(infile, create_or_update, append, reindex, dbcommit, commit,
             if verbose:
                 click.echo(f'DB commit: {count}')
             db.session.commit()
-    click.echo('DB commit: {count}'.format(count=count))
+    click.echo(f'DB commit: {count}')
     db.session.commit()
 
     if save_errors:
@@ -781,12 +774,9 @@ def do_worker(marc21records, results, pid_required, debug, schema=None):
             if debug:
                 pprint(record)
             trace_lines = traceback.format_exc(1).split('\n')
-            msg = 'ERROR:\t{pid}\t{rero_pid}\t{err}\t-\t{trace}'.format(
-                pid=pid,
-                rero_pid=data_json.get('035__', {}).get('a'),
-                err=err.args[0],
-                trace=trace_lines[5].strip()
-            )
+            trace = trace_lines[5].strip()
+            rero_pid = data_json.get('035__', {}).get('a'),
+            msg = f'ERROR:\t{pid}\t{rero_pid}\t{err.args[0]}\t-\t{trace}'
             click.secho(msg, fg='red')
             results.append({
                 'pid': pid,
@@ -794,11 +784,8 @@ def do_worker(marc21records, results, pid_required, debug, schema=None):
                 'data': data['xml']
             })
         except Exception as err:
-            msg = 'ERROR:\t{pid}\t{rero_pid}\t{err}'.format(
-                pid=pid,
-                rero_pid=data_json.get('035__', {}).get('a'),
-                err=err.args[0],
-            )
+            rero_pid = data_json.get('035__', {}).get('a'),
+            msg = f'ERROR:\t{pid}\t{rero_pid}\t{err.args[0]}'
             click.secho(msg, fg='red')
             if debug:
                 traceback.print_exc()
@@ -834,9 +821,8 @@ class Marc21toJson():
         self.schema = schema
         self.first_result = True
         if verbose:
-            click.echo('Main process pid: {pid}'.format(
-                pid=multiprocessing.current_process().pid
-            ))
+            click.echo(
+                f'Main process pid: {multiprocessing.current_process().pid}')
         self.debug = debug
         if debug:
             multiprocessing.log_to_stderr(logging.DEBUG)
@@ -911,11 +897,8 @@ class Marc21toJson():
                 start = 1
             else:
                 start = self.count - len(self.active_records) + 1
-            click.echo('Start process: {pid} records: {start}..{end}'.format(
-                pid=new_process.pid,
-                start=start,
-                end=self.count
-            ))
+            pid = new_process.pid
+            click.echo(f'Start process: {pid} records: {start}..{self.count}')
         self.next_active_buffer()
 
     def write_start(self):
@@ -1046,7 +1029,7 @@ def extract_from_xml(pid_file, xml_file_in, xml_file_out, tag, progress,
             if is_controlfield and is_tag:
                 if progress:
                     click.secho(
-                        '{idx} {pid}'.format(idx=idx, pid=repr(child.text)),
+                        f'{idx} {repr(child.text)}',
                         nl='\r'
                     )
                 if pids.get(child.text, -1) >= 0:
@@ -1061,10 +1044,7 @@ def extract_from_xml(pid_file, xml_file_in, xml_file_out, tag, progress,
                     xml_file_out.write(data)
                     found_pids[child.text] = True
                     if verbose:
-                        click.secho('Found: {pid} on position: {idx}'.format(
-                            pid=child.text,
-                            idx=idx
-                        ))
+                        click.secho(f'Found: {child.text} on position: {idx}')
                     break
     xml_file_out.write(b'\n</collection>')
     if count != found:
@@ -1109,11 +1089,9 @@ def reserve_pid_range(pid_type, records_number, unused):
         record_class.provider.create(pid_type, pid_value=pid,
                                      status=PIDStatus.RESERVED)
         db.session.commit()
-    click.secho(
-        'reserved_pids range, from: {min} to: {max}'.format(
-            min=min(reserved_pids), max=max(reserved_pids)
-        )
-    )
+    min_pid = min(reserved_pids)
+    max_pid = max(reserved_pids)
+    click.secho(f'reserved_pids range, from: {min_pid} to: {max_pid}')
     if unused:
         for pid in range(1, identifier.max()):
             if not db.session.query(
@@ -1210,7 +1188,7 @@ def reindex_missing(pid_types, verbose):
     """
     for p_type in pid_types:
         click.secho(
-            'Indexing missing {pid_type}: '.format(pid_type=p_type),
+            f'Indexing missing {p_type}: ',
             fg='green',
             nl=False
         )
@@ -1226,20 +1204,14 @@ def reindex_missing(pid_types, verbose):
         pids_es, pids_db, pids_es_double, index = \
             Monitoring.get_es_db_missing_pids(p_type)
         click.secho(
-            '{count}'.format(count=len(pids_db)),
+            f'{len(pids_db)}',
             fg='green',
         )
         for idx, pid in enumerate(pids_db, 1):
             record = record_class.get_record_by_pid(pid)
             res = record.reindex()
             if verbose:
-                click.secho(
-                    '{count}\t{pid_type}\t{pid}'.format(
-                        count=idx,
-                        pid_type=p_type,
-                        pid=pid
-                    )
-                )
+                click.secho(f'{idx}\t{p_type}\t{pid}')
 
 
 def get_loc_languages(verbose=False):
@@ -1295,11 +1267,7 @@ def translate(translate_to, change, title_map, no_loc_en, angular, verbose):
         for entry in po:
             if entry.msgid in values:
                 click.echo(
-                    'Translate: {name} -> {trans}'.format(
-                        name=entry.msgid,
-                        trans=values[entry.msgid]
-                    )
-                )
+                    f'Translate: {entry.msgid} -> {values[entry.msgid]}')
                 entry.msgstr = values[entry.msgid]
                 if entry.fuzzy:
                     entry.flags.remove('fuzzy')
@@ -1360,21 +1328,6 @@ def translate(translate_to, change, title_map, no_loc_en, angular, verbose):
             # countries
             countries = definitions.get('country', {}).get('enum')
             print_title_map('country', countries)
-            # translated_countries = {}
-            # for country_code in countries:
-            #     try:
-            #         country = pycountry.countries.lookup(country_code)
-            #         trans_name = locale.territories[country.alpha_2]
-            #         translated_countries[country_code] = trans_name
-            #         if verbose:
-            #             click.echo('Country {code}: {translated}'.format(
-            #                 code=country_code,
-            #                 translated=trans_name
-            #             ))
-            #     except:
-            #         pass
-            # if change:
-            #     change_po(po, translated_countries)
 
             # language_script
             language_scripts = definitions.get(
@@ -1392,7 +1345,7 @@ def translate(translate_to, change, title_map, no_loc_en, angular, verbose):
             click.secho('Add to manual_translation.ts', fg='yellow')
             click.secho('// Languages translations')
             for language in languages:
-                click.secho("_('{language}')".format(language=language))
+                click.secho(f"_('{language}')")
             click.secho(f'Add to i18n/{translate_to}.ts', fg='yellow')
             file_po = (
                 f'./rero_ils/translations/{translate_to}/LC_MESSAGES/'
@@ -1411,10 +1364,9 @@ def translate(translate_to, change, title_map, no_loc_en, angular, verbose):
 
         if change:
             po.save(file_name)
-        click.echo('Languages: {count} translated: {t_count}'.format(
-            count=len(languages),
-            t_count=len(translated_languages)
-        ))
+        count = len(languages),
+        t_count = len(translated_languages)
+        click.echo(f'Languages: {count} translated: {t_count}')
     except core.UnknownLocaleError as err:
         click.secho(f'Unknown locale: {translate_to}', fg='red')
     except FileNotFoundError as err:
@@ -1511,11 +1463,8 @@ def check_pid_dependencies(dependency_file, directory, verbose):
                     datas = self.record.get(dependency['name'], [])
                     if not(datas or dependency.get('optional')):
                         click.secho(
-                            ('{name}: sublist not found:'
-                             ' {dependency_name}').format(
-                                 name=self.name,
-                                 dependency_name=dependency['name']
-                             ),
+                            f'{self.name}: sublist not found: '
+                            f'{dependency["name"]}',
                             fg='red'
                         )
                         self.not_found += 1
@@ -1556,15 +1505,10 @@ def check_pid_dependencies(dependency_file, directory, verbose):
                     for value in values:
                         try:
                             self.test_data[key][value]
-                        except Exception as err:
+                        except Exception:
                             click.secho(
-                                ('{name}: {pid} missing '
-                                 '{ref_name}: {ref_pid}').format(
-                                     name=self.name,
-                                     pid=self.pid,
-                                     ref_name=key,
-                                     ref_pid=value
-                                 ),
+                                f'{self.name}: {self.pid} missing '
+                                f'{key}: {value}',
                                 fg='red'
                             )
                             self.missing += 1
@@ -1606,7 +1550,7 @@ def check_pid_dependencies(dependency_file, directory, verbose):
 
     # start of tests
     click.secho(
-        f'Check dependencies {dependency_file}: {directory}',
+        f'Check dependencies {dependency_file.name}: {directory}',
         fg='green'
     )
     dependency_tests = Dependencies(directory, verbose=verbose)
@@ -1673,13 +1617,8 @@ def export(verbose, pid_type, outfile, pidfile, indent, schema):
             rec = record_class.get_record_by_pid(pid)
             count += 1
             if verbose:
-                msg = '{count: <8} {pid_type} export {pid}:{id}'.format(
-                    count=count,
-                    pid_type=pid_type,
-                    pid=rec.pid,
-                    id=rec.id
-                )
-                click.echo(msg)
+                click.echo(
+                    f'{count: <8} {pid_type} export {rec.pid}:{rec.id}')
 
             outfile.write(output)
             if count > 1:
@@ -1809,10 +1748,7 @@ def create_csv(record_type, json_file, output_directory, lazy, verbose,
     :param verbose: Verbose.
     """
     click.secho(
-        "Create CSV files for: {record_type} from: {file_name}".format(
-            record_type=record_type,
-            file_name=json_file,
-        ),
+        f"Create CSV files for: {record_type} from: {json_file}",
         fg='green'
     )
 
@@ -1833,31 +1769,20 @@ def create_csv(record_type, json_file, output_directory, lazy, verbose,
             records = json.load(infile)
 
         file_name_pidstore = os.path.join(
-            output_directory, '{record_type}_pidstore.csv'.format(
-                record_type=record_type
-            )
-        )
-        click.secho('\t{name}'.format(name=file_name_pidstore), fg='green')
+            output_directory, f'{record_type}_pidstore.csv')
+        click.secho(f'\t{file_name_pidstore}', fg='green')
         file_pidstore = open(file_name_pidstore, 'w')
         file_name_metadata = os.path.join(
-            output_directory, '{record_type}_metadata.csv'.format(
-                record_type=record_type
-            )
+            output_directory, f'{record_type}_metadata.csv'
         )
-        click.secho('\t{name}'.format(name=file_name_metadata), fg='green')
+        click.secho(f'\t{file_name_metadata}', fg='green')
         file_metadata = open(file_name_metadata, 'w')
         file_name_pids = os.path.join(
-            output_directory, '{record_type}_pids.csv'.format(
-                record_type=record_type
-            )
-        )
-        click.secho('\t{name}'.format(name=file_name_pids), fg='green')
+            output_directory, f'{record_type}_pids.csv')
+        click.secho(f'\t{file_name_pids}', fg='green')
         file_pids = open(file_name_pids, 'w')
         file_name_errors = os.path.join(
-            output_directory, '{record_type}_errors.json'.format(
-                record_type=record_type
-            )
-        )
+            output_directory, f'{record_type}_errors.json')
         file_errors = open(file_name_errors, 'w')
         file_errors.write('[')
 
@@ -1868,14 +1793,7 @@ def create_csv(record_type, json_file, output_directory, lazy, verbose,
                 record['pid'] = pid
             uuid = str(uuid4())
             if verbose:
-                click.secho(
-                    '{count}\t{record_type}\t{pid}:{uuid}'.format(
-                        count=count,
-                        record_type=record_type,
-                        pid=pid,
-                        uuid=uuid
-                    )
-                )
+                click.secho(f'{count}\t{record_type}\t{pid}:{uuid}')
             date = str(datetime.utcnow())
             record['$schema'] = add_schema
             try:
@@ -1889,11 +1807,7 @@ def create_csv(record_type, json_file, output_directory, lazy, verbose,
                 file_pids.write(pid + '\n')
             except Exception as err:
                 click.secho(
-                    '{count}\t{record_type}: {msg}'.format(
-                        count=count,
-                        record_type=record_type,
-                        msg='Error validate in record: '
-                    ),
+                    f'{count}\t{record_type}: Error validate in record: ',
                     fg='red')
                 click.secho(str(err))
                 if errors_count > 0:
@@ -1911,10 +1825,7 @@ def create_csv(record_type, json_file, output_directory, lazy, verbose,
     if errors_count == 0:
         os.remove(file_name_errors)
     click.secho(
-        'Created: {count} Errors: {error_count}'.format(
-            count=count-errors_count,
-            error_count=errors_count
-        ),
+        f'Created: {count-errors_count} Errors: {errors_count}',
         fg='yellow'
     )
 
@@ -1941,33 +1852,23 @@ def bulk_load(record_type, csv_metadata_file, bulkcount, reindex, verbose):
     else:
         bulk_count = current_app.config.get('BULK_CHUNK_COUNT', 100000)
 
-    message = 'Load {record_type} CSV files into database.'.format(
-        record_type=record_type
-    )
+    message = f'Load {record_type} CSV files into database.'
     click.secho(message, fg='green')
     file_name_metadata = csv_metadata_file
     file_name_pidstore = file_name_metadata.replace('metadata', 'pidstore')
     file_name_pids = file_name_metadata.replace('metadata', 'pids')
 
     record_counts = number_records_in_file(file_name_pidstore, 'csv')
-    message = '  Number of records to load: {count}'.format(
-        count=record_counts
-    )
+    message = f'  Number of records to load: {record_counts}'
     click.secho(message, fg='green')
 
-    click.secho('  Load pids: {file_name}'.format(
-        file_name=file_name_pids
-    ))
+    click.secho(f'  Load pids: {file_name_pids}')
     bulk_load_pids(pid_type=record_type, ids=file_name_pids,
                    bulk_count=bulk_count, verbose=verbose)
-    click.secho('  Load pidstore: {file_name}'.format(
-        file_name=file_name_pidstore
-    ))
+    click.secho(f'  Load pidstore: {file_name_pidstore}')
     bulk_load_pidstore(pid_type=record_type, pidstore=file_name_pidstore,
                        bulk_count=bulk_count, verbose=verbose)
-    click.secho('  Load metatada: {file_name}'.format(
-        file_name=file_name_metadata
-    ))
+    click.secho(f'  Load metatada: {file_name_metadata}')
     bulk_load_metadata(pid_type=record_type, metadata=file_name_metadata,
                        bulk_count=bulk_count, verbose=verbose, reindex=reindex)
 
@@ -2004,7 +1905,7 @@ def bulk_save(pid_types, output_directory, deployment, verbose):
     for p_type in pid_types:
         if p_type not in all_pid_types:
             click.secho(
-                'Error {pid_type} does not exist!'.format(pid_type=p_type),
+                f'Error {p_type} does not exist!',
                 fg='red'
             )
             continue
@@ -2012,10 +1913,7 @@ def bulk_save(pid_types, output_directory, deployment, verbose):
         if p_type == 'loanid':
             continue
         click.secho(
-            'Save {pid_type} CSV files to directory: {path}'.format(
-                pid_type=p_type,
-                path=output_directory,
-            ),
+            f'Save {p_type} CSV files to directory: {output_directory}',
             fg='green'
         )
         file_prefix = endpoints[p_type].get('search_index')
@@ -2026,13 +1924,13 @@ def bulk_save(pid_types, output_directory, deployment, verbose):
                 file_prefix += '_small'
         file_name_metadata = os.path.join(
             output_directory,
-            '{prefix}_metadata.csv'.format(prefix=file_prefix)
+            f'{file_prefix}_metadata.csv'
         )
         bulk_save_metadata(pid_type=p_type, file_name=file_name_metadata,
                            verbose=verbose)
         file_name_pidstore = os.path.join(
             output_directory,
-            '{prefix}_pidstore.csv'.format(prefix=file_prefix)
+            f'{file_prefix}_pidstore.csv'
         )
         count = bulk_save_pidstore(pid_type=p_type,
                                    file_name=file_name_pidstore,
@@ -2041,12 +1939,12 @@ def bulk_save(pid_types, output_directory, deployment, verbose):
 
         file_name_pids = os.path.join(
             output_directory,
-            '{prefix}_pids.csv'.format(prefix=file_prefix)
+            f'{file_prefix}_pids.csv'
         )
         bulk_save_pids(pid_type=p_type, file_name=file_name_pids,
                        verbose=verbose)
         click.secho(
-            'Saved records: {count}'.format(count=count),
+            f'Saved records: {count}',
             fg='yellow'
         )
     try:

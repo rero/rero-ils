@@ -112,35 +112,43 @@
     "dependencies": [
       {
         "name": "supplement",
-        "ref": "document"
+        "ref": "document",
+        "optional": "True"
       },
       {
         "name": "supplementTo",
-        "ref": "document"
+        "ref": "document",
+        "optional": "True"
       },
       {
         "name": "otherEdition",
-        "ref": "document"
+        "ref": "document",
+        "optional": "True"
       },
       {
         "name": "otherPhysicalFormat",
-        "ref": "document"
+        "ref": "document",
+        "optional": "True"
       },
       {
         "name": "issuedWith",
-        "ref": "document"
+        "ref": "document",
+        "optional": "True"
       },
       {
         "name": "precededBy",
-        "ref": "document"
+        "ref": "document",
+        "optional": "True"
       },
       {
         "name": "succeededBy",
-        "ref": "document"
+        "ref": "document",
+        "optional": "True"
       },
       {
         "name": "relatedTo",
-        "ref": "document"
+        "ref": "document",
+        "optional": "True"
       }
     ]
   },
@@ -172,6 +180,11 @@
       },
       {
         "name": "item_type"
+      },
+      {
+        "name": "temporary_item_type",
+        "ref": "item_type",
+        "optional": "True"
       },
       {
         "name": "holding",
@@ -282,44 +295,6 @@
           "document": "documents",
           "item": "items",
           "holding": "holdings"
-        }
-      }
-    ]
-  },
-  {
-    "name": "operation_logs_creations",
-    "filename": "operation_logs_creations.json",
-    "dependencies": [
-      {
-        "name": "organisation",
-        "optional": "True"
-      },
-      {
-        "name": "record",
-        "refs": {
-          "organisation": "organisations",
-          "item": "items",
-          "holding": "holdings",
-          "document": "documents"
-        }
-      }
-    ]
-  },
-  {
-    "name": "operation_logs_updates",
-    "filename": "operation_logs_updates.json",
-    "dependencies": [
-      {
-        "name": "organisation",
-        "optional": "True"
-      },
-      {
-        "name": "record",
-        "refs": {
-          "organisation": "organisations",
-          "item": "items",
-          "holding": "holdings",
-          "document": "documents"
         }
       }
     ]
