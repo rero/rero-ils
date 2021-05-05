@@ -42,7 +42,7 @@
       "title": "Local code",
       "description": "Code used to classify users, for instance for statistics.",
       "type": "string",
-      "minLength": 2
+      "minLength": 1
     },
     "user_id": {
       "title": "Personal informations",
