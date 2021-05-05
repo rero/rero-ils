@@ -108,7 +108,49 @@
   },
   {
     "name": "document",
-    "filename": "documents_small.json"
+    "filename": "documents_small.json",
+    "dependencies": [
+      {
+        "name": "supplement",
+        "ref": "document",
+        "optional": "True"
+      },
+      {
+        "name": "supplementTo",
+        "ref": "document",
+        "optional": "True"
+      },
+      {
+        "name": "otherEdition",
+        "ref": "document",
+        "optional": "True"
+      },
+      {
+        "name": "otherPhysicalFormat",
+        "ref": "document",
+        "optional": "True"
+      },
+      {
+        "name": "issuedWith",
+        "ref": "document",
+        "optional": "True"
+      },
+      {
+        "name": "precededBy",
+        "ref": "document",
+        "optional": "True"
+      },
+      {
+        "name": "succeededBy",
+        "ref": "document",
+        "optional": "True"
+      },
+      {
+        "name": "relatedTo",
+        "ref": "document",
+        "optional": "True"
+      }
+    ]
   },
   {
     "name": "holding",
@@ -119,7 +161,7 @@
       },
       {
         "name": "circulation_category",
-        "ref": "item_type"
+        "ref": "item_types"
       },
       {
         "name": "document"
