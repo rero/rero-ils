@@ -306,13 +306,12 @@ def item_information(patron_barcode, item_pid, **kwargs):
             return item_information
 
 
-def selfcheck_checkout(transaction_user_pid, library_pid, patron_barcode,
-                       item_barcode, **kwargs):
+def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode,
+                       **kwargs):
     """SIP2 Handler to perform checkout.
 
     perform checkout action received from the selfcheck.
     :param transaction_user_pid: identifier of the staff user.
-    :param library_pid: library pid of the selfcheck_terminal.
     :param patron_barcode: barcode of the patron.
     :param item_barcode: item identifier.
     :return: The SelfcheckCheckout object.
@@ -336,7 +335,7 @@ def selfcheck_checkout(transaction_user_pid, library_pid, patron_barcode,
             if staffer.is_librarian:
                 patron = Patron.get_patron_by_barcode(
                     patron_barcode,
-                    filter_by_org_pid=kwargs.get('institution_id'))
+                    filter_by_org_pid=terminal.organisation_pid)
                 with current_app.test_request_context() as ctx:
                     language = kwargs.get('language', current_app.config
                                           .get('BABEL_DEFAULT_LANGUAGE'))
@@ -347,7 +346,7 @@ def selfcheck_checkout(transaction_user_pid, library_pid, patron_barcode,
                     result, data = item.checkout(
                         patron_pid=patron.pid,
                         transaction_user_pid=staffer.pid,
-                        transaction_library_pid=library_pid,
+                        transaction_library_pid=terminal.library_pid,
                         item_pid=item.pid,
                         selfcheck_terminal_id=str(terminal.id),
                     )
@@ -375,24 +374,23 @@ def selfcheck_checkout(transaction_user_pid, library_pid, patron_barcode,
         return checkout
 
 
-def selfcheck_checkin(transaction_user_pid, library_pid, patron_barcode,
-                      item_barcode, **kwargs):
+def selfcheck_checkin(transaction_user_pid, item_barcode, **kwargs):
     """SIP2 Handler to perform checkin.
 
     perform checkin action received from the selfcheck.
     :param transaction_user_pid: identifier of the staff user.
-    :param library_pid: library pid of the selfcheck terminal.
-    :param patron_barcode: barcode of the patron.
     :param item_barcode: item identifier.
     :return: The SelfcheckCheckin object.
     """
     if check_sip2_module():
         from invenio_sip2.errors import SelfcheckCirculationError
         from invenio_sip2.models import SelfcheckCheckin
-        library = Library.get_record_by_pid(library_pid)
+        terminal = SelfcheckTerminal.find_terminal(
+            name=kwargs.get('terminal'))
+        library = Library.get_record_by_pid(terminal.library_pid)
         item = Item.get_item_by_barcode(
             barcode=item_barcode,
-            organisation_pid=library.organisation_pid
+            organisation_pid=terminal.organisation_pid
         )
         checkin = SelfcheckCheckin(
             permanent_location=library.get('name')
@@ -412,7 +410,7 @@ def selfcheck_checkin(transaction_user_pid, library_pid, patron_barcode,
                     # do checkin
                     result, data = item.checkin(
                         transaction_user_pid=staffer.pid,
-                        transaction_library_pid=library_pid,
+                        transaction_library_pid=terminal.library_pid,
                         item_pid=item.pid,
                     )
                     if data[LoanAction.CHECKIN]:

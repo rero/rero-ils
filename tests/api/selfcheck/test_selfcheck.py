@@ -267,9 +267,7 @@ def test_selfcheck_checkout(client, selfcheck_librarian_martigny,
     # selfcheck checkout
     checkout = selfcheck_checkout(
         transaction_user_pid=librarian_martigny.pid,
-        library_pid=selfcheck_librarian_martigny.library_pid,
-        patron_barcode=patron_barcode,
-        item_barcode=item_barcode,
+        item_barcode=item_barcode, patron_barcode=patron_barcode,
         terminal=selfcheck_librarian_martigny.name
     )
     assert checkout
@@ -305,7 +303,7 @@ def test_selfcheck_checkin(client, selfcheck_librarian_martigny,
         item_pid=item_lib_martigny.pid,
         patron_pid=selfcheck_patron_martigny.pid,
         transaction_location_pid=loc_public_martigny.pid,
-        transaction_user_pid=librarian2_martigny.pid,
+        transaction_user_pid=librarian2_martigny.pid
     ))
     assert res.status_code == 200
 
@@ -313,9 +311,9 @@ def test_selfcheck_checkin(client, selfcheck_librarian_martigny,
     with pytest.raises(Exception):
         checkin = selfcheck_checkin(
             transaction_user_pid=librarian_martigny.pid,
-            library_pid=selfcheck_librarian_martigny.library_pid,
             patron_barcode=patron_barcode,
             item_barcode='wrong_item_barcode',
+            terminal=selfcheck_librarian_martigny.name
         )
         assert checkin
         assert not checkin.is_success
@@ -323,9 +321,9 @@ def test_selfcheck_checkin(client, selfcheck_librarian_martigny,
     # selfcheck checkin
     checkin = selfcheck_checkin(
         transaction_user_pid=librarian_martigny.pid,
-        library_pid=selfcheck_librarian_martigny.library_pid,
-        patron_barcode=patron_barcode,
         item_barcode=item_barcode,
+        patron_barcode=patron_barcode,
+        terminal=selfcheck_librarian_martigny.name
     )
     assert checkin
     assert checkin.is_success
