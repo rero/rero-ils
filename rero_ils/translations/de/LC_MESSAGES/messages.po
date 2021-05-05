@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-05-03 14:48+0200\n"
 "PO-Revision-Date: 2021-05-05 04:51+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Last-Translator: Ambros Gattlen <ambros.gattlen@admin.vs.ch>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/de/>\n"
 "Language: de\n"
@@ -9299,7 +9299,7 @@ msgstr "Informationen zur Bestellung"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:65
 msgid "Submit"
-msgstr "Einreichen"
+msgstr "Absenden"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:74
 msgid "Confirmation"
@@ -9310,6 +9310,8 @@ msgid ""
 "Costs may apply. By confirming, you agree to the interlibrary loan "
 "conditions of the pick-up library."
 msgstr ""
+"Es können Gebühren anfallen. Mit der Bestätigung erklären Sie sich mit den "
+"Fernleihbedingungen der ausgewählten Bibliothek einverstanden."
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:83
 msgid "Cancel"
@@ -9317,7 +9319,7 @@ msgstr "Löschen"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:84
 msgid "Confirm"
-msgstr ""
+msgstr "Bestätigen"
 
 #: rero_ils/modules/item_types/api.py:79
 msgid "Another online item type exists in this organisation"
