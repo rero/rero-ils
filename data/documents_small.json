@@ -7621,7 +7621,7 @@
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos10"
+        "value": "target_school_harmos9"
       },
       {
         "audienceType": "school_level",
@@ -7629,7 +7629,7 @@
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos9"
+        "value": "target_school_harmos10"
       }
     ],
     "partOf": [
@@ -14357,11 +14357,11 @@
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos4"
+        "value": "target_school_harmos3"
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos3"
+        "value": "target_school_harmos4"
       }
     ]
   },

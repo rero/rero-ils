@@ -33,7 +33,10 @@
                 "type": "string",
                 "minLength": 1,
                 "form": {
-                  "placeholder": "Example: Internet Movie Database"
+                  "type": "textarea",
+                  "templateOptions": {
+                    "rows": 3
+                  }
                 }
               },
               "language": {
@@ -46,8 +49,11 @@
           "title": "Source",
           "type": "string",
           "description": "Provider of the summary (MARC 520$c and 520$9)",
-          "placeholder": "Example: Internet Movie Database",
-          "minLength": 1
+          "minLength": 1,
+          "form": {
+            "hide": true,
+            "placeholder": "Example: Internet Movie Database"
+          }
         }
       }
     },
