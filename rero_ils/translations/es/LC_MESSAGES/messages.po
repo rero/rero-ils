@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-05-05 07:06+0200\n"
-"PO-Revision-Date: 2021-05-06 05:13+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2021-05-06 12:27+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/es/>\n"
 "Language: es\n"
@@ -6866,12 +6866,12 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:23
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:78
 msgid "Concept"
-msgstr ""
+msgstr "Concepto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:39
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:173
 msgid "Concept (local)"
-msgstr ""
+msgstr "Concepto (local)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:55
 msgid "Source of the subject, for instance rero."
@@ -7802,7 +7802,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:145
 msgid "Projection"
-msgstr ""
+msgstr "Proyección"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:149
 msgid "Chamberlin trimetric projection"
@@ -7907,7 +7907,7 @@ msgstr "Período di tiempo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:327
 msgid "Preferred name"
-msgstr ""
+msgstr "Nombre preferido"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:333
 msgid "Source of the subject, for instance MeSH, rero or IdRef."
@@ -7961,7 +7961,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_supplementary_content-v0.0.1.json:3
 msgid "Supplementary contents"
-msgstr ""
+msgstr "Contenido suplementario"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_supplementary_content-v0.0.1.json:4
 msgid ""
@@ -7980,7 +7980,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_table_of_contents-v0.0.1.json:3
 msgid "Contents"
-msgstr ""
+msgstr "Contenido"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_table_of_contents-v0.0.1.json:4
 msgid ""
@@ -9276,11 +9276,11 @@ msgstr "Información sobre la solicitud"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:65
 msgid "Submit"
-msgstr ""
+msgstr "Enviar"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:74
 msgid "Confirmation"
-msgstr ""
+msgstr "Confirmación"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:80
 msgid ""
@@ -9294,7 +9294,7 @@ msgstr "Cancelar"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:84
 msgid "Confirm"
-msgstr ""
+msgstr "Confirmar"
 
 #: rero_ils/modules/item_types/api.py:79
 msgid "Another online item type exists in this organisation"
@@ -9369,7 +9369,7 @@ msgstr ""
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:162
 msgid "Circulation information"
-msgstr ""
+msgstr "Información de circulación"
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:164
 msgid "This optional text is displayed in the public interface, for instance \\"
@@ -9377,11 +9377,11 @@ msgstr ""
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:168
 msgid "Information"
-msgstr ""
+msgstr "Información"
 
 #: rero_ils/modules/items/api/circulation.py:1008
 msgid "Item status disallows the operation."
-msgstr ""
+msgstr "El estado del ejemplar no permite la operación."
 
 #: rero_ils/modules/items/api/circulation.py:1012
 msgid "Item and patron are not in the same organisation."
@@ -11229,11 +11229,11 @@ msgstr "Cordialmente"
 #: rero_ils/theme/templates/security/email/reset_instructions.html:30
 #: rero_ils/theme/templates/security/email/reset_notice.html:28
 msgid "Your Libray"
-msgstr ""
+msgstr "Su biblioteca"
 
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
-msgstr "Vuestra contraseña ha sido reinicializada."
+msgstr "Se ha restablecido su contraseña correctamente."
 
 #~ msgid "Examples: 135, 5-27, ..."
 #~ msgstr ""
