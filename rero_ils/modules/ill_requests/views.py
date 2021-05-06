@@ -26,6 +26,7 @@ from .api import ILLRequest
 from .forms import ILLRequestForm
 from .models import ILLRequestStatus
 from .utils import get_pickup_location_options
+from ..decorators import check_logged_as_patron
 from ..locations.api import Location
 from ..patrons.api import current_patrons
 from ..utils import extracted_data_from_ref, get_ref_for_pid
@@ -42,6 +43,7 @@ blueprint = Blueprint(
 
 @blueprint.route('/create/', methods=['GET', 'POST'])
 @check_user_is_authenticated(redirect_to='security.login')
+@check_logged_as_patron
 def ill_request_form():
     """Return professional view."""
     form = ILLRequestForm(request.form)
