@@ -149,8 +149,21 @@
         "type": "availability",
         "email": "reroilstest+martigny@gmail.com",
         "delay": 0
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+martigny@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "fre"
   },
   "lib2": {
     "$schema": "https://ils.rero.ch/schemas/libraries/library-v0.0.1.json",
@@ -264,8 +277,21 @@
       {
         "type": "recall",
         "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+martigny@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "fre"
   },
   "lib3": {
     "$schema": "https://ils.rero.ch/schemas/libraries/library-v0.0.1.json",
@@ -379,8 +405,21 @@
       {
         "type": "recall",
         "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+martigny@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "fre"
   },
   "lib4": {
     "$schema": "https://ils.rero.ch/schemas/libraries/library-v0.0.1.json",
@@ -499,8 +538,21 @@
       {
         "type": "recall",
         "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+martigny@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "fre"
   },
   "lib5": {
     "$schema": "https://ils.rero.ch/schemas/libraries/library-v0.0.1.json",
@@ -614,8 +666,21 @@
       {
         "type": "recall",
         "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+martigny@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "fre"
   },
   "lib6": {
     "$schema": "https://ils.rero.ch/schemas/libraries/library-v0.0.1.json",
@@ -729,8 +794,21 @@
       {
         "type": "recall",
         "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+martigny@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+martigny@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "fre"
   },
   "loc1": {
     "$schema": "https://ils.rero.ch/schemas/locations/location-v0.0.1.json",

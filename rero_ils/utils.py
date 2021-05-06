@@ -20,6 +20,7 @@
 from copy import deepcopy
 from datetime import datetime
 
+import iso639
 from flask import current_app
 from flask_security.confirmable import confirm_user
 from invenio_accounts.ext import hash_password
@@ -111,3 +112,18 @@ def create_user_from_data(data):
             pass
     data['user_id'] = user_id
     return data
+
+
+def language_iso639_2to1(lang):
+    """Convert a bibliographic language to alpha2.
+
+    :param lang: bibliographic language code
+    :returns: language (alpha2)
+    """
+    default_ln = current_i18n.babel.default_locale.language
+    try:
+        ln = iso639.to_iso639_1(lang)
+    except iso639.NonExistentLanguageError:
+        return default_ln
+    supported_languages = [v[0] for v in current_i18n.get_languages()]
+    return ln if ln in supported_languages else default_ln

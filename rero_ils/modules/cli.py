@@ -37,12 +37,9 @@ from time import sleep
 from uuid import uuid4
 
 import click
-import polib
-import pycountry
 import requests
 import xmltodict
 import yaml
-from babel import Locale, core
 from celery import current_app as current_celery
 from dojson.contrib.marc21.utils import create_record
 from elasticsearch_dsl.query import Q
@@ -1236,141 +1233,6 @@ def get_loc_languages(verbose=False):
                 click.echo(f'{code}: {name}')
             languages[code] = name
     return languages
-
-
-@utils.command('translate')
-@click.argument('translate_to', type=str)
-@click.option('-c', '--change', 'change', is_flag=True, default=False)
-@click.option('-t', '--title_map', 'title_map', is_flag=True, default=False)
-@click.option('-l', '--no_loc_en', 'no_loc_en', is_flag=True, default=True)
-@click.option('-a', '--angular', 'angular', is_flag=True, default=False)
-@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
-def translate(translate_to, change, title_map, no_loc_en, angular, verbose):
-    """Automatic language, country, canton, language scrip translations."""
-    def print_title_map(name, values):
-        """Print out a title map."""
-        if title_map:
-            click.secho(f'Title map {name}:', fg='green')
-            click.echo('"titleMap": [')
-            for value in values:
-                click.echo('\t{')
-                click.echo(f'\t\t"value": "{value}",')
-                click.echo(f'\t\t"name": "{value}"')
-                if value == values[-1]:
-                    click.echo('\t}')
-                else:
-                    click.echo('\t},')
-            click.echo(']')
-
-    def change_po(po, values):
-        """Change values in message po."""
-        for entry in po:
-            if entry.msgid in values:
-                click.echo(
-                    f'Translate: {entry.msgid} -> {values[entry.msgid]}')
-                entry.msgstr = values[entry.msgid]
-                if entry.fuzzy:
-                    entry.flags.remove('fuzzy')
-
-    try:
-        locale = Locale(translate_to)
-
-        click.secho(f'Translate country codes to: {translate_to}', fg='green')
-        document = ('./rero_ils/modules/documents/jsonschemas/'
-                    'documents/document-v0.0.1_src.json')
-
-        if change:
-            file_name = (
-                f'./rero_ils/translations/{translate_to}/LC_MESSAGES/'
-                'messages.po'
-            )
-            # try to open file. polib.pofile is not raising a good error
-            test_file = open(file_name)
-            test_file.close()
-            po = polib.pofile(file_name)
-
-        if no_loc_en and translate_to == 'en':
-            loc_languages = get_loc_languages()
-
-        with open(document, 'r') as opened_file:
-            data = json.load(opened_file)
-
-            definitions = data.get('definitions', {})
-            # languages
-            languages = definitions.get('language', {}).get('enum')
-            print_title_map('language', languages)
-            translated_languages = {}
-            for lang in languages:
-                # get language specification:
-                trans_name = None
-                if no_loc_en and translate_to == 'en':
-                    trans_name = loc_languages.get(lang, None)
-                else:
-                    lang_info = pycountry.languages.get(alpha_3=lang)
-                    if lang_info:
-                        try:
-                            # try to get translated name with alpha_2
-                            trans_name = locale.languages.get(
-                                lang_info.alpha_2
-                            )
-                        except Exception:
-                            # try with alpha_3
-                            trans_name = locale.languages.get(
-                                lang_info.alpha_3
-                            )
-                if trans_name:
-                    translated_languages[lang] = trans_name
-                if verbose and trans_name:
-                    click.echo(f'Language {lang}: {trans_name}')
-            if change:
-                change_po(po, translated_languages)
-
-            # countries
-            countries = definitions.get('country', {}).get('enum')
-            print_title_map('country', countries)
-
-            # language_script
-            language_scripts = definitions.get(
-                'language_script', {}
-            ).get('enum')
-            print_title_map('language_script', language_scripts)
-            # TODO: translation
-
-            # language_script
-            cantons = definitions.get('canton', {}).get('enum')
-            print_title_map('canton', cantons)
-            # TODO: translation
-
-        if angular:
-            click.secho('Add to manual_translation.ts', fg='yellow')
-            click.secho('// Languages translations')
-            for language in languages:
-                click.secho(f"_('{language}')")
-            click.secho(f'Add to i18n/{translate_to}.ts', fg='yellow')
-            file_po = (
-                f'./rero_ils/translations/{translate_to}/LC_MESSAGES/'
-                'messages.po'
-            )
-            # try to open file. polib.pofile is not raising a good error
-            test_file = open(file_po)
-            test_file.close()
-            po_angular = polib.pofile(file_po)
-            for entry in po_angular:
-                if entry.msgid in languages:
-                    trans = entry.msgid
-                    if entry.msgstr:
-                        trans = entry.msgstr
-                    click.secho(f'  "{entry.msgid}": "{trans}",')
-
-        if change:
-            po.save(file_name)
-        count = len(languages),
-        t_count = len(translated_languages)
-        click.echo(f'Languages: {count} translated: {t_count}')
-    except core.UnknownLocaleError as err:
-        click.secho(f'Unknown locale: {translate_to}', fg='red')
-    except FileNotFoundError as err:
-        click.secho(str(err), fg='red')
 
 
 @utils.command('check_pid_dependencies')

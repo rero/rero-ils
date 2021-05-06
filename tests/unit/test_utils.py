@@ -24,7 +24,8 @@ from rero_ils.modules.patron_types.api import PatronType
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.utils import add_years, extracted_data_from_ref, \
     get_endpoint_configuration, get_schema_for_resource, read_json_record
-from rero_ils.utils import get_current_language, unique_list
+from rero_ils.utils import get_current_language, language_iso639_2to1, \
+    unique_list
 
 
 def test_unique_list():
@@ -97,3 +98,13 @@ def test_current_language(app):
     """Test current language."""
     # Just test this function return otherwise than None
     assert get_current_language()
+
+
+def test_language_iso639_2to1(app):
+    """Test convert MARC language code to language."""
+    assert language_iso639_2to1('eng') == 'en'
+    assert language_iso639_2to1('fre') == 'fr'
+    assert language_iso639_2to1('ger') == 'de'
+    assert language_iso639_2to1('ita') == 'it'
+    # default language
+    assert language_iso639_2to1('rus') == 'en'

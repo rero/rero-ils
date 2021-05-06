@@ -113,6 +113,9 @@
           }
         }
       },
+      "communication_language": {
+        "type": "keyword"
+      },
       "_created": {
         "type": "date"
       },

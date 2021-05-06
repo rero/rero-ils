@@ -20,10 +20,8 @@
 from invenio_circulation.proxies import current_circulation
 
 from ..items.api import Item
-from ..items.models import ItemStatus
 from ..loans.api import Loan, LoanState
-from ..locations.api import Location
-from ..notifications.utils import send_notification_to_location
+from ..notifications.api import Notification
 from ..patron_transactions.api import PatronTransaction
 
 
@@ -43,26 +41,38 @@ def enrich_loan_data(sender, json=None, record=None, index=None,
 
 def listener_loan_state_changed(_, initial_loan, loan, trigger):
     """Create notification based on loan state changes."""
+    item_pid = loan.get('item_pid', {}).get('value')
+    # request + recall
     if loan['state'] == LoanState.PENDING:
-        item_pid = loan.get('item_pid', {}).get('value')
-        checkedout_loan_pid = Item.get_loan_pid_with_item_on_loan(item_pid)
-        if checkedout_loan_pid:
-            checked_out_loan = Loan.get_record_by_pid(checkedout_loan_pid)
-            checked_out_loan.create_notification(notification_type='recall')
-        # send notification to location if needed
-        #   Notification should be sent only if the item is on shelf without
-        #   previous pending loan and item location assign 'send_notification'
-        #   to true
         item = Item.get_record_by_pid(item_pid)
-        item_location = Location.get_record_by_pid(item.location_pid)
-        if item_location \
-           and item_location.get('send_notification', False) \
-           and item.status == ItemStatus.ON_SHELF \
-           and item.number_of_requests() == 0:
-            send_notification_to_location(loan, item, item_location)
+        if item.number_of_requests() == 0:
+            # recall the item
+            checkedout_loan_pid = Item.get_loan_pid_with_item_on_loan(item_pid)
+            # is the item on loan
+            if checkedout_loan_pid:
+                checked_out_loan = Loan.get_record_by_pid(checkedout_loan_pid)
+                checked_out_loan.create_notification(
+                    notification_type=Notification.RECALL_NOTIFICATION_TYPE)
+            # request notification
+            loan.create_notification(
+                notification_type=Notification.REQUEST_NOTIFICATION_TYPE)
+    # availability
     elif loan['state'] == LoanState.ITEM_AT_DESK:
-        notification = loan.create_notification(
-            notification_type='availability')
+        loan.create_notification(
+            notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
+    # transit_notice
+    elif loan['state'] == LoanState.ITEM_IN_TRANSIT_TO_HOUSE:
+        item = Item.get_record_by_pid(item_pid)
+        if item.number_of_requests() == 0:
+            loan.create_notification(
+                notification_type=Notification.TRANSIT_NOTICE_NOTIFICATION_TYPE
+            )
+    # booking
+    elif trigger == 'checkin' and loan['state'] in [
+            LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
+            LoanState.ITEM_AT_DESK]:
+        loan.create_notification(
+            notification_type=Notification.BOOKING_NOTIFICATION_TYPE)
 
     # Create fees for checkin or extend operations
     if trigger in ['checkin', 'extend']:

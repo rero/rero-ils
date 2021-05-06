@@ -19,9 +19,6 @@
 from datetime import timezone
 
 import ciso8601
-from flask_security.utils import config_value
-from invenio_mail.api import TemplatedMessage
-from invenio_mail.tasks import send_email
 
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.views import create_title_responsibilites
@@ -78,27 +75,3 @@ def _build_notification_email_context(loan, item, location):
     ctx['loan']['transaction_date'] = \
         trans_date.strftime("%d.%m.%Y - %H:%M:%S")
     return ctx
-
-
-def send_notification_to_location(loan, item, location):
-    """Send a notification to the location defined email.
-
-    :param loan: the loan to be parsed
-    :param item: the requested item
-    :param location: the location to inform
-    """
-    if not location.get('send_notification', False) \
-            or not location.get('notification_email'):
-        return
-    template = 'email/others/location_notification.txt'
-    recipient = location.get('notification_email')
-    msg = TemplatedMessage(
-        template_body=template,
-        sender=config_value('EMAIL_SENDER'),
-        recipients=[recipient],
-        ctx=_build_notification_email_context(loan, item, location)
-    )
-    text = msg.body.split('\n')
-    msg.subject = text[0]
-    msg.body = '\n'.join(text[1:])
-    send_email.run(msg.__dict__)

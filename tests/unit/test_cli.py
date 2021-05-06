@@ -62,7 +62,6 @@ def test_cli_reindex_missing(app, script_info, org_sion_data):
         delete_pid=False,
         dbcommit=True,
     )
-    print(org)
 
     runner = CliRunner()
     res = runner.invoke(

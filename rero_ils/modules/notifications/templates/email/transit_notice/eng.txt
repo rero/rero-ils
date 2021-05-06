@@ -1,0 +1,14 @@
+Transit notice
+Date: {{ creation_date }}
+{% for document in documents %}
+Title: {{ document.title_text }}
+{% if document.item %}
+Barcode: {{ document.item.barcode }}
+{%- if document.item.call_number or document.item.second_call_number %}
+Call number: {% if document.item.call_number %}{{ document.item.call_number }}{% endif %}
+{%- if document.item.call_number and document.item.second_call_number %} / {{ document.item.second_call_number }}{%-endif %}
+{%- endif %}
+{% endif %}
+Origin: {{ transaction.library_name }}
+Destination: {{ document.item.library_name }}: {{ document.item.location_name }}
+{% endfor %}

@@ -54,7 +54,6 @@ dateparser = ">=0.7.0"
 isbnlib = ">=3.9.1"
 requests = ">=2.20.0"
 polib = "*"
-pycountry = ">=19.7.15"
 xmltodict = "*"
 redisbeat = "*"
 jsonpickle = ">=1.4.1"
@@ -83,6 +82,7 @@ jsonmerge = "^1.8.0"
 num2word = "^1.0.1"
 num2words = "^0.5.10"
 Flask = "<2.0.0"
+iso639 = "^0.1.4"
 
 [tool.poetry.dev-dependencies]
 ## Python packages development dependencies (order matters)

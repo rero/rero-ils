@@ -129,8 +129,21 @@
       {
         "type": "recall",
         "email": "reroilstest+aoste1@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+aoste1@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+aoste1@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+aoste1@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "ita"
   },
   {
     "pid": "2",
@@ -253,8 +266,21 @@
       {
         "type": "recall",
         "email": "reroilstest+aoste2@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+aoste2@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+aoste2@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+aoste2@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "ita"
   },
   {
     "pid": "3",
@@ -375,8 +401,21 @@
       {
         "type": "recall",
         "email": "reroilstest+aoste3@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+aoste3@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+aoste3@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+aoste3@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "ita"
   },
   {
     "pid": "4",
@@ -483,8 +522,21 @@
       {
         "type": "overdue",
         "email": "reroilstest+aoste4@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+aoste4@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+aoste4@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+aoste4@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "ita"
   },
   {
     "pid": "5",
@@ -591,22 +643,35 @@
     "notification_settings": [
       {
         "type": "availability",
-        "email": "reroilstest+aoste4@gmail.com",
+        "email": "reroilstest+aoste5@gmail.com",
         "delay": 5
       },
       {
         "type": "due_soon",
-        "email": "reroilstest+aoste4@gmail.com"
+        "email": "reroilstest+aoste5@gmail.com"
       },
       {
         "type": "overdue",
-        "email": "reroilstest+aoste4@gmail.com"
+        "email": "reroilstest+aoste5@gmail.com"
       },
       {
         "type": "recall",
-        "email": "reroilstest+aoste4@gmail.com"
+        "email": "reroilstest+aoste5@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+aoste5@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+aoste5@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+aoste5@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "eng"
   },
   {
     "pid": "6",
@@ -701,8 +766,21 @@
       {
         "type": "recall",
         "email": "reroilstest+jedi@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+jedi@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+jedi@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+jedi@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "eng"
   },
   {
     "pid": "7",
@@ -798,8 +876,21 @@
       {
         "type": "recall",
         "email": "reroilstest+citadelle@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+citadelle@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+citadelle@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+citadelle@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "eng"
   },
   {
     "pid": "8",
@@ -895,8 +986,21 @@
       {
         "type": "recall",
         "email": "reroilstest+beast@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+beast@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+beast@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+beast@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "eng"
   },
   {
     "pid": "9",
@@ -992,8 +1096,21 @@
       {
         "type": "overdue",
         "email": "reroilstest+dream@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+dream@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+dream@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+dream@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "eng"
   },
   {
     "pid": "10",
@@ -1093,8 +1210,21 @@
       {
         "type": "recall",
         "email": "reroilstest+who@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+who@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+who@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+who@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "eng"
   },
   {
     "pid": "11",
@@ -1189,8 +1319,21 @@
       {
         "type": "recall",
         "email": "reroilstest+hog@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+hog@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+hog@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+hog@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "eng"
   },
   {
     "pid": "12",
@@ -1286,8 +1429,21 @@
       {
         "type": "recall",
         "email": "reroilstest+babel@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+babel@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+babel@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+babel@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "fre"
   },
   {
     "pid": "13",
@@ -1383,8 +1539,21 @@
       {
         "type": "recall",
         "email": "reroilstest+rose@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+rose@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+rose@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+rose@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "fre"
   },
   {
     "pid": "14",
@@ -1480,8 +1649,21 @@
       {
         "type": "overdue",
         "email": "reroilstest+uni@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+uni@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+uni@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+uni@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "eng"
   },
   {
     "pid": "15",
@@ -1581,8 +1763,21 @@
       {
         "type": "recall",
         "email": "reroilstest+cemetery@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+cemetery@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+cemetery@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+cemetery@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "eng"
   },
   {
     "pid": "16",
@@ -1677,8 +1872,21 @@
       {
         "type": "recall",
         "email": "reroilstest+truth@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+truth@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+truth@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+truth@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "eng"
   },
   {
     "pid": "17",
@@ -1774,8 +1982,21 @@
       {
         "type": "recall",
         "email": "reroilstest+rive@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+rive@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+rive@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+rive@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "eng"
   },
   {
     "pid": "18",
@@ -1871,8 +2092,21 @@
       {
         "type": "recall",
         "email": "reroilstest+matilda@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+matilda@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+matilda@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+matilda@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "eng"
   },
   {
     "pid": "19",
@@ -1968,8 +2202,21 @@
       {
         "type": "overdue",
         "email": "reroilstest+unseen@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+unseen@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+unseen@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+unseen@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "eng"
   },
   {
     "pid": "20",
@@ -2069,8 +2316,21 @@
       {
         "type": "recall",
         "email": "reroilstest+wan@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+wan@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+wan@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+wan@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "eng"
   },
   {
     "pid": "21",
@@ -2162,8 +2422,21 @@
       {
         "type": "recall",
         "email": "reroilstest+buffy@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+buffy@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+buffy@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+buffy@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "eng"
   },
   {
     "pid": "22",
@@ -2254,8 +2527,21 @@
       {
         "type": "overdue",
         "email": "reroilstest+cypress1@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+cypress1@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+cypress1@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+cypress1@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "eng"
   },
   {
     "pid": "23",
@@ -2355,7 +2641,20 @@
       {
         "type": "recall",
         "email": "reroilstest+cypress2@gmail.com"
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+cypress2@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+cypress2@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+cypress2@gmail.com"
       }
-    ]
+    ],
+    "communication_language": "eng"
   }
 ]

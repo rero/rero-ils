@@ -73,7 +73,6 @@ def test_circ_policy_search(app, circulation_policies):
         }
     ]
     for row in data:
-        print(row)
         cipo = CircPolicy.provide_circ_policy(
             row['organisation_pid'],
             row['library_pid'],
