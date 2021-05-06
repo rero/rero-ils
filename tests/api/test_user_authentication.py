@@ -19,6 +19,7 @@
 import re
 
 from flask import url_for
+from flask_babelex import gettext
 from flask_security.recoverable import send_password_reset_notice
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
@@ -39,7 +40,7 @@ def test_login(client, patron_sion):
     assert res.status_code == 400
     data = get_json(res)
     assert data['errors'][0] == dict(
-        field='email', message='USER_DOES_NOT_EXIST')
+        field='email', message=gettext('USER_DOES_NOT_EXIST'))
 
     # wrong password
     res, _ = postdata(
