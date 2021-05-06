@@ -21,15 +21,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-05-05 07:06+0200\n"
-"PO-Revision-Date: 2021-05-05 04:51+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2021-05-05 06:36+0000\n"
+"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/fr/>\n"
 "Language: fr\n"
-"Language-Team: French <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.7-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:134
@@ -5005,7 +5006,7 @@ msgstr "Niveau d'encodage"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:32
 msgid "Indicator of the fullness of the bibliographic information"
-msgstr ""
+msgstr "Indicateur de la complétude des données bibliographiques"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:51
 msgid "Full level"
@@ -5017,7 +5018,7 @@ msgstr "Niveau complet, matériel non examiné"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:59
 msgid "Less-than-full level, material not examined"
-msgstr ""
+msgstr "Niveau non complet, matériel non examiné"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:63
 msgid "Abbreviated level"
@@ -5025,11 +5026,11 @@ msgstr "Niveau abrégé"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:67
 msgid "Core leve"
-msgstr ""
+msgstr "Niveau de base"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:71
 msgid "Partial (preliminary) level"
-msgstr ""
+msgstr "Niveau partiel (préliminaire)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:75
 msgid "Minimal level"
@@ -5064,7 +5065,7 @@ msgstr "Source"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:98
 msgid "Original cataloging agency"
-msgstr ""
+msgstr "Agence de catalogage d'origine"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:108
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:113
@@ -5150,7 +5151,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:306
 msgid "classification_musicale_instruments"
-msgstr ""
+msgstr "Classification des instruments de musique"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:325
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:407
@@ -5175,7 +5176,7 @@ msgstr "Subdivisions"
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:338
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:420
 msgid "Subdivision"
-msgstr ""
+msgstr "Sous-division"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:344
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:426
@@ -5206,7 +5207,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:360
 msgid "classification_musicale_genres"
-msgstr ""
+msgstr "Classification des genres musicaux"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_color_content-v0.0.1.json:3
 msgid "Color contents"
@@ -5540,7 +5541,7 @@ msgstr "vidéodisque"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:711
 msgid "unspecified"
-msgstr ""
+msgstr "non spécifié"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:726
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:81
@@ -6411,6 +6412,9 @@ msgid ""
 "Note used for agents not named in the statement of responsibility, or for"
 " other information about the statement of responsibility (MARC 508, 511)."
 msgstr ""
+"Note utilisée pour les agents non nommés dans la mention de responsabilité, "
+"ou pour d'autres informations concernant la mention de responsabilité (MARC "
+"508, 511)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_credits-v0.0.1.json:8
 msgid "Note on statement of responsibility"
@@ -6418,7 +6422,7 @@ msgstr "Note sur une mention de responsabilité"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_credits-v0.0.1.json:11
 msgid "Example: Additional collaborators: Bernard Levrat, Eric Wehrli"
-msgstr ""
+msgstr "Exemple : Collaborateurs supplémentaires : Bernard Levrat, Eric Wehrli"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dimensions-v0.0.1.json:3
 #: rero_ils/modules/documents/jsonschemas/documents/document_dimensions-v0.0.1.json:8
@@ -6592,7 +6596,7 @@ msgstr "Lien du document"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:197
 msgid "Example: https://ils.rero.ch/api/documents/66"
-msgstr ""
+msgstr "Exemple : https://ils.rero.ch/api/documents/66"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_duration-v0.0.1.json:3
 msgid "Durations"
@@ -6858,6 +6862,9 @@ msgid ""
 "integrating resource is issued. For former frequencies, repeat the field "
 "and specify dates (MARC 310, 321)."
 msgstr ""
+"Intervalle de parution d'un fascicule, d'une partie d'une publication en "
+"série, ou de la mise à jour d'une ressource intégratrice. Pour les anciennes "
+"périodicités, répéter le champ et préciser les dates (MARC 310, 321)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:8
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:204
@@ -6866,11 +6873,11 @@ msgstr "Fréquence"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:24
 msgid "RDA recommended terms: monthly, weekly, daily, ..."
-msgstr ""
+msgstr "Termes recommandés par RDA : mensuel, hebdomadaire, quotidien…"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:29
 msgid "Required if a former frequency is indicated"
-msgstr ""
+msgstr "Obligatoire si une ancienne périodicité est indiquée"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:33
 msgid "Example: 1953-1988"
@@ -12584,4 +12591,3 @@ msgstr "Votre mot de passe a bien été modifié."
 
 #~ msgid "Source in case of a local identifier"
 #~ msgstr ""
-
