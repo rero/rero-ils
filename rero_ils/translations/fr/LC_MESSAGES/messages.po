@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-05-05 07:06+0200\n"
-"PO-Revision-Date: 2021-05-05 06:36+0000\n"
-"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"PO-Revision-Date: 2021-05-05 13:55+0000\n"
+"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
 "Language: fr\n"
@@ -4821,7 +4821,7 @@ msgstr ""
 
 #: rero_ils/modules/contributions/views.py:171
 msgid "{prefix}{item}"
-msgstr ""
+msgstr "{prefix}{item}"
 
 #: rero_ils/modules/contributions/views.py:175
 msgid "{prefix}{data}"
@@ -6881,7 +6881,7 @@ msgstr "Obligatoire si une ancienne périodicité est indiquée"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:33
 msgid "Example: 1953-1988"
-msgstr ""
+msgstr "Exemple : 1953-1988"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:3
 msgid "Genres, forms"
@@ -6890,7 +6890,7 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:4
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:4
 msgid "(MARC 655)"
-msgstr ""
+msgstr "(MARC 655)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:9
 msgid "Genre, form"
@@ -6903,7 +6903,7 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:23
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:78
 msgid "Concept"
-msgstr ""
+msgstr "Concept"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:39
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:173
@@ -6912,7 +6912,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:55
 msgid "Source of the subject, for instance rero."
-msgstr ""
+msgstr "Source du sujet, par exemple rero."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:70
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:195
@@ -6943,6 +6943,8 @@ msgid ""
 "Other identifier types are entered as local identifiers with indication "
 "of the source."
 msgstr ""
+"D'autres types d'identifiants sont encodés comme identifiants locaux avec "
+"l'indication de la source."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:56
 msgid "bf:AudioIssueNumber"
@@ -7048,17 +7050,19 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:180
 msgid "Example: volume 1"
-msgstr ""
+msgstr "Exemple : volume 1"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:189
 msgid ""
 "The source is entered only for local identifiers, it indicates the system"
 " or agency responsible for the identifier."
 msgstr ""
+"La source est encodée seulement pour les identifiants locaux, elle indique "
+"le système ou agence responsable de l'identifiant."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:193
 msgid "Examples: LCCN, PMID, DNB"
-msgstr ""
+msgstr "Exemples : LCCN, PMID, DNB"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:201
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:42
@@ -7092,15 +7096,15 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:3
 msgid "Intended audiences"
-msgstr ""
+msgstr "Publics visés"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:4
 msgid "(MARC 521)"
-msgstr ""
+msgstr "(MARC 521)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:8
 msgid "Intended audience"
-msgstr ""
+msgstr "Public visé"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:12
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:24
@@ -7113,7 +7117,7 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:407
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:32
 msgid "value"
-msgstr ""
+msgstr "valeur"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:74
 msgid "target_understanding_children"
