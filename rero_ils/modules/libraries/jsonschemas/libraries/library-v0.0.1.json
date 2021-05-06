@@ -9,7 +9,8 @@
     "code",
     "pid",
     "name",
-    "organisation"
+    "organisation",
+    "communication_language"
   ],
   "definitions": {
     "default_notification_setting": {
@@ -23,8 +24,11 @@
           "type": "string",
           "enum": [
             "due_soon",
+            "overdue",
             "recall",
-            "overdue"
+            "transit_notice",
+            "request",
+            "booking"
           ]
         },
         "email": {
@@ -329,6 +333,37 @@
           },
           {
             "$ref": "#/definitions/availability_notification_setting"
+          }
+        ]
+      }
+    },
+    "communication_language": {
+      "title": "Communication language",
+      "type": "string",
+      "enum": [
+        "ger",
+        "eng",
+        "fre",
+        "ita"
+      ],
+      "form": {
+        "type": "selectWithSort",
+        "options": [
+          {
+            "label": "lang_fre",
+            "value": "fre"
+          },
+          {
+            "label": "lang_eng",
+            "value": "eng"
+          },
+          {
+            "label": "lang_ger",
+            "value": "ger"
+          },
+          {
+            "label": "lang_ita",
+            "value": "ita"
           }
         ]
       }

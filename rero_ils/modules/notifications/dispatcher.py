@@ -19,13 +19,16 @@
 
 from __future__ import absolute_import, print_function
 
-import pycountry
 from flask import current_app
 from invenio_mail.api import TemplatedMessage
 from invenio_mail.tasks import send_email as task_send_email
 from num2words import num2words
 
-from ..libraries.api import email_notification_type
+from ..libraries.api import Library, email_notification_type
+from ..locations.api import Location
+from ..notifications.api import Notification
+from ...filter import format_date_filter
+from ...utils import language_iso639_2to1
 
 
 class Dispatcher:
@@ -43,6 +46,7 @@ class Dispatcher:
         """
         from .api import Notification, get_communication_channel_to_use, \
             get_template_to_use
+        from ..loans.api import LoanState
 
         def not_yet_implemented(*args):
             """Do nothing placeholder for a notification."""
@@ -55,6 +59,7 @@ class Dispatcher:
             count += 1
             notification = Notification.get_record_by_pid(notification_pid)
             if notification:
+                notification_type = notification['notification_type']
                 process_date = notification.get('process_date')
                 if process_date:
                     current_app.logger.warning(
@@ -82,28 +87,45 @@ class Dispatcher:
                 )
                 reminder_counter = data.get('reminder_counter', 0)
                 reminder = reminder_counter + 1
-                communication_lang = patron['patron']["communication_language"]
-                try:
-                    language = pycountry.languages.get(
-                        bibliographic=communication_lang)
-                    reminder = num2words(
-                        reminder,
-                        to='ordinal_num',
-                        lang=language.alpha_2
-                    )
-                except Exception:
-                    pass
+                if notification_type in [
+                    Notification.BOOKING_NOTIFICATION_TYPE,
+                    Notification.REQUEST_NOTIFICATION_TYPE,
+                    Notification.TRANSIT_NOTICE_NOTIFICATION_TYPE
+                ]:
+                    # Library notification
+                    communication_lang =\
+                        data['loan']['library']['communication_language']
+                else:
+                    # Patron notification
+                    communication_lang =\
+                        patron['patron']["communication_language"]
+
+                language = language_iso639_2to1(communication_lang)
+                reminder = num2words(
+                    reminder,
+                    to='ordinal',
+                    lang=language
+                )
                 if dispatcher_function == not_yet_implemented:
                     current_app.logger.warning(
                         'The communication channel of the patron'
                         f' (pid: {patron["pid"]}) is not yet implemented')
                 # loan = Loan.get_record_by_pid(loan['pid'])
-                notification_type = notification['notification_type']
                 tpl_path = get_template_to_use(
                     loan, notification_type, reminder_counter).rstrip('/')
                 template = f'{tpl_path}/{communication_lang}.txt'
                 # Add all information used in the templates here:
                 ctx_data = {
+                    'notification_type': notification_type,
+                    'creation_date': format_date_filter(
+                        notification.get('creation_date'),
+                        date_format='medium',
+                        locale=language
+                    ),
+                    'in_transit': loan['state'] in [
+                        LoanState.ITEM_IN_TRANSIT_TO_HOUSE,
+                        LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
+                    ],
                     'template': template,
                     'profile_url': loan['profile_url'],
                     'patron': patron,
@@ -114,14 +136,24 @@ class Dispatcher:
                         'email': loan['library'].get('email'),
                         'name': loan['library']['name'],
                         'address': loan['library']['address'],
-                        'notification_settings': loan['library'][
-                            'notification_settings']
+                        'notification_settings': loan['library'].get(
+                            'notification_settings', [])
                     },
                     'pickup_name': loan['pickup_name'],
                     'documents': [],
                     'notifications': []
                 }
-
+                transaction_location = loan.get('transaction_location')
+                if transaction_location:
+                    ctx_data['transaction'] = {
+                        'location_name': transaction_location['name']
+                    }
+                    library_pid = transaction_location.get('library', {})\
+                        .get('pid')
+                    if library_pid:
+                        library = Library.get_record_by_pid(library_pid)
+                        ctx_data['transaction']['library_name'] =\
+                            library.get('name')
                 # aggregate notifications
                 n_type = notification_type
                 l_pid = loan['library']['pid']
@@ -138,6 +170,31 @@ class Dispatcher:
                 end_date = loan.get('end_date')
                 if end_date:
                     documents_data['end_date'] = end_date
+                # Add item to document
+                item = loan.get('item')
+                if item:
+                    documents_data['item'] = {
+                        'barcode': loan['item']['barcode']
+                    }
+                    call_number = item.get('call_number')
+                    if call_number:
+                        documents_data['item']['call_number'] = call_number
+                    second_call_number = item.get('second_call_number')
+                    if second_call_number:
+                        documents_data['item']['second_call_number'] = \
+                            second_call_number
+                    location = item.get('location')
+                    if location:
+                        loc = Location.get_record_by_pid(location.get('pid'))
+                        email = loc.get('notification_email')
+                        if email:
+                            ctx_data['location_email'] = email
+                        documents_data['item']['location_name'] =\
+                            loc.get('name')
+                        library = loc.get_library()
+                        documents_data['item']['library_name'] =\
+                            library.get('name')
+
                 aggregated[n_type][l_pid][p_pid]['documents'].append(
                     documents_data
                 )
@@ -195,8 +252,16 @@ class Dispatcher:
 
         :param ctx_data: Dictionary with informations used in template.
         """
-        # get the recipient email from the library
-        notification_email = ctx_data['library'].get('notification_email')
+        library_email = ctx_data['library'].get('notification_email')
+        if ctx_data['notification_type'] == \
+                Notification.REQUEST_NOTIFICATION_TYPE:
+            # For the request type, we search the email address
+            # on the location and then on the library
+            email = ctx_data.get('location_email')
+            notification_email = email if email else library_email
+        else:
+            # get the recipient email from the library
+            notification_email = library_email
         error_reason = ''
         if not notification_email:
             error_reason = '(Missing notification email)'
@@ -249,7 +314,7 @@ class Dispatcher:
         delay_availability = 0
         # get notification settings for notification type
         for setting in ctx_data['library']['notification_settings']:
-            if setting['type'] == 'availability':
+            if setting['type'] == Notification.AVAILABILITY_NOTIFICATION_TYPE:
                 delay_availability = setting.get('delay', 0)
         msg = Dispatcher._create_email(
             recipients=recipients,

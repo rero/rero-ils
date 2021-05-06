@@ -72,15 +72,38 @@ class NotificationsSearch(IlsRecordsSearch):
 class Notification(IlsRecord):
     """Notifications class."""
 
+    # when a new request is done on a loaned item
     RECALL_NOTIFICATION_TYPE = 'recall'
+
+    # when a requested item arrive at desk
     AVAILABILITY_NOTIFICATION_TYPE = 'availability'
+
+    # when the loaned item is about to expire
+    # done by a recurrent task
     DUE_SOON_NOTIFICATION_TYPE = 'due_soon'
+
+    # when the loaned item is expired
+    # done by a recurrent task
     OVERDUE_NOTIFICATION_TYPE = 'overdue'
+
+    # when an item is sent to the owning location/library
+    TRANSIT_NOTICE_NOTIFICATION_TYPE = 'transit_notice'
+
+    # when the item is at desk and a request occurs
+    # can have a delay
+    REQUEST_NOTIFICATION_TYPE = 'request'
+
+    # when the item is checked in an have a request
+    BOOKING_NOTIFICATION_TYPE = 'booking'
+
     ALL_NOTIFICATIONS = [
         AVAILABILITY_NOTIFICATION_TYPE,
         DUE_SOON_NOTIFICATION_TYPE,
         OVERDUE_NOTIFICATION_TYPE,
-        RECALL_NOTIFICATION_TYPE
+        RECALL_NOTIFICATION_TYPE,
+        TRANSIT_NOTICE_NOTIFICATION_TYPE,
+        REQUEST_NOTIFICATION_TYPE,
+        BOOKING_NOTIFICATION_TYPE
     ]
 
     minter = notification_id_minter
@@ -356,9 +379,14 @@ def get_communication_channel_to_use(loan, notification_data, patron):
     from ..loans.utils import get_circ_policy
     communication_channel = 'patron_setting'
 
+    notification_type = notification_data.get('notification_type')
+    if notification_type in [Notification.TRANSIT_NOTICE_NOTIFICATION_TYPE,
+                             Notification.BOOKING_NOTIFICATION_TYPE,
+                             Notification.REQUEST_NOTIFICATION_TYPE]:
+        return 'mail'
+
     # 'overdue' and 'due_soon' notification type could define a communication
     # channel that can override the patron setting.
-    notification_type = notification_data.get('notification_type')
     if notification_type in [Notification.OVERDUE_NOTIFICATION_TYPE,
                              Notification.DUE_SOON_NOTIFICATION_TYPE]:
         cipo = get_circ_policy(loan)
@@ -394,7 +422,10 @@ def get_template_to_use(loan, notification_type, reminder_counter):
     #        get the correct template.
     static_template_mapping = {
         Notification.RECALL_NOTIFICATION_TYPE: 'email/recall',
-        Notification.AVAILABILITY_NOTIFICATION_TYPE: 'email/availability'
+        Notification.AVAILABILITY_NOTIFICATION_TYPE: 'email/availability',
+        Notification.TRANSIT_NOTICE_NOTIFICATION_TYPE: 'email/transit_notice',
+        Notification.BOOKING_NOTIFICATION_TYPE: 'email/booking',
+        Notification.REQUEST_NOTIFICATION_TYPE: 'email/request'
     }
     if notification_type in static_template_mapping:
         return static_template_mapping[notification_type]

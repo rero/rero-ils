@@ -31,7 +31,6 @@ def test_operation_log_entries(client, librarian_martigny, document):
         librarian_martigny
     ):
         login_user_via_session(client, librarian_martigny.user)
-        print('_start_here')
         document.update(
             document, dbcommit=True, reindex=True)
     search = OperationLogsSearch()

@@ -69,7 +69,7 @@ def create_notifications(types=None, tstamp=None, verbose=True):
         notification_counter[due_soon_type] = 0
         logger.debug("DUE_SOON_NOTIFICATION_TYPE --------------")
         for loan in get_due_soon_loans(tstamp=tstamp):
-            logger.debug(f'* Loan#{loan.pid} is considerate as \'due_soon\'')
+            logger.debug(f"* Loan#{loan.pid} is considerate as 'due_soon'")
             notification = loan.create_notification(
                 notification_type=due_soon_type)
             notification_counter[due_soon_type] += 1
@@ -80,7 +80,7 @@ def create_notifications(types=None, tstamp=None, verbose=True):
         overdue_type = Notification.OVERDUE_NOTIFICATION_TYPE
         notification_counter[overdue_type] = 0
         for loan in get_overdue_loans(tstamp=tstamp):
-            logger.debug(f'* Loan#{loan.pid} is considerate as \'overdue\'')
+            logger.debug(f"* Loan#{loan.pid} is considerate as 'overdue'")
             # For each overdue loan, we need to get the 'overdue' reminders
             # to should be sent from the due_date and the current used date.
             loan_library = Library.get_record_by_pid(loan.library_pid)

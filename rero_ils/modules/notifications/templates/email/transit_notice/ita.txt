@@ -1,0 +1,14 @@
+Avviso di transito
+Data: {{ creation_date }}
+{% for document in documents %}
+Titolo: {{ document.title_text }}
+{% if document.item %}
+Codice a barre: {{ document.item.barcode }}
+{%- if document.item.call_number or document.item.second_call_number %}
+Segnatura: {% if document.item.call_number %}{{ document.item.call_number }}{% endif %}
+{%- if document.item.call_number and document.item.second_call_number %} / {{ document.item.second_call_number }}{%-endif %}
+{%- endif %}
+{% endif %}
+Origine: {{ transaction.library_name }}
+Destinazione: {{ document.item.library_name }}: {{ document.item.location_name }}
+{% endfor %}

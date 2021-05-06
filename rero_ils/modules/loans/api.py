@@ -39,6 +39,7 @@ from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE, \
 
 from ..api import IlsRecord, IlsRecordError, IlsRecordsIndexer, \
     IlsRecordsSearch
+from ..circ_policies.api import CircPolicy
 from ..errors import NoCirculationActionIsPermitted
 from ..items.models import ItemStatus
 from ..items.utils import item_pid_to_object
@@ -46,6 +47,7 @@ from ..libraries.api import Library
 from ..locations.api import Location
 from ..notifications.api import Notification, NotificationsSearch, \
     number_of_reminders_sent
+from ..notifications.dispatcher import Dispatcher
 from ..patron_transactions.api import PatronTransactionsSearch
 from ..patrons.api import Patron
 from ..utils import date_string_to_utc, get_ref_for_pid
@@ -562,34 +564,69 @@ class Loan(IlsRecord):
 
         :param notification_type: the notification type to create.
         :param counter: the reminder counter to use (for OVERDUE notification)
+        :return: notification
         """
         from .utils import get_circ_policy
-        if (self.get('state') == LoanState.ITEM_ON_LOAN or
-            notification_type == Notification.AVAILABILITY_NOTIFICATION_TYPE) \
-           and not self.is_notified(notification_type, counter):
+        notif_type = notification_type
+        # notification data
+        record = {
+                'creation_date': datetime.now(timezone.utc).isoformat(),
+                'notification_type': notif_type,
+                'loan': {
+                    '$ref': get_ref_for_pid('loans', self.pid)
+                }
+            }
+        loan_state = self.get('state')
+        # overdue + due_soon
+        if notif_type in [
+                Notification.OVERDUE_NOTIFICATION_TYPE,
+                Notification.DUE_SOON_NOTIFICATION_TYPE] \
+                and not self.is_notified(notif_type, counter):
 
             # We only need to create a notification if a corresponding reminder
             # exists into the linked cipo.
             reminder_type = DUE_SOON_REMINDER_TYPE
-            if notification_type != Notification.DUE_SOON_NOTIFICATION_TYPE:
+            if notif_type != Notification.DUE_SOON_NOTIFICATION_TYPE:
                 reminder_type = OVERDUE_REMINDER_TYPE
             cipo = get_circ_policy(self)
             reminder = cipo.get_reminder(reminder_type, counter)
             if reminder is None:
                 return
+            record['reminder_counter'] = counter
+            # create the notification and enqueue it.
+            return self._send_notification(record)
 
-            # create the notification and enqueue it if needed.
-            record = {
-                'creation_date': datetime.now(timezone.utc).isoformat(),
-                'notification_type': notification_type,
-                'loan': {
-                    '$ref': get_ref_for_pid('loans', self.pid)
-                },
-                'reminder_counter': counter
-            }
-            notification = Notification.create(
-                data=record, dbcommit=True, reindex=True)
-            return notification
+        # recall + availibility
+        if notif_type in [
+                Notification.RECALL_NOTIFICATION_TYPE,
+                Notification.AVAILABILITY_NOTIFICATION_TYPE]:
+            return self._send_notification(record)
+
+        if notif_type in [
+            # transit_notice
+            Notification.TRANSIT_NOTICE_NOTIFICATION_TYPE,
+            # booking
+            Notification.BOOKING_NOTIFICATION_TYPE,
+            # request
+            Notification.REQUEST_NOTIFICATION_TYPE
+        ]:
+            return self._send_notification(record, True)
+
+    def _send_notification(self, record, dispatch=False):
+        """Create and send notification.
+
+        :param record: dict, notification data.
+        :param dispatch: if True send the notification to the dispatcher.
+        :return: notification
+        """
+        notification = Notification.create(
+            data=record, dbcommit=True, reindex=True)
+        if dispatch:
+            # dispatch the notification
+            Dispatcher.dispatch_notifications(
+                notification_pids=[notification.get('pid')]
+            )
+        return notification
 
     @classmethod
     def concluded(cls, loan):

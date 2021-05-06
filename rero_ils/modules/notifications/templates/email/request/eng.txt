@@ -1,0 +1,17 @@
+Request{%- if in_transit %} (with transit){%- endif %}
+Date: {{ creation_date }}
+{% for document in documents %}
+Title: {{ document.title_text }} / {{ document.responsibility_statement }}
+{% if document.item %}
+Barcode: {{ document.item.barcode }}
+Location: {{ document.item.library_name }} / {{ document.item.location_name }}
+{%- if document.item.call_number or document.item.second_call_number %}
+Call number: {% if document.item.call_number %}{{ document.item.call_number }}{% endif %}
+{%- if document.item.call_number and document.item.second_call_number %} / {{ document.item.second_call_number }}{%-endif %}
+{%- endif %}
+{% endif %}
+Pick up location: {{ pickup_name }}
+Patron: {{ patron.first_name }} {{ patron.last_name }}
+{%- if patron.patron.barcode %} - {% for barcode in patron.patron.barcode %}{{ ', ' if not loop.last else '' }}{{ barcode }}{% endfor %}
+{%- endif %}
+{% endfor %}

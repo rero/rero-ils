@@ -60,7 +60,10 @@
         "due_soon",
         "overdue",
         "availability",
-        "recall"
+        "recall",
+        "transit_notice",
+        "request",
+        "booking"
       ],
       "form": {
         "type": "selectWithSort",
@@ -80,6 +83,18 @@
           {
             "label": "recall",
             "value": "recall"
+          },
+          {
+            "label": "transit_notice",
+            "value": "transit_notice"
+          },
+          {
+            "label": "request",
+            "value": "request"
+          },
+          {
+            "label": "booking",
+            "value": "booking"
           }
         ]
       }

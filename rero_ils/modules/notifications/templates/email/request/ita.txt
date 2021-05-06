@@ -1,0 +1,17 @@
+Richiesta{%- if in_transit %} (con transito){%- endif %}
+Data: {{ creation_date }}
+{% for document in documents %}
+Titolo: {{ document.title_text }} / {{ document.responsibility_statement }}
+{% if document.item %}
+Codice a barre: {{ document.item.barcode }}
+Localizzazione: {{ document.item.library_name }} / {{ document.item.location_name }}
+{%- if document.item.call_number or document.item.second_call_number %}
+Segnatura: {% if document.item.call_number %}{{ document.item.call_number }}{% endif %}
+{%- if document.item.call_number and document.item.second_call_number %} / {{ document.item.second_call_number }}{%-endif %}
+{%- endif %}
+{% endif %}
+Punto di ritiro: {{ pickup_name }}
+Lettore: {{ patron.first_name }} {{ patron.last_name }}
+{%- if patron.patron.barcode %} - {% for barcode in patron.patron.barcode %}{{ ', ' if not loop.last else '' }}{{ barcode }}{% endfor %}
+{%- endif %}
+{% endfor %}

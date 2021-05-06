@@ -371,7 +371,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                 reindex=True
             )
             notification = loan.create_notification(
-                notification_type='due_soon')
+                notification_type=Notification.DUE_SOON_NOTIFICATION_TYPE)
             if notification:
                 notification_pids.append(notification['pid'])
 
@@ -383,7 +383,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                 reindex=True
             )
             notification = loan.create_notification(
-                notification_type='overdue')
+                notification_type=Notification.OVERDUE_NOTIFICATION_TYPE)
             if notification:
                 notification_pids.append(notification['pid'])
 
@@ -396,7 +396,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                 reindex=True
             )
             notification = loan.create_notification(
-                notification_type='due_soon')
+                notification_type=Notification.DUE_SOON_NOTIFICATION_TYPE)
             if notification:
                 notification_pids.append(notification['pid'])
 
@@ -408,7 +408,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                 reindex=True
             )
             notification = notif = loan.create_notification(
-                notification_type='overdue')
+                notification_type=Notification.OVERDUE_NOTIFICATION_TYPE)
             if notification:
                 notification_pids.append(notification['pid'])
             patron_transaction = next(notif.patron_transactions)
@@ -457,7 +457,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                     document_pid=extracted_data_from_ref(item.get('document')),
                 )
                 notification = loan.create_notification(
-                    notification_type='recall')
+                    notification_type=Notification.RECALL_NOTIFICATION_TYPE)
                 if notification:
                     notification_pids.append(notification['pid'])
         Dispatcher.dispatch_notifications(notification_pids, verbose=verbose)
