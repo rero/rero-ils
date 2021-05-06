@@ -19,15 +19,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-05-05 07:06+0200\n"
-"PO-Revision-Date: 2021-05-05 04:51+0000\n"
+"PO-Revision-Date: 2021-05-06 05:13+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/it/>\n"
 "Language: it\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/it/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.7-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:134
@@ -6834,65 +6835,68 @@ msgid ""
 "integrating resource is issued. For former frequencies, repeat the field "
 "and specify dates (MARC 310, 321)."
 msgstr ""
+"Cadenza con cui sono pubblicati i fascicoli o parti di un seriale o gli "
+"aggiornamenti di una risorsa integrativa. Per le periodicità precedente, "
+"ripetere il campo e specificare le date (MARC 310, 321)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:8
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:204
 msgid "Frequency"
-msgstr "Frequenza"
+msgstr "Periodicità"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:24
 msgid "RDA recommended terms: monthly, weekly, daily, ..."
-msgstr ""
+msgstr "Termini raccomandati da RDA: mensile, settimanale, quotidiano, ..."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:29
 msgid "Required if a former frequency is indicated"
-msgstr ""
+msgstr "Richiesto se è indicata una periodicità precedente"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:33
 msgid "Example: 1953-1988"
-msgstr ""
+msgstr "Esempio: 1953-1988"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:3
 msgid "Genres, forms"
-msgstr ""
+msgstr "Generi, forme"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:4
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:4
 msgid "(MARC 655)"
-msgstr ""
+msgstr "(MARC 655)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:9
 msgid "Genre, form"
-msgstr ""
+msgstr "Genere, forma"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:12
 msgid "Link to concept entity"
-msgstr ""
+msgstr "Link ad un concetto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:23
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:78
 msgid "Concept"
-msgstr ""
+msgstr "Concetto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:39
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:173
 msgid "Concept (local)"
-msgstr ""
+msgstr "Concetto (locale)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:55
 msgid "Source of the subject, for instance rero."
-msgstr ""
+msgstr "Fonte del soggetto, per esempio rero."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:70
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:195
 msgid "bf:Topic"
-msgstr ""
+msgstr "Concetto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:77
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:207
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:305
 msgid "Term"
-msgstr ""
+msgstr "Termine"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:114
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:18
@@ -7061,20 +7065,20 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:3
 msgid "Intended audiences"
-msgstr ""
+msgstr "Destinatari presunti"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:4
 msgid "(MARC 521)"
-msgstr ""
+msgstr "(MARC 521)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:8
 msgid "Intended audience"
-msgstr ""
+msgstr "Destinatari presunti"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:12
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:24
 msgid "understanding_level"
-msgstr ""
+msgstr "Livello di lettura/comprensione"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:38
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:212
@@ -7082,213 +7086,213 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:407
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:32
 msgid "value"
-msgstr ""
+msgstr "valore"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:74
 msgid "target_understanding_children"
-msgstr ""
+msgstr "Bambini"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:78
 msgid "target_understanding_children_0_3"
-msgstr ""
+msgstr "Bambini (0-3 anni)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:82
 msgid "target_understanding_children_3_6"
-msgstr ""
+msgstr "Bambini (3-6 anni)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:86
 msgid "target_understanding_children_6_9"
-msgstr ""
+msgstr "Bambini (6-9 anni)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:90
 msgid "target_understanding_children_9_12"
-msgstr ""
+msgstr "Bambini (9-12 anni)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:94
 msgid "target_understanding_teenagers"
-msgstr ""
+msgstr "Adolescenti"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:98
 msgid "target_understanding_teenagers_12_15"
-msgstr ""
+msgstr "Adolescenti (12-15 anni)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:102
 msgid "target_understanding_teenagers_15_18"
-msgstr ""
+msgstr "Adolescenti (15-18 anni)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:106
 msgid "target_understanding_secondary_level_2"
-msgstr ""
+msgstr "Livello secondario 2"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:110
 msgid "target_understanding_tertiary"
-msgstr ""
+msgstr "Terziario"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:114
 msgid "target_understanding_apprentices"
-msgstr ""
+msgstr "Apprendisti"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:118
 msgid "target_understanding_bachelor_students"
-msgstr ""
+msgstr "Studenti a livello di Bachelor"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:122
 msgid "target_understanding_master_students"
-msgstr ""
+msgstr "Studenti a livello di Master"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:126
 msgid "target_understanding_doctoral_students"
-msgstr ""
+msgstr "Dottorandi"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:130
 msgid "target_understanding_beginners"
-msgstr ""
+msgstr "Principianti"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:134
 msgid "target_understanding_intermediaries"
-msgstr ""
+msgstr "Intermediari"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:138
 msgid "target_understanding_advanced"
-msgstr ""
+msgstr "Avanzati"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:142
 msgid "target_understanding_specialists"
-msgstr ""
+msgstr "Specialisti"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:146
 msgid "target_understanding_adults"
-msgstr ""
+msgstr "Adulti"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:150
 msgid "target_understanding_allophone_adults"
-msgstr ""
+msgstr "Allophone adulti"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:154
 msgid "target_understanding_all_audience"
-msgstr ""
+msgstr "Tutti gli spettatori"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:158
 msgid "target_understanding_teachers_harmos_degree"
-msgstr ""
+msgstr "Insegnanti (laurea Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:162
 msgid "target_understanding_teachers_secondary_level_2"
-msgstr ""
+msgstr "Insegnanti Livello secondario 2"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:166
 msgid "target_understanding_hep_trainers"
-msgstr ""
+msgstr "Formatori HEP"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:170
 msgid "target_understanding_parents"
-msgstr ""
+msgstr "Genitori"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:174
 msgid "target_understanding_caregivers"
-msgstr ""
+msgstr "Badanti"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:186
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:198
 msgid "school_level"
-msgstr ""
+msgstr "Livelli di istruzione"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:236
 msgid "target_school_harmos1"
-msgstr ""
+msgstr "4-5 anni (1° Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:240
 msgid "target_school_harmos2"
-msgstr ""
+msgstr "5-6 anni (2° Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:244
 msgid "target_school_harmos3"
-msgstr ""
+msgstr "6-7 anni (3° Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:248
 msgid "target_school_harmos4"
-msgstr ""
+msgstr "7-8 anni (4° Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:252
 msgid "target_school_harmos5"
-msgstr ""
+msgstr "8-9 anni (5° Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:256
 msgid "target_school_harmos6"
-msgstr ""
+msgstr "9-10 anni (6° Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:260
 msgid "target_school_harmos7"
-msgstr ""
+msgstr "10-11 anni (7° Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:264
 msgid "target_school_harmos8"
-msgstr ""
+msgstr "11-12 anni (8° Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:268
 msgid "target_school_harmos9"
-msgstr ""
+msgstr "12-13 anni (9° Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:272
 msgid "target_school_harmos10"
-msgstr ""
+msgstr "13-14 anni (10° Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:276
 msgid "target_school_harmos11"
-msgstr ""
+msgstr "14-15 anni (11° Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:280
 msgid "target_school_upper_secondary"
-msgstr ""
+msgstr "Secondario II"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:284
 msgid "target_school_tertiary"
-msgstr ""
+msgstr "Terziaro"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:288
 msgid "target_school_bachelor"
-msgstr ""
+msgstr "Livello Bachelor"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:292
 msgid "target_school_master"
-msgstr ""
+msgstr "Livello Master"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:301
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:313
 msgid "filmage_ch"
-msgstr ""
+msgstr "Età consigliata (filmages.ch)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:344
 msgid "from the age of 18"
-msgstr ""
+msgstr "Da 18 anni"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:348
 msgid "from the age of 16"
-msgstr ""
+msgstr "Da 16 anni"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:352
 msgid "from the age of 14"
-msgstr ""
+msgstr "Da 14 anni"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:356
 msgid "from the age of 12"
-msgstr ""
+msgstr "Da 12 anni"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:360
 msgid "from the age of 10"
-msgstr ""
+msgstr "Da 10 anni"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:364
 msgid "from the age of 7"
-msgstr ""
+msgstr "Da 7 anni"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:368
 msgid "from the age of 5"
-msgstr ""
+msgstr "Da 5 anni"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:372
 msgid "from the age of 2"
-msgstr ""
+msgstr "Da 2 anni"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:381
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:393
@@ -7687,21 +7691,24 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:3
 msgid "Scales"
-msgstr ""
+msgstr "Scale"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:4
 msgid ""
 "Ratio of the dimensions of an image or three-dimensional form to the "
 "dimensions of the thing that is represented. (MARC 034, 255)"
 msgstr ""
+"Rapporto tra le dimensioni di un'immagine o forma tridimensionale contenute "
+"o materializzate in una risorsa e le dimensioni dell'entità che esse "
+"rappresentano (MARC 034, 255)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:8
 msgid "Scale"
-msgstr ""
+msgstr "Scala"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:30
 msgid "Linear scale"
-msgstr ""
+msgstr "Scala lineare"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:34
 msgid "Angular scale"
@@ -7866,28 +7873,28 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:15
 msgid "Person (local)"
-msgstr ""
+msgstr "Persona (locale)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:37
 msgid "bf:Person"
-msgstr ""
+msgstr "Persona"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:58
 msgid "Corporate body (local)"
-msgstr ""
+msgstr "Ente (locale)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:82
 msgid "bf:Organization"
-msgstr ""
+msgstr "Ente"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:114
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:39
 msgid "Work (local)"
-msgstr ""
+msgstr "Opera (locale)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:137
 msgid "bf:Work"
-msgstr ""
+msgstr "Opera"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:154
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:64
@@ -7921,44 +7928,44 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:3
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:12
 msgid "Link to work"
-msgstr ""
+msgstr "Link ad una opera"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:30
 msgid "Work"
-msgstr ""
+msgstr "Opera"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:51
 msgid "Link to concept"
-msgstr ""
+msgstr "Link ad un concetto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:99
 msgid "Link to place"
-msgstr ""
+msgstr "Link ad un luogo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:147
 msgid "Link to time-span"
-msgstr ""
+msgstr "Link ad un arco di tempo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:174
 msgid "Time-span"
-msgstr ""
+msgstr "Arco di tempo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:3
 msgid "Summaries"
-msgstr ""
+msgstr "Sommarizzazioni"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:4
 msgid "(MARC 520$a)"
-msgstr ""
+msgstr "(MARC 520$a)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:8
 msgid "Summary"
-msgstr ""
+msgstr "Sommarizzazione"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:36
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:49
 msgid "Example: Internet Movie Database"
-msgstr ""
+msgstr "Esempio: Internet Movie Database"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:48
 msgid "Provider of the summary (MARC 520$c and 520$9)"
@@ -8127,7 +8134,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_titles_original-v0.0.1.json:8
 msgid "Original title"
-msgstr ""
+msgstr "Titolo originale"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_titles_proper-v0.0.1.json:3
 msgid "Proper titles"
@@ -12535,4 +12542,3 @@ msgstr "La tua parola d'ordine è stata reimposta con successo."
 
 #~ msgid "Source in case of a local identifier"
 #~ msgstr ""
-
