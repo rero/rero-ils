@@ -449,13 +449,11 @@
             }
           },
           "startDate": {
-            "type": "date",
-            "format": "yyyy",
+            "type": "integer",
             "index": false
           },
           "endDate": {
-            "type": "date",
-            "format": "yyyy",
+            "type": "integer",
             "index": false
           },
           "type": {
