@@ -81,10 +81,14 @@ setup(
         ],
         'invenio_base.apps': [
             # 'flask_debugtoolbar = flask_debugtoolbar:DebugToolbarExtension',
-            'rero-ils = rero_ils.modules.ext:REROILSAPP'
+            'rero_ils_acquisition = \
+                rero_ils.acquisition.ext:ReroIlsAcquisition',
+            'rero_ils = rero_ils.modules.ext:REROILSAPP'
         ],
         'invenio_base.api_apps': [
-            'rero-ils = rero_ils.modules.ext:REROILSAPP',
+            'rero_ils = rero_ils.modules.ext:REROILSAPP',
+            'rero_ils_acquisition = \
+                rero_ils.acquisition.ext:ReroIlsAcquisition',
             'invenio_i18n = invenio_i18n:InvenioI18N'
         ],
         'invenio_base.blueprints': [

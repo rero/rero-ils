@@ -83,6 +83,7 @@ num2word = "^1.0.1"
 num2words = "^0.5.10"
 Flask = "<2.0.0"
 iso639 = "^0.1.4"
+invenio-records-resources = "^0.16.1"
 
 [tool.poetry.dev-dependencies]
 ## Python packages development dependencies (order matters)
