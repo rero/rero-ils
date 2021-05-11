@@ -1,5 +1,5 @@
 {
-  "title": "Link to organisation entity",
+  "title": "Link to corporate body entity",
   "type": "object",
   "additionalProperties": false,
   "propertiesOrder": [
@@ -26,7 +26,7 @@
       }
     },
     "$ref": {
-      "title": "Organisation",
+      "title": "Corporate body",
       "type": "string",
       "pattern": "^https://mef.rero.ch/api/gnd|idref|rero/.*?$",
       "form": {

@@ -311,6 +311,10 @@
         "subtype": "docsubtype_music"
       }
     ],
+    "tableOfContents": [
+      "CD: Rhythm of time ; Don't step ; Signs ; Expo ; good oou do (uptempo) - Oizo Diss anymore ; visitor ; Session (feat. Vivek Rajagopalan) ; Create ; Chingari (feat. Shilpa Rao) ; Better day ; Human bees",
+      "Bonus DVD: Create (Intro) ; Expo ; Good you do (uptempo) - Oizo ; Session (feat. Vivek Rajagopalan) ; Rhythm of time ; Diss anymore ; Human bees ; Chingari (feat. Shilpa Rao)"
+    ],
     "contribution": [
       {
         "agent": {
@@ -446,6 +450,9 @@
         "noteType": "general",
         "label": "Program notes by Joseph Darsky and Mark Zaltsberg, and texts with English translations inserted in containers"
       }
+    ],
+    "tableOfContents": [
+      "Vol. 5: American & British recordings, 1913-1921. - 2004"
     ],
     "credits": [
       "Participants ou interpr\u00e8tes: Feodor Chaliapin (chant) ; accompagn\u00e9 par divers orchestres et pianistes"
@@ -792,67 +799,54 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Syntaxe"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Locutions"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Flexion (linguistique)"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Formation des mots"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Langue parl\u00e9e"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "S\u00e9mantique"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Phonologie"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Phon\u00e9tique"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9criture"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Pragmatique"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Grammaire"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Stylistique"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Allemand (langue)"
       }
@@ -1221,19 +1215,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Psychiatrie"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Maladies mentales"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9tudes diverses"
       }
@@ -1592,12 +1583,10 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Arch\u00e9ologie"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Bavi\u00e8re (Allemagne)"
       }
@@ -1860,12 +1849,10 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Peinture flamande"
       },
       {
-        "source": "rero",
         "type": "bf:Temporal",
         "term": "14e si\u00e8cle-15e si\u00e8cle"
       }
@@ -1993,29 +1980,24 @@
     "sequence_numbering": "H. 1(1967)->",
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Alimentation"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Hygi\u00e8ne"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Publications officielles"
       }
@@ -2194,24 +2176,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Philosophie"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Antiquit\u00e9"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Philosophie grecque"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Manuels d'enseignement"
       }
@@ -3233,29 +3211,24 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Voyages dans le temps"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Fictions"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Ouvrages pour la jeunesse"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Roman pour la jeunesse"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Science-fiction pour la jeunesse"
       }
@@ -3421,13 +3394,11 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Organization",
         "preferred_name": "Allemagne. Gestapo",
         "conference": false
       },
       {
-        "source": "rero",
         "type": "bf:Temporal",
         "term": "1933-1945"
       }
@@ -3855,19 +3826,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Cin\u00e9ma"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Cin\u00e9ma suisse"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -4070,19 +4038,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Chemins de fer"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ]
   },
@@ -4228,7 +4193,6 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Acier"
       }
@@ -4367,19 +4331,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Contrats de construction"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "contribution": [
@@ -5066,6 +5027,19 @@
         ]
       }
     ],
+    "tableOfContents": [
+      "Vol. 1 / traduit du japonais par Satoko Fujimoto ... [et al.]",
+      "Vol. 2 / traduit du japonais par Patrick Honnor\u00e9 ... [et al.]",
+      "Vol. 3 / traduit du japonais par Satoko Fujimoto ... [et al.]",
+      "Vol. 4 / traduit du japonais par Patrick Honnor\u00e9 ... [et al.]",
+      "Vol. 5 / traduit du japonais par Satoko Fujimoto ... [et al.]",
+      "Vol. 6 / traduit du japonais par Yukari Maeda ... [et al.]",
+      "Vol. 7 / traduit du japonais par Eric Cordier ... [et al.]",
+      "Vol. 8 / traduit du japonais par Patrick Honnor\u00e9 ... [et al.]",
+      "Vol. 9 / traduit du japonais par Eric Cordier ... [et al.]",
+      "Vol. 10 / traduit du japonais par Patrick Honnor\u00e9 ... [et al.]",
+      "Vol. 11 / traduit du japonais par Eric Cordier ... [et al.]"
+    ],
     "intendedAudience": [
       {
         "audienceType": "understanding_level",
@@ -5074,12 +5048,10 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Mangas"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Bandes dessin\u00e9es"
       }
@@ -5245,32 +5217,26 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Foi"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Dieu"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9glise"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Christianisme"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Souffrance"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Mort"
       }
@@ -5284,7 +5250,6 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9tudes diverses"
       }
@@ -5744,6 +5709,9 @@
     "supplementaryContent": [
       "Bibliogr. + Register"
     ],
+    "tableOfContents": [
+      "Bd. 1: A - Faustus von Byzanz. Bd. 2: Faustus von Mileve - Jeanne d'Arc. Bd. 3: Jedin, Hubert - Kleinschmidt, Beda. Bd. 4: Kleist, Heinrich von - Leyden, Lucas von. Bd. 5: Leyden, Nikolaus - M\u00f6nch, Antonius. Bd. 6: Moenius, Georg - Patijn, Constantijn Leopold. Bd. 7: Patocka, Jan - Remachus. Bd. 8: Rembrandt - Scharbel. Bd. 9: Scharling, Carl Henrik - Sheldon, Charles Monroe. Bd. 10: Shelkov, Vladimir Andreyevich - Stoss, Andreas. Bd. 11: Stoss, Veit - Tieffenthaler, Joseph. Bd. 12: Tibboniden - Volpe, Giovannio Antonio. Bd. 13: Voltaire, Fran\u00e7ois - Wolfram von Eschenbach. Bd. 14: Wolfram von Eschenbach bis Zygomalas, Theodosios ; Erg\u00e4nzungen I. Bd. 15: Erg\u00e4nzungen II. Bd. 16: Erg\u00e4nzungen III. Bd. 17: Erg\u00e4nzungen IV. Bd. 18: Erg\u00e4nzungen V. Bd. 19: Erg\u00e4nzungen VI. Bd. 20: Erg\u00e4nzungen VII. Bd. 21: Erg\u00e4nzungen VIII. Bd. 22: Erg\u00e4nzungen IX. Bd. 23: Erg\u00e4nzungen X. Bd. 24: Erg\u00e4nzungen XI. Bd. 25: Erg\u00e4nzungen XII. Bd. 26: Erg\u00e4nzungen XIII. Bd. 27: Erg\u00e4nzungen XIV. Bd. 28: Erg\u00e4nzungen XV. Bd. 29: Erg\u00e4nzungen XVI. Bd. 30: Erg\u00e4nzungen XVII. Bd. 31: Erg\u00e4nzungen XVIII. Bd. 32: Erg\u00e4nzungen XIX. Bd. 33: Erg\u00e4nzungen XX. Bd. 34: Erg. XXI. Bd. 35: Erg. XXII. Bd. 36: Erg. XXIII. Bd. 37: Erg. XXIV. Bd. 38: Erg. XXV. Bd. 39: Erg. XXVI. Bd. 40: Erg. XXVII. Bd. 41: Erg. XXVIII"
+    ],
     "subjects_imported": [
       {
         "type": "bf:Topic",
@@ -5763,49 +5731,40 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Th\u00e9ologie"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9glise"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Biographies"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Christianisme"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Histoire"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Vie intellectuelle"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Chr\u00e9tiens"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Biobibliographie"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Dictionnaires allemands"
       }
@@ -6208,8 +6167,8 @@
           "preferred_name": "Binet, Christian"
         },
         "role": [
-          "aut",
-          "ill"
+          "ill",
+          "aut"
         ]
       }
     ],
@@ -6307,7 +6266,6 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Bandes dessin\u00e9es"
       }
@@ -6440,17 +6398,14 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Litt\u00e9rature sapientiale"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "R\u00e9flexion (philosophie)"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Egypte antique"
       }
@@ -6821,24 +6776,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Eau"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Pollution"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Lutte contre"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -7033,6 +6984,10 @@
         "main_type": "docmaintype_score",
         "subtype": "docsubtype_printed_score"
       }
+    ],
+    "tableOfContents": [
+      "Sinfonien in C (Linzer Sinfonie) KV 425, in D (Prager Sinfonie) KV 504. - 1971",
+      "Kritischer Bericht / vorgelegt von Henning Bey. - 2003"
     ],
     "seriesStatement": [
       {
@@ -7345,29 +7300,24 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit fiscal"
       },
       {
-        "source": "rero",
         "type": "bf:Temporal",
         "term": "1875-1960"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Bibliographie"
       }
@@ -7684,11 +7634,11 @@
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos9"
+        "value": "target_school_harmos11"
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos11"
+        "value": "target_school_harmos9"
       }
     ],
     "partOf": [
@@ -7819,6 +7769,9 @@
         "main_type": "docmaintype_audio",
         "subtype": "docsubtype_music"
       }
+    ],
+    "tableOfContents": [
+      "Des extraits des zarzuelas suivantes : La tabernera del puerto ; La del manojo de rosas / Soroz\u00e1bal. Do\u00f1a Francisquita / Vives. La alegr\u00eda del batall\u00f3n ; La dolorosa ; El trust de los tenorios / Serrano. La p\u00edcara molinera / Luna. Luisa Fer\u0144anda ; Maravilla / Torroba. El \u00faltimo rom\u00e1ntico ; La del soto del Parral ; La del soto del Parral / Soutullo & Vert. Los gavilanes ; El hu\u00e9sped del Sevillano / Guerrero. El guitarrico / Soriano. Luna / Cano"
     ],
     "credits": [
       "Participants ou interpr\u00e8tes: Domingo, Placido (direction) ; Villaz\u00f3n, Rolando (t\u00e9nor) ; Orquesta de la comunidad (Madrid)"
@@ -8298,20 +8251,17 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Work",
+        "title": "Electre",
+        "creator": "Giraudoux, Jean",
         "identifiedBy": {
           "value": "027538303",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "title": "Electre",
-        "creator": "Giraudoux, Jean"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Manuels d'enseignement"
       }
@@ -8496,21 +8446,22 @@
         ]
       }
     ],
+    "tableOfContents": [
+      "[Bd. 1]: Vom Mittelmeer zum Golf von Guinea",
+      "[Bd. 2]: Vom Golf von Guinea nach Sansibar"
+    ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Afrique",
         "identifiedBy": {
           "value": "027218546",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Afrique"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Photographies"
       }
@@ -8837,21 +8788,23 @@
         ]
       }
     ],
+    "tableOfContents": [
+      "Teil 1 : Schriften / Alexander von Roes ; hrsg. von Herbert Grundmann und Hermann Heimpel. - Stuttgart : Hiersemann, 1958. - 208, 23 p.",
+      "Teil 2 : Speculum virtutum / Engelbert von Admont ; hrsg. von Karl Ubl. - Hannover : Hahnsche Buchhandlung, 2004. - VIII, 522 p.",
+      "Teil 3 : De ortu et fine Romani imperii / Engelbert von Admont ; hrsg. von Herbert Schneider ... . - Wiesbaden : Harrassowitz Verlag, 2016. - XXXVIII, 262 p."
+    ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Person",
         "preferred_name": "Alexander (von Roes)"
       },
       {
-        "source": "rero",
         "type": "bf:Person",
         "preferred_name": "Engelbert (von Admont)"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9ditions de manuscrits"
       }
@@ -9038,6 +8991,11 @@
         ]
       }
     ],
+    "tableOfContents": [
+      "Vol. 1 : Reproduction of books I and II of edition of 1758. - LIX, 541 p",
+      "Vol. 2 : Reproduction of books III and IV of edition of 1758. - 375 p",
+      "Vol. 3 : Translation of the edition of 1758 / by Charles G. Fenwick ; with an introd. by Albert de Lapradelle. - LIX, 398 p"
+    ],
     "partOf": [
       {
         "document": {
@@ -9168,19 +9126,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Formation professionnelle"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Enseignants"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -9455,17 +9410,14 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Work",
         "title": "Bible. AT"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Aram\u00e9en (langue)"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Grammaire"
       }
@@ -9574,7 +9526,6 @@
     "sequence_numbering": "Vol. 1(1964)->",
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Agronomie"
       }
@@ -9588,7 +9539,6 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -9749,7 +9699,6 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Fantasy"
       }
@@ -9910,7 +9859,6 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Fantasy"
       }
@@ -10535,27 +10483,14 @@
     ],
     "subjects": [
       {
-        "source": "rero",
-        "type": "bf:Person",
-        "identifiedBy": {
-          "value": "082686335",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Corboz, Michel"
+        "$ref": "https://mef.rero.ch/api/idref/082686335",
+        "type": "bf:Person"
       },
       {
-        "source": "rero",
-        "type": "bf:Person",
-        "identifiedBy": {
-          "value": "026699656",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Bach, Johann Sebastian"
+        "$ref": "https://mef.rero.ch/api/idref/026699656",
+        "type": "bf:Person"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Messes (musique)"
       }
@@ -10737,39 +10672,32 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Football"
       },
       {
-        "source": "rero",
         "type": "bf:Temporal",
         "term": "1901-2002"
       },
       {
-        "source": "rero",
         "type": "bf:Temporal",
         "term": "1996-2003"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Stades"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Gen\u00e8ve (Suisse, ville) - Les Charmilles"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "La Praille (Suisse, GE)"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Coupures de presse"
       }
@@ -11115,12 +11043,10 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit romain"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       }
@@ -11617,7 +11543,6 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Illusions d'optique"
       }
@@ -12483,14 +12408,12 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Art br\u00e9silien"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Catalogues d'exposition"
       }
@@ -12831,29 +12754,24 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Paysage"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Neige"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Alpes (cha\u00eene)"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Valais (Suisse)"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Photographies"
       }
@@ -12972,14 +12890,12 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Lilium (Liliaceae) [Taxonomie]"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "R\u00e9pertoires"
       }
@@ -13948,29 +13864,24 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Socialisme"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Politique sanitaire"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Politique sociale"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Service social"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -14129,24 +14040,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Art am\u00e9rindien"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Br\u00e9sil",
         "identifiedBy": {
           "value": "02722953X",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Br\u00e9sil"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Catalogues d'exposition"
       }
@@ -14292,25 +14199,21 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Organization",
+        "preferred_name": "British Rail Pension Fund (Grande-Bretagne)",
+        "conference": false,
         "identifiedBy": {
           "value": "204515998",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "British Rail Pension Fund (Grande-Bretagne)",
-        "conference": false
+          "type": "IdRef"
+        }
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Tabati\u00e8res"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Catalogues de vente"
       }
@@ -14605,23 +14508,19 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Person",
         "preferred_name": "Lubac, Henri de (cardinal) - influence exerc\u00e9e"
       },
       {
-        "source": "rero",
         "type": "bf:Organization",
         "preferred_name": "Concile de Vatican 2 (1962-1965) - influence re\u00e7ue",
         "conference": true
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Christianisme"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Salut"
       }
@@ -14830,39 +14729,28 @@
     ],
     "subjects": [
       {
-        "source": "rero",
-        "type": "bf:Person",
-        "identifiedBy": {
-          "value": "027408183",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Pierre (empereur de Russie ; 1)"
+        "$ref": "https://mef.rero.ch/api/idref/027408183",
+        "type": "bf:Person"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Gravure"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "M\u00e9dailles"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Bataille de Poltava (1709)"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Th\u00e8mes, motifs"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Catalogues d'exposition"
       }
@@ -15370,6 +15258,9 @@
         ]
       }
     ],
+    "tableOfContents": [
+      "Encore: P\u00e9n\u00e9lope : pr\u00e9lude ; Masques et bergamasques"
+    ],
     "credits": [
       "Participants ou interpr\u00e8tes: Ansermet, Ernest (direction) ; Danco, Suzanne (soprano) ; Souzay, G\u00e9rard (baryton) ; Orchestre de la suisse romande ; Union chorale (La Tour de Peilz)"
     ],
@@ -15481,6 +15372,9 @@
         "main_type": "docmaintype_book",
         "subtype": "docsubtype_other_book"
       }
+    ],
+    "tableOfContents": [
+      "T. 1: Chefs-lieux de cantons"
     ],
     "contribution": [
       {
@@ -15603,24 +15497,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Herp\u00e9tologie"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Afrique",
         "identifiedBy": {
           "value": "027218546",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Afrique"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -15787,42 +15677,34 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9volution sociale"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Darwinisme social"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Homme"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9volution"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Sociobiologie"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Culture"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9volution (biologie)"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Changement social"
       }
@@ -16207,12 +16089,10 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Co\u00fbt"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Environnement"
       }
@@ -16356,22 +16236,18 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Langage"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Po\u00e9sie"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Liturgie"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Philosophie"
       }
@@ -16861,6 +16737,10 @@
         "subtype": "docsubtype_printed_score"
       }
     ],
+    "tableOfContents": [
+      "Bd. 1: Sailing. Lady in black. Dust in the wind. I still haven't found what I'm looking for. Listen to your heart. Purple rain. Blaze of glory. Still loving you. Holiday. Angie. While my guitar gently weeps. With a little help from my friends. Wonderful tonight. A whiter shade of pale. Right here waiting. Another day in paradise. Brothers in arms. Still got the blues.",
+      "Bd. 2: Stand by me. Michelle. Yesterday. Hey Jude. San Francisco. Atlantis. Ruby uesday. My sweet Lord. Nights in white satin. Sylvia's mother. Heart of gold. The needle and the damage done. Walk on the wild side. Love hurts. Boat on the river. I'm on fire. On the beach. Wicked game. Wind of change. To be with you. Tears in Heaven. Don't cry. Cats in ihe cradle. Everything I do. What's up."
+    ],
     "contribution": [
       {
         "agent": {
@@ -17159,22 +17039,18 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Construction"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Remont\u00e9es m\u00e9caniques"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Perg\u00e9lisols"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Mont-Gel\u00e9 (Suisse, r\u00e9gion, VS)"
       }
@@ -17349,17 +17225,14 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Tourisme"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Politique touristique"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Chine (r\u00e9publique populaire)"
       }
@@ -17800,12 +17673,10 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Simulation"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Technique"
       }
@@ -18096,12 +17967,10 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Quartiers anciens"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Fust\u0101t (Egypte)"
       }
@@ -18343,19 +18212,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Soins infirmiers"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Canc\u00e9rologie"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9tudes diverses"
       }
@@ -18481,19 +18347,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Oecum\u00e9nisme"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9glise catholique"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -18731,24 +18594,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -18877,24 +18736,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit p\u00e9nal"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Proc\u00e9dure p\u00e9nale"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Italie",
         "identifiedBy": {
           "value": "027235408",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Italie"
+          "type": "IdRef"
+        }
       }
     ],
     "subjects_imported": [
@@ -19058,7 +18913,6 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9tudes diverses"
       }
@@ -19234,17 +19088,14 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit international"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit compar\u00e9"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Europe occidentale"
       }
@@ -19601,17 +19452,14 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit international"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit compar\u00e9"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Europe occidentale"
       }
@@ -20157,19 +20005,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Temporal",
         "term": "16e si\u00e8cle-17e si\u00e8cle"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Embl\u00e8mes"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Manuels d'enseignement"
       }
@@ -20320,37 +20165,30 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Italien (langue)"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Internet"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Web"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Web 2.0"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Blogs"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Forums \u00e9lectroniques"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "R\u00e9seaux sociaux (Internet)"
       }
@@ -20528,7 +20366,6 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Roman historique"
       }
@@ -21332,29 +21169,24 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Person",
         "preferred_name": "Paleario, Aonio"
       },
       {
-        "source": "rero",
         "type": "bf:Temporal",
         "term": "16e si\u00e8cle"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "R\u00e9forme protestante"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Italie",
         "identifiedBy": {
           "value": "027235408",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Italie"
+          "type": "IdRef"
+        }
       }
     ],
     "electronicLocator": [
@@ -21540,12 +21372,10 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Person",
         "preferred_name": "Protagoras"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Sophistes (philosophie grecque)"
       }
@@ -21724,24 +21554,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Fran\u00e7ais (langue)"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Russe (langue)"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Dictionnaires fran\u00e7ais"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Dictionnaires russes"
       }
@@ -21939,8 +21765,8 @@
     "contribution": [
       {
         "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Reese, G\u00fcnter"
+          "$ref": "https://mef.rero.ch/api/idref/251298299",
+          "type": "bf:Person"
         },
         "role": [
           "cre"
@@ -22285,19 +22111,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Bourg-Saint-Pierre (Suisse, VS)"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Liddes (Suisse, VS)"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -22640,19 +22463,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Religion"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Th\u00e9ologie"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -23272,24 +23092,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Th\u00e9\u00e2tre"
       },
       {
-        "source": "rero",
         "type": "bf:Temporal",
         "term": "20e si\u00e8cle (1re moiti\u00e9)"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "France",
         "identifiedBy": {
           "value": "027226794",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "France"
+          "type": "IdRef"
+        }
       }
     ]
   },
@@ -23530,14 +23346,8 @@
     ],
     "subjects": [
       {
-        "source": "rero",
-        "type": "bf:Person",
-        "identifiedBy": {
-          "value": "139843418",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Goonan, Kathleen Ann"
+        "$ref": "https://mef.rero.ch/api/idref/139843418",
+        "type": "bf:Person"
       }
     ],
     "contribution": [
@@ -23994,17 +23804,14 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Toucher"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Philosophie"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Sens et sensations"
       }
@@ -24152,6 +23959,15 @@
         "seriesEnumeration": [
           {
             "value": "Bd. 1231"
+          }
+        ]
+      }
+    ],
+    "dissertation": [
+      {
+        "label": [
+          {
+            "value": "Diss. jur. Berlin"
           }
         ]
       }
@@ -24498,14 +24314,17 @@
         ]
       }
     ],
+    "tableOfContents": [
+      "Vol. 1: 28 settembre 1847 - 18 dicembre 1848. - 1966. - 437 p",
+      "Vol. 2: 19 dicembre 1848 - 19 febbraio 1849. - 1968. - 571 p",
+      "Vol. 3: 20 febbraio - 29 novembre 1849. - 1970. - 473 p"
+    ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Temporal",
         "term": "1848-1849"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Royaume de Sardaigne"
       }
@@ -24619,24 +24438,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Gastronomie"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Restaurants"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Paris (France)"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -24882,14 +24697,12 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Oecum\u00e9nisme"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -25035,19 +24848,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Alpinisme"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Alpes (cha\u00eene)"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Photographies"
       }
@@ -25282,7 +25092,6 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Films de fiction"
       }
@@ -25600,32 +25409,26 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Enseignement"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Fran\u00e7ais (langue)"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Psychologie de l'\u00e9ducation"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Travail"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Sociologie"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Apprentissage"
       }
@@ -25901,24 +25704,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Th\u00e9\u00e2tre"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -26045,44 +25844,32 @@
     ],
     "subjects": [
       {
-        "source": "rero",
-        "type": "bf:Person",
-        "identifiedBy": {
-          "value": "026667673",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Pessoa, Fernando"
+        "$ref": "https://mef.rero.ch/api/idref/026667673",
+        "type": "bf:Person"
       },
       {
-        "source": "rero",
         "type": "bf:Temporal",
         "term": "15e si\u00e8cle-17e si\u00e8cle"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Art portugais"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Colonies"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Portugal",
         "identifiedBy": {
           "value": "027243427",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Portugal"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9tudes diverses"
       }
@@ -26561,6 +26348,10 @@
         "subtype": "docsubtype_music"
       }
     ],
+    "tableOfContents": [
+      "At least that's what you said ; Hell is chrome ; Spiders (kidsmoke) ; Muzzle of bees ; Hummingbird ; Handshake drugs ; Wishful thinking ; Company in my back ; I'm a wheel ; Theologians ; Less than you think ; The late greats",
+      "Bonus: Panthers ; At Least That's What You Said (Live) ; The Late Greats (Live) ; Handshake Drugs (Live) ; Kicking Television"
+    ],
     "contribution": [
       {
         "agent": {
@@ -26747,6 +26538,14 @@
         "main_type": "docmaintype_book",
         "subtype": "docsubtype_other_book"
       }
+    ],
+    "tableOfContents": [
+      "T. 1: Liricheskie stichotvorenii\ufe20a\ufe21",
+      "T. 2: Po\u0117my, skazki, Pesni zapadnykh slavi\ufe20a\ufe21n",
+      "T. 3: Evgeni\u012d Onegin i dramaticheskii\ufe20a\ufe21 proizvedenii\ufe20a\ufe21",
+      "T. 4: Zapiski, zametki, romany i povesti",
+      "T. 5: Otryvki, zhurnal\u02b9nye i istoricheskie stat\u02b9i",
+      "T. 6: Istorii\ufe20a\ufe21 Pugachevskago bunta"
     ]
   },
   {
@@ -26896,7 +26695,6 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Bandes dessin\u00e9es"
       }
@@ -27025,24 +26823,20 @@
     "sequence_numbering": "Vol. 1(1981/83)->",
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Botanique"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Plantes"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Br\u00e9sil",
         "identifiedBy": {
           "value": "02722953X",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Br\u00e9sil"
+          "type": "IdRef"
+        }
       }
     ],
     "subjects_imported": [
@@ -27054,7 +26848,6 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -27197,24 +26990,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Temporal",
         "term": "20e si\u00e8cle"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Beaut\u00e9 corporelle"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Photographies"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9tudes diverses"
       }
@@ -27921,12 +27710,10 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9conomie de march\u00e9"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Europe orientale"
       }
@@ -28171,14 +27958,12 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "N\u00e9vroses"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Manuels d'enseignement"
       }
@@ -28313,19 +28098,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Dichotomie"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Psychologie"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9tudes diverses"
       }
@@ -28497,22 +28279,18 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Vin de Champagne"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Vin mousseux"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Vinification"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Bouteilles de vin"
       }
@@ -28833,19 +28611,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Person",
         "preferred_name": "Banz, St\u00e9phane"
       },
       {
-        "source": "rero",
         "type": "bf:Temporal",
         "term": "1992-2006"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Catalogues d'exposition"
       }
@@ -29050,14 +28825,12 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Art"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -29542,39 +29315,32 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Mouvement ouvrier"
       },
       {
-        "source": "rero",
         "type": "bf:Temporal",
         "term": "1789-1939"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Action catholique"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9glise catholique"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Action sociale"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ]
   },
@@ -29822,12 +29588,10 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9glise catholique"
       },
       {
-        "source": "rero",
         "type": "bf:Temporal",
         "term": "1991"
       }
@@ -30002,28 +29766,23 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Work",
+        "title": "Hom\u00e9lies sur l'Evangile de saint Jean",
+        "creator": "Augustin (saint)",
         "identifiedBy": {
           "value": "080876935",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "title": "Hom\u00e9lies sur l'Evangile de saint Jean",
-        "creator": "Augustin (saint)"
+          "type": "IdRef"
+        }
       },
       {
-        "source": "rero",
         "type": "bf:Work",
         "title": "Bible. NT. Jean (\u00e9vangile)"
       },
       {
-        "source": "rero",
         "type": "bf:Temporal",
         "term": "5e si\u00e8cle (d\u00e9but)"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Pr\u00e9dication latine"
       }
@@ -30037,7 +29796,6 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Commentaires"
       }
@@ -30130,14 +29888,12 @@
     "sequence_numbering": "Jg. 1(1970)->",
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Physique"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -30441,34 +30197,28 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9dagogie"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Relations humaines"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Sociologie"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Citoyennet\u00e9"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "D\u00e9mocratie"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9tudes diverses"
       }
@@ -30476,9 +30226,8 @@
     "contribution": [
       {
         "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Kappeler, Manfred,",
-          "date_of_birth": "1940"
+          "$ref": "https://mef.rero.ch/api/idref/251273660",
+          "type": "bf:Person"
         },
         "role": [
           "ctb"
@@ -30729,22 +30478,18 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Fluides, M\u00e9canique des"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Hydrodynamique"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Turbulence"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Physique statistique"
       }
@@ -31059,19 +30804,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Alpinisme"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Weisshorn (Suisse, mont, VS)"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9tudes diverses"
       }
@@ -31341,7 +31083,6 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Allemagne f\u00e9d\u00e9rale"
       }
@@ -31703,24 +31444,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Culture"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Moeurs et coutumes"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Finlande",
         "identifiedBy": {
           "value": "027225984",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Finlande"
+          "type": "IdRef"
+        }
       }
     ],
     "subjects_imported": [
@@ -32371,39 +32108,24 @@
     ],
     "subjects": [
       {
-        "source": "rero",
-        "type": "bf:Person",
-        "identifiedBy": {
-          "value": "027525457",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Freundlich, Otto"
+        "$ref": "https://mef.rero.ch/api/idref/027525457",
+        "type": "bf:Person"
       },
       {
-        "source": "rero",
         "type": "bf:Person",
         "preferred_name": "Lye, Len"
       },
       {
-        "source": "rero",
         "type": "bf:Person",
         "preferred_name": "Clark, Lygia"
       },
       {
-        "source": "rero",
-        "type": "bf:Person",
-        "identifiedBy": {
-          "value": "027930408",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Palermo, Blinky"
+        "$ref": "https://mef.rero.ch/api/idref/027930408",
+        "type": "bf:Person"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Catalogues d'exposition"
       }
@@ -32488,8 +32210,8 @@
     "contribution": [
       {
         "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Arold, Marliese"
+          "$ref": "https://mef.rero.ch/api/idref/251463028",
+          "type": "bf:Person"
         },
         "role": [
           "cre"
@@ -32603,7 +32325,6 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Livres audio"
       }
@@ -34168,7 +33889,6 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Roman pour la jeunesse"
       }
@@ -35549,14 +35269,12 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jeu"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Guides pratiques"
       }
@@ -35719,7 +35437,6 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Manuels d'enseignement"
       }
@@ -35850,19 +35567,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Wedelia (Compositae) [Taxonomie]"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Br\u00e9sil",
         "identifiedBy": {
           "value": "02722953X",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Br\u00e9sil"
+          "type": "IdRef"
+        }
       }
     ]
   },
@@ -36252,24 +35966,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Russe (langue)"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Langues vivantes"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Manuels d'enseignement"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Multim\u00e9dias"
       }
@@ -36678,14 +36388,12 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Botanique"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -36828,24 +36536,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Conditions \u00e9conomiques"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Oberwallis (Suisse, VS)",
         "identifiedBy": {
           "value": "034253785",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Oberwallis (Suisse, VS)"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -37105,14 +36809,12 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jeu"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Manuels d'enseignement"
       }
@@ -37275,12 +36977,10 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Tectonique"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Failles (g\u00e9ologie)"
       }
@@ -37443,14 +37143,12 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Alcoolisme"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "R\u00e9cits personnels"
       }
@@ -37637,22 +37335,18 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Temporal",
         "term": "2600 av. J.-C.-410"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Epoque imp\u00e9riale romaine (Rome ; 30 av. J.-C.-476)"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Tombes grecques"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Eleusis (Gr\u00e8ce)"
       }
@@ -37804,14 +37498,12 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Person",
         "preferred_name": "Nicolas (de Flue ; saint)"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Biographies"
       }
@@ -37990,7 +37682,6 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Biologie"
       }
@@ -38159,14 +37850,12 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Macro\u00e9conomie"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Manuels d'enseignement"
       }
@@ -38426,29 +38115,24 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Environnement"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Protection"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Maroc",
         "identifiedBy": {
           "value": "027263711",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Maroc"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Actes de congr\u00e8s"
       }
@@ -38678,24 +38362,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Art"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Litt\u00e9rature"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Po\u00e9sie"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -39023,7 +38703,6 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Ultrasons"
       }
@@ -39280,19 +38959,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Litt\u00e9rature autrichienne"
       },
       {
-        "source": "rero",
         "type": "bf:Temporal",
         "term": "1050-1750"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9tudes diverses"
       }
@@ -39941,12 +39617,10 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Aptitude"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Intelligence"
       }
@@ -40279,17 +39953,10 @@
     ],
     "subjects": [
       {
-        "source": "rero",
-        "type": "bf:Person",
-        "identifiedBy": {
-          "value": "027437469",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Van Dongen, Kees"
+        "$ref": "https://mef.rero.ch/api/idref/027437469",
+        "type": "bf:Person"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Fauvisme"
       }
@@ -40806,12 +40473,10 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Temporal",
         "term": "1917"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Guerre mondiale (1914-1918)"
       }
@@ -40965,14 +40630,12 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Neuch\u00e2tel (Suisse, ville)"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Vid\u00e9ocassettes"
       }
@@ -41247,22 +40910,18 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Famille"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Nourrissons"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Enfants"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Parents"
       }
@@ -41936,7 +41595,6 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Work",
         "title": "Lunyu - commentaire",
         "creator": "Kongzi"
@@ -42086,17 +41744,10 @@
     ],
     "subjects": [
       {
-        "source": "rero",
-        "type": "bf:Person",
-        "identifiedBy": {
-          "value": "026745151",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Bourdelle, Antoine"
+        "$ref": "https://mef.rero.ch/api/idref/026745151",
+        "type": "bf:Person"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Dessin"
       }
@@ -42531,27 +42182,22 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Armoiries"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Mariage"
       },
       {
-        "source": "rero",
         "type": "bf:Temporal",
         "term": "17e si\u00e8cle"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Coffres"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Neuch\u00e2tel (Suisse, canton)"
       }
@@ -43149,17 +42795,10 @@
     ],
     "subjects": [
       {
-        "source": "rero",
-        "type": "bf:Person",
-        "identifiedBy": {
-          "value": "026934612",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "James, Henry"
+        "$ref": "https://mef.rero.ch/api/idref/026934612",
+        "type": "bf:Person"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "N\u00e9ant (philosophie)"
       }
@@ -43317,29 +42956,24 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Photographie"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Archives"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Conservation et restauration"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Livres"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9tudes diverses"
       }
@@ -43771,9 +43405,8 @@
       },
       {
         "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Fuller, Louisa,",
-          "date_of_birth": "1964"
+          "$ref": "https://mef.rero.ch/api/idref/251561240",
+          "type": "bf:Person"
         },
         "role": [
           "prf"
@@ -43781,8 +43414,8 @@
       },
       {
         "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Bonner, Natalia"
+          "$ref": "https://mef.rero.ch/api/idref/251561623",
+          "type": "bf:Person"
         },
         "role": [
           "prf"
@@ -43903,6 +43536,9 @@
         "main_type": "docmaintype_audio",
         "subtype": "docsubtype_music"
       }
+    ],
+    "tableOfContents": [
+      "\"Mrs Dalloway\" (Words, In the garde, War anthem, Meeting again) ; \"Orlando\" (Memory is the seamstress, Modular astronomy, Entropy, Transformation, Morphology, The tyranny of symmetry, The explorers, Persistence of images, Genesis of poetry, Possibles, Love songs) ; \"The waves\" (Tuesday)"
     ],
     "credits": [
       "Participants ou interpr\u00e8tes: Robert Ziegler (direction) ; Max Richter (piano, synth\u00e9) ; Louisa Fuller, Natalia Bonner (violon) ; John Metcalfe (alto) ; Ian Burdge, Chris Worsey (violoncelle) ; Deutsches Filmorchester Babelsberg"
@@ -44149,27 +43785,22 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Person",
         "preferred_name": "Aebi, Christoph"
       },
       {
-        "source": "rero",
         "type": "bf:Person",
         "preferred_name": "Aebi, Jacob"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Orgue"
       },
       {
-        "source": "rero",
         "type": "bf:Temporal",
         "term": "17e si\u00e8cle"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Valais (Suisse)"
       }
@@ -44491,7 +44122,6 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Cellules v\u00e9g\u00e9tales"
       }
@@ -44990,19 +44620,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Sciences naturelles"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Sciences"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -45222,25 +44849,21 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Organization",
         "preferred_name": "Bureau international du travail",
         "conference": false
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit du travail"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit international"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Publications officielles"
       }
@@ -45406,14 +45029,8 @@
     ],
     "subjects": [
       {
-        "source": "rero",
-        "type": "bf:Person",
-        "identifiedBy": {
-          "value": "035000457",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Ritz, Walther"
+        "$ref": "https://mef.rero.ch/api/idref/035000457",
+        "type": "bf:Person"
       }
     ]
   },
@@ -45551,24 +45168,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Eau"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Pollution"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Lutte contre"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -45692,19 +45305,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Missions"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Japon"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -46070,19 +45680,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Cin\u00e9ma"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Cin\u00e9ma suisse"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -46455,19 +46062,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Cin\u00e9ma"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Cin\u00e9ma suisse"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -46587,12 +46191,10 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9glise"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9glises r\u00e9form\u00e9es"
       }
@@ -46606,7 +46208,6 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -47301,24 +46902,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "H\u00e9raldique"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -47471,7 +47068,6 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Bandes dessin\u00e9es"
       }
@@ -47728,14 +47324,12 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Lilium (Liliaceae) [Taxonomie]"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "R\u00e9pertoires"
       }
@@ -47743,8 +47337,8 @@
     "contribution": [
       {
         "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Leslie, Alan Christopher"
+          "$ref": "https://mef.rero.ch/api/idref/251298523",
+          "type": "bf:Person"
         },
         "role": [
           "com"
@@ -47853,7 +47447,6 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Oecum\u00e9nisme"
       }
@@ -47972,19 +47565,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Litt\u00e9rature autrichienne"
       },
       {
-        "source": "rero",
         "type": "bf:Temporal",
         "term": "1050-1980"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9tudes diverses"
       }
@@ -48215,25 +47805,21 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Organization",
+        "preferred_name": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale",
+        "conference": false,
         "identifiedBy": {
           "value": "026576988",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale",
-        "conference": false
+          "type": "IdRef"
+        }
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9glise luth\u00e9rienne"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -48755,24 +48341,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit fiscal"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Bibliographie"
       }
@@ -49287,19 +48869,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Musique"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9tude et enseignement"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Multim\u00e9dias"
       }
@@ -49718,24 +49297,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -50088,29 +49663,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
-        "type": "bf:Person",
-        "identifiedBy": {
-          "value": "067025501",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Tagliavini, Luigi Ferdinando"
+        "$ref": "https://mef.rero.ch/api/idref/067025501",
+        "type": "bf:Person"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Musicologie"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "M\u00e9langes et hommages"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9tudes diverses"
       }
@@ -50136,8 +49702,8 @@
       },
       {
         "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Leuthold, Axel"
+          "$ref": "https://mef.rero.ch/api/idref/251309835",
+          "type": "bf:Person"
         },
         "role": [
           "ctb"
@@ -50254,24 +49820,20 @@
     "sequence_numbering": "Ann\u00e9e 1(1965)->",
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Litt\u00e9rature"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Litt\u00e9rature fran\u00e7aise"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Litt\u00e9rature canadienne d'expression fran\u00e7aise"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -50684,22 +50246,18 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Mouvement ouvrier"
       },
       {
-        "source": "rero",
         "type": "bf:Temporal",
         "term": "1789-1939"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9glise catholique"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Europe occidentale"
       }
@@ -50858,6 +50416,11 @@
         "main_type": "docmaintype_book",
         "subtype": "docsubtype_other_book"
       }
+    ],
+    "tableOfContents": [
+      "T. 1: L'oeil de B\u00e9zoard. - 2004. - 234 p.",
+      "T. 2: La nuit des gh\u00fclls. - 2004. - 239 p.",
+      "T. 3: Le dernier combat. - 2005. - 231 p."
     ],
     "intendedAudience": [
       {
@@ -51586,7 +51149,6 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Guerre mondiale (1914-1918)"
       }
@@ -51705,14 +51267,12 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Th\u00e9ologie orthodoxe"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -51944,29 +51504,24 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Bourg-Saint-Pierre (Suisse, VS)"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Liddes (Suisse, VS)"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Etroubles (Italie)",
         "identifiedBy": {
           "value": "145158586",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Etroubles (Italie)"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -53727,35 +53282,29 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Organization",
         "preferred_name": "Soci\u00e9t\u00e9 suisse du th\u00e9\u00e2tre (Suisse)",
         "conference": false
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Th\u00e9\u00e2tre"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Th\u00e9\u00e2tre (genre litt\u00e9raire) suisse"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -53891,14 +53440,12 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Botanique"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -54102,19 +53649,16 @@
     "sequence_numbering": "Vol. 1(1946)->",
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Oecum\u00e9nisme"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Th\u00e9ologie"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -54466,19 +54010,16 @@
     "sequence_numbering": "Ann\u00e9e 1(1946)->",
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Litt\u00e9rature"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Culture"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -54578,24 +54119,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Herp\u00e9tologie"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Afrique",
         "identifiedBy": {
           "value": "027218546",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Afrique"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -55275,36 +54812,30 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Organization",
         "preferred_name": "Archivio di Stato di Genova (G\u00eanes)",
         "conference": false
       },
       {
-        "source": "rero",
         "type": "bf:Organization",
+        "preferred_name": "Banco di San Giorgio (G\u00eanes)",
+        "conference": false,
         "identifiedBy": {
           "value": "031023169",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Banco di San Giorgio (G\u00eanes)",
-        "conference": false
+          "type": "IdRef"
+        }
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Archives"
       },
       {
-        "source": "rero",
         "type": "bf:Temporal",
         "term": "1407-1805"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Inventaires"
       }
@@ -56236,14 +55767,12 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Science-fiction"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -56594,14 +56123,12 @@
     "sequence_numbering": "Ann\u00e9e 1(1945)-",
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Protestantisme"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -56696,19 +56223,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Missions"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Japon"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -56943,7 +56467,6 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -57478,24 +57001,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "H\u00e9raldique"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -57998,24 +57517,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "H\u00e9raldique"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -58146,12 +57661,10 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9glise"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "\u00c9glises r\u00e9form\u00e9es"
       }
@@ -58165,7 +57678,6 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -58283,25 +57795,21 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Organization",
         "preferred_name": "Bureau international du travail",
         "conference": false
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit du travail"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit international"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Publications officielles"
       }
@@ -58895,30 +58403,25 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Organization",
         "preferred_name": "Bureau international du travail",
         "conference": false
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Libert\u00e9 d'association"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit compar\u00e9"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Syndicats"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Publications officielles"
       }
@@ -59459,19 +58962,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "G\u00e9ologie"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Europe",
         "identifiedBy": {
           "value": "027224651",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Europe"
+          "type": "IdRef"
+        }
       }
     ]
   },
@@ -59611,14 +59111,12 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Religion"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -59875,24 +59373,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -60000,14 +59494,12 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Th\u00e9ologie orthodoxe"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -60138,35 +59630,29 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Organization",
         "preferred_name": "Soci\u00e9t\u00e9 suisse du th\u00e9\u00e2tre (Suisse)",
         "conference": false
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Th\u00e9\u00e2tre"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Th\u00e9\u00e2tre (genre litt\u00e9raire) suisse"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -60466,7 +59952,6 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -60908,7 +60393,6 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Organization",
         "preferred_name": "Cin\u00e9math\u00e8que suisse (Lausanne)",
         "conference": false
@@ -60916,7 +60400,6 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -61037,39 +60520,32 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00eache"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Chasse"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Mycologie"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Nature"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -61353,14 +60829,12 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Religion"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -61610,19 +61084,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "subjects_imported": [
@@ -61639,12 +61110,10 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -61824,24 +61293,20 @@
     "sequence_numbering": "S\u00e9r. A, 1-7(1925); s\u00e9r. B, 1-14(1926-1927); s\u00e9r. C, 1-8(1928); s\u00e9r. C, 1-8(1929); S\u00e9r. D, 1-8(1930)",
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "H\u00e9raldique"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -62098,14 +61563,12 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Th\u00e9ologie"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -62369,24 +61832,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "H\u00e9raldique"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -62517,14 +61976,12 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Th\u00e9ologie"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -62819,34 +62276,28 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00eache"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Chasse"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Mycologie"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Nature"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "subjects_imported": [
@@ -62858,7 +62309,6 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -63048,34 +62498,28 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00eache"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Chasse"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Nature"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Mycologie"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "subjects_imported": [
@@ -63087,7 +62531,6 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -63197,39 +62640,32 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Nature"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00eache"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Chasse"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Mycologie"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -63356,34 +62792,28 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -63503,29 +62933,24 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -63645,19 +63070,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "subjects_imported": [
@@ -63669,12 +63091,10 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -63786,34 +63206,28 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -64177,29 +63591,24 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -64314,19 +63723,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "subjects_imported": [
@@ -64338,12 +63744,10 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -64473,34 +63877,28 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -64612,34 +64010,28 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -64918,19 +64310,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "subjects_imported": [
@@ -64942,12 +64331,10 @@
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -65050,34 +64437,28 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -65206,34 +64587,28 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -65362,34 +64737,28 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit p\u00e9nal"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -65512,24 +64881,20 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Place",
+        "preferred_name": "Suisse",
         "identifiedBy": {
           "value": "027249654",
-          "source": "idref",
-          "type": "bf:Local"
-        },
-        "preferred_name": "Suisse"
+          "type": "IdRef"
+        }
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       },
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
@@ -65778,19 +65143,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Vaud (Suisse)"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       }
@@ -65900,19 +65262,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Vaud (Suisse)"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       }
@@ -66020,19 +65379,16 @@
     ],
     "subjects": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Droit"
       },
       {
-        "source": "rero",
         "type": "bf:Place",
         "preferred_name": "Vaud (Suisse)"
       }
     ],
     "genreForm": [
       {
-        "source": "rero",
         "type": "bf:Topic",
         "term": "Jurisprudence"
       }

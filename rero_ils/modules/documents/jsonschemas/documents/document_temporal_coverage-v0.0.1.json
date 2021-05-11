@@ -46,7 +46,7 @@
               }
             },
             "period_code": {
-              "$ref": "#/period_code"
+              "$ref": "#/definitions/period_code"
             }
           }
         },
@@ -98,7 +98,7 @@
               }
             },
             "period_code": {
-              "$ref": "#/period_code"
+              "$ref": "#/definitions/period_code"
             }
           }
         }
@@ -108,17 +108,19 @@
       "hide": true
     }
   },
-  "period_code": {
-    "title": "Period codes",
-    "minItems": 0,
-    "type": "array",
-    "items": {
-      "title": "Period code",
-      "description": "Enter a 4 character code from the MARC time period table.",
-      "type": "string",
-      "pattern": "^([a-z][0-9-]){2}$",
-      "form": {
-        "placeholder": "Example: x1x4"
+  "definitions": {
+    "period_code": {
+      "title": "Period codes",
+      "minItems": 0,
+      "type": "array",
+      "items": {
+        "title": "Period code",
+        "description": "Enter a 4 character code from the MARC time period table.",
+        "type": "string",
+        "pattern": "^([a-z][0-9-]){2}$",
+        "form": {
+          "placeholder": "Example: x1x4"
+        }
       }
     }
   }

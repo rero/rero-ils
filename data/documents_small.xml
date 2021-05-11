@@ -60,7 +60,7 @@
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Katholieke Universiteit Leuven (Louvain).</subfield>
 		<subfield code="b">Hoger Instituut voor Wijsbegeerte</subfield>
-		<subfield code="0">(IDREF)030744245</subfield>
+		<subfield code="0">(IdRef)030744245</subfield>
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Université catholique de Louvain.</subfield>
@@ -411,7 +411,7 @@
 		<subfield code="a">Schering, Arnold,</subfield>
 		<subfield code="d">1877-1941</subfield>
 		<subfield code="4">edt</subfield>
-		<subfield code="0">(IDREF)066924502</subfield>
+		<subfield code="0">(IdRef)066924502</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="2" tag="700">
 		<subfield code="a">Bach, Johann Sebastian. -</subfield>
@@ -490,7 +490,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Kessel, Katja</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)095969314</subfield>
+		<subfield code="0">(IdRef)095969314</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Basiswissen deutsche Gegenwartssprache /</subfield>
@@ -582,7 +582,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Reimann, Sandra</subfield>
-		<subfield code="0">(IDREF)095969357</subfield>
+		<subfield code="0">(IdRef)095969357</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">UTB für Wissenschaft : Uni-Taschenbücher</subfield>
@@ -1124,7 +1124,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Christlein, Rainer</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)093644701</subfield>
+		<subfield code="0">(IdRef)093644701</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="4" tag="245">
 		<subfield code="a">Das unterirdische Bayern :</subfield>
@@ -1170,7 +1170,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Braasch, Otto</subfield>
-		<subfield code="0">(IDREF)137401922</subfield>
+		<subfield code="0">(IdRef)137401922</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -1316,7 +1316,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Dekeyzer, Brigitte</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)050421204</subfield>
+		<subfield code="0">(IdRef)050421204</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="4" tag="245">
 		<subfield code="a">Les primitifs flamands /</subfield>
@@ -1464,7 +1464,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">[Publications officielles]</subfield>
@@ -1528,7 +1528,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">De Strycker, Emile</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)026815141</subfield>
+		<subfield code="0">(IdRef)026815141</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Précis d'histoire de la philosophie ancienne /</subfield>
@@ -1781,7 +1781,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Kadushin, Ilyana</subfield>
-		<subfield code="0">(IDREF)20183152X</subfield>
+		<subfield code="0">(IdRef)20183152X</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -1868,7 +1868,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Council on Christian Unity (United States)</subfield>
-		<subfield code="0">(IDREF)235346756</subfield>
+		<subfield code="0">(IdRef)235346756</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Call to unity</subfield>
@@ -1912,7 +1912,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Pétain, Philippe</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)027337049</subfield>
+		<subfield code="0">(IdRef)027337049</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Message du Maréchal Pétain, chef de l'Etat :</subfield>
@@ -2153,7 +2153,7 @@
 		<subfield code="c">d'Angoulême, reine de Navarre,</subfield>
 		<subfield code="d">1492-1549</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)027009211</subfield>
+		<subfield code="0">(IdRef)027009211</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Heptaméron /</subfield>
@@ -2268,7 +2268,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Plas, Alain</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)171084896</subfield>
+		<subfield code="0">(IdRef)171084896</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="3" tag="245">
 		<subfield code="a">La folle invention du professeur Plac /</subfield>
@@ -2432,7 +2432,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Dams, Carsten</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)034708138</subfield>
+		<subfield code="0">(IdRef)034708138</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="4" tag="245">
 		<subfield code="a">Die Gestapo :</subfield>
@@ -2481,7 +2481,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Stolle, Michael</subfield>
-		<subfield code="0">(IDREF)144600749</subfield>
+		<subfield code="0">(IdRef)144600749</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Beck'sche Reihe</subfield>
@@ -2924,7 +2924,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Treichler, Hans Peter</subfield>
@@ -2934,7 +2934,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Thévenaz, Michel</subfield>
-		<subfield code="0">(IDREF)029399939</subfield>
+		<subfield code="0">(IdRef)029399939</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -3010,7 +3010,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Hedde d'Entremont, Bernard</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)084565241</subfield>
+		<subfield code="0">(IdRef)084565241</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="4" tag="245">
 		<subfield code="a">Les aciers spéciaux /</subfield>
@@ -3152,11 +3152,11 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Bachmann, Hans Emil</subfield>
-		<subfield code="0">(IDREF)074755978</subfield>
+		<subfield code="0">(IdRef)074755978</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Perrin, Henri</subfield>
@@ -3252,7 +3252,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Korzan, Kazimierz</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)244025843</subfield>
+		<subfield code="0">(IdRef)244025843</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Sądowe postępowanie zabezpieczające i egzekucyjne w sprawach cywilnych /</subfield>
@@ -3373,7 +3373,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Tavard, Georges Henri</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)027155811</subfield>
+		<subfield code="0">(IdRef)027155811</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="4" tag="245">
 		<subfield code="a">The present ecumenical movement /</subfield>
@@ -3446,7 +3446,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Scheuner, Ulrich</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)032441770</subfield>
+		<subfield code="0">(IdRef)032441770</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="4" tag="245">
 		<subfield code="a">Das Problem der Gewalt und der gewaltsamen sozialen Veränderung in der ökumenischen Diskussion /</subfield>
@@ -3627,7 +3627,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Mizuki, Shigeru</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)103522026</subfield>
+		<subfield code="0">(IdRef)103522026</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Kitaro le repoussant /</subfield>
@@ -3717,11 +3717,11 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Fujimoto, Satoko</subfield>
-		<subfield code="0">(IDREF)082330778</subfield>
+		<subfield code="0">(IdRef)082330778</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Honnoré, Patrick</subfield>
-		<subfield code="0">(IDREF)072277742</subfield>
+		<subfield code="0">(IdRef)072277742</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Collection Paul</subfield>
@@ -3803,7 +3803,7 @@
 		<subfield code="a">Rahner, Karl,</subfield>
 		<subfield code="d">1904-1984</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)027088170</subfield>
+		<subfield code="0">(IdRef)027088170</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Bilanz des Glaubens :</subfield>
@@ -3877,7 +3877,7 @@
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Imhof, Paul,</subfield>
 		<subfield code="c">théologien</subfield>
-		<subfield code="0">(IDREF)026930595</subfield>
+		<subfield code="0">(IdRef)026930595</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">dtv</subfield>
@@ -4290,11 +4290,11 @@
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Bautz, Friedrich Wilhelm,</subfield>
 		<subfield code="d">1906-1979</subfield>
-		<subfield code="0">(IDREF)029383099</subfield>
+		<subfield code="0">(IdRef)029383099</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Bautz, Traugott</subfield>
-		<subfield code="0">(IDREF)031201547</subfield>
+		<subfield code="0">(IdRef)031201547</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -4522,7 +4522,7 @@
 		<subfield code="a">Deguy, Michel,</subfield>
 		<subfield code="d">1930-</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)026817756</subfield>
+		<subfield code="0">(IdRef)026817756</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Gisants :</subfield>
@@ -4840,11 +4840,11 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Enel, Thierry</subfield>
-		<subfield code="0">(IDREF)030031966</subfield>
+		<subfield code="0">(IdRef)030031966</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Héry, François-Xavier</subfield>
-		<subfield code="0">(IDREF)03003194X</subfield>
+		<subfield code="0">(IdRef)03003194X</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -5234,15 +5234,15 @@
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Schnapp, Friedrich,</subfield>
 		<subfield code="d">1900-1983</subfield>
-		<subfield code="0">(IDREF)070427518</subfield>
+		<subfield code="0">(IdRef)070427518</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Somfai, László</subfield>
-		<subfield code="0">(IDREF)030261163</subfield>
+		<subfield code="0">(IdRef)030261163</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Bey, Henning</subfield>
-		<subfield code="0">(IDREF)061128163</subfield>
+		<subfield code="0">(IdRef)061128163</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="800">
 		<subfield code="a">Mozart, Wolfgang Amadeus. -</subfield>
@@ -5424,7 +5424,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">[Bibliographie]</subfield>
@@ -5534,7 +5534,7 @@
 		<subfield code="a">Fröhlich, Susanne,</subfield>
 		<subfield code="d">1962-</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)060510714</subfield>
+		<subfield code="0">(IdRef)060510714</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Frisch gemacht :</subfield>
@@ -5622,7 +5622,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Nesch, Thorsten</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)079963374</subfield>
+		<subfield code="0">(IdRef)079963374</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Joyride Ost :</subfield>
@@ -5779,7 +5779,7 @@
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Domingo, Plácido,</subfield>
 		<subfield code="d">1941-</subfield>
-		<subfield code="0">(IDREF)027771202</subfield>
+		<subfield code="0">(IdRef)027771202</subfield>
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Orquesta de la Comunidad de Madrid</subfield>
@@ -5889,7 +5889,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Rouèche, Arnauld</subfield>
-		<subfield code="0">(IDREF)035573139</subfield>
+		<subfield code="0">(IdRef)035573139</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -5950,7 +5950,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Cantin, Marc</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)033963584</subfield>
+		<subfield code="0">(IdRef)033963584</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="2" tag="245">
 		<subfield code="a">L'oeil de bézoard /</subfield>
@@ -5991,7 +5991,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Vermot-Desroches, Jean-Emmanuel</subfield>
-		<subfield code="0">(IDREF)050835750</subfield>
+		<subfield code="0">(IdRef)050835750</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="800">
 		<subfield code="a">Cantin, Marc. -</subfield>
@@ -6066,7 +6066,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Le Gall, Danielle</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)03346894X</subfield>
+		<subfield code="0">(IdRef)03346894X</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="1" tag="245">
 		<subfield code="a">&quot;Electre&quot; de Jean Giraudoux :</subfield>
@@ -6108,7 +6108,7 @@
 		<subfield code="a">Giraudoux, Jean.</subfield>
 		<subfield code="t">Electre</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027538303</subfield>
+		<subfield code="0">(IdRef)027538303</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">[Manuels d'enseignement]</subfield>
@@ -6197,7 +6197,7 @@
 		<subfield code="a">Urlaub, Farin,</subfield>
 		<subfield code="d">1963-</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)244017360</subfield>
+		<subfield code="0">(IdRef)244017360</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Afrika /</subfield>
@@ -6245,7 +6245,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Afrique</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027218546</subfield>
+		<subfield code="0">(IdRef)027218546</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">[Photographies]</subfield>
@@ -6496,7 +6496,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Ubl, Karl</subfield>
-		<subfield code="0">(IDREF)064816125</subfield>
+		<subfield code="0">(IdRef)064816125</subfield>
 	</datafield>
 	<datafield ind1="0" ind2=" " tag="700">
 		<subfield code="a">Schneider, Herbert</subfield>
@@ -6582,7 +6582,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Vattel, Emer de</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)032444621</subfield>
+		<subfield code="0">(IdRef)032444621</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="3" tag="245">
 		<subfield code="a">Le droit des gens, ou, Principes de la loi naturelle appliqués à la conduite et aux affaires des nations et des souverains /</subfield>
@@ -6642,11 +6642,11 @@
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Lapradelle, Albert Geouffre de,</subfield>
 		<subfield code="d">1871-1955</subfield>
-		<subfield code="0">(IDREF)028028856</subfield>
+		<subfield code="0">(IdRef)028028856</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Fenwick, Charles Ghequiere</subfield>
-		<subfield code="0">(IDREF)032583702</subfield>
+		<subfield code="0">(IdRef)032583702</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Classics of International Law</subfield>
@@ -6934,7 +6934,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Rosenthal, Franz</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)028563700</subfield>
+		<subfield code="0">(IdRef)028563700</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="2" tag="245">
 		<subfield code="a">A grammar of biblical Aramaic /</subfield>
@@ -7153,7 +7153,7 @@
 		<subfield code="a">King, Stephen,</subfield>
 		<subfield code="d">1947-</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)028710355</subfield>
+		<subfield code="0">(IdRef)028710355</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Terres perdues /</subfield>
@@ -7262,7 +7262,7 @@
 		<subfield code="a">King, Stephen,</subfield>
 		<subfield code="d">1947-</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)028710355</subfield>
+		<subfield code="0">(IdRef)028710355</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="4" tag="245">
 		<subfield code="a">Les trois cartes /</subfield>
@@ -7402,7 +7402,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Schumann, Michael</subfield>
-		<subfield code="0">(IDREF)029768748</subfield>
+		<subfield code="0">(IdRef)029768748</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Forschungsberichte der zentralen wissenschaftlichen Einrichtung &quot;Arbeit und Betrieb&quot;</subfield>
@@ -7454,7 +7454,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Hayhoe, Frank George James</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)029679400</subfield>
+		<subfield code="0">(IdRef)029679400</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="2" tag="245">
 		<subfield code="a">A colour atlas of haematological cytology /</subfield>
@@ -7696,12 +7696,12 @@
 	<datafield ind1="1" ind2="7" tag="600">
 		<subfield code="a">Corboz, Michel</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)082686335</subfield>
+		<subfield code="0">(IdRef)082686335</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="7" tag="600">
 		<subfield code="a">Bach, Johann Sebastian</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)026699656</subfield>
+		<subfield code="0">(IdRef)026699656</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="650">
 		<subfield code="a">interprétation (exécution artistique)</subfield>
@@ -7717,19 +7717,19 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Marasco, Rinaldo</subfield>
-		<subfield code="0">(IDREF)186402163</subfield>
+		<subfield code="0">(IdRef)186402163</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Piguet, Jérôme</subfield>
-		<subfield code="0">(IDREF)186402376</subfield>
+		<subfield code="0">(IdRef)186402376</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Porchet, Jean-Louis</subfield>
-		<subfield code="0">(IDREF)186402627</subfield>
+		<subfield code="0">(IdRef)186402627</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Ruey, Gérard</subfield>
-		<subfield code="0">(IDREF)18640266X</subfield>
+		<subfield code="0">(IdRef)18640266X</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -7992,7 +7992,7 @@
 		<subfield code="a">Swift, Jonathan,</subfield>
 		<subfield code="d">1667-1745</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)027152596</subfield>
+		<subfield code="0">(IdRef)027152596</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="4" tag="245">
 		<subfield code="a">Les voyages de Gulliver /</subfield>
@@ -8038,12 +8038,12 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Cavin, Albert</subfield>
-		<subfield code="0">(IDREF)026773252</subfield>
+		<subfield code="0">(IdRef)026773252</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Gavarni, Paul,</subfield>
 		<subfield code="d">1804-1866</subfield>
-		<subfield code="0">(IDREF)032410182</subfield>
+		<subfield code="0">(IdRef)032410182</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="4" tag="830">
 		<subfield code="a">Les livres qui ont fait le monde</subfield>
@@ -8157,11 +8157,11 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Huschke, Philipp Eduard</subfield>
-		<subfield code="0">(IDREF)060312149</subfield>
+		<subfield code="0">(IdRef)060312149</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Seckel, Emil</subfield>
-		<subfield code="0">(IDREF)033405786</subfield>
+		<subfield code="0">(IdRef)033405786</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Bibliotheca scriptorum graecorum et romanorum teubneriana</subfield>
@@ -8241,7 +8241,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Le Van, Charlotte</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)035707119</subfield>
+		<subfield code="0">(IdRef)035707119</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="4" tag="245">
 		<subfield code="a">Les grossesses à l'adolescence :</subfield>
@@ -8342,7 +8342,7 @@
 		<subfield code="a">Haydn, Joseph,</subfield>
 		<subfield code="d">1732-1809</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)030260868</subfield>
+		<subfield code="0">(IdRef)030260868</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Werke /</subfield>
@@ -8382,12 +8382,12 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Boccherini, Giovanni Gastone</subfield>
-		<subfield code="0">(IDREF)172774004</subfield>
+		<subfield code="0">(IdRef)172774004</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Schmid, Ernst Fritz,</subfield>
 		<subfield code="d">1904-1960</subfield>
-		<subfield code="0">(IDREF)067022847</subfield>
+		<subfield code="0">(IdRef)067022847</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Mühle, Friederike</subfield>
@@ -8626,7 +8626,7 @@
 		<subfield code="a">Disney, Walt,</subfield>
 		<subfield code="d">1901-1966</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)028028945</subfield>
+		<subfield code="0">(IdRef)028028945</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Pinocchio /</subfield>
@@ -8897,7 +8897,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Mergenthaler, André</subfield>
-		<subfield code="0">(IDREF)174111819</subfield>
+		<subfield code="0">(IdRef)174111819</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -9094,11 +9094,11 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Aguilar, Nelson</subfield>
-		<subfield code="0">(IDREF)057790981</subfield>
+		<subfield code="0">(IdRef)057790981</subfield>
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Associação Brasil 500 Anos Artes Visuais (São Paulo)</subfield>
-		<subfield code="0">(IDREF)076020673</subfield>
+		<subfield code="0">(IdRef)076020673</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -9203,7 +9203,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Bourrières, Sylvain</subfield>
-		<subfield code="0">(IDREF)055281729</subfield>
+		<subfield code="0">(IdRef)055281729</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Animalou</subfield>
@@ -9421,7 +9421,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Royal Horticultural Society (Great Britain)</subfield>
-		<subfield code="0">(IDREF)031598099</subfield>
+		<subfield code="0">(IdRef)031598099</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="772">
 		<subfield code="t">International lily register [1982, including first supplement]</subfield>
@@ -9481,7 +9481,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Kinnamon, Michael</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)035216999</subfield>
+		<subfield code="0">(IdRef)035216999</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Growing together towards the unity of the Church /</subfield>
@@ -9563,7 +9563,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Crouzet, Yves</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)026806347</subfield>
+		<subfield code="0">(IdRef)026806347</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="4" tag="245">
 		<subfield code="a">Des bambous dans tous les jardins /</subfield>
@@ -9787,7 +9787,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Follet, Véronique</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)026868024</subfield>
+		<subfield code="0">(IdRef)026868024</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Bracelets des tout-petits /</subfield>
@@ -9887,7 +9887,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Rosamel, Godeleine de</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)032104561</subfield>
+		<subfield code="0">(IdRef)032104561</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Dessine avec tes empreintes /</subfield>
@@ -10180,7 +10180,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Sozialistisches Büro (Offenbach)</subfield>
-		<subfield code="0">(IDREF)030049814</subfield>
+		<subfield code="0">(IdRef)030049814</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Informationsdienste Arbeitsfeld Schule, Gesundheitswesen, Sozialarbeit</subfield>
@@ -10305,7 +10305,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Brésil</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)02722953X</subfield>
+		<subfield code="0">(IdRef)02722953X</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">[Catalogues d'exposition]</subfield>
@@ -10313,7 +10313,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Velthem, Lúcia Hussak van</subfield>
-		<subfield code="0">(IDREF)077007220</subfield>
+		<subfield code="0">(IdRef)077007220</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Mostra do Redescobrimento</subfield>
@@ -10411,7 +10411,7 @@
 	<datafield ind1="2" ind2="7" tag="610">
 		<subfield code="a">British Rail Pension Fund (Grande-Bretagne)</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)204515998</subfield>
+		<subfield code="0">(IdRef)204515998</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="650">
 		<subfield code="a">Tabatières</subfield>
@@ -10527,7 +10527,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Krauss, Susanne</subfield>
-		<subfield code="0">(IDREF)080115942</subfield>
+		<subfield code="0">(IdRef)080115942</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="1" tag="900">
 		<subfield code="a">NEBIS</subfield>
@@ -10612,7 +10612,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Morali, Ilaria</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)074180304</subfield>
+		<subfield code="0">(IdRef)074180304</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="3" tag="245">
 		<subfield code="a">La salvezza dei non cristiani :</subfield>
@@ -10824,7 +10824,7 @@
 		<subfield code="c">(empereur de Russie ;</subfield>
 		<subfield code="b">1)</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027408183</subfield>
+		<subfield code="0">(IdRef)027408183</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="650">
 		<subfield code="a">Gravure</subfield>
@@ -10853,7 +10853,7 @@
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="6">880-04</subfield>
 		<subfield code="a">Gosudarstvennyĭ muzeĭ izobrazitelʹnykh iskusstv imeni A.S. Pushkina</subfield>
-		<subfield code="0">(IDREF)092877575</subfield>
+		<subfield code="0">(IdRef)092877575</subfield>
 	</datafield>
 	<datafield ind1="0" ind2="0" tag="880">
 		<subfield code="6">245-01/(N</subfield>
@@ -10998,7 +10998,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Aagaard, Anna Marie</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)059315156</subfield>
+		<subfield code="0">(IdRef)059315156</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Kirche und Welt :</subfield>
@@ -11110,7 +11110,7 @@
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Université de Bourgogne (Dijon).</subfield>
 		<subfield code="b">Centre de recherches &quot;Le texte et l'édition&quot;</subfield>
-		<subfield code="0">(IDREF)03545802X</subfield>
+		<subfield code="0">(IdRef)03545802X</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -11206,19 +11206,19 @@
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Ansermet, Ernest,</subfield>
 		<subfield code="d">1883-1969</subfield>
-		<subfield code="0">(IDREF)026687860</subfield>
+		<subfield code="0">(IdRef)026687860</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Souzay, Gérard</subfield>
-		<subfield code="0">(IDREF)032601786</subfield>
+		<subfield code="0">(IdRef)032601786</subfield>
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Union chorale (La Tour de Peilz)</subfield>
-		<subfield code="0">(IDREF)172453070</subfield>
+		<subfield code="0">(IdRef)172453070</subfield>
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Orchestre de la Suisse romande</subfield>
-		<subfield code="0">(IDREF)05018959X</subfield>
+		<subfield code="0">(IdRef)05018959X</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="4" tag="830">
 		<subfield code="a">The classic sound</subfield>
@@ -11298,7 +11298,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Fabre, Marc-André</subfield>
-		<subfield code="0">(IDREF)030599296</subfield>
+		<subfield code="0">(IdRef)030599296</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Louis, Robert</subfield>
@@ -11387,7 +11387,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Afrique</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027218546</subfield>
+		<subfield code="0">(IdRef)027218546</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">[Périodiques]</subfield>
@@ -11465,7 +11465,7 @@
 		<subfield code="a">Boyd, Robert,</subfield>
 		<subfield code="c">anthropologue</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)028836642</subfield>
+		<subfield code="0">(IdRef)028836642</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Culture and the evolutionary process /</subfield>
@@ -11539,7 +11539,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Richerson, Peter J</subfield>
-		<subfield code="0">(IDREF)07377233X</subfield>
+		<subfield code="0">(IdRef)07377233X</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -11783,7 +11783,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Mäler, Karl-Göran</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)056746512</subfield>
+		<subfield code="0">(IdRef)056746512</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Economic measurement of environmental damage :</subfield>
@@ -11833,11 +11833,11 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Wyzga, Ronald E</subfield>
-		<subfield code="0">(IDREF)234848111</subfield>
+		<subfield code="0">(IdRef)234848111</subfield>
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Organisation de coopération et de développement économiques (Paris)</subfield>
-		<subfield code="0">(IDREF)086251392</subfield>
+		<subfield code="0">(IdRef)086251392</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -11899,7 +11899,7 @@
 		<subfield code="a">Lacoste, Jean-Yves,</subfield>
 		<subfield code="d">1953-</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)026958775</subfield>
+		<subfield code="0">(IdRef)026958775</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Recherches sur la parole /</subfield>
@@ -12052,11 +12052,11 @@
 		<subfield code="a">Füssli, Johann Caspar,</subfield>
 		<subfield code="d">1706-1782</subfield>
 		<subfield code="4">prt</subfield>
-		<subfield code="0">(IDREF)229507255</subfield>
+		<subfield code="0">(IdRef)229507255</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="752">
 		<subfield code="d">Zürich (1450-1800, lieu d'édition ou d'impression)</subfield>
-		<subfield code="0">(IDREF)027418545</subfield>
+		<subfield code="0">(IdRef)027418545</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="1" tag="900">
 		<subfield code="a">OCoLC</subfield>
@@ -12125,7 +12125,7 @@
 		<subfield code="a">Martin, Ann M.,</subfield>
 		<subfield code="d">1955-</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)030688361</subfield>
+		<subfield code="0">(IdRef)030688361</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="3" tag="245">
 		<subfield code="a">Le combat de Jessica /</subfield>
@@ -12407,7 +12407,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Fasman, Gerald D</subfield>
-		<subfield code="0">(IDREF)031568637</subfield>
+		<subfield code="0">(IdRef)031568637</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -12471,7 +12471,7 @@
 		<subfield code="a">Delaloye, Reynald,</subfield>
 		<subfield code="d">1970-</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)148257054</subfield>
+		<subfield code="0">(IdRef)148257054</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Pergélisol et construction de remontées mécaniques :</subfield>
@@ -12618,7 +12618,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Airey, David</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)118198726</subfield>
+		<subfield code="0">(IdRef)118198726</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Tourism in China :</subfield>
@@ -12678,7 +12678,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Chong, King</subfield>
-		<subfield code="0">(IDREF)152618333</subfield>
+		<subfield code="0">(IdRef)152618333</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="1" tag="900">
 		<subfield code="a">OCoLC</subfield>
@@ -13456,7 +13456,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Vita et Pax Foundation</subfield>
-		<subfield code="0">(IDREF)235616796</subfield>
+		<subfield code="0">(IdRef)235616796</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Eastern Churches quarterly</subfield>
@@ -13698,7 +13698,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">Entscheidsammlung</subfield>
@@ -13919,7 +13919,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Italie</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027235408</subfield>
+		<subfield code="0">(IdRef)027235408</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">[texte législatif]</subfield>
@@ -13927,7 +13927,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Ferrari, Santo</subfield>
-		<subfield code="0">(IDREF)176678980</subfield>
+		<subfield code="0">(IdRef)176678980</subfield>
 	</datafield>
 	<datafield ind1="2" ind2="2" tag="710">
 		<subfield code="a">Italia. -</subfield>
@@ -14177,11 +14177,11 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Weidner, Helmut</subfield>
-		<subfield code="0">(IDREF)031771440</subfield>
+		<subfield code="0">(IdRef)031771440</subfield>
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Internationales Institut für Umwelt und Gesellschaft (Berlin, West)</subfield>
-		<subfield code="0">(IDREF)077156072</subfield>
+		<subfield code="0">(IdRef)077156072</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -14263,7 +14263,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Bichonnier, Henriette</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)026727587</subfield>
+		<subfield code="0">(IdRef)026727587</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="3" tag="245">
 		<subfield code="a">Le roi des bons /</subfield>
@@ -14467,7 +14467,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Weidner, Helmut</subfield>
-		<subfield code="0">(IDREF)031771440</subfield>
+		<subfield code="0">(IdRef)031771440</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="800">
 		<subfield code="a">Knoepfel, Peter. -</subfield>
@@ -14557,7 +14557,7 @@
 		<subfield code="a">MacKee, David,</subfield>
 		<subfield code="d">1935-</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)027000346</subfield>
+		<subfield code="0">(IdRef)027000346</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Bernard et le monstre /</subfield>
@@ -14877,7 +14877,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Henkel, Arthur</subfield>
-		<subfield code="0">(IDREF)028417232</subfield>
+		<subfield code="0">(IdRef)028417232</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -15113,7 +15113,7 @@
 		<subfield code="a">Jacq, Christian,</subfield>
 		<subfield code="d">1947-</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)026932997</subfield>
+		<subfield code="0">(IdRef)026932997</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="2" tag="245">
 		<subfield code="a">L'épée flamboyante :</subfield>
@@ -15242,7 +15242,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Overnoy, Sylvie</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)050769561</subfield>
+		<subfield code="0">(IdRef)050769561</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Bienvenue au club! :</subfield>
@@ -15369,7 +15369,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Evangelisch-Reformierte Landeskirche des Kantons Zürich</subfield>
-		<subfield code="0">(IDREF)122516176</subfield>
+		<subfield code="0">(IdRef)122516176</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="773">
 		<subfield code="t">Protokoll der Kirchensynode des Kantons Zürich, 24. Amtsdauer, 8. Sitzung</subfield>
@@ -15673,7 +15673,7 @@
 		<subfield code="a">Khadra, Yasmina,</subfield>
 		<subfield code="d">1955-</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)078047285</subfield>
+		<subfield code="0">(IdRef)078047285</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="2" tag="245">
 		<subfield code="a">L'Olympe des infortunés /</subfield>
@@ -15801,7 +15801,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Italie</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027235408</subfield>
+		<subfield code="0">(IdRef)027235408</subfield>
 	</datafield>
 	<datafield ind1="4" ind2="1" tag="856">
 		<subfield code="u">https://archive.org/details/aoniopaleario01younuoft</subfield>
@@ -15925,7 +15925,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Moscarelli, Laura</subfield>
-		<subfield code="0">(IDREF)199829586</subfield>
+		<subfield code="0">(IdRef)199829586</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -16051,7 +16051,7 @@
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="6">880-05</subfield>
 		<subfield code="a">Potot︠s︡kai︠a︡, Natalʹi︠a︡ Pavlovna</subfield>
-		<subfield code="0">(IDREF)030724392</subfield>
+		<subfield code="0">(IdRef)030724392</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="880">
 		<subfield code="6">100-01/(N</subfield>
@@ -16136,7 +16136,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Walden, Laura</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)199473927</subfield>
+		<subfield code="0">(IdRef)199473927</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="3" tag="245">
 		<subfield code="a">La terre des silences /</subfield>
@@ -16175,7 +16175,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Déchin, Brigitte</subfield>
-		<subfield code="0">(IDREF)057566860</subfield>
+		<subfield code="0">(IdRef)057566860</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -16236,7 +16236,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Reese, Günter</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)251298299</subfield>
+		<subfield code="0">(IdRef)251298299</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Ökumene gewinnt Profil (XII) :</subfield>
@@ -16783,7 +16783,7 @@
 		<subfield code="a">Potter, Philip,</subfield>
 		<subfield code="d">1921-2015</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)031206999</subfield>
+		<subfield code="0">(IdRef)031206999</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="3" tag="245">
 		<subfield code="a">Le Partage de la foi :</subfield>
@@ -16916,7 +16916,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Prentky, Robert A</subfield>
-		<subfield code="0">(IDREF)073942103</subfield>
+		<subfield code="0">(IdRef)073942103</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Annals of the New York Academy of Sciences</subfield>
@@ -17114,7 +17114,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Lalou, René</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)034000038</subfield>
+		<subfield code="0">(IdRef)034000038</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="3" tag="245">
 		<subfield code="a">Le théâtre en France depuis 1900 /</subfield>
@@ -17167,11 +17167,11 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">France</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027226794</subfield>
+		<subfield code="0">(IdRef)027226794</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Versini, Georges</subfield>
-		<subfield code="0">(IDREF)078122538</subfield>
+		<subfield code="0">(IdRef)078122538</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Que sais-je? : le point des connaissances actuelles</subfield>
@@ -17347,7 +17347,7 @@
 	<datafield ind1="1" ind2="7" tag="600">
 		<subfield code="a">Goonan, Kathleen Ann</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)139843418</subfield>
+		<subfield code="0">(IdRef)139843418</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Goonan, Kathleen Ann</subfield>
@@ -17420,7 +17420,7 @@
 		<subfield code="a">Yu, Hua,</subfield>
 		<subfield code="d">1960-</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)033893438</subfield>
+		<subfield code="0">(IdRef)033893438</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Vivre ! :</subfield>
@@ -17623,7 +17623,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Heller-Roazen, Daniel</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)075450844</subfield>
+		<subfield code="0">(IdRef)075450844</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="4" tag="245">
 		<subfield code="a">Une archéologie du toucher /</subfield>
@@ -17680,7 +17680,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Chemla, Paul</subfield>
-		<subfield code="0">(IDREF)026784556</subfield>
+		<subfield code="0">(IdRef)026784556</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -18212,7 +18212,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Lebey, Claude</subfield>
-		<subfield code="0">(IDREF)028804430</subfield>
+		<subfield code="0">(IdRef)028804430</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -18316,11 +18316,11 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Babloïan, Robert</subfield>
-		<subfield code="0">(IDREF)164099832</subfield>
+		<subfield code="0">(IdRef)164099832</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Choumskaïa, Mirléna</subfield>
-		<subfield code="0">(IDREF)164099859</subfield>
+		<subfield code="0">(IdRef)164099859</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -18688,11 +18688,11 @@
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Doyle, Patrick,</subfield>
 		<subfield code="c">compositeur</subfield>
-		<subfield code="0">(IDREF)05765025X</subfield>
+		<subfield code="0">(IdRef)05765025X</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Lady, Steph</subfield>
-		<subfield code="0">(IDREF)057223688</subfield>
+		<subfield code="0">(IdRef)057223688</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Coppola, Francis Ford</subfield>
@@ -18701,7 +18701,7 @@
 		<subfield code="a">Shelley, Mary Wollstonecraft Godwin,</subfield>
 		<subfield code="d">1797-1851. -</subfield>
 		<subfield code="t">Frankenstein</subfield>
-		<subfield code="0">(IDREF)026671131</subfield>
+		<subfield code="0">(IdRef)026671131</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -18898,7 +18898,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Max, Charles</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)234193093</subfield>
+		<subfield code="0">(IdRef)234193093</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Entwicklung von Kompetenz - ein neues Paradigma für das Lernen in Schule und Arbeitswelt : Ertrag und Perspektiven der französischsprachigen Kompetenzforschung und ihre Bedeutung als Gestaltungsprinzip von Bildung /</subfield>
@@ -19039,7 +19039,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Bacus, Anne</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)028965892</subfield>
+		<subfield code="0">(IdRef)028965892</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Questions au psy :</subfield>
@@ -19202,7 +19202,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">[Périodiques]</subfield>
@@ -19210,7 +19210,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Société suisse du théâtre</subfield>
-		<subfield code="0">(IDREF)029033616</subfield>
+		<subfield code="0">(IdRef)029033616</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="772">
 		<subfield code="t">Schweizerische Theaterzeitung</subfield>
@@ -19334,7 +19334,7 @@
 	<datafield ind1="1" ind2="7" tag="600">
 		<subfield code="a">Pessoa, Fernando</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)026667673</subfield>
+		<subfield code="0">(IdRef)026667673</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="650">
 		<subfield code="a">15e siècle-17e siècle</subfield>
@@ -19351,7 +19351,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Portugal</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027243427</subfield>
+		<subfield code="0">(IdRef)027243427</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">[Études diverses]</subfield>
@@ -19455,7 +19455,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Wengeroff, Pauline</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)131203460</subfield>
+		<subfield code="0">(IdRef)131203460</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="6">880-01</subfield>
@@ -19728,7 +19728,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Wilco</subfield>
-		<subfield code="0">(IDREF)199562202</subfield>
+		<subfield code="0">(IdRef)199562202</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -19784,7 +19784,7 @@
 		<subfield code="a">Pushkin, Aleksandr Sergeevich,</subfield>
 		<subfield code="d">1799-1837</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)028188012</subfield>
+		<subfield code="0">(IdRef)028188012</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="6">880-02</subfield>
@@ -19850,7 +19850,7 @@
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="6">880-11</subfield>
 		<subfield code="a">Gennadiĭ, Grigoriĭ Nikolaevich</subfield>
-		<subfield code="0">(IDREF)094513627</subfield>
+		<subfield code="0">(IdRef)094513627</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="880">
 		<subfield code="6">100-01/(N</subfield>
@@ -20104,7 +20104,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Brésil</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)02722953X</subfield>
+		<subfield code="0">(IdRef)02722953X</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">[Périodiques]</subfield>
@@ -20334,7 +20334,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Glass, Lillian</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)035155051</subfield>
+		<subfield code="0">(IdRef)035155051</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Ces gens qui vous empoisonnent l'existence /</subfield>
@@ -20427,7 +20427,7 @@
 		<subfield code="a">Benjamin, Walter,</subfield>
 		<subfield code="d">1892-1940</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)026717948</subfield>
+		<subfield code="0">(IdRef)026717948</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Berliner Kindheit um Neunzehnhundert /</subfield>
@@ -20645,7 +20645,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Dumont-Le Cornec, Elisabeth</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)070192979</subfield>
+		<subfield code="0">(IdRef)070192979</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="2" tag="245">
 		<subfield code="a">L'Egypte des pharaons, comment c'était ? /</subfield>
@@ -20690,11 +20690,11 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Dautremer, Rébecca</subfield>
-		<subfield code="0">(IDREF)05737841X</subfield>
+		<subfield code="0">(IdRef)05737841X</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Sabathié, Laurent</subfield>
-		<subfield code="0">(IDREF)052496767</subfield>
+		<subfield code="0">(IdRef)052496767</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -20753,7 +20753,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Pilandon, Louis</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)032014201</subfield>
+		<subfield code="0">(IdRef)032014201</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Transition vers l'économie de marché des pays &quot;ex de l'Est&quot; /</subfield>
@@ -21173,7 +21173,7 @@
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Herrmann, Theo,</subfield>
 		<subfield code="d">1929-</subfield>
-		<subfield code="0">(IDREF)030782805</subfield>
+		<subfield code="0">(IdRef)030782805</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Albert, Hans</subfield>
@@ -21242,7 +21242,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Salleron, Jules</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)085939323</subfield>
+		<subfield code="0">(IdRef)085939323</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Etudes sur le vin mousseux :</subfield>
@@ -21508,15 +21508,15 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Banz, Stefan</subfield>
-		<subfield code="0">(IDREF)085817627</subfield>
+		<subfield code="0">(IdRef)085817627</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Denaro, Dolores</subfield>
-		<subfield code="0">(IDREF)069761124</subfield>
+		<subfield code="0">(IdRef)069761124</subfield>
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Centre PasquART (Bienne)</subfield>
-		<subfield code="0">(IDREF)06949665X</subfield>
+		<subfield code="0">(IdRef)06949665X</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -21941,7 +21941,7 @@
 		<subfield code="a">Ruffieux, Roland,</subfield>
 		<subfield code="d">1921-2004</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)028339819</subfield>
+		<subfield code="0">(IdRef)028339819</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="3" tag="245">
 		<subfield code="a">La Suisse /</subfield>
@@ -22007,7 +22007,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="787">
 		<subfield code="t">150 ans de mouvement ouvrier chrétien en Europe de l'Ouest, 1789-1939</subfield>
@@ -22080,7 +22080,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Samartha, Stanley Jedidiah</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)072752580</subfield>
+		<subfield code="0">(IdRef)072752580</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Kein Kampf der Stachelschweine :</subfield>
@@ -22168,7 +22168,7 @@
 		<subfield code="c">pape,</subfield>
 		<subfield code="d">1920-2005</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)029093147</subfield>
+		<subfield code="0">(IdRef)029093147</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Doctrine et action sociales de l'Eglise /</subfield>
@@ -22337,7 +22337,7 @@
 		<subfield code="c">(saint).</subfield>
 		<subfield code="t">Homélies sur l'Evangile de saint Jean</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)080876935</subfield>
+		<subfield code="0">(IdRef)080876935</subfield>
 	</datafield>
 	<datafield ind1="0" ind2="7" tag="630">
 		<subfield code="a">Bible.</subfield>
@@ -22363,7 +22363,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Berrouard, Marie-François</subfield>
-		<subfield code="0">(IDREF)026723417</subfield>
+		<subfield code="0">(IdRef)026723417</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -22586,7 +22586,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Darwiche, Jihad</subfield>
-		<subfield code="0">(IDREF)031800084</subfield>
+		<subfield code="0">(IdRef)031800084</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -22703,7 +22703,7 @@
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Kappeler, Manfred,</subfield>
 		<subfield code="d">1940-</subfield>
-		<subfield code="0">(IDREF)251273660</subfield>
+		<subfield code="0">(IdRef)251273660</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Widersprüche : Zeitschrift für sozialistische Politik im Bildungs-, Gesundheits- und Sozialbereich</subfield>
@@ -22794,7 +22794,7 @@
 		<subfield code="a">Monin, Andreĭ Sergeevich,</subfield>
 		<subfield code="d">1921-</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)07146073X</subfield>
+		<subfield code="0">(IdRef)07146073X</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Statistical fluid mechanics :</subfield>
@@ -22868,7 +22868,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Lumley, John Leask</subfield>
-		<subfield code="0">(IDREF)031604005</subfield>
+		<subfield code="0">(IdRef)031604005</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="1" tag="900">
 		<subfield code="a">LOC</subfield>
@@ -22968,7 +22968,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Dietl, Erhard</subfield>
-		<subfield code="0">(IDREF)086144715</subfield>
+		<subfield code="0">(IdRef)086144715</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -23085,12 +23085,12 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Anker, Daniel</subfield>
-		<subfield code="0">(IDREF)029957281</subfield>
+		<subfield code="0">(IdRef)029957281</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Volken, Marco,</subfield>
 		<subfield code="d">1965-</subfield>
-		<subfield code="0">(IDREF)24393744X</subfield>
+		<subfield code="0">(IdRef)24393744X</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Bergmonographie</subfield>
@@ -23203,7 +23203,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Entomological Society of Southern Africa</subfield>
-		<subfield code="0">(IDREF)063805162</subfield>
+		<subfield code="0">(IdRef)063805162</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -23294,7 +23294,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Starck, Christian</subfield>
-		<subfield code="0">(IDREF)031505910</subfield>
+		<subfield code="0">(IdRef)031505910</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Studien und Materialien zur Verfassungsgerichtsbarkeit</subfield>
@@ -23422,7 +23422,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Texier, Katia</subfield>
-		<subfield code="0">(IDREF)194824799</subfield>
+		<subfield code="0">(IdRef)194824799</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -23526,7 +23526,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Finlande</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027225984</subfield>
+		<subfield code="0">(IdRef)027225984</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Sohlo, Ilari</subfield>
@@ -23729,15 +23729,15 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Egido, Aurora</subfield>
-		<subfield code="0">(IDREF)02911344X</subfield>
+		<subfield code="0">(IdRef)02911344X</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Molina, César Antonio</subfield>
-		<subfield code="0">(IDREF)028845870</subfield>
+		<subfield code="0">(IdRef)028845870</subfield>
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Asociación Internacional de Hispanistas</subfield>
-		<subfield code="0">(IDREF)026464462</subfield>
+		<subfield code="0">(IdRef)026464462</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="1" tag="900">
 		<subfield code="a">BNE</subfield>
@@ -23787,7 +23787,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Deschner, John</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)194447421</subfield>
+		<subfield code="0">(IdRef)194447421</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Ecclesiological aspects of the race problem /</subfield>
@@ -23957,7 +23957,7 @@
 	<datafield ind1="1" ind2="7" tag="600">
 		<subfield code="a">Freundlich, Otto</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027525457</subfield>
+		<subfield code="0">(IdRef)027525457</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="7" tag="600">
 		<subfield code="a">Lye, Len</subfield>
@@ -23970,7 +23970,7 @@
 	<datafield ind1="1" ind2="7" tag="600">
 		<subfield code="a">Palermo, Blinky</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027930408</subfield>
+		<subfield code="0">(IdRef)027930408</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="650">
 		<subfield code="a">Art</subfield>
@@ -24002,7 +24002,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Musée d'Israël (Jérusalem)</subfield>
-		<subfield code="0">(IDREF)118427369</subfield>
+		<subfield code="0">(IdRef)118427369</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Qạṭalôg / Yiśraʾel mûzêʾôn</subfield>
@@ -24090,7 +24090,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Arold, Marliese</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)251463028</subfield>
+		<subfield code="0">(IdRef)251463028</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Magic girls :</subfield>
@@ -24201,7 +24201,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Boojamra, John Lawrence</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)056792948</subfield>
+		<subfield code="0">(IdRef)056792948</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Assembly theme discussed in Bossey /</subfield>
@@ -24559,7 +24559,7 @@
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Coat, Janik,</subfield>
 		<subfield code="d">1972-</subfield>
-		<subfield code="0">(IDREF)130950041</subfield>
+		<subfield code="0">(IdRef)130950041</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -24725,7 +24725,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Downham, Jenny</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)127839852</subfield>
+		<subfield code="0">(IdRef)127839852</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="4" tag="245">
 		<subfield code="a">Die Ungehörigkeit des Glücks :</subfield>
@@ -24832,7 +24832,7 @@
 		<subfield code="a">Cathrine, Arnaud,</subfield>
 		<subfield code="d">1973-</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)035713801</subfield>
+		<subfield code="0">(IdRef)035713801</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="3" tag="245">
 		<subfield code="a">Le journal intime de Benjamin Lorca :</subfield>
@@ -25024,7 +25024,7 @@
 		<subfield code="a">Casas Ros, Antoni,</subfield>
 		<subfield code="d">1972-</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)122152603</subfield>
+		<subfield code="0">(IdRef)122152603</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Enigma :</subfield>
@@ -25118,7 +25118,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Nix, Garth</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)080514294</subfield>
+		<subfield code="0">(IdRef)080514294</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Samedi suprême /</subfield>
@@ -25232,7 +25232,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Krebs, Franck</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)086136151</subfield>
+		<subfield code="0">(IdRef)086136151</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="2" tag="245">
 		<subfield code="a">L'enfer s'occupe du reste /</subfield>
@@ -25330,7 +25330,7 @@
 		<subfield code="a">Le Blanc, Jean-Bernard,</subfield>
 		<subfield code="c">Abbé</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)03020027X</subfield>
+		<subfield code="0">(IdRef)03020027X</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Lettres d'un François</subfield>
@@ -25376,7 +25376,7 @@
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Néaulme, Jean</subfield>
 		<subfield code="4">prt</subfield>
-		<subfield code="0">(IDREF)031386725</subfield>
+		<subfield code="0">(IdRef)031386725</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="752">
 		<subfield code="d">Den Haag (1450-1800, lieu d'édition ou d'impression)</subfield>
@@ -25561,7 +25561,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Archivio di Stato (Genova)</subfield>
-		<subfield code="0">(IDREF)055053149</subfield>
+		<subfield code="0">(IdRef)055053149</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Inventario dell'Archivio del Banco di San Giorgio (1407-1805)</subfield>
@@ -25738,13 +25738,13 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Sabatier, Claudine</subfield>
-		<subfield code="0">(IDREF)028597907</subfield>
+		<subfield code="0">(IdRef)028597907</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Sabatier, Roland,</subfield>
 		<subfield code="d">1942 16 juin-</subfield>
 		<subfield code="4">ill</subfield>
-		<subfield code="0">(IDREF)027116344</subfield>
+		<subfield code="0">(IdRef)027116344</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -25894,7 +25894,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Bulloch, Ivan</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)03098064X</subfield>
+		<subfield code="0">(IdRef)03098064X</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Si j'étais magicien /</subfield>
@@ -25935,7 +25935,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">James, Diane</subfield>
-		<subfield code="0">(IDREF)026934574</subfield>
+		<subfield code="0">(IdRef)026934574</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -26003,7 +26003,7 @@
 		<subfield code="a">Baricco, Alessandro,</subfield>
 		<subfield code="d">1958-</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)031301134</subfield>
+		<subfield code="0">(IdRef)031301134</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Océan mer :</subfield>
@@ -26096,7 +26096,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Plas, Alain</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)171084896</subfield>
+		<subfield code="0">(IdRef)171084896</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Chasseurs de temps /</subfield>
@@ -26406,7 +26406,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Santos, João Ubiratan Moreira dos</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)153235217</subfield>
+		<subfield code="0">(IdRef)153235217</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="2" tag="245">
 		<subfield code="a">O gênero 'Aspilia' Thou. ('Asteraceae'-'Heliantheae') no Brasil /</subfield>
@@ -26444,7 +26444,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Brésil</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)02722953X</subfield>
+		<subfield code="0">(IdRef)02722953X</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -26617,7 +26617,7 @@
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">United States.</subfield>
 		<subfield code="b">Naval Observatory</subfield>
-		<subfield code="0">(IDREF)032910150</subfield>
+		<subfield code="0">(IdRef)032910150</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Astronomical and meteorological observations made during the year... at the United States Naval Observatory</subfield>
@@ -26694,7 +26694,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Vaïsser, Lydia</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)061061689</subfield>
+		<subfield code="0">(IdRef)061061689</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="3" tag="245">
 		<subfield code="a">Le russe tout de suite!</subfield>
@@ -26743,7 +26743,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Chalapoutov, Agnès</subfield>
-		<subfield code="0">(IDREF)061062162</subfield>
+		<subfield code="0">(IdRef)061062162</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Presses pocket</subfield>
@@ -27166,7 +27166,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Oberwallis (Suisse, VS)</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)034253785</subfield>
+		<subfield code="0">(IdRef)034253785</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">[Périodiques]</subfield>
@@ -27417,7 +27417,7 @@
 		<subfield code="a">Mandl, Georg,</subfield>
 		<subfield code="d">1925-</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)068867735</subfield>
+		<subfield code="0">(IdRef)068867735</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Mechanics of tectonic faulting :</subfield>
@@ -27546,7 +27546,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Dabit, Daniel</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)23529182X</subfield>
+		<subfield code="0">(IdRef)23529182X</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Mon combat contre l'alcoolisme :</subfield>
@@ -27591,7 +27591,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Boidin, Pierre</subfield>
-		<subfield code="0">(IDREF)235279471</subfield>
+		<subfield code="0">(IdRef)235279471</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -27808,7 +27808,7 @@
 		<subfield code="a">Sigrist, Georg,</subfield>
 		<subfield code="d">1788-1866</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)243986998</subfield>
+		<subfield code="0">(IdRef)243986998</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Bruder Klaus, oder des seligen Nikolaus von der Flue lehrreiche und wundervolle Lebensgeschichte /</subfield>
@@ -27959,11 +27959,11 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Hickman, C.J</subfield>
-		<subfield code="0">(IDREF)121408515</subfield>
+		<subfield code="0">(IdRef)121408515</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Abercrombie, Minnie Louie Johnson</subfield>
-		<subfield code="0">(IDREF)12431600X</subfield>
+		<subfield code="0">(IdRef)12431600X</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Penguin Reference Books</subfield>
@@ -28033,7 +28033,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Hall, Robert Ernest</subfield>
 		<subfield code="4">aut</subfield>
-		<subfield code="0">(IDREF)031605753</subfield>
+		<subfield code="0">(IdRef)031605753</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Macroeconomics :</subfield>
@@ -28238,7 +28238,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Maroc</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027263711</subfield>
+		<subfield code="0">(IdRef)027263711</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">[Actes de congrès]</subfield>
@@ -28248,7 +28248,7 @@
 		<subfield code="6">880-04</subfield>
 		<subfield code="a">Ḥumām, Muḥammad,</subfield>
 		<subfield code="d">1968-</subfield>
-		<subfield code="0">(IDREF)066861322</subfield>
+		<subfield code="0">(IdRef)066861322</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Colloques et séminaires</subfield>
@@ -28675,7 +28675,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Bergmann, Ludwig</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)033053413</subfield>
+		<subfield code="0">(IdRef)033053413</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="4" tag="245">
 		<subfield code="a">Der Ultraschall und seine Anwendung in Wissenschaft und Technik /</subfield>
@@ -28925,11 +28925,11 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Knapp, Fritz Peter</subfield>
-		<subfield code="0">(IDREF)029100291</subfield>
+		<subfield code="0">(IdRef)029100291</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Zeman, Herbert</subfield>
-		<subfield code="0">(IDREF)028432266</subfield>
+		<subfield code="0">(IdRef)028432266</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="4" tag="830">
 		<subfield code="a">Die österreichische Literatur : eine Dokumentation ihrer literarhistorischen Entwicklung</subfield>
@@ -29014,7 +29014,7 @@
 		<subfield code="a">Schumann, Robert,</subfield>
 		<subfield code="d">1810-1856</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)027128660</subfield>
+		<subfield code="0">(IdRef)027128660</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Waldszenen</subfield>
@@ -29128,7 +29128,7 @@
 		<subfield code="a">Pfister, Marcus,</subfield>
 		<subfield code="d">1960-</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)055280536</subfield>
+		<subfield code="0">(IdRef)055280536</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="1" tag="245">
 		<subfield code="a">[Arc-en-ciel, le plus beau poisson des océans] /</subfield>
@@ -29217,7 +29217,7 @@
 		<subfield code="a">Haydn, Joseph,</subfield>
 		<subfield code="d">1732-1809</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)030260868</subfield>
+		<subfield code="0">(IdRef)030260868</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Symphony in D, H.1 no 6 :</subfield>
@@ -29255,7 +29255,7 @@
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Marriner, Neville,</subfield>
 		<subfield code="d">1924-2016</subfield>
-		<subfield code="0">(IDREF)078617960</subfield>
+		<subfield code="0">(IdRef)078617960</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="2" tag="700">
 		<subfield code="a">Haydn, Joseph,</subfield>
@@ -29280,7 +29280,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Academy of St. Martin-in-the-Fields (London)</subfield>
-		<subfield code="0">(IDREF)080493394</subfield>
+		<subfield code="0">(IdRef)080493394</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -29321,7 +29321,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Picard, Fernand</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)10924785X</subfield>
+		<subfield code="0">(IdRef)10924785X</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="3" tag="245">
 		<subfield code="a">Le problème des aptitudes :</subfield>
@@ -29372,7 +29372,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Pasquasy, René</subfield>
-		<subfield code="0">(IDREF)185544207</subfield>
+		<subfield code="0">(IdRef)185544207</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Kohl, X</subfield>
@@ -29440,7 +29440,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Angelidou, Maria</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)111661315</subfield>
+		<subfield code="0">(IdRef)111661315</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="4" tag="245">
 		<subfield code="a">Les 21 grands mythes grecs /</subfield>
@@ -29477,7 +29477,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Vasilev, Svetlin</subfield>
-		<subfield code="0">(IDREF)194090493</subfield>
+		<subfield code="0">(IdRef)194090493</subfield>
 	</datafield>
 	<datafield ind1="4" ind2=" " tag="856">
 		<subfield code="u">http://www.electre.com//GetBlob.ashx?Ean=9782350191034,0-1283925&amp;Size=Original</subfield>
@@ -29558,7 +29558,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Kyriazi, Jean Melas</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)145790274</subfield>
+		<subfield code="0">(IdRef)145790274</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Van Dongen et le fauvisme /</subfield>
@@ -29597,7 +29597,7 @@
 	<datafield ind1="1" ind2="7" tag="600">
 		<subfield code="a">Van Dongen, Kees</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027437469</subfield>
+		<subfield code="0">(IdRef)027437469</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="650">
 		<subfield code="a">Fauvisme</subfield>
@@ -29842,7 +29842,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Fey, Harold E</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)074120956</subfield>
+		<subfield code="0">(IdRef)074120956</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Methodists chill Cocu /</subfield>
@@ -30072,7 +30072,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Bovet, Guy</subfield>
-		<subfield code="0">(IDREF)135988489</subfield>
+		<subfield code="0">(IdRef)135988489</subfield>
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Orchestre de chambre de Neuchâtel</subfield>
@@ -30214,7 +30214,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Klaus, Marshall H</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)033607028</subfield>
+		<subfield code="0">(IdRef)033607028</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Parent-infant bonding /</subfield>
@@ -30436,7 +30436,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Besnard, Albert Marie</subfield>
-		<subfield code="0">(IDREF)026725428</subfield>
+		<subfield code="0">(IdRef)026725428</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Epiphanie</subfield>
@@ -30496,7 +30496,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Schilte, Christine</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)02827850X</subfield>
+		<subfield code="0">(IdRef)02827850X</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Elever bébé :</subfield>
@@ -30727,7 +30727,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Kubin, Wolfgang</subfield>
-		<subfield code="0">(IDREF)028927761</subfield>
+		<subfield code="0">(IdRef)028927761</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Klassiker des chinesischen Denkens</subfield>
@@ -30814,7 +30814,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Bourdelle, Antoine</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)026745151</subfield>
+		<subfield code="0">(IdRef)026745151</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Quatre-vingts dessins de Bourdelle /</subfield>
@@ -30849,7 +30849,7 @@
 	<datafield ind1="1" ind2="7" tag="600">
 		<subfield code="a">Bourdelle, Antoine</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)026745151</subfield>
+		<subfield code="0">(IdRef)026745151</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="650">
 		<subfield code="a">Dessin</subfield>
@@ -30857,7 +30857,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Gautherin, Véronique</subfield>
-		<subfield code="0">(IDREF)034460608</subfield>
+		<subfield code="0">(IdRef)034460608</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -30910,7 +30910,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Cutsem, Chantal van</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)028817257</subfield>
+		<subfield code="0">(IdRef)028817257</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="3" tag="245">
 		<subfield code="a">La famille recomposée :</subfield>
@@ -31070,7 +31070,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Haas, Dominique</subfield>
-		<subfield code="0">(IDREF)028275055</subfield>
+		<subfield code="0">(IdRef)028275055</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Romans.</subfield>
@@ -31136,7 +31136,7 @@
 		<subfield code="a">Clottu, Olivier,</subfield>
 		<subfield code="d">1910-1997</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)243997876</subfield>
+		<subfield code="0">(IdRef)243997876</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="3" tag="245">
 		<subfield code="a">Le coffre de mariage armorié neuchâtelois /</subfield>
@@ -31309,12 +31309,12 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Nebehay, Christian Michael</subfield>
-		<subfield code="0">(IDREF)029314100</subfield>
+		<subfield code="0">(IdRef)029314100</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Philipon, Charles,</subfield>
 		<subfield code="d">1800-1862</subfield>
-		<subfield code="0">(IDREF)182639096</subfield>
+		<subfield code="0">(IdRef)182639096</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="4" tag="830">
 		<subfield code="a">Die bibliophilen Taschenbücher</subfield>
@@ -31373,7 +31373,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Mendelssohn-Bartholdy, Felix</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)027329453</subfield>
+		<subfield code="0">(IdRef)027329453</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Aus tiefer Not schrei ich zu dir :</subfield>
@@ -31416,7 +31416,7 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Graulich, Günter</subfield>
-		<subfield code="0">(IDREF)143311867</subfield>
+		<subfield code="0">(IdRef)143311867</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Lunn, Jean</subfield>
@@ -31557,7 +31557,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Auchard, John</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)029065216</subfield>
+		<subfield code="0">(IdRef)029065216</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Silence in Henry James :</subfield>
@@ -31596,7 +31596,7 @@
 	<datafield ind1="1" ind2="7" tag="600">
 		<subfield code="a">James, Henry</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)026934612</subfield>
+		<subfield code="0">(IdRef)026934612</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="650">
 		<subfield code="a">Néant (philosophie)</subfield>
@@ -31731,11 +31731,11 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Regni, Marina</subfield>
-		<subfield code="0">(IDREF)235679704</subfield>
+		<subfield code="0">(IdRef)235679704</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Tordella, Piera Giovanna</subfield>
-		<subfield code="0">(IDREF)056779348</subfield>
+		<subfield code="0">(IdRef)056779348</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Documenti.</subfield>
@@ -31830,7 +31830,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Siewert, Aruna M.</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)18609809X</subfield>
+		<subfield code="0">(IdRef)18609809X</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Pflanzliche Antibiotika :</subfield>
@@ -32037,7 +32037,7 @@
 		<subfield code="d">1966-</subfield>
 		<subfield code="4">cmp</subfield>
 		<subfield code="4">prf</subfield>
-		<subfield code="0">(IDREF)13370744X</subfield>
+		<subfield code="0">(IdRef)13370744X</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Three worlds :</subfield>
@@ -32081,18 +32081,18 @@
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Ziegler, Robert</subfield>
 		<subfield code="4">prf</subfield>
-		<subfield code="0">(IDREF)158025555</subfield>
+		<subfield code="0">(IdRef)158025555</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Fuller, Louisa,</subfield>
 		<subfield code="d">1964-</subfield>
 		<subfield code="4">prf</subfield>
-		<subfield code="0">(IDREF)251561240</subfield>
+		<subfield code="0">(IdRef)251561240</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Bonner, Natalia</subfield>
 		<subfield code="4">prf</subfield>
-		<subfield code="0">(IDREF)251561623</subfield>
+		<subfield code="0">(IdRef)251561623</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Metcalfe, John,</subfield>
@@ -32293,7 +32293,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Bruhin, Rudolf</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)111364388</subfield>
+		<subfield code="0">(IdRef)111364388</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="4" tag="245">
 		<subfield code="a">Die solothurner Orgelbauer Aebi /</subfield>
@@ -32447,7 +32447,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Monteverdi, Claudio</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)028320549</subfield>
+		<subfield code="0">(IdRef)028320549</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="2" tag="245">
 		<subfield code="a">L'incoronazione di Poppea /</subfield>
@@ -32492,24 +32492,24 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Chance, Michael</subfield>
-		<subfield code="0">(IDREF)07950535X</subfield>
+		<subfield code="0">(IdRef)07950535X</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Hanchard, Dana</subfield>
-		<subfield code="0">(IDREF)190059915</subfield>
+		<subfield code="0">(IdRef)190059915</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Otter, Anne-Sofie von</subfield>
-		<subfield code="0">(IDREF)060995254</subfield>
+		<subfield code="0">(IdRef)060995254</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">McNair, Sylvia,</subfield>
 		<subfield code="d">1956-</subfield>
-		<subfield code="0">(IDREF)079505341</subfield>
+		<subfield code="0">(IdRef)079505341</subfield>
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">English Baroque Soloists</subfield>
-		<subfield code="0">(IDREF)080667198</subfield>
+		<subfield code="0">(IdRef)080667198</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -32560,7 +32560,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Pringsheim, Nathanael</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)092363830</subfield>
+		<subfield code="0">(IdRef)092363830</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Untersuchungen über den Bau und die Bildung der Pflanzenzelle /</subfield>
@@ -32703,7 +32703,7 @@
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">United States.</subfield>
 		<subfield code="b">Naval Observatory</subfield>
-		<subfield code="0">(IDREF)032910150</subfield>
+		<subfield code="0">(IdRef)032910150</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Astronomical observations made during the year... at the National Observatory</subfield>
@@ -32998,7 +32998,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">New York Academy of Sciences</subfield>
-		<subfield code="0">(IDREF)027925218</subfield>
+		<subfield code="0">(IdRef)027925218</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="777">
 		<subfield code="t">Transactions of the New York Academy of Sciences</subfield>
@@ -33370,7 +33370,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Ritz, Walther</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)035000457</subfield>
+		<subfield code="0">(IdRef)035000457</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="245">
 		<subfield code="a">Gesammelte Werke =</subfield>
@@ -33406,7 +33406,7 @@
 	<datafield ind1="1" ind2="7" tag="600">
 		<subfield code="a">Ritz, Walther</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)035000457</subfield>
+		<subfield code="0">(IdRef)035000457</subfield>
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Société suisse de physique</subfield>
@@ -34244,7 +34244,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Cinémathèque suisse</subfield>
-		<subfield code="0">(IDREF)033492115</subfield>
+		<subfield code="0">(IdRef)033492115</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Documents de cinéma</subfield>
@@ -34643,7 +34643,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Suomalainen Tiedeakatemia</subfield>
-		<subfield code="0">(IDREF)029973198</subfield>
+		<subfield code="0">(IdRef)029973198</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -34866,7 +34866,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Schweiz</subfield>
@@ -34885,7 +34885,7 @@
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Société suisse d'héraldique</subfield>
 		<subfield code="4">edt</subfield>
-		<subfield code="0">(IDREF)069522316</subfield>
+		<subfield code="0">(IdRef)069522316</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Archives héraldiques et sigillographiques</subfield>
@@ -35227,7 +35227,7 @@
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Leslie, Alan Christopher</subfield>
 		<subfield code="4">com</subfield>
-		<subfield code="0">(IDREF)251298523</subfield>
+		<subfield code="0">(IdRef)251298523</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="770">
 		<subfield code="t">International lily register 1982. Supplement</subfield>
@@ -35425,11 +35425,11 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Zeman, Herbert</subfield>
-		<subfield code="0">(IDREF)028432266</subfield>
+		<subfield code="0">(IdRef)028432266</subfield>
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Institut für Österreichische Kulturgeschichte</subfield>
-		<subfield code="0">(IDREF)026639122</subfield>
+		<subfield code="0">(IdRef)026639122</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -35520,7 +35520,7 @@
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Nations Unies.</subfield>
 		<subfield code="b">Institut pour la recherche sur le désarmement</subfield>
-		<subfield code="0">(IDREF)029493641</subfield>
+		<subfield code="0">(IdRef)029493641</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="775">
 		<subfield code="t">Research paper / United Nations Institute for Disarmament Research</subfield>
@@ -35609,7 +35609,7 @@
 	<datafield ind1="2" ind2="7" tag="610">
 		<subfield code="a">Fédération luthérienne mondiale</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)026576988</subfield>
+		<subfield code="0">(IdRef)026576988</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="650">
 		<subfield code="a">Église luthérienne</subfield>
@@ -35714,7 +35714,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Nix, Garth</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)080514294</subfield>
+		<subfield code="0">(IdRef)080514294</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="4" tag="245">
 		<subfield code="a">Les sept clefs du pouvoir /</subfield>
@@ -35832,7 +35832,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Archaiologikē Hetaireia</subfield>
-		<subfield code="0">(IDREF)176157158</subfield>
+		<subfield code="0">(IdRef)176157158</subfield>
 	</datafield>
 	<datafield ind1="0" ind2="0" tag="880">
 		<subfield code="6">245-01/(S</subfield>
@@ -36006,7 +36006,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">[Bibliographie]</subfield>
@@ -36485,7 +36485,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Reichsinstitut für Ältere Deutsche Geschichtskunde (Leipzig)</subfield>
-		<subfield code="0">(IDREF)068666918</subfield>
+		<subfield code="0">(IdRef)068666918</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -36581,7 +36581,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Musée d'Israël (Jérusalem)</subfield>
-		<subfield code="0">(IDREF)118427369</subfield>
+		<subfield code="0">(IdRef)118427369</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -36708,7 +36708,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">Entscheidsammlung</subfield>
@@ -37152,7 +37152,7 @@
 	<datafield ind1="1" ind2="7" tag="600">
 		<subfield code="a">Tagliavini, Luigi Ferdinando</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)067025501</subfield>
+		<subfield code="0">(IdRef)067025501</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="650">
 		<subfield code="a">Musicologie</subfield>
@@ -37169,25 +37169,25 @@
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Seydoux, François,</subfield>
 		<subfield code="d">1949-2015</subfield>
-		<subfield code="0">(IDREF)144302691</subfield>
+		<subfield code="0">(IdRef)144302691</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Castellani, Giuliano</subfield>
-		<subfield code="0">(IDREF)147817110</subfield>
+		<subfield code="0">(IdRef)147817110</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Leuthold, Axel</subfield>
-		<subfield code="0">(IDREF)251309835</subfield>
+		<subfield code="0">(IdRef)251309835</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Tagliavini, Luigi Ferdinando,</subfield>
 		<subfield code="d">1929-</subfield>
-		<subfield code="0">(IDREF)067025501</subfield>
+		<subfield code="0">(IdRef)067025501</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="2" tag="700">
 		<subfield code="a">Darbellay, Etienne. -</subfield>
 		<subfield code="t">Luigi Ferdinando Tagliavini: le musicologue</subfield>
-		<subfield code="0">(IDREF)055056911</subfield>
+		<subfield code="0">(IdRef)055056911</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="2" tag="700">
 		<subfield code="a">Darbellay, Etienne. -</subfield>
@@ -37423,7 +37423,7 @@
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Dotation Carnegie pour la paix internationale.</subfield>
 		<subfield code="b">Division de droit international</subfield>
-		<subfield code="0">(IDREF)08859176X</subfield>
+		<subfield code="0">(IdRef)08859176X</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -37500,7 +37500,7 @@
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Dotation Carnegie pour la paix internationale.</subfield>
 		<subfield code="b">Division de droit international</subfield>
-		<subfield code="0">(IDREF)08859176X</subfield>
+		<subfield code="0">(IdRef)08859176X</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -37603,14 +37603,14 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Scholl, Servatus Herman</subfield>
-		<subfield code="0">(IDREF)11964603X</subfield>
+		<subfield code="0">(IdRef)11964603X</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Masereel, Frans</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Coornaert, Emile</subfield>
-		<subfield code="0">(IDREF)026798212</subfield>
+		<subfield code="0">(IdRef)026798212</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -37693,7 +37693,7 @@
 	<datafield ind1="1" ind2=" " tag="100">
 		<subfield code="a">Cantin, Marc</subfield>
 		<subfield code="4">cre</subfield>
-		<subfield code="0">(IDREF)033963584</subfield>
+		<subfield code="0">(IdRef)033963584</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="4" tag="245">
 		<subfield code="a">Les maléfices d'Halequin /</subfield>
@@ -38291,7 +38291,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Saint Vladimir's Orthodox Theological Seminary (Crestwood NY)</subfield>
-		<subfield code="0">(IDREF)235593176</subfield>
+		<subfield code="0">(IdRef)235593176</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">St. Vladimir's seminary quarterly</subfield>
@@ -38467,7 +38467,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Etroubles (Italie)</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)145158586</subfield>
+		<subfield code="0">(IdRef)145158586</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">[Périodiques]</subfield>
@@ -39238,7 +39238,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Société suisse de mécanique des sols et des roches</subfield>
-		<subfield code="0">(IDREF)230233384</subfield>
+		<subfield code="0">(IdRef)230233384</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -39376,7 +39376,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">[Périodiques]</subfield>
@@ -39384,7 +39384,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Société suisse du théâtre</subfield>
-		<subfield code="0">(IDREF)029033616</subfield>
+		<subfield code="0">(IdRef)029033616</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="777">
 		<subfield code="t">Schweizer Theater-Almanach</subfield>
@@ -39817,11 +39817,11 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Universitätsbibliothek (Erlangen / Nürnberg)</subfield>
-		<subfield code="0">(IDREF)028033078</subfield>
+		<subfield code="0">(IdRef)028033078</subfield>
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Universitätsbund Erlangen-Nürnberg</subfield>
-		<subfield code="0">(IDREF)030089980</subfield>
+		<subfield code="0">(IdRef)030089980</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -40147,7 +40147,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Afrique</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027218546</subfield>
+		<subfield code="0">(IdRef)027218546</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">[Périodiques]</subfield>
@@ -40658,7 +40658,7 @@
 	<datafield ind1="2" ind2="7" tag="610">
 		<subfield code="a">Banco di San Giorgio (Gênes)</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)031023169</subfield>
+		<subfield code="0">(IdRef)031023169</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="650">
 		<subfield code="a">Archives</subfield>
@@ -40674,11 +40674,11 @@
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="700">
 		<subfield code="a">Felloni, Giuseppe</subfield>
-		<subfield code="0">(IDREF)030363624</subfield>
+		<subfield code="0">(IdRef)030363624</subfield>
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Archivio di Stato (Genova)</subfield>
-		<subfield code="0">(IDREF)055053149</subfield>
+		<subfield code="0">(IdRef)055053149</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Pubblicazioni degli Archivi di Stato.</subfield>
@@ -41052,7 +41052,7 @@
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">United States.</subfield>
 		<subfield code="b">Naval Observatory</subfield>
-		<subfield code="0">(IDREF)032910150</subfield>
+		<subfield code="0">(IdRef)032910150</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="770">
 		<subfield code="t">Appendix : a catalogue... observed by U.S. Naval astronomical expedition to the Southern Hemisphere during the years</subfield>
@@ -41782,7 +41782,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">New York Academy of Sciences</subfield>
-		<subfield code="0">(IDREF)027925218</subfield>
+		<subfield code="0">(IdRef)027925218</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="777">
 		<subfield code="t">Annals of the New York Academy of Sciences</subfield>
@@ -42131,7 +42131,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Schweiz</subfield>
@@ -42154,7 +42154,7 @@
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Société suisse d'héraldique</subfield>
 		<subfield code="4">edt</subfield>
-		<subfield code="0">(IDREF)069522316</subfield>
+		<subfield code="0">(IdRef)069522316</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="770">
 		<subfield code="t">Archives héraldiques suisses. Supplément = Schweizer Archiv für Heraldik. Beilage = Archivio araldico svizzero. [Supplemento]</subfield>
@@ -42307,7 +42307,7 @@
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">United States.</subfield>
 		<subfield code="b">Naval Observatory</subfield>
-		<subfield code="0">(IDREF)032910150</subfield>
+		<subfield code="0">(IdRef)032910150</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Astronomical, magnetic and meteorological observations made during the year... at the United States Naval Observatory</subfield>
@@ -42614,7 +42614,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">Periodikum</subfield>
@@ -42628,7 +42628,7 @@
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Société suisse d'héraldique</subfield>
 		<subfield code="4">edt</subfield>
-		<subfield code="0">(IDREF)069522316</subfield>
+		<subfield code="0">(IdRef)069522316</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="776">
 		<subfield code="t">Archives héraldiques suisses</subfield>
@@ -43148,7 +43148,7 @@
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Nations Unies.</subfield>
 		<subfield code="b">Institut pour la recherche sur le désarmement</subfield>
-		<subfield code="0">(IDREF)029493641</subfield>
+		<subfield code="0">(IdRef)029493641</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="775">
 		<subfield code="t">Travaux de recherche / Institut des Nations Unies pour la recherche sur le désarmement</subfield>
@@ -43461,7 +43461,7 @@
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Bureau international du travail.</subfield>
 		<subfield code="b">Comité de la liberté syndicale</subfield>
-		<subfield code="0">(IDREF)02794980X</subfield>
+		<subfield code="0">(IdRef)02794980X</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Bulletin officiel / Bureau international du travail</subfield>
@@ -43601,7 +43601,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Archivi di Stato (Italia)</subfield>
-		<subfield code="0">(IDREF)026389916</subfield>
+		<subfield code="0">(IdRef)026389916</subfield>
 	</datafield>
 	<datafield ind1=" " ind2=" " tag="900">
 		<subfield code="a">noselfmerge</subfield>
@@ -43916,7 +43916,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Europe</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027224651</subfield>
+		<subfield code="0">(IdRef)027224651</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="0" tag="830">
 		<subfield code="a">Geologie der Erde</subfield>
@@ -44167,7 +44167,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Cinémathèque suisse</subfield>
-		<subfield code="0">(IDREF)033492115</subfield>
+		<subfield code="0">(IdRef)033492115</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Bulletin de la Cinémathèque Suisse</subfield>
@@ -44293,7 +44293,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Schweiz</subfield>
@@ -44520,7 +44520,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Saint Vladimir's Orthodox Theological Seminary (Crestwood NY)</subfield>
-		<subfield code="0">(IDREF)235593176</subfield>
+		<subfield code="0">(IdRef)235593176</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">St. Vladimir's theological quarterly</subfield>
@@ -44633,7 +44633,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">[Périodiques]</subfield>
@@ -44641,7 +44641,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Société suisse du théâtre</subfield>
-		<subfield code="0">(IDREF)029033616</subfield>
+		<subfield code="0">(IdRef)029033616</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="777">
 		<subfield code="t">Schweizer Theater-Almanach</subfield>
@@ -45109,7 +45109,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Reformierter Bund (Deutschland BRD)</subfield>
-		<subfield code="0">(IDREF)07653023X</subfield>
+		<subfield code="0">(IdRef)07653023X</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Neue reformierte Kirchenzeitung</subfield>
@@ -45201,7 +45201,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Cinémathèque suisse</subfield>
-		<subfield code="0">(IDREF)033492115</subfield>
+		<subfield code="0">(IdRef)033492115</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="785">
 		<subfield code="t">Documents de cinéma</subfield>
@@ -45316,7 +45316,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">[Périodiques]</subfield>
@@ -45716,7 +45716,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Commission internationale pour la protection des eaux du Léman contre la pollution</subfield>
-		<subfield code="0">(IDREF)026372193</subfield>
+		<subfield code="0">(IdRef)026372193</subfield>
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Association romande pour la protection des eaux</subfield>
@@ -45873,7 +45873,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">Entscheidsammlung</subfield>
@@ -46111,7 +46111,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">[Périodiques]</subfield>
@@ -46119,7 +46119,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Société suisse d'héraldique</subfield>
-		<subfield code="0">(IDREF)069522316</subfield>
+		<subfield code="0">(IdRef)069522316</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="772">
 		<subfield code="t">Archives héraldiques et sigillographiques</subfield>
@@ -46426,7 +46426,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Cinémathèque suisse</subfield>
-		<subfield code="0">(IDREF)033492115</subfield>
+		<subfield code="0">(IdRef)033492115</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Documents de cinéma</subfield>
@@ -46566,7 +46566,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Schweiz</subfield>
@@ -46585,17 +46585,17 @@
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Société suisse d'héraldique</subfield>
 		<subfield code="4">edt</subfield>
-		<subfield code="0">(IDREF)069522316</subfield>
+		<subfield code="0">(IdRef)069522316</subfield>
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Académie internationale d'héraldique</subfield>
 		<subfield code="4">edt</subfield>
-		<subfield code="0">(IDREF)028165861</subfield>
+		<subfield code="0">(IdRef)028165861</subfield>
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Société française d'héraldique et de sigillographie</subfield>
 		<subfield code="4">edt</subfield>
-		<subfield code="0">(IDREF)030671639</subfield>
+		<subfield code="0">(IdRef)030671639</subfield>
 	</datafield>
 	<datafield ind1="1" ind2="0" tag="780">
 		<subfield code="t">Archives héraldiques suisses. Bulletin</subfield>
@@ -46987,7 +46987,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">[Périodiques]</subfield>
@@ -46995,7 +46995,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Société suisse de pêche et pisciculture</subfield>
-		<subfield code="0">(IDREF)184282624</subfield>
+		<subfield code="0">(IdRef)184282624</subfield>
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Fédération suisse de pêche et pisciculture</subfield>
@@ -47208,7 +47208,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">[Périodiques]</subfield>
@@ -47391,7 +47391,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">[Périodiques]</subfield>
@@ -47597,7 +47597,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Schweiz</subfield>
@@ -47846,7 +47846,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">Periodikum</subfield>
@@ -48031,7 +48031,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">Entscheidsammlung</subfield>
@@ -48297,7 +48297,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">Entscheidsammlung</subfield>
@@ -48549,7 +48549,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Société suisse de pêche et pisciculture</subfield>
-		<subfield code="0">(IDREF)184282624</subfield>
+		<subfield code="0">(IdRef)184282624</subfield>
 	</datafield>
 	<datafield ind1="1" ind2=" " tag="772">
 		<subfield code="t">Schweizerische Fischerei-Zeitung : offizielles Organ des Schweizerischen Fischerei-Verbandes und seiner Sektionen</subfield>
@@ -48858,7 +48858,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">Entscheidsammlung</subfield>
@@ -49058,7 +49058,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">Entscheidsammlung</subfield>
@@ -49375,7 +49375,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">Entscheidsammlung</subfield>
@@ -49694,7 +49694,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">Entscheidsammlung</subfield>
@@ -49905,7 +49905,7 @@
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Société suisse de pêche et pisciculture</subfield>
-		<subfield code="0">(IDREF)184282624</subfield>
+		<subfield code="0">(IdRef)184282624</subfield>
 	</datafield>
 	<datafield ind1="2" ind2=" " tag="710">
 		<subfield code="a">Fédération suisse de pêche et pisciculture</subfield>
@@ -50059,7 +50059,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">Entscheidsammlung</subfield>
@@ -50326,7 +50326,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">Entscheidsammlung</subfield>
@@ -50588,7 +50588,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">Entscheidsammlung</subfield>
@@ -50853,7 +50853,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">Entscheidsammlung</subfield>
@@ -51139,7 +51139,7 @@
 	<datafield ind1=" " ind2="7" tag="651">
 		<subfield code="a">Suisse</subfield>
 		<subfield code="2">rero</subfield>
-		<subfield code="0">(IDREF)027249654</subfield>
+		<subfield code="0">(IdRef)027249654</subfield>
 	</datafield>
 	<datafield ind1=" " ind2="7" tag="655">
 		<subfield code="a">[Jurisprudence]</subfield>

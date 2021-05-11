@@ -30,8 +30,7 @@
         "original_date",
         "note",
         "place",
-        "statement",
-        "$ref"
+        "statement"
       ],
       "required": [
         "type"
@@ -87,7 +86,8 @@
               "type",
               "country",
               "canton",
-              "$ref"
+              "$ref",
+              "identifiedBy"
             ],
             "properties": {
               "type": {
@@ -111,18 +111,21 @@
                 "$ref": "https://ils.rero.ch/schemas/common/cantons-v0.0.1.json#/canton"
               },
               "$ref": {
-                "title": "Organisation",
+                "title": "Place",
                 "type": "string",
-                "pattern": "^https://mef.rero.ch/api/gnd|idref|rero/.*?$",
+                "pattern": "^https://mef.rero.ch/api/places/gnd|idref|rero/.*?$",
                 "form": {
                   "remoteTypeahead": {
-                    "type": "mef-organisations",
+                    "type": "mef-places",
                     "enableGroupField": true
                   },
                   "templateOptions": {
                     "itemCssClass": "col-lg-12"
                   }
                 }
+              },
+              "identifiedBy": {
+                "$ref": "https://ils.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier_contribution"
               }
             },
             "form": {
@@ -267,20 +270,6 @@
             "hide": true,
             "templateOptions": {
               "itemCssClass": "col-lg-4"
-            }
-          }
-        },
-        "$ref": {
-          "title": "Place",
-          "type": "string",
-          "pattern": "^https://mef.rero.ch/api/places/gnd|idref|rero/.*?$",
-          "form": {
-            "remoteTypeahead": {
-              "type": "mef-places",
-              "enableGroupField": true
-            },
-            "templateOptions": {
-              "itemCssClass": "col-lg-12"
             }
           }
         }

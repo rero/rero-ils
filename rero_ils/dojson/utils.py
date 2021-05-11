@@ -287,6 +287,9 @@ _ENCODING_LEVEL_MAPPING = {
 }
 
 
+re_identified = re.compile(r'\((.*)\)(.*)')
+
+
 def error_print(*args):
     """Error printing to sdtout."""
     msg = ''
@@ -1778,3 +1781,32 @@ def build_responsibility_data(responsibility_data):
             index += 1
             responsibilities.append(out_data)
     return responsibilities
+
+
+def build_identifier(data):
+    """Build identifyBy for document_identifier-v0.0.1.json from $0.
+
+    :param data: data to build the identifiedBy from.
+    :returns: identifiedBy from $0 or None.
+    """
+    sources = {
+        'RERO': 'RERO',
+        'RERO-RAMEAU': 'RERO-RAMEAU',
+        'IDREF': 'IdRef',
+        'GND': 'GND'
+    }
+    result = {}
+    data_0 = utils.force_list(data.get('0'))
+    if data_0:
+        match = re_identified.match(data_0[0])
+        try:
+            result['value'] = match.group(2)
+            identifier_type = sources.get(match.group(1).upper())
+            if identifier_type:
+                result['type'] = identifier_type
+            else:
+                result['type'] = 'bf:Local'
+                result['source'] = match.group(1)
+        except IndexError:
+            click.echo(f'WARNING creating identifier: {data_0}')
+    return result or None

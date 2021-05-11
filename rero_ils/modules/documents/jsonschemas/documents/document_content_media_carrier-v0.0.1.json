@@ -18,7 +18,7 @@
           ],
           "properties": {
             "contentType": {
-              "$ref": "#/contentType"
+              "$ref": "#/definitions/contentType"
             }
           }
         },
@@ -36,7 +36,7 @@
           ],
           "properties": {
             "contentType": {
-              "$ref": "#/contentType"
+              "$ref": "#/definitions/contentType"
             },
             "mediaType": {
               "title": "rdamt:1001",
@@ -127,7 +127,7 @@
           ],
           "properties": {
             "contentType": {
-              "$ref": "#/contentType"
+              "$ref": "#/definitions/contentType"
             },
             "mediaType": {
               "title": "rdamt:1002",
@@ -223,7 +223,7 @@
           ],
           "properties": {
             "contentType": {
-              "$ref": "#/contentType"
+              "$ref": "#/definitions/contentType"
             },
             "mediaType": {
               "title": "rdamt:1003",
@@ -314,7 +314,7 @@
           ],
           "properties": {
             "contentType": {
-              "$ref": "#/contentType"
+              "$ref": "#/definitions/contentType"
             },
             "mediaType": {
               "title": "rdamt:1004",
@@ -370,7 +370,7 @@
           ],
           "properties": {
             "contentType": {
-              "$ref": "#/contentType"
+              "$ref": "#/definitions/contentType"
             },
             "mediaType": {
               "title": "rdamt:1005",
@@ -466,7 +466,7 @@
           ],
           "properties": {
             "contentType": {
-              "$ref": "#/contentType"
+              "$ref": "#/definitions/contentType"
             },
             "mediaType": {
               "title": "rdamt:1006",
@@ -527,7 +527,7 @@
           ],
           "properties": {
             "contentType": {
-              "$ref": "#/contentType"
+              "$ref": "#/definitions/contentType"
             },
             "mediaType": {
               "title": "rdamt:1007",
@@ -608,7 +608,7 @@
           ],
           "properties": {
             "contentType": {
-              "$ref": "#/contentType"
+              "$ref": "#/definitions/contentType"
             },
             "mediaType": {
               "title": "rdamt:1008",
@@ -679,7 +679,7 @@
           ],
           "properties": {
             "contentType": {
-              "$ref": "#/contentType"
+              "$ref": "#/definitions/contentType"
             },
             "mediaType": {
               "title": "other",
@@ -722,140 +722,142 @@
       "hide": true
     }
   },
-  "contentType": {
-    "title": "Content type",
-    "description": "Fundamental form of communication in which the content is expressed and the human sense through which it is intended to be perceived (MARC 336).",
-    "type": "array",
-    "minItems": 1,
-    "uniqueItems": true,
-    "items": {
-      "type": "string",
-      "enum": [
-        "rdaco:1002",
-        "rdaco:1003",
-        "rdaco:1004",
-        "rdaco:1005",
-        "rdaco:1007",
-        "rdaco:1001",
-        "rdaco:1006",
-        "rdaco:1023",
-        "rdaco:1022",
-        "rdaco:1014",
-        "rdaco:1015",
-        "rdaco:1011",
-        "rdaco:1009",
-        "rdaco:1017",
-        "rdaco:1021",
-        "rdaco:1019",
-        "rdaco:1010",
-        "rdaco:1016",
-        "rdaco:1008",
-        "rdaco:1012",
-        "rdaco:1020",
-        "rdaco:1018",
-        "rdaco:1013",
-        "other"
-      ],
-      "form": {
-        "Type": "selectWithSort",
-        "options": [
-          {
-            "label": "rdaco:1002",
-            "value": "rdaco:1002"
-          },
-          {
-            "label": "rdaco:1003",
-            "value": "rdaco:1003"
-          },
-          {
-            "label": "rdaco:1004",
-            "value": "rdaco:1004"
-          },
-          {
-            "label": "rdaco:1005",
-            "value": "rdaco:1005"
-          },
-          {
-            "label": "rdaco:1007",
-            "value": "rdaco:1007"
-          },
-          {
-            "label": "rdaco:1001",
-            "value": "rdaco:1001"
-          },
-          {
-            "label": "rdaco:1006",
-            "value": "rdaco:1006"
-          },
-          {
-            "label": "rdaco:1023",
-            "value": "rdaco:1023"
-          },
-          {
-            "label": "rdaco:1022",
-            "value": "rdaco:1022"
-          },
-          {
-            "label": "rdaco:1014",
-            "value": "rdaco:1014"
-          },
-          {
-            "label": "rdaco:1015",
-            "value": "rdaco:1015"
-          },
-          {
-            "label": "rdaco:1011",
-            "value": "rdaco:1011"
-          },
-          {
-            "label": "rdaco:1009",
-            "value": "rdaco:1009"
-          },
-          {
-            "label": "rdaco:1017",
-            "value": "rdaco:1017"
-          },
-          {
-            "label": "rdaco:1021",
-            "value": "rdaco:1021"
-          },
-          {
-            "label": "rdaco:1019",
-            "value": "rdaco:1019"
-          },
-          {
-            "label": "rdaco:1010",
-            "value": "rdaco:1010"
-          },
-          {
-            "label": "rdaco:1016",
-            "value": "rdaco:1016"
-          },
-          {
-            "label": "rdaco:1008",
-            "value": "rdaco:1008"
-          },
-          {
-            "label": "rdaco:1012",
-            "value": "rdaco:1012"
-          },
-          {
-            "label": "rdaco:1020",
-            "value": "rdaco:1020"
-          },
-          {
-            "label": "rdaco:1018",
-            "value": "rdaco:1018"
-          },
-          {
-            "label": "rdaco:1013",
-            "value": "rdaco:1013"
-          },
-          {
-            "label": "other",
-            "value": "other"
-          }
-        ]
+  "definitions": {
+    "contentType": {
+      "title": "Content type",
+      "description": "Fundamental form of communication in which the content is expressed and the human sense through which it is intended to be perceived (MARC 336).",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "rdaco:1002",
+          "rdaco:1003",
+          "rdaco:1004",
+          "rdaco:1005",
+          "rdaco:1007",
+          "rdaco:1001",
+          "rdaco:1006",
+          "rdaco:1023",
+          "rdaco:1022",
+          "rdaco:1014",
+          "rdaco:1015",
+          "rdaco:1011",
+          "rdaco:1009",
+          "rdaco:1017",
+          "rdaco:1021",
+          "rdaco:1019",
+          "rdaco:1010",
+          "rdaco:1016",
+          "rdaco:1008",
+          "rdaco:1012",
+          "rdaco:1020",
+          "rdaco:1018",
+          "rdaco:1013",
+          "other"
+        ],
+        "form": {
+          "Type": "selectWithSort",
+          "options": [
+            {
+              "label": "rdaco:1002",
+              "value": "rdaco:1002"
+            },
+            {
+              "label": "rdaco:1003",
+              "value": "rdaco:1003"
+            },
+            {
+              "label": "rdaco:1004",
+              "value": "rdaco:1004"
+            },
+            {
+              "label": "rdaco:1005",
+              "value": "rdaco:1005"
+            },
+            {
+              "label": "rdaco:1007",
+              "value": "rdaco:1007"
+            },
+            {
+              "label": "rdaco:1001",
+              "value": "rdaco:1001"
+            },
+            {
+              "label": "rdaco:1006",
+              "value": "rdaco:1006"
+            },
+            {
+              "label": "rdaco:1023",
+              "value": "rdaco:1023"
+            },
+            {
+              "label": "rdaco:1022",
+              "value": "rdaco:1022"
+            },
+            {
+              "label": "rdaco:1014",
+              "value": "rdaco:1014"
+            },
+            {
+              "label": "rdaco:1015",
+              "value": "rdaco:1015"
+            },
+            {
+              "label": "rdaco:1011",
+              "value": "rdaco:1011"
+            },
+            {
+              "label": "rdaco:1009",
+              "value": "rdaco:1009"
+            },
+            {
+              "label": "rdaco:1017",
+              "value": "rdaco:1017"
+            },
+            {
+              "label": "rdaco:1021",
+              "value": "rdaco:1021"
+            },
+            {
+              "label": "rdaco:1019",
+              "value": "rdaco:1019"
+            },
+            {
+              "label": "rdaco:1010",
+              "value": "rdaco:1010"
+            },
+            {
+              "label": "rdaco:1016",
+              "value": "rdaco:1016"
+            },
+            {
+              "label": "rdaco:1008",
+              "value": "rdaco:1008"
+            },
+            {
+              "label": "rdaco:1012",
+              "value": "rdaco:1012"
+            },
+            {
+              "label": "rdaco:1020",
+              "value": "rdaco:1020"
+            },
+            {
+              "label": "rdaco:1018",
+              "value": "rdaco:1018"
+            },
+            {
+              "label": "rdaco:1013",
+              "value": "rdaco:1013"
+            },
+            {
+              "label": "other",
+              "value": "other"
+            }
+          ]
+        }
       }
     }
   }

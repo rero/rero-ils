@@ -38,13 +38,13 @@
               }
             },
             "classificationPortion": {
-              "$ref": "#/ref_classificationPortion"
+              "$ref": "#/definitions/classificationPortion"
             },
             "subdivision": {
-              "$ref": "#/ref_subdivision"
+              "$ref": "#/definitions/subdivision"
             },
             "assigner": {
-              "$ref": "#/ref_assigner"
+              "$ref": "#/definitions/assigner"
             }
           }
         },
@@ -79,13 +79,13 @@
               }
             },
             "classificationPortion": {
-              "$ref": "#/ref_classificationPortion"
+              "$ref": "#/definitions/classificationPortion"
             },
             "subdivision": {
-              "$ref": "#/ref_subdivision"
+              "$ref": "#/definitions/subdivision"
             },
             "assigner": {
-              "$ref": "#/ref_assigner"
+              "$ref": "#/definitions/assigner"
             }
           }
         },
@@ -120,13 +120,13 @@
               }
             },
             "classificationPortion": {
-              "$ref": "#/ref_classificationPortion"
+              "$ref": "#/definitions/classificationPortion"
             },
             "subdivision": {
-              "$ref": "#/ref_subdivision"
+              "$ref": "#/definitions/subdivision"
             },
             "assigner": {
-              "$ref": "#/ref_assigner"
+              "$ref": "#/definitions/assigner"
             }
           }
         },
@@ -162,16 +162,16 @@
               }
             },
             "classificationPortion": {
-              "$ref": "#/ref_classificationPortion"
+              "$ref": "#/definitions/classificationPortion"
             },
             "subdivision": {
-              "$ref": "#/ref_subdivision"
+              "$ref": "#/definitions/subdivision"
             },
             "edition": {
-              "$ref": "#/ref_edition"
+              "$ref": "#/definitions/edition"
             },
             "assigner": {
-              "$ref": "#/ref_assigner"
+              "$ref": "#/definitions/assigner"
             }
           }
         },
@@ -207,16 +207,16 @@
               }
             },
             "classificationPortion": {
-              "$ref": "#/ref_classificationPortion"
+              "$ref": "#/definitions/classificationPortion"
             },
             "subdivision": {
-              "$ref": "#/ref_subdivision"
+              "$ref": "#/definitions/subdivision"
             },
             "edition": {
-              "$ref": "#/ref_edition"
+              "$ref": "#/definitions/edition"
             },
             "assigner": {
-              "$ref": "#/ref_assigner"
+              "$ref": "#/definitions/assigner"
             }
           }
         },
@@ -251,13 +251,13 @@
               }
             },
             "classificationPortion": {
-              "$ref": "#/ref_classificationPortion"
+              "$ref": "#/definitions/classificationPortion"
             },
             "subdivision": {
-              "$ref": "#/ref_subdivision"
+              "$ref": "#/definitions/subdivision"
             },
             "assigner": {
-              "$ref": "#/ref_assigner"
+              "$ref": "#/definitions/assigner"
             }
           }
         },
@@ -292,13 +292,13 @@
               }
             },
             "classificationPortion": {
-              "$ref": "#/ref_classificationPortion"
+              "$ref": "#/definitions/classificationPortion"
             },
             "subdivision": {
-              "$ref": "#/ref_subdivision"
+              "$ref": "#/definitions/subdivision"
             },
             "assigner": {
-              "$ref": "#/ref_assigner"
+              "$ref": "#/definitions/assigner"
             }
           }
         },
@@ -323,7 +323,7 @@
             },
             "classificationPortion": {
               "title": "Notation",
-              "description": "Short alphanumeric string that serves as an identifier for a class",
+              "description": "Short alphanumeric string that serves as an identifier for a class.",
               "type": "string",
               "minLength": 2,
               "form": {
@@ -387,13 +387,13 @@
               }
             },
             "classificationPortion": {
-              "$ref": "#/ref_classificationPortion"
+              "$ref": "#/definitions/classificationPortion"
             },
             "subdivision": {
-              "$ref": "#/ref_subdivision"
+              "$ref": "#/definitions/subdivision"
             },
             "assigner": {
-              "$ref": "#/ref_assigner"
+              "$ref": "#/definitions/assigner"
             }
           }
         }
@@ -403,37 +403,39 @@
       "hide": true
     }
   },
-  "ref_classificationPortion": {
-    "title": "Notation",
-    "description": "Short alphanumeric string that serves as an identifier for a class",
-    "type": "string",
-    "minLength": 1,
-    "form": {
-      "placeholder": "Example: 001.012"
-    }
-  },
-  "ref_subdivision": {
-    "title": "Subdivisions",
-    "minItems": 0,
-    "type": "array",
-    "items": {
-      "title": "Subdivision",
+  "definitions": {
+    "classificationPortion": {
+      "title": "Notation",
+      "description": "Short alphanumeric string that serves as an identifier for a class.",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: 001.012"
+      }
+    },
+    "subdivision": {
+      "title": "Subdivisions",
+      "minItems": 0,
+      "type": "array",
+      "items": {
+        "title": "Subdivision",
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "edition": {
+      "title": "Edition",
+      "description": "Used for imported records only. Edition of the classification, identified by a number, a date, or another textual designation.",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: Abridged edition, 22"
+      }
+    },
+    "assigner": {
+      "title": "Used for imported records only. Assigning agency.",
       "type": "string",
       "minLength": 1
     }
-  },
-  "ref_edition": {
-    "title": "Edition",
-    "description": "Used for imported records only. Edition of the classification, identified by a number, a date, or another textual designation.",
-    "type": "string",
-    "minLength": 1,
-    "form": {
-      "placeholder": "Example: Abridged edition, 22"
-    }
-  },
-  "ref_assigner": {
-    "title": "Used for imported records only. Assigning agency.",
-    "type": "string",
-    "minLength": 1
   }
 }

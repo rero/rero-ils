@@ -25,10 +25,12 @@ from dojson import utils
 from dojson.utils import GroupableOrderedDict
 
 from rero_ils.dojson.utils import ReroIlsMarc21Overdo, TitlePartList, \
-    add_note, build_responsibility_data, build_string_from_subfields, \
-    error_print, extract_subtitle_and_parallel_titles_from_field_245_b, \
-    get_field_items, get_field_link_data, make_year, not_repetitive, \
+    add_note, build_identifier, build_responsibility_data, \
+    build_string_from_subfields, error_print, \
+    extract_subtitle_and_parallel_titles_from_field_245_b, get_field_items, \
+    get_field_link_data, make_year, not_repetitive, re_identified, \
     remove_trailing_punctuation
+from rero_ils.modules.utils import requests_retry_session
 
 _ISSUANCE_MAIN_TYPE_PER_BIB_LEVEL = {
     'a': 'rdami:1001',
@@ -207,42 +209,43 @@ _INTENDED_AUDIENCE_TYPE_REGEXP = {
     'filmage_ch': re.compile(r'^from the age of')
 }
 
-_IDREF_REF_REGEX = re.compile(r'^\(IDREF\)(.*)?')
+_IDREF_REF_REGEX = re.compile(r'^(?i)\(IdRef\)(.*)?')
+_RERO_REF_REGEX = re.compile(r'^(?i)\(RERO\)(.*)?')
+_CONTRIBUTION_TAGS = ['100', '600', '610', '611', '630', '650', '651',
+                             '655', '700', '710', '711']
 
 
 marc21 = ReroIlsMarc21Overdo()
 
 
-def get_contribution_link(bibid, reroid, id, key, value):
-    """Get MEF contribution link."""
+def get_contribution_link(bibid, reroid, id, key):
+    """Get MEF contribution link.
+
+    :params bibid: Bib id from the record.
+    :params reroid: RERO id from the record.
+    :params id: $0 from the marc field.
+    :params key: Tag from the marc field.
+    :returns: MEF url.
+    """
     # https://mef.test.rero.ch/api/mef/?q=rero.rero_pid:A012327677
     prod_host = 'mef.rero.ch'
     test_host = os.environ.get('RERO_ILS_MEF_HOST', 'mef.rero.ch')
     mef_url = f'https://{test_host}/api/'
 
-    match = _IDREF_REF_REGEX.search(id)
-    if match:
-        pid = match.group(1)
-        if key[:3] in ['100', '600', '610', '611', '700', '710', '711']:
-            # contribution
-            url = f'{mef_url}idref/{pid}'
-            try:
-                request = requests.get(url=url)
-            except requests.exceptions.RequestException as err:
-                error_print('ERROR MEF ACCESS:', bibid, reroid, url, err)
-                return None
-            if request.status_code == requests.codes.ok:
+    match = re_identified.search(id)
+    if match and len(match.groups()) == 2 and key[:3] in _CONTRIBUTION_TAGS:
+        match_type = match.group(1).lower()
+        match_value = match.group(2)
+        if match_type == 'idref':
+            url = f'{mef_url}{match_type}/{match_value}'
+            response = requests_retry_session().get(url)
+            status_code = response.status_code
+            if status_code == requests.codes.ok:
                 return url.replace(test_host, prod_host)
-            else:
-                subfiels = []
-                for v, k in value.items():
-                    if v != '__order__':
-                        subfiels.append(f'${v} {k}')
-                subfiels = ' '.join(subfiels)
-                field = f'{key} {subfiels}'
-                error_print('WARNING MEF CONTRIBUTION IDREF NOT FOUND:',
-                            bibid, reroid, field, url,
-                            request.status_code)
+            error_print('WARNING GET MEF CONTRIBUTION:',
+                        bibid, reroid, key, id, url, status_code)
+    else:
+        error_print('ERROR GET MEF CONTRIBUTION:', bibid, reroid, key, id)
 
 
 @marc21.over('issuance', 'leader')
@@ -504,17 +507,16 @@ def marc21_to_contribution(self, key, value):
     """Get contribution."""
     if not key[4] == '2' and key[:3] in ['100', '700', '710', '711']:
         agent = {}
-        if value.get('0'):
-            refs = utils.force_list(value.get('0'))
-            for ref in refs:
-                ref = get_contribution_link(
-                    marc21.bib_id, marc21.rero_id, ref, key, value)
-                if ref:
-                    agent['$ref'] = ref
-                    if key[:3] in ['100', '700']:
-                        agent['type'] = 'bf:Person'
-                    elif key[:3] in ['710', '711']:
-                        agent['type'] = 'bf:Organisation'
+        subfields_0 = utils.force_list(value.get('0'))
+        if subfields_0:
+            ref = get_contribution_link(marc21.bib_id, marc21.rero_id,
+                                        subfields_0[0], key)
+            if ref:
+                agent['$ref'] = ref
+                if key[:3] in ['100', '700']:
+                    agent['type'] = 'bf:Person'
+                elif key[:3] in ['710', '711']:
+                    agent['type'] = 'bf:Organisation'
 
         # we do not have a $ref
         if not agent.get('$ref') and value.get('a'):
@@ -563,6 +565,9 @@ def marc21_to_contribution(self, key, value):
                     ).lstrip('(').rstrip(')')
                     if fuller_form_of_name:
                         agent['fuller_form_of_name'] = fuller_form_of_name
+                identifier = build_identifier(value)
+                if identifier:
+                    agent['identifiedBy'] = identifier
 
             # 710|711 Organisation
             elif key[:3] in ['710', '711']:
@@ -605,6 +610,9 @@ def marc21_to_contribution(self, key, value):
                     ).lstrip('(').rstrip(')')
                     if place:
                         agent['place'] = place
+                identifier = build_identifier(value)
+                if identifier:
+                    agent['identifiedBy'] = identifier
 
         if value.get('4'):
             roles = []
@@ -769,6 +777,7 @@ def marc21_to_provisionActivity(self, key, value):
         place = build_place()
         if place:
             publication['place'] = [place]
+
     publication['statement'] = build_statement(value, ind2)
     if subfields_c:
         subfield_c = subfields_c[0]
@@ -791,6 +800,11 @@ def marc21_to_provisionActivity(self, key, value):
             pass
 
         publication['statement'].append(date)
+
+    identifier = build_identifier(value)
+    if identifier:
+        publication['identifiedBy'] = identifier
+
     return publication or None
 
 
@@ -1458,11 +1472,6 @@ def marc21_to_subjects(self, key, value):
         '610': False,
         '611': True
     }
-    source_per_prefix = {
-        '(RERO)': 'rero',
-        '(IDREF)': 'idref'
-    }
-
     source_per_indicator_2 = {
         '0': 'LCSH',
         '2': 'MeSH'
@@ -1475,46 +1484,26 @@ def marc21_to_subjects(self, key, value):
     if subfields_2:
         subfield_2 = subfields_2[0]
     subfields_a = utils.force_list(value.get('a', []))
-    source_prefix = ''
 
     if subfield_2 == 'rero':
-        # TODO: create a link to MEF when possible
         has_dollar_t = value.get('t')
-
-        subfields_0 = utils.force_list(value.get('0'))
-        subfield_0 = None
-        identified_by = None
-        if subfields_0:
-            #  remove the source prefix in parenthesis like '(RERO)'
-            source_prefix = re.sub(r'^(\(.*\)).*$', r'\1', subfields_0[0])
-            subfield_0 = re.sub(r'^\(.*\)(.*)$', r'\1', subfields_0[0])
-            source = source_per_prefix[source_prefix]
-            identified_by = {
-                'value': subfield_0,
-                'source': source,
-                'type': 'bf:Local'
-            }
 
         if tag_key in ('600', '610', '611') and has_dollar_t:
             tag_key += 't'
-
         data_type = type_per_tag[tag_key]
+
         start_with_digit = False
         if tag_key == '650':
             for subfield_a in subfields_a:
                 start_with_digit_regexp = re.compile(r'^\d')
                 match = start_with_digit_regexp.search(subfield_a)
                 if match:
-                    start_with_digit = True
                     data_type = 'bf:Temporal'
                     break
 
         subject = {
-            'source': 'rero',
             'type': data_type,
         }
-        if identified_by:
-            subject['identifiedBy'] = identified_by
 
         string_build = build_string_from_subfields(
             value,
@@ -1539,7 +1528,21 @@ def marc21_to_subjects(self, key, value):
         if tag_key == '655':
             field_key = 'genreForm'
 
-        if subject[field_data_per_tag[tag_key]]:
+        subfields_0 = utils.force_list(value.get('0'))
+        if data_type in ['bf:Person', 'bf:Organisation'] and subfields_0:
+            ref = get_contribution_link(marc21.bib_id, marc21.rero_id,
+                                        subfields_0[0], key)
+            if ref:
+                subject = {
+                    '$ref': ref,
+                    'type': data_type,
+                }
+        if not subject.get('$ref'):
+            identifier = build_identifier(value)
+            if identifier:
+                subject['identifiedBy'] = identifier
+
+        if subject.get('$ref') or subject.get(field_data_per_tag[tag_key]):
             subjects = self.get(field_key, [])
             subjects.append(subject)
             self[field_key] = subjects
@@ -1694,7 +1697,7 @@ def marc21_to_classification(self, key, value):
                 subject = {
                     'type': 'bf:Person',
                     'preferred_name': subfield_a,
-                    'source': 'factum'
+                    'source': 'Factum'
                 }
                 subjects = self.get('subjects', [])
                 subjects.append(subject)

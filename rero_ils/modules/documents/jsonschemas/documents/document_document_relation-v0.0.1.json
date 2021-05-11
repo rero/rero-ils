@@ -10,10 +10,10 @@
       "additionalProperties": false,
       "oneOf": [
         {
-          "$ref": "#/ref_document"
+          "$ref": "#/definitions/document"
         },
         {
-          "$ref": "#/ref_label"
+          "$ref": "#/definitions/label"
         }
       ]
     },
@@ -32,10 +32,10 @@
       "additionalProperties": false,
       "oneOf": [
         {
-          "$ref": "#/ref_document"
+          "$ref": "#/definitions/document"
         },
         {
-          "$ref": "#/ref_label"
+          "$ref": "#/definitions/label"
         }
       ]
     },
@@ -54,10 +54,10 @@
       "additionalProperties": false,
       "oneOf": [
         {
-          "$ref": "#/ref_document"
+          "$ref": "#/definitions/document"
         },
         {
-          "$ref": "#/ref_label"
+          "$ref": "#/definitions/label"
         }
       ]
     },
@@ -76,10 +76,10 @@
       "additionalProperties": false,
       "oneOf": [
         {
-          "$ref": "#/ref_document"
+          "$ref": "#/definitions/document"
         },
         {
-          "$ref": "#/ref_label"
+          "$ref": "#/definitions/label"
         }
       ]
     },
@@ -98,10 +98,10 @@
       "additionalProperties": false,
       "oneOf": [
         {
-          "$ref": "#/ref_document"
+          "$ref": "#/definitions/document"
         },
         {
-          "$ref": "#/ref_label"
+          "$ref": "#/definitions/label"
         }
       ]
     },
@@ -120,10 +120,10 @@
       "additionalProperties": false,
       "oneOf": [
         {
-          "$ref": "#/ref_document"
+          "$ref": "#/definitions/document"
         },
         {
-          "$ref": "#/ref_label"
+          "$ref": "#/definitions/label"
         }
       ]
     },
@@ -142,10 +142,10 @@
       "additionalProperties": false,
       "oneOf": [
         {
-          "$ref": "#/ref_document"
+          "$ref": "#/definitions/document"
         },
         {
-          "$ref": "#/ref_label"
+          "$ref": "#/definitions/label"
         }
       ]
     },
@@ -164,10 +164,10 @@
       "additionalProperties": false,
       "oneOf": [
         {
-          "$ref": "#/ref_document"
+          "$ref": "#/definitions/document"
         },
         {
-          "$ref": "#/ref_label"
+          "$ref": "#/definitions/label"
         }
       ]
     },
@@ -175,43 +175,45 @@
       "hide": true
     }
   },
-  "ref_document": {
-    "title": "Document link",
-    "type": "object",
-    "propertiesOrder": [
-      "$ref"
-    ],
-    "required": [
-      "$ref"
-    ],
-    "properties": {
-      "$ref": {
-        "type": "string",
-        "pattern": "^https://ils.rero.ch/api/documents/.*?$",
-        "form": {
-          "validation": {
-            "messages": {
-              "patternMessage": "Should be in the following format: https://ils.rero.ch/api/documents/<PID>."
-            }
-          },
-          "placeholder": "Example: https://ils.rero.ch/api/documents/66"
+  "definitions": {
+    "document": {
+      "title": "Document link",
+      "type": "object",
+      "propertiesOrder": [
+        "$ref"
+      ],
+      "required": [
+        "$ref"
+      ],
+      "properties": {
+        "$ref": {
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/documents/.*?$",
+          "form": {
+            "validation": {
+              "messages": {
+                "patternMessage": "Should be in the following format: https://ils.rero.ch/api/documents/<PID>."
+              }
+            },
+            "placeholder": "Example: https://ils.rero.ch/api/documents/66"
+          }
         }
       }
-    }
-  },
-  "ref_label": {
-    "title": "Label",
-    "type": "object",
-    "propertiesOrder": [
-      "label"
-    ],
-    "required": [
-      "label"
-    ],
-    "properties": {
-      "label": {
-        "type": "string",
-        "minLength": 1
+    },
+    "label": {
+      "title": "Label",
+      "type": "object",
+      "propertiesOrder": [
+        "label"
+      ],
+      "required": [
+        "label"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1
+        }
       }
     }
   }

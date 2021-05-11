@@ -1322,7 +1322,7 @@ def test_marc21_to_language():
     ]
 
 
-@mock.patch('requests.get')
+@mock.patch('requests.Session.get')
 def test_marc21_to_contribution(mock_get):
     """Test dojson marc21_to_contribution."""
     marc21xml = """
@@ -1401,7 +1401,7 @@ def test_marc21_to_contribution(mock_get):
     marc21xml = """
     <record>
       <datafield tag="100" ind1=" " ind2=" ">
-        <subfield code="0">(IDREF)XXXXXXXX</subfield>
+        <subfield code="0">(IdRef)XXXXXXXX</subfield>
       </datafield>
     </record>
     """
@@ -1422,6 +1422,30 @@ def test_marc21_to_contribution(mock_get):
         'agent': {
             'type': 'bf:Person',
             '$ref': 'https://mef.rero.ch/api/idref/XXXXXXXX'
+        },
+        'role': ['cre']
+    }]
+
+    marc21xml = """
+    <record>
+      <datafield tag="100" ind1=" " ind2=" ">
+        <subfield code="0">(IdRef)YYYYYYYY</subfield>
+        <subfield code="a">Jean-Paul</subfield>
+      </datafield>
+    </record>
+    """
+    mock_get.return_value = mock_response(status=400)
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    contribution = data.get('contribution')
+    assert contribution == [{
+        'agent': {
+            'preferred_name': 'Jean-Paul',
+            'type': 'bf:Person',
+            'identifiedBy': {
+                'type': 'IdRef',
+                'value': 'YYYYYYYY'
+            }
         },
         'role': ['cre']
     }]
@@ -3268,11 +3292,11 @@ def test_marc21_to_subjects_from_980_2_factum():
     assert data.get('subjects') == [{
             'type': 'bf:Person',
             'preferred_name': 'Conti, Louis de Bourbon, prince de',
-            'source': 'factum',
+            'source': 'Factum',
         }, {
             'type': 'bf:Person',
             'preferred_name': 'Lesdiguières, Marie-Françoise de Gondi',
-            'source': 'factum',
+            'source': 'Factum',
         }
     ]
 
@@ -4257,8 +4281,38 @@ def test_marc21_to_acquisition_terms():
     ]
 
 
-def test_marc21_to_subjects():
+@mock.patch('requests.Session.get')
+def test_marc21_to_subjects(mock_get):
     """Test dojson subjects from 6xx (L49, L50)."""
+    # field 600 without $t with ref
+    marc21xml = """
+    <record>
+    <datafield ind1="0" ind2="7" tag="600">
+        <subfield code="a">Athenagoras</subfield>
+        <subfield code="c">(patriarche oecuménique ;</subfield>
+        <subfield code="b">1)</subfield>
+        <subfield code="2">rero</subfield>
+        <subfield code="0">(IdRef)XXXXXXXX</subfield>
+    </datafield>
+    </record>
+    """
+    mock_get.return_value = mock_response(json_data={
+        'hits': {
+            'hits': [{
+                'metadata': {
+                    'type': 'bf:Person',
+                    'rero': {'pid': 'XXXXXXXX'}
+                }
+            }]
+        }
+    })
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('subjects') == [{
+          'type': 'bf:Person',
+          '$ref': 'https://mef.rero.ch/api/idref/XXXXXXXX'
+    }]
+
     # field 600 without $t
     marc21xml = """
     <record>
@@ -4276,11 +4330,9 @@ def test_marc21_to_subjects():
     assert data.get('subjects') == [{
           'type': 'bf:Person',
           'preferred_name': 'Athenagoras (patriarche oecuménique ; 1)',
-          'source': 'rero',
           'identifiedBy': {
               'value': 'A009963344',
-              'source': 'rero',
-              'type': 'bf:Local'
+              'type': 'RERO'
           }
     }]
 
@@ -4301,11 +4353,9 @@ def test_marc21_to_subjects():
           'type': 'bf:Organization',
           'conference': True,
           'preferred_name': 'Belalp Hexe (Blatten)',
-          'source': 'rero',
           'identifiedBy': {
               'value': 'A017827554',
-              'source': 'rero',
-              'type': 'bf:Local'
+              'type': 'RERO'
           }
     }]
 
@@ -4316,7 +4366,7 @@ def test_marc21_to_subjects():
         <subfield code="a">Giraudoux, Jean.</subfield>
         <subfield code="t">Electre</subfield>
         <subfield code="2">rero</subfield>
-        <subfield code="0">(IDREF)027538303</subfield>
+        <subfield code="0">(IdRef)027538303</subfield>
     </datafield>
     </record>
     """
@@ -4326,11 +4376,9 @@ def test_marc21_to_subjects():
           'type': 'bf:Work',
           'creator': 'Giraudoux, Jean',
           'title': 'Electre',
-          'source': 'rero',
           'identifiedBy': {
               'value': '027538303',
-              'source': 'idref',
-              'type': 'bf:Local'
+              'type': 'IdRef'
           }
     }]
 
@@ -4351,11 +4399,9 @@ def test_marc21_to_subjects():
           'type': 'bf:Work',
           'creator': 'Concile de Vatican 2',
           'title': 'Influence reçue',
-          'source': 'rero',
           'identifiedBy': {
               'value': 'A010067471',
-              'source': 'rero',
-              'type': 'bf:Local'
+              'type': 'RERO'
           }
     }]
 
@@ -4374,11 +4420,9 @@ def test_marc21_to_subjects():
     assert data.get('subjects') == [{
           'type': 'bf:Topic',
           'term': 'Vie',
-          'source': 'rero',
           'identifiedBy': {
               'value': 'A021002965',
-              'source': 'rero',
-              'type': 'bf:Local'
+              'type': 'RERO'
           }
     }]
 
@@ -4397,11 +4441,9 @@ def test_marc21_to_subjects():
     assert data.get('subjects') == [{
           'type': 'bf:Temporal',
           'term': '1961',
-          'source': 'rero',
           'identifiedBy': {
               'value': 'G021002965',
-              'source': 'rero',
-              'type': 'bf:Local'
+              'type': 'RERO'
           }
     }]
 
@@ -4420,11 +4462,9 @@ def test_marc21_to_subjects():
     assert data.get('subjects') == [{
           'type': 'bf:Place',
           'preferred_name': 'Europe occidentale',
-          'source': 'rero',
           'identifiedBy': {
               'value': 'A009975209',
-              'source': 'rero',
-              'type': 'bf:Local'
+              'type': 'RERO'
           }
     }]
 
@@ -4443,11 +4483,9 @@ def test_marc21_to_subjects():
     assert data.get('genreForm') == [{
           'type': 'bf:Topic',
           'term': 'Bases de données',
-          'source': 'rero',
           'identifiedBy': {
               'value': 'A001234567',
-              'source': 'rero',
-              'type': 'bf:Local'
+              'type': 'RERO'
           }
     }]
 
@@ -4465,7 +4503,6 @@ def test_marc21_to_subjects():
     assert data.get('genreForm') == [{
           'type': 'bf:Topic',
           'term': 'Bases de données',
-          'source': 'rero'
     }]
 
 
@@ -4831,7 +4868,7 @@ def test_marc21_to_identifiedBy_from_930():
     ]
 
 
-@mock.patch('requests.get')
+@mock.patch('requests.Session.get')
 def test_get_contribution_link(mock_get, capsys):
     """Test get mef contribution link"""
     os.environ['RERO_ILS_MEF_HOST'] = 'mef.xxx.rero.ch'
@@ -4840,9 +4877,8 @@ def test_get_contribution_link(mock_get, capsys):
     mef_url = get_contribution_link(
         bibid='1',
         reroid='1',
-        id='(IDREF)003945843',
-        key='100..',
-        value={'0': '(IDREF)003945843'}
+        id='(IdRef)003945843',
+        key='100..'
     )
     assert mef_url == 'https://mef.rero.ch/api/idref/003945843'
 
@@ -4850,23 +4886,21 @@ def test_get_contribution_link(mock_get, capsys):
     mef_url = get_contribution_link(
         bibid='1',
         reroid='1',
-        id='(IDREF)123456789',
-        key='100..',
-        value={'0': '(IDREF)123456789'}
+        id='(IdRef)123456789',
+        key='100..'
     )
     assert not mef_url
     out, err = capsys.readouterr()
-    assert out == "WARNING MEF CONTRIBUTION IDREF NOT FOUND:\t1\t1\t" + \
-        '100.. $0 (IDREF)123456789\t' + \
-        'https://mef.xxx.rero.ch/api/idref/123456789\t404\t\n'
+    assert out == 'WARNING GET MEF CONTRIBUTION:\t1\t1\t100..\t' \
+                  '(IdRef)123456789\t' \
+                  'https://mef.xxx.rero.ch/api/idref/123456789\t404\t\n'
 
     mock_get.return_value = mock_response(status=400)
     mef_url = get_contribution_link(
         bibid='1',
         reroid='1',
         id='X123456789',
-        key='100..',
-        value={'0': 'X123456789'}
+        key='100..'
     )
     assert not mef_url
 
