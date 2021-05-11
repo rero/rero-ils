@@ -79,7 +79,7 @@
               "minLength": 1
             },
             "identifiedBy": {
-              "$ref": "#/identifiedBy"
+              "$ref": "https://ils.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier"
             }
           }
         }
@@ -87,76 +87,6 @@
     },
     "form": {
       "hide": true
-    }
-  },
-  "identifiedBy": {
-    "title": "Identifier",
-    "type": "object",
-    "additionalProperties": false,
-    "propertiesOrder": [
-      "type",
-      "value",
-      "source"
-    ],
-    "properties": {
-      "type": {
-        "title": "Type",
-        "type": "string",
-        "enum": [
-          "bf:Local",
-          "rero-rameau",
-          "gnd"
-        ],
-        "form": {
-          "options": [
-            {
-              "value": "bf:Local",
-              "label": "bf:local"
-            },
-            {
-              "value": "rero-rameau",
-              "label": "rero-rameau"
-            },
-            {
-              "value": "gnd",
-              "label": "gnd"
-            }
-          ],
-          "templateOptions": {
-            "itemCssClass": "col-lg-4"
-          }
-        }
-      },
-      "source": {
-        "title": "Source",
-        "type": "string",
-        "minLength": 1,
-        "form": {
-          "hide": true,
-          "templateOptions": {
-            "itemCssClass": "col-lg-4"
-          }
-        }
-      },
-      "value": {
-        "title": "Value",
-        "type": "string",
-        "minLength": 1,
-        "form": {
-          "templateOptions": {
-            "itemCssClass": "col"
-          },
-          "expressionProperties": {
-            "templateOptions.required": "true"
-          }
-        }
-      }
-    },
-    "form": {
-      "hide": true,
-      "templateOptions": {
-        "containerCssClass": "row"
-      }
     }
   }
 }

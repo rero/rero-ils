@@ -101,7 +101,7 @@
       }
     },
     "identifiedBy": {
-      "$ref": "https://ils.rero.ch/schemas/documents/document_identifier-v0.0.1.json"
+      "$ref": "https://ils.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier_contribution"
     }
   },
   "form": {

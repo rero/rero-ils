@@ -406,6 +406,20 @@
               "country": {
                 "type": "text",
                 "index": false
+              },
+              "identifiedBy": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "keyword"
+                  },
+                  "source": {
+                    "type": "keyword"
+                  },
+                  "value": {
+                    "type": "keyword"
+                  }
+                }
               }
             }
           },
