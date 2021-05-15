@@ -35,6 +35,9 @@
         "properties": {
           "pid": {
             "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
           }
         }
       },
@@ -59,6 +62,9 @@
             }
           },
           "home_phone": {
+            "type": "keyword"
+          },
+          "phone": {
             "type": "keyword"
           },
           "postal_code": {

@@ -147,6 +147,10 @@
           }
         }
       },
+      "authorized_access_point": {
+        "type": "text",
+        "search_analyzer": "standard"
+      },
       "autocomplete_title": {
         "type": "text",
         "analyzer": "autocomplete",
@@ -449,13 +453,15 @@
             }
           },
           "startDate": {
-            "type": "date",
-            "format": "yyyy",
+            "type": "integer",
             "index": false
           },
           "endDate": {
-            "type": "date",
-            "format": "yyyy",
+            "type": "integer",
+            "index": false
+          },
+          "original_date": {
+            "type": "integer",
             "index": false
           },
           "type": {
@@ -800,6 +806,9 @@
             "type": "object",
             "properties": {
               "pid": {
+                "type": "keyword"
+              },
+              "type": {
                 "type": "keyword"
               }
             }
@@ -1172,7 +1181,7 @@
           "mediaType": {
             "type": "keyword"
           },
-          "Carrier": {
+          "carrierType": {
             "type": "keyword"
           }
         }

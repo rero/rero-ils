@@ -24,6 +24,9 @@
             "type": "text",
             "copy_to": "patron.facet"
           },
+          "type": {
+            "type": "keyword"
+          },
           "facet": {
             "type": "keyword"
           }
@@ -43,6 +46,9 @@
         "properties": {
           "pid": {
             "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
           }
         }
       },
@@ -52,6 +58,9 @@
             "type": "text"
           },
           "authors": {
+            "type": "text"
+          },
+          "publisher": {
             "type": "text"
           },
           "year": {
@@ -87,6 +96,9 @@
             "type": "text"
           }
         }
+      },
+      "pages": {
+        "type": "text"
       },
       "organisation": {
         "properties": {
