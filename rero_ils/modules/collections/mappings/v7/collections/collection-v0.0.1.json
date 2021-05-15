@@ -53,12 +53,18 @@
         "properties": {
           "pid": {
             "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
           }
         }
       },
       "items": {
         "properties": {
           "pid": {
+            "type": "keyword"
+          },
+          "type": {
             "type": "keyword"
           }
         }

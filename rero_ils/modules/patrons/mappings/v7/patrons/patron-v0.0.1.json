@@ -23,6 +23,9 @@
       "last_name_sort": {
         "type": "keyword"
       },
+      "gender": {
+        "type": "keyword"
+      },
       "birth_date": {
         "type": "date",
         "fields": {
@@ -88,6 +91,9 @@
       "home_phone": {
         "type": "keyword"
       },
+      "phone": {
+        "type": "keyword"
+      },
       "business_phone": {
         "type": "keyword"
       },
@@ -105,6 +111,9 @@
           "type": {
             "properties": {
               "pid": {
+                "type": "keyword"
+              },
+              "type": {
                 "type": "keyword"
               }
             }
@@ -146,12 +155,18 @@
                 "properties": {
                   "pid": {
                     "type": "keyword"
+                  },
+                  "type": {
+                    "type": "keyword"
                   }
                 }
               },
               "patron_transaction": {
                 "properties": {
                   "pid": {
+                    "type": "keyword"
+                  },
+                  "type": {
                     "type": "keyword"
                   }
                 }
@@ -186,6 +201,9 @@
         "properties": {
           "pid": {
             "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
           }
         }
       },
@@ -193,8 +211,14 @@
         "properties": {
           "pid": {
             "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
           }
         }
+      },
+      "keep_history": {
+        "type": "boolean"
       },
       "_created": {
         "type": "date"
