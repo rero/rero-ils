@@ -158,6 +158,10 @@ invenio collect -v
 info_msg "Build web assets: using webpack"
 invenio webpack buildall
 
+# TODO: fix for invenio-assets not copying manifest.json to
+# ${INVENIO_INSTANCE_PATH}/static/dist
+cp ${static_folder}/../assets/manifest.json ${static_folder}/dist/manifest.json
+
 if $deploy ; then
   if ! $ci ; then
     info_msg "Clean web assets"
