@@ -94,7 +94,7 @@ def test_acq_accounts_get(client, acq_account_fiction_martigny):
     assert res.status_code == 200
     data = get_json(res)
 
-    assert data['hits']['hits'][0]['metadata'] == acq_account.replace_refs()
+    assert data['hits']['hits'][0]['metadata']['pid'] == 'acac1'
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
@@ -119,9 +119,6 @@ def test_acq_accounts_post_put_delete(client,
 
     # Check that the returned record matches the given data
     acq_account_books_saxon_data['pid'] = '1'
-    acq_account_books_saxon_data['organisation'] = {
-        '$ref': 'https://bib.rero.ch/api/organisations/org1'
-    }
     assert data['metadata'] == acq_account_books_saxon_data
 
     res = client.get(item_url)
