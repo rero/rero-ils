@@ -927,6 +927,7 @@ WTForms = "*"
 reference = "314bd2cebe50df014faee99626d6746300fd0a7c"
 type = "git"
 url = "https://github.com/rero/flask-wiki.git"
+
 [[package]]
 category = "main"
 description = "Simple integration of Flask and WTForms."
@@ -1843,6 +1844,7 @@ tests = ["mock (>=2.0.0)", "pytest-mock (>=1.6.0)", "check-manifest (>=0.35)", "
 reference = "0336703fb7762f796bcfb4af3fcb01a085f98aec"
 type = "git"
 url = "https://github.com/inveniosoftware-contrib/invenio-sip2.git"
+
 [[package]]
 category = "main"
 description = "Invenio standard theme."
@@ -1895,6 +1897,7 @@ tests = ["pytest-invenio (>=1.4.0)"]
 reference = "2bda428e000c11ca281846da5621916f7d3497f3"
 type = "git"
 url = "https://github.com/rero/invenio-userprofiles.git"
+
 [[package]]
 category = "main"
 description = "IPython: Productive Interactive Computing"
@@ -3442,7 +3445,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 sip2 = ["invenio-sip2"]
 
 [metadata]
-content-hash = "0cc062e692fae9c30b1a14230a37ffa863ab93de6b756faf561b153fa06322c7"
+content-hash = "e60aadc263ba69db24a7b9d88e221a1d4f1a0092d9d8786dccd3707e48afae2e"
 lock-version = "1.0"
 python-versions = ">= 3.6, <3.8"
 
@@ -3921,8 +3924,8 @@ invenio-pidstore = [
     {file = "invenio_pidstore-1.2.2-py2.py3-none-any.whl", hash = "sha256:960fd76702ebe159392e254ae9222503452383fa1ef0b94673ed0305552917f2"},
 ]
 invenio-records = [
-    {file = "invenio-records-1.5.0a8.tar.gz", hash = "sha256:e4ed53a6747937029acfc51443de2e06844c169f02db6a7be5dbd83663f099b8"},
-    {file = "invenio_records-1.5.0a8-py2.py3-none-any.whl", hash = "sha256:4bc5aca22293db46454c2765f0ce58bf2725937bc6b542e90aa19507a449a9d0"},
+    {file = "invenio-records-1.4.0.tar.gz", hash = "sha256:5387a398dae4271b2fe25008c30f4260aeb80c0f5cd57aa8a9fe6217d7df931d"},
+    {file = "invenio_records-1.4.0-py2.py3-none-any.whl", hash = "sha256:d068b54763cc071fec885d842365dd2c8e555a5b6f89cc0e12025d614e582279"},
 ]
 invenio-records-rest = [
     {file = "invenio-records-rest-1.8.0.tar.gz", hash = "sha256:70ba741f19f8c9a1ae14a700d82c632175e881fd786ffdc4692f2718482e8dd1"},

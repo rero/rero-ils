@@ -440,12 +440,22 @@ eval ${PREFIX} invenio utils reindex -t coll --yes-i-know --no-info
 # create library budgets
 info_msg "Library budgets: ${DATA_PATH}/budgets.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type budg ${DATA_PATH}/budgets.json --append  ${CREATE_LAZY} ${DONT_STOP}
+
+# index budgets
+# We have to reindex budgets to get the acq_accouunt indexed correctly.
 eval ${PREFIX} invenio utils reindex -t budg --yes-i-know --no-info
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio utils runindex -d -c ${INDEX_PARALLEL} --raise-on-error
+fi
+eval ${PREFIX} invenio utils runindex --raise-on-error
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio utils reindex_missing -t budg -v
+fi
 
 # create acquisition accounts
 info_msg "Acquisition accounts: ${DATA_PATH}/acq_accounts.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio fixtures create --pid_type acac ${DATA_PATH}/acq_accounts.json --append  ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio utils reindex -t acac --yes-i-know --no-info
+eval ${PREFIX} invenio fixtures create --pid_type acac ${DATA_PATH}/acq_accounts.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
+# TODO :: check why acac is noot indexed. Use a CLI to index acac in correct order ?
 
 # create resource templates
 info_msg "Resource templates:"
@@ -457,7 +467,7 @@ if [ ${INDEX_PARALLEL} -gt 0 ]; then
 fi
 eval ${PREFIX} invenio utils runindex --raise-on-error
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio utils reindex_missing -t lofi -t coll -t budg -t acac -t tmpl -v
+    eval ${PREFIX} invenio utils reindex_missing -t lofi -t coll -t acac -t tmpl -v
 fi
 
 # create circulation transactions

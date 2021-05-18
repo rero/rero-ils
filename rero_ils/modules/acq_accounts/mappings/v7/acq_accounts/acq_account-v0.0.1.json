@@ -16,10 +16,81 @@
       "name_sort": {
         "type": "keyword"
       },
-      "description": {
+      "number": {
         "type": "text"
       },
-      "budget": {
+      "allocated_amount": {
+        "type": "float"
+      },
+      "remaining_balance": {
+        "properties": {
+          "self": {
+            "type": "float"
+          },
+          "total": {
+            "type": "float"
+          }
+        }
+      },
+      "distribution": {
+        "type": "float"
+      },
+      "encumbrance_exceedance": {
+        "properties": {
+          "value": {
+            "type": "float"
+          },
+          "amount": {
+            "type": "float"
+          }
+        }
+      },
+      "expenditure_exceedance": {
+        "properties": {
+          "value": {
+            "type": "float"
+          },
+          "amount": {
+            "type": "float"
+          }
+        }
+      },
+      "encumbrance_amount": {
+        "properties": {
+          "children": {
+            "type": "float"
+          },
+          "self": {
+            "type": "float"
+          },
+          "total": {
+            "type": "float"
+          }
+        }
+      },
+      "expenditure_amount": {
+        "properties": {
+          "children": {
+            "type": "float"
+          },
+          "self": {
+            "type": "float"
+          },
+          "total": {
+            "type": "float"
+          }
+        }
+      },
+      "is_parent": {
+        "type": "boolean"
+      },
+      "is_active": {
+        "type": "boolean"
+      },
+      "depth": {
+        "type": "integer"
+      },
+      "parent": {
         "properties": {
           "pid": {
             "type": "keyword"
@@ -29,8 +100,12 @@
           }
         }
       },
-      "amount_allocated": {
-        "type": "float"
+      "budget": {
+        "properties": {
+          "pid": {
+            "type": "keyword"
+          }
+        }
       },
       "library": {
         "properties": {
