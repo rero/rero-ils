@@ -33,7 +33,9 @@ from invenio_records_rest.errors import JSONSchemaValidationError
 from invenio_userprofiles.signals import after_profile_update
 from jsonschema.exceptions import ValidationError
 
+from .acq_accounts.listener import enrich_acq_account_data
 from .apiharvester.signals import apiharvest_part
+from .budgets.listener import budget_is_active_changed
 from .collections.listener import enrich_collection_data
 from .contributions.listener import enrich_contributions_data
 from .contributions.receivers import publish_api_harvested_records
@@ -189,6 +191,7 @@ class REROILSAPP(object):
         # example:
         # before_record_index.dynamic_connect(
         #    enrich_patron_data, sender=app, index='patrons-patron-v0.0.1')
+        before_record_index.connect(enrich_acq_account_data, sender=app)
         before_record_index.connect(enrich_collection_data, sender=app)
         before_record_index.connect(enrich_loan_data, sender=app)
         before_record_index.connect(enrich_document_data, sender=app)
@@ -207,6 +210,7 @@ class REROILSAPP(object):
         after_record_insert.connect(create_subscription_patron_transaction)
         after_record_update.connect(create_subscription_patron_transaction)
 
+        before_record_update.connect(budget_is_active_changed)
         before_record_update.connect(negative_availability_changes)
 
         loan_state_changed.connect(listener_loan_state_changed, weak=False)

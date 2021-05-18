@@ -100,6 +100,7 @@ setup(
             'templates = rero_ils.modules.templates.views:blueprint',
         ],
         'invenio_base.api_blueprints': [
+            'acq_accounts = rero_ils.modules.acq_accounts.views:api_blueprint',
             'api_documents = rero_ils.modules.documents.views:api_blueprint',
             'circ_policies = rero_ils.modules.circ_policies.views:blueprint',
             'contributions = rero_ils.modules.contributions.views:api_blueprint',
