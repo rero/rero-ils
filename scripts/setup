@@ -443,7 +443,13 @@ eval ${PREFIX} invenio reroils index reindex -t coll --yes-i-know
 info_msg "Library budgets: ${DATA_PATH}/budgets.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type budg ${DATA_PATH}/budgets.json --append  ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} invenio reroils index reindex -t budg --yes-i-know
-
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
+fi
+eval ${PREFIX} invenio reroils index runindex --raise-on-error
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio reroils index reindex_missing -t budg -v
+fi
 # create acquisition accounts
 info_msg "Acquisition accounts: ${DATA_PATH}/acq_accounts.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type acac ${DATA_PATH}/acq_accounts.json --append  ${CREATE_LAZY} ${DONT_STOP}
@@ -459,7 +465,7 @@ if [ ${INDEX_PARALLEL} -gt 0 ]; then
 fi
 eval ${PREFIX} invenio reroils index run --raise-on-error
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio reroils index reindex_missing -t lofi -t coll -t budg -t acac -t tmpl -v
+    eval ${PREFIX} invenio reroils index reindex_missing -t lofi -t coll -t acac -t tmpl -v
 fi
 
 # create circulation transactions
