@@ -6,15 +6,18 @@
   "additionalProperties": false,
   "propertiesOrder": [
     "name",
-    "description",
-    "amount_allocated"
+    "number",
+    "allocated_amount",
+    "encumbrance_exceedance",
+    "expenditure_exceedance",
+    "parent"
   ],
   "required": [
     "$schema",
     "pid",
     "name",
+    "allocated_amount",
     "budget",
-    "amount_allocated",
     "library"
   ],
   "properties": {
@@ -31,18 +34,74 @@
     },
     "name": {
       "title": "Name",
-      "description": "Name of the acquisition account.",
+      "description": "Common name of the acquisition account.",
       "type": "string",
       "minLength": 1,
       "form": {
         "focus": true
       }
     },
-    "description": {
-      "title": "Description",
-      "description": "Description of the acquisition account.",
+    "number": {
+      "title": "Account number",
+      "description": "Reference account number in accounting system.",
       "type": "string",
       "minLength": 1
+    },
+    "allocated_amount": {
+      "title": "Allocated amount",
+      "description": "The amount allocated for the acquisition account.",
+      "type": "number",
+      "minimum": 0
+    },
+    "encumbrance_exceedance": {
+      "title": "Emcumbrance exceedance",
+      "description": "The exceedance percentage of account amount that linked pending orders can reach.",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0,
+      "form": {
+        "templateOptions": {
+          "addonRight": {
+            "text": "%"
+          }
+        }
+      }
+    },
+    "expenditure_exceedance": {
+      "title": "Expenditure exceedance",
+      "description": "The exceedance percentage of account amount than linked paid invoices can reach.",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0,
+      "form": {
+        "templateOptions": {
+          "addonRight": {
+            "text": "%"
+          }
+        }
+      }
+    },
+    "parent": {
+      "title": "Parent account",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Account URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/acq_accounts/.*?$",
+          "form": {
+            "remoteOptions": {
+              "type": "acq_accounts"
+            },
+            "placeholder": "Choose a parent account\u2026",
+            "templateOptions": {
+              "label": ""
+            }
+          }
+        }
+      }
     },
     "budget": {
       "title": "Budget",
@@ -54,12 +113,10 @@
           "type": "string",
           "pattern": "^https://ils.rero.ch/api/budgets/.*?$"
         }
-      }
-    },
-    "amount_allocated": {
-      "title": "Allocated amount",
-      "description": "The amount allocated for the acquisition account.",
-      "type": "number"
+      },
+      "required": [
+        "$ref"
+      ]
     },
     "library": {
       "title": "Library",
@@ -70,18 +127,10 @@
           "type": "string",
           "pattern": "^https://ils.rero.ch/api/libraries/.*?$"
         }
-      }
-    },
-    "organisation": {
-      "title": "Organisation",
-      "type": "object",
-      "properties": {
-        "$ref": {
-          "title": "Organisation URI",
-          "type": "string",
-          "pattern": "^https://ils.rero.ch/api/organisations/.*?$"
-        }
-      }
+      },
+      "required": [
+        "$ref"
+      ]
     }
   }
 }
