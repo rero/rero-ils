@@ -1848,6 +1848,7 @@ tests = ["mock (>=2.0.0)", "pytest-mock (>=1.6.0)", "check-manifest (>=0.35)", "
 reference = "cece8418d7c747abe79a42ad7f818b7a9f874479"
 type = "git"
 url = "https://github.com/inveniosoftware-contrib/invenio-sip2.git"
+
 [[package]]
 category = "main"
 description = "Invenio standard theme."
@@ -3448,7 +3449,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 sip2 = ["invenio-sip2"]
 
 [metadata]
-content-hash = "0cc062e692fae9c30b1a14230a37ffa863ab93de6b756faf561b153fa06322c7"
+content-hash = "e60aadc263ba69db24a7b9d88e221a1d4f1a0092d9d8786dccd3707e48afae2e"
 python-versions = ">= 3.6, <3.8"
 
 [metadata.files]
