@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Blueprint used for loading templates."""
+"""Documents utils."""
 
 from __future__ import absolute_import, print_function
 
@@ -96,7 +96,8 @@ def publication_statement_text(provision_activity):
     """Create publication statement from place, agent and date values."""
     punctuation = {
         'bf:Place': ' ; ',
-        'bf:Agent': ', '
+        'bf:Agent': ', ',
+        'Date': ', '
     }
 
     statement_with_language = {'default': ''}
