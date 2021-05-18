@@ -65,3 +65,16 @@ def check_logged_user_authentication(func):
         return func(*args, **kwargs)
 
     return decorated_view
+
+
+def jsonify_error(func):
+    """Jsonify errors."""
+    @wraps(func)
+    def decorated_view(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except Exception as error:
+            # raise error
+            # current_app.logger.error(str(error))
+            return jsonify({'message': f'{error}'}), 400
+    return decorated_view
