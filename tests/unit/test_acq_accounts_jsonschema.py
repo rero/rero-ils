@@ -81,11 +81,11 @@ def test_budget(
         validate(acq_account_fiction_martigny_data_tmp, acq_account_schema)
 
 
-def test_amount_allocated(
+def test_allocated_amount(
         acq_account_schema, acq_account_fiction_martigny_data_tmp):
-    """Test amount_allocated for acq accounts jsonschemas."""
+    """Test allocated_amount for acq accounts jsonschemas."""
     validate(acq_account_fiction_martigny_data_tmp, acq_account_schema)
 
     with pytest.raises(ValidationError):
-        acq_account_fiction_martigny_data_tmp['amount_allocated'] = 'test'
+        acq_account_fiction_martigny_data_tmp['allocated_amount'] = 'test'
         validate(acq_account_fiction_martigny_data_tmp, acq_account_schema)

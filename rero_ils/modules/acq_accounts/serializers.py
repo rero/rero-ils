@@ -29,12 +29,14 @@ class AcqAccountJSONSerializer(JSONSerializer):
     def post_process_serialize_search(self, results, pid_fetcher):
         """Post process the search results."""
         # Add library name
+        libraries = {}
         for lib_term in results.get('aggregations', {}).get(
                 'library', {}).get('buckets', []):
             pid = lib_term.get('key')
-            name = Library.get_record_by_pid(pid).get('name')
+            if pid not in libraries:
+                libraries[pid] = Library.get_record_by_pid(pid)
             lib_term['key'] = pid
-            lib_term['name'] = name
+            lib_term['name'] = libraries[pid].get('name')
 
         return super().post_process_serialize_search(results, pid_fetcher)
 
