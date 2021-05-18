@@ -19,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-05-10 11:41+0200\n"
 "PO-Revision-Date: 2021-05-18 09:34+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
 "Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/en/>\n"
 "Language: en\n"
@@ -5964,7 +5964,7 @@ msgstr "auctioneer"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:264
 msgid "aui"
-msgstr "writer of introduction"
+msgstr "writer of introduction [aui]"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:268
 msgid "aus"
@@ -6448,7 +6448,7 @@ msgstr "writer of added text"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:748
 msgid "win"
-msgstr "writer of introduction"
+msgstr "writer of introduction [win]"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:752
 msgid "wpr"
