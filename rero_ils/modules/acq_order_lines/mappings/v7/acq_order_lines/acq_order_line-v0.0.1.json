@@ -53,7 +53,7 @@
           }
         }
       },
-      "order_line_status": {
+      "status": {
         "type": "keyword"
       },
       "quantity": {

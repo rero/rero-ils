@@ -40,3 +40,16 @@ class AcqOrderLineMetadata(db.Model, RecordMetadataBase):
     """AcqOrderLine record metadata."""
 
     __tablename__ = 'acq_order_line_metadata'
+
+
+class AcqOrderLineStatus:
+    """Available statuses about an Acquisition Order Line."""
+
+    APPROVED = 'approved'
+    CANCELED = 'canceled'
+    ORDERED = 'ordered'
+    PENDING = 'pending'
+    RECEIVED = 'received'
+    REQUESTED = 'requested'
+
+    OPEN = [APPROVED, ORDERED, REQUESTED, PENDING]
