@@ -2183,6 +2183,10 @@ RECORDS_REST_SORT_OPTIONS['acq_accounts']['name'] = dict(
     fields=['name_sort'], title='Account name',
     default_order='asc'
 )
+RECORDS_REST_SORT_OPTIONS['acq_accounts']['depth'] = dict(
+    fields=['depth'], title='Depth',
+    default_order='asc'
+)
 RECORDS_REST_DEFAULT_SORT['acq_accounts'] = dict(
     query='bestmatch', noquery='name')
 
