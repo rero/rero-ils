@@ -24,18 +24,18 @@ from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
 
-def test_required(operation_log_schema, operation_log_1_data):
+def test_required(operation_log_schema, operation_log_data):
     """Test required for operation log jsonschemas."""
-    validate(operation_log_1_data, operation_log_schema)
+    validate(operation_log_data, operation_log_schema)
 
     with pytest.raises(ValidationError):
         validate({}, operation_log_schema)
 
 
 def test_operation_log_all_jsonschema_keys_values(
-        operation_log_schema, operation_log_1_data):
+        operation_log_schema, operation_log_data):
     """Test all keys and values for operation log jsonschema."""
-    record = operation_log_1_data
+    record = operation_log_data
     validate(record, operation_log_schema)
     validator = [
         {'key': 'pid', 'value': 25},

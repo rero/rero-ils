@@ -17,76 +17,140 @@
 
 """API for manipulating operation_logs."""
 
-from functools import partial
+from elasticsearch.helpers import bulk
+from invenio_records.api import RecordBase
+from invenio_search import RecordsSearch, current_search_client
 
-from .models import OperationLogIdentifier, OperationLogMetadata, \
-    OperationLogOperation
-from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from ..fetchers import id_fetcher
-from ..minters import id_minter
-from ..providers import Provider
-
-# provider
-OperationLogProvider = type(
-    'OperationLogProvider',
-    (Provider,),
-    dict(identifier=OperationLogIdentifier, pid_type='oplg')
-)
-# minter
-operation_log_id_minter = partial(id_minter, provider=OperationLogProvider)
-# fetcher
-operation_log_id_fetcher = partial(id_fetcher, provider=OperationLogProvider)
+from .extensions import DatesExension, IDExtension, ResolveRefsExension
+from ..fetchers import FetchedPID
 
 
-class OperationLogsSearch(IlsRecordsSearch):
-    """Operation log Search."""
+def operation_log_id_fetcher(record_uuid, data):
+    """Fetch an Organisation record's identifier.
 
-    class Meta:
-        """Search only on operation_log index."""
+    :param record_uuid: The record UUID.
+    :param data: The record metadata.
+    :return: A :data:`rero_ils.modules.fetchers.FetchedPID` instance.
+    """
+    return FetchedPID(
+        provider=None,
+        pid_type='oplg',
+        pid_value=record_uuid
+    )
 
-        index = 'operation_logs'
-        doc_types = None
-        fields = ('*', )
-        facets = {}
 
-        default_filter = None
-
-
-class OperationLog(IlsRecord):
+class OperationLog(RecordBase):
     """OperationLog class."""
 
-    minter = operation_log_id_minter
-    fetcher = operation_log_id_fetcher
-    provider = OperationLogProvider
-    model_cls = OperationLogMetadata
+    index_name = 'operation_logs'
+
+    _extensions = [ResolveRefsExension(), DatesExension(), IDExtension()]
 
     @classmethod
-    def get_create_operation_log_by_resource_pid(cls, pid_type, record_pid):
-        """Return a create operation log for a given resource and pid.
+    def create(cls, data, id_=None, index_refresh='false', **kwargs):
+        r"""Create a new record instance and store it in elasticsearch.
 
-        :param pid_type: resource pid type.
-        :param record_pid: record pid.
+        :param data: Dict with the record metadata.
+        :param id_: Specify a UUID to use for the new record, instead of
+                    automatically generated.
+        :param refresh: If `true` then refresh the affected shards to make
+            this operation visible to search, if `wait_for` then wait for a
+            refresh to make this operation visible to search, if `false`
+            (the default) then do nothing with refreshes.
+            Valid choices: true, false, wait_for
+        :returns: A new :class:`Record` instance.
         """
-        search = OperationLogsSearch()
-        search = search.filter('term', record__pid=record_pid)\
-            .filter('term', record__type=pid_type)\
-            .filter('term', operation=OperationLogOperation.CREATE)
-        oplgs = search.source(['pid']).scan()
-        try:
-            return OperationLog.get_record_by_pid(next(oplgs).pid)
-        except StopIteration:
-            return None
+        if id_:
+            data['pid'] = _id
 
+        record = cls(
+                data,
+                model=None,
+                **kwargs
+            )
 
-class OperationLogsIndexer(IlsRecordsIndexer):
-    """Operation log indexing class."""
+        # Run pre create extensions
+        for e in cls._extensions:
+            e.pre_create(record)
 
-    record_cls = OperationLog
+        res = current_search_client.index(
+            index=cls.get_index(record),
+            body=record.dumps(),
+            id=record['pid'],
+            refresh=index_refresh)
 
-    def bulk_index(self, record_id_iterator):
-        """Bulk index records.
+        # Run post create extensions
+        for e in cls._extensions:
+            e.post_create(record)
+        return record
 
-        :param record_id_iterator: Iterator yielding record UUIDs.
+    @classmethod
+    def get_index(cls, data):
+        """Get the index name given the data.
+
+        One index per year is created based on the data date field.
+
+        :param data: Dict with the record metadata.
+        :returns: str, the corresponding index name.
         """
-        super(OperationLogsIndexer, self).bulk_index(
-            record_id_iterator, doc_type='oplg')
+        suffix = '-'.join(data.get('date', '').split('-')[0:1])
+        return f'{cls.index_name}-{suffix}'
+
+    @classmethod
+    def bulk_index(cls, data):
+        """Bulk indexing.
+
+        :params data: list of dicts with the record metadata.
+        """
+        actions = []
+        for d in data:
+            d = OperationLog(d)
+            # Run pre create extensions
+            for e in cls._extensions:
+                e.pre_create(d)
+
+            action = {
+                '_op_type': 'index',
+                '_index': cls.get_index(d),
+                '_source': d.dumps(),
+                '_id': d['pid']
+            }
+            actions.append(action)
+        n_succeed, errors = bulk(current_search_client, actions)
+        if n_succeed != len(data):
+            raise Exception(f'Elasticsearch Indexing Errors: {errors}')
+
+    @classmethod
+    def get_record(cls, _id):
+        """Retrieve the record by ID.
+
+        Raise a database exception if the record does not exist.
+        :param id_: record ID.
+        :returns: The :class:`Record` instance.
+        """
+        # here the elasticsearch get API cannot be used with an index alias
+        return cls(
+            next(
+                RecordsSearch(index=cls.index_name)
+                .filter('term', _id=_id).scan())
+            .to_dict()
+        )
+
+    @classmethod
+    def get_indices(cls):
+        """Get all index names present in the elasticsearch server."""
+        return set([
+            v['index'] for v in current_search_client.cat.indices(
+                index=f'{cls.index_name}*', format='json')
+        ])
+
+    @classmethod
+    def delete_indices(cls):
+        """Remove all index names present in the elasticsearch server."""
+        current_search_client.indices.delete(f'{cls.index_name}*')
+        return True
+
+    @property
+    def id(self):
+        """Get model identifier."""
+        return self.get('pid')

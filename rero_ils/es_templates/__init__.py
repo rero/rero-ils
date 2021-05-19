@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2021 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -19,7 +19,7 @@
 
 
 def list_es_templates():
-    """Elasticsearch Templates path."""
+    """Elasticsearch templates path."""
     return [
         'rero_ils.es_templates'
     ]
