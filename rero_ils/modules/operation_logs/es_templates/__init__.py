@@ -15,14 +15,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""OperationLog resolver."""
-
-import jsonresolver
-
-from ..jsonresolver import resolve_json_refs
+"""Elasticsearch templates for Operation log records."""
 
 
-@jsonresolver.route('/api/operation_logs/<pid>', host='ils.rero.ch')
-def operation_log_resolver(pid):
-    """Resolver for operation_log record."""
-    return resolve_json_refs('oplg', pid)
+def list_es_templates():
+    """Elasticsearch templates path."""
+    return [
+        'rero_ils.modules.operation_logs.es_templates'
+    ]

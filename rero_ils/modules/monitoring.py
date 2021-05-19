@@ -446,10 +446,12 @@ class Monitoring(object):
         ).items():
             info[doc_type] = {}
             count_db = cls.get_db_count(doc_type, with_deleted=with_deleted)
+            count_db = count_db if isinstance(count_db, int) else 0
             info[doc_type]['db'] = count_db
             index = endpoint.get('search_index', '')
             if index:
                 count_es = cls.get_es_count(index)
+                count_es = count_es if isinstance(count_es, int) else 0
                 db_es = count_db - count_es
                 info[doc_type]['index'] = index
                 info[doc_type]['es'] = count_es

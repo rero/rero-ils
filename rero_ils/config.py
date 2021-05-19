@@ -1613,13 +1613,12 @@ RECORDS_REST_ENDPOINTS = dict(
             action='delete', record=record, cls=TemplatePermission)
     ),
     oplg=dict(
+        # TODO: useless, but required
         pid_type='oplg',
-        pid_minter='operation_log_id',
+        pid_minter='recid',
         pid_fetcher='operation_log_id',
-        search_class='rero_ils.modules.operation_logs.api:OperationLogsSearch',
         search_index='operation_logs',
         search_type=None,
-        indexer_class='rero_ils.modules.operation_logs.api:OperationLogsIndexer',
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
@@ -1638,6 +1637,7 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_class='rero_ils.modules.operation_logs.api:OperationLog',
         list_route='/operation_logs/',
+        # TODO: create a converter for es id, not used for the moment.
         item_route='/operation_logs/<pid(oplg, record_class='
         '"rero_ils.modules.operation_logs.api:OperationLog"):pid_value>',
         default_media_type='application/json',

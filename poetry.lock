@@ -901,6 +901,7 @@ WTForms = "*"
 reference = "647dd97880e2105948071b041286f318bf2628f7"
 type = "git"
 url = "https://github.com/rero/flask-wiki.git"
+
 [[package]]
 category = "main"
 description = "Simple integration of Flask and WTForms."
@@ -1329,6 +1330,7 @@ tests = ["mock (>=2.0.0)", "pytest-invenio (>=1.4.0,<1.5.0)", "pytest-mock (>=1.
 reference = "40e8d2fc3800319179ec84b26bb25ef8711e6356"
 type = "git"
 url = "https://github.com/inveniosoftware/invenio-circulation.git"
+
 [[package]]
 category = "main"
 description = "Invenio configuration loader."
@@ -1531,6 +1533,7 @@ tests = ["check-manifest (>=0.35)", "coverage (>=4.3.4)", "isort (4.2.2)", "mock
 reference = "fe55e095a8e78b36cfad875f752f2facc2908bae"
 type = "git"
 url = "https://github.com/inveniosoftware/invenio-oaiharvester.git"
+
 [[package]]
 category = "main"
 description = "Invenio module that implements OAI-PMH server."
@@ -1655,12 +1658,12 @@ description = "Invenio-Records is a metadata storage module."
 name = "invenio-records"
 optional = false
 python-versions = "*"
-version = "1.4.0"
+version = "1.5.0a7"
 
 [package.dependencies]
 arrow = ">=0.16.0"
 invenio-base = ">=1.2.3"
-invenio-celery = ">=1.2.1"
+invenio-celery = ">=1.2.2"
 invenio-i18n = ">=1.2.0"
 jsonpatch = ">=1.26"
 jsonref = ">=0.2"
@@ -1669,12 +1672,12 @@ jsonschema = ">=3.0.0"
 
 [package.extras]
 admin = ["invenio-admin (>=1.2.1)"]
-all = ["Sphinx (>=2.4)", "invenio-admin (>=1.2.1)", "mock (>=3.0.5)", "pytest-invenio (>=1.4.0)"]
+all = ["Sphinx (>=2.4)", "invenio-admin (>=1.2.1)", "pytest-invenio (>=1.4.1)"]
 docs = ["Sphinx (>=2.4)"]
-mysql = ["invenio-db (>=1.0.5)"]
-postgresql = ["invenio-db (>=1.0.5)"]
-sqlite = ["invenio-db (>=1.0.5)"]
-tests = ["mock (>=3.0.5)", "pytest-invenio (>=1.4.0)"]
+mysql = ["invenio-db (>=1.0.9,<1.1.0)"]
+postgresql = ["invenio-db (>=1.0.9,<1.1.0)"]
+sqlite = ["invenio-db (>=1.0.9,<1.1.0)"]
+tests = ["pytest-invenio (>=1.4.1)"]
 
 [[package]]
 category = "main"
@@ -1812,6 +1815,7 @@ tests = ["mock (>=2.0.0)", "pytest-mock (>=1.6.0)", "check-manifest (>=0.35)", "
 reference = "9baddf0c029e5aa1b75eb7bca0096f56f5f620c6"
 type = "git"
 url = "https://github.com/inveniosoftware-contrib/invenio-sip2.git"
+
 [[package]]
 category = "main"
 description = "Invenio standard theme."
@@ -1864,6 +1868,7 @@ tests = ["pytest-invenio (>=1.4.0)"]
 reference = "17bf3f045aef278bcf28aaf9a54b9faf3b03e715"
 type = "git"
 url = "https://github.com/rero/invenio-userprofiles.git"
+
 [[package]]
 category = "main"
 description = "IPython: Productive Interactive Computing"
@@ -3138,20 +3143,6 @@ version = "0.10.2"
 
 [[package]]
 category = "main"
-description = "Traitlets Python configuration system"
-name = "traitlets"
-optional = false
-python-versions = ">=3.7"
-version = "5.0.5"
-
-[package.dependencies]
-ipython-genutils = "*"
-
-[package.extras]
-test = ["pytest"]
-
-[[package]]
-category = "main"
 description = "Traitlets Python config system"
 name = "traitlets"
 optional = false
@@ -3169,7 +3160,7 @@ test = ["pytest", "mock"]
 [[package]]
 category = "main"
 description = "Backported and Experimental Type Hints for Python 3.5+"
-marker = "python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\""
+marker = "python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\" and (python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\")"
 name = "typing-extensions"
 optional = false
 python-versions = "*"
@@ -3383,7 +3374,7 @@ version = "0.12.0"
 [[package]]
 category = "main"
 description = "Backport of pathlib-compatible object wrapper for zip files"
-marker = "python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\""
+marker = "python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\" and (python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\")"
 name = "zipp"
 optional = false
 python-versions = ">=3.6"
@@ -3397,7 +3388,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 sip2 = ["invenio-sip2"]
 
 [metadata]
-content-hash = "e60aadc263ba69db24a7b9d88e221a1d4f1a0092d9d8786dccd3707e48afae2e"
+content-hash = "ced160c6ef99817562161d105f61b348dd4ec0d51822a0767e3ec86889a1797a"
 lock-version = "1.0"
 python-versions = ">= 3.6, <3.8"
 
@@ -3542,6 +3533,7 @@ click-repl = [
 ]
 colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
+    {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
 coverage = [
     {file = "coverage-5.5-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:b6d534e4b2ab35c9f93f46229363e17f63c53ad01330df9f2d6bd1187e5eaacf"},
@@ -3867,8 +3859,8 @@ invenio-pidstore = [
     {file = "invenio_pidstore-1.2.2-py2.py3-none-any.whl", hash = "sha256:960fd76702ebe159392e254ae9222503452383fa1ef0b94673ed0305552917f2"},
 ]
 invenio-records = [
-    {file = "invenio-records-1.4.0.tar.gz", hash = "sha256:5387a398dae4271b2fe25008c30f4260aeb80c0f5cd57aa8a9fe6217d7df931d"},
-    {file = "invenio_records-1.4.0-py2.py3-none-any.whl", hash = "sha256:d068b54763cc071fec885d842365dd2c8e555a5b6f89cc0e12025d614e582279"},
+    {file = "invenio-records-1.5.0a7.tar.gz", hash = "sha256:5eca2262de7eecbf2f68c39694d8786669d129de3699568fef9af383f0bd8425"},
+    {file = "invenio_records-1.5.0a7-py2.py3-none-any.whl", hash = "sha256:d9b990ada0afd1c3bda2f1fccfa12c6099aee1f024ddc9e862137f752ba15fbb"},
 ]
 invenio-records-rest = [
     {file = "invenio-records-rest-1.8.0.tar.gz", hash = "sha256:70ba741f19f8c9a1ae14a700d82c632175e881fd786ffdc4692f2718482e8dd1"},
@@ -3972,6 +3964,8 @@ lxml = [
     {file = "lxml-4.6.3-cp27-cp27m-win_amd64.whl", hash = "sha256:8157dadbb09a34a6bd95a50690595e1fa0af1a99445e2744110e3dca7831c4ee"},
     {file = "lxml-4.6.3-cp27-cp27mu-manylinux1_i686.whl", hash = "sha256:7728e05c35412ba36d3e9795ae8995e3c86958179c9770e65558ec3fdfd3724f"},
     {file = "lxml-4.6.3-cp27-cp27mu-manylinux1_x86_64.whl", hash = "sha256:4bff24dfeea62f2e56f5bab929b4428ae6caba2d1eea0c2d6eb618e30a71e6d4"},
+    {file = "lxml-4.6.3-cp35-cp35m-manylinux1_i686.whl", hash = "sha256:74f7d8d439b18fa4c385f3f5dfd11144bb87c1da034a466c5b5577d23a1d9b51"},
+    {file = "lxml-4.6.3-cp35-cp35m-manylinux1_x86_64.whl", hash = "sha256:f90ba11136bfdd25cae3951af8da2e95121c9b9b93727b1b896e3fa105b2f586"},
     {file = "lxml-4.6.3-cp35-cp35m-win32.whl", hash = "sha256:f2380a6376dfa090227b663f9678150ef27543483055cc327555fb592c5967e2"},
     {file = "lxml-4.6.3-cp35-cp35m-win_amd64.whl", hash = "sha256:c4f05c5a7c49d2fb70223d0d5bcfbe474cf928310ac9fa6a7c6dddc831d0b1d4"},
     {file = "lxml-4.6.3-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:d2e35d7bf1c1ac8c538f88d26b396e73dd81440d59c1ef8522e1ea77b345ede4"},
@@ -3998,8 +3992,10 @@ lxml = [
     {file = "lxml-4.6.3-cp39-cp39-manylinux2014_aarch64.whl", hash = "sha256:884ab9b29feaca361f7f88d811b1eea9bfca36cf3da27768d28ad45c3ee6f969"},
     {file = "lxml-4.6.3-cp39-cp39-win32.whl", hash = "sha256:33bb934a044cf32157c12bfcfbb6649807da20aa92c062ef51903415c704704f"},
     {file = "lxml-4.6.3-cp39-cp39-win_amd64.whl", hash = "sha256:542d454665a3e277f76954418124d67516c5f88e51a900365ed54a9806122b83"},
+    {file = "lxml-4.6.3.tar.gz", hash = "sha256:39b78571b3b30645ac77b95f7c69d1bffc4cf8c3b157c435a34da72e78c82468"},
 ]
 mako = [
+    {file = "Mako-1.1.4-py2.py3-none-any.whl", hash = "sha256:aea166356da44b9b830c8023cd9b557fa856bd8b4035d6de771ca027dfc5cc6e"},
     {file = "Mako-1.1.4.tar.gz", hash = "sha256:17831f0b7087c313c0ffae2bcbbd3c1d5ba9eeac9c38f2eb7b50e8c99fe9d5ab"},
 ]
 markdown = [
@@ -4178,8 +4174,11 @@ psycopg2-binary = [
     {file = "psycopg2_binary-2.8.6-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:2dac98e85565d5688e8ab7bdea5446674a83a3945a8f416ad0110018d1501b94"},
     {file = "psycopg2_binary-2.8.6-cp38-cp38-win32.whl", hash = "sha256:bd1be66dde2b82f80afb9459fc618216753f67109b859a361cf7def5c7968729"},
     {file = "psycopg2_binary-2.8.6-cp38-cp38-win_amd64.whl", hash = "sha256:8cd0fb36c7412996859cb4606a35969dd01f4ea34d9812a141cd920c3b18be77"},
+    {file = "psycopg2_binary-2.8.6-cp39-cp39-macosx_10_9_x86_64.macosx_10_9_intel.macosx_10_10_intel.macosx_10_10_x86_64.whl", hash = "sha256:89705f45ce07b2dfa806ee84439ec67c5d9a0ef20154e0e475e2b2ed392a5b83"},
     {file = "psycopg2_binary-2.8.6-cp39-cp39-manylinux1_i686.whl", hash = "sha256:42ec1035841b389e8cc3692277a0bd81cdfe0b65d575a2c8862cec7a80e62e52"},
     {file = "psycopg2_binary-2.8.6-cp39-cp39-manylinux1_x86_64.whl", hash = "sha256:7312e931b90fe14f925729cde58022f5d034241918a5c4f9797cac62f6b3a9dd"},
+    {file = "psycopg2_binary-2.8.6-cp39-cp39-win32.whl", hash = "sha256:6422f2ff0919fd720195f64ffd8f924c1395d30f9a495f31e2392c2efafb5056"},
+    {file = "psycopg2_binary-2.8.6-cp39-cp39-win_amd64.whl", hash = "sha256:15978a1fbd225583dd8cdaf37e67ccc278b5abecb4caf6b2d6b8e2b948e953f6"},
 ]
 ptyprocess = [
     {file = "ptyprocess-0.7.0-py2.py3-none-any.whl", hash = "sha256:4b41f3967fce3af57cc7e94b888626c18bf37a083e3651ca8feeb66d492fef35"},
@@ -4283,18 +4282,26 @@ pyyaml = [
     {file = "PyYAML-5.4.1-cp27-cp27mu-manylinux1_x86_64.whl", hash = "sha256:bb4191dfc9306777bc594117aee052446b3fa88737cd13b7188d0e7aa8162185"},
     {file = "PyYAML-5.4.1-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:6c78645d400265a062508ae399b60b8c167bf003db364ecb26dcab2bda048253"},
     {file = "PyYAML-5.4.1-cp36-cp36m-manylinux1_x86_64.whl", hash = "sha256:4e0583d24c881e14342eaf4ec5fbc97f934b999a6828693a99157fde912540cc"},
+    {file = "PyYAML-5.4.1-cp36-cp36m-manylinux2014_aarch64.whl", hash = "sha256:72a01f726a9c7851ca9bfad6fd09ca4e090a023c00945ea05ba1638c09dc3347"},
+    {file = "PyYAML-5.4.1-cp36-cp36m-manylinux2014_s390x.whl", hash = "sha256:895f61ef02e8fed38159bb70f7e100e00f471eae2bc838cd0f4ebb21e28f8541"},
     {file = "PyYAML-5.4.1-cp36-cp36m-win32.whl", hash = "sha256:3bd0e463264cf257d1ffd2e40223b197271046d09dadf73a0fe82b9c1fc385a5"},
     {file = "PyYAML-5.4.1-cp36-cp36m-win_amd64.whl", hash = "sha256:e4fac90784481d221a8e4b1162afa7c47ed953be40d31ab4629ae917510051df"},
     {file = "PyYAML-5.4.1-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:5accb17103e43963b80e6f837831f38d314a0495500067cb25afab2e8d7a4018"},
     {file = "PyYAML-5.4.1-cp37-cp37m-manylinux1_x86_64.whl", hash = "sha256:e1d4970ea66be07ae37a3c2e48b5ec63f7ba6804bdddfdbd3cfd954d25a82e63"},
+    {file = "PyYAML-5.4.1-cp37-cp37m-manylinux2014_aarch64.whl", hash = "sha256:cb333c16912324fd5f769fff6bc5de372e9e7a202247b48870bc251ed40239aa"},
+    {file = "PyYAML-5.4.1-cp37-cp37m-manylinux2014_s390x.whl", hash = "sha256:fe69978f3f768926cfa37b867e3843918e012cf83f680806599ddce33c2c68b0"},
     {file = "PyYAML-5.4.1-cp37-cp37m-win32.whl", hash = "sha256:dd5de0646207f053eb0d6c74ae45ba98c3395a571a2891858e87df7c9b9bd51b"},
     {file = "PyYAML-5.4.1-cp37-cp37m-win_amd64.whl", hash = "sha256:08682f6b72c722394747bddaf0aa62277e02557c0fd1c42cb853016a38f8dedf"},
     {file = "PyYAML-5.4.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:d2d9808ea7b4af864f35ea216be506ecec180628aced0704e34aca0b040ffe46"},
     {file = "PyYAML-5.4.1-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:8c1be557ee92a20f184922c7b6424e8ab6691788e6d86137c5d93c1a6ec1b8fb"},
+    {file = "PyYAML-5.4.1-cp38-cp38-manylinux2014_aarch64.whl", hash = "sha256:fd7f6999a8070df521b6384004ef42833b9bd62cfee11a09bda1079b4b704247"},
+    {file = "PyYAML-5.4.1-cp38-cp38-manylinux2014_s390x.whl", hash = "sha256:bfb51918d4ff3d77c1c856a9699f8492c612cde32fd3bcd344af9be34999bfdc"},
     {file = "PyYAML-5.4.1-cp38-cp38-win32.whl", hash = "sha256:fa5ae20527d8e831e8230cbffd9f8fe952815b2b7dae6ffec25318803a7528fc"},
     {file = "PyYAML-5.4.1-cp38-cp38-win_amd64.whl", hash = "sha256:0f5f5786c0e09baddcd8b4b45f20a7b5d61a7e7e99846e3c799b05c7c53fa696"},
     {file = "PyYAML-5.4.1-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:294db365efa064d00b8d1ef65d8ea2c3426ac366c0c4368d930bf1c5fb497f77"},
     {file = "PyYAML-5.4.1-cp39-cp39-manylinux1_x86_64.whl", hash = "sha256:74c1485f7707cf707a7aef42ef6322b8f97921bd89be2ab6317fd782c2d53183"},
+    {file = "PyYAML-5.4.1-cp39-cp39-manylinux2014_aarch64.whl", hash = "sha256:d483ad4e639292c90170eb6f7783ad19490e7a8defb3e46f97dfe4bacae89122"},
+    {file = "PyYAML-5.4.1-cp39-cp39-manylinux2014_s390x.whl", hash = "sha256:fdc842473cd33f45ff6bce46aea678a54e3d21f1b61a7750ce3c498eedfe25d6"},
     {file = "PyYAML-5.4.1-cp39-cp39-win32.whl", hash = "sha256:49d4cdd9065b9b6e206d0595fee27a96b5dd22618e7520c33204a4a3239d5b10"},
     {file = "PyYAML-5.4.1-cp39-cp39-win_amd64.whl", hash = "sha256:c20cfa2d49991c8b4147af39859b167664f2ad4561704ee74c1de03318e898db"},
     {file = "PyYAML-5.4.1.tar.gz", hash = "sha256:607774cbba28732bfa802b54baa7484215f530991055bb562efbed5b2f20a45e"},
@@ -4516,8 +4523,6 @@ toml = [
     {file = "toml-0.10.2.tar.gz", hash = "sha256:b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f"},
 ]
 traitlets = [
-    {file = "traitlets-5.0.5-py3-none-any.whl", hash = "sha256:69ff3f9d5351f31a7ad80443c2674b7099df13cc41fc5fa6e2f6d3b0330b0426"},
-    {file = "traitlets-5.0.5.tar.gz", hash = "sha256:178f4ce988f69189f7e523337a3e11d91c786ded9360174a3d9ca83e79bc5396"},
     {file = "traitlets-4.3.3-py2.py3-none-any.whl", hash = "sha256:70b4c6a1d9019d7b4f6846832288f86998aa3b9207c6821f3578a6a6a467fe44"},
     {file = "traitlets-4.3.3.tar.gz", hash = "sha256:d023ee369ddd2763310e4c3eae1ff649689440d4ae59d7485eb4cfbbe3e359f7"},
 ]
