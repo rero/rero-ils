@@ -31,6 +31,7 @@ from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.items.api import Item, ItemsSearch
 from rero_ils.modules.local_fields.api import LocalField, LocalFieldsSearch
+from rero_ils.modules.operation_logs.api import OperationLog
 from rero_ils.modules.templates.api import Template, TemplatesSearch
 
 
@@ -1059,6 +1060,12 @@ def local_field_sion(app, org_martigny, document, local_field_sion_data):
 
 # --- OPERATION LOGS
 @pytest.fixture(scope="module")
-def operation_log_1_data(data):
+def operation_log_data(data):
     """Load operation log record."""
     return deepcopy(data.get('oplg1'))
+
+
+@pytest.fixture(scope="module")
+def operation_log(operation_log_data, item_lib_sion):
+    """Load operation log record."""
+    return OperationLog.create(operation_log_data)

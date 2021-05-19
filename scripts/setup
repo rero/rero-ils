@@ -511,7 +511,7 @@ then
 fi
 
 info_msg "- Load Virtua operation logs: ${DATA_PATH}/operation_logs.json"
-eval ${PREFIX} invenio fixtures migrate_virtua_operation_logs ${DATA_PATH}/operation_logs.json  ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio fixtures create_operation_logs ${DATA_PATH}/operation_logs.json  ${CREATE_LAZY} ${DONT_STOP}
 
 # load legacy circulation transactions from Virtua
 info_msg "Checkout transactions: ${DATA_PATH}/checkouts.json ${CREATE_LAZY} ${DONT_STOP}"

@@ -19,35 +19,13 @@
 
 from utils import get_mapping
 
-from rero_ils.modules.operation_logs.api import OperationLog, \
-    OperationLogsSearch
-from rero_ils.modules.operation_logs.models import OperationLogOperation
+from rero_ils.modules.operation_logs.api import OperationLog
 
 
-def test_operation_log_es_mapping(item_lib_sion, operation_log_1_data):
+def test_operation_log_es_mapping(item_lib_sion, operation_log_data):
     """Test operation log elasticsearch mapping."""
-    search = OperationLogsSearch()
-    mapping = get_mapping(search.Meta.index)
+    mapping = get_mapping(OperationLog.index_name)
     assert mapping
     OperationLog.create(
-        operation_log_1_data,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True)
-    assert mapping == get_mapping(search.Meta.index)
-
-    count = search.query(
-        'query_string', query=OperationLogOperation.CREATE
-    ).count()
-    assert count == 3
-
-    count = search.query(
-        'query_string', query=OperationLogOperation.UPDATE
-    ).count()
-    assert count == 4
-
-    count = search.query(
-        'match',
-        **{'user_name': 'updated_user'}).\
-        count()
-    assert count == 1
+        operation_log_data)
+    assert mapping == get_mapping(OperationLog.index_name)

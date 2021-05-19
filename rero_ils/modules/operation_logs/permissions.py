@@ -44,7 +44,7 @@ class OperationLogPermission(RecordPermission):
         :return: "True" if action can be done.
         """
         # all users (lib, sys_lib) can read operation_log records.
-        return bool(current_librarian)
+        return False
 
     @classmethod
     def create(cls, user, record=None):

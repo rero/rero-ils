@@ -27,7 +27,7 @@ FetchedPID = namedtuple('FetchedPID', ['provider', 'pid_type', 'pid_value'])
 
 
 def id_fetcher(record_uuid, data, provider, pid_key='pid'):
-    """Fetch a Organisation record's identifiers.
+    """Fetch a record's identifier.
 
     :param record_uuid: The record UUID.
     :param data: The record metadata.
