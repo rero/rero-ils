@@ -1,3 +1,13 @@
+# Add documentation label to the following files and folders
+documentation:
+  - Authors.rst
+  - CHANGES.md
+  - CONTRIBUTING.rst
+  - INSTALL.rst
+  - README.rst
+  - RELEASE-NOTES.rst
+  - .github/**/*
+
 # Add translations label to any changes within translations folders and subfolders
 translations:
   - babel.ini
@@ -8,8 +18,16 @@ translations:
 data:
   - rero_ils/jsonschemas/**/*
   - rero_ils/modules/documents/jsonschemas/**/*
+  - rero_ils/modules/documents/utils.py
   - rero_ils/modules/items/jsonschemas/**/*
   - rero_ils/modules/contributions/jsonschemas/**/*
+
+# Add data-export label to any changes in dojson json to dublin core or to
+# MARC21 folders and in the SRU module:
+data-export:
+  - rero_ils/modules/documents/dojson/contrib/jsontodc/**/*
+  - rero_ils/modules/documents/dojson/contrib/jsontomarc21/**/*
+  - rero_ils/modules/sru/**/*
 
 # Add search label to any changes in mappings files
 search:
@@ -22,6 +40,7 @@ circulation:
   - rero_ils/modules/items/api/circulation.py
   - rero_ils/modules/circ_policies/**/*
   - rero_ils/modules/item_types/**/*
+  - rero_ils/modules/items/utils.py
   - rero_ils/modules/loans/**/*
   - rero_ils/modules/ill_requests/**/*
 
@@ -40,3 +59,6 @@ acquisition:
   - rero_ils/modules/acq_orders/**/*
   - rero_ils/modules/budgets/**/*
 
+# Add deployment label to any changes in the following files or folders
+deployment:
+  - Dockerfile*
