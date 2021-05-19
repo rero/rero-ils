@@ -19,15 +19,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-05-10 11:41+0200\n"
-"PO-Revision-Date: 2021-05-06 05:13+0000\n"
+"PO-Revision-Date: 2021-05-19 06:38+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/it/>\n"
 "Language: it\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/it/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.7-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: rero_ils/config.py:134
@@ -5951,7 +5952,7 @@ msgstr "banditore"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:264
 msgid "aui"
-msgstr "autore di introduzione"
+msgstr "autore di introduzione [aui]"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:268
 msgid "aus"
@@ -6435,7 +6436,7 @@ msgstr "autore di testo aggiunto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:748
 msgid "win"
-msgstr "autore di introduzione"
+msgstr "autore di introduzione [win]"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:752
 msgid "wpr"
@@ -8090,7 +8091,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:3
 msgid "Temporal content coverages"
-msgstr ""
+msgstr "Coperture cronologiche del contenuto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:4
 msgid "description: MARC 045"
@@ -8098,7 +8099,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:8
 msgid "Temporal content coverage"
-msgstr ""
+msgstr "Copertura cronologica del contenuto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:12
 msgid "time"
@@ -12618,4 +12619,3 @@ msgstr "La tua parola d'ordine è stata reimposta con successo."
 
 #~ msgid "Source in case of a local identifier"
 #~ msgstr ""
-
