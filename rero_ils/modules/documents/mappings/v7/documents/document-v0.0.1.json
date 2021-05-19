@@ -149,6 +149,7 @@
       },
       "authorized_access_point": {
         "type": "text",
+        "analyzer": "standard",
         "search_analyzer": "standard"
       },
       "autocomplete_title": {
