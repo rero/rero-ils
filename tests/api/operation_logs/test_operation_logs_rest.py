@@ -17,29 +17,75 @@
 
 """Tests REST API operation logs."""
 
-import mock
+from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-
-from rero_ils.modules.operation_logs.api import OperationLogsSearch
-from rero_ils.modules.operation_logs.models import OperationLogOperation
+from utils import get_json, postdata
 
 
-def test_operation_log_entries(client, librarian_martigny, document):
-    """Test operation log entries after record update."""
-    with mock.patch(
-        'rero_ils.modules.operation_logs.listener.current_librarian',
-        librarian_martigny
-    ):
-        login_user_via_session(client, librarian_martigny.user)
-        print('_start_here')
-        document.update(
-            document, dbcommit=True, reindex=True)
-    search = OperationLogsSearch()
-    results = search.filter(
-        'term',
-        operation=OperationLogOperation.UPDATE).filter(
-        'term', record__pid=document.pid).filter(
-        'term', user_name=librarian_martigny.formatted_name
-    ).source().count()
+def test_operation_logs_permissions(client, operation_log, patron_sion,
+                                    librarian_martigny, json_header):
+    """Test operation logs permissions."""
+    item_url = url_for('invenio_records_rest.oplg_item', pid_value='1')
+    item_list = url_for('invenio_records_rest.oplg_list')
 
-    assert results == 1
+    res = client.get(item_url)
+    assert res.status_code == 404
+
+    res = client.get(item_list)
+    assert res.status_code == 401
+
+    res, _ = postdata(
+        client,
+        'invenio_records_rest.oplg_list',
+        {}
+    )
+    assert res.status_code == 401
+
+    res = client.put(
+        url_for('invenio_records_rest.oplg_item', pid_value='1'),
+        data={},
+        headers=json_header
+    )
+    assert res.status_code == 404
+
+    res = client.delete(item_url)
+    assert res.status_code == 404
+
+
+def test_operation_logs_rest(client, loan_pending_martigny,
+                             librarian_martigny,
+                             json_header):
+    """Test operation logs REST API."""
+    login_user_via_session(client, librarian_martigny.user)
+    item_url = url_for('invenio_records_rest.oplg_item', pid_value='1')
+    item_list = url_for('invenio_records_rest.oplg_list')
+
+    res = client.get(item_url)
+    assert res.status_code == 404
+
+    res = client.get(item_list)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data['hits']['total']['value'] > 0
+    pid = data['hits']['hits'][0]['metadata']['pid']
+    assert pid
+    assert data['hits']['hits'][0]['id'] == pid
+    assert data['hits']['hits'][0]['created']
+    assert data['hits']['hits'][0]['updated']
+
+    res, _ = postdata(
+        client,
+        'invenio_records_rest.oplg_list',
+        {}
+    )
+    assert res.status_code == 403
+
+    res = client.put(
+        url_for('invenio_records_rest.oplg_item', pid_value='1'),
+        data={},
+        headers=json_header
+    )
+    assert res.status_code == 404
+
+    res = client.delete(item_url)
+    assert res.status_code == 404

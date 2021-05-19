@@ -174,7 +174,6 @@ setup(
             'patrons = rero_ils.modules.patrons.models',
             'templates = rero_ils.modules.templates.models',
             'vendors = rero_ils.modules.vendors.models',
-            'operation_logs = rero_ils.modules.operation_logs.models',
             'selfcheck = rero_ils.modules.selfcheck.models',
         ],
         'invenio_pidstore.minters': [
@@ -202,7 +201,6 @@ setup(
             'patron_type_id = rero_ils.modules.patron_types.api:patron_type_id_minter',
             'template_id = rero_ils.modules.templates.api:template_id_minter',
             'vendor_id = rero_ils.modules.vendors.api:vendor_id_minter',
-            'operation_log_id = rero_ils.modules.operation_logs.api:operation_log_id_minter',
         ],
         'invenio_pidstore.fetchers': [
             'acq_account_id = rero_ils.modules.acq_accounts.api:acq_account_id_fetcher',
@@ -258,7 +256,6 @@ setup(
             'patrons = rero_ils.modules.patrons.jsonschemas',
             'templates = rero_ils.modules.templates.jsonschemas',
             'vendors = rero_ils.modules.vendors.jsonschemas',
-            'operation_logs = rero_ils.modules.operation_logs.jsonschemas',
             'users = rero_ils.modules.users.jsonschemas',
         ],
         'invenio_search.mappings': [
@@ -286,11 +283,12 @@ setup(
             'patron_types = rero_ils.modules.patron_types.mappings',
             'patrons = rero_ils.modules.patrons.mappings',
             'templates = rero_ils.modules.templates.mappings',
-            'vendors = rero_ils.modules.vendors.mappings',
-            'operation_logs = rero_ils.modules.operation_logs.mappings',
+            'vendors = rero_ils.modules.vendors.mappings'
         ],
         'invenio_search.templates': [
-            'base-record = rero_ils.es_templates:list_es_templates',
+            'rero_ils = rero_ils.es_templates:list_es_templates',
+            'operation_logs = rero_ils.modules.operation_logs'
+                              '.es_templates:list_es_templates',
         ],
         'invenio_celery.tasks': [
             'apiharvester = rero_ils.modules.apiharvester.tasks',
@@ -326,8 +324,7 @@ setup(
             'patron_types = rero_ils.modules.patron_types.jsonresolver',
             'patrons = rero_ils.modules.patrons.jsonresolver',
             'templates = rero_ils.modules.templates.jsonresolver',
-            'vendors = rero_ils.modules.vendors.jsonresolver',
-            'operation_logs = rero_ils.modules.operation_logs.jsonresolver',
+            'vendors = rero_ils.modules.vendors.jsonresolver'
         ]
     },
     classifiers=[

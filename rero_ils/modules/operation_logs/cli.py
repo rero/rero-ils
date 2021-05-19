@@ -22,30 +22,26 @@ from __future__ import absolute_import, print_function
 import json
 
 import click
-from flask import current_app
 from flask.cli import with_appcontext
+from invenio_search.api import RecordsSearch
 
 from rero_ils.modules.operation_logs.api import OperationLog
-from rero_ils.modules.operation_logs.models import OperationLogOperation
-from rero_ils.modules.utils import extracted_data_from_ref
 
 from ..utils import read_json_record
 
 
-@click.command('migrate_virtua_operation_logs')
-@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
-@click.option('-d', '--debug', 'debug', is_flag=True, default=False)
+@click.command('create_operation_logs')
 @click.option('-l', '--lazy', 'lazy', is_flag=True, default=False)
+@click.option('-s', '--batch-size', 'size', type=int, default=10000)
 @click.argument('infile', type=click.File('r'))
 @with_appcontext
-def migrate_virtua_operation_logs(infile, verbose, debug, lazy):
-    """Migrate Virtua operation log records in reroils.
+def create_operation_logs(infile, lazy, size):
+    """Load operation log records in reroils.
 
     :param infile: Json operation log file.
     :param lazy: lazy reads file
     """
-    enabled_logs = current_app.config.get('RERO_ILS_ENABLE_OPERATION_LOG')
-    click.secho('Migrate Virtua operation log records:', fg='green')
+    click.secho('Load operation log records:', fg='green')
     if lazy:
         # try to lazy read json file (slower, better memory management)
         data = read_json_record(infile)
@@ -54,28 +50,41 @@ def migrate_virtua_operation_logs(infile, verbose, debug, lazy):
         data = json.load(infile)
     index_count = 0
     with click.progressbar(data) as bar:
+        records = []
         for oplg in bar:
-            try:
-                operation = oplg.get('operation')
-                resource = extracted_data_from_ref(
-                    oplg.get('record').get('$ref'), data='resource')
-                pid_type = enabled_logs.get(resource)
-                if pid_type and operation == OperationLogOperation.CREATE:
-                    # The virtua create operation log overrides the reroils
-                    # create operation log, the method to use is UPDATE
-                    record_pid = extracted_data_from_ref(
-                        oplg.get('record').get('$ref'), data='pid')
+            if not (index_count + 1) % size:
+                OperationLog.bulk_index(records)
+                records = []
+            records.append(oplg)
+            index_count += 1
+        # the rest of the records
+        if records:
+            OperationLog.bulk_index(records)
+            index_count += len(records)
+    click.echo(f'created {index_count} operation logs.')
 
-                    create_rec = \
-                        OperationLog.get_create_operation_log_by_resource_pid(
-                            pid_type, record_pid)
-                    if create_rec:
-                        create_rec.update(oplg, dbcommit=True, reindex=True)
-                elif pid_type and operation == OperationLogOperation.UPDATE:
-                    # The virtua update operation log is a new entry in the
-                    # reroils operation log, the method to use is CREATE
-                    OperationLog.create(data=oplg, dbcommit=True, reindex=True)
-            except Exception:
-                pass
-        index_count += len(data)
+
+@click.command('dump_operation_logs')
+@click.option('-y', '--year', 'year', type=int)
+@click.argument('outfile', type=click.File('w'))
+@with_appcontext
+def dump_operation_logs(outfile, year):
+    """Dumps operation log records in a given file.
+
+    :param outfile: JSON operation log output file.
+    """
+    click.secho('Dumps operation log records:', fg='green')
+    index_name = OperationLog.index_name
+    if year is not None:
+        index_name = f'{index_name}-{year}'
+    search = RecordsSearch(index=index_name)
+
+    index_count = 0
+    outfile.write('[\n')
+    with click.progressbar(search.scan()) as bar:
+        for oplg in bar:
+            outfile.write(str(oplg.to_dict()))
+            outfile.write(',\n')
+            index_count += 1
+        outfile.write('\n]')
     click.echo(f'created {index_count} operation logs.')

@@ -22,7 +22,6 @@ from datetime import datetime, timezone
 from flask import current_app
 
 from .api import OperationLog
-from .models import OperationLogOperation
 from ..patrons.api import current_librarian
 from ..utils import extracted_data_from_ref, get_ref_for_pid
 
@@ -36,8 +35,7 @@ def operation_log_record_create(sender, record=None, *args, **kwargs):
 
     :param record: the record being created.
     """
-    build_operation_log_record(
-        record=record, operation=OperationLogOperation.CREATE)
+    build_operation_log_record(record=record, operation='create')
 
 
 def operation_log_record_update(sender, record=None, *args, **kwargs):
@@ -49,14 +47,13 @@ def operation_log_record_update(sender, record=None, *args, **kwargs):
 
     :param record: the record being updated.
     """
-    build_operation_log_record(
-        record=record, operation=OperationLogOperation.UPDATE)
+    build_operation_log_record(record=record, operation='update')
 
 
 def build_operation_log_record(record=None, operation=None):
     """Build an operation_log record to load.
 
-    :param record: the record being created or updated.
+    :param record: the record being created.
     """
     if record.get('$schema'):
         resource_name = extracted_data_from_ref(
@@ -65,18 +62,21 @@ def build_operation_log_record(record=None, operation=None):
                 'RERO_ILS_ENABLE_OPERATION_LOG'):
             oplg = {
                 'date': datetime.now(timezone.utc).isoformat(),
-                'record': {'$ref': get_ref_for_pid(
-                    record.provider.pid_type, record.get('pid'))},
+                'record': {
+                    '$ref': get_ref_for_pid(
+                        record.provider.pid_type, record.get('pid'))
+                },
                 'operation': operation
             }
             if current_librarian:
                 oplg['user'] = {
-                    '$ref': get_ref_for_pid('ptrn', current_librarian.pid)}
+                    '$ref': get_ref_for_pid('ptrn', current_librarian.pid)
+                }
                 oplg['user_name'] = current_librarian.formatted_name
                 oplg['organisation'] = {
                     '$ref': get_ref_for_pid(
-                        'org', current_librarian.organisation_pid)}
+                        'org', current_librarian.organisation_pid)
+                }
             else:
                 oplg['user_name'] = 'system'
-            oplg = OperationLog(oplg)
-            oplg.create(oplg, dbcommit=True, reindex=True)
+            OperationLog.create(oplg)

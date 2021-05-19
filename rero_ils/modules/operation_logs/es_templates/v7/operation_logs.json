@@ -1,4 +1,7 @@
 {
+  "index_patterns": [
+    "operation_logs*"
+  ],
   "settings": {
     "number_of_shards": 8,
     "number_of_replicas": 1,
@@ -60,5 +63,8 @@
         "type": "date"
       }
     }
+  },
+  "aliases": {
+    "operation_logs": {}
   }
 }

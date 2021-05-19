@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "record": {
+      "$ref": "https://ils.rero.ch/api/documents/1"
+    },
+    "operation": "update",
+    "user_name": "system",
+    "date": "2021-01-21T09:51:52.879533+00:00"
+  }
+]
