@@ -17,35 +17,61 @@
 
 """Operation logs Record tests."""
 
-from __future__ import absolute_import, print_function
+from copy import deepcopy
 
-from utils import flush_index, get_mapping
+import pytest
+from invenio_search import current_search
 
-from rero_ils.modules.operation_logs.api import OperationLog, \
-    OperationLogsSearch
-from rero_ils.modules.operation_logs.api import \
-    operation_log_id_fetcher as fetcher
-from rero_ils.modules.operation_logs.models import OperationLogOperation
+from rero_ils.modules.operation_logs.api import OperationLog
 
 
-def test_operation_logs_es_mapping(db, item_lib_sion, operation_log_1_data):
-    """Test operation logs elasticsearch mapping."""
-    search = OperationLogsSearch()
-    mapping = get_mapping(search.Meta.index)
-    assert mapping
-    oplg = OperationLog.create(operation_log_1_data, dbcommit=True,
-                               reindex=True, delete_pid=True)
-    flush_index(OperationLogsSearch.Meta.index)
-    assert mapping == get_mapping(search.Meta.index)
+def test_operation_create(client, es_clear, operation_log_data):
+    """Test operation logs creation."""
+    oplg = OperationLog.create(operation_log_data, index_refresh='wait_for')
+    assert oplg
+    assert oplg.id
+    # need to compare with dumps as it has resolve $refs
+    data = OperationLog.get_record(oplg.id)
+    del data['_created']
+    del data['_updated']
+    assert data == OperationLog(operation_log_data).dumps()
+    tmp = deepcopy(operation_log_data)
+    tmp['date'] = '2020-01-21T09:51:52.879533+00:00'
+    oplg2 = OperationLog.create(tmp, index_refresh='wait_for')
+    assert OperationLog.get_indices() == set((
+        'operation_logs-2020',
+        'operation_logs-2021'
+    ))
+    assert OperationLog.get_record(oplg.id)
+    assert OperationLog.get_record(oplg2.id)
+    # clean up the index
+    assert OperationLog.delete_indices()
 
-    assert oplg == operation_log_1_data
-    assert oplg.get('pid') == '7'
 
-    oplg = OperationLog.get_record_by_pid('7')
-    assert oplg == operation_log_1_data
-
-    fetched_pid = fetcher(oplg.id, oplg)
-    assert fetched_pid.pid_value == '7'
-    assert fetched_pid.pid_type == 'oplg'
-
-    assert oplg.get('operation') == OperationLogOperation.UPDATE
+def test_operation_bulk_index(client, es_clear, operation_log_data):
+    """Test operation logs bulk creation."""
+    data = []
+    for date in [
+        '2020-01-21T09:51:52.879533+00:00',
+        '2020-02-21T09:51:52.879533+00:00',
+        '2020-03-21T09:51:52.879533+00:00',
+        '2020-04-21T09:51:52.879533+00:00',
+        '2021-01-21T09:51:52.879533+00:00',
+        '2021-02-21T09:51:52.879533+00:00'
+    ]:
+        tmp = deepcopy(operation_log_data)
+        tmp['date'] = date
+        data.append(tmp)
+    OperationLog.bulk_index(data)
+    # flush the index for the test
+    current_search.flush_and_refresh(OperationLog.index_name)
+    assert OperationLog.get_indices() == set((
+        'operation_logs-2020',
+        'operation_logs-2021'
+    ))
+    with pytest.raises(Exception) as excinfo:
+        data[0]['operation'] = dict(name='foo')
+        OperationLog.bulk_index(data)
+        assert "BulkIndexError" in str(excinfo.value)
+    # clean up the index
+    assert OperationLog.delete_indices()

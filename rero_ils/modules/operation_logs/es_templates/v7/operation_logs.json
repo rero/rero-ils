@@ -55,5 +55,8 @@
         "type": "date"
       }
     }
+  },
+  "aliases": {
+    "operation_logs": {}
   }
 }
