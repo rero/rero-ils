@@ -43,7 +43,7 @@ import requests
 import xmltodict
 import yaml
 from babel import Locale, core
-from celery.bin.control import inspect
+from celery import current_app as current_celery
 from dojson.contrib.marc21.utils import create_record
 from elasticsearch_dsl.query import Q
 from flask import current_app
@@ -138,15 +138,15 @@ utils.add_command(users_validate)
 
 def queue_count():
     """Count tasks in celery."""
-    inspector = inspect()
+    inspector = current_celery.control.inspect()
     task_count = 0
     reserved = inspector.reserved()
     if reserved:
-        for key, values in reserved.items():
+        for _, values in reserved.items():
             task_count += len(values)
     active = inspector.active()
     if active:
-        for key, values in active.items():
+        for _, values in active.items():
             task_count += len(values)
     return task_count
 
