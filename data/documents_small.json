@@ -2695,7 +2695,7 @@
       "In-8"
     ],
     "bookFormat": [
-      "8\u00ba"
+      "8\u1d52"
     ],
     "type": [
       {
@@ -6161,8 +6161,8 @@
           "preferred_name": "Binet, Christian"
         },
         "role": [
-          "ill",
-          "aut"
+          "aut",
+          "ill"
         ]
       }
     ],
@@ -14349,11 +14349,11 @@
     "intendedAudience": [
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos2"
+        "value": "target_school_harmos1"
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos1"
+        "value": "target_school_harmos2"
       },
       {
         "audienceType": "school_level",
@@ -16405,7 +16405,7 @@
       "2\u00b0"
     ],
     "bookFormat": [
-      "2\u00ba"
+      "2\u1d52"
     ],
     "type": [
       {
@@ -23592,7 +23592,7 @@
       "in-8\u00b0"
     ],
     "bookFormat": [
-      "8\u00ba"
+      "8\u1d52"
     ],
     "type": [
       {
@@ -26487,7 +26487,7 @@
       "8\u00b0"
     ],
     "bookFormat": [
-      "8\u00ba"
+      "8\u1d52"
     ],
     "type": [
       {
@@ -33956,7 +33956,7 @@
       "12\u00b0 (17 cm)"
     ],
     "bookFormat": [
-      "12\u00ba"
+      "12\u1d52"
     ],
     "type": [
       {
@@ -37423,7 +37423,7 @@
       "8\u00b0 (18 cm)"
     ],
     "bookFormat": [
-      "8\u00ba"
+      "8\u1d52"
     ],
     "type": [
       {

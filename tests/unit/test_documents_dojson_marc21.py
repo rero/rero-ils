@@ -69,6 +69,35 @@ def test_pid_to_marc21(app, marc21_record):
     assert result == record
 
 
+def test_identified_by(app, marc21_record):
+    """Test identifiedBy to MARC21 transformation."""
+    record = {
+        "identifiedBy": [{
+            "type": "bf:Isbn",
+            "value": "9782824606835"
+        }, {
+            "type": "bf:Isbn",
+            "value": "12345678901??",
+            "status": "status",
+            "qualifier": "qualifier"
+        }]
+    }
+    result = to_marc21.do(record)
+    record = deepcopy(marc21_record)
+    record.update({
+        '__order__': ('leader', '008', '020__', '020__'),
+        '020__': ({
+            '__order__': ('a', ),
+            'a': '9782824606835'
+        }, {
+            '__order__': ('z', 'q'),
+            'z': '12345678901??',
+            'q': 'qualifier'
+        })
+    })
+    assert result == record
+
+
 def test_title_to_marc21(app, marc21_record):
     """Test title to MARC21 transformation."""
     record = {
@@ -154,6 +183,72 @@ def test_title_to_marc21(app, marc21_record):
             '__order__': ('a', 'b'),
             'a': 'Suisse',
             'b': 'Schweiz. Svizzera : Le guide Michelin 2020'
+        }
+    })
+    assert result == record
+
+
+def test_physical_description_to_marc21(app, marc21_record):
+    """Test physical_description to MARC21 transformation."""
+    record = {
+        "extent": "159 p.",
+        "note": [{
+            "label": "fig.",
+            "noteType": "otherPhysicalDetails"
+        }],
+        "dimensions": ["33 cm"]
+    }
+    result = to_marc21.do(record)
+    record = deepcopy(marc21_record)
+    record.update({
+        '__order__': ('leader', '008', '300__'),
+        '300__': {
+            '__order__': ('a', 'b', 'c'),
+            'a': '159 p.',
+            'b': 'fig.',
+            'c': '33 cm'
+        }
+    })
+    assert result == record
+
+    record = {
+        "extent": "1 DVD-vidéo",
+        "duration": ["1h42"],
+        "dimensions": ["In-plano", "128ᵒ"],
+        "bookFormat": ["128ᵒ", "in-plano"],
+        "note": [{
+            "label": "accompanying material",
+            "noteType": "accompanyingMaterial"
+        }],
+    }
+    result = to_marc21.do(record)
+    record = deepcopy(marc21_record)
+    record.update({
+        '__order__': ('leader', '008', '300__'),
+        '300__': {
+            '__order__': ('a', 'c', 'e'),
+            'a': '1 DVD-vidéo (1h42)',
+            'c': 'in-plano ; 128ᵒ',
+            'e': 'accompanying material'
+        }
+    })
+    assert result == record
+
+    record = {
+        "extent": "1 DVD-vidéo (1h42)",
+        "duration": ["1h42"],
+        "productionMethod": ["rdapm:1001"],
+        "illustrativeContent": ["illustrations"],
+        "colorContent": ["rdacc:1002"]
+    }
+    result = to_marc21.do(record)
+    record = deepcopy(marc21_record)
+    record.update({
+        '__order__': ('leader', '008', '300__'),
+        '300__': {
+            '__order__': ('a', 'b'),
+            'a': '1 DVD-vidéo (1h42)',
+            'b': 'blueline process ; illustrations ; monocrome'
         }
     })
     assert result == record
@@ -292,8 +387,8 @@ def test_type_to_marc21(app, marc21_record):
 
 
 def test_holdings_items_to_marc21(app, marc21_record, document,
-                                  holding_lib_martigny, item_lib_martigny,
-                                  ebook_5, holding_lib_martiny_electronic):
+                                  item2_lib_sion,
+                                  ebook_5, holding_lib_sion_electronic):
     """Test holding items to MARC21 transformation."""
     record = {'pid': document.pid}
     result = to_marc21.do(record, with_holdings_items=False)
@@ -311,16 +406,14 @@ def test_holdings_items_to_marc21(app, marc21_record, document,
         '__order__': ('leader', '001', '008', '949__'),
         '001': 'doc1',
         '949__': ({
-            '__order__': ('0', '1', '2', '3', '4', '5', 'B', 'a', 'e'),
-            '0': 'org1',
-            '1': 'The district of Martigny Libraries',
-            '2': 'lib1',
-            '3': 'Library of Martigny-ville',
-            '4': 'loc1',
-            '5': 'Martigny Library Public Space',
-            'B': 'h00001',
-            'a': '1234',
-            'e': 'https://lipda.mediatheque.ch/CH-000019-X:223156.file'
+            '__order__': ('0', '1', '2', '3', '4', '5', 'a'),
+            '0': 'org2',
+            '1': 'The district of Sion Libraries',
+            '2': 'lib4',
+            '3': 'Library of Sion',
+            '4': 'loc8',
+            '5': 'Sion Library Restricted Space',
+            'a': '87121336'
         })
     })
     assert result == record
@@ -333,12 +426,12 @@ def test_holdings_items_to_marc21(app, marc21_record, document,
         '001': 'ebook5',
         '949__': {
             '__order__': ('0', '1', '2', '3', '4', '5', 'E'),
-            '0': 'org1',
-            '1': 'The district of Martigny Libraries',
-            '2': 'lib1',
-            '3': 'Library of Martigny-ville',
-            '4': 'loc1',
-            '5': 'Martigny Library Public Space',
+            '0': 'org2',
+            '1': 'The district of Sion Libraries',
+            '2': 'lib4',
+            '3': 'Library of Sion',
+            '4': 'loc7',
+            '5': 'Sion Library Public Space',
             'E':
                 'https://bm.ebibliomedia.ch/resources/5f780fc22357943b9a83ca3d'
         }

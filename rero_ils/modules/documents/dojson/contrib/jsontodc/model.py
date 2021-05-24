@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""RERO-ILS Doublin Core model definition."""
+"""RERO-ILS Dublin Core model definition."""
 
 from dojson import Overdo, utils
 from flask_babelex import gettext as _

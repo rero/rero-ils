@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2020 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2021 RERO
+# Copyright (C) 2021 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -86,6 +86,7 @@ ES_INDEX_MAPPINGS = {
                     'provisionActivity.statement.type:"bf:Agent" AND '
                     'provisionActivity.statement.label.value',
     'dc.type': 'type.main_type',
+    'dc.subtype': 'type.subtype',
     'dc.identifier': 'identifiedBy.value',
     # TODO: relation search in: issuedWith, otherEdition, otherPhysicalFormat,
     # precededBy, relatedTo, succeededBy, supplement and supplementTo
@@ -95,7 +96,9 @@ ES_INDEX_MAPPINGS = {
     # 'dc.rights': '',
     # 'dc.source': '',
     'dc.subject': 'subject.preferred_name',
-    'dc.possessingInstitution': 'holdings.organisation.library_pid'
+    'dc.organisation': 'holdings.organisation.organisation_pid',
+    'dc.library': 'holdings.organisation.library_pid',
+    'dc.location': 'holdings.location.pid'
 }
 
 # End of 'configurable' stuff
@@ -320,7 +323,7 @@ class Triple(PrefixableObject):
             # txt.append('sortBy')
             # for sort_key in self.sort_keys:
             #     txt.append(sort_key.to_es())
-        pre = '-' if boolean == 'not' else ''
+        pre = 'NOT' if boolean == 'not' else ''
         return f'{pre}({" ".join(txt)})'
 
     def get_result_set_id(self, top=None):
@@ -377,7 +380,12 @@ class SearchClause(PrefixableObject):
         """Create the ES representation of the object."""
         def index_term(index, relation, term):
             """Clean term."""
-            index = ES_INDEX_MAPPINGS.get(index, index)
+            from .explaine import Explain
+
+            # try to map dc mappings
+            index = ES_INDEX_MAPPINGS.get(index.lower(), index)
+            # try to map es mappings
+            index = Explain('tmp').es_mappings.get(index, index)
             # if relation in ORDER:
             #     term = f'"{term}"'
             if relation in ['=', 'all', 'any']:
