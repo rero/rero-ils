@@ -2671,7 +2671,9 @@ RERO_IMPORT_REST_ENDPOINTS = dict(
 
 # SRU
 # ====
+# Default number of harvested records for a request.
 RERO_SRU_NUMBER_OF_RECORDS = 100
+# Maximum number of records which can be harvested with an request.
 RERO_SRU_MAXIMUM_RECORDS = 1000
 
 # SIP2

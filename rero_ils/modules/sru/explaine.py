@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2020 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2021 RERO
+# Copyright (C) 2021 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -46,13 +46,10 @@ class Explain():
         self.index = current_app.config.get(
             'RECORDS_REST_ENDPOINTS', {}
         ).get(doc_type, {}).get('search_index')
-        self.indexes = self.get_es_mappings(self.index)
+        self.es_mappings = {}
+        for index in self.get_es_mappings(self.index):
+            self.es_mappings[index.lower().replace('.', '__')] = index
         self.init_xml()
-
-    @property
-    def XML(self):
-        """XML representation of the object."""
-        return etree.XML(self.xml_root)
 
     def __str__(self):
         """String representation of the object."""
@@ -162,7 +159,7 @@ class Explain():
         )
         index = element_rero_ils.index()
         es_map = element_rero_ils.map()
-        for rero_ils_index in self.get_es_mappings(self.index):
+        for rero_ils_index in self.es_mappings.keys():
             es_map.append(element_rero_ils.name(rero_ils_index))
         index.append(es_map)
         return index
