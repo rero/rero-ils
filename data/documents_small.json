@@ -2695,7 +2695,7 @@
       "In-8"
     ],
     "bookFormat": [
-      "8\u00ba"
+      "8\u1d52"
     ],
     "type": [
       {
@@ -6167,8 +6167,8 @@
           "preferred_name": "Binet, Christian"
         },
         "role": [
-          "ill",
-          "aut"
+          "aut",
+          "ill"
         ]
       }
     ],
@@ -7630,7 +7630,7 @@
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos10"
+        "value": "target_school_harmos9"
       },
       {
         "audienceType": "school_level",
@@ -7638,7 +7638,7 @@
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos9"
+        "value": "target_school_harmos10"
       }
     ],
     "partOf": [
@@ -14364,19 +14364,19 @@
     "intendedAudience": [
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos2"
-      },
-      {
-        "audienceType": "school_level",
         "value": "target_school_harmos1"
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos4"
+        "value": "target_school_harmos2"
       },
       {
         "audienceType": "school_level",
         "value": "target_school_harmos3"
+      },
+      {
+        "audienceType": "school_level",
+        "value": "target_school_harmos4"
       }
     ]
   },
@@ -16420,7 +16420,7 @@
       "2\u00b0"
     ],
     "bookFormat": [
-      "2\u00ba"
+      "2\u1d52"
     ],
     "type": [
       {
@@ -23631,7 +23631,7 @@
       "in-8\u00b0"
     ],
     "bookFormat": [
-      "8\u00ba"
+      "8\u1d52"
     ],
     "type": [
       {
@@ -26531,7 +26531,7 @@
       "8\u00b0"
     ],
     "bookFormat": [
-      "8\u00ba"
+      "8\u1d52"
     ],
     "type": [
       {
@@ -28811,12 +28811,12 @@
     "sequence_numbering": "No 1(2005)-",
     "intendedAudience": [
       {
-        "audienceType": "school_level",
-        "value": "target_school_tertiary"
-      },
-      {
         "audienceType": "understanding_level",
         "value": "target_understanding_tertiary"
+      },
+      {
+        "audienceType": "school_level",
+        "value": "target_school_tertiary"
       },
       {
         "audienceType": "understanding_level",
@@ -34015,7 +34015,7 @@
       "12\u00b0 (17 cm)"
     ],
     "bookFormat": [
-      "12\u00ba"
+      "12\u1d52"
     ],
     "type": [
       {
@@ -37488,7 +37488,7 @@
       "8\u00b0 (18 cm)"
     ],
     "bookFormat": [
-      "8\u00ba"
+      "8\u1d52"
     ],
     "type": [
       {
@@ -43390,8 +43390,8 @@
           "type": "bf:Person"
         },
         "role": [
-          "cmp",
-          "prf"
+          "prf",
+          "cmp"
         ]
       },
       {

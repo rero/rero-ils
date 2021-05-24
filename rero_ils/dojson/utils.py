@@ -507,7 +507,8 @@ class BookFormatExtraction(object):
                 self._book_format_code_and_regexp[value] = {}
                 format_code = 'in-plano'
                 if value > 1:
-                    format_code = '{val}º'.format(val=value)
+                    # {value}ᵒ (U+1d52 MODIFIER LETTER SMALL O)
+                    format_code = f'{value}ᵒ'
                 self._book_format_code_and_regexp[value]['code'] = format_code
                 self._book_format_code_and_regexp[value]['regexp'] = \
                     re.compile(_buid_regexp(value), re.IGNORECASE)
@@ -1223,11 +1224,9 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                         link_data['right_to_left'] = True
                     tag_data[link] = link_data
                     self.alternate_graphic[tag] = tag_data
-            except Exception as exp:
+            except Exception as error:
                 click.secho(
-                    'Error in init_alternate_graphic: {error}'.format(
-                        error=exp
-                    ),
+                    f'Error in init_alternate_graphic: {error}',
                     fg='red'
                 )
 

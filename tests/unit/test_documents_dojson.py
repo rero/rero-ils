@@ -2682,7 +2682,7 @@ def test_marc21_to_physical_description_ill_in_8():
     assert data.get('duration') == ['50 min.']
     assert data.get('illustrativeContent') == ['illustrations']
     assert data.get('colorContent') == ['rdacc:1002']
-    assert data.get('bookFormat') == ['8º']
+    assert data.get('bookFormat') == ['8ᵒ']
     assert data.get('dimensions') == ['in-8, 22 cm']
     assert data.get('note') == [{
         'noteType': 'otherPhysicalDetails',
@@ -2715,7 +2715,7 @@ def test_marc21_to_physical_description_multiple_300():
     assert data.get('duration') == ['50 min.']
     assert data.get('illustrativeContent') == ['illustrations', 'photographs']
     assert data.get('colorContent') == ['rdacc:1002']
-    assert data.get('bookFormat') == ['8º', 'in-plano']
+    assert data.get('bookFormat') == ['8ᵒ', 'in-plano']
     assert data.get('dimensions') == ['in-8, 22 cm', 'plano 22 cm']
     assert data.get('note') == [{
             'noteType': 'otherPhysicalDetails',

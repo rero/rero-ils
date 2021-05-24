@@ -292,7 +292,7 @@ def test_color_content(document_schema, document_data_tmp):
 
 def test_book_format(document_schema, document_data_tmp):
     """Test bookFormat for jsonschemas."""
-    document_data_tmp['bookFormat'] = ['8º']
+    document_data_tmp['bookFormat'] = ['8ᵒ']
 
     validate(document_data_tmp, document_schema)
 

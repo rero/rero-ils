@@ -69,6 +69,35 @@ def test_pid_to_marc21(app, marc21_record):
     assert result == record
 
 
+def test_identified_by(app, marc21_record):
+    """Test identifiedBy to MARC21 transformation."""
+    record = {
+        "identifiedBy": [{
+            "type": "bf:Isbn",
+            "value": "9782824606835"
+        }, {
+            "type": "bf:Isbn",
+            "value": "12345678901??",
+            "status": "status",
+            "qualifier": "qualifier"
+        }]
+    }
+    result = to_marc21.do(record)
+    record = deepcopy(marc21_record)
+    record.update({
+        '__order__': ('leader', '008', '020__', '020__'),
+        '020__': ({
+            '__order__': ('a', ),
+            'a': '9782824606835'
+        }, {
+            '__order__': ('z', 'q'),
+            'z': '12345678901??',
+            'q': 'qualifier'
+        })
+    })
+    assert result == record
+
+
 def test_title_to_marc21(app, marc21_record):
     """Test title to MARC21 transformation."""
     record = {
@@ -154,6 +183,72 @@ def test_title_to_marc21(app, marc21_record):
             '__order__': ('a', 'b'),
             'a': 'Suisse',
             'b': 'Schweiz. Svizzera : Le guide Michelin 2020'
+        }
+    })
+    assert result == record
+
+
+def test_physical_description_to_marc21(app, marc21_record):
+    """Test physical_description to MARC21 transformation."""
+    record = {
+        "extent": "159 p.",
+        "note": [{
+            "label": "fig.",
+            "noteType": "otherPhysicalDetails"
+        }],
+        "dimensions": ["33 cm"]
+    }
+    result = to_marc21.do(record)
+    record = deepcopy(marc21_record)
+    record.update({
+        '__order__': ('leader', '008', '300__'),
+        '300__': {
+            '__order__': ('a', 'b', 'c'),
+            'a': '159 p.',
+            'b': 'fig.',
+            'c': '33 cm'
+        }
+    })
+    assert result == record
+
+    record = {
+        "extent": "1 DVD-vidéo",
+        "duration": ["1h42"],
+        "dimensions": ["In-plano", "128ᵒ"],
+        "bookFormat": ["128ᵒ", "in-plano"],
+        "note": [{
+            "label": "accompanying material",
+            "noteType": "accompanyingMaterial"
+        }],
+    }
+    result = to_marc21.do(record)
+    record = deepcopy(marc21_record)
+    record.update({
+        '__order__': ('leader', '008', '300__'),
+        '300__': {
+            '__order__': ('a', 'c', 'e'),
+            'a': '1 DVD-vidéo (1h42)',
+            'c': 'in-plano ; 128ᵒ',
+            'e': 'accompanying material'
+        }
+    })
+    assert result == record
+
+    record = {
+        "extent": "1 DVD-vidéo (1h42)",
+        "duration": ["1h42"],
+        "productionMethod": ["rdapm:1001"],
+        "illustrativeContent": ["illustrations"],
+        "colorContent": ["rdacc:1002"]
+    }
+    result = to_marc21.do(record)
+    record = deepcopy(marc21_record)
+    record.update({
+        '__order__': ('leader', '008', '300__'),
+        '300__': {
+            '__order__': ('a', 'b'),
+            'a': '1 DVD-vidéo (1h42)',
+            'b': 'blueline process ; illustrations ; monocrome'
         }
     })
     assert result == record

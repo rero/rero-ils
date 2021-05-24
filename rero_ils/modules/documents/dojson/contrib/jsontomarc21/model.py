@@ -21,7 +21,7 @@
 from dojson import utils
 from dojson.contrib.to_marc21.model import Underdo
 from flask import current_app
-from flask_babelex import gettext as _
+from flask_babelex import gettext
 
 from rero_ils.modules.contributions.api import Contribution
 from rero_ils.modules.documents.utils import display_alternate_graphic_first
@@ -70,10 +70,15 @@ def replace_contribution_sources(contribution, source_order):
     return contribution
 
 
-def get_holdings_items(document_pid):
+def get_holdings_items(document_pid, organisation_pids=None, library_pids=None,
+                       location_pids=None):
     """Create Holding and Item informations.
 
     :param document_pid: document pid to use for holdings search
+    :param organisation_pids: Which organisations items to add.
+    :param library_pids: Which from libraries items to add.
+    :param location_pids: Which from locations items to add.
+
     :returns: list of holding informations with associated organisation,
               library and location pid, name informations.
     """
@@ -98,8 +103,17 @@ def get_holdings_items(document_pid):
 
         holding_pids = list(holding_pids)
         organisations = libraries = locations = {}
-        hits = HoldingsSearch().filter('terms', pid=holding_pids).scan()
-        for hit in hits:
+        query = HoldingsSearch().filter('terms', pid=holding_pids)
+        if organisation_pids:
+            query = query.filter(
+                'terms', organisation__organisation_pid=organisation_pids)
+        if library_pids:
+            query = query.filter(
+                'terms', organisation__library_pid=library_pids)
+        if location_pids:
+            query = query.filter(
+                'terms', location__pid=location_pids)
+        for hit in query.scan():
             holding = hit.to_dict()
             organisation_pid = hit.organisation.pid
             if organisation_pid not in organisations:
@@ -151,14 +165,14 @@ def get_holdings_items(document_pid):
                     item_data = item_hit.to_dict()
                     item_result = result
                     item_result['item'] = {
-                            'barcode': item_data.get('barcode'),
-                            'all_number': item_data.get('all_number'),
-                            'second_call_number': item_data.get(
-                                'second_call_number'),
-                            'enumerationAndChronology': item_data.get(
-                                'enumerationAndChronology'),
-                            'url': item_data.get('url'),
-                            'notes': item_data.get('notes', []),
+                        'barcode': item_data.get('barcode'),
+                        'all_number': item_data.get('all_number'),
+                        'second_call_number': item_data.get(
+                            'second_call_number'),
+                        'enumerationAndChronology': item_data.get(
+                            'enumerationAndChronology'),
+                        'url': item_data.get('url'),
+                        'notes': item_data.get('notes', []),
                     }
                     results.append(item_result)
             else:
@@ -167,7 +181,8 @@ def get_holdings_items(document_pid):
 
 
 ORDER = ['leader', 'pid', 'fixed_length_data_elements',
-         'title_responsibility', 'contribution', 'type', 'holdings_items']
+         'identifiedBy', 'title_responsibility', 'physical_description',
+         'contribution', 'type', 'holdings_items']
 LEADER = '00000cam a2200000zu 4500'
 
 
@@ -177,7 +192,8 @@ class ToMarc21Overdo(Underdo):
     responsibility_statement = {}
 
     def do(self, blob, language='en', ignore_missing=True,
-           exception_handlers=None, with_holdings_items=False):
+           exception_handlers=None, with_holdings_items=False,
+           organisation_pids=None, library_pids=None, location_pids=None):
         """Translate blob values and instantiate new model instance.
 
         Raises ``MissingRule`` when no rule matched and ``ignore_missing``
@@ -193,6 +209,9 @@ class ToMarc21Overdo(Underdo):
                                    specific.
         :param with_holdings_items: Add holding, item information in field 949
                                     to the result (attention time consuming).
+        :param organisation_pids: Which organisations items to add.
+        :param library_pids: Which libraries items to add.
+        :param location_pids: Which locations items to add.):
         :param language: Language to use.
         """
         # TODO: real leader
@@ -246,9 +265,66 @@ class ToMarc21Overdo(Underdo):
 
         if with_holdings_items:
             # add holdings items informations
+            get_holdings_items
             blob['holdings_items'] = get_holdings_items(
                 document_pid=blob.get('pid'),
+                organisation_pids=organisation_pids,
+                library_pids=library_pids,
+                location_pids=location_pids
             )
+
+        # Physical Description
+        physical_description = {}
+        extent = blob.get('extent')
+        durations = ', '.join(blob.get('duration', []))
+        if extent:
+            if durations:
+                if f'({durations})' in extent:
+                    physical_description['extent'] = extent
+                else:
+                    physical_description['extent'] = f'{extent} ({durations})'
+            else:
+                physical_description['extent'] = extent
+        note = blob.get('note', [])
+        other_physical_details = []
+        for value in note:
+            if value['noteType'] == 'otherPhysicalDetails':
+                other_physical_details.append(value['label'])
+        if not other_physical_details:
+            for value in blob.get('productionMethod', []):
+                other_physical_details.append(gettext(value))
+            for value in blob.get('illustrativeContent', []):
+                other_physical_details.append(value)
+            for value in blob.get('colorContent', []):
+                other_physical_details.append(gettext(value))
+        if other_physical_details:
+            physical_description['other_physical_details'] = \
+                ' ; '.join(other_physical_details)
+        accompanying_material = ' ; '.join(
+            [v.get('label') for v in note
+                if v['noteType'] == 'accompanyingMaterial']
+        )
+        if accompanying_material:
+            physical_description['accompanying_material'] = \
+                accompanying_material
+        dimensions = blob.get('dimensions', [])
+        book_formats = blob.get('bookFormat', [])
+        upper_book_formats = [v.upper() for v in book_formats]
+        new_dimensions = []
+        for dimension in dimensions:
+            try:
+                index = upper_book_formats.index(dimension.upper())
+                new_dimensions.append(book_formats[index])
+                del book_formats[index]
+            except ValueError:
+                new_dimensions.append(dimension)
+        for book_format in book_formats:
+            new_dimensions.append(book_format)
+        if new_dimensions:
+            physical_description['dimensions'] = ' ; '.join(new_dimensions)
+
+        if physical_description:
+            blob['physical_description'] = physical_description
 
         # Add order
         keys = {}
@@ -274,7 +350,7 @@ class ToMarc21Overdo(Underdo):
 def add_value(result, sub_tag, value):
     """Add value with tag to result."""
     if value:
-        result['__order__'].append(sub_tag)
+        result.setdefault('__order__', []).append(sub_tag)
         result[sub_tag] = value
     return result
 
@@ -283,7 +359,7 @@ def add_values(result, sub_tag, values):
     """Add values with tag to result."""
     if values:
         for count in range(len(values)):
-            result['__order__'].append(sub_tag)
+            result.setdefault('__order__', []).append(sub_tag)
         result[sub_tag] = values
     return result
 
@@ -308,6 +384,29 @@ def reverse_pid(self, key, value):
 def reverse_fixed_length_data_elements(self, key, value):
     """Reverse - fixed length data elements."""
     return [value]
+
+
+@to_marc21.over('02X', '^identifiedBy')
+@utils.reverse_for_each_value
+@utils.ignore_value
+def reverse_identified_by(self, key, value):
+    """Reverse - identified by."""
+    status = value.get('status')
+    qualifier = value.get('qualifier')
+    identified_by_type = value['type']
+    identified_by_value = value['value']
+    result = {}
+    if identified_by_type == 'bf:Isbn':
+        subfield = 'a'
+        if status:
+            subfield = 'z'
+        result['__order__'] = [subfield]
+        result[subfield] = identified_by_value
+        if qualifier:
+            result['__order__'].append('q')
+            result['q'] = qualifier
+        self.append(('020__', utils.GroupableOrderedDict(result)))
+    return None
 
 
 @to_marc21.over('245', '^title_responsibility')
@@ -412,6 +511,18 @@ def reverse_title(self, key, value):
     return result or None
 
 
+@to_marc21.over('300', '^physical_description')
+@utils.ignore_value
+def reverse_physical_description(self, key, value):
+    """Reverse - physical_description."""
+    result = {}
+    add_value(result, 'a', value.get('extent'))
+    add_value(result, 'b', value.get('other_physical_details'))
+    add_value(result, 'c', value.get('dimensions'))
+    add_value(result, 'e', value.get('accompanying_material'))
+    return result or None
+
+
 @to_marc21.over('7XX', '^contribution')
 @utils.ignore_value
 def reverse_contribution(self, key, value):
@@ -425,10 +536,8 @@ def reverse_contribution(self, key, value):
             preferred_name = agent.get('preferred_name')
             if not preferred_name:
                 current_app.logger.warning(f'JSON to MARC21 {key}: {value}')
-                from pprint import pprint
-                pprint(agent)
                 break
-            result = {'__order__': []}
+            result = {}
             result = add_value(result, 'a', preferred_name)
             if agent_type == 'bf:Person':
                 tag = '7000_'
@@ -471,12 +580,12 @@ def reverse_type(self, key, value):
     """Reverse - type."""
     result = {
         '__order__': ['a'],
-        'a': _(value.get('main_type'))
+        'a': gettext(value.get('main_type'))
     }
     subtype_type = value.get('subtype')
     if subtype_type:
         result['__order__'] = ['a', 'b']
-        result['b'] = _(subtype_type)
+        result['b'] = gettext(subtype_type)
     return result
 
 

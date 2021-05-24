@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2021 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -32,7 +32,7 @@ def test_diagnostic():
     assert str(diag) == 'info:srw/diagnostic/1/45 [Malformed Query]: test'
 
 
-def test_get_query_clause():
+def test_get_query_clause(app):
     """Check that simple clause is parsed correctly."""
     query = parse('dc.anywhere all "spam hamm"')
     # Check query instance
@@ -56,7 +56,7 @@ def test_get_query_clause():
     assert query.get_result_set_id() == ''
 
 
-def test_get_query_clause_utf8():
+def test_get_query_clause_utf8(app):
     """Check that simple clause with utf8 is parsed correctly."""
     query = parse('dc.anywhere any "späm h\xe4mm"')
     # Check query instance
@@ -89,7 +89,7 @@ def test_get_query_clause_modifiers():
         query.to_es()
 
 
-def test_get_query_clause_with_prefix():
+def test_get_query_clause_with_prefix(app):
     """Check that simple clause with prefix is parsed correctly."""
     query = parse(
         '>cql="info:srw/cql-context-set/1/cql-v1.1" cql.anywhere '
@@ -135,7 +135,7 @@ def test_get_query_clause_with_relation_modifier():
     )
 
 
-def test_get_query_clause_with_sorting():
+def test_get_query_clause_with_sorting(app):
     """Check that simple clause with sorting is parsed correctly."""
     query = parse('"cat" sortBy title')
     # Check query instance
@@ -155,7 +155,7 @@ def test_get_query_clause_with_sorting():
         'info:srw/diagnostic/1/80 [Sort not supported]: '
 
 
-def test_get_query_clause_with_relation():
+def test_get_query_clause_with_relation(app):
     """Check that relation clause is parsed correctly."""
     query = parse('year > 1999')
     # Check query instance
@@ -179,7 +179,7 @@ def test_get_query_clause_with_relation():
     )
 
 
-def test_get_query_triple():
+def test_get_query_triple(app):
     """Check that query with boolean is parsed correctly."""
     query = parse('dc.anywhere all spam and dc.anywhere all eggs')
     # Check query instance
@@ -206,7 +206,7 @@ def test_get_query_triple():
     assert query.get_result_set_id() == ''
 
 
-def test_get_query_triple_with_sort():
+def test_get_query_triple_with_sort(app):
     """Check that query with boolean is parsed correctly."""
     query = parse(
         'dc.anywhere all spam and dc.anywhere all eggs sortBy subtitle'

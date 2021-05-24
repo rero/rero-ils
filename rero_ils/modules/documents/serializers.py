@@ -17,6 +17,8 @@
 
 """Document serialization."""
 
+import re
+
 from dcxml import simpledc
 from dojson._compat import iteritems, string_types
 # from dojson.contrib.to_marc21.utils import dumps
@@ -212,10 +214,18 @@ class DocumentMARCXMLSerializer(JSONSerializer):
     #
 
     def transform_search_hit(self, pid, record_hit, language,
+                             with_holdings_items=True, organisation_pids=None,
+                             library_pids=None, location_pids=None,
                              links_factory=None, **kwargs):
         """Transform search result hit into an intermediate representation."""
-        return to_marc21.do(record_hit, language=language,
-                            with_holdings_items=True)
+        return to_marc21.do(
+            record_hit,
+            language=language,
+            with_holdings_items=with_holdings_items,
+            organisation_pids=organisation_pids,
+            library_pids=library_pids,
+            location_pids=location_pids
+        )
 
     # Needed if we use it for documents serialization !
     # def serialize(self, pid, record, links_factory=None):
@@ -235,6 +245,8 @@ class DocumentMARCXMLSerializer(JSONSerializer):
     #     )
 
     def transform_records(self, hits, pid_fetcher, language,
+                          with_holdings_items=True, organisation_pids=None,
+                          library_pids=None, location_pids=None,
                           item_links_factory=None):
         """Transform records into an intermediate representation."""
         # get all linked contributions
@@ -271,6 +283,10 @@ class DocumentMARCXMLSerializer(JSONSerializer):
                 pid=pid_fetcher(hit['_id'], document),
                 record_hit=document,
                 language=language,
+                with_holdings_items=with_holdings_items,
+                organisation_pids=organisation_pids,
+                library_pids=library_pids,
+                location_pids=location_pids,
                 links_factory=item_links_factory
             )
             # complete the contributions from refs
@@ -454,15 +470,33 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
         :returns: The objects serialized.
         """
         language = request.args.get('ln', DEFAULT_LANGUAGE)
+        with_holdings_items = True
+        if request.args.get('without_items', False):
+            with_holdings_items = False
+        sru = search_result['hits'].get('sru', {})
+        query_es = sru.get('query_es', '')
+        organisation_pids = re.findall(
+            r'holdings.organisation.organisation_pid:(\d*)',
+            query_es, re.DOTALL)
+        library_pids = re.findall(
+            r'holdings.organisation.library_pid:(\d*)',
+            query_es, re.DOTALL)
+        location_pids = re.findall(
+            r'holdings.location.pid:(\d*)',
+            query_es, re.DOTALL)
         records = self.transform_records(
             hits=search_result['hits']['hits'],
             pid_fetcher=pid_fetcher,
             language=language,
+            with_holdings_items=with_holdings_items,
+            organisation_pids=organisation_pids,
+            library_pids=library_pids,
+            location_pids=location_pids,
             item_links_factory=item_links_factory
         )
         return self.dumps(
             total=search_result['hits']['total'],
-            sru=search_result['hits'].get('sru', {}),
+            sru=sru,
             records=records,
             **self.dumps_kwargs
         )
