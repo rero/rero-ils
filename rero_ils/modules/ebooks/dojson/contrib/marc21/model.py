@@ -32,7 +32,7 @@ marc21 = ReroIlsMarc21Overdo()
 
 @marc21.over('issuance', 'leader')
 @utils.ignore_value
-def marc21_to_type(self, key, value):
+def marc21_to_issuance(self, key, value):
     """Set the mode of issuance."""
     self['issuance'] = dict(
         main_type='rdami:1001',
