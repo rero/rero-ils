@@ -990,3 +990,45 @@ def requests_retry_session(retries=3, backoff_factor=0.3,
     session.mount('http://', adapter)
     session.mount('https://', adapter)
     return session
+
+
+class JsonWriter(object):
+    """Json Writer."""
+
+    count = 0
+
+    def __init__(self, filename, indent=2):
+        """Constructor.
+
+        :params filename: File name of the file to be written.
+        :param indent: indentation.
+        """
+        self.indent = indent
+        self.file_handle = open(filename, 'w')
+        self.file_handle.write('[')
+
+    def __del__(self):
+        """Destructor."""
+        if self.file_handle:
+            self.file_handle.write('\n]')
+            self.file_handle.close()
+            self.file_handle = None
+
+    def write(self, data):
+        """Write data to file.
+
+        :param data: JSON data to write into the file.
+        """
+        if self.count > 0:
+            self.file_handle.write(',')
+        if self.indent:
+            for line in dumps(data, indent=self.indent).split('\n'):
+                self.file_handle.write(f'\n{" ".ljust(self.indent)}')
+                self.file_handle.write(line)
+        else:
+            self.file_handle.write(dumps(data), separators=(',', ':'))
+        self.count += 1
+
+    def close(self):
+        """Close file."""
+        self.__del__()
