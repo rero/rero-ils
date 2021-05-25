@@ -25,14 +25,15 @@
 {%- endblock %}
 
 
-{%- block body %}
+{%- block page_body %}
+<div class="container-fluid flex-grow-1">
 
 {% block navigation %}
 {%- include "wiki/navigation.html" %}
 {%- endblock navigation %}
 
 {% block content %} {% endblock %}
-{%- endblock body %}
+{%- endblock page_body %}
 
 {%- block javascript %}
 {{ super() }}
