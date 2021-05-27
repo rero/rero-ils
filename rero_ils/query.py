@@ -382,7 +382,7 @@ def search_factory(self, search, query_parser=None):
     :param query_parser: a specific query parser
     :return: Tuple with search instance and URL arguments.
     """
-    def _default_parser(qstr=None, query_boosting=[]):
+    def _default_parser(qstr=None, query_boosting=None):
         """Default parser that uses the Q() from elasticsearch_dsl."""
         query_type = 'query_string'
         default_operator = 'OR'

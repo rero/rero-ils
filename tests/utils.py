@@ -192,7 +192,7 @@ def get_timezone_difference(timezone, date):
     return int(timezone.utcoffset(date).total_seconds()/3600)
 
 
-def check_timezone_date(timezone, date, expected=[]):
+def check_timezone_date(timezone, date, expected=None):
     """Check hour and minute of given date regarding given timezone."""
     difference = get_timezone_difference(timezone, date)
     # In case the difference is positive, the result hour could be greater

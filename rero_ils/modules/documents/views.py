@@ -422,7 +422,7 @@ def get_other_accesses(record):
 
 
 @blueprint.app_template_filter()
-def create_title_text(titles, responsibility_statement=[]):
+def create_title_text(titles, responsibility_statement=None):
     """Create the title text for display purpose.
 
     :param titles: list of title objects
@@ -437,7 +437,7 @@ def create_title_text(titles, responsibility_statement=[]):
 
 
 @blueprint.app_template_filter()
-def create_title_alternate_graphic(titles, responsibility_statement=[]):
+def create_title_alternate_graphic(titles, responsibility_statement=None):
     """Create the list of alternate graphic titles as text for detail view.
 
     :param titles: list of title objects

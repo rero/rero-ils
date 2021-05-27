@@ -315,7 +315,7 @@ def init(reset, verbose):
 
 @scheduler.command('enable_tasks')
 @click.option('-a', '--all', 'all', is_flag=True, default=False)
-@click.option('-n', '--name', 'names', multiple=True, default=[])
+@click.option('-n', '--name', 'names', multiple=True, default=None)
 @click.option('-d', '--disable', 'disable', is_flag=True, default=False)
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
 @with_appcontext
@@ -334,6 +334,7 @@ def enable_tasks(all, names, disable, verbose):
         if verbose:
             click.echo('\n'.join(current_scheduler.display_all()))
     else:
+        names = names if names else []
         for name in names:
             name = name.strip()
             current_scheduler.set_entry_enabled(name=name, enable=not disable)

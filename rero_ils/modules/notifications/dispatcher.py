@@ -32,7 +32,7 @@ class Dispatcher:
     """Dispatcher notifications class."""
 
     @classmethod
-    def dispatch_notifications(cls, notification_pids=[], resend=False,
+    def dispatch_notifications(cls, notification_pids=None, resend=False,
                                verbose=False):
         """Dispatch the notification.
 
@@ -50,6 +50,7 @@ class Dispatcher:
 
         sent = not_sent = count = 0
         aggregated = {}
+        notification_pids = notification_pids if notification_pids else []
         for notification_pid in notification_pids:
             count += 1
             notification = Notification.get_record_by_pid(notification_pid)

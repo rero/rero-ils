@@ -643,7 +643,7 @@ def create_holding(
         electronic_location=None, holdings_type=None, patterns=None,
         enumerationAndChronology=None, supplementaryContent=None, index=None,
         missing_issues=None, call_number=None, second_call_number=None,
-        notes=[], vendor_pid=None, acquisition_status=None,
+        notes=None, vendor_pid=None, acquisition_status=None,
         acquisition_expected_end_date=None, acquisition_method=None,
         general_retention_policy=None, completeness=None,
         composite_copy_report=None, issue_binding=None, masked=False):

@@ -679,8 +679,8 @@ def get_any_loans_by_item_pid_by_patron_pid(item_pid, patron_pid):
         item_pid, patron_pid, filter_states)
 
 
-def get_loans_by_item_pid_by_patron_pid(
-        item_pid, patron_pid, filter_states=[]):
+def get_loans_by_item_pid_by_patron_pid(item_pid, patron_pid,
+                                        filter_states=None):
     """Get loans for item, patron according to the given filter_states.
 
     :param item_pid: The item pid.
@@ -716,7 +716,8 @@ def get_loans_stats_by_patron_pid(patron_pid):
     return stats
 
 
-def get_loans_by_patron_pid(patron_pid, filter_states=[], to_anonymize=False):
+def get_loans_by_patron_pid(patron_pid, filter_states=None,
+                            to_anonymize=False):
     """Search all loans for patron to the given filter_states.
 
     :param to_anonymize: filter by field to_anonymize.
@@ -726,9 +727,9 @@ def get_loans_by_patron_pid(patron_pid, filter_states=[], to_anonymize=False):
     """
     search = search_by_patron_item_or_document(
         patron_pid=patron_pid,
-        filter_states=filter_states)\
-        .params(preserve_order=True)\
-        .sort({'_created': {'order': 'asc'}})\
+        filter_states=filter_states) \
+        .params(preserve_order=True) \
+        .sort({'_created': {'order': 'asc'}}) \
         .source(['pid'])
     search = search.filter('term', to_anonymize=to_anonymize)
     for loan in search.scan():
@@ -737,12 +738,12 @@ def get_loans_by_patron_pid(patron_pid, filter_states=[], to_anonymize=False):
 
 def get_last_transaction_loc_for_item(item_pid):
     """Return last transaction location for an item."""
-    results = current_circulation.loan_search_cls()\
-        .filter('term', item_pid=item_pid)\
-        .params(preserve_order=True)\
+    results = current_circulation.loan_search_cls() \
+        .filter('term', item_pid=item_pid) \
+        .params(preserve_order=True) \
         .exclude('terms', state=[
-            LoanState.PENDING, LoanState.CREATED])\
-        .sort({'_created': {'order': 'desc'}})\
+            LoanState.PENDING, LoanState.CREATED]) \
+        .sort({'_created': {'order': 'desc'}}) \
         .source(['pid']).scan()
     try:
         loan_pid = next(results).pid
@@ -777,10 +778,10 @@ def get_loans_count_by_library_for_patron_pid(patron_pid, filter_states=None):
 def get_due_soon_loans(tstamp=None):
     """Return all due_soon loans."""
     due_soon_loans = []
-    results = current_circulation.loan_search_cls()\
-        .filter('term', state=LoanState.ITEM_ON_LOAN)\
-        .params(preserve_order=True)\
-        .sort({'_created': {'order': 'asc'}})\
+    results = current_circulation.loan_search_cls() \
+        .filter('term', state=LoanState.ITEM_ON_LOAN) \
+        .params(preserve_order=True) \
+        .sort({'_created': {'order': 'asc'}}) \
         .source(['pid']).scan()
     for record in results:
         loan = Loan.get_record_by_pid(record.pid)
@@ -849,8 +850,8 @@ def get_non_anonymized_loans(patron=None, org_pid=None):
     :param org_pid: optional parameter to filter by organisation.
     :return: loans.
     """
-    search = current_circulation.loan_search_cls()\
-        .filter('term', to_anonymize=False)\
+    search = current_circulation.loan_search_cls() \
+        .filter('term', to_anonymize=False) \
         .filter('terms', state=[LoanState.CANCELLED, LoanState.ITEM_RETURNED])\
         .source(['pid'])
     if patron:
