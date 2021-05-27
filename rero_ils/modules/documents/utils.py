@@ -239,7 +239,7 @@ def display_alternate_graphic_first(language):
     return not re.search(r'(default|^und-|-zyyy$)', language)
 
 
-def title_format_text_head(titles, responsabilities=[], with_subtitle=True):
+def title_format_text_head(titles, responsabilities=None, with_subtitle=True):
     """Format title head for display purpose.
 
     :param titles: titles object list
@@ -281,6 +281,7 @@ def title_format_text_head(titles, responsabilities=[], with_subtitle=True):
     output_value = '. '.join(head_titles)
     for parallel_title in parallel_titles:
         output_value += ' = ' + str(parallel_title)
+    responsabilities = responsabilities if responsabilities else []
     for responsibility in responsabilities:
         if len(responsibility) == 1:
             output_value += ' / ' + responsibility[0].get('value')
@@ -293,7 +294,7 @@ def title_format_text_head(titles, responsabilities=[], with_subtitle=True):
     return output_value
 
 
-def title_format_text_alternate_graphic(titles, responsabilities=[]):
+def title_format_text_alternate_graphic(titles, responsabilities=None):
     """Build a list of alternate graphic title text for display.
 
     :param titles: titles object list
@@ -332,6 +333,7 @@ def title_format_text_alternate_graphic(titles, responsabilities=[]):
                 #         parallel_title_text.get('value')
                 #     )
     responsibilities_text = {}
+    responsabilities = responsabilities if responsabilities else []
     for responsibility in responsabilities:
         for responsibility_language in responsibility:
             language = responsibility_language.get('language', 'default')

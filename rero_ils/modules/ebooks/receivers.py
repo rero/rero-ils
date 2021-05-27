@@ -25,13 +25,13 @@ from .tasks import create_records, delete_records
 from ..utils import set_timestamp
 
 
-def publish_harvested_records(sender=None, records=[], *args, **kwargs):
+def publish_harvested_records(sender=None, records=None, max=None,
+                              *args, **kwargs):
     """Create, index the harvested records."""
     # name = kwargs['name']
-    max = kwargs.get('max', None)
-    records = list(records)
+    records = records if records else []
     if max:
-        records = records[:int(max)]
+        records = list(records)[:int(max)]
     converted_records = []
     deleted_records = []
     for record in records:

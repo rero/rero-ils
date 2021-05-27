@@ -23,20 +23,19 @@ from flask import current_app
 from .tasks import create_mef_records
 
 
-def publish_api_harvested_records(sender=None, records=[], *args, **kwargs):
+def publish_api_harvested_records(sender=None, records=None, name='', url=None,
+                                  verbose=False, *args, **kwargs):
     """Create, index the harvested records."""
-    name = kwargs['name']
-    url = kwargs['url']
-    verbose = kwargs.get('verbose', False)
+    assert url
     if name == 'mef':
         converted_records = []
         js = current_app.extensions.get('invenio-jsonschemas')
         path = current_app.config.get('RERO_ILS_CONTRIBUTIONS_MEF_SCHEMA')
         url = js.path_to_url(path)
-        for record in records:
-            record['$schema'] = url
-            converted_records.append(record)
         if records:
+            for record in records:
+                record['$schema'] = url
+                converted_records.append(record)
             click.echo(
                 f'mef harvester: received {len(records)} records: {url}'
             )
