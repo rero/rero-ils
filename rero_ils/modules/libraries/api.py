@@ -183,8 +183,9 @@ class Library(IlsRecord):
                 else:
                     yield exception
 
-    def is_open(self, date=datetime.now(pytz.utc), day_only=False):
+    def is_open(self, date=None, day_only=False):
         """Test library is open."""
+        date = date or datetime.now(pytz.utc)
         is_open = False
         rule_hours = []
 
@@ -238,9 +239,9 @@ class Library(IlsRecord):
         if days and days[0]['times']:
             return days[0]['times'][0]['start_time']
 
-    def next_open(self, date=datetime.now(pytz.utc), previous=False,
-                  ensure=False):
+    def next_open(self, date=None, previous=False, ensure=False):
         """Get next open day."""
+        date = date or datetime.now(pytz.utc)
         if not self._has_is_open():
             raise LibraryNeverOpen
         if isinstance(date, str):
@@ -262,9 +263,10 @@ class Library(IlsRecord):
             microsecond=0
         )
 
-    def get_open_days(self, start_date=datetime.now(pytz.utc),
-                      end_date=datetime.now(pytz.utc)):
+    def get_open_days(self, start_date=None, end_date=None):
         """Get all open days between date interval."""
+        start_date = start_date or datetime.now(pytz.utc)
+        end_date = end_date or datetime.now(pytz.utc)
         if isinstance(start_date, str):
             start_date = date_string_to_utc(start_date)
         if isinstance(end_date, str):
@@ -278,13 +280,15 @@ class Library(IlsRecord):
             start_date += timedelta(days=1)
         return dates
 
-    def count_open(self, start_date=datetime.now(pytz.utc),
-                   end_date=datetime.now(pytz.utc)):
+    def count_open(self, start_date=None, end_date=None):
         """Get number of open day between date interval."""
+        start_date = start_date or datetime.now(pytz.utc)
+        end_date = end_date or datetime.now(pytz.utc)
         return len(self.get_open_days(start_date, end_date))
 
-    def in_working_days(self, count, date=datetime.now(pytz.utc)):
+    def in_working_days(self, count, date=None):
         """Get date for given working days."""
+        date = date or datetime.now(pytz.utc)
         counting = 1
         if isinstance(date, str):
             date = date_string_to_utc(date)
