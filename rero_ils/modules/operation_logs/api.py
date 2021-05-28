@@ -32,17 +32,15 @@ def operation_log_id_fetcher(record_uuid, data):
     :param data: The record metadata.
     :return: A :data:`rero_ils.modules.fetchers.FetchedPID` instance.
     """
-    return FetchedPID(
-        provider=None,
-        pid_type='oplg',
-        pid_value=record_uuid
-    )
+    return FetchedPID(provider=None, pid_type='oplg', pid_value=record_uuid)
 
 
 class OperationLog(RecordBase):
     """OperationLog class."""
 
     index_name = 'operation_logs'
+
+    _schema = 'operation_logs/operation_log-v0.0.1.json'
 
     _extensions = [ResolveRefsExension(), DatesExension(), IDExtension()]
 
@@ -61,23 +59,18 @@ class OperationLog(RecordBase):
         :returns: A new :class:`Record` instance.
         """
         if id_:
-            data['pid'] = _id
+            data['pid'] = id_
 
-        record = cls(
-                data,
-                model=None,
-                **kwargs
-            )
+        record = cls(data, model=None, **kwargs)
 
         # Run pre create extensions
         for e in cls._extensions:
             e.pre_create(record)
 
-        res = current_search_client.index(
-            index=cls.get_index(record),
-            body=record.dumps(),
-            id=record['pid'],
-            refresh=index_refresh)
+        current_search_client.index(index=cls.get_index(record),
+                                    body=record.dumps(),
+                                    id=record['pid'],
+                                    refresh=index_refresh)
 
         # Run post create extensions
         for e in cls._extensions:
@@ -131,10 +124,8 @@ class OperationLog(RecordBase):
         # here the elasticsearch get API cannot be used with an index alias
         return cls(
             next(
-                RecordsSearch(index=cls.index_name)
-                .filter('term', _id=_id).scan())
-            .to_dict()
-        )
+                RecordsSearch(index=cls.index_name).filter(
+                    'term', _id=_id).scan()).to_dict())
 
     @classmethod
     def get_indices(cls):
