@@ -48,6 +48,79 @@
       "operation": {
         "type": "keyword"
       },
+      "loan": {
+        "type": "object",
+        "properties": {
+          "override_flag": {
+            "type": "boolean"
+          },
+          "transaction_channel": {
+            "type": "keyword"
+          },
+          "transaction_user_name": {
+            "type": "text"
+          },
+          "transaction_location_name": {
+            "type": "text"
+          },
+          "pickup_location_name": {
+            "type": "text"
+          },
+          "patron": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "text"
+              },
+              "type": {
+                "type": "keyword"
+              },
+              "birth_date": {
+                "type": "date"
+              },
+              "postal_code": {
+                "type": "keyword"
+              },
+              "gender": {
+                "type": "keyword"
+              }
+            }
+          },
+          "item": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "keyword"
+              },
+              "call_number": {
+                "type": "text"
+              },
+              "holding": {
+                "type": "object",
+                "properties": {
+                  "pid": {
+                    "type": "keyword"
+                  },
+                  "location_name": {
+                    "type": "text"
+                  }
+                }
+              },
+              "document": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "text"
+                  },
+                  "type": {
+                    "type": "keyword"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "_created": {
         "type": "date"
       },
