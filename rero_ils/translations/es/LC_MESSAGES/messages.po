@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-05-19 08:59+0200\n"
-"PO-Revision-Date: 2021-05-26 17:34+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"PO-Revision-Date: 2021-05-28 14:34+0000\n"
+"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/es/>\n"
 "Language: es\n"
@@ -6494,16 +6494,15 @@ msgstr "Ejemplo : 22 cm"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dissertation-v0.0.1.json:3
 msgid "Dissertation or thesis information"
-msgstr "Información de una disertación o tesis"
+msgstr "Información sobre la disertación o la tesis"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dissertation-v0.0.1.json:4
 msgid ""
 "A statement that identifies an academic institution, degree, or year for "
 "which a work was presented (MARC 502)."
 msgstr ""
-"Una mención que incluye la información sobre el grado académico para el "
-"que fue presentada la obra, la institución o facultad otorgante y el año "
-"en que el grado fue otorgado (MARC 502)."
+"Una declaración que identifique la institución académica, la titulación o el "
+"año en que se presentó la obra (MARC 502)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dissertation-v0.0.1.json:8
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:203
@@ -7123,7 +7122,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:3
 msgid "Intended audiences"
-msgstr "Audiencias previstas"
+msgstr "Destinatarios"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:4
 msgid "(MARC 521)"
@@ -7131,7 +7130,7 @@ msgstr "(MARC 521)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:8
 msgid "Intended audience"
-msgstr "Audiencia prevista"
+msgstr "Público al que va dirigido"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:12
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:24
