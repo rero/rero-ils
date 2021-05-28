@@ -78,6 +78,169 @@
           "pattern": "^https://ils.rero.ch/api/organisations/.+?$"
         }
       }
+    },
+    "loan": {
+      "title": "Loan",
+      "description": "Loan specific data",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "override_flag": {
+          "title": "Override flag",
+          "description": "Allow a transaction which is normally not possible.",
+          "type": "boolean",
+          "default": false
+        },
+        "transaction_channel": {
+          "title": "Transaction channel",
+          "type": "string",
+          "enum": [
+            "ui",
+            "system",
+            "sip2"
+          ]
+        },
+        "transaction_user_name": {
+          "title": "Transaction user name",
+          "type": "string",
+          "minLength": 1
+        },
+        "transaction_location_name": {
+          "title": "Transaction location name",
+          "type": "string",
+          "minLength": 1
+        },
+        "pickup_location_name": {
+          "title": "Pickup location name",
+          "type": "string",
+          "minLength": 1
+        },
+        "patron": {
+          "title": "Patron",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "title": "Name",
+              "type": "string",
+              "minLength": 1
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "minLength": 1
+            },
+            "birth_date": {
+              "title": "Birthdate",
+              "type": "string",
+              "minLength": 1,
+              "format": "yyyy-MM-dd"
+            },
+            "postal_code": {
+              "title": "Postal code",
+              "type": "string",
+              "minLength": 1
+            },
+            "gender": {
+              "title": "Gender",
+              "type": "string",
+              "enum": [
+                "male",
+                "female",
+                "other"
+              ]
+            }
+          },
+          "required": [
+            "name",
+            "type",
+            "birth_date",
+            "postal_code",
+            "gender"
+          ]
+        },
+        "item": {
+          "title": "Item",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "category": {
+              "title": "Category",
+              "type": "string",
+              "minLength": 1
+            },
+            "call_number": {
+              "title": "Call number",
+              "type": "string",
+              "minLength": 1
+            },
+            "holding": {
+              "title": "Holding",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "pid": {
+                  "title": "PID",
+                  "type": "string",
+                  "minLength": 1
+                },
+                "location_name": {
+                  "title": "Location name",
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "pid",
+                "location_name"
+              ]
+            },
+            "document": {
+              "title": "Document",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "title": "Type",
+                  "type": "string",
+                  "minLength": 1
+                },
+                "title": {
+                  "title": "Title",
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "type",
+                "title"
+              ]
+            }
+          },
+          "required": [
+            "holding",
+            "document"
+          ]
+        }
+      },
+      "required": [
+        "override_flag",
+        "transaction_channel",
+        "transaction_location_name",
+        "pickup_location_name",
+        "patron",
+        "item"
+      ]
+    },
+    "_created": {
+      "title": "Creation date",
+      "type": "string",
+      "format": "date-time"
+    },
+    "_updated": {
+      "title": "Modification date",
+      "type": "string",
+      "format": "date-time"
     }
   }
 }

@@ -22,6 +22,7 @@ from invenio_circulation.proxies import current_circulation
 from ..items.api import Item
 from ..items.models import ItemStatus
 from ..loans.api import Loan, LoanState
+from ..loans.logs.api import LoanOperationLog
 from ..locations.api import Location
 from ..notifications.utils import send_notification_to_location
 from ..patron_transactions.api import PatronTransaction
@@ -69,3 +70,5 @@ def listener_loan_state_changed(_, initial_loan, loan, trigger):
         PatronTransaction.create_patron_transaction_from_overdue_loan(
             initial_loan
         )
+
+    LoanOperationLog.create(loan)
