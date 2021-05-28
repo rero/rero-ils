@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-05-19 08:59+0200\n"
-"PO-Revision-Date: 2021-05-21 22:33+0000\n"
+"PO-Revision-Date: 2021-05-26 17:34+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/es/>\n"
@@ -4932,7 +4932,7 @@ msgstr ""
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:37
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:40
 msgid "ID"
-msgstr ""
+msgstr "Id."
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:38
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:41
@@ -5059,7 +5059,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_abstract-v0.0.1.json:3
 msgid "Abstracts"
-msgstr "Resumenes"
+msgstr "Resúmenes"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_abstract-v0.0.1.json:4
 msgid "Abstract of the resource."
@@ -5210,7 +5210,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:7
 msgid "Classification"
-msgstr ""
+msgstr "Clasificación"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:11
 msgid "bf:Classification"
