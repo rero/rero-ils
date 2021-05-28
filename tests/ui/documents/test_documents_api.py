@@ -66,16 +66,17 @@ def test_document_add_cover_url(db, document):
 
 def test_document_can_not_delete(document, item_lib_martigny):
     """Test can not delete."""
-    links = document.get_links_to_me()
-    assert links['items'] == 1
-    assert not document.can_delete
+    can, reasons = document.can_delete
+    assert not can
+    assert reasons['links']['items']
 
 
 def test_document_can_delete(app, document_data_tmp):
     """Test can delete."""
     document = Document.create(document_data_tmp, delete_pid=True)
-    assert document.get_links_to_me() == {}
-    assert document.can_delete
+    can, reasons = document.can_delete
+    assert can
+    assert reasons == {}
 
 
 def test_document_create_records(app, org_martigny, org_sion, ebook_1_data,
@@ -138,21 +139,19 @@ def test_document_create_records(app, org_martigny, org_sion, ebook_1_data,
 def test_document_can_delete_harvested(app, ebook_1_data):
     """Test can delete for harvested records."""
     document = Document.create(ebook_1_data, delete_pid=True)
+    can, reasons = document.can_delete
     assert document.harvested
-    assert not document.can_delete
+    assert not can
+    assert reasons['others']['harvested']
 
 
 def test_document_can_delete_with_loans(
         client, item_lib_martigny, loan_pending_martigny, document):
     """Test can delete a document."""
-    links = document.get_links_to_me()
-    assert 'items' in links
-    assert 'loans' in links
-
-    assert not document.can_delete
-
-    reasons = document.reasons_not_to_delete()
-    assert 'links' in reasons
+    can, reasons = document.can_delete
+    assert not can
+    assert reasons['links']['items']
+    assert reasons['links']['loans']
 
 
 def test_document_contribution_resolve_exception(es_clear, db,

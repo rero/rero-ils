@@ -298,12 +298,8 @@ def test_notifications_post_put_delete(
     res = client.get(item_url)
     assert res.status_code == 410
 
-    links = notif.get_links_to_me()
-    assert links == {}
-
-    assert notif.can_delete
-
-    reasons = notif.reasons_not_to_delete()
+    can, reasons = notif.can_delete
+    assert can
     assert reasons == {}
 
     notif.delete(dbcommit=True, delindex=True)

@@ -172,13 +172,9 @@ def test_acquisition_invoices_post_put_delete(
 
 def test_acquisition_invoices_can_delete(client, acq_invoice_fiction_martigny):
     """Test can delete an acquisition invoice."""
-    links = acq_invoice_fiction_martigny.get_links_to_me()
-    assert not links
-
-    assert acq_invoice_fiction_martigny.can_delete
-
-    reasons = acq_invoice_fiction_martigny.reasons_not_to_delete()
-    assert not reasons
+    can, reasons = acq_invoice_fiction_martigny.can_delete
+    assert can
+    assert reasons == {}
 
 
 def test_filtered_acquisition_invoices_get(

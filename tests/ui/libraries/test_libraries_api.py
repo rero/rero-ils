@@ -143,8 +143,9 @@ def test_libraries_is_open(lib_martigny):
 
 def test_library_can_delete(lib_martigny):
     """Test can delete."""
-    assert lib_martigny.get_links_to_me() == {}
-    assert lib_martigny.can_delete
+    can, reasons = lib_martigny.can_delete
+    assert can
+    assert reasons == {}
 
 
 def test_library_timezone(lib_martigny):

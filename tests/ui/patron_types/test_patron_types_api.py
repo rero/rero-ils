@@ -54,5 +54,6 @@ def test_patron_type_exist_name_and_organisation_pid(
 
 def test_patron_type_can_delete(patron_type_children_martigny):
     """Test can delete a patron type."""
-    assert patron_type_children_martigny.get_links_to_me() == {}
-    assert patron_type_children_martigny.can_delete
+    can, reasons = patron_type_children_martigny.can_delete
+    assert can
+    assert reasons == {}

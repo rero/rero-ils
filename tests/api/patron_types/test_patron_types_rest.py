@@ -186,15 +186,10 @@ def test_patron_types_can_delete(client, patron_type_children_martigny,
                                  patron_martigny,
                                  circulation_policies):
     """Test can delete a patron type."""
-    patron_type = patron_type_children_martigny
-    links = patron_type.get_links_to_me()
-    assert 'circ_policies' in links
-    assert 'patrons' in links
-
-    assert not patron_type.can_delete
-
-    reasons = patron_type.reasons_not_to_delete()
-    assert 'links' in reasons
+    can, reasons = patron_type_children_martigny.can_delete
+    assert not can
+    assert reasons['links']['circ_policies']
+    assert reasons['links']['patrons']
 
 
 def test_filtered_patron_types_get(

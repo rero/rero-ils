@@ -184,14 +184,10 @@ def test_item_types_can_delete(client, item_type_standard_martigny,
                                item_lib_martigny,
                                circulation_policies):
     """Test can delete an item type."""
-    links = item_type_standard_martigny.get_links_to_me()
-    assert 'circ_policies' in links
-    assert 'items' in links
-
-    assert not item_type_standard_martigny.can_delete
-
-    reasons = item_type_standard_martigny.reasons_not_to_delete()
-    assert 'links' in reasons
+    can, reasons = item_type_standard_martigny.can_delete
+    assert not can
+    assert reasons['links']['circ_policies']
+    assert reasons['links']['items']
 
 
 def test_filtered_item_types_get(

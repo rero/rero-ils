@@ -69,5 +69,6 @@ def test_template_create(db, es_clear, templ_item_public_martigny_data,
 
 def test_template_can_delete(templ_doc_public_martigny):
     """Test can delete."""
-    assert templ_doc_public_martigny.get_links_to_me() == {}
-    assert templ_doc_public_martigny.can_delete
+    can, reasons = templ_doc_public_martigny.can_delete
+    assert can
+    assert reasons == {}

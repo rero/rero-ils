@@ -171,13 +171,9 @@ def test_patron_transaction_event_utils_shortcuts(
         client, patron_transaction_overdue_event_martigny,
         loan_overdue_martigny):
     """Test patron transaction utils and shortcuts."""
-    links = patron_transaction_overdue_event_martigny.get_links_to_me()
-    assert not links
-
-    assert patron_transaction_overdue_event_martigny.can_delete
-
-    reasons = patron_transaction_overdue_event_martigny.reasons_not_to_delete()
-    assert not reasons
+    can, reasons = patron_transaction_overdue_event_martigny.can_delete
+    assert can
+    assert reasons == {}
 
     assert patron_transaction_overdue_event_martigny.patron_pid == \
         loan_overdue_martigny.patron_pid

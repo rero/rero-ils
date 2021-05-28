@@ -105,13 +105,9 @@ def test_holdings_get(client, holding_lib_martigny):
 def test_holding_can_delete_and_utils(client, holding_lib_martigny, document,
                                       item_type_standard_martigny):
     """Test can delete a holding."""
-    links = holding_lib_martigny.get_links_to_me()
-    assert 'items' not in links
-
-    assert holding_lib_martigny.can_delete
-
-    reasons = holding_lib_martigny.reasons_not_to_delete()
-    assert 'links' not in reasons
+    can, reasons = holding_lib_martigny.can_delete
+    assert can
+    assert reasons == {}
 
     assert holding_lib_martigny.document_pid == document.pid
     assert holding_lib_martigny.circulation_category_pid == \

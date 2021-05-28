@@ -55,13 +55,9 @@ def test_patron_can_delete(client, librarian_martigny,
     assert res.status_code == 200
     loan_pid = data.get('action_applied')[LoanAction.REQUEST].get('pid')
 
-    links = patron_martigny.get_links_to_me()
-    assert 'loans' in links
-
-    assert not patron_martigny.can_delete
-
-    reasons = patron_martigny.reasons_not_to_delete()
-    assert 'links' in reasons
+    can, reasons = patron_martigny.can_delete
+    assert not can
+    assert reasons['links']['loans']
 
     res, data = postdata(
         client,

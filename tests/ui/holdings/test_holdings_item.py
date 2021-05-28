@@ -64,8 +64,9 @@ def test_holding_item_links(client, holding_lib_martigny, item_lib_martigny,
     assert holding_lib_martigny.pid in holdings
     assert item2.holding_pid in holdings
 
-    assert holding_lib_martigny.get_links_to_me().get('items')
-    assert not holding_lib_martigny.can_delete
+    can, reasons = holding_lib_martigny.can_delete
+    assert not can
+    assert reasons['links']['items']
     # test loan conditions
     assert holding_loan_condition_filter(holding_lib_martigny.pid) == \
         'standard'
@@ -96,7 +97,10 @@ def test_holding_delete_after_item_deletion(
 
     pid = holding_lib_martigny.pid
     holding = Holding.get_record_by_pid(pid)
-    assert not holding.can_delete
+
+    can, reasons = holding.can_delete
+    assert not can
+    assert reasons['links']['items']
 
     item_lib_martigny.delete(dbcommit=True, delindex=True)
     flush_index(ItemsSearch.Meta.index)
