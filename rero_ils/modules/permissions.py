@@ -76,10 +76,10 @@ def record_permissions(record_pid=None, route_name=None):
             # before ; either the `delete_permissions_factory` for this record
             # should be called. If this call send 'False' then the
             # reason_not_to_delete should be "permission denied"
+            can_delete, reasons = record.can_delete
             permissions['delete']['can'] = \
-                record.can_delete and \
+                can_delete and \
                 record_permissions_factory['delete'](record=record).can()
-            reasons = record.reasons_not_to_delete()
             if not permissions['delete']['can'] and not reasons:
                 # in this case, it's because config delete factory return
                 # `False`, so the reason is 'Permission denied'

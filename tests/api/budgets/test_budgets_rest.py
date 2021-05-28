@@ -147,16 +147,10 @@ def test_budgets_post_put_delete(client,
 def test_budgets_can_delete(
         client, budget_2020_martigny, acq_account_fiction_martigny):
     """Test can delete an acq account."""
-    links = budget_2020_martigny.get_links_to_me()
-    assert 'acq_accounts' in links
-
-    assert not budget_2020_martigny.can_delete
-
-    reasons_to_keep = budget_2020_martigny.reasons_to_keep()
-    assert reasons_to_keep.get('is_default')
-
-    reasons = budget_2020_martigny.reasons_not_to_delete()
-    assert 'links' in reasons
+    can, reasons = budget_2020_martigny.can_delete
+    assert not can
+    assert reasons['links']['acq_accounts']
+    assert reasons['others']['is_default']
 
 
 def test_filtered_budgets_get(

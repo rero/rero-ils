@@ -170,14 +170,10 @@ def test_library_never_open(lib_sion):
 def test_library_can_delete(lib_martigny, librarian_martigny,
                             loc_public_martigny):
     """Test can delete a library."""
-    links = lib_martigny.get_links_to_me()
-    assert 'locations' in links
-    assert 'patrons' in links
-
-    assert not lib_martigny.can_delete
-
-    reasons = lib_martigny.reasons_not_to_delete()
-    assert 'links' in reasons
+    can, reasons = lib_martigny.can_delete
+    assert not can
+    assert reasons['links']['locations']
+    assert reasons['links']['patrons']
 
 
 def test_filtered_libraries_get(

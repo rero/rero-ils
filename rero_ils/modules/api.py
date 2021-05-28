@@ -309,7 +309,8 @@ class IlsRecord(Record):
 
     def delete(self, force=False, dbcommit=False, delindex=False):
         """Delete record and persistent identifier."""
-        if self.can_delete:
+        can, _ = self.can_delete
+        if can:
             if delindex:
                 self.delete_from_index()
             persistent_identifier = self.get_persistent_identifier(self.id)
@@ -425,8 +426,12 @@ class IlsRecord(Record):
 
     @property
     def can_delete(self):
-        """Record can be deleted."""
-        return len(self.reasons_not_to_delete()) == 0
+        """Record can be deleted.
+
+        :return a tuple with True|False and reasons not to delete if False.
+        """
+        reasons = self.reasons_not_to_delete()
+        return len(reasons) == 0, reasons
 
     @property
     def organisation_pid(self):

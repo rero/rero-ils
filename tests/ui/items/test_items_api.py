@@ -109,7 +109,9 @@ def test_item_create(item_lib_martigny_data_tmp, item_lib_martigny):
     assert item == item_lib_martigny_data_tmp
     # we have used item_lib_martigny_data_tmp two times -> pid == 2
     assert item.get('pid') == '2'
-    assert item.can_delete
+    can, reasons = item.can_delete
+    assert can
+    assert reasons == {}
 
     item = Item.get_record_by_pid('1')
     item_lib_martigny_data_tmp['pid'] = '1'
@@ -126,8 +128,9 @@ def test_item_create(item_lib_martigny_data_tmp, item_lib_martigny):
 
 def test_item_can_delete(item_lib_martigny):
     """Test can delete"""
-    assert item_lib_martigny.get_links_to_me() == {}
-    assert item_lib_martigny.can_delete
+    can, reasons = item_lib_martigny.can_delete
+    assert can
+    assert reasons == {}
 
 
 def test_item_extended_validation(client, holding_lib_martigny_w_patterns):

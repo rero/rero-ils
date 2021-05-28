@@ -107,24 +107,23 @@ def test_circ_policy_exist_name_and_organisation_pid(
 def test_circ_policy_can_not_delete(circ_policy_default_martigny,
                                     circ_policy_short_martigny):
     """Test can not delete a policy."""
-    others = circ_policy_default_martigny.reasons_to_keep()
-    assert others['is_default']
-    assert not circ_policy_default_martigny.can_delete
+    can, reasons = circ_policy_default_martigny.can_delete
+    assert not can
+    assert reasons['others']['is_default']
 
-    others = circ_policy_short_martigny.reasons_to_keep()
-    assert 'is_default' not in others
-    assert circ_policy_short_martigny.can_delete
+    can, reasons = circ_policy_short_martigny.can_delete
+    assert can
+    assert reasons == {}
 
 
 def test_circ_policy_can_delete(app, circ_policy_martigny_data_tmp):
     """Test can delete a policy."""
     circ_policy_martigny_data_tmp['is_default'] = False
     cipo = CircPolicy.create(circ_policy_martigny_data_tmp, delete_pid=True)
-    assert cipo.get_links_to_me() == {}
-    assert cipo.can_delete
 
-    reasons = cipo.reasons_not_to_delete()
-    assert 'links' not in reasons
+    can, reasons = cipo.can_delete
+    assert can
+    assert reasons == {}
 
     with mock.patch(
             'rero_ils.modules.circ_policies.api.CircPolicy.get_links_to_me'

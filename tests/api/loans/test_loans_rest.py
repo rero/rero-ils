@@ -242,12 +242,12 @@ def test_due_soon_loans(client, librarian_martigny,
     item = item_lib_martigny
     item_pid = item.pid
     patron_pid = patron_martigny.pid
-
-    assert not get_last_transaction_loc_for_item(item_pid)
-
-    assert not item.patron_has_an_active_loan_on_item(patron_martigny)
-    assert item.can_delete
+    can, reasons = item.can_delete
+    assert can
+    assert reasons == {}
     assert item.available
+    assert not get_last_transaction_loc_for_item(item_pid)
+    assert not item.patron_has_an_active_loan_on_item(patron_martigny)
 
     from rero_ils.modules.circ_policies.api import CircPolicy
     circ_policy = CircPolicy.provide_circ_policy(

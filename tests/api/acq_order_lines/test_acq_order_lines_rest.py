@@ -148,21 +148,16 @@ def test_acq_order_lines_post_put_delete(
 
 def test_acq_order_lines_can_delete(client, acq_order_line_fiction_martigny):
     """Test can delete an acq order line."""
-    links = acq_order_line_fiction_martigny.get_links_to_me()
-    assert not links
-
-    assert acq_order_line_fiction_martigny.can_delete
-
-    reasons = acq_order_line_fiction_martigny.reasons_not_to_delete()
-    assert not reasons
+    can, reasons = acq_order_line_fiction_martigny.can_delete
+    assert can
+    assert reasons == {}
 
 
 def test_acq_order_lines_document_can_delete(
         client, document, acq_order_line_fiction_martigny):
     """Test can delete a document with a linked acquisition order line."""
-    assert not document.can_delete
-
-    reasons = document.reasons_not_to_delete()
+    can, reasons = document.can_delete
+    assert not can
     assert reasons['links']['acq_order_lines']
 
 

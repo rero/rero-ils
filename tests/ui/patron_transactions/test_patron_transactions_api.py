@@ -73,9 +73,9 @@ def test_patron_transaction_es_mapping(
 
 def test_patron_transaction_can_delete(patron_transaction_overdue_martigny):
     """Test can delete."""
-    assert patron_transaction_overdue_martigny.get_links_to_me() == \
-        {'events': 1}
-    assert not patron_transaction_overdue_martigny.can_delete
+    can, reasons = patron_transaction_overdue_martigny.can_delete
+    assert not can
+    assert reasons['links']['events']
 
 
 def test_patron_transaction_currency(

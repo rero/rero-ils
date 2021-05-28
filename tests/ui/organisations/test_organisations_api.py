@@ -47,8 +47,9 @@ def test_organisation_create(app, db, org_martigny_data, org_sion_data):
     assert org == org_martigny_data
     assert org.get('pid') == '1'
 
-    assert org.get_links_to_me() == {}
-    assert org.can_delete
+    can, reasons = org.can_delete
+    assert can
+    assert reasons == {}
 
     org = Organisation.get_record_by_pid('1')
     assert org == org_martigny_data

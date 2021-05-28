@@ -129,8 +129,9 @@ def test_ill_requests_post_put_delete(client, org_martigny, json_header,
 
 def test_ill_requests_can_delete(client, ill_request_martigny):
     """Test can delete an ill request."""
-    assert ill_request_martigny.can_delete
-    assert not ill_request_martigny.reasons_not_to_delete()
+    can, reasons = ill_request_martigny.can_delete
+    assert can
+    assert reasons == {}
 
 
 def test_filtered_ill_requests_get(

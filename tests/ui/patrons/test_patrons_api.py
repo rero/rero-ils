@@ -304,8 +304,9 @@ def test_get_patrons_by_user(patron_martigny):
 
 def test_user_librarian_can_delete(librarian_martigny):
     """Test can delete a librarian."""
-    assert librarian_martigny.get_links_to_me() == {}
-    assert librarian_martigny.can_delete
+    can, reasons = librarian_martigny.can_delete
+    assert can
+    assert reasons == {}
 
 
 def test_get_patron_blocked_field(patron_martigny):

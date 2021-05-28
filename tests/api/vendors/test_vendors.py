@@ -75,9 +75,8 @@ def test_vendors_can_delete(
         client, vendor_martigny, acq_order_fiction_martigny,
         acq_invoice_fiction_martigny, holding_lib_martigny_w_patterns):
     """Test can delete a vendor with a linked acquisition order."""
-    assert not vendor_martigny.can_delete
-
-    reasons = vendor_martigny.reasons_not_to_delete()
+    can, reasons = vendor_martigny.can_delete
+    assert not can
     assert reasons['links']['acq_orders']
     assert reasons['links']['acq_invoices']
     assert reasons['links']['holdings']

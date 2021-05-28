@@ -54,8 +54,9 @@ def test_notification_organisation_pid(
         org_martigny.pid
 
     # test notification can_delete
-    assert notification_availability_martigny.get_links_to_me() == {}
-    assert notification_availability_martigny.can_delete
+    can, reasons = notification_availability_martigny.can_delete
+    assert can
+    assert reasons == {}
 
 
 def test_notification_mail(notification_late_martigny, lib_martigny, mailbox):

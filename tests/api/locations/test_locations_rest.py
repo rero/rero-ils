@@ -222,13 +222,9 @@ def test_locations_post_put_delete(client, lib_martigny,
 
 def test_location_can_delete(client, item_lib_martigny, loc_public_martigny):
     """Test can delete a location."""
-    links = loc_public_martigny.get_links_to_me()
-    assert 'items' in links
-
-    assert not loc_public_martigny.can_delete
-
-    reasons = loc_public_martigny.reasons_not_to_delete()
-    assert 'links' in reasons
+    can, reasons = loc_public_martigny.can_delete
+    assert not can
+    assert reasons['links']['items']
 
 
 def test_filtered_locations_get(client, librarian_martigny,

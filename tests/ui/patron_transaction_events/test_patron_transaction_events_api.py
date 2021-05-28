@@ -77,5 +77,6 @@ def test_patron_transaction_event_create(
 def test_patron_transaction_event_can_delete(
         patron_transaction_overdue_event_martigny):
     """Test can delete."""
-    assert patron_transaction_overdue_event_martigny.get_links_to_me() == {}
-    assert patron_transaction_overdue_event_martigny.can_delete
+    can, reasons = patron_transaction_overdue_event_martigny.can_delete
+    assert can
+    assert reasons == {}

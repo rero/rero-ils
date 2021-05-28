@@ -164,13 +164,9 @@ def test_acq_orders_can_delete(
         client, document, acq_order_fiction_martigny,
         acq_order_line_fiction_martigny):
     """Test can delete an acq order."""
-    links = acq_order_fiction_martigny.get_links_to_me()
-    assert 'acq_order_lines' in links
-
-    assert not acq_order_fiction_martigny.can_delete
-
-    reasons = acq_order_fiction_martigny.reasons_not_to_delete()
-    assert 'links' in reasons
+    can, reasons = acq_order_fiction_martigny.can_delete
+    assert not can
+    assert reasons['links']['acq_order_lines']
 
 
 def test_filtered_acq_orders_get(

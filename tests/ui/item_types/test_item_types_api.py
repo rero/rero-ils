@@ -71,16 +71,17 @@ def test_item_type_get_pid_by_name(item_type_standard_martigny):
 def test_item_type_can_not_delete(item_type_standard_martigny,
                                   item_lib_martigny):
     """Test item type can not delete"""
-    links = item_type_standard_martigny.get_links_to_me()
-    assert links['items'] == 1
-    assert not item_type_standard_martigny.can_delete
+    can, reasons = item_type_standard_martigny.can_delete
+    assert not can
+    assert reasons['links']['items']
 
 
 def test_item_type_can_delete(app, item_type_data_tmp):
     """Test item type can delete"""
     itty = ItemType.create(item_type_data_tmp, delete_pid=True)
-    assert itty.get_links_to_me() == {}
-    assert itty.can_delete
+    can, reasons = itty.can_delete
+    assert can
+    assert reasons == {}
 
 
 def test_item_type_properties(item_type_standard_martigny):

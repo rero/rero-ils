@@ -195,13 +195,9 @@ def test_patron_transaction_photocopy_create(
 def test_patron_transaction_shortcuts_utils(
         client, patron_transaction_overdue_martigny, loan_overdue_martigny):
     """Test patron transaction shortcuts and utils."""
-    links = patron_transaction_overdue_martigny.get_links_to_me()
-    assert 'events' in links
-
-    assert not patron_transaction_overdue_martigny.can_delete
-
-    reasons = patron_transaction_overdue_martigny.reasons_not_to_delete()
-    assert 'links' in reasons
+    can, reasons = patron_transaction_overdue_martigny.can_delete
+    assert not can
+    assert reasons['links']['events']
 
     assert patron_transaction_overdue_martigny.loan_pid == \
         loan_overdue_martigny.pid

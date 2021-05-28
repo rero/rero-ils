@@ -75,5 +75,6 @@ def test_location_organisation_pid(org_martigny, loc_public_martigny):
 
 def test_location_can_delete(loc_public_martigny):
     """Test can delete."""
-    assert loc_public_martigny.get_links_to_me() == {}
-    assert loc_public_martigny.can_delete
+    can, reasons = loc_public_martigny.can_delete
+    assert can
+    assert reasons == {}
