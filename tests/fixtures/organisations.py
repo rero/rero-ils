@@ -24,6 +24,7 @@ from utils import flush_index
 
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch, CircPolicy
 from rero_ils.modules.collections.api import Collection, CollectionsSearch
+from rero_ils.modules.documents.api import Document
 from rero_ils.modules.item_types.api import ItemType, ItemTypesSearch
 from rero_ils.modules.libraries.api import LibrariesSearch, Library
 from rero_ils.modules.locations.api import Location, LocationsSearch
@@ -921,7 +922,7 @@ def coll_martigny_1_data(data):
 
 @pytest.fixture(scope="module")
 def coll_martigny_1(
-        app, org_martigny, coll_martigny_1_data,
+        app, document, org_martigny, coll_martigny_1_data,
         item_lib_martigny, item2_lib_martigny):
     """Create collection Martigny 1."""
     coll = Collection.create(
@@ -930,6 +931,8 @@ def coll_martigny_1(
         dbcommit=True,
         reindex=True)
     flush_index(CollectionsSearch.Meta.index)
+    doc = Document.get_record_by_pid(document.pid)
+    doc.reindex()
     return coll
 
 

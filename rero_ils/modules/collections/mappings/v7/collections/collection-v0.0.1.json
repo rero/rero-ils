@@ -34,7 +34,12 @@
         }
       },
       "description": {
-        "type": "text"
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          }
+        }
       },
       "subjects": {
         "properties": {

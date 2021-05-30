@@ -800,6 +800,16 @@
           }
         }
       },
+      "collections": {
+        "properties": {
+          "title": {
+            "type": "text"
+          },
+          "description": {
+            "type": "text"
+          }
+        }
+      },
       "holdings": {
         "type": "object",
         "properties": {
@@ -937,16 +947,6 @@
               },
               "notes": {
                 "type": "text"
-              },
-              "collections": {
-                "properties": {
-                  "title": {
-                    "type": "text"
-                  },
-                  "description": {
-                    "type": "text"
-                  }
-                }
               },
               "local_fields": {
                 "properties": {

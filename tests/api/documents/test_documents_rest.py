@@ -159,6 +159,35 @@ def test_documents_newacq_filters(app, client,
     assert data['hits']['total']['value'] == 0
 
 
+def test_documents_get_with_collections(
+    client, coll_martigny_1
+):
+    """Test record retrieval."""
+    # search by collection title
+    list_url = url_for(
+        'invenio_records_rest.doc_list',
+        q='collections.title:"Course number 1"',
+        view='global')
+
+    res = client.get(list_url)
+    data = get_json(res)
+    assert res.status_code == 200
+    assert data['hits']['total']['value'] == 1
+    assert data['hits']['hits'][0]['metadata']['collections']
+
+    # search by collection description
+    list_url = url_for(
+        'invenio_records_rest.doc_list',
+        q='collections.description:"List of items for course 1"',
+        view='global')
+
+    res = client.get(list_url)
+    data = get_json(res)
+    assert res.status_code == 200
+    assert data['hits']['total']['value'] == 1
+    assert data['hits']['hits'][0]['metadata']['collections']
+
+
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_documents_facets(

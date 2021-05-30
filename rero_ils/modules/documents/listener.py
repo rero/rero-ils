@@ -19,10 +19,12 @@
 
 from isbnlib import is_isbn10, is_isbn13, to_isbn10, to_isbn13
 
+from rero_ils.modules.collections.api import CollectionsSearch
+
 from .utils import create_contributions, title_format_text_head
 from ..documents.api import Document, DocumentsSearch
 from ..holdings.api import Holding, HoldingsSearch
-from ..items.api import Item, ItemsSearch
+from ..items.api import ItemsSearch
 from ..items.models import ItemNoteTypes
 from ..local_fields.api import LocalField
 from ..utils import extracted_data_from_ref
@@ -40,6 +42,8 @@ def enrich_document_data(sender, json=None, record=None, index=None,
     if index.split('-')[0] == DocumentsSearch.Meta.index:
         # HOLDINGS
         holdings = []
+        # Item pids for collections
+        item_pids = []
         document_pid = record['pid']
         es_holdings = HoldingsSearch().filter(
             'term', document__pid=document_pid
@@ -84,6 +88,7 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                 ItemsSearch().filter('term', holding__pid=holding.pid).scan()
             )
             for item in es_items:
+                item_pids.append(item['pid'])
                 item = item.to_dict()
                 item_record = {
                     'pid': item['pid'],
@@ -118,23 +123,15 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                 if public_notes_content:
                     item_record['notes'] = public_notes_content
 
-                # related collection
-                #   index the collection title and description
-                item_obj = Item.get_record_by_pid(item['pid'])
-                for collection in item_obj.in_collection():
-                    coll_data = {
-                        'title': collection.get('title'),
-                        'description': collection.get('description')
-                    }
-                    coll_data = {k: v for k, v in coll_data.items() if v}
-                    item_record.setdefault('collections', []).append(coll_data)
-
                 data.setdefault('items', []).append(item_record)
             data['available'] = Holding.isAvailable(es_items)
             holdings.append(data)
 
         if holdings:
             json['holdings'] = holdings
+
+        # add related collection title and description
+        update_collections(item_pids, json)
 
         # MEF contribution ES index update
         contributions = create_contributions(json.get('contribution', []))
@@ -187,3 +184,30 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                 isbns.add(to_isbn10(isbn))
         if isbns:
             json['isbn'] = list(isbns)
+
+
+def update_collections(item_pids, json, agg_size=1000):
+    """Add all collection titles and descriptions.
+
+    Modify the json in place
+
+    :param item_pids: list of item pids
+    :param json: document data, updated in place.
+    :param agg_size: number of maximum elasticsearch aggs terms.
+    """
+    # filter by item pids, results are useless
+    s = CollectionsSearch().filter('terms', items__pid=item_pids)[0:0]
+    # create title aggregation
+    s.aggs.bucket('title', 'terms', field='title_sort', size=agg_size)
+    # create description aggregation
+    s.aggs.bucket('description', 'terms', field='description.raw')
+    # execute the es query
+    res = s.execute()
+    # inject the value in the JSON document
+    titles = [v['key'] for v in res.aggregations['title'].buckets]
+    descriptions = [v['key'] for v in res.aggregations['description'].buckets]
+    if titles or descriptions:
+        json['collections'] = {
+            'title': titles,
+            'description': descriptions
+        }
