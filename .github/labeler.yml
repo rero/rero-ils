@@ -7,6 +7,7 @@ documentation:
   - README.rst
   - RELEASE-NOTES.rst
   - .github/**/*
+  - rero_ils/theme/templates/rero_ils/page_wiki.html
 
 # Add translations label to any changes within translations folders and subfolders
 translations:
@@ -14,13 +15,16 @@ translations:
   - rero_ils/manual_translations.txt
   - rero_ils/translations/**/*
 
-# Add data label to any changes in document and item jsonschemas folders
+# Add data label to any changes in document and item jsonschemas folders, and
+# in DOJSON folders
 data:
   - rero_ils/jsonschemas/**/*
   - rero_ils/modules/documents/jsonschemas/**/*
   - rero_ils/modules/documents/utils.py
   - rero_ils/modules/items/jsonschemas/**/*
   - rero_ils/modules/contributions/jsonschemas/**/*
+  - rero_ils/modules/local_fields/jsonschemas/**/*
+  - rero_ils/modules/**/dojson/**/*
 
 # Add data-export label to any changes in dojson json to dublin core or to
 # MARC21 folders and in the SRU module:
@@ -43,16 +47,19 @@ circulation:
   - rero_ils/modules/items/utils.py
   - rero_ils/modules/loans/**/*
   - rero_ils/modules/ill_requests/**/*
+  - rero_ils/modules/patron_types/**/*
 
 # Add 'user management' label to any changes in users or patrons folders and
 # subfolders
 "user management":
   - rero_ils/modules/users/**/*
   - rero_ils/modules/patrons/**/*
+  - rero_ils/modules/patron_types/**/*
 
 # Add acquisition label to any changes in acquisition related folders and
 # subfolders
 acquisition:
+  - rero_ils/acquisition/**/*
   - rero_ils/modules/acq_accounts/**/*
   - rero_ils/modules/acq_invoices/**/*
   - rero_ils/modules/acq_order_lines/**/*
@@ -62,3 +69,19 @@ acquisition:
 # Add deployment label to any changes in the following files or folders
 deployment:
   - Dockerfile*
+
+# Add permissions label to any changes in a permissions.py files
+permissions:
+  - rero_ils/**/*/permissions.py
+
+# Add fixtures label to any changes in data folder or subfolders
+fixtures:
+  - rero_ils/data/**/*
+
+# Add serials label to any changes in the following files or folders
+serials:
+  - rero_ils/modules/items/api/issue.py
+
+activity-logs:
+  - rero_ils/modules/loans/logs/api.py
+  - rero_ils/modules/operation_logs/**/*
