@@ -22,7 +22,7 @@ from __future__ import absolute_import, print_function
 import requests
 from flask import Blueprint, Response, abort, current_app, render_template, \
     request
-from flask_babelex import gettext as _
+from flask_babelex import gettext
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records_ui.signals import record_viewed
 
@@ -155,7 +155,7 @@ def translat_unified(data, prefix=''):
     """
     translated_data = {}
     for key, value in data.items():
-        translated_data[_('{prefix}{key}'.format(
+        translated_data[gettext('{prefix}{key}'.format(
             prefix=prefix, key=key))] = value
     return translated_data
 
@@ -168,11 +168,11 @@ def translat(data, prefix='', seperator=', '):
         if isinstance(data, list):
             translated = []
             for item in data:
-                translated.append(_('{prefix}{item}'.format(
+                translated.append(gettext('{prefix}{item}'.format(
                     prefix=prefix, item=item)))
             translated = seperator.join(translated)
         elif isinstance(data, str):
-            translated = _('{prefix}{data}'.format(
+            translated = gettext('{prefix}{data}'.format(
                 prefix=prefix, data=data))
     return translated
 
