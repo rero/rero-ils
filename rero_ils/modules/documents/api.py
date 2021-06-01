@@ -277,6 +277,19 @@ class Document(IlsRecord):
 
         return super().replace_refs()
 
+    def get_identifier_values(self, filters=None):
+        """Get the document identifiers values filtered by identifier types.
+
+        :param filters: an array of identifiers types. If None or empty,
+                        return all identifiers.
+        :return an array of all identifier values corresponding to filters.
+        """
+        filters = [] or filters
+        return [
+            identifier['value'] for identifier in self.get('identifiedBy', [])
+            if not filters or identifier['type'] in filters
+        ]
+
     @property
     def document_type(self):
         """Get first document type of document."""
