@@ -22,7 +22,8 @@ from isbnlib import is_isbn10, is_isbn13, to_isbn10, to_isbn13
 from .utils import create_contributions, title_format_text_head
 from ..documents.api import Document, DocumentsSearch
 from ..holdings.api import Holding, HoldingsSearch
-from ..items.api import Item, ItemsSearch
+# from ..items.api import Item, ItemsSearch
+from ..items.api import ItemsSearch
 from ..items.models import ItemNoteTypes
 from ..local_fields.api import LocalField
 from ..utils import extracted_data_from_ref
@@ -120,14 +121,15 @@ def enrich_document_data(sender, json=None, record=None, index=None,
 
                 # related collection
                 #   index the collection title and description
-                item_obj = Item.get_record_by_pid(item['pid'])
-                for collection in item_obj.in_collection():
-                    coll_data = {
-                        'title': collection.get('title'),
-                        'description': collection.get('description')
-                    }
-                    coll_data = {k: v for k, v in coll_data.items() if v}
-                    item_record.setdefault('collections', []).append(coll_data)
+                # item_obj = Item.get_record_by_pid(item['pid'])
+                # for collection in item_obj.in_collection():
+                #     coll_data = {
+                #         'title': collection.get('title'),
+                #         'description': collection.get('description')
+                #     }
+                #     coll_data = {k: v for k, v in coll_data.items() if v}
+                #     item_record.setdefault(
+                #         'collections', []).append(coll_data)
 
                 data.setdefault('items', []).append(item_record)
             data['available'] = Holding.isAvailable(es_items)

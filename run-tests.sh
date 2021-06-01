@@ -68,7 +68,7 @@ fi
 
 function pretests () {
   info_msg "Check vulnerabilities:"
-  safety check
+  safety check -i 40459
   info_msg "Check json:"
   invenio utils check_json tests/data rero_ils/modules data
   info_msg "Check license:"
