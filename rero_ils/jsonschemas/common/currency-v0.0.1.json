@@ -1,0 +1,19 @@
+{
+  "currency": {
+    "title": "Currency",
+    "type": "string",
+    "enum": [
+      "CHF",
+      "CAD",
+      "EUR",
+      "GBP",
+      "USD",
+      "AUD"
+    ],
+    "default": "CHF",
+    "pattern": "^[A-Z]{3}$",
+    "form": {
+      "type": "selectWithSort"
+    }
+  }
+}
