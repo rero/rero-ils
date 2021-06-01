@@ -39,26 +39,72 @@
           }
         }
       },
-      "order_number": {
+      "reference": {
         "type": "keyword"
       },
-      "order_type": {
+      "type": {
         "type": "keyword"
       },
       "description": {
         "type": "text"
       },
-      "order_status": {
+      "status": {
         "type": "keyword"
       },
       "currency": {
         "type": "keyword"
       },
-      "order_date": {
-        "type": "date"
-      },
       "total_amount": {
         "type": "float"
+      },
+      "order_lines": {
+        "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "order_date": {
+            "type": "date"
+          },
+          "reception_date": {
+            "type": "date"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "keyword"
+          },
+          "document": {
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "title": {
+                "type": "text"
+              },
+              "identifiers": {
+                "type": "text"
+              }
+            }
+          },
+          "account": {
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "name": {
+                "type": "text",
+                "copy_to": "name_sort"
+              },
+              "name_sort": {
+                "type": "keyword"
+              },
+              "number": {
+                "type": "keyword"
+              }
+            }
+          }
+        }
       },
       "_created": {
         "type": "date"

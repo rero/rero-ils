@@ -38,14 +38,32 @@
       "type": "string",
       "minLength": 1,
       "form": {
-        "focus": true
+        "focus": true,
+        "validation": {
+          "validators": {
+            "valueAlreadyExists": {}
+          },
+          "messages": {
+            "alreadyTakenMessage": "The name is already taken."
+          }
+        }
       }
     },
     "number": {
       "title": "Account number",
       "description": "Reference account number in accounting system.",
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "form": {
+        "validation": {
+          "validators": {
+            "valueAlreadyExists": {}
+          },
+          "messages": {
+            "alreadyTakenMessage": "The number is already taken."
+          }
+        }
+      }
     },
     "allocated_amount": {
       "title": "Allocated amount",
@@ -58,7 +76,7 @@
       }
     },
     "encumbrance_exceedance": {
-      "title": "Emcumbrance exceedance",
+      "title": "Encumbrance exceedance",
       "description": "The exceedance percentage of account amount that linked pending orders can reach.",
       "type": "number",
       "minimum": 0,
