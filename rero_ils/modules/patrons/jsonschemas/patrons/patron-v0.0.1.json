@@ -441,6 +441,7 @@
         "enum": [
           "patron",
           "librarian",
+          "acquisition_librarian",
           "system_librarian"
         ],
         "form": {
@@ -453,6 +454,10 @@
             {
               "label": "librarian",
               "value": "librarian"
+            },
+            {
+              "label": "acquisition_librarian",
+              "value": "acquisition_librarian"
             },
             {
               "label": "system_librarian",

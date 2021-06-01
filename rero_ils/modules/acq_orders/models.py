@@ -25,7 +25,7 @@ from invenio_records.models import RecordMetadataBase
 
 
 class AcqOrderIdentifier(RecordIdentifier):
-    """Sequence generator for Acquisition Order identifiers."""
+    """Sequence generator for acquisition order identifiers."""
 
     __tablename__ = 'acq_order_id'
     __mapper_args__ = {'concrete': True}
@@ -40,3 +40,13 @@ class AcqOrderMetadata(db.Model, RecordMetadataBase):
     """AcqOrder record metadata."""
 
     __tablename__ = 'acq_order_metadata'
+
+
+class AcqOrderStatus:
+    """Available statuses for an acquisition order."""
+
+    CANCELED = 'canceled'
+    ORDERED = 'ordered'
+    PENDING = 'pending'
+    PARTIALLY_RECEIVED = 'partially_received'
+    RECEIVED = 'received'

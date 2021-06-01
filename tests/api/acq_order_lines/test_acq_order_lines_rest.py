@@ -18,12 +18,15 @@
 """Tests REST API acquisition orders."""
 
 import json
+from copy import deepcopy
 
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
+
+from rero_ils.modules.utils import get_ref_for_pid
 
 
 def test_acq_orders_lines_permissions(
@@ -58,11 +61,9 @@ def test_acq_order_lines_get(client, acq_order_line_fiction_martigny):
     item_url = url_for('invenio_records_rest.acol_item', pid_value='acol1')
     acq_order_line = acq_order_line_fiction_martigny
     res = client.get(item_url)
-    assert res.status_code == 200
-
-    assert res.headers['ETag'] == '"{}"'.format(acq_order_line.revision_id)
-
     data = get_json(res)
+    assert res.status_code == 200
+    assert res.headers['ETag'] == '"{}"'.format(acq_order_line.revision_id)
     assert acq_order_line.dumps() == data['metadata']
 
     # Check metadata
@@ -82,7 +83,8 @@ def test_acq_order_lines_get(client, acq_order_line_fiction_martigny):
     assert res.status_code == 200
     data = get_json(res)
 
-    assert data['hits']['hits'][0]['metadata'] == acq_order_line.replace_refs()
+    metadata = data['hits']['hits'][0]['metadata']
+    assert metadata == acq_order_line.replace_refs()
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
@@ -265,3 +267,22 @@ def test_acq_order_line_secure_api_update(client,
         headers=json_header
     )
     assert res.status_code == 403
+
+
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_order_line_linked_to_harvested_doc(
+    client,
+    acq_order_line_fiction_martigny_data,
+    acq_account_fiction_martigny,
+    ebook_1
+):
+    """Test order line with an harvested document."""
+    ebook_ref = get_ref_for_pid('doc', ebook_1.pid)
+    order_line = deepcopy(acq_order_line_fiction_martigny_data)
+    del order_line['pid']
+    order_line['document']['$ref'] = ebook_ref
+
+    res, data = postdata(client, 'invenio_records_rest.acol_list', order_line)
+    assert res.status_code == 400
+    assert 'Cannot link to an harvested document' in data['message']

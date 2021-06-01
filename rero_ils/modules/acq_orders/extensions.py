@@ -19,8 +19,10 @@
 
 from invenio_records.extensions import RecordExtension
 
+from rero_ils.modules.utils import extracted_data_from_ref
 
-class TotalAmountExtension(RecordExtension):
+
+class AcquisitionOrderDynamicFieldsExtension(RecordExtension):
     """Update the total amount by summing the order lines."""
 
     def pre_dump(self, record, dumper=None):
@@ -30,11 +32,49 @@ class TotalAmountExtension(RecordExtension):
         :param dumper: the record dumper.
         """
         record['total_amount'] = record.get_order_total_amount()
+        record['status'] = record.status
 
     def pre_load(self, data, loader=None):
         """Called before a record is loaded.
 
-        :param record: the record metadata.
+        :param data: the data to load.
         :param loader: the record loader.
         """
         data.pop('total_amount', None)
+        data.pop('status', None)
+
+
+class AcquisitionOrderCompleteDataExtension(RecordExtension):
+    """Complete data about an acquisition order."""
+
+    @staticmethod
+    def populate_currency(record):
+        """Add vendor currency to order data."""
+        vendor = record.get('vendor')
+        if vendor:
+            vendor = extracted_data_from_ref(vendor, data='record')
+            record['currency'] = vendor.get('currency')
+
+    # TODO : This hook doesn't work as expected now.
+    #   The record is well updated with currency key, but this key isn't store
+    #   into the database json blob record
+    # def pre_create(self, record):
+    #     """Called Called before a record is created.
+    #
+    #     :param record: the record metadata.
+    #     """
+    #     # The vendor currency could change over time, but when an order is
+    #     # created the currency used couldn't change if we update the vendor
+    #     # currency. So we need to store the currency into the order instead
+    #     # of just use a vendor reference.
+    #     AcquisitionOrderCompleteDataExtension.populate_currency(record)
+
+    def pre_commit(self, record):
+        """Called before a record is committed.
+
+        :param record: the record metadata.
+        """
+        # If we update the vendor, we need to change the order currency.
+        original_record = record.__class__.get_record_by_pid(record.pid)
+        if original_record and original_record.vendor_pid != record.vendor_pid:
+            AcquisitionOrderCompleteDataExtension.populate_currency(record)
