@@ -21,6 +21,7 @@ from invenio_records_rest.serializers.response import search_responsify
 
 from ..libraries.api import Library
 from ..serializers import JSONSerializer, RecordSchemaJSONV1
+from ..vendors.api import Vendor
 
 
 class AcqOrderJSONSerializer(JSONSerializer):
@@ -28,13 +29,23 @@ class AcqOrderJSONSerializer(JSONSerializer):
 
     def post_process_serialize_search(self, results, pid_fetcher):
         """Post process the search results."""
-        # Add library name
-        for lib_term in results.get('aggregations', {}).get(
-                'library', {}).get('buckets', []):
-            pid = lib_term.get('key')
-            name = Library.get_record_by_pid(pid).get('name')
-            lib_term['key'] = pid
-            lib_term['name'] = name
+        # Adding info into buckets
+        JSONSerializer.complete_bucket_with_attribute(
+            results, 'library', Library, 'name')
+        JSONSerializer.complete_bucket_with_attribute(
+            results, 'vendor', Vendor, 'name')
+
+        # Add configuration for order_date bucket
+        aggr = results['aggregations'].get('order_date')
+        if aggr:
+            bucket_values = [term['key'] for term in aggr.get('buckets', [])]
+            if bucket_values:
+                results['aggregations']['order_date']['type'] = 'range'
+                results['aggregations']['order_date']['config'] = {
+                    'min': min(bucket_values),
+                    'max': max(bucket_values),
+                    'step': 86400000  # 1 day in millis
+                }
 
         return super().post_process_serialize_search(results, pid_fetcher)
 

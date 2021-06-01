@@ -48,8 +48,6 @@ class AcqOrderLineStatus:
     APPROVED = 'approved'
     CANCELED = 'canceled'
     ORDERED = 'ordered'
-    PENDING = 'pending'
     RECEIVED = 'received'
-    REQUESTED = 'requested'
 
-    OPEN = [APPROVED, ORDERED, REQUESTED, PENDING]
+    OPEN = [APPROVED, ORDERED]
