@@ -25,7 +25,7 @@ from invenio_records.models import RecordMetadataBase
 
 
 class AcqAccountIdentifier(RecordIdentifier):
-    """Sequence generator for AcqAccount identifiers."""
+    """Sequence generator for acquisition account identifiers."""
 
     __tablename__ = 'acq_account_id'
     __mapper_args__ = {'concrete': True}
@@ -40,3 +40,10 @@ class AcqAccountMetadata(db.Model, RecordMetadataBase):
     """AcqAccount record metadata."""
 
     __tablename__ = 'acq_account_metadata'
+
+
+class AcqAccountExceedanceType:
+    """Type of exceedance about an acquisition account."""
+
+    ENCUMBRANCE = 'encumbrance'
+    EXPENDITURE = 'expenditure'
