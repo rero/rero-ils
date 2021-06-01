@@ -68,7 +68,8 @@ fi
 
 function pretests () {
   info_msg "Check vulnerabilities:"
-  safety check
+  # Ignore 40459 until the next release of flask-caching will be available.
+  safety check -i 40459
   info_msg "Check json:"
   invenio utils check_json tests/data rero_ils/modules data
   info_msg "Check license:"
