@@ -233,6 +233,7 @@ eval ${PREFIX} "invenio roles create -d 'Super Users Group' superuser"
 eval ${PREFIX} "invenio roles create -d 'Monitoring Group' monitoring"
 eval ${PREFIX} "invenio roles create -d 'Patron' patron"
 eval ${PREFIX} "invenio roles create -d 'Librarian' librarian"
+eval ${PREFIX} "invenio roles create -d 'Acquisition librarian' acquisition_librarian"
 eval ${PREFIX} "invenio roles create -d 'System Librarian' system_librarian"
 eval ${PREFIX} "invenio roles create -d 'Documentation Editor' editor"
 eval ${PREFIX} "invenio roles create -d 'Document Importing' document_importer"
@@ -453,7 +454,6 @@ fi
 # create acquisition accounts
 info_msg "Acquisition accounts: ${DATA_PATH}/acq_accounts.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type acac ${DATA_PATH}/acq_accounts.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
-# TODO :: check why acac is noot indexed. Use a CLI to index acac in correct order ?
 eval ${PREFIX} invenio reroils index reindex -t acac --yes-i-know
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
     eval ${PREFIX} invenio reroils index reindex_missing -t acac -v

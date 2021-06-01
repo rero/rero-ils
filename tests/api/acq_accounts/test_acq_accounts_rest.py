@@ -18,6 +18,7 @@
 """Tests REST API acquisition accounts."""
 
 import json
+from copy import deepcopy
 
 import mock
 from flask import url_for
@@ -48,19 +49,14 @@ def test_acq_accounts_permissions(client, acq_account_fiction_martigny,
     res = client.get(item_url)
     assert res.status_code == 401
 
-    res, _ = postdata(
-        client,
-        'invenio_records_rest.acac_list',
-        {}
-    )
+    res, _ = postdata(client, 'invenio_records_rest.acac_list', {})
     assert res.status_code == 401
 
-    res = client.put(
+    client.put(
         url_for('invenio_records_rest.acac_item', pid_value='acac1'),
         data={},
         headers=json_header
     )
-
     res = client.delete(item_url)
     assert res.status_code == 401
 
@@ -105,57 +101,53 @@ def test_acq_accounts_post_put_delete(client,
                                       budget_2020_martigny,
                                       json_header):
     """Test record retrieval."""
-    # Create record / POST
-    item_url = url_for('invenio_records_rest.acac_item', pid_value='1')
-    list_url = url_for('invenio_records_rest.acac_list', q='pid:1')
 
-    acq_account_books_saxon_data.pop('pid')
-    res, data = postdata(
-        client,
-        'invenio_records_rest.acac_list',
-        acq_account_books_saxon_data
-    )
+    # TEST 1 :: Create record using POST API
+    #   and check that the returned record matches the given data
+    acc_data = deepcopy(acq_account_books_saxon_data)
+    del acc_data['pid']
+    res, data = postdata(client, 'invenio_records_rest.acac_list', acc_data)
     assert res.status_code == 201
+    acc_pid = data['metadata'].pop('pid')
+    assert acc_pid is not None
+    assert data['metadata'] == acc_data
+    acc_data['pid'] = acc_pid
 
-    # Check that the returned record matches the given data
-    acq_account_books_saxon_data['pid'] = '1'
-    assert data['metadata'] == acq_account_books_saxon_data
+    # TEST 2 :: Get the record using GET API
+    #   and check that the returned record matches the given data
+    item_url = url_for('invenio_records_rest.acac_item', pid_value=acc_pid)
+    list_url = url_for('invenio_records_rest.acac_list', q=f'pid:{acc_pid}')
 
     res = client.get(item_url)
-    assert res.status_code == 200
     data = get_json(res)
-    assert acq_account_books_saxon_data == data['metadata']
+    assert res.status_code == 200
+    assert acc_data == data['metadata']
 
-    # Update record/PUT
-    acq_account_books_saxon_data['name'] = 'Test Name'
+    # TEST 3 :: Update record using PUT API
+    #   and check that the returned record matches the given data
+    acc_data['name'] = 'Test Name'
     res = client.put(
         item_url,
-        data=json.dumps(acq_account_books_saxon_data),
+        data=json.dumps(acc_data),
         headers=json_header
     )
-    assert res.status_code == 200
-    # assert res.headers['ETag'] != '"{}"'.format(librarie.revision_id)
-
-    # Check that the returned record matches the given data
     data = get_json(res)
-    assert data['metadata']['name'] == 'Test Name'
+    assert res.status_code == 200
+    assert data['metadata']['name'] == acc_data['name']
 
     res = client.get(item_url)
-    assert res.status_code == 200
-
     data = get_json(res)
-    assert data['metadata']['name'] == 'Test Name'
+    assert res.status_code == 200
+    assert data['metadata']['name'] == acc_data['name']
 
     res = client.get(list_url)
-    assert res.status_code == 200
-
     data = get_json(res)['hits']['hits'][0]
-    assert data['metadata']['name'] == 'Test Name'
+    assert res.status_code == 200
+    assert data['metadata']['name'] == acc_data['name']
 
-    # Delete record/DELETE
+    # TEST 3 :: Delete record using DELETE API
     res = client.delete(item_url)
     assert res.status_code == 204
-
     res = client.get(item_url)
     assert res.status_code == 410
 
@@ -238,30 +230,17 @@ def test_acq_account_secure_api_create(client, json_header,
     )
     assert res.status_code == 403
 
-    acq_account_fiction_martigny_data.pop('pid')
-    res, _ = postdata(
-        client,
-        post_entrypoint,
-        acq_account_fiction_martigny_data
-    )
-    assert res.status_code == 201
-
-    login_user_via_session(client, system_librarian_martigny.user)
-    res, _ = postdata(
-        client,
-        post_entrypoint,
-        acq_account_fiction_martigny_data
-    )
+    acc_data = deepcopy(acq_account_fiction_martigny_data)
+    acc_data.pop('pid')
+    # we need to change name/number because it should be unique
+    acc_data['name'] = 'dummy_name'
+    acc_data['number'] = 'dummy_number'
+    res, _ = postdata(client, post_entrypoint, acc_data)
     assert res.status_code == 201
 
     # Sion
     login_user_via_session(client, librarian_sion.user)
-
-    res, _ = postdata(
-        client,
-        post_entrypoint,
-        acq_account_books_saxon_data
-    )
+    res, _ = postdata(client, post_entrypoint, acc_data)
     assert res.status_code == 403
 
 
@@ -323,3 +302,36 @@ def test_acq_account_secure_api_delete(client,
 
     res = client.delete(record_url)
     assert res.status_code == 403
+
+
+def test_acq_account_fields_uniqueness(
+    client, acq_account_fiction_martigny, acq_account_fiction_martigny_data,
+    librarian_martigny, json_header
+):
+    """Test fields uniqueness extensions."""
+    login_user_via_session(client, librarian_martigny.user)
+    acc_data = deepcopy(acq_account_fiction_martigny_data)
+    del acc_data['pid']
+
+    # TEST 1 :: Try to add but uniqueness values already exists
+    #   - `name` should be unique
+    #   - `number` should be unique
+    res, data = postdata(client, 'invenio_records_rest.acac_list', acc_data)
+    assert res == 400
+    assert 'already taken' in data['message']
+
+    acc_data['name'] = 'new_account_value'
+    res, data = postdata(client, 'invenio_records_rest.acac_list', acc_data)
+    assert res == 400
+    assert 'already taken' in data['message']
+
+    # TEST 2 :: I can update myself
+    #   Just try to update myself with same data. It will not raise any
+    #   ValidationError even if name and number already exists (for myself)
+    pid = acq_account_fiction_martigny.pid
+    res = client.put(
+        url_for('invenio_records_rest.acac_item', pid_value=pid),
+        data=json.dumps(acq_account_fiction_martigny),
+        headers=json_header
+    )
+    assert res == 200

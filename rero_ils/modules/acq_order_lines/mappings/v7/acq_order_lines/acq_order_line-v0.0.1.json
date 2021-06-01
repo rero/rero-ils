@@ -13,12 +13,28 @@
         "properties": {
           "pid": {
             "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
           }
         }
       },
       "acq_order": {
         "properties": {
           "pid": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          }
+        }
+      },
+      "acq_invoice": {
+        "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "type": {
             "type": "keyword"
           }
         }
@@ -73,6 +89,12 @@
       },
       "note": {
         "type": "text"
+      },
+      "order_date": {
+        "type": "date"
+      },
+      "reception_date": {
+        "type": "date"
       },
       "_created": {
         "type": "date"

@@ -26,6 +26,8 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
 
+from rero_ils.modules.acq_orders.models import AcqOrderStatus
+
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
@@ -38,7 +40,9 @@ def test_acq_orders_library_facets(
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
     aggs = data['aggregations']
-    assert 'library' in aggs
+    facets = ['library', 'vendor', 'type', 'status', 'account', 'order_date']
+    for facet_name in facets:
+        assert facet_name in aggs
 
 
 def test_acq_orders_permissions(client, acq_order_fiction_martigny,
@@ -98,6 +102,10 @@ def test_acq_order_get(client, acq_order_fiction_martigny):
     assert res.status_code == 200
     data = get_json(res)
 
+    metadata = data['hits']['hits'][0]['metadata']
+    # remove dynamically added fields
+    del metadata['organisation']
+    del metadata['order_lines']
     assert data['hits']['hits'][0]['metadata'] == acq_order.replace_refs()
 
 
@@ -121,12 +129,14 @@ def test_acq_orders_post_put_delete(client, org_martigny, vendor2_martigny,
 
     # Check that the returned record matches the given data
     assert data['metadata'].pop('total_amount') == 0.0
+    assert data['metadata'].pop('status') == AcqOrderStatus.PENDING
     assert data['metadata'] == acq_order_fiction_saxon
 
     res = client.get(item_url)
     assert res.status_code == 200
     data = get_json(res)
     assert data['metadata'].pop('total_amount') == 0.0
+    assert data['metadata'].pop('status') == AcqOrderStatus.PENDING
     assert acq_order_fiction_saxon == data['metadata']
 
     # Update record/PUT
