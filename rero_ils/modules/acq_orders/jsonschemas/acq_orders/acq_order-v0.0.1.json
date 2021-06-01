@@ -6,11 +6,8 @@
   "additionalProperties": false,
   "propertiesOrder": [
     "vendor",
-    "order_number",
-    "order_type",
-    "order_status",
-    "currency",
-    "order_date",
+    "reference",
+    "type",
     "description"
   ],
   "required": [
@@ -18,10 +15,8 @@
     "pid",
     "vendor",
     "library",
-    "order_number",
-    "order_type",
-    "order_status",
-    "currency"
+    "reference",
+    "type"
   ],
   "properties": {
     "$schema": {
@@ -36,25 +31,30 @@
       "type": "string",
       "minLength": 1
     },
-    "order_number": {
-      "title": "Order number",
+    "reference": {
+      "title": "Reference",
       "type": "string",
       "minLength": 3,
       "form": {
         "validation": {
           "validators": {
             "valueAlreadyExists": {
-              "term": "order_number"
+              "term": "reference"
             }
           },
           "messages": {
-            "alreadyTakenMessage": "The order number is already taken."
+            "alreadyTakenMessage": "This reference number already exists."
           }
         }
       }
     },
-    "order_type": {
-      "title": "Order type",
+    "description": {
+      "title": "Description",
+      "type": "string",
+      "minLength": 5
+    },
+    "type": {
+      "title": "Type",
       "type": "string",
       "enum": [
         "serial",
@@ -95,84 +95,13 @@
         ]
       }
     },
-    "description": {
-      "title": "Description",
-      "type": "string",
-      "minLength": 5
-    },
-    "order_status": {
-      "title": "Order status",
-      "type": "string",
-      "enum": [
-        "approved",
-        "canceled",
-        "ordered",
-        "requested",
-        "pending",
-        "received"
-      ],
-      "default": "pending",
-      "form": {
-        "type": "selectWithSort",
-        "options": [
-          {
-            "value": "approved",
-            "label": "approved"
-          },
-          {
-            "value": "canceled",
-            "label": "canceled"
-          },
-          {
-            "value": "ordered",
-            "label": "ordered"
-          },
-          {
-            "value": "requested",
-            "label": "requested"
-          },
-          {
-            "value": "pending",
-            "label": "pending"
-          },
-          {
-            "value": "received",
-            "label": "received"
-          }
-        ]
-      }
-    },
     "currency": {
-      "title": "Order currency",
-      "type": "string",
-      "enum": [
-        "CHF",
-        "EUR",
-        "USD"
-      ],
-      "form": {
-        "type": "selectWithSort"
-      },
-      "default": "CHF"
-    },
-    "order_date": {
-      "title": "Order date",
-      "type": "string",
-      "format": "date",
-      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
-      "form": {
-        "type": "datepicker",
-        "placeholder": "Select a date",
-        "validation": {
-          "messages": {
-            "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
-          }
-        }
-      }
+      "$ref": "https://bib.rero.ch/schemas/common/currency-v0.0.1.json#/currency"
     },
     "vendor": {
       "title": "Vendor",
       "type": "object",
+      "additionalProperties": false,
       "required": [
         "$ref"
       ],
@@ -197,6 +126,10 @@
     "library": {
       "title": "Library",
       "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "$ref"
+      ],
       "properties": {
         "$ref": {
           "title": "Library URI",

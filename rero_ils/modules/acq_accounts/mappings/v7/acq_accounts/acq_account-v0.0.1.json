@@ -17,7 +17,11 @@
         "type": "keyword"
       },
       "number": {
-        "type": "text"
+        "type": "text",
+        "copy_to": "number_sort"
+      },
+      "number_sort": {
+        "type": "keyword"
       },
       "allocated_amount": {
         "type": "float"

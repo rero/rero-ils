@@ -20,15 +20,15 @@
 
 from functools import partial
 
-from elasticsearch_dsl import Q
 from flask_babelex import gettext as _
 
 from .extensions import ParentAccountDistributionCheck
-from .models import AcqAccountIdentifier, AcqAccountMetadata
+from .models import AcqAccountExceedanceType, AcqAccountIdentifier, \
+    AcqAccountMetadata
 from ..acq_invoices.api import AcquisitionInvoice, AcquisitionInvoicesSearch
 from ..acq_order_lines.api import AcqOrderLine, AcqOrderLinesSearch
-from ..acq_order_lines.models import AcqOrderLineStatus
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from ..extensions import UniqueFieldsExtension
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
@@ -76,7 +76,27 @@ class AcqAccount(IlsRecord):
         }
     }
 
-    _extensions = [ParentAccountDistributionCheck()]
+    unique_value_fields = [
+        ('name', 'name_sort'),
+        ('number', 'number_sort')
+    ]
+
+    _extensions = [
+        ParentAccountDistributionCheck(),
+        UniqueFieldsExtension(unique_value_fields, AcqAccountsSearch)
+    ]
+
+    @classmethod
+    def create(cls, data, id_=None, delete_pid=False,
+               dbcommit=True, reindex=True, **kwargs):
+        """Create Acquisition Order Line record."""
+        # In order to check if some fields value are unique we need to ensure
+        # that object has been indexed just after the creation.
+        # TODO :: Maybe a better approach should be pass by `resource.service`
+        #         and/or always use REST API.
+        record = super().create(
+            data, id_, delete_pid, dbcommit, reindex, **kwargs)
+        return record
 
     def __hash__(self):
         """Builtin function to return an hash for this account."""
@@ -149,21 +169,17 @@ class AcqAccount(IlsRecord):
         """Get the encumbrance amount related to this account.
 
         This amount is the sum of :
-          * Order lines related to this account depending of order lines
-            status ; only "pending" order lines must be used to compute this
-            amount.
+          * Order lines related to this account but not yet related to any
+            invoices.
           * Encumbrance of all children account
 
         @:return A tuple of encumbrance amount : First element if encumbrance
                  for this account, second element is the children encumbrance.
         """
         # Encumbrance of this account
-        query = AcqOrderLinesSearch().filter('term', acq_account__pid=self.pid)
-        if AcqOrderLineStatus.OPEN:
-            pending_status = []
-            for status in AcqOrderLineStatus.OPEN:
-                pending_status.append(Q('term', status=status))
-            query = query.query('bool', should=pending_status)
+        query = AcqOrderLinesSearch()\
+            .filter('term', acq_account__pid=self.pid)\
+            .exclude('exists', field='acq_invoice.pid')
 
         query.aggs.metric('total_amount', 'sum', field='total_amount')
         results = query.execute()
@@ -182,23 +198,27 @@ class AcqAccount(IlsRecord):
         """Get the expenditure amount related to this account.
 
         This amount is the sum of :
-          * Invoice lines related to this account depending of invoice lines
-            status; only "received" invoice lines must be used to compute this
-            amount.
+          * Order lines related to this account and also linked to an invoice.
           * expenditure of all children accounts
 
         @:return A tuple of expenditure amount : First element for self
                  expenditure amount, second element is the children
                  expenditure amount.
         """
+        # Expenditure of this account
+        query = AcqOrderLinesSearch() \
+            .filter('term', acq_account__pid=self.pid) \
+            .filter('exists', field='acq_invoice.pid')
+
+        query.aggs.metric('total_amount', 'sum', field='total_amount')
+        results = query.execute()
+        self_amount = results.aggregations.total_amount.value
+
         # Expenditure of children accounts
         query = AcqAccountsSearch().filter('term', parent__pid=self.pid)
         query.aggs.metric('total', 'sum', field='expenditure_amount.total')
         results = query.execute()
         children_amount = results.aggregations.total.value
-
-        # TODO :: compute the expenditure based on acq_invoices.
-        self_amount = 0
 
         return self_amount, children_amount
 
@@ -243,6 +263,20 @@ class AcqAccount(IlsRecord):
         query.aggs.metric('total_amount', 'sum', field='allocated_amount')
         results = query.execute()
         return results.aggregations.total_amount.value
+
+    def get_exceedance(self, exceed_type):
+        """Compute the exceedance allowed for this account by type.
+
+        :param exceed_type: the exceedance type to compute. Check
+               `AcqAccountExceedanceType` class for values.
+        :return the exceedance amount allowed rounded to the nearest centime.
+        """
+        rate = 0
+        if exceed_type == AcqAccountExceedanceType.ENCUMBRANCE:
+            rate = self.get('encumbrance_exceedance', 0)
+        elif exceed_type == AcqAccountExceedanceType.EXPENDITURE:
+            rate = self.get('expenditure_exceedance', 0)
+        return round(self['allocated_amount'] * rate) / 100
 
     def transfer_fund(self, target_account, amount):
         """Transfer funds between two accounts.

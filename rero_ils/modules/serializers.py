@@ -100,6 +100,28 @@ class JSONSerializer(_JSONSerializer):
             self.post_process_serialize_search(
                 results, pid_fetcher), **self._format_args())
 
+    @staticmethod
+    def complete_bucket_with_attribute(results, bucket_name, resource_cls,
+                                       attributes_name):
+        """Complete a bucket by adding new keys based on resource attributes.
+
+        :param results: the ES results data (containing aggregations).
+        :param bucket_name: the bucket name to perform.
+        :param resource_cls: the related resource class.
+        :param attributes_name: attributes to load from resource.
+        """
+        attributes_name = attributes_name or []
+        if not isinstance(attributes_name, list):
+            attributes_name = [attributes_name]
+        for term in results.get('aggregations',
+                                {}).get(bucket_name,
+                                        {}).get('buckets', []):
+            resource = resource_cls.get_record_by_pid(term['key'])
+            if resource:
+                for attr in attributes_name:
+                    if attr in resource:
+                        term[attr] = resource.get(attr)
+
 
 json_v1 = JSONSerializer(RecordSchemaJSONV1)
 """JSON v1 serializer."""
