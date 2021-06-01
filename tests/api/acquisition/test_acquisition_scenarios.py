@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests scenario for acquisition accounts."""
+
 import mock
 import pytest
 from flask import url_for
@@ -23,20 +24,22 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata
 
 from rero_ils.modules.acq_accounts.api import AcqAccount
-from rero_ils.modules.utils import get_ref_for_pid
+from rero_ils.modules.utils import get_record_class_from_schema_or_pid_type, \
+    get_ref_for_pid
 
 
-def _make_account(client, input_data):
-    url_alias = 'invenio_records_rest.acac_list'
+def _make_resource(client, pid_type, input_data):
+    record_class = get_record_class_from_schema_or_pid_type(pid_type=pid_type)
+    url_alias = f'invenio_records_rest.{pid_type}_list'
     res, data = postdata(client, url_alias, input_data)
     if res.status_code == 201:
-        return AcqAccount.get_record_by_pid(data['metadata']['pid'])
+        return record_class.get_record_by_pid(data['metadata']['pid'])
     else:
         raise Exception(data['message'])
 
 
-def _del_account(client, pid):
-    item_url = url_for('invenio_records_rest.acac_item', pid_value=pid)
+def _del_resource(client, pid_type, pid):
+    item_url = url_for(f'invenio_records_rest.{pid_type}_item', pid_value=pid)
     res = client.delete(item_url)
     assert res.status_code == 204
 
@@ -54,7 +57,7 @@ def test_create_accounts(client, rero_json_header, org_martigny, lib_martigny,
         'budget': {'$ref': get_ref_for_pid('budg', budget_2020_martigny.pid)},
         'library': {'$ref': get_ref_for_pid('lib', lib_martigny.pid)}
     }
-    root_account = _make_account(client, root_account_data)
+    root_account = _make_resource(client, 'acac', root_account_data)
 
     # STEP 2 :: Create a child account
     #   * Try to create a child account with too much amount regarding root
@@ -71,13 +74,13 @@ def test_create_accounts(client, rero_json_header, org_martigny, lib_martigny,
         'parent': {'$ref': get_ref_for_pid('acac', root_account.pid)},
     }
     with pytest.raises(Exception) as excinfo:
-        _make_account(client, child_account_data)
+        _make_resource(client, 'acac', child_account_data)
     assert 'Parent account available amount too low.' in str(excinfo.value)
 
     amount_70 = round(root_account['allocated_amount'] * 0.7)
     amount_30 = root_account['allocated_amount'] - amount_70
     child_account_data['allocated_amount'] = amount_70
-    child_account = _make_account(client, child_account_data)
+    child_account = _make_resource(client, 'acac', child_account_data)
 
     # STEP 3 :: Check accounts diisstribution
     #   * Parent account should have 30% as available amount
@@ -92,12 +95,12 @@ def test_create_accounts(client, rero_json_header, org_martigny, lib_martigny,
     assert 'Remaining balance too low.' in str(excinfo.value)
 
     # RESET DATA
-    _del_account(client, child_account.pid)
-    _del_account(client, root_account.pid)
+    _del_resource(client, 'acac', child_account.pid)
+    _del_resource(client, 'acac', root_account.pid)
 
 
 def test_transfer_funds_api(client, rero_json_header, org_martigny,
-                            lib_martigny,  budget_2020_martigny,
+                            lib_martigny, budget_2020_martigny,
                             librarian_martigny):
     """Scenario to test fund transfer between both accounts."""
 
@@ -131,57 +134,57 @@ def test_transfer_funds_api(client, rero_json_header, org_martigny,
     }
     account_a = dict(name='A', allocated_amount=2000)
     account_a = {**basic_data, **account_a}
-    account_a = _make_account(client, account_a)
+    account_a = _make_resource(client, 'acac', account_a)
     a_ref = {'$ref': get_ref_for_pid('acac', account_a.pid)}
 
     account_b = dict(name='B', allocated_amount=500, parent=a_ref)
     account_b = {**basic_data, **account_b}
-    account_b = _make_account(client, account_b)
+    account_b = _make_resource(client, 'acac', account_b)
     b_ref = {'$ref': get_ref_for_pid('acac', account_b.pid)}
 
     account_c = dict(name='C', allocated_amount=1000, parent=a_ref)
     account_c = {**basic_data, **account_c}
-    account_c = _make_account(client, account_c)
+    account_c = _make_resource(client, 'acac', account_c)
     c_ref = {'$ref': get_ref_for_pid('acac', account_c.pid)}
 
     account_b1 = dict(name='B1', allocated_amount=300, parent=b_ref)
     account_b1 = {**basic_data, **account_b1}
-    account_b1 = _make_account(client, account_b1)
+    account_b1 = _make_resource(client, 'acac', account_b1)
     account_b2 = dict(name='B2', allocated_amount=50, parent=b_ref)
     account_b2 = {**basic_data, **account_b2}
-    account_b2 = _make_account(client, account_b2)
+    account_b2 = _make_resource(client, 'acac', account_b2)
 
     account_c1 = dict(name='C1', allocated_amount=100, parent=c_ref)
     account_c1 = {**basic_data, **account_c1}
-    account_c1 = _make_account(client, account_c1)
+    account_c1 = _make_resource(client, 'acac', account_c1)
     account_c2 = dict(name='C2', allocated_amount=100, parent=c_ref)
     account_c2 = {**basic_data, **account_c2}
-    account_c2 = _make_account(client, account_c2)
+    account_c2 = _make_resource(client, 'acac', account_c2)
     account_c3 = dict(name='C3', allocated_amount=100, parent=c_ref)
     account_c3 = {**basic_data, **account_c3}
-    account_c3 = _make_account(client, account_c3)
+    account_c3 = _make_resource(client, 'acac', account_c3)
     c2_ref = {'$ref': get_ref_for_pid('acac', account_c2.pid)}
 
     account_c21 = dict(name='C21', allocated_amount=50, parent=c2_ref)
     account_c21 = {**basic_data, **account_c21}
-    account_c21 = _make_account(client, account_c21)
+    account_c21 = _make_resource(client, 'acac', account_c21)
     account_c22 = dict(name='C22', allocated_amount=20, parent=c2_ref)
     account_c22 = {**basic_data, **account_c22}
-    account_c22 = _make_account(client, account_c22)
+    account_c22 = _make_resource(client, 'acac', account_c22)
 
     account_e = dict(name='E', allocated_amount=300)
     account_e = {**basic_data, **account_e}
-    account_e = _make_account(client, account_e)
+    account_e = _make_resource(client, 'acac', account_e)
     e_ref = {'$ref': get_ref_for_pid('acac', account_e.pid)}
 
     account_f = dict(name='F', allocated_amount=200, parent=e_ref)
     account_f = {**basic_data, **account_f}
-    account_f = _make_account(client, account_f)
+    account_f = _make_resource(client, 'acac', account_f)
     f_ref = {'$ref': get_ref_for_pid('acac', account_f.pid)}
 
     account_g = dict(name='G', allocated_amount=100, parent=f_ref)
     account_g = {**basic_data, **account_g}
-    account_g = _make_account(client, account_g)
+    account_g = _make_resource(client, 'acac', account_g)
 
     # TEST 0 :: Try the API with invalid arguments.
     res = client.get(url_for('api_acq_account.transfer_funds'))
@@ -354,17 +357,126 @@ def test_transfer_funds_api(client, rero_json_header, org_martigny,
     #       +-- C3{200, 200}
 
     # delete accounts
-    _del_account(client, account_g.pid)
-    _del_account(client, account_f.pid)
-    _del_account(client, account_e.pid)
+    _del_resource(client, 'acac', account_g.pid)
+    _del_resource(client, 'acac', account_f.pid)
+    _del_resource(client, 'acac', account_e.pid)
 
-    _del_account(client, account_c22.pid)
-    _del_account(client, account_c21.pid)
-    _del_account(client, account_c3.pid)
-    _del_account(client, account_c2.pid)
-    _del_account(client, account_c1.pid)
-    _del_account(client, account_c.pid)
-    _del_account(client, account_b2.pid)
-    _del_account(client, account_b1.pid)
-    _del_account(client, account_b.pid)
-    _del_account(client, account_a.pid)
+    _del_resource(client, 'acac', account_c22.pid)
+    _del_resource(client, 'acac', account_c21.pid)
+    _del_resource(client, 'acac', account_c3.pid)
+    _del_resource(client, 'acac', account_c2.pid)
+    _del_resource(client, 'acac', account_c1.pid)
+    _del_resource(client, 'acac', account_c.pid)
+    _del_resource(client, 'acac', account_b2.pid)
+    _del_resource(client, 'acac', account_b1.pid)
+    _del_resource(client, 'acac', account_b.pid)
+    _del_resource(client, 'acac', account_a.pid)
+
+
+def test_acquisition_order(client, rero_json_header, org_martigny,
+                           lib_martigny, budget_2020_martigny, vendor_martigny,
+                           librarian_martigny, document):
+    """Scenario to test fund transfer between both accounts."""
+
+    login_user_via_session(client, librarian_martigny.user)
+
+    # STEP 0 :: Create the account tree
+    basic_data = {
+        'allocated_amount': 1000,
+        'budget': {'$ref': get_ref_for_pid('budg', budget_2020_martigny.pid)},
+        'library': {'$ref': get_ref_for_pid('lib', lib_martigny.pid)}
+    }
+    account_a = dict(name='A', allocated_amount=2000)
+    account_a = {**basic_data, **account_a}
+    account_a = _make_resource(client, 'acac', account_a)
+    account_a_ref = {'$ref': get_ref_for_pid('acac', account_a.pid)}
+
+    account_b = dict(name='B', allocated_amount=500, parent=account_a_ref)
+    account_b = {**basic_data, **account_b}
+    account_b = _make_resource(client, 'acac', account_b)
+    account_b_ref = {'$ref': get_ref_for_pid('acac', account_b.pid)}
+
+    # TEST 1 :: Create an order and add some order lines on it.
+    #   * The creation of the order will be successful
+    #   * We create first order line linked to account B. After this creation,
+    #     we can check the encumbrance of this account and its parent account.
+    order_data = {
+        'vendor': {'$ref': get_ref_for_pid('vndr', vendor_martigny.pid)},
+        'library': {'$ref': get_ref_for_pid('lib', lib_martigny.pid)},
+        'order_number': 'ORDER#1',
+        'order_type': 'monograph',
+        'order_status': 'approved',
+        'currency': 'EUR'
+    }
+    order = _make_resource(client, 'acor', order_data)
+    assert order['order_number'] == order_data['order_number']
+    assert order.get_order_total_amount() == 0
+
+    basic_data = {
+        'acq_account': account_b_ref,
+        'acq_order': {'$ref': get_ref_for_pid('acor', order.pid)},
+        'document': {'$ref': get_ref_for_pid('doc', document.pid)},
+        'quantity': 4,
+        'amount': 25,
+        'status': 'approved'
+    }
+    order_line_1 = _make_resource(client, 'acol', basic_data)
+    assert order_line_1.get('total_amount') == 100
+
+    assert account_b.encumbrance_amount[0] == 100
+    assert account_b.remaining_balance[0] == 400  # 500 - 100
+    assert account_a.encumbrance_amount == (0, 100)
+    assert account_a.remaining_balance[0] == 1500
+
+    # TEST 2 :: new order line raises the limit of account available money.
+    #   * Create a new order line on the same account ; but the total amount
+    #     of the line must be larger than account available money --> should
+    #     be raise an ValidationError
+    #   * Update the first order line to raise the limit and check than the
+    #     same validation error occurs.
+    #   * Update the first order line to reach the limit without exceeding it
+    order_line_2 = dict(quantity=50)
+    order_line_2 = {**basic_data, **order_line_2}
+    with pytest.raises(Exception) as excinfo:
+        _make_resource(client, 'acol', order_line_2)
+    assert 'Parent account available amount too low.' in str(excinfo.value)
+
+    order_line_1['quantity'] = 50
+    with pytest.raises(Exception) as excinfo:
+        order_line_1.update(order_line_1, dbcommit=True, reindex=True)
+    assert 'Parent account available amount too low.' in str(excinfo.value)
+
+    order_line_1['quantity'] = 20
+    order_line_1 = order_line_1.update(order_line_1, dbcommit=True,
+                                       reindex=True)
+    assert account_b.encumbrance_amount[0] == 500
+    assert account_b.remaining_balance[0] == 0
+    assert account_a.encumbrance_amount == (0, 500)
+    assert account_a.remaining_balance[0] == 1500
+
+    # TEST 3 :: Update the account encumbrance exceedance and test it.
+    #   * At this time, the account B doesn't have any available money to
+    #     place any nex order line. Try to add an other item to existing order
+    #     line will raise a ValidationError
+    #   * Update the account 'encumbrance_exceedance' setting to allow more
+    #     encumbrance and try to add an item to order_line. It will be OK
+    order_line_1['quantity'] += 1
+    with pytest.raises(Exception) as excinfo:
+        order_line_1.update(order_line_1, dbcommit=True, reindex=True)
+    assert 'Parent account available amount too low.' in str(excinfo.value)
+
+    account_b['encumbrance_exceedance'] = 5  # 5% of 500 = 25
+    account_b = account_b.update(account_b, dbcommit=True, reindex=True)
+    order_line_1 = order_line_1.update(order_line_1, dbcommit=True,
+                                       reindex=True)
+    assert account_b.encumbrance_amount[0] == 525
+    assert account_b.remaining_balance[0] == -25
+    assert account_a.encumbrance_amount == (0, 525)
+    assert account_a.remaining_balance[0] == 1500
+
+    # DELETE created resources
+    _del_resource(client, 'acol', order_line_1.pid)
+    _del_resource(client, 'acor', order.pid)
+    _del_resource(client, 'acac', account_b.pid)
+    _del_resource(client, 'acac', account_a.pid)
+

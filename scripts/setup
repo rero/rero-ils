@@ -455,7 +455,6 @@ fi
 # create acquisition accounts
 info_msg "Acquisition accounts: ${DATA_PATH}/acq_accounts.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type acac ${DATA_PATH}/acq_accounts.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
-# TODO :: check why acac is noot indexed. Use a CLI to index acac in correct order ?
 eval ${PREFIX} invenio utils reindex -t acac --yes-i-know --no-info
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
     eval ${PREFIX} invenio utils reindex_missing -t acac -v

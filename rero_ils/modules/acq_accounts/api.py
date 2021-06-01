@@ -24,7 +24,8 @@ from elasticsearch_dsl import Q
 from flask_babelex import gettext as _
 
 from .extensions import ParentAccountDistributionCheck
-from .models import AcqAccountIdentifier, AcqAccountMetadata
+from .models import AcqAccountExceedanceType, AcqAccountIdentifier, \
+    AcqAccountMetadata
 from ..acq_invoices.api import AcquisitionInvoice, AcquisitionInvoicesSearch
 from ..acq_order_lines.api import AcqOrderLine, AcqOrderLinesSearch
 from ..acq_order_lines.models import AcqOrderLineStatus
@@ -174,6 +175,10 @@ class AcqAccount(IlsRecord):
         query.aggs.metric('total', 'sum', field='encumbrance_amount.total')
         results = query.execute()
         children_amount = results.aggregations.total.value
+        '''print("CHILDREN DATA")
+        from pprint import pprint
+        for hit in results:
+            pprint(hit.to_dict())'''
 
         return self_amount, children_amount
 
@@ -243,6 +248,20 @@ class AcqAccount(IlsRecord):
         query.aggs.metric('total_amount', 'sum', field='allocated_amount')
         results = query.execute()
         return results.aggregations.total_amount.value
+
+    def get_exceedance(self, exceed_type):
+        """Compute the exceedance allowed for this account by type.
+
+        :param exceed_type: the exceedance type to compute. Check
+               `AcqAccountExceedanceType` class for values.
+        :return the exceedance amount allowed rounded to the nearest centime.
+        """
+        rate = 0
+        if exceed_type == AcqAccountExceedanceType.ENCUMBRANCE:
+            rate = self.get('encumbrance_exceedance', 0)
+        elif exceed_type == AcqAccountExceedanceType.EXPENDITURE:
+            rate = self.get('expenditure_exceedance', 0)
+        return round(self['allocated_amount'] * rate) / 100
 
     def transfer_fund(self, target_account, amount):
         """Transfer funds between two accounts.

@@ -286,8 +286,7 @@
     "status": "pending",
     "quantity": 1,
     "amount": 1000,
-    "discount_amount": 0,
-    "total_amount": 1000
+    "discount_amount": 0
   },
   "acol2": {
     "$schema": "https://bib.rero.ch/schemas/acq_order_lines/acq_order_line-v0.0.1.json",
@@ -304,8 +303,7 @@
     "status": "pending",
     "quantity": 1,
     "amount": 500,
-    "discount_amount": 0,
-    "total_amount": 500
+    "discount_amount": 0
   },
   "acol3": {
     "$schema": "https://bib.rero.ch/schemas/acq_order_lines/acq_order_line-v0.0.1.json",
@@ -322,8 +320,7 @@
     "status": "pending",
     "quantity": 1,
     "amount": 1000,
-    "discount_amount": 10,
-    "total_amount": 1000
+    "discount_amount": 10
   },
   "acol4": {
     "$schema": "https://bib.rero.ch/schemas/acq_order_lines/acq_order_line-v0.0.1.json",
@@ -340,8 +337,7 @@
     "status": "pending",
     "quantity": 2,
     "amount": 500,
-    "discount_amount": 0,
-    "total_amount": 500
+    "discount_amount": 0
   },
   "acin1": {
     "$schema": "https://bib.rero.ch/schemas/acq_invoices/acq_invoice-v0.0.1.json",

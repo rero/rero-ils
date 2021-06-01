@@ -40,3 +40,10 @@ class AcqAccountMetadata(db.Model, RecordMetadataBase):
     """AcqAccount record metadata."""
 
     __tablename__ = 'acq_account_metadata'
+
+
+class AcqAccountExceedanceType:
+    """Type of exceedance about an AcqAccount."""
+
+    ENCUMBRANCE = 'encumbrance'
+    EXPENDITURE = 'expenditure'

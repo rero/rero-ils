@@ -20,6 +20,7 @@
     "acq_account",
     "acq_order",
     "document",
+    "quantity",
     "amount"
   ],
   "properties": {
@@ -168,21 +169,6 @@
               "label": ""
             }
           }
-        }
-      }
-    },
-    "organisation": {
-      "title": "Organisation",
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "$ref"
-      ],
-      "properties": {
-        "$ref": {
-          "title": "Organisation URI",
-          "type": "string",
-          "pattern": "^https://bib.rero.ch/api/organisations/.*?$"
         }
       }
     }
