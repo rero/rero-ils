@@ -14,7 +14,7 @@
     "name": "2019",
     "start_date": "2019-01-01",
     "end_date": "2019-12-31",
-    "is_active": true,
+    "is_active": false,
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/1"
     }
@@ -24,7 +24,7 @@
     "name": "2018",
     "start_date": "2018-01-01",
     "end_date": "2018-12-31",
-    "is_active": true,
+    "is_active": false,
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/1"
     }
