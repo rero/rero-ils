@@ -18,6 +18,7 @@
 
 """Signals connector for Acquisition account."""
 from .api import AcqAccount, AcqAccountsSearch
+from .models import AcqAccountExceedanceType
 
 
 def enrich_acq_account_data(sender, json=None, record=None, index=None,
@@ -38,16 +39,16 @@ def enrich_acq_account_data(sender, json=None, record=None, index=None,
         amount = account.get('allocated_amount', 0)
         if amount:
             if 'encumbrance_exceedance' in account:
-                rate = account.get('encumbrance_exceedance')
                 json['encumbrance_exceedance'] = dict(
-                    value=rate,
-                    amount=round(amount * rate) / 100
+                    value=account.get('encumbrance_exceedance'),
+                    amount=account.get_exceedance(
+                        AcqAccountExceedanceType.ENCUMBRANCE)
                 )
             if 'expenditure_exceedance' in account:
-                rate = account.get('expenditure_exceedance')
                 json['expenditure_exceedance'] = dict(
-                    value=rate,
-                    amount=round(amount * rate) / 100
+                    value=account.get('expenditure_exceedance'),
+                    amount=account.get_exceedance(
+                        AcqAccountExceedanceType.EXPENDITURE)
                 )
         else:
             json.pop('encumbrance_exceedance', None)
@@ -76,4 +77,7 @@ def enrich_acq_account_data(sender, json=None, record=None, index=None,
         json['is_active'] = account.is_active
         json['depth'] = account.depth
         json['distribution'] = account.distribution
-        json['organisation'] = dict(pid=account.organisation_pid)
+        json['organisation'] = dict(
+            pid=account.organisation_pid,
+            type='org'
+        )

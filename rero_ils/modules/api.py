@@ -138,7 +138,9 @@ class IlsRecord(Record):
                 not_required=self.pids_exist_check.get('not_required', {})
             ) or True
         if validation_message is not True:
-            raise ValidationError(validation_message)
+            if not isinstance(validation_message, list):
+                validation_message = [validation_message]
+            raise ValidationError(';'.join(validation_message))
         return json
 
     def extended_validation(self, **kwargs):

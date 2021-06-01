@@ -21,8 +21,11 @@
 from copy import deepcopy
 from functools import partial
 
+from .extensions import AcqOrderLineCheckAccountBalance, \
+    AcqOrderLineExcludeHarvestedDocument
 from .models import AcqOrderLineIdentifier, AcqOrderLineMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from ..documents.utils import title_format_text_head
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
@@ -72,12 +75,19 @@ class AcqOrderLine(IlsRecord):
         }
     }
 
+    _extensions = [
+        AcqOrderLineCheckAccountBalance(),
+        AcqOrderLineExcludeHarvestedDocument()
+    ]
+
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,
                dbcommit=True, reindex=True, **kwargs):
         """Create Acquisition Order Line record."""
-        cls._acq_order_line_build_org_ref(data)
-        cls._build_total_amount_for_order_line(data)
+        # TODO : should be used into `pre_create` hook extensions but seems not
+        #        work as expected.
+        cls._build_additional_refs(data)
+        cls._build_total_amount(data)
         record = super().create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
         return record
@@ -86,35 +96,28 @@ class AcqOrderLine(IlsRecord):
         """Update Acquisition Order Line record."""
         new_data = deepcopy(dict(self))
         new_data.update(data)
-        self._acq_order_line_build_org_ref(new_data)
-        self._build_total_amount_for_order_line(new_data)
+        self._build_additional_refs(new_data)
+        self._build_total_amount(new_data)
         super().update(new_data, commit, dbcommit, reindex)
         return self
 
     @classmethod
-    def _acq_order_line_build_org_ref(cls, data):
+    def _build_additional_refs(cls, data):
         """Build $ref for the organisation of the acquisition order."""
-        from ..acq_orders.api import AcqOrder
-        order = data.get('acq_order', {})
-        order_pid = order.get('pid') or \
-            order.get('$ref').split('acq_orders/')[1]
-        data['library'] = {'$ref': get_ref_for_pid(
-            'lib',
-            AcqOrder.get_record_by_pid(order_pid).library_pid
-        )}
-        data['organisation'] = {'$ref': get_ref_for_pid(
-            'org',
-            AcqOrder.get_record_by_pid(order_pid).organisation_pid
-        )}
-        return data
+        order = extracted_data_from_ref(data.get('acq_order'), data='record')
+        if order:
+            data['library'] = {
+                '$ref': get_ref_for_pid('lib', order.library_pid)
+            }
+            data['organisation'] = {
+                '$ref': get_ref_for_pid('org', order.organisation_pid)
+            }
 
     @classmethod
-    def _build_total_amount_for_order_line(cls, data):
+    def _build_total_amount(cls, data):
         """Build total amount for order line."""
-        total_amount = data['amount'] * data['quantity']
-        if data['discount_amount']:
-            total_amount -= data['discount_amount']
-        data['total_amount'] = total_amount
+        data['total_amount'] = data['amount'] * data['quantity'] \
+            - data.get('discount_amount', 0)
 
     @property
     def order_pid(self):
@@ -122,25 +125,51 @@ class AcqOrderLine(IlsRecord):
         return extracted_data_from_ref(self.get('acq_order'))
 
     @property
+    def order(self):
+        """Shortcut to the order of the order line."""
+        return extracted_data_from_ref(self.get('acq_order'), data='record')
+
+    @property
+    def account(self):
+        """Shortcut to the account object related to this order line."""
+        return extracted_data_from_ref(self.get('acq_account'), data='record')
+
+    @property
+    def document(self):
+        """Shortcut to the document object related to this order line."""
+        return extracted_data_from_ref(self.get('document'), data='record')
+
+    @property
     def organisation_pid(self):
         """Get organisation pid for acquisition order."""
-        return self.get_order().organisation_pid
+        return self.order.organisation_pid
 
     @property
     def library_pid(self):
         """Shortcut for acquisition order library pid."""
-        return self.get_order().library_pid
+        return self.order.library_pid
 
-    def get_order(self):
-        """Shortcut to the order of the order line."""
-        from ..acq_orders.api import AcqOrder
-        return AcqOrder.get_record_by_pid(self.order_pid)
-
-    def get_number_of_acq_order_lines(self):
-        """Get number of aquisition order lines."""
-        results = AcqOrderLinesSearch().filter(
-            'term', acq_order__pid=self.order_pid).source().count()
-        return results
+    def dump_for_order(self):
+        """Dump for order."""
+        copy_keys = ['status', 'order_date', 'reception_date', 'quantity']
+        data = {key: self.get(key) for key in copy_keys if self.get(key)}
+        # add account informations
+        account = self.account
+        data['account'] = {
+            'pid': account.pid,
+            'name': account['name'],
+            'number': account.get('number')
+        }
+        data['account'] = {k: v for k, v in data['account'].items() if v}
+        # add document informations
+        document = self.document
+        data['document'] = {
+            'pid': document.pid,
+            'title': title_format_text_head(document.get('title', [])),
+            'identifiers': document.get_identifier_values(filters=['bf:Isbn'])
+        }
+        data['document'] = {k: v for k, v in data['document'].items() if v}
+        return data
 
 
 class AcqOrderLinesIndexer(IlsRecordsIndexer):
@@ -154,7 +183,7 @@ class AcqOrderLinesIndexer(IlsRecordsIndexer):
         return_value = super().index(record)
         order = AcqOrder.get_record_by_pid(record.order_pid)
         order.reindex()
-
+        record.account.reindex()
         return return_value
 
     def delete(self, record):
@@ -163,7 +192,7 @@ class AcqOrderLinesIndexer(IlsRecordsIndexer):
         return_value = super().delete(record)
         order = AcqOrder.get_record_by_pid(record.order_pid)
         order.reindex()
-
+        record.account.reindex()
         return return_value
 
     def bulk_index(self, record_id_iterator):
