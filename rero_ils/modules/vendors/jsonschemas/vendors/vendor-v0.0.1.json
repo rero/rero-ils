@@ -234,21 +234,7 @@
       }
     },
     "currency": {
-      "title": "Currency",
-      "type": "string",
-      "enum": [
-        "CHF",
-        "CAD",
-        "EUR",
-        "GBP",
-        "USD",
-        "AUD"
-      ],
-      "default": "CHF",
-      "pattern": "^[A-Z]{3}$",
-      "form": {
-        "type": "selectWithSort"
-      }
+      "$ref": "https://bib.rero.ch/schemas/common/currency-v0.0.1.json#/currency"
     },
     "vat_rate": {
       "title": "VAT rate",
