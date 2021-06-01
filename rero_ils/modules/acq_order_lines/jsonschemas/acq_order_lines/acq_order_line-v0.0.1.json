@@ -8,6 +8,8 @@
     "acq_account",
     "document",
     "status",
+    "order_date",
+    "reception_date",
     "quantity",
     "amount",
     "discount_amount",
@@ -20,6 +22,7 @@
     "acq_account",
     "acq_order",
     "document",
+    "quantity",
     "amount"
   ],
   "properties": {
@@ -42,11 +45,9 @@
         "approved",
         "canceled",
         "ordered",
-        "requested",
-        "pending",
         "received"
       ],
-      "default": "pending",
+      "default": "approved",
       "form": {
         "type": "selectWithSort",
         "options": [
@@ -61,14 +62,6 @@
           {
             "value": "ordered",
             "label": "ordered"
-          },
-          {
-            "value": "requested",
-            "label": "requested"
-          },
-          {
-            "value": "pending",
-            "label": "pending"
           },
           {
             "value": "received",
@@ -110,6 +103,36 @@
       "title": "Note",
       "type": "string",
       "minLength": 9
+    },
+    "order_date": {
+      "title": "Order date",
+      "type": "string",
+      "format": "date",
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
+      "form": {
+        "type": "datepicker",
+        "placeholder": "Select a date",
+        "validation": {
+          "messages": {
+            "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+          }
+        }
+      }
+    },
+    "reception_date": {
+      "title": "Reception date",
+      "type": "string",
+      "format": "date",
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
+      "form": {
+        "type": "datepicker",
+        "placeholder": "Select a date",
+        "validation": {
+          "messages": {
+            "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+          }
+        }
+      }
     },
     "acq_account": {
       "title": "Acquisition account",

@@ -38,7 +38,7 @@ from invenio_circulation.transitions.transitions import CreatedToPending, \
     ItemOnLoanToItemInTransitHouse, ItemOnLoanToItemOnLoan, \
     ItemOnLoanToItemReturned, PendingToItemAtDesk, \
     PendingToItemInTransitPickup, ToCancelled, ToItemOnLoan
-from invenio_records_rest.facets import terms_filter
+from invenio_records_rest.facets import range_filter, terms_filter
 
 from .modules.acq_accounts.api import AcqAccount
 from .modules.acq_accounts.permissions import AcqAccountPermission
@@ -1409,10 +1409,15 @@ RECORDS_REST_ENDPOINTS = dict(
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
+            ),
+            'application/rero+json': (
+                'rero_ils.modules.acq_accounts.serializers:'
+                'json_acq_account_response'
             )
         },
         record_serializers_aliases={
             'json': 'application/json',
+            'rero': 'application/rero+json'
         },
         search_serializers={
             'application/json': (
@@ -1950,9 +1955,37 @@ RECORDS_REST_FACETS = dict(
                         'acq_orders', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
                 )
             ),
+            vendor=dict(
+                terms=dict(
+                    field='vendor.pid',
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'acq_orders', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            ),
+            type=dict(
+                terms=dict(
+                    field='type',
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'acq_orders', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            ),
             status=dict(
                 terms=dict(
-                    field='order_status',
+                    field='status',
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'acq_orders', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            ),
+            order_date=dict(
+                date_histogram=dict(
+                    field='order_lines.order_date',
+                    calendar_interval='1d',
+                    format='yyyy-MM-dd'
+                )
+            ),
+            account=dict(
+                terms=dict(
+                    field='order_lines.account.name_sort',
                     size=RERO_ILS_AGGREGATION_SIZE.get(
                         'acq_orders', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
                 )
@@ -1960,7 +1993,16 @@ RECORDS_REST_FACETS = dict(
         ),
         filters={
             _('library'): and_term_filter('library.pid'),
-            _('status'): and_term_filter('order_status')
+            _('vendor'): and_term_filter('vendor.pid'),
+            _('type'): and_term_filter('type'),
+            _('status'): and_term_filter('status'),
+            _('account'): and_term_filter('order_lines.account.name_sort'),
+            _('order_date'): range_filter(
+                'order_lines.order_date',
+                format='epoch_millis',
+                start_date_math='/d',
+                end_date_math='/d'
+            )
         },
     ),
     contributions=dict(
@@ -2197,14 +2239,14 @@ RECORDS_REST_SORT_OPTIONS['acq_order_lines'] = dict(
         default_order='asc'
     )
 )
+RECORDS_REST_DEFAULT_SORT['acq_order_lines'] = dict(
+    query='bestmatch', noquery='created')
 
 # ------ BUDGETS SORT
 RECORDS_REST_SORT_OPTIONS['budgets']['name'] = dict(
     fields=['budget_name'], title='Budget name',
     default_order='asc'
 )
-RECORDS_REST_DEFAULT_SORT['budgets'] = dict(
-    query='bestmatch', noquery='name')
 
 # ------ CIRCULATION POLICIES SORT
 RECORDS_REST_SORT_OPTIONS['circ_policies']['name'] = dict(

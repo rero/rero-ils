@@ -249,12 +249,6 @@ def acq_account_fiction_martigny_data(acquisition):
 
 
 @pytest.fixture(scope="module")
-def acq_account_books_martigny_data(acquisition):
-    """Load acq_account lib martigny books data."""
-    return deepcopy(acquisition.get('acac6'))
-
-
-@pytest.fixture(scope="module")
 def acq_account_fiction_martigny(
         app, lib_martigny, acq_account_fiction_martigny_data,
         budget_2020_martigny):
@@ -266,6 +260,12 @@ def acq_account_fiction_martigny(
         reindex=True)
     flush_index(AcqAccountsSearch.Meta.index)
     return acac
+
+
+@pytest.fixture(scope="module")
+def acq_account_books_martigny_data(acquisition):
+    """Load acq_account lib martigny books data."""
+    return deepcopy(acquisition.get('acac6'))
 
 
 @pytest.fixture(scope="module")
@@ -423,7 +423,7 @@ def acq_order_line_fiction_martigny_data(acquisition):
 
 @pytest.fixture(scope="module")
 def acq_order_line_fiction_martigny(
-        app, acq_account_fiction_martigny,
+        app, acq_account_fiction_martigny, document,
         acq_order_fiction_martigny, acq_order_line_fiction_martigny_data):
     """Load acq_order_line lib martigny fiction record."""
     acol = AcqOrderLine.create(
@@ -443,7 +443,7 @@ def acq_order_line2_fiction_martigny_data(acquisition):
 
 @pytest.fixture(scope="module")
 def acq_order_line2_fiction_martigny(
-        app, acq_account_fiction_martigny,
+        app, acq_account_fiction_martigny, document,
         acq_order_fiction_martigny, acq_order_line2_fiction_martigny_data):
     """Load acq_order_line lib martigny fiction record."""
     acol = AcqOrderLine.create(

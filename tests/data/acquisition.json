@@ -149,7 +149,7 @@
   "acac1": {
     "$schema": "https://bib.rero.ch/schemas/acq_accounts/acq_account-v0.0.1.json",
     "pid": "acac1",
-    "name": "fiction",
+    "name": "fiction martigny",
     "number": "000.0000.00",
     "budget": {
       "$ref": "https://bib.rero.ch/api/budgets/budg1"
@@ -162,7 +162,7 @@
   "acac2": {
     "$schema": "https://bib.rero.ch/schemas/acq_accounts/acq_account-v0.0.1.json",
     "pid": "acac2",
-    "name": "books",
+    "name": "books saxon",
     "number": "001.0001.11",
     "budget": {
       "$ref": "https://bib.rero.ch/api/budgets/budg1"
@@ -188,7 +188,7 @@
   "acac4": {
     "$schema": "https://bib.rero.ch/schemas/acq_accounts/acq_account-v0.0.1.json",
     "pid": "acac4",
-    "name": "fiction",
+    "name": "fiction sion",
     "number": "44.4444.44",
     "budget": {
       "$ref": "https://bib.rero.ch/api/budgets/budg2"
@@ -200,8 +200,8 @@
   },
   "acac5": {
     "$schema": "https://bib.rero.ch/schemas/acq_accounts/acq_account-v0.0.1.json",
-    "pid": "acac4",
-    "name": "general",
+    "pid": "acac5",
+    "name": "general aproz",
     "number": "55.0000.1",
     "budget": {
       "$ref": "https://bib.rero.ch/api/budgets/budg2"
@@ -214,7 +214,7 @@
   "acac6": {
     "$schema": "https://bib.rero.ch/schemas/acq_accounts/acq_account-v0.0.1.json",
     "pid": "acac6",
-    "name": "books",
+    "name": "books martigny",
     "budget": {
       "$ref": "https://bib.rero.ch/api/budgets/budg2"
     },
@@ -232,12 +232,9 @@
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/lib1"
     },
-    "order_number": "OR-1",
-    "order_type": "monograph",
-    "description": "Commande fictive",
-    "order_status": "pending",
-    "currency": "CHF",
-    "order_date": "2020-01-06"
+    "reference": "OR-1",
+    "type": "monograph",
+    "description": "Commande fictive"
   },
   "acor2": {
     "$schema": "https://bib.rero.ch/schemas/acq_orders/acq_order-v0.0.1.json",
@@ -248,12 +245,9 @@
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/lib2"
     },
-    "order_number": "OR-2",
-    "order_type": "monograph",
-    "description": "Commande fictive 2",
-    "order_status": "pending",
-    "currency": "EUR",
-    "order_date": "2020-01-06"
+    "reference": "OR-2",
+    "type": "monograph",
+    "description": "Commande fictive 2"
   },
   "acor3": {
     "$schema": "https://bib.rero.ch/schemas/acq_orders/acq_order-v0.0.1.json",
@@ -264,12 +258,9 @@
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/lib4"
     },
-    "order_number": "OR-3",
-    "order_type": "monograph",
-    "description": "Commande fictive 3",
-    "order_status": "pending",
-    "currency": "CHF",
-    "order_date": "2020-01-06"
+    "reference": "OR-3",
+    "type": "monograph",
+    "description": "Commande fictive 3"
   },
   "acol1": {
     "$schema": "https://bib.rero.ch/schemas/acq_order_lines/acq_order_line-v0.0.1.json",
@@ -283,11 +274,10 @@
     "document": {
       "$ref": "https://bib.rero.ch/api/documents/doc1"
     },
-    "status": "pending",
+    "status": "approved",
     "quantity": 1,
     "amount": 1000,
-    "discount_amount": 0,
-    "total_amount": 1000
+    "discount_amount": 0
   },
   "acol2": {
     "$schema": "https://bib.rero.ch/schemas/acq_order_lines/acq_order_line-v0.0.1.json",
@@ -299,13 +289,12 @@
       "$ref": "https://bib.rero.ch/api/acq_orders/acor1"
     },
     "document": {
-      "$ref": "https://bib.rero.ch/api/documents/doc2"
+      "$ref": "https://bib.rero.ch/api/documents/doc1"
     },
-    "status": "pending",
+    "status": "approved",
     "quantity": 1,
     "amount": 500,
-    "discount_amount": 0,
-    "total_amount": 500
+    "discount_amount": 0
   },
   "acol3": {
     "$schema": "https://bib.rero.ch/schemas/acq_order_lines/acq_order_line-v0.0.1.json",
@@ -319,11 +308,10 @@
     "document": {
       "$ref": "https://bib.rero.ch/api/documents/doc1"
     },
-    "status": "pending",
+    "status": "approved",
     "quantity": 1,
     "amount": 1000,
-    "discount_amount": 10,
-    "total_amount": 1000
+    "discount_amount": 10
   },
   "acol4": {
     "$schema": "https://bib.rero.ch/schemas/acq_order_lines/acq_order_line-v0.0.1.json",
@@ -337,11 +325,10 @@
     "document": {
       "$ref": "https://bib.rero.ch/api/documents/doc1"
     },
-    "status": "pending",
+    "status": "approved",
     "quantity": 2,
     "amount": 500,
-    "discount_amount": 0,
-    "total_amount": 500
+    "discount_amount": 0
   },
   "acin1": {
     "$schema": "https://bib.rero.ch/schemas/acq_invoices/acq_invoice-v0.0.1.json",
