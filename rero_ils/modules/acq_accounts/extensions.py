@@ -17,7 +17,6 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Extension for AcqAccount records."""
-
 from flask_babelex import gettext as _
 from invenio_records.extensions import RecordExtension
 from jsonschema import ValidationError
@@ -40,7 +39,7 @@ class ParentAccountDistributionCheck(RecordExtension):
         #    balance to do that.
         if amount_to_check > 0 and parent:
             if parent.remaining_balance[0] < amount_to_check:
-                msg = _('Parent account available amount too low.')
+                msg = _('Parent account available amount too low')
                 raise ValidationError(msg)
 
         # If we decrease the allocated amount:
@@ -49,7 +48,7 @@ class ParentAccountDistributionCheck(RecordExtension):
         #    self balance (money still available for this account)
         if amount_to_check < 0 and record.get_children(count=True):
             if original_record.remaining_balance[0] < abs(amount_to_check):
-                msg = _('Remaining balance too low.')
+                msg = _('Remaining balance too low')
                 raise ValidationError(msg)
 
     pre_commit = _check_balance

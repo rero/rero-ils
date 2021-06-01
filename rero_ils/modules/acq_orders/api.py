@@ -20,15 +20,16 @@
 
 from functools import partial
 
-from .extensions import TotalAmountExtension
-from .models import AcqOrderIdentifier, AcqOrderMetadata
-from ..acq_order_lines.api import AcqOrderLinesSearch
+from .extensions import AcquisitionOrderCompleteDataExtension, \
+    AcquisitionOrderDynamicFieldsExtension
+from .models import AcqOrderIdentifier, AcqOrderMetadata, AcqOrderStatus
+from ..acq_order_lines.api import AcqOrderLine, AcqOrderLinesSearch
+from ..acq_order_lines.models import AcqOrderLineStatus
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
-from ..libraries.api import Library
 from ..minters import id_minter
 from ..providers import Provider
-from ..utils import extracted_data_from_ref, get_ref_for_pid
+from ..utils import extracted_data_from_ref
 
 # provider
 AcqOrderProvider = type(
@@ -59,7 +60,10 @@ class AcqOrdersSearch(IlsRecordsSearch):
 class AcqOrder(IlsRecord):
     """AcqOrder class."""
 
-    _extensions = [TotalAmountExtension()]
+    _extensions = [
+        AcquisitionOrderDynamicFieldsExtension(),
+        AcquisitionOrderCompleteDataExtension()
+    ]
 
     minter = acq_order_id_minter
     fetcher = acq_order_id_fetcher
@@ -79,60 +83,87 @@ class AcqOrder(IlsRecord):
     def create(cls, data, id_=None, delete_pid=False,
                dbcommit=False, reindex=False, **kwargs):
         """Create acquisition order record."""
-        cls._acq_order_build_org_ref(data)
+        # TODO : should be used into `pre_create` hook extensions but seems not
+        #   work as expected.
+        AcquisitionOrderCompleteDataExtension.populate_currency(data)
         record = super().create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
         return record
 
-    def update(self, data,  commit=True, dbcommit=False, reindex=False):
-        """Update acq order record."""
-        self._acq_order_build_org_ref(data)
-        super().update(data, commit, dbcommit, reindex)
-        return self
-
-    @classmethod
-    def _acq_order_build_org_ref(cls, data):
-        """Build $ref for the organisation of the acquisition order."""
-        library = data.get('library', {})
-        library_pid = library.get('pid') or \
-            library.get('$ref').split('libraries/')[1]
-        data['organisation'] = {'$ref': get_ref_for_pid(
-            'org',
-            Library.get_record_by_pid(library_pid).organisation_pid
-        )}
-        return data
-
     @property
     def organisation_pid(self):
-        """Shortcut for acquisition order pid."""
-        return extracted_data_from_ref(self.get('organisation'))
+        """Shortcut for acquisition order organisation pid."""
+        library = extracted_data_from_ref(self.get('library'), data='record')
+        return library.organisation_pid
 
     @property
     def library_pid(self):
         """Shortcut for acquisition order library pid."""
         return extracted_data_from_ref(self.get('library'))
 
-    def get_number_of_acq_order_lines(self):
-        """Get number of acquisition order lines."""
-        results = AcqOrderLinesSearch().filter(
-            'term', acq_order__pid=self.pid).source().count()
-        return results
+    @property
+    def vendor_pid(self):
+        """Shortcut for acquisition order vendor pid."""
+        return extracted_data_from_ref(self.get('vendor'))
+
+    @property
+    def status(self):
+        """Get the order status based on related order lines status."""
+        status = AcqOrderStatus.PENDING
+        search = AcqOrderLinesSearch().filter('term', acq_order__pid=self.pid)
+        search.aggs.bucket('status', 'terms', field='status')
+        results = search.execute()
+        statues = [hit.key for hit in results.aggregations.status.buckets]
+
+        if len(statues) > 1:
+            if AcqOrderLineStatus.RECEIVED in statues:
+                status = AcqOrderStatus.PARTIALLY_RECEIVED
+        elif len(statues) == 1:
+            map = {
+                AcqOrderLineStatus.APPROVED: AcqOrderStatus.PENDING,
+                AcqOrderLineStatus.ORDERED: AcqOrderStatus.ORDERED,
+                AcqOrderLineStatus.RECEIVED: AcqOrderStatus.RECEIVED,
+                AcqOrderLineStatus.CANCELED: AcqOrderStatus.CANCELED,
+            }
+            if statues[0] in map:
+                status = map[statues[0]]
+
+        return status
+
+    def get_order_lines(self, count=False):
+        """Get order lines related to this order.
+
+        :param count: if true, return the number of related order lines.
+        :return a generator of related order lines (or length).
+        """
+        def _list_object():
+            for hit in eq_query.source().scan():
+                yield AcqOrderLine.get_record_by_id(hit.meta.id)
+
+        eq_query = AcqOrderLinesSearch()\
+            .filter('term', acq_order__pid=self.pid)
+        return eq_query.count() if count else _list_object()
 
     def get_order_total_amount(self):
         """Get total amount of order."""
-        search = AcqOrderLinesSearch().filter(
-            'term', acq_order__pid=self.pid)
-        search.aggs.metric('order_total_amount', 'sum', field='total_amount')
+        search = AcqOrderLinesSearch().filter('term', acq_order__pid=self.pid)
+        search.aggs.metric(
+            'order_total_amount',
+            'sum',
+            field='total_amount',
+            script={
+                'source': 'Math.round(_value*100)/100.00'
+            }
+        )
         results = search.execute()
         return results.aggregations.order_total_amount.value
 
     def get_links_to_me(self):
-        """Get number of links."""
-        links = {}
-        acq_orders = self.get_number_of_acq_order_lines()
-        if acq_orders:
-            links['acq_order_lines'] = acq_orders
-        return links
+        """Get related resources."""
+        links = {
+            'acq_order_lines': self.get_order_lines(count=True)
+        }
+        return {k: v for k, v in links.items() if v}
 
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
