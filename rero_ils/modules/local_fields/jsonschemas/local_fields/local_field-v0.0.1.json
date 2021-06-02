@@ -73,7 +73,7 @@
           "minItems": 1,
           "items": {
             "type": "string",
-            "minLength": 3
+            "minLength": 1
           }
         },
         "field_2": {
@@ -82,7 +82,7 @@
           "minItems": 1,
           "items": {
             "type": "string",
-            "minLength": 3
+            "minLength": 1
           }
         },
         "field_3": {
@@ -91,7 +91,7 @@
           "minItems": 1,
           "items": {
             "type": "string",
-            "minLength": 3
+            "minLength": 1
           }
         },
         "field_4": {
@@ -100,7 +100,7 @@
           "minItems": 1,
           "items": {
             "type": "string",
-            "minLength": 3
+            "minLength": 1
           }
         },
         "field_5": {
@@ -109,7 +109,7 @@
           "minItems": 1,
           "items": {
             "type": "string",
-            "minLength": 3
+            "minLength": 1
           }
         },
         "field_6": {
@@ -118,7 +118,7 @@
           "minItems": 1,
           "items": {
             "type": "string",
-            "minLength": 3
+            "minLength": 1
           }
         },
         "field_7": {
@@ -127,7 +127,7 @@
           "minItems": 1,
           "items": {
             "type": "string",
-            "minLength": 3
+            "minLength": 1
           }
         },
         "field_8": {
@@ -136,7 +136,7 @@
           "minItems": 1,
           "items": {
             "type": "string",
-            "minLength": 3
+            "minLength": 1
           }
         },
         "field_9": {
@@ -145,7 +145,7 @@
           "minItems": 1,
           "items": {
             "type": "string",
-            "minLength": 3
+            "minLength": 1
           }
         },
         "field_10": {
@@ -154,7 +154,7 @@
           "minItems": 1,
           "items": {
             "type": "string",
-            "minLength": 3
+            "minLength": 1
           }
         }
       }
