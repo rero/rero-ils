@@ -71,6 +71,10 @@
     "organisation": {
       "title": "User organisation",
       "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "$ref"
+      ],
       "properties": {
         "$ref": {
           "title": "Organisation URI",

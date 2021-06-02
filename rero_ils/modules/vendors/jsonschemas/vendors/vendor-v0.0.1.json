@@ -259,6 +259,7 @@
     "organisation": {
       "title": "Organisation",
       "type": "object",
+      "additionalProperties": false,
       "required": [
         "$ref"
       ],
