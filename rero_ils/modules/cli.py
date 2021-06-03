@@ -37,8 +37,6 @@ from time import sleep
 from uuid import uuid4
 
 import click
-import requests
-import xmltodict
 import yaml
 from celery import current_app as current_celery
 from dojson.contrib.marc21.utils import create_record
@@ -1214,30 +1212,6 @@ def reindex_missing(pid_types, verbose):
             res = record.reindex()
             if verbose:
                 click.secho(f'{idx}\t{p_type}\t{pid}')
-
-
-def get_loc_languages(verbose=False):
-    """Get languages from LOC."""
-    languages = {}
-    url = 'https://www.loc.gov/standards/codelists/languages.xml'
-    response = requests.get(url)
-    root = xmltodict.parse(response.content)
-    for language in root['codelist']['languages']['language']:
-        if isinstance(language['name'], OrderedDict):
-            name = language['name']['#text']
-        else:
-            name = language['name']
-        code = language['code']
-        if isinstance(code, OrderedDict):
-            if code['@status'] == 'obsolete':
-                code = None
-            else:
-                code = code['#text']
-        if code:
-            if verbose:
-                click.echo(f'{code}: {name}')
-            languages[code] = name
-    return languages
 
 
 @utils.command('check_pid_dependencies')
