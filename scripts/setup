@@ -335,18 +335,18 @@ if ${LOADCONTRIBUTIONS}
 then
     info_msg "- CONTRIBUTIONS: ${CONTRIBUTIONS} ${CREATE_LAZY} ${DONT_STOP}"
     eval ${PREFIX} invenio fixtures create --pid_type cont --schema 'http://ils.rero.ch/schemas/contributions/contribution-v0.0.1.json' ${CONTRIBUTIONS} --append ${CREATE_LAZY} ${DONT_STOP}
-    info_msg "Indexing Contributions:"
-    eval ${PREFIX} invenio utils reindex -t cont --yes-i-know --no-info
-    if [ ${INDEX_PARALLEL} -gt 0 ]; then
-        eval ${PREFIX} invenio utils runindex -d -c ${INDEX_PARALLEL} --raise-on-error
-    fi
-    eval ${PREFIX} invenio utils runindex --raise-on-error
-    if [ ${INDEX_PARALLEL} -gt 0 ]; then
-        eval ${PREFIX} invenio utils reindex_missing -t cont -v
-    fi
 else
     info_msg "- Contributions from MEF: ${DOCUMENTS} ${CREATE_LAZY} ${ENQUEUE}"
     eval ${PREFIX} invenio fixtures get_all_mef_records ${DOCUMENTS} ${CREATE_LAZY} ${ENQUEUE}
+fi
+# index contributions
+eval ${PREFIX} invenio utils reindex -t cont --yes-i-know --no-info
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio utils runindex -d -c ${INDEX_PARALLEL} --raise-on-error
+fi
+eval ${PREFIX} invenio utils runindex --raise-on-error
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio utils reindex_missing -t cont -v
 fi
 
 info_msg "- Documents: ${DOCUMENTS} ${CREATE_LAZY} ${DONT_STOP}"

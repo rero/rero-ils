@@ -320,11 +320,12 @@ class DocumentsIndexer(IlsRecordsIndexer):
 
     record_cls = Document
 
-    def index(self, record):
-        """Index an document."""
-        return_value = super().index(record)
-        record.index_contributions(bulk=True)
-        return return_value
+    def after_index_record(self, record):
+        """After bulk index.
+
+        :param record: indexed record.
+        """
+        record.index_contributions(bulk=False)
 
     def bulk_index(self, record_id_iterator):
         """Bulk index records.

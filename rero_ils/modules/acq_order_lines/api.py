@@ -144,19 +144,19 @@ class AcqOrderLinesIndexer(IlsRecordsIndexer):
 
     record_cls = AcqOrderLine
 
-    def index(self, record):
-        """Index an Acquisition Order Line and update total amount of order."""
-        return_value = super().index(record)
+    def after_index_record(self, record):
+        """After bulk index.
+
+        :param record: indexed record.
+        """
         self._update_order_total_amount(record)
 
-        return return_value
+    def after_delete_record(self, record):
+        """After bulk delete.
 
-    def delete(self, record):
-        """Delete a Acquisition Order Line and update total amount of order."""
-        return_value = super().delete(record)
+        :param record: deleted record.
+        """
         self._update_order_total_amount(record)
-
-        return return_value
 
     def _update_order_total_amount(self, record):
         """Update total amount of the order."""

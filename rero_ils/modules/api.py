@@ -451,13 +451,26 @@ class IlsRecordsIndexer(RecordIndexer):
 
     record_cls = IlsRecord
 
+    def after_index_record(self, record):
+        """Is called after index and _index_action.
+
+        :param record: indexed record.
+        """
+
+    def after_delete_record(self, record):
+        """Is called after delete and _delete_action.
+
+        :param record: deleted record.
+        """
+
     def index(self, record):
         """Indexing a record."""
         return_value = super().index(record)
-        index_name, doc_type = current_record_to_index(record)
+        index_name, _ = current_record_to_index(record)
         # TODO: Do we need to flush everytime the ES index?
         # Tests depends on this at the moment.
         current_search.flush_and_refresh(index_name)
+        self.after_index_record(record)
         return return_value
 
     def delete(self, record):
@@ -466,8 +479,9 @@ class IlsRecordsIndexer(RecordIndexer):
         :param record: Record instance.
         """
         return_value = super().delete(record)
-        index_name, doc_type = current_record_to_index(record)
+        index_name, _ = current_record_to_index(record)
         current_search.flush_and_refresh(index_name)
+        self.after_delete_record(record)
         return return_value
 
     def bulk_index(self, record_id_iterator, doc_type=None):
@@ -528,6 +542,7 @@ class IlsRecordsIndexer(RecordIndexer):
         """
         for message in message_iterator:
             payload = message.decode()
+            indexer = 'UNKNOWN'
             try:
                 indexer = self._get_record_class(payload).get_indexer_class()
                 if payload['op'] == 'delete':
@@ -540,7 +555,8 @@ class IlsRecordsIndexer(RecordIndexer):
             except Exception:
                 message.reject()
                 current_app.logger.error(
-                    "Failed to index record {id}".format(id=payload.get('id')),
+                    f"Failed to {payload['op']} record "
+                    f"{indexer}: {payload['id']}",
                     exc_info=True)
 
     def _index_action(self, payload):
@@ -549,8 +565,7 @@ class IlsRecordsIndexer(RecordIndexer):
         :param payload: Decoded message body.
         :return: Dictionary defining an Elasticsearch bulk 'index' action.
         """
-        with db.session.begin_nested():
-            record = self.record_cls.get_record(payload['id'])
+        record = self.record_cls.get_record(payload['id'])
         index, doc_type = self.record_to_index(record)
 
         arguments = {}
@@ -565,8 +580,40 @@ class IlsRecordsIndexer(RecordIndexer):
             '_source': body
         }
         action.update(arguments)
-
+        self.after_index_record(record=record)
         return action
+
+    def _delete_action(self, payload):
+        """Bulk delete action.
+
+        :param payload: Decoded message body.
+        :returns: Dictionary defining an Elasticsearch bulk 'delete' action.
+        """
+        kwargs = {}
+        record = None
+        index, doc_type = payload.get('index'), payload.get('doc_type')
+        if not (index and doc_type):
+            record = self.record_cls.get_record(
+                payload['id'], with_deleted=True)
+            index, doc_type = self.record_to_index(record)
+            kwargs['_version'] = record.revision_id
+            kwargs['_version_type'] = self._version_type
+        else:
+            # Allow version to be sent in the payload (but only use if we
+            # haven't loaded the record.
+            if 'version' in payload:
+                kwargs['_version'] = payload['version']
+                kwargs['_version_type'] = self._version_type
+        index, doc_type = self._prepare_index(index, doc_type)
+        if record:
+            self.after_bulk_delete_record(record=record)
+        return {
+            '_op_type': 'delete',
+            '_index': index,
+            '_type': doc_type,
+            '_id': payload['id'],
+            **kwargs,
+        }
 
     @staticmethod
     def _prepare_record(record, index, doc_type, arguments=None, **kwargs):

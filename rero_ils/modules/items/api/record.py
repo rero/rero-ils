@@ -524,7 +524,7 @@ class ItemRecord(IlsRecord):
         return False
 
     @classmethod
-    def get_number_masked_items_by_holdings_pid(cls, holding_pid):
+    def get_number_unmasked_items_by_holdings_pid(cls, holding_pid):
         """Returns the number of unmasked items and attached to a holding.
 
         :param holding_pid: the pid of the holdings.

@@ -203,23 +203,14 @@ class ItemsIndexer(IlsRecordsIndexer):
 
     record_cls = Item
 
-    def index(self, record):
-        """Index an item."""
+    def items_after_index_record(self, record, old_holdings_pid):
+        """After bulk index.
+
+        :param record: indexed record.
+        """
         from ...documents.api import DocumentsIndexer
         from ...holdings.api import Holding, HoldingsSearch
 
-        # get the old holding record if exists
-        items_search = ItemsSearch(). \
-            filter('term', pid=record.get('pid')). \
-            source('holding').execute().hits
-
-        old_holdings_pid = None
-        if items_search.total.value:
-            old_holdings_pid = items_search[0].holding.pid
-
-        return_value = super().index(record)
-
-        # reindex document in background
         document_pid = extracted_data_from_ref(record.get('document'))
         uid = Document.get_id_by_pid(document_pid)
         DocumentsIndexer().index_by_id(uid)
@@ -230,8 +221,8 @@ class ItemsIndexer(IlsRecordsIndexer):
         holding = Holding.get_record_by_pid(new_holdings_pid)
         if holding.get('holdings_type') == 'standard':
             number_of_unmasked_items = \
-                Item.get_number_masked_items_by_holdings_pid(new_holdings_pid)
-            update_holdings = False
+                Item.get_number_unmasked_items_by_holdings_pid(
+                    new_holdings_pid)
             # masking holding if all items are masked
             if not number_of_unmasked_items and not holding.get('_masked'):
                 holding['_masked'] = True
@@ -252,16 +243,58 @@ class ItemsIndexer(IlsRecordsIndexer):
                 except IlsRecordError.NotDeleted:
                     pass
 
+    def get_old_holdings_pid(self, pid):
+        """Get the old holdings record if exists.
+
+        :param pid: pid of record.
+        """
+        items_search = ItemsSearch(). \
+            filter('term', pid=pid). \
+            source('holding').execute().hits
+
+        old_holdings_pid = None
+        if items_search.total.value:
+            old_holdings_pid = items_search[0].holding.pid
+        return old_holdings_pid
+
+    def index(self, record):
+        """Index an item."""
+        old_holdings_pid = self.get_old_holdings_pid(record.pid)
+        return_value = super().index(record)
+        self.items_after_index_record(record, old_holdings_pid)
         return return_value
 
-    def delete(self, record):
-        """Delete a record.
+    def _index_action(self, payload):
+        """Bulk index action.
 
-        :param record: Record instance.
+        :param payload: Decoded message body.
+        :return: Dictionary defining an Elasticsearch bulk 'index' action.
+        """
+        record = self.record_cls.get_record(payload['id'])
+        old_holdings_pid = self.get_old_holdings_pid(record.pid)
+        index, doc_type = self.record_to_index(record)
+
+        arguments = {}
+        body = self._prepare_record(record, index, doc_type, arguments)
+        action = {
+            '_op_type': 'index',
+            '_index': index,
+            '_type': doc_type,
+            '_id': str(record.id),
+            '_version': record.revision_id,
+            '_version_type': self._version_type,
+            '_source': body
+        }
+        action.update(arguments)
+        self.items_after_index_record(record, old_holdings_pid)
+        return action
+
+    def after_delete_record(self, record):
+        """After bulk delete.
+
+        :param record: deleted record.
         """
         from ...holdings.api import Holding
-
-        return_value = super().delete(record)
         rec_with_refs = record.replace_refs()
         document_pid = rec_with_refs['document']['pid']
         document = Document.get_record_by_pid(document_pid)
@@ -276,8 +309,6 @@ class ItemsIndexer(IlsRecordsIndexer):
                 holding_rec.delete(force=False, dbcommit=True, delindex=True)
             except IlsRecordError.NotDeleted:
                 pass
-
-        return return_value
 
     def bulk_index(self, record_id_iterator):
         """Bulk index records.

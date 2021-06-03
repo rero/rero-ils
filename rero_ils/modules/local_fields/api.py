@@ -28,7 +28,7 @@ from ..documents.api import Document
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
-from ...modules.utils import extracted_data_from_ref
+from ..utils import extracted_data_from_ref
 
 # provider
 LocalFieldProvider = type(
@@ -109,27 +109,21 @@ class LocalFieldsIndexer(IlsRecordsIndexer):
 
     record_cls = LocalField
 
-    def index(self, record):
-        """Reindex a resource (documents, items, holdings).
+    def after_index_record(self, record):
+        """After bulk index.
 
-        :param record: Record instance.
+        :param record: indexed record.
         """
-        return_value = super().index(record)
         resource = extracted_data_from_ref(record['parent']['$ref'], 'record')
         if isinstance(resource, Document):
             resource.reindex()
-        return return_value
 
-    def delete(self, record):
-        """Reindex a resource (documents, items, holdings).
+    def after_delete_record(self, record):
+        """After bulk delete.
 
-        :param record: Record instance.
+        :param record: deleted record.
         """
-        return_value = super().delete(record)
-        resource = extracted_data_from_ref(record['parent']['$ref'], 'record')
-        if isinstance(resource, Document):
-            resource.reindex()
-        return return_value
+        self.after_delete_record(record)
 
     def bulk_index(self, record_id_iterator):
         """Bulk index records.

@@ -721,15 +721,13 @@ class HoldingsIndexer(IlsRecordsIndexer):
 
     record_cls = Holding
 
-    def index(self, record):
-        """Indexing a holding record.
+    def after_index_record(self, record):
+        """After bulk index.
 
-        Parent document is indexed as well.
+        :param record: indexed record.
         """
-        return_value = super().index(record)
         document = Document.get_record_by_pid(record.document_pid)
         document.reindex()
-        return return_value
 
     def bulk_index(self, record_id_iterator):
         """Bulk index records.
