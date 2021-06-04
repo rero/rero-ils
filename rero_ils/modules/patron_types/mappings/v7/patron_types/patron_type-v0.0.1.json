@@ -19,6 +19,9 @@
       "description": {
         "type": "text"
       },
+      "code": {
+        "type": "keyword"
+      },
       "organisation": {
         "properties": {
           "type": {

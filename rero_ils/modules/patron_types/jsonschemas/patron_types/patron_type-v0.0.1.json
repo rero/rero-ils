@@ -8,7 +8,8 @@
     "name",
     "description",
     "subscription_amount",
-    "limits"
+    "limits",
+    "code"
   ],
   "required": [
     "$schema",
@@ -52,6 +53,12 @@
       "title": "Description",
       "description": "The description of the patron type.",
       "type": "string"
+    },
+    "code": {
+      "title": "Code",
+      "description": "Code to identify the patron type.",
+      "type": "string",
+      "minLength": 1
     },
     "organisation": {
       "title": "Organisation",
