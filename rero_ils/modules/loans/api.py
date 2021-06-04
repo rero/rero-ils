@@ -264,6 +264,12 @@ class Loan(IlsRecord):
         """
         loan['to_anonymize'] = True
         super().update(loan, dbcommit, reindex)
+
+        # Anonymize loan operation logs
+        # Import at top causes errors...
+        from rero_ils.modules.loans.logs.api import LoanOperationLog
+        LoanOperationLog.anonymize_logs(loan['pid'])
+
         return self
 
     def date_fields2datetime(self):

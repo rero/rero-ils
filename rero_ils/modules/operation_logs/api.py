@@ -18,6 +18,7 @@
 """API for manipulating operation_logs."""
 
 from elasticsearch.helpers import bulk
+from elasticsearch_dsl import Document
 from invenio_records.api import RecordBase
 from invenio_search import RecordsSearch, current_search_client
 
@@ -140,6 +141,31 @@ class OperationLog(RecordBase):
         """Remove all index names present in the elasticsearch server."""
         current_search_client.indices.delete(f'{cls.index_name}*')
         return True
+
+    @classmethod
+    def update(cls, _id, date, data):
+        """Update all data for a record.
+
+        :param str _id: Elasticsearch document ID.
+        :param str date: Log date, useful for getting the right index.
+        :param dict data: New record data.
+        """
+        index = cls.get_index({'date': date})
+
+        document = Document.get(_id, index=index, using=current_search_client)
+
+        # Assign each properties to the document
+        for key, item in data.items():
+            document[key] = item
+
+        result = document.save(
+            index=index,
+            using=current_search_client,
+            refresh=True,
+        )
+
+        if result != 'updated':
+            raise Exception('Operation log cannot be updated.')
 
     @property
     def id(self):
