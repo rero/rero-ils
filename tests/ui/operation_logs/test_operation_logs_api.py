@@ -75,3 +75,25 @@ def test_operation_bulk_index(client, es_clear, operation_log_data):
         assert "BulkIndexError" in str(excinfo.value)
     # clean up the index
     assert OperationLog.delete_indices()
+
+
+def test_update(app, es_clear, operation_log_data, monkeypatch):
+    """Test update log."""
+    operation_log = OperationLog.create(deepcopy(operation_log_data),
+                                        index_refresh='wait_for')
+
+    log_data = OperationLog.get_record(operation_log.id)
+    assert log_data['record']['pid'] == 'item4'
+
+    # Update OK
+    log_data['record']['pid'] = '1234'
+    OperationLog.update(log_data.id, log_data['date'], log_data)
+    log_data = OperationLog.get_record(operation_log.id)
+    assert log_data['record']['pid'] == '1234'
+
+    # Update KO
+    monkeypatch.setattr(
+        'elasticsearch_dsl.Document.update', lambda *args, **kwargs: 'error')
+    with pytest.raises(Exception) as exception:
+        OperationLog.update(log_data.id, log_data['date'], log_data)
+        assert str(exception) == 'Operation log cannot be updated.'
