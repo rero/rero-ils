@@ -17,6 +17,10 @@
 
 """Loans logs API."""
 
+import hashlib
+
+from invenio_search import RecordsSearch
+
 from ...documents.api import Document
 from ...holdings.api import Holding
 from ...items.api import Item
@@ -169,3 +173,33 @@ class LoanOperationLog(OperationLog):
             'postal_code': patron.user.profile.postal_code,
             'gender': patron.user.profile.gender or 'other'
         }
+
+    @classmethod
+    def get_logs_by_record_pid(cls, pid):
+        """Get all logs for a given record PID.
+
+        :param str pid: record PID.
+        :returns: List of logs.
+        :rtype: list
+        """
+        return list(
+            RecordsSearch(index=cls.index_name).filter(
+                'bool', must={
+                    'exists': {
+                        'field': 'loan'
+                    }
+                }).filter('term', record__pid=pid).scan())
+
+    @classmethod
+    def anonymize_logs(cls, loan_pid):
+        """Anonymize all logs corresponding to the given loan.
+
+        :param loan_pid: Loan PID.
+        """
+        for log in cls.get_logs_by_record_pid(loan_pid):
+            record = log.to_dict()
+            md5_hash = hashlib.md5(
+                record['record']['patron_pid'].encode()).hexdigest()
+            record['record']['patron_pid'] = f'hash-{md5_hash}'
+            record['loan']['patron'].pop('name')
+            cls.update(log.meta.id, log['date'], record)
