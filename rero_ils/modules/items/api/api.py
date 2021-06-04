@@ -127,16 +127,19 @@ class Item(ItemCirculation, ItemIssue):
             .params(preserve_order=True) \
             .source(['pid', 'organisation', 'title', 'description'])
         orgs = {}
-        for record in search.scan():
-            if record.organisation.pid not in orgs:
-                orgs[record.organisation.pid] = Organisation \
-                    .get_record_by_pid(record.organisation.pid)
-            output.append({
-                'pid': record.pid,
-                'title': record.title,
-                'description': record.description,
-                'viewcode': orgs[record.organisation.pid].get('code')
-            })
+        for hit in search.scan():
+            hit = hit.to_dict()
+            org_pid = hit['organisation']['pid']
+            if org_pid not in orgs:
+                orgs[org_pid] = Organisation.get_record_by_pid(org_pid)
+            collection_data = {
+                'pid': hit['pid'],  # required property
+                'title': hit['title'],  # required property
+                'description': hit.get('description'),  # optional property
+                'viewcode': orgs[org_pid].get('code')
+            }
+            collection_data = {k: v for k, v in collection_data if v}
+            output.append(collection_data)
         return output
 
     def replace_refs(self):
