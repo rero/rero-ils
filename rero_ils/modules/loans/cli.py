@@ -184,6 +184,9 @@ def load_virtua_transactions(
                 build_loan_record(transaction, transaction_type, item)
             try:
                 Loan.create(transaction, dbcommit=True, reindex=True)
+                if transaction_type == 'checkout':
+                    item['status'] = ItemStatus.ON_LOAN
+                    item.update(item, dbcommit=True, reindex=True)
                 click.secho(
                     '\ntransaction # {counter} created'.format(
                         counter=counter
