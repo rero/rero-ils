@@ -19,15 +19,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-06-02 14:22+0200\n"
-"PO-Revision-Date: 2021-05-19 06:38+0000\n"
+"PO-Revision-Date: 2021-06-05 12:33+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/it/>\n"
 "Language: it\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/it/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.7-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: rero_ils/accounts_views.py:50
@@ -9387,7 +9388,7 @@ msgstr "Sottoporre"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:74
 msgid "Confirmation"
-msgstr ""
+msgstr "Conferma"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:80
 msgid ""
@@ -9484,7 +9485,7 @@ msgstr ""
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:168
 msgid "Information"
-msgstr ""
+msgstr "Informazione"
 
 #: rero_ils/modules/items/api/circulation.py:1008
 msgid "Item status disallows the operation."
@@ -12667,4 +12668,3 @@ msgstr "La tua parola d'ordine è stata reimposta con successo."
 
 #~ msgid "Source of the subject, for instance MeSH, rero or IdRef."
 #~ msgstr ""
-
