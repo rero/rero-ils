@@ -2,6 +2,9 @@
   "adminMetadata": {
     "title": "Admin metadata",
     "type": "object",
+    "required": [
+      "encodingLevel"
+    ],
     "propertiesOrder": [
       "note",
       "encodingLevel",
@@ -31,7 +34,7 @@
         "title": "Encoding level",
         "description": "Indicator of the fullness of the bibliographic information",
         "type": "string",
-        "default": "Minimal level",
+        "default": "Full level",
         "enum": [
           "Full level",
           "Full level, material not examined",
