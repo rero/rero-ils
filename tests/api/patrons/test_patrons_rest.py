@@ -567,3 +567,50 @@ def test_patron_messages(client, patron_martigny):
     assert data[0]['type'] == 'warning'
     assert data[0]['content'] == 'This person will be in vacations.\n' \
         'Will be back in february.'
+
+
+def test_patron_info(client, patron_martigny, monkeypatch):
+    """Test patron info."""
+
+    class MockToken:
+        """Mock token class."""
+        scopes = []
+
+    class MockOAuth:
+        """Mock OAuth class."""
+        access_token = MockToken()
+
+    class MockRequest:
+        """Mock request class."""
+        oauth = MockOAuth()
+
+    monkeypatch.setattr('rero_ils.modules.patrons.views.flask_request',
+                        MockRequest)
+    login_user_via_session(client, patron_martigny.user)
+    url = url_for('api_patrons.info')
+
+    # No scope
+    res = client.get(url)
+    assert res.status_code == 200
+    assert res.json == {'barcode': '4098124352'}
+
+    # All scopes
+    MockToken.scopes = [
+        'fullname', 'birthdate', 'institution', 'expiration_date',
+        'patron_type', 'patron_types'
+    ]
+    res = client.get(url)
+    assert res.status_code == 200
+    assert res.json == {
+        'barcode':
+        '4098124352',
+        'birthdate':
+        '1947-06-07',
+        'fullname':
+        'Roduit, Louis',
+        'patron_types': [{
+            'expiration_date': '2023-10-07T00:00:00',
+            'institution': 'org1',
+            'patron_type': 'patron-code'
+        }]
+    }

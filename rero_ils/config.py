@@ -2715,3 +2715,6 @@ SIP2_MEDIA_TYPES = dict(
     docmaintype_audio='AUDIO',
     docmaintype_movie_series='VIDEO',
 )
+
+# OAuth base template
+OAUTH2SERVER_COVER_TEMPLATE = 'rero_ils/oauth/base.html'
