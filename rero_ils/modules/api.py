@@ -30,7 +30,6 @@ from elasticsearch.helpers import bulk
 from elasticsearch.helpers import expand_action as default_expand_action
 from flask import current_app
 from invenio_db import db
-from invenio_indexer import current_record_to_index
 from invenio_indexer.api import RecordIndexer
 from invenio_indexer.signals import before_record_index
 from invenio_indexer.utils import _es7_expand_action
@@ -38,7 +37,6 @@ from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_records.api import Record
 from invenio_records_rest.utils import obj_or_import_string
-from invenio_search import current_search
 from invenio_search.api import RecordsSearch
 from jsonschema.exceptions import ValidationError
 from kombu.compat import Consumer
@@ -85,11 +83,6 @@ class IlsRecordsSearch(RecordsSearch):
         facets = {}
 
         default_filter = None
-
-    @classmethod
-    def flush(cls):
-        """Flush index."""
-        current_search.flush_and_refresh(cls.Meta.index)
 
 
 class IlsRecord(Record):
@@ -453,11 +446,7 @@ class IlsRecordsIndexer(RecordIndexer):
 
     def index(self, record):
         """Indexing a record."""
-        return_value = super().index(record)
-        index_name, doc_type = current_record_to_index(record)
-        # TODO: Do we need to flush everytime the ES index?
-        # Tests depends on this at the moment.
-        current_search.flush_and_refresh(index_name)
+        return_value = super().index(record, arguments=dict(refresh='true'))
         return return_value
 
     def delete(self, record):
@@ -465,9 +454,7 @@ class IlsRecordsIndexer(RecordIndexer):
 
         :param record: Record instance.
         """
-        return_value = super().delete(record)
-        index_name, doc_type = current_record_to_index(record)
-        current_search.flush_and_refresh(index_name)
+        return_value = super().delete(record, refresh='true')
         return return_value
 
     def bulk_index(self, record_id_iterator, doc_type=None):

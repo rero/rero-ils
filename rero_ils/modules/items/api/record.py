@@ -27,7 +27,6 @@ from ..utils import item_pid_to_object
 from ...api import IlsRecord
 from ...holdings.models import HoldingTypes
 from ...item_types.api import ItemType
-from ...libraries.api import Library
 from ...locations.api import Location
 from ...organisations.api import Organisation
 from ...utils import date_string_to_utc, extracted_data_from_ref, \
@@ -357,7 +356,7 @@ class ItemRecord(IlsRecord):
 
     def get_organisation(self):
         """Shortcut to the organisation of the item location."""
-        return self.get_library().get_organisation()
+        return Organisation.get_record_by_pid(self.organisation_pid)
 
     def get_library(self):
         """Shortcut to the library of the item location."""
@@ -475,8 +474,9 @@ class ItemRecord(IlsRecord):
     @property
     def organisation_pid(self):
         """Get organisation pid for item."""
-        library = Library.get_record_by_pid(self.library_pid)
-        return library.organisation_pid
+        if self.get('organisation'):
+            return extracted_data_from_ref(self.get('organisation'))
+        return self.get_library().organisation_pid
 
     @property
     def organisation_view(self):

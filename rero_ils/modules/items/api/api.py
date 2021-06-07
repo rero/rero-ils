@@ -21,7 +21,7 @@ from datetime import datetime
 from functools import partial
 
 from elasticsearch.exceptions import NotFoundError
-from invenio_search import current_search
+from invenio_search import current_search_client
 
 from .circulation import ItemCirculation
 from .issue import ItemIssue
@@ -59,14 +59,6 @@ class ItemsSearch(IlsRecordsSearch):
         facets = {}
 
         default_filter = None
-
-    @classmethod
-    def flush(cls):
-        """Flush indexes."""
-        from rero_ils.modules.holdings.api import HoldingsSearch
-        current_search.flush_and_refresh(DocumentsSearch.Meta.index)
-        current_search.flush_and_refresh(HoldingsSearch.Meta.index)
-        current_search.flush_and_refresh(cls.Meta.index)
 
 
 class Item(ItemCirculation, ItemIssue):
@@ -203,55 +195,74 @@ class ItemsIndexer(IlsRecordsIndexer):
 
     record_cls = Item
 
+    @classmethod
+    def _es_item(cls, record):
+        """Get the item from the corresponding index.
+
+        :param record: an item object
+        :returns: the elasticsearch document or {}
+        """
+        try:
+            es_item = current_search_client.get(
+                ItemsSearch.Meta.index, record.id)
+            return es_item['_source']
+        except NotFoundError:
+            return {}
+
+    @classmethod
+    def _update_status_in_doc(cls, record, es_item):
+        """Update the status of a given item in the document index.
+
+        :param record: an item object
+        :param es_item: a dict of the elasticsearch item
+        """
+        # retrieve the document in the corresponding es index
+        document_pid = extracted_data_from_ref(record.get('document'))
+        doc = next(
+            DocumentsSearch()
+            .extra(version=True)
+            .filter('term', pid=document_pid)
+            .scan()
+        )
+        # update the item status in the document
+        data = doc.to_dict()
+        for hold in data.get('holdings', []):
+            for item in hold.get('items', []):
+                if item['pid'] == record.pid:
+                    item['status'] = record['status']
+                    break
+            else:
+                continue
+            break
+        # reindex the document with the same version
+        current_search_client.index(
+            index=DocumentsSearch.Meta.index,
+            id=doc.meta.id,
+            body=data,
+            version=doc.meta.version,
+            version_type='external_gte')
+
     def index(self, record):
-        """Index an item."""
-        from ...documents.api import DocumentsIndexer
-        from ...holdings.api import Holding, HoldingsSearch
+        """Index an item.
 
-        # get the old holding record if exists
-        items_search = ItemsSearch(). \
-            filter('term', pid=record.get('pid')). \
-            source('holding').execute().hits
+        :param record: an item object
+        "returns: the elastiscsearch client result
+        """
+        # get previous indexed version
+        es_item = self._es_item(record)
 
-        old_holdings_pid = None
-        if items_search.total.value:
-            old_holdings_pid = items_search[0].holding.pid
-
+        # call the parent
         return_value = super().index(record)
 
-        # reindex document in background
-        document_pid = extracted_data_from_ref(record.get('document'))
-        uid = Document.get_id_by_pid(document_pid)
-        DocumentsIndexer().index_by_id(uid)
-        current_search.flush_and_refresh(HoldingsSearch.Meta.index)
-        current_search.flush_and_refresh(DocumentsSearch.Meta.index)
-        # set holding masking for standard holdings
-        new_holdings_pid = extracted_data_from_ref(record['holding']['$ref'])
-        holding = Holding.get_record_by_pid(new_holdings_pid)
-        if holding.get('holdings_type') == 'standard':
-            number_of_unmasked_items = \
-                Item.get_number_masked_items_by_holdings_pid(new_holdings_pid)
-            update_holdings = False
-            # masking holding if all items are masked
-            if not number_of_unmasked_items and not holding.get('_masked'):
-                holding['_masked'] = True
-                holding.update(
-                    data=holding, dbcommit=True, reindex=True)
-            # unmask holding if at least one of its items is unmasked
-            elif number_of_unmasked_items and holding.get('_masked'):
-                holding['_masked'] = False
-                holding.update(
-                    data=holding, dbcommit=True, reindex=True)
-            # check if old holding can be deleted
-            if old_holdings_pid and new_holdings_pid != old_holdings_pid:
-                old_holding_rec = Holding.get_record_by_pid(old_holdings_pid)
-                try:
-                    # TODO: Need to split DB and elasticsearch deletion.
-                    old_holding_rec.delete(
-                        force=False, dbcommit=True, delindex=True)
-                except IlsRecordError.NotDeleted:
-                    pass
+        # fast document reindex for circulation operations
+        if es_item and record.get('status') != es_item.get('status'):
+            self._update_status_in_doc(record, es_item)
+            return return_value
 
+        # reindex document for non circulation operations
+        document_pid = extracted_data_from_ref(record.get('document'))
+        doc = Document.get_record_by_pid(document_pid)
+        doc.reindex()
         return return_value
 
     def delete(self, record):
@@ -266,7 +277,6 @@ class ItemsIndexer(IlsRecordsIndexer):
         document_pid = rec_with_refs['document']['pid']
         document = Document.get_record_by_pid(document_pid)
         document.reindex()
-        current_search.flush_and_refresh(DocumentsSearch.Meta.index)
 
         holding = rec_with_refs.get('holding', '')
         if holding:

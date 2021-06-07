@@ -65,11 +65,9 @@ class ItemCirculation(ItemRecord):
         Commits and reindex the item.
         This method is executed after every successfull circulation action.
         """
-        from . import ItemsSearch
         current_search.flush_and_refresh(
             current_circulation.loan_search_cls.Meta.index)
         self.status_update(self, dbcommit=True, reindex=True, forceindex=True)
-        ItemsSearch.flush()
 
     def prior_validate_actions(self, **kwargs):
         """Check if the validate action can be executed or not."""
@@ -1038,7 +1036,6 @@ class ItemCirculation(ItemRecord):
         if action == 'checkout':
             if not circ_policy.can_checkout:
                 data['action_validated'] = False
-
         if action == 'receive':
             if (
                     circ_policy.can_checkout and
@@ -1048,7 +1045,6 @@ class ItemCirculation(ItemRecord):
             ):
                 data['action_validated'] = False
                 data['new_action'] = 'checkout'
-
         return data
 
     @property

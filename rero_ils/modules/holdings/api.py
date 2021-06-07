@@ -27,7 +27,6 @@ from functools import partial
 from dateutil.relativedelta import relativedelta
 from flask import current_app
 from flask_babelex import gettext as _
-from invenio_search import current_search
 from invenio_search.api import RecordsSearch
 from jinja2 import Environment
 
@@ -76,11 +75,6 @@ class HoldingsSearch(RecordsSearch):
         facets = {}
 
         default_filter = None
-
-    @classmethod
-    def flush(cls):
-        """Flush indexes."""
-        current_search.flush_and_refresh(cls.Meta.index)
 
 
 class Holding(IlsRecord):
