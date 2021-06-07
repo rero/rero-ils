@@ -62,11 +62,11 @@
         "type": "keyword"
       },
       "city": {
-        "type": "text"
+        "type": "text",
+        "copy_to": "facet_city"
       },
       "facet_city": {
-        "type": "keyword",
-        "copy_to": "facet_city"
+        "type": "keyword"
       },
       "country": {
         "type": "text"
