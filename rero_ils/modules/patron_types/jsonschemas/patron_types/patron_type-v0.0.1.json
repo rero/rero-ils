@@ -6,10 +6,10 @@
   "additionalProperties": false,
   "propertiesOrder": [
     "name",
+    "code",
     "description",
     "subscription_amount",
-    "limits",
-    "code"
+    "limits"
   ],
   "required": [
     "$schema",

@@ -22,15 +22,17 @@ from __future__ import absolute_import, print_function
 import re
 
 from flask import Blueprint, abort, current_app, jsonify, render_template
+from flask import request as flask_request
 from flask_babelex import format_currency
 from flask_babelex import gettext as _
 from flask_babelex import lazy_gettext
 from flask_breadcrumbs import register_breadcrumb
 from flask_login import current_user, login_required
 from flask_menu import register_menu
+from flask_security import utils as security_utils
 from invenio_i18n.ext import current_i18n
 
-from .api import Patron
+from .api import Patron, PatronsSearch, current_librarian
 from .permissions import get_allowed_roles_management
 from .utils import user_has_patron
 from ..decorators import check_logged_as_librarian, check_logged_as_patron, \
@@ -40,8 +42,10 @@ from ..loans.api import get_loans_stats_by_patron_pid, get_overdue_loans
 from ..loans.utils import sum_for_fees
 from ..locations.api import Location
 from ..patron_transactions.api import PatronTransaction
+from ..patron_types.api import PatronTypesSearch
 from ..users.api import User
 from ..utils import extracted_data_from_ref, get_base_url
+from ...utils import remove_empties_from_dict
 
 api_blueprint = Blueprint(
     'api_patrons',
@@ -249,3 +253,63 @@ def get_messages(patron_pid):
         msg_type = message['type']
         message['type'] = bootstrap_alert_mapping.get(msg_type, msg_type)
     return jsonify(messages)
+
+
+@api_blueprint.route('/authenticate', methods=['POST'])
+@check_logged_as_librarian
+def patron_authenticate():
+    """Patron authenticate.
+
+    :param username - user username
+    :param password - user password
+    :returns: The patron's information.
+    """
+    json = flask_request.get_json()
+    if not json or 'username' not in json or 'password' not in json:
+        abort(400)
+    username = json['username']
+    password = json['password']
+    # load user
+    user = User.get_by_username_or_email(username)
+    if not user:
+        abort(404, 'User not found.')
+    # load patron
+    organisation_pid = current_librarian.organisation_pid
+    result = PatronsSearch()\
+        .filter('term', user_id=user.user.id)\
+        .filter('term', organisation__pid=organisation_pid)\
+        .scan()
+    try:
+        patron = next(result).to_dict()
+    except StopIteration:
+        abort(404, 'User not found.')
+    # Validate password
+    if not security_utils.verify_password(password, user.user.password):
+        abort(401, 'Identification error.')
+    patron_data = patron.get('patron', {})
+    if not patron_data:
+        abort(404, 'User not found.')
+    patron_type_result = PatronTypesSearch()\
+        .filter('term', pid=patron_data.get('type', {}).get('pid'))\
+        .source(includes=['code'])\
+        .scan()
+    try:
+        patron_type = next(patron_type_result).to_dict()
+    except StopIteration:
+        abort(404)
+    return jsonify(remove_empties_from_dict({
+        'fullname': patron.get('first_name') + ' ' + patron.get('last_name'),
+        'street': patron.get('street'),
+        'postal_code': patron.get('postal_code'),
+        'city': patron.get('city'),
+        'phone': patron.get('home_phone'),
+        'birth_date': patron.get('birth_date'),
+        'patron_type': patron_type.get('code'),
+        'expiration_date': patron_data.get('expiration_date'),
+        'blocked': patron_data.get('blocked', False),
+        'blocked_note': patron_data.get('blocked_note'),
+        'notes': list(filter(
+            lambda note: note.get('type') == 'staff_note',
+            patron.get('notes', [])
+        ))
+    }))

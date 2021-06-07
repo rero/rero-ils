@@ -464,6 +464,27 @@ eval ${PREFIX} invenio fixtures create_loans ${DATA_PATH}/loans.json
 # process notifications
 eval ${PREFIX} invenio notifications process
 
+# create token access for system librarians
+info_msg "create an access token for all system librarians"
+if [ -z ${INVENIO_RERO_ACCESS_TOKEN_AOSTA_LIBRARIAN} ]
+then
+    eval ${PREFIX} invenio utils tokens_create -n organisation_aosta_token -u reroilstest@gmail.com
+else
+    eval ${PREFIX} invenio utils tokens_create -n organisation_aosta_token -u reroilstest@gmail.com -t ${INVENIO_RERO_ACCESS_TOKEN_AOSTA_LIBRARIAN}
+fi
+if [ -z ${INVENIO_RERO_ACCESS_TOKEN_SCOLAND_LIBRARIAN} ]
+then
+    eval ${PREFIX} invenio utils tokens_create -n organisation_scotland_token -u reroilstest+irma@gmail.com
+else
+    eval ${PREFIX} invenio utils tokens_create -n organisation_scotland_token -u reroilstest+irma@gmail.com -t ${INVENIO_RERO_ACCESS_TOKEN_SCOLAND_LIBRARIAN}
+fi
+if [ -z ${INVENIO_RERO_ACCESS_TOKEN_FICTIVE_LIBRARIAN} ]
+then
+    eval ${PREFIX} invenio utils tokens_create -n organisation_fictive_token -u reroilstest+imagination@gmail.com
+else
+    eval ${PREFIX} invenio utils tokens_create -n organisation_fictive_token -u reroilstest+imagination@gmail.com -t ${INVENIO_RERO_ACCESS_TOKEN_FICTIVE_LIBRARIAN}
+fi
+
 # create token access for monitoring
 # if the environement variable INVENIO_RERO_ACCESS_TOKEN_MONITORING is not set
 # a new token will be generated

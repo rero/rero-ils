@@ -22,6 +22,7 @@ from copy import deepcopy
 from invenio_accounts.testutils import login_user_via_session
 from utils import postdata
 
+from rero_ils.modules.cli import create_personal
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.api import LoanAction
 
@@ -91,3 +92,63 @@ def test_patron_utils(client, librarian_martigny,
 
     from rero_ils.modules.patrons.views import get_checkout_loan_for_item
     assert not get_checkout_loan_for_item(item.pid)
+
+
+def test_patron_authenticate(client, patron_martigny, patron_martigny_data,
+                             system_librarian_martigny):
+    """Test for patron authenticate."""
+    # parameters
+    token = 'Or7DTg1WT34cLKuSMcS7WzhdhxtKklpTizb1Hn2H0aaV5Vig6nden63VEqBE'
+    token_url_data = {'access_token': token}
+    username = patron_martigny_data['username']
+    password = patron_martigny_data['birth_date']
+
+    create_personal(
+        name='token_test',
+        user_id=system_librarian_martigny['user_id'],
+        access_token=token
+    )
+
+    # Missing access_token parameter
+    res, _ = postdata(
+        client, 'api_patrons.patron_authenticate')
+    assert res.status_code == 401
+
+    # Missing parameters (username and password)
+    res, _ = postdata(
+        client, 'api_patrons.patron_authenticate', url_data=token_url_data)
+    assert res.status_code == 400
+
+    # User not found
+    post_data = {'username': 'foo', 'password': 'bar'}
+    res, _ = postdata(
+        client,
+        'api_patrons.patron_authenticate',
+        post_data,
+        url_data=token_url_data
+    )
+    assert res.status_code == 404
+
+    # User found, bad password
+    post_data = {'username': username, 'password': 'bar'}
+    res, _ = postdata(
+        client,
+        'api_patrons.patron_authenticate',
+        post_data,
+        url_data=token_url_data
+    )
+    assert res.status_code == 401
+
+    # User found
+    post_data = {'username': username, 'password': password}
+    res, output = postdata(
+        client,
+        'api_patrons.patron_authenticate',
+        post_data,
+        url_data=token_url_data
+    )
+    assert res.status_code == 200
+    assert output['city'] == patron_martigny_data['city']
+    assert output['fullname'] == patron_martigny_data['first_name'] + ' ' +\
+        patron_martigny_data['last_name']
+    assert 'blocked' not in output
