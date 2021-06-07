@@ -19,6 +19,8 @@
 
 from __future__ import absolute_import, print_function
 
+import copy
+import datetime
 import re
 
 from flask import Blueprint, abort, current_app, jsonify, render_template
@@ -32,7 +34,7 @@ from flask_menu import register_menu
 from flask_security import utils as security_utils
 from invenio_i18n.ext import current_i18n
 
-from .api import Patron, PatronsSearch, current_librarian
+from .api import Patron, PatronsSearch, current_librarian, current_patrons
 from .permissions import get_allowed_roles_management
 from .utils import user_has_patron
 from ..decorators import check_logged_as_librarian, check_logged_as_patron, \
@@ -42,7 +44,7 @@ from ..loans.api import get_loans_stats_by_patron_pid, get_overdue_loans
 from ..loans.utils import sum_for_fees
 from ..locations.api import Location
 from ..patron_transactions.api import PatronTransaction
-from ..patron_types.api import PatronTypesSearch
+from ..patron_types.api import PatronType, PatronTypesSearch
 from ..users.api import User
 from ..utils import extracted_data_from_ref, get_base_url
 from ...utils import remove_empties_from_dict
@@ -313,3 +315,70 @@ def patron_authenticate():
             patron.get('notes', [])
         ))
     }))
+
+
+@api_blueprint.route('/info', methods=['GET'])
+@check_logged_as_patron
+def info():
+    """Get patron info."""
+    token_scopes = flask_request.oauth.access_token.scopes
+
+    def get_main_patron(patrons):
+        """Return the main patron.
+
+        :param patrons: List of patrons.
+        :returns: The main patron.
+        """
+        # TODO: Find a way to determine which is the main patron.
+        return patrons[0]
+
+    def get_institution_code(institution):
+        """Get the institution code for a given institution.
+
+        Special transformation for `nj`.
+
+        :param institution: Institution object.
+        :returns: Code for the institution.
+        """
+        return institution['code'] if institution['code'] != 'nj' else 'rbnj'
+
+    # Process for all patrons
+    patrons = copy.deepcopy(current_patrons)
+    for patron in patrons:
+        patron['institution'] = patron.get_organisation()
+        patron['patron']['type'] = PatronType.get_record_by_pid(
+            extracted_data_from_ref(patron['patron']['type']['$ref']))
+
+    # Stores the main patron
+    patron = get_main_patron(patrons)
+
+    data = {}
+
+    # Barcode
+    if patron['patron'].get('barcode'):
+        data['barcode'] = patron['patron']['barcode'][0]
+
+    # Full name
+    if 'fullname' in token_scopes:
+        data['fullname'] = patron.formatted_name
+
+    # Birthdate
+    if 'birthdate' in token_scopes:
+        data['birthdate'] = current_user.profile.birth_date.isoformat()
+
+    # Patron types
+    if 'patron_types' in token_scopes:
+        patron_types = []
+        for patron in patrons:
+            patron_types.append({
+                'patron_type':
+                patron['patron']['type']['code'],
+                'institution':
+                get_institution_code(patron['institution']),
+                'expiration_date':
+                datetime.datetime.strptime(patron['patron']['expiration_date'],
+                                           '%Y-%m-%d').isoformat()
+            })
+        data['patron_types'] = patron_types
+
+    return jsonify(data)

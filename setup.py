@@ -326,6 +326,14 @@ setup(
             'patrons = rero_ils.modules.patrons.jsonresolver',
             'templates = rero_ils.modules.templates.jsonresolver',
             'vendors = rero_ils.modules.vendors.jsonresolver'
+        ],
+        'invenio_oauth2server.scopes': [
+            'fullname = rero_ils.oauth.scopes:fullname',
+            'birthdate = rero_ils.oauth.scopes:birthdate',
+            'institution = rero_ils.oauth.scopes:institution',
+            'expiration_date = rero_ils.oauth.scopes:expiration_date',
+            'patron_type = rero_ils.oauth.scopes:patron_type',
+            'patron_types = rero_ils.oauth.scopes:patron_types'
         ]
     },
     classifiers=[
