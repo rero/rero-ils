@@ -50,6 +50,7 @@ def test_item_all_jsonschema_keys_values(
         {'key': 'second_call_number', 'value': 25},
         {'key': 'item_type', 'value': 25},
         {'key': 'location', 'value': 25},
+        {'key': 'temporary_location', 'value': 25},
         {'key': 'enumerationAndChronology', 'value': 25},
         {'key': 'document', 'value': 25},
         {'key': 'type', 'value': 25},
