@@ -7,7 +7,6 @@
       "title": "Supplement",
       "description": "A document that updates or otherwise complements the predominant document (MARC 770).",
       "type": "object",
-      "additionalProperties": false,
       "oneOf": [
         {
           "$ref": "#/definitions/document"
@@ -29,7 +28,6 @@
       "title": "Supplement to",
       "description": "A document that is updated or otherwise complemented by the augmenting document (MARC 772).",
       "type": "object",
-      "additionalProperties": false,
       "oneOf": [
         {
           "$ref": "#/definitions/document"
@@ -51,7 +49,6 @@
       "title": "Other edition",
       "description": "Other available editions, for example simultaneously published language editions or reprints (MARC 775).",
       "type": "object",
-      "additionalProperties": false,
       "oneOf": [
         {
           "$ref": "#/definitions/document"
@@ -66,14 +63,13 @@
     }
   },
   "otherPhysicalFormat": {
-    "title": "Other physical formats",
+    "title": "Also issued as",
     "type": "array",
     "minItems": 1,
     "items": {
-      "title": "Other physical format",
+      "title": "Also issued as",
       "description": "A document that embodies the same expression of a work in a different format (MARC 776).",
       "type": "object",
-      "additionalProperties": false,
       "oneOf": [
         {
           "$ref": "#/definitions/document"
@@ -95,7 +91,6 @@
       "title": "Issued with",
       "description": "A document that is issued on the same carrier as the document being described (MARC 777).",
       "type": "object",
-      "additionalProperties": false,
       "oneOf": [
         {
           "$ref": "#/definitions/document"
@@ -117,7 +112,6 @@
       "title": "Preceded by",
       "description": "A document that precedes the succeeding document (earlier in time or before in a narrative) (MARC 780).",
       "type": "object",
-      "additionalProperties": false,
       "oneOf": [
         {
           "$ref": "#/definitions/document"
@@ -139,7 +133,6 @@
       "title": "Succeeded by",
       "description": "A document that succeeds, that is, is later in time or after in a narrative, etc., the preceding work (MARC 785).",
       "type": "object",
-      "additionalProperties": false,
       "oneOf": [
         {
           "$ref": "#/definitions/document"
@@ -161,7 +154,48 @@
       "title": "Related to",
       "description": "Any other relationship between documents (MARC 787).",
       "type": "object",
-      "additionalProperties": false,
+      "oneOf": [
+        {
+          "$ref": "#/definitions/document"
+        },
+        {
+          "$ref": "#/definitions/label"
+        }
+      ]
+    },
+    "form": {
+      "hide": true
+    }
+  },
+  "hasReproduction": {
+    "title": "Has reproduction",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Has reproduction",
+      "description": "Descriptive data for a reproduction (MARC 533).",
+      "type": "object",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/document"
+        },
+        {
+          "$ref": "#/definitions/label"
+        }
+      ]
+    },
+    "form": {
+      "hide": true
+    }
+  },
+  "reproductionOf": {
+    "title": "Reproduction of",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Reproduction of",
+      "description": "A reproduction of a document (MARC 534).",
+      "type": "object",
       "oneOf": [
         {
           "$ref": "#/definitions/document"
@@ -179,6 +213,7 @@
     "document": {
       "title": "Document link",
       "type": "object",
+      "additionalProperties": false,
       "propertiesOrder": [
         "$ref"
       ],
@@ -203,6 +238,7 @@
     "label": {
       "title": "Label",
       "type": "object",
+      "additionalProperties": false,
       "propertiesOrder": [
         "label"
       ],

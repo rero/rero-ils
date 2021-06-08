@@ -17,20 +17,35 @@
 
 """rero-ils MARC21 model definition."""
 
-import os
 import re
 
-import requests
 from dojson import utils
 from dojson.utils import GroupableOrderedDict
 
 from rero_ils.dojson.utils import ReroIlsMarc21Overdo, TitlePartList, \
     add_note, build_identifier, build_responsibility_data, \
     build_string_from_subfields, error_print, \
-    extract_subtitle_and_parallel_titles_from_field_245_b, get_field_items, \
-    get_field_link_data, make_year, not_repetitive, re_identified, \
-    remove_trailing_punctuation
-from rero_ils.modules.utils import requests_retry_session
+    extract_subtitle_and_parallel_titles_from_field_245_b, \
+    get_contribution_link, get_field_items, get_field_link_data, make_year, \
+    not_repetitive, remove_trailing_punctuation
+
+_DOCUMENT_RELATION_PER_TAG = {
+    '770': 'supplement',
+    '772': 'supplementTo',
+    '775': 'otherEdition',
+    '776': 'otherPhysicalFormat',
+    '777': 'issuedWith',
+    '780': 'precededBy',
+    '785': 'succeededBy',
+    '787': 'relatedTo',
+    '533': 'hasReproduction',
+    '534': 'reproductionOf'
+}
+
+_REPRODUCTION_SUBFIELDS_PER_TAG = {
+    '533': 'abcdemn',
+    '534': 'cep'
+}
 
 _ISSUANCE_MAIN_TYPE_PER_BIB_LEVEL = {
     'a': 'rdami:1001',
@@ -211,41 +226,22 @@ _INTENDED_AUDIENCE_TYPE_REGEXP = {
 
 _IDREF_REF_REGEX = re.compile(r'^(?i)\(IdRef\)(.*)?')
 _RERO_REF_REGEX = re.compile(r'^(?i)\(RERO\)(.*)?')
-_CONTRIBUTION_TAGS = ['100', '600', '610', '611', '630', '650', '651',
-                             '655', '700', '710', '711']
-
 
 marc21 = ReroIlsMarc21Overdo()
 
 
-def get_contribution_link(bibid, reroid, id, key):
-    """Get MEF contribution link.
-
-    :params bibid: Bib id from the record.
-    :params reroid: RERO id from the record.
-    :params id: $0 from the marc field.
-    :params key: Tag from the marc field.
-    :returns: MEF url.
-    """
-    # https://mef.test.rero.ch/api/mef/?q=rero.rero_pid:A012327677
-    prod_host = 'mef.rero.ch'
-    test_host = os.environ.get('RERO_ILS_MEF_HOST', 'mef.rero.ch')
-    mef_url = f'https://{test_host}/api/'
-
-    match = re_identified.search(id)
-    if match and len(match.groups()) == 2 and key[:3] in _CONTRIBUTION_TAGS:
-        match_type = match.group(1).lower()
-        match_value = match.group(2)
-        if match_type == 'idref':
-            url = f'{mef_url}{match_type}/{match_value}'
-            response = requests_retry_session().get(url)
-            status_code = response.status_code
-            if status_code == requests.codes.ok:
-                return url.replace(test_host, prod_host)
-            error_print('WARNING GET MEF CONTRIBUTION:',
-                        bibid, reroid, key, id, url, status_code)
-    else:
-        error_print('ERROR GET MEF CONTRIBUTION:', bibid, reroid, key, id)
+def build_place():
+    """Build place data for provisionActivity."""
+    place = {}
+    if marc21.cantons:
+        place['canton'] = marc21.cantons[0]
+    if marc21.country:
+        place['country'] = marc21.country
+    if place:
+        place['type'] = 'bf:Place'
+    if marc21.links_from_752:
+        place['identifyBy'] = marc21.links_from_752[0]
+    return place
 
 
 @marc21.over('issuance', 'leader')
@@ -346,7 +342,26 @@ def marc21_to_language(self, key, value):
         if fields_264:
             error_print('WARNING INVALID 264', marc21.bib_id, marc21.rero_id,
                         fields_264)
-        self['provisionActivity'] = [{'type': 'bf:Publication'}]
+        places = []
+        publication = {
+            'type': 'bf:Publication'
+        }
+        place = build_place()
+        if place:
+            places.append(place)
+        # parce le link skipping the fist (already used by build_place)
+        for i in range(1, len(marc21.links_from_752)):
+            place = {
+                'country': 'xx',
+                'type': 'bf:Place',
+                'identifyBy': marc21.links_from_752[i]
+            }
+            places.append(place)
+
+        if places:
+            publication['place'] = places
+        self['provisionActivity'] = [publication]
+
         if (marc21.date_type_from_008 == 'q' or
                 marc21.date_type_from_008 == 'n'):
             self['provisionActivity'][0][
@@ -635,6 +650,33 @@ def marc21_to_contribution(self, key, value):
             }
 
 
+@marc21.over('relation', '(770|772|775|776|777|780|785|787|533|534)..')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_specific_document_relation(self, key, value):
+    """Get contribution."""
+    tag = key[:3]
+    relation = None
+    if tag in ['533', '534']:
+        label = build_string_from_subfields(
+            value,
+            _REPRODUCTION_SUBFIELDS_PER_TAG[tag]
+        )
+        relation = {'label': label}
+    else:
+        subfield_w = not_repetitive(marc21.bib_id,  marc21.rero_id,
+                                    key, value, 'w', default='').strip()
+        if subfield_w:
+            match = re.compile(r'^REROILS:')
+            pid = match.sub('', subfield_w)
+            ref = f'https://bib.rero.ch/api/documents/{pid}'
+            relation = {'$ref': ref}
+    if relation:
+        relation_list = self.get(_DOCUMENT_RELATION_PER_TAG[tag], [])
+        relation_list.append(relation)
+        self[_DOCUMENT_RELATION_PER_TAG[tag]] = relation_list
+
+
 @marc21.over('copyrightDate', '^264.4')
 @utils.ignore_value
 def marc21_to_copyright_date(self, key, value):
@@ -694,6 +736,7 @@ def marc21_to_provisionActivity(self, key, value):
     publisher.place: 264 [$a repetitive] (without the : but keep the ;)
     publicationDate: 264 [$c repetitive] (but take only the first one)
     """
+
     def build_statement(field_value, ind2):
 
         def build_agent_data(code, label, index, link):
@@ -732,16 +775,6 @@ def marc21_to_provisionActivity(self, key, value):
                 index += 1
         return statement
 
-    def build_place():
-        place = {}
-        if marc21.cantons:
-            place['canton'] = marc21.cantons[0]
-        if marc21.country:
-            place['country'] = marc21.country
-        if place:
-            place['type'] = 'bf:Place'
-        return place
-
     # the function marc21_to_provisionActivity start here
     ind2 = key[4]
     type_per_ind2 = {
@@ -763,9 +796,21 @@ def marc21_to_provisionActivity(self, key, value):
             publication['endDate'] = marc21.date['end_date']
         if 'note' in marc21.date:
             publication['note'] = marc21.date['note']
+
+        places = []
         place = build_place()
         if place:
-            publication['place'] = [place]
+            places.append(place)
+        # parce le link skipping the fist (already used by build_place)
+        for i in range(1, len(marc21.links_from_752)):
+            place = {
+                'country': 'xx',
+                'type': 'bf:Place',
+                'identifyBy': marc21.links_from_752[i]
+            }
+            places.append(place)
+        if places:
+            publication['place'] = places
 
     publication['statement'] = build_statement(value, ind2)
     if subfields_c:
@@ -857,6 +902,47 @@ def marc21_to_summary(self, key, value):
         table_of_contents_list = self.get('tableOfContents', [])
         table_of_contents_list.append(table_of_contents)
         self['tableOfContents'] = table_of_contents_list
+
+
+@marc21.over('usageAndAccessPolicy', '^(506|540)..')
+@utils.ignore_value
+def marc21_to_usage_and_access_policy_from_field_506_540(self, key, value):
+    """Get usageAndAccessPolicy from fields: 506, 540."""
+    subfield_a = not_repetitive(marc21.bib_id, marc21.rero_id,
+                                key, value, 'a', default='').strip()
+    if subfield_a:
+        policy = {
+            'type': 'bf:UsageAndAccessPolicy',
+            'label': subfield_a
+        }
+        usage_and_access_policy = self.get('usageAndAccessPolicy', [])
+        usage_and_access_policy.append(policy)
+    return usage_and_access_policy or None
+
+
+@marc21.over('frequency', '^(310|321)..')
+@utils.ignore_value
+def marc21_to_frequency_field_310_321(self, key, value):
+    """Get frequency from fields: 310, 321."""
+    subfield_a = not_repetitive(
+        marc21.bib_id, marc21.rero_id,
+        key, value, 'a', default='missing_label').strip()
+    subfield_b = not_repetitive(
+        marc21.bib_id, marc21.rero_id,
+        key, value, 'b', default='').strip()
+
+    frequency = {
+        'label': remove_trailing_punctuation(
+                    data=subfield_a,
+                    punctuation=',',
+                    spaced_punctuation=','
+                )
+        }
+    if subfield_b:
+        frequency['date'] = subfield_b
+    frequency_list = self.get('frequency', [])
+    frequency_list.append(frequency)
+    return frequency_list or None
 
 
 @marc21.over('dissertation', '^502..')
@@ -1308,7 +1394,7 @@ def marc21_to_identifiedBy_from_field_930(self, key, value):
     return identifiedBy or None
 
 
-@marc21.over('note', '^(500|510|530|545|580)..')
+@marc21.over('note', '^(500|510|530|545|555|580)..')
 @utils.for_each_value
 @utils.ignore_value
 def marc21_to_notes_and_original_title(self, key, value):

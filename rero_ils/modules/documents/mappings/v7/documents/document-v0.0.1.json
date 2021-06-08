@@ -1046,6 +1046,22 @@
           }
         }
       },
+      "hasReproduction": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "text"
+          }
+        }
+      },
+      "reproductionOf": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "text"
+          }
+        }
+      },
       "intendedAudience": {
         "type": "object",
         "properties": {

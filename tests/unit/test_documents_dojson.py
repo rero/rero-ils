@@ -159,6 +159,41 @@ def test_marc21_to_admin_metadata():
         <controlfield tag=
             "008">160315s2015    cc ||| |  ||||00|  |chi d</controlfield>
         <datafield tag="019" ind1=" " ind2=" ">
+          <subfield code="a">Catalogué d'après la couverture</subfield>
+          <subfield code="9">nebpun/12.2019</subfield>
+        </datafield>
+        <datafield tag="019" ind1=" " ind2=" ">
+          <subfield code="a">BPUN: Sandoz, Pellet, Rosselet, Bähler</subfield>
+          <subfield code="9">nebpun/12.2019</subfield>
+        </datafield>
+        <datafield tag="019" ind1=" " ind2=" ">
+          <subfield code="a">!!!Bibliographie neuchâteloise!!!</subfield>
+          <subfield code="9">necfbv/12.2019/3546</subfield>
+        </datafield>
+        <datafield tag="019" ind1=" " ind2=" ">
+          <subfield code="a">!!! Discographie neuchâteloise!!!</subfield>
+          <subfield code="9">necfbv/02.2021/3502</subfield>
+        </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('adminMetadata') == {
+      'encodingLevel': 'Less-than-full level, material not examined',
+      'note': [
+         "Catalogué d'après la couverture (nebpun/12.2019)",
+         'BPUN: Sandoz, Pellet, Rosselet, Bähler (nebpun/12.2019)',
+         '!!!Bibliographie neuchâteloise!!! (necfbv/12.2019/3546)',
+         '!!! Discographie neuchâteloise!!! (necfbv/02.2021/3502)'
+      ]
+    }
+
+    marc21xml = """
+    <record>
+        <leader>00501naa a22001332a 4500</leader>
+        <controlfield tag=
+            "008">160315s2015    cc ||| |  ||||00|  |chi d</controlfield>
+        <datafield tag="019" ind1=" " ind2=" ">
           <subfield code="a">Notice privée</subfield>
           <subfield code="9">vsbcce/02.2013</subfield>
         </datafield>
@@ -393,16 +428,16 @@ def test_marc21_to_mode_of_issuance():
 
     marc21xml = """
     <record>
-        <leader>00604cam a2200205 a 4500</leader>
+        <leader>01518ccm a2200337 a 4500</leader>
           <controlfield tag=
-            "008">150707m20159999fr |||m|| ||||00|| 0fre d</controlfield>
+            "008">150414s1993    sz |||p|| ||||  || 0fre d</controlfield>
     </record>
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('issuance') == {
-        'main_type': 'rdami:1002',
-        'subtype': 'set'
+        'main_type': 'rdami:1001',
+        'subtype': 'materialUnit'
     }
 
 
@@ -1508,6 +1543,42 @@ def test_marc21_provisionActivity_without_264():
     data = marc21.do(marc21json)
     assert data.get('provisionActivity') == [{
         'type': 'bf:Publication',
+        'place': [{
+            'country': 'sz',
+            'type': 'bf:Place'
+        }],
+        'startDate': 2006,
+        'endDate': 2010
+    }]
+
+
+def test_marc21_provisionActivity_without_264_with_752():
+    """Test dojson publication statement.
+
+    A value should be here even 264 does not exists.
+    """
+    marc21xml = """
+    <record>
+        <controlfield tag=
+          "008">070518s20062010sz ||| |  ||||00|  |fre d</controlfield>
+        <datafield tag="752" ind1=" " ind2=" ">
+          <subfield code="d"
+            >Neuchâtel (1450-1800, lieu d'édition ou d'impression)</subfield>
+          <subfield code="0">(IdRef)027401421</subfield>
+        </datafield>
+    </record>"""
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('provisionActivity') == [{
+        'type': 'bf:Publication',
+        'place': [{
+            'country': 'sz',
+            'type': 'bf:Place',
+            'identifyBy': {
+                    'type': 'IdRef',
+                    'value': '027401421'
+                }
+        }],
         'startDate': 2006,
         'endDate': 2010
     }]
@@ -1526,6 +1597,10 @@ def test_marc21_provisionActivity_with_original_date():
     data = marc21.do(marc21json)
     assert data.get('provisionActivity') == [{
         'type': 'bf:Publication',
+        'place': [{
+            'country': 'sz',
+            'type': 'bf:Place'
+        }],
         'startDate': 1997,
         'original_date': 1849,
         'endDate': 1849
@@ -1631,6 +1706,30 @@ def test_marc21_to_provisionActivity_canton():
         }
     ]
 
+    marc21xml = """
+      <record>
+        <controlfield tag=
+          "008">060831s1998    sz ||| |  ||||00|  |fre d</controlfield>
+        <datafield tag="044" ind1=" " ind2=" ">
+          <subfield code="a">sz</subfield>
+          <subfield code="c">ch-vd</subfield>
+        </datafield>
+      </record>
+     """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Publication',
+            'place': [{
+                'canton': 'vd',
+                'country': 'sz',
+                'type': 'bf:Place'
+            }],
+            'startDate': 1998
+        }
+    ]
+
 
 def test_marc21_to_provisionActivity_1_place_2_agents():
     """Test dojson publication statement.
@@ -1658,6 +1757,138 @@ def test_marc21_to_provisionActivity_1_place_2_agents():
                 'country': 'fr',
                 'type': 'bf:Place'
             }],
+            'statement': [
+                {
+                    'label': [{'value': '[Paris]'}],
+                    'type': 'bf:Place'
+                },
+                {
+                    'label': [{'value': 'Desclée de Brouwer [puis]'}],
+                    'type': 'bf:Agent'
+                },
+                {
+                    'label': [{'value': 'Etudes augustiniennes'}],
+                    'type': 'bf:Agent'
+                },
+                {
+                    'label': [{'value': '1969-'}],
+                    'type': 'Date'
+                }
+            ],
+            'startDate': 1969
+        }
+    ]
+
+
+def test_marc21_to_provisionActivity_1_place_2_agents_with_one_752():
+    """Test dojson publication statement.
+    - 1 publication place and 2 agents from one field 264
+    - 1 field 752
+    """
+
+    marc21xml = """
+      <record>
+        <controlfield tag=
+          "008">940202m19699999fr |||||| ||||00|| |fre d</controlfield>
+        <datafield tag="264" ind1=" " ind2="1">
+          <subfield code="a">[Paris] :</subfield>
+          <subfield code="b">Desclée de Brouwer [puis]</subfield>
+          <subfield code="b">Etudes augustiniennes,</subfield>
+          <subfield code="c">1969-</subfield>
+        </datafield>
+        <datafield tag="752" ind1=" " ind2=" ">
+          <subfield code="d"
+            >Neuchâtel (1450-1800, lieu d'édition ou d'impression)</subfield>
+          <subfield code="0">(IdRef)027401421</subfield>
+        </datafield>
+     </record>
+     """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Publication',
+            'place': [{
+                'country': 'fr',
+                'type': 'bf:Place',
+                'identifyBy': {
+                    'type': 'IdRef',
+                    'value': '027401421'
+                }
+            }],
+            'statement': [
+                {
+                    'label': [{'value': '[Paris]'}],
+                    'type': 'bf:Place'
+                },
+                {
+                    'label': [{'value': 'Desclée de Brouwer [puis]'}],
+                    'type': 'bf:Agent'
+                },
+                {
+                    'label': [{'value': 'Etudes augustiniennes'}],
+                    'type': 'bf:Agent'
+                },
+                {
+                    'label': [{'value': '1969-'}],
+                    'type': 'Date'
+                }
+            ],
+            'startDate': 1969
+        }
+    ]
+
+
+def test_marc21_to_provisionActivity_1_place_2_agents_with_two_752():
+    """Test dojson publication statement.
+    - 1 publication place and 2 agents from one field 264
+    - 2 field 752
+    """
+
+    marc21xml = """
+      <record>
+        <controlfield tag=
+          "008">940202m19699999fr |||||| ||||00|| |fre d</controlfield>
+        <datafield tag="264" ind1=" " ind2="1">
+          <subfield code="a">[Paris] :</subfield>
+          <subfield code="b">Desclée de Brouwer [puis]</subfield>
+          <subfield code="b">Etudes augustiniennes,</subfield>
+          <subfield code="c">1969-</subfield>
+        </datafield>
+        <datafield tag="752" ind1=" " ind2=" ">
+          <subfield code="d"
+            >Neuchâtel (1450-1800, lieu d'édition ou d'impression)</subfield>
+          <subfield code="0">(IdRef)027401421</subfield>
+        </datafield>
+        <datafield tag="752" ind1=" " ind2=" ">
+          <subfield code="d"
+            >Neuchâtel lieu d'édition ou d'impression)</subfield>
+          <subfield code="0">(RERO)A000000001</subfield>
+        </datafield>
+     </record>
+     """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    print('T1000', data)
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Publication',
+            'place': [{
+                    'country': 'fr',
+                    'type': 'bf:Place',
+                    'identifyBy': {
+                        'type': 'IdRef',
+                        'value': '027401421'
+                    }
+                }, {
+                    'country': 'xx',
+                    'type': 'bf:Place',
+                    'identifyBy': {
+                        'type': 'RERO',
+                        'value': 'A000000001'
+                    }
+                }
+            ],
             'statement': [
                 {
                     'label': [{'value': '[Paris]'}],
@@ -3047,8 +3278,8 @@ def test_marc21_to_notes_from_510():
     ]
 
 
-def test_marc21_to_notes_from_530_545_580():
-    """Test dojson notes from field 530, 545 and 580 (L35)."""
+def test_marc21_to_notes_from_530_545_555_580():
+    """Test dojson notes from field 530, 545, 555 and 580 (L35)."""
 
     marc21xml = """
     <record>
@@ -3057,6 +3288,9 @@ def test_marc21_to_notes_from_530_545_580():
       </datafield>
       <datafield tag="545" ind1=" " ind2=" ">
         <subfield code="a">note 545</subfield>
+      </datafield>
+      <datafield tag="555" ind1=" " ind2=" ">
+        <subfield code="a">note 555</subfield>
       </datafield>
       <datafield tag="580" ind1=" " ind2=" ">
         <subfield code="a">note 580</subfield>
@@ -3071,6 +3305,9 @@ def test_marc21_to_notes_from_530_545_580():
         }, {
             'noteType': 'general',
             'label': 'note 545'
+        }, {
+            'noteType': 'general',
+            'label': 'note 555'
         }, {
             'noteType': 'general',
             'label': 'note 580'
@@ -3333,6 +3570,79 @@ def test_marc21_to_classification_from_980_2_brp_and_dr_sys():
     ]
 
 
+def test_marc21_to_frequency():
+    """Test dojson frequency from field 310, 321 (L32)."""
+
+    # field 310, 321 ok
+    marc21xml = """
+    <record>
+      <datafield tag="310" ind1=" " ind2=" ">
+        <subfield code="a">Annuel</subfield>
+        <subfield code="b">1982-</subfield>
+      </datafield>
+      <datafield tag="321" ind1=" " ind2=" ">
+        <subfield code="a">Irrégulier</subfield>
+        <subfield code="b">1953-1981</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('frequency') == [{
+        'label': 'Annuel',
+        'date': '1982-'
+      }, {
+        'label': 'Irrégulier',
+        'date': '1953-1981'
+      }
+    ]
+
+    # field 310 $a with trailing coma and missing $b, 321 ok
+    marc21xml = """
+    <record>
+      <datafield tag="310" ind1=" " ind2=" ">
+        <subfield code="a">Annuel,</subfield>
+      </datafield>
+      <datafield tag="321" ind1=" " ind2=" ">
+        <subfield code="a">Irrégulier</subfield>
+        <subfield code="b">1953-1981</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('frequency') == [{
+        'label': 'Annuel'
+      }, {
+        'label': 'Irrégulier',
+        'date': '1953-1981'
+      }
+    ]
+
+    # field 310 ok, field 321 without $a
+    marc21xml = """
+    <record>
+      <datafield tag="310" ind1=" " ind2=" ">
+        <subfield code="a">Annuel</subfield>
+        <subfield code="b">1982-</subfield>
+      </datafield>
+      <datafield tag="321" ind1=" " ind2=" ">
+        <subfield code="b">1953-1981</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('frequency') == [{
+        'label': 'Annuel',
+        'date': '1982-'
+      }, {
+        'label': 'missing_label',
+        'date': '1953-1981'
+      }
+    ]
+
+
 def test_marc21_to_sequence_numbering_from_one_362():
     """Test dojson sequence_numbering from 362 (L39)."""
 
@@ -3388,6 +3698,61 @@ def test_marc21_to_table_of_contents_from_505():
     assert data.get('tableOfContents') == [
         "Vol. 1: Le prisme noir trad. de l'anglais",
         'Vol. 2 : Le couteau aveuglant'
+    ]
+
+
+def test_marc21_to_usage_and_access_policy():
+    """Test dojson usageAndAccessPolicy from field 506, 540 (L74)."""
+
+    marc21xml = """
+    <record>
+      <datafield tag="506" ind1=" " ind2=" ">
+        <subfield code="a">Les archives de C. Roussopoulos</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('usageAndAccessPolicy') == [{
+        'type': 'bf:UsageAndAccessPolicy',
+        'label': 'Les archives de C. Roussopoulos'
+      }
+    ]
+
+    marc21xml = """
+    <record>
+      <datafield tag="540" ind1=" " ind2=" ">
+        <subfield code="a">Les archives de Carole Roussopoulos</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('usageAndAccessPolicy') == [{
+        'type': 'bf:UsageAndAccessPolicy',
+        'label': 'Les archives de Carole Roussopoulos'
+      }
+    ]
+
+    marc21xml = """
+    <record>
+      <datafield tag="506" ind1=" " ind2=" ">
+        <subfield code="a">Les archives de C. Roussopoulos</subfield>
+      </datafield>
+      <datafield tag="540" ind1=" " ind2=" ">
+        <subfield code="a">Les archives de Carole Roussopoulos</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('usageAndAccessPolicy') == [{
+        'type': 'bf:UsageAndAccessPolicy',
+        'label': 'Les archives de C. Roussopoulos'
+      }, {
+        'type': 'bf:UsageAndAccessPolicy',
+        'label': 'Les archives de Carole Roussopoulos'
+      }
     ]
 
 
@@ -3608,6 +3973,90 @@ def test_marc21_to_part_of():
                     'volume': 256
                 }]
         }]
+
+
+def test_marc21_to_specific_document_relation():
+    """Test dojson for generation the specific document relations."""
+
+    # one 770 with link and one 770 without link
+    marc21xml = """
+    <record>
+      <datafield tag="770" ind1="1" ind2=" ">
+        <subfield code="t">Télé-top-Matin</subfield>
+        <subfield code="w">REROILS:2000055</subfield>
+      </datafield>
+      <datafield tag="770" ind1="1" ind2=" ">
+        <subfield code="t">Télé-top</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('supplement') == [{
+        '$ref': 'https://bib.rero.ch/api/documents/2000055',
+        }
+    ]
+    # two 770 with link
+    marc21xml = """
+    <record>
+      <datafield tag="770" ind1="1" ind2=" ">
+        <subfield code="t">Télé-top-Matin</subfield>
+        <subfield code="w">REROILS:2000055</subfield>
+      </datafield>
+      <datafield tag="770" ind1="1" ind2=" ">
+        <subfield code="t">Télé-top</subfield>
+        <subfield code="w">REROILS:2000056</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('supplement') == [{
+            '$ref': 'https://bib.rero.ch/api/documents/2000055',
+        }, {
+            '$ref': 'https://bib.rero.ch/api/documents/2000056',
+        }
+    ]
+
+    marc21xml = """
+    <record>
+      <datafield tag="533" ind1=" " ind2=" ">
+        <subfield code="a">Master microfilm.</subfield>
+        <subfield code="b">Lausanne :</subfield>
+        <subfield code="c">BCU</subfield>
+        <subfield code="c">1998</subfield>
+        <subfield code="e">1 bobine ; 35 mm</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('hasReproduction') == [{
+        'label': 'Master microfilm. Lausanne : BCU 1998 1 bobine ; 35 mm',
+        }
+    ]
+
+    marc21xml = """
+    <record>
+      <datafield tag="534" ind1=" " ind2=" ">
+        <subfield code="p">Reproduction de l'édition de:</subfield>
+        <subfield code="c">Paris : H. Champion, 1931</subfield>
+      </datafield>
+      <datafield tag="534" ind1=" " ind2=" ">
+        <subfield code="p">Repro. sur microfilm:</subfield>
+        <subfield code="c">Ed. de Minuit, 1968. -</subfield>
+        <subfield code="e">189 pages</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('reproductionOf') == [{
+            'label': "Reproduction de l'édition de: Paris : H. Champion, 1931",
+        }, {
+            'label': "Repro. sur microfilm: Ed. de Minuit, 1968. - 189 pages"
+        }
+    ]
 
 
 def test_marc21_to_part_of_without_link():
