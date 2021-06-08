@@ -149,6 +149,16 @@
         "name": "relatedTo",
         "ref": "document",
         "optional": "True"
+      },
+      {
+        "name": "hasReproduction",
+        "ref": "document",
+        "optional": "True"
+      },
+      {
+        "name": "reproductionOf",
+        "ref": "document",
+        "optional": "True"
       }
     ]
   },

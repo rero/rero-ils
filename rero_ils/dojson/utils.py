@@ -17,13 +17,17 @@
 
 """Dojson utils."""
 
+import os
 import re
 import sys
 import traceback
 from copy import deepcopy
 
 import click
+import requests
 from dojson import Overdo, utils
+
+from rero_ils.modules.utils import requests_retry_session
 
 _UNIMARC_LANGUAGES_SCRIPTS = {
     'ba': 'latn',  # Latin
@@ -286,6 +290,8 @@ _ENCODING_LEVEL_MAPPING = {
     'z': 'Not applicable'
 }
 
+_CONTRIBUTION_TAGS = ['100', '600', '610', '611', '630', '650', '651',
+                             '655', '700', '710', '711']
 
 re_identified = re.compile(r'\((.*)\)(.*)')
 
@@ -378,6 +384,36 @@ def remove_trailing_punctuation(
         r'([{0}]|\s+[{1}])$'.format(punctuation, spaced_punctuation),
         '',
         data.rstrip()).rstrip()
+
+
+def get_contribution_link(bibid, reroid, id, key):
+    """Get MEF contribution link.
+
+    :params bibid: Bib id from the record.
+    :params reroid: RERO id from the record.
+    :params id: $0 from the marc field.
+    :params key: Tag from the marc field.
+    :returns: MEF url.
+    """
+    # https://mef.test.rero.ch/api/mef/?q=rero.rero_pid:A012327677
+    prod_host = 'mef.rero.ch'
+    test_host = os.environ.get('RERO_ILS_MEF_HOST', 'mef.rero.ch')
+    mef_url = f'https://{test_host}/api/'
+
+    match = re_identified.search(id)
+    if match and len(match.groups()) == 2 and key[:3] in _CONTRIBUTION_TAGS:
+        match_type = match.group(1).lower()
+        match_value = match.group(2)
+        if match_type == 'idref':
+            url = f'{mef_url}{match_type}/{match_value}'
+            response = requests_retry_session().get(url)
+            status_code = response.status_code
+            if status_code == requests.codes.ok:
+                return url.replace(test_host, prod_host)
+            error_print('WARNING GET MEF CONTRIBUTION:',
+                        bibid, reroid, key, id, url, status_code)
+    else:
+        error_print('ERROR GET MEF CONTRIBUTION:', bibid, reroid, key, id)
 
 
 def add_note(new_note, data):
@@ -913,6 +949,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
     has_field_490 = False
     has_field_580 = False
     content_media_carrier_type = None
+    links_from_752 = []
 
     def __init__(self, bases=None, entry_point_group=None):
         """Reroilsmarc21overdo init."""
@@ -962,8 +999,11 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
             self.field_008_data = ''
             self.date1_from_008 = None
             self.date2_from_008 = None
+            self.original_date_from_008 = None
             self.date_type_from_008 = ''
             self.date = {'start_date': None}
+            self.serial_type = ''
+            self.is_top_level_record = False
             fields_008 = self.get_fields(tag='008')
             if fields_008:
                 self.field_008_data = self.get_control_field_data(
@@ -995,9 +1035,9 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
             # identifiy a top level record (has 019 $a Niveau supérieur)
             regexp = re.compile(r'Niveau sup[eé]rieur', re.IGNORECASE)
             fields_019 = self.get_fields(tag='019')
-            note = ''
             notes_from_019_and_351 = []
             for field_019 in fields_019:
+                note = ''
                 for subfield_a in self.get_subfields(field_019, 'a'):
                     note += ' | ' + subfield_a
                     if regexp.search(subfield_a):
@@ -1037,6 +1077,17 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                 if description_conventions:
                     self.admin_meta_data['descriptionConventions'] = \
                         description_conventions
+
+            # build the list of links from filed 752
+            self.links_from_752 = []
+            fields_752 = self.get_fields(tag='752')
+            for field_752 in fields_752:
+                subfields_d = self.get_subfields(field_752, 'd')
+                if subfields_d:
+                    identifier = build_identifier(field_752['subfields'])
+                    if identifier:
+                        self.links_from_752.append(identifier)
+
             # check presence of specific fields
             self.has_field_490 = len(self.get_fields(tag='490')) > 0
             self.has_field_580 = len(self.get_fields(tag='580')) > 0
@@ -1107,7 +1158,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                         langs_from_041.append(lang_from_041)
             return langs_from_041
 
-        self.lang_from_008 = ''
+        self.lang_from_008 = None
         self.langs_from_041_a = []
         self.langs_from_041_h = []
         try:

@@ -60,6 +60,8 @@
     "precededBy",
     "succeededBy",
     "relatedTo",
+    "hasReproduction",
+    "reproductionOf",
     "frequency",
     "dissertation",
     "adminMetadata",
@@ -173,6 +175,12 @@
       "$ref": "https://bib.rero.ch/schemas/documents/document_document_relation-v0.0.1.json#/succeededBy"
     },
     "relatedTo": {
+      "$ref": "https://bib.rero.ch/schemas/documents/document_document_relation-v0.0.1.json#/relatedTo"
+    },
+    "hasReproduction": {
+      "$ref": "https://bib.rero.ch/schemas/documents/document_document_relation-v0.0.1.json#/relatedTo"
+    },
+    "reproductionOf": {
       "$ref": "https://bib.rero.ch/schemas/documents/document_document_relation-v0.0.1.json#/relatedTo"
     },
     "contentMediaCarrier": {
