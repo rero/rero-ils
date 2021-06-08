@@ -20,6 +20,7 @@
 
 from __future__ import absolute_import, print_function
 
+from flask import current_app
 from invenio_db import db
 from sqlalchemy_utils import IPAddressType
 
@@ -47,4 +48,10 @@ class SelfcheckTerminal(db.Model):
     def find_terminal(cls, **kwargs):
         """Find selfcheck terminal within the given arguments."""
         query = cls.query
-        return query.filter_by(**kwargs).first()
+        try:
+            result = query.filter_by(**kwargs).first()
+            current_app.logger.info(f'FIND TERMINAL: {kwargs} | {result}')
+        except Exception as err:
+            current_app.logger.error(f'ERROR FIND TERMINAL: {kwargs} | {err}')
+            db.session.rollback()
+        return result
