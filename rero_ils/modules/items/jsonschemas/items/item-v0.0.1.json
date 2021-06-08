@@ -21,6 +21,7 @@
     "item_type",
     "temporary_item_type",
     "location",
+    "temporary_location",
     "type",
     "url",
     "pac_code",
@@ -211,6 +212,54 @@
           "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
           "form": {
             "hideExpression": "false",
+            "type": "datepicker",
+            "validation": {
+              "messages": {
+                "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
+              }
+            }
+          }
+        }
+      },
+      "form": {
+        "templateOptions": {
+          "cssClass": "editor-title"
+        },
+        "hide": true,
+        "navigation": {
+          "essential": true
+        }
+      }
+    },
+    "temporary_location": {
+      "title": "Temporary location",
+      "additionalProperties": false,
+      "type": "object",
+      "propertiesOrder": [
+        "$ref",
+        "end_date"
+      ],
+      "required": [
+        "$ref"
+      ],
+      "properties": {
+        "$ref": {
+          "title": "Location URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/locations/.+?$",
+          "form": {
+            "templateOptions": {
+              "hideLabel": true
+            },
+            "fieldMap": "location"
+          }
+        },
+        "end_date": {
+          "title": "Deletion date",
+          "type": "string",
+          "format": "date",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
+          "form": {
             "type": "datepicker",
             "validation": {
               "messages": {

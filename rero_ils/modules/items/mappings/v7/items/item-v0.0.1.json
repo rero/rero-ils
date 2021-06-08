@@ -58,6 +58,19 @@
           }
         }
       },
+      "temporary_location": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "pid": {
+            "type": "keyword"
+          },
+          "end_date": {
+            "type": "date"
+          }
+        }
+      },
       "library": {
         "properties": {
           "type": {
