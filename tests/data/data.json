@@ -3052,6 +3052,12 @@
     "location": {
       "$ref": "https://bib.rero.ch/api/locations/loc1"
     },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/lib1"
+    },
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
     "item_type": {
       "$ref": "https://bib.rero.ch/api/item_types/itty1"
     },
@@ -3554,6 +3560,12 @@
     },
     "location": {
       "$ref": "https://bib.rero.ch/api/locations/loc1"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/lib1"
+    },
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
     }
   },
   "holding2": {

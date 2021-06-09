@@ -152,7 +152,7 @@ def test_documents_newacq_filters(app, client,
         'invenio_records_rest.doc_list',
         view='global',
         new_acquisition='{0}:{1}'.format(past, today),
-        locatiin='loc3'
+        location='loc3'
     )
     res = client.get(doc_list, headers=rero_json_header)
     data = get_json(res)

@@ -23,7 +23,6 @@ from __future__ import absolute_import, print_function
 
 import pytest
 from jsonschema.exceptions import ValidationError
-from utils import flush_index
 
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.holdings.api import holding_id_fetcher as fetcher
@@ -37,7 +36,6 @@ def test_holding_create(db, es, document, org_martigny,
     holding = Holding.create(holding_lib_martigny_data, dbcommit=True,
                              reindex=True, delete_pid=True)
     next_pid += 1
-    flush_index(HoldingsSearch.Meta.index)
     assert holding == holding_lib_martigny_data
     assert holding.get('pid') == str(next_pid)
 
@@ -60,30 +58,33 @@ def test_holding_create(db, es, document, org_martigny,
 
 
 def test_holding_holding_type(holding_lib_martigny_w_patterns,
-                              holding_lib_martiny_electronic):
+                              holding_lib_sion_electronic):
     """Test holdings type."""
     assert holding_lib_martigny_w_patterns.is_serial
-    assert holding_lib_martiny_electronic.is_electronic
+    assert holding_lib_sion_electronic.is_electronic
 
 
-def test_holding_availability(holding_lib_martiny_electronic,
+def test_holding_availability(holding_lib_sion_electronic,
                               holding_lib_martigny, item_lib_martigny):
     """Test holding availability."""
     # An electronic holding is always available despite if no item are linked
-    assert holding_lib_martiny_electronic.available
+    assert holding_lib_sion_electronic.available
     # The availability of other holdings type depends of children availability
     assert holding_lib_martigny.available == item_lib_martigny.available
 
 
 def test_holding_extended_validation(client,
                                      journal, ebook_5,
+                                     loc_public_sion,
+                                     loc_public_martigny,
                                      item_type_standard_martigny,
-                                     item_type_online_martigny,
+                                     item_type_online_sion,
                                      holding_lib_martigny_w_patterns_data,
-                                     holding_lib_martiny_electronic_data):
+                                     holding_lib_sion_electronic_data):
     """Test holding extended validation."""
     # instantiate serial holding
-    holding_tmp = Holding(holding_lib_martigny_w_patterns_data)
+    holding_tmp = Holding.create(
+        holding_lib_martigny_w_patterns_data, delete_pid=True)
     # 1. holding type serial
 
     # 1.1. test correct holding
@@ -115,7 +116,8 @@ def test_holding_extended_validation(client,
 
     # 2.2 test electronic holding
     # instantiate electronic holding
-    holding_tmp = Holding(holding_lib_martiny_electronic_data)
+    holding_tmp = Holding.create(
+        holding_lib_sion_electronic_data, delete_pid=True)
     holding_tmp.validate()
 
     # 2.2 test electronic holding with enumeration and chronology

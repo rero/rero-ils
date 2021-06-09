@@ -9,6 +9,12 @@
       "pid": {
         "type": "keyword"
       },
+      "items_count": {
+        "type": "integer"
+      },
+      "public_items_count": {
+        "type": "integer"
+      },
       "call_number": {
         "type": "keyword"
       },

@@ -7,6 +7,8 @@
   "required": [
     "$schema",
     "pid",
+    "organisation",
+    "library",
     "location",
     "item_type",
     "type",
@@ -485,6 +487,17 @@
           "title": "Organisation URI",
           "type": "string",
           "pattern": "^https://bib.rero.ch/api/organisations/.*?$"
+        }
+      }
+    },
+    "library": {
+      "title": "Library",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Library URI",
+          "type": "string",
+          "pattern": "^https://bib.rero.ch/api/libraries/.*?$"
         }
       }
     },

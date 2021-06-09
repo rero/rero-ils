@@ -58,6 +58,7 @@ def test_item_all_jsonschema_keys_values(
         {'key': 'status', 'value': 25},
         {'key': 'holding', 'value': 25},
         {'key': 'organisation', 'value': 25},
+        {'key': 'library', 'value': 25},
         {'key': 'ur', 'value': 25},
         {'key': 'pac_code', 'value': 25},
         {'key': 'price', 'value': '25'},

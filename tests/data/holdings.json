@@ -168,6 +168,12 @@
     "location": {
       "$ref": "https://bib.rero.ch/api/locations/loc1"
     },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/lib1"
+    },
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
     "holdings_type": "standard"
   },
   "holding2": {
@@ -227,6 +233,12 @@
     },
     "location": {
       "$ref": "https://bib.rero.ch/api/locations/loc1"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/lib1"
+    },
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
     },
     "vendor": {
       "$ref": "https://bib.rero.ch/api/vendors/vndr1"
@@ -348,10 +360,10 @@
       "$ref": "https://bib.rero.ch/api/documents/ebook5"
     },
     "circulation_category": {
-      "$ref": "https://bib.rero.ch/api/item_types/itty7"
+      "$ref": "https://bib.rero.ch/api/item_types/itty8"
     },
     "location": {
-      "$ref": "https://bib.rero.ch/api/locations/loc1"
+      "$ref": "https://bib.rero.ch/api/locations/loc7"
     },
     "holdings_type": "electronic",
     "electronic_location": [

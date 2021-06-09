@@ -19,6 +19,7 @@
 
 from __future__ import absolute_import, print_function
 
+from copy import deepcopy
 from datetime import datetime
 
 import pytest
@@ -27,6 +28,7 @@ from invenio_accounts.models import User
 from utils import flush_index
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
+from rero_ils.modules.items.api import Item, ItemsSearch
 
 
 @pytest.fixture(scope='function')
@@ -150,3 +152,24 @@ def doc_title_travailleuses(app):
         reindex=True)
     flush_index(DocumentsSearch.Meta.index)
     return doc
+
+
+@pytest.fixture(scope="function")
+def item_lib_martigny_masked(
+        app,
+        document,
+        item_lib_martigny_data,
+        loc_public_martigny,
+        item_type_standard_martigny):
+    """Create item of martigny library."""
+    data = deepcopy(item_lib_martigny_data)
+    data['pid'] = f'maked-{data["pid"]}'
+    data['_masked'] = True
+    item = Item.create(
+        data=data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ItemsSearch.Meta.index)
+    yield item
+    item.delete(True, True, True)
