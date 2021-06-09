@@ -71,6 +71,8 @@ def test_holdings_all_jsonschema_keys_values(
         {'key': 'second_call_number', 'value': 25},
         {'key': 'document', 'value': 25},
         {'key': 'circulation_category', 'value': 25},
+        {'key': 'organisation', 'value': 25},
+        {'key': 'library', 'value': 25},
         {'key': 'location', 'value': 25},
         {'key': 'holdings_type', 'value': 25},
         {'key': 'patterns', 'value': 25},

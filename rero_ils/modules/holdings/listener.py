@@ -17,8 +17,9 @@
 
 """Signals connector for Holding."""
 
+
 from .api import HoldingsSearch
-from ..locations.api import LocationsSearch
+from ..items.api import ItemsSearch
 
 
 def enrich_holding_data(sender, json=None, record=None, index=None,
@@ -31,17 +32,21 @@ def enrich_holding_data(sender, json=None, record=None, index=None,
     :param doc_type: The doc_type for the record.
     """
     if index.split('-')[0] == HoldingsSearch.Meta.index:
-        # ES search reduces number of requests for organisation and library.
-        es_loc = next(
-            LocationsSearch()
-            .filter('term', pid=json['location']['pid'])
-            .scan()
-        )
-        json['organisation'] = {
-            'pid': es_loc.organisation.pid,
-            'type': 'org'
-        }
-        json['library'] = {
-            'pid': es_loc.library.pid,
-            'type': 'lib'
-        }
+        library_pid = None
+        organisation_pid = None
+        # get the number of items for ui paging
+        item_search = ItemsSearch()[0:0].filter(
+            'term', holding__pid=record.pid)
+        # to compute the number of masked item
+        item_search.aggs.bucket('public_items', 'terms', field='_masked')
+        results = item_search.source(['organisation', 'library']).execute()
+        # number of items
+        json['items_count'] = results.hits.total.value
+        # number of masked items
+        number_of_masked_items = 0
+        for bucket in results.aggregations.public_items.buckets:
+            if bucket.key_as_string == 'true':
+                number_of_masked_items = bucket.doc_count
+                break
+        json['public_items_count'] = \
+            json['items_count'] - number_of_masked_items

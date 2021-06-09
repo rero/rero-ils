@@ -19,7 +19,6 @@
 
 from .api import Item, ItemsSearch
 from ..documents.api import Document
-from ..utils import extracted_data_from_ref
 
 
 def enrich_item_data(sender, json=None, record=None, index=None,
@@ -35,15 +34,6 @@ def enrich_item_data(sender, json=None, record=None, index=None,
         item = record
         if not isinstance(record, Item):
             item = Item.get_record_by_pid(record.get('pid'))
-        library = item.get_library()
-        json['organisation'] = {
-            'pid': extracted_data_from_ref(library.get('organisation')),
-            'type': 'org'
-        }
-        json['library'] = {
-            'pid': library.pid,
-            'type': 'lib'
-        }
         # add vendor name
         if item.vendor_pid:
             json['vendor'] = {

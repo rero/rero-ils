@@ -378,14 +378,7 @@ fi
 
 info_msg "- Holdings: ${HOLDINGS} ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type hold --schema 'http://bib.rero.ch/schemas/holdings/holding-v0.0.1.json' ${HOLDINGS} --append ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio utils reindex -t hold --yes-i-know --no-info
-if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio utils runindex -d -c ${INDEX_PARALLEL} --raise-on-error
-fi
-eval ${PREFIX} invenio utils runindex --raise-on-error
-if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio utils reindex_missing -t hold -v
-fi
+
 
 info_msg "- Items: ${ITEMS} ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type item --schema 'http://bib.rero.ch/schemas/items/item-v0.0.1.json' ${ITEMS} --append ${CREATE_LAZY} ${DONT_STOP}
@@ -398,6 +391,16 @@ fi
 eval ${PREFIX} invenio utils runindex --raise-on-error
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
     eval ${PREFIX} invenio utils reindex_missing -t item -v
+fi
+
+# index holdings
+eval ${PREFIX} invenio utils reindex -t hold --yes-i-know --no-info
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio utils runindex -d -c ${INDEX_PARALLEL} --raise-on-error
+fi
+eval ${PREFIX} invenio utils runindex --raise-on-error
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio utils reindex_missing -t hold -v
 fi
 
 # index documents

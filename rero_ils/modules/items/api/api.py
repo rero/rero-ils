@@ -27,7 +27,7 @@ from .circulation import ItemCirculation
 from .issue import ItemIssue
 from ..models import ItemIdentifier, ItemMetadata
 from ...api import IlsRecordError, IlsRecordsIndexer, IlsRecordsSearch
-from ...documents.api import Document, DocumentsSearch
+from ...documents.api import DocumentsSearch
 from ...fetchers import id_fetcher
 from ...minters import id_minter
 from ...organisations.api import Organisation
@@ -248,6 +248,8 @@ class ItemsIndexer(IlsRecordsIndexer):
         :param record: an item object
         "returns: the elastiscsearch client result
         """
+        from ...holdings.api import Holding
+
         # get previous indexed version
         es_item = self._es_item(record)
 
@@ -259,10 +261,18 @@ class ItemsIndexer(IlsRecordsIndexer):
             self._update_status_in_doc(record, es_item)
             return return_value
 
-        # reindex document for non circulation operations
-        document_pid = extracted_data_from_ref(record.get('document'))
-        doc = Document.get_record_by_pid(document_pid)
-        doc.reindex()
+        # reindex the holding / doc for non circulation operations
+        holding_pid = extracted_data_from_ref(record.get('holding'))
+        holding = Holding.get_record_by_pid(holding_pid)
+        holding.reindex()
+        # reindex the old holding
+        old_holding_pid = None
+        if es_item:
+            # reindex old holding ot update hte count
+            old_holding_pid = es_item.get('holding', {}).get('pid')
+            if old_holding_pid != holding_pid:
+                old_holding = Holding.get_record_by_pid(old_holding_pid)
+                old_holding.reindex()
         return return_value
 
     def delete(self, record):
@@ -273,20 +283,21 @@ class ItemsIndexer(IlsRecordsIndexer):
         from ...holdings.api import Holding
 
         return_value = super().delete(record)
-        rec_with_refs = record.replace_refs()
-        document_pid = rec_with_refs['document']['pid']
-        document = Document.get_record_by_pid(document_pid)
-        document.reindex()
-
-        holding = rec_with_refs.get('holding', '')
-        if holding:
-            holding_rec = Holding.get_record_by_pid(holding.get('pid'))
+        holding_pid = extracted_data_from_ref(record.get('holding'))
+        holding = Holding.get_record_by_pid(holding_pid)
+        # delete only if a standard item
+        deleted = False
+        if not holding.is_serial:
             try:
-                # TODO: Need to split DB and elasticsearch deletion.
-                holding_rec.delete(force=False, dbcommit=True, delindex=True)
+                # delete only if a standard item
+                if not holding.is_serial:
+                    holding.delete(force=False, dbcommit=True, delindex=True)
+                    deleted = True
             except IlsRecordError.NotDeleted:
                 pass
-
+        if not deleted:
+            # for items count
+            holding.reindex()
         return return_value
 
     def bulk_index(self, record_id_iterator):

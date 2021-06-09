@@ -29,13 +29,15 @@ from ...holdings.models import HoldingTypes
 from ...item_types.api import ItemType
 from ...locations.api import Location
 from ...organisations.api import Organisation
+from ...record_extensions import OrgLibRecordExtension
 from ...utils import date_string_to_utc, extracted_data_from_ref, \
-    generate_item_barcode, get_base_url, get_ref_for_pid, \
-    trim_item_barcode_for_record
+    generate_item_barcode, get_ref_for_pid, trim_item_barcode_for_record
 
 
 class ItemRecord(IlsRecord):
     """Item record class."""
+
+    _extensions = [OrgLibRecordExtension()]
 
     def extended_validation(self, **kwargs):
         """Add additional record validation.
@@ -96,7 +98,6 @@ class ItemRecord(IlsRecord):
     def create(cls, data, id_=None, delete_pid=False,
                dbcommit=False, reindex=False, **kwargs):
         """Create item record."""
-        cls._item_build_org_ref(data)
         data = cls._prepare_item_record(data=data, mode='create')
         data = cls._set_issue_status_date(data=data)
         record = super().create(
@@ -187,22 +188,6 @@ class ItemRecord(IlsRecord):
                 dbcommit=dbcommit,
                 reindex=reindex
             )
-
-    @classmethod
-    def _item_build_org_ref(cls, data):
-        """Build $ref for the organisation of the item."""
-        loc_pid = data.get('location', {}).get('pid')
-        if not loc_pid:
-            loc_pid = data.get('location').get('$ref').split('locations/')[1]
-            org_pid = Location.get_record_by_pid(loc_pid).organisation_pid
-        url_api = '{base_url}/api/{doc_type}/{pid}'
-        org_ref = {
-            '$ref': url_api.format(
-                base_url=get_base_url(),
-                doc_type='organisations',
-                pid=org_pid or cls.organisation_pid)
-        }
-        data['organisation'] = org_ref
 
     @classmethod
     def link_item_to_holding(cls, record, mode):

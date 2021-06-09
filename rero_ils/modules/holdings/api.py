@@ -42,6 +42,7 @@ from ..locations.api import Location
 from ..minters import id_minter
 from ..organisations.api import Organisation
 from ..providers import Provider
+from ..record_extensions import OrgLibRecordExtension
 from ..utils import extracted_data_from_ref, get_ref_for_pid, \
     get_schema_for_resource
 from ..vendors.api import Vendor
@@ -79,6 +80,8 @@ class HoldingsSearch(RecordsSearch):
 
 class Holding(IlsRecord):
     """Holding class."""
+
+    _extensions = [OrgLibRecordExtension()]
 
     minter = holding_id_minter
     fetcher = holding_id_fetcher
@@ -570,13 +573,13 @@ class Holding(IlsRecord):
         forced_data = {
             '$schema': get_schema_for_resource(Item),
             'acquisition_date': datetime.now().strftime('%Y-%m-%d'),
+            'organisation': self.get('organisation'),
+            'library': self.get('library'),
             'location': self.get('location'),
             'document': self.get('document'),
             'item_type': self.get('circulation_category'),
             'type': 'issue',
-            'holding': {'$ref': get_ref_for_pid('hold', self.pid)},
-            'organisation':
-                {'$ref': get_ref_for_pid('org', self.organisation_pid)}
+            'holding': {'$ref': get_ref_for_pid('hold', self.pid)}
         }
         data.update(forced_data)
         return data

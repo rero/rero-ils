@@ -764,18 +764,18 @@ def holding_lib_sion_w_patterns(
 
 
 @pytest.fixture(scope="module")
-def holding_lib_martiny_electronic_data(holdings):
+def holding_lib_sion_electronic_data(holdings):
     """Load electronic holding of Martigny library."""
     return deepcopy(holdings.get('holding7'))
 
 
 @pytest.fixture(scope="module")
-def holding_lib_martiny_electronic(
-    app, ebook_5, holding_lib_martiny_electronic_data,
-        loc_public_martigny, item_type_online_martigny):
+def holding_lib_sion_electronic(
+    app, ebook_5, holding_lib_sion_electronic_data,
+        loc_public_sion, item_type_online_sion):
     """Create electronic holding of Martigny library."""
     holding = Holding.create(
-        data=holding_lib_martiny_electronic_data,
+        data=holding_lib_sion_electronic_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)

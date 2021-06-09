@@ -23,10 +23,10 @@ import json
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
-    postdata, to_relative_url
+from utils import VerifyRecordPermissionPatch, get_json, postdata, \
+    to_relative_url
 
-from rero_ils.modules.holdings.api import Holding, HoldingsSearch
+from rero_ils.modules.holdings.api import Holding
 
 
 def test_holdings_permissions(client, holding_lib_martigny, json_header):
@@ -53,11 +53,27 @@ def test_holdings_permissions(client, holding_lib_martigny, json_header):
     assert res.status_code == 401
 
 
+def test_holding_can_delete_and_utils(client, holding_lib_martigny, document,
+                                      item_type_standard_martigny):
+    """Test can delete a holding."""
+    can, reasons = holding_lib_martigny.can_delete
+    assert can
+    assert reasons == {}
+
+    assert holding_lib_martigny.document_pid == document.pid
+    assert holding_lib_martigny.circulation_category_pid == \
+        item_type_standard_martigny.pid
+    assert Holding.get_document_pid_by_holding_pid(
+        holding_lib_martigny.pid) == document.pid
+    assert list(Holding.get_holdings_pid_by_document_pid(document.pid))[0] == \
+        holding_lib_martigny.pid
+
+
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_holdings_get(client, holding_lib_martigny):
+def test_holdings_get(client, item_lib_martigny, item_lib_martigny_masked):
     """Test record retrieval."""
-    holding = holding_lib_martigny
+    holding = Holding.get_record_by_pid(item_lib_martigny.holding_pid)
     item_url = url_for('invenio_records_rest.hold_item', pid_value=holding.pid)
     list_url = url_for(
         'invenio_records_rest.hold_list', q='pid:' + holding.pid)
@@ -96,26 +112,9 @@ def test_holdings_get(client, holding_lib_martigny):
     assert res.status_code == 200
     data = get_json(res)
     result = data['hits']['hits'][0]['metadata']
-    # organisation and library has been added during the indexing
-    del result['organisation']
-    del result['library']
+    assert result.pop('public_items_count') == 1
+    assert result.pop('items_count') == 2
     assert result == holding.replace_refs()
-
-
-def test_holding_can_delete_and_utils(client, holding_lib_martigny, document,
-                                      item_type_standard_martigny):
-    """Test can delete a holding."""
-    can, reasons = holding_lib_martigny.can_delete
-    assert can
-    assert reasons == {}
-
-    assert holding_lib_martigny.document_pid == document.pid
-    assert holding_lib_martigny.circulation_category_pid == \
-        item_type_standard_martigny.pid
-    assert Holding.get_document_pid_by_holding_pid(
-        holding_lib_martigny.pid) == document.pid
-    assert list(Holding.get_holdings_pid_by_document_pid(document.pid))[0] == \
-        holding_lib_martigny.pid
 
 
 def test_filtered_holdings_get(
@@ -271,8 +270,6 @@ def test_holdings_post_put_delete(client, holding_lib_martigny_data_tmp,
         holding_data
     )
     assert res.status_code == 201
-
-    flush_index(HoldingsSearch.Meta.index)
 
     # Check that the returned record matches the given data
     assert data['metadata'] == holding_data
