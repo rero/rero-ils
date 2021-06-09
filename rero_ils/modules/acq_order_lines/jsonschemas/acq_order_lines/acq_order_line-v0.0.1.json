@@ -124,7 +124,7 @@
           "pattern": "^https://bib.rero.ch/api/acq_accounts/.*?$",
           "form": {
             "focus": true,
-            "fieldMap": "acq_account",
+            "type": "account-select",
             "placeholder": "Select an account",
             "templateOptions": {
               "label": ""
