@@ -40,7 +40,7 @@
     "first_name": {
       "title": "First name",
       "type": "string",
-      "minLength": 2,
+      "minLength": 1,
       "widget": {
         "formlyConfig": {
           "focus": true
@@ -50,7 +50,7 @@
     "last_name": {
       "title": "Last name",
       "type": "string",
-      "minLength": 2
+      "minLength": 1
     },
     "birth_date": {
       "title": "Date of birth",
