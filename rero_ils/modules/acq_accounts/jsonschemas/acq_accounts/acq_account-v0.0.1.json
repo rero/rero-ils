@@ -7,10 +7,10 @@
   "propertiesOrder": [
     "name",
     "number",
+    "parent",
     "allocated_amount",
     "encumbrance_exceedance",
-    "expenditure_exceedance",
-    "parent"
+    "expenditure_exceedance"
   ],
   "required": [
     "$schema",
@@ -51,7 +51,11 @@
       "title": "Allocated amount",
       "description": "The amount allocated for the acquisition account.",
       "type": "number",
-      "minimum": 0
+      "minimum": 0,
+      "default": 0,
+      "form": {
+        "fieldMap": "amount"
+      }
     },
     "encumbrance_exceedance": {
       "title": "Emcumbrance exceedance",
@@ -92,10 +96,8 @@
           "type": "string",
           "pattern": "^https://ils.rero.ch/api/acq_accounts/.*?$",
           "form": {
-            "remoteOptions": {
-              "type": "acq_accounts"
-            },
             "placeholder": "Choose a parent account\u2026",
+            "type": "account-select",
             "templateOptions": {
               "label": ""
             }
