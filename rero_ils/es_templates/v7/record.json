@@ -1,9 +1,6 @@
 {
   "index_patterns": "*",
   "settings": {
-    "number_of_shards": "8",
-    "number_of_replicas": "1",
-    "max_result_window": "20000",
     "analysis": {
       "filter": {
         "french_elision": {
