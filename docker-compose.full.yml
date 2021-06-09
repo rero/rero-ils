@@ -77,7 +77,7 @@ services:
     extends:
       file: docker-services.yml
       service: app
-    restart: "always"
+    restart: "unless-stopped"
     command: "poetry run celery --app rero_ils.celery worker --loglevel=INFO"
     image: rero-ils-worker
     links:
@@ -90,7 +90,7 @@ services:
     extends:
       file: docker-services.yml
       service: app
-    restart: "always"
+    restart: "unless-stopped"
     command: "poetry run celery --app rero_ils.celery beat -S rero_ils.schedulers.RedisScheduler --loglevel=INFO"
     image: rero-ils-beat
     links:

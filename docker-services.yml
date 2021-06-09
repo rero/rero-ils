@@ -39,7 +39,7 @@ services:
   lb:
     build: ./docker/haproxy/
     image: rero-ils-lb
-    restart: "always"
+    restart: "unless-stopped"
     ports:
       - "80:80"
       - "443:443"
@@ -47,19 +47,19 @@ services:
   frontend:
     build: ./docker/nginx/
     image: rero-ils-frontend
-    restart: "always"
+    restart: "unless-stopped"
     ports:
       - "80"
       - "443"
   cache:
     image: redis
-    restart: "always"
+    restart: "unless-stopped"
     read_only: true
     ports:
       - "6379:6379"
   db:
     image: postgres:12
-    restart: "always"
+    restart: "unless-stopped"
     environment:
       - "POSTGRES_USER=rero-ils"
       - "POSTGRES_PASSWORD=rero-ils"
@@ -68,14 +68,14 @@ services:
       - "5432:5432"
   mq:
     image: rabbitmq:3-management
-    restart: "always"
+    restart: "unless-stopped"
     ports:
       - "15672:15672"
       - "5672:5672"
   es:
     build: ./docker/elasticsearch/
     image: elasticsearch-icu-7.10.1
-    restart: "always"
+    restart: "unless-stopped"
     environment:
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
