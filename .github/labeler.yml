@@ -8,6 +8,9 @@ documentation:
   - RELEASE-NOTES.rst
   - .github/**/*
   - rero_ils/theme/templates/rero_ils/page_wiki.html
+  - doc/**/*
+  - docs/**/*
+  - wiki/**/*
 
 # Add translations label to any changes within translations folders and subfolders
 translations:
@@ -48,6 +51,7 @@ circulation:
   - rero_ils/modules/loans/**/*
   - rero_ils/modules/ill_requests/**/*
   - rero_ils/modules/patron_types/**/*
+  - rero_ils/modules/selfcheck/**/*
 
 # Add 'user management' label to any changes in users or patrons folders and
 # subfolders
@@ -58,7 +62,7 @@ circulation:
 
 # Add acquisition label to any changes in acquisition related folders and
 # subfolders
-acquisition:
+acquisitions:
   - rero_ils/acquisition/**/*
   - rero_ils/modules/acq_accounts/**/*
   - rero_ils/modules/acq_invoices/**/*
@@ -85,3 +89,6 @@ serials:
 activity-logs:
   - rero_ils/modules/loans/logs/api.py
   - rero_ils/modules/operation_logs/**/*
+
+developers:
+  - scripts/**/*
