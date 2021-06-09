@@ -452,8 +452,12 @@ if [ ${INDEX_PARALLEL} -gt 0 ]; then
 fi
 # create acquisition accounts
 info_msg "Acquisition accounts: ${DATA_PATH}/acq_accounts.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create --pid_type acac ${DATA_PATH}/acq_accounts.json --append  ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils fixtures create --pid_type acac ${DATA_PATH}/acq_accounts.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
+# TODO :: check why acac is noot indexed. Use a CLI to index acac in correct order ?
 eval ${PREFIX} invenio reroils index reindex -t acac --yes-i-know
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio reroils index reindex_missing -t acac -v
+fi
 
 # create resource templates
 info_msg "Resource templates:"
