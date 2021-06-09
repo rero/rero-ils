@@ -19,7 +19,7 @@
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
-      "$ref": "https://ils.rero.ch/api/acq_accounts/1"
+      "$ref": "https://bib.rero.ch/api/acq_accounts/1"
     },
     "budget": {
       "$ref": "https://bib.rero.ch/api/budgets/1"
@@ -36,7 +36,7 @@
     "encumbrance_exceedance": 2,
     "expenditure_exceedance": 10,
     "parent": {
-      "$ref": "https://ils.rero.ch/api/acq_accounts/1"
+      "$ref": "https://bib.rero.ch/api/acq_accounts/1"
     },
     "budget": {
       "$ref": "https://bib.rero.ch/api/budgets/1"
@@ -66,7 +66,7 @@
     "allocated_amount": 1000,
     "encumbrance_exceedance": 15,
     "parent": {
-      "$ref": "https://ils.rero.ch/api/acq_accounts/4"
+      "$ref": "https://bib.rero.ch/api/acq_accounts/4"
     },
     "budget": {
       "$ref": "https://bib.rero.ch/api/budgets/1"
@@ -94,7 +94,7 @@
     "allocated_amount": 15000,
     "expenditure_exceedance": 5,
     "parent": {
-      "$ref": "https://ils.rero.ch/api/acq_accounts/6"
+      "$ref": "https://bib.rero.ch/api/acq_accounts/6"
     },
     "budget": {
       "$ref": "https://bib.rero.ch/api/budgets/1"
@@ -111,7 +111,7 @@
     "encumbrance_exceedance": 10,
     "expenditure_exceedance": 10,
     "parent": {
-      "$ref": "https://ils.rero.ch/api/acq_accounts/6"
+      "$ref": "https://bib.rero.ch/api/acq_accounts/6"
     },
     "budget": {
       "$ref": "https://bib.rero.ch/api/budgets/1"
