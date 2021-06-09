@@ -492,7 +492,7 @@ RECORDS_REST_DEFAULT_DELETE_PERMISSION_FACTORY = \
 REST_MIMETYPE_QUERY_ARG_NAME = 'format'
 """Name of the query argument to specify the mimetype wanted for the output."""
 
-MAX_RESULT_WINDOW = 20000
+MAX_RESULT_WINDOW = 100000
 """max result window for ES, must be the same in json mapping files."""
 
 RECORDS_REST_ENDPOINTS = dict(
@@ -2492,7 +2492,7 @@ CIRCULATION_REST_ENDPOINTS = dict(
         item_route='/loans/<{0}:pid_value>'.format(
             _LOANID_CONVERTER),
         default_media_type='application/json',
-        max_result_window=20000,
+        max_result_window=MAX_RESULT_WINDOW,
         error_handlers=dict(),
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=LoanPermission),
