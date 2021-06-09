@@ -76,12 +76,8 @@ def build_loan_record(transaction, transaction_type, item):
     item: the item record.
     """
     if transaction_type == 'checkout':
-        transaction['state'] = 'ITEM_ON_LOAN'
-        transaction['trigger'] = 'checkout'
-        transaction['document_pid'] = item.document_pid
-        transaction['to_anonymize'] = False
-        transaction['item_pid'] = {'value': transaction.get('item_pid'),
-                                   'type': 'item'}
+        transaction.pop('item_pid', None)
+        transaction.pop('organisation', None)
     elif transaction_type == 'request':
         transaction['state'] = 'PENDING'
         transaction['trigger'] = 'request'
@@ -183,7 +179,10 @@ def load_virtua_transactions(
             else:
                 build_loan_record(transaction, transaction_type, item)
             try:
-                Loan.create(transaction, dbcommit=True, reindex=True)
+                if transaction_type == 'request':
+                    Loan.create(transaction, dbcommit=True, reindex=True)
+                elif transaction_type == 'checkout':
+                    item.checkout(**transaction)
                 click.secho(
                     '\ntransaction # {counter} created'.format(
                         counter=counter
