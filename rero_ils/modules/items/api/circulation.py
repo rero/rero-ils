@@ -1241,7 +1241,10 @@ class ItemCirculation(ItemRecord):
         An item is 'available' if there are no related request/active_loan and
         if the related circulation category doesn't specify a negative
         availability.
+        All masked items are considered as unavailable.
         """
+        if self.get('_masked', False):
+            return False
         if self.item_has_active_loan_or_request() > 0:
             return False
         if self.circulation_category.get('negative_availability'):

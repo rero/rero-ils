@@ -287,6 +287,13 @@ def test_item_holding_document_availability(
     assert document_availability_status(
         client, document.pid, librarian_martigny.user)
 
+    # masked item isn't available
+    item['_masked'] = True
+    item = item.update(item, dbcommit=True, reindex=True)
+    assert not item.available
+    del item['_masked']
+    item.update(item, dbcommit=True, reindex=True)
+
     # test can not request item already checked out to patron
     res = client.get(
         url_for(
