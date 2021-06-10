@@ -22,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-06-02 14:22+0200\n"
 "PO-Revision-Date: 2021-06-09 13:00+0000\n"
-"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
 "Language: fr\n"
@@ -8216,7 +8216,7 @@ msgstr "Titres"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:36
 msgid "bf:Title"
-msgstr "titre"
+msgstr "titre propre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:40
 msgid "bf:ParallelTitle"
@@ -8236,11 +8236,11 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:62
 msgid "Main titles"
-msgstr "Titres propres"
+msgstr "Titres"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:66
 msgid "Main title"
-msgstr "Titre propre"
+msgstr "Titre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:71
 msgid "Subtitle"
