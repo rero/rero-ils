@@ -4,7 +4,7 @@
     "name": "Default",
     "description": "Default circulation policy",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "checkout_duration": 30,
     "allow_requests": true,
@@ -33,7 +33,7 @@
     "name": "Default",
     "description": "Default circulation policy",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/2"
+      "$ref": "https://bib.rero.ch/api/organisations/2"
     },
     "checkout_duration": 30,
     "allow_requests": true,
@@ -62,7 +62,7 @@
     "name": "Site d'Aoste: short",
     "description": "Short loan (7 days), applies only at Site d'Aoste.",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "checkout_duration": 7,
     "allow_requests": true,
@@ -87,16 +87,16 @@
     "is_default": false,
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/1"
+        "$ref": "https://bib.rero.ch/api/libraries/1"
       }
     ],
     "settings": [
       {
         "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/1"
+          "$ref": "https://bib.rero.ch/api/patron_types/1"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/1"
+          "$ref": "https://bib.rero.ch/api/item_types/1"
         }
       }
     ]
@@ -106,7 +106,7 @@
     "name": "Short",
     "description": "Short loan (14 days)",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "checkout_duration": 14,
     "allow_requests": true,
@@ -132,18 +132,18 @@
     "settings": [
       {
         "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/1"
+          "$ref": "https://bib.rero.ch/api/patron_types/1"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/2"
+          "$ref": "https://bib.rero.ch/api/item_types/2"
         }
       },
       {
         "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/3"
+          "$ref": "https://bib.rero.ch/api/patron_types/3"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/2"
+          "$ref": "https://bib.rero.ch/api/item_types/2"
         }
       }
     ]
@@ -153,7 +153,7 @@
     "name": "Standard adults",
     "description": "Standard loan (28 days) for adults",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "checkout_duration": 28,
     "allow_requests": true,
@@ -179,10 +179,10 @@
     "settings": [
       {
         "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/1"
+          "$ref": "https://bib.rero.ch/api/patron_types/1"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/5"
+          "$ref": "https://bib.rero.ch/api/item_types/5"
         }
       }
     ]
@@ -192,7 +192,7 @@
     "name": "Extended",
     "description": "Extended loan (3 months).",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "reminders": [
       {
@@ -218,42 +218,42 @@
     "settings": [
       {
         "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/2"
+          "$ref": "https://bib.rero.ch/api/patron_types/2"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/1"
+          "$ref": "https://bib.rero.ch/api/item_types/1"
         }
       },
       {
         "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/2"
+          "$ref": "https://bib.rero.ch/api/patron_types/2"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/2"
+          "$ref": "https://bib.rero.ch/api/item_types/2"
         }
       },
       {
         "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/2"
+          "$ref": "https://bib.rero.ch/api/patron_types/2"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/3"
+          "$ref": "https://bib.rero.ch/api/item_types/3"
         }
       },
       {
         "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/2"
+          "$ref": "https://bib.rero.ch/api/patron_types/2"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/5"
+          "$ref": "https://bib.rero.ch/api/item_types/5"
         }
       },
       {
         "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/2"
+          "$ref": "https://bib.rero.ch/api/patron_types/2"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/6"
+          "$ref": "https://bib.rero.ch/api/item_types/6"
         }
       }
     ]
@@ -263,7 +263,7 @@
     "name": "On-site",
     "description": "On-site consultation",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "checkout_duration": 0,
     "allow_requests": true,
@@ -273,18 +273,18 @@
     "settings": [
       {
         "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/1"
+          "$ref": "https://bib.rero.ch/api/patron_types/1"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/3"
+          "$ref": "https://bib.rero.ch/api/item_types/3"
         }
       },
       {
         "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/3"
+          "$ref": "https://bib.rero.ch/api/patron_types/3"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/3"
+          "$ref": "https://bib.rero.ch/api/item_types/3"
         }
       }
     ]
@@ -294,7 +294,7 @@
     "name": "No checkout",
     "description": "No checkout.",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "allow_requests": false,
     "policy_library_level": false,
@@ -302,42 +302,42 @@
     "settings": [
       {
         "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/1"
+          "$ref": "https://bib.rero.ch/api/patron_types/1"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/4"
+          "$ref": "https://bib.rero.ch/api/item_types/4"
         }
       },
       {
         "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/2"
+          "$ref": "https://bib.rero.ch/api/patron_types/2"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/4"
+          "$ref": "https://bib.rero.ch/api/item_types/4"
         }
       },
       {
         "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/3"
+          "$ref": "https://bib.rero.ch/api/patron_types/3"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/4"
+          "$ref": "https://bib.rero.ch/api/item_types/4"
         }
       },
       {
         "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/3"
+          "$ref": "https://bib.rero.ch/api/patron_types/3"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/5"
+          "$ref": "https://bib.rero.ch/api/item_types/5"
         }
       },
       {
         "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/3"
+          "$ref": "https://bib.rero.ch/api/patron_types/3"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/6"
+          "$ref": "https://bib.rero.ch/api/item_types/6"
         }
       }
     ]
@@ -347,7 +347,7 @@
     "name": "Ebooks no circulation",
     "description": "Ebooks no circulation.",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "allow_requests": false,
     "policy_library_level": false,
@@ -355,18 +355,18 @@
     "settings": [
       {
         "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/1"
+          "$ref": "https://bib.rero.ch/api/patron_types/1"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/8"
+          "$ref": "https://bib.rero.ch/api/item_types/8"
         }
       },
       {
         "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/2"
+          "$ref": "https://bib.rero.ch/api/patron_types/2"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/8"
+          "$ref": "https://bib.rero.ch/api/item_types/8"
         }
       }
     ]
@@ -376,7 +376,7 @@
     "name": "Ebooks no circulation",
     "description": "Ebooks no circulation.",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/2"
+      "$ref": "https://bib.rero.ch/api/organisations/2"
     },
     "allow_requests": false,
     "policy_library_level": false,
@@ -384,18 +384,18 @@
     "settings": [
       {
         "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/6"
+          "$ref": "https://bib.rero.ch/api/patron_types/6"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/9"
+          "$ref": "https://bib.rero.ch/api/item_types/9"
         }
       },
       {
         "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/4"
+          "$ref": "https://bib.rero.ch/api/patron_types/4"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/9"
+          "$ref": "https://bib.rero.ch/api/item_types/9"
         }
       }
     ]
@@ -405,7 +405,7 @@
     "name": "Default",
     "description": "Default circulation policy.",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     },
     "reminders": [
       {
@@ -434,7 +434,7 @@
     "name": "Default",
     "description": "Default circulation policy.",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/4"
+      "$ref": "https://bib.rero.ch/api/organisations/4"
     },
     "reminders": [
       {
@@ -463,7 +463,7 @@
     "name": "Standard, no request",
     "description": "Loan 28 days, requests not allowed, used for missing items",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "checkout_duration": 28,
     "allow_requests": false,
@@ -489,34 +489,34 @@
     "settings": [
       {
         "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/1"
+          "$ref": "https://bib.rero.ch/api/patron_types/1"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/12"
+          "$ref": "https://bib.rero.ch/api/item_types/12"
         }
       },
       {
         "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/3"
+          "$ref": "https://bib.rero.ch/api/patron_types/3"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/12"
+          "$ref": "https://bib.rero.ch/api/item_types/12"
         }
       },
       {
         "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/2"
+          "$ref": "https://bib.rero.ch/api/patron_types/2"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/12"
+          "$ref": "https://bib.rero.ch/api/item_types/12"
         }
       },
       {
         "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/8"
+          "$ref": "https://bib.rero.ch/api/patron_types/8"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/12"
+          "$ref": "https://bib.rero.ch/api/item_types/12"
         }
       }
     ]

@@ -27,7 +27,7 @@ from rero_ils.modules.utils import extracted_data_from_ref
 def test_acq_accounts_jsonresolver(acq_account_fiction_martigny):
     """Acquisition accounts resolver tests."""
     rec = Record.create({
-        'acq_account': {'$ref': 'https://ils.rero.ch/api/acq_accounts/acac1'}
+        'acq_account': {'$ref': 'https://bib.rero.ch/api/acq_accounts/acac1'}
     })
     assert extracted_data_from_ref(rec.get('acq_account')) == 'acac1'
 
@@ -38,7 +38,7 @@ def test_acq_accounts_jsonresolver(acq_account_fiction_martigny):
 
     # non existing record
     rec = Record.create({
-        'acq_account': {'$ref': 'https://ils.rero.ch/api/acq_accounts/n_e'}
+        'acq_account': {'$ref': 'https://bib.rero.ch/api/acq_accounts/n_e'}
     })
     with pytest.raises(JsonRefError):
         rec.replace_refs().dumps()

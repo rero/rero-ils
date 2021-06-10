@@ -50,7 +50,7 @@ def test_librarian_permissions(
     login_user_via_session(client, librarian_fully.user)
 
     record = {
-        "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
+        "$schema": "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json",
         "first_name": "first_name",
         "last_name": "Last_name",
         "username": "username",
@@ -60,11 +60,11 @@ def test_librarian_permissions(
         "birth_date": "1967-06-07",
         "patron": {
             "expiration_date": "2023-10-07",
-            "type": {"$ref": "https://ils.rero.ch/api/patron_types/ptty1"},
+            "type": {"$ref": "https://bib.rero.ch/api/patron_types/ptty1"},
             "communication_channel": "mail",
             "communication_language": "ita"
         },
-        "libraries": [{"$ref": "https://ils.rero.ch/api/libraries/lib1"}],
+        "libraries": [{"$ref": "https://bib.rero.ch/api/libraries/lib1"}],
         "home_phone": "+41324993111"
     }
     record = create_user_from_data(record)
@@ -89,12 +89,12 @@ def test_librarian_permissions(
     librarian = deepcopy(record)
     librarian_saxon = deepcopy(record)
     librarian_saxon['libraries'] = \
-        [{"$ref": "https://ils.rero.ch/api/libraries/lib2"}]
+        [{"$ref": "https://bib.rero.ch/api/libraries/lib2"}]
     librarian['libraries'] = \
-        [{"$ref": "https://ils.rero.ch/api/libraries/lib3"}]
+        [{"$ref": "https://bib.rero.ch/api/libraries/lib3"}]
     patron = deepcopy(record)
     patron['libraries'] = \
-        [{"$ref": "https://ils.rero.ch/api/libraries/lib3"}]
+        [{"$ref": "https://bib.rero.ch/api/libraries/lib3"}]
     counter = 1
     for record in [
         {'data': patron, 'role': 'patron'},

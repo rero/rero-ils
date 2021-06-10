@@ -29,7 +29,7 @@ def test_patron_transaction_event_jsonresolver(
     """Test patron transaction event json resolver."""
     rec = Record.create(
         {'patron_transaction_event': {
-            '$ref': 'https://ils.rero.ch/api/patron_transaction_events/1'
+            '$ref': 'https://bib.rero.ch/api/patron_transaction_events/1'
             }
          }
     )
@@ -45,7 +45,7 @@ def test_patron_transaction_event_jsonresolver(
         {'patron_transaction':
             {
                 '$ref':
-                    'https://ils.rero.ch/api/patron_transaction_events/n_e'}}
+                    'https://bib.rero.ch/api/patron_transaction_events/n_e'}}
     )
     with pytest.raises(JsonRefError):
         rec.replace_refs().dumps()

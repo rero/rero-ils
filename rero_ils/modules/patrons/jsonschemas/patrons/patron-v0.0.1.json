@@ -26,7 +26,7 @@
       "description": "Schema to validate user records against.",
       "type": "string",
       "minLength": 9,
-      "default": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json"
+      "default": "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json"
     },
     "pid": {
       "title": "Patron ID",
@@ -108,7 +108,7 @@
         "country": {
           "allOf": [
             {
-              "$ref": "https://ils.rero.ch/schemas/common/countries-v0.0.1.json#/country"
+              "$ref": "https://bib.rero.ch/schemas/common/countries-v0.0.1.json#/country"
             },
             {
               "form": {
@@ -160,7 +160,7 @@
           "properties": {
             "$ref": {
               "type": "string",
-              "pattern": "^https://ils.rero.ch/api/patron_types/.*?$",
+              "pattern": "^https://bib.rero.ch/api/patron_types/.*?$",
               "form": {
                 "remoteOptions": {
                   "type": "patron_types"
@@ -212,7 +212,7 @@
             "properties": {
               "$ref": {
                 "type": "string",
-                "pattern": "^https://ils.rero.ch/api/libraries/.*?$",
+                "pattern": "^https://bib.rero.ch/api/libraries/.*?$",
                 "form": {
                   "fieldMap": "libraries"
                 }
@@ -340,7 +340,7 @@
                 "properties": {
                   "$ref": {
                     "type": "string",
-                    "pattern": "^https://ils.rero.ch/api/patron_types/.*?$"
+                    "pattern": "^https://bib.rero.ch/api/patron_types/.*?$"
                   }
                 }
               },
@@ -354,7 +354,7 @@
                   "$ref": {
                     "title": "Patron transaction URI",
                     "type": "string",
-                    "pattern": "^https://ils.rero.ch/api/patron_transactions/.*?$"
+                    "pattern": "^https://bib.rero.ch/api/patron_transactions/.*?$"
                   }
                 }
               }
@@ -407,7 +407,7 @@
           "$ref": {
             "title": "Library URI",
             "type": "string",
-            "pattern": "^https://ils.rero.ch/api/libraries/.*?$",
+            "pattern": "^https://bib.rero.ch/api/libraries/.*?$",
             "form": {
               "fieldMap": "libraries",
               "templateOptions": {

@@ -30,7 +30,7 @@
       "title": "Schema",
       "description": "Schema to validate ILL request records against.",
       "minLength": 9,
-      "default": "https://ils.rero.ch/schema/ill-requests/ill-request-v0.0.1.json"
+      "default": "https://bib.rero.ch/schema/ill-requests/ill-request-v0.0.1.json"
     },
     "pid": {
       "type": "string",
@@ -84,14 +84,14 @@
         "$ref": {
           "type": "string",
           "title": "Patron URI",
-          "pattern": "^https://ils.rero.ch/api/patrons/.*?$",
+          "pattern": "^https://bib.rero.ch/api/patrons/.*?$",
           "form": {
             "remoteTypeahead": {
               "type": "patrons"
             },
             "validation": {
               "messages": {
-                "patternMessage": "Should be in the following format: https://ils.rero.ch/api/patrons/<PID>."
+                "patternMessage": "Should be in the following format: https://bib.rero.ch/api/patrons/<PID>."
               }
             },
             "templateOptions": {
@@ -142,7 +142,7 @@
         "$ref": {
           "type": "string",
           "title": "Pickup location URI",
-          "pattern": "^https://ils.rero.ch/api/locations/.+?$",
+          "pattern": "^https://bib.rero.ch/api/locations/.+?$",
           "form": {
             "remoteOptions": {
               "type": "locations",

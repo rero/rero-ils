@@ -29,7 +29,7 @@ def test_acq_order_lines_jsonresolver(
     """Acquisition order lines resolver tests."""
     rec = Record.create({
         'acq_order_line': {
-            '$ref': 'https://ils.rero.ch/api/acq_order_lines/acol1'
+            '$ref': 'https://bib.rero.ch/api/acq_order_lines/acol1'
         }
     })
     assert extracted_data_from_ref(rec.get('acq_order_line')) == 'acol1'
@@ -41,7 +41,7 @@ def test_acq_order_lines_jsonresolver(
     # non existing record
     rec = Record.create({
         'acq_order_line': {
-            '$ref': 'https://ils.rero.ch/api/acq_order_lines/n_e'
+            '$ref': 'https://bib.rero.ch/api/acq_order_lines/n_e'
         }
     })
     with pytest.raises(JsonRefError):

@@ -3486,7 +3486,7 @@ def test_marc21_to_part_of():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('partOf') == [{
-            'document': {'$ref': 'https://ils.rero.ch/api/documents/123456'},
+            'document': {'$ref': 'https://bib.rero.ch/api/documents/123456'},
             'numbering': [{'pages': '411'}]
         }
     ]
@@ -3504,7 +3504,7 @@ def test_marc21_to_part_of():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('partOf') == [{
-            'document': {'$ref': 'https://ils.rero.ch/api/documents/123456'},
+            'document': {'$ref': 'https://bib.rero.ch/api/documents/123456'},
             'numbering': [{
                     'pages': '411'
                 },
@@ -3528,7 +3528,7 @@ def test_marc21_to_part_of():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('partOf') == [{
-            'document': {'$ref': 'https://ils.rero.ch/api/documents/123456'},
+            'document': {'$ref': 'https://bib.rero.ch/api/documents/123456'},
             'numbering': [
                 {
                     'volume': 1,
@@ -3549,7 +3549,7 @@ def test_marc21_to_part_of():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('partOf') == [{
-            'document': {'$ref': 'https://ils.rero.ch/api/documents/123456'}
+            'document': {'$ref': 'https://bib.rero.ch/api/documents/123456'}
         }]
 
     marc21xml = """
@@ -3565,7 +3565,7 @@ def test_marc21_to_part_of():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('partOf') == [{
-            'document': {'$ref': 'https://ils.rero.ch/api/documents/123456'},
+            'document': {'$ref': 'https://bib.rero.ch/api/documents/123456'},
             'numbering': [{
                     'year': '2020',
                     'pages': '411'
@@ -3588,7 +3588,7 @@ def test_marc21_to_part_of():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('partOf') == [{
-            'document': {'$ref': 'https://ils.rero.ch/api/documents/123456'}
+            'document': {'$ref': 'https://bib.rero.ch/api/documents/123456'}
         }]
 
     marc21xml = """
@@ -3603,7 +3603,7 @@ def test_marc21_to_part_of():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('partOf') == [{
-            'document': {'$ref': 'https://ils.rero.ch/api/documents/123456'},
+            'document': {'$ref': 'https://bib.rero.ch/api/documents/123456'},
             'numbering': [{
                     'volume': 256
                 }]
@@ -3830,7 +3830,7 @@ def test_marc21_to_part_of_with_multiple_800():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('partOf') == [{
-            'document': {'$ref': 'https://ils.rero.ch/api/documents/780067'},
+            'document': {'$ref': 'https://bib.rero.ch/api/documents/780067'},
             'numbering': [{
                     'volume': 3
                 }]

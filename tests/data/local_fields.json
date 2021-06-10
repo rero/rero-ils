@@ -1,12 +1,12 @@
 {
   "lofi1": {
-    "$schema": "https://ils.rero.ch/schemas/local_fields/local_field-v0.0.1.json",
+    "$schema": "https://bib.rero.ch/schemas/local_fields/local_field-v0.0.1.json",
     "pid": "lofi1",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/org1"
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
     },
     "parent": {
-      "$ref": "https://ils.rero.ch/api/documents/doc1"
+      "$ref": "https://bib.rero.ch/api/documents/doc1"
     },
     "fields": {
       "field_1": [
@@ -16,13 +16,13 @@
     }
   },
   "lofi2": {
-    "$schema": "https://ils.rero.ch/schemas/local_fields/local_field-v0.0.1.json",
+    "$schema": "https://bib.rero.ch/schemas/local_fields/local_field-v0.0.1.json",
     "pid": "lofi2",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/org2"
+      "$ref": "https://bib.rero.ch/api/organisations/org2"
     },
     "parent": {
-      "$ref": "https://ils.rero.ch/api/documents/doc1"
+      "$ref": "https://bib.rero.ch/api/documents/doc1"
     },
     "fields": {
       "field_1": [

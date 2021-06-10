@@ -100,7 +100,7 @@ def test_notification_secure_api(client, json_header,
     # test notification creation
     notif = deepcopy(dummy_notification)
     notif_data = {
-        'loan_url': 'https://ils.rero.ch/api/loans/',
+        'loan_url': 'https://bib.rero.ch/api/loans/',
         'pid': loan_validated_martigny.get('pid')
     }
     loan_ref = '{loan_url}{pid}'.format(**notif_data)
@@ -227,7 +227,7 @@ def test_notifications_post_put_delete(
     record = deepcopy(dummy_notification)
     del record['pid']
     notif_data = {
-        'loan_url': 'https://ils.rero.ch/api/loans/',
+        'loan_url': 'https://bib.rero.ch/api/loans/',
         'pid': loan_validated_martigny.get('pid')
     }
     loan_ref = '{loan_url}{pid}'.format(**notif_data)

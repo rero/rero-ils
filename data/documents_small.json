@@ -618,7 +618,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000000"
+          "$ref": "https://bib.rero.ch/api/documents/2000000"
         },
         "numbering": [
           {
@@ -854,7 +854,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/54"
+          "$ref": "https://bib.rero.ch/api/documents/54"
         },
         "numbering": [
           {
@@ -1232,7 +1232,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000002"
+          "$ref": "https://bib.rero.ch/api/documents/2000002"
         }
       }
     ]
@@ -1335,7 +1335,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000003"
+          "$ref": "https://bib.rero.ch/api/documents/2000003"
         }
       }
     ]
@@ -1438,7 +1438,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000004"
+          "$ref": "https://bib.rero.ch/api/documents/2000004"
         }
       }
     ]
@@ -2197,7 +2197,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/75"
+          "$ref": "https://bib.rero.ch/api/documents/75"
         },
         "numbering": [
           {
@@ -2323,7 +2323,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000005"
+          "$ref": "https://bib.rero.ch/api/documents/2000005"
         },
         "numbering": [
           {
@@ -3046,7 +3046,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000006"
+          "$ref": "https://bib.rero.ch/api/documents/2000006"
         },
         "numbering": [
           {
@@ -3233,7 +3233,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/193"
+          "$ref": "https://bib.rero.ch/api/documents/193"
         },
         "numbering": [
           {
@@ -3403,7 +3403,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000007"
+          "$ref": "https://bib.rero.ch/api/documents/2000007"
         },
         "numbering": [
           {
@@ -4619,7 +4619,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/36"
+          "$ref": "https://bib.rero.ch/api/documents/36"
         }
       }
     ]
@@ -4720,7 +4720,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/19"
+          "$ref": "https://bib.rero.ch/api/documents/19"
         }
       }
     ]
@@ -4803,7 +4803,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000003"
+          "$ref": "https://bib.rero.ch/api/documents/2000003"
         }
       }
     ]
@@ -5053,7 +5053,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000010"
+          "$ref": "https://bib.rero.ch/api/documents/2000010"
         }
       }
     ]
@@ -5251,7 +5251,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000011"
+          "$ref": "https://bib.rero.ch/api/documents/2000011"
         },
         "numbering": [
           {
@@ -5391,7 +5391,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/253"
+          "$ref": "https://bib.rero.ch/api/documents/253"
         },
         "numbering": [
           {
@@ -5497,7 +5497,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/36"
+          "$ref": "https://bib.rero.ch/api/documents/36"
         }
       }
     ]
@@ -6031,7 +6031,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000013"
+          "$ref": "https://bib.rero.ch/api/documents/2000013"
         },
         "numbering": [
           {
@@ -7319,7 +7319,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000015"
+          "$ref": "https://bib.rero.ch/api/documents/2000015"
         },
         "numbering": [
           {
@@ -7635,7 +7635,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000016"
+          "$ref": "https://bib.rero.ch/api/documents/2000016"
         },
         "numbering": [
           {
@@ -8090,7 +8090,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000017"
+          "$ref": "https://bib.rero.ch/api/documents/2000017"
         },
         "numbering": [
           {
@@ -8260,7 +8260,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000018"
+          "$ref": "https://bib.rero.ch/api/documents/2000018"
         }
       }
     ]
@@ -8803,7 +8803,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000019"
+          "$ref": "https://bib.rero.ch/api/documents/2000019"
         },
         "numbering": [
           {
@@ -8990,7 +8990,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000020"
+          "$ref": "https://bib.rero.ch/api/documents/2000020"
         },
         "numbering": [
           {
@@ -9000,7 +9000,7 @@
       },
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000021"
+          "$ref": "https://bib.rero.ch/api/documents/2000021"
         }
       }
     ],
@@ -9252,7 +9252,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000022"
+          "$ref": "https://bib.rero.ch/api/documents/2000022"
         }
       }
     ],
@@ -9416,7 +9416,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000023"
+          "$ref": "https://bib.rero.ch/api/documents/2000023"
         },
         "numbering": [
           {
@@ -9697,7 +9697,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000024"
+          "$ref": "https://bib.rero.ch/api/documents/2000024"
         },
         "numbering": [
           {
@@ -9857,7 +9857,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000024"
+          "$ref": "https://bib.rero.ch/api/documents/2000024"
         },
         "numbering": [
           {
@@ -10008,7 +10008,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/267"
+          "$ref": "https://bib.rero.ch/api/documents/267"
         }
       }
     ]
@@ -10186,7 +10186,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/41"
+          "$ref": "https://bib.rero.ch/api/documents/41"
         }
       }
     ]
@@ -10883,7 +10883,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000025"
+          "$ref": "https://bib.rero.ch/api/documents/2000025"
         }
       }
     ]
@@ -11069,7 +11069,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000026"
+          "$ref": "https://bib.rero.ch/api/documents/2000026"
         }
       }
     ]
@@ -12588,7 +12588,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/156"
+          "$ref": "https://bib.rero.ch/api/documents/156"
         },
         "numbering": [
           {
@@ -12993,7 +12993,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/22"
+          "$ref": "https://bib.rero.ch/api/documents/22"
         }
       }
     ]
@@ -14057,7 +14057,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/207"
+          "$ref": "https://bib.rero.ch/api/documents/207"
         }
       }
     ]
@@ -14531,7 +14531,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/167"
+          "$ref": "https://bib.rero.ch/api/documents/167"
         }
       }
     ]
@@ -14951,7 +14951,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/19"
+          "$ref": "https://bib.rero.ch/api/documents/19"
         }
       }
     ]
@@ -15252,7 +15252,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000028"
+          "$ref": "https://bib.rero.ch/api/documents/2000028"
         }
       }
     ]
@@ -16240,7 +16240,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/75"
+          "$ref": "https://bib.rero.ch/api/documents/75"
         },
         "numbering": [
           {
@@ -17511,7 +17511,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/98"
+          "$ref": "https://bib.rero.ch/api/documents/98"
         }
       }
     ]
@@ -17669,7 +17669,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000031"
+          "$ref": "https://bib.rero.ch/api/documents/2000031"
         },
         "numbering": [
           {
@@ -17963,7 +17963,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000032"
+          "$ref": "https://bib.rero.ch/api/documents/2000032"
         },
         "numbering": [
           {
@@ -18070,7 +18070,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/19"
+          "$ref": "https://bib.rero.ch/api/documents/19"
         }
       }
     ]
@@ -18454,7 +18454,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000034"
+          "$ref": "https://bib.rero.ch/api/documents/2000034"
         }
       }
     ]
@@ -18758,7 +18758,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000036"
+          "$ref": "https://bib.rero.ch/api/documents/2000036"
         }
       }
     ],
@@ -18916,7 +18916,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000037"
+          "$ref": "https://bib.rero.ch/api/documents/2000037"
         }
       }
     ]
@@ -19449,7 +19449,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/274"
+          "$ref": "https://bib.rero.ch/api/documents/274"
         },
         "numbering": [
           {
@@ -19695,7 +19695,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000038"
+          "$ref": "https://bib.rero.ch/api/documents/2000038"
         }
       }
     ]
@@ -20182,7 +20182,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000039"
+          "$ref": "https://bib.rero.ch/api/documents/2000039"
         },
         "numbering": [
           {
@@ -20688,7 +20688,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/176"
+          "$ref": "https://bib.rero.ch/api/documents/176"
         },
         "numbering": [
           {
@@ -20893,7 +20893,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/283"
+          "$ref": "https://bib.rero.ch/api/documents/283"
         }
       }
     ]
@@ -21800,7 +21800,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/19"
+          "$ref": "https://bib.rero.ch/api/documents/19"
         }
       }
     ]
@@ -22548,7 +22548,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000041"
+          "$ref": "https://bib.rero.ch/api/documents/2000041"
         }
       }
     ]
@@ -22727,7 +22727,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000042"
+          "$ref": "https://bib.rero.ch/api/documents/2000042"
         },
         "numbering": [
           {
@@ -23325,7 +23325,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000043"
+          "$ref": "https://bib.rero.ch/api/documents/2000043"
         }
       }
     ]
@@ -23470,7 +23470,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/260"
+          "$ref": "https://bib.rero.ch/api/documents/260"
         },
         "numbering": [
           {
@@ -23936,7 +23936,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000044"
+          "$ref": "https://bib.rero.ch/api/documents/2000044"
         },
         "numbering": [
           {
@@ -24304,7 +24304,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000045"
+          "$ref": "https://bib.rero.ch/api/documents/2000045"
         }
       }
     ]
@@ -25392,7 +25392,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/87"
+          "$ref": "https://bib.rero.ch/api/documents/87"
         },
         "numbering": [
           {
@@ -25833,7 +25833,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000048"
+          "$ref": "https://bib.rero.ch/api/documents/2000048"
         }
       }
     ]
@@ -26658,7 +26658,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000049"
+          "$ref": "https://bib.rero.ch/api/documents/2000049"
         },
         "numbering": [
           {
@@ -27244,7 +27244,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000050"
+          "$ref": "https://bib.rero.ch/api/documents/2000050"
         },
         "numbering": [
           {
@@ -27681,7 +27681,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000054"
+          "$ref": "https://bib.rero.ch/api/documents/2000054"
         },
         "numbering": [
           {
@@ -29022,7 +29022,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000055"
+          "$ref": "https://bib.rero.ch/api/documents/2000055"
         }
       }
     ]
@@ -29124,7 +29124,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/19"
+          "$ref": "https://bib.rero.ch/api/documents/19"
         }
       }
     ]
@@ -29395,7 +29395,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000057"
+          "$ref": "https://bib.rero.ch/api/documents/2000057"
         }
       }
     ]
@@ -29549,7 +29549,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000058"
+          "$ref": "https://bib.rero.ch/api/documents/2000058"
         }
       }
     ]
@@ -30187,7 +30187,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/1"
+          "$ref": "https://bib.rero.ch/api/documents/1"
         },
         "numbering": [
           {
@@ -30788,7 +30788,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000059"
+          "$ref": "https://bib.rero.ch/api/documents/2000059"
         },
         "numbering": [
           {
@@ -31510,7 +31510,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000060"
+          "$ref": "https://bib.rero.ch/api/documents/2000060"
         }
       }
     ]
@@ -32091,7 +32091,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000061"
+          "$ref": "https://bib.rero.ch/api/documents/2000061"
         },
         "numbering": [
           {
@@ -32395,7 +32395,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000038"
+          "$ref": "https://bib.rero.ch/api/documents/2000038"
         }
       }
     ]
@@ -33675,7 +33675,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000062"
+          "$ref": "https://bib.rero.ch/api/documents/2000062"
         },
         "numbering": [
           {
@@ -34280,7 +34280,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000063"
+          "$ref": "https://bib.rero.ch/api/documents/2000063"
         },
         "numbering": [
           {
@@ -34368,7 +34368,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/19"
+          "$ref": "https://bib.rero.ch/api/documents/19"
         }
       }
     ]
@@ -35922,7 +35922,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000066"
+          "$ref": "https://bib.rero.ch/api/documents/2000066"
         },
         "numbering": [
           {
@@ -36189,7 +36189,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000067"
+          "$ref": "https://bib.rero.ch/api/documents/2000067"
         },
         "numbering": [
           {
@@ -36923,7 +36923,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000069"
+          "$ref": "https://bib.rero.ch/api/documents/2000069"
         },
         "numbering": [
           {
@@ -37289,7 +37289,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000070"
+          "$ref": "https://bib.rero.ch/api/documents/2000070"
         },
         "numbering": [
           {
@@ -37631,7 +37631,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000071"
+          "$ref": "https://bib.rero.ch/api/documents/2000071"
         }
       }
     ]
@@ -38182,7 +38182,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000072"
+          "$ref": "https://bib.rero.ch/api/documents/2000072"
         }
       }
     ]
@@ -38928,7 +38928,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000073"
+          "$ref": "https://bib.rero.ch/api/documents/2000073"
         }
       }
     ]
@@ -39560,7 +39560,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000074"
+          "$ref": "https://bib.rero.ch/api/documents/2000074"
         }
       }
     ]
@@ -40255,7 +40255,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/98"
+          "$ref": "https://bib.rero.ch/api/documents/98"
         }
       }
     ]
@@ -40416,7 +40416,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000075"
+          "$ref": "https://bib.rero.ch/api/documents/2000075"
         },
         "numbering": [
           {
@@ -41981,7 +41981,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000076"
+          "$ref": "https://bib.rero.ch/api/documents/2000076"
         }
       }
     ]
@@ -42131,7 +42131,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000077"
+          "$ref": "https://bib.rero.ch/api/documents/2000077"
         },
         "numbering": [
           {
@@ -42924,7 +42924,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000078"
+          "$ref": "https://bib.rero.ch/api/documents/2000078"
         },
         "numbering": [
           {
@@ -43226,7 +43226,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000079"
+          "$ref": "https://bib.rero.ch/api/documents/2000079"
         },
         "numbering": [
           {
@@ -43735,7 +43735,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000080"
+          "$ref": "https://bib.rero.ch/api/documents/2000080"
         },
         "numbering": [
           {
@@ -47108,7 +47108,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000093"
+          "$ref": "https://bib.rero.ch/api/documents/2000093"
         },
         "numbering": [
           {
@@ -51075,7 +51075,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000103"
+          "$ref": "https://bib.rero.ch/api/documents/2000103"
         }
       }
     ]
@@ -54772,7 +54772,7 @@
     "partOf": [
       {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/2000107"
+          "$ref": "https://bib.rero.ch/api/documents/2000107"
         }
       }
     ]

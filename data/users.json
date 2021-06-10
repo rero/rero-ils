@@ -13,7 +13,7 @@
     "last_name": "M\u00fcller",
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/4"
+        "$ref": "https://bib.rero.ch/api/libraries/4"
       }
     ],
     "home_phone": "+39324993597",
@@ -39,10 +39,10 @@
     "last_name": "Dupont",
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/2"
+        "$ref": "https://bib.rero.ch/api/libraries/2"
       },
       {
-        "$ref": "https://ils.rero.ch/api/libraries/4"
+        "$ref": "https://bib.rero.ch/api/libraries/4"
       }
     ],
     "home_phone": "+41261234567",
@@ -62,7 +62,7 @@
     "last_name": "Rodriguez",
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/3"
+        "$ref": "https://bib.rero.ch/api/libraries/3"
       }
     ],
     "home_phone": "+41911234567",
@@ -96,7 +96,7 @@
         "2050124311"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/1"
+        "$ref": "https://bib.rero.ch/api/patron_types/1"
       },
       "communication_channel": "email",
       "communication_language": "ita"
@@ -132,7 +132,7 @@
         "2030124287"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/2"
+        "$ref": "https://bib.rero.ch/api/patron_types/2"
       },
       "communication_channel": "email",
       "communication_language": "ita"
@@ -151,7 +151,7 @@
     ],
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/4"
+        "$ref": "https://bib.rero.ch/api/libraries/4"
       }
     ],
     "home_phone": "+39244857275",
@@ -178,7 +178,7 @@
         "reroils1"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/3"
+        "$ref": "https://bib.rero.ch/api/patron_types/3"
       },
       "communication_channel": "email",
       "communication_language": "fre"
@@ -205,7 +205,7 @@
         "2000000001"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/3"
+        "$ref": "https://bib.rero.ch/api/patron_types/3"
       },
       "communication_channel": "email",
       "communication_language": "eng"
@@ -232,7 +232,7 @@
         "10000001"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/1"
+        "$ref": "https://bib.rero.ch/api/patron_types/1"
       },
       "communication_channel": "email",
       "communication_language": "fre"
@@ -259,7 +259,7 @@
         "2050124312"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/1"
+        "$ref": "https://bib.rero.ch/api/patron_types/1"
       },
       "communication_channel": "email",
       "communication_language": "ita"
@@ -286,7 +286,7 @@
         "kad001"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/1"
+        "$ref": "https://bib.rero.ch/api/patron_types/1"
       },
       "communication_channel": "email",
       "communication_language": "eng"
@@ -313,7 +313,7 @@
         "kad002"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/1"
+        "$ref": "https://bib.rero.ch/api/patron_types/1"
       },
       "communication_channel": "email",
       "communication_language": "ger"
@@ -333,7 +333,7 @@
     "last_name": "Pince",
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/5"
+        "$ref": "https://bib.rero.ch/api/libraries/5"
       }
     ],
     "home_phone": "+01411234567",
@@ -360,7 +360,7 @@
         "3050124311"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/4"
+        "$ref": "https://bib.rero.ch/api/patron_types/4"
       },
       "communication_channel": "email",
       "communication_language": "eng"
@@ -386,7 +386,7 @@
         "3050124312"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/4"
+        "$ref": "https://bib.rero.ch/api/patron_types/4"
       },
       "communication_channel": "email",
       "communication_language": "eng"
@@ -406,7 +406,7 @@
     "last_name": "Fictive",
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/6"
+        "$ref": "https://bib.rero.ch/api/libraries/6"
       }
     ],
     "home_phone": "+765554433",
@@ -426,7 +426,7 @@
     "last_name": "Nu",
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/6"
+        "$ref": "https://bib.rero.ch/api/libraries/6"
       }
     ],
     "home_phone": "+765554433",
@@ -446,7 +446,7 @@
     "last_name": "Hightower",
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/7"
+        "$ref": "https://bib.rero.ch/api/libraries/7"
       }
     ],
     "home_phone": "+765554433",
@@ -466,7 +466,7 @@
     "last_name": "Beast",
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/8"
+        "$ref": "https://bib.rero.ch/api/libraries/8"
       }
     ],
     "home_phone": "+765554433",
@@ -486,7 +486,7 @@
     "last_name": "Dream",
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/9"
+        "$ref": "https://bib.rero.ch/api/libraries/9"
       }
     ],
     "home_phone": "+765554433",
@@ -506,7 +506,7 @@
     "last_name": "Lux",
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/10"
+        "$ref": "https://bib.rero.ch/api/libraries/10"
       }
     ],
     "home_phone": "+765554433",
@@ -526,7 +526,7 @@
     "last_name": "Pince",
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/11"
+        "$ref": "https://bib.rero.ch/api/libraries/11"
       }
     ],
     "home_phone": "+765554433",
@@ -546,7 +546,7 @@
     "last_name": "Borges",
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/12"
+        "$ref": "https://bib.rero.ch/api/libraries/12"
       }
     ],
     "home_phone": "+765554433",
@@ -566,7 +566,7 @@
     "last_name": "de Hildesheim",
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/13"
+        "$ref": "https://bib.rero.ch/api/libraries/13"
       }
     ],
     "home_phone": "+765554433",
@@ -586,7 +586,7 @@
     "last_name": "Lorren",
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/14"
+        "$ref": "https://bib.rero.ch/api/libraries/14"
       }
     ],
     "home_phone": "+765554433",
@@ -606,7 +606,7 @@
     "last_name": "de Torres",
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/15"
+        "$ref": "https://bib.rero.ch/api/libraries/15"
       }
     ],
     "home_phone": "+765554433",
@@ -626,7 +626,7 @@
     "last_name": "Smith",
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/16"
+        "$ref": "https://bib.rero.ch/api/libraries/16"
       }
     ],
     "home_phone": "+765554433",
@@ -646,7 +646,7 @@
     "last_name": "Half-elven",
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/17"
+        "$ref": "https://bib.rero.ch/api/libraries/17"
       }
     ],
     "home_phone": "+765554433",
@@ -666,7 +666,7 @@
     "last_name": "Phelps",
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/18"
+        "$ref": "https://bib.rero.ch/api/libraries/18"
       }
     ],
     "home_phone": "+765554433",
@@ -686,7 +686,7 @@
     "last_name": "Librarian",
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/19"
+        "$ref": "https://bib.rero.ch/api/libraries/19"
       }
     ],
     "home_phone": "+765554433",
@@ -706,7 +706,7 @@
     "last_name": "Shi Tong",
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/20"
+        "$ref": "https://bib.rero.ch/api/libraries/20"
       }
     ],
     "home_phone": "+765554433",
@@ -726,7 +726,7 @@
     "last_name": "Giles",
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/21"
+        "$ref": "https://bib.rero.ch/api/libraries/21"
       }
     ],
     "home_phone": "+765554433",
@@ -754,7 +754,7 @@
         "920001"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/5"
+        "$ref": "https://bib.rero.ch/api/patron_types/5"
       },
       "communication_channel": "email",
       "communication_language": "fre"
@@ -781,7 +781,7 @@
         "920002"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/5"
+        "$ref": "https://bib.rero.ch/api/patron_types/5"
       },
       "communication_channel": "email",
       "communication_language": "fre"
@@ -808,7 +808,7 @@
         "920003"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/5"
+        "$ref": "https://bib.rero.ch/api/patron_types/5"
       },
       "communication_channel": "email",
       "communication_language": "fre"
@@ -835,7 +835,7 @@
         "920004"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/5"
+        "$ref": "https://bib.rero.ch/api/patron_types/5"
       },
       "communication_channel": "email",
       "communication_language": "fre"
@@ -862,7 +862,7 @@
         "920005"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/5"
+        "$ref": "https://bib.rero.ch/api/patron_types/5"
       },
       "communication_channel": "email",
       "communication_language": "fre"
@@ -889,7 +889,7 @@
         "920006"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/5"
+        "$ref": "https://bib.rero.ch/api/patron_types/5"
       },
       "communication_channel": "email",
       "communication_language": "fre"
@@ -916,7 +916,7 @@
         "920007"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/5"
+        "$ref": "https://bib.rero.ch/api/patron_types/5"
       },
       "communication_channel": "email",
       "communication_language": "ger"
@@ -943,7 +943,7 @@
         "920008"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/5"
+        "$ref": "https://bib.rero.ch/api/patron_types/5"
       },
       "communication_channel": "email",
       "communication_language": "ger"
@@ -970,7 +970,7 @@
         "920009"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/5"
+        "$ref": "https://bib.rero.ch/api/patron_types/5"
       },
       "communication_channel": "email",
       "communication_language": "ger"
@@ -997,7 +997,7 @@
         "920010"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/5"
+        "$ref": "https://bib.rero.ch/api/patron_types/5"
       },
       "communication_channel": "email",
       "communication_language": "ger"
@@ -1024,7 +1024,7 @@
         "920011"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/5"
+        "$ref": "https://bib.rero.ch/api/patron_types/5"
       },
       "communication_channel": "email",
       "communication_language": "ger"
@@ -1051,7 +1051,7 @@
         "920012"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/5"
+        "$ref": "https://bib.rero.ch/api/patron_types/5"
       },
       "communication_channel": "email",
       "communication_language": "ger"
@@ -1078,7 +1078,7 @@
         "920013"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/5"
+        "$ref": "https://bib.rero.ch/api/patron_types/5"
       },
       "communication_channel": "email",
       "communication_language": "ita"
@@ -1104,7 +1104,7 @@
         "920014"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/5"
+        "$ref": "https://bib.rero.ch/api/patron_types/5"
       },
       "communication_channel": "mail",
       "communication_language": "ita"
@@ -1131,7 +1131,7 @@
         "920015"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/5"
+        "$ref": "https://bib.rero.ch/api/patron_types/5"
       },
       "communication_channel": "email",
       "communication_language": "ita"
@@ -1158,7 +1158,7 @@
         "920016"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/5"
+        "$ref": "https://bib.rero.ch/api/patron_types/5"
       },
       "communication_channel": "email",
       "communication_language": "ita"
@@ -1185,7 +1185,7 @@
         "999999"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/5"
+        "$ref": "https://bib.rero.ch/api/patron_types/5"
       },
       "communication_channel": "email",
       "communication_language": "eng"
@@ -1205,7 +1205,7 @@
     "last_name": "McCoy",
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/22"
+        "$ref": "https://bib.rero.ch/api/libraries/22"
       }
     ],
     "password": "123456",
@@ -1226,7 +1226,7 @@
     "last_name": "Grayson",
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/23"
+        "$ref": "https://bib.rero.ch/api/libraries/23"
       }
     ],
     "password": "123456",
@@ -1256,7 +1256,7 @@
         "cypress-1"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/7"
+        "$ref": "https://bib.rero.ch/api/patron_types/7"
       },
       "communication_channel": "email",
       "communication_language": "eng"
@@ -1284,7 +1284,7 @@
         "cypress-2"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/7"
+        "$ref": "https://bib.rero.ch/api/patron_types/7"
       },
       "communication_channel": "email",
       "communication_language": "eng"
@@ -1312,7 +1312,7 @@
         "2100154311"
       ],
       "type": {
-        "$ref": "https://ils.rero.ch/api/patron_types/4"
+        "$ref": "https://bib.rero.ch/api/patron_types/4"
       },
       "communication_channel": "email",
       "communication_language": "ita"

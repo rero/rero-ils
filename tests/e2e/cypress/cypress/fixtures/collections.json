@@ -10,7 +10,7 @@
     ],
     "libraries": [
       {
-        "$ref": "https://ils.rero.ch/api/libraries/22"
+        "$ref": "https://bib.rero.ch/api/libraries/22"
       }
     ],
     "description": "List of items for course 1",
@@ -25,7 +25,7 @@
     "start_date": "2020-09-01",
     "end_date": "2020-12-31",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/4"
+      "$ref": "https://bib.rero.ch/api/organisations/4"
     },
     "published": true
   },
@@ -37,7 +37,7 @@
     "start_date": "2020-10-01",
     "end_date": "2021-06-30",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/4"
+      "$ref": "https://bib.rero.ch/api/organisations/4"
     },
     "published": true
   }

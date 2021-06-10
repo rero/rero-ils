@@ -2,10 +2,10 @@
   {
     "pid": "1",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "parent": {
-      "$ref": "https://ils.rero.ch/api/documents/1"
+      "$ref": "https://bib.rero.ch/api/documents/1"
     },
     "fields": {
       "field_1": [
@@ -17,10 +17,10 @@
   {
     "pid": "2",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/2"
+      "$ref": "https://bib.rero.ch/api/organisations/2"
     },
     "parent": {
-      "$ref": "https://ils.rero.ch/api/documents/1"
+      "$ref": "https://bib.rero.ch/api/documents/1"
     },
     "fields": {
       "field_1": [
@@ -31,10 +31,10 @@
   {
     "pid": "3",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "parent": {
-      "$ref": "https://ils.rero.ch/api/documents/93"
+      "$ref": "https://bib.rero.ch/api/documents/93"
     },
     "fields": {
       "field_1": [
@@ -48,10 +48,10 @@
   {
     "pid": "4",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/2"
+      "$ref": "https://bib.rero.ch/api/organisations/2"
     },
     "parent": {
-      "$ref": "https://ils.rero.ch/api/documents/93"
+      "$ref": "https://bib.rero.ch/api/documents/93"
     },
     "fields": {
       "field_1": [

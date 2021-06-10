@@ -2376,9 +2376,9 @@ INDEXER_REPLACE_REFS = True
 INDEXER_RECORD_TO_INDEX = 'rero_ils.modules.indexer_utils.record_to_index'
 
 RERO_ILS_APP_URL_SCHEME = 'https'
-RERO_ILS_APP_HOST = 'ils.rero.ch'
+RERO_ILS_APP_HOST = 'bib.rero.ch'
 #: Actual URL used to construct links in notifications for example
-RERO_ILS_APP_URL = 'https://ils.rero.ch'
+RERO_ILS_APP_URL = 'https://bib.rero.ch'
 
 RERO_ILS_PERMALINK_RERO_URL = 'http://data.rero.ch/01-{identifier}'
 
@@ -2421,13 +2421,13 @@ RERO_ILS_LIBRARIAN_ROLES = ['librarian', 'system_librarian']
 # ===========
 #: Hostname used in URLs for local JSONSchemas.
 JSONSCHEMAS_URL_SCHEME = 'https'
-JSONSCHEMAS_HOST = 'ils.rero.ch'
+JSONSCHEMAS_HOST = 'bib.rero.ch'
 JSONSCHEMAS_REPLACE_REFS = True
 JSONSCHEMAS_LOADER_CLS = 'rero_ils.jsonschemas.utils.JsonLoader'
 
 # OAI-PMH
 # =======
-OAISERVER_ID_PREFIX = 'oai:ils.rero.ch:'
+OAISERVER_ID_PREFIX = 'oai:bib.rero.ch:'
 
 #: Invenio circulation configuration.
 CIRCULATION_ITEM_EXISTS = Item.item_exists

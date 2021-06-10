@@ -33,7 +33,7 @@
             "$ref": {
               "title": "Acquisition order line URI",
               "type": "string",
-              "pattern": "^https://ils.rero.ch/api/acq_order_lines/.*?$"
+              "pattern": "^https://bib.rero.ch/api/acq_order_lines/.*?$"
             }
           }
         },
@@ -44,7 +44,7 @@
             "$ref": {
               "title": "Acquisition account URI",
               "type": "string",
-              "pattern": "^https://ils.rero.ch/api/acq_accounts/.*?$"
+              "pattern": "^https://bib.rero.ch/api/acq_accounts/.*?$"
             }
           }
         },
@@ -55,7 +55,7 @@
             "$ref": {
               "title": "Document URI",
               "type": "string",
-              "pattern": "^https://ils.rero.ch/api/documents/.*?$"
+              "pattern": "^https://bib.rero.ch/api/documents/.*?$"
             }
           }
         },
@@ -93,8 +93,8 @@
       "description": "Schema to validate Acquisition Invoice records against.",
       "type": "string",
       "minLength": 9,
-      "default": "https://ils.rero.ch/schemas/acq_invoices/acq_invoice-v0.0.1.json",
-      "pattern": "^https://ils.rero.ch/schemas/acq_invoices/acq_invoice-v([0-9]+?\\.){3}json$"
+      "default": "https://bib.rero.ch/schemas/acq_invoices/acq_invoice-v0.0.1.json",
+      "pattern": "^https://bib.rero.ch/schemas/acq_invoices/acq_invoice-v([0-9]+?\\.){3}json$"
     },
     "pid": {
       "title": "Acquisition invoice ID",
@@ -273,7 +273,7 @@
         "$ref": {
           "title": "Vendor URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/vendors/.*?$",
+          "pattern": "^https://bib.rero.ch/api/vendors/.*?$",
           "form": {
             "focus": true,
             "remoteOptions": {
@@ -294,7 +294,7 @@
         "$ref": {
           "title": "Library URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/libraries/.*?$"
+          "pattern": "^https://bib.rero.ch/api/libraries/.*?$"
         }
       }
     },
@@ -309,7 +309,7 @@
         "$ref": {
           "title": "Organisation URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/organisations/.*?$"
+          "pattern": "^https://bib.rero.ch/api/organisations/.*?$"
         }
       }
     }

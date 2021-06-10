@@ -61,7 +61,7 @@ def create_app():
 def doc_title_travailleurs(app):
     """Document with title with travailleur."""
     data = {
-        '$schema': 'https://ils.rero.ch/schemas/documents/'
+        '$schema': 'https://bib.rero.ch/schemas/documents/'
                    'document-v0.0.1.json',
         'pid': 'doc_title_test1',
         'type': [{
@@ -100,7 +100,7 @@ def doc_title_travailleurs(app):
 def doc_title_travailleuses(app):
     """Document with title with travailleuses."""
     data = {
-        '$schema': 'https://ils.rero.ch/schemas/documents/'
+        '$schema': 'https://bib.rero.ch/schemas/documents/'
                    'document-v0.0.1.json',
         'pid': 'doc_title_test2',
         'type': [{

@@ -1423,7 +1423,7 @@ def test_unimarc_partOf_with_link(document_with_issn):
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
     assert data['partOf'] == [{
-            'document': {'$ref': 'https://ils.rero.ch/api/documents/doc5'},
+            'document': {'$ref': 'https://bib.rero.ch/api/documents/doc5'},
             'numbering': '41'
         }
     ]

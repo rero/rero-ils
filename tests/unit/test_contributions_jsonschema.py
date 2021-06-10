@@ -44,7 +44,7 @@ def test_required(contributions_schema, contribution_person_data_tmp):
 
     with pytest.raises(ValidationError):
         validate({
-            '$schema': 'https://ils.rero.ch/schemas/contributions/'
+            '$schema': 'https://bib.rero.ch/schemas/contributions/'
                        'contribution-v0.0.1.json',
             'viaf_pid': '56597999',
             'sources': [
@@ -55,7 +55,7 @@ def test_required(contributions_schema, contribution_person_data_tmp):
 
     with pytest.raises(ValidationError):
         validate({
-            '$schema': 'https://ils.rero.ch/schemas/contributions/'
+            '$schema': 'https://bib.rero.ch/schemas/contributions/'
                        'contribution-v0.0.1.json',
             'pid': 'cont_pers',
             'viaf_pid': '56597999'

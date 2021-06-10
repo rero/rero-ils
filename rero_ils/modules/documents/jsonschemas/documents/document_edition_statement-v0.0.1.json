@@ -14,7 +14,7 @@
           "minItems": 1,
           "items": {
             "title": "Edition designation",
-            "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/language_script"
+            "$ref": "https://bib.rero.ch/schemas/common/languages-v0.0.1.json#/language_script"
           }
         },
         "responsibility": {
@@ -23,7 +23,7 @@
           "minItems": 1,
           "items": {
             "title": "Responsibility",
-            "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/language_script"
+            "$ref": "https://bib.rero.ch/schemas/common/languages-v0.0.1.json#/language_script"
           },
           "form": {
             "hide": true

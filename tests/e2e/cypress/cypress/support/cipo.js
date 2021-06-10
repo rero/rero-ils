@@ -31,7 +31,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
     followRedirect: false,
     body: {
       "organisation": {
-        "$ref": ('https://ils.rero.ch/api/organisations/' + cipo.organisation_pid)
+        "$ref": ('https://bib.rero.ch/api/organisations/' + cipo.organisation_pid)
       },
       "name": (cipo.name + nameSuffix),
       "allow_requests": cipo.allow_requests,
@@ -40,10 +40,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
       "is_default": cipo.is_default,
       "settings":[{
         "patron_type": {
-          "$ref":('https://ils.rero.ch/api/patron_types/' + patronTypePid)
+          "$ref":('https://bib.rero.ch/api/patron_types/' + patronTypePid)
         },
         "item_type":{
-          "$ref":('https://ils.rero.ch/api/item_types/' + itemTypePid)
+          "$ref":('https://bib.rero.ch/api/item_types/' + itemTypePid)
         }
       }]
     }

@@ -28,7 +28,7 @@ def test_patron_transaction_jsonresolver(patron_transaction_overdue_martigny):
     """Test patron_transaction json resolver."""
     rec = Record.create(
         {'patron_transaction': {
-            '$ref': 'https://ils.rero.ch/api/patron_transactions/1'
+            '$ref': 'https://bib.rero.ch/api/patron_transactions/1'
             }
          }
     )
@@ -46,7 +46,7 @@ def test_patron_transaction_jsonresolver(patron_transaction_overdue_martigny):
     rec = Record.create(
         {'patron_transaction':
             {
-                '$ref': 'https://ils.rero.ch/api/patron_transactions/n_e'}}
+                '$ref': 'https://bib.rero.ch/api/patron_transactions/n_e'}}
     )
     with pytest.raises(JsonRefError):
         rec.replace_refs().dumps()

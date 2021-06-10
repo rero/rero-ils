@@ -25,7 +25,7 @@ from jsonref import JsonRefError
 def test_patrons_jsonresolver(system_librarian_martigny):
     """Test patron json resolver."""
     rec = Record.create({
-        'patron': {'$ref': 'https://ils.rero.ch/api/patrons/ptrn1'}
+        'patron': {'$ref': 'https://bib.rero.ch/api/patrons/ptrn1'}
     })
     assert rec.replace_refs().get('patron') == {
         'type': 'ptrn', 'pid': 'ptrn1'
@@ -38,7 +38,7 @@ def test_patrons_jsonresolver(system_librarian_martigny):
 
     # non existing record
     rec = Record.create({
-        'patron': {'$ref': 'https://ils.rero.ch/api/patrons/n_e'}
+        'patron': {'$ref': 'https://bib.rero.ch/api/patrons/n_e'}
     })
     with pytest.raises(JsonRefError):
         rec.replace_refs().dumps()

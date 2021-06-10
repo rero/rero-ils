@@ -36,7 +36,7 @@ def test_system_librarian_permissions(
     login_user_via_session(client, system_librarian_martigny.user)
 
     record = {
-        "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
+        "$schema": "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json",
         "first_name": "first_name",
         "last_name": "Last_name",
         "username": "user",
@@ -77,7 +77,7 @@ def test_system_librarian_permissions(
                 'communication_language': 'ita',
                 'additional_communication_email': 'test@test.com',
                 'type': {
-                    '$ref': 'https://ils.rero.ch/api/patron_types/ptty2'
+                    '$ref': 'https://bib.rero.ch/api/patron_types/ptty2'
                 }
             }
         }
@@ -85,14 +85,14 @@ def test_system_librarian_permissions(
         'user': librarian,
         'patch': {
             'roles': ['librarian'],
-            'libraries': [{'$ref': 'https://ils.rero.ch/api/libraries/lib1'}]
+            'libraries': [{'$ref': 'https://bib.rero.ch/api/libraries/lib1'}]
         }
     }, {
         'user': system_librarian,
         'patch': {
             'roles': ['librarian', 'system_librarian'],
             'libraries': [{
-                '$ref': 'https://ils.rero.ch/api/libraries/lib1'
+                '$ref': 'https://bib.rero.ch/api/libraries/lib1'
             }]
         }
     }]

@@ -4357,8 +4357,8 @@ msgstr "URI der Bestellung"
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:37
 msgid ""
 "Should be in the following format: "
-"https://ils.rero.ch/api/documents/<PID>."
-msgstr "Soll im folgenden Format sein: https://ils.rero.ch/api/documents/<PID>."
+"https://bib.rero.ch/api/documents/<PID>."
+msgstr "Soll im folgenden Format sein: https://bib.rero.ch/api/documents/<PID>."
 
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:5
 msgid "JSON schema for Acquisition Order."
@@ -6596,8 +6596,8 @@ msgid "Document link"
 msgstr "Link des Dokuments"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:197
-msgid "Example: https://ils.rero.ch/api/documents/66"
-msgstr "Beispiel: https://ils.rero.ch/api/documents/66"
+msgid "Example: https://bib.rero.ch/api/documents/66"
+msgstr "Beispiel: https://bib.rero.ch/api/documents/66"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_duration-v0.0.1.json:3
 msgid "Durations"
@@ -9250,8 +9250,8 @@ msgid "Patron URI"
 msgstr "Leser URI"
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:94
-msgid "Should be in the following format: https://ils.rero.ch/api/patrons/<PID>."
-msgstr "Soll im folgenden Format sein: https://ils.rero.ch/api/patrons/<PID>."
+msgid "Should be in the following format: https://bib.rero.ch/api/patrons/<PID>."
+msgstr "Soll im folgenden Format sein: https://bib.rero.ch/api/patrons/<PID>."
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:106
 msgid "Loan state"

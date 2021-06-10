@@ -26,7 +26,7 @@ from jsonref import JsonRefError
 def test_holdings_jsonresolver(holding_lib_martigny):
     """Test holding json resolver."""
     rec = Record.create({
-        'holding': {'$ref': 'https://ils.rero.ch/api/holdings/holding1'}
+        'holding': {'$ref': 'https://bib.rero.ch/api/holdings/holding1'}
     })
     assert rec.replace_refs().get('holding') == {
         'type': 'hold', 'pid': 'holding1'
@@ -39,7 +39,7 @@ def test_holdings_jsonresolver(holding_lib_martigny):
 
     # non existing record
     rec = Record.create({
-        'holding': {'$ref': 'https://ils.rero.ch/api/holdings/n_e'}
+        'holding': {'$ref': 'https://bib.rero.ch/api/holdings/n_e'}
     })
     with pytest.raises(JsonRefError):
         rec.replace_refs().dumps()

@@ -22,7 +22,7 @@ from flask import current_app
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 
-@jsonresolver.route('/api/acq_accounts/<pid>', host='ils.rero.ch')
+@jsonresolver.route('/api/acq_accounts/<pid>', host='bib.rero.ch')
 def acq_account_resolver(pid):
     """Resolver for acq_account record."""
     persistent_id = PersistentIdentifier.get('acac', pid)

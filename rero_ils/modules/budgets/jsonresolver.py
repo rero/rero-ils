@@ -22,7 +22,7 @@ from flask import current_app
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 
-@jsonresolver.route('/api/budgets/<pid>', host='ils.rero.ch')
+@jsonresolver.route('/api/budgets/<pid>', host='bib.rero.ch')
 def budget_resolver(pid):
     """Resolver for budget record."""
     persistent_id = PersistentIdentifier.get('budg', pid)

@@ -27,8 +27,8 @@
       "title": "Schema",
       "description": "Schema to validate acquisition order line records against.",
       "type": "string",
-      "default": "https://ils.rero.ch/schemas/acq_order_lines/acq_order_line-v0.0.1.json",
-      "pattern": "^https://ils.rero.ch/schemas/acq_order_lines/acq_order_line-v([0-9]+?\\.){3}json$"
+      "default": "https://bib.rero.ch/schemas/acq_order_lines/acq_order_line-v0.0.1.json",
+      "pattern": "^https://bib.rero.ch/schemas/acq_order_lines/acq_order_line-v([0-9]+?\\.){3}json$"
     },
     "pid": {
       "title": "Acquisition order line ID",
@@ -121,7 +121,7 @@
         "$ref": {
           "title": "Acquisition account URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/acq_accounts/.*?$",
+          "pattern": "^https://bib.rero.ch/api/acq_accounts/.*?$",
           "form": {
             "focus": true,
             "fieldMap": "acq_account",
@@ -140,7 +140,7 @@
         "$ref": {
           "title": "Acquisition order URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/acq_orders/.*?$"
+          "pattern": "^https://bib.rero.ch/api/acq_orders/.*?$"
         }
       }
     },
@@ -154,14 +154,14 @@
         "$ref": {
           "title": "Document URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/documents/.+?$",
+          "pattern": "^https://bib.rero.ch/api/documents/.+?$",
           "form": {
             "remoteTypeahead": {
               "type": "documents"
             },
             "validation": {
               "messages": {
-                "patternMessage": "Should be in the following format: https://ils.rero.ch/api/documents/<PID>."
+                "patternMessage": "Should be in the following format: https://bib.rero.ch/api/documents/<PID>."
               }
             },
             "templateOptions": {
@@ -182,7 +182,7 @@
         "$ref": {
           "title": "Organisation URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/organisations/.*?$"
+          "pattern": "^https://bib.rero.ch/api/organisations/.*?$"
         }
       }
     }

@@ -6,7 +6,7 @@
     "email": "reroilstest+aoste1@gmail.com",
     "name": "Biblioth\u00e8que cantonale vald\u00f4taine, site d'Aoste",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "opening_hours": [
       {
@@ -152,7 +152,7 @@
     "email": "reroilstest+aoste2@gmail.com",
     "name": "Biblioth\u00e8que cantonale vald\u00f4taine, site de Pont-saint-Martin",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "opening_hours": [
       {
@@ -289,7 +289,7 @@
     "email": "reroilstest+aoste3@gmail.com",
     "name": "Biblioth\u00e8que communale et scolaire d'Avise",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "opening_hours": [
       {
@@ -424,7 +424,7 @@
     "email": "reroilstest+aoste4@gmail.com",
     "name": "Biblioth\u00e8que du Lyc\u00e9e de la Vall\u00e9e d'Aoste",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "opening_hours": [
       {
@@ -545,7 +545,7 @@
     "email": "reroilstest+magic1@gmail.com",
     "name": "Hogwarts Library",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/2"
+      "$ref": "https://bib.rero.ch/api/organisations/2"
     },
     "opening_hours": [
       {
@@ -680,7 +680,7 @@
     "email": "reroilstest+jedi@gmail.com",
     "name": "Jedi Archives",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     },
     "opening_hours": [
       {
@@ -789,7 +789,7 @@
     "email": "reroilstest+citadelle@gmail.com",
     "name": "La Citadelle",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     },
     "opening_hours": [
       {
@@ -899,7 +899,7 @@
     "email": "reroilstest+beast@gmail.com",
     "name": "Beast's Library",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     },
     "opening_hours": [
       {
@@ -1009,7 +1009,7 @@
     "email": "reroilstest+dream@gmail.com",
     "name": "Dream's Library",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     },
     "opening_hours": [
       {
@@ -1119,7 +1119,7 @@
     "email": "reroilstest+who@gmail.com",
     "name": "Lux Foundation Library",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     },
     "opening_hours": [
       {
@@ -1233,7 +1233,7 @@
     "email": "reroilstest+hog@gmail.com",
     "name": "Hogwarts Library",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     },
     "opening_hours": [
       {
@@ -1342,7 +1342,7 @@
     "email": "reroilstest+babel@gmail.com",
     "name": "Biblioth\u00e8que de Babel",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     },
     "opening_hours": [
       {
@@ -1452,7 +1452,7 @@
     "email": "reroilstest+rose@gmail.com",
     "name": "Biblioth\u00e8que de l\u2019abbaye",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     },
     "opening_hours": [
       {
@@ -1562,7 +1562,7 @@
     "email": "reroilstest+uni@gmail.com",
     "name": "The University's Library",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     },
     "opening_hours": [
       {
@@ -1672,7 +1672,7 @@
     "email": "reroilstest+cemetery@gmail.com",
     "name": "Cemetery of Forgotten Books",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     },
     "opening_hours": [
       {
@@ -1786,7 +1786,7 @@
     "email": "reroilstest+truth@gmail.com",
     "name": "Ministry of Truth",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     },
     "opening_hours": [
       {
@@ -1895,7 +1895,7 @@
     "email": "reroilstest+rive@gmail.com",
     "name": "Rivendell Library",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     },
     "opening_hours": [
       {
@@ -2005,7 +2005,7 @@
     "email": "reroilstest+matilda@gmail.com",
     "name": "Matilda's Library",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     },
     "opening_hours": [
       {
@@ -2115,7 +2115,7 @@
     "email": "reroilstest+unseen@gmail.com",
     "name": "Unseen University Library",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     },
     "opening_hours": [
       {
@@ -2225,7 +2225,7 @@
     "email": "reroilstest+wan@gmail.com",
     "name": "Wan Shi Tong's Library",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     },
     "opening_hours": [
       {
@@ -2339,7 +2339,7 @@
     "email": "reroilstest+buffy@gmail.com",
     "name": "Sunnydale High School library",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     },
     "opening_hours": [
       {
@@ -2445,7 +2445,7 @@
     "email": "reroilstest+cypress1@gmail.com",
     "name": "Starfleet library",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/4"
+      "$ref": "https://bib.rero.ch/api/organisations/4"
     },
     "opening_hours": [
       {
@@ -2550,7 +2550,7 @@
     "email": "reroilstest+cypress2@gmail.com",
     "name": "Vulcan Sciences Academy",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/4"
+      "$ref": "https://bib.rero.ch/api/organisations/4"
     },
     "opening_hours": [
       {

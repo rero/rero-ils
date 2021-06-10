@@ -39,7 +39,7 @@
           }
         },
         "value": {
-          "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/language"
+          "$ref": "https://bib.rero.ch/schemas/common/languages-v0.0.1.json#/language"
         }
       },
       "form": {

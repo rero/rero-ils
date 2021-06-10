@@ -28,7 +28,7 @@ def test_local_field_jsonresolver(local_field_martigny):
     """Test local fields json resolver."""
     local_field = local_field_martigny
     rec = Record.create({
-        'local_field': {'$ref': 'https://ils.rero.ch/api/local_fields/lofi1'}
+        'local_field': {'$ref': 'https://bib.rero.ch/api/local_fields/lofi1'}
     })
     assert extracted_data_from_ref(rec.get('local_field')) == 'lofi1'
 
@@ -39,7 +39,7 @@ def test_local_field_jsonresolver(local_field_martigny):
 
     # non existing record
     rec = Record.create({
-        'local_fields': {'$ref': 'https://ils.rero.ch/api/local_fields/n_e'}
+        'local_fields': {'$ref': 'https://bib.rero.ch/api/local_fields/n_e'}
     })
     with pytest.raises(JsonRefError):
         rec.replace_refs().dumps()

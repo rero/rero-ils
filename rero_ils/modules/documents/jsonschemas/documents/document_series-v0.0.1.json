@@ -23,7 +23,7 @@
           "minItems": 1,
           "items": {
             "title": "Title",
-            "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/language_script"
+            "$ref": "https://bib.rero.ch/schemas/common/languages-v0.0.1.json#/language_script"
           }
         },
         "seriesEnumeration": {
@@ -60,7 +60,7 @@
                 "minItems": 1,
                 "items": {
                   "title": "Title",
-                  "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/language_script"
+                  "$ref": "https://bib.rero.ch/schemas/common/languages-v0.0.1.json#/language_script"
                 }
               },
               "subseriesEnumeration": {
@@ -119,7 +119,7 @@
           }
         },
         "language": {
-          "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/language_script_code",
+          "$ref": "https://bib.rero.ch/schemas/common/languages-v0.0.1.json#/language_script_code",
           "form": {
             "hide": true
           }

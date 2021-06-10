@@ -4,7 +4,7 @@
     "name": "Standard",
     "description": "Standard checkout, 28 days",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "type": "standard",
     "negative_availability": false
@@ -14,7 +14,7 @@
     "name": "Short",
     "description": "Short checkout, 14 days",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "type": "standard",
     "circulation_information": [
@@ -42,7 +42,7 @@
     "name": "On-site",
     "description": "On-site consultation, checkout for the day",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "type": "standard",
     "circulation_information": [
@@ -69,7 +69,7 @@
     "pid": "4",
     "name": "No checkout",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "type": "standard",
     "circulation_information": [
@@ -97,7 +97,7 @@
     "name": "Standard adult",
     "description": "Standard checkout for adults only (16+)",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "type": "standard",
     "circulation_information": [
@@ -125,7 +125,7 @@
     "name": "Short adult",
     "description": "Short checkout for adults only (16+)",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "type": "standard",
     "circulation_information": [
@@ -153,7 +153,7 @@
     "name": "Standard",
     "description": "Standard checkout",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/2"
+      "$ref": "https://bib.rero.ch/api/organisations/2"
     },
     "type": "standard",
     "negative_availability": false
@@ -163,7 +163,7 @@
     "name": "Online",
     "description": "Ebooks dedicated category",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "type": "online",
     "negative_availability": false
@@ -173,7 +173,7 @@
     "name": "Online",
     "description": "Ebooks dedicated category",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/2"
+      "$ref": "https://bib.rero.ch/api/organisations/2"
     },
     "type": "online",
     "negative_availability": false
@@ -183,7 +183,7 @@
     "name": "Default",
     "description": "Default item type",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     },
     "type": "standard",
     "negative_availability": false
@@ -193,7 +193,7 @@
     "name": "Default",
     "description": "Default item type",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/4"
+      "$ref": "https://bib.rero.ch/api/organisations/4"
     },
     "type": "standard",
     "negative_availability": false
@@ -202,7 +202,7 @@
     "pid": "12",
     "name": "Missing",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "type": "standard",
     "negative_availability": true,
@@ -229,7 +229,7 @@
     "pid": "13",
     "name": "Missing",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/2"
+      "$ref": "https://bib.rero.ch/api/organisations/2"
     },
     "type": "standard",
     "negative_availability": true,
@@ -256,7 +256,7 @@
     "pid": "14",
     "name": "Missing",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     },
     "type": "standard",
     "negative_availability": true,
@@ -283,7 +283,7 @@
     "pid": "15",
     "name": "In acquisition",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "type": "standard",
     "negative_availability": true,

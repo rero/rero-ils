@@ -218,9 +218,9 @@ def mocked_requests_get(*args, **kwargs):
 
         This class will get a json schema directly from the source file.
         Examples:
-        https://ils.rero.ch/schemas/documents/document-v0.0.1.json ->
+        https://bib.rero.ch/schemas/documents/document-v0.0.1.json ->
             rero_ils.modules.documents.jsonschemas.document-v0.0.1.json
-        https://ils.rero.ch/schemas/common/languages-v0.0.1.json ->
+        https://bib.rero.ch/schemas/common/languages-v0.0.1.json ->
             rero_ils.jsonschemas.common.languages-v0.0.1.json
         """
 

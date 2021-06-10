@@ -63,29 +63,29 @@ def test_circ_policy_create(circ_policy_martigny_data_tmp,
     assert cipo.get('pid') == '2'
 
     cipo_data = {
-        '$schema': 'https://ils.rero.ch/schemas/'
+        '$schema': 'https://bib.rero.ch/schemas/'
         'circ_policies/circ_policy-v0.0.1.json',
         'pid': 'cipo_test',
         'name': 'test',
         'organisation': {
-            '$ref': 'https://ils.rero.ch/api/organisations/org1'
+            '$ref': 'https://bib.rero.ch/api/organisations/org1'
         },
         'is_default': False,
         'allow_requests': True,
         'policy_library_level': False,
         'settings': [{
             'patron_type': {
-                '$ref': 'https://ils.rero.ch/api/patron_types/ptty3'
+                '$ref': 'https://bib.rero.ch/api/patron_types/ptty3'
             },
             'item_type': {
-                '$ref': 'https://ils.rero.ch/api/item_types/itty1'
+                '$ref': 'https://bib.rero.ch/api/item_types/itty1'
             }
         }, {
             'patron_type': {
-                '$ref': 'https://ils.rero.ch/api/patron_types/ptty2'
+                '$ref': 'https://bib.rero.ch/api/patron_types/ptty2'
             },
             'item_type': {
-                '$ref': 'https://ils.rero.ch/api/item_types/itty4'
+                '$ref': 'https://bib.rero.ch/api/item_types/itty4'
             }
         }]
     }

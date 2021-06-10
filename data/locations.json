@@ -4,7 +4,7 @@
     "code": "AOSTE-CANT1-PUB",
     "name": "Espaces publics",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/1"
+      "$ref": "https://bib.rero.ch/api/libraries/1"
     },
     "is_pickup": true,
     "pickup_name": "AOSTE CANT1: Espaces publics",
@@ -15,7 +15,7 @@
     "code": "AOSTE-CANT1-BIBLIOGR",
     "name": "Bibliographie vald\u00f4taine",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/1"
+      "$ref": "https://bib.rero.ch/api/libraries/1"
     },
     "allow_request": true
   },
@@ -24,7 +24,7 @@
     "code": "AOSTE-CANT1-MAGA",
     "name": "Magasin A",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/1"
+      "$ref": "https://bib.rero.ch/api/libraries/1"
     },
     "allow_request": true
   },
@@ -34,7 +34,7 @@
     "name": "Online",
     "is_pickup": false,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/1"
+      "$ref": "https://bib.rero.ch/api/libraries/1"
     },
     "is_online": true,
     "allow_request": true
@@ -44,7 +44,7 @@
     "code": "AOSTE-CANT2-PUB",
     "name": "Espaces publics",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/2"
+      "$ref": "https://bib.rero.ch/api/libraries/2"
     },
     "is_pickup": true,
     "pickup_name": "AOSTE CANT2: Espaces publics",
@@ -55,7 +55,7 @@
     "code": "AOSTE-AVISE-FIC",
     "name": "Section fiction",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/3"
+      "$ref": "https://bib.rero.ch/api/libraries/3"
     },
     "allow_request": true
   },
@@ -64,7 +64,7 @@
     "code": "AOSTE-AVISE-DOC",
     "name": "Section documentaires",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/3"
+      "$ref": "https://bib.rero.ch/api/libraries/3"
     },
     "allow_request": true
   },
@@ -73,7 +73,7 @@
     "code": "AOSTE-AVISE-ENF",
     "name": "Section enfants",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/3"
+      "$ref": "https://bib.rero.ch/api/libraries/3"
     },
     "allow_request": true
   },
@@ -82,7 +82,7 @@
     "code": "AOSTE-AVISE-MUL",
     "name": "Section multim\u00e9dia",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/3"
+      "$ref": "https://bib.rero.ch/api/libraries/3"
     },
     "allow_request": true
   },
@@ -91,7 +91,7 @@
     "code": "AOSTE-AVISE-PUB",
     "name": "Espaces publics",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/3"
+      "$ref": "https://bib.rero.ch/api/libraries/3"
     },
     "is_pickup": true,
     "pickup_name": "AOSTE-AVISE-PUB: Espaces publics",
@@ -103,7 +103,7 @@
     "name": "Online",
     "is_pickup": false,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/3"
+      "$ref": "https://bib.rero.ch/api/libraries/3"
     },
     "is_online": true,
     "allow_request": true
@@ -113,7 +113,7 @@
     "code": "AOSTE-LYCEE-PUB",
     "name": "Espaces publics",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/4"
+      "$ref": "https://bib.rero.ch/api/libraries/4"
     },
     "is_pickup": true,
     "pickup_name": "AOSTE-LYCEE: Espaces publics",
@@ -124,7 +124,7 @@
     "code": "AOSTE-LYCEE-MAT",
     "name": "Travaux de maturit\u00e9",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/4"
+      "$ref": "https://bib.rero.ch/api/libraries/4"
     },
     "allow_request": true
   },
@@ -133,7 +133,7 @@
     "code": "HOG-RESTR",
     "name": "Restricted Section",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/5"
+      "$ref": "https://bib.rero.ch/api/libraries/5"
     },
     "allow_request": true
   },
@@ -144,7 +144,7 @@
     "is_pickup": true,
     "pickup_name": "Public Section",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/5"
+      "$ref": "https://bib.rero.ch/api/libraries/5"
     },
     "allow_request": true
   },
@@ -154,7 +154,7 @@
     "name": "Online",
     "is_pickup": false,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/5"
+      "$ref": "https://bib.rero.ch/api/libraries/5"
     },
     "is_online": true,
     "allow_request": true
@@ -164,7 +164,7 @@
     "code": "CITA-BIB",
     "name": "Default location for La Citadelle",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/7"
+      "$ref": "https://bib.rero.ch/api/libraries/7"
     },
     "is_pickup": true,
     "pickup_name": "La Citadelle",
@@ -176,7 +176,7 @@
     "code": "BEAST-BIB",
     "name": "Default location for Beast's Library",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/8"
+      "$ref": "https://bib.rero.ch/api/libraries/8"
     },
     "is_pickup": true,
     "pickup_name": "Beast's Library",
@@ -188,7 +188,7 @@
     "code": "DREAM-BIB",
     "name": "Default location for Dream's Library",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/9"
+      "$ref": "https://bib.rero.ch/api/libraries/9"
     },
     "is_pickup": true,
     "pickup_name": "Dream's Library",
@@ -200,7 +200,7 @@
     "code": "LUX-BIB",
     "name": "Default location for Lux Foundation Library",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/10"
+      "$ref": "https://bib.rero.ch/api/libraries/10"
     },
     "is_pickup": true,
     "pickup_name": "Lux Foundation Library",
@@ -212,7 +212,7 @@
     "code": "HOG-BIB",
     "name": "Default location for Hogwarts Library",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/11"
+      "$ref": "https://bib.rero.ch/api/libraries/11"
     },
     "is_pickup": true,
     "pickup_name": "Hogwarts Library",
@@ -224,7 +224,7 @@
     "code": "BABEL-BIB",
     "name": "Default location for Biblioth\u00e8que de Babel",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/12"
+      "$ref": "https://bib.rero.ch/api/libraries/12"
     },
     "is_pickup": true,
     "pickup_name": "Biblioth\u00e8que de Babel",
@@ -236,7 +236,7 @@
     "code": "ROSE-BIB",
     "name": "Default location for Biblioth\u00e8que de l\u2019abbaye",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/13"
+      "$ref": "https://bib.rero.ch/api/libraries/13"
     },
     "is_pickup": true,
     "pickup_name": "Biblioth\u00e8que de l\u2019abbaye",
@@ -248,7 +248,7 @@
     "code": "UNI-BIB",
     "name": "Default location for The University's Library",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/14"
+      "$ref": "https://bib.rero.ch/api/libraries/14"
     },
     "is_pickup": true,
     "pickup_name": "The University's Library",
@@ -260,7 +260,7 @@
     "code": "CEMETERY-BIB",
     "name": "Default location for Cemetery of Forgotten Books",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/15"
+      "$ref": "https://bib.rero.ch/api/libraries/15"
     },
     "is_pickup": true,
     "pickup_name": "Cemetery of Forgotten Books",
@@ -272,7 +272,7 @@
     "code": "TRUTH-BIB",
     "name": "Default location for Ministry of Truth",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/16"
+      "$ref": "https://bib.rero.ch/api/libraries/16"
     },
     "is_pickup": true,
     "pickup_name": "Ministry of Truth",
@@ -284,7 +284,7 @@
     "code": "RIVE-BIB",
     "name": "Default location for Rivendell Library",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/17"
+      "$ref": "https://bib.rero.ch/api/libraries/17"
     },
     "is_pickup": true,
     "pickup_name": "Rivendell Library",
@@ -296,7 +296,7 @@
     "code": "MATILDA-BIB",
     "name": "Default location for Matilda's Library",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/18"
+      "$ref": "https://bib.rero.ch/api/libraries/18"
     },
     "is_pickup": true,
     "pickup_name": "Matilda's Library",
@@ -308,7 +308,7 @@
     "code": "UNSEEN-BIB",
     "name": "Default location for Unseen University Library",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/19"
+      "$ref": "https://bib.rero.ch/api/libraries/19"
     },
     "is_pickup": true,
     "pickup_name": "Unseen University Library",
@@ -320,7 +320,7 @@
     "code": "WAN-BIB",
     "name": "Default location for Wan Shi Tong's Library",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/20"
+      "$ref": "https://bib.rero.ch/api/libraries/20"
     },
     "is_pickup": true,
     "pickup_name": "Wan Shi Tong's Library",
@@ -332,7 +332,7 @@
     "code": "BUFFY-BIB",
     "name": "Default location for Sunnydale High School library",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/21"
+      "$ref": "https://bib.rero.ch/api/libraries/21"
     },
     "is_pickup": true,
     "pickup_name": "Sunnydale High School library",
@@ -344,7 +344,7 @@
     "code": "JEDI-BIB",
     "name": "Default location for Jedi Archives",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/6"
+      "$ref": "https://bib.rero.ch/api/libraries/6"
     },
     "is_pickup": true,
     "pickup_name": "Jedi Archives",
@@ -356,7 +356,7 @@
     "code": "STARFLEET-BIB",
     "name": "Default location for Starfleet library",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/22"
+      "$ref": "https://bib.rero.ch/api/libraries/22"
     },
     "is_pickup": true,
     "pickup_name": "Starfleet library",
@@ -368,7 +368,7 @@
     "code": "VULCAN-BIB",
     "name": "Default location for Vulcan library",
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/23"
+      "$ref": "https://bib.rero.ch/api/libraries/23"
     },
     "is_pickup": true,
     "pickup_name": "Vulcan library",

@@ -350,10 +350,10 @@ def patron_sion_multiple(
     data['patron']['barcode'] = ['42421313123']
     data['roles'] = ['patron', 'librarian']
     pid = lib_sion.pid
-    data['libraries'] = [{'$ref':  f'https://ils.rero.ch/api/libraries/{pid}'}]
+    data['libraries'] = [{'$ref':  f'https://bib.rero.ch/api/libraries/{pid}'}]
     pid = patron_type_grown_sion.pid
     data['patron']['type'] = {
-        '$ref': f'https://ils.rero.ch/api/patron_types/{pid}'}
+        '$ref': f'https://bib.rero.ch/api/patron_types/{pid}'}
     yield create_patron(data)
 
 

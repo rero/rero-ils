@@ -18,7 +18,7 @@
       "description": "Schema to validate local_field records against.",
       "type": "string",
       "minLength": 9,
-      "default": "https://ils.rero.ch/schema/local_fields/local_field-v0.0.1.json"
+      "default": "https://bib.rero.ch/schema/local_fields/local_field-v0.0.1.json"
     },
     "pid": {
       "title": "Local field PID",
@@ -36,7 +36,7 @@
         "$ref": {
           "title": "Organisation",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/organisations/.*?$"
+          "pattern": "^https://bib.rero.ch/api/organisations/.*?$"
         }
       }
     },
@@ -51,7 +51,7 @@
         "$ref": {
           "title": "Parent URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/documents|items|holdings/.*?$"
+          "pattern": "^https://bib.rero.ch/api/documents|items|holdings/.*?$"
         }
       }
     },

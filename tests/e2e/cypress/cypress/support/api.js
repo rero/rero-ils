@@ -25,9 +25,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
  Cypress.Commands.add('apiCreateItem', (item, barcode, documentPid, itemTypePid) => {
    let itemTypeRef;
    if (itemTypePid !== undefined) {
-     itemTypeRef = 'https://ils.rero.ch/api/item_types/' + itemTypePid;
+     itemTypeRef = 'https://bib.rero.ch/api/item_types/' + itemTypePid;
    } else {
-    itemTypeRef = 'https://ils.rero.ch/api/item_types/' + item.itemTypePid
+    itemTypeRef = 'https://bib.rero.ch/api/item_types/' + item.itemTypePid
    }
   cy.request({
     method: 'POST',
@@ -39,14 +39,14 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
         "$ref":itemTypeRef
       },
       "location":{
-        "$ref":('https://ils.rero.ch/api/locations/' + item.locationPid)
+        "$ref":('https://bib.rero.ch/api/locations/' + item.locationPid)
       }
       ,"type":"standard",
       "status":"on_shelf"
       ,"barcode":barcode
       ,"call_number":barcode
       ,"document":{
-        "$ref":('https://ils.rero.ch/api/documents/' + documentPid)
+        "$ref":('https://bib.rero.ch/api/documents/' + documentPid)
       }
     }
   })
@@ -94,7 +94,7 @@ Cypress.Commands.add('apiDeleteResources', (resourceName, query) => {
     "name": (itemType.name + nameSuffix),
     "description": itemType.description,
     "organisation": {
-      "$ref":('https://ils.rero.ch/api/organisations/' + itemType.organisation_pid)
+      "$ref":('https://bib.rero.ch/api/organisations/' + itemType.organisation_pid)
     }
   }
  })
@@ -122,7 +122,7 @@ Cypress.Commands.add('apiDeleteResources', (resourceName, query) => {
       "name": (patronType.name + nameSuffix),
       "description": patronType.description,
       "organisation":{
-        "$ref": ('https://ils.rero.ch/api/organisations/' + patronType.organisation_pid)
+        "$ref": ('https://bib.rero.ch/api/organisations/' + patronType.organisation_pid)
       }
     }
   })
@@ -150,7 +150,7 @@ Cypress.Commands.add('apiDeleteResources', (resourceName, query) => {
       "patron": {
         "expiration_date": patron.patron.expiration_date,
         "type": {
-          "$ref":('https://ils.rero.ch/api/patron_types/' + patronTypePid)
+          "$ref":('https://bib.rero.ch/api/patron_types/' + patronTypePid)
         },
         "barcode": [patron.patron.barcode],
         "communication_channel": patron.patron.communication_channel,
@@ -191,10 +191,10 @@ Cypress.Commands.add('apiDeleteResources', (resourceName, query) => {
         "communication_language": patron.patron.communication_language,
         "expiration_date": patron.patron.expiration_date,
         "type": {
-          "$ref": ('https://ils.rero.ch/api/patron_types/' + patronTypePid)
+          "$ref": ('https://bib.rero.ch/api/patron_types/' + patronTypePid)
         }
       },
-      "$schema":"https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
+      "$schema":"https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json",
       "birth_date": patron.birth_date,
       "city": patron.city,
       "email": patron.email,

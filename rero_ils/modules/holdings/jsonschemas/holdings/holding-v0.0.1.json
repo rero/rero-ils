@@ -39,7 +39,7 @@
       "title": "Schema",
       "description": "Schema to validate holdings records against.",
       "type": "string",
-      "default": "https://ils.rero.ch/schemas/holdings/holding-v0.0.1.json",
+      "default": "https://bib.rero.ch/schemas/holdings/holding-v0.0.1.json",
       "minLength": 9
     },
     "pid": {
@@ -72,7 +72,7 @@
         "$ref": {
           "title": "Circulation category URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/item_types/.*?$",
+          "pattern": "^https://bib.rero.ch/api/item_types/.*?$",
           "form": {
             "remoteOptions": {
               "type": "item_types"
@@ -94,7 +94,7 @@
         "$ref": {
           "title": "Location URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/locations/.+?$",
+          "pattern": "^https://bib.rero.ch/api/locations/.+?$",
           "form": {
             "fieldMap": "location",
             "templateOptions": {
@@ -111,7 +111,7 @@
         "$ref": {
           "title": "Parent document URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/documents/.*?$"
+          "pattern": "^https://bib.rero.ch/api/documents/.*?$"
         }
       }
     },
@@ -460,7 +460,7 @@
         "language": {
           "title": "Language",
           "type": "string",
-          "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/language"
+          "$ref": "https://bib.rero.ch/schemas/common/languages-v0.0.1.json#/language"
         }
       },
       "form": {
@@ -480,7 +480,7 @@
         "$ref": {
           "title": "Vendor URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/vendors/.*?$",
+          "pattern": "^https://bib.rero.ch/api/vendors/.*?$",
           "form": {
             "remoteOptions": {
               "type": "vendors"

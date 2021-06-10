@@ -26,7 +26,7 @@ from rero_ils.utils import get_current_language, remove_empties_from_dict
 
 def test_get_ref_for_pid(app):
     """Test get $ref for pid."""
-    url = 'https://ils.rero.ch/api/documents/3'
+    url = 'https://bib.rero.ch/api/documents/3'
     assert get_ref_for_pid('documents', '3') == url
     assert get_ref_for_pid('doc', '3') == url
     assert get_ref_for_pid(Document, '3') == url
@@ -52,7 +52,7 @@ def test_pids_exists_in_data(app, org_martigny, lib_martigny):
         info='test',
         data={
             'organisation': {
-                '$ref': 'https://ils.rero.ch/api/organisations/org1'
+                '$ref': 'https://bib.rero.ch/api/organisations/org1'
             }
         },
         required={'org': 'organisation'},
@@ -72,24 +72,24 @@ def test_pids_exists_in_data(app, org_martigny, lib_martigny):
         info='test',
         data={
             'organisation': {
-                '$ref': 'https://ils.rero.ch/api/xxxx/org2'
+                '$ref': 'https://bib.rero.ch/api/xxxx/org2'
             },
         },
         required={'org': 'organisation'},
         not_required={'lib': 'library'}
     )
     assert ok == [
-        "test: No pid found: org {'$ref': 'https://ils.rero.ch/api/xxxx/org2'}"
+        "test: No pid found: org {'$ref': 'https://bib.rero.ch/api/xxxx/org2'}"
     ]
 
     ok = pids_exists_in_data(
         info='test',
         data={
             'organisation': {
-                '$ref': 'https://ils.rero.ch/api/organisations/org2'
+                '$ref': 'https://bib.rero.ch/api/organisations/org2'
             },
             'library': {
-                '$ref': 'https://ils.rero.ch/api/libraries/lib1'
+                '$ref': 'https://bib.rero.ch/api/libraries/lib1'
             }
         },
         required={'org': 'organisation'},
@@ -105,7 +105,7 @@ def test_get_language(app):
 
 def test_get_record_class_from_schema_or_pid_type(app):
     """Test get record class from schema or pid_type."""
-    schema = 'https://ils.rero.ch/schemas/documents/document-v0.0.1.json'
+    schema = 'https://bib.rero.ch/schemas/documents/document-v0.0.1.json'
     assert get_record_class_from_schema_or_pid_type(schema=schema) == Document
     assert get_record_class_from_schema_or_pid_type(pid_type='doc') == Document
     assert get_record_class_from_schema_or_pid_type(
@@ -113,7 +113,7 @@ def test_get_record_class_from_schema_or_pid_type(app):
     assert get_record_class_from_schema_or_pid_type(
         schema=schema, pid_type='ptrn') == Document
 
-    schema = 'https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json'
+    schema = 'https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json'
     assert get_record_class_from_schema_or_pid_type(
         schema=schema, pid_type='doc') == Patron
     assert get_record_class_from_schema_or_pid_type(
