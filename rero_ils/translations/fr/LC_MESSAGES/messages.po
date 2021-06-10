@@ -21,20 +21,21 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-06-02 14:22+0200\n"
-"PO-Revision-Date: 2021-05-28 14:34+0000\n"
+"PO-Revision-Date: 2021-06-09 13:00+0000\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/fr/>\n"
 "Language: fr\n"
-"Language-Team: French <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.7-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: rero_ils/accounts_views.py:50
 msgid "USER_DOES_NOT_EXIST"
-msgstr ""
+msgstr "Cet utilisateur n'existe pas."
 
 #: rero_ils/config.py:134
 msgid "French"
@@ -4482,6 +4483,8 @@ msgid ""
 "Remove this field to disable the checkout. Enter 0 to allow the checkout "
 "until the end of the day."
 msgstr ""
+"Supprimez ce champ pour désactiver le prêt. Entrez 0 pour autoriser le prêt "
+"à un jour."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:75
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:148
@@ -4889,7 +4892,7 @@ msgstr "Genre"
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:28
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:31
 msgid "Biographical information"
-msgstr ""
+msgstr "Information biographique"
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:29
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:32
@@ -4906,7 +4909,7 @@ msgstr "Numérotation"
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:31
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:34
 msgid "Date establishment"
-msgstr ""
+msgstr "Date de fondation"
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:32
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:35
@@ -4933,17 +4936,17 @@ msgstr ""
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:38
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:41
 msgid "Authorized access point"
-msgstr ""
+msgstr "Point d'accès autorisé"
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:39
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:42
 msgid "Variant access point"
-msgstr ""
+msgstr "Variante du point d'accès"
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:40
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:43
 msgid "Parallel access point"
-msgstr ""
+msgstr "Point d'accès parallèle"
 
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:28
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:2
@@ -4953,20 +4956,20 @@ msgstr "Personne"
 
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:42
 msgid "All sources"
-msgstr ""
+msgstr "Toutes les sources"
 
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:44
 msgid "Unified"
-msgstr ""
+msgstr "Fusionné"
 
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:49
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:51
 msgid "By source"
-msgstr ""
+msgstr "Par source"
 
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:70
 msgid "Documents"
-msgstr ""
+msgstr "Documents"
 
 #: rero_ils/modules/documents/views.py:213
 msgid "Journal"
@@ -5237,7 +5240,7 @@ msgstr "Classification Brunet-Parguez"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:265
 msgid "classification_droit"
-msgstr ""
+msgstr "Classification du droit"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:306
 msgid "classification_musicale_instruments"
@@ -5251,7 +5254,7 @@ msgstr "Indice"
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:326
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:409
 msgid "Short alphanumeric string that serves as an identifier for a class."
-msgstr ""
+msgstr "Chaîne alphanumérique courte servant comme identifiant pour une classe."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:330
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:413
@@ -5762,7 +5765,7 @@ msgstr "Agent"
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:2
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation_link-v0.0.1.json:29
 msgid "Corporate body"
-msgstr ""
+msgstr "Collectivité"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:39
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:39
@@ -5822,7 +5825,7 @@ msgstr "Exemple : 1989"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation_link-v0.0.1.json:2
 msgid "Link to corporate body entity"
-msgstr ""
+msgstr "Lien vers une collectivité"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:51
 msgid "Example: 1955"
@@ -7101,13 +7104,15 @@ msgstr "Valeur de l'identifiant"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:175
 msgid "Qualification"
-msgstr ""
+msgstr "Qualification"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:176
 msgid ""
 "Qualification if the resource has more than one identifier of the same, "
 "to enter if considered important for identification."
 msgstr ""
+"Qualification lorsque la ressource a plus d'un identifiant du même type. À "
+"renseigner si cela est considéré important pour l'identification."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:180
 msgid "Example: volume 1"
@@ -7140,25 +7145,25 @@ msgstr "Identifiant local"
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:75
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:115
 msgid "IdRef"
-msgstr ""
+msgstr "IdRef"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:79
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:119
 msgid "GND"
-msgstr ""
+msgstr "GND"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:83
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:123
 msgid "RERO"
-msgstr ""
+msgstr "RERO"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:87
 msgid "RERO-RAMEAU"
-msgstr ""
+msgstr "RERO-RAMEAU"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:149
 msgid "Source in case of a local identifier."
-msgstr ""
+msgstr "Source dans le cas d'un identifiant local."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_illustrative_content-v0.0.1.json:3
 msgid "Illustrative contents"
@@ -7568,7 +7573,7 @@ msgstr "Langue d'expression représentative"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_original_language-v0.0.1.json:4
 msgid "Language of original work (MARC 041$h)"
-msgstr ""
+msgstr "Langue de l'œuvre originale (MARC 041$h)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:3
 msgid "Part of (host document)"
@@ -7803,11 +7808,11 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:264
 msgid "Date of the original"
-msgstr ""
+msgstr "Date de l'original"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:265
 msgid "Date of the original in case of a reproduction."
-msgstr ""
+msgstr "Date de l'original dans le cas d'une reproduction."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:3
 msgid "Scales"
@@ -7832,20 +7837,20 @@ msgstr "Échelle linéaire"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:34
 msgid "Angular scale"
-msgstr ""
+msgstr "Échelle angulaire"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:38
 msgid "Other"
-msgstr ""
+msgstr "Autre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:45
 msgid "Horizontal scale"
-msgstr ""
+msgstr "Échelle horizontale"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:46
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:55
 msgid "Enter only the denominator."
-msgstr ""
+msgstr "Entrer le dénominateur uniquement."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:50
 msgid "Example: 25000"
@@ -7926,7 +7931,7 @@ msgstr "Exemple : N0300000"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:134
 msgid "Right ascension"
-msgstr ""
+msgstr "Ascension droite"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:135
 msgid ""
@@ -7969,10 +7974,12 @@ msgid ""
 "First and last designations of a sequence for a document is issued in two"
 " or more units (MARC 362)"
 msgstr ""
+"Premier et dernier éléments d'une séquence pour un document publié en deux "
+"unités ou plus (MARC362)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_sequence_numbering-v0.0.1.json:8
 msgid "Example: Volume 1(2006)-volume 9(2014)"
-msgstr ""
+msgstr "Exemple : Volume 1(2006)-volume 9(2014)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:3
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:63
@@ -7998,8 +8005,9 @@ msgid "Example: vol.3"
 msgstr "Exemple : vol. 3"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:4
+#, fuzzy
 msgid "(MARC 6XX)"
-msgstr ""
+msgstr "(MARC 6XX)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:15
 msgid "Person (local)"
@@ -8033,7 +8041,7 @@ msgstr "Créateur"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:163
 msgid "Example: Voltenauer, Marc"
-msgstr ""
+msgstr "Exemple : Voltenauer, Marc"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:228
 msgid "Place (local)"
@@ -8053,15 +8061,15 @@ msgstr "Nom privilégié"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:339
 msgid "Source of the subject."
-msgstr ""
+msgstr "Source du sujet."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:346
 msgid "Factum"
-msgstr ""
+msgstr "Factum"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:350
 msgid "RAMEAU proposal"
-msgstr ""
+msgstr "proposition RAMEAU"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:3
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:12
@@ -8107,17 +8115,19 @@ msgstr "Exemple : Internet Movie Database"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:48
 msgid "Provider of the summary (MARC 520$c and 520$9)"
-msgstr ""
+msgstr "Fournisseur du résumé (MARC 520$c et 520$9)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_supplementary_content-v0.0.1.json:3
 msgid "Supplementary contents"
-msgstr ""
+msgstr "Contenus supplémentaires"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_supplementary_content-v0.0.1.json:4
 msgid ""
 "Indication of content that updates or complements the primary content, "
 "like an index, a bibliography or an appendix (MARC 504)."
 msgstr ""
+"Indication de contenu qui met à jour ou complète le contenu principale, "
+"comme un index, une bibliographie ou une annexe (MARC 504)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_supplementary_content-v0.0.1.json:8
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:515
@@ -8126,7 +8136,7 @@ msgstr "Contenu supplémentaire"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_supplementary_content-v0.0.1.json:11
 msgid "Example: Bibliography: pages 323-346"
-msgstr ""
+msgstr "Exemple : Bibliographie : pages 323-346"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_table_of_contents-v0.0.1.json:3
 msgid "Contents"
@@ -12735,4 +12745,3 @@ msgstr "Votre mot de passe a bien été modifié."
 
 #~ msgid "Source of the subject, for instance MeSH, rero or IdRef."
 #~ msgstr ""
-
