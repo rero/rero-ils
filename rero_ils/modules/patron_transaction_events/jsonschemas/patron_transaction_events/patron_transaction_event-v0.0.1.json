@@ -17,7 +17,7 @@
       "description": "Schema to validate patron transaction event records against.",
       "type": "string",
       "minLength": 9,
-      "default": "https://ils.rero.ch/schemas/patron_transaction_events/patron_transaction_event-v0.0.1.json"
+      "default": "https://bib.rero.ch/schemas/patron_transaction_events/patron_transaction_event-v0.0.1.json"
     },
     "pid": {
       "title": "Patron transaction event ID",
@@ -31,7 +31,7 @@
         "$ref": {
           "title": "Patron transaction URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/patron_transactions/.*?$"
+          "pattern": "^https://bib.rero.ch/api/patron_transactions/.*?$"
         }
       }
     },
@@ -89,7 +89,7 @@
         "$ref": {
           "title": "Library URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/libraries/.*?$"
+          "pattern": "^https://bib.rero.ch/api/libraries/.*?$"
         }
       }
     },
@@ -100,7 +100,7 @@
         "$ref": {
           "title": "Operator patron URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/patrons/.*?$"
+          "pattern": "^https://bib.rero.ch/api/patrons/.*?$"
         }
       }
     }

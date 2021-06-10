@@ -4,11 +4,11 @@
     "name": "fiction",
     "description": "Romans, nouvelles et pi\u00e8ces de th\u00e9\u00e2tre de l'espace public",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/1"
+      "$ref": "https://bib.rero.ch/api/budgets/1"
     },
     "amount_allocated": 15000,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/1"
+      "$ref": "https://bib.rero.ch/api/libraries/1"
     }
   },
   {
@@ -16,11 +16,11 @@
     "name": "documentaires",
     "description": "Documentaires de l'espace public",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/1"
+      "$ref": "https://bib.rero.ch/api/budgets/1"
     },
     "amount_allocated": 12000,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/1"
+      "$ref": "https://bib.rero.ch/api/libraries/1"
     }
   },
   {
@@ -28,11 +28,11 @@
     "name": "fiction",
     "description": "Romans, nouvelles et pi\u00e8ces de th\u00e9\u00e2tre de l'espace public",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/2"
+      "$ref": "https://bib.rero.ch/api/budgets/2"
     },
     "amount_allocated": 14000,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/1"
+      "$ref": "https://bib.rero.ch/api/libraries/1"
     }
   },
   {
@@ -40,11 +40,11 @@
     "name": "fiction",
     "description": "Romans, nouvelles et pi\u00e8ces de th\u00e9\u00e2tre de l'espace public",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/3"
+      "$ref": "https://bib.rero.ch/api/budgets/3"
     },
     "amount_allocated": 13000,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/1"
+      "$ref": "https://bib.rero.ch/api/libraries/1"
     }
   },
   {
@@ -52,11 +52,11 @@
     "name": "general",
     "description": "Compte g\u00e9n\u00e9ral site de Pont-saint-Martin",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/1"
+      "$ref": "https://bib.rero.ch/api/budgets/1"
     },
     "amount_allocated": 6500,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/2"
+      "$ref": "https://bib.rero.ch/api/libraries/2"
     }
   },
   {
@@ -64,11 +64,11 @@
     "name": "general",
     "description": "Compte g\u00e9n\u00e9ral acquisitions",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/1"
+      "$ref": "https://bib.rero.ch/api/budgets/1"
     },
     "amount_allocated": 3000,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/3"
+      "$ref": "https://bib.rero.ch/api/libraries/3"
     }
   },
   {
@@ -76,11 +76,11 @@
     "name": "astronomy",
     "description": "astronomy",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/1"
+      "$ref": "https://bib.rero.ch/api/budgets/1"
     },
     "amount_allocated": 500,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/5"
+      "$ref": "https://bib.rero.ch/api/libraries/5"
     }
   },
   {
@@ -88,11 +88,11 @@
     "name": "defence against the dark arts",
     "description": "defence against the dark arts",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/1"
+      "$ref": "https://bib.rero.ch/api/budgets/1"
     },
     "amount_allocated": 6200,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/5"
+      "$ref": "https://bib.rero.ch/api/libraries/5"
     }
   },
   {
@@ -100,11 +100,11 @@
     "name": "history of magic",
     "description": "history of magic",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/1"
+      "$ref": "https://bib.rero.ch/api/budgets/1"
     },
     "amount_allocated": 4000,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/5"
+      "$ref": "https://bib.rero.ch/api/libraries/5"
     }
   },
   {
@@ -112,11 +112,11 @@
     "name": "history of magic",
     "description": "history of magic",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/2"
+      "$ref": "https://bib.rero.ch/api/budgets/2"
     },
     "amount_allocated": 4000,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/5"
+      "$ref": "https://bib.rero.ch/api/libraries/5"
     }
   },
   {
@@ -124,11 +124,11 @@
     "name": "history of magic",
     "description": "history of magic",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/3"
+      "$ref": "https://bib.rero.ch/api/budgets/3"
     },
     "amount_allocated": 4000,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/5"
+      "$ref": "https://bib.rero.ch/api/libraries/5"
     }
   },
   {
@@ -136,11 +136,11 @@
     "name": "potions",
     "description": "potions",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/1"
+      "$ref": "https://bib.rero.ch/api/budgets/1"
     },
     "amount_allocated": 10050,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/5"
+      "$ref": "https://bib.rero.ch/api/libraries/5"
     }
   },
   {
@@ -148,11 +148,11 @@
     "name": "transfiguration",
     "description": "transfiguration",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/1"
+      "$ref": "https://bib.rero.ch/api/budgets/1"
     },
     "amount_allocated": 750,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/5"
+      "$ref": "https://bib.rero.ch/api/libraries/5"
     }
   },
   {
@@ -160,11 +160,11 @@
     "name": "documentaries",
     "description": "Account for documentaries",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 1000,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/6"
+      "$ref": "https://bib.rero.ch/api/libraries/6"
     }
   },
   {
@@ -172,11 +172,11 @@
     "name": "documentaries",
     "description": "Account for documentaries",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 1200,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/7"
+      "$ref": "https://bib.rero.ch/api/libraries/7"
     }
   },
   {
@@ -184,11 +184,11 @@
     "name": "documentaries",
     "description": "Account for documentaries",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 800,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/8"
+      "$ref": "https://bib.rero.ch/api/libraries/8"
     }
   },
   {
@@ -196,11 +196,11 @@
     "name": "documentaries",
     "description": "Account for documentaries",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 1600,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/9"
+      "$ref": "https://bib.rero.ch/api/libraries/9"
     }
   },
   {
@@ -208,11 +208,11 @@
     "name": "documentaries",
     "description": "Account for documentaries",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 9000,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/10"
+      "$ref": "https://bib.rero.ch/api/libraries/10"
     }
   },
   {
@@ -220,11 +220,11 @@
     "name": "documentaries",
     "description": "Account for documentaries",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 11000,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/11"
+      "$ref": "https://bib.rero.ch/api/libraries/11"
     }
   },
   {
@@ -232,11 +232,11 @@
     "name": "documentaries",
     "description": "Account for documentaries",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 3580,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/12"
+      "$ref": "https://bib.rero.ch/api/libraries/12"
     }
   },
   {
@@ -244,11 +244,11 @@
     "name": "documentaries",
     "description": "Account for documentaries",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 1500,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/13"
+      "$ref": "https://bib.rero.ch/api/libraries/13"
     }
   },
   {
@@ -256,11 +256,11 @@
     "name": "documentaries",
     "description": "Account for documentaries",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 560,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/14"
+      "$ref": "https://bib.rero.ch/api/libraries/14"
     }
   },
   {
@@ -268,11 +268,11 @@
     "name": "documentaries",
     "description": "Account for documentaries",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 300,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/15"
+      "$ref": "https://bib.rero.ch/api/libraries/15"
     }
   },
   {
@@ -280,11 +280,11 @@
     "name": "documentaries",
     "description": "Account for documentaries",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 1000,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/16"
+      "$ref": "https://bib.rero.ch/api/libraries/16"
     }
   },
   {
@@ -292,11 +292,11 @@
     "name": "documentaries",
     "description": "Account for documentaries",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 1100,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/17"
+      "$ref": "https://bib.rero.ch/api/libraries/17"
     }
   },
   {
@@ -304,11 +304,11 @@
     "name": "documentaries",
     "description": "Account for documentaries",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 666,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/18"
+      "$ref": "https://bib.rero.ch/api/libraries/18"
     }
   },
   {
@@ -316,11 +316,11 @@
     "name": "documentaries",
     "description": "Account for documentaries",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 0.5,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/19"
+      "$ref": "https://bib.rero.ch/api/libraries/19"
     }
   },
   {
@@ -328,11 +328,11 @@
     "name": "documentaries",
     "description": "Account for documentaries",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 18700,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/20"
+      "$ref": "https://bib.rero.ch/api/libraries/20"
     }
   },
   {
@@ -340,11 +340,11 @@
     "name": "documentaries",
     "description": "Account for documentaries",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 1000,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/21"
+      "$ref": "https://bib.rero.ch/api/libraries/21"
     }
   },
   {
@@ -352,11 +352,11 @@
     "name": "fiction",
     "description": "Account for fiction",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 1120,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/6"
+      "$ref": "https://bib.rero.ch/api/libraries/6"
     }
   },
   {
@@ -364,11 +364,11 @@
     "name": "fiction",
     "description": "Account for fiction",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 2000,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/7"
+      "$ref": "https://bib.rero.ch/api/libraries/7"
     }
   },
   {
@@ -376,11 +376,11 @@
     "name": "fiction",
     "description": "Account for fiction",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 5000,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/8"
+      "$ref": "https://bib.rero.ch/api/libraries/8"
     }
   },
   {
@@ -388,11 +388,11 @@
     "name": "fiction",
     "description": "Account for fiction",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 4500,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/9"
+      "$ref": "https://bib.rero.ch/api/libraries/9"
     }
   },
   {
@@ -400,11 +400,11 @@
     "name": "fiction",
     "description": "Account for fiction",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 1,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/10"
+      "$ref": "https://bib.rero.ch/api/libraries/10"
     }
   },
   {
@@ -412,11 +412,11 @@
     "name": "fiction",
     "description": "Account for fiction",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 200,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/11"
+      "$ref": "https://bib.rero.ch/api/libraries/11"
     }
   },
   {
@@ -424,11 +424,11 @@
     "name": "fiction",
     "description": "Account for fiction",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 54000,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/12"
+      "$ref": "https://bib.rero.ch/api/libraries/12"
     }
   },
   {
@@ -436,11 +436,11 @@
     "name": "fiction",
     "description": "Account for fiction",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 15000,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/13"
+      "$ref": "https://bib.rero.ch/api/libraries/13"
     }
   },
   {
@@ -448,11 +448,11 @@
     "name": "fiction",
     "description": "Account for fiction",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 1200,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/14"
+      "$ref": "https://bib.rero.ch/api/libraries/14"
     }
   },
   {
@@ -460,11 +460,11 @@
     "name": "fiction",
     "description": "Account for fiction",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 8400,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/15"
+      "$ref": "https://bib.rero.ch/api/libraries/15"
     }
   },
   {
@@ -472,11 +472,11 @@
     "name": "fiction",
     "description": "Account for fiction",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 2600,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/16"
+      "$ref": "https://bib.rero.ch/api/libraries/16"
     }
   },
   {
@@ -484,11 +484,11 @@
     "name": "fiction",
     "description": "Account for fiction",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 7400,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/17"
+      "$ref": "https://bib.rero.ch/api/libraries/17"
     }
   },
   {
@@ -496,11 +496,11 @@
     "name": "fiction",
     "description": "Account for fiction",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 6900,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/18"
+      "$ref": "https://bib.rero.ch/api/libraries/18"
     }
   },
   {
@@ -508,11 +508,11 @@
     "name": "fiction",
     "description": "Account for fiction",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 1230,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/19"
+      "$ref": "https://bib.rero.ch/api/libraries/19"
     }
   },
   {
@@ -520,11 +520,11 @@
     "name": "fiction",
     "description": "Account for fiction",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 900,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/20"
+      "$ref": "https://bib.rero.ch/api/libraries/20"
     }
   },
   {
@@ -532,11 +532,11 @@
     "name": "fiction",
     "description": "Account for fiction",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "amount_allocated": 8000,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/21"
+      "$ref": "https://bib.rero.ch/api/libraries/21"
     }
   },
   {
@@ -544,11 +544,11 @@
     "name": "general",
     "description": "Account for general",
     "budget": {
-      "$ref": "https://ils.rero.ch/api/budgets/1"
+      "$ref": "https://bib.rero.ch/api/budgets/1"
     },
     "amount_allocated": 8000,
     "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/4"
+      "$ref": "https://bib.rero.ch/api/libraries/4"
     }
   }
 ]

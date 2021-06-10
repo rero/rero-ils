@@ -170,7 +170,7 @@ def test_part_of_format(
     # Label Series with numbering
     part_of = {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/doc5"
+          "$ref": "https://bib.rero.ch/api/documents/doc5"
         },
         "numbering": [
             {
@@ -193,7 +193,7 @@ def test_part_of_format(
     # Label Journal with numbering
     part_of = {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/doc6"
+          "$ref": "https://bib.rero.ch/api/documents/doc6"
         },
         "numbering": [
             {
@@ -216,7 +216,7 @@ def test_part_of_format(
     # Label Published in without numbering
     part_of = {
         "document": {
-          "$ref": "https://ils.rero.ch/api/documents/doc3"
+          "$ref": "https://bib.rero.ch/api/documents/doc3"
         }
     }
     result = {

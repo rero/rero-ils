@@ -33,7 +33,7 @@ def test_patron_permissions(
     login_user_via_session(client, patron_martigny.user)
 
     record = {
-        "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
+        "$schema": "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json",
         "first_name": "first_name",
         "last_name": "Last_name",
         "street": "Avenue Leopold-Robert, 132",
@@ -42,7 +42,7 @@ def test_patron_permissions(
         "birth_date": "1967-06-07",
         "patron": {
             "expiration_date": "2023-10-07",
-            "type": {"$ref": "https://ils.rero.ch/api/patron_types/ptty1"},
+            "type": {"$ref": "https://bib.rero.ch/api/patron_types/ptty1"},
             "communication_channel": "email",
             "communication_language": "ita"
         },

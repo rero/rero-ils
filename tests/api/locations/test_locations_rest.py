@@ -52,8 +52,8 @@ def test_location_pickup_locations(locations, patron_martigny,
     #   * update `loc1` to restrict_pickup_to 'loc3' and 'loc6'
     #     --> 'loc6' isn't a pickup location... it's just for test
     loc_public_martigny['restrict_pickup_to'] = [
-        {'$ref': 'https://ils.rero.ch/api/locations/loc3'},
-        {'$ref': 'https://ils.rero.ch/api/locations/loc6'},
+        {'$ref': 'https://bib.rero.ch/api/locations/loc3'},
+        {'$ref': 'https://bib.rero.ch/api/locations/loc6'},
     ]
     loc_public_martigny.update(
         loc_public_martigny,

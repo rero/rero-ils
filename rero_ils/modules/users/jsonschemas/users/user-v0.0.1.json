@@ -35,7 +35,7 @@
       "description": "Schema to validate user records against.",
       "type": "string",
       "minLength": 9,
-      "default": "https://ils.rero.ch/schemas/users/user-v0.0.1.json"
+      "default": "https://bib.rero.ch/schemas/users/user-v0.0.1.json"
     },
     "first_name": {
       "title": "First name",
@@ -128,7 +128,7 @@
       "minLength": 1
     },
     "country": {
-      "$ref": "https://ils.rero.ch/schemas/common/countries-v0.0.1.json#/country"
+      "$ref": "https://bib.rero.ch/schemas/common/countries-v0.0.1.json#/country"
     },
     "home_phone": {
       "title": "Home phone number",

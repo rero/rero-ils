@@ -20,8 +20,8 @@
         "$ref": {
           "title": "Item URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/items/.+?$",
-          "default": "https://ils.rero.ch/api/items/"
+          "pattern": "^https://bib.rero.ch/api/items/.+?$",
+          "default": "https://bib.rero.ch/api/items/"
         }
       }
     },
@@ -32,8 +32,8 @@
         "$ref": {
           "title": "Patron URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/patrons/.+?$",
-          "default": "https://ils.rero.ch/api/patrons/"
+          "pattern": "^https://bib.rero.ch/api/patrons/.+?$",
+          "default": "https://bib.rero.ch/api/patrons/"
         }
       }
     },
@@ -44,8 +44,8 @@
         "$ref": {
           "title": "Document URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/documents/.+?$",
-          "default": "https://ils.rero.ch/api/documents/"
+          "pattern": "^https://bib.rero.ch/api/documents/.+?$",
+          "default": "https://bib.rero.ch/api/documents/"
         }
       }
     },
@@ -129,7 +129,7 @@
         "$ref": {
           "title": "Organisation URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/organisations/.*?$"
+          "pattern": "^https://bib.rero.ch/api/organisations/.*?$"
         }
       }
     },

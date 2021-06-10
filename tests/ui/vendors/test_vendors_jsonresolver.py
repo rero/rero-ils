@@ -27,7 +27,7 @@ from rero_ils.modules.utils import extracted_data_from_ref
 def test_vendors_jsonresolver(app, vendor_martigny):
     """Test vendor resolver."""
     rec = Record.create({
-        'vendor': {'$ref': 'https://ils.rero.ch/api/vendors/vndr1'}
+        'vendor': {'$ref': 'https://bib.rero.ch/api/vendors/vndr1'}
     })
     assert extracted_data_from_ref(rec.get('vendor')) == 'vndr1'
 
@@ -38,7 +38,7 @@ def test_vendors_jsonresolver(app, vendor_martigny):
 
     # non existing record
     rec = Record.create({
-        'vendor': {'$ref': 'https://ils.rero.ch/api/vendors/n_e'}
+        'vendor': {'$ref': 'https://bib.rero.ch/api/vendors/n_e'}
     })
 
     with pytest.raises(JsonRefError) as error:

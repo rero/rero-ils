@@ -60,10 +60,10 @@
               "type": "object",
               "oneOf": [
                 {
-                  "$ref": "https://ils.rero.ch/schemas/documents/document_contribution_person-v0.0.1.json"
+                  "$ref": "https://bib.rero.ch/schemas/documents/document_contribution_person-v0.0.1.json"
                 },
                 {
-                  "$ref": "https://ils.rero.ch/schemas/documents/document_contribution_organisation-v0.0.1.json"
+                  "$ref": "https://bib.rero.ch/schemas/documents/document_contribution_organisation-v0.0.1.json"
                 }
               ]
             },
@@ -83,7 +83,7 @@
               "minLength": 3
             },
             "language": {
-              "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/language"
+              "$ref": "https://bib.rero.ch/schemas/common/languages-v0.0.1.json#/language"
             },
             "part": {
               "title": "Parts",

@@ -188,14 +188,14 @@
       "properties": {
         "$ref": {
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/documents/.*?$",
+          "pattern": "^https://bib.rero.ch/api/documents/.*?$",
           "form": {
             "validation": {
               "messages": {
-                "patternMessage": "Should be in the following format: https://ils.rero.ch/api/documents/<PID>."
+                "patternMessage": "Should be in the following format: https://bib.rero.ch/api/documents/<PID>."
               }
             },
-            "placeholder": "Example: https://ils.rero.ch/api/documents/66"
+            "placeholder": "Example: https://bib.rero.ch/api/documents/66"
           }
         }
       }

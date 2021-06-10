@@ -9,7 +9,7 @@
     "year": "2018",
     "_template": "gh:inveniosoftware/cookiecutter-invenio-instance",
     "project_name": "RERO ILS",
-    "project_site": "ils.rero.ch",
+    "project_site": "bib.rero.ch",
     "database": "postgresql",
     "description": "Integrated Library System flavour of Invenio by RERO.",
     "elasticsearch": "7",

@@ -22,7 +22,7 @@ import jsonresolver
 from rero_ils.modules.jsonresolver import resolve_json_refs
 
 
-@jsonresolver.route('/api/templates/<pid>', host='ils.rero.ch')
+@jsonresolver.route('/api/templates/<pid>', host='bib.rero.ch')
 def ill_request_resolver(pid):
     """Resolver for templates record."""
     return resolve_json_refs('tmpl', pid)

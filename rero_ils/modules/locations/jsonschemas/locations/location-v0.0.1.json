@@ -29,7 +29,7 @@
       "description": "Schema to validate organisation records against.",
       "type": "string",
       "minLength": 9,
-      "default": "https://ils.rero.ch/schemas/locations/location-v0.0.1.json"
+      "default": "https://bib.rero.ch/schemas/locations/location-v0.0.1.json"
     },
     "pid": {
       "title": "Location ID",
@@ -114,7 +114,7 @@
         "$ref": {
           "title": "Library URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/libraries/.*?$"
+          "pattern": "^https://bib.rero.ch/api/libraries/.*?$"
         }
       }
     },
@@ -173,7 +173,7 @@
           "$ref": {
             "title": "Location URI",
             "type": "string",
-            "pattern": "^https://ils.rero.ch/api/locations/.*?$",
+            "pattern": "^https://bib.rero.ch/api/locations/.*?$",
             "form": {
               "remoteOptions": {
                 "type": "locations",

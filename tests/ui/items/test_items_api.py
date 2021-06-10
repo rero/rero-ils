@@ -103,20 +103,20 @@ def test_item_create(item_lib_martigny_data_tmp, item_lib_martigny):
 def test_item_extended_validation(client, holding_lib_martigny_w_patterns):
     """Test item extended validation in relation with its parent holding."""
     data = {
-        '$schema': 'https://ils.rero.ch/schemas/items/item-v0.0.1.json',
+        '$schema': 'https://bib.rero.ch/schemas/items/item-v0.0.1.json',
         'type': 'issue',
         'document': {
-            '$ref': 'https://ils.rero.ch/api/documents/doc4'
+            '$ref': 'https://bib.rero.ch/api/documents/doc4'
         },
         'call_number': '00001',
         'location': {
-            '$ref': 'https://ils.rero.ch/api/locations/loc1'
+            '$ref': 'https://bib.rero.ch/api/locations/loc1'
         },
         'item_type': {
-            '$ref': 'https://ils.rero.ch/api/item_types/itty1'
+            '$ref': 'https://bib.rero.ch/api/item_types/itty1'
         },
         'holding': {
-            '$ref': 'https://ils.rero.ch/api/holdings/holding5'
+            '$ref': 'https://bib.rero.ch/api/holdings/holding5'
         },
         'status': ItemStatus.ON_SHELF,
         'enumerationAndChronology': 'irregular_issue',

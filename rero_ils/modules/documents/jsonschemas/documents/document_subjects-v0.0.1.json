@@ -9,7 +9,7 @@
       "title": "Subject",
       "oneOf": [
         {
-          "$ref": "https://ils.rero.ch/schemas/documents/document_contribution_person_link-v0.0.1.json"
+          "$ref": "https://bib.rero.ch/schemas/documents/document_contribution_person_link-v0.0.1.json"
         },
         {
           "title": "Person (local)",
@@ -49,7 +49,7 @@
               "$ref": "#/definitions/preferred_name"
             },
             "identifiedBy": {
-              "$ref": "https://ils.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier"
+              "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier"
             },
             "source": {
               "$ref": "#/definitions/source"
@@ -57,7 +57,7 @@
           }
         },
         {
-          "$ref": "https://ils.rero.ch/schemas/documents/document_contribution_organisation_link-v0.0.1.json"
+          "$ref": "https://bib.rero.ch/schemas/documents/document_contribution_organisation_link-v0.0.1.json"
         },
         {
           "title": "Corporate body (local)",
@@ -105,7 +105,7 @@
               "default": false
             },
             "identifiedBy": {
-              "$ref": "https://ils.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier"
+              "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier"
             },
             "source": {
               "$ref": "#/definitions/source"
@@ -113,7 +113,7 @@
           }
         },
         {
-          "$ref": "https://ils.rero.ch/schemas/documents/document_subjects_links-v0.0.1.json#/work"
+          "$ref": "https://bib.rero.ch/schemas/documents/document_subjects_links-v0.0.1.json#/work"
         },
         {
           "title": "Work (local)",
@@ -164,7 +164,7 @@
               }
             },
             "identifiedBy": {
-              "$ref": "https://ils.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier"
+              "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier"
             },
             "source": {
               "$ref": "#/definitions/source"
@@ -172,7 +172,7 @@
           }
         },
         {
-          "$ref": "https://ils.rero.ch/schemas/documents/document_subjects_links-v0.0.1.json#/concept"
+          "$ref": "https://bib.rero.ch/schemas/documents/document_subjects_links-v0.0.1.json#/concept"
         },
         {
           "title": "Concept (local)",
@@ -214,7 +214,7 @@
               "minLength": 1
             },
             "identifiedBy": {
-              "$ref": "https://ils.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier"
+              "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier"
             },
             "source": {
               "$ref": "#/definitions/source"
@@ -222,7 +222,7 @@
           }
         },
         {
-          "$ref": "https://ils.rero.ch/schemas/documents/document_subjects_links-v0.0.1.json#/place"
+          "$ref": "https://bib.rero.ch/schemas/documents/document_subjects_links-v0.0.1.json#/place"
         },
         {
           "title": "Place (local)",
@@ -262,7 +262,7 @@
               "$ref": "#/definitions/preferred_name"
             },
             "identifiedBy": {
-              "$ref": "https://ils.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier"
+              "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier"
             },
             "source": {
               "$ref": "#/definitions/source"
@@ -270,7 +270,7 @@
           }
         },
         {
-          "$ref": "https://ils.rero.ch/schemas/documents/document_subjects_links-v0.0.1.json#/temporal"
+          "$ref": "https://bib.rero.ch/schemas/documents/document_subjects_links-v0.0.1.json#/temporal"
         },
         {
           "title": "Time-span (local)",
@@ -312,7 +312,7 @@
               "minLength": 1
             },
             "identifiedBy": {
-              "$ref": "https://ils.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier"
+              "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier"
             },
             "source": {
               "$ref": "#/definitions/source"

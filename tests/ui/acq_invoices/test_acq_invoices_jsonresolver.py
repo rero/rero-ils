@@ -27,7 +27,7 @@ from rero_ils.modules.utils import extracted_data_from_ref
 def test_acq_invoices_jsonresolver(acq_invoice_fiction_martigny):
     """Acquisition invoices resolver tests."""
     rec = Record.create({
-        'acq_invoice': {'$ref': 'https://ils.rero.ch/api/acq_invoices/acin1'}
+        'acq_invoice': {'$ref': 'https://bib.rero.ch/api/acq_invoices/acin1'}
     })
     assert extracted_data_from_ref(rec.get('acq_invoice')) == 'acin1'
     # deleted record
@@ -37,7 +37,7 @@ def test_acq_invoices_jsonresolver(acq_invoice_fiction_martigny):
 
     # non existing record
     rec = Record.create({
-        'acq_invoice': {'$ref': 'https://ils.rero.ch/api/acq_invoices/n_e'}
+        'acq_invoice': {'$ref': 'https://bib.rero.ch/api/acq_invoices/n_e'}
     })
     with pytest.raises(JsonRefError):
         rec.replace_refs().dumps()

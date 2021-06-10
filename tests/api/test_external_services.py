@@ -129,7 +129,7 @@ def test_documents_import_bnf_ean(mock_get, client, bnf_ean_any_123,
     res_j = get_json(res)
     data = res_j.get('hits').get('hits')[0].get('metadata')
     data.update({
-        "$schema": "https://ils.rero.ch/schemas/documents/document-v0.0.1.json"
+        "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json"
     })
     assert Document.create(data)
     marc21_link = res_j.get('hits').get('hits')[0].get('links').get('marc21')

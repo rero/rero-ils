@@ -28,7 +28,7 @@ def test_operation_log_jsonresolver(item_lib_martigny):
     """Test operation logs json resolver."""
     oplg = OperationLog.get_record_by_pid('1')
     rec = Record.create({
-        'operation_log': {'$ref': 'https://ils.rero.ch/api/operation_logs/1'}
+        'operation_log': {'$ref': 'https://bib.rero.ch/api/operation_logs/1'}
     })
     assert rec.replace_refs().get('operation_log') == \
         {'pid': '1', 'type': 'oplg'}
@@ -41,7 +41,7 @@ def test_operation_log_jsonresolver(item_lib_martigny):
     # non existing record
     rec = Record.create({
         'operation_logs': {
-            '$ref': 'https://ils.rero.ch/api/operation_logs/n_e'}
+            '$ref': 'https://bib.rero.ch/api/operation_logs/n_e'}
     })
     with pytest.raises(JsonRefError):
         rec.replace_refs().dumps()

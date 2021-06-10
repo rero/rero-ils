@@ -16,7 +16,7 @@
     "currency": "EUR",
     "vat_rate": 22,
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     }
   },
   {
@@ -36,7 +36,7 @@
     "currency": "EUR",
     "vat_rate": 22,
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/2"
+      "$ref": "https://bib.rero.ch/api/organisations/2"
     }
   },
   {
@@ -56,7 +56,7 @@
     "currency": "EUR",
     "vat_rate": 22,
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     }
   },
   {
@@ -75,7 +75,7 @@
     "currency": "EUR",
     "vat_rate": 22,
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     }
   },
   {
@@ -94,7 +94,7 @@
     "currency": "EUR",
     "vat_rate": 22,
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/2"
+      "$ref": "https://bib.rero.ch/api/organisations/2"
     }
   },
   {
@@ -113,7 +113,7 @@
     "currency": "EUR",
     "vat_rate": 22,
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     }
   },
   {
@@ -130,7 +130,7 @@
     "currency": "EUR",
     "vat_rate": 22,
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     }
   },
   {
@@ -147,7 +147,7 @@
     "currency": "EUR",
     "vat_rate": 22,
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/2"
+      "$ref": "https://bib.rero.ch/api/organisations/2"
     }
   },
   {
@@ -164,7 +164,7 @@
     "currency": "EUR",
     "vat_rate": 22,
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     }
   },
   {
@@ -183,7 +183,7 @@
     "currency": "EUR",
     "vat_rate": 20,
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     }
   },
   {
@@ -202,7 +202,7 @@
     "currency": "EUR",
     "vat_rate": 20,
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/2"
+      "$ref": "https://bib.rero.ch/api/organisations/2"
     }
   },
   {
@@ -221,7 +221,7 @@
     "currency": "EUR",
     "vat_rate": 20,
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     }
   },
   {
@@ -233,7 +233,7 @@
     "currency": "EUR",
     "vat_rate": 21.5,
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     }
   },
   {
@@ -245,7 +245,7 @@
     "currency": "EUR",
     "vat_rate": 21.5,
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/2"
+      "$ref": "https://bib.rero.ch/api/organisations/2"
     }
   },
   {
@@ -257,7 +257,7 @@
     "currency": "EUR",
     "vat_rate": 21.5,
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     }
   },
   {
@@ -276,7 +276,7 @@
     "currency": "EUR",
     "vat_rate": 21,
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     }
   },
   {
@@ -295,7 +295,7 @@
     "currency": "EUR",
     "vat_rate": 21,
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/2"
+      "$ref": "https://bib.rero.ch/api/organisations/2"
     }
   },
   {
@@ -314,7 +314,7 @@
     "currency": "EUR",
     "vat_rate": 21,
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     }
   }
 ]

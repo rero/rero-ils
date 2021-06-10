@@ -27,7 +27,7 @@ from rero_ils.modules.utils import extracted_data_from_ref
 def test_budgets_jsonresolver(budget_2017_martigny):
     """Budgets resolver tests."""
     rec = Record.create({
-        'budget': {'$ref': 'https://ils.rero.ch/api/budgets/budg5'}
+        'budget': {'$ref': 'https://bib.rero.ch/api/budgets/budg5'}
     })
     assert extracted_data_from_ref(rec.get('budget')) == 'budg5'
 
@@ -38,7 +38,7 @@ def test_budgets_jsonresolver(budget_2017_martigny):
 
     # non existing record
     rec = Record.create({
-        'budget': {'$ref': 'https://ils.rero.ch/api/budgets/n_e'}
+        'budget': {'$ref': 'https://bib.rero.ch/api/budgets/n_e'}
     })
     with pytest.raises(JsonRefError):
         rec.replace_refs().dumps()

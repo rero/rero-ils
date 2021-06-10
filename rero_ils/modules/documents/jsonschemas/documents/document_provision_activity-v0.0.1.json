@@ -105,10 +105,10 @@
                 }
               },
               "country": {
-                "$ref": "https://ils.rero.ch/schemas/common/countries-v0.0.1.json#/country"
+                "$ref": "https://bib.rero.ch/schemas/common/countries-v0.0.1.json#/country"
               },
               "canton": {
-                "$ref": "https://ils.rero.ch/schemas/common/cantons-v0.0.1.json#/canton"
+                "$ref": "https://bib.rero.ch/schemas/common/cantons-v0.0.1.json#/canton"
               },
               "$ref": {
                 "title": "Place",
@@ -125,7 +125,7 @@
                 }
               },
               "identifiedBy": {
-                "$ref": "https://ils.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier_contribution"
+                "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier_contribution"
               }
             },
             "form": {
@@ -195,7 +195,7 @@
                 "minItems": 1,
                 "items": {
                   "title": "Label",
-                  "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/language_script"
+                  "$ref": "https://bib.rero.ch/schemas/common/languages-v0.0.1.json#/language_script"
                 },
                 "form": {
                   "templateOptions": {

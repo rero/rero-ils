@@ -68,7 +68,7 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
         'expiration_date': '2023-10-07',
         'barcode': ['2050124311'],
         'type': {
-          '$ref': 'https://ils.rero.ch/api/patron_types/ptty2'
+          '$ref': 'https://bib.rero.ch/api/patron_types/ptty2'
         },
         'communication_channel': 'email',
         'communication_language': 'ita'
@@ -76,9 +76,9 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
     wrong_librarian_martigny_data_tmp['patron']['subscriptions'] = [{
         'start_date': '2000-01-01',
         'end_date': '2001-01-01',
-        'patron_type': {'$ref': 'https://ils.rero.ch/api/patron_types/xxx'},
+        'patron_type': {'$ref': 'https://bib.rero.ch/api/patron_types/xxx'},
         'patron_transaction': {
-            '$ref': 'https://ils.rero.ch/api/patron_transactions/xxx'
+            '$ref': 'https://bib.rero.ch/api/patron_transactions/xxx'
         },
     }]
     with pytest.raises(ValidationError):
@@ -146,7 +146,7 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
             'expiration_date': '2023-10-07',
             'barcode': ['2050124311'],
             'type': {
-              '$ref': 'https://ils.rero.ch/api/patron_types/ptty2'
+              '$ref': 'https://bib.rero.ch/api/patron_types/ptty2'
             },
             'communication_channel': 'email',
             'communication_language': 'ita'

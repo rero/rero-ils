@@ -115,7 +115,7 @@ def test_holding_delete_after_item_edition(
     """Test automatic holding delete after item edition."""
 
     item_lib_saxon['location'] = \
-        {'$ref': 'https://ils.rero.ch/api/locations/loc5'}
+        {'$ref': 'https://bib.rero.ch/api/locations/loc5'}
 
     item_lib_saxon.update(item_lib_saxon, dbcommit=True, reindex=True)
     flush_index(ItemsSearch.Meta.index)

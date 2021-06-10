@@ -26,7 +26,7 @@
       "description": "Schema to validate item_type records against.",
       "type": "string",
       "minLength": 9,
-      "default": "https://ils.rero.ch/schemas/item_types/item_type-v0.0.1.json"
+      "default": "https://bib.rero.ch/schemas/item_types/item_type-v0.0.1.json"
     },
     "pid": {
       "title": "ItemType ID.",
@@ -119,7 +119,7 @@
         ],
         "properties": {
           "language": {
-            "$ref": "https://ils.rero.ch/schemas/common/ui-languages-v0.0.1.json#/language"
+            "$ref": "https://bib.rero.ch/schemas/common/ui-languages-v0.0.1.json#/language"
           },
           "label": {
             "title": "Label",
@@ -177,7 +177,7 @@
         ],
         "properties": {
           "language": {
-            "$ref": "https://ils.rero.ch/schemas/common/ui-languages-v0.0.1.json#/language"
+            "$ref": "https://bib.rero.ch/schemas/common/ui-languages-v0.0.1.json#/language"
           },
           "label": {
             "title": "Label",

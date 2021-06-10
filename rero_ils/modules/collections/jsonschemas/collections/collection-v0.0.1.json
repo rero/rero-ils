@@ -33,7 +33,7 @@
       "description": "Schema to validate collection records against.",
       "type": "string",
       "minLength": 9,
-      "default": "https://ils.rero.ch/schema/collections/collection-v0.0.1.json"
+      "default": "https://bib.rero.ch/schema/collections/collection-v0.0.1.json"
     },
     "pid": {
       "title": "Internal collection PID",
@@ -209,7 +209,7 @@
           "$ref": {
             "title": "Name",
             "type": "string",
-            "pattern": "^https://ils.rero.ch/api/libraries/.*?$",
+            "pattern": "^https://bib.rero.ch/api/libraries/.*?$",
             "form": {
               "fieldMap": "library"
             }
@@ -238,7 +238,7 @@
           "$ref": {
             "title": "Item",
             "type": "string",
-            "pattern": "^https://ils.rero.ch/api/items/.*?$",
+            "pattern": "^https://bib.rero.ch/api/items/.*?$",
             "form": {
               "remoteTypeahead": {
                 "type": "items"
@@ -266,7 +266,7 @@
         "$ref": {
           "title": "Organisation URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/organisations/.*?$"
+          "pattern": "^https://bib.rero.ch/api/organisations/.*?$"
         }
       }
     },

@@ -22,7 +22,7 @@ import jsonresolver
 from ..jsonresolver import resolve_json_refs
 
 
-@jsonresolver.route('/api/operation_logs/<pid>', host='ils.rero.ch')
+@jsonresolver.route('/api/operation_logs/<pid>', host='bib.rero.ch')
 def operation_log_resolver(pid):
     """Resolver for operation_log record."""
     return resolve_json_refs('oplg', pid)

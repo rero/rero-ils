@@ -4,7 +4,7 @@
     "name": "Standard",
     "description": "Standard patron.",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "subscription_amount": 10
   },
@@ -13,7 +13,7 @@
     "name": "Extended rights",
     "description": "Patron with extended rights: staff, professors, supporting members.",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     }
   },
   {
@@ -21,7 +21,7 @@
     "name": "Children",
     "description": "Children and teenagers (< 16 years old).",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     }
   },
   {
@@ -29,7 +29,7 @@
     "name": "Standard",
     "description": "Standard patron.",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/2"
+      "$ref": "https://bib.rero.ch/api/organisations/2"
     }
   },
   {
@@ -37,7 +37,7 @@
     "name": "Default",
     "description": "Default patron type",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     }
   },
   {
@@ -45,7 +45,7 @@
     "name": "Children",
     "description": "Children and teenagers (< 16 years old).",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/2"
+      "$ref": "https://bib.rero.ch/api/organisations/2"
     }
   },
   {
@@ -53,7 +53,7 @@
     "name": "Standard",
     "description": "Standard patron.",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/4"
+      "$ref": "https://bib.rero.ch/api/organisations/4"
     }
   },
   {
@@ -61,7 +61,7 @@
     "name": "Limited",
     "description": "Patron with restriction on checkout",
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "limits": {
       "checkout_limits": {
@@ -70,13 +70,13 @@
         "library_exceptions": [
           {
             "library": {
-              "$ref": "https://ils.rero.ch/api/libraries/1"
+              "$ref": "https://bib.rero.ch/api/libraries/1"
             },
             "value": 5
           },
           {
             "library": {
-              "$ref": "https://ils.rero.ch/api/libraries/2"
+              "$ref": "https://bib.rero.ch/api/libraries/2"
             },
             "value": 12
           }

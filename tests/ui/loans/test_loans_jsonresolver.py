@@ -25,7 +25,7 @@ from jsonref import JsonRefError
 def test_loans_jsonresolver(loan_pending_martigny):
     """Test loan json resolver."""
     rec = Record.create({
-        'loan': {'$ref': 'https://ils.rero.ch/api/loans/1'}
+        'loan': {'$ref': 'https://bib.rero.ch/api/loans/1'}
     })
     assert rec.replace_refs().get('loan') == {'type': 'loanid', 'pid': '1'}
 
@@ -36,7 +36,7 @@ def test_loans_jsonresolver(loan_pending_martigny):
 
     # non existing record
     rec = Record.create({
-        'loan': {'$ref': 'https://ils.rero.ch/api/loans/n_e'}
+        'loan': {'$ref': 'https://bib.rero.ch/api/loans/n_e'}
     })
     with pytest.raises(JsonRefError):
         rec.replace_refs().dumps()

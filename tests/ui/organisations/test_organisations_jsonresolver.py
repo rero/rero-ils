@@ -25,7 +25,7 @@ from jsonref import JsonRefError
 def test_organisations_jsonresolver(app, organisation_temp):
     """Test organisation resolver."""
     rec = Record.create({
-        'organisation': {'$ref': 'https://ils.rero.ch/api/organisations/1'}
+        'organisation': {'$ref': 'https://bib.rero.ch/api/organisations/1'}
     })
     assert rec.replace_refs().get('organisation') == {
         'type': 'org', 'pid': '1'
@@ -38,7 +38,7 @@ def test_organisations_jsonresolver(app, organisation_temp):
 
     # non existing record
     rec = Record.create({
-        'organisation': {'$ref': 'https://ils.rero.ch/api/organisations/n_e'}
+        'organisation': {'$ref': 'https://bib.rero.ch/api/organisations/n_e'}
     })
     with pytest.raises(JsonRefError):
         rec.replace_refs().dumps()

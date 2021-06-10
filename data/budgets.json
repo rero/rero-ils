@@ -6,7 +6,7 @@
     "end_date": "2020-12-31",
     "is_active": true,
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     }
   },
   {
@@ -16,7 +16,7 @@
     "end_date": "2019-12-31",
     "is_active": true,
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     }
   },
   {
@@ -26,7 +26,7 @@
     "end_date": "2018-12-31",
     "is_active": true,
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/1"
+      "$ref": "https://bib.rero.ch/api/organisations/1"
     }
   },
   {
@@ -36,7 +36,7 @@
     "end_date": "2020-12-31",
     "is_active": true,
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/2"
+      "$ref": "https://bib.rero.ch/api/organisations/2"
     }
   },
   {
@@ -46,7 +46,7 @@
     "end_date": "2020-12-31",
     "is_active": true,
     "organisation": {
-      "$ref": "https://ils.rero.ch/api/organisations/3"
+      "$ref": "https://bib.rero.ch/api/organisations/3"
     }
   }
 ]

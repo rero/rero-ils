@@ -120,7 +120,7 @@ def test_acq_accounts_post_put_delete(client,
     # Check that the returned record matches the given data
     acq_account_books_saxon_data['pid'] = '1'
     acq_account_books_saxon_data['organisation'] = {
-        '$ref': 'https://ils.rero.ch/api/organisations/org1'
+        '$ref': 'https://bib.rero.ch/api/organisations/org1'
     }
     assert data['metadata'] == acq_account_books_saxon_data
 

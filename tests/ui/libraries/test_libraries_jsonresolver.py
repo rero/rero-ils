@@ -26,7 +26,7 @@ def test_libraries_jsonresolver(lib_martigny):
     """Test library json resolver."""
     library = lib_martigny
     rec = Record.create({
-        'library': {'$ref': 'https://ils.rero.ch/api/libraries/lib1'}
+        'library': {'$ref': 'https://bib.rero.ch/api/libraries/lib1'}
     })
     assert rec.replace_refs().get('library') == {'type': 'lib', 'pid': 'lib1'}
 
@@ -37,7 +37,7 @@ def test_libraries_jsonresolver(lib_martigny):
 
     # non existing record
     rec = Record.create({
-        'library': {'$ref': 'https://ils.rero.ch/api/libraries/n_e'}
+        'library': {'$ref': 'https://bib.rero.ch/api/libraries/n_e'}
     })
     with pytest.raises(JsonRefError):
         rec.replace_refs().dumps()

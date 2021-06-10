@@ -28,8 +28,8 @@
       "title": "Schema",
       "description": "Schema to validate Acquisition Order records against.",
       "type": "string",
-      "default": "https://ils.rero.ch/schemas/acq_orders/acq_order-v0.0.1.json",
-      "pattern": "^https://ils.rero.ch/schemas/acq_orders/acq_order-v([0-9]+?\\.){3}json$"
+      "default": "https://bib.rero.ch/schemas/acq_orders/acq_order-v0.0.1.json",
+      "pattern": "^https://bib.rero.ch/schemas/acq_orders/acq_order-v([0-9]+?\\.){3}json$"
     },
     "pid": {
       "title": "AcqOrder ID",
@@ -186,7 +186,7 @@
         "$ref": {
           "title": "Vendor URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/vendors/.*?$",
+          "pattern": "^https://bib.rero.ch/api/vendors/.*?$",
           "form": {
             "focus": true,
             "remoteOptions": {
@@ -207,7 +207,7 @@
         "$ref": {
           "title": "Library URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/libraries/.*?$"
+          "pattern": "^https://bib.rero.ch/api/libraries/.*?$"
         }
       }
     },
@@ -222,7 +222,7 @@
         "$ref": {
           "title": "Organisation URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/organisations/.*?$"
+          "pattern": "^https://bib.rero.ch/api/organisations/.*?$"
         }
       }
     }
