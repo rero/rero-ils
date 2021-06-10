@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-06-02 14:22+0200\n"
-"PO-Revision-Date: 2021-06-09 13:00+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2021-06-09 13:08+0000\n"
+"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
 "Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/en/>\n"
 "Language: en\n"
@@ -4482,6 +4482,8 @@ msgid ""
 "Remove this field to disable the checkout. Enter 0 to allow the checkout "
 "until the end of the day."
 msgstr ""
+"Remove this field to disable the checkout. Enter 0 to allow the checkout "
+"until the end of the day."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:75
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:148
@@ -4889,7 +4891,7 @@ msgstr "Gender"
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:28
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:31
 msgid "Biographical information"
-msgstr ""
+msgstr "Biographical information"
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:29
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:32
@@ -4906,12 +4908,12 @@ msgstr "Numeration"
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:31
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:34
 msgid "Date establishment"
-msgstr ""
+msgstr "Date establishment"
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:32
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:35
 msgid "Death termination"
-msgstr ""
+msgstr "Death termination"
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:33
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:36
@@ -4923,27 +4925,27 @@ msgstr "Conference"
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:35
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:38
 msgid "Associated country"
-msgstr ""
+msgstr "Associated country"
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:37
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:40
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:38
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:41
 msgid "Authorized access point"
-msgstr ""
+msgstr "Authorized access point"
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:39
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:42
 msgid "Variant access point"
-msgstr ""
+msgstr "Variant access point"
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:40
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:43
 msgid "Parallel access point"
-msgstr ""
+msgstr "Parallel access point"
 
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:28
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:2
@@ -4953,20 +4955,20 @@ msgstr "Person"
 
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:42
 msgid "All sources"
-msgstr ""
+msgstr "All sources"
 
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:44
 msgid "Unified"
-msgstr ""
+msgstr "Unified"
 
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:49
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:51
 msgid "By source"
-msgstr ""
+msgstr "By source"
 
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:70
 msgid "Documents"
-msgstr ""
+msgstr "Documents"
 
 #: rero_ils/modules/documents/views.py:213
 msgid "Journal"
@@ -5247,7 +5249,7 @@ msgstr "Notation"
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:326
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:409
 msgid "Short alphanumeric string that serves as an identifier for a class."
-msgstr ""
+msgstr "Short alphanumeric string that serves as an identifier for a class."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:330
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:413
@@ -5753,7 +5755,7 @@ msgstr "Agent"
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:2
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation_link-v0.0.1.json:29
 msgid "Corporate body"
-msgstr ""
+msgstr "Corporate body"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:39
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:39
@@ -5813,7 +5815,7 @@ msgstr "Example: 1989"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation_link-v0.0.1.json:2
 msgid "Link to corporate body entity"
-msgstr ""
+msgstr "Link to corporate body entity"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:51
 msgid "Example: 1955"
@@ -7128,25 +7130,25 @@ msgstr "Local identifier"
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:75
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:115
 msgid "IdRef"
-msgstr ""
+msgstr "IdRef"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:79
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:119
 msgid "GND"
-msgstr ""
+msgstr "GND"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:83
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:123
 msgid "RERO"
-msgstr ""
+msgstr "RERO"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:87
 msgid "RERO-RAMEAU"
-msgstr ""
+msgstr "RERO-RAMEAU"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:149
 msgid "Source in case of a local identifier."
-msgstr ""
+msgstr "Source in case of a local identifier."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_illustrative_content-v0.0.1.json:3
 msgid "Illustrative contents"
@@ -7988,7 +7990,7 @@ msgstr "Person (local)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:37
 msgid "bf:Person"
-msgstr ""
+msgstr "Person"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:63
 msgid "Corporate body (local)"
@@ -7996,7 +7998,7 @@ msgstr "Corporate body (local)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:87
 msgid "bf:Organization"
-msgstr ""
+msgstr "Organization"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:119
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:39
@@ -8005,7 +8007,7 @@ msgstr "Work (local)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:142
 msgid "bf:Work"
-msgstr ""
+msgstr "Work"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:159
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:64
@@ -8026,7 +8028,7 @@ msgstr "Time-span (local)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:298
 msgid "bf:Temporal"
-msgstr ""
+msgstr "Temporal"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:333
 msgid "Preferred name"
@@ -8034,15 +8036,15 @@ msgstr "Preferred name"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:339
 msgid "Source of the subject."
-msgstr ""
+msgstr "Source of the subject."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:346
 msgid "Factum"
-msgstr ""
+msgstr "Factum"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:350
 msgid "RAMEAU proposal"
-msgstr ""
+msgstr "RAMEAU proposal"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:3
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:12
@@ -9514,15 +9516,15 @@ msgstr "Information"
 
 #: rero_ils/modules/items/api/circulation.py:1008
 msgid "Item status disallows the operation."
-msgstr ""
+msgstr "Item status disallows the operation."
 
 #: rero_ils/modules/items/api/circulation.py:1012
 msgid "Item and patron are not in the same organisation."
-msgstr ""
+msgstr "Item and patron are not in the same organisation."
 
 #: rero_ils/modules/items/api/circulation.py:1017
 msgid "Item is already checked-out or requested by patron."
-msgstr ""
+msgstr "Item is already checked-out or requested by patron."
 
 #: rero_ils/modules/items/api/record.py:65
 msgid "Holding does not exist: {pid}."
@@ -9613,7 +9615,7 @@ msgstr "claimed"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:297
 msgid "expected"
-msgstr ""
+msgstr "expected"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:305
 msgid "Status date"
@@ -10160,7 +10162,7 @@ msgstr "Notification processing date"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:49
 msgid "Notification sent or not"
-msgstr ""
+msgstr "Notification sent or not"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:53
 msgid "Current reminder count"
@@ -10636,11 +10638,11 @@ msgstr "Source if the record has been loaded in a batch."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:42
 msgid "Local codes"
-msgstr ""
+msgstr "Local codes"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:43
 msgid "Codes used to classify users, for instance for statistics."
-msgstr ""
+msgstr "Codes used to classify users, for instance for statistics."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:48
 msgid "Local code"
@@ -10815,6 +10817,8 @@ msgid ""
 "This user has already a professional role in another organisation. A user"
 " can be professional only in one organisation."
 msgstr ""
+"This user has already a professional role in another organisation. A user "
+"can be professional only in one organisation."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:478
 msgid "The public note is visible for the patron in his/her account."
@@ -11326,7 +11330,7 @@ msgstr "Best regards"
 #: rero_ils/theme/templates/security/email/reset_instructions.html:30
 #: rero_ils/theme/templates/security/email/reset_notice.html:28
 msgid "Your Libray"
-msgstr ""
+msgstr "Your Libray"
 
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
