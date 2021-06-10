@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-06-02 14:22+0200\n"
-"PO-Revision-Date: 2021-06-09 13:00+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2021-06-10 11:10+0000\n"
+"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/es/>\n"
 "Language: es\n"
@@ -27,7 +27,7 @@ msgstr ""
 
 #: rero_ils/accounts_views.py:50
 msgid "USER_DOES_NOT_EXIST"
-msgstr ""
+msgstr "Este usuario no existe."
 
 #: rero_ils/config.py:134
 msgid "French"
@@ -4477,6 +4477,8 @@ msgid ""
 "Remove this field to disable the checkout. Enter 0 to allow the checkout "
 "until the end of the day."
 msgstr ""
+"Elimine este campo para desactivar el préstamo. Introduzca 0 para permitir "
+"el préstamo hasta el final del día."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:75
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:148
@@ -4486,11 +4488,11 @@ msgstr "día(s)"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:82
 msgid "Allow checkout"
-msgstr ""
+msgstr "Permitir el préstamo"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:83
 msgid "Checkouts are allowed or not."
-msgstr ""
+msgstr "Préstamos permitidos o no."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:92
 msgid "Allow patron requests"
@@ -4708,7 +4710,7 @@ msgstr "URI del tipo de ejemplar"
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:4
 #: rero_ils/theme/views.py:129
 msgid "Exhibition/course"
-msgstr ""
+msgstr "Exposición/curso"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:33
 msgid "Schema to validate collection records against."
@@ -4908,12 +4910,12 @@ msgstr "Numeración"
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:31
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:34
 msgid "Date establishment"
-msgstr ""
+msgstr "Fecha de establecimiento"
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:32
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:35
 msgid "Death termination"
-msgstr ""
+msgstr "Fecha de finalización"
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:33
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:36
@@ -4925,7 +4927,7 @@ msgstr "Conferencia"
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:35
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:38
 msgid "Associated country"
-msgstr ""
+msgstr "País asociado"
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:37
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:40
@@ -4940,7 +4942,7 @@ msgstr "Punto de acceso autorizado"
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:39
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:42
 msgid "Variant access point"
-msgstr ""
+msgstr "Variante del punto de acceso"
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:40
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:43
@@ -4955,16 +4957,16 @@ msgstr "Persona"
 
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:42
 msgid "All sources"
-msgstr ""
+msgstr "Todas las fuentes"
 
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:44
 msgid "Unified"
-msgstr ""
+msgstr "Fusionado"
 
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:49
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:51
 msgid "By source"
-msgstr ""
+msgstr "Por fuente"
 
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:70
 msgid "Documents"
@@ -5011,15 +5013,15 @@ msgstr "PID del documento"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:241
 msgid "Subjects (imported)"
-msgstr ""
+msgstr "Sujetos (importados)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:242
 msgid "Subject from imported bibliographic data"
-msgstr ""
+msgstr "Sujeto a partir de datos bibliográficos importados"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:258
 msgid "Genres, forms (imported)"
-msgstr ""
+msgstr "Géneros, formas (importados)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:259
 msgid "Genre of form from imported bibliographic data"
@@ -5069,75 +5071,76 @@ msgstr "Resumen"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:3
 msgid "Terms of availability"
-msgstr ""
+msgstr "Condiciones de disponibilidad"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:4
 msgid "A condition under which the document is supplied. This includes the price."
 msgstr ""
+"Condición bajo la cual se suministra el documento. Esto incluye el precio."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:8
 msgid "Term of availability"
-msgstr ""
+msgstr "Término de disponibilidad"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:11
 msgid "Example: CHF 68.-"
-msgstr ""
+msgstr "Ejemplo: CHF 68.-"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:3
 msgid "Admin metadata"
-msgstr ""
+msgstr "Metadatos administrativos"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:16
 msgid "Administrative information intended for professionals"
-msgstr ""
+msgstr "Información administrativa destinada a los profesionales"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:31
 msgid "Encoding level"
-msgstr ""
+msgstr "Nivel de codificación"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:32
 msgid "Indicator of the fullness of the bibliographic information"
-msgstr ""
+msgstr "Indicador de la plenitud de la información bibliográfica"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:51
 msgid "Full level"
-msgstr ""
+msgstr "Nivel completo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:55
 msgid "Full level, material not examined"
-msgstr ""
+msgstr "Nivel completo, material no examinado"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:59
 msgid "Less-than-full level, material not examined"
-msgstr ""
+msgstr "Nivel inferior al completo, material no examinado"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:63
 msgid "Abbreviated level"
-msgstr ""
+msgstr "Nivel abreviado"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:67
 msgid "Core leve"
-msgstr ""
+msgstr "Nivel básico"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:71
 msgid "Partial (preliminary) level"
-msgstr ""
+msgstr "Nivel parcial (preliminar)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:75
 msgid "Minimal level"
-msgstr ""
+msgstr "Nivel mínimo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:79
 msgid "Prepublication level"
-msgstr ""
+msgstr "Nivel de prepublicación"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:83
 msgid "Unknown"
-msgstr ""
+msgstr "Desconocido"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:87
 msgid "Not applicable"
-msgstr ""
+msgstr "No aplicable"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:97
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:54
@@ -5155,29 +5158,29 @@ msgstr "Fuente"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:98
 msgid "Original cataloging agency"
-msgstr ""
+msgstr "Agencia de catalogación original"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:108
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:113
 msgid "Description modifier"
-msgstr ""
+msgstr "Modificador de la descripción"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:109
 msgid "Agency that modified the description"
-msgstr ""
+msgstr "Agencia que modificó la descripción"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:126
 msgid "Description language"
-msgstr ""
+msgstr "Lenguaje de descripción"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:127
 msgid "Language used for the metadata"
-msgstr ""
+msgstr "Idioma utilizado para los metadatos"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:142
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:147
 msgid " Description conventions"
-msgstr ""
+msgstr " Descripción de las convenciones"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:143
 msgid "Rules used for the descriptive content of the resource description"
