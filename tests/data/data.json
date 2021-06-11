@@ -3259,6 +3259,9 @@
     "username": "louis",
     "email": "lroduit@gmail.com",
     "home_phone": "+41324993156",
+    "local_codes": [
+      "code1"
+    ],
     "keep_history": true,
     "roles": [
       "patron"

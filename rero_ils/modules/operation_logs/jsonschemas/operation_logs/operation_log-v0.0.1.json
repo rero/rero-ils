@@ -130,11 +130,10 @@
               "type": "string",
               "minLength": 1
             },
-            "birth_date": {
-              "title": "Birthdate",
-              "type": "string",
-              "minLength": 1,
-              "format": "yyyy-MM-dd"
+            "age": {
+              "title": "Age",
+              "type": "number",
+              "minLength": 1
             },
             "postal_code": {
               "title": "Postal code",
@@ -149,12 +148,23 @@
                 "female",
                 "other"
               ]
+            },
+            "local_codes": {
+              "title": "Local codes",
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "title": "Local code",
+                "type": "string",
+                "minLength": 1
+              }
             }
           },
           "required": [
             "name",
             "type",
-            "birth_date",
+            "age",
             "postal_code",
             "gender"
           ]

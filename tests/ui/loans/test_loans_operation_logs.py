@@ -50,9 +50,10 @@ def test_loan_operation_log(client, operation_log_data,
     assert log_data['loan']['patron'] == {
         'name': 'Roduit, Louis',
         'type': 'children',
-        'birth_date': '1947-06-07',
+        'age': 74,
         'postal_code': '1920',
-        'gender': 'other'
+        'gender': 'other',
+        'local_codes': ['code1']
     }
     assert log_data['loan']['item'] == {
         'category': 'standard',

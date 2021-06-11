@@ -83,13 +83,16 @@
               "type": {
                 "type": "keyword"
               },
-              "birth_date": {
-                "type": "date"
+              "age": {
+                "type": "short"
               },
               "postal_code": {
                 "type": "keyword"
               },
               "gender": {
+                "type": "keyword"
+              },
+              "local_codes": {
                 "type": "keyword"
               }
             }
