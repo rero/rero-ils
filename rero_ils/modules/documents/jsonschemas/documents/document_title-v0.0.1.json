@@ -115,6 +115,18 @@
           }
         }
       }
+    },
+    "form": {
+      "validation": {
+        "validators": {
+          "numberOfSpecificValuesInObject": {
+            "min": 1,
+            "keys": {
+              "type": "bf:Title"
+            }
+          }
+        }
+      }
     }
   }
 }
