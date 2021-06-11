@@ -232,3 +232,19 @@ def test_ill_requests_serializers(
     data = get_json(response)
     record = data.get('hits', {}).get('hits', [])[0]
     assert record.get('metadata', {}).get('pickup_location', {}).get('name')
+
+
+def test_acq_accounts_serializers(
+    client, rero_json_header, lib_martigny, budget_2020_martigny,
+    acq_account_fiction_martigny, system_librarian_martigny
+):
+    """Test serializers for acq_account requests."""
+    login_user(client, system_librarian_martigny)
+    account = acq_account_fiction_martigny
+    item_url = url_for('invenio_records_rest.acac_item', pid_value=account.pid)
+    response = client.get(item_url, headers=rero_json_header)
+    assert response.status_code == 200
+    data = get_json(response)
+    for key in ['depth', 'distribution', 'is_active', 'encumbrance_amount',
+                'expenditure_amount', 'remaining_balance']:
+        assert key in data['metadata']

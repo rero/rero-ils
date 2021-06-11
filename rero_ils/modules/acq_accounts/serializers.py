@@ -17,8 +17,10 @@
 
 """Acquisition account serialization."""
 
-from invenio_records_rest.serializers.response import search_responsify
+from invenio_records_rest.serializers.response import record_responsify, \
+    search_responsify
 
+from .api import AcqAccountsSearch
 from ..libraries.api import Library
 from ..serializers import JSONSerializer, RecordSchemaJSONV1
 
@@ -26,18 +28,39 @@ from ..serializers import JSONSerializer, RecordSchemaJSONV1
 class AcqAccountJSONSerializer(JSONSerializer):
     """Mixin serializing records as JSON."""
 
+    def preprocess_record(self, pid, record, links_factory=None, **kwargs):
+        """Prepare a record and persistent identifier for serialization."""
+        # Add some ES stored keys into response
+        try:
+            es_hit = next(AcqAccountsSearch()
+                          .filter('term', pid=record.pid)
+                          .source().scan()).to_dict()
+            keys = ['depth', 'distribution', 'is_active',
+                    'encumbrance_exceedance', 'expenditure_exceedance',
+                    'encumbrance_amount', 'expenditure_amount',
+                    'remaining_balance']
+            for key in keys:
+                value = es_hit.get(key)
+                if value is not None:
+                    record[key] = value
+        except StopIteration:
+            # Should not happens... the account should always be indexed
+            pass
+
+        return super().preprocess_record(
+            pid=pid,
+            record=record,
+            links_factory=links_factory,
+            kwargs=kwargs
+        )
+
     def post_process_serialize_search(self, results, pid_fetcher):
         """Post process the search results."""
         # Add library name
-        libraries = {}
         for lib_term in results.get('aggregations', {}).get(
                 'library', {}).get('buckets', []):
             pid = lib_term.get('key')
-            if pid not in libraries:
-                libraries[pid] = Library.get_record_by_pid(pid)
-            lib_term['key'] = pid
-            lib_term['name'] = libraries[pid].get('name')
-
+            lib_term['name'] = Library.get_record_by_pid(pid).get('name')
         return super().post_process_serialize_search(results, pid_fetcher)
 
 
@@ -45,4 +68,6 @@ json_acq_account = AcqAccountJSONSerializer(RecordSchemaJSONV1)
 """JSON v1 serializer."""
 
 json_acq_account_search = search_responsify(
+    json_acq_account, 'application/rero+json')
+json_acq_account_response = record_responsify(
     json_acq_account, 'application/rero+json')
