@@ -85,36 +85,36 @@
     {{ rtl_direction|safe }}{% endif %}{% endif %} itemscope itemtype="http://schema.org/WebPage" data-spy="scroll"
     data-target=".scrollspy-target" {% if viewcode %}id="view-{{ viewcode }}" {% endif %}>
     {%- block outer_body %}
-    {%- block browserupgrade %}
-    <!--[if lt IE 8]>
-          <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your   browser</a> to improve your experience.</p>
+      {%- block browserupgrade %}
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-    {%- endblock browserupgrade %}
-    {%- block body_inner %}
-    {%- block page_header %}
-    {% include 'rero_ils/header.html' %}
-    {%- endblock page_header %}
+      {%- endblock browserupgrade %}
 
-    {%- block page_body %}
-    <div class="container flex-grow-1 mt-1">
+      {%- block body_inner %}
+        <!-- HEADER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        {%- block page_header %}
+          {% include 'rero_ils/header.html' %}
+        {%- endblock page_header %}
+        <!-- BODY ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        {%- block page_body %}
+          <div class="container">
+            {%- block body %}
+            {%- endblock body %}
+          </div>
+        {%- endblock page_body %}
+        <!-- FOOTER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        {%- block page_footer %}
+          {% include 'rero_ils/footer.html' %}
+        {%- endblock page_footer %}
+      {%- endblock body_inner %}
 
-      {%- block body %}
-      {%- endblock body %}
-    </div>
-    {%- endblock page_body %}
-
-    {%- block page_footer %}
-    {% include 'rero_ils/footer.html' %}
-    {%- endblock page_footer %}
-
-    {%- endblock body_inner %}
-
-    {%- block javascript %}
-    {% include 'rero_ils/javascript.html' %}
-    {%- endblock javascript %}
-    {%- block trackingcode %}
-    {% include 'rero_ils/trackingcode.html' %}
-    {%- endblock %}
+      {%- block javascript %}
+        {% include 'rero_ils/javascript.html' %}
+      {%- endblock javascript %}
+      {%- block trackingcode %}
+        {% include 'rero_ils/trackingcode.html' %}
+      {%- endblock %}
     {%- endblock outer_body %}
   </body>
 

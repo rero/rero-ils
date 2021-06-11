@@ -41,13 +41,6 @@ header {
   transform: rotate(-90deg);
 }
 
-
-#mobileHide {
-  @include media-breakpoint-up(md) {
-    position: fixed;
-    top: 0;
-    z-index: 1000;
-    width: 60%;
-    border: solid lightgray 1px;
-  }
+.rero-ils-second-menu:not(.d-none){
+  border-top: solid #F0F0F0 1px;
 }
