@@ -1,4 +1,7 @@
 {
+  "index_patterns": [
+    "operation_logs*"
+  ],
   "mappings": {
     "date_detection": false,
     "numeric_detection": false,
@@ -75,13 +78,16 @@
               "type": {
                 "type": "keyword"
               },
-              "birth_date": {
-                "type": "date"
+              "age": {
+                "type": "short"
               },
               "postal_code": {
                 "type": "keyword"
               },
               "gender": {
+                "type": "keyword"
+              },
+              "local_codes": {
                 "type": "keyword"
               }
             }
