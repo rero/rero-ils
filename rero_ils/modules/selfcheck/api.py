@@ -191,17 +191,17 @@ def patron_information(barcode, **kwargs):
             item = Item.get_record_by_pid(loan.item_pid)
             if loan['state'] == LoanState.ITEM_ON_LOAN:
                 patron_account_information.get('charged_items', []).append(
-                    item.get('pid'))
+                    item.get('barcode'))
                 if loan.is_loan_overdue():
                     patron_account_information.get('overdue_items', [])\
-                        .append(item.get('pid'))
+                        .append(item.get('barcode'))
             elif loan['state'] in [
                 LoanState.PENDING,
                 LoanState.ITEM_AT_DESK,
                 LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
             ]:
                 patron_account_information.get('hold_items', []).append(
-                    item.get('pid')
+                    item.get('barcode')
                 )
 
         fee_amount = PatronTransaction \
@@ -224,27 +224,28 @@ def patron_information(barcode, **kwargs):
                     loan = Loan.get_record_by_pid(transaction.loan_pid)
                     item = Item.get_record_by_pid(loan.item_pid)
                     patron_account_information.get('fine_items', []).append(
-                        item.get('pid')
+                        item.get('barcode')
                     )
         return patron_account_information
 
 
-def item_information(patron_barcode, item_pid, **kwargs):
+def item_information(patron_barcode, item_barcode, **kwargs):
     """Get item information handler.
 
     get item information according 'item_identifier' from selfcheck user.
     :param patron_barcode: barcode of the patron.
-    :param item_pid: item identifier.
+    :param item_barcode: item identifier.
     :return: The SelfcheckItemInformation object.
     """
     # check if invenio_sip2 module is present
     if check_sip2_module():
         from invenio_sip2.models import SelfcheckFeeType, \
             SelfcheckItemInformation, SelfcheckSecurityMarkerType
+        org_pid = kwargs.get('institution_id')
         patron = Patron.get_patron_by_barcode(
             patron_barcode,
-            filter_by_org_pid=kwargs.get('institution_id'))
-        item = Item.get_record_by_pid(item_pid)
+            filter_by_org_pid=org_pid)
+        item = Item.get_item_by_barcode(item_barcode, org_pid)
         document = Document.get_record_by_pid(item.document_pid)
         location = item.get_location()
         language = kwargs.get('language', current_app.config
@@ -271,8 +272,8 @@ def item_information(patron_barcode, item_pid, **kwargs):
                 LoanState.PENDING,
                 LoanState.ITEM_ON_LOAN
             ]
-            loan = get_loans_by_item_pid_by_patron_pid(item_pid, patron.pid,
-                                                       filter_states)
+            loan = get_loans_by_item_pid_by_patron_pid(
+                item.pid, patron.pid, filter_states)
             if loan:
                 if loan['state'] == LoanState.ITEM_ON_LOAN:
                     # format the end date according selfcheck language

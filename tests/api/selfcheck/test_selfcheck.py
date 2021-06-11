@@ -225,12 +225,13 @@ def test_item_information(client, librarian_martigny,
 
     patron_barcode = selfcheck_patron_martigny\
         .get('patron', {}).get('barcode')[0]
-    item_pid = item_lib_martigny.pid
+    item_barcode = item_lib_martigny.get('barcode')
 
     # get item information
     response = item_information(
         patron_barcode=patron_barcode,
-        item_pid=item_pid
+        item_barcode=item_barcode,
+        institution_id=librarian_martigny.organisation_pid
     )
     assert response
     # check required fields in response

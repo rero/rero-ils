@@ -81,11 +81,20 @@ def format_patron_address(patron):
     :param patron: patron instance.
     :return: Formated address like 'street postal code city' for patron.
     """
-    return '{street}, {postal_code} {city}'.format(
-        street=patron.get('street'),
-        postal_code=patron.get('postal_code'),
-        city=patron.get('city')
-    )
+    address = patron.get('second_address')
+    if address:
+        return '{street}, {postal_code} {city}'.format(
+            street=address.get('street'),
+            postal_code=address.get('postal_code'),
+            city=address.get('city')
+        )
+    else:
+        profile = patron.user.profile
+        return '{street}, {postal_code} {city}'.format(
+            street=profile.street.strip(),
+            postal_code=profile.postal_code.strip(),
+            city=profile.city.strip()
+        )
 
 
 def get_patron_status(patron):
