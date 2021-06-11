@@ -188,6 +188,7 @@ def users_validate(jsonfile, verbose, debug):
         s for s in schema['required'] if s not in ['$schema', 'user_id']]
 
     datas = read_json_record(jsonfile)
+    librarien_roles_users = {}
     for idx, data in enumerate(datas):
         if verbose:
             click.echo(f'\tTest record: {idx} pid: {data.get("pid")}')
@@ -201,16 +202,25 @@ def users_validate(jsonfile, verbose, debug):
                                       'for an email communication channel.')
             librarian_roles = [
                 Patron.ROLE_SYSTEM_LIBRARIAN, Patron.ROLE_LIBRARIAN]
-            if any(role in librarian_roles for role in data.get('roles', [])):
+            roles = data.get('roles', [])
+            if any(role in librarian_roles for role in roles):
                 if not data.get('libraries'):
                     raise ValidationError('Missing libraries')
+                # test multiple librarien, roles for same user
+                username = data.get('username')
+                if username in librarien_roles_users:
+                    raise ValidationError('Multiple librarian roles')
+                else:
+                    librarien_roles_users[username] = 1
+
             birth_date = data.get('birth_date')
             if birth_date[0] == '0':
                 raise ValidationError(f'Wrong birth date: {birth_date}')
 
         except ValidationError as err:
             click.secho(
-                f'Error validate in record: {idx} pid: {data.get("pid")}',
+                f'Error validate in record: {idx} pid: {data.get("pid")} '
+                f'username: {data.get("username")}',
                 fg='red'
             )
             if debug:
