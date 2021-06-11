@@ -21,7 +21,7 @@
 
 {%- block body %}
 <header class="row py-2">
-    <a href="javascript:history.back()"><i class="fa fa-arrow-left"></i> {{ _('Back') }}</a>
+    <a href="javascript:history.back()" class="col-12"><i class="fa fa-arrow-left"></i> {{ _('Back') }}</a>
 </header>
 <div class="row">
   {%- set icon_name = record | document_main_type(false) %}
