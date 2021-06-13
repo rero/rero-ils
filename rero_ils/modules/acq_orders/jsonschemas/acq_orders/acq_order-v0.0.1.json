@@ -170,12 +170,6 @@
         }
       }
     },
-    "total_amount": {
-      "title": "Total amount",
-      "type": "number",
-      "minLength": 1,
-      "default": 0
-    },
     "vendor": {
       "title": "Vendor",
       "type": "object",
