@@ -18,6 +18,7 @@
 """Tests REST API acquisition orders."""
 
 import json
+from copy import deepcopy
 
 import mock
 from flask import url_for
@@ -70,7 +71,7 @@ def test_acq_orders_permissions(client, acq_order_fiction_martigny,
 def test_acq_order_get(client, acq_order_fiction_martigny):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.acor_item', pid_value='acor1')
-    acq_order = acq_order_fiction_martigny
+    acq_order = deepcopy(acq_order_fiction_martigny)
     res = client.get(item_url)
     assert res.status_code == 200
 
@@ -119,11 +120,13 @@ def test_acq_orders_post_put_delete(client, org_martigny, vendor2_martigny,
     assert res.status_code == 201
 
     # Check that the returned record matches the given data
+    assert data['metadata'].pop('total_amount') == 0.0
     assert data['metadata'] == acq_order_fiction_saxon
 
     res = client.get(item_url)
     assert res.status_code == 200
     data = get_json(res)
+    assert data['metadata'].pop('total_amount') == 0.0
     assert acq_order_fiction_saxon == data['metadata']
 
     # Update record/PUT
@@ -241,7 +244,7 @@ def test_acq_order_secure_api_create(client, json_header,
     )
     assert res.status_code == 403
 
-    data = acq_order_fiction_martigny
+    data = deepcopy(acq_order_fiction_martigny)
     del data['pid']
     res, _ = postdata(
         client,

@@ -256,8 +256,7 @@
     "description": "Commande fictive",
     "order_status": "pending",
     "currency": "CHF",
-    "order_date": "2020-01-06",
-    "total_amount": 0
+    "order_date": "2020-01-06"
   },
   "acor2": {
     "$schema": "https://bib.rero.ch/schemas/acq_orders/acq_order-v0.0.1.json",
@@ -273,8 +272,7 @@
     "description": "Commande fictive 2",
     "order_status": "pending",
     "currency": "EUR",
-    "order_date": "2020-01-06",
-    "total_amount": 0
+    "order_date": "2020-01-06"
   },
   "acor3": {
     "$schema": "https://bib.rero.ch/schemas/acq_orders/acq_order-v0.0.1.json",
@@ -290,8 +288,7 @@
     "description": "Commande fictive 3",
     "order_status": "pending",
     "currency": "CHF",
-    "order_date": "2020-01-06",
-    "total_amount": 0
+    "order_date": "2020-01-06"
   },
   "acol1": {
     "$schema": "https://bib.rero.ch/schemas/acq_order_lines/acq_order_line-v0.0.1.json",

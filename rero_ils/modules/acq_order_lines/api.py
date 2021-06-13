@@ -146,26 +146,21 @@ class AcqOrderLinesIndexer(IlsRecordsIndexer):
 
     def index(self, record):
         """Index an Acquisition Order Line and update total amount of order."""
+        from ..acq_orders.api import AcqOrder
         return_value = super().index(record)
-        self._update_order_total_amount(record)
+        order = AcqOrder.get_record_by_pid(record.order_pid)
+        order.reindex()
 
         return return_value
 
     def delete(self, record):
         """Delete a Acquisition Order Line and update total amount of order."""
+        from ..acq_orders.api import AcqOrder
         return_value = super().delete(record)
-        self._update_order_total_amount(record)
+        order = AcqOrder.get_record_by_pid(record.order_pid)
+        order.reindex()
 
         return return_value
-
-    def _update_order_total_amount(self, record):
-        """Update total amount of the order."""
-        from ..acq_orders.api import AcqOrder
-
-        order_pid = extracted_data_from_ref(record.get('acq_order'))
-        order = AcqOrder.get_record_by_pid(order_pid)
-        order['total_amount'] = order.get_order_total_amount()
-        order.update(order, dbcommit=True, reindex=True)
 
     def bulk_index(self, record_id_iterator):
         """Bulk index records.

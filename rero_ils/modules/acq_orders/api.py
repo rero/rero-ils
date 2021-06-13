@@ -20,6 +20,7 @@
 
 from functools import partial
 
+from .extensions import TotalAmountExtension
 from .models import AcqOrderIdentifier, AcqOrderMetadata
 from ..acq_order_lines.api import AcqOrderLinesSearch
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
@@ -57,6 +58,8 @@ class AcqOrdersSearch(IlsRecordsSearch):
 
 class AcqOrder(IlsRecord):
     """AcqOrder class."""
+
+    _extensions = [TotalAmountExtension()]
 
     minter = acq_order_id_minter
     fetcher = acq_order_id_fetcher
