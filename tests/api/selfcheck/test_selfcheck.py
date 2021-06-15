@@ -33,7 +33,7 @@ from rero_ils.modules.notifications.api import Notification, \
 from rero_ils.modules.notifications.dispatcher import Dispatcher
 from rero_ils.modules.selfcheck.api import authorize_patron, enable_patron, \
     item_information, patron_information, selfcheck_checkin, \
-    selfcheck_checkout, selfcheck_login, system_status, \
+    selfcheck_checkout, selfcheck_login, selfcheck_renew, system_status, \
     validate_patron_account
 from rero_ils.modules.selfcheck.utils import check_sip2_module
 
@@ -258,11 +258,11 @@ def test_item_information(client, librarian_martigny,
     assert res.status_code == 200
 
 
-def test_selfcheck_checkout(client, selfcheck_librarian_martigny,
-                            selfcheck_patron_martigny, loc_public_martigny,
-                            item_lib_martigny, librarian_martigny,
-                            librarian2_martigny,  circulation_policies):
-    """Test selfcheck checkout."""
+def test_selfcheck_circulation(client, selfcheck_librarian_martigny, document,
+                               librarian_martigny, librarian2_martigny,
+                               loc_public_martigny, selfcheck_patron_martigny,
+                               item_lib_martigny, circulation_policies):
+    """Test selfcheck circulation operation."""
     patron_barcode = selfcheck_patron_martigny \
         .get('patron', {}).get('barcode')[0]
     item_barcode = item_lib_martigny.get('barcode')
@@ -277,49 +277,15 @@ def test_selfcheck_checkout(client, selfcheck_librarian_martigny,
     assert checkout.is_success
     assert checkout.due_date
 
-    # librarian checkin
-    login_user_via_session(client, librarian2_martigny.user)
-    res, _ = postdata(
-        client,
-        'api_item.checkin',
-        dict(
-            item_pid=item_lib_martigny.pid,
-            transaction_user_pid=librarian2_martigny.pid,
-            transaction_location_pid=loc_public_martigny.pid
-        )
+    # selfcheck renew
+    renew = selfcheck_renew(
+        transaction_user_pid=librarian_martigny.pid,
+        item_barcode=item_barcode, patron_barcode=patron_barcode,
+        terminal=selfcheck_librarian_martigny.name
     )
-    assert res.status_code == 200
-
-
-def test_selfcheck_checkin(client, selfcheck_librarian_martigny,
-                           librarian_martigny, librarian2_martigny,
-                           loc_public_martigny, selfcheck_patron_martigny,
-                           item_lib_martigny, document, circulation_policies):
-    """Test selfcheck checkin."""
-    patron_barcode = selfcheck_patron_martigny \
-        .get('patron', {}).get('barcode')[0]
-    item_barcode = item_lib_martigny.get('barcode')
-
-    # librarian checkout
-    login_user_via_session(client, librarian2_martigny.user)
-    res, data = postdata(client, 'api_item.checkout', dict(
-        item_pid=item_lib_martigny.pid,
-        patron_pid=selfcheck_patron_martigny.pid,
-        transaction_location_pid=loc_public_martigny.pid,
-        transaction_user_pid=librarian2_martigny.pid
-    ))
-    assert res.status_code == 200
-
-    # test selfcheck checkin with invalid item barcode
-    with pytest.raises(Exception):
-        checkin = selfcheck_checkin(
-            transaction_user_pid=librarian_martigny.pid,
-            patron_barcode=patron_barcode,
-            item_barcode='wrong_item_barcode',
-            terminal=selfcheck_librarian_martigny.name
-        )
-        assert checkin
-        assert not checkin.is_success
+    assert renew
+    assert renew.is_success
+    assert renew.due_date
 
     # selfcheck checkin
     checkin = selfcheck_checkin(

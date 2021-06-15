@@ -75,6 +75,7 @@ from .loans.cli import create_loans, load_virtua_transactions
 from .monitoring import Monitoring
 from .operation_logs.cli import create_operation_logs, dump_operation_logs
 from .patrons.cli import import_users, users_validate
+from .selfcheck.cli import terminal_create
 from .tasks import process_bulk_queue
 from .utils import bulk_load_metadata, bulk_load_pids, bulk_load_pidstore, \
     bulk_save_metadata, bulk_save_pids, bulk_save_pidstore, \
@@ -132,6 +133,7 @@ def utils():
 
 
 utils.add_command(users_validate)
+utils.add_command(terminal_create)
 
 
 def queue_count():
