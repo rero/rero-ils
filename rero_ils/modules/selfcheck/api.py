@@ -28,6 +28,7 @@ from .utils import authorize_selfckeck_patron, authorize_selfckeck_terminal, \
     map_item_circulation_status, map_media_type
 from ..documents.api import Document
 from ..documents.utils import title_format_text_head
+from ..errors import NoCirculationAction
 from ..items.api import Item
 from ..items.models import ItemNoteTypes
 from ..libraries.api import Library
@@ -351,9 +352,8 @@ def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode,
                         item_pid=item.pid,
                         selfcheck_terminal_id=str(terminal.id),
                     )
-                    loan_pid = data[LoanAction.CHECKOUT].get('pid')
-                    loan = Loan.get_record_by_pid(loan_pid)
-                    if loan:
+                    if data[LoanAction.CHECKOUT]:
+                        loan = data[LoanAction.CHECKOUT]
                         checkout['checkout'] = True
                         checkout['due_date'] = loan.get_loan_end_date(
                             time_format=None, language=language)
@@ -413,6 +413,7 @@ def selfcheck_checkin(transaction_user_pid, item_barcode, **kwargs):
                         transaction_user_pid=staffer.pid,
                         transaction_library_pid=terminal.library_pid,
                         item_pid=item.pid,
+                        selfcheck_terminal_id=str(terminal.id),
                     )
                     if data[LoanAction.CHECKIN]:
                         checkin['checkin'] = True
@@ -428,3 +429,71 @@ def selfcheck_checkin(transaction_user_pid, item_barcode, **kwargs):
                 _('Error encountered: please contact a librarian'))
             raise SelfcheckCirculationError('self checkin failed', checkin)
         return checkin
+
+
+def selfcheck_renew(transaction_user_pid, item_barcode, **kwargs):
+    """SIP2 handler to perform renew.
+
+    Perform renew action received from the selfcheck.
+    :param transaction_user_pid: identifier of the staff user.
+    :param item_barcode: item identifier.
+    :return: The SelfcheckRenew object.
+    """
+    if check_sip2_module():
+        from invenio_sip2.errors import SelfcheckCirculationError
+        from invenio_sip2.models import SelfcheckFeeType, SelfcheckRenew
+
+        terminal = SelfcheckTerminal.find_terminal(
+            name=kwargs.get('terminal'))
+        item = Item.get_item_by_barcode(
+            barcode=item_barcode,
+            organisation_pid=terminal.organisation_pid
+        )
+        document = Document.get_record_by_pid(item.document_pid)
+
+        renew = SelfcheckRenew(
+            title_id=title_format_text_head(document.get('title'))
+        )
+        with current_app.test_request_context() as ctx:
+            language = kwargs.get('language', current_app.config
+                                  .get('BABEL_DEFAULT_LANGUAGE'))
+            ctx.babel_locale = language
+            try:
+                staffer = Patron.get_record_by_pid(transaction_user_pid)
+                if staffer.is_librarian:
+                    # get renewal count
+                    renewal_count = item.get_extension_count()
+                    if renewal_count > 1:
+                        renew['renewal'] = True
+                    # do extend loan
+                    result, data = item.extend_loan(
+                        transaction_user_pid=staffer.pid,
+                        transaction_library_pid=terminal.library_pid,
+                        item_pid=item.pid,
+                        selfcheck_terminal_id=str(terminal.id),
+                    )
+                    if data[LoanAction.EXTEND]:
+                        loan = data[LoanAction.EXTEND]
+                        renew['success'] = True
+                        renew['due_date'] = loan.get_loan_end_date(
+                            time_format=None, language=language)
+                        transaction = PatronTransaction. \
+                            get_last_transaction_by_loan_pid(
+                                loan_pid=loan.pid,
+                                status='open')
+                        if transaction:
+                            # TODO: map transaction type
+                            renew['fee_type'] = SelfcheckFeeType.OVERDUE
+                            renew['fee_amount'] = transaction.total_amount
+                            renew['currency_type'] = transaction.currency
+                        # TODO: When is possible, try to return fields:
+                        #       magnetic_media, resensitize
+
+            except NoCirculationAction:
+                renew.get('screen_messages', []).append(
+                    _('No circulation action is possible'))
+            except Exception:
+                renew.get('screen_messages', []).append(
+                    _('Error encountered: please contact a librarian'))
+                raise SelfcheckCirculationError('self renewal failed', renew)
+            return renew
