@@ -18,8 +18,374 @@
 Release notes
 =============
 
+v1.3.0
+------
+
+This release note includes the changes of the ``rero-ils-ui`` project
+[`link`_] .
+
+User interface
+~~~~~~~~~~~~~~
+
+-  Moves ``ils.rero.ch`` to ``bib.rero.ch``, as it is the RERO+
+   production server.
+-  Fixes the missing items on the document detailed view when these
+   items are linked to an exhibition or a course (collection).
+-  Moves information on online resource from the *description* tab to
+   the header of the document detailed views.
+-  Rewrites the mechanism to hide masked holdings on public and
+   professional document detailed view. To do this, the count of item of
+   a given hodlings is added to the holdings index.
+-  Moves the document availability at the end of the metadata of the
+   document brief view.
+
+Public interface
+^^^^^^^^^^^^^^^^
+
+-  Fixes the ``partOf`` link on the document detailed view, that was pointing
+   to the professional interface.
+-  Fixes the current language on public interface.
+-  Improves center the text above thumbnail on document brief view.
+-  Informes the user when a serial holdings has no received items.
+
+Professional interface
+^^^^^^^^^^^^^^^^^^^^^^
+
+-  Adds a column into the pending tab of the patron account to display
+   the creation date of the request.
+-  Adds a column into the pickup tab of the patron account to display
+   the date until which the item at desk is available.
+-  Fixes issue with the confirmation message when deleting the last item
+   of an holdings.
+-  Adds the target library in the checkin note when the item is in
+   transit.
+-  Translates the toast messages.
+-  Renames the label of the request list on item detailed view from
+   *Request* to *Requested by*.
+-  Fixes items of the professional interface menu entries not
+   translated.
+-  Translates the *Role* string of the patron brief view (users search
+   results).
+-  Displays the identifier’s qualifier, status and note on the document
+   detailed view.
+-  Fixes missing translations on the notification settings of the
+   library.
+-  Fixes missing badges on the subjects of the document detailed view.
+-  Restores the search bar in the header of the document detailed view.
+-  Extracts the text strings of the organisation detailed view to be
+   translated later through the Weblate service.
+-  Fixes the *hide or show* mechanism for the searchbar on the
+   professional interface.
+
+Search
+~~~~~~
+
+-  Fixes Elasticsearch mapping of the ``authorized_access_point`` field
+   of the document.
+-  Fixes the city facet of the patron search, which wasn’t using the
+   correct field.
+-  Increases the ``MAX_RESULT_WINDOW`` parameter of Elasticsearch to
+   allow getting more results through the REST API.
+
+Circulation
+~~~~~~~~~~~
+
+-  Restricts ILL request form of the public interface to patron, thus
+   preventing a librarian without the patron role to use this form to
+   create an ILL request.
+-  Fixes fee computation. The ``datetime.now()`` as default value in
+   function argument made the value computed only once.
+-  Enables to configure notifications at the library level, in order to
+   receive e-mails to be printed:
+
+   -  Adds new notifications: booking, requests and transit notice.
+   -  Adds new notifications templates in 4 languages.
+   -  Adds a communication language for the libraries notifications.
+   -  Moves the paging request notifications from the location to the
+      library level.
+
+-  Fixes item status according to loans imported from the legacy system.
+-  Marks the masked items as unavailable.
+-  Improves SIP2 support:
+
+   -  Uses item barcode instead item PID to identify items.
+   -  Allows the patron to do a renewal on the selfcheck machine.
+   -  Adds CLI for selfcheck terminal creation.
+
+Metadata
+~~~~~~~~
+
+-  Adds ``identifiedBy`` to ``subjects``, ``genreForm``,
+   ``contribution``, ``provisionActivity`` fields in order to store
+   identifiers.
+-  Keeps the ID of RERO authorities when IdRef or RERO-RAMEAU for
+   records imported from the legacy system.
+-  Removes ``abstract``, ``titleProper`` and ``translatedFrom`` legacy
+   fields. Data, index, views and conversion have been updated.
+   ``abstract`` is replaced by ``summary`` field.
+-  Requires the ``encodingLevel`` administration metadata for documents.
+-  Sets the ``local_fields`` minimal length to 1 character in the JSON
+   schema.
+-  Improves the validation of the JSON references inside an organisation
+   to avoid getting that libraries end up linked to the wrong
+   organisation.
+-  Implements MARC21 to RERO ILS JSON conversion for:
+
+   -  ``frequency``.
+   -  ``bf:usageAndAccessPolicy``.
+   -  Document relations, such has ``hasReproduction`` and
+      ``reproductionOf``.
+   -  ``publication_place`` link.
+
+-  Adds a validator to make the document ``mainTitle`` unique (only
+   through the user interface editor, not when loading document through
+   the REST API). Besides, at least one ``"title.type": "bf.Title"``\ is
+   required.
+
+Data export
+~~~~~~~~~~~
+
+-  Implements an SRU server:
+
+   -  Converts the RERO ILS JSON to Dublin Core.
+   -  Adds ``format=dc`` parameter and ``application/xml+dc`` type for
+      document seach.
+   -  Adds ``dojson`` for RERO ILS JSON to MARC21 transformation.
+   -  Implements CQL parser.
+   -  Implements the explain response.
+   -  Adds ``with_masked`` to ``get_items_pid_by_holding_pid``,
+      ``get_holdings_pid_by_document_pid_by_org`` and
+      ``get_holdings_pid_by_document_pid`` function.
+
+Serials
+~~~~~~~
+
+-  Ensures that the ``issue.status_date`` field is updated when an issue
+   is created or updated.
+-  Adds a new ``temporary_location``, associated to no logic yet. It
+   allows to link all serial items of the same journal to the same
+   holdings even if some items are in another location as the other one,
+   as it is quite often the case. The new field is a JSON reference to a
+   location and has an ``end_date``.
+
+User management
+~~~~~~~~~~~~~~~
+
+-  Adds a ``code`` field in the patron JSON schema to store a code from
+   the legacy system and to keep the OAuth server working as it is.
+-  Relaxes the ``minLength`` constrain on the user ``firstname`` or
+   ``lastname`` to 1 instead of 2, to allow to import or create user
+   with very short names.
+-  Translate the validation message of the ``username`` field of the
+   user record. This validation message comes from
+   `rero/invenio-userprofiles`_.
+-  Allows external services (such as public computers in a library) to
+   authenticate users through RERO ILS. Creates a new API entrypoint
+   which returns user data according the username and password.
+-  Implements OAuth server to allow RERO ILS patrons to be identified by
+   external services providers:
+
+   -  Configures scopes.
+   -  Adds a REST endpoint to retrieve patron information.
+
+
+Export
+~~~~~~
+
+-  Improves the perfomance of the CSV Inventory list export:
+
+   -  Uses ``ciso8601`` to parse date.
+   -  Adds new API endpoint.
+   -  Uses streaming feature to process the CSV file download.
+   -  Reduces Elasticsearch calls through bunch request.
+   -  Adds fields to the generated CSV file.
+
+Permissions
+~~~~~~~~~~~
+
+-  Improves permission computation for record deletion.
+   ``IlsRecord.can_delete`` returns a tuple with True or False and
+   reasons on why the record cannot be deleted if False.
+-  Denies to all to read one operation log record.
+
+Activity logging
+~~~~~~~~~~~~~~~~
+
+-  Reimplements the operation logs as an Elasticsearch resource only,
+   because avoiding to save this many records in the DB improves
+   performance.
+-  Creates an Elasticsearch record class for operation logs that creates
+   one index per year.
+-  Adds a CLI to dump operation logs in a JSON file for backup purpose.
+-  Records loan activities. Converts patron birthdate into age. Adds
+   local codes to patron.
+-  Anonymizes loan operation log for loans that are anonymized.
+
+Monitoring
+~~~~~~~~~~
+
+-  Improves the monitor view to compute Elasticsearch and DB count
+   *diff* when the index does not exists.
+
+Performance
+~~~~~~~~~~~
+
+-  Improves indexing preformance:
+
+   -  Removes the enriched metadata releated to the items of a
+      collection in the document index at indexing process as it comes
+      with a too high performance cost in regard to the need of the
+      feature.
+   -  Removes the enriched local fields indexation in item and holdings
+      indexes, for the same reason.
+   -  Removes the ``availability`` key that was updated during document,
+      holdings and item resource indexation.
+   -  Replaces index flushing by the Elasticsearch parameter
+      ``refresh='true'``.
+   -  Changes the item circulation status directly in the document index
+      instead of reindexing the complete document (with holdings and
+      items data) index at each circulation operation.
+   -  Updates the masked value of the holdings only if the ``_masked``
+      field is updated.
+   -  Improves the items / holdings / documents chain indexation.
+   -  Reindexes the corresponding acquisition order as an acquisition
+      order line is indexed. Adds an Invenio records extension to update
+      the total acquisition order amount before indexing. Removes the
+      total acquisition order amount from the JSON schema and from the
+      DB.
+
+Fixtures
+~~~~~~~~
+
+-  Adapt the template fixtures to the complete document JSON schema.
+
+Documentation
+~~~~~~~~~~~~~
+
+-  Extends the labeler github-actions to improve automatic labeling of
+   PRs.
+-  Adds information on translations and updates the copyright of the
+   README.
+-  Improves wiki integration in order to give to help pages more width.
+
+Utilities
+~~~~~~~~~
+
+-  Adds a ``JsonWriter`` class to write well formatted JSON data into a
+   file.
+
+Instance
+~~~~~~~~
+
+-  Sets the ``restart`` parameter of the ``docker-compose`` files to
+   ``unless-stopped`` in order to prevent containers to restart
+   ``always``.
+
+Tests
+~~~~~
+
+-  Uses the correct REDIS service for external tests.
+-  Creates a script that tests the server with a lot of update requests,
+   in order to evaluate performance.
+-  Removes useless index flushes.
+-  Tests through a CLI command for users with many librarian roles in the
+   data to be imported.
+
+Issues
+~~~~~~
+
+-  `#1329`_: Export of inventory lists should be impossible if there are too
+   many items.
+-  `#1361`_: Make the field ``title.type`` required for value “bf:Title”.
+-  `#1391`_: Interface does not display the right language.
+-  `#1456`_: Improve CSV export performance (inventory list).
+-  `#1599`_: Label of the request list on item detailed view should be
+   improved.
+-  `#1617`_: Provision activity has no country for articles.
+-  `#1654`_: Receive an issue: confusion between the status date and the date
+   of receipt.
+-  `#1722`_: Missing Online access for bibliographic records with “Uniform
+   Resource Locator”.
+-  `#1725`_: Find a better operation log implementation.
+-  `#1778`_: The request date should be displayed in the patron account of the
+   professional interface.
+-  `#1798`_: Add the target library in the checkin note “the item is in
+   transit”.
+-  `#1812`_: “Catalog” in the main menu is not translated.
+-  `#1814`_: Toast message “dispute saved” is not completely translated.
+-  `#1817`_: Two confirmation messages when deleting the last item of a
+   document.
+-  `#1820`_: Toast message of circulation interface are not translated.
+-  `#1821`_: “Role” is not translated in the patron brief view.
+-  `#1846`_: Identifier’s qualifier, status and note should be displayed in
+   professional interface.
+-  `#1872`_: Harvested e-books should be marked as available.
+-  `#1885`_: Fields with links to authorities are adapted to be able to store
+   identifiers.
+-  `#1886`_: Keep the ID of RERO authorities when IdRef or RERO-RAMEAU does not
+   exist.
+-  `#1895`_: Logged user without the patron role should not be able to edit the
+   ILL request form.
+-  `#1896`_: ``ils.rero.ch`` is renamed into ``bib.rero.ch``.
+-  `#1905`_: Adapt template fixtures to complete JSON schema of the document.
+-  `#1919`_: Document encoding level should be required.
+-  `#1926`_: Impossible to save a document when created with a template.
+-  `#1929`_: ``otherPhysicalFormat`` should have as title “Also issued as”.
+-  `#1942`_: An item linked to a exhibition / course / collection is not
+   displayed in the document detailed view.
+-  `#1943`_: When editing an item of a document with lots of holdings and
+   items, ES takes to much time.
+-  `#1949`_: The “City” facet of the patron search relies on the wrong field.
+-  `#1951`_: The import of document field ``issuance`` is sometimes wrong.
+-  `#1954`_: The system doesn’t use the today’s date to compute overdue fees.
+-  `#1974`_: Item does not get the correct status after migrating Virtua loans.
+-  `#1983`_: Circulation error for item migrated from Virtua.
+-  `#1987`_: The MARC field 555 is not considered in the import from Virtua.
+-  `#1989`_: 2 holdings created in RERO ILS instead of 1 present in Virtua.
+-  `#1996`_: Intern note on document (field 019) is not correctly imported when
+   MARC field is repeated.
+
+.. _link: https://github.com/rero/rero-ils-ui
+.. _rero/invenio-userprofiles: https://github.com/rero/invenio-userprofiles
+.. _#1329: https://github.com/rero/rero-ils/issues/1329
+.. _#1361: https://github.com/rero/rero-ils/issues/1361
+.. _#1391: https://github.com/rero/rero-ils/issues/1391
+.. _#1456: https://github.com/rero/rero-ils/issues/1456
+.. _#1599: https://github.com/rero/rero-ils/issues/1599
+.. _#1617: https://github.com/rero/rero-ils/issues/1617
+.. _#1654: https://github.com/rero/rero-ils/issues/1654
+.. _#1722: https://github.com/rero/rero-ils/issues/1722
+.. _#1725: https://github.com/rero/rero-ils/issues/1725
+.. _#1778: https://github.com/rero/rero-ils/issues/1778
+.. _#1798: https://github.com/rero/rero-ils/issues/1798
+.. _#1812: https://github.com/rero/rero-ils/issues/1812
+.. _#1814: https://github.com/rero/rero-ils/issues/1814
+.. _#1817: https://github.com/rero/rero-ils/issues/1817
+.. _#1820: https://github.com/rero/rero-ils/issues/1820
+.. _#1821: https://github.com/rero/rero-ils/issues/1821
+.. _#1846: https://github.com/rero/rero-ils/issues/1846
+.. _#1872: https://github.com/rero/rero-ils/issues/1872
+.. _#1885: https://github.com/rero/rero-ils/issues/1885
+.. _#1886: https://github.com/rero/rero-ils/issues/1886
+.. _#1895: https://github.com/rero/rero-ils/issues/1895
+.. _#1896: https://github.com/rero/rero-ils/issues/1896
+.. _#1905: https://github.com/rero/rero-ils/issues/1905
+.. _#1919: https://github.com/rero/rero-ils/issues/1919
+.. _#1926: https://github.com/rero/rero-ils/issues/1926
+.. _#1929: https://github.com/rero/rero-ils/issues/1929
+.. _#1942: https://github.com/rero/rero-ils/issues/1942
+.. _#1943: https://github.com/rero/rero-ils/issues/1943
+.. _#1949: https://github.com/rero/rero-ils/issues/1949
+.. _#1951: https://github.com/rero/rero-ils/issues/1951
+.. _#1954: https://github.com/rero/rero-ils/issues/1954
+.. _#1974: https://github.com/rero/rero-ils/issues/1974
+.. _#1983: https://github.com/rero/rero-ils/issues/1983
+.. _#1987: https://github.com/rero/rero-ils/issues/1987
+.. _#1989: https://github.com/rero/rero-ils/issues/1989
+.. _#1996: https://github.com/rero/rero-ils/issues/1996
+
 v1.2.0
---------
+------
 
 This release note includes the changes of the ``rero-ils-ui`` project
 [`link`_] .
@@ -1097,7 +1463,6 @@ Issues
    expected, ie. ``package-lock.json``.
 -  `#1242`_: Same ``partOf`` field generated twice.
 -  `#1280`_: Put better labels for checkin/checkout pages.
--  `#1281`_: Put better labels for checkin/checkout pages.
 -  `#1305`_: Labels of the circulation policy editor should be improved.
 -  `#1320`_: ILL request form is not translated.
 -  `#1363`_: The application section of the circulation policy editor
@@ -1146,7 +1511,6 @@ Issues
 .. _#713: https://github.com/rero/rero-ils/issues/713
 .. _#1242: https://github.com/rero/rero-ils/issues/1399
 .. _#1280: https://github.com/rero/rero-ils/issues/1280
-.. _#1281: https://github.com/rero/rero-ils/issues/1280
 .. _#1305: https://github.com/rero/rero-ils/issues/1305
 .. _#1320: https://github.com/rero/rero-ils/issues/1320
 .. _#1363: https://github.com/rero/rero-ils/issues/1363
@@ -1837,7 +2201,6 @@ Issues
    account, if a fee is on dispute, the view crashes and displays an
    internal server error.
 
-.. _``rero-ils-ui``: https://github.com/rero/rero-ils-ui
 .. _new collection resource: #metadata
 .. _new angular application initialization: #angular-application-professional-interface-search
 .. _circulation scenario A: https://github.com/rero/rero-ils/blob/dev/doc/circulation/scenarios.md#scenario_a-standard-loan
@@ -2102,7 +2465,6 @@ Fixed issues
 .. _API: #api
 .. _inveniosoftware/invenio-circulation#127: https://github.com/inveniosoftware/invenio-circulation/issues/127
 .. _circulation actions: https://github.com/rero/rero-ils/blob/dev/doc/circulation/actions.md
-.. _``invenio-sip2`` module: https://github.com/inveniosoftware-contrib/invenio-sip2
 .. _Cypress: https://www.cypress.io/
 .. _file: https://github.com/rero/rero-ils/tree/dev/tests/e2e/cypress/cypress/support
 .. _circulation scenarios: https://github.com/rero/rero-ils/blob/dev/doc/circulation/scenarios.md
@@ -4339,8 +4701,8 @@ v0.1.0a10
    -  Visitors are able to create a user account, confirm their email
       address, reset their password.
 
- rero-ils v0.1.0
----------------------
+rero-ils v0.1.0
+---------------
 
 rero-ils v0.1.0 was released on TBD, 2017.
 
