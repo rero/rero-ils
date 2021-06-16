@@ -98,6 +98,10 @@ class AcqOrderLine(IlsRecord):
         order = data.get('acq_order', {})
         order_pid = order.get('pid') or \
             order.get('$ref').split('acq_orders/')[1]
+        data['library'] = {'$ref': get_ref_for_pid(
+            'lib',
+            AcqOrder.get_record_by_pid(order_pid).library_pid
+        )}
         data['organisation'] = {'$ref': get_ref_for_pid(
             'org',
             AcqOrder.get_record_by_pid(order_pid).organisation_pid

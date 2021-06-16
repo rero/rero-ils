@@ -81,7 +81,7 @@ def update_from_profile(sender, profile=None, **kwargs):
         if patron.is_patron:
             from ..loans.api import anonymize_loans
             new_keep_history = profile.keep_history
-            if profile.keep_history:
+            if not profile.keep_history:
                 anonymize_loans(
                     patron=patron,
                     dbcommit=True,

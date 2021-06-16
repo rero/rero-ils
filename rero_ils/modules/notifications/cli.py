@@ -31,7 +31,6 @@ def notifications():
     """Notification management commands."""
 
 
-@with_appcontext
 @notifications.command('process')
 @click.option('-t', '--type', 'notification_type', help="Notification Type.",
               multiple=True, default=Notification.ALL_NOTIFICATIONS)
