@@ -363,6 +363,12 @@ CELERY_BEAT_SCHEDULE = {
                  '.task_clear_and_renew_subscriptions'),
         'schedule': crontab(minute=2, hour=2),  # Every day at 02:02 UTC,
         'enabled': False
+    },
+    'delete_standard_holdings_having_no_items': {
+        'task': ('rero_ils.modules.holdings.tasks'
+                 '.delete_standard_holdings_having_no_items'),
+        'schedule': crontab(minute=30, hour=4),  # Every day at 04:30 UTC,
+        'enabled': False
     }
     # 'mef-harvester': {
     #     'task': 'rero_ils.modules.apiharvester.tasks.harvest_records',
