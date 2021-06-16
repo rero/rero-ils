@@ -10,15 +10,10 @@
     "record",
     "operation"
   ],
-  "propertiesOrder": [
-    "pid",
-    "record",
-    "operation"
-  ],
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate operation_log records against.",
+      "description": "Schema to validate operation logs records against.",
       "type": "string",
       "minLength": 9,
       "default": "https://bib.rero.ch/schema/operation_logs/operation_log-v0.0.1.json"
@@ -31,22 +26,48 @@
     "record": {
       "title": "Record",
       "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "value"
+      ],
       "properties": {
-        "$ref": {
-          "title": "record",
+        "type": {
+          "title": "Type",
           "type": "string",
-          "pattern": "^https://bib.rero.ch/api/.*/.*?$"
+          "enum": [
+            "doc",
+            "hold",
+            "item",
+            "loan",
+            "illr"
+          ]
+        },
+        "value": {
+          "title": "Value",
+          "type": "string",
+          "minLength": 1
         }
       }
     },
     "user": {
       "title": "User",
       "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "value"
+      ],
       "properties": {
-        "$ref": {
-          "title": "User URI",
+        "type": {
+          "title": "Type",
           "type": "string",
-          "pattern": "^https://bib.rero.ch/api/patrons/.+?$"
+          "const": "ptrn"
+        },
+        "value": {
+          "title": "Value",
+          "type": "string",
+          "minLength": 1
         }
       }
     },
@@ -65,21 +86,79 @@
       "type": "string",
       "enum": [
         "create",
-        "update"
+        "update",
+        "delete"
       ]
+    },
+    "ill_request": {
+      "title": "ILL request status",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "title": "Status",
+          "type": "string",
+          "enum": [
+            "pending",
+            "validated",
+            "denied",
+            "closed"
+          ]
+        },
+        "loan_status": {
+          "title": "Loan state",
+          "type": "string",
+          "enum": [
+            "PENDING",
+            "ITEM_AT_DESK",
+            "ITEM_ON_LOAN",
+            "ITEM_RETURNED"
+          ]
+        }
+      }
     },
     "organisation": {
       "title": "User organisation",
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "$ref"
+        "type",
+        "value"
       ],
       "properties": {
-        "$ref": {
-          "title": "Organisation URI",
+        "type": {
+          "title": "Type",
           "type": "string",
-          "pattern": "^https://bib.rero.ch/api/organisations/.+?$"
+          "const": "org"
+        },
+        "value": {
+          "title": "Value",
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "library": {
+      "title": "User library",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "value"
+      ],
+      "properties": {
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "const": "lib"
+        },
+        "value": {
+          "title": "Value",
+          "type": "string",
+          "minLength": 1
         }
       }
     },
@@ -88,7 +167,35 @@
       "description": "Loan specific data",
       "type": "object",
       "additionalProperties": false,
+      "required": [
+        "pid",
+        "trigger",
+        "override_flag",
+        "transaction_channel",
+        "transaction_location",
+        "pickup_location",
+        "patron",
+        "item"
+      ],
       "properties": {
+        "pid": {
+          "title": "Loan PID",
+          "type": "string",
+          "minLength": 1
+        },
+        "trigger": {
+          "title": "Action Trigger",
+          "type": "string",
+          "enum": [
+            "request",
+            "checkin",
+            "checkout",
+            "validate_request",
+            "cancel",
+            "receive",
+            "extend"
+          ]
+        },
         "override_flag": {
           "title": "Override flag",
           "description": "Allow a transaction which is normally not possible.",
@@ -104,26 +211,93 @@
             "sip2"
           ]
         },
-        "transaction_user_name": {
-          "title": "Transaction user name",
-          "type": "string",
-          "minLength": 1
+        "transaction_user": {
+          "title": "Transaction user",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "pid",
+            "name"
+          ],
+          "properties": {
+            "pid": {
+              "title": "Patron PID",
+              "type": "string",
+              "minLength": 1
+            },
+            "name": {
+              "title": "Patron name",
+              "type": "string",
+              "minLength": 2
+            }
+          }
         },
-        "transaction_location_name": {
-          "title": "Transaction location name",
-          "type": "string",
-          "minLength": 1
+        "transaction_location": {
+          "title": "Transaction location",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "pid",
+            "name"
+          ],
+          "properties": {
+            "pid": {
+              "title": "Location PID",
+              "type": "string",
+              "minLength": 1
+            },
+            "name": {
+              "title": "Location name",
+              "type": "string",
+              "minLength": 2
+            }
+          }
         },
-        "pickup_location_name": {
-          "title": "Pickup location name",
-          "type": "string",
-          "minLength": 1
+        "pickup_location": {
+          "title": "Transaction location",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "pid",
+            "name"
+          ],
+          "properties": {
+            "pid": {
+              "title": "Location PID",
+              "type": "string",
+              "minLength": 1
+            },
+            "name": {
+              "title": "Location Name",
+              "type": "string",
+              "minLength": 2
+            }
+          }
         },
         "patron": {
           "title": "Patron",
           "type": "object",
           "additionalProperties": false,
+          "required": [
+            "name",
+            "type",
+            "age",
+            "postal_code",
+            "gender",
+            "pid",
+            "hashed_pid"
+          ],
           "properties": {
+            "pid": {
+              "title": "Patron PID",
+              "type": "string",
+              "minLength": 1
+            },
+            "hashed_pid": {
+              "title": "Hashed Patron PID",
+              "type": "string",
+              "minLength": 1
+            },
             "name": {
               "title": "Name",
               "type": "string",
@@ -164,20 +338,24 @@
                 "minLength": 1
               }
             }
-          },
-          "required": [
-            "name",
-            "type",
-            "age",
-            "postal_code",
-            "gender"
-          ]
+          }
         },
         "item": {
           "title": "Item",
           "type": "object",
           "additionalProperties": false,
+          "required": [
+            "pid",
+            "holding",
+            "document",
+            "library_pid"
+          ],
           "properties": {
+            "pid": {
+              "title": "Item PID",
+              "type": "string",
+              "minLength": 1
+            },
             "category": {
               "title": "Category",
               "type": "string",
@@ -188,10 +366,19 @@
               "type": "string",
               "minLength": 1
             },
+            "library_pid": {
+              "title": "Library PID",
+              "type": "string",
+              "minLength": 1
+            },
             "holding": {
               "title": "Holding",
               "type": "object",
               "additionalProperties": false,
+              "required": [
+                "pid",
+                "location_name"
+              ],
               "properties": {
                 "pid": {
                   "title": "PID",
@@ -203,17 +390,23 @@
                   "type": "string",
                   "minLength": 1
                 }
-              },
-              "required": [
-                "pid",
-                "location_name"
-              ]
+              }
             },
             "document": {
               "title": "Document",
               "type": "object",
               "additionalProperties": false,
+              "required": [
+                "pid",
+                "type",
+                "title"
+              ],
               "properties": {
+                "pid": {
+                  "title": "Document PID",
+                  "type": "string",
+                  "minLength": 1
+                },
                 "type": {
                   "title": "Type",
                   "type": "string",
@@ -224,27 +417,11 @@
                   "type": "string",
                   "minLength": 1
                 }
-              },
-              "required": [
-                "type",
-                "title"
-              ]
+              }
             }
-          },
-          "required": [
-            "holding",
-            "document"
-          ]
+          }
         }
-      },
-      "required": [
-        "override_flag",
-        "transaction_channel",
-        "transaction_location_name",
-        "pickup_location_name",
-        "patron",
-        "item"
-      ]
+      }
     },
     "_created": {
       "title": "Creation date",

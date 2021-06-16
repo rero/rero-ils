@@ -172,6 +172,8 @@ def app_config(app_config):
     app_config['CELERY_REDIS_SCHEDULER_URL'] = 'redis://localhost:6379/4'
     app_config['RERO_IMPORT_CACHE'] = 'redis://localhost:6379/5'
     app_config['WTF_CSRF_ENABLED'] = False
+    # enable operation logs validation for the tests
+    app_config['RERO_ILS_ENABLE_OPERATION_LOG_VALIDATION'] = True
     return app_config
 
 

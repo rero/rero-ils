@@ -71,7 +71,8 @@ from .ill_requests.cli import create_ill_requests
 from .items.cli import create_items, reindex_items
 from .loans.cli import create_loans, load_virtua_transactions
 from .monitoring import Monitoring
-from .operation_logs.cli import create_operation_logs, dump_operation_logs
+from .operation_logs.cli import create_operation_logs, \
+    destroy_operation_logs, dump_operation_logs
 from .patrons.cli import import_users, users_validate
 from .selfcheck.cli import terminal_create
 from .tasks import process_bulk_queue
@@ -108,6 +109,7 @@ fixtures.add_command(create_ill_requests)
 fixtures.add_command(create_collections)
 fixtures.add_command(create_operation_logs)
 fixtures.add_command(dump_operation_logs)
+fixtures.add_command(destroy_operation_logs)
 
 
 @users.command('confirm')
