@@ -26,8 +26,8 @@ from flask_wiki import Wiki
 from invenio_circulation.signals import loan_state_changed
 from invenio_indexer.signals import before_record_index
 from invenio_oaiharvester.signals import oaiharvest_finished
-from invenio_records.signals import after_record_insert, after_record_update, \
-    before_record_update
+from invenio_records.signals import after_record_delete, after_record_insert, \
+    after_record_update, before_record_update
 from invenio_records_rest.errors import JSONSchemaValidationError
 from invenio_userprofiles.signals import after_profile_update
 from jsonschema.exceptions import ValidationError
@@ -48,7 +48,7 @@ from .loans.listener import enrich_loan_data, listener_loan_state_changed
 from .locations.listener import enrich_location_data
 from .notifications.listener import enrich_notification_data
 from .operation_logs.listener import operation_log_record_create, \
-    operation_log_record_update
+    operation_log_record_delete, operation_log_record_update
 from .patron_transaction_events.listener import \
     enrich_patron_transaction_event_data
 from .patron_transactions.listener import enrich_patron_transaction_data
@@ -203,6 +203,7 @@ class REROILSAPP(object):
 
         after_record_insert.connect(operation_log_record_create)
         after_record_update.connect(operation_log_record_update)
+        after_record_delete.connect(operation_log_record_delete)
 
         before_record_update.connect(negative_availability_changes)
 

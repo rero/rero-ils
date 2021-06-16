@@ -50,35 +50,56 @@ class LoanOperationLog(OperationLog):
         :returns: A new :class:`Record` instance.
         """
         log = {
-            'record':
-            data.dumps(),
-            'operation':
-            'create',
-            'user_name':
-            current_librarian.formatted_name
-            if current_librarian else 'system',
-            'date':
-            data['transaction_date'],
+            'record': {
+                'value': data.get('pid'),
+                'type': 'loan'
+            },
+            'operation': 'create',
+            'date': data['transaction_date'],
             'loan': {
-                'override_flag':
-                False,
-                'transaction_channel':
-                'system' if not data.get('selfcheck_terminal_id') else 'sip2',
-                'transaction_location_name':
-                cls._get_location_name(data['transaction_location_pid']),
-                'pickup_location_name':
-                cls._get_location_name(data['pickup_location_pid']),
+                'pid': data['pid'],
+                'trigger': data['trigger'],
+                'override_flag': False,
+                'transaction_channel': 'system' if not data.get(
+                    'selfcheck_terminal_id') else 'sip2',
+                'transaction_location': {
+                    'pid': data['transaction_location_pid'],
+                    'name': cls._get_location_name(
+                        data['transaction_location_pid'])
+                },
+                'pickup_location': {
+                    'pid': data['pickup_location_pid'],
+                    'name': cls._get_location_name(data['pickup_location_pid'])
+                },
                 'patron':
                 cls._get_patron_data(data['patron_pid']),
                 'item':
                 cls._get_item_data(data['item_pid']['value'])
             }
         }
-
+        if current_librarian:
+            log['user'] = {
+                'type': 'ptrn',
+                'value': current_librarian.pid
+            }
+            log['user_name'] = current_librarian.formatted_name
+            log['organisation'] = {
+                'value': current_librarian.organisation_pid,
+                'type': 'org'
+            }
+            log['library'] = {
+                'value': current_librarian.library_pid,
+                'type': 'lib'
+            }
+        else:
+            log['user_name'] = 'system'
         # Store transaction user name if not done by SIP2
         if log['loan']['transaction_channel'] != 'sip2':
-            log['loan']['transaction_user_name'] = cls._get_patron_data(
-                data['transaction_user_pid'])['name']
+            log['loan']['transaction_user'] = {
+                'pid': data['transaction_user_pid'],
+                'name': cls._get_patron_data(
+                    data['transaction_user_pid'])['name']
+            }
 
         return super().create(log, index_refresh=index_refresh)
 
@@ -92,6 +113,8 @@ class LoanOperationLog(OperationLog):
         """
         item = Item.get_record_by_pid(item_pid)
         return {
+            'pid': item.pid,
+            'library_pid': item.library_pid,
             'category':
             item['type'],
             'call_number':
@@ -115,6 +138,7 @@ class LoanOperationLog(OperationLog):
         document = Document.get_record_by_pid(document_pid)
         document = document.dumps()
         return {
+            'pid': document['pid'],
             'title':
             document['title'][0]['_text'],
             'type':
@@ -133,10 +157,8 @@ class LoanOperationLog(OperationLog):
         holding = Holding.get_record_by_pid(holding_pid)
 
         return {
-            'pid':
-            holding['pid'],
-            'location_name':
-            cls._get_location_name(
+            'pid': holding.pid,
+            'location_name': cls._get_location_name(
                 extracted_data_from_ref(holding['location']['$ref']))
         }
 
@@ -178,12 +200,15 @@ class LoanOperationLog(OperationLog):
             return today.year - birth_date.year - (
                 (today.month, today.day) < (birth_date.month, birth_date.day))
 
+        hashed_pid = hashlib.md5(patron.pid.encode()).hexdigest()
         data = {
             'name': patron.formatted_name,
             'type': patron_type['name'] if patron_type else None,
             'age': get_age(patron.user.profile.birth_date),
             'postal_code': patron.user.profile.postal_code,
-            'gender': patron.user.profile.gender or 'other'
+            'gender': patron.user.profile.gender or 'other',
+            'pid': patron.pid,
+            'hashed_pid': hashed_pid
         }
 
         if patron.get('local_codes'):
@@ -205,7 +230,7 @@ class LoanOperationLog(OperationLog):
                     'exists': {
                         'field': 'loan'
                     }
-                }).filter('term', record__pid=pid).scan())
+                }).filter('term', record__value=pid).scan())
 
     @classmethod
     def anonymize_logs(cls, loan_pid):
@@ -215,8 +240,6 @@ class LoanOperationLog(OperationLog):
         """
         for log in cls.get_logs_by_record_pid(loan_pid):
             record = log.to_dict()
-            md5_hash = hashlib.md5(
-                record['record']['patron_pid'].encode()).hexdigest()
-            record['record']['patron_pid'] = f'hash-{md5_hash}'
             record['loan']['patron'].pop('name')
+            record['loan']['patron'].pop('pid')
             cls.update(log.meta.id, log['date'], record)

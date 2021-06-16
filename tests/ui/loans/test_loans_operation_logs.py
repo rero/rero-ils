@@ -42,12 +42,14 @@ def test_loan_operation_log(client, operation_log_data,
     assert log_data['date'] == loan_validated_martigny['transaction_date']
     assert not log_data['loan']['override_flag']
     assert log_data['loan']['transaction_channel'] == 'system'
-    assert log_data['loan']['transaction_user_name'] == 'Pedronni, Marie'
+    assert log_data['loan']['transaction_user']['name'] == 'Pedronni, Marie'
     assert log_data['loan'][
-        'transaction_location_name'] == 'Martigny Library Public Space'
+        'transaction_location']['name'] == 'Martigny Library Public Space'
     assert log_data['loan'][
-        'pickup_location_name'] == 'Martigny Library Public Space'
+        'pickup_location']['name'] == 'Martigny Library Public Space'
     assert log_data['loan']['patron'] == {
+        'pid': 'ptrn6',
+        'hashed_pid': 'e11ff43bff5be4cf70350e2d15149e29',
         'name': 'Roduit, Louis',
         'type': 'children',
         'age': 74,
@@ -59,6 +61,7 @@ def test_loan_operation_log(client, operation_log_data,
         'category': 'standard',
         'call_number': '001313',
         'document': {
+            'pid': 'doc1',
             'title':
             'titre en chinois. Part Number, Part Number = Titolo cinese : '
             'sottotitolo in cinese',
@@ -68,7 +71,9 @@ def test_loan_operation_log(client, operation_log_data,
         'holding': {
             'pid': '1',
             'location_name': 'Martigny Library Public Space'
-        }
+        },
+        'library_pid': 'lib1',
+        'pid': 'item5'
     }
 
     # Test SIP2
@@ -80,7 +85,7 @@ def test_loan_operation_log(client, operation_log_data,
     operation_log.validate()
     log_data = LoanOperationLog.get_record(operation_log.id)
     assert log_data['loan']['transaction_channel'] == 'sip2'
-    assert not log_data['loan'].get('transaction_user_name')
+    assert not log_data['loan'].get('transaction_user')
 
 
 def test_anonymize_logs(item2_on_loan_martigny_patron_and_loan_on_loan):
@@ -92,7 +97,7 @@ def test_anonymize_logs(item2_on_loan_martigny_patron_and_loan_on_loan):
     logs = LoanOperationLog.get_logs_by_record_pid(loan['pid'])
     assert len(logs) == 2
     for log in logs:
-        assert log['record']['patron_pid'] == patron['pid']
+        assert log['loan']['patron']['pid'] == patron['pid']
         assert log['loan']['patron']['name'] == 'Roduit, Louis'
 
     loan.anonymize(loan)
@@ -102,5 +107,6 @@ def test_anonymize_logs(item2_on_loan_martigny_patron_and_loan_on_loan):
     for log in logs:
         log = log.to_dict()
         md5_hash = hashlib.md5(patron['pid'].encode()).hexdigest()
-        assert log['record']['patron_pid'] == f'hash-{md5_hash}'
+        assert log['loan']['patron']['hashed_pid'] == f'{md5_hash}'
         assert not log['loan']['patron'].get('name')
+        assert not log['loan']['patron'].get('pid')

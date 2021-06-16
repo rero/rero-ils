@@ -23,7 +23,7 @@ from flask import current_app
 
 from .api import OperationLog
 from ..patrons.api import current_librarian
-from ..utils import extracted_data_from_ref, get_ref_for_pid
+from ..utils import extracted_data_from_ref
 
 
 def operation_log_record_create(sender, record=None, *args, **kwargs):
@@ -50,6 +50,18 @@ def operation_log_record_update(sender, record=None, *args, **kwargs):
     build_operation_log_record(record=record, operation='update')
 
 
+def operation_log_record_delete(sender, record=None, *args, **kwargs):
+    """Create an operation log entry after record deletion.
+
+    Checks if the record is configured to keep logs of its deletion.
+    If enabled, a new operation log entry will be added. Method is called after
+    record deletion by connecting to signals'after_record_delete'.
+
+    :param record: the record being created.
+    """
+    build_operation_log_record(record=record, operation='delete')
+
+
 def build_operation_log_record(record=None, operation=None):
     """Build an operation_log record to load.
 
@@ -63,19 +75,32 @@ def build_operation_log_record(record=None, operation=None):
             oplg = {
                 'date': datetime.now(timezone.utc).isoformat(),
                 'record': {
-                    '$ref': get_ref_for_pid(
-                        record.provider.pid_type, record.get('pid'))
+                    'value': record.get('pid'),
+                    'type': record.provider.pid_type
                 },
                 'operation': operation
             }
+            if resource_name == 'ill_requests':
+                oplg['ill_request'] = {
+                    'status': record.get('status'),
+                }
+                loan_status = record.get('loan_status')
+                if loan_status:
+                    oplg['ill_request']['loan_status'] = loan_status
+
             if current_librarian:
                 oplg['user'] = {
-                    '$ref': get_ref_for_pid('ptrn', current_librarian.pid)
+                    'type': 'ptrn',
+                    'value': current_librarian.pid
                 }
                 oplg['user_name'] = current_librarian.formatted_name
                 oplg['organisation'] = {
-                    '$ref': get_ref_for_pid(
-                        'org', current_librarian.organisation_pid)
+                    'value': current_librarian.organisation_pid,
+                    'type': 'org'
+                }
+                oplg['library'] = {
+                    'value': current_librarian.library_pid,
+                    'type': 'lib'
                 }
             else:
                 oplg['user_name'] = 'system'

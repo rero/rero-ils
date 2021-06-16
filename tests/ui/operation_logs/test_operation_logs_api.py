@@ -83,13 +83,13 @@ def test_update(app, es_clear, operation_log_data, monkeypatch):
                                         index_refresh='wait_for')
 
     log_data = OperationLog.get_record(operation_log.id)
-    assert log_data['record']['pid'] == 'item4'
+    assert log_data['record']['value'] == 'item4'
 
     # Update OK
-    log_data['record']['pid'] = '1234'
+    log_data['record']['value'] = '1234'
     OperationLog.update(log_data.id, log_data['date'], log_data)
     log_data = OperationLog.get_record(operation_log.id)
-    assert log_data['record']['pid'] == '1234'
+    assert log_data['record']['value'] == '1234'
 
     # Update KO
     monkeypatch.setattr(

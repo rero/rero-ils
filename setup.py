@@ -144,6 +144,7 @@ setup(
             'fixtures = rero_ils.modules.cli:fixtures',
             'monitoring = rero_ils.modules.monitoring:monitoring',
             'notifications = rero_ils.modules.notifications.cli:notifications',
+            'stats = rero_ils.modules.stats.cli:stats',
             'oaiharvester = rero_ils.modules.ebooks.cli:oaiharvester',
             'scheduler = rero_ils.schedulers:scheduler',
             'utils = rero_ils.modules.cli:utils',

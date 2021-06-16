@@ -30,6 +30,12 @@ from rero_ils.modules.operation_logs.api import OperationLog
 from ..utils import JsonWriter, read_json_record
 
 
+def abort_if_false(ctx, param, value):
+    """Abort command is value is False."""
+    if not value:
+        ctx.abort()
+
+
 @click.command('create_operation_logs')
 @click.option('-l', '--lazy', 'lazy', is_flag=True, default=False)
 @click.option('-s', '--batch-size', 'size', type=int, default=10000)
@@ -86,3 +92,14 @@ def dump_operation_logs(outfile_name, year):
             outfile.write(str(oplg.to_dict()))
             index_count += 1
     click.echo(f'created {index_count} operation logs.')
+
+
+@click.command('destroy_operation_logs')
+@click.option('--yes-i-know', is_flag=True, callback=abort_if_false,
+              expose_value=False,
+              prompt='Do you really want to remove all the operation logs?')
+@with_appcontext
+def destroy_operation_logs():
+    """Removes all the operation logs data."""
+    OperationLog.delete_indices()
+    click.secho('All operations logs have been removed', fg='green')
