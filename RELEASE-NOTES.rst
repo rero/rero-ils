@@ -18,6 +18,21 @@
 Release notes
 =============
 
+v1.3.1
+------
+
+This release note includes the changes of the ``rero-ils-ui`` project
+[`link`_] .
+
+Search
+~~~~~~
+
+-  Restores settings on the ES template:
+
+   -  `number_of_shards`.
+   -  `number_of_replicas`.
+   -  `max_result_window`.
+
 v1.3.0
 ------
 
@@ -86,15 +101,21 @@ Search
    correct field.
 -  Increases the ``MAX_RESULT_WINDOW`` parameter of Elasticsearch to
    allow getting more results through the REST API.
+-  Index the title of the host document in the child document, in order to find
+   children through its host title.
 
 Circulation
 ~~~~~~~~~~~
 
+-  Improves the incremental fee limit in the circulation category editor, by
+   setting the minimum to 1 instead of 0.
 -  Restricts ILL request form of the public interface to patron, thus
    preventing a librarian without the patron role to use this form to
    create an ILL request.
 -  Fixes fee computation. The ``datetime.now()`` as default value in
    function argument made the value computed only once.
+-  Groups notifications sent to each patron to reduce the number of received
+   messages.
 -  Enables to configure notifications at the library level, in order to
    receive e-mails to be printed:
 
@@ -167,12 +188,14 @@ Serials
    holdings even if some items are in another location as the other one,
    as it is quite often the case. The new field is a JSON reference to a
    location and has an ``end_date``.
+-  Fixes creation of late issue.
 
 User management
 ~~~~~~~~~~~~~~~
 
 -  Adds a ``code`` field in the patron JSON schema to store a code from
    the legacy system and to keep the OAuth server working as it is.
+-  Makes the `local_code` an array.
 -  Relaxes the ``minLength`` constrain on the user ``firstname`` or
    ``lastname`` to 1 instead of 2, to allow to import or create user
    with very short names.
@@ -294,6 +317,8 @@ Tests
 Issues
 ~~~~~~
 
+-  `#1236`_: Circulation: enhance notifications in order to group emails sent
+   to patrons.
 -  `#1329`_: Export of inventory lists should be impossible if there are too
    many items.
 -  `#1361`_: Make the field ``title.type`` required for value “bf:Title”.
@@ -307,18 +332,27 @@ Issues
 -  `#1722`_: Missing Online access for bibliographic records with “Uniform
    Resource Locator”.
 -  `#1725`_: Find a better operation log implementation.
+-  `#1741`_: Notifications and fees don't respect the circulation policy
+   settings.
 -  `#1778`_: The request date should be displayed in the patron account of the
    professional interface.
+-  `#1781`_: The acquisition accounts should be alphabetically sorted.
+-  `#1788`_: Title of the host document not indexed in the child document.
 -  `#1798`_: Add the target library in the checkin note “the item is in
    transit”.
+-  `#1807`_: In a holdings, only active predictions should generate expected
+   and late issues.
+-  `#1806`_: The patron `local_code` should be repetitive.
 -  `#1812`_: “Catalog” in the main menu is not translated.
 -  `#1814`_: Toast message “dispute saved” is not completely translated.
 -  `#1817`_: Two confirmation messages when deleting the last item of a
    document.
 -  `#1820`_: Toast message of circulation interface are not translated.
 -  `#1821`_: “Role” is not translated in the patron brief view.
+-  `#1822`_: Delete a vendor is possible even if holdings are linked to it.
 -  `#1846`_: Identifier’s qualifier, status and note should be displayed in
    professional interface.
+-  `#1848`_: It is impossible to create a circulation policy with overdue fees.
 -  `#1872`_: Harvested e-books should be marked as available.
 -  `#1885`_: Fields with links to authorities are adapted to be able to store
    identifiers.
@@ -347,6 +381,7 @@ Issues
 
 .. _link: https://github.com/rero/rero-ils-ui
 .. _rero/invenio-userprofiles: https://github.com/rero/invenio-userprofiles
+.. _#1236: https://github.com/rero/rero-ils/issues/1236
 .. _#1329: https://github.com/rero/rero-ils/issues/1329
 .. _#1361: https://github.com/rero/rero-ils/issues/1361
 .. _#1391: https://github.com/rero/rero-ils/issues/1391
@@ -356,14 +391,20 @@ Issues
 .. _#1654: https://github.com/rero/rero-ils/issues/1654
 .. _#1722: https://github.com/rero/rero-ils/issues/1722
 .. _#1725: https://github.com/rero/rero-ils/issues/1725
+.. _#1741: https://github.com/rero/rero-ils/issues/1741
 .. _#1778: https://github.com/rero/rero-ils/issues/1778
+.. _#1781: https://github.com/rero/rero-ils/issues/1781
 .. _#1798: https://github.com/rero/rero-ils/issues/1798
+.. _#1806: https://github.com/rero/rero-ils/issues/1806
+.. _#1807: https://github.com/rero/rero-ils/issues/1807
 .. _#1812: https://github.com/rero/rero-ils/issues/1812
 .. _#1814: https://github.com/rero/rero-ils/issues/1814
 .. _#1817: https://github.com/rero/rero-ils/issues/1817
 .. _#1820: https://github.com/rero/rero-ils/issues/1820
 .. _#1821: https://github.com/rero/rero-ils/issues/1821
+.. _#1822: https://github.com/rero/rero-ils/issues/1822
 .. _#1846: https://github.com/rero/rero-ils/issues/1846
+.. _#1848: https://github.com/rero/rero-ils/issues/1848
 .. _#1872: https://github.com/rero/rero-ils/issues/1872
 .. _#1885: https://github.com/rero/rero-ils/issues/1885
 .. _#1886: https://github.com/rero/rero-ils/issues/1886
