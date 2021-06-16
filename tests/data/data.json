@@ -3951,7 +3951,8 @@
     "$schema": "https://bib.rero.ch/schemas/operation_logs/operation_log-v0.0.1.json",
     "pid": "oplg1",
     "record": {
-      "$ref": "https://bib.rero.ch/api/items/item4"
+      "value": "item4",
+      "type": "item"
     },
     "operation": "update",
     "user_name": "updated_user",

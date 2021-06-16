@@ -19,6 +19,8 @@
 
 from elasticsearch.helpers import bulk
 from elasticsearch_dsl import Document
+from flask import current_app
+from invenio_jsonschemas.proxies import current_jsonschemas
 from invenio_records.api import RecordBase
 from invenio_search import RecordsSearch, current_search_client
 
@@ -67,6 +69,20 @@ class OperationLog(RecordBase):
         # Run pre create extensions
         for e in cls._extensions:
             e.pre_create(record)
+
+        if current_app.config.get('RERO_ILS_ENABLE_OPERATION_LOG_VALIDATION'):
+            # Validate also encodes the data
+            # For backward compatibility we pop them here.
+            format_checker = kwargs.pop('format_checker', None)
+            validator = kwargs.pop('validator', None)
+            if '$schema' not in record:
+                record['$schema'] = current_jsonschemas.path_to_url(
+                    cls._schema)
+            record._validate(
+                format_checker=format_checker,
+                validator=validator,
+                use_model=False
+            )
 
         current_search_client.index(index=cls.get_index(record),
                                     body=record.dumps(),

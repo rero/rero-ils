@@ -31,7 +31,12 @@ class ResolveRefsExension(RecordExtension):
     mod_type = {
         'documents': 'doc',
         'items': 'item',
-        'holdings': 'hold'
+        'holdings': 'hold',
+        'loans': 'loan',
+        'ill_requests': 'illr',
+        'patrons': 'ptrn',
+        'organisations': 'org',
+        'libraries': 'lib'
     }
 
     def pre_dump(self, record, dumper=None):

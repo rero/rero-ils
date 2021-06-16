@@ -54,7 +54,8 @@ def test_operation_logs_permissions(client, operation_log, patron_sion,
 
 def test_operation_logs_rest(client, loan_pending_martigny,
                              librarian_martigny,
-                             json_header):
+                             json_header,
+                             loan_overdue_martigny):
     """Test operation logs REST API."""
     login_user_via_session(client, librarian_martigny.user)
     item_url = url_for('invenio_records_rest.oplg_item', pid_value='1')
