@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
-"POT-Creation-Date: 2021-06-14 13:54+0200\n"
-"PO-Revision-Date: 2021-06-09 13:08+0000\n"
-"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"POT-Creation-Date: 2021-07-01 17:16+0200\n"
+"PO-Revision-Date: 2021-07-01 14:18+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language: en\n"
 "Language-Team: English <https://hosted.weblate.org/projects/rero_plus"
 "/rero-ils/en/>\n"
@@ -61,98 +61,98 @@ msgstr "RERO ID password reset"
 msgid "Your RERO ID password has been reset"
 msgstr "Your RERO ID password has been reset"
 
-#: rero_ils/config.py:1734
+#: rero_ils/config.py:1739
 msgid "author"
 msgstr "author"
 
-#: rero_ils/config.py:1735 rero_ils/config.py:1792
+#: rero_ils/config.py:1740 rero_ils/config.py:1797
 msgid "document_type"
 msgstr "document type"
 
-#: rero_ils/config.py:1736 rero_ils/config.py:1794
+#: rero_ils/config.py:1741 rero_ils/config.py:1799
 msgid "document_subtype"
 msgstr "document subtype"
 
-#: rero_ils/config.py:1737
+#: rero_ils/config.py:1742
 msgid "language"
 msgstr "language"
 
-#: rero_ils/config.py:1738
+#: rero_ils/config.py:1743
 msgid "organisation"
 msgstr "organisation"
 
-#: rero_ils/config.py:1741 rero_ils/config.py:1796 rero_ils/config.py:1861
-#: rero_ils/config.py:1883 rero_ils/config.py:1905 rero_ils/config.py:2002
-#: rero_ils/config.py:2042
+#: rero_ils/config.py:1746 rero_ils/config.py:1801 rero_ils/config.py:1866
+#: rero_ils/config.py:1888 rero_ils/config.py:1910 rero_ils/config.py:2007
+#: rero_ils/config.py:2047
 msgid "library"
 msgstr "library"
 
-#: rero_ils/config.py:1742 rero_ils/config.py:2003
+#: rero_ils/config.py:1747 rero_ils/config.py:2008
 msgid "subject"
 msgstr "subject"
 
-#: rero_ils/config.py:1743 rero_ils/config.py:1799 rero_ils/config.py:1884
-#: rero_ils/config.py:1906 rero_ils/config.py:2039
+#: rero_ils/config.py:1748 rero_ils/config.py:1804 rero_ils/config.py:1889
+#: rero_ils/config.py:1911 rero_ils/config.py:2044
 msgid "status"
 msgstr "status"
 
-#: rero_ils/config.py:1744
+#: rero_ils/config.py:1749
 msgid "new_acquisition"
 msgstr "new_acquisition"
 
-#: rero_ils/config.py:1797
+#: rero_ils/config.py:1802
 msgid "location"
 msgstr "Location"
 
-#: rero_ils/config.py:1798
+#: rero_ils/config.py:1803
 msgid "item_type"
 msgstr "Item type"
 
-#: rero_ils/config.py:1800
+#: rero_ils/config.py:1805
 msgid "issue_status"
 msgstr "Issue status"
 
-#: rero_ils/config.py:1801
+#: rero_ils/config.py:1806
 msgid "vendor"
 msgstr "Vendor"
 
-#: rero_ils/config.py:1838
+#: rero_ils/config.py:1843
 msgid "roles"
 msgstr "roles"
 
-#: rero_ils/config.py:1839
+#: rero_ils/config.py:1844
 msgid "city"
 msgstr "city"
 
-#: rero_ils/config.py:1840
+#: rero_ils/config.py:1845
 msgid "patron_type"
 msgstr "Patron type"
 
-#: rero_ils/config.py:1862
+#: rero_ils/config.py:1867
 msgid "budget"
 msgstr "budget"
 
-#: rero_ils/config.py:1931
+#: rero_ils/config.py:1936
 msgid "sources"
 msgstr "sources"
 
-#: rero_ils/config.py:1932 rero_ils/config.py:1957 rero_ils/config.py:2001
+#: rero_ils/config.py:1937 rero_ils/config.py:1962 rero_ils/config.py:2006
 msgid "type"
 msgstr "type"
 
-#: rero_ils/config.py:1958
+#: rero_ils/config.py:1963
 msgid "visibility"
 msgstr "visibility"
 
-#: rero_ils/config.py:2004
+#: rero_ils/config.py:2009
 msgid "teacher"
 msgstr "teacher"
 
-#: rero_ils/config.py:2040
+#: rero_ils/config.py:2045
 msgid "loan_status"
 msgstr "loan status"
 
-#: rero_ils/config.py:2041
+#: rero_ils/config.py:2046
 msgid "requester"
 msgstr "requester"
 
@@ -267,13 +267,6 @@ msgstr "Access"
 #: rero_ils/manual_translations.txt:47
 msgid "mv-cantook"
 msgstr "Access"
-
-#: rero_ils/manual_translations.txt:50
-msgid ""
-"Username must start with a letter or a number, be at least three "
-"characters long and only contain alphanumeric characters, dashes and "
-"underscores"
-msgstr ""
 
 #: rero_ils/jsonschemas/common/cantons-v0.0.1.json:3
 msgid "Cantons"
@@ -3981,10 +3974,10 @@ msgstr "Name of the account."
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:48
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:143
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:38
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:177
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:179
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:206
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:208
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:174
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:176
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:203
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:205
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:56
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:53
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:42
@@ -4547,7 +4540,7 @@ msgstr "Reminder"
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:239
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:280
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:310
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:375
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:376
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:21
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation_link-v0.0.1.json:15
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:21
@@ -4597,7 +4590,7 @@ msgstr "due soon"
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:76
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:148
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:66
-#: rero_ils/modules/selfcheck/api.py:298
+#: rero_ils/modules/selfcheck/api.py:325
 msgid "overdue"
 msgstr "overdue"
 
@@ -4932,12 +4925,12 @@ msgstr "Numeration"
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:31
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:34
 msgid "Date establishment"
-msgstr "Date establishment"
+msgstr "Date of establishment"
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:32
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:35
 msgid "Death termination"
-msgstr "Death termination"
+msgstr "Date of termination"
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:33
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:36
@@ -5047,7 +5040,7 @@ msgstr "Genres, forms (imported)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:255
 msgid "Genre of form from imported bibliographic data"
-msgstr "Genre of form from imported bibliographic data"
+msgstr "Genre or form from imported bibliographic data"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:275
 msgid "Harvested"
@@ -5157,7 +5150,7 @@ msgstr "Not applicable"
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:148
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:338
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:49
-#: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:143
+#: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:123
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:173
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:212
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:280
@@ -5254,37 +5247,37 @@ msgid "classification_musicale_instruments"
 msgstr "Musical instrument classification"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:325
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:408
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:409
 msgid "Notation"
 msgstr "Notation"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:326
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:409
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:410
 msgid "Short alphanumeric string that serves as an identifier for a class."
 msgstr "Short alphanumeric string that serves as an identifier for a class."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:330
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:413
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:414
 msgid "Example: 001.012"
 msgstr "Example: 001.012"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:334
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:417
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:418
 msgid "Subdivisions"
 msgstr "Subdivisions"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:338
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:421
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:422
 msgid "Subdivision"
 msgstr "Subdivision"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:344
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:427
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:428
 msgid "Edition"
 msgstr "Edition"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:345
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:428
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:429
 msgid ""
 "Used for imported records only. Edition of the classification, identified"
 " by a number, a date, or another textual designation."
@@ -5293,16 +5286,25 @@ msgstr ""
 " by a number, a date, or another textual designation."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:349
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:432
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:433
 msgid "Example: Abridged edition, 22"
 msgstr "Example: Abridged edition, 22"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:353
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:436
-msgid "Used for imported records only. Assigning agency."
-msgstr "Used for imported records only. Assigning agency."
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:437
+msgid "Assigning agency"
+msgstr "Assigning agency"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:360
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:354
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:438
+msgid ""
+"Used for imported records only. Agency that assigned this classification "
+"value."
+msgstr ""
+"Used for imported records only. Agency that assigned this classification "
+"value."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:361
 msgid "classification_musicale_genres"
 msgstr "Musical genre classification"
 
@@ -6598,7 +6600,7 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:66
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:70
 msgid "Also issued as"
-msgstr ""
+msgstr "Also issued as"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:71
 msgid ""
@@ -6658,23 +6660,21 @@ msgstr "Any other relationship between documents (MARC 787)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:171
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:175
-#, fuzzy
 msgid "Has reproduction"
-msgstr "Production"
+msgstr "Reproduced as"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:176
 msgid "Descriptive data for a reproduction (MARC 533)."
-msgstr ""
+msgstr "Descriptive data for a reproduction (MARC 533)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:192
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:196
-#, fuzzy
 msgid "Reproduction of"
-msgstr "Production method"
+msgstr "Reproduction of"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:197
 msgid "A reproduction of a document (MARC 534)."
-msgstr ""
+msgstr "A reproduction of a document (MARC 534)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:214
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:31
@@ -7790,7 +7790,7 @@ msgstr "Labels"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:236
 msgid "Date 1"
-msgstr "Date of publication 1"
+msgstr "Date 1"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:237
 msgid ""
@@ -7802,7 +7802,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:251
 msgid "Date 2"
-msgstr "End date of publication"
+msgstr "Date 2"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:252
 msgid ""
@@ -8622,11 +8622,7 @@ msgstr "Colors"
 msgid "Format"
 msgstr "Format"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:125
-msgid "Related resource"
-msgstr "Related resource"
-
-#: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:146
+#: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:126
 msgid "Permalink"
 msgstr "Permalink"
 
@@ -8634,32 +8630,32 @@ msgstr "Permalink"
 msgid "Back"
 msgstr "Back"
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:156
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:153
 msgid "Show more"
-msgstr ""
+msgstr "Show more"
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:198
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:200
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:195
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:197
 msgid "Get"
 msgstr "Get"
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:238
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:235
 msgid "Articles"
 msgstr "article"
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:254
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:251
 msgid "Export Formats"
 msgstr "Export Formats"
 
-#: rero_ils/modules/holdings/api.py:142
+#: rero_ils/modules/holdings/api.py:143
 msgid "Document does not exist {pid}."
 msgstr "The document {pid} does not exists."
 
-#: rero_ils/modules/holdings/api.py:149
+#: rero_ils/modules/holdings/api.py:150
 msgid "Must have next expected date for regular frequencies."
 msgstr "Must have next expected date for regular frequencies."
 
-#: rero_ils/modules/holdings/api.py:152
+#: rero_ils/modules/holdings/api.py:153
 msgid ""
 "Electronic Holding is not attached to the correct                     "
 "document type. document: {pid}"
@@ -8667,11 +8663,11 @@ msgstr ""
 "The electronic holdings is not attached to the correct document type. "
 "Document: {pid}"
 
-#: rero_ils/modules/holdings/api.py:167
+#: rero_ils/modules/holdings/api.py:168
 msgid "{field} is allowed only for serial holdings"
 msgstr "{field} is allowed only for serial holdings"
 
-#: rero_ils/modules/holdings/api.py:172 rero_ils/modules/ill_requests/api.py:75
+#: rero_ils/modules/holdings/api.py:173 rero_ils/modules/ill_requests/api.py:75
 #: rero_ils/modules/items/api/record.py:81
 msgid "Can not have multiple notes of same type."
 msgstr "Can not have multiple notes of the same type."
@@ -9368,12 +9364,12 @@ msgstr "item at desk"
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:126
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:166
 msgid "ITEM_ON_LOAN"
-msgstr "item on loan"
+msgstr "on loan"
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:130
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:170
 msgid "ITEM_RETURNED"
-msgstr "item returned"
+msgstr "returned"
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:144
 msgid "Pickup location URI"
@@ -9516,21 +9512,23 @@ msgstr "Circulation information"
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:164
 msgid "This optional text is displayed in the public interface, for instance \\"
-msgstr "This optional text is displayed in the public interface, for instance \\"
+msgstr ""
+"This optional text is displayed in the public interface, for instance "
+"\"On-site consultation\""
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:168
 msgid "Information"
 msgstr "Information"
 
-#: rero_ils/modules/items/api/circulation.py:1006
+#: rero_ils/modules/items/api/circulation.py:1008
 msgid "Item status disallows the operation."
 msgstr "Item status disallows the operation."
 
-#: rero_ils/modules/items/api/circulation.py:1010
+#: rero_ils/modules/items/api/circulation.py:1012
 msgid "Item and patron are not in the same organisation."
 msgstr "Item and patron are not in the same organisation."
 
-#: rero_ils/modules/items/api/circulation.py:1015
+#: rero_ils/modules/items/api/circulation.py:1017
 msgid "Item is already checked-out or requested by patron."
 msgstr "Item is already checked-out or requested by patron."
 
@@ -9611,7 +9609,7 @@ msgstr ""
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:237
 msgid "Temporary location"
-msgstr ""
+msgstr "Temporary location"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:318
 msgid "Issue status"
@@ -9864,15 +9862,15 @@ msgstr "Notification settings"
 msgid "Communication language"
 msgstr "Communication language"
 
-#: rero_ils/modules/loans/api.py:135
+#: rero_ils/modules/loans/api.py:137
 msgid "The loan cannot be extended"
 msgstr "The loan cannot be extended"
 
-#: rero_ils/modules/loans/api.py:151
+#: rero_ils/modules/loans/api.py:153
 msgid "Circulation policies disallows the operation."
 msgstr "Circulation policies disallows the operation."
 
-#: rero_ils/modules/loans/api.py:153
+#: rero_ils/modules/loans/api.py:155
 msgid "A pending request exists on this item."
 msgstr "A pending request exists on this item."
 
@@ -9946,11 +9944,11 @@ msgstr "created"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:174
 msgid "ITEM_IN_TRANSIT_FOR_PICKUP"
-msgstr "item in transit to pickup location"
+msgstr "in transit (requested)"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:178
 msgid "ITEM_IN_TRANSIT_TO_HOUSE"
-msgstr "item in transit to owning library"
+msgstr "in transit (back to shelf)"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:186
 msgid "CANCELLED"
@@ -10206,15 +10204,15 @@ msgstr "recall"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:88
 msgid "transit_notice"
-msgstr ""
+msgstr "Transit notice"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:92
 msgid "request"
-msgstr ""
+msgstr "request"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:96
 msgid "booking"
-msgstr ""
+msgstr "Booking"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:4
 msgid "Operation log"
@@ -10265,38 +10263,32 @@ msgid "User organisation"
 msgstr "User organisation"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:88
-#, fuzzy
 msgid "Loan specific data"
-msgstr "unspecified"
+msgstr "Loan specific data"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:93
-#, fuzzy
 msgid "Override flag"
-msgstr "overdue"
+msgstr "Override flag"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:94
 msgid "Allow a transaction which is normally not possible."
-msgstr ""
+msgstr "Allow a transaction which is normally not possible."
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:99
-#, fuzzy
 msgid "Transaction channel"
-msgstr "Communication channel"
+msgstr "Transaction channel"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:108
-#, fuzzy
 msgid "Transaction user name"
-msgstr "Transaction user PID"
+msgstr "Transaction user name"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:113
-#, fuzzy
 msgid "Transaction location name"
-msgstr "Transaction location PID"
+msgstr "Transaction location name"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:138
-#, fuzzy
 msgid "Age"
-msgstr "Pages"
+msgstr "Age"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:143
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:89
@@ -10318,17 +10310,15 @@ msgstr "Local code"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:182
 msgid "Category"
-msgstr ""
+msgstr "Category"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:197
-#, fuzzy
 msgid "PID"
-msgstr "period"
+msgstr "PID"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:202
-#, fuzzy
 msgid "Location name"
-msgstr "Pickup location name"
+msgstr "Location name"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:250
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:39
@@ -10336,9 +10326,8 @@ msgid "Creation date"
 msgstr "Creation date"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:255
-#, fuzzy
 msgid "Modification date"
-msgstr "Notification type"
+msgstr "Modification date"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:5
 msgid "JSON schema for an organisation"
@@ -10388,7 +10377,7 @@ msgstr "Online harvested source as configured in ebooks server."
 msgid "Collection enabled on public view"
 msgstr "Collection enabled on public view"
 
-#: rero_ils/modules/patron_transaction_events/api.py:113
+#: rero_ils/modules/patron_transaction_events/api.py:114
 msgid "Initial charge"
 msgstr "Initial amount"
 
@@ -10471,7 +10460,7 @@ msgstr "dispute"
 msgid "cancel"
 msgstr "cancel"
 
-#: rero_ils/modules/patron_transactions/api.py:374
+#: rero_ils/modules/patron_transactions/api.py:375
 msgid "Subscription for '{name}' from {start} to {end}"
 msgstr "Subscription for '{name}' from {start} to {end}"
 
@@ -10601,7 +10590,7 @@ msgstr "The description of the patron type."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:59
 msgid "Code to identify the patron type."
-msgstr ""
+msgstr "Code to identify the patron type."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:80
 msgid "Yearly amount due by patrons linked to this patron type."
@@ -10714,11 +10703,11 @@ msgstr "Reason"
 msgid "Transactions denied: the maximal overdue fee amount is reached."
 msgstr "Transactions denied: the maximal overdue fee amount is reached."
 
-#: rero_ils/modules/patrons/views.py:182
+#: rero_ils/modules/patrons/views.py:184
 msgid "Patron Profile"
 msgstr "Patron profile"
 
-#: rero_ils/modules/patrons/views.py:241
+#: rero_ils/modules/patrons/views.py:243
 msgid "You have a pending subscription fee."
 msgstr "You have a pending subscription fee."
 
@@ -10916,13 +10905,27 @@ msgstr "The public note is visible for the patron in his/her account."
 msgid "Selfcheck Terminal Management"
 msgstr "Selfcheck Terminal Management"
 
-#: rero_ils/modules/selfcheck/api.py:368
+#: rero_ils/modules/selfcheck/api.py:132 rero_ils/modules/selfcheck/api.py:170
+#: rero_ils/modules/selfcheck/api.py:251
+msgid "Error encountered: patron not found"
+msgstr ""
+
+#: rero_ils/modules/selfcheck/api.py:338
+msgid "Error encountered: item not found"
+msgstr ""
+
+#: rero_ils/modules/selfcheck/api.py:408
 msgid "Checkout impossible: the item is requested by another patron"
 msgstr "Checkout impossible: the item is requested by another patron"
 
-#: rero_ils/modules/selfcheck/api.py:372 rero_ils/modules/selfcheck/api.py:427
+#: rero_ils/modules/selfcheck/api.py:412 rero_ils/modules/selfcheck/api.py:469
+#: rero_ils/modules/selfcheck/api.py:534
 msgid "Error encountered: please contact a librarian"
 msgstr "Error encountered: please contact a librarian"
+
+#: rero_ils/modules/selfcheck/api.py:531
+msgid "No circulation action is possible"
+msgstr "No circulation action is possible"
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:5
 msgid "JSON schema for templates."
@@ -12805,4 +12808,21 @@ msgstr "Your password has been successfully reset."
 
 #~ msgid "Other physical format"
 #~ msgstr "Other physical format"
+
+#~ msgid ""
+#~ "Username must start with a letter "
+#~ "or a number, be at least three "
+#~ "characters long and only contain "
+#~ "alphanumeric characters, dashes and "
+#~ "underscores"
+#~ msgstr ""
+
+#~ msgid "Used for imported records only. Assigning agency."
+#~ msgstr "Used for imported records only. Assigning agency."
+
+#~ msgid "Related resource"
+#~ msgstr "Related resource"
+
+#~ msgid "Assigning agency."
+#~ msgstr "Assigning agency"
 
