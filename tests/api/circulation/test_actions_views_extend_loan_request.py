@@ -81,6 +81,10 @@ def test_extend_loan(
     """Test frontend extend action."""
     login_user_via_session(client, librarian_martigny.user)
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
+    # Update loan `end_date` to play with "extend" function without problem
+    loan['end_date'] = loan['start_date']
+    loan.update(loan, dbcommit=True, reindex=True)
+
     assert item.status == ItemStatus.ON_LOAN
 
     # Test extend for a blocked patron

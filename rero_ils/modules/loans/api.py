@@ -128,9 +128,11 @@ class Loan(IlsRecord):
     def can_extend(cls, item, **kwargs):
         """Loan can extend."""
         from rero_ils.modules.loans.utils import extend_loan_data_is_valid
-        if 'loan' not in kwargs:  # this method is not relevant
-            return True, []
-        loan = kwargs['loan']
+        loan = kwargs.get('loan')
+        if loan is None:  # try to load the loan from kwargs
+            loan, _unused_data = item.prior_extend_loan_actions(**kwargs)
+            if loan is None:  # not relevant method :: return True
+                return True, []
         if loan.get('state') != LoanState.ITEM_ON_LOAN:
             return False, [_('The loan cannot be extended')]
         patron = Patron.get_record_by_pid(loan.get('patron_pid'))

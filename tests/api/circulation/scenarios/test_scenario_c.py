@@ -22,6 +22,7 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
 from rero_ils.modules.items.models import ItemStatus
+from rero_ils.modules.loans.api import Loan
 
 
 def test_circ_scenario_c(
@@ -112,6 +113,11 @@ def test_circ_scenario_c(
     res, data = postdata(
         client, 'api_item.checkout', dict(circ_params))
     assert res.status_code == 200
+
+    # Update loan end_date to allow direct renewal
+    loan = Loan.get_record_by_pid(data['action_applied']['checkout']['pid'])
+    loan['end_date'] = loan['start_date']
+    loan.update(loan, dbcommit=True, reindex=True)
 
     res, data = postdata(
         client, 'api_item.extend_loan', dict(circ_params))
