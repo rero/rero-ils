@@ -45,7 +45,3 @@ _('Date not available and automatically set to 2050')
 # Harvested source
 _('ebibliomedia')
 _('mv-cantook')
-
-# Userprofile username help message
-_('Username must start with a letter or a number, be at least three characters'
-  ' long and only contain alphanumeric characters, dashes and underscores')
