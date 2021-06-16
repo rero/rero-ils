@@ -26,6 +26,8 @@ from jsonschema.exceptions import ValidationError
 
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.holdings.api import holding_id_fetcher as fetcher
+from rero_ils.modules.holdings.tasks import \
+    delete_standard_holdings_having_no_items
 
 
 def test_holding_create(db, es, document, org_martigny,
@@ -123,3 +125,23 @@ def test_holding_extended_validation(client,
     # 2.2 test electronic holding with enumeration and chronology
     holding_tmp['enumerationAndChronology'] = 'enumerationAndChronology'
     holding_tmp.validate()
+
+
+def test_holding_tasks(
+        client, holding_lib_martigny, item_lib_martigny, document,
+        loc_public_saxon):
+    """Test delete standard holdings with no items attached."""
+    # move item to a new holdings record by changing its location
+    item_lib_martigny['location'] = \
+        {'$ref': 'https://bib.rero.ch/api/locations/loc3'}
+    item = item_lib_martigny.update(
+        item_lib_martigny, dbcommit=True, reindex=True)
+    holdings_pid = holding_lib_martigny.pid
+    # parent holding has no items and it is not automatically deleted.
+    hold = Holding.get_record_by_pid(holdings_pid)
+    assert hold
+    # execute job to delete standard holdings with no attached items.
+    delete_standard_holdings_having_no_items()
+    hold = Holding.get_record_by_pid(holdings_pid)
+    # holdings no longer exist.
+    assert not hold
