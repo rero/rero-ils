@@ -27,6 +27,7 @@ from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.search.api import LoansSearch
 from utils import flush_index, postdata
 
+from rero_ils.modules.items.api import Item
 from rero_ils.modules.loans.api import Loan, LoanAction, LoanState
 from rero_ils.modules.notifications.api import Notification, \
     NotificationsSearch, number_of_reminders_sent
@@ -277,6 +278,13 @@ def test_selfcheck_circulation(client, selfcheck_librarian_martigny, document,
     assert checkout
     assert checkout.is_success
     assert checkout.due_date
+
+    # Get the loan and update end_date to allow direct renewal
+    loan_pid = Item.get_loan_pid_with_item_on_loan(item_lib_martigny.pid)
+    loan = Loan.get_record_by_pid(loan_pid)
+    assert 'selfcheck_terminal_id' in loan
+    loan['end_date'] = loan['start_date']
+    loan.update(loan, dbcommit=True, reindex=True)
 
     # selfcheck renew
     renew = selfcheck_renew(

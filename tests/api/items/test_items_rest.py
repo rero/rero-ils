@@ -641,11 +641,14 @@ def test_items_extend_end_date(client, librarian_martigny,
     loan = Loan.get_record_by_pid(loan_pid)
     assert not item.get_extension_count()
 
-    max_count = get_extension_params(loan=loan, parameter_name='max_count')
     renewal_duration_policy = circ_policy_short_martigny['renewal_duration']
     renewal_duration = get_extension_params(
         loan=loan, parameter_name='duration_default')
     assert renewal_duration_policy <= renewal_duration.days
+
+    # Update loan end_date to allow direct renewal
+    loan['end_date'] = loan['start_date']
+    loan.update(loan, dbcommit=True, reindex=True)
 
     # extend loan
     res, data = postdata(

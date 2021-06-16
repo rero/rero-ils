@@ -19,7 +19,7 @@
 
 
 import pytest
-from invenio_circulation.errors import NoValidTransitionAvailableError
+from invenio_circulation.errors import CirculationException
 from utils import item_record_to_a_specific_loan_state
 
 from rero_ils.modules.errors import NoCirculationAction
@@ -60,13 +60,12 @@ def test_extend_on_item_at_desk(
     with pytest.raises(NoCirculationAction):
         item, actions = item.extend_loan(**params)
     assert item.status == ItemStatus.AT_DESK
-    # test fails if a loan pid is given
     params = {
         'pid': loan.pid,
         'transaction_location_pid': loc_public_martigny.pid,
         'transaction_user_pid': librarian_martigny.pid
     }
-    with pytest.raises(NoValidTransitionAvailableError):
+    with pytest.raises(CirculationException):
         item, actions = item.extend_loan(**params)
     assert item.status == ItemStatus.AT_DESK
 
@@ -79,6 +78,10 @@ def test_extend_on_item_on_loan_with_no_requests(
     # the following tests the circulation action EXTEND_3_1
     # for an on_loan item with no requests, the extend action is possible.
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
+
+    # Update loan `end_date` to play with "extend" function without problem
+    loan['end_date'] = loan['start_date']
+    loan.update(loan, dbcommit=True, reindex=True)
 
     params = {
         'transaction_location_pid': loc_public_martigny.pid,
@@ -147,7 +150,7 @@ def test_extend_on_item_in_transit_for_pickup(
         'transaction_location_pid': loc_public_martigny.pid,
         'transaction_user_pid': librarian_martigny.pid
     }
-    with pytest.raises(NoValidTransitionAvailableError):
+    with pytest.raises(CirculationException):
         item, actions = item.extend_loan(**params)
     assert item.status == ItemStatus.IN_TRANSIT
 
@@ -174,6 +177,6 @@ def test_extend_on_item_in_transit_to_house(
         'transaction_location_pid': loc_public_martigny.pid,
         'transaction_user_pid': librarian_martigny.pid
     }
-    with pytest.raises(NoValidTransitionAvailableError):
+    with pytest.raises(CirculationException):
         item, actions = item.extend_loan(**params)
     assert item.status == ItemStatus.IN_TRANSIT
