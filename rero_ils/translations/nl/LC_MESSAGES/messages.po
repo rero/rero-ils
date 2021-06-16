@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
-"POT-Creation-Date: 2021-06-14 13:54+0200\n"
+"POT-Creation-Date: 2021-06-16 13:57+0200\n"
 "PO-Revision-Date: 2021-02-04 14:34+0000\n"
 "Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
 "Language: nl\n"
@@ -55,109 +55,109 @@ msgstr ""
 msgid "Your RERO ID password has been reset"
 msgstr ""
 
-#: rero_ils/config.py:1734
+#: rero_ils/config.py:1733
 msgid "author"
 msgstr "auteur"
 
-#: rero_ils/config.py:1735 rero_ils/config.py:1792
+#: rero_ils/config.py:1734 rero_ils/config.py:1791
 msgid "document_type"
 msgstr "type van document"
 
-#: rero_ils/config.py:1736 rero_ils/config.py:1794
+#: rero_ils/config.py:1735 rero_ils/config.py:1793
 msgid "document_subtype"
 msgstr "Subtype van document"
 
-#: rero_ils/config.py:1737
+#: rero_ils/config.py:1736
 msgid "language"
 msgstr "taal"
 
-#: rero_ils/config.py:1738
+#: rero_ils/config.py:1737
 msgid "organisation"
 msgstr "organisatie"
 
-#: rero_ils/config.py:1741 rero_ils/config.py:1796 rero_ils/config.py:1861
-#: rero_ils/config.py:1883 rero_ils/config.py:1905 rero_ils/config.py:2002
-#: rero_ils/config.py:2042
+#: rero_ils/config.py:1740 rero_ils/config.py:1795 rero_ils/config.py:1860
+#: rero_ils/config.py:1882 rero_ils/config.py:1904 rero_ils/config.py:2001
+#: rero_ils/config.py:2041
 msgid "library"
 msgstr "bibliotheek"
 
-#: rero_ils/config.py:1742 rero_ils/config.py:2003
+#: rero_ils/config.py:1741 rero_ils/config.py:2002
 msgid "subject"
 msgstr "onderwerp"
 
-#: rero_ils/config.py:1743 rero_ils/config.py:1799 rero_ils/config.py:1884
-#: rero_ils/config.py:1906 rero_ils/config.py:2039
+#: rero_ils/config.py:1742 rero_ils/config.py:1798 rero_ils/config.py:1883
+#: rero_ils/config.py:1905 rero_ils/config.py:2038
 msgid "status"
 msgstr "status"
 
-#: rero_ils/config.py:1744
+#: rero_ils/config.py:1743
 #, fuzzy
 msgid "new_acquisition"
 msgstr "Aankoopvoorwaarden"
 
-#: rero_ils/config.py:1797
+#: rero_ils/config.py:1796
 #, fuzzy
 msgid "location"
 msgstr "Locatie"
 
-#: rero_ils/config.py:1798
+#: rero_ils/config.py:1797
 #, fuzzy
 msgid "item_type"
 msgstr "Type van exemplaar"
 
-#: rero_ils/config.py:1800
+#: rero_ils/config.py:1799
 #, fuzzy
 msgid "issue_status"
 msgstr "Nummer status"
 
-#: rero_ils/config.py:1801
+#: rero_ils/config.py:1800
 #, fuzzy
 msgid "vendor"
 msgstr "Verkoper"
 
-#: rero_ils/config.py:1838
+#: rero_ils/config.py:1837
 msgid "roles"
 msgstr "rollen"
 
-#: rero_ils/config.py:1839
+#: rero_ils/config.py:1838
 #, fuzzy
 msgid "city"
 msgstr "Stad"
 
-#: rero_ils/config.py:1840
+#: rero_ils/config.py:1839
 #, fuzzy
 msgid "patron_type"
 msgstr "Lezerstype"
 
-#: rero_ils/config.py:1862
+#: rero_ils/config.py:1861
 msgid "budget"
 msgstr "begroting"
 
-#: rero_ils/config.py:1931
+#: rero_ils/config.py:1930
 msgid "sources"
 msgstr "bron"
 
-#: rero_ils/config.py:1932 rero_ils/config.py:1957 rero_ils/config.py:2001
+#: rero_ils/config.py:1931 rero_ils/config.py:1956 rero_ils/config.py:2000
 #, fuzzy
 msgid "type"
 msgstr "Type"
 
-#: rero_ils/config.py:1958
+#: rero_ils/config.py:1957
 #, fuzzy
 msgid "visibility"
 msgstr "beschikbaarheid"
 
-#: rero_ils/config.py:2004
+#: rero_ils/config.py:2003
 #, fuzzy
 msgid "teacher"
 msgstr "Andere"
 
-#: rero_ils/config.py:2040
+#: rero_ils/config.py:2039
 #, fuzzy
 msgid "loan_status"
 msgstr "Tataars"
 
-#: rero_ils/config.py:2041
+#: rero_ils/config.py:2040
 #, fuzzy
 msgid "requester"
 msgstr "Opgevraagd"
@@ -4622,7 +4622,7 @@ msgstr "lening looptijd vermelding"
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:76
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:148
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:66
-#: rero_ils/modules/selfcheck/api.py:298
+#: rero_ils/modules/selfcheck/api.py:300
 msgid "overdue"
 msgstr "achterstallig"
 
@@ -8770,25 +8770,25 @@ msgstr "artikel"
 msgid "Export Formats"
 msgstr "Export formaten"
 
-#: rero_ils/modules/holdings/api.py:142
+#: rero_ils/modules/holdings/api.py:143
 msgid "Document does not exist {pid}."
 msgstr ""
 
-#: rero_ils/modules/holdings/api.py:149
+#: rero_ils/modules/holdings/api.py:150
 msgid "Must have next expected date for regular frequencies."
 msgstr ""
 
-#: rero_ils/modules/holdings/api.py:152
+#: rero_ils/modules/holdings/api.py:153
 msgid ""
 "Electronic Holding is not attached to the correct                     "
 "document type. document: {pid}"
 msgstr ""
 
-#: rero_ils/modules/holdings/api.py:167
+#: rero_ils/modules/holdings/api.py:168
 msgid "{field} is allowed only for serial holdings"
 msgstr ""
 
-#: rero_ils/modules/holdings/api.py:172 rero_ils/modules/ill_requests/api.py:75
+#: rero_ils/modules/holdings/api.py:173 rero_ils/modules/ill_requests/api.py:75
 #: rero_ils/modules/items/api/record.py:81
 msgid "Can not have multiple notes of same type."
 msgstr ""
@@ -10915,12 +10915,12 @@ msgstr ""
 "Weigering van transacties: het maximale bedrag aan laattijdige "
 "vergoedingen wordt bereikt."
 
-#: rero_ils/modules/patrons/views.py:182
+#: rero_ils/modules/patrons/views.py:184
 #, fuzzy
 msgid "Patron Profile"
 msgstr "Lezerstype"
 
-#: rero_ils/modules/patrons/views.py:241
+#: rero_ils/modules/patrons/views.py:243
 msgid "You have a pending subscription fee."
 msgstr "U heeft nog een hangend abonnementsgeld."
 
@@ -11128,12 +11128,17 @@ msgstr ""
 msgid "Selfcheck Terminal Management"
 msgstr ""
 
-#: rero_ils/modules/selfcheck/api.py:368
+#: rero_ils/modules/selfcheck/api.py:369
 msgid "Checkout impossible: the item is requested by another patron"
 msgstr ""
 
-#: rero_ils/modules/selfcheck/api.py:372 rero_ils/modules/selfcheck/api.py:427
+#: rero_ils/modules/selfcheck/api.py:373 rero_ils/modules/selfcheck/api.py:429
+#: rero_ils/modules/selfcheck/api.py:497
 msgid "Error encountered: please contact a librarian"
+msgstr ""
+
+#: rero_ils/modules/selfcheck/api.py:494
+msgid "No circulation action is possible"
 msgstr ""
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:5
