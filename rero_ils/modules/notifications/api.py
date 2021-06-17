@@ -126,7 +126,8 @@ class Notification(IlsRecord):
         """Update process date."""
         self['process_date'] = datetime.utcnow().isoformat()
         self['notification_sent'] = sent
-        return self.update(data=self.dumps(), dbcommit=True, reindex=True)
+        return self.update(
+            data=self.dumps(), commit=True, dbcommit=True, reindex=True)
 
     def replace_pids_and_refs(self):
         """Dumps data."""

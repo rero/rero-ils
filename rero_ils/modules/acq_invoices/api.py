@@ -82,10 +82,10 @@ class AcquisitionInvoice(IlsRecord):
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
         return record
 
-    def update(self, data, dbcommit=True, reindex=True):
+    def update(self, data, commit=True, dbcommit=True, reindex=True):
         """Update Acquisition Invoice record."""
         self._build_total_amount_of_invoice(data)
-        super().update(data, dbcommit, reindex)
+        super().update(data, commit, dbcommit, reindex)
         return self
 
     @classmethod

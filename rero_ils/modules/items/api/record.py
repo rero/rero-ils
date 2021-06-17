@@ -122,7 +122,7 @@ class ItemRecord(IlsRecord):
             holding.commit()
         return record
 
-    def update(self, data, dbcommit=False, reindex=False):
+    def update(self, data, commit=True, dbcommit=False, reindex=False):
         """Update an item record.
 
         :param data: The record to update.
@@ -132,11 +132,11 @@ class ItemRecord(IlsRecord):
         """
         data = self._set_issue_status_date(data)
         data = self._prepare_item_record(data=data, mode='update')
-        super().update(data, dbcommit, reindex)
+        super().update(data, commit, dbcommit, reindex)
         # TODO: some item updates do not require holding re-linking
         return self
 
-    def replace(self, data, dbcommit=False, reindex=False):
+    def replace(self, data, commit=True, dbcommit=False, reindex=False):
         """Replace an item record.
 
         :param data: The record to replace.
@@ -146,7 +146,7 @@ class ItemRecord(IlsRecord):
         """
         # update item record with a generated barcode if does not exist
         data = generate_item_barcode(data=data)
-        super().replace(data, dbcommit, reindex)
+        super().replace(data, commit, dbcommit, reindex)
         return self
 
     @classmethod

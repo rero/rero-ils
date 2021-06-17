@@ -1869,7 +1869,6 @@ def test_marc21_to_provisionActivity_1_place_2_agents_with_two_752():
      """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    print('T1000', data)
     assert data.get('provisionActivity') == [
         {
             'type': 'bf:Publication',
