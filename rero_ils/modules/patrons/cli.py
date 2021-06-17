@@ -39,7 +39,7 @@ from werkzeug.local import LocalProxy
 from .api import User, create_patron_from_data
 from ..patrons.api import Patron, PatronProvider
 from ..providers import append_fixtures_new_identifiers
-from ..utils import get_schema_for_resource, read_json_record
+from ..utils import JsonWriter, get_schema_for_resource, read_json_record
 
 datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 records_state = LocalProxy(lambda: current_app.extensions['invenio-records'])
@@ -150,12 +150,9 @@ def import_users(infile, append, verbose, password, lazy, dont_stop_on_error,
         name, ext = os.path.splitext(infile.name)
         err_file_name = f'{name}_errors{ext}'
         click.secho(f'Write error file: {err_file_name}')
-        with open(err_file_name, 'w') as error_file:
-            error_file.write('[\n')
-            for error_record in error_records:
-                for line in json.dumps(error_record, indent=2).split('\n'):
-                    error_file.write('  ' + line + '\n')
-            error_file.write(']')
+        error_file = JsonWriter(err_file_name)
+        for error_record in error_records:
+            error_file.write(error_record)
 
 
 @click.command('users_validate')
