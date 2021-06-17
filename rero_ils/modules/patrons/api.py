@@ -199,11 +199,11 @@ class Patron(IlsRecord):
         record._update_roles()
         return record
 
-    def update(self, data, dbcommit=False, reindex=False):
+    def update(self, data,  commit=True, dbcommit=False, reindex=False):
         """Update data for record."""
         # remove spaces
         data = trim_patron_barcode_for_record(data=data)
-        super().update(data, dbcommit, reindex)
+        super().update(data, commit, dbcommit, reindex)
         self._update_roles()
         return self
 

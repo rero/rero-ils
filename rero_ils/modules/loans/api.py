@@ -248,16 +248,17 @@ class Loan(IlsRecord):
             reindex=reindex, **kwargs)
         return record
 
-    def update(self, data, dbcommit=False, reindex=False):
+    def update(self, data, commit=False, dbcommit=False, reindex=False):
         """Update loan record."""
         self._loan_build_org_ref(data)
         # set the field to_anonymize
         if Loan.can_anonymize(loan_data=data) and not self.get('to_anonymize'):
             data['to_anonymize'] = True
-        super(Loan, self).update(data, dbcommit, reindex)
+        super().update(
+            data=data, commit=commit, dbcommit=dbcommit, reindex=reindex)
         return self
 
-    def anonymize(self, loan, dbcommit=False, reindex=False):
+    def anonymize(self, loan, commit=True, dbcommit=False, reindex=False):
         """Anonymize a loan.
 
         :param loan: the loan to update.
@@ -265,7 +266,7 @@ class Loan(IlsRecord):
         :param reindex - index the record after the creation.
         """
         loan['to_anonymize'] = True
-        super().update(loan, dbcommit, reindex)
+        super().update(loan, commit, dbcommit, reindex)
 
         # Anonymize loan operation logs
         # Import at top causes errors...

@@ -84,10 +84,10 @@ class AcqOrder(IlsRecord):
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
         return record
 
-    def update(self, data, dbcommit=False, reindex=False):
+    def update(self, data,  commit=True, dbcommit=False, reindex=False):
         """Update acq order record."""
         self._acq_order_build_org_ref(data)
-        super().update(data, dbcommit, reindex)
+        super().update(data, commit, dbcommit, reindex)
         return self
 
     @classmethod

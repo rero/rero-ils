@@ -317,8 +317,16 @@ class IlsRecord(Record):
         else:
             raise IlsRecordError.NotDeleted()
 
-    def update(self, data, dbcommit=False, reindex=False):
-        """Update data for record."""
+    def update(self, data, commit=False, dbcommit=False, reindex=False):
+        """Update data for record.
+
+        :param data: a dict data to update the record.
+        :param commit: if True push the db transaction.
+        :param dbcommit: if True call dbcommit, make the change effective
+                         in db.
+        :param redindex: reindex the record.
+        :returns: the modified record
+        """
         pid = data.get('pid')
         if pid:
             db_record = self.get_record_by_id(self.id)
@@ -332,20 +340,22 @@ class IlsRecord(Record):
                 )
         record = self
         super().update(data)
+        if commit or dbcommit:
+            self.commit()
         if dbcommit:
             record = self.dbcommit(reindex)
             record = self.get_record_by_id(self.id)
         return record
 
-    def replace(self, data, dbcommit=False, reindex=False):
+    def replace(self, data, commit=True, dbcommit=False, reindex=False):
         """Replace data in record."""
         new_data = deepcopy(data)
         pid = new_data.get('pid')
         if not pid:
             raise IlsRecordError.PidMissing(f'missing pid={self.pid}')
         self.clear()
-        self = self.update(new_data, dbcommit=dbcommit, reindex=reindex)
-        return self
+        return self.update(
+            new_data, commit=commit, dbcommit=dbcommit, reindex=reindex)
 
     def revert(self, revision_id, reindex=False):
         """Revert the record to a specific revision."""
@@ -372,7 +382,6 @@ class IlsRecord(Record):
 
     def dbcommit(self, reindex=False, forceindex=False):
         """Commit changes to db."""
-        self = super().commit()
         db.session.commit()
         if reindex:
             self.reindex(forceindex=forceindex)

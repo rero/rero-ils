@@ -153,6 +153,8 @@ class ItemCirculation(ItemRecord):
                     'item_pid': item_pid_to_object(item.pid),
                     'patron_pid': patron_pid
                 }
+                data.setdefault(
+                    'transaction_date', datetime.utcnow().isoformat())
                 loan = Loan.create(data, dbcommit=True, reindex=True)
             if not patron_pid and loan:
                 kwargs.setdefault('patron_pid', loan.patron_pid)
@@ -1122,6 +1124,7 @@ class ItemCirculation(ItemRecord):
         else:
             if item['status'] != ItemStatus.MISSING and on_shelf:
                 item['status'] = ItemStatus.ON_SHELF
+        item.commit()
         if dbcommit:
             item.dbcommit(reindex=True, forceindex=True)
 

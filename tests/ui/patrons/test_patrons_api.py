@@ -339,7 +339,7 @@ def test_patron_multiple(patron_sion_multiple, patron2_martigny, lib_martigny):
     assert set(patron2_martigny.user.roles) == set(['librarian', 'patron'])
     data['roles'] = ['patron']
     del data['libraries']
-    patron_sion_multiple.update(data, True, True)
+    patron_sion_multiple.update(data, dbcommit=True, reindex=True)
     assert patron2_martigny.user.roles == ['patron']
     assert Patron.get_record_by_pid(patron_sion_multiple.pid).get('roles') == \
         ['patron']

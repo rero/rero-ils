@@ -91,9 +91,10 @@ class PatronTransactionEvent(IlsRecord):
     # TODO: do we have to set dbcomit and reindex to True so the
     # of the rest api for create and update works properly ?
     # For PatronTransaction we have to set it to True for the tests.
-    def update(self, data, dbcommit=True, reindex=True):
+    def update(self, data, commit=True, dbcommit=True, reindex=True):
         """Update data for record."""
-        record = super().update(data=data, dbcommit=dbcommit, reindex=reindex)
+        record = super().update(
+            data=data, commit=commit, dbcommit=dbcommit, reindex=reindex)
         return record
 
     @classmethod

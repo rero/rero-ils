@@ -82,13 +82,13 @@ class AcqOrderLine(IlsRecord):
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
         return record
 
-    def update(self, data, dbcommit=True, reindex=True):
+    def update(self, data, commit=True, dbcommit=True, reindex=True):
         """Update Acquisition Order Line record."""
         new_data = deepcopy(dict(self))
         new_data.update(data)
         self._acq_order_line_build_org_ref(new_data)
         self._build_total_amount_for_order_line(new_data)
-        super().update(new_data, dbcommit, reindex)
+        super().update(new_data, commit, dbcommit, reindex)
         return self
 
     @classmethod

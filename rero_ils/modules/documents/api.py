@@ -311,7 +311,8 @@ class Document(IlsRecord):
             'url': url
         })
         self['electronicLocator'] = electronic_locators
-        self = self.update(data=self, dbcommit=dbcommit, reindex=reindex)
+        self = self.update(
+            data=self, commit=True, dbcommit=dbcommit, reindex=reindex)
         return self, True
 
 
