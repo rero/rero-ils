@@ -77,9 +77,9 @@ from .operation_logs.cli import create_operation_logs, dump_operation_logs
 from .patrons.cli import import_users, users_validate
 from .selfcheck.cli import terminal_create
 from .tasks import process_bulk_queue
-from .utils import bulk_load_metadata, bulk_load_pids, bulk_load_pidstore, \
-    bulk_save_metadata, bulk_save_pids, bulk_save_pidstore, \
-    csv_metadata_line, csv_pidstore_line, \
+from .utils import JsonWriter, bulk_load_metadata, bulk_load_pids, \
+    bulk_load_pidstore, bulk_save_metadata, bulk_save_pids, \
+    bulk_save_pidstore, csv_metadata_line, csv_pidstore_line, \
     get_record_class_from_schema_or_pid_type, number_records_in_file, \
     read_json_record, read_xml_record
 from ..modules.providers import append_fixtures_new_identifiers
@@ -341,9 +341,7 @@ def create(infile, create_or_update, append, reindex, dbcommit, commit,
         errors = 0
         name, ext = os.path.splitext(infile.name)
         err_file_name = f'{name}_errors{ext}'
-        error_file = open(err_file_name, 'w')
-        error_file.write('[\n')
-        error_file.close()
+        error_file = JsonWrite(err_file_name)
 
     pids = []
     if lazy:
@@ -385,9 +383,7 @@ def create(infile, create_or_update, append, reindex, dbcommit, commit,
                 traceback.print_exc()
 
             if save_errors:
-                if errors > 0:
-                    error_file.write(',\n')
-                error_file.write(json.dumps(record, indent=2))
+                error_file.write(record)
             if not dont_stop_on_error:
                 sys.exit(1)
         db.session.flush()
@@ -397,9 +393,6 @@ def create(infile, create_or_update, append, reindex, dbcommit, commit,
             db.session.commit()
     click.echo(f'DB commit: {count}')
     db.session.commit()
-
-    if save_errors:
-        error_file.write(']')
 
     if append:
         click.secho(f'Append fixtures new identifiers: {len(pids)}')
@@ -453,19 +446,18 @@ def count_cli(infile, lazy):
               help='verbose')
 @click.option('-w', '--wait', 'wait', is_flag=True, default=False,
               help="wait for enqueued tasks to finish")
-@click.option('-o', '--out_file', 'outfile', type=click.File('w'),
-              default=None)
+@click.option('-o', '--out_file', 'outfile_name', default=None)
 @with_appcontext
-def get_all_mef_records(infile, lazy, verbose, enqueue, wait, outfile):
+def get_all_mef_records(infile, lazy, verbose, enqueue, wait, outfile_name):
     """Get all contributions for given document file."""
     click.secho(
         f'Get all contributions for {infile.name}.',
         fg='green'
     )
-    if outfile:
-        outfile.write('[')
+    if outfile_name:
+        outfile = JsonWriter(outfile_name)
         contribution_schema = get_schema_for_resource('cont')
-        click.secho('Write to {file_name}.'.format(file_name=outfile.name))
+        click.secho(f'Write to: {outfile_name}.')
     if lazy:
         # try to lazy read json file (slower, better memory management)
         records = read_json_record(infile)
@@ -474,13 +466,12 @@ def get_all_mef_records(infile, lazy, verbose, enqueue, wait, outfile):
         records = json.load(infile)
     count = 0
     refs = {}
-    for record in records:
+    for count, record in enumerate(records, 1):
         for contribution in record.get('contribution', []):
             ref = contribution['agent'].get('$ref')
             if ref and not refs.get(ref):
-                count += 1
                 refs[ref] = 1
-                if outfile:
+                if outfile_name:
                     try:
                         ref_split = ref.split('/')
                         ref_type = ref_split[-2]
@@ -491,10 +482,7 @@ def get_all_mef_records(infile, lazy, verbose, enqueue, wait, outfile):
                         )
                         metadata = data['metadata']
                         metadata['$schema'] = contribution_schema
-                        if count > 1:
-                            outfile.write(',')
-                        for line in json.dumps(metadata, indent=2).split('\n'):
-                            outfile.write('\n  ' + line)
+                        outfile.write(metadata)
                         msg = 'ok'
                     except Exception as err:
                         msg = err
@@ -506,8 +494,6 @@ def get_all_mef_records(infile, lazy, verbose, enqueue, wait, outfile):
                         msg = f'contribution pid: {pid} {online}'
                 if verbose:
                     click.echo(f"{count:<10}ref: {ref}\t{msg}")
-    if outfile:
-        outfile.write('\n]\n')
     else:
         if enqueue and wait:
             wait_empty_tasks(delay=3, verbose=True)
@@ -704,44 +690,60 @@ def check_license(configfile, verbose, progress):
 @click.argument('jsonfile', type=click.File('r'))
 @click.argument('type', default='doc')
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
-@click.option('-e', '--error_file', 'error_file', type=click.File('w'),
-              default=None)
-@click.option('-o', '--ok_file', 'ok_file', type=click.File('w'), default=None)
+@click.option('-d', '--debug', 'debug', is_flag=True, default=False)
+@click.option('-e', '--error_file', 'error_file_name', default=None,
+              help='error file')
+@click.option('-o', '--ok_file', 'ok_file_name', default=None,
+              help='ok file')
 @with_appcontext
-def check_validate(jsonfile, type, verbose, error_file, ok_file):
+def check_validate(jsonfile, type, verbose, debug, error_file_name,
+                   ok_file_name):
     """Check record validation."""
-    click.secho('Testing json schema for file', fg='green')
+    click.secho(
+        f'Testing json schema for file: {jsonfile.name} type: {type}',
+        fg='green'
+    )
 
-    path = current_jsonschemas.url_to_path(get_schema_for_resource(type))
-    schema = current_jsonschemas.get_schema(path=path)
+    schema_path = current_jsonschemas.url_to_path(
+        get_schema_for_resource(type))
+    schema = current_jsonschemas.get_schema(path=schema_path)
     schema = _records_state.replace_refs(schema)
 
     datas = json.load(jsonfile)
     count = 0
-    for data in datas:
-        count += 1
+    if error_file_name:
+        error_file = JsonWriter(error_file_name)
+    if ok_file_name:
+        ok_file = JsonWriter(ok_file_name)
+    for count, data in enumerate(datas, 1):
         if verbose:
             click.echo(f'\tTest record: {count}')
-        if not data.get("$schema"):
-            # create dummy schema in data
-            data["$schema"] = 'dummy'
-        if not data.get("pid"):
+        if not data.get('$schema'):
+            scheme = current_app.config.get('JSONSCHEMAS_URL_SCHEME')
+            host = current_app.config.get('JSONSCHEMAS_HOST')
+            endpoint = current_app.config.get('JSONSCHEMAS_ENDPOINT')
+            url_schema = f'{scheme}://{host}{endpoint}{schema_path}'
+            data['$schema'] = url_schema
+        if not data.get('pid'):
             # create dummy pid in data
-            data["pid"] = 'dummy'
+            data['pid'] = 'dummy'
         try:
             validate(data, schema)
-            if ok_file:
-                if data["pid"] == 'dummy':
-                    del data["pid"]
-                ok_file.write(json.dumps(data, indent=2))
-        except ValidationError as err:
-            if error_file:
-                error_file.write(json.dumps(data, indent=2))
+            if ok_file_name:
+                if data['pid'] == 'dummy':
+                    del data['pid']
+                ok_file.write(data)
+        except ValidationError:
+            trace_lines = traceback.format_exc(1).split('\n')
+            trace = trace_lines[5].strip()
             click.secho(
-                f'Error validate in record: {count}',
+                f'Error validate in record: {count} {trace}',
                 fg='red'
             )
-            click.secho(str(err))
+            if error_file_name:
+                error_file.write(data)
+            if debug:
+                pprint(data)
 
 
 def do_worker(marc21records, results, pid_required, debug, schema=None):
@@ -1449,14 +1451,13 @@ def dump_es_mappings(verbose, outfile):
 @utils.command('export')
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
 @click.option('-t', '--pid_type', 'pid_type', default='doc')
-@click.option('-o', '--outfile', 'outfile', required=True,
-              type=click.File('w'))
+@click.option('-o', '--outfile', 'outfile_name', required=True)
 @click.option('-i', '--pidfile', 'pidfile', type=click.File('r'),
               default=None)
 @click.option('-I', '--indent', 'indent', type=click.INT, default=2)
 @click.option('-s', '--schema', 'schema', is_flag=True, default=False)
 @with_appcontext
-def export(verbose, pid_type, outfile, pidfile, indent, schema):
+def export(verbose, pid_type, outfile_name, pidfile, indent, schema):
     """Export REROILS record.
 
     :param verbose: verbose
@@ -1466,7 +1467,8 @@ def export(verbose, pid_type, outfile, pidfile, indent, schema):
     :param indent: indent for output
     :param schema: do not delete $schema
     """
-    click.secho(f'Export {pid_type} records: {outfile.name}', fg='green')
+    click.secho(f'Export {pid_type} records: {outfile_name}', fg='green')
+    outfile = JsonWriter(outfile_name)
     record_class = get_record_class_from_schema_or_pid_type(pid_type=pid_type)
 
     if pidfile:
@@ -1486,8 +1488,6 @@ def export(verbose, pid_type, outfile, pidfile, indent, schema):
                     f'{count: <8} {pid_type} export {rec.pid}:{rec.id}')
 
             outfile.write(output)
-            if count > 1:
-                outfile.write(',')
             if not schema:
                 rec.pop('$schema', None)
                 contributions_sources = current_app.config.get(
@@ -1504,8 +1504,6 @@ def export(verbose, pid_type, outfile, pidfile, indent, schema):
         except Exception as err:
             click.echo(err)
             click.echo(f'ERROR: Can not export pid:{pid}')
-    outfile.write(output)
-    outfile.write('\n]\n')
 
 
 def create_personal(

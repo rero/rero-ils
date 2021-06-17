@@ -37,7 +37,7 @@ def test_cli_validate(app, script_info):
         obj=script_info
     )
     assert res.output.strip().split('\n') == [
-        'Testing json schema for file',
+        f'Testing json schema for file: {file_name} type: doc',
         '\tTest record: 1',
         '\tTest record: 2'
     ]

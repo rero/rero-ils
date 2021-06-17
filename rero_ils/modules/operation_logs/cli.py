@@ -27,7 +27,7 @@ from invenio_search.api import RecordsSearch
 
 from rero_ils.modules.operation_logs.api import OperationLog
 
-from ..utils import read_json_record
+from ..utils import JsonWriter, read_json_record
 
 
 @click.command('create_operation_logs')
@@ -65,10 +65,10 @@ def create_operation_logs(infile, lazy, size):
 
 
 @click.command('dump_operation_logs')
+@click.argument('outfile_name')
 @click.option('-y', '--year', 'year', type=int)
-@click.argument('outfile', type=click.File('w'))
 @with_appcontext
-def dump_operation_logs(outfile, year):
+def dump_operation_logs(outfile_name, year):
     """Dumps operation log records in a given file.
 
     :param outfile: JSON operation log output file.
@@ -80,11 +80,9 @@ def dump_operation_logs(outfile, year):
     search = RecordsSearch(index=index_name)
 
     index_count = 0
-    outfile.write('[\n')
+    outfile = JsonWriter(outfile_name)
     with click.progressbar(search.scan()) as bar:
         for oplg in bar:
             outfile.write(str(oplg.to_dict()))
-            outfile.write(',\n')
             index_count += 1
-        outfile.write('\n]')
     click.echo(f'created {index_count} operation logs.')

@@ -43,7 +43,7 @@ from ..patron_transaction_events.api import PatronTransactionEvent
 from ..patron_transactions.api import PatronTransaction
 from ..patron_types.api import PatronType
 from ..patrons.api import Patron, PatronsSearch
-from ..utils import extracted_data_from_ref, get_ref_for_pid, \
+from ..utils import JsonWriter, extracted_data_from_ref, get_ref_for_pid, \
     get_schema_for_resource, read_json_record
 
 
@@ -110,8 +110,7 @@ def load_virtua_transactions(
     if save_errors:
         name, ext = os.path.splitext(infile.name)
         err_file_name = f'{name}_errors{ext}'
-        error_file = open(err_file_name, 'w')
-        error_file.write('[\n')
+        error_file = JsonWriter(err_file_name)
 
     if lazy:
         records = read_json_record(infile)
@@ -122,9 +121,7 @@ def load_virtua_transactions(
         )
     click.secho(text, fg='green')
 
-    counter = 0
-    for transaction in file_data:
-        counter = counter + 1
+    for counter, transaction in enumerate(file_data, 1):
         missing_fields = check_missing_fields(transaction, transaction_type)
         if missing_fields:
             text = '\ntransaction # {counter} missing fields: {fields}'.format(
@@ -133,7 +130,7 @@ def load_virtua_transactions(
                 )
             click.secho(text, fg='red')
             if save_errors:
-                error_file.write(json.dumps(transaction, indent=2))
+                error_file.write(transaction)
             continue
 
         if transaction_type == 'fine':
@@ -144,7 +141,7 @@ def load_virtua_transactions(
                         counter=counter)
                 click.secho(text, fg='red')
                 if save_errors:
-                    error_file.write(json.dumps(transaction, indent=2))
+                    error_file.write(transaction)
                 continue
 
             try:
@@ -163,7 +160,7 @@ def load_virtua_transactions(
                     )
                 click.secho(text, fg='red')
                 if save_errors:
-                    error_file.write(json.dumps(transaction, indent=2))
+                    error_file.write(transaction)
 
         elif transaction_type in ['checkout', 'request']:
             item = Item.get_record_by_pid(transaction.get('item_pid'))
@@ -174,7 +171,7 @@ def load_virtua_transactions(
                     )
                 click.secho(text, fg='red')
                 if save_errors:
-                    error_file.write(json.dumps(transaction, indent=2))
+                    error_file.write(transaction)
                     continue
             else:
                 build_loan_record(transaction, transaction_type, item)
@@ -196,10 +193,7 @@ def load_virtua_transactions(
                     )
                 click.secho(text, fg='red')
                 if save_errors:
-                    error_file.write(json.dumps(transaction, indent=2))
-    if save_errors:
-        error_file.write(']')
-        error_file.close()
+                    error_file.write(transaction)
 
 
 @click.command('create_loans')
