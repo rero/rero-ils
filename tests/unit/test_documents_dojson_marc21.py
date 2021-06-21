@@ -22,7 +22,6 @@ from __future__ import absolute_import, print_function
 from copy import deepcopy
 
 import mock
-from flask_babelex import gettext as _
 
 from rero_ils.modules.documents.dojson.contrib.jsontomarc21 import to_marc21
 
@@ -62,9 +61,15 @@ def test_pid_to_marc21(app, marc21_record):
     result = to_marc21.do(record)
     record = deepcopy(marc21_record)
     record.update({
-        '__order__': ('leader', '001', '008'),
+        '__order__': ('leader', '001', '008', '264_1'),
         '001': '12345678',
         '008': '000000|20072020xx#|||||||||||||||||fre|c',
+        '264_1': {
+            '__order__': ('a', 'b', 'c'),
+            'a': 'Paris',
+            'b': 'Ed. Cornélius',
+            'c': '2007-2020'
+        }
     })
     assert result == record
 
@@ -183,6 +188,134 @@ def test_title_to_marc21(app, marc21_record):
             '__order__': ('a', 'b'),
             'a': 'Suisse',
             'b': 'Schweiz. Svizzera : Le guide Michelin 2020'
+        }
+    })
+    assert result == record
+
+
+def test_provision_activity_copyright_date_to_marc21(app, marc21_record):
+    """Test provisionActivity and copyrightDate to MARC21 transformation."""
+    record = {
+        "provisionActivity": [{
+            "place": [{
+                "canton": "vd",
+                "country": "sz",
+                "type": "bf:Place"
+            }],
+            "startDate": 1980,
+            "statement": [{
+                "label": [{
+                    "value": "Lausanne"
+                }],
+                "type": "bf:Place"
+            }, {
+                "label": [{
+                        "value": "Institut Benjamin Constant"
+                }],
+                "type": "bf:Agent"
+            }, {
+                "label": [{
+                    "value": "Genève"
+                }],
+                "type": "bf:Place"
+            }, {
+                "label": [{
+                    "value": "Slatkine"
+                }],
+                "type": "bf:Agent"
+            }, {
+                "label": [{
+                    "value": "Paris"
+                }],
+                "type": "bf:Place"
+            }, {
+                "label": [{
+                    "value": "diff. France : H. Champion"
+                }],
+                "type": "bf:Agent"
+            }, {
+                "label": [{
+                    "value": "1980-"
+                }],
+                "type": "Date"
+            }],
+            "type": "bf:Publication"
+        }]
+    }
+    result = to_marc21.do(record)
+    record = deepcopy(marc21_record)
+    record.update({
+        '__order__': ('leader', '008', '264_1'),
+        '008': '000000|1980||||xx#|||||||||||||||||||||c',
+        '264_1': {
+            '__order__': ('a', 'b', 'a', 'b', 'a', 'b', 'c'),
+            'a': ('Lausanne', 'Genève', 'Paris'),
+            'b': ('Institut Benjamin Constant', 'Slatkine',
+                  'diff. France : H. Champion'),
+            'c': '1980-'
+        }
+    })
+    assert result == record
+
+    record = {
+        "provisionActivity": [{
+            "endDate": 1975,
+            "place": [{
+                "canton": "ne",
+                "country": "sz",
+                "type": "bf:Place"
+            }],
+            "startDate": 1907,
+            "statement": [{
+                    "label": [{
+                            "value": "La Chaux-de-Fonds"
+                        }
+                    ],
+                    "type": "bf:Place"
+                }, {
+                "label": [{
+                    "value": "Union Chrétienne de Jeunes Gens"
+                }],
+                "type": "bf:Agent"
+            }, {
+                "label": [{
+                    "value": "1907-1975"
+                }],
+                "type": "Date"
+            }],
+            "type": "bf:Publication"
+        }, {
+            "statement": [{
+                "label": [{
+                    "value": "La Chaux-de-Fonds"
+                }],
+                "type": "bf:Place"
+            }, {
+                "label": [{
+                    "value": "[successivement] Impr. C. & J. "
+                             "Robert-Tissot, Imp. Robert-Tissot & Fils"
+                }],
+                "type": "bf:Agent"
+            }],
+            "type": "bf:Manufacture"
+        }]
+    }
+    result = to_marc21.do(record)
+    record = deepcopy(marc21_record)
+    record.update({
+        '__order__': ('leader', '008', '264_1', '264_3'),
+        '008': '000000|19071975xx#|||||||||||||||||||||c',
+        '264_1': {
+            '__order__': ('a', 'b', 'c'),
+            'a': 'La Chaux-de-Fonds',
+            'b': 'Union Chrétienne de Jeunes Gens',
+            'c': '1907-1975'
+        },
+        '264_3': {
+            '__order__': ('a', 'b'),
+            'a': 'La Chaux-de-Fonds',
+            'b': '[successivement] Impr. C. & J. '
+                 'Robert-Tissot, Imp. Robert-Tissot & Fils'
         }
     })
     assert result == record
@@ -375,12 +508,12 @@ def test_type_to_marc21(app, marc21_record):
         '__order__': ('leader', '008', '900__', '900__'),
         '900__': ({
             '__order__': ('a', 'b'),
-            'a': _('docmaintype_comic'),
-            'b': _('docsubtype_manga')
+            'a': 'docmaintype_comic',
+            'b': 'docsubtype_manga'
         }, {
             '__order__': ('a', 'b'),
-            'a': _('docmaintype_map'),
-            'b': _('docsubtype_atlas')
+            'a': 'docmaintype_map',
+            'b': 'docsubtype_atlas'
         })
     })
     assert result == record
