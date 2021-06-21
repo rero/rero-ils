@@ -1394,7 +1394,12 @@
         "type": "boolean"
       },
       "isbn": {
-        "type": "keyword"
+        "type": "keyword",
+        "fields": {
+          "text": {
+            "type": "text"
+          }
+        }
       },
       "_draft": {
         "type": "boolean"
