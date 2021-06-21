@@ -334,10 +334,13 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
         def dump_record(record):
             """Dump a single record."""
             rec = element.record()
+            rec.append(element.recordPacking('xml'))
+            rec.append(element.recordSchema('marcxml'))
+            rec_data = element.recordData()
 
             leader = record.get('leader')
             if leader:
-                rec.append(element.leader(leader))
+                rec_data.append(element.leader(leader))
 
             if isinstance(record, GroupableOrderedDict):
                 items = record.iteritems(with_order=False, repeated=True)
@@ -350,12 +353,12 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
                     if isinstance(subfields, string_types):
                         controlfield = element.controlfield(subfields)
                         controlfield.attrib['tag'] = df[0:3]
-                        rec.append(controlfield)
+                        rec_data.append(controlfield)
                     elif isinstance(subfields, (list, tuple, set)):
                         for subfield in subfields:
                             controlfield = element.controlfield(subfield)
                             controlfield.attrib['tag'] = df[0:3]
-                            rec.append(controlfield)
+                            rec_data.append(controlfield)
                 else:
                     # Skip leader.
                     if df == 'leader':
@@ -394,7 +397,8 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
                                     datafield.append(element.subfield(
                                         value, code=code))
 
-                            rec.append(datafield)
+                            rec_data.append(datafield)
+                rec.append(rec_data)
             return rec
 
         if isinstance(records, dict):
@@ -606,7 +610,6 @@ class DublinCoreSerializer(BaseDublinCoreSerializer):
                 language=language,
                 **kwargs
             )
-
             element_record = simpledc.dump_etree(
                 record,
                 container=self.container_element,

@@ -21,7 +21,7 @@
 from dojson import utils
 from dojson.contrib.to_marc21.model import Underdo
 from flask import current_app
-from flask_babelex import gettext
+from flask_babelex import gettext as translate
 
 from rero_ils.modules.contributions.api import Contribution
 from rero_ils.modules.documents.utils import display_alternate_graphic_first
@@ -183,8 +183,9 @@ def get_holdings_items(document_pid, organisation_pids=None, library_pids=None,
 
 
 ORDER = ['leader', 'pid', 'fixed_length_data_elements',
-         'identifiedBy', 'title_responsibility', 'physical_description',
-         'contribution', 'type', 'holdings_items']
+         'identifiedBy', 'title_responsibility', 'provisionActivity',
+         'copyrightDate', 'physical_description', 'contribution', 'type',
+         'holdings_items']
 LEADER = '00000cam a2200000zu 4500'
 
 
@@ -294,11 +295,11 @@ class ToMarc21Overdo(Underdo):
                 other_physical_details.append(value['label'])
         if not other_physical_details:
             for value in blob.get('productionMethod', []):
-                other_physical_details.append(gettext(value))
+                other_physical_details.append(translate(value))
             for value in blob.get('illustrativeContent', []):
                 other_physical_details.append(value)
             for value in blob.get('colorContent', []):
-                other_physical_details.append(gettext(value))
+                other_physical_details.append(translate(value))
         if other_physical_details:
             physical_description['other_physical_details'] = \
                 ' ; '.join(other_physical_details)
@@ -513,6 +514,62 @@ def reverse_title(self, key, value):
     return result or None
 
 
+@to_marc21.over('264', '^(provisionActivity|copyrightDate)')
+@utils.reverse_for_each_value
+@utils.ignore_value
+def reverse_title(self, key, value):
+    """Reverse - provisionActivity."""
+    # Pour chaque objet de "provisionActivity" (répétitif), créer une 264 :
+    # * si type=bf:Publication, ind2=1
+    #     * sinon si type=bf:Distribution, ind2=2
+    #         * sinon si type=bf:Manufacture, ind2=3
+    #             * sinon si type=bf:Production, ind2=0
+    # * prendre dans l’ordre chaque chaque objet de "statement"
+    #     * $a = [label] si type=bf:Place
+    #     * $a = [label] si type=bf:Agent
+    #     * $a = [label] si type=bf:Date
+    # Pour chaque "copyrightDate" :
+    # * 264 ind2=4 $a = [copyrightDate]
+    if key == 'copyrightDate':
+        result = {
+            '$ind2': '4',
+        }
+        result = add_value(result, 'a', value)
+        return result
+    else:
+        data = {}
+        order = []
+        for statement in value.get('statement', []):
+            statement_type = statement.get('type')
+            subfield = 'a'
+            if statement_type == 'bf:Agent':
+                subfield = 'b'
+            elif statement_type == 'Date':
+                subfield = 'c'
+            for label in statement.get('label'):
+                order.append(subfield)
+                data.setdefault(subfield, [])
+                data[subfield].append(label['value'])
+                # only take the first label
+                break
+        if data:
+            provision_activity_type = value.get('type')
+            ind2 = ''
+            if provision_activity_type == 'bf:Publication':
+                ind2 = '1'
+            elif provision_activity_type == 'bf:Distribution':
+                ind2 = '2'
+            elif provision_activity_type == 'bf:Manufacture':
+                ind2 = '3'
+            elif provision_activity_type == 'bf:Production':
+                ind2 = '0'
+            result = {'$ind2': ind2}
+            for key, value in data.items():
+                result = add_values(result, key, value)
+            result['__order__'] = order
+            return result
+
+
 @to_marc21.over('300', '^physical_description')
 @utils.ignore_value
 def reverse_physical_description(self, key, value):
@@ -582,12 +639,12 @@ def reverse_type(self, key, value):
     """Reverse - type."""
     result = {
         '__order__': ['a'],
-        'a': gettext(value.get('main_type'))
+        'a': value.get('main_type')
     }
     subtype_type = value.get('subtype')
     if subtype_type:
         result['__order__'] = ['a', 'b']
-        result['b'] = gettext(subtype_type)
+        result['b'] = subtype_type
     return result
 
 
