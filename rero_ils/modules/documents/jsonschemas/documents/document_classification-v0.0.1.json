@@ -350,7 +350,8 @@
               }
             },
             "assigner": {
-              "title": "Used for imported records only. Assigning agency.",
+              "title": "Assigning agency.",
+              "description": "Used for imported records only. Agency that assigned this classification value.",
               "type": "string",
               "minLength": 1
             }
@@ -433,7 +434,8 @@
       }
     },
     "assigner": {
-      "title": "Used for imported records only. Assigning agency.",
+      "title": "Assigning agency.",
+      "description": "Used for imported records only. Agency that assigned this classification value.",
       "type": "string",
       "minLength": 1
     }
