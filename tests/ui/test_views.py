@@ -56,7 +56,7 @@ def test_organisation_link_on_homepage(client):
         'rero_ils.index'
     ))
     assert result.status_code == 200
-    assert str(result.data).find('Organisations') > -1
+    assert str(result.data).find('RERO+ catalogue') > -1
 
 
 def test_global_link_on_institution_homepage(client, org_martigny):
@@ -103,7 +103,7 @@ def test_external_endpoint_on_institution_homepage(client, org_martigny, app):
         viewcode='org1'
     ))
     endpoint = app.config['RERO_ILS_THEME_ORGANISATION_CSS_ENDPOINT']
-    assert endpoint == "https://resources.rero.ch/ils/test/css/"
+    assert endpoint == "https://resources.rero.ch/bib/test/css/"
     assert str(result.data).find(endpoint) > 1
 
 

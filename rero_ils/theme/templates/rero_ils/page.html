@@ -72,8 +72,10 @@
     {%- block header %}{% endblock header %}
     {%- block css %}
       {{ webpack['global.css'] }}
+      {% if config.get('RERO_ILS_PERSONALIZED_CSS_BY_VIEW') %}
       <link href="{{ config.get('RERO_ILS_THEME_ORGANISATION_CSS_ENDPOINT') }}{{ viewcode }}.css" rel="stylesheet"
       title="{{ viewcode }}">
+      {% endif %}
     {%- endblock css %}
     {%- endblock head %}
   </head>

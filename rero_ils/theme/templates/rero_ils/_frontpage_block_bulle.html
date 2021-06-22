@@ -1,0 +1,152 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2021 RERO
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+<section class="col-md-4 order-1 order-md-1 px-4 pt-4">
+  {% if current_i18n.language == 'en' %}
+  <h5>Bulle Library Catalogue</h5>
+  This interface gives you access to a list of documents from the following three libraries:
+  <ul class="pl-3">
+    <li>Bulle Library</li>
+    <li>Lec'Tour, La Tour-de-Trême school library</li>
+    <li>Libellule, La Léchère school library</li>
+  </ul>
+  {% endif  %}
+  {% if current_i18n.language == 'fr' %}
+  <h5>Catalogue de la Bibliothèque de Bulle</h5>
+  Cette interface donne accès à la liste des documents des trois bibliothèques suivantes:
+  <ul class="pl-3">
+    <li>La Bibliothèque de Bulle</li>
+    <li>Lec’Tour, la bibliothèque scolaire de la Tour-de-Trême</li>
+    <li>Libellule, la bibliothèque scolaire de La Léchère</li>
+  </ul>
+  {% endif  %}
+  {% if current_i18n.language == 'de' %}
+  <h5>Online-Katalog der Bibliothek Bulle</h5>
+  Diese Webseite ermöglicht den Zugriff auf die Liste der Dokumente der folgenden drei Bibliotheken:
+  <ul class="pl-3">
+    <li>Die Bibliothek Bulle</li>
+    <li>Lec'Tour, die Schulbibliothek La Tour-de-Trême</li>
+    <li>Libellule, die Schulbibliothek La Léchère</li>
+  </ul>
+  {% endif  %}
+  {% if current_i18n.language == 'it' %}
+  <h5>Catalogo della Biblioteca di Bulle</h5>
+  Questa interfaccia dà accesso all'elenco dei documenti delle tre seguenti biblioteche:
+  <ul class="pl-3">
+    <li>La Biblioteca di Bulle</li>
+    <li>Lec'Tour, la biblioteca scolastica di La Tour-de-Trême</li>
+    <li>Libellule, la biblioteca scolastica di La Léchère</li>
+  </ul>
+  {% endif  %}
+</section>
+<section class="col-md-4 order-1 order-md-2 px-4 pt-4">
+  {% if current_i18n.language == 'en' %}
+  <p class="mb-3 font-weight-bold">
+    When you log in for the first time, please reset your password using your e-mail
+    (function "Forgot password"). Registrants without an e-mail address can contact the lending desk.
+  </p>
+  <h5>Services and opening hours</h5>
+  <ul class="list-unstyled">
+    <li><a href="https://musee-gruerien.ch/bibliotheque-de-bulle/">Bulle Library</a></li>
+    <li><a href="https://musee-gruerien.ch/bibliotheque-de-bulle/lectour-la-tour-de-treme/">Lec’Tour</a></li>
+    <li><a href="https://musee-gruerien.ch/bibliotheque-de-bulle/libellule-dardens/">Libellule</a></li>
+  </ul>
+  {% endif %}
+  {% if current_i18n.language == 'fr' %}
+  <p class="mb-3 font-weight-bold">
+    Lors de votre première connexion, merci de redéfinir votre mot de passe au moyen de votre e-mail
+    (fonction "Mot de passe oublié"). Les personnes inscrites sans e-mail peuvent s'adresser au bureau de prêt.
+  </p>
+  <h5>Services et horaires</h5>
+  <ul class="list-unstyled">
+    <li><a href="https://musee-gruerien.ch/bibliotheque-de-bulle/">Bibliothèque de Bulle</a></li>
+    <li><a href="https://musee-gruerien.ch/bibliotheque-de-bulle/lectour-la-tour-de-treme/">Lec’Tour</a></li>
+    <li><a href="https://musee-gruerien.ch/bibliotheque-de-bulle/libellule-dardens/">Libellule</a></li>
+  </ul>
+  {% endif %}
+  {% if current_i18n.language == 'de' %}
+  <p class="mb-3 font-weight-bold">
+    Wenn Sie sich zum ersten Mal einloggen, setzen Sie bitte Ihr Passwort mit Hilfe Ihrer E-Mail zurück
+    (Funktion "Passwort vergessen"). Registrierte Benutzer ohne E-Mail-Adresse können sich an die Ausleihtheke wenden.
+  </p>
+  <h5>Dienstleistungen und Öffnungszeiten</h5>
+  <ul class="list-unstyled">
+    <li><a href="https://musee-gruerien.ch/bibliotheque-de-bulle/">Bibliothek Bulle</a></li>
+    <li><a href="https://musee-gruerien.ch/bibliotheque-de-bulle/lectour-la-tour-de-treme/">Lec’Tour</a></li>
+    <li><a href="https://musee-gruerien.ch/bibliotheque-de-bulle/libellule-dardens/">Libellule</a></li>
+  </ul>
+  {% endif %}
+  {% if current_i18n.language == 'it' %}
+  <p class="mb-3 font-weight-bold">
+    Quando accedi per la prima volta, reimposta la tua password usando la tua e-mail
+    (funzione "Password dimenticata"). Gli utenti registrati senza un indirizzo e-mail possono contattare il banco prestiti.
+  </p>
+  <h5>Servizi e orari</h5>
+  <ul class="list-unstyled">
+    <li><a href="https://musee-gruerien.ch/bibliotheque-de-bulle/">Biblioteca di Bulle</a></li>
+    <li><a href="https://musee-gruerien.ch/bibliotheque-de-bulle/lectour-la-tour-de-treme/">Lec’Tour</a></li>
+    <li><a href="https://musee-gruerien.ch/bibliotheque-de-bulle/libellule-dardens/">Libellule</a></li>
+  </ul>
+  {% endif %}
+</section>
+<section class="col-md-4 order-3 order-md-3 px-4 pt-4">
+  {% if current_i18n.language == 'en' %}
+  {%- include "rero_ils/_frontpage_organisation_link.html" %}
+  <h5>e-book catalogue</h5>
+  <ul class="list-unstyled">
+    <li><a href="https://musee-gruerien.ch/bibliotheque-de-bulle/frebooks-2/">FReBOOKS</a></li>
+  </ul>
+  <h5>SLSP Network Catalogue</h5>
+  <ul class="list-unstyled">
+    <li><a href="https://swisscovery.slsp.ch/discovery/search?vid=41SLSP_NETWORK:VU1_UNION&lang=en">Swisscovery</a></li>
+  </ul>
+  {% endif %}
+  {% if current_i18n.language == 'fr' %}
+  {%- include "rero_ils/_frontpage_organisation_link.html" %}
+  <h5>Catalogue d’e-books</h5>
+  <ul class="list-unstyled">
+    <li><a href="https://musee-gruerien.ch/bibliotheque-de-bulle/frebooks-2/">FReBOOKS</a></li>
+  </ul>
+  <h5>Catalogue du réseau SLSP</h5>
+  <ul class="list-unstyled">
+    <li><a href="https://swisscovery.slsp.ch/discovery/search?vid=41SLSP_NETWORK:VU1_UNION&lang=fr">Swisscovery</a></li>
+  </ul>
+  {% endif %}
+  {% if current_i18n.language == 'de' %}
+  {%- include "rero_ils/_frontpage_organisation_link.html" %}
+  <h5>E-Book-Online-Katalog</h5>
+  <ul class="list-unstyled">
+    <li><a href="https://musee-gruerien.ch/bibliotheque-de-bulle/frebooks-2/">FReBOOKS</a></li>
+  </ul>
+  <h5>SLSP-Netzwerk-Online-Katalog</h5>
+  <ul class="list-unstyled">
+    <li><a href="https://swisscovery.slsp.ch/discovery/search?vid=41SLSP_NETWORK:VU1_UNION&lang=de">Swisscovery</a></li>
+  </ul>
+  {% endif %}
+  {% if current_i18n.language == 'it' %}
+  {%- include "rero_ils/_frontpage_organisation_link.html" %}
+  <h5>Catalogo e-book</h5>
+  <ul class="list-unstyled">
+    <li><a href="https://musee-gruerien.ch/bibliotheque-de-bulle/frebooks-2/">FReBOOKS</a></li>
+  </ul>
+  <h5>Catalogo della rete SLSP</h5>
+  <ul class="list-unstyled">
+    <li><a href="https://swisscovery.slsp.ch/discovery/search?vid=41SLSP_NETWORK:VU1_UNION&lang=it">Swisscovery</a></li>
+  </ul>
+  {% endif %}
+</section>

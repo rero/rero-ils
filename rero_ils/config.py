@@ -115,6 +115,16 @@ def _(x):
     """Identity function used to trigger string extraction."""
     return x
 
+# Flag to determine the state of ILS
+# Show or hide message on red
+RERO_ILS_STATE_PRODUCTION = False
+RERO_ILS_STATE_MESSAGE=_('Test version')
+
+# Personalized homepage
+RERO_ILS_PERSONALIZED_CSS_BY_VIEW = True
+RERO_ILS_PERSONALIZED_HOMEPAGE_BY_VIEW = False
+RERO_ILS_HOMEPAGE_GENERAL_BLOCK = 'rero_ils/_frontpage_block_test.html'
+RERO_ILS_HOMEPAGE_GENERAL_SLOGAN = 'rero_ils/_frontpage_slogan_test.html'
 
 # Rate limiting
 # =============
@@ -188,7 +198,8 @@ THEME_SETTINGS_TEMPLATE = SETTINGS_TEMPLATE
 #: Template for error pages.
 THEME_ERROR_TEMPLATE = 'rero_ils/page_error.html'
 # External CSS for each organisation customization
-RERO_ILS_THEME_ORGANISATION_CSS_ENDPOINT = 'https://resources.rero.ch/ils/test/css/'
+# For production: change "test" with "prod" on url
+RERO_ILS_THEME_ORGANISATION_CSS_ENDPOINT = 'https://resources.rero.ch/bib/test/css/'
 #: Template for including a tracking code for web analytics.
 THEME_TRACKINGCODE_TEMPLATE = 'rero_ils/trackingcode.html'
 THEME_JAVASCRIPT_TEMPLATE = 'rero_ils/javascript.html'
@@ -220,7 +231,7 @@ COLLECT_STORAGE = 'flask_collect.storage.link'
 #: Email address used as sender of account registration emails.
 SECURITY_EMAIL_SENDER = SUPPORT_EMAIL
 #: Email subject for account registration emails.
-SECURITY_EMAIL_SUBJECT_REGISTER = _("Welcome to RERO-ILS!")
+SECURITY_EMAIL_SUBJECT_REGISTER = _("Welcome")
 #: Email subjects for password reset
 SECURITY_EMAIL_SUBJECT_PASSWORD_RESET = _('RERO ID password reset')
 SECURITY_EMAIL_SUBJECT_PASSWORD_NOTICE = _('Your RERO ID password has been reset')

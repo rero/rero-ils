@@ -392,6 +392,7 @@ def index_with_view_code(viewcode):
         return render_template(
             'rero_ils/frontpage.html',
             version=__version__,
+            organisations=Organisation.get_all(),
             viewcode=viewcode
         )
 

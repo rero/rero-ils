@@ -1,0 +1,89 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2021 RERO
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+<section class="col-md-4 order-1 order-md-1 px-4 pt-4">
+  {% if current_i18n.language == 'en' %}
+  <h3>The project</h3>
+  <p>The RERO ILS project aims at creating the future RERO Integrated Library System, using components of the <a href="https://inveniosoftware.org" class="rero-ils-external-link">Invenio</a> framework. This site provides a permanent, public demonstration instance of the software under development, with daily integration of new features.</p>
+  {% endif  %}
+  {% if current_i18n.language == 'fr' %}
+  <h3>Le projet</h3>
+  <p>Le projet RERO ILS a pour but de créer le futur système de gestion de bibliothèque de RERO basé sur le framework <a href="https://inveniosoftware.org" class="rero-ils-external-link">Invenio</a>. Ce site propose une instance publique et permanente du logiciel en cours de développement, avec une intégration continue des nouvelles fonctionnalités.</p>
+  {% endif  %}
+  {% if current_i18n.language == 'de' %}
+  <h3>Das Projekt</h3>
+  <p>Das Projekt RERO ILS zielt darauf ab, das zukünftige Bibliotheksverwaltungssystem von RERO auf der Basis des <a href="https://inveniosoftware.org" class="rero-ils-external-link">Invenio</a> Frameworks zu erschaffen. Diese Website bietet eine permanente, öffentliche Demonstration der Software in Entwicklung an. Neue Funktionen werden täglich integriert.</p>
+  {% endif  %}
+  {% if current_i18n.language == 'it' %}
+  <h3>Il progetto</h3>
+  <p>Il progetto RERO ILS mira a creare il futuro Sistema di Biblioteca Integrato RERO, utilizzando componenti del framework <a href="https://inveniosoftware.org" class="rero-ils-external-link">Invenio</a>. Questo sito fornisce una dimostrazione permanente e pubblica delsoftware in fase di sviluppo, con integrazione quotidiana di nuove funzionalità.</p>
+  {% endif  %}
+  <a href="http://www.rero21.ch" class="rero-ils-external-link">rero21.ch</a>
+  <section class="mt-4">
+      <section class="d-flex flex-row mb-2">
+        <a href="https://tree.taiga.io/project/rero21-reroils/backlog" class="align-self-center" title="{{ _('Link to the RERO ILS backlog on Taiga') }}">
+          <img class="card-img-top rero-ils-list-logo" src="{{ url_for('static', filename='images/logo-taiga-color.png') }}" alt="Taiga logo, star made of different greens">
+        </a>
+        <p class="card-text pl-2 align-self-center">
+          {{_('Scrum process')}}
+          <a href="https://tree.taiga.io/project/rero21-reroils/backlog" class="rero-ils-external-link" title="{{ _('Link to the RERO ILS backlog on Taiga') }}">{{_('on Taiga')}}</a>
+        </p>
+      </section>
+      <section class="d-flex flex-row">
+        <a href="https://github.com/rero/rero-ils" class="align-self-center" title="{{ _('Link to the RERO ILS code source on GitHub') }}">
+          <i class="fa fa-2x fa-github card-img-top text-dark"></i>
+        </a>
+        <p class="card-text pl-2 align-self-center">
+          {{_('Software source code')}}
+          <a href="https://github.com/rero/rero-ils" class="rero-ils-external-link" title="{{ _('Link to the RERO ILS code source on GitHub') }}">{{_('on GitHub')}}</a>
+          {% if config.RERO_ILS_APP_GIT_HASH %}
+          <br> rero-ils {{ _('version') }}
+          <a href="https://github.com/rero/rero-ils/commit/{{ config.RERO_ILS_APP_GIT_HASH }}" class="rero-ils-external-link" title="{{ _('Link to the RERO ILS code source on GitHub, current used version') }}">{{ config.RERO_ILS_APP_GIT_HASH[:8] }}</a>
+          {% else %}
+          <br> {{ _('version') }}
+          <a href="https://github.com/rero/rero-ils/releases/tag/v{{ version }}" class="rero-ils-external-link" title="{{ _('Link to the RERO ILS code source on GitHub, current used version') }}">{{ version }}</a>
+          {% endif %}
+          {% if config.RERO_ILS_UI_GIT_HASH %}
+            <br>rero-ils-ui {{ _('version') }}
+            <a href="https://github.com/rero/rero-ils-ui/commit/{{ config.RERO_ILS_UI_GIT_HASH }}" class="rero-ils-external-link" title="{{ _('Link to the RERO ILS UI code source on GitHub, current used version') }}">{{ config.RERO_ILS_UI_GIT_HASH[:8] }}</a>
+          {% endif %}
+
+        </p>
+      </section>
+      <section class="d-flex flex-row">
+        <a href="http://twitter.com/rero_centrale" class="align-self-center" title="{{ _('Link to the RERO Twitter account') }}">
+          <i class="fa fa-2x fa-twitter card-img-top text-dark"></i>
+        </a>
+        <p class="card-text pl-2 align-self-center">
+          <a href="http://twitter.com/rero_centrale" class="rero-ils-external-link" title="{{ _('Link to the RERO Twitter account') }}">@rero_centrale</a>
+        </p>
+      </section>
+    </section>
+</section>
+<section class="col-md-4 order-2 order-md-2 px-4 pt-4 bg-dark text-white rero-rounded" >
+    {%- include "rero_ils/_info_test.html" %}
+    <!-- HELP -->
+    <h4>{{ _('Help') }}</h4>
+    <p>
+      {{ _('More test logins and documentation is available on the') }}
+      <a href="{{ url_for('wiki.page', url='home') }}">{{ _('help page') }}</a>
+    </p>
+</section>
+<section class="col-md-4 order-3 order-md-3 px-4 pt-4">
+  {%- include "rero_ils/_frontpage_organisation_link.html" %}
+</section>
