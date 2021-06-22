@@ -1,0 +1,132 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2021 RERO
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+<section class="col-md-4 order-1 order-md-1 px-4 pt-4">
+  {% if current_i18n.language == 'en' %}
+  <h5>RERO+ catalogue</h5>
+  <p>
+    You can discover, search and request documents. The global catalogue contains the collections of the RERO+ libraries.
+  </p>
+  <h5>About RERO+</h5>
+  <p>
+    RERO+ is a competence and service centre for libraries. It is also a non-profit foundation based in Martigny, Valais.<br>
+    <a href="https://www.rero.ch">www.rero.ch</a>
+  </p>
+  {% endif  %}
+  {% if current_i18n.language == 'fr' %}
+  <h5>Catalogue RERO+</h5>
+  <p>
+    Vous pouvez y découvrir, rechercher et demander des documents. Le catalogue global contient les collections des bibliothèques RERO+.
+  </p>
+  <h5>À propos de RERO+</h5>
+  <p>
+    RERO+ est un centre de compétences et de services destinés aux bibliothèques. C’est aussi une fondation à but non-lucratif
+    basée à Martigny, en Valais.<br>
+    <a href="https://www.rero.ch">www.rero.ch</a>
+  </p>
+  {% endif  %}
+  {% if current_i18n.language == 'de' %}
+  <h5>RERO+ Katalog</h5>
+  <p>
+    Sie können Dokumente entdecken, suchen und bestellen. Der globale Katalog enthält die Sammlungen der RERO+ Bibliotheken.
+  </p>
+  <h5>Über RERO+</h5>
+  <p>
+    RERO+ ist ein Kompetenz- und Servicezentrum für Bibliotheken. Es ist ebenfalls eine gemeinnützige Stiftung
+    mit Sitz in Martigny, Wallis.<br>
+    <a href="https://www.rero.ch">www.rero.ch</a>
+  </p>
+  {% endif  %}
+  {% if current_i18n.language == 'it' %}
+  <h5>Catalogo RERO+</h5>
+  <p>
+    Puoi scoprire, cercare e richiedere documenti. Il catalogo globale contiene le collezioni delle biblioteche RERO+.
+  </p>
+  <h5>Su RERO+</h5>
+  <p>
+    RERO+ è un centro di competenza e servizi per le biblioteche. È anche una fondazione senza scopo di lucro
+    con sede a Martigny, nel Vallese.<br>
+    <a href="https://www.rero.ch">www.rero.ch</a>
+  </p>
+  {% endif  %}
+</section>
+<section class="col-md-4 order-3 order-md-3  px-4 pt-4">
+  {%- include "rero_ils/_frontpage_organisation_link.html" %}
+</section>
+<section class="col-md-4 order-2 order-md-2 px-4 pt-4">
+  {% if current_i18n.language == 'en' %}
+  <h5>Useful links</h5>
+  <ul class="list-unstyled">
+    <li><a href="/ill_requests/create/">Interlibrary loan request</a></li>
+    <li><a href="/help/public/#sinscrire">How to register</a></li>
+  </ul>
+  <h5>Other catalogues</h5>
+  <ul class="list-unstyled">
+    <li><a href="https://doc.rero.ch/?ln=en">RERO DOC digital library</a></li>
+    <li><a href="https://sonar.rero.ch/?ln=en">SONAR - Swiss Open Access Repository</a></li>
+    <li><a href="https://swisscovery.slsp.ch/discovery/search?vid=41SLSP_NETWORK:VU1_UNION&lang=en">Swisscovery</a></li>
+    <li><a href="https://renouvaud.hosted.exlibrisgroup.com/primo-explore/search?vid=41BCULIB_VU2&lang=en_US">Renouvaud</a></li>
+    <li><a href="https://www.helveticat.ch/discovery/search?vid=41SNL_51_INST:helveticat&lang=en">Helveticat (Swiss National Library)</a></li>
+  </ul>
+  {% endif %}
+  {% if current_i18n.language == 'fr' %}
+  <h5>Liens utiles</h5>
+  <ul class="list-unstyled">
+    <li><a href="/ill_requests/create/">Demande de prêt entre bibliothèque</a></li>
+    <li><a href="/help/public/#sinscrire">Comment s'inscrire</a></li>
+  </ul>
+  <h5>Autres catalogues</h5>
+  <ul class="list-unstyled">
+    <li><a href="https://doc.rero.ch/?ln=fr">Bibliothèque numérique RERO DOC</a></li>
+    <li><a href="https://sonar.rero.ch/?ln=fr">SONAR - Swiss Open Access Repository</a></li>
+    <li><a href="https://swisscovery.slsp.ch/discovery/search?vid=41SLSP_NETWORK:VU1_UNION&lang=fr">Swisscovery</a></li>
+    <li><a href="https://renouvaud.hosted.exlibrisgroup.com/primo-explore/search?vid=41BCULIB_VU2&lang=fr_FR">Renouvaud</a></li>
+    <li><a href="https://www.helveticat.ch/discovery/search?vid=41SNL_51_INST:helveticat&lang=fr">Helveticat (Bibliothèque nationale suisse)</a></li>
+  </ul>
+  {% endif %}
+  {% if current_i18n.language == 'de' %}
+  <h5>Nützliche Links</h5>
+  <ul class="list-unstyled">
+    <li><a href="/ill_requests/create/">Fernleihbestellung</a></li>
+    <li><a href="/help/public/#sinscrire">So registrieren Sie sich</a></li>
+  </ul>
+  <h5>Andere Kataloge</h5>
+  <ul class="list-unstyled">
+    <li><a href="https://doc.rero.ch/?ln=de">Digitale Bibliothek RERO DOC</a></li>
+    <li><a href="https://sonar.rero.ch/?ln=de">SONAR - Swiss Open Access Repository</a></li>
+    <li><a href="https://swisscovery.slsp.ch/discovery/search?vid=41SLSP_NETWORK:VU1_UNION&lang=de">Swisscovery</a></li>
+    <li><a href="https://renouvaud.hosted.exlibrisgroup.com/primo-explore/search?vid=41BCULIB_VU2&lang=de_DE">Renouvaud</a></li>
+    <li><a href="https://www.helveticat.ch/discovery/search?vid=41SNL_51_INST:helveticat&lang=de">Helveticat (Schweizerische Nationalbibliothek)</a></li>
+  </ul>
+  {% endif %}
+  {% if current_i18n.language == 'it' %}
+  <h5>Link utili</h5>
+  <ul class="list-unstyled">
+    <li><a href="/ill_requests/create/">Richiesta di prestito interbibliotecario</a></li>
+    <li><a href="/help/public/#sinscrire">Come registrarsi</a></li>
+  </ul>
+  <h5>Altri cataloghi</h5>
+  <ul class="list-unstyled">
+    <li><a href="https://doc.rero.ch/?ln=it">Biblioteca digitale RERO DOC</a></li>
+    <li><a href="https://sonar.rero.ch/?ln=it">SONAR - Swiss Open Access Repository</a></li>
+    <li><a href="https://swisscovery.slsp.ch/discovery/search?vid=41SLSP_NETWORK:VU1_UNION&lang=fr">Swisscovery</a></li>
+    <li><a href="https://renouvaud.hosted.exlibrisgroup.com/primo-explore/search?vid=41BCULIB_VU2&lang=fr_FR">Renouvaud</a></li>
+    <li><a href="https://www.helveticat.ch/discovery/search?vid=41SNL_51_INST:helveticat&lang=it">Helveticat (Biblioteca nazionale svizzera)</a></li>
+  </ul>
+  {% endif %}
+</section>
