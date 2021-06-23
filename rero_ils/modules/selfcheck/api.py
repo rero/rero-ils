@@ -113,15 +113,24 @@ def enable_patron(barcode, **kwargs):
     """
     # check if invenio_sip2 module is present
     if check_sip2_module():
+        from invenio_sip2.models import SelfcheckEnablePatron
+        institution_id = kwargs.get('institution_id')
         patron = Patron.get_patron_by_barcode(
-            barcode, filter_by_org_pid=kwargs.get('institution_id'))
-        return {
-            'patron_status': get_patron_status(patron),
-            'language': patron.get('communication_language', 'und'),
-            'institution_id': patron.library_pid,
-            'patron_id': patron.patron.get('barcode'),
-            'patron_name': patron.formatted_name
-        }
+            barcode, filter_by_org_pid=institution_id)
+        if patron:
+            return SelfcheckEnablePatron(
+                patron_status=get_patron_status(patron),
+                language=patron.get('communication_language', 'und'),
+                institution_id=patron.library_pid,
+                patron_id=patron.patron.get('barcode'),
+                patron_name=patron.formatted_name
+            )
+        else:
+            return SelfcheckEnablePatron(
+                patron_id=barcode,
+                institution_id=institution_id,
+                screen_messages=[_('Error encountered: patron not found')]
+            )
 
 
 def patron_status(barcode, **kwargs):
@@ -134,25 +143,32 @@ def patron_status(barcode, **kwargs):
     # check if invenio_sip2 module is present
     if check_sip2_module():
         from invenio_sip2.models import SelfcheckPatronStatus
-
+        institution_id = kwargs.get('institution_id')
         patron = Patron.get_patron_by_barcode(
-            barcode, filter_by_org_pid=kwargs.get('institution_id'))
-        patron_status_response = SelfcheckPatronStatus(
-            patron_status=get_patron_status(patron),
-            language=patron.get('communication_language', 'und'),
-            patron_id=barcode,
-            patron_name=patron.formatted_name,
-            institution_id=patron.library_pid,
-            currency_type=patron.get_organisation().get('default_currency'),
-            valid_patron=patron.is_patron
-        )
+            barcode, filter_by_org_pid=institution_id)
+        if patron:
+            patron_status_response = SelfcheckPatronStatus(
+                patron_status=get_patron_status(patron),
+                language=patron.get('communication_language', 'und'),
+                patron_id=barcode,
+                patron_name=patron.formatted_name,
+                institution_id=patron.library_pid,
+                currency_type=patron.get_organisation().get(
+                    'default_currency'),
+                valid_patron=patron.is_patron
+            )
 
-        fee_amount = PatronTransaction \
-            .get_transactions_total_amount_for_patron(
-                patron.pid, status='open',
-                with_subscription=False)
-        patron_status_response['fee_amount'] = fee_amount
-        return patron_status_response
+            fee_amount = PatronTransaction \
+                .get_transactions_total_amount_for_patron(
+                    patron.pid, status='open', with_subscription=False)
+            patron_status_response['fee_amount'] = fee_amount
+            return patron_status_response
+        else:
+            return SelfcheckPatronStatus(
+                patron_id=barcode,
+                institution_id=institution_id,
+                screen_messages=[_('Error encountered: patron not found')]
+            )
 
 
 def patron_information(barcode, **kwargs):
@@ -165,69 +181,75 @@ def patron_information(barcode, **kwargs):
     # check if invenio_sip2 module is present
     if check_sip2_module():
         from invenio_sip2.models import SelfcheckPatronInformation
-
+        institution_id = kwargs.get('institution_id')
         patron = Patron.get_patron_by_barcode(
-            barcode, filter_by_org_pid=kwargs.get('institution_id'))
-        patron_account_information = SelfcheckPatronInformation(
-            patron_id=barcode,
-            patron_name=patron.formatted_name,
-            patron_status=get_patron_status(patron),
-            institution_id=patron.library_pid,
-            language=patron.get('communication_language', 'und'),
-            email=patron.get('email'),
-            home_phone=patron.get('phone'),
-            home_address=format_patron_address(patron),
-            currency_type=patron.get_organisation().get('default_currency'),
-            valid_patron=patron.is_patron
-        )
+            barcode, filter_by_org_pid=institution_id)
+        if patron:
+            patron_account_information = SelfcheckPatronInformation(
+                patron_id=barcode,
+                patron_name=patron.formatted_name,
+                patron_status=get_patron_status(patron),
+                institution_id=patron.library_pid,
+                language=patron.get('communication_language', 'und'),
+                email=patron.get('email'),
+                home_phone=patron.get('phone'),
+                home_address=format_patron_address(patron),
+                currency_type=patron.get_organisation().get(
+                    'default_currency'),
+                valid_patron=patron.is_patron
+            )
 
-        filter_states = [
-            LoanState.PENDING,
-            LoanState.ITEM_AT_DESK,
-            LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
-            LoanState.ITEM_ON_LOAN
-        ]
-        loans = get_loans_by_patron_pid(patron.pid, filter_states)
-        for loan in loans:
-            item = Item.get_record_by_pid(loan.item_pid)
-            if loan['state'] == LoanState.ITEM_ON_LOAN:
-                patron_account_information.get('charged_items', []).append(
-                    item.get('barcode'))
-                if loan.is_loan_overdue():
-                    patron_account_information.get('overdue_items', [])\
-                        .append(item.get('barcode'))
-            elif loan['state'] in [
+            filter_states = [
                 LoanState.PENDING,
                 LoanState.ITEM_AT_DESK,
-                LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
-            ]:
-                patron_account_information.get('hold_items', []).append(
-                    item.get('barcode')
-                )
-
-        fee_amount = PatronTransaction \
-            .get_transactions_total_amount_for_patron(
-                patron.pid, status='open',
-                with_subscription=False)
-        patron_account_information['fee_amount'] = fee_amount
-        # check for fine items
-        if fee_amount > 0:
-            # Check if fine items exist
-            transaction_pids = PatronTransaction\
-                .get_transactions_pids_for_patron(
-                    patron.pid, status='open')
-            for transaction_pid in transaction_pids:
-                # TODO: return screen message to notify patron if there are
-                #  other open transactions
-                transaction = PatronTransaction\
-                    .get_record_by_pid(transaction_pid)
-                if transaction.loan_pid:
-                    loan = Loan.get_record_by_pid(transaction.loan_pid)
-                    item = Item.get_record_by_pid(loan.item_pid)
-                    patron_account_information.get('fine_items', []).append(
+                LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
+                LoanState.ITEM_ON_LOAN
+            ]
+            loans = get_loans_by_patron_pid(patron.pid, filter_states)
+            for loan in loans:
+                item = Item.get_record_by_pid(loan.item_pid)
+                if loan['state'] == LoanState.ITEM_ON_LOAN:
+                    patron_account_information.get('charged_items', []).append(
+                        item.get('barcode'))
+                    if loan.is_loan_overdue():
+                        patron_account_information.get('overdue_items', []) \
+                            .append(item.get('barcode'))
+                elif loan['state'] in [
+                    LoanState.PENDING,
+                    LoanState.ITEM_AT_DESK,
+                    LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
+                ]:
+                    patron_account_information.get('hold_items', []).append(
                         item.get('barcode')
                     )
-        return patron_account_information
+
+            fee_amount = PatronTransaction \
+                .get_transactions_total_amount_for_patron(
+                    patron.pid, status='open', with_subscription=False)
+            patron_account_information['fee_amount'] = fee_amount
+            # check for fine items
+            if fee_amount > 0:
+                # Check if fine items exist
+                transaction_pids = PatronTransaction \
+                    .get_transactions_pids_for_patron(
+                        patron.pid, status='open')
+                for transaction_pid in transaction_pids:
+                    # TODO: return screen message to notify patron if there are
+                    #  other open transactions
+                    transaction = PatronTransaction \
+                        .get_record_by_pid(transaction_pid)
+                    if transaction.loan_pid:
+                        loan = Loan.get_record_by_pid(transaction.loan_pid)
+                        item = Item.get_record_by_pid(loan.item_pid)
+                        patron_account_information.get('fine_items', []) \
+                            .append(item.get('barcode'))
+            return patron_account_information
+        else:
+            return SelfcheckPatronInformation(
+                patron_id=barcode,
+                institution_id=institution_id,
+                screen_messages=[_('Error encountered: patron not found')]
+            )
 
 
 def item_information(patron_barcode, item_barcode, **kwargs):
@@ -247,65 +269,74 @@ def item_information(patron_barcode, item_barcode, **kwargs):
             patron_barcode,
             filter_by_org_pid=org_pid)
         item = Item.get_item_by_barcode(item_barcode, org_pid)
-        document = Document.get_record_by_pid(item.document_pid)
-        location = item.get_location()
-        language = kwargs.get('language', current_app.config
-                              .get('BABEL_DEFAULT_LANGUAGE'))
-        with current_app.test_request_context() as ctx:
-            ctx.babel_locale = language
-            item_information = SelfcheckItemInformation(
-                item_id=item.get('barcode'),
-                title_id=title_format_text_head(document.get('title')),
-                circulation_status=map_item_circulation_status(item.status),
-                fee_type=SelfcheckFeeType.OTHER,
-                security_marker=SelfcheckSecurityMarkerType.OTHER
-            )
-            item_information['media_type'] = map_media_type(
-                document['type'][0]['main_type']
-            )
-            item_information['hold_queue_length'] = item.number_of_requests()
-            item_information['owner'] = location.get_library().get('name')
-            item_information['permanent_location'] = location.get('name')
-            item_information['current_location'] = \
-                item.get_last_location().get('name')
-            # get loan for item
-            filter_states = [
-                LoanState.PENDING,
-                LoanState.ITEM_ON_LOAN
-            ]
-            loan = get_loans_by_item_pid_by_patron_pid(
-                item.pid, patron.pid, filter_states)
-            if loan:
-                if loan['state'] == LoanState.ITEM_ON_LOAN:
-                    # format the end date according selfcheck language
-                    item_information['due_date'] = format_date_filter(
-                        loan['end_date'],
-                        date_format='short',
-                        time_format=None,
-                        locale=language,
-                    )
+        if item:
+            document = Document.get_record_by_pid(item.document_pid)
+            location = item.get_location()
+            language = kwargs.get('language', current_app.config
+                                  .get('BABEL_DEFAULT_LANGUAGE'))
+            with current_app.test_request_context() as ctx:
+                ctx.babel_locale = language
+                item_information = SelfcheckItemInformation(
+                    item_id=item.get('barcode'),
+                    title_id=title_format_text_head(document.get('title')),
+                    circulation_status=map_item_circulation_status(
+                        item.status),
+                    fee_type=SelfcheckFeeType.OTHER,
+                    security_marker=SelfcheckSecurityMarkerType.OTHER
+                )
+                item_information['media_type'] = map_media_type(
+                    document['type'][0]['main_type']
+                )
+                item_information['hold_queue_length'] = \
+                    item.number_of_requests()
+                item_information['owner'] = location.get_library().get('name')
+                item_information['permanent_location'] = location.get('name')
+                item_information['current_location'] = \
+                    item.get_last_location().get('name')
+                # get loan for item
+                filter_states = [
+                    LoanState.PENDING,
+                    LoanState.ITEM_ON_LOAN
+                ]
+                loan = get_loans_by_item_pid_by_patron_pid(
+                    item.pid, patron.pid, filter_states)
+                if loan:
+                    if loan['state'] == LoanState.ITEM_ON_LOAN:
+                        # format the end date according selfcheck language
+                        item_information['due_date'] = format_date_filter(
+                            loan['end_date'],
+                            date_format='short',
+                            time_format=None,
+                            locale=language,
+                        )
 
-                    transaction = PatronTransaction.\
-                        get_last_transaction_by_loan_pid(
-                            loan_pid=loan.pid,
-                            status='open')
-                    if transaction:
-                        # TODO: map transaction type
-                        item_information['fee_type'] = SelfcheckFeeType.OVERDUE
-                        item_information['fee_amount'] = \
-                            transaction.total_amount
-                        item_information['currency_type'] = \
-                            transaction.currency
-                        item_information.get('screen_messages', []).append(
-                            _('overdue'))
-                elif loan['state'] == LoanState.PENDING:
-                    item_information['fee_type'] = SelfcheckFeeType.OTHER
-            # public note
-            public_note = item.get_note(ItemNoteTypes.PUBLIC)
-            if public_note:
-                item_information.get('screen_messages', []).append(public_note)
+                        transaction = PatronTransaction. \
+                            get_last_transaction_by_loan_pid(
+                                loan_pid=loan.pid, status='open')
+                        if transaction:
+                            # TODO: map transaction type
+                            item_information['fee_type'] = \
+                                SelfcheckFeeType.OVERDUE
+                            item_information['fee_amount'] = \
+                                transaction.total_amount
+                            item_information['currency_type'] = \
+                                transaction.currency
+                            item_information.get('screen_messages', []) \
+                                .append(_('overdue'))
+                    elif loan['state'] == LoanState.PENDING:
+                        item_information['fee_type'] = SelfcheckFeeType.OTHER
+                # public note
+                public_note = item.get_note(ItemNoteTypes.PUBLIC)
+                if public_note:
+                    item_information.get('screen_messages', []) \
+                        .append(public_note)
 
-            return item_information
+                return item_information
+        else:
+            return SelfcheckItemInformation(
+                item_id=item_barcode,
+                screen_messages=[_('Error encountered: item not found')]
+            )
 
 
 def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode,
@@ -342,28 +373,36 @@ def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode,
                     language = kwargs.get('language', current_app.config
                                           .get('BABEL_DEFAULT_LANGUAGE'))
                     ctx.babel_locale = language
-                    # TODO: check if item is already checked out
-                    #  (see sip2 renewal_ok)
-                    # do checkout
-                    result, data = item.checkout(
-                        patron_pid=patron.pid,
-                        transaction_user_pid=staffer.pid,
-                        transaction_library_pid=terminal.library_pid,
-                        item_pid=item.pid,
-                        selfcheck_terminal_id=str(terminal.id),
-                    )
-                    if data[LoanAction.CHECKOUT]:
-                        loan = data[LoanAction.CHECKOUT]
-                        checkout['checkout'] = True
-                        checkout['due_date'] = loan.get_loan_end_date(
-                            time_format=None, language=language)
-                        # checkout note
-                        checkout_note = item.get_note(ItemNoteTypes.CHECKOUT)
-                        if checkout_note:
-                            checkout.get('screen_messages', [])\
-                                .append(checkout_note)
-                        # TODO: When is possible, try to return fields:
-                        #       magnetic_media, desensitize
+                    # check if item is already checked out by the patron
+                    loan = get_loans_by_item_pid_by_patron_pid(
+                        item_pid=item.pid, patron_pid=patron.pid,
+                        filter_states=[LoanState.ITEM_ON_LOAN])
+                    if loan:
+                        checkout['renewal'] = True
+                        checkout['desensitize'] = True
+                    else:
+                        # do checkout
+                        result, data = item.checkout(
+                            patron_pid=patron.pid,
+                            transaction_user_pid=staffer.pid,
+                            transaction_library_pid=terminal.library_pid,
+                            item_pid=item.pid,
+                            selfcheck_terminal_id=str(terminal.id),
+                        )
+                        if data[LoanAction.CHECKOUT]:
+                            loan = data[LoanAction.CHECKOUT]
+                            checkout['checkout'] = True
+                            checkout['desensitize'] = True
+                            checkout['due_date'] = loan.get_loan_end_date(
+                                time_format=None, language=language)
+                            # checkout note
+                            checkout_note = item.get_note(
+                                ItemNoteTypes.CHECKOUT)
+                            if checkout_note:
+                                checkout.get('screen_messages', []) \
+                                    .append(checkout_note)
+                            # TODO: When is possible, try to return fields:
+                            #       magnetic_media
         except ItemNotAvailableError:
             checkout.get('screen_messages', []).append(
                 _('Checkout impossible: the item is requested by '
@@ -417,13 +456,14 @@ def selfcheck_checkin(transaction_user_pid, item_barcode, **kwargs):
                     )
                     if data[LoanAction.CHECKIN]:
                         checkin['checkin'] = True
+                        checkin['resensitize'] = True
                         # checkin note
                         checkin_note = item.get_note(ItemNoteTypes.CHECKIN)
                         if checkin_note:
-                            checkin.get('screen_messages', [])\
+                            checkin.get('screen_messages', []) \
                                 .append(checkin_note)
                         # TODO: When is possible, try to return fields:
-                        #       magnetic_media, resensitize
+                        #       magnetic_media
         except Exception:
             checkin.get('screen_messages', []).append(
                 _('Error encountered: please contact a librarian'))
@@ -436,7 +476,7 @@ def selfcheck_renew(transaction_user_pid, item_barcode, **kwargs):
 
     Perform renew action received from the selfcheck.
     :param transaction_user_pid: identifier of the staff user.
-    :param item_barcode: item identifier.
+    :param item_barcode: item identifier.from
     :return: The SelfcheckRenew object.
     """
     if check_sip2_module():
@@ -461,10 +501,6 @@ def selfcheck_renew(transaction_user_pid, item_barcode, **kwargs):
             try:
                 staffer = Patron.get_record_by_pid(transaction_user_pid)
                 if staffer.is_librarian:
-                    # get renewal count
-                    renewal_count = item.get_extension_count()
-                    if renewal_count > 1:
-                        renew['renewal'] = True
                     # do extend loan
                     result, data = item.extend_loan(
                         transaction_user_pid=staffer.pid,
@@ -475,19 +511,20 @@ def selfcheck_renew(transaction_user_pid, item_barcode, **kwargs):
                     if data[LoanAction.EXTEND]:
                         loan = data[LoanAction.EXTEND]
                         renew['success'] = True
+                        renew['renewal'] = True
+                        renew['desensitize'] = True
                         renew['due_date'] = loan.get_loan_end_date(
                             time_format=None, language=language)
                         transaction = PatronTransaction. \
                             get_last_transaction_by_loan_pid(
-                                loan_pid=loan.pid,
-                                status='open')
+                                loan_pid=loan.pid, status='open')
                         if transaction:
                             # TODO: map transaction type
                             renew['fee_type'] = SelfcheckFeeType.OVERDUE
                             renew['fee_amount'] = transaction.total_amount
                             renew['currency_type'] = transaction.currency
                         # TODO: When is possible, try to return fields:
-                        #       magnetic_media, resensitize
+                        #       magnetic_media
 
             except NoCirculationAction:
                 renew.get('screen_messages', []).append(
