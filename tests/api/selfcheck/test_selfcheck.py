@@ -33,7 +33,7 @@ from rero_ils.modules.notifications.api import Notification, \
     NotificationsSearch, number_of_reminders_sent
 from rero_ils.modules.notifications.dispatcher import Dispatcher
 from rero_ils.modules.selfcheck.api import authorize_patron, enable_patron, \
-    item_information, patron_information, selfcheck_checkin, \
+    item_information, patron_information, patron_status, selfcheck_checkin, \
     selfcheck_checkout, selfcheck_login, selfcheck_renew, system_status, \
     validate_patron_account
 from rero_ils.modules.selfcheck.utils import check_sip2_module
@@ -107,10 +107,14 @@ def test_enable_patron(selfcheck_patron_martigny):
     """Test enable patron."""
     response = enable_patron(
         selfcheck_patron_martigny.get('patron', {}).get('barcode')[0])
-    assert response['institution_id'] == selfcheck_patron_martigny\
+    assert response.get('institution_id') == selfcheck_patron_martigny\
         .library_pid
-    assert response['patron_id']
-    assert response['patron_name']
+    assert response.get('patron_id')
+    assert response.get('patron_name')
+
+    # test with wrong patron
+    response = enable_patron('wrong_patron_barcode')
+    assert 'patron not found' in response.get('screen_messages')[0]
 
 
 def test_patron_information(client, librarian_martigny,
@@ -169,6 +173,11 @@ def test_patron_information(client, librarian_martigny,
         'patron', {}).get('barcode')[0])
     assert response
 
+    # get patron status
+    response = patron_status(selfcheck_patron_martigny.get(
+        'patron', {}).get('barcode')[0])
+    assert response
+
     # checkin
     res, _ = postdata(
         client,
@@ -181,6 +190,12 @@ def test_patron_information(client, librarian_martigny,
         )
     )
     assert res.status_code == 200
+
+    # test with wrong patron
+    response = patron_information('wrong_patron_barcode')
+    assert 'patron not found' in response.get('screen_messages')[0]
+
+    assert 'patron not found' in response.get('screen_messages')[0]
 
 
 def test_item_information(client, librarian_martigny,
@@ -259,6 +274,13 @@ def test_item_information(client, librarian_martigny,
     )
     assert res.status_code == 200
 
+    # test with wrong item barcode
+    response = item_information(
+        patron_barcode=patron_barcode,
+        item_barcode='wrong_item_barcode',
+        institution_id=librarian_martigny.organisation_pid)
+    assert 'item not found' in response.get('screen_messages')[0]
+
 
 def test_selfcheck_circulation(client, selfcheck_librarian_martigny, document,
                                librarian_martigny, librarian2_martigny,
@@ -278,6 +300,14 @@ def test_selfcheck_circulation(client, selfcheck_librarian_martigny, document,
     assert checkout
     assert checkout.is_success
     assert checkout.due_date
+
+    # test second checkout
+    checkout = selfcheck_checkout(
+        transaction_user_pid=librarian_martigny.pid,
+        item_barcode=item_barcode, patron_barcode=patron_barcode,
+        terminal=selfcheck_librarian_martigny.name
+    )
+    assert not checkout.is_success
 
     # Get the loan and update end_date to allow direct renewal
     loan_pid = Item.get_loan_pid_with_item_on_loan(item_lib_martigny.pid)
