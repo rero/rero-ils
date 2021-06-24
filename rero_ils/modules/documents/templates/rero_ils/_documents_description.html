@@ -118,26 +118,6 @@
   </dd>
   {% endif %}
 
-  <!-- Related resource -->
-  {% set other_accesses = record|get_other_accesses %}
-  {% if other_accesses|length > 0 %}
-  <dt class="col-sm-3">
-    {{ _('Related resource') }}
-  </dt>
-  <dd class="col-sm-7 col-md-9 mb-0">
-    <ul class="list-unstyled mb-0">
-      {% for other_access in other_accesses %}
-      <li>
-        <a class="rero-ils-external-link" href={{ other_access.url }}>{{ other_access.content }}</a>
-        {% if other_access.public_note %}
-          ({{ other_access.public_note }})
-        {% endif %}
-      </li>
-      {% endfor %}
-    </ul>
-  </dd>
-  {% endif %}
-
   <!-- PERMALINK -->
   {% if record.source %}
   {{ dl(_('Source'), '<a href="'+ record.source +'" target="_blank">'+ record.source +'</a>') }}

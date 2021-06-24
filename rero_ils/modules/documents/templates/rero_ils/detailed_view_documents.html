@@ -112,12 +112,9 @@
         {% for resource in resources %}
           <li>
             <a href="{{ resource.url }}">
-              <i class="fa fa-link"></i>
-              {{ _(resource.type) }}:
+              {{ _(resource.type) }}
               {% if resource.content %}
-                {{ _(resource.content) }}
-              {% else %}
-                {{ resource.url }}
+                : {{ _(resource.content) }}
               {% endif %}
             </a>
             {% if resource.public_note %}({{ resource.public_note }}){% endif %}
