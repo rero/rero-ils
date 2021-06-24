@@ -61,15 +61,16 @@ def test_libraries_is_open(lib_martigny):
     #   * monday --> friday  :: 6 AM  --> closed
     #   * monday --> friday  :: 12 AM --> open
     #   * saturday & sunday  :: closed all day
+    orginal_date = datetime.strptime('2020/08/17', '%Y/%m/%d')  # random date
     for day_idx in range(0, 5):
-        test_date = next_weekday(datetime.now(), day_idx)
+        test_date = next_weekday(orginal_date, day_idx)
         test_date = test_date.replace(hour=6, minute=0)
         assert not library.is_open(test_date)
         test_date = test_date.replace(hour=12)
         assert library.is_open(test_date)
-    test_date = next_weekday(datetime.now(), 5)
+    test_date = next_weekday(orginal_date, 5)
     assert not library.is_open(test_date)
-    test_date = next_weekday(datetime.now(), 6)
+    test_date = next_weekday(orginal_date, 6)
     assert not library.is_open(test_date)
 
     # CASE 2 :: Check single exception dates
