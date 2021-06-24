@@ -305,6 +305,7 @@ def patron_authenticate():
         'postal_code': patron.get('postal_code'),
         'city': patron.get('city'),
         'phone': patron.get('home_phone'),
+        'email': patron.get('email'),
         'birth_date': patron.get('birth_date'),
         'patron_type': patron_type.get('code'),
         'expiration_date': patron_data.get('expiration_date'),
