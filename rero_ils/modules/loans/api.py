@@ -532,6 +532,8 @@ class Loan(IlsRecord):
         loan = self.replace_refs()
         data = loan.dumps()
         patron = Patron.get_record_by_pid(loan['patron_pid'])
+
+        # Add patron informations
         ptrn_data = patron.dumps()
         data['patron'] = {}
         data['patron']['barcode'] = ptrn_data['patron']['barcode']
@@ -543,9 +545,11 @@ class Loan(IlsRecord):
                 'name': location.get('name'),
                 'library_name': location.get_library().get('name')
             }
+
         # Always add item destination readable informations if item state is
         # 'in transit' ; much more easier to know these informations for UI !
         item = Item.get_record_by_pid(self.item_pid)
+        data['rank'] = item.patron_request_rank(patron)
         if item.status == ItemStatus.IN_TRANSIT:
             destination_loc_pid = item.location_pid
             if LoanState.ITEM_IN_TRANSIT_FOR_PICKUP:
