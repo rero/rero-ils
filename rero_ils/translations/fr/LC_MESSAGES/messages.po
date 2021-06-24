@@ -22,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-06-16 13:57+0200\n"
 "PO-Revision-Date: 2021-06-24 08:40+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Last-Translator: Pascal Repond <pascalr.92@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
 "Language: fr\n"
@@ -278,6 +278,9 @@ msgid ""
 "characters long and only contain alphanumeric characters, dashes and "
 "underscores"
 msgstr ""
+"Le nom d'utilisateur doit commencer par une lettre ou un chiffre, avoir au "
+"moins trois caractères et ne contenir que des caractères alphanumériques, "
+"des tirets et des underscores"
 
 #: rero_ils/jsonschemas/common/cantons-v0.0.1.json:3
 msgid "Cantons"
@@ -6678,17 +6681,16 @@ msgstr "Reproduit comme"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:176
 msgid "Descriptive data for a reproduction (MARC 533)."
-msgstr ""
+msgstr "Données descriptives d'une reproduction (MARC 533)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:192
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:196
-#, fuzzy
 msgid "Reproduction of"
-msgstr "Méthode de production"
+msgstr "Reproduction de"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:197
 msgid "A reproduction of a document (MARC 534)."
-msgstr ""
+msgstr "Une reproduction d'un document (MARC 534)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:214
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:31
@@ -8595,19 +8597,21 @@ msgstr "Subdivision de forme"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:127
 msgid "Mediums of performance (music)"
-msgstr ""
+msgstr "Distributions d’exécution (musique)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:131
 msgid "Medium of performance (music)"
-msgstr ""
+msgstr "Distribution d’exécution (musique)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:137
+#, fuzzy
 msgid "Arranged statement (music)"
-msgstr ""
+msgstr "Mention d'adaptation (musique)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:142
+#, fuzzy
 msgid "Key (music)"
-msgstr ""
+msgstr "Clef (musique)"
 
 #: rero_ils/modules/documents/templates/rero_ils/_anonymous_button.html:21
 msgid "Log in (to see request options)"
@@ -8660,7 +8664,7 @@ msgstr "Retour"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:156
 msgid "Show more"
-msgstr ""
+msgstr "Montrer plus"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:198
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:200
@@ -9659,7 +9663,7 @@ msgstr ""
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:237
 msgid "Temporary location"
-msgstr ""
+msgstr "Localisation provisoire"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:318
 msgid "Issue status"
@@ -10257,16 +10261,17 @@ msgid "recall"
 msgstr "réclamation"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:88
+#, fuzzy
 msgid "transit_notice"
-msgstr ""
+msgstr "avis de transit"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:92
 msgid "request"
-msgstr "demander"
+msgstr "demande"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:96
 msgid "booking"
-msgstr ""
+msgstr "réservation"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:4
 msgid "Operation log"
@@ -10321,16 +10326,15 @@ msgstr "Organisation de l'utilisateur"
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:88
 #, fuzzy
 msgid "Loan specific data"
-msgstr "non spécifié"
+msgstr "Données spécifiques au prêt"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:93
-#, fuzzy
 msgid "Override flag"
-msgstr "en retard"
+msgstr "Override flag"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:94
 msgid "Allow a transaction which is normally not possible."
-msgstr ""
+msgstr "Autoriser une transaction qui n'est normalement pas possible."
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:99
 #, fuzzy
@@ -10348,9 +10352,8 @@ msgid "Transaction location name"
 msgstr "PID de la localisation de la transaction"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:138
-#, fuzzy
 msgid "Age"
-msgstr "Pages"
+msgstr "Âge"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:143
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:89
@@ -10372,17 +10375,16 @@ msgstr "Code local"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:182
 msgid "Category"
-msgstr ""
+msgstr "Catégorie"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:197
-#, fuzzy
 msgid "PID"
-msgstr "période"
+msgstr "PID"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:202
 #, fuzzy
 msgid "Location name"
-msgstr "Nom du lieu de retrait"
+msgstr "Localisation"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:250
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:39
@@ -10390,9 +10392,8 @@ msgid "Creation date"
 msgstr "Date de création"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:255
-#, fuzzy
 msgid "Modification date"
-msgstr "Type de la notification"
+msgstr "Date de modification"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:5
 msgid "JSON schema for an organisation"
@@ -10661,7 +10662,7 @@ msgstr "La description du type de lecteur"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:59
 msgid "Code to identify the patron type."
-msgstr ""
+msgstr "Code pour identifier le type de lecteur."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:80
 msgid "Yearly amount due by patrons linked to this patron type."
@@ -10993,8 +10994,9 @@ msgid "Error encountered: please contact a librarian"
 msgstr "Une erreur est survenue : veuillez contacter un bibliothécaire"
 
 #: rero_ils/modules/selfcheck/api.py:494
+#, fuzzy
 msgid "No circulation action is possible"
-msgstr ""
+msgstr "Aucune action de prêt n'est possible"
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:5
 msgid "JSON schema for templates."
