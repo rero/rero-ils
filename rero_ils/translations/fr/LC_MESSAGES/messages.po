@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-06-16 13:57+0200\n"
-"PO-Revision-Date: 2021-06-18 15:54+0000\n"
+"PO-Revision-Date: 2021-06-24 08:40+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
@@ -30,7 +30,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.7\n"
+"X-Generator: Weblate 4.7.1-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: rero_ils/accounts_views.py:50
@@ -5085,7 +5085,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:3
 msgid "Terms of availability"
-msgstr "Conditions de disponibilité"
+msgstr "Modalités d'acquisition"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:4
 msgid "A condition under which the document is supplied. This includes the price."
@@ -7984,7 +7984,7 @@ msgstr "Projection trimétrique de Chamberlin"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:153
 msgid "Equinox"
-msgstr "Equinoxe"
+msgstr "Équinoxe"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:154
 msgid "Enter only a year (yyyy) or year and month (yyyy.mm)."
@@ -7996,7 +7996,7 @@ msgstr "Exemple : 1955"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_sequence_numbering-v0.0.1.json:3
 msgid "Numbering of sequence"
-msgstr "Numérotation de la séquence"
+msgstr "Numérotation de séquence"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_sequence_numbering-v0.0.1.json:4
 msgid ""
@@ -8138,7 +8138,7 @@ msgstr "Résumé"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:51
 msgid "Provider of the summary (MARC 520$c and 520$9)"
-msgstr "Fournisseur du résumé (MARC 520$c et 520$9)"
+msgstr "Source du résumé (MARC 520$c et 520$9)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:55
 msgid "Example: Internet Movie Database"
@@ -8153,7 +8153,7 @@ msgid ""
 "Indication of content that updates or complements the primary content, "
 "like an index, a bibliography or an appendix (MARC 504)."
 msgstr ""
-"Indication de contenu qui met à jour ou complète le contenu principale, "
+"Indication d’un contenu qui met à jour ou complète le contenu principal, "
 "comme un index, une bibliographie ou une annexe (MARC 504)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_supplementary_content-v0.0.1.json:8
@@ -8263,7 +8263,7 @@ msgstr "Titre abrégé"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:52
 msgid "bf:KeyTitle"
-msgstr ""
+msgstr "Titre-clé"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:62
 msgid "Main titles"
@@ -8537,7 +8537,7 @@ msgstr "collection éditoriale"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:3
 msgid "Usage and access policies"
-msgstr "Politiques d'utilisation et d'accès"
+msgstr "Conditions d'usage et d'accès"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:4
 msgid ""
@@ -8551,7 +8551,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:9
 msgid "Usage and access policy"
-msgstr "Politique d'usage et d'accès"
+msgstr "Condition d'usage et d'accès"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:37
 msgid "Example: Copy not allowed"
