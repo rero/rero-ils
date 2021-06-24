@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-06-16 13:57+0200\n"
-"PO-Revision-Date: 2021-06-24 08:40+0000\n"
-"Last-Translator: Pascal Repond <pascalr.92@gmail.com>\n"
+"PO-Revision-Date: 2021-06-24 12:47+0000\n"
+"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
 "Language: fr\n"
@@ -3956,7 +3956,7 @@ msgstr "Schéma de validation des comptes."
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:29
 msgid "Account ID"
-msgstr "Mon compte"
+msgstr "PID du compte"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:33
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:43
@@ -4397,7 +4397,7 @@ msgstr "Schéma de validation des commandes."
 
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:35
 msgid "AcqOrder ID"
-msgstr "ID de la commande"
+msgstr "PID de la commande"
 
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:51
 msgid "The order number is already taken."
@@ -8604,7 +8604,6 @@ msgid "Medium of performance (music)"
 msgstr "Distribution d’exécution (musique)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:137
-#, fuzzy
 msgid "Arranged statement (music)"
 msgstr "Mention d'adaptation (musique)"
 
@@ -10261,9 +10260,8 @@ msgid "recall"
 msgstr "réclamation"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:88
-#, fuzzy
 msgid "transit_notice"
-msgstr "avis de transit"
+msgstr "Avis de transit"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:92
 msgid "request"
@@ -10324,7 +10322,6 @@ msgid "User organisation"
 msgstr "Organisation de l'utilisateur"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:88
-#, fuzzy
 msgid "Loan specific data"
 msgstr "Données spécifiques au prêt"
 
@@ -10337,19 +10334,16 @@ msgid "Allow a transaction which is normally not possible."
 msgstr "Autoriser une transaction qui n'est normalement pas possible."
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:99
-#, fuzzy
 msgid "Transaction channel"
-msgstr "Canal de communication"
+msgstr "Canal de la transaction"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:108
-#, fuzzy
 msgid "Transaction user name"
-msgstr "PID de l'utilisateur de la transaction"
+msgstr "Nom de l'utilisateur de la transaction"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:113
-#, fuzzy
 msgid "Transaction location name"
-msgstr "PID de la localisation de la transaction"
+msgstr "Nom de la localisation de la transaction"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:138
 msgid "Age"
@@ -10382,9 +10376,8 @@ msgid "PID"
 msgstr "PID"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:202
-#, fuzzy
 msgid "Location name"
-msgstr "Localisation"
+msgstr "Nom de la localisation"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:250
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:39
@@ -10994,7 +10987,6 @@ msgid "Error encountered: please contact a librarian"
 msgstr "Une erreur est survenue : veuillez contacter un bibliothécaire"
 
 #: rero_ils/modules/selfcheck/api.py:494
-#, fuzzy
 msgid "No circulation action is possible"
 msgstr "Aucune action de prêt n'est possible"
 
