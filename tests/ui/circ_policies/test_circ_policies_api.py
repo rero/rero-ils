@@ -36,6 +36,7 @@ def test_no_default_policy(app):
 
 
 def test_circ_policy_create(circ_policy_martigny_data_tmp,
+                            circ_policy_short_martigny_data,
                             org_martigny,
                             lib_martigny, lib_saxon,
                             patron_type_children_martigny,
@@ -56,9 +57,9 @@ def test_circ_policy_create(circ_policy_martigny_data_tmp,
     assert fetched_pid.pid_value == '1'
     assert fetched_pid.pid_type == 'cipo'
 
-    circ_policy = deepcopy(circ_policy_martigny_data_tmp)
-    del circ_policy['$schema']
-    cipo = CircPolicy.create(circ_policy, delete_pid=True)
+    circ_policy_data = deepcopy(circ_policy_short_martigny_data)
+    del circ_policy_data['$schema']
+    cipo = CircPolicy.create(circ_policy_data, delete_pid=True)
     assert cipo.get('$schema')
     assert cipo.get('pid') == '2'
 
@@ -92,22 +93,32 @@ def test_circ_policy_create(circ_policy_martigny_data_tmp,
     with pytest.raises(ValidationError):
         cipo = CircPolicy.create(cipo_data, delete_pid=False)
 
+    # TEST #2 : create a second defaut policy
+    #   The first created policy (pid=1) is the default policy.
+    #   Creation of a second default policy should raise a ValidationError
+    default_cipo = CircPolicy.get_record_by_pid('1')
+    assert default_cipo.get('is_default')
+    with pytest.raises(ValidationError) as excinfo:
+        CircPolicy.create(circ_policy_martigny_data_tmp, delete_pid=True)
+    assert 'CircPolicy: already a default policy for this org' \
+           in str(excinfo.value)
+
 
 def test_circ_policy_exist_name_and_organisation_pid(
-        circ_policy_default_martigny):
-    """Test policy name existance."""
-    circ_policy = circ_policy_default_martigny
-    cipo = circ_policy.replace_refs()
+        circ_policy_short_martigny):
+    """Test policy name existence."""
+    cipo = circ_policy_short_martigny.replace_refs()
     assert CircPolicy.exist_name_and_organisation_pid(
         cipo.get('name'), cipo.get('organisation', {}).get('pid'))
     assert not CircPolicy.exist_name_and_organisation_pid(
         'not exists yet', cipo.get('organisation', {}).get('pid'))
 
 
-def test_circ_policy_can_not_delete(circ_policy_default_martigny,
-                                    circ_policy_short_martigny):
+def test_circ_policy_can_not_delete(circ_policy_short_martigny):
     """Test can not delete a policy."""
-    can, reasons = circ_policy_default_martigny.can_delete
+    org_pid = circ_policy_short_martigny.organisation_pid
+    defaut_cipo = CircPolicy.get_default_circ_policy(org_pid)
+    can, reasons = defaut_cipo.can_delete
     assert not can
     assert reasons['others']['is_default']
 

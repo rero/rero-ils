@@ -89,6 +89,13 @@ class CircPolicy(IlsRecord):
         from ..item_types.api import ItemType
         from ..patron_types.api import PatronType
 
+        # Only one default policy by organisation
+        if self.get('is_default', False):
+            default_cipo = CircPolicy.get_default_circ_policy(
+                self.organisation_pid)
+            if default_cipo and default_cipo.pid != self.pid:
+                return 'CircPolicy: already a default policy for this org'
+
         for library in self.get('libraries', []):
             library_pid = extracted_data_from_ref(library)
             if not Library.get_record_by_pid(library_pid):
@@ -146,6 +153,15 @@ class CircPolicy(IlsRecord):
             last_upper_limit = upper_limit
 
         return True
+
+    @classmethod
+    def create(cls, data, id_=None, delete_pid=False,
+               dbcommit=True, reindex=True, pidcheck=True, **kwargs):
+        """Create a new circulation policy record."""
+        # default behavior is to reindex the record. Needed to check that there
+        # is only one default policy by organisation
+        return super().create(
+            data, id_, delete_pid, dbcommit, reindex, **kwargs)
 
     @classmethod
     def exist_name_and_organisation_pid(cls, name, organisation_pid):
