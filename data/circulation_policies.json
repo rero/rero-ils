@@ -485,7 +485,7 @@
     "number_renewals": 3,
     "renewal_duration": 28,
     "policy_library_level": false,
-    "is_default": true,
+    "is_default": false,
     "settings": [
       {
         "patron_type": {
