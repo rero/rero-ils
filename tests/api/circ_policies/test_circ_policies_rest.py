@@ -18,15 +18,13 @@
 """Tests REST API for circulation policies."""
 
 import json
+from copy import deepcopy
 
 import mock
-import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
-
-from rero_ils.modules.api import IlsRecordError
 
 
 def test_circ_policies_permissions(
@@ -118,32 +116,30 @@ def test_filtered_circ_policies_get(
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_circ_policies_post_put_delete(client, org_martigny,
-                                       circ_policy_default_martigny_data,
+                                       circ_policy_short_martigny_data,
                                        json_header):
     """Test policy retrieval."""
     # Create policy / POST
     item_url = url_for('invenio_records_rest.cipo_item', pid_value='1')
     list_url = url_for('invenio_records_rest.cipo_list', q='pid:1')
-    del circ_policy_default_martigny_data['pid']
+    del circ_policy_short_martigny_data['pid']
     res, data = postdata(
         client,
         'invenio_records_rest.cipo_list',
-        circ_policy_default_martigny_data
+        circ_policy_short_martigny_data
     )
     assert res.status_code == 201
 
     # Check that the returned policy matches the given data
-    circ_policy_default_martigny_data['pid'] = '1'
-
-    assert data['metadata'] == circ_policy_default_martigny_data
-
+    circ_policy_short_martigny_data['pid'] = '1'
+    assert data['metadata'] == circ_policy_short_martigny_data
     res = client.get(item_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert circ_policy_default_martigny_data == data['metadata']
+    assert circ_policy_short_martigny_data == data['metadata']
 
     # Update policy/PUT
-    data = circ_policy_default_martigny_data
+    data = circ_policy_short_martigny_data
     data['name'] = 'Test Name'
     res = client.put(
         item_url,
@@ -170,12 +166,8 @@ def test_circ_policies_post_put_delete(client, org_martigny,
     assert data['metadata']['name'] == 'Test Name'
 
     # Delete policy/DELETE
-    with pytest.raises(IlsRecordError.NotDeleted):
-        res = client.delete(item_url)
-    assert res.status_code == 200
-
-    res = client.get(item_url)
-    assert res.status_code == 200
+    res = client.delete(item_url)
+    assert res.status_code == 204
 
 
 @mock.patch('rero_ils.modules.decorators.login_and_librarian',
@@ -230,37 +222,27 @@ def test_circ_policy_secure_api(client, json_header,
 
 
 def test_circ_policy_secure_api_create(client, json_header,
-                                       circ_policy_default_martigny,
                                        system_librarian_martigny,
                                        system_librarian_sion,
-                                       circ_policy_default_martigny_data):
+                                       circ_policy_short_martigny_data):
     """Test circulation policies secure api create."""
     # Martigny
     login_user_via_session(client, system_librarian_martigny.user)
     post_entrypoint = 'invenio_records_rest.cipo_list'
 
-    del circ_policy_default_martigny_data['pid']
-    res, _ = postdata(
-        client,
-        post_entrypoint,
-        circ_policy_default_martigny_data
-    )
+    cipo_data = deepcopy(circ_policy_short_martigny_data)
+    del cipo_data['pid']
+    res, _ = postdata(client, post_entrypoint, cipo_data)
     assert res.status_code == 201
 
     # Sion
     login_user_via_session(client, system_librarian_sion.user)
-
-    res, _ = postdata(
-        client,
-        post_entrypoint,
-        circ_policy_default_martigny_data
-    )
+    res, _ = postdata(client, post_entrypoint, cipo_data)
     assert res.status_code == 403
 
 
 def test_circ_policy_secure_api_update(client,
                                        circ_policy_short_martigny,
-                                       circ_policy_short_martigny_data,
                                        circ_policy_temp_martigny,
                                        circ_policy_temp_martigny_data,
                                        system_librarian_martigny,
@@ -274,7 +256,7 @@ def test_circ_policy_secure_api_update(client,
     record_url = url_for('invenio_records_rest.cipo_item',
                          pid_value=circ_policy_short_martigny.pid)
 
-    data = circ_policy_short_martigny_data
+    data = deepcopy(circ_policy_short_martigny)
     data['name'] = 'Test Name'
     res = client.put(
         record_url,
