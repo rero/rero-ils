@@ -265,10 +265,9 @@ def missing_pids(doc_type):
                 data['ES'].append(pid)
         for pid in mon.get('ES duplicate'):
             if api_url:
-                url = f'{api_url}?q=pid:{pid}'
-                data['ES duplicate'][url] = len(mon.get('ES duplicate'))
+                data['ES duplicate'].append(f'{api_url}?q=pid:{pid}')
             else:
-                data['ES duplicate'][pid] = len(mon.get('ES duplicate'))
+                data['ES duplicate'].append(pid)
         return jsonify({'data': data})
 
 
