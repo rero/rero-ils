@@ -724,6 +724,16 @@ class HoldingsIndexer(IlsRecordsIndexer):
         document.reindex()
         return return_value
 
+    def delete(self, record):
+        """Delete a record.
+
+        :param record: Record instance.
+        """
+        document = Document.get_record_by_pid(record.document_pid)
+        return_value = super().delete(record)
+        document.reindex()
+        return return_value
+
     def bulk_index(self, record_id_iterator):
         """Bulk index records.
 
