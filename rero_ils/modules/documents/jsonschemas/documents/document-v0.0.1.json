@@ -178,10 +178,10 @@
       "$ref": "https://bib.rero.ch/schemas/documents/document_document_relation-v0.0.1.json#/relatedTo"
     },
     "hasReproduction": {
-      "$ref": "https://bib.rero.ch/schemas/documents/document_document_relation-v0.0.1.json#/relatedTo"
+      "$ref": "https://bib.rero.ch/schemas/documents/document_document_relation-v0.0.1.json#/hasReproduction"
     },
     "reproductionOf": {
-      "$ref": "https://bib.rero.ch/schemas/documents/document_document_relation-v0.0.1.json#/relatedTo"
+      "$ref": "https://bib.rero.ch/schemas/documents/document_document_relation-v0.0.1.json#/reproductionOf"
     },
     "contentMediaCarrier": {
       "$ref": "https://bib.rero.ch/schemas/documents/document_content_media_carrier-v0.0.1.json#/contentMediaCarrier"
