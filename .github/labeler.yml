@@ -27,6 +27,7 @@ data:
   - rero_ils/modules/items/jsonschemas/**/*
   - rero_ils/modules/contributions/jsonschemas/**/*
   - rero_ils/modules/local_fields/jsonschemas/**/*
+  - rero_ils/dojson/**/*
   - rero_ils/modules/**/dojson/**/*
 
 # Add data-export label to any changes in dojson json to dublin core or to
@@ -80,7 +81,7 @@ permissions:
 
 # Add fixtures label to any changes in data folder or subfolders
 fixtures:
-  - rero_ils/data/**/*
+  - data/**/*
 
 # Add serials label to any changes in the following files or folders
 serials:
@@ -92,3 +93,16 @@ activity-logs:
 
 developers:
   - scripts/**/*
+
+monitoring:
+  - rero_ils/modules/monitoring.py
+
+notifications:
+  - rero_ils/modules/notifications/**/*
+
+"public ui":
+  - rero_ils/**/templates/**/*
+  - rero_ils/theme/**/*
+
+"statistics":
+  - rero_ils/modules/stats/**/*
