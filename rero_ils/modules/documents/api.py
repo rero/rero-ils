@@ -79,22 +79,28 @@ class Document(IlsRecord):
     model_cls = DocumentMetadata
 
     @classmethod
-    def is_available(cls, pid, view_code):
+    def is_available(cls, pid, view_code, raise_exception=False):
         """Get availability for document."""
         from ..holdings.api import Holding
+        holding_pids = []
         if view_code != current_app.config.get(
                 'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
             view_id = Organisation.get_record_by_viewcode(view_code)['pid']
-            for holding_pid in Holding.get_holdings_pid_by_document_pid_by_org(
-                    pid, view_id):
-                holding = Holding.get_record_by_pid(holding_pid)
-                if holding.available:
-                    return True
+            holding_pids = Holding.get_holdings_pid_by_document_pid_by_org(
+                    pid, view_id)
         else:
-            for holding_pid in Holding.get_holdings_pid_by_document_pid(pid):
-                holding = Holding.get_record_by_pid(holding_pid)
+            holding_pids = Holding.get_holdings_pid_by_document_pid(pid)
+        for holding_pid in holding_pids:
+            holding = Holding.get_record_by_pid(holding_pid)
+            if holding:
                 if holding.available:
                     return True
+            else:
+                msg = f'No holding: {holding_pid} in DB ' \
+                      f'for document: {pid}'
+                current_app.error(msg)
+                if raise_exception:
+                    raise ValueError(msg)
         return False
 
     @property
