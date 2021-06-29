@@ -527,7 +527,7 @@ class BookFormatExtraction(object):
             """
             # generic regexp valid for all values
             regexp = \
-                r'(^|[^\d]){val}\s?[°⁰]|in(-|-gr\.)*\s*{val}($|[^\d])'.format(
+                r'(^|[^\d]){val}\s?[°⁰º]|in(-|-gr\.)*\s*{val}($|[^\d])'.format(
                     val=value)
             # add specific value regexp
             if value in self._specific_for_1248:
