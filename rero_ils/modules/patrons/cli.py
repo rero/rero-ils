@@ -23,6 +23,7 @@ import json
 import os
 import sys
 import traceback
+from datetime import datetime
 
 import click
 from flask import current_app
@@ -66,7 +67,11 @@ def import_users(infile, append, verbose, password, lazy, dont_stop_on_error,
     :param infile: Json user file.
     """
     click.secho('Import users:', fg='green')
-
+    profile_fields = [
+        'first_name', 'last_name', 'street', 'postal_code', 'gender',
+        'city', 'birth_date', 'username', 'home_phone', 'business_phone',
+        'mobile_phone', 'other_phone', 'keep_history', 'country', 'email'
+    ]
     if lazy:
         # try to lazy read json file (slower, better memory management)
         data = read_json_record(infile)
@@ -88,7 +93,17 @@ def import_users(infile, append, verbose, password, lazy, dont_stop_on_error,
                     )
                 )
             else:
-                click.secho('{count: <8} Existing user: {username}'.format(
+                patron = Patron.get_record_by_pid(patron_data['pid'])
+                user = patron.user
+                for field in profile_fields:
+                    value = patron_data.get(field)
+                    if value is not None:
+                        if field == 'birth_date':
+                            value = datetime.strptime(value, '%Y-%m-%d')
+                        setattr(user.profile, field, value)
+                db.session.merge(user)
+                db.session.commit()
+                click.secho('{count: <8} User updated: {username}'.format(
                         count=count,
                         username=username
                     ),
@@ -96,7 +111,8 @@ def import_users(infile, append, verbose, password, lazy, dont_stop_on_error,
                 )
         try:
             # patron creation
-            if not Patron.get_record_by_pid(patron_data['pid']):
+            patron = Patron.get_record_by_pid(patron_data['pid'])
+            if not patron:
                 patron = create_patron_from_data(
                     data=patron_data,
                     dbcommit=False,
@@ -111,8 +127,12 @@ def import_users(infile, append, verbose, password, lazy, dont_stop_on_error,
                 patron.reindex()
                 pids.append(patron.pid)
             else:
+                # remove profile fields from patron record
+                for field in profile_fields:
+                    patron_data.pop(field, None)
+                patron.update(data=patron_data, dbcommit=True, reindex=True)
                 if verbose:
-                    click.secho('{count: <8} Existing patron: {username}'
+                    click.secho('{count: <8} Patron updated: {username}'
                                 .format(count=count, username=username),
                                 fg='yellow')
         except Exception as err:
