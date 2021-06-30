@@ -23,10 +23,13 @@ from utils import flush_index
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.monitoring import Monitoring, es_db_counts_cli, \
     es_db_missing_cli
+from rero_ils.modules.operation_logs.api import OperationLog
 
 
 def test_monitoring(app, document_sion_items_data, script_info):
     """Test monitoring."""
+    for index in OperationLog.get_indices():
+        flush_index(index)
     cli_output = [
         'DB - ES    type      count                      index      count',
         '----------------------------------------------------------------',
@@ -54,6 +57,7 @@ def test_monitoring(app, document_sion_items_data, script_info):
         '      0    ptrn          0                    patrons          0',
         '      0    pttr          0        patron_transactions          0',
         '      0    ptty          0               patron_types          0',
+        '      0    stat          0                      stats          0',
         '      0    tmpl          0                  templates          0',
         '      0    vndr          0                    vendors          0'
     ]
@@ -100,6 +104,7 @@ def test_monitoring(app, document_sion_items_data, script_info):
         'ptrn': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'patrons'},
         'pttr': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'patron_transactions'},
         'ptty': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'patron_types'},
+        'stat': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'stats'},
         'tmpl': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'templates'},
         'vndr': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'vendors'}
     }
@@ -126,7 +131,9 @@ def test_monitoring(app, document_sion_items_data, script_info):
     assert mon.check() == {'oplg': {'db_es': -1}}
     assert mon.missing('doc') == {'DB': [], 'ES': [], 'ES duplicate': []}
     doc.delete(dbcommit=True)
+    for index in OperationLog.get_indices():
+        flush_index(index)
     assert mon.get_db_count('doc') == 0
     assert mon.get_es_count('documents') == 1
-    assert mon.check() == {'doc': {'db_es': -1}, 'oplg': {'db_es': -1}}
+    assert mon.check() == {'doc': {'db_es': -1}, 'oplg': {'db_es': -2}}
     assert mon.missing('doc') == {'DB': ['doc3'], 'ES': [], 'ES duplicate': []}
