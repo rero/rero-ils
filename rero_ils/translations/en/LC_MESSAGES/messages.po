@@ -18,15 +18,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-06-30 06:49+0200\n"
-"PO-Revision-Date: 2021-06-30 04:45+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2021-06-30 04:58+0000\n"
+"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/en/>\n"
 "Language: en\n"
-"Language-Team: English <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/en/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.7.1-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: rero_ils/accounts_views.py:50
@@ -5293,7 +5294,7 @@ msgstr "Example: Abridged edition, 22"
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:353
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:437
 msgid "Assigning agency."
-msgstr ""
+msgstr "Assigning agency"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:354
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:438
@@ -5301,6 +5302,8 @@ msgid ""
 "Used for imported records only. Agency that assigned this classification "
 "value."
 msgstr ""
+"Used for imported records only. Agency that assigned this classification "
+"value."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:361
 msgid "classification_musicale_genres"
@@ -12809,4 +12812,3 @@ msgstr "Your password has been successfully reset."
 
 #~ msgid "Related resource"
 #~ msgstr "Related resource"
-
