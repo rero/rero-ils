@@ -15,36 +15,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Click command-line interface for operation logs."""
-
-
-from pprint import pprint
+"""Pytest fixtures for stats REST tests."""
 
 import arrow
-import click
-from flask.cli import with_appcontext
+import pytest
 
 from rero_ils.modules.stats.api import Stat, StatsForPricing
 
 
-@click.group()
-def stats():
-    """Notification management commands."""
-
-
-@stats.command('dumps')
-@with_appcontext
-def dumps():
-    """Dumps the current stats value."""
-    pprint(StatsForPricing(to_date=arrow.utcnow()).collect(), indent=2)
-
-
-@stats.command('collect')
-@with_appcontext
-def collect():
-    """Extract the stats value and store it."""
-    _stats = StatsForPricing(to_date=arrow.utcnow())
-    stat = Stat.create(
-        dict(values=_stats.collect()), dbcommit=True, reindex=True)
-    click.secho(
-        f'Stats collected and created. New pid: {stat.pid}', fg='green')
+@pytest.fixture(scope='module')
+def stats(item_lib_martigny, item_lib_fully, item_lib_sion):
+    """Stats fixture."""
+    stats = StatsForPricing(to_date=arrow.utcnow())
+    yield Stat.create(
+        dict(values=stats.collect()), dbcommit=True, reindex=True)

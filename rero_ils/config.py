@@ -98,6 +98,8 @@ from .modules.patrons.api import Patron
 from .modules.patrons.permissions import PatronPermission
 from .modules.permissions import record_permission_factory
 from .modules.selfcheck.permissions import seflcheck_permission_factory
+from .modules.stats.api import Stat
+from .modules.stats.permissions import StatPermission
 from .modules.templates.api import Template
 from .modules.templates.permissions import TemplatePermission
 from .modules.users.api import get_profile_countries, \
@@ -752,6 +754,51 @@ RECORDS_REST_ENDPOINTS = dict(
             action='update', record=record, cls=ItemTypePermission),
         delete_permission_factory_imp=lambda record: record_permission_factory(
             action='delete', record=record, cls=ItemTypePermission)
+    ),
+    stat=dict(
+        pid_type='stat',
+        pid_minter='stat_id',
+        pid_fetcher='stat_id',
+        search_class='rero_ils.modules.stats.api:StatsSearch',
+        search_index='stats',
+        indexer_class='rero_ils.modules.stats.api:StatsIndexer',
+        search_type=None,
+        record_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_response'
+            ),
+            'text/csv': (
+                'rero_ils.modules.stats.serializers:csv_v1_response'
+            ),
+        },
+        record_serializers_aliases={
+            'json': 'application/json',
+            'csv': 'text/csv'
+        },
+        search_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_search'
+            )
+        },
+        list_route='/stats/',
+        record_loaders={
+            'application/json': lambda: Stat(request.get_json()),
+        },
+        record_class='rero_ils.modules.stats.api:Stat',
+        item_route=('/stats/<pid(stat, record_class='
+                    '"rero_ils.modules.stats.api:Stat"):pid_value>'),
+        default_media_type='application/json',
+        max_result_window=MAX_RESULT_WINDOW,
+        list_permission_factory_imp=lambda record: record_permission_factory(
+            action='list', record=record, cls=StatPermission),
+        read_permission_factory_imp=lambda record: record_permission_factory(
+            action='read', record=record, cls=StatPermission),
+        create_permission_factory_imp=lambda record: record_permission_factory(
+            action='create', record=record, cls=StatPermission),
+        update_permission_factory_imp=lambda record: record_permission_factory(
+            action='update', record=record, cls=StatPermission),
+        delete_permission_factory_imp=lambda record: record_permission_factory(
+            action='delete', record=record, cls=StatPermission)
     ),
     hold=dict(
         pid_type='hold',
@@ -2330,6 +2377,7 @@ RECORDS_JSON_SCHEMA = {
     'ptty': '/patron_types/patron_type-v0.0.1.json',
     'ptre': '/patron_transaction_events/patron_transaction_event-v0.0.1.json',
     'ptrn': '/patrons/patron-v0.0.1.json',
+    'stat': '/stats/stat-v0.0.1.json',
     'tmpl': '/templates/template-v0.0.1.json',
     'oplg': '/operation_logs/operation_log-v0.0.1.json',
     'vndr': '/vendors/vendor-v0.0.1.json',
@@ -2345,6 +2393,11 @@ RERO_ILS_ENABLE_OPERATION_LOG = {
     'ill_requests': 'illr'
 }
 RERO_ILS_ENABLE_OPERATION_LOG_VALIDATION = False
+
+# Statistics Configuration
+# ========================
+# Compute the stats with a timeframe given in monthes
+RERO_ILS_STATS_TIMEFRAME_IN_MONTHES = 3
 
 # Notification Configuration
 # ===========================

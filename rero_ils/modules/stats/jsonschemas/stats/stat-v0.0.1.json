@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Stats",
+  "description": "JSON schema for statistics.",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "pid",
+    "values"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate stats records against.",
+      "type": "string",
+      "minLength": 9,
+      "default": "https://bib.rero.ch/schemas/stats/stat-v0.0.1.json"
+    },
+    "pid": {
+      "title": "Stat ID.",
+      "type": "string",
+      "minLength": 1
+    },
+    "values": {
+      "title": "Statistics",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Statistic",
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {}
+      }
+    }
+  }
+}
