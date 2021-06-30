@@ -548,6 +548,9 @@ eval ${PREFIX} invenio fixtures load_virtua_transactions ${DATA_PATH}/requests.j
 info_msg "Fine transactions: ${DATA_PATH}/fines.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures load_virtua_transactions ${DATA_PATH}/fines.json -t fine
 
+info_msg "Collect statistics"
+eval ${PREFIX} poetry run invenio stats collect
+
 date
 success_msg "Perfect ${PROGRAM}! See you soon…"
 exit 0
