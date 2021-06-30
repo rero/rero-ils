@@ -13,15 +13,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-06-24 14:56+0200\n"
-"PO-Revision-Date: 2021-06-24 12:47+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2021-06-29 14:46+0000\n"
+"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/es/>\n"
 "Language: es\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/es/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.7.1-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: rero_ils/accounts_views.py:50
@@ -5042,7 +5043,7 @@ msgstr "Géneros, formas (importados)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:255
 msgid "Genre of form from imported bibliographic data"
-msgstr ""
+msgstr "Género o forma de dato bibliográfico importado"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:275
 msgid "Harvested"
@@ -5189,6 +5190,7 @@ msgstr " Descripción de las convenciones"
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:146
 msgid "Rules used for the descriptive content of the resource description"
 msgstr ""
+"Reglas utilizadas para el contenido descriptivo de la descripción del recurso"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_book_format-v0.0.1.json:3
 msgid "Bibliographic formats"
@@ -5210,7 +5212,7 @@ msgstr "Formato bibliogáfico"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:3
 msgid "Classifications"
-msgstr ""
+msgstr "Clasificaciones"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:7
 msgid "Classification"
@@ -5218,65 +5220,65 @@ msgstr "Clasificación"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:11
 msgid "bf:Classification"
-msgstr ""
+msgstr "Clasificación"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:52
 msgid "bf:ClassificationLcc"
-msgstr ""
+msgstr "Clasificación LCC"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:93
 msgid "bf:ClassificationNlm"
-msgstr ""
+msgstr "Clasificación NLM"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:134
 msgid "bf:ClassificationUdc"
-msgstr ""
+msgstr "Clasificación CDU"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:179
 msgid "bf:ClassificationDdc"
-msgstr ""
+msgstr "Clasificación CDD"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:224
 msgid "classification_brunetparguez"
-msgstr ""
+msgstr "Clasificacíon Brunet-Parguez"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:265
 msgid "classification_droit"
-msgstr ""
+msgstr "Clasificación de derecho"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:306
 msgid "classification_musicale_instruments"
-msgstr ""
+msgstr "Clasificación de instrumentos musicales"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:325
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:408
 msgid "Notation"
-msgstr ""
+msgstr "Índice"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:326
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:409
 msgid "Short alphanumeric string that serves as an identifier for a class."
-msgstr ""
+msgstr "Cadena alfanumérica corta que sirve como identificador para una clase."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:330
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:413
 msgid "Example: 001.012"
-msgstr ""
+msgstr "Ejemplo: 001.012"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:334
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:417
 msgid "Subdivisions"
-msgstr ""
+msgstr "Subdivisiones"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:338
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:421
 msgid "Subdivision"
-msgstr ""
+msgstr "Subdivisión"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:344
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:427
 msgid "Edition"
-msgstr ""
+msgstr "Edición"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:345
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:428
@@ -5284,20 +5286,22 @@ msgid ""
 "Used for imported records only. Edition of the classification, identified"
 " by a number, a date, or another textual designation."
 msgstr ""
+"Se utiliza sólo para los registros importados. Edición de la clasificación, "
+"identificada por un número, una fecha u otra designación textual."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:349
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:432
 msgid "Example: Abridged edition, 22"
-msgstr ""
+msgstr "Ejemplo: Edición abreviada, 22"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:353
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:436
 msgid "Used for imported records only. Assigning agency."
-msgstr ""
+msgstr "Se utiliza sólo para los registros importados. Agencia asignadora."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:360
 msgid "classification_musicale_genres"
-msgstr ""
+msgstr "Clasificación de géneros musicales"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_color_content-v0.0.1.json:3
 msgid "Color contents"
@@ -5326,15 +5330,15 @@ msgstr "policromo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:3
 msgid "Content, media, carrier types"
-msgstr ""
+msgstr "Contenido, medios de comunicación, tipos de soporte"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:7
 msgid "Content, media, carrier type"
-msgstr ""
+msgstr "Contenido, medios de comunicación, tipos de soporte"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:11
 msgid "contentType"
-msgstr ""
+msgstr "Tipo de contenido"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:26
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:42
@@ -5354,6 +5358,8 @@ msgid ""
 "Type of intermediation device required to view, play, run, etc., the "
 "content of a manifestation (MARC 337)."
 msgstr ""
+"Tipo de dispositivo de intermediación necesario para ver, reproducir, "
+"ejecutar, etc., el contenido de una manifestación (MARC 337)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:57
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:148
@@ -5365,7 +5371,7 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:629
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:700
 msgid "Carrier type"
-msgstr ""
+msgstr "Tipo de soporte"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:59
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:150
@@ -5381,6 +5387,9 @@ msgid ""
 " the type of intermediation device required to view, play, run, etc., the"
 " content of a manifestation (MARC 338)."
 msgstr ""
+"Formato del medio de almacenamiento y alojamiento de un soporte en "
+"combinación con el tipo de dispositivo de intermediación necesario para ver, "
+"reproducir, ejecutar, etc., el contenido de una manifestación (MARC 338)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:76
 msgid "rdact:1002"
@@ -5625,7 +5634,7 @@ msgstr "videodisco"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:711
 msgid "unspecified"
-msgstr ""
+msgstr "no especificado"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:727
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:81
@@ -5637,6 +5646,8 @@ msgid ""
 "Fundamental form of communication in which the content is expressed and "
 "the human sense through which it is intended to be perceived (MARC 336)."
 msgstr ""
+"Forma fundamental de comunicación en la que se expresa el contenido y el "
+"sentido humano a través del cual se pretende percibir (MARC 336)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:764
 msgid "rdaco:1002"
@@ -5754,7 +5765,7 @@ msgstr "Agente"
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:2
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation_link-v0.0.1.json:29
 msgid "Corporate body"
-msgstr ""
+msgstr "Entidades corporativas"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:39
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:39
@@ -5814,7 +5825,7 @@ msgstr "Ejemplo: 1989"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation_link-v0.0.1.json:2
 msgid "Link to corporate body entity"
-msgstr ""
+msgstr "Enlace a la entidad corporativa"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:51
 msgid "Example: 1955"
@@ -6466,21 +6477,24 @@ msgstr "Ejemplo: \\u00a9 2010"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_credits-v0.0.1.json:3
 msgid "Notes on statement of responsibility"
-msgstr ""
+msgstr "Notas sobre la declaración de responsabilidad"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_credits-v0.0.1.json:4
 msgid ""
 "Note used for agents not named in the statement of responsibility, or for"
 " other information about the statement of responsibility (MARC 508, 511)."
 msgstr ""
+"Nota utilizada para los agentes no nombrados en la declaración de "
+"responsabilidad, o para otra información sobre la declaración de "
+"responsabilidad (MARC 508, 511)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_credits-v0.0.1.json:8
 msgid "Note on statement of responsibility"
-msgstr ""
+msgstr "Notas sobre la declaración de responsabilidad"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_credits-v0.0.1.json:11
 msgid "Example: Additional collaborators: Bernard Levrat, Eric Wehrli"
-msgstr ""
+msgstr "Ejemplo: Colaboradores adicionales: Bernard Levrat, Eric Wehrli"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dimensions-v0.0.1.json:3
 #: rero_ils/modules/documents/jsonschemas/documents/document_dimensions-v0.0.1.json:8
@@ -6535,45 +6549,51 @@ msgstr "Designación de edición"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:3
 msgid "Supplements"
-msgstr ""
+msgstr "Suplementos"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:7
 msgid "Supplement"
-msgstr ""
+msgstr "Suplemento"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:8
 msgid ""
 "A document that updates or otherwise complements the predominant document"
 " (MARC 770)."
 msgstr ""
+"Un documento que actualiza o complementa el documento predominante (MARC "
+"770)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:24
 msgid "Supplements to"
-msgstr ""
+msgstr "Suplementos a"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:28
 msgid "Supplement to"
-msgstr ""
+msgstr "Suplemento a"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:29
 msgid ""
 "A document that is updated or otherwise complemented by the augmenting "
 "document (MARC 772)."
 msgstr ""
+"Un documento que se actualiza o complementa de alguna manera con el "
+"documento de aumento (MARC 772)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:45
 msgid "Other editions"
-msgstr ""
+msgstr "Otras ediciones"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:49
 msgid "Other edition"
-msgstr ""
+msgstr "Otra edición"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:50
 msgid ""
 "Other available editions, for example simultaneously published language "
 "editions or reprints (MARC 775)."
 msgstr ""
+"Otras ediciones disponibles, por ejemplo, ediciones simultáneos en otros "
+"idiomas o reimpresiones (MARC 775)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:66
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:70
@@ -6585,22 +6605,25 @@ msgid ""
 "A document that embodies the same expression of a work in a different "
 "format (MARC 776)."
 msgstr ""
+"Un documento que encarna la misma expresión de una obra en un formato "
+"diferente (MARC 776)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:87
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:91
 msgid "Issued with"
-msgstr ""
+msgstr "Emitido con"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:92
 msgid ""
 "A document that is issued on the same carrier as the document being "
 "described (MARC 777)."
 msgstr ""
+"Documento emitido en el mismo soporte que el documento descrito (MARC 777)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:108
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:112
 msgid "Preceded by"
-msgstr ""
+msgstr "Precedido por"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:113
 msgid ""
@@ -12832,4 +12855,3 @@ msgstr "Se ha restablecido su contraseña correctamente."
 #~ "alphanumeric characters, dashes and "
 #~ "underscores"
 #~ msgstr ""
-
