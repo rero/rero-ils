@@ -350,7 +350,7 @@
               }
             },
             "assigner": {
-              "title": "Assigning agency.",
+              "title": "Assigning agency",
               "description": "Used for imported records only. Agency that assigned this classification value.",
               "type": "string",
               "minLength": 1
