@@ -86,15 +86,15 @@ def import_users(infile, append, verbose, password, lazy, dont_stop_on_error,
         if password:
             patron_data.pop('password', None)
         if verbose:
-            if not User.get_by_username(username):
+            user_record = User.get_by_username(username)
+            if not user_record:
                 click.secho('{count: <8} Creating user: {username}'.format(
                     count=count,
                     username=username
                     )
                 )
             else:
-                patron = Patron.get_record_by_pid(patron_data['pid'])
-                user = patron.user
+                user = user_record.user
                 for field in profile_fields:
                     value = patron_data.get(field)
                     if value is not None:
