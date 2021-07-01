@@ -71,6 +71,16 @@ class ItemsJSONSerializer(JSONSerializer):
             collection = item.in_collection()
             if collection:
                 metadata['in_collection'] = collection
+
+            # Temporary location
+            temp_location = metadata.get('temporary_location')
+            if temp_location:
+                temp_location_pid = temp_location['pid']
+                if temp_location_pid not in locs:
+                    locs[temp_location_pid] = Location \
+                        .get_record_by_pid(temp_location_pid)
+                temp_location['name'] = locs[temp_location_pid].get('name')
+
             # Organisation
             organisation = metadata['organisation']
             if organisation['pid'] not in orgs:
@@ -119,8 +129,3 @@ class ItemsJSONSerializer(JSONSerializer):
             filter_document_type_buckets(buckets)
 
         return super().post_process_serialize_search(results, pid_fetcher)
-
-        # Correct document type buckets
-        buckets = results['aggregations']['document_type']['buckets']
-        results['aggregations']['document_type']['buckets'] = \
-            filter_document_type_buckets(buckets)
