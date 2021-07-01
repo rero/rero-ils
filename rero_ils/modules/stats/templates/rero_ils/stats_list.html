@@ -1,0 +1,33 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2021 RERO
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+{%- extends 'rero_ils/page.html' %}
+{%- block body %}
+<div class="mt-2 mb-4">
+  <a class="btn btn-primary float-right" href="{{url_for('stats.live_stats')}}" role="button">Live values</a>
+  <h2>Statistics</h2>
+</div>
+<div class="list-group">
+  {%- for rec in records %}
+  <span class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+    <a href="{{url_for('invenio_records_ui.stats', pid_value=rec._source.pid)}}">{{rec._source._created | format_date}}</a>
+    <a class="btn btn-outline-secondary" href="/api/stats/{{rec._source.pid}}?format=csv" role="button"><i class="fa fa-download"></i></a>
+  </span>
+  {%- endfor %}
+</div>
+{%- endblock body %}

@@ -521,7 +521,7 @@ then
     info_msg "Start OAI harvesting asynchrone"
     eval ${PREFIX} invenio oaiharvester harvest -n ebooks -q -k
 else
-    eval ${PREFIX} invenio scheduler enable_tasks -n scheduler-timestamp -n bulk-indexer -n anonymize-loans -n claims-creation -n accounts -n clear_and_renew_subscriptions -v
+    eval ${PREFIX} invenio scheduler enable_tasks -n scheduler-timestamp -n bulk-indexer -n anonymize-loans -n claims-creation -n accounts -n clear_and_renew_subscriptions -n collect-stats -v
     eval ${PREFIX} invenio scheduler enable_tasks -n notification-creation -n notification-dispatch-due_soon -n notification-dispatch-overdue -n notification-dispatch-availability -n notification-dispatch-recall -v
     info_msg "For ebooks harvesting run:"
     msg "\tinvenio oaiharvester harvest -n ebooks -a max=100 -q"
@@ -549,7 +549,7 @@ info_msg "Fine transactions: ${DATA_PATH}/fines.json ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} invenio fixtures load_virtua_transactions ${DATA_PATH}/fines.json -t fine
 
 info_msg "Collect statistics"
-eval ${PREFIX} poetry run invenio stats collect
+eval ${PREFIX} invenio stats collect
 
 date
 success_msg "Perfect ${PROGRAM}! See you soon…"
