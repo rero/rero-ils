@@ -55,6 +55,7 @@ from .patron_transactions.listener import enrich_patron_transaction_data
 from .patrons.listener import create_subscription_patron_transaction, \
     enrich_patron_data, update_from_profile
 from .sru.views import SRUDocumentsSearch
+from .templates.listener import prepare_template_data
 from .users.views import UsersCreateResource, UsersResource
 from ..filter import empty_data, format_date_filter, jsondumps, node_assets, \
     text_to_id, to_pretty_json
@@ -195,6 +196,7 @@ class REROILSAPP(object):
                                     sender=app)
         before_record_index.connect(enrich_patron_transaction_data, sender=app)
         before_record_index.connect(enrich_ill_request_data, sender=app)
+        before_record_index.connect(prepare_template_data, sender=app)
 
         after_record_insert.connect(create_subscription_patron_transaction)
         after_record_update.connect(create_subscription_patron_transaction)
