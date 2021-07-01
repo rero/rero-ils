@@ -96,6 +96,7 @@ setup(
             'notifications = rero_ils.modules.notifications.views:blueprint',
             'patrons = rero_ils.modules.patrons.views:blueprint',
             'rero_ils = rero_ils.theme.views:blueprint',
+            'stats = rero_ils.modules.stats.views:blueprint',
             'templates = rero_ils.modules.templates.views:blueprint',
         ],
         'invenio_base.api_blueprints': [
@@ -306,6 +307,7 @@ setup(
             'rero_ils_collections = rero_ils.modules.collections.tasks',
             'claims = rero_ils.modules.items.tasks',
             'loans = rero_ils.modules.loans.tasks',
+            'stats = rero_ils.modules.stats.tasks',
         ],
         'invenio_records.jsonresolver': [
             'acq_accounts = rero_ils.modules.acq_accounts.jsonresolver',

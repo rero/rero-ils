@@ -1,0 +1,55 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2021 RERO
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+{%- extends 'rero_ils/page.html' %}
+{%- block body %}
+{%- block record_body %}
+{%- if record.pid %}
+<a class="btn btn-primary float-right" href="/api/stats/{{record.pid}}?format=csv" role="button"><i class="fa fa-download"></i></a>
+{%- endif %}
+<h2>{{record.created}}</h2>
+<div class="table-responsive">
+  <table class="table table-sm">
+    <thead>
+      <tr>
+        <th scope="col">library id</th>
+        <th scope="col">library name</th>
+        {%- for head in record['values'][0].keys() %}
+        {%- if head != 'library'%}
+        <th scope="col">{{head.replace('_', ' ')}}</th>
+        {%- endif %}
+        {%- endfor%}
+      </tr>
+    </thead>
+    <tbody>
+      {%- for val in record['values'] %}
+      <tr>
+        <th scope="row">{{val.library.pid}}</th>
+        <td scope="row">{{val.library.name}}</td>
+        {%- for head in record['values'][0].keys() %}
+        {%- if head != 'library'%}
+        <td scope="row">{{val[head]}}</td>
+        {%- endif %}
+        {%- endfor%}
+      </tr>
+      {%- endfor %}
+    </tbody>
+  </table>
+</div>
+{%- endblock record_body %}
+{%- endblock body %}

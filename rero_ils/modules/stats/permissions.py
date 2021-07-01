@@ -17,8 +17,14 @@
 
 """Permissions for stats."""
 
+from functools import wraps
+
+from flask import abort
+from flask_login import current_user
+
 from rero_ils.modules.permissions import RecordPermission
 
+from ..permissions import record_permission_factory
 from ...permissions import admin_permission, monitoring_permission
 
 
@@ -77,3 +83,25 @@ class StatPermission(RecordPermission):
         :return: True if action can be done.
         """
         return False
+
+
+def stats_ui_permission_factory(record, *args, **kwargs):
+    """Permission for stats detailed view."""
+    return record_permission_factory(
+            action='read', record=record, cls=StatPermission)
+
+
+def check_logged_as_admin(fn):
+    """Decorator to check if the current logged user is logged as an admin.
+
+    If no user is connected: return 401 (unauthorized)
+    If current logged user has not the `admin` role: return 403 (forbidden)
+    """
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        if not current_user.is_authenticated:
+            abort(401)
+        if not admin_permission.require().can():
+            abort(403)
+        return fn(*args, **kwargs)
+    return wrapper

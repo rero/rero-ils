@@ -18,8 +18,11 @@
 """Record serialization."""
 import csv
 
+from flask import current_app
 from invenio_records_rest.serializers.csv import CSVSerializer, Line
-from invenio_records_rest.serializers.response import record_responsify
+from invenio_records_rest.serializers.response import add_link_header
+
+# from invenio_records_rest.serializers.response import record_responsify
 
 
 class StatCSVSerializer(CSVSerializer):
@@ -64,6 +67,42 @@ class StatCSVSerializer(CSVSerializer):
 
 
 csv_v1 = StatCSVSerializer()
-"""JSON v1 serializer."""
+"""CSV serializer."""
+
+
+def record_responsify(serializer, mimetype):
+    """Create a Records-REST response serializer.
+
+    This function is the same as the `invenio-records-rest`, but it adds an
+    header to change the download file name.
+    :param serializer: Serializer instance.
+    :param mimetype: MIME type of response.
+    :returns: Function that generates a record HTTP response.
+    """
+    def view(pid, record, code=200, headers=None, links_factory=None):
+        response = current_app.response_class(
+            serializer.serialize(pid, record, links_factory=links_factory),
+            mimetype=mimetype)
+        response.status_code = code
+        response.cache_control.no_cache = True
+        response.set_etag(str(record.revision_id))
+        response.last_modified = record.updated
+        if headers is not None:
+            response.headers.extend(headers)
+
+        # set the output filename
+        date = record.created.isoformat()
+        filename = f'stats-{date}.csv'
+        if not response.headers.get('Content-Disposition'):
+            response.headers['Content-Disposition'] = \
+                f'attachment; filename="{filename}"'
+
+        if links_factory is not None:
+            add_link_header(response, links_factory(pid))
+
+        return response
+
+    return view
+
 
 csv_v1_response = record_responsify(csv_v1, 'text/csv')
