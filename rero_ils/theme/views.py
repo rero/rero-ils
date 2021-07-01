@@ -34,8 +34,8 @@ from invenio_jsonschemas.errors import JSONSchemaNotFound
 
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.patrons.api import current_librarian, current_patrons
-from rero_ils.permissions import can_access_professional_view
 
+from ..permissions import admin_permission, can_access_professional_view
 from ..version import __version__
 
 blueprint = Blueprint(
@@ -107,6 +107,17 @@ def init_menu_tools():
         ),
         order=10,
         id='ill-request-menu'
+    )
+    rero_register(
+        item,
+        endpoint='stats.stats',
+        visible_when=lambda: admin_permission.require().can(),
+        text='{icon} {help}'.format(
+            icon='<i class="fa fa-money"></i>',
+            help=_('Statistics')
+        ),
+        order=11,
+        id='stats-menu'
     )
 
     item = current_menu.submenu('main.tool.collections')

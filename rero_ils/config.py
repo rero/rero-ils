@@ -371,7 +371,12 @@ CELERY_BEAT_SCHEDULE = {
                  '.delete_standard_holdings_having_no_items'),
         'schedule': crontab(minute=30, hour=4),  # Every day at 04:30 UTC,
         'enabled': False
-    }
+    },
+    'collect-stats': {
+        'task': ('rero_ils.modules.stats.tasks.collect_stats'),
+        'schedule': crontab(minute=0, hour=1),  # Every day at 01:00 UTC,
+        'enabled': False
+    },
     # 'mef-harvester': {
     #     'task': 'rero_ils.modules.apiharvester.tasks.harvest_records',
     #     'schedule': timedelta(minutes=60),
@@ -2316,7 +2321,6 @@ RECORDS_REST_SORT_OPTIONS['collections']['title'] = dict(
 RECORDS_REST_DEFAULT_SORT['collections'] = dict(
     query='bestmatch', noquery='start_date')
 
-
 # Detailed View Configuration
 # ===========================
 RECORDS_UI_ENDPOINTS = {
@@ -2341,6 +2345,13 @@ RECORDS_UI_ENDPOINTS = {
         view_imp='invenio_records_ui.views.export',
         template='rero_ils/export_documents.html',
         record_class='rero_ils.modules.documents.api:Document',
+    ),
+    'stats': dict(
+        pid_type='stat',
+        route='/stats/<pid_value>',
+        template='rero_ils/detailed_view_stats.html',
+        record_class='rero_ils.modules.stats.api:Stat',
+        permission_factory_imp='rero_ils.modules.stats.permissions:stats_ui_permission_factory',
     )
 }
 
