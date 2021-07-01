@@ -17,15 +17,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-06-30 10:50+0200\n"
-"PO-Revision-Date: 2021-06-24 12:47+0000\n"
+"PO-Revision-Date: 2021-07-01 14:18+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/de/>\n"
 "Language: de\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.8-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: rero_ils/accounts_views.py:50
@@ -5301,7 +5302,7 @@ msgstr "Beispiel: Gekürzte Ausgabe, 22"
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:353
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:437
 msgid "Assigning agency"
-msgstr ""
+msgstr "Vergabestelle"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:354
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:438
@@ -5309,6 +5310,8 @@ msgid ""
 "Used for imported records only. Agency that assigned this classification "
 "value."
 msgstr ""
+"Wird nur für importierte Datensätze verwendet. Stelle, die diesen "
+"Klassifikationswert vergeben hat."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:361
 msgid "classification_musicale_genres"
@@ -9552,6 +9555,8 @@ msgstr "Information zur Ausleihe"
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:164
 msgid "This optional text is displayed in the public interface, for instance \\"
 msgstr ""
+"Dieser optionale Text wird in der öffentlichen Schnittstelle angezeigt, z. "
+"B. \"An Ort anzusehen\""
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:168
 msgid "Information"
@@ -9559,15 +9564,15 @@ msgstr "Information"
 
 #: rero_ils/modules/items/api/circulation.py:1008
 msgid "Item status disallows the operation."
-msgstr ""
+msgstr "Der Exemplarstatus verbietet die Operation."
 
 #: rero_ils/modules/items/api/circulation.py:1012
 msgid "Item and patron are not in the same organisation."
-msgstr ""
+msgstr "Exemplar und Leser sind nicht in der gleichen Organisation."
 
 #: rero_ils/modules/items/api/circulation.py:1017
 msgid "Item is already checked-out or requested by patron."
-msgstr ""
+msgstr "Das Exemplar ist bereits von diesem Leser ausgeliehen oder bestellt."
 
 #: rero_ils/modules/items/api/record.py:68
 msgid "Holding does not exist: {pid}."
@@ -9662,7 +9667,7 @@ msgstr "beansprucht"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:348
 msgid "expected"
-msgstr ""
+msgstr "erwartet"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:356
 msgid "Status date"
@@ -9949,7 +9954,7 @@ msgstr "PID des Bestellungsabholortes"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:99
 msgid "Selfcheck terminal id"
-msgstr ""
+msgstr "ID des Selbstverbuchungsautomats"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:104
 msgid "Transaction start datetime"
@@ -10223,7 +10228,7 @@ msgstr "Verarbeitungsdatum der Benachrichtigung"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:49
 msgid "Notification sent or not"
-msgstr ""
+msgstr "Benachrichtigung gesendet oder nicht"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:53
 msgid "Current reminder count"
@@ -10247,7 +10252,7 @@ msgstr "Rückruf"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:88
 msgid "transit_notice"
-msgstr ""
+msgstr "Transitmeldung"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:92
 msgid "request"
@@ -10255,7 +10260,7 @@ msgstr "Bestellung"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:96
 msgid "booking"
-msgstr ""
+msgstr "Vormerkung"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:4
 msgid "Operation log"
@@ -10306,38 +10311,32 @@ msgid "User organisation"
 msgstr "Organisation des Benutzers"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:88
-#, fuzzy
 msgid "Loan specific data"
-msgstr "nicht spezifiziert"
+msgstr "Spezifische Daten der Ausleihe"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:93
-#, fuzzy
 msgid "Override flag"
-msgstr "Mahnung"
+msgstr "Flag des Übergehens"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:94
 msgid "Allow a transaction which is normally not possible."
-msgstr ""
+msgstr "Erlaubt eine Transaktion, die normalerweise nicht möglich ist."
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:99
-#, fuzzy
 msgid "Transaction channel"
-msgstr "Kommunikationskanal"
+msgstr "Transaktionskanal"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:108
-#, fuzzy
 msgid "Transaction user name"
-msgstr "PID des Transaktionslesers"
+msgstr "Transaktionsbenutzername"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:113
-#, fuzzy
 msgid "Transaction location name"
-msgstr "PID des Transaktionstandortes"
+msgstr "Name des Standorts der Transaktion"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:138
-#, fuzzy
 msgid "Age"
-msgstr "Seiten"
+msgstr "Alter"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:143
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:89
@@ -10350,7 +10349,7 @@ msgstr "Postleitzahl"
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:157
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:42
 msgid "Local codes"
-msgstr ""
+msgstr "Lokale Codes"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:162
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:48
@@ -10362,14 +10361,12 @@ msgid "Category"
 msgstr "Kategorie"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:197
-#, fuzzy
 msgid "PID"
-msgstr "Zeitraum"
+msgstr "PID"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:202
-#, fuzzy
 msgid "Location name"
-msgstr "Name des Abholorts"
+msgstr "Standortname"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:250
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:39
@@ -10657,7 +10654,7 @@ msgstr "Die Beschreibung des Lesertypen."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:59
 msgid "Code to identify the patron type."
-msgstr ""
+msgstr "Code zur Identifizierung des Lesertyps."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:80
 msgid "Yearly amount due by patrons linked to this patron type."
@@ -10810,6 +10807,8 @@ msgstr "Quelle, wenn die Ressource in einen Stapel geladen wurde."
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:43
 msgid "Codes used to classify users, for instance for statistics."
 msgstr ""
+"Codes, die zur Klassifizierung von Benutzern, z. B. für Statistiken, "
+"verwendet werden."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:54
 msgid "Personal informations"
@@ -10970,6 +10969,8 @@ msgid ""
 "This user has already a professional role in another organisation. A user"
 " can be professional only in one organisation."
 msgstr ""
+"Dieser Benutzer hat bereits eine professionelle Rolle in einer anderen "
+"Organisation. Ein Benutzer kann nur in einer Organisation professionell sein."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:478
 msgid "The public note is visible for the patron in his/her account."
@@ -10977,7 +10978,7 @@ msgstr "Die öffentliche Anmerkung ist für den Benutzer in seinem Konto sichtba
 
 #: rero_ils/modules/selfcheck/admin.py:115
 msgid "Selfcheck Terminal Management"
-msgstr ""
+msgstr "Verwaltung der Selbstverbuchungsautomaten"
 
 #: rero_ils/modules/selfcheck/api.py:369
 msgid "Checkout impossible: the item is requested by another patron"
@@ -10990,7 +10991,7 @@ msgstr "Fehler aufgetreten: bitte kontaktieren Sie das Bibliothekspersonal"
 
 #: rero_ils/modules/selfcheck/api.py:494
 msgid "No circulation action is possible"
-msgstr ""
+msgstr "Es ist keine Ausleihsaktion möglich"
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:5
 msgid "JSON schema for templates."
@@ -11490,7 +11491,7 @@ msgstr "Freundliche Grüsse"
 #: rero_ils/theme/templates/security/email/reset_instructions.html:30
 #: rero_ils/theme/templates/security/email/reset_notice.html:28
 msgid "Your Libray"
-msgstr ""
+msgstr "Ihre Bibliothek"
 
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
@@ -12874,4 +12875,3 @@ msgstr "Ihr Passwort wurde erfolgreich zurückgesetzt."
 
 #~ msgid "Assigning agency."
 #~ msgstr ""
-
