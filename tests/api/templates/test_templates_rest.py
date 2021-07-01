@@ -54,7 +54,10 @@ def test_templates_get(client, templ_doc_public_martigny):
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['hits'][0]['metadata'] == template.replace_refs()
+
+    tmpl_data = template.replace_refs()
+    tmpl_data.pop('data', None)
+    assert data['hits']['hits'][0]['metadata'] == tmpl_data
 
 
 def test_filtered_templates_get(

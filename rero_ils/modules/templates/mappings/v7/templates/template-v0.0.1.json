@@ -45,10 +45,6 @@
       "template_type": {
         "type": "keyword"
       },
-      "data": {
-        "type": "object",
-        "enabled": false
-      },
       "_created": {
         "type": "date"
       },
