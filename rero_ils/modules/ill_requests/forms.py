@@ -17,8 +17,6 @@
 
 """Forms definitions about ILL request in public view."""
 
-from datetime import datetime
-
 from flask_babelex import gettext as _
 from flask_wtf import FlaskForm
 from wtforms import FormField, IntegerField, RadioField, SelectField, \
@@ -62,8 +60,6 @@ class ILLRequestDocumentForm(FlaskForm):
 
         csrf = False
 
-    current_year = datetime.now().year
-
     title = StringField(
         label=_('Title'),
         validators=[
@@ -82,8 +78,7 @@ class ILLRequestDocumentForm(FlaskForm):
     year = IntegerField(
         label=_('Year'),
         validators=[
-          validators.Optional(),
-          validators.NumberRange(min=1348, max=current_year+1)
+          validators.Optional()
         ],
         render_kw={'placeholder': '2020'}
     )

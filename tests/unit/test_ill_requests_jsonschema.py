@@ -51,12 +51,9 @@ def test_required(ill_request_schema, ill_request_martigny_data_tmp):
         ill_request_martigny_data_tmp['document']['title'] = 'no'
         validate(ill_request_martigny_data_tmp, ill_request_schema)
 
-    # check document year - 4 digits as a string
+    # check document year - length > 0
     with pytest.raises(ValidationError):
-        ill_request_martigny_data_tmp['document']['year'] = 'abcd'
-        validate(ill_request_martigny_data_tmp, ill_request_schema)
-
-        ill_request_martigny_data_tmp['document']['year'] = 1234
+        ill_request_martigny_data_tmp['document']['year'] = ''
         validate(ill_request_martigny_data_tmp, ill_request_schema)
 
 
