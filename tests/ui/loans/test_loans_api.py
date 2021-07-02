@@ -109,17 +109,24 @@ def test_loan_keep_and_to_anonymize(
     assert not loan.can_anonymize(loan_data=loan)
 
     patron.user.profile.keep_history = False
-    # when the patron asks to anonymise history the can_anonymize is true
+    # when the patron asks to anonymize history the can_anonymize is true
     loan = Loan.get_record_by_pid(loan.pid)
     assert loan.concluded(loan)
     assert loan.can_anonymize(loan_data=loan)
     loan.update(loan, dbcommit=True, reindex=True)
 
     # test loans with fees
+    #   Create a loan, update end_date to set this loan as overdue.
+    #   Create notifications about this loan (overdue_loan_notification)
+    #   This notification will create a new PatronTransaction with a fee.
+    #   This will cause that this loan cannot be concluded and anonymize
     item, patron, loan = item2_on_loan_martigny_patron_and_loan_on_loan
     assert not loan.concluded(loan)
     assert not loan.can_anonymize(loan_data=loan)
-    end_date = datetime.now(timezone.utc) - timedelta(days=7)
+    #  we update the loan end_date, removing 1 year. We are now sure that all
+    #  possible library exceptions don't conflict with `library.open_days`
+    #  computation
+    end_date = datetime.now(timezone.utc) - timedelta(days=365)
     loan['end_date'] = end_date.isoformat()
     loan.update(loan, dbcommit=True, reindex=True)
 
