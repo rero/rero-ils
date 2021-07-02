@@ -847,7 +847,7 @@ def get_overdue_loan_pids(patron_pid=None, tstamp=None):
     :return a generator of loan pid
     """
     end_date = tstamp or datetime.now()
-    end_date = end_date.strftime('%Y-%m-%d')
+    end_date = end_date.strftime('%Y-%m-%dT%H:%M:%S.000Z')
     query = current_circulation.loan_search_cls() \
         .filter('term', state=LoanState.ITEM_ON_LOAN) \
         .filter('range', end_date={'lte': end_date})

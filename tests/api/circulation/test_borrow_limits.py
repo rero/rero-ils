@@ -17,13 +17,15 @@
 
 """Borrow limits."""
 from copy import deepcopy
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 
 from flask import url_for
+from freezegun import freeze_time
 from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.search.api import LoansSearch
 from utils import flush_index, get_json, postdata
 
+from rero_ils.modules.items.api import Item
 from rero_ils.modules.loans.api import Loan, LoanAction, get_overdue_loans
 from rero_ils.modules.notifications.api import Notification, \
     NotificationsSearch, number_of_reminders_sent
@@ -191,21 +193,44 @@ def test_checkout_library_limit(
     item3.update(item3_original_data, dbcommit=True, reindex=True)
 
 
+@freeze_time("2021-06-15")
 def test_overdue_limit(
      client, app, librarian_martigny, lib_martigny, item_lib_martigny,
      item2_lib_martigny, patron_type_children_martigny,
      item3_lib_martigny, item_lib_martigny_data, item2_lib_martigny_data,
      item3_lib_martigny_data, loc_public_martigny, patron_martigny,
-     circ_policy_short_martigny):
+     circ_policy_short_martigny, lib_saxon, loc_public_saxon):
     """Test overdue limit."""
 
     item = item_lib_martigny
     item_pid = item.pid
     patron_pid = patron_martigny.pid
+    date_format = '%Y/%m/%dT%H:%M:%S.000Z'
+    today = datetime.utcnow()
+    eod = today.replace(hour=23, minute=59, second=0, microsecond=0,
+                        tzinfo=lib_martigny.get_timezone())
 
-    # [0] prepare overdue transaction
+    # STEP 0 :: Prepare data for test
+    #   * Update the patron_type to set a overdue_items_limit rule.
+    #     We define than only 1 overdue items are allowed. Trying a second
+    #     checkout is disallowed if patron has an overdue item
+    patron_type = patron_type_children_martigny
+    patron_type \
+        .setdefault('limits', {}) \
+        .setdefault('overdue_items_limits', {}) \
+        .setdefault('default_value', 1)
+    patron_type.update(patron_type, dbcommit=True, reindex=True)
+    patron_type = PatronType.get_record_by_pid(patron_type.pid)
+    assert patron_type\
+        .get('limits', {})\
+        .get('overdue_items_limits', {}) \
+        .get('default_value') == 1
+
+    # STEP 1 :: Create an checkout with a end_date at the current date
+    #   * Create a checkout and set end_date to a fixed_date equals to
+    #     current tested date. The loan should not be considered as overdue
+    #     and a second checkout should be possible
     login_user_via_session(client, librarian_martigny.user)
-    # checkout
     res, data = postdata(
         client,
         'api_item.checkout',
@@ -214,20 +239,49 @@ def test_overdue_limit(
             patron_pid=patron_pid,
             transaction_location_pid=loc_public_martigny.pid,
             transaction_user_pid=librarian_martigny.pid,
+            end_date=eod.strftime(date_format)
+        )
+    )
+    assert res.status_code == 200
+    loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
+    loan = Loan.get_record_by_pid(loan_pid)
+    assert not loan.is_loan_overdue()
+
+    tmp_item_data = deepcopy(item_lib_martigny_data)
+    del tmp_item_data['pid']
+    tmp_item_data['library']['$ref'] = get_ref_for_pid('lib', lib_saxon.pid)
+    tmp_item_data['location']['$ref'] = \
+        get_ref_for_pid('loc', loc_public_saxon.pid)
+    tmp_item = Item.create(tmp_item_data, dbcommit=True, reindex=True)
+    res, data = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=tmp_item.pid,
+            patron_pid=patron_pid,
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+    res, _ = postdata(
+        client,
+        'api_item.checkin',
+        dict(
+            item_pid=tmp_item.pid,
+            pid=data.get('action_applied')[LoanAction.CHECKOUT].get('pid'),
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny.pid,
         )
     )
     assert res.status_code == 200
 
-    loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
-    loan = Loan.get_record_by_pid(loan_pid)
-    assert not loan.is_loan_overdue()
-    end_date = datetime.now(timezone.utc) - timedelta(days=7)
+    # STEP 2 :: Set the loan as overdue and test a new checkout
+    #   Now there is one loan in overdue, then the limit is reached and a new
+    #   checkout shouldn't be possible
+    end_date = eod - timedelta(days=7)
     loan['end_date'] = end_date.isoformat()
-    loan.update(
-        loan,
-        dbcommit=True,
-        reindex=True
-    )
+    loan.update(loan, dbcommit=True, reindex=True)
 
     overdue_loans = list(get_overdue_loans(patron_pid=patron_pid))
     assert loan.is_loan_overdue()
@@ -242,20 +296,7 @@ def test_overdue_limit(
     flush_index(LoansSearch.Meta.index)
     assert number_of_reminders_sent(loan) == 1
 
-    # [1] test overdue items limit
-
-    # Update the patron_type to set a overdue_items_limit rule
-    patron_type = patron_type_children_martigny
-    patron_type \
-        .setdefault('limits', {}) \
-        .setdefault('overdue_items_limits', {}) \
-        .setdefault('default_value', 1)
-    patron_type.update(patron_type, dbcommit=True, reindex=True)
-    patron_type = PatronType.get_record_by_pid(patron_type.pid)
-    assert patron_type.get('limits', {}).get('overdue_items_limits', {})\
-        .get('default_value') == 1
-
-    # [1.1] test overdue items limit when we try to checkout a second item
+    # Try a second checkout - limit should be reached
     res, data = postdata(
         client,
         'api_item.checkout',
@@ -268,8 +309,7 @@ def test_overdue_limit(
     )
     assert res.status_code == 403
     assert 'Checkout denied' in data['message']
-
-    # [1.2] test overdue items limit when we try to request another item
+    # Try a request - limit should be reached
     res, data = postdata(
         client,
         'api_item.librarian_request',
@@ -283,8 +323,7 @@ def test_overdue_limit(
     )
     assert res.status_code == 403
     assert 'maximal number of overdue items is reached' in data['message']
-
-    # [1.3] test overdue items limit when we try to extend loan
+    # Try to extend - limit should be reached
     res, _ = postdata(
         client,
         'api_item.extend_loan',
@@ -294,7 +333,6 @@ def test_overdue_limit(
             transaction_location_pid=loc_public_martigny.pid
         )
     )
-
     assert res.status_code == 403
     assert 'maximal number of overdue items is reached' in data['message']
 
