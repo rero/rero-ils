@@ -189,14 +189,7 @@
         "year": {
           "type": "string",
           "title": "Year",
-          "pattern": "^\\d{4}$",
-          "form": {
-            "validation": {
-              "messages": {
-                "patternMessage": "Should be in the following format: YYYY (2020)."
-              }
-            }
-          }
+          "minLength": 1
         },
         "identifier": {
           "type": "string",
