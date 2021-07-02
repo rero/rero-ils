@@ -10,7 +10,10 @@
       "minLength": 1
     },
     "form": {
-      "hide": true
+      "hide": true,
+      "navigation": {
+        "essential": true
+      }
     }
   }
 }

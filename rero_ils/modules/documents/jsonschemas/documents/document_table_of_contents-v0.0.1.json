@@ -12,7 +12,10 @@
       }
     },
     "form": {
-      "hide": true
+      "hide": true,
+      "navigation": {
+        "essential": true
+      }
     }
   }
 }
