@@ -13,10 +13,7 @@
       }
     },
     "form": {
-      "hide": true,
-      "navigation": {
-        "essential": true
-      }
+      "hide": true
     }
   }
 }

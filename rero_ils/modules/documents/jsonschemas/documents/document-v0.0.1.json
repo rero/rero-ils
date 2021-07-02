@@ -299,10 +299,7 @@
         "templateOptions": {
           "cssClass": "editor-title"
         },
-        "hide": true,
-        "navigation": {
-          "essential": true
-        }
+        "hide": true
       }
     }
   }
