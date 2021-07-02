@@ -652,10 +652,8 @@ class Loan(IlsRecord):
         :return True|False
         """
         states = [LoanState.ITEM_RETURNED, LoanState.CANCELLED]
-        return (
-            loan.get('state') in states and
+        return loan.get('state') in states and\
             not loan_has_open_events(loan_pid=loan.get('pid'))
-        )
 
     @classmethod
     def age(cls, loan):
@@ -882,13 +880,15 @@ def loan_has_open_events(loan_pid=None):
 
     :return True|False.
     """
-    search = NotificationsSearch().filter(
-        'term', loan__pid=loan_pid).source(['pid']).scan()
+    search = NotificationsSearch()\
+        .filter('term', loan__pid=loan_pid)\
+        .source(['pid']).scan()
     for record in search:
-        transactions_count = PatronTransactionsSearch().filter(
-            'term', notification__pid=record.pid).filter(
-                'term', status='open').source().count()
-        if transactions_count:
+        transactions_count = PatronTransactionsSearch()\
+            .filter('term', notification__pid=record.pid)\
+            .filter('term', status='open')\
+            .source().count()
+        if transactions_count > 0:
             return True
     return False
 
@@ -896,7 +896,7 @@ def loan_has_open_events(loan_pid=None):
 def get_non_anonymized_loans(patron=None, org_pid=None):
     """Search all loans for non anonymized loans.
 
-    :param patron_pid: optional parameter to filter by patron_pid.
+    :param patron: optional parameter to filter by patron_pid.
     :param org_pid: optional parameter to filter by organisation.
     :return: loans.
     """
@@ -915,13 +915,12 @@ def get_non_anonymized_loans(patron=None, org_pid=None):
 def anonymize_loans(
         patron=None, org_pid=None,
         dbcommit=False, reindex=False):
-    """Anonymise loans.
+    """Anonymize loans.
 
     :param dbcommit - commit the changes in the db after the creation.
     :param reindex - index the record after the creation.
-    :param patron_pid: optional parameter to filter by patron_pid.
+    :param patron: optional parameter to filter by patron.
     :param org_pid: optional parameter to filter by organisation.
-    :param patron_data: patron data to check.
     :return: loans.
     """
     counter = 0
