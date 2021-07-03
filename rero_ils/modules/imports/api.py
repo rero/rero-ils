@@ -37,8 +37,8 @@ class Import(object):
     """Import class."""
 
     name = ''
-    url = None
-    url_api = None
+    url = ''
+    url_api = ''
     search = {}
     marc_to_json = None
     status_code = 444
@@ -351,17 +351,18 @@ class Import(object):
                         record = unimarc.do(json_data)
 
                         id = self.get_id(json_data)
-                        data = {
-                            'id': id,
-                            'links': {
-                                'self': self.get_link(id),
-                                'marc21': self.get_marc21_link(id)
-                            },
-                            'metadata': record,
-                            'source': self.name
-                        }
-                        self.data.append(json_data)
-                        self.results['hits']['hits'].append(data)
+                        if record:
+                            data = {
+                                'id': id,
+                                'links': {
+                                    'self': self.get_link(id),
+                                    'marc21': self.get_marc21_link(id)
+                                },
+                                'metadata': record,
+                                'source': self.name
+                            }
+                            self.data.append(json_data)
+                            self.results['hits']['hits'].append(data)
                     self.results['hits']['remote_total'] = int(etree.parse(
                             BytesIO(response.content))
                             .find('{*}numberOfRecords').text)
