@@ -718,6 +718,7 @@ def unimarc_publishers_provision_activity_publication(self, key, value):
                 publications = self.setdefault('provisionActivity', [])
                 items = get_field_items(value)
                 index = 1
+                old_type = 'bf:Publication'
                 publication = {}
                 statement = []
                 for blob_key, blob_value in items:
