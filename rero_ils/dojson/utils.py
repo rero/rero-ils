@@ -1517,6 +1517,16 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
                 if field_110_a and len(field_110_a[0]) > 0:
                     self.serial_type = field_110_a[0][0]
 
+            self.admin_meta_data = {}
+            enc_level = ''
+            if self.leader:
+                enc_level = self.leader[17]  # LDR 17
+            if enc_level in _ENCODING_LEVEL_MAPPING:
+                encoding_level = _ENCODING_LEVEL_MAPPING[enc_level]
+            else:
+                encoding_level = _ENCODING_LEVEL_MAPPING['u']
+            self.admin_meta_data['encodingLevel'] = encoding_level
+
             result = super().do(
                 blob,
                 ignore_missing=ignore_missing,

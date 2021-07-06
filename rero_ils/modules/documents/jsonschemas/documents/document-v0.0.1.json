@@ -9,6 +9,7 @@
     "title",
     "language",
     "provisionActivity",
+    "adminMetadata",
     "issuance"
   ],
   "propertiesOrder": [
