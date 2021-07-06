@@ -134,6 +134,9 @@ class User(object):
             if email and email != user.email:
                 user.email = email
                 send_reset_password_instructions(user)
+            # remove the email from user data
+            elif not email and user.email:
+                user.email = None
             db.session.merge(user)
         db.session.commit()
         confirm_user(user)
