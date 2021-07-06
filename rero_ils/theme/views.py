@@ -108,6 +108,8 @@ def init_menu_tools():
         order=10,
         id='ill-request-menu'
     )
+
+    item = current_menu.submenu('main.tool.stats')
     rero_register(
         item,
         endpoint='stats.stats',
@@ -116,7 +118,7 @@ def init_menu_tools():
             icon='<i class="fa fa-money"></i>',
             help=_('Statistics')
         ),
-        order=11,
+        order=20,
         id='stats-menu'
     )
 
