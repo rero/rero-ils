@@ -21,15 +21,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-07-05 08:01+0200\n"
-"PO-Revision-Date: 2021-07-02 11:54+0000\n"
+"PO-Revision-Date: 2021-07-06 12:28+0000\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/fr/>\n"
 "Language: fr\n"
-"Language-Team: French <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.8-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: rero_ils/accounts_views.py:50
@@ -10289,7 +10290,7 @@ msgstr ""
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:16
 msgid "Schema to validate operation logs records against."
-msgstr ""
+msgstr "Schéma pour valider les journaux d'opération."
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:22
 msgid "Operation log PID"
@@ -10317,7 +10318,7 @@ msgstr "Type d'opération"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:94
 msgid "ILL request status"
-msgstr ""
+msgstr "Status de la demande de prêt entre bibliothèque"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:124
 msgid "User organisation"
@@ -10325,7 +10326,7 @@ msgstr "Organisation de l'utilisateur"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:145
 msgid "User library"
-msgstr ""
+msgstr "Bibliothèque de l'utilisateur"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:167
 msgid "Loan specific data"
@@ -10333,7 +10334,7 @@ msgstr "Données spécifiques au prêt"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:187
 msgid "Action Trigger"
-msgstr ""
+msgstr "Action de déclenchement"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:200
 msgid "Override flag"
@@ -10349,21 +10350,21 @@ msgstr "Canal de la transaction"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:215
 msgid "Transaction user"
-msgstr ""
+msgstr "Utilisateur de la transaction"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:229
 msgid "Patron name"
-msgstr ""
+msgstr "Nom du lecteur"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:236
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:257
 msgid "Transaction location"
-msgstr ""
+msgstr "Localisation de la transaction"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:245
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:266
 msgid "Location PID"
-msgstr ""
+msgstr "PID de la localisation"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:250
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:389
@@ -10372,11 +10373,11 @@ msgstr "Nom de la localisation"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:271
 msgid "Location Name"
-msgstr ""
+msgstr "Nom de la localisation"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:297
 msgid "Hashed Patron PID"
-msgstr ""
+msgstr "Hachage du PID du lecteur"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:312
 msgid "Age"
@@ -10402,7 +10403,7 @@ msgstr "Code local"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:355
 msgid "Item PID"
-msgstr ""
+msgstr "PID de l'exemplaire"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:360
 msgid "Category"
@@ -10410,7 +10411,7 @@ msgstr "Catégorie"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:370
 msgid "Library PID"
-msgstr ""
+msgstr "PID de la bibliothèque"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:384
 msgid "PID"
@@ -11038,28 +11039,28 @@ msgstr "Aucune action de prêt n'est possible"
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:4
 msgid "Stats"
-msgstr ""
+msgstr "Statistiques"
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:5
 msgid "JSON schema for statistics."
-msgstr ""
+msgstr "Schéma JSON des statistiques."
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:15
 msgid "Schema to validate stats records against."
-msgstr ""
+msgstr "Schéma pour valider les enregistrements."
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:21
 msgid "Stat ID."
-msgstr ""
+msgstr "PID de l'enregistrement des statistiques."
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:26
 #: rero_ils/theme/views.py:117
 msgid "Statistics"
-msgstr ""
+msgstr "Statistiques"
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:30
 msgid "Statistic"
-msgstr ""
+msgstr "Statistique"
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:5
 msgid "JSON schema for templates."
@@ -13002,4 +13003,3 @@ msgstr "Votre mot de passe a bien été modifié."
 
 #~ msgid "Transaction location name"
 #~ msgstr "Nom de la localisation de la transaction"
-
