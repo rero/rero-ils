@@ -135,7 +135,10 @@
         "type": "bf:Topic",
         "term": "Suisse"
       }
-    ]
+    ],
+    "adminMetadata": {
+      "encodingLevel": "Minimal level"
+    }
   },
   {
     "type": [
@@ -246,6 +249,9 @@
     ],
     "dimensions": [
       "21 cm"
-    ]
+    ],
+    "adminMetadata": {
+      "encodingLevel": "Minimal level"
+    }
   }
 ]

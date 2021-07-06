@@ -38,6 +38,8 @@ def marc21_to_issuance(self, key, value):
         main_type='rdami:1001',
         subtype='materialUnit'
     )
+    if marc21.admin_meta_data:
+        self['adminMetadata'] = marc21.admin_meta_data
 
 
 @marc21.over('language', '^008')

@@ -1705,7 +1705,10 @@
         "value": "http://catalogue.bnf.fr/ark:/12148/cb45295904f"
       }
     ],
-    "harvested": false
+    "harvested": false,
+    "adminMetadata": {
+      "encodingLevel": "Minimal level"
+    }
   },
   "doc2": {
     "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
@@ -1802,7 +1805,10 @@
         "startDate": 2011
       }
     ],
-    "extent": "560 p."
+    "extent": "560 p.",
+    "adminMetadata": {
+      "encodingLevel": "Minimal level"
+    }
   },
   "doc3": {
     "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
@@ -1954,7 +1960,10 @@
         "type": "uri",
         "value": "http://catalogue.bnf.fr/ark:/12148/cb45295924f"
       }
-    ]
+    ],
+    "adminMetadata": {
+      "encodingLevel": "Minimal level"
+    }
   },
   "doc4": {
     "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
@@ -2211,7 +2220,10 @@
           "aut"
         ]
       }
-    ]
+    ],
+    "adminMetadata": {
+      "encodingLevel": "Minimal level"
+    }
   },
   "doc5": {
     "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
@@ -2312,7 +2324,10 @@
           "aut"
         ]
       }
-    ]
+    ],
+    "adminMetadata": {
+      "encodingLevel": "Minimal level"
+    }
   },
   "doc6": {
     "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
@@ -2413,7 +2428,10 @@
           "aut"
         ]
       }
-    ]
+    ],
+    "adminMetadata": {
+      "encodingLevel": "Minimal level"
+    }
   },
   "doc7": {
     "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
@@ -2543,7 +2561,10 @@
           }
         ]
       }
-    ]
+    ],
+    "adminMetadata": {
+      "encodingLevel": "Minimal level"
+    }
   },
   "ebook1": {
     "pid": "ebook1",
@@ -2655,7 +2676,10 @@
         "type": "bf:Topic",
         "term": "suspense"
       }
-    ]
+    ],
+    "adminMetadata": {
+      "encodingLevel": "Minimal level"
+    }
   },
   "ebook2": {
     "pid": "ebook2",
@@ -2743,7 +2767,10 @@
         ],
         "startDate": 2011
       }
-    ]
+    ],
+    "adminMetadata": {
+      "encodingLevel": "Minimal level"
+    }
   },
   "ebook3": {
     "pid": "ebook3",
@@ -2831,7 +2858,10 @@
         ],
         "startDate": 2015
       }
-    ]
+    ],
+    "adminMetadata": {
+      "encodingLevel": "Minimal level"
+    }
   },
   "ebook4": {
     "pid": "ebook4",
@@ -2935,7 +2965,10 @@
         "noteType": "general",
         "label": "La maison des oubli\u00e9s"
       }
-    ]
+    ],
+    "adminMetadata": {
+      "encodingLevel": "Minimal level"
+    }
   },
   "ebook5": {
     "pid": "ebook5",
@@ -3039,7 +3072,10 @@
         "noteType": "general",
         "label": "La maison des oubli\u00e9s"
       }
-    ]
+    ],
+    "adminMetadata": {
+      "encodingLevel": "Minimal level"
+    }
   },
   "item1": {
     "$schema": "https://bib.rero.ch/schemas/items/item-v0.0.1.json",

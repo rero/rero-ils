@@ -87,6 +87,9 @@ def doc_title_travailleurs(app):
         'issuance': {
             'main_type': 'rdami:1001',
             'subtype': 'materialUnit'
+        },
+        'adminMetadata': {
+            'encodingLevel': 'Minimal level'
         }
     }
     doc = Document.create(
@@ -143,6 +146,9 @@ def doc_title_travailleuses(app):
         'issuance': {
             'main_type': 'rdami:1001',
             'subtype': 'materialUnit'
+        },
+        'adminMetadata': {
+            'encodingLevel': 'Minimal level'
         }
     }
     doc = Document.create(

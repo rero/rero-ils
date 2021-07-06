@@ -304,6 +304,10 @@ def unimarc_type_and_issuance(self, key, value):
     E-books (imported from Cantook)
     """
     type = [{"main_type": "docmaintype_other"}]
+
+    if unimarc.admin_meta_data:
+        self['adminMetadata'] = unimarc.admin_meta_data
+
     if unimarc.record_type == 'a':
         if unimarc.bib_level == 'm':
             type = [{
