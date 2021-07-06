@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
-"POT-Creation-Date: 2021-07-05 08:01+0200\n"
+"POT-Creation-Date: 2021-07-07 13:26+0200\n"
 "PO-Revision-Date: 2021-02-04 14:34+0000\n"
 "Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
 "Language: nl\n"
@@ -27,137 +27,141 @@ msgstr ""
 msgid "USER_DOES_NOT_EXIST"
 msgstr ""
 
-#: rero_ils/config.py:136
+#: rero_ils/config.py:123
+msgid "Test version"
+msgstr ""
+
+#: rero_ils/config.py:146
 msgid "French"
 msgstr "Frans"
 
-#: rero_ils/config.py:137
+#: rero_ils/config.py:147
 msgid "German"
 msgstr "Duits"
 
-#: rero_ils/config.py:138
+#: rero_ils/config.py:148
 msgid "Italian"
 msgstr "Italiaans"
 
-#: rero_ils/config.py:173 rero_ils/config.py:177
+#: rero_ils/config.py:183 rero_ils/config.py:187
 msgid "rero-ils"
 msgstr "rero-ils"
 
-#: rero_ils/config.py:225
-msgid "Welcome to RERO-ILS!"
-msgstr "Welkom bij RERO-ILS!"
+#: rero_ils/config.py:236
+msgid "Welcome"
+msgstr ""
 
-#: rero_ils/config.py:227
+#: rero_ils/config.py:238
 msgid "RERO ID password reset"
 msgstr ""
 
-#: rero_ils/config.py:228
+#: rero_ils/config.py:239
 msgid "Your RERO ID password has been reset"
 msgstr ""
 
-#: rero_ils/config.py:1791
+#: rero_ils/config.py:1802
 msgid "author"
 msgstr "auteur"
 
-#: rero_ils/config.py:1792 rero_ils/config.py:1849
+#: rero_ils/config.py:1803 rero_ils/config.py:1860
 msgid "document_type"
 msgstr "type van document"
 
-#: rero_ils/config.py:1793 rero_ils/config.py:1851
+#: rero_ils/config.py:1804 rero_ils/config.py:1862
 msgid "document_subtype"
 msgstr "Subtype van document"
 
-#: rero_ils/config.py:1794
+#: rero_ils/config.py:1805
 msgid "language"
 msgstr "taal"
 
-#: rero_ils/config.py:1795
+#: rero_ils/config.py:1806
 msgid "organisation"
 msgstr "organisatie"
 
-#: rero_ils/config.py:1798 rero_ils/config.py:1853 rero_ils/config.py:1918
-#: rero_ils/config.py:1940 rero_ils/config.py:1962 rero_ils/config.py:2059
-#: rero_ils/config.py:2099
+#: rero_ils/config.py:1809 rero_ils/config.py:1864 rero_ils/config.py:1929
+#: rero_ils/config.py:1951 rero_ils/config.py:1973 rero_ils/config.py:2070
+#: rero_ils/config.py:2110
 msgid "library"
 msgstr "bibliotheek"
 
-#: rero_ils/config.py:1799 rero_ils/config.py:2060
+#: rero_ils/config.py:1810 rero_ils/config.py:2071
 msgid "subject"
 msgstr "onderwerp"
 
-#: rero_ils/config.py:1800 rero_ils/config.py:1856 rero_ils/config.py:1941
-#: rero_ils/config.py:1963 rero_ils/config.py:2096
+#: rero_ils/config.py:1811 rero_ils/config.py:1867 rero_ils/config.py:1952
+#: rero_ils/config.py:1974 rero_ils/config.py:2107
 msgid "status"
 msgstr "status"
 
-#: rero_ils/config.py:1801
+#: rero_ils/config.py:1812
 #, fuzzy
 msgid "new_acquisition"
 msgstr "Aankoopvoorwaarden"
 
-#: rero_ils/config.py:1854
+#: rero_ils/config.py:1865
 #, fuzzy
 msgid "location"
 msgstr "Locatie"
 
-#: rero_ils/config.py:1855
+#: rero_ils/config.py:1866
 #, fuzzy
 msgid "item_type"
 msgstr "Type van exemplaar"
 
-#: rero_ils/config.py:1857
+#: rero_ils/config.py:1868
 #, fuzzy
 msgid "issue_status"
 msgstr "Nummer status"
 
-#: rero_ils/config.py:1858
+#: rero_ils/config.py:1869
 #, fuzzy
 msgid "vendor"
 msgstr "Verkoper"
 
-#: rero_ils/config.py:1895
+#: rero_ils/config.py:1906
 msgid "roles"
 msgstr "rollen"
 
-#: rero_ils/config.py:1896
+#: rero_ils/config.py:1907
 #, fuzzy
 msgid "city"
 msgstr "Stad"
 
-#: rero_ils/config.py:1897
+#: rero_ils/config.py:1908
 #, fuzzy
 msgid "patron_type"
 msgstr "Lezerstype"
 
-#: rero_ils/config.py:1919
+#: rero_ils/config.py:1930
 msgid "budget"
 msgstr "begroting"
 
-#: rero_ils/config.py:1988
+#: rero_ils/config.py:1999
 msgid "sources"
 msgstr "bron"
 
-#: rero_ils/config.py:1989 rero_ils/config.py:2014 rero_ils/config.py:2058
+#: rero_ils/config.py:2000 rero_ils/config.py:2025 rero_ils/config.py:2069
 #, fuzzy
 msgid "type"
 msgstr "Type"
 
-#: rero_ils/config.py:2015
+#: rero_ils/config.py:2026
 #, fuzzy
 msgid "visibility"
 msgstr "beschikbaarheid"
 
-#: rero_ils/config.py:2061
+#: rero_ils/config.py:2072
 #, fuzzy
 msgid "teacher"
 msgstr "Andere"
 
-#: rero_ils/config.py:2097
+#: rero_ils/config.py:2108
 #, fuzzy
 msgid "loan_status"
 msgstr "Tataars"
 
-#: rero_ils/config.py:2098
+#: rero_ils/config.py:2109
 #, fuzzy
 msgid "requester"
 msgstr "Opgevraagd"
@@ -273,6 +277,37 @@ msgstr "Toegang"
 #: rero_ils/manual_translations.txt:47
 msgid "mv-cantook"
 msgstr "Toegang"
+
+#: rero_ils/manual_translations.txt:50
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:253
+#, fuzzy
+msgid "cancel"
+msgstr "Annuleer"
+
+#: rero_ils/manual_translations.txt:51
+msgid "checkin"
+msgstr ""
+
+#: rero_ils/manual_translations.txt:52
+msgid "checkout"
+msgstr ""
+
+#: rero_ils/manual_translations.txt:53
+msgid "extend"
+msgstr ""
+
+#: rero_ils/manual_translations.txt:54
+msgid "receive"
+msgstr ""
+
+#: rero_ils/manual_translations.txt:55
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:92
+msgid "request"
+msgstr ""
+
+#: rero_ils/manual_translations.txt:56
+msgid "validate_request"
+msgstr ""
 
 #: rero_ils/jsonschemas/common/cantons-v0.0.1.json:3
 msgid "Cantons"
@@ -3924,7 +3959,7 @@ msgstr "JSON-schema voor een account"
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:32
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:32
 #: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:15
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:74
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:75
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:41
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:30
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:25
@@ -4749,7 +4784,7 @@ msgid "Item type URI"
 msgstr "URI van de type van kopie"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:4
-#: rero_ils/theme/views.py:140
+#: rero_ils/theme/views.py:142
 msgid "Exhibition/course"
 msgstr ""
 
@@ -5060,61 +5095,61 @@ msgstr "p"
 msgid "Bibliographic Document"
 msgstr "Bibliografisch document"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:75
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:76
 msgid "Schema to validate document against."
 msgstr "Schema om document tegen te valideren."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:80
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:81
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:71
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:406
 msgid "Document PID"
 msgstr "Document PID"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:237
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:238
 msgid "Subjects (imported)"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:238
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:239
 msgid "Subject from imported bibliographic data"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:254
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:255
 msgid "Genres, forms (imported)"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:255
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:256
 msgid "Genre of form from imported bibliographic data"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:275
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:276
 msgid "Harvested"
 msgstr "Geoogst"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:276
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:277
 msgid "Document is harvested or not, will disable record edition or similar."
 msgstr ""
 "Document is geoogst of niet, zal de record editie of iets dergelijks "
 "uitschakelen."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:281
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:282
 #, fuzzy
 msgid "Draft"
 msgstr "idref"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:282
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:283
 #, fuzzy
 msgid "Document is a draft record or not, will disable record validation."
 msgstr ""
 "Document is geoogst of niet, zal de record editie of iets dergelijks "
 "uitschakelen."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:294
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:295
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:968
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:746
 msgid "Masked"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:296
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:297
 msgid ""
 "A masked document is visible in the professional interface, but not in "
 "the public interface."
@@ -5471,7 +5506,7 @@ msgstr "audiodraadspoel"
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:660
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:669
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:685
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:856
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:859
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:919
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:160
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:90
@@ -5674,106 +5709,106 @@ msgstr "videodisc"
 msgid "unspecified"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:727
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:730
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:81
 msgid "Content type"
 msgstr "Type inhoud"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:728
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:731
 msgid ""
 "Fundamental form of communication in which the content is expressed and "
 "the human sense through which it is intended to be perceived (MARC 336)."
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:764
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:767
 msgid "rdaco:1002"
 msgstr "cartografische afbeelding"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:768
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:771
 msgid "rdaco:1003"
 msgstr "cartografisch bewegend beeld"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:772
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:775
 msgid "rdaco:1004"
 msgstr "cartografische tactiele afbeelding"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:776
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:779
 msgid "rdaco:1005"
 msgstr "cartografische tactiele driedimensionale vorm"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:780
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:783
 msgid "rdaco:1007"
 msgstr "computerdataset"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:784
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:787
 msgid "rdaco:1001"
 msgstr "cartografische dataset"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:788
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:791
 msgid "rdaco:1006"
 msgstr "cartografische driedimensionale vorm"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:792
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:795
 msgid "rdaco:1023"
 msgstr "tweedimensionaal bewegend beeld"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:796
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:799
 msgid "rdaco:1022"
 msgstr "driedimensionaal bewegend beeld"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:800
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:803
 msgid "rdaco:1014"
 msgstr "niet-bewegend beeld"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:804
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:807
 msgid "rdaco:1015"
 msgstr "tactiele afbeelding"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:808
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:811
 msgid "rdaco:1011"
 msgstr "uitgevoerde muziek"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:812
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:815
 msgid "rdaco:1009"
 msgstr "bewegingsnotatie"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:816
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:819
 msgid "rdaco:1017"
 msgstr "tactiele beschreven beweging"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:820
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:823
 msgid "rdaco:1021"
 msgstr "driedimensionale vorm"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:824
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:827
 msgid "rdaco:1019"
 msgstr "tactiele driedimensionale vorm"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:828
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:831
 msgid "rdaco:1010"
 msgstr "muzieknotatie"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:832
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:835
 msgid "rdaco:1016"
 msgstr "tactiele muzieknotatie"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:836
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:839
 msgid "rdaco:1008"
 msgstr "computerprogramma"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:840
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:843
 msgid "rdaco:1012"
 msgstr "geluiden"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:844
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:847
 msgid "rdaco:1020"
 msgstr "tekst"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:848
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:851
 msgid "rdaco:1018"
 msgstr "tactiele tekst"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:852
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:855
 msgid "rdaco:1013"
 msgstr "gesproken woord"
 
@@ -10401,10 +10436,6 @@ msgstr "herroep"
 msgid "transit_notice"
 msgstr ""
 
-#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:92
-msgid "request"
-msgstr ""
-
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:96
 msgid "booking"
 msgstr ""
@@ -10699,11 +10730,6 @@ msgstr ""
 #, fuzzy
 msgid "dispute"
 msgstr "Lening datum"
-
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:253
-#, fuzzy
-msgid "cancel"
-msgstr "Annuleer"
 
 #: rero_ils/modules/patron_transactions/api.py:375
 msgid "Subscription for '{name}' from {start} to {end}"
@@ -11204,7 +11230,7 @@ msgid "Stat ID."
 msgstr ""
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:26
-#: rero_ils/theme/views.py:117
+#: rero_ils/theme/views.py:119
 msgid "Statistics"
 msgstr ""
 
@@ -11483,32 +11509,32 @@ msgstr "rollen"
 msgid "Interlibrary loan request"
 msgstr "bibliothecaris"
 
-#: rero_ils/theme/templates/rero_ils/frontpage.html:129
-#: rero_ils/theme/views.py:153
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:81
+#: rero_ils/theme/views.py:155
 msgid "Help"
 msgstr "Help"
 
-#: rero_ils/theme/views.py:221 rero_ils/theme/views.py:296
+#: rero_ils/theme/views.py:223 rero_ils/theme/views.py:298
 msgid "My Account"
 msgstr "Mijn account"
 
-#: rero_ils/theme/views.py:250
+#: rero_ils/theme/views.py:252
 msgid "Login"
 msgstr "Inloggen"
 
-#: rero_ils/theme/views.py:263
+#: rero_ils/theme/views.py:265
 msgid "Professional interface"
 msgstr "Professionele interface"
 
-#: rero_ils/theme/views.py:282
+#: rero_ils/theme/views.py:284
 msgid "Logout"
 msgstr "Uitloggen"
 
-#: rero_ils/theme/views.py:309
+#: rero_ils/theme/views.py:311
 msgid "Edit my profile"
 msgstr ""
 
-#: rero_ils/theme/views.py:322
+#: rero_ils/theme/views.py:324
 #, fuzzy
 msgid "Change password"
 msgstr "Wachtwoord vergeten?"
@@ -11517,13 +11543,89 @@ msgstr "Wachtwoord vergeten?"
 #: rero_ils/theme/templates/rero_ils/login_user.html:53
 #: rero_ils/theme/templates/rero_ils/register_user.html:45
 #: rero_ils/theme/templates/rero_ils/reset_password.html:47
-#: rero_ils/theme/views.py:339
+#: rero_ils/theme/views.py:341
 msgid "Sign Up"
 msgstr "Aanmelden"
 
 #: rero_ils/theme/templates/rero_ils/_editor_button_actions.html:22
 msgid "JSON"
 msgstr "JSON"
+
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:39
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:44
+msgid "Link to the RERO ILS backlog on Taiga"
+msgstr "Link naar de RERO ILS backlog op Taiga"
+
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:43
+msgid "Scrum process"
+msgstr "Scrum-proces"
+
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:44
+msgid "on Taiga"
+msgstr "op Taiga"
+
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:48
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:53
+msgid "Link to the RERO ILS code source on GitHub"
+msgstr "Link naar de RERO ILS codebron op GitHub"
+
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:52
+msgid "Software source code"
+msgstr "Software broncode"
+
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:53
+msgid "on GitHub"
+msgstr "op GitHub"
+
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:55
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:58
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:62
+msgid "version"
+msgstr "versie"
+
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:56
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:59
+msgid "Link to the RERO ILS code source on GitHub, current used version"
+msgstr "Link naar de RERO ILS codebron op GitHub, huidige gebruikte versie"
+
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:63
+msgid "Link to the RERO ILS UI code source on GitHub, current used version"
+msgstr "Link naar de RERO ILS UI codebron op GitHub, huidige gebruikte versie"
+
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:69
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:73
+msgid "Link to the RERO Twitter account"
+msgstr "Link naar de RERO Twitter account"
+
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:83
+msgid "More test logins and documentation is available on the"
+msgstr "Meer testlogins en documentatie zijn beschikbaar onder"
+
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:84
+msgid "help page"
+msgstr "hulppagina"
+
+#: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:21
+msgid "RERO+ catalogue"
+msgstr ""
+
+#: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:30
+msgid "Union catalogue"
+msgstr "Union catalogus"
+
+#: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:32
+msgid "Global catalog"
+msgstr ""
+
+#: rero_ils/theme/templates/rero_ils/_frontpage_slogan_global.html:21
+#: rero_ils/theme/templates/rero_ils/_frontpage_slogan_test.html:21
+msgid "Get into your library"
+msgstr "Ga naar uw bibliotheek"
+
+#: rero_ils/theme/templates/rero_ils/_frontpage_slogan_global.html:22
+#: rero_ils/theme/templates/rero_ils/_frontpage_slogan_test.html:22
+msgid "A wealth of knowledge just a click away"
+msgstr "A wealth of knowledge just a click away"
 
 #: rero_ils/theme/templates/rero_ils/footer.html:21
 msgid "Developed by"
@@ -11564,88 +11666,10 @@ msgstr "Aanmelden"
 msgid "or"
 msgstr "of"
 
-#: rero_ils/theme/templates/rero_ils/frontpage.html:31
-msgid "Get into your library"
-msgstr "Ga naar uw bibliotheek"
-
-#: rero_ils/theme/templates/rero_ils/frontpage.html:32
-msgid "A wealth of knowledge just a click away"
-msgstr "A wealth of knowledge just a click away"
-
-#: rero_ils/theme/templates/rero_ils/frontpage.html:37
-#: rero_ils/theme/templates/rero_ils/frontpage.html:46
-msgid "What's on your mind?"
-msgstr "Waar denk je aan?"
-
-#: rero_ils/theme/templates/rero_ils/frontpage.html:54
-msgid "Software under development"
-msgstr "Software in ontwikkeling"
-
-#: rero_ils/theme/templates/rero_ils/frontpage.html:80
-#: rero_ils/theme/templates/rero_ils/frontpage.html:85
-msgid "Link to the RERO ILS backlog on Taiga"
-msgstr "Link naar de RERO ILS backlog op Taiga"
-
-#: rero_ils/theme/templates/rero_ils/frontpage.html:84
-msgid "Scrum process"
-msgstr "Scrum-proces"
-
-#: rero_ils/theme/templates/rero_ils/frontpage.html:85
-msgid "on Taiga"
-msgstr "op Taiga"
-
-#: rero_ils/theme/templates/rero_ils/frontpage.html:89
-#: rero_ils/theme/templates/rero_ils/frontpage.html:94
-msgid "Link to the RERO ILS code source on GitHub"
-msgstr "Link naar de RERO ILS codebron op GitHub"
-
-#: rero_ils/theme/templates/rero_ils/frontpage.html:93
-msgid "Software source code"
-msgstr "Software broncode"
-
-#: rero_ils/theme/templates/rero_ils/frontpage.html:94
-msgid "on GitHub"
-msgstr "op GitHub"
-
-#: rero_ils/theme/templates/rero_ils/frontpage.html:96
-#: rero_ils/theme/templates/rero_ils/frontpage.html:99
-#: rero_ils/theme/templates/rero_ils/frontpage.html:103
-msgid "version"
-msgstr "versie"
-
-#: rero_ils/theme/templates/rero_ils/frontpage.html:97
-#: rero_ils/theme/templates/rero_ils/frontpage.html:100
-msgid "Link to the RERO ILS code source on GitHub, current used version"
-msgstr "Link naar de RERO ILS codebron op GitHub, huidige gebruikte versie"
-
-#: rero_ils/theme/templates/rero_ils/frontpage.html:104
-msgid "Link to the RERO ILS UI code source on GitHub, current used version"
-msgstr "Link naar de RERO ILS UI codebron op GitHub, huidige gebruikte versie"
-
-#: rero_ils/theme/templates/rero_ils/frontpage.html:110
-#: rero_ils/theme/templates/rero_ils/frontpage.html:114
-msgid "Link to the RERO Twitter account"
-msgstr "Link naar de RERO Twitter account"
-
-#: rero_ils/theme/templates/rero_ils/frontpage.html:131
-msgid "More test logins and documentation is available on the"
-msgstr "Meer testlogins en documentatie zijn beschikbaar onder"
-
-#: rero_ils/theme/templates/rero_ils/frontpage.html:132
-msgid "help page"
-msgstr "hulppagina"
-
-#: rero_ils/theme/templates/rero_ils/frontpage.html:138
-msgid "Organisations' catalogues"
-msgstr "Catalogus van organisatie"
-
-#: rero_ils/theme/templates/rero_ils/frontpage.html:147
-msgid "Union catalogue"
-msgstr "Union catalogus"
-
-#: rero_ils/theme/templates/rero_ils/frontpage.html:148
-msgid "RERO ILS global"
-msgstr "RERO ILS globaal"
+#: rero_ils/theme/templates/rero_ils/frontpage.html:41
+#: rero_ils/theme/templates/rero_ils/frontpage.html:50
+msgid "What are you looking for?"
+msgstr ""
 
 #: rero_ils/theme/templates/rero_ils/header.html:40
 msgid "Search"
@@ -13164,4 +13188,19 @@ msgstr ""
 
 #~ msgid "Transaction location name"
 #~ msgstr "PID van de transactie van de locatie"
+
+#~ msgid "Welcome to RERO-ILS!"
+#~ msgstr "Welkom bij RERO-ILS!"
+
+#~ msgid "What's on your mind?"
+#~ msgstr "Waar denk je aan?"
+
+#~ msgid "Software under development"
+#~ msgstr "Software in ontwikkeling"
+
+#~ msgid "Organisations' catalogues"
+#~ msgstr "Catalogus van organisatie"
+
+#~ msgid "RERO ILS global"
+#~ msgstr "RERO ILS globaal"
 
