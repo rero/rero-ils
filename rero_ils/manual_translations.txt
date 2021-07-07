@@ -45,3 +45,12 @@ _('Date not available and automatically set to 2050')
 # Harvested source
 _('ebibliomedia')
 _('mv-cantook')
+
+# Trigger
+_('cancel')
+_('checkin')
+_('checkout')
+_('extend')
+_('receive')
+_('request')
+_('validate_request')
