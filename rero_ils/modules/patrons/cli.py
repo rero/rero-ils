@@ -111,7 +111,10 @@ def import_users(infile, append, verbose, password, lazy, dont_stop_on_error,
                 )
         try:
             # patron creation
-            patron = Patron.get_record_by_pid(patron_data['pid'])
+            patron = None
+            patron_pid = patron_data.get('pid')
+            if patron_pid:
+                patron = Patron.get_record_by_pid(patron_pid)
             if not patron:
                 patron = create_patron_from_data(
                     data=patron_data,
