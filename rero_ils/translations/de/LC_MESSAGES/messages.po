@@ -17,15 +17,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-07-07 10:08+0200\n"
-"PO-Revision-Date: 2021-07-07 05:53+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2021-07-07 08:26+0000\n"
+"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/de/>\n"
 "Language: de\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.8-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: rero_ils/accounts_views.py:50
@@ -278,19 +279,19 @@ msgstr "abbrechen"
 
 #: rero_ils/manual_translations.txt:51
 msgid "checkin"
-msgstr ""
+msgstr "Rückgabe"
 
 #: rero_ils/manual_translations.txt:52
 msgid "checkout"
-msgstr ""
+msgstr "Ausleihe"
 
 #: rero_ils/manual_translations.txt:53
 msgid "extend"
-msgstr ""
+msgstr "verlängern"
 
 #: rero_ils/manual_translations.txt:54
 msgid "receive"
-msgstr ""
+msgstr "empfangen"
 
 #: rero_ils/manual_translations.txt:55
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:92
@@ -299,7 +300,7 @@ msgstr "Bestellung"
 
 #: rero_ils/manual_translations.txt:56
 msgid "validate_request"
-msgstr ""
+msgstr "Validierung der Bestellung"
 
 #: rero_ils/jsonschemas/common/cantons-v0.0.1.json:3
 msgid "Cantons"
@@ -13009,4 +13010,3 @@ msgstr "Ihr Passwort wurde erfolgreich zurückgesetzt."
 
 #~ msgid "RERO ILS global"
 #~ msgstr "RERO ILS global"
-
