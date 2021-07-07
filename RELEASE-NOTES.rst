@@ -18,6 +18,252 @@
 Release notes
 =============
 
+v1.4.0
+------
+
+This note includes the changes of the ``rero-ils-ui`` project
+[`link`_] .
+
+This release mainly fixes issues and adds enhancements to prepare the 🚀
+*go-live* that is scheduled for the 12th of July 2021 🚀. A new feature allows
+a system administrator to fetch the usage statistics of a live instance 📊 .
+The comprehensive changes are available in the `changelog`_.
+
+User interface
+~~~~~~~~~~~~~~
+
+-  Makes document availability handling more fault tolerant when
+   holdings have issues.
+-  Displays the temporary location on the item detailed view.
+-  Implements the organisation views for the production instance.
+
+Public interface
+^^^^^^^^^^^^^^^^
+
+-  Improves the display of the uniform resource locator on the document
+   detailed view. Moves it from the description tab to the main part
+   (header).
+
+Professional interface
+^^^^^^^^^^^^^^^^^^^^^^
+
+-  Adds rank position information into loan dump to easily display this
+   information into UI.
+-  Displays the patron position into the request queue.
+-  Adds the following fields in the list of fields that can be quickly
+   added in the document editor:
+
+   -  ``contentMediaCarrier``.
+   -  ``contribution``.
+   -  ``editionStatement``.
+   -  ``extent``.
+   -  ``genreForm``.
+   -  ``identifiedBy``.
+   -  ``illustrativeContent``.
+   -  ``note``.
+   -  ``originalLanguage``.
+   -  ``originalTitle``.
+   -  ``partOf``.
+   -  ``seriesStatement``.
+   -  ``subjects``.
+   -  ``summary``.
+   -  ``tableOfContents``.
+
+Search
+~~~~~~
+
+-  Adds ISBN text search.
+-  Removes ``data`` field from Elasticsearch mapping, as it contains a
+   complete resources structure (possibly including some other resource
+   reference). This isn’t required in the search index and cause some
+   troubles with JSON reference resolution.
+
+Circulation
+~~~~~~~~~~~
+
+-  Fixes the ``can_extend`` check method. Sometimes, no loan parameter
+   can be send to the ``can_extend`` method. In this case, the function
+   skip all checks and return ``True``. Now this function try to load
+   the loan based on others function arguments to be more relevant.
+-  Ensures there’s only one default circulation policy per organisation.
+-  Allows to create circulation policies with different loan period for
+   2 different libraries.
+-  Ensures that closed or refused ILL requests do not appear on the
+   patron account.
+-  Adds a CLI to manage selfcheck terminals.
+-  Implements circulation history on the item detailed view of the
+   professional interface. Ensures the trigger actions are translated.
+-  Fixes the display of the circulation category in the different
+   languages set in the circulation category record.
+
+Notifications
+~~~~~~~~~~~~~
+
+-  Fixes the display of the next opened day of the library in the German
+   availability notice template.
+
+Metadata
+~~~~~~~~
+
+-  Corrects two ``relatedTo`` that should be ``reproductionOf`` and
+   ``hasReproduction`` in the document JSON schema.
+-  Moves part of the ``assigner`` title in the description and completes
+   the description.
+-  Allows the ``u00ba`` unicode character (º) to be used in the
+   ``bookFormat`` field.
+-  Displays the ``temporary_location`` on the document detailed views of
+   public and professional interfaces, and on the item detailed view of
+   the professional interface.
+-  Sets ``adminMetadata`` as a required field.
+
+Data import
+~~~~~~~~~~~
+
+-  Makes import from the BNF SRU service more stable.
+
+Data export
+~~~~~~~~~~~
+
+-  Fixes SRU XML format and type. Changes XML element ``<record>`` to
+   ``<recordData>``. Adds ``provisionActivity`` and ``copyrightDate`` to
+   MARC21 264 tag transformation.
+
+User management
+~~~~~~~~~~~~~~~
+
+-  Adds email field to the *authenticate* service.
+-  Allows to save a user without e-mail. Avoids to check the uniqueness
+   of the user e-mail when the user has no e-mail.
+-  Improves the patron CLI to allow to import users and to update the
+   user and patron records.
+
+Utilities, scheduled tasks
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-  Uses a JSON writer (``JsonWriter``) to write data into JSON files.
+-  Deletes old unused ``translate`` function from cli.
+-  Removes standard holdings that has no items. Following the recent
+   changes to the item indexing, the feature to automatically delete
+   standard holdings with no items is disabled. This commits puts back
+   the removed logic as a cron job.
+
+Records
+~~~~~~~
+
+-  Improves the method for record updating.
+-  Avoids multiple validations when a record is created.
+-  Adds a new ``commit`` parameter to the update, replace methods in
+   ``ILSRecord``.
+-  Fixes two operation logs creation when a resource a created, one for
+   create one for update.
+
+Fixtures
+~~~~~~~~
+
+-  Allows only one circulation policy per organisation.
+
+Statistics
+~~~~~~~~~~
+
+-  Computes stats for pricing:
+
+   -  Enables operation logs for ILL requests and items.
+   -  Adds library information for the acquisition order lines.
+   -  Creates operation logs when an resource is deleted.
+   -  Fixes the JSON schema of operation logs which contains several
+      errors.
+   -  Creates a hashed user PID at the operation log creation.
+   -  Adds a new configuration to enable or deactivate operation logs
+      validation.
+   -  Adds a CLI to dump the statistics.
+
+-  Creates a REST API:
+
+   -  Creates a new stats resource.
+   -  Sets the read permissions only for admin and monitoring users.
+   -  Adds a CSV export format.
+
+-  Adds an admin view to visualize the stats:
+
+   -  Adds a stats detailed view.
+   -  Adds a view to see the stats.
+   -  Adds a list view for stats records.
+   -  Adds a new stats entry in the tools menu of the administration
+      interface (``/admin``).
+   -  Adds stats admin view permissions.
+   -  Adds a recurrent task to collect the stats every night at 01:00
+      UTC.
+
+Tests
+~~~~~
+
+-  Fixes ``test_libraries_is_open`` unit test : instead to use a dynamic
+   date, we choose a fixed date. Using dynamic date, we could check an
+   exception date that fails the test.
+-  Fixes unit test on loan overdue.
+
+Monitoring
+~~~~~~~~~~
+
+-  Fixes duplicate Elasticsearch display.
+
+Documentation
+~~~~~~~~~~~~~
+
+-  Improves the github action labeler.
+-  Cleans the License header in the HTML templates of the *Angular*
+   project.
+
+Dependencies
+~~~~~~~~~~~~
+
+-  Update dependencies to fix security issues.
+
+Instance
+~~~~~~~~
+
+-  Installs ``procps`` to monitor processes from the console of a
+   deployed instance.
+
+Issues
+~~~~~~
+
+-  `#1361`_: Make the field ``title.type`` required for value
+   “bf:Title”.
+-  `#1919`_: Document encoding level should be required.
+-  `#1921`_: Adapt the field list in quick access in the document
+   editor.
+-  `#1859`_: Unable to create circulation policies with different loan
+   period for 2 different libraries.
+-  `#2014`_: The limit by overdue items is activated while the loans are
+   not yet overdue.
+-  `#2017`_: ISBN are indexed in “keyword” mode but should be tokenised.
+-  `#2034`_: Display the queue position/number of requests (prof.
+   view/requests screen).
+-  `#2038`_: Field ``item.temporary_location`` is displayed in the
+   public and professional interfaces.
+-  `#2053`_: Sub-field “Assigning agency” has the wrong title.
+-  `#2061`_: The document field ``relatedTo`` is repeated three times in
+   the list of field to be added, in the editor.
+-  `#2076`_: ILL requests appear in the patron account even if they are
+   closed or refused.
+-  `#2079`_: Only one default circulation policy by organisation should
+   be possible.
+
+.. _changelog: CHANGES.md
+.. _#1361: https://github.com/rero/rero-ils/issues/1361
+.. _#1919: https://github.com/rero/rero-ils/issues/1919
+.. _#1921: https://github.com/rero/rero-ils/issues/1921
+.. _#1859: https://github.com/rero/rero-ils/issues/1859
+.. _#2014: https://github.com/rero/rero-ils/issues/2014
+.. _#2017: https://github.com/rero/rero-ils/issues/2017
+.. _#2034: https://github.com/rero/rero-ils/issues/2034
+.. _#2038: https://github.com/rero/rero-ils/issues/2038
+.. _#2053: https://github.com/rero/rero-ils/issues/2053
+.. _#2061: https://github.com/rero/rero-ils/issues/2061
+.. _#2076: https://github.com/rero/rero-ils/issues/2076
+.. _#2079: https://github.com/rero/rero-ils/issues/2079
+
 v1.3.1
 ------
 
