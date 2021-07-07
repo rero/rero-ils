@@ -17,15 +17,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-07-06 15:06+0200\n"
-"PO-Revision-Date: 2021-07-06 12:28+0000\n"
+"PO-Revision-Date: 2021-07-07 05:53+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/de/>\n"
 "Language: de\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.8-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: rero_ils/accounts_views.py:50
@@ -34,7 +35,7 @@ msgstr "Dieser Benutzer existiert nicht."
 
 #: rero_ils/config.py:123
 msgid "Test version"
-msgstr ""
+msgstr "Test-Server"
 
 #: rero_ils/config.py:146
 msgid "French"
@@ -54,7 +55,7 @@ msgstr "RERO ILS"
 
 #: rero_ils/config.py:236
 msgid "Welcome"
-msgstr ""
+msgstr "Willkommen"
 
 #: rero_ils/config.py:238
 msgid "RERO ID password reset"
@@ -10318,7 +10319,7 @@ msgstr "Operationstyp"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:94
 msgid "ILL request status"
-msgstr ""
+msgstr "Status der Fernleihbestellung"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:124
 msgid "User organisation"
@@ -10326,7 +10327,7 @@ msgstr "Organisation des Benutzers"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:145
 msgid "User library"
-msgstr ""
+msgstr "Bibliothek des Benutzers"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:167
 msgid "Loan specific data"
@@ -10334,7 +10335,7 @@ msgstr "Spezifische Daten der Ausleihe"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:187
 msgid "Action Trigger"
-msgstr ""
+msgstr "Triggeraktion"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:200
 msgid "Override flag"
@@ -10350,21 +10351,21 @@ msgstr "Transaktionskanal"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:215
 msgid "Transaction user"
-msgstr ""
+msgstr "Benutzer der Transaktion"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:229
 msgid "Patron name"
-msgstr ""
+msgstr "Lesername"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:236
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:257
 msgid "Transaction location"
-msgstr ""
+msgstr "Standort der Transaktion"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:245
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:266
 msgid "Location PID"
-msgstr ""
+msgstr "Standort-PID"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:250
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:389
@@ -10373,11 +10374,11 @@ msgstr "Standortname"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:271
 msgid "Location Name"
-msgstr ""
+msgstr "Standortname"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:297
 msgid "Hashed Patron PID"
-msgstr ""
+msgstr "Hash-PID des Lesers"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:312
 msgid "Age"
@@ -10403,7 +10404,7 @@ msgstr "Lokaler Code"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:355
 msgid "Item PID"
-msgstr ""
+msgstr "PID des Exemplars"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:360
 msgid "Category"
@@ -10411,7 +10412,7 @@ msgstr "Kategorie"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:370
 msgid "Library PID"
-msgstr ""
+msgstr "Bibliothek PID"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:384
 msgid "PID"
@@ -11033,11 +11034,11 @@ msgstr "Verwaltung der Selbstverbuchungsautomaten"
 #: rero_ils/modules/selfcheck/api.py:132 rero_ils/modules/selfcheck/api.py:170
 #: rero_ils/modules/selfcheck/api.py:251
 msgid "Error encountered: patron not found"
-msgstr ""
+msgstr "Fehler aufgetreten: Leser nicht gefunden"
 
 #: rero_ils/modules/selfcheck/api.py:338
 msgid "Error encountered: item not found"
-msgstr ""
+msgstr "Fehler aufgetreten: Exemplar nicht gefunden"
 
 #: rero_ils/modules/selfcheck/api.py:408
 msgid "Checkout impossible: the item is requested by another patron"
@@ -11054,28 +11055,28 @@ msgstr "Es ist keine Ausleihsaktion möglich"
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:4
 msgid "Stats"
-msgstr ""
+msgstr "Statistiken"
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:5
 msgid "JSON schema for statistics."
-msgstr ""
+msgstr "JSON schema für Statistiken."
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:15
 msgid "Schema to validate stats records against."
-msgstr ""
+msgstr "Schema zur Validierung von Statistiken."
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:21
 msgid "Stat ID."
-msgstr ""
+msgstr "ID der Statistik."
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:26
 #: rero_ils/theme/views.py:117
 msgid "Statistics"
-msgstr ""
+msgstr "Statistiken"
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:30
 msgid "Statistic"
-msgstr ""
+msgstr "Statistik"
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:5
 msgid "JSON schema for templates."
@@ -11426,7 +11427,7 @@ msgstr "Hilfe-Seite"
 
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:21
 msgid "RERO+ catalogue"
-msgstr ""
+msgstr "RERO+ Kataloge"
 
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:30
 msgid "Union catalogue"
@@ -11434,7 +11435,7 @@ msgstr "Gesamtkatalog"
 
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:32
 msgid "Global catalog"
-msgstr ""
+msgstr "Globaler Katalog"
 
 #: rero_ils/theme/templates/rero_ils/_frontpage_slogan_global.html:21
 #: rero_ils/theme/templates/rero_ils/_frontpage_slogan_test.html:21
@@ -11490,7 +11491,7 @@ msgstr "oder"
 #: rero_ils/theme/templates/rero_ils/frontpage.html:41
 #: rero_ils/theme/templates/rero_ils/frontpage.html:50
 msgid "What are you looking for?"
-msgstr ""
+msgstr "Was suchen Sie?"
 
 #: rero_ils/theme/templates/rero_ils/header.html:40
 msgid "Search"
@@ -12987,4 +12988,3 @@ msgstr "Ihr Passwort wurde erfolgreich zurückgesetzt."
 
 #~ msgid "RERO ILS global"
 #~ msgstr "RERO ILS global"
-

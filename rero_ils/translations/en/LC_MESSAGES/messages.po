@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-07-06 15:06+0200\n"
-"PO-Revision-Date: 2021-07-06 13:29+0000\n"
-"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"PO-Revision-Date: 2021-07-07 05:53+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/en/>\n"
 "Language: en\n"
@@ -55,7 +55,6 @@ msgid "rero-ils"
 msgstr "RERO ILS"
 
 #: rero_ils/config.py:236
-#, fuzzy
 msgid "Welcome"
 msgstr "Welcome"
 
@@ -8189,7 +8188,7 @@ msgstr "Temporal content coverages"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:4
 msgid "description: MARC 045"
-msgstr "description: MARC 045"
+msgstr "MARC 045"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:8
 msgid "Temporal content coverage"
@@ -8539,9 +8538,8 @@ msgid ""
 "described materials, including retention, reproduction, access, and "
 "lending (MARC 506, 540)."
 msgstr ""
-"description: Information about restrictions imposed on access to the "
-"described materials, including retention, reproduction, access, and "
-"lending (MARC 506, 540)."
+"Information about restrictions imposed on access to the described materials, "
+"including retention, reproduction, access, and lending (MARC 506, 540)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:9
 msgid "Usage and access policy"
@@ -11351,16 +11349,14 @@ msgid "help page"
 msgstr "help page"
 
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:21
-#, fuzzy
 msgid "RERO+ catalogue"
-msgstr "RERO+ catalogue"
+msgstr "RERO+ catalogues"
 
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:30
 msgid "Union catalogue"
 msgstr "Union catalogue"
 
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:32
-#, fuzzy
 msgid "Global catalog"
 msgstr "Global catalog"
 
@@ -11415,7 +11411,6 @@ msgstr "or"
 
 #: rero_ils/theme/templates/rero_ils/frontpage.html:41
 #: rero_ils/theme/templates/rero_ils/frontpage.html:50
-#, fuzzy
 msgid "What are you looking for?"
 msgstr "What are you looking for?"
 
