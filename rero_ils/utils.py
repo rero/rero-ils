@@ -83,9 +83,9 @@ def create_user_from_data(data):
     if not user:
         with db.session.begin_nested():
             # create the user
-            user = BaseUser(
-                password=hash_password(data.get('birth_date', '123456')),
-                profile=dict(), active=True)
+            password = hash_password(
+                data.pop('password', data.get('birth_date', '123456')))
+            user = BaseUser(password=password, profile=dict(), active=True)
             db.session.add(user)
             # set the user fields
             if data.get('email') is not None:

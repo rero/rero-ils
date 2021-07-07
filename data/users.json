@@ -1208,7 +1208,6 @@
         "$ref": "https://bib.rero.ch/api/libraries/22"
       }
     ],
-    "password": "123456",
     "home_phone": "+39324993599",
     "postal_code": "11101",
     "street": "Central Park"
@@ -1229,7 +1228,6 @@
         "$ref": "https://bib.rero.ch/api/libraries/23"
       }
     ],
-    "password": "123456",
     "home_phone": "+39324993596",
     "postal_code": "11102",
     "street": "Illogical street, 44"
@@ -1245,7 +1243,6 @@
       "patron"
     ],
     "last_name": "Kirk",
-    "password": "123456",
     "home_phone": "+41324883598",
     "postal_code": "4242",
     "street": "Galaxy street",
@@ -1273,7 +1270,6 @@
       "patron"
     ],
     "last_name": "Uhura",
-    "password": "123456",
     "home_phone": "+41324883123",
     "postal_code": "4242",
     "street": "Milky Way street",
