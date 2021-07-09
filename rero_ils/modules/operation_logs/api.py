@@ -131,15 +131,18 @@ class OperationLog(RecordBase):
         actions = []
         for d in data:
             d = OperationLog(d)
+            oplg = d.dumps()
+            if oplg.get('record', {}).get('pid'):
+                oplg['record']['value'] = oplg['record'].pop('pid', None)
             # Run pre create extensions
             for e in cls._extensions:
-                e.pre_create(d)
+                e.pre_create(oplg)
 
             action = {
                 '_op_type': 'index',
-                '_index': cls.get_index(d),
-                '_source': d.dumps(),
-                '_id': d['pid']
+                '_index': cls.get_index(oplg),
+                '_source': oplg,
+                '_id': oplg['pid']
             }
             actions.append(action)
         n_succeed, errors = bulk(current_search_client, actions)
