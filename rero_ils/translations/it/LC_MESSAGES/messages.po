@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
-"POT-Creation-Date: 2021-07-07 13:26+0200\n"
-"PO-Revision-Date: 2021-07-07 08:26+0000\n"
-"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"POT-Creation-Date: 2021-07-19 10:10+0200\n"
+"PO-Revision-Date: 2021-07-09 20:47+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language: it\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus"
 "/rero-ils/it/>\n"
@@ -4633,7 +4633,7 @@ msgstr "avviso di scadenza"
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:76
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:148
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:66
-#: rero_ils/modules/selfcheck/api.py:325
+#: rero_ils/modules/selfcheck/api.py:321
 msgid "overdue"
 msgstr "in ritardo"
 
@@ -9564,6 +9564,9 @@ msgid ""
 "If enabled, all items of this circulation category will be displayed as "
 "not available, with the red availability symbol."
 msgstr ""
+"Se abilitato, tutti gli esemplari di questa categoria di prestito saranno"
+" visualizzati come non disponibili, con il simbolo rosso di "
+"disponibilità."
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:104
 msgid "Displayed status"
@@ -9572,11 +9575,13 @@ msgstr "Statuto visualizzato"
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:106
 msgid "Short text displayed in the interface, for instance \\"
 msgstr ""
+"Breve testo visualizzato nell'interfaccia, per esempio \"in "
+"acquisizione\" o \"mancante\"."
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:156
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:210
 msgid "Only one label per language is allowed."
-msgstr ""
+msgstr "È consentito un solo label per lingua."
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:162
 msgid "Circulation information"
@@ -9585,6 +9590,8 @@ msgstr "Informazioni sul prestito"
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:164
 msgid "This optional text is displayed in the public interface, for instance \\"
 msgstr ""
+"Questo testo opzionale viene visualizzato nell'interfaccia pubblica, per "
+"esempio \"Consultazione in loco\""
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:168
 msgid "Information"
@@ -9592,15 +9599,15 @@ msgstr "Informazione"
 
 #: rero_ils/modules/items/api/circulation.py:1008
 msgid "Item status disallows the operation."
-msgstr ""
+msgstr "Lo stato dell'esemplare non consente l'operazione."
 
 #: rero_ils/modules/items/api/circulation.py:1012
 msgid "Item and patron are not in the same organisation."
-msgstr ""
+msgstr "L'esemplare e il lettore non sono nella stessa organizzazione."
 
 #: rero_ils/modules/items/api/circulation.py:1017
 msgid "Item is already checked-out or requested by patron."
-msgstr ""
+msgstr "L'esemplare è già prestito o richiesto da questo lettore."
 
 #: rero_ils/modules/items/api/record.py:68
 msgid "Holding does not exist: {pid}."
@@ -9697,7 +9704,7 @@ msgstr "reclamato"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:348
 msgid "expected"
-msgstr ""
+msgstr "previsto"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:356
 msgid "Status date"
@@ -9768,8 +9775,8 @@ msgid ""
 "If this option is enabled, this item is going to appear in the new "
 "acquisition list of the library."
 msgstr ""
-"Se l'opzione è attivata, questo esemplare apparirà nella lista di nuove "
-"acquisizione della biblioteca."
+"Se abilitato, questo esemplare apparirà nella lista di nuove acquisizione"
+" della biblioteca."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:654
 msgid "PAC code"
@@ -9781,15 +9788,15 @@ msgstr "Politica di preservazione e conservazione."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:668
 msgid "4_disposable"
-msgstr ""
+msgstr "Livello 4: nessuna conservazione"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:672
 msgid "3_consumable"
-msgstr ""
+msgstr "Livello 3: conservazione a breve termine (consumo corrente)"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:676
 msgid "2_controlled_consumption"
-msgstr ""
+msgstr "Livello 2: conservazione a medio termine (uso controllato)"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:680
 msgid "1_reserved"
@@ -9805,15 +9812,17 @@ msgstr "Prezzo"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:712
 msgid "Virtua checkout count for item"
-msgstr ""
+msgstr "Numero di prestiti in Virtua"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:718
 msgid "Virtua item circulation rules"
-msgstr ""
+msgstr "Regole di prestito in Virtua"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:723
 msgid "To use item specific rules or CIPO rules"
 msgstr ""
+"Usare le regole specifiche dell'esemplare o quelle della politica di "
+"prestito"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:728
 msgid "Loan duration in days"
@@ -9832,6 +9841,8 @@ msgid ""
 "A masked item is visible in the professional interface, but not in the "
 "public interface."
 msgstr ""
+"Un esemplare mascherato è visibile nell'interfaccia professionale, ma non"
+" in quella pubblica."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:5
 msgid "JSON schema for a library"
@@ -9853,11 +9864,11 @@ msgstr ""
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:65
 msgid "Delay in minutes"
-msgstr ""
+msgstr "Ritardo in minuti"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:66
 msgid "Sending how many minutes after the item is available."
-msgstr ""
+msgstr "Invio di quanti minuti dopo che l'esemplare è disponibile."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:102
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:39
@@ -9934,7 +9945,7 @@ msgstr "Lingua di comunicazione"
 
 #: rero_ils/modules/loans/api.py:137
 msgid "The loan cannot be extended"
-msgstr ""
+msgstr "Il prestito non può essere prorogato"
 
 #: rero_ils/modules/loans/api.py:153
 msgid "Circulation policies disallows the operation."
@@ -9942,7 +9953,7 @@ msgstr "Operazione non consentita dalla politica di prestito."
 
 #: rero_ils/modules/loans/api.py:155
 msgid "A pending request exists on this item."
-msgstr ""
+msgstr "Esiste una richiesta in attesa su questo esemplare."
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:3
 msgid "Schema for loan"
@@ -9985,7 +9996,7 @@ msgstr "PID del punto di ritiro della richiesta"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:99
 msgid "Selfcheck terminal id"
-msgstr ""
+msgstr "Id del terminale di prestito automatico"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:104
 msgid "Transaction start datetime"
@@ -10222,7 +10233,7 @@ msgstr ""
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:196
 msgid "If enabled, restrict pickup to specific pickup locations."
-msgstr "Attivato, esso limita il ritiro a certi punti di ritiro."
+msgstr "Se abilitato, esso limita il ritiro a certi punti di ritiro."
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:4
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:109
@@ -10256,7 +10267,7 @@ msgstr "Data di trattamento della notifica"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:49
 msgid "Notification sent or not"
-msgstr ""
+msgstr "Notifica inviata o no"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:53
 msgid "Current reminder count"
@@ -11024,25 +11035,25 @@ msgstr "La nota pubblica è visibile per il lettore sul suo account."
 msgid "Selfcheck Terminal Management"
 msgstr ""
 
-#: rero_ils/modules/selfcheck/api.py:132 rero_ils/modules/selfcheck/api.py:170
-#: rero_ils/modules/selfcheck/api.py:251
+#: rero_ils/modules/selfcheck/api.py:136 rero_ils/modules/selfcheck/api.py:174
+#: rero_ils/modules/selfcheck/api.py:255
 msgid "Error encountered: patron not found"
 msgstr ""
 
-#: rero_ils/modules/selfcheck/api.py:338
+#: rero_ils/modules/selfcheck/api.py:332
 msgid "Error encountered: item not found"
 msgstr ""
 
-#: rero_ils/modules/selfcheck/api.py:408
+#: rero_ils/modules/selfcheck/api.py:402
 msgid "Checkout impossible: the item is requested by another patron"
 msgstr "Prestito impossibile: l'esemplare è richiesto da un altro lettore"
 
-#: rero_ils/modules/selfcheck/api.py:412 rero_ils/modules/selfcheck/api.py:469
-#: rero_ils/modules/selfcheck/api.py:534
+#: rero_ils/modules/selfcheck/api.py:406 rero_ils/modules/selfcheck/api.py:464
+#: rero_ils/modules/selfcheck/api.py:529
 msgid "Error encountered: please contact a librarian"
 msgstr "Errore riscontrato: si prega di contattare il personale della biblioteca"
 
-#: rero_ils/modules/selfcheck/api.py:531
+#: rero_ils/modules/selfcheck/api.py:526
 msgid "No circulation action is possible"
 msgstr ""
 
@@ -11238,8 +11249,8 @@ msgid ""
 "If enabled, the loan history is saved for a maximum of six months. It is "
 "visible to the user and the library staff."
 msgstr ""
-"Se attivato, lo storico dei prestiti viene salvato per un massimo di sei "
-"mesi. È visibile all'utente e al personale della biblioteca."
+"Se abilitato, lo storico dei prestiti viene salvato per un massimo di sei"
+" mesi. È visibile all'utente e al personale della biblioteca."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:222
 msgid "This email is already taken."
@@ -11570,8 +11581,8 @@ msgstr "Cordiali saluti"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:30
 #: rero_ils/theme/templates/security/email/reset_notice.html:28
-msgid "Your Libray"
-msgstr "La tua biblioteca"
+msgid "Your library"
+msgstr ""
 
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
@@ -12993,4 +13004,7 @@ msgstr "La tua parola d'ordine è stata reimposta con successo."
 
 #~ msgid "RERO ILS global"
 #~ msgstr "RERO ILS globale"
+
+#~ msgid "Your Libray"
+#~ msgstr "La tua biblioteca"
 

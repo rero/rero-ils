@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
-"POT-Creation-Date: 2021-07-07 13:26+0200\n"
+"POT-Creation-Date: 2021-07-19 10:10+0200\n"
 "PO-Revision-Date: 2021-06-30 04:45+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language: es\n"
@@ -4632,7 +4632,7 @@ msgstr "aviso de vencimiento"
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:76
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:148
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:66
-#: rero_ils/modules/selfcheck/api.py:325
+#: rero_ils/modules/selfcheck/api.py:321
 msgid "overdue"
 msgstr "atrasado"
 
@@ -10999,25 +10999,25 @@ msgstr "La nota pública es visible para el usuario en su cuenta."
 msgid "Selfcheck Terminal Management"
 msgstr ""
 
-#: rero_ils/modules/selfcheck/api.py:132 rero_ils/modules/selfcheck/api.py:170
-#: rero_ils/modules/selfcheck/api.py:251
+#: rero_ils/modules/selfcheck/api.py:136 rero_ils/modules/selfcheck/api.py:174
+#: rero_ils/modules/selfcheck/api.py:255
 msgid "Error encountered: patron not found"
 msgstr ""
 
-#: rero_ils/modules/selfcheck/api.py:338
+#: rero_ils/modules/selfcheck/api.py:332
 msgid "Error encountered: item not found"
 msgstr ""
 
-#: rero_ils/modules/selfcheck/api.py:408
+#: rero_ils/modules/selfcheck/api.py:402
 msgid "Checkout impossible: the item is requested by another patron"
 msgstr "Préstamo imposible : el ejemplar es reservado por otro usuario"
 
-#: rero_ils/modules/selfcheck/api.py:412 rero_ils/modules/selfcheck/api.py:469
-#: rero_ils/modules/selfcheck/api.py:534
+#: rero_ils/modules/selfcheck/api.py:406 rero_ils/modules/selfcheck/api.py:464
+#: rero_ils/modules/selfcheck/api.py:529
 msgid "Error encountered: please contact a librarian"
 msgstr "Un error ha occurido: complacer contactar un bibliotecario"
 
-#: rero_ils/modules/selfcheck/api.py:531
+#: rero_ils/modules/selfcheck/api.py:526
 msgid "No circulation action is possible"
 msgstr ""
 
@@ -11550,8 +11550,8 @@ msgstr "Cordialmente"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:30
 #: rero_ils/theme/templates/security/email/reset_notice.html:28
-msgid "Your Libray"
-msgstr "Su biblioteca"
+msgid "Your library"
+msgstr ""
 
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
@@ -13002,4 +13002,7 @@ msgstr "Se ha restablecido su contraseña correctamente."
 
 #~ msgid "RERO ILS global"
 #~ msgstr "RERO ILS global"
+
+#~ msgid "Your Libray"
+#~ msgstr "Su biblioteca"
 

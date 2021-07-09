@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
-"POT-Creation-Date: 2021-07-07 13:26+0200\n"
-"PO-Revision-Date: 2021-07-07 08:26+0000\n"
-"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"POT-Creation-Date: 2021-07-19 10:10+0200\n"
+"PO-Revision-Date: 2021-07-09 20:47+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language: en\n"
 "Language-Team: English <https://hosted.weblate.org/projects/rero_plus"
 "/rero-ils/en/>\n"
@@ -4634,7 +4634,7 @@ msgstr "due soon"
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:76
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:148
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:66
-#: rero_ils/modules/selfcheck/api.py:325
+#: rero_ils/modules/selfcheck/api.py:321
 msgid "overdue"
 msgstr "overdue"
 
@@ -9546,7 +9546,9 @@ msgstr "Displayed status"
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:106
 msgid "Short text displayed in the interface, for instance \\"
-msgstr "Short text displayed in the interface, for instance \\"
+msgstr ""
+"Short text displayed in the interface, for instance \"in acquisition\" or"
+" \"missing\"."
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:156
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:210
@@ -10977,25 +10979,25 @@ msgstr "The public note is visible for the patron in his/her account."
 msgid "Selfcheck Terminal Management"
 msgstr "Selfcheck Terminal Management"
 
-#: rero_ils/modules/selfcheck/api.py:132 rero_ils/modules/selfcheck/api.py:170
-#: rero_ils/modules/selfcheck/api.py:251
+#: rero_ils/modules/selfcheck/api.py:136 rero_ils/modules/selfcheck/api.py:174
+#: rero_ils/modules/selfcheck/api.py:255
 msgid "Error encountered: patron not found"
 msgstr "Error encountered: patron not found"
 
-#: rero_ils/modules/selfcheck/api.py:338
+#: rero_ils/modules/selfcheck/api.py:332
 msgid "Error encountered: item not found"
 msgstr "Error encountered: item not found"
 
-#: rero_ils/modules/selfcheck/api.py:408
+#: rero_ils/modules/selfcheck/api.py:402
 msgid "Checkout impossible: the item is requested by another patron"
 msgstr "Checkout impossible: the item is requested by another patron"
 
-#: rero_ils/modules/selfcheck/api.py:412 rero_ils/modules/selfcheck/api.py:469
-#: rero_ils/modules/selfcheck/api.py:534
+#: rero_ils/modules/selfcheck/api.py:406 rero_ils/modules/selfcheck/api.py:464
+#: rero_ils/modules/selfcheck/api.py:529
 msgid "Error encountered: please contact a librarian"
 msgstr "Error encountered: please contact a librarian"
 
-#: rero_ils/modules/selfcheck/api.py:531
+#: rero_ils/modules/selfcheck/api.py:526
 msgid "No circulation action is possible"
 msgstr "No circulation action is possible"
 
@@ -11515,8 +11517,8 @@ msgstr "Best regards"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:30
 #: rero_ils/theme/templates/security/email/reset_notice.html:28
-msgid "Your Libray"
-msgstr "Your Libray"
+msgid "Your library"
+msgstr ""
 
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
@@ -12950,4 +12952,7 @@ msgstr "Your password has been successfully reset."
 
 #~ msgid "RERO ILS global"
 #~ msgstr "RERO ILS global"
+
+#~ msgid "Your Libray"
+#~ msgstr "Your Libray"
 
