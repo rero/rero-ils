@@ -18,6 +18,24 @@
 Release notes
 =============
 
+v1.4.1
+------
+
+This note includes the changes of the ``rero-ils-ui`` project
+[`link`_] .
+
+This patch is necessary to fix three issues:
+
+-  Allows to create users without preset PID from the CLI, that is needed for
+   the selfcheck machine users.
+-  Adapts the homepage of one of our partner.
+-  Prevents the document input search to remove the organisation filter
+   (issue `#2130`_).
+-  Restores the message in the trashbin tooltip that inform the user why an item
+   cannot be deleted.
+
+.. #2130: https://github.com/rero/rero-ils/issues/2130
+
 v1.4.0
 ------
 
