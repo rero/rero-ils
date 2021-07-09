@@ -29,7 +29,6 @@ import pytest
 from invenio_accounts.testutils import login_user_via_session
 from jsonschema.exceptions import ValidationError
 
-from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.holdings.models import HoldingNoteTypes
 from rero_ils.modules.items.api import Item
@@ -552,30 +551,6 @@ def test_intervals_and_expected_dates(holding_lib_martigny_w_patterns):
         previous_expected_date = expected_date
 
 
-def test_regular_issue_creation_update_delete_api(
-        client, holding_lib_martigny_w_patterns, loc_public_martigny,
-        lib_martigny):
-    """Test create, update and delete of a regular issue API."""
-    holding = holding_lib_martigny_w_patterns
-    issue_display, expected_date = holding._get_next_issue_display_text(
-                        holding.get('patterns'))
-    issue = holding.receive_regular_issue(dbcommit=True, reindex=True)
-    item = deepcopy(issue)
-    item['issue']['status'] = ItemIssueStatus.DELETED
-    issue.update(data=item, dbcommit=True, reindex=True)
-    created_issue = Item.get_record_by_pid(issue.pid)
-    assert created_issue.get('issue').get('status') == ItemIssueStatus.DELETED
-    # Unable to delete a regular issue
-    with pytest.raises(IlsRecordError.NotDeleted):
-        created_issue.delete(dbcommit=True, delindex=True)
-
-    # no errors when deleting an irregular issue
-    pid = created_issue.pid
-    created_issue.get('issue')['regular'] = False
-    created_issue.delete(dbcommit=True, delindex=True)
-    assert not Item.get_record_by_pid(pid)
-
-
 def test_holding_notes(client, librarian_martigny,
                        holding_lib_martigny_w_patterns, json_header):
     """Test holdings notes."""
@@ -609,3 +584,16 @@ def test_holding_notes(client, librarian_martigny,
     assert holding.get_note(HoldingNoteTypes.STAFF)
     assert holding.get_note(HoldingNoteTypes.ROUTING) is None
     assert holding.get_note('dummy') is None
+
+
+def test_regular_issue_creation_update_delete_api(
+        client, holding_lib_martigny_w_patterns, loc_public_martigny,
+        lib_martigny):
+    """Test create, update and delete of a regular issue API."""
+    holding = holding_lib_martigny_w_patterns
+    issue_display, expected_date = holding._get_next_issue_display_text(
+                        holding.get('patterns'))
+    issue = holding.receive_regular_issue(dbcommit=True, reindex=True)
+    issue_pid = issue.pid
+    assert holding.delete(dbcommit=True, delindex=True)
+    assert not Item.get_record_by_pid(issue_pid)

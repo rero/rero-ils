@@ -47,7 +47,6 @@ def test_issues_permissions(client, json_header,
     assert issue_item is not None
     assert issue_item.issue_is_regular
 
-    # a regular issue cannot be deleted
     res = client.get(
         url_for(
             'api_blueprint.permissions',
@@ -57,4 +56,4 @@ def test_issues_permissions(client, json_header,
     )
     assert res.status_code == 200
     data = get_json(res)
-    assert not data['delete']['can']
+    assert data['delete']['can']

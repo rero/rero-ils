@@ -37,6 +37,7 @@ from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_records.api import Record
 from invenio_records_rest.utils import obj_or_import_string
+from invenio_search import current_search
 from invenio_search.api import RecordsSearch
 from jsonschema.exceptions import ValidationError
 from kombu.compat import Consumer
@@ -83,6 +84,11 @@ class IlsRecordsSearch(RecordsSearch):
         facets = {}
 
         default_filter = None
+
+    @classmethod
+    def flush_and_refresh(cls):
+        """Flush and refresh index."""
+        current_search.flush_and_refresh(cls.Meta.index)
 
 
 class IlsRecord(Record):

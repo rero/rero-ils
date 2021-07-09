@@ -34,7 +34,7 @@ from jinja2 import Environment
 from rero_ils.modules.items.models import ItemIssueStatus
 
 from .models import HoldingIdentifier, HoldingMetadata, HoldingTypes
-from ..api import IlsRecord, IlsRecordsIndexer
+from ..api import IlsRecord, IlsRecordError, IlsRecordsIndexer
 from ..documents.api import Document
 from ..errors import MissingRequiredParameterError, RegularReceiveNotAllowed
 from ..fetchers import id_fetcher
@@ -172,6 +172,22 @@ class Holding(IlsRecord):
         if len(note_types) != len(set(note_types)):
             return _('Can not have multiple notes of same type.')
         return True
+
+    def delete(self, force=False, dbcommit=False, delindex=False):
+        """Delete record and persistent identifier."""
+        can, _ = self.can_delete
+        if can:
+            if self.is_serial:
+                # Delete all attached items
+                for item in self.get_items:
+                    item.delete(
+                        force=force, dbcommit=dbcommit, delindex=delindex)
+                if delindex:
+                    ItemsSearch.flush_and_refresh()
+            return super().delete(
+                force=force, dbcommit=dbcommit, delindex=delindex)
+        else:
+            raise IlsRecordError.NotDeleted()
 
     @property
     def is_serial(self):
@@ -344,13 +360,15 @@ class Holding(IlsRecord):
         """Return standard items and received issues for a holding record."""
         for item_pid in Item.get_items_pid_by_holding_pid(self.pid):
             item = Item.get_record_by_pid(item_pid)
-            if not item.issue_status or \
-                    item.issue_status == ItemIssueStatus.RECEIVED:
-                # inherit holdings first call# for issues with no 1st call#.
-                issue_call_number = item.issue_inherited_first_call_number
-                if issue_call_number:
-                    item['call_number'] = issue_call_number
-                yield item
+            if item:
+                if not item.issue_status or \
+                        item.issue_status == ItemIssueStatus.RECEIVED:
+                    # inherit holdings first call#
+                    # for issues with no 1st call#.
+                    issue_call_number = item.issue_inherited_first_call_number
+                    if issue_call_number:
+                        item['call_number'] = issue_call_number
+                    yield item
 
     def get_number_of_items(self):
         """Get holding number of items."""
@@ -375,9 +393,19 @@ class Holding(IlsRecord):
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
         cannot_delete = {}
-        links = self.get_links_to_me()
-        if links:
-            cannot_delete['links'] = links
+        if self.is_serial:
+            # Find out if we can delete all items
+            not_deleteable_items = [
+                item for item in self.get_items if item.reasons_not_to_delete()
+            ]
+            if not_deleteable_items:
+                count = len(not_deleteable_items)
+                cannot_delete['others'] = {
+                    _(f'has {count} items with loan attached'): count}
+        else:
+            links = self.get_links_to_me()
+            if links:
+                cannot_delete['links'] = links
         return cannot_delete
 
     def get_holding_loan_conditions(self):
