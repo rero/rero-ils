@@ -308,6 +308,7 @@ setup(
             'claims = rero_ils.modules.items.tasks',
             'loans = rero_ils.modules.loans.tasks',
             'stats = rero_ils.modules.stats.tasks',
+            'holdings = rero_ils.modules.holdings.tasks',
         ],
         'invenio_records.jsonresolver': [
             'acq_accounts = rero_ils.modules.acq_accounts.jsonresolver',
