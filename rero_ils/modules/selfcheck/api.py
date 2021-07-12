@@ -21,6 +21,7 @@
 from flask import current_app
 from flask_babelex import gettext as _
 from invenio_circulation.errors import ItemNotAvailableError
+from pycountry import languages
 
 from .models import SelfcheckTerminal
 from .utils import authorize_selfckeck_patron, authorize_selfckeck_terminal, \
@@ -52,13 +53,16 @@ def selfcheck_login(name, access_token, **kwargs):
     if terminal and user:
         staffer = Patron.get_librarian_by_user(user)
         if staffer:
+            library = Library.get_record_by_pid(terminal.library_pid)
+            language = languages.lookup(
+                library.get('communication_language')).alpha_2
             return {
                 'authenticated': terminal.active,
                 'terminal': terminal.name,
                 'transaction_user_id': staffer.pid,
                 'institution_id': terminal.organisation_pid,
-                'library_name': Library.get_record_by_pid(
-                    terminal.library_pid).get('name')
+                'library_name': library.get('name'),
+                'library_language': language
             }
 
 
@@ -252,7 +256,7 @@ def patron_information(barcode, **kwargs):
             )
 
 
-def item_information(patron_barcode, item_barcode, **kwargs):
+def item_information(item_barcode, **kwargs):
     """Get item information handler.
 
     get item information according 'item_identifier' from selfcheck user.
@@ -265,17 +269,15 @@ def item_information(patron_barcode, item_barcode, **kwargs):
         from invenio_sip2.models import SelfcheckFeeType, \
             SelfcheckItemInformation, SelfcheckSecurityMarkerType
         org_pid = kwargs.get('institution_id')
-        patron = Patron.get_patron_by_barcode(
-            patron_barcode,
-            filter_by_org_pid=org_pid)
         item = Item.get_item_by_barcode(item_barcode, org_pid)
-        if item:
-            document = Document.get_record_by_pid(item.document_pid)
-            location = item.get_location()
+        with current_app.test_request_context() as ctx:
             language = kwargs.get('language', current_app.config
                                   .get('BABEL_DEFAULT_LANGUAGE'))
-            with current_app.test_request_context() as ctx:
-                ctx.babel_locale = language
+            ctx.babel_locale = language
+            if item:
+                document = Document.get_record_by_pid(item.document_pid)
+                location = item.get_location()
+
                 item_information = SelfcheckItemInformation(
                     item_id=item.get('barcode'),
                     title_id=title_format_text_head(document.get('title')),
@@ -293,15 +295,12 @@ def item_information(patron_barcode, item_barcode, **kwargs):
                 item_information['permanent_location'] = location.get('name')
                 item_information['current_location'] = \
                     item.get_last_location().get('name')
+                item_information['fee_type'] = SelfcheckFeeType.OVERDUE
                 # get loan for item
-                filter_states = [
-                    LoanState.PENDING,
-                    LoanState.ITEM_ON_LOAN
-                ]
-                loan = get_loans_by_item_pid_by_patron_pid(
-                    item.pid, patron.pid, filter_states)
-                if loan:
-                    if loan['state'] == LoanState.ITEM_ON_LOAN:
+                loan_pid = Item.get_loan_pid_with_item_on_loan(item.pid)
+                if loan_pid:
+                    loan = Loan.get_record_by_pid(loan_pid)
+                    if loan:
                         # format the end date according selfcheck language
                         item_information['due_date'] = format_date_filter(
                             loan['end_date'],
@@ -314,17 +313,12 @@ def item_information(patron_barcode, item_barcode, **kwargs):
                             get_last_transaction_by_loan_pid(
                                 loan_pid=loan.pid, status='open')
                         if transaction:
-                            # TODO: map transaction type
-                            item_information['fee_type'] = \
-                                SelfcheckFeeType.OVERDUE
                             item_information['fee_amount'] = \
                                 transaction.total_amount
                             item_information['currency_type'] = \
                                 transaction.currency
                             item_information.get('screen_messages', []) \
                                 .append(_('overdue'))
-                    elif loan['state'] == LoanState.PENDING:
-                        item_information['fee_type'] = SelfcheckFeeType.OTHER
                 # public note
                 public_note = item.get_note(ItemNoteTypes.PUBLIC)
                 if public_note:
@@ -332,11 +326,11 @@ def item_information(patron_barcode, item_barcode, **kwargs):
                         .append(public_note)
 
                 return item_information
-        else:
-            return SelfcheckItemInformation(
-                item_id=item_barcode,
-                screen_messages=[_('Error encountered: item not found')]
-            )
+            else:
+                return SelfcheckItemInformation(
+                    item_id=item_barcode,
+                    screen_messages=[_('Error encountered: item not found')]
+                )
 
 
 def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode,
@@ -435,18 +429,17 @@ def selfcheck_checkin(transaction_user_pid, item_barcode, **kwargs):
         checkin = SelfcheckCheckin(
             permanent_location=library.get('name')
         )
-        try:
-            document = Document.get_record_by_pid(item.document_pid)
-            checkin['title_id'] = title_format_text_head(
-                document.get('title')
-            )
-            staffer = Patron.get_record_by_pid(transaction_user_pid)
-            if staffer.is_librarian:
-                with current_app.test_request_context() as ctx:
-                    language = kwargs.get('language', current_app.config
-                                          .get('BABEL_DEFAULT_LANGUAGE'))
-                    ctx.babel_locale = language
-
+        with current_app.test_request_context() as ctx:
+            language = kwargs.get('language', current_app.config
+                                  .get('BABEL_DEFAULT_LANGUAGE'))
+            ctx.babel_locale = language
+            try:
+                document = Document.get_record_by_pid(item.document_pid)
+                checkin['title_id'] = title_format_text_head(
+                    document.get('title')
+                )
+                staffer = Patron.get_record_by_pid(transaction_user_pid)
+                if staffer.is_librarian:
                     # do checkin
                     result, data = item.checkin(
                         transaction_user_pid=staffer.pid,
@@ -457,6 +450,8 @@ def selfcheck_checkin(transaction_user_pid, item_barcode, **kwargs):
                     if data[LoanAction.CHECKIN]:
                         checkin['checkin'] = True
                         checkin['resensitize'] = True
+                        if item.get_requests(count=True) > 0:
+                            checkin['alert'] = True
                         # checkin note
                         checkin_note = item.get_note(ItemNoteTypes.CHECKIN)
                         if checkin_note:
@@ -464,10 +459,10 @@ def selfcheck_checkin(transaction_user_pid, item_barcode, **kwargs):
                                 .append(checkin_note)
                         # TODO: When is possible, try to return fields:
                         #       magnetic_media
-        except Exception:
-            checkin.get('screen_messages', []).append(
-                _('Error encountered: please contact a librarian'))
-            raise SelfcheckCirculationError('self checkin failed', checkin)
+            except Exception:
+                checkin.get('screen_messages', []).append(
+                    _('Error encountered: please contact a librarian'))
+                raise SelfcheckCirculationError('self checkin failed', checkin)
         return checkin
 
 
