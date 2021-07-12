@@ -305,6 +305,17 @@
         {
           "title": "classification_musicale_instruments",
           "type": "object",
+          "propertiesOrder": [
+            "type",
+            "classificationPortion",
+            "subdivision",
+            "edition",
+            "assigner"
+          ],
+          "required": [
+            "type",
+            "classificationPortion"
+          ],
           "properties": {
             "type": {
               "title": "Type",
