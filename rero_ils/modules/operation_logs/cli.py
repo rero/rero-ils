@@ -87,7 +87,7 @@ def dump_operation_logs(outfile_name, year):
 
     index_count = 0
     outfile = JsonWriter(outfile_name)
-    with click.progressbar(search.scan()) as bar:
+    with click.progressbar(search.scan(), length=search.count()) as bar:
         for oplg in bar:
             outfile.write(str(oplg.to_dict()))
             index_count += 1
