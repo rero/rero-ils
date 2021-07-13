@@ -314,7 +314,7 @@ class Patron(IlsRecord):
         patrons = cls.get_patrons_by_user(user)
         librarians = list(filter(lambda ptrn: ptrn.is_librarian, patrons))
         if len(librarians) > 1:
-            raise Exception('more than one librarian account for a user')
+            raise Exception(f'more than one librarian account for {user}')
         if len(librarians) == 0:
             return None
         return librarians[0]
