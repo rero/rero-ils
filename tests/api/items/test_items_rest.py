@@ -30,7 +30,7 @@ from utils import VerifyRecordPermissionPatch, flush_index, get_json, postdata
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemNoteTypes, ItemStatus
-from rero_ils.modules.loans.api import Loan, LoanAction
+from rero_ils.modules.loans.api import Loan, LoanAction, LoanState
 from rero_ils.modules.loans.utils import get_extension_params
 
 
@@ -859,13 +859,11 @@ def test_items_notes(client, librarian_martigny, item_lib_martigny,
     assert item.get_note('dummy') is None
 
 
-def test_pending_loans_order(client, librarian_martigny,
-                             patron_martigny, loc_public_martigny,
-                             item_type_standard_martigny,
-                             item2_lib_martigny, json_header,
-                             patron2_martigny, patron_sion,
-                             circulation_policies):
-    """Test sort of pending loans."""
+def test_requested_loans_to_validate(
+        client, librarian_martigny, loc_public_martigny,
+        item_type_standard_martigny, item2_lib_martigny, json_header,
+        patron_sion, circulation_policies):
+    """Test requested loans to validate."""
     login_user_via_session(client, librarian_martigny.user)
     library_pid = librarian_martigny\
         .replace_refs()['libraries'][0]['pid']
@@ -882,73 +880,17 @@ def test_pending_loans_order(client, librarian_martigny,
         )
     )
 
-    res, _ = postdata(
-        client,
-        'api_item.librarian_request',
-        dict(
-            item_pid=item2_lib_martigny.pid,
-            patron_pid=patron_martigny.pid,
-            pickup_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-            transaction_location_pid=loc_public_martigny.pid
-        )
-    )
-    assert res.status_code == 200
-
-    res, _ = postdata(
-        client,
-        'api_item.librarian_request',
-        dict(
-            item_pid=item2_lib_martigny.pid,
-            patron_pid=patron2_martigny.pid,
-            pickup_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-            transaction_location_pid=loc_public_martigny.pid
-        )
-    )
-    assert res.status_code == 200
-
-    # sort by pid asc
     res = client.get(
-        url_for(
-            'api_item.requested_loans', library_pid=library_pid,
-            sort='pid'))
+        url_for('api_item.requested_loans', library_pid=library_pid))
     assert res.status_code == 200
     data = get_json(res)
-    loans = data['hits']['hits'][0]['item']['pending_loans']
-    assert loans[2]['pid'] > loans[1]['pid'] > loans[0]['pid']
-
-    # sort by pid desc
-    res = client.get(
-        url_for(
-            'api_item.requested_loans', library_pid=library_pid,
-            sort='-pid'))
-    assert res.status_code == 200
-    data = get_json(res)
-    loans = data['hits']['hits'][0]['item']['pending_loans']
-    assert loans[2]['pid'] < loans[1]['pid'] < loans[0]['pid']
-
-    # sort by transaction desc
-    res = client.get(
-        url_for(
-            'api_item.requested_loans', library_pid=library_pid,
-            sort='-transaction_date'))
-    assert res.status_code == 200
-    data = get_json(res)
-    loans = data['hits']['hits'][0]['item']['pending_loans']
-    assert loans[2]['pid'] < loans[1]['pid'] < loans[0]['pid']
-
-    # sort by patron_pid asc
-    res = client.get(
-        url_for(
-            'api_item.requested_loans', library_pid=library_pid,
-            sort='patron_pid'))
-    assert res.status_code == 200
-    data = get_json(res)
-    loans = data['hits']['hits'][0]['item']['pending_loans']
-    assert loans[0]['patron_pid'] == patron_sion.pid
-    assert loans[1]['patron_pid'] == patron_martigny.pid
-    assert loans[2]['patron_pid'] == patron2_martigny.pid
+    assert 1 == data['hits']['total']['value']
+    requested_loan = data['hits']['hits'][0]
+    assert item2_lib_martigny.pid == requested_loan['item']['pid']
+    assert item2_lib_martigny.pid == \
+        requested_loan['loan']['item_pid']['value']
+    assert LoanState.PENDING == requested_loan['loan']['state']
+    assert patron_sion.pid == requested_loan['loan']['patron_pid']
 
 
 def test_patron_request(client, patron_martigny, loc_public_martigny,

@@ -43,13 +43,13 @@ from ..circ_policies.api import CircPolicy
 from ..errors import NoCirculationActionIsPermitted
 from ..items.models import ItemStatus
 from ..items.utils import item_pid_to_object
-from ..libraries.api import Library
-from ..locations.api import Location
+from ..libraries.api import LibrariesSearch, Library
+from ..locations.api import Location, LocationsSearch
 from ..notifications.api import Notification, NotificationsSearch, \
     number_of_reminders_sent
 from ..notifications.dispatcher import Dispatcher
 from ..patron_transactions.api import PatronTransactionsSearch
-from ..patrons.api import Patron
+from ..patrons.api import Patron, PatronsSearch
 from ..utils import date_string_to_utc, get_ref_for_pid
 from ...filter import format_date_filter
 
@@ -289,6 +289,158 @@ class Loan(IlsRecord):
         for field in self.DATETIME_FIELDS:
             if field in self:
                 self[field] = self[field].isoformat()
+
+    @classmethod
+    def requested_loans_to_validate(cls, library_pid):
+        """Get Requests to be validated.
+
+        :param library_pid: the library pid.
+        """
+        from ..item_types.api import ItemTypesSearch
+        from ..items.api import ItemsSearch
+
+        # Proxy record
+        patrons = {}
+        locations = {}
+        libraries = {}
+        holdings = {}
+        items = {}
+        item_types = {}
+
+        def loans_pending():
+            """Get pending loans."""
+            return LoansSearch()\
+                .params(preserve_order=True)\
+                .filter('term', state=LoanState.PENDING)\
+                .filter('term', library_pid=library_pid)\
+                .sort({'_created': {"order": 'asc'}})\
+                .source(includes=[
+                    'pid', 'transaction_date', 'item_pid', 'patron_pid',
+                    'document_pid', 'library_pid', 'state',
+                    'transaction_location_pid', 'pickup_location_pid'
+                ])\
+                .scan()
+
+        def patron_by_pid(patron_pid):
+            """Get patron by pid.
+
+            :param patron_pid: the patron pid.
+            """
+            if patron_pid not in patrons:
+                patrons[patron_pid] = PatronsSearch()\
+                    .filter('term', pid=patron_pid)\
+                    .source(includes=[
+                        'pid', 'first_name', 'last_name', 'patron.barcode'])\
+                    .execute()[0].to_dict()
+            return patrons[patron_pid]
+
+        def location_by_pid(location_pid):
+            """Get location by pid.
+
+            :param location_pid: the location pid.
+            """
+            if location_pid not in locations:
+                locations[location_pid] = LocationsSearch()\
+                    .filter('term', pid=location_pid)\
+                    .source(includes=['pid', 'name', 'library'])\
+                    .execute()[0].to_dict()
+            return locations[location_pid]
+
+        def library_name_by_pid(library_pid):
+            """Get library name by pid.
+
+            :param library_pid: the library pid.
+            """
+            if library_pid not in libraries:
+                libraries[library_pid] = LibrariesSearch()\
+                    .filter('term', pid=library_pid)\
+                    .source(includes='name')\
+                    .execute()[0].to_dict()['name']
+            return libraries[library_pid]
+
+        def holding_by_pid(holding_pid):
+            """Get holdings by pid.
+
+            :param holding_pid: the holdings pid.
+            """
+            from ..holdings.api import HoldingsSearch
+            if holding_pid not in holdings:
+                holdings[holding_pid] = HoldingsSearch()\
+                    .filter('term', pid=library_pid)\
+                    .source(includes='call_number')\
+                    .execute()[0].to_dict()
+            return holdings[holding_pid]
+
+        def item_by_pid(item_pid):
+            """Get item by pid.
+
+            :param item_pid: the item pid.
+            """
+            if item_pid not in items:
+                items[item_pid] = ItemsSearch()\
+                    .filter('term', pid=item_pid)\
+                    .filter('term', status=ItemStatus.ON_SHELF)\
+                    .source(includes=[
+                        'pid', 'barcode', 'call_number', 'library',
+                        'location', 'temporary_item_type', 'holding'
+                    ]).execute()
+            return items[item_pid]
+
+        def item_type_by_pid(item_type_pid):
+            """Get item type by pid.
+
+            :param item_pid: the item_type pid.
+            """
+            if item_type_pid not in item_types:
+                item_types[item_type_pid] = ItemTypesSearch()\
+                    .filter('term', pid=item_type_pid)\
+                    .filter('term', negative_availability=True)\
+                    .execute()
+            return item_types[item_type_pid]
+
+        metadata = []
+        item_pids = []
+
+        loans = loans_pending()
+        for loan in loans:
+            item_pid = loan['item_pid']['value']
+            item = item_by_pid(item_pid)
+            if item:
+                add = True
+                item = item[0]
+                if 'temporary_item_type' in item:
+                    item_type_pid = item['temporary_item_type']['pid']
+                    item_type = item_type_by_pid(item_type_pid)
+                    if item_type is None:
+                        add = False
+                if add and item_pid not in item_pids:
+                    item_pids.append(item_pid)
+                    item_data = item.to_dict()
+                    loan_data = loan.to_dict()
+                    if 'call_number' not in item_data:
+                        holding = holding_by_pid(item['holding']['pid'])
+                        if 'call_number' in holding:
+                            item_data['call_number'] = holding['call_number']
+                    item_data['library']['name'] = library_name_by_pid(
+                        item_data['library']['pid'])
+                    item_data['location']['name'] = location_by_pid(
+                        item_data['location']['pid'])['name']
+                    patron_data = patron_by_pid(loan_data['patron_pid'])
+                    loan_data['patron'] = {
+                        'barcode': patron_data['patron']['barcode'],
+                        'name': f'{patron_data["first_name"]} '
+                                f'{patron_data["last_name"]}'
+                    }
+                    loan_data['pickup_location'] = location_by_pid(
+                        loan_data['pickup_location_pid'])
+                    loan_data['pickup_location']['library_name'] = \
+                        library_name_by_pid(
+                            loan_data['pickup_location']['library']['pid'])
+                    metadata.append({
+                        'item': item_data,
+                        'loan': loan_data
+                    })
+        return metadata
 
     @classmethod
     def _loan_build_org_ref(cls, data):

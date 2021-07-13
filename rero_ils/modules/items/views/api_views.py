@@ -43,8 +43,6 @@ from rero_ils.modules.patrons.api import Patron, current_librarian, \
 from rero_ils.modules.views import check_authentication
 from rero_ils.permissions import request_item_permission
 
-# from rero_ils.modules.utils import profile
-
 api_blueprint = Blueprint(
     'api_item',
     __name__,
@@ -310,15 +308,7 @@ def extend_loan(item, data):
 @jsonify_error
 def requested_loans(library_pid):
     """HTTP GET request for sorted requested loans for a library."""
-    sort_by = flask_request.args.get('sort')
-    items_loans = Item.get_requests_to_validate(
-        library_pid=library_pid, sort_by=sort_by)
-    metadata = []
-    for item, loan in items_loans:
-        metadata.append({
-            'item': item.dumps_for_circulation(sort_by=sort_by),
-            'loan': loan.dumps_for_circulation()
-        })
+    metadata = Loan.requested_loans_to_validate(library_pid)
     return jsonify({
         'hits': {
             'total': {
