@@ -24,7 +24,8 @@ from datetime import datetime, timedelta
 
 from rero_ils.modules.item_types.api import ItemType
 from rero_ils.modules.items.api import Item, ItemsSearch, item_id_fetcher
-from rero_ils.modules.items.models import ItemIssueStatus, ItemStatus
+from rero_ils.modules.items.models import ItemIssueStatus, ItemStatus, \
+    TypeOfItem
 from rero_ils.modules.items.utils import item_location_retriever, \
     item_pid_to_object
 from rero_ils.modules.utils import get_ref_for_pid
@@ -230,6 +231,24 @@ def test_items_availability(item_type_missing_martigny,
     item = item.update(item, dbcommit=True, reindex=True)
     assert item.available
     assert len(item.availability_text) == 1  # only default value
+
+    # test availability and availability_text for an issue
+    item['type'] = TypeOfItem.ISSUE
+    item['enumerationAndChronology'] = 'dummy'
+    item['issue'] = {
+        'regular': False,
+        'status': ItemIssueStatus.RECEIVED,
+        'received_date': '1970-01-01',
+        'expected_date': '1970-01-01'
+    }
+    item = item.update(item, dbcommit=True, reindex=True)
+    assert item.available
+    assert item.availability_text[0]['label'] == item.status
+
+    item['issue']['status'] = ItemIssueStatus.LATE
+    item = item.update(item, dbcommit=True, reindex=True)
+    assert not item.available
+    assert item.availability_text[0]['label'] == ItemIssueStatus.LATE
 
     # delete the created item
     item.delete()

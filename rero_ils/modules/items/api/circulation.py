@@ -35,7 +35,7 @@ from invenio_search import current_search
 from .record import ItemRecord
 from ..decorators import add_action_parameters_and_flush_indexes, \
     check_operation_allowed
-from ..models import ItemCirculationAction, ItemStatus
+from ..models import ItemCirculationAction, ItemIssueStatus, ItemStatus
 from ..utils import item_pid_to_object
 from ...circ_policies.api import CircPolicy
 from ...documents.api import Document
@@ -1252,6 +1252,8 @@ class ItemCirculation(ItemRecord):
             return False
         if self.circulation_category.get('negative_availability'):
             return False
+        if self.is_issue and self.issue_status != ItemIssueStatus.RECEIVED:
+            return False
         return True
 
     @property
@@ -1263,9 +1265,12 @@ class ItemCirculation(ItemRecord):
                 'language': 'default',
                 'label': circ_category.get('name')
             }]
+        label = self.status
+        if self.is_issue and self.issue_status != ItemIssueStatus.RECEIVED:
+            label = self.issue_status
         return [{
             'language': 'default',
-            'label': self.status
+            'label': label
         }]
 
     def get_item_end_date(self, format='short', time_format='medium',
