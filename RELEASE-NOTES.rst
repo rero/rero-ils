@@ -18,6 +18,24 @@
 Release notes
 =============
 
+v1.4.3
+------
+
+This patch resolves several issues on notifications, spotted on the production
+server:
+
+   -  Request notification is sent to the pickup location instead of the owning
+      library; furthermore, when a recall notification has already been sent,
+      no request should be sent (`#2152`_).
+   -  Sometimes booking notifications are not sent (also `#2152`_).
+
+The fourth case listed in the `#2152`_ issue will be fixed in a future patch.
+
+Some improvements have been done on the selfcheck machine module.
+
+.. _#2151: https://github.com/rero/rero-ils/issues/2151
+.. _#2152: https://github.com/rero/rero-ils/issues/2152
+
 v1.4.2
 ------
 
