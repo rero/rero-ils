@@ -136,6 +136,7 @@ class Dispatcher:
                         'email': loan['library'].get('email'),
                         'name': loan['library']['name'],
                         'address': loan['library']['address'],
+                        'next_open': loan['library'].get('next_open'),
                         'notification_settings': loan['library'].get(
                             'notification_settings', [])
                     },
