@@ -57,7 +57,7 @@ def test_notification_email(notification_late_sion, patron_sion, mailbox):
 
 def test_notification_email_availability(notification_availability_sion,
                                          lib_sion, patron_sion, mailbox):
-    """Test availibility notification.
+    """Test availability notification.
         Patron communication channel is email.
     """
     mailbox.clear()
