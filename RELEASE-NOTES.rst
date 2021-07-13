@@ -18,6 +18,34 @@
 Release notes
 =============
 
+v1.4.2
+------
+
+This note includes the changes of the ``rero-ils-ui`` project
+[`link`_] .
+
+This patch occurs after the 🚀 *go-live* 🚀. It resolves the most urgent issues
+signaled by librarians.
+
+It improves the interface for validating requests that is too slow with lots of
+requests, thus preventing librarian to fulfill them.
+
+Several issues on notifications spotted on the production server are also
+fixed:
+
+-  The URL in the notification is wrong (`#2151`_).
+-  The *to pick up until* date in the availability notification is not
+   displayed (`#2140`_).
+-  *Due soon* and *recall* notification e-mail has not object (`#2139`_).
+
+Deletion of an item type attributed to items is prevented (`#2159`_).
+
+.. _#2151: https://github.com/rero/rero-ils/issues/2151
+.. _#2152: https://github.com/rero/rero-ils/issues/2152
+.. _#2139: https://github.com/rero/rero-ils/issues/2139
+.. _#2140: https://github.com/rero/rero-ils/issues/2140
+.. _#2159: https://github.com/rero/rero-ils/issues/2159
+
 v1.4.1
 ------
 
@@ -34,7 +62,7 @@ This patch is necessary to fix three issues:
 -  Restores the message in the trashbin tooltip that inform the user why an item
    cannot be deleted.
 
-.. #2130: https://github.com/rero/rero-ils/issues/2130
+.. _#2130: https://github.com/rero/rero-ils/issues/2130
 
 v1.4.0
 ------
@@ -658,6 +686,7 @@ Issues
 .. _#1741: https://github.com/rero/rero-ils/issues/1741
 .. _#1778: https://github.com/rero/rero-ils/issues/1778
 .. _#1781: https://github.com/rero/rero-ils/issues/1781
+.. _#1788: https://github.com/rero/rero-ils/issues/1788
 .. _#1798: https://github.com/rero/rero-ils/issues/1798
 .. _#1806: https://github.com/rero/rero-ils/issues/1806
 .. _#1807: https://github.com/rero/rero-ils/issues/1807
