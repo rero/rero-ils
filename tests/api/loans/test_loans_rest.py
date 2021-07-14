@@ -384,7 +384,7 @@ def test_overdue_loans(client, librarian_martigny,
     assert res.status_code == 200
 
 
-def test_checkout_item_transit(client, item2_lib_martigny,
+def test_checkout_item_transit(client, mailbox, item2_lib_martigny,
                                librarian_martigny,
                                librarian_saxon,
                                patron_martigny,
@@ -393,6 +393,7 @@ def test_checkout_item_transit(client, item2_lib_martigny,
                                circulation_policies):
     """Test checkout of an item in transit."""
     assert item2_lib_martigny.available
+    mailbox.clear()
 
     # request
     login_user_via_session(client, librarian_martigny.user)
@@ -419,6 +420,10 @@ def test_checkout_item_transit(client, item2_lib_martigny,
     actions = data.get('action_applied')
     loan_pid = actions[LoanAction.REQUEST].get('pid')
     assert not item2_lib_martigny.available
+
+    assert len(mailbox) == 1
+    assert mailbox[-1].recipients == [
+        loc_public_martigny['notification_email']]
 
     loan = Loan.get_record_by_pid(loan_pid)
     assert loan['state'] == LoanState.PENDING

@@ -52,11 +52,14 @@ def listener_loan_state_changed(_, initial_loan, loan, trigger):
             # is the item on loan
             if checkedout_loan_pid:
                 checked_out_loan = Loan.get_record_by_pid(checkedout_loan_pid)
-                checked_out_loan.create_notification(
-                    notification_type=Notification.RECALL_NOTIFICATION_TYPE)
-            # request notification
-            loan.create_notification(
-                notification_type=Notification.REQUEST_NOTIFICATION_TYPE)
+                if not checked_out_loan.is_notified(
+                        Notification.RECALL_NOTIFICATION_TYPE):
+                    checked_out_loan.create_notification(
+                        Notification.RECALL_NOTIFICATION_TYPE)
+            # request notification only if the item is not on loan
+            else:
+                loan.create_notification(
+                    notification_type=Notification.REQUEST_NOTIFICATION_TYPE)
     # availability
     elif loan['state'] == LoanState.ITEM_AT_DESK:
         loan.create_notification(
@@ -69,11 +72,11 @@ def listener_loan_state_changed(_, initial_loan, loan, trigger):
                 notification_type=Notification.TRANSIT_NOTICE_NOTIFICATION_TYPE
             )
     # booking
-    elif trigger == 'checkin' and loan['state'] in [
-            LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
-            LoanState.ITEM_AT_DESK]:
-        loan.create_notification(
-            notification_type=Notification.BOOKING_NOTIFICATION_TYPE)
+    if trigger == 'checkin':
+        item = Item.get_record_by_pid(item_pid)
+        if item.number_of_requests():
+            loan.create_notification(
+                notification_type=Notification.BOOKING_NOTIFICATION_TYPE)
 
     # Create fees for checkin or extend operations
     if trigger in ['checkin', 'extend']:

@@ -761,10 +761,12 @@ class Loan(IlsRecord):
             # create the notification and enqueue it.
             return self._send_notification(record)
 
-        # recall + availibility
+        # availibility
         if notif_type in [
-                Notification.RECALL_NOTIFICATION_TYPE,
-                Notification.AVAILABILITY_NOTIFICATION_TYPE]:
+                Notification.AVAILABILITY_NOTIFICATION_TYPE,
+                # recall
+                Notification.RECALL_NOTIFICATION_TYPE
+        ]:
             return self._send_notification(record)
 
         if notif_type in [

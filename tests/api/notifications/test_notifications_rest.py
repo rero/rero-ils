@@ -34,6 +34,34 @@ from rero_ils.modules.notifications.api import Notification, \
 from rero_ils.modules.notifications.tasks import process_notifications
 
 
+def test_availability_notification(
+        loan_validated_martigny, item2_lib_martigny,
+        mailbox, patron_martigny):
+    """Test availability notification created from a loan."""
+    mailbox.clear()
+    loan = loan_validated_martigny
+    assert loan.is_notified(
+        notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
+    notification = get_notification(
+        loan_validated_martigny,
+        notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE
+    )
+    assert notification.loan_pid == loan_validated_martigny.get('pid')
+    assert notification.item_pid == item2_lib_martigny.pid
+    assert notification.patron_pid == patron_martigny.pid
+
+    assert not loan_validated_martigny.is_notified(
+        notification_type=Notification.RECALL_NOTIFICATION_TYPE)
+    assert not get_notification(
+        loan_validated_martigny,
+        notification_type=Notification.RECALL_NOTIFICATION_TYPE
+    )
+    for notification_type in Notification.ALL_NOTIFICATIONS:
+        process_notifications(notification_type)
+    assert len(mailbox)
+    mailbox.clear()
+
+
 def test_notifications_permissions(
         client, notification_availability_martigny, json_header):
     """Test notification permissions."""
@@ -345,6 +373,7 @@ def test_recall_notification(client, patron_sion, lib_sion,
 
     request_loan_pid = data.get(
         'action_applied')[LoanAction.REQUEST].get('pid')
+    request_loan = Loan.get_record_by_pid(request_loan_pid)
 
     flush_index(NotificationsSearch.Meta.index)
 
@@ -353,10 +382,18 @@ def test_recall_notification(client, patron_sion, lib_sion,
     notification = get_notification(
         loan, notification_type=Notification.RECALL_NOTIFICATION_TYPE)
     assert notification.loan_pid == loan.pid
+
     assert not loan.is_notified(
         notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
     assert not get_notification(
         loan, notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
+
+    assert not get_notification(
+        request_loan, notification_type=Notification.REQUEST_NOTIFICATION_TYPE)
+    assert not request_loan.is_notified(
+        notification_type=Notification.REQUEST_NOTIFICATION_TYPE)
+
+    assert not len(mailbox)
 
     for notification_type in Notification.ALL_NOTIFICATIONS:
         process_notifications(notification_type)
@@ -394,16 +431,20 @@ def test_recall_notification(client, patron_sion, lib_sion,
 
     flush_index(NotificationsSearch.Meta.index)
 
-    assert loan.is_notified(
-        notification_type=Notification.RECALL_NOTIFICATION_TYPE)
-    notification = get_notification(
-        loan, notification_type=Notification.RECALL_NOTIFICATION_TYPE)
-    assert notification.loan_pid == loan.pid
+    assert not loan.is_notified(
+        notification_type=Notification.RECALL_NOTIFICATION_TYPE, counter=1)
+
     assert not loan.is_notified(
         notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
     assert not get_notification(
         loan, notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
-    assert len(mailbox) == 1
+
+    assert not get_notification(
+        request_loan, notification_type=Notification.REQUEST_NOTIFICATION_TYPE)
+    assert not request_loan.is_notified(
+        notification_type=Notification.REQUEST_NOTIFICATION_TYPE)
+
+    assert len(mailbox) == 0
 
 
 def test_recall_notification_without_email(
@@ -456,33 +497,12 @@ def test_recall_notification_without_email(
     assert not get_notification(
         loan, notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
 
+    for notification_type in Notification.ALL_NOTIFICATIONS:
+        process_notifications(notification_type)
     # one new email for the librarian
     assert mailbox[0].recipients == [email_notification_type(
         lib_martigny, notification['notification_type'])]
     mailbox.clear()
-
-
-def test_availability_notification(
-        loan_validated_martigny, item2_lib_martigny,
-        patron_martigny):
-    """Test availability notification created from a loan."""
-    loan = loan_validated_martigny
-    assert loan.is_notified(
-        notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
-    notification = get_notification(
-        loan_validated_martigny,
-        notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE
-    )
-    assert notification.loan_pid == loan_validated_martigny.get('pid')
-    assert notification.item_pid == item2_lib_martigny.pid
-    assert notification.patron_pid == patron_martigny.pid
-
-    assert not loan_validated_martigny.is_notified(
-        notification_type=Notification.RECALL_NOTIFICATION_TYPE)
-    assert not get_notification(
-        loan_validated_martigny,
-        notification_type=Notification.RECALL_NOTIFICATION_TYPE
-    )
 
 
 def test_transaction_library_pid(notification_late_martigny,
@@ -504,11 +524,12 @@ def test_notification_templates_list(client, librarian_martigny):
 
 
 def test_multiple_notifications(client, patron_martigny, patron_sion,
-                                lib_martigny,
+                                lib_martigny, lib_fully,
                                 item_lib_martigny, librarian_martigny,
                                 loc_public_martigny, circulation_policies,
                                 loc_public_fully, mailbox):
     """Test multiple notifications."""
+    mailbox.clear()
     login_user_via_session(client, librarian_martigny.user)
 
     res, data = postdata(
@@ -555,7 +576,7 @@ def test_multiple_notifications(client, patron_martigny, patron_sion,
     loan = Loan.get_record_by_pid(request_loan_pid)
     assert loan.state == LoanState.ITEM_IN_TRANSIT_TO_HOUSE
     assert mailbox[-1].recipients == [
-        lib_martigny.get('notification_settings')[4].get('email')]
+        lib_fully.get('notification_settings')[4].get('email')]
     mailbox.clear()
 
     # back on shelf: required to restore the initial stat for other tests
@@ -567,12 +588,58 @@ def test_multiple_notifications(client, patron_martigny, patron_sion,
     item_lib_martigny.receive(**params)
 
 
-def test_booking_notifications(client, patron_martigny, patron_sion,
+def test_request_notifications(client, patron_martigny, patron_sion,
                                lib_martigny,
+                               lib_fully,
                                item_lib_martigny, librarian_martigny,
                                loc_public_martigny, circulation_policies,
                                loc_public_fully, mailbox):
-    """Test multiple notifications."""
+    """Test request notifications."""
+    mailbox.clear()
+    login_user_via_session(client, librarian_martigny.user)
+
+    res, data = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pickup_location_pid=loc_public_fully.pid,
+            patron_pid=patron_martigny.pid,
+            transaction_library_pid=lib_martigny.pid,
+            transaction_user_pid=librarian_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+
+    request_loan_pid = data.get(
+        'action_applied')[LoanAction.REQUEST].get('pid')
+
+    flush_index(NotificationsSearch.Meta.index)
+    assert len(mailbox) == 1
+    assert mailbox[-1].recipients == [
+        lib_martigny.get('notification_settings')[4].get('email')]
+    # cancel request
+    res, _ = postdata(
+        client,
+        'api_item.cancel_item_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pid=request_loan_pid,
+            transaction_user_pid=librarian_martigny.pid,
+            transaction_library_pid=lib_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+    mailbox.clear()
+
+
+def test_booking_notifications(client, patron_martigny, patron_sion,
+                               lib_martigny, lib_fully,
+                               librarian_fully,
+                               item_lib_martigny, librarian_martigny,
+                               loc_public_martigny, circulation_policies,
+                               loc_public_fully, mailbox):
+    """Test booking notifications."""
     params = {
         'patron_pid': patron_sion.pid,
         'transaction_location_pid': loc_public_martigny.pid,
@@ -603,7 +670,7 @@ def test_booking_notifications(client, patron_martigny, patron_sion,
     # BOOKING
     params = {
         'transaction_location_pid': loc_public_fully.pid,
-        'transaction_user_pid': librarian_martigny.pid
+        'transaction_user_pid': librarian_fully.pid
     }
     _, actions = item_lib_martigny.checkin(**params)
     # the checked in loan is canceled and the requested loan is in transit for
@@ -611,5 +678,5 @@ def test_booking_notifications(client, patron_martigny, patron_sion,
     loan = Loan.get_record_by_pid(request_loan_pid)
     assert loan.state == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
     assert mailbox[-1].recipients == [
-        lib_martigny.get('notification_settings')[4].get('email')]
+        lib_fully.get('notification_settings')[4].get('email')]
     mailbox.clear()

@@ -9,12 +9,12 @@ Titre : {{ document.title_text }} / {{ document.responsibility_statement }}
 Lieu de retrait : {{ pickup_name }}
 {%- endfor %}
 
-A retirer jusqu'au : {{ library.next_open }}
+A retirer jusqu'au : {{ pickup_library.next_open }}
 
 Si le document n'est pas retiré dans les délais, il sera remis en circulation pour d'autres personnes.
 Vous pouvez consulter votre compte et prolonger la durée de prêt de vos documents à l'adresse : {{ profile_url }}
 
 Avec nos compliments
 
-{{ library.name }}
-{{ library.address }}
+{{ pickup_library.name }}
+{{ pickup_library.address }}

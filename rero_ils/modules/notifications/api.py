@@ -137,37 +137,31 @@ class Notification(IlsRecord):
             data = deepcopy(self.replace_refs())
             data['loan'] = self.loan
             data['loan']['item'] = self.item.replace_refs().dumps()
-            # del(data['loan']['item_pid'])
             data['loan']['patron'] = self.patron.replace_refs().dumps()
-            # language = data['loan']['patron']['communication_language']
-            # del(data['loan']['patron_pid'])
             data['loan']['transaction_user'] = \
                 self.transaction_user.replace_refs().dumps()
-            # del(data['loan']['transaction_user_pid'])
             data['loan']['transaction_location'] = \
                 self.transaction_location.replace_refs().dumps()
-            # del(data['loan']['transaction_location_pid'])
             pickup_location = self.pickup_location
+            item_pid = data['loan']['item']['pid']
+            data['loan']['library'] = self._get_library_informations(
+                Item.get_record_by_pid(item_pid).library_pid)
+            if self.transaction_location:
+                data['loan']['transaction_library'] = \
+                    self._get_library_informations(
+                        self.transaction_location.library_pid)
+
             if pickup_location:
                 data['loan']['pickup_location'] = \
                     pickup_location.replace_refs().dumps()
-                # del(data['loan']['pickup_location_pid'])
-                library_pid = data['loan']['pickup_location']['library']['pid']
-                library = Library.get_record_by_pid(library_pid)
                 data['loan']['pickup_name'] = pickup_location['pickup_name']
-                data['loan']['library'] = library
-                # TODO: make availability days variable (fixed to 10 days)
-                keep_until = datetime.now(timezone.utc) + timedelta(days=10)
-                next_open = library.next_open(keep_until)
-                # language = data['loan']['patron']['communication_language']
-                next_open = next_open.strftime("%d.%m.%Y")
-                data['loan']['library']['next_open'] = next_open
+                pickup_library_pid = \
+                    data['loan']['pickup_location']['library']['pid']
+                data['loan']['pickup_library'] = \
+                    self._get_library_informations(pickup_library_pid)
             else:
                 location = self.transaction_location.replace_refs().dumps()
                 data['loan']['pickup_name'] = location['library']['name']
-                item_pid = data['loan']['item_pid']
-                library = Item.get_record_by_pid(item_pid).get_library()
-                data['loan']['library'] = library
 
             document = self.document.replace_refs().dumps()
             data['loan']['document'] = document
@@ -206,6 +200,24 @@ class Notification(IlsRecord):
             from ..loans.api import Loan
             self.loan = Loan.get_record_by_pid(self.loan_pid)
         return self.loan
+
+    def _get_library_informations(self, library_pid):
+        """."""
+        library = Library.get_record_by_pid(library_pid)
+        data = dict()
+        for field in [
+            'pid', 'email', 'name', 'address', 'notification_settings',
+            'communication_language', 'next_open'
+        ]:
+            data[field] = library.get(field)
+        if not data['notification_settings']:
+            data['notification_settings'] = []
+        # TODO: make availability days variable (fixed to 10 days)
+        keep_until = datetime.now(timezone.utc) + timedelta(days=10)
+        next_open = library.next_open(keep_until)
+        next_open = next_open.strftime("%d.%m.%Y")
+        data['next_open'] = next_open
+        return data
 
     @property
     def loan_pid(self):

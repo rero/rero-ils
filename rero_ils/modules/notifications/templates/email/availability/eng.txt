@@ -9,12 +9,12 @@ Title: {{ document.title_text }} / {{ document.responsibility_statement }}
 Pick up location: {{ pickup_name }}
 {%- endfor %}
 
-To pick up until: {{ library.next_open }}
+To pick up until: {{ pickup_library.next_open }}
 
 Should the document not be picked up within the given period, it will be made available for other people.
 You can consult your account and extend the loan period of your documents at: {{ profile_url }}
 
 Best regards
 
-{{ library.name }}
-{{ library.address }}
+{{ pickup_library.name }}
+{{ pickup_library.address }}

@@ -268,27 +268,27 @@
     "notification_settings": [
       {
         "type": "due_soon",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+saxon@gmail.com"
       },
       {
         "type": "overdue",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+saxon@gmail.com"
       },
       {
         "type": "recall",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+saxon@gmail.com"
       },
       {
         "type": "request",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+saxon@gmail.com"
       },
       {
         "type": "transit_notice",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+saxon@gmail.com"
       },
       {
         "type": "booking",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+saxon@gmail.com"
       }
     ],
     "communication_language": "fre"
@@ -396,27 +396,27 @@
     "notification_settings": [
       {
         "type": "due_soon",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+fully@gmail.com"
       },
       {
         "type": "overdue",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+fully@gmail.com"
       },
       {
         "type": "recall",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+fully@gmail.com"
       },
       {
         "type": "request",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+fully@gmail.com"
       },
       {
         "type": "transit_notice",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+fully@gmail.com"
       },
       {
         "type": "booking",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+fully@gmail.com"
       }
     ],
     "communication_language": "fre"
@@ -524,32 +524,32 @@
     "notification_settings": [
       {
         "type": "availability",
-        "email": "reroilstest+martigny@gmail.com",
+        "email": "reroilstest+sion@gmail.com",
         "delay": 5
       },
       {
         "type": "due_soon",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+sion@gmail.com"
       },
       {
         "type": "overdue",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+sion@gmail.com"
       },
       {
         "type": "recall",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+sion@gmail.com"
       },
       {
         "type": "request",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+sion@gmail.com"
       },
       {
         "type": "transit_notice",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+sion@gmail.com"
       },
       {
         "type": "booking",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+sion@gmail.com"
       }
     ],
     "communication_language": "fre"
@@ -657,27 +657,27 @@
     "notification_settings": [
       {
         "type": "due_soon",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+aproz@gmail.com"
       },
       {
         "type": "overdue",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+aproz@gmail.com"
       },
       {
         "type": "recall",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+aproz@gmail.com"
       },
       {
         "type": "request",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+aproz@gmail.com"
       },
       {
         "type": "transit_notice",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+aproz@gmail.com"
       },
       {
         "type": "booking",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+aproz@gmail.com"
       }
     ],
     "communication_language": "fre"
@@ -785,27 +785,27 @@
     "notification_settings": [
       {
         "type": "due_soon",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+saillon@gmail.com"
       },
       {
         "type": "overdue",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+saillon@gmail.com"
       },
       {
         "type": "recall",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+saillon@gmail.com"
       },
       {
         "type": "request",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+saillon@gmail.com"
       },
       {
         "type": "transit_notice",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+saillon@gmail.com"
       },
       {
         "type": "booking",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+saillon@gmail.com"
       }
     ],
     "communication_language": "fre"

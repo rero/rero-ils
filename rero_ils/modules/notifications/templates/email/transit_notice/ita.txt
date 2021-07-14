@@ -9,6 +9,6 @@ Segnatura: {% if document.item.call_number %}{{ document.item.call_number }}{% e
 {%- if document.item.call_number and document.item.second_call_number %} / {{ document.item.second_call_number }}{%-endif %}
 {%- endif %}
 {% endif %}
-Origine: {{ transaction.library_name }}
+Origine: {{ transaction_library.name }}
 Destinazione: {{ document.item.library_name }}: {{ document.item.location_name }}
 {% endfor %}
