@@ -359,13 +359,26 @@ def create(infile, create_or_update, append, reindex, dbcommit, commit,
         try:
             pid = record.get('pid')
             msg = 'created'
-            if create_or_update and pid and \
-                    record_class.record_pid_exists(pid):
+            db_record = record_class.get_record_by_pid(pid)
+            if create_or_update and db_record:
+                # case when record already exist in database
                 db_record = record_class.get_record_by_pid(pid)
                 rec = db_record.update(
                         record, dbcommit=dbcommit, reindex=reindex)
                 msg = 'updated'
+            elif create_or_update and pid and not db_record \
+                    and record_class.record_pid_exists(pid):
+                # case when record not in db but pid is reserved
+                presist_id = PersistentIdentifier.get(
+                    record_class.provider.pid_type, pid)
+                rec = record_class.create(
+                    record, dbcommit=dbcommit, reindex=reindex)
+                if presist_id.status != PIDStatus.REGISTERED:
+                    presist_id.register()
+                    presist_id.assign(record_class.object_type, rec.id)
+                msg = 'created'
             else:
+                # case when record and pid are not in db
                 rec = record_class.create(
                         record, dbcommit=dbcommit, reindex=reindex,
                         pidcheck=pid_check)
