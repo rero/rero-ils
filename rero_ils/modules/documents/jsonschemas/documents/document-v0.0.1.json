@@ -239,6 +239,9 @@
           "description": "Subject from imported bibliographic data",
           "form": {
             "hide": true,
+            "navigation": {
+              "essential": false
+            },
             "templateOptions": {
               "cssClass": "editor-title"
             }
@@ -256,6 +259,9 @@
           "description": "Genre of form from imported bibliographic data",
           "form": {
             "hide": true,
+            "navigation": {
+              "essential": false
+            },
             "templateOptions": {
               "cssClass": "editor-title"
             }
