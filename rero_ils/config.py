@@ -312,7 +312,7 @@ CELERY_BEAT_SCHEDULE = {
     },
     'notification-creation': {
         'task': 'rero_ils.modules.notifications.tasks.create_notifications',
-        'schedule': crontab(minute="*/5"),
+        'schedule': crontab(minute=0, hour=5),  # Every day at 05:00 UTC,
         'kwargs': {
             'types': [
                 Notification.DUE_SOON_NOTIFICATION_TYPE,

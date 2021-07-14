@@ -9,6 +9,6 @@ Signatur: {% if document.item.call_number %}{{ document.item.call_number }}{% en
 {%- if document.item.call_number and document.item.second_call_number %} / {{ document.item.second_call_number }}{%-endif %}
 {%- endif %}
 {% endif %}
-Herkunft: {{ transaction.library_name }}
+Herkunft: {{ transaction_library.name }}
 Ziel: {{ document.item.library_name }}: {{ document.item.location_name }}
 {% endfor %}

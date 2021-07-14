@@ -9,12 +9,12 @@ Titel : {{ document.title_text }} / {{ document.responsibility_statement }}
 Abholort: {{ pickup_name }}
 {%- endfor %}
 
-Abholen bis: {{ library.next_open }}
+Abholen bis: {{ pickup_library.next_open }}
 
 Wenn das Dokument innerhalb der gegebenen Frist nicht abgeholt wird, wird es anderen Personen zur Verfügung gestellt.
 Unter folgender Adresse können Sie Ihr Konto einsehen und die Ausleihfrist Ihrer Dokumente verlängern: {{ profile_url }}
 
 Freundliche Grüsse
 
-{{ library.name }}
-{{ library.address }}
+{{ pickup_library.name }}
+{{ pickup_library.address }}

@@ -24,7 +24,7 @@ from invenio_mail.api import TemplatedMessage
 from invenio_mail.tasks import send_email as task_send_email
 from num2words import num2words
 
-from ..libraries.api import Library, email_notification_type
+from ..libraries.api import email_notification_type
 from ..locations.api import Location
 from ..notifications.api import Notification
 from ...filter import format_date_filter
@@ -129,32 +129,17 @@ class Dispatcher:
                     'template': template,
                     'profile_url': loan['profile_url'],
                     'patron': patron,
-                    'library': {
-                        'pid': loan['library']['pid'],
-                        'notification_email': email_notification_type(
-                            loan['library'], notification_type),
-                        'email': loan['library'].get('email'),
-                        'name': loan['library']['name'],
-                        'address': loan['library']['address'],
-                        'next_open': loan['library'].get('next_open'),
-                        'notification_settings': loan['library'].get(
-                            'notification_settings', [])
-                    },
+                    'library': loan['library'],
+                    'pickup_library': loan['pickup_library'],
+                    'transaction_library': loan['transaction_library'],
                     'pickup_name': loan['pickup_name'],
                     'documents': [],
                     'notifications': []
                 }
                 transaction_location = loan.get('transaction_location')
                 if transaction_location:
-                    ctx_data['transaction'] = {
-                        'location_name': transaction_location['name']
-                    }
-                    library_pid = transaction_location.get('library', {})\
-                        .get('pid')
-                    if library_pid:
-                        library = Library.get_record_by_pid(library_pid)
-                        ctx_data['transaction']['library_name'] =\
-                            library.get('name')
+                    ctx_data['transaction_location_name'] = \
+                        transaction_location['name']
                 # aggregate notifications
                 n_type = notification_type
                 l_pid = loan['library']['pid']
@@ -253,7 +238,16 @@ class Dispatcher:
 
         :param ctx_data: Dictionary with informations used in template.
         """
-        library_email = ctx_data['library'].get('notification_email')
+        library = ctx_data['library']
+        if ctx_data['notification_type'] in [
+            Notification.BOOKING_NOTIFICATION_TYPE,
+            Notification.TRANSIT_NOTICE_NOTIFICATION_TYPE
+        ]:
+            library = ctx_data['transaction_library']
+        library_email = email_notification_type(
+            library,
+            ctx_data['notification_type']
+        )
         if ctx_data['notification_type'] == \
                 Notification.REQUEST_NOTIFICATION_TYPE:
             # For the request type, we search the email address
