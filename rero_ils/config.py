@@ -80,6 +80,7 @@ from .modules.local_fields.api import LocalField
 from .modules.local_fields.permissions import LocalFieldPermission
 from .modules.locations.api import Location
 from .modules.locations.permissions import LocationPermission
+from .modules.locations.utils import default_pickup_location_sort
 from .modules.notifications.api import Notification
 from .modules.notifications.dispatcher import \
     Dispatcher as NotificationDispatcher
@@ -2550,6 +2551,10 @@ RERO_ILS_CONTRIBUTIONS_LABEL_ORDER = {
 
 #: Admin roles
 RERO_ILS_LIBRARIAN_ROLES = ['librarian', 'system_librarian']
+
+#: Locations
+RERO_ILS_PICKUP_LOCATIONS_SORT_METHOD = \
+    default_pickup_location_sort
 
 
 # JSONSchemas

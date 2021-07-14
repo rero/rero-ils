@@ -22,6 +22,8 @@
 """
 
 from rero_ils.modules.locations.api import Location
+from rero_ils.modules.locations.utils import default_pickup_location_sort, \
+    sort_pickup_locations_item_location_first
 
 
 def test_location_get_all_pickup_locations(
@@ -32,3 +34,20 @@ def test_location_get_all_pickup_locations(
 
     locations = Location.get_pickup_location_pids(patron_martigny.pid)
     assert set(locations) == {loc_public_martigny.pid}
+
+
+def test_sort_pickup_locations(locations, item_lib_martigny):
+    """Test sorting methods for pickup locations"""
+    item = item_lib_martigny
+    pickups_locations = [
+        Location.get_record_by_pid(pid)
+        for pid in Location.get_pickup_location_pids()
+    ]
+
+    sorted_locations = default_pickup_location_sort(item, pickups_locations)
+    assert sorted_locations[0].pid == 'loc5'
+
+    sorted_locations = sort_pickup_locations_item_location_first(
+        item, pickups_locations)
+    assert sorted_locations[0].pid == 'loc1'
+    assert sorted_locations[1].pid == 'loc5'

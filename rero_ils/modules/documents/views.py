@@ -39,6 +39,7 @@ from ..holdings.models import HoldingNoteTypes
 from ..items.models import ItemCirculationAction
 from ..libraries.api import Library
 from ..locations.api import Location
+from ..locations.utils import default_pickup_location_sort
 from ..organisations.api import Organisation
 from ..patrons.api import current_patrons
 from ..utils import cached, extracted_data_from_ref
@@ -374,10 +375,13 @@ def item_library_pickup_locations(item):
                 pickup_locations.append(
                     Location.get_record_by_pid(location_pid))
 
-    return sorted(
-        list(filter(None, pickup_locations)),
-        key=lambda location: location.get('pickup_name', location.get('code'))
+    # Sort pickup location based on method specified into configuration file.
+    # If the configuration isn't specified, then use a default sort method
+    sort_method = current_app.config.get(
+        'RERO_ILS_PICKUP_LOCATIONS_SORT_METHOD',
+        default_pickup_location_sort
     )
+    return sort_method(item, pickup_locations)
 
 
 @blueprint.app_template_filter()
