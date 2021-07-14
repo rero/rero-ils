@@ -125,9 +125,10 @@ class ItemType(IlsRecord):
     def get_number_of_items(self):
         """Get number of items."""
         from ..items.api import ItemsSearch
-        return ItemsSearch() \
-            .filter('term', item_type__pid=self.pid) \
-            .source().count()
+        return ItemsSearch().filter('bool', should=[
+            Q('term', item_type__pid=self.pid),
+            Q('term', temporary_item_type__pid=self.pid)
+        ]).count()
 
     def get_number_of_circ_policies(self):
         """Get number of circulation policies."""
