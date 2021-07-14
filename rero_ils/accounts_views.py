@@ -61,7 +61,9 @@ class LoginView(CoreLoginView):
     @classmethod
     def get_user(cls, email=None, **kwargs):
         """Retrieve a user by the provided arguments."""
-        return User.get_by_username_or_email(email).user
+        user = User.get_by_username_or_email(email)
+        if user:
+            return user.user
 
     @use_kwargs(post_args)
     def post(self, **kwargs):
