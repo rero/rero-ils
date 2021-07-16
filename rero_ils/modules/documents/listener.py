@@ -84,7 +84,8 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                     'barcode': item['barcode'],
                     'status': item['status'],
                     'local_fields': item.get('local_fields'),
-                    'call_number': item.get('call_number')
+                    'call_number': item.get('call_number'),
+                    'second_call_number': item.get('second_call_number')
                 }
                 item_data = {k: v for k, v in item_data.items() if v}
 
