@@ -225,6 +225,9 @@
           "type": "string",
           "pattern": "^https://bib.rero.ch/api/documents/.*?$",
           "form": {
+            "remoteTypeahead": {
+              "type": "documents"
+            },
             "validation": {
               "messages": {
                 "patternMessage": "Should be in the following format: https://bib.rero.ch/api/documents/<PID>."
