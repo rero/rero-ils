@@ -17,7 +17,6 @@
 
 """rero-ils UNIMARC model definition."""
 
-
 import jsonref
 from dojson import utils
 from dojson.utils import GroupableOrderedDict
@@ -995,7 +994,7 @@ def unimarc_notes(self, key, value):
     return None
 
 
-@unimarc.over('subjects', '^6((0[0-9])|(1[0-7]))..')
+@unimarc.over('subjects_imported', '^6((0[0-9])|(1[0-7]))..')
 @utils.for_each_value
 @utils.ignore_value
 def unimarc_subjects(self, key, value):
@@ -1016,10 +1015,12 @@ def unimarc_subjects(self, key, value):
     if value.get('f'):
         to_return += ', ' + ', '.join(utils.force_list(value.get('f')))
     if to_return:
-        return {
+        data = {
             'type': "bf:Topic",
-            'term': to_return
+            'term': to_return,
+            'source': value.get('2', None)
         }
+        return {k: v for k, v in data.items() if v}
 
 
 @unimarc.over('electronicLocator', '^8564.')

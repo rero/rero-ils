@@ -1541,6 +1541,7 @@ def test_unimarc_subjects():
     <record>
       <datafield tag="600" ind1=" " ind2=" ">
         <subfield code="a">subjects 600</subfield>
+        <subfield code="2">rameau</subfield>
       </datafield>
       <datafield tag="616" ind1=" " ind2=" ">
         <subfield code="a">Capet</subfield>
@@ -1553,10 +1554,14 @@ def test_unimarc_subjects():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('subjects') == [
-        {'term': 'subjects 600', 'type': 'bf:Topic'},
-        {'term': 'Capet, Louis III, Jr., 1700-1780', 'type': 'bf:Topic'}
-    ]
+    assert data.get('subjects_imported') == [{
+        'term': 'subjects 600',
+        'type': 'bf:Topic',
+        'source': 'rameau'
+    }, {
+        'term': 'Capet, Louis III, Jr., 1700-1780',
+        'type': 'bf:Topic'
+    }]
 
 
 def test_unimarc_to_electronicLocator_from_856():
