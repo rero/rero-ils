@@ -77,15 +77,8 @@ class ILLRequestPermission(RecordPermission):
         # record cannot be null
         if not current_librarian or not record:
             return False
-        if current_librarian.organisation_pid == \
-           ILLRequest(record).organisation_pid:
-            # 'sys_lib' can update all request
-            if current_librarian.is_system_librarian:
-                return True
-            # 'lib' can only update request linked to its own library
-            return current_librarian.library_pid and \
-                record.get_library().pid == current_librarian.library_pid
-        return False
+        return current_librarian.organisation_pid == \
+            ILLRequest(record).organisation_pid
 
     @classmethod
     def delete(cls, user, record):
