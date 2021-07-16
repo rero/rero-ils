@@ -39,7 +39,6 @@ from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE, \
 
 from ..api import IlsRecord, IlsRecordError, IlsRecordsIndexer, \
     IlsRecordsSearch
-from ..circ_policies.api import CircPolicy
 from ..errors import NoCirculationActionIsPermitted
 from ..items.models import ItemStatus
 from ..items.utils import item_pid_to_object
@@ -51,7 +50,6 @@ from ..notifications.dispatcher import Dispatcher
 from ..patron_transactions.api import PatronTransactionsSearch
 from ..patrons.api import Patron, PatronsSearch
 from ..utils import date_string_to_utc, get_ref_for_pid
-from ...filter import format_date_filter
 
 
 class LoanState(object):
@@ -660,26 +658,6 @@ class Loan(IlsRecord):
             if max_overdue <= total:
                 break
         return fees
-
-    def get_loan_end_date(self, format='short', time_format='medium',
-                          language=None):
-        """Get loan end date.
-
-        :param format: The date format, ex: 'full', 'medium', 'short'
-                        or custom
-        :param time_format: The time format, ex: 'medium', 'short' or custom
-        :param language: The language to fix the language format
-        :return: original date or formatted date
-        """
-        end_date = self.end_date
-        if format:
-            return format_date_filter(
-                end_date,
-                date_format=format,
-                time_format=time_format,
-                locale=language,
-            )
-        return end_date
 
     def dumps_for_circulation(self):
         """Dumps for circulation."""

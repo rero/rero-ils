@@ -21,7 +21,6 @@
 from flask import current_app
 from flask_babelex import gettext as _
 from invenio_circulation.errors import ItemNotAvailableError
-from pycountry import languages
 
 from .models import SelfcheckTerminal
 from .utils import authorize_selfckeck_patron, authorize_selfckeck_terminal, \
@@ -37,7 +36,6 @@ from ..loans.api import Loan, LoanAction, LoanState, \
     get_loans_by_item_pid_by_patron_pid, get_loans_by_patron_pid
 from ..patron_transactions.api import PatronTransaction
 from ..patrons.api import Patron
-from ...filter import format_date_filter
 
 
 def selfcheck_login(name, access_token, **kwargs):
@@ -54,15 +52,13 @@ def selfcheck_login(name, access_token, **kwargs):
         staffer = Patron.get_librarian_by_user(user)
         if staffer:
             library = Library.get_record_by_pid(terminal.library_pid)
-            language = languages.lookup(
-                library.get('communication_language')).alpha_2
             return {
                 'authenticated': terminal.active,
                 'terminal': terminal.name,
                 'transaction_user_id': staffer.pid,
                 'institution_id': terminal.organisation_pid,
                 'library_name': library.get('name'),
-                'library_language': language
+                'library_language': library.get('communication_language')
             }
 
 
@@ -302,13 +298,7 @@ def item_information(item_barcode, **kwargs):
                     loan = Loan.get_record_by_pid(loan_pid)
                     if loan:
                         # format the end date according selfcheck language
-                        item_information['due_date'] = format_date_filter(
-                            loan['end_date'],
-                            date_format='short',
-                            time_format=None,
-                            locale=language,
-                        )
-
+                        item_information['due_date'] = loan['end_date']
                         transaction = PatronTransaction. \
                             get_last_transaction_by_loan_pid(
                                 loan_pid=loan.pid, status='open')
@@ -387,8 +377,7 @@ def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode,
                             loan = data[LoanAction.CHECKOUT]
                             checkout['checkout'] = True
                             checkout['desensitize'] = True
-                            checkout['due_date'] = loan.get_loan_end_date(
-                                time_format=None, language=language)
+                            checkout['due_date'] = loan['end_date']
                             # checkout note
                             checkout_note = item.get_note(
                                 ItemNoteTypes.CHECKOUT)
@@ -459,6 +448,7 @@ def selfcheck_checkin(transaction_user_pid, item_barcode, **kwargs):
                                 .append(checkin_note)
                         # TODO: When is possible, try to return fields:
                         #       magnetic_media
+                        # TODO: implements `print_line`
             except Exception:
                 checkin.get('screen_messages', []).append(
                     _('Error encountered: please contact a librarian'))
@@ -508,8 +498,7 @@ def selfcheck_renew(transaction_user_pid, item_barcode, **kwargs):
                         renew['success'] = True
                         renew['renewal'] = True
                         renew['desensitize'] = True
-                        renew['due_date'] = loan.get_loan_end_date(
-                            time_format=None, language=language)
+                        renew['due_date'] = loan['end_date']
                         transaction = PatronTransaction. \
                             get_last_transaction_by_loan_pid(
                                 loan_pid=loan.pid, status='open')
