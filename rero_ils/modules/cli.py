@@ -1226,9 +1226,13 @@ def reindex_missing(pid_types, verbose):
         )
         for idx, pid in enumerate(pids_db, 1):
             record = record_class.get_record_by_pid(pid)
-            res = record.reindex()
-            if verbose:
-                click.secho(f'{idx}\t{p_type}\t{pid}')
+            if record:
+                record.reindex()
+                if verbose:
+                    click.secho(f'{idx}\t{p_type}\t{pid}')
+            else:
+                if verbose:
+                    click.secho(f'NOT FOUND: {idx}\t{p_type}\t{pid}', fg='red')
 
 
 @utils.command('check_pid_dependencies')

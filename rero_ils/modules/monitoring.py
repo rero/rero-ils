@@ -27,7 +27,6 @@ from flask.cli import with_appcontext
 from flask_login import current_user
 from invenio_cache import current_cache
 from invenio_db import db
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_search import RecordsSearch, current_search_client
 from redis import Redis
 
@@ -381,10 +380,10 @@ class Monitoring(object):
         """
         if not current_app.config.get('RECORDS_REST_ENDPOINTS').get(doc_type):
             return f'No >>{doc_type}<< in DB'
-        query = PersistentIdentifier.query.filter_by(pid_type=doc_type)
-        if not with_deleted:
-            query = query.filter_by(status=PIDStatus.REGISTERED)
-        return query.count()
+        record_class = get_record_class_from_schema_or_pid_type(
+            pid_type=doc_type
+        )
+        return record_class.count(with_deleted=with_deleted)
 
     @classmethod
     def get_es_count(cls, index):

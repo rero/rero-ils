@@ -17,6 +17,7 @@
 
 """API for manipulating operation_logs."""
 
+from elasticsearch.exceptions import NotFoundError
 from elasticsearch.helpers import bulk
 from elasticsearch_dsl import Document
 from flask import current_app
@@ -25,7 +26,22 @@ from invenio_records.api import RecordBase
 from invenio_search import RecordsSearch, current_search_client
 
 from .extensions import DatesExension, IDExtension, ResolveRefsExension
+from ..api import IlsRecordsSearch
 from ..fetchers import FetchedPID
+
+
+class OperationLogsSearch(IlsRecordsSearch):
+    """RecordsSearch for Notifications."""
+
+    class Meta:
+        """Search only on Notifications index."""
+
+        index = 'operation_logs'
+        doc_types = None
+        fields = ('*', )
+        facets = {}
+
+        default_filter = None
 
 
 def operation_log_id_fetcher(record_uuid, data):
@@ -187,3 +203,13 @@ class OperationLog(RecordBase):
     def id(self):
         """Get model identifier."""
         return self.get('pid')
+
+    @classmethod
+    def count(cls, with_deleted=False):
+        """Get record count."""
+        count = 0
+        try:
+            count = OperationLogsSearch().filter('match_all').count()
+        except NotFoundError:
+            current_app.logger.warning('Operation logs index not found.')
+        return count
