@@ -37,6 +37,7 @@ from time import sleep
 from uuid import uuid4
 
 import click
+import dateparser
 import yaml
 from celery import current_app as current_celery
 from dojson.contrib.marc21.utils import create_record
@@ -51,6 +52,8 @@ from invenio_oauth2server.cli import process_scopes, process_user
 from invenio_oauth2server.models import Client, Token
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_records.api import Record
+from invenio_records.models import RecordMetadata
+from invenio_records_rest.utils import obj_or_import_string
 from invenio_search.cli import es_version_check
 from invenio_search.proxies import current_search
 from jsonschema import validate
@@ -1170,24 +1173,75 @@ def run(delayed, concurrency, with_stats, version_type=None, queue=None,
 @utils.command('reindex')
 @click.option('--yes-i-know', is_flag=True, callback=abort_if_false,
               expose_value=False,
-              prompt='Do you really want to reindex all records?')
-@click.option('-t', '--pid-types', multiple=True, required=True)
+              prompt='Do you really want to reindex records?')
+@click.option('-t', '--pid-types', multiple=True)
 @click.option('-n', '--no-info', 'no_info', is_flag=True, default=True)
+@click.option('-f', '--from_date', 'from_date')
+@click.option('-u', '--until_date', 'until_date')
+@click.option('-d', '--direct', 'direct', is_flag=True, default=False)
+@click.option('-c', '--count', 'count', is_flag=True, default=False)
 @with_appcontext
-def reindex(pid_types, no_info):
-    """Reindex all records.
+def reindex(pid_types, no_info, from_date, until_date, direct, count):
+    """Reindex records.
 
     :param pid_type: Pid type.
+    :param no_info: Display no info.
+    :param from_date: Index records from date.
+    :param until_date: Index records until date.
+    :param direct: Use record class for indexing.
+    :param count: Do not index, display only counts.
     """
-    for type in pid_types:
-        click.secho(f'Sending {type} to indexing queue ...', fg='green')
-        query = (
-            x[0] for x in PersistentIdentifier.query.
-            filter_by(object_type='rec', status=PIDStatus.REGISTERED).
-            filter_by(pid_type=type).values(PersistentIdentifier.object_uuid)
-        )
-        IlsRecordsIndexer().bulk_index(query, doc_type=type)
-    if no_info:
+    endpoints = current_app.config.get('RECORDS_REST_ENDPOINTS')
+    if not pid_types:
+        pid_types = [endpoint for endpoint in endpoints]
+    for pid_type in pid_types:
+        if pid_type in endpoints:
+            msg = f'Sending {pid_type} to indexing queue: '
+            if count:
+                msg = f'Count {pid_type:>6}: '
+            click.secho(msg, fg='green', nl=False)
+            query = None
+            record_cls = obj_or_import_string(
+                endpoints[pid_type].get('record_class'))
+            if from_date or until_date:
+                model_cls = record_cls.model_cls
+                if model_cls != RecordMetadata:
+                    query = model_cls.query \
+                        .filter(model_cls.is_deleted.is_(False)) \
+                        .with_entities(model_cls.id) \
+                        .order_by(model_cls.created)
+                    if from_date:
+                        query = query.filter(
+                            model_cls.updated > dateparser.parse(from_date))
+                    if until_date:
+                        query = query.filter(
+                            model_cls.updated <= dateparser.parse(until_date))
+            else:
+                query = PersistentIdentifier.query \
+                    .filter_by(object_type='rec', status=PIDStatus.REGISTERED)\
+                    .filter_by(pid_type=pid_type) \
+                    .with_entities(PersistentIdentifier.object_uuid)
+            if query:
+                click.echo(f'{query.count()}')
+                if not count:
+                    if direct:
+                        for idx, id in enumerate((x[0] for x in query), 1):
+                            msg = f'{idx}\t{id}\t'
+                            try:
+                                rec = record_cls.get_record_by_id(id)
+                                msg += f'{rec.pid}'
+                                rec.reindex()
+                            except Exception as err:
+                                msg += f'\t{err}'
+                            click.echo(msg)
+                    else:
+                        IlsRecordsIndexer().bulk_index(
+                             (x[0] for x in query), doc_type=pid_type)
+            else:
+                click.echo('Can not index by date.')
+        else:
+            click.secho(f'ERROR type does not exist: {pid_type}', fg='red')
+    if no_info and not direct and not count:
         click.secho(
             'Execute "runindex" command to process the queue!',
             fg='yellow'
