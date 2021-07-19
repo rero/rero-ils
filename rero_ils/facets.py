@@ -22,6 +22,7 @@ from __future__ import absolute_import, print_function
 
 from flask import current_app, request
 from invenio_i18n.ext import current_i18n
+from invenio_records_rest.utils import make_comma_list_a_list
 
 
 def i18n_facets_factory(search, index):
@@ -36,11 +37,18 @@ def i18n_facets_factory(search, index):
     """
     facets_config = current_app.config['RECORDS_REST_FACETS'].get(index, {})
     # i18n Aggregations.
-    for name, agg in facets_config.get("i18n_aggs", {}).items():
-        i18n_agg = agg.get(
-            request.args.get("lang", current_i18n.language),
-            agg.get(current_app.config.get('BABEL_DEFAULT_LANGUAGE'))
-        )
-        search.aggs[name] = i18n_agg if not callable(i18n_agg) \
-            else i18n_agg()
+    selected_facets = make_comma_list_a_list(
+        request.args.getlist('facets', None)
+    )
+    all_aggs = facets_config.get("i18n_aggs", {})
+    if selected_facets == []:
+        selected_facets = all_aggs.keys()
+    for name, agg in all_aggs.items():
+        if name in selected_facets:
+            i18n_agg = agg.get(
+                request.args.get("lang", current_i18n.language),
+                agg.get(current_app.config.get('BABEL_DEFAULT_LANGUAGE'))
+            )
+            search.aggs[name] = i18n_agg if not callable(i18n_agg) \
+                else i18n_agg()
     return search
