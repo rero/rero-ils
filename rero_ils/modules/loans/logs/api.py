@@ -112,13 +112,11 @@ class LoanOperationLog(OperationLog):
         :rtype: dict
         """
         item = Item.get_record_by_pid(item_pid)
-        return {
+        data = {
             'pid': item.pid,
             'library_pid': item.library_pid,
             'category':
             item['type'],
-            'call_number':
-            item['call_number'],
             'document':
             cls._get_document_data(
                 extracted_data_from_ref(item['document']['$ref'])),
@@ -126,6 +124,9 @@ class LoanOperationLog(OperationLog):
             cls._get_holding_data(
                 extracted_data_from_ref(item['holding']['$ref']))
         }
+        if item.get('call_number'):
+            data['call_number'] = item.get('call_number')
+        return data
 
     @classmethod
     def _get_document_data(cls, document_pid):
