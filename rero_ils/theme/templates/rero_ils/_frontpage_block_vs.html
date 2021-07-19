@@ -34,7 +34,7 @@
     <li><a href="https://www.mediatheque.ch/fr/ressources-ligne-70.html">Ressources en ligne</a></li>
     <li><a href="https://doc.rero.ch">Bibliothèque numérique</a></li>
     <li><a href="https://www.mediatheque.ch/fr/journaux-articles-88.html">Presse en ligne</a></li>
-    <li><a href="https://www.mediatheque.ch/fr/ressources-electroniques-74.html">Ressources numériques pédagogiques</a>
+    <li><a href="https://www.mediatheque.ch/fr/ressources-ligne-autres-documents-252.html">Ressources numériques pédagogiques</a>
   </ul>
   {% endif  %}
   {% if current_i18n.language == 'fr' %}
@@ -54,7 +54,7 @@
     <li><a href="https://www.mediatheque.ch/fr/ressources-ligne-70.html">Ressources en ligne</a></li>
     <li><a href="https://doc.rero.ch">Bibliothèque numérique</a></li>
     <li><a href="https://www.mediatheque.ch/fr/journaux-articles-88.html">Presse en ligne</a></li>
-    <li><a href="https://www.mediatheque.ch/fr/ressources-electroniques-74.html">Ressources numériques pédagogiques</a>
+    <li><a href="https://www.mediatheque.ch/fr/ressources-ligne-autres-documents-252.html">Ressources numériques pédagogiques</a>
   </ul>
   {% endif  %}
   {% if current_i18n.language == 'de' %}
@@ -74,7 +74,7 @@
     <li><a href="https://www.mediatheque.ch/de/online-medienangebot-70.html">e-Ressourcen</a></li>
     <li><a href="https://doc.rero.ch/?ln=de">Digitale Bibliothek</a></li>
     <li><a href="https://www.mediatheque.ch/de/digitalisierte-zeitungen-88.html">Digitalisierte Zeitungen</a></li>
-    <li><a href="https://www.mediatheque.ch/de/datenbanken-74.html">Pädagogische e-Ressourcen</a>
+    <li><a href="https://www.mediatheque.ch/de/online-ressourcen-andere-dokumente-252.html">Pädagogische e-Ressourcen</a>
   </ul>
   {% endif  %}
   {% if current_i18n.language == 'it' %}
@@ -94,7 +94,7 @@
     <li><a href="https://www.mediatheque.ch/fr/ressources-ligne-70.html">Ressources en ligne</a></li>
     <li><a href="https://doc.rero.ch">Bibliothèque numérique</a></li>
     <li><a href="https://www.mediatheque.ch/fr/journaux-articles-88.html">Presse en ligne</a></li>
-    <li><a href="https://www.mediatheque.ch/fr/ressources-electroniques-74.html">Ressources numériques pédagogiques</a>
+    <li><a href="https://www.mediatheque.ch/fr/ressources-ligne-autres-documents-252.html">Ressources numériques pédagogiques</a>
   </ul>
   {% endif  %}
 </section>
@@ -133,13 +133,13 @@
   <h5>Catalogues collectifs</h5>
   <ul class="list-unstyled">
     <li><a href="{{ url_for('rero_ils.index') }}">Tout Rero+</a></li>
+    <li><a href="https://swisscovery.slsp.ch/discovery/search?vid=41SLSP_NETWORK:VU1_UNION&lang=fr">Swisscovery</a></li>
   </ul>
   <h5>Autres catalogues</h5>
   <ul class="list-unstyled">
     <li><a href="https://www.bibliovalais.ch">Biblio Valais</a></li>
     <li><a href="https://www.vallesiana.ch/#!search">Vallesiana</a></li>
-    <li><a href="https://swisscovery.slsp.ch/discovery/search?vid=41SLSP_NETWORK:VU1_UNION&lang=fr">Swisscovery</a></li>
-    <li><a href="https://renouvaud.hosted.exlibrisgroup.com/primo-explore/search?vid=41BCULIB_VU2&lang=fr_FR">Renouvaud</a></li>
+    <li><a href="https://renouvaud.hosted.exlibrisgroup.com/primo-explore/search?vid=41BCULAUSA_LIB:VU2&lang=fr_FR">Renouvaud</a></li>
     <li><a href="https://www.helveticat.ch/discovery/search?vid=41SNL_51_INST:helveticat&lang=fr">Helveticat</a></li>
     <li><a href="https://www.e-rara.ch/?lang=fr">E-rara.ch</a></li>
   </ul>
@@ -148,13 +148,13 @@
   <h5>Catalogues collectifs</h5>
   <ul class="list-unstyled">
     <li><a href="{{ url_for('rero_ils.index') }}">Tout Rero+</a></li>
+    <li><a href="https://swisscovery.slsp.ch/discovery/search?vid=41SLSP_NETWORK:VU1_UNION&lang=fr">Swisscovery</a></li>
   </ul>
   <h5>Autres catalogues</h5>
   <ul class="list-unstyled">
     <li><a href="https://www.bibliovalais.ch">Biblio Valais</a></li>
     <li><a href="https://www.vallesiana.ch/#!search">Vallesiana</a></li>
-    <li><a href="https://swisscovery.slsp.ch/discovery/search?vid=41SLSP_NETWORK:VU1_UNION&lang=fr">Swisscovery</a></li>
-    <li><a href="https://renouvaud.hosted.exlibrisgroup.com/primo-explore/search?vid=41BCULIB_VU2&lang=fr_FR">Renouvaud</a></li>
+    <li><a href="https://renouvaud.hosted.exlibrisgroup.com/primo-explore/search?vid=41BCULAUSA_LIB:VU2&lang=fr_FR">Renouvaud</a></li>
     <li><a href="https://www.helveticat.ch/discovery/search?vid=41SNL_51_INST:helveticat&lang=fr">Helveticat</a></li>
     <li><a href="https://www.e-rara.ch/?lang=fr">E-rara.ch</a></li>
   </ul>
@@ -163,13 +163,13 @@
   <h5>Gesamtkataloge</h5>
   <ul class="list-unstyled">
     <li><a href="{{ url_for('rero_ils.index') }}">RERO+ global</a></li>
+    <li><a href="https://swisscovery.slsp.ch/discovery/search?vid=41SLSP_NETWORK:VU1_UNION&lang=de">Swisscovery</a></li>
   </ul>
   <h5>Weitere Kataloge</h5>
   <ul class="list-unstyled">
     <li><a href="https://www.bibliovalais.ch/wallis/accueil-1.html">Biblio Wallis</a></li>
     <li><a href="https://www.vallesiana.ch/kulturerbe/digitale-kulturgut-wallis-3.html#!search">Vallesiana</a></li>
-    <li><a href="https://swisscovery.slsp.ch/discovery/search?vid=41SLSP_NETWORK:VU1_UNION&lang=de">Swisscovery</a></li>
-    <li><a href="https://renouvaud.hosted.exlibrisgroup.com/primo-explore/search?vid=41BCULIB_VU2&lang=de_DE">Renouvaud</a></li>
+    <li><a href="https://renouvaud1.primo.exlibrisgroup.com/discovery/search?vid=41BCULAUSA_LIB:VU2&lang=de">Renouvaud</a></li>
     <li><a href="https://www.helveticat.ch/discovery/search?vid=41SNL_51_INST:helveticat&lang=de">Helveticat</a></li>
     <li><a href="https://www.e-rara.ch/doc/home?lang=de">E-rara.ch</a></li>
   </ul>
@@ -178,13 +178,13 @@
   <h5>Catalogues collectifs</h5>
   <ul class="list-unstyled">
     <li><a href="{{ url_for('rero_ils.index') }}">Tout Rero+</a></li>
+    <li><a href="https://swisscovery.slsp.ch/discovery/search?vid=41SLSP_NETWORK:VU1_UNION&lang=fr">Swisscovery</a></li>
   </ul>
   <h5>Altri cataloghi</h5>
   <ul class="list-unstyled">
     <li><a href="https://www.bibliovalais.ch">Biblio Valais</a></li>
     <li><a href="https://www.vallesiana.ch/#!search">Vallesiana</a></li>
-    <li><a href="https://swisscovery.slsp.ch/discovery/search?vid=41SLSP_NETWORK:VU1_UNION&lang=fr">Swisscovery</a></li>
-    <li><a href="https://renouvaud.hosted.exlibrisgroup.com/primo-explore/search?vid=41BCULIB_VU2&lang=fr_FR">Renouvaud</a></li>
+    <li><a href="https://renouvaud.hosted.exlibrisgroup.com/primo-explore/search?vid=41BCULAUSA_LIB:VU2&lang=fr_FR">Renouvaud</a></li>
     <li><a href="https://www.helveticat.ch/discovery/search?vid=41SNL_51_INST:helveticat&lang=fr">Helveticat</a></li>
     <li><a href="https://www.e-rara.ch/?lang=fr">E-rara.ch</a></li>
   </ul>
