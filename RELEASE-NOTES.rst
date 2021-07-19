@@ -18,6 +18,28 @@
 Release notes
 =============
 
+v1.4.4
+------
+
+The main purpose of this patch is to improve overall performances by optimizing
+the facet computation, which consume lots of CPU resources as the production
+server of RERO ILS has lots of documents with lots of fields:
+
+-  Fixes the extra API request on the public search page (`#1970`_), that alone
+   improves the performance by 2.
+-  Prevents to compute facets on the search suggestion queries, as they aren't
+   used at all.
+-  Computes only the expanded facet on the public search (document type) and
+   computes the other facets only if the user expands it.
+-  Prevents to launch an empty search for lists such as users or documents in
+   the professional interface, as the user will always type a specific query,
+   thus spare CPU resources for bette use.
+
+Several bug fixes have been added to this patch. Find the comprehensive changes
+in the `changelog`_.
+
+.. _#1970: https://github.com/rero/rero-ils/issues/1970
+
 v1.4.3
 ------
 
