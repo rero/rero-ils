@@ -124,8 +124,9 @@ class ItemsJSONSerializer(JSONSerializer):
             vendor_term['name'] = vendor.get('name')
 
         # Correct document type buckets
-        buckets = results['aggregations']['document_type']['buckets']
-        results['aggregations']['document_type']['buckets'] = \
-            filter_document_type_buckets(buckets)
+        if results.get('aggregations', {}).get('document_type'):
+            buckets = results['aggregations']['document_type']['buckets']
+            results['aggregations']['document_type']['buckets'] = \
+                filter_document_type_buckets(buckets)
 
         return super().post_process_serialize_search(results, pid_fetcher)
