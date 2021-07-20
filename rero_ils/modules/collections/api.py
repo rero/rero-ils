@@ -21,7 +21,7 @@ from functools import partial
 
 from rero_ils.modules.items.api import Item
 
-from .models import CollectionIdentifier
+from .models import CollectionIdentifier, CollectionMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
@@ -56,6 +56,7 @@ class Collection(IlsRecord):
     minter = collection_id_minter
     fetcher = collection_id_fetcher
     provider = CollectionProvider
+    model_cls = CollectionMetadata
     pids_exist_check = {
         'not_required': {
             'doc': 'document',
