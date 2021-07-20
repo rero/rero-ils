@@ -337,11 +337,14 @@ class Loan(IlsRecord):
 
             :param location_pid: the location pid.
             """
+            fields = ['pid', 'name', 'library', 'pickup_name']
             if location_pid not in locations:
-                locations[location_pid] = LocationsSearch()\
+                data = LocationsSearch()\
                     .filter('term', pid=location_pid)\
-                    .source(includes=['pid', 'name', 'library'])\
+                    .source(includes=fields)\
                     .execute()[0].to_dict()
+                data = {k: v for k, v in data.items() if v}
+                locations[location_pid] = data
             return locations[location_pid]
 
         def library_name_by_pid(library_pid):
