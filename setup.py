@@ -150,6 +150,9 @@ setup(
             'scheduler = rero_ils.schedulers:scheduler',
             'utils = rero_ils.modules.cli:utils',
         ],
+        'invenio_db.alembic': [
+            'rero_ils = rero_ils:alembic',
+        ],
         'invenio_db.models': [
             'acq_accounts = rero_ils.modules.acq_accounts.models',
             'acq_invoices = rero_ils.modules.acq_invoices.models',
