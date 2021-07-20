@@ -24,7 +24,7 @@ from invenio_accounts.utils import change_user_password
 from invenio_accounts.views.rest import \
     ChangePasswordView as BaseChangePasswordView
 from invenio_accounts.views.rest import LoginView as CoreLoginView
-from invenio_accounts.views.rest import _commit, use_args, use_kwargs
+from invenio_accounts.views.rest import _abort, _commit, use_args, use_kwargs
 from invenio_userprofiles.models import UserProfile
 from marshmallow import Schema, fields
 from sqlalchemy.orm.exc import NoResultFound
@@ -69,6 +69,8 @@ class LoginView(CoreLoginView):
     def post(self, **kwargs):
         """Verify and login a user."""
         user = self.get_user(**kwargs)
+        if not user:
+            _abort(_('USER_DOES_NOT_EXIST'))
         self.verify_login(user, **kwargs)
         self.login_user(user)
         return self.success_response(user)
