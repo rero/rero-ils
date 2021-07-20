@@ -20,6 +20,7 @@
         "type": {
           "title": "Type",
           "type": "string",
+          "default": "bf:UsageAndAccessPolicy",
           "const": "bf:UsageAndAccessPolicy",
           "form": {
             "templateOptions": {
