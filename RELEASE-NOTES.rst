@@ -18,6 +18,26 @@
 Release notes
 =============
 
+v1.4.5
+------
+
+This patch is a fix for the precedent one (``v1.4.4``, below), that broke the
+display of items on the document detailed view. In the same move, some
+improvements have been added to the document detailed view of the professional
+and public interface:
+
+-  Collapses the holdings by default, except when there's only one item in it
+   (`#2133`_).
+-  Loads at least 10 holdings, as they are now collapsed. Then loads holdings
+   10 by 10 (`#2134`_).
+
+Several bug fixes have been added to this patch. Find the comprehensive changes
+in the `changelog`_.
+
+
+.. _#2133: https://github.com/rero/rero-ils/issues/2133
+.. _#2134: https://github.com/rero/rero-ils/issues/2134
+
 v1.4.4
 ------
 
