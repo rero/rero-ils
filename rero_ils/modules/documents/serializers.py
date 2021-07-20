@@ -333,10 +333,18 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
 
         def dump_record(record):
             """Dump a single record."""
+            rec_element = ElementMaker(
+                namespace=self.MARC21_NS,
+                nsmap={prefix: self.MARC21_NS}
+            )
             rec = element.record()
             rec.append(element.recordPacking('xml'))
             rec.append(element.recordSchema('marcxml'))
-            rec_data = element.recordData()
+            rec_record_data = element.recordData()
+
+            rec_data = rec_element.record()
+            rec_data.attrib['xmlns'] = self.MARC21_NS
+            rec_data.attrib['type'] = "Bibliographic"
 
             leader = record.get('leader')
             if leader:
@@ -390,15 +398,17 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
 
                             for code, value in items:
                                 if not isinstance(value, string_types):
-                                    for v in value:
-                                        datafield.append(
-                                            element.subfield(v, code=code))
+                                    if value:
+                                        for v in value:
+                                            datafield.append(
+                                                element.subfield(v, code=code))
                                 else:
                                     datafield.append(element.subfield(
                                         value, code=code))
 
                             rec_data.append(datafield)
-                rec.append(rec_data)
+                rec_record_data.append(rec_data)
+                rec.append(rec_record_data)
             return rec
 
         if isinstance(records, dict):
