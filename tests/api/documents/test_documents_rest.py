@@ -171,11 +171,49 @@ def test_documents_facets(
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
     aggs = data['aggregations']
+
     # check all facets are present
     for facet in [
         'document_type', 'author', 'language', 'subject', 'status'
     ]:
         assert aggs[facet]
+
+    list_url = url_for(
+        'invenio_records_rest.doc_list', view='global', facets='')
+    res = client.get(list_url, headers=rero_json_header)
+    data = get_json(res)
+    aggs = data['aggregations']
+    assert not aggs
+
+    list_url = url_for(
+        'invenio_records_rest.doc_list', view='global', facets='document_type')
+    res = client.get(list_url, headers=rero_json_header)
+    data = get_json(res)
+    aggs = data['aggregations']
+    assert list(aggs.keys()) == ['document_type']
+
+    list_url = url_for(
+        'invenio_records_rest.doc_list', view='global', facets='document_type')
+    res = client.get(list_url, headers=rero_json_header)
+    data = get_json(res)
+    aggs = data['aggregations']
+    assert list(aggs.keys()) == ['document_type']
+
+    list_url = url_for(
+        'invenio_records_rest.doc_list', view='org1', facets='document_type')
+    res = client.get(list_url, headers=rero_json_header)
+    data = get_json(res)
+    aggs = data['aggregations']
+    assert list(aggs.keys()) == ['document_type']
+
+    # test the patch that the library facet is computed by the serializer
+    list_url = url_for(
+        'invenio_records_rest.doc_list', view='org1',
+        facets='document_type,library,author')
+    res = client.get(list_url, headers=rero_json_header)
+    data = get_json(res)
+    aggs = data['aggregations']
+    assert set(aggs.keys()) == set(['document_type', 'library', 'author'])
 
     # FILTERS
     # contribution

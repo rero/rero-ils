@@ -26,6 +26,7 @@ from elasticsearch_dsl.query import Q
 from flask import current_app, request
 from invenio_i18n.ext import current_i18n
 from invenio_records_rest.errors import InvalidQueryRESTError
+from werkzeug.datastructures import ImmutableMultiDict
 
 from .facets import i18n_facets_factory
 from .modules.organisations.api import Organisation
@@ -133,6 +134,15 @@ def acquisition_filter():
 def documents_search_factory(self, search, query_parser=None):
     """Search factory with view code parameter."""
     view = request.args.get('view')
+    # force to have organisation aggs if library is set
+    facets = request.args.get('facets', [])
+    if facets:
+        facets = facets.split(',')
+    if 'library' in facets and 'organisation' not in facets:
+        args = request.args.to_dict()
+        facets.append('organisation')
+        args['facets'] = ','.join(facets)
+        request.args = ImmutableMultiDict(args)
     search, urlkwargs = search_factory(self, search)
     # public interface
     if view:

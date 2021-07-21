@@ -137,7 +137,8 @@ class DocumentJSONSerializer(JSONSerializer):
             if lib_buckets:
                 org_term['library']['buckets'] = lib_buckets
 
-        # TODO: Move this logic in the front end (needs backend adaptation)
+        # TODO: this should be done in the facet factory as we compute
+        #       unused aggs values
         if (viewcode is not None) and (viewcode != global_view_code):
             org = Organisation.get_record_by_viewcode(viewcode)
             org_buckets = results.get('aggregations', {}).get(
