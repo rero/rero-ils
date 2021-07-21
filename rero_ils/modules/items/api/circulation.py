@@ -1198,8 +1198,10 @@ class ItemCirculation(ItemRecord):
         :param state : the loan state
         :return: first loan found otherwise None
         """
-        loans = list(self.get_item_loans_by_state(state=state))
-        return loans[0] if loans else None
+        try:
+            return next(self.get_item_loans_by_state(state=state))
+        except StopIteration:
+            return None
 
     def get_item_loans_by_state(self, state=None, sort_by=None):
         """Return sorted item loans with a given state.

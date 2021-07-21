@@ -11,7 +11,7 @@ Cote: {% if document.item.call_number %}{{ document.item.call_number }}{% endif 
 {%- endif %}
 {% endif %}
 Lieu de retrait: {{ pickup_name }}
-Lecteur: {{ patron.first_name }} {{ patron.last_name }}
-{%- if patron.patron.barcode %} - {% for barcode in patron.patron.barcode %}{{ ', ' if not loop.last else '' }}{{ barcode }}{% endfor %}
+Lecteur: {{ request_patron.first_name }} {{ request_patron.last_name }}
+{%- if request_patron.patron.barcode %} - {% for barcode in request_patron.patron.barcode %}{{ ', ' if not loop.last else '' }}{{ barcode }}{% endfor %}
 {%- endif %}
 {% endfor %}
