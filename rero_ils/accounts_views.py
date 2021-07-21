@@ -25,9 +25,7 @@ from invenio_accounts.views.rest import \
     ChangePasswordView as BaseChangePasswordView
 from invenio_accounts.views.rest import LoginView as CoreLoginView
 from invenio_accounts.views.rest import _abort, _commit, use_args, use_kwargs
-from invenio_userprofiles.models import UserProfile
 from marshmallow import Schema, fields
-from sqlalchemy.orm.exc import NoResultFound
 from webargs import ValidationError, validate
 from werkzeug.local import LocalProxy
 
@@ -43,11 +41,9 @@ current_datastore = LocalProxy(
 #
 def user_exists(email):
     """Validate that a user exists."""
-    try:
-        UserProfile.get_by_username(email)
-    except NoResultFound:
-        if not current_datastore.get_user(email):
-            raise ValidationError(_('USER_DOES_NOT_EXIST'))
+    user = User.get_by_username_or_email(email)
+    if not user:
+        raise ValidationError(_('USER_DOES_NOT_EXIST'))
 
 
 class LoginView(CoreLoginView):
