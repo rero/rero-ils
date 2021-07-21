@@ -32,6 +32,7 @@ from rero_ils.modules.loans.api import Loan, LoanAction, LoanState
 from rero_ils.modules.notifications.api import Notification, \
     NotificationsSearch, get_notification
 from rero_ils.modules.notifications.tasks import process_notifications
+from rero_ils.modules.utils import get_ref_for_pid
 
 
 def test_availability_notification(
@@ -686,6 +687,56 @@ def test_multiple_notifications(client, patron_martigny, patron_sion,
         'pid': loan.pid
     }
     item_lib_martigny.receive(**params)
+
+
+def test_request_notifications_temp_item_type(
+    client, patron_martigny, patron_sion, lib_martigny, lib_fully,
+    item_lib_martigny, librarian_martigny, loc_public_martigny,
+    circulation_policies, loc_public_fully, item_type_missing_martigny, mailbox
+):
+    """Test request notifications with item type with negative availability."""
+    mailbox.clear()
+    login_user_via_session(client, librarian_martigny.user)
+    item_lib_martigny['temporary_item_type'] = {
+        '$ref': get_ref_for_pid('itty', item_type_missing_martigny.pid)
+    }
+    item_lib_martigny.update(item_lib_martigny, dbcommit=True, reindex=True)
+
+    res, data = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pickup_location_pid=loc_public_fully.pid,
+            patron_pid=patron_martigny.pid,
+            transaction_library_pid=lib_martigny.pid,
+            transaction_user_pid=librarian_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+
+    request_loan_pid = data.get(
+        'action_applied')[LoanAction.REQUEST].get('pid')
+
+    flush_index(NotificationsSearch.Meta.index)
+    assert len(mailbox) == 0
+
+    # cancel request
+    res, _ = postdata(
+        client,
+        'api_item.cancel_item_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pid=request_loan_pid,
+            transaction_user_pid=librarian_martigny.pid,
+            transaction_library_pid=lib_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+    mailbox.clear()
+
+    del(item_lib_martigny['temporary_item_type'])
+    item_lib_martigny.update(item_lib_martigny, dbcommit=True, reindex=True)
 
 
 def test_request_notifications(client, patron_martigny, patron_sion,
