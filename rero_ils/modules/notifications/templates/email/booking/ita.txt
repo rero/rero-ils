@@ -11,7 +11,7 @@ Segnatura: {% if document.item.call_number %}{{ document.item.call_number }}{% e
 {%- endif %}
 {% endif %}
 Punto di ritiro: {{ pickup_name }}
-Lettore: {{ patron.first_name }} {{ patron.last_name }}
-{%- if patron.patron.barcode %} - {% for barcode in patron.patron.barcode %}{{ ', ' if not loop.last else '' }}{{ barcode }}{% endfor %}
+Lettore: {{ request_patron.first_name }} {{ request_patron.last_name }}
+{%- if request_patron.patron.barcode %} - {% for barcode in request_patron.patron.barcode %}{{ ', ' if not loop.last else '' }}{{ barcode }}{% endfor %}
 {%- endif %}
 {% endfor %}

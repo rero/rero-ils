@@ -46,7 +46,9 @@ class Dispatcher:
         """
         from .api import Notification, get_communication_channel_to_use, \
             get_template_to_use
+        from ..items.api import Item
         from ..loans.api import LoanState
+        from ..patrons.api import Patron
 
         def not_yet_implemented(*args):
             """Do nothing placeholder for a notification."""
@@ -87,6 +89,7 @@ class Dispatcher:
                 )
                 reminder_counter = data.get('reminder_counter', 0)
                 reminder = reminder_counter + 1
+
                 if notification_type in [
                     Notification.BOOKING_NOTIFICATION_TYPE,
                     Notification.REQUEST_NOTIFICATION_TYPE,
@@ -157,19 +160,40 @@ class Dispatcher:
                 if end_date:
                     documents_data['end_date'] = end_date
                 # Add item to document
-                item = loan.get('item')
-                if item:
+                item_data = loan.get('item')
+                if item_data:
+                    if notification_type in [
+                        Notification.BOOKING_NOTIFICATION_TYPE
+                    ]:
+                        # get item from the checkin loan
+                        item = Item.get_record_by_pid(
+                            item_data.get('pid'))
+                        # get the requested loan it can be in several states
+                        # due to the automatic request validation
+                        request_loan = None
+                        for state in [
+                            LoanState.ITEM_AT_DESK,
+                            LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
+                            LoanState.PENDING
+                        ]:
+                            request_loan = item.get_first_loan_by_state(state)
+                            if request_loan:
+                                break
+                        request_patron = Patron.get_record_by_pid(
+                            request_loan['patron_pid'])
+                        ctx_data['request_patron'] = \
+                            request_patron.replace_refs().dumps()
                     documents_data['item'] = {
-                        'barcode': loan['item']['barcode']
+                        'barcode': item_data['barcode']
                     }
-                    call_number = item.get('call_number')
+                    call_number = item_data.get('call_number')
                     if call_number:
                         documents_data['item']['call_number'] = call_number
-                    second_call_number = item.get('second_call_number')
+                    second_call_number = item_data.get('second_call_number')
                     if second_call_number:
                         documents_data['item']['second_call_number'] = \
                             second_call_number
-                    location = item.get('location')
+                    location = item_data.get('location')
                     if location:
                         loc = Location.get_record_by_pid(location.get('pid'))
                         email = loc.get('notification_email')

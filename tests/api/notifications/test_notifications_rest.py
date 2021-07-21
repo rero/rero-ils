@@ -779,4 +779,6 @@ def test_booking_notifications(client, patron_martigny, patron_sion,
     assert loan.state == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
     assert mailbox[-1].recipients == [
         lib_fully.get('notification_settings')[4].get('email')]
+    # the patron information is the patron request
+    assert patron_martigny['patron']['barcode'][0] in mailbox[0].body
     mailbox.clear()
