@@ -40,6 +40,7 @@ from ..utils import item_pid_to_object
 from ...circ_policies.api import CircPolicy
 from ...documents.api import Document
 from ...errors import NoCirculationAction
+from ...item_types.api import ItemType
 from ...libraries.api import Library
 from ...loans.api import Loan, LoanAction, LoanState, \
     get_last_transaction_loc_for_item, get_request_by_item_pid_by_patron_pid
@@ -1272,6 +1273,15 @@ class ItemCirculation(ItemRecord):
             'language': 'default',
             'label': label
         }]
+
+    @property
+    def temp_item_type_negative_availability(self):
+        """Get the temporary item type neg availability."""
+        if self.get('temporary_item_type'):
+            return ItemType.get_record_by_pid(extracted_data_from_ref(
+                self.get('temporary_item_type'))
+            ).get('negative_availability', False)
+        return False
 
     def get_item_end_date(self, format='short', time_format='medium',
                           language=None):

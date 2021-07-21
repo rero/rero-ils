@@ -56,8 +56,8 @@ def listener_loan_state_changed(_, initial_loan, loan, trigger):
                         Notification.RECALL_NOTIFICATION_TYPE):
                     checked_out_loan.create_notification(
                         Notification.RECALL_NOTIFICATION_TYPE)
-            # request notification only if the item is not on loan
-            else:
+            elif not item.temp_item_type_negative_availability:
+                # request notification only if the item is not on loan
                 loan.create_notification(
                     notification_type=Notification.REQUEST_NOTIFICATION_TYPE)
     # availability
