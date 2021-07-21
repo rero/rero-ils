@@ -373,6 +373,23 @@ def patron_sion_without_email1(
     yield create_patron(data)
 
 
+@pytest.fixture(scope="module")
+def patron_sion_with_additional_email(
+        app,
+        roles,
+        lib_sion,
+        patron_type_grown_sion,
+        patron_sion_data):
+    """Create Sion patron with an additional email only."""
+    data = deepcopy(patron_sion_data)
+    del data['email']
+    data['pid'] = 'ptrn10additionalemail'
+    data['username'] = 'additionalemail'
+    data['patron']['additional_communication_email'] = \
+        'additional+jules@gmail.com'
+    yield create_patron(data)
+
+
 # ------------ Loans: pending loan ----------
 @pytest.fixture(scope="module")
 def loan_pending_martigny(

@@ -287,12 +287,14 @@ class Dispatcher:
         """
         # get the recipient email from loan.patron.patron.email
         error_reason = ''
-        recipients = [ctx_data['patron'].get('email')]
-        # additional recipient
-        add_recipient = ctx_data['patron'].get(
-            'additional_communication_email')
-        if add_recipient:
-            recipients.append(add_recipient)
+        recipients = []
+        patron = ctx_data['patron']
+        for email in [
+            patron.get('email'),
+            patron['patron'].get('additional_communication_email')
+        ]:
+            if email:
+                recipients.append(email)
         if not recipients:
             error_reason = '(Missing notification recipients)'
         reply_to = ctx_data['library'].get('email')

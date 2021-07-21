@@ -116,7 +116,6 @@
     "pid": "5",
     "birth_date": "2004-10-11",
     "city": "Aosta",
-    "email": "reroilstest+helder@gmail.com",
     "username": "helder",
     "first_name": "Helder",
     "roles": [
@@ -135,7 +134,8 @@
         "$ref": "https://bib.rero.ch/api/patron_types/2"
       },
       "communication_channel": "email",
-      "communication_language": "ita"
+      "communication_language": "ita",
+      "additional_communication_email": "reroilstest+helder@gmail.com"
     }
   },
   {

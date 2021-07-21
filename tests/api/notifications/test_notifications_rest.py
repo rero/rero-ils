@@ -484,6 +484,8 @@ def test_recall_notification_without_email(
             transaction_user_pid=librarian_martigny.pid
         )
     )
+    request_loan_pid = data.get(
+        'action_applied')[LoanAction.REQUEST].get('pid')
     assert res.status_code == 200
     flush_index(NotificationsSearch.Meta.index)
 
@@ -503,6 +505,102 @@ def test_recall_notification_without_email(
     assert mailbox[0].recipients == [email_notification_type(
         lib_martigny, notification['notification_type'])]
     mailbox.clear()
+    params = {
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny.pid
+    }
+    # cancel request
+    res, _ = postdata(
+        client,
+        'api_item.cancel_item_request',
+        dict(
+            item_pid=item3_lib_martigny.pid,
+            pid=request_loan_pid,
+            transaction_user_pid=librarian_martigny.pid,
+            transaction_library_pid=lib_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+    _, actions = item3_lib_martigny.checkin(**params)
+
+
+def test_recall_notification_with_patron_additional_email_only(
+        client, patron_sion_with_additional_email, lib_martigny,
+        json_header, patron2_martigny,
+        item3_lib_martigny, librarian_martigny,
+        circulation_policies, loc_public_martigny,
+        mailbox):
+    """Test recall notification."""
+    mailbox.clear()
+    login_user_via_session(client, librarian_martigny.user)
+    res, data = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item3_lib_martigny.pid,
+            patron_pid=patron_sion_with_additional_email.pid,
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny.pid,
+        )
+    )
+    assert res.status_code == 200
+    loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
+    loan = Loan.get_record_by_pid(loan_pid)
+
+    assert not loan.is_notified(
+        notification_type=Notification.RECALL_NOTIFICATION_TYPE)
+    # test notification
+    res, data = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item3_lib_martigny.pid,
+            pickup_location_pid=loc_public_martigny.pid,
+            patron_pid=patron2_martigny.pid,
+            transaction_library_pid=lib_martigny.pid,
+            transaction_user_pid=librarian_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+    flush_index(NotificationsSearch.Meta.index)
+
+    request_loan_pid = data.get(
+        'action_applied')[LoanAction.REQUEST].get('pid')
+
+    assert loan.is_notified(
+        notification_type=Notification.RECALL_NOTIFICATION_TYPE)
+    notification = get_notification(
+        loan, notification_type=Notification.RECALL_NOTIFICATION_TYPE)
+    assert notification.loan_pid == loan.pid
+    assert not loan.is_notified(
+        notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
+    assert not get_notification(
+        loan, notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
+
+    for notification_type in Notification.ALL_NOTIFICATIONS:
+        process_notifications(notification_type)
+    # one new email for the librarian
+    assert mailbox[0].recipients == \
+        [patron_sion_with_additional_email[
+            'patron']['additional_communication_email']]
+    mailbox.clear()
+    params = {
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny.pid
+    }
+    # cancel request
+    res, _ = postdata(
+        client,
+        'api_item.cancel_item_request',
+        dict(
+            item_pid=item3_lib_martigny.pid,
+            pid=request_loan_pid,
+            transaction_user_pid=librarian_martigny.pid,
+            transaction_library_pid=lib_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+    _, actions = item3_lib_martigny.checkin(**params)
 
 
 def test_transaction_library_pid(notification_late_martigny,
