@@ -338,7 +338,6 @@
       "title": "Source",
       "description": "Source of the subject.",
       "type": "string",
-      "default": "Factum",
       "form": {
         "options": [
           {
