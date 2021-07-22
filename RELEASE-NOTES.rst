@@ -18,6 +18,31 @@
 Release notes
 =============
 
+v1.4.6
+------
+
+This patch mainly fixes notification issues signaled on the production server:
+
+-  Some notifications aren't sent to the patron when he or she has no primary
+   e-mail, but e-mail as the communication channel. This is often the case with
+   children that have the parent e-mail in the additional e-mail address field
+   (`#2152`_).
+-  In the notifications that should be sent to the patron by mail, the address
+   block was missing (`#2188`_).
+-  In the booking notification, the patron information that were displayed were
+   the ones of the patron that is checking in the item, instead of the patron
+   that is requesting it (`#2197`_).
+-  Request notifications on item that have a temporary circulation category
+   with a negative availability should not be sent (`#2191`_).
+
+Several bug fixes have been added to this patch. Find the comprehensive changes
+in the `changelog`_.
+
+.. _#2152: https://github.com/rero/rero-ils/issues/2152
+.. _#2188: https://github.com/rero/rero-ils/issues/2188
+.. _#2191: https://github.com/rero/rero-ils/issues/2191
+.. _#2197: https://github.com/rero/rero-ils/issues/2197
+
 v1.4.5
 ------
 
