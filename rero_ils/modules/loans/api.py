@@ -409,7 +409,7 @@ class Loan(IlsRecord):
                 if 'temporary_item_type' in item:
                     item_type_pid = item['temporary_item_type']['pid']
                     item_type = item_type_by_pid(item_type_pid)
-                    if item_type is None:
+                    if item_type is not None:
                         add = False
                 if add and item_pid not in item_pids:
                     item_pids.append(item_pid)
