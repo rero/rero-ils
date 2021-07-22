@@ -6,7 +6,6 @@
     "items": {
       "type": "string",
       "title": "Copyright date",
-      "pattern": "^([\u00a9\u2117]\\s)?\\d{4}.*",
       "minLength": 4,
       "form": {
         "placeholder": "Example: \u00a9 2010",
