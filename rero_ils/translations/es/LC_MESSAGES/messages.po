@@ -13,15 +13,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-07-19 10:10+0200\n"
-"PO-Revision-Date: 2021-06-30 04:45+0000\n"
+"PO-Revision-Date: 2021-07-22 08:50+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/es/>\n"
 "Language: es\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/es/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.7.2-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: rero_ils/accounts_views.py:50
@@ -8361,7 +8362,7 @@ msgstr "libro, texto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:187
 msgid "docsubtype_other_book"
-msgstr "Otro libro"
+msgstr "libro, texto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:191
 msgid "docsubtype_large_print_book"
@@ -8405,7 +8406,7 @@ msgstr "Manga"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:316
 msgid "docmaintype_electronic"
-msgstr "Electrónico"
+msgstr "medio electrónico"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:352
 msgid "docsubtype_cdrom_dvdrom"
@@ -8413,7 +8414,7 @@ msgstr "CD-ROM, DVD-ROM"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:356
 msgid "docsubtype_other_electronic_carrier"
-msgstr "Otros medios electrónicos"
+msgstr "Medio electrónico"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:370
 msgid "docmaintype_game"
@@ -8421,7 +8422,7 @@ msgstr "juego"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:408
 msgid "docsubtype_other_game"
-msgstr "Otro juego"
+msgstr "juego"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:412
 msgid "docsubtype_video_game"
@@ -8461,7 +8462,7 @@ msgstr "Calendario"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:497
 msgid "docsubtype_other_image"
-msgstr "Otra imagen"
+msgstr "imagen"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:514
 msgid "docmaintype_language_method"
@@ -8513,7 +8514,7 @@ msgstr "Tableta"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:737
 msgid "docsubtype_other_object"
-msgstr "Otro objeto"
+msgstr "objeto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:754
 msgid "docmaintype_other"
@@ -11551,7 +11552,7 @@ msgstr "Cordialmente"
 #: rero_ils/theme/templates/security/email/reset_instructions.html:30
 #: rero_ils/theme/templates/security/email/reset_notice.html:28
 msgid "Your library"
-msgstr ""
+msgstr "Su biblioteca"
 
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
@@ -13005,4 +13006,3 @@ msgstr "Se ha restablecido su contraseña correctamente."
 
 #~ msgid "Your Libray"
 #~ msgstr "Su biblioteca"
-

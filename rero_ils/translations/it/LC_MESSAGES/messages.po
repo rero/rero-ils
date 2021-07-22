@@ -19,15 +19,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-07-19 10:10+0200\n"
-"PO-Revision-Date: 2021-07-09 20:47+0000\n"
+"PO-Revision-Date: 2021-07-22 08:50+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/it/>\n"
 "Language: it\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/it/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.7.2-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: rero_ils/accounts_views.py:50
@@ -8390,7 +8391,7 @@ msgstr "libro, testo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:187
 msgid "docsubtype_other_book"
-msgstr "altro libro"
+msgstr "libro, testo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:191
 msgid "docsubtype_large_print_book"
@@ -8442,7 +8443,7 @@ msgstr "CD-Rom, DVD-Rom"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:356
 msgid "docsubtype_other_electronic_carrier"
-msgstr "altro supporto elettronico"
+msgstr "supporto elettronico"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:370
 msgid "docmaintype_game"
@@ -8450,7 +8451,7 @@ msgstr "gioco"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:408
 msgid "docsubtype_other_game"
-msgstr "altro gioco"
+msgstr "gioco"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:412
 msgid "docsubtype_video_game"
@@ -8490,7 +8491,7 @@ msgstr "calendario"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:497
 msgid "docsubtype_other_image"
-msgstr "altra immagine"
+msgstr "immagine"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:514
 msgid "docmaintype_language_method"
@@ -8542,7 +8543,7 @@ msgstr "tablet, lettore e-book"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:737
 msgid "docsubtype_other_object"
-msgstr "altro oggetto"
+msgstr "oggetto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:754
 msgid "docmaintype_other"
@@ -10309,7 +10310,7 @@ msgstr ""
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:16
 msgid "Schema to validate operation logs records against."
-msgstr ""
+msgstr "Schema di convalida per registri delle operazioni."
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:22
 msgid "Operation log PID"
@@ -10337,7 +10338,7 @@ msgstr "Tipo di operazione"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:94
 msgid "ILL request status"
-msgstr ""
+msgstr "Statuto della richiesta di prestito interbibliotecario"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:124
 msgid "User organisation"
@@ -10345,15 +10346,15 @@ msgstr "Organizzazione dell'utente"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:145
 msgid "User library"
-msgstr ""
+msgstr "Biblioteca dell'utente"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:167
 msgid "Loan specific data"
-msgstr ""
+msgstr "Dati specifici del prestito"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:187
 msgid "Action Trigger"
-msgstr ""
+msgstr "Azione scatenante"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:200
 msgid "Override flag"
@@ -10361,7 +10362,7 @@ msgstr "Override flag"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:201
 msgid "Allow a transaction which is normally not possible."
-msgstr ""
+msgstr "Consentire una transazione che normalmente non è possibile."
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:206
 msgid "Transaction channel"
@@ -10369,21 +10370,21 @@ msgstr "Canale di transazione"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:215
 msgid "Transaction user"
-msgstr ""
+msgstr "Utente della transazione"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:229
 msgid "Patron name"
-msgstr ""
+msgstr "Nome del lettore"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:236
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:257
 msgid "Transaction location"
-msgstr ""
+msgstr "Localizzazione della transazione"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:245
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:266
 msgid "Location PID"
-msgstr ""
+msgstr "PID della localizzazione"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:250
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:389
@@ -10392,11 +10393,11 @@ msgstr "Nome della localizzazione"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:271
 msgid "Location Name"
-msgstr ""
+msgstr "Nome della localizzazione"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:297
 msgid "Hashed Patron PID"
-msgstr ""
+msgstr "Hash PID del lettore"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:312
 msgid "Age"
@@ -10413,7 +10414,7 @@ msgstr "Codice postale"
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:331
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:42
 msgid "Local codes"
-msgstr ""
+msgstr "Codici locali"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:336
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:48
@@ -10422,7 +10423,7 @@ msgstr "Codice locale"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:355
 msgid "Item PID"
-msgstr ""
+msgstr "PID dell'esemplare"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:360
 msgid "Category"
@@ -10430,7 +10431,7 @@ msgstr "Categoria"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:370
 msgid "Library PID"
-msgstr ""
+msgstr "PID della biblioteca"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:384
 msgid "PID"
@@ -10716,7 +10717,7 @@ msgstr "La descrizione del tipo di lettore."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:59
 msgid "Code to identify the patron type."
-msgstr ""
+msgstr "Codice per identificare il tipo di lettore."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:80
 msgid "Yearly amount due by patrons linked to this patron type."
@@ -10812,7 +10813,7 @@ msgstr "Limite per esemplare in ritardo"
 
 #: rero_ils/modules/patrons/api.py:389 rero_ils/modules/patrons/api.py:704
 msgid "Patron rights expired."
-msgstr ""
+msgstr "I diritti del lettore sono scaduti."
 
 #: rero_ils/modules/patrons/api.py:568
 msgid "Your account is currently blocked."
@@ -10866,6 +10867,7 @@ msgstr "Fonte se la risorsa è stata caricata in un batch."
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:43
 msgid "Codes used to classify users, for instance for statistics."
 msgstr ""
+"Codici usati per classificare gli utenti, per esempio per le statistiche."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:54
 msgid "Personal informations"
@@ -11026,6 +11028,8 @@ msgid ""
 "This user has already a professional role in another organisation. A user"
 " can be professional only in one organisation."
 msgstr ""
+"Questo utente ha già un ruolo professionale in un'altra organizzazione. Un "
+"utente può essere professionale solo in una organizzazione."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:478
 msgid "The public note is visible for the patron in his/her account."
@@ -11033,16 +11037,16 @@ msgstr "La nota pubblica è visibile per il lettore sul suo account."
 
 #: rero_ils/modules/selfcheck/admin.py:115
 msgid "Selfcheck Terminal Management"
-msgstr ""
+msgstr "Gestione dei postazioni di autoprestito"
 
 #: rero_ils/modules/selfcheck/api.py:136 rero_ils/modules/selfcheck/api.py:174
 #: rero_ils/modules/selfcheck/api.py:255
 msgid "Error encountered: patron not found"
-msgstr ""
+msgstr "Errore riscontrato: lettore non trovato"
 
 #: rero_ils/modules/selfcheck/api.py:332
 msgid "Error encountered: item not found"
-msgstr ""
+msgstr "Errore riscontrato: esemplare non trovato"
 
 #: rero_ils/modules/selfcheck/api.py:402
 msgid "Checkout impossible: the item is requested by another patron"
@@ -11055,32 +11059,32 @@ msgstr "Errore riscontrato: si prega di contattare il personale della biblioteca
 
 #: rero_ils/modules/selfcheck/api.py:526
 msgid "No circulation action is possible"
-msgstr ""
+msgstr "Nessuna azione di circolazione è possibile"
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:4
 msgid "Stats"
-msgstr ""
+msgstr "Statistiche"
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:5
 msgid "JSON schema for statistics."
-msgstr ""
+msgstr "JSON schema per statistiche."
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:15
 msgid "Schema to validate stats records against."
-msgstr ""
+msgstr "Schema di convalida per statistiche."
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:21
 msgid "Stat ID."
-msgstr ""
+msgstr "ID della statistica."
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:26
 #: rero_ils/theme/views.py:119
 msgid "Statistics"
-msgstr ""
+msgstr "Statistiche"
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:30
 msgid "Statistic"
-msgstr ""
+msgstr "Statistica"
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:5
 msgid "JSON schema for templates."
@@ -11582,7 +11586,7 @@ msgstr "Cordiali saluti"
 #: rero_ils/theme/templates/security/email/reset_instructions.html:30
 #: rero_ils/theme/templates/security/email/reset_notice.html:28
 msgid "Your library"
-msgstr ""
+msgstr "La tua biblioteca"
 
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
@@ -13007,4 +13011,3 @@ msgstr "La tua parola d'ordine è stata reimposta con successo."
 
 #~ msgid "Your Libray"
 #~ msgstr "La tua biblioteca"
-
