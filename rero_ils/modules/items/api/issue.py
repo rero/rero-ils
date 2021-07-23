@@ -21,6 +21,7 @@ from datetime import datetime, timezone
 
 import ciso8601
 from flask import current_app
+from future.backports.datetime import timedelta
 
 from .record import ItemRecord
 from ..models import ItemIssueStatus, TypeOfItem
@@ -124,11 +125,12 @@ class ItemIssue(ItemRecord):
         :return a generator of holdings pid.
         """
         from ...holdings.api import HoldingsSearch
-        today = datetime.now(timezone.utc).strftime('%Y-%m-%d')
+        yesterday = datetime.now(timezone.utc) - timedelta(days=1)
+        yesterday = yesterday.strftime('%Y-%m-%d')
         results = HoldingsSearch() \
             .filter('term', holdings_type='serial') \
             .filter('term', acquisition_status='currently_received') \
-            .filter('range', patterns__next_expected_date={'lte': today}) \
+            .filter('range', patterns__next_expected_date={'lte': yesterday}) \
             .params(preserve_order=True) \
             .sort({'_created': {'order': 'asc'}}) \
             .source(['pid']).scan()
