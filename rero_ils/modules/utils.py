@@ -292,9 +292,24 @@ def extracted_data_from_ref(input, data='pid'):
         if record_class and pid:
             return record_class.get_record_by_pid(pid)
 
+    def get_data_from_es():
+        """Try to load a resource from elasticsearch."""
+        pid = extracted_data_from_ref(input, data='pid')
+        resource_list = extracted_data_from_ref(input, data='resource')
+        if resource_list is None:
+            return None
+        configuration = get_endpoint_configuration(resource_list)
+        if pid and configuration and configuration.get('search_class'):
+            search_class = obj_or_import_string(
+                configuration.get('search_class'))
+            result = search_class().filter('term', pid=pid).execute()
+            if len(result) == 1:
+                return result[0].to_dict()
+
     if isinstance(input, str):
         input = {'$ref': input}
     switcher = {
+        'es_record': get_data_from_es,
         'pid': lambda: extract_part(input.get('$ref'), -1),
         'resource': lambda: extract_part(input.get('$ref'), -2),
         'record_class': get_record_class,

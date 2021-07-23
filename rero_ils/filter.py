@@ -28,6 +28,18 @@ from flask import current_app
 from invenio_i18n.ext import current_i18n
 from markupsafe import Markup
 
+from .modules.utils import extracted_data_from_ref
+
+
+def get_record_by_ref(ref, type='es_record'):
+    """Get record by ref.
+
+    :param ref: The json $ref. Ex: {$ref: 'xxxxx'}.
+    :param type: The of record
+    :return: a record
+    """
+    return extracted_data_from_ref(ref, data=type)
+
 
 def node_assets(package, patterns=[
         'runtime*.js', 'polyfills*.js', 'main*.js'], _type='js', tags=''):

@@ -59,8 +59,8 @@ from .sru.views import SRUDocumentsSearch
 from .templates.listener import prepare_template_data
 from .users.views import UsersCreateResource, UsersResource
 from .utils import set_user_name
-from ..filter import empty_data, format_date_filter, jsondumps, node_assets, \
-    text_to_id, to_pretty_json
+from ..filter import empty_data, format_date_filter, get_record_by_ref, \
+    jsondumps, node_assets, text_to_id, to_pretty_json
 
 
 class REROILSAPP(object):
@@ -80,6 +80,8 @@ class REROILSAPP(object):
             app.jinja_loader = ils_loader
 
             # register filters
+            app.add_template_filter(
+                get_record_by_ref, name='get_record_by_ref')
             app.add_template_filter(format_date_filter, name='format_date')
             app.add_template_global(node_assets, name='node_assets')
             app.add_template_filter(to_pretty_json, name='tojson_pretty')
