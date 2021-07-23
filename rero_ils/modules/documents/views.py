@@ -36,7 +36,7 @@ from .utils import create_authorized_access_point, \
 from ..collections.api import CollectionsSearch
 from ..contributions.api import Contribution
 from ..holdings.models import HoldingNoteTypes
-from ..items.models import ItemCirculationAction, ItemNoteTypes
+from ..items.models import ItemCirculationAction
 from ..libraries.api import Library
 from ..locations.api import Location
 from ..organisations.api import Organisation
@@ -63,6 +63,13 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
         organisation = Organisation.get_record_by_viewcode(viewcode)
 
     record['available'] = Document.is_available(record.pid, viewcode)
+
+    # build provisition activity
+    provision_activities = record.get('provisionActivity', [])
+    for provision_activity in provision_activities:
+        pub_state_text = publication_statement_text(provision_activity)
+        if pub_state_text:
+            provision_activity['_text'] = pub_state_text
 
     # Counting holdings to display the get button
     from ..holdings.api import HoldingsSearch
@@ -105,6 +112,121 @@ blueprint = Blueprint(
 
 
 @blueprint.app_template_filter()
+def note_general(notes):
+    """Preprocess notes to extract only general type."""
+    return sort_by_type(
+        list(filter(lambda t: t['noteType'] == 'general', notes)))
+
+
+@blueprint.app_template_filter()
+def notes_except_general(notes):
+    """Preprocess notes to extract all note except general type."""
+    return sort_by_type(
+        list(filter(lambda t: t['noteType'] != 'general', notes)))
+
+
+def sort_by_type(notes):
+    """Sort notes by type."""
+    by_type = {}
+    for note in notes:
+        by_type.setdefault(note['noteType'], [])
+        by_type[note['noteType']].append(note['label'])
+    return by_type
+
+
+@blueprint.app_template_filter()
+def cartographic_attributes(attributes):
+    """Preprocess cartographic attributes."""
+    content = []
+    for attribute in attributes:
+        if ('projection' in attribute) or \
+             (('coordinates' in attribute) and
+                ('label' in attribute['coordinates'])):
+            content.append(attribute)
+    return content
+
+
+@blueprint.app_template_filter()
+def provision_activity(provisions):
+    """Preprocess provision activity."""
+    output = {}
+    provisions = list(
+        filter(lambda t: '_text' in t and 'statement' in t, provisions))
+    for provision in provisions:
+        if provision['type'] not in output:
+            output.setdefault(provision['type'], [])
+        for text in provision['_text']:
+            output[provision['type']].append(text)
+    return output
+
+
+@blueprint.app_template_filter()
+def provision_activity_publication(provisions):
+    """Extact only publication of provision activity."""
+    return {
+        'bf:Publication': provisions.get('bf:Publication', [])
+    }
+
+
+@blueprint.app_template_filter()
+def provision_activity_not_publication(provisions):
+    """Extact other than publication of provision activity."""
+    if 'bf:Publication' in provisions:
+        provisions.pop('bf:Publication')
+    return provisions
+
+
+@blueprint.app_template_filter()
+def provision_activity_original_date(provisions):
+    """Preprocess provision activity original date."""
+    activity = []
+    for provision in provisions:
+        if 'original_date' in provision:
+            activity.append(provision['original_date'])
+    return activity
+
+
+@blueprint.app_template_filter()
+def title_variants(titles):
+    """Preprocess title variants."""
+    variants = {}
+    bf_titles = list(filter(lambda t: t['type'] != 'bf:Title', titles))
+    for title in bf_titles:
+        result = []
+        variants.setdefault(title['type'], [])
+        result.append(title['mainTitle'][0]['value'])
+        if 'subtitle' in title:
+            result.append(title['subtitle'][0]['value'])
+        variants[title['type']].append(': '.join(result))
+    return variants
+
+
+@blueprint.app_template_filter()
+def identified_by(identifiedby):
+    """Preprocess identified by."""
+    output = []
+    for identifier in identifiedby:
+        details = []
+        # Replace bf:Local by source
+        id_type = identifier.get('type')
+        if id_type == 'bf:Local':
+            id_type = identifier.get('source')
+        # Format qualifier, status and note
+        if identifier.get('qualifier'):
+            details.append(identifier.get('qualifier'))
+        if identifier.get('status'):
+            details.append(identifier.get('status'))
+        if identifier.get('note'):
+            details.append(identifier.get('note'))
+        output.append({
+            'type': id_type,
+            'value': identifier.get('value'),
+            'details': ', '.join(details)
+        })
+    return output
+
+
+@blueprint.app_template_filter()
 def can_request(item):
     """Check if the current user can request a given item."""
     if current_user.is_authenticated:
@@ -120,12 +242,6 @@ def can_request(item):
             )
             return can, reasons
     return False, []
-
-
-@blueprint.app_template_filter()
-def get_public_notes(item):
-    """Get public notes related to an item."""
-    return [n for n in item.notes if n.get('type') in ItemNoteTypes.PUBLIC]
 
 
 @blueprint.app_template_filter()
@@ -188,17 +304,6 @@ def edition_format(editions):
 
 
 @blueprint.app_template_filter()
-def note_format(notes):
-    """Format note for template."""
-    notes_text = {}
-    for note in notes:
-        note_type = note.get('noteType')
-        notes_text.setdefault(note_type, [])
-        notes_text[note_type].append(note.get('label'))
-    return notes_text
-
-
-@blueprint.app_template_filter()
 def part_of_format(part_of):
     """Format 'part of' data for template."""
     document_pid = extracted_data_from_ref(part_of.get('document'), data='pid')
@@ -244,12 +349,6 @@ def part_of_format(part_of):
 
 
 @blueprint.app_template_filter()
-def series_format(serie):
-    """Format series for template."""
-    return series_statement_format_text(serie)
-
-
-@blueprint.app_template_filter()
 def item_library_pickup_locations(item):
     """Get the pickup locations of the library of the given item."""
     location_pid = extracted_data_from_ref(item.get('location'))
@@ -282,45 +381,71 @@ def item_library_pickup_locations(item):
 
 
 @blueprint.app_template_filter()
-def identifiedby_format(identifiedby):
-    """Format identifiedby for template."""
-    output = []
-    for identifier in identifiedby:
-        details = []
-        # Replace bf:Local by source
-        id_type = identifier.get('type')
-        if id_type == 'bf:Local':
-            id_type = identifier.get('source')
-        # Format qualifier, status and note
-        if identifier.get('qualifier'):
-            details.append(identifier.get('qualifier'))
-        if identifier.get('status'):
-            details.append(identifier.get('status'))
-        if identifier.get('note'):
-            details.append(identifier.get('note'))
-        output.append({
-            'type': id_type,
-            'value': identifier.get('value'),
-            'details': ', '.join(details)
-        })
-    return output
+def work_access_point(work_access_point):
+    """Process work access point data."""
+    wap = []
+    for work in work_access_point:
 
+        if 'agent' in work:
+            agentFormatted = ''
+            agent = work['agent']
+            if agent['type'] == 'bf:Person':
+                # Person
+                name = []
+                if 'preferred_name' in agent:
+                    name.append(agent['preferred_name'])
+                if 'numeration' in agent:
+                    name.append(agent['numeration'])
+                elif 'fuller_form_of_name' in agent:
+                    name.append(f"({agent['fuller_form_of_name']})")
+                if len(name):
+                    agentFormatted += f"{', '.join(name)}, "
+                if 'numeration' in agent and 'qualifier' in agent:
+                    agentFormatted += f"{agent['qualifier']}, "
+                dates = []
+                for key in ['date_of_birth', 'date_of_death']:
+                    if key in agent:
+                        dates.append(agent[key])
+                if len(dates):
+                    agentFormatted += f"{'-'.join(dates)}. "
+                if 'numeration' not in agent and 'qualifier' in agent:
+                    agentFormatted += f"{agent['qualifier']}. "
+            else:
+                # Organisation
+                if 'preferred_name' in agent:
+                    agentFormatted += agent['preferred_name'] + '. '
+                if 'subordinate_unit' in agent:
+                    for unit in agent['subordinate_unit']:
+                        agentFormatted += unit + '. '
+                if 'numbering' in agent or 'conference_date' in agent or \
+                   'place' in agent:
+                    conf = []
+                    for key in ['numbering', 'conference_date', 'place']:
+                        conf.append(agent[key])
+                    if len(conf):
+                        agentFormatted += f"({' : '.join(conf)}) "
+            agentFormatted += f"{work['title']}. "
+            if 'part' in work:
+                for part in work['part']:
+                    for key in ['partNumber', 'partName']:
+                        if key in part:
+                            agentFormatted += f"{part[key]}. "
+            if 'miscellaneous_information' in work:
+                agentFormatted += f"{work['miscellaneous_information']}. "
+            if 'language' in work:
+                agentFormatted += f"{_('lang_'+work['language'])}. "
+            if 'medium_of_performance_for_music' in work:
+                agentFormatted += \
+                    f"{'. '.join(work['medium_of_performance_for_music'])}. "
+            if 'key_for_music' in work:
+                agentFormatted += f"{work['key_for_music']}. "
+            if 'arranged_statement_for_music' in work:
+                agentFormatted += f"{work['arranged_statement_for_music']}. "
+            if 'date_of_work' in work:
+                agentFormatted += f"{work['date_of_work']}. "
 
-@blueprint.app_template_filter()
-def language_format(langs_list, language_interface):
-    """Converts language code to language name.
-
-    langs_list: a code or a list of language codes
-    language_interface: the code of the language of the interface
-    Returns a comma separated list of language names.
-    """
-    output = []
-    if isinstance(langs_list, str):
-        langs_list = [{'type': 'bf:Language', 'value': langs_list}]
-    for lang in langs_list:
-        language_code = f"lang_{lang.get('value')}"
-        output.append(_(language_code))
-    return ", ".join(output)
+            wap.append(agentFormatted.strip())
+    return wap
 
 
 @api_blueprint.route('/availabilty/<document_pid>', methods=['GET'])
@@ -621,3 +746,25 @@ def subject_format(subject, language):
         # do nothing for term and preferred_name
         if value:
             return value
+
+
+@blueprint.app_template_filter()
+def series_statement_format(series):
+    """Series statement format."""
+    output = []
+    for serie in series:
+        output.append(series_statement_format_text(serie))
+    print('>>>>>>>>', output)
+    return output
+
+
+@blueprint.app_template_filter()
+def main_title_text(title):
+    """Extract title with type bf:Title.
+
+    :param title: array of the field title.
+    """
+    return list(filter(
+        lambda t: t.get('type') == 'bf:Title',
+        title
+    ))

@@ -25,14 +25,23 @@
 </header>
 <div class="row">
   {%- set icon_name = record | document_main_type(false) %}
-  <figure id="thumbnail" class="figure-img col-sm-2 d-sm-block figure">
+  <figure id="thumbnail" class="figure-img col-sm-2 d-sm-block figure text-center">
     <img class="img-fluid img-thumbnail thumb"
          src="{{record | get_cover_art}}"
          onerror="this.src='{{url_for("static", filename="images/icon_%s.svg" % icon_name) }}'" >
     <figcaption class="figure-caption mt-2">
-      <ul class="list-unstyled">
+      <ul class="list-unstyled mb-1">
         {% for document_type in record | document_types %}
           <li>{{ document_type }}</li>
+        {% endfor %}
+      </ul>
+      <ul class="list-unstyled mb-0">
+         <!-- TODO: GENRE FORM LINK (not implemend with ref) -->
+        {% for genre in record.genreForm %}
+        <li class="figure-caption">
+          <i class="fa fa-tag mr-1"></i>
+          {{ genre.term }}
+        </li>
         {% endfor %}
       </ul>
     </figcaption>
@@ -53,16 +62,28 @@
     {{ div(record.pid | contribution_format(current_i18n.language, viewcode, true)) }}
     {% endif %}
 
-    <!-- PROVISION ACTIVITY -->
-    {% for provision_activity in record.provisionActivity %}
-    {% if provision_activity.type == 'bf:Publication' %}
-    {{ div_list(provision_activity|create_publication_statement ) }}
+    <!-- PUBLICATION ACTIVITY: PUBLICATION -->
+    {% if record.provisionActivity %}
+      {% set provisions = record.provisionActivity | provision_activity | provision_activity_publication %}
+      {% for key, provisions in provisions.items() %}
+        <ul class="list-unstyled mb-0">
+          {% for provision in provisions %}
+            <li>{{ provision.value }}</li>
+          {% endfor %}
+        </ul>
+      {% endfor %}
     {% endif %}
-    {% endfor %}
 
     <!-- EXTENT -->
     {% if record.extent %}
-    {{ record.extent }}
+      <div>{{ record.extent }}</div>
+    {% endif %}
+
+    <!-- DURATION -->
+    {% if record.duration %}
+      <div>
+        {{ _('Duration') }}: {{ record.duration | join(', ') }}
+      </div>
     {% endif %}
 
     <!-- EDITION STATEMENT-->
@@ -70,39 +91,66 @@
     {{ div_list(record.editionStatement|edition_format) }}
     {% endif %}
 
-    <!-- INTENDED AUDIENCE -->
+    <!-- FREQUENCY -->
+    {% if record.frequency %}
+      <div>
+        <span class="font-weight-bold">{{ _('Frequency') }}</span>:
+        {% for freq in record.frequency %}
+          {{ freq.label }}
+          {% if freq.date %}({{ freq.date }}){% endif %}{% if not loop.last %}; {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
 
     <!-- IS PART OF -->
     {% if record.partOf %}
-    {% for partOf in record.partOf%}
-    {%- set data = partOf|part_of_format %}
-    <div class="row">
-      <dt class="col-auto">
-        {{ data.label }}
-      </dt>
-      <dd class="col-sm-10 col-md-10 mb-0">
+      {% for partOf in record.partOf %}
+        {% set data = partOf|part_of_format %}
         <div class="row">
-          <a href="{{ url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=data.document_pid) }}">{{ data.title }}</a>
-          {% if data.numbering|length > 0 %}
-          <span>;</span>
-          <ul class="list-unstyled rero-ils-person mb-0 ml-1">
-            {% for element in data.numbering %}
-              <li>{{ element }}</li>
-            {% endfor %}
-          </ul>
-          {% endif %}
+          <dt class="col-auto">
+            {{ data.label }}
+          </dt>
+          <dd class="col-sm-10 col-md-10 mb-0">
+            <div class="row">
+              <a href="{{ url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=data.document_pid) }}">{{ data.title }}</a>
+              {% if data.numbering|length > 0 %}
+              <span>;</span>
+              <ul class="list-unstyled rero-ils-person mb-0 ml-1">
+                {% for element in data.numbering %}
+                  <li>{{ element }}</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+          </dd>
         </div>
-      </dd>
-    </div>
-    {% endfor %}
+      {% endfor %}
     {% endif %}
 
-    <!-- ABSTRACT -->
-    {% if record.abstracts|length > 0 %}
-    <div class="pt-2">
-    {{ div_list(record.abstracts) }}
-    </div>
-    {% endif %}
+    <!-- ISSUED WITH -->
+    {% with fieldLabel=_('Issued with'), data=record.issuedWith, header=true %}
+      {% include 'rero_ils/_other_edition.html' %}
+    {% endwith %}
+
+    <!-- PRECEDED BY -->
+    {% with fieldLabel=_('Preceded by'), data=record.precededBy, header=true %}
+      {% include 'rero_ils/_other_edition.html' %}
+    {% endwith %}
+
+    <!-- SUCCEEDED BY -->
+    {% with fieldLabel=_('Succeeded by'), data=record.succeededBy, header=true %}
+      {% include 'rero_ils/_other_edition.html' %}
+    {% endwith %}
+
+    <!-- SUPPLEMENT TO -->
+    {% with fieldLabel=_('Supplement to'), data=record.supplementTo, header=true %}
+      {% include 'rero_ils/_other_edition.html' %}
+    {% endwith %}
+
+    <!-- REPRODUCTION OF -->
+    {% with fieldLabel=_('Supplement to'), data=record.reproductionOf, header=true %}
+      {% include 'rero_ils/_other_edition.html' %}
+    {% endwith %}
 
     <!-- ELECTRONIC LOCATOR (Other accesses, types in filters) -->
     {% if record.electronicLocator %}
@@ -111,8 +159,8 @@
         <ul class="list-unstyled mb-0">
         {% for resource in resources %}
           <li>
-            <a class="rero-ils-external-link" href={{ resource.url }}>
-              {{ _(resource.type) }}
+            <a href="{{ resource.url }}">
+              <i class="fa fa-link"></i> {{ _(resource.type) }}
               {% if resource.content %}
                 : {{ resource.content }}
               {% endif %}
@@ -122,17 +170,6 @@
         {% endfor %}
         </ul>
       {% endif %}
-    {% endif %}
-
-    <!-- SUBJECTS TERM -->
-    {% if record.subjects %}
-    <div class="pt-2">
-    {% for subject in record.subjects %}
-      <span class="badge badge-secondary my-0" title="{{ _(subject.type) }}">
-        <i class="fa fa-tag"></i> {{ subject | subject_format(current_i18n.language) }}
-      </span>
-    {% endfor %}
-    </div>
     {% endif %}
 
     <!-- SUMMARY -->
@@ -159,6 +196,17 @@
       {% endfor %}
     </div>
     {% endif %}
+
+    <!-- SUBJECTS TERM -->
+    {% if record.subjects %}
+    <div class="pt-2">
+    {% for subject in record.subjects %}
+      <span class="badge badge-secondary my-0" title="{{ _(subject.type) }}">
+        <i class="fa fa-tag"></i> {{ subject | subject_format(current_i18n.language) }}
+      </span>
+    {% endfor %}
+    </div>
+    {% endif %}
   </div>
 </div>
 
@@ -181,7 +229,7 @@
     </header>
     <article class="tab-content">
       <section class="tab-pane p-4" id="documents-get" role="tabpanel" aria-labelledby="documents-get-tab"></section>
-      <section class="tab-pane row show active" id="documents-description" role="tabpanel" aria-labelledby="documents-description-tab">
+      <section class="tab-pane container show active" id="documents-description" role="tabpanel" aria-labelledby="documents-description-tab">
         {% include('rero_ils/_documents_description.html') %}
       </section>
     </article>
@@ -210,7 +258,7 @@
     </header>
     <article class="tab-content">
       {% if holdings_count > 0 %}
-      <section class="tab-pane show active p-4" id="documents-get" role="tabpanel" aria-labelledby="documents-get-tab">
+      <section class="tab-pane show active p-1" id="documents-get" role="tabpanel" aria-labelledby="documents-get-tab">
         {% include('rero_ils/_anonymous_button.html') %}
         {% if record.harvested %}
           {% include('rero_ils/_document_online.html') %}
@@ -222,27 +270,12 @@
         {% endif %}
       </section>
       {% endif %}
-      <section class="tab-pane row" id="documents-description" role="tabpanel" aria-labelledby="documents-description-tab">
+      <section class="tab-pane container" id="documents-description" role="tabpanel" aria-labelledby="documents-description-tab">
         {% include('rero_ils/_documents_description.html') %}
       </section>
     </article>
     {% endif %}
   </article>
-  {%- set articles = record | get_articles %}
-  <!-- {% if articles|length > 0 %}
-    <section class="pt-4 border-top">
-      <header class="mb-2">
-        <h3>{{ _('Articles') }}</h3>
-      </header>
-      <ul class="list-group">
-      {% for article in articles %}
-        <li class="list-group-item border-0">
-            <a class="font-weight-bold" href="{{ url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=article.pid) }}">{{ article.title }}</a>
-        </li>
-      {% endfor %}
-      </ul>
-    </section>
-  {% endif %} -->
 </section>
 
 <footer class="pt-4 border-top rero-ils-detailed-view-footer">

@@ -1,0 +1,54 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2021 RERO
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+{% if data %}
+  {% if header %}
+    <div>
+    <span class="font-weight-bold">{{ fieldLabel }}</span>
+    {% for edition in data %}
+      {%- if '$ref' in edition %}
+        {% set document = edition | get_record_by_ref %}
+        {% set document_title =  document.title | main_title_text %}
+        <a href="/{{ viewcode }}/documents/{{ document.pid }}">{{ document_title[0]._text }}</a>
+      {%- else %}
+        {{ edition.label }}
+      {% endif %}
+      {%- if not loop.last %}; {% endif %}
+    {% endfor %}
+    </div>
+  {% else %}
+    <div class="row">
+      <div class="col-3 font-weight-bold">{{ fieldLabel }}</div>
+      <div class="col-9">
+        <ul class="list-unstyled">
+        {% for edition in data %}
+          <li>
+          {% if '$ref' in edition %}
+            {% set document = edition | get_record_by_ref %}
+            {% set document_title =  document.title | main_title_text %}
+            <a href="/{{ viewcode }}/documents/{{ document.pid }}">{{ document_title[0]._text }}</a>
+          {% else %}
+            {{ edition.label }}
+          {% endif %}
+          </li>
+        {% endfor %}
+        </ul>
+      </div>
+    </div>
+  {% endif %}
+{% endif %}

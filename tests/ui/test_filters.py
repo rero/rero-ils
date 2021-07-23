@@ -17,8 +17,15 @@
 
 """Jinja2 filters tests."""
 
-from rero_ils.filter import empty_data, format_date_filter, jsondumps, \
-    text_to_id, to_pretty_json
+from rero_ils.filter import empty_data, format_date_filter, \
+    get_record_by_ref, jsondumps, text_to_id, to_pretty_json
+
+
+def test_get_record_by_ref(document_data, document):
+    """Test resolve."""
+    record_es = get_record_by_ref(
+        {'$ref': 'https://bib.rero.ch/api/documents/doc1'})
+    assert document_data['pid'] == record_es['pid']
 
 
 def test_date_filter_format_timestamp_en(app):

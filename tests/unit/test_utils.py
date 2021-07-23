@@ -85,6 +85,7 @@ def test_extract_data_from_ref(app, patron_sion_data,
     assert extracted_data_from_ref(ptty, data='record_class') == PatronType
     ptty_record = extracted_data_from_ref(ptty, data='record')
     assert ptty_record.pid == patron_type_grown_sion.pid
+    assert extracted_data_from_ref(ptty, data='es_record')['pid'] == 'ptty4'
 
     # check dummy data
     assert extracted_data_from_ref('dummy_data', data='pid') is None
@@ -92,6 +93,7 @@ def test_extract_data_from_ref(app, patron_sion_data,
     assert extracted_data_from_ref('dummy_data', data='record_class') is None
     assert extracted_data_from_ref('dummy_data', data='record') is None
     assert extracted_data_from_ref(ptty, data='dummy') is None
+    assert extracted_data_from_ref('dummy_data', data='es_record') is None
 
 
 def test_current_language(app):
