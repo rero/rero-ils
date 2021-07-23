@@ -28,9 +28,11 @@ from flask import Blueprint, abort, current_app, jsonify, redirect, \
 from flask_babelex import gettext as _
 from flask_login import current_user
 from flask_menu import current_menu
+from invenio_db import db
 from invenio_i18n.ext import current_i18n
 from invenio_jsonschemas import current_jsonschemas
 from invenio_jsonschemas.errors import JSONSchemaNotFound
+from invenio_oauth2server.provider import oauth2, get_token
 
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.patrons.api import current_librarian, current_patrons
@@ -510,3 +512,23 @@ def schemaform(document_type):
 def professional(path):
     """Return professional view."""
     return render_template('rero_ils/professional.html')
+
+
+@blueprint.route('/oauth/revoke', methods=['GET', 'POST'])
+def oauth_revoke_token():
+    """Oauth revoke token.
+
+    :returns: Redirect response to homepage.
+    """
+    # Clear token
+    if request.args.get('token'):
+        token = get_token(request.args['token'])
+        if token:
+            db.session.delete(token)
+            db.session.commit()
+
+    # Clear session
+    session.clear()
+
+    # Redirect to homepage
+    return redirect(url_for('rero_ils.index'))
