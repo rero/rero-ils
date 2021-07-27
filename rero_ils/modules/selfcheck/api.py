@@ -152,7 +152,7 @@ def patron_status(barcode, **kwargs):
                 language=patron.get('communication_language', 'und'),
                 patron_id=barcode,
                 patron_name=patron.formatted_name,
-                institution_id=patron.library_pid,
+                institution_id=patron.organisation_pid,
                 currency_type=patron.get_organisation().get(
                     'default_currency'),
                 valid_patron=patron.is_patron
@@ -161,7 +161,7 @@ def patron_status(barcode, **kwargs):
             fee_amount = PatronTransaction \
                 .get_transactions_total_amount_for_patron(
                     patron.pid, status='open', with_subscription=False)
-            patron_status_response['fee_amount'] = fee_amount
+            patron_status_response['fee_amount'] = '%.2f' % fee_amount
             return patron_status_response
         else:
             return SelfcheckPatronStatus(
@@ -185,14 +185,18 @@ def patron_information(barcode, **kwargs):
         patron = Patron.get_patron_by_barcode(
             barcode, filter_by_org_pid=institution_id)
         if patron:
+            patron_dumps = patron.dumps()
             patron_account_information = SelfcheckPatronInformation(
                 patron_id=barcode,
                 patron_name=patron.formatted_name,
                 patron_status=get_patron_status(patron),
-                institution_id=patron.library_pid,
-                language=patron.get('communication_language', 'und'),
-                email=patron.get('email'),
-                home_phone=patron.get('phone'),
+                institution_id=patron.organisation_pid,
+                language=patron.get(
+                    'patron', {}).get('communication_language', 'und'),
+                email=patron.get('patron', {}).get(
+                        'additional_communication_email',
+                        patron_dumps.get('email')),
+                home_phone=patron_dumps.get('home_phone'),
                 home_address=format_patron_address(patron),
                 currency_type=patron.get_organisation().get(
                     'default_currency'),
@@ -226,7 +230,7 @@ def patron_information(barcode, **kwargs):
             fee_amount = PatronTransaction \
                 .get_transactions_total_amount_for_patron(
                     patron.pid, status='open', with_subscription=False)
-            patron_account_information['fee_amount'] = fee_amount
+            patron_account_information['fee_amount'] = '%.2f' % fee_amount
             # check for fine items
             if fee_amount > 0:
                 # Check if fine items exist
@@ -304,7 +308,7 @@ def item_information(item_barcode, **kwargs):
                                 loan_pid=loan.pid, status='open')
                         if transaction:
                             item_information['fee_amount'] = \
-                                transaction.total_amount
+                                '%.2f' % transaction.total_amount
                             item_information['currency_type'] = \
                                 transaction.currency
                             item_information.get('screen_messages', []) \
@@ -364,6 +368,7 @@ def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode,
                     if loan:
                         checkout['renewal'] = True
                         checkout['desensitize'] = True
+                        checkout['due_date'] = loan['end_date']
                     else:
                         # do checkout
                         result, data = item.checkout(
@@ -505,7 +510,8 @@ def selfcheck_renew(transaction_user_pid, item_barcode, **kwargs):
                         if transaction:
                             # TODO: map transaction type
                             renew['fee_type'] = SelfcheckFeeType.OVERDUE
-                            renew['fee_amount'] = transaction.total_amount
+                            renew['fee_amount'] = \
+                                '%.2f' % transaction.total_amount
                             renew['currency_type'] = transaction.currency
                         # TODO: When is possible, try to return fields:
                         #       magnetic_media

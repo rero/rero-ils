@@ -83,18 +83,21 @@ def format_patron_address(patron):
     """
     address = patron.get('second_address')
     if address:
-        return '{street}, {postal_code} {city}'.format(
+        formated_address = '{street}, {postal_code} {city}'.format(
             street=address.get('street'),
             postal_code=address.get('postal_code'),
             city=address.get('city')
         )
     else:
         profile = patron.user.profile
-        return '{street}, {postal_code} {city}'.format(
+        formated_address = '{street}, {postal_code} {city}'.format(
             street=profile.street.strip(),
             postal_code=profile.postal_code.strip(),
             city=profile.city.strip()
         )
+    # Should never append, but can be imported from an old system
+    return formated_address.replace(r'\n', ' ').replace(r'\r', ' ')\
+        .replace('\n', ' ').replace('\r', ' ')
 
 
 def get_patron_status(patron):
