@@ -42,7 +42,7 @@
       </div>
       <div class="col-10">
         <dl class="row">
-          {% with data=record[agency], source_name='agency' %}
+          {% with data=record[agency], source_name='agency', source=agency %}
           {% include('rero_ils/_contribution_by_source_data.html') %}
           {% endwith %}
         </dl>

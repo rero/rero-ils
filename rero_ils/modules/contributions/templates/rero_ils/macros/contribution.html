@@ -19,10 +19,10 @@
 
 {% macro dl(name, value, prefix) %}
   {% if value %}
-    <dt class="col-md-3 col-lg-2 rero-ils-term">
+    <dt class="col-md-3 col-lg-3 rero-ils-term">
       {{ name }}:
     </dt>
-    <dd class="col-md-9 col-lg-10">
+    <dd class="col-md-9 col-lg-9">
       {% if value is string %}
         {% if prefix %}
           {{ _(prefix.format(v=value)) }}
@@ -51,25 +51,29 @@
 
 {% macro dl_bool(name, value) %}
   {% if value %}
-    <dt class="col-md-3 col-lg-2 rero-ils-term">
+    <dt class="col-md-3 col-lg-3 rero-ils-term">
       {{ name }}:
     </dt>
-    <dd class="col-md-9 col-lg-10">
+    <dd class="col-md-9 col-lg-9">
       <i class="fa fa-check fa-lg"></i>
     </dd>
   {% endif %}
 {% endmacro %}
 
 {% macro dl_permalink(name, record) %}
-  <dt class="col-md-3 col-lg-2 rero-ils-term">
+  <dt class="col-md-3 col-lg-3 rero-ils-term">
     {{ _(name) }}:
   </dt>
-  <dd class="col-md-9 col-lg-10">
+  <dd class="col-md-9 col-lg-9">
     <ul class="list-unstyled rero-ils-contribution">
       {% for source in config.RERO_ILS_CONTRIBUTIONS_SOURCES %}
         {% if record[source] %}
         <li>
-          <a class="rero-ils-external-link" href="{{ record[source].identifier }}">{{ record[source].pid }}</a>
+          {% if source != 'rero' %}
+            <a href="{{ record[source].identifier }}">{{ record[source].pid }}</a>
+          {% else %}
+            {{ record[source].pid }}
+          {% endif %}
             <small class="badge badge-secondary text-uppercase">{{ source }}</small>
         </li>
         {% endif %}
@@ -78,13 +82,17 @@
   </dd>
 {% endmacro %}
 
-{% macro dl_permalink_by_source(name, data) %}
+{% macro dl_permalink_by_source(name, data, source) %}
   {% if data.pid %}
-    <dt class="col-md-3 col-lg-2 rero-ils-term">
+    <dt class="col-md-3 col-lg-3 rero-ils-term">
       {{ _(name) }}:
     </dt>
-    <dd class="col-md-9 col-lg-10">
-      <a class="rero-ils-external-link" href="{{ data.identifier }}">{{ data.pid }}</a>
+    <dd class="col-md-9 col-lg-9">
+      {% if source != 'rero' %}
+        <a href="{{ data.identifier }}">{{ data.pid }}</a>
+      {% else %}
+        {{ data.pid }}
+      {% endif %}
     </dd>
   {% endif %}
 {% endmacro %}
