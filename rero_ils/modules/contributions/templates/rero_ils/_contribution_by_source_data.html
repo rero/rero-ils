@@ -34,7 +34,7 @@
 {% if data.country_associated %}
   {{ dl(_('Associated country'), data.country_associated|translat('country_')) }}
 {% endif %}
-{{ dl_permalink_by_source(_('ID'), data) }}
+{{ dl_permalink_by_source(_('ID'), data, source) }}
 {{ dl(_('Authorized access point'), data.authorized_access_point) }}
 {{ dl(_('Variant access point'), data.variant_access_point) }}
 {{ dl(_('Parallel access point'), data.parallel_access_point) }}

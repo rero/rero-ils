@@ -69,10 +69,10 @@
   <header class="mb-2">
     <h3>{{ _('Documents') }}</h3>
   </header>
-  <ul class="list-group">
+  <ul class="list-unstyled">
   {% for document in record.documents %}
-    <li class="list-group-item border-0">
-        <a class="font-weight-bold" href="{{ url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=document.pid) }}">{{ document.title | create_title_text }}</a>
+    <li>
+        <a href="{{ url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=document.pid) }}">{{ document.title | create_title_text }}</a>
     </li>
   {% endfor %}
   </ul>
