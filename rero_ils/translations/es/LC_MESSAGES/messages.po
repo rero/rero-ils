@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
-"POT-Creation-Date: 2021-07-22 11:47+0200\n"
+"POT-Creation-Date: 2021-07-29 08:05+0200\n"
 "PO-Revision-Date: 2021-07-22 08:50+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language: es\n"
@@ -4632,7 +4632,7 @@ msgstr "aviso de vencimiento"
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:76
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:148
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:66
-#: rero_ils/modules/selfcheck/api.py:311
+#: rero_ils/modules/selfcheck/api.py:315
 msgid "overdue"
 msgstr "atrasado"
 
@@ -10996,24 +10996,24 @@ msgid "Selfcheck Terminal Management"
 msgstr ""
 
 #: rero_ils/modules/selfcheck/api.py:132 rero_ils/modules/selfcheck/api.py:170
-#: rero_ils/modules/selfcheck/api.py:251
+#: rero_ils/modules/selfcheck/api.py:255
 msgid "Error encountered: patron not found"
 msgstr ""
 
-#: rero_ils/modules/selfcheck/api.py:322
+#: rero_ils/modules/selfcheck/api.py:326
 msgid "Error encountered: item not found"
 msgstr ""
 
-#: rero_ils/modules/selfcheck/api.py:391
+#: rero_ils/modules/selfcheck/api.py:396
 msgid "Checkout impossible: the item is requested by another patron"
 msgstr "Préstamo imposible : el ejemplar es reservado por otro usuario"
 
-#: rero_ils/modules/selfcheck/api.py:395 rero_ils/modules/selfcheck/api.py:454
-#: rero_ils/modules/selfcheck/api.py:518
+#: rero_ils/modules/selfcheck/api.py:400 rero_ils/modules/selfcheck/api.py:459
+#: rero_ils/modules/selfcheck/api.py:524
 msgid "Error encountered: please contact a librarian"
 msgstr "Un error ha occurido: complacer contactar un bibliotecario"
 
-#: rero_ils/modules/selfcheck/api.py:515
+#: rero_ils/modules/selfcheck/api.py:521
 msgid "No circulation action is possible"
 msgstr ""
 
@@ -11302,7 +11302,7 @@ msgstr "Herramientas"
 msgid "Interlibrary loan request"
 msgstr "Solicitud de préstamo interbibliotecario"
 
-#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:81
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:80
 #: rero_ils/theme/views.py:155
 msgid "Help"
 msgstr "Ayuda"
@@ -11384,16 +11384,16 @@ msgstr "Enlace al código fuente de RERO ILS en GitHub, versión actual utilizad
 msgid "Link to the RERO ILS UI code source on GitHub, current used version"
 msgstr "Enlace al código fuente de RERO ILS UI en GitHub, versión actual utilizada"
 
-#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:69
-#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:73
-msgid "Link to the RERO Twitter account"
-msgstr "Enlace a la cuenta de Twitter RERO"
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:68
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:72
+msgid "Link to the RERO+ Twitter account"
+msgstr ""
 
-#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:83
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:82
 msgid "More test logins and documentation is available on the"
 msgstr "Se pueden consultar más logins de test y documentación en"
 
-#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:84
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:83
 msgid "help page"
 msgstr "Página de ayuda"
 
@@ -13004,4 +13004,7 @@ msgstr "Se ha restablecido su contraseña correctamente."
 
 #~ msgid "Should be in the following format: YYYY (2020)."
 #~ msgstr "Debería estar en el siguiente formato: AAAA (2020)."
+
+#~ msgid "Link to the RERO Twitter account"
+#~ msgstr "Enlace a la cuenta de Twitter RERO"
 
