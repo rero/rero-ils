@@ -24,8 +24,9 @@ from functools import wraps
 
 from flask import Blueprint, abort, current_app, jsonify
 from flask import request as flask_request
+from invenio_db import db
 from jinja2.exceptions import TemplateSyntaxError, UndefinedError
-from werkzeug.exceptions import NotFound
+from werkzeug.exceptions import NotFound, Unauthorized
 
 from rero_ils.modules.views import check_authentication
 
@@ -49,7 +50,7 @@ def jsonify_error(func):
     def decorated_view(*args, **kwargs):
         try:
             return func(*args, **kwargs)
-        except NotFound as error:
+        except (Unauthorized, NotFound) as error:
             raise(error)
         except TemplateSyntaxError as error:
             return jsonify({'status': 'error: {error}'.format(
@@ -58,8 +59,10 @@ def jsonify_error(func):
             return jsonify({'status': 'error: {error}'.format(
                 error=error)}), 400
         except Exception as error:
-            raise(error)
+            # uncomment for debug:
+            # raise(errqor)
             current_app.logger.error(str(error))
+            db.session.rollback()
             return jsonify({'status': 'error: {error}'.format(
                 error=error)}), 500
     return decorated_view
