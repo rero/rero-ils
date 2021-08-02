@@ -159,8 +159,9 @@ def can_be_requested(loan):
     if patron.patron.get('blocked', False):
         return False
 
-    # 2) Check if location allows request
-    location = Location.get_record_by_pid(loan.location_pid)
+    # 2) Check if owning location allows request
+    location_pid = Item.get_record_by_pid(loan.item_pid).holding_location_pid
+    location = Location.get_record_by_pid(location_pid)
     if not location or not location.get('allow_request'):
         return False
 

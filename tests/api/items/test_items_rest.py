@@ -907,6 +907,65 @@ def test_patron_request(client, patron_martigny, loc_public_martigny,
         )
     )
     assert res.status_code == 200
+    loan_pid = data.get('action_applied')[LoanAction.REQUEST].get('pid')
+    params = {
+        'pid': loan_pid,
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': patron_martigny.pid
+    }
+    item_lib_martigny.cancel_item_request(**params)
+
+
+def test_requests_with_different_locations(
+    client, patron_martigny, librarian_saxon, loc_public_saxon,
+    loc_public_martigny, item_lib_martigny, circulation_policies, lib_saxon
+):
+    """Test patron and librarian request with different locations."""
+    login_user_via_session(client, patron_martigny.user)
+    loc_public_saxon['allow_request'] = False
+    loc_public_saxon.update(loc_public_saxon, True, True)
+    res, data = postdata(
+        client,
+        'api_item.patron_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pickup_location_pid=loc_public_saxon.pid
+        )
+    )
+    assert res.status_code == 200
+
+    loan_pid = data.get('action_applied')[LoanAction.REQUEST].get('pid')
+    params = {
+        'pid': loan_pid,
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': patron_martigny.pid
+    }
+    item_lib_martigny.cancel_item_request(**params)
+
+    login_user_via_session(client, librarian_saxon.user)
+    res, data = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            patron_pid=patron_martigny.pid,
+            pickup_location_pid=loc_public_martigny.pid,
+            transaction_library_pid=lib_saxon.pid,
+            transaction_user_pid=librarian_saxon.pid
+        )
+    )
+    assert res.status_code == 200
+
+    loan_pid = data.get('action_applied')[LoanAction.REQUEST].get('pid')
+    params = {
+        'pid': loan_pid,
+        'transaction_location_pid': loc_public_saxon.pid,
+        'transaction_user_pid': librarian_saxon.pid
+    }
+    item_lib_martigny.cancel_item_request(**params)
+
+    loc_public_saxon['allow_request'] = True
+    loc_public_saxon.update(loc_public_saxon, True, True)
 
 
 def test_item_possible_actions(client, item_lib_martigny,

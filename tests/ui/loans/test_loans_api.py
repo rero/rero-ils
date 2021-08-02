@@ -30,7 +30,7 @@ from utils import flush_index, get_mapping
 
 from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE
 from rero_ils.modules.libraries.api import Library
-from rero_ils.modules.loans.api import Loan, LoanState, get_loans_by_patron_pid
+from rero_ils.modules.loans.api import Loan, LoanState
 from rero_ils.modules.loans.tasks import loan_anonymizer
 from rero_ils.modules.loans.utils import get_circ_policy, \
     get_default_loan_duration, sum_for_fees
@@ -52,22 +52,28 @@ def test_loans_create(loan_pending_martigny):
     assert loan_pending_martigny.get('state') == LoanState.PENDING
 
 
-def test_item_loans_elements(
-        loan_pending_martigny, item_lib_fully, circ_policy_default_martigny):
-    """Test loan elements."""
-    assert loan_pending_martigny.item_pid == item_lib_fully.pid
-    loan = list(get_loans_by_patron_pid(loan_pending_martigny.patron_pid))[0]
-    assert loan.pid == loan_pending_martigny.get('pid')
+def test_item_loans_default_duration(
+        item_lib_martigny, librarian_martigny, patron_martigny,
+        loc_public_martigny, circulation_policies):
+    """Test default loan duration."""
 
-    new_loan = deepcopy(loan_pending_martigny)
+    item, actions = item_lib_martigny.request(
+        pickup_location_pid=loc_public_martigny.pid,
+        patron_pid=patron_martigny.pid,
+        transaction_location_pid=loc_public_martigny.pid,
+        transaction_user_pid=librarian_martigny.pid
+    )
+    loan_pid = actions['request']['pid']
+    loan = Loan.get_record_by_pid(loan_pid)
+    new_loan = deepcopy(loan)
     del new_loan['transaction_location_pid']
     assert get_default_loan_duration(new_loan, None) == \
-        get_default_loan_duration(loan_pending_martigny, None)
-
-    assert item_lib_fully.last_location_pid == item_lib_fully.location_pid
-    del circ_policy_default_martigny['checkout_duration']
-    circ_policy_default_martigny.update(
-        circ_policy_default_martigny, dbcommit=True, reindex=True)
+        get_default_loan_duration(loan, None)
+    item_lib_martigny.cancel_item_request(
+        pid=loan.pid,
+        transaction_location_pid=loc_public_martigny.pid,
+        transaction_user_pid=librarian_martigny.pid
+    )
 
 
 def test_is_due_soon(
