@@ -47,7 +47,7 @@ jobs:
       run: |
         poetry run bootstrap --ci
         poetry install --no-root --extras sip2
-        poetry run pip install --upgrade coveralls
+        pip install --upgrade coveralls
 
     - name: Bootstrap deploy
       if: ${{ matrix.dependencies == 'deploy' }}
@@ -77,4 +77,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_SERVICE_NAME: github
       run: |
-          poetry run coveralls
+          coveralls
