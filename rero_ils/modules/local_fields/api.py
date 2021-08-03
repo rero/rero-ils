@@ -66,6 +66,20 @@ class LocalField(IlsRecord):
 
     def extended_validation(self, **kwargs):
         """Extended validation."""
+        # check if a local_fields resource exists for this document
+        type = extracted_data_from_ref(self.get('parent'), data='resource')
+        document_pid = extracted_data_from_ref(self.get('parent'))
+        organisation_pid = extracted_data_from_ref(self.get('organisation'))
+        count = LocalFieldsSearch()\
+            .filter('term', parent__type=type)\
+            .filter('term', parent__pid=document_pid)\
+            .filter('term', organisation__pid=organisation_pid)\
+            .filter('bool', must_not=[Q('term', pid=self['pid'])])\
+            .count()
+        if count > 0:
+            return _('Local fields already exist for this document.')
+
+        # check if all fields are empty.
         if len(self.get('fields', {}).keys()) == 0:
             return _('Missing fields.')
         return True
@@ -79,8 +93,6 @@ class LocalField(IlsRecord):
         :param organisation_pid: current organisation pid.
         :return: list of local fields record.
         """
-        from .api import LocalFieldsSearch
-
         queryFilters = [
             Q('term', parent__type=type),
             Q('term', parent__pid=pid)
