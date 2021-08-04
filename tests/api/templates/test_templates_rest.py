@@ -207,12 +207,16 @@ def test_template_secure_api_create(client, json_header,
     post_entrypoint = 'invenio_records_rest.tmpl_list'
 
     del templ_doc_public_martigny_data['pid']
+    # add a pid to the record data
+    templ_doc_public_martigny_data['data']['pid'] = 'toto'
     res, _ = postdata(
         client,
         post_entrypoint,
         templ_doc_public_martigny_data
     )
     assert res.status_code == 201
+    # ensure that pid is removed from recordds
+    assert 'pid' not in res.json['metadata']['data']
 
     # Sion
     login_user_via_session(client, system_librarian_sion.user)
@@ -251,12 +255,15 @@ def test_template_secure_api_update(client,
     login_user_via_session(client, librarian_martigny.user)
     data = templ_doc_private_martigny_data
     data['name'] = 'Test Name'
+    data['data']['pid'] = 'toto'
     res = client.put(
         record_url,
         data=json.dumps(data),
         headers=json_header
     )
     assert res.status_code == 200
+    # ensure that pid is removed from recordds
+    assert 'pid' not in res.json['metadata']['data']
 
     data = templ_doc_private_martigny_data
     data['visibility'] = 'public'
