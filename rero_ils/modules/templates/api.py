@@ -20,6 +20,7 @@
 
 from functools import partial
 
+from .extensions import RemoveDataPidExtension
 from .models import TemplateIdentifier, TemplateMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
@@ -55,6 +56,8 @@ class TemplatesSearch(IlsRecordsSearch):
 
 class Template(IlsRecord):
     """Templates class."""
+
+    _extensions = [RemoveDataPidExtension()]
 
     minter = template_id_minter
     fetcher = template_id_fetcher
