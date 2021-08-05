@@ -252,3 +252,16 @@ def test_items_availability(item_type_missing_martigny,
 
     # delete the created item
     item.delete()
+
+
+def test_get_number_of_loans_with_fees(patron_transaction_overdue_saxon):
+    """Test for number loans with fees."""
+    pttr = patron_transaction_overdue_saxon
+    loan = pttr.loan
+    item = Item.get_record_by_pid(loan.item_pid)
+    assert item.get_number_of_loans_with_fees() == 1
+
+    pttr['status'] = 'closed'
+    pttr['total_amount'] = 0
+    pttr = pttr.update(pttr, reindex=True, dbcommit=True)
+    assert item.get_number_of_loans_with_fees() == 0

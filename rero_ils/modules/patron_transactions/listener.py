@@ -42,3 +42,7 @@ def enrich_patron_transaction_data(sender, json=None, record=None, index=None,
                 'pid': record.library_pid,
                 'type': 'libraries'
             }
+            json['item'] = {
+                'pid': record.loan.item_pid,
+                'type': 'items'
+            }
