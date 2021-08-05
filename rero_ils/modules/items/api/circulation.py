@@ -32,6 +32,8 @@ from invenio_pidstore.errors import PersistentIdentifierError
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_search import current_search
 
+from rero_ils.modules.patron_transactions.api import PatronTransactionsSearch
+
 from .record import ItemRecord
 from ..decorators import add_action_parameters_and_flush_indexes, \
     check_operation_allowed
@@ -1163,6 +1165,14 @@ class ItemCirculation(ItemRecord):
                 LoanState.CANCELLED,
                 LoanState.ITEM_RETURNED,
             ]).source().count()
+
+    def get_number_of_loans_with_fees(self):
+        """Get number of loans with fees."""
+        return PatronTransactionsSearch()\
+            .filter('term', item__pid=self.pid)\
+            .filter('term', status='open')\
+            .filter('range', total_amount={'gt': 0})\
+            .count()
 
     def get_requests(self, sort_by=None, count=False):
         """Return sorted pending, item_on_transit, item_at_desk loans.

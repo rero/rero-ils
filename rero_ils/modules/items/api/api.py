@@ -94,6 +94,9 @@ class Item(ItemCirculation, ItemIssue):
         loans = self.get_number_of_loans()
         if loans:
             links['loans'] = loans
+        fees = self.get_number_of_loans_with_fees()
+        if fees:
+            links['fees'] = fees
         return links
 
     def reasons_not_to_delete(self):

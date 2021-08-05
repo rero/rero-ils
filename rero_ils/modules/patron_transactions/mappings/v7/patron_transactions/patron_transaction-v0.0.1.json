@@ -81,6 +81,16 @@
           }
         }
       },
+      "item": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "pid": {
+            "type": "keyword"
+          }
+        }
+      },
       "total_amount": {
         "type": "float"
       },
