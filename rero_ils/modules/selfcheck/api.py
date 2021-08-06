@@ -18,6 +18,8 @@
 
 """Selfcheck API."""
 
+from datetime import datetime, timezone
+
 from flask import current_app
 from flask_babelex import gettext as _
 from invenio_circulation.errors import ItemNotAvailableError
@@ -361,14 +363,23 @@ def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode,
                     language = kwargs.get('language', current_app.config
                                           .get('BABEL_DEFAULT_LANGUAGE'))
                     ctx.babel_locale = language
-                    # check if item is already checked out by the patron
-                    loan = get_loans_by_item_pid_by_patron_pid(
-                        item_pid=item.pid, patron_pid=patron.pid,
-                        filter_states=[LoanState.ITEM_ON_LOAN])
-                    if loan:
-                        checkout['renewal'] = True
-                        checkout['desensitize'] = True
-                        checkout['due_date'] = loan['end_date']
+                    # check if item is already checked out or requested
+                    if item.item_has_active_loan_or_request():
+                        # check if item is already checked out by the current
+                        # patron
+                        loan = get_loans_by_item_pid_by_patron_pid(
+                            item_pid=item.pid, patron_pid=patron.pid,
+                            filter_states=[LoanState.ITEM_ON_LOAN])
+                        if loan:
+                            checkout['renewal'] = True
+                            checkout['desensitize'] = True
+                            checkout['due_date'] = loan['end_date']
+                        else:
+                            # the due date is a required field from sip2
+                            checkout['due_date'] = datetime.now(timezone.utc)
+                        checkout.get('screen_messages', []).append(
+                            _('Item is already checked-out or requested by '
+                              'patron.'))
                     else:
                         # do checkout
                         result, data = item.checkout(

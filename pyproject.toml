@@ -71,7 +71,7 @@ invenio-logging = { version = ">=1.3.0,<1.4.0", extras = ["sentry-sdk", "sentry"
 python-dotenv = ">=0.13.0"
 
 ## Third party optional modules used by RERO ILS
-invenio-sip2 = {git = "https://github.com/inveniosoftware-contrib/invenio-sip2.git", rev = "v0.6.7", optional = true}
+invenio-sip2 = {git = "https://github.com/inveniosoftware-contrib/invenio-sip2.git", optional = true}
 flask-cors = ">3.0.8"
 # TODO: change back to: celery = ">=5.0.0" after
 # `unexpected keyword argument 'ignore_result'` is solved in version 5.0.6
