@@ -22,6 +22,7 @@ from __future__ import absolute_import, print_function
 import jinja2
 from flask import Blueprint
 from flask_bootstrap import Bootstrap
+from flask_login.signals import user_loaded_from_cookie, user_logged_in
 from flask_wiki import Wiki
 from invenio_circulation.signals import loan_state_changed
 from invenio_indexer.signals import before_record_index
@@ -57,6 +58,7 @@ from .patrons.listener import create_subscription_patron_transaction, \
 from .sru.views import SRUDocumentsSearch
 from .templates.listener import prepare_template_data
 from .users.views import UsersCreateResource, UsersResource
+from .utils import set_user_name
 from ..filter import empty_data, format_date_filter, jsondumps, node_assets, \
     text_to_id, to_pretty_json
 
@@ -215,3 +217,7 @@ class REROILSAPP(object):
 
         # invenio-userprofiles signal
         after_profile_update.connect(update_from_profile)
+
+        # store the username in the session
+        user_logged_in.connect(set_user_name)
+        user_loaded_from_cookie.connect(set_user_name)

@@ -33,7 +33,8 @@ import pytz
 import requests
 import sqlalchemy
 from dateutil import parser
-from flask import current_app
+from flask import current_app, session
+from flask_login import current_user
 from invenio_cache.proxies import current_cache
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records_rest.utils import obj_or_import_string
@@ -1032,3 +1033,20 @@ class JsonWriter(object):
     def close(self):
         """Close file."""
         self.__del__()
+
+
+def set_user_name(sender, user):
+    """Set the username in the current flask session."""
+    from .patrons.api import current_librarian, current_patrons
+    user_name = None
+    if current_librarian:
+        user_name = current_librarian.formatted_name
+    elif current_patrons:
+        user_name = current_patrons[0].formatted_name
+    else:
+        try:
+            user_name = current_user.email
+        # AnonymousUser
+        except AttributeError:
+            pass
+    session['user_name'] = user_name
