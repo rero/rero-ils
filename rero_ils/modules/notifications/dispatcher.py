@@ -183,6 +183,10 @@ class Dispatcher:
                             request_loan['patron_pid'])
                         ctx_data['request_patron'] = \
                             request_patron.replace_refs().dumps()
+                        pickup_location = Location.get_record_by_pid(
+                            request_loan['pickup_location_pid'])
+                        ctx_data['request_pickup_name'] = \
+                            pickup_location['pickup_name']
                     documents_data['item'] = {
                         'barcode': item_data['barcode']
                     }

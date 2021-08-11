@@ -10,7 +10,7 @@ Call number: {% if document.item.call_number %}{{ document.item.call_number }}{%
 {%- if document.item.call_number and document.item.second_call_number %} / {{ document.item.second_call_number }}{%-endif %}
 {%- endif %}
 {% endif %}
-Pick up location: {{ pickup_name }}
+Pick up location: {{ request_pickup_name }}
 Patron: {{ request_patron.first_name }} {{ request_patron.last_name }}
 {%- if request_patron.patron.barcode %} - {% for barcode in request_patron.patron.barcode %}{{ ', ' if not loop.last else '' }}{{ barcode }}{% endfor %}
 {%- endif %}
