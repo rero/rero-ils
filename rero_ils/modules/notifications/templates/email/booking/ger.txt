@@ -10,7 +10,7 @@ Signatur: {% if document.item.call_number %}{{ document.item.call_number }}{% en
 {%- if document.item.call_number and document.item.second_call_number %} / {{ document.item.second_call_number }}{%-endif %}
 {%- endif %}
 {% endif %}
-Abholort: {{ pickup_name }}
+Abholort: {{ request_pickup_name }}
 Leser: {{ request_patron.first_name }} {{ request_patron.last_name }}
 {%- if request_patron.patron.barcode %} - {% for barcode in request_patron.patron.barcode %}{{ ', ' if not loop.last else '' }}{{ barcode }}{% endfor %}
 {%- endif %}

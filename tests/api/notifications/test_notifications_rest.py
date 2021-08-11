@@ -27,6 +27,7 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
     postdata, to_relative_url
 
+from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.libraries.api import email_notification_type
 from rero_ils.modules.loans.api import Loan, LoanAction, LoanState
 from rero_ils.modules.notifications.api import Notification, \
@@ -782,6 +783,114 @@ def test_request_notifications(client, patron_martigny, patron_sion,
     )
     assert res.status_code == 200
     mailbox.clear()
+
+
+def test_multiple_request_booking_notifications(
+    client,
+    patron_martigny, patron2_martigny, patron4_martigny,
+    librarian_martigny, librarian_sion, librarian_saxon,
+    loc_public_martigny, loc_public_sion, loc_public_saxon,
+    lib_martigny, lib_sion, lib_saxon,
+    item_lib_martigny, circulation_policies, mailbox
+):
+    """Test multiple requests booking notifications."""
+    # request 1
+    login_user_via_session(client, librarian_martigny.user)
+    res, data = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pickup_location_pid=loc_public_martigny.pid,
+            patron_pid=patron_martigny.pid,
+            transaction_library_pid=lib_martigny.pid,
+            transaction_user_pid=librarian_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+    # request 2
+    login_user_via_session(client, librarian_sion.user)
+    res, data = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pickup_location_pid=loc_public_sion.pid,
+            patron_pid=patron2_martigny.pid,
+            transaction_library_pid=lib_sion.pid,
+            transaction_user_pid=librarian_sion.pid
+        )
+    )
+    assert res.status_code == 200
+    # request 3
+    login_user_via_session(client, librarian_saxon.user)
+    res, data = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pickup_location_pid=loc_public_saxon.pid,
+            patron_pid=patron4_martigny.pid,
+            transaction_library_pid=lib_saxon.pid,
+            transaction_user_pid=librarian_saxon.pid
+        )
+    )
+    assert res.status_code == 200
+
+    # checkout for patron1
+    params = {
+        'patron_pid': patron_martigny.pid,
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny.pid
+    }
+    loan, actions = item_lib_martigny.checkout(**params)
+    assert actions.get(LoanAction.CHECKOUT)
+    assert f'Lieu de retrait: {loc_public_martigny.get("code")}'\
+        in mailbox[-1].body
+    params = {
+        'transaction_location_pid': loc_public_sion.pid,
+        'transaction_user_pid': librarian_sion.pid
+    }
+    # checkin at the request pickup of patron2
+    _, actions = item_lib_martigny.checkin(**params)
+    assert actions.get(LoanAction.CHECKIN)
+    assert f'Lieu de retrait: {loc_public_sion.get("code")}'\
+        in mailbox[-1].body
+
+    # checkout for patron2
+    params = {
+        'patron_pid': patron2_martigny.pid,
+        'transaction_location_pid': loc_public_sion.pid,
+        'transaction_user_pid': librarian_sion.pid
+    }
+    loan, actions = item_lib_martigny.checkout(**params)
+    assert actions.get(LoanAction.CHECKOUT)
+    params = {
+        'transaction_location_pid': loc_public_saxon.pid,
+        'transaction_user_pid': librarian_saxon.pid
+    }
+    # checkin at the request pickup of patron3
+    _, actions = item_lib_martigny.checkin(**params)
+    assert actions.get(LoanAction.CHECKIN)
+    assert f'Lieu de retrait: {loc_public_saxon.get("code")}'\
+        in mailbox[-1].body
+
+    # checkout for patron3
+    params = {
+        'patron_pid': patron4_martigny.pid,
+        'transaction_location_pid': loc_public_saxon.pid,
+        'transaction_user_pid': librarian_saxon.pid
+    }
+    loan, actions = item_lib_martigny.checkout(**params)
+    assert actions.get(LoanAction.CHECKOUT)
+    params = {
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny.pid
+    }
+    # checkin at the request pickup of patron3
+    _, actions = item_lib_martigny.checkin(**params)
+    assert actions.get(LoanAction.CHECKIN)
+    assert item_lib_martigny.status == ItemStatus.ON_SHELF
 
 
 def test_booking_notifications(client, patron_martigny, patron_sion,
