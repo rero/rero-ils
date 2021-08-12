@@ -401,7 +401,8 @@ class Holding(IlsRecord):
             if not_deleteable_items:
                 count = len(not_deleteable_items)
                 cannot_delete['others'] = {
-                    _(f'has {count} items with loan attached'): count}
+                    _('has {count} items with loan attached'.format(
+                        count=count)): count}
         else:
             links = self.get_links_to_me()
             if links:

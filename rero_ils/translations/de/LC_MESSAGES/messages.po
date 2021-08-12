@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
-"POT-Creation-Date: 2021-07-29 08:05+0200\n"
+"POT-Creation-Date: 2021-08-12 10:16+0200\n"
 "PO-Revision-Date: 2021-07-22 08:50+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language: de\n"
@@ -300,6 +300,47 @@ msgstr "Bestellung"
 #: rero_ils/manual_translations.txt:56
 msgid "validate_request"
 msgstr "Validierung der Bestellung"
+
+#: rero_ils/manual_translations.txt:59
+msgid "Tools"
+msgstr "Werkzeuge"
+
+#: rero_ils/manual_translations.txt:60
+msgid "Interlibrary loan request"
+msgstr "Fernleihbestellung"
+
+#: rero_ils/manual_translations.txt:61
+#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:80
+msgid "Help"
+msgstr "Hilfe"
+
+#: rero_ils/manual_translations.txt:62
+msgid "Login"
+msgstr "Login"
+
+#: rero_ils/manual_translations.txt:63
+msgid "Professional interface"
+msgstr "Professionelle Oberfläche"
+
+#: rero_ils/manual_translations.txt:64
+msgid "Logout"
+msgstr "Abmelden"
+
+#: rero_ils/manual_translations.txt:65
+msgid "Edit my profile"
+msgstr "Mein Profil bearbeiten"
+
+#: rero_ils/manual_translations.txt:66
+msgid "Change password"
+msgstr "Passwort ändern"
+
+#: rero_ils/manual_translations.txt:67
+#: rero_ils/theme/templates/rero_ils/forgot_password.html:52
+#: rero_ils/theme/templates/rero_ils/login_user.html:53
+#: rero_ils/theme/templates/rero_ils/register_user.html:45
+#: rero_ils/theme/templates/rero_ils/reset_password.html:47
+msgid "Sign Up"
+msgstr "Registrieren"
 
 #: rero_ils/jsonschemas/common/cantons-v0.0.1.json:3
 msgid "Cantons"
@@ -4632,7 +4673,7 @@ msgstr "Ablauf der Ausleihfrist"
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:76
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:148
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:66
-#: rero_ils/modules/selfcheck/api.py:315
+#: rero_ils/modules/selfcheck/api.py:317
 msgid "overdue"
 msgstr "Mahnung"
 
@@ -4760,7 +4801,6 @@ msgid "Item type URI"
 msgstr "URI des Exemplartypen"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:4
-#: rero_ils/theme/views.py:142
 msgid "Exhibition/course"
 msgstr "Ausstellung/Kurs"
 
@@ -5077,39 +5117,39 @@ msgstr "Themen (importiert)"
 msgid "Subject from imported bibliographic data"
 msgstr "Thema aus importierten bibliografischen Daten"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:255
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:258
 msgid "Genres, forms (imported)"
 msgstr "Gattungen, Formen (importiert)"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:256
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:259
 msgid "Genre of form from imported bibliographic data"
 msgstr "Genre oder Form aus importierten bibliografischen Daten"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:276
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:282
 msgid "Harvested"
 msgstr "Gesammelt"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:277
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:283
 msgid "Document is harvested or not, will disable record edition or similar."
 msgstr ""
 "Dokument wird gesammelt oder nicht ; dies deaktiviert die Bearbeitung der"
 " Ressource."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:282
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:288
 msgid "Draft"
 msgstr "Entwurf"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:283
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:289
 msgid "Document is a draft record or not, will disable record validation."
 msgstr "Wenn das Dokument ein Entwurf ist, wird die Datenvalidierung deaktiviert."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:295
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:301
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:968
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:746
 msgid "Masked"
 msgstr "Ausgeblendet"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:297
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:303
 msgid ""
 "A masked document is visible in the professional interface, but not in "
 "the public interface."
@@ -6533,7 +6573,7 @@ msgstr "Copyright-Daten"
 msgid "Copyright date"
 msgstr "Copyright-Datum"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_copyright_date-v0.0.1.json:12
+#: rero_ils/modules/documents/jsonschemas/documents/document_copyright_date-v0.0.1.json:11
 msgid "Example: \\u00a9 2010"
 msgstr "Beispiel: \\u00a9 2010"
 
@@ -8139,11 +8179,11 @@ msgstr "Bevorzugter Name"
 msgid "Source of the subject."
 msgstr "Quelle des Themas."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:346
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:345
 msgid "Factum"
 msgstr "Factum"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:350
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:349
 msgid "RAMEAU proposal"
 msgstr "RAMEAU-Vorschlag"
 
@@ -8746,6 +8786,10 @@ msgstr "{field} ist nur für Serien-Bestände erlaubt"
 #: rero_ils/modules/items/api/record.py:81
 msgid "Can not have multiple notes of same type."
 msgstr "Muss nicht mehrere Noten des gleichen Typen enthalten."
+
+#: rero_ils/modules/holdings/api.py:404
+msgid "has {count} items with loan attached"
+msgstr ""
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:4
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:467
@@ -9613,6 +9657,7 @@ msgid "Item and patron are not in the same organisation."
 msgstr "Exemplar und Leser sind nicht in der gleichen Organisation."
 
 #: rero_ils/modules/items/api/circulation.py:1018
+#: rero_ils/modules/selfcheck/api.py:381
 msgid "Item is already checked-out or requested by patron."
 msgstr "Das Exemplar ist bereits von diesem Leser ausgeliehen oder bestellt."
 
@@ -10049,7 +10094,11 @@ msgstr ""
 "Der Name der expliziten Aktion, die den Wechsel zum aktuellen Zustand "
 "ausgelöst hat"
 
-#: rero_ils/modules/local_fields/api.py:70
+#: rero_ils/modules/local_fields/api.py:80
+msgid "Local fields already exist for this document."
+msgstr ""
+
+#: rero_ils/modules/local_fields/api.py:84
 msgid "Missing fields."
 msgstr "Fehlende Felder."
 
@@ -11048,25 +11097,25 @@ msgstr "Die öffentliche Anmerkung ist für den Benutzer in seinem Konto sichtba
 msgid "Selfcheck Terminal Management"
 msgstr "Verwaltung der Selbstverbuchungsautomaten"
 
-#: rero_ils/modules/selfcheck/api.py:132 rero_ils/modules/selfcheck/api.py:170
-#: rero_ils/modules/selfcheck/api.py:255
+#: rero_ils/modules/selfcheck/api.py:134 rero_ils/modules/selfcheck/api.py:172
+#: rero_ils/modules/selfcheck/api.py:257
 msgid "Error encountered: patron not found"
 msgstr "Fehler aufgetreten: Leser nicht gefunden"
 
-#: rero_ils/modules/selfcheck/api.py:326
+#: rero_ils/modules/selfcheck/api.py:328
 msgid "Error encountered: item not found"
 msgstr "Fehler aufgetreten: Exemplar nicht gefunden"
 
-#: rero_ils/modules/selfcheck/api.py:396
+#: rero_ils/modules/selfcheck/api.py:407
 msgid "Checkout impossible: the item is requested by another patron"
 msgstr "Ausleihe nicht möglich: das Exemplar ist von einem anderen Leser bestellt"
 
-#: rero_ils/modules/selfcheck/api.py:400 rero_ils/modules/selfcheck/api.py:459
-#: rero_ils/modules/selfcheck/api.py:524
+#: rero_ils/modules/selfcheck/api.py:411 rero_ils/modules/selfcheck/api.py:470
+#: rero_ils/modules/selfcheck/api.py:535
 msgid "Error encountered: please contact a librarian"
 msgstr "Fehler aufgetreten: bitte kontaktieren Sie das Bibliothekspersonal"
 
-#: rero_ils/modules/selfcheck/api.py:521
+#: rero_ils/modules/selfcheck/api.py:532
 msgid "No circulation action is possible"
 msgstr "Es ist keine Ausleihsaktion möglich"
 
@@ -11087,7 +11136,6 @@ msgid "Stat ID."
 msgstr "ID der Statistik."
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:26
-#: rero_ils/theme/views.py:119
 msgid "Statistics"
 msgstr "Statistiken"
 
@@ -11339,50 +11387,9 @@ msgstr "Währung"
 msgid "VAT rate"
 msgstr "Mehrwertsteuersatz"
 
-#: rero_ils/theme/views.py:93
-msgid "Tools"
-msgstr "Werkzeuge"
-
-#: rero_ils/theme/views.py:106
-msgid "Interlibrary loan request"
-msgstr "Fernleihbestellung"
-
-#: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:80
-#: rero_ils/theme/views.py:155
-msgid "Help"
-msgstr "Hilfe"
-
-#: rero_ils/theme/views.py:223 rero_ils/theme/views.py:298
+#: rero_ils/theme/menus.py:53 rero_ils/theme/menus.py:54
 msgid "My Account"
 msgstr "Mein Konto"
-
-#: rero_ils/theme/views.py:252
-msgid "Login"
-msgstr "Login"
-
-#: rero_ils/theme/views.py:265
-msgid "Professional interface"
-msgstr "Professionelle Oberfläche"
-
-#: rero_ils/theme/views.py:284
-msgid "Logout"
-msgstr "Abmelden"
-
-#: rero_ils/theme/views.py:311
-msgid "Edit my profile"
-msgstr "Mein Profil bearbeiten"
-
-#: rero_ils/theme/views.py:324
-msgid "Change password"
-msgstr "Passwort ändern"
-
-#: rero_ils/theme/templates/rero_ils/forgot_password.html:52
-#: rero_ils/theme/templates/rero_ils/login_user.html:53
-#: rero_ils/theme/templates/rero_ils/register_user.html:45
-#: rero_ils/theme/templates/rero_ils/reset_password.html:47
-#: rero_ils/theme/views.py:341
-msgid "Sign Up"
-msgstr "Registrieren"
 
 #: rero_ils/theme/templates/rero_ils/_editor_button_actions.html:22
 msgid "JSON"
@@ -11464,11 +11471,11 @@ msgstr "Betreten Sie Ihre Bibliothek"
 msgid "A wealth of knowledge just a click away"
 msgstr "Unendliches Wissen nur einen Klick entfernt"
 
-#: rero_ils/theme/templates/rero_ils/footer.html:21
+#: rero_ils/theme/templates/rero_ils/footer.html:22
 msgid "Developed by"
 msgstr "Entwickelt bei"
 
-#: rero_ils/theme/templates/rero_ils/footer.html:23
+#: rero_ils/theme/templates/rero_ils/footer.html:24
 msgid "using"
 msgstr "unter Verwendung von"
 
@@ -11510,7 +11517,7 @@ msgstr "oder"
 msgid "What are you looking for?"
 msgstr "Was suchen Sie?"
 
-#: rero_ils/theme/templates/rero_ils/header.html:40
+#: rero_ils/theme/templates/rero_ils/header.html:38
 msgid "Search"
 msgstr "Suche"
 
