@@ -18,6 +18,58 @@
 Release notes
 =============
 
+v1.4.7
+------
+
+This note includes the changes of the ``rero-ils-ui`` project [`link`_].
+It fixes various issues:
+
+-  https://github.com/rero/rero-ils/issues/2168 Apparently connected to
+   someone else session
+-  https://github.com/rero/rero-ils/issues/2207 Request list: the wrong
+   pick-up name is displayed
+-  https://github.com/rero/rero-ils/issues/2213 Corporate bodies with
+   subdivision are displayed with quotes and square brackets
+-  https://github.com/rero/rero-ils/issues/2224 Issues become “late” one
+   day too early
+-  https://github.com/rero/rero-ils/issues/2234 Requests for patrons by
+   librarians are impossible with librarian accounts of a specific
+   library
+-  https://github.com/rero/rero-ils/issues/2235 The request date is
+   modified when an action is done on the loan
+-  https://github.com/rero/rero-ils/issues/2248 Selfcheck: fix patron
+   informations
+-  https://github.com/rero/rero-ils/issues/2253 The cancel button of the
+   delete dialog on a detail view returns to an empty document
+-  https://github.com/rero/rero-ils/issues/2257 Some added local fields
+   not displayed in the professional interface
+-  https://github.com/rero/rero-ils/issues/2262 Wrong pick-up location
+   name in the booking notification
+-  https://github.com/rero/rero-ils/issues/2269 A template created from
+   an existing record can’t be used
+-  https://github.com/rero/rero-ils/issues/2212 Wrong default value of
+   ``subject.source`` and ``genreForm.source``
+
+Other improvements (professional interface)
+
+-  Dynamic loading for items informations: when displaying the document
+   detail view, the items are now loaded only if the user expand a
+   holdings
+-  Fixes the document brief view for small screen: on small screen the
+   thumbnail is now displayed next to the metadata and is yet maximised
+   to prevent pixelisation
+-  https://github.com/rero/rero-ils/issues/1720 Delete a holdings with
+   items should be possible
+-  https://github.com/rero/rero-ils/issues/1921 Adapt the field list in
+   quick access in the document editor
+-  https://github.com/rero/rero-ils/issues/2214 Remove validation on
+   field ``copyrightDate``
+-  Detailed view of persons and corporate bodies: removes the link on
+   the RERO identifier, removes the space between documents on the list
+
+Several bug fixes have been added to this patch. Find the comprehensive
+changes in the `changelog`_.
+
 v1.4.6
 ------
 

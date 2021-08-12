@@ -1,5 +1,56 @@
 # Changelog
 
+## [v1.4.7](https://github.com/rero/rero-ils/tree/v1.4.7) (2021-08-12)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.4.6...v1.4.7)
+
+**Implemented enhancements:**
+
+- Adapt the field list in quick access in the document editor [\#1921](https://github.com/rero/rero-ils/issues/1921)
+- Delete a holdings with items should be possible [\#1720](https://github.com/rero/rero-ils/issues/1720)
+- local fields: improve validation [\#2268](https://github.com/rero/rero-ils/pull/2268) ([Garfield-fr](https://github.com/Garfield-fr))
+
+**Fixed bugs:**
+
+- A template created from an existing record can't be used [\#2269](https://github.com/rero/rero-ils/issues/2269)
+- Wrong pick-up location name in the booking notification [\#2262](https://github.com/rero/rero-ils/issues/2262)
+- Some added local fields not displayed in the professional interface [\#2257](https://github.com/rero/rero-ils/issues/2257)
+- The cancel button of the delete dialog on a detail view returns to an empty document [\#2253](https://github.com/rero/rero-ils/issues/2253)
+- The request date is modified when an action is done on the loan [\#2235](https://github.com/rero/rero-ils/issues/2235)
+- Requests for patrons by librarians are impossible with librarian accounts of a specific library [\#2234](https://github.com/rero/rero-ils/issues/2234)
+- Issues become "late" one day too early [\#2224](https://github.com/rero/rero-ils/issues/2224)
+- Corporate bodies with subdivision are displayed with quotes and square brackets [\#2213](https://github.com/rero/rero-ils/issues/2213)
+- Request list: the wrong pick-up name is displayed [\#2207](https://github.com/rero/rero-ils/issues/2207)
+- Apparently connected to someone else session  [\#2168](https://github.com/rero/rero-ils/issues/2168)
+- selfcheck: fix patron informations [\#2248](https://github.com/rero/rero-ils/pull/2248) ([jma](https://github.com/jma))
+
+**Closed issues:**
+
+- Remove validation on field `copyrightDate` [\#2214](https://github.com/rero/rero-ils/issues/2214)
+- Wrong default value of `subject.source` and `genreForm.source` [\#2212](https://github.com/rero/rero-ils/issues/2212)
+
+**Merged pull requests:**
+
+- translations: translate v1.4.7 [\#2293](https://github.com/rero/rero-ils/pull/2293) ([jma](https://github.com/jma))
+- notifications: fix pickup name for booking [\#2290](https://github.com/rero/rero-ils/pull/2290) ([jma](https://github.com/jma))
+- sip2: improve selfcheck checkout [\#2274](https://github.com/rero/rero-ils/pull/2274) ([lauren-d](https://github.com/lauren-d))
+- template: remove pid from template record [\#2270](https://github.com/rero/rero-ils/pull/2270) ([BadrAly](https://github.com/BadrAly))
+- security: update dependencies [\#2261](https://github.com/rero/rero-ils/pull/2261) ([sebastiendeleze](https://github.com/sebastiendeleze))
+- circulation: fix request with different locations [\#2260](https://github.com/rero/rero-ils/pull/2260) ([jma](https://github.com/jma))
+- selfcheck: force the version [\#2250](https://github.com/rero/rero-ils/pull/2250) ([jma](https://github.com/jma))
+- contributions: improve display on detailed view [\#2246](https://github.com/rero/rero-ils/pull/2246) ([Garfield-fr](https://github.com/Garfield-fr))
+- theme: update the demo website frontpage [\#2245](https://github.com/rero/rero-ils/pull/2245) ([iGormilhit](https://github.com/iGormilhit))
+- issues: fix late issue generation. [\#2238](https://github.com/rero/rero-ils/pull/2238) ([zannkukai](https://github.com/zannkukai))
+- document: no default value for `subject.source` [\#2233](https://github.com/rero/rero-ils/pull/2233) ([zannkukai](https://github.com/zannkukai))
+- document: fix corporate bodies subdivision serialization [\#2231](https://github.com/rero/rero-ils/pull/2231) ([zannkukai](https://github.com/zannkukai))
+- document: remove pattern on `copyrightDate` field [\#2230](https://github.com/rero/rero-ils/pull/2230) ([zannkukai](https://github.com/zannkukai))
+- holdings: allow deletion of serials holdings [\#2219](https://github.com/rero/rero-ils/pull/2219) ([rerowep](https://github.com/rerowep))
+- items: fix loans circulation dump [\#2210](https://github.com/rero/rero-ils/pull/2210) ([zannkukai](https://github.com/zannkukai))
+- editor: remove imported fields on quick list [\#2169](https://github.com/rero/rero-ils/pull/2169) ([Garfield-fr](https://github.com/Garfield-fr))
+- design: improve responsive interface [\#2132](https://github.com/rero/rero-ils/pull/2132) ([zannkukai](https://github.com/zannkukai))
+
+# Changelog
+
 ## [v1.4.6](https://github.com/rero/rero-ils/tree/v1.4.6) (2021-07-22)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.4.5...v1.4.6)
