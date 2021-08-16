@@ -6,7 +6,7 @@ Das von Ihnen bestellte Dokument ist nun verfügbar und kann an der Ausleihtheke
 {%- for document in documents %}
 
 Titel : {{ document.title_text }} / {{ document.responsibility_statement }}
-Abholort: {{ pickup_name }}
+Abholort: {{ request_pickup_name }}
 {%- endfor %}
 
 Abholen bis: {{ pickup_library.next_open }}

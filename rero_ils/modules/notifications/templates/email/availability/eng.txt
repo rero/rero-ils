@@ -6,7 +6,7 @@ The document you requested is now available. You can pick it up at the loan desk
 {%- for document in documents %}
 
 Title: {{ document.title_text }} / {{ document.responsibility_statement }}
-Pick up location: {{ pickup_name }}
+Pick up location: {{ request_pickup_name }}
 {%- endfor %}
 
 To pick up until: {{ pickup_library.next_open }}

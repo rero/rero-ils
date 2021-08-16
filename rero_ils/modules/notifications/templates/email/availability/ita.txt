@@ -6,7 +6,7 @@ Il documento che Lei ha domandato è ora disponibile. Lei può ritirarlo al serv
 {%- for document in documents %}
 
 Titolo: {{ document.title_text }} / {{ document.responsibility_statement }}
-Punto di ritiro: {{ pickup_name }}
+Punto di ritiro: {{ request_pickup_name }}
 {%- endfor %}
 
 Ritirare entro: {{ pickup_library.next_open }}
