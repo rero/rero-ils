@@ -6,7 +6,7 @@ Le document que vous avez demandé est maintenant disponible. Vous pouvez venir 
 {%- for document in documents %}
 
 Titre : {{ document.title_text }} / {{ document.responsibility_statement }}
-Lieu de retrait : {{ pickup_name }}
+Lieu de retrait : {{ request_pickup_name }}
 {%- endfor %}
 
 A retirer jusqu'au : {{ pickup_library.next_open }}

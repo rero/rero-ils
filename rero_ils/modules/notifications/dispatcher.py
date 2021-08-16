@@ -163,7 +163,8 @@ class Dispatcher:
                 item_data = loan.get('item')
                 if item_data:
                     if notification_type in [
-                        Notification.BOOKING_NOTIFICATION_TYPE
+                        Notification.BOOKING_NOTIFICATION_TYPE,
+                        Notification.AVAILABILITY_NOTIFICATION_TYPE
                     ]:
                         # get item from the checkin loan
                         item = Item.get_record_by_pid(
