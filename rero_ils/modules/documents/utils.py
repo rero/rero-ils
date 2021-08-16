@@ -472,7 +472,7 @@ def create_authorized_access_point(agent):
     elif agent.get('type') == ContributionType.ORGANISATION:
         subordinate_unit = agent.get('subordinate_unit')
         if subordinate_unit:
-            authorized_access_point += f'''. {', '.join(subordinate_unit)}'''
+            authorized_access_point += f'''. {'. '.join(subordinate_unit)}'''
         conference_data = []
         numbering = agent.get('numbering')
         if numbering:
