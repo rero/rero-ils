@@ -189,10 +189,9 @@ class Notification(IlsRecord):
             base_url = current_app.config.get('RERO_ILS_APP_URL')
             profile_url = f'{base_url}/{view_code}/patrons/profile'
             data['loan']['profile_url'] = profile_url
-
             return data
         except Exception as error:
-            raise(error)
+            raise error
 
     def init_loan(self):
         """Set loan of the notification."""

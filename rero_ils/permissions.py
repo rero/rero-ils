@@ -19,7 +19,7 @@
 
 from functools import wraps
 
-from flask import abort, current_app, redirect, url_for
+from flask import abort, current_app, redirect, request, url_for
 from flask_login import current_user
 from flask_principal import RoleNeed
 from flask_security import login_required, roles_required
@@ -64,11 +64,19 @@ def login_and_librarian():
 
 
 def login_and_patron():
-    """Patron is logged in."""
+    """Patron is logged in.
+
+    :return a tuple with 3 values:
+      * bool: check if the user is connected and has a patron role.
+      * int: the http return code (200, 401, 403).
+      * string: the redirect url to use (optional).
+    """
     if current_user and not current_user.is_authenticated:
-        abort(401)
+        redirect_url = url_for('security.login', next=request.path)
+        return False, 401, redirect_url
     if len(current_patrons) == 0:
-        abort(403)
+        return False, 403, None
+    return True, 200, None
 
 
 def can_access_professional_view(func):
