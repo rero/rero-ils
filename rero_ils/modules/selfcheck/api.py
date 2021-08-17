@@ -22,7 +22,8 @@ from datetime import datetime, timezone
 
 from flask import current_app
 from flask_babelex import gettext as _
-from invenio_circulation.errors import ItemNotAvailableError
+from invenio_circulation.errors import CirculationException, \
+    ItemNotAvailableError
 
 from .models import SelfcheckTerminal
 from .utils import authorize_selfckeck_patron, authorize_selfckeck_terminal, \
@@ -389,7 +390,7 @@ def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode,
                             item_pid=item.pid,
                             selfcheck_terminal_id=str(terminal.id),
                         )
-                        if data[LoanAction.CHECKOUT]:
+                        if LoanAction.CHECKOUT in data:
                             loan = data[LoanAction.CHECKOUT]
                             checkout['checkout'] = True
                             checkout['desensitize'] = True
@@ -406,6 +407,12 @@ def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode,
             checkout.get('screen_messages', []).append(
                 _('Checkout impossible: the item is requested by '
                   'another patron'))
+        except NoCirculationAction as circ_no_action:
+            checkout.get('screen_messages', []).append(
+                _(circ_no_action.description))
+        except CirculationException as circ_err:
+            checkout.get('screen_messages', []).append(
+                _(circ_err.description))
         except Exception:
             checkout.get('screen_messages', []).append(
                 _('Error encountered: please contact a librarian'))
@@ -452,7 +459,7 @@ def selfcheck_checkin(transaction_user_pid, item_barcode, **kwargs):
                         item_pid=item.pid,
                         selfcheck_terminal_id=str(terminal.id),
                     )
-                    if data[LoanAction.CHECKIN]:
+                    if LoanAction.CHECKIN in data:
                         checkin['checkin'] = True
                         checkin['resensitize'] = True
                         if item.get_requests(count=True) > 0:
@@ -465,6 +472,12 @@ def selfcheck_checkin(transaction_user_pid, item_barcode, **kwargs):
                         # TODO: When is possible, try to return fields:
                         #       magnetic_media
                         # TODO: implements `print_line`
+            except NoCirculationAction as circ_no_action:
+                checkin.get('screen_messages', []).append(
+                    _(circ_no_action.description))
+            except CirculationException as circ_err:
+                checkin.get('screen_messages', []).append(
+                    _(circ_err.description))
             except Exception:
                 checkin.get('screen_messages', []).append(
                     _('Error encountered: please contact a librarian'))
@@ -509,7 +522,7 @@ def selfcheck_renew(transaction_user_pid, item_barcode, **kwargs):
                         item_pid=item.pid,
                         selfcheck_terminal_id=str(terminal.id),
                     )
-                    if data[LoanAction.EXTEND]:
+                    if LoanAction.EXTEND in data:
                         loan = data[LoanAction.EXTEND]
                         renew['success'] = True
                         renew['renewal'] = True
@@ -530,6 +543,9 @@ def selfcheck_renew(transaction_user_pid, item_barcode, **kwargs):
             except NoCirculationAction:
                 renew.get('screen_messages', []).append(
                     _('No circulation action is possible'))
+            except CirculationException as circ_err:
+                renew.get('screen_messages', []).append(
+                    _(circ_err.description))
             except Exception:
                 renew.get('screen_messages', []).append(
                     _('Error encountered: please contact a librarian'))
