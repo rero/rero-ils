@@ -79,9 +79,9 @@ def jsonify_error(func):
         try:
             return func(*args, **kwargs)
         except NotFound as error:
-            raise(error)
+            raise error
         except Exception as error:
-            # raise(error)
+            # raise error
             current_app.logger.error(str(error))
             return jsonify({'status': f'error: {error}'}), 500
     return decorated_view
