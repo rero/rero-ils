@@ -324,85 +324,110 @@ class Loan(IlsRecord):
                 ])\
                 .scan()
 
-        def patron_by_pid(patron_pid):
+        def patron_by_pid(pid, known_patrons):
             """Get patron by pid.
 
-            :param patron_pid: the patron pid.
+            :param pid: the patron pid.
+            :param known_patrons: already known patrons.
+            :return the corresponding patron.
             """
-            if patron_pid not in patrons:
-                patrons[patron_pid] = PatronsSearch()\
-                    .filter('term', pid=patron_pid)\
-                    .source(includes=[
-                        'pid', 'first_name', 'last_name', 'patron.barcode'])\
-                    .execute()[0].to_dict()
-            return patrons[patron_pid]
+            fields = ['pid', 'first_name', 'last_name', 'patron.barcode']
+            if pid not in known_patrons:
+                results = PatronsSearch()\
+                    .filter('term', pid=pid)\
+                    .source(includes=fields)\
+                    .execute()
+                hit = next(iter(results or []), None)
+                if hit:
+                    known_patrons[pid] = hit.to_dict()
+            return known_patrons[pid]
 
-        def location_by_pid(location_pid):
+        def location_by_pid(pid, known_locations):
             """Get location by pid.
 
-            :param location_pid: the location pid.
+            :param pid: the location pid.
+            :param known_locations: already known locations.
+            :return the corresponding location.
             """
             fields = ['pid', 'name', 'library', 'pickup_name']
-            if location_pid not in locations:
-                data = LocationsSearch()\
-                    .filter('term', pid=location_pid)\
+            if pid not in known_locations:
+                results = LocationsSearch()\
+                    .filter('term', pid=pid)\
                     .source(includes=fields)\
-                    .execute()[0].to_dict()
-                data = {k: v for k, v in data.items() if v}
-                locations[location_pid] = data
-            return locations[location_pid]
+                    .execute()
+                hit = next(iter(results or []), None)
+                if hit:
+                    data = hit.to_dict()
+                    known_locations[pid] = {k: v for k, v in data.items() if v}
+            return known_locations[pid]
 
-        def library_name_by_pid(library_pid):
+        def library_name_by_pid(pid, known_libraries):
             """Get library name by pid.
 
-            :param library_pid: the library pid.
+            :param pid: the library pid.
+            :param known_libraries: already known libraries.
+            :return the corresponding library.
             """
-            if library_pid not in libraries:
-                libraries[library_pid] = LibrariesSearch()\
-                    .filter('term', pid=library_pid)\
+            if pid not in known_libraries:
+                results = LibrariesSearch()\
+                    .filter('term', pid=pid)\
                     .source(includes='name')\
-                    .execute()[0].to_dict()['name']
-            return libraries[library_pid]
+                    .execute()
+                hit = next(iter(results or []), None)
+                if hit:
+                    known_libraries[pid] = hit.name
+            return known_libraries[pid]
 
-        def holding_by_pid(holding_pid):
+        def holding_by_pid(pid, known_holdings):
             """Get holdings by pid.
 
-            :param holding_pid: the holdings pid.
+            :param pid: the holdings pid.
+            :param known_holdings: already known holdings.
+            :return the corresponding holdings.
             """
             from ..holdings.api import HoldingsSearch
-            if holding_pid not in holdings:
-                holdings[holding_pid] = HoldingsSearch()\
-                    .filter('term', pid=library_pid)\
+            if pid not in known_holdings:
+                results = HoldingsSearch()\
+                    .filter('term', pid=pid)\
                     .source(includes='call_number')\
-                    .execute()[0].to_dict()
-            return holdings[holding_pid]
+                    .execute()
+                hit = next(iter(results or []), None)
+                if hit:
+                    known_holdings[pid] = hit.to_dict()
+            return known_holdings[pid]
 
-        def item_by_pid(item_pid):
+        def item_by_pid(pid, known_items):
             """Get item by pid.
 
-            :param item_pid: the item pid.
+            :param pid: the item pid.
+            :param known_items: already known items.
+            :return the corresponding item.
             """
-            if item_pid not in items:
-                items[item_pid] = ItemsSearch()\
-                    .filter('term', pid=item_pid)\
+            fields = ['pid', 'barcode', 'call_number', 'library', 'location',
+                      'temporary_item_type', 'holding']
+            if pid not in known_items:
+                results = ItemsSearch()\
+                    .filter('term', pid=pid)\
                     .filter('term', status=ItemStatus.ON_SHELF)\
-                    .source(includes=[
-                        'pid', 'barcode', 'call_number', 'library',
-                        'location', 'temporary_item_type', 'holding'
-                    ]).execute()
-            return items[item_pid]
+                    .source(includes=fields)\
+                    .execute()
+                known_items[pid] = next(iter(results or []), None)
+            return known_items[pid]
 
-        def item_type_by_pid(item_type_pid):
+        def item_type_by_pid(pid, known_ittys):
             """Get item type by pid.
 
-            :param item_pid: the item_type pid.
+            :param pid: the item_type pid.
+            :param known_ittys: already known item types
+            :return the corresponding item type
             """
-            if item_type_pid not in item_types:
-                item_types[item_type_pid] = ItemTypesSearch()\
-                    .filter('term', pid=item_type_pid)\
-                    .filter('term', negative_availability=True)\
+            if pid not in known_ittys:
+                results = ItemTypesSearch()\
+                    .filter('term', pid=pid)\
+                    .filter('term', negative_availability=False)\
                     .execute()
-            return item_types[item_type_pid]
+                known_ittys[pid] = next(iter(results or []), None)
+            return known_ittys[pid]
 
         metadata = []
         item_pids = []
@@ -410,38 +435,45 @@ class Loan(IlsRecord):
         loans = loans_pending()
         for loan in loans:
             item_pid = loan['item_pid']['value']
-            item = item_by_pid(item_pid)
+            item = item_by_pid(item_pid, items)
             if item:
                 add = True
-                item = item[0]
                 if 'temporary_item_type' in item:
-                    item_type_pid = item['temporary_item_type']['pid']
-                    item_type = item_type_by_pid(item_type_pid)
-                    if item_type is not None:
-                        add = False
+                    itty_pid = item['temporary_item_type']['pid']
+                    add = item_type_by_pid(itty_pid, item_types) is not None
                 if add and item_pid not in item_pids:
                     item_pids.append(item_pid)
                     item_data = item.to_dict()
                     loan_data = loan.to_dict()
                     if 'call_number' not in item_data:
-                        holding = holding_by_pid(item['holding']['pid'])
+                        holding = holding_by_pid(
+                            item['holding']['pid'],
+                            holdings
+                        )
                         if 'call_number' in holding:
                             item_data['call_number'] = holding['call_number']
                     item_data['library']['name'] = library_name_by_pid(
-                        item_data['library']['pid'])
+                        item_data['library']['pid'],
+                        libraries
+                    )
                     item_data['location']['name'] = location_by_pid(
-                        item_data['location']['pid'])['name']
-                    patron_data = patron_by_pid(loan_data['patron_pid'])
+                        item_data['location']['pid'],
+                        locations
+                    )['name']
+                    patron_data = patron_by_pid(loan_data['patron_pid'],
+                                                patrons)
                     loan_data['patron'] = {
                         'barcode': patron_data['patron']['barcode'],
                         'name': f'{patron_data["first_name"]} '
                                 f'{patron_data["last_name"]}'
                     }
                     loan_data['pickup_location'] = location_by_pid(
-                        loan_data['pickup_location_pid'])
+                        loan_data['pickup_location_pid'], locations)
                     loan_data['pickup_location']['library_name'] = \
                         library_name_by_pid(
-                            loan_data['pickup_location']['library']['pid'])
+                            loan_data['pickup_location']['library']['pid'],
+                            libraries
+                        )
                     metadata.append({
                         'item': item_data,
                         'loan': loan_data
