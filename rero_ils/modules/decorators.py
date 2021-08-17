@@ -19,7 +19,7 @@
 
 from functools import wraps
 
-from flask import jsonify
+from flask import abort, jsonify, redirect
 from flask_login import current_user
 
 from rero_ils.permissions import login_and_librarian, login_and_patron
@@ -41,13 +41,18 @@ def check_logged_as_librarian(fn):
 def check_logged_as_patron(fn):
     """Decorator to check if the current logged user is logged as patron.
 
-    If no user is connected: return 401 (unauthorized)
+    If no user is connected: redirect the user to sign-in page
     If current logged user isn't `patron`: return 403 (forbidden)
     """
     @wraps(fn)
     def wrapper(*args, **kwargs):
-        login_and_patron()
-        return fn(*args, **kwargs)
+        status, code, redirect_url = login_and_patron()
+        if status:
+            return fn(*args, **kwargs)
+        elif redirect_url:
+            return redirect(redirect_url)
+        else:
+            abort(code)
     return wrapper
 
 
