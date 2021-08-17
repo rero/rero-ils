@@ -62,7 +62,7 @@ class StreamArray(list):
 @with_appcontext
 def reindex_items():
     """Reindexing of item."""
-    with click.progressbar(ids, length=Item.count()) as bar:
+    with click.progressbar(Item.get_all_ids(), length=Item.count()) as bar:
         for uuid in bar:
             item = Item.get_record_by_id(uuid)
             item.reindex()

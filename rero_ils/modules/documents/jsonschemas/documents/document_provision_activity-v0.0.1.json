@@ -5,18 +5,7 @@
     "minItems": 1,
     "default": [
       {
-        "type": "bf:Publication",
-        "statement": [
-          {
-            "type": "bf:Place"
-          },
-          {
-            "type": "bf:Agent"
-          },
-          {
-            "type": "Date"
-          }
-        ]
+        "type": "bf:Publication"
       }
     ],
     "items": {

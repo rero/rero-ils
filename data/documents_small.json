@@ -1006,6 +1006,11 @@
           "ctb"
         ]
       }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000001"
+      }
     ]
   },
   {
@@ -1087,6 +1092,11 @@
             "type": "bf:Place"
           }
         ]
+      }
+    ],
+    "frequency": [
+      {
+        "label": "Bimestriel"
       }
     ],
     "type": [
@@ -2555,6 +2565,11 @@
     "dimensions": [
       "23 cm"
     ],
+    "frequency": [
+      {
+        "label": "Trimestriel"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -3835,6 +3850,16 @@
       {
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000009"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000008"
       }
     ]
   },
@@ -5881,6 +5906,11 @@
         "noteType": "general",
         "label": "Beihefte zu: Freiburger altorientalische Studien"
       }
+    ],
+    "supplementTo": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000012"
+      }
     ]
   },
   {
@@ -6737,6 +6767,11 @@
     "dimensions": [
       "21 cm"
     ],
+    "frequency": [
+      {
+        "label": "Bimestriel"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -6798,6 +6833,11 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000014"
       }
     ]
   },
@@ -7625,11 +7665,11 @@
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos11"
+        "value": "target_school_harmos10"
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos10"
+        "value": "target_school_harmos11"
       }
     ],
     "partOf": [
@@ -8987,6 +9027,11 @@
       "Vol. 2 : Reproduction of books III and IV of edition of 1758. - 375 p",
       "Vol. 3 : Translation of the edition of 1758 / by Charles G. Fenwick ; with an introd. by Albert de Lapradelle. - LIX, 398 p"
     ],
+    "reproductionOf": [
+      {
+        "label": "Les deux premiers vol. sont une reprod. de l'\u00e9d. de: Londres, 1758"
+      }
+    ],
     "partOf": [
       {
         "document": {
@@ -9102,6 +9147,11 @@
     ],
     "dimensions": [
       "30 cm"
+    ],
+    "frequency": [
+      {
+        "label": "Viertelj\u00e4hrlich"
+      }
     ],
     "type": [
       {
@@ -9508,6 +9558,11 @@
     ],
     "dimensions": [
       "25 cm"
+    ],
+    "frequency": [
+      {
+        "label": "Annuel"
+      }
     ],
     "type": [
       {
@@ -11029,6 +11084,11 @@
         ]
       }
     ],
+    "reproductionOf": [
+      {
+        "label": "Reprod. de l'\u00e9d. de: 1908-1927"
+      }
+    ],
     "subjects": [
       {
         "type": "bf:Topic",
@@ -12442,8 +12502,8 @@
       "source": "RERO jubmdj"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "86",
     "language": [
@@ -12895,6 +12955,11 @@
           "ctb"
         ]
       }
+    ],
+    "supplementTo": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000027"
+      }
     ]
   },
   {
@@ -13016,8 +13081,8 @@
       "source": "RERO jubmdj"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "213",
     "language": [
@@ -13152,8 +13217,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "16",
     "language": [
@@ -13266,6 +13331,11 @@
         "label": "English Short Title Catalog T126363"
       }
     ],
+    "hasReproduction": [
+      {
+        "label": "Electronic reproduction. Farmington Hills, Mich. : Cengage Gale, 2009. Available via the World Wide Web. Access limited by licensing agreements"
+      }
+    ],
     "subjects_imported": [
       {
         "type": "bf:Topic",
@@ -13306,8 +13376,8 @@
       "source": "RERO jubmdj"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "85",
     "language": [
@@ -13445,8 +13515,8 @@
       "source": "RERO jubmdj"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "165",
     "language": [
@@ -13598,8 +13668,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "53",
     "language": [
@@ -13828,6 +13898,11 @@
     "dimensions": [
       "23 cm"
     ],
+    "frequency": [
+      {
+        "label": "Viertelj\u00e4hrlich"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -13898,8 +13973,8 @@
       "source": "RERO frbcuc"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "232",
     "language": [
@@ -14077,8 +14152,8 @@
       "source": "RERO gecaeg"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "56",
     "language": [
@@ -14223,8 +14298,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "112",
     "language": [
@@ -14349,11 +14424,11 @@
     "intendedAudience": [
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos1"
+        "value": "target_school_harmos2"
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos2"
+        "value": "target_school_harmos1"
       },
       {
         "audienceType": "school_level",
@@ -14380,8 +14455,8 @@
       "source": "RERO frbcuc"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "10",
     "language": [
@@ -14555,8 +14630,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "261",
     "language": [
@@ -15078,8 +15153,8 @@
       "source": "RERO labcur"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "94",
     "language": [
@@ -15272,8 +15347,8 @@
       "source": "RERO gevbpu"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "246",
     "language": [
@@ -15468,6 +15543,11 @@
         ]
       }
     ],
+    "frequency": [
+      {
+        "label": "Semestriel"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -15511,6 +15591,11 @@
           "ctb"
         ]
       }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000029"
+      }
     ]
   },
   {
@@ -15528,8 +15613,8 @@
       "source": "RERO labcud"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "162",
     "language": [
@@ -15720,8 +15805,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "284",
     "language": [
@@ -15940,8 +16025,8 @@
       "source": "RERO geuceh"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "126",
     "language": [
@@ -16105,8 +16190,8 @@
       "source": "RERO gevbge"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "68",
     "language": [
@@ -16272,8 +16357,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "155",
     "language": [
@@ -16374,7 +16459,11 @@
         "place": [
           {
             "country": "sz",
-            "type": "bf:Place"
+            "type": "bf:Place",
+            "identifyBy": {
+              "value": "027418545",
+              "type": "IdRef"
+            }
           }
         ]
       }
@@ -16435,8 +16524,8 @@
       "source": "RERO jubmdj"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "266",
     "language": [
@@ -16588,8 +16677,8 @@
       "source": "RERO vsbcvb"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "206",
     "language": [
@@ -17039,6 +17128,11 @@
         "type": "bf:Place",
         "preferred_name": "Mont-Gel\u00e9 (Suisse, r\u00e9gion, VS)"
       }
+    ],
+    "relatedTo": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000030"
+      }
     ]
   },
   {
@@ -17063,8 +17157,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "258",
     "language": [
@@ -17408,6 +17502,11 @@
           "ctb"
         ]
       }
+    ],
+    "otherPhysicalFormat": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/283"
+      }
     ]
   },
   {
@@ -17531,8 +17630,8 @@
       "source": "RERO labcur"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "42",
     "language": [
@@ -17694,8 +17793,8 @@
       "source": "RERO nebpun"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "286",
     "language": [
@@ -17812,8 +17911,8 @@
       "source": "RERO geular"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "93",
     "language": [
@@ -18090,8 +18189,8 @@
       "source": "RERO vshevv"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "218",
     "language": [
@@ -18314,6 +18413,11 @@
     "dimensions": [
       "22 cm"
     ],
+    "frequency": [
+      {
+        "label": "Trimestriel, puis semi-annuel"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -18355,6 +18459,11 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000033"
       }
     ]
   },
@@ -18558,6 +18667,11 @@
         ]
       }
     ],
+    "frequency": [
+      {
+        "label": "5-13 fois par an"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -18597,6 +18711,11 @@
         "term": "P\u00e9riodiques"
       }
     ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000035"
+      }
+    ],
     "classification": [
       {
         "classificationPortion": "CA/CH 11 d",
@@ -18619,8 +18738,8 @@
       "source": "RERO gecjpj"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "166",
     "language": [
@@ -18784,8 +18903,8 @@
       "source": "RERO nebpun"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "222",
     "language": [
@@ -19110,8 +19229,8 @@
       "source": "RERO jubmdj"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "290",
     "language": [
@@ -19273,8 +19392,8 @@
       "source": "RERO laidap"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "34",
     "language": [
@@ -19483,8 +19602,8 @@
       "source": "RERO jubmdj"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "179",
     "language": [
@@ -19718,8 +19837,8 @@
       "source": "RERO jubmdj"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "171",
     "language": [
@@ -19862,8 +19981,8 @@
       "source": "RERO geulha"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "103",
     "language": [
@@ -20025,8 +20144,8 @@
       "source": "RERO geulit"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "236",
     "language": [
@@ -20210,8 +20329,8 @@
       "source": "RERO jubmda"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "55",
     "language": [
@@ -20365,8 +20484,8 @@
       "source": "RERO jubmda"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "209",
     "language": [
@@ -20627,8 +20746,13 @@
     "provisionActivity": [
       {
         "type": "bf:Publication",
-        "startDate": 1818,
-        "original_date": 1908
+        "place": [
+          {
+            "country": "stk",
+            "type": "bf:Place"
+          }
+        ],
+        "startDate": 1818
       }
     ],
     "language": [
@@ -20833,6 +20957,11 @@
     "dimensions": [
       "30 cm"
     ],
+    "frequency": [
+      {
+        "label": "Alle 4 Jahre"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -20916,8 +21045,8 @@
       "source": "RERO jubmda"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "81",
     "language": [
@@ -21041,8 +21170,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "82",
     "language": [
@@ -21197,8 +21326,8 @@
       "source": "RERO geulph"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "200",
     "language": [
@@ -21368,8 +21497,8 @@
       "source": "RERO frbcuc"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "189",
     "language": [
@@ -21563,8 +21692,8 @@
       "source": "RERO vsbcce"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "44",
     "language": [
@@ -21820,8 +21949,8 @@
       "source": "RERO frbcuc"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "247",
     "language": [
@@ -22066,6 +22195,11 @@
     "dimensions": [
       "30 cm"
     ],
+    "frequency": [
+      {
+        "label": "Trimestriel"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -22114,6 +22248,11 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000040"
       }
     ]
   },
@@ -22445,6 +22584,11 @@
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
+    ],
+    "otherPhysicalFormat": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/79"
+      }
     ]
   },
   {
@@ -22568,8 +22712,8 @@
       "source": "RERO labcud"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "28",
     "language": [
@@ -22921,8 +23065,8 @@
       "source": "RERO vsbcvs"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "168",
     "language": [
@@ -23351,8 +23495,8 @@
       "source": "RERO jubmda"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "197",
     "language": [
@@ -23500,8 +23644,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "17",
     "language": [
@@ -23628,8 +23772,8 @@
       "source": "RERO frbcuc"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "8",
     "language": [
@@ -23792,13 +23936,13 @@
       "encodingLevel": "Full level",
       "note": [
         "Attention champ 830 issu de la migration d'Alexandria (iftfla/12.2009)",
-        "Attention champ 830 issu de la migration d'Alexandria (iftfla/12.2009) | Notice issue de la migration Alexandria (iftfla/12.2009)"
+        "Notice issue de la migration Alexandria (iftfla/12.2009)"
       ],
       "source": "RERO ifofj-"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "225",
     "language": [
@@ -23976,8 +24120,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "96",
     "language": [
@@ -24176,8 +24320,8 @@
       "source": "RERO"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "187",
     "language": [
@@ -24391,6 +24535,11 @@
     ],
     "dimensions": [
       "20 cm"
+    ],
+    "frequency": [
+      {
+        "label": "Annuel"
+      }
     ],
     "type": [
       {
@@ -24667,6 +24816,11 @@
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
+    ],
+    "supplement": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000046"
+      }
     ]
   },
   {
@@ -24687,8 +24841,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "62",
     "language": [
@@ -24851,8 +25005,8 @@
       "source": "RERO frbcuc"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "83",
     "language": [
@@ -25106,8 +25260,8 @@
       "source": "RERO vsbcvs"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "205",
     "language": [
@@ -25229,8 +25383,8 @@
       "source": "RERO frbcuc"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "194",
     "language": [
@@ -25420,8 +25574,8 @@
       "source": "RERO jubmda"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "163",
     "language": [
@@ -25630,6 +25784,24 @@
     "dimensions": [
       "30 cm [puis] 24 cm"
     ],
+    "frequency": [
+      {
+        "label": "Annuel",
+        "date": "2011-"
+      },
+      {
+        "label": "4x/an",
+        "date": "1992-2010"
+      },
+      {
+        "label": "2x/an",
+        "date": "1967-1991"
+      },
+      {
+        "label": "4x/an",
+        "date": "1957-1966"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -25688,6 +25860,11 @@
           "ctb"
         ]
       }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000047"
+      }
     ]
   },
   {
@@ -25705,8 +25882,8 @@
       "source": "RERO nebpun"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "30",
     "language": [
@@ -25866,8 +26043,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "219",
     "language": [
@@ -26088,8 +26265,8 @@
       "source": "RERO"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "5",
     "language": [
@@ -26212,8 +26389,8 @@
       "source": "RERO vsbcvs"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "80",
     "language": [
@@ -26338,8 +26515,8 @@
       "source": "RERO gevbge"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "188",
     "language": [
@@ -26520,8 +26697,8 @@
       "source": "RERO vsbcce"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "12",
     "language": [
@@ -26771,6 +26948,11 @@
     "dimensions": [
       "24 cm"
     ],
+    "frequency": [
+      {
+        "label": "Irr\u00e9gulier"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -26839,8 +27021,8 @@
       "source": "RERO labcur"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "262",
     "language": [
@@ -27003,8 +27185,8 @@
       "source": "RERO jubmda"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "133",
     "language": [
@@ -27130,8 +27312,8 @@
       "source": "RERO geulal"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "146",
     "language": [
@@ -27361,6 +27543,19 @@
         "noteType": "general",
         "label": "Contient depuis 1921: Transactions of the Edinburgh Obstetrical Society. Et: Transactions of the Medico-Chirurgical Society of Edinburgh"
       }
+    ],
+    "supplementTo": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000052"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000053"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000051"
+      }
     ]
   },
   {
@@ -27381,8 +27576,8 @@
       "source": "RERO jubmdj"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "259",
     "language": [
@@ -27550,8 +27745,8 @@
       "source": "RERO gevbpu"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "212",
     "language": [
@@ -27811,8 +28006,8 @@
       "source": "RERO geudbu"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "135",
     "language": [
@@ -27937,8 +28132,8 @@
       "source": "RERO labcud"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "109",
     "language": [
@@ -28116,8 +28311,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "120",
     "language": [
@@ -28264,8 +28459,8 @@
       "source": "RERO frbcuc"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "77",
     "language": [
@@ -28400,8 +28595,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "131",
     "language": [
@@ -28753,6 +28948,11 @@
     "dimensions": [
       "30 cm"
     ],
+    "frequency": [
+      {
+        "label": "Trimestriel"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -28801,8 +29001,8 @@
       "source": "RERO nebpun"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "132",
     "language": [
@@ -29144,8 +29344,8 @@
       "source": "RERO"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "122",
     "language": [
@@ -29292,6 +29492,11 @@
           "type": "IdRef"
         }
       }
+    ],
+    "relatedTo": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000056"
+      }
     ]
   },
   {
@@ -29418,8 +29623,8 @@
       "source": "RERO frbcuc"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "221",
     "language": [
@@ -29830,6 +30035,11 @@
     "dimensions": [
       "30 cm"
     ],
+    "frequency": [
+      {
+        "label": "Zweimonatlich"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -29864,8 +30074,8 @@
       "source": "RERO vsbcvm"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "59",
     "language": [
@@ -30238,8 +30448,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "160",
     "language": [
@@ -30466,8 +30676,8 @@
       "source": "RERO jubmdj"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "182",
     "language": [
@@ -30611,8 +30821,8 @@
       "source": "RERO vsbcvs"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "15",
     "language": [
@@ -31083,8 +31293,8 @@
       "source": "RERO jubmdj"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "214",
     "language": [
@@ -31254,8 +31464,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "115",
     "language": [
@@ -31533,8 +31743,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "217",
     "language": [
@@ -31807,8 +32017,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "279",
     "language": [
@@ -32120,8 +32330,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "252",
     "language": [
@@ -32510,6 +32720,11 @@
         ]
       }
     ],
+    "frequency": [
+      {
+        "label": "Annuel"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -32595,8 +32810,8 @@
       "source": "RERO jubmdj"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "88",
     "language": [
@@ -32735,8 +32950,8 @@
       "source": "RERO jubmdj"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "33",
     "language": [
@@ -32870,8 +33085,8 @@
       "source": "RERO jubmda"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "144",
     "language": [
@@ -33005,8 +33220,8 @@
       "source": "RERO vsbcvs"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "50",
     "language": [
@@ -33141,8 +33356,8 @@
       "source": "RERO jubmda"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "270",
     "language": [
@@ -33273,8 +33488,8 @@
       "source": "RERO frbcuc"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "64",
     "language": [
@@ -33412,8 +33627,8 @@
       "source": "RERO jubmda"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "291",
     "language": [
@@ -33541,8 +33756,8 @@
       "source": "RERO jubmdj"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "20",
     "language": [
@@ -33703,8 +33918,8 @@
       "source": "RERO jubmda"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "170",
     "language": [
@@ -33853,8 +34068,8 @@
       "source": "RERO frbcuc"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "27",
     "language": [
@@ -34140,8 +34355,8 @@
       "source": "RERO labcud"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "191",
     "language": [
@@ -34391,8 +34606,8 @@
       "source": "RERO jubmda"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "169",
     "language": [
@@ -34679,8 +34894,8 @@
       "source": "RERO jubmdj"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "277",
     "language": [
@@ -34839,8 +35054,8 @@
       "source": "RERO jubmda"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "70",
     "language": [
@@ -35091,8 +35306,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "198",
     "language": [
@@ -35239,8 +35454,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "2",
     "language": [
@@ -35392,8 +35607,8 @@
       "source": "RERO lamubo"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "43",
     "language": [
@@ -35705,6 +35920,11 @@
     "dimensions": [
       "30 [puis] 29 cm"
     ],
+    "frequency": [
+      {
+        "label": "Annuel"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -35731,6 +35951,16 @@
           "ctb"
         ]
       }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000065"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000064"
+      }
     ]
   },
   {
@@ -35739,8 +35969,8 @@
       "source": "RERO vsbcvs"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "264",
     "language": [
@@ -36065,8 +36295,8 @@
       "source": "RERO vsbcvs"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "45",
     "language": [
@@ -36309,6 +36539,11 @@
     "dimensions": [
       "21 [puis] 26 cm"
     ],
+    "frequency": [
+      {
+        "label": "Irr\u00e9gulier"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -36343,6 +36578,11 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "supplement": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000068"
       }
     ]
   },
@@ -36455,6 +36695,11 @@
     ],
     "dimensions": [
       "30 cm"
+    ],
+    "frequency": [
+      {
+        "label": "Zwei Mal j\u00e4hrlich"
+      }
     ],
     "type": [
       {
@@ -36614,8 +36859,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "92",
     "language": [
@@ -36770,8 +37015,8 @@
       "source": "RERO lausst"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "74",
     "language": [
@@ -36951,8 +37196,8 @@
       "source": "RERO jubmda"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "278",
     "language": [
@@ -37104,8 +37349,8 @@
       "source": "RERO"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "107",
     "language": [
@@ -37314,8 +37559,8 @@
       "source": "RERO frbcuc"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "123",
     "language": [
@@ -37465,8 +37710,8 @@
       "source": "RERO geusbv"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "211",
     "language": [
@@ -37651,8 +37896,8 @@
       "source": "RERO geuses"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "26",
     "language": [
@@ -37814,8 +38059,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "32",
     "language": [
@@ -38509,8 +38754,8 @@
       "source": "RERO lausbi"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "99",
     "language": [
@@ -38655,8 +38900,8 @@
       "source": "RERO vsbcvs"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "287",
     "language": [
@@ -38775,8 +39020,8 @@
       "source": "RERO geulal"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "11",
     "language": [
@@ -38948,8 +39193,8 @@
       "source": "RERO"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "46",
     "language": [
@@ -39123,8 +39368,8 @@
       "source": "RERO necfbj"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "164",
     "language": [
@@ -39255,8 +39500,8 @@
       "source": "RERO labcur"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "130",
     "language": [
@@ -39397,8 +39642,8 @@
       "source": "RERO"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "239",
     "language": [
@@ -39583,8 +39828,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "190",
     "language": [
@@ -39764,8 +40009,8 @@
       "source": "RERO"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "202",
     "language": [
@@ -39912,8 +40157,8 @@
       "source": "RERO jubmdj"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "233",
     "language": [
@@ -40135,6 +40380,11 @@
     "dimensions": [
       "28 cm"
     ],
+    "frequency": [
+      {
+        "label": "Trimestriel"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -40275,8 +40525,8 @@
       "source": "RERO"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "203",
     "language": [
@@ -40441,8 +40691,8 @@
       "source": "RERO nebpun"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "226",
     "language": [
@@ -40679,6 +40929,11 @@
     "dimensions": [
       "28 cm"
     ],
+    "frequency": [
+      {
+        "label": "Hebdomadaire [puis] bimensuel"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -40701,8 +40956,8 @@
       "source": "RERO labcud"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "178",
     "language": [
@@ -40970,8 +41225,8 @@
       "source": "RERO nepast"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "201",
     "language": [
@@ -41105,8 +41360,8 @@
       "source": "RERO jubmda"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "140",
     "language": [
@@ -41255,8 +41510,8 @@
       "source": "RERO vsbcce"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "129",
     "language": [
@@ -41366,8 +41621,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "152",
     "language": [
@@ -41548,8 +41803,8 @@
       "source": "RERO labcud"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "199",
     "language": [
@@ -41697,8 +41952,8 @@
       "source": "RERO jubmda"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "49",
     "language": [
@@ -41830,8 +42085,8 @@
       "source": "RERO necfbv"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "111",
     "language": [
@@ -42160,8 +42415,8 @@
       "source": "RERO nebpun"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "13",
     "language": [
@@ -42323,8 +42578,8 @@
       "source": "RERO labcur"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "69",
     "language": [
@@ -42598,8 +42853,8 @@
       "source": "RERO labcud"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "142",
     "language": [
@@ -42742,8 +42997,8 @@
       "source": "RERO gecaeg"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "7",
     "language": [
@@ -42949,8 +43204,8 @@
       "source": "RERO vsgbna"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "263",
     "language": [
@@ -43085,8 +43340,8 @@
       "source": "RERO neubfl"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "174",
     "language": [
@@ -43259,8 +43514,8 @@
       ]
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "104",
     "language": [
@@ -43760,8 +44015,8 @@
       "source": "RERO labcur"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "148",
     "language": [
@@ -44139,6 +44394,11 @@
     "dimensions": [
       "29 [puis] 30 cm"
     ],
+    "frequency": [
+      {
+        "label": "Annuel"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -44160,6 +44420,16 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000081"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/173"
       }
     ]
   },
@@ -44501,6 +44771,11 @@
     "dimensions": [
       "24 cm"
     ],
+    "frequency": [
+      {
+        "label": "Irr\u00e9gulier"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -44563,6 +44838,16 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "issuedWith": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000082"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000083"
       }
     ],
     "classification": [
@@ -44799,6 +45084,17 @@
           "ctb"
         ]
       }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000084"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000085"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/273"
+      }
     ]
   },
   {
@@ -44816,8 +45112,8 @@
       "source": "RERO"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "2000022",
     "language": [
@@ -45063,6 +45359,11 @@
     "dimensions": [
       "21 cm"
     ],
+    "frequency": [
+      {
+        "label": "Bimestriel"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -45116,6 +45417,16 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000086"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/23"
       }
     ]
   },
@@ -45207,6 +45518,11 @@
     "dimensions": [
       "24 cm"
     ],
+    "frequency": [
+      {
+        "label": "Trimestriel"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -45237,6 +45553,11 @@
       {
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000087"
       }
     ]
   },
@@ -45364,10 +45685,10 @@
       "encodingLevel": "Full level",
       "note": [
         "NE PAS TENIR COMPTE DES NUMEROS IMPRIMES AU DOS DE LA COUVERTURE ! ILS CORRESPONDENT AU DERNIER MODULE DE L'ISBN (16.02.1996/larero/gr)",
-        "NE PAS TENIR COMPTE DES NUMEROS IMPRIMES AU DOS DE LA COUVERTURE ! ILS CORRESPONDENT AU DERNIER MODULE DE L'ISBN (16.02.1996/larero/gr) | BPUN: Collection g\u00e9r\u00e9e par le service des acquisitions. (10.04.1991/nebpun/ber)",
-        "NE PAS TENIR COMPTE DES NUMEROS IMPRIMES AU DOS DE LA COUVERTURE ! ILS CORRESPONDENT AU DERNIER MODULE DE L'ISBN (16.02.1996/larero/gr) | BPUN: Collection g\u00e9r\u00e9e par le service des acquisitions. (10.04.1991/nebpun/ber) | BPUN: num\u00e9rotation factice selon l'ordre d'arriv\u00e9e des volumes. (10.04.1991/nebpun/ber)",
-        "NE PAS TENIR COMPTE DES NUMEROS IMPRIMES AU DOS DE LA COUVERTURE ! ILS CORRESPONDENT AU DERNIER MODULE DE L'ISBN (16.02.1996/larero/gr) | BPUN: Collection g\u00e9r\u00e9e par le service des acquisitions. (10.04.1991/nebpun/ber) | BPUN: num\u00e9rotation factice selon l'ordre d'arriv\u00e9e des volumes. (10.04.1991/nebpun/ber) | Pas suite BGE (08.08.1991/gevbpu/bf)",
-        "NE PAS TENIR COMPTE DES NUMEROS IMPRIMES AU DOS DE LA COUVERTURE ! ILS CORRESPONDENT AU DERNIER MODULE DE L'ISBN (16.02.1996/larero/gr) | BPUN: Collection g\u00e9r\u00e9e par le service des acquisitions. (10.04.1991/nebpun/ber) | BPUN: num\u00e9rotation factice selon l'ordre d'arriv\u00e9e des volumes. (10.04.1991/nebpun/ber) | Pas suite BGE (08.08.1991/gevbpu/bf) | !!!!! Depuis janvier 2007, la collection est reprise par de Gruyter et les volumes portent un num\u00e9ro qui ne correspond plus au dernier module de l'ISBN. Il faut donc en tenir compte (frbcuc/12.2009)"
+        "BPUN: Collection g\u00e9r\u00e9e par le service des acquisitions. (10.04.1991/nebpun/ber)",
+        "BPUN: num\u00e9rotation factice selon l'ordre d'arriv\u00e9e des volumes. (10.04.1991/nebpun/ber)",
+        "Pas suite BGE (08.08.1991/gevbpu/bf)",
+        "!!!!! Depuis janvier 2007, la collection est reprise par de Gruyter et les volumes portent un num\u00e9ro qui ne correspond plus au dernier module de l'ISBN. Il faut donc en tenir compte (frbcuc/12.2009)"
       ],
       "source": "RERO"
     },
@@ -45612,6 +45933,11 @@
       {
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/139"
       }
     ]
   },
@@ -46001,6 +46327,14 @@
           "ctb"
         ]
       }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000088"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/139"
+      }
     ]
   },
   {
@@ -46088,6 +46422,11 @@
     "dimensions": [
       "30 cm"
     ],
+    "frequency": [
+      {
+        "label": "Mensuel"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -46125,6 +46464,16 @@
       {
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000090"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000089"
       }
     ]
   },
@@ -46214,6 +46563,11 @@
       {
         "noteType": "general",
         "label": "Absorb\u00e9 en 1908 par: The Edinburgh medical journal"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/176"
       }
     ]
   },
@@ -46799,6 +47153,11 @@
     "dimensions": [
       "27 cm"
     ],
+    "frequency": [
+      {
+        "label": "Annuel"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -46844,6 +47203,16 @@
         "role": [
           "edt"
         ]
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000092"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000091"
       }
     ],
     "electronicLocator": [
@@ -47133,8 +47502,8 @@
       "source": "RERO gevcjb"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "2000027",
     "language": [
@@ -47259,6 +47628,11 @@
           "com"
         ]
       }
+    ],
+    "supplement": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/272"
+      }
     ]
   },
   {
@@ -47364,6 +47738,16 @@
       {
         "type": "bf:Topic",
         "term": "Oecum\u00e9nisme"
+      }
+    ],
+    "supplementTo": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/19"
+      }
+    ],
+    "issuedWith": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000094"
       }
     ]
   },
@@ -47615,6 +47999,11 @@
           "ctb"
         ]
       }
+    ],
+    "otherEdition": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000095"
+      }
     ]
   },
   {
@@ -47698,6 +48087,11 @@
     "dimensions": [
       "23 cm"
     ],
+    "frequency": [
+      {
+        "label": "Trimestriel"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -47750,6 +48144,24 @@
           "ctb"
         ]
       }
+    ],
+    "otherEdition": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000099"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000098"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000096"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000097"
+      }
     ]
   },
   {
@@ -47769,7 +48181,7 @@
       "encodingLevel": "Full level",
       "note": [
         "Niveau sup\u00e9rieur ! (jubmdj/04.2011)",
-        "Niveau sup\u00e9rieur ! (jubmdj/04.2011) | Y compris les r\u00e9\u00e9ditions !! (vdecha/02.2012)"
+        "Y compris les r\u00e9\u00e9ditions !! (vdecha/02.2012)"
       ],
       "source": "RERO jubmdj"
     },
@@ -48137,6 +48549,11 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "supplement": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/176"
       }
     ]
   },
@@ -48624,6 +49041,11 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "supplement": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/176"
       }
     ]
   },
@@ -49230,6 +49652,16 @@
         "term": "P\u00e9riodiques"
       }
     ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000100"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/91"
+      }
+    ],
     "classification": [
       {
         "classificationPortion": "CA/CH 11 d",
@@ -49337,6 +49769,16 @@
           "ctb"
         ]
       }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000102"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000101"
+      }
     ]
   },
   {
@@ -49422,6 +49864,11 @@
         "noteType": "general",
         "label": "Beihefte: Altassyrische Texte und Untersuchungen"
       }
+    ],
+    "supplement": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/153"
+      }
     ]
   },
   {
@@ -49442,8 +49889,8 @@
       "source": "RERO frbcuc"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "2000080",
     "language": [
@@ -50039,8 +50486,8 @@
       "source": "RERO geuses"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "2000056",
     "language": [
@@ -50219,8 +50666,8 @@
       "source": "RERO frbcuc"
     },
     "issuance": {
-      "main_type": "rdami:1002",
-      "subtype": "set"
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
     },
     "pid": "2000017",
     "language": [
@@ -51199,6 +51646,11 @@
           "ctb"
         ]
       }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000104"
+      }
     ]
   },
   {
@@ -51402,6 +51854,11 @@
     "dimensions": [
       "30 cm"
     ],
+    "frequency": [
+      {
+        "label": "Trimestriel"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -51468,6 +51925,11 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/250"
       }
     ]
   },
@@ -51758,7 +52220,7 @@
       "encodingLevel": "Minimal level",
       "note": [
         "D signifie \"J'ai lu. Documents\" (21.03.1991/larero/gr)",
-        "D signifie \"J'ai lu. Documents\" (21.03.1991/larero/gr) | !!! La mention \"Document\" au singulier ne signifie pas que l'ouvrage fait partie de la s\u00e9rie \"Documents\" !!! (frbcuc/2001.03)"
+        "!!! La mention \"Document\" au singulier ne signifie pas que l'ouvrage fait partie de la s\u00e9rie \"Documents\" !!! (frbcuc/2001.03)"
       ],
       "source": "RERO"
     },
@@ -53228,6 +53690,21 @@
           "ctb"
         ]
       }
+    ],
+    "issuedWith": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000106"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000105"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/105"
+      }
     ]
   },
   {
@@ -53335,6 +53812,11 @@
     "dimensions": [
       "26 cm"
     ],
+    "frequency": [
+      {
+        "label": "Irr\u00e9gulier"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -53369,6 +53851,11 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "supplementTo": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/40"
       }
     ]
   },
@@ -53448,6 +53935,11 @@
     "dimensions": [
       "21 cm"
     ],
+    "frequency": [
+      {
+        "label": "Quarterly"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -53458,6 +53950,11 @@
       {
         "noteType": "general",
         "label": "Devient: One in Christ"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/36"
       }
     ]
   },
@@ -53549,6 +54046,11 @@
     ],
     "dimensions": [
       "23 cm"
+    ],
+    "frequency": [
+      {
+        "label": "Trimestriel"
+      }
     ],
     "type": [
       {
@@ -53691,6 +54193,11 @@
     "dimensions": [
       "25 cm [et] 30 cm"
     ],
+    "frequency": [
+      {
+        "label": "Semestriel"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -53801,6 +54308,11 @@
             "type": "bf:Place"
           }
         ]
+      }
+    ],
+    "frequency": [
+      {
+        "label": "Mensuel"
       }
     ],
     "type": [
@@ -55512,6 +56024,11 @@
     "dimensions": [
       "30 cm"
     ],
+    "frequency": [
+      {
+        "label": "Annuel"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -55541,6 +56058,16 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/173"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000108"
       }
     ]
   },
@@ -55657,6 +56184,11 @@
     ],
     "dimensions": [
       "21 cm"
+    ],
+    "frequency": [
+      {
+        "label": "Trimestriel"
+      }
     ],
     "type": [
       {
@@ -55908,6 +56440,11 @@
         "noteType": "general",
         "label": "La s\u00e9rie \"Autorenb\u00fccher\" para\u00eet de mani\u00e8re autonome jusqu'en 1986 sous le titre: Autorenb\u00fccher"
       }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000109"
+      }
     ]
   },
   {
@@ -56118,6 +56655,11 @@
     "dimensions": [
       "26 cm"
     ],
+    "frequency": [
+      {
+        "label": "Trimestriel"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -56144,6 +56686,11 @@
       {
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000060"
       }
     ]
   },
@@ -56250,6 +56797,11 @@
         "noteType": "general",
         "label": "Devient: Beck'sche Reihe. Autorenb\u00fccher"
       }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000007"
+      }
     ]
   },
   {
@@ -56348,6 +56900,11 @@
     "dimensions": [
       "25 cm"
     ],
+    "frequency": [
+      {
+        "label": "Trimestriel"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -56390,6 +56947,19 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "otherEdition": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000034"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000110"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000111"
       }
     ]
   },
@@ -56486,6 +57056,11 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "issuedWith": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000042"
       }
     ]
   },
@@ -56622,6 +57197,19 @@
           "ctb"
         ]
       }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000113"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000112"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000014"
+      }
     ]
   },
   {
@@ -56745,6 +57333,19 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "otherEdition": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000110"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000114"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000034"
       }
     ]
   },
@@ -56876,6 +57477,11 @@
     "dimensions": [
       "29 cm"
     ],
+    "frequency": [
+      {
+        "label": "4x par an puis 3x par an"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -56946,6 +57552,16 @@
         "role": [
           "edt"
         ]
+      }
+    ],
+    "supplement": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000115"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000077"
       }
     ],
     "electronicLocator": [
@@ -57060,6 +57676,11 @@
           "ctb"
         ]
       }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000064"
+      }
     ]
   },
   {
@@ -57154,6 +57775,11 @@
       {
         "noteType": "general",
         "label": "Fait suite \u00e0: Bulletin Saint Jean-Baptiste"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000072"
       }
     ]
   },
@@ -57401,6 +58027,15 @@
         ]
       }
     ],
+    "frequency": [
+      {
+        "label": "Annuel",
+        "date": "2014-"
+      },
+      {
+        "label": "Semestriel 1987-2013"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -57453,6 +58088,19 @@
         "role": [
           "edt"
         ]
+      }
+    ],
+    "otherPhysicalFormat": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000091"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000077"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000116"
       }
     ]
   },
@@ -57556,6 +58204,11 @@
     "dimensions": [
       "30 cm"
     ],
+    "frequency": [
+      {
+        "label": "Mensuel"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -57589,6 +58242,14 @@
       {
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000117"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000118"
       }
     ]
   },
@@ -57686,6 +58347,11 @@
         ]
       }
     ],
+    "frequency": [
+      {
+        "label": "Para\u00eet 3 fois par an"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -57733,6 +58399,11 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000001"
       }
     ],
     "electronicLocator": [
@@ -57844,6 +58515,11 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000072"
       }
     ]
   },
@@ -57959,6 +58635,11 @@
           "ctb"
         ]
       }
+    ],
+    "otherEdition": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000054"
+      }
     ]
   },
   {
@@ -58053,6 +58734,11 @@
     "dimensions": [
       "30 [puis] 29 cm"
     ],
+    "frequency": [
+      {
+        "label": "Annuel"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -58078,6 +58764,11 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000065"
       }
     ]
   },
@@ -58199,6 +58890,11 @@
           "ctb"
         ]
       }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000042"
+      }
     ]
   },
   {
@@ -58298,6 +58994,11 @@
     "dimensions": [
       "24 cm"
     ],
+    "frequency": [
+      {
+        "label": "Para\u00eet 3 fois par an"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -58344,6 +59045,11 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000001"
       }
     ],
     "classification": [
@@ -58528,6 +59234,11 @@
         "noteType": "general",
         "label": "Devient: Evangelische Kommentare : Monatsschrift zum Zeitgeschehen in Kirche und Gesellschaft"
       }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000057"
+      }
     ]
   },
   {
@@ -58614,6 +59325,11 @@
     "dimensions": [
       "22 cm"
     ],
+    "frequency": [
+      {
+        "label": "Quarterly"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -58640,6 +59356,16 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "otherEdition": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000119"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000034"
       }
     ]
   },
@@ -58736,6 +59462,14 @@
       {
         "noteType": "general",
         "label": "Ab. Bd. 8 enthalten in: Schweizer Theaterjahrbuch"
+      }
+    ],
+    "issuedWith": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000105"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000047"
       }
     ]
   },
@@ -58983,6 +59717,11 @@
     "dimensions": [
       "30, 21 cm"
     ],
+    "frequency": [
+      {
+        "label": "Irr\u00e9gulier"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -59040,6 +59779,22 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "otherEdition": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000111"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000120"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000121"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000034"
       }
     ]
   },
@@ -59164,6 +59919,19 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000123"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000008"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000122"
       }
     ]
   },
@@ -59300,6 +60068,16 @@
         "term": "P\u00e9riodiques"
       }
     ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000124"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000035"
+      }
+    ],
     "classification": [
       {
         "classificationPortion": "CA/CH 11 d",
@@ -59422,6 +60200,11 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000038"
       }
     ]
   },
@@ -59576,6 +60359,16 @@
           "ctb"
         ]
       }
+    ],
+    "issuedWith": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000106"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000047"
+      }
     ]
   },
   {
@@ -59714,6 +60507,11 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "issuedWith": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000046"
       }
     ]
   },
@@ -59876,6 +60674,19 @@
           "ctb"
         ]
       }
+    ],
+    "otherEdition": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000097"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000114"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000099"
+      }
     ]
   },
   {
@@ -59962,6 +60773,11 @@
     "dimensions": [
       "22 cm"
     ],
+    "frequency": [
+      {
+        "label": "Quarterly"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -59988,6 +60804,16 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "otherEdition": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000098"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000099"
       }
     ]
   },
@@ -60096,6 +60922,14 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "otherEdition": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000097"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000110"
       }
     ]
   },
@@ -60218,6 +61052,11 @@
           "ctb"
         ]
       }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000089"
+      }
     ]
   },
   {
@@ -60322,6 +61161,11 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000088"
       }
     ]
   },
@@ -60458,6 +61302,24 @@
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
+    ],
+    "issuedWith": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000127"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000126"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000086"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000125"
+      }
     ]
   },
   {
@@ -60579,6 +61441,17 @@
           "ctb"
         ]
       }
+    ],
+    "otherEdition": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000096"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000120"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000111"
+      }
     ]
   },
   {
@@ -60697,6 +61570,11 @@
         ]
       }
     ],
+    "frequency": [
+      {
+        "label": "Irr\u00e9gulier"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -60758,6 +61636,25 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "otherEdition": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000096"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000120"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000121"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000099"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000128"
       }
     ]
   },
@@ -60869,6 +61766,11 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000086"
       }
     ]
   },
@@ -61025,6 +61927,22 @@
       {
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000130"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000131"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000129"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000100"
       }
     ],
     "classification": [
@@ -61230,6 +62148,11 @@
           "ctb"
         ]
       }
+    ],
+    "supplementTo": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000092"
+      }
     ]
   },
   {
@@ -61351,6 +62274,17 @@
           "ctb"
         ]
       }
+    ],
+    "otherEdition": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000096"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000121"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000111"
+      }
     ]
   },
   {
@@ -61454,6 +62388,11 @@
     "dimensions": [
       "30 cm"
     ],
+    "frequency": [
+      {
+        "label": "Monatlich"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -61480,6 +62419,16 @@
       {
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000132"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000089"
       }
     ]
   },
@@ -61603,6 +62552,11 @@
           "ctb"
         ]
       }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000088"
+      }
     ]
   },
   {
@@ -61723,6 +62677,11 @@
     "dimensions": [
       "27 cm"
     ],
+    "frequency": [
+      {
+        "label": "4x j\u00e4hrl."
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -61786,6 +62745,11 @@
         "role": [
           "edt"
         ]
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000091"
       }
     ],
     "electronicLocator": [
@@ -61871,6 +62835,11 @@
     "dimensions": [
       "30 cm"
     ],
+    "frequency": [
+      {
+        "label": "Monatlich"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -61893,6 +62862,11 @@
       {
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000117"
       }
     ]
   },
@@ -62019,6 +62993,16 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000111"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000111"
       }
     ]
   },
@@ -62242,6 +63226,22 @@
           "ctb"
         ]
       }
+    ],
+    "issuedWith": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000126"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000112"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000125"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000133"
+      }
     ]
   },
   {
@@ -62443,6 +63443,16 @@
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
+    ],
+    "issuedWith": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000127"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000112"
+      }
     ]
   },
   {
@@ -62574,6 +63584,16 @@
       {
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
+      }
+    ],
+    "issuedWith": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000127"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000112"
       }
     ]
   },
@@ -62724,6 +63744,22 @@
         "term": "P\u00e9riodiques"
       }
     ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000135"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000136"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000134"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000124"
+      }
+    ],
     "classification": [
       {
         "classificationPortion": "CA/CH 11 d",
@@ -62859,6 +63895,14 @@
       {
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000134"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000124"
       }
     ],
     "classification": [
@@ -63005,6 +64049,16 @@
         "term": "P\u00e9riodiques"
       }
     ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000124"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000137"
+      }
+    ],
     "classification": [
       {
         "classificationPortion": "CA/CH 11 d",
@@ -63138,6 +64192,19 @@
         "term": "P\u00e9riodiques"
       }
     ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000130"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000131"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000138"
+      }
+    ],
     "classification": [
       {
         "classificationPortion": "CA/CH 11 d",
@@ -63243,6 +64310,11 @@
     "dimensions": [
       "27 cm"
     ],
+    "frequency": [
+      {
+        "label": "Mensuel"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -63268,6 +64340,16 @@
         "role": [
           "ctb"
         ]
+      }
+    ],
+    "supplementTo": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000139"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000127"
       }
     ]
   },
@@ -63367,6 +64449,19 @@
       {
         "noteType": "general",
         "label": "Fusionne avec: Gazette des tribunaux suisses = Schweizerische Gerichts-Zeitung et forme: Journal des tribunaux : revue de jurisprudence"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000140"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000130"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000130"
       }
     ],
     "classification": [
@@ -63518,6 +64613,16 @@
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
       }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000140"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000130"
+      }
     ]
   },
   {
@@ -63656,6 +64761,16 @@
       {
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000129"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000141"
       }
     ],
     "classification": [
@@ -63809,6 +64924,21 @@
         "term": "P\u00e9riodiques"
       }
     ],
+    "issuedWith": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000142"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000134"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000143"
+      }
+    ],
     "classification": [
       {
         "classificationPortion": "CA/CH 11 d",
@@ -63940,6 +65070,19 @@
       {
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000144"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000135"
+      },
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000136"
       }
     ],
     "classification": [
@@ -64102,6 +65245,11 @@
           "ctb"
         ]
       }
+    ],
+    "supplement": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000133"
+      }
     ]
   },
   {
@@ -64202,6 +65350,11 @@
         ]
       }
     ],
+    "frequency": [
+      {
+        "label": "5-7 fois par an"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -64243,6 +65396,11 @@
       {
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000137"
       }
     ],
     "classification": [
@@ -64369,6 +65527,16 @@
         "term": "P\u00e9riodiques"
       }
     ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000145"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000140"
+      }
+    ],
     "classification": [
       {
         "classificationPortion": "CA/CH 11 d",
@@ -64479,6 +65647,11 @@
         ]
       }
     ],
+    "frequency": [
+      {
+        "label": "5-11 fois par an"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -64517,6 +65690,11 @@
       {
         "type": "bf:Topic",
         "term": "P\u00e9riodiques"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000138"
       }
     ],
     "classification": [
@@ -64669,6 +65847,16 @@
         "term": "P\u00e9riodiques"
       }
     ],
+    "issuedWith": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000138"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000146"
+      }
+    ],
     "classification": [
       {
         "classificationPortion": "CA/CH 11 d",
@@ -64805,6 +65993,16 @@
         "term": "P\u00e9riodiques"
       }
     ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000147"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000144"
+      }
+    ],
     "classification": [
       {
         "classificationPortion": "CA/CH 11 d",
@@ -64915,6 +66113,11 @@
         ]
       }
     ],
+    "frequency": [
+      {
+        "label": "5-11 fois par an"
+      }
+    ],
     "type": [
       {
         "main_type": "docmaintype_serial"
@@ -64925,6 +66128,11 @@
       {
         "noteType": "general",
         "label": "Fait suite \u00e0: Journal des tribunaux. 4, Droit p\u00e9nal"
+      }
+    ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000142"
       }
     ],
     "classification": [
@@ -65063,6 +66271,16 @@
         "term": "Jurisprudence"
       }
     ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000148"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000145"
+      }
+    ],
     "classification": [
       {
         "classificationPortion": "CA/CH 11 d",
@@ -65182,6 +66400,16 @@
         "term": "Jurisprudence"
       }
     ],
+    "precededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000149"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000147"
+      }
+    ],
     "classification": [
       {
         "classificationPortion": "CA/CH 11 d",
@@ -65297,6 +66525,11 @@
       {
         "type": "bf:Topic",
         "term": "Jurisprudence"
+      }
+    ],
+    "succeededBy": [
+      {
+        "$ref": "https://bib.rero.ch/api/documents/2000148"
       }
     ]
   }

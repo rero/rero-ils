@@ -346,7 +346,7 @@ def create(infile, create_or_update, append, reindex, dbcommit, commit,
         errors = 0
         name, ext = os.path.splitext(infile.name)
         err_file_name = f'{name}_errors{ext}'
-        error_file = JsonWrite(err_file_name)
+        error_file = JsonWriter(err_file_name)
 
     pids = []
     if lazy:
