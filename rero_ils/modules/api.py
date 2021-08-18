@@ -90,6 +90,16 @@ class IlsRecordsSearch(RecordsSearch):
         """Flush and refresh index."""
         current_search.flush_and_refresh(cls.Meta.index)
 
+    def get_record_by_pid(self, pid, fields=None):
+        """Search by pid."""
+        query = self.filter('term', pid=pid).extra(size=1)
+        if fields:
+            query = query.source(includes=fields)
+        response = query.execute()
+        if response.hits.total.value != 1:
+            raise NotFoundError(f'Record not found pid: {pid}')
+        return response.hits.hits[0]._source
+
 
 class IlsRecord(Record):
     """ILS Record class."""

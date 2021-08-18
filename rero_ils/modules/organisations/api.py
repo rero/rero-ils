@@ -20,6 +20,8 @@
 
 from functools import partial
 
+from elasticsearch.exceptions import NotFoundError
+
 from .models import OrganisationIdentifier, OrganisationMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
@@ -53,6 +55,17 @@ class OrganisationsSearch(IlsRecordsSearch):
         facets = {}
 
         default_filter = None
+
+    def get_record_by_viewcode(self, viewcode, fields=None):
+        """Search by viewcode."""
+        query = self.filter('term', code=viewcode).extra(size=1)
+        if fields:
+            query = query.source(includes=fields)
+        response = query.execute()
+        if response.hits.total.value != 1:
+            raise NotFoundError(
+                f'Organisation viewcode {viewcode}: Result not found.')
+        return response.hits.hits[0]._source
 
 
 class Organisation(IlsRecord):
