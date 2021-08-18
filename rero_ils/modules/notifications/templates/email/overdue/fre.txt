@@ -5,6 +5,7 @@ Chère lectrice, cher lecteur,
 La durée du prêt des documents mentionnés ci-dessous est échue :
 
 {%- for document in documents %}
+
 Titre : {{ document.title_text }} / {{ document.responsibility_statement }}
 Echéance : {{ document.end_date }}
 Note : {{ document.reminder }} rappel

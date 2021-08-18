@@ -30,9 +30,11 @@ from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.tasks import clean_obsolete_temporary_item_types
 from rero_ils.modules.loans.api import Loan, LoanAction, get_due_soon_loans, \
     get_overdue_loans
-from rero_ils.modules.notifications.api import Notification, \
-    NotificationsSearch, get_notification, number_of_reminders_sent
+from rero_ils.modules.notifications.api import NotificationsSearch
+from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.notifications.tasks import create_notifications
+from rero_ils.modules.notifications.utils import get_notification, \
+    number_of_reminders_sent
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.patrons.listener import \
     create_subscription_patron_transaction
@@ -79,14 +81,14 @@ def test_notifications_task(
     assert due_soon_loans[0].get('pid') == loan_pid
 
     create_notifications(types=[
-        Notification.DUE_SOON_NOTIFICATION_TYPE,
-        Notification.OVERDUE_NOTIFICATION_TYPE
+        NotificationType.DUE_SOON,
+        NotificationType.OVERDUE
     ])
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
-    assert loan.is_notified(Notification.DUE_SOON_NOTIFICATION_TYPE)
+    assert loan.is_notified(NotificationType.DUE_SOON)
 
-    notif = get_notification(loan, Notification.DUE_SOON_NOTIFICATION_TYPE)
+    notif = get_notification(loan, NotificationType.DUE_SOON)
     notif_date = ciso8601.parse_datetime(notif.get('creation_date'))
     assert notif_date.date() == datetime.today().date()
 
@@ -105,24 +107,24 @@ def test_notifications_task(
     assert overdue_loans[0].get('pid') == loan_pid
 
     create_notifications(types=[
-        Notification.DUE_SOON_NOTIFICATION_TYPE,
-        Notification.OVERDUE_NOTIFICATION_TYPE
+        NotificationType.DUE_SOON,
+        NotificationType.OVERDUE
     ])
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
-    assert loan.is_notified(Notification.OVERDUE_NOTIFICATION_TYPE, 0)
+    assert loan.is_notified(NotificationType.OVERDUE, 0)
     assert number_of_reminders_sent(
-        loan, notification_type=Notification.OVERDUE_NOTIFICATION_TYPE) == 1
+        loan, notification_type=NotificationType.OVERDUE) == 1
 
     # test overdue notification#2
     #   Now simulate than the previous call crashed. So call the task with a
     #   fixed date. In our test, no new notifications should be sent
     create_notifications(types=[
-        Notification.DUE_SOON_NOTIFICATION_TYPE,
-        Notification.OVERDUE_NOTIFICATION_TYPE
+        NotificationType.DUE_SOON,
+        NotificationType.OVERDUE
     ], tstamp=datetime.now(timezone.utc))
     assert number_of_reminders_sent(
-        loan, notification_type=Notification.OVERDUE_NOTIFICATION_TYPE) == 1
+        loan, notification_type=NotificationType.OVERDUE) == 1
 
     # test overdue notification#3
     #   For this test, we will update the loan to simulate an overdue of 40
@@ -135,14 +137,14 @@ def test_notifications_task(
     assert overdue_loans[0].get('pid') == loan_pid
 
     create_notifications(types=[
-        Notification.DUE_SOON_NOTIFICATION_TYPE,
-        Notification.OVERDUE_NOTIFICATION_TYPE
+        NotificationType.DUE_SOON,
+        NotificationType.OVERDUE
     ])
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
-    assert loan.is_notified(Notification.OVERDUE_NOTIFICATION_TYPE, 1)
+    assert loan.is_notified(NotificationType.OVERDUE, 1)
     assert number_of_reminders_sent(
-        loan, notification_type=Notification.OVERDUE_NOTIFICATION_TYPE) == 2
+        loan, notification_type=NotificationType.OVERDUE) == 2
 
     # checkin the item to put it back to it's original state
     res, _ = postdata(

@@ -24,8 +24,9 @@ from datetime import datetime, timezone
 from celery import shared_task
 from flask import current_app
 
-from .api import Notification, get_notifications
 from .dispatcher import Dispatcher
+from .models import NotificationType
+from .utils import get_notifications
 from ..circ_policies.api import OVERDUE_REMINDER_TYPE
 from ..libraries.api import Library
 from ..loans.api import get_due_soon_loans, get_overdue_loans
@@ -64,21 +65,19 @@ def create_notifications(types=None, tstamp=None, verbose=True):
     notification_counter = {}
 
     # DUE SOON NOTIFICATIONS
-    if Notification.DUE_SOON_NOTIFICATION_TYPE in types:
-        due_soon_type = Notification.DUE_SOON_NOTIFICATION_TYPE
-        notification_counter[due_soon_type] = 0
-        logger.debug("DUE_SOON_NOTIFICATION_TYPE --------------")
+    if NotificationType.DUE_SOON in types:
+        notification_counter[NotificationType.DUE_SOON] = 0
+        logger.debug("DUE_SOON_NOTIFICATION_CREATION -------------")
         for loan in get_due_soon_loans(tstamp=tstamp):
             logger.debug(f"* Loan#{loan.pid} is considerate as 'due_soon'")
-            notification = loan.create_notification(
-                notification_type=due_soon_type)
-            notification_counter[due_soon_type] += 1
+            loan.create_notification(
+                notification_type=NotificationType.DUE_SOON)
+            notification_counter[NotificationType.DUE_SOON] += 1
 
     # OVERDUE NOTIFICATIONS
-    if Notification.OVERDUE_NOTIFICATION_TYPE in types:
+    if NotificationType.OVERDUE in types:
         logger.debug("OVERDUE_NOTIFICATION_CREATION --------------")
-        overdue_type = Notification.OVERDUE_NOTIFICATION_TYPE
-        notification_counter[overdue_type] = 0
+        notification_counter[NotificationType.OVERDUE] = 0
         for loan in get_overdue_loans(tstamp=tstamp):
             logger.debug(f"* Loan#{loan.pid} is considerate as 'overdue'")
             # For each overdue loan, we need to get the 'overdue' reminders
@@ -101,12 +100,12 @@ def create_notifications(types=None, tstamp=None, verbose=True):
             #   not be created again
             for idx, reminder in enumerate(reminders):
                 notification = loan.create_notification(
-                    notification_type=overdue_type,
+                    notification_type=NotificationType.OVERDUE,
                     counter=idx
                 )
                 if notification:
                     logger.debug(f'  --> Overdue notification#{idx+1} created')
-                    notification_counter[overdue_type] += 1
+                    notification_counter[NotificationType.OVERDUE] += 1
 
                 else:
                     logger.debug(f'  --> Overdue notification#{idx+1} skipped '

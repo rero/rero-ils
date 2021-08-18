@@ -28,8 +28,9 @@ from utils import create_patron, flush_index, \
 from rero_ils.modules.ill_requests.api import ILLRequest, ILLRequestsSearch
 from rero_ils.modules.items.api import ItemsSearch
 from rero_ils.modules.loans.api import Loan, LoanState
-from rero_ils.modules.notifications.api import Notification, \
-    NotificationsSearch, get_notification
+from rero_ils.modules.notifications.api import NotificationsSearch
+from rero_ils.modules.notifications.models import NotificationType
+from rero_ils.modules.notifications.utils import get_notification
 from rero_ils.modules.patron_transactions.api import PatronTransactionsSearch
 from rero_ils.modules.utils import extracted_data_from_ref
 
@@ -580,7 +581,7 @@ def notification_availability_martigny(loan_validated_martigny):
     """Availability notification of martigny."""
     return get_notification(
         loan_validated_martigny,
-        notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE
+        notification_type=NotificationType.AVAILABILITY
     )
 
 
@@ -589,7 +590,7 @@ def notification2_availability_martigny(loan2_validated_martigny):
     """Availability notification of martigny."""
     return get_notification(
         loan2_validated_martigny,
-        notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE
+        notification_type=NotificationType.AVAILABILITY
     )
 
 
@@ -598,7 +599,7 @@ def notification_availability_sion(loan_validated_sion):
     """Availability notification of sion."""
     return get_notification(
         loan_validated_sion,
-        notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE
+        notification_type=NotificationType.AVAILABILITY
     )
 
 
@@ -607,7 +608,7 @@ def notification_availability_sion2(loan_validated_sion2):
     """Availability notification of sion."""
     return get_notification(
         loan_validated_sion2,
-        notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE
+        notification_type=NotificationType.AVAILABILITY
     )
 # ------------ Notifications: dummy notification ----------
 
@@ -658,7 +659,7 @@ def loan_overdue_martigny(
 def notification_late_martigny(app, loan_overdue_martigny):
     """Create an overdue notification for an overdue loan."""
     notification = loan_overdue_martigny.create_notification(
-        notification_type=Notification.OVERDUE_NOTIFICATION_TYPE
+        notification_type=NotificationType.OVERDUE
     )
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
@@ -730,7 +731,7 @@ def loan_overdue_saxon(
 def notification_late_saxon(app, loan_overdue_saxon):
     """Create an overdue notification for an overdue loan."""
     notification = loan_overdue_saxon.create_notification(
-        notification_type=Notification.OVERDUE_NOTIFICATION_TYPE
+        notification_type=NotificationType.OVERDUE
     )
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
@@ -811,7 +812,7 @@ def loan_overdue_sion(
 def notification_late_sion(app, loan_overdue_sion):
     """Create an overdue notification for an overdue loan."""
     notification = loan_overdue_sion.create_notification(
-        notification_type=Notification.OVERDUE_NOTIFICATION_TYPE
+        notification_type=NotificationType.OVERDUE
     )
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)

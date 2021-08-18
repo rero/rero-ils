@@ -5,6 +5,7 @@ Chère lectrice, cher lecteur,
 Le délai de prêt des documents mentionnés ci-dessous arrive à échéance :
 
 {%- for document in documents %}
+
 Titre : {{ document.title_text }} / {{ document.responsibility_statement }}
 Echéance : {{ document.end_date }}
 {%- endfor %}
