@@ -40,8 +40,8 @@ from ..documents.api import Document
 from ..documents.utils import title_format_text_head
 from ..documents.views import create_title_alternate_graphic, \
     create_title_responsibilites, create_title_variants
-from ..libraries.api import Library
-from ..organisations.api import Organisation
+from ..libraries.api import LibrariesSearch
+from ..organisations.api import OrganisationsSearch
 from ..serializers import JSONSerializer, RecordSchemaJSONV1
 
 DEFAULT_LANGUAGE = 'en'
@@ -89,13 +89,14 @@ class DocumentJSONSerializer(JSONSerializer):
 
     def post_process_serialize_search(self, results, pid_fetcher):
         """Post process the search results."""
-        # Item filters.
+        view_id = None
         global_view_code = current_app.config.get(
             'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE')
         viewcode = request.args.get('view', global_view_code)
         if viewcode != global_view_code:
             # Maybe one more if here!
-            view_id = Organisation.get_record_by_viewcode(viewcode).pid
+            view_id = OrganisationsSearch()\
+                .get_record_by_viewcode(viewcode, 'pid').pid
         records = results.get('hits', {}).get('hits', {})
         for record in records:
             metadata = record.get('metadata', {})
@@ -121,34 +122,40 @@ class DocumentJSONSerializer(JSONSerializer):
                             output.append(item)
                     record['metadata']['items'] = output
 
-        # Add organisation name
-        orgs = {}
-        for org_term in results.get('aggregations', {}).get(
-                'organisation', {}).get('buckets', []):
-            pid = org_term.get('key')
-            if pid not in orgs:
-                orgs['pid'] = Organisation.get_record_by_pid(pid)
-            name = orgs['pid'].get('name')
-            org_term['name'] = name
-            lib_buckets = self._process_library_buckets(
-                orgs['pid'],
-                org_term.get('library', {}).get('buckets', [])
-            )
-            if lib_buckets:
-                org_term['library']['buckets'] = lib_buckets
-
-        # TODO: this should be done in the facet factory as we compute
-        #       unused aggs values
-        if (viewcode is not None) and (viewcode != global_view_code):
-            org = Organisation.get_record_by_viewcode(viewcode)
-            org_buckets = results.get('aggregations', {}).get(
-                'organisation', {}).get('buckets', [])
-            for bucket in org_buckets:
-                if bucket.get('key') == org.pid:
-                    lib_agg = bucket.get('library')
-                    if lib_agg:
-                        results['aggregations']['library'] = lib_agg
-                        del results['aggregations']['organisation']
+        # Aggregations process
+        if viewcode == global_view_code:
+            # Global view
+            aggr_org = request.args.getlist('organisation')
+            for org_term in results.get('aggregations', {})\
+                    .get('organisation', {}).get('buckets', []):
+                pid = org_term.get('key')
+                org_term['name'] = OrganisationsSearch()\
+                    .get_record_by_pid(pid, ['name']).name
+                if pid not in aggr_org:
+                    org_term.get('library', {}).pop('buckets', None)
+                else:
+                    org_term['library']['buckets'] = self\
+                        ._process_library_buckets(
+                            pid,
+                            org_term.get('library', {}).get('buckets', [])
+                        )
+        else:
+            # Local view
+            aggregations = results.get('aggregations', {})
+            for org_term in aggregations.get('organisation', {})\
+                    .get('buckets', {}):
+                org_pid = org_term.get('key')
+                if org_pid != view_id:
+                    org_term.get('library', {}).pop('buckets', None)
+                else:
+                    # Add library aggregations
+                    aggregations.setdefault('library', {})\
+                        .setdefault('buckets', self._process_library_buckets(
+                            org_pid,
+                            org_term.get('library', {}).get('buckets', [])
+                        ))
+                    # Remove organisation aggregation
+                    aggregations.pop('organisation', None)
 
         # Correct document type buckets
         type_buckets = results[
@@ -170,13 +177,16 @@ class DocumentJSONSerializer(JSONSerializer):
         :return processed buckets
         """
         processed_buckets = []
-        lib_pids = list(org.get_libraries_pids())
+        libraries = {}
+        records = LibrariesSearch()\
+            .get_libraries_by_organisation_pid(org, ['pid', 'name'])
+        for record in records:
+            libraries[record.pid] = record.name
         for bucket in lib_buckets:
-            if bucket.get('key') in lib_pids:
-                bucket['name'] = Library.get_record_by_pid(
-                    bucket.get('key')).get('name')
+            key = bucket.get('key')
+            if key in libraries:
+                bucket['name'] = libraries[key]
                 processed_buckets.append(bucket)
-
         return processed_buckets
 
 
