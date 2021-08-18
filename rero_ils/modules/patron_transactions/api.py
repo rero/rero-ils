@@ -314,7 +314,7 @@ class PatronTransaction(IlsRecord):
             cls, notification=None, dbcommit=None, reindex=None,
             delete_pid=None):
         """Create a patron transaction from notification."""
-        from ..notifications.api import calculate_notification_amount
+        from ..notifications.utils import calculate_notification_amount
         record = {}
         total_amount = calculate_notification_amount(notification)
         if total_amount > 0:  # no need to create transaction if amount <= 0 !

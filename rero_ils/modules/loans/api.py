@@ -44,9 +44,10 @@ from ..items.models import ItemStatus
 from ..items.utils import item_pid_to_object
 from ..libraries.api import LibrariesSearch, Library
 from ..locations.api import Location, LocationsSearch
-from ..notifications.api import Notification, NotificationsSearch, \
-    number_of_reminders_sent
+from ..notifications.api import Notification, NotificationsSearch
 from ..notifications.dispatcher import Dispatcher
+from ..notifications.models import NotificationType
+from ..notifications.utils import number_of_reminders_sent
 from ..patron_transactions.api import PatronTransactionsSearch
 from ..patrons.api import Patron, PatronsSearch
 from ..utils import date_string_to_utc, get_ref_for_pid
@@ -725,14 +726,14 @@ class Loan(IlsRecord):
         loan_state = self.get('state')
         # overdue + due_soon
         if notif_type in [
-                Notification.OVERDUE_NOTIFICATION_TYPE,
-                Notification.DUE_SOON_NOTIFICATION_TYPE] \
+                NotificationType.OVERDUE,
+                NotificationType.DUE_SOON] \
                 and not self.is_notified(notif_type, counter):
 
             # We only need to create a notification if a corresponding reminder
             # exists into the linked cipo.
             reminder_type = DUE_SOON_REMINDER_TYPE
-            if notif_type != Notification.DUE_SOON_NOTIFICATION_TYPE:
+            if notif_type != NotificationType.DUE_SOON:
                 reminder_type = OVERDUE_REMINDER_TYPE
             cipo = get_circ_policy(self)
             reminder = cipo.get_reminder(reminder_type, counter)
@@ -742,21 +743,18 @@ class Loan(IlsRecord):
             # create the notification and enqueue it.
             return self._send_notification(record)
 
-        # availibility
+        # availibility + recall
         if notif_type in [
-                Notification.AVAILABILITY_NOTIFICATION_TYPE,
-                # recall
-                Notification.RECALL_NOTIFICATION_TYPE
+                NotificationType.AVAILABILITY,
+                NotificationType.RECALL
         ]:
             return self._send_notification(record)
 
+        # transit_notice + booking + request
         if notif_type in [
-            # transit_notice
-            Notification.TRANSIT_NOTICE_NOTIFICATION_TYPE,
-            # booking
-            Notification.BOOKING_NOTIFICATION_TYPE,
-            # request
-            Notification.REQUEST_NOTIFICATION_TYPE
+            NotificationType.TRANSIT_NOTICE,
+            NotificationType.BOOKING,
+            NotificationType.REQUEST
         ]:
             return self._send_notification(record, True)
 
@@ -817,7 +815,7 @@ class Loan(IlsRecord):
         old and new version of the loan.
 
         :param loan_data: the loan to check.
-        :param patron_data: the patron to check.
+        :param patron: the patron to check.
         :return True|False.
         """
         if cls.concluded(loan_data) and cls.age(loan_data) > 6*365/12:

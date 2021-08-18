@@ -5,6 +5,7 @@ Cara lettrice, caro lettore,
 La durata di prestito dei seguenti documenti sta per scadere:
 
 {%- for document in documents %}
+
 Titolo : {{ document.title_text }} / {{ document.responsibility_statement }}
 Scadenza: {{ document.end_date }}
 {%- endfor %}

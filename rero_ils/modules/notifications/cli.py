@@ -22,7 +22,7 @@ from __future__ import absolute_import, print_function
 import click
 from flask.cli import with_appcontext
 
-from .api import Notification
+from .models import NotificationType
 from .tasks import process_notifications
 
 
@@ -33,7 +33,7 @@ def notifications():
 
 @notifications.command('process')
 @click.option('-t', '--type', 'notification_type', help="Notification Type.",
-              multiple=True, default=Notification.ALL_NOTIFICATIONS)
+              multiple=True, default=NotificationType.ALL_NOTIFICATIONS)
 @click.option('-k', '--enqueue', 'enqueue', is_flag=True, default=False,
               help="Enqueue record creation.")
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False,
@@ -44,7 +44,7 @@ def process(notification_type, enqueue, verbose):
     results = {}
     enqueue_results = {}
     for n_type in notification_type:
-        if n_type not in Notification.ALL_NOTIFICATIONS:
+        if n_type not in NotificationType.ALL_NOTIFICATIONS:
             click.secho(
                 f'Notification type does not exist: {n_type}', fg='red')
             break

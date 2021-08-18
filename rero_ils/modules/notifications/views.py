@@ -43,7 +43,7 @@ def list_available_template():
 
     template_directories = set()
     for glob_pattern in current_app.config.get(
-      'RERO_ILS_NOTIFICATIONS_ALLOWED_TEMPATE_FILES'):
+      'RERO_ILS_NOTIFICATIONS_ALLOWED_TEMPLATE_FILES'):
         for path in pathlib.Path(template_path).rglob(glob_pattern):
             parent_path = str(path.parent.absolute())
             parent_path = parent_path.replace(template_path, '').lstrip('/')

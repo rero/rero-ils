@@ -20,8 +20,8 @@
 from __future__ import absolute_import, print_function
 
 from rero_ils.modules.libraries.api import email_notification_type
-from rero_ils.modules.notifications.api import Notification
 from rero_ils.modules.notifications.dispatcher import Dispatcher
+from rero_ils.modules.notifications.models import NotificationType
 
 
 def test_notification_organisation_pid(
@@ -80,7 +80,6 @@ def test_notification_email_aggregated(notification_availability_martigny,
 
     recipient = '???'
     for notification_setting in lib_martigny.get('notification_settings'):
-        if notification_setting['type'] == \
-                Notification.AVAILABILITY_NOTIFICATION_TYPE:
+        if notification_setting['type'] == NotificationType.AVAILABILITY:
             recipient = notification_setting['email']
     assert mailbox[0].recipients == [recipient]

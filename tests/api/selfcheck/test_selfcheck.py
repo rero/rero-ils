@@ -29,9 +29,10 @@ from utils import flush_index, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.loans.api import Loan, LoanAction, LoanState
-from rero_ils.modules.notifications.api import Notification, \
-    NotificationsSearch, number_of_reminders_sent
+from rero_ils.modules.notifications.api import NotificationsSearch
 from rero_ils.modules.notifications.dispatcher import Dispatcher
+from rero_ils.modules.notifications.models import NotificationType
+from rero_ils.modules.notifications.utils import number_of_reminders_sent
 from rero_ils.modules.selfcheck.api import authorize_patron, enable_patron, \
     item_information, patron_information, patron_status, selfcheck_checkin, \
     selfcheck_checkout, selfcheck_login, selfcheck_renew, system_status, \
@@ -150,7 +151,7 @@ def test_patron_information(client, librarian_martigny,
     loan = Loan.get_record_by_pid(loan_pid)
     assert loan.is_loan_overdue()
     notification = loan.create_notification(
-        notification_type=Notification.OVERDUE_NOTIFICATION_TYPE)
+        notification_type=NotificationType.OVERDUE)
     Dispatcher.dispatch_notifications([notification.get('pid')])
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
@@ -233,7 +234,7 @@ def test_item_information(client, librarian_martigny,
     assert loan['state'] == LoanState.ITEM_ON_LOAN
     assert loan.is_loan_overdue()
     notification = loan.create_notification(
-        notification_type=Notification.OVERDUE_NOTIFICATION_TYPE)
+        notification_type=NotificationType.OVERDUE)
     Dispatcher.dispatch_notifications([notification.get('pid')])
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)

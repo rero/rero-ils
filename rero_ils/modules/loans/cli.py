@@ -36,8 +36,8 @@ from ..items.utils import item_pid_to_object
 from ..libraries.api import Library
 from ..loans.api import Loan
 from ..locations.api import Location
-from ..notifications.api import Notification
 from ..notifications.dispatcher import Dispatcher
+from ..notifications.models import NotificationType
 from ..notifications.tasks import create_notifications
 from ..patron_transaction_events.api import PatronTransactionEvent
 from ..patron_transactions.api import PatronTransaction
@@ -315,8 +315,8 @@ def create_loans(infile, verbose, debug):
         click.secho(f'Errors {transaction_type}: {count}', fg='red')
     result = create_notifications(
         types=[
-            Notification.DUE_SOON_NOTIFICATION_TYPE,
-            Notification.OVERDUE_NOTIFICATION_TYPE
+            NotificationType.DUE_SOON,
+            NotificationType.OVERDUE
         ],
         verbose=verbose
     )
@@ -364,7 +364,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                 reindex=True
             )
             notification = loan.create_notification(
-                notification_type=Notification.DUE_SOON_NOTIFICATION_TYPE)
+                notification_type=NotificationType.DUE_SOON)
             if notification:
                 notification_pids.append(notification['pid'])
 
@@ -376,7 +376,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                 reindex=True
             )
             notification = loan.create_notification(
-                notification_type=Notification.OVERDUE_NOTIFICATION_TYPE)
+                notification_type=NotificationType.OVERDUE)
             if notification:
                 notification_pids.append(notification['pid'])
 
@@ -389,7 +389,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                 reindex=True
             )
             notification = loan.create_notification(
-                notification_type=Notification.DUE_SOON_NOTIFICATION_TYPE)
+                notification_type=NotificationType.DUE_SOON)
             if notification:
                 notification_pids.append(notification['pid'])
 
@@ -401,7 +401,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                 reindex=True
             )
             notification = notif = loan.create_notification(
-                notification_type=Notification.OVERDUE_NOTIFICATION_TYPE)
+                notification_type=NotificationType.OVERDUE)
             if notification:
                 notification_pids.append(notification['pid'])
             patron_transaction = next(notif.patron_transactions)
@@ -450,7 +450,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                     document_pid=extracted_data_from_ref(item.get('document')),
                 )
                 notification = loan.create_notification(
-                    notification_type=Notification.RECALL_NOTIFICATION_TYPE)
+                    notification_type=NotificationType.RECALL)
                 if notification:
                     notification_pids.append(notification['pid'])
         Dispatcher.dispatch_notifications(notification_pids, verbose=verbose)

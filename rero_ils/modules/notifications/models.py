@@ -40,3 +40,55 @@ class NotificationMetadata(db.Model, RecordMetadataBase):
     """Notification record metadata."""
 
     __tablename__ = 'notifications_metadata'
+
+
+class NotificationType:
+    """Types of notifications."""
+
+    # when a new request is done on a loaned item
+    RECALL = 'recall'
+
+    # when a requested item arrive at desk
+    AVAILABILITY = 'availability'
+
+    # when the loaned item is about to expire
+    # NOTE : process by a recurrent task
+    DUE_SOON = 'due_soon'
+
+    # when the loaned item is expired
+    # NOTE : process by a recurrent task
+    OVERDUE = 'overdue'
+
+    # when an item is sent to the owning location/library
+    TRANSIT_NOTICE = 'transit_notice'
+
+    # when the item is at desk and a request occurs
+    # NOTE : can have a delay
+    REQUEST = 'request'
+
+    # when the item is checked in an have a request
+    BOOKING = 'booking'
+
+    ALL_NOTIFICATIONS = [
+        AVAILABILITY,
+        DUE_SOON,
+        OVERDUE, RECALL,
+        TRANSIT_NOTICE,
+        REQUEST,
+        BOOKING
+    ]
+
+    # Notification to send to a library (not to a patron)
+    INTERNAL_NOTIFICATIONS = [
+        BOOKING,
+        REQUEST,
+        TRANSIT_NOTICE
+    ]
+
+
+class NotificationChannel:
+    """Notification channels."""
+
+    MAIL = 'mail'
+    EMAIL = 'email'
+    PATRON_SETTING = 'patron_setting'

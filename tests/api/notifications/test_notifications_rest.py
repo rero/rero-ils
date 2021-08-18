@@ -31,8 +31,10 @@ from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.libraries.api import email_notification_type
 from rero_ils.modules.loans.api import Loan, LoanAction, LoanState
 from rero_ils.modules.notifications.api import Notification, \
-    NotificationsSearch, get_notification
+    NotificationsSearch
+from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.notifications.tasks import process_notifications
+from rero_ils.modules.notifications.utils import get_notification
 from rero_ils.modules.utils import get_ref_for_pid
 
 
@@ -42,23 +44,22 @@ def test_availability_notification(
     """Test availability notification created from a loan."""
     mailbox.clear()
     loan = loan_validated_martigny
-    assert loan.is_notified(
-        notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
+    assert loan.is_notified(notification_type=NotificationType.AVAILABILITY)
     notification = get_notification(
         loan_validated_martigny,
-        notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE
+        notification_type=NotificationType.AVAILABILITY
     )
     assert notification.loan_pid == loan_validated_martigny.get('pid')
     assert notification.item_pid == item2_lib_martigny.pid
     assert notification.patron_pid == patron_martigny.pid
 
     assert not loan_validated_martigny.is_notified(
-        notification_type=Notification.RECALL_NOTIFICATION_TYPE)
+        notification_type=NotificationType.RECALL)
     assert not get_notification(
         loan_validated_martigny,
-        notification_type=Notification.RECALL_NOTIFICATION_TYPE
+        notification_type=NotificationType.RECALL
     )
-    for notification_type in Notification.ALL_NOTIFICATIONS:
+    for notification_type in NotificationType.ALL_NOTIFICATIONS:
         process_notifications(notification_type)
     assert len(mailbox)
     mailbox.clear()
@@ -308,15 +309,13 @@ def test_notifications_post_put_delete(
 
     # Check that the returned record matches the given data
     data = get_json(res)
-    assert data['metadata']['notification_type'] == \
-        Notification.DUE_SOON_NOTIFICATION_TYPE
+    assert data['metadata']['notification_type'] == NotificationType.DUE_SOON
 
     res = client.get(item_url)
     assert res.status_code == 200
 
     data = get_json(res)
-    assert data['metadata']['notification_type'] == \
-        Notification.DUE_SOON_NOTIFICATION_TYPE
+    assert data['metadata']['notification_type'] == NotificationType.DUE_SOON
 
     res = client.get(list_url)
     assert res.status_code == 200
@@ -357,8 +356,7 @@ def test_recall_notification(client, patron_sion, lib_sion,
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
     loan = Loan.get_record_by_pid(loan_pid)
 
-    assert not loan.is_notified(
-        notification_type=Notification.RECALL_NOTIFICATION_TYPE)
+    assert not loan.is_notified(notification_type=NotificationType.RECALL)
     # test notification permissions
     res, data = postdata(
         client,
@@ -379,25 +377,24 @@ def test_recall_notification(client, patron_sion, lib_sion,
 
     flush_index(NotificationsSearch.Meta.index)
 
-    assert loan.is_notified(
-        notification_type=Notification.RECALL_NOTIFICATION_TYPE)
+    assert loan.is_notified(notification_type=NotificationType.RECALL)
     notification = get_notification(
-        loan, notification_type=Notification.RECALL_NOTIFICATION_TYPE)
+        loan, notification_type=NotificationType.RECALL)
     assert notification.loan_pid == loan.pid
 
     assert not loan.is_notified(
-        notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
+        notification_type=NotificationType.AVAILABILITY)
     assert not get_notification(
-        loan, notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
+        loan, notification_type=NotificationType.AVAILABILITY)
 
     assert not get_notification(
-        request_loan, notification_type=Notification.REQUEST_NOTIFICATION_TYPE)
+        request_loan, notification_type=NotificationType.REQUEST)
     assert not request_loan.is_notified(
-        notification_type=Notification.REQUEST_NOTIFICATION_TYPE)
+        notification_type=NotificationType.REQUEST)
 
     assert not len(mailbox)
 
-    for notification_type in Notification.ALL_NOTIFICATIONS:
+    for notification_type in NotificationType.ALL_NOTIFICATIONS:
         process_notifications(notification_type)
     # one new email for the patron
     assert mailbox[-1].recipients == [patron_sion.dumps()['email']]
@@ -434,17 +431,17 @@ def test_recall_notification(client, patron_sion, lib_sion,
     flush_index(NotificationsSearch.Meta.index)
 
     assert not loan.is_notified(
-        notification_type=Notification.RECALL_NOTIFICATION_TYPE, counter=1)
+        notification_type=NotificationType.RECALL, counter=1)
 
     assert not loan.is_notified(
-        notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
+        notification_type=NotificationType.AVAILABILITY)
     assert not get_notification(
-        loan, notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
+        loan, notification_type=NotificationType.AVAILABILITY)
 
     assert not get_notification(
-        request_loan, notification_type=Notification.REQUEST_NOTIFICATION_TYPE)
+        request_loan, notification_type=NotificationType.REQUEST)
     assert not request_loan.is_notified(
-        notification_type=Notification.REQUEST_NOTIFICATION_TYPE)
+        notification_type=NotificationType.REQUEST)
 
     assert len(mailbox) == 0
 
@@ -473,7 +470,7 @@ def test_recall_notification_without_email(
     loan = Loan.get_record_by_pid(loan_pid)
 
     assert not loan.is_notified(
-        notification_type=Notification.RECALL_NOTIFICATION_TYPE)
+        notification_type=NotificationType.RECALL)
     # test notification
     res, data = postdata(
         client,
@@ -491,17 +488,16 @@ def test_recall_notification_without_email(
     assert res.status_code == 200
     flush_index(NotificationsSearch.Meta.index)
 
-    assert loan.is_notified(
-        notification_type=Notification.RECALL_NOTIFICATION_TYPE)
+    assert loan.is_notified(notification_type=NotificationType.RECALL)
     notification = get_notification(
-        loan, notification_type=Notification.RECALL_NOTIFICATION_TYPE)
+        loan, notification_type=NotificationType.RECALL)
     assert notification.loan_pid == loan.pid
     assert not loan.is_notified(
-        notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
+        notification_type=NotificationType.AVAILABILITY)
     assert not get_notification(
-        loan, notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
+        loan, notification_type=NotificationType.AVAILABILITY)
 
-    for notification_type in Notification.ALL_NOTIFICATIONS:
+    for notification_type in NotificationType.ALL_NOTIFICATIONS:
         process_notifications(notification_type)
     # one new email for the librarian
     assert mailbox[0].recipients == [email_notification_type(
@@ -552,7 +548,7 @@ def test_recall_notification_with_patron_additional_email_only(
     loan = Loan.get_record_by_pid(loan_pid)
 
     assert not loan.is_notified(
-        notification_type=Notification.RECALL_NOTIFICATION_TYPE)
+        notification_type=NotificationType.RECALL)
     # test notification
     res, data = postdata(
         client,
@@ -572,16 +568,16 @@ def test_recall_notification_with_patron_additional_email_only(
         'action_applied')[LoanAction.REQUEST].get('pid')
 
     assert loan.is_notified(
-        notification_type=Notification.RECALL_NOTIFICATION_TYPE)
+        notification_type=NotificationType.RECALL)
     notification = get_notification(
-        loan, notification_type=Notification.RECALL_NOTIFICATION_TYPE)
+        loan, notification_type=NotificationType.RECALL)
     assert notification.loan_pid == loan.pid
     assert not loan.is_notified(
-        notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
+        notification_type=NotificationType.AVAILABILITY)
     assert not get_notification(
-        loan, notification_type=Notification.AVAILABILITY_NOTIFICATION_TYPE)
+        loan, notification_type=NotificationType.AVAILABILITY)
 
-    for notification_type in Notification.ALL_NOTIFICATIONS:
+    for notification_type in NotificationType.ALL_NOTIFICATIONS:
         process_notifications(notification_type)
     # one new email for the librarian
     assert mailbox[0].recipients == \

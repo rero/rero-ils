@@ -81,6 +81,9 @@ from .modules.local_fields.permissions import LocalFieldPermission
 from .modules.locations.api import Location
 from .modules.locations.permissions import LocationPermission
 from .modules.notifications.api import Notification
+from .modules.notifications.dispatcher import \
+    Dispatcher as NotificationDispatcher
+from .modules.notifications.models import NotificationType
 from .modules.notifications.permissions import NotificationPermission
 from .modules.operation_logs.api import OperationLog
 from .modules.operation_logs.permissions import OperationLogPermission
@@ -314,10 +317,7 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'rero_ils.modules.notifications.tasks.create_notifications',
         'schedule': crontab(minute=0, hour=5),  # Every day at 05:00 UTC,
         'kwargs': {
-            'types': [
-                Notification.DUE_SOON_NOTIFICATION_TYPE,
-                Notification.OVERDUE_NOTIFICATION_TYPE
-            ]
+            'types': [NotificationType.DUE_SOON, NotificationType.OVERDUE]
         },
         'enabled': False,
         # TODO: in production set this up once a day
@@ -326,7 +326,7 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'rero_ils.modules.notifications.tasks.process_notifications',
         'schedule': crontab(minute="*/15"),
         'kwargs': {
-            'notification_type': Notification.DUE_SOON_NOTIFICATION_TYPE
+            'notification_type': NotificationType.DUE_SOON
         },
         'enabled': False,
     },
@@ -334,7 +334,7 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'rero_ils.modules.notifications.tasks.process_notifications',
         'schedule': timedelta(minutes=15),
         'kwargs': {
-            'notification_type': Notification.OVERDUE_NOTIFICATION_TYPE
+            'notification_type': NotificationType.OVERDUE
         },
         'enabled': False,
     },
@@ -342,7 +342,7 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'rero_ils.modules.notifications.tasks.process_notifications',
         'schedule': timedelta(minutes=15),
         'kwargs': {
-            'notification_type': Notification.AVAILABILITY_NOTIFICATION_TYPE
+            'notification_type': NotificationType.AVAILABILITY
         },
         'enabled': False,
     },
@@ -350,7 +350,7 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'rero_ils.modules.notifications.tasks.process_notifications',
         'schedule': timedelta(minutes=15),
         'kwargs': {
-            'notification_type': Notification.RECALL_NOTIFICATION_TYPE
+            'notification_type': NotificationType.RECALL
         },
         'enabled': False,
     },
@@ -2421,12 +2421,26 @@ RERO_ILS_ENABLE_OPERATION_LOG_VALIDATION = False
 # Compute the stats with a timeframe given in monthes
 RERO_ILS_STATS_TIMEFRAME_IN_MONTHES = 3
 
-# Notification Configuration
-# ===========================
-RERO_ILS_NOTIFICATIONS_ALLOWED_TEMPATE_FILES = [
+# =============================================================================
+# NOTIFICATIONS MODULE SPECIFIC SETTINGS
+# =============================================================================
+
+# Define which files should be considered as a template file. Each full_path
+# file matching one of the specific regular expression will be considered.
+RERO_ILS_NOTIFICATIONS_ALLOWED_TEMPLATE_FILES = [
     '*.txt',
     '*.tpl.*'
 ]
+# Define functions to use when we would send a notification. Each key will be
+# the communication channel, value is the function to call. The used functions
+# should accept one positional argument.
+RERO_ILS_COMMUNICATION_DISPATCHER_FUNCTIONS = {
+    'email': NotificationDispatcher.send_mail_to_patron,
+    'mail': NotificationDispatcher.send_mail_for_printing,
+    #  'sms': not_yet_implemented
+    #  'telepathy': self.madness_mind
+    #  ...
+}
 
 # Login Configuration
 # ===================

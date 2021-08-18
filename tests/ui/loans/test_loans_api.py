@@ -34,8 +34,8 @@ from rero_ils.modules.loans.api import Loan, LoanState
 from rero_ils.modules.loans.tasks import loan_anonymizer
 from rero_ils.modules.loans.utils import get_circ_policy, \
     get_default_loan_duration, sum_for_fees
-from rero_ils.modules.notifications.api import Notification, \
-    NotificationsSearch
+from rero_ils.modules.notifications.api import NotificationsSearch
+from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.notifications.tasks import create_notifications
 from rero_ils.modules.patron_transactions.api import PatronTransaction
 
@@ -137,8 +137,8 @@ def test_loan_keep_and_to_anonymize(
     loan.update(loan, dbcommit=True, reindex=True)
 
     create_notifications(types=[
-        Notification.DUE_SOON_NOTIFICATION_TYPE,
-        Notification.OVERDUE_NOTIFICATION_TYPE
+        NotificationType.DUE_SOON,
+        NotificationType.OVERDUE
     ])
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
@@ -167,8 +167,8 @@ def test_anonymizer_job(
     loan.update(loan, dbcommit=True, reindex=True)
 
     create_notifications(types=[
-        Notification.DUE_SOON_NOTIFICATION_TYPE,
-        Notification.OVERDUE_NOTIFICATION_TYPE
+        NotificationType.DUE_SOON,
+        NotificationType.OVERDUE
     ])
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)

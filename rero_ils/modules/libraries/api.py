@@ -25,6 +25,7 @@ import pytz
 from dateutil import parser
 from dateutil.rrule import FREQNAMES, rrule
 
+from .exceptions import LibraryNeverOpen
 from .models import LibraryIdentifier, LibraryMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
@@ -43,11 +44,6 @@ LibraryProvider = type(
 library_id_minter = partial(id_minter, provider=LibraryProvider)
 # fetcher
 library_id_fetcher = partial(id_fetcher, provider=LibraryProvider)
-
-
-# define Python user-defined exceptions
-class LibraryNeverOpen(Exception):
-    """Raised when the library has no open days."""
 
 
 class LibrariesSearch(IlsRecordsSearch):
