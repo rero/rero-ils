@@ -57,7 +57,6 @@
               "title": "Carrier type",
               "type": "string",
               "description": "Format of the storage medium and housing of a carrier in combination with the type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 338).",
-              "default": "other",
               "enum": [
                 "rdact:1002",
                 "rdact:1003",
@@ -148,7 +147,6 @@
               "title": "Carrier type",
               "type": "string",
               "description": "Format of the storage medium and housing of a carrier in combination with the type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 338).",
-              "default": "other",
               "enum": [
                 "rdact:1021",
                 "rdact:1022",
@@ -244,7 +242,6 @@
               "title": "Carrier type",
               "type": "string",
               "description": "Format of the storage medium and housing of a carrier in combination with the type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 338).",
-              "default": "other",
               "enum": [
                 "rdact:1011",
                 "rdact:1012",
@@ -335,7 +332,6 @@
               "title": "Carrier type",
               "type": "string",
               "description": "Format of the storage medium and housing of a carrier in combination with the type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 338).",
-              "default": "other",
               "enum": [
                 "rdact:1030",
                 "other"
@@ -391,7 +387,6 @@
               "title": "Carrier type",
               "type": "string",
               "description": "Format of the storage medium and housing of a carrier in combination with the type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 338).",
-              "default": "other",
               "enum": [
                 "rdact:1032",
                 "rdact:1033",
@@ -487,7 +482,6 @@
               "title": "Carrier type",
               "type": "string",
               "description": "Format of the storage medium and housing of a carrier in combination with the type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 338).",
-              "default": "other",
               "enum": [
                 "rdact:1042",
                 "rdact:1043",
@@ -548,7 +542,6 @@
               "title": "Carrier type",
               "type": "string",
               "description": "Format of the storage medium and housing of a carrier in combination with the type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 338).",
-              "default": "other",
               "enum": [
                 "rdact:1045",
                 "rdact:1046",
@@ -629,7 +622,6 @@
               "title": "Carrier type",
               "type": "string",
               "description": "Format of the storage medium and housing of a carrier in combination with the type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 338).",
-              "default": "other",
               "enum": [
                 "rdact:1051",
                 "rdact:1052",
@@ -700,7 +692,6 @@
               "title": "Carrier type",
               "type": "string",
               "description": "Format of the storage medium and housing of a carrier in combination with the type of intermediation device required to view, play, run, etc., the content of a manifestation (MARC 338).",
-              "default": "unspecified",
               "enum": [
                 "unspecified"
               ],

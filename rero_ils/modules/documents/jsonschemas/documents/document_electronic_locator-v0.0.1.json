@@ -81,7 +81,6 @@
           "title": "Content type",
           "description": "Is displayed as the text of the link.",
           "type": "string",
-          "default": "fullText",
           "enum": [
             "poster",
             "audio",

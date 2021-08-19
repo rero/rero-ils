@@ -281,14 +281,12 @@
     "harvested": {
       "title": "Harvested",
       "description": "Document is harvested or not, will disable record edition or similar.",
-      "type": "boolean",
-      "default": false
+      "type": "boolean"
     },
     "_draft": {
       "title": "Draft",
       "description": "Document is a draft record or not, will disable record validation.",
       "type": "boolean",
-      "default": false,
       "form": {
         "templateOptions": {
           "wrappers": [
@@ -301,7 +299,6 @@
       "title": "Masked",
       "type": "boolean",
       "description": "A masked document is visible in the professional interface, but not in the public interface.",
-      "default": false,
       "form": {
         "templateOptions": {
           "cssClass": "editor-title"

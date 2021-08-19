@@ -17,7 +17,6 @@
         "type": {
           "title": "Type",
           "type": "string",
-          "default": "Linear scale",
           "enum": [
             "Linear scale",
             "Angular scale",
