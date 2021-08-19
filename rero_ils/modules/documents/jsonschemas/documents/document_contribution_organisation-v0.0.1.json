@@ -14,7 +14,8 @@
   ],
   "required": [
     "type",
-    "preferred_name"
+    "preferred_name",
+    "conference"
   ],
   "properties": {
     "type": {

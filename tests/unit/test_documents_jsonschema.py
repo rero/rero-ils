@@ -100,7 +100,8 @@ def test_contribution(document_schema, document_data_tmp):
         {
             'agent': {
                 'type': 'bf:Organisation',
-                'preferred_name': 'RERO'
+                'preferred_name': 'RERO',
+                'conference': False
             },
             'role': ['aut']
         }

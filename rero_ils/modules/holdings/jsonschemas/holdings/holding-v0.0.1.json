@@ -468,22 +468,19 @@
           "title": "Maximum number of claims",
           "description": "After this number, no further claims will be sent. 0 means that no claims will be sent.",
           "type": "integer",
-          "minimum": 0,
-          "default": 3
+          "minimum": 0
         },
         "days_before_first_claim": {
           "title": "Number of days before 1st claim",
           "description": "If the item is not received, this defines the number of days from the expected date after which it is claimed.",
           "type": "integer",
-          "minimum": 1,
-          "default": 7
+          "minimum": 1
         },
         "days_before_next_claim": {
           "title": "Number of days before next claims",
           "description": "If the item is not received, this defines the number of days from the last claim date after which it is claimed again.",
           "type": "integer",
-          "minimum": 1,
-          "default": 7
+          "minimum": 1
         },
         "language": {
           "title": "Language",
