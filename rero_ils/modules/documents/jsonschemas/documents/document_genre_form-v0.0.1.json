@@ -53,7 +53,6 @@
             "source": {
               "title": "Source",
               "description": "Source of the subject, for instance rero.",
-              "default": "rero",
               "type": "string"
             },
             "type": {
