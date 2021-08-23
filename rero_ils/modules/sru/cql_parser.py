@@ -59,7 +59,7 @@ ES_INDEX_MAPPINGS = {
     'ape OR aqt OR arc OR art OR aus OR aut OR chr OR cll OR cmp OR com OR '
     'drt OR dsr OR enj OR fmk OR inv OR ive OR ivr OR lbt OR lsa OR lyr OR '
     'pht OR pra OR prg OR rsp OR scl) AND '
-    'contribution.agent.authorized_access_point',
+    'authorized_access_point',
     'dc.creator': 'contribution.role:('
     'abr OR act OR adi OR adp OR aft OR anm OR ann OR apl OR arr OR ato OR '
     'auc OR aui OR bkd OR bnd OR brd OR brl OR bsl OR cas OR clr OR clt OR '
@@ -74,7 +74,7 @@ ES_INDEX_MAPPINGS = {
     'rpc OR rsr OR sds OR sgd OR sll OR sng OR spk OR spn OR srv OR stl OR '
     'tch OR tld OR tlp OR trc OR trl OR vac OR vdg OR wac OR wal OR wat OR '
     'win OR wpr OR wst) AND '
-    'contribution.agent.authorized_access_point',
+    'authorized_access_point',
     'dc.date': 'provisionActivity.type:"bf:Publication" '
                'AND provisionActivity.startDate',
     'dc.title': 'title._text.\\*',
@@ -404,7 +404,8 @@ class SearchClause(PrefixableObject):
             texts = []
             for term in self.term.to_es().split(' '):
                 texts.append(index_term(index, relation, term))
-                texts[0] = texts[0].lstrip('"')
+            if texts:
+                texts[0] = texts[0].replace('"', '')
                 texts[-1] = texts[-1].rstrip('"')
             if relation == 'any':
                 text = f'({" OR ".join(texts)})'
