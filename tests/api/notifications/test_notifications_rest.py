@@ -781,6 +781,53 @@ def test_request_notifications(client, patron_martigny, patron_sion,
     mailbox.clear()
 
 
+@mock.patch(
+    'rero_ils.modules.notifications.dispatcher.'
+    'Dispatcher._process_notification',
+    mock.MagicMock(side_effect=Exception('Test!')))
+def test_dispatch_error(client, patron_martigny, patron_sion,
+                        lib_martigny,
+                        lib_fully,
+                        item_lib_martigny, librarian_martigny,
+                        loc_public_martigny, circulation_policies,
+                        loc_public_fully, mailbox):
+    """Test request notifications."""
+    mailbox.clear()
+    login_user_via_session(client, librarian_martigny.user)
+
+    res, data = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pickup_location_pid=loc_public_fully.pid,
+            patron_pid=patron_martigny.pid,
+            transaction_library_pid=lib_martigny.pid,
+            transaction_user_pid=librarian_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+
+    request_loan_pid = data.get(
+        'action_applied')[LoanAction.REQUEST].get('pid')
+
+    flush_index(NotificationsSearch.Meta.index)
+    assert len(mailbox) == 0
+    # cancel request
+    res, _ = postdata(
+        client,
+        'api_item.cancel_item_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pid=request_loan_pid,
+            transaction_user_pid=librarian_martigny.pid,
+            transaction_library_pid=lib_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+    mailbox.clear()
+
+
 def test_multiple_request_booking_notifications(
     client,
     patron_martigny, patron2_martigny, patron4_martigny,
