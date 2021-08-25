@@ -308,6 +308,8 @@ def timestamps():
     time_stamps = current_cache.get('timestamps')
     if time_stamps:
         for name, values in time_stamps.items():
+            # make the name safe for JSON export
+            name = name.replace('-', '_')
             data[name] = {}
             for key, value in values.items():
                 if key == 'time':
