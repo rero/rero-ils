@@ -18,6 +18,33 @@
 Release notes
 =============
 
+v1.4.8
+------
+
+This patch improves the mechanism of error login for the selfcheck
+machines and notifications process to improve the diagnostic of issues and its
+resolution. Other issues on notification are also resolved:
+
+-  Improvement of readability of the groupes notifications (`#2247`_).
+-  Availability notification sent to the wrong recipient (`#2300`_).
+-  The link to the patron account should redirect to a login page if the user
+   is not authentified (`#2282`_).
+-  The library name is displayed in the notifications instead of the pickup
+   library name when the location is not a pickup location anymore, or not
+   available.
+
+Other issues are solved on the SRU queries and on the display of items
+on the document detailed view.
+
+Finally, the support of loan listing, even if linked items
+or documents are deleted, is supported.
+
+The comprehensive changes are available in the `changelog`_.
+
+.. _#2247: https://github.com/rero/rero-ils/issues/2247
+.. _#2282: https://github.com/rero/rero-ils/issues/2282
+.. _#2300: https://github.com/rero/rero-ils/issues/2300
+
 v1.4.7
 ------
 
