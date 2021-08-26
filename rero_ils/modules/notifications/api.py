@@ -154,14 +154,16 @@ class Notification(IlsRecord):
             if pickup_location:
                 data['loan']['pickup_location'] = \
                     pickup_location.replace_refs().dumps()
-                data['loan']['pickup_name'] = pickup_location['pickup_name']
                 pickup_library_pid = \
                     data['loan']['pickup_location']['library']['pid']
                 data['loan']['pickup_library'] = \
                     self._get_library_informations(pickup_library_pid)
-            else:
-                location = self.transaction_location.replace_refs().dumps()
-                data['loan']['pickup_name'] = location['library']['name']
+                data['loan']['pickup_name'] = \
+                    pickup_location.get(
+                        'pickup_name', data['loan']['pickup_library']['name'])
+            elif self.transaction_location:
+                data['loan']['pickup_name'] = \
+                    data['loan']['transaction_library']['name']
 
             document = self.document.replace_refs().dumps()
             data['loan']['document'] = document
