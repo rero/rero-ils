@@ -67,8 +67,12 @@ def test_loans_logged_permissions(client, loan_pending_martigny,
     """Test record retrieval."""
     login_user_via_session(client, librarian_martigny.user)
     item_url = url_for('invenio_records_rest.loanid_item', pid_value='1')
+    item_list = url_for('invenio_records_rest.loanid_list')
 
     res = client.get(item_url)
+    assert res.status_code == 200
+
+    res = client.get(item_list)
     assert res.status_code == 200
 
     res, _ = postdata(
@@ -631,3 +635,38 @@ def test_librarian_request_on_blocked_user(
     assert res.status_code == 403
     data = get_json(res)
     assert 'blocked' in data.get('message')
+
+
+def test_loans_serializer_with_deleted_item(
+    client, item_lib_martigny, patron_martigny, librarian_martigny,
+    lib_martigny, rero_json_header, circulation_policies
+):
+    """Test loan serializer with a deleted item."""
+    login_user_via_session(client, librarian_martigny.user)
+    res, _ = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            patron_pid=patron_martigny.pid,
+            transaction_library_pid=lib_martigny.pid,
+            transaction_user_pid=librarian_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+    res, data = postdata(
+        client,
+        'api_item.checkin',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            transaction_library_pid=lib_martigny.pid,
+            transaction_user_pid=librarian_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+    item_lib_martigny.delete(False, True, True)
+
+    item_list_url = url_for('invenio_records_rest.loanid_list')
+
+    res = client.get(item_list_url, headers=rero_json_header)
+    assert res.status_code == 200

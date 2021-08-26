@@ -34,7 +34,7 @@ class LoanJSONSerializer(JSONSerializer):
 
     def post_process_serialize_search(self, results, pid_fetcher):
         """Post process the search results."""
-        records = results.get('hits', {}).get('hits', {})
+        records = results.get('hits', {}).get('hits', [])
         for record in records:
             metadata = record.get('metadata', {})
             # Loan
@@ -51,14 +51,18 @@ class LoanJSONSerializer(JSONSerializer):
             document_pid = metadata.get('document_pid')
             search = DocumentsSearch().filter(
                 'term', pid=document_pid)
-            document = list(search.scan())[0].to_dict()
-            metadata['document'] = document
-            del metadata['document_pid']
+            documents = list(search.scan())
+            # check if the document still exists
+            if documents:
+                metadata['document'] = documents[0].to_dict()
+                del metadata['document_pid']
             # Item
             item_pid = metadata.get('item_pid', {}).get('value')
             if item_pid:
                 item = Item.get_record_by_pid(item_pid)
-                metadata['item'] = item.replace_refs().dumps()
+                # check if the item still exists
+                if item:
+                    metadata['item'] = item.replace_refs().dumps()
                 # Item loan
                 if metadata['state'] == LoanState.ITEM_ON_LOAN:
                     metadata['overdue'] = loan.is_loan_overdue()
@@ -78,7 +82,6 @@ class LoanJSONSerializer(JSONSerializer):
                     self._process_loan_returned_in_transit_to_house_cancelled(
                         metadata, loan)
                 del metadata['item_pid']
-
         return super(LoanJSONSerializer, self)\
             .post_process_serialize_search(results, pid_fetcher)
 
