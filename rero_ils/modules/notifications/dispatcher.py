@@ -55,8 +55,8 @@ class Dispatcher:
                 return communication_switcher[channel]
             except KeyError:
                 current_app.logger.warning(
-                    'The communication channel of the patron'
-                    f' (pid: {patron["pid"]}) is not yet implemented')
+                    f'The communication channel: {channel}'
+                    ' is not yet implemented')
                 return Dispatcher.not_yet_implemented
 
         sent = not_sent = 0
@@ -71,11 +71,13 @@ class Dispatcher:
         #     2. communication_channel
         #     3. library
         #     4. patron
+        errors = 0
         for notification in notifications:
             try:
                 cls._process_notification(
                     notification, resend, aggregated)
             except Exception as error:
+                errors += 1
                 current_app.logger.error(
                     f'Notification has not be sent (pid: {notification.pid},'
                     f' type: {notification["notification_type"]}): '
@@ -105,7 +107,8 @@ class Dispatcher:
         return {
             'processed': len(notifications),
             'sent': sent,
-            'not_sent': not_sent
+            'not_sent': not_sent,
+            'errors': errors
         }
 
     @classmethod
@@ -202,11 +205,6 @@ class Dispatcher:
         p_pid = patron['pid']
         c_channel = communication_channel
 
-        aggregated.setdefault(n_type, {})
-        aggregated[n_type].setdefault(c_channel, {})
-        aggregated[n_type][c_channel].setdefault(l_pid, {})
-        aggregated[n_type][c_channel][l_pid].setdefault(p_pid, ctx_data)
-
         documents_data = {
             'title_text': loan['document']['title_text'],
             'responsibility_statement':
@@ -263,6 +261,10 @@ class Dispatcher:
                     ctx_data['location_email'] = email
 
         # Add information into correct aggregations
+        aggregated.setdefault(n_type, {})
+        aggregated[n_type].setdefault(c_channel, {})
+        aggregated[n_type][c_channel].setdefault(l_pid, {})
+        aggregated[n_type][c_channel][l_pid].setdefault(p_pid, ctx_data)
         aggregation = aggregated[n_type][c_channel][l_pid][p_pid]
         aggregation['documents'].append(documents_data)
         aggregation['notifications'].append(notification)

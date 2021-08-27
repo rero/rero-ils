@@ -606,7 +606,7 @@ def test_recall_notification_with_patron_additional_email_only(
 def test_transaction_library_pid(notification_late_martigny,
                                  lib_martigny_data):
     assert notification_late_martigny.transaction_library_pid == \
-           lib_martigny_data.get('pid')
+        lib_martigny_data.get('pid')
 
 
 def test_notification_templates_list(client, librarian_martigny):
@@ -807,6 +807,56 @@ def test_dispatch_error(client, patron_martigny, patron_sion,
         )
     )
     assert res.status_code == 200
+
+    request_loan_pid = data.get(
+        'action_applied')[LoanAction.REQUEST].get('pid')
+
+    flush_index(NotificationsSearch.Meta.index)
+    assert len(mailbox) == 0
+    # cancel request
+    res, _ = postdata(
+        client,
+        'api_item.cancel_item_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pid=request_loan_pid,
+            transaction_user_pid=librarian_martigny.pid,
+            transaction_library_pid=lib_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+    mailbox.clear()
+
+
+def test_dispatch_error_inner(client, patron_martigny, patron_sion,
+                              lib_martigny,
+                              lib_fully,
+                              item_lib_martigny, librarian_martigny,
+                              loc_public_martigny, circulation_policies,
+                              loc_public_fully, mailbox, caplog):
+    """Test request notifications with exception in _process_notification."""
+    mailbox.clear()
+    login_user_via_session(client, librarian_martigny.user)
+
+    res, data = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pickup_location_pid='???',
+            patron_pid=patron_martigny.pid,
+            transaction_library_pid=lib_martigny.pid,
+            transaction_user_pid=librarian_martigny.pid
+        )
+    )
+    assert res.status_code == 400
+    assert caplog.record_tuples[0] == (
+        'invenio', 40,
+        "Notification has not be sent (pid: 1, type: request):"
+        " 'pickup_library'"
+    )
+    assert caplog.record_tuples[1] == (
+        'invenio', 40, "'NoneType' object is not subscriptable")
 
     request_loan_pid = data.get(
         'action_applied')[LoanAction.REQUEST].get('pid')

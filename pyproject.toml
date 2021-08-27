@@ -47,6 +47,8 @@ invenio = {version = ">=3.4.0,<5.4.0", extras = ["base", "postgresql", "auth", "
 
 # TODO: jedi > 0.17 crashs the console
 jedi = "<0.18.0"
+# TODO: regex = 2021.8.27 -> segmentation fault
+regex = "<2021.8.27"
 
 ## RERO ILS specific python modules
 PyYAML = ">=5.3.1"
@@ -85,7 +87,6 @@ num2words = "^0.5.10"
 Flask = "<2.0.0"
 iso639 = "^0.1.4"
 dcxml = "^0.1.2"
-coverage = {version = ">=6.0b1", allow-prereleases = true}
 
 [tool.poetry.dev-dependencies]
 ## Python packages development dependencies (order matters)
