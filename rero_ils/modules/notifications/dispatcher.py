@@ -47,7 +47,6 @@ class Dispatcher:
         :param verbose: Verbose output.
         :returns: dictionary with processed and send count
         """
-
         def get_dispatcher_function(channel):
             try:
                 communication_switcher = current_app.config.get(
@@ -55,8 +54,8 @@ class Dispatcher:
                 return communication_switcher[channel]
             except KeyError:
                 current_app.logger.warning(
-                    'The communication channel of the patron'
-                    f' (pid: {patron["pid"]}) is not yet implemented')
+                    f'The communication channel: {channel}'
+                    ' is not yet implemented')
                 return Dispatcher.not_yet_implemented
 
         sent = not_sent = 0
@@ -64,22 +63,23 @@ class Dispatcher:
         pids = notification_pids if notification_pids else []
         notifications = [Notification.get_record_by_pid(pid) for pid in pids]
         notifications = list(filter(None, notifications))
-
         # BUILD AGGREGATED NOTIFICATIONS
         #   Notifications should be aggregated on (in this order):
         #     1. notification_type,
         #     2. communication_channel
         #     3. library
         #     4. patron
+        errors = 0
         for notification in notifications:
             try:
                 cls._process_notification(
                     notification, resend, aggregated)
             except Exception as error:
+                errors += 1
                 current_app.logger.error(
                     f'Notification has not be sent (pid: {notification.pid},'
                     f' type: {notification["notification_type"]}): '
-                    f'{error}')
+                    f'{error}', exc_info=True, stack_info=True)
 
         # SEND AGGREGATED NOTIFICATIONS
         for notification_type, notification_values in aggregated.items():
@@ -105,7 +105,8 @@ class Dispatcher:
         return {
             'processed': len(notifications),
             'sent': sent,
-            'not_sent': not_sent
+            'not_sent': not_sent,
+            'errors': errors
         }
 
     @classmethod
@@ -202,11 +203,6 @@ class Dispatcher:
         p_pid = patron['pid']
         c_channel = communication_channel
 
-        aggregated.setdefault(n_type, {})
-        aggregated[n_type].setdefault(c_channel, {})
-        aggregated[n_type][c_channel].setdefault(l_pid, {})
-        aggregated[n_type][c_channel][l_pid].setdefault(p_pid, ctx_data)
-
         documents_data = {
             'title_text': loan['document']['title_text'],
             'responsibility_statement':
@@ -261,6 +257,13 @@ class Dispatcher:
                 email = loc.get('notification_email')
                 if email:
                     ctx_data['location_email'] = email
+
+        # Needs to be at the end of the function to avoid to send notification
+        # in case of error
+        aggregated.setdefault(n_type, {})
+        aggregated[n_type].setdefault(c_channel, {})
+        aggregated[n_type][c_channel].setdefault(l_pid, {})
+        aggregated[n_type][c_channel][l_pid].setdefault(p_pid, ctx_data)
 
         # Add information into correct aggregations
         aggregation = aggregated[n_type][c_channel][l_pid][p_pid]

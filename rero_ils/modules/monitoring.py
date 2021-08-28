@@ -25,7 +25,7 @@ from elasticsearch.exceptions import NotFoundError
 from flask import Blueprint, current_app, jsonify, request, url_for
 from flask.cli import with_appcontext
 from flask_login import current_user
-from invenio_cache import current_cache
+from invenio_cache.proxies import current_cache
 from invenio_db import db
 from invenio_search import RecordsSearch, current_search_client
 from redis import Redis

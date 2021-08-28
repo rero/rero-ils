@@ -782,8 +782,7 @@ def test_request_notifications(client, patron_martigny, patron_sion,
 
 
 @mock.patch(
-    'rero_ils.modules.notifications.dispatcher.'
-    'Dispatcher._process_notification',
+    'rero_ils.modules.notifications.dispatcher.num2words',
     mock.MagicMock(side_effect=Exception('Test!')))
 def test_dispatch_error(client, patron_martigny, patron_sion,
                         lib_martigny,
@@ -810,7 +809,7 @@ def test_dispatch_error(client, patron_martigny, patron_sion,
 
     request_loan_pid = data.get(
         'action_applied')[LoanAction.REQUEST].get('pid')
-
+    # check that the email has not been sent
     flush_index(NotificationsSearch.Meta.index)
     assert len(mailbox) == 0
     # cancel request
