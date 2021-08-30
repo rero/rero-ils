@@ -238,8 +238,14 @@ class Dispatcher:
                     request_patron.replace_refs().dumps()
                 pickup_location = Location.get_record_by_pid(
                     request_loan['pickup_location_pid'])
-                ctx_data['request_pickup_name'] = \
-                    pickup_location['pickup_name']
+                if pickup_location:
+                    ctx_data['request_pickup_name'] = \
+                        pickup_location['pickup_name']
+                else:
+                    transaction_location = Location.get_record_by_pid(
+                        request_loan['transaction_location_pid'])
+                    ctx_data['request_pickup_name'] = \
+                        transaction_location['name']
 
             documents_data['item'] = {
                 'barcode': item_data['barcode'],

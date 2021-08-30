@@ -127,6 +127,12 @@ class Notification(IlsRecord):
         elif self.transaction_location:
             data['loan']['pickup_name'] = \
                 data['loan']['transaction_library']['name']
+            data['loan']['pickup_location'] = \
+                data['loan']['transaction_location']
+            data['loan']['pickup_location_pid'] = \
+                data['loan']['transaction_location']['pid']
+            data['loan']['pickup_library'] = \
+                data['loan']['transaction_library']
 
         document = self.document.replace_refs().dumps()
         data['loan']['document'] = document
