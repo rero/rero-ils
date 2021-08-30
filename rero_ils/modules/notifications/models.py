@@ -78,6 +78,12 @@ class NotificationType:
         BOOKING
     ]
 
+    # Notification related to cipo reminders.
+    REMINDERS_NOTIFICATIONS = [
+        DUE_SOON,
+        OVERDUE
+    ]
+
     # Notification to send to a library (not to a patron)
     INTERNAL_NOTIFICATIONS = [
         BOOKING,

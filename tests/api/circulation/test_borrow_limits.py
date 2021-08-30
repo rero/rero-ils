@@ -291,7 +291,7 @@ def test_overdue_limit(
     assert number_of_reminders_sent(loan) == 0
 
     notification = loan.create_notification(
-        notification_type=NotificationType.OVERDUE)
+        _type=NotificationType.OVERDUE).pop()
     Dispatcher.dispatch_notifications([notification.get('pid')])
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)

@@ -666,8 +666,8 @@ def loan_overdue_martigny(
 def notification_late_martigny(app, loan_overdue_martigny):
     """Create an overdue notification for an overdue loan."""
     notification = loan_overdue_martigny.create_notification(
-        notification_type=NotificationType.OVERDUE
-    )
+        _type=NotificationType.OVERDUE
+    ).pop()
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
     flush_index(PatronTransactionsSearch.Meta.index)
@@ -738,8 +738,8 @@ def loan_overdue_saxon(
 def notification_late_saxon(app, loan_overdue_saxon):
     """Create an overdue notification for an overdue loan."""
     notification = loan_overdue_saxon.create_notification(
-        notification_type=NotificationType.OVERDUE
-    )
+        _type=NotificationType.OVERDUE
+    ).pop()
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
     flush_index(PatronTransactionsSearch.Meta.index)
@@ -819,8 +819,8 @@ def loan_overdue_sion(
 def notification_late_sion(app, loan_overdue_sion):
     """Create an overdue notification for an overdue loan."""
     notification = loan_overdue_sion.create_notification(
-        notification_type=NotificationType.OVERDUE
-    )
+        _type=NotificationType.OVERDUE
+    ).pop()
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
     flush_index(PatronTransactionsSearch.Meta.index)

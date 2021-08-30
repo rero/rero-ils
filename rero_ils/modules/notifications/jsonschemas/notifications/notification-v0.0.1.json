@@ -52,6 +52,16 @@
       "type": "integer",
       "title": "Current reminder count"
     },
+    "status": {
+      "title": "Status",
+      "type": "string",
+      "default": "created",
+      "enum": [
+        "created",
+        "canceled",
+        "done"
+      ]
+    },
     "notification_type": {
       "title": "Notification type",
       "description": "The type of the notification.",
@@ -64,40 +74,7 @@
         "transit_notice",
         "request",
         "booking"
-      ],
-      "form": {
-        "type": "selectWithSort",
-        "options": [
-          {
-            "label": "due_soon",
-            "value": "due_soon"
-          },
-          {
-            "label": "overdue",
-            "value": "overdue"
-          },
-          {
-            "label": "availability",
-            "value": "availability"
-          },
-          {
-            "label": "recall",
-            "value": "recall"
-          },
-          {
-            "label": "transit_notice",
-            "value": "transit_notice"
-          },
-          {
-            "label": "request",
-            "value": "request"
-          },
-          {
-            "label": "booking",
-            "value": "booking"
-          }
-        ]
-      }
+      ]
     }
   }
 }

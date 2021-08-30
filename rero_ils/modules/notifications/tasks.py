@@ -71,7 +71,7 @@ def create_notifications(types=None, tstamp=None, verbose=True):
         for loan in get_due_soon_loans(tstamp=tstamp):
             logger.debug(f"* Loan#{loan.pid} is considerate as 'due_soon'")
             loan.create_notification(
-                notification_type=NotificationType.DUE_SOON)
+                _type=NotificationType.DUE_SOON)
             notification_counter[NotificationType.DUE_SOON] += 1
 
     # OVERDUE NOTIFICATIONS
@@ -100,7 +100,7 @@ def create_notifications(types=None, tstamp=None, verbose=True):
             #   not be created again
             for idx, reminder in enumerate(reminders):
                 notification = loan.create_notification(
-                    notification_type=NotificationType.OVERDUE,
+                    _type=NotificationType.OVERDUE,
                     counter=idx
                 )
                 if notification:

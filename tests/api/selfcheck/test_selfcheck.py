@@ -151,7 +151,7 @@ def test_patron_information(client, librarian_martigny,
     loan = Loan.get_record_by_pid(loan_pid)
     assert loan.is_loan_overdue()
     notification = loan.create_notification(
-        notification_type=NotificationType.OVERDUE)
+        _type=NotificationType.OVERDUE).pop()
     Dispatcher.dispatch_notifications([notification.get('pid')])
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
@@ -234,7 +234,7 @@ def test_item_information(client, librarian_martigny,
     assert loan['state'] == LoanState.ITEM_ON_LOAN
     assert loan.is_loan_overdue()
     notification = loan.create_notification(
-        notification_type=NotificationType.OVERDUE)
+        _type=NotificationType.OVERDUE).pop()
     Dispatcher.dispatch_notifications([notification.get('pid')])
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)

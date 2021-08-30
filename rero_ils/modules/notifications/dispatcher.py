@@ -26,7 +26,9 @@ from num2words import num2words
 
 from .api import Notification
 from .models import NotificationChannel, NotificationType
-from .utils import get_communication_channel_to_use, get_template_to_use
+from .utils import exists_similar_notification, \
+    get_communication_channel_to_use, get_template_to_use
+from ..items.models import ItemStatus
 from ..libraries.api import email_notification_type
 from ..locations.api import Location
 from ..patrons.api import Patron
@@ -136,18 +138,31 @@ class Dispatcher:
 
         data = notification.replace_pids_and_refs()
         loan = data['loan']
-        patron = loan['patron']
 
-        # 2. Find the communication channel to use to dispatch this
+        item_data = loan.get('item')
+        item = Item.get_record_by_pid(item_data.get('pid'))
+
+        # 2. Check if we really need to process the notifications in the case
+        #    of asynchronous notifications. If not, then update the
+        #    notification 'status' and stop the notification processing.
+        can_cancel, reason = Dispatcher._can_cancel_notification(data, item)
+        if can_cancel:
+            msg = f'Notification #{notification.pid} canceled: {reason}'
+            current_app.logger.info(msg)
+            notification.update_process_date(sent=False, status='canceled')
+            return
+
+        # 3. Find the communication channel to use to dispatch this
         #    notification. The channel depends on the loan, the
         #    notification type and the related patron
+        patron = loan['patron']
         communication_channel = get_communication_channel_to_use(
             loan,
             notification,
             patron
         )
 
-        # 3. Get the communication language to use. Except for internal
+        # 4. Get the communication language to use. Except for internal
         #    notification, the language to use is defined into the related
         #    patron account. For Internal notifications, the language is
         #    the library defined language.
@@ -156,7 +171,7 @@ class Dispatcher:
             communication_lang = loan['library']['communication_language']
         language = language_iso639_2to1(communication_lang)
 
-        # 4. Compute the reminder counter.
+        # 5. Compute the reminder counter.
         #    For some notification (overdue, ...) the reminder counter is
         #    an information to use into the message to send. We need to
         #    translate this counter into a localized string.
@@ -164,14 +179,14 @@ class Dispatcher:
         reminder = reminder_counter + 1
         reminder = num2words(reminder, to='ordinal', lang=language)
 
-        # 5. Get the template to use for the notification.
+        # 6. Get the template to use for the notification.
         #    Depending of the notification and the reminder counter, find
         #    the correct template file to use.
         tpl_path = get_template_to_use(
             loan, n_type, reminder_counter).rstrip('/')
         template = f'{tpl_path}/{communication_lang}.txt'
 
-        # 6. Build the context to use to render the template.
+        # 7. Build the context to use to render the template.
         ctx_data = {
             'notification_type': n_type,
             'creation_date': format_date_filter(
@@ -213,14 +228,11 @@ class Dispatcher:
         documents_data = {k: v for k, v in documents_data.items() if v}
 
         # Add item to document
-        item_data = loan.get('item')
         if item_data:
             if n_type in [
                 NotificationType.BOOKING,
                 NotificationType.AVAILABILITY
             ]:
-                # get item from the checkin loan
-                item = Item.get_record_by_pid(item_data.get('pid'))
                 # get the requested loan it can be in several states
                 # due to the automatic request validation
                 request_loan = None
@@ -275,6 +287,54 @@ class Dispatcher:
         aggregation = aggregated[n_type][c_channel][l_pid][p_pid]
         aggregation['documents'].append(documents_data)
         aggregation['notifications'].append(notification)
+
+    @staticmethod
+    def _can_cancel_notification(data, item):
+        """Check if a notification must be be canceled.
+
+        As notification process could be asynchronous, in some case, when the
+        notification is processed, it's not anymore required to be sent.
+        By example, an AVAILABLE notification must not be sent if the
+        related loan item is already in ON_LOAN state.
+
+        :param data: the notification data to check.
+        :param item: the notification related item
+        :return True if the notification can be canceled, False otheriwse.
+        """
+        n_type = data['notification_type']
+        loan = data['loan']
+
+        # The very first check is to know if the related item still exists.
+        # If not, no need to check other conditions.
+        if not item:
+            return True, "Item doesn't exists anymore"
+
+        # a) we don't need to check INTERNAL_NOTIFICATION. These notifications
+        #    are sent to library and are synchronously dispatched.
+        # b.1) Special case for RECALL notification: If the related loan isn't
+        #      ON_LOAN state anymore, we doesn't need to process it.
+        # b.2) For OVERDUE and DUE_SOON notification, check that no other
+        #      corresponding notification has already been sent.
+        # b.3) Otherwise, check if the notification type is available into
+        #      notification candidates related to the loan. If not, the
+        #      notification can be canceled.
+        if n_type not in NotificationType.INTERNAL_NOTIFICATIONS:
+            if n_type == NotificationType.RECALL:
+                if item.status != ItemStatus.ON_LOAN:
+                    return True, "Item isn't anymore ON_LOAN state"
+            elif n_type in NotificationType.REMINDERS_NOTIFICATIONS:
+                if exists_similar_notification(data):
+                    return True, 'Similar notification already proceed'
+            else:
+                # unpack tuple's notification candidate
+                candidates_types = [
+                    n[1] for n in
+                    loan.get_notification_candidates(trigger=None)
+                ]
+                if n_type not in candidates_types:
+                    msg = "Notification type isn't into notification candidate"
+                    return True, msg
+        return False, None
 
     @staticmethod
     def _create_email(recipients, reply_to, ctx_data, template):

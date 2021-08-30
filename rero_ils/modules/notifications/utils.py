@@ -116,6 +116,28 @@ def number_of_reminders_sent(loan, notification_type=NotificationType.OVERDUE):
         .source().count()
 
 
+def exists_similar_notification(data):
+    """Check if a similar notification already exists.
+
+    :param data: the notification data.
+    :return True if a similar notification has found, False otheriwse.
+    """
+    loan_pid = data.get('loan', {}).get('pid')
+    notification_pid = data.get('pid')
+    notification_type = data.get('notification_type')
+    reminder_counter = data.get('reminder_counter', 0)
+
+    query = NotificationsSearch()\
+        .filter('term', loan__pid=loan_pid)\
+        .filter('term', notification_type=notification_type)
+    if notification_type in NotificationType.REMINDERS_NOTIFICATIONS:
+        query = query.filter('term', reminder_counter=reminder_counter)
+    if notification_pid:
+        query = query.exclude('term', pid=notification_pid)
+
+    return query.source().count() > 0
+
+
 def get_communication_channel_to_use(loan, notification_data, patron):
     """Get the communication channel to use for a notification.
 

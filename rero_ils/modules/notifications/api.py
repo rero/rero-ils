@@ -77,6 +77,7 @@ class Notification(IlsRecord):
     def create(cls, data, id_=None, delete_pid=False,
                dbcommit=False, reindex=False, **kwargs):
         """Create notification record."""
+        data.setdefault('status', 'created')
         record = super().create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
         PatronTransaction.create_patron_transaction_from_notification(
@@ -84,10 +85,11 @@ class Notification(IlsRecord):
             delete_pid=delete_pid)
         return record
 
-    def update_process_date(self, sent=False):
+    def update_process_date(self, sent=False, status='done'):
         """Update process date."""
         self['process_date'] = datetime.utcnow().isoformat()
         self['notification_sent'] = sent
+        self['status'] = status
         return self.update(
             data=self.dumps(), commit=True, dbcommit=True, reindex=True)
 
