@@ -55,7 +55,7 @@ from invenio_records.api import Record
 from invenio_records.models import RecordMetadata
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_search.cli import es_version_check
-from invenio_search.proxies import current_search
+from invenio_search.proxies import current_search, current_search_client
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 from lxml import etree
@@ -296,6 +296,28 @@ def init_index(force):
             length=len(current_search.mappings)) as bar:
         for name, response in bar:
             bar.label = name
+
+
+@utils.command('update_mapping')
+@click.option('--aliases', '-a', multiple=True, help='all if not specified')
+@with_appcontext
+@es_version_check
+def update_mapping(aliases):
+    """Update the mapping of a given alias."""
+    if not aliases:
+        aliases = current_search.aliases.keys()
+    for alias in aliases:
+        index, f_mapping = next(
+            iter(current_search.aliases.get(alias).items()))
+        mapping = json.load(open(f_mapping))
+        res = current_search_client.indices.put_mapping(
+            mapping.get('mappings'), index)
+        if res.get('acknowledged'):
+            click.secho(
+                f'index: {index} has been sucessfully updated', fg='green')
+        else:
+            click.secho(
+                f'error: {res}', fg='red')
 
 
 @fixtures.command('create')

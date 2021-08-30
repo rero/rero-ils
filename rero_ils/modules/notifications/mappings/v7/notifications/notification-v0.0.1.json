@@ -9,6 +9,9 @@
       "pid": {
         "type": "keyword"
       },
+      "status": {
+        "type": "keyword"
+      },
       "creation_date": {
         "type": "date"
       },

@@ -935,6 +935,77 @@ def test_multiple_request_booking_notifications(
     assert item_lib_martigny.status == ItemStatus.ON_SHELF
 
 
+@mock.patch('flask.current_app.logger.error',
+            mock.MagicMock(side_effect=Exception('Test!')))
+def test_cancel_notifications(
+    client, patron_martigny, lib_martigny, item_lib_martigny,
+    librarian_martigny, loc_public_martigny, circulation_policies, mailbox
+):
+    """Test cancel notifications."""
+    login_user_via_session(client, librarian_martigny.user)
+
+    res, data = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pickup_location_pid=loc_public_martigny.pid,
+            patron_pid=patron_martigny.pid,
+            transaction_library_pid=lib_martigny.pid,
+            transaction_user_pid=librarian_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+
+    request_loan_pid = data.get(
+        'action_applied')[LoanAction.REQUEST].get('pid')
+
+    # flush_index(NotificationsSearch.Meta.index)
+    res, data = postdata(
+        client,
+        'api_item.validate_request',
+        dict(
+            pid=request_loan_pid,
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+    mailbox.clear()
+    res, data = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            patron_pid=patron_martigny.pid,
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny.pid,
+        )
+    )
+    assert res.status_code == 200
+    loan_pid = data.get(
+        'action_applied')[LoanAction.CHECKOUT].get('pid')
+    loan = Loan.get_record_by_pid(loan_pid)
+    mailbox.clear()
+    process_notifications(NotificationType.AVAILABILITY)
+    notification = get_notification(loan, NotificationType.AVAILABILITY)
+    notification['status'] == 'canceled'
+    assert len(mailbox) == 0
+    # restore to initial state
+    res, data = postdata(
+        client,
+        'api_item.checkin',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            # patron_pid=patron_martigny.pid,
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny.pid,
+        )
+    )
+    assert res.status_code == 200
+    mailbox.clear()
+
+
 def test_booking_notifications(client, patron_martigny, patron_sion,
                                lib_martigny, lib_fully,
                                librarian_fully,

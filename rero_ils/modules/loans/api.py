@@ -45,7 +45,7 @@ from ..items.utils import item_pid_to_object
 from ..libraries.api import LibrariesSearch, Library
 from ..locations.api import Location, LocationsSearch
 from ..notifications.api import Notification, NotificationsSearch
-from ..notifications.dispatcher import Dispatcher
+from ..notifications.dispatcher import Dispatcher as NotificationDispatcher
 from ..notifications.models import NotificationType
 from ..notifications.utils import number_of_reminders_sent
 from ..patron_transactions.api import PatronTransactionsSearch
@@ -706,70 +706,131 @@ class Loan(IlsRecord):
         return number_of_reminders_sent(
             self, notification_type=notification_type) > counter
 
-    def create_notification(self, notification_type=None, counter=0):
+    def get_notification_candidates(self, trigger):
+        """Get notification candidates to be created.
+
+        This function will check the loan and return all possible notifications
+        to be created related to it. In some case, a notification must be
+        generated on an the basis of another loan than itself (in case of
+        request).
+
+        :param trigger: the fired action trigger (optional)
+        :return a list of tuple. Each tuple represent a notification candidate.
+                Each tuple is composed by 2 elements : the loan object, and the
+                related notification type.
+        """
+        from ..items.api import Item
+
+        candidates = []
+        item = Item.get_record_by_pid(self.item_pid)
+        has_request = item.number_of_requests() > 0
+
+        # AVAILABILITY NOTIFICATION
+        #   If loan (items) just arrived at the library desk we can create
+        #   an AVAILABILITY notification
+        if self.state == LoanState.ITEM_AT_DESK:
+            candidates.append((self, NotificationType.AVAILABILITY))
+
+        # REQUEST & RECALL NOTIFICATION
+        #   When a request is created on a item, the system create a 'pending'
+        #   loan. If the corresponding item is checked-out, we can create a
+        #   RECALL notification on it (ask the user to return the item because
+        #   someone else requested it)
+        if self.state == LoanState.PENDING and not has_request:
+            # get the checked-out loan
+            co_loan_pid = Item.get_loan_pid_with_item_on_loan(self.item_pid)
+            # is the item on loan
+            if co_loan_pid:
+                co_loan = Loan.get_record_by_pid(co_loan_pid)
+                if not co_loan.is_notified(NotificationType.RECALL):
+                    candidates.append((co_loan, NotificationType.RECALL))
+            elif not item.temp_item_type_negative_availability:
+                # We could create a REQUEST notification to notify librarian
+                # to prepare the item for a loan.
+                candidates.append((self, NotificationType.REQUEST))
+
+        # TRANSIT
+        #   When the current loan (item) goes to transit and doesn't have any
+        #   related request, we could create a TRANSIT_NOTICE notification to
+        #   notify the transaction library to return the item to the owning
+        #   library.
+        if self.state == LoanState.ITEM_IN_TRANSIT_TO_HOUSE \
+                and not has_request:
+            candidates.append((self, NotificationType.TRANSIT_NOTICE))
+
+        # BOOKING
+        #   When the current loan (item) is checked-in and at least one request
+        #   has been placed on the related item, we can create a BOOKING
+        #   notification to notify the library to hold the item (at desk).
+        if trigger == LoanAction.CHECKIN and has_request:
+            candidates.append((self, NotificationType.BOOKING))
+        return candidates
+
+    def create_notification(self, trigger=None, _type=None, counter=0):
         """Creates a notification from base on a loan.
 
-        :param notification_type: the notification type to create.
-        :param counter: the reminder counter to use (for OVERDUE notification)
-        :return: notification
+        :param trigger: circulation action trigger.
+        :param _type: the notification type to create.
+        :param counter: the reminder counter to use (for OVERDUE or DUE_SOON
+                        notification)
+        :return: the list of created notifications
         """
         from .utils import get_circ_policy
-        notif_type = notification_type
-        # notification data
-        record = {
+        types = [(self, t) for t in [_type] if t]
+        notifications = []
+        for loan, n_type in types or self.get_notification_candidates(trigger):
+            create = True  # Should the notification actually be created.
+            # Internal notification (library destination) should be directly
+            # dispatched. Other notifications types could be asynchronously
+            # processed (to save server response time).
+            dispatch = n_type in NotificationType.INTERNAL_NOTIFICATIONS
+
+            record = {
                 'creation_date': datetime.now(timezone.utc).isoformat(),
-                'notification_type': notif_type,
-                'loan': {
-                    '$ref': get_ref_for_pid('loans', self.pid)
-                }
+                'notification_type': n_type,
+                'loan': {'$ref': get_ref_for_pid('loans', loan.pid)}
             }
-        loan_state = self.get('state')
-        # overdue + due_soon
-        if notif_type in [
-                NotificationType.OVERDUE,
-                NotificationType.DUE_SOON] \
-                and not self.is_notified(notif_type, counter):
+            # overdue + due_soon
+            if n_type in NotificationType.REMINDERS_NOTIFICATIONS:
+                # Do not recreate if an existing notification already exists.
+                if loan.is_notified(n_type, counter):
+                    create = False
+                else:
+                    # We only need to create a notification if a corresponding
+                    # reminder exists into the linked cipo (we can't create a
+                    # OVERDUE_NOTIFICATION#4 if the related cipo only define
+                    # two overdue reminders.
+                    cipo = get_circ_policy(loan)
+                    reminder_type = DUE_SOON_REMINDER_TYPE
+                    if n_type != NotificationType.DUE_SOON:
+                        reminder_type = OVERDUE_REMINDER_TYPE
+                    reminder = cipo.get_reminder(reminder_type, counter)
+                    # Reminder does not exists on the circulation policy.
+                    if not reminder:
+                        create = False
+                    else:
+                        record['reminder_counter'] = counter
 
-            # We only need to create a notification if a corresponding reminder
-            # exists into the linked cipo.
-            reminder_type = DUE_SOON_REMINDER_TYPE
-            if notif_type != NotificationType.DUE_SOON:
-                reminder_type = OVERDUE_REMINDER_TYPE
-            cipo = get_circ_policy(self)
-            reminder = cipo.get_reminder(reminder_type, counter)
-            if reminder is None:
-                return
-            record['reminder_counter'] = counter
             # create the notification and enqueue it.
-            return self._send_notification(record)
+            if create:
+                notifications.append(self._create_notification_resource(
+                    record,
+                    dispatch=dispatch
+                ))
+        return notifications
 
-        # availibility + recall
-        if notif_type in [
-                NotificationType.AVAILABILITY,
-                NotificationType.RECALL
-        ]:
-            return self._send_notification(record)
+    @classmethod
+    def _create_notification_resource(cls, record, dispatch=False):
+        """Create and dispatch notification if necessary.
 
-        # transit_notice + booking + request
-        if notif_type in [
-            NotificationType.TRANSIT_NOTICE,
-            NotificationType.BOOKING,
-            NotificationType.REQUEST
-        ]:
-            return self._send_notification(record, True)
-
-    def _send_notification(self, record, dispatch=False):
-        """Create and send notification.
-
-        :param record: dict, notification data.
+        :param record: (dict) the notification data.
         :param dispatch: if True send the notification to the dispatcher.
-        :return: notification
+        :return: the created `Notification` resource.
         """
         notification = Notification.create(
             data=record, dbcommit=True, reindex=True)
         if dispatch:
-            # dispatch the notification
-            Dispatcher.dispatch_notifications(
+            NotificationDispatcher.dispatch_notifications(
                 notification_pids=[notification.get('pid')]
             )
         return notification
