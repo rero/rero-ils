@@ -979,8 +979,39 @@ def test_booking_notifications(client, patron_martigny, patron_sion,
     # pickup
     loan = Loan.get_record_by_pid(request_loan_pid)
     assert loan.state == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
-    assert mailbox[-1].recipients == [
+    assert mailbox[0].recipients == [
         lib_fully.get('notification_settings')[4].get('email')]
     # the patron information is the patron request
     assert patron_martigny['patron']['barcode'][0] in mailbox[0].body
+    mailbox.clear()
+
+
+def test_missing_pickup_location(
+        loan2_validated_martigny, loc_restricted_martigny, mailbox):
+    """Test availability notification with missing pickup location."""
+    mailbox.clear()
+    loan = loan2_validated_martigny
+    assert loan.is_notified(notification_type=NotificationType.AVAILABILITY)
+    notification = get_notification(
+        loan,
+        notification_type=NotificationType.AVAILABILITY
+    )
+    data = notification.replace_pids_and_refs()
+    assert data['loan']['pickup_location']['pid'] == \
+        loc_restricted_martigny.pid
+    # after deleting the pickup location the notification should use
+    # the transaction location.
+    loc_restricted_martigny.delete(dbcommit=True, delindex=True)
+    notification = get_notification(
+        loan,
+        notification_type=NotificationType.AVAILABILITY
+    )
+    data = notification.replace_pids_and_refs()
+    assert data['loan']['pickup_location'] == \
+        data['loan']['transaction_location']
+    assert data['loan']['pickup_library'] == \
+        data['loan']['transaction_library']
+    for notification_type in NotificationType.ALL_NOTIFICATIONS:
+        process_notifications(notification_type)
+    assert len(mailbox)
     mailbox.clear()

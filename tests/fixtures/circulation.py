@@ -488,6 +488,7 @@ def loan2_validated_martigny(
         document,
         item3_lib_martigny,
         loc_public_martigny,
+        loc_restricted_martigny,
         item_type_standard_martigny,
         librarian_martigny,
         patron_martigny,
@@ -498,12 +499,17 @@ def loan2_validated_martigny(
     """
     transaction_date = datetime.now(timezone.utc).isoformat()
 
+    # delete old loans
+    for loan in item3_lib_martigny.get_loans_by_item_pid(
+            item_pid=item3_lib_martigny.pid):
+        loan.delete(dbcommit=True, delindex=True)
+
     item3_lib_martigny.request(
         patron_pid=patron_martigny.pid,
         transaction_location_pid=loc_public_martigny.pid,
         transaction_user_pid=librarian_martigny.pid,
         transaction_date=transaction_date,
-        pickup_location_pid=loc_public_martigny.pid,
+        pickup_location_pid=loc_restricted_martigny.pid,
         document_pid=extracted_data_from_ref(
             item3_lib_martigny.get('document'))
     )
@@ -513,13 +519,14 @@ def loan2_validated_martigny(
 
     loan = list(item3_lib_martigny.get_loans_by_item_pid(
         item_pid=item3_lib_martigny.pid))[0]
+
     item3_lib_martigny.validate_request(
         pid=loan.pid,
         patron_pid=patron_martigny.pid,
         transaction_location_pid=loc_public_martigny.pid,
         transaction_user_pid=librarian_martigny.pid,
         transaction_date=transaction_date,
-        pickup_location_pid=loc_public_martigny.pid,
+        pickup_location_pid=loc_restricted_martigny.pid,
         document_pid=extracted_data_from_ref(
             item3_lib_martigny.get('document'))
     )
