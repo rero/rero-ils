@@ -19,6 +19,7 @@
 """API for manipulating locations."""
 from functools import partial
 
+from elasticsearch_dsl.query import Q
 from flask_babelex import gettext as _
 
 from .models import LocationIdentifier, LocationMetadata
@@ -119,12 +120,30 @@ class Location(IlsRecord):
             'term', location__pid=self.pid).source().count()
         return results
 
+    def get_number_of_loans(self):
+        """Get number of loans."""
+        from ..loans.api import LoansSearch, LoanState
+        exclude_states = [
+            LoanState.CANCELLED, LoanState.ITEM_RETURNED, LoanState.CREATED]
+        results = LoansSearch() \
+            .filter('bool', should=[
+                Q('term', pickup_location_pid=self.pid),
+                Q('term', transaction_location_pid=self.pid)
+            ]) \
+            .exclude('terms', state=exclude_states) \
+            .count()
+        return results
+
     def get_links_to_me(self):
         """Get number of links."""
         links = {}
-        items = self.get_number_of_items()
-        if items:
-            links['items'] = items
+        items_count = self.get_number_of_items()
+        if items_count:
+            links['items'] = items_count
+        loans_count = self.get_number_of_loans()
+        if loans_count:
+            links['loans'] = loans_count
+
         return links
 
     def reasons_not_to_delete(self):

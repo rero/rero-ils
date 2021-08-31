@@ -1059,9 +1059,9 @@ def test_booking_notifications(client, patron_martigny, patron_sion,
     mailbox.clear()
 
 
-def test_missing_pickup_location(
+def test_delete_pickup_location(
         loan2_validated_martigny, loc_restricted_martigny, mailbox):
-    """Test availability notification with missing pickup location."""
+    """Test delete pickup location."""
     mailbox.clear()
     loan = loan2_validated_martigny
     assert loan.is_notified(notification_type=NotificationType.AVAILABILITY)
@@ -1075,6 +1075,7 @@ def test_missing_pickup_location(
     # We can not delete location used as transaction or pickup location
     # # any more.
     reasons_not_to_delete = loc_restricted_martigny.reasons_not_to_delete()
-    assert reasons_not_to_delete == {'other': {'loans pickup locations': 1}}
+    assert reasons_not_to_delete == {'links': {
+        'loans': 1}, 'other': {'loans pickup locations': 1}}
     with pytest.raises(IlsRecordError.NotDeleted):
         loc_restricted_martigny.delete(dbcommit=True, delindex=True)
