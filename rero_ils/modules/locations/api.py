@@ -129,10 +129,22 @@ class Location(IlsRecord):
 
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
+        from ..loans.api import LoansSearch
         cannot_delete = {}
         links = self.get_links_to_me()
         if links:
             cannot_delete['links'] = links
+        other = {}
+        pickup_location_count = LoansSearch() \
+            .filter('term', pickup_location_pid=self.pid).count()
+        if pickup_location_count:
+            other['loans pickup locations'] = pickup_location_count
+        transaction_location_count = LoansSearch() \
+            .filter('term', transaction_location_pid=self.pid).count()
+        if transaction_location_count:
+            other['loans transaction locations'] = transaction_location_count
+        if other:
+            cannot_delete['other'] = other
         return cannot_delete
 
     @property
