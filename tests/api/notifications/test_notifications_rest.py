@@ -1075,7 +1075,6 @@ def test_delete_pickup_location(
     # We can not delete location used as transaction or pickup location
     # # any more.
     reasons_not_to_delete = loc_restricted_martigny.reasons_not_to_delete()
-    assert reasons_not_to_delete == {'links': {
-        'loans': 1}, 'other': {'loans pickup locations': 1}}
+    assert reasons_not_to_delete == {'links': {'loans': 1}}
     with pytest.raises(IlsRecordError.NotDeleted):
         loc_restricted_martigny.delete(dbcommit=True, delindex=True)
