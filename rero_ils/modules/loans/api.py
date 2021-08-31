@@ -264,14 +264,15 @@ class Loan(IlsRecord):
         :param dbcommit - commit the changes in the db after the creation.
         :param reindex - index the record after the creation.
         """
-        loan['to_anonymize'] = True
-        super().update(loan, commit, dbcommit, reindex)
-
-        # Anonymize loan operation logs
-        # Import at top causes errors...
         from rero_ils.modules.loans.logs.api import LoanOperationLog
-        LoanOperationLog.anonymize_logs(loan['pid'])
-
+        loan['to_anonymize'] = True
+        try:
+            super().update(loan, commit, dbcommit, reindex)
+            # Anonymize loan operation logs
+            LoanOperationLog.anonymize_logs(loan['pid'])
+        except Exception as err:
+            current_app.logger.error(
+                f'Can not anonymize loan: {loan.get("pid")} {err}')
         return self
 
     def date_fields2datetime(self):
@@ -446,13 +447,18 @@ class Loan(IlsRecord):
 
     @classmethod
     def _loan_build_org_ref(cls, data):
-        """Build $ref for the organisation of the Loan."""
+        """Build $ref for the organisation of the Loan.
+
+        :param data: data to add the organisation info.
+        :returns: data with organisations informations.
+        """
         from ..items.api import Item
-        item_pid = data.get('item_pid', {}).get('value')
-        data['organisation'] = {'$ref': get_ref_for_pid(
-            'org',
-            Item.get_record_by_pid(item_pid).organisation_pid
-        )}
+        if not data.get('organisation'):
+            item_pid = data.get('item_pid', {}).get('value')
+            data['organisation'] = {'$ref': get_ref_for_pid(
+                'org',
+                Item.get_record_by_pid(item_pid).organisation_pid
+            )}
         return data
 
     def is_loan_overdue(self):
@@ -860,7 +866,7 @@ class Loan(IlsRecord):
         """
         transaction_date = ciso8601.parse_datetime(
             loan.get('transaction_date'))
-        loan_age = (transaction_date.replace(tzinfo=None) - datetime.utcnow())
+        loan_age = datetime.utcnow() - transaction_date.replace(tzinfo=None)
         return loan_age.days
 
     @classmethod
@@ -883,7 +889,14 @@ class Loan(IlsRecord):
             return True
         if not patron:
             patron = Patron.get_record_by_pid(loan_data.get('patron_pid'))
-        keep_history = patron.user.profile.keep_history
+        if patron:
+            keep_history = patron.user.profile.keep_history
+        else:
+            # patron does not exist anymore.
+            current_app.logger.warning(
+                    f'Can not anonymize loan: {loan_data.get("pid")}'
+                    f'no patron: {loan_data.get("patron_pid")}')
+            keep_history = True
         return not keep_history and cls.concluded(loan_data)
 
 
@@ -1106,9 +1119,7 @@ def get_non_anonymized_loans(patron=None, org_pid=None):
         yield Loan.get_record_by_pid(record.pid)
 
 
-def anonymize_loans(
-        patron=None, org_pid=None,
-        dbcommit=False, reindex=False):
+def anonymize_loans(patron=None, org_pid=None, dbcommit=False, reindex=False):
     """Anonymize loans.
 
     :param dbcommit - commit the changes in the db after the creation.
@@ -1118,8 +1129,7 @@ def anonymize_loans(
     :return: loans.
     """
     counter = 0
-    for loan in get_non_anonymized_loans(
-            patron=patron, org_pid=org_pid):
+    for loan in get_non_anonymized_loans(patron=patron, org_pid=org_pid):
         if Loan.can_anonymize(loan_data=loan, patron=patron):
             loan.anonymize(loan, dbcommit=dbcommit, reindex=reindex)
             counter += 1

@@ -241,6 +241,6 @@ class LoanOperationLog(OperationLog):
         """
         for log in cls.get_logs_by_record_pid(loan_pid):
             record = log.to_dict()
-            record['loan']['patron'].pop('name')
-            record['loan']['patron'].pop('pid')
+            record['loan']['patron'].pop('name', None)
+            record['loan']['patron'].pop('pid', None)
             cls.update(log.meta.id, log['date'], record)
