@@ -25,6 +25,7 @@ from flask import current_app
 from flask_babelex import gettext as _
 from flask_login import current_user
 from invenio_circulation.proxies import current_circulation
+from invenio_db import db
 from jsonschema.exceptions import ValidationError
 from werkzeug.local import LocalProxy
 
@@ -730,6 +731,21 @@ class Patron(IlsRecord):
                                  'overdue items is reached')
                 })
         return messages
+
+    def set_keep_history(self, keep_history, dbcommit=True, reindex=True):
+        """Set keep_history for patron.
+
+        :param keep_history - True or False
+        :param dbcommit - commit the changes
+        :param reindex - index the changes
+        """
+        self.user.profile.keep_history = keep_history
+        if dbcommit:
+            db.session.merge(self.user)
+            db.session.commit()
+            if reindex:
+                self.reindex()
+                PatronsSearch.flush_and_refresh()
 
 
 class PatronsIndexer(IlsRecordsIndexer):

@@ -20,9 +20,10 @@
 from __future__ import absolute_import, print_function
 
 from celery import shared_task
+from elasticsearch_dsl import Q
 
-from ..loans.api import anonymize_loans
-from ..organisations.api import Organisation
+from ..loans.api import Loan, LoansSearch, LoanState
+from ..patrons.api import PatronsSearch
 from ..utils import set_timestamp
 
 
@@ -34,11 +35,25 @@ def loan_anonymizer(dbcommit=True, reindex=True):
     :param dbcommit: commit record to database.
     :return a count of updated loans.
     """
-    loans_count = 0
-    for org_pid in Organisation.get_all_pids():
-        loans_count_org = anonymize_loans(
-            org_pid=org_pid, dbcommit=dbcommit, reindex=reindex)
-        loans_count = loans_count + loans_count_org
-    msg = f'number_of_loans_anonymized: {loans_count}'
+    query = PatronsSearch() \
+        .filter('bool', must_not=[
+            Q('exists', field='keep_history'),
+            Q('term', keep_history=True)
+        ])
+    anonym_patron_pids = [h.pid for h in query.source('pid').scan()]
+    query = LoansSearch() \
+        .filter('terms', patron_pid=anonym_patron_pids) \
+        .filter('term', to_anonymize=False) \
+        .filter('terms', state=[LoanState.CANCELLED, LoanState.ITEM_RETURNED])
+    loan_pids = [h.pid for h in query.source('pid').scan()]
+
+    counter = 0
+    for pid in loan_pids:
+        loan = Loan.get_record_by_pid(pid)
+        if Loan.can_anonymize(loan_data=loan, patron=None):
+            loan.anonymize(loan, dbcommit=dbcommit, reindex=reindex)
+            counter += 1
+
+    msg = f'number_of_loans_anonymized: {counter}'
     set_timestamp('anonymize-loans', msg=msg)
     return msg
