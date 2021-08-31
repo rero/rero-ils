@@ -22,11 +22,13 @@ from copy import deepcopy
 from datetime import datetime, timezone
 
 import mock
+import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
     postdata, to_relative_url
 
+from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.libraries.api import email_notification_type
 from rero_ils.modules.loans.api import Loan, LoanAction, LoanState
@@ -1070,19 +1072,9 @@ def test_missing_pickup_location(
     data = notification.replace_pids_and_refs()
     assert data['loan']['pickup_location']['pid'] == \
         loc_restricted_martigny.pid
-    # after deleting the pickup location the notification should use
-    # the transaction location.
-    loc_restricted_martigny.delete(dbcommit=True, delindex=True)
-    notification = get_notification(
-        loan,
-        notification_type=NotificationType.AVAILABILITY
-    )
-    data = notification.replace_pids_and_refs()
-    assert data['loan']['pickup_location'] == \
-        data['loan']['transaction_location']
-    assert data['loan']['pickup_library'] == \
-        data['loan']['transaction_library']
-    for notification_type in NotificationType.ALL_NOTIFICATIONS:
-        process_notifications(notification_type)
-    assert len(mailbox)
-    mailbox.clear()
+    # We can not delete location used as transaction or pickup location
+    # # any more.
+    reasons_not_to_delete = loc_restricted_martigny.reasons_not_to_delete()
+    assert reasons_not_to_delete == {'other': {'loans pickup locations': 1}}
+    with pytest.raises(IlsRecordError.NotDeleted):
+        loc_restricted_martigny.delete(dbcommit=True, delindex=True)
