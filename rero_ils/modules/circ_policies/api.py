@@ -19,6 +19,7 @@
 """API for manipulating Circulation policies."""
 from __future__ import absolute_import, print_function
 
+import math
 import sys
 from functools import partial
 
@@ -353,7 +354,8 @@ class CircPolicy(IlsRecord):
         :param limit: the number of day limit. All reminders defined after
                       these limit will not be returned
         """
-        limit = limit or sys.maxsize
+        if limit is None:
+            limit = math.inf
         for reminder in self.get('reminders', []):
             if reminder.get('type') == reminder_type \
                and reminder.get('days_delay') <= limit:

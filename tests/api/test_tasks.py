@@ -92,7 +92,31 @@ def test_notifications_task(
     notif_date = ciso8601.parse_datetime(notif.get('creation_date'))
     assert notif_date.date() == datetime.today().date()
 
-    # test overdue notification
+    # -- test overdue notification --
+
+    # For this test, we simulate an overdue on Friday and the library is closed
+    # during the weekend. No notification should be generated.
+
+    # Friday
+    end_date = datetime(year=2021, month=1, day=22, tzinfo=timezone.utc)
+    loan['end_date'] = end_date.isoformat()
+    loan.update(loan, dbcommit=True, reindex=True)
+
+    # Process the notification during the weekend (Saturday)
+    process_date = datetime(year=2021, month=1, day=23, tzinfo=timezone.utc)
+    overdue_loans = list(get_overdue_loans(tstamp=process_date))
+    assert overdue_loans[0].get('pid') == loan_pid
+    create_notifications(types=[
+        NotificationType.OVERDUE
+    ], tstamp=process_date)
+    flush_index(NotificationsSearch.Meta.index)
+    flush_index(LoansSearch.Meta.index)
+    # Should not be created
+    assert not loan.is_notified(NotificationType.OVERDUE, 1)
+    # Should not be sent
+    assert number_of_reminders_sent(
+        loan, notification_type=NotificationType.OVERDUE) == 0
+
     #   For this test, we will update the loan to simulate an overdue of 12
     #   days. With this delay, regarding the cipo configuration, only the first
     #   overdue reminder should be sent.
