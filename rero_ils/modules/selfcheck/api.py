@@ -409,7 +409,7 @@ def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode,
                   'another patron'))
         except NoCirculationAction as circ_no_action:
             checkout.get('screen_messages', []).append(
-                _(circ_no_action.description))
+                _('No circulation action is possible'))
         except CirculationException as circ_err:
             checkout.get('screen_messages', []).append(
                 _(circ_err.description))
@@ -474,7 +474,7 @@ def selfcheck_checkin(transaction_user_pid, item_barcode, **kwargs):
                         # TODO: implements `print_line`
             except NoCirculationAction as circ_no_action:
                 checkin.get('screen_messages', []).append(
-                    _(circ_no_action.description))
+                    _('No circulation action is possible'))
             except CirculationException as circ_err:
                 checkin.get('screen_messages', []).append(
                     _(circ_err.description))
