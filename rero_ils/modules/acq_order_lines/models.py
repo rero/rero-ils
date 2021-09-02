@@ -51,3 +51,10 @@ class AcqOrderLineStatus:
     RECEIVED = 'received'
 
     OPEN = [APPROVED, ORDERED]
+
+
+class AcqOrderLineNoteType:
+    """Type of acquisition order line note."""
+
+    STAFF = 'staff_note'
+    VENDOR = 'vendor_note'
