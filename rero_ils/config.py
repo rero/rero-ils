@@ -2008,7 +2008,7 @@ RECORDS_REST_FACETS = dict(
             ),
             account=dict(
                 terms=dict(
-                    field='order_lines.account.name_sort',
+                    field='order_lines.account.pid',
                     size=RERO_ILS_AGGREGATION_SIZE.get(
                         'acq_orders', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
                 )
@@ -2019,7 +2019,7 @@ RECORDS_REST_FACETS = dict(
             _('vendor'): and_term_filter('vendor.pid'),
             _('type'): and_term_filter('type'),
             _('status'): and_term_filter('status'),
-            _('account'): and_term_filter('order_lines.account.name_sort'),
+            _('account'): and_term_filter('order_lines.account.pid'),
             _('order_date'): range_filter(
                 'order_lines.order_date',
                 format='epoch_millis',
