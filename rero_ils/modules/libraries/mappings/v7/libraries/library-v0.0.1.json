@@ -103,6 +103,80 @@
           }
         }
       },
+      "acquisition_settings": {
+        "properties": {
+          "shipping_informations": {
+            "properties": {
+              "name": {
+                "type": "keyword"
+              },
+              "email": {
+                "type": "keyword",
+                "fields": {
+                  "analyzed": {
+                    "type": "text",
+                    "analyzer": "custom_keyword"
+                  }
+                }
+              },
+              "phone": {
+                "type": "text"
+              },
+              "address": {
+                "properties": {
+                  "street": {
+                    "type": "text"
+                  },
+                  "zip_code": {
+                    "type": "keyword"
+                  },
+                  "city": {
+                    "type": "keyword"
+                  },
+                  "country": {
+                    "type": "keyword"
+                  }
+                }
+              }
+            }
+          },
+          "billing_informations": {
+            "properties": {
+              "name": {
+                "type": "keyword"
+              },
+              "email": {
+                "type": "keyword",
+                "fields": {
+                  "analyzed": {
+                    "type": "text",
+                    "analyzer": "custom_keyword"
+                  }
+                }
+              },
+              "phone": {
+                "type": "text"
+              },
+              "address": {
+                "properties": {
+                  "street": {
+                    "type": "text"
+                  },
+                  "zip_code": {
+                    "type": "keyword"
+                  },
+                  "city": {
+                    "type": "keyword"
+                  },
+                  "country": {
+                    "type": "keyword"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "organisation": {
         "properties": {
           "type": {

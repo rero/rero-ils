@@ -26,6 +26,7 @@ from dateutil import parser
 
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.libraries.api import library_id_fetcher as fetcher
+from rero_ils.modules.libraries.models import LibraryAddressType
 from rero_ils.modules.utils import date_string_to_utc
 
 
@@ -153,3 +154,20 @@ def test_library_timezone(lib_martigny):
     """Test library timezone."""
     tz = lib_martigny.get_timezone()
     assert tz == pytz.timezone('Europe/Zurich')
+
+
+def test_library_get_address(lib_martigny, lib_saxon):
+    """Get information about a library address."""
+    lib = lib_martigny
+    address = lib.get_address(LibraryAddressType.MAIN_ADDRESS)
+    assert address == lib.get('address')
+    address = lib.get_address(LibraryAddressType.SHIPPING_ADDRESS)
+    assert address['country'] == 'sz'  # translated at 'Suisse (sz)'
+    address = lib.get_address(LibraryAddressType.BILLING_ADDRESS)
+    assert address['country'] == 'be'
+    address = lib.get_address('dummy_type')
+    assert address is None
+
+    lib = lib_saxon
+    address = lib.get_address(LibraryAddressType.BILLING_ADDRESS)
+    assert address is None
