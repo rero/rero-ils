@@ -21,11 +21,12 @@
 from copy import deepcopy
 from functools import partial
 
+from flask_babelex import gettext as _
+
 from .extensions import AcqOrderLineCheckAccountBalance, \
     AcqOrderLineExcludeHarvestedDocument
 from .models import AcqOrderLineIdentifier, AcqOrderLineMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from ..documents.utils import title_format_text_head
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
@@ -80,6 +81,23 @@ class AcqOrderLine(IlsRecord):
         AcqOrderLineExcludeHarvestedDocument()
     ]
 
+    # API METHODS =============================================================
+    #   Overriding the `IlsRecord` default behavior for create and update
+    #   Invenio API methods.
+
+    def extended_validation(self, **kwargs):
+        """Add additional record validation.
+
+        :return: False if
+            - notes array has multiple notes with same type
+        """
+        # NOTES fields testing
+        note_types = [note.get('type') for note in self.get('notes', [])]
+        if len(note_types) != len(set(note_types)):
+            return _('Can not have multiple notes of same type.')
+
+        return True
+
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,
                dbcommit=True, reindex=True, **kwargs):
@@ -119,6 +137,10 @@ class AcqOrderLine(IlsRecord):
         data['total_amount'] = data['amount'] * data['quantity'] \
             - data.get('discount_amount', 0)
 
+    # GETTER & SETTER =========================================================
+    #   * Define some properties as shortcut to quickly access object attrs.
+    #   * Defines some getter methods to access specific object values.
+
     @property
     def order_pid(self):
         """Shortcut for acquisition order pid."""
@@ -149,27 +171,18 @@ class AcqOrderLine(IlsRecord):
         """Shortcut for acquisition order library pid."""
         return self.order.library_pid
 
-    def dump_for_order(self):
-        """Dump for order."""
-        copy_keys = ['status', 'order_date', 'reception_date', 'quantity']
-        data = {key: self.get(key) for key in copy_keys if self.get(key)}
-        # add account informations
-        account = self.account
-        data['account'] = {
-            'pid': account.pid,
-            'name': account['name'],
-            'number': account.get('number')
-        }
-        data['account'] = {k: v for k, v in data['account'].items() if v}
-        # add document informations
-        document = self.document
-        data['document'] = {
-            'pid': document.pid,
-            'title': title_format_text_head(document.get('title', [])),
-            'identifiers': document.get_identifier_values(filters=['bf:Isbn'])
-        }
-        data['document'] = {k: v for k, v in data['document'].items() if v}
-        return data
+    def get_note(self, note_type):
+        """Get a specific type of note.
+
+        Only one note of each type could be created.
+        :param note_type: the note type to filter as `OrderLineNoteType` value.
+        :return the note content if exists, otherwise returns None.
+        """
+        note = [
+            note.get('content') for note in self.get('notes', [])
+            if note.get('type') == note_type
+        ]
+        return next(iter(note), None)
 
 
 class AcqOrderLinesIndexer(IlsRecordsIndexer):
