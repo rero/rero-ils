@@ -163,7 +163,28 @@
         "email": "reroilstest+martigny@gmail.com"
       }
     ],
-    "communication_language": "fre"
+    "communication_language": "fre",
+    "acquisition_settings": {
+      "shipping_informations": {
+        "name": "martigny shipping dept",
+        "email": "reroilstest+martignyshipping@gmail.com",
+        "address": {
+          "street": "Ave de la gare 12",
+          "city": "Martigny",
+          "zip_code": "1920",
+          "country": "sz"
+        }
+      },
+      "billing_informations": {
+        "name": "martigny billing dept",
+        "address": {
+          "street": "Place de l'\u00e9querre 12",
+          "city": "Aristo",
+          "zip_code": "1234",
+          "country": "be"
+        }
+      }
+    }
   },
   "lib2": {
     "$schema": "https://bib.rero.ch/schemas/libraries/library-v0.0.1.json",
@@ -291,7 +312,19 @@
         "email": "reroilstest+saxon@gmail.com"
       }
     ],
-    "communication_language": "fre"
+    "communication_language": "fre",
+    "acquisition_settings": {
+      "shipping_informations": {
+        "name": "Saxon shipping dept",
+        "email": "reroilstest+acqshipping@gmail.com",
+        "address": {
+          "street": "Ave de la gare 10",
+          "city": "Saxon",
+          "zip_code": "1907",
+          "country": "sz"
+        }
+      }
+    }
   },
   "lib3": {
     "$schema": "https://bib.rero.ch/schemas/libraries/library-v0.0.1.json",
