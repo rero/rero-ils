@@ -364,49 +364,43 @@ def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode,
                     language = kwargs.get('language', current_app.config
                                           .get('BABEL_DEFAULT_LANGUAGE'))
                     ctx.babel_locale = language
-                    # check if item is already checked out or requested
-                    if item.item_has_active_loan_or_request():
-                        # check if item is already checked out by the current
-                        # patron
-                        loan = get_loans_by_item_pid_by_patron_pid(
-                            item_pid=item.pid, patron_pid=patron.pid,
-                            filter_states=[LoanState.ITEM_ON_LOAN])
-                        if loan:
-                            checkout['renewal'] = True
-                            checkout['desensitize'] = True
-                            checkout['due_date'] = loan['end_date']
-                        else:
-                            # the due date is a required field from sip2
-                            checkout['due_date'] = datetime.now(timezone.utc)
-                        checkout.get('screen_messages', []).append(
-                            _('Item is already checked-out or requested by '
-                              'patron.'))
-                    else:
-                        # do checkout
-                        result, data = item.checkout(
-                            patron_pid=patron.pid,
-                            transaction_user_pid=staffer.pid,
-                            transaction_library_pid=terminal.library_pid,
-                            item_pid=item.pid,
-                            selfcheck_terminal_id=str(terminal.id),
-                        )
-                        if LoanAction.CHECKOUT in data:
-                            loan = data[LoanAction.CHECKOUT]
-                            checkout['checkout'] = True
-                            checkout['desensitize'] = True
-                            checkout['due_date'] = loan['end_date']
-                            # checkout note
-                            checkout_note = item.get_note(
-                                ItemNoteTypes.CHECKOUT)
-                            if checkout_note:
-                                checkout.get('screen_messages', []) \
-                                    .append(checkout_note)
-                            # TODO: When is possible, try to return fields:
-                            #       magnetic_media
+                    # do checkout
+                    result, data = item.checkout(
+                        patron_pid=patron.pid,
+                        transaction_user_pid=staffer.pid,
+                        transaction_library_pid=terminal.library_pid,
+                        item_pid=item.pid,
+                        selfcheck_terminal_id=str(terminal.id),
+                    )
+                    if LoanAction.CHECKOUT in data:
+                        loan = data[LoanAction.CHECKOUT]
+                        checkout['checkout'] = True
+                        checkout['desensitize'] = True
+                        checkout['due_date'] = loan['end_date']
+                        # checkout note
+                        checkout_note = item.get_note(
+                            ItemNoteTypes.CHECKOUT)
+                        if checkout_note:
+                            checkout.get('screen_messages', []) \
+                                .append(checkout_note)
+                        # TODO: When is possible, try to return fields:
+                        #       magnetic_media
         except ItemNotAvailableError:
-            checkout.get('screen_messages', []).append(
-                _('Checkout impossible: the item is requested by '
-                  'another patron'))
+            # the due date is a required field from sip2
+            checkout['due_date'] = datetime.now(timezone.utc)
+
+            # check if item is already checked out by the current
+            # patron
+            loan = get_loans_by_item_pid_by_patron_pid(
+                item_pid=item.pid, patron_pid=patron.pid,
+                filter_states=[LoanState.ITEM_ON_LOAN])
+            if loan:
+                checkout['renewal'] = True
+                checkout['desensitize'] = True
+                checkout['due_date'] = loan['end_date']
+            else:
+                checkout.get('screen_messages', []).append(
+                    _('Item is already checked-out or requested by patron.'))
         except NoCirculationAction as circ_no_action:
             checkout.get('screen_messages', []).append(
                 _('No circulation action is possible'))
