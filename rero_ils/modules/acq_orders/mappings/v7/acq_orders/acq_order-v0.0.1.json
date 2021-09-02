@@ -84,6 +84,9 @@
           "status": {
             "type": "keyword"
           },
+          "notes": {
+            "type": "text"
+          },
           "document": {
             "properties": {
               "pid": {
@@ -103,11 +106,7 @@
                 "type": "keyword"
               },
               "name": {
-                "type": "text",
-                "copy_to": "name_sort"
-              },
-              "name_sort": {
-                "type": "keyword"
+                "type": "text"
               },
               "number": {
                 "type": "keyword"
