@@ -19,6 +19,7 @@
 
 from invenio_records_rest.serializers.response import search_responsify
 
+from ..acq_accounts.api import AcqAccount
 from ..libraries.api import Library
 from ..serializers import JSONSerializer, RecordSchemaJSONV1
 from ..vendors.api import Vendor
@@ -34,13 +35,15 @@ class AcqOrderJSONSerializer(JSONSerializer):
             results, 'library', Library, 'name')
         JSONSerializer.complete_bucket_with_attribute(
             results, 'vendor', Vendor, 'name')
+        JSONSerializer.complete_bucket_with_attribute(
+            results, 'account', AcqAccount, 'name')
 
         # Add configuration for order_date bucket
         aggr = results['aggregations'].get('order_date')
         if aggr:
             bucket_values = [term['key'] for term in aggr.get('buckets', [])]
             if bucket_values:
-                results['aggregations']['order_date']['type'] = 'range'
+                results['aggregations']['order_date']['type'] = 'date-range'
                 results['aggregations']['order_date']['config'] = {
                     'min': min(bucket_values),
                     'max': max(bucket_values),
