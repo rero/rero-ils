@@ -40,3 +40,11 @@ class LibraryMetadata(db.Model, RecordMetadataBase):
     """Library record metadata."""
 
     __tablename__ = 'library_metadata'
+
+
+class LibraryAddressType:
+    """Address type for libraries."""
+
+    MAIN_ADDRESS = 'main'
+    SHIPPING_ADDRESS = 'shipping'
+    BILLING_ADDRESS = 'billing'
