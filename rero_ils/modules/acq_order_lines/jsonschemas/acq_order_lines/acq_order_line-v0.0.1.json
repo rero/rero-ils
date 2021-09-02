@@ -12,7 +12,6 @@
     "reception_date",
     "quantity",
     "amount",
-    "discount_amount",
     "exchange_rate",
     "notes"
   ],
@@ -87,19 +86,6 @@
       "minimum": 0,
       "form": {
         "fieldMap": "amount"
-      }
-    },
-    "discount_amount": {
-      "title": "Discount amount",
-      "type": "number",
-      "default": 0,
-      "minimum": 0,
-      "form": {
-        "hide": true,
-        "fieldMap": "amount",
-        "navigation": {
-          "essential": true
-        }
       }
     },
     "total_amount": {
