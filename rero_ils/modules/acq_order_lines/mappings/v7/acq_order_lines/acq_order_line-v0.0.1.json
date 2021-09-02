@@ -78,9 +78,6 @@
       "amount": {
         "type": "float"
       },
-      "discount_amount": {
-        "type": "float"
-      },
       "total_amount": {
         "type": "float"
       },
