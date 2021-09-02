@@ -26,7 +26,7 @@ from dateutil import parser
 from dateutil.rrule import FREQNAMES, rrule
 
 from .exceptions import LibraryNeverOpen
-from .models import LibraryIdentifier, LibraryMetadata
+from .models import LibraryAddressType, LibraryIdentifier, LibraryMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..locations.api import LocationsSearch
@@ -98,6 +98,18 @@ class Library(IlsRecord):
         """Get Organisation."""
         from ..organisations.api import Organisation
         return Organisation.get_record_by_pid(self.organisation_pid)
+
+    def get_address(self, address_type):
+        """Get informations about an address type.
+
+        :param address_type: the type of address.
+        :return a dict with all necessary address data.
+        """
+        if address_type == LibraryAddressType.MAIN_ADDRESS:
+            return self.get('address')
+        else:
+            return self.get('acquisition_settings', {})\
+                .get(f'{address_type}_informations', {}).get('address')
 
     def pickup_location_query(self):
         """Search the location index for pickup locations."""
