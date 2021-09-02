@@ -37,6 +37,7 @@ from invenio_jsonschemas import current_jsonschemas
 from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE, \
     OVERDUE_REMINDER_TYPE, CircPolicy
 
+from .extensions import SetDueSoonDate
 from ..api import IlsRecord, IlsRecordError, IlsRecordsIndexer, \
     IlsRecordsSearch
 from ..errors import NoCirculationActionIsPermitted
@@ -118,6 +119,8 @@ class Loan(IlsRecord):
         "start_date",
         "transaction_date"
     ]
+    # Invenio Records extensions
+    _extensions = [SetDueSoonDate()]
 
     def __init__(self, data, model=None):
         """Loan init."""
@@ -476,20 +479,17 @@ class Loan(IlsRecord):
         return False
 
     def is_loan_due_soon(self, tstamp=None):
-        """Check if a loan is due soon."""
-        from .utils import get_circ_policy
-        if self.state != LoanState.ITEM_ON_LOAN:
-            return False
+        """Check if the loan is due soon.
 
-        circ_policy = get_circ_policy(self)
+        :param tstamp: a timestamp to define the execution time of the function
+                       Default to `datetime.now()`
+        :returns: True if is due soon
+        """
         date = tstamp or datetime.now(timezone.utc)
-        due_date = ciso8601.parse_datetime(self.end_date).replace(
-            tzinfo=timezone.utc)
-        days_before = circ_policy.due_soon_interval_days
-        if days_before:
-            start_date = ciso8601.parse_datetime(self.get('start_date'))
-            due_soon_date = due_date - timedelta(days=days_before)
-            return start_date < due_soon_date <= date < due_date
+        due_soon_date = self.get('due_soon_date')
+        """Check if a loan is due soon."""
+        if due_soon_date:
+            return ciso8601.parse_datetime(due_soon_date) <= date
         return False
 
     @property
@@ -1032,17 +1032,17 @@ def get_loans_count_by_library_for_patron_pid(patron_pid, filter_states=None):
 
 def get_due_soon_loans(tstamp=None):
     """Return all due_soon loans."""
-    due_soon_loans = []
-    results = current_circulation.loan_search_cls() \
+    end_date = tstamp or datetime.now()
+    end_date = end_date.strftime('%Y-%m-%dT%H:%M:%S.000Z')
+    query = current_circulation.loan_search_cls() \
         .filter('term', state=LoanState.ITEM_ON_LOAN) \
+        .filter('range', due_soon_date={'lte': end_date})
+    results = query\
         .params(preserve_order=True) \
         .sort({'_created': {'order': 'asc'}}) \
-        .source(['pid']).scan()
-    for record in results:
-        loan = Loan.get_record_by_pid(record.pid)
-        if loan.is_loan_due_soon(tstamp):
-            due_soon_loans.append(loan)
-    return due_soon_loans
+        .source(['pid'])
+    for hit in results.scan():
+        yield Loan.get_record_by_pid(hit.pid)
 
 
 def get_overdue_loan_pids(patron_pid=None, tstamp=None):

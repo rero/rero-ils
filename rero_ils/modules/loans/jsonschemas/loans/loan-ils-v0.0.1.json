@@ -108,6 +108,11 @@
       "format": "date-time",
       "title": "Transaction end datetime"
     },
+    "due_soon_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Due Soon Date"
+    },
     "request_expire_date": {
       "format": "date-time",
       "title": "Request expire datetime",
