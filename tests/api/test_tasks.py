@@ -77,7 +77,8 @@ def test_notifications_task(
     end_date = datetime.now(timezone.utc) + timedelta(days=5)
     loan['end_date'] = end_date.isoformat()
     loan.update(loan, dbcommit=True, reindex=True)
-    due_soon_loans = get_due_soon_loans()
+    flush_index(LoansSearch.Meta.index)
+    due_soon_loans = list(get_due_soon_loans())
     assert due_soon_loans[0].get('pid') == loan_pid
 
     create_notifications(types=[

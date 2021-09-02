@@ -285,7 +285,7 @@ def test_due_soon_loans(client, librarian_martigny,
     loan['start_date'] = (start_date - timedelta(days=30)).isoformat()
     loan.update(loan, dbcommit=True, reindex=True)
 
-    due_soon_loans = get_due_soon_loans()
+    due_soon_loans = list(get_due_soon_loans())
     assert due_soon_loans[0].get('pid') == loan_pid
 
     # test due date regarding multiple timezones
