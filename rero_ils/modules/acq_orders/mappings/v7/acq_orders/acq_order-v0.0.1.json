@@ -57,6 +57,16 @@
       "total_amount": {
         "type": "float"
       },
+      "notes": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "content": {
+            "type": "text"
+          }
+        }
+      },
       "order_lines": {
         "properties": {
           "pid": {
