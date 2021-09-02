@@ -364,6 +364,12 @@ def acq_order_fiction_martigny_data(acquisition):
     return deepcopy(acquisition.get('acor1'))
 
 
+@pytest.fixture(scope="function")
+def acq_order_fiction_martigny_data_tmp(acquisition):
+    """Load acq_order lib martigny fiction data."""
+    return deepcopy(acquisition.get('acor1'))
+
+
 @pytest.fixture(scope="module")
 def acq_order_fiction_martigny(
         app, lib_martigny, vendor_martigny, acq_order_fiction_martigny_data):
@@ -417,6 +423,12 @@ def acq_order_fiction_sion(
 
 @pytest.fixture(scope="module")
 def acq_order_line_fiction_martigny_data(acquisition):
+    """Load acq_order_line lib martigny fiction data."""
+    return deepcopy(acquisition.get('acol1'))
+
+
+@pytest.fixture(scope="function")
+def acq_order_line_fiction_martigny_data_tmp(acquisition):
     """Load acq_order_line lib martigny fiction data."""
     return deepcopy(acquisition.get('acol1'))
 

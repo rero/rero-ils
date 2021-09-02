@@ -20,6 +20,8 @@
 
 from functools import partial
 
+from flask_babelex import gettext as _
+
 from .extensions import AcquisitionOrderCompleteDataExtension, \
     AcquisitionOrderDynamicFieldsExtension
 from .models import AcqOrderIdentifier, AcqOrderMetadata, AcqOrderStatus
@@ -78,6 +80,19 @@ class AcqOrder(IlsRecord):
             'org': 'organisation'
         }
     }
+
+    def extended_validation(self, **kwargs):
+        """Add additional record validation.
+
+        :return: False if
+            - notes array has multiple notes with same type
+        """
+        # NOTES fields testing
+        note_types = [note.get('type') for note in self.get('notes', [])]
+        if len(note_types) != len(set(note_types)):
+            return _('Can not have multiple notes of same type.')
+
+        return True
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,
