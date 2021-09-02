@@ -14,7 +14,7 @@
     "amount",
     "discount_amount",
     "exchange_rate",
-    "note"
+    "notes"
   ],
   "required": [
     "$schema",
@@ -49,6 +49,10 @@
       ],
       "default": "approved",
       "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        },
         "type": "selectWithSort",
         "options": [
           {
@@ -80,13 +84,23 @@
       "title": "Amount",
       "type": "number",
       "default": 0,
-      "minimum": 0
+      "minimum": 0,
+      "form": {
+        "fieldMap": "amount"
+      }
     },
     "discount_amount": {
       "title": "Discount amount",
       "type": "number",
       "default": 0,
-      "minimum": 0
+      "minimum": 0,
+      "form": {
+        "hide": true,
+        "fieldMap": "amount",
+        "navigation": {
+          "essential": true
+        }
+      }
     },
     "total_amount": {
       "title": "Total amount",
@@ -97,12 +111,91 @@
     "exchange_rate": {
       "title": "Exchange rate",
       "type": "number",
-      "minimum": 0
+      "minimum": 0,
+      "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        }
+      }
     },
-    "note": {
-      "title": "Note",
-      "type": "string",
-      "minLength": 9
+    "notes": {
+      "title": "Notes",
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "Note",
+        "propertiesOrder": [
+          "type",
+          "content"
+        ],
+        "required": [
+          "type",
+          "content"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type",
+            "enum": [
+              "staff_note",
+              "vendor_note"
+            ],
+            "default": "staff_note",
+            "form": {
+              "type": "selectWithSort",
+              "options": [
+                {
+                  "label": "vendor_note",
+                  "value": "vendor_note"
+                },
+                {
+                  "label": "staff_note",
+                  "value": "staff_note"
+                }
+              ]
+            }
+          },
+          "content": {
+            "type": "string",
+            "title": "Content",
+            "maxLength": 2000,
+            "minLength": 1,
+            "form": {
+              "type": "textarea",
+              "templateOptions": {
+                "rows": 3
+              }
+            }
+          }
+        }
+      },
+      "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        },
+        "templateOptions": {
+          "wrappers": [
+            "card"
+          ]
+        },
+        "validation": {
+          "validators": {
+            "uniqueValueKeysInObject": {
+              "keys": [
+                "type"
+              ]
+            }
+          },
+          "messages": {
+            "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
+          }
+        }
+      }
     },
     "order_date": {
       "title": "Order date",
@@ -110,6 +203,10 @@
       "format": "date",
       "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
       "form": {
+        "hideExpression": "field.parent.model.status !== 'ordered' && field.parent.model.status !== 'received'",
+        "expressionProperties": {
+          "templateOptions.required": "field.parent.model.status === 'ordered' || field.parent.model.status === 'received'"
+        },
         "type": "datepicker",
         "placeholder": "Select a date",
         "validation": {
@@ -125,6 +222,10 @@
       "format": "date",
       "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
       "form": {
+        "hideExpression": "field.parent.model.status !== 'received'",
+        "expressionProperties": {
+          "templateOptions.required": "field.parent.model.status === 'received'"
+        },
         "type": "datepicker",
         "placeholder": "Select a date",
         "validation": {

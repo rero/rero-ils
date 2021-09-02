@@ -20,6 +20,7 @@
 
 
 from .api import AcqOrdersSearch
+from ..acq_order_lines.dumpers import AcqOrderLineESDumper
 
 
 def enrich_acq_order_data(sender, json=None, record=None, index=None,
@@ -32,10 +33,11 @@ def enrich_acq_order_data(sender, json=None, record=None, index=None,
     :param doc_type: The document type of the record.
     """
     if index.split('-')[0] == AcqOrdersSearch.Meta.index:
-        # for each related order lines : add some informations
-        json['order_lines'] = []
-        for order_line in record.get_order_lines():
-            json['order_lines'].append(order_line.dump_for_order())
+        # add related order lines metadata
+        json['order_lines'] = [
+            order_line.dumps(dumper=AcqOrderLineESDumper())
+            for order_line in record.get_order_lines()
+        ]
         # other dynamic keys
         json['organisation'] = {
             'pid': record.organisation_pid,
