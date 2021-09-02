@@ -166,7 +166,7 @@ def test_circ_policy_reminders(circ_policy_schema,
     with pytest.raises(ValidationError):
         overdue_reminder1 = deepcopy(overdue_reminder)
         overdue_reminder2 = deepcopy(overdue_reminder)
-        overdue_reminder2['template'] = 'email/overdue2'
+        overdue_reminder2['template'] = 'email/overdue'
         cipo['reminders'].extend([overdue_reminder1, overdue_reminder2])
         validate(cipo, circ_policy_schema)  # valid for JSON schema
         cipo.validate()  # invalid against extented_validation rules

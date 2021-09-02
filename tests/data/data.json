@@ -1182,7 +1182,7 @@
         "days_delay": 12,
         "fee_amount": 2.0,
         "communication_channel": "mail",
-        "template": "email/overdue2"
+        "template": "email/overdue"
       }
     ],
     "number_renewals": 1,

@@ -307,17 +307,18 @@ def update_mapping(aliases):
     if not aliases:
         aliases = current_search.aliases.keys()
     for alias in aliases:
-        index, f_mapping = next(
-            iter(current_search.aliases.get(alias).items()))
-        mapping = json.load(open(f_mapping))
-        res = current_search_client.indices.put_mapping(
-            mapping.get('mappings'), index)
-        if res.get('acknowledged'):
-            click.secho(
-                f'index: {index} has been sucessfully updated', fg='green')
-        else:
-            click.secho(
-                f'error: {res}', fg='red')
+        for index, f_mapping in iter(
+            current_search.aliases.get(alias).items()
+        ):
+            mapping = json.load(open(f_mapping))
+            res = current_search_client.indices.put_mapping(
+                mapping.get('mappings'), index)
+            if res.get('acknowledged'):
+                click.secho(
+                    f'index: {index} has been sucessfully updated', fg='green')
+            else:
+                click.secho(
+                    f'error: {res}', fg='red')
 
 
 @fixtures.command('create')

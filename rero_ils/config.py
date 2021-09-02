@@ -322,22 +322,6 @@ CELERY_BEAT_SCHEDULE = {
         'enabled': False,
         # TODO: in production set this up once a day
     },
-    'notification-dispatch-due_soon': {
-        'task': 'rero_ils.modules.notifications.tasks.process_notifications',
-        'schedule': crontab(minute="*/15"),
-        'kwargs': {
-            'notification_type': NotificationType.DUE_SOON
-        },
-        'enabled': False,
-    },
-    'notification-dispatch-overdue': {
-        'task': 'rero_ils.modules.notifications.tasks.process_notifications',
-        'schedule': timedelta(minutes=15),
-        'kwargs': {
-            'notification_type': NotificationType.OVERDUE
-        },
-        'enabled': False,
-    },
     'notification-dispatch-availability': {
         'task': 'rero_ils.modules.notifications.tasks.process_notifications',
         'schedule': timedelta(minutes=15),

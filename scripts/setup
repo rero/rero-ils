@@ -522,7 +522,7 @@ then
     eval ${PREFIX} invenio oaiharvester harvest -n ebooks -q -k
 else
     eval ${PREFIX} invenio scheduler enable_tasks -n scheduler-timestamp -n bulk-indexer -n anonymize-loans -n claims-creation -n accounts -n clear_and_renew_subscriptions -n collect-stats -v
-    eval ${PREFIX} invenio scheduler enable_tasks -n notification-creation -n notification-dispatch-due_soon -n notification-dispatch-overdue -n notification-dispatch-availability -n notification-dispatch-recall -v
+    eval ${PREFIX} invenio scheduler enable_tasks -n notification-creation -n notification-dispatch-availability -n notification-dispatch-recall -v
     info_msg "For ebooks harvesting run:"
     msg "\tinvenio oaiharvester harvest -n ebooks -a max=100 -q"
 fi
