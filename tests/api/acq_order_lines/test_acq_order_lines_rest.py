@@ -26,6 +26,7 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
 
+from rero_ils.modules.acq_order_lines.models import AcqOrderLineNoteType
 from rero_ils.modules.utils import get_ref_for_pid
 
 
@@ -116,7 +117,10 @@ def test_acq_order_lines_post_put_delete(
 
     # Update record/PUT
     data = acq_order_line_fiction_saxon
-    data['note'] = 'Test update note'
+    data['notes'] = [{
+        'type': AcqOrderLineNoteType.STAFF,
+        'content': 'Test update note'
+    }]
     res = client.put(
         item_url,
         data=json.dumps(data),
@@ -126,19 +130,19 @@ def test_acq_order_lines_post_put_delete(
 
     # Check that the returned record matches the given data
     data = get_json(res)
-    assert data['metadata']['note'] == 'Test update note'
+    assert data['metadata']['notes'][0]['content'] == 'Test update note'
 
     res = client.get(item_url)
     assert res.status_code == 200
 
     data = get_json(res)
-    assert data['metadata']['note'] == 'Test update note'
+    assert data['metadata']['notes'][0]['content'] == 'Test update note'
 
     res = client.get(list_url)
     assert res.status_code == 200
 
     data = get_json(res)['hits']['hits'][0]
-    assert data['metadata']['note'] == 'Test update note'
+    assert data['metadata']['notes'][0]['content'] == 'Test update note'
 
     # Delete record/DELETE
     res = client.delete(item_url)
@@ -250,7 +254,10 @@ def test_acq_order_line_secure_api_update(client,
     record_url = url_for('invenio_records_rest.acol_item',
                          pid_value=acq_order_line_fiction_sion.pid)
     data = acq_order_line_fiction_sion
-    data['note'] = 'Test update note'
+    data['notes'] = [{
+        'type': AcqOrderLineNoteType.STAFF,
+        'content': 'Test update note'
+    }]
     res = client.put(
         record_url,
         data=json.dumps(data),

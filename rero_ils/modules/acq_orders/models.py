@@ -50,3 +50,10 @@ class AcqOrderStatus:
     PENDING = 'pending'
     PARTIALLY_RECEIVED = 'partially_received'
     RECEIVED = 'received'
+
+
+class AcqOrderNoteType:
+    """Type of acquisition order note."""
+
+    STAFF = 'staff_note'
+    VENDOR = 'vendor_note'
