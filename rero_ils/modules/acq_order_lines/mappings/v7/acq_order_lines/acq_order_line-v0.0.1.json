@@ -87,8 +87,15 @@
       "exchange_rate": {
         "type": "float"
       },
-      "note": {
-        "type": "text"
+      "notes": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "content": {
+            "type": "text"
+          }
+        }
       },
       "order_date": {
         "type": "date"
