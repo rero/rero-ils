@@ -73,7 +73,7 @@ def create_notifications(types=None, tstamp=None, verbose=True):
             loan.create_notification(
                 _type=NotificationType.DUE_SOON)
             notification_counter[NotificationType.DUE_SOON] += 1
-
+        process_notifications(NotificationType.DUE_SOON)
     # OVERDUE NOTIFICATIONS
     if NotificationType.OVERDUE in types:
         logger.debug("OVERDUE_NOTIFICATION_CREATION --------------")
@@ -110,6 +110,7 @@ def create_notifications(types=None, tstamp=None, verbose=True):
                 else:
                     logger.debug(f'  --> Overdue notification#{idx+1} skipped '
                                  f':: already sent')
+        process_notifications(NotificationType.OVERDUE)
     notification_sum = sum(notification_counter.values())
     counters = {k: v for k, v in notification_counter.items() if v > 0}
 
