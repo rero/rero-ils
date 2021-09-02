@@ -8,7 +8,8 @@
     "vendor",
     "reference",
     "type",
-    "description"
+    "description",
+    "notes"
   ],
   "required": [
     "$schema",
@@ -97,6 +98,80 @@
     },
     "currency": {
       "$ref": "https://bib.rero.ch/schemas/common/currency-v0.0.1.json#/currency"
+    },
+    "notes": {
+      "title": "Notes",
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "Note",
+        "propertiesOrder": [
+          "type",
+          "content"
+        ],
+        "required": [
+          "type",
+          "content"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type",
+            "enum": [
+              "staff_note",
+              "vendor_note"
+            ],
+            "default": "staff_note",
+            "form": {
+              "type": "selectWithSort",
+              "options": [
+                {
+                  "label": "vendor_note",
+                  "value": "vendor_note"
+                },
+                {
+                  "label": "staff_note",
+                  "value": "staff_note"
+                }
+              ]
+            }
+          },
+          "content": {
+            "type": "string",
+            "title": "Content",
+            "maxLength": 2000,
+            "minLength": 1,
+            "form": {
+              "type": "textarea",
+              "templateOptions": {
+                "rows": 3
+              }
+            }
+          }
+        }
+      },
+      "form": {
+        "templateOptions": {
+          "wrappers": [
+            "card"
+          ]
+        },
+        "validation": {
+          "validators": {
+            "uniqueValueKeysInObject": {
+              "keys": [
+                "type"
+              ]
+            }
+          },
+          "messages": {
+            "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
+          }
+        }
+      }
     },
     "vendor": {
       "title": "Vendor",
