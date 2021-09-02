@@ -69,6 +69,37 @@
           "default": 0
         }
       }
+    },
+    "address_block": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "street",
+        "zip_code",
+        "city",
+        "country"
+      ],
+      "properties": {
+        "street": {
+          "title": "Street",
+          "description": "Street + number",
+          "type": "string",
+          "minLength": 3
+        },
+        "zip_code": {
+          "title": "Zip code",
+          "type": "string",
+          "minLength": 3
+        },
+        "city": {
+          "title": "City",
+          "type": "string",
+          "minLength": 2
+        },
+        "country": {
+          "$ref": "https://bib.rero.ch/schemas/common/countries-v0.0.1.json#/country"
+        }
+      }
     }
   },
   "properties": {
@@ -280,11 +311,11 @@
           },
           "start_date": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           },
           "end_date": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           },
           "times": {
             "type": "array",
@@ -370,6 +401,78 @@
             "value": "ita"
           }
         ]
+      }
+    },
+    "acquisition_settings": {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "shipping_informations"
+      ],
+      "properties": {
+        "shipping_informations": {
+          "title": "Shipping informations",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "email",
+            "address"
+          ],
+          "properties": {
+            "name": {
+              "title": "Contact person",
+              "type": "string",
+              "minLength": 3
+            },
+            "email": {
+              "title": "Contact email",
+              "type": "string",
+              "format": "email",
+              "pattern": "^.*?@.*.*$",
+              "minLength": 6
+            },
+            "phone": {
+              "title": "Contact phone",
+              "type": "string",
+              "minLength": 6
+            },
+            "address": {
+              "$ref": "#/definitions/address_block"
+            }
+          }
+        },
+        "billing_informations": {
+          "title": "Billing informations",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "address"
+          ],
+          "properties": {
+            "name": {
+              "title": "Contact person",
+              "type": "string",
+              "minLength": 3
+            },
+            "email": {
+              "title": "Contact email",
+              "type": "string",
+              "format": "email",
+              "pattern": "^.*?@.*.*$",
+              "minLength": 6
+            },
+            "phone": {
+              "title": "Contact phone",
+              "type": "string",
+              "minLength": 6
+            },
+            "address": {
+              "$ref": "#/definitions/address_block"
+            }
+          }
+        }
       }
     }
   }
