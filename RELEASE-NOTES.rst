@@ -18,6 +18,35 @@
 Release notes
 =============
 
+v1.4.9
+------
+
+This patch brings several improvements and fixes on the notification
+process:
+
+-  Preventing to repeatedly send notifications that are in an
+   error state.
+-  Preventing notifications to be in an error state if the pickup
+   location is deleted.
+-  Cancelling generated notifications if the situation changed between
+   the generation and the processing. Indeed, some notifications are
+   asynchronous in order to be able to group several notifications of
+   the same type to the same patron. But in the meantime, the notification
+   may be outdated, because the loan has been renewed or checked in.
+-  Preventing to send reminders if the library is closed between the due
+   date and the notification processing (`#2303`_).
+-  Computing the date at which the due soon notification has to be sent when
+   creating the loan, instead of through a recurring task, in order to improve
+   performance and apply a more stable date.
+-  Processing due soon and overdue notifications as soon as possible, to
+   prevent sending them after the loan is either renewed or checked in.
+
+Other fixes have been added to the patch.
+
+The comprehensive changes are available in the `changelog`_.
+
+.. _#2303: https://github.com/rero/rero-ils/issues/2303
+
 v1.4.8
 ------
 
