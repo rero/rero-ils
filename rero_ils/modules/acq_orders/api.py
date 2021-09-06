@@ -145,6 +145,29 @@ class AcqOrder(IlsRecord):
 
         return status
 
+    @property
+    def order_date(self):
+        """Get the order date of this order."""
+        result = AcqOrderLinesSearch()\
+            .filter('term', acq_order__pid=self.pid)\
+            .filter('exists', field='order_date')\
+            .source(['order_date']).scan()
+        dates = [hit.order_date for hit in result]
+        return next(iter(dates or []), None)
+
+    def get_note(self, note_type):
+        """Get a specific type of note.
+
+        Only one note of each type could be created.
+        :param note_type: the note type to filter as `OrderNoteType` value.
+        :return the note content if exists, otherwise returns None.
+        """
+        note = [
+            note.get('content') for note in self.get('notes', [])
+            if note.get('type') == note_type
+        ]
+        return next(iter(note), None)
+
     def get_order_lines(self, count=False):
         """Get order lines related to this order.
 
