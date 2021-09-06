@@ -20,6 +20,29 @@
 
 from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 
+from rero_ils.modules.libraries.models import LibraryAddressType
+
+
+class LibraryAcquisitionNotificationDumper(InvenioRecordsDumper):
+    """Library dumper class for acquisition order notification."""
+
+    def dump(self, record, data):
+        """Dump a library instance for acquisition order notification.
+
+        :param record: The record to dump.
+        :param data: The initial dump data passed in by ``record.dumps()``.
+        """
+        data.update({
+            'name': record.get('name'),
+            'address': record.get_address(LibraryAddressType.MAIN_ADDRESS),
+            'shipping_address': record.get_address(
+                LibraryAddressType.SHIPPING_ADDRESS),
+            'billing_address': record.get_address(
+                LibraryAddressType.BILLING_ADDRESS)
+        })
+        data = {k: v for k, v in data.items() if v}
+        return data
+
 
 class LibraryCirculationNotificationDumper(InvenioRecordsDumper):
     """Library dumper class for circulation notification."""
