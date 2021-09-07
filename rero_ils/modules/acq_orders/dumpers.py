@@ -26,6 +26,9 @@ from rero_ils.modules.acq_orders.models import AcqOrderNoteType
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.libraries.dumpers import \
     LibraryAcquisitionNotificationDumper
+from rero_ils.modules.vendors.api import Vendor
+from rero_ils.modules.vendors.dumpers import \
+    VendorAcquisitionNotificationDumper
 
 
 class AcqOrderNotificationDumper(InvenioRecordsDumper):
@@ -45,6 +48,9 @@ class AcqOrderNotificationDumper(InvenioRecordsDumper):
         library = Library.get_record_by_pid(record.library_pid)
         data['library'] = library.dumps(
             dumper=LibraryAcquisitionNotificationDumper())
+        vendor = Vendor.get_record_by_pid(record.vendor_pid)
+        data['vendor'] = vendor.dumps(
+            dumper=VendorAcquisitionNotificationDumper())
         data['order_lines'] = [
             order_line.dumps(dumper=AcqOrderLineNotificationDumper())
             for order_line in record.get_order_lines()

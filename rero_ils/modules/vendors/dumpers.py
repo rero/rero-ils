@@ -16,31 +16,24 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Libraries dumpers."""
+"""Vendores dumpers."""
 
 from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 
-from rero_ils.modules.libraries.models import LibraryAddressType
 
-
-class LibraryAcquisitionNotificationDumper(InvenioRecordsDumper):
-    """Library dumper class for acquisition order notification."""
+class VendorAcquisitionNotificationDumper(InvenioRecordsDumper):
+    """Vendor dumper class for acquisition order notification."""
 
     def dump(self, record, data):
-        """Dump a library instance for acquisition order notification.
+        """Dump a vendor instance for acquisition order notification.
 
         :param record: The record to dump.
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
         data.update({
             'name': record.get('name'),
-            'address': record.get_address(LibraryAddressType.MAIN_ADDRESS),
-            'shipping_informations':
-                record.get('acquisition_settings', {})
-                      .get('shipping_informations', {}),
-            'billing_informations':
-                record.get('acquisition_settings', {})
-                      .get('billing_informations', {})
+            'language': record.get('communication_language', 'eng'),
+            'email': record.order_email
         })
         data = {k: v for k, v in data.items() if v}
         return data

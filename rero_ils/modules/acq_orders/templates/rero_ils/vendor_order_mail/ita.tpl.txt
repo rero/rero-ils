@@ -1,0 +1,39 @@
+{{ order.library.name }} - Ordina [{{ order.reference }}]
+
+Il nostro riferimento: {{ order.reference }}
+Data : {{ order.order_date }}
+
+Caro signore,
+
+Vorremmo ordinare la seguente lista di libri:
+
+------------------------------------------------------------
+{%- for line in order.order_lines %}
+Titolo : {{ line.document.title }}
+{%- if line.document.identifiers %}
+ISBN : {{ line.document.identifiers | join(', ') }}
+{%- endif %}
+{%- if line.note %}
+Nota : {{ line.note }}
+{%- endif %}
+Quantità : {{ line.quantity }}
+------------------------------------------------------------
+{%- endfor -%}
+{%- if order.note %}
+
+Vorremmo attirare la vostra attenzione sulla seguente osservazione:
+
+{{ order.note }}
+{%- endif %}
+
+Cordiali saluti,
+
+{{ order.library.shipping_informations.name }}
+
+Indirizzo di spedizione:
+{{ order.library.shipping_informations | address_block(language=order.vendor.language) }}
+
+{% if order.billing_informations -%}
+Indirizzo di fatturazione:
+{{ order.library.billing_informations | address_block(language=order.vendor.language) }}
+{%- endif %}

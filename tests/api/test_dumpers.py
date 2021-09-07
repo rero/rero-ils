@@ -18,6 +18,8 @@
 
 """Tests dumpers from RERO-ILS projects."""
 from rero_ils.modules.acq_orders.dumpers import AcqOrderNotificationDumper
+from rero_ils.modules.libraries.dumpers import \
+    LibraryAcquisitionNotificationDumper
 
 
 def test_acquisition_dumpers(
@@ -33,5 +35,20 @@ def test_acquisition_dumpers(
     acor = acq_order_fiction_martigny
     dump_data = acor.dumps(dumper=AcqOrderNotificationDumper())
     assert len(dump_data['order_lines']) == 2
-    assert dump_data['library']['shipping_address']
-    assert dump_data['library']['billing_address']
+    assert dump_data['library']['shipping_informations']
+    assert dump_data['library']['billing_informations']
+    assert dump_data['vendor']
+
+
+def test_library_dumpers(lib_martigny, lib_saxon):
+    """Test library dumpers."""
+
+    dump_data = lib_martigny.dumps(
+        dumper=LibraryAcquisitionNotificationDumper())
+    assert dump_data['shipping_informations']
+    assert dump_data['billing_informations']
+
+    dump_data = lib_saxon.dumps(
+        dumper=LibraryAcquisitionNotificationDumper())
+    assert dump_data['shipping_informations']
+    assert 'billing_informations' not in dump_data
