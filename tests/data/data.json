@@ -168,6 +168,7 @@
       "shipping_informations": {
         "name": "martigny shipping dept",
         "email": "reroilstest+martignyshipping@gmail.com",
+        "phone": "+447763324590",
         "address": {
           "street": "Ave de la gare 12",
           "city": "Martigny",

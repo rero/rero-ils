@@ -35,10 +35,12 @@ class LibraryAcquisitionNotificationDumper(InvenioRecordsDumper):
         data.update({
             'name': record.get('name'),
             'address': record.get_address(LibraryAddressType.MAIN_ADDRESS),
-            'shipping_address': record.get_address(
-                LibraryAddressType.SHIPPING_ADDRESS),
-            'billing_address': record.get_address(
-                LibraryAddressType.BILLING_ADDRESS)
+            'shipping_informations':
+                record.get('acquisition_settings', {})
+                      .get('shipping_informations', {}),
+            'billing_informations':
+                record.get('acquisition_settings', {})
+                      .get('billing_informations', {})
         })
         data = {k: v for k, v in data.items() if v}
         return data
