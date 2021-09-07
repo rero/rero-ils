@@ -53,7 +53,7 @@ def test_order_properties(
 
     # ORDER LINES -------------------------------------------------------------
     assert len(list(acor.get_order_lines())) == \
-        acor.get_order_lines(count=True)
+        acor.get_order_lines(output='count')
 
     # ORDER DATE --------------------------------------------------------------
     assert acor.order_date is None
