@@ -46,7 +46,7 @@ class ParentAccountDistributionCheck(RecordExtension):
         #  - Either record doesn't have any children : nothing to check!
         #  - Either record has child : we need to decrease more the record
         #    self balance (money still available for this account)
-        if amount_to_check < 0 and record.get_children(count=True):
+        if amount_to_check < 0 and record.get_children(output='count'):
             if original_record.remaining_balance[0] < abs(amount_to_check):
                 msg = _('Remaining balance too low')
                 raise ValidationError(msg)
