@@ -72,11 +72,13 @@ class Vendor(IlsRecord):
     def order_email(self):
         """Shortcut for vendor order email.
 
-        if the order email does not exist, it returns the default contact email
+        :return the best possible email to use for this vendor. If the specific
+                order contact information does not exist, the default contact
+                information will be used.
         """
-        return self.get(
-            'order_contact', self.get('default_contact', {})
-        ).get('email')
+        return self\
+            .get('order_contact', self.get('default_contact', {}))\
+            .get('email')
 
     def get_links_to_me(self, get_pids=False):
         """Record links.

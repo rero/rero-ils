@@ -62,8 +62,8 @@ from .sru.views import SRUDocumentsSearch
 from .templates.listener import prepare_template_data
 from .users.views import UsersCreateResource, UsersResource
 from .utils import set_user_name
-from ..filter import empty_data, format_date_filter, get_record_by_ref, \
-    jsondumps, node_assets, text_to_id, to_pretty_json
+from ..filter import address_block, empty_data, format_date_filter, \
+    get_record_by_ref, jsondumps, node_assets, text_to_id, to_pretty_json
 from ..version import __version__
 
 
@@ -92,6 +92,7 @@ class REROILSAPP(object):
             app.add_template_filter(text_to_id, name='text_to_id')
             app.add_template_filter(jsondumps, name='jsondumps')
             app.add_template_filter(empty_data, name='empty_data')
+            app.add_template_filter(address_block, name='address_block')
             app.jinja_env.add_extension('jinja2.ext.do')
             app.jinja_env.globals['version'] = __version__
             self.register_signals(app)
