@@ -62,16 +62,20 @@ from lxml import etree
 from werkzeug.local import LocalProxy
 from werkzeug.security import gen_salt
 
+from rero_ils.modules.locations.api import Location
+
 from .api import IlsRecordsIndexer
 from .collections.cli import create_collections
 from .contributions.api import Contribution
 from .contributions.tasks import create_mef_record_online
-from .documents.api import Document, DocumentsSearch
+from .documents.api import Document, DocumentsIndexer, DocumentsSearch
 from .documents.dojson.contrib.marc21tojson import marc21
 from .documents.views import get_cover_art
 from .holdings.cli import create_patterns
 from .ill_requests.cli import create_ill_requests
+from .items.api import Item
 from .items.cli import create_items, reindex_items
+from .libraries.api import Library
 from .loans.cli import create_loans, load_virtua_transactions
 from .monitoring import Monitoring
 from .operation_logs.cli import create_operation_logs, \
@@ -82,8 +86,8 @@ from .tasks import process_bulk_queue
 from .utils import JsonWriter, bulk_load_metadata, bulk_load_pids, \
     bulk_load_pidstore, bulk_save_metadata, bulk_save_pids, \
     bulk_save_pidstore, csv_metadata_line, csv_pidstore_line, \
-    get_record_class_from_schema_or_pid_type, number_records_in_file, \
-    read_json_record, read_xml_record
+    extracted_data_from_ref, get_record_class_from_schema_or_pid_type, \
+    number_records_in_file, read_json_record, read_xml_record
 from ..modules.providers import append_fixtures_new_identifiers
 from ..modules.utils import get_schema_for_resource
 
@@ -449,6 +453,217 @@ def create(infile, create_or_update, append, reindex, dbcommit, commit,
                 f'ERROR append fixtures new identifiers: {err}',
                 fg='red'
             )
+
+
+@utils.command('validate_documents_with_items')
+@click.argument('infile', type=click.File('r'), default=sys.stdin)
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+@click.option('-d', '--debug', 'debug', is_flag=True, default=False)
+@with_appcontext
+def validate_documents_with_items(infile, verbose, debug):
+    """Validate REROILS records with items.
+
+    :param infile: Json file
+    :param verbose: verbose print
+    :param debug: print traceback
+    """
+    def add_org_lib_doc(item):
+        """Add organisation, library and document to item for validation."""
+        item['pid'] = 'dummy'
+        location_pid = extracted_data_from_ref(item['location'])
+        location = Location.get_record_by_pid(location_pid)
+        library = Library.get_record_by_pid(location.library_pid)
+        item['organisation'] = library.get('organisation')
+        item['library'] = location.get('library')
+        item['document']['$ref'] = item[
+            'document']['$ref'].replace('{document_pid}', '1')
+        return item
+
+    click.secho(
+        f'Validate documents and items from {infile.name}.',
+        fg='green'
+    )
+    schema_path = current_jsonschemas.url_to_path(
+        get_schema_for_resource('doc'))
+    schema = current_jsonschemas.get_schema(path=schema_path)
+    doc_schema = _records_state.replace_refs(schema)
+    schema_path = current_jsonschemas.url_to_path(
+        get_schema_for_resource('item'))
+    schema = current_jsonschemas.get_schema(path=schema_path)
+    item_schema = _records_state.replace_refs(schema)
+    doc_pid = next(
+        DocumentsSearch().filter('match_all').source('pid').scan()).pid
+
+    document_errors = 0
+    item_errors = 0
+    for count, record in enumerate(read_json_record(infile), 1):
+        pid = record.get('pid')
+        items = record.pop('items', [])
+        if verbose:
+            click.echo(f'{count: <8} document validate {pid}')
+        try:
+            validate(record, doc_schema)
+        except ValidationError as err:
+            document_errors += 1
+            if debug:
+                trace = traceback.format_exc(1)
+            else:
+                trace = "\n".join(traceback.format_exc(1).split('\n')[:6])
+            click.secho(
+                f'Error validate in document: {count} {pid} {trace}',
+                fg='red'
+            )
+        for idx, item in enumerate(items, 1):
+            if verbose:
+                click.echo(f'{"": <12} item validate {idx}')
+            try:
+                validate(add_org_lib_doc(item), item_schema)
+            except ValidationError:
+                item_errors += 1
+                if debug:
+                    trace = traceback.format_exc(1)
+                else:
+                    trace = "\n".join(traceback.format_exc(1).split('\n')[:6])
+                click.secho(
+                    f'Error validate in item: {count} {pid} {idx} {trace}',
+                    fg='red'
+                )
+    color = 'green'
+    if document_errors or item_errors:
+        color = 'red'
+    click.secho(
+        f'document errors: {document_errors} item errors: {item_errors}',
+        fg=color
+    )
+
+
+@utils.command('create_documents_with_items')
+@click.argument('infile', type=click.File('r'), default=sys.stdin)
+@click.option('-l', '--lazy', 'lazy', is_flag=True, default=False)
+@click.option('-o', '--dont-stop', 'dont_stop_on_error',
+              is_flag=True, default=False)
+@click.option('-e', '--save_errors', 'save_errors', type=click.File('w'))
+@click.option('-C', '--commit', 'commit', default=10000)
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+@click.option('-d', '--debug', 'debug', is_flag=True, default=False)
+@with_appcontext
+def create_documents_with_items(infile, lazy, dont_stop_on_error, save_errors,
+                                commit, verbose, debug):
+    """Load REROILS record with items.
+
+    :param infile: Json file
+    :param lazy: lazy read file
+    :param dont_stop_on_error: don't stop on error
+    :param save_errors: save error records to file
+    :param commit: commit to database every count records
+    :param verbose: verbose print
+    :param debug: print traceback
+    """
+    click.secho(
+        f'Loading documents and items from {infile.name}.',
+        fg='green'
+    )
+    name, ext = os.path.splitext(infile.name)
+    document_file = JsonWriter(f'{name}_documents{ext}')
+    item_file = JsonWriter(f'{name}_items{ext}')
+    if save_errors:
+        err_file_name = f'{name}_errors{ext}'
+        error_file = JsonWriter(err_file_name)
+
+    if lazy:
+        # try to lazy read json file (slower, better memory management)
+        records = read_json_record(infile)
+    else:
+        # load everything in memory (faster, bad memory management)
+        records = json.load(infile)
+
+    saved_items = []
+    document_ids = []
+    for count, record in enumerate(records, 1):
+        try:
+            pid = record.get('pid')
+            items = record.pop('items', [])
+
+            # find existing document by ISBN
+            def filter_isbn(identified_by):
+                """Filter identified_by for type bf:Isbn."""
+                return identified_by.get('type') == 'bf:Isbn'
+
+            filtered_identified_by = filter(
+                filter_isbn,
+                record.get('identifiedBy', [])
+            )
+            isbns = set()
+            for identified_by in filtered_identified_by:
+                isbn = identified_by['value']
+                isbns.add(isbn)
+            isbns = list(isbns)
+
+            search = DocumentsSearch().filter('terms', isbn=isbns)
+            exists = search.count()
+
+            rec = Document.create(data=record, delete_pid=True)
+            document_file.write(rec)
+            document_ids.append(rec.id)
+            if verbose:
+                click.echo(
+                    f'{count: <8} document created '
+                    f'{rec.pid}:{rec.id} {exists}')
+            for item in items:
+                # change the document pid
+                # "document": {
+                # "$ref":
+                #   "https://bib.rero.ch/api/documents/{document_pid}"}
+                item['document']['$ref'] = item[
+                    'document']['$ref'].replace('{document_pid}', rec.pid)
+                saved_items.append({
+                    'count': count,
+                    'pid': pid,
+                    'rero_ils_pid': rec.pid,
+                    'item': item
+                })
+
+        except Exception as err:
+            click.secho(
+                f'{count: <8} create error {pid}'
+                f' {record.get("pid")}: {err}',
+                fg='red'
+            )
+            if debug:
+                traceback.print_exc()
+
+            if save_errors:
+                error_file.write(record)
+            if not dont_stop_on_error:
+                sys.exit(1)
+
+        if count % commit == 0:
+            db.session.commit()
+            DocumentsIndexer().bulk_index(document_ids)
+            process_bulk_queue()
+            for item in saved_items:
+                item_rec = Item.create(data=item['item'], delete_pid=True,
+                                       dbcommit=True, reindex=True)
+                item_file.write(item_rec)
+                if verbose:
+                    click.echo(
+                        f'         - {item["count"]: <8}'
+                        f' doc:{item["rero_ils_pid"]}'
+                        f' item created {item_rec.pid}:{item_rec.id}')
+            saved_items = []
+            docuemnt_items = []
+    db.session.commit()
+    DocumentsIndexer().bulk_index(document_ids)
+    process_bulk_queue()
+    for item in saved_items:
+        item_rec = Item.create(data=item['item'], delete_pid=True,
+                               dbcommit=True, reindex=True)
+        item_file.write(item_rec)
+        if verbose:
+            click.echo(
+                f'         - {item["count"]: <8}'
+                f' doc:{item["rero_ils_pid"]}'
+                f' item created {item_rec.pid}:{item_rec.id}')
 
 
 @fixtures.command('count')
