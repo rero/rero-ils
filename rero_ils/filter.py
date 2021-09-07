@@ -24,8 +24,9 @@ import re
 
 import dateparser
 from babel.dates import format_date, format_datetime, format_time
-from flask import current_app
+from flask import current_app, render_template
 from invenio_i18n.ext import current_i18n
+from jinja2 import TemplateNotFound
 from markupsafe import Markup
 
 from .modules.utils import extracted_data_from_ref
@@ -146,3 +147,30 @@ def empty_data(data, replacement_string='No data'):
     else:
         msg = '<em class="no-data">{0}</em>'.format(replacement_string)
         return Markup(msg)
+
+
+def address_block(metadata, language=None):
+    """Format an address depending of language.
+
+    The address metadata should be structured as a dictionary using structure:
+    { name: string,
+      email: string (optional),
+      phone: string (optional),
+      address: {
+        street: string,
+        zip_code: string,
+        city: string,
+        country: string (iso 2-alpha code)
+      }
+    }
+
+    :param metadata: the address metadata dict to format.
+    :param language: the language to use to format the block.
+    :return: the formatted address.
+    """
+    try:
+        tpl_file = f'rero_ils/address_block/{language}.tpl.txt'
+        return render_template(tpl_file, data=metadata)
+    except TemplateNotFound:
+        tpl_file = f'rero_ils/address_block/eng.tpl.txt'
+        return render_template(tpl_file, data=metadata)
