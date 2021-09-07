@@ -131,9 +131,9 @@ class Dispatcher:
         #    notification 'status' and stop the notification processing.
         can_cancel, reason = notification.can_be_cancelled()
         if can_cancel:
-            msg = f'Notification #{notification.pid} canceled: {reason}'
+            msg = f'Notification #{notification.pid} cancelled: {reason}'
             current_app.logger.info(msg)
-            notification.update_process_date(sent=False, status='canceled')
+            notification.update_process_date(sent=False, status='cancelled')
             return
 
         # 3. Aggregate notifications
