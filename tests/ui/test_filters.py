@@ -17,7 +17,7 @@
 
 """Jinja2 filters tests."""
 
-from rero_ils.filter import empty_data, format_date_filter, \
+from rero_ils.filter import address_block, empty_data, format_date_filter, \
     get_record_by_ref, jsondumps, text_to_id, to_pretty_json
 
 
@@ -123,3 +123,21 @@ def test_empty_data():
     assert 'data' == empty_data('data')
     substitution_text = 'no data available'
     assert substitution_text in empty_data(None, substitution_text)
+
+
+def test_address_block_filter(lib_martigny):
+    """Test address block filter."""
+    address = lib_martigny\
+        .get('acquisition_settings', {})\
+        .get('shipping_informations', {})
+
+    # ensure the fixture define a shipping address with correct data
+    assert address and address.get('email') and address.get('phone')
+
+    # test the filter
+    tmp_data = address_block(address, 'fre')
+    assert address.get('email') in tmp_data
+    assert address.get('phone') in tmp_data
+    assert 'E-mail:' in tmp_data
+    assert 'Email:' in address_block(address, 'eng')
+    assert 'Email:' in address_block(address, 'dummy')

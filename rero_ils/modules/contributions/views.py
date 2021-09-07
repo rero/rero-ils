@@ -39,6 +39,11 @@ blueprint = Blueprint(
     static_folder='static',
 )
 
+api_blueprint = Blueprint(
+    'api_contributions',
+    __name__
+)
+
 
 def contribution_proxy(viewcode, pid, contribution_type):
     """Proxy for contributions.
@@ -161,6 +166,7 @@ def translat_unified(data, prefix=''):
 
 
 @blueprint.app_template_filter()
+@api_blueprint.app_template_filter()
 def translat(data, prefix='', seperator=', '):
     """Translate data."""
     translated = None
@@ -175,12 +181,6 @@ def translat(data, prefix='', seperator=', '):
             translated = translate('{prefix}{data}'.format(
                 prefix=prefix, data=data))
     return translated
-
-
-api_blueprint = Blueprint(
-    'api_contributions',
-    __name__
-)
 
 
 @blueprint.app_template_filter('biographicaUrl')
