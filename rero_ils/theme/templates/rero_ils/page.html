@@ -16,6 +16,7 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #}
+{% set viewcode=viewcode or config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE %}
 <!DOCTYPE html>
 <html{% if html_css_classes %} class="{{ html_css_classes|join(' ') }}" {% endif %}
   lang="{{ current_i18n.locale.language|safe }}" dir="{{ current_i18n.locale.text_direction }}">
