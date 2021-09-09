@@ -407,7 +407,7 @@ def get_other_accesses(record):
     )
     for electronic_locator in filtered_electronic_locators:
         url = electronic_locator.get('url')
-        content = electronic_locator.get('content', url)
+        content = _(electronic_locator.get('content'))
         public_notes = electronic_locator.get('publicNote', [])
         public_note = ', '.join(public_notes)
         accesses.append({

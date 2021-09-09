@@ -5195,7 +5195,7 @@ def test_marc21_to_electronicLocator_from_856(mock_cover_get):
     assert get_cover_art(data) is None
     assert get_other_accesses(data) == [
         {
-            'content': 'http://d-nb.info/1071856731/04',
+            'content': None,
             'public_note': 'Inhaltsverzeichnis, Bd. 1',
             'type': 'relatedResource',
             'url': 'http://d-nb.info/1071856731/04'
@@ -5243,7 +5243,7 @@ def test_marc21_to_electronicLocator_from_856(mock_cover_get):
     assert get_cover_art(data) == 'http://d-nb.info/image.png'
     assert get_other_accesses(data) == [
         {
-            'content': 'http://d-nb.info/1071856731/04',
+            'content': None,
             'public_note': 'Inhaltsverzeichnis, Bd. 1',
             'type': 'relatedResource',
             'url': 'http://d-nb.info/1071856731/04'

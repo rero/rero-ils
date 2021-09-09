@@ -111,10 +111,10 @@
         <ul class="list-unstyled mb-0">
         {% for resource in resources %}
           <li>
-            <a href="{{ resource.url }}">
+            <a class="rero-ils-external-link" href={{ resource.url }}>
               {{ _(resource.type) }}
               {% if resource.content %}
-                : {{ _(resource.content) }}
+                : {{ resource.content }}
               {% endif %}
             </a>
             {% if resource.public_note %}({{ resource.public_note }}){% endif %}
