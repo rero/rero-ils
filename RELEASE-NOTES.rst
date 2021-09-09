@@ -18,6 +18,21 @@
 Release notes
 =============
 
+v1.4.10
+-------
+
+This patch improves significantly the editors of RERO ILS, especially the
+document editor which loads much faster now (`#1747`_). Linking
+document to other resource is easier too, as the scope of the search is
+wider (`2352`_) and the results more detailed.
+
+Other fixes have been added to the patch.
+
+The comprehensive changes are available in the `changelog`_.
+
+.. _#1747: https://github.com/rero/rero-ils/issues/1747
+.. _#2352: https://github.com/rero/rero-ils/issues/2352
+
 v1.4.9
 ------
 
