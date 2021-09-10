@@ -1,17 +1,17 @@
-1er rappel
+Rappel
 {%- include('email/_patron_address.txt') %}
 Chère lectrice, cher lecteur,
 
 La durée du prêt des documents mentionnés ci-dessous est échue :
 
-{%- for document in documents %}
+{%- for loan in loans %}
 
-Titre : {{ document.title_text }} / {{ document.responsibility_statement }}
-Echéance : {{ document.end_date }}
-Note : {{ document.reminder }} rappel
+Titre : {{ loan.document.title_text }}
+Echéance : {{ loan.end_date }}
+Note : {{ loan.reminder_counter }} rappel
 {%- endfor %}
 
-Vous pouvez consulter votre compte et prolonger la durée de prêt de vos documents à l'adresse : {{ profile_url }}
+Vous pouvez consulter votre compte et prolonger la durée de prêt de vos documents à l'adresse : {{ patron.profile_url }}
 
 Avec nos compliments
 

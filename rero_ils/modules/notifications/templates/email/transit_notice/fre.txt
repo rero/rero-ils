@@ -1,14 +1,13 @@
 Avis de transit
-Date: {{ creation_date }}
-{% for document in documents %}
-Titre: {{ document.title_text }}
-{% if document.item %}
-Code-barre: {{ document.item.barcode }}
-{%- if document.item.call_number or document.item.second_call_number %}
-Cote: {% if document.item.call_number %}{{ document.item.call_number }}{% endif %}
-{%- if document.item.call_number and document.item.second_call_number %} / {{ document.item.second_call_number }}{%-endif %}
+
+{% for loan in loans %}
+Date: {{ loan.creation_date }}
+Titre: {{ loan.document.title_text }}
+Code-barre: {{ loan.document.barcode }}
+{%- if loan.document.call_numbers %}
+Cote: {{ loan.document.call_numbers | join(' / ') }}
 {%- endif %}
-{% endif %}
-Origine: {{ transaction_library.name }}
-Destination: {{ document.item.library_name }}: {{ document.item.location_name }}
+Origine: {{ loan.transaction_library.name }}
+Destination: {{ loan.document.library_name }}: {{ loan.document.location_name }}
+
 {% endfor %}

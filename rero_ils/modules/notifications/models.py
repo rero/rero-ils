@@ -43,53 +43,66 @@ class NotificationMetadata(db.Model, RecordMetadataBase):
 
 
 class NotificationType:
-    """Types of notifications."""
+    """Types of notifications.
 
-    # when a new request is done on a loaned item
+    - RECALL         : when a new request is done on a loaned item.
+    - AVAILABILITY   : when a requested item arrives at desk.
+    - REQUEST        : created when the item is at desk and a request occurs.
+                       Note: can have a delay.
+    - BOOKING        : when the item is checked in and have a request.
+    - TRANSIT_NOTICE : when an item is sent to the owning location/library
+    - DUE_SOON       : when the loaned item is about to expire.
+    - OVERDUE        : when the loaned item is expired.
+    """
+
     RECALL = 'recall'
-
-    # when a requested item arrive at desk
     AVAILABILITY = 'availability'
-
-    # when the loaned item is about to expire
-    # NOTE : process by a recurrent task
     DUE_SOON = 'due_soon'
-
-    # when the loaned item is expired
-    # NOTE : process by a recurrent task
     OVERDUE = 'overdue'
-
-    # when an item is sent to the owning location/library
     TRANSIT_NOTICE = 'transit_notice'
-
-    # when the item is at desk and a request occurs
-    # NOTE : can have a delay
     REQUEST = 'request'
-
-    # when the item is checked in an have a request
     BOOKING = 'booking'
 
+    # All notification types
     ALL_NOTIFICATIONS = [
         AVAILABILITY,
         DUE_SOON,
-        OVERDUE, RECALL,
+        OVERDUE,
+        RECALL,
         TRANSIT_NOTICE,
         REQUEST,
         BOOKING
     ]
-
     # Notification related to cipo reminders.
     REMINDERS_NOTIFICATIONS = [
         DUE_SOON,
         OVERDUE
     ]
-
     # Notification to send to a library (not to a patron)
     INTERNAL_NOTIFICATIONS = [
         BOOKING,
         REQUEST,
         TRANSIT_NOTICE
     ]
+
+    # Notification related to circulation modules
+    CIRCULATION_NOTIFICATIONS = [
+        AVAILABILITY,
+        DUE_SOON,
+        OVERDUE,
+        RECALL,
+        TRANSIT_NOTICE,
+        REQUEST,
+        BOOKING
+    ]
+
+
+class NotificationStatus:
+    """Notification status."""
+
+    DONE = 'done'
+    CREATED = 'created'
+    CANCELED = 'canceled'
 
 
 class NotificationChannel:

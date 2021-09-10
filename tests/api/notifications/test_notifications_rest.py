@@ -34,6 +34,7 @@ from rero_ils.modules.libraries.api import email_notification_type
 from rero_ils.modules.loans.api import Loan, LoanAction, LoanState
 from rero_ils.modules.notifications.api import Notification, \
     NotificationsSearch
+from rero_ils.modules.notifications.dispatcher import Dispatcher
 from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.notifications.tasks import process_notifications
 from rero_ils.modules.notifications.utils import get_notification
@@ -137,7 +138,7 @@ def test_notification_secure_api(client, json_header,
         'pid': loan_validated_martigny.get('pid')
     }
     loan_ref = '{loan_url}{pid}'.format(**notif_data)
-    notif['loan'] = {"$ref": loan_ref}
+    notif['context']['loan'] = {"$ref": loan_ref}
     res, _ = postdata(
         client,
         post_entrypoint,
@@ -259,12 +260,8 @@ def test_notifications_post_put_delete(
 
     record = deepcopy(dummy_notification)
     del record['pid']
-    notif_data = {
-        'loan_url': 'https://bib.rero.ch/api/loans/',
-        'pid': loan_validated_martigny.get('pid')
-    }
-    loan_ref = '{loan_url}{pid}'.format(**notif_data)
-    record['loan'] = {"$ref": loan_ref}
+    loan_ref = get_ref_for_pid('loans', loan_validated_martigny.get('pid'))
+    record['context']['loan'] = {'$ref': loan_ref}
     notif = Notification.create(
         record,
         dbcommit=True,
@@ -300,14 +297,14 @@ def test_notifications_post_put_delete(
     assert notif == data['metadata']
 
     # Update record/PUT
-    data['notification_type'] = 'due_soon'
+    data = data['metadata']
+    data['notification_type'] = NotificationType.DUE_SOON
     res = client.put(
         item_url,
         data=json.dumps(data),
         headers=json_header
     )
     assert res.status_code == 200
-    # assert res.headers['ETag'] != '"{}"'.format(librarie.revision_id)
 
     # Check that the returned record matches the given data
     data = get_json(res)
@@ -783,9 +780,8 @@ def test_request_notifications(client, patron_martigny, patron_sion,
     mailbox.clear()
 
 
-@mock.patch(
-    'rero_ils.modules.notifications.dispatcher.num2words',
-    mock.MagicMock(side_effect=Exception('Test!')))
+@mock.patch.object(Dispatcher, '_process_notification',
+                   mock.MagicMock(side_effect=Exception('Test!')))
 def test_dispatch_error(client, patron_martigny, patron_sion,
                         lib_martigny,
                         lib_fully,
@@ -1069,9 +1065,7 @@ def test_delete_pickup_location(
         loan,
         notification_type=NotificationType.AVAILABILITY
     )
-    data = notification.replace_pids_and_refs()
-    assert data['loan']['pickup_location']['pid'] == \
-        loc_restricted_martigny.pid
+    assert notification.pickup_location.pid == loc_restricted_martigny.pid
     # We can not delete location used as transaction or pickup location
     # # any more.
     reasons_not_to_delete = loc_restricted_martigny.reasons_not_to_delete()

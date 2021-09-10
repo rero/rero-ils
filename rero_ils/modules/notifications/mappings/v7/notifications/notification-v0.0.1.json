@@ -21,25 +21,52 @@
       "notification_sent": {
         "type": "boolean"
       },
-      "reminder_counter": {
-        "type": "integer"
-      },
       "notification_type": {
         "type": "keyword"
       },
-      "loan": {
+      "context": {
         "properties": {
-          "pid": {
-            "type": "keyword"
+          "loan": {
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "type": {
+                "type": "keyword"
+              }
+            }
           },
-          "type": {
-            "type": "keyword"
+          "reminder_counter": {
+            "type": "integer"
+          },
+          "order": {
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "type": {
+                "type": "keyword"
+              }
+            }
+          },
+          "recipients": {
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "address": {
+                "type": "keyword"
+              }
+            }
           }
         }
       },
       "organisation": {
         "properties": {
           "pid": {
+            "type": "keyword"
+          },
+          "type": {
             "type": "keyword"
           }
         }

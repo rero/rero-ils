@@ -262,6 +262,13 @@ class Patron(IlsRecord):
         """Invenio user of a patron."""
         return self._get_user_by_user_id(self.get('user_id'))
 
+    @property
+    def profile_url(self):
+        """Get the link to the RERO_ILS patron profile URL."""
+        view_code = self.get_organisation().get('code')
+        base_url = current_app.config.get('RERO_ILS_APP_URL')
+        return f'{base_url}/{view_code}/patrons/profile'
+
     def get_patrons_roles(self, exclude_self=False):
         """Get the list of roles for all accounts of the related user."""
         patrons = self.get_patrons_by_user(self.user)

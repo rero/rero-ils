@@ -1184,13 +1184,15 @@ class ItemCirculation(ItemRecord):
             links['fees'] = fees
         return links
 
-    def get_requests(self, sort_by=None, count=False, pids=False):
+    def get_requests(self, sort_by=None, output=None):
         """Return sorted pending, item_on_transit, item_at_desk loans.
 
         :param sort_by: the sort to result. default sort is _created.
-        :param count: if True, return the number of request.
-        :param pids: if True, return the only the pids.
-        :return a generator of corresponding request or a request counter.
+        :param output: the type of output. 'pids', 'count' or 'obj' (default)
+        :return depending of output parameter:
+            - 'obj': a generator ``Loan`` objects.
+            - 'count': the request counter.
+            - 'pids': the request pids list
         """
 
         def _list_obj():
@@ -1210,9 +1212,9 @@ class ItemCirculation(ItemRecord):
                 LoanState.ITEM_AT_DESK,
                 LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
             ]).source(['pid'])
-        if pids:
+        if output == 'pids':
             return [hit.pid for hit in query.scan()]
-        elif count:
+        elif output == 'count':
             return query.count()
         else:
             return _list_obj()
@@ -1341,7 +1343,7 @@ class ItemCirculation(ItemRecord):
 
     def number_of_requests(self):
         """Get number of requests for a given item."""
-        return self.get_requests(count=True)
+        return self.get_requests(output='count')
 
     def patron_request_rank(self, patron):
         """Get the rank of patron in list of requests on this item."""

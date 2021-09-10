@@ -102,8 +102,8 @@ def test_loan_keep_and_to_anonymize(
         librarian_martigny, loc_public_martigny):
     """Test anonymize and keep loan based on open transactions."""
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
-    assert not loan.concluded(loan)
-    assert not loan.can_anonymize(loan_data=loan)
+    assert not Loan.concluded(loan)
+    assert not Loan.can_anonymize(loan_data=loan)
 
     params = {
         'transaction_location_pid': loc_public_martigny.pid,
@@ -112,14 +112,14 @@ def test_loan_keep_and_to_anonymize(
     item.checkin(**params)
     loan = Loan.get_record_by_pid(loan.pid)
     # item checkedin and has no open events
-    assert loan.concluded(loan)
-    assert not loan.can_anonymize(loan_data=loan)
+    assert Loan.concluded(loan)
+    assert not Loan.can_anonymize(loan_data=loan)
 
     patron.set_keep_history(False)
     # when the patron asks to anonymize history the can_anonymize is true
     loan = Loan.get_record_by_pid(loan.pid)
-    assert loan.concluded(loan)
-    assert loan.can_anonymize(loan_data=loan)
+    assert Loan.concluded(loan)
+    assert Loan.can_anonymize(loan_data=loan)
     loan.update(loan, dbcommit=True, reindex=True)
 
     # test loans with fees
@@ -128,8 +128,8 @@ def test_loan_keep_and_to_anonymize(
     #   This notification will create a new PatronTransaction with a fee.
     #   This will cause that this loan cannot be concluded and anonymize
     item, patron, loan = item2_on_loan_martigny_patron_and_loan_on_loan
-    assert not loan.concluded(loan)
-    assert not loan.can_anonymize(loan_data=loan)
+    assert not Loan.concluded(loan)
+    assert not Loan.can_anonymize(loan_data=loan)
     #  we update the loan end_date, removing 1 year. We are now sure that all
     #  possible library exceptions don't conflict with `library.open_days`
     #  computation
@@ -151,8 +151,8 @@ def test_loan_keep_and_to_anonymize(
     item.checkin(**params)
     loan = Loan.get_record_by_pid(loan.pid)
 
-    assert not loan.concluded(loan)
-    assert not loan.can_anonymize(loan_data=loan)
+    assert not Loan.concluded(loan)
+    assert not Loan.can_anonymize(loan_data=loan)
 
 
 def test_anonymizer_job(

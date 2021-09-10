@@ -3,18 +3,17 @@ Abholeinladung
 Sehr geehrte Leserin, sehr geehrter Leser,
 
 Das von Ihnen bestellte Dokument ist nun verfügbar und kann an der Ausleihtheke der nachstehend genannten Bibliothek abgeholt werden.
-{%- for document in documents %}
+{%- for loan in loans %}
 
-Titel : {{ document.title_text }} / {{ document.responsibility_statement }}
-Abholort: {{ request_pickup_name }}
+Titel : {{ loan.document.title_text }}
+Abholort: {{ loan.pickup_name }}
+Abholen bis: {{ loan.pickup_until }}
 {%- endfor %}
 
-Abholen bis: {{ pickup_library.next_open }}
-
 Wenn das Dokument innerhalb der gegebenen Frist nicht abgeholt wird, wird es anderen Personen zur Verfügung gestellt.
-Unter folgender Adresse können Sie Ihr Konto einsehen und die Ausleihfrist Ihrer Dokumente verlängern: {{ profile_url }}
+Unter folgender Adresse können Sie Ihr Konto einsehen und die Ausleihfrist Ihrer Dokumente verlängern: {{ patron.profile_url }}
 
 Freundliche Grüsse
 
-{{ pickup_library.name }}
-{{ pickup_library.address }}
+{{ library.name }}
+{{ library.address }}

@@ -1,8 +1,7 @@
-{%- if patron.patron.communication_channel == 'mail' %}
+{%- if include_patron_address %}
 {{ patron.first_name }} {{ patron.last_name }}
-{% if patron.street %}{{ patron.street }}{% endif %}
-{% if patron.postal_code %}{{ patron.postal_code }}{% endif %} {% if patron.city %}{{ patron.city }}{% endif %}
-{% if patron.country %}{{ _('country_'+patron.country) }}{% endif %}
-
+{% if patron.address.street %}{{ patron.address.street }}{% endif %}
+{% if patron.address.postal_code %}{{ patron.address.postal_code }}{% endif %} {% if patron.address.city %}{{ patron.address.city }}{% endif %}
+{% if patron.address.country %}{{ _('country_'+patron.address.country) }}{% endif %}
 
 {% endif -%}

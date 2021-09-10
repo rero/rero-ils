@@ -4,13 +4,13 @@ Cara lettrice, caro lettore,
 
 La durata di prestito dei seguenti documenti sta per scadere:
 
-{%- for document in documents %}
+{%- for loan in loans %}
 
-Titolo : {{ document.title_text }} / {{ document.responsibility_statement }}
-Scadenza: {{ document.end_date }}
+Titolo : {{ loan.document.title_text }}
+Scadenza: {{ loan.end_date }}
 {%- endfor %}
 
-Lei può consultare il Suo conto et prorogare la durata di prestito dei Suoi documenti al seguente indirizzo: {{ profile_url }}
+Lei può consultare il Suo conto et prorogare la durata di prestito dei Suoi documenti al seguente indirizzo: {{ patron.profile_url }}
 
 Cordiali saluti
 

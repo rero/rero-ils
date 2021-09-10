@@ -3581,9 +3581,11 @@
     "status": "created",
     "creation_date": "2019-01-09T08:18:22.576291+00:00",
     "notification_type": "availability",
-    "reminder_counter": 0,
-    "loan": {
-      "$ref": "https://bib.rero.ch/api/loans/x"
+    "context": {
+      "reminder_counter": 0,
+      "loan": {
+        "$ref": "https://bib.rero.ch/api/loans/x"
+      }
     }
   },
   "holding1": {
