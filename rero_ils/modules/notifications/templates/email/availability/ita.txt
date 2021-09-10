@@ -3,18 +3,17 @@ Invito a ritirare un documento
 Cara lettrice, caro lettore,
 
 Il documento che Lei ha domandato è ora disponibile. Lei può ritirarlo al servizio prestiti della biblioteca sotto indicata.
-{%- for document in documents %}
+{%- for loan in loans %}
 
-Titolo: {{ document.title_text }} / {{ document.responsibility_statement }}
-Punto di ritiro: {{ request_pickup_name }}
+Titolo: {{ loan.document.title_text }}
+Punto di ritiro: {{ loan.pickup_name }}
+Ritirare entro: {{ loan.pickup_until }}
 {%- endfor %}
 
-Ritirare entro: {{ pickup_library.next_open }}
-
 Se il documento non è ritirato entro detto termine, esso sarà rimesso in circolazione per altre persone.
-Lei può consultare il Suo conto et prorogare la durata di prestito dei Suoi documenti al seguente indirizzo: {{ profile_url }}
+Lei può consultare il Suo conto et prorogare la durata di prestito dei Suoi documenti al seguente indirizzo: {{ patron.profile_url }}
 
 Cordiali saluti
 
-{{ pickup_library.name }}
-{{ pickup_library.address }}
+{{ library.name }}
+{{ library.address }}

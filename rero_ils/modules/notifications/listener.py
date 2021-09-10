@@ -33,7 +33,7 @@ def enrich_notification_data(sender, json=None, record=None, index=None,
         notification = record
         if not isinstance(record, Notification):
             notification = Notification.get_record_by_pid(record.get('pid'))
-        org_pid = notification.organisation_pid
         json['organisation'] = {
-            'pid': org_pid
+            'pid': notification.organisation_pid,
+            'type': 'org'
         }

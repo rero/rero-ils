@@ -268,3 +268,19 @@ def test_get_links_to_me_with_fees(patron_transaction_overdue_saxon):
     pttr = pttr.update(pttr, reindex=True, dbcommit=True)
     assert item.get_links_to_me() == {'loans': 1}
     assert item.get_links_to_me(get_pids=True) == {'loans': ['1']}
+
+
+def test_items_properties(item_lib_martigny):
+    """Test some properties about item class."""
+    item = item_lib_martigny
+    assert len(item.call_numbers) == 1
+    assert item.get('call_number') in item.call_numbers
+
+    item['second_call_number'] = 'SECOND_CALL'
+    item = item.update(item, dbcommit=True, reindex=True)
+    assert len(item.call_numbers) == 2
+    assert item.get('call_number') in item.call_numbers
+    assert item.get('second_call_number') in item.call_numbers
+
+    del item['second_call_number']
+    item.update(item, dbcommit=True, reindex=True)

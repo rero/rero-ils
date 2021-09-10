@@ -31,9 +31,10 @@ def test_notification_es_mapping(
     search = NotificationsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
+
     notif = deepcopy(dummy_notification)
     validated_pid = loan_validated_martigny.get('pid')
     loan_ref = f'https://bib.rero.ch/api/loans/{validated_pid}'
-    notif['loan'] = {"$ref": loan_ref}
+    notif['context']['loan']['$ref'] = loan_ref
     Notification.create(notif, dbcommit=True, delete_pid=True, reindex=True)
     assert mapping == get_mapping(search.Meta.index)

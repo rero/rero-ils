@@ -1,17 +1,17 @@
-1. Mahnung
+Mahnung
 {%- include('email/_patron_address.txt') %}
 Sehr geehrte Leserin, sehr geehrter Leser,
 
 Die Ausleihfrist folgender Dokumente ist abgelaufen:
 
-{%- for document in documents %}
+{%- for loan in loans %}
 
-Titel : {{ document.title_text }} / {{ document.responsibility_statement }}
-Rückgabedatum: {{ document.end_date }}
-Anmerkung: {{ document.reminder }} Mahnung
+Titel : {{ loan.document.title_text }}
+Rückgabedatum: {{ loan.end_date }}
+Anmerkung: {{ loan.reminder_counter }} Mahnung
 {%- endfor %}
 
-Unter folgender Adresse können Sie Ihr Konto einsehen und die Ausleihfrist Ihrer Dokumente verlängern: {{ profile_url }}
+Unter folgender Adresse können Sie Ihr Konto einsehen und die Ausleihfrist Ihrer Dokumente verlängern: {{ patron.profile_url }}
 
 Freundliche Grüsse
 

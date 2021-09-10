@@ -4,13 +4,13 @@ Chère lectrice, cher lecteur,
 
 Le délai de prêt des documents mentionnés ci-dessous arrive à échéance :
 
-{%- for document in documents %}
+{%- for loan in loans %}
 
-Titre : {{ document.title_text }} / {{ document.responsibility_statement }}
-Echéance : {{ document.end_date }}
+Titre : {{ loan.document.title_text }}
+Echéance : {{ loan.end_date }}
 {%- endfor %}
 
-Vous pouvez consulter votre compte et prolonger la durée de prêt de vos documents à l'adresse : {{ profile_url }}
+Vous pouvez consulter votre compte et prolonger la durée de prêt de vos documents à l'adresse : {{ patron.profile_url }}
 
 Avec nos compliments
 

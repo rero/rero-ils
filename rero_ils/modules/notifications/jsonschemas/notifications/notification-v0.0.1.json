@@ -7,9 +7,89 @@
   "required": [
     "$schema",
     "pid",
-    "notification_type",
-    "loan"
+    "notification_type"
   ],
+  "definitions": {
+    "circulation_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "loan"
+      ],
+      "properties": {
+        "loan": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "$ref"
+          ],
+          "properties": {
+            "$ref": {
+              "type": "string",
+              "pattern": "^https://bib.rero.ch/api/loans/.*?$"
+            }
+          }
+        },
+        "reminder_counter": {
+          "type": "integer",
+          "title": "Current reminder count"
+        }
+      }
+    },
+    "acquisition_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "order",
+        "recipients"
+      ],
+      "properties": {
+        "order": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "$ref"
+          ],
+          "properties": {
+            "$ref": {
+              "type": "string",
+              "pattern": "^https://bib.rero.ch/api/acq_orders/.*?$"
+            }
+          }
+        },
+        "recipients": {
+          "title": "Recipient email addresses",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "title": "Recipient",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "address"
+            ],
+            "properties": {
+              "type": {
+                "title": "Recipient type",
+                "type": "string",
+                "enum": [
+                  "to",
+                  "cc",
+                  "bcc"
+                ]
+              },
+              "address": {
+                "type": "string",
+                "format": "email",
+                "pattern": "^.*@.*\\..+$"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
   "properties": {
     "$schema": {
       "title": "Schema",
@@ -27,17 +107,6 @@
       "type": "string",
       "format": "date-time",
       "title": "Notification creation date"
-    },
-    "loan": {
-      "title": "Loan",
-      "type": "object",
-      "properties": {
-        "$ref": {
-          "title": "Loan URI",
-          "type": "string",
-          "pattern": "^https://bib.rero.ch/api/loans/.*?$"
-        }
-      }
     },
     "process_date": {
       "type": "string",
@@ -74,6 +143,16 @@
         "transit_notice",
         "request",
         "booking"
+      ]
+    },
+    "context": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/circulation_context"
+        },
+        {
+          "$ref": "#/definitions/acquisition_context"
+        }
       ]
     }
   }

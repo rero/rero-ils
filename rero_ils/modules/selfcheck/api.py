@@ -456,7 +456,7 @@ def selfcheck_checkin(transaction_user_pid, item_barcode, **kwargs):
                     if LoanAction.CHECKIN in data:
                         checkin['checkin'] = True
                         checkin['resensitize'] = True
-                        if item.get_requests(count=True) > 0:
+                        if item.get_requests(output='count') > 0:
                             checkin['alert'] = True
                         # checkin note
                         checkin_note = item.get_note(ItemNoteTypes.CHECKIN)

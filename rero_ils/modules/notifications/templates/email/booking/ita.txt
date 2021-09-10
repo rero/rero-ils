@@ -1,17 +1,16 @@
-Prenotazione{%- if in_transit %} (con transito){%- endif %}
-Data: {{ creation_date }}
-{% for document in documents %}
-Titolo: {{ document.title_text }} / {{ document.responsibility_statement }}
-{% if document.item %}
-Codice a barre: {{ document.item.barcode }}
-Localizzazione: {{ document.item.library_name }} / {{ document.item.location_name }}
-{%- if document.item.call_number or document.item.second_call_number %}
-Segnatura: {% if document.item.call_number %}{{ document.item.call_number }}{% endif %}
-{%- if document.item.call_number and document.item.second_call_number %} / {{ document.item.second_call_number }}{%-endif %}
+Prenotazione{%- if loans[0].in_transit %} (con transito){%- endif %}
+
+{% for loan in loans %}
+Data: {{ loan.creation_date }}
+Titolo: {{ loan.document.title_text }}
+Codice a barre: {{ loan.document.barcode }}
+Localizzazione: {{ loan.document.library_name }} / {{ loan.document.location_name }}
+{%- if loan.document.call_numbers %}
+Segnatura: {{ loan.document.call_numbers | join(' / ') }}
 {%- endif %}
-{% endif %}
-Punto di ritiro: {{ request_pickup_name }}
-Lettore: {{ request_patron.first_name }} {{ request_patron.last_name }}
-{%- if request_patron.patron.barcode %} - {% for barcode in request_patron.patron.barcode %}{{ ', ' if not loop.last else '' }}{{ barcode }}{% endfor %}
-{%- endif %}
+
+Punto di ritiro: {{ loan.pickup_name }}
+Lettore: {{ loan.patron.first_name }} {{ loan.patron.last_name }}
+{%- if loan.patron.barcode %} - {{ loan.patron.barcode | join(', ') }}{%- endif %}
+
 {% endfor %}

@@ -117,7 +117,7 @@ class ItemRecord(IlsRecord):
         # If `dbcommit` is already set to True, this commit is already done by
         # the `IlsRecord.update()` function.
         #
-        # /!\ if we write some other operation after _increment_next_predition
+        # /!\ if we write some other operation after _increment_next_prediction
         #     we need to manage ourself the `rollback()`.
         #
         # TODO :: best solution will be to create an invenio `post_create`
@@ -367,7 +367,7 @@ class ItemRecord(IlsRecord):
 
     @property
     def enumerationAndChronology(self):
-        """Shortcut for item enumarationAndChronology."""
+        """Shortcut for item enumerationAndChronology."""
         return self.get('enumerationAndChronology', '')
 
     @property
@@ -434,6 +434,12 @@ class ItemRecord(IlsRecord):
         if self.get('type') == 'issue' and not self.get('call_number'):
             return Holding.get_record_by_pid(
                 self.holding_pid).get('call_number')
+
+    @property
+    def call_numbers(self):
+        """Return an array with all known item call_numbers."""
+        data = [self.get(key) for key in ['call_number', 'second_call_number']]
+        return [call_number for call_number in data if call_number]
 
     @property
     def location_pid(self):

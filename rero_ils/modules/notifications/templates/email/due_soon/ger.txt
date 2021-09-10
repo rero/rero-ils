@@ -4,13 +4,13 @@ Sehr geehrte Leserin, sehr geehrter Leser,
 
 Die Ausleihfrist der folgenden Dokumente läuft ab:
 
-{%- for document in documents %}
+{%- for loan in loans %}
 
-Titel: {{ document.title_text }} / {{ document.responsibility_statement }}
-Rückgabedatum: {{ document.end_date }}
+Titel: {{ loan.document.title_text }}
+Rückgabedatum: {{ loan.end_date }}
 {%- endfor %}
 
-Unter folgender Adresse können Sie Ihr Konto einsehen und die Ausleihfrist Ihrer Dokumente verlängern: {{ profile_url }}
+Unter folgender Adresse können Sie Ihr Konto einsehen und die Ausleihfrist Ihrer Dokumente verlängern: {{ patron.profile_url }}
 
 Freundliche Grüsse
 

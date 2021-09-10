@@ -4,14 +4,14 @@ Chère lectrice, cher lecteur,
 
 Le document que vous avez emprunté vient d'être réservé par une autre personne. D'ores et déjà nous vous signalons que nous ne pourrons pas le prolonger et vous demandons de bien vouloir le restituer au plus tard à la date d'échéance.
 
-{%- for document in documents %}
+{%- for loan in loans %}
 
-Titre : {{ document.title_text }} / {{ document.responsibility_statement }}
-Échéance : {{ document.end_date }}
+Titre : {{ loan.document.title_text }}
+Échéance : {{ loan.end_date }}
 Note : Non prolongeable
 {%- endfor %}
 
-Vous pouvez consulter votre compte à l'adresse : {{ profile_url }}
+Vous pouvez consulter votre compte à l'adresse : {{ patron.profile_url }}
 
 Avec nos compliments
 

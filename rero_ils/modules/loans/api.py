@@ -66,6 +66,8 @@ class LoanState(object):
     ITEM_RETURNED = 'ITEM_RETURNED'
     CANCELLED = 'CANCELLED'
 
+    ITEM_IN_TRANSIT = [ITEM_IN_TRANSIT_TO_HOUSE, ITEM_IN_TRANSIT_FOR_PICKUP]
+
 
 class LoanAction(object):
     """Class holding all available circulation loan actions."""
@@ -759,12 +761,11 @@ class Loan(IlsRecord):
                 related notification type.
         """
         from ..items.api import Item
-
         candidates = []
         item = Item.get_record_by_pid(self.item_pid)
-        # Get the number of requests on the related item and exclude myself
+        # Get the list of requests pids for the related item and exclude myself
         # from the result list.
-        requests = item.get_requests(pids=True)
+        requests = item.get_requests(output='pids')
         requests = [loan_pid for loan_pid in requests if loan_pid != self.pid]
         has_request = len(requests) > 0
 
@@ -821,6 +822,7 @@ class Loan(IlsRecord):
         from .utils import get_circ_policy
         types = [(self, t) for t in [_type] if t]
         notifications = []
+
         for loan, n_type in types or self.get_notification_candidates(trigger):
             create = True  # Should the notification actually be created.
             # Internal notification (library destination) should be directly
@@ -831,7 +833,9 @@ class Loan(IlsRecord):
             record = {
                 'creation_date': datetime.now(timezone.utc).isoformat(),
                 'notification_type': n_type,
-                'loan': {'$ref': get_ref_for_pid('loans', loan.pid)}
+                'context': {
+                  'loan': {'$ref': get_ref_for_pid('loans', loan.pid)}
+                }
             }
             # overdue + due_soon
             if n_type in NotificationType.REMINDERS_NOTIFICATIONS:
@@ -852,7 +856,7 @@ class Loan(IlsRecord):
                     if not reminder:
                         create = False
                     else:
-                        record['reminder_counter'] = counter
+                        record['context']['reminder_counter'] = counter
 
             # create the notification and enqueue it.
             if create:
@@ -1125,7 +1129,7 @@ def loan_has_open_events(loan_pid=None):
     :return True|False.
     """
     search = NotificationsSearch()\
-        .filter('term', loan__pid=loan_pid)\
+        .filter('term', context__loan__pid=loan_pid)\
         .source(['pid']).scan()
     for record in search:
         transactions_count = PatronTransactionsSearch()\

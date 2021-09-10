@@ -20,22 +20,18 @@
 
 from __future__ import absolute_import, print_function
 
-from copy import deepcopy
+from abc import ABC, abstractmethod
 from datetime import datetime
 from functools import partial
 
-import ciso8601
-from flask import current_app
-
-from .models import NotificationIdentifier, NotificationMetadata
+from .extensions import NotificationSubclassExtension
+from .models import NotificationIdentifier, NotificationMetadata, \
+    NotificationStatus
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from ..documents.api import Document
 from ..fetchers import id_fetcher
-from ..locations.api import Location
 from ..minters import id_minter
 from ..patron_transactions.api import PatronTransaction, \
     PatronTransactionsSearch
-from ..patrons.api import Patron
 from ..providers import Provider
 
 # notification provider
@@ -65,195 +61,148 @@ class NotificationsSearch(IlsRecordsSearch):
         default_filter = None
 
 
-class Notification(IlsRecord):
-    """Notifications class."""
+class Notification(IlsRecord, ABC):
+    """Notifications class.
+
+    A Notification is an abstract class representing a message to be sent to a
+    recipient. All the notification workflow depends of the notification type.
+    The recipient, the dispatcher method, notification aggregation... all
+    these settings or behaviors must be specified into a concrete
+    ``Notification`` subclass.
+
+    But all notifications (whatever the notification type) are stored in the
+    same resource and share the same JSON schema. So, this parent class defines
+    every Invenio resource configuration : minters, fetchers, API methods...
+
+    When a ``Notification`` is created or loaded, this is the
+    ``NotificationSubclassExtension`` extension which determine the best
+    possible concrete subclass (see this extension for more information).
+
+      # >>> notif = Notification.get_record_by_pid('n1')
+      # >>> print(type(notif))
+      # >>>   <class 'ConcreteNotificationSubclass'>
+
+    """
 
     minter = notification_id_minter
     fetcher = notification_id_fetcher
     provider = NotificationProvider
     model_cls = NotificationMetadata
 
+    _extensions = [
+        NotificationSubclassExtension()
+    ]
+
+    # INVENIO API METHODS =====================================================
+    #   Override some invenio ``RecordBase`` method
     @classmethod
-    def create(cls, data, id_=None, delete_pid=False,
-               dbcommit=False, reindex=False, **kwargs):
+    def create(cls, data, id_=None, delete_pid=False, dbcommit=False,
+               reindex=False, **kwargs):
         """Create notification record."""
-        data.setdefault('status', 'created')
-        record = super().create(
-            data, id_, delete_pid, dbcommit, reindex, **kwargs)
+        data.setdefault('status', NotificationStatus.CREATED)
+        record = super().create(data, id_, delete_pid, dbcommit, reindex,
+                                **kwargs)
         PatronTransaction.create_patron_transaction_from_notification(
             notification=record, dbcommit=dbcommit, reindex=reindex,
-            delete_pid=delete_pid)
+            delete_pid=delete_pid
+        )
         return record
 
-    def update_process_date(self, sent=False, status='done'):
-        """Update process date."""
-        self['process_date'] = datetime.utcnow().isoformat()
-        self['notification_sent'] = sent
-        self['status'] = status
-        return self.update(
-            data=self.dumps(), commit=True, dbcommit=True, reindex=True)
-
-    def replace_pids_and_refs(self):
-        """Dumps data."""
-        from .utils import get_library_metadata
-        from ..items.api import Item
-        self.init_loan()
-        data = deepcopy(self.replace_refs())
-
-        data['loan'] = self.loan
-        data['loan']['item'] = self.item.replace_refs().dumps()
-        data['loan']['patron'] = self.patron.replace_refs().dumps()
-        data['loan']['transaction_user'] = \
-            self.transaction_user.replace_refs().dumps()
-        data['loan']['transaction_location'] = \
-            self.transaction_location.replace_refs().dumps()
-        pickup_location = self.pickup_location
-        item_pid = data['loan']['item']['pid']
-        item = Item.get_record_by_pid(item_pid)
-        data['loan']['library'] = get_library_metadata(item.library_pid)
-
-        if self.transaction_location:
-            data['loan']['transaction_library'] = \
-                get_library_metadata(self.transaction_location.library_pid)
-
-        if pickup_location:
-            data['loan']['pickup_location'] = \
-                pickup_location.replace_refs().dumps()
-            pickup_lib_pid = data['loan']['pickup_location']['library']['pid']
-            library_metadata = get_library_metadata(pickup_lib_pid)
-            data['loan']['pickup_library'] = library_metadata
-            data['loan']['pickup_name'] = pickup_location.get(
-                'pickup_name',
-                data['loan']['pickup_library']['name']
-            )
-        elif self.transaction_location:
-            data['loan']['pickup_name'] = \
-                data['loan']['transaction_library']['name']
-            data['loan']['pickup_location'] = \
-                data['loan']['transaction_location']
-            data['loan']['pickup_location_pid'] = \
-                data['loan']['transaction_location']['pid']
-            data['loan']['pickup_library'] = \
-                data['loan']['transaction_library']
-
-        document = self.document.replace_refs().dumps()
-        data['loan']['document'] = document
-        titles = document.get('title', [])
-        bf_titles = list(filter(lambda t: t['type'] == 'bf:Title', titles))
-        for title in bf_titles:
-            data['loan']['document']['title_text'] = title['_text']
-
-        from ..documents.views import create_title_responsibilites
-        responsibility_statement = create_title_responsibilites(
-            document.get('responsibilityStatement', [])
-        )
-        data['loan']['document']['responsibility_statement'] = \
-            next(iter(responsibility_statement or []), '')
-
-        end_date = data.get('loan').get('end_date')
-        if end_date:
-            end_date = ciso8601.parse_datetime(end_date)
-            data['loan']['end_date'] = end_date.strftime("%d.%m.%Y")
-
-        # create a link to patron profile
-        patron = Patron.get_record_by_pid(data['loan']['patron']['pid'])
-        view_code = patron.get_organisation().get('code')
-        base_url = current_app.config.get('RERO_ILS_APP_URL')
-        profile_url = f'{base_url}/{view_code}/patrons/profile'
-        data['loan']['profile_url'] = profile_url
-
-        return data
-
-    def init_loan(self):
-        """Set loan of the notification."""
-        if not hasattr(self, 'loan'):
-            from ..loans.api import Loan
-            self.loan = Loan.get_record_by_pid(self.loan_pid)
-        return self.loan
+    # ABSTRACT METHODS ========================================================
+    #   All concrete subclasses MUST implement all abstract methods defined
+    #   below.
+    #   Note about `@property` methods : if the method isn't relevant
+    #   for the subclass notification, return a default value anyway. All of
+    #   these properties are use to dispatch/aggregate the notification.
 
     @property
-    def loan_pid(self):
-        """Shortcut for loan pid of the notification."""
-        return self.replace_refs()['loan']['pid']
-
-    @property
+    @abstractmethod
     def organisation_pid(self):
         """Get organisation pid for notification."""
-        self.init_loan()
-        return self.transaction_location.organisation_pid
+        raise NotImplementedError()
 
     @property
-    def item_pid(self):
-        """Shortcut for item pid of the notification."""
-        self.init_loan()
-        return self.loan.get('item_pid', {}).get('value')
+    @abstractmethod
+    def aggregation_key(self):
+        """Get the key used to aggregate multiple notifications.
 
-    @property
-    def item(self):
-        """Shortcut for item of the notification."""
-        from ..items.api import Item
-        return Item.get_record_by_pid(self.item_pid)
+        Depending of the notification type, notifications could be aggregated
+        into a single message (4 recall notification for the same patron should
+        be send into the same message).
 
-    @property
-    def patron_pid(self):
-        """Shortcut for patron pid of the notification."""
-        self.init_loan()
-        return self.loan.get('patron_pid')
+        :return the key to use to aggregate several notifications.
+        """
+        raise NotImplementedError()
 
-    @property
-    def patron(self):
-        """Shortcut for patron of the notification."""
-        return Patron.get_record_by_pid(self.patron_pid)
+    @abstractmethod
+    def can_be_cancelled(self):
+        """Determine if the notification can be cancelled.
 
-    @property
-    def transaction_user_pid(self):
-        """Shortcut for transaction user pid of the notification."""
-        self.init_loan()
-        return self.loan.get('transaction_user_pid')
+        In case of asynchronous notification, sometimes it's not necessary
+        anymore to process the notification because related resources are
+        changed since the notification creation timestamp.
 
-    @property
-    def transaction_user(self):
-        """Shortcut for transaction user of the notification."""
-        return Patron.get_record_by_pid(self.transaction_user_pid)
+        :return a tuple with two values: a boolean to know if the notification
+                can be cancelled; the reason why the notification can be
+                cancelled (only present if tuple first value is True).
+        """
+        raise NotImplementedError()
 
-    @property
-    def transaction_library_pid(self):
-        """Shortcut for transaction library pid of the notification."""
-        location = self.transaction_location
-        return location.library_pid
+    @abstractmethod
+    def get_template_path(self):
+        """Get the template file to use to render the notification.
 
-    @property
-    def transaction_location_pid(self):
-        """Shortcut for transaction location pid of the notification."""
-        self.init_loan()
-        return self.loan.get('transaction_location_pid')
+        :return: the path to the Jinja template file.
+        """
+        raise NotImplementedError()
 
-    @property
-    def transaction_location(self):
-        """Shortcut for transaction location of the notification."""
-        return Location.get_record_by_pid(self.transaction_location_pid)
+    @abstractmethod
+    def get_communication_channel(self):
+        """Get the communication channel to use for this notification.
 
-    @property
-    def pickup_location_pid(self):
-        """Shortcut for pickup location pid of the notification."""
-        self.init_loan()
-        return self.loan.get('pickup_location_pid')
+        The communication channel to use depends of each notification type. It
+        could depends of the recipient, the template to use, ...
 
-    @property
-    def pickup_location(self):
-        """Shortcut for pickup location of the notification."""
-        return Location.get_record_by_pid(self.pickup_location_pid)
+        :return the `NotificationChannel` to use to send the notification.
+        """
+        raise NotImplementedError()
 
-    @property
-    def document_pid(self):
-        """Shortcut for document pid of the notification."""
-        self.init_loan()
-        return self.loan.get('document_pid')
+    @abstractmethod
+    def get_language_to_use(self):
+        """Get the language to use for dispatching the notification.
 
+        :return return the language iso code (alpha3) to use.
+        """
+        raise NotImplementedError()
+
+    @abstractmethod
+    def get_recipients(self):
+        """Get the notification recipients email address.
+
+        If the notification should be dispatched by email (see
+        ``Notification.get_communication_channel()``, this method must return
+        the list of email addresses where to send the notification to.
+
+        :return return email addresses list where send the notification to.
+        """
+        raise NotImplementedError()
+
+    @classmethod
+    @abstractmethod
+    def get_notification_context(cls, notifications=None):
+        """Get the context to use to render the corresponding template.
+
+        :param notifications: an array of ``Notification`` to parse to extract
+                              the required data to build the template.
+        :return: a ``dict`` containing all required data to build the template.
+        """
+        raise NotImplementedError()
+
+    # GETTER METHODS ==========================================================
     @property
-    def document(self):
-        """Shortcut for document of the notification."""
-        return Document.get_record_by_pid(self.document_pid)
+    def type(self):
+        """Shortcut for notification type."""
+        return self.get('notification_type')
 
     @property
     def patron_transactions(self):
@@ -263,6 +212,20 @@ class Notification(IlsRecord):
             .source(['pid']).scan()
         for result in results:
             yield PatronTransaction.get_record_by_pid(result.pid)
+
+    # CLASS METHODS ===========================================================
+    def update_process_date(self, sent=False, status=NotificationStatus.DONE):
+        """Update the notification to set process date.
+
+        :param sent: is the notification is sent.
+        :param status: the new notification status.
+        :return the updated notification.
+        """
+        self['process_date'] = datetime.utcnow().isoformat()
+        self['notification_sent'] = sent
+        self['status'] = status
+        return self.update(
+            data=self.dumps(), commit=True, dbcommit=True, reindex=True)
 
 
 class NotificationsIndexer(IlsRecordsIndexer):
