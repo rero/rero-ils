@@ -340,7 +340,7 @@ class Loan(IlsRecord):
                 hit = next(iter(results or []), None)
                 if hit:
                     known_patrons[pid] = hit.to_dict()
-            return known_patrons[pid]
+            return known_patrons.get(pid, {})
 
         def location_by_pid(pid, known_locations):
             """Get location by pid.
@@ -359,7 +359,7 @@ class Loan(IlsRecord):
                 if hit:
                     data = hit.to_dict()
                     known_locations[pid] = {k: v for k, v in data.items() if v}
-            return known_locations[pid]
+            return known_locations.get(pid, {})
 
         def library_name_by_pid(pid, known_libraries):
             """Get library name by pid.
@@ -376,7 +376,7 @@ class Loan(IlsRecord):
                 hit = next(iter(results or []), None)
                 if hit:
                     known_libraries[pid] = hit.name
-            return known_libraries[pid]
+            return known_libraries.get(pid, {})
 
         def holding_by_pid(pid, known_holdings):
             """Get holdings by pid.
@@ -394,7 +394,7 @@ class Loan(IlsRecord):
                 hit = next(iter(results or []), None)
                 if hit:
                     known_holdings[pid] = hit.to_dict()
-            return known_holdings[pid]
+            return known_holdings.get(pid, {})
 
         def item_by_pid(pid, known_items):
             """Get item by pid.
@@ -412,7 +412,7 @@ class Loan(IlsRecord):
                     .source(includes=fields)\
                     .execute()
                 known_items[pid] = next(iter(results or []), None)
-            return known_items[pid]
+            return known_items.get(pid, {})
 
         def item_type_by_pid(pid, known_ittys):
             """Get item type by pid.
@@ -427,7 +427,7 @@ class Loan(IlsRecord):
                     .filter('term', negative_availability=False)\
                     .execute()
                 known_ittys[pid] = next(iter(results or []), None)
-            return known_ittys[pid]
+            return known_ittys.get(pid, {})
 
         metadata = []
         item_pids = []
