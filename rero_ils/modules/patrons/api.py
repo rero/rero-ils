@@ -29,6 +29,7 @@ from invenio_db import db
 from jsonschema.exceptions import ValidationError
 from werkzeug.local import LocalProxy
 
+from .extensions import UserDataExtension
 from .models import PatronIdentifier, PatronMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
@@ -115,6 +116,10 @@ class Patron(IlsRecord):
     model_cls = PatronMetadata
 
     available_roles = [ROLE_SYSTEM_LIBRARIAN, ROLE_LIBRARIAN, ROLE_PATRON]
+
+    _extensions = [
+        UserDataExtension()
+    ]
 
     def _validate(self, **kwargs):
         """Validate record against schema.
@@ -231,15 +236,6 @@ class Patron(IlsRecord):
                 pass
         return data
 
-    def dumps(self, **kwargs):
-        """Return pure Python dictionary with record metadata."""
-        user = User.get_by_id(self['user_id'])
-        user_info = user.dumpsMetadata()
-        dump = super().dumps(**kwargs)
-        # role should comes from the patron
-        user_info.update(dump)
-        return user_info
-
     @classmethod
     def _get_user_by_user_id(cls, user_id):
         """Get the user using a dict representing a patron.
@@ -250,6 +246,13 @@ class Patron(IlsRecord):
         :return: a patron object or None.
         """
         return _datastore.find_user(id=user_id)
+
+    @property
+    def profile_url(self):
+        """Get the link to the RERO_ILS patron profile URL."""
+        view_code = self.get_organisation().get('code')
+        base_url = current_app.config.get('RERO_ILS_APP_URL')
+        return f'{base_url}/{view_code}/patrons/profile'
 
     # TODO: use cached property one we found how to invalidate the cache when
     #       the user change
