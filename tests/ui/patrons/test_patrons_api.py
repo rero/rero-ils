@@ -345,3 +345,8 @@ def test_patron_multiple(patron_sion_multiple, patron2_martigny, lib_martigny):
         ['patron']
     assert Patron.get_record_by_pid(patron2_martigny.pid).get('roles') == \
         ['patron']
+
+
+def test_patron_profile_url(org_martigny, patron2_martigny):
+    """Test patron profile url."""
+    assert org_martigny.get('code') in patron2_martigny.profile_url
