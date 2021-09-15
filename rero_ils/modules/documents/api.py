@@ -34,6 +34,7 @@ from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..organisations.api import Organisation
 from ..providers import Provider
+from ..utils import sorted_pids
 
 # provider
 DocumentProvider = type(
@@ -114,54 +115,70 @@ class Document(IlsRecord):
         # TODO: Make this condition on data
         return not self.harvested
 
-    def get_number_of_items(self):
-        """Get number of items for document."""
-        from ..items.api import ItemsSearch
-        return ItemsSearch().filter(
-            'term', document__pid=self.pid).count()
+    def get_links_to_me(self, get_pids=False):
+        """Record links.
 
-    def get_number_of_holdings(self):
-        """Get number of holdings for document."""
-        from ..holdings.api import HoldingsSearch
-        return HoldingsSearch().filter(
-            'term', document__pid=self.pid).count()
-
-    def get_number_of_loans(self):
-        """Get number of document loans."""
-        from ..loans.api import LoanState
-        search = search_by_pid(
-            document_pid=self.pid,
-            exclude_states=[
-                LoanState.CANCELLED,
-                LoanState.ITEM_RETURNED,
-            ]
-        )
-        return search.source().count()
-
-    def get_number_of_acquisition_order_lines(self):
-        """Get number of acquisition order lines for document."""
-        return AcqOrderLinesSearch().filter(
-            'term', document__pid=self.pid).count()
-
-    def get_links_to_me(self):
-        """Get number of links."""
+        :param get_pids: if True list of linked pids
+                         if False count of linked records
+        """
         links = {}
-        # get number of document holdings
-        number_of_holdings = self.get_number_of_holdings()
-        if number_of_holdings:
-            links['holdings'] = number_of_holdings
-        # get number of items linked
-        number_of_items = self.get_number_of_items()
-        if number_of_items:
-            links['items'] = number_of_items
-        # get number of loans linked
-        number_of_loans = self.get_number_of_loans()
-        if number_of_loans:
-            links['loans'] = number_of_loans
-        # get number of acquisition order lines linked
-        number_of_order_lines = self.get_number_of_acquisition_order_lines()
-        if number_of_order_lines:
-            links['acq_order_lines'] = number_of_order_lines
+        from ..holdings.api import HoldingsSearch
+        from ..items.api import ItemsSearch
+        from ..loans.api import LoanState
+        hold_query = HoldingsSearch().filter('term', document__pid=self.pid)
+        item_query = ItemsSearch().filter('term', document__pid=self.pid)
+        loan_query = search_by_pid(
+            document_pid=self.pid,
+            exclude_states=[LoanState.CANCELLED, LoanState.ITEM_RETURNED]
+        )
+        acq_order_lines_query = AcqOrderLinesSearch() \
+            .filter('term', document__pid=self.pid)
+        relation_types = {
+            'partOf': 'partOf.document.pid',
+            'supplement': 'supplement.pid',
+            'supplementTo': 'supplementTo.pid',
+            'otherEdition': 'otherEdition__pid',
+            'otherPhysicalFormat': 'otherPhysicalFormat.pid',
+            'issuedWith': 'issuedWith.pid',
+            'precededBy': 'precededBy.pid',
+            'succeededBy': 'succeededBy.pid',
+            'relatedTo': 'relatedTo__pid',
+            'hasReproduction': 'hasReproduction.pid',
+            'reproductionOf': 'reproductionOf.pid'
+        }
+
+        if get_pids:
+            holdings = sorted_pids(hold_query)
+            items = sorted_pids(item_query)
+            loans = sorted_pids(loan_query)
+            acq_order_lines = sorted_pids(acq_order_lines_query)
+            documents = {}
+            for relation, relation_es in relation_types.items():
+                doc_query = DocumentsSearch() \
+                    .filter({'term': {relation_es: self.pid}})
+                pids = sorted_pids(doc_query)
+                if pids:
+                    documents[relation] = pids
+        else:
+            holdings = hold_query.count()
+            items = item_query.count()
+            loans = loan_query.count()
+            acq_order_lines = acq_order_lines_query.count()
+            documents = 0
+            for relation, relation_es in relation_types.items():
+                doc_query = DocumentsSearch() \
+                    .filter({'term': {relation_es: self.pid}})
+                documents += doc_query.count()
+        if holdings:
+            links['holdings'] = holdings
+        if items:
+            links['items'] = items
+        if loans:
+            links['loans'] = loans
+        if acq_order_lines:
+            links['acq_order_lines'] = acq_order_lines
+        if documents:
+            links['documents'] = documents
         return links
 
     def reasons_not_to_delete(self):

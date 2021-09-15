@@ -40,7 +40,7 @@ from ..patron_transactions.api import PatronTransaction
 from ..providers import Provider
 from ..users.api import User
 from ..utils import extracted_data_from_ref, get_patron_from_arguments, \
-    get_ref_for_pid, trim_patron_barcode_for_record
+    get_ref_for_pid, sorted_pids, trim_patron_barcode_for_record
 from ...utils import create_user_from_data
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
@@ -475,31 +475,33 @@ class Patron(IlsRecord):
         if self.get('patron', {}).get('type'):
             return extracted_data_from_ref(self.get('patron').get('type'))
 
-    def get_number_of_loans(self):
-        """Get number of loans."""
-        from ..loans.api import LoanState
-        exclude_states = [
-            LoanState.CANCELLED, LoanState.ITEM_RETURNED, LoanState.CREATED]
-        if self.pid:
-            results = current_circulation.loan_search_cls()\
-                .filter('term', patron_pid=self.pid)\
-                .exclude('terms', state=exclude_states)\
-                .source().count()
-            return results
-        return 0
+    def get_links_to_me(self, get_pids=False):
+        """Record links.
 
-    def get_links_to_me(self):
-        """Get number of links."""
-        links = {}
-        loans = self.get_number_of_loans()
-        if loans:
-            links['loans'] = loans
+        :param get_pids: if True list of linked pids
+                         if False count of linked records
+        """
+        from ..loans.api import LoanState
         if self.pid:
-            transactions = PatronTransaction.get_transactions_count_for_patron(
-                self.pid, status='open')
-            if transactions > 0:
+            links = {}
+            exclude_states = [LoanState.CANCELLED, LoanState.ITEM_RETURNED,
+                              LoanState.CREATED]
+            query = current_circulation.loan_search_cls()\
+                .filter('term', patron_pid=self.pid)\
+                .exclude('terms', state=exclude_states)
+            if get_pids:
+                loans = sorted_pids(query)
+                transactions = PatronTransaction \
+                    .get_transactions_pids_for_patron(self.pid, status='open')
+            else:
+                loans = query.count()
+                transactions = PatronTransaction \
+                    .get_transactions_count_for_patron(self.pid, status='open')
+            if loans:
+                links['loans'] = loans
+            if transactions:
                 links['transactions'] = transactions
-        return links
+            return links
 
     def reasons_to_keep(self):
         """Reasons aside from record_links to keep a user.

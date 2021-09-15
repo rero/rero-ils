@@ -254,14 +254,17 @@ def test_items_availability(item_type_missing_martigny,
     item.delete()
 
 
-def test_get_number_of_loans_with_fees(patron_transaction_overdue_saxon):
+def test_get_links_to_me_with_fees(patron_transaction_overdue_saxon):
     """Test for number loans with fees."""
     pttr = patron_transaction_overdue_saxon
     loan = pttr.loan
     item = Item.get_record_by_pid(loan.item_pid)
-    assert item.get_number_of_loans_with_fees() == 1
+    assert item.get_links_to_me() == {'fees': 1, 'loans': 1}
+    assert item.get_links_to_me(get_pids=True) == {
+        'fees': ['1'], 'loans': ['1']}
 
     pttr['status'] = 'closed'
     pttr['total_amount'] = 0
     pttr = pttr.update(pttr, reindex=True, dbcommit=True)
-    assert item.get_number_of_loans_with_fees() == 0
+    assert item.get_links_to_me() == {'loans': 1}
+    assert item.get_links_to_me(get_pids=True) == {'loans': ['1']}

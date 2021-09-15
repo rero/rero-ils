@@ -479,7 +479,8 @@ def test_patron_subscription_transaction(
         reindex=True,
         delete_pid=True
     )
-    assert subscription.get_number_of_patron_transaction_events() == 1
+    assert subscription.get_links_to_me() == {'events': 1}
+    assert subscription.get_links_to_me(get_pids=True) == {'events': ['9']}
     event = list(subscription.events)[0]
     assert event.get('type') == 'fee'
     assert event.get('subtype') == 'other'

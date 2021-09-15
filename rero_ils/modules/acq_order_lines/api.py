@@ -136,12 +136,6 @@ class AcqOrderLine(IlsRecord):
         from ..acq_orders.api import AcqOrder
         return AcqOrder.get_record_by_pid(self.order_pid)
 
-    def get_number_of_acq_order_lines(self):
-        """Get number of aquisition order lines."""
-        results = AcqOrderLinesSearch().filter(
-            'term', acq_order__pid=self.order_pid).source().count()
-        return results
-
 
 class AcqOrderLinesIndexer(IlsRecordsIndexer):
     """Indexing Acquisition Order Line in Elasticsearch."""

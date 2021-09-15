@@ -27,6 +27,7 @@ from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..organisations.api import Organisation
 from ..providers import Provider
+from ..utils import sorted_pids
 
 # provider
 BudgetProvider = type(
@@ -67,16 +68,18 @@ class Budget(IlsRecord):
         }
     }
 
-    def get_number_of_acq_accounts(self):
-        """Get number of acq accounts."""
-        results = AcqAccountsSearch().filter(
-            'term', budget__pid=self.pid).source().count()
-        return results
+    def get_links_to_me(self, get_pids=False):
+        """Record links.
 
-    def get_links_to_me(self):
-        """Get number of links."""
+        :param get_pids: if True list of linked pids
+                         if False count of linked records
+        """
         links = {}
-        acq_accounts = self.get_number_of_acq_accounts()
+        query = AcqAccountsSearch().filter('term', budget__pid=self.pid)
+        if get_pids:
+            acq_accounts = sorted_pids(query)
+        else:
+            acq_accounts = query.count()
         if acq_accounts:
             links['acq_accounts'] = acq_accounts
         return links

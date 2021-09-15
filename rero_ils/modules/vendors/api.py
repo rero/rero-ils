@@ -27,6 +27,7 @@ from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
+from ..utils import sorted_pids
 
 # provider
 VendorProvider = type(
@@ -77,21 +78,34 @@ class Vendor(IlsRecord):
             'order_contact', self.get('default_contact', {})
         ).get('email')
 
-    def count_links_to_me(self, search_class):
-        """Get number of acquisition orders."""
-        return search_class()\
-            .filter('term', vendor__pid=self.pid)\
-            .source().count()
+    def get_links_to_me(self, get_pids=False):
+        """Record links.
 
-    def get_links_to_me(self):
-        """Get number of links."""
+        :param get_pids: if True list of linked pids
+                         if False count of linked records
+        """
         from rero_ils.modules.holdings.api import HoldingsSearch
-        links = {
-            'acq_orders': self.count_links_to_me(AcqOrdersSearch),
-            'acq_invoices': self.count_links_to_me(AcquisitionInvoicesSearch),
-            'holdings': self.count_links_to_me(HoldingsSearch),
-        }
-        links = {k: v for k, v in links.items() if v}
+        acq_orders_query = AcqOrdersSearch()\
+            .filter('term', vendor__pid=self.pid)
+        acq_invoices_query = AcquisitionInvoicesSearch()\
+            .filter('term', vendor__pid=self.pid)
+        hold_query = HoldingsSearch()\
+            .filter('term', vendor__pid=self.pid)
+        links = {}
+        if get_pids:
+            acq_orders = sorted_pids(acq_orders_query)
+            acq_invoices = sorted_pids(acq_invoices_query)
+            holdings = sorted_pids(hold_query)
+        else:
+            acq_orders = acq_orders_query.count()
+            acq_invoices = acq_invoices_query.count()
+            holdings = hold_query.count()
+        if acq_orders:
+            links['acq_orders'] = acq_orders
+        if acq_invoices:
+            links['acq_invoices'] = acq_invoices
+        if holdings:
+            links['holdings'] = holdings
         return links
 
     def reasons_not_to_delete(self):

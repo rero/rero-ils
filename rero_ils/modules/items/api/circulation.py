@@ -48,7 +48,7 @@ from ...loans.api import Loan, LoanAction, LoanState, \
     get_last_transaction_loc_for_item, get_request_by_item_pid_by_patron_pid
 from ...locations.api import Location
 from ...patrons.api import Patron
-from ...utils import extracted_data_from_ref
+from ...utils import extracted_data_from_ref, sorted_pids
 from ....filter import format_date_filter
 
 
@@ -1153,26 +1153,36 @@ class ItemCirculation(ItemRecord):
             LoanAction.RETURN_MISSING: None
         }
 
-    def get_number_of_loans(self):
-        """Get number of loans.
+    def get_links_to_me(self, get_pids=False):
+        """Record links.
 
-        Exclude CREATED Loan as it can block Item deletion.
+        :param get_pids: if True list of linked pids
+                         if False count of linked records
         """
-        return search_by_pid(
+        links = {}
+        query_loans = search_by_pid(
             item_pid=item_pid_to_object(self.pid),
             exclude_states=[
                 LoanState.CREATED,
                 LoanState.CANCELLED,
                 LoanState.ITEM_RETURNED,
-            ]).source().count()
-
-    def get_number_of_loans_with_fees(self):
-        """Get number of loans with fees."""
-        return PatronTransactionsSearch()\
+            ]
+        )
+        query_fees = PatronTransactionsSearch()\
             .filter('term', item__pid=self.pid)\
             .filter('term', status='open')\
-            .filter('range', total_amount={'gt': 0})\
-            .count()
+            .filter('range', total_amount={'gt': 0})
+        if get_pids:
+            loans = sorted_pids(query_loans)
+            fees = sorted_pids(query_fees)
+        else:
+            loans = query_loans.count()
+            fees = query_fees.count()
+        if loans:
+            links['loans'] = loans
+        if fees:
+            links['fees'] = fees
+        return links
 
     def get_requests(self, sort_by=None, count=False):
         """Return sorted pending, item_on_transit, item_at_desk loans.
