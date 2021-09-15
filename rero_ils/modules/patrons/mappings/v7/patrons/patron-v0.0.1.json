@@ -1,4 +1,16 @@
 {
+  "settings": {
+    "analysis": {
+      "normalizer": {
+        "name_normalizer": {
+          "type": "custom",
+          "filter": [
+            "lowercase"
+          ]
+        }
+      }
+    }
+  },
   "mappings": {
     "date_detection": false,
     "numeric_detection": false,
@@ -14,6 +26,7 @@
         "copy_to": "first_name_sort"
       },
       "first_name_sort": {
+        "normalizer": "name_normalizer",
         "type": "keyword"
       },
       "last_name": {
@@ -21,6 +34,7 @@
         "copy_to": "last_name_sort"
       },
       "last_name_sort": {
+        "normalizer": "name_normalizer",
         "type": "keyword"
       },
       "gender": {

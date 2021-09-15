@@ -45,6 +45,8 @@ def test_documents_get(client, document):
             contribution['agent'] = agent
             contributions.append(contribution)
 
+        data.pop('sort_date_new', None)
+        data.pop('sort_date_old', None)
         data.pop('sort_title', None)
         data.pop('isbn', None)
         return data

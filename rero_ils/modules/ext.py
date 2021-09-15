@@ -47,6 +47,7 @@ from .item_types.listener import negative_availability_changes
 from .items.listener import enrich_item_data
 from .loans.listener import enrich_loan_data, listener_loan_state_changed
 from .locations.listener import enrich_location_data
+from .normalizer_stop_words import NormalizerStopWords
 from .notifications.listener import enrich_notification_data
 from .patron_transaction_events.listener import \
     enrich_patron_transaction_event_data
@@ -95,6 +96,7 @@ class REROILSAPP(object):
         """Flask application initialization."""
         Bootstrap(app)
         Wiki(app)
+        NormalizerStopWords(app)
         self.init_config(app)
         app.extensions['rero-ils'] = self
         self.register_import_api_blueprint(app)

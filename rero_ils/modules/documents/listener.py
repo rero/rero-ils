@@ -17,6 +17,7 @@
 
 """Signals connector for Document."""
 
+from flask.globals import current_app
 from isbnlib import is_isbn10, is_isbn13, to_isbn10, to_isbn13
 
 from .utils import create_contributions, title_format_text_head
@@ -26,6 +27,7 @@ from ..items.api import ItemsSearch
 from ..items.models import ItemNoteTypes
 from ..local_fields.api import LocalField
 from ..utils import extracted_data_from_ref
+from ...utils import language_mapping
 
 
 def enrich_document_data(sender, json=None, record=None, index=None,
@@ -139,17 +141,24 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                         )
             json['title'].append(title)
 
-        json['sort_title'] = title_format_text_head(
+        # sort title
+        sort_title = title_format_text_head(
             json.get('title', []),
             with_subtitle=True
         )
+        language = language_mapping(json.get('language')[0].get('value'))
+        if current_app.config.get('RERO_ILS_STOP_WORDS_ACTIVATE', False):
+            sort_title = current_app.\
+                extensions['reroils-normalizer-stop-words'].\
+                normalize(sort_title, language)
+        json['sort_title'] = sort_title
         # Local fields in JSON
         local_fields = LocalField.get_local_fields_by_resource(
             'doc', document_pid)
         if local_fields:
             json['local_fields'] = local_fields
-        # index both ISBN 10 and 13 format
 
+        # index both ISBN 10 and 13 format
         def filter_isbn(identified_by):
             """Filter identified_by for type bf:Isbn."""
             return identified_by.get('type') == 'bf:Isbn'
@@ -168,3 +177,14 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                 isbns.add(to_isbn10(isbn))
         if isbns:
             json['isbn'] = list(isbns)
+
+        # Populate sort date new and old for use in sorting
+        pub_provisions = [
+            p for p in record.get('provisionActivity', [])
+            if p['type'] == 'bf:Publication'
+        ]
+        pub_provision = next(iter(pub_provisions), None)
+        if pub_provision:
+            json['sort_date_new'] = \
+                pub_provision.get('endDate', pub_provision.get('startDate'))
+            json['sort_date_old'] = pub_provision.get('startDate')

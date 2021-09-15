@@ -2205,6 +2205,54 @@ RECORDS_REST_SORT_OPTIONS['circ_policies']['name'] = dict(
 RECORDS_REST_DEFAULT_SORT['circ_policies'] = dict(
     query='bestmatch', noquery='name')
 
+# ------ COLLECTIONS SORT
+RECORDS_REST_SORT_OPTIONS['collections']['start_date'] = dict(
+    fields=['start_date', 'title_sort'], title='Start date and title',
+    default_order='asc'
+)
+RECORDS_REST_SORT_OPTIONS['collections']['title'] = dict(
+    fields=['title_sort'], title='title',
+    default_order='asc'
+)
+RECORDS_REST_DEFAULT_SORT['collections'] = dict(
+    query='bestmatch', noquery='start_date')
+
+# ------ CONTRIBUTIONS SORT
+RECORDS_REST_SORT_OPTIONS['contributions']['fr_name'] = dict(
+    fields=[
+        'idref_authorized_access_point_sort',
+        'rero_authorized_access_point_sort',
+        'gnd_authorized_access_point_sort',
+    ],
+    title='Collection french name',
+    default_order='asc'
+)
+RECORDS_REST_SORT_OPTIONS['contributions']['de_name'] = dict(
+    fields=[
+        'gnd_authorized_access_point_sort',
+        'idref_authorized_access_point_sort',
+        'rero_authorized_access_point_sort'
+    ],
+    title='Collection german name',
+    default_order='asc'
+)
+
+# ------ DOCUMENTS SORT
+RECORDS_REST_SORT_OPTIONS['documents']['title'] = dict(
+    fields=['sort_title'], title='Document title',
+    default_order='asc'
+)
+
+RECORDS_REST_SORT_OPTIONS['documents']['pub_date_new'] = dict(
+    fields=['-sort_date_new'], title='Document date (newest)',
+    default_order='desc'
+)
+
+RECORDS_REST_SORT_OPTIONS['documents']['pub_date_old'] = dict(
+    fields=['sort_date_old'], title='Document date (oldest)',
+    default_order='asc'
+)
+
 # ------ HOLDINGS SORT
 RECORDS_REST_SORT_OPTIONS['holdings']['library_location'] = dict(
     fields=['library.pid', 'location.pid'],
@@ -2214,7 +2262,24 @@ RECORDS_REST_SORT_OPTIONS['holdings']['library_location'] = dict(
 RECORDS_REST_DEFAULT_SORT['holdings'] = dict(
     query='bestmatch', noquery='library_location')
 
-# ------ ITEM SORT
+# ------ ITEMS SORT
+RECORDS_REST_SORT_OPTIONS['items']['barcode'] = dict(
+    fields=['barcode'], title='Barcode',
+    default_order='asc'
+)
+
+RECORDS_REST_SORT_OPTIONS['items']['call_number'] = dict(
+    fields=['call_number'], title='Call Number',
+    default_order='asc'
+)
+RECORDS_REST_SORT_OPTIONS['items']['second_call_number'] = dict(
+    fields=['second_call_number'], title='Second call Number',
+    default_order='asc'
+)
+RECORDS_REST_SORT_OPTIONS['items']['issue_expected_date'] = dict(
+    fields=['issue.expected_date'], title='Issue expected date',
+    default_order='asc'
+)
 RECORDS_REST_SORT_OPTIONS['items']['enumeration_chronology'] = dict(
     fields=['-enumerationAndChronology'], title='Enumeration and Chronology',
     default_order='desc'
@@ -2237,6 +2302,10 @@ RECORDS_REST_DEFAULT_SORT['item_types'] = dict(
 # ------ LIBRARIES SORT
 RECORDS_REST_SORT_OPTIONS['libraries']['name'] = dict(
     fields=['library_name'], title='Library name',
+    default_order='asc'
+)
+RECORDS_REST_SORT_OPTIONS['libraries']['code'] = dict(
+    fields=['code'], title='Library code',
     default_order='asc'
 )
 RECORDS_REST_DEFAULT_SORT['libraries'] = dict(
@@ -2282,19 +2351,6 @@ RECORDS_REST_SORT_OPTIONS['patron_types']['name'] = dict(
 RECORDS_REST_DEFAULT_SORT['patron_types'] = dict(
     query='bestmatch', noquery='name')
 
-# ------ VENDORS SORT
-RECORDS_REST_SORT_OPTIONS['vendors']['name'] = dict(
-    fields=['vendor_name'], title='Vendor name',
-    default_order='asc'
-)
-RECORDS_REST_DEFAULT_SORT['vendors'] = dict(
-    query='bestmatch', noquery='name')
-
-# ------ ITEMS SORT
-RECORDS_REST_SORT_OPTIONS['items']['issue_expected_date'] = dict(
-    fields=['issue.expected_date'], title='Issue expected date',
-    default_order='asc'
-)
 # ------ TEMPLATES SORT
 RECORDS_REST_SORT_OPTIONS['templates']['name'] = dict(
     fields=['name_sort'], title='Template name',
@@ -2303,18 +2359,14 @@ RECORDS_REST_SORT_OPTIONS['templates']['name'] = dict(
 RECORDS_REST_DEFAULT_SORT['templates'] = dict(
     query='bestmatch', noquery='name')
 
-# ------ COLLECTIONS SORT
-RECORDS_REST_SORT_OPTIONS['collections']['start_date'] = dict(
-    fields=['start_date', 'title_sort'], title='Start date and title',
+# ------ VENDORS SORT
+RECORDS_REST_SORT_OPTIONS['vendors']['name'] = dict(
+    fields=['vendor_name'], title='Vendor name',
     default_order='asc'
 )
-RECORDS_REST_SORT_OPTIONS['collections']['title'] = dict(
-    fields=['title_sort'], title='title',
-    default_order='asc'
-)
+RECORDS_REST_DEFAULT_SORT['vendors'] = dict(
+    query='bestmatch', noquery='name')
 
-RECORDS_REST_DEFAULT_SORT['collections'] = dict(
-    query='bestmatch', noquery='start_date')
 
 # Detailed View Configuration
 # ===========================
@@ -2805,3 +2857,43 @@ SIP2_MEDIA_TYPES = dict(
 
 # OAuth base template
 OAUTH2SERVER_COVER_TEMPLATE = 'rero_ils/oauth/base.html'
+
+# STOP WORDS
+# Disregarded articles for sorting processes
+# ==========
+# ACTIVATE STOP WORDS NORMALIZATION
+RERO_ILS_STOP_WORDS_ACTIVATE = True
+# PUNCTUATION
+RERO_ILS_STOP_WORDS_PUNCTUATION = [
+    r'\[', r'\]', '"', ',', ';', ':', r'\.', '_',
+    r'\?', r'\!', r'\*', r'\+', '\n'
+]
+# STOP WORDS BY LANGUAGE
+# Possibility to add a default configuration with a "default" entry.
+# This default configuration will be used if the language is not present
+RERO_ILS_STOP_WORDS = {
+    'dan': ["de", "den", "det", "en", "et"],
+    'dut': [
+        "d'", "de", "den", "der", "des", "het", "'s", "'t", "een",
+        "eene", "eener", "eens", "ene", "'n"],
+    'eng': ["a", "an", "the"],
+    'epo': ["la", "l'", "unu"],
+    'fre': ["de", "des", "du", "l'", "la", "le", "les", "un", "une"],
+    'ger': [
+        "das", "dem", "den", "der", "des", "die",
+        "ein", "eine", "einem", "einen", "einer", "eines"],
+    'hun': [ "a", "az", "egy"],
+    'ita': [
+        "gli", "i", "il", "l'", "la", "le", "li", "lo",
+        "un", "un'", "una", "uno"],
+    'nor': ["de", "dei", "den", "det", "ei", "en", "et"],
+    'por': ["a", "as", "o", "os", "um", "uma", "umas", "uns"],
+    'spa': ["el", "la", "las", "lo", "los", "un", "una", "unas", "unos"],
+    'swe': ["de", "den", "det", "en", "ett"]
+}
+
+# LANGUAGE MAPPING
+# ================
+RERO_ILS_LANGUAGE_MAPPING = {
+    'dum': 'dut'  # neerlandais
+}

@@ -1,25 +1,4 @@
 {
-  "settings": {
-    "analysis": {
-      "filter": {
-        "autocomplete_filter": {
-          "type": "edge_ngram",
-          "min_gram": 1,
-          "max_gram": 20
-        }
-      },
-      "analyzer": {
-        "autocomplete": {
-          "type": "custom",
-          "tokenizer": "standard",
-          "filter": [
-            "lowercase",
-            "autocomplete_filter"
-          ]
-        }
-      }
-    }
-  },
   "mappings": {
     "date_detection": false,
     "numeric_detection": false,
@@ -154,11 +133,11 @@
       },
       "autocomplete_title": {
         "type": "text",
-        "analyzer": "autocomplete",
-        "search_analyzer": "standard"
+        "analyzer": "autocomplete"
       },
       "sort_title": {
-        "type": "keyword"
+        "type": "keyword",
+        "normalizer": "sort_normalizer"
       },
       "responsibilityStatement": {
         "type": "object",
@@ -370,6 +349,12 @@
             "type": "keyword"
           }
         }
+      },
+      "sort_date_new": {
+        "type": "integer"
+      },
+      "sort_date_old": {
+        "type": "integer"
       },
       "provisionActivity": {
         "type": "object",
