@@ -24,6 +24,7 @@ from jsonschema.exceptions import ValidationError
 
 from rero_ils.modules.templates.api import Template
 from rero_ils.modules.templates.api import template_id_fetcher as fetcher
+from rero_ils.modules.utils import get_ref_for_pid
 
 
 def test_template_create(db, es, templ_doc_public_martigny_data,
@@ -54,3 +55,21 @@ def test_template_can_delete(templ_doc_public_martigny):
     can, reasons = templ_doc_public_martigny.can_delete
     assert can
     assert reasons == {}
+
+
+def test_template_replace_refs(templ_doc_public_martigny):
+    """Test template replace_refs method."""
+    tmpl = templ_doc_public_martigny
+    tmpl.setdefault('data', {})['document'] = {
+        '$ref': get_ref_for_pid('doc', 'dummy_pid')
+    }
+    tmpl = tmpl.update(tmpl, dbcommit=True, reindex=True)
+    assert '$ref' in tmpl['data']['document']
+    assert '$ref' in tmpl['creator']
+    replace_data = tmpl.replace_refs()
+    assert '$ref' in replace_data['data']['document']
+    assert '$ref' not in replace_data['creator']
+
+    # reset changes
+    del tmpl['data']['document']
+    tmpl.update(tmpl, dbcommit=True, reindex=True)
