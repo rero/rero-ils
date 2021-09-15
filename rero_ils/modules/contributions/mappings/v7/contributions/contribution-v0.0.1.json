@@ -29,6 +29,18 @@
         "analyzer": "autocomplete",
         "search_analyzer": "standard"
       },
+      "gnd_authorized_access_point_sort": {
+        "type": "keyword",
+        "normalizer": "sort_normalizer"
+      },
+      "idref_authorized_access_point_sort": {
+        "type": "keyword",
+        "normalizer": "sort_normalizer"
+      },
+      "rero_authorized_access_point_sort": {
+        "type": "keyword",
+        "normalizer": "sort_normalizer"
+      },
       "$schema": {
         "type": "keyword"
       },
@@ -100,7 +112,10 @@
           },
           "authorized_access_point": {
             "type": "text",
-            "copy_to": "autocomplete_name"
+            "copy_to": [
+              "autocomplete_name",
+              "gnd_authorized_access_point_sort"
+            ]
           },
           "qualifier": {
             "type": "keyword"
@@ -203,7 +218,10 @@
           },
           "authorized_access_point": {
             "type": "text",
-            "copy_to": "autocomplete_name"
+            "copy_to": [
+              "autocomplete_name",
+              "idref_authorized_access_point_sort"
+            ]
           },
           "qualifier": {
             "type": "keyword"
@@ -306,7 +324,10 @@
           },
           "authorized_access_point": {
             "type": "text",
-            "copy_to": "autocomplete_name"
+            "copy_to": [
+              "autocomplete_name",
+              "rero_authorized_access_point_sort"
+            ]
           },
           "qualifier": {
             "type": "keyword"

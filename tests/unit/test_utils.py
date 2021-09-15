@@ -25,7 +25,7 @@ from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.utils import add_years, extracted_data_from_ref, \
     get_endpoint_configuration, get_schema_for_resource, read_json_record
 from rero_ils.utils import get_current_language, language_iso639_2to1, \
-    unique_list
+    language_mapping, unique_list
 
 
 def test_unique_list():
@@ -110,3 +110,9 @@ def test_language_iso639_2to1(app):
     assert language_iso639_2to1('ita') == 'it'
     # default language
     assert language_iso639_2to1('rus') == 'en'
+
+
+def test_language_mapping(app):
+    """Test language mapping."""
+    assert 'fre' == language_mapping('fre')
+    assert 'dut' == language_mapping('dum')

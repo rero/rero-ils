@@ -6,6 +6,11 @@
     "max_result_window": "100000",
     "analysis": {
       "filter": {
+        "edge_ngram_filter": {
+          "type": "edge_ngram",
+          "min_gram": 3,
+          "max_gram": 10
+        },
         "french_elision": {
           "type": "elision",
           "articles_case": true,
@@ -24,6 +29,32 @@
             "lorsqu",
             "puisqu"
           ]
+        },
+        "italian_elision": {
+          "type": "elision",
+          "articles": [
+              "c", "l", "all", "dall", "dell",
+              "nell", "sull", "coll", "pell",
+              "gl", "agl", "dagl", "degl", "negl",
+              "sugl", "un", "m", "t", "s", "v", "d"
+          ],
+          "articles_case": true
+        },
+        "english_stop": {
+          "type":       "stop",
+          "stopwords":  "_english_"
+        },
+        "french_stop": {
+          "type":       "stop",
+          "stopwords":  "_french_"
+        },
+        "german_stop": {
+          "type":       "stop",
+          "stopwords":  "_german_"
+        },
+        "italian_stop": {
+          "type":       "stop",
+          "stopwords":  "_italian_"
         },
         "french_stemmer": {
           "type": "stemmer",
@@ -64,6 +95,26 @@
             "lowercase",
             "icu_folding",
             "german_normalization"
+          ]
+        },
+        "autocomplete": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "icu_normalizer",
+            "icu_folding",
+            "french_elision",
+            "italian_elision",
+            "edge_ngram_filter"
+          ]
+        }
+      },
+      "normalizer": {
+        "sort_normalizer": {
+          "type": "custom",
+          "filter": [
+            "lowercase"
           ]
         }
       }

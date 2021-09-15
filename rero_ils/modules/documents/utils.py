@@ -266,6 +266,10 @@ def title_format_text_head(titles, responsabilities=None, with_subtitle=True):
                     language = title_text.get('language')
                     if display_alternate_graphic_first(language):
                         head_titles.append(title_text.get('value'))
+                # If I don't have a title available,
+                # I get the last value of the array
+                if not len(head_titles):
+                    head_titles.append(title_texts[-1].get('value'))
         elif title.get('type') == 'bf:ParallelTitle':
             parallel_title_texts = title_format_text(
                 title=title, with_subtitle=with_subtitle)

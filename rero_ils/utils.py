@@ -127,3 +127,13 @@ def language_iso639_2to1(lang):
         return default_ln
     supported_languages = [v[0] for v in current_i18n.get_languages()]
     return ln if ln in supported_languages else default_ln
+
+
+def language_mapping(lang):
+    """Language mapping.
+
+    :param lang: bibliographic language code
+    :returns: language mapping
+    """
+    return current_app.config.get('RERO_ILS_LANGUAGE_MAPPING', {})\
+        .get(lang, lang)
