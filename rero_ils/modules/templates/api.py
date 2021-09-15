@@ -17,7 +17,6 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating Templates."""
-
 from functools import partial
 
 from .extensions import RemoveDataPidExtension
@@ -69,6 +68,16 @@ class Template(IlsRecord):
             'ptrn': 'creator'
         }
     }
+
+    def replace_refs(self):
+        """Replace the ``$ref`` keys within the JSON."""
+        # For template, we doesn't need to resolve $ref inside the ``data``
+        # attribute. Other $ref should be resolve.
+        data = self.pop('data', {})
+        dumped = super().replace_refs()
+        dumped['data'] = data
+        self['data'] = data
+        return dumped
 
     @property
     def creator_pid(self):
