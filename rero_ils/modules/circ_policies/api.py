@@ -292,11 +292,6 @@ class CircPolicy(IlsRecord):
             others['is_default'] = is_default
         return others
 
-    def get_links_to_me(self):
-        """Get number of links to policy."""
-        links = {}
-        return links
-
     def reasons_not_to_delete(self):
         """Get reasons not to delete policy."""
         cannot_delete = {}

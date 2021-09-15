@@ -1067,3 +1067,13 @@ def set_user_name(sender, user):
         except AttributeError:
             pass
     session['user_name'] = user_name
+
+
+def sorted_pids(query):
+    """Get sorted pids from a ES query."""
+    pids = [hit.pid for hit in query.source('pid').scan()]
+    try:
+        return sorted(pids, key=int)
+    except Exception as err:
+        current_app.logger.info(f'Can not sort pids from query: {err}')
+    return pids

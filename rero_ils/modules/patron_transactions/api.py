@@ -31,7 +31,7 @@ from ..organisations.api import Organisation
 from ..patron_transaction_events.api import PatronTransactionEvent, \
     PatronTransactionEventsSearch
 from ..providers import Provider
-from ..utils import extracted_data_from_ref, get_ref_for_pid
+from ..utils import extracted_data_from_ref, get_ref_for_pid, sorted_pids
 
 # provider
 PatronTransactionProvider = type(
@@ -165,6 +165,16 @@ class PatronTransaction(IlsRecord):
         """
         query = cls._build_transaction_query(patron_pid, status)
         return query.source().count()
+
+    @classmethod
+    def get_transactions_pids_for_patron(cls, patron_pid, status=None):
+        """Get patron transactions pids linked to a patron.
+
+        :param patron_pid: the patron pid being searched
+        :param status: (optional) transaction status filter,
+        """
+        query = cls._build_transaction_query(patron_pid, status)
+        return sorted_pids(query)
 
     @classmethod
     def get_transactions_by_patron_pid(cls, patron_pid, status=None):
@@ -407,10 +417,19 @@ class PatronTransaction(IlsRecord):
         return PatronTransactionEventsSearch()\
             .filter('term', parent__pid=self.pid).source().count()
 
-    def get_links_to_me(self):
-        """Get number of links."""
+    def get_links_to_me(self, get_pids=False):
+        """Record links.
+
+        :param get_pids: if True list of linked pids
+                         if False count of linked records
+        """
         links = {}
-        events = self.get_number_of_patron_transaction_events()
+        query = PatronTransactionEventsSearch() \
+            .filter('term', parent__pid=self.pid)
+        if get_pids:
+            events = sorted_pids(query)
+        else:
+            events = query.count()
         if events:
             links['events'] = events
         return links

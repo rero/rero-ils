@@ -45,7 +45,7 @@ from ..organisations.api import Organisation
 from ..providers import Provider
 from ..record_extensions import OrgLibRecordExtension
 from ..utils import extracted_data_from_ref, get_ref_for_pid, \
-    get_schema_for_resource
+    get_schema_for_resource, sorted_pids
 from ..vendors.api import Vendor
 from ...filter import format_date_filter
 
@@ -370,22 +370,19 @@ class Holding(IlsRecord):
                         item['call_number'] = issue_call_number
                     yield item
 
-    def get_number_of_items(self):
-        """Get holding number of items."""
-        results = ItemsSearch().filter(
-            'term', holding__pid=self.pid).source().count()
-        return results
+    def get_links_to_me(self, get_pids=False):
+        """Record links.
 
-    def get_links_to_me(self):
-        """Get links that can block the holding deletion.
-
-        Attached items to a holding record blocks the deletion.
-
-        :return: a list of records links to the holding record.
+        :param get_pids: if True list of linked pids
+                         if False count of linked records
         """
         links = {}
+        query = ItemsSearch().filter('term', holding__pid=self.pid)
+        if get_pids:
+            items = sorted_pids(query)
+        else:
+            items = query.count()
         # get number of attached items
-        items = self.get_number_of_items()
         if items:
             links['items'] = items
         return links

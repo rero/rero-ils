@@ -31,7 +31,7 @@ from ..circ_policies.api import CircPoliciesSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
-from ..utils import extracted_data_from_ref
+from ..utils import extracted_data_from_ref, sorted_pids
 
 # provider
 ItemTypeProvider = type(
@@ -122,17 +122,19 @@ class ItemType(IlsRecord):
         except StopIteration:
             return None
 
-    def get_number_of_items(self):
-        """Get number of items."""
+    def get_links_to_me(self, get_pids=False):
+        """Record links.
+
+        :param get_pids: if True list of linked pids
+                         if False count of linked records
+        """
         from ..items.api import ItemsSearch
-        return ItemsSearch().filter('bool', should=[
+        links = {}
+        items_query = ItemsSearch().filter('bool', should=[
             Q('term', item_type__pid=self.pid),
             Q('term', temporary_item_type__pid=self.pid)
-        ]).count()
-
-    def get_number_of_circ_policies(self):
-        """Get number of circulation policies."""
-        return CircPoliciesSearch() \
+        ])
+        cipo_query = CircPoliciesSearch() \
             .filter(
                 'nested',
                 path='settings',
@@ -141,15 +143,15 @@ class ItemType(IlsRecord):
                         Q('match', settings__item_type__pid=self.pid)
                     ]
                 )
-            ).source().count()
-
-    def get_links_to_me(self):
-        """Get number of links."""
-        links = {}
-        items = self.get_number_of_items()
+            )
+        if get_pids:
+            items = sorted_pids(items_query)
+            circ_policies = sorted_pids(cipo_query)
+        else:
+            items = items_query.count()
+            circ_policies = cipo_query.count()
         if items:
             links['items'] = items
-        circ_policies = self.get_number_of_circ_policies()
         if circ_policies:
             links['circ_policies'] = circ_policies
         return links

@@ -35,7 +35,7 @@ from ..minters import id_minter
 from ..patron_transactions.api import PatronTransaction
 from ..patrons.api import Patron, PatronsSearch
 from ..providers import Provider
-from ..utils import get_patron_from_arguments
+from ..utils import get_patron_from_arguments, sorted_pids
 
 # provider
 PatronTypeProvider = type(
@@ -224,39 +224,37 @@ class PatronType(IlsRecord):
         for result in results:
             yield Patron.get_record_by_pid(result.pid)
 
-    def get_number_of_patrons(self):
-        """Get number of patrons."""
-        return PatronsSearch()\
-            .filter('term', patron__type__pid=self.pid).source().count()
-
-    def get_number_of_circ_policies(self):
-        """Get number of circulation policies."""
-        return CircPoliciesSearch().filter(
-            'nested',
-            path='settings',
-            query=Q(
-                'bool',
-                must=[
-                    Q(
-                        'match',
-                        settings__patron_type__pid=self.pid
-                    )
-                ]
-            )
-        ).source().count()
-
     @property
     def is_subscription_required(self):
         """Check if a subscription is required for this patron type."""
         return self.get('subscription_amount', 0) > 0
 
-    def get_links_to_me(self):
-        """Get number of links."""
+    def get_links_to_me(self, get_pids=False):
+        """Record links.
+
+        :param get_pids: if True list of linked pids
+                         if False count of linked records
+        """
+        ptrn_query = PatronsSearch()\
+            .filter('term', patron__type__pid=self.pid)
+        cipo_query = CircPoliciesSearch()\
+            .filter(
+                'nested',
+                path='settings',
+                query=Q(
+                    'bool',
+                    must=[Q('match', settings__patron_type__pid=self.pid)]
+                )
+            )
         links = {}
-        patrons = self.get_number_of_patrons()
+        if get_pids:
+            patrons = sorted_pids(ptrn_query)
+            circ_policies = sorted_pids(cipo_query)
+        else:
+            patrons = ptrn_query.count()
+            circ_policies = cipo_query.count()
         if patrons:
             links['patrons'] = patrons
-        circ_policies = self.get_number_of_circ_policies()
         if circ_policies:
             links['circ_policies'] = circ_policies
         return links

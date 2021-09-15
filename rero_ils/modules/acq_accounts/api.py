@@ -26,7 +26,7 @@ from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
-from ..utils import extracted_data_from_ref
+from ..utils import extracted_data_from_ref, sorted_pids
 
 # provider
 AcqAccountProvider = type(
@@ -76,16 +76,19 @@ class AcqAccount(IlsRecord):
         """Shortcut for acq account library pid."""
         return extracted_data_from_ref(self.get('library'))
 
-    def get_number_of_acq_order_lines(self):
-        """Get number of acquisition order lines linked to this account."""
-        results = AcqOrderLinesSearch().filter(
-            'term', acq_account__pid=self.pid).source().count()
-        return results
+    def get_links_to_me(self, get_pids=False):
+        """Record links.
 
-    def get_links_to_me(self):
-        """Get number of links."""
+        :param get_pids: if True list of linked pids
+                         if False count of linked records
+        """
         links = {}
-        acq_orders = self.get_number_of_acq_order_lines()
+        query = AcqOrderLinesSearch() \
+            .filter('term', acq_account__pid=self.pid)
+        if get_pids:
+            acq_orders = query.count()
+        else:
+            acq_orders = sorted_pids(query)
         if acq_orders:
             links['acq_order_lines'] = acq_orders
         return links

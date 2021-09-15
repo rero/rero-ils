@@ -123,4 +123,4 @@ def test_holding_delete_after_item_edition(
     assert item.holding_pid == holding_lib_fully.pid
 
     holding = Holding.get_record_by_pid(holding_lib_saxon.pid)
-    assert not holding.get_number_of_items()
+    assert holding.get_links_to_me() == {}

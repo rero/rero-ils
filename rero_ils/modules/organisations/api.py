@@ -29,6 +29,7 @@ from ..item_types.api import ItemTypesSearch
 from ..libraries.api import LibrariesSearch, Library
 from ..minters import id_minter
 from ..providers import Provider
+from ..utils import sorted_pids
 from ..vendors.api import Vendor, VendorsSearch
 
 # provider
@@ -164,15 +165,19 @@ class Organisation(IlsRecord):
         for pid in pids:
             yield Vendor.get_record_by_pid(pid)
 
-    def get_number_of_libraries(self):
-        """Get number of libraries."""
-        return LibrariesSearch()\
-            .filter('term', organisation__pid=self.pid).source().count()
+    def get_links_to_me(self, get_pids=False):
+        """Record links.
 
-    def get_links_to_me(self):
-        """Get number of links."""
+        :param get_pids: if True list of linked pids
+                         if False count of linked records
+        """
+        query = LibrariesSearch()\
+            .filter('term', organisation__pid=self.pid)
         links = {}
-        libraries = self.get_number_of_libraries()
+        if get_pids:
+            libraries = sorted_pids(query)
+        else:
+            libraries = query.count()
         if libraries:
             links['libraries'] = libraries
         return links

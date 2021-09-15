@@ -88,17 +88,6 @@ class Item(ItemCirculation, ItemIssue):
         except NotFoundError:
             pass
 
-    def get_links_to_me(self):
-        """Get number of links."""
-        links = {}
-        loans = self.get_number_of_loans()
-        if loans:
-            links['loans'] = loans
-        fees = self.get_number_of_loans_with_fees()
-        if fees:
-            links['fees'] = fees
-        return links
-
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
         cannot_delete = {}

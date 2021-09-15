@@ -32,7 +32,7 @@ from ..fetchers import id_fetcher
 from ..locations.api import LocationsSearch
 from ..minters import id_minter
 from ..providers import Provider
-from ..utils import date_string_to_utc, strtotime
+from ..utils import date_string_to_utc, sorted_pids, strtotime
 
 # provider
 LibraryProvider = type(
@@ -302,27 +302,27 @@ class Library(IlsRecord):
             date = self.next_open(date=date)
         return date
 
-    def get_number_of_librarians(self):
-        """Get number of librarians."""
+    def get_links_to_me(self, get_pids=False):
+        """Record links.
+
+        :param get_pids: if True list of linked pids
+                         if False count of linked records
+        """
         from ..patrons.api import PatronsSearch
-        results = PatronsSearch().filter(
-            'term', libraries__pid=self.pid).filter(
-                'term', roles='librarian').source().count()
-        return results
-
-    def get_number_of_locations(self):
-        """Get number of locations."""
-        results = LocationsSearch().filter(
-            'term', library__pid=self.pid).source().count()
-        return results
-
-    def get_links_to_me(self):
-        """Get number of links."""
         links = {}
-        locations = self.get_number_of_locations()
+        ptrn_query = PatronsSearch() \
+            .filter('term', libraries__pid=self.pid) \
+            .filter('term', roles='librarian')
+        loc_query = LocationsSearch() \
+            .filter('term', library__pid=self.pid)
+        if get_pids:
+            locations = sorted_pids(loc_query)
+            librarians = sorted_pids(ptrn_query)
+        else:
+            locations = loc_query.count()
+            librarians = ptrn_query.count()
         if locations:
             links['locations'] = locations
-        librarians = self.get_number_of_librarians()
         if librarians:
             links['patrons'] = librarians
         return links

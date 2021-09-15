@@ -28,7 +28,7 @@ from ..errors import MissingRequiredParameterError
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
-from ..utils import extracted_data_from_ref
+from ..utils import extracted_data_from_ref, sorted_pids
 
 # provider
 LocationProvider = type(
@@ -113,36 +113,35 @@ class Location(IlsRecord):
         library_pid = extracted_data_from_ref(self.get('library'))
         return Library.get_record_by_pid(library_pid)
 
-    def get_number_of_items(self):
-        """Get number of items."""
-        from ..items.api import ItemsSearch
-        results = ItemsSearch().filter(
-            'term', location__pid=self.pid).source().count()
-        return results
+    def get_links_to_me(self, get_pids=False):
+        """Record links.
 
-    def get_number_of_loans(self):
-        """Get number of loans."""
+        :param get_pids: if True list of linked pids
+                         if False count of linked records
+        """
+        from ..items.api import ItemsSearch
         from ..loans.api import LoansSearch, LoanState
+        item_query = ItemsSearch() \
+            .filter('term', location__pid=self.pid)
         exclude_states = [
             LoanState.CANCELLED, LoanState.ITEM_RETURNED, LoanState.CREATED]
-        results = LoansSearch() \
+        loan_query = LoansSearch() \
             .filter('bool', should=[
                 Q('term', pickup_location_pid=self.pid),
                 Q('term', transaction_location_pid=self.pid)
             ]) \
-            .exclude('terms', state=exclude_states) \
-            .count()
-        return results
-
-    def get_links_to_me(self):
-        """Get number of links."""
+            .exclude('terms', state=exclude_states)
         links = {}
-        items_count = self.get_number_of_items()
-        if items_count:
-            links['items'] = items_count
-        loans_count = self.get_number_of_loans()
-        if loans_count:
-            links['loans'] = loans_count
+        if get_pids:
+            items = sorted_pids(item_query)
+            loans = sorted_pids(loan_query)
+        else:
+            items = item_query.count()
+            loans = loan_query.count()
+        if items:
+            links['items'] = items
+        if loans:
+            links['loans'] = loans
         return links
 
     def reasons_not_to_delete(self):

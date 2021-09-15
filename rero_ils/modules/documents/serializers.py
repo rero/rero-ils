@@ -265,8 +265,8 @@ class DocumentMARCXMLSerializer(JSONSerializer):
                 contribution_pid = contribution.get('agent', {}).get('pid')
                 if contribution_pid:
                     contribution_pids.append(contribution_pid)
-        search = ContributionsSearch(). \
-            filter('terms', pid=list(set(contribution_pids)))
+        search = ContributionsSearch() \
+            .filter('terms', pid=list(set(contribution_pids)))
         es_contributions = {}
         for hit in search.scan():
             contribution = hit.to_dict()

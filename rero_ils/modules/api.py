@@ -434,8 +434,12 @@ class IlsRecord(Record):
         """Get Persistent Identifier."""
         return self.get_persistent_identifier(self.id)
 
-    def get_links_to_me(self):
-        """Record links."""
+    def get_links_to_me(self, get_pids=False):
+        """Record links.
+
+        :param get_pids: if True list of linked pids
+                         if False count of linked records
+        """
         return {}
 
     def reasons_not_to_delete(self):

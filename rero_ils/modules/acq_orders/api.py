@@ -28,7 +28,7 @@ from ..fetchers import id_fetcher
 from ..libraries.api import Library
 from ..minters import id_minter
 from ..providers import Provider
-from ..utils import extracted_data_from_ref, get_ref_for_pid
+from ..utils import extracted_data_from_ref, get_ref_for_pid, sorted_pids
 
 # provider
 AcqOrderProvider = type(
@@ -112,12 +112,6 @@ class AcqOrder(IlsRecord):
         """Shortcut for acquisition order library pid."""
         return extracted_data_from_ref(self.get('library'))
 
-    def get_number_of_acq_order_lines(self):
-        """Get number of acquisition order lines."""
-        results = AcqOrderLinesSearch().filter(
-            'term', acq_order__pid=self.pid).source().count()
-        return results
-
     def get_order_total_amount(self):
         """Get total amount of order."""
         search = AcqOrderLinesSearch().filter(
@@ -126,10 +120,19 @@ class AcqOrder(IlsRecord):
         results = search.execute()
         return results.aggregations.order_total_amount.value
 
-    def get_links_to_me(self):
-        """Get number of links."""
+    def get_links_to_me(self, get_pids=False):
+        """Record links.
+
+        :param get_pids: if True list of linked pids
+                         if False count of linked records
+        """
         links = {}
-        acq_orders = self.get_number_of_acq_order_lines()
+        query = AcqOrderLinesSearch() \
+            .filter('term', acq_order__pid=self.pid)
+        if get_pids:
+            acq_orders = sorted_pids(query)
+        else:
+            acq_orders = query.count()
         if acq_orders:
             links['acq_order_lines'] = acq_orders
         return links
