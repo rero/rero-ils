@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/">
+  <version>1.2</version>
+  <numberOfRecords>1</numberOfRecords>
+  <records>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>00825nam a2200253 u 4500</leader>
+          <controlfield tag="001">9932425010101471</controlfield>
+          <controlfield tag="005">20210316092236.0</controlfield>
+          <controlfield tag="008">050309s2008    be      r     000 0 fre c</controlfield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(BeLVLBS)003242501LBS01-Aleph</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">BeLVLBS</subfield>
+            <subfield code="b">Language of cataloging varies</subfield>
+            <subfield code="e">rda based</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="3" tag="245">
+            <subfield code="a">Le chocolat magique /</subfield>
+            <subfield code="c">Jeux de lecture Joëlle Delmoitiez et Jean Baron.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">32 p.</subfield>
+            <subfield code="b">ill.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">unmediated</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">volume</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="490">
+            <subfield code="a">Tirelire</subfield>
+            <subfield code="v">7, 7</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="521">
+            <subfield code="a">LO</subfield>
+            <subfield code="b">3-4</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">KADOC</subfield>
+            <subfield code="a">C3</subfield>
+            <subfield code="x">Kunst en cultuur</subfield>
+            <subfield code="6">(ODIS-HT)</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Hinckel, Florence</subfield>
+            <subfield code="4">aut</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Delmoitiez, Joëlle</subfield>
+            <subfield code="4">ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Baron, Jean</subfield>
+            <subfield code="4">ctb</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="900">
+            <subfield code="a">CONSOLIDATED RECORD</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="951">
+            <subfield code="a">Kinderboeken fictie</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>9932425010101471</recordIdentifier>
+      <recordPosition>1</recordPosition>
+    </record>
+  </records>
+  <extraResponseData xmlns:xb="http://www.exlibris.com/repository/search/xmlbeans/">
+    <xb:exact>true</xb:exact>
+    <xb:responseDate>2021-10-06T15:08:50+0200</xb:responseDate>
+  </extraResponseData>
+</searchRetrieveResponse>

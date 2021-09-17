@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/">
+   <version>1.1</version>
+   <numberOfRecords>1</numberOfRecords>
+   <records>
+      <record>
+         <recordSchema>info:srw/schema/1/marcxml-v1.1</recordSchema>
+         <recordPacking>xml</recordPacking>
+         <recordData>
+            <marc:record xmlns:marc="http://www.loc.gov/MARC21/slim">
+               <marc:leader>00000cam a22003855a 4500</marc:leader>
+               <marc:controlfield tag="001">001247835</marc:controlfield>
+               <marc:controlfield tag="003">BE-GnUNI</marc:controlfield>
+               <marc:controlfield tag="005">20170516133932.0</marc:controlfield>
+               <marc:controlfield tag="008">071127s2007    sa       b    001 0 eng d</marc:controlfield>
+               <marc:datafield tag="010" ind1=" " ind2=" ">
+                  <marc:subfield code="a">2007332726</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="020" ind1=" " ind2=" ">
+                  <marc:subfield code="a">1869141202</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="020" ind1=" " ind2=" ">
+                  <marc:subfield code="a">9781869141202</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="035" ind1=" " ind2=" ">
+                  <marc:subfield code="a">(DLC)15094493</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="035" ind1=" " ind2=" ">
+                  <marc:subfield code="a">(DLC)2007332726</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="035" ind1=" " ind2=" ">
+                  <marc:subfield code="a">(OCoLC)ocn170955452</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="040" ind1=" " ind2=" ">
+                  <marc:subfield code="a">BE-GnUNI</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="042" ind1=" " ind2=" ">
+                  <marc:subfield code="a">lccopycat</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="050" ind1=" " ind2=" ">
+                  <marc:subfield code="a">PR9358</marc:subfield>
+                  <marc:subfield code="b">.S36 2007</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="100" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Samuelson, Meg</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="245" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Remembering the nation, dismembering women? stories of the South African transition /</marc:subfield>
+                  <marc:subfield code="c">Meg Samuelson.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="260" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Scottsville, South Africa :</marc:subfield>
+                  <marc:subfield code="b">University of Kwazulu-Natal Press,</marc:subfield>
+                  <marc:subfield code="c">2007.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="300" ind1=" " ind2=" ">
+                  <marc:subfield code="a">IX, 272 p. ;</marc:subfield>
+                  <marc:subfield code="c">23 cm.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="500" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Originally presented as the author's thesis (Doctoral) -- University of Capetown, 2005</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="504" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Includes bibliographical references (p. 243-265) and index.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="505" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Rememberings and dismemberings : female subjects of a nation in transition -- Krotoa-Eva : translator, traitor, 'rainbow' mother -- Nongqawuse : national time and (female) authorship -- Sarah Bartmann : re-cast and re-covered -- Unspeakable acts (un)spoken : disfigured bodies in David's story and Disgrace -- The mother-witness : Mother to mother, Bloodlines and Our generation -- (Un)homely women : 'political widowhood' in A life and The cry of Winnie Mandela -- Stories of the transition : the warp and woof.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="651" ind1=" " ind2="7">
+                  <marc:subfield code="a">South Africa</marc:subfield>
+                  <marc:subfield code="x">Politics and government</marc:subfield>
+                  <marc:subfield code="y">1994-.</marc:subfield>
+                  <marc:subfield code="2">lcsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2="7">
+                  <marc:subfield code="a">Politics and literature</marc:subfield>
+                  <marc:subfield code="x">History</marc:subfield>
+                  <marc:subfield code="y">20th century.</marc:subfield>
+                  <marc:subfield code="z">South Africa.</marc:subfield>
+                  <marc:subfield code="2">lcsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2="7">
+                  <marc:subfield code="a">Post-apartheid era</marc:subfield>
+                  <marc:subfield code="z">South Africa.</marc:subfield>
+                  <marc:subfield code="2">lcsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2="7">
+                  <marc:subfield code="a">South African literature (English)</marc:subfield>
+                  <marc:subfield code="x">Women authors</marc:subfield>
+                  <marc:subfield code="x">History and criticism.</marc:subfield>
+                  <marc:subfield code="2">lcsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2="7">
+                  <marc:subfield code="a">Women in literature.</marc:subfield>
+                  <marc:subfield code="2">lcsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2="7">
+                  <marc:subfield code="a">Women</marc:subfield>
+                  <marc:subfield code="z">South Africa.</marc:subfield>
+                  <marc:subfield code="2">lcsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="852" ind1="4" ind2=" ">
+                  <marc:subfield code="x">LW</marc:subfield>
+                  <marc:subfield code="b">LW55</marc:subfield>
+                  <marc:subfield code="c">L34</marc:subfield>
+                  <marc:subfield code="j">LWBIB.L34.PR.20.0162</marc:subfield>
+                  <marc:subfield code="p">000010344669</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="920" ind1=" " ind2=" ">
+                  <marc:subfield code="a">book</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="SID" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Z39</marc:subfield>
+                  <marc:subfield code="b">LOC</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="CRD" ind1=" " ind2=" ">
+                  <marc:subfield code="a">L3420071206</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="Z30" ind1="-" ind2="1">
+                  <marc:subfield code="l">RUG01</marc:subfield>
+                  <marc:subfield code="L">RUG01</marc:subfield>
+                  <marc:subfield code="m">BOOK</marc:subfield>
+                  <marc:subfield code="x">LW</marc:subfield>
+                  <marc:subfield code="1">LW55</marc:subfield>
+                  <marc:subfield code="2">L34</marc:subfield>
+                  <marc:subfield code="3">LWBIB.L34.PR.20.0162</marc:subfield>
+                  <marc:subfield code="5">000010344669</marc:subfield>
+                  <marc:subfield code="8">20071206</marc:subfield>
+                  <marc:subfield code="f">05</marc:subfield>
+                  <marc:subfield code="F">onsite/LOAN</marc:subfield>
+               </marc:datafield>
+            </marc:record>
+         </recordData>
+         <recordPosition>1</recordPosition>
+      </record>
+   </records>
+   <extraResponseData />
+   <echoedSearchRetrieveRequest>
+      <version>1.1</version>
+      <query>all=001247835</query>
+      <startRecord>1</startRecord>
+      <maximumRecords>10</maximumRecords>
+      <recordSchema>marcxml</recordSchema>
+      <xQuery>
+         <searchClause xmlns="http://www.loc.gov/zing/cql/xcql/">
+            <index>all</index>
+            <relation>
+               <value>=</value>
+            </relation>
+            <term>001247835</term>
+         </searchClause>
+      </xQuery>
+   </echoedSearchRetrieveRequest>
+</searchRetrieveResponse>
+

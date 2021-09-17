@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/">
+  <version>1.2</version>
+  <numberOfRecords>1</numberOfRecords>
+  <records>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>00588nam a2200193 a 4500</leader>
+          <controlfield tag="001">9983115060101471</controlfield>
+          <controlfield tag="005">20210317092856.0</controlfield>
+          <controlfield tag="008">110923s2010    fr      |     000 0 fre c</controlfield>
+          <datafield tag="015" ind1=" " ind2=" ">
+            <subfield code="a">21,010</subfield>
+            <subfield code="2">dummy</subfield>
+          </datafield>
+          <datafield tag="020" ind1=" " ind2=" ">
+            <subfield code="a">978-2-265-08941-9</subfield>
+          </datafield>
+          <datafield tag="022" ind1="0" ind2=" ">
+            <subfield code="a">1560-1560</subfield>
+            <subfield code="l">1234-1231</subfield>
+          </datafield>
+          <datafield tag="024" ind1="1" ind2=" ">
+            <subfield code="a">7822183031</subfield>
+          </datafield>
+          <datafield tag="024" ind1=" " ind2="7">
+            <subfield code="a">0A3200912B4A1057</subfield>
+            <subfield code="2">istc</subfield>
+          </datafield>
+          <datafield tag="024" ind1=" " ind2=" ">
+            <subfield code="a">http://catalogue.bnf.fr/ark:/12148/cb41467055h</subfield>
+            <subfield code="2">uri</subfield>
+          </datafield>
+          <datafield tag="024" ind1=" " ind2=" ">
+            <subfield code="a">1-2021090320480431761051</subfield>
+          </datafield>
+          <datafield tag="035" ind1=" " ind2=" ">
+            <subfield code="a">(BeLVLBS)008311506LBS01-Aleph</subfield>
+          </datafield>
+          <datafield tag="040" ind1=" " ind2=" ">
+            <subfield code="a">BeLVLBS</subfield>
+            <subfield code="b">Language of cataloging varies</subfield>
+            <subfield code="e">rda based</subfield>
+          </datafield>
+          <datafield tag="041" ind1=" " ind2=" ">
+            <subfield code="8">1\p</subfield>
+            <subfield code="a">ger</subfield>
+          </datafield>
+          <datafield tag="044" ind1=" " ind2=" ">
+            <subfield code="c">XA-DE-HH</subfield>
+          </datafield>
+          <datafield tag="080" ind1=" " ind2=" ">
+            <subfield code="a">821.113.1</subfield>
+            <subfield code="x">(494)</subfield>
+            <subfield code="2">[edition information]</subfield>
+          </datafield>
+          <datafield tag="082" ind1="7" ind2="4">
+            <subfield code="8">9\p</subfield>
+            <subfield code="a">K</subfield>
+            <subfield code="q">DE-101</subfield>
+            <subfield code="2">23sdnb</subfield>
+          </datafield>
+          <datafield tag="210" ind1="1" ind2=" ">
+            <subfield code="a">Rech. écon. Louvain</subfield>
+            <subfield code="b">(Imprimé)</subfield>
+          </datafield>
+          <datafield tag="222" ind1=" " ind2="0">
+            <subfield code="a">Recherches économiques de Louvain</subfield>
+            <subfield code="b">(Imprimé)</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="3" tag="245">
+            <subfield code="a">La brûlure du chocolat.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="260">
+            <subfield code="a">Paris</subfield>
+            <subfield code="b">Fleuve noir</subfield>
+            <subfield code="c">2010</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">321 p.</subfield>
+          </datafield>
+          <datafield tag="310" ind1=" " ind2=" ">
+            <subfield code="a">Monthly,</subfield>
+            <subfield code="b">1985-</subfield>
+          </datafield>
+          <datafield tag="321" ind1=" " ind2=" ">
+            <subfield code="a">Ten no. a year,</subfield>
+            <subfield code="b">1982-1984</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">unmediated</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">volume</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield tag="362" ind1="0" ind2=" ">
+            <subfield code="a">1962-1965. </subfield>
+          </datafield>
+          <datafield tag="502" ind1=" " ind2=" ">
+            <subfield code="a">Mémoire de stage (3e cycle) -- Université Dummy</subfield>
+          </datafield>
+          <datafield tag="506" ind1=" " ind2=" ">
+            <subfield code="a">Open Access</subfield>
+          </datafield>
+          <datafield tag="510" ind1="3" ind2=" ">
+            <subfield code="a">Bibliographie cartographique internationale </subfield>
+          </datafield>
+          <datafield tag="511" ind1=" " ind2=" ">
+            <subfield code="a">Marshall Moss, violin ; Neil Roberts, harpsichord.</subfield>
+          </datafield>
+          <datafield tag="521" ind1=" " ind2=" ">
+            <subfield code="a">Program designed for geographers, planners, geologists, meteorologists and others who have a professional interest in analyzing spatial data</subfield>
+          </datafield>
+          <datafield tag="583" ind1="1" ind2=" ">
+            <subfield code="a">Archivie</subfield>
+            <subfield code="5">dummy</subfield>
+            <subfield code="2">pdager</subfield>
+          </datafield>
+          <datafield tag="600" ind1="1" ind2="0">
+            <subfield code="a">Baudelaire, Charles,</subfield>
+            <subfield code="d">1821-1867.</subfield>
+            <subfield code="t">Fleurs du mal.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">DDC abridged</subfield>
+            <subfield code="a">843</subfield>
+            <subfield code="x">Literature French fiction</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="a">Morale sociale</subfield>
+            <subfield code="0">(RERO)A021003578</subfield>
+            <subfield code="2">rero</subfield>
+          </datafield>
+          <datafield tag="651" ind1=" " ind2=" ">
+            <subfield code="a">Berlin</subfield>
+          </datafield>
+          <datafield tag="653" ind1=" " ind2=" ">
+            <subfield code="a">(Produktform)Electronic book text</subfield>
+           </datafield>
+          <datafield tag="655" ind1=" " ind2="7">
+            <subfield code="a">Bird's-eye views</subfield>
+            <subfield code="y">1874.</subfield>
+            <subfield code="2">gmgpc</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Abel, Barbara.</subfield>
+            <subfield code="4">aut</subfield>
+          </datafield>
+          <datafield tag="773" ind1="0" ind2=" ">
+            <subfield code="7">p1am</subfield>
+            <subfield code="a">Desio, Ardito, 1897-</subfield>
+            <subfield code="t">Geographical features of the Karakorum.</subfield>
+            <subfield code="g">Vol. 24, pt. B no. 9 (Sept. 1993), p. 235-48</subfield>
+            <subfield code="d">Milano : ISMEO, 1991</subfield>
+          </datafield>
+          <datafield tag="776" ind1="0" ind2="8">
+            <subfield code="i">Erscheint auch als</subfield>
+            <subfield code="n">Druck-Ausgabe</subfield>
+            <subfield code="t">Blut und Schokolade</subfield>
+            <subfield code="d">Hamburg : Dressler, 2021</subfield>
+            <subfield code="h">448 Seiten</subfield>
+            <subfield code="w">(DE-101)1227349998</subfield>
+            <subfield code="b">1. Auflage</subfield>
+          </datafield>
+          <datafield tag="787" ind1="0" ind2="8">
+            <subfield code="i">In Beziehung stehende Ressource</subfield>
+            <subfield code="z">9783641200145</subfield>
+          </datafield>
+          <datafield tag="850" ind1=" " ind2=" ">
+            <subfield code="a">DE-101a</subfield>
+            <subfield code="a">DE-101b</subfield>
+          </datafield>
+          <datafield tag="856" ind1="4" ind2="0">
+            <subfield code="u">https://nbn-resolving.org/urn:nbn:de:101:1-2021090320480431761051</subfield>
+            <subfield code="x">Resolving-System</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>9983115060101471</recordIdentifier>
+      <recordPosition>1</recordPosition>
+    </record>
+  </records>
+  <extraResponseData xmlns:xb="http://www.exlibris.com/repository/search/xmlbeans/">
+    <xb:exact>true</xb:exact>
+    <xb:responseDate>2021-10-06T14:51:18+0200</xb:responseDate>
+  </extraResponseData>
+</searchRetrieveResponse>

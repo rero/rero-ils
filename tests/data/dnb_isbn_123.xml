@@ -1,0 +1,1047 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/"><version>1.1</version><numberOfRecords>107</numberOfRecords><records><record><recordSchema>MARC21-xml</recordSchema><recordPacking>xml</recordPacking><recordData><record xmlns="http://www.loc.gov/MARC21/slim" type="Bibliographic">
+    <leader>00000njm a2200000 c 4500</leader>
+    <controlfield tag="001">1140549502</controlfield>
+    <controlfield tag="003">DE-101</controlfield>
+    <controlfield tag="005">20171110184942.0</controlfield>
+    <controlfield tag="007">s|||||||||||||</controlfield>
+    <controlfield tag="008">170927s2017    gw ||||| |||||||||||eng  </controlfield>
+    <datafield tag="015" ind1=" " ind2=" ">
+      <subfield code="a">17,T10</subfield>
+      <subfield code="2">dnb</subfield>
+    </datafield>
+    <datafield tag="016" ind1="7" ind2=" ">
+      <subfield code="2">DE-101</subfield>
+      <subfield code="a">1140549502</subfield>
+    </datafield>
+    <datafield tag="024" ind1="7" ind2=" ">
+      <subfield code="2">urn</subfield>
+      <subfield code="a">urn:nbn:de:101:1-2017111017517</subfield>
+    </datafield>
+    <datafield tag="028" ind1="3" ind2="2">
+      <subfield code="b">Coates Cat Records (LC 11952)</subfield>
+      <subfield code="a">123</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(DE-599)DNB1140549502</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(OCoLC)1188126691</subfield>
+    </datafield>
+    <datafield tag="040" ind1=" " ind2=" ">
+      <subfield code="a">1380</subfield>
+      <subfield code="b">ger</subfield>
+      <subfield code="c">DE-101</subfield>
+      <subfield code="d">0292</subfield>
+      <subfield code="e">rda</subfield>
+    </datafield>
+    <datafield tag="041" ind1=" " ind2=" ">
+      <subfield code="a">eng</subfield>
+    </datafield>
+    <datafield tag="044" ind1=" " ind2=" ">
+      <subfield code="c">XA-DE</subfield>
+    </datafield>
+    <datafield tag="082" ind1="7" ind2="4">
+      <subfield code="a">781.64</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="2">23sdnb</subfield>
+    </datafield>
+    <datafield tag="245" ind1="0" ind2="0">
+      <subfield code="a">Travelin' guitar man</subfield>
+      <subfield code="c">Daniel T. Coates</subfield>
+    </datafield>
+    <datafield tag="264" ind1=" " ind2="4">
+      <subfield code="c">℗ 2017</subfield>
+    </datafield>
+    <datafield tag="264" ind1=" " ind2="1">
+      <subfield code="a">Burgpreppach</subfield>
+      <subfield code="b">Coates Cat Records</subfield>
+      <subfield code="c">[2017]</subfield>
+    </datafield>
+    <datafield tag="300" ind1=" " ind2=" ">
+      <subfield code="a">1 CD</subfield>
+      <subfield code="e">1 Booklet (16 ungezählte Seiten)</subfield>
+    </datafield>
+    <datafield tag="336" ind1=" " ind2=" ">
+      <subfield code="a">aufgeführte Musik</subfield>
+      <subfield code="b">prm</subfield>
+      <subfield code="2">rdacontent</subfield>
+    </datafield>
+    <datafield tag="337" ind1=" " ind2=" ">
+      <subfield code="a">audio</subfield>
+      <subfield code="b">s</subfield>
+      <subfield code="2">rdamedia</subfield>
+    </datafield>
+    <datafield tag="338" ind1=" " ind2=" ">
+      <subfield code="a">Audiodisk</subfield>
+      <subfield code="b">sd</subfield>
+      <subfield code="2">rdacarrier</subfield>
+    </datafield>
+    <datafield tag="583" ind1="1" ind2=" ">
+      <subfield code="a">Archivierung/Langzeitarchivierung gewährleistet</subfield>
+      <subfield code="5">DE-101</subfield>
+      <subfield code="2">pdager</subfield>
+    </datafield>
+    <datafield tag="655" ind1=" " ind2="7">
+      <subfield code="0">(DE-588)4522869-3</subfield>
+      <subfield code="0">https://d-nb.info/gnd/4522869-3</subfield>
+      <subfield code="0">(DE-101)955174880</subfield>
+      <subfield code="a">CD</subfield>
+      <subfield code="2">gnd-carrier</subfield>
+    </datafield>
+    <datafield tag="700" ind1="1" ind2=" ">
+      <subfield code="0">(DE-588)134935306</subfield>
+      <subfield code="0">https://d-nb.info/gnd/134935306</subfield>
+      <subfield code="0">(DE-101)134935306</subfield>
+      <subfield code="a">Coates, Daniel T.</subfield>
+      <subfield code="e">Sänger</subfield>
+      <subfield code="4">sng</subfield>
+      <subfield code="e">Instrumentalmusiker</subfield>
+      <subfield code="4">itr</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="850" ind1=" " ind2=" ">
+      <subfield code="a">DE-101b</subfield>
+      <subfield code="a">DE-101c</subfield>
+    </datafield>
+    <datafield tag="856" ind1="4" ind2="0">
+      <subfield code="u">https://nbn-resolving.org/urn:nbn:de:101:1-2017111017517</subfield>
+      <subfield code="x">Resolving-System</subfield>
+    </datafield>
+    <datafield tag="925" ind1="r" ind2=" ">
+      <subfield code="a">rt</subfield>
+    </datafield>
+  </record></recordData><recordPosition>1</recordPosition></record><record><recordSchema>MARC21-xml</recordSchema><recordPacking>xml</recordPacking><recordData><record xmlns="http://www.loc.gov/MARC21/slim" type="Bibliographic">
+    <leader>00000njm a2200000 c 4500</leader>
+    <controlfield tag="001">1079030085</controlfield>
+    <controlfield tag="003">DE-101</controlfield>
+    <controlfield tag="005">20171202143931.0</controlfield>
+    <controlfield tag="007">s|||||||||||||</controlfield>
+    <controlfield tag="008">151119s2013    gw ||||| |||||||||||zxx  </controlfield>
+    <datafield tag="015" ind1=" " ind2=" ">
+      <subfield code="a">16,T03</subfield>
+      <subfield code="2">dnb</subfield>
+    </datafield>
+    <datafield tag="016" ind1="7" ind2=" ">
+      <subfield code="2">DE-101</subfield>
+      <subfield code="a">1079030085</subfield>
+    </datafield>
+    <datafield tag="028" ind1="3" ind2="2">
+      <subfield code="b">Trapez (LC 00494)</subfield>
+      <subfield code="a">123</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(DE-599)DNB1079030085</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(OCoLC)945573943</subfield>
+    </datafield>
+    <datafield tag="040" ind1=" " ind2=" ">
+      <subfield code="a">1330</subfield>
+      <subfield code="b">ger</subfield>
+      <subfield code="c">DE-101</subfield>
+      <subfield code="d">9999</subfield>
+      <subfield code="e">rda</subfield>
+    </datafield>
+    <datafield tag="041" ind1=" " ind2=" ">
+      <subfield code="a">zxx</subfield>
+    </datafield>
+    <datafield tag="044" ind1=" " ind2=" ">
+      <subfield code="c">XA-DE</subfield>
+    </datafield>
+    <datafield tag="082" ind1="7" ind2="4">
+      <subfield code="a">781.64</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="2">23sdnb</subfield>
+    </datafield>
+    <datafield tag="245" ind1="0" ind2="0">
+      <subfield code="a">Kick the warehouse</subfield>
+      <subfield code="b">EP</subfield>
+      <subfield code="c"> Jose M. &amp; TacoMan ; w &amp; p by Jose Manuel Estrada &amp; Carlos Andres Cardona</subfield>
+    </datafield>
+    <datafield tag="264" ind1=" " ind2="4">
+      <subfield code="c">© 2013</subfield>
+    </datafield>
+    <datafield tag="264" ind1=" " ind2="1">
+      <subfield code="a">[Köln]</subfield>
+      <subfield code="b">Traum Schallplatten</subfield>
+      <subfield code="c">[2013]</subfield>
+    </datafield>
+    <datafield tag="300" ind1=" " ind2=" ">
+      <subfield code="a">1 Schallplatte</subfield>
+    </datafield>
+    <datafield tag="336" ind1=" " ind2=" ">
+      <subfield code="a">aufgeführte Musik</subfield>
+      <subfield code="b">prm</subfield>
+      <subfield code="2">rdacontent</subfield>
+    </datafield>
+    <datafield tag="337" ind1=" " ind2=" ">
+      <subfield code="a">audio</subfield>
+      <subfield code="b">s</subfield>
+      <subfield code="2">rdamedia</subfield>
+    </datafield>
+    <datafield tag="338" ind1=" " ind2=" ">
+      <subfield code="a">Audiodisk</subfield>
+      <subfield code="b">sd</subfield>
+      <subfield code="2">rdacarrier</subfield>
+    </datafield>
+    <datafield tag="655" ind1=" " ind2="7">
+      <subfield code="0">(DE-588)4052032-8</subfield>
+      <subfield code="0">https://d-nb.info/gnd/4052032-8</subfield>
+      <subfield code="0">(DE-101)040520323</subfield>
+      <subfield code="a">Schallplatte</subfield>
+      <subfield code="2">gnd-carrier</subfield>
+    </datafield>
+    <datafield tag="710" ind1="2" ind2=" ">
+      <subfield code="0">(DE-588)1082508098</subfield>
+      <subfield code="0">https://d-nb.info/gnd/1082508098</subfield>
+      <subfield code="0">(DE-101)1082508098</subfield>
+      <subfield code="a">Jose M. &amp; TacoMan</subfield>
+      <subfield code="g">Musikgruppe</subfield>
+      <subfield code="e">Komponist</subfield>
+      <subfield code="4">cmp</subfield>
+      <subfield code="e">Produzent</subfield>
+      <subfield code="4">pro</subfield>
+      <subfield code="e">Ausführender</subfield>
+      <subfield code="4">prf</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="850" ind1=" " ind2=" ">
+      <subfield code="a">DE-101b</subfield>
+      <subfield code="a">DE-101c</subfield>
+    </datafield>
+    <datafield tag="925" ind1="r" ind2=" ">
+      <subfield code="a">rt</subfield>
+    </datafield>
+  </record></recordData><recordPosition>2</recordPosition></record><record><recordSchema>MARC21-xml</recordSchema><recordPacking>xml</recordPacking><recordData><record xmlns="http://www.loc.gov/MARC21/slim" type="Bibliographic">
+    <leader>00000njm a2200000 c 4500</leader>
+    <controlfield tag="001">1120730988</controlfield>
+    <controlfield tag="003">DE-101</controlfield>
+    <controlfield tag="005">20161219233200.0</controlfield>
+    <controlfield tag="007">s|||||||||||||</controlfield>
+    <controlfield tag="008">161202s2012    gw ||||| |||||||||||eng  </controlfield>
+    <datafield tag="015" ind1=" " ind2=" ">
+      <subfield code="a">17,T01</subfield>
+      <subfield code="2">dnb</subfield>
+    </datafield>
+    <datafield tag="016" ind1="7" ind2=" ">
+      <subfield code="2">DE-101</subfield>
+      <subfield code="a">1120730988</subfield>
+    </datafield>
+    <datafield tag="024" ind1="3" ind2=" ">
+      <subfield code="a">4260107841661</subfield>
+    </datafield>
+    <datafield tag="028" ind1="3" ind2="2">
+      <subfield code="b">Nasoni Records (LC 14627)</subfield>
+      <subfield code="a">123</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(DE-599)DNB1120730988</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(OCoLC)969460234</subfield>
+    </datafield>
+    <datafield tag="040" ind1=" " ind2=" ">
+      <subfield code="a">1330</subfield>
+      <subfield code="b">ger</subfield>
+      <subfield code="c">DE-101</subfield>
+      <subfield code="d">9999</subfield>
+      <subfield code="e">rda</subfield>
+    </datafield>
+    <datafield tag="041" ind1=" " ind2=" ">
+      <subfield code="a">eng</subfield>
+    </datafield>
+    <datafield tag="044" ind1=" " ind2=" ">
+      <subfield code="c">XA-DE</subfield>
+    </datafield>
+    <datafield tag="082" ind1="7" ind2="4">
+      <subfield code="a">781.64</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="2">23sdnb</subfield>
+    </datafield>
+    <datafield tag="245" ind1="0" ind2="0">
+      <subfield code="a">Fretboard jungle</subfield>
+      <subfield code="c">Ax Genrich and Band</subfield>
+    </datafield>
+    <datafield tag="264" ind1=" " ind2="4">
+      <subfield code="c">© 2012</subfield>
+    </datafield>
+    <datafield tag="264" ind1=" " ind2="1">
+      <subfield code="a">Berlin</subfield>
+      <subfield code="b">Nasoni Records</subfield>
+      <subfield code="c">[2012]</subfield>
+    </datafield>
+    <datafield tag="300" ind1=" " ind2=" ">
+      <subfield code="a">2 Schallplatten</subfield>
+    </datafield>
+    <datafield tag="336" ind1=" " ind2=" ">
+      <subfield code="a">aufgeführte Musik</subfield>
+      <subfield code="b">prm</subfield>
+      <subfield code="2">rdacontent</subfield>
+    </datafield>
+    <datafield tag="337" ind1=" " ind2=" ">
+      <subfield code="a">audio</subfield>
+      <subfield code="b">s</subfield>
+      <subfield code="2">rdamedia</subfield>
+    </datafield>
+    <datafield tag="338" ind1=" " ind2=" ">
+      <subfield code="a">Audiodisk</subfield>
+      <subfield code="b">sd</subfield>
+      <subfield code="2">rdacarrier</subfield>
+    </datafield>
+    <datafield tag="655" ind1=" " ind2="7">
+      <subfield code="0">(DE-588)4052032-8</subfield>
+      <subfield code="0">https://d-nb.info/gnd/4052032-8</subfield>
+      <subfield code="0">(DE-101)040520323</subfield>
+      <subfield code="a">Schallplatte</subfield>
+      <subfield code="2">gnd-carrier</subfield>
+    </datafield>
+    <datafield tag="710" ind1="2" ind2=" ">
+      <subfield code="0">(DE-588)1122028938</subfield>
+      <subfield code="0">https://d-nb.info/gnd/1122028938</subfield>
+      <subfield code="0">(DE-101)1122028938</subfield>
+      <subfield code="a">Ax Genrich and Band</subfield>
+      <subfield code="e">Sänger</subfield>
+      <subfield code="4">sng</subfield>
+      <subfield code="e">Instrumentalmusiker</subfield>
+      <subfield code="4">itr</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="850" ind1=" " ind2=" ">
+      <subfield code="a">DE-101b</subfield>
+      <subfield code="a">DE-101c</subfield>
+    </datafield>
+    <datafield tag="925" ind1="r" ind2=" ">
+      <subfield code="a">rt</subfield>
+    </datafield>
+  </record></recordData><recordPosition>3</recordPosition></record><record><recordSchema>MARC21-xml</recordSchema><recordPacking>xml</recordPacking><recordData><record xmlns="http://www.loc.gov/MARC21/slim" type="Bibliographic">
+    <leader>00000njm a22000008c 4500</leader>
+    <controlfield tag="001">1015241956</controlfield>
+    <controlfield tag="003">DE-101</controlfield>
+    <controlfield tag="005">20210601115846.0</controlfield>
+    <controlfield tag="007">sd||||||||||||</controlfield>
+    <controlfield tag="008">110915s2011    gw ||||| |||||||||||ger  </controlfield>
+    <datafield tag="016" ind1="7" ind2=" ">
+      <subfield code="2">DE-101</subfield>
+      <subfield code="a">1015241956</subfield>
+    </datafield>
+    <datafield tag="024" ind1="1" ind2=" ">
+      <subfield code="a">807297510911</subfield>
+    </datafield>
+    <datafield tag="028" ind1="3" ind2="2">
+      <subfield code="b">Great Stuff Recordings (LC 09244)</subfield>
+      <subfield code="a">123</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(DE-599)DNB1015241956</subfield>
+    </datafield>
+    <datafield tag="040" ind1=" " ind2=" ">
+      <subfield code="a">1330</subfield>
+      <subfield code="b">ger</subfield>
+      <subfield code="c">DE-101</subfield>
+      <subfield code="d">1140</subfield>
+    </datafield>
+    <datafield tag="041" ind1=" " ind2=" ">
+      <subfield code="a">ger</subfield>
+    </datafield>
+    <datafield tag="044" ind1=" " ind2=" ">
+      <subfield code="c">XA-DE</subfield>
+    </datafield>
+    <datafield tag="082" ind1="7" ind2="4">
+      <subfield code="a">780</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="2">22sdnb</subfield>
+    </datafield>
+    <datafield tag="245" ind1="0" ind2="0">
+      <subfield code="a">Circus rehearsals</subfield>
+    </datafield>
+    <datafield tag="264" ind1=" " ind2="1">
+      <subfield code="a">München</subfield>
+      <subfield code="b">Great Stuff</subfield>
+      <subfield code="c">[2011?]</subfield>
+    </datafield>
+    <datafield tag="300" ind1=" " ind2=" ">
+      <subfield code="a">1 Schallpl.</subfield>
+      <subfield code="c">30 cm</subfield>
+    </datafield>
+    <datafield tag="336" ind1=" " ind2=" ">
+      <subfield code="a">aufgeführte Musik</subfield>
+      <subfield code="b">prm</subfield>
+      <subfield code="2">rdacontent</subfield>
+    </datafield>
+    <datafield tag="337" ind1=" " ind2=" ">
+      <subfield code="a">audio</subfield>
+      <subfield code="b">s</subfield>
+      <subfield code="2">rdamedia</subfield>
+    </datafield>
+    <datafield tag="338" ind1=" " ind2=" ">
+      <subfield code="a">Audiodisk</subfield>
+      <subfield code="b">sd</subfield>
+      <subfield code="2">rdacarrier</subfield>
+    </datafield>
+    <datafield tag="655" ind1=" " ind2="7">
+      <subfield code="0">(DE-588)4052032-8</subfield>
+      <subfield code="0">https://d-nb.info/gnd/4052032-8</subfield>
+      <subfield code="0">(DE-101)040520323</subfield>
+      <subfield code="a">Schallplatte</subfield>
+      <subfield code="2">gnd-carrier</subfield>
+    </datafield>
+    <datafield tag="700" ind1="1" ind2=" ">
+      <subfield code="a">Heartik</subfield>
+      <subfield code="e">Ausführender</subfield>
+      <subfield code="4">prf</subfield>
+    </datafield>
+    <datafield tag="850" ind1=" " ind2=" ">
+      <subfield code="a">DE-101b</subfield>
+      <subfield code="a">DE-101c</subfield>
+    </datafield>
+    <datafield tag="925" ind1="r" ind2=" ">
+      <subfield code="a">rt</subfield>
+    </datafield>
+  </record></recordData><recordPosition>4</recordPosition></record><record><recordSchema>MARC21-xml</recordSchema><recordPacking>xml</recordPacking><recordData><record xmlns="http://www.loc.gov/MARC21/slim" type="Bibliographic">
+    <leader>00000ncm a22000008c 4500</leader>
+    <controlfield tag="001">1051779227</controlfield>
+    <controlfield tag="003">DE-101</controlfield>
+    <controlfield tag="005">20171201221337.0</controlfield>
+    <controlfield tag="007">q|</controlfield>
+    <controlfield tag="008">140602s2010    gw |||||r|||||||||||ger  </controlfield>
+    <datafield tag="016" ind1="7" ind2=" ">
+      <subfield code="2">DE-101</subfield>
+      <subfield code="a">1051779227</subfield>
+    </datafield>
+    <datafield tag="028" ind1="3" ind2="2">
+      <subfield code="a">123 : EUR 35.00</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(DE-599)DNB1051779227</subfield>
+    </datafield>
+    <datafield tag="040" ind1=" " ind2=" ">
+      <subfield code="a">1330</subfield>
+      <subfield code="b">ger</subfield>
+      <subfield code="c">DE-101</subfield>
+      <subfield code="d">9999</subfield>
+    </datafield>
+    <datafield tag="041" ind1=" " ind2=" ">
+      <subfield code="a">ger</subfield>
+    </datafield>
+    <datafield tag="044" ind1=" " ind2=" ">
+      <subfield code="c">XA-DE</subfield>
+    </datafield>
+    <datafield tag="090" ind1=" " ind2=" ">
+      <subfield code="a">b</subfield>
+    </datafield>
+    <datafield tag="100" ind1="1" ind2=" ">
+      <subfield code="a">Peters, Moritz</subfield>
+      <subfield code="e">Komponist</subfield>
+      <subfield code="4">cmp</subfield>
+    </datafield>
+    <datafield tag="245" ind1="1" ind2="0">
+      <subfield code="a">Rosmarie</subfield>
+      <subfield code="b">Polka</subfield>
+    </datafield>
+    <datafield tag="250" ind1=" " ind2=" ">
+      <subfield code="a">[Partitur, Stimmen]</subfield>
+    </datafield>
+    <datafield tag="336" ind1=" " ind2=" ">
+      <subfield code="a">Noten</subfield>
+      <subfield code="b">ntm</subfield>
+      <subfield code="2">rdacontent</subfield>
+    </datafield>
+    <datafield tag="337" ind1=" " ind2=" ">
+      <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+      <subfield code="b">n</subfield>
+      <subfield code="2">rdamedia</subfield>
+    </datafield>
+    <datafield tag="338" ind1=" " ind2=" ">
+      <subfield code="a">Band</subfield>
+      <subfield code="b">nc</subfield>
+      <subfield code="2">rdacarrier</subfield>
+    </datafield>
+    <datafield tag="500" ind1=" " ind2=" ">
+      <subfield code="a">Für Blasorchester.</subfield>
+    </datafield>
+    <datafield tag="700" ind1="1" ind2=" ">
+      <subfield code="a">Wipfler, Gerhard</subfield>
+      <subfield code="e">Komponist</subfield>
+      <subfield code="4">cmp</subfield>
+    </datafield>
+    <datafield tag="700" ind1="1" ind2=" ">
+      <subfield code="a">Gattano, André</subfield>
+      <subfield code="e">Komponist</subfield>
+      <subfield code="4">cmp</subfield>
+    </datafield>
+    <datafield tag="700" ind1="1" ind2=" ">
+      <subfield code="a">Gerstbrein, Franz</subfield>
+      <subfield code="e">Arrangeur</subfield>
+      <subfield code="4">arr</subfield>
+    </datafield>
+    <datafield tag="925" ind1="w" ind2=" ">
+      <subfield code="a">f</subfield>
+    </datafield>
+  </record></recordData><recordPosition>5</recordPosition></record><record><recordSchema>MARC21-xml</recordSchema><recordPacking>xml</recordPacking><recordData><record xmlns="http://www.loc.gov/MARC21/slim" type="Bibliographic">
+    <leader>00000ncm a22000008c 4500</leader>
+    <controlfield tag="001">1026809789</controlfield>
+    <controlfield tag="003">DE-101</controlfield>
+    <controlfield tag="005">20171203044659.0</controlfield>
+    <controlfield tag="007">q|</controlfield>
+    <controlfield tag="008">121012s2009    gw |||||r|||||||||||ger  </controlfield>
+    <datafield tag="016" ind1="7" ind2=" ">
+      <subfield code="2">DE-101</subfield>
+      <subfield code="a">1026809789</subfield>
+    </datafield>
+    <datafield tag="028" ind1="3" ind2="2">
+      <subfield code="a">123 (Pr. nicht mitget.)</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(DE-599)DNB1026809789</subfield>
+    </datafield>
+    <datafield tag="040" ind1=" " ind2=" ">
+      <subfield code="a">1330</subfield>
+      <subfield code="b">ger</subfield>
+      <subfield code="c">DE-101</subfield>
+      <subfield code="d">9999</subfield>
+    </datafield>
+    <datafield tag="041" ind1=" " ind2=" ">
+      <subfield code="a">ger</subfield>
+    </datafield>
+    <datafield tag="044" ind1=" " ind2=" ">
+      <subfield code="c">XA-DE</subfield>
+    </datafield>
+    <datafield tag="090" ind1=" " ind2=" ">
+      <subfield code="a">b</subfield>
+    </datafield>
+    <datafield tag="100" ind1="1" ind2=" ">
+      <subfield code="a">Pfluger, Alexander</subfield>
+      <subfield code="e">Komponist</subfield>
+      <subfield code="4">cmp</subfield>
+    </datafield>
+    <datafield tag="245" ind1="1" ind2="0">
+      <subfield code="a">Egerländer Festtagsmarsch</subfield>
+      <subfield code="b">Konzertmarsch</subfield>
+    </datafield>
+    <datafield tag="250" ind1=" " ind2=" ">
+      <subfield code="a">[Stimmen]</subfield>
+    </datafield>
+    <datafield tag="336" ind1=" " ind2=" ">
+      <subfield code="a">Noten</subfield>
+      <subfield code="b">ntm</subfield>
+      <subfield code="2">rdacontent</subfield>
+    </datafield>
+    <datafield tag="337" ind1=" " ind2=" ">
+      <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+      <subfield code="b">n</subfield>
+      <subfield code="2">rdamedia</subfield>
+    </datafield>
+    <datafield tag="338" ind1=" " ind2=" ">
+      <subfield code="a">Band</subfield>
+      <subfield code="b">nc</subfield>
+      <subfield code="2">rdacarrier</subfield>
+    </datafield>
+    <datafield tag="500" ind1=" " ind2=" ">
+      <subfield code="a">Für Blasorchester.</subfield>
+    </datafield>
+    <datafield tag="925" ind1="w" ind2=" ">
+      <subfield code="a">f</subfield>
+    </datafield>
+  </record></recordData><recordPosition>6</recordPosition></record><record><recordSchema>MARC21-xml</recordSchema><recordPacking>xml</recordPacking><recordData><record xmlns="http://www.loc.gov/MARC21/slim" type="Bibliographic">
+    <leader>00000ncm a22000008c 4500</leader>
+    <controlfield tag="001">98967522X</controlfield>
+    <controlfield tag="003">DE-101</controlfield>
+    <controlfield tag="005">20210531144330.0</controlfield>
+    <controlfield tag="007">q|</controlfield>
+    <controlfield tag="008">080721s2005    gw ||z||r|||||||||||ger  </controlfield>
+    <datafield tag="015" ind1=" " ind2=" ">
+      <subfield code="a">09,M01,0198</subfield>
+      <subfield code="2">dnb</subfield>
+    </datafield>
+    <datafield tag="016" ind1="7" ind2=" ">
+      <subfield code="2">DE-101</subfield>
+      <subfield code="a">98967522X</subfield>
+    </datafield>
+    <datafield tag="028" ind1="3" ind2="2">
+      <subfield code="a">123 (Pr. nicht mitget.)</subfield>
+    </datafield>
+    <datafield tag="028" ind1="3" ind2="2">
+      <subfield code="a">123 (Pr. nicht mitget.)</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(DE-599)DNB98967522X</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(OCoLC)723820790</subfield>
+    </datafield>
+    <datafield tag="040" ind1=" " ind2=" ">
+      <subfield code="a">1330</subfield>
+      <subfield code="b">ger</subfield>
+      <subfield code="c">DE-101</subfield>
+      <subfield code="d">1140</subfield>
+    </datafield>
+    <datafield tag="041" ind1=" " ind2=" ">
+      <subfield code="a">ger</subfield>
+    </datafield>
+    <datafield tag="044" ind1=" " ind2=" ">
+      <subfield code="c">XA-DE</subfield>
+    </datafield>
+    <datafield tag="082" ind1="7" ind2="4">
+      <subfield code="a">785.12</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="2">22sdnb</subfield>
+    </datafield>
+    <datafield tag="100" ind1="1" ind2=" ">
+      <subfield code="0">(DE-588)131798537</subfield>
+      <subfield code="0">https://d-nb.info/gnd/131798537</subfield>
+      <subfield code="0">(DE-101)131798537</subfield>
+      <subfield code="a">Zlatev-Čerkin, Georgi</subfield>
+      <subfield code="d">1905-1977</subfield>
+      <subfield code="e">Komponist</subfield>
+      <subfield code="4">cmp</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="245" ind1="1" ind2="0">
+      <subfield code="a">Altes Lied</subfield>
+      <subfield code="b">für Klarinette und Klavier</subfield>
+      <subfield code="c">Georgi Zlatev Tcherkin</subfield>
+    </datafield>
+    <datafield tag="250" ind1=" " ind2=" ">
+      <subfield code="a">[Klavierpartitur, Stimme]</subfield>
+    </datafield>
+    <datafield tag="259" ind1=" " ind2=" ">
+      <subfield code="a">kls</subfield>
+    </datafield>
+    <datafield tag="264" ind1=" " ind2="1">
+      <subfield code="a">Iffezheim</subfield>
+      <subfield code="b">Eckberg</subfield>
+      <subfield code="c">2005</subfield>
+    </datafield>
+    <datafield tag="300" ind1=" " ind2=" ">
+      <subfield code="a">[2] Bl.</subfield>
+      <subfield code="c">30 cm</subfield>
+      <subfield code="e">1 St.</subfield>
+    </datafield>
+    <datafield tag="336" ind1=" " ind2=" ">
+      <subfield code="a">Noten</subfield>
+      <subfield code="b">ntm</subfield>
+      <subfield code="2">rdacontent</subfield>
+    </datafield>
+    <datafield tag="337" ind1=" " ind2=" ">
+      <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+      <subfield code="b">n</subfield>
+      <subfield code="2">rdamedia</subfield>
+    </datafield>
+    <datafield tag="338" ind1=" " ind2=" ">
+      <subfield code="a">Band</subfield>
+      <subfield code="b">nc</subfield>
+      <subfield code="2">rdacarrier</subfield>
+    </datafield>
+    <datafield tag="348" ind1=" " ind2=" ">
+      <subfield code="0">(DE-588)4173447-6</subfield>
+      <subfield code="0">https://d-nb.info/gnd/4173447-6</subfield>
+      <subfield code="0">(DE-101)041734475</subfield>
+      <subfield code="a">Partitur</subfield>
+      <subfield code="2">gnd-music</subfield>
+    </datafield>
+    <datafield tag="348" ind1=" " ind2=" ">
+      <subfield code="0">(DE-588)1071380443</subfield>
+      <subfield code="0">https://d-nb.info/gnd/1071380443</subfield>
+      <subfield code="0">(DE-101)1071380443</subfield>
+      <subfield code="a">Stimme, Musikalische Ausgabeform</subfield>
+      <subfield code="2">gnd-music</subfield>
+    </datafield>
+    <datafield tag="850" ind1=" " ind2=" ">
+      <subfield code="a">DE-101b</subfield>
+      <subfield code="a">DE-101c</subfield>
+    </datafield>
+    <datafield tag="925" ind1="r" ind2=" ">
+      <subfield code="a">rm</subfield>
+    </datafield>
+  </record></recordData><recordPosition>7</recordPosition></record><record><recordSchema>MARC21-xml</recordSchema><recordPacking>xml</recordPacking><recordData><record xmlns="http://www.loc.gov/MARC21/slim" type="Bibliographic">
+    <leader>00000njm a2200000 c 4500</leader>
+    <controlfield tag="001">359195350</controlfield>
+    <controlfield tag="003">DE-101</controlfield>
+    <controlfield tag="005">20171202085844.0</controlfield>
+    <controlfield tag="007">s|||||||||||||</controlfield>
+    <controlfield tag="008">060703s2005    gw ||||| |||||||||||ger  </controlfield>
+    <datafield tag="015" ind1=" " ind2=" ">
+      <subfield code="a">06,T09,0194</subfield>
+      <subfield code="2">dnb</subfield>
+    </datafield>
+    <datafield tag="016" ind1="7" ind2=" ">
+      <subfield code="2">DE-101</subfield>
+      <subfield code="a">359195350</subfield>
+    </datafield>
+    <datafield tag="028" ind1="3" ind2="2">
+      <subfield code="b">Starkton-Musik (LC 09436)</subfield>
+      <subfield code="a">123</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(DE-599)DNB359195350</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(OCoLC)725330342</subfield>
+    </datafield>
+    <datafield tag="040" ind1=" " ind2=" ">
+      <subfield code="a">1340</subfield>
+      <subfield code="b">ger</subfield>
+      <subfield code="c">DE-101</subfield>
+      <subfield code="d">9999</subfield>
+    </datafield>
+    <datafield tag="041" ind1=" " ind2=" ">
+      <subfield code="a">ger</subfield>
+    </datafield>
+    <datafield tag="044" ind1=" " ind2=" ">
+      <subfield code="c">XA-DE</subfield>
+    </datafield>
+    <datafield tag="082" ind1="7" ind2="4">
+      <subfield code="a">781.64</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="2">22sdnb</subfield>
+    </datafield>
+    <datafield tag="245" ind1="0" ind2="0">
+      <subfield code="a">Cucumber Lounge Orchestra</subfield>
+    </datafield>
+    <datafield tag="264" ind1=" " ind2="1">
+      <subfield code="a">[Münster (Westfalen)]</subfield>
+      <subfield code="b">Starkton-Musik</subfield>
+      <subfield code="c">[2005?]</subfield>
+    </datafield>
+    <datafield tag="300" ind1=" " ind2=" ">
+      <subfield code="a">1 CD</subfield>
+      <subfield code="b">stereo</subfield>
+      <subfield code="c">12 cm</subfield>
+      <subfield code="e">Beil.</subfield>
+    </datafield>
+    <datafield tag="336" ind1=" " ind2=" ">
+      <subfield code="a">aufgeführte Musik</subfield>
+      <subfield code="b">prm</subfield>
+      <subfield code="2">rdacontent</subfield>
+    </datafield>
+    <datafield tag="337" ind1=" " ind2=" ">
+      <subfield code="a">audio</subfield>
+      <subfield code="b">s</subfield>
+      <subfield code="2">rdamedia</subfield>
+    </datafield>
+    <datafield tag="338" ind1=" " ind2=" ">
+      <subfield code="a">Audiodisk</subfield>
+      <subfield code="b">sd</subfield>
+      <subfield code="2">rdacarrier</subfield>
+    </datafield>
+    <datafield tag="505" ind1="8" ind2=" ">
+      <subfield code="a">Cheese in the belly. Overdose of wisdom. Traurig und unwichtig. Glück. Hello skinny. The Allisons shouldn't visit Hjalmar Poelzig.</subfield>
+    </datafield>
+    <datafield tag="655" ind1=" " ind2="7">
+      <subfield code="0">(DE-588)4522869-3</subfield>
+      <subfield code="0">https://d-nb.info/gnd/4522869-3</subfield>
+      <subfield code="0">(DE-101)955174880</subfield>
+      <subfield code="a">CD</subfield>
+      <subfield code="2">gnd-carrier</subfield>
+    </datafield>
+    <datafield tag="710" ind1="2" ind2=" ">
+      <subfield code="0">(DE-588)10330292-X</subfield>
+      <subfield code="0">https://d-nb.info/gnd/10330292-X</subfield>
+      <subfield code="0">(DE-101)320567729</subfield>
+      <subfield code="a">Cucumber Lounge Orchestra</subfield>
+      <subfield code="e">Mitwirkender</subfield>
+      <subfield code="4">ctb</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="850" ind1=" " ind2=" ">
+      <subfield code="a">DE-101b</subfield>
+      <subfield code="a">DE-101c</subfield>
+    </datafield>
+    <datafield tag="925" ind1="r" ind2=" ">
+      <subfield code="a">rt</subfield>
+    </datafield>
+  </record></recordData><recordPosition>8</recordPosition></record><record><recordSchema>MARC21-xml</recordSchema><recordPacking>xml</recordPacking><recordData><record xmlns="http://www.loc.gov/MARC21/slim" type="Bibliographic">
+    <leader>00000njm a2200000 c 4500</leader>
+    <controlfield tag="001">358712521</controlfield>
+    <controlfield tag="003">DE-101</controlfield>
+    <controlfield tag="005">20171202082920.0</controlfield>
+    <controlfield tag="007">s|||||||||||||</controlfield>
+    <controlfield tag="008">040302s2004    gw ||||| |||||||||||ger  </controlfield>
+    <datafield tag="015" ind1=" " ind2=" ">
+      <subfield code="a">04,T05,1066</subfield>
+      <subfield code="2">dnb</subfield>
+    </datafield>
+    <datafield tag="016" ind1="7" ind2=" ">
+      <subfield code="2">DE-101</subfield>
+      <subfield code="a">358712521</subfield>
+    </datafield>
+    <datafield tag="024" ind1="3" ind2=" ">
+      <subfield code="a">4014704001238</subfield>
+    </datafield>
+    <datafield tag="024" ind1="7" ind2=" ">
+      <subfield code="2">urn</subfield>
+      <subfield code="a">urn:nbn:de:101:1-20140608989</subfield>
+    </datafield>
+    <datafield tag="028" ind1="3" ind2="2">
+      <subfield code="b">FMP (LC 04557)</subfield>
+      <subfield code="a">123</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(DE-599)DNB358712521</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(OCoLC)1183574271</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(OCoLC)724874211</subfield>
+    </datafield>
+    <datafield tag="040" ind1=" " ind2=" ">
+      <subfield code="a">1340</subfield>
+      <subfield code="b">ger</subfield>
+      <subfield code="c">DE-101</subfield>
+      <subfield code="d">9999</subfield>
+    </datafield>
+    <datafield tag="041" ind1=" " ind2=" ">
+      <subfield code="a">ger</subfield>
+    </datafield>
+    <datafield tag="044" ind1=" " ind2=" ">
+      <subfield code="c">XA-DE</subfield>
+    </datafield>
+    <datafield tag="082" ind1="7" ind2="4">
+      <subfield code="a">781.65</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="2">22sdnb</subfield>
+    </datafield>
+    <datafield tag="100" ind1="1" ind2=" ">
+      <subfield code="0">(DE-588)119066904</subfield>
+      <subfield code="0">https://d-nb.info/gnd/119066904</subfield>
+      <subfield code="0">(DE-101)119066904</subfield>
+      <subfield code="a">Taylor, Cecil</subfield>
+      <subfield code="d">1929-2018</subfield>
+      <subfield code="e">Komponist</subfield>
+      <subfield code="4">cmp</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="245" ind1="1" ind2="0">
+      <subfield code="a">Incarnation</subfield>
+      <subfield code="c">by Cecil Taylor</subfield>
+    </datafield>
+    <datafield tag="264" ind1=" " ind2="1">
+      <subfield code="a">Borken (Westfalen)</subfield>
+      <subfield code="a">Berlin</subfield>
+      <subfield code="b">FMP Publishing Ostendorf</subfield>
+      <subfield code="c">[2004]</subfield>
+    </datafield>
+    <datafield tag="300" ind1=" " ind2=" ">
+      <subfield code="a">1 Compact Disc</subfield>
+      <subfield code="e">Beih.</subfield>
+    </datafield>
+    <datafield tag="336" ind1=" " ind2=" ">
+      <subfield code="a">aufgeführte Musik</subfield>
+      <subfield code="b">prm</subfield>
+      <subfield code="2">rdacontent</subfield>
+    </datafield>
+    <datafield tag="337" ind1=" " ind2=" ">
+      <subfield code="a">audio</subfield>
+      <subfield code="b">s</subfield>
+      <subfield code="2">rdamedia</subfield>
+    </datafield>
+    <datafield tag="338" ind1=" " ind2=" ">
+      <subfield code="a">Audiodisk</subfield>
+      <subfield code="b">sd</subfield>
+      <subfield code="2">rdacarrier</subfield>
+    </datafield>
+    <datafield tag="500" ind1=" " ind2=" ">
+      <subfield code="a">Interpr.: P 2003.</subfield>
+    </datafield>
+    <datafield tag="505" ind1="8" ind2=" ">
+      <subfield code="a">Focus. Carnation. Cartouche.</subfield>
+    </datafield>
+    <datafield tag="518" ind1=" " ind2=" ">
+      <subfield code="a">Live-Aufn.: 1999.</subfield>
+    </datafield>
+    <datafield tag="583" ind1="1" ind2=" ">
+      <subfield code="a">Archivierung/Langzeitarchivierung gewährleistet</subfield>
+      <subfield code="5">DE-101</subfield>
+      <subfield code="2">pdager</subfield>
+    </datafield>
+    <datafield tag="655" ind1=" " ind2="7">
+      <subfield code="0">(DE-588)4522869-3</subfield>
+      <subfield code="0">https://d-nb.info/gnd/4522869-3</subfield>
+      <subfield code="0">(DE-101)955174880</subfield>
+      <subfield code="a">CD</subfield>
+      <subfield code="2">gnd-carrier</subfield>
+    </datafield>
+    <datafield tag="710" ind1="2" ind2=" ">
+      <subfield code="0">(DE-588)5209707-9</subfield>
+      <subfield code="0">https://d-nb.info/gnd/5209707-9</subfield>
+      <subfield code="0">(DE-101)951077775</subfield>
+      <subfield code="a">Cecil Taylor Quartet</subfield>
+      <subfield code="e">Ausführender</subfield>
+      <subfield code="4">prf</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="850" ind1=" " ind2=" ">
+      <subfield code="a">DE-101b</subfield>
+      <subfield code="a">DE-101c</subfield>
+    </datafield>
+    <datafield tag="856" ind1="4" ind2="0">
+      <subfield code="u">https://nbn-resolving.org/urn:nbn:de:101:1-20140608989</subfield>
+      <subfield code="x">Resolving-System</subfield>
+    </datafield>
+    <datafield tag="925" ind1="r" ind2=" ">
+      <subfield code="a">rt</subfield>
+    </datafield>
+  </record></recordData><recordPosition>9</recordPosition></record><record><recordSchema>MARC21-xml</recordSchema><recordPacking>xml</recordPacking><recordData><record xmlns="http://www.loc.gov/MARC21/slim" type="Bibliographic">
+    <leader>00000njm a2200000 c 4500</leader>
+    <controlfield tag="001">359242960</controlfield>
+    <controlfield tag="003">DE-101</controlfield>
+    <controlfield tag="005">20171202090146.0</controlfield>
+    <controlfield tag="007">s|||||||||||||</controlfield>
+    <controlfield tag="008">060915s2003    gw ||||| |||||||||||ger  </controlfield>
+    <datafield tag="015" ind1=" " ind2=" ">
+      <subfield code="a">06,T11,0793</subfield>
+      <subfield code="2">dnb</subfield>
+    </datafield>
+    <datafield tag="016" ind1="7" ind2=" ">
+      <subfield code="2">DE-101</subfield>
+      <subfield code="a">359242960</subfield>
+    </datafield>
+    <datafield tag="024" ind1="3" ind2=" ">
+      <subfield code="a">4009850012306</subfield>
+    </datafield>
+    <datafield tag="024" ind1="7" ind2=" ">
+      <subfield code="2">urn</subfield>
+      <subfield code="a">urn:nbn:de:101:1-201409065949</subfield>
+    </datafield>
+    <datafield tag="028" ind1="3" ind2="2">
+      <subfield code="b">Tacet (LC 07033)</subfield>
+      <subfield code="a">123</subfield>
+    </datafield>
+    <datafield tag="028" ind1="3" ind2="2">
+      <subfield code="b">TACET</subfield>
+      <subfield code="a">123</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(DE-599)DNB359242960</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(OCoLC)1183775914</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(OCoLC)163166485</subfield>
+    </datafield>
+    <datafield tag="040" ind1=" " ind2=" ">
+      <subfield code="a">1340</subfield>
+      <subfield code="b">ger</subfield>
+      <subfield code="c">DE-101</subfield>
+      <subfield code="d">9999</subfield>
+    </datafield>
+    <datafield tag="041" ind1=" " ind2=" ">
+      <subfield code="a">ger</subfield>
+    </datafield>
+    <datafield tag="044" ind1=" " ind2=" ">
+      <subfield code="c">XA-DE</subfield>
+    </datafield>
+    <datafield tag="082" ind1="7" ind2="4">
+      <subfield code="a">782.5</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="2">22sdnb</subfield>
+    </datafield>
+    <datafield tag="100" ind1="1" ind2=" ">
+      <subfield code="0">(DE-588)118739921</subfield>
+      <subfield code="0">https://d-nb.info/gnd/118739921</subfield>
+      <subfield code="0">(DE-101)118739921</subfield>
+      <subfield code="a">Pepping, Ernst</subfield>
+      <subfield code="d">1901-1981</subfield>
+      <subfield code="e">Komponist</subfield>
+      <subfield code="4">cmp</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="240" ind1="1" ind2="0">
+      <subfield code="0">(DE-588)300844239</subfield>
+      <subfield code="0">https://d-nb.info/gnd/300844239</subfield>
+      <subfield code="0">(DE-101)300844239</subfield>
+      <subfield code="a">Heut' und ewig</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="245" ind1="1" ind2="0">
+      <subfield code="a">Heut und ewig</subfield>
+      <subfield code="b">Liederkreis für Chor nach Gedichten von Goethe</subfield>
+      <subfield code="c">Ernst Pepping</subfield>
+    </datafield>
+    <datafield tag="264" ind1=" " ind2="1">
+      <subfield code="a">[Stuttgart]</subfield>
+      <subfield code="b">Tacet</subfield>
+      <subfield code="c">P 2003</subfield>
+    </datafield>
+    <datafield tag="300" ind1=" " ind2=" ">
+      <subfield code="a">1 CD</subfield>
+      <subfield code="c">12 cm</subfield>
+      <subfield code="e">Beih.</subfield>
+    </datafield>
+    <datafield tag="336" ind1=" " ind2=" ">
+      <subfield code="a">aufgeführte Musik</subfield>
+      <subfield code="b">prm</subfield>
+      <subfield code="2">rdacontent</subfield>
+    </datafield>
+    <datafield tag="337" ind1=" " ind2=" ">
+      <subfield code="a">audio</subfield>
+      <subfield code="b">s</subfield>
+      <subfield code="2">rdamedia</subfield>
+    </datafield>
+    <datafield tag="338" ind1=" " ind2=" ">
+      <subfield code="a">Audiodisk</subfield>
+      <subfield code="b">sd</subfield>
+      <subfield code="2">rdacarrier</subfield>
+    </datafield>
+    <datafield tag="500" ind1=" " ind2=" ">
+      <subfield code="a">Interpr.: Sächsisches Vocalensemble. Matthias Jung, Leitung.</subfield>
+    </datafield>
+    <datafield tag="518" ind1=" " ind2=" ">
+      <subfield code="a">Aufn.: Crostau, Ev. Kirche, 2002.</subfield>
+    </datafield>
+    <datafield tag="583" ind1="1" ind2=" ">
+      <subfield code="a">Archivierung/Langzeitarchivierung gewährleistet</subfield>
+      <subfield code="5">DE-101</subfield>
+      <subfield code="2">pdager</subfield>
+    </datafield>
+    <datafield tag="655" ind1=" " ind2="7">
+      <subfield code="0">(DE-588)4522869-3</subfield>
+      <subfield code="0">https://d-nb.info/gnd/4522869-3</subfield>
+      <subfield code="0">(DE-101)955174880</subfield>
+      <subfield code="a">CD</subfield>
+      <subfield code="2">gnd-carrier</subfield>
+    </datafield>
+    <datafield tag="700" ind1="1" ind2=" ">
+      <subfield code="0">(DE-588)118540238</subfield>
+      <subfield code="0">https://d-nb.info/gnd/118540238</subfield>
+      <subfield code="0">(DE-101)118540238</subfield>
+      <subfield code="a">Goethe, Johann Wolfgang &#152;von&#156;</subfield>
+      <subfield code="d">1749-1832</subfield>
+      <subfield code="e">Verfasser</subfield>
+      <subfield code="4">aut</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="700" ind1="1" ind2=" ">
+      <subfield code="0">(DE-588)123778239</subfield>
+      <subfield code="0">https://d-nb.info/gnd/123778239</subfield>
+      <subfield code="0">(DE-101)123778239</subfield>
+      <subfield code="a">Jung, Matthias</subfield>
+      <subfield code="d">1964-</subfield>
+      <subfield code="e">Dirigent</subfield>
+      <subfield code="4">cnd</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="710" ind1="2" ind2=" ">
+      <subfield code="0">(DE-588)5516055-4</subfield>
+      <subfield code="0">https://d-nb.info/gnd/5516055-4</subfield>
+      <subfield code="0">(DE-101)961339039</subfield>
+      <subfield code="a">Sächsisches Vocalensemble</subfield>
+      <subfield code="e">Ausführender</subfield>
+      <subfield code="4">prf</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="850" ind1=" " ind2=" ">
+      <subfield code="a">DE-101b</subfield>
+      <subfield code="a">DE-101c</subfield>
+    </datafield>
+    <datafield tag="856" ind1="4" ind2="0">
+      <subfield code="u">https://nbn-resolving.org/urn:nbn:de:101:1-201409065949</subfield>
+      <subfield code="x">Resolving-System</subfield>
+    </datafield>
+    <datafield tag="925" ind1="r" ind2=" ">
+      <subfield code="a">rt</subfield>
+    </datafield>
+  </record></recordData><recordPosition>10</recordPosition></record></records><nextRecordPosition>11</nextRecordPosition><echoedSearchRetrieveRequest><version>1.1</version><query>dc.identifier all 123</query><xQuery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/><startRecord>1</startRecord><maximumRecords>10</maximumRecords><recordSchema>MARC21-xml</recordSchema></echoedSearchRetrieveRequest></searchRetrieveResponse>

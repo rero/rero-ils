@@ -1,0 +1,943 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/">
+  <version>1.2</version>
+  <numberOfRecords>11006</numberOfRecords>
+  <records>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>00708nam  2200217u  4500</leader>
+          <controlfield tag="001">9917215510101471</controlfield>
+          <controlfield tag="005">20210315145337.0</controlfield>
+          <controlfield tag="008">960425s1996    xx |||| |     000|0 dut c</controlfield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(BeLVLBS)001721551LBS01-Aleph</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">6457105</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">BeLVLBS</subfield>
+            <subfield code="b">Language of cataloging varies</subfield>
+            <subfield code="e">rda based</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="245">
+            <subfield code="a">1,1-Dichloro-2,2,2-Trifluoroethane (HCFC-123)</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="260">
+            <subfield code="a">Brussels</subfield>
+            <subfield code="b">European centre for ecotoxicology and toxicology of chemicals</subfield>
+            <subfield code="c">1996</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">55 p.: ill.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">unmediated</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">volume</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="490">
+            <subfield code="a">ECETOC. JACC report</subfield>
+            <subfield code="v">33</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="500">
+            <subfield code="a">CAS No. 306-83-2</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="500">
+            <subfield code="a">February 1996</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="998">
+            <subfield code="a">LBS01</subfield>
+            <subfield code="b">bib_200501.mrc.2.ar</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>9917215510101471</recordIdentifier>
+      <recordPosition>1</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>00676nam  2200205u  4500</leader>
+          <controlfield tag="001">9917888000101471</controlfield>
+          <controlfield tag="005">20210315143650.0</controlfield>
+          <controlfield tag="008">961205s1990    xx |||| |     000|0 eng c</controlfield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(BeLVLBS)001788800LBS01-Aleph</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">6784825</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">BeLVLBS</subfield>
+            <subfield code="b">Language of cataloging varies</subfield>
+            <subfield code="e">rda based</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="245">
+            <subfield code="a">1,1-dichloro-2,2,2-trifluoroethane (HFA-123)</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="260">
+            <subfield code="a">Brussels</subfield>
+            <subfield code="b">European centre for ecotoxicology and toxicology of chemicals</subfield>
+            <subfield code="c">1990</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">25 p.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">unmediated</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">volume</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="490">
+            <subfield code="a">ECETOC. JACC report</subfield>
+            <subfield code="v">13</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="500">
+            <subfield code="a">CAS Reg. no. 306-83-2</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="998">
+            <subfield code="a">LBS01</subfield>
+            <subfield code="b">bib_200501.mrc.2.ar</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>9917888000101471</recordIdentifier>
+      <recordPosition>2</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>00748naa  2200241u  4500</leader>
+          <controlfield tag="001">9987352450101471</controlfield>
+          <controlfield tag="005">20120828144120.0</controlfield>
+          <controlfield tag="008">120821s2007    xx |||| |     000|0 dut c</controlfield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(BeLVLBS)008735245LBS01-Aleph</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">KHLART110909</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">BeLVLBS</subfield>
+            <subfield code="b">Language of cataloging varies</subfield>
+            <subfield code="e">rda based</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="245">
+            <subfield code="a">1,2,3,. ....</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">unmediated</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">volume</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="6" tag="653">
+            <subfield code="a">Articles</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">UCLL</subfield>
+            <subfield code="a">Wiskundige initiatie: getallen</subfield>
+            <subfield code="e">VT</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Annette</subfield>
+            <subfield code="4">ill</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="773">
+            <subfield code="g">Jrg. 2007, nr. 8 (april 2007) ; p. 14</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="8" tag="773">
+            <subfield code="w">(BeLVLBS)001055162LBS01-Aleph</subfield>
+            <subfield code="t">Doremi.</subfield>
+            <subfield code="4">773</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="8" tag="773">
+            <subfield code="w">(BeLVLBS)001055162LBS01-Aleph</subfield>
+            <subfield code="g">no:host</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="900">
+            <subfield code="a">TO BE EXAMINED 05</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="996">
+            <subfield code="a">KHLCH</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>9987352450101471</recordIdentifier>
+      <recordPosition>3</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>00961nam a2200301 u 4500</leader>
+          <controlfield tag="001">9983473320101471</controlfield>
+          <controlfield tag="005">20210317094124.0</controlfield>
+          <controlfield tag="008">100326s2011    be            000 0 dut c</controlfield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">978-90-317-3361-3</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(BeLVLBS)008347332LBS01-Aleph</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">BeLVLBS</subfield>
+            <subfield code="b">Language of cataloging varies</subfield>
+            <subfield code="e">rda based</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="245">
+            <subfield code="a">1-2-3 aankleedboek</subfield>
+            <subfield code="b">doe- en voelboek in 3 delen.</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="1" tag="246">
+            <subfield code="a">1-2-3 aankleedboek</subfield>
+            <subfield code="b">doeboek en voelboek in 3 delen</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="260">
+            <subfield code="a">Averbode</subfield>
+            <subfield code="b">Averbode</subfield>
+            <subfield code="c">2011</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">Ca. 20 p.</subfield>
+            <subfield code="b">ill.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">unmediated</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">volume</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="490">
+            <subfield code="a">Nellie &amp; Cezar</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="500">
+            <subfield code="a">Flapjesboek</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="521">
+            <subfield code="a">KO</subfield>
+            <subfield code="b">1-2-3</subfield>
+          </datafield>
+          <datafield ind1="4" ind2=" " tag="521">
+            <subfield code="a">Peuters</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">KADOC</subfield>
+            <subfield code="a">C3</subfield>
+            <subfield code="x">Kunst en cultuur</subfield>
+            <subfield code="6">(ODIS-HT)</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">KADOC</subfield>
+            <subfield code="a">kinderliteratuur</subfield>
+            <subfield code="6">(ODIS-TW)1051</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Godon, Ingrid</subfield>
+            <subfield code="4">ill</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Schutjes, Elena.</subfield>
+            <subfield code="4">ccp</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Jansen, Charlotte.</subfield>
+            <subfield code="4">dsr</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="951">
+            <subfield code="a">Kinderboeken fictie</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>9983473320101471</recordIdentifier>
+      <recordPosition>4</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>00907nam  2200277u  4500</leader>
+          <controlfield tag="001">9986074890101471</controlfield>
+          <controlfield tag="005">20210221223144.0</controlfield>
+          <controlfield tag="008">120821s2006    xx |||| |m    000|0 dut c</controlfield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(BeLVLBS)008607489LBS01-Aleph</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">KHL183248</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">BeLVLBS</subfield>
+            <subfield code="b">Language of cataloging varies</subfield>
+            <subfield code="e">rda based</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="245">
+            <subfield code="a">1,2,3?</subfield>
+            <subfield code="b">ACTIE : De impact van interculturele uitwisselingen op jongeren</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="260">
+            <subfield code="a">Heverlee :</subfield>
+            <subfield code="b">Sociale School Heverlee</subfield>
+            <subfield code="c">2006</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">93 p.</subfield>
+            <subfield code="c">30 cm</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">unmediated</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">volume</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="502">
+            <subfield code="a">Afstudeeroptie: SCW SSH 2006</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="502">
+            <subfield code="a">voldoening</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="6" tag="653">
+            <subfield code="a">Theses</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">UCLL</subfield>
+            <subfield code="a">jeugdwerk</subfield>
+            <subfield code="x">362.8</subfield>
+            <subfield code="e">TSS</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">UCLL</subfield>
+            <subfield code="a">vrijwilligerswerk</subfield>
+            <subfield code="x">367</subfield>
+            <subfield code="e">TSS</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">UCLL</subfield>
+            <subfield code="a">mondiale vorming</subfield>
+            <subfield code="x">374</subfield>
+            <subfield code="e">TSS</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">UCLL</subfield>
+            <subfield code="a">Bouworde, Leuven</subfield>
+            <subfield code="e">TSS</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Ravoet, Carmen</subfield>
+            <subfield code="4">aut</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="900">
+            <subfield code="a">TO BE EXAMINED 04</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>9986074890101471</recordIdentifier>
+      <recordPosition>5</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>00851nam  2200253u  4500</leader>
+          <controlfield tag="001">995862120101471</controlfield>
+          <controlfield tag="005">20210317015128.0</controlfield>
+          <controlfield tag="008">850320s1956    xx |||| |     000|0 eng c</controlfield>
+          <datafield ind1=" " ind2=" " tag="010">
+            <subfield code="a">56-10821</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(BeLVLBS)000586212LBS01-Aleph</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">1383278</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">BeLVLBS</subfield>
+            <subfield code="b">Language of cataloging varies</subfield>
+            <subfield code="e">rda based</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="4" tag="245">
+            <subfield code="a">The 1,2,3- and 1,2,4-triazines, tetrazines and pentazines</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="260">
+            <subfield code="a">New York (N.Y.):</subfield>
+            <subfield code="b">Interscience</subfield>
+            <subfield code="c">1956</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">XI, 261 p.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">unmediated</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">volume</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="490">
+            <subfield code="a">The chemistry of heterocyclic compounds</subfield>
+            <subfield code="v">10</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">UDC</subfield>
+            <subfield code="a">547.85</subfield>
+            <subfield code="z">Azines in general. Pyridazine and pyrimidine group</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Erickson, John G.</subfield>
+            <subfield code="4">aut</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Wiley, Paul F.</subfield>
+            <subfield code="4">aut</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Wystrach, V. P.</subfield>
+            <subfield code="4">aut</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="998">
+            <subfield code="a">LBS01</subfield>
+            <subfield code="b">bib_200501.mrc.2.af</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>995862120101471</recordIdentifier>
+      <recordPosition>6</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>01469nam a2200457 a 4500</leader>
+          <controlfield tag="001">9983908000101471</controlfield>
+          <controlfield tag="005">20150625113651.0</controlfield>
+          <controlfield tag="008">120119s2011    be            000 0 dut d</controlfield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">9789059084063</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(BeLVLBS)008390800LBS01-Aleph</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="245">
+            <subfield code="a">1-2-3 ... Bijna!</subfield>
+            <subfield code="b">Doe-versjes en -liedjes voor kleuters.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="260">
+            <subfield code="a">Leuven</subfield>
+            <subfield code="b">Davidsfonds/Infodok,</subfield>
+            <subfield code="c">2011.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">47 p.</subfield>
+            <subfield code="b">ill.</subfield>
+            <subfield code="e">cd</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">unmediated</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">volume</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="505">
+            <subfield code="a">(W)onderbroekjes aan de wasdraad</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="505">
+            <subfield code="a">De pianomuis</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="505">
+            <subfield code="a">Alles</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="505">
+            <subfield code="a">Tandpoetspasta</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="505">
+            <subfield code="a">Knopen knopen</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="505">
+            <subfield code="a">Is wit een kleur?</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="505">
+            <subfield code="a">De teddypeer</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="505">
+            <subfield code="a">Dat kan tellen</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="505">
+            <subfield code="a">De dommedaris</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="505">
+            <subfield code="a">Links/rechts</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="505">
+            <subfield code="a">2 handen met 10 vingers</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="505">
+            <subfield code="a">Wiegeliedje voor Jelle</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="6" tag="653">
+            <subfield code="a">Contains audio-visual material</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">KAHO</subfield>
+            <subfield code="a">830.1 ) Nederlandse gedichten</subfield>
+            <subfield code="e">rubriek</subfield>
+            <subfield code="4">KHAAL</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">KAHO</subfield>
+            <subfield code="a">doe-versjes</subfield>
+            <subfield code="4">KHAAL</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">KAHO</subfield>
+            <subfield code="a">doe-liedjes</subfield>
+            <subfield code="4">KHAAL</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">KAHO</subfield>
+            <subfield code="a">kleuters</subfield>
+            <subfield code="e">trefwoord</subfield>
+            <subfield code="4">KHAAL</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">KAHO</subfield>
+            <subfield code="a">kinderpoëzie</subfield>
+            <subfield code="e">trefwoord</subfield>
+            <subfield code="4">KHAAL</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">KAHO</subfield>
+            <subfield code="a">gedichten</subfield>
+            <subfield code="e">trefwoord</subfield>
+            <subfield code="4">KHAAL</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">KAHO</subfield>
+            <subfield code="a">liedjes</subfield>
+            <subfield code="e">trefwoord</subfield>
+            <subfield code="4">KHAAL</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">KAHO</subfield>
+            <subfield code="a">vaardigheden</subfield>
+            <subfield code="e">trefwoord</subfield>
+            <subfield code="4">KHAAL</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">KHK</subfield>
+            <subfield code="a">Versjes 3+</subfield>
+            <subfield code="4">KHKV</subfield>
+            <subfield code="9">VTR</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Jacobs, Karin</subfield>
+            <subfield code="4">aut</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Cleymans, Jelle</subfield>
+            <subfield code="4">mus</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Steeman, Frow</subfield>
+            <subfield code="4">ill</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>9983908000101471</recordIdentifier>
+      <recordPosition>7</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>00920nam a2200277 u 4500</leader>
+          <controlfield tag="001">9988227420101471</controlfield>
+          <controlfield tag="005">20210316165925.0</controlfield>
+          <controlfield tag="008">121022s2011    be      |     000 0 dut c</controlfield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">978-90-5908-406-3</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(BeLVLBS)008822742LBS01-Aleph</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">BeLVLBS</subfield>
+            <subfield code="b">Language of cataloging varies</subfield>
+            <subfield code="e">rda based</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="245">
+            <subfield code="a">1-2-3... bijna!</subfield>
+            <subfield code="b">doe-versjes en -liedjes voor kleuters.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="260">
+            <subfield code="a">Leuven</subfield>
+            <subfield code="b">Davidsfonds/Infodok</subfield>
+            <subfield code="c">2011</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">47 p.</subfield>
+            <subfield code="b">ill.</subfield>
+            <subfield code="e">CD</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">unmediated</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">volume</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">KADOC</subfield>
+            <subfield code="a">C3</subfield>
+            <subfield code="x">Kunst en cultuur</subfield>
+            <subfield code="6">(ODIS-HT)</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">KADOC</subfield>
+            <subfield code="a">kinderliteratuur</subfield>
+            <subfield code="6">(ODIS-TW)1051</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">KADOC</subfield>
+            <subfield code="a">kleuters (x)</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">KADOC</subfield>
+            <subfield code="a">liedboek</subfield>
+            <subfield code="6">(ODIS-GEN)</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">KADOC</subfield>
+            <subfield code="a">poëzie</subfield>
+            <subfield code="6">(ODIS-TW)1607</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Jacobs, Karin</subfield>
+            <subfield code="4">aut</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Cleymans, Jelle</subfield>
+            <subfield code="4">aut</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Steeman, Frow</subfield>
+            <subfield code="4">ill</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Luijten, Bart</subfield>
+            <subfield code="4">dsr</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>9988227420101471</recordIdentifier>
+      <recordPosition>8</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>03268nam a2200421 u 4500</leader>
+          <controlfield tag="001">9991738760101471</controlfield>
+          <controlfield tag="005">20210221224222.0</controlfield>
+          <controlfield tag="008">140411s2011    be      om          dut c</controlfield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(BeLVLBS)009173876LBS01-Aleph</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">ETD-TM/FiSeff8080812ce0163b012d139dfcc1003e</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="037">
+            <subfield code="b">DoKS</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">BeLVLBS</subfield>
+            <subfield code="b">Language of cataloging varies</subfield>
+            <subfield code="e">rda based</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="245">
+            <subfield code="a">1, 2, 3 Blub!</subfield>
+            <subfield code="b">Getalbegrip stimuleren: een zintuiglijke aanpak binnen het thema onderwaterwereld voor vier- en vijfjarigen</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="260">
+            <subfield code="a">Vorselaar</subfield>
+            <subfield code="b">Katholieke Hogeschool Kempen</subfield>
+            <subfield code="c">2011</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">3 bestanden</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">computer</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">online resource</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="340">
+            <subfield code="a">Online</subfield>
+          </datafield>
+          <datafield ind1="3" ind2=" " tag="520">
+            <subfield code="a">Wij hebben een project uitgewerkt waarbij de focus ligt op het zintuiglijk omgaan met getallen. Voor het theoretisch gedeelte zijn we gaan grasduinen in boeken en artikels. In het begin hebben we onderzocht wat getalbegrip bij kleuters precies is. Een kind bezit getalbegrip als het alle rekenvoorwaarden kent. Deze rekenvoorwaarden zijn: inzicht in seriëren, classificeren, één- één relatie, conservatie en tellen. We stelden ons de vraag wat getallen nu net zijn. Een getal is een abstract begrip dat in het hoofd van de mens zit, het gemeenschappelijke aan groepjes van evenveel. Getallen kan je concreet voorstellen en op deze manier kunnen kinderen hoeveelheden op een zintuiglijke manier ervaren. Volgens Piaget ontstaat het denkproces bij kinderen door omgaan met de dingen en niet enkel door waarnemen en aanhoren van talige informatie. In de uitwerking van 1,2,3 Blub! willen we de zintuigen optimaal inzetten en proberen we tegemoet te komen aan individuele verschillen in het leren van kleuters. Wij vonden onze inspiratie bij Henk Witteman en Kolb. Henk Witteman heeft volgende perceptuele stijlen beschreven namelijk: de visuele, auditieve, kinetische en olfactorische. Kolb heeft het over vier leerstijlen namelijk doener, dromer, denker en beslisser. Wij kozen voor de doener en de dromer omdat deze twee leerstijlen het beste aansluiten in de kleuterklas. De categorieën zien/horen/voelen en dromen/doen met getallen vormden het uitgangspunt om gevarieerde praktijkideeën voor getalbegrip te ontwerpen binnen het thema onderwaterwereld voor vier- en vijfjarigen. In het eindwerk vind je lesfiches terug waarin deze praktijkideeën uitgewerkt zijn.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="502">
+            <subfield code="a">Bachelor in onderwijs: kleuteronderwijs</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="6" tag="653">
+            <subfield code="a">Theses</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Sas, Evy</subfield>
+            <subfield code="4">aut</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Nietvelt, Carolien</subfield>
+            <subfield code="4">aut</subfield>
+          </datafield>
+          <datafield ind1="2" ind2=" " tag="710">
+            <subfield code="a">Katholieke Hogeschool Kempen. Departement Lerarenopleiding Vorselaar</subfield>
+            <subfield code="4">dgg</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="900">
+            <subfield code="a">NO SFX LINK</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="992">
+            <subfield code="a">Type:</subfield>
+            <subfield code="b">Electronic Thesis or Dissertation</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="992">
+            <subfield code="a">Status:</subfield>
+            <subfield code="b">PUBLISHED</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="992">
+            <subfield code="a">Interne begeleider:</subfield>
+            <subfield code="b">Astrid Cornelis</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="992">
+            <subfield code="a">Externe begeleider:</subfield>
+            <subfield code="b">Mieke Thijs, Mandy Hendrickx, An Lemmens en Kristel Engelen</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="992">
+            <subfield code="a">Eindwerknummer:</subfield>
+            <subfield code="b">201110007</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="992">
+            <subfield code="a">Studie code:</subfield>
+            <subfield code="b">DBAKO</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="992">
+            <subfield code="a">Embargo:</subfield>
+            <subfield code="b">false</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="992">
+            <subfield code="a">DoKS embargo:</subfield>
+            <subfield code="b">No embargo</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="992">
+            <subfield code="a">Auteursovereenkomst:</subfield>
+            <subfield code="b">ACCEPTED</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="992">
+            <subfield code="a">Stageplaats:</subfield>
+            <subfield code="b">Sint-Pietersinstituut Zevendonk en Sint-Pietersinstituut Turnhout</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="992">
+            <subfield code="a">Studentennummers:</subfield>
+            <subfield code="b">s5055541 s5054412</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="994">
+            <subfield code="a">EKHK</subfield>
+            <subfield code="e">201404</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>9991738760101471</recordIdentifier>
+      <recordPosition>9</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>03247nam a2200373 u 4500</leader>
+          <controlfield tag="001">9991782790101471</controlfield>
+          <controlfield tag="005">20210316180104.0</controlfield>
+          <controlfield tag="008">140502s2011    be       m          dut c</controlfield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(BeLVLBS)009178279LBS01-Aleph</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">DoKS-TM/FiSeff8080812ce0163b012d139dfcc1003e</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">BeLVLBS</subfield>
+            <subfield code="b">Language of cataloging varies</subfield>
+            <subfield code="e">rda based</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="245">
+            <subfield code="a">1, 2, 3 Blub!</subfield>
+            <subfield code="b">Getalbegrip stimuleren: een zintuiglijke aanpak binnen het thema onderwaterwereld voor vier- en vijfjarigen</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="260">
+            <subfield code="a">Vorselaar</subfield>
+            <subfield code="b">Katholieke Hogeschool Kempen</subfield>
+            <subfield code="c">2011</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">unmediated</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">volume</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1="3" ind2=" " tag="520">
+            <subfield code="a">Wij hebben een project uitgewerkt waarbij de focus ligt op het zintuiglijk omgaan met getallen. Voor het theoretisch gedeelte zijn we gaan grasduinen in boeken en artikels. In het begin hebben we onderzocht wat getalbegrip bij kleuters precies is. Een kind bezit getalbegrip als het alle rekenvoorwaarden kent. Deze rekenvoorwaarden zijn: inzicht in seriëren, classificeren, één- één relatie, conservatie en tellen. We stelden ons de vraag wat getallen nu net zijn. Een getal is een abstract begrip dat in het hoofd van de mens zit, het gemeenschappelijke aan groepjes van evenveel. Getallen kan je concreet voorstellen en op deze manier kunnen kinderen hoeveelheden op een zintuiglijke manier ervaren. Volgens Piaget ontstaat het denkproces bij kinderen door omgaan met de dingen en niet enkel door waarnemen en aanhoren van talige informatie. In de uitwerking van 1,2,3 Blub! willen we de zintuigen optimaal inzetten en proberen we tegemoet te komen aan individuele verschillen in het leren van kleuters. Wij vonden onze inspiratie bij Henk Witteman en Kolb. Henk Witteman heeft volgende perceptuele stijlen beschreven namelijk: de visuele, auditieve, kinetische en olfactorische. Kolb heeft het over vier leerstijlen namelijk doener, dromer, denker en beslisser. Wij kozen voor de doener en de dromer omdat deze twee leerstijlen het beste aansluiten in de kleuterklas. De categorieën zien/horen/voelen en dromen/doen met getallen vormden het uitgangspunt om gevarieerde praktijkideeën voor getalbegrip te ontwerpen binnen het thema onderwaterwereld voor vier- en vijfjarigen. In het eindwerk vind je lesfiches terug waarin deze praktijkideeën uitgewerkt zijn.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="502">
+            <subfield code="a">Bachelor in onderwijs: kleuteronderwijs</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="6" tag="653">
+            <subfield code="a">Theses</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Sas, Evy</subfield>
+            <subfield code="4">aut</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Nietvelt, Carolien</subfield>
+            <subfield code="4">aut</subfield>
+          </datafield>
+          <datafield ind1="2" ind2=" " tag="710">
+            <subfield code="a">Katholieke Hogeschool Kempen. Departement Lerarenopleiding Vorselaar</subfield>
+            <subfield code="4">dgg</subfield>
+          </datafield>
+          <datafield ind1="4" ind2="0" tag="856">
+            <subfield code="u">http://resolver.lias.be/get_pid?view&amp;usagetype=VIEW_MAIN,VIEW&amp;pid=2199665</subfield>
+            <subfield code="y">Online version in LIAS</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="992">
+            <subfield code="a">Type:</subfield>
+            <subfield code="b">Electronic Thesis or Dissertation</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="992">
+            <subfield code="a">Status:</subfield>
+            <subfield code="b">PUBLISHED</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="992">
+            <subfield code="a">Interne begeleider:</subfield>
+            <subfield code="b">Astrid Cornelis</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="992">
+            <subfield code="a">Externe begeleider:</subfield>
+            <subfield code="b">Mieke Thijs, Mandy Hendrickx, An Lemmens en Kristel Engelen</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="992">
+            <subfield code="a">Eindwerknummer:</subfield>
+            <subfield code="b">201110007</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="992">
+            <subfield code="a">Studie code:</subfield>
+            <subfield code="b">DBAKO</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="992">
+            <subfield code="a">Embargo:</subfield>
+            <subfield code="b">false</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="992">
+            <subfield code="a">DoKS embargo:</subfield>
+            <subfield code="b">No embargo</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="992">
+            <subfield code="a">Auteursovereenkomst:</subfield>
+            <subfield code="b">ACCEPTED</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="992">
+            <subfield code="a">Stageplaats:</subfield>
+            <subfield code="b">Sint-Pietersinstituut Zevendonk en Sint-Pietersinstituut Turnhout</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="992">
+            <subfield code="a">Studentennummers:</subfield>
+            <subfield code="b">s5055541 s5054412</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>9991782790101471</recordIdentifier>
+      <recordPosition>10</recordPosition>
+    </record>
+  </records>
+  <nextRecordPosition>11</nextRecordPosition>
+  <extraResponseData xmlns:xb="http://www.exlibris.com/repository/search/xmlbeans/">
+    <xb:exact>true</xb:exact>
+    <xb:responseDate>2021-10-06T14:18:10+0200</xb:responseDate>
+  </extraResponseData>
+</searchRetrieveResponse>

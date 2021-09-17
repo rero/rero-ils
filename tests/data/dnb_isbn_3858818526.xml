@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/"><version>1.1</version><numberOfRecords>1</numberOfRecords><records><record><recordSchema>MARC21-xml</recordSchema><recordPacking>xml</recordPacking><recordData><record xmlns="http://www.loc.gov/MARC21/slim" type="Bibliographic">
+    <leader>00000nam a2200000 c 4500</leader>
+    <controlfield tag="001">1193742153</controlfield>
+    <controlfield tag="003">DE-101</controlfield>
+    <controlfield tag="005">20191016003410.0</controlfield>
+    <controlfield tag="007">tu</controlfield>
+    <controlfield tag="008">190830s2019    sz ||||| |||| 00||||eng  </controlfield>
+    <datafield tag="016" ind1="7" ind2=" ">
+      <subfield code="2">DE-101</subfield>
+      <subfield code="a">1193742153</subfield>
+    </datafield>
+    <datafield tag="020" ind1=" " ind2=" ">
+      <subfield code="a">9783858818522</subfield>
+      <subfield code="c">Festeinband : circa EUR 38.00 (DE), circa EUR 39.10 (AT) (freier Preis), circa CHF 39.00 (freier Preis)</subfield>
+      <subfield code="9">978-3-85881-852-2</subfield>
+    </datafield>
+    <datafield tag="020" ind1=" " ind2=" ">
+      <subfield code="a">3858818526</subfield>
+      <subfield code="9">3-85881-852-6</subfield>
+    </datafield>
+    <datafield tag="020" ind1=" " ind2=" ">
+      <subfield code="a">0877790019</subfield>
+      <subfield code="q">black leather</subfield>
+      <subfield code="z">0877780116</subfield>
+    </datafield>
+    <datafield tag="024" ind1="3" ind2=" ">
+      <subfield code="a">9783858818522</subfield>
+      <subfield code="c">20€</subfield>
+      <subfield code="d">51000</subfield>
+      <subfield code="q">sewn</subfield>
+    </datafield>
+    <datafield tag="028" ind1="5" ind2="2">
+      <subfield code="a">Bestellnummer: 85881852</subfield>
+      <subfield code="b">Philips Classics</subfield>
+      <subfield code="q">(disc 1)</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(DE-599)DNB1193742153</subfield>
+    </datafield>
+    <datafield tag="037" ind1=" " ind2=" ">
+      <subfield code="a">FSWEC-77/0420</subfield>
+      <subfield code="b">National Technical Information Service, Springfield, VA 22161</subfield>
+      <subfield code="c">$3.00</subfield>
+    </datafield>
+    <datafield tag="040" ind1=" " ind2=" ">
+      <subfield code="a">1145</subfield>
+      <subfield code="b">ger</subfield>
+      <subfield code="c">DE-101</subfield>
+      <subfield code="d">9999</subfield>
+    </datafield>
+    <datafield tag="041" ind1=" " ind2=" ">
+      <subfield code="a">eng</subfield>
+    </datafield>
+    <datafield tag="044" ind1=" " ind2=" ">
+      <subfield code="c">XA-vs</subfield>
+    </datafield>
+    <datafield tag="050" ind1=" " ind2="4">
+      <subfield code="a">NB933.F44</subfield>
+    </datafield>
+    <datafield tag="060" ind1="1" ind2="0">
+      <subfield code="a">WA 540 AA1</subfield>
+    </datafield>
+    <datafield tag="080" ind1=" " ind2=" ">
+      <subfield code="a">821.113.1</subfield>
+      <subfield code="x">(494)</subfield>
+    </datafield>
+    <datafield tag="082" ind1="7" ind2="4">
+      <subfield code="a">720</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="2">23sdnb</subfield>
+    </datafield>
+    <datafield tag="100" ind1="1" ind2=" ">
+      <subfield code="a">Aerni, Georg</subfield>
+      <subfield code="e">Fotograf</subfield>
+      <subfield code="4">pht</subfield>
+    </datafield>
+    <datafield tag="245" ind1="1" ind2="0">
+      <subfield code="a">Pavillon Le Corbusier Zurich</subfield>
+      <subfield code="b">The Restoration of an Architectural Jewel</subfield>
+    </datafield>
+    <datafield tag="250" ind1=" " ind2=" ">
+      <subfield code="a">1. Auflage</subfield>
+    </datafield>
+    <datafield tag="259" ind1=" " ind2=" ">
+      <subfield code="a">11</subfield>
+    </datafield>
+    <datafield tag="264" ind1=" " ind2="1">
+      <subfield code="a">Zürich</subfield>
+      <subfield code="b">Scheidegger &amp; Spiess</subfield>
+      <subfield code="c">2019</subfield>
+    </datafield>
+    <datafield tag="300" ind1=" " ind2=" ">
+      <subfield code="a">88 Seiten in 1 Teil</subfield>
+      <subfield code="b">ca. 87 farb. u. 15 schw.-w. Abb.</subfield>
+      <subfield code="c">28 cm x 23 cm</subfield>
+    </datafield>
+    <datafield tag="321" ind1=" " ind2=" ">
+      <subfield code="a">Monthly</subfield>
+      <subfield code="b">1990-2000</subfield>
+    </datafield>
+    <datafield tag="336" ind1=" " ind2=" ">
+      <subfield code="a">Text</subfield>
+      <subfield code="b">txt</subfield>
+      <subfield code="2">rdacontent</subfield>
+    </datafield>
+    <datafield tag="337" ind1=" " ind2=" ">
+      <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+      <subfield code="b">n</subfield>
+      <subfield code="2">rdamedia</subfield>
+    </datafield>
+    <datafield tag="338" ind1=" " ind2=" ">
+      <subfield code="a">Band</subfield>
+      <subfield code="b">nc</subfield>
+      <subfield code="2">rdacarrier</subfield>
+    </datafield>
+    <datafield tag="502" ind1=" " ind2=" ">
+      <subfield code="a">Test summary</subfield>
+    </datafield>
+    <datafield tag="520" ind1=" " ind2=" ">
+      <subfield code="a">Test summary</subfield>
+    </datafield>
+    <datafield tag="521" ind1="0" ind2=" ">
+      <subfield code="a">3.1.</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">(Produktform)Hardback</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Heidi Weber</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Pavillon Le Corbusier</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Restaurierung</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Moderne Architektur</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Architektur</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Zürich</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Silvio Schmed</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Arthur Rüegg</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Charles Edouard Jeanneret</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Le Corbusier</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Georg Aerni</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">(DDB-Sachgruppen)45: Architektur</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">(VLB-WN)1584: Hardcover, Softcover / Kunst/Architektur</subfield>
+    </datafield>
+    <datafield tag="700" ind1="1" ind2=" ">
+      <subfield code="a">Schmed, Silvio</subfield>
+      <subfield code="e">Herausgeber</subfield>
+      <subfield code="4">edt</subfield>
+    </datafield>
+    <datafield tag="700" ind1="1" ind2=" ">
+      <subfield code="a">Rüegg, Arthur</subfield>
+      <subfield code="e">Herausgeber</subfield>
+      <subfield code="4">edt</subfield>
+    </datafield>
+    <datafield tag="710" ind1="2" ind2=" ">
+      <subfield code="a">Amt für Hochbauten der Stadt Zürich</subfield>
+      <subfield code="e">Herausgebendes Organ</subfield>
+      <subfield code="4">isb</subfield>
+    </datafield>
+    <datafield tag="710" ind1="2" ind2=" ">
+      <subfield code="0">(DE-588)1034499963</subfield>
+      <subfield code="0">https://d-nb.info/gnd/1034499963</subfield>
+      <subfield code="0">(DE-101)1034499963</subfield>
+      <subfield code="a">Verlag Scheidegger &amp; Spiess</subfield>
+      <subfield code="e">Verlag</subfield>
+      <subfield code="4">pbl</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="773" ind1="0" ind2=" ">
+      <subfield code="t">Networks for networkers</subfield>
+      <subfield code="g">Vol. 2, no. 2 (Feb. 1976), p. 195-230</subfield>
+    </datafield>
+    <datafield tag="800" ind1="1" ind2=" ">
+      <subfield code="a">Joyce, James,</subfield>
+      <subfield code="d">1882-1941.</subfield>
+      <subfield code="t">James Joyce archive.</subfield>
+    </datafield>
+    <datafield tag="856" ind1="4" ind2="2">
+      <subfield code="m">X:MVB</subfield>
+      <subfield code="q">text/html</subfield>
+      <subfield code="u">http://deposit.dnb.de/cgi-bin/dokserv?id=34ec40ef0ec34232a220b0950183dec5&amp;prov=M&amp;dok_var=1&amp;dok_ext=htm</subfield>
+      <subfield code="3">Inhaltstext</subfield>
+      <subfield code="z">Part of the OA Initiative</subfield>
+    </datafield>
+    <datafield tag="926" ind1="2" ind2=" ">
+      <subfield code="a">AMB</subfield>
+      <subfield code="o">93</subfield>
+      <subfield code="q">Publisher</subfield>
+      <subfield code="v">1.2</subfield>
+      <subfield code="x">Einzelne Architekten und Architekturbüros</subfield>
+    </datafield>
+    <datafield tag="926" ind1="2" ind2=" ">
+      <subfield code="a">1DFH-CH-X</subfield>
+      <subfield code="o">94</subfield>
+      <subfield code="q">Publisher</subfield>
+      <subfield code="v">1.2</subfield>
+      <subfield code="x">Zürich / Zurich / Zurigo / Turitg</subfield>
+    </datafield>
+    <datafield tag="926" ind1="2" ind2=" ">
+      <subfield code="a">AM</subfield>
+      <subfield code="o">93</subfield>
+      <subfield code="q">Publisher</subfield>
+      <subfield code="v">1.2</subfield>
+      <subfield code="x">Architektur</subfield>
+    </datafield>
+  </record></recordData><recordPosition>1</recordPosition></record></records><nextRecordPosition>2</nextRecordPosition><echoedSearchRetrieveRequest><version>1.1</version><query>3858818526</query><xQuery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/><startRecord>1</startRecord><maximumRecords>10</maximumRecords><recordSchema>MARC21-xml</recordSchema></echoedSearchRetrieveRequest></searchRetrieveResponse>

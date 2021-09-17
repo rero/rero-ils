@@ -2812,14 +2812,65 @@ WIKI_MARKDOWN_EXTENSIONS = set((
     'markdown_captions'
 ))
 
-# IMPORT
-# ====
-RERO_IMPORT_REST_ENDPOINTS = dict(
-    bnf=dict(
+# IMPORT FROM EXTERNAL SOURCE CONFIGURATION
+# =============================================================================
+#    Endpoint to load data from external repository. Each endpoint must be
+#    defined as a dict with the following keys:
+#      * key: (required) the endpoint key (used to build the API endpoint)
+#      * import_class: (required) the class used to import the external
+#                      document from this source.
+#      * import_size: (required) the max number of document returned when
+#                     searching on this source.
+#      * label: (required) the label used into the professional interface for
+#               this source. This label will be untranslated.
+#      * weight: (optional) Used to sort the sources into the professional
+#                interface. Default value is 100. Lower is the weight, higher
+#                is the priority.
+
+RERO_IMPORT_REST_ENDPOINTS = [
+    dict(
+        key='loc',
+        import_class='rero_ils.modules.imports.api:LoCImport',
+        import_size=50,
+        label='Library of Congress',
+        weight=70
+    ),
+    dict(
+        key='bnf',
         import_class='rero_ils.modules.imports.api:BnfImport',
-        import_size=50
+        import_size=50,
+        label='BNF',
+        weight=20
+    ),
+    dict(
+        key='dnb',
+        import_class='rero_ils.modules.imports.api:DNBImport',
+        import_size=50,
+        label='DNB',
+        weight=20
+    ),
+    dict(
+        key='slsp',
+        import_class='rero_ils.modules.imports.api:SLSPImport',
+        import_size=50,
+        label='SLSP',
+        weight=15
+    ),
+    dict(
+        key='ugent',
+        import_class='rero_ils.modules.imports.api:UGentImport',
+        import_size=50,
+        label='UGent',
+        weight=30
+    ),
+    dict(
+        key='kul',
+        import_class='rero_ils.modules.imports.api:KULImport',
+        import_size=50,
+        label='KULeuven',
+        weight=30
     )
-)
+]
 
 # SRU
 # ====

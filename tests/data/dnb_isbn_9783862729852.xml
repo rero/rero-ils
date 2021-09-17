@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/"><version>1.1</version><numberOfRecords>1</numberOfRecords><records><record><recordSchema>MARC21-xml</recordSchema><recordPacking>xml</recordPacking><recordData><record xmlns="http://www.loc.gov/MARC21/slim" type="Bibliographic">
+    <leader>00000nam a2200000uc 4500</leader>
+    <controlfield tag="001">1240535988</controlfield>
+    <controlfield tag="003">DE-101</controlfield>
+    <controlfield tag="005">20210912000020.0</controlfield>
+    <controlfield tag="007">cr||||||||||||</controlfield>
+    <controlfield tag="008">210903s2021    gw |||||o|||| 00||||ger  </controlfield>
+    <datafield tag="015" ind1=" " ind2=" ">
+      <subfield code="a">21,O10</subfield>
+      <subfield code="2">dnb</subfield>
+    </datafield>
+    <datafield tag="016" ind1="7" ind2=" ">
+      <subfield code="2">DE-101</subfield>
+      <subfield code="a">1240535988</subfield>
+    </datafield>
+    <datafield tag="020" ind1=" " ind2=" ">
+      <subfield code="a">9783862729852</subfield>
+      <subfield code="9">978-3-86272-985-2</subfield>
+    </datafield>
+    <datafield tag="022" ind1="0" ind2=" ">
+      <subfield code="a">1560-1560</subfield>
+      <subfield code="l">1234-1231</subfield>
+    </datafield>
+    <datafield tag="024" ind1="3" ind2=" ">
+      <subfield code="a">9783862729852</subfield>
+    </datafield>
+    <datafield tag="024" ind1="7" ind2=" ">
+      <subfield code="2">urn</subfield>
+      <subfield code="a">urn:nbn:de:101:1-2021090320480431761051</subfield>
+    </datafield>
+    <datafield tag="024" ind1="1" ind2=" ">
+      <subfield code="a">7822183031</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(DE-599)DNB1240535988</subfield>
+    </datafield>
+    <datafield tag="040" ind1=" " ind2=" ">
+      <subfield code="a">1240</subfield>
+      <subfield code="b">ger</subfield>
+      <subfield code="c">DE-101</subfield>
+      <subfield code="d">0292</subfield>
+    </datafield>
+    <datafield tag="041" ind1=" " ind2=" ">
+      <subfield code="8">1\p</subfield>
+      <subfield code="a">ger</subfield>
+    </datafield>
+    <datafield tag="044" ind1=" " ind2=" ">
+      <subfield code="c">XA-DE-HH</subfield>
+    </datafield>
+    <datafield tag="082" ind1="7" ind2="4">
+      <subfield code="8">9\p</subfield>
+      <subfield code="a">K</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="2">23sdnb</subfield>
+    </datafield>
+    <datafield tag="100" ind1="1" ind2=" ">
+      <subfield code="8">2\p</subfield>
+      <subfield code="a">Martin, Peer</subfield>
+      <subfield code="e">Verfasser</subfield>
+      <subfield code="4">aut</subfield>
+    </datafield>
+    <datafield tag="210" ind1="1" ind2=" ">
+      <subfield code="a">Rech. écon. Louvain</subfield>
+      <subfield code="b">(Imprimé)</subfield>
+    </datafield>
+    <datafield tag="222" ind1=" " ind2="0">
+      <subfield code="a">Recherches économiques de Louvain</subfield>
+      <subfield code="b">(Imprimé)</subfield>
+    </datafield>
+    <datafield tag="245" ind1="1" ind2="0">
+      <subfield code="a">Blut und Schokolade</subfield>
+      <subfield code="c">Peer Martin</subfield>
+    </datafield>
+    <datafield tag="264" ind1=" " ind2="1">
+      <subfield code="a">Hamburg</subfield>
+      <subfield code="b">Dressler Verlag</subfield>
+      <subfield code="c">2021</subfield>
+    </datafield>
+    <datafield tag="300" ind1=" " ind2=" ">
+      <subfield code="a">Online-Ressource, 448 Seiten</subfield>
+    </datafield>
+    <datafield tag="310" ind1=" " ind2=" ">
+      <subfield code="a">Monthly,</subfield>
+      <subfield code="b">1985-</subfield>
+    </datafield>
+    <datafield tag="321" ind1=" " ind2=" ">
+      <subfield code="a">Ten no. a year,</subfield>
+      <subfield code="b">1982-1984</subfield>
+    </datafield>
+    <datafield tag="336" ind1=" " ind2=" ">
+      <subfield code="a">Text</subfield>
+      <subfield code="b">txt</subfield>
+      <subfield code="2">rdacontent</subfield>
+    </datafield>
+    <datafield tag="337" ind1=" " ind2=" ">
+      <subfield code="a">Computermedien</subfield>
+      <subfield code="b">c</subfield>
+      <subfield code="2">rdamedia</subfield>
+    </datafield>
+    <datafield tag="338" ind1=" " ind2=" ">
+      <subfield code="a">Online-Ressource</subfield>
+      <subfield code="b">cr</subfield>
+      <subfield code="2">rdacarrier</subfield>
+    </datafield>
+    <datafield tag="362" ind1="0" ind2=" ">
+      <subfield code="a">1962-1965. </subfield>
+    </datafield>
+    <datafield tag="502" ind1=" " ind2=" ">
+      <subfield code="a">Mémoire de stage (3e cycle) -- Université Dummy</subfield>
+    </datafield>
+    <datafield tag="506" ind1=" " ind2=" ">
+      <subfield code="a">Open Access</subfield>
+    </datafield>
+    <datafield tag="510" ind1="3" ind2=" ">
+      <subfield code="a">Bibliographie cartographique internationale </subfield>
+    </datafield>
+    <datafield tag="511" ind1=" " ind2=" ">
+      <subfield code="a">Marshall Moss, violin ; Neil Roberts, harpsichord. </subfield>
+    </datafield>
+    <datafield tag="521" ind1=" " ind2=" ">
+      <subfield code="a">Program designed for geographers, planners, geologists, meteorologists and others who have a professional interest in analyzing spatial data</subfield>
+    </datafield>
+    <datafield tag="583" ind1="1" ind2=" ">
+      <subfield code="a">Archivierung/Langzeitarchivierung gewährleistet</subfield>
+      <subfield code="5">DE-101</subfield>
+      <subfield code="2">pdager</subfield>
+    </datafield>
+    <datafield tag="600" ind1="1" ind2="0">
+      <subfield code="a">Baudelaire, Charles,</subfield>
+      <subfield code="d">1821-1867.</subfield>
+      <subfield code="t">Fleurs du mal.</subfield>
+    </datafield>
+    <datafield tag="650" ind1=" " ind2="7">
+      <subfield code="8">4\p</subfield>
+      <subfield code="0">(DE-588)4053168-5</subfield>
+      <subfield code="0">https://d-nb.info/gnd/4053168-5</subfield>
+      <subfield code="0">(DE-101)040531686</subfield>
+      <subfield code="a">Schokolade</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="650" ind1=" " ind2="7">
+      <subfield code="8">7\p</subfield>
+      <subfield code="0">(DE-588)4233416-0</subfield>
+      <subfield code="0">https://d-nb.info/gnd/4233416-0</subfield>
+      <subfield code="0">(DE-101)042334160</subfield>
+      <subfield code="a">Süßigkeit</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="650" ind1=" " ind2="7">
+      <subfield code="8">8\p</subfield>
+      <subfield code="0">(DE-588)4076527-1</subfield>
+      <subfield code="0">https://d-nb.info/gnd/4076527-1</subfield>
+      <subfield code="0">(DE-101)04076527X</subfield>
+      <subfield code="a">Rassismus</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="651" ind1=" " ind2="7">
+      <subfield code="8">5\p</subfield>
+      <subfield code="0">(DE-588)4005728-8</subfield>
+      <subfield code="0">https://d-nb.info/gnd/4005728-8</subfield>
+      <subfield code="0">(DE-101)040057283</subfield>
+      <subfield code="a">Berlin</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="651" ind1=" " ind2="7">
+      <subfield code="8">6\p</subfield>
+      <subfield code="0">(DE-588)4000695-5</subfield>
+      <subfield code="0">https://d-nb.info/gnd/4000695-5</subfield>
+      <subfield code="0">(DE-101)040006956</subfield>
+      <subfield code="a">Afrika</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">(Produktform)Electronic book text</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">(Zielgruppe)ab 14 Jahre</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">(BISAC Subject Heading)YAF062010</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">(BISAC Subject Heading)FIC002000</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">(VLB-WN)9121</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Schokoladenherstellung</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">dunkles Geheimnis</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Angst</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">ab 14</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Jugendbuch</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Freundschaft</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Rassismus</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Machete</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Schokolade</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Flucht</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Überleben</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Kakaofrucht</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Elfenbeinküste</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Afrika</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Antirassismus</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Kinderarbeit</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Ausbeutung</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">BIPOC</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">BPOC</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Liebe</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Kakao</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Süßigkeit</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Gewalt</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Ungerechtigkeit</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Kulturen</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Plantage</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Schwarz</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Mali</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Süß</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Berlin</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">(VLB-WN)9250</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">(Zielgruppe)ab 14 Jahren</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">Abenteuer</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+      <subfield code="a">(Produktgruppe)13: Dressler</subfield>
+    </datafield>
+    <datafield tag="655" ind1=" " ind2="7">
+      <subfield code="0">(DE-101)1010874802</subfield>
+      <subfield code="a">Krimis, Thriller, Spionage</subfield>
+      <subfield code="2">gatbeg</subfield>
+    </datafield>
+    <datafield tag="655" ind1=" " ind2="7">
+      <subfield code="0">(DE-101)1010718363</subfield>
+      <subfield code="a">Kinderbücher bis 11 Jahre</subfield>
+      <subfield code="2">gatbeg</subfield>
+    </datafield>
+    <datafield tag="655" ind1=" " ind2="7">
+      <subfield code="0">(DE-101)101071841X</subfield>
+      <subfield code="a">Jugendbücher ab 12 Jahre</subfield>
+      <subfield code="2">gatbeg</subfield>
+    </datafield>
+    <datafield tag="700" ind1="1" ind2=" ">
+      <subfield code="8">3\p</subfield>
+      <subfield code="a">Schneider, Frauke</subfield>
+      <subfield code="e">Illustrator</subfield>
+      <subfield code="4">ill</subfield>
+    </datafield>
+    <datafield tag="773" ind1="0" ind2=" ">
+      <subfield code="7">p1am</subfield>
+      <subfield code="a">Desio, Ardito, 1897-</subfield>
+      <subfield code="t">Geographical features of the Karakorum.</subfield>
+      <subfield code="g">Vol. 24, pt. B no. 9 (Sept. 1993), p. 235-48</subfield>
+      <subfield code="d">Milano : ISMEO, 1991</subfield>
+    </datafield>
+    <datafield tag="776" ind1="0" ind2="8">
+      <subfield code="i">Erscheint auch als</subfield>
+      <subfield code="n">Druck-Ausgabe</subfield>
+      <subfield code="t">Blut und Schokolade</subfield>
+      <subfield code="d">Hamburg : Dressler, 2021</subfield>
+      <subfield code="h">448 Seiten</subfield>
+      <subfield code="w">(DE-101)1227349998</subfield>
+      <subfield code="b">1. Auflage</subfield>
+    </datafield>
+    <datafield tag="787" ind1="0" ind2="8">
+      <subfield code="i">In Beziehung stehende Ressource</subfield>
+      <subfield code="z">9783641200145</subfield>
+    </datafield>
+    <datafield tag="787" ind1="0" ind2="8">
+      <subfield code="i">In Beziehung stehende Ressource</subfield>
+      <subfield code="z">9783596906673</subfield>
+    </datafield>
+    <datafield tag="787" ind1="0" ind2="8">
+      <subfield code="i">In Beziehung stehende Ressource</subfield>
+      <subfield code="z">9783462316643</subfield>
+    </datafield>
+    <datafield tag="787" ind1="0" ind2="8">
+      <subfield code="i">In Beziehung stehende Ressource</subfield>
+      <subfield code="z">9783865692542</subfield>
+    </datafield>
+    <datafield tag="850" ind1=" " ind2=" ">
+      <subfield code="a">DE-101a</subfield>
+      <subfield code="a">DE-101b</subfield>
+    </datafield>
+    <datafield tag="856" ind1="4" ind2="0">
+      <subfield code="u">https://nbn-resolving.org/urn:nbn:de:101:1-2021090320480431761051</subfield>
+      <subfield code="x">Resolving-System</subfield>
+    </datafield>
+    <datafield tag="856" ind1=" " ind2="0">
+      <subfield code="u">https://d-nb.info/1240535988/34</subfield>
+      <subfield code="x">Langzeitarchivierung Nationalbibliothek</subfield>
+    </datafield>
+    <datafield tag="856" ind1="4" ind2=" ">
+      <subfield code="q">epub</subfield>
+      <subfield code="u">http://www.dressler-verlag.de</subfield>
+      <subfield code="x">Verlag</subfield>
+    </datafield>
+    <datafield tag="883" ind1="1" ind2=" ">
+      <subfield code="8">1\p</subfield>
+      <subfield code="a">npi</subfield>
+      <subfield code="d">20210903</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="u">https://d-nb.info/provenance/plan#npi</subfield>
+    </datafield>
+    <datafield tag="883" ind1="1" ind2=" ">
+      <subfield code="8">2\p</subfield>
+      <subfield code="a">npi</subfield>
+      <subfield code="d">20210903</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="u">https://d-nb.info/provenance/plan#npi</subfield>
+    </datafield>
+    <datafield tag="883" ind1="1" ind2=" ">
+      <subfield code="8">3\p</subfield>
+      <subfield code="a">npi</subfield>
+      <subfield code="d">20210903</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="u">https://d-nb.info/provenance/plan#npi</subfield>
+    </datafield>
+    <datafield tag="883" ind1="0" ind2=" ">
+      <subfield code="8">4\p</subfield>
+      <subfield code="a">aepgnd</subfield>
+      <subfield code="c">0,11857</subfield>
+      <subfield code="d">20210912</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="u">https://d-nb.info/provenance/plan#aepgnd</subfield>
+    </datafield>
+    <datafield tag="883" ind1="0" ind2=" ">
+      <subfield code="8">5\p</subfield>
+      <subfield code="a">aepgnd</subfield>
+      <subfield code="c">0,11111</subfield>
+      <subfield code="d">20210912</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="u">https://d-nb.info/provenance/plan#aepgnd</subfield>
+    </datafield>
+    <datafield tag="883" ind1="0" ind2=" ">
+      <subfield code="8">6\p</subfield>
+      <subfield code="a">aepgnd</subfield>
+      <subfield code="c">0,11111</subfield>
+      <subfield code="d">20210912</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="u">https://d-nb.info/provenance/plan#aepgnd</subfield>
+    </datafield>
+    <datafield tag="883" ind1="0" ind2=" ">
+      <subfield code="8">7\p</subfield>
+      <subfield code="a">aepgnd</subfield>
+      <subfield code="c">0,06290</subfield>
+      <subfield code="d">20210912</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="u">https://d-nb.info/provenance/plan#aepgnd</subfield>
+    </datafield>
+    <datafield tag="883" ind1="0" ind2=" ">
+      <subfield code="8">8\p</subfield>
+      <subfield code="a">aepgnd</subfield>
+      <subfield code="c">0,04333</subfield>
+      <subfield code="d">20210912</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="u">https://d-nb.info/provenance/plan#aepgnd</subfield>
+    </datafield>
+    <datafield tag="883" ind1="1" ind2=" ">
+      <subfield code="8">9\p</subfield>
+      <subfield code="a">npi</subfield>
+      <subfield code="d">20210903</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="u">https://d-nb.info/provenance/plan#npi</subfield>
+    </datafield>
+    <datafield tag="925" ind1="r" ind2=" ">
+      <subfield code="a">ro</subfield>
+      <subfield code="a">ra</subfield>
+    </datafield>
+    <datafield tag="926" ind1="1" ind2=" ">
+      <subfield code="a">YFCB</subfield>
+      <subfield code="o">93</subfield>
+      <subfield code="v">1.4</subfield>
+    </datafield>
+    <datafield tag="926" ind1="2" ind2=" ">
+      <subfield code="a">FH</subfield>
+      <subfield code="o">93</subfield>
+      <subfield code="v">1.4</subfield>
+    </datafield>
+    <datafield tag="926" ind1="2" ind2=" ">
+      <subfield code="a">1DFG-DE-BE</subfield>
+      <subfield code="o">94</subfield>
+      <subfield code="v">1.4</subfield>
+    </datafield>
+    <datafield tag="926" ind1="2" ind2=" ">
+      <subfield code="a">1HFDY</subfield>
+      <subfield code="o">94</subfield>
+      <subfield code="v">1.4</subfield>
+    </datafield>
+    <datafield tag="926" ind1="2" ind2=" ">
+      <subfield code="a">5AQ</subfield>
+      <subfield code="o">98</subfield>
+      <subfield code="v">1.4</subfield>
+    </datafield>
+  </record></recordData><recordPosition>1</recordPosition></record></records><nextRecordPosition>2</nextRecordPosition><echoedSearchRetrieveRequest><version>1.1</version><query>9783862729852</query><xQuery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/><startRecord>1</startRecord><maximumRecords>10</maximumRecords><recordSchema>MARC21-xml</recordSchema></echoedSearchRetrieveRequest></searchRetrieveResponse>

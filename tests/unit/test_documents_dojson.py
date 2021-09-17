@@ -5143,6 +5143,23 @@ def test_marc21_to_identifiedBy_from_035():
         }
     ]
 
+    marc21xml = """
+        <record>
+          <datafield tag="035" ind1=" " ind2=" ">
+            <subfield code="a">(OCoLC)ocm72868858</subfield>
+          </datafield>
+        </record>
+        """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('identifiedBy') == [
+        {
+            'type': 'bf:Local',
+            'source': 'OCoLC',
+            'value': '(OCoLC)ocm72868858'
+        }
+    ]
+
 
 @mock.patch('requests.get')
 def test_marc21_to_electronicLocator_from_856(mock_cover_get):

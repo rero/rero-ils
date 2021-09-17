@@ -1,0 +1,1163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/">
+  <version>1.2</version>
+  <numberOfRecords>1133</numberOfRecords>
+  <records>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>00615nam a2200181uc 4500</leader>
+          <controlfield tag="001">991146773719705501</controlfield>
+          <controlfield tag="005">20201228212646.0</controlfield>
+          <controlfield tag="008">020215s1860    xx           u000 0 und d</controlfield>
+          <datafield ind1=" " ind2=" " tag="019">
+            <subfield code="a">Unikatsaufnahme</subfield>
+            <subfield code="5">NEBIS/Z01/02.10.2020</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(swissbib)174426984-41slsp_network</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">174426984</subfield>
+            <subfield code="9">ExL</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(NEBIS)006458600EBI01</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">SzZuIDS NEBIS ALP-Liebefeld</subfield>
+            <subfield code="d">CH-ZuSLS</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="245">
+            <subfield code="a">"The honey-bee; its natural history, habits, anatomy and microscopical beauties"</subfield>
+            <subfield code="c">J. Samuelson</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="1" tag="264">
+            <subfield code="a">London</subfield>
+            <subfield code="b">John van Voorst</subfield>
+            <subfield code="c">1860</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="720">
+            <subfield code="a">Samuelson, J.</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="1" tag="852">
+            <subfield code="a">41SLSP_RRO</subfield>
+            <subfield code="6">991001834729205525</subfield>
+            <subfield code="9">P</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="900">
+            <subfield code="a">IDSERE21BLIMPORT</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="900">
+            <subfield code="a">IDSIxunikat</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>991146773719705501</recordIdentifier>
+      <recordPosition>1</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>01508njm a2200409 ca4500</leader>
+          <controlfield tag="001">991033609619705501</controlfield>
+          <controlfield tag="005">20201223203723.0</controlfield>
+          <controlfield tag="007">sd z||g|||||||</controlfield>
+          <controlfield tag="008">010605s1994    sw ||n              swe^^</controlfield>
+          <datafield ind1="0" ind2="2" tag="028">
+            <subfield code="a">MSCD 420</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="2" tag="028">
+            <subfield code="a">MSCD 421</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(swissbib)03866061X-41slsp_network</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">03866061X</subfield>
+            <subfield code="9">ExL</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(IDSBB)002289445DSV01</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">SzZuIDS BS/BE A226</subfield>
+            <subfield code="b">ger</subfield>
+            <subfield code="e">kids</subfield>
+            <subfield code="d">CH-ZuSLS</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="072">
+            <subfield code="a">mu</subfield>
+            <subfield code="2">SzZuIDS BS/BE</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="4" tag="082">
+            <subfield code="a">780</subfield>
+            <subfield code="2">15</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="100">
+            <subfield code="a">Bellman, Carl Michael</subfield>
+            <subfield code="d">1740-1795</subfield>
+            <subfield code="0">(DE-588)118508709</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="0" tag="240">
+            <subfield code="a">Fredmans epistlar</subfield>
+            <subfield code="k">Ausw.</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="0" tag="245">
+            <subfield code="a">[Mollberg sat up in bed</subfield>
+            <subfield code="b">; Trumps it is, I do believe ; O'er the misty park of haga] ...</subfield>
+            <subfield code="c">Carl Michael Bellman</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="1" tag="264">
+            <subfield code="a">[Erscheinungsort nicht ermittelbar]</subfield>
+            <subfield code="b">Musica Sveciae</subfield>
+            <subfield code="c">1994</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">2 Compact Discs</subfield>
+            <subfield code="e">1 Begleitheft</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="b">prm</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="b">s</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="b">sd</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="490">
+            <subfield code="a">Musica Sveciae</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="500">
+            <subfield code="a">Aufnahme: 1920-1991</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="500">
+            <subfield code="a">Enth.: 42 Lieder aus "Fredmans epistlar" und "Fredmans ånger"</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="511">
+            <subfield code="a">Interpr.: Fred Åkerström, Anders Börje, Mikael Samuelson, Leif Bergman, Sven Scholander u.v.a</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="655">
+            <subfield code="a">CD</subfield>
+            <subfield code="2">gnd-carrier</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="2" tag="700">
+            <subfield code="a">Bellman, Carl Michael</subfield>
+            <subfield code="d">1740-1795</subfield>
+            <subfield code="t">Fredmans ånger</subfield>
+            <subfield code="k">Ausw.</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Åkerström, Fred</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Börje, Anders</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Samuelson, Mikael</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Bergman, Leif</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Scholander, Sven</subfield>
+            <subfield code="d">1860-1936</subfield>
+            <subfield code="0">(DE-588)116895500</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="830">
+            <subfield code="a">Musica Sveciae</subfield>
+            <subfield code="w">(IDSBB)002289422DSV01</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="1" tag="852">
+            <subfield code="a">41SLSP_UBS</subfield>
+            <subfield code="6">9922894450105504</subfield>
+            <subfield code="9">P</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>991033609619705501</recordIdentifier>
+      <recordPosition>2</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>01205nac a2200313 c 4500</leader>
+          <controlfield tag="001">991035538339705501</controlfield>
+          <controlfield tag="005">20201224021846.0</controlfield>
+          <controlfield tag="007">cr |||||||||||</controlfield>
+          <controlfield tag="008">060517i19702009sz            00| |dger^^</controlfield>
+          <datafield ind1=" " ind2=" " tag="019">
+            <subfield code="a">Hybride Titelaufnahme im Rahmen des DI-ZAS-Projekts</subfield>
+            <subfield code="5">IDSBB/29.05.2020/A125</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(swissbib)048991694-41slsp_network</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">048991694</subfield>
+            <subfield code="9">ExL</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(IDSBB)003907140DSV01</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">SzZuIDS BS/BE A125</subfield>
+            <subfield code="e">kids</subfield>
+            <subfield code="d">CH-ZuSLS</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="4" tag="082">
+            <subfield code="a">330</subfield>
+            <subfield code="2">15</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="245">
+            <subfield code="a">[Samuelson Paul Anthony (1915-2009)</subfield>
+            <subfield code="p">Dokumentensammlung]</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="0" tag="264">
+            <subfield code="c">1970-2009</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">1 Mappe</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="b">txt</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="b">n</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="b">c</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="b">nc</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="b">cr</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="520">
+            <subfield code="a">Paul Anthony Samuelson (1915-2009), Prof., Nationalökonom, Nobelpreisträger</subfield>
+            <subfield code="5">IDSBB/23.02.2010/bs-swa/mba</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="520">
+            <subfield code="a">Zeitungsausschnitte (1970-2009)</subfield>
+            <subfield code="5">IDSBB/23.02.2010/bs-swa/mba</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="7" tag="600">
+            <subfield code="a">Samuelson, Paul Anthony</subfield>
+            <subfield code="2">idsbb</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="856">
+            <subfield code="u">https://ub-zas.ub.unibas.ch/popup?popupid=1_003907140</subfield>
+            <subfield code="z">Onlinezugriff auf Volltext der einzelnen Zeitungsausschnitte, archiviert von Basel UB Wirtschaft - SWA</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="1" tag="852">
+            <subfield code="a">41SLSP_UBS</subfield>
+            <subfield code="6">9939071400105504</subfield>
+            <subfield code="9">E</subfield>
+            <subfield code="9">P</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="900">
+            <subfield code="a">IDSIxunikat</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="900">
+            <subfield code="a">IDSIxhybrid-el</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>991035538339705501</recordIdentifier>
+      <recordPosition>3</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>02189nam  2200493Ii 4500</leader>
+          <controlfield tag="001">991170619783905501</controlfield>
+          <controlfield tag="005">20210323192959.0</controlfield>
+          <controlfield tag="006">m     o  d |</controlfield>
+          <controlfield tag="007">cr#-n---------</controlfield>
+          <controlfield tag="008">000815s2005    enk     o     000 0 eng d</controlfield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">1-280-50859-0</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">9786610508594</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">1-84544-272-5</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(CKB)1000000000032656</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(EBL)233871</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(OCoLC)191038893</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(SSID)ssj0000671694</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(PQKBManifestationID)11446497</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(PQKBTitleCode)TC0000671694</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(PQKBWorkID)10625471</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(PQKB)10883434</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(MiAaPQ)EBC233871</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(EXLCZ)991000000000032656</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">MiAaPQ</subfield>
+            <subfield code="c">MiAaPQ</subfield>
+            <subfield code="d">MiAaPQ</subfield>
+            <subfield code="b">eng</subfield>
+            <subfield code="e">rda</subfield>
+            <subfield code="d">UkShU</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="041">
+            <subfield code="a">eng</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="4" tag="050">
+            <subfield code="a">HB171</subfield>
+            <subfield code="b">.I68 v.32, no.4 2005</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="082">
+            <subfield code="a">330</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="245">
+            <subfield code="a">30 years of IJSE :</subfield>
+            <subfield code="b">festschrift in honour of professor John O'Brien.</subfield>
+            <subfield code="n">Part 5 /</subfield>
+            <subfield code="c">guest editor: Barrie Pettman.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="1" tag="264">
+            <subfield code="a">Bradford, England :</subfield>
+            <subfield code="b">Emerald Group Publishing,</subfield>
+            <subfield code="c">2005.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">1 online resource (113 pages)</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="b">txt</subfield>
+            <subfield code="2">rdacontent</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">computer</subfield>
+            <subfield code="b">c</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">online resource</subfield>
+            <subfield code="b">cr</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="490">
+            <subfield code="a">International journal of social economics ;</subfield>
+            <subfield code="v">v. 32, no. 4</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="500">
+            <subfield code="a">Description based upon print version of record.</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="505">
+            <subfield code="a">Mathematics and academic finance: the role of paradigms -- The impact of alternative styles of policy leadership on the direction of local government reform -- Alternative paths to the transition process -- Paul A. Samuelson: philosopher and theorist -- Union duopoly with heterogeneous labour.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="520">
+            <subfield code="a">fundamental understanding of the worldviews underlying the views expressed withrespect to the nature of mathematics and its role. Four general views with respect tomathematics and its role in sciences, corresponding to four broad worldviews, arediscussed.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="546">
+            <subfield code="a">English</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="0" tag="650">
+            <subfield code="a">Economics.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="0" tag="650">
+            <subfield code="a">Economics</subfield>
+            <subfield code="x">Sociological aspects.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="0" tag="650">
+            <subfield code="a">Social sciences.</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Pettman, B. O.,</subfield>
+            <subfield code="e">editor.</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">O'Brien, J. C.</subfield>
+            <subfield code="q">(John Conway)</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="776">
+            <subfield code="z">1-84544-110-9</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="0" tag="830">
+            <subfield code="a">International journal of social economics ;</subfield>
+            <subfield code="v">v. 32, no. 4.</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="1" tag="852">
+            <subfield code="a">41SLSP_LIB</subfield>
+            <subfield code="6">99116776092105522</subfield>
+            <subfield code="9">E</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="906">
+            <subfield code="a">BOOK</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="999">
+            <subfield code="b">Fully catalogued</subfield>
+            <subfield code="a">FULCAT</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>991170619783905501</recordIdentifier>
+      <recordPosition>4</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>00716naa a2200205 c 4500</leader>
+          <controlfield tag="001">991068380119705501</controlfield>
+          <controlfield tag="005">20201225102958.0</controlfield>
+          <controlfield tag="008">090811s2014    xxu           00| | eng^^</controlfield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(swissbib)067186777-41slsp_network</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">067186777</subfield>
+            <subfield code="9">ExL</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(IDSBB)006309857DSV01</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">SzZuIDS BS/BE A125</subfield>
+            <subfield code="e">kids</subfield>
+            <subfield code="d">CH-ZuSLS</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="072">
+            <subfield code="a">bw</subfield>
+            <subfield code="2">SzZuIDS BS/BE</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="4" tag="082">
+            <subfield code="a">650</subfield>
+            <subfield code="2">15</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="245">
+            <subfield code="a">30th anniversary issue: 1974-2004</subfield>
+            <subfield code="c">Lo Samuelson ... [et al.]</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="b">txt</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="b">n</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="b">nc</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Samuelson, Lo</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="773">
+            <subfield code="t">The journal of portfolio management</subfield>
+            <subfield code="d">New York : Institutional Investor</subfield>
+            <subfield code="g">September 2004</subfield>
+            <subfield code="q">2004/9</subfield>
+            <subfield code="g">yr:2004</subfield>
+            <subfield code="g">no:30</subfield>
+            <subfield code="w">(IDSBB)000059029DSV01</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>991068380119705501</recordIdentifier>
+      <recordPosition>5</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>00642nam a22001812c 4500</leader>
+          <controlfield tag="001">991063599079705501</controlfield>
+          <controlfield tag="005">20201227201357.0</controlfield>
+          <controlfield tag="008">990902s1970    xxu           0|| | eng d</controlfield>
+          <datafield ind1=" " ind2=" " tag="019">
+            <subfield code="a">SPI Retro 277366</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(swissbib)14602186X-41slsp_network</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">14602186X</subfield>
+            <subfield code="9">ExL</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(NEBIS)002403400EBI01</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">IDS NEBIS ETH-BIB</subfield>
+            <subfield code="d">CH-ZuSLS</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="245">
+            <subfield code="a">4 [Four] Days, 40 [Forty] Hours</subfield>
+            <subfield code="b">reporting a revolution in work and leisure</subfield>
+            <subfield code="c">ed. by Riva Poor ; foreword by Paul A. Samuelson</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="1" tag="264">
+            <subfield code="a">Cambridge - Mass.</subfield>
+            <subfield code="b">Bursk &amp; Poor</subfield>
+            <subfield code="c">1970</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">175 S.</subfield>
+            <subfield code="e">[Beilage]: Abb., unpag. Heft</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Poor, Riva</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="1" tag="852">
+            <subfield code="a">41SLSP_ETH</subfield>
+            <subfield code="6">990024034000205503</subfield>
+            <subfield code="9">P</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="900">
+            <subfield code="a">IDSERSPIdummy</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>991063599079705501</recordIdentifier>
+      <recordPosition>6</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>01647nam  2200349 i 4500</leader>
+          <controlfield tag="001">991170335464005501</controlfield>
+          <controlfield tag="005">20170814170755.0</controlfield>
+          <controlfield tag="006">m     o  d |</controlfield>
+          <controlfield tag="007">cr||||||||||||</controlfield>
+          <controlfield tag="008">170125t20122012onca    ob    001 0 eng d</controlfield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">1-282-25352-2</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">9786613814173</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">1-118-29450-5</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">1-118-34741-2</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(CKB)2550000000103470</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(StDuBDS)AH23094425</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(SSID)ssj0000676571</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(PQKBManifestationID)12340543</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(PQKBTitleCode)TC0000676571</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(PQKBWorkID)10685380</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(PQKB)10583587</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(MiAaPQ)EBC4180217</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(CaSebORM)9781118291535</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(EXLCZ)992550000000103470</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">MiAaPQ</subfield>
+            <subfield code="b">eng</subfield>
+            <subfield code="e">rda</subfield>
+            <subfield code="e">pn</subfield>
+            <subfield code="c">MiAaPQ</subfield>
+            <subfield code="d">MiAaPQ</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="041">
+            <subfield code="a">eng</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="043">
+            <subfield code="a">n-us---</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="4" tag="050">
+            <subfield code="a">HG179</subfield>
+            <subfield code="b">.M554 2012</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="072">
+            <subfield code="a">ADV</subfield>
+            <subfield code="2">ukslc</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="072">
+            <subfield code="a">KF</subfield>
+            <subfield code="2">bicssc</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="072">
+            <subfield code="a">VSB</subfield>
+            <subfield code="2">bicssc</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="072">
+            <subfield code="a">VSR</subfield>
+            <subfield code="2">bicssc</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="4" tag="082">
+            <subfield code="a">332.024014</subfield>
+            <subfield code="2">23</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="090">
+            <subfield code="a">HG179</subfield>
+            <subfield code="b">.M4575 2012</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="100">
+            <subfield code="a">Milevsky, Moshe Arye,</subfield>
+            <subfield code="d">1967-</subfield>
+            <subfield code="e">author.</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="4" tag="245">
+            <subfield code="a">The 7 most important equations for your retirement :</subfield>
+            <subfield code="b">the fascinating people and ideas behind planning your retirement income /</subfield>
+            <subfield code="c">Moshe A. Milevsky.</subfield>
+          </datafield>
+          <datafield ind1="3" ind2=" " tag="246">
+            <subfield code="a">Seven most important equations for your retirement</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="250">
+            <subfield code="a">1st edition</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="1" tag="264">
+            <subfield code="a">Mississauga, Ontario :</subfield>
+            <subfield code="b">John Wiley &amp; Sons Canada, Ltd.,</subfield>
+            <subfield code="c">2012.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="4" tag="264">
+            <subfield code="c">©2012</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">1 online resource (1 v.)</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="b">txt</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">computer</subfield>
+            <subfield code="b">c</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">online resource</subfield>
+            <subfield code="b">cr</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="347">
+            <subfield code="a">text file</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="505">
+            <subfield code="a">Introduction: An Equation Can't Predict Your Future . . .But It Can Help You Plan for It 1 Chapter 1: How Long Will My Number Last? Equation #1: Leonardo Fibonacci (1170-1250) 7 Chapter 2: How Long Will I Spend in Retirement? Equation #2: Benjamin Gompertz (1779-1865) 31 Chapter 3: Is a Pension Annuity Worth It? Equation #3: Edmond Halley (1656-1742) 53 Chapter 4: What Is a Proper Spending Rate? Equation #4: Irving Fisher (1867-1947) 77 Chapter 5: How Much in Risky Stocks versus Safe Cash? Equation #5: Paul Samuelson (1915-2009) 101 Chapter 6: What Is Your Financial Legacy Today? Equation #6: Solomon S. Huebner (1882-1964) 125 Chapter 7: Is My Current Plan Sustainable? Equation #7: Andrei N. Kolmogorov (1903-1987) 151 Conclusion: Controversies, Omissions and Concluding Thoughts 175 Appendix: Crash Course on Natural and Unnatural Logarithms 179 References and Sources 185 Acknowledgments 195 About the Author 197 Short Poem by Maya Milevsky (age 11) 199 Index 201</subfield>
+          </datafield>
+          <datafield ind1="8" ind2=" " tag="520">
+            <subfield code="a">This title argues that 21st-century retirement income planning is indeed a science and has its foundations in the work of great sages who made conceptual and controversial breakthroughs over the last eight centuries.</subfield>
+            <subfield code="b">The 800 years of scientific breakthroughs that will help salvage your retirement plans Physics, Chemistry, Astronomy, Biology; every field has its intellectual giants who made breakthrough discoveries that changed the course of history. What about the topic of retirement planning? Is it a science? Or is retirement income planning just a collection of rules-of-thumb, financial products and sales pitches? In The 7 Most Important Equations for Your Retirement...And the Stories Behind Them Moshe Milevsky argues that twenty first century retirement income planning is indeed a science and has its foundations in the work of great sages who made conceptual and controversial breakthroughs over the last eight centuries. In the book Milevsky highlights the work of seven scholars-summarized by seven equations-who shaped all modern retirement calculations. He tells the stories of Leonardo Fibonnaci the Italian businessman; Benjamin Gompertz the gentleman actuary; Edmund Halley the astronomer; Irving Fisher the stock jock; Paul Samuelson the economic guru; Solomon Heubner the insurance and marketing visionary, and Andrey Kolmogorov the Russian mathematical genius-all giants in their respective fields who collectively laid the foundations for modern retirement income planning. With baby boomers starting to hit retirement age, planning for retirement income has become a hot topic across the country Author Moshe Milevsky is an internationally-respected financial expert with the knowledge you need to assess whether you are ready to retire or not Presents an entertaining, informative narrative approach to financial planning Understanding the ideas behind these seven foundation equations-which Moshe Milevsky explains in a manner that everyone can appreciate-will help baby boomers better prepare for retirement. This is a book unlike anything you have ever read on retirement planning. Think Suze Orman meets Stephen Hawking. If you ever wondered what the point of all that high school mathematics was, Moshe Milevsky's answer is: So that you can figure out how to retire...while you can still enjoy your money . From the introduction: An equation can't predict your future . . . But it can help you plan for it Most books about retirement planning are written as guides, instruction manuals or "how-to" books. The authors tell you what to do, when to do it, and what to expect. I know this quite well because I have authored many such tomes myself. Rest assured, this is not one of those books. This book tells stories which I hope will lead into conversations. It is a narrative involving seven people, their discoveries and the conceptual innovations that made it possible for you to stop working and enjoy the money you have accumulated, one day. These protagonists-or scientific heroes-didn't achieve their breakthroughs while hunched over a laboratory workbench, peering through a microscope or trekking through jungles. They made their discoveries sitting in front of a blank sheet of paper, but while thinking very carefully about life and money. And, like the greatest thinker of them all, Albert Einstein, they too expressed their discoveries using a very beautiful language called mathematics. Alas, the seven equations profiled in this book aren't as famous or as elegant as the simplicity of E = MC 2, but they are far more practical for your retirement. Yes, I know from many years of teaching experience that financial conversations are often dry and humorless. So I promise to do my best to lighten up the topic by keeping the technicalities to a minimum and focusing on the art. "Art," you say? Yes. In my mind, famous equations are like beautiful Picassos. Even if I don't quite understand the painting or the mathematics I can certainly appreciate the beauty and genius behind it. The seven equations presented in this book typify, at least for me, the conciseness, elegance and beauty that the best of the best equations demonstrate. By the end of this book, if you're not already inclined to appreciate mathematical equations for what they are, I hope you'll agree about the beauty.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="533">
+            <subfield code="a">Electronic reproduction.</subfield>
+            <subfield code="c">Askews and Holts.</subfield>
+            <subfield code="n">Mode of access: World Wide Web.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="500">
+            <subfield code="a">Bibliographic Level Mode of Issuance: Monograph</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="546">
+            <subfield code="a">English</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="504">
+            <subfield code="a">Includes bibliographical references and index.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="588">
+            <subfield code="a">Description based on print version record.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="0" tag="650">
+            <subfield code="a">Retirement</subfield>
+            <subfield code="x">Planning.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="0" tag="650">
+            <subfield code="a">Financial planners</subfield>
+            <subfield code="v">Anecdotes.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="4" tag="655">
+            <subfield code="a">Electronic books.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="776">
+            <subfield code="z">1-118-29153-0</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="1" tag="852">
+            <subfield code="a">41SLSP_RZH</subfield>
+            <subfield code="6">99116703548605526</subfield>
+            <subfield code="9">E</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="1" tag="852">
+            <subfield code="a">41SLSP_ETH</subfield>
+            <subfield code="6">99117198719005503</subfield>
+            <subfield code="9">E</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="1" tag="852">
+            <subfield code="a">41SLSP_RZS</subfield>
+            <subfield code="6">9914265858505505</subfield>
+            <subfield code="9">E</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="1" tag="852">
+            <subfield code="a">41SLSP_LIB</subfield>
+            <subfield code="6">99116710825905522</subfield>
+            <subfield code="9">E</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="1" tag="852">
+            <subfield code="a">41SLSP_BFH</subfield>
+            <subfield code="6">99116743754305513</subfield>
+            <subfield code="9">E</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="1" tag="852">
+            <subfield code="a">41SLSP_UBS</subfield>
+            <subfield code="6">9972350377005504</subfield>
+            <subfield code="9">E</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="1" tag="852">
+            <subfield code="a">41SLSP_HES</subfield>
+            <subfield code="6">991001954796805514</subfield>
+            <subfield code="9">E</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="906">
+            <subfield code="a">BOOK</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>991170335464005501</recordIdentifier>
+      <recordPosition>7</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>00686naa a2200205uc 4500</leader>
+          <controlfield tag="001">991025775409705501</controlfield>
+          <controlfield tag="005">20201223201350.0</controlfield>
+          <controlfield tag="008">961204s1970    gw            00| | ger d</controlfield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(swissbib)032071248-41slsp_network</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">032071248</subfield>
+            <subfield code="9">ExL</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(IDSBB)001323923DSV01</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">SzZuIDS BS/BE B400</subfield>
+            <subfield code="b">ger</subfield>
+            <subfield code="e">kids</subfield>
+            <subfield code="d">CH-ZuSLS</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="072">
+            <subfield code="a">bb</subfield>
+            <subfield code="2">SzZuIDS BS/BE</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="4" tag="082">
+            <subfield code="a">020</subfield>
+            <subfield code="2">15</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="100">
+            <subfield code="a">Samuelson, Olof</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="0" tag="245">
+            <subfield code="a">Abbau von Cellulose bei verschiedenen Bleichmethoden</subfield>
+            <subfield code="c">O. Samuelson</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="b">txt</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="b">n</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="b">nc</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="773">
+            <subfield code="t">Das Papier</subfield>
+            <subfield code="d">Darmstadt</subfield>
+            <subfield code="g">24,10A(1970), S. 671-678</subfield>
+            <subfield code="q">24/10/1970/671-678</subfield>
+            <subfield code="w">(IDSBB)003695192DSV01</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="1" tag="852">
+            <subfield code="a">41SLSP_UBE</subfield>
+            <subfield code="6">99116908007905511</subfield>
+            <subfield code="9">P</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>991025775409705501</recordIdentifier>
+      <recordPosition>8</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>00756nam a2200217uc 4500</leader>
+          <controlfield tag="001">991149142609705501</controlfield>
+          <controlfield tag="005">20201231190800.0</controlfield>
+          <controlfield tag="008">921123s1992    xxua     |||| 000 0 eng|^</controlfield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">0918684277</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(swissbib)245418512-41slsp_network</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">245418512</subfield>
+            <subfield code="9">ExL</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(SBT)000770232SBT01</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">DLC</subfield>
+            <subfield code="d">CH-ZuSLS</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="072">
+            <subfield code="a">ba</subfield>
+            <subfield code="2">rero</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="100">
+            <subfield code="a">Cameron, Robert</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="0" tag="245">
+            <subfield code="a">Above Chicago</subfield>
+            <subfield code="b">a new collection of historical and original aerial photographs of Chicago</subfield>
+            <subfield code="c">by Robert Cameron ; with text by Tim Samuelson and Cheryl Kent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="1" tag="264">
+            <subfield code="a">San Francisco, California</subfield>
+            <subfield code="b">Cameron</subfield>
+            <subfield code="c">1992</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">159 p.</subfield>
+            <subfield code="b">ill.</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="7" tag="600">
+            <subfield code="a">Cameron, Robert</subfield>
+            <subfield code="x">Fotografie aeree [di] Chicago</subfield>
+            <subfield code="2">sbt12</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Samuelson, Tim</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Kent, Cheryl</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="1" tag="852">
+            <subfield code="a">41SLSP_USI</subfield>
+            <subfield code="6">990007702320205507</subfield>
+            <subfield code="9">P</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>991149142609705501</recordIdentifier>
+      <recordPosition>9</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>05135nam a22008295i 4500</leader>
+          <controlfield tag="001">991170419158205501</controlfield>
+          <controlfield tag="005">20190523123322.0</controlfield>
+          <controlfield tag="006">m|||||o||d||||||||</controlfield>
+          <controlfield tag="007">cr -n---------</controlfield>
+          <controlfield tag="008">190523s2014    nju    fo  d z      eng d</controlfield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">1-4008-6489-5</subfield>
+          </datafield>
+          <datafield ind1="7" ind2=" " tag="024">
+            <subfield code="a">10.1515/9781400864898</subfield>
+            <subfield code="2">doi</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(CKB)3710000000198715</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(EBL)1700090</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(SSID)ssj0001342858</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(PQKBManifestationID)11790868</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(PQKBTitleCode)TC0001342858</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(PQKBWorkID)11298417</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(PQKB)11404298</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(MiAaPQ)EBC1700090</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(OCoLC)899261324</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(MdBmJHUP)muse40255</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(DE-B1597)447776</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(OCoLC)1013956295</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(OCoLC)922696138</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(DE-B1597)9781400864898</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(EXLCZ)993710000000198715</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">DE-B1597</subfield>
+            <subfield code="b">eng</subfield>
+            <subfield code="c">DE-B1597</subfield>
+            <subfield code="e">rda</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="041">
+            <subfield code="a">eng</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="043">
+            <subfield code="a">n-us---</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="044">
+            <subfield code="a">nju</subfield>
+            <subfield code="c">US-NJ</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="4" tag="050">
+            <subfield code="a">HB87</subfield>
+            <subfield code="b">.B72 2014</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="072">
+            <subfield code="a">BUS023000</subfield>
+            <subfield code="2">bisacsh</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="4" tag="082">
+            <subfield code="a">330/.092/2</subfield>
+            <subfield code="2">21</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="100">
+            <subfield code="a">Breit, William,</subfield>
+            <subfield code="e">author.</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="4" tag="245">
+            <subfield code="a">The Academic Scribblers /</subfield>
+            <subfield code="c">William Breit, Roger L. Ransom.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="250">
+            <subfield code="a">Third edition with a New foreword by Robert M. Solow</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="1" tag="264">
+            <subfield code="a">Princeton, NJ :</subfield>
+            <subfield code="b">Princeton University Press,</subfield>
+            <subfield code="c">[2014]</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="4" tag="264">
+            <subfield code="c">©1999</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">1 online resource (301 p.)</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="b">txt</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">computer</subfield>
+            <subfield code="b">c</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">online resource</subfield>
+            <subfield code="b">cr</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="490">
+            <subfield code="a">Princeton Legacy Library</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="546">
+            <subfield code="a">English</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="500">
+            <subfield code="a">Reprint. Originally published: 1998.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="504">
+            <subfield code="a">Includes bibliographical references and indexes.</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="505">
+            <subfield code="t">Frontmatter --</subfield>
+            <subfield code="t">CONTENTS --</subfield>
+            <subfield code="t">Foreword /</subfield>
+            <subfield code="r">Solow, Robert M. --</subfield>
+            <subfield code="t">Preface to the First Edition --</subfield>
+            <subfield code="t">Preface to the Second Edition --</subfield>
+            <subfield code="t">Chapter 1. Introduction --</subfield>
+            <subfield code="t">PART ONE. THE PILLARS OF NEOCLASSICAL ECONOMICS --</subfield>
+            <subfield code="t">Chapter 2. The Intellectual Gantry of Neoclassical Economic Policy --</subfield>
+            <subfield code="t">Chapter 3. Alfred Marshall- Exemplar of Neoclassical Economic Thought --</subfield>
+            <subfield code="t">PART TWO. THE ECLIPSE OF NEOCLASSICAL ECONOMICS --</subfield>
+            <subfield code="t">Chapter 4. Thorstein Veblen-The Abrogation of Consumer Sovereignty --</subfield>
+            <subfield code="t">Chapter 5. Arthur Cecil Pigou-Externalities in Production --</subfield>
+            <subfield code="t">Chapter 6. Edward Hastings Chamberlin-The Wastes of Competition --</subfield>
+            <subfield code="t">Chapter 7. John Maynard Keynes-Unemployment in Equilibrium --</subfield>
+            <subfield code="t">PART THREE. THE NEW ECONOMICS --</subfield>
+            <subfield code="t">Chapter 8. Alvin H. Hansen-The American Keynes --</subfield>
+            <subfield code="t">Chapter 9. Paul A. Samuelson-From Economic Wunderkind to Policymaker --</subfield>
+            <subfield code="t">Chapter 10. Abba P. Lerner-The Artist as Economist --</subfield>
+            <subfield code="t">Chapter 11. John Kenneth Galbraith-Economist as Social Critic --</subfield>
+            <subfield code="t">PART FOUR. THE NEW NEOCLASSICISM --</subfield>
+            <subfield code="t">Chapter 12. Frank H. Knight-Philosopher of the Counterrevolution in Economics --</subfield>
+            <subfield code="t">Chapter 13. Henry C. Simons-Radical Proponent of Laissez-faire --</subfield>
+            <subfield code="t">Chapter 14. Milton Friedman-Classical Liberal as Economic Scientist --</subfield>
+            <subfield code="t">Chapter 15. Conclusion --</subfield>
+            <subfield code="t">Afterword: The Academic Scribblers after Twenty-Five Years /</subfield>
+            <subfield code="r">Breit, William / Ransom, Roger L. --</subfield>
+            <subfield code="t">NAME INDEX --</subfield>
+            <subfield code="t">SUBJECT INDEX</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="520">
+            <subfield code="a">The Academic Scribblers offers a thoughtful and highly literate summary of modern economic thought. It presents the story of economics through the lives of twelve major modern economists, beginning with Alfred Marshall and concluding with Paul Samuelson and Milton Friedman. In a very real sense, this book picks up where Robert Heilbroner's classic The Wordly Philosophers leaves off. Whereas Heilbroner begins with Smith and ends with Joseph Schumpeter, Breit and Ransom bring the story of modern American and British economic theory up to the 1980s. The Academic Scribblers is an elegant summary of modern economic policy debate and an enticement into a happy engagement with the "dismal science" of economics."Originally published in 1998.The Princeton Legacy Library uses the latest print-on-demand technology to again make available previously out-of-print books from the distinguished backlist of Princeton University Press. These paperback editions preserve the original texts of these important books while presenting them in durable paperback editions. The goal of the Princeton Legacy Library is to vastly increase access to the rich scholarly heritage found in the thousands of books published by Princeton University Press since its founding in 1905.</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="588">
+            <subfield code="a">Description based on online resource; title from PDF title page (publisher's Web site, viewed 23. Mai 2019)</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="0" tag="650">
+            <subfield code="a">Economists</subfield>
+            <subfield code="z">United States</subfield>
+            <subfield code="v">Biography.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="0" tag="650">
+            <subfield code="a">Economics</subfield>
+            <subfield code="z">United States</subfield>
+            <subfield code="x">History</subfield>
+            <subfield code="y">20th century.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="0" tag="650">
+            <subfield code="a">Economists</subfield>
+            <subfield code="v">Biography.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="0" tag="650">
+            <subfield code="a">Economics</subfield>
+            <subfield code="x">History</subfield>
+            <subfield code="y">20th century.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="4" tag="655">
+            <subfield code="a">Electronic books.</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Ransom, Roger L.,</subfield>
+            <subfield code="e">author.</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Solow, Robert M.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="776">
+            <subfield code="z">0-691-05986-1</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="776">
+            <subfield code="z">0-691-60551-3</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="0" tag="830">
+            <subfield code="a">Princeton legacy library.</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="1" tag="852">
+            <subfield code="a">41SLSP_UBE</subfield>
+            <subfield code="6">99117169889105511</subfield>
+            <subfield code="9">E</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="1" tag="852">
+            <subfield code="a">41SLSP_RZS</subfield>
+            <subfield code="6">9914258180105505</subfield>
+            <subfield code="9">E</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="1" tag="852">
+            <subfield code="a">41SLSP_LIB</subfield>
+            <subfield code="6">99116729052305522</subfield>
+            <subfield code="9">E</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="1" tag="852">
+            <subfield code="a">41SLSP_UBS</subfield>
+            <subfield code="6">9972336775305504</subfield>
+            <subfield code="9">E</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="906">
+            <subfield code="a">BOOK</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>991170419158205501</recordIdentifier>
+      <recordPosition>10</recordPosition>
+    </record>
+  </records>
+  <nextRecordPosition>11</nextRecordPosition>
+  <extraResponseData xmlns:xb="http://www.exlibris.com/repository/search/xmlbeans/">
+    <xb:exact>true</xb:exact>
+    <xb:responseDate>2021-10-04T19:49:54+0200</xb:responseDate>
+  </extraResponseData>
+</searchRetrieveResponse>

@@ -23,8 +23,9 @@ from dojson.utils import GroupableOrderedDict
 from pkg_resources import resource_string
 
 from rero_ils.dojson.utils import ReroIlsUnimarcOverdo, TitlePartList, \
-    add_note, get_field_items, get_field_link_data, make_year, \
-    not_repetitive, remove_trailing_punctuation
+    add_note, build_string_from_subfields, get_field_items, \
+    get_field_link_data, make_year, not_repetitive, \
+    remove_trailing_punctuation
 from rero_ils.modules.documents.api import Document
 
 _ISSUANCE_MAIN_TYPE_PER_BIB_LEVEL = {
@@ -368,6 +369,16 @@ def unimarc_bnf_id(self, key, value):
     return identifiers
 
 
+@unimarc.over('tableOfContents', '^464..')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_tableOfContents(self, key, value):
+    """Get tableOfContents from repetitive field 464."""
+    table_of_contents = build_string_from_subfields(value, 't')
+    if table_of_contents:
+        self.setdefault('tableOfContents', []).append(table_of_contents)
+
+
 @unimarc.over('title', '^200..')
 @utils.ignore_value
 def unimarc_title(self, key, value):
@@ -392,7 +403,6 @@ def unimarc_title(self, key, value):
     # process all of them in the first run and the tittle is already build,
     # there is nothing to do if the title has already been build.
     if not title:
-        language = unimarc.lang_from_101
         responsibilites = []
         for tag in ['200', '510',
                     '512', '514', '515', '516', '517', '518', '519', '532']:
@@ -403,13 +413,6 @@ def unimarc_title(self, key, value):
                     part_name_code='i'
                 )
                 subfields_6 = unimarc.get_subfields(field, '6')
-                subfields_7 = unimarc.get_subfields(field, '7')
-                subfields_a = unimarc.get_subfields(field, 'a')
-                subfields_e = unimarc.get_subfields(field, 'e')
-                language_script_code = ''
-                if subfields_7:
-                    language_script_code = \
-                        unimarc.get_language_script(subfields_7[0])
                 title_type = 'bf:VariantTitle'
                 if tag == '200':
                     title_type = 'bf:Title'
@@ -591,7 +594,6 @@ def unimarc_to_contribution(self, key, value):
         "730": "trl",
         "080": "aui",
         "160": "bsl",
-        "220": "com",
         "300": "drt",
         "430": "ilu",
         "651": "pbd",
@@ -642,7 +644,7 @@ def unimarc_to_edition_statement(self, key, value):
     subfields_a = utils.force_list(value.get('a'))
     if subfields_a:
         subfield_a = subfields_a[0]
-        edition_data['editionDesignation'] = [{'value': subfield_a}]
+        edition_data['editionDesignation'] = [{'value': subfield_a.strip()}]
     subfields_f = utils.force_list(value.get('f'))
     if subfields_f:
         subfield_f = subfields_f[0]
@@ -954,12 +956,122 @@ def marc21_to_summary(self, key, value):
     return summary or None
 
 
-@unimarc.over('identifiedBy', '^073..')
+@unimarc.over('identifiedBy', '^010..')
 @utils.ignore_value
 def unimarc_identifier_isbn(self, key, value):
     """Get identifier isbn.
 
+    identifiedBy.type = 'bf:Isbn'
+        * value = 010$a - (repeatable, remove hyphen)
+        * qualifier = 010$b
+
+    identifiedBy.type = 'bf:Isbn'
+        * value = 010$z - (repeatable, remove hyphen)
+        * status = 'invalid or cancelled'
+    """
+    identifiers = self.get('identifiedBy', [])
+    if value.get('a'):
+        isbn = {
+            "type": "bf:Isbn",
+            "value": value.get('a').replace('-', '')
+        }
+        if value.get('b'):
+            isbn['qualifier'] = value.get('b')
+        identifiers.append(isbn)
+
+    if value.get('z'):
+        for data in utils.force_list(value.get('z')):
+            isbn = {
+                "type": "bf:Isbn",
+                "value": data.replace('-', ''),
+                'status': 'invalid or cancelled'
+            }
+            identifiers.append(isbn)
+
+    return identifiers
+
+
+@unimarc.over('identifiedBy', '^011..')
+@utils.ignore_value
+def unimarc_identifier_isbn_tag011(self, key, value):
+    """Get identifier isbn.
+
+    identifiedBy.type = bf:Issn
+        * value: 011$a
+        * qualifier: 011$b
+
+    identifiedBy.type = bf:Issn
+        * value: 011$z (repeatable)
+        * status: 'invalid'
+
+    identifiedBy.type = bf:Issn
+        * value: 011$y
+        * status: 'cancelled'
+
+    identifiedBy.type = bf:IssnL
+        * value: 011$f
+
+    identifiedBy.type = bf:IssnL
+        * value: 011$g" (repeatable)
+        * status: 'cancelled'
+    """
+    identifiers = self.get('identifiedBy', [])
+    if value.get('a'):
+        issn = {
+            "type": "bf:Issn",
+            "value": value.get('a')
+        }
+        if value.get('b'):
+            issn['qualifier'] = value.get('b')
+        identifiers.append(issn)
+
+    if value.get('z'):
+        for data in utils.force_list(value.get('z')):
+            issn = {
+                "type": "bf:Issn",
+                "value": data,
+                'status': 'invalid'
+            }
+            identifiers.append(issn)
+
+    if value.get('y'):
+        for data in utils.force_list(value.get('y')):
+            issn = {
+                "type": "bf:Issn",
+                "value": data,
+                'status': 'cancelled'
+            }
+            identifiers.append(issn)
+
+    if value.get('f'):
+        issnl = {
+            "type": "bf:IssnL",
+            "value": value.get('f'),
+        }
+        identifiers.append(issnl)
+
+    if value.get('g'):
+        for data in utils.force_list(value.get('g')):
+            issnl = {
+                "type": "bf:IssnL",
+                "value": data,
+                'status': 'cancelled'
+            }
+            identifiers.append(issnl)
+
+    return identifiers
+
+
+@unimarc.over('identifiedBy', '^073..')
+@utils.ignore_value
+def unimarc_identifier_isbn_tag073(self, key, value):
+    """Get identifier isbn.
+
     identifiers:isbn: 010$a
+    identifiedBy.type = bf:Ean = UNIMARC 073
+    * value = 073$a
+    * qualifier = 073$b
+    * ""status"":""invalid or cancelled"" = 073$z
     """
     from isbnlib import EAN13
     identifiers = self.get('identifiedBy', [])

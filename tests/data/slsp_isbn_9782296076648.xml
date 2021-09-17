@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/">
+  <version>1.2</version>
+  <numberOfRecords>2</numberOfRecords>
+  <records>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>01151nam a2200301 c 4500</leader>
+          <controlfield tag="001">991079993319705501</controlfield>
+          <controlfield tag="005">20201126051001.0</controlfield>
+          <controlfield tag="008">090522s2009    fr ||||| |||| 00| ||fre d</controlfield>
+          <datafield tag="020" ind1=" " ind2=" ">
+            <subfield code="a">9782296076648</subfield>
+          </datafield>
+          <datafield tag="022" ind1="0" ind2=" ">
+            <subfield code="a">1560-1560</subfield>
+            <subfield code="l">1234-1231</subfield>
+          </datafield>
+          <datafield tag="024" ind1="7" ind2=" ">
+            <subfield code="a">http://catalogue.bnf.fr/ark:/12148/cb41467055h</subfield>
+            <subfield code="2">uri</subfield>
+          </datafield>
+          <datafield tag="024" ind1="1" ind2=" ">
+            <subfield code="a">7822183031</subfield>
+          </datafield>
+          <datafield tag="035" ind1=" " ind2=" ">
+            <subfield code="a">(swissbib)108058360-41slsp_network</subfield>
+          </datafield>
+          <datafield tag="035" ind1=" " ind2=" ">
+            <subfield code="a">108058360</subfield>
+            <subfield code="9">ExL</subfield>
+          </datafield>
+          <datafield tag="035" ind1=" " ind2=" ">
+            <subfield code="a">(RERO)R005052957-41slsp</subfield>
+          </datafield>
+          <datafield tag="040" ind1=" " ind2=" ">
+            <subfield code="a">RERO geies-</subfield>
+            <subfield code="d">CH-ZuSLS</subfield>
+          </datafield>
+          <datafield tag="050" ind1="0" ind2="0">
+            <subfield code="a">TT835</subfield>
+            <subfield code="b">.B4826 2019</subfield>
+          </datafield>
+          <datafield tag="080" ind1=" " ind2=" ">
+            <subfield code="a">821.113.1</subfield>
+            <subfield code="x">(494)</subfield>
+            <subfield code="2">[edition information]</subfield>
+          </datafield>
+          <datafield tag="082" ind1="0" ind2="0">
+            <subfield code="a">746.46</subfield>
+            <subfield code="2">23</subfield>
+          </datafield>
+          <datafield tag="072" ind1=" " ind2="7">
+            <subfield code="a">in</subfield>
+            <subfield code="2">rero</subfield>
+          </datafield>
+          <datafield tag="100" ind1="1" ind2=" ">
+            <subfield code="a">Chatelain, Yannick</subfield>
+            <subfield code="d">1965-....</subfield>
+            <subfield code="0">(IDREF)055771041</subfield>
+            <subfield code="4">cre</subfield>
+          </datafield>
+          <datafield tag="210" ind1="1" ind2=" ">
+            <subfield code="a">Rech. écon. Louvain</subfield>
+            <subfield code="b">(Imprimé)</subfield>
+          </datafield>
+          <datafield tag="222" ind1=" " ind2="0">
+            <subfield code="a">Recherches économiques de Louvain</subfield>
+            <subfield code="b">(Imprimé)</subfield>
+          </datafield>
+          <datafield tag="245" ind1="1" ind2="0">
+            <subfield code="a">!ResisTanZ !</subfield>
+            <subfield code="b">hackeurs, les maquisards de l'innovation ! : management de l'innovation, internet et déviance, apprendre et savoir intégrer les logiques hackers</subfield>
+            <subfield code="c">Chatelain</subfield>
+          </datafield>
+          <datafield tag="264" ind1=" " ind2="1">
+            <subfield code="a">Paris</subfield>
+            <subfield code="b">L'Harmattan</subfield>
+            <subfield code="c">2009</subfield>
+          </datafield>
+          <datafield tag="300" ind1=" " ind2=" ">
+            <subfield code="a">220 p.</subfield>
+          </datafield>
+          <datafield tag="310" ind1=" " ind2=" ">
+            <subfield code="a">Monthly,</subfield>
+            <subfield code="b">1985-</subfield>
+          </datafield>
+          <datafield tag="321" ind1=" " ind2=" ">
+            <subfield code="a">Ten no. a year,</subfield>
+            <subfield code="b">1982-1984</subfield>
+          </datafield>
+          <datafield tag="336" ind1=" " ind2=" ">
+            <subfield code="b">txt</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield tag="337" ind1=" " ind2=" ">
+            <subfield code="b">n</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield tag="338" ind1=" " ind2=" ">
+            <subfield code="b">nc</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield tag="362" ind1="0" ind2=" ">
+            <subfield code="a">1962-1965. </subfield>
+          </datafield>
+          <datafield tag="490" ind1="0" ind2=" ">
+            <subfield code="a">Impacts des nouvelles technologies</subfield>
+            <subfield code="v">v. 14</subfield>
+          </datafield>
+          <datafield tag="502" ind1=" " ind2=" ">
+            <subfield code="a">Mémoire de stage (3e cycle) -- Université Dummy</subfield>
+          </datafield>
+          <datafield tag="506" ind1=" " ind2=" ">
+            <subfield code="a">Open Access</subfield>
+          </datafield>
+          <datafield tag="510" ind1="3" ind2=" ">
+            <subfield code="a">Bibliographie cartographique internationale </subfield>
+          </datafield>
+          <datafield tag="511" ind1=" " ind2=" ">
+            <subfield code="a">Marshall Moss, violin ; Neil Roberts, harpsichord. </subfield>
+          </datafield>
+          <datafield tag="521" ind1=" " ind2=" ">
+            <subfield code="a">Program designed for geographers, planners, geologists, meteorologists and others who have a professional interest in analyzing spatial data</subfield>
+          </datafield>
+          <datafield tag="600" ind1="1" ind2="0">
+            <subfield code="a">Baudelaire, Charles,</subfield>
+            <subfield code="d">1821-1867.</subfield>
+            <subfield code="t">Fleurs du mal.</subfield>
+          </datafield>
+          <datafield tag="650" ind1=" " ind2="7">
+            <subfield code="a">Morale sociale</subfield>
+            <subfield code="0">(RERO)A021003578</subfield>
+            <subfield code="2">rero</subfield>
+          </datafield>
+          <datafield tag="650" ind1=" " ind2="7">
+            <subfield code="a">Pirates informatiques</subfield>
+            <subfield code="0">(RERO)A021073688</subfield>
+            <subfield code="2">rero</subfield>
+          </datafield>
+          <datafield tag="650" ind1=" " ind2="7">
+            <subfield code="a">Innovations technologiques</subfield>
+            <subfield code="0">(RERO)A021005087</subfield>
+            <subfield code="2">rero</subfield>
+          </datafield>
+          <datafield tag="650" ind1=" " ind2="7">
+            <subfield code="a">Société numérique</subfield>
+            <subfield code="0">(RERO)A021066932</subfield>
+            <subfield code="2">rero</subfield>
+          </datafield>
+          <datafield tag="653" ind1=" " ind2=" ">
+            <subfield code="a">Abenteuer</subfield>
+          </datafield>
+          <datafield tag="655" ind1=" " ind2="7">
+            <subfield code="a">Bird's-eye views</subfield>
+            <subfield code="y">1874.</subfield>
+            <subfield code="2">gmgpc</subfield>
+          </datafield>
+          <datafield tag="773" ind1="0" ind2=" ">
+            <subfield code="7">p1am</subfield>
+            <subfield code="a">Desio, Ardito, 1897-</subfield>
+            <subfield code="t">Geographical features of the Karakorum.</subfield>
+            <subfield code="g">Vol. 24, pt. B no. 9 (Sept. 1993), p. 235-48</subfield>
+            <subfield code="d">Milano : ISMEO, 1991</subfield>
+          </datafield>
+          <datafield tag="852" ind1="0" ind2="1">
+            <subfield code="a">41SLSP_HES</subfield>
+            <subfield code="6">991000462019705514</subfield>
+            <subfield code="9">P</subfield>
+          </datafield>
+          <datafield tag="856" ind1="4" ind2="0">
+            <subfield code="u">https://nbn-resolving.org/urn:nbn:de:101:1-2021090320480431761051</subfield>
+            <subfield code="x">Resolving-System</subfield>
+            </datafield>
+          <datafield tag="900" ind1=" " ind2=" ">
+            <subfield code="a">REROnoselfmerge</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>991079993319705501</recordIdentifier>
+      <recordPosition>1</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>02081nam a2200469 a 4500</leader>
+          <controlfield tag="001">991170385813105501</controlfield>
+          <controlfield tag="005">20170817205406.0</controlfield>
+          <controlfield tag="007">cr||||||||||||</controlfield>
+          <controlfield tag="008">130125s2013    enk|||||s|||||||||||eng d</controlfield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">2-296-21856-3</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(CKB)3400000000127503</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(StDuBDS)AH25231935</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(SSID)ssj0001261161</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(PQKBManifestationID)12517471</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(PQKBTitleCode)TC0001261161</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(PQKBWorkID)11319763</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(PQKB)10829158</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(EXLCZ)993400000000127503</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="d">UkPrAHLS</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="041">
+            <subfield code="a">fre</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="0" tag="050">
+            <subfield code="a">HV6773.C475 2009</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="100">
+            <subfield code="a">Yannick Chatelain</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="0" tag="245">
+            <subfield code="a">Resistanz - hackeurs, les maquisards de l'innovation !</subfield>
+            <subfield code="h">[electronic resource] /</subfield>
+            <subfield code="c">Yannick Chatelain</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="260">
+            <subfield code="b">HARMATTAN</subfield>
+            <subfield code="c">2013</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">1 online resource (220 p.)</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="b">txt</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">computer</subfield>
+            <subfield code="b">c</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">online resource</subfield>
+            <subfield code="b">cr</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="366">
+            <subfield code="a">20130125</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="490">
+            <subfield code="a">Impacts des nouvelles technologies !ResisTanz!</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="520">
+            <subfield code="b">Les logiques mondialisees de gouvernance par la peur post 11 septembre ont pour ambition (non avouee) de ranger toutes les formes de deviances dans le crime et/ou le terrorisme. Sur le reseau, la communaute hacker, tout comme les utilisateurs, a ainsi ete largement la cible et la victime de cette vision du monde. Les consequences de cette stigmatisation ont ete un frein fort a l'innovation... Voici des reflexions pour proteger une pensee autonome differente, l'innovation et toutes les formes d'evolution sociale.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="533">
+            <subfield code="a">Electronic reproduction.</subfield>
+            <subfield code="c">Askews and Holts.</subfield>
+            <subfield code="n">Mode of access: World Wide Web.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="500">
+            <subfield code="a">Bibliographic Level Mode of Issuance: Monograph</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="546">
+            <subfield code="a">French</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="655">
+            <subfield code="a">Electronic books.</subfield>
+            <subfield code="2">lcsh</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="0" tag="650">
+            <subfield code="a">Hackers</subfield>
+            <subfield code="x">Security measures</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="0" tag="650">
+            <subfield code="a">Electronic data processing departments</subfield>
+            <subfield code="x">Social aspects</subfield>
+            <subfield code="x">Technological innovations</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="0" tag="650">
+            <subfield code="a">Communication</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="a">Social Welfare &amp; Social Work</subfield>
+            <subfield code="2">HILCC</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="a">Social Sciences</subfield>
+            <subfield code="2">HILCC</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="a">Criminology, Penology &amp; Juvenile Delinquency</subfield>
+            <subfield code="2">HILCC</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="776">
+            <subfield code="z">2-296-07664-5</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="1" tag="852">
+            <subfield code="a">41SLSP_UNE</subfield>
+            <subfield code="6">991009650005605517</subfield>
+            <subfield code="9">E</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="906">
+            <subfield code="a">BOOK</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>991170385813105501</recordIdentifier>
+      <recordPosition>2</recordPosition>
+    </record>
+  </records>
+  <extraResponseData xmlns:xb="http://www.exlibris.com/repository/search/xmlbeans/">
+    <xb:exact>true</xb:exact>
+    <xb:responseDate>2021-10-04T19:46:20+0200</xb:responseDate>
+  </extraResponseData>
+</searchRetrieveResponse>

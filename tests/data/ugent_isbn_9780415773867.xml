@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/">
+   <version>1.1</version>
+   <numberOfRecords>1</numberOfRecords>
+   <records>
+      <record>
+         <recordSchema>info:srw/schema/1/marcxml-v1.1</recordSchema>
+         <recordPacking>xml</recordPacking>
+         <recordData>
+            <record xmlns:marc="http://www.loc.gov/MARC21/slim">
+               <leader>00000cam a22003618a 4500</leader>
+               <controlfield tag="001">001259626</controlfield>
+               <controlfield tag="005">20170425101734.0</controlfield>
+               <controlfield tag="008">100706s2010    nyu           000 0 eng</controlfield>
+               <datafield tag="010" ind1=" " ind2=" ">
+                  <subfield code="a">2010027391</subfield>
+               </datafield>
+               <datafield tag="020" ind1=" " ind2=" ">
+                  <subfield code="a">9780415773867</subfield>
+                  <subfield code="q">hardback</subfield>
+               </datafield>
+               <datafield tag="020" ind1=" " ind2=" ">
+                  <subfield code="a">9780415773874</subfield>
+                  <subfield code="q">pbk.</subfield>
+               </datafield>
+               <datafield tag="020" ind1=" " ind2=" ">
+                  <subfield code="a">9780203847480</subfield>
+                  <subfield code="q">ebook</subfield>
+               </datafield>
+               <datafield tag="022" ind1="0" ind2=" ">
+                  <subfield code="a">1560-1560</subfield>
+                  <subfield code="l">1234-1231</subfield>
+               </datafield>
+               <datafield tag="024" ind1=" " ind2="7">
+                  <subfield code="a">0A3200912B4A1057</subfield>
+                  <subfield code="2">istc</subfield>
+               </datafield>
+               <datafield tag="024" ind1=" " ind2=" ">
+                  <subfield code="a">http://catalogue.bnf.fr/ark:/12148/cb41467055h</subfield>
+                  <subfield code="2">uri</subfield>
+               </datafield>
+               <datafield tag="024" ind1=" " ind2=" ">
+                  <subfield code="a">1-2021090320480431761051</subfield>
+               </datafield>
+               <datafield tag="024" ind1="1" ind2=" ">
+                  <subfield code="a">7822183031</subfield>
+               </datafield>
+               <datafield tag="028" ind1=" " ind2=" ">
+                  <subfield code="a">B. &amp; H. 8797</subfield>
+                  <subfield code="b">Breitkopf &amp; Hartel</subfield>
+               </datafield>
+               <datafield tag="035" ind1=" " ind2=" ">
+                  <subfield code="a">(DNAL)1066385</subfield>
+               </datafield>
+               <datafield tag="037" ind1=" " ind2=" ">
+                  <subfield code="a">1351129</subfield>
+                  <subfield code="b">QBI</subfield>
+               </datafield>
+               <datafield tag="040" ind1=" " ind2=" ">
+                  <subfield code="a">BE-GnUNI</subfield>
+               </datafield>
+               <datafield tag="042" ind1=" " ind2=" ">
+                  <subfield code="a">pcc</subfield>
+               </datafield>
+               <datafield tag="050" ind1=" " ind2="0">
+                  <subfield code="a">S419</subfield>
+                  <subfield code="b">.T38 2011</subfield>
+               </datafield>
+               <datafield tag="060" ind1=" " ind2="0">
+                  <subfield code="a">W1</subfield>
+                  <subfield code="b">BE357 Bd. 1 1978</subfield>
+               </datafield>
+               <datafield tag="070" ind1=" " ind2=" ">
+                  <subfield code="a">S419</subfield>
+                  <subfield code="b">.T38 2010</subfield>
+               </datafield>
+               <datafield tag="080" ind1=" " ind2=" ">
+                  <subfield code="a">971.1/.2</subfield>
+                  <subfield code="x">(494)</subfield>
+                  <subfield code="2">[edition information]</subfield>
+               </datafield>
+               <datafield tag="082" ind1=" " ind2=" ">
+                  <subfield code="a">630.9</subfield>
+                  <subfield code="2">22</subfield>
+               </datafield>
+               <datafield tag="100" ind1="1" ind2=" ">
+                  <subfield code="a">Tauger, Mark B.</subfield>
+               </datafield>
+               <datafield tag="210" ind1="1" ind2=" ">
+                  <subfield code="a">Rech. écon. Louvain</subfield>
+                  <subfield code="b">(Imprimé)</subfield>
+               </datafield>
+               <datafield tag="222" ind1=" " ind2="0">
+                  <subfield code="a">Recherches économiques de Louvain</subfield>
+                  <subfield code="b">(Imprimé)</subfield>
+               </datafield>
+               <datafield tag="245" ind1="1" ind2=" ">
+                  <subfield code="a">agriculture</subfield>
+                  <subfield code="b">the famous story</subfield>
+                  <subfield code="n">subfield n</subfield>
+                  <subfield code="p">Part 1</subfield>
+                  <subfield code="c">Mark B. Tauger.</subfield>
+               </datafield>
+               <datafield tag="260" ind1=" " ind2=" ">
+                  <subfield code="a">New York (N.Y.) :</subfield>
+                  <subfield code="b">Routledge,</subfield>
+                  <subfield code="c">2010.</subfield>
+               </datafield>
+               <datafield tag="300" ind1=" " ind2=" ">
+                  <subfield code="a">192 p.</subfield>
+               </datafield>
+               <datafield tag="310" ind1=" " ind2=" ">
+                  <subfield code="a">Monthly,</subfield>
+                  <subfield code="b">1985-</subfield>
+               </datafield>
+               <datafield tag="321" ind1=" " ind2=" ">
+                  <subfield code="a">Ten no. a year,</subfield>
+                  <subfield code="b">1982-1984</subfield>
+               </datafield>
+               <datafield tag="336" ind1=" " ind2=" ">
+                  <subfield code="a">text</subfield>
+                  <subfield code="b">txt</subfield>
+                  <subfield code="2">rdacontent</subfield>
+               </datafield>
+               <datafield tag="336" ind1=" " ind2=" ">
+                  <subfield code="a">still image</subfield>
+                  <subfield code="b">sti</subfield>
+                  <subfield code="2">rdacontent</subfield>
+               </datafield>
+               <datafield tag="337" ind1=" " ind2=" ">
+                  <subfield code="a">unmediated</subfield>
+                  <subfield code="b">n</subfield>
+                  <subfield code="2">rdamedia</subfield>
+               </datafield>
+               <datafield tag="338" ind1=" " ind2=" ">
+                  <subfield code="a">volume</subfield>
+                  <subfield code="b">nc</subfield>
+                  <subfield code="2">rdacarrier</subfield>
+               </datafield>
+               <datafield tag="362" ind1="0" ind2=" ">
+                  <subfield code="a">1962-1965. </subfield>
+               </datafield>
+               <datafield tag="490" ind1=" " ind2=" ">
+                  <subfield code="a">Themes in world history</subfield>
+               </datafield>
+               <datafield tag="502" ind1=" " ind2=" ">
+                  <subfield code="a">Mémoire de stage (3e cycle) -- Université Dummy</subfield>
+               </datafield>
+               <datafield tag="505" ind1=" " ind2=" ">
+                  <subfield code="a">The origins of agriculture and the dual subordination -- Agriculture in antiquity: the first great conflicts over land and freedom -- Agriculture in the post-classical period -- Early modern agriculture and European agricultural dominance (1500-1800) -- Agriculture in the 19th century: emancipation, modernization, and colonialism -- Agriculture and crisis 1900-1940 -- Boom and crisis: agriculture from World War II to the 21st century.</subfield>
+               </datafield>
+               <datafield tag="506" ind1=" " ind2=" ">
+                  <subfield code="a">Open Access</subfield>
+               </datafield>
+               <datafield tag="510" ind1="3" ind2=" ">
+                  <subfield code="a">Bibliographie cartographique internationale </subfield>
+               </datafield>
+               <datafield tag="511" ind1=" " ind2=" ">
+                  <subfield code="a">Marshall Moss, violin ; Neil Roberts, harpsichord. </subfield>
+               </datafield>
+               <datafield tag="521" ind1=" " ind2=" ">
+                  <subfield code="a">Program designed for geographers, planners, geologists, meteorologists and others who have a professional interest in analyzing spatial data</subfield>
+               </datafield>
+               <datafield tag="533" ind1=" " ind2=" ">
+                  <subfield code="a">Photocopy</subfield>
+                  <subfield code="b">Seattle, Wash. :</subfield>
+                  <subfield code="c">University of Washington,</subfield>
+                  <subfield code="d">1979.</subfield>
+                  <subfield code="e">28 cm.</subfield>
+               </datafield>
+               <datafield tag="650" ind1=" " ind2="7">
+                  <subfield code="a">Agriculture</subfield>
+                  <subfield code="x">History.</subfield>
+                  <subfield code="2">lcsh</subfield>
+               </datafield>
+               <datafield tag="653" ind1=" " ind2=" ">
+                  <subfield code="a">Abenteuer</subfield>
+               </datafield>
+               <datafield tag="655" ind1=" " ind2="7">
+                  <subfield code="a">Bird's-eye views</subfield>
+                  <subfield code="y">1874.</subfield>
+                  <subfield code="2">gmgpc</subfield>
+               </datafield>
+               <datafield tag="773" ind1="0" ind2=" ">
+                  <subfield code="7">p1am</subfield>
+                  <subfield code="a">Desio, Ardito, 1897-</subfield>
+                  <subfield code="t">Geographical features of the Karakorum.</subfield>
+                  <subfield code="g">Vol. 24, pt. B no. 9 (Sept. 1993), p. 235-48</subfield>
+                  <subfield code="d">Milano : ISMEO, 1991</subfield>
+               </datafield>
+               <datafield tag="830" ind1=" " ind2=" ">
+                  <subfield code="a">Themes in world history.</subfield>
+               </datafield>
+               <datafield tag="852" ind1="4" ind2=" ">
+                  <subfield code="x">LW</subfield>
+                  <subfield code="b">LW55</subfield>
+                  <subfield code="c">L04</subfield>
+                  <subfield code="j">LWBIB.L04.AG.01.C.0046</subfield>
+                  <subfield code="p">000010558362</subfield>
+               </datafield>
+                <datafield tag="856" ind1="4" ind2="0">
+                <subfield code="u">https://nbn-resolving.org/urn:nbn:de:101:1-2021090320480431761051</subfield>
+                <subfield code="x">Resolving-System</subfield>
+                </datafield>
+               <datafield tag="920" ind1=" " ind2=" ">
+                  <subfield code="a">book</subfield>
+               </datafield>
+            </record>
+         </recordData>
+         <recordPosition>1</recordPosition>
+      </record>
+   </records>
+   <extraResponseData />
+   <echoedSearchRetrieveRequest>
+      <version>1.1</version>
+      <query>isbn=9780415773867</query>
+      <startRecord>1</startRecord>
+      <maximumRecords>10</maximumRecords>
+      <recordSchema>marcxml</recordSchema>
+      <xQuery>
+         <searchClause xmlns="http://www.loc.gov/zing/cql/xcql/">
+            <index>isbn</index>
+            <relation>
+               <value>=</value>
+            </relation>
+            <term>9780415773867</term>
+         </searchClause>
+      </xQuery>
+   </echoedSearchRetrieveRequest>
+</searchRetrieveResponse>
+

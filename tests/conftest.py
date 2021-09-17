@@ -258,3 +258,219 @@ def bnf_anywhere_all_peter():
     )
     with open(file_name, 'rb') as file:
         return file.read()
+
+
+@pytest.fixture(scope="module")
+def loc_isbn_all_123():
+    """Load LoC isbn all 123 xml file."""
+    file_name = join(dirname(__file__), 'data/loc_isbn_all_123.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def loc_isbn_all_9781604689808():
+    """Load LoC isbn all 9781604689808 xml file."""
+    file_name = join(dirname(__file__), 'data/loc_isbn_all_9781604689808.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def loc_isbn_all_9780821417478():
+    """Load LoC isbn all 9780821417478 xml file."""
+    file_name = join(dirname(__file__), 'data/loc_isbn_all_9780821417478.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def loc_anywhere_all_samuelson():
+    """Load LoC anywhere_all samuelson xml file."""
+    file_name = join(dirname(__file__), 'data/loc_anywhere_all_samuelson.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def loc_recordid_all_2014043016():
+    """Load LoC recordid 2014043016 xml file."""
+    file_name = join(dirname(__file__), 'data/loc_recordid_all_2014043016.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def dnb_isbn_123():
+    """Load DNB isbn 123 xml file."""
+    file_name = join(dirname(__file__), 'data/dnb_isbn_123.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def dnb_isbn_9783862729852():
+    """Load DNB isbn 9783862729852 file."""
+    file_name = join(dirname(__file__), 'data/dnb_isbn_9783862729852.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def dnb_isbn_3858818526():
+    """Load DNB isbn 3858818526 file."""
+    file_name = join(dirname(__file__), 'data/dnb_isbn_3858818526.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def dnb_samuelson():
+    """Load DNB samuelson file."""
+    file_name = join(dirname(__file__), 'data/dnb_samuelson.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def dnb_recordid_1214325203():
+    """Load dnb recordid 1214325203 file."""
+    file_name = join(dirname(__file__), 'data/dnb_recordid_1214325203.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def slsp_anywhere_123():
+    """Load slsp anywhere 123 file."""
+    file_name = join(dirname(__file__), 'data/slsp_anywhere_123.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def slsp_isbn_9782296076648():
+    """Load slsp isbn 9782296076648 file."""
+    file_name = join(dirname(__file__), 'data/slsp_isbn_9782296076648.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def slsp_isbn_3908497272():
+    """Load slsp isbn 3908497272 file."""
+    file_name = join(dirname(__file__), 'data/slsp_isbn_3908497272.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def slsp_samuelson():
+    """Load slsp samuelson file."""
+    file_name = join(dirname(__file__), 'data/slsp_samuelson.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def slsp_recordid_9910137():
+    """Load slsp recordid 991013724759705501 file."""
+    file_name = join(dirname(__file__), 'data/slsp_recordid_9910137.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def ugent_anywhere_123():
+    """Load ugent anywhere 123 file."""
+    file_name = join(dirname(__file__), 'data/ugent_anywhere_123.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def ugent_isbn_9781108422925():
+    """Load ugent isbn 9781108422925 file."""
+    file_name = join(dirname(__file__), 'data/ugent_isbn_9781108422925.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def ugent_isbn_9780415773867():
+    """Load ugent isbn 9780415773867 file."""
+    file_name = join(dirname(__file__), 'data/ugent_isbn_9780415773867.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def ugent_samuelson():
+    """Load ugent samuelson file."""
+    file_name = join(dirname(__file__), 'data/ugent_samuelson.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def ugent_recordid_001247835():
+    """Load ugent recordid 001247835 file."""
+    file_name = join(dirname(__file__), 'data/ugent_recordid_001247835.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def ugent_book_without_26X():
+    """Load ugent book without 26X file."""
+    file_name = join(dirname(__file__), 'data/ugent_book_without_26X.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def kul_anywhere_123():
+    """Load kul anywhere 123 file."""
+    file_name = join(dirname(__file__), 'data/kul_anywhere_123.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def kul_isbn_9782265089419():
+    """Load kul isbn 9782265089419 file."""
+    file_name = join(dirname(__file__), 'data/kul_isbn_9782265089419.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def kul_isbn_2804600068():
+    """Load kul isbn 2804600068 file."""
+    file_name = join(dirname(__file__), 'data/kul_isbn_2804600068.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def kul_samuelson():
+    """Load kul samuelson file."""
+    file_name = join(dirname(__file__), 'data/kul_samuelson.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def kul_recordid_9992876296301471():
+    """Load kul recordid 9992876296301471 file."""
+    file_name = join(dirname(__file__), 'data/kul_recordid_99928762.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
+def kul_book_without_26X():
+    """Load kul book without 26X file."""
+    file_name = join(dirname(__file__), 'data/kul_book_without_26X.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()

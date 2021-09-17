@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/">
+  <version>1.2</version>
+  <numberOfRecords>1</numberOfRecords>
+  <records>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>00900nam a2200265 c 4500</leader>
+          <controlfield tag="001">991081974299705501</controlfield>
+          <controlfield tag="005">20201126051456.0</controlfield>
+          <controlfield tag="008">070201s2006    gw ||||| |||| 00| ||ger d</controlfield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">3908497272</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(swissbib)104695390-41slsp_network</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">104695390</subfield>
+            <subfield code="9">ExL</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(RERO)R004321315-41slsp</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">GyFmDB</subfield>
+            <subfield code="d">CH-ZuSLS</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="072">
+            <subfield code="a">in</subfield>
+            <subfield code="2">rero</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="100">
+            <subfield code="a">Urchs, Ossi</subfield>
+            <subfield code="0">(RERO)A003922810</subfield>
+            <subfield code="4">cre</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="0" tag="245">
+            <subfield code="a">"Hands on..."</subfield>
+            <subfield code="b">Internet-Telefonie : die neue Ratgeber-Reihe für die Praxis</subfield>
+            <subfield code="c">[Ossi Urchs ; Harald Zapp]</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="1" tag="264">
+            <subfield code="a">Kilchberg</subfield>
+            <subfield code="b">SmartBooks</subfield>
+            <subfield code="c">2006</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">175 S.</subfield>
+            <subfield code="b">Ill.</subfield>
+            <subfield code="c">25 cm</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="b">txt</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="b">n</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="b">nc</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="a">Téléphonie Internet</subfield>
+            <subfield code="0">(RERO)A021064672</subfield>
+            <subfield code="2">rero</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="655">
+            <subfield code="a">[Manuels d'enseignement]</subfield>
+            <subfield code="0">(RERO)A021098695</subfield>
+            <subfield code="2">rero</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Zapp, Harald</subfield>
+            <subfield code="0">(RERO)A013058709</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="1" tag="852">
+            <subfield code="a">41SLSP_BCUFR</subfield>
+            <subfield code="6">991008791449705509</subfield>
+            <subfield code="9">P</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="900">
+            <subfield code="a">REROnoselfmerge</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>991081974299705501</recordIdentifier>
+      <recordPosition>1</recordPosition>
+    </record>
+  </records>
+  <extraResponseData xmlns:xb="http://www.exlibris.com/repository/search/xmlbeans/">
+    <xb:exact>true</xb:exact>
+    <xb:responseDate>2021-10-04T20:16:09+0200</xb:responseDate>
+  </extraResponseData>
+</searchRetrieveResponse>

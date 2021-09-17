@@ -221,3 +221,605 @@ def test_documents_import_bnf_ean(mock_get, client, bnf_ean_any_123,
     ))
     assert res.status_code == 200
     assert get_json(res)[1][1] == 'FRBNF370903960000006'
+
+
+@mock.patch('requests.get')
+@mock.patch('rero_ils.permissions.login_and_librarian',
+            mock.MagicMock())
+def test_documents_import_loc_isbn(mock_get, client, loc_isbn_all_123,
+                                   loc_isbn_all_9781604689808,
+                                   loc_isbn_all_9780821417478,
+                                   loc_anywhere_all_samuelson,
+                                   loc_recordid_all_2014043016):
+    """Test document import from LoC."""
+
+    mock_get.return_value = mock_response(
+        content=loc_isbn_all_123
+    )
+    res = client.get(url_for(
+        'api_imports.import_loc',
+        q='isbn:all:123',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    data = get_json(res)
+    assert not data.get('metadata')
+
+    mock_get.return_value = mock_response(
+        content=loc_isbn_all_9781604689808
+    )
+    res = client.get(url_for(
+        'api_imports.import_loc',
+        q='isbn:all:9781604689808',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    data = get_json(res).get('hits').get('hits')[0].get('metadata')
+    assert data['pid'] == '2018032710'
+    assert Document.create(data)
+
+    mock_get.return_value = mock_response(
+        content=loc_isbn_all_9780821417478
+    )
+    res = client.get(url_for(
+        'api_imports.import_loc',
+        q='isbn:all:9780821417478',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    res_j = get_json(res)
+    data = res_j.get('hits').get('hits')[0].get('metadata')
+    data.update({
+        "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json"
+    })
+    assert Document.create(data)
+    marc21_link = res_j.get('hits').get('hits')[0].get('links').get('marc21')
+
+    res = client.get(marc21_link)
+    data = get_json(res)
+    assert data[0][0] == 'leader'
+
+    res = client.get(url_for(
+        'api_imports.import_loc',
+        q='',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    assert get_json(res) == {
+        'aggregations': {},
+        'hits': {
+            'hits': [],
+            'remote_total': 0,
+            'total': 0
+        }
+    }
+
+    mock_get.return_value = mock_response(
+        content=loc_anywhere_all_samuelson
+    )
+    res = client.get(url_for(
+        'api_imports.import_loc',
+        q='samuelson',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    unfiltered_total = get_json(res)['hits']['remote_total']
+    assert get_json(res)
+
+    res = client.get(url_for(
+        'api_imports.import_loc',
+        q='samuelson',
+        year=2019,
+        format='rerojson'
+    ))
+    assert res.status_code == 200
+    assert get_json(res)['hits']['total'] < unfiltered_total
+
+    res = client.get(url_for(
+        'api_imports.import_loc',
+        q='samuelson',
+        author='Samuelson, Paul',
+        format='rerojson'
+    ))
+    assert res.status_code == 200
+    assert get_json(res)['hits']['total'] < unfiltered_total
+
+    res = client.get(url_for(
+        'api_imports.import_loc',
+        q='samuelson',
+        document_type='docmaintype_book',
+        format='rerojson'
+    ))
+    assert res.status_code == 200
+    assert get_json(res)['hits']['total'] < unfiltered_total
+
+    mock_get.return_value = mock_response(
+        content=loc_recordid_all_2014043016
+    )
+    res = client.get(url_for(
+        'api_imports.import_loc_record',
+        id='2014043016',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    assert get_json(res).get('metadata', {}).get('identifiedBy')
+
+    res = client.get(url_for(
+        'api_imports.import_loc_record',
+        id='2014043016',
+        format='rerojson'
+    ))
+    assert res.status_code == 200
+    assert get_json(res).get('metadata', {}).get('ui_title_text')
+
+
+@mock.patch('requests.get')
+@mock.patch('rero_ils.permissions.login_and_librarian',
+            mock.MagicMock())
+def test_documents_import_dnb_isbn(mock_get, client, dnb_isbn_123,
+                                   dnb_isbn_9783862729852,
+                                   dnb_isbn_3858818526,
+                                   dnb_samuelson,
+                                   dnb_recordid_1214325203):
+    """Test document import from DNB."""
+
+    mock_get.return_value = mock_response(
+        content=dnb_isbn_123
+    )
+    res = client.get(url_for(
+        'api_imports.import_dnb',
+        q='123',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    data = get_json(res)
+    assert not data.get('metadata')
+
+    mock_get.return_value = mock_response(
+        content=dnb_isbn_3858818526
+    )
+    res = client.get(url_for(
+        'api_imports.import_dnb',
+        q='3858818526',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    res_j = get_json(res)
+    data = res_j.get('hits').get('hits')[0].get('metadata')
+    data.update({
+        "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json"
+    })
+    assert Document.create(data)
+    marc21_link = res_j.get('hits').get('hits')[0].get('links').get('marc21')
+
+    res = client.get(marc21_link)
+    data = get_json(res)
+    assert data[0][0] == 'leader'
+
+    res = client.get(url_for(
+        'api_imports.import_dnb',
+        q='',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    assert get_json(res) == {
+        'aggregations': {},
+        'hits': {
+            'hits': [],
+            'remote_total': 0,
+            'total': 0
+        }
+    }
+
+    mock_get.return_value = mock_response(
+        content=dnb_samuelson
+    )
+    res = client.get(url_for(
+        'api_imports.import_dnb',
+        q='samuelson, paul',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    unfiltered_total = get_json(res)['hits']['remote_total']
+    assert get_json(res)
+
+    res = client.get(url_for(
+        'api_imports.import_dnb',
+        q='samuelson, paul',
+        year=2019
+    ))
+    assert res.status_code == 200
+    assert get_json(res)['hits']['total'] < unfiltered_total
+
+    res = client.get(url_for(
+        'api_imports.import_dnb',
+        q='samuelson, paul',
+        author='Samuelson, Paul A.'
+    ))
+    assert res.status_code == 200
+    assert get_json(res)['hits']['total'] < unfiltered_total
+
+    res = client.get(url_for(
+        'api_imports.import_dnb',
+        q='samuelson, paul',
+        document_type='docmaintype_book'
+    ))
+    assert res.status_code == 200
+    assert get_json(res)['hits']['total'] < unfiltered_total
+
+    mock_get.return_value = mock_response(
+        content=dnb_recordid_1214325203
+    )
+    res = client.get(url_for(
+        'api_imports.import_dnb_record',
+        id='1214325203',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    assert get_json(res).get('metadata', {}).get('identifiedBy')
+
+
+@mock.patch('requests.get')
+@mock.patch('rero_ils.permissions.login_and_librarian',
+            mock.MagicMock())
+def test_documents_import_slsp_isbn(mock_get, client, slsp_anywhere_123,
+                                    slsp_isbn_9782296076648,
+                                    slsp_isbn_3908497272,
+                                    slsp_samuelson,
+                                    slsp_recordid_9910137):
+    """Test document import from slsp."""
+
+    mock_get.return_value = mock_response(
+        content=slsp_anywhere_123
+    )
+    res = client.get(url_for(
+        'api_imports.import_slsp',
+        q='123',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    data = get_json(res)
+    assert not data.get('metadata')
+
+    mock_get.return_value = mock_response(
+        content=slsp_isbn_9782296076648
+    )
+    res = client.get(url_for(
+        'api_imports.import_slsp',
+        q='isbn:all:9782296076648',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    data = get_json(res).get('hits').get('hits')[0].get('metadata')
+    assert data['pid'] == '991079993319705501'
+    assert Document.create(data)
+
+    mock_get.return_value = mock_response(
+        content=slsp_isbn_3908497272
+    )
+    res = client.get(url_for(
+        'api_imports.import_slsp',
+        q='isbn:all:3908497272',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    res_j = get_json(res)
+    data = res_j.get('hits').get('hits')[0].get('metadata')
+    data.update({
+        "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json"
+    })
+    assert Document.create(data)
+    marc21_link = res_j.get('hits').get('hits')[0].get('links').get('marc21')
+
+    res = client.get(marc21_link)
+    data = get_json(res)
+    assert data[0][0] == 'leader'
+
+    res = client.get(url_for(
+        'api_imports.import_slsp',
+        q='',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    assert get_json(res) == {
+        'aggregations': {},
+        'hits': {
+            'hits': [],
+            'remote_total': 0,
+            'total': 0
+        }
+    }
+
+    mock_get.return_value = mock_response(
+        content=slsp_samuelson
+    )
+    res = client.get(url_for(
+        'api_imports.import_slsp',
+        q='samuelson',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    unfiltered_total = get_json(res)['hits']['remote_total']
+    assert get_json(res)
+
+    res = client.get(url_for(
+        'api_imports.import_slsp',
+        q='samuelson',
+        year=2019,
+        format='rerojson'
+    ))
+    assert res.status_code == 200
+    assert get_json(res)['hits']['total'] < unfiltered_total
+
+    res = client.get(url_for(
+        'api_imports.import_slsp',
+        q='samuelson',
+        author='samuelson',
+        format='rerojson'
+    ))
+    assert res.status_code == 200
+    assert get_json(res)['hits']['total'] < unfiltered_total
+
+    res = client.get(url_for(
+        'api_imports.import_slsp',
+        q='samuelson',
+        document_type='docmaintype_book',
+        format='rerojson'
+    ))
+    assert res.status_code == 200
+    assert get_json(res)['hits']['total'] < unfiltered_total
+
+    mock_get.return_value = mock_response(
+        content=slsp_recordid_9910137
+    )
+    res = client.get(url_for(
+        'api_imports.import_slsp_record',
+        id='recordid:all:991013724759705501',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    assert get_json(res).get('metadata', {}).get('identifiedBy')
+
+    res = client.get(url_for(
+        'api_imports.import_slsp_record',
+        id='recordid:all:991013724759705501',
+        format='rerojson'
+    ))
+    assert res.status_code == 200
+    assert get_json(res).get('metadata', {}).get('ui_title_text')
+
+
+@mock.patch('requests.get')
+@mock.patch('rero_ils.permissions.login_and_librarian',
+            mock.MagicMock())
+def test_documents_import_ugent_isbn(mock_get, client, ugent_anywhere_123,
+                                     ugent_isbn_9781108422925,
+                                     ugent_book_without_26X,
+                                     ugent_isbn_9780415773867,
+                                     ugent_samuelson,
+                                     ugent_recordid_001247835):
+    """Test document import from ugent."""
+
+    mock_get.return_value = mock_response(
+        content=ugent_anywhere_123
+    )
+    res = client.get(url_for(
+        'api_imports.import_ugent',
+        q='123',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    data = get_json(res)
+    assert not data.get('metadata')
+
+    mock_get.return_value = mock_response(
+        content=ugent_isbn_9781108422925
+    )
+    res = client.get(url_for(
+        'api_imports.import_ugent',
+        q='isbn:all:9781108422925',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    data = get_json(res).get('hits').get('hits')[0].get('metadata')
+    assert data['pid'] == '002487518'
+    assert Document.create(data)
+
+    mock_get.return_value = mock_response(
+        content=ugent_book_without_26X
+    )
+    res = client.get(url_for(
+        'api_imports.import_ugent',
+        q='isbn:all:9782717725650',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    data = get_json(res).get('hits').get('hits')[0].get('metadata')
+    assert data['pid'] == '002762516'
+    assert Document.create(data)
+
+    res = client.get(url_for(
+        'api_imports.import_ugent',
+        q='',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    assert get_json(res) == {
+        'aggregations': {},
+        'hits': {
+            'hits': [],
+            'remote_total': 0,
+            'total': 0
+        }
+    }
+
+    mock_get.return_value = mock_response(
+        content=ugent_samuelson
+    )
+    res = client.get(url_for(
+        'api_imports.import_ugent',
+        q='samuelson',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    unfiltered_total = get_json(res)['hits']['remote_total']
+    assert get_json(res)
+
+    res = client.get(url_for(
+        'api_imports.import_ugent',
+        q='samuelson',
+        year=2019,
+        format='rerojson'
+    ))
+    assert res.status_code == 200
+    assert get_json(res)['hits']['total'] < unfiltered_total
+
+    res = client.get(url_for(
+        'api_imports.import_ugent',
+        q='samuelson',
+        author='samuelson',
+        format='rerojson'
+    ))
+    assert res.status_code == 200
+    assert get_json(res)['hits']['total'] < unfiltered_total
+
+    mock_get.return_value = mock_response(
+        content=ugent_recordid_001247835
+    )
+    res = client.get(url_for(
+        'api_imports.import_ugent_record',
+        id='recordid:all:001247835',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    assert get_json(res).get('metadata', {}).get('identifiedBy')
+
+
+@mock.patch('requests.get')
+@mock.patch('rero_ils.permissions.login_and_librarian',
+            mock.MagicMock())
+def test_documents_import_kul_isbn(mock_get, client, kul_anywhere_123,
+                                   kul_isbn_9782265089419,
+                                   kul_book_without_26X,
+                                   kul_isbn_2804600068,
+                                   kul_samuelson,
+                                   kul_recordid_9992876296301471):
+    """Test document import from kul."""
+
+    mock_get.return_value = mock_response(
+        content=kul_anywhere_123
+    )
+    res = client.get(url_for(
+        'api_imports.import_kul',
+        q='123',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    data = get_json(res)
+    assert not data.get('metadata')
+
+    mock_get.return_value = mock_response(
+        content=kul_isbn_9782265089419
+    )
+    res = client.get(url_for(
+        'api_imports.import_kul',
+        q='isbn:all:9782265089419',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    data = get_json(res).get('hits').get('hits')[0].get('metadata')
+    assert data['pid'] == '9983115060101471'
+
+    mock_get.return_value = mock_response(
+        content=kul_isbn_2804600068
+    )
+    res = client.get(url_for(
+        'api_imports.import_kul',
+        q='isbn:all:2804600068',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    res_j = get_json(res)
+    data = res_j.get('hits').get('hits')[0].get('metadata')
+    data.update({
+        "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json"
+    })
+    assert Document.create(data)
+    marc21_link = res_j.get('hits').get('hits')[0].get('links').get('marc21')
+
+    res = client.get(marc21_link)
+    data = get_json(res)
+    assert data[0][0] == 'leader'
+
+    res = client.get(url_for(
+        'api_imports.import_kul',
+        q='',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    assert get_json(res) == {
+        'aggregations': {},
+        'hits': {
+            'hits': [],
+            'remote_total': 0,
+            'total': 0
+        }
+    }
+
+    mock_get.return_value = mock_response(
+        content=kul_samuelson
+    )
+    res = client.get(url_for(
+        'api_imports.import_kul',
+        q='samuelson',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    unfiltered_total = get_json(res)['hits']['remote_total']
+    assert get_json(res)
+
+    res = client.get(url_for(
+        'api_imports.import_kul',
+        q='samuelson',
+        year=2019,
+        format='rerojson'
+    ))
+    assert res.status_code == 200
+    assert get_json(res)['hits']['total'] < unfiltered_total
+
+    res = client.get(url_for(
+        'api_imports.import_kul',
+        q='samuelson',
+        author='samuelson',
+        format='rerojson'
+    ))
+    assert res.status_code == 200
+    assert get_json(res)['hits']['total'] < unfiltered_total
+
+    res = client.get(url_for(
+        'api_imports.import_kul',
+        q='samuelson',
+        document_type='docmaintype_book',
+        format='rerojson'
+    ))
+    assert res.status_code == 200
+    assert get_json(res)['hits']['total'] < unfiltered_total
+
+    mock_get.return_value = mock_response(
+        content=kul_recordid_9992876296301471
+    )
+    res = client.get(url_for(
+        'api_imports.import_kul_record',
+        id='recordid:all:9992876296301471',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    assert get_json(res).get('metadata', {}).get('identifiedBy')
+
+    res = client.get(url_for(
+        'api_imports.import_kul_record',
+        id='recordid:all:9992876296301471',
+        format='rerojson'
+    ))
+    assert res.status_code == 200
+    assert get_json(res).get('metadata', {}).get('ui_title_text')

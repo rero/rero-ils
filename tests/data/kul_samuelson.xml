@@ -1,0 +1,1137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/">
+  <version>1.2</version>
+  <numberOfRecords>355</numberOfRecords>
+  <records>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>01058nam  2200301u  4500</leader>
+          <controlfield tag="001">995428070101471</controlfield>
+          <controlfield tag="005">20210317001835.0</controlfield>
+          <controlfield tag="008">841214s1971    ne |||| |     000|0 dut c</controlfield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">9024640822</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(BeLVLBS)000542807LBS01-Aleph</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">1272107</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">KHL204432</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">BeLVLBS</subfield>
+            <subfield code="b">Language of cataloging varies</subfield>
+            <subfield code="e">rda based</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="245">
+            <subfield code="a">4 dagen, 40 uur</subfield>
+            <subfield code="b">rapport over een revolutie op het gebied van arbeid en vrije tijd /</subfield>
+            <subfield code="c">onder red. van Riva Poor ; voorwoord van Paul A. Samuelson</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="260">
+            <subfield code="a">Baarn</subfield>
+            <subfield code="b">Bosch en Keuning</subfield>
+            <subfield code="c">1971</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">192 p.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">unmediated</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">volume</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="534">
+            <subfield code="a">4 days, 40 hours</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">UDC</subfield>
+            <subfield code="a">331.31</subfield>
+            <subfield code="x">Arbeidsduur. Arbeidstijd. Werktijden</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">UCLL</subfield>
+            <subfield code="a">arbeidsduurvermindering</subfield>
+            <subfield code="x">331.8</subfield>
+            <subfield code="e">TSS</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">UCLL</subfield>
+            <subfield code="a">vrijetijdsbesteding</subfield>
+            <subfield code="x">379</subfield>
+            <subfield code="e">TSS</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Poor, Riva</subfield>
+            <subfield code="4">edt</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Samuelson, Paul A..</subfield>
+            <subfield code="4">apr</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Schuursma, Rud.</subfield>
+            <subfield code="4">trl</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">de Vries, J.P.</subfield>
+            <subfield code="4">trl</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="998">
+            <subfield code="a">LBS01</subfield>
+            <subfield code="b">bib_200501.mrc.2.af</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>995428070101471</recordIdentifier>
+      <recordPosition>1</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>00820nam  2200217u  4500</leader>
+          <controlfield tag="001">997677470101471</controlfield>
+          <controlfield tag="005">20210317034454.0</controlfield>
+          <controlfield tag="008">860825s1972    xx |||| |     000|0 eng c</controlfield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(BeLVLBS)000767747LBS01-Aleph</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">1891411</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">BeLVLBS</subfield>
+            <subfield code="b">Language of cataloging varies</subfield>
+            <subfield code="e">rda based</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="245">
+            <subfield code="a">4 days, 40 hours : reporting a revolution in work and leisure /</subfield>
+            <subfield code="c">Ed. by Riva Poor ; forew. by Paul A. Samuelson ; spec. rev. for the British ed. with a follow-up report by Riva Poor and new material prep. by Theo Richmond</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="260">
+            <subfield code="a">London</subfield>
+            <subfield code="b">Pan</subfield>
+            <subfield code="c">1972</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">XVII, 298 p.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">unmediated</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">volume</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="490">
+            <subfield code="a">Pan books</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Poor, Riva</subfield>
+            <subfield code="4">edt</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Samuelson, Paul A..</subfield>
+            <subfield code="4">oth</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="998">
+            <subfield code="a">LBS01</subfield>
+            <subfield code="b">bib_200501.mrc.2.ah</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>997677470101471</recordIdentifier>
+      <recordPosition>2</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>01163naa  2200253u  4500</leader>
+          <controlfield tag="001">9933482940101471</controlfield>
+          <controlfield tag="005">20210316111716.0</controlfield>
+          <controlfield tag="008">930517s1993    xx a         0000|0 eng c</controlfield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(BeLVLBS)003348294LBS01-Aleph</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">NBB-000153663</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">BeLVLBS</subfield>
+            <subfield code="b">Language of cataloging varies</subfield>
+            <subfield code="e">rda based</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="4" tag="245">
+            <subfield code="a">The American economy</subfield>
+            <subfield code="b">before and after the election</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">unmediated</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">volume</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="6" tag="653">
+            <subfield code="a">Articles</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">NBB</subfield>
+            <subfield code="a">US / United States of America - USA - Verenigde Staten - Etats Unis</subfield>
+            <subfield code="9">geo code ISO</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">NBB</subfield>
+            <subfield code="a">331.31</subfield>
+            <subfield code="x">Economisch beleid</subfield>
+            <subfield code="y">Politique économique</subfield>
+            <subfield code="z">Economic policy</subfield>
+            <subfield code="9">SUB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">NBB</subfield>
+            <subfield code="a">336.61</subfield>
+            <subfield code="x">Financieel beleid</subfield>
+            <subfield code="y">Politique financière. vie économique</subfield>
+            <subfield code="z">Financial policy</subfield>
+            <subfield code="9">SUB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">NBB</subfield>
+            <subfield code="a">336.401</subfield>
+            <subfield code="x">Verband tussen begrotingspolitiek en economische evolutie</subfield>
+            <subfield code="y">Politique budgétaire dans ses relations avec l'évolution économique</subfield>
+            <subfield code="z">Relationship between budgetary policy and economic development</subfield>
+            <subfield code="9">SUB</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Samuelson, Paul A..</subfield>
+            <subfield code="4">aut</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="773">
+            <subfield code="g">Vol. 36, No 2, March-April 1993, p. 19-21</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="900">
+            <subfield code="a">TO BE EXAMINED</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="996">
+            <subfield code="a">NBWBS</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>9933482940101471</recordIdentifier>
+      <recordPosition>3</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>00362cam-a2200133z--4500</leader>
+          <controlfield tag="001">9992328543101471</controlfield>
+          <controlfield tag="005">20200818202314.0</controlfield>
+          <controlfield tag="008">121017u1989uuuuuuuuu-|-o----u|----|eng-d</controlfield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">0-585-09270-2</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(CKB)111004365725546</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(EXLCZ)99111004365725546</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="100">
+            <subfield code="a">Samuelson, Norbert M.,</subfield>
+            <subfield code="d">1936-</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="245">
+            <subfield code="a">An Introduction to Modern Jewish Philosophy</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="776">
+            <subfield code="z">0-88706-960-6</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="906">
+            <subfield code="a">BOOK</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>9992328543101471</recordIdentifier>
+      <recordPosition>4</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>00941nam a2200265 u 4500</leader>
+          <controlfield tag="001">9979965390101471</controlfield>
+          <controlfield tag="005">20210317095533.0</controlfield>
+          <controlfield tag="008">110307s2010    xxk     |     000 0 eng c</controlfield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">978-0-415-47321-7</subfield>
+            <subfield code="c">hardback</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(BeLVLBS)007996539LBS01-Aleph</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">LOC-2010002184</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">BeLVLBS</subfield>
+            <subfield code="b">Language of cataloging varies</subfield>
+            <subfield code="e">rda based</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="4" tag="245">
+            <subfield code="a">The analysis of linear economic systems</subfield>
+            <subfield code="b">Father Maurice Potron's pioneering works.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="260">
+            <subfield code="a">Abingdon</subfield>
+            <subfield code="b">Routledge</subfield>
+            <subfield code="c">2010</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">XIX, 265 p.</subfield>
+            <subfield code="b">ill.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">unmediated</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">volume</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="0" tag="600">
+            <subfield code="a">Potron, M.</subfield>
+            <subfield code="q">(Maurice),</subfield>
+            <subfield code="d">1872-</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="0" tag="650">
+            <subfield code="a">Economics, Mathematical</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="0" tag="650">
+            <subfield code="a">Economics</subfield>
+            <subfield code="x">Mathematical models</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">UDC</subfield>
+            <subfield code="a">330.105</subfield>
+            <subfield code="x">Wiskundige economie. Wiskundige methoden in de economie</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Bidard, Christian</subfield>
+            <subfield code="4">edt</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Erreygers, Guido</subfield>
+            <subfield code="4">edt</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Samuelson, Paul A..</subfield>
+            <subfield code="4">apr</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>9979965390101471</recordIdentifier>
+      <recordPosition>5</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>01635njm a2200517 u 4500</leader>
+          <controlfield tag="001">9977356590101471</controlfield>
+          <controlfield tag="005">20210315223450.0</controlfield>
+          <controlfield tag="008">101012s1985       nnn  |      nn n swe c</controlfield>
+          <datafield ind1="5" ind2="0" tag="028">
+            <subfield code="a">CAP 22016:1-2</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(BeLVLBS)007735659LBS01-Aleph</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">BeLVLBS</subfield>
+            <subfield code="b">Language of cataloging varies</subfield>
+            <subfield code="e">rda based</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="100">
+            <subfield code="a">Blomdahl, Karl-Birger</subfield>
+            <subfield code="4">cmp</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="0" tag="240">
+            <subfield code="a">Aniara</subfield>
+            <subfield code="f">1959</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="245">
+            <subfield code="a">Aniara</subfield>
+            <subfield code="b">Space Opera</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="260">
+            <subfield code="a">Sweden</subfield>
+            <subfield code="b">Caprice</subfield>
+            <subfield code="c">1985</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="e">2 CDs</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="306">
+            <subfield code="a">014118</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">performed music</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">audio</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">audio disc</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="340">
+            <subfield code="3">1</subfield>
+            <subfield code="a">CD</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="505">
+            <subfield code="a">7 parts</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="6" tag="653">
+            <subfield code="a">Music sound recording</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="6" tag="653">
+            <subfield code="a">Opera and music theatre</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">KUL</subfield>
+            <subfield code="a">#LMAT</subfield>
+            <subfield code="9">L01</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">KUL</subfield>
+            <subfield code="a">#LMAT:cd</subfield>
+            <subfield code="9">L01</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Anderberg, Viveka</subfield>
+            <subfield code="4">prf</subfield>
+            <subfield code="e">soprano</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Hoel, Lena</subfield>
+            <subfield code="4">prf</subfield>
+            <subfield code="e">soprano</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Haugan, Björn</subfield>
+            <subfield code="4">prf</subfield>
+            <subfield code="e">tenor</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Parkman, Stefan</subfield>
+            <subfield code="4">prf</subfield>
+            <subfield code="e">tenor</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Sunnegardh, Thomas</subfield>
+            <subfield code="4">prf</subfield>
+            <subfield code="e">tenor</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Saedén, Erik</subfield>
+            <subfield code="4">prf</subfield>
+            <subfield code="e">baritone</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Samuelson, Mikael</subfield>
+            <subfield code="4">prf</subfield>
+            <subfield code="e">baritone</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Arvidson, Jerker</subfield>
+            <subfield code="4">prf</subfield>
+            <subfield code="e">other</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Saeden, Erik</subfield>
+            <subfield code="4">dir</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Hillerud, Jan-Ake</subfield>
+            <subfield code="4">oth</subfield>
+          </datafield>
+          <datafield ind1="2" ind2=" " tag="710">
+            <subfield code="a">The Radio Chorus Sveriges</subfield>
+            <subfield code="4">prf</subfield>
+          </datafield>
+          <datafield ind1="2" ind2=" " tag="710">
+            <subfield code="a">The Swedish Radio Symphony Orchestra</subfield>
+            <subfield code="4">prf</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Westerberg, Stig</subfield>
+            <subfield code="4">cnd</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Lindegren, Erik</subfield>
+            <subfield code="4">lbt</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="948">
+            <subfield code="a">voices soprano_voice</subfield>
+            <subfield code="d">02</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="948">
+            <subfield code="a">voices tenor_voice</subfield>
+            <subfield code="d">03</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="948">
+            <subfield code="a">voices baritone_voice</subfield>
+            <subfield code="d">02</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="948">
+            <subfield code="a">voices other_voice</subfield>
+            <subfield code="d">01</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="948">
+            <subfield code="a">ensembles symphonic_orch_ens</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="948">
+            <subfield code="a">choruses mixed_chorus</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>9977356590101471</recordIdentifier>
+      <recordPosition>6</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>00772nam  2200229u  4500</leader>
+          <controlfield tag="001">9934296720101471</controlfield>
+          <controlfield tag="005">20210316104924.0</controlfield>
+          <controlfield tag="008">920220s1978    xx |||| |     000|0 fre c</controlfield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(BeLVLBS)003429672LBS01-Aleph</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">NBB-000034843</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">BeLVLBS</subfield>
+            <subfield code="b">Language of cataloging varies</subfield>
+            <subfield code="e">rda based</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="245">
+            <subfield code="a">Après Keynes</subfield>
+            <subfield code="b">5 grands économistes.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="260">
+            <subfield code="a">Paris</subfield>
+            <subfield code="b">Editions d'Organisation</subfield>
+            <subfield code="c">1978</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">292 p.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">unmediated</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">volume</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">NBB</subfield>
+            <subfield code="a">AA / International- internationaal</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">NBB</subfield>
+            <subfield code="a">08</subfield>
+            <subfield code="x">Biografieën en memoires</subfield>
+            <subfield code="y">Biographies et mémoires</subfield>
+            <subfield code="z">Biographies and memoirs</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Silk, L.</subfield>
+            <subfield code="4">aut</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Friedman, M.</subfield>
+            <subfield code="4">oth</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Samuelson, P.A.</subfield>
+            <subfield code="4">oth</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>9934296720101471</recordIdentifier>
+      <recordPosition>7</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>01151nam a2200349u  4500</leader>
+          <controlfield tag="001">9926894570101471</controlfield>
+          <controlfield tag="005">20050926160221.0</controlfield>
+          <controlfield tag="008">000331s1995    be |||| |     000|0 eng c</controlfield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">3-7913-1453-X</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(BeLVLBS)002689457LBS01-Aleph</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">LOC-95006874</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">slucb-200-0967</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">BeLVLBS</subfield>
+            <subfield code="b">Language of cataloging varies</subfield>
+            <subfield code="e">rda based</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="4" tag="245">
+            <subfield code="a">The architecture of Bruce Goff 1904-1982</subfield>
+            <subfield code="b">design for the continuos present.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="260">
+            <subfield code="a">Munich</subfield>
+            <subfield code="b">Prestel</subfield>
+            <subfield code="c">1995</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">119 p.</subfield>
+            <subfield code="b">ill.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">unmediated</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">volume</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="0" tag="600">
+            <subfield code="a">Goff, Bruce,</subfield>
+            <subfield code="d">1904-</subfield>
+            <subfield code="v">Exhibitions.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="0" tag="650">
+            <subfield code="a">Architecture</subfield>
+            <subfield code="x">History</subfield>
+            <subfield code="y">20th century</subfield>
+            <subfield code="z">United States</subfield>
+            <subfield code="v">Exhibitions.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="2">SLUCB</subfield>
+            <subfield code="a">Goff, Bruce</subfield>
+            <subfield code="9">persoon</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">De Long, David G.</subfield>
+            <subfield code="4">aut</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Golden, Jack</subfield>
+            <subfield code="4">aut</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Price, Joe D.</subfield>
+            <subfield code="4">aut</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Robinson, Sidney</subfield>
+            <subfield code="4">aut</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Saliga, Pauline</subfield>
+            <subfield code="4">edt</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Samuelson, Timothy</subfield>
+            <subfield code="4">aut</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Van Roessel, Annemarie</subfield>
+            <subfield code="4">aut</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Welch, Philip B.</subfield>
+            <subfield code="4">aut</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Woolever, Mary</subfield>
+            <subfield code="4">edt</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="998">
+            <subfield code="a">LBS01</subfield>
+            <subfield code="b">sb-slucb</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>9926894570101471</recordIdentifier>
+      <recordPosition>8</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>08047nam a22009015i 4500</leader>
+          <controlfield tag="001">9993124736401471</controlfield>
+          <controlfield tag="005">20210423111757.0</controlfield>
+          <controlfield tag="006">m|||||o||d||||||||</controlfield>
+          <controlfield tag="007">cr || ||||||||</controlfield>
+          <controlfield tag="008">210423t20211881gw     fo  d z      ger d</controlfield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">3-11-238814-3</subfield>
+          </datafield>
+          <datafield ind1="7" ind2=" " tag="024">
+            <subfield code="a">10.1515/9783112388143</subfield>
+            <subfield code="2">doi</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(CKB)5400000000002994</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(DE-B1597)559702</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(DE-B1597)9783112388143</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(EXLCZ)995400000000002994</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">DE-B1597</subfield>
+            <subfield code="b">eng</subfield>
+            <subfield code="c">DE-B1597</subfield>
+            <subfield code="e">rda</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="041">
+            <subfield code="a">ger</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="044">
+            <subfield code="a">gw</subfield>
+            <subfield code="c">DE</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="072">
+            <subfield code="a">NON000000</subfield>
+            <subfield code="2">bisacsh</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="100">
+            <subfield code="a">Virchow, Rudolf,</subfield>
+            <subfield code="e">author.</subfield>
+            <subfield code="4">aut</subfield>
+            <subfield code="4">http://id.loc.gov/vocabulary/relators/aut</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="0" tag="245">
+            <subfield code="a">Archiv für pathologische Anatomie und Physiologie und für klinische Medicin.</subfield>
+            <subfield code="n">Band 86.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="250">
+            <subfield code="a">Reprint 2020</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="1" tag="264">
+            <subfield code="a">Berlin ;</subfield>
+            <subfield code="a">Boston :</subfield>
+            <subfield code="b">De Gruyter,</subfield>
+            <subfield code="c">[2021]</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="4" tag="264">
+            <subfield code="c">©1881</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">1 online resource (VI, 547 p.) :</subfield>
+            <subfield code="b">21 Taf.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="b">txt</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">computer</subfield>
+            <subfield code="b">c</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">online resource</subfield>
+            <subfield code="b">cr</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="490">
+            <subfield code="a">Archiv für pathologische Anatomie und Physiologie und für klinische Medicin ;</subfield>
+            <subfield code="v">Band 86</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="588">
+            <subfield code="a">Description based on online resource; title from PDF title page (publisher's Web site, viewed 23. Apr 2021)</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="546">
+            <subfield code="a">In German.</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="505">
+            <subfield code="t">Frontmatter --</subfield>
+            <subfield code="t">Inhalt des sechsundachtzigsten Bandes --</subfield>
+            <subfield code="t">Erstes Heft (1. October) --</subfield>
+            <subfield code="t">I. Anatomische Notizen. (Fortsetzung.) --</subfield>
+            <subfield code="t">II. Zur Kenntniss der indirecten Kerntheilung. (Aus dem pathologisch-anatomischen Institut der Universität Heidelberg.) --</subfield>
+            <subfield code="t">III. Weitere Beiträge zur Elektrolyse, insbesondere zur elektrolytischen Behandlung der Geschwülste --</subfield>
+            <subfield code="t">IV. Gafiki's Verzeichniss einfacher Heilmittel --</subfield>
+            <subfield code="t">V. Giebt es eine Eiterung unabhängig von niederen Organismen? Aus dem pathologischen Institut zu Breslau --</subfield>
+            <subfield code="t">VI. lieber Krebsmetastasen im Magen. Casuistische Mittheilung --</subfield>
+            <subfield code="t">VII. Verbreitung des Kropfes und Cretinismus im Kaukasus --</subfield>
+            <subfield code="t">VIII. Kleinere Mittheilung. Zur Lage und Bewegung des Magens. (Berichtigung zu Professor H U ' s Erwiderung in der anatomischen Section des Internationalen Congresses In London.) --</subfield>
+            <subfield code="t">Zweites Heft (1. November) --</subfield>
+            <subfield code="t">IX. Ueber gummöse Syphilis des Gehirns und Rückenmarks, namentlich der Gehirngefässe, und über das Verhältniss dieser Erkrankungen zu den entsprechenden tuberculösen Affectionen --</subfield>
+            <subfield code="t">X. Ueber die Giftwirkung von japanischem Sternanis (Illicium religiosum Sieb). --</subfield>
+            <subfield code="t">XI. Erwiderung auf die „kritischen Bemerkunsen" des Herrn Dr. med. et phil. Kotelmann (dieses Archiv Bd. 84 lieft 1) zu dem Aufsatz „lieber die Lehre vom Kaiserschnitt im Thalmud" (dieses Archiv Bd. 80 Heft 3) --</subfield>
+            <subfield code="t">XII. Ueber die Entstehung der Anencephalie und Spina bifida bei Vögeln und Menschen --</subfield>
+            <subfield code="t">XIII. Experimentelle Untersuchung über den Zusammenhang zwischen Nierenkrankheiten und secundären Veränderungen des Circulationssystems --</subfield>
+            <subfield code="t">XIV. Ein Fall von ungewöhnlicher Degeneration der menschlichen Conjunctiva --</subfield>
+            <subfield code="t">XV. Heber hyaline Gefässdegeneration als Ursache einer Amblyopia saturnina. Aus dem pathologischen Institute zu München --</subfield>
+            <subfield code="t">XVI. Kleinere Mittheilungen. 1. Ein faugöses Carcinom der Niere --</subfield>
+            <subfield code="t">XVI. Kleinere Mittheilungen. 2. Einige Beobachtungen Aber das Längenwachstum der Nägel bei Gesanden und Nervenkranken --</subfield>
+            <subfield code="t">XVI. Kleinere Mittheilungen. 3. Erwiderung auf Prof. Lesshaft's Bemerkaugen zur Lage und Bewegung des Magens --</subfield>
+            <subfield code="t">XVI. Kleinere Mittheilungen. 4. Ueber einen Ast des N. radialis. Historische Bemerkung --</subfield>
+            <subfield code="t">Berichtigung --</subfield>
+            <subfield code="t">XVIII. Beiträge zur Lehre vom Herpes zoster --</subfield>
+            <subfield code="t">XIX. Ueber die Beteiligung der Milz und des Knochenmarks an der Bildung rother Blutkörperchen bei Vögeln --</subfield>
+            <subfield code="t">XX. Neuropatliologische Beobachtungen --</subfield>
+            <subfield code="t">XXI. Durst und Polydipsie --</subfield>
+            <subfield code="t">XXII. Ueber die von Brustwirbelcaries ausgehende Oesophagusperforation und ihre Erkennung --</subfield>
+            <subfield code="t">XXIII. Versuche Ober die physiologische Wirkung des Chinolins --</subfield>
+            <subfield code="t">XXIV. Ueber das Verhalten der Wanderzellen im geschichteten Plattenepithel --</subfield>
+            <subfield code="t">XXV. Anatomische Notizen. (Fortsetzung.) No. 1 — VI (CLXXXI — CLXXXVI) --</subfield>
+            <subfield code="t">XXVI. Untersuchungen über die Ernährung der Hornhaut. Vortrag, gehalten auf der Conferenz der Medicloischen Akademie in Petersburg, den 25. April/7. Mai 1881 --</subfield>
+            <subfield code="t">XXVII. Kleinere Mittheilungen. 1. Folgen der Kranzarterienverschliessnug für das Herz. Berichtigung und Abwehr --</subfield>
+            <subfield code="t">XXVII. Kleinere Mittheilungen. 2. Ausländische Preisertheilungen an deutsche Aerzte und Naturforscher --</subfield>
+            <subfield code="t">XXVII. Kleinere Mittheilungen. 3. Danksagung --</subfield>
+            <subfield code="t">Berichtigungen</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="776">
+            <subfield code="z">3-11-238813-5</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Baumgarten, Paul,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Bernhardt, Martin,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Biach, Alois,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Colles, Christopher J.,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Denissenko, Gabriel,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Friedreich, N.,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Grawitz, Paul,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Gruber, Wenzel,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">His, Wilhelm,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Israel, Oscar,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Korn, Theodor,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Krause, W.,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Langgaard, A.,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Lebedeff, A.,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Lesser, E.,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Lesshaft, P.,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Loimann, Gustav,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Martin, W. A.,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Neftel, W. B.,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Nothnagel, H.,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Penzoldt, F.,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Rawitzki, M.,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Samuelson, B.,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Seidlitz, N. V.,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Steinschneider, M.,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Stricker, Wilh.,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Uhtboff, W.,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Uskoff, N.,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Virchow, Rud.,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Öller, J. N.,</subfield>
+            <subfield code="e">contributor.</subfield>
+            <subfield code="4">ctb</subfield>
+            <subfield code="4">https://id.loc.gov/vocabulary/relators/ctb</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="906">
+            <subfield code="a">BOOK</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>9993124736401471</recordIdentifier>
+      <recordPosition>9</recordPosition>
+    </record>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>00898nam a2200265u  4500</leader>
+          <controlfield tag="001">9914812740101471</controlfield>
+          <controlfield tag="005">20210316080536.0</controlfield>
+          <controlfield tag="008">931122s1993    xx |||| |     000|0 und c</controlfield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">91-7966-248-X</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">5088023</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(BeLVLBS)001481274LBS01-Aleph</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">LOC-96133445</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(OCoLC)31213982</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">BeLVLBS</subfield>
+            <subfield code="b">Language of cataloging varies</subfield>
+            <subfield code="e">rda based</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="245">
+            <subfield code="a">Aristokrat eller förädlad bonde? Det svenska frälsets ekonomi, politik och sociala förbindelser under tiden 1523-1611</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="260">
+            <subfield code="a">Lund</subfield>
+            <subfield code="b">Lund university press</subfield>
+            <subfield code="c">1993</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">361 p.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">unmediated</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">volume</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="490">
+            <subfield code="a">Bibliotheca historica Lundensis</subfield>
+            <subfield code="v">77</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="0" tag="650">
+            <subfield code="a">Nobility</subfield>
+            <subfield code="x">History</subfield>
+            <subfield code="z">Sweden</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="0" tag="651">
+            <subfield code="a">Sweden</subfield>
+            <subfield code="x">History</subfield>
+            <subfield code="y">1523-1654.</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Samuelson, Jan</subfield>
+            <subfield code="4">aut</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="998">
+            <subfield code="a">LBS01</subfield>
+            <subfield code="b">bib_200501.mrc.2.ao</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>9914812740101471</recordIdentifier>
+      <recordPosition>10</recordPosition>
+    </record>
+  </records>
+  <nextRecordPosition>11</nextRecordPosition>
+  <extraResponseData xmlns:xb="http://www.exlibris.com/repository/search/xmlbeans/">
+    <xb:exact>true</xb:exact>
+    <xb:responseDate>2021-10-06T14:20:49+0200</xb:responseDate>
+  </extraResponseData>
+</searchRetrieveResponse>
