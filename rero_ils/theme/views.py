@@ -32,7 +32,6 @@ from rero_ils.modules.organisations.api import Organisation
 
 from .menus import init_menu_lang, init_menu_profile, init_menu_tools
 from ..permissions import can_access_professional_view
-from ..version import __version__
 
 blueprint = Blueprint(
     'rero_ils',
@@ -75,7 +74,6 @@ def error():
 def index():
     """Home Page."""
     return render_template('rero_ils/frontpage.html',
-                           version=__version__,
                            organisations=Organisation.get_all(),
                            viewcode=current_app.config.get(
                                'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))
@@ -93,7 +91,6 @@ def index_with_view_code(viewcode):
     else:
         return render_template(
             'rero_ils/frontpage.html',
-            version=__version__,
             organisations=Organisation.get_all(),
             viewcode=viewcode
         )
