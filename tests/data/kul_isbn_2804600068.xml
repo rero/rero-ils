@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/">
+  <version>1.2</version>
+  <numberOfRecords>1</numberOfRecords>
+  <records>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>00725nam a2200217 u 4500</leader>
+          <controlfield tag="001">9992697758701471</controlfield>
+          <controlfield tag="005">20181217112208.0</controlfield>
+          <controlfield tag="008">181217s1997    be  |   r     000 ||fre d</controlfield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">2804600068</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(BeLVLBS)9992697758701471</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">BeLVLBS</subfield>
+            <subfield code="b">Language of cataloging varies</subfield>
+            <subfield code="e">rda based</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="245">
+            <subfield code="a">Chocolat belge</subfield>
+            <subfield code="b">pralines, bâtons, desserts, biscuits ...</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="1" tag="264">
+            <subfield code="a">Tournai</subfield>
+            <subfield code="b">La Renaissance du livre</subfield>
+            <subfield code="c">1997</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">135 p.</subfield>
+            <subfield code="b">ill.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">unmediated</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">volume</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="490">
+            <subfield code="a">Saveurs gourmandes</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="500">
+            <subfield code="a">Avec des recettes et un guide des bonnes adresses</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Mercier, Jacques</subfield>
+            <subfield code="d">1943-</subfield>
+            <subfield code="4">aut</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Wynants, Pierre</subfield>
+            <subfield code="d">1939-</subfield>
+            <subfield code="4">apr</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>9992697758701471</recordIdentifier>
+      <recordPosition>1</recordPosition>
+    </record>
+  </records>
+  <extraResponseData xmlns:xb="http://www.exlibris.com/repository/search/xmlbeans/">
+    <xb:exact>true</xb:exact>
+    <xb:responseDate>2021-10-06T15:01:01+0200</xb:responseDate>
+  </extraResponseData>
+</searchRetrieveResponse>

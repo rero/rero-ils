@@ -112,6 +112,7 @@ setup(
             'notifications = rero_ils.modules.notifications.views:blueprint',
             'patron_types = rero_ils.modules.patron_types.views:blueprint',
             'patrons = rero_ils.modules.patrons.views:api_blueprint',
+            'imports = rero_ils.modules.imports.views:api_blueprint',
             'rero_ils = rero_ils.modules.views:api_blueprint',
         ],
         'invenio_config.module': [

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/">
+  <version>1.2</version>
+  <numberOfRecords>1</numberOfRecords>
+  <records>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>01020nam a2200301 c 4500</leader>
+          <controlfield tag="001">991013724759705501</controlfield>
+          <controlfield tag="005">20201223194955.0</controlfield>
+          <controlfield tag="008">010309s2001    gw            00| | ger^^</controlfield>
+          <datafield ind1=" " ind2=" " tag="015">
+            <subfield code="a">GFR-DNB-01,A18,0694</subfield>
+          </datafield>
+          <datafield ind1="7" ind2=" " tag="016">
+            <subfield code="a">96105364X</subfield>
+            <subfield code="2">GyFmDB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">393091283X</subfield>
+            <subfield code="c">kart. : DM 9.80, sfr 9.80, S 72.00</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(swissbib)039215091-41slsp_network</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">039215091</subfield>
+            <subfield code="9">ExL</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(IDSBB)002436193DSV01</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">DDB</subfield>
+            <subfield code="e">kids</subfield>
+            <subfield code="d">CH-ZuSLS</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="072">
+            <subfield code="a">ch</subfield>
+            <subfield code="2">SzZuIDS BS/BE</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="245">
+            <subfield code="a">"Best-Pages für die Schule:" Chemie im Internet</subfield>
+            <subfield code="c">hrsg. von Jörg Krichbaum ; mit Texten von Karsten Jacob ... [et al.]</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="246">
+            <subfield code="a">&lt;&lt;Die&gt;&gt; 555 besten Internetadressen, von A wie Aurum bis Z wie Zirkonium...</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="1" tag="264">
+            <subfield code="a">Köln</subfield>
+            <subfield code="b">Ed. Arcum</subfield>
+            <subfield code="c">2001</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">95 S.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="b">txt</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="b">n</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="b">nc</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="500">
+            <subfield code="a">URL-Angaben</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="a">Chemie</subfield>
+            <subfield code="x">Internet</subfield>
+            <subfield code="2">idsbb</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="a">Internet</subfield>
+            <subfield code="x">Chemie</subfield>
+            <subfield code="2">idsbb</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Jacob, Karsten</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="700">
+            <subfield code="a">Krichbaum, Jörg</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="1" tag="852">
+            <subfield code="a">41SLSP_UBE</subfield>
+            <subfield code="6">99116889634905511</subfield>
+            <subfield code="9">P</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>991013724759705501</recordIdentifier>
+      <recordPosition>1</recordPosition>
+    </record>
+  </records>
+  <extraResponseData xmlns:xb="http://www.exlibris.com/repository/search/xmlbeans/">
+    <xb:exact>true</xb:exact>
+    <xb:responseDate>2021-10-04T19:59:33+0200</xb:responseDate>
+  </extraResponseData>
+</searchRetrieveResponse>

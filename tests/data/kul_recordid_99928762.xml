@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/">
+  <version>1.2</version>
+  <numberOfRecords>1</numberOfRecords>
+  <records>
+    <record>
+      <recordSchema>marcxml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>02262nam a22003618i 4500</leader>
+          <controlfield tag="001">9992876296301471</controlfield>
+          <controlfield tag="005">20180430113158.0</controlfield>
+          <controlfield tag="006">m|||||o||d||||||||</controlfield>
+          <controlfield tag="007">cr||||||||||||</controlfield>
+          <controlfield tag="008">170517s2018||||enk     o     ||1 0|eng|d</controlfield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">1-108-39526-0</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">1-108-39730-1</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="020">
+            <subfield code="a">1-108-38602-4</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(CKB)4950000000120840</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(UkCbUP)CR9781108386029</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(EXLCZ)994950000000120840</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">UkCbUP</subfield>
+            <subfield code="b">eng</subfield>
+            <subfield code="e">rda</subfield>
+            <subfield code="c">UkCbUP</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="043">
+            <subfield code="a">e------</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="050">
+            <subfield code="a">GN803</subfield>
+            <subfield code="b">.S47 2018</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="082">
+            <subfield code="a">936</subfield>
+            <subfield code="2">23</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="100">
+            <subfield code="a">Shennan, Stephen,</subfield>
+            <subfield code="e">author.</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="4" tag="245">
+            <subfield code="a">The first farmers of Europe :</subfield>
+            <subfield code="b">an evolutionary perspective /</subfield>
+            <subfield code="c">Stephen Shennan, Institute of Archaeology, University of London..</subfield>
+            <subfield code="h">[electronic resource]</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="1" tag="264">
+            <subfield code="a">Cambridge :</subfield>
+            <subfield code="b">Cambridge University Press,</subfield>
+            <subfield code="c">2018.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="300">
+            <subfield code="a">1 online resource (xviii, 253 pages) :</subfield>
+            <subfield code="b">digital, PDF file(s).</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">text</subfield>
+            <subfield code="b">txt</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">computer</subfield>
+            <subfield code="b">c</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">online resource</subfield>
+            <subfield code="b">cr</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="490">
+            <subfield code="a">Cambridge world archaeology</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="500">
+            <subfield code="a">Title from publisher's bibliographic system (viewed on 24 Apr 2018).</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="520">
+            <subfield code="a">Knowledge of the origin and spread of farming has been revolutionised in recent years by the application of new scientific techniques, especially the analysis of ancient DNA from human genomes. In this book, Stephen Shennan presents the latest research on the spread of farming by archaeologists, geneticists and other archaeological scientists. He shows that it resulted from a population expansion from present-day Turkey. Using ideas from the disciplines of human behavioural ecology and cultural evolution, he explains how this process took place. The expansion was not the result of 'population pressure' but of the opportunities for increased fertility by colonising new regions that farming offered. The knowledge and resources for the farming 'niche' were passed on from parents to their children. However, Shennan demonstrates that the demographic patterns associated with the spread of farming resulted in population booms and busts, not continuous expansion.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="0" tag="650">
+            <subfield code="a">Agriculture, Prehistoric</subfield>
+            <subfield code="z">Europe.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="0" tag="650">
+            <subfield code="a">Neolithic period</subfield>
+            <subfield code="z">Europe.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="776">
+            <subfield code="z">1-108-42292-6</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="0" tag="830">
+            <subfield code="a">Cambridge world archaeology.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="906">
+            <subfield code="a">BOOK</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordIdentifier>9992876296301471</recordIdentifier>
+      <recordPosition>1</recordPosition>
+    </record>
+  </records>
+  <extraResponseData xmlns:xb="http://www.exlibris.com/repository/search/xmlbeans/">
+    <xb:exact>true</xb:exact>
+    <xb:responseDate>2021-10-06T14:18:44+0200</xb:responseDate>
+  </extraResponseData>
+</searchRetrieveResponse>

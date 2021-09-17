@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<zs:searchRetrieveResponse xmlns:zs="http://www.loc.gov/zing/srw/"><zs:version>1.2</zs:version><zs:numberOfRecords>1</zs:numberOfRecords><zs:records><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>03451cam a2200445 a 4500</leader>
+  <controlfield tag="001">14811913</controlfield>
+  <controlfield tag="005">20090713090622.0</controlfield>
+  <controlfield tag="008">070418s2007    enk      b   s001 0 eng  </controlfield>
+  <datafield tag="906" ind1=" " ind2=" ">
+    <subfield code="a">7</subfield>
+    <subfield code="b">cbc</subfield>
+    <subfield code="c">copycat</subfield>
+    <subfield code="d">2</subfield>
+    <subfield code="e">ncip</subfield>
+    <subfield code="f">20</subfield>
+    <subfield code="g">y-gencatlg</subfield>
+  </datafield>
+  <datafield tag="925" ind1="0" ind2=" ">
+    <subfield code="a">acquire</subfield>
+    <subfield code="b">2 shelf copies</subfield>
+    <subfield code="x">policy default</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">ps08 2007-04-18 z-processor to HLCD;</subfield>
+    <subfield code="c">lg13 2007-05-09 to WHL</subfield>
+    <subfield code="a">lg23 2007-06-27 to subj. (rev.)</subfield>
+    <subfield code="d">lg22 2007-06-29</subfield>
+    <subfield code="e">lg22 2007-06-29 to Dewey</subfield>
+  </datafield>
+  <datafield tag="010" ind1=" " ind2=" ">
+    <subfield code="a">  2007296520</subfield>
+  </datafield>
+  <datafield tag="015" ind1=" " ind2=" ">
+    <subfield code="a">GBA686379</subfield>
+    <subfield code="2">bnb</subfield>
+  </datafield>
+  <datafield tag="016" ind1="7" ind2=" ">
+    <subfield code="a">013573427</subfield>
+    <subfield code="2">Uk</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781847015228 (J. Currey)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">1847015220 (J. Currey)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780821417478 (Ohio University Press)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0821417479 (Ohio University Press)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781770130579 (Double Storey)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">1770130578 (Double Storey)</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">(OCoLC)ocm72868858</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">(OCoLC)72868858</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="a">UKM</subfield>
+    <subfield code="c">UKM</subfield>
+    <subfield code="d">OI@</subfield>
+    <subfield code="d">BAKER</subfield>
+    <subfield code="d">YDXCP</subfield>
+    <subfield code="d">MDS</subfield>
+    <subfield code="d">DLC</subfield>
+  </datafield>
+  <datafield tag="042" ind1=" " ind2=" ">
+    <subfield code="a">lccopycat</subfield>
+  </datafield>
+  <datafield tag="043" ind1=" " ind2=" ">
+    <subfield code="a">f------</subfield>
+  </datafield>
+  <datafield tag="050" ind1="0" ind2="0">
+    <subfield code="a">PN1995.9.A43</subfield>
+    <subfield code="b">B53 2007</subfield>
+  </datafield>
+  <datafield tag="082" ind1="0" ind2="4">
+    <subfield code="a">791.43658</subfield>
+    <subfield code="2">22</subfield>
+  </datafield>
+  <datafield tag="245" ind1="0" ind2="0">
+    <subfield code="a">Black and white in colour :</subfield>
+    <subfield code="b">African history on screen /</subfield>
+    <subfield code="c">edited by Vivian Bickford-Smith and Richard Mendelsohn.</subfield>
+  </datafield>
+  <datafield tag="246" ind1="1" ind2="4">
+    <subfield code="a">Black + white in colour</subfield>
+  </datafield>
+  <datafield tag="260" ind1=" " ind2=" ">
+    <subfield code="a">Oxford :</subfield>
+    <subfield code="b">James Currey ;</subfield>
+    <subfield code="a">Athens :</subfield>
+    <subfield code="b">Ohio University Press ;</subfield>
+    <subfield code="a">Cape Town :</subfield>
+    <subfield code="b">Double Storey,</subfield>
+    <subfield code="c">2007.</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">ix, 374 p. ;</subfield>
+    <subfield code="c">24 cm.</subfield>
+  </datafield>
+  <datafield tag="504" ind1=" " ind2=" ">
+    <subfield code="a">Includes bibiliographical references (p. 323-371) and index.</subfield>
+  </datafield>
+  <datafield tag="505" ind1="0" ind2=" ">
+    <subfield code="a">History as cultural redemption in Gaston Kabore's precolonial-era films / Mahir Saul -- Beyond "history" : two films of the deep Mande past / Ralph A. Austen -- Tradition and resistance in Ousmane Sembene's films Emitai and Ceddo / Robert Baum -- The transatlantic slave trade in cinema / Robert Harms -- "What are we?" : Proteus and the problematising of history / Nigel Worden -- The public lives of historical films : the case of Zulu and Zulu dawn / Carolyn Hamilton and Litheko Modisane -- Breaker Morant : an African war through an Australian lens / Richard Mendelsohn -- From Khartoum to Kufrah : filmic narratives of conquest and resistance / Shamil Jeppie -- Cheap if not always cheerful : French West Africa in the world wars in Black and white in colour and Le camp de Thiaroye / Bill Nasson -- Whites in Africa : Kenya's colonists in the films Out of Africa, Nowhere in Africa and White mischief / Nigel Penn -- Beholding the colonial past in Claire Denis's Chocolat / Ruth Watson -- The battle of Algiers : between fiction, memory and history / Patrick Harries -- Raoul Peck's Lumumba : history or hagiography? / David Moore -- Flame and the historiography of armed struggle in Zimbabwe / Teresa Barnes -- Picturing apartheid : with a particular focus on "Hollywood" histories of the 1970s / Vivian Bickford-Smith -- Hotel Rwanda : too much heroism, too little history, or horror? / Mohamed Adhikari -- Looking the beast in the (fictional) eye : the Truth and Reconciliation Commission on film / David Philips.</subfield>
+  </datafield>
+  <datafield tag="651" ind1=" " ind2="0">
+    <subfield code="a">Africa</subfield>
+    <subfield code="x">In motion pictures.</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Bickford-Smith, Vivian.</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Mendelsohn, Richard.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2="1">
+    <subfield code="3">Table of contents only</subfield>
+    <subfield code="u">http://www.loc.gov/catdir/toc/fy0713/2007296520.html</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2="2">
+    <subfield code="3">Contributor biographical information</subfield>
+    <subfield code="u">http://www.loc.gov/catdir/enhancements/fy0703/2007296520-b.html</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2="2">
+    <subfield code="3">Publisher description</subfield>
+    <subfield code="u">http://www.loc.gov/catdir/enhancements/fy0703/2007296520-d.html</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2="2">
+    <subfield code="3">Book review (H-Net)</subfield>
+    <subfield code="u">http://www.h-net.org/review/hrev-a0f7o0-aa</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>1</zs:recordPosition></zs:record></zs:records><zs:echoedSearchRetrieveRequest><zs:version>1.2</zs:version><zs:query>dc.identifier = 9780821417478</zs:query><zs:startRecord>1</zs:startRecord><zs:maximumRecords>10</zs:maximumRecords><zs:recordPacking>xml</zs:recordPacking><zs:recordSchema>marcxml</zs:recordSchema></zs:echoedSearchRetrieveRequest></zs:searchRetrieveResponse>
+

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2021 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,44 +17,16 @@
 
 """Import serialization."""
 
-from datetime import datetime
-
-from flask import current_app, json
+from flask import json
 from invenio_records_rest.schemas import RecordSchemaJSONV1
 from invenio_records_rest.serializers.json import JSONSerializer
-from invenio_records_rest.serializers.response import add_link_header, \
-    search_responsify
+from jsonref import JsonRef
 from marshmallow import fields
 
-from ..documents.api import Document
-from ..documents.dojson.contrib.unimarctojson import unimarc
-from ..documents.utils import title_format_text_head
-
-
-def record_responsify(serializer, mimetype):
-    """Create a Records-REST response serializer.
-
-    :param serializer: Serializer instance.
-    :param mimetype: MIME type of response.
-    :return: Function that generates a record HTTP response.
-    """
-    def view(pid, record, code=200, headers=None, links_factory=None):
-        response = current_app.response_class(
-            serializer.serialize(pid, record, links_factory=links_factory),
-            mimetype=mimetype)
-        response.status_code = code
-        # TODO: do we have to set an etag?
-        # response.set_etag('xxxxx')
-        response.last_modified = datetime.now()
-        if headers is not None:
-            response.headers.extend(headers)
-
-        if links_factory is not None:
-            add_link_header(response, links_factory(pid))
-
-        return response
-
-    return view
+from rero_ils.modules.documents.api import Document
+from rero_ils.modules.documents.dojson.contrib.marc21tojson import marc21
+from rero_ils.modules.documents.utils import create_contributions, \
+    title_format_text_head
 
 
 class ImportSchemaJSONV1(RecordSchemaJSONV1):
@@ -69,6 +41,11 @@ class ImportSchemaJSONV1(RecordSchemaJSONV1):
 
 class ImportsSearchSerializer(JSONSerializer):
     """Mixin serializing records as JSON."""
+
+    def __init__(self, *args, **kwargs):
+        """Constructor."""
+        self.record_processor = kwargs.pop("record_processor", marc21.do)
+        super(JSONSerializer, self).__init__(*args, **kwargs)
 
     def serialize_search(self, pid_fetcher, search_result, links=None,
                          item_links_factory=None, **kwargs):
@@ -111,7 +88,8 @@ class ImportsSearchSerializer(JSONSerializer):
         :param links: Dictionary of links to add to response.
         """
         return json.dumps(
-            dict(metadata=self.post_process(unimarc.do(record))),
+            dict(metadata=self.post_process(
+                self.record_processor(record))),
             **self._format_args())
 
 
@@ -137,6 +115,21 @@ class UIImportsSearchSerializer(ImportsSearchSerializer):
                                             with_subtitle=False)
         if text_title:
             metadata['ui_title_text_responsibility'] = text_title
+        contributions = metadata.get('contribution', [])
+        new_contributions = []
+        for contribution in contributions:
+            agent = contribution['agent']
+            agent_type = agent['type']
+            agent_data = JsonRef.replace_refs(
+                agent, loader=None).get('metadata')
+            if agent_data:
+                agent_data.pop('$schema', None)
+                agent = agent_data
+                agent['type'] = agent_type
+            new_contributions.append({'agent': agent})
+        if new_contributions:
+            new_contributions = create_contributions(new_contributions)
+            metadata['contribution'] = new_contributions
         return metadata
 
 
@@ -170,21 +163,3 @@ class ImportsMarcSearchSerializer(JSONSerializer):
             return res
 
         return json.dumps(sort_ordered_dict(record), **self._format_args())
-
-
-json_v1_search = ImportsSearchSerializer(ImportSchemaJSONV1)
-json_v1_record = ImportsSearchSerializer(ImportSchemaJSONV1)
-json_v1_uisearch = UIImportsSearchSerializer(ImportSchemaJSONV1)
-json_v1_uirecord = UIImportsSearchSerializer(ImportSchemaJSONV1)
-json_v1_record_marc = ImportsMarcSearchSerializer(ImportSchemaJSONV1)
-
-json_v1_import_search = search_responsify(json_v1_search,
-                                          'application/json')
-json_v1_import_record = record_responsify(json_v1_record,
-                                          'application/json')
-json_v1_import_uisearch = search_responsify(json_v1_uisearch,
-                                            'application/rero+json')
-json_v1_import_uirecord = record_responsify(json_v1_uirecord,
-                                            'application/rero+json')
-json_v1_import_record_marc = record_responsify(json_v1_record_marc,
-                                               'application/json+marc')

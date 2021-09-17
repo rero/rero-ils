@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2021 RERO
+# Copyright (C) 2021 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -19,17 +20,37 @@
 
 from __future__ import absolute_import, print_function
 
+from flask import Blueprint, current_app, jsonify
 from flask import request as flask_request
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_rest import ContentNegotiatedMethodView
 from invenio_rest.errors import RESTException
 
-from .serializers import json_v1_import_record, json_v1_import_record_marc, \
-    json_v1_import_search, json_v1_import_uirecord, json_v1_import_uisearch
+from .serializers import json_record_serializer_factory, \
+    json_v1_import_record_marc, json_v1_import_search, \
+    json_v1_import_uisearch
+from ..decorators import check_logged_as_librarian
+
+api_blueprint = Blueprint(
+    'api_import',
+    __name__,
+    url_prefix='/imports'
+)
+
+
+@api_blueprint.route('/config/', methods=['GET'])
+@check_logged_as_librarian
+def get_config():
+    """Get configuration from config.py."""
+    sources = current_app.config.get('RERO_IMPORT_REST_ENDPOINTS', [])
+    for source in sources:
+        source.pop('import_class', None)
+        source.pop('import_size', None)
+    return jsonify(sorted(sources, key=lambda s: s.get('weight', 100)))
 
 
 class ResultNotFoundOnTheRemoteServer(RESTException):
-    """Non existant remote record."""
+    """Non existent remote record."""
 
     code = 404
     description = 'Record not found on the remote server.'
@@ -40,7 +61,7 @@ class ImportsListResource(ContentNegotiatedMethodView):
 
     def __init__(self, **kwargs):
         """Init."""
-        self.import_class = kwargs.pop('import_class')
+        self.import_class = obj_or_import_string(kwargs.pop('import_class'))
         self.import_size = kwargs.pop('import_size', 50)
         super().__init__(
             method_serializers={
@@ -74,7 +95,7 @@ class ImportsListResource(ContentNegotiatedMethodView):
             relation = 'all'
             what = query
         size = flask_request.args.get('size', self.import_size)
-        do_import = obj_or_import_string(self.import_class)()
+        do_import = self.import_class()
         do_import.search_records(
             what=what,
             relation=relation,
@@ -133,12 +154,17 @@ class ImportsResource(ContentNegotiatedMethodView):
 
     def __init__(self, **kwargs):
         """Init."""
-        self.import_class = kwargs.pop('import_class')
+        self.import_class = obj_or_import_string(kwargs.pop('import_class'))
+        self.import_size = kwargs.pop('import_size', 50)
         super().__init__(
             method_serializers={
                 'GET': {
-                    'application/json': json_v1_import_record,
-                    'application/rero+json': json_v1_import_uirecord,
+                    'application/json': json_record_serializer_factory(
+                        self.import_class
+                    ),
+                    'application/rero+json': json_record_serializer_factory(
+                        self.import_class, serializer_type='uirecord'
+                    ),
                     'application/marc+json': json_v1_import_record_marc
                 }
             },
@@ -157,12 +183,13 @@ class ImportsResource(ContentNegotiatedMethodView):
     def get(self, id, **kwargs):
         """Implement the GET."""
         no_cache = True if flask_request.args.get('no_cache') else False
-        do_import = obj_or_import_string(self.import_class)()
+        size = flask_request.args.get('size', self.import_size)
+        do_import = self.import_class()
         do_import.search_records(
             what=id,
             relation='all',
             where='recordid',
-            max=1,
+            max=size,
             no_cache=no_cache
         )
         if not do_import.data:

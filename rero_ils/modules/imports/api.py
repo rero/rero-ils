@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2021 RERO
+# Copyright (C) 2021 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -30,6 +31,12 @@ from lxml import etree
 from redis import Redis
 from six import BytesIO
 
+from ..documents.dojson.contrib.marc21tojson_dnb import marc21 as marc21_dnb
+from ..documents.dojson.contrib.marc21tojson_kul import marc21 as marc21_kul
+from ..documents.dojson.contrib.marc21tojson_loc import marc21 as marc21_loc
+from ..documents.dojson.contrib.marc21tojson_slsp import marc21 as marc21_slsp
+from ..documents.dojson.contrib.marc21tojson_ugent import \
+    marc21 as marc21_ugent
 from ..documents.dojson.contrib.unimarctojson import unimarc
 
 
@@ -40,7 +47,7 @@ class Import(object):
     url = ''
     url_api = ''
     search = {}
-    marc_to_json = None
+    to_json_processor = None
     status_code = 444
     max = 50
 
@@ -51,7 +58,7 @@ class Import(object):
         assert self.url_api
         assert self.search
         assert self.search.get('anywhere')
-        assert self.marc_to_json
+        assert self.to_json_processor
         self.init_results()
         self.cache = Redis.from_url(current_app.config.get(
             'RERO_IMPORT_CACHE'
@@ -82,7 +89,11 @@ class Import(object):
         return jsonify(self.results), self.status_code
 
     def get_id(self, json_data):
-        """Get id."""
+        """Get id.
+
+        :param id: json document
+        :return: id of the record
+        """
         return json_data.get('001')
 
     def get_link(self, id):
@@ -140,7 +151,9 @@ class Import(object):
                 {'ids': set(), 'sub_type': sub_type, 'sub': {}}
             )
             ids_indexes['ids'].add(id)
-            ids_indexes['sub'].setdefault(sub_data, set()).add(id)
+            # check if we have data for subtype
+            if sub_data:
+                ids_indexes['sub'].setdefault(sub_data, set()).add(id)
             self.aggregations_creation[type][data] = ids_indexes
 
     def calculate_aggregations(self, record, id):
@@ -292,14 +305,18 @@ class Import(object):
         :param what: what term to search
         :param relation: relation for what and where
         :param where: in witch index to search
+        :param max: maximum records to search
+        :param no_cache: do not use cache if true
         """
         if max == 0:
             max = self.max
+        if self.name == 'LOC' and relation == "all":
+            relation = "="
         self.init_results()
         if not what:
             return self.results, 200
         try:
-            cache_key = f'{what}_{relation}_{where}_{max}'
+            cache_key = f'{self.name}_{what}_{relation}_{where}_{max}'
             cache = self.cache.get(cache_key)
             if cache and not no_cache:
                 cache_data = pickle.loads(cache)
@@ -342,13 +359,12 @@ class Import(object):
                     for xml_record in xml_records:
                         # convert xml in marc json
                         json_data = create_record(xml_record)
-
                         # Some BNF records are empty hmm...
                         if not json_data.values():
                             continue
 
                         # convert marc json to local json format
-                        record = unimarc.do(json_data)
+                        record = self.to_json_processor(json_data)
 
                         id = self.get_id(json_data)
                         if record:
@@ -407,7 +423,7 @@ class BnfImport(Import):
     url = 'http://catalogue.bnf.fr'
     url_api = '{url}/api/SRU?'\
               'version=1.2&operation=searchRetrieve'\
-              '&recordSchema=unimarcxchange&maximumRecords={max}'\
+              '&recordSchema=unimarcxchange-anl&maximumRecords={max}'\
               '&startRecord=1&query={where} {relation} "{what}"'
 
     # https://www.bnf.fr/sites/default/files/2019-04/tableau_criteres_sru.pdf
@@ -423,7 +439,7 @@ class BnfImport(Import):
         'date': 'bib.date'
     }
 
-    marc_to_json = unimarc
+    to_json_processor = unimarc.do
 
     def get_marc21_link(self, id):
         """Get direct link to marc21 record.
@@ -438,3 +454,222 @@ class BnfImport(Import):
                 'REST_MIMETYPE_QUERY_ARG_NAME', 'format'): 'marc'
         }
         return url_for('api_imports.import_bnf_record', **args)
+
+
+class LoCImport(Import):
+    """Import class for Library of Congress."""
+
+    name = 'LOC'
+    url = 'http://lx2.loc.gov:210'
+    url_api = '{url}/lcdb?'\
+              'version=1.2&operation=searchRetrieve'\
+              '&recordSchema=marcxml&maximumRecords={max}'\
+              '&startRecord=1&query={where} {relation} "{what}"'
+
+    # http://www.loc.gov/standards/sru/resources/lcServers.html
+    search = {
+        'ean': 'dc.identifier',
+        'anywhere': 'anywhere',
+        'author': 'dc.creator',
+        'title': 'dc.title',
+        'doctype': 'dc.type',
+        'recordid': 'dc.identifier',
+        'isbn': 'dc.identifier',
+        'issn': 'dc.identifier',
+        'date': 'dc.date'
+    }
+
+    to_json_processor = marc21_loc.do
+
+    # For LoC record, let's take the recordID in Tag 010 $a
+    def get_id(self, json_data):
+        """Get id.
+
+        :param id: json document
+        :return: id of the record
+        """
+        return json_data.get('010__').get('a').strip()
+
+    def get_marc21_link(self, id):
+        """Get direct link to marc21 record.
+
+        :param id: id to use for the link
+        :return: url for id
+        """
+        args = {
+            'id': id,
+            '_external': True,
+            current_app.config.get(
+                'REST_MIMETYPE_QUERY_ARG_NAME', 'format'): 'marc'
+        }
+        return url_for('api_imports.import_loc_record', **args)
+
+
+class DNBImport(Import):
+    """Import class for DNB."""
+
+    name = 'DNB'
+    url = 'https://services.dnb.de'
+    url_api = '{url}/sru/dnb?'\
+              'version=1.1&operation=searchRetrieve'\
+              '&recordSchema=MARC21-xml&maximumRecords={max}'\
+              '&startRecord=1&query={where} {relation} "{what}"'
+
+    # https://www.dnb.de/EN/Professionell/Metadatendienste/Datenbezug/SRU/sru_node.html
+    search = {
+        'ean': 'dnb.num',
+        'anywhere': 'dnb.woe',
+        'author': 'dnb.atr',
+        'title': 'dnb.tit',
+        'doctype': 'dnb.mat',
+        'recordid': 'dnb.num',
+        'isbn': 'dnb.num',
+        'issn': 'dnb.num',
+        'date': 'dnb.jhr'
+    }
+
+    to_json_processor = marc21_dnb.do
+
+    def get_marc21_link(self, id):
+        """Get direct link to marc21 record.
+
+        :param id: id to use for the link
+        :return: url for id
+        """
+        args = {
+            'id': id,
+            '_external': True,
+            current_app.config.get(
+                'REST_MIMETYPE_QUERY_ARG_NAME', 'format'): 'marc'
+        }
+        return url_for('api_imports.import_dnb_record', **args)
+
+
+class SLSPImport(Import):
+    """Import class for SLSP."""
+
+    name = 'SLSP'
+    url = 'https://swisscovery.slsp.ch'
+    url_api = '{url}/view/sru/41SLSP_NETWORK?'\
+              'version=1.2&operation=searchRetrieve'\
+              '&recordSchema=marcxml&maximumRecords={max}'\
+              '&startRecord=1&query={where} {relation} "{what}"'
+
+    # https://slsp.ch/fr/metadata
+    # https://developers.exlibrisgroup.com/alma/integrations/sru/
+    search = {
+        'anywhere': 'alma.all_for_ui',
+        'author': 'alma.author',
+        'title': 'alma.title',
+        'recordid': 'alma.all_for_ui',
+        'isbn': 'alma.isbn',
+        'issn': 'alma.issn',
+        'date': 'alma.date'
+    }
+
+    to_json_processor = marc21_slsp.do
+
+    def get_marc21_link(self, id):
+        """Get direct link to marc21 record.
+
+        :param id: id to use for the link
+        :return: url for id
+        """
+        args = {
+            'id': id,
+            '_external': True,
+            current_app.config.get(
+                'REST_MIMETYPE_QUERY_ARG_NAME', 'format'): 'marc'
+        }
+        return url_for('api_imports.import_slsp_record', **args)
+
+
+class UGentImport(Import):
+    """Import class for Univ. of Gent (Belgium)."""
+
+    name = 'UGent'
+    url = 'https://lib.ugent.be/sru'
+    url_api = '{url}?'\
+              'version=1.1&operation=searchRetrieve'\
+              '&recordSchema=marcxml&maximumRecords={max}'\
+              '&startRecord=1&query={where} {relation} "{what}"'
+
+    # https://lib.ugent.be/sru
+    search = {
+        'ean': 'isbn',
+        'anywhere': 'all',
+        'author': 'author',
+        'title': 'title',
+        'doctype': 'dc.type',
+        'recordid': 'all',
+        'isbn': 'isbn',
+        'issn': 'issn',
+        'date': 'year'
+    }
+
+    to_json_processor = marc21_ugent.do
+
+    def get_id(self, json_data):
+        """Get id.
+
+        :param id: json document
+        :return: id of the record
+        """
+        id = None
+        if json_data.get('001'):
+            id = json_data.get('001')
+        elif json_data.get('090__'):
+            id = json_data.get('090__').get('a').strip()
+        return id
+
+    def get_marc21_link(self, id):
+        """Get direct link to marc21 record.
+
+        :param id: id to use for the link
+        :return: url for id
+        """
+        args = {
+            'id': id,
+            '_external': True,
+            current_app.config.get(
+                'REST_MIMETYPE_QUERY_ARG_NAME', 'format'): 'marc'
+        }
+        return url_for('api_imports.import_ugent_record', **args)
+
+
+class KULImport(Import):
+    """Import class for KULeuven."""
+
+    name = 'KUL'
+    url = 'https://eu.alma.exlibrisgroup.com'
+    url_api = '{url}/view/sru/32KUL_LIBIS_NETWORK?'\
+              'version=1.2&operation=searchRetrieve'\
+              '&recordSchema=marcxml&maximumRecords={max}'\
+              '&startRecord=1&query={where} {relation} "{what}"'
+
+    # https://developers.exlibrisgroup.com/alma/integrations/sru/
+    search = {
+        'anywhere': 'alma.all_for_ui',
+        'author': 'alma.creator',
+        'title': 'alma.title',
+        'recordid': 'alma.all_for_ui',
+        'isbn': 'alma.isbn',
+        'issn': 'alma.issn',
+        'date': 'alma.date'
+    }
+
+    to_json_processor = marc21_kul.do
+
+    def get_marc21_link(self, id):
+        """Get direct link to marc21 record.
+
+        :param id: id to use for the link
+        :return: url for id
+        """
+        args = {
+            'id': id,
+            '_external': True,
+            current_app.config.get(
+                'REST_MIMETYPE_QUERY_ARG_NAME', 'format'): 'marc'
+        }
+        return url_for('api_imports.import_kul_record', **args)

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/">
+   <version>1.1</version>
+   <numberOfRecords>1</numberOfRecords>
+   <records>
+      <record>
+         <recordSchema>info:srw/schema/1/marcxml-v1.1</recordSchema>
+         <recordPacking>xml</recordPacking>
+         <recordData>
+            <marc:record xmlns:marc="http://www.loc.gov/MARC21/slim">
+               <marc:leader>00000cam a22011777i 4500</marc:leader>
+               <marc:controlfield tag="001">002762516</marc:controlfield>
+               <marc:controlfield tag="003">BE-GnUNI</marc:controlfield>
+               <marc:controlfield tag="005">20190328110827.0</marc:controlfield>
+               <marc:controlfield tag="008">170406s2017    fr a||||||||||000 ||fre|d</marc:controlfield>
+               <marc:datafield tag="020" ind1=" " ind2=" ">
+                  <marc:subfield code="a">9782917902332</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="020" ind1=" " ind2=" ">
+                  <marc:subfield code="a">2917902337</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="020" ind1=" " ind2=" ">
+                  <marc:subfield code="a">9782717725650</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="020" ind1=" " ind2=" ">
+                  <marc:subfield code="a">2717725652</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="035" ind1=" " ind2=" ">
+                  <marc:subfield code="a">(OCoLC)ocn975006405</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="040" ind1=" " ind2=" ">
+                  <marc:subfield code="a">BE-GnUNI</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="041" ind1=" " ind2=" ">
+                  <marc:subfield code="a">fre</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="082" ind1=" " ind2="4">
+                  <marc:subfield code="a">720.9</marc:subfield>
+                  <marc:subfield code="2">23/swe</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="245" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Richelieu :</marc:subfield>
+                  <marc:subfield code="b">quatre siècles d'histoire architecturale au coeur de Paris /</marc:subfield>
+                  <marc:subfield code="c">sous la direction d'Aurélien Conraux, Anne-Sophie Haquin et Christine Mengin.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="300" ind1=" " ind2=" ">
+                  <marc:subfield code="a">293 p., 2 leaflets :</marc:subfield>
+                  <marc:subfield code="b">ill.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="600" ind1="1" ind2="7">
+                  <marc:subfield code="a">Labrouste, Henri,</marc:subfield>
+                  <marc:subfield code="d">1801-1875</marc:subfield>
+                  <marc:subfield code="x">Influence</marc:subfield>
+                  <marc:subfield code="v">Exhibitions.</marc:subfield>
+                  <marc:subfield code="2">lcsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="610" ind1="1" ind2="7">
+                  <marc:subfield code="a">Paris (France).</marc:subfield>
+                  <marc:subfield code="b">Palais Mazarin.</marc:subfield>
+                  <marc:subfield code="2">lcsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="610" ind1="2" ind2="7">
+                  <marc:subfield code="a">Bibliothèque nationale de France</marc:subfield>
+                  <marc:subfield code="x">Buildings.</marc:subfield>
+                  <marc:subfield code="2">lcsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2="7">
+                  <marc:subfield code="a">Architecture</marc:subfield>
+                  <marc:subfield code="y">18th century</marc:subfield>
+                  <marc:subfield code="z">France</marc:subfield>
+                  <marc:subfield code="z">Paris.</marc:subfield>
+                  <marc:subfield code="2">lcsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2="7">
+                  <marc:subfield code="a">Design</marc:subfield>
+                  <marc:subfield code="y">18th century</marc:subfield>
+                  <marc:subfield code="z">France.</marc:subfield>
+                  <marc:subfield code="2">lcsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2="7">
+                  <marc:subfield code="a">Library buildings</marc:subfield>
+                  <marc:subfield code="x">Design and construction</marc:subfield>
+                  <marc:subfield code="z">Europe</marc:subfield>
+                  <marc:subfield code="z">France.</marc:subfield>
+                  <marc:subfield code="2">lcsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2="7">
+                  <marc:subfield code="a">Library buildings</marc:subfield>
+                  <marc:subfield code="x">History.</marc:subfield>
+                  <marc:subfield code="2">lcsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="700" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Conraux, Aurélien</marc:subfield>
+                  <marc:subfield code="4">edt</marc:subfield>
+                  <marc:subfield code="0">(viaf)172620811</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="700" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Haquin, Anne-Sophie</marc:subfield>
+                  <marc:subfield code="4">edt</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="700" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Mengin, Christine</marc:subfield>
+                  <marc:subfield code="4">edt</marc:subfield>
+                  <marc:subfield code="0">(viaf)66606986</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="852" ind1="4" ind2=" ">
+                  <marc:subfield code="x">EA</marc:subfield>
+                  <marc:subfield code="b">TW01</marc:subfield>
+                  <marc:subfield code="c">TW01</marc:subfield>
+                  <marc:subfield code="j">TW01.72.03.5(B)LABR2017</marc:subfield>
+                  <marc:subfield code="p">000010686004</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="920" ind1=" " ind2=" ">
+                  <marc:subfield code="a">book</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="SID" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Z39</marc:subfield>
+                  <marc:subfield code="b">LIBR</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="336" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Text</marc:subfield>
+                  <marc:subfield code="b">txt</marc:subfield>
+                  <marc:subfield code="2">rdacontent</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="337" ind1=" " ind2=" ">
+                  <marc:subfield code="a">ohne Hilfsmittel zu benutzen</marc:subfield>
+                  <marc:subfield code="b">n</marc:subfield>
+                  <marc:subfield code="2">rdamedia</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="338" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Band</marc:subfield>
+                  <marc:subfield code="b">nc</marc:subfield>
+                  <marc:subfield code="2">rdacarrier</marc:subfield>
+               </marc:datafield>
+            </marc:record>
+         </recordData>
+         <recordPosition>1</recordPosition>
+      </record>
+   </records>
+   <extraResponseData />
+   <echoedSearchRetrieveRequest>
+      <version>1.1</version>
+      <query>all=002762516</query>
+      <startRecord>1</startRecord>
+      <maximumRecords>10</maximumRecords>
+      <recordSchema>marcxml</recordSchema>
+      <xQuery>
+         <searchClause xmlns="http://www.loc.gov/zing/cql/xcql/">
+            <index>all</index>
+            <relation>
+               <value>=</value>
+            </relation>
+            <term>002762516</term>
+         </searchClause>
+      </xQuery>
+   </echoedSearchRetrieveRequest>
+</searchRetrieveResponse>

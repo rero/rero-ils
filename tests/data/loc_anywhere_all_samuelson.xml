@@ -1,0 +1,1406 @@
+<?xml version="1.0"?>
+<zs:searchRetrieveResponse xmlns:zs="http://www.loc.gov/zing/srw/"><zs:version>1.2</zs:version><zs:numberOfRecords>806</zs:numberOfRecords><zs:records><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>00979cam a2200265   4500</leader>
+  <controlfield tag="001">2196925</controlfield>
+  <controlfield tag="005">19910731081730.1</controlfield>
+  <controlfield tag="008">730824s1973    nyu      bs   000 0 eng  </controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">(DLC)   73076391</subfield>
+  </datafield>
+  <datafield tag="906" ind1=" " ind2=" ">
+    <subfield code="a">7</subfield>
+    <subfield code="b">cbc</subfield>
+    <subfield code="c">orignew</subfield>
+    <subfield code="d">2</subfield>
+    <subfield code="e">opcn</subfield>
+    <subfield code="f">19</subfield>
+    <subfield code="g">y-gencatlg</subfield>
+  </datafield>
+  <datafield tag="010" ind1=" " ind2=" ">
+    <subfield code="a">   73076391 </subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="a">DLC</subfield>
+    <subfield code="c">DLC</subfield>
+    <subfield code="d">DLC</subfield>
+  </datafield>
+  <datafield tag="043" ind1=" " ind2=" ">
+    <subfield code="a">n-us---</subfield>
+  </datafield>
+  <datafield tag="050" ind1="0" ind2="0">
+    <subfield code="a">HD5124</subfield>
+    <subfield code="b">.F69</subfield>
+  </datafield>
+  <datafield tag="082" ind1="0" ind2="0">
+    <subfield code="a">331.2/572/0973</subfield>
+  </datafield>
+  <datafield tag="245" ind1="0" ind2="0">
+    <subfield code="a">4 days, 40 hours and other forms of the rearranged workweek.</subfield>
+    <subfield code="c">Edited by Riva Poor. Foreword by Paul A. Samuelson.</subfield>
+  </datafield>
+  <datafield tag="260" ind1=" " ind2=" ">
+    <subfield code="a">New York,</subfield>
+    <subfield code="b">New American Library</subfield>
+    <subfield code="c">[1973]</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">xvi, 333 p.</subfield>
+    <subfield code="c">18 cm.</subfield>
+  </datafield>
+  <datafield tag="350" ind1=" " ind2=" ">
+    <subfield code="a">$1.95</subfield>
+  </datafield>
+  <datafield tag="490" ind1="0" ind2=" ">
+    <subfield code="a">The Mentor executive library</subfield>
+  </datafield>
+  <datafield tag="504" ind1=" " ind2=" ">
+    <subfield code="a">Bibliography: p. 196-199.</subfield>
+  </datafield>
+  <datafield tag="505" ind1="0" ind2=" ">
+    <subfield code="a">The original edition, 4 days, 40 hours.--Poor, R. The new material for this edition: the rearranged workweek 2 years later.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Four-day week</subfield>
+    <subfield code="z">United States.</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Poor, Riva,</subfield>
+    <subfield code="e">ed.</subfield>
+  </datafield>
+  <datafield tag="991" ind1=" " ind2=" ">
+    <subfield code="b">c-GenColl</subfield>
+    <subfield code="h">HD5124</subfield>
+    <subfield code="i">.F69</subfield>
+    <subfield code="p">00032569341</subfield>
+    <subfield code="t">Copy 1</subfield>
+    <subfield code="w">BOOKS</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>1</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>01134cam a2200313   4500</leader>
+  <controlfield tag="001">1254669</controlfield>
+  <controlfield tag="005">19900927153223.8</controlfield>
+  <controlfield tag="008">730424s1972    enk      b    000 0 eng  </controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">(DLC)   73153144</subfield>
+  </datafield>
+  <datafield tag="906" ind1=" " ind2=" ">
+    <subfield code="a">7</subfield>
+    <subfield code="b">cbc</subfield>
+    <subfield code="c">orignew</subfield>
+    <subfield code="d">3</subfield>
+    <subfield code="e">ncip</subfield>
+    <subfield code="f">19</subfield>
+    <subfield code="g">y-gencatlg</subfield>
+  </datafield>
+  <datafield tag="010" ind1=" " ind2=" ">
+    <subfield code="a">   73153144 </subfield>
+  </datafield>
+  <datafield tag="015" ind1=" " ind2=" ">
+    <subfield code="a">B72-23385</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0330233890</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="a">DLC</subfield>
+    <subfield code="c">DLC</subfield>
+    <subfield code="d">DLC</subfield>
+    <subfield code="d">OCoLC</subfield>
+  </datafield>
+  <datafield tag="043" ind1=" " ind2=" ">
+    <subfield code="a">e-uk---</subfield>
+    <subfield code="a">n-us---</subfield>
+    <subfield code="a">u-at---</subfield>
+  </datafield>
+  <datafield tag="050" ind1="0" ind2="0">
+    <subfield code="a">HD5124</subfield>
+    <subfield code="b">.F68 1972</subfield>
+  </datafield>
+  <datafield tag="082" ind1="0" ind2="0">
+    <subfield code="a">331.2/572/0973</subfield>
+  </datafield>
+  <datafield tag="245" ind1="0" ind2="0">
+    <subfield code="a">4 days, 40 hours: reporting a revolution in work and leisure;</subfield>
+    <subfield code="c">edited by Riva Poor; foreword by Paul A. Samuelson.</subfield>
+  </datafield>
+  <datafield tag="250" ind1=" " ind2=" ">
+    <subfield code="a">[Revised ed.] specially revised for the British edition;</subfield>
+    <subfield code="b">with a follow-up report by Riva Poor and new material prepared by Theo Richmond.</subfield>
+  </datafield>
+  <datafield tag="260" ind1=" " ind2=" ">
+    <subfield code="a">London,</subfield>
+    <subfield code="b">Pan Books,</subfield>
+    <subfield code="c">1972.</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">xvii, 298 p.</subfield>
+    <subfield code="c">20 cm.</subfield>
+  </datafield>
+  <datafield tag="350" ind1=" " ind2=" ">
+    <subfield code="a">&#xA3;0.75</subfield>
+  </datafield>
+  <datafield tag="504" ind1=" " ind2=" ">
+    <subfield code="a">Bibliography: p. 297-298.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Four-day week</subfield>
+    <subfield code="z">United States.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Four-day week</subfield>
+    <subfield code="z">Great Britain.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Four-day week</subfield>
+    <subfield code="z">Australia.</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Poor, Riva,</subfield>
+    <subfield code="e">ed.</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Richmond, Theo.</subfield>
+  </datafield>
+  <datafield tag="991" ind1=" " ind2=" ">
+    <subfield code="b">c-GenColl</subfield>
+    <subfield code="h">HD5124</subfield>
+    <subfield code="i">.F68 1972</subfield>
+    <subfield code="t">Copy 1</subfield>
+    <subfield code="w">BOOKS</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>2</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>00785cam a2200241   4500</leader>
+  <controlfield tag="001">3598894</controlfield>
+  <controlfield tag="005">20080731095418.0</controlfield>
+  <controlfield tag="008">710915s1970    mau      bs   000 0 eng  </controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">(DLC)   70028260</subfield>
+  </datafield>
+  <datafield tag="906" ind1=" " ind2=" ">
+    <subfield code="a">7</subfield>
+    <subfield code="b">cbc</subfield>
+    <subfield code="c">orignew</subfield>
+    <subfield code="d">2</subfield>
+    <subfield code="e">ocip</subfield>
+    <subfield code="f">19</subfield>
+    <subfield code="g">y-gencatlg</subfield>
+  </datafield>
+  <datafield tag="010" ind1=" " ind2=" ">
+    <subfield code="a">   70028260 </subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="a">DLC</subfield>
+    <subfield code="c">DLC</subfield>
+    <subfield code="d">DLC</subfield>
+  </datafield>
+  <datafield tag="043" ind1=" " ind2=" ">
+    <subfield code="a">n-us---</subfield>
+  </datafield>
+  <datafield tag="050" ind1="0" ind2="0">
+    <subfield code="a">HD5124</subfield>
+    <subfield code="b">.F68</subfield>
+  </datafield>
+  <datafield tag="082" ind1="0" ind2="0">
+    <subfield code="a">331.2/572/0973</subfield>
+  </datafield>
+  <datafield tag="245" ind1="0" ind2="0">
+    <subfield code="a">4 days, 40 hours;</subfield>
+    <subfield code="b">reporting a revolution in work and leisure.</subfield>
+    <subfield code="c">Edited by Riva Poor. Foreword by Paul A. Samuelson.</subfield>
+  </datafield>
+  <datafield tag="260" ind1=" " ind2=" ">
+    <subfield code="a">Cambridge, Mass.,</subfield>
+    <subfield code="b">Bursk and Poor Pub.,</subfield>
+    <subfield code="c">1970.</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">175 p.</subfield>
+    <subfield code="c">22 cm.</subfield>
+  </datafield>
+  <datafield tag="350" ind1=" " ind2=" ">
+    <subfield code="a">$5.00</subfield>
+  </datafield>
+  <datafield tag="504" ind1=" " ind2=" ">
+    <subfield code="a">Bibliography: p. 171-172.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Four-day week</subfield>
+    <subfield code="z">United States.</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Poor, Riva,</subfield>
+    <subfield code="e">ed.</subfield>
+  </datafield>
+  <datafield tag="991" ind1=" " ind2=" ">
+    <subfield code="b">c-GenColl</subfield>
+    <subfield code="h">HD5124</subfield>
+    <subfield code="i">.F68</subfield>
+    <subfield code="t">Copy 1</subfield>
+    <subfield code="w">BOOKS</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>3</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>02258cgm a22005297i 4500</leader>
+  <controlfield tag="001">21845830</controlfield>
+  <controlfield tag="005">20201216121539.0</controlfield>
+  <controlfield tag="007">vd csaiz|</controlfield>
+  <controlfield tag="008">201216s2012    xxu225            mleng  </controlfield>
+  <datafield tag="906" ind1=" " ind2=" ">
+    <subfield code="a">7</subfield>
+    <subfield code="b">cbc</subfield>
+    <subfield code="c">orignew</subfield>
+    <subfield code="d">u</subfield>
+    <subfield code="e">ncip</subfield>
+    <subfield code="f">20</subfield>
+    <subfield code="g">y-movingim</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="i">qm08 2020-12-16</subfield>
+  </datafield>
+  <datafield tag="010" ind1=" " ind2=" ">
+    <subfield code="a">  2020600262</subfield>
+  </datafield>
+  <datafield tag="024" ind1="1" ind2=" ">
+    <subfield code="a">654930313992</subfield>
+  </datafield>
+  <datafield tag="028" ind1="4" ind2="2">
+    <subfield code="a">SFD0116</subfield>
+    <subfield code="b">Synapse Films</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="a">DLC</subfield>
+    <subfield code="b">eng</subfield>
+    <subfield code="e">rda</subfield>
+    <subfield code="c">DLC</subfield>
+  </datafield>
+  <datafield tag="041" ind1=" " ind2=" ">
+    <subfield code="a">eng</subfield>
+    <subfield code="j">eng</subfield>
+  </datafield>
+  <datafield tag="046" ind1=" " ind2=" ">
+    <subfield code="k">2012</subfield>
+    <subfield code="2">edtf</subfield>
+  </datafield>
+  <datafield tag="050" ind1="0" ind2="0">
+    <subfield code="a">DVE 4681 (viewing copy)</subfield>
+  </datafield>
+  <datafield tag="245" ind1="1" ind2="0">
+    <subfield code="a">42nd street forever.</subfield>
+  </datafield>
+  <datafield tag="246" ind1="3" ind2=" ">
+    <subfield code="a">Fourty-second street forever</subfield>
+  </datafield>
+  <datafield tag="250" ind1=" " ind2=" ">
+    <subfield code="a">Blu-ray edition</subfield>
+  </datafield>
+  <datafield tag="257" ind1=" " ind2=" ">
+    <subfield code="a">United States</subfield>
+    <subfield code="2">naf</subfield>
+  </datafield>
+  <datafield tag="264" ind1=" " ind2="2">
+    <subfield code="a">[United States] :</subfield>
+    <subfield code="b">Synapse Films,</subfield>
+    <subfield code="c">&#xA9;2012</subfield>
+  </datafield>
+  <datafield tag="264" ind1=" " ind2="4">
+    <subfield code="c">&#xA9;2012</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="3">viewing copy</subfield>
+    <subfield code="a">1 videodisc (approximately 225 min.) :</subfield>
+    <subfield code="b">sound, color ;</subfield>
+    <subfield code="c">4 3/4 in.</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">two-dimensional moving image</subfield>
+    <subfield code="b">tdi</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">video</subfield>
+    <subfield code="b">v</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">videodisc</subfield>
+    <subfield code="b">vd</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="340" ind1=" " ind2=" ">
+    <subfield code="b">4 3/4 in.</subfield>
+    <subfield code="2">rda</subfield>
+  </datafield>
+  <datafield tag="344" ind1=" " ind2=" ">
+    <subfield code="a">digital</subfield>
+    <subfield code="b">optical</subfield>
+    <subfield code="g">surround</subfield>
+    <subfield code="h">DTS-HD MA English 2.0 mono</subfield>
+    <subfield code="2">rda</subfield>
+  </datafield>
+  <datafield tag="347" ind1=" " ind2=" ">
+    <subfield code="a">video file</subfield>
+    <subfield code="b">Blu-ray</subfield>
+    <subfield code="d">1080p High Definition</subfield>
+    <subfield code="e">region A</subfield>
+    <subfield code="2">rda</subfield>
+  </datafield>
+  <datafield tag="380" ind1=" " ind2=" ">
+    <subfield code="a">Motion picture</subfield>
+  </datafield>
+  <datafield tag="538" ind1=" " ind2=" ">
+    <subfield code="a">Blu-ray; requires Blu-ray player.</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Aspect ratio: 1.78:1.</subfield>
+  </datafield>
+  <datafield tag="546" ind1=" " ind2=" ">
+    <subfield code="a">In English.</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Title from container.</subfield>
+  </datafield>
+  <datafield tag="511" ind1="0" ind2=" ">
+    <subfield code="a">Featuring: Tisa Farrow, Christina Lindberg, David Hess, Robert Quarry, Linda Blair.</subfield>
+  </datafield>
+  <datafield tag="508" ind1=" " ind2=" ">
+    <subfield code="a">Directors: Joe D'amato, Charles B. Pierce, Paul Maslansky, Abel Ferrara.</subfield>
+  </datafield>
+  <datafield tag="520" ind1=" " ind2=" ">
+    <subfield code="a">Over 80 trailers and over three hours from the first two DVDs and some new trailers are contained in this edition covering the gamut of violence, motorcycles, revenge, and learning some secrets to living.</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Special features: Audio Commentary With AVmaniacs.com's Edwin Samuelson, Fangoria magazine's Michael Gingold and Temple of Schlock's Chris Poggiali.</subfield>
+  </datafield>
+  <datafield tag="655" ind1=" " ind2="7">
+    <subfield code="a">Fiction films.</subfield>
+    <subfield code="2">lcgft</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Farrow, Tisa,</subfield>
+    <subfield code="d">1951-</subfield>
+    <subfield code="e">actor.</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Lindberg, Christina,</subfield>
+    <subfield code="d">1950-</subfield>
+    <subfield code="e">actor.</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Quarry, Robert,</subfield>
+    <subfield code="d">1925-2009,</subfield>
+    <subfield code="e">actor.</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Blair, Linda,</subfield>
+    <subfield code="d">1959-</subfield>
+    <subfield code="e">actor.</subfield>
+  </datafield>
+  <datafield tag="710" ind1="2" ind2=" ">
+    <subfield code="a">Synapse Films (Firm : Novi, Mich.),</subfield>
+    <subfield code="e">production company,</subfield>
+    <subfield code="e">film distributor.</subfield>
+  </datafield>
+  <datafield tag="773" ind1="0" ind2=" ">
+    <subfield code="t">Snelson (John) Collection (Library of Congress)</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>4</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>01278cjm a22002773a 4500</leader>
+  <controlfield tag="001">20414020</controlfield>
+  <controlfield tag="005">20180611152024.0</controlfield>
+  <controlfield tag="007">sd fsngnnmmned</controlfield>
+  <controlfield tag="008">180320s2013    xx bln|           | eng  </controlfield>
+  <datafield tag="906" ind1=" " ind2=" ">
+    <subfield code="a">7</subfield>
+    <subfield code="b">cbc</subfield>
+    <subfield code="c">orignew</subfield>
+    <subfield code="d">3</subfield>
+    <subfield code="e">ncip</subfield>
+    <subfield code="f">20</subfield>
+    <subfield code="g">y-soundrec</subfield>
+  </datafield>
+  <datafield tag="925" ind1="0" ind2=" ">
+    <subfield code="a">acquire</subfield>
+    <subfield code="b">2 shelf copies</subfield>
+    <subfield code="x">policy default</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">qr22 2018-03-20</subfield>
+    <subfield code="i">qr22 2018-03-20</subfield>
+  </datafield>
+  <datafield tag="010" ind1=" " ind2=" ">
+    <subfield code="a">  2018615831</subfield>
+  </datafield>
+  <datafield tag="024" ind1="1" ind2=" ">
+    <subfield code="a">673673888895</subfield>
+  </datafield>
+  <datafield tag="028" ind1="0" ind2="2">
+    <subfield code="a">673673 88895</subfield>
+    <subfield code="b">Mad Left Music</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="a">DLC</subfield>
+    <subfield code="c">DLC</subfield>
+  </datafield>
+  <datafield tag="050" ind1="0" ind2="0">
+    <subfield code="a">SDC 96303</subfield>
+  </datafield>
+  <datafield tag="245" ind1="0" ind2="0">
+    <subfield code="a">All in the numbers</subfield>
+    <subfield code="h">[sound recording] /</subfield>
+    <subfield code="c">Allen-Lamun Band.</subfield>
+  </datafield>
+  <datafield tag="260" ind1=" " ind2=" ">
+    <subfield code="a">[S.l.] :</subfield>
+    <subfield code="b">Mad Left Music,</subfield>
+    <subfield code="c">[2013]</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">1 sound disc :</subfield>
+    <subfield code="b">digital ;</subfield>
+    <subfield code="c">4 3/4 in.</subfield>
+  </datafield>
+  <datafield tag="511" ind1="0" ind2=" ">
+    <subfield code="a">Allen-Lamun Band (Dave Allen, vocals, harmonica, guitars, drums, percussion ; Laura Lamun, vocals ; Willie Samuelson, basses ; Steve Boynton, electric guitars ; Paul Potyen, Hammond B-3 ; Kenyon Brenner, tenor sax, horns).</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Compact disc.</subfield>
+  </datafield>
+  <datafield tag="505" ind1="0" ind2=" ">
+    <subfield code="a">Delta dream -- Never know blues -- Gasoline &amp; matches -- All in the numbers -- Too blue not to come back home -- Long John blues -- Conversation song -- Tiltawhirl -- Better off with the blues -- Everyday funk -- Every day I have the blues.</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Brief record.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Blues (Music)</subfield>
+    <subfield code="y">2011-2020.</subfield>
+  </datafield>
+  <datafield tag="655" ind1=" " ind2="0">
+    <subfield code="a">Blues (Music)</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>5</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>01658cam a22003495i 4500</leader>
+  <controlfield tag="001">21755088</controlfield>
+  <controlfield tag="005">20201014174815.0</controlfield>
+  <controlfield tag="006">m     o  d f      </controlfield>
+  <controlfield tag="007">cr |||||||||||</controlfield>
+  <controlfield tag="008">200925s1944    xxu     ot   f000 0 eng  </controlfield>
+  <datafield tag="906" ind1=" " ind2=" ">
+    <subfield code="a">0</subfield>
+    <subfield code="b">ibc</subfield>
+    <subfield code="c">orignew</subfield>
+    <subfield code="d">u</subfield>
+    <subfield code="e">ncip</subfield>
+    <subfield code="f">20</subfield>
+    <subfield code="g">y-undeterm</subfield>
+  </datafield>
+  <datafield tag="010" ind1=" " ind2=" ">
+    <subfield code="a">  2020669642</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="a">DLC</subfield>
+    <subfield code="b">eng</subfield>
+    <subfield code="e">pn</subfield>
+    <subfield code="c">DLC</subfield>
+  </datafield>
+  <datafield tag="050" ind1="0" ind2="0">
+    <subfield code="a">U393</subfield>
+  </datafield>
+  <datafield tag="086" ind1=" " ind2=" ">
+    <subfield code="a">DIV.14-323.32-M3</subfield>
+    <subfield code="2">z</subfield>
+  </datafield>
+  <datafield tag="245" ind1="0" ind2="0">
+    <subfield code="a">Analysis of tracking data. Description of calculations. (Report No. 628.) /</subfield>
+    <subfield code="c">P. A. Samuelson.</subfield>
+  </datafield>
+  <datafield tag="264" ind1=" " ind2="1">
+    <subfield code="a">[United States] :</subfield>
+    <subfield code="b">[Office of Scientific Research and Development, National Defense Research Committee, Division 14-Radar],</subfield>
+    <subfield code="c">10-03-1944.</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">1 online resource (30 pages)</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">computer</subfield>
+    <subfield code="b">c</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">online resource</subfield>
+    <subfield code="b">cr</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Report series: OEMsr-262.</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Research lab: Massachusetts Institute of Technology, Radiation Laboratory.</subfield>
+  </datafield>
+  <datafield tag="506" ind1=" " ind2=" ">
+    <subfield code="a">Declassified by the authority of the Secretary of Defense Memorandum dated August 2, 1960--Title frame of microfilm reel.</subfield>
+  </datafield>
+  <datafield tag="513" ind1=" " ind2=" ">
+    <subfield code="a">Report.</subfield>
+  </datafield>
+  <datafield tag="530" ind1=" " ind2=" ">
+    <subfield code="a">Digital reproduction from OSRD-NRDC microfilm; also available in print and on microfilm.</subfield>
+  </datafield>
+  <datafield tag="588" ind1="0" ind2=" ">
+    <subfield code="a">Description from catalog card image included in microfilmed report.</subfield>
+  </datafield>
+  <datafield tag="710" ind1="1" ind2=" ">
+    <subfield code="a">United States.</subfield>
+    <subfield code="b">Office of Scientific Research and Development.</subfield>
+    <subfield code="b">National Defense Research Committee.</subfield>
+  </datafield>
+  <datafield tag="852" ind1=" " ind2=" ">
+    <subfield code="a">Library of Congress</subfield>
+    <subfield code="b">Science, Technology, and Business Division</subfield>
+    <subfield code="e">Washington, D.C. 20540</subfield>
+    <subfield code="u">https://hdl.loc.gov/loc.gdc/scitech.home</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="a">start page 177 ; end page 206</subfield>
+  </datafield>
+  <datafield tag="985" ind1=" " ind2=" ">
+    <subfield code="a">stb/osrd</subfield>
+    <subfield code="e">reel89</subfield>
+  </datafield>
+  <datafield tag="991" ind1=" " ind2=" ">
+    <subfield code="h">Electronic Resource</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>6</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>01213cgm a22002655a 4500</leader>
+  <controlfield tag="001">12736079</controlfield>
+  <controlfield tag="005">20150511081249.0</controlfield>
+  <controlfield tag="007">v||||||||</controlfield>
+  <controlfield tag="008">020410s1999    xxu---            v|eng  </controlfield>
+  <datafield tag="906" ind1=" " ind2=" ">
+    <subfield code="a">0</subfield>
+    <subfield code="b">cbc</subfield>
+    <subfield code="c">orignew</subfield>
+    <subfield code="d">u</subfield>
+    <subfield code="e">ncip</subfield>
+    <subfield code="f">20</subfield>
+    <subfield code="g">y-movingim</subfield>
+  </datafield>
+  <datafield tag="010" ind1=" " ind2=" ">
+    <subfield code="a">  2001643734</subfield>
+  </datafield>
+  <datafield tag="017" ind1=" " ind2=" ">
+    <subfield code="a">PA956-290</subfield>
+    <subfield code="b">U.S. Copyright Office</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="a">DLC</subfield>
+    <subfield code="c">DLC</subfield>
+    <subfield code="e">amim</subfield>
+    <subfield code="d">DLC</subfield>
+  </datafield>
+  <datafield tag="050" ind1="0" ind2="0">
+    <subfield code="a">CGC 9064-9069 (viewing print)</subfield>
+  </datafield>
+  <datafield tag="245" ind1="0" ind2="0">
+    <subfield code="a">Arlington road /</subfield>
+    <subfield code="c">a Glorai/Samuelson production presents, Polygram Filmed Entertainment production in association with Lakeshore Entertainment ; directed by Mark Pellington ; written by Ehrre Kruger.</subfield>
+  </datafield>
+  <datafield tag="257" ind1=" " ind2=" ">
+    <subfield code="a">United States.</subfield>
+  </datafield>
+  <datafield tag="260" ind1=" " ind2=" ">
+    <subfield code="c">1999.</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">12 film reels of 12 on 6 :</subfield>
+    <subfield code="b">sd., col. ;</subfield>
+    <subfield code="c">35 mm.</subfield>
+    <subfield code="3">viewing print.</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Copyright: Lakeshore Entertainment Corporation. DCR 1998; PUB 9Jul99; REG 4Oct99; PA 956-290.</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Sources used: copyright database and Internet Movie Database, Ltd., 1990-2001.</subfield>
+  </datafield>
+  <datafield tag="541" ind1=" " ind2=" ">
+    <subfield code="d">Received: 11/16/99 ;</subfield>
+    <subfield code="3">viewing print;</subfield>
+    <subfield code="c">copyright deposit--MPA</subfield>
+    <subfield code="a">Copyright Collection.</subfield>
+  </datafield>
+  <datafield tag="655" ind1=" " ind2="7">
+    <subfield code="a">Thrillers (Motion pictures)</subfield>
+    <subfield code="2">lcgft</subfield>
+  </datafield>
+  <datafield tag="655" ind1=" " ind2="7">
+    <subfield code="a">Feature films.</subfield>
+    <subfield code="2">lcgft</subfield>
+  </datafield>
+  <datafield tag="655" ind1=" " ind2="7">
+    <subfield code="a">Fiction films.</subfield>
+    <subfield code="2">lcgft</subfield>
+  </datafield>
+  <datafield tag="710" ind1="2" ind2=" ">
+    <subfield code="a">Copyright Collection (Library of Congress)</subfield>
+    <subfield code="5">DLC</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>7</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>08413cam a22006857i 4500</leader>
+  <controlfield tag="001">20162356</controlfield>
+  <controlfield tag="005">20200310211852.0</controlfield>
+  <controlfield tag="008">171201t20182018iluab  e bc   001 0 eng d</controlfield>
+  <datafield tag="906" ind1=" " ind2=" ">
+    <subfield code="a">7</subfield>
+    <subfield code="b">cbc</subfield>
+    <subfield code="c">copycat</subfield>
+    <subfield code="d">2</subfield>
+    <subfield code="e">epcn</subfield>
+    <subfield code="f">20</subfield>
+    <subfield code="g">y-gencatlg</subfield>
+  </datafield>
+  <datafield tag="925" ind1="0" ind2=" ">
+    <subfield code="a">acquire</subfield>
+    <subfield code="b">2 shelf copies</subfield>
+    <subfield code="x">Sel/trr, 2019-02-21</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="b">rk06 2020-03-07 z-processor</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">pc24 2017-12-01</subfield>
+    <subfield code="a">xn16 2019-04-04 1 copy rec'd., to USASH</subfield>
+    <subfield code="i">rk06 2020-03-10 to BCCD</subfield>
+  </datafield>
+  <datafield tag="010" ind1=" " ind2=" ">
+    <subfield code="a">  2017962731</subfield>
+  </datafield>
+  <datafield tag="015" ind1=" " ind2=" ">
+    <subfield code="a">GBB9B1993</subfield>
+    <subfield code="2">bnb</subfield>
+  </datafield>
+  <datafield tag="016" ind1="7" ind2=" ">
+    <subfield code="a">019305984</subfield>
+    <subfield code="2">Uk</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0300229933</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780300229936</subfield>
+    <subfield code="q">(hardcover)</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">(OCoLC)on1028905982</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">W000213</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="a">YDX</subfield>
+    <subfield code="b">eng</subfield>
+    <subfield code="c">YDX</subfield>
+    <subfield code="e">rda</subfield>
+    <subfield code="d">GP5</subfield>
+    <subfield code="d">BDX</subfield>
+    <subfield code="d">CUV</subfield>
+    <subfield code="d">UPM</subfield>
+    <subfield code="d">CGP</subfield>
+    <subfield code="d">OCLCF</subfield>
+    <subfield code="d">YDX</subfield>
+    <subfield code="d">CAM</subfield>
+    <subfield code="d">CHVBK</subfield>
+    <subfield code="d">NRC</subfield>
+    <subfield code="d">OCLCO</subfield>
+    <subfield code="d">PAU</subfield>
+    <subfield code="d">OCLCQ</subfield>
+    <subfield code="d">ZCU</subfield>
+    <subfield code="d">ZPP</subfield>
+    <subfield code="d">TFW</subfield>
+    <subfield code="d">ZWZ</subfield>
+    <subfield code="d">OCLCO</subfield>
+    <subfield code="d">JZ2</subfield>
+    <subfield code="d">JSZ</subfield>
+    <subfield code="d">IAK</subfield>
+    <subfield code="d">AU@</subfield>
+    <subfield code="d">OCLCO</subfield>
+    <subfield code="d">LMR</subfield>
+    <subfield code="d">IUL</subfield>
+    <subfield code="d">OCLCO</subfield>
+    <subfield code="d">OCLCA</subfield>
+    <subfield code="d">YOU</subfield>
+    <subfield code="d">NZAUC</subfield>
+    <subfield code="d">LD4</subfield>
+    <subfield code="d">BP1</subfield>
+    <subfield code="d">UKMGB</subfield>
+    <subfield code="d">OCLCQ</subfield>
+    <subfield code="d">OCLCO</subfield>
+    <subfield code="d">OCLCA</subfield>
+    <subfield code="d">DLC</subfield>
+  </datafield>
+  <datafield tag="042" ind1=" " ind2=" ">
+    <subfield code="a">lccopycat</subfield>
+  </datafield>
+  <datafield tag="043" ind1=" " ind2=" ">
+    <subfield code="a">n-us-il</subfield>
+  </datafield>
+  <datafield tag="050" ind1="0" ind2="0">
+    <subfield code="a">N6494.A7</subfield>
+    <subfield code="b">A6245 2018</subfield>
+  </datafield>
+  <datafield tag="082" ind1="0" ind2="4">
+    <subfield code="a">709.04/0120977311</subfield>
+    <subfield code="2">23</subfield>
+  </datafield>
+  <datafield tag="245" ind1="0" ind2="0">
+    <subfield code="a">Art Deco Chicago :</subfield>
+    <subfield code="b">designing modern America /</subfield>
+    <subfield code="c">edited by Robert Bruegmann.</subfield>
+  </datafield>
+  <datafield tag="264" ind1=" " ind2="1">
+    <subfield code="a">Chicago, Illinois :</subfield>
+    <subfield code="b">Chicago Art Deco Society,</subfield>
+    <subfield code="c">[2018]</subfield>
+  </datafield>
+  <datafield tag="264" ind1=" " ind2="2">
+    <subfield code="a">New Haven, CT :</subfield>
+    <subfield code="b">Distributed by Yale University Press</subfield>
+  </datafield>
+  <datafield tag="264" ind1=" " ind2="4">
+    <subfield code="c">&#xA9;2018</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">383 pages :</subfield>
+    <subfield code="b">illustrations (some color), color maps ;</subfield>
+    <subfield code="c">31 cm</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">still image</subfield>
+    <subfield code="b">sti</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">cartographic image</subfield>
+    <subfield code="b">cri</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">unmediated</subfield>
+    <subfield code="b">n</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">volume</subfield>
+    <subfield code="b">nc</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">"This volume serves as the companion publication to the exhibition Modern by Design: Chicago Streamlines America organized by the Chicago History Museum, October 27, 2018--December 2, 2019"--Title page verso.</subfield>
+  </datafield>
+  <datafield tag="504" ind1=" " ind2=" ">
+    <subfield code="a">Includes bibliographical references (pages 338-370) and index.</subfield>
+  </datafield>
+  <datafield tag="520" ind1=" " ind2=" ">
+    <subfield code="a">An expansive take on American Art Deco that explores Chicago's pivotal role in developing the architecture, graphic design, and product design that came to define middle-class style in the 20th century --Publisher</subfield>
+  </datafield>
+  <datafield tag="505" ind1="0" ind2=" ">
+    <subfield code="a">Preface / Joseph Loundy -- Foreword / Gary Johnson -- Introduction / Robert Bruegmann -- Essays. Capital of mainstream Modernism / Robert Bruegmann ; Chicago designs for America / Jonathan Mekinda ; Chicago encounters Art Deco / Teri J. Edelstein ; A century of progress / Lisa D. Schrenk ; Decomania, the paths to an enthusiasm / Neil Harris</subfield>
+  </datafield>
+  <datafield tag="505" ind1="8" ind2=" ">
+    <subfield code="a">Designs. Key 101 designs. 1914: Midway Gardens / Paul Kruty -- 1915: Field's wardrobe trunk advertisement / Tim Samuelson -- 1920: Erte costume design for opera Zaza / Teri J. Edelstein -- 1922: Reebie storage warehouse / Patrick Steffes -- 1923: Field's shop window / Lara Allison -- 1925: St. Thomas the Apostle Church / Vincent L. Michael -- 1926: Blum's Vogue engagement dress / Virginia Heaven -- 1927: Clow House, Lake Forest / Susan S. Benjamin ; Skyscraper furniture suite / Sharon S. Darling ; Luxor Krasny cosmetics advertisement / Stefan Osdene ; Hull-House pottery / Cheryl R. Ganz --1928: Popular Mechanics / Lara Allison ; Chicago Motor Club Building / Jean L. Guarino ; The Chicagoan / Neil Harris ; Kuppenheimer advertisement / Virginia Heaven ; Centaurs : Hamill Estate, Lake Forest / Arthur H. Miller ; 333 North Michigan Avenue / Kathleen Murphy ; Skolnik Pickwick Theatre, Park Ridge / Kathleen Murphy Skolnik ; Tavern Club / Kathleen Murphy Skolnik -- 1929: The Powhatan / Teri J. Edelstein ; Carbide and Carbon Building / Jean L. Guarino ; Civic Opera Building / Jean L. Guarino ; Palmolive Building / Jean L. Guarino ; Woman's Athletic Club / Celia Hilliard ; Ward's mail order catalog / Scott Jorgenson ; Hotpoint toaster / William E. Meehan Jr. ; Chicago Daily News Building / Gregory Saliola ; Michigan Square Building / Kathleen Murphy Skolnik ; 55th Ritz Garage / Patrick Steffes ; Marhsall Field's Evanston / Patrick Steffes -- 1930: Lakeside Press Moby Dick / Lara Allison ; Adler Planetarium / Julia S. Bachrach ; 1301 North Astor Street / Teri J. Edelstein ; Merchandise Mart / Jean L. Guarino ; Inland Steel Office Building, East Chicago / Jacob Kaplan ; Glasner Studio / Patrick Steffes ; Chicago Board of Trade Building / Richard Guy Wilson ; Ludlow typefaces / Lara Allison ; Parisienne watches / Lance Lagoni and William Briska ; Elgin compact cases / Howard W. Melton and Richard W. Renner ; Gloria deluxe accordion / Ruth K. Meyer with Keith Bringe ; Hostess twinkie / Maggie Taft -- 1931: Grant Park axis / Julia S. Bachrach ; Chicago Bee Building / Leslie Coburn ; Field's fashions of the hour / Neil Harris ; Hammond Gregory calendar clock / William E. Meehan Jr. ; Grein Funeral Directors / Patrick Steffes -- 1932: Wrigley billboard / Lara Allison ; Chez Paree / Jean L. Guarino ; Morse House, Lake Forest / Lisa Napoles -- 1933: Chrysler Motors Pavilion / Gregory Saliola ; Coca-Cola Company exhibit / William E. Meehan Jr. ; Mills slot machine / Ruth K. Meyer with Keith Bringe -- 1934: Burlington Zephyr / Dennis McClendon ; Radio Flyer Streak-O-Lite Wagon / Victoria Matranga ; Field Building / Jean L. Guarino ; Automatic electric telephone / William E. Meehan Jr. ; Bloom Township High School, Chicago Heights / Lisa Napoles ; Dulany ice bucket / Monica Obniski ; Zenith stratosphere radio / Stefan Osdene ; Brookfield Zoo / Carla W. Owens ; Orange Garden Chinese Restaurant / Stefan Osdene -- 1935: Darius and Girenas Memorial / Julia S. Bachrach ; Howell chromsteel refreshment cart / Sharon S. Darling -- 1936: U.S. Post Office, Roseland / Leslie Coburn ; North Ashland Avenue Bridge / Patrick T. McBriarty ; Sears silvertone streamliner radio / William E. Meehan Jr. ; Lake Theatre, Oak Park / Lisa Napoles ; Campana Factory, Batavia / Lisa Napoles ; Crane Neuvogue toilet fixtures / Stefan Osdene ; Edgar T. Ward air circulator fan / Stefan Osdene -- 1937: Container Corporation advertisement / Lara Allison ; Commercial Building / Ruth K. Meyer with Keith Bringe ; Vitrolite catalog illustration / Patrick Steffes ; Wieboldt's River Forest / Patrick Steffes ; Fisher Studio houses / Terry Tatum -- 1938: Sunbeam coffeemaster / Victoria Matranga ; Trylon penny scale / Ruth K. Meyer ; Zenith radio nurse / Monica Obniski ; International Harvester Jungle Yacht / Stefan Osdene ; Esquire Theatre / Kathleen Murphy Skolnik ; Three PWA Housing Projects / Alison Fisher ; Animal Court sculptures / Leslie Coburn -- 1939: 27 Chicago Designers / Lara Allison ; WPA posters / Neil Harris ; Unidyne microphone / Victoria Matranga ; Sunbeam mixmaster / William E. Meehan Jr. ; Rock-Ola stardust jukebox / Ruth K. Meyer ; Motorola S-Grille radio / Stefan Osdene ; Sears Craftsman air compressor / Stefan Osdene ; First Church of Deliverance / Kathleen Murphy Skolnik and Diane Gonzalez ; Madonna Delia Strada Chapel / Terry Tatum -- 1940: American Negro Exposition Program / Lara Allison ; St. Charles Municipal Building / Lisa Napoles ; Fred Harvey Crossroads Room / Patrick Steffes -- 1941: Lake Shore Drive / Dennis McClendon ; Haeger pottery panther / Maggie Taft -- 1942: Searle Labs, Skokie / Lisa Napoles -- 1947: Chicago Municipal Airport Terminal / Dennis McClendon -- 1948: Tucker 48 automobile / Stefan Osdene -- 1949: Schwinn Phantom bicycle / Stefan Osdene.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Art deco</subfield>
+    <subfield code="z">Illinois</subfield>
+    <subfield code="z">Chicago</subfield>
+    <subfield code="v">Exhibitions.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Art deco (Architecture)</subfield>
+    <subfield code="z">Illinois</subfield>
+    <subfield code="z">Chicago</subfield>
+    <subfield code="v">Exhibitions.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Design</subfield>
+    <subfield code="z">Illinois</subfield>
+    <subfield code="z">Chicago</subfield>
+    <subfield code="x">History</subfield>
+    <subfield code="v">Exhibitions.</subfield>
+  </datafield>
+  <datafield tag="651" ind1=" " ind2="0">
+    <subfield code="a">Chicago (Ill.)</subfield>
+    <subfield code="x">Buildings, structures, etc.</subfield>
+    <subfield code="v">Exhibitions.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="7">
+    <subfield code="a">Art deco.</subfield>
+    <subfield code="2">fast</subfield>
+    <subfield code="0">(OCoLC)fst00815521</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="7">
+    <subfield code="a">Art deco (Architecture)</subfield>
+    <subfield code="2">fast</subfield>
+    <subfield code="0">(OCoLC)fst00815527</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="7">
+    <subfield code="a">Buildings.</subfield>
+    <subfield code="2">fast</subfield>
+    <subfield code="0">(OCoLC)fst00840962</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="7">
+    <subfield code="a">Design.</subfield>
+    <subfield code="2">fast</subfield>
+    <subfield code="0">(OCoLC)fst00891253</subfield>
+  </datafield>
+  <datafield tag="651" ind1=" " ind2="7">
+    <subfield code="a">Illinois</subfield>
+    <subfield code="z">Chicago.</subfield>
+    <subfield code="2">fast</subfield>
+    <subfield code="0">(OCoLC)fst01204048</subfield>
+  </datafield>
+  <datafield tag="655" ind1=" " ind2="7">
+    <subfield code="a">Exhibition catalogs.</subfield>
+    <subfield code="2">fast</subfield>
+    <subfield code="0">(OCoLC)fst01424028</subfield>
+  </datafield>
+  <datafield tag="655" ind1=" " ind2="7">
+    <subfield code="a">History.</subfield>
+    <subfield code="2">fast</subfield>
+    <subfield code="0">(OCoLC)fst01411628</subfield>
+  </datafield>
+  <datafield tag="630" ind1="0" ind2="7">
+    <subfield code="a">Design</subfield>
+    <subfield code="f">2016</subfield>
+    <subfield code="2">gnd</subfield>
+  </datafield>
+  <datafield tag="610" ind1="2" ind2="7">
+    <subfield code="a">Chicago</subfield>
+    <subfield code="g">Ill.</subfield>
+    <subfield code="2">gnd</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="7">
+    <subfield code="a">Architektur</subfield>
+    <subfield code="2">gnd</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="7">
+    <subfield code="a">Art De&#x301;co</subfield>
+    <subfield code="2">gnd</subfield>
+  </datafield>
+  <datafield tag="655" ind1=" " ind2="7">
+    <subfield code="a">Exhibition catalogs.</subfield>
+    <subfield code="2">lcgft</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="7">
+    <subfield code="a">Art de&#x301;co (architecture)</subfield>
+    <subfield code="z">E&#x301;tats-Unis</subfield>
+    <subfield code="z">Chicago (Ill.)</subfield>
+    <subfield code="x">Catalogues d'exposition.</subfield>
+    <subfield code="2">ram</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Bruegmann, Robert,</subfield>
+    <subfield code="e">editor.</subfield>
+  </datafield>
+  <datafield tag="710" ind1="2" ind2=" ">
+    <subfield code="a">Chicago Art Deco Society,</subfield>
+    <subfield code="e">publisher.</subfield>
+  </datafield>
+  <datafield tag="710" ind1="2" ind2=" ">
+    <subfield code="a">Chicago History Museum,</subfield>
+    <subfield code="e">host institution.</subfield>
+  </datafield>
+  <datafield tag="740" ind1="0" ind2=" ">
+    <subfield code="a">Modern by design, Chicago streamlines America.</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>8</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>09406cam a22004697i 4500</leader>
+  <controlfield tag="001">21067007</controlfield>
+  <controlfield tag="005">20210714075949.0</controlfield>
+  <controlfield tag="008">190710t20192019enka     b    001 0 eng d</controlfield>
+  <datafield tag="906" ind1=" " ind2=" ">
+    <subfield code="a">7</subfield>
+    <subfield code="b">cbc</subfield>
+    <subfield code="c">copycat</subfield>
+    <subfield code="d">2</subfield>
+    <subfield code="e">ncip</subfield>
+    <subfield code="f">20</subfield>
+    <subfield code="g">y-gencatlg</subfield>
+  </datafield>
+  <datafield tag="925" ind1="0" ind2=" ">
+    <subfield code="a">acquire</subfield>
+    <subfield code="b">1 shelf copy</subfield>
+    <subfield code="x">policy default</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="b">rl02 2019-07-10 z-processor</subfield>
+    <subfield code="i">rl02 2019-07-26 to BCCD</subfield>
+  </datafield>
+  <datafield tag="010" ind1=" " ind2=" ">
+    <subfield code="a">  2019301181</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780128154809</subfield>
+    <subfield code="q">(paperback)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0128154802</subfield>
+    <subfield code="q">(paperback)</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">(OCoLC)on1013727193</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="a">YDX</subfield>
+    <subfield code="b">eng</subfield>
+    <subfield code="c">YDX</subfield>
+    <subfield code="e">rda</subfield>
+    <subfield code="d">OCLCQ</subfield>
+    <subfield code="d">LTSCA</subfield>
+    <subfield code="d">OCLCF</subfield>
+    <subfield code="d">OBE</subfield>
+    <subfield code="d">GYG</subfield>
+    <subfield code="d">DLC</subfield>
+  </datafield>
+  <datafield tag="042" ind1=" " ind2=" ">
+    <subfield code="a">lccopycat</subfield>
+  </datafield>
+  <datafield tag="050" ind1="0" ind2="0">
+    <subfield code="a">Q335</subfield>
+    <subfield code="b">.A78773 2019</subfield>
+  </datafield>
+  <datafield tag="082" ind1="0" ind2="4">
+    <subfield code="a">006.3</subfield>
+    <subfield code="2">23</subfield>
+  </datafield>
+  <datafield tag="245" ind1="0" ind2="0">
+    <subfield code="a">Artificial intelligence in the age of neural networks and brain computing /</subfield>
+    <subfield code="c">edited by Robert Kozma, University of Memphis, Department of Mathematics, Memphis, TN, United States, University of Massachusetts Amherst, Department of Computer Science, Amherst, MA, United States, Cesare Alippi, Politecnicodi Milano, Milano, Italy, Universita&#x300; della Svizzera italiana, Lugano, Switzerland, Yoonsuck Choe, Samsung Research &amp; Texas A &amp; M University, College Station, TX, United States, Francesco Carlo Morbito, University Mediterranea of Reggio Calabria, Reggio Calabria, Italy.</subfield>
+  </datafield>
+  <datafield tag="264" ind1=" " ind2="1">
+    <subfield code="a">London, United Kingdom ;</subfield>
+    <subfield code="a">San Diego, CA, United States :</subfield>
+    <subfield code="b">Academic Press, an imprint of Elsevier,</subfield>
+    <subfield code="c">[2019]</subfield>
+  </datafield>
+  <datafield tag="264" ind1=" " ind2="4">
+    <subfield code="c">&#xA9;2019</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">xxv, 324 pages :</subfield>
+    <subfield code="b">illustrations,</subfield>
+    <subfield code="c">24 cm</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">unmediated</subfield>
+    <subfield code="b">n</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">volume</subfield>
+    <subfield code="b">nc</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="385" ind1=" " ind2=" ">
+    <subfield code="m">Occupation/field of activity group:</subfield>
+    <subfield code="n">occ</subfield>
+    <subfield code="a">Engineers</subfield>
+    <subfield code="2">lcdgt</subfield>
+  </datafield>
+  <datafield tag="386" ind1=" " ind2=" ">
+    <subfield code="m">Occupation/field of activity group:</subfield>
+    <subfield code="n">occ</subfield>
+    <subfield code="a">University and college faculty members</subfield>
+    <subfield code="2">lcdgt</subfield>
+  </datafield>
+  <datafield tag="386" ind1=" " ind2=" ">
+    <subfield code="a">Men</subfield>
+    <subfield code="2">lcdgt</subfield>
+  </datafield>
+  <datafield tag="504" ind1=" " ind2=" ">
+    <subfield code="a">Includes bibliographical references and index.</subfield>
+  </datafield>
+  <datafield tag="505" ind1="0" ind2="0">
+    <subfield code="g">Chapter 1</subfield>
+    <subfield code="t">Nature's learning rule: The Hebbian-LMS algorithm /</subfield>
+    <subfield code="r">Bernard Widrow, Youngsik Kim, Dookun Park and Jose Krause Perin --</subfield>
+    <subfield code="t">Introduction --</subfield>
+    <subfield code="t">ADALINE and the LMS algorithm, From the 1950s --</subfield>
+    <subfield code="t">Unsupervised learning with Adaline, From the 1960s --</subfield>
+    <subfield code="t">Robert Lucky's adaptive equalization, From the 1960s --</subfield>
+    <subfield code="t">Bootstrap learning with a Sigmoidal neuron --</subfield>
+    <subfield code="t">Bookstrap learning with a more "Biologically correct" Sigmoidal neuron --</subfield>
+    <subfield code="t">Other clustering algorithms --</subfield>
+    <subfield code="t">A general Hebbian-LMS algorithm --</subfield>
+    <subfield code="t">The synapse --</subfield>
+    <subfield code="t">Postulates of synaptic plasticity --</subfield>
+    <subfield code="t">The postulates and the Hebbian-LMS algorithm --</subfield>
+    <subfield code="t">Nature's Hebbian-LMS algorithm --</subfield>
+    <subfield code="t">Conclusion --</subfield>
+    <subfield code="g">Chapter 2</subfield>
+    <subfield code="t">A half century of progress toward a unified neural theory of mind and brain with applications to autonomous adaptive agents and mental disorders /</subfield>
+    <subfield code="r">Stephen Grossberg --</subfield>
+    <subfield code="t">Towards a unified theory of mind and brain --</subfield>
+    <subfield code="t">A theoretical method for linking brain to mind: The method of minimal anatomies --</subfield>
+    <subfield code="t">Revolutionary brain paradigms: Complementary computing and laminar computing --</subfield>
+    <subfield code="t">The what and where cortical streams are complementary --</subfield>
+    <subfield code="t">Adaptive resonance theory --</subfield>
+    <subfield code="t">Vector associative maps for spatial representation and action --</subfield>
+    <subfield code="t">Homologous laminar cortical circuits for all biological intelligence: Beyond Bayes --</subfield>
+    <subfield code="t">Why a unified theory is possible: Equations, modules, and architectures --</subfield>
+    <subfield code="t">All conscious states are resonant states --</subfield>
+    <subfield code="t">The varieties of brain resonances and the conscious experiences that they support --</subfield>
+    <subfield code="t">Why does resonance trigger consciousness? --</subfield>
+    <subfield code="t">Towards autonomous adaptive intelligent agents and clinical therapies in society --</subfield>
+    <subfield code="t">References --</subfield>
+    <subfield code="g">Chapter 3</subfield>
+    <subfield code="t">Third Gen AI as human experience based expert systems /</subfield>
+    <subfield code="r">Harold Szu and the AI working group --</subfield>
+    <subfield code="t">Introduction --</subfield>
+    <subfield code="t">Third gen AI --</subfield>
+    <subfield code="t">MFE gradient descent --</subfield>
+    <subfield code="t">Conclusion --</subfield>
+    <subfield code="g">4</subfield>
+    <subfield code="t">The brain-mind-computer trichotomy: Hermeneutic approach /</subfield>
+    <subfield code="r">Pe&#x301;ter E&#x301;rdi --</subfield>
+    <subfield code="t">Dichotomies --</subfield>
+    <subfield code="t">Hermeneutics --</subfield>
+    <subfield code="t">Schizophrenia: A broken hermeneutic cycle --</subfield>
+    <subfield code="t">Toward the algorithms of neural/mental hermeneutic interpretation --</subfield>
+    <subfield code="g">Chapter 5</subfield>
+    <subfield code="t">From synapses to ephapsis: Embodied cognition and wearable personal assistants / Roman Ormandy --</subfield>
+    <subfield code="t">Neural networks and neural fields --</subfield>
+    <subfield code="t">Ephapsis --</subfield>
+    <subfield code="t">Embodied cognition --</subfield>
+    <subfield code="t">Wearable personal assistants --</subfield>
+    <subfield code="t">References --</subfield>
+    <subfield code="g">Chapter 6</subfield>
+    <subfield code="t">Evolving and spiking connectionist systems for brain-inspired artificial intelligence /</subfield>
+    <subfield code="r">Nikola Kasabov --</subfield>
+    <subfield code="t">From Aristotle's logic to artificial neural networks and hybrid systems --</subfield>
+    <subfield code="t">Evolving connectionist systems (ECOS) --</subfield>
+    <subfield code="t">Spiking neural networks (SNN) as brain-inspired ANN --</subfield>
+    <subfield code="t">Brain-like AI systems based on SNN, NeuCube, deep learning algorithms --</subfield>
+    <subfield code="t">Conclusion --</subfield>
+    <subfield code="g">Chapter 7</subfield>
+    <subfield code="t">Pitfalls and opportunities in the development and evaluation of artificial intelligence systems /</subfield>
+    <subfield code="r">David G. Brown and Frank W. Samuelson --</subfield>
+    <subfield code="t">Introduction --</subfield>
+    <subfield code="t">AI development --</subfield>
+    <subfield code="t">AI evaluation --</subfield>
+    <subfield code="t">Variability and bias in our performance estimates --</subfield>
+    <subfield code="t">Conclusion --</subfield>
+    <subfield code="g">Chapter 8</subfield>
+    <subfield code="t">The new AI: Basic concepts, urgent risks and opportunities in the Internet of Things /</subfield>
+    <subfield code="r">Paulo J. Werbos --</subfield>
+    <subfield code="t">Introduction and overview --</subfield>
+    <subfield code="t">Brief history and foundations of the deep learning revolution --</subfield>
+    <subfield code="t">From RNNs to mouse-level computational intelligence: Next big things and beyond --</subfield>
+    <subfield code="t">Need for new directions in understanding brain and mind --</subfield>
+    <subfield code="t">Information technology (IT) for human survival: An urgent unmet challenge --</subfield>
+    <subfield code="t">References --</subfield>
+    <subfield code="g">Chapter 9</subfield>
+    <subfield code="t">Theory of the brain and mind: Visions and history /</subfield>
+    <subfield code="r">Daniel S. Levine --</subfield>
+    <subfield code="t">Early history --</subfield>
+    <subfield code="t">Emergence of some neural network principles --</subfield>
+    <subfield code="t">Neural networks enter mainstream science --</subfield>
+    <subfield code="t">Is computational neuroscience separate from neural network theory? --</subfield>
+    <subfield code="t">Discussion --</subfield>
+    <subfield code="t">References --</subfield>
+    <subfield code="g">Chapter 10</subfield>
+    <subfield code="t">Computers versus brains: Game is over or more to come? /</subfield>
+    <subfield code="r">Robert Kozma --</subfield>
+    <subfield code="t">Introduction --</subfield>
+    <subfield code="t">AI approaches --</subfield>
+    <subfield code="t">Metastability in cognition and in brain dynamics --</subfield>
+    <subfield code="t">Pragmatic implementation of complementarity for new AI --</subfield>
+    <subfield code="t">Acknowledgments --</subfield>
+    <subfield code="t">References --</subfield>
+    <subfield code="g">Chapter 11</subfield>
+    <subfield code="t">Deep learning apporaches to electrophysiological multivariate time-series analysis /</subfield>
+    <subfield code="r">Francesco Carlo Morabito, Maurizio Campolo, Cosimo leracitano and Nadia Mammone --</subfield>
+    <subfield code="t">Introduction --</subfield>
+    <subfield code="t">The neural network approach --</subfield>
+    <subfield code="t">Deep architectures and learning --</subfield>
+    <subfield code="t">Electrophysiological time-series --</subfield>
+    <subfield code="t">Deep learning models for EEG signal processing --</subfield>
+    <subfield code="t">Future directions of research --</subfield>
+    <subfield code="t">Conclusion --</subfield>
+    <subfield code="t">Further reading --</subfield>
+    <subfield code="g">Chapter 12</subfield>
+    <subfield code="t">Computational intelligence in the time of cyber-physical systems and the Internet of Things /</subfield>
+    <subfield code="r">Cesare Alippi and Seiichi Ozawa --</subfield>
+    <subfield code="t">Introduction --</subfield>
+    <subfield code="t">System architecture --</subfield>
+    <subfield code="t">Energy harvesting and management --</subfield>
+    <subfield code="t">Learning in nonstationary environments --</subfield>
+    <subfield code="t">Model-free fault diagnosis systems --</subfield>
+    <subfield code="t">Cybersecurity --</subfield>
+    <subfield code="t">Conclusions --</subfield>
+    <subfield code="t">Acknowledgments --</subfield>
+    <subfield code="t">References --</subfield>
+    <subfield code="g">Chapter 13</subfield>
+    <subfield code="t">Multiview learning in biomedical applications /</subfield>
+    <subfield code="r">Angela Serra, Paola Galdi and Roberto Tagliaferri --</subfield>
+    <subfield code="t">Introduction --</subfield>
+    <subfield code="t">Multiview learning --</subfield>
+    <subfield code="t">Multiview learning in bioinformatics --</subfield>
+    <subfield code="t">Multiview learning in neuroinformatics --</subfield>
+    <subfield code="t">Deep multimodal feature learning --</subfield>
+    <subfield code="t">Conclusions --</subfield>
+    <subfield code="t">References --</subfield>
+    <subfield code="g">Chapter 14</subfield>
+    <subfield code="t">Meaning versus information, prediction versus memory, and question versus answer /</subfield>
+    <subfield code="r">Yoonsuck Choe --</subfield>
+    <subfield code="t">Introduction --</subfield>
+    <subfield code="t">Meaning versus information --</subfield>
+    <subfield code="t">Prediction versus memory --</subfield>
+    <subfield code="t">Question versus answer --</subfield>
+    <subfield code="t">Discussion --</subfield>
+    <subfield code="t">Conclusion --</subfield>
+    <subfield code="t">Acknowledgments --</subfield>
+    <subfield code="t">References --</subfield>
+    <subfield code="g">Chapter 15</subfield>
+    <subfield code="t">Evolving deep neural networks /</subfield>
+    <subfield code="r">Risto Miikkulainen, Jason Liang, Elliot Meyerson, Aditya Rawal, Daniel Fink, Olivier Francon, Bala Raju, Hormoz Shahrzad, Arshak Navruzyan, Nigel Duffy and Babak Hodjat --</subfield>
+    <subfield code="t">Introduction --</subfield>
+    <subfield code="t">Background and related work --</subfield>
+    <subfield code="t">Evolution of deep learning architectures --</subfield>
+    <subfield code="t">Evolution of LSTM architectures --</subfield>
+    <subfield code="t">Evolution of LSTM architectures --</subfield>
+    <subfield code="t">Application case study: Image captioning for the blind --</subfield>
+    <subfield code="t">Discussion and future work --</subfield>
+    <subfield code="t">Conclusion --</subfield>
+    <subfield code="t">References.</subfield>
+  </datafield>
+  <datafield tag="520" ind1=" " ind2=" ">
+    <subfield code="a">Artificial Intelligence in the Age of Neural Networks and Brain Computing is the comprehensive guide for neural network advances in artificial intelligence (AI). It covers the major, basic ideas of "brain-like computing" behind AI, providing a framework to deep learning and launching novel and intriguing paradigms as possible future alternatives. Following an introduction, initial chapters discuss revolutionary new brain-mind approaches alternative to deep learning, the brain-mind-computer trichotomy, pitfalls and opportunities in the development of AI systems. Subsequent chapters explore a deep learning approach to electrophysiological multivariate time series analysis, multiview learning in biomedical applications, and the evolution of deep neural networks. This is an essential companion to researchers, engineers, advance AI practitioners, postdoctoral students in computational intelligence and neural engineering, and the technically oriented public. It provides access to the latest up-to-date knowledge from top, global experts working on theory and cutting-edge applications in signal processing, speech recognition, games, adaptive control, and decision-making. --</subfield>
+    <subfield code="c">From back cover.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Artificial intelligence.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Neural networks (Computer science)</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Brain-computer interfaces.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="7">
+    <subfield code="a">Artificial intelligence.</subfield>
+    <subfield code="2">fast</subfield>
+    <subfield code="0">(OCoLC)fst00817247</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="7">
+    <subfield code="a">Brain-computer interfaces.</subfield>
+    <subfield code="2">fast</subfield>
+    <subfield code="0">(OCoLC)fst01742078</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="7">
+    <subfield code="a">Neural networks (Computer science)</subfield>
+    <subfield code="2">fast</subfield>
+    <subfield code="0">(OCoLC)fst01036260</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Kozma, Robert,</subfield>
+    <subfield code="e">editor.</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Alippi, Cesare,</subfield>
+    <subfield code="e">editor.</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Choe, Yoonsuck,</subfield>
+    <subfield code="e">editor.</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Morabito, F. C.</subfield>
+    <subfield code="q">(Francesco Carlo),</subfield>
+    <subfield code="e">editor.</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>9</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>05102cam a22005655i 4500</leader>
+  <controlfield tag="001">21663095</controlfield>
+  <controlfield tag="005">20200924132428.0</controlfield>
+  <controlfield tag="006">m    |o  d |      </controlfield>
+  <controlfield tag="007">cr |||||||||||</controlfield>
+  <controlfield tag="008">151029s2016    gw |||| o    |||| 0|eng  </controlfield>
+  <datafield tag="906" ind1=" " ind2=" ">
+    <subfield code="a">0</subfield>
+    <subfield code="b">ibc</subfield>
+    <subfield code="c">origres</subfield>
+    <subfield code="d">u</subfield>
+    <subfield code="e">ncip</subfield>
+    <subfield code="f">20</subfield>
+    <subfield code="g">y-gencatlg</subfield>
+  </datafield>
+  <datafield tag="925" ind1="0" ind2=" ">
+    <subfield code="a">acquire</subfield>
+    <subfield code="e">pcnspringer</subfield>
+    <subfield code="x">policy default</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">(DE-He213)978-3-319-22422-0</subfield>
+  </datafield>
+  <datafield tag="010" ind1=" " ind2=" ">
+    <subfield code="a">  2019739662</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9783319224220</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.1007/978-3-319-22422-0</subfield>
+    <subfield code="2">doi</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="a">DLC</subfield>
+    <subfield code="b">eng</subfield>
+    <subfield code="e">pn</subfield>
+    <subfield code="e">rda</subfield>
+    <subfield code="c">DLC</subfield>
+  </datafield>
+  <datafield tag="097" ind1="0" ind2="0">
+    <subfield code="a">LC8-6691</subfield>
+  </datafield>
+  <datafield tag="072" ind1=" " ind2="7">
+    <subfield code="a">CJ</subfield>
+    <subfield code="2">bicssc</subfield>
+  </datafield>
+  <datafield tag="072" ind1=" " ind2="7">
+    <subfield code="a">EDU018000</subfield>
+    <subfield code="2">bisacsh</subfield>
+  </datafield>
+  <datafield tag="072" ind1=" " ind2="7">
+    <subfield code="a">CJ</subfield>
+    <subfield code="2">thema</subfield>
+  </datafield>
+  <datafield tag="082" ind1="0" ind2="4">
+    <subfield code="a">407.1</subfield>
+    <subfield code="2">23</subfield>
+  </datafield>
+  <datafield tag="245" ind1="0" ind2="0">
+    <subfield code="a">Assessing Young Learners of English: Global and Local Perspectives /</subfield>
+    <subfield code="c">edited by Marianne Nikolov.</subfield>
+  </datafield>
+  <datafield tag="250" ind1=" " ind2=" ">
+    <subfield code="a">1st ed. 2016.</subfield>
+  </datafield>
+  <datafield tag="264" ind1=" " ind2="1">
+    <subfield code="a">Cham :</subfield>
+    <subfield code="b">Springer International Publishing :</subfield>
+    <subfield code="b">Imprint: Springer,</subfield>
+    <subfield code="c">2016.</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">1 online resource (XII, 338 pages 82 illustrations, 34 illustrations in color.)</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">computer</subfield>
+    <subfield code="b">c</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">online resource</subfield>
+    <subfield code="b">cr</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="347" ind1=" " ind2=" ">
+    <subfield code="a">text file</subfield>
+    <subfield code="b">PDF</subfield>
+    <subfield code="2">rda</subfield>
+  </datafield>
+  <datafield tag="490" ind1="1" ind2=" ">
+    <subfield code="a">Educational Linguistics,</subfield>
+    <subfield code="x">1572-0292 ;</subfield>
+    <subfield code="v">25</subfield>
+  </datafield>
+  <datafield tag="505" ind1="0" ind2=" ">
+    <subfield code="a">Trends, Issues and Challenges in Assessing Young Language Learners by Marianne Nikolov --  Do Developments in Assessment Represent the 'Coming of Age' of Young Learners English Language Teaching Initiatives? The International Picture by Shelagh Rixon -- A CEFR-Based Inventory of YL Descriptors: Principles and Challenges by Veronica Benigno and John de Jong -- A Framework for Young EFL Learners' Diagnostic Assessment: Can Do Statements and Task Types by Marianne Nikolov -- Examining Content Representativeness of a Young Learner Language Assessment: EFL Teachers' Perspectives by Ching-Ni Hsieh -- Developing and Piloting Proficiency Tests for Polish Young Learners by Magdalena Szpotowicz and Dorota E. Campfield -- The Development and Validation of a Computer-Based Test of English for Young Learners: Cambridge English Young Learners by Szilvia Papp and Agnieszka Walczak -- Learning EFL from Year 1 or Year 3? A Comparative Study on Children's EFL Listening and Reading Comprehension at the End of Primary Education by Eva Wilden and Raphaela Porsch -- A Longitudinal Study of a School's Assessment Project in Chongqing, China by Jing Peng and Shicheng Zheng -- Individual Differences and Young Learners' Performance on L2 Speaking Tests by Jelena Mihaljevic&#x301; Djigunovic&#x301; -- The Role of Individual Differences in the Development of Listening Comprehension in the Early Stages of Language Learning by E&#x301;va Bacsa and Csaba Csi&#x301;kos -- Self-Assessment of and for Young Learners' Foreign Language Learning by Yuko Goto Butler -- The Relationships between Peer- and Self-Assessment and Teacher Assessment of Young EFL Learners' Oral Presentations by Yu-ju Hung, Beth Lewis Samuelson, and Shu-cheng Chen.</subfield>
+  </datafield>
+  <datafield tag="520" ind1=" " ind2=" ">
+    <subfield code="a">This volume documents international, national, and small-scale testing and assessment projects of English language education for young learners, across a range of educational contexts. It covers three main areas: age-appropriate 'can do statements' and task types for teaching and testing learners between the ages of 6 to 13;  innovative approaches to self-assessment, diagnostic testing, self- perception, and computer-based testing; and findings on how young learners perform on vocabulary, listening, speaking, pronunciation, and reading comprehension tests in European and Asian contexts. Early language learning has become a major trend in English language education around the globe. As a result of the spread of teaching English to a growing number of young children, assessment of and for learning have emerged as key issues. In line with this development, there is a clear and emerging need to make early language programs accountable and to assess both the progress children make over time and to quantify their achievement at various stages of development. This volume informs stakeholders about the realistic goals of early language learning, their efficiency, and how much progress children make over time.</subfield>
+  </datafield>
+  <datafield tag="588" ind1=" " ind2=" ">
+    <subfield code="a">Description based on publisher-supplied MARC data.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Language and education.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Assessment.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Learning.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Instruction.</subfield>
+  </datafield>
+  <datafield tag="650" ind1="1" ind2="4">
+    <subfield code="a">Language Education.</subfield>
+    <subfield code="0">https://scigraph.springernature.com/ontologies/product-market-codes/O23000</subfield>
+  </datafield>
+  <datafield tag="650" ind1="2" ind2="4">
+    <subfield code="a">Assessment, Testing and Evaluation.</subfield>
+    <subfield code="0">https://scigraph.springernature.com/ontologies/product-market-codes/O33000</subfield>
+  </datafield>
+  <datafield tag="650" ind1="2" ind2="4">
+    <subfield code="a">Learning &amp; Instruction.</subfield>
+    <subfield code="0">https://scigraph.springernature.com/ontologies/product-market-codes/O22000</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Nikolov, Marianne.</subfield>
+    <subfield code="e">editor.</subfield>
+  </datafield>
+  <datafield tag="776" ind1="0" ind2="8">
+    <subfield code="i">Printed edition:</subfield>
+    <subfield code="z">9783319224213</subfield>
+  </datafield>
+  <datafield tag="776" ind1="0" ind2="8">
+    <subfield code="i">Printed edition:</subfield>
+    <subfield code="z">9783319224237</subfield>
+  </datafield>
+  <datafield tag="776" ind1="0" ind2="8">
+    <subfield code="i">Printed edition:</subfield>
+    <subfield code="z">9783319361598</subfield>
+  </datafield>
+  <datafield tag="830" ind1=" " ind2="0">
+    <subfield code="a">Educational Linguistics,</subfield>
+    <subfield code="x">1572-0292 ;</subfield>
+    <subfield code="v">25</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="a">Education (SpringerNature-41171)</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="a">Education (R0) (SpringerNature-43721)</subfield>
+  </datafield>
+  <datafield tag="985" ind1=" " ind2=" ">
+    <subfield code="a">springerpcn</subfield>
+  </datafield>
+  <datafield tag="991" ind1=" " ind2=" ">
+    <subfield code="a">s-Online</subfield>
+    <subfield code="h">Electronic Resource</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>10</zs:recordPosition></zs:record></zs:records><zs:nextRecordPosition>11</zs:nextRecordPosition><zs:echoedSearchRetrieveRequest><zs:version>1.2</zs:version><zs:query>samuelson</zs:query><zs:startRecord>1</zs:startRecord><zs:maximumRecords>10</zs:maximumRecords><zs:recordPacking>xml</zs:recordPacking><zs:recordSchema>marcxml</zs:recordSchema></zs:echoedSearchRetrieveRequest></zs:searchRetrieveResponse>
+

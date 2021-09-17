@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<zs:searchRetrieveResponse xmlns:zs="http://www.loc.gov/zing/srw/"><zs:version>1.2</zs:version><zs:numberOfRecords>1</zs:numberOfRecords><zs:records><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>02164cam a2200313 i 4500</leader>
+  <controlfield tag="001">20580489</controlfield>
+  <controlfield tag="005">20191018145224.0</controlfield>
+  <controlfield tag="008">180712s2019    waua          000 0 eng  </controlfield>
+  <datafield tag="010" ind1=" " ind2=" ">
+    <subfield code="a">  2018032710</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781604689808</subfield>
+  </datafield>
+  <datafield tag="022" ind1="0" ind2=" ">
+    <subfield code="a">1560-1560</subfield>
+    <subfield code="l">1234-1231</subfield>
+  </datafield>
+  <datafield tag="024" ind1=" " ind2="7">
+    <subfield code="a">0A3200912B4A1057</subfield>
+    <subfield code="2">istc</subfield>
+  </datafield>
+  <datafield tag="024" ind1=" " ind2=" ">
+    <subfield code="a">http://catalogue.bnf.fr/ark:/12148/cb41467055h</subfield>
+    <subfield code="2">uri</subfield>
+  </datafield>
+  <datafield tag="024" ind1=" " ind2=" ">
+    <subfield code="a">1-2021090320480431761051</subfield>
+  </datafield>
+  <datafield tag="024" ind1="1" ind2=" ">
+    <subfield code="a">7822183031</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="a">DLC</subfield>
+    <subfield code="b">eng</subfield>
+    <subfield code="c">DLC</subfield>
+    <subfield code="e">rda</subfield>
+  </datafield>
+  <datafield tag="042" ind1=" " ind2=" ">
+    <subfield code="a">pcc</subfield>
+  </datafield>
+  <datafield tag="050" ind1="0" ind2="0">
+    <subfield code="a">TT835</subfield>
+    <subfield code="b">.B4826 2019</subfield>
+  </datafield>
+  <datafield tag="080" ind1=" " ind2=" ">
+    <subfield code="a">821.113.1</subfield>
+    <subfield code="x">(494)</subfield>
+    <subfield code="2">[edition information]</subfield>
+  </datafield>
+  <datafield tag="082" ind1="0" ind2="0">
+    <subfield code="a">746.46</subfield>
+    <subfield code="2">23</subfield>
+  </datafield>
+    <datafield tag="210" ind1="1" ind2=" ">
+      <subfield code="a">Rech. écon. Louvain</subfield>
+      <subfield code="b">(Imprimé)</subfield>
+    </datafield>
+    <datafield tag="222" ind1=" " ind2="0">
+      <subfield code="a">Recherches économiques de Louvain</subfield>
+      <subfield code="b">(Imprimé)</subfield>
+    </datafield>
+  <datafield tag="245" ind1="0" ind2="4">
+    <subfield code="a">The big book of lap quilts :</subfield>
+    <subfield code="b">51 patterns for family room favorites.</subfield>
+  </datafield>
+  <datafield tag="264" ind1=" " ind2="1">
+    <subfield code="a">Bothell, WA :</subfield>
+    <subfield code="b">Martingale, create with confidence,</subfield>
+    <subfield code="c">[2019]</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">239 pages :</subfield>
+    <subfield code="b">color illustrations ;</subfield>
+    <subfield code="c">28 cm</subfield>
+  </datafield>
+  <datafield tag="310" ind1=" " ind2=" ">
+    <subfield code="a">Monthly,</subfield>
+    <subfield code="b">1985-</subfield>
+  </datafield>
+  <datafield tag="321" ind1=" " ind2=" ">
+    <subfield code="a">Ten no. a year,</subfield>
+    <subfield code="b">1982-1984</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">still image</subfield>
+    <subfield code="b">sti</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">unmediated</subfield>
+    <subfield code="b">n</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">volume</subfield>
+    <subfield code="b">nc</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="362" ind1="0" ind2=" ">
+    <subfield code="a">1962-1965. </subfield>
+  </datafield>
+  <datafield tag="440" ind1="0" ind2=" ">
+    <subfield code="a">Impacts des nouvelles technologies</subfield>
+    <subfield code="n">Moins mais mieux</subfield>
+    <subfield code="p">Part I</subfield>
+    <subfield code="v">v. 14</subfield>
+  </datafield>
+  <datafield tag="502" ind1=" " ind2=" ">
+    <subfield code="a">Mémoire de stage (3e cycle) -- Université Dummy</subfield>
+  </datafield>
+  <datafield tag="505" ind1="0" ind2=" ">
+    <subfield code="a">Remember me -- Starry nights in winter -- Dripping diamonds -- Mrs. B -- Board game --  Civil War log cabin -- Sugar shack -- Cindy Lou Who -- Treble and bass -- Four patch star -- Emerald forest -- Scrappy squares --  Snowflakes -- Counted nine patch -- Ohio star crossing -- Sprightly stars -- Connections -- Sherbet town -- Hourglass courthouse steps -- Garden bramble -- Over, under, around, and through -- Triple play -- Peppermint patties -- Decoy -- Prairie picnic -- Lincoln -- Hazelwood stars --Cakewalk --Bespoke -- Precious peonies -- Four generations -- Squared circles -- Pinwheel flowers -- Chocolat et cre&#x300;me -- Holly jolly Christmas quilt -- Four-patch log cabin -- Jazz -- Crosswalk -- Hand warmers -- Cozy home lane -- It's cold outside -- Winding down -- Opening day -- Petal pushers -- Breaking up -- Cherry fizz -- Dominoes -- Raise the roof -- The comfort quilt -- Fresh air -- The simplest sampler.</subfield>
+  </datafield>
+  <datafield tag="506" ind1=" " ind2=" ">
+    <subfield code="a">Open Access</subfield>
+  </datafield>
+  <datafield tag="510" ind1="3" ind2=" ">
+    <subfield code="a">Bibliographie cartographique internationale </subfield>
+  </datafield>
+  <datafield tag="511" ind1=" " ind2=" ">
+    <subfield code="a">Marshall Moss, violin ; Neil Roberts, harpsichord. </subfield>
+  </datafield>
+  <datafield tag="521" ind1=" " ind2=" ">
+    <subfield code="a">Program designed for geographers, planners, geologists, meteorologists and others who have a professional interest in analyzing spatial data</subfield>
+  </datafield>
+  <datafield tag="600" ind1="1" ind2="0">
+    <subfield code="a">Baudelaire, Charles,</subfield>
+    <subfield code="d">1821-1867.</subfield>
+    <subfield code="t">Fleurs du mal.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Patchwork quilts.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Patchwork</subfield>
+    <subfield code="v">Patterns.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">House furnishings.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="7">
+    <subfield code="a">Morale sociale</subfield>
+    <subfield code="0">(RERO)A021003578</subfield>
+    <subfield code="2">rero</subfield>
+  </datafield>
+  <datafield tag="655" ind1=" " ind2="7">
+    <subfield code="a">Bird's-eye views</subfield>
+    <subfield code="y">1874.</subfield>
+    <subfield code="2">gmgpc</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Chatelain, Yannick</subfield>
+    <subfield code="d">1965-....</subfield>
+    <subfield code="0">(IDREF)055771041</subfield>
+    <subfield code="4">cre</subfield>
+  </datafield>
+  <datafield tag="710" ind1="2" ind2=" ">
+    <subfield code="a">Martingale &amp; Company,</subfield>
+    <subfield code="e">issuing body.</subfield>
+  </datafield>
+  <datafield tag="773" ind1="0" ind2=" ">
+    <subfield code="7">p1am</subfield>
+    <subfield code="a">Desio, Ardito, 1897-</subfield>
+    <subfield code="t">Geographical features of the Karakorum.</subfield>
+    <subfield code="g">Vol. 24, pt. B no. 9 (Sept. 1993), p. 235-48</subfield>
+    <subfield code="d">Milano : ISMEO, 1991</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2="0">
+    <subfield code="u">https://nbn-resolving.org/urn:nbn:de:101:1-2021090320480431761051</subfield>
+    <subfield code="x">Resolving-System</subfield>
+  </datafield>
+  <datafield tag="906" ind1=" " ind2=" ">
+      <subfield code="a">7</subfield>
+      <subfield code="b">cbc</subfield>
+      <subfield code="c">orignew</subfield>
+      <subfield code="d">1</subfield>
+      <subfield code="e">ecip</subfield>
+      <subfield code="f">20</subfield>
+      <subfield code="g">y-gencatlg</subfield>
+    </datafield>
+    <datafield tag="925" ind1="0" ind2=" ">
+      <subfield code="a">acquire</subfield>
+      <subfield code="b">1 shelf copy</subfield>
+      <subfield code="x">policy default</subfield>
+    </datafield>
+    <datafield tag="955" ind1=" " ind2=" ">
+      <subfield code="b">cg06 2018-07-12 telework</subfield>
+      <subfield code="i">cg06 2018-07-12 telework to rev. then to Dewey</subfield>
+      <subfield code="w">xm08 2018-07-23 (telework)</subfield>
+      <subfield code="a">xn11 2019-03-08 1 copy rec'd., to CIP ver.</subfield>
+      <subfield code="a">rk20 2019-03-19 book received in ART</subfield>
+      <subfield code="f">rk23 2019-10-18 c. 1 still in workflow c. 2 to DISCARDS (00496309492)</subfield>
+    </datafield>
+</record></zs:recordData><zs:recordPosition>1</zs:recordPosition></zs:record></zs:records><zs:echoedSearchRetrieveRequest><zs:version>1.2</zs:version><zs:query>dc.identifier = 9781604689808</zs:query><zs:startRecord>1</zs:startRecord><zs:maximumRecords>10</zs:maximumRecords><zs:recordPacking>xml</zs:recordPacking><zs:recordSchema>marcxml</zs:recordSchema></zs:echoedSearchRetrieveRequest></zs:searchRetrieveResponse>
+

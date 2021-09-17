@@ -351,8 +351,10 @@ def get_field_items(value):
 def build_string_from_subfields(value, subfield_selection, separator=' '):
     """Build a string parsing the selected subfields in order."""
     items = get_field_items(value)
-    parts = [value for key, value in items if key in subfield_selection]
-    return separator.join(parts)
+    return separator.join([
+        remove_special_characters(value)
+        for key, value in items if key in subfield_selection
+    ])
 
 
 def remove_trailing_punctuation(
@@ -386,6 +388,17 @@ def remove_trailing_punctuation(
         data.rstrip()).rstrip()
 
 
+def remove_special_characters(value, chars=['\u0098', '\u009C']):
+    """Remove special characters from a string.
+
+    :params value: string to clean.
+    :returns: a cleaned string.
+    """
+    for char in chars:
+        value = value.replace(char, '')
+    return value
+
+
 def get_contribution_link(bibid, reroid, id, key):
     """Get MEF contribution link.
 
@@ -399,12 +412,31 @@ def get_contribution_link(bibid, reroid, id, key):
     prod_host = 'mef.rero.ch'
     test_host = os.environ.get('RERO_ILS_MEF_HOST', 'mef.rero.ch')
     mef_url = f'https://{test_host}/api/'
-
-    match = re_identified.search(id)
+    if type(id) is str:
+        match = re_identified.search(id)
+    else:
+        match = re_identified.search(id[0])
     if match and len(match.groups()) == 2 and key[:3] in _CONTRIBUTION_TAGS:
         match_type = match.group(1).lower()
         match_value = match.group(2)
-        if match_type == 'idref':
+        match_type.replace('de-588', 'gnd')
+        # if we have a viafid, look for the contributor in MEF
+        if match_type == "viaf":
+            url = f'{mef_url}/mef/?q=viaf_pid:{match_value}'
+            response = requests_retry_session().get(url)
+            status_code = response.status_code
+            if status_code == requests.codes.ok:
+                resp = response.json()
+                try:
+                    mdata = resp['hits']['hits'][0]['metadata']
+                    for source in ['idref', 'gnd']:
+                        match_value = mdata.get(source, {}).get('pid')
+                        if match_value:
+                            match_type = source
+                            break
+                except (IndexError, KeyError):
+                    pass
+        if match_type in ['idref', 'gnd']:
             url = f'{mef_url}{match_type}/{match_value}'
             response = requests_retry_session().get(url)
             status_code = response.status_code
@@ -680,6 +712,7 @@ class ReroIlsOverdo(Overdo):
         data = []
         value = clean_punctuation(label, punct, spaced_punct).strip()
         if value:
+            value = remove_special_characters(value)
             data = [{'value': value}]
         else:
             error_print('WARNING NO VALUE:', self.bib_id, self.rero_id, tag,
@@ -817,7 +850,7 @@ class ReroIlsOverdo(Overdo):
                 book_formats.append(book_format)
             dim = remove_trailing_punctuation(
                 data=dimension.rstrip(),
-                punctuation='+,:;&'
+                punctuation='+,:;&.'
             )
             if dim:
                 add_data_and_sort_list(
@@ -1141,9 +1174,12 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                                 self.rero_id, cantons_codes)
             if self.cantons:
                 self.country = 'sz'
+            if not self.country:
+                self.country = self.field_008_data[15:18].rstrip()
         else:
             try:
                 self.country = self.field_008_data[15:18].rstrip()
+
             except Exception as err:
                 pass
 
@@ -1853,7 +1889,8 @@ def build_identifier(data):
         'RERO': 'RERO',
         'RERO-RAMEAU': 'RERO-RAMEAU',
         'IDREF': 'IdRef',
-        'GND': 'GND'
+        'GND': 'GND',
+        'DE-588': 'GND'
     }
     result = {}
     data_0 = utils.force_list(data.get('0'))

@@ -1,0 +1,1136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/">
+   <version>1.1</version>
+   <numberOfRecords>129</numberOfRecords>
+   <records>
+      <record>
+         <recordSchema>info:srw/schema/1/marcxml-v1.1</recordSchema>
+         <recordPacking>xml</recordPacking>
+         <recordData>
+            <marc:record xmlns:marc="http://www.loc.gov/MARC21/slim">
+               <marc:leader>01035nmm a22002775u 4500</marc:leader>
+               <marc:controlfield tag="001">2873021</marc:controlfield>
+               <marc:controlfield tag="003">NyNyACM</marc:controlfield>
+               <marc:controlfield tag="005">20160105081729.0</marc:controlfield>
+               <marc:controlfield tag="007">cr nn ---mamaa</marc:controlfield>
+               <marc:controlfield tag="008">170407s2015    xx         j        eng d</marc:controlfield>
+               <marc:datafield tag="020" ind1=" " ind2=" ">
+                  <marc:subfield code="a">9781510801042</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="040" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Association for Computing Machinery</marc:subfield>
+                  <marc:subfield code="c">ACM</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="100" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Samuelson, Holly.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="245" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Proceedings of the Symposium on Simulation for Architecture &amp; Urban Design</marc:subfield>
+                  <marc:subfield code="h">[electronic resource].</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="246" ind1="3" ind2=" ">
+                  <marc:subfield code="a">SimAUD '15</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="260" ind1=" " ind2=" ">
+                  <marc:subfield code="a">San Diego, CA :</marc:subfield>
+                  <marc:subfield code="b">Society for Computer Simulation International,</marc:subfield>
+                  <marc:subfield code="c">2015.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="300" ind1=" " ind2=" ">
+                  <marc:subfield code="a">1 online resource (238 pages)</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="500" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Title from The ACM Digital Library.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Computer science.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1="1" ind2="4">
+                  <marc:subfield code="a">Computing Methodologies.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1="2" ind2="4">
+                  <marc:subfield code="a">Computer Applications.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1="2" ind2="4">
+                  <marc:subfield code="a">Mathematics of Computing.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1="2" ind2="4">
+                  <marc:subfield code="a">Information Systems.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="710" ind1="2" ind2=" ">
+                  <marc:subfield code="a">Association for Computing Machinery-Digital Library.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="710" ind1="2" ind2=" ">
+                  <marc:subfield code="a">ACM Special Interest Group on Simulation and Modeling.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="856" ind1="4" ind2=" ">
+                  <marc:subfield code="3">ACM Digital Library</marc:subfield>
+                  <marc:subfield code="u">http://dl.acm.org/citation.cfm?id=2873021</marc:subfield>
+               </marc:datafield>
+            </marc:record>
+         </recordData>
+         <recordPosition>1</recordPosition>
+      </record>
+      <record>
+         <recordSchema>info:srw/schema/1/marcxml-v1.1</recordSchema>
+         <recordPacking>xml</recordPacking>
+         <recordData>
+            <marc:record xmlns:marc="http://www.loc.gov/MARC21/slim">
+               <marc:leader>00000nam a22000005i 4500</marc:leader>
+               <marc:controlfield tag="001">978-1-62703-293-3</marc:controlfield>
+               <marc:controlfield tag="003">DE-He213</marc:controlfield>
+               <marc:controlfield tag="005">20200709095842.0</marc:controlfield>
+               <marc:controlfield tag="007">cr nn 008mamaa</marc:controlfield>
+               <marc:controlfield tag="008">130220s2013    xxu|    s    |||| 0|eng d</marc:controlfield>
+               <marc:datafield tag="020" ind1=" " ind2=" ">
+                  <marc:subfield code="a">9781627032933</marc:subfield>
+                  <marc:subfield code="9">978-1-62703-293-3</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="024" ind1="7" ind2=" ">
+                  <marc:subfield code="a">10.1007/978-1-62703-293-3</marc:subfield>
+                  <marc:subfield code="2">doi</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="050" ind1=" " ind2="4">
+                  <marc:subfield code="a">QH345</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="050" ind1=" " ind2="4">
+                  <marc:subfield code="a">QD415-436</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="072" ind1=" " ind2="7">
+                  <marc:subfield code="a">PSB</marc:subfield>
+                  <marc:subfield code="2">bicssc</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="072" ind1=" " ind2="7">
+                  <marc:subfield code="a">SCI007000</marc:subfield>
+                  <marc:subfield code="2">bisacsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="072" ind1=" " ind2="7">
+                  <marc:subfield code="a">PSB</marc:subfield>
+                  <marc:subfield code="2">thema</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="082" ind1=" " ind2="4">
+                  <marc:subfield code="a">572</marc:subfield>
+                  <marc:subfield code="2">23</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="245" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Enzyme Engineering</marc:subfield>
+                  <marc:subfield code="h">[electronic resource] :</marc:subfield>
+                  <marc:subfield code="b">Methods and Protocols /</marc:subfield>
+                  <marc:subfield code="c">edited by James C. Samuelson.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="250" ind1=" " ind2=" ">
+                  <marc:subfield code="a">1st ed. 2013.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="264" ind1=" " ind2="1">
+                  <marc:subfield code="a">Totowa, NJ :</marc:subfield>
+                  <marc:subfield code="b">Humana Press :</marc:subfield>
+                  <marc:subfield code="b">Imprint: Humana,</marc:subfield>
+                  <marc:subfield code="c">2013.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="300" ind1=" " ind2=" ">
+                  <marc:subfield code="a">XI, 252 p. 52 illus., 19 illus. in color.</marc:subfield>
+                  <marc:subfield code="b">online resource.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="336" ind1=" " ind2=" ">
+                  <marc:subfield code="a">text</marc:subfield>
+                  <marc:subfield code="b">txt</marc:subfield>
+                  <marc:subfield code="2">rdacontent</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="337" ind1=" " ind2=" ">
+                  <marc:subfield code="a">computer</marc:subfield>
+                  <marc:subfield code="b">c</marc:subfield>
+                  <marc:subfield code="2">rdamedia</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="338" ind1=" " ind2=" ">
+                  <marc:subfield code="a">online resource</marc:subfield>
+                  <marc:subfield code="b">cr</marc:subfield>
+                  <marc:subfield code="2">rdacarrier</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="347" ind1=" " ind2=" ">
+                  <marc:subfield code="a">text file</marc:subfield>
+                  <marc:subfield code="b">PDF</marc:subfield>
+                  <marc:subfield code="2">rda</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="490" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Methods in Molecular Biology,</marc:subfield>
+                  <marc:subfield code="x">1064-3745 ;</marc:subfield>
+                  <marc:subfield code="v">978</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="505" ind1=" " ind2=" ">
+                  <marc:subfield code="a">A Tripartite Fusion System for the Selection of Protein Variants with Increased Stability in vivo -- Determining Enzyme Kinetics via Isothermal Titration Calorimetry -- GFP Reporter Screens for the Engineering of Amino Acid Degrading Enzymes from Libraries Expressed in Bacteria -- Flow Cytometric Assays for Interrogating LAGLIDADG Homing Endonuclease DNA Binding and Cleavage Properties -- TAL Effector Nuclease (TALEN) Engineering -- In vitro Evolution of Enzymes -- Residue-Specific Incorporation of Unnatural Amino Acids into Proteins In vitro and In vivo -- Reconstructing Evolutionary Adaptive Paths for Protein Engineering -- Oligonucleotide Recombination Enabled Site-Specific Mutagenesis in Bacteria -- FX Cloning: A Versatile High-Throughput Cloning System for Characterization of Enzyme Variants -- Use of Sulfolobus solfataricus PCNA Subunit Proteins to Direct the Assembly of Multimeric Enzyme Complexes -- Gene Synthesis by Assembly of Deoxyuridine Containing Oligonucleotides -- Protein Engineering: Single or Multiple Site-Directed Mutagenesis -- Gene Assembly and Combinatorial Libraries in S. cerevisiae via Reiterative Recombination -- Promiscuity-Based Enzyme Selection for Rational Directed Evolution Experiments -- Rational Protein Sequence Diversification by Multi-Codon Scanning Mutagenesis -- Screening Libraries for Improved Solubility: Using E. coli Dihydrofolate Reductase as a Reporter -- In Vitro Directed Evolution of Enzymes Expressed by E. coli in Micro-Titre Plates.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="520" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Whether the pursuit is commercially motivated or purely academic, engineering a novel biological catalyst is an enticing challenge. High-resolution protein structure analysis allows for rational alteration of enzyme function, yet many useful enzyme variants are the product of well-designed selection schemes or screening strategies. Enzyme Engineering: Methods and Protocols provides guidance to investigators wishing to create enzyme variants with desired properties. This detailed volume covers such topics as a simple method for generating site-specific mutations within bacterial chromosomes. It also highlights the engineering of two difference types of rare-cutting endonucleases that show great potential in gene therapy applications: The newest development is the emergence of TAL effector nucleases or TALENs. Chapters describe newly developed technologies in sufficient detail so that each method can be practiced in a standard molecular biology laboratory. Written in the successful Methods in Molecular Biology™ series format, chapters include introductions to their respective topics, lists of the necessary materials and reagents, step-by-step, readily reproducible protocols, and notes on troubleshooting and avoiding known pitfalls.   Authoritative and easily accessible Enzyme Engineering: Methods and Protocols will be valuable for scientists with a budding interest in protein engineering as well as veterans looking for new approaches to apply in established discovery programs.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Biochemistry.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Enzymology.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1="1" ind2="4">
+                  <marc:subfield code="a">Biochemistry, general.</marc:subfield>
+                  <marc:subfield code="0">https://scigraph.springernature.com/ontologies/product-market-codes/L14005</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1="2" ind2="4">
+                  <marc:subfield code="a">Enzymology.</marc:subfield>
+                  <marc:subfield code="0">https://scigraph.springernature.com/ontologies/product-market-codes/L14070</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="700" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Samuelson, James C.</marc:subfield>
+                  <marc:subfield code="e">editor.</marc:subfield>
+                  <marc:subfield code="4">edt</marc:subfield>
+                  <marc:subfield code="4">http://id.loc.gov/vocabulary/relators/edt</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="710" ind1="2" ind2=" ">
+                  <marc:subfield code="a">SpringerLink (Online service)</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="773" ind1=" " ind2=" ">
+                  <marc:subfield code="t">Springer Nature eBook</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="776" ind1=" " ind2="8">
+                  <marc:subfield code="i">Printed edition:</marc:subfield>
+                  <marc:subfield code="z">9781627032940</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="776" ind1=" " ind2="8">
+                  <marc:subfield code="i">Printed edition:</marc:subfield>
+                  <marc:subfield code="z">9781627032926</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="776" ind1=" " ind2="8">
+                  <marc:subfield code="i">Printed edition:</marc:subfield>
+                  <marc:subfield code="z">9781493962877</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="830" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Methods in Molecular Biology,</marc:subfield>
+                  <marc:subfield code="x">1064-3745 ;</marc:subfield>
+                  <marc:subfield code="v">978</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="856" ind1="4" ind2=" ">
+                  <marc:subfield code="u">https://doi.org/10.1007/978-1-62703-293-3</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="912" ind1=" " ind2=" ">
+                  <marc:subfield code="a">ZDB-2-PRO</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="950" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Springer Protocols (Springer-12345)</marc:subfield>
+               </marc:datafield>
+            </marc:record>
+         </recordData>
+         <recordPosition>2</recordPosition>
+      </record>
+      <record>
+         <recordSchema>info:srw/schema/1/marcxml-v1.1</recordSchema>
+         <recordPacking>xml</recordPacking>
+         <recordData>
+            <marc:record xmlns:marc="http://www.loc.gov/MARC21/slim">
+               <marc:leader>00000cam a22003855a 4500</marc:leader>
+               <marc:controlfield tag="001">001247835</marc:controlfield>
+               <marc:controlfield tag="003">BE-GnUNI</marc:controlfield>
+               <marc:controlfield tag="005">20170516133932.0</marc:controlfield>
+               <marc:controlfield tag="008">071127s2007    sa       b    001 0 eng d</marc:controlfield>
+               <marc:datafield tag="010" ind1=" " ind2=" ">
+                  <marc:subfield code="a">2007332726</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="020" ind1=" " ind2=" ">
+                  <marc:subfield code="a">1869141202</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="020" ind1=" " ind2=" ">
+                  <marc:subfield code="a">9781869141202</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="035" ind1=" " ind2=" ">
+                  <marc:subfield code="a">(DLC)15094493</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="035" ind1=" " ind2=" ">
+                  <marc:subfield code="a">(DLC)2007332726</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="035" ind1=" " ind2=" ">
+                  <marc:subfield code="a">(OCoLC)ocn170955452</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="040" ind1=" " ind2=" ">
+                  <marc:subfield code="a">BE-GnUNI</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="042" ind1=" " ind2=" ">
+                  <marc:subfield code="a">lccopycat</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="050" ind1=" " ind2=" ">
+                  <marc:subfield code="a">PR9358</marc:subfield>
+                  <marc:subfield code="b">.S36 2007</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="100" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Samuelson, Meg</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="245" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Remembering the nation, dismembering women? stories of the South African transition /</marc:subfield>
+                  <marc:subfield code="c">Meg Samuelson.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="260" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Scottsville, South Africa :</marc:subfield>
+                  <marc:subfield code="b">University of Kwazulu-Natal Press,</marc:subfield>
+                  <marc:subfield code="c">2007.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="300" ind1=" " ind2=" ">
+                  <marc:subfield code="a">IX, 272 p. ;</marc:subfield>
+                  <marc:subfield code="c">23 cm.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="500" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Originally presented as the author's thesis (Doctoral) -- University of Capetown, 2005</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="504" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Includes bibliographical references (p. 243-265) and index.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="505" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Rememberings and dismemberings : female subjects of a nation in transition -- Krotoa-Eva : translator, traitor, 'rainbow' mother -- Nongqawuse : national time and (female) authorship -- Sarah Bartmann : re-cast and re-covered -- Unspeakable acts (un)spoken : disfigured bodies in David's story and Disgrace -- The mother-witness : Mother to mother, Bloodlines and Our generation -- (Un)homely women : 'political widowhood' in A life and The cry of Winnie Mandela -- Stories of the transition : the warp and woof.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="651" ind1=" " ind2="7">
+                  <marc:subfield code="a">South Africa</marc:subfield>
+                  <marc:subfield code="x">Politics and government</marc:subfield>
+                  <marc:subfield code="y">1994-.</marc:subfield>
+                  <marc:subfield code="2">lcsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2="7">
+                  <marc:subfield code="a">Politics and literature</marc:subfield>
+                  <marc:subfield code="x">History</marc:subfield>
+                  <marc:subfield code="y">20th century.</marc:subfield>
+                  <marc:subfield code="z">South Africa.</marc:subfield>
+                  <marc:subfield code="2">lcsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2="7">
+                  <marc:subfield code="a">Post-apartheid era</marc:subfield>
+                  <marc:subfield code="z">South Africa.</marc:subfield>
+                  <marc:subfield code="2">lcsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2="7">
+                  <marc:subfield code="a">South African literature (English)</marc:subfield>
+                  <marc:subfield code="x">Women authors</marc:subfield>
+                  <marc:subfield code="x">History and criticism.</marc:subfield>
+                  <marc:subfield code="2">lcsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2="7">
+                  <marc:subfield code="a">Women in literature.</marc:subfield>
+                  <marc:subfield code="2">lcsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2="7">
+                  <marc:subfield code="a">Women</marc:subfield>
+                  <marc:subfield code="z">South Africa.</marc:subfield>
+                  <marc:subfield code="2">lcsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="852" ind1="4" ind2=" ">
+                  <marc:subfield code="x">LW</marc:subfield>
+                  <marc:subfield code="b">LW55</marc:subfield>
+                  <marc:subfield code="c">L34</marc:subfield>
+                  <marc:subfield code="j">LWBIB.L34.PR.20.0162</marc:subfield>
+                  <marc:subfield code="p">000010344669</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="920" ind1=" " ind2=" ">
+                  <marc:subfield code="a">book</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="SID" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Z39</marc:subfield>
+                  <marc:subfield code="b">LOC</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="CRD" ind1=" " ind2=" ">
+                  <marc:subfield code="a">L3420071206</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="Z30" ind1="-" ind2="1">
+                  <marc:subfield code="l">RUG01</marc:subfield>
+                  <marc:subfield code="L">RUG01</marc:subfield>
+                  <marc:subfield code="m">BOOK</marc:subfield>
+                  <marc:subfield code="x">LW</marc:subfield>
+                  <marc:subfield code="1">LW55</marc:subfield>
+                  <marc:subfield code="2">L34</marc:subfield>
+                  <marc:subfield code="3">LWBIB.L34.PR.20.0162</marc:subfield>
+                  <marc:subfield code="5">000010344669</marc:subfield>
+                  <marc:subfield code="8">20071206</marc:subfield>
+                  <marc:subfield code="f">05</marc:subfield>
+                  <marc:subfield code="F">onsite/LOAN</marc:subfield>
+               </marc:datafield>
+            </marc:record>
+         </recordData>
+         <recordPosition>3</recordPosition>
+      </record>
+      <record>
+         <recordSchema>info:srw/schema/1/marcxml-v1.1</recordSchema>
+         <recordPacking>xml</recordPacking>
+         <recordData>
+            <marc:record xmlns:marc="http://www.loc.gov/MARC21/slim">
+               <marc:leader>00000nam a22000005i 4500</marc:leader>
+               <marc:controlfield tag="001">978-981-15-2353-3</marc:controlfield>
+               <marc:controlfield tag="003">DE-He213</marc:controlfield>
+               <marc:controlfield tag="005">20200701114236.0</marc:controlfield>
+               <marc:controlfield tag="007">cr nn 008mamaa</marc:controlfield>
+               <marc:controlfield tag="008">200320s2020    si |    s    |||| 0|eng d</marc:controlfield>
+               <marc:datafield tag="020" ind1=" " ind2=" ">
+                  <marc:subfield code="a">9789811523533</marc:subfield>
+                  <marc:subfield code="9">978-981-15-2353-3</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="024" ind1="7" ind2=" ">
+                  <marc:subfield code="a">10.1007/978-981-15-2353-3</marc:subfield>
+                  <marc:subfield code="2">doi</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="050" ind1=" " ind2="4">
+                  <marc:subfield code="a">RA410-410.9</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="072" ind1=" " ind2="7">
+                  <marc:subfield code="a">KCQ</marc:subfield>
+                  <marc:subfield code="2">bicssc</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="072" ind1=" " ind2="7">
+                  <marc:subfield code="a">BUS069000</marc:subfield>
+                  <marc:subfield code="2">bisacsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="072" ind1=" " ind2="7">
+                  <marc:subfield code="a">KCVJ</marc:subfield>
+                  <marc:subfield code="2">thema</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="082" ind1=" " ind2="4">
+                  <marc:subfield code="a">338.473621</marc:subfield>
+                  <marc:subfield code="2">23</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="245" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Measuring, Understanding and Improving Wellbeing Among Older People</marc:subfield>
+                  <marc:subfield code="h">[electronic resource] /</marc:subfield>
+                  <marc:subfield code="c">edited by Sefa Awaworyi Churchill, Lisa Farrell, Samuelson Appau.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="250" ind1=" " ind2=" ">
+                  <marc:subfield code="a">1st ed. 2020.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="264" ind1=" " ind2="1">
+                  <marc:subfield code="a">Singapore :</marc:subfield>
+                  <marc:subfield code="b">Springer Singapore :</marc:subfield>
+                  <marc:subfield code="b">Imprint: Palgrave Macmillan,</marc:subfield>
+                  <marc:subfield code="c">2020.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="300" ind1=" " ind2=" ">
+                  <marc:subfield code="a">XXI, 303 p. 4 illus., 2 illus. in color.</marc:subfield>
+                  <marc:subfield code="b">online resource.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="336" ind1=" " ind2=" ">
+                  <marc:subfield code="a">text</marc:subfield>
+                  <marc:subfield code="b">txt</marc:subfield>
+                  <marc:subfield code="2">rdacontent</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="337" ind1=" " ind2=" ">
+                  <marc:subfield code="a">computer</marc:subfield>
+                  <marc:subfield code="b">c</marc:subfield>
+                  <marc:subfield code="2">rdamedia</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="338" ind1=" " ind2=" ">
+                  <marc:subfield code="a">online resource</marc:subfield>
+                  <marc:subfield code="b">cr</marc:subfield>
+                  <marc:subfield code="2">rdacarrier</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="347" ind1=" " ind2=" ">
+                  <marc:subfield code="a">text file</marc:subfield>
+                  <marc:subfield code="b">PDF</marc:subfield>
+                  <marc:subfield code="2">rda</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="505" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Chapter 1: Wellbeing Among Older People: An Introduction -- Chapter 2: Empowering the Independence of Older People with Everyday Technologies -- Chapter 3: Investigating the Relationship between Housing Insecurity and Wellbeing -- Chapter 4: Social Support and Wellbeing Among Older Australians -- Chapter 5: Gambling and Subjective Wellbeing of Older Australians -- Chapter 6: Employment Types and Subjective Wellbeing: Evidence from the English Longitudinal Survey of Ageing -- Chapter 7: Height and Health Among Older Chinese -- Chapter 8: Ethnic Diversity, Prejudice and Wellbeing Among Older Chinese -- Chapter 9: Witchcraft Accusations and the Social Exclusion of the Elderly in Northern Ghana: Understanding How Cultural Discourses and Practices Affect the Wellbeing of the Elderly -- Chapter 10: Housing and Ageing Well -- Chapter 11: Life, liberty and the pursuit of happiness: Examining the role of personal and country-level freedom in well-being -- Chapter 12: Innovation and Subjective Wellbeing Among Older People -- Chapter 13: Improving the Wellbeing of Old People: Thoughts and Reflections.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="520" ind1=" " ind2=" ">
+                  <marc:subfield code="a">“This book uses diverse methods in a range of different contexts to research a pressing problem of our time – how to support the wellbeing of the elderly. It is essential reading for anyone working in this field.” -- Paul Dalziel, Professor of Economics, Lincoln University, New Zealand. How can we be happier, healthier and more satisfied in life? This edited collection examines various dimensions of wellbeing among older people, including its measurement; social, environmental and economic determinants; and how research can be translated into policy to improve quality of life for older people. With an increasingly ageing population across countries and an increasing population of older adults, there is growing interest in improving older people’s ability to live healthily and happily. With a focus on retirement and aged care, this book is important reading for those interested in Welfare Economics, Health Economics and Development. Sefa Awaworyi Churchill is an Associate Professor and Principal Research Fellow with the School of Economics, Finance &amp; Marketing at RMIT University, Australia. He holds a PhD in Economics from Monash University. His inter- disciplinary research focuses on development economics, addictive behavior, ethnic diversity, wellbeing, and other issues related to sociology, health and economics. He has experience working on consultancy projects for various policy agencies and international development organizations. Lisa Farrell is Professor and Deputy Dean (Research and Innovation) in the School of Economics, Finance and Marketing at RMIT University, Australia. Her research field is in the area of applied microeconomics, with a particular focus on important contemporary social issues such as subjective wellbeing, decision making under uncertainty and lifestyle choice behaviours. Samuelson Appau is Lecturer in Marketing in the School of Economics, Finance and Marketing at RMIT University, Australia. His research focuses on how factors such as poverty, religion and social processes and structures impact consumer wellbeing.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Health economics.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Welfare economics.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Employee health promotion.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Population.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Labor economics.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1="1" ind2="4">
+                  <marc:subfield code="a">Health Economics.</marc:subfield>
+                  <marc:subfield code="0">https://scigraph.springernature.com/ontologies/product-market-codes/W35000</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1="2" ind2="4">
+                  <marc:subfield code="a">Social Choice/Welfare Economics/Public Choice/Political Economy.</marc:subfield>
+                  <marc:subfield code="0">https://scigraph.springernature.com/ontologies/product-market-codes/W31020</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1="2" ind2="4">
+                  <marc:subfield code="a">Employee Health and Wellbeing.</marc:subfield>
+                  <marc:subfield code="0">https://scigraph.springernature.com/ontologies/product-market-codes/517050</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1="2" ind2="4">
+                  <marc:subfield code="a">Population Economics.</marc:subfield>
+                  <marc:subfield code="0">https://scigraph.springernature.com/ontologies/product-market-codes/W38000</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1="2" ind2="4">
+                  <marc:subfield code="a">Labor Economics.</marc:subfield>
+                  <marc:subfield code="0">https://scigraph.springernature.com/ontologies/product-market-codes/W37000</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="700" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Awaworyi Churchill, Sefa.</marc:subfield>
+                  <marc:subfield code="e">editor.</marc:subfield>
+                  <marc:subfield code="4">edt</marc:subfield>
+                  <marc:subfield code="4">http://id.loc.gov/vocabulary/relators/edt</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="700" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Farrell, Lisa.</marc:subfield>
+                  <marc:subfield code="e">editor.</marc:subfield>
+                  <marc:subfield code="4">edt</marc:subfield>
+                  <marc:subfield code="4">http://id.loc.gov/vocabulary/relators/edt</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="700" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Appau, Samuelson.</marc:subfield>
+                  <marc:subfield code="e">editor.</marc:subfield>
+                  <marc:subfield code="4">edt</marc:subfield>
+                  <marc:subfield code="4">http://id.loc.gov/vocabulary/relators/edt</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="710" ind1="2" ind2=" ">
+                  <marc:subfield code="a">SpringerLink (Online service)</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="773" ind1=" " ind2=" ">
+                  <marc:subfield code="t">Springer Nature eBook</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="776" ind1=" " ind2="8">
+                  <marc:subfield code="i">Printed edition:</marc:subfield>
+                  <marc:subfield code="z">9789811523526</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="776" ind1=" " ind2="8">
+                  <marc:subfield code="i">Printed edition:</marc:subfield>
+                  <marc:subfield code="z">9789811523540</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="776" ind1=" " ind2="8">
+                  <marc:subfield code="i">Printed edition:</marc:subfield>
+                  <marc:subfield code="z">9789811523557</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="856" ind1="4" ind2=" ">
+                  <marc:subfield code="u">https://doi.org/10.1007/978-981-15-2353-3</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="912" ind1=" " ind2=" ">
+                  <marc:subfield code="a">ZDB-2-ECF</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="912" ind1=" " ind2=" ">
+                  <marc:subfield code="a">ZDB-2-SXEF</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="950" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Economics and Finance (SpringerNature-41170)</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="950" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Economics and Finance (R0) (SpringerNature-43720)</marc:subfield>
+               </marc:datafield>
+            </marc:record>
+         </recordData>
+         <recordPosition>4</recordPosition>
+      </record>
+      <record>
+         <recordSchema>info:srw/schema/1/marcxml-v1.1</recordSchema>
+         <recordPacking>xml</recordPacking>
+         <recordData>
+            <marc:record xmlns:marc="http://www.loc.gov/MARC21/slim">
+               <marc:leader>00000nam a22000005i 4500</marc:leader>
+               <marc:controlfield tag="001">978-3-658-11044-4</marc:controlfield>
+               <marc:controlfield tag="003">DE-He213</marc:controlfield>
+               <marc:controlfield tag="005">20200706175647.0</marc:controlfield>
+               <marc:controlfield tag="007">cr nn 008mamaa</marc:controlfield>
+               <marc:controlfield tag="008">160222s2016    gw |    s    |||| 0|eng d</marc:controlfield>
+               <marc:datafield tag="020" ind1=" " ind2=" ">
+                  <marc:subfield code="a">9783658110444</marc:subfield>
+                  <marc:subfield code="9">978-3-658-11044-4</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="024" ind1="7" ind2=" ">
+                  <marc:subfield code="a">10.1007/978-3-658-11044-4</marc:subfield>
+                  <marc:subfield code="2">doi</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="050" ind1=" " ind2="4">
+                  <marc:subfield code="a">B53</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="072" ind1=" " ind2="7">
+                  <marc:subfield code="a">HP</marc:subfield>
+                  <marc:subfield code="2">bicssc</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="072" ind1=" " ind2="7">
+                  <marc:subfield code="a">PHI021000</marc:subfield>
+                  <marc:subfield code="2">bisacsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="072" ind1=" " ind2="7">
+                  <marc:subfield code="a">QD</marc:subfield>
+                  <marc:subfield code="2">thema</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="082" ind1=" " ind2="4">
+                  <marc:subfield code="a">601</marc:subfield>
+                  <marc:subfield code="2">23</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="245" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Perfecting Human Futures</marc:subfield>
+                  <marc:subfield code="h">[electronic resource] :</marc:subfield>
+                  <marc:subfield code="b">Transhuman Visions and Technological Imaginations /</marc:subfield>
+                  <marc:subfield code="c">edited by J. Benjamin Hurlbut, Hava Tirosh-Samuelson.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="250" ind1=" " ind2=" ">
+                  <marc:subfield code="a">1st ed. 2016.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="264" ind1=" " ind2="1">
+                  <marc:subfield code="a">Wiesbaden :</marc:subfield>
+                  <marc:subfield code="b">Springer Fachmedien Wiesbaden :</marc:subfield>
+                  <marc:subfield code="b">Imprint: Springer VS,</marc:subfield>
+                  <marc:subfield code="c">2016.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="300" ind1=" " ind2=" ">
+                  <marc:subfield code="a">VIII, 380 p. 1 illus. in color.</marc:subfield>
+                  <marc:subfield code="b">online resource.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="336" ind1=" " ind2=" ">
+                  <marc:subfield code="a">text</marc:subfield>
+                  <marc:subfield code="b">txt</marc:subfield>
+                  <marc:subfield code="2">rdacontent</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="337" ind1=" " ind2=" ">
+                  <marc:subfield code="a">computer</marc:subfield>
+                  <marc:subfield code="b">c</marc:subfield>
+                  <marc:subfield code="2">rdamedia</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="338" ind1=" " ind2=" ">
+                  <marc:subfield code="a">online resource</marc:subfield>
+                  <marc:subfield code="b">cr</marc:subfield>
+                  <marc:subfield code="2">rdacarrier</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="347" ind1=" " ind2=" ">
+                  <marc:subfield code="a">text file</marc:subfield>
+                  <marc:subfield code="b">PDF</marc:subfield>
+                  <marc:subfield code="2">rda</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="490" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Technikzukünfte, Wissenschaft und Gesellschaft / Futures of Technology, Science and Society,</marc:subfield>
+                  <marc:subfield code="x">2524-3764</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="520" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Humans have always imagined better futures. From the desire to overcome death to the aspiration to dominion over the world, imaginations of the technological future reveal the commitments, values, and norms of those who construct them. Today, the human future is thrown into question by emerging technologies that promise radical control over human life and elicit corollary imaginations of human perfectibility. This interdisciplinary volume assembles scholars of science and technology studies, sociology, philosophy, theology, ethics, and history to examine imaginations of technological progress that promises to transcend the constraints of human body and being. Attending in particular to transhumanist and posthumanist visions, the volume breaks new ground by exploring their utopian and eschatological dimensions and situating them within a broader context of ideas, institutions, and practices of innovation. The volume invites specialists and general readers to explore the stakes of contemporary imaginations of technological innovation as a source of progress, a force of social and historical transformation, and as the defining essence of human life. Contents Technological Imaginations.- Ethics and Politics of Envisioned Futures.- The Transhumanist Imagination in Context. Target Groups Scholars and students in science and technology studies, philosophy, utopian studies, science and religion The Editors Hava Tirosh-Samuelson is Irving and Miriam Lowe Professor of Modern Judaism and Director of the Center of Jewish Studies at Arizona State University in Tempe, Arizona. J. Benjamin Hurlbut is Assistant Professor of Bioscience Ethics in the School of Life Sciences at Arizona State University.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Philosophy.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1="1" ind2="4">
+                  <marc:subfield code="a">Philosophy of Technology.</marc:subfield>
+                  <marc:subfield code="0">https://scigraph.springernature.com/ontologies/product-market-codes/E34050</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="700" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Hurlbut, J. Benjamin.</marc:subfield>
+                  <marc:subfield code="e">editor.</marc:subfield>
+                  <marc:subfield code="4">edt</marc:subfield>
+                  <marc:subfield code="4">http://id.loc.gov/vocabulary/relators/edt</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="700" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Tirosh-Samuelson, Hava.</marc:subfield>
+                  <marc:subfield code="e">editor.</marc:subfield>
+                  <marc:subfield code="4">edt</marc:subfield>
+                  <marc:subfield code="4">http://id.loc.gov/vocabulary/relators/edt</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="710" ind1="2" ind2=" ">
+                  <marc:subfield code="a">SpringerLink (Online service)</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="773" ind1=" " ind2=" ">
+                  <marc:subfield code="t">Springer Nature eBook</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="776" ind1=" " ind2="8">
+                  <marc:subfield code="i">Printed edition:</marc:subfield>
+                  <marc:subfield code="z">9783658110437</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="776" ind1=" " ind2="8">
+                  <marc:subfield code="i">Printed edition:</marc:subfield>
+                  <marc:subfield code="z">9783658110451</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="830" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Technikzukünfte, Wissenschaft und Gesellschaft / Futures of Technology, Science and Society,</marc:subfield>
+                  <marc:subfield code="x">2524-3764</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="856" ind1="4" ind2=" ">
+                  <marc:subfield code="u">https://doi.org/10.1007/978-3-658-11044-4</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="912" ind1=" " ind2=" ">
+                  <marc:subfield code="a">ZDB-2-REP</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="912" ind1=" " ind2=" ">
+                  <marc:subfield code="a">ZDB-2-SXPR</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="950" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Religion and Philosophy (SpringerNature-41175)</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="950" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Philosophy and Religion (R0) (SpringerNature-43725)</marc:subfield>
+               </marc:datafield>
+            </marc:record>
+         </recordData>
+         <recordPosition>5</recordPosition>
+      </record>
+      <record>
+         <recordSchema>info:srw/schema/1/marcxml-v1.1</recordSchema>
+         <recordPacking>xml</recordPacking>
+         <recordData>
+            <marc:record xmlns:marc="http://www.loc.gov/MARC21/slim">
+               <marc:leader>00000cam a22002777a 4500</marc:leader>
+               <marc:controlfield tag="001">001223277</marc:controlfield>
+               <marc:controlfield tag="003">BE-GnUNI</marc:controlfield>
+               <marc:controlfield tag="005">20170727112938.0</marc:controlfield>
+               <marc:controlfield tag="008">061010s2007    moua     b    001 0 eng d</marc:controlfield>
+               <marc:datafield tag="010" ind1=" " ind2=" ">
+                  <marc:subfield code="a">2006299188</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="020" ind1=" " ind2=" ">
+                  <marc:subfield code="a">0721681743</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="020" ind1=" " ind2=" ">
+                  <marc:subfield code="a">9780721681740</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="035" ind1=" " ind2=" ">
+                  <marc:subfield code="a">(OCoLC)ocm71514915</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="040" ind1=" " ind2=" ">
+                  <marc:subfield code="a">BE-GnUNI</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="042" ind1=" " ind2=" ">
+                  <marc:subfield code="a">lccopycat</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="050" ind1=" " ind2=" ">
+                  <marc:subfield code="a">SF757.3</marc:subfield>
+                  <marc:subfield code="b">.S26 2007</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="100" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Samuelson, Don A.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="245" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Textbook of veterinary histology /</marc:subfield>
+                  <marc:subfield code="c">Don A. Samuelson.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="246" ind1="3" ind2=" ">
+                  <marc:subfield code="a">Veterinary histology</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="260" ind1=" " ind2=" ">
+                  <marc:subfield code="a">St. Louis (Mo.) :</marc:subfield>
+                  <marc:subfield code="b">Saunders-Elsevier,</marc:subfield>
+                  <marc:subfield code="c">2007.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="300" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Xiii, 546 p. :</marc:subfield>
+                  <marc:subfield code="b">ill. (chiefly col.) ;</marc:subfield>
+                  <marc:subfield code="c">29 cm.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="504" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Includes bibliographical references and index.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2="7">
+                  <marc:subfield code="a">Anatomy, Veterinary.</marc:subfield>
+                  <marc:subfield code="2">mesh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2="7">
+                  <marc:subfield code="a">Histology.</marc:subfield>
+                  <marc:subfield code="2">mesh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2="7">
+                  <marc:subfield code="a">Veterinary histology.</marc:subfield>
+                  <marc:subfield code="2">lcsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="852" ind1="4" ind2=" ">
+                  <marc:subfield code="x">DI</marc:subfield>
+                  <marc:subfield code="b">DI03</marc:subfield>
+                  <marc:subfield code="c">DI03</marc:subfield>
+                  <marc:subfield code="j">DI03.1B37</marc:subfield>
+                  <marc:subfield code="p">000010832054</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="852" ind1="4" ind2=" ">
+                  <marc:subfield code="x">DI</marc:subfield>
+                  <marc:subfield code="b">DI51</marc:subfield>
+                  <marc:subfield code="c">DIBIB</marc:subfield>
+                  <marc:subfield code="j">DIBIB.SF757.3.S2.2007</marc:subfield>
+                  <marc:subfield code="L">BIB.DEPOT</marc:subfield>
+                  <marc:subfield code="p">000010717710</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="920" ind1=" " ind2=" ">
+                  <marc:subfield code="a">book</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="SID" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Z39</marc:subfield>
+                  <marc:subfield code="b">LOC</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="CRD" ind1=" " ind2=" ">
+                  <marc:subfield code="a">DI0320130718</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="CRD" ind1=" " ind2=" ">
+                  <marc:subfield code="a">DIBIB20070626</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="Z30" ind1="-" ind2="1">
+                  <marc:subfield code="l">RUG01</marc:subfield>
+                  <marc:subfield code="L">RUG01</marc:subfield>
+                  <marc:subfield code="m">BOOK</marc:subfield>
+                  <marc:subfield code="x">DI</marc:subfield>
+                  <marc:subfield code="1">DI03</marc:subfield>
+                  <marc:subfield code="2">DI03</marc:subfield>
+                  <marc:subfield code="3">DI03.1B37</marc:subfield>
+                  <marc:subfield code="6">2005A103</marc:subfield>
+                  <marc:subfield code="5">000010832054</marc:subfield>
+                  <marc:subfield code="8">20130718</marc:subfield>
+                  <marc:subfield code="f">04</marc:subfield>
+                  <marc:subfield code="F">onsite/CONSULT</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="Z30" ind1="-" ind2="1">
+                  <marc:subfield code="l">RUG01</marc:subfield>
+                  <marc:subfield code="L">RUG01</marc:subfield>
+                  <marc:subfield code="m">BOOK</marc:subfield>
+                  <marc:subfield code="x">DI</marc:subfield>
+                  <marc:subfield code="1">DI51</marc:subfield>
+                  <marc:subfield code="2">DIBIB</marc:subfield>
+                  <marc:subfield code="3">DIBIB.SF757.3.S2.2007</marc:subfield>
+                  <marc:subfield code="9">BIB.DEPOT</marc:subfield>
+                  <marc:subfield code="5">000010717710</marc:subfield>
+                  <marc:subfield code="8">20070626</marc:subfield>
+                  <marc:subfield code="f">32</marc:subfield>
+                  <marc:subfield code="F">openkast/LOAN+SCAN</marc:subfield>
+                  <marc:subfield code="g">59407</marc:subfield>
+               </marc:datafield>
+            </marc:record>
+         </recordData>
+         <recordPosition>6</recordPosition>
+      </record>
+      <record>
+         <recordSchema>info:srw/schema/1/marcxml-v1.1</recordSchema>
+         <recordPacking>xml</recordPacking>
+         <recordData>
+            <marc:record xmlns:marc="http://www.loc.gov/MARC21/slim">
+               <marc:leader>00000cam a22002774a 4500</marc:leader>
+               <marc:controlfield tag="001">001661905</marc:controlfield>
+               <marc:controlfield tag="005">20170425112321.0</marc:controlfield>
+               <marc:controlfield tag="008">020829s2002    mau      b    001 0 eng</marc:controlfield>
+               <marc:datafield tag="010" ind1=" " ind2=" ">
+                  <marc:subfield code="a">2002031586</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="020" ind1=" " ind2=" ">
+                  <marc:subfield code="a">094545435X</marc:subfield>
+                  <marc:subfield code="q">alk. paper</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="020" ind1=" " ind2=" ">
+                  <marc:subfield code="a">0945454368</marc:subfield>
+                  <marc:subfield code="q">pbk. : alk. paper</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="040" ind1=" " ind2=" ">
+                  <marc:subfield code="a">BE-GnUNI</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="042" ind1=" " ind2=" ">
+                  <marc:subfield code="a">pcc</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="050" ind1=" " ind2=" ">
+                  <marc:subfield code="a">BM538.H85</marc:subfield>
+                  <marc:subfield code="b">J85 2002</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="082" ind1=" " ind2=" ">
+                  <marc:subfield code="a">296.3/8</marc:subfield>
+                  <marc:subfield code="2">21</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="245" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Judaism and ecology :</marc:subfield>
+                  <marc:subfield code="b">created world and revealed word /</marc:subfield>
+                  <marc:subfield code="c">edited by Hava Tirosh-Samuelson.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="260" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Cambridge, Mass :</marc:subfield>
+                  <marc:subfield code="b">Distributed by Harvard University Press for the Center for the Study of World Religions, Harvard Divinity School,</marc:subfield>
+                  <marc:subfield code="c">2002.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="300" ind1=" " ind2=" ">
+                  <marc:subfield code="a">lxii, 515 p. ;</marc:subfield>
+                  <marc:subfield code="c">23 cm.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="490" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Religions of the world and ecology</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="504" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Includes bibliographical references (p. [481]-486) and index.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2="7">
+                  <marc:subfield code="a">Human ecology</marc:subfield>
+                  <marc:subfield code="x">Religious aspects</marc:subfield>
+                  <marc:subfield code="x">Judaism.</marc:subfield>
+                  <marc:subfield code="2">lcsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="650" ind1=" " ind2="7">
+                  <marc:subfield code="a">Nature</marc:subfield>
+                  <marc:subfield code="x">Religious aspects</marc:subfield>
+                  <marc:subfield code="x">Judaism.</marc:subfield>
+                  <marc:subfield code="2">lcsh</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="700" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Tirosh-Samuelson, Hava</marc:subfield>
+                  <marc:subfield code="0">(viaf)98261499</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="852" ind1="4" ind2=" ">
+                  <marc:subfield code="x">LW</marc:subfield>
+                  <marc:subfield code="b">LW55</marc:subfield>
+                  <marc:subfield code="c">L88</marc:subfield>
+                  <marc:subfield code="j">LWBIB.L88.MONO.TIRO.0001</marc:subfield>
+                  <marc:subfield code="p">000010604195</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="920" ind1=" " ind2=" ">
+                  <marc:subfield code="a">book</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="SID" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Z39</marc:subfield>
+                  <marc:subfield code="b">LOC</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="CRD" ind1=" " ind2=" ">
+                  <marc:subfield code="a">L8820111003</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="Z30" ind1="-" ind2="1">
+                  <marc:subfield code="l">RUG01</marc:subfield>
+                  <marc:subfield code="L">RUG01</marc:subfield>
+                  <marc:subfield code="m">BOOK</marc:subfield>
+                  <marc:subfield code="x">LW</marc:subfield>
+                  <marc:subfield code="1">LW55</marc:subfield>
+                  <marc:subfield code="2">L88</marc:subfield>
+                  <marc:subfield code="3">LWBIB.L88.MONO.TIRO.0001</marc:subfield>
+                  <marc:subfield code="5">000010604195</marc:subfield>
+                  <marc:subfield code="8">20111003</marc:subfield>
+                  <marc:subfield code="f">05</marc:subfield>
+                  <marc:subfield code="F">onsite/LOAN</marc:subfield>
+               </marc:datafield>
+            </marc:record>
+         </recordData>
+         <recordPosition>7</recordPosition>
+      </record>
+      <record>
+         <recordSchema>info:srw/schema/1/marcxml-v1.1</recordSchema>
+         <recordPacking>xml</recordPacking>
+         <recordData>
+            <marc:record xmlns:marc="http://www.loc.gov/MARC21/slim">
+               <marc:leader>00000nam a22      a 4500</marc:leader>
+               <marc:controlfield tag="001">000463976</marc:controlfield>
+               <marc:controlfield tag="005">20150412133404.0</marc:controlfield>
+               <marc:controlfield tag="008">990527s1998    mau     r     000 0 eng d</marc:controlfield>
+               <marc:datafield tag="020" ind1=" " ind2=" ">
+                  <marc:subfield code="a">0262692198</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="040" ind1=" " ind2=" ">
+                  <marc:subfield code="a">BE-GnUNI</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="050" ind1=" " ind2="4">
+                  <marc:subfield code="a">HB144.S26</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="100" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Samuelson, Larry</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="245" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Evolutionary games and equilibrium selection /</marc:subfield>
+                  <marc:subfield code="c">Larry Samuelson.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="260" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Cambridge (Mass.) :</marc:subfield>
+                  <marc:subfield code="b">MIT press,</marc:subfield>
+                  <marc:subfield code="c">1998.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="300" ind1=" " ind2=" ">
+                  <marc:subfield code="a">IX, 309 p.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="490" ind1=" " ind2=" ">
+                  <marc:subfield code="a">MIT press series on economic learning and social evolution</marc:subfield>
+                  <marc:subfield code="v">1</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="852" ind1="4" ind2=" ">
+                  <marc:subfield code="x">EB</marc:subfield>
+                  <marc:subfield code="b">EB55</marc:subfield>
+                  <marc:subfield code="c">EBIB</marc:subfield>
+                  <marc:subfield code="j">EBIB.HB144.010</marc:subfield>
+                  <marc:subfield code="p">000000035534</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="920" ind1=" " ind2=" ">
+                  <marc:subfield code="a">book</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="CRD" ind1=" " ind2=" ">
+                  <marc:subfield code="a">EBIB19990527</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="Z30" ind1="-" ind2="1">
+                  <marc:subfield code="l">RUG01</marc:subfield>
+                  <marc:subfield code="L">RUG01</marc:subfield>
+                  <marc:subfield code="m">BOOK</marc:subfield>
+                  <marc:subfield code="x">EB</marc:subfield>
+                  <marc:subfield code="1">EB55</marc:subfield>
+                  <marc:subfield code="2">EBIB</marc:subfield>
+                  <marc:subfield code="3">EBIB.HB144.010</marc:subfield>
+                  <marc:subfield code="5">000000035534</marc:subfield>
+                  <marc:subfield code="8">19990527</marc:subfield>
+                  <marc:subfield code="f">32</marc:subfield>
+                  <marc:subfield code="F">openkast/LOAN+SCAN</marc:subfield>
+               </marc:datafield>
+            </marc:record>
+         </recordData>
+         <recordPosition>8</recordPosition>
+      </record>
+      <record>
+         <recordSchema>info:srw/schema/1/marcxml-v1.1</recordSchema>
+         <recordPacking>xml</recordPacking>
+         <recordData>
+            <marc:record xmlns:marc="http://www.loc.gov/MARC21/slim">
+               <marc:leader>00000nam a22      a 4500</marc:leader>
+               <marc:controlfield tag="001">001018438</marc:controlfield>
+               <marc:controlfield tag="003">BE-GnUNI</marc:controlfield>
+               <marc:controlfield tag="005">20200505130211.0</marc:controlfield>
+               <marc:controlfield tag="008">060918s2006    xx     |r    |000 ||eng|d</marc:controlfield>
+               <marc:datafield tag="020" ind1=" " ind2=" ">
+                  <marc:subfield code="a">1405159170</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="040" ind1=" " ind2=" ">
+                  <marc:subfield code="a">BE-GnUNI</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="050" ind1=" " ind2="4">
+                  <marc:subfield code="a">HB76</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="245" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Inside the economist's mind :</marc:subfield>
+                  <marc:subfield code="b">conversations with eminent economists /</marc:subfield>
+                  <marc:subfield code="c">ed. by Paul A. Samuelson, William A. Barnett.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="260" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Oxford :</marc:subfield>
+                  <marc:subfield code="b">Blackwell,</marc:subfield>
+                  <marc:subfield code="c">2006.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="300" ind1=" " ind2=" ">
+                  <marc:subfield code="a">XXXVI, 419 p.: ill.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="700" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Barnett, William Arnold</marc:subfield>
+                  <marc:subfield code="0">(viaf)76372038</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="700" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Samuelson, Paul Anthony,</marc:subfield>
+                  <marc:subfield code="d">1915-2009</marc:subfield>
+                  <marc:subfield code="0">(viaf)98511352</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="852" ind1="4" ind2=" ">
+                  <marc:subfield code="x">EB</marc:subfield>
+                  <marc:subfield code="b">EB55</marc:subfield>
+                  <marc:subfield code="c">EBIB</marc:subfield>
+                  <marc:subfield code="j">EBIB.HB76.011</marc:subfield>
+                  <marc:subfield code="p">000000469489</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="920" ind1=" " ind2=" ">
+                  <marc:subfield code="a">book</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="CRD" ind1=" " ind2=" ">
+                  <marc:subfield code="a">EBIB20060918</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="Z30" ind1="-" ind2="1">
+                  <marc:subfield code="l">RUG01</marc:subfield>
+                  <marc:subfield code="L">RUG01</marc:subfield>
+                  <marc:subfield code="m">BOOK</marc:subfield>
+                  <marc:subfield code="x">EB</marc:subfield>
+                  <marc:subfield code="1">EB55</marc:subfield>
+                  <marc:subfield code="2">EBIB</marc:subfield>
+                  <marc:subfield code="3">EBIB.HB76.011</marc:subfield>
+                  <marc:subfield code="5">000000469489</marc:subfield>
+                  <marc:subfield code="8">20060918</marc:subfield>
+                  <marc:subfield code="f">32</marc:subfield>
+                  <marc:subfield code="F">openkast/LOAN+SCAN</marc:subfield>
+                  <marc:subfield code="g">54253</marc:subfield>
+               </marc:datafield>
+            </marc:record>
+         </recordData>
+         <recordPosition>9</recordPosition>
+      </record>
+      <record>
+         <recordSchema>info:srw/schema/1/marcxml-v1.1</recordSchema>
+         <recordPacking>xml</recordPacking>
+         <recordData>
+            <marc:record xmlns:marc="http://www.loc.gov/MARC21/slim">
+               <marc:leader>00000cam a22002171  4500</marc:leader>
+               <marc:controlfield tag="001">001299731</marc:controlfield>
+               <marc:controlfield tag="003">BE-GnUNI</marc:controlfield>
+               <marc:controlfield tag="005">20170321130335.0</marc:controlfield>
+               <marc:controlfield tag="008">791121s1888    enkabcf       000 0 eng</marc:controlfield>
+               <marc:datafield tag="010" ind1=" " ind2=" ">
+                  <marc:subfield code="a">04023560</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="035" ind1=" " ind2=" ">
+                  <marc:subfield code="9">(DLC) 04023560</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="035" ind1=" " ind2=" ">
+                  <marc:subfield code="a">(OCoLC)5721823</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="040" ind1=" " ind2=" ">
+                  <marc:subfield code="a">BE-GnUNI</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="050" ind1=" " ind2=" ">
+                  <marc:subfield code="a">DR55</marc:subfield>
+                  <marc:subfield code="b">.S19</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="100" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Samuelson, James</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="245" ind1="1" ind2=" ">
+                  <marc:subfield code="a">Bulgaria past and present :</marc:subfield>
+                  <marc:subfield code="b">historical, political, and descriptive /</marc:subfield>
+                  <marc:subfield code="c">by James Samuelson; illustrated with a map of United Bulgaria, collotype views and portraits from seventeen photographs by Karastojanoff of Sofia, Cavra of Philippopolis, and O. Marcolesco of Tirnova.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="260" ind1=" " ind2=" ">
+                  <marc:subfield code="a">London :</marc:subfield>
+                  <marc:subfield code="b">Trübner,</marc:subfield>
+                  <marc:subfield code="c">1888.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="300" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Xiv, 247 p. :</marc:subfield>
+                  <marc:subfield code="b">front., ill., plates, ports., map. ;</marc:subfield>
+                  <marc:subfield code="c">23 cm.</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="651" ind1=" " ind2="7">
+                  <marc:subfield code="a">Bulgaria.</marc:subfield>
+                  <marc:subfield code="2">fast</marc:subfield>
+                  <marc:subfield code="0">(OCoLC)fst01212489</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="852" ind1="4" ind2=" ">
+                  <marc:subfield code="x">UB</marc:subfield>
+                  <marc:subfield code="b">CA20</marc:subfield>
+                  <marc:subfield code="c">BIB</marc:subfield>
+                  <marc:subfield code="j">BIB.ACC.046622</marc:subfield>
+                  <marc:subfield code="p">000000616195</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="920" ind1=" " ind2=" ">
+                  <marc:subfield code="a">book</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="SID" ind1=" " ind2=" ">
+                  <marc:subfield code="a">Z39</marc:subfield>
+                  <marc:subfield code="b">LOC</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="CRD" ind1=" " ind2=" ">
+                  <marc:subfield code="a">BIB20081126</marc:subfield>
+               </marc:datafield>
+               <marc:datafield tag="Z30" ind1="-" ind2="1">
+                  <marc:subfield code="l">RUG01</marc:subfield>
+                  <marc:subfield code="L">RUG01</marc:subfield>
+                  <marc:subfield code="m">BOOK</marc:subfield>
+                  <marc:subfield code="x">UB</marc:subfield>
+                  <marc:subfield code="1">CA20</marc:subfield>
+                  <marc:subfield code="2">BIB</marc:subfield>
+                  <marc:subfield code="3">BIB.ACC.046622</marc:subfield>
+                  <marc:subfield code="5">000000616195</marc:subfield>
+                  <marc:subfield code="8">20081126</marc:subfield>
+                  <marc:subfield code="f">03</marc:subfield>
+                  <marc:subfield code="F">magazijn/CONSULT</marc:subfield>
+               </marc:datafield>
+            </marc:record>
+         </recordData>
+         <recordPosition>10</recordPosition>
+      </record>
+   </records>
+   <extraResponseData />
+   <echoedSearchRetrieveRequest>
+      <version>1.1</version>
+      <query>author="samuelson"</query>
+      <startRecord>1</startRecord>
+      <maximumRecords>10</maximumRecords>
+      <recordSchema>marcxml</recordSchema>
+      <xQuery>
+         <searchClause xmlns="http://www.loc.gov/zing/cql/xcql/">
+            <index>author</index>
+            <relation>
+               <value>=</value>
+            </relation>
+            <term>samuelson</term>
+         </searchClause>
+      </xQuery>
+   </echoedSearchRetrieveRequest>
+</searchRetrieveResponse>
+
