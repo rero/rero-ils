@@ -25,7 +25,7 @@ from invenio_jsonschemas.proxies import current_jsonschemas
 from invenio_records.api import RecordBase
 from invenio_search import RecordsSearch, current_search_client
 
-from .extensions import DatesExension, IDExtension, ResolveRefsExension
+from .extensions import DatesExtension, IDExtension, ResolveRefsExtension
 from ..api import IlsRecordsSearch
 from ..fetchers import FetchedPID
 
@@ -61,7 +61,11 @@ class OperationLog(RecordBase):
 
     _schema = 'operation_logs/operation_log-v0.0.1.json'
 
-    _extensions = [ResolveRefsExension(), DatesExension(), IDExtension()]
+    _extensions = [
+        ResolveRefsExtension(),
+        DatesExtension(),
+        IDExtension()
+    ]
 
     @classmethod
     def create(cls, data, id_=None, index_refresh='false', **kwargs):
@@ -70,11 +74,11 @@ class OperationLog(RecordBase):
         :param data: Dict with the record metadata.
         :param id_: Specify a UUID to use for the new record, instead of
                     automatically generated.
-        :param refresh: If `true` then refresh the affected shards to make
-            this operation visible to search, if `wait_for` then wait for a
-            refresh to make this operation visible to search, if `false`
+        :param index_refresh: If `true` then refresh the affected shards to
+            make this operation visible to search, if `wait_for` then wait for
+            a refresh to make this operation visible to search, if `false`
             (the default) then do nothing with refreshes.
-            Valid choices: true, false, wait_for
+            Valid choices: 'true', 'false', 'wait_for'
         :returns: A new :class:`Record` instance.
         """
         if id_:
@@ -100,10 +104,12 @@ class OperationLog(RecordBase):
                 use_model=False
             )
 
-        current_search_client.index(index=cls.get_index(record),
-                                    body=record.dumps(),
-                                    id=record['pid'],
-                                    refresh=index_refresh)
+        current_search_client.index(
+            index=cls.get_index(record),
+            body=record.dumps(),
+            id=record['pid'],
+            refresh=index_refresh
+        )
 
         # Run post create extensions
         for e in cls._extensions:

@@ -28,6 +28,8 @@ from ...api import IlsRecord
 from ...holdings.models import HoldingTypes
 from ...item_types.api import ItemType
 from ...locations.api import Location
+from ...operation_logs.extensions import \
+    UntrackedFieldsOperationLogObserverExtension
 from ...organisations.api import Organisation
 from ...record_extensions import OrgLibRecordExtension
 from ...utils import date_string_to_utc, extracted_data_from_ref, \
@@ -37,7 +39,10 @@ from ...utils import date_string_to_utc, extracted_data_from_ref, \
 class ItemRecord(IlsRecord):
     """Item record class."""
 
-    _extensions = [OrgLibRecordExtension()]
+    _extensions = [
+        OrgLibRecordExtension(),
+        UntrackedFieldsOperationLogObserverExtension(['status'])
+    ]
 
     def extended_validation(self, **kwargs):
         """Add additional record validation.

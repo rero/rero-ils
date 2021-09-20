@@ -41,6 +41,7 @@ from ..fetchers import id_fetcher
 from ..items.api import Item, ItemsSearch
 from ..locations.api import Location
 from ..minters import id_minter
+from ..operation_logs.extensions import OperationLogObserverExtension
 from ..organisations.api import Organisation
 from ..providers import Provider
 from ..record_extensions import OrgLibRecordExtension
@@ -82,7 +83,10 @@ class HoldingsSearch(RecordsSearch):
 class Holding(IlsRecord):
     """Holding class."""
 
-    _extensions = [OrgLibRecordExtension()]
+    _extensions = [
+        OrgLibRecordExtension(),
+        OperationLogObserverExtension()
+    ]
 
     minter = holding_id_minter
     fetcher = holding_id_fetcher
