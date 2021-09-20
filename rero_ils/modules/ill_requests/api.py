@@ -21,6 +21,7 @@ from functools import partial
 
 from flask_babelex import gettext as _
 
+from .extensions import IllRequestOperationLogObserverExtension
 from .models import ILLRequestIdentifier, ILLRequestMetadata, \
     ILLRequestNoteStatus
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
@@ -59,6 +60,10 @@ class ILLRequest(IlsRecord):
     fetcher = ill_request_id_fetcher
     provider = ILLRequestProvider
     model_cls = ILLRequestMetadata
+
+    _extensions = [
+        IllRequestOperationLogObserverExtension()
+    ]
 
     def extended_validation(self, **kwargs):
         """Validate record against schema.

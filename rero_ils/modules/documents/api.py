@@ -32,6 +32,7 @@ from ..acq_order_lines.api import AcqOrderLinesSearch
 from ..api import IlsRecord, IlsRecordsIndexer
 from ..fetchers import id_fetcher
 from ..minters import id_minter
+from ..operation_logs.extensions import OperationLogObserverExtension
 from ..organisations.api import Organisation
 from ..providers import Provider
 from ..utils import sorted_pids
@@ -78,6 +79,10 @@ class Document(IlsRecord):
     fetcher = document_id_fetcher
     provider = DocumentProvider
     model_cls = DocumentMetadata
+
+    _extensions = [
+        OperationLogObserverExtension()
+    ]
 
     @classmethod
     def is_available(cls, pid, view_code, raise_exception=False):
