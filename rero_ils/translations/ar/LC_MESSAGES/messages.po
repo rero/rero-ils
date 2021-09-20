@@ -11,25 +11,26 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-09-07 11:12+0200\n"
-"PO-Revision-Date: 2021-09-06 17:32+0000\n"
+"PO-Revision-Date: 2021-09-20 18:37+0000\n"
 "Last-Translator: ButterflyOfFire <ButterflyOfFire@protonmail.com>\n"
+"Language-Team: Arabic <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/ar/>\n"
 "Language: ar\n"
-"Language-Team: Arabic <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/ar/>\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : "
-"n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Weblate 4.9-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: rero_ils/accounts_views.py:46 rero_ils/accounts_views.py:69
 msgid "USER_DOES_NOT_EXIST"
-msgstr ""
+msgstr "هذا المستخدم غير موجود"
 
 #: rero_ils/config.py:126
 msgid "Test version"
-msgstr ""
+msgstr "خادم تجريبي"
 
 #: rero_ils/config.py:149
 msgid "French"
@@ -53,7 +54,7 @@ msgstr "أهلًا وسهلًا"
 
 #: rero_ils/config.py:241
 msgid "RERO ID password reset"
-msgstr ""
+msgstr "إعادة تعيين الكلمة السرية لمعرّف RERO ID"
 
 #: rero_ils/config.py:242
 msgid "Your RERO ID password has been reset"
@@ -4753,7 +4754,7 @@ msgstr ""
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:236
 msgid "From"
-msgstr ""
+msgstr "مِن"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:246
 #, fuzzy
@@ -5042,7 +5043,7 @@ msgstr "تلخيص"
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:31
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:34
 msgid "Date establishment"
-msgstr ""
+msgstr "تاريخ التأسيس"
 
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:32
 #: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:35
@@ -5090,7 +5091,7 @@ msgstr "إسناد المؤلف"
 
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:42
 msgid "All sources"
-msgstr ""
+msgstr "كافة المصادر"
 
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:44
 msgid "Unified"
@@ -5099,11 +5100,11 @@ msgstr ""
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:49
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:51
 msgid "By source"
-msgstr ""
+msgstr "حسب المصدر"
 
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:70
 msgid "Documents"
-msgstr ""
+msgstr "المستندات"
 
 #: rero_ils/modules/documents/views.py:213
 msgid "Journal"
@@ -5117,7 +5118,7 @@ msgstr "السلسلة"
 #: rero_ils/modules/documents/views.py:217
 #: rero_ils/modules/ill_requests/forms.py:100
 msgid "Published in"
-msgstr ""
+msgstr "نُشِر في"
 
 #: rero_ils/modules/documents/views.py:233
 msgid "vol"
@@ -5125,11 +5126,11 @@ msgstr ""
 
 #: rero_ils/modules/documents/views.py:236
 msgid "nr"
-msgstr ""
+msgstr "رقم"
 
 #: rero_ils/modules/documents/views.py:239
 msgid "p"
-msgstr ""
+msgstr "ص"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:3
 msgid "Bibliographic Document"
@@ -5171,7 +5172,7 @@ msgstr "يتم حصاد المستند أم لا ، سيتم تعطيل إصدا
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:288
 msgid "Draft"
-msgstr ""
+msgstr "مسودة"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:289
 #, fuzzy
@@ -5208,7 +5209,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:3
 msgid "Admin metadata"
-msgstr ""
+msgstr "البيانات الوصفية الإدارية"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:19
 msgid "Administrative information intended for professionals"
@@ -5256,7 +5257,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:86
 msgid "Unknown"
-msgstr ""
+msgstr "مجهول"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:90
 msgid "Not applicable"
@@ -5291,11 +5292,11 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:129
 msgid "Description language"
-msgstr ""
+msgstr "لغة الوصف"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:130
 msgid "Language used for the metadata"
-msgstr ""
+msgstr "الغة المستخدمة في البيانات الوصفية"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:145
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:150
@@ -5374,7 +5375,7 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:341
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:425
 msgid "Example: 001.012"
-msgstr ""
+msgstr "مثال: 001.012"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:345
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:429
@@ -5451,7 +5452,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:11
 msgid "contentType"
-msgstr ""
+msgstr "نوع المحتوى"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:26
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:42
@@ -5902,7 +5903,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:78
 msgid "Example: Lausanne"
-msgstr ""
+msgstr "كثال: Lausanne"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:85
 #, fuzzy
@@ -5911,7 +5912,7 @@ msgstr "الحد الأقصى لعدد التجديدات"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:89
 msgid "Example: 4"
-msgstr ""
+msgstr "مثال: 4"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:96
 #, fuzzy
@@ -5945,7 +5946,7 @@ msgstr "مثال: 1985-12-29"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:74
 msgid "Example: physicist"
-msgstr ""
+msgstr "مثال: فيزيائي"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:82
 #, fuzzy
@@ -6004,7 +6005,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:192
 msgid "pht"
-msgstr ""
+msgstr "مصوّر"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:196
 msgid "prf"
@@ -6012,7 +6013,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:200
 msgid "trl"
-msgstr ""
+msgstr "مترجِم"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:204
 msgid "abr"
@@ -6025,7 +6026,7 @@ msgstr "الكورنية"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:212
 msgid "adi"
-msgstr ""
+msgstr "مدير فني"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:216
 #, fuzzy
@@ -11293,13 +11294,12 @@ msgid "female"
 msgstr "البريد الالكتروني"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:98
-#, fuzzy
 msgid "Username"
-msgstr "مستخدم"
+msgstr "اسم المستخدم"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:99
 msgid "Login username for the web interface."
-msgstr ""
+msgstr "اسم المستخدم للولوج لواجهة الويب."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:107
 msgid ""
@@ -11309,9 +11309,8 @@ msgid ""
 msgstr ""
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:108
-#, fuzzy
 msgid "This username is already taken."
-msgstr "الرمز مأخوذ بالفعل."
+msgstr "اسم المستخدم مأخوذ مسبقا."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:134
 #, fuzzy
@@ -11595,7 +11594,7 @@ msgstr "تسجيل الدخول"
 
 #: rero_ils/theme/templates/rero_ils/login_user.html:41
 msgid "E-mail or username"
-msgstr ""
+msgstr "البريد الإلكتروني أو اسم المستخدم"
 
 #: rero_ils/theme/templates/rero_ils/login_user.html:52
 #, python-format
@@ -13190,4 +13189,3 @@ msgstr ""
 
 #~ msgid "Checkout impossible: the item is requested by another patron"
 #~ msgstr ""
-
