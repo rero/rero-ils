@@ -18,8 +18,8 @@ translations:
   - rero_ils/manual_translations.txt
   - rero_ils/translations/**/*
 
-# Add data label to any changes in document and item jsonschemas folders, and
-# in DOJSON folders
+# Add data label to any changes in document and item jsonschemas folders,
+# in DOJSON folders, and templates folders
 data:
   - rero_ils/jsonschemas/**/*
   - rero_ils/modules/documents/jsonschemas/**/*
@@ -29,6 +29,16 @@ data:
   - rero_ils/modules/local_fields/jsonschemas/**/*
   - rero_ils/dojson/**/*
   - rero_ils/modules/**/dojson/**/*
+  - rero_ils/modules/templates/**/*
+
+# Add data-migration label to any changes that may need migration effort for
+# deployment of a new release
+"data-migration":
+  - rero_ils/es_templates/**
+  - rero_ils/jsonschemas/**
+  - rero_ils/**/jsonschemas/**
+  - rero_ils/**/mappings/**
+  - rero_ils/**/models.py
 
 # Add data-export label to any changes in dojson json to dublin core or to
 # MARC21 folders and in the SRU module:
@@ -101,8 +111,10 @@ notifications:
   - rero_ils/modules/notifications/**/*
 
 "public ui":
-  - rero_ils/**/templates/**/*
-  - rero_ils/theme/**/*
+  - any: ['rero_ils/**/templates/**/*', 'rero_ils/theme/**/*', 'rero_ils/**/views.py', '!rero_ils/modules/templates/**/*']
 
 "statistics":
   - rero_ils/modules/stats/**/*
+
+DB:
+  - rero_ils/**/models.py
