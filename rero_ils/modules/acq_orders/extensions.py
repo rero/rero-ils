@@ -22,8 +22,8 @@ from invenio_records.extensions import RecordExtension
 from rero_ils.modules.utils import extracted_data_from_ref
 
 
-class AcquisitionOrderDynamicFieldsExtension(RecordExtension):
-    """Update the total amount by summing the order lines."""
+class AcquisitionOrderExtension(RecordExtension):
+    """Defines the methods needed by an extension."""
 
     def pre_dump(self, record, dumper=None):
         """Called before a record is dumped.
@@ -42,6 +42,18 @@ class AcquisitionOrderDynamicFieldsExtension(RecordExtension):
         """
         data.pop('total_amount', None)
         data.pop('status', None)
+
+    def pre_delete(self, record, force=False):
+        """Called before a record is deleted.
+
+        :param record: the record metadata.
+        """
+        # For pending orders, we are allowed to delete all of its
+        # line orders without futher checks.
+        # there is no need to check if it is a pending order or not because
+        # the can_delete is already execute in the method self.delete
+        for line in record.get_order_lines():
+            line.delete()
 
 
 class AcquisitionOrderCompleteDataExtension(RecordExtension):
