@@ -23,7 +23,7 @@ from functools import partial
 from flask_babelex import gettext as _
 
 from .extensions import AcquisitionOrderCompleteDataExtension, \
-    AcquisitionOrderDynamicFieldsExtension
+    AcquisitionOrderExtension
 from .models import AcqOrderIdentifier, AcqOrderMetadata, AcqOrderStatus
 from ..acq_order_lines.api import AcqOrderLine, AcqOrderLinesSearch
 from ..acq_order_lines.models import AcqOrderLineStatus
@@ -63,7 +63,7 @@ class AcqOrder(IlsRecord):
     """AcqOrder class."""
 
     _extensions = [
-        AcquisitionOrderDynamicFieldsExtension(),
+        AcquisitionOrderExtension(),
         AcquisitionOrderCompleteDataExtension()
     ]
 
@@ -184,6 +184,15 @@ class AcqOrder(IlsRecord):
         """Get reasons not to delete record."""
         cannot_delete = {}
         links = self.get_links_to_me()
+        # The link with AcqOrderLine ressources isn't a reason to not delete
+        # an AcqOrder. Indeed, when we delete an AcqOrder, we also delete all
+        # related AcqOrderLines (cascade delete). Check the extension
+        # ``pre_delete`` hook.
+        links.pop('acq_order_lines', None)
+        if self.status != AcqOrderStatus.PENDING:
+            cannot_delete['others'] = {
+                _(f'Order status is {self.status}'): True
+            }
         if links:
             cannot_delete['links'] = links
         return cannot_delete
@@ -200,3 +209,15 @@ class AcqOrdersIndexer(IlsRecordsIndexer):
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
         super().bulk_index(record_id_iterator, doc_type='acor')
+
+    def delete(self, record):
+        """Delete a record from indexer.
+
+        First delete order lines from the ES index, then delete the order.
+        """
+        es_query = AcqOrderLinesSearch()\
+            .filter('term', acq_order__pid=record.pid)
+        if es_query.count():
+            es_query.delete()
+            AcqOrderLinesSearch.flush_and_refresh()
+        super().delete(record)
