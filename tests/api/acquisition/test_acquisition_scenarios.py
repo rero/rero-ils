@@ -25,6 +25,11 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json
 
 from rero_ils.modules.acq_accounts.api import AcqAccount
+from rero_ils.modules.acq_order_lines.api import AcqOrderLine
+from rero_ils.modules.acq_order_lines.models import AcqOrderLineStatus
+from rero_ils.modules.acq_orders.api import AcqOrder
+from rero_ils.modules.acq_orders.models import AcqOrderStatus
+from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.utils import get_ref_for_pid
 
 
@@ -394,6 +399,8 @@ def test_acquisition_order(
     order = _make_resource(client, 'acor', order_data)
     assert order['reference'] == order_data['reference']
     assert order.get_order_total_amount() == 0
+    assert order.status == AcqOrderStatus.PENDING
+    assert order.can_delete
 
     basic_data = {
         'acq_account': account_b_ref,
@@ -457,8 +464,30 @@ def test_acquisition_order(
     assert account_a.encumbrance_amount == (0, 525)
     assert account_a.remaining_balance[0] == 1500
 
+    # Test cascade deleting of order lines when attempting to delete a
+    # PENDING order.
+    order_line_1 = AcqOrderLine.get_record_by_pid(order_line_1.pid)
+    order_line_1['status'] = AcqOrderLineStatus.CANCELED
+    order_line_1.update(order_line_1, dbcommit=True, reindex=True)
+
+    order = AcqOrder.get_record_by_pid(order.pid)
+    assert order.status == AcqOrderStatus.CANCELED
+
+    # Delete CANCELED order is not permitted
+    with pytest.raises(IlsRecordError.NotDeleted):
+        _del_resource(client, 'acor', order.pid)
+
+    order_line_1['status'] = AcqOrderLineStatus.APPROVED
+    order_line_1.update(order_line_1, dbcommit=True, reindex=True)
+
+    order = AcqOrder.get_record_by_pid(order.pid)
+    assert order.status == AcqOrderStatus.PENDING
+
     # DELETE created resources
-    _del_resource(client, 'acol', order_line_1.pid)
     _del_resource(client, 'acor', order.pid)
+    # Deleting the parent PENDING order does delete all of its order lines
+    order_line_1 = AcqOrderLine.get_record_by_pid(order_line_1.pid)
+    assert not order_line_1
+
     _del_resource(client, 'acac', account_b.pid)
     _del_resource(client, 'acac', account_a.pid)
