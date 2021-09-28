@@ -172,6 +172,9 @@ You can help translating the software on `Weblate`_.
 To contribute to the code itself, please check the
 `contributing recommandations`_.
 
+In case of security issue, please contact the e-mail address provided in the
+`security policy`_.
+
 The RERO ILS ecosystem
 ----------------------
 
@@ -237,6 +240,7 @@ you can run your own ebooks server.
 .. _`Weblate`: https://hosted.weblate.org/projects/rero_plus/#information
 .. _`Gitter`: https://gitter.im/rero/reroils
 .. _`contributing recommandations`: https://github.com/rero/rero-ils/blob/dev/CONTRIBUTING.rst
+.. _`security policy`: https://github.com/rero/rero-ils/blob/dev/SECURITY.rst
 .. _`rero-ils GitHub project`: https://github.com/rero/rero-ils
 .. _`rero-ils-ui`: https://github.com/rero/rero-ils-ui
 .. _`ng-core`: https://github.com/rero/ng-core
