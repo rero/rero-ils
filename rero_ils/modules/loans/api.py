@@ -761,7 +761,11 @@ class Loan(IlsRecord):
 
         candidates = []
         item = Item.get_record_by_pid(self.item_pid)
-        has_request = item.number_of_requests() > 0
+        # Get the number of requests on the related item and exclude myself
+        # from the result list.
+        requests = item.get_requests(pids=True)
+        requests = [loan_pid for loan_pid in requests if loan_pid != self.pid]
+        has_request = len(requests) > 0
 
         # AVAILABILITY NOTIFICATION
         #   If loan (items) just arrived at the library desk we can create
