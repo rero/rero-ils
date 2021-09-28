@@ -18,6 +18,41 @@
 Release notes
 =============
 
+v1.5.0
+------
+
+This is the first release since the :rocket: go-live, as we published
+several patches (from ``v1.4.0`` to ``v1.4.11``). The main feature
+of this new version is the displaying of all the fields of the document,
+both on the public and professional interface. Patrons will finally see
+all the bibliographic metadata carefully filled in by librarians.
+
+Alongside, some improvements and issue fixing take part of this version,
+such as:
+
+-  Clearing the input field of the circulation interface quicker, before
+   the transaction is closed, thus allowing the librarian to go on (`#2244`_).
+-  Removing default value of optional fields in the cataloguing editor,
+   because in some case it forced the librarian to clean manually unused
+   field (`#2080`_ and `#2310`_).
+-  Preventing the deletion of a document if it is a parent record of
+   other documents (`#2414`_).
+
+The comprehensive changes are to be found in the `changelog`_. The
+changelogs of the other components of RERO ILS contains also relevant
+changes:
+
+-  `rero-ils-ui`_.
+-  `ng-core`_.
+
+
+.. _#2080: https://github.com/rero/rero-ils/issues/2080
+.. _#2310: https://github.com/rero/rero-ils/issues/2310
+.. _#2414: https://github.com/rero/rero-ils/issues/2414
+.. _#2244: https://github.com/rero/rero-ils/issues/2244
+.. _rero-ils-ui: https://github.com/rero/rero-ils-ui/blob/dev/CHANGELOG.md
+.. _ng-core: https://github.com/rero/ng-core/blob/dev/CHANGELOG.md
+
 v1.4.11
 -------
 
