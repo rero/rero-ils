@@ -1184,11 +1184,12 @@ class ItemCirculation(ItemRecord):
             links['fees'] = fees
         return links
 
-    def get_requests(self, sort_by=None, count=False):
+    def get_requests(self, sort_by=None, count=False, pids=False):
         """Return sorted pending, item_on_transit, item_at_desk loans.
 
-        :param sort_by: the sort to appy. default sort is _created.
+        :param sort_by: the sort to result. default sort is _created.
         :param count: if True, return the number of request.
+        :param pids: if True, return the only the pids.
         :return a generator of corresponding request or a request counter.
         """
 
@@ -1197,8 +1198,6 @@ class ItemCirculation(ItemRecord):
             sort_term = sort_by or '_created'
             if sort_term.startswith('-'):
                 (sort_term, order_by) = (sort_term[1:], 'desc')
-                print("sort_term", sort_term)
-                print("order_by", order_by)
             es_query = query\
                 .params(preserve_order=True)\
                 .sort({sort_term: {'order': order_by}})
@@ -1211,7 +1210,12 @@ class ItemCirculation(ItemRecord):
                 LoanState.ITEM_AT_DESK,
                 LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
             ]).source(['pid'])
-        return query.count() if count else _list_obj()
+        if pids:
+            return [hit.pid for hit in query.scan()]
+        elif count:
+            return query.count()
+        else:
+            return _list_obj()
 
     def get_first_loan_by_state(self, state=None):
         """Return the first loan with the given state and attached to item.
