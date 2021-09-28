@@ -24,6 +24,12 @@ little bit helps, and credit will always be given.
 Types of Contributions
 ----------------------
 
+Security  Reports
+~~~~~~~~~~~~~~~~~
+
+In case you identified a security issue on the project, please report it to the
+e-mail address given in the `security policy`_.
+
 Report Bugs
 ~~~~~~~~~~~
 
@@ -137,3 +143,4 @@ Before you submit a pull request, check that it meets these guidelines:
 
 .. References:
 .. _installation procedure: INSTALL.rst
+.. _security policy: SECURITY.rst
