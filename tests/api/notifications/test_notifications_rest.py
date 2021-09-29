@@ -1048,7 +1048,7 @@ def test_booking_notifications(client, patron_martigny, patron_sion,
         'transaction_user_pid': librarian_fully.pid
     }
     _, actions = item_lib_martigny.checkin(**params)
-    # the checked in loan is canceled and the requested loan is in transit for
+    # the checked in loan is cancelled and the requested loan is in transit for
     # pickup
     loan = Loan.get_record_by_pid(request_loan_pid)
     assert loan.state == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
