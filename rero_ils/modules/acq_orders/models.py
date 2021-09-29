@@ -45,7 +45,7 @@ class AcqOrderMetadata(db.Model, RecordMetadataBase):
 class AcqOrderStatus:
     """Available statuses for an acquisition order."""
 
-    CANCELED = 'canceled'
+    CANCELLED = 'cancelled'
     ORDERED = 'ordered'
     PENDING = 'pending'
     PARTIALLY_RECEIVED = 'partially_received'
