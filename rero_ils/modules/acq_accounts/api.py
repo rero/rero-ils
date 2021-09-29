@@ -27,6 +27,7 @@ from .models import AcqAccountExceedanceType, AcqAccountIdentifier, \
     AcqAccountMetadata
 from ..acq_invoices.api import AcquisitionInvoice, AcquisitionInvoicesSearch
 from ..acq_order_lines.api import AcqOrderLine, AcqOrderLinesSearch
+from ..acq_order_lines.models import AcqOrderLineStatus
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..extensions import UniqueFieldsExtension
 from ..fetchers import id_fetcher
@@ -169,17 +170,17 @@ class AcqAccount(IlsRecord):
         """Get the encumbrance amount related to this account.
 
         This amount is the sum of :
-          * Order lines related to this account but not yet related to any
-            invoices.
+          * APPROVED or ORDERED acqz order lines related to this account.
           * Encumbrance of all children account
 
         @:return A tuple of encumbrance amount : First element if encumbrance
                  for this account, second element is the children encumbrance.
         """
         # Encumbrance of this account
+        status_list = [AcqOrderLineStatus.APPROVED, AcqOrderLineStatus.ORDERED]
         query = AcqOrderLinesSearch()\
             .filter('term', acq_account__pid=self.pid)\
-            .exclude('exists', field='acq_invoice.pid')
+            .filter('terms', status=status_list)\
 
         query.aggs.metric('total_amount', 'sum', field='total_amount')
         results = query.execute()
@@ -197,30 +198,14 @@ class AcqAccount(IlsRecord):
     def expenditure_amount(self):
         """Get the expenditure amount related to this account.
 
-        This amount is the sum of :
-          * Order lines related to this account and also linked to an invoice.
-          * expenditure of all children accounts
+        TODO: Calculate the expenditure amount from invoices when implemented.
 
-        @:return A tuple of expenditure amount : First element for self
+        :return A tuple of expenditure amount : First element for self
                  expenditure amount, second element is the children
                  expenditure amount.
+                 returns 0.00, 0.00 until the invoices are implemented.
         """
-        # Expenditure of this account
-        query = AcqOrderLinesSearch() \
-            .filter('term', acq_account__pid=self.pid) \
-            .filter('exists', field='acq_invoice.pid')
-
-        query.aggs.metric('total_amount', 'sum', field='total_amount')
-        results = query.execute()
-        self_amount = results.aggregations.total_amount.value
-
-        # Expenditure of children accounts
-        query = AcqAccountsSearch().filter('term', parent__pid=self.pid)
-        query.aggs.metric('total', 'sum', field='expenditure_amount.total')
-        results = query.execute()
-        children_amount = results.aggregations.total.value
-
-        return self_amount, children_amount
+        return 0, 0
 
     @property
     def remaining_balance(self):

@@ -147,9 +147,9 @@ class Dispatcher:
         #    notification 'status' and stop the notification processing.
         can_cancel, reason = Dispatcher._can_cancel_notification(data, item)
         if can_cancel:
-            msg = f'Notification #{notification.pid} canceled: {reason}'
+            msg = f'Notification #{notification.pid} cancelled: {reason}'
             current_app.logger.info(msg)
-            notification.update_process_date(sent=False, status='canceled')
+            notification.update_process_date(sent=False, status='cancelled')
             return
 
         # 3. Find the communication channel to use to dispatch this
@@ -290,7 +290,7 @@ class Dispatcher:
 
     @staticmethod
     def _can_cancel_notification(data, item):
-        """Check if a notification must be be canceled.
+        """Check if a notification must be be cancelled.
 
         As notification process could be asynchronous, in some case, when the
         notification is processed, it's not anymore required to be sent.
@@ -299,7 +299,7 @@ class Dispatcher:
 
         :param data: the notification data to check.
         :param item: the notification related item
-        :return True if the notification can be canceled, False otheriwse.
+        :return True if the notification can be cancelled, False otheriwse.
         """
         n_type = data['notification_type']
         loan = data['loan']
@@ -317,7 +317,7 @@ class Dispatcher:
         #      corresponding notification has already been sent.
         # b.3) Otherwise, check if the notification type is available into
         #      notification candidates related to the loan. If not, the
-        #      notification can be canceled.
+        #      notification can be cancelled.
         if n_type not in NotificationType.INTERNAL_NOTIFICATIONS:
             if n_type == NotificationType.RECALL:
                 if item.status != ItemStatus.ON_LOAN:

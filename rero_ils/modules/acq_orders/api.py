@@ -138,7 +138,7 @@ class AcqOrder(IlsRecord):
                 AcqOrderLineStatus.APPROVED: AcqOrderStatus.PENDING,
                 AcqOrderLineStatus.ORDERED: AcqOrderStatus.ORDERED,
                 AcqOrderLineStatus.RECEIVED: AcqOrderStatus.RECEIVED,
-                AcqOrderLineStatus.CANCELED: AcqOrderStatus.CANCELED,
+                AcqOrderLineStatus.CANCELLED: AcqOrderStatus.CANCELLED,
             }
             if statues[0] in map:
                 status = map[statues[0]]
