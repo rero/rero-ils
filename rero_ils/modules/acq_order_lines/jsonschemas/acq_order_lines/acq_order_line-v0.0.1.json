@@ -42,7 +42,7 @@
       "type": "string",
       "enum": [
         "approved",
-        "canceled",
+        "cancelled",
         "ordered",
         "received"
       ],
@@ -59,8 +59,8 @@
             "label": "approved"
           },
           {
-            "value": "canceled",
-            "label": "canceled"
+            "value": "cancelled",
+            "label": "cancelled"
           },
           {
             "value": "ordered",

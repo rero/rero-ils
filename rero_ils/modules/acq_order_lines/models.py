@@ -46,7 +46,7 @@ class AcqOrderLineStatus:
     """Available statuses about an Acquisition Order Line."""
 
     APPROVED = 'approved'
-    CANCELED = 'canceled'
+    CANCELLED = 'cancelled'
     ORDERED = 'ordered'
     RECEIVED = 'received'
 
