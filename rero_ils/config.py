@@ -2391,6 +2391,12 @@ RECORDS_JSON_SCHEMA = {
 
 # Operation Log Configuration
 # ===================
+RERO_ILS_ENABLE_OPERATION_LOG = {
+    'documents': 'doc',
+    'holdings': 'hold',
+    'items': 'item',
+    'ill_requests': 'illr'
+}
 RERO_ILS_ENABLE_OPERATION_LOG_VALIDATION = False
 
 # Statistics Configuration
