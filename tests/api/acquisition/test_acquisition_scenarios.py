@@ -417,6 +417,27 @@ def test_acquisition_order(
     assert account_b.remaining_balance[0] == 400  # 500 - 100
     assert account_a.encumbrance_amount == (0, 100)
     assert account_a.remaining_balance[0] == 1500
+    assert account_a.expenditure_amount == (0, 0)
+
+    # TEST :: add a new cancelled order line and check if its amount is not
+    #  calculated into the encumbrance_amount
+
+    basic_data = {
+        'acq_account': account_b_ref,
+        'acq_order': {'$ref': get_ref_for_pid('acor', order.pid)},
+        'document': {'$ref': get_ref_for_pid('doc', document.pid)},
+        'quantity': 2,
+        'amount': 10,
+        'status': 'cancelled'
+    }
+    order_line_1_1 = _make_resource(client, 'acol', basic_data)
+    assert order_line_1_1.get('total_amount') == 20
+
+    assert account_b.encumbrance_amount[0] == 100
+    assert account_b.remaining_balance[0] == 400  # 500 - 100
+    assert account_a.encumbrance_amount == (0, 100)
+    assert account_a.remaining_balance[0] == 1500
+    assert account_a.expenditure_amount == (0, 0)
 
     # TEST 2 :: new order line raises the limit of account available money.
     #   * Create a new order line on the same account ; but the total amount
@@ -467,13 +488,13 @@ def test_acquisition_order(
     # Test cascade deleting of order lines when attempting to delete a
     # PENDING order.
     order_line_1 = AcqOrderLine.get_record_by_pid(order_line_1.pid)
-    order_line_1['status'] = AcqOrderLineStatus.CANCELED
+    order_line_1['status'] = AcqOrderLineStatus.CANCELLED
     order_line_1.update(order_line_1, dbcommit=True, reindex=True)
 
     order = AcqOrder.get_record_by_pid(order.pid)
-    assert order.status == AcqOrderStatus.CANCELED
+    assert order.status == AcqOrderStatus.CANCELLED
 
-    # Delete CANCELED order is not permitted
+    # Delete CANCELLED order is not permitted
     with pytest.raises(IlsRecordError.NotDeleted):
         _del_resource(client, 'acor', order.pid)
 
