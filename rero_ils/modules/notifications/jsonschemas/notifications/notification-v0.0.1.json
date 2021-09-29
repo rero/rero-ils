@@ -127,7 +127,7 @@
       "default": "created",
       "enum": [
         "created",
-        "canceled",
+        "cancelled",
         "done"
       ]
     },

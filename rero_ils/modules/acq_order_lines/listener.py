@@ -17,7 +17,6 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Signals connector for acquisition order line."""
-from rero_ils.modules.acq_invoices.api import AcquisitionInvoicesSearch
 from rero_ils.modules.acq_order_lines.api import AcqOrderLine, \
     AcqOrderLinesSearch
 
@@ -35,14 +34,3 @@ def enrich_acq_order_line_data(sender, json=None, record=None, index=None,
         order_line = record
         if not isinstance(record, AcqOrderLine):
             order_line = AcqOrderLine.get_record_by_pid(record.get('pid'))
-
-        # Link to invoice
-        #   To compute account encumbrance/expenditure, we need to know if the
-        #   order line is already linked to an invoice.
-        es_query = AcquisitionInvoicesSearch()\
-            .filter('term', invoice_items__acq_order_line__pid=order_line.pid)\
-            .source(['pid']).scan()
-        _exhausted = object()
-        hit = next(es_query, _exhausted)
-        if hit != _exhausted:
-            json['acq_invoice'] = dict(pid=hit.pid, type='acin')
