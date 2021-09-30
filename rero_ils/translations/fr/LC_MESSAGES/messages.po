@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-09-22 13:35+0200\n"
-"PO-Revision-Date: 2021-09-29 18:28+0000\n"
-"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"PO-Revision-Date: 2021-09-30 05:44+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
 "Language: fr\n"
@@ -5352,12 +5352,12 @@ msgstr "Exemple : 001.012"
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:345
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:429
 msgid "Subdivisions"
-msgstr "Sous-divisions"
+msgstr "Subdivisions"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:349
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:433
 msgid "Subdivision"
-msgstr "Sous-division"
+msgstr "Subdivision"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:355
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:439
@@ -8738,7 +8738,7 @@ msgstr "Langue originale"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:136
 msgid "Thesis"
-msgstr "Thèse"
+msgstr "Thèse, mémoire"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:166
 msgid "Illustrations"

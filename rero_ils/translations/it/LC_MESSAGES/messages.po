@@ -19,15 +19,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-09-22 13:35+0200\n"
-"PO-Revision-Date: 2021-09-17 08:37+0000\n"
+"PO-Revision-Date: 2021-09-30 05:46+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/it/>\n"
 "Language: it\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/it/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.9-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: rero_ils/accounts_views.py:46 rero_ils/accounts_views.py:69
@@ -8718,19 +8719,19 @@ msgstr "Unità"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:36
 msgid "General note"
-msgstr ""
+msgstr "Nota generale"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:51
 msgid "Other responsibilities"
-msgstr ""
+msgstr "Altre responsabilità"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:79
 msgid "Original language"
-msgstr ""
+msgstr "Lingua originale"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:136
 msgid "Thesis"
-msgstr ""
+msgstr "Tesi, dissertazione"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:166
 msgid "Illustrations"
@@ -8742,15 +8743,15 @@ msgstr "Colori"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:256
 msgid "Use and access condition"
-msgstr ""
+msgstr "Condizione d'uso e di accesso"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:276
 msgid "Reproduced as"
-msgstr ""
+msgstr "Riprodotto come"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:300
 msgid "Statement of responsibility"
-msgstr ""
+msgstr "Formulazione di responsabilità"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:402
 msgid "Format"
@@ -8758,7 +8759,7 @@ msgstr "Formato"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:507
 msgid "Carrier and content type"
-msgstr ""
+msgstr "Tipo di supporto e di contenuto"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:537
 msgid "Permalink"
@@ -10082,7 +10083,7 @@ msgstr "Data di fine della transazione"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:114
 msgid "Due Soon Date"
-msgstr ""
+msgstr "Data del avviso di scadenza"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:118
 msgid "Request expire datetime"
@@ -13063,4 +13064,3 @@ msgstr "La tua parola d'ordine è stata reimposta con successo."
 
 #~ msgid "Articles"
 #~ msgstr "articolo"
-
