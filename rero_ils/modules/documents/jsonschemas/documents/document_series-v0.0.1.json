@@ -13,7 +13,8 @@
       "propertiesOrder": [
         "seriesTitle",
         "seriesEnumeration",
-        "subseriesStatement"
+        "subseriesStatement",
+        "identifiedBy"
       ],
       "additionalProperties": false,
       "properties": {
@@ -80,6 +81,9 @@
           "form": {
             "hide": true
           }
+        },
+        "identifiedBy": {
+          "$ref": "https://bib.rero.ch/schemas/documents/document_identified_by-v0.0.1.json#/identifiedBy"
         }
       }
     },
