@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
-"POT-Creation-Date: 2021-09-22 13:35+0200\n"
-"PO-Revision-Date: 2021-09-17 08:37+0000\n"
+"POT-Creation-Date: 2021-09-30 09:00+0200\n"
+"PO-Revision-Date: 2021-09-30 05:46+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language: en\n"
 "Language-Team: English <https://hosted.weblate.org/projects/rero_plus"
@@ -8703,19 +8703,19 @@ msgstr "Unit"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:36
 msgid "General note"
-msgstr ""
+msgstr "General note"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:51
 msgid "Other responsibilities"
-msgstr ""
+msgstr "Other responsibilities"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:79
 msgid "Original language"
-msgstr ""
+msgstr "Original language"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:136
 msgid "Thesis"
-msgstr ""
+msgstr "Thesis"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:166
 msgid "Illustrations"
@@ -8727,15 +8727,15 @@ msgstr "Colors"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:256
 msgid "Use and access condition"
-msgstr ""
+msgstr "Usage and access policy"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:276
 msgid "Reproduced as"
-msgstr ""
+msgstr "Reproduced as"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:300
 msgid "Statement of responsibility"
-msgstr ""
+msgstr "Statement of responsibility"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:402
 msgid "Format"
@@ -8743,7 +8743,7 @@ msgstr "Format"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:507
 msgid "Carrier and content type"
-msgstr ""
+msgstr "Carrier and content type"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:537
 msgid "Permalink"
@@ -8766,15 +8766,15 @@ msgstr "Get"
 msgid "Export Formats"
 msgstr "Export Formats"
 
-#: rero_ils/modules/holdings/api.py:143
+#: rero_ils/modules/holdings/api.py:147
 msgid "Document does not exist {pid}."
 msgstr "The document {pid} does not exists."
 
-#: rero_ils/modules/holdings/api.py:150
+#: rero_ils/modules/holdings/api.py:154
 msgid "Must have next expected date for regular frequencies."
 msgstr "Must have next expected date for regular frequencies."
 
-#: rero_ils/modules/holdings/api.py:153
+#: rero_ils/modules/holdings/api.py:157
 msgid ""
 "Electronic Holding is not attached to the correct                     "
 "document type. document: {pid}"
@@ -8782,16 +8782,16 @@ msgstr ""
 "The electronic holdings is not attached to the correct document type. "
 "Document: {pid}"
 
-#: rero_ils/modules/holdings/api.py:168
+#: rero_ils/modules/holdings/api.py:172
 msgid "{field} is allowed only for serial holdings"
 msgstr "{field} is allowed only for serial holdings"
 
-#: rero_ils/modules/holdings/api.py:173 rero_ils/modules/ill_requests/api.py:75
-#: rero_ils/modules/items/api/record.py:81
+#: rero_ils/modules/holdings/api.py:177 rero_ils/modules/ill_requests/api.py:80
+#: rero_ils/modules/items/api/record.py:86
 msgid "Can not have multiple notes of same type."
 msgstr "Can not have multiple notes of the same type."
 
-#: rero_ils/modules/holdings/api.py:404
+#: rero_ils/modules/holdings/api.py:405
 msgid "has {count} items with loan attached"
 msgstr "has {count} items with a loan attached"
 
@@ -9642,36 +9642,36 @@ msgstr ""
 msgid "Information"
 msgstr "Information"
 
-#: rero_ils/modules/items/api/circulation.py:1009
+#: rero_ils/modules/items/api/circulation.py:1011
 msgid "Item status disallows the operation."
 msgstr "Item status disallows the operation."
 
-#: rero_ils/modules/items/api/circulation.py:1013
+#: rero_ils/modules/items/api/circulation.py:1015
 msgid "Item and patron are not in the same organisation."
 msgstr "Item and patron are not in the same organisation."
 
-#: rero_ils/modules/items/api/circulation.py:1018
+#: rero_ils/modules/items/api/circulation.py:1020
 #: rero_ils/modules/selfcheck/api.py:403
 msgid "Item is already checked-out or requested by patron."
 msgstr "Item is already checked-out or requested by patron."
 
-#: rero_ils/modules/items/api/record.py:68
+#: rero_ils/modules/items/api/record.py:73
 msgid "Holding does not exist: {pid}."
 msgstr "Holdings does not exist: {pid}."
 
-#: rero_ils/modules/items/api/record.py:72
+#: rero_ils/modules/items/api/record.py:77
 msgid "Standard item can not have a issue field."
 msgstr "Standard item can not have a field for an issue."
 
-#: rero_ils/modules/items/api/record.py:75
+#: rero_ils/modules/items/api/record.py:80
 msgid "Issue item must have an issue field."
 msgstr "Issue item must have a field for an issue."
 
-#: rero_ils/modules/items/api/record.py:77
+#: rero_ils/modules/items/api/record.py:82
 msgid "enumerationAndChronology field is required for an issue item"
 msgstr "Enumeration and chronology field is required for an issue item"
 
-#: rero_ils/modules/items/api/record.py:87
+#: rero_ils/modules/items/api/record.py:92
 msgid ""
 "Temporary circulation category cannot be the same than default "
 "circulation category."
@@ -9679,7 +9679,7 @@ msgstr ""
 "Temporary circulation category cannot be the same than default "
 "circulation category."
 
-#: rero_ils/modules/items/api/record.py:92
+#: rero_ils/modules/items/api/record.py:97
 msgid "Temporary circulation category end date must be a date in the future."
 msgstr "Temporary circulation category end date must be a date in the future."
 
@@ -10050,7 +10050,7 @@ msgstr "Transaction end date"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:114
 msgid "Due Soon Date"
-msgstr ""
+msgstr "Due soon date"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:118
 msgid "Request expire datetime"
@@ -10176,7 +10176,7 @@ msgstr "Another online location exists in this library"
 msgid "Pickup name field is required."
 msgstr "Pickup location name field is required."
 
-#: rero_ils/modules/locations/api.py:186
+#: rero_ils/modules/locations/api.py:185
 msgid "Item location disallows request."
 msgstr "Item location does not allow for request."
 
@@ -10600,7 +10600,7 @@ msgstr "paypal"
 msgid "dispute"
 msgstr "dispute"
 
-#: rero_ils/modules/patron_transactions/api.py:375
+#: rero_ils/modules/patron_transactions/api.py:385
 msgid "Subscription for '{name}' from {start} to {end}"
 msgstr "Subscription for '{name}' from {start} to {end}"
 
@@ -10664,7 +10664,7 @@ msgstr "Exception limit cannot have same value as library limit"
 msgid "Only one specific limit by library if allowed."
 msgstr "Only one specific limit per library is allowed."
 
-#: rero_ils/modules/patron_types/api.py:150 rero_ils/modules/patrons/api.py:730
+#: rero_ils/modules/patron_types/api.py:150 rero_ils/modules/patrons/api.py:735
 msgid "Checkout denied: the maximal number of overdue items is reached"
 msgstr "Checkout denied: the maximal number of overdue items is reached"
 
@@ -10688,11 +10688,11 @@ msgstr "Renewal denied: the maximal number of overdue items is reached"
 msgid "Renewal denied: the maximal overdue fee amount is reached"
 msgstr "Renewal denied: the maximal overdue fee amount is reached"
 
-#: rero_ils/modules/patron_types/api.py:312
+#: rero_ils/modules/patron_types/api.py:310
 msgid "Checkout denied: the maximal checkout number is reached."
 msgstr "Checkout denied: the maximal checkout number is reached."
 
-#: rero_ils/modules/patron_types/api.py:326
+#: rero_ils/modules/patron_types/api.py:324
 msgid ""
 "Checkout denied: the maximal checkout number of items for this library is"
 " reached."
@@ -10822,24 +10822,24 @@ msgstr ""
 msgid "Limit by overdue items"
 msgstr "Limit by overdue items"
 
-#: rero_ils/modules/patrons/api.py:390 rero_ils/modules/patrons/api.py:705
+#: rero_ils/modules/patrons/api.py:393 rero_ils/modules/patrons/api.py:710
 msgid "Patron rights expired."
 msgstr "Patron rights expired."
 
-#: rero_ils/modules/patrons/api.py:569
+#: rero_ils/modules/patrons/api.py:574
 msgid "Your account is currently blocked."
 msgstr "Your account is currently blocked."
 
-#: rero_ils/modules/patrons/api.py:570
+#: rero_ils/modules/patrons/api.py:575
 msgid "This patron is currently blocked."
 msgstr "This patron is currently blocked."
 
-#: rero_ils/modules/patrons/api.py:574
+#: rero_ils/modules/patrons/api.py:579
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:370
 msgid "Reason"
 msgstr "Reason"
 
-#: rero_ils/modules/patrons/api.py:722
+#: rero_ils/modules/patrons/api.py:727
 msgid "Transactions denied: the maximal overdue fee amount is reached."
 msgstr "Transactions denied: the maximal overdue fee amount is reached."
 
