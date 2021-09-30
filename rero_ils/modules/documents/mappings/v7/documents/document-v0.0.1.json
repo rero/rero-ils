@@ -586,6 +586,29 @@
                     "index": false
                   }
                 }
+              },
+              "identifiedBy": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "keyword"
+                  },
+                  "value": {
+                    "type": "keyword"
+                  },
+                  "note": {
+                    "type": "text"
+                  },
+                  "qualifier": {
+                    "type": "keyword"
+                  },
+                  "source": {
+                    "type": "keyword"
+                  },
+                  "status": {
+                    "type": "text"
+                  }
+                }
               }
             }
           },
@@ -636,9 +659,6 @@
           "type": {
             "type": "keyword"
           },
-          "source": {
-            "type": "keyword"
-          },
           "value": {
             "type": "keyword"
           },
@@ -648,8 +668,8 @@
           "qualifier": {
             "type": "keyword"
           },
-          "acquisitionTerms": {
-            "type": "text"
+          "source": {
+            "type": "keyword"
           },
           "status": {
             "type": "text"
@@ -990,6 +1010,29 @@
         "properties": {
           "label": {
             "type": "text"
+          },
+          "identifiedBy": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "keyword"
+              },
+              "note": {
+                "type": "text"
+              },
+              "qualifier": {
+                "type": "keyword"
+              },
+              "source": {
+                "type": "keyword"
+              },
+              "status": {
+                "type": "text"
+              }
+            }
           }
         }
       },
@@ -998,6 +1041,29 @@
         "properties": {
           "label": {
             "type": "text"
+          },
+          "identifiedBy": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "keyword"
+              },
+              "note": {
+                "type": "text"
+              },
+              "qualifier": {
+                "type": "keyword"
+              },
+              "source": {
+                "type": "keyword"
+              },
+              "status": {
+                "type": "text"
+              }
+            }
           }
         }
       },
@@ -1006,6 +1072,29 @@
         "properties": {
           "label": {
             "type": "text"
+          },
+          "identifiedBy": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "keyword"
+              },
+              "note": {
+                "type": "text"
+              },
+              "qualifier": {
+                "type": "keyword"
+              },
+              "source": {
+                "type": "keyword"
+              },
+              "status": {
+                "type": "text"
+              }
+            }
           }
         }
       },
@@ -1014,6 +1103,29 @@
         "properties": {
           "label": {
             "type": "text"
+          },
+          "identifiedBy": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "keyword"
+              },
+              "note": {
+                "type": "text"
+              },
+              "qualifier": {
+                "type": "keyword"
+              },
+              "source": {
+                "type": "keyword"
+              },
+              "status": {
+                "type": "text"
+              }
+            }
           }
         }
       },
@@ -1022,6 +1134,29 @@
         "properties": {
           "label": {
             "type": "text"
+          },
+          "identifiedBy": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "keyword"
+              },
+              "note": {
+                "type": "text"
+              },
+              "qualifier": {
+                "type": "keyword"
+              },
+              "source": {
+                "type": "keyword"
+              },
+              "status": {
+                "type": "text"
+              }
+            }
           }
         }
       },
@@ -1030,6 +1165,29 @@
         "properties": {
           "label": {
             "type": "text"
+          },
+          "identifiedBy": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "keyword"
+              },
+              "note": {
+                "type": "text"
+              },
+              "qualifier": {
+                "type": "keyword"
+              },
+              "source": {
+                "type": "keyword"
+              },
+              "status": {
+                "type": "text"
+              }
+            }
           }
         }
       },
@@ -1038,6 +1196,29 @@
         "properties": {
           "label": {
             "type": "text"
+          },
+          "identifiedBy": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "keyword"
+              },
+              "note": {
+                "type": "text"
+              },
+              "qualifier": {
+                "type": "keyword"
+              },
+              "source": {
+                "type": "keyword"
+              },
+              "status": {
+                "type": "text"
+              }
+            }
           }
         }
       },
@@ -1046,6 +1227,29 @@
         "properties": {
           "label": {
             "type": "text"
+          },
+          "identifiedBy": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "keyword"
+              },
+              "note": {
+                "type": "text"
+              },
+              "qualifier": {
+                "type": "keyword"
+              },
+              "source": {
+                "type": "keyword"
+              },
+              "status": {
+                "type": "text"
+              }
+            }
           }
         }
       },
@@ -1054,6 +1258,29 @@
         "properties": {
           "label": {
             "type": "text"
+          },
+          "identifiedBy": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "keyword"
+              },
+              "note": {
+                "type": "text"
+              },
+              "qualifier": {
+                "type": "keyword"
+              },
+              "source": {
+                "type": "keyword"
+              },
+              "status": {
+                "type": "text"
+              }
+            }
           }
         }
       },
@@ -1062,6 +1289,29 @@
         "properties": {
           "label": {
             "type": "text"
+          },
+          "identifiedBy": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "keyword"
+              },
+              "note": {
+                "type": "text"
+              },
+              "qualifier": {
+                "type": "keyword"
+              },
+              "source": {
+                "type": "keyword"
+              },
+              "status": {
+                "type": "text"
+              }
+            }
           }
         }
       },
@@ -1361,6 +1611,20 @@
           },
           "key_for_music": {
             "type": "text"
+          },
+          "identifiedBy": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "source": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "keyword"
+              }
+            }
           }
         }
       },
