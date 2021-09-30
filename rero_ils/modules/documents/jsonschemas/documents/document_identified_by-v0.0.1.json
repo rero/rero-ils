@@ -2,7 +2,6 @@
   "identifiedBy": {
     "title": "Identifiers",
     "type": "array",
-    "minItems": 1,
     "items": {
       "title": "Identifier",
       "type": "object",

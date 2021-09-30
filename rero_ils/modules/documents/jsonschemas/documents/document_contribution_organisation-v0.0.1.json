@@ -23,7 +23,6 @@
       "type": "string",
       "readOnly": true,
       "default": "bf:Organisation",
-      "const": "bf:Organisation",
       "form": {
         "templateOptions": {
           "wrappers": [

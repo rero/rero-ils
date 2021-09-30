@@ -22,7 +22,6 @@
       "type": "string",
       "readOnly": true,
       "default": "bf:Person",
-      "const": "bf:Person",
       "form": {
         "templateOptions": {
           "wrappers": [
