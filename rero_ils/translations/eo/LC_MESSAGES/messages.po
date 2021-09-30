@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 1.0.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
-"POT-Creation-Date: 2021-09-22 13:35+0200\n"
+"POT-Creation-Date: 2021-09-30 09:00+0200\n"
 "PO-Revision-Date: 2021-06-09 13:00+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language: eo\n"
@@ -8656,30 +8656,30 @@ msgstr ""
 msgid "Export Formats"
 msgstr ""
 
-#: rero_ils/modules/holdings/api.py:143
+#: rero_ils/modules/holdings/api.py:147
 msgid "Document does not exist {pid}."
 msgstr ""
 
-#: rero_ils/modules/holdings/api.py:150
+#: rero_ils/modules/holdings/api.py:154
 msgid "Must have next expected date for regular frequencies."
 msgstr ""
 
-#: rero_ils/modules/holdings/api.py:153
+#: rero_ils/modules/holdings/api.py:157
 msgid ""
 "Electronic Holding is not attached to the correct                     "
 "document type. document: {pid}"
 msgstr ""
 
-#: rero_ils/modules/holdings/api.py:168
+#: rero_ils/modules/holdings/api.py:172
 msgid "{field} is allowed only for serial holdings"
 msgstr ""
 
-#: rero_ils/modules/holdings/api.py:173 rero_ils/modules/ill_requests/api.py:75
-#: rero_ils/modules/items/api/record.py:81
+#: rero_ils/modules/holdings/api.py:177 rero_ils/modules/ill_requests/api.py:80
+#: rero_ils/modules/items/api/record.py:86
 msgid "Can not have multiple notes of same type."
 msgstr ""
 
-#: rero_ils/modules/holdings/api.py:404
+#: rero_ils/modules/holdings/api.py:405
 msgid "has {count} items with loan attached"
 msgstr ""
 
@@ -9500,42 +9500,42 @@ msgstr ""
 msgid "Information"
 msgstr ""
 
-#: rero_ils/modules/items/api/circulation.py:1009
+#: rero_ils/modules/items/api/circulation.py:1011
 msgid "Item status disallows the operation."
 msgstr ""
 
-#: rero_ils/modules/items/api/circulation.py:1013
+#: rero_ils/modules/items/api/circulation.py:1015
 msgid "Item and patron are not in the same organisation."
 msgstr ""
 
-#: rero_ils/modules/items/api/circulation.py:1018
+#: rero_ils/modules/items/api/circulation.py:1020
 #: rero_ils/modules/selfcheck/api.py:403
 msgid "Item is already checked-out or requested by patron."
 msgstr ""
 
-#: rero_ils/modules/items/api/record.py:68
+#: rero_ils/modules/items/api/record.py:73
 msgid "Holding does not exist: {pid}."
 msgstr ""
 
-#: rero_ils/modules/items/api/record.py:72
+#: rero_ils/modules/items/api/record.py:77
 msgid "Standard item can not have a issue field."
 msgstr ""
 
-#: rero_ils/modules/items/api/record.py:75
+#: rero_ils/modules/items/api/record.py:80
 msgid "Issue item must have an issue field."
 msgstr ""
 
-#: rero_ils/modules/items/api/record.py:77
+#: rero_ils/modules/items/api/record.py:82
 msgid "enumerationAndChronology field is required for an issue item"
 msgstr ""
 
-#: rero_ils/modules/items/api/record.py:87
+#: rero_ils/modules/items/api/record.py:92
 msgid ""
 "Temporary circulation category cannot be the same than default "
 "circulation category."
 msgstr ""
 
-#: rero_ils/modules/items/api/record.py:92
+#: rero_ils/modules/items/api/record.py:97
 msgid "Temporary circulation category end date must be a date in the future."
 msgstr ""
 
@@ -10020,7 +10020,7 @@ msgstr ""
 msgid "Pickup name field is required."
 msgstr ""
 
-#: rero_ils/modules/locations/api.py:186
+#: rero_ils/modules/locations/api.py:185
 msgid "Item location disallows request."
 msgstr ""
 
@@ -10447,7 +10447,7 @@ msgstr "PayPal"
 msgid "dispute"
 msgstr ""
 
-#: rero_ils/modules/patron_transactions/api.py:375
+#: rero_ils/modules/patron_transactions/api.py:385
 msgid "Subscription for '{name}' from {start} to {end}"
 msgstr ""
 
@@ -10511,7 +10511,7 @@ msgstr ""
 msgid "Only one specific limit by library if allowed."
 msgstr ""
 
-#: rero_ils/modules/patron_types/api.py:150 rero_ils/modules/patrons/api.py:730
+#: rero_ils/modules/patron_types/api.py:150 rero_ils/modules/patrons/api.py:735
 msgid "Checkout denied: the maximal number of overdue items is reached"
 msgstr ""
 
@@ -10535,11 +10535,11 @@ msgstr ""
 msgid "Renewal denied: the maximal overdue fee amount is reached"
 msgstr ""
 
-#: rero_ils/modules/patron_types/api.py:312
+#: rero_ils/modules/patron_types/api.py:310
 msgid "Checkout denied: the maximal checkout number is reached."
 msgstr ""
 
-#: rero_ils/modules/patron_types/api.py:326
+#: rero_ils/modules/patron_types/api.py:324
 msgid ""
 "Checkout denied: the maximal checkout number of items for this library is"
 " reached."
@@ -10658,24 +10658,24 @@ msgstr ""
 msgid "Limit by overdue items"
 msgstr ""
 
-#: rero_ils/modules/patrons/api.py:390 rero_ils/modules/patrons/api.py:705
+#: rero_ils/modules/patrons/api.py:393 rero_ils/modules/patrons/api.py:710
 msgid "Patron rights expired."
 msgstr ""
 
-#: rero_ils/modules/patrons/api.py:569
+#: rero_ils/modules/patrons/api.py:574
 msgid "Your account is currently blocked."
 msgstr ""
 
-#: rero_ils/modules/patrons/api.py:570
+#: rero_ils/modules/patrons/api.py:575
 msgid "This patron is currently blocked."
 msgstr ""
 
-#: rero_ils/modules/patrons/api.py:574
+#: rero_ils/modules/patrons/api.py:579
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:370
 msgid "Reason"
 msgstr "Kialo"
 
-#: rero_ils/modules/patrons/api.py:722
+#: rero_ils/modules/patrons/api.py:727
 msgid "Transactions denied: the maximal overdue fee amount is reached."
 msgstr ""
 
