@@ -87,10 +87,28 @@ def lib_martigny_data(data):
 
 
 @pytest.fixture(scope="module")
+def lib_martigny_bourg_data(data):
+    """Martigny-bourg library data."""
+    return deepcopy(data.get('lib7'))
+
+
+@pytest.fixture(scope="module")
 def lib_martigny(app, org_martigny, lib_martigny_data):
     """Martigny-ville library."""
     lib = Library.create(
         data=lib_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LibrariesSearch.Meta.index)
+    return lib
+
+
+@pytest.fixture(scope="module")
+def lib_martigny_bourg(app, org_martigny, lib_martigny_bourg_data):
+    """Martigny-bourg library."""
+    lib = Library.create(
+        data=lib_martigny_bourg_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
@@ -195,6 +213,18 @@ def loc_public_martigny_data(data):
 
 
 @pytest.fixture(scope="module")
+def loc_public_martigny_bourg_data(data):
+    """Load public space location for Martigny bourg."""
+    return deepcopy(data.get('loc15'))
+
+
+@pytest.fixture(scope="module")
+def loc_restricted_martigny_bourg_data(data):
+    """Load restricted space location for Martigny bourg."""
+    return deepcopy(data.get('loc16'))
+
+
+@pytest.fixture(scope="module")
 def loc_public_saillon_data(data):
     """Load public space location for Saillon."""
     return deepcopy(data.get('loc14'))
@@ -295,6 +325,32 @@ def loc_public_martigny(app, lib_martigny, loc_public_martigny_data):
     """Create public space location for Martigny ville."""
     loc = Location.create(
         data=loc_public_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LocationsSearch.Meta.index)
+    return loc
+
+
+@pytest.fixture(scope="module")
+def loc_public_martigny_bourg(
+        app, lib_martigny_bourg, loc_public_martigny_bourg_data):
+    """Create public space location for Martigny bourg."""
+    loc = Location.create(
+        data=loc_public_martigny_bourg_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LocationsSearch.Meta.index)
+    return loc
+
+
+@pytest.fixture(scope="module")
+def loc_restricted_martigny_bourg(
+        app, lib_martigny_bourg, loc_restricted_martigny_bourg_data):
+    """Create restricted space location for Martigny bourg."""
+    loc = Location.create(
+        data=loc_restricted_martigny_bourg_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)

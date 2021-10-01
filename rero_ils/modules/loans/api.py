@@ -141,10 +141,16 @@ class Loan(IlsRecord):
                 return True, []
         if loan.get('state') != LoanState.ITEM_ON_LOAN:
             return False, [_('The loan cannot be extended')]
+        # The parameters for the renewal is calculated based on the transaction
+        # library and not the owning library.
+        transaction_library_pid = Location\
+            .get_record_by_pid(loan['transaction_location_pid'])\
+            .get_library().get('pid')
+
         patron = Patron.get_record_by_pid(loan.get('patron_pid'))
         cipo = CircPolicy.provide_circ_policy(
             item.organisation_pid,
-            item.library_pid,
+            transaction_library_pid,
             patron.patron_type_pid,
             item.item_type_circulation_category_pid
         )
@@ -154,7 +160,7 @@ class Loan(IlsRecord):
                 extend_loan_data_is_valid(
                     loan.get('end_date'),
                     cipo.get('renewal_duration'),
-                    item.library_pid
+                    transaction_library_pid
                )):
             return False, [_('Circulation policies disallows the operation.')]
         if item.number_of_requests():
@@ -643,6 +649,16 @@ class Loan(IlsRecord):
         )
 
     @property
+    def pickup_location_pid(self):
+        """Get loan pickup_location PID."""
+        return self.get('pickup_location_pid')
+
+    @property
+    def transaction_location_pid(self):
+        """Get loan transaction_location PID."""
+        return self.get('transaction_location_pid')
+
+    @property
     def get_overdue_fees(self):
         """Get all overdue fees based based on incremental fees setting.
 
@@ -732,7 +748,7 @@ class Loan(IlsRecord):
         data['rank'] = item.patron_request_rank(patron)
         if item.status == ItemStatus.IN_TRANSIT:
             destination_loc_pid = item.location_pid
-            if LoanState.ITEM_IN_TRANSIT_FOR_PICKUP:
+            if loan.get('state') == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP:
                 destination_loc_pid = self.get('pickup_location_pid')
             destination_loc = Location.get_record_by_pid(destination_loc_pid)
             destination_lib = destination_loc.get_library()

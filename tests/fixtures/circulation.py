@@ -117,6 +117,30 @@ def librarian_martigny(
     yield create_patron(data)
 
 
+# ------------ Org: Martigny, Lib: Martigny-Bourg, Librarian 1 ----------
+@pytest.fixture(scope="module")
+def librarian_martigny_bourg_data(data):
+    """Load Martigny librarian data."""
+    return deepcopy(data.get('ptrn13'))
+
+
+@pytest.fixture(scope="function")
+def librarian_martigny_bourg_data_tmp(data):
+    """Load Martigny librarian data scope function."""
+    return deepcopy(data.get('ptrn13'))
+
+
+@pytest.fixture(scope="module")
+def librarian_martigny_bourg(
+        app,
+        roles,
+        lib_martigny_bourg,
+        librarian_martigny_bourg_data):
+    """Create Martigny bourg librarian record."""
+    data = librarian_martigny_bourg_data
+    yield create_patron(data)
+
+
 # ------------ Org: Martigny, Lib: Martigny, Librarian 2 ----------
 @pytest.fixture(scope="module")
 def librarian2_martigny_data(data):

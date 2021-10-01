@@ -145,9 +145,14 @@ def test_libraries_post_put_delete(client, lib_martigny_data, json_header):
     assert res.status_code == 410
 
 
-def test_library_no_pickup(lib_sion):
-    """Test library with no pick_up location."""
+def test_non_circulating_libraries(
+        lib_sion, lib_martigny, lib_martigny_bourg, loc_public_martigny,
+        loc_public_martigny_bourg):
+    """Test pickup vs transaction locations."""
     assert not lib_sion.get_pickup_location_pid()
+    assert not lib_martigny_bourg.get_pickup_location_pid()
+    assert lib_martigny.get_pickup_location_pid()
+    assert lib_martigny_bourg.get_transaction_location_pid()
 
 
 def test_library_never_open(lib_sion):
@@ -186,7 +191,7 @@ def test_filtered_libraries_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total']['value'] == 3
+    assert data['hits']['total']['value'] == 4
 
     # Sion
     login_user_via_session(client, librarian_sion.user)

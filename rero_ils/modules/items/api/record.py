@@ -484,12 +484,15 @@ class ItemRecord(IlsRecord):
         return organisation['view_code']
 
     def get_owning_pickup_location_pid(self):
-        """Returns the pickup location for the item owning location.
+        """Returns the pickup location pid for the item owning location.
 
-        :return the pid of the item owning item location.
+        case when library has no pickup location defined, we return the item
+        owning location pid.
+
+        :return location pid.
         """
         library = self.get_library()
-        return library.get_pickup_location_pid()
+        return library.get_pickup_location_pid() or self.location_pid
 
     @property
     def notes(self):

@@ -67,7 +67,8 @@ from .modules.item_types.permissions import ItemTypePermission
 from .modules.items.api import Item
 from .modules.items.models import ItemCirculationAction, ItemIssueStatus
 from .modules.items.permissions import ItemPermission
-from .modules.items.utils import item_location_retriever
+from .modules.items.utils import item_location_retriever, \
+    same_location_validator
 from .modules.libraries.api import Library
 from .modules.libraries.permissions import LibraryPermission
 from .modules.loans.api import Loan, LoanState
@@ -2598,6 +2599,9 @@ CIRCULATION_TRANSACTION_USER_VALIDATOR = \
 
 CIRCULATION_LOAN_LOCATIONS_VALIDATION = \
     validate_item_pickup_transaction_locations
+
+CIRCULATION_SAME_LOCATION_VALIDATOR = same_location_validator
+
 """Validates the item, pickup and transaction locations of pending loans."""
 
 # This is needed for absolute URL (url_for)
