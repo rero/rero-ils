@@ -385,25 +385,8 @@ def test_items_receive(client, librarian_martigny,
     assert res.status_code == 200
     item_data = data.get('metadata')
     actions = data.get('action_applied')
-    assert item_data.get('status') == ItemStatus.IN_TRANSIT
-    assert actions.get(LoanAction.CHECKIN)
-
-    # receive
-    res, data = postdata(
-        client,
-        'api_item.receive',
-        dict(
-            item_pid=item_pid,
-            pid=loan_pid,
-            transaction_user_pid=librarian_martigny.pid,
-            transaction_location_pid=loc_public_martigny.pid
-        )
-    )
-    assert res.status_code == 200
-    item_data = data.get('metadata')
-    actions = data.get('action_applied')
     assert item_data.get('status') == ItemStatus.ON_SHELF
-    assert actions.get(LoanAction.RECEIVE)
+    assert actions.get(LoanAction.CHECKIN)
 
 
 def test_items_no_extend(client, librarian_martigny,

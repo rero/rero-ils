@@ -810,6 +810,49 @@
     ],
     "communication_language": "fre"
   },
+  "lib7": {
+    "$schema": "https://bib.rero.ch/schemas/libraries/library-v0.0.1.json",
+    "address": "Ave de la gare, Martigny 1920",
+    "code": "MARTIGNYBOURG",
+    "email": "reroilstest+martignybourg@gmail.com",
+    "name": "Library of Martigny-bourg",
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "pid": "lib7",
+    "notification_settings": [
+      {
+        "type": "due_soon",
+        "email": "reroilstest+martignybourg@gmail.com"
+      },
+      {
+        "type": "overdue",
+        "email": "reroilstest+martignybourg@gmail.com"
+      },
+      {
+        "type": "recall",
+        "email": "reroilstest+martignybourg@gmail.com"
+      },
+      {
+        "type": "availability",
+        "email": "reroilstest+martignybourg@gmail.com",
+        "delay": 0
+      },
+      {
+        "type": "request",
+        "email": "reroilstest+martignybourg@gmail.com"
+      },
+      {
+        "type": "transit_notice",
+        "email": "reroilstest+martignybourg@gmail.com"
+      },
+      {
+        "type": "booking",
+        "email": "reroilstest+martignybourg@gmail.com"
+      }
+    ],
+    "communication_language": "fre"
+  },
   "loc1": {
     "$schema": "https://bib.rero.ch/schemas/locations/location-v0.0.1.json",
     "code": "MARTIGNY-PUBLIC",
@@ -963,6 +1006,28 @@
     },
     "is_pickup": true,
     "pickup_name": "SAILLON-PUBLIC: Public Space",
+    "allow_request": true
+  },
+  "loc15": {
+    "$schema": "https://bib.rero.ch/schemas/locations/location-v0.0.1.json",
+    "code": "MARTIGNY-BOURG-PUBLIC",
+    "name": "Martigny Bourg Library Public Space",
+    "pid": "loc15",
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/lib7"
+    },
+    "is_pickup": false,
+    "allow_request": true
+  },
+  "loc16": {
+    "$schema": "https://bib.rero.ch/schemas/locations/location-v0.0.1.json",
+    "code": "MARTIGNY-BOURG-PUBLIC",
+    "name": "Martigny Bourg Library Restricted Space",
+    "pid": "loc16",
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/lib7"
+    },
+    "is_pickup": false,
     "allow_request": true
   },
   "itty1": {
@@ -3262,6 +3327,32 @@
     },
     "status": "on_shelf"
   },
+  "item10": {
+    "$schema": "https://bib.rero.ch/schemas/items/item-v0.0.1.json",
+    "pid": "item10",
+    "barcode": "123410",
+    "type": "standard",
+    "document": {
+      "$ref": "https://bib.rero.ch/api/documents/doc1"
+    },
+    "call_number": "000010",
+    "location": {
+      "$ref": "https://bib.rero.ch/api/locations/loc15"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/lib7"
+    },
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "item_type": {
+      "$ref": "https://bib.rero.ch/api/item_types/itty1"
+    },
+    "status": "on_shelf",
+    "url": "https://lipda.mediatheque.ch/CH-000019-X:223156.file",
+    "pac_code": "0_frozen_collection",
+    "price": 15.2
+  },
   "ptrn1": {
     "$schema": "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json",
     "pid": "ptrn1",
@@ -3574,6 +3665,27 @@
       "communication_channel": "email",
       "communication_language": "fre"
     }
+  },
+  "ptrn13": {
+    "$schema": "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json",
+    "pid": "ptrn13",
+    "first_name": "Michelle",
+    "last_name": "Bonvin",
+    "street": "Avenue de la Gare, 4",
+    "postal_code": "1920",
+    "city": "Martigny",
+    "birth_date": "1975-02-07",
+    "libraries": [
+      {
+        "$ref": "https://bib.rero.ch/api/libraries/lib7"
+      }
+    ],
+    "username": "michelle",
+    "email": "mbonvin@gmail.com",
+    "home_phone": "+41324993599",
+    "roles": [
+      "librarian"
+    ]
   },
   "dummy_notif": {
     "$schema": "https://bib.rero.ch/schemas/notifications/notification-v0.0.1.json",

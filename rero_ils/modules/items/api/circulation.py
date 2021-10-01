@@ -32,6 +32,7 @@ from invenio_pidstore.errors import PersistentIdentifierError
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_search import current_search
 
+from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.patron_transactions.api import PatronTransactionsSearch
 
 from .record import ItemRecord
@@ -174,6 +175,7 @@ class ItemCirculation(ItemRecord):
         kwargs['transaction_date'] = datetime.utcnow().isoformat()
         document_pid = extracted_data_from_ref(item.get('document'))
         kwargs.setdefault('document_pid', document_pid)
+        # set the transaction location for the circulation transaction
         transaction_location_pid = kwargs.get(
             'transaction_location_pid', None)
         if not transaction_location_pid:
@@ -182,8 +184,17 @@ class ItemCirculation(ItemRecord):
             if transaction_library_pid is not None:
                 lib = Library.get_record_by_pid(transaction_library_pid)
                 kwargs['transaction_location_pid'] = \
-                    lib.get_pickup_location_pid()
-
+                    lib.get_transaction_location_pid()
+        # set the pickup_location_pid field if not found for loans that are
+        # ready for checkout.
+        if not kwargs.get('pickup_location_pid') and \
+            loan.get('state') in \
+                [
+                    LoanState.CREATED,
+                    LoanState.ITEM_AT_DESK
+                ]:
+            kwargs['pickup_location_pid'] = \
+                kwargs.get('transaction_location_pid')
         return loan, kwargs
 
     def checkin_item_on_shelf(self, loans_list, **kwargs):
@@ -416,7 +427,12 @@ class ItemCirculation(ItemRecord):
         # not a closed date. If it's a closed date, then we need to update the
         # value to the next open day.
         if 'end_date' in action_params:
-            library = Library.get_record_by_pid(self.library_pid)
+            # circulation parameters are to calculate from transaction library.
+            transaction_library_pid = LocationsSearch().get_record_by_pid(
+                kwargs.get('transaction_location_pid')).library.pid
+            if not transaction_library_pid:
+                transaction_library_pid = self.library_pid
+            library = Library.get_record_by_pid(transaction_library_pid)
             if not library.is_open(action_params['end_date'], True):
                 new_end_date = library.next_open(action_params['end_date'])
                 new_end_date = new_end_date.astimezone()\

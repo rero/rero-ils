@@ -98,23 +98,39 @@ class Library(IlsRecord):
         from ..organisations.api import Organisation
         return Organisation.get_record_by_pid(self.organisation_pid)
 
-    def pickup_location_query(self):
+    def _pickup_location_query(self):
         """Search the location index for pickup locations."""
-        return LocationsSearch().filter(
-            'term', library__pid=self.pid).filter(
-                'term', is_pickup=True).source(['pid']).scan()
+        return LocationsSearch() \
+            .filter('term', library__pid=self.pid) \
+            .filter('term', is_pickup=True) \
+            .source(['pid']) \
+            .scan()
+
+    def location_pids(self):
+        """Return a generator of ES Hits of all pids of library locations."""
+        return LocationsSearch() \
+            .filter('term', library__pid=self.pid) \
+            .source(['pid']) \
+            .scan()
 
     def get_pickup_locations_pids(self):
         """Returns libraries all pickup locations pids."""
-        for location in self.pickup_location_query():
+        for location in self._pickup_location_query():
             yield location.pid
 
     def get_pickup_location_pid(self):
-        """Returns libraries first pickup location pid."""
+        """Returns one picup location pid for a library."""
         try:
-            return next(self.pickup_location_query()).pid
+            return next(self._pickup_location_query()).pid
         except StopIteration:
             return None
+
+    def get_transaction_location_pid(self):
+        """Returns one pickup or one transaction location pid for a library."""
+        try:
+            return next(self._pickup_location_query()).pid
+        except StopIteration:
+            return next(self.location_pids()).pid
 
     def _is_betweentimes(self, time_to_test, times):
         """Test if time is between times."""

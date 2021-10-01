@@ -17,6 +17,8 @@
 
 """Item utils."""
 
+from rero_ils.modules.locations.api import LocationsSearch
+
 
 def item_pid_to_object(item_pid):
     """Build an item_pid object from a given item pid.
@@ -48,6 +50,22 @@ def item_location_retriever(item_pid):
         # if last_location:
         #     return last_location.pid
         return item.get_owning_pickup_location_pid()
+
+
+def same_location_validator(item_pid, input_location_pid):
+    """Validate that item and transaction location are in same library.
+
+    :param item_pid: the item_pid object
+    :type input_location_pid: object
+    :return: true if in same library otherwise false
+    :rtype: boolean
+    """
+    from rero_ils.modules.items.api import ItemsSearch
+    lib_from_loc = LocationsSearch().get_record_by_pid(
+        input_location_pid).library.pid
+    lib_from_item = ItemsSearch().get_record_by_pid(
+        item_pid.get('value')).library.pid
+    return lib_from_loc == lib_from_item
 
 
 def exists_available_item(items=[]):

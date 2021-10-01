@@ -410,6 +410,12 @@ def item_lib_martigny_data(data):
     return deepcopy(data.get('item1'))
 
 
+@pytest.fixture(scope="module")
+def item_lib_martigny_bourg_data(data):
+    """Load item of martigny bourg library."""
+    return deepcopy(data.get('item10'))
+
+
 @pytest.fixture(scope="function")
 def item_lib_martigny_data_tmp(data):
     """Load item of martigny library scope function."""
@@ -426,6 +432,23 @@ def item_lib_martigny(
     """Create item of martigny library."""
     item = Item.create(
         data=item_lib_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ItemsSearch.Meta.index)
+    return item
+
+
+@pytest.fixture(scope="module")
+def item_lib_martigny_bourg(
+        app,
+        document,
+        item_lib_martigny_bourg_data,
+        loc_public_martigny_bourg,
+        item_type_standard_martigny):
+    """Create item of martigny library bourg."""
+    item = Item.create(
+        data=item_lib_martigny_bourg_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
