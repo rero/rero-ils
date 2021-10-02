@@ -47,6 +47,8 @@ invenio = {version = ">=3.4.0,<5.4.0", extras = ["base", "postgresql", "auth", "
 
 # TODO: jedi > 0.17 crashs the console
 jedi = "<0.18.0"
+# TODO: jsonschema 4.0.0 is not working with invenio because there is a new parameter type!
+jsonschema = "<4.0.0"
 
 ## RERO ILS specific python modules
 PyYAML = ">=5.3.1"
