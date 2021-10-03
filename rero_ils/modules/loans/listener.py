@@ -17,6 +17,7 @@
 
 """Signals connector for Loan."""
 
+from flask import current_app
 from invenio_circulation.proxies import current_circulation
 
 from ..items.api import Item
@@ -34,8 +35,13 @@ def enrich_loan_data(sender, json=None, record=None, index=None,
     :param doc_type: The doc_type for the record.
     """
     if index.split('-')[0] == current_circulation.loan_search_cls.Meta.index:
-        item = Item.get_record_by_pid(record.get('item_pid', {}).get('value'))
-        json['library_pid'] = item.holding_library_pid
+        item_pid = record.get('item_pid', {}).get('value')
+        item = Item.get_record_by_pid(item_pid)
+        if item:
+            json['library_pid'] = item.holding_library_pid
+        else:
+            current_app.logger.warning(
+                f'No item found: {item_pid} for loan: {record.get("pid")}')
 
 
 def listener_loan_state_changed(_, initial_loan, loan, trigger):
