@@ -31,6 +31,7 @@ from invenio_jsonschemas import current_jsonschemas
 from invenio_records.validators import PartialDraft4Validator
 from invenio_userprofiles.models import UserProfile
 from jsonschema import FormatChecker
+from sqlalchemy import func
 from sqlalchemy.orm.exc import NoResultFound
 from werkzeug.local import LocalProxy
 
@@ -224,7 +225,9 @@ class User(object):
         :param email - the email of the user
         :return: the user record
         """
-        user = BaseUser.query.filter_by(email=email).first()
+        user = BaseUser.query.filter(
+            func.lower(BaseUser.email) == func.lower(email)).first()
+        # user = BaseUser.query.filter_by(email=email.lower()).first()
         if not user:
             return None
         return cls(user)

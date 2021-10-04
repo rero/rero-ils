@@ -186,3 +186,15 @@ def test_users_search_api(client, librarian_martigny, patron_martigny):
     hits = get_json(res)
     assert hits['hits']['hits'][0]['id'] == patron_martigny['user_id']
     assert hits['hits']['total']['value'] == 1
+
+    # by uppercase email
+    res = client.get(
+        url_for(
+            'api_users.users_list',
+            q='email:' + patron_martigny['email'].upper()
+        )
+    )
+    assert res.status_code == 200
+    hits = get_json(res)
+    assert hits['hits']['hits'][0]['id'] == patron_martigny['user_id']
+    assert hits['hits']['total']['value'] == 1
