@@ -64,9 +64,8 @@ class LibrariesSearch(IlsRecordsSearch):
         query = self.filter('term', organisation__pid=org_pid)
         if fields:
             query = query.source(includes=fields)
-        response = query.execute()
-        for hit in response.hits.hits:
-            yield hit._source
+        for result in query.scan():
+            yield result
 
 
 class Library(IlsRecord):
