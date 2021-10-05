@@ -1207,7 +1207,8 @@
             "type": "keyword"
           },
           "term": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "facet_genre_form"
           },
           "identifiedBy": {
             "type": "object",
@@ -1227,6 +1228,9 @@
             "type": "keyword"
           }
         }
+      },
+      "facet_genre_form": {
+        "type": "keyword"
       },
       "genreForm_imported": {
         "type": "object",
