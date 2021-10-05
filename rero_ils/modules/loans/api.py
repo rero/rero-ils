@@ -403,7 +403,8 @@ class Loan(IlsRecord):
             :param known_items: already known items.
             :return the corresponding item.
             """
-            fields = ['pid', 'barcode', 'call_number', 'library', 'location',
+            fields = ['pid', 'barcode', 'call_number',
+                      'second_call_number', 'library', 'location',
                       'temporary_item_type', 'holding']
             if pid not in known_items:
                 results = ItemsSearch()\
