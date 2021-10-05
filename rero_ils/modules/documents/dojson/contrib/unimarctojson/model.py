@@ -491,7 +491,7 @@ def marc21_to_part_of(self, key, value):
 def unimarc_languages(self, key, value):
     """Get languages.
 
-    languages: 008 and 041 [$a, repetitive]
+    languages: 101 [$a, repetitive]
     """
     languages = utils.force_list(value.get('a'))
     to_return = []

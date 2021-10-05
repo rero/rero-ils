@@ -443,7 +443,7 @@ def test_marc21_to_mode_of_issuance():
 
 # pid: 001
 def test_marc21_to_pid():
-    """Test dojson marc21languages."""
+    """Test dojson marc21pid."""
 
     marc21xml = """
     <record>
@@ -1313,6 +1313,9 @@ def test_marc21_to_language():
     marc21xml = """
     <record>
       <controlfield tag="008">{field_008}</controlfield>
+      <datafield tag="546">
+        <subfield code="a">LANGUAGE NOTE</subfield>
+      </datafield>
     </record>
     """.format(
         field_008='881005s1984    xxu|||||| ||||00|| |ara d'
@@ -1322,7 +1325,8 @@ def test_marc21_to_language():
     assert data.get('language') == [
         {
             'type': 'bf:Language',
-            'value': 'ara'
+            'value': 'ara',
+            'note': 'LANGUAGE NOTE'
         }
     ]
 

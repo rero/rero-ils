@@ -14,7 +14,8 @@
       "additionalProperties": false,
       "propertiesOrder": [
         "type",
-        "value"
+        "value",
+        "note"
       ],
       "properties": {
         "type": {
@@ -40,6 +41,18 @@
         },
         "value": {
           "$ref": "https://bib.rero.ch/schemas/common/languages-v0.0.1.json#/language"
+        },
+        "note": {
+          "title": "Note",
+          "type": "string",
+          "form": {
+            "type": "textarea",
+            "templateOptions": {
+              "itemCssClass": "col-lg-12",
+              "rows": 3,
+              "hide": true
+            }
+          }
         }
       },
       "form": {

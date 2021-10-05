@@ -333,6 +333,12 @@ def marc21_to_language(self, key, value):
                 'type': 'bf:Language'
             })
             lang_codes.append(lang_value)
+    # language note
+    fields_546 = marc21.get_fields(tag='546')
+    if fields_546:
+        subfields_546_a = marc21.get_subfields(fields_546[0], 'a')
+        if subfields_546_a:
+            language[0]['note'] = subfields_546_a[0]
     # default provisionActivity if we have no 264
     fields_264 = marc21.get_fields(tag='264')
     valid_264 = False
