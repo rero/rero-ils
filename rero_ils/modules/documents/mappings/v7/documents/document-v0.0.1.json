@@ -190,6 +190,9 @@
           },
           "value": {
             "type": "keyword"
+          },
+          "note": {
+            "type": "text"
           }
         }
       },
