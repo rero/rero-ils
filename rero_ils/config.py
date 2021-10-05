@@ -2560,6 +2560,18 @@ JSONSCHEMAS_LOADER_CLS = 'rero_ils.jsonschemas.utils.JsonLoader'
 # =======
 OAISERVER_ID_PREFIX = 'oai:bib.rero.ch:'
 
+# ANONYMISATION PROCESS CONFIGURATION
+# ================================================
+
+# Specify the delay (in days) under which no loan can't be anonymized anyway (
+# for circulation management process).
+RERO_ILS_ANONYMISATION_MIN_TIME_LIMIT = 3*365/12
+
+# Specify the delay (in days) when a loan should be anonymized anyway after it
+# concluded.
+RERO_ILS_ANONYMISATION_MAX_TIME_LIMIT = 6*365/12
+
+
 #: Invenio circulation configuration.
 CIRCULATION_ITEM_EXISTS = Item.item_exists
 CIRCULATION_PATRON_EXISTS = Patron.get_record_by_pid

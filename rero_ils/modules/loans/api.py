@@ -22,7 +22,8 @@ from bisect import bisect_right
 from datetime import datetime, timedelta, timezone
 
 import ciso8601
-from elasticsearch_dsl import A
+from dateutil.relativedelta import relativedelta
+from elasticsearch_dsl import A, Q
 from flask import current_app
 from flask_babelex import gettext as _
 from invenio_circulation.errors import MissingRequiredParameterError
@@ -66,6 +67,7 @@ class LoanState(object):
     ITEM_RETURNED = 'ITEM_RETURNED'
     CANCELLED = 'CANCELLED'
 
+    CONCLUDED = [CANCELLED, ITEM_RETURNED]
     ITEM_IN_TRANSIT = [ITEM_IN_TRANSIT_TO_HOUSE, ITEM_IN_TRANSIT_FOR_PICKUP]
 
 
@@ -256,7 +258,7 @@ class Loan(IlsRecord):
         """Update loan record."""
         self._loan_build_org_ref(data)
         # set the field to_anonymize
-        if Loan.can_anonymize(loan_data=data) and not self.get('to_anonymize'):
+        if not self.get('to_anonymize') and Loan.can_anonymize(loan_data=data):
             data['to_anonymize'] = True
         super().update(
             data=data, commit=commit, dbcommit=dbcommit, reindex=reindex)
@@ -822,7 +824,6 @@ class Loan(IlsRecord):
         from .utils import get_circ_policy
         types = [(self, t) for t in [_type] if t]
         notifications = []
-
         for loan, n_type in types or self.get_notification_candidates(trigger):
             create = True  # Should the notification actually be created.
             # Internal notification (library destination) should be directly
@@ -883,6 +884,43 @@ class Loan(IlsRecord):
         return notification
 
     @classmethod
+    def get_anonymized_candidates(cls):
+        """Search for loans to anonymize.
+
+        Depending of the related patron `keep_history` setting, there is two
+        ways for searching loan candidates to:
+        1) If the patron specifies to keep transaction history : we keep
+           history for the 6 last months. After this delay, all loans will be
+           anonymized anyway.
+        2) If the patron doesn't specify to keep history : we can anonymize
+           related loans except if they are not concluded than 3 months ago
+           (we need to keep transactions for the last 3 months for circulation
+           management).
+
+        :return a generator of `Loan` candidate to anonymize.
+        """
+        three_month_ago = datetime.now() - relativedelta(months=3)
+        six_month_ago = datetime.now() - relativedelta(months=6)
+
+        patron_query = PatronsSearch().filter('bool', must_not=[
+            Q('exists', field='keep_history'),
+            Q('term', keep_history=True)
+        ])
+        anonym_patron_pids = [h.pid for h in patron_query.source('pid').scan()]
+
+        query = LoansSearch() \
+            .filter('terms', state=LoanState.CONCLUDED) \
+            .filter('term', to_anonymize=False) \
+            .filter('bool', should=[
+                Q('range', transaction_date={'lt': six_month_ago}),
+                (Q('terms', patron_pid=anonym_patron_pids) &
+                 Q('range', transaction_date={'lt': three_month_ago}))
+            ]) \
+            .source(['pid'])
+        for hit in query.scan():
+            yield Loan.get_record_by_pid(hit.pid)
+
+    @classmethod
     def concluded(cls, loan):
         """Check if loan is concluded.
 
@@ -892,8 +930,7 @@ class Loan(IlsRecord):
         :param loan: the loan to check.
         :return True|False
         """
-        states = [LoanState.ITEM_RETURNED, LoanState.CANCELLED]
-        return loan.get('state') in states and\
+        return loan.get('state') in LoanState.CONCLUDED and\
             not loan_has_open_events(loan_pid=loan.get('pid'))
 
     @classmethod
@@ -918,27 +955,54 @@ class Loan(IlsRecord):
         1. it is concluded and 6 months old
         2. patron has the keep_history set to False and the loan is concluded.
 
-        This method is classmethod because it needs to check the loan record
+        This method is class method because it needs to check the loan record
         during the loan.update process. this way, you can have access to the
         old and new version of the loan.
 
-        :param loan_data: the loan to check.
+        :param loan_data: the loan data to check (could be a `Loan` or a dict).
         :param patron: the patron to check.
-        :return True|False.
+        :return True if the loan can be anonymized, False otherwise.
         """
-        if cls.concluded(loan_data) and cls.age(loan_data) > 6*365/12:
+        # CHECK #1 : Is the loan is concluded ?
+        #   If the loan is still alive (item in loan, item requested), we can't
+        #   anonymize it
+        if not cls.concluded(loan_data):
+            return False
+
+        # CHECK #2 : is the loan is a old loan ?
+        #   A concluded loan, older than a limit, could always be anonymized.
+        #   The limit could be configure by 'RERO_ILS_ANONYMISATION_TIME_LIMIT'
+        #   key into `config.py`.
+        max_limit = current_app.config.get(
+            'RERO_ILS_ANONYMISATION_MAX_TIME_LIMIT',
+            math.inf
+        )
+        loan_age = cls.age(loan_data)
+        if loan_age > max_limit:
             return True
-        if not patron:
-            patron = Patron.get_record_by_pid(loan_data.get('patron_pid'))
+
+        # CHECK #3 : is the loan is just concluded ?
+        #   Circulation management and/or library manager needs to keep loan
+        #   information for a delay (in days) after the concluded date anyway.
+        min_limit = current_app.config.get(
+            'RERO_ILS_ANONYMISATION_MIN_TIME_LIMIT',
+            -math.inf
+        )
+        if loan_age < (min_limit + 1):
+            return False
+
+        # CHECK #4 : Check about patron preferences
+        #   Patron could specify if it want keep transaction history or not
+        patron_pid = loan_data.get('patron_pid')
+        patron = patron or Patron.get_record_by_pid(patron_pid)
+        keep_history = True
         if patron:
             keep_history = patron.user.profile.keep_history
         else:
-            # patron does not exist anymore.
-            current_app.logger.warning(
-                    f'Can not anonymize loan: {loan_data.get("pid")}'
-                    f'no patron: {loan_data.get("patron_pid")}')
-            keep_history = True
-        return not keep_history and cls.concluded(loan_data)
+            msg = f'Can not anonymize loan: {loan_data.get("pid")} ' \
+                  f'no patron: {loan_data.get("patron_pid")}'
+            current_app.logger.warning(msg)
+        return not keep_history
 
 
 def get_request_by_item_pid_by_patron_pid(item_pid, patron_pid):
@@ -1128,16 +1192,17 @@ def loan_has_open_events(loan_pid=None):
 
     :return True|False.
     """
-    search = NotificationsSearch()\
-        .filter('term', context__loan__pid=loan_pid)\
-        .source(['pid']).scan()
-    for record in search:
-        transactions_count = PatronTransactionsSearch()\
-            .filter('term', notification__pid=record.pid)\
-            .filter('term', status='open')\
-            .source().count()
-        if transactions_count > 0:
-            return True
+    if loan_pid:
+        search = NotificationsSearch()\
+            .filter('term', context__loan__pid=loan_pid)\
+            .source(['pid']).scan()
+        for record in search:
+            transactions_count = PatronTransactionsSearch()\
+                .filter('term', notification__pid=record.pid)\
+                .filter('term', status='open')\
+                .source().count()
+            if transactions_count > 0:
+                return True
     return False
 
 

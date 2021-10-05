@@ -23,14 +23,16 @@ from copy import deepcopy
 from datetime import date, datetime, timedelta, timezone
 
 import ciso8601
+import mock
 from freezegun import freeze_time
 from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import LoansSearch
 from utils import flush_index, get_mapping
 
 from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE
+from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.libraries.api import Library
-from rero_ils.modules.loans.api import Loan, LoanState
+from rero_ils.modules.loans.api import Loan, LoanAction, LoanState
 from rero_ils.modules.loans.tasks import loan_anonymizer
 from rero_ils.modules.loans.utils import get_circ_policy, \
     get_default_loan_duration, sum_for_fees
@@ -38,7 +40,6 @@ from rero_ils.modules.notifications.api import NotificationsSearch
 from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.notifications.tasks import create_notifications
 from rero_ils.modules.patron_transactions.api import PatronTransaction
-from rero_ils.modules.patrons.api import Patron
 
 
 def test_loan_es_mapping(es_clear, db):
@@ -111,15 +112,35 @@ def test_loan_keep_and_to_anonymize(
     }
     item.checkin(**params)
     loan = Loan.get_record_by_pid(loan.pid)
-    # item checkedin and has no open events
+    # CHECK #1 : loan concluded but patron doesn't request to anonymized loans.
+    #  * item checked-in
+    #  * no open events
+    #  * patron doesn't specify any information into `keep_history`
     assert Loan.concluded(loan)
     assert not Loan.can_anonymize(loan_data=loan)
 
+    # CHECK #2 : Update the patron 'keep_history'
+    #   * patron should anonymize loans
+    #   * as loan concluded date > 3 months, system need to keep reference and
+    #     loan cannot be anonymized yet.
+    #   TODO :: Adapt the value depending of the
+    #           RERO_ILS_ANONYMISATION_MIN_TIME_LIMIT parameter
     patron.set_keep_history(False)
-    # when the patron asks to anonymize history the can_anonymize is true
     loan = Loan.get_record_by_pid(loan.pid)
     assert Loan.concluded(loan)
-    assert Loan.can_anonymize(loan_data=loan)
+    assert not Loan.can_anonymize(loan_data=loan)
+
+    # CHECK #3 : Check if loan is concluded between 3 and 6 months.
+    #   Between 3 and 6 months, the loan could be anonymized depending of
+    #   patron setting. After 6 months, all loans are anonymized.
+    #   TODO :: Adapt the value depending of the
+    #           RERO_ILS_ANONYMISATION_MAX_TIME_LIMIT parameter
+    four_months_ago = datetime.utcnow() - timedelta(days=4 * 31)
+    loan['transaction_date'] = four_months_ago.isoformat()
+    assert loan.concluded(loan)
+    assert loan.can_anonymize(loan_data=loan)
+
+    # Update the loan to set the "to_anonymize" attribute into DB
     loan.update(loan, dbcommit=True, reindex=True)
 
     # test loans with fees
@@ -160,11 +181,11 @@ def test_anonymizer_job(
         librarian_martigny, loc_public_martigny):
     """Test loan anonymizer job."""
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
-    # make the loan overdue
+
+    # make the loan overdue and create related notifications
     end_date = datetime.now(timezone.utc) - timedelta(days=10)
     loan['end_date'] = end_date.isoformat()
     loan.update(loan, dbcommit=True, reindex=True)
-
     create_notifications(types=[
         NotificationType.DUE_SOON,
         NotificationType.OVERDUE
@@ -172,37 +193,108 @@ def test_anonymizer_job(
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
 
-    assert not loan.concluded(loan)
-    assert not loan.can_anonymize(loan_data=loan)
+    # ensure than this loan cannot be anonymize (it's not yet concluded and
+    # could have open fees [depending of the related CIPO])
+    assert not Loan.concluded(loan)
+    assert not Loan.can_anonymize(loan_data=loan)
 
+    # update the patron `keep_history` setting to ensure the patron want keep
+    # its history --> transaction concluded less than 6 months ago cannot be
+    # anonymized.
     patron.set_keep_history(True)
-
     params = {
         'transaction_location_pid': loc_public_martigny.pid,
         'transaction_user_pid': librarian_martigny.pid
     }
     item.checkin(**params)
     loan = Loan.get_record_by_pid(loan.pid)
-    # item checked-in and has no open events
-    assert not loan.concluded(loan)
-    assert not loan.can_anonymize(loan_data=loan)
+    # ensure than, after check-in, the loan isn't considerate as 'concluded'
+    # (because of open fees transactions)
+    assert not Loan.concluded(loan)
 
+    # So a this time, if we run the `loan_anonymizer` task, none loan cannot
+    # be anonymized --> return should be 0
     msg = loan_anonymizer(dbcommit=True, reindex=True)
     assert msg == 'number_of_loans_anonymized: 0'
 
+    # We will now update the loan `transaction_date` to 1 year ago and close
+    # all open transactions about it.
     patron.set_keep_history(False)
+    one_year_ago = datetime.now() - timedelta(days=365)
+    loan['transaction_date'] = one_year_ago.isoformat()
+    loan = loan.update(loan, dbcommit=True, reindex=True)
     # close open transactions and notifications
-    for transaction in PatronTransaction.get_transactions_by_patron_pid(
+    for hit in PatronTransaction.get_transactions_by_patron_pid(
                 patron.get('pid'), 'open'):
-        transaction = PatronTransaction.get_record_by_pid(transaction.pid)
+        transaction = PatronTransaction.get_record_by_pid(hit.pid)
         transaction['status'] = 'closed'
         transaction.update(transaction, dbcommit=True, reindex=True)
+
+    # ensure than, after these change, the loan can be anonymize.
+    assert Loan.can_anonymize(loan_data=loan)
+
+    # run the `loan_anonymizer` task and check the result. At least our loan
+    # should be anonymize.
+    count = len(list(Loan.get_anonymized_candidates()))
     msg = loan_anonymizer(dbcommit=True, reindex=True)
-    count = Loan.count()
-    # we have a problem with the count if we have old data in the DB and ES
-    if Patron.get_record_by_pid('ptrn7'):
-        count -= 1
     assert msg == f'number_of_loans_anonymized: {count}'
+
+
+@mock.patch.object(Loan, 'can_anonymize', mock.MagicMock(return_value=False))
+def test_anonymize_candidates(
+    item2_on_loan_martigny_patron_and_loan_on_loan, patron_martigny,
+    librarian_martigny, loc_public_martigny
+):
+    """Test loan anonymize candidates."""
+    item, patron, loan = item2_on_loan_martigny_patron_and_loan_on_loan
+    if item.status == ItemStatus.ON_SHELF:
+        params = {
+            'patron_pid': patron_martigny.pid,
+            'transaction_location_pid': loc_public_martigny.pid,
+            'transaction_user_pid': librarian_martigny.pid,
+            'pickup_location_pid': loc_public_martigny.pid
+        }
+        item, actions = item.checkout(**params)
+        loan = Loan.get_record_by_pid(actions[LoanAction.CHECKOUT].get('pid'))
+
+    # The loan isn't concluded at this time, no candidates should be returned
+    candidates = [loan.pid for loan in Loan.get_anonymized_candidates()]
+    assert loan.pid not in candidates
+
+    # Force the patron to keep history and conclude the loan.
+    # Force the transaction date to 1 year ago. The loan should now be into
+    # the anonymize candidate.
+    patron.set_keep_history(True)
+    params = {
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny.pid
+    }
+    item.checkin(**params)
+    loan = Loan.get_record_by_pid(loan.pid)
+    one_year_ago = datetime.now(timezone.utc) - timedelta(days=365)
+    loan['transaction_date'] = one_year_ago.isoformat()
+    loan = loan.update(loan, dbcommit=True, reindex=True)
+    flush_index(LoansSearch.Meta.index)
+
+    candidates = [loan.pid for loan in Loan.get_anonymized_candidates()]
+    assert loan.pid in candidates
+
+    # Set the transaction date to 4 months ago. As the patron want to keep
+    # history, the loan isn't yet an anonymize candidate.
+    four_month_ago = datetime.now(timezone.utc) - timedelta(days=4*30)
+    loan['transaction_date'] = four_month_ago.isoformat()
+    loan = loan.update(loan, dbcommit=True, reindex=True)
+    flush_index(LoansSearch.Meta.index)
+
+    candidates = [loan.pid for loan in Loan.get_anonymized_candidates()]
+    assert loan.pid not in candidates
+
+    # Now force the patron to not keep history setting. The loan is older than
+    # 3 months, the loan must be an anonymize candidate.
+    patron.set_keep_history(False)
+
+    candidates = [loan.pid for loan in Loan.get_anonymized_candidates()]
+    assert loan.pid in candidates
 
 
 def test_loan_get_overdue_fees(item_on_loan_martigny_patron_and_loan_on_loan):
