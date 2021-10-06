@@ -18,6 +18,23 @@
 Release notes
 =============
 
+v1.5.1
+------
+
+This patch fixes several issues:
+
+-  Corrects the collection (seminar/courses) URL (`#2337`_).
+-  Speeds the rendering of several professional interface pages (`#2259`_).
+-  Restore the facets behaviour, without the limit to ten items.
+-  Fixes the computation of due date (`#2198`_).
+-  Corrects the URL for Renouvaud catalogue on the frontpages used in
+   production.
+
+
+.. _#2337: https://github.com/rero/rero-ils/issues/2337
+.. _#2259: https://github.com/rero/rero-ils/issues/2259
+.. _#2198: https://github.com/rero/rero-ils/issues/2198
+
 v1.5.0
 ------
 
