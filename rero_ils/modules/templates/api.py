@@ -19,7 +19,7 @@
 """API for manipulating Templates."""
 from functools import partial
 
-from .extensions import RemoveDataPidExtension
+from .extensions import CleanDataDictExtension
 from .models import TemplateIdentifier, TemplateMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
@@ -56,7 +56,7 @@ class TemplatesSearch(IlsRecordsSearch):
 class Template(IlsRecord):
     """Templates class."""
 
-    _extensions = [RemoveDataPidExtension()]
+    _extensions = [CleanDataDictExtension()]
 
     minter = template_id_minter
     fetcher = template_id_fetcher

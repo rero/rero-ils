@@ -38,6 +38,7 @@ from ..minters import id_minter
 from ..organisations.api import Organisation
 from ..patron_transactions.api import PatronTransaction
 from ..providers import Provider
+from ..templates.api import TemplatesSearch
 from ..users.api import User
 from ..utils import extracted_data_from_ref, get_patron_from_arguments, \
     get_ref_for_pid, sorted_pids, trim_patron_barcode_for_record
@@ -486,21 +487,27 @@ class Patron(IlsRecord):
             links = {}
             exclude_states = [LoanState.CANCELLED, LoanState.ITEM_RETURNED,
                               LoanState.CREATED]
-            query = current_circulation.loan_search_cls()\
+            loan_query = current_circulation.loan_search_cls()\
                 .filter('term', patron_pid=self.pid)\
                 .exclude('terms', state=exclude_states)
+            template_query = TemplatesSearch()\
+                .filter('term', creator__pid=self.pid)
             if get_pids:
-                loans = sorted_pids(query)
+                loans = sorted_pids(loan_query)
                 transactions = PatronTransaction \
                     .get_transactions_pids_for_patron(self.pid, status='open')
+                templates = sorted_pids(template_query)
             else:
-                loans = query.count()
+                loans = loan_query.count()
                 transactions = PatronTransaction \
                     .get_transactions_count_for_patron(self.pid, status='open')
+                templates = template_query.count()
             if loans:
                 links['loans'] = loans
             if transactions:
                 links['transactions'] = transactions
+            if templates:
+                links['templates'] = templates
             return links
 
     def reasons_to_keep(self):
