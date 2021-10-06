@@ -20,14 +20,31 @@
 from invenio_records.extensions import RecordExtension
 
 
-class RemoveDataPidExtension(RecordExtension):
+class CleanDataDictExtension(RecordExtension):
     """Defines the methods needed by an extension."""
 
     def post_init(self, record, data, model=None, **kwargs):
         """Called after a record is initialized.
 
+        Removes fields that can have a link to other records in the database.
+
         :param data: The dict passed to the record's constructor
         :param model: The model class used for initialization.
         """
-        # force removing of record pid
-        record.get('data', {}).pop('pid', None)
+        fields = ['pid']
+        if record.get('template_type') == 'items':
+            fields = fields + [
+                'barcode', 'status', 'document', 'holding', 'organisation',
+                'library']
+        elif record.get('template_type') == 'holdings':
+            fields = fields + ['organisation', 'library', 'document']
+        elif record.get('template_type') == 'patrons':
+            fields = fields + [
+                'user_id', 'patron.subscriptions', 'patron.barcode']
+
+        for field in fields:
+            if '.' in field:
+                level_1, level_2 = field.split('.')
+                record.get('data', {}).get(level_1, {}).pop(level_2, None)
+            else:
+                record.get('data', {}).pop(field, None)

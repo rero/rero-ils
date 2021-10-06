@@ -3825,7 +3825,11 @@
     },
     "visibility": "public",
     "template_type": "patrons",
-    "data": {}
+    "data": {
+      "patron": {
+        "source": "imported"
+      }
+    }
   },
   "illr1": {
     "$schema": "https://bib.rero.ch/schemas/ill_requests/ill_request-v0.0.1.json",

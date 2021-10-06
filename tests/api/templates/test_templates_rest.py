@@ -25,6 +25,8 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
 
+from rero_ils.modules.utils import get_ref_for_pid
+
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
@@ -200,12 +202,16 @@ def test_template_secure_api(client, json_header,
 def test_template_secure_api_create(client, json_header,
                                     system_librarian_martigny,
                                     system_librarian_sion,
-                                    templ_doc_public_martigny_data):
+                                    templ_doc_public_martigny_data,
+                                    templ_item_public_martigny,
+                                    templ_hold_public_martigny,
+                                    templ_patron_public_martigny):
     """Test templates secure api create."""
     # Martigny
     login_user_via_session(client, system_librarian_martigny.user)
     post_entrypoint = 'invenio_records_rest.tmpl_list'
 
+    # test template creation for documents
     del templ_doc_public_martigny_data['pid']
     # add a pid to the record data
     templ_doc_public_martigny_data['data']['pid'] = 'toto'
@@ -217,6 +223,83 @@ def test_template_secure_api_create(client, json_header,
     assert res.status_code == 201
     # ensure that pid is removed from recordds
     assert 'pid' not in res.json['metadata']['data']
+
+    # test template creation for items
+    del templ_item_public_martigny['pid']
+    # add fields that will be removed at the creation of the template.
+    templ_item_public_martigny['data']['pid'] = 'toto'
+    templ_item_public_martigny['data']['barcode'] = 'toto'
+    templ_item_public_martigny['data']['status'] = 'on_loan'
+    templ_item_public_martigny['data']['library'] = \
+        {'$ref': get_ref_for_pid('lib', 'toto')}
+    templ_item_public_martigny['data']['document'] = \
+        {'$ref': get_ref_for_pid('doc', 'toto')}
+    templ_item_public_martigny['data']['holding'] = \
+        {'$ref': get_ref_for_pid('hold', 'toto')}
+    templ_item_public_martigny['data']['organisation'] = \
+        {'$ref': get_ref_for_pid('org', 'toto')}
+
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        templ_item_public_martigny
+    )
+    assert res.status_code == 201
+    # ensure that added fields are removed from record.
+    fields = [
+        'barcode', 'pid', 'status', 'document', 'holding', 'organisation',
+        'library']
+    for field in fields:
+        assert field not in res.json['metadata']['data']
+
+    # templates now prevent the deletion of its owner
+    assert system_librarian_martigny.get_links_to_me().get('templates')
+
+    # test template creation for holdings
+    del templ_hold_public_martigny['pid']
+    # add fields that will be removed at the creation of the template.
+    templ_hold_public_martigny['data']['pid'] = 'toto'
+    templ_hold_public_martigny['data']['organisation'] = \
+        {'$ref': get_ref_for_pid('org', 'toto')}
+    templ_hold_public_martigny['data']['library'] = \
+        {'$ref': get_ref_for_pid('lib', 'toto')}
+    templ_hold_public_martigny['data']['document'] = \
+        {'$ref': get_ref_for_pid('doc', 'toto')}
+
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        templ_hold_public_martigny
+    )
+    assert res.status_code == 201
+    # ensure that added fields are removed from record.
+    fields = ['organisation', 'library', 'document', 'pid']
+    for field in fields:
+        assert field not in res.json['metadata']['data']
+
+    # test template creation for patrons
+    del templ_patron_public_martigny['pid']
+    # add fields that will be removed at the creation of the template.
+    templ_patron_public_martigny['data']['pid'] = 'toto'
+    templ_patron_public_martigny['data']['user_id'] = 'toto'
+    templ_patron_public_martigny['data']['patron']['subscriptions'] = 'toto'
+    templ_patron_public_martigny['data']['patron']['barcode'] = ['toto']
+
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        templ_patron_public_martigny
+    )
+    assert res.status_code == 201
+    # ensure that added fields are removed from record.
+    fields = ['user_id', 'patron.subscriptions', 'patron.barcode', 'pid']
+    json_data = res.json['metadata']['data']
+    for field in fields:
+        if '.' in field:
+            level_1, level_2 = field.split('.')
+            assert level_2 not in json_data.get(level_1)
+        else:
+            assert field not in json_data
 
     # Sion
     login_user_via_session(client, system_librarian_sion.user)

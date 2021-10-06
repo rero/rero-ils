@@ -1001,6 +1001,26 @@ def templ_item_public_martigny(
 
 
 @pytest.fixture(scope="module")
+def templ_hold_public_martigny_data(data):
+    """Load template for a public holding martigny data."""
+    return deepcopy(data.get('tmpl4'))
+
+
+@pytest.fixture(scope="module")
+def templ_hold_public_martigny(
+        app, org_martigny, templ_hold_public_martigny_data,
+        system_librarian_martigny):
+    """Load template for a public holding martigny."""
+    template = Template.create(
+        data=templ_hold_public_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(TemplatesSearch.Meta.index)
+    return template
+
+
+@pytest.fixture(scope="module")
 def templ_patron_public_martigny_data(data):
     """Load template for a public patron martigny data."""
     return deepcopy(data.get('tmpl6'))
