@@ -44,8 +44,15 @@ def enrich_loan_data(sender, json=None, record=None, index=None,
                 f'No item found: {item_pid} for loan: {record.get("pid")}')
 
 
-def listener_loan_state_changed(_, initial_loan, loan, trigger):
-    """Create notification based on loan state changes."""
+def listener_loan_state_changed(
+        _, initial_loan, loan, trigger, **transition_kwargs):
+    """Create notification based on loan state changes.
+
+    :param initial_loan: The inital loan.
+    :param loan: The new loan.
+    :param trigger: action trigger.
+    :param transition_kwargs: An additional kwargs to transition.
+    """
     # Create patron a librarian notifications
     loan.create_notification(trigger)
 
