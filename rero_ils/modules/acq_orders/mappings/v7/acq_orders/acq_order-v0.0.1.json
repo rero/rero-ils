@@ -45,9 +45,6 @@
       "type": {
         "type": "keyword"
       },
-      "description": {
-        "type": "text"
-      },
       "status": {
         "type": "keyword"
       },
