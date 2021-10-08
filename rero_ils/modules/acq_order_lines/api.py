@@ -112,11 +112,20 @@ class AcqOrderLine(IlsRecord):
 
     def update(self, data, commit=True, dbcommit=True, reindex=True):
         """Update Acquisition Order Line record."""
+        # TODO :: try to find a better way to load original record.
+        original_record = self.__class__.get_record_by_id(self.id)
+
         new_data = deepcopy(dict(self))
         new_data.update(data)
         self._build_additional_refs(new_data)
         self._build_total_amount(new_data)
         super().update(new_data, commit, dbcommit, reindex)
+
+        # If the related account change, then we need to reindex the original
+        # account to release encumbrance amount on this account.
+        if original_record.account_pid != self.account_pid:
+            original_record.account.reindex()
+
         return self
 
     @classmethod
@@ -149,6 +158,11 @@ class AcqOrderLine(IlsRecord):
     def order(self):
         """Shortcut to the order of the order line."""
         return extracted_data_from_ref(self.get('acq_order'), data='record')
+
+    @property
+    def account_pid(self):
+        """Shortcut to the account pid related to this order line."""
+        return extracted_data_from_ref(self.get('acq_account'))
 
     @property
     def account(self):
