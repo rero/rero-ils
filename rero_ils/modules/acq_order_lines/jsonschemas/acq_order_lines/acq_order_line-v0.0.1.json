@@ -7,6 +7,7 @@
   "propertiesOrder": [
     "acq_account",
     "document",
+    "priority",
     "status",
     "order_date",
     "reception_date",
@@ -71,6 +72,20 @@
             "label": "received"
           }
         ]
+      }
+    },
+    "priority": {
+      "title": "Priority",
+      "description": "The higher the number, the higher the priority.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5,
+      "default": 0,
+      "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        }
       }
     },
     "quantity": {
