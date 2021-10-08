@@ -2270,12 +2270,17 @@ RECORDS_REST_DEFAULT_SORT['acq_accounts'] = dict(
 # ------ ACQUISITION ORDER LINES SORT
 RECORDS_REST_SORT_OPTIONS['acq_order_lines'] = dict(
     pid=dict(
-        fields=['_id'], title='Order line PID',
-        default_order='asc'
+        fields=['_id'], title='Order line PID', default_order='asc'
+    ),
+    priority=dict(
+        title='priority',
+        fields=['-priority', '_created'],
+        default_order='asc',
+        order=1
     )
 )
 RECORDS_REST_DEFAULT_SORT['acq_order_lines'] = dict(
-    query='bestmatch', noquery='created')
+    query='bestmatch', noquery='priority')
 
 # ------ BUDGETS SORT
 RECORDS_REST_SORT_OPTIONS['budgets']['name'] = dict(
