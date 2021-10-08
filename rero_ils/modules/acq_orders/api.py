@@ -189,7 +189,9 @@ class AcqOrder(IlsRecord):
 
     def get_order_total_amount(self):
         """Get total amount of order."""
-        search = AcqOrderLinesSearch().filter('term', acq_order__pid=self.pid)
+        search = AcqOrderLinesSearch()\
+            .filter('term', acq_order__pid=self.pid) \
+            .exclude('term', status=AcqOrderLineStatus.CANCELLED)
         search.aggs.metric(
             'order_total_amount',
             'sum',

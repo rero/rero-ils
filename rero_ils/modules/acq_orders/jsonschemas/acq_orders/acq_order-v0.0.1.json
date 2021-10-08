@@ -8,7 +8,6 @@
     "vendor",
     "reference",
     "type",
-    "description",
     "notes"
   ],
   "required": [
@@ -48,11 +47,6 @@
           }
         }
       }
-    },
-    "description": {
-      "title": "Description",
-      "type": "string",
-      "minLength": 5
     },
     "type": {
       "title": "Type",
