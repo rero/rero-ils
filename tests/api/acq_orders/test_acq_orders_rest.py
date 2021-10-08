@@ -141,7 +141,7 @@ def test_acq_orders_post_put_delete(client, org_martigny, vendor2_martigny,
 
     # Update record/PUT
     data = acq_order_fiction_saxon
-    data['description'] = 'Test Name'
+    data['reference'] = 'Test reference'
     res = client.put(
         item_url,
         data=json.dumps(data),
@@ -151,19 +151,19 @@ def test_acq_orders_post_put_delete(client, org_martigny, vendor2_martigny,
 
     # Check that the returned record matches the given data
     data = get_json(res)
-    assert data['metadata']['description'] == 'Test Name'
+    assert data['metadata']['reference'] == 'Test reference'
 
     res = client.get(item_url)
     assert res.status_code == 200
 
     data = get_json(res)
-    assert data['metadata']['description'] == 'Test Name'
+    assert data['metadata']['reference'] == 'Test reference'
 
     res = client.get(list_url)
     assert res.status_code == 200
 
     data = get_json(res)['hits']['hits'][0]
-    assert data['metadata']['description'] == 'Test Name'
+    assert data['metadata']['reference'] == 'Test reference'
 
     # Delete record/DELETE
     res = client.delete(item_url)
@@ -295,7 +295,7 @@ def test_acq_order_secure_api_update(client,
     record_url = url_for('invenio_records_rest.acor_item',
                          pid_value=acq_order_fiction_sion.pid)
     data = acq_order_fiction_sion
-    data['description'] = 'Test description'
+    data['reference'] = 'Test update reference'
     res = client.put(
         record_url,
         data=json.dumps(data),
