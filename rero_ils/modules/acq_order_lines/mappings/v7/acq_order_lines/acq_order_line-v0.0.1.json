@@ -72,6 +72,9 @@
       "status": {
         "type": "keyword"
       },
+      "priority": {
+        "type": "integer"
+      },
       "quantity": {
         "type": "integer"
       },
