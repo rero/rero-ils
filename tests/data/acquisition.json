@@ -233,8 +233,7 @@
       "$ref": "https://bib.rero.ch/api/libraries/lib1"
     },
     "reference": "OR-1",
-    "type": "monograph",
-    "description": "Commande fictive"
+    "type": "monograph"
   },
   "acor2": {
     "$schema": "https://bib.rero.ch/schemas/acq_orders/acq_order-v0.0.1.json",
@@ -246,8 +245,7 @@
       "$ref": "https://bib.rero.ch/api/libraries/lib2"
     },
     "reference": "OR-2",
-    "type": "monograph",
-    "description": "Commande fictive 2"
+    "type": "monograph"
   },
   "acor3": {
     "$schema": "https://bib.rero.ch/schemas/acq_orders/acq_order-v0.0.1.json",
@@ -259,8 +257,7 @@
       "$ref": "https://bib.rero.ch/api/libraries/lib4"
     },
     "reference": "OR-3",
-    "type": "monograph",
-    "description": "Commande fictive 3"
+    "type": "monograph"
   },
   "acol1": {
     "$schema": "https://bib.rero.ch/schemas/acq_order_lines/acq_order_line-v0.0.1.json",
@@ -276,6 +273,7 @@
     },
     "status": "approved",
     "quantity": 1,
+    "priority": 5,
     "amount": 1000
   },
   "acol2": {
