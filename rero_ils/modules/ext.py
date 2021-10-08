@@ -34,7 +34,6 @@ from invenio_userprofiles.signals import after_profile_update
 from jsonschema.exceptions import ValidationError
 
 from .acq_accounts.listener import enrich_acq_account_data
-from .acq_order_lines.listener import enrich_acq_order_line_data
 from .acq_orders.listener import enrich_acq_order_data
 from .apiharvester.signals import apiharvest_part
 from .budgets.listener import budget_is_active_changed
@@ -194,7 +193,6 @@ class REROILSAPP(object):
         # before_record_index.dynamic_connect(
         #    enrich_patron_data, sender=app, index='patrons-patron-v0.0.1')
         before_record_index.connect(enrich_acq_account_data, sender=app)
-        before_record_index.connect(enrich_acq_order_line_data, sender=app)
         before_record_index.connect(enrich_acq_order_data, sender=app)
         before_record_index.connect(enrich_collection_data, sender=app)
         before_record_index.connect(enrich_loan_data, sender=app)
