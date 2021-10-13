@@ -78,9 +78,9 @@ def test_item_loans_default_duration(
     )
 
 
-def test_is_due_soon(
+def test_is_due_soon_is_late(
         item_on_loan_martigny_patron_and_loan_on_loan):
-    """Test 'is due soon' method about a loan."""
+    """Test 'is due soon' and 'late' method about a loan."""
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
 
     # Just after creation the loan isn't yet 'due_soon'.
@@ -95,6 +95,11 @@ def test_is_due_soon(
     mock_date = due_date - timedelta(days=reminder.get('days_delay'))
     with freeze_time(mock_date):
         assert loan.is_loan_due_soon()
+
+    # mock the sysdate to due_date + some seconds.
+    mock_date = due_date + timedelta(seconds=2)
+    with freeze_time(mock_date):
+        assert loan.is_loan_late()
 
 
 def test_loan_keep_and_to_anonymize(

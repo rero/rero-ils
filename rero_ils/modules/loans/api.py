@@ -507,6 +507,11 @@ class Loan(IlsRecord):
             )}
         return data
 
+    def is_loan_late(self):
+        """Check if the loan due_date is over."""
+        due_date = ciso8601.parse_datetime(self.end_date)
+        return datetime.now(timezone.utc) > due_date
+
     def is_loan_overdue(self):
         """Check if the loan is overdue."""
         from .utils import get_circ_policy
