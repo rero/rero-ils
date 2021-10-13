@@ -22,7 +22,6 @@ from functools import partial
 
 from .models import VendorIdentifier, VendorMetadata
 from ..acq_invoices.api import AcquisitionInvoicesSearch
-from ..acq_orders.api import AcqOrdersSearch
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
@@ -86,7 +85,9 @@ class Vendor(IlsRecord):
         :param get_pids: if True list of linked pids
                          if False count of linked records
         """
+        from rero_ils.modules.acq_orders.api import AcqOrdersSearch
         from rero_ils.modules.holdings.api import HoldingsSearch
+
         acq_orders_query = AcqOrdersSearch()\
             .filter('term', vendor__pid=self.pid)
         acq_invoices_query = AcquisitionInvoicesSearch()\
