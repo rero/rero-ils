@@ -176,13 +176,14 @@ class Notification(IlsRecord, ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def get_recipients(self):
+    def get_recipients(self, address_type):
         """Get the notification recipients email address.
 
         If the notification should be dispatched by email (see
         ``Notification.get_communication_channel()``, this method must return
         the list of email addresses where to send the notification to.
 
+        :param address_type: the type of address to get (to, cc, reply_to, ...)
         :return return email addresses list where send the notification to.
         """
         raise NotImplementedError()
@@ -199,10 +200,16 @@ class Notification(IlsRecord, ABC):
         raise NotImplementedError()
 
     # GETTER METHODS ==========================================================
+
     @property
     def type(self):
         """Shortcut for notification type."""
         return self.get('notification_type')
+
+    @property
+    def status(self):
+        """Shortcut for notification status."""
+        return self.get('status')
 
     @property
     def patron_transactions(self):
