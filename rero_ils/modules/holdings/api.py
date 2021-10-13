@@ -185,9 +185,7 @@ class Holding(IlsRecord):
                 # Delete all attached items
                 for item in self.get_items:
                     item.delete(
-                        force=force, dbcommit=dbcommit, delindex=delindex)
-                if delindex:
-                    ItemsSearch.flush_and_refresh()
+                        force=force, dbcommit=dbcommit, delindex=False)
             return super().delete(
                 force=force, dbcommit=dbcommit, delindex=delindex)
         else:
@@ -759,6 +757,11 @@ class HoldingsIndexer(IlsRecordsIndexer):
 
         :param record: Record instance.
         """
+        # Delete all attached items
+        if record.is_serial:
+            query = ItemsSearch().filter('term', holding__pid=record.pid)
+            query.delete()
+            ItemsSearch.flush_and_refresh()
         document = Document.get_record_by_pid(record.document_pid)
         return_value = super().delete(record)
         document.reindex()
