@@ -22,6 +22,7 @@ from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 
 from rero_ils.modules.acq_order_lines.dumpers import \
     AcqOrderLineNotificationDumper
+from rero_ils.modules.acq_order_lines.models import AcqOrderLineStatus
 from rero_ils.modules.acq_orders.models import AcqOrderNoteType
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.libraries.dumpers import \
@@ -53,7 +54,8 @@ class AcqOrderNotificationDumper(InvenioRecordsDumper):
             dumper=VendorAcquisitionNotificationDumper())
         data['order_lines'] = [
             order_line.dumps(dumper=AcqOrderLineNotificationDumper())
-            for order_line in record.get_order_lines()
+            for order_line in record.get_order_lines(
+                includes=[AcqOrderLineStatus.APPROVED])
         ]
         data = {k: v for k, v in data.items() if v}
         return data

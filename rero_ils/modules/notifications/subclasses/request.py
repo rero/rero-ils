@@ -42,15 +42,15 @@ class RequestCirculationNotification(InternalCirculationNotification):
     after the creation. This also means that it should never be aggregated.
     """
 
-    def get_recipients(self):
-        """Get notification recipient email addresses."""
+    def get_recipients_to(self):
+        """Get notification email addresses for 'TO' recipient type."""
         # Request notification will be sent to the item location if a location
         # ``notification_email`` attribute is defined, otherwise to the library
         # address.
         loc_email = self.location.get('notification_email')
         if loc_email:
             return [loc_email]
-        return super().get_recipients()
+        return super().get_recipients_to()
 
     @classmethod
     def get_notification_context(cls, notifications=None):
