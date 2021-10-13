@@ -53,6 +53,8 @@ class NotificationType:
     - TRANSIT_NOTICE : when an item is sent to the owning location/library
     - DUE_SOON       : when the loaned item is about to expire.
     - OVERDUE        : when the loaned item is expired.
+    - ACQUISITION_ORDER
+                     : when an acquisition order is send to a vendor.
     """
 
     RECALL = 'recall'
@@ -62,6 +64,7 @@ class NotificationType:
     TRANSIT_NOTICE = 'transit_notice'
     REQUEST = 'request'
     BOOKING = 'booking'
+    ACQUISITION_ORDER = 'acquisition_order'
 
     # All notification types
     ALL_NOTIFICATIONS = [
@@ -111,3 +114,12 @@ class NotificationChannel:
     MAIL = 'mail'
     EMAIL = 'email'
     PATRON_SETTING = 'patron_setting'
+
+
+class RecipientType:
+    """Notification recipient type."""
+
+    TO = 'to'
+    CC = 'cc'
+    BCC = 'bcc'
+    REPLY_TO = 'reply_to'

@@ -26,7 +26,7 @@ from invenio_mail.tasks import send_email as task_send_email
 from rero_ils.modules.libraries.api import email_notification_type
 
 from .api import Notification
-from .models import NotificationType
+from .models import NotificationType, RecipientType
 
 
 class Dispatcher:
@@ -219,9 +219,7 @@ class Dispatcher:
             error_reasons.append('Missing notification reply_to email')
         if error_reasons:
             current_app.logger.warning(
-                'Notification for printing is lost for patron: '
-                f'{notification.patron.pid} '
-                f'send to library: {library.pid} '
+                f'Notification#{notification.pid} for printing is lost :: '
                 f'({")(".join(error_reasons)})')
             return False
 
@@ -246,7 +244,7 @@ class Dispatcher:
         return True
 
     @staticmethod
-    def send_mail_to_patron(notifications):
+    def send_notification_by_email(notifications):
         """Send the notification by email to the patron.
 
         :param notifications: the notification set to perform.
@@ -257,10 +255,8 @@ class Dispatcher:
             return True
 
         notification = notifications[0]
-        patron = notification.patron
-        library = notification.library
-        reply_to = library.get('email')
-        recipients = notification.get_recipients()
+        reply_to = notification.get_recipients(RecipientType.REPLY_TO)[0]
+        recipients = notification.get_recipients(RecipientType.TO)
 
         error_reasons = []
         if not recipients:
@@ -269,9 +265,7 @@ class Dispatcher:
             error_reasons.append('Missing reply_to email')
         if error_reasons:
             current_app.logger.warning(
-                'Notification is lost for patron: '
-                f'{patron.pid} '
-                f'send to library: {library.pid} '
+                f'Notification#{notification.pid} is lost :: '
                 f'({")(".join(error_reasons)})')
             return False
 

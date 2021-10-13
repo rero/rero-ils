@@ -70,9 +70,9 @@ class BookingCirculationNotification(CirculationNotification):
         lib = self.pickup_library or self.transaction_library
         return lib.get('communication_language')
 
-    def get_recipients(self):
-        """Get notification recipient email addresses."""
-        # Booking notification will be sent to the laon transaction library.
+    def get_recipients_to(self):
+        """Get notification email addresses for 'TO' recipient type."""
+        # Booking notification will be sent to the loan transaction library.
         recipient = email_notification_type(
             self.transaction_library, self.type)
         if recipient:

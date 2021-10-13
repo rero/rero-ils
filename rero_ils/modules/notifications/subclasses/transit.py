@@ -48,7 +48,7 @@ class TransitCirculationNotification(InternalCirculationNotification):
         """Get the template to use to render the notification."""
         return f'email/transit_notice/{self.get_language_to_use()}.txt'
 
-    def get_recipients(self):
+    def get_recipients_to(self):
         """Get notification recipient email addresses."""
         # Transit notification will be sent to the loan transaction library.
         recipient = email_notification_type(
