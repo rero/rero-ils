@@ -17,7 +17,7 @@
 
 """Permissions of Operation log."""
 
-from rero_ils.modules.patrons.api import current_librarian
+from rero_ils.modules.patrons.api import current_librarian, current_patrons
 from rero_ils.modules.permissions import RecordPermission
 
 
@@ -32,8 +32,7 @@ class OperationLogPermission(RecordPermission):
         :param record: Record to check.
         :return: "True" if action can be done.
         """
-        # all users (lib, sys_lib) can read operation_log records.
-        return bool(current_librarian)
+        return bool(current_librarian) or len(current_patrons)
 
     @classmethod
     def read(cls, user, record):
@@ -43,7 +42,6 @@ class OperationLogPermission(RecordPermission):
         :param record: Record to check.
         :return: "True" if action can be done.
         """
-        # all users (lib, sys_lib) can read operation_log records.
         return False
 
     @classmethod

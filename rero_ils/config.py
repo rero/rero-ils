@@ -1682,6 +1682,9 @@ RECORDS_REST_ENDPOINTS = dict(
         search_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_search'
+            ),
+            'application/rero+json': (
+                'rero_ils.modules.operation_logs.serializers:json_operation_logs_search'
             )
         },
         record_loaders={
@@ -1694,6 +1697,7 @@ RECORDS_REST_ENDPOINTS = dict(
         '"rero_ils.modules.operation_logs.api:OperationLog"):pid_value>',
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
+        search_factory_imp='rero_ils.query:operation_logs_search_factory',
         list_permission_factory_imp=lambda record: record_permission_factory(
             action='list', record=record, cls=OperationLogPermission),
         read_permission_factory_imp=lambda record: record_permission_factory(

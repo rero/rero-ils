@@ -18,10 +18,48 @@
 """Tests Serializers."""
 
 from flask import url_for
-from utils import get_csv, get_json, item_record_to_a_specific_loan_state, \
-    login_user
+from utils import flush_index, get_csv, get_json, \
+    item_record_to_a_specific_loan_state, login_user
 
 from rero_ils.modules.loans.api import LoanState
+from rero_ils.modules.operation_logs.api import OperationLogsSearch
+
+
+def test_operation_logs_serializers(
+    client,
+    rero_json_header,
+    patron_martigny,
+    librarian_martigny,
+    item_lib_martigny,
+    loc_public_martigny,
+    circulation_policies,
+    lib_martigny_data
+):
+    """Test serializers for operation logs."""
+    login_user(client, patron_martigny)
+    params = {
+        'patron_pid': patron_martigny.pid,
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny.pid,
+        'pickup_location_pid': loc_public_martigny.pid,
+    }
+    item_record_to_a_specific_loan_state(
+        item=item_lib_martigny, loan_state=LoanState.ITEM_AT_DESK,
+        params=params, copy_item=True)
+    # Force update ES index
+    flush_index(OperationLogsSearch.Meta.index)
+    list_url = url_for('invenio_records_rest.oplg_list')
+    response = client.get(list_url, headers=rero_json_header)
+    assert response.status_code == 200
+    data = get_json(response)
+    loan = data.get('hits', {}).get('hits', [])[0].get('metadata', {})\
+        .get('loan', {})
+    libary_name = lib_martigny_data['name']
+    # Check if the library data injected into the section
+    assert libary_name == loan.get('transaction_location', {})\
+        .get('library').get('name')
+    assert libary_name == loan.get('pickup_location', {})\
+        .get('library').get('name')
 
 
 def test_patrons_serializers(
