@@ -30,8 +30,12 @@ from ..acq_order_lines.models import AcqOrderLineStatus
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
+from ..notifications.api import Notification
+from ..notifications.dispatcher import Dispatcher
+from ..notifications.models import NotificationType
 from ..providers import Provider
-from ..utils import extracted_data_from_ref, sorted_pids
+from ..utils import extracted_data_from_ref, get_ref_for_pid, sorted_pids
+from ..vendors.api import Vendor
 
 # provider
 AcqOrderProvider = type(
@@ -106,6 +110,11 @@ class AcqOrder(IlsRecord):
         return record
 
     @property
+    def vendor(self):
+        """Shortcut for vendor."""
+        return Vendor.get_record_by_pid(self.vendor_pid)
+
+    @property
     def organisation_pid(self):
         """Shortcut for acquisition order organisation pid."""
         library = extracted_data_from_ref(self.get('library'), data='record')
@@ -123,25 +132,27 @@ class AcqOrder(IlsRecord):
 
     @property
     def status(self):
-        """Get the order status based on related order lines status."""
+        """Get the order status based on related order lines statuses."""
         status = AcqOrderStatus.PENDING
         search = AcqOrderLinesSearch().filter('term', acq_order__pid=self.pid)
         search.aggs.bucket('status', 'terms', field='status')
         results = search.execute()
-        statues = [hit.key for hit in results.aggregations.status.buckets]
+        statuses = [hit.key for hit in results.aggregations.status.buckets]
 
-        if len(statues) > 1:
-            if AcqOrderLineStatus.RECEIVED in statues:
+        if len(statuses) > 1:
+            if AcqOrderLineStatus.RECEIVED in statuses:
                 status = AcqOrderStatus.PARTIALLY_RECEIVED
-        elif len(statues) == 1:
+            elif AcqOrderLineStatus.ORDERED in statuses:
+                status = AcqOrderStatus.ORDERED
+        elif len(statuses) == 1:
             map = {
                 AcqOrderLineStatus.APPROVED: AcqOrderStatus.PENDING,
                 AcqOrderLineStatus.ORDERED: AcqOrderStatus.ORDERED,
                 AcqOrderLineStatus.RECEIVED: AcqOrderStatus.RECEIVED,
                 AcqOrderLineStatus.CANCELLED: AcqOrderStatus.CANCELLED,
             }
-            if statues[0] in map:
-                status = map[statues[0]]
+            if statuses[0] in map:
+                status = map[statuses[0]]
 
         return status
 
@@ -168,10 +179,11 @@ class AcqOrder(IlsRecord):
         ]
         return next(iter(note), None)
 
-    def get_order_lines(self, output=None):
+    def get_order_lines(self, output=None, includes=None):
         """Get order lines related to this order.
 
-        :param output: output method. 'count', 'pids' or None
+        :param output: output method. 'count', 'pids' or None.
+        :param includes: a list of statuses to include order lines.
         :return a generator of related order lines (or length).
         """
         def _list_object():
@@ -180,6 +192,9 @@ class AcqOrder(IlsRecord):
 
         query = AcqOrderLinesSearch()\
             .filter('term', acq_order__pid=self.pid)
+        if includes:
+            query = query.filter('terms', status=includes)
+
         if output == 'count':
             return query.count()
         elif output == 'pids':
@@ -231,6 +246,43 @@ class AcqOrder(IlsRecord):
         if links:
             cannot_delete['links'] = links
         return cannot_delete
+
+    def send_order(self, emails=None):
+        """Send an acquisition order to list of recipients.
+
+        Creates an acquisition_order notification from order and dispatch it.
+        If the notification is well dispatched, then update the related
+        order_lines to ORDERED status, then reindex the order to obtain the
+        ORDERED status on it if necessary.
+
+        :param emails: list of recipients emails.
+        :return: the list of created notifications
+        """
+        # Create the notification and dispatch it synchronously.
+        record = {
+            "notification_type": NotificationType.ACQUISITION_ORDER,
+            "context": {
+                "order": {'$ref': get_ref_for_pid('acor', self.pid)},
+                "recipients": emails
+            }
+        }
+        notif = Notification.create(data=record, dbcommit=True, reindex=True)
+        dispatcher_result = Dispatcher.dispatch_notifications(
+            notification_pids=[notif.get('pid')])
+
+        # If the dispatcher result is good, update the order_lines status and
+        # reindex myself. Reload the notification to obtain the right
+        # notification metadata (status, process_date, ...)
+        if dispatcher_result.get('sent', 0):
+            order_lines = self.get_order_lines(
+                includes=[AcqOrderLineStatus.APPROVED])
+            for order_line in order_lines:
+                order_line['status'] = AcqOrderLineStatus.ORDERED
+                order_line.update(order_line, dbcommit=True, reindex=True)
+            self.reindex()
+            notif = Notification.get_record_by_id(notif.id)
+
+        return notif
 
 
 class AcqOrdersIndexer(IlsRecordsIndexer):
