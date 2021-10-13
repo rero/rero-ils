@@ -2531,7 +2531,7 @@ RERO_ILS_NOTIFICATIONS_ALLOWED_TEMPLATE_FILES = [
 # the communication channel, value is the function to call. The used functions
 # should accept one positional argument.
 RERO_ILS_COMMUNICATION_DISPATCHER_FUNCTIONS = {
-    'email': NotificationDispatcher.send_mail_to_patron,
+    'email': NotificationDispatcher.send_notification_by_email,
     'mail': NotificationDispatcher.send_mail_for_printing,
     #  'sms': not_yet_implemented
     #  'telepathy': self.madness_mind
