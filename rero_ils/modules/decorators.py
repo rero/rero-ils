@@ -21,6 +21,7 @@ from functools import wraps
 
 from flask import abort, jsonify, redirect
 from flask_login import current_user
+from werkzeug.exceptions import HTTPException
 
 from rero_ils.permissions import login_and_librarian, login_and_patron
 
@@ -73,6 +74,8 @@ def jsonify_error(func):
     def decorated_view(*args, **kwargs):
         try:
             return func(*args, **kwargs)
+        except HTTPException as httpe:
+            return jsonify({'message': f'{httpe}'}), httpe.code
         except Exception as error:
             # raise error
             # current_app.logger.error(str(error))

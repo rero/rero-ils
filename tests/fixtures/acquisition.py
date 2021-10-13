@@ -468,6 +468,26 @@ def acq_order_line2_fiction_martigny(
 
 
 @pytest.fixture(scope="module")
+def acq_order_line3_fiction_martigny_data(acquisition):
+    """Load acq_order_line lib martigny fiction data."""
+    return deepcopy(acquisition.get('acol5'))
+
+
+@pytest.fixture(scope="module")
+def acq_order_line3_fiction_martigny(
+        app, acq_account_fiction_martigny, document,
+        acq_order_fiction_martigny, acq_order_line3_fiction_martigny_data):
+    """Load acq_order_line lib martigny fiction record."""
+    acol = AcqOrderLine.create(
+        data=acq_order_line3_fiction_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(AcqOrderLinesSearch.Meta.index)
+    return acol
+
+
+@pytest.fixture(scope="module")
 def acq_order_line_fiction_saxon_data(acquisition):
     """Load acq_order_line lib saxon fiction data."""
     return deepcopy(acquisition.get('acol3'))
