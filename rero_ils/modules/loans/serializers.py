@@ -66,6 +66,7 @@ class LoanJSONSerializer(JSONSerializer):
                 # Item loan
                 if metadata['state'] == LoanState.ITEM_ON_LOAN:
                     metadata['overdue'] = loan.is_loan_overdue()
+                    metadata['is_late'] = loan.is_loan_late()
                 # Item request
                 elif metadata['state'] in [
                     LoanState.PENDING,
