@@ -34,7 +34,7 @@ from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.utils import extracted_data_from_ref
 
 from ..api import Notification
-from ..models import NotificationChannel, NotificationType
+from ..models import NotificationChannel, NotificationType, RecipientType
 
 
 class CirculationNotification(Notification, ABC):
@@ -112,17 +112,32 @@ class CirculationNotification(Notification, ABC):
         # Override this method if necessary
         return f'email/{self.type}/{self.get_language_to_use()}.txt'
 
-    def get_recipients(self):
+    def get_recipients(self, address_type):
         """Get the notification recipient email addresses."""
-        recipients = []
-        if self.get_communication_channel() == NotificationChannel.EMAIL and \
-                self.patron:
-            recipients = [
+        mapping = {
+            RecipientType.TO: self.get_recipients_to,
+            RecipientType.REPLY_TO: self.get_recipients_reply_to
+        }
+        try:
+            return mapping[address_type]()
+        except KeyError:
+            raise NotImplementedError()
+
+    def get_recipients_reply_to(self):
+        """Get the notification email address for 'REPLY_TO' recipient type."""
+        return self.library.get('email')
+
+    def get_recipients_to(self):
+        """Get the notification email address for 'TO' recipient type."""
+        addresses = []
+        if self.get_communication_channel() == NotificationChannel.EMAIL \
+           and self.patron:
+            addresses = [
                 self.patron.user.email,
                 self.patron['patron'].get('additional_communication_email')
             ]
-            recipients = [recipient for recipient in recipients if recipient]
-        return recipients
+            addresses = [address for address in addresses if address]
+        return addresses
 
     # GETTER & SETTER METHODS =================================================
     #  Shortcuts to easy access notification attributes.
