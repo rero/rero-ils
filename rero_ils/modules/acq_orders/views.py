@@ -18,11 +18,13 @@
 
 """Blueprint used for AcqOrder API."""
 from flask import Blueprint, abort, current_app, jsonify, render_template
+from flask import request as flask_request
 from jinja2 import TemplateNotFound
 
 from rero_ils.modules.acq_orders.api import AcqOrder
 from rero_ils.modules.acq_orders.dumpers import AcqOrderNotificationDumper
-from rero_ils.modules.decorators import check_logged_as_librarian
+from rero_ils.modules.decorators import check_logged_as_librarian, \
+    jsonify_error
 
 api_blueprint = Blueprint(
     'api_order',
@@ -34,6 +36,7 @@ api_blueprint = Blueprint(
 
 @api_blueprint.route('/<order_pid>/acquisition_order/preview', methods=['GET'])
 @check_logged_as_librarian
+@jsonify_error
 def order_notification_preview(order_pid):
     """Get the preview of an acquisition order notification content."""
     order = AcqOrder.get_record_by_pid(order_pid)
@@ -58,4 +61,28 @@ def order_notification_preview(order_pid):
         tmpl_file = f'rero_ils/vendor_order_mail/eng.tpl.txt'
         response['preview'] = render_template(tmpl_file, order=order_data)
 
+    return jsonify(response)
+
+
+@api_blueprint.route('/<order_pid>/send_order', methods=['POST'])
+@check_logged_as_librarian
+@jsonify_error
+def send_order(order_pid):
+    """HTTP POST for sending an acquisition order.
+
+    Required parameters:
+        order_pid: the pid of the order.
+        emails: the list of recipients (a list of dictionaries each contains
+        the email and its type to, cc, reply_to, or bcc).
+    """
+    order = AcqOrder.get_record_by_pid(order_pid)
+    if not order:
+        abort(404, "Acquisition order not found")
+
+    data = flask_request.get_json()
+    emails = data.get('emails')
+    if not emails:
+        abort(400, "Missing recipients emails.")
+    notifications = order.send_order(emails=emails)
+    response = {'data': notifications}
     return jsonify(response)

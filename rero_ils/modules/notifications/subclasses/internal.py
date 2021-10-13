@@ -88,7 +88,7 @@ class InternalCirculationNotification(CirculationNotification, ABC):
         """Get the language to use when dispatching the notification."""
         return self.library.get('communication_language')
 
-    def get_recipients(self):
+    def get_recipients_to(self):
         """Get notification recipient email addresses."""
         # Internal notification will be sent to the library, not to the
         # patron related to the loan.

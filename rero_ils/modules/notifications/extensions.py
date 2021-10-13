@@ -35,6 +35,7 @@ class NotificationSubclassExtension(RecordExtension):
     def _get_circulation_subclass(record):
         """Get the Notification subclass to use based on record data."""
         from .api import Notification
+        from .subclasses.acq_order import AcquisitionOrderNotification
         from .subclasses.availability import \
             AvailabilityCirculationNotification
         from .subclasses.booking import BookingCirculationNotification
@@ -50,6 +51,7 @@ class NotificationSubclassExtension(RecordExtension):
             NotificationType.RECALL: RecallCirculationNotification,
             NotificationType.REQUEST: RequestCirculationNotification,
             NotificationType.TRANSIT_NOTICE: TransitCirculationNotification,
+            NotificationType.ACQUISITION_ORDER: AcquisitionOrderNotification,
         }
         try:
             return mapping[record.type]
