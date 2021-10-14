@@ -355,7 +355,7 @@ def create_index(resource, index, verbose, templates):
                 click.secho('Templates did not changed.', fg='yellow')
 
     f_mapping = [
-        v for v in current_search.aliases.get('documents').values()].pop()
+        v for v in current_search.aliases.get(resource).values()].pop()
     mapping = json.load(open(f_mapping))
     current_search_client.indices.create(index, mapping)
     click.secho(f'Index {index} has been created.', fg='green')
