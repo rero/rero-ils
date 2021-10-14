@@ -305,45 +305,50 @@ def init_menu_profile():
         id='profile-menu',
     )
 
-    item = current_menu.submenu('main.profile.edit_profile')
-    rero_register(
-        item,
-        endpoint='invenio_userprofiles.profile',
-        visible_when=lambda: current_user.is_authenticated,
-        text=TextWithIcon(
-            icon='<i class="fa fa-user"></i>',
-            text='Edit my profile'
-        ),
-        order=1,
-        id='profile-menu',
-    )
+    # - Edit user profile
+    if not current_app.config.get('USERPROFILES_READ_ONLY', False):
+        item = current_menu.submenu('main.profile.edit_profile')
+        rero_register(
+            item,
+            endpoint='invenio_userprofiles.profile',
+            visible_when=lambda: current_user.is_authenticated,
+            text=TextWithIcon(
+                icon='<i class="fa fa-user"></i>',
+                text='Edit my profile'
+            ),
+            order=1,
+            id='profile-menu',
+        )
 
-    item = current_menu.submenu('main.profile.change_password')
-    rero_register(
-        item,
-        endpoint='security.change_password',
-        visible_when=lambda: current_user.is_authenticated,
-        text=TextWithIcon(
-            icon='<i class="fa fa-lock"></i>',
-            text='Change password'
-        ),
-        order=1,
-        id='profile-menu',
-    )
+    # - Change password
+    if current_app.config.get('SECURITY_RECOVERABLE', True):
+        item = current_menu.submenu('main.profile.change_password')
+        rero_register(
+            item,
+            endpoint='security.change_password',
+            visible_when=lambda: current_user.is_authenticated,
+            text=TextWithIcon(
+                icon='<i class="fa fa-lock"></i>',
+                text='Change password'
+            ),
+            order=1,
+            id='profile-menu',
+        )
 
     # Endpoint for:
     # Application: invenio_oauth2server_settings.index
     # Security: invenio_accounts.security
-
-    item = current_menu.submenu('main.profile.signup')
-    rero_register(
-        item,
-        endpoint='security.register',
-        visible_when=lambda: not current_user.is_authenticated,
-        text=TextWithIcon(
-            icon='<i class="fa fa-user-plus"></i>',
-            text='Sign Up'
-        ),
-        order=2,
-        id='signup-menu',
-    )
+    # - Sign up user
+    if current_app.config.get('SECURITY_REGISTERABLE', True):
+        item = current_menu.submenu('main.profile.signup')
+        rero_register(
+            item,
+            endpoint='security.register',
+            visible_when=lambda: not current_user.is_authenticated,
+            text=TextWithIcon(
+                icon='<i class="fa fa-user-plus"></i>',
+                text='Sign Up'
+            ),
+            order=2,
+            id='signup-menu',
+        )
