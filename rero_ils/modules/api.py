@@ -486,12 +486,14 @@ class IlsRecordsIndexer(RecordIndexer):
         return_value = super().delete(record, refresh='true')
         return return_value
 
-    def bulk_index(self, record_id_iterator, doc_type=None):
+    def bulk_index(self, record_id_iterator, doc_type=None, index=None):
         """Bulk index records.
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        self._bulk_op(record_id_iterator, op_type='index', doc_type=doc_type)
+        self._bulk_op(
+            record_id_iterator, op_type='index', doc_type=doc_type,
+            index=index)
 
     def process_bulk_queue(self, es_bulk_kwargs=None, stats_only=True):
         """Process bulk indexing queue.
@@ -570,6 +572,7 @@ class IlsRecordsIndexer(RecordIndexer):
         index, doc_type = self.record_to_index(record)
 
         arguments = {}
+        index = payload.get('index') or index
         body = self._prepare_record(record, index, doc_type, arguments)
         action = {
             '_op_type': 'index',
