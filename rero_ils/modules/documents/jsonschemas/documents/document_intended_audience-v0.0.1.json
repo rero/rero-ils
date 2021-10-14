@@ -298,6 +298,71 @@
           }
         },
         {
+          "title": "pegi_level",
+          "propertiesOrder": [
+            "audienceType",
+            "value"
+          ],
+          "required": [
+            "audienceType",
+            "value"
+          ],
+          "type": "object",
+          "properties": {
+            "audienceType": {
+              "title": "pegi_level",
+              "type": "string",
+              "readOnly": true,
+              "default": "pegi_level",
+              "const": "pegi_level",
+              "form": {
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
+              }
+            },
+            "value": {
+              "title": "value",
+              "type": "string",
+              "default": "pegi_3",
+              "enum": [
+                "pegi_3",
+                "pegi_7",
+                "pegi_12",
+                "pegi_16",
+                "pegi_18"
+              ],
+              "form": {
+                "Type": "selectWithSort",
+                "options": [
+                  {
+                    "label": "pegi_3",
+                    "value": "pegi_3"
+                  },
+                  {
+                    "label": "pegi_7",
+                    "value": "pegi_7"
+                  },
+                  {
+                    "label": "pegi_12",
+                    "value": "pegi_12"
+                  },
+                  {
+                    "label": "pegi_16",
+                    "value": "pegi_16"
+                  },
+                  {
+                    "label": "pegi_18",
+                    "value": "pegi_18"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
           "title": "filmage_ch",
           "propertiesOrder": [
             "audienceType",
