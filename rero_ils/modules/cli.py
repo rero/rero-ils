@@ -56,6 +56,7 @@ from invenio_records.models import RecordMetadata
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_search.cli import es_version_check
 from invenio_search.proxies import current_search, current_search_client
+from jsonpatch import make_patch
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 from lxml import etree
@@ -302,6 +303,64 @@ def init_index(force):
             bar.label = name
 
 
+@utils.command('switch_index')
+@with_appcontext
+@es_version_check
+@click.argument('old')
+@click.argument('new')
+def switch_index(old, new):
+    """Switch index using the elasticsearch aliases.
+
+    :param old: full name of the old index
+    :param new: full name of the fresh created index
+    """
+    aliases = current_search_client.indices.get_alias().get(old)\
+        .get('aliases').keys()
+    for alias in aliases:
+        current_search_client.indices.put_alias(new, alias)
+        current_search_client.indices.delete_alias(old, alias)
+    click.secho('Sucessfully switched.', fg='green')
+
+
+@utils.command('create_index')
+@with_appcontext
+@es_version_check
+@click.option(
+    '-t', '--templates/--no-templates', 'templates', is_flag=True,
+    default=True)
+@click.option(
+    '-v', '--verbose/--no-verbose', 'verbose', is_flag=True, default=False)
+@click.argument('resource')
+@click.argument('index')
+def create_index(resource, index, verbose, templates):
+    """Create a new index based on the mapping of a given resource.
+
+    :param resource: the resource such as documents.
+    :param index: the index name such as documents-document-v0.0.1-20211014
+    :param verbose: display addtional message.
+    :param templates: update also the es templates.
+    """
+    if templates:
+        tbody = current_search_client.indices.get_template()
+        for tmpl in current_search.put_templates():
+            click.secho(f'file:{tmpl[0]}, ok: {tmpl[1]}', fg='green')
+            new_tbody = current_search_client.indices.get_template()
+            patch = make_patch(new_tbody, tbody)
+            if patch:
+                click.secho('Templates are updated.', fg='green')
+                if verbose:
+                    click.secho('Diff in templates', fg='green')
+                    click.echo(patch)
+            else:
+                click.secho('Templates did not changed.', fg='yellow')
+
+    f_mapping = [
+        v for v in current_search.aliases.get('documents').values()].pop()
+    mapping = json.load(open(f_mapping))
+    current_search_client.indices.create(index, mapping)
+    click.secho(f'Index {index} has been created.', fg='green')
+
+
 @utils.command('update_mapping')
 @click.option('--aliases', '-a', multiple=True, help='all if not specified')
 @with_appcontext
@@ -315,8 +374,12 @@ def update_mapping(aliases):
             current_search.aliases.get(alias).items()
         ):
             mapping = json.load(open(f_mapping))
-            res = current_search_client.indices.put_mapping(
-                mapping.get('mappings'), index)
+            try:
+                res = current_search_client.indices.put_mapping(
+                    mapping.get('mappings'), index)
+            except Exception as excep:
+                click.secho(
+                    f'error: {excep}', fg='red')
             if res.get('acknowledged'):
                 click.secho(
                     f'index: {index} has been sucessfully updated', fg='green')
@@ -1404,7 +1467,7 @@ def run(delayed, concurrency, with_stats, version_type=None, queue=None,
             .process_bulk_queue(
                 es_bulk_kwargs={'raise_on_error': raise_on_error},
                 stats_only=not with_stats
-        )
+            )
         click.secho(f'indexed: {indexed}, error: {error}', fg='yellow')
 
 
@@ -1418,8 +1481,9 @@ def run(delayed, concurrency, with_stats, version_type=None, queue=None,
 @click.option('-u', '--until_date', 'until_date')
 @click.option('-d', '--direct', 'direct', is_flag=True, default=False)
 @click.option('-c', '--count', 'count', is_flag=True, default=False)
+@click.option('-i', '--index', 'index')
 @with_appcontext
-def reindex(pid_types, no_info, from_date, until_date, direct, count):
+def reindex(pid_types, no_info, from_date, until_date, direct, count, index):
     """Reindex records.
 
     :param pid_type: Pid type.
@@ -1428,6 +1492,7 @@ def reindex(pid_types, no_info, from_date, until_date, direct, count):
     :param until_date: Index records until date.
     :param direct: Use record class for indexing.
     :param count: Do not index, display only counts.
+    :param index: Index name to index.
     """
     endpoints = current_app.config.get('RECORDS_REST_ENDPOINTS')
     if not pid_types:
@@ -1474,7 +1539,8 @@ def reindex(pid_types, no_info, from_date, until_date, direct, count):
                             click.echo(msg)
                     else:
                         IlsRecordsIndexer().bulk_index(
-                             (x[0] for x in query), doc_type=pid_type)
+                            (x[0] for x in query),
+                            doc_type=pid_type, index=index)
             else:
                 click.echo('Can not index by date.')
         else:
