@@ -18,6 +18,78 @@
 Release notes
 =============
 
+v1.6.0
+------
+
+⚠ Production instances need to migrate data, as this release modifies the data
+model of several resources:
+
+-  `rero/rero-ils@dd83a91b`_ (procedure to be found in the commit message).
+-  `rero/rero-ils#2393`_ (procedure to be found in the PR description).
+-  `rero/rero-ils@c4bdd9ef`_ (procedure to be found in the commit message).
+
+New options have been added to the CLI to allow to reindex a resource into
+another index, and the to switch from one index to the another. This prevents
+to interrupt the service during the reindexation process.
+
+This release allow the user to sort the search result list alphabetically and
+by date (ascending and descending) for several type of records, on the public
+and professional interface. It also improves how the search handles queries
+with diacritics (`#2396`_).
+
+Notes can be added to the language field (`#1867`_).
+
+Two issues on the notification system are solved:
+
+-  The availability was wrongfully sent to the owning library instead of the
+   pickup library (`#2373`_).
+-  As overdue notifications are grouped, the reminder number in the e-mail
+   subject can be misleading (`#2390`_).
+
+The anonymization of circulation transactions is modified to keep at least the
+last three months of operations, even if the patron doesn't keep the
+transaction history, in order to allow librarian to manage circulation
+(`#2068`_).
+
+The information displayed on the patron detailed view of the professional
+interface has been improved. In the patron brief view, the connexion to the
+circulation interface has been changed as a link instead of a button, thus
+allowing the librarian to open it in another window or tab.
+
+The circulation history of the patron, as seen on the public and professional
+interface, displays correct data (`#1227`_). Alongside, the total amount on the
+fee's tab of the public patron account is restored (`#2319`_). The ILL requests
+are also correctly displayed (`#1902`_).
+
+Creating a template on the base of an existing record resulted in errors, due
+to the links to other records (`#2385`_). From now, all the links inside
+templates are handled.
+
+The comprehensive changes are to be found in the `changelog`_. The
+changelogs of the other components of RERO ILS contains also relevant
+changes:
+
+-  `rero-ils-ui`_.
+-  `ng-core`_.
+
+.. _rero-ils-ui: https://github.com/rero/rero-ils-ui/blob/dev/CHANGELOG.md
+.. _ng-core: https://github.com/rero/ng-core/blob/dev/CHANGELOG.md
+.. _rero/rero-ils@dd83a91b: https://github.com/rero/rero-ils/commit/dd83a91bbc7ad30528beff3ae0f5476e8ba4f154
+.. _rero/rero-ils#2393: https://github.com/rero/rero-ils/pull/2393
+.. _rero/rero-ils@c4bdd9ef: https://github.com/rero/rero-ils/commit/c4bdd9ef4a9bf3b6c056199982e0e91b86181123
+.. _#1227: https://github.com/rero/rero-ils/issues/1227
+.. _#1867: https://github.com/rero/rero-ils/issues/1867
+.. _#1902: https://github.com/rero/rero-ils/issues/1902
+.. _#2068: https://github.com/rero/rero-ils/issues/2068
+.. _#2373: https://github.com/rero/rero-ils/issues/2373
+.. _#2275: https://github.com/rero/rero-ils/issues/2275
+.. _#2319: https://github.com/rero/rero-ils/issues/2319
+.. _#2385: https://github.com/rero/rero-ils/issues/2385
+.. _#2388: https://github.com/rero/rero-ils/issues/2388
+.. _#2390: https://github.com/rero/rero-ils/issues/2390
+.. _#2396: https://github.com/rero/rero-ils/issues/2396
+
+
 v1.5.1
 ------
 

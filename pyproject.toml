@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "rero-ils"
-version = "1.5.1"
+version = "1.6.0"
 description = "Invenio digital library framework."
 authors = ["RERO <software@rero.ch>"]
 license = "GNU Affero General Public License v3.0"
@@ -89,6 +89,7 @@ iso639 = "^0.1.4"
 dcxml = "^0.1.2"
 coverage = {version = ">=6.0b1", allow-prereleases = true}
 DeepDiff = "^5.5.0"
+docutils = "<0.18.0"
 
 [tool.poetry.dev-dependencies]
 ## Python packages development dependencies (order matters)
