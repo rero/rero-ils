@@ -82,6 +82,7 @@ class PatronTransactionEvent(IlsRecord):
         """Create patron transaction event record."""
         if 'creation_date' not in data:
             data['creation_date'] = datetime.now(timezone.utc).isoformat()
+        data['amount'] = round(data['amount'], 2)  # ensure multiple of 0.01
         record = super().create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
         if update_parent:
