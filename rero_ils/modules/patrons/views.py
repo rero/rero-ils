@@ -130,7 +130,10 @@ def logged_user():
             ),
             'librarianRoles': current_app.config.get(
                 'RERO_ILS_LIBRARIAN_ROLES', []
-            )
+            ),
+            'readOnlyProfile': current_app.config.get(
+                'USERPROFILES_READ_ONLY', False
+            ),
         }
     }
     if not current_user.is_authenticated:
