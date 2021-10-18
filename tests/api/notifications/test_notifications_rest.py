@@ -987,7 +987,7 @@ def test_cancel_notifications(
     mailbox.clear()
     process_notifications(NotificationType.AVAILABILITY)
     notification = get_notification(loan, NotificationType.AVAILABILITY)
-    notification['status'] == 'canceled'
+    assert notification['status'] == 'canceled'
     assert len(mailbox) == 0
     # restore to initial state
     res, data = postdata(
@@ -1002,6 +1002,34 @@ def test_cancel_notifications(
     )
     assert res.status_code == 200
     mailbox.clear()
+
+    # Test REMINDERS notifications.
+    #   reminders notification check about the end_date. As the loan end_date
+    #   is not yet over, the notification could be cancelled.
+
+    notification = loan.create_notification(_type=NotificationType.DUE_SOON)[0]
+    can_cancel, _ = notification.can_be_cancelled()
+    assert not can_cancel
+    process_notifications(NotificationType.DUE_SOON)
+    notification = Notification.get_record_by_pid(notification.pid)
+    assert notification['status'] == 'done'
+    flush_index(NotificationsSearch.Meta.index)
+
+    # try to create a new DUE_SOON notification for the same loan
+    record = {
+        'creation_date': datetime.now(timezone.utc).isoformat(),
+        'notification_type': NotificationType.DUE_SOON,
+        'context': {
+            'loan': {'$ref': get_ref_for_pid('loans', loan.pid)},
+            'reminder_counter': 0
+        }
+    }
+    notification = Notification.create(record)
+    can_cancel, _ = notification.can_be_cancelled()
+    assert can_cancel
+    Dispatcher.dispatch_notifications([notification.pid])
+    notification = Notification.get_record_by_pid(notification.pid)
+    assert notification['status'] == 'canceled'
 
 
 def test_booking_notifications(client, patron_martigny, patron_sion,

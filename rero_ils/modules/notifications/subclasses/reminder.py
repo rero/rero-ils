@@ -98,14 +98,21 @@ class ReminderCirculationNotification(CirculationNotification):
     def _exists_similar_notification(self):
         """Check if a similar notification already exists.
 
+        For reminders notification, it's possible to renew the loan. So
+        we need to check if a similar notification is created AFTER the
+        related `loan.transaction_date` (transaction_date is updated after
+        circulation operation [checkout, extends, ...])
+
         :return True if a similar notification is found, False otherwise.
         """
         reminder_counter = self.get('context', {}).get('reminder_counter', 0)
+        trans_date = self.loan.get('transaction_date')
+        trans_date = ciso8601.parse_datetime(trans_date)
         query = NotificationsSearch() \
             .filter('term', context__loan__pid=self.loan_pid) \
-            .filter('term', notification_type=self.type)
-        if self.type in NotificationType.REMINDERS_NOTIFICATIONS:
-            query = query.filter('term', reminder_counter=reminder_counter)
+            .filter('term', notification_type=self.type) \
+            .filter('range', creation_date={'gt': trans_date}) \
+            .filter('term', context__reminder_counter=reminder_counter)
         if self.pid:
             query = query.exclude('term', pid=self.pid)
         return query.source().count() > 0
