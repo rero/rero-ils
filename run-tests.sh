@@ -68,8 +68,14 @@ fi
 
 function pretests () {
   info_msg "Check vulnerabilities:"
-  # Ignore 40459 until the next release of flask-caching will be available.
-  safety check -i 40459
+  # +============================+===========+==========================+==========+
+  # | package                    | installed | affected                 | ID       |
+  # +============================+===========+==========================+==========+
+  # | werkzeug                   | 1.0.1     | <2.0.2                   | 42050    |
+  # | sqlalchemy-utils           | 0.35.0    | >=0.27.0                 | 42194    |
+  # | flask-caching              | 1.10.1    | <=1.10.1                 | 40459    |
+  # +==============================================================================+
+  safety check -i 40459 -i 42050 -i 42194
   info_msg "Check json:"
   invenio utils check_json tests/data rero_ils/modules data
   info_msg "Check license:"
