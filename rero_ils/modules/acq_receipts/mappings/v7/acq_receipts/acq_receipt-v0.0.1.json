@@ -1,0 +1,76 @@
+{
+  "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
+    "properties": {
+      "$schema": {
+        "type": "keyword"
+      },
+      "pid": {
+        "type": "keyword"
+      },
+      "acq_order": {
+        "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          }
+        }
+      },
+      "organisation": {
+        "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          }
+        }
+      },
+      "library": {
+        "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          }
+        }
+      },
+      "exchange_rate": {
+        "type": "float"
+      },
+      "total_amount": {
+        "type": "float"
+      },
+      "amount_adjustments": {
+        "properties": {
+          "label": {
+            "type": "text"
+          },
+          "amount": {
+            "type": "float"
+          }
+        }
+      },
+      "notes": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "content": {
+            "type": "text"
+          }
+        }
+      },
+      "_created": {
+        "type": "date"
+      },
+      "_updated": {
+        "type": "date"
+      }
+    }
+  }
+}
