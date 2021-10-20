@@ -18,30 +18,24 @@
 
 */
 
-$font-family-base:          "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$font-family-base:          -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 $font-size-base:            1rem !default;
 $font-size-very-small:      $font-size-base * .525  !default;
 
+$dark-blue:                 #1B4464;                    // dark blue
+$dark:                      $dark-blue;                 // dark blue
 
-$dark-blue:           #1B4464;              // dark blue
-$dark:                $dark-blue;           // dark blue
+$navbar-brand-font-size:    ($font-size-base * 1.5);    // controls the logo size
+$footer-height:             50px;
 
+$form-check-input-margin-y: .2rem !default;             // controls the checkbox vertical alignment
 
-$navbar-brand-font-size:              ($font-size-base * 1.5);    // controls the logo size
-$footer-height:                       50px;
-
-$form-check-input-margin-y:           .2rem !default;             // controls the checkbox vertical alignement
-
-$static-images:                       "../../../static/images";
+$static-images:             "../../../static/images";
 
 
-/*
- **************************************************
-
-              Mixin
-
- **************************************************
- */
+// ============================================================================
+//              MIXIN
+// ============================================================================
 
 @mixin rero-ils-badge() {
     font-size: $font-size-very-small;
