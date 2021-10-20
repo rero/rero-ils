@@ -243,8 +243,7 @@
       "type": "object",
       "additionalProperties": false,
       "propertiesOrder": [
-        "label",
-        "identifiedBy"
+        "label"
       ],
       "required": [
         "label"
@@ -253,9 +252,6 @@
         "label": {
           "type": "string",
           "minLength": 1
-        },
-        "identifiedBy": {
-          "$ref": "https://bib.rero.ch/schemas/documents/document_identified_by-v0.0.1.json#/identifiedBy"
         }
       }
     }
