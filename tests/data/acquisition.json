@@ -341,6 +341,96 @@
     "priority": 5,
     "amount": 1000
   },
+  "acre1": {
+    "$schema": "https://bib.rero.ch/schemas/acq_receipts/acq_receipt-v0.0.1.json",
+    "pid": "acre1",
+    "acq_order": {
+      "$ref": "https://bib.rero.ch/api/acq_orders/acor1"
+    },
+    "exchange_rate": 1,
+    "amount_adjustments": [
+      {
+        "label": "handling fees",
+        "amount": 2.0
+      },
+      {
+        "label": "discount",
+        "amount": -1.0
+      }
+    ],
+    "notes": [
+      {
+        "type": "staff_note",
+        "content": "receiving with caution..."
+      }
+    ],
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/lib1"
+    },
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    }
+  },
+  "acre2": {
+    "$schema": "https://bib.rero.ch/schemas/acq_receipts/acq_receipt-v0.0.1.json",
+    "pid": "acre2",
+    "acq_order": {
+      "$ref": "https://bib.rero.ch/api/acq_orders/acor2"
+    },
+    "exchange_rate": 1,
+    "amount_adjustments": [
+      {
+        "label": "handling fees",
+        "amount": 2.0
+      },
+      {
+        "label": "discount",
+        "amount": -2.0
+      }
+    ],
+    "notes": [
+      {
+        "type": "staff_note",
+        "content": "receiving with caution..."
+      }
+    ],
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/lib2"
+    },
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    }
+  },
+  "acre3": {
+    "$schema": "https://bib.rero.ch/schemas/acq_receipts/acq_receipt-v0.0.1.json",
+    "pid": "acre3",
+    "acq_order": {
+      "$ref": "https://bib.rero.ch/api/acq_orders/acor3"
+    },
+    "exchange_rate": 1,
+    "amount_adjustments": [
+      {
+        "label": "handling fees",
+        "amount": 2.0
+      },
+      {
+        "label": "discount",
+        "amount": -2.0
+      }
+    ],
+    "notes": [
+      {
+        "type": "staff_note",
+        "content": "receiving with caution..."
+      }
+    ],
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/lib4"
+    },
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org2"
+    }
+  },
   "acin1": {
     "$schema": "https://bib.rero.ch/schemas/acq_invoices/acq_invoice-v0.0.1.json",
     "pid": "acin1",
