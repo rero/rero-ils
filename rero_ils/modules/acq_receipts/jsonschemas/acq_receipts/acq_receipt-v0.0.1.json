@@ -1,0 +1,197 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Acquisition receipt",
+  "description": "JSON schema for Acquisition Receipt.",
+  "additionalProperties": false,
+  "propertiesOrder": [
+    "acq_order",
+    "exchange_rate",
+    "amount_adjustments",
+    "notes"
+  ],
+  "required": [
+    "$schema",
+    "pid",
+    "acq_order"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate Acquisition Receipt records against.",
+      "type": "string",
+      "default": "https://bib.rero.ch/schemas/acq_receipts/acq_receipt-v0.0.1.json",
+      "pattern": "^https://bib.rero.ch/schemas/acq_receipts/acq_receipt-v([0-9]+?\\.){3}json$"
+    },
+    "pid": {
+      "title": "Acquisition receipt ID",
+      "type": "string",
+      "minLength": 1
+    },
+    "acq_order": {
+      "title": "Order",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "$ref"
+      ],
+      "properties": {
+        "$ref": {
+          "title": "Order",
+          "type": "string",
+          "pattern": "^https://bib.rero.ch/api/acq_orders/.*?$",
+          "form": {
+            "focus": true,
+            "remoteOptions": {
+              "type": "acq_orders"
+            },
+            "placeholder": "Choose an order",
+            "templateOptions": {
+              "label": ""
+            }
+          }
+        }
+      }
+    },
+    "exchange_rate": {
+      "title": "Exchange rate",
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        }
+      }
+    },
+    "amount_adjustments": {
+      "title": "Additional fees, discount and credit",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "Fee",
+        "propertiesOrder": [
+          "label",
+          "amount"
+        ],
+        "required": [
+          "label",
+          "amount"
+        ],
+        "properties": {
+          "label": {
+            "title": "Label",
+            "type": "string",
+            "minLength": 3
+          },
+          "amount": {
+            "title": "Amount",
+            "type": "number",
+            "multipleOf": 0.01
+          }
+        }
+      }
+    },
+    "notes": {
+      "title": "Notes",
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "Note",
+        "propertiesOrder": [
+          "type",
+          "content"
+        ],
+        "required": [
+          "type",
+          "content"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type",
+            "enum": [
+              "staff_note"
+            ],
+            "default": "staff_note",
+            "form": {
+              "type": "selectWithSort",
+              "options": [
+                {
+                  "label": "staff_note",
+                  "value": "staff_note"
+                }
+              ]
+            }
+          },
+          "content": {
+            "type": "string",
+            "title": "Content",
+            "maxLength": 2000,
+            "minLength": 1,
+            "form": {
+              "type": "textarea",
+              "templateOptions": {
+                "rows": 3
+              }
+            }
+          }
+        }
+      },
+      "form": {
+        "templateOptions": {
+          "wrappers": [
+            "card"
+          ]
+        },
+        "validation": {
+          "validators": {
+            "uniqueValueKeysInObject": {
+              "keys": [
+                "type"
+              ]
+            }
+          },
+          "messages": {
+            "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
+          }
+        }
+      }
+    },
+    "library": {
+      "title": "Library",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "$ref"
+      ],
+      "properties": {
+        "$ref": {
+          "title": "Library URI",
+          "type": "string",
+          "pattern": "^https://bib.rero.ch/api/libraries/.*?$"
+        }
+      }
+    },
+    "organisation": {
+      "title": "Organisation",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "$ref"
+      ],
+      "properties": {
+        "$ref": {
+          "title": "Organisation URI",
+          "type": "string",
+          "pattern": "^https://bib.rero.ch/api/organisations/.*?$"
+        }
+      }
+    }
+  }
+}
