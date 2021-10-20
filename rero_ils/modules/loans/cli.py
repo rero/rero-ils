@@ -363,10 +363,10 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                 dbcommit=True,
                 reindex=True
             )
-            notification = loan.create_notification(
-                notification_type=NotificationType.DUE_SOON)
-            if notification:
-                notification_pids.append(notification['pid'])
+            notifications = loan.create_notification(
+                _type=NotificationType.DUE_SOON)
+            for notif in notifications:
+                notification_pids.append(notif['pid'])
 
             end_date = datetime.now(timezone.utc) - timedelta(days=70)
             loan['end_date'] = end_date.isoformat()
@@ -375,10 +375,10 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                 dbcommit=True,
                 reindex=True
             )
-            notification = loan.create_notification(
-                notification_type=NotificationType.OVERDUE)
-            if notification:
-                notification_pids.append(notification['pid'])
+            notifications = loan.create_notification(
+                _type=NotificationType.OVERDUE)
+            for notif in notifications:
+                notification_pids.append(notif['pid'])
 
         elif transaction_type == 'overdue_paid':
             end_date = datetime.now(timezone.utc) - timedelta(days=2)
@@ -388,10 +388,10 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                 dbcommit=True,
                 reindex=True
             )
-            notification = loan.create_notification(
-                notification_type=NotificationType.DUE_SOON)
-            if notification:
-                notification_pids.append(notification['pid'])
+            notifications = loan.create_notification(
+                _type=NotificationType.DUE_SOON)
+            for notif in notifications:
+                notification_pids.append(notif['pid'])
 
             end_date = datetime.now(timezone.utc) - timedelta(days=70)
             loan['end_date'] = end_date.isoformat()
@@ -400,10 +400,10 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                 dbcommit=True,
                 reindex=True
             )
-            notification = notif = loan.create_notification(
-                notification_type=NotificationType.OVERDUE)
-            if notification:
-                notification_pids.append(notification['pid'])
+            notifications = notif = loan.create_notification(
+                _type=NotificationType.OVERDUE)
+            for notif in notifications:
+                notification_pids.append(notif['pid'])
             patron_transaction = next(notif.patron_transactions)
             user = get_random_librarian(patron).replace_refs()
             payment = create_payment_record(
@@ -449,10 +449,10 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                         requested_patron.pid, item),
                     document_pid=extracted_data_from_ref(item.get('document')),
                 )
-                notification = loan.create_notification(
-                    notification_type=NotificationType.RECALL)
-                if notification:
-                    notification_pids.append(notification['pid'])
+                notifications = loan.create_notification(
+                    _type=NotificationType.RECALL)
+                for notif in notifications:
+                    notification_pids.append(notif['pid'])
         Dispatcher.dispatch_notifications(notification_pids, verbose=verbose)
         return item['barcode']
     except Exception as err:
