@@ -29,6 +29,7 @@ from rero_ils.modules.acq_invoices.api import AcquisitionInvoice, \
 from rero_ils.modules.acq_order_lines.api import AcqOrderLine, \
     AcqOrderLinesSearch
 from rero_ils.modules.acq_orders.api import AcqOrder, AcqOrdersSearch
+from rero_ils.modules.acq_receipts.api import AcqReceipt, AcqReceiptsSearch
 from rero_ils.modules.budgets.api import Budget, BudgetsSearch
 from rero_ils.modules.vendors.api import Vendor, VendorsSearch
 
@@ -384,6 +385,32 @@ def acq_order_fiction_martigny(
 
 
 @pytest.fixture(scope="module")
+def acq_receipt_fiction_martigny_data(acquisition):
+    """Load acq_receipt lib martigny fiction data."""
+    return deepcopy(acquisition.get('acre1'))
+
+
+@pytest.fixture(scope="function")
+def acq_receipt_fiction_martigny_data_tmp(acquisition):
+    """Load acq_receipt lib martigny fiction data."""
+    return deepcopy(acquisition.get('acre1'))
+
+
+@pytest.fixture(scope="module")
+def acq_receipt_fiction_martigny(
+        app, lib_martigny, acq_order_fiction_martigny,
+        acq_receipt_fiction_martigny_data):
+    """Load acq_receipt lib martigny fiction record."""
+    acor = AcqReceipt.create(
+        data=acq_receipt_fiction_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(AcqReceiptsSearch.Meta.index)
+    return acor
+
+
+@pytest.fixture(scope="module")
 def acq_order_fiction_saxon_data(acquisition):
     """Load acq_order lib saxon fiction data."""
     return deepcopy(acquisition.get('acor2'))
@@ -403,6 +430,26 @@ def acq_order_fiction_saxon(
 
 
 @pytest.fixture(scope="module")
+def acq_receipt_fiction_saxon_data(acquisition):
+    """Load acq_receipt lib saxon fiction data."""
+    return deepcopy(acquisition.get('acre2'))
+
+
+@pytest.fixture(scope="module")
+def acq_receipt_fiction_saxon(
+        app, lib_saxon, vendor_martigny, acq_order_fiction_saxon,
+        acq_receipt_fiction_saxon_data):
+    """Load acq_receipt lib saxon fiction record."""
+    acor = AcqReceipt.create(
+        data=acq_receipt_fiction_saxon_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(AcqReceiptsSearch.Meta.index)
+    return acor
+
+
+@pytest.fixture(scope="module")
 def acq_order_fiction_sion_data(acquisition):
     """Load acq_order lib sion fiction data."""
     return deepcopy(acquisition.get('acor3'))
@@ -418,6 +465,26 @@ def acq_order_fiction_sion(
         dbcommit=True,
         reindex=True)
     flush_index(AcqOrdersSearch.Meta.index)
+    return acor
+
+
+@pytest.fixture(scope="module")
+def acq_receipt_fiction_sion_data(acquisition):
+    """Load acq_receipt lib sion fiction data."""
+    return deepcopy(acquisition.get('acre3'))
+
+
+@pytest.fixture(scope="module")
+def acq_receipt_fiction_sion(
+        app, lib_sion, vendor_sion, acq_order_fiction_sion,
+        acq_receipt_fiction_sion_data):
+    """Load acq_receipt lib sion fiction record."""
+    acor = AcqReceipt.create(
+        data=acq_receipt_fiction_sion_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(AcqReceiptsSearch.Meta.index)
     return acor
 
 
