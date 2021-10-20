@@ -385,9 +385,8 @@ def work_access_point(work_access_point):
     """Process work access point data."""
     wap = []
     for work in work_access_point:
-
+        agentFormatted = ''
         if 'agent' in work:
-            agentFormatted = ''
             agent = work['agent']
             if agent['type'] == 'bf:Person':
                 # Person
@@ -424,27 +423,26 @@ def work_access_point(work_access_point):
                         conf.append(agent[key])
                     if len(conf):
                         agentFormatted += f"({' : '.join(conf)}) "
-            agentFormatted += f"{work['title']}. "
-            if 'part' in work:
-                for part in work['part']:
-                    for key in ['partNumber', 'partName']:
-                        if key in part:
-                            agentFormatted += f"{part[key]}. "
-            if 'miscellaneous_information' in work:
-                agentFormatted += f"{work['miscellaneous_information']}. "
-            if 'language' in work:
-                agentFormatted += f"{_('lang_'+work['language'])}. "
-            if 'medium_of_performance_for_music' in work:
-                agentFormatted += \
-                    f"{'. '.join(work['medium_of_performance_for_music'])}. "
-            if 'key_for_music' in work:
-                agentFormatted += f"{work['key_for_music']}. "
-            if 'arranged_statement_for_music' in work:
-                agentFormatted += f"{work['arranged_statement_for_music']}. "
-            if 'date_of_work' in work:
-                agentFormatted += f"{work['date_of_work']}. "
-
-            wap.append(agentFormatted.strip())
+        agentFormatted += f"{work['title']}. "
+        if 'part' in work:
+            for part in work['part']:
+                for key in ['partNumber', 'partName']:
+                    if key in part:
+                        agentFormatted += f"{part[key]}. "
+        if 'miscellaneous_information' in work:
+            agentFormatted += f"{work['miscellaneous_information']}. "
+        if 'language' in work:
+            agentFormatted += f"{_('lang_'+work['language'])}. "
+        if 'medium_of_performance_for_music' in work:
+            agentFormatted += \
+                f"{'. '.join(work['medium_of_performance_for_music'])}. "
+        if 'key_for_music' in work:
+            agentFormatted += f"{work['key_for_music']}. "
+        if 'arranged_statement_for_music' in work:
+            agentFormatted += f"{work['arranged_statement_for_music']}. "
+        if 'date_of_work' in work:
+            agentFormatted += f"{work['date_of_work']}. "
+        wap.append(agentFormatted.strip())
     return wap
 
 
