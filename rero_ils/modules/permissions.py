@@ -86,7 +86,9 @@ def record_permissions(record_pid=None, route_name=None):
                 reasons = {'others': {'permission': 'permission denied'}}
             permissions['delete']['reasons'] = reasons
         return jsonify(permissions)
-    except Exception:
+    except Exception as error:
+        # uncomment this line when you have troubles with permissions API
+        # raise error
         return jsonify({'status': 'error: Bad request'}), 400
 
 
