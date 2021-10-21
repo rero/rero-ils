@@ -123,18 +123,24 @@ def test_send_order(
         data=dict(emails=emails),
         url_data=dict(order_pid=acor.pid)
     )
-    assert res.status_code == 200
     data = get_json(res)
+    assert res.status_code == 200
+
+    # Reload the order and related order lines to check updated fields
+    #   * the order status should be ORDERED
+    #   * each order lines should be ORDERED (except for l3 = CANCELED)
     acor = AcqOrder.get_record_by_pid(acor.pid)
     l1 = AcqOrderLine.get_record_by_pid(acq_order_line_fiction_martigny.pid)
     l2 = AcqOrderLine.get_record_by_pid(acq_order_line2_fiction_martigny.pid)
     l3 = AcqOrderLine.get_record_by_pid(acq_order_line3_fiction_martigny.pid)
-    # Approved order lines are ordered
     assert l1.get('status') == AcqOrderLineStatus.ORDERED
+    assert l1.get('order_date')
     assert l2.get('status') == AcqOrderLineStatus.ORDERED
-    # Cancelled order lines remain cancelled (not ordered)
+    assert l2.get('order_date')
     assert l3.get('status') == AcqOrderLineStatus.CANCELLED
+    assert not l3.get('order_date')
     assert acor.status == AcqOrderStatus.ORDERED
+
     # ensure that created notification is well constructed from the associated
     # order and vendor
     notification_pid = data.get('data').get('pid')
