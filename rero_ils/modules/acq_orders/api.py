@@ -17,7 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating Acquisition Orders."""
-
+from datetime import datetime
 from functools import partial
 
 from flask_babelex import gettext as _
@@ -274,10 +274,12 @@ class AcqOrder(IlsRecord):
         # reindex myself. Reload the notification to obtain the right
         # notification metadata (status, process_date, ...)
         if dispatcher_result.get('sent', 0):
+            order_date = datetime.now().strftime('%Y-%m-%d')
             order_lines = self.get_order_lines(
                 includes=[AcqOrderLineStatus.APPROVED])
             for order_line in order_lines:
                 order_line['status'] = AcqOrderLineStatus.ORDERED
+                order_line['order_date'] = order_date
                 order_line.update(order_line, dbcommit=True, reindex=True)
             self.reindex()
             notif = Notification.get_record_by_id(notif.id)
