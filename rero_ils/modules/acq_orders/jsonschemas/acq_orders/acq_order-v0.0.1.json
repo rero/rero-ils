@@ -15,7 +15,6 @@
     "pid",
     "vendor",
     "library",
-    "reference",
     "type"
   ],
   "properties": {

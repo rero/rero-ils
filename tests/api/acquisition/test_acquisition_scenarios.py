@@ -393,11 +393,10 @@ def test_acquisition_order(
     order_data = {
         'vendor': {'$ref': get_ref_for_pid('vndr', vendor_martigny.pid)},
         'library': {'$ref': get_ref_for_pid('lib', lib_martigny.pid)},
-        'reference': 'ORDER#1',
         'type': 'monograph',
     }
     order = _make_resource(client, 'acor', order_data)
-    assert order['reference'] == order_data['reference']
+    assert order['reference'] == f'ORDER-{order.pid}'
     assert order.get_order_total_amount() == 0
     assert order.status == AcqOrderStatus.PENDING
     assert order.can_delete

@@ -81,6 +81,18 @@ class AcquisitionOrderCompleteDataExtension(RecordExtension):
     #     # of just use a vendor reference.
     #     AcquisitionOrderCompleteDataExtension.populate_currency(record)
 
+    def post_create(self, record):
+        """Called after the record is created.
+
+        If no reference is provided, use the PID as auto incremented sequence
+        to use as reference order.
+
+        :param record: the record metadata.
+        """
+        if not record.get('reference'):
+            record['reference'] = f'ORDER-{record.pid}'
+            record.update(record, dbcommit=True, reindex=True)
+
     def pre_commit(self, record):
         """Called before a record is committed.
 
