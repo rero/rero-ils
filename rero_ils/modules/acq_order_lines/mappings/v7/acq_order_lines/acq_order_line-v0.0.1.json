@@ -78,10 +78,16 @@
       "quantity": {
         "type": "integer"
       },
+      "quantity_received": {
+        "type": "integer"
+      },
       "amount": {
         "type": "float"
       },
       "total_amount": {
+        "type": "float"
+      },
+      "total_unreceived_amount": {
         "type": "float"
       },
       "exchange_rate": {

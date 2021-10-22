@@ -418,9 +418,26 @@ def test_acquisition_order(
     assert account_a.remaining_balance[0] == 1500
     assert account_a.expenditure_amount == (0, 0)
 
-    # TEST :: add a new cancelled order line and check if its amount is not
-    #  calculated into the encumbrance_amount
+    # TEST 2 :: update the number of received item from the order line.
+    #   * The encumbrance amount account should be decrease by quantity
+    #     received * amount.
+    order_line_1['quantity_received'] = 2
+    order_line_1 = order_line_1.update(order_line_1, dbcommit=True,
+                                       reindex=True)
+    assert account_b.encumbrance_amount[0] == 50  # 100 - 2 * 25
+    assert account_b.remaining_balance[0] == 450
+    assert account_a.encumbrance_amount == (0, 50)
+    assert account_a.remaining_balance[0] == 1500
+    assert account_a.expenditure_amount == (0, 0)
 
+    # reset the order line
+    del order_line_1['quantity_received']
+    order_line_1 = order_line_1.update(order_line_1, dbcommit=True,
+                                       reindex=True)
+
+    # TEST 3 :: add a new cancelled order line.
+    #   * As this new order line has CANCELED status, its amount is not
+    #     calculated into the encumbrance_amount
     basic_data = {
         'acq_account': account_b_ref,
         'acq_order': {'$ref': get_ref_for_pid('acor', order.pid)},
@@ -438,7 +455,7 @@ def test_acquisition_order(
     assert account_a.remaining_balance[0] == 1500
     assert account_a.expenditure_amount == (0, 0)
 
-    # TEST 2 :: new order line raises the limit of account available money.
+    # TEST 4 :: new order line raises the limit of account available money.
     #   * Create a new order line on the same account ; but the total amount
     #     of the line must be larger than account available money --> should
     #     be raise an ValidationError
@@ -464,7 +481,7 @@ def test_acquisition_order(
     assert account_a.encumbrance_amount == (0, 500)
     assert account_a.remaining_balance[0] == 1500
 
-    # TEST 3 :: Update the account encumbrance exceedance and test it.
+    # TEST 5 :: Update the account encumbrance exceedance and test it.
     #   * At this time, the account B doesn't have any available money to
     #     place any nex order line. Try to add an other item to existing order
     #     line will raise a ValidationError
@@ -507,7 +524,9 @@ def test_acquisition_order(
     _del_resource(client, 'acor', order.pid)
     # Deleting the parent PENDING order does delete all of its order lines
     order_line_1 = AcqOrderLine.get_record_by_pid(order_line_1.pid)
+    order_line_1_1 = AcqOrderLine.get_record_by_pid(order_line_1_1.pid)
     assert not order_line_1
+    assert not order_line_1_1
 
     _del_resource(client, 'acac', account_b.pid)
     _del_resource(client, 'acac', account_a.pid)
