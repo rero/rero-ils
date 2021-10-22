@@ -18,7 +18,6 @@
 """Tests REST API acquisition orders."""
 
 import json
-from copy import deepcopy
 
 import mock
 from flask import url_for
@@ -27,7 +26,6 @@ from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
 
 from rero_ils.modules.acq_order_lines.models import AcqOrderLineNoteType
-from rero_ils.modules.utils import get_ref_for_pid
 
 
 def test_acq_orders_lines_permissions(
@@ -85,6 +83,7 @@ def test_acq_order_lines_get(client, acq_order_line_fiction_martigny):
     data = get_json(res)
 
     metadata = data['hits']['hits'][0]['metadata']
+    del metadata['total_unreceived_amount']  # dynamically added key
     assert metadata == acq_order_line.replace_refs()
 
 
@@ -274,22 +273,3 @@ def test_acq_order_line_secure_api_update(client,
         headers=json_header
     )
     assert res.status_code == 403
-
-
-@mock.patch('invenio_records_rest.views.verify_record_permission',
-            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_order_line_linked_to_harvested_doc(
-    client,
-    acq_order_line_fiction_martigny_data,
-    acq_account_fiction_martigny,
-    ebook_1
-):
-    """Test order line with an harvested document."""
-    ebook_ref = get_ref_for_pid('doc', ebook_1.pid)
-    order_line = deepcopy(acq_order_line_fiction_martigny_data)
-    del order_line['pid']
-    order_line['document']['$ref'] = ebook_ref
-
-    res, data = postdata(client, 'invenio_records_rest.acol_list', order_line)
-    assert res.status_code == 400
-    assert 'Cannot link to an harvested document' in data['message']
