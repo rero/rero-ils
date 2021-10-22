@@ -23,9 +23,9 @@ from functools import partial
 
 from flask_babelex import gettext as _
 
-from .extensions import AcqOrderLineCheckAccountBalance, \
-    AcqOrderLineExcludeHarvestedDocument
+from .extensions import AcqOrderLineValidationExtension
 from .models import AcqOrderLineIdentifier, AcqOrderLineMetadata
+from .utils import calculate_unreceived_quantity
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
@@ -77,8 +77,7 @@ class AcqOrderLine(IlsRecord):
     }
 
     _extensions = [
-        AcqOrderLineCheckAccountBalance(),
-        AcqOrderLineExcludeHarvestedDocument()
+        AcqOrderLineValidationExtension()
     ]
 
     # API METHODS =============================================================
@@ -178,6 +177,11 @@ class AcqOrderLine(IlsRecord):
     def organisation_pid(self):
         """Get organisation pid for acquisition order."""
         return self.order.organisation_pid
+
+    @property
+    def unreceived_quantity(self):
+        """Get the number of item not yet received."""
+        return calculate_unreceived_quantity(self)
 
     @property
     def library_pid(self):

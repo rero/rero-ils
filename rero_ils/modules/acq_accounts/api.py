@@ -173,16 +173,21 @@ class AcqAccount(IlsRecord):
           * APPROVED or ORDERED acqz order lines related to this account.
           * Encumbrance of all children account
 
-        @:return A tuple of encumbrance amount : First element if encumbrance
+        :return A tuple of encumbrance amount : First element if encumbrance
                  for this account, second element is the children encumbrance.
         """
         # Encumbrance of this account
-        status_list = [AcqOrderLineStatus.APPROVED, AcqOrderLineStatus.ORDERED]
+        status_list = [
+            AcqOrderLineStatus.APPROVED,
+            AcqOrderLineStatus.ORDERED,
+            AcqOrderLineStatus.PARTIALLY_RECEIVED
+        ]
         query = AcqOrderLinesSearch()\
             .filter('term', acq_account__pid=self.pid)\
             .filter('terms', status=status_list)\
 
-        query.aggs.metric('total_amount', 'sum', field='total_amount')
+        query.aggs.metric('total_amount', 'sum',
+                          field='total_unreceived_amount')
         results = query.execute()
         self_amount = results.aggregations.total_amount.value
 
