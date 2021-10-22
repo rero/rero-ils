@@ -49,8 +49,7 @@ class AcqOrderLineStatus:
     CANCELLED = 'cancelled'
     ORDERED = 'ordered'
     RECEIVED = 'received'
-
-    OPEN = [APPROVED, ORDERED]
+    PARTIALLY_RECEIVED = 'partially_received'
 
 
 class AcqOrderLineNoteType:
