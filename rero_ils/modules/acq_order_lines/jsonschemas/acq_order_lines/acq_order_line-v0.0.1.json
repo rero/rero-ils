@@ -45,7 +45,8 @@
         "approved",
         "cancelled",
         "ordered",
-        "received"
+        "received",
+        "partially_received"
       ],
       "default": "approved",
       "form": {
@@ -70,6 +71,10 @@
           {
             "value": "received",
             "label": "received"
+          },
+          {
+            "value": "partially_received",
+            "label": "partially_received"
           }
         ]
       }
@@ -93,6 +98,12 @@
       "type": "integer",
       "default": 1,
       "minimum": 1
+    },
+    "quantity_received": {
+      "title": "Received quantity",
+      "type": "integer",
+      "default": 0,
+      "minimum": 0
     },
     "amount": {
       "title": "Amount",
