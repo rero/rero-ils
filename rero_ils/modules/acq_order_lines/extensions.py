@@ -23,12 +23,15 @@ from invenio_records.extensions import RecordExtension
 from jsonschema import ValidationError
 
 from rero_ils.modules.acq_accounts.models import AcqAccountExceedanceType
+from rero_ils.modules.acq_order_lines.utils import \
+    calculate_unreceived_quantity
 
 
-class AcqOrderLineCheckAccountBalance(RecordExtension):
-    """Extension to check if the related account has enough money."""
+class AcqOrderLineValidationExtension(RecordExtension):
+    """Extension to validate data about acquisition order line."""
 
-    def _check_balance(self, record):
+    @staticmethod
+    def _check_balance(record):
         """Check if parent account balance has enough money."""
         # compute the total amount of the order line
         record['total_amount'] = record['amount'] * record['quantity'] \
@@ -54,19 +57,26 @@ class AcqOrderLineCheckAccountBalance(RecordExtension):
                 msg = _('Parent account available amount too low')
                 raise ValidationError(msg)
 
-    pre_commit = _check_balance
-    pre_create = _check_balance
+    @staticmethod
+    def _check_quantity(record):
+        """Check if the quantities are coherent."""
+        if calculate_unreceived_quantity(record) < 0:
+            msg = _('Received quantity is grower than ordered quantity')
+            raise ValidationError(msg)
 
-
-class AcqOrderLineExcludeHarvestedDocument(RecordExtension):
-    """Extension to check if the related document is harvested."""
-
-    def _check_harvested(self, record):
+    @staticmethod
+    def _check_harvested(record):
         """Harvested document cannot be linked to an order line."""
         related_document = record.document
         if related_document and related_document.harvested:
             msg = _('Cannot link to an harvested document')
             raise ValidationError(msg)
 
-    pre_commit = _check_harvested
-    pre_create = _check_harvested
+    # INVENIO EXTENSION HOOKS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    def pre_commit(self, record):
+        """Called before a record is committed."""
+        AcqOrderLineValidationExtension._check_balance(record)
+        AcqOrderLineValidationExtension._check_quantity(record)
+        AcqOrderLineValidationExtension._check_harvested(record)
+
+    pre_create = pre_commit
