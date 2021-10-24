@@ -20,16 +20,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
-"POT-Creation-Date: 2021-10-14 08:27+0200\n"
-"PO-Revision-Date: 2021-10-13 16:27+0000\n"
+"POT-Creation-Date: 2021-10-25 10:54+0200\n"
+"PO-Revision-Date: 2021-11-19 21:49+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/fr/>\n"
 "Language: fr\n"
-"Language-Team: French <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.9.1\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: rero_ils/accounts_views.py:46 rero_ils/accounts_views.py:69
@@ -4835,8 +4836,8 @@ msgstr "Identifiant ou code utilisé localement pour cette collection"
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:7
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:9
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:23
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:72
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:109
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:71
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:108
 #: rero_ils/modules/ill_requests/forms.py:64
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:176
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:416
@@ -5853,7 +5854,7 @@ msgstr ""
 " IdRef ou GND, dès que c'est possible."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:22
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:60
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:59
 msgid "Agent"
 msgstr "Agent"
 
@@ -8379,12 +8380,12 @@ msgid "Subtitle"
 msgstr "Complément de titre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:82
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:90
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:89
 msgid "Parts"
 msgstr "Parties, sections, suppléments"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:86
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:95
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:94
 msgid "Part"
 msgstr "Partie, section, supplément"
 
@@ -8663,51 +8664,51 @@ msgstr "Exemple : Copie interdite"
 msgid "Work access point"
 msgstr "Point d'accès de l'œuvre"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:77
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:76
 msgid "Date of work"
 msgstr "Date de l'œuvre"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:82
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:81
 msgid "Miscellaneous information"
 msgstr "Information diverse"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:91
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:90
 msgid "Part, Section, or Supplement"
 msgstr "Partie, section ou supplément"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:103
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:102
 msgid "Designation"
 msgstr "Désignation"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:104
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:103
 msgid "Numeric designation of the part, section or supplement"
 msgstr "Désignation numérique de la partie, de la section ou du supplément"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:110
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:109
 msgid "Title of the part, section, or supplement"
 msgstr "Titre de la partie, de la section ou du supplément"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:118
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:117
 msgid "Form subdivisions"
 msgstr "Subdivisions de forme"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:122
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:121
 msgid "Form subdivision"
 msgstr "Subdivision de forme"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:128
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:127
 msgid "Mediums of performance (music)"
 msgstr "Distributions d’exécution (musique)"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:132
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:131
 msgid "Medium of performance (music)"
 msgstr "Distribution d’exécution (musique)"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:138
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:137
 msgid "Arranged statement (music)"
 msgstr "Mention d'adaptation (musique)"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:143
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:142
 msgid "Key (music)"
 msgstr "Tonalité (musique)"
 
@@ -10343,15 +10344,15 @@ msgstr "Compteur du rappel courant"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:61
 msgid "Recipient email addresses"
-msgstr ""
+msgstr "Adresses e-mail des destinataires"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:65
 msgid "Recipient"
-msgstr ""
+msgstr "Destinataire"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:74
 msgid "Recipient type"
-msgstr ""
+msgstr "Type de destinataire"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:96
 msgid "Schema to validate notifications records against."
@@ -13110,4 +13111,3 @@ msgstr "Votre mot de passe a été réinitialisé avec succès."
 
 #~ msgid "Articles"
 #~ msgstr "articles"
-
