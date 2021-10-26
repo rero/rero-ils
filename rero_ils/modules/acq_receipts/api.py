@@ -155,7 +155,7 @@ class AcqReceipt(IlsRecord):
         """Get a specific type of note.
 
         Only one note of each type could be created.
-        :param note_type: the note type to filter as `OrderNoteType` value.
+        :param note_type: note type to filter as `AcqReceiptNoteType` value.
         :return the note content if exists, otherwise returns None.
         """
         note = [
