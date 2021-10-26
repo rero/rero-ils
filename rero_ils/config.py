@@ -48,6 +48,8 @@ from .modules.acq_order_lines.api import AcqOrderLine
 from .modules.acq_order_lines.permissions import AcqOrderLinePermission
 from .modules.acq_orders.api import AcqOrder
 from .modules.acq_orders.permissions import AcqOrderPermission
+from .modules.acq_receipt_lines.api import AcqReceiptLine
+from .modules.acq_receipt_lines.permissions import AcqReceiptLinePermission
 from .modules.acq_receipts.api import AcqReceipt
 from .modules.acq_receipts.permissions import AcqReceiptPermission
 from .modules.budgets.api import Budget
@@ -1650,6 +1652,49 @@ RECORDS_REST_ENDPOINTS = dict(
         delete_permission_factory_imp=lambda record: record_permission_factory(
             action='delete', record=record, cls=AcqReceiptPermission)
     ),
+    acrl=dict(
+        pid_type='acrl',
+        pid_minter='acq_receipt_line_id',
+        pid_fetcher='acq_receipt_line_id',
+        search_class='rero_ils.modules.acq_receipt_lines.api:AcqReceiptLinesSearch',
+        search_index='acq_receipt_lines',
+        search_type=None,
+        indexer_class='rero_ils.modules.acq_receipt_lines.api:AcqReceiptLinesIndexer',
+        record_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_response'
+            )
+        },
+        record_serializers_aliases={
+            'json': 'application/json',
+        },
+        search_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_search'
+            ),
+        },
+        record_loaders={
+            'application/json': lambda: AcqReceiptLine(request.get_json()),
+        },
+        record_class='rero_ils.modules.acq_receipt_lines.api:AcqReceiptLine',
+        list_route='/acq_receipt_lines/',
+        item_route=('/acq_receipt_lines/<pid(acrl, record_class='
+                    '"rero_ils.modules.acq_receipt_lines.api:'
+                    'AcqReceiptLine"):pid_value>'),
+        default_media_type='application/json',
+        max_result_window=MAX_RESULT_WINDOW,
+        search_factory_imp='rero_ils.query:organisation_search_factory',
+        list_permission_factory_imp=lambda record: record_permission_factory(
+            action='list', record=record, cls=AcqReceiptLinePermission),
+        read_permission_factory_imp=lambda record: record_permission_factory(
+            action='read', record=record, cls=AcqReceiptLinePermission),
+        create_permission_factory_imp=lambda record: record_permission_factory(
+            action='create', record=record, cls=AcqReceiptLinePermission),
+        update_permission_factory_imp=lambda record: record_permission_factory(
+            action='update', record=record, cls=AcqReceiptLinePermission),
+        delete_permission_factory_imp=lambda record: record_permission_factory(
+            action='delete', record=record, cls=AcqReceiptLinePermission)
+    ),
     acin=dict(
         pid_type='acin',
         pid_minter='acq_invoice_id',
@@ -2558,6 +2603,7 @@ RECORDS_JSON_SCHEMA = {
     'acol': '/acq_order_lines/acq_order_line-v0.0.1.json',
     'acor': '/acq_orders/acq_order-v0.0.1.json',
     'acre': '/acq_receipts/acq_receipt-v0.0.1.json',
+    'acrl': '/acq_receipts/acq_receipt_line-v0.0.1.json',
     'acin': '/acq_invoices/acq_invoice-v0.0.1.json',
     'budg': '/budgets/budget-v0.0.1.json',
     'cipo': '/circ_policies/circ_policy-v0.0.1.json',
