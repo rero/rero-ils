@@ -371,6 +371,42 @@
       "$ref": "https://bib.rero.ch/api/organisations/org1"
     }
   },
+  "acrl1": {
+    "$schema": "https://bib.rero.ch/schemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json",
+    "pid": "acrl1",
+    "acq_receipt": {
+      "$ref": "https://bib.rero.ch/api/acq_receipts/acre1"
+    },
+    "acq_order_line": {
+      "$ref": "https://bib.rero.ch/api/acq_order_lines/acol1"
+    },
+    "amount": 1000,
+    "quantity": 1,
+    "notes": [
+      {
+        "type": "staff_note",
+        "content": "well received"
+      }
+    ]
+  },
+  "acrl2": {
+    "$schema": "https://bib.rero.ch/schemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json",
+    "pid": "acrl2",
+    "acq_receipt": {
+      "$ref": "https://bib.rero.ch/api/acq_receipts/acre1"
+    },
+    "acq_order_line": {
+      "$ref": "https://bib.rero.ch/api/acq_order_lines/acol2"
+    },
+    "amount": 500,
+    "quantity": 1,
+    "notes": [
+      {
+        "type": "staff_note",
+        "content": "well received"
+      }
+    ]
+  },
   "acre2": {
     "$schema": "https://bib.rero.ch/schemas/acq_receipts/acq_receipt-v0.0.1.json",
     "pid": "acre2",
@@ -401,6 +437,24 @@
       "$ref": "https://bib.rero.ch/api/organisations/org1"
     }
   },
+  "acrl3": {
+    "$schema": "https://bib.rero.ch/schemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json",
+    "pid": "acrl3",
+    "acq_receipt": {
+      "$ref": "https://bib.rero.ch/api/acq_receipts/acre2"
+    },
+    "acq_order_line": {
+      "$ref": "https://bib.rero.ch/api/acq_order_lines/acol3"
+    },
+    "amount": 1000,
+    "quantity": 1,
+    "notes": [
+      {
+        "type": "receipt_note",
+        "content": "well received too"
+      }
+    ]
+  },
   "acre3": {
     "$schema": "https://bib.rero.ch/schemas/acq_receipts/acq_receipt-v0.0.1.json",
     "pid": "acre3",
@@ -430,6 +484,24 @@
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/org2"
     }
+  },
+  "acrl4": {
+    "$schema": "https://bib.rero.ch/schemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json",
+    "pid": "acrl4",
+    "acq_receipt": {
+      "$ref": "https://bib.rero.ch/api/acq_receipts/acre3"
+    },
+    "acq_order_line": {
+      "$ref": "https://bib.rero.ch/api/acq_order_lines/acol4"
+    },
+    "amount": 500,
+    "quantity": 2,
+    "notes": [
+      {
+        "type": "receipt_note",
+        "content": "well received too"
+      }
+    ]
   },
   "acin1": {
     "$schema": "https://bib.rero.ch/schemas/acq_invoices/acq_invoice-v0.0.1.json",
