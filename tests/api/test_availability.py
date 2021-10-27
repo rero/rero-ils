@@ -29,7 +29,7 @@ from rero_ils.modules.documents.views import can_request
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
-from rero_ils.modules.loans.api import LoanAction
+from rero_ils.modules.loans.models import LoanAction
 from rero_ils.modules.locations.api import Location
 from rero_ils.modules.utils import get_ref_for_pid
 

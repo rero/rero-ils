@@ -1213,6 +1213,7 @@
       }
     ],
     "allow_requests": true,
+    "pickup_hold_duration": 10,
     "number_renewals": 3,
     "renewal_duration": 30,
     "policy_library_level": false,
@@ -1228,6 +1229,7 @@
     },
     "checkout_duration": 15,
     "allow_requests": true,
+    "pickup_hold_duration": 10,
     "reminders": [
       {
         "type": "due_soon",
@@ -1283,6 +1285,7 @@
     },
     "checkout_duration": 7,
     "allow_requests": true,
+    "pickup_hold_duration": 10,
     "reminders": [
       {
         "type": "due_soon",
@@ -1343,6 +1346,7 @@
       }
     ],
     "allow_requests": true,
+    "pickup_hold_duration": 10,
     "number_renewals": 3,
     "renewal_duration": 30,
     "policy_library_level": false,

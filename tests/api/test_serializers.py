@@ -21,7 +21,7 @@ from flask import url_for
 from utils import flush_index, get_csv, get_json, \
     item_record_to_a_specific_loan_state, login_user
 
-from rero_ils.modules.loans.api import LoanState
+from rero_ils.modules.loans.models import LoanState
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
 
 

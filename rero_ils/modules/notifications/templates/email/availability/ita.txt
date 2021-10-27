@@ -7,7 +7,9 @@ Il documento che Lei ha domandato è ora disponibile. Lei può ritirarlo al serv
 
 Titolo: {{ loan.document.title_text }}
 Punto di ritiro: {{ loan.pickup_name }}
-Ritirare entro: {{ loan.pickup_until }}
+{%- if loan.pickup_until %}
+Ritirare entro: {{ loan.pickup_until.strftime('%d/%m/%Y') }}
+{%- endif %}
 {%- endfor %}
 
 Se il documento non è ritirato entro detto termine, esso sarà rimesso in circolazione per altre persone.

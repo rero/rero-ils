@@ -44,7 +44,8 @@ from rero_ils.modules.items.api import Item, ItemsSearch
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.items.utils import item_pid_to_object
 from rero_ils.modules.libraries.api import Library
-from rero_ils.modules.loans.api import Loan, LoanAction, LoansSearch, LoanState
+from rero_ils.modules.loans.api import Loan, LoansSearch
+from rero_ils.modules.loans.models import LoanAction, LoanState
 from rero_ils.modules.locations.api import Location
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.patron_types.api import PatronType

@@ -29,8 +29,9 @@ from .models import PatronTypeIdentifier, PatronTypeMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..circ_policies.api import CircPoliciesSearch
 from ..fetchers import id_fetcher
-from ..loans.api import LoanState, get_loans_count_by_library_for_patron_pid, \
+from ..loans.api import get_loans_count_by_library_for_patron_pid, \
     get_overdue_loan_pids
+from ..loans.models import LoanState
 from ..minters import id_minter
 from ..patron_transactions.api import PatronTransaction
 from ..patrons.api import Patron, PatronsSearch

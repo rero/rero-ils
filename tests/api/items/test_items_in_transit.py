@@ -23,8 +23,7 @@ from utils import postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
-# from rero_ils.modules.loans.api import Loan, LoanAction, LoanState
-from rero_ils.modules.loans.api import LoanAction
+from rero_ils.modules.loans.models import LoanAction
 
 
 def test_items_in_transit_between_libraries(

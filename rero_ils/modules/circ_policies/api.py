@@ -25,6 +25,7 @@ from functools import partial
 
 from elasticsearch_dsl import Q
 
+from .extensions import CircPolicyFieldsExtension
 from .models import CircPolicyIdentifier, CircPolicyMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
@@ -81,6 +82,10 @@ class CircPolicy(IlsRecord):
         }
     }
 
+    _extensions = [
+        CircPolicyFieldsExtension()
+    ]
+
     def extended_validation(self, **kwargs):
         """Validate record against schema.
 
@@ -101,6 +106,7 @@ class CircPolicy(IlsRecord):
             library_pid = extracted_data_from_ref(library)
             if not Library.get_record_by_pid(library_pid):
                 return f"CircPolicy: no library:  {library.get('pid')}"
+
         # check all patron_types & item_types from settings belongs to the
         # same organisation than the cipo
         org = self.get('organisation')

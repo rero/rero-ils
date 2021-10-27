@@ -26,7 +26,8 @@ from invenio_circulation.search.api import LoansSearch
 from utils import flush_index, get_json, postdata
 
 from rero_ils.modules.items.api import Item
-from rero_ils.modules.loans.api import Loan, LoanAction, get_overdue_loans
+from rero_ils.modules.loans.api import Loan, get_overdue_loans
+from rero_ils.modules.loans.models import LoanAction
 from rero_ils.modules.notifications.api import NotificationsSearch
 from rero_ils.modules.notifications.dispatcher import Dispatcher
 from rero_ils.modules.notifications.models import NotificationType

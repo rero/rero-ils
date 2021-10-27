@@ -45,8 +45,9 @@ from ...documents.api import Document
 from ...errors import NoCirculationAction
 from ...item_types.api import ItemType
 from ...libraries.api import Library
-from ...loans.api import Loan, LoanAction, LoanState, \
-    get_last_transaction_loc_for_item, get_request_by_item_pid_by_patron_pid
+from ...loans.api import Loan, get_last_transaction_loc_for_item, \
+    get_request_by_item_pid_by_patron_pid
+from ...loans.models import LoanAction, LoanState
 from ...locations.api import Location
 from ...patrons.api import Patron
 from ...utils import extracted_data_from_ref, sorted_pids
@@ -494,7 +495,7 @@ class ItemCirculation(ItemRecord):
 
         :param loan : the current loan to cancel
         :param kwargs : all others named arguments
-        :return:  the item record and list of actions performed
+        :return: the item record and list of actions performed
         """
         actions_to_execute = {
             'cancel_loan': False,

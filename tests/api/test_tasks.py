@@ -22,14 +22,15 @@ from datetime import datetime, timedelta, timezone
 import ciso8601
 from freezegun import freeze_time
 from invenio_accounts.testutils import login_user_via_session
-from invenio_circulation.search.api import LoansSearch
 from invenio_records.signals import after_record_update
 from utils import flush_index, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.tasks import clean_obsolete_temporary_item_types
-from rero_ils.modules.loans.api import Loan, LoanAction, get_due_soon_loans, \
+from rero_ils.modules.loans.api import Loan, LoansSearch, get_due_soon_loans, \
     get_overdue_loans
+from rero_ils.modules.loans.models import LoanAction, LoanState
+from rero_ils.modules.loans.tasks import cancel_expired_request_task
 from rero_ils.modules.notifications.api import NotificationsSearch
 from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.notifications.tasks import create_notifications
@@ -265,3 +266,48 @@ def test_clear_obsolete_temporary_item_type(item_lib_martigny,
         items = Item.get_items_with_obsolete_temporary_item_type()
         assert len(list(items)) == 0
         assert item.item_type_circulation_category_pid == item.item_type_pid
+
+
+def test_expired_request_task(
+    item_on_shelf_martigny_patron_and_loan_pending, yesterday,
+    loc_public_martigny, patron2_martigny, librarian_martigny
+):
+    """Test the task cancelling the expired request."""
+    # STEP#0 :: CREATE TWO REQUEST
+    #   * Create an initial request and validate it.
+    #   * Create a second request for an other patron.
+    item, patron, loan = item_on_shelf_martigny_patron_and_loan_pending
+    params = {
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny.pid,
+        'pid': loan.pid
+    }
+    item, _ = item.validate_request(**params)
+    loan = Loan.get_record_by_pid(loan.pid)
+    item, actions = item.request(
+        pickup_location_pid=loc_public_martigny.pid,
+        patron_pid=patron2_martigny.pid,
+        transaction_location_pid=loc_public_martigny.pid,
+        transaction_user_pid=librarian_martigny.pid
+    )
+    assert 'request' in actions
+    loan2 = Loan.get_record_by_pid(actions['request']['pid'])
+
+    # STEP#1 :: SET FIRST REQUEST AS EXPIRED
+    #   Update the first request (Loan) to set it as expired updating its
+    #   `request_expired_date` attribute.
+    loan['request_expire_date'] = yesterday.isoformat()
+    loan.update(loan, dbcommit=True, reindex=True)
+    flush_index(LoansSearch.Meta.index)
+    loan = LoansSearch().get_record_by_pid(loan.pid)
+
+    # STEP#2 :: RUN THE TASK
+    #   * run the 'cancel_expired_request' task.
+    #   * check the first request is now CANCELLED
+    #   * check the second request is now ready to pickup (state=ITEM_AT_DESK)
+    task_result = cancel_expired_request_task()
+    assert task_result == (1, 1)
+    loan = Loan.get_record_by_pid(loan.pid)
+    loan2 = Loan.get_record_by_pid(loan2.pid)
+    assert loan['state'] == LoanState.CANCELLED
+    assert loan2['state'] == LoanState.ITEM_AT_DESK

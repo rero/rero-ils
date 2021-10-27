@@ -31,7 +31,8 @@ from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.libraries.api import email_notification_type
-from rero_ils.modules.loans.api import Loan, LoanAction, LoanState
+from rero_ils.modules.loans.api import Loan
+from rero_ils.modules.loans.models import LoanAction, LoanState
 from rero_ils.modules.notifications.api import Notification, \
     NotificationsSearch
 from rero_ils.modules.notifications.dispatcher import Dispatcher

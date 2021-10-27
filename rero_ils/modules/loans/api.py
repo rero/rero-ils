@@ -38,7 +38,8 @@ from invenio_jsonschemas import current_jsonschemas
 from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE, \
     OVERDUE_REMINDER_TYPE, CircPolicy
 
-from .extensions import SetDueSoonDate
+from .extensions import CirculationDatesExtension
+from .models import LoanAction, LoanState
 from ..api import IlsRecord, IlsRecordError, IlsRecordsIndexer, \
     IlsRecordsSearch
 from ..errors import NoCirculationActionIsPermitted
@@ -53,37 +54,6 @@ from ..notifications.utils import number_of_reminders_sent
 from ..patron_transactions.api import PatronTransactionsSearch
 from ..patrons.api import Patron, PatronsSearch
 from ..utils import date_string_to_utc, get_ref_for_pid
-
-
-class LoanState(object):
-    """Class to handle different loan states."""
-
-    CREATED = 'CREATED'
-    PENDING = 'PENDING'
-    ITEM_IN_TRANSIT_FOR_PICKUP = 'ITEM_IN_TRANSIT_FOR_PICKUP'
-    ITEM_IN_TRANSIT_TO_HOUSE = 'ITEM_IN_TRANSIT_TO_HOUSE'
-    ITEM_AT_DESK = 'ITEM_AT_DESK'
-    ITEM_ON_LOAN = 'ITEM_ON_LOAN'
-    ITEM_RETURNED = 'ITEM_RETURNED'
-    CANCELLED = 'CANCELLED'
-
-    CONCLUDED = [CANCELLED, ITEM_RETURNED]
-    ITEM_IN_TRANSIT = [ITEM_IN_TRANSIT_TO_HOUSE, ITEM_IN_TRANSIT_FOR_PICKUP]
-
-
-class LoanAction(object):
-    """Class holding all available circulation loan actions."""
-
-    REQUEST = 'request'
-    CHECKOUT = 'checkout'
-    CHECKIN = 'checkin'
-    VALIDATE = 'validate'
-    RECEIVE = 'receive'
-    RETURN_MISSING = 'return_missing'
-    EXTEND = 'extend_loan'
-    CANCEL = 'cancel'
-    NO = 'no'
-    UPDATE = 'update'
 
 
 class LoansSearch(IlsRecordsSearch):
@@ -124,7 +94,9 @@ class Loan(IlsRecord):
         "transaction_date"
     ]
     # Invenio Records extensions
-    _extensions = [SetDueSoonDate()]
+    _extensions = [
+        CirculationDatesExtension()
+    ]
 
     def __init__(self, data, model=None):
         """Loan init."""
@@ -654,6 +626,13 @@ class Loan(IlsRecord):
         )
 
     @property
+    def pickup_library(self):
+        """Get the library pid related to the pickup location."""
+        location_pid = self.pickup_location_pid
+        if location_pid:
+            return Location.get_record_by_pid(location_pid).get_library()
+
+    @property
     def pickup_location_pid(self):
         """Get loan pickup_location PID."""
         return self.get('pickup_location_pid')
@@ -1157,17 +1136,34 @@ def get_loans_count_by_library_for_patron_pid(patron_pid, filter_states=None):
 
 
 def get_due_soon_loans(tstamp=None):
-    """Return all due_soon loans."""
+    """Return all due_soon loans.
+
+    :param tstamp: a limit timestamp. Default is `datetime.now()`.
+    """
     end_date = tstamp or datetime.now()
     end_date = end_date.strftime('%Y-%m-%dT%H:%M:%S.000Z')
     query = current_circulation.loan_search_cls() \
         .filter('term', state=LoanState.ITEM_ON_LOAN) \
-        .filter('range', due_soon_date={'lte': end_date})
-    results = query\
+        .filter('range', due_soon_date={'lte': end_date}) \
         .params(preserve_order=True) \
         .sort({'_created': {'order': 'asc'}}) \
-        .source(['pid'])
-    for hit in results.scan():
+        .source(['pid']).scan()
+    for hit in query:
+        yield Loan.get_record_by_pid(hit.pid)
+
+
+def get_expired_request(tstamp=None):
+    """Return all expired request.
+
+    :param tstamp: a limit timestamp. Default is `datetime.now()`.
+    """
+    end_date = tstamp or datetime.now()
+    end_date = end_date.strftime('%Y-%m-%dT%H:%M:%S.000Z')
+    query = current_circulation.loan_search_cls() \
+        .filter('term', state=LoanState.ITEM_AT_DESK) \
+        .filter('range', request_expire_date={'lte': end_date}) \
+        .source(['pid']).scan()
+    for hit in query:
         yield Loan.get_record_by_pid(hit.pid)
 
 
@@ -1274,3 +1270,7 @@ class LoansIndexer(IlsRecordsIndexer):
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
         super().bulk_index(record_id_iterator, doc_type='loan')
+
+    def _get_record_class(self, payload):
+        """Get the record class from payload."""
+        return self.record_cls

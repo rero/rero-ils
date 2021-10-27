@@ -19,11 +19,12 @@
 
 from invenio_records_rest.serializers.response import search_responsify
 
-from rero_ils.modules.loans.api import Loan, LoanState
 from rero_ils.modules.locations.api import Location
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.serializers import JSONSerializer, RecordSchemaJSONV1
 
+from .api import Loan
+from .models import LoanState
 from ..documents.api import DocumentsSearch
 from ..items.api import Item
 from ..libraries.api import Library

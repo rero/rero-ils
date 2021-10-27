@@ -7,7 +7,9 @@ Le document que vous avez demandé est maintenant disponible. Vous pouvez venir 
 
 Titre : {{ loan.document.title_text  }}
 Lieu de retrait : {{ loan.pickup_name }}
-A retirer jusqu'au : {{ loan.pickup_until }}
+{%- if loan.pickup_until %}
+A retirer jusqu'au : {{ loan.pickup_until.strftime('%d/%m/%Y') }}
+{%- endif %}
 {%- endfor %}
 
 Si le document n'est pas retiré dans les délais, il sera remis en circulation pour d'autres personnes.

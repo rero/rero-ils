@@ -25,8 +25,9 @@ from utils import flush_index, item_record_to_a_specific_loan_state
 
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.items.utils import item_pid_to_object
-from rero_ils.modules.loans.api import Loan, LoanState, \
+from rero_ils.modules.loans.api import Loan, \
     get_last_transaction_loc_for_item, get_loans_by_patron_pid
+from rero_ils.modules.loans.models import LoanState
 from rero_ils.modules.loans.utils import can_be_requested
 from rero_ils.modules.locations.api import LocationsSearch
 

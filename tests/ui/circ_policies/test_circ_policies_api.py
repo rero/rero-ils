@@ -134,3 +134,21 @@ def test_circ_policy_can_delete(app, circ_policy_martigny_data_tmp):
     can, reasons = cipo.can_delete
     assert can
     assert reasons == {}
+
+
+def test_circ_policy_extended_validation(
+    app,
+    circ_policy_short_martigny,
+    circ_policy_short_martigny_data
+):
+    """Test extended validation for circ policy"""
+    cipo_data = deepcopy(circ_policy_short_martigny_data)
+    cipo_data['allow_requests'] = False
+    cipo_data['pickup_hold_duration'] = 10
+    del cipo_data['pid']
+
+    cipo = CircPolicy.create(cipo_data)
+    assert cipo
+    assert 'pickup_hold_duration' not in cipo
+
+    cipo.delete()

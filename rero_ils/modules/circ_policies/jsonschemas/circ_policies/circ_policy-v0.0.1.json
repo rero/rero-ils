@@ -21,6 +21,7 @@
     "renewal_duration",
     "is_default",
     "allow_requests",
+    "pickup_hold_duration",
     "policy_library_level",
     "libraries",
     "reminders",
@@ -96,6 +97,20 @@
       "title": "Allow patron requests",
       "type": "boolean",
       "default": true
+    },
+    "pickup_hold_duration": {
+      "title": "Pickup hold duration in days",
+      "description": "Number of day(s) after which a not-picked up validated request will be cancelled. Keep empty to specify infinite duration.",
+      "type": "integer",
+      "minimum": 1,
+      "form": {
+        "hideExpression": "!model.allow_requests",
+        "templateOptions": {
+          "addonRight": {
+            "text": "day(s)"
+          }
+        }
+      }
     },
     "reminders": {
       "type": "array",
