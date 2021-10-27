@@ -34,6 +34,7 @@ from .models import PatronIdentifier, PatronMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..libraries.api import Library
+from ..loans.models import LoanState
 from ..minters import id_minter
 from ..organisations.api import Organisation
 from ..patron_transactions.api import PatronTransaction
@@ -489,11 +490,13 @@ class Patron(IlsRecord):
         :param get_pids: if True list of linked pids
                          if False count of linked records
         """
-        from ..loans.api import LoanState
         if self.pid:
             links = {}
-            exclude_states = [LoanState.CANCELLED, LoanState.ITEM_RETURNED,
-                              LoanState.CREATED]
+            exclude_states = [
+                LoanState.CANCELLED,
+                LoanState.ITEM_RETURNED,
+                LoanState.CREATED
+            ]
             loan_query = current_circulation.loan_search_cls()\
                 .filter('term', patron_pid=self.pid)\
                 .exclude('terms', state=exclude_states)

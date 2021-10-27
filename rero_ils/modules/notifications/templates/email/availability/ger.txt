@@ -7,7 +7,9 @@ Das von Ihnen bestellte Dokument ist nun verfügbar und kann an der Ausleihtheke
 
 Titel : {{ loan.document.title_text }}
 Abholort: {{ loan.pickup_name }}
-Abholen bis: {{ loan.pickup_until }}
+{%- if loan.pickup_until %}
+Abholen bis: {{ loan.pickup_until.strftime('%d.%m.%Y') }}
+{%- endif %}
 {%- endfor %}
 
 Wenn das Dokument innerhalb der gegebenen Frist nicht abgeholt wird, wird es anderen Personen zur Verfügung gestellt.

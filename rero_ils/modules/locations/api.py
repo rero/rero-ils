@@ -26,6 +26,7 @@ from .models import LocationIdentifier, LocationMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..errors import MissingRequiredParameterError
 from ..fetchers import id_fetcher
+from ..loans.models import LoanState
 from ..minters import id_minter
 from ..providers import Provider
 from ..utils import extracted_data_from_ref, sorted_pids
@@ -109,9 +110,7 @@ class Location(IlsRecord):
 
     def get_library(self):
         """Get library."""
-        from ..libraries.api import Library
-        library_pid = extracted_data_from_ref(self.get('library'))
-        return Library.get_record_by_pid(library_pid)
+        return extracted_data_from_ref(self.get('library'), data='record')
 
     def get_links_to_me(self, get_pids=False):
         """Record links.
@@ -120,7 +119,7 @@ class Location(IlsRecord):
                          if False count of linked records
         """
         from ..items.api import ItemsSearch
-        from ..loans.api import LoansSearch, LoanState
+        from ..loans.api import LoansSearch
         item_query = ItemsSearch() \
             .filter('term', location__pid=self.pid)
         exclude_states = [

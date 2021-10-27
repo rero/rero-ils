@@ -24,7 +24,7 @@ from utils import item_record_to_a_specific_loan_state
 
 from rero_ils.modules.errors import NoCirculationAction
 from rero_ils.modules.items.models import ItemStatus
-from rero_ils.modules.loans.api import LoanState
+from rero_ils.modules.loans.models import LoanState
 
 
 def test_extend_on_item_on_shelf(

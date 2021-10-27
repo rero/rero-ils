@@ -32,13 +32,15 @@ from utils import flush_index, get_mapping
 from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.libraries.api import Library
-from rero_ils.modules.loans.api import Loan, LoanAction, LoanState
+from rero_ils.modules.loans.api import Loan, get_expired_request
+from rero_ils.modules.loans.models import LoanAction, LoanState
 from rero_ils.modules.loans.tasks import loan_anonymizer
 from rero_ils.modules.loans.utils import get_circ_policy, \
     get_default_loan_duration, sum_for_fees
 from rero_ils.modules.notifications.api import NotificationsSearch
 from rero_ils.modules.notifications.models import NotificationType
-from rero_ils.modules.notifications.tasks import create_notifications
+from rero_ils.modules.notifications.tasks import create_notifications, \
+    process_notifications
 from rero_ils.modules.patron_transactions.api import PatronTransaction
 
 
@@ -409,3 +411,60 @@ def test_loan_get_overdue_fees(item_on_loan_martigny_patron_and_loan_on_loan):
     # RESET THE CIPO
     del cipo['overdue_fees']
     cipo.update(data=cipo, dbcommit=True, reindex=True)
+
+
+def test_request_expire_date(
+    item_on_shelf_martigny_patron_and_loan_pending,
+    librarian_martigny, loc_public_martigny, mailbox
+):
+    """Test request expiration date consistency."""
+    item, patron, loan = item_on_shelf_martigny_patron_and_loan_pending
+    assert item.status == ItemStatus.ON_SHELF
+
+    # STEP#0 : UPDATE THE CIRCULATION POLICY
+    #   Add setting to the corresponding circulation policy to allow request
+    #   automatic expiration
+    cipo = get_circ_policy(loan)
+
+    original_cipo = deepcopy(cipo)
+    cipo['allow_requests'] = True
+    cipo['pickup_hold_duration'] = 44
+    cipo = cipo.update(cipo, dbcommit=True, reindex=True)
+
+    # STEP#1 : VALIDATE THE REQUEST
+    #   When a request is validated, the item status becomes AT_DESK and the
+    #   loan status becomes ITEM_AT_DESK. Additionally the request expiration
+    #   date is specified into the loan information.
+    params = {
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny.pid,
+        'pid': loan.pid
+    }
+    item, actions = item.validate_request(**params)
+    loan = Loan.get_record_by_pid(loan.pid)
+    assert item.status == ItemStatus.AT_DESK
+    assert loan['state'] == LoanState.ITEM_AT_DESK
+    assert 'request_expire_date' in loan
+    assert 'request_start_date' in loan
+
+    trans_date = ciso8601.parse_datetime(loan['transaction_date'])
+    request_expire_date = ciso8601.parse_datetime(loan['request_expire_date'])
+    open_days = (request_expire_date - trans_date).days
+    assert open_days >= cipo['pickup_hold_duration']
+    # NOTE : we check using '>=' because the exact day could be a closed day.
+    request_start_date = ciso8601.parse_datetime(loan['request_start_date'])
+    assert request_start_date.date() == datetime.today().date()
+
+    # If we check about expired request now, no result should be found
+    assert len(list(get_expired_request())) == 0
+
+    # Check the notification :: check if the request expiration date is well
+    # introduced into the body of availability notification message
+    mailbox.clear()
+    process_notifications(NotificationType.AVAILABILITY)
+    assert len(mailbox)
+    body = mailbox[-1].body
+    assert request_expire_date.strftime('%d/%m/%Y') in body
+
+    # RESET THE CIPO
+    cipo.update(original_cipo, dbcommit=True, reindex=True)

@@ -26,7 +26,8 @@ from utils import login_user_via_session, postdata
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.libraries.api import Library
-from rero_ils.modules.loans.api import Loan, LoanAction, LoanState
+from rero_ils.modules.loans.api import Loan
+from rero_ils.modules.loans.models import LoanAction, LoanState
 
 
 def test_less_than_one_day_checkout(

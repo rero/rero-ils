@@ -159,7 +159,7 @@ class Document(IlsRecord):
         links = {}
         from ..holdings.api import HoldingsSearch
         from ..items.api import ItemsSearch
-        from ..loans.api import LoanState
+        from ..loans.models import LoanState
         hold_query = HoldingsSearch().filter('term', document__pid=self.pid)
         item_query = ItemsSearch().filter('term', document__pid=self.pid)
         loan_query = search_by_pid(

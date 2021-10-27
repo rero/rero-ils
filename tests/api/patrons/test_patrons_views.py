@@ -24,7 +24,7 @@ from utils import postdata
 
 from rero_ils.modules.cli.utils import create_personal
 from rero_ils.modules.items.models import ItemStatus
-from rero_ils.modules.loans.api import LoanAction
+from rero_ils.modules.loans.models import LoanAction
 
 
 def test_patron_can_delete(client, librarian_martigny,

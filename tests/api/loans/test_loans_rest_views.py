@@ -20,7 +20,7 @@
 from flask import url_for
 from utils import get_json, item_record_to_a_specific_loan_state, login_user
 
-from rero_ils.modules.loans.api import LoanState
+from rero_ils.modules.loans.models import LoanState
 
 
 def test_loan_can_extend(client, patron_martigny, item_lib_martigny,

@@ -30,7 +30,8 @@ from utils import VerifyRecordPermissionPatch, flush_index, get_json, postdata
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemNoteTypes, ItemStatus
-from rero_ils.modules.loans.api import Loan, LoanAction, LoanState
+from rero_ils.modules.loans.api import Loan
+from rero_ils.modules.loans.models import LoanAction, LoanState
 from rero_ils.modules.loans.utils import get_extension_params
 
 

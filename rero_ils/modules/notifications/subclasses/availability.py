@@ -20,12 +20,11 @@
 
 from __future__ import absolute_import, print_function
 
-from datetime import datetime, timedelta, timezone
+import ciso8601
 
 from rero_ils.modules.documents.dumpers import DocumentNotificationDumper
 from rero_ils.modules.libraries.dumpers import \
     LibraryCirculationNotificationDumper
-from rero_ils.modules.libraries.exceptions import LibraryNeverOpen
 from rero_ils.modules.patrons.dumpers import PatronNotificationDumper
 
 from .circulation import CirculationNotification
@@ -64,20 +63,6 @@ class AvailabilityCirculationNotification(CirculationNotification):
         return False, None
 
     @classmethod
-    def _availability_end_date(cls, library):
-        """Get the date until when a document will be available.
-
-        :param library: the library where to search the end date.
-        :return the formatted availability end date.
-        """
-        # TODO: make availability days variable (now fixed to 10 days)
-        keep_until = datetime.now(timezone.utc) + timedelta(days=10)
-        try:
-            return library.next_open(keep_until).strftime("%d.%m.%Y")
-        except LibraryNeverOpen:
-            return 'never open'
-
-    @classmethod
     def get_notification_context(cls, notifications=None):
         """Get the context to render the notification template.
 
@@ -114,6 +99,10 @@ class AvailabilityCirculationNotification(CirculationNotification):
         doc_dumper = DocumentNotificationDumper()
         for notification in notifications:
             loc = lib = None
+            keep_until = notification.loan.get('request_expire_date')
+            if keep_until:
+                keep_until = ciso8601.parse_datetime(keep_until)
+
             if notification.pickup_location:
                 loc = notification.pickup_location
                 lib = notification.pickup_library
@@ -125,6 +114,6 @@ class AvailabilityCirculationNotification(CirculationNotification):
                 context['loans'].append({
                     'document': notification.document.dumps(dumper=doc_dumper),
                     'pickup_name': loc.get('pickup_name', lib.get('name')),
-                    'pickup_until': cls._availability_end_date(lib)
+                    'pickup_until': keep_until
                 })
         return context

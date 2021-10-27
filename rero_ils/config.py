@@ -71,7 +71,8 @@ from .modules.items.utils import item_location_retriever, \
     same_location_validator
 from .modules.libraries.api import Library
 from .modules.libraries.permissions import LibraryPermission
-from .modules.loans.api import Loan, LoanState
+from .modules.loans.api import Loan
+from .modules.loans.models import LoanState
 from .modules.loans.permissions import LoanPermission
 from .modules.loans.utils import can_be_requested, get_default_loan_duration, \
     get_extension_params, is_item_available_for_checkout, \
@@ -350,9 +351,13 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(minute=15, hour=2),  # Every day at 02:15 UTC,
         'enabled': False
     },
+    'cancel-expired-request': {
+        'task': 'rero_ils.modules.loans.tasks.cancel_expired_request_task',
+        'schedule': crontab(minute=15, hour=3),  # Every day at 03:15 UTC,
+        'enabled': False
+    },
     'anonymize-loans': {
-        'task': ('rero_ils.modules.loans.tasks'
-                 '.loan_anonymizer'),
+        'task': 'rero_ils.modules.loans.tasks.loan_anonymizer',
         'schedule': crontab(minute=0, hour=7),  # Every day at 07:00 UTC,
         'enabled': False
     },
@@ -2565,8 +2570,17 @@ JSONSCHEMAS_LOADER_CLS = 'rero_ils.jsonschemas.utils.JsonLoader'
 # =======
 OAISERVER_ID_PREFIX = 'oai:bib.rero.ch:'
 
+# =============================================================================
+# RERO_ILS LOANS SPECIAL CONFIGURATION
+# =============================================================================
+
+# Specify the default request duration if no data could be found into the
+# circulation policy related to a loan that allows request.
+RERO_ILS_DEFAULT_PICKUP_HOLD_DURATION = 10
+
+# =============================================================================
 # ANONYMISATION PROCESS CONFIGURATION
-# ================================================
+# =============================================================================
 
 # Specify the delay (in days) under which no loan can't be anonymized anyway (
 # for circulation management process).

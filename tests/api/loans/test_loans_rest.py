@@ -30,8 +30,9 @@ from utils import check_timezone_date, flush_index, get_json, postdata
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.utils import item_pid_to_object
 from rero_ils.modules.libraries.api import Library
-from rero_ils.modules.loans.api import Loan, LoanAction, LoanState, \
-    get_due_soon_loans, get_last_transaction_loc_for_item, get_overdue_loans
+from rero_ils.modules.loans.api import Loan, get_due_soon_loans, \
+    get_last_transaction_loc_for_item, get_overdue_loans
+from rero_ils.modules.loans.models import LoanAction, LoanState
 from rero_ils.modules.notifications.api import NotificationsSearch
 from rero_ils.modules.notifications.dispatcher import Dispatcher
 from rero_ils.modules.notifications.models import NotificationType

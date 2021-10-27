@@ -21,7 +21,8 @@ from __future__ import absolute_import, print_function
 
 from celery import shared_task
 
-from ..loans.api import Loan
+from ..items.api import Item
+from ..loans.api import Loan, get_expired_request
 from ..utils import set_timestamp
 
 
@@ -42,3 +43,26 @@ def loan_anonymizer(dbcommit=True, reindex=True):
     msg = f'number_of_loans_anonymized: {counter}'
     set_timestamp('anonymize-loans', msg=msg)
     return msg
+
+
+@shared_task(ignore_result=True)
+def cancel_expired_request_task(tstamp=None):
+    """Cancel all expired loans for all organisations.
+
+    :param tstamp: the timestamp to check. Default is `datetime.now()`
+    :return a tuple with total performed loans ans total cancelled loans.
+    """
+    total_loans_counter = total_cancelled_loans = 0
+    for loan in get_expired_request(tstamp):
+        total_loans_counter += 1
+        item = Item.get_record_by_pid(loan.item_pid)
+        # TODO : trans_user_pid shouldn't be the patron itself, but a system
+        #        user.
+        _, actions = item.cancel_item_request(
+            loan.pid,
+            transaction_location_pid=loan.location_pid,
+            transaction_user_pid=loan.patron_pid
+        )
+        if actions.get('cancel', {}).get('pid') == loan.pid:
+            total_cancelled_loans += 1
+    return total_loans_counter, total_cancelled_loans

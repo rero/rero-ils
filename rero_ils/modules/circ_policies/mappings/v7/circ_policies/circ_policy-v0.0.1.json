@@ -77,6 +77,9 @@
           }
         }
       },
+      "pickup_hold_duration": {
+        "type": "integer"
+      },
       "renewal_duration": {
         "type": "integer"
       },

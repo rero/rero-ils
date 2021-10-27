@@ -35,8 +35,9 @@ from ..errors import NoCirculationAction
 from ..items.api import Item
 from ..items.models import ItemNoteTypes
 from ..libraries.api import Library
-from ..loans.api import Loan, LoanAction, LoanState, \
-    get_loans_by_item_pid_by_patron_pid, get_loans_by_patron_pid
+from ..loans.api import Loan, get_loans_by_item_pid_by_patron_pid, \
+    get_loans_by_patron_pid
+from ..loans.models import LoanAction, LoanState
 from ..patron_transactions.api import PatronTransaction
 from ..patrons.api import Patron
 

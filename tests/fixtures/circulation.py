@@ -27,7 +27,8 @@ from utils import create_patron, flush_index, \
 
 from rero_ils.modules.ill_requests.api import ILLRequest, ILLRequestsSearch
 from rero_ils.modules.items.api import ItemsSearch
-from rero_ils.modules.loans.api import Loan, LoanState
+from rero_ils.modules.loans.api import Loan
+from rero_ils.modules.loans.models import LoanState
 from rero_ils.modules.notifications.api import NotificationsSearch
 from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.notifications.utils import get_notification
