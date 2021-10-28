@@ -8,13 +8,13 @@
     "acq_account",
     "document",
     "priority",
-    "status",
     "order_date",
     "reception_date",
     "quantity",
     "amount",
     "exchange_rate",
-    "notes"
+    "notes",
+    "is_cancelled"
   ],
   "required": [
     "$schema",
@@ -37,47 +37,6 @@
       "title": "Acquisition order line ID",
       "type": "string",
       "minLength": 1
-    },
-    "status": {
-      "title": "Order line status",
-      "type": "string",
-      "enum": [
-        "approved",
-        "cancelled",
-        "ordered",
-        "received",
-        "partially_received"
-      ],
-      "default": "approved",
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
-        },
-        "type": "selectWithSort",
-        "options": [
-          {
-            "value": "approved",
-            "label": "approved"
-          },
-          {
-            "value": "cancelled",
-            "label": "cancelled"
-          },
-          {
-            "value": "ordered",
-            "label": "ordered"
-          },
-          {
-            "value": "received",
-            "label": "received"
-          },
-          {
-            "value": "partially_received",
-            "label": "partially_received"
-          }
-        ]
-      }
     },
     "priority": {
       "title": "Priority",
@@ -336,6 +295,12 @@
           "pattern": "^https://bib.rero.ch/api/libraries/.*?$"
         }
       }
+    },
+    "is_cancelled": {
+      "title": "Cancelled",
+      "description": "If checked this order line should be considerate as cancelled.",
+      "type": "boolean",
+      "default": false
     }
   }
 }

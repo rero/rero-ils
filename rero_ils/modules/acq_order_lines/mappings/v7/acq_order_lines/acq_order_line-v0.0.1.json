@@ -109,6 +109,9 @@
       "reception_date": {
         "type": "date"
       },
+      "is_cancelled": {
+        "type": "boolean"
+      },
       "_created": {
         "type": "date"
       },
