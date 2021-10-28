@@ -24,6 +24,7 @@ from rero_ils.modules.acq_receipts.api import AcqReceipt, AcqReceiptsSearch
 
 def test_acq_receipts_es_mapping(es, db, lib_martigny, vendor_martigny,
                                  acq_order_fiction_martigny,
+                                 acq_account_fiction_martigny,
                                  acq_receipt_fiction_martigny_data):
     """Test acquisition receipts elasticsearch mapping."""
     search = AcqReceiptsSearch()

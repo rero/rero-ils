@@ -96,12 +96,15 @@ class AcqReceiptLine(IlsRecord):
 
     @classmethod
     def _build_additional_refs(cls, data):
-        """Build $ref for the organisation of the acquisition receipt line."""
+        """Build $ref for the organisation and library the acq receipt line."""
         receipt = extracted_data_from_ref(
             data.get('acq_receipt'), data='record')
         if receipt:
             data['organisation'] = {
                 '$ref': get_ref_for_pid('org', receipt.organisation_pid)
+            }
+            data['library'] = {
+                '$ref': get_ref_for_pid('lib', receipt.library_pid)
             }
 
     # GETTER & SETTER =========================================================
@@ -115,7 +118,7 @@ class AcqReceiptLine(IlsRecord):
     @property
     def library_pid(self):
         """Shortcut for acquisition receipt line library pid."""
-        return self.receipt.library_pid
+        return extracted_data_from_ref(self.get('library'))
 
     @property
     def order_line_pid(self):
