@@ -19,9 +19,11 @@
 """Acquisition receipts API tests."""
 
 from rero_ils.modules.acq_receipts.models import AcqReceiptNoteType
+from rero_ils.modules.utils import extracted_data_from_ref
 
 
 def test_receipts_properties(acq_order_fiction_martigny,
+                             acq_account_fiction_martigny,
                              acq_receipt_fiction_martigny, lib_martigny):
     """Test receipt properties."""
     acre1 = acq_receipt_fiction_martigny
@@ -34,6 +36,11 @@ def test_receipts_properties(acq_order_fiction_martigny,
     # NOTE --------------------------------------------------------------------
     assert acre1.get_note(AcqReceiptNoteType.STAFF)
     # AMOUNT ------------------------------------------------------------------
-    assert acre1.amount_adjustments
+    amounts = acre1.amount_adjustments
+    assert amounts
     assert acre1.total_amount == \
-        sum([fee.get('amount') for fee in acre1.amount_adjustments])
+        sum([fee.get('amount') for fee in amounts])
+    # ACQ ACCOUNT -------------------------------------------------------------
+    for amount in amounts:
+        assert extracted_data_from_ref(amount.get('acq_account')) == \
+            acq_account_fiction_martigny.pid

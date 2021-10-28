@@ -52,6 +52,16 @@
           },
           "amount": {
             "type": "float"
+          },
+          "acq_account": {
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "type": {
+                "type": "keyword"
+              }
+            }
           }
         }
       },
