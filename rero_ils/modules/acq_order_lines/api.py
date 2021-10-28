@@ -24,7 +24,8 @@ from functools import partial
 from flask_babelex import gettext as _
 
 from .extensions import AcqOrderLineValidationExtension
-from .models import AcqOrderLineIdentifier, AcqOrderLineMetadata
+from .models import AcqOrderLineIdentifier, AcqOrderLineMetadata, \
+    AcqOrderLineStatus
 from .utils import calculate_unreceived_quantity
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
@@ -159,6 +160,16 @@ class AcqOrderLine(IlsRecord):
         return extracted_data_from_ref(self.get('acq_order'), data='record')
 
     @property
+    def order_date(self):
+        """Shortcut for acquisition order send date."""
+        return self.get('order_date')
+
+    @property
+    def is_cancelled(self):
+        """Shortcut for acquisition order is_cancelled falg."""
+        return self.get('is_cancelled')
+
+    @property
     def account_pid(self):
         """Shortcut to the account pid related to this order line."""
         return extracted_data_from_ref(self.get('acq_account'))
@@ -182,6 +193,60 @@ class AcqOrderLine(IlsRecord):
     def unreceived_quantity(self):
         """Get the number of item not yet received."""
         return calculate_unreceived_quantity(self)
+
+    @property
+    def quantity(self):
+        """Get quantity of ordered_items for a line order.
+
+        This comes from the metadata of the order line that represent the
+        number of items to order or already ordered.
+        """
+        return self.get('quantity')
+
+    @property
+    def received_quantity(self):
+        """Get quantity of received ordered_items for a line order.
+
+        The received quantitiy is number of quantity received for the resource
+        acq_receipt_line and for the correspoding acq_line_order.
+        """
+        from rero_ils.modules.acq_receipt_lines.api import \
+            AcqReceiptLinesSearch
+        search = AcqReceiptLinesSearch()\
+            .filter('term', acq_account__pid=self.account_pid)
+        search.aggs.metric('sum_order_line_recieved', 'sum', field='quantity')
+        results = search.execute()
+        return results.aggregations.sum_order_line_recieved.value
+
+    @property
+    def unreceived_quantity(self):
+        """Get quantity of unreceived ordered_items for a line order."""
+        return self.quantity - self.received_quantity
+
+    @property
+    def status(self):
+        """Calculate the order line status.
+
+        The status of the order line is saved only in the elasticsearch index
+        and it is calculated based on the following roles:
+        * at the creation, the order line receives the `APPROVED` status
+        * if field `is_cancelled` is checked, it receives the `CANCELLED`status
+        * if some items are received but not the total, it receives
+            `PARTIALLY_RECEIVED` status
+        * if all items are received, it receives `RECEIVED` status
+        """
+        if self.is_cancelled:
+            return AcqOrderLineStatus.CANCELLED
+        status = AcqOrderLineStatus.ORDERED \
+            if self.order_date else AcqOrderLineStatus.APPROVED
+        received_quantity = self.received_quantity
+        # not use the property to prevent an extra ES call
+        unreceived_quantity = self.quantity - received_quantity
+        if unreceived_quantity == 0:  # fully received
+            status = AcqOrderLineStatus.RECEIVED
+        elif unreceived_quantity and unreceived_quantity != self.quantity:
+            status = AcqOrderLineStatus.PARTIALLY_RECEIVED
+        return status
 
     @property
     def library_pid(self):
