@@ -154,3 +154,16 @@ class AcqReceiptLinesIndexer(IlsRecordsIndexer):
     """Indexing documents in Elasticsearch."""
 
     record_cls = AcqReceiptLine
+
+    def index(self, record):
+        """Index an acq receipt line record.
+
+        Reindex the parent acq receipt, acq_order and acq_account records.
+        """
+        from rero_ils.modules.acq_order_lines.api import AcqOrderLine
+        return_value = super().index(record)
+        order_line = AcqOrderLine.get_record_by_pid(record.order_line_pid)
+        order_line.reindex()
+        order_line.order.reindex()
+        order_line.account.reindex()
+        return return_value
