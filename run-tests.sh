@@ -92,9 +92,8 @@ function pretests () {
   # info_msg "Check-manifest:"
   # TODO: check if this is required when rero-ils will be published
   # check-manifest --ignore ".travis-*,docs/_build*"
-  # TODO: uncomment these two lines when the problem fixed for Github actions
-  # info_msg "Sphinx-build:"
-  # sphinx-build -qnNW docs docs/_build/html
+  info_msg "Sphinx-build:"
+  sphinx-build -qnNW docs docs/_build/html
 }
 
 function tests () {
