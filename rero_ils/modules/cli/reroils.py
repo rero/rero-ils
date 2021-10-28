@@ -28,7 +28,7 @@ from .users import users
 from .utils import utils
 from ..apiharvester.cli import apiharvester
 from ..ebooks.cli import oaiharvester
-from ..monitoring import monitoring
+from ..monitoring.cli import monitoring
 from ..notifications.cli import notifications
 from ..stats.cli import stats
 from ...schedulers import scheduler

@@ -108,7 +108,7 @@ setup(
             'items = rero_ils.modules.items.views:api_blueprint',
             'libraries = rero_ils.modules.libraries.api_views:api_blueprint',
             'loans = rero_ils.modules.loans.api_views:api_blueprint',
-            'monitoring = rero_ils.modules.monitoring:api_blueprint',
+            'monitoring = rero_ils.modules.monitoring.view:api_blueprint',
             'notifications = rero_ils.modules.notifications.views:blueprint',
             'patron_types = rero_ils.modules.patron_types.views:blueprint',
             'patrons = rero_ils.modules.patrons.views:api_blueprint',
@@ -143,7 +143,7 @@ setup(
         'flask.commands': [
             'reroils = rero_ils.modules.cli.reroils:reroils',
             'apiharvester = rero_ils.modules.apiharvester.cli:apiharvester',
-            'monitoring = rero_ils.modules.monitoring:monitoring',
+            'monitoring = rero_ils.modules.monitoring.cli:monitoring',
             'notifications = rero_ils.modules.notifications.cli:notifications',
             'stats = rero_ils.modules.stats.cli:stats',
             'oaiharvester = rero_ils.modules.ebooks.cli:oaiharvester',

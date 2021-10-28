@@ -38,7 +38,7 @@ from kombu import Queue
 
 from .utils import get_record_class_from_schema_or_pid_type
 from ..api import IlsRecordsIndexer
-from ..monitoring import Monitoring
+from ..monitoring.api import Monitoring
 from ..tasks import process_bulk_queue
 
 
@@ -236,8 +236,9 @@ def reindex_missing(pid_types, verbose):
                 fg='red',
             )
             continue
+        monitoring = Monitoring(time_delta=0)
         pids_es, pids_db, pids_es_double, index = \
-            Monitoring.get_es_db_missing_pids(p_type)
+            monitoring.get_es_db_missing_pids(p_type)
         click.secho(
             f'{len(pids_db)}',
             fg='green',

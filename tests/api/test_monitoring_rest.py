@@ -73,7 +73,7 @@ def test_monitoring_es_db_counts(client):
 def test_monitoring_check_es_db_counts(app, client, contribution_person_data,
                                        system_librarian_martigny):
     """Test monitoring check_es_db_counts."""
-    res = client.get(url_for('api_monitoring.check_es_db_counts'))
+    res = client.get(url_for('api_monitoring.check_es_db_counts', delay=0))
     assert res.status_code == 200
     assert get_json(res) == {'data': {'status': 'green'}}
 
@@ -83,7 +83,7 @@ def test_monitoring_check_es_db_counts(app, client, contribution_person_data,
         dbcommit=True,
         reindex=False)
     flush_index(ContributionsSearch.Meta.index)
-    res = client.get(url_for('api_monitoring.check_es_db_counts'))
+    res = client.get(url_for('api_monitoring.check_es_db_counts', delay=0))
     assert res.status_code == 200
     assert get_json(res) == {
         'data': {'status': 'red'},
@@ -99,7 +99,7 @@ def test_monitoring_check_es_db_counts(app, client, contribution_person_data,
         }]
     }
 
-    # this view is only accessible by admin
+    # this view is only accessible by monitoring
     res = client.get(url_for('api_monitoring.missing_pids', doc_type='cont'))
     assert res.status_code == 401
 
@@ -118,7 +118,7 @@ def test_monitoring_check_es_db_counts(app, client, contribution_person_data,
     )
     db.session.commit()
     res = client.get(
-        url_for('api_monitoring.missing_pids', doc_type='cont')
+        url_for('api_monitoring.missing_pids', doc_type='cont', delay=0)
     )
     assert res.status_code == 200
 
@@ -132,7 +132,7 @@ def test_monitoring_check_es_db_counts(app, client, contribution_person_data,
 
 
 def test_timestamps(app, client):
-    """Test timestamps"""
+    """Test timestamps."""
     time_stamp = set_timestamp('test', msg='test msg')
     assert get_timestamp('test') == {'time': time_stamp, 'msg': 'test msg'}
     res = client.get(url_for('api_monitoring.timestamps'))
