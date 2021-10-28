@@ -34,16 +34,8 @@ def test_order_properties(
     acor = acq_order_fiction_martigny
 
     # STATUS ------------------------------------------------------------------
-    assert acol1['status'] == acol2['status'] == AcqOrderLineStatus.APPROVED
+    assert acol1.status == acol2.status == AcqOrderLineStatus.APPROVED
     assert acor.status == AcqOrderStatus.PENDING
-
-    acol2['status'] = AcqOrderLineStatus.RECEIVED
-    acol2.update(acol2, dbcommit=True, reindex=True)
-    assert acor.status == AcqOrderStatus.PARTIALLY_RECEIVED
-
-    acol1['status'] = AcqOrderLineStatus.RECEIVED
-    acol1.update(acol1, dbcommit=True, reindex=True)
-    assert acor.status == AcqOrderStatus.RECEIVED
 
     # ORDER LINES -------------------------------------------------------------
     assert len(list(acor.get_order_lines())) == \
@@ -52,24 +44,23 @@ def test_order_properties(
     # TOTAL AMOUNT ------------------------------------------------------------
     total_amount = acol1.get('total_amount') + acol2.get('total_amount')
     assert acor.get_order_total_amount() == total_amount
-    acol1['status'] = AcqOrderLineStatus.CANCELLED
+    acol1['is_cancelled'] = True
     acol1.update(acol1, dbcommit=True, reindex=True)
     assert acor.get_order_total_amount() == acol2.get('total_amount')
 
     # RESET CHANGES
-    acol1['status'] = AcqOrderLineStatus.APPROVED
+    acol1['is_cancelled'] = False
     acol1.update(acol1, dbcommit=True, reindex=True)
 
     # ORDER DATE --------------------------------------------------------------
     assert acor.order_date is None
 
-    acol2['status'] = AcqOrderLineStatus.ORDERED
     acol2['order_date'] = yesterday.strftime('%Y-%m-%d')
     acol2.update(acol2, dbcommit=True, reindex=True)
     assert acor.order_date == yesterday.strftime('%Y-%m-%d')
+    assert acor.status == AcqOrderStatus.ORDERED
 
     # reset changes
-    acol2['status'] = AcqOrderLineStatus.APPROVED
     del acol2['order_date']
     acol2.update(acol2, dbcommit=True, reindex=True)
 

@@ -26,7 +26,6 @@ from utils import VerifyRecordPermissionPatch, get_json
 
 from rero_ils.modules.acq_accounts.api import AcqAccount
 from rero_ils.modules.acq_order_lines.api import AcqOrderLine
-from rero_ils.modules.acq_order_lines.models import AcqOrderLineStatus
 from rero_ils.modules.acq_orders.api import AcqOrder
 from rero_ils.modules.acq_orders.models import AcqOrderStatus
 from rero_ils.modules.api import IlsRecordError
@@ -406,8 +405,7 @@ def test_acquisition_order(
         'acq_order': {'$ref': get_ref_for_pid('acor', order.pid)},
         'document': {'$ref': get_ref_for_pid('doc', document.pid)},
         'quantity': 4,
-        'amount': 25,
-        'status': 'approved'
+        'amount': 25
     }
     order_line_1 = _make_resource(client, 'acol', basic_data)
     assert order_line_1.get('total_amount') == 100
@@ -444,7 +442,7 @@ def test_acquisition_order(
         'document': {'$ref': get_ref_for_pid('doc', document.pid)},
         'quantity': 2,
         'amount': 10,
-        'status': 'cancelled'
+        'is_cancelled': True
     }
     order_line_1_1 = _make_resource(client, 'acol', basic_data)
     assert order_line_1_1.get('total_amount') == 20
@@ -504,7 +502,7 @@ def test_acquisition_order(
     # Test cascade deleting of order lines when attempting to delete a
     # PENDING order.
     order_line_1 = AcqOrderLine.get_record_by_pid(order_line_1.pid)
-    order_line_1['status'] = AcqOrderLineStatus.CANCELLED
+    order_line_1['is_cancelled'] = True
     order_line_1.update(order_line_1, dbcommit=True, reindex=True)
 
     order = AcqOrder.get_record_by_pid(order.pid)
@@ -514,7 +512,7 @@ def test_acquisition_order(
     with pytest.raises(IlsRecordError.NotDeleted):
         _del_resource(client, 'acor', order.pid)
 
-    order_line_1['status'] = AcqOrderLineStatus.APPROVED
+    order_line_1['is_cancelled'] = False
     order_line_1.update(order_line_1, dbcommit=True, reindex=True)
 
     order = AcqOrder.get_record_by_pid(order.pid)
