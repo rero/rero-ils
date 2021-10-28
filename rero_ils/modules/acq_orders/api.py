@@ -278,7 +278,6 @@ class AcqOrder(IlsRecord):
             order_lines = self.get_order_lines(
                 includes=[AcqOrderLineStatus.APPROVED])
             for order_line in order_lines:
-                order_line['status'] = AcqOrderLineStatus.ORDERED
                 order_line['order_date'] = order_date
                 order_line.update(order_line, dbcommit=True, reindex=True)
             self.reindex()

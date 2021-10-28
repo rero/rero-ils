@@ -271,7 +271,7 @@
     "document": {
       "$ref": "https://bib.rero.ch/api/documents/doc1"
     },
-    "status": "approved",
+    "is_cancelled": false,
     "quantity": 1,
     "priority": 5,
     "amount": 1000
@@ -288,7 +288,7 @@
     "document": {
       "$ref": "https://bib.rero.ch/api/documents/doc1"
     },
-    "status": "approved",
+    "is_cancelled": false,
     "quantity": 1,
     "amount": 500
   },
@@ -304,7 +304,7 @@
     "document": {
       "$ref": "https://bib.rero.ch/api/documents/doc1"
     },
-    "status": "approved",
+    "is_cancelled": false,
     "quantity": 1,
     "amount": 1000
   },
@@ -320,7 +320,7 @@
     "document": {
       "$ref": "https://bib.rero.ch/api/documents/doc1"
     },
-    "status": "approved",
+    "is_cancelled": false,
     "quantity": 2,
     "amount": 500
   },
@@ -336,7 +336,7 @@
     "document": {
       "$ref": "https://bib.rero.ch/api/documents/doc1"
     },
-    "status": "approved",
+    "is_cancelled": false,
     "quantity": 1,
     "priority": 5,
     "amount": 1000
