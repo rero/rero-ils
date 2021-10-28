@@ -130,6 +130,7 @@ def test_acq_orders_post_put_delete(client, org_martigny, vendor2_martigny,
     # Check that the returned record matches the given data
     assert data['metadata'].pop('total_amount') == 0.0
     assert data['metadata'].pop('status') == AcqOrderStatus.PENDING
+    assert not data['metadata'].pop('order_date', None)
     assert data['metadata'] == acq_order_fiction_saxon
 
     res = client.get(item_url)
@@ -137,6 +138,7 @@ def test_acq_orders_post_put_delete(client, org_martigny, vendor2_martigny,
     data = get_json(res)
     assert data['metadata'].pop('total_amount') == 0.0
     assert data['metadata'].pop('status') == AcqOrderStatus.PENDING
+    assert not data['metadata'].pop('order_date', None)
     assert acq_order_fiction_saxon == data['metadata']
 
     # Update record/PUT
