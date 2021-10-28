@@ -351,11 +351,17 @@
     "amount_adjustments": [
       {
         "label": "handling fees",
-        "amount": 2.0
+        "amount": 2.0,
+        "acq_account": {
+          "$ref": "https://bib.rero.ch/api/acq_accounts/acac1"
+        }
       },
       {
         "label": "discount",
-        "amount": -1.0
+        "amount": -1.0,
+        "acq_account": {
+          "$ref": "https://bib.rero.ch/api/acq_accounts/acac1"
+        }
       }
     ],
     "notes": [
@@ -417,11 +423,17 @@
     "amount_adjustments": [
       {
         "label": "handling fees",
-        "amount": 2.0
+        "amount": 2.0,
+        "acq_account": {
+          "$ref": "https://bib.rero.ch/api/acq_accounts/acac2"
+        }
       },
       {
         "label": "discount",
-        "amount": -2.0
+        "amount": -2.0,
+        "acq_account": {
+          "$ref": "https://bib.rero.ch/api/acq_accounts/acac2"
+        }
       }
     ],
     "notes": [
@@ -465,11 +477,17 @@
     "amount_adjustments": [
       {
         "label": "handling fees",
-        "amount": 2.0
+        "amount": 2.0,
+        "acq_account": {
+          "$ref": "https://bib.rero.ch/api/acq_accounts/acac4"
+        }
       },
       {
         "label": "discount",
-        "amount": -2.0
+        "amount": -2.0,
+        "acq_account": {
+          "$ref": "https://bib.rero.ch/api/acq_accounts/acac4"
+        }
       }
     ],
     "notes": [
