@@ -109,7 +109,7 @@ def test_send_order(
     # have an order line with a status different than approved and ensure it
     # will not be ordered
     l3 = AcqOrderLine.get_record_by_pid(acq_order_line3_fiction_martigny.pid)
-    l3['status'] = AcqOrderLineStatus.CANCELLED
+    l3['is_cancelled'] = True
     l3.update(l3, dbcommit=True, reindex=True)
 
     # test send order with correct input parameters
@@ -133,12 +133,12 @@ def test_send_order(
     l1 = AcqOrderLine.get_record_by_pid(acq_order_line_fiction_martigny.pid)
     l2 = AcqOrderLine.get_record_by_pid(acq_order_line2_fiction_martigny.pid)
     l3 = AcqOrderLine.get_record_by_pid(acq_order_line3_fiction_martigny.pid)
-    assert l1.get('status') == AcqOrderLineStatus.ORDERED
-    assert l1.get('order_date')
-    assert l2.get('status') == AcqOrderLineStatus.ORDERED
-    assert l2.get('order_date')
-    assert l3.get('status') == AcqOrderLineStatus.CANCELLED
-    assert not l3.get('order_date')
+    assert l1.status == AcqOrderLineStatus.ORDERED
+    assert l1.order_date
+    assert l2.status == AcqOrderLineStatus.ORDERED
+    assert l2.order_date
+    assert l3.status == AcqOrderLineStatus.CANCELLED
+    assert not l3.order_date
     assert acor.status == AcqOrderStatus.ORDERED
 
     # ensure that created notification is well constructed from the associated

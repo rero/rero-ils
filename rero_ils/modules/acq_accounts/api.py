@@ -204,7 +204,6 @@ class AcqAccount(IlsRecord):
         """Get the expenditure amount related to this account.
 
         TODO: Calculate the expenditure amount from invoices when implemented.
-
         :return A tuple of expenditure amount : First element for self
                  expenditure amount, second element is the children
                  expenditure amount.

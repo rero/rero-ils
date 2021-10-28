@@ -37,5 +37,7 @@ def enrich_acq_order_line_data(sender, json=None, record=None, index=None,
         if not isinstance(record, AcqOrderLine):
             record = AcqOrderLine.get_record_by_pid(record.get('pid'))
         unreceived_quantity = calculate_unreceived_quantity(record)
+        # other dynamic keys
         json['total_unreceived_amount'] = \
             unreceived_quantity * record['amount']
+        json['status'] = record.status
