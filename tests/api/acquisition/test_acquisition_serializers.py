@@ -54,8 +54,7 @@ def test_acquisition_orders_serializers(
         'acq_order': {'$ref': get_ref_for_pid('acor', order.pid)},
         'document': {'$ref': get_ref_for_pid('doc', document.pid)},
         'quantity': 4,
-        'amount': 25,
-        'status': 'approved'
+        'amount': 25
     }
     order_line_1 = _make_resource(client, 'acol', line_data)
 

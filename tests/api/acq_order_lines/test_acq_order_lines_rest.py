@@ -84,6 +84,7 @@ def test_acq_order_lines_get(client, acq_order_line_fiction_martigny):
 
     metadata = data['hits']['hits'][0]['metadata']
     del metadata['total_unreceived_amount']  # dynamically added key
+    del metadata['status']  # dynamically added key
     assert metadata == acq_order_line.replace_refs()
 
 
