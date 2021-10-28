@@ -419,7 +419,7 @@ def acq_receipt_line_1_fiction_martigny_data_tmp(acquisition):
 @pytest.fixture(scope="module")
 def acq_receipt_fiction_martigny(
         app, lib_martigny, acq_order_fiction_martigny,
-        acq_receipt_fiction_martigny_data):
+        acq_receipt_fiction_martigny_data, acq_account_fiction_martigny):
     """Load acq_receipt lib martigny fiction record."""
     acor = AcqReceipt.create(
         data=acq_receipt_fiction_martigny_data,
@@ -492,7 +492,7 @@ def acq_receipt_line_fiction_saxon_data(acquisition):
 @pytest.fixture(scope="module")
 def acq_receipt_fiction_saxon(
         app, lib_saxon, vendor_martigny, acq_order_fiction_saxon,
-        acq_receipt_fiction_saxon_data):
+        acq_receipt_fiction_saxon_data, acq_account_books_saxon):
     """Load acq_receipt lib saxon fiction record."""
     acre = AcqReceipt.create(
         data=acq_receipt_fiction_saxon_data,
@@ -551,7 +551,7 @@ def acq_receipt_line_fiction_sion_data(acquisition):
 @pytest.fixture(scope="module")
 def acq_receipt_fiction_sion(
         app, lib_sion, vendor_sion, acq_order_fiction_sion,
-        acq_receipt_fiction_sion_data):
+        acq_receipt_fiction_sion_data, acq_account_fiction_sion):
     """Load acq_receipt lib sion fiction record."""
     acor = AcqReceipt.create(
         data=acq_receipt_fiction_sion_data,
