@@ -74,11 +74,13 @@
         "title": "Fee",
         "propertiesOrder": [
           "label",
-          "amount"
+          "amount",
+          "acq_account"
         ],
         "required": [
           "label",
-          "amount"
+          "amount",
+          "acq_account"
         ],
         "properties": {
           "label": {
@@ -90,6 +92,28 @@
             "title": "Amount",
             "type": "number",
             "multipleOf": 0.01
+          },
+          "acq_account": {
+            "title": "Acquisition account",
+            "type": "object",
+            "required": [
+              "$ref"
+            ],
+            "properties": {
+              "$ref": {
+                "title": "Acquisition account URI",
+                "type": "string",
+                "pattern": "^https://bib.rero.ch/api/acq_accounts/.*?$",
+                "form": {
+                  "focus": true,
+                  "type": "account-select",
+                  "placeholder": "Select an account",
+                  "templateOptions": {
+                    "label": ""
+                  }
+                }
+              }
+            }
           }
         }
       }
