@@ -21,8 +21,8 @@ from click.testing import CliRunner
 from utils import flush_index
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
-from rero_ils.modules.monitoring import Monitoring, es_db_counts_cli, \
-    es_db_missing_cli
+from rero_ils.modules.monitoring.api import Monitoring
+from rero_ils.modules.monitoring.cli import es_db_counts_cli, es_db_missing_cli
 from rero_ils.modules.operation_logs.api import OperationLog
 
 
@@ -51,7 +51,7 @@ def test_monitoring(app, document_sion_items_data, script_info):
         '      0     loc          0                  locations          0',
         '      0    lofi          0               local_fields          0',
         '      0   notif          0              notifications          0',
-        '      0    oplg          1             operation_logs          1',
+        '      0    oplg          0             operation_logs          1',
         '      0     org          0              organisations          0',
         '      0    ptre          0  patron_transaction_events          0',
         '      0    ptrn          0                    patrons          0',
@@ -62,7 +62,7 @@ def test_monitoring(app, document_sion_items_data, script_info):
         '      0    vndr          0                    vendors          0'
     ]
 
-    mon = Monitoring()
+    mon = Monitoring(time_delta=0)
     assert mon.get_es_count('xxx') == 'No >>xxx<< in ES'
     assert mon.get_db_count('xxx') == 'No >>xxx<< in DB'
     doc = Document.create(
@@ -97,7 +97,7 @@ def test_monitoring(app, document_sion_items_data, script_info):
         'loc': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'locations'},
         'lofi': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'local_fields'},
         'notif': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'notifications'},
-        'oplg': {'db': 1, 'db-es': 0, 'es': 1, 'index': 'operation_logs'},
+        'oplg': {'db': 0, 'db-es': 0, 'es': 1, 'index': 'operation_logs'},
         'org': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'organisations'},
         'ptre': {'db': 0, 'db-es': 0, 'es': 0,
                  'index': 'patron_transaction_events'},
@@ -111,14 +111,13 @@ def test_monitoring(app, document_sion_items_data, script_info):
     assert mon.__str__().split('\n') == cli_output + ['']
 
     runner = CliRunner()
-    res = runner.invoke(es_db_missing_cli, ['doc'], obj=script_info)
-    assert res.output == 'doc: pids missing in ES:\ndoc3\n'
+    res = runner.invoke(es_db_missing_cli, ['doc', '-d', 0], obj=script_info)
+    assert res.output == f'ES missing doc: {doc.pid}\n'
 
     runner = CliRunner()
-    res = runner.invoke(es_db_counts_cli, ['-m'], obj=script_info)
+    res = runner.invoke(es_db_counts_cli, ['-m', '-d', 0], obj=script_info)
     assert res.output.split('\n') == cli_output + [
-        'doc: pids missing in ES:',
-        'doc3',
+        f'ES missing doc: {doc.pid}',
         ''
     ]
 
