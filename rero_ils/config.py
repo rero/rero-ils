@@ -1536,7 +1536,7 @@ RECORDS_REST_ENDPOINTS = dict(
                 'rero_ils.modules.serializers:json_v1_search'
             ),
             'application/rero+json': (
-                'rero_ils.modules.acq_orders.serializers:json_acq_order_search'
+                'rero_ils.modules.acq_orders.serializers:json_acor_search'
             ),
         },
         record_loaders={
