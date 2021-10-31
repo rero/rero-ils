@@ -112,6 +112,16 @@
           }
         }
       },
+      "item_quantity": {
+        "properties": {
+          "ordered": {
+            "type": "integer"
+          },
+          "received": {
+            "type": "integer"
+          }
+        }
+      },
       "_created": {
         "type": "date"
       },
