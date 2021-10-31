@@ -447,7 +447,7 @@ eval ${PREFIX} invenio reroils index reindex -t budg --yes-i-know
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
     eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
 fi
-eval ${PREFIX} invenio reroils index runindex --raise-on-error
+eval ${PREFIX} invenio reroils index run --raise-on-error
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
     eval ${PREFIX} invenio reroils index reindex_missing -t budg -v
 fi
