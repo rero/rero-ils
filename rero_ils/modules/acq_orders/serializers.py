@@ -56,5 +56,4 @@ class AcqOrderJSONSerializer(JSONSerializer):
 json_acq_order = AcqOrderJSONSerializer(RecordSchemaJSONV1)
 """JSON v1 serializer."""
 
-json_acq_order_search = search_responsify(
-    json_acq_order, 'application/rero+json')
+json_acor_search = search_responsify(json_acq_order, 'application/rero+json')
