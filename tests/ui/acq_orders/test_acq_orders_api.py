@@ -73,3 +73,7 @@ def test_order_properties(
     })
     assert acor.get_note(AcqOrderNoteType.VENDOR) == note_content
     del acor['notes']
+
+    # ORDER ITEM QUANTITY -----------------------------------------------------
+    assert acor.item_quantity == 2
+    assert acor.item_quantity_received == 0
