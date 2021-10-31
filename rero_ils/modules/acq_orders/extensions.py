@@ -35,6 +35,10 @@ class AcquisitionOrderExtension(RecordExtension):
             record['order_date'] = record.order_date
         record['total_amount'] = record.get_order_total_amount()
         record['status'] = record.status
+        record['item_quantity'] = {
+            'ordered': record.item_quantity,
+            'received': record.item_quantity_received
+        }
 
     def pre_load(self, data, loader=None):
         """Called before a record is loaded.
@@ -45,6 +49,7 @@ class AcquisitionOrderExtension(RecordExtension):
         data.pop('total_amount', None)
         data.pop('status', None)
         data.pop('order_date', None)
+        data.pop('item_quantity', None)
 
     def pre_delete(self, record, force=False):
         """Called before a record is deleted.
