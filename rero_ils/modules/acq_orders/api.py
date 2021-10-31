@@ -166,6 +166,26 @@ class AcqOrder(IlsRecord):
         dates = [hit.order_date for hit in result]
         return next(iter(dates or []), None)
 
+    @property
+    def item_quantity(self):
+        """Get the total of item quantity for this order."""
+        search = AcqOrderLinesSearch() \
+            .filter('term', acq_order__pid=self.pid) \
+            .exclude('term', status=AcqOrderLineStatus.CANCELLED)
+        search.aggs.metric('total_quantity', 'sum', field='quantity')
+        results = search.execute()
+        return results.aggregations.total_quantity.value
+
+    @property
+    def item_quantity_received(self):
+        """Get the total of received item quantity for this order."""
+        search = AcqOrderLinesSearch() \
+            .filter('term', acq_order__pid=self.pid) \
+            .exclude('term', status=AcqOrderLineStatus.CANCELLED)
+        search.aggs.metric('total_quantity', 'sum', field='quantity_received')
+        results = search.execute()
+        return results.aggregations.total_quantity.value
+
     def get_note(self, note_type):
         """Get a specific type of note.
 
