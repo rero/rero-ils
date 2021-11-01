@@ -19,17 +19,20 @@
 """Celery tasks to index records."""
 
 from celery import shared_task
+from celery.messaging import establish_connection
 
 from .api import IlsRecordsIndexer
 from .utils import set_timestamp
 
 
 @shared_task(ignore_result=True)
-def process_bulk_queue(version_type=None, es_bulk_kwargs=None,
+def process_bulk_queue(version_type=None, queue=None, es_bulk_kwargs=None,
                        stats_only=True):
     """Process bulk indexing queue.
 
     :param str version_type: Elasticsearch version type.
+    :param Queue queue: Queue tu use.
+    :param str routing_key: Routing key to use.
     :param dict es_bulk_kwargs: Passed to
         :func:`elasticsearch:elasticsearch.helpers.bulk`.
     :param boolean stats_only: if `True` only report number of
@@ -37,7 +40,18 @@ def process_bulk_queue(version_type=None, es_bulk_kwargs=None,
             successful and a list of error responses.
     Note: You can start multiple versions of this task.
     """
-    return IlsRecordsIndexer(version_type=version_type).process_bulk_queue(
+    from .cli.index import connect_queue
+
+    connected_queue = None
+    if queue:
+        connection = establish_connection()
+        connected_queue = connect_queue(connection, queue)
+    indexer = IlsRecordsIndexer(
+        version_type=version_type,
+        queue=connected_queue,
+        routing_key=queue
+    )
+    return indexer.process_bulk_queue(
         es_bulk_kwargs=es_bulk_kwargs, stats_only=stats_only)
 
 

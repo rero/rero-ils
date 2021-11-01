@@ -1,8 +1,7 @@
-#!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2021 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -16,17 +15,4 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-NC='\033[0m'            # Default color
-COLORED='\033[1;97;44m' # Bold + white + blue background
-
-set -e
-
-msg() {
-  echo -e "${COLORED}${EMPHASIS}[INFO]${NC}${COLORED}: ${1}${NC}" 1>&2
-}
-
-msg Dojson ${1}
-poetry run dojson -i ${1} -l marcxml -d pjson do marc21tojson >${1%.*}.json 2>${1%.*}.log
-
-msg Validate: ${1%.*}.json
-poetry run invenio reroils utils validate ${1%.*}.json documents document-v0.0.1.json -e ${1%.*}_error.json -o ${1%.*}_ok.json
+"""Command line."""

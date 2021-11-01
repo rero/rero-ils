@@ -128,20 +128,20 @@ then
   if ${DEPLOYMENT}
   then
     info_msg "Check pid dependencies: ${IN_DATA_PATH}/pid_dependencies_big.json"
-    eval ${PREFIX} invenio utils check_pid_dependencies --directory ${IN_DATA_PATH} --dependency_file ${IN_DATA_PATH}/pid_dependencies_big.json ${VERBOSE}
+    eval ${PREFIX} invenio reroils utils check_pid_dependencies --directory ${IN_DATA_PATH} --dependency_file ${IN_DATA_PATH}/pid_dependencies_big.json ${VERBOSE}
   else
     info_msg "Check pid dependencies: ${IN_DATA_PATH}/pid_dependencies_small.json"
-    eval ${PREFIX} invenio utils check_pid_dependencies --directory ${IN_DATA_PATH} --dependency_file ${IN_DATA_PATH}/pid_dependencies_small.json ${VERBOSE}
+    eval ${PREFIX} invenio reroils utils check_pid_dependencies --directory ${IN_DATA_PATH} --dependency_file ${IN_DATA_PATH}/pid_dependencies_small.json ${VERBOSE}
   fi
 fi
 
-eval ${PREFIX} invenio fixtures create_csv org ${IN_DATA_PATH}/organisations.json ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
-eval ${PREFIX} invenio fixtures create_csv lib ${IN_DATA_PATH}/libraries.json ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
-eval ${PREFIX} invenio fixtures create_csv loc ${IN_DATA_PATH}/locations.json ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
-eval ${PREFIX} invenio fixtures create_csv itty ${IN_DATA_PATH}/item_types.json ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
-eval ${PREFIX} invenio fixtures create_csv ptty ${IN_DATA_PATH}/patron_types.json ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
-eval ${PREFIX} invenio fixtures create_csv cipo ${IN_DATA_PATH}/circulation_policies.json ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
-eval ${PREFIX} invenio fixtures create_csv vndr ${IN_DATA_PATH}/vendors.json ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
+eval ${PREFIX} invenio reroils fixtures create_csv org ${IN_DATA_PATH}/organisations.json ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
+eval ${PREFIX} invenio reroils fixtures create_csv lib ${IN_DATA_PATH}/libraries.json ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
+eval ${PREFIX} invenio reroils fixtures create_csv loc ${IN_DATA_PATH}/locations.json ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
+eval ${PREFIX} invenio reroils fixtures create_csv itty ${IN_DATA_PATH}/item_types.json ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
+eval ${PREFIX} invenio reroils fixtures create_csv ptty ${IN_DATA_PATH}/patron_types.json ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
+eval ${PREFIX} invenio reroils fixtures create_csv cipo ${IN_DATA_PATH}/circulation_policies.json ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
+eval ${PREFIX} invenio reroils fixtures create_csv vndr ${IN_DATA_PATH}/vendors.json ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
 
 if ${DEPLOYMENT}
 then
@@ -158,17 +158,17 @@ fi
 
 if ${CREATE_CONTRIBUTION}
 then
-  eval ${PREFIX} invenio fixtures get_all_mef_records ${DOCUMENT} ${CREATE_LAZY} --out_file ${CONTRIBUTIONS} ${INVERS_VERBOSE}
+  eval ${PREFIX} invenio reroils fixtures get_all_mef_records ${DOCUMENT} ${CREATE_LAZY} --out_file ${CONTRIBUTIONS} ${INVERS_VERBOSE}
 fi
 
-eval ${PREFIX} invenio fixtures create_csv doc ${DOCUMENT} ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
-eval ${PREFIX} invenio fixtures create_csv hold ${HOLDING} ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
-eval ${PREFIX} invenio fixtures create_csv item ${ITEMS} ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
-eval ${PREFIX} invenio fixtures create_csv cont ${CONTRIBUTIONS} ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
+eval ${PREFIX} invenio reroils fixtures create_csv doc ${DOCUMENT} ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
+eval ${PREFIX} invenio reroils fixtures create_csv hold ${HOLDING} ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
+eval ${PREFIX} invenio reroils fixtures create_csv item ${ITEMS} ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
+eval ${PREFIX} invenio reroils fixtures create_csv cont ${CONTRIBUTIONS} ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
 
-# eval ${PREFIX} invenio fixtures create_csv illr ${IN_DATA_PATH}/ill_requests.json ${OUT_DATA_PATH} ${VALIDATESCHEMA} ${CREATE_LAZY} ${VERBOSE}
-eval ${PREFIX} invenio fixtures create_csv lofi ${IN_DATA_PATH}/local_fields.json ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
-eval ${PREFIX} invenio fixtures create_csv coll ${IN_DATA_PATH}/collections.json ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE} --create_pid
-eval ${PREFIX} invenio fixtures create_csv budg ${IN_DATA_PATH}/budgets.json ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
-eval ${PREFIX} invenio fixtures create_csv acac ${IN_DATA_PATH}/acq_accounts.json ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
-eval ${PREFIX} invenio fixtures create_csv tmpl ${IN_DATA_PATH}/templates.json ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
+# eval ${PREFIX} invenio reroils fixtures create_csv illr ${IN_DATA_PATH}/ill_requests.json ${OUT_DATA_PATH} ${VALIDATESCHEMA} ${CREATE_LAZY} ${VERBOSE}
+eval ${PREFIX} invenio reroils fixtures create_csv lofi ${IN_DATA_PATH}/local_fields.json ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
+eval ${PREFIX} invenio reroils fixtures create_csv coll ${IN_DATA_PATH}/collections.json ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE} --create_pid
+eval ${PREFIX} invenio reroils fixtures create_csv budg ${IN_DATA_PATH}/budgets.json ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
+eval ${PREFIX} invenio reroils fixtures create_csv acac ${IN_DATA_PATH}/acq_accounts.json ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
+eval ${PREFIX} invenio reroils fixtures create_csv tmpl ${IN_DATA_PATH}/templates.json ${OUT_DATA_PATH} ${CREATE_LAZY} ${VERBOSE}
