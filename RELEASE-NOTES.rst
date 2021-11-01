@@ -4250,8 +4250,8 @@ User interface
 Search and indexing
 ~~~~~~~~~~~~~~~~~~~
 
--  Improves ebook bulk indexing (``invenio utils reindex``,
-   ``invenio utils runindex``).
+-  Improves ebook bulk indexing (``invenio reroils index reindex``,
+   ``invenio index run``).
 -  Improves person indexing during document indexing and document
    creation.
 -  Fixes missing mappings in JSON schemas.

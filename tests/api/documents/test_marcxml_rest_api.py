@@ -21,7 +21,7 @@
 from click.testing import CliRunner
 from utils import login_user_via_session, postdata
 
-from rero_ils.modules.cli import tokens_create
+from rero_ils.modules.cli.utils import tokens_create
 
 
 def test_marcxml_documents_create(

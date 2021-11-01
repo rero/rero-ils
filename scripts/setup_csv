@@ -130,17 +130,18 @@ celery --app rero_ils.celery purge -f
 # Clean redis
 info_msg "Clean redis"
 eval "${PREFIX} invenio shell --no-term-title -c \"import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')\""
-eval ${PREFIX} invenio scheduler init -r
+eval ${PREFIX} invenio reroils scheduler init -r
 
 eval ${PREFIX} invenio db destroy --yes-i-know
 eval ${PREFIX} invenio db init create
-eval ${PREFIX} invenio index queue purge delete
+eval ${PREFIX} invenio reroils index queue purge delete
+eval ${PREFIX} invenio reroils index queue delete
 set -e
 eval ${PREFIX} invenio index destroy --force --yes-i-know
 # Override index init to load templates before mapping
 # TODO: check if invenio index init --force works (to delete utils init --force)
 info_msg "Override index init to load templates before mapping"
-eval ${PREFIX} invenio utils init_index --force
+eval ${PREFIX} invenio reroils utils init_index --force
 # eval ${PREFIX} invenio index init --force
 eval ${PREFIX} invenio index queue init
 # Delete invenio_circulations index
@@ -167,10 +168,10 @@ eval ${PREFIX} invenio users create -a gipi@ngscan.com --password ngscan
 
 # confirm users
 info_msg "Confirm users"
-eval ${PREFIX} invenio users confirm admin@rero.ch
-eval ${PREFIX} invenio users confirm editor@rero.ch
-eval ${PREFIX} invenio users confirm monitoring@rero.ch
-eval ${PREFIX} invenio users confirm gipi@ngscan.com
+eval ${PREFIX} invenio reroils users confirm admin@rero.ch
+eval ${PREFIX} invenio reroils users confirm editor@rero.ch
+eval ${PREFIX} invenio reroils users confirm monitoring@rero.ch
+eval ${PREFIX} invenio reroils users confirm gipi@ngscan.com
 
 # grant accesses to action roles
 info_msg "Grant access to action roles"
@@ -191,126 +192,126 @@ eval ${PREFIX} invenio roles add gipi@ngscan.com document_importer
 info_msg "Generate fixtures:"
 
 info_msg "- Organisations ${CSV_PATH}/org_metadata.csv"
-eval ${PREFIX} invenio fixtures bulk_load org ${CSV_PATH}/org_metadata.csv --reindex --verbose
+eval ${PREFIX} invenio reroils fixtures bulk_load org ${CSV_PATH}/org_metadata.csv --reindex --verbose
 
 info_msg "- Libraries: ${CSV_PATH}/lib_metadata.csv"
-eval ${PREFIX} invenio fixtures bulk_load lib ${CSV_PATH}/lib_metadata.csv --reindex --verbose
+eval ${PREFIX} invenio reroils fixtures bulk_load lib ${CSV_PATH}/lib_metadata.csv --reindex --verbose
 
 info_msg "- Locations: ${CSV_PATH}/loc_metadata.csv"
-eval ${PREFIX} invenio fixtures bulk_load loc ${CSV_PATH}/loc_metadata.csv --reindex --verbose
+eval ${PREFIX} invenio reroils fixtures bulk_load loc ${CSV_PATH}/loc_metadata.csv --reindex --verbose
 
 info_msg "- Item types: ${CSV_PATH}/itty_metadata.csv"
-eval ${PREFIX} invenio fixtures bulk_load itty ${CSV_PATH}/itty_metadata.csv --reindex --verbose
+eval ${PREFIX} invenio reroils fixtures bulk_load itty ${CSV_PATH}/itty_metadata.csv --reindex --verbose
 
 info_msg "- Patron types: ${CSV_PATH}/ptty_metadata.csv"
-eval ${PREFIX} invenio fixtures bulk_load ptty ${CSV_PATH}/ptty_metadata.csv --reindex --verbose
+eval ${PREFIX} invenio reroils fixtures bulk_load ptty ${CSV_PATH}/ptty_metadata.csv --reindex --verbose
 
 info_msg "- Circulation policies: ${CSV_PATH}/cipo_metadata.csv ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio fixtures bulk_load cipo ${CSV_PATH}/cipo_metadata.csv --reindex --verbose
+eval ${PREFIX} invenio reroils fixtures bulk_load cipo ${CSV_PATH}/cipo_metadata.csv --reindex --verbose
 
 info_msg "Acquisition vendors: ${CSV_PATH}/vndr_metadata.csv"
-eval ${PREFIX} invenio fixtures bulk_load vndr ${CSV_PATH}/vndr_metadata.csv --reindex --verbose
+eval ${PREFIX} invenio reroils fixtures bulk_load vndr ${CSV_PATH}/vndr_metadata.csv --reindex --verbose
 
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio utils runindex -d -c ${INDEX_PARALLEL} --raise-on-error
+    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
 fi
-eval ${PREFIX} invenio utils runindex --raise-on-error
+eval ${PREFIX} invenio reroils index run --raise-on-error
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio utils reindex_missing -t org -t lib -t loc -t itty -t ptty -t cipo -t vndr -v
+    eval ${PREFIX} invenio reroils index reindex_missing -t org -t lib -t loc -t itty -t ptty -t cipo -t vndr -v
 fi
 
 info_msg "- Users: ${DATA_PATH}/users.json"
-eval ${PREFIX} invenio fixtures import_users ${DATA_PATH}/users.json -v --append
+eval ${PREFIX} invenio reroils fixtures import_users ${DATA_PATH}/users.json -v --append
 
 info_msg "- ILL requests: ${DATA_PATH}/ill_request.json"
-eval ${PREFIX} invenio fixtures create_ill_requests -f ${DATA_PATH}/ill_requests.json
-eval ${PREFIX} invenio utils reindex -t illr --yes-i-know --no-info
+eval ${PREFIX} invenio reroils fixtures create_ill_requests -f ${DATA_PATH}/ill_requests.json
+eval ${PREFIX} invenio reroils index reindex -t illr --yes-i-know --no-info
 
 info_msg "- CONTRIBUTIONS: ${CONTRIBUTIONS} ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio fixtures bulk_load cont ${CSV_PATH}/cont_metadata.csv --verbose
+eval ${PREFIX} invenio reroils fixtures bulk_load cont ${CSV_PATH}/cont_metadata.csv --verbose
 
 info_msg "- Documents: ${CSV_PATH}/cont_metadata.csv"
-eval ${PREFIX} invenio fixtures bulk_load doc ${CSV_PATH}/doc_metadata.csv --verbose
+eval ${PREFIX} invenio reroils fixtures bulk_load doc ${CSV_PATH}/doc_metadata.csv --verbose
 
 info_msg "- Holdings: ${CSV_PATH}/hold_metadata.csv"
-eval ${PREFIX} invenio fixtures bulk_load hold ${CSV_PATH}/hold_metadata.csv --reindex --verbose
+eval ${PREFIX} invenio reroils fixtures bulk_load hold ${CSV_PATH}/hold_metadata.csv --reindex --verbose
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio utils runindex -d -c ${INDEX_PARALLEL} --raise-on-error
+    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
 fi
-eval ${PREFIX} invenio utils runindex --raise-on-error
+eval ${PREFIX} invenio reroils index run --raise-on-error
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio utils reindex_missing -t hold -v
+    eval ${PREFIX} invenio reroils index reindex_missing -t hold -v
 fi
 
 info_msg "- Items: ${CSV_PATH}/item_metadata.csv"
-eval ${PREFIX} invenio fixtures bulk_load item ${CSV_PATH}/item_metadata.csv --reindex --verbose
+eval ${PREFIX} invenio reroils fixtures bulk_load item ${CSV_PATH}/item_metadata.csv --reindex --verbose
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio utils runindex -d -c ${INDEX_PARALLEL} --raise-on-error
+    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
 fi
-eval ${PREFIX} invenio utils runindex --raise-on-error
+eval ${PREFIX} invenio reroils index run --raise-on-error
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio utils reindex_missing -t item -v
+    eval ${PREFIX} invenio reroils index reindex_missing -t item -v
 fi
 
 # index documents
-eval ${PREFIX} invenio utils reindex -t doc --yes-i-know --no-info
+eval ${PREFIX} invenio reroils index reindex -t doc --yes-i-know --no-info
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio utils runindex -d -c ${INDEX_PARALLEL} --raise-on-error
+    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
 fi
-eval ${PREFIX} invenio utils runindex --raise-on-error
+eval ${PREFIX} invenio reroils index run --raise-on-error
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio utils reindex_missing -t doc -v
+    eval ${PREFIX} invenio reroils index reindex_missing -t doc -v
 fi
 
 # index contributions
 # We have to reindex contributions to get the oraganisations pids indexed correctly.
-eval ${PREFIX} invenio utils reindex -t cont --yes-i-know --no-info
+eval ${PREFIX} invenio reroils index reindex -t cont --yes-i-know --no-info
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio utils runindex -d -c ${INDEX_PARALLEL} --raise-on-error
+    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
 fi
-eval ${PREFIX} invenio utils runindex --raise-on-error
+eval ${PREFIX} invenio reroils index run --raise-on-error
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio utils reindex_missing -t cont -v
+    eval ${PREFIX} invenio reroils index reindex_missing -t cont -v
 fi
 
 info_msg "- Local fields ${DATA_PATH}/local_fields.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio fixtures bulk_load lofi ${CSV_PATH}/lofi_metadata.csv --reindex --verbose
+eval ${PREFIX} invenio reroils fixtures bulk_load lofi ${CSV_PATH}/lofi_metadata.csv --reindex --verbose
 
 # create serials patterns
 info_msg "Serials patterns: ${DATA_PATH}/patterns.json"
-eval ${PREFIX} invenio fixtures create_patterns ${DATA_PATH}/patterns.json
+eval ${PREFIX} invenio reroils fixtures create_patterns ${DATA_PATH}/patterns.json
 
 info_msg "- Collections: ${DATA_PATH}/collections.json"
-eval ${PREFIX} invenio fixtures create_collections -f ${DATA_PATH}/collections.json
-eval ${PREFIX} invenio utils reindex -t coll --yes-i-know --no-info
+eval ${PREFIX} invenio reroils fixtures create_collections -f ${DATA_PATH}/collections.json
+eval ${PREFIX} invenio reroils index reindex -t coll --yes-i-know --no-info
 
 # # ACQUISITION
 # create library budgets
 info_msg "Library budgets: ${DATA_PATH}/budgets.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio fixtures bulk_load budg ${CSV_PATH}/budg_metadata.csv --reindex --verbose
+eval ${PREFIX} invenio reroils fixtures bulk_load budg ${CSV_PATH}/budg_metadata.csv --reindex --verbose
 
 # create acquisition accounts
 info_msg "Acquisition accounts: ${DATA_PATH}/acq_accounts.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio fixtures bulk_load acac ${CSV_PATH}/acac_metadata.csv --reindex --verbose
+eval ${PREFIX} invenio reroils fixtures bulk_load acac ${CSV_PATH}/acac_metadata.csv --reindex --verbose
 
 # create resource templates
 info_msg "Resource templates:"
-eval ${PREFIX} invenio fixtures bulk_load tmpl ${CSV_PATH}/tmpl_metadata.csv --reindex --verbose
+eval ${PREFIX} invenio reroils fixtures bulk_load tmpl ${CSV_PATH}/tmpl_metadata.csv --reindex --verbose
 
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio utils runindex -d -c ${INDEX_PARALLEL} --raise-on-error
+    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
 fi
-eval ${PREFIX} invenio utils runindex --raise-on-error
+eval ${PREFIX} invenio reroils index run --raise-on-error
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio utils reindex_missing -t lofi -t coll -t budg -t acac -t tmpl -v
+    eval ${PREFIX} invenio reroils index reindex_missing -t lofi -t coll -t budg -t acac -t tmpl -v
 fi
 
 # create circulation transactions
 info_msg "Circulation transactions: ${DATA_PATH}/loans.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio fixtures create_loans ${DATA_PATH}/loans.json
+eval ${PREFIX} invenio reroils fixtures create_loans ${DATA_PATH}/loans.json
 
 # process notifications
-eval ${PREFIX} invenio notifications process
+eval ${PREFIX} invenio reroils notifications process
 
 # create token access for monitoring
 # if the environement variable INVENIO_RERO_ACCESS_TOKEN_MONITORING is not set
@@ -318,9 +319,9 @@ eval ${PREFIX} invenio notifications process
 info_msg "Create token for: monitoring@rero.ch"
 if [ -z ${INVENIO_RERO_ACCESS_TOKEN_MONITORING} ]
 then
-    eval ${PREFIX} invenio utils tokens_create -n monitoring -u monitoring@rero.ch
+    eval ${PREFIX} invenio reroils utils tokens_create -n monitoring -u monitoring@rero.ch
 else
-    eval ${PREFIX} invenio utils tokens_create -n monitoring -u monitoring@rero.ch -t ${INVENIO_RERO_ACCESS_TOKEN_MONITORING}
+    eval ${PREFIX} invenio reroils utils tokens_create -n monitoring -u monitoring@rero.ch -t ${INVENIO_RERO_ACCESS_TOKEN_MONITORING}
 fi
 
 # create token access for ngscan (ezpump)
@@ -329,29 +330,29 @@ fi
 info_msg "Create token for: gipi@ngscan.com"
 if [ -z ${INVENIO_RERO_ACCESS_TOKEN_NGSCAN} ]
 then
-    eval ${PREFIX} invenio utils tokens_create -n ezpump -u gipi@ngscan.com
+    eval ${PREFIX} invenio reroils utils tokens_create -n ezpump -u gipi@ngscan.com
 else
-    eval ${PREFIX} invenio utils tokens_create -n ezpump -u gipi@ngscan.com -t ${INVENIO_RERO_ACCESS_TOKEN_NGSCAN}
+    eval ${PREFIX} invenio reroils utils tokens_create -n ezpump -u gipi@ngscan.com -t ${INVENIO_RERO_ACCESS_TOKEN_NGSCAN}
 fi
 
 # # OAI configuration
 info_msg "OAI configuration: ${DATA_PATH}/oaisources.yml"
-eval ${PREFIX} invenio oaiharvester initconfig ${DATA_PATH}/oaisources.yml
+eval ${PREFIX} invenio reroils oaiharvester initconfig ${DATA_PATH}/oaisources.yml
 if ${DEPLOYMENT}
 then
-    eval ${PREFIX} invenio scheduler enable_tasks -a -v
+    eval ${PREFIX} invenio reroils scheduler enable_tasks -a -v
     # start oai harvesting asynchrone: beats must be running
     info_msg "Start OAI harvesting asynchrone"
-    eval ${PREFIX} invenio oaiharvester harvest -n ebooks -q -k
+    eval ${PREFIX} invenio reroils oaiharvester harvest -n ebooks -q -k
 else
-    eval ${PREFIX} invenio scheduler enable_tasks -n scheduler-timestamp -n bulk-indexer -n anonymize-loans -n claims-creation -n notification-creation -n accounts -n clear_and_renew_subscriptions -v
+    eval ${PREFIX} invenio reroils scheduler enable_tasks -n scheduler-timestamp -n bulk-indexer -n anonymize-loans -n claims-creation -n notification-creation -n accounts -n clear_and_renew_subscriptions -v
     info_msg "For ebooks harvesting run:"
-    msg "\tinvenio oaiharvester harvest -n ebooks -a max=100 -q"
+    msg "\tinvenio reroils oaiharvester harvest -n ebooks -a max=100 -q"
 fi
 
 
 info_msg "- Load Virtua operation logs: ${DATA_PATH}/operation_logs.json"
-eval ${PREFIX} invenio fixtures migrate_virtua_operation_logs ${DATA_PATH}/operation_logs.json  ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils fixtures migrate_virtua_operation_logs ${DATA_PATH}/operation_logs.json  ${CREATE_LAZY} ${DONT_STOP}
 
 date
 success_msg "Perfect ${PROGRAM}! See you soon…"

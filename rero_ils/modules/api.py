@@ -511,7 +511,6 @@ class IlsRecordsIndexer(RecordIndexer):
                 exchange=self.mq_exchange.name,
                 routing_key=self.mq_routing_key,
             )
-
             req_timeout = current_app.config['INDEXER_BULK_REQUEST_TIMEOUT']
 
             es_bulk_kwargs = es_bulk_kwargs or {}
@@ -529,7 +528,7 @@ class IlsRecordsIndexer(RecordIndexer):
 
             consumer.close()
 
-        return count
+        return self.mq_queue.name, count
 
     def _get_record_class(self, payload):
         """Get the record class from payload."""

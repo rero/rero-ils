@@ -21,9 +21,8 @@ from os.path import dirname, join
 
 from click.testing import CliRunner
 
-from rero_ils.modules.cli import check_validate, extract_from_xml, \
-    reindex_missing, tokens_create
-from rero_ils.modules.organisations.api import Organisation
+from rero_ils.modules.cli.utils import check_validate, extract_from_xml, \
+    tokens_create
 
 
 def test_cli_validate(app, script_info):
@@ -53,27 +52,6 @@ def test_cli_access_token(app, script_info, patron_martigny):
         obj=script_info
     )
     assert res.output.strip().split('\n') == ['my_token']
-
-
-def test_cli_reindex_missing(app, script_info, org_sion_data):
-    """Test reindex missing cli."""
-    org = Organisation.create(
-        data=org_sion_data,
-        delete_pid=False,
-        dbcommit=True,
-    )
-
-    runner = CliRunner()
-    res = runner.invoke(
-        reindex_missing,
-        ['-t', 'xxx', '-t', 'org', '-v'],
-        obj=script_info
-    )
-    assert res.output.strip().split('\n') == [
-        'Indexing missing xxx: ERROR pid type does not exist!',
-        'Indexing missing org: 1',
-        '1\torg\torg2'
-    ]
 
 
 def test_cli_extract_from_xml(app, tmpdir, document_marcxml, script_info):

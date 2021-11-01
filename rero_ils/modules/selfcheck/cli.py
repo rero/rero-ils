@@ -48,7 +48,8 @@ from .models import SelfcheckTerminal
 def create_terminal(name, user, location_pid, scopes, internal,
                     access_token):
     """Create a personal OAuth token."""
-    from rero_ils.modules.cli import create_personal  # avoid circular import
+    # avoid circular import
+    from rero_ils.modules.cli.utils import create_personal
 
     # check if user exist:
     if not user:

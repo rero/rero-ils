@@ -77,9 +77,9 @@ function pretests () {
   # +==============================================================================+
   safety check -i 40459 -i 42050 -i 42194
   info_msg "Check json:"
-  invenio utils check_json tests/data rero_ils/modules data
+  invenio reroils utils check_json tests/data rero_ils/modules data
   info_msg "Check license:"
-  invenio utils check_license check_license_config.yml
+  invenio reroils utils check_license check_license_config.yml
   info_msg "Test pydocstyle:"
   pydocstyle rero_ils tests docs
   info_msg "Test isort:"

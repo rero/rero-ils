@@ -23,7 +23,7 @@ from os.path import dirname, join
 
 from click.testing import CliRunner
 
-from rero_ils.modules.cli import bulk_load, bulk_save, create_csv
+from rero_ils.modules.cli.fixtures import bulk_load, bulk_save, create_csv
 
 
 def test_create_csv(app, tmpdir, script_info):
@@ -36,6 +36,7 @@ def test_create_csv(app, tmpdir, script_info):
         ['doc', json_file_name, tmp_dir_name, '-l', '-v'],
         obj=script_info
     )
+    print(result.output)
     assert result.exit_code == 0
     file_name_pidstore = join(tmp_dir_name, 'doc_pidstore.csv')
     file_name_metadata = join(tmp_dir_name, 'doc_metadata.csv')
