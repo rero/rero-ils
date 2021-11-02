@@ -400,7 +400,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                 dbcommit=True,
                 reindex=True
             )
-            notifications = notif = loan.create_notification(
+            notifications = loan.create_notification(
                 _type=NotificationType.OVERDUE)
             for notif in notifications:
                 notification_pids.append(notif['pid'])
@@ -532,7 +532,8 @@ def get_loanable_items(patron_type_pid):
                 item.holding_circulation_category_pid
             )
             if (circ_policy.allow_checkout and
-               circ_policy.get('allow_requests')):
+               circ_policy.get('allow_requests') and
+               circ_policy.get('number_renewals', 0) > 0):
                 if not item.number_of_requests():
                     # exclude the first 16 items of the 3rd organisation
                     barcode = item.get('barcode')
