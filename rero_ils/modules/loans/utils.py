@@ -124,9 +124,7 @@ def extend_loan_data_is_valid(end_date, renewal_duration, library_pid):
         days=renewal_duration)
     first_open_date = library.next_open(
         date=calculated_due_date - timedelta(days=1))
-    if first_open_date.date() <= end_date.date():
-        return False
-    return True
+    return first_open_date.date() > end_date.date()
 
 
 def validate_loan_duration(loan):
