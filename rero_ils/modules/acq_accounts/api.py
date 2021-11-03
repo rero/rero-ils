@@ -20,6 +20,7 @@
 
 from functools import partial
 
+from elasticsearch_dsl import Q
 from flask_babelex import gettext as _
 
 from .extensions import ParentAccountDistributionCheck
@@ -28,6 +29,8 @@ from .models import AcqAccountExceedanceType, AcqAccountIdentifier, \
 from ..acq_invoices.api import AcquisitionInvoice, AcquisitionInvoicesSearch
 from ..acq_order_lines.api import AcqOrderLine, AcqOrderLinesSearch
 from ..acq_order_lines.models import AcqOrderLineStatus
+from ..acq_receipt_lines.api import AcqReceiptLinesSearch
+from ..acq_receipts.api import AcqReceiptsSearch
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..extensions import UniqueFieldsExtension
 from ..fetchers import id_fetcher
@@ -203,13 +206,40 @@ class AcqAccount(IlsRecord):
     def expenditure_amount(self):
         """Get the expenditure amount related to this account.
 
-        TODO: Calculate the expenditure amount from invoices when implemented.
+        The expenditure amount is the sum of the amounts of receipt lines
+        plus the sum of all receipt amount_adjustments related to this account.
         :return A tuple of expenditure amount : First element for self
                  expenditure amount, second element is the children
                  expenditure amount.
-                 returns 0.00, 0.00 until the invoices are implemented.
         """
-        return 0, 0
+        # Expenditure of this account
+        search = AcqReceiptLinesSearch() \
+            .filter('term', acq_account__pid=self.pid)
+        search.aggs.metric('sum_receipt_lines', 'sum', field='amount')
+        results = search.execute()
+        lines_expenditure = results.aggregations.sum_receipt_lines.value
+
+        recpt_expenditure = 0
+        search = AcqReceiptsSearch() \
+            .filter('nested',
+                    path='amount_adjustments',
+                    query=Q(
+                        'bool',
+                        must=[Q('match',
+                                amount_adjustments__acq_account__pid=self.pid)]
+                    ))
+        for hit in search.scan():
+            recpt_expenditure += sum(
+                [a.amount for a in hit.amount_adjustments])
+        self_amount = lines_expenditure + recpt_expenditure
+
+        # Expenditure of children accounts
+        query = AcqAccountsSearch().filter('term', parent__pid=self.pid)
+        query.aggs.metric('total', 'sum', field='expenditure_amount.total')
+        results = query.execute()
+        children_amount = results.aggregations.total.value
+
+        return round(self_amount, 2), round(children_amount, 2)
 
     @property
     def remaining_balance(self):
