@@ -46,22 +46,23 @@
         "type": "float"
       },
       "amount_adjustments": {
+        "type": "nested",
         "properties": {
+          "acq_account": {
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "pid": {
+                "type": "keyword"
+              }
+            }
+          },
           "label": {
             "type": "text"
           },
           "amount": {
             "type": "float"
-          },
-          "acq_account": {
-            "properties": {
-              "pid": {
-                "type": "keyword"
-              },
-              "type": {
-                "type": "keyword"
-              }
-            }
           }
         }
       },
