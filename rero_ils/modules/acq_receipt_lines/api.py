@@ -126,6 +126,17 @@ class AcqReceiptLine(IlsRecord):
         return extracted_data_from_ref(self.get('acq_order_line'))
 
     @property
+    def order_line(self):
+        """Shortcut for related acquisition order line record."""
+        from rero_ils.modules.acq_order_lines.api import AcqOrderLine
+        return AcqOrderLine.get_record_by_pid(self.order_line_pid)
+
+    @property
+    def acq_account_pid(self):
+        """Shortcut for related acquisition account pid."""
+        return self.order_line.account
+
+    @property
     def receipt_pid(self):
         """Shortcut for related acquisition receipt pid."""
         return extracted_data_from_ref(self.get('acq_receipt'))
