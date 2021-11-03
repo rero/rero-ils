@@ -24,7 +24,7 @@ from rero_ils.modules.acq_receipt_lines.models import AcqReceiptLineNoteType
 def test_receipt_lines_properties(acq_receipt_fiction_martigny,
                                   acq_receipt_line_1_fiction_martigny,
                                   acq_order_line_fiction_martigny,
-                                  lib_martigny):
+                                  lib_martigny, acq_account_fiction_martigny):
     """Test receipt line properties."""
     acrl1 = acq_receipt_line_1_fiction_martigny
     # LIBRARY------------------------------------------------------------------
@@ -35,3 +35,5 @@ def test_receipt_lines_properties(acq_receipt_fiction_martigny,
     assert acrl1.order_line_pid == acq_order_line_fiction_martigny.pid
     # NOTE --------------------------------------------------------------------
     assert acrl1.get_note(AcqReceiptLineNoteType.STAFF)
+    # ACQ ACCOUNT -------------------------------------------------------------
+    assert acq_account_fiction_martigny.expenditure_amount == (1001.0, 0.0)
