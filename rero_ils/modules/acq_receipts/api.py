@@ -21,12 +21,16 @@
 from copy import deepcopy
 from functools import partial
 
-from .models import AcqReceiptIdentifier, AcqReceiptMetadata
+from rero_ils.modules.acq_receipt_lines.api import AcqReceiptLine
+
+from .models import AcqReceiptIdentifier, AcqReceiptLineCreationStatus, \
+    AcqReceiptMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
-from ..utils import extracted_data_from_ref, get_ref_for_pid
+from ..utils import extracted_data_from_ref, get_ref_for_pid, \
+    get_schema_for_resource
 
 # provider
 AcqReceiptProvider = type(
@@ -108,9 +112,45 @@ class AcqReceipt(IlsRecord):
                 '$ref': get_ref_for_pid('org', order.organisation_pid)
             }
 
+    def create_receipt_lines(self, receipt_lines=None, dbcommit=True,
+                             reindex=True):
+        """Create multiple receipt lines.
+
+        :param receipt_lines: a list of dicts to create the records.
+        :param dbcommit: if True call dbcommit, make the change effective
+                         in db.
+        :param redindex: reindex the record.
+        :returns: a list containing the given data to build the receipt line
+                  with a `status` field, either `success` or `failure`.
+                  In case of `success`, the created record is returned.
+                  In case `failure`, the reason is given in a field `error`
+        """
+        created_receipt_lines = []
+        receipt_lines = receipt_lines or []
+        for receipt_line in receipt_lines:
+            record = {
+                'data': receipt_line,
+                'status': AcqReceiptLineCreationStatus.SUCCESS
+            }
+            receipt_line['acq_receipt'] = {
+                '$ref': get_ref_for_pid('acre', self.pid)
+            }
+            receipt_line['$schema'] = get_schema_for_resource(AcqReceiptLine)
+            try:
+                line = AcqReceiptLine.create(receipt_line, dbcommit=dbcommit,
+                                             reindex=reindex)
+                record['receipt_line'] = line
+            except Exception as error:
+                record['status'] = AcqReceiptLineCreationStatus.FAILURE
+                record['error_message'] = str(error.message)
+            created_receipt_lines.append(record)
+
+        return created_receipt_lines
+
     # GETTER & SETTER =========================================================
     #   * Define some properties as shortcut to quickly access object attrs.
     #   * Defines some getter methods to access specific object values.
+
     @property
     def order_pid(self):
         """Shortcut for related acquisition order pid."""
