@@ -2586,7 +2586,7 @@ RECORDS_JSON_SCHEMA = {
     'acol': '/acq_order_lines/acq_order_line-v0.0.1.json',
     'acor': '/acq_orders/acq_order-v0.0.1.json',
     'acre': '/acq_receipts/acq_receipt-v0.0.1.json',
-    'acrl': '/acq_receipts/acq_receipt_line-v0.0.1.json',
+    'acrl': '/acq_receipt_lines/acq_receipt_line-v0.0.1.json',
     'acin': '/acq_invoices/acq_invoice-v0.0.1.json',
     'budg': '/budgets/budget-v0.0.1.json',
     'cipo': '/circ_policies/circ_policy-v0.0.1.json',
