@@ -142,6 +142,22 @@ class AcqReceiptLine(IlsRecord):
         return extracted_data_from_ref(self.get('acq_receipt'))
 
     @property
+    def amount(self):
+        """Shortcut for related acquisition amount."""
+        return self.get('amount')
+
+    @property
+    def total_amount(self):
+        """Shortcut for related acquisition total_amount."""
+        return round(
+            self.amount*self.receipt.exchange_rate*self.quantity, 2)
+
+    @property
+    def quantity(self):
+        """Shortcut for related acquisition quantity."""
+        return self.get('quantity')
+
+    @property
     def organisation_pid(self):
         """Get organisation pid for acquisition receipt line."""
         return self.receipt.organisation_pid
