@@ -47,3 +47,10 @@ class AcqReceiptNoteType:
     """Type of acquisition receipt note."""
 
     STAFF = 'staff_note'
+
+
+class AcqReceiptLineCreationStatus:
+    """Status following an attempt to create a receipt line."""
+
+    SUCCESS = 'success'
+    FAILURE = 'failure'
