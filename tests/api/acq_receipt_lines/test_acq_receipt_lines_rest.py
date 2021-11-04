@@ -24,7 +24,8 @@ from copy import deepcopy
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata
+from utils import VerifyRecordPermissionPatch, get_json, postdata, \
+    to_relative_url
 
 from rero_ils.modules.acq_receipt_lines.models import AcqReceiptLineNoteType
 
@@ -53,6 +54,47 @@ def test_acq_receipt_lines_permissions(client,
 
     res = client.delete(item_url)
     assert res.status_code == 401
+
+
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_acq_receipt_lines_get(client, acq_receipt_line_1_fiction_martigny):
+    """Test record retrieval."""
+    item_url = url_for('invenio_records_rest.acrl_item', pid_value='acrl1')
+    acq_receipt_line = deepcopy(acq_receipt_line_1_fiction_martigny)
+    res = client.get(item_url)
+    assert res.status_code == 200
+
+    assert res.headers['ETag'] == '"{}"'.format(acq_receipt_line.revision_id)
+
+    data = get_json(res)
+    assert acq_receipt_line.dumps() == data['metadata']
+
+    # Check metadata
+    for k in ['created', 'updated', 'metadata', 'links']:
+        assert k in data
+
+    # Check self links
+    res = client.get(to_relative_url(data['links']['self']))
+    assert res.status_code == 200
+    assert data == get_json(res)
+    assert acq_receipt_line.dumps() == data['metadata']
+
+    list_url = url_for('invenio_records_rest.acrl_list', pid='acrl1')
+    res = client.get(list_url)
+    assert res.status_code == 200
+    data = get_json(res)
+
+    metadata = data['hits']['hits'][0]['metadata']
+
+    total_amount = metadata['total_amount']
+    assert total_amount == 1000.0
+
+    # remove dynamically added fields
+    del metadata['acq_account']
+    del metadata['total_amount']
+    assert data['hits']['hits'][0]['metadata'] == \
+        acq_receipt_line.replace_refs()
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
