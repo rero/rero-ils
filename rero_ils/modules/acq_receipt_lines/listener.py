@@ -40,3 +40,5 @@ def enrich_acq_receipt_line_data(sender, json=None, record=None, index=None,
             pid=record.order_line.account_pid,
             type='acac'
         )
+
+        json['total_amount'] = record.total_amount
