@@ -167,6 +167,11 @@ class AcqReceipt(IlsRecord):
         return self.get('amount_adjustments', [])
 
     @property
+    def exchange_rate(self):
+        """Shortcut to get receipt exchange_rate."""
+        return self.get('exchange_rate')
+
+    @property
     def total_amount(self):
         """Get this acquisition receipt total amount.
 

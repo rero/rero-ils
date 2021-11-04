@@ -35,6 +35,8 @@ def test_receipts_properties(acq_order_fiction_martigny,
     assert acre1.order_pid == acq_order_fiction_martigny.pid
     # NOTE --------------------------------------------------------------------
     assert acre1.get_note(AcqReceiptNoteType.STAFF)
+    # EXCHANGE_RATE -----------------------------------------------------------
+    assert acre1.exchange_rate
     # AMOUNT ------------------------------------------------------------------
     amounts = acre1.amount_adjustments
     assert amounts
