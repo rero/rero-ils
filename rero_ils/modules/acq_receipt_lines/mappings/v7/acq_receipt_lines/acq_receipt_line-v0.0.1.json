@@ -45,6 +45,9 @@
       "amount": {
         "type": "float"
       },
+      "total_amount": {
+        "type": "float"
+      },
       "notes": {
         "properties": {
           "type": {
