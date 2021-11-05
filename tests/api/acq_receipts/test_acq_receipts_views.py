@@ -34,7 +34,7 @@ def test_create_lines(app, client, librarian_martigny, lib_martigny,
     res, data = postdata(
         client,
         'api_receipt.lines',
-        data=dict(receipt_lines=receipt_lines),
+        data=receipt_lines,
         url_data=dict(receipt_pid='toto')
     )
     assert res.status_code == 404
@@ -49,7 +49,7 @@ def test_create_lines(app, client, librarian_martigny, lib_martigny,
     res, data = postdata(
         client,
         'api_receipt.lines',
-        data=dict(receipt_lines=receipt_lines),
+        data=receipt_lines,
         url_data=dict(receipt_pid=receipt.pid)
     )
     assert res.status_code == 400
@@ -82,7 +82,7 @@ def test_create_lines(app, client, librarian_martigny, lib_martigny,
     res, data = postdata(
         client,
         'api_receipt.lines',
-        data=dict(receipt_lines=receipt_lines),
+        data=receipt_lines,
         url_data=dict(receipt_pid=receipt.pid)
     )
     assert res.status_code == 200
