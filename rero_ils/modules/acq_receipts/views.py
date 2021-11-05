@@ -40,7 +40,6 @@ def lines(receipt_pid):
 
     Required parameters:
     :param receipt_pid: the pid of the receipt.
-    :param receipt_lines: the list of receipt lines to create.
     :returns: a list containing the given data to build the receipt line
                 with a `status` field, either `success` or the validation
                 error.
@@ -52,8 +51,7 @@ def lines(receipt_pid):
     if not receipt:
         abort(404, "Acquisition receipt not found")
 
-    data = flask_request.get_json()
-    receipt_lines = data.get('receipt_lines')
+    receipt_lines = flask_request.get_json()
     if not receipt_lines:
         abort(400, "Missing receipt lines data.")
     created_receipt_lines = receipt.create_receipt_lines(
