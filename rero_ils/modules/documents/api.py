@@ -24,6 +24,7 @@ from functools import partial
 from flask import current_app
 from invenio_circulation.search.api import search_by_pid
 from invenio_search.api import RecordsSearch
+from jsonschema.exceptions import ValidationError
 
 from .models import DocumentIdentifier, DocumentMetadata
 from .utils import edition_format_text, publication_statement_text, \
@@ -84,6 +85,35 @@ class Document(IlsRecord):
         OperationLogObserverExtension()
     ]
 
+    def _validate(self, **kwargs):
+        """Validate record against schema and $ref pids."""
+        json = super()._validate(**kwargs)
+
+        if self.pid_check:
+            from ..utils import pids_exists_in_data
+            validation_message = pids_exists_in_data(
+                info=f'{self.provider.pid_type} ({self.pid})',
+                data=self,
+                required={},
+                not_required={'doc': [
+                    'supplement', 'supplementTo', 'otherEdition',
+                    'otherPhysicalFormat', 'issuedWith', 'precededBy',
+                    'succeededBy', 'relatedTo', 'hasReproduction',
+                    'reproductionOf'
+                ]}
+            ) or True
+            if validation_message is True:
+                # also test partOf
+                validation_message = pids_exists_in_data(
+                    info=f'{self.provider.pid_type} ({self.pid})',
+                    data=self.get('partOf', {}),
+                    required={},
+                    not_required={'doc': 'document'}
+                ) or True
+            if validation_message is not True:
+                raise ValidationError(validation_message)
+        return json
+
     @classmethod
     def is_available(cls, pid, view_code, raise_exception=False):
         """Get availability for document."""
@@ -142,12 +172,12 @@ class Document(IlsRecord):
             'partOf': 'partOf.document.pid',
             'supplement': 'supplement.pid',
             'supplementTo': 'supplementTo.pid',
-            'otherEdition': 'otherEdition__pid',
+            'otherEdition': 'otherEdition.pid',
             'otherPhysicalFormat': 'otherPhysicalFormat.pid',
             'issuedWith': 'issuedWith.pid',
             'precededBy': 'precededBy.pid',
             'succeededBy': 'succeededBy.pid',
-            'relatedTo': 'relatedTo__pid',
+            'relatedTo': 'relatedTo.pid',
             'hasReproduction': 'hasReproduction.pid',
             'reproductionOf': 'reproductionOf.pid'
         }
