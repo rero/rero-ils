@@ -435,36 +435,39 @@ def pids_exists_in_data(info, data, required={}, not_required={}):
         """Test the pids exists."""
         return_value = []
         endpoints = current_app.config['RECORDS_REST_ENDPOINTS']
-        for pid_type, key in tests.items():
-            data_to_test = data.get(key)
-            if data_to_test:
-                try:
-                    list_route = endpoints[pid_type]['list_route']
-                    data_pid = data_to_test.get('pid') or \
-                        data_to_test.get('$ref').split(list_route)[1]
-                except Exception:
-                    data_pid = None
-                if not data_pid and is_required:
-                    return_value.append(
-                        f'{info}: No pid found: {pid_type} {data_to_test}'
-                    )
-                else:
-                    if not pid_exists(
-                        info=info,
-                        pid_type=pid_type,
-                        pid=data_pid
-                    ):
+        for pid_type, keys in tests.items():
+            if isinstance(keys, str):
+                keys = [keys]
+            for key in keys:
+                data_to_test = data.get(key)
+                if data_to_test:
+                    try:
+                        list_route = endpoints[pid_type]['list_route']
+                        data_pid = data_to_test.get('pid') or \
+                            data_to_test.get('$ref').split(list_route)[1]
+                    except Exception:
+                        data_pid = None
+                    if not data_pid and is_required:
                         return_value.append(
-                            '{info}: {text} {pid_type} {pid}'.format(
-                                info=info,
-                                text='Pid does not exist:',
-                                pid_type=pid_type,
-                                pid=data_pid
-                            )
+                            f'{info}: No pid found: {pid_type} {data_to_test}'
                         )
-            else:
-                if is_required:
-                    return_value.append(f'{info}: No data found: {key}')
+                    else:
+                        if not pid_exists(
+                            info=info,
+                            pid_type=pid_type,
+                            pid=data_pid
+                        ):
+                            return_value.append(
+                                '{info}: {text} {pid_type} {pid}'.format(
+                                    info=info,
+                                    text='Pid does not exist:',
+                                    pid_type=pid_type,
+                                    pid=data_pid
+                                )
+                            )
+                else:
+                    if is_required:
+                        return_value.append(f'{info}: No data found: {key}')
         return return_value
 
     return_value_required = pids_exists_in_data_test(
