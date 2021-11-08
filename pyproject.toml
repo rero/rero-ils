@@ -90,6 +90,7 @@ dcxml = "^0.1.2"
 coverage = {version = ">=6.0b1", allow-prereleases = true}
 DeepDiff = "^5.5.0"
 docutils = "<0.18.0"
+wtforms = "<3.0.0"
 
 [tool.poetry.dev-dependencies]
 ## Python packages development dependencies (order matters)
