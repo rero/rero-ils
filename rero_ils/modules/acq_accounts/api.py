@@ -215,7 +215,7 @@ class AcqAccount(IlsRecord):
         # Expenditure of this account
         search = AcqReceiptLinesSearch() \
             .filter('term', acq_account__pid=self.pid)
-        search.aggs.metric('sum_receipt_lines', 'sum', field='amount')
+        search.aggs.metric('sum_receipt_lines', 'sum', field='total_amount')
         results = search.execute()
         lines_expenditure = results.aggregations.sum_receipt_lines.value
 
