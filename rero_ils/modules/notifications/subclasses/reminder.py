@@ -35,6 +35,7 @@ from rero_ils.utils import language_iso639_2to1
 from .circulation import CirculationNotification
 from ..api import NotificationsSearch
 from ..models import NotificationChannel, NotificationType
+from ...items.dumpers import ItemNotificationDumper
 
 
 class ReminderCirculationNotification(CirculationNotification):
@@ -162,6 +163,7 @@ class ReminderCirculationNotification(CirculationNotification):
         })
         # Add metadata for any ``notification.loan`` of the notifications list
         doc_dumper = DocumentNotificationDumper()
+        item_dumper = ItemNotificationDumper()
         language = language_iso639_2to1(notifications[0].get_language_to_use())
         for notification in notifications:
             end_date = notification.loan.get('end_date')
@@ -172,8 +174,12 @@ class ReminderCirculationNotification(CirculationNotification):
             if end_date:
                 end_date = ciso8601.parse_datetime(end_date)
                 end_date = end_date.strftime("%d.%m.%Y")
+            # merge doc and item metadata preserving document key
+            item_data = notification.item.dumps(dumper=item_dumper)
+            doc_data = notification.document.dumps(dumper=doc_dumper)
+            doc_data = {**item_data, **doc_data}
             context['loans'].append({
-                'document': notification.document.dumps(dumper=doc_dumper),
+                'document': doc_data,
                 'end_date': end_date,
                 'reminder_counter': literal_counter
             })
