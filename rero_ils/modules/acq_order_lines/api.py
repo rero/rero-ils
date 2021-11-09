@@ -213,7 +213,7 @@ class AcqOrderLine(IlsRecord):
         from rero_ils.modules.acq_receipt_lines.api import \
             AcqReceiptLinesSearch
         search = AcqReceiptLinesSearch()\
-            .filter('term', acq_account__pid=self.account_pid)
+            .filter('term', acq_order_line__pid=self.pid)
         search.aggs.metric('sum_order_line_recieved', 'sum', field='quantity')
         results = search.execute()
         return results.aggregations.sum_order_line_recieved.value
