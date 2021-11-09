@@ -253,11 +253,11 @@ def reindex_missing(pid_types, verbose):
                     click.secho(f'NOT FOUND: {idx}\t{p_type}\t{pid}', fg='red')
 
 
-@index.command('init_index')
+@index.command()
 @click.option('--force', is_flag=True, default=False)
 @with_appcontext
 @es_version_check
-def init_index(force):
+def init(force):
     """Initialize registered templates, aliases and mappings."""
     # TODO: to remove once it is fixed in invenio-search module
     click.secho('Putting templates...', fg='green', bold=True, file=sys.stderr)

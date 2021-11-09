@@ -68,6 +68,4 @@ script_path=$(dirname "$0")
 ./"$script_path"/bootstrap
 
 invenio alembic upgrade
-# TODO: this failed because we have two loan indexes
-# invenio reroils utils init_index --force
 invenio reroils utils update_mapping
