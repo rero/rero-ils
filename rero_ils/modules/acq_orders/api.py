@@ -132,7 +132,22 @@ class AcqOrder(IlsRecord):
 
     @property
     def status(self):
-        """Get the order status based on related order lines statuses."""
+        """Get the order status based on related order lines statuses.
+
+        The order received the order status:
+        PENDING:    if it has one only PENDING order line
+        ORDERED:    if at has only one ORDERED order line or
+                    if it has multiple ORDERED and CANCELLED order lines.
+        CANCELLED:  if at has only one CANCELLED order line or
+                    if it has multiple CANCELLED order lines.
+        PARTIALLY_RECEIVED:
+                    if at has only one PARTIALLY_RECEIVED order line or
+                    if it has multiple PARTIALLY_RECEIVED and other statuses of
+                    order lines.
+        RECEIVED:   if at has only one RECEIVED order line or
+                    if it has multiple RECEIVED and other statuses of
+                    order lines.
+        """
         status = AcqOrderStatus.PENDING
         search = AcqOrderLinesSearch().filter('term', acq_order__pid=self.pid)
         search.aggs.bucket('status', 'terms', field='status')
@@ -140,15 +155,19 @@ class AcqOrder(IlsRecord):
         statuses = [hit.key for hit in results.aggregations.status.buckets]
 
         if len(statuses) > 1:
-            if AcqOrderLineStatus.RECEIVED in statuses:
+            if AcqOrderLineStatus.PARTIALLY_RECEIVED in statuses:
                 status = AcqOrderStatus.PARTIALLY_RECEIVED
             elif AcqOrderLineStatus.ORDERED in statuses:
                 status = AcqOrderStatus.ORDERED
+            elif AcqOrderLineStatus.RECEIVED in statuses:
+                status = AcqOrderStatus.RECEIVED
         elif len(statuses) == 1:
             map = {
                 AcqOrderLineStatus.APPROVED: AcqOrderStatus.PENDING,
                 AcqOrderLineStatus.ORDERED: AcqOrderStatus.ORDERED,
                 AcqOrderLineStatus.RECEIVED: AcqOrderStatus.RECEIVED,
+                AcqOrderLineStatus.PARTIALLY_RECEIVED:
+                    AcqOrderStatus.PARTIALLY_RECEIVED,
                 AcqOrderLineStatus.CANCELLED: AcqOrderStatus.CANCELLED,
             }
             if statuses[0] in map:
