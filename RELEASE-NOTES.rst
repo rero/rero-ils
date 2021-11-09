@@ -18,6 +18,12 @@
 Release notes
 =============
 
+v1.6.1
+------
+
+This patch allows to create additional queues for bulk indexing to prevent the
+creation of huge amounts of workers when full reindexing resources.
+
 v1.6.0
 ------
 
