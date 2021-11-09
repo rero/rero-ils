@@ -271,31 +271,31 @@ info_msg "Generate fixtures:"
 
 info_msg "- Organisations ${DATA_PATH}/organisations.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type org ${DATA_PATH}/organisations.json --append ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t org --yes-i-know --no-info
+eval ${PREFIX} invenio reroils index reindex -t org --yes-i-know
 
 info_msg "- Libraries: ${DATA_PATH}/libraries.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type lib ${DATA_PATH}/libraries.json --append ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t lib --yes-i-know --no-info
+eval ${PREFIX} invenio reroils index reindex -t lib --yes-i-know
 
 info_msg "- Locations: ${DATA_PATH}/locations.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type loc ${DATA_PATH}/locations.json  --append ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t loc --yes-i-know --no-info
+eval ${PREFIX} invenio reroils index reindex -t loc --yes-i-know
 
 info_msg "- Item types: ${DATA_PATH}/item_types.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type itty ${DATA_PATH}/item_types.json  --append ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t itty --yes-i-know --no-info
+eval ${PREFIX} invenio reroils index reindex -t itty --yes-i-know
 
 info_msg "- Patron types: ${DATA_PATH}/patron_types.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type ptty ${DATA_PATH}/patron_types.json --append ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t ptty --yes-i-know --no-info
+eval ${PREFIX} invenio reroils index reindex -t ptty --yes-i-know
 
 info_msg "- Circulation policies: ${DATA_PATH}/circulation_policies.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type cipo ${DATA_PATH}/circulation_policies.json --append ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t cipo --yes-i-know --no-info
+eval ${PREFIX} invenio reroils index reindex -t cipo --yes-i-know
 
 info_msg "Acquisition vendors: ${DATA_PATH}/vendors.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type vndr ${DATA_PATH}/vendors.json --append  ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t vndr --yes-i-know --no-info
+eval ${PREFIX} invenio reroils index reindex -t vndr --yes-i-know
 
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
     eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
@@ -310,7 +310,7 @@ eval ${PREFIX} invenio reroils fixtures import_users ${DATA_PATH}/users.json -v 
 
 info_msg "- ILL requests: ${DATA_PATH}/ill_request.json"
 eval ${PREFIX} invenio reroils fixtures create_ill_requests -f ${DATA_PATH}/ill_requests.json
-eval ${PREFIX} invenio reroils index reindex -t illr --yes-i-know --no-info
+eval ${PREFIX} invenio reroils index reindex -t illr --yes-i-know
 
 #: - xml to json transformation for rero marcxml --------------------------------
 #: don't forget to recreat the documents json schema files:
@@ -338,7 +338,7 @@ then
     info_msg "- CONTRIBUTIONS: ${CONTRIBUTIONS} ${CREATE_LAZY} ${DONT_STOP}"
     eval ${PREFIX} invenio reroils fixtures create --pid_type cont --schema 'http://bib.rero.ch/schemas/contributions/contribution-v0.0.1.json' ${CONTRIBUTIONS} --append ${CREATE_LAZY} ${DONT_STOP}
     info_msg "Indexing Contributions:"
-    eval ${PREFIX} invenio reroils index reindex -t cont --yes-i-know --no-info
+    eval ${PREFIX} invenio reroils index reindex -t cont --yes-i-know
     if [ ${INDEX_PARALLEL} -gt 0 ]; then
         eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
     fi
@@ -386,7 +386,7 @@ info_msg "- Items: ${ITEMS} ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type item --schema 'http://bib.rero.ch/schemas/items/item-v0.0.1.json' ${ITEMS} --append ${CREATE_LAZY} ${DONT_STOP}
 
 # index items
-eval ${PREFIX} invenio reroils index reindex -t item --yes-i-know --no-info
+eval ${PREFIX} invenio reroils index reindex -t item --yes-i-know
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
     eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
 fi
@@ -396,7 +396,7 @@ if [ ${INDEX_PARALLEL} -gt 0 ]; then
 fi
 
 # index holdings
-eval ${PREFIX} invenio reroils index reindex -t hold --yes-i-know --no-info
+eval ${PREFIX} invenio reroils index reindex -t hold --yes-i-know
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
     eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
 fi
@@ -406,7 +406,7 @@ if [ ${INDEX_PARALLEL} -gt 0 ]; then
 fi
 
 # index documents
-eval ${PREFIX} invenio reroils index reindex -t doc --yes-i-know --no-info
+eval ${PREFIX} invenio reroils index reindex -t doc --yes-i-know
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
     eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
 fi
@@ -417,7 +417,7 @@ fi
 
 # index contributions
 # We have to reindex contributions to get the oraganisations pids indexed correctly.
-eval ${PREFIX} invenio reroils index reindex -t cont --yes-i-know --no-info
+eval ${PREFIX} invenio reroils index reindex -t cont --yes-i-know
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
     eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
 fi
@@ -428,7 +428,7 @@ fi
 
 info_msg "- Local fields ${DATA_PATH}/local_fields.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type lofi ${DATA_PATH}/local_fields.json --append ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t lofi --yes-i-know --no-info
+eval ${PREFIX} invenio reroils index reindex -t lofi --yes-i-know
 
 # create serials patterns
 info_msg "Serials patterns: ${DATA_PATH}/patterns.json"
@@ -436,23 +436,23 @@ eval ${PREFIX} invenio reroils fixtures create_patterns ${DATA_PATH}/patterns.js
 
 info_msg "- Collections: ${DATA_PATH}/collections.json"
 eval ${PREFIX} invenio reroils fixtures create_collections -f ${DATA_PATH}/collections.json
-eval ${PREFIX} invenio reroils index reindex -t coll --yes-i-know --no-info
+eval ${PREFIX} invenio reroils index reindex -t coll --yes-i-know
 
 # # ACQUISITION
 # create library budgets
 info_msg "Library budgets: ${DATA_PATH}/budgets.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type budg ${DATA_PATH}/budgets.json --append  ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t budg --yes-i-know --no-info
+eval ${PREFIX} invenio reroils index reindex -t budg --yes-i-know
 
 # create acquisition accounts
 info_msg "Acquisition accounts: ${DATA_PATH}/acq_accounts.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type acac ${DATA_PATH}/acq_accounts.json --append  ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t acac --yes-i-know --no-info
+eval ${PREFIX} invenio reroils index reindex -t acac --yes-i-know
 
 # create resource templates
 info_msg "Resource templates:"
 eval ${PREFIX} invenio reroils fixtures create --pid_type tmpl ${DATA_PATH}/templates.json --append  ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t tmpl --yes-i-know --no-info
+eval ${PREFIX} invenio reroils index reindex -t tmpl --yes-i-know
 
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
     eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error

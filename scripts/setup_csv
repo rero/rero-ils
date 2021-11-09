@@ -225,7 +225,7 @@ eval ${PREFIX} invenio reroils fixtures import_users ${DATA_PATH}/users.json -v 
 
 info_msg "- ILL requests: ${DATA_PATH}/ill_request.json"
 eval ${PREFIX} invenio reroils fixtures create_ill_requests -f ${DATA_PATH}/ill_requests.json
-eval ${PREFIX} invenio reroils index reindex -t illr --yes-i-know --no-info
+eval ${PREFIX} invenio reroils index reindex -t illr --yes-i-know
 
 info_msg "- CONTRIBUTIONS: ${CONTRIBUTIONS} ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures bulk_load cont ${CSV_PATH}/cont_metadata.csv --verbose
@@ -254,7 +254,7 @@ if [ ${INDEX_PARALLEL} -gt 0 ]; then
 fi
 
 # index documents
-eval ${PREFIX} invenio reroils index reindex -t doc --yes-i-know --no-info
+eval ${PREFIX} invenio reroils index reindex -t doc --yes-i-know
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
     eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
 fi
@@ -265,7 +265,7 @@ fi
 
 # index contributions
 # We have to reindex contributions to get the oraganisations pids indexed correctly.
-eval ${PREFIX} invenio reroils index reindex -t cont --yes-i-know --no-info
+eval ${PREFIX} invenio reroils index reindex -t cont --yes-i-know
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
     eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
 fi
@@ -283,7 +283,7 @@ eval ${PREFIX} invenio reroils fixtures create_patterns ${DATA_PATH}/patterns.js
 
 info_msg "- Collections: ${DATA_PATH}/collections.json"
 eval ${PREFIX} invenio reroils fixtures create_collections -f ${DATA_PATH}/collections.json
-eval ${PREFIX} invenio reroils index reindex -t coll --yes-i-know --no-info
+eval ${PREFIX} invenio reroils index reindex -t coll --yes-i-know
 
 # # ACQUISITION
 # create library budgets
