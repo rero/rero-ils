@@ -378,6 +378,12 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(minute=0, hour=1),  # Every day at 01:00 UTC,
         'enabled': False
     },
+    'find-contribution': {
+        'task': ('rero_ils.modules.documents.tasks.find_contribution'),
+        'schedule': crontab(minute=22, hour=22, day_of_week=6),
+        # Every week on Saturday at 22:22 UTC,
+        'enabled': False
+    },
     # 'mef-harvester': {
     #     'task': 'rero_ils.modules.apiharvester.tasks.harvest_records',
     #     'schedule': timedelta(minutes=60),
@@ -2531,7 +2537,9 @@ RERO_ILS_APP_GIT_HASH = None
 RERO_ILS_UI_GIT_HASH = None
 
 #: RERO_ILS MEF specific configurations.
-RERO_ILS_MEF_URL = 'https://{host}/api/mef/'.format(host='mef.rero.ch')
+# TODO: to be changed with new MEF version
+# RERO_ILS_MEF_AGENTS_URL = 'https://mef.rero.ch/api/agents'
+RERO_ILS_MEF_AGENTS_URL = 'https://mef.rero.ch/api'
 RERO_ILS_MEF_RESULT_SIZE = 100
 
 RERO_ILS_APP_HELP_PAGE = (

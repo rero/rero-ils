@@ -143,14 +143,14 @@ class Contribution(IlsRecord):
     @classmethod
     def _get_mef_data_by_type(cls, pid, pid_type, verbose=False):
         """Request MEF REST API in JSON format."""
-        url = current_app.config.get('RERO_ILS_MEF_URL')
+        url = current_app.config.get('RERO_ILS_MEF_AGENTS_URL')
         if pid_type == 'mef':
-            mef_url = f'{url}?q=pid:{pid}'
+            mef_url = f'{url}/mef/?q=pid:{pid}'
         else:
             if pid_type == 'viaf':
-                mef_url = f'{url}?q=viaf_pid:{pid}'
+                mef_url = f'{url}/mef/?q=viaf_pid:{pid}'
             else:
-                mef_url = f'{url}?q={pid_type}.pid:{pid}'
+                mef_url = f'{url}/mef/?q={pid_type}.pid:{pid}'
         request = requests.get(url=mef_url, params=dict(resolve=1, sources=1))
         if request.status_code == requests_codes.ok:
             try:

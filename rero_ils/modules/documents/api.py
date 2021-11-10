@@ -23,14 +23,13 @@ from functools import partial
 
 from flask import current_app
 from invenio_circulation.search.api import search_by_pid
-from invenio_search.api import RecordsSearch
 from jsonschema.exceptions import ValidationError
 
 from .models import DocumentIdentifier, DocumentMetadata
 from .utils import edition_format_text, publication_statement_text, \
     series_statement_format_text, title_format_text_head
 from ..acq_order_lines.api import AcqOrderLinesSearch
-from ..api import IlsRecord, IlsRecordsIndexer
+from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..operation_logs.extensions import OperationLogObserverExtension
@@ -50,7 +49,7 @@ document_id_minter = partial(id_minter, provider=DocumentProvider)
 document_id_fetcher = partial(id_fetcher, provider=DocumentProvider)
 
 
-class DocumentsSearch(RecordsSearch):
+class DocumentsSearch(IlsRecordsSearch):
     """DocumentsSearch."""
 
     class Meta:

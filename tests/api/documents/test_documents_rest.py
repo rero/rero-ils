@@ -257,7 +257,7 @@ def test_documents_facets(
                        author='Nebehay, Christian Michael')
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
-    assert data['hits']['total']['value'] == 1
+    assert data['hits']['total']['value'] == 2
 
     # 2. test deutsch language
     list_url = url_for('invenio_records_rest.doc_list', view='global',
@@ -272,7 +272,7 @@ def test_documents_facets(
                        author='Nebehay, Christian Michael', lang='thl')
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
-    assert data['hits']['total']['value'] == 1
+    assert data['hits']['total']['value'] == 2
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',

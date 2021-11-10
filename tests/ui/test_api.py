@@ -25,11 +25,10 @@ from invenio_db import db
 from invenio_pidstore.models import PIDStatus, RecordIdentifier
 from invenio_pidstore.providers.base import BaseProvider
 from invenio_search import current_search
-from invenio_search.api import RecordsSearch
 from jsonschema.exceptions import ValidationError
 from utils import flush_index
 
-from rero_ils.modules.api import IlsRecord, IlsRecordError
+from rero_ils.modules.api import IlsRecord, IlsRecordError, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
@@ -47,7 +46,7 @@ class IdentifierTest(RecordIdentifier):
     )
 
 
-class SearchTest(RecordsSearch):
+class SearchTest(IlsRecordsSearch):
     """Test Search."""
 
     class Meta:
