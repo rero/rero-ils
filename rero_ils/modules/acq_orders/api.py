@@ -135,18 +135,18 @@ class AcqOrder(IlsRecord):
         """Get the order status based on related order lines statuses.
 
         The order received the order status:
-        PENDING:    if it has one only PENDING order line
-        ORDERED:    if at has only one ORDERED order line or
-                    if it has multiple ORDERED and CANCELLED order lines.
-        CANCELLED:  if at has only one CANCELLED order line or
-                    if it has multiple CANCELLED order lines.
+        PENDING:    if all related order lines has PENDING status.
+        ORDERED:
+          * if all related order lines has ORDERED status.
+          * if order lines statuses are multiple, and at least one order line
+            is ORDERED but none are RECEIVED, PARTIALLY_RECEIVED.
+        CANCELLED:  if all related order lines has CANCELLED status.
         PARTIALLY_RECEIVED:
-                    if at has only one PARTIALLY_RECEIVED order line or
-                    if it has multiple PARTIALLY_RECEIVED and other statuses of
-                    order lines.
-        RECEIVED:   if at has only one RECEIVED order line or
-                    if it has multiple RECEIVED and other statuses of
-                    order lines.
+          * if order contains only 1 order line and this order line status is
+            PARTIALLY_RECEIVED
+          * if order lines statuses are multiple, and at least one order line
+            is PARTIALLY_RECEIVED or RECEIVED.
+        RECEIVED:   if all related order lines has RECEIVED status.
         """
         status = AcqOrderStatus.PENDING
         search = AcqOrderLinesSearch().filter('term', acq_order__pid=self.pid)
@@ -154,13 +154,18 @@ class AcqOrder(IlsRecord):
         results = search.execute()
         statuses = [hit.key for hit in results.aggregations.status.buckets]
 
+        # If the ES query return multiple values, then we can remove
+        # 'CANCELLED' status to compute the correct order status value.
+        if len(statuses) > 1 and AcqOrderLineStatus.CANCELLED in statuses:
+            statuses.remove(AcqOrderLineStatus.CANCELLED)
+
         if len(statuses) > 1:
-            if AcqOrderLineStatus.PARTIALLY_RECEIVED in statuses:
+            if any(s in AcqOrderLineStatus.RECEIVED_STATUSES
+                   for s in statuses):
                 status = AcqOrderStatus.PARTIALLY_RECEIVED
             elif AcqOrderLineStatus.ORDERED in statuses:
                 status = AcqOrderStatus.ORDERED
-            elif AcqOrderLineStatus.RECEIVED in statuses:
-                status = AcqOrderStatus.RECEIVED
+
         elif len(statuses) == 1:
             map = {
                 AcqOrderLineStatus.APPROVED: AcqOrderStatus.PENDING,
