@@ -1598,10 +1598,14 @@ RECORDS_REST_ENDPOINTS = dict(
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
+            ),
+            'application/rero+json': (
+                'rero_ils.modules.acq_receipts.serializers:json_acre_record'
             )
         },
         record_serializers_aliases={
             'json': 'application/json',
+            'rero': 'application/rero+json',
         },
         search_serializers={
             'application/json': (
