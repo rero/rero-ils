@@ -24,7 +24,8 @@ from copy import deepcopy
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata
+from utils import VerifyRecordPermissionPatch, get_json, postdata, \
+    to_relative_url
 
 
 def test_acq_receipts_permissions(client, acq_receipt_fiction_martigny,
@@ -50,6 +51,47 @@ def test_acq_receipts_permissions(client, acq_receipt_fiction_martigny,
 
     res = client.delete(item_url)
     assert res.status_code == 401
+
+
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_acq_receipt_get(
+    client,
+    org_martigny, vendor2_martigny,
+    acq_receipt_fiction_saxon
+):
+    """Test record retrieval."""
+    acre = acq_receipt_fiction_saxon
+    acq_receipt = deepcopy(acre)
+    item_url = url_for('invenio_records_rest.acre_item', pid_value=acre.pid)
+    list_url = url_for('invenio_records_rest.acre_list', q=f'pid:{acre.pid}')
+
+    res = client.get(item_url)
+    assert res.status_code == 200
+    assert res.headers['ETag'] == '"{}"'.format(acq_receipt.revision_id)
+    data = get_json(res)
+    assert acq_receipt.dumps() == data['metadata']
+
+    # Check metadata
+    for k in ['created', 'updated', 'metadata', 'links']:
+        assert k in data
+
+    # Check self links
+    res = client.get(to_relative_url(data['links']['self']))
+    assert res.status_code == 200
+    assert data == get_json(res)
+    assert acq_receipt.dumps() == data['metadata']
+
+    res = client.get(list_url)
+    assert res.status_code == 200
+    data = get_json(res)
+
+    metadata = data['hits']['hits'][0]['metadata']
+    # remove dynamically added fields
+    del metadata['quantity']
+    del metadata['receipt_lines']
+    del metadata['total_amount']
+    assert metadata == acq_receipt.replace_refs()
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',

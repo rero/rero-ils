@@ -21,7 +21,8 @@
 from copy import deepcopy
 from functools import partial
 
-from rero_ils.modules.acq_receipt_lines.api import AcqReceiptLine
+from rero_ils.modules.acq_receipt_lines.api import AcqReceiptLine, \
+    AcqReceiptLinesSearch
 
 from .models import AcqReceiptIdentifier, AcqReceiptLineCreationStatus, \
     AcqReceiptMetadata
@@ -29,8 +30,7 @@ from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
-from ..utils import extracted_data_from_ref, get_ref_for_pid, \
-    get_schema_for_resource
+from ..utils import extracted_data_from_ref, get_ref_for_pid, sorted_pids
 
 # provider
 AcqReceiptProvider = type(
@@ -135,7 +135,6 @@ class AcqReceipt(IlsRecord):
             receipt_line['acq_receipt'] = {
                 '$ref': get_ref_for_pid('acre', self.pid)
             }
-            receipt_line['$schema'] = get_schema_for_resource(AcqReceiptLine)
             try:
                 line = AcqReceiptLine.create(receipt_line, dbcommit=dbcommit,
                                              reindex=reindex)
@@ -181,10 +180,31 @@ class AcqReceipt(IlsRecord):
 
         :return the receipt total amount rounded on 0.01.
         """
-        # TODO: adapt this method after adding the receipt_lines resource.
-        # total = self._get_receipt_lines_total_amount()
-        total = sum([fee.get('amount') for fee in self.amount_adjustments])
+        # Compute the total of all related receipt line
+        search = AcqReceiptLinesSearch() \
+            .filter('term', acq_receipt__pid=self.pid)
+        search.aggs.metric(
+            'receipt_total_amount',
+            'sum',
+            field='total_amount',
+            script={
+                'source': 'Math.round(_value*100)/100.00'
+            }
+        )
+        results = search.execute()
+        total = results.aggregations.receipt_total_amount.value
+        # Add the sum of all adjustments
+        total += sum(fee.get('amount') for fee in self.amount_adjustments)
         return round(total, 2)
+
+    @property
+    def total_item_quantity(self):
+        """Get the number of items related to this receipt."""
+        search = AcqReceiptLinesSearch() \
+            .filter('term', acq_receipt__pid=self.pid)
+        search.aggs.metric('quantity', 'sum', field='quantity')
+        results = search.execute()
+        return results.aggregations.quantity.value
 
     @property
     def library_pid(self):
@@ -195,6 +215,26 @@ class AcqReceipt(IlsRecord):
     def organisation_pid(self):
         """Shortcut for acquisition receipt organisation pid."""
         return extracted_data_from_ref(self.get('organisation'))
+
+    def get_receipt_lines(self, output=None):
+        """Get all receipt lines related to this receipt.
+
+        :param output: output method. 'count', 'pids' or None.
+        :return a generator of related order lines (or length).
+        """
+        def _list_object():
+            for hit in query.source().scan():
+                yield AcqReceiptLine.get_record_by_id(hit.meta.id)
+
+        query = AcqReceiptLinesSearch()\
+            .filter('term', acq_receipt__pid=self.pid)
+
+        if output == 'count':
+            return query.count()
+        elif output == 'pids':
+            return sorted_pids(query)
+        else:
+            return _list_object()
 
     def get_note(self, note_type):
         """Get a specific type of note.

@@ -22,11 +22,16 @@ from rero_ils.modules.acq_receipts.models import AcqReceiptNoteType
 from rero_ils.modules.utils import extracted_data_from_ref
 
 
-def test_receipts_properties(acq_order_fiction_martigny,
-                             acq_account_fiction_martigny,
-                             acq_receipt_fiction_martigny, lib_martigny):
+def test_receipts_properties(
+    acq_order_fiction_martigny,
+    acq_account_fiction_martigny, acq_receipt_fiction_martigny,
+    acq_receipt_line_1_fiction_martigny, acq_receipt_line_2_fiction_martigny,
+    lib_martigny
+):
     """Test receipt properties."""
     acre1 = acq_receipt_fiction_martigny
+    acrl1 = acq_receipt_line_1_fiction_martigny
+    acrl2 = acq_receipt_line_2_fiction_martigny
     # LIBRARY------------------------------------------------------------------
     assert acre1.library_pid == lib_martigny.pid
     # ORGANISATION ------------------------------------------------------------
@@ -38,11 +43,20 @@ def test_receipts_properties(acq_order_fiction_martigny,
     # EXCHANGE_RATE -----------------------------------------------------------
     assert acre1.exchange_rate
     # AMOUNT ------------------------------------------------------------------
-    amounts = acre1.amount_adjustments
-    assert amounts
-    assert acre1.total_amount == \
-        sum([fee.get('amount') for fee in amounts])
+    adj_amount = sum(adj.get('amount') for adj in acre1.amount_adjustments)
+    wished_amount = sum([acrl1.total_amount, acrl2.total_amount, adj_amount])
+    assert acre1.total_amount == wished_amount
+    # QUANTITY ----------------------------------------------------------------
+    assert acre1.total_item_quantity == sum([acrl1.quantity, acrl2.quantity])
     # ACQ ACCOUNT -------------------------------------------------------------
-    for amount in amounts:
+    for amount in acre1.amount_adjustments:
         assert extracted_data_from_ref(amount.get('acq_account')) == \
             acq_account_fiction_martigny.pid
+    # RECEIPT LINES -----------------------------------------------------------
+    lines = [acrl1, acrl2]
+    assert all(line in lines for line in acre1.get_receipt_lines())
+
+    lines_pid = [line.pid for line in lines]
+    assert all(pid in lines_pid for pid in acre1.get_receipt_lines('pids'))
+
+    assert acre1.get_receipt_lines('count') == 2
