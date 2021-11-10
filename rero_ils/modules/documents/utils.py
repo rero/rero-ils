@@ -524,6 +524,8 @@ def create_contributions(contributions):
                 'parallel_access_point')
             if parallel_access_point:
                 agent['parallel_access_point'] = parallel_access_point
+            if contribution['agent'].get('identifiedBy'):
+                agent['identifiedBy'] = contribution['agent']['identifiedBy']
             contribution['agent'] = agent
 
         calculated_contributions.append(contribution)

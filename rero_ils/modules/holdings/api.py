@@ -28,13 +28,13 @@ from dateutil.relativedelta import relativedelta
 from elasticsearch_dsl import Q
 from flask import current_app
 from flask_babelex import gettext as _
-from invenio_search.api import RecordsSearch
 from jinja2 import Environment
 
 from rero_ils.modules.items.models import ItemIssueStatus
 
 from .models import HoldingIdentifier, HoldingMetadata, HoldingTypes
-from ..api import IlsRecord, IlsRecordError, IlsRecordsIndexer
+from ..api import IlsRecord, IlsRecordError, IlsRecordsIndexer, \
+    IlsRecordsSearch
 from ..documents.api import Document
 from ..errors import MissingRequiredParameterError, RegularReceiveNotAllowed
 from ..fetchers import id_fetcher
@@ -66,7 +66,7 @@ JINJA_ENV = Environment()
 JINJA_ENV.filters['format_date_filter'] = format_date_filter
 
 
-class HoldingsSearch(RecordsSearch):
+class HoldingsSearch(IlsRecordsSearch):
     """RecordsSearch for holdings."""
 
     class Meta:

@@ -378,7 +378,7 @@ def test_work_access_point():
 
 def test_contribution_format(db, document_data):
     """Test contribution format."""
-    result = 'Vincent, Sophie'
+    result = 'Nebehay, Christian Michael'
     doc = Document.create(document_data, delete_pid=True)
     assert contribution_format(doc.pid, 'en', 'global').startswith(result)
 

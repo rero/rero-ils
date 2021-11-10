@@ -201,7 +201,7 @@ def mef_proxy(path):
         method=request.method,
         url=request.url.replace(
             request.base_url.replace(path, ''),
-            current_app.config.get('RERO_ILS_MEF_URL')
+            f'{current_app.config.get("RERO_ILS_MEF_AGENTS_URL")}/mef/'
         ),
         headers={
             key: value for (key, value) in request.headers if key != 'Host'
