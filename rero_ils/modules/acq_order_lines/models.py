@@ -51,6 +51,8 @@ class AcqOrderLineStatus:
     RECEIVED = 'received'
     PARTIALLY_RECEIVED = 'partially_received'
 
+    RECEIVED_STATUSES = [RECEIVED, PARTIALLY_RECEIVED]
+
 
 class AcqOrderLineNoteType:
     """Type of acquisition order line note."""

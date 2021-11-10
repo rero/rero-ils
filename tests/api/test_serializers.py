@@ -17,9 +17,10 @@
 
 """Tests Serializers."""
 
+import mock
 from flask import url_for
-from utils import flush_index, get_csv, get_json, \
-    item_record_to_a_specific_loan_state, login_user
+from utils import VerifyRecordPermissionPatch, flush_index, get_csv, \
+    get_json, item_record_to_a_specific_loan_state, login_user
 
 from rero_ils.modules.loans.api import LoanState
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
@@ -272,12 +273,14 @@ def test_ill_requests_serializers(
     assert record.get('metadata', {}).get('pickup_location', {}).get('name')
 
 
+# ACQUISITIONS MODULES ========================================================
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_acq_accounts_serializers(
     client, rero_json_header, lib_martigny, budget_2020_martigny,
-    acq_account_fiction_martigny, system_librarian_martigny
+    acq_account_fiction_martigny
 ):
     """Test serializers for acq_account requests."""
-    login_user(client, system_librarian_martigny)
     account = acq_account_fiction_martigny
     item_url = url_for('invenio_records_rest.acac_item', pid_value=account.pid)
     response = client.get(item_url, headers=rero_json_header)
@@ -286,3 +289,23 @@ def test_acq_accounts_serializers(
     for key in ['depth', 'distribution', 'is_active', 'encumbrance_amount',
                 'expenditure_amount', 'remaining_balance']:
         assert key in data['metadata']
+
+
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_acq_receipts_serializers(
+    client,
+    rero_json_header,
+    acq_order_fiction_martigny,
+    acq_account_fiction_martigny, acq_receipt_fiction_martigny,
+    acq_receipt_line_1_fiction_martigny, acq_receipt_line_2_fiction_martigny,
+    lib_martigny
+):
+    """Test serializers for ills requests."""
+    acre = acq_receipt_fiction_martigny
+    list_url = url_for('invenio_records_rest.acre_item', pid_value=acre.pid)
+    response = client.get(list_url, headers=rero_json_header)
+    assert response.status_code == 200
+    data = get_json(response)
+    for attr in ['currency', 'quantity', 'total_amount', 'receipt_lines']:
+        assert attr in data['metadata']
