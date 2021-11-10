@@ -130,8 +130,10 @@ class AcqReceiptLine(IlsRecord):
     @cached_property
     def order_line(self):
         """Shortcut for related acquisition order line record."""
-        from rero_ils.modules.acq_order_lines.api import AcqOrderLine
-        return AcqOrderLine.get_record_by_pid(self.order_line_pid)
+        return extracted_data_from_ref(
+            self.get('acq_order_line'),
+            data='record'
+        )
 
     @property
     def acq_account_pid(self):
@@ -151,8 +153,8 @@ class AcqReceiptLine(IlsRecord):
     @property
     def total_amount(self):
         """Shortcut for related acquisition total_amount."""
-        return round(
-            self.amount*self.receipt.exchange_rate*self.quantity, 2)
+        total = self.amount * self.receipt.exchange_rate * self.quantity
+        return round(total, 2)
 
     @property
     def quantity(self):

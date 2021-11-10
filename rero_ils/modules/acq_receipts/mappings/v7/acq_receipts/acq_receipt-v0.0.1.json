@@ -42,6 +42,9 @@
       "exchange_rate": {
         "type": "float"
       },
+      "quantity": {
+        "type": "integer"
+      },
       "total_amount": {
         "type": "float"
       },
@@ -73,6 +76,35 @@
           },
           "content": {
             "type": "text"
+          }
+        }
+      },
+      "receipt_lines": {
+        "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "receipt_date": {
+            "type": "date"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "document": {
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "title": {
+                "type": "text"
+              },
+              "identifiers": {
+                "type": "text"
+              }
+            }
+          },
+          "amount": {
+            "type": "float"
           }
         }
       },
