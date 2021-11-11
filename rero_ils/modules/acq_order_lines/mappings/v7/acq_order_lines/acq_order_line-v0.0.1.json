@@ -78,7 +78,7 @@
       "quantity": {
         "type": "integer"
       },
-      "quantity_received": {
+      "received_quantity": {
         "type": "integer"
       },
       "amount": {

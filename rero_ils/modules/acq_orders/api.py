@@ -196,12 +196,12 @@ class AcqOrder(IlsRecord):
         return results.aggregations.total_quantity.value
 
     @property
-    def item_quantity_received(self):
+    def item_received_quantity(self):
         """Get the total of received item quantity for this order."""
         search = AcqOrderLinesSearch() \
             .filter('term', acq_order__pid=self.pid) \
             .exclude('term', status=AcqOrderLineStatus.CANCELLED)
-        search.aggs.metric('total_quantity', 'sum', field='quantity_received')
+        search.aggs.metric('total_quantity', 'sum', field='received_quantity')
         results = search.execute()
         return results.aggregations.total_quantity.value
 

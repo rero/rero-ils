@@ -53,7 +53,6 @@ def test_create_lines(app, client, librarian_martigny, lib_martigny,
         url_data=dict(receipt_pid=receipt.pid)
     )
     assert res.status_code == 400
-
     # test when receipt_lines data provided
     receipt_lines = [
         {
