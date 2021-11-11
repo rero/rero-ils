@@ -27,6 +27,7 @@ from .extensions import AcquisitionOrderCompleteDataExtension, \
 from .models import AcqOrderIdentifier, AcqOrderMetadata, AcqOrderStatus
 from ..acq_order_lines.api import AcqOrderLine, AcqOrderLinesSearch
 from ..acq_order_lines.models import AcqOrderLineStatus
+from ..acq_receipts.api import AcqReceiptsSearch
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
@@ -226,14 +227,10 @@ class AcqOrder(IlsRecord):
     def get_order_lines(self, output=None, includes=None):
         """Get order lines related to this order.
 
-        :param output: output method. 'count', 'pids' or None.
+        :param output: output method. 'count' or None.
         :param includes: a list of statuses to include order lines.
         :return a generator of related order lines (or length).
         """
-        def _list_object():
-            for hit in query.source().scan():
-                yield AcqOrderLine.get_record_by_id(hit.meta.id)
-
         query = AcqOrderLinesSearch()\
             .filter('term', acq_order__pid=self.pid)
         if includes:
@@ -241,10 +238,7 @@ class AcqOrder(IlsRecord):
 
         if output == 'count':
             return query.count()
-        elif output == 'pids':
-            return sorted_pids(query)
-        else:
-            return _list_object()
+        return self._list_object_by_id(AcqOrderLine, query)
 
     def get_order_total_amount(self):
         """Get total amount of order."""
@@ -268,11 +262,24 @@ class AcqOrder(IlsRecord):
         :param get_pids: if True list of linked pids
                          if False count of linked records
         """
-        output = 'pids' if get_pids else 'count'
-        links = {
-            'acq_order_lines': self.get_order_lines(output=output)
-        }
-        return {k: v for k, v in links.items() if v}
+        links = {}
+        order_lines_query = AcqOrderLinesSearch()\
+            .filter('term', acq_order__pid=self.pid)
+        receipts_query = AcqReceiptsSearch()\
+            .filter('term', acq_order__pid=self.pid)
+
+        if get_pids:
+            order_lines = sorted_pids(order_lines_query)
+            receipts = sorted_pids(receipts_query)
+        else:
+            order_lines = order_lines_query.count()
+            receipts = receipts_query.count()
+
+        if order_lines:
+            links['acq_order_lines'] = order_lines
+        if receipts:
+            links['acq_receipts'] = receipts
+        return links
 
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
