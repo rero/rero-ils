@@ -23,8 +23,6 @@ from invenio_records.extensions import RecordExtension
 from jsonschema import ValidationError
 
 from rero_ils.modules.acq_accounts.models import AcqAccountExceedanceType
-from rero_ils.modules.acq_order_lines.utils import \
-    calculate_unreceived_quantity
 
 
 class AcqOrderLineValidationExtension(RecordExtension):
@@ -58,13 +56,6 @@ class AcqOrderLineValidationExtension(RecordExtension):
                 raise ValidationError(msg)
 
     @staticmethod
-    def _check_quantity(record):
-        """Check if the quantities are coherent."""
-        if calculate_unreceived_quantity(record) < 0:
-            msg = _('Received quantity is grower than ordered quantity')
-            raise ValidationError(msg)
-
-    @staticmethod
     def _check_harvested(record):
         """Harvested document cannot be linked to an order line."""
         related_document = record.document
@@ -76,7 +67,6 @@ class AcqOrderLineValidationExtension(RecordExtension):
     def pre_commit(self, record):
         """Called before a record is committed."""
         AcqOrderLineValidationExtension._check_balance(record)
-        AcqOrderLineValidationExtension._check_quantity(record)
         AcqOrderLineValidationExtension._check_harvested(record)
 
     pre_create = pre_commit

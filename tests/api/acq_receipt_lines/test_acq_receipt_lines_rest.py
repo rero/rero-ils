@@ -101,6 +101,7 @@ def test_acq_receipt_lines_get(client, acq_receipt_line_1_fiction_martigny):
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_acq_receipt_lines_post_put_delete(client, org_martigny,
                                            vendor2_martigny,
+                                           acq_order_line_fiction_saxon,
                                            acq_receipt_fiction_sion,
                                            acq_receipt_line_fiction_saxon,
                                            json_header):

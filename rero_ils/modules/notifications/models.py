@@ -105,7 +105,7 @@ class NotificationStatus:
 
     DONE = 'done'
     CREATED = 'created'
-    CANCELED = 'canceled'
+    CANCELLED = 'cancelled'
 
 
 class NotificationChannel:

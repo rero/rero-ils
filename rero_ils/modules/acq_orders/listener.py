@@ -41,7 +41,7 @@ def enrich_acq_order_data(sender, json=None, record=None, index=None,
         # other dynamic keys
         json['item_quantity'] = {
             'ordered': record.item_quantity,
-            'received': record.item_quantity_received
+            'received': record.item_received_quantity
         }
         json['organisation'] = {
             'pid': record.organisation_pid,

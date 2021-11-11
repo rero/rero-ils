@@ -35,7 +35,8 @@ from rero_ils.modules.loans.api import Loan, LoanAction, LoanState
 from rero_ils.modules.notifications.api import Notification, \
     NotificationsSearch
 from rero_ils.modules.notifications.dispatcher import Dispatcher
-from rero_ils.modules.notifications.models import NotificationType
+from rero_ils.modules.notifications.models import NotificationStatus, \
+    NotificationType
 from rero_ils.modules.notifications.tasks import process_notifications
 from rero_ils.modules.notifications.utils import get_notification
 from rero_ils.modules.utils import get_ref_for_pid
@@ -987,7 +988,7 @@ def test_cancel_notifications(
     mailbox.clear()
     process_notifications(NotificationType.AVAILABILITY)
     notification = get_notification(loan, NotificationType.AVAILABILITY)
-    assert notification['status'] == 'canceled'
+    assert notification['status'] == NotificationStatus.CANCELLED
     assert len(mailbox) == 0
     # restore to initial state
     res, data = postdata(
@@ -1029,7 +1030,7 @@ def test_cancel_notifications(
     assert can_cancel
     Dispatcher.dispatch_notifications([notification.pid])
     notification = Notification.get_record_by_pid(notification.pid)
-    assert notification['status'] == 'canceled'
+    assert notification['status'] == NotificationStatus.CANCELLED
 
 
 def test_booking_notifications(client, patron_martigny, patron_sion,

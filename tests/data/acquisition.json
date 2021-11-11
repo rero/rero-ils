@@ -272,7 +272,7 @@
       "$ref": "https://bib.rero.ch/api/documents/doc1"
     },
     "is_cancelled": false,
-    "quantity": 1,
+    "quantity": 5,
     "priority": 5,
     "amount": 1000
   },
@@ -305,7 +305,7 @@
       "$ref": "https://bib.rero.ch/api/documents/doc1"
     },
     "is_cancelled": false,
-    "quantity": 1,
+    "quantity": 5,
     "amount": 1000
   },
   "acol4": {
@@ -321,7 +321,7 @@
       "$ref": "https://bib.rero.ch/api/documents/doc1"
     },
     "is_cancelled": false,
-    "quantity": 2,
+    "quantity": 5,
     "amount": 500
   },
   "acol5": {
