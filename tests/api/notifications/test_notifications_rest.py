@@ -1009,7 +1009,7 @@ def test_cancel_notifications(
     assert can_cancel
     Dispatcher.dispatch_notifications([notification.pid])
     notification = Notification.get_record_by_pid(notification.pid)
-    assert notification['status'] == 'canceled'
+    assert notification['status'] == NotificationStatus.CANCELLED
 
 
 def test_booking_notifications(client, patron_martigny, patron_sion,

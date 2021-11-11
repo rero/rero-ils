@@ -58,12 +58,12 @@ def test_acq_orders_lines_permissions(
 def test_acq_order_lines_get(client, acq_order_line_fiction_martigny):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.acol_item', pid_value='acol1')
-    acq_order_line = acq_order_line_fiction_martigny
+    acol = acq_order_line_fiction_martigny
     res = client.get(item_url)
     data = get_json(res)
     assert res.status_code == 200
-    assert res.headers['ETag'] == '"{}"'.format(acq_order_line.revision_id)
-    assert acq_order_line.dumps() == data['metadata']
+    assert res.headers['ETag'] == '"{}"'.format(acol.revision_id)
+    assert acol.dumps() == data['metadata']
 
     # Check metadata
     for k in ['created', 'updated', 'metadata', 'links']:
@@ -73,9 +73,9 @@ def test_acq_order_lines_get(client, acq_order_line_fiction_martigny):
     res = client.get(to_relative_url(data['links']['self']))
     assert res.status_code == 200
     assert data == get_json(res)
-    assert acq_order_line.dumps() == data['metadata']
-
-    assert data['metadata']['total_amount'] == 1000
+    assert acol.dumps() == data['metadata']
+    assert data['metadata']['total_amount'] == \
+           acol.quantity * acol.get('amount')
 
     list_url = url_for('invenio_records_rest.acol_list', pid='acol1')
     res = client.get(list_url)
@@ -85,7 +85,8 @@ def test_acq_order_lines_get(client, acq_order_line_fiction_martigny):
     metadata = data['hits']['hits'][0]['metadata']
     del metadata['total_unreceived_amount']  # dynamically added key
     del metadata['status']  # dynamically added key
-    assert metadata == acq_order_line.replace_refs()
+    del metadata['received_quantity']  # dynamically added key
+    assert metadata == acol.replace_refs()
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',

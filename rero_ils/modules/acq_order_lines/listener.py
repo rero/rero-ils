@@ -20,8 +20,6 @@
 
 from rero_ils.modules.acq_order_lines.api import AcqOrderLine, \
     AcqOrderLinesSearch
-from rero_ils.modules.acq_order_lines.utils import \
-    calculate_unreceived_quantity
 
 
 def enrich_acq_order_line_data(sender, json=None, record=None, index=None,
@@ -36,8 +34,9 @@ def enrich_acq_order_line_data(sender, json=None, record=None, index=None,
     if index.split('-')[0] == AcqOrderLinesSearch.Meta.index:
         if not isinstance(record, AcqOrderLine):
             record = AcqOrderLine.get_record_by_pid(record.get('pid'))
-        unreceived_quantity = calculate_unreceived_quantity(record)
+        unreceived_quantity = record.unreceived_quantity
         # other dynamic keys
         json['total_unreceived_amount'] = \
             unreceived_quantity * record['amount']
         json['status'] = record.status
+        json['received_quantity'] = record.received_quantity
