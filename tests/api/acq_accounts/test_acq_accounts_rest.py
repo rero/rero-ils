@@ -154,11 +154,13 @@ def test_acq_accounts_post_put_delete(client,
 
 def test_acq_accounts_can_delete(
         client, document, acq_account_fiction_martigny,
-        acq_order_line_fiction_martigny, acq_order_fiction_martigny):
+        acq_order_line_fiction_martigny, acq_order_fiction_martigny,
+        acq_receipt_fiction_martigny):
     """Test can delete an acq account."""
     can, reasons = acq_account_fiction_martigny.can_delete
     assert not can
     assert reasons['links']['acq_order_lines']
+    assert reasons['links']['acq_receipts']
 
 
 def test_filtered_acq_accounts_get(
