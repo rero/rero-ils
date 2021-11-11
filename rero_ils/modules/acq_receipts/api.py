@@ -146,6 +146,33 @@ class AcqReceipt(IlsRecord):
 
         return created_receipt_lines
 
+    def get_links_to_me(self, get_pids=False):
+        """Record links.
+
+        :param get_pids: if True list of linked pids
+                         if False count of linked records
+        """
+        from ..acq_receipt_lines.api import AcqReceiptLinesSearch
+        links = {}
+        receipt_lines_query = AcqReceiptLinesSearch() \
+            .filter('term', acq_receipt__pid=self.pid)
+        if get_pids:
+            acq_receipt_lines = sorted_pids(receipt_lines_query)
+        else:
+            acq_receipt_lines = receipt_lines_query.count()
+
+        if acq_receipt_lines:
+            links['acq_receipt_lines'] = acq_receipt_lines
+        return links
+
+    def reasons_not_to_delete(self):
+        """Get reasons not to delete receipt."""
+        cannot_delete = {}
+        links = self.get_links_to_me()
+        if links:
+            cannot_delete['links'] = links
+        return cannot_delete
+
     # GETTER & SETTER =========================================================
     #   * Define some properties as shortcut to quickly access object attrs.
     #   * Defines some getter methods to access specific object values.
@@ -222,10 +249,6 @@ class AcqReceipt(IlsRecord):
         :param output: output method. 'count', 'pids' or None.
         :return a generator of related order lines (or length).
         """
-        def _list_object():
-            for hit in query.source().scan():
-                yield AcqReceiptLine.get_record_by_id(hit.meta.id)
-
         query = AcqReceiptLinesSearch()\
             .filter('term', acq_receipt__pid=self.pid)
 
@@ -234,7 +257,7 @@ class AcqReceipt(IlsRecord):
         elif output == 'pids':
             return sorted_pids(query)
         else:
-            return _list_object()
+            return self._list_object_by_id(AcqReceiptLine, query)
 
     def get_note(self, note_type):
         """Get a specific type of note.

@@ -86,11 +86,13 @@ def test_organisation_secure_api_update(client, json_header, org_martigny,
     assert res.status_code == 403
 
 
-def test_location_can_delete(client, org_martigny, lib_martigny):
+def test_organisation_can_delete(client, org_martigny, lib_martigny,
+                                 acq_receipt_fiction_martigny):
     """Test can delete an organisation."""
     can, reasons = org_martigny.can_delete
     assert not can
     assert reasons['links']['libraries']
+    assert reasons['links']['acq_receipts']
 
 
 def test_organisation_secure_api(client, json_header, org_martigny,
