@@ -314,6 +314,26 @@ class IlsRecord(Record):
                 yield identifier.object_uuid
 
     @classmethod
+    def _list_object_by_id(cls, record_class, query):
+        """Get record object from search query by record id.
+
+        :param query: search query
+        :return record object.
+        """
+        for hit in query.source().scan():
+            yield record_class.get_record_by_id(hit.meta.id)
+
+    @classmethod
+    def _list_object_by_pid(cls, record_class, query):
+        """Get record object from search query by record pid.
+
+        :param query: search query
+        :return record object.
+        """
+        for hit in query.source(['pid']).scan():
+            yield record_class.get_record_by_pid(hit.pid)
+
+    @classmethod
     def count(cls, with_deleted=False):
         """Get record count."""
         return cls._get_all(with_deleted=with_deleted).count()

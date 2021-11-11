@@ -26,8 +26,8 @@ from flask_babelex import gettext as _
 from .extensions import ParentAccountDistributionCheck
 from .models import AcqAccountExceedanceType, AcqAccountIdentifier, \
     AcqAccountMetadata
-from ..acq_invoices.api import AcquisitionInvoice, AcquisitionInvoicesSearch
-from ..acq_order_lines.api import AcqOrderLine, AcqOrderLinesSearch
+from ..acq_invoices.api import AcquisitionInvoicesSearch
+from ..acq_order_lines.api import AcqOrderLinesSearch
 from ..acq_order_lines.models import AcqOrderLineStatus
 from ..acq_receipt_lines.api import AcqReceiptLinesSearch
 from ..acq_receipts.api import AcqReceiptsSearch
@@ -380,24 +380,6 @@ class AcqAccount(IlsRecord):
             acc.update(acc, dbcommit=True, reindex=False)
         target_account.reindex()
 
-    def get_related_order_lines(self, output=None):
-        """Get order lines related to this account.
-
-        :param output: the output method. 'count', 'pids' or None
-        :return a generator of related order lines (or length).
-        """
-        def _list_object():
-            for hit in query.source(['pid']).scan():
-                yield AcqOrderLine.get_record_by_pid(hit.pid)
-
-        query = AcqOrderLinesSearch().filter('term', acq_account__pid=self.pid)
-        if output == 'count':
-            return query.count()
-        elif output == 'pids':
-            return sorted_pids(query)
-        else:
-            return _list_object()
-
     def get_ancestors(self):
         """Get all ancestors related to this account.
 
@@ -411,62 +393,64 @@ class AcqAccount(IlsRecord):
     def get_children(self, output=None):
         """Get children accounts related to this account.
 
-        :param output: output method. 'count', 'pids' or None
+        :param output: output method. 'count' or None
         :return a generator of children accounts (or length).
         """
-        def _list_object():
-            for hit in query.source(['pid']).scan():
-                yield AcqAccount.get_record_by_pid(hit.pid)
-
         query = AcqAccountsSearch().filter('term', parent__pid=self.pid)
         if output == 'count':
             return query.count()
-        elif output == 'pids':
-            return sorted_pids(query)
-        else:
-            return _list_object()
-
-    def get_related_invoices(self, output=None):
-        """Get invoices related to this account.
-
-        :param output: output method. 'count', 'pids' or None
-        :return a generator of related invoices (or length).
-        """
-        def _list_object():
-            for hit in query.source(['pid']).scan():
-                yield AcquisitionInvoice.get_record_by_pid(hit.pid)
-
-        query = AcquisitionInvoicesSearch()\
-            .filter('term', invoice_items__acq_account__pid=self.pid)
-        if output == 'count':
-            return query.count()
-        elif output == 'pids':
-            return sorted_pids(query)
-        else:
-            return _list_object()
+        return self._list_object_by_pid(AcqAccount, query)
 
     def get_links_to_me(self, get_pids=False):
-        """Get resources linked to this object.
+        """Record links.
 
         :param get_pids: if True list of linked pids
                          if False count of linked records
         """
-        output = 'pids' if get_pids else 'count'
-        links = {
-            'acq_order_lines': self.get_related_order_lines(output=output),
-            'acq_accounts': self.get_children(output=output),
-            'acq_invoices': self.get_related_invoices(output=output)
-        }
-        links = {k: v for k, v in links.items() if v}
+        links = {}
+        order_lines_query = AcqOrderLinesSearch()\
+            .filter('term', acq_account__pid=self.pid)
+        children_query = AcqAccountsSearch()\
+            .filter('term', parent__pid=self.pid)
+        invoices_query = AcquisitionInvoicesSearch()\
+            .filter('term', invoice_items__acq_account__pid=self.pid)
+        receipts_query = AcqReceiptsSearch()\
+            .filter('nested',
+                    path='amount_adjustments',
+                    query=Q(
+                        'bool',
+                        must=[Q('match',
+                                amount_adjustments__acq_account__pid=self.pid)]
+                    ))
+
+        if get_pids:
+            order_lines = sorted_pids(order_lines_query)
+            children = sorted_pids(children_query)
+            invoices = sorted_pids(invoices_query)
+            receipts = sorted_pids(receipts_query)
+        else:
+            order_lines = order_lines_query.count()
+            children = children_query.count()
+            invoices = invoices_query.count()
+            receipts = receipts_query.count()
+
+        if order_lines:
+            links['acq_order_lines'] = order_lines
+        if children:
+            links['acq_accounts'] = children
+        if invoices:
+            links['acq_invoices'] = invoices
+        if receipts:
+            links['acq_receipts'] = receipts
         return links
 
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
-        reasons = {
-            'links': self.get_links_to_me()
-        }
-        reasons = {k: v for k, v in reasons.items() if v}
-        return reasons
+        cannot_delete = {}
+        links = self.get_links_to_me()
+        if links:
+            cannot_delete['links'] = links
+        return cannot_delete
 
 
 class AcqAccountsIndexer(IlsRecordsIndexer):
