@@ -75,5 +75,5 @@ def test_order_properties(
     del acor['notes']
 
     # ORDER ITEM QUANTITY -----------------------------------------------------
-    assert acor.item_quantity == 2
-    assert acor.item_quantity_received == 0
+    assert acor.item_quantity == 6
+    assert acor.item_received_quantity == 0

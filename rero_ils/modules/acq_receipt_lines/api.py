@@ -23,7 +23,8 @@ from functools import partial
 
 from werkzeug.utils import cached_property
 
-from .extensions import AcquisitionReceiptLineCompleteDataExtension
+from .extensions import AcqReceiptLineValidationExtension, \
+    AcquisitionReceiptLineCompleteDataExtension
 from .models import AcqReceiptLineIdentifier, AcqReceiptLineMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
@@ -68,7 +69,8 @@ class AcqReceiptLine(IlsRecord):
     model_cls = AcqReceiptLineMetadata
 
     _extensions = [
-        AcquisitionReceiptLineCompleteDataExtension()
+        AcquisitionReceiptLineCompleteDataExtension(),
+        AcqReceiptLineValidationExtension()
     ]
 
     @classmethod
@@ -125,7 +127,7 @@ class AcqReceiptLine(IlsRecord):
         """Shortcut for related acquisition order line pid."""
         return extracted_data_from_ref(self.get('acq_order_line'))
 
-    @property
+    @cached_property
     def order_line(self):
         """Shortcut for related acquisition order line record."""
         from rero_ils.modules.acq_order_lines.api import AcqOrderLine

@@ -419,22 +419,12 @@ def test_acquisition_order(
     # TEST 2 :: update the number of received item from the order line.
     #   * The encumbrance amount account should be decrease by quantity
     #     received * amount.
-    order_line_1['quantity_received'] = 2
-    order_line_1 = order_line_1.update(order_line_1, dbcommit=True,
-                                       reindex=True)
-    assert account_b.encumbrance_amount[0] == 50  # 100 - 2 * 25
-    assert account_b.remaining_balance[0] == 450
-    assert account_a.encumbrance_amount == (0, 50)
-    assert account_a.remaining_balance[0] == 1500
-    assert account_a.expenditure_amount == (0, 0)
-
-    # reset the order line
-    del order_line_1['quantity_received']
-    order_line_1 = order_line_1.update(order_line_1, dbcommit=True,
-                                       reindex=True)
+    # field received_quantity is now dynamically calculated at the receive of
+    # receipt_lines
+    assert order_line_1.received_quantity == 0
 
     # TEST 3 :: add a new cancelled order line.
-    #   * As this new order line has CANCELED status, its amount is not
+    #   * As this new order line has CANCELLED status, its amount is not
     #     calculated into the encumbrance_amount
     basic_data = {
         'acq_account': account_b_ref,

@@ -37,7 +37,7 @@ class AcquisitionOrderExtension(RecordExtension):
         record['status'] = record.status
         record['item_quantity'] = {
             'ordered': record.item_quantity,
-            'received': record.item_quantity_received
+            'received': record.item_received_quantity
         }
 
     def pre_load(self, data, loader=None):
