@@ -155,11 +155,12 @@ def test_acq_receipts_post_put_delete(client, org_martigny, vendor2_martigny,
 
 
 def test_acq_receipts_can_delete(
-        client, document, acq_receipt_fiction_martigny):
+        client, document, acq_receipt_fiction_martigny,
+        acq_receipt_line_1_fiction_martigny):
     """Test can delete an acq receipt."""
     can, reasons = acq_receipt_fiction_martigny.can_delete
-    assert can
-    assert 'links' not in reasons
+    assert not can
+    assert reasons['links']['acq_receipt_lines']
 
 
 def test_filtered_acq_receipts_get(

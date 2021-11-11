@@ -171,15 +171,22 @@ class Organisation(IlsRecord):
         :param get_pids: if True list of linked pids
                          if False count of linked records
         """
-        query = LibrariesSearch()\
+        from ..acq_receipts.api import AcqReceiptsSearch
+        library_query = LibrariesSearch()\
+            .filter('term', organisation__pid=self.pid)
+        receipt_query = AcqReceiptsSearch() \
             .filter('term', organisation__pid=self.pid)
         links = {}
         if get_pids:
-            libraries = sorted_pids(query)
+            libraries = sorted_pids(library_query)
+            receipts = sorted_pids(receipt_query)
         else:
-            libraries = query.count()
+            libraries = library_query.count()
+            receipts = receipt_query.count()
         if libraries:
             links['libraries'] = libraries
+        if receipts:
+            links['acq_receipts'] = receipts
         return links
 
     def reasons_not_to_delete(self):

@@ -335,23 +335,30 @@ class Library(IlsRecord):
         :param get_pids: if True list of linked pids
                          if False count of linked records
         """
+        from ..acq_receipts.api import AcqReceiptsSearch
         from ..patrons.api import PatronsSearch
         links = {}
-        ptrn_query = PatronsSearch() \
+        location_query = LocationsSearch() \
+            .filter('term', library__pid=self.pid)
+        patron_query = PatronsSearch() \
             .filter('term', libraries__pid=self.pid) \
             .filter('term', roles='librarian')
-        loc_query = LocationsSearch() \
+        receipt_query = AcqReceiptsSearch() \
             .filter('term', library__pid=self.pid)
         if get_pids:
-            locations = sorted_pids(loc_query)
-            librarians = sorted_pids(ptrn_query)
+            locations = sorted_pids(location_query)
+            librarians = sorted_pids(patron_query)
+            receipts = sorted_pids(receipt_query)
         else:
-            locations = loc_query.count()
-            librarians = ptrn_query.count()
+            locations = location_query.count()
+            librarians = patron_query.count()
+            receipts = receipt_query.count()
         if locations:
             links['locations'] = locations
         if librarians:
             links['patrons'] = librarians
+        if receipts:
+            links['acq_receipts'] = receipts
         return links
 
     def reasons_not_to_delete(self):
