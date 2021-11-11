@@ -128,7 +128,7 @@ def test_send_order(
 
     # Reload the order and related order lines to check updated fields
     #   * the order status should be ORDERED
-    #   * each order lines should be ORDERED (except for l3 = CANCELED)
+    #   * each order lines should be ORDERED (except for l3 = CANCELLED)
     acor = AcqOrder.get_record_by_pid(acor.pid)
     l1 = AcqOrderLine.get_record_by_pid(acq_order_line_fiction_martigny.pid)
     l2 = AcqOrderLine.get_record_by_pid(acq_order_line2_fiction_martigny.pid)

@@ -56,12 +56,3 @@ def test_order_line_validation_extension(
     with pytest.raises(ValidationError) as error:
         AcqOrderLine.create(test_data, delete_pid=True)
     assert 'Cannot link to an harvested document' in str(error.value)
-
-    # An order line cannot have more received item than ordered item
-    test_data = deepcopy(data)
-    test_data['quantity'] = 2
-    test_data['quantity_received'] = 40
-    with pytest.raises(ValidationError) as error:
-        AcqOrderLine.create(test_data, delete_pid=True)
-    assert 'Received quantity is grower than ordered quantity' \
-           in str(error.value)
