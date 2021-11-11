@@ -58,12 +58,6 @@
       "default": 1,
       "minimum": 1
     },
-    "quantity_received": {
-      "title": "Received quantity",
-      "type": "integer",
-      "default": 0,
-      "minimum": 0
-    },
     "amount": {
       "title": "Amount",
       "type": "number",
