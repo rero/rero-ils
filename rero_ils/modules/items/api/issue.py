@@ -266,8 +266,9 @@ class ItemIssue(ItemRecord):
                         dbcommit=dbcommit,
                         reindex=reindex
                     )
-            except Exception:
+            except Exception as err:
                 current_app.logger.error(
-                    f'Can not create {claim_type} claim for issue: {issue.pid}'
+                    f'Can not create {claim_type} '
+                    f'claim for issue: {issue.pid} error: {err}'
                 )
         return modified_issues
