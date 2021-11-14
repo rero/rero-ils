@@ -500,8 +500,10 @@ def test_recall_notification_without_email(
     for notification_type in NotificationType.ALL_NOTIFICATIONS:
         process_notifications(notification_type)
     # one new email for the librarian
-    assert mailbox[0].recipients == [email_notification_type(
-        lib_martigny, notification['notification_type'])]
+    recipient = email_notification_type(
+        lib_martigny, notification['notification_type'])
+    assert recipient
+    assert mailbox[0].recipients == [recipient]
     # check the address block
     assert patron2_martigny.dumps()['street'] in mailbox[0].body
     mailbox.clear()

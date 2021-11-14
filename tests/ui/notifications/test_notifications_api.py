@@ -42,8 +42,10 @@ def test_notification_mail(notification_late_martigny, lib_martigny, mailbox):
     """
     mailbox.clear()
     Dispatcher.dispatch_notifications(notification_late_martigny['pid'])
-    assert mailbox[0].recipients == [email_notification_type(
-            lib_martigny, notification_late_martigny['notification_type'])]
+    recipient = email_notification_type(
+            lib_martigny, notification_late_martigny['notification_type'])
+    assert recipient
+    assert mailbox[0].recipients == [recipient]
 
 
 def test_notification_email(notification_late_sion, patron_sion, mailbox):

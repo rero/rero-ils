@@ -51,7 +51,10 @@ class TransitCirculationNotification(InternalCirculationNotification):
     def get_recipients(self):
         """Get notification recipient email addresses."""
         # Transit notification will be sent to the loan transaction library.
-        return [email_notification_type(self.transaction_library, self.type)]
+        recipient = email_notification_type(
+            self.transaction_library, self.type)
+        if recipient:
+            return [recipient]
 
     @classmethod
     def get_notification_context(cls, notifications=None):
