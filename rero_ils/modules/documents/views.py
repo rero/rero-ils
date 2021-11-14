@@ -752,7 +752,6 @@ def series_statement_format(series):
     output = []
     for serie in series:
         output.append(series_statement_format_text(serie))
-    print('>>>>>>>>', output)
     return output
 
 

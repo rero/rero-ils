@@ -92,4 +92,6 @@ class InternalCirculationNotification(CirculationNotification, ABC):
         """Get notification recipient email addresses."""
         # Internal notification will be sent to the library, not to the
         # patron related to the loan.
-        return [email_notification_type(self.library, self.type)]
+        recipient = email_notification_type(self.library, self.type)
+        if recipient:
+            return [recipient]
