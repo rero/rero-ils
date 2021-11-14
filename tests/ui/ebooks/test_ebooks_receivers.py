@@ -50,6 +50,7 @@ def test_publish_harvested_records(app, ebooks_1_xml, ebooks_2_xml,
 
     assert Document.count() == 2
     doc1 = Document.get_record_by_pid('1')
+    assert doc1.get('$schema') is not None
     assert doc1.get('identifiedBy') == [
         {'type': 'bf:Isbn', 'value': '9782075118842'},
         {'type': 'bf:Local', 'value': 'cantook-EDEN502344'},
@@ -57,6 +58,7 @@ def test_publish_harvested_records(app, ebooks_1_xml, ebooks_2_xml,
     ]
     assert len(list(Holding.get_holdings_pid_by_document_pid(doc1.pid))) == 1
     doc2 = Document.get_record_by_pid('2')
+    assert doc2.get('$schema') is not None
     assert doc2.get('identifiedBy') == [
         {'type': 'bf:Isbn', 'value': '9782811234157'},
         {'type': 'bf:Local', 'value': 'cantook-immateriel.frO1006810'},

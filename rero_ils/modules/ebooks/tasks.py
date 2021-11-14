@@ -25,7 +25,7 @@ from flask import current_app
 
 from .utils import create_document_holding, update_document_holding
 from ..documents.api import Document, DocumentsSearch
-from ..utils import do_bulk_index
+from ..utils import do_bulk_index, get_schema_for_resource
 
 
 @shared_task(ignore_result=True)
@@ -53,8 +53,10 @@ def create_records(records):
                     pid = next(query.scan()).pid
                 except StopIteration:
                     pid = None
-
         try:
+            # add documents schema
+            pid_type = Document.provider.pid_type
+            record['$schema'] = get_schema_for_resource(pid_type)
             if pid:
                 # update the record
                 record['pid'] = pid
@@ -62,7 +64,7 @@ def create_records(records):
                 n_updated += 1
                 uuids.append(existing_record.id)
             else:
-                # create a new record
+                # create new holding and document
                 new_record = create_document_holding(record)
                 if new_record:
                     n_created += 1

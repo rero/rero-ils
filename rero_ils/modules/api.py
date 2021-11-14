@@ -165,11 +165,11 @@ class IlsRecord(Record):
         assert cls.minter
         assert cls.provider
         if '$schema' not in data:
-            type = cls.provider.pid_type
+            pid_type = cls.provider.pid_type
             schemas = current_app.config.get('RECORDS_JSON_SCHEMA')
-            if type in schemas:
+            if pid_type in schemas:
                 from .utils import get_schema_for_resource
-                data['$schema'] = get_schema_for_resource(type)
+                data['$schema'] = get_schema_for_resource(pid_type)
         pid = data.get('pid')
         if delete_pid and pid:
             del data['pid']
@@ -355,6 +355,17 @@ class IlsRecord(Record):
                     )
                 )
         record = self
+
+        # TODO: find a way to make extended validations.
+        # Add schema if missing.
+        schema = data.get('$schema')
+        if not schema:
+            pid_type = self.provider.pid_type
+            schemas = current_app.config.get('RECORDS_JSON_SCHEMA')
+            if pid_type in schemas:
+                from .utils import get_schema_for_resource
+                data['$schema'] = get_schema_for_resource(pid_type)
+
         super().update(data)
         if commit or dbcommit:
             self.commit()
