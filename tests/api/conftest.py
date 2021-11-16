@@ -116,7 +116,7 @@ def doc_title_travailleuses(app):
         'title': [{
             'type': 'bf:Title',
             'mainTitle': [{
-                'value': "Les travailleuses partent à l'école"
+                'value': "Les travailleuses partent à l'école 100"
             }],
             'subtitle': [{'value': "lorsqu'un est bœuf ex aequo"}]
 
