@@ -87,7 +87,7 @@ def acquisition_filter():
         #   2) until_date (optional) : the upper limit range acquisition_date.
         #        this date will be excluded from the search result ('>').
         #        if not specified the current timestamp value will be used
-        #  !!! Other filers could be used to restrict data result : This
+        #  !!! Other filters could be used to restrict data result : This
         #      function will check for 'organisation' and/or 'library' and/or
         #      'location' url parameter to limit query result.
         #
@@ -181,7 +181,7 @@ def holdings_search_factory(self, search, query_parser=None):
     """Search factory for holdings records."""
     search, urlkwargs = search_factory(self, search)
     view = request.args.get('view')
-    search = search_factory_for_all_interfaces(view, search)
+    search = search_factory_for_holdings_and_items(view, search)
     return search, urlkwargs
 
 
@@ -189,12 +189,12 @@ def items_search_factory(self, search, query_parser=None):
     """Search factory for item records."""
     search, urlkwargs = search_factory(self, search)
     view = request.args.get('view')
-    search = search_factory_for_all_interfaces(view, search)
+    search = search_factory_for_holdings_and_items(view, search)
     return search, urlkwargs
 
 
-def search_factory_for_all_interfaces(view, search):
-    """Search factory for all interfaces based on logged user and view code."""
+def search_factory_for_holdings_and_items(view, search):
+    """Search factory for holdings and items."""
     # Logic for public interface
     if view:
         # logic for public organisational interface
@@ -203,11 +203,6 @@ def search_factory_for_all_interfaces(view, search):
             search = search.filter('term', organisation__pid=org['pid'])
         # masked records are hidden for all public interfaces
         search = search.filter('bool', must_not=[Q('term', _masked=True)])
-    # Logic for admin interface
-    elif current_librarian:
-        search = search.filter(
-            'term', organisation__pid=current_librarian.organisation_pid
-        )
     return search
 
 

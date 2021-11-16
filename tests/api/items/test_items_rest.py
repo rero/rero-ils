@@ -774,20 +774,20 @@ def test_multiple_loans_on_item_error(client,
 def test_filtered_items_get(
         client, librarian_martigny, item_lib_martigny,
         item_lib_saxon, item_lib_fully,
-        librarian_sion, item_lib_sion):
+        item_lib_sion, patron_sion):
     """Test items filter by organisation."""
-    # Martigny
+    # Librarian Martigny
     login_user_via_session(client, librarian_martigny.user)
     list_url = url_for('invenio_records_rest.item_list')
 
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total']['value'] == 4
+    assert data['hits']['total']['value'] == 5
 
-    # Sion
-    login_user_via_session(client, librarian_sion.user)
-    list_url = url_for('invenio_records_rest.item_list')
+    # Patron Sion
+    login_user_via_session(client, patron_sion.user)
+    list_url = url_for('invenio_records_rest.item_list', view='org2')
 
     res = client.get(list_url)
     assert res.status_code == 200
