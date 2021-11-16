@@ -1,4 +1,33 @@
 {
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "autocomplete": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "icu_normalizer",
+            "icu_folding",
+            "french_elision",
+            "italian_elision",
+            "edge_ngram_filter"
+          ]
+        },
+        "search_autocomplete": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "icu_normalizer",
+            "icu_folding",
+            "french_elision",
+            "italian_elision"
+          ]
+        }
+      }
+    }
+  },
   "mappings": {
     "date_detection": false,
     "numeric_detection": false,
@@ -133,7 +162,8 @@
       },
       "autocomplete_title": {
         "type": "text",
-        "analyzer": "autocomplete"
+        "analyzer": "autocomplete",
+        "search_analyzer": "search_autocomplete"
       },
       "sort_title": {
         "type": "keyword",

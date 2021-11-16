@@ -334,9 +334,11 @@ def create_index(resource, index, verbose, templates):
 
 @index.command('update_mapping')
 @click.option('--aliases', '-a', multiple=True, help='all if not specified')
+@click.option(
+    '-s', '--settings/--no-settings', 'settings', is_flag=True, default=False)
 @with_appcontext
 @es_version_check
-def update_mapping(aliases):
+def update_mapping(aliases, settings):
     """Update the mapping of a given alias."""
     if not aliases:
         aliases = current_search.aliases.keys()
@@ -346,8 +348,13 @@ def update_mapping(aliases):
         ):
             mapping = json.load(open(f_mapping))
             try:
+                if mapping.get('settings') and settings:
+                    current_search_client.indices.close(index=index)
+                    current_search_client.indices.put_settings(
+                        body=mapping.get('settings'), index=index)
+                    current_search_client.indices.open(index=index)
                 res = current_search_client.indices.put_mapping(
-                    mapping.get('mappings'), index)
+                    body=mapping.get('mappings'), index=index)
             except Exception as excep:
                 click.secho(
                     f'error: {excep}', fg='red')
