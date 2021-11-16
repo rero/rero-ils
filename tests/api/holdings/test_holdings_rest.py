@@ -120,21 +120,20 @@ def test_holdings_get(client, item_lib_martigny, item_lib_martigny_masked):
 def test_filtered_holdings_get(
         client, librarian_martigny, holding_lib_martigny,
         holding_lib_fully, holding_lib_saxon, holding_lib_sion,
-        librarian_sion):
+        patron_sion):
     """Test holding filter by organisation."""
-    # Martigny
+    # Librarian Martigny
     login_user_via_session(client, librarian_martigny.user)
     list_url = url_for('invenio_records_rest.hold_list')
 
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total']['value'] == 3
+    assert data['hits']['total']['value'] == 4
 
-    # Sion
-    login_user_via_session(client, librarian_sion.user)
-    list_url = url_for('invenio_records_rest.hold_list')
-
+    # Patron Martigny
+    login_user_via_session(client, patron_sion.user)
+    list_url = url_for('invenio_records_rest.hold_list', view='org2')
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)

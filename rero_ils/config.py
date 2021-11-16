@@ -2289,6 +2289,11 @@ RECORDS_REST_SORT_OPTIONS['holdings']['library_location'] = dict(
     title='Holdings library location sort',
     default_order='asc'
 )
+RECORDS_REST_SORT_OPTIONS['holdings']['organisation_library_location'] = dict(
+    fields=['organisation.pid', 'library.pid', 'location.pid'],
+    title='Holdings Organisation library location sort',
+    default_order='asc'
+)
 RECORDS_REST_DEFAULT_SORT['holdings'] = dict(
     query='bestmatch', noquery='library_location')
 
