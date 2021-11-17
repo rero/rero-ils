@@ -3695,6 +3695,50 @@
       "librarian"
     ]
   },
+  "ptrn14": {
+    "$schema": "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json",
+    "pid": "ptrn14",
+    "first_name": "Simon",
+    "last_name": "Lopez",
+    "street": "Av. de la Gare",
+    "postal_code": "1920",
+    "city": "Martigny",
+    "country": "sz",
+    "birth_date": "1975-06-01",
+    "username": "simon",
+    "email": "simon.lopez@gmail.com",
+    "home_phone": "+41272222229",
+    "local_codes": [
+      "code14"
+    ],
+    "keep_history": true,
+    "roles": [
+      "patron",
+      "librarian"
+    ],
+    "patron": {
+      "expiration_date": "2023-12-31",
+      "blocked": false,
+      "barcode": [
+        "4098124355"
+      ],
+      "libraries": [
+        {
+          "$ref": "https://bib.rero.ch/api/libraries/lib1"
+        }
+      ],
+      "type": {
+        "$ref": "https://bib.rero.ch/api/patron_types/ptty1"
+      },
+      "communication_channel": "mail",
+      "communication_language": "fre"
+    },
+    "libraries": [
+      {
+        "$ref": "https://bib.rero.ch/api/libraries/lib1"
+      }
+    ]
+  },
   "dummy_notif": {
     "$schema": "https://bib.rero.ch/schemas/notifications/notification-v0.0.1.json",
     "pid": "notif1",

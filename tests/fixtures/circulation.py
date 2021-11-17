@@ -239,6 +239,24 @@ def patron_martigny(
     yield create_patron(data)
 
 
+@pytest.fixture(scope="module")
+def librarian_patron_martigny_data(data):
+    """Load Martigny librarian patron data."""
+    return deepcopy(data.get('ptrn14'))
+
+
+@pytest.fixture(scope="module")
+def librarian_patron_martigny(
+        app,
+        roles,
+        lib_martigny,
+        patron_type_children_martigny,
+        librarian_patron_martigny_data):
+    """Create Martigny librarian patron record."""
+    data = librarian_patron_martigny_data
+    yield create_patron(data)
+
+
 # ------------ Org: Martigny Patron 2 ----------
 @pytest.fixture(scope="module")
 def patron2_martigny_data(data):

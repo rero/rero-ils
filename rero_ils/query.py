@@ -387,7 +387,7 @@ def operation_logs_search_factory(self, search, query_parser=None):
     Restricts results to patron level to the current_user.
     """
     search, urlkwargs = search_factory(self, search)
-    if len(current_patrons):
+    if not current_librarian and len(current_patrons):
         patron_pids = [ptrn.pid for ptrn in current_patrons]
         search = search.filter(
             'terms', loan__patron__pid=patron_pids
