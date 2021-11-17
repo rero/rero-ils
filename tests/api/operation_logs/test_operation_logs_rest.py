@@ -29,8 +29,9 @@ from rero_ils.modules.operation_logs.api import OperationLog
 from rero_ils.modules.operation_logs.models import OperationLogOperation
 
 
-def test_operation_logs_permissions(client, operation_log, patron_sion,
-                                    librarian_martigny, json_header):
+def test_operation_logs_permissions(client, operation_log,
+                                    librarian_martigny, patron_martigny,
+                                    librarian_patron_martigny, json_header):
     """Test operation logs permissions."""
     item_url = url_for('invenio_records_rest.oplg_item', pid_value='1')
     item_list = url_for('invenio_records_rest.oplg_list')
@@ -57,6 +58,27 @@ def test_operation_logs_permissions(client, operation_log, patron_sion,
 
     res = client.delete(item_url)
     assert res.status_code == 404
+
+    # Check access for librarian role
+    login_user_via_session(client, librarian_martigny.user)
+    res = client.get(item_list)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data['hits']['total']['value'] == 4
+
+    # Check access for patron role
+    login_user_via_session(client, patron_martigny.user)
+    res = client.get(item_list)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data['hits']['total']['value'] == 0
+
+    # Check access for patron and librarian roles
+    login_user_via_session(client, librarian_patron_martigny.user)
+    res = client.get(item_list)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data['hits']['total']['value'] == 4
 
 
 def test_operation_logs_rest(client, loan_pending_martigny,
