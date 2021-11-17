@@ -24,7 +24,6 @@
           "title": "Type",
           "description": "Other identifier types are entered as local identifiers with indication of the source.",
           "type": "string",
-          "default": "bf:Isbn",
           "enum": [
             "bf:AudioIssueNumber",
             "bf:Doi",
