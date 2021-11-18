@@ -5,7 +5,6 @@
   "description": "JSON schema for Acquisition Receipt.",
   "additionalProperties": false,
   "propertiesOrder": [
-    "acq_order",
     "exchange_rate",
     "amount_adjustments",
     "notes"
@@ -13,7 +12,8 @@
   "required": [
     "$schema",
     "pid",
-    "acq_order"
+    "acq_order",
+    "exchange_rate"
   ],
   "properties": {
     "$schema": {
@@ -39,17 +39,7 @@
         "$ref": {
           "title": "Order",
           "type": "string",
-          "pattern": "^https://bib.rero.ch/api/acq_orders/.*?$",
-          "form": {
-            "focus": true,
-            "remoteOptions": {
-              "type": "acq_orders"
-            },
-            "placeholder": "Choose an order",
-            "templateOptions": {
-              "label": ""
-            }
-          }
+          "pattern": "^https://bib.rero.ch/api/acq_orders/.*?$"
         }
       }
     },
@@ -57,6 +47,7 @@
       "title": "Exchange rate",
       "type": "number",
       "exclusiveMinimum": 0,
+      "default": 1,
       "form": {
         "hide": true,
         "navigation": {
@@ -116,13 +107,19 @@
             }
           }
         }
+      },
+      "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        }
       }
     },
     "notes": {
       "title": "Notes",
       "type": "array",
       "minItems": 0,
-      "maxItems": 2,
+      "maxItems": 1,
       "items": {
         "type": "object",
         "additionalProperties": false,
@@ -168,6 +165,10 @@
         }
       },
       "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        },
         "templateOptions": {
           "wrappers": [
             "card"

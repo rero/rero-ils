@@ -24,6 +24,7 @@ from functools import partial
 from rero_ils.modules.acq_receipt_lines.api import AcqReceiptLine, \
     AcqReceiptLinesSearch
 
+from .extensions import AcqReceiptExtension
 from .models import AcqReceiptIdentifier, AcqReceiptLineCreationStatus, \
     AcqReceiptMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
@@ -66,6 +67,10 @@ class AcqReceipt(IlsRecord):
     provider = AcqReceiptProvider
     model_cls = AcqReceiptMetadata
 
+    _extensions = [
+        AcqReceiptExtension(),
+    ]
+
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,
                dbcommit=True, reindex=True, **kwargs):
@@ -74,7 +79,7 @@ class AcqReceipt(IlsRecord):
         :param data: a dict data to create the record.
         :param dbcommit: if True call dbcommit, make the change effective
                          in db.
-        :param redindex: reindex the record.
+        :param reindex: reindex the record.
         :param id_ - UUID, it would be generated if it is not given
         :param delete_pid - remove the pid present in the data if True
         :returns: the created record
@@ -82,6 +87,10 @@ class AcqReceipt(IlsRecord):
         cls._build_additional_refs(data)
         record = super().create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
+        # reindex the related account if necessary
+        if reindex:
+            for account in record.get_adjustment_accounts():
+                account.reindex()
         return record
 
     def update(self, data, commit=True, dbcommit=True, reindex=True):
@@ -91,13 +100,26 @@ class AcqReceipt(IlsRecord):
         :param commit: if True push the db transaction.
         :param dbcommit: if True call dbcommit, make the change effective
                          in db.
-        :param redindex: reindex the record.
+        :param reindex: reindex the record.
         :returns: the updated record
         """
+        # We need to manage the indexing of related adjustment accounts to
+        # ensure than expenditure amount of theses accounts are correct. To do
+        # that, we need to get the accounts BEFORE changes and AFTER changes (
+        # in the case of we delete adjustment) to create a python set. Each
+        # entry of this set should be reindex.
+
+        original_accounts = self.get_adjustment_accounts()
         new_data = deepcopy(dict(self))
         new_data.update(data)
         self._build_additional_refs(new_data)
-        super().update(new_data, commit, dbcommit, reindex)
+        record = super().update(new_data, commit, dbcommit, reindex)
+        if reindex:
+            AcqReceiptsSearch().flush_and_refresh()
+        new_accounts = record.get_adjustment_accounts()
+        accounts_set = original_accounts.union(new_accounts)
+        for account in accounts_set:
+            account.reindex()
         return self
 
     @classmethod
@@ -119,7 +141,7 @@ class AcqReceipt(IlsRecord):
         :param receipt_lines: a list of dicts to create the records.
         :param dbcommit: if True call dbcommit, make the change effective
                          in db.
-        :param redindex: reindex the record.
+        :param reindex: reindex the record.
         :returns: a list containing the given data to build the receipt line
                   with a `status` field, either `success` or `failure`.
                   In case of `success`, the created record is returned.
@@ -141,7 +163,7 @@ class AcqReceipt(IlsRecord):
                 record['receipt_line'] = line
             except Exception as error:
                 record['status'] = AcqReceiptLineCreationStatus.FAILURE
-                record['error_message'] = str(error.message)
+                record['error_message'] = str(error)
             created_receipt_lines.append(record)
 
         return created_receipt_lines
@@ -168,9 +190,9 @@ class AcqReceipt(IlsRecord):
     def reasons_not_to_delete(self):
         """Get reasons not to delete receipt."""
         cannot_delete = {}
-        links = self.get_links_to_me()
-        if links:
-            cannot_delete['links'] = links
+        # Note : linked receipt lines aren't yet a reason to keep the record.
+        #        These lines will be deleted with the record.
+        # TODO :: add a reason if order is concluded (rollovered or invoiced)
         return cannot_delete
 
     # GETTER & SETTER =========================================================
@@ -272,8 +294,21 @@ class AcqReceipt(IlsRecord):
         ]
         return next(iter(note), None)
 
+    def get_adjustment_accounts(self):
+        """Get the list of adjustment account pid related to this receipt."""
+        return set([
+            extracted_data_from_ref(adj.get('acq_account'), data='record')
+            for adj in self.amount_adjustments
+        ])
+
 
 class AcqReceiptsIndexer(IlsRecordsIndexer):
     """Indexing documents in Elasticsearch."""
 
     record_cls = AcqReceipt
+
+    def delete(self, record):
+        """Delete a AcqReceipt from indexer."""
+        super().delete(record)
+        for account in record.get_adjustment_accounts():
+            account.reindex()

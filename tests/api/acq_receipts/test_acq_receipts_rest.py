@@ -158,9 +158,11 @@ def test_acq_receipts_can_delete(
         client, document, acq_receipt_fiction_martigny,
         acq_receipt_line_1_fiction_martigny):
     """Test can delete an acq receipt."""
+    # We can delete an AcqReceipt even if some children AcqReceiptLines exists
+    # because they will be cascading deleted if we delete the parent AcqReceipt
     can, reasons = acq_receipt_fiction_martigny.can_delete
-    assert not can
-    assert reasons['links']['acq_receipt_lines']
+    assert can
+    assert 'acq_receipt_lines' not in reasons.get('links', {})
 
 
 def test_filtered_acq_receipts_get(
