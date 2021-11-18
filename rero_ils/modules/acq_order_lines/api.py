@@ -266,22 +266,21 @@ class AcqOrderLinesIndexer(IlsRecordsIndexer):
 
     record_cls = AcqOrderLine
 
+    @staticmethod
+    def _reindex_related_resources(record):
+        record.order.reindex()
+        record.account.reindex()
+
     def index(self, record):
         """Index an Acquisition Order Line and update total amount of order."""
-        from ..acq_orders.api import AcqOrder
         return_value = super().index(record)
-        order = AcqOrder.get_record_by_pid(record.order_pid)
-        order.reindex()
-        record.account.reindex()
+        AcqOrderLinesIndexer._reindex_related_resources(record)
         return return_value
 
     def delete(self, record):
         """Delete a Acquisition Order Line and update total amount of order."""
-        from ..acq_orders.api import AcqOrder
         return_value = super().delete(record)
-        order = AcqOrder.get_record_by_pid(record.order_pid)
-        order.reindex()
-        record.account.reindex()
+        AcqOrderLinesIndexer._reindex_related_resources(record)
         return return_value
 
     def bulk_index(self, record_id_iterator):

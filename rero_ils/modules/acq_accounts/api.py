@@ -219,26 +219,30 @@ class AcqAccount(IlsRecord):
         results = search.execute()
         lines_expenditure = results.aggregations.sum_receipt_lines.value
 
-        recpt_expenditure = 0
+        receipt_expenditure = 0
         search = AcqReceiptsSearch() \
-            .filter('nested',
-                    path='amount_adjustments',
-                    query=Q(
-                        'bool',
-                        must=[Q('match',
-                                amount_adjustments__acq_account__pid=self.pid)]
-                    ))
+            .filter(
+                'nested',
+                path='amount_adjustments',
+                query=Q(
+                    'bool', must=[
+                        Q('match',
+                          amount_adjustments__acq_account__pid=self.pid)
+                    ]
+                )
+            )
         for hit in search.scan():
-            recpt_expenditure += sum(
-                [a.amount for a in hit.amount_adjustments])
-        self_amount = lines_expenditure + recpt_expenditure
+            receipt_expenditure += sum([
+                adjustment.amount for adjustment in hit.amount_adjustments
+                if adjustment.acq_account.pid == self.pid
+            ])
+        self_amount = lines_expenditure + receipt_expenditure
 
         # Expenditure of children accounts
         query = AcqAccountsSearch().filter('term', parent__pid=self.pid)
         query.aggs.metric('total', 'sum', field='expenditure_amount.total')
         results = query.execute()
         children_amount = results.aggregations.total.value
-
         return round(self_amount, 2), round(children_amount, 2)
 
     @property

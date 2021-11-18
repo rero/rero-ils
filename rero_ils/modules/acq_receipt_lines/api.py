@@ -187,14 +187,15 @@ class AcqReceiptLinesIndexer(IlsRecordsIndexer):
     record_cls = AcqReceiptLine
 
     def index(self, record):
-        """Index an acq receipt line record.
-
-        Reindex the parent acq receipt, acq_order and acq_account records.
-        """
-        from rero_ils.modules.acq_order_lines.api import AcqOrderLine
+        """Index an AcqReceiptLine line record."""
         return_value = super().index(record)
-        order_line = AcqOrderLine.get_record_by_pid(record.order_line_pid)
-        order_line.reindex()
-        order_line.order.reindex()
-        order_line.account.reindex()
+        # The reindexing of the parent order_line will also fired the
+        # indexing of the parent order and related account
+        record.order_line.reindex()
+        return return_value
+
+    def delete(self, record):
+        """Delete an AcqReceiptLine record from indexer."""
+        return_value = super().delete(record)
+        record.order_line.reindex()
         return return_value
