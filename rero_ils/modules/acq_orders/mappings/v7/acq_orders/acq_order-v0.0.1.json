@@ -61,6 +61,16 @@
           },
           "content": {
             "type": "text"
+          },
+          "source": {
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "type": {
+                "type": "keyword"
+              }
+            }
           }
         }
       },
@@ -80,9 +90,6 @@
           },
           "status": {
             "type": "keyword"
-          },
-          "notes": {
-            "type": "text"
           },
           "document": {
             "properties": {
