@@ -33,18 +33,47 @@ def enrich_acq_order_data(sender, json=None, record=None, index=None,
     :param doc_type: The document type of the record.
     """
     if index.split('-')[0] == AcqOrdersSearch.Meta.index:
-        # add related order lines metadata
+
+        # NOTES PERFORMING ----------------------------------------------------
+        #   We include notes from multiple sources into the AcqOrder ES index
+        #   to allow search on each terms of any notes related to this parent
+        #   resource :
+        #     - AcqOrder self notes.
+        #     - related `AcqOrderLine` notes.
+        #     - related `AcqReceipt` notes.
+        #     - `AcqReceiptLine` notes related to `AcqReceipts`.
+        #   So for any notes, we will include a `source` attribute to know the
+        #   origin of the note.
+        for note in json.get('notes', []):
+            note['source'] = {
+                'pid': record.pid,
+                'type': record.provider.pid_type
+            }
+        for note, source_class, resource_pid in record.get_related_notes():
+            json.setdefault('notes', []).append({
+                'type': note['type'],
+                'content': note['content'],
+                'source': {
+                    'pid': resource_pid,
+                    'type': source_class.provider.pid_type
+                }
+            })
+
+        # RELATED ORDER LINES METADATA ----------------------------------------
         json['order_lines'] = [
             order_line.dumps(dumper=AcqOrderLineESDumper())
             for order_line in record.get_order_lines()
         ]
-        # other dynamic keys
-        json['item_quantity'] = {
-            'ordered': record.item_quantity,
-            'received': record.item_received_quantity
-        }
-        json['organisation'] = {
-            'pid': record.organisation_pid,
-            'type': 'org',
-        }
-        json['status'] = record.status
+
+        # ADD OTHERS DYNAMIC KEYS ---------------------------------------------
+        json.update({
+            'status': record.status,
+            'item_quantity': {
+                'ordered': record.item_quantity,
+                'received': record.item_received_quantity
+            },
+            'organisation': {
+                'pid': record.organisation_pid,
+                'type': 'org',
+            }
+        })

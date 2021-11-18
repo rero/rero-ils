@@ -271,6 +271,12 @@
     "document": {
       "$ref": "https://bib.rero.ch/api/documents/doc1"
     },
+    "notes": [
+      {
+        "type": "staff_note",
+        "content": "staff note content here"
+      }
+    ],
     "is_cancelled": false,
     "quantity": 5,
     "priority": 5,
