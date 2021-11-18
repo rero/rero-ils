@@ -416,6 +416,12 @@ def item_lib_martigny_bourg_data(data):
     return deepcopy(data.get('item10'))
 
 
+@pytest.fixture(scope="module")
+def temporary_item_lib_martigny_data(data):
+    """Load temporary item of martigny library."""
+    return deepcopy(data.get('item11'))
+
+
 @pytest.fixture(scope="function")
 def item_lib_martigny_data_tmp(data):
     """Load item of martigny library scope function."""

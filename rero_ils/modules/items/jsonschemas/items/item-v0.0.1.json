@@ -286,7 +286,8 @@
       "type": "string",
       "enum": [
         "standard",
-        "issue"
+        "issue",
+        "temporary"
       ],
       "default": "standard",
       "form": {
