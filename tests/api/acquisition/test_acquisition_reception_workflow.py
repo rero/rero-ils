@@ -19,13 +19,17 @@
 
 import mock
 from api.acquisition.acq_utils import _make_resource
+from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata
+from utils import VerifyRecordPermissionPatch, postdata
 
 from rero_ils.modules.acq_order_lines.api import AcqOrderLine
 from rero_ils.modules.acq_order_lines.models import AcqOrderLineStatus
 from rero_ils.modules.acq_orders.api import AcqOrder
 from rero_ils.modules.acq_orders.models import AcqOrderStatus
+from rero_ils.modules.acq_receipt_lines.api import AcqReceiptLinesSearch
+from rero_ils.modules.acq_receipts.api import AcqReceipt, AcqReceiptLine, \
+    AcqReceiptsSearch
 from rero_ils.modules.acq_receipts.models import AcqReceiptLineCreationStatus
 from rero_ils.modules.notifications.api import Notification
 from rero_ils.modules.notifications.models import NotificationChannel, \
@@ -357,7 +361,6 @@ def test_acquisition_reception_workflow(
         data=dict(emails=emails),
         url_data=dict(order_pid=order.pid)
     )
-    data = get_json(res)
     assert res.status_code == 200
 
     for order_line in [
@@ -395,7 +398,8 @@ def test_acquisition_reception_workflow(
     # STEP 5 :: CREATE A RECEIPT
     #   * create a receipt without any order lines yet
     #   * but with some adjustments
-    ref_acc = get_ref_for_pid('acac', m_books_acc.pid)
+    ref_acc_book = get_ref_for_pid('acac', m_books_acc.pid)
+    ref_acc_serial = get_ref_for_pid('acac', m_serials_acc.pid)
     data = {
         'acq_order': {'$ref': get_ref_for_pid('acor', order.pid)},
         'exchange_rate': 1,
@@ -403,36 +407,43 @@ def test_acquisition_reception_workflow(
             {
                 'label': 'handling fees',
                 'amount': 2.0,
-                'acq_account': {'$ref': ref_acc}
+                'acq_account': {'$ref': ref_acc_book}
             },
             {
                 'label': 'discount',
                 'amount': -1.0,
-                'acq_account': {'$ref': ref_acc}
+                'acq_account': {'$ref': ref_acc_book}
+            },
+            {
+                'label': 'handling fees',
+                'amount': 10,
+                'acq_account': {'$ref': ref_acc_serial}
             }
         ],
         'library': {'$ref': get_ref_for_pid('lib', lib_martigny.pid)},
         'organisation': {'$ref': get_ref_for_pid('org', org_martigny.pid)}
     }
     receipt_1 = _make_resource(client, 'acre', data)
-    assert receipt_1.total_amount == 1  # only total of adjustment
+    assert receipt_1.total_amount == 11  # 2 - 1 + 10
     assert receipt_1.can_delete
 
-    # STEP 6 :: RECEIVE SOME ORDER LINES
-    #   martigny_books_account:
-    #       line_1: quantity: 5 of amount 10   = 50
-    #       line_2: quantity: 6 of amount 50   = 300
-    #       line_3: quantity: 3 of amount 100  = 300 # cancelled
-    #                                         Total: 350
-    # martigny_serials_account:
-    #       line_1: quantity: 3 of amount 15 = 45
-    #       line_2: quantity: 2 of amount 150 = 300
-    #       line_3: quantity: 10 of amount 7 = 70  # cancelled
-    #                                         Total: 345
-    # order total = 350 + 345 = 695
-    # order total quantities = 16
+    manual_controls = {
+        m_root_acc: ((5000, 9294), (0, 11), (0, 695)),
+        m_books_acc: ((1649, 1649), (1, 0), (350, 0)),
+        m_serials_acc: ((2645, 2645), (10, 0), (345, 0)),
+        s_root_acc: ((13500, 20000), (0, 0), (0, 0)),
+        s_books_acc: ((2500, 2500), (0, 0), (0, 0)),
+        s_serials_acc: ((4000, 4000), (0, 0), (0, 0))
+    }
+    assert_account_data(manual_controls)
 
-    # It is not possible to receive quantity more than what you ordered
+    # STEP 6 :: RECEIVE SOME ORDER LINES
+    #    Received 2 items from the order_line_1. We need to ensure :
+    #    * the order_line status is PARTIALLY_RECEIVED
+    #    * the order status is PARTIALLY_RECEIVED too
+    #    * the related account amounts are correctly assigned
+
+    # CHECK :: Not possible to receive quantity more than what you ordered
     res, data = postdata(
         client,
         'api_receipt.lines',
@@ -445,7 +456,7 @@ def test_acquisition_reception_workflow(
         url_data=dict(receipt_pid=receipt_1.pid)
     )
     assert res.status_code == 200
-    response = get_json(res).get('response')
+    response = data.get('response')
     assert response[0]['status'] == AcqReceiptLineCreationStatus.FAILURE
 
     # partially receive one order with few quantities in receipt_1
@@ -461,7 +472,7 @@ def test_acquisition_reception_workflow(
         url_data=dict(receipt_pid=receipt_1.pid)
     )
     assert res.status_code == 200
-    response = get_json(res).get('response')
+    response = data.get('response')
     assert response[0]['status'] == AcqReceiptLineCreationStatus.SUCCESS
 
     # Test order and order lines
@@ -497,9 +508,9 @@ def test_acquisition_reception_workflow(
     assert order.status == AcqOrderStatus.PARTIALLY_RECEIVED
 
     manual_controls = {
-        m_root_acc: ((5000, 9304), (0, 21), (0, 675)),
+        m_root_acc: ((5000, 9294), (0, 31), (0, 675)),
         m_books_acc: ((1649, 1649), (21, 0), (330, 0)),
-        m_serials_acc: ((2655, 2655), (0, 0), (345, 0)),
+        m_serials_acc: ((2645, 2645), (10, 0), (345, 0)),
         s_root_acc: ((13500, 20000), (0, 0), (0, 0)),
         s_books_acc: ((2500, 2500), (0, 0), (0, 0)),
         s_serials_acc: ((4000, 4000), (0, 0), (0, 0))
@@ -507,16 +518,19 @@ def test_acquisition_reception_workflow(
     assert_account_data(manual_controls)
 
     # STEP 7 :: CREATE NEW RECEIVE AND RECEIVE ALL PENDING ORDER LINES
-    #   martigny_books_account:
-    #       line_1: quantity: 5 of amount 10   = 50
-    #       line_2: quantity: 6 of amount 50   = 300
-    #       line_3: quantity: 3 of amount 100  = 300  # cancelled
-    #                                    Total = 350
-    #   martigny_serials_account:
-    #       line_1: quantity: 3 of amount 15   = 45
-    #       line_2: quantity: 2 of amount 150  = 300
-    #       line_3: quantity: 10 of amount 7   = 70  # cancelled
-    #                                    Total = 345
+    #   * Create a second receipt for the same order with no adjustments.
+    #   * To to receive all pending order lines BUT with a mistake for
+    #     `order_line_5` (try to receive more than ordered items) ==> all lines
+    #     except `order_line_5` should have the RECEIVED STATUS
+    #   * complete the order reception to receive the `order_line_5`
+    data = {
+        'exchange_rate': 1,
+        'acq_order': {'$ref': get_ref_for_pid('acor', order.pid)},
+        'library': {'$ref': get_ref_for_pid('lib', lib_martigny.pid)},
+        'organisation': {'$ref': get_ref_for_pid('org', org_martigny.pid)}
+    }
+    receipt_2 = _make_resource(client, 'acre', data)
+
     data = [{
         'acq_order_line': {'$ref': order_line_1_ref},
         'amount': 10,
@@ -535,21 +549,22 @@ def test_acquisition_reception_workflow(
     }, {
         'acq_order_line': {'$ref': order_line_5_ref},
         'amount': 150,
-        'quantity': 2,
+        'quantity': 12,  # too many items ! Max quantity should be 2
         'receipt_date': '2021-11-01'
     }]
     res, data = postdata(
         client,
         'api_receipt.lines',
         data=data,
-        url_data=dict(receipt_pid=receipt_1.pid)
+        url_data=dict(receipt_pid=receipt_2.pid)
     )
+
     assert res.status_code == 200
-    response = get_json(res).get('response')
+    response = data.get('response')
     assert response[0]['status'] == AcqReceiptLineCreationStatus.SUCCESS
     assert response[1]['status'] == AcqReceiptLineCreationStatus.SUCCESS
     assert response[2]['status'] == AcqReceiptLineCreationStatus.SUCCESS
-    assert response[3]['status'] == AcqReceiptLineCreationStatus.SUCCESS
+    assert response[3]['status'] == AcqReceiptLineCreationStatus.FAILURE
 
     # Test order and order lines
     for order_line in [
@@ -557,18 +572,96 @@ def test_acquisition_reception_workflow(
         {'line': order_line_2, 'status': AcqOrderLineStatus.RECEIVED},
         {'line': order_line_3, 'status': AcqOrderLineStatus.CANCELLED},
         {'line': order_line_4, 'status': AcqOrderLineStatus.RECEIVED},
-        {'line': order_line_5, 'status': AcqOrderLineStatus.RECEIVED},
+        {'line': order_line_5, 'status': AcqOrderLineStatus.ORDERED},
         {'line': order_line_6, 'status': AcqOrderLineStatus.CANCELLED}
     ]:
         line = AcqOrderLine.get_record_by_pid(order_line.get('line').pid)
         assert line.status == order_line.get('status')
+
+    # Receive the last pending order_line
+    data = [{
+        'acq_order_line': {'$ref': order_line_5_ref},
+        'amount': 150,
+        'quantity': 2,
+        'receipt_date': '2021-11-01'
+    }]
+    res, data = postdata(
+        client,
+        'api_receipt.lines',
+        data=data,
+        url_data=dict(receipt_pid=receipt_2.pid)
+    )
+    assert res.status_code == 200
+    response = data.get('response')
+    assert response[0]['status'] == AcqReceiptLineCreationStatus.SUCCESS
+    order_line = AcqOrderLine.get_record_by_pid(order_line_5.pid)
+    assert order_line.status == AcqOrderLineStatus.RECEIVED
+
+    # check than order is now fully received
     order = AcqOrder.get_record_by_pid(order.pid)
     assert order.status == AcqOrderStatus.RECEIVED
-
+    # check account amounts
     manual_controls = {
-        m_root_acc: ((5000, 9304), (0, 696), (0, 0)),
+        m_root_acc: ((5000, 9294), (0, 706), (0, 0)),
         m_books_acc: ((1649, 1649), (351, 0), (0, 0)),
-        m_serials_acc: ((2655, 2655), (345, 0), (0, 0)),
+        m_serials_acc: ((2645, 2645), (355, 0), (0, 0)),
+        s_root_acc: ((13500, 20000), (0, 0), (0, 0)),
+        s_books_acc: ((2500, 2500), (0, 0), (0, 0)),
+        s_serials_acc: ((4000, 4000), (0, 0), (0, 0))
+    }
+    assert_account_data(manual_controls)
+
+    # TEST 8: DELETE RECEIPTS
+    #   * Delete the second receipt. This will also delete the related receipt
+    #     lines. The order status must remain to PARTIALLY_RECEIVED.
+    #   * Delete the first receipt. The order status should remain to ORDERED
+    #     and account amount should be the same than STEP#3.
+
+    # DELETE `RECEIPT_2` ----------
+    receipt_line_pids = receipt_2.get_receipt_lines(output='pids')
+    url = url_for('invenio_records_rest.acre_item', pid_value=receipt_2.pid)
+    client.delete(url)
+    # Check all resources related to `receipt_2` is deleted
+    for pid in receipt_line_pids:
+        line = AcqReceiptLine.get_record_by_pid(pid)
+        assert line is None
+    assert AcqReceipt.get_record_by_pid(receipt_2.pid) is None
+    # Check ES is up-to-date
+    response = AcqReceiptLinesSearch()\
+        .filter('terms', pid=receipt_line_pids).execute()
+    assert response.hits.total.value == 0
+    response = AcqReceiptsSearch() \
+        .filter('term', pid=receipt_2.pid).execute()
+    assert response.hits.total.value == 0
+    # Check order status
+    order = AcqOrder.get_record_by_pid(order.pid)
+    assert order.status == AcqOrderStatus.PARTIALLY_RECEIVED
+
+    # DELETE `RECEIPT_1` ----------
+    receipt_line_pids = receipt_1.get_receipt_lines(output='pids')
+    url = url_for('invenio_records_rest.acre_item', pid_value=receipt_1.pid)
+    client.delete(url)
+    # Check all resources related to `receipt_1` is deleted
+    for pid in receipt_line_pids:
+        line = AcqReceiptLine.get_record_by_pid(pid)
+        assert line is None
+    assert AcqReceipt.get_record_by_pid(receipt_1.pid) is None
+    # Check ES is up-to-date
+    response = AcqReceiptLinesSearch() \
+        .filter('terms', pid=receipt_line_pids).execute()
+    assert response.hits.total.value == 0
+    response = AcqReceiptsSearch() \
+        .filter('term', pid=receipt_1.pid).execute()
+    assert response.hits.total.value == 0
+    # Check order status
+    order = AcqOrder.get_record_by_pid(order.pid)
+    assert order.status == AcqOrderStatus.ORDERED
+
+    # ensure correct calculations and status again
+    manual_controls = {
+        m_root_acc: ((5000, 9305), (0, 0), (0, 695)),
+        m_books_acc: ((1650, 1650), (0, 0), (350, 0)),
+        m_serials_acc: ((2655, 2655), (0, 0), (345, 0)),
         s_root_acc: ((13500, 20000), (0, 0), (0, 0)),
         s_books_acc: ((2500, 2500), (0, 0), (0, 0)),
         s_serials_acc: ((4000, 4000), (0, 0), (0, 0))
