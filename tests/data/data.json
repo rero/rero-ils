@@ -3426,6 +3426,36 @@
     "pac_code": "0_frozen_collection",
     "price": 15.2
   },
+  "item11": {
+    "$schema": "https://bib.rero.ch/schemas/items/item-v0.0.1.json",
+    "pid": "item11",
+    "barcode": "1234567890",
+    "type": "temporary",
+    "document": {
+      "$ref": "https://bib.rero.ch/api/documents/doc1"
+    },
+    "call_number": "temp_00001",
+    "location": {
+      "$ref": "https://bib.rero.ch/api/locations/loc1"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/lib1"
+    },
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "item_type": {
+      "$ref": "https://bib.rero.ch/api/item_types/itty1"
+    },
+    "notes": [
+      {
+        "type": "staff_note",
+        "content": "This is a temporary item to delete after item is returned."
+      }
+    ],
+    "status": "on_shelf",
+    "pac_code": "0_frozen_collection"
+  },
   "ptrn1": {
     "$schema": "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json",
     "pid": "ptrn1",
