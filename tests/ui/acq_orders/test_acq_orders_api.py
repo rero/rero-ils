@@ -18,7 +18,8 @@
 
 """Acquisition orders API tests."""
 
-from rero_ils.modules.acq_order_lines.models import AcqOrderLineStatus
+from rero_ils.modules.acq_order_lines.models import AcqOrderLineNoteType, \
+    AcqOrderLineStatus
 from rero_ils.modules.acq_orders.models import AcqOrderNoteType, AcqOrderStatus
 
 
@@ -64,7 +65,7 @@ def test_order_properties(
     del acol2['order_date']
     acol2.update(acol2, dbcommit=True, reindex=True)
 
-    # ORDER NOTE --------------------------------------------------------------
+    # NOTES -------------------------------------------------------------------
     note_content = 'test note content'
     assert acor.get_note(AcqOrderNoteType.VENDOR) is None
     acor.setdefault('notes', []).append({
@@ -73,6 +74,14 @@ def test_order_properties(
     })
     assert acor.get_note(AcqOrderNoteType.VENDOR) == note_content
     del acor['notes']
+
+    # Check that `related notes` content return the note from `acol1`
+    assert any(
+        note[0]['type'] == AcqOrderLineNoteType.STAFF
+        and note[1] == acol1.__class__
+        and note[2] == acol1.pid
+        for note in acor.get_related_notes()
+    )
 
     # ORDER ITEM QUANTITY -----------------------------------------------------
     assert acor.item_quantity == 6

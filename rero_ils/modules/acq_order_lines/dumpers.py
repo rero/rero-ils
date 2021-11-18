@@ -43,9 +43,6 @@ class AcqOrderLineESDumper(InvenioRecordsDumper):
             value = record.get(attr)
             if value:
                 data.update({attr: value})
-        notes = record.get('notes', [])
-        if notes:
-            data['notes'] = [note['content'] for note in notes]
 
         # Add account informations: pid, name and reference number.
         # (remove None values from account metadata)

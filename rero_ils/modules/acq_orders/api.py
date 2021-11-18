@@ -21,6 +21,7 @@ from datetime import datetime
 from functools import partial
 
 from flask_babelex import gettext as _
+from invenio_records_rest.utils import obj_or_import_string
 
 from .extensions import AcquisitionOrderCompleteDataExtension, \
     AcquisitionOrderExtension
@@ -35,7 +36,8 @@ from ..notifications.api import Notification
 from ..notifications.dispatcher import Dispatcher
 from ..notifications.models import NotificationType
 from ..providers import Provider
-from ..utils import extracted_data_from_ref, get_ref_for_pid, sorted_pids
+from ..utils import extracted_data_from_ref, get_endpoint_configuration, \
+    get_ref_for_pid, sorted_pids
 from ..vendors.api import Vendor
 
 # provider
@@ -223,6 +225,38 @@ class AcqOrder(IlsRecord):
             if note.get('type') == note_type
         ]
         return next(iter(note), None)
+
+    def get_related_notes(self, resource_filters=None):
+        """Get all notes from resource relates to this `AcqOrder`.
+
+        :param resource_filters: the list of resource acronym where to search
+                                 related notes. If `None` all related resources
+                                 will be fetched.
+        :return a list of tuples. Each tuple was compose of three elements :
+            * the note dict (type and content)
+            * the source record class
+            * the related resource pid
+        """
+        # Add here the SearchClass where to search about notes related to this
+        # AcqOrder.
+        related_resources = ['acol', 'acre', 'acrl']
+        resource_filters = resource_filters or related_resources
+        for resource_acronym in resource_filters:
+            # search about config for this acronym. If not found : continue
+            config = get_endpoint_configuration(resource_acronym)
+            if not config:
+                continue
+            record_cls = obj_or_import_string(config['record_class'])
+            source_search_class = obj_or_import_string(config['search_class'])
+            search_class = source_search_class()
+
+            query = search_class \
+                .filter('term', acq_order__pid=self.pid) \
+                .filter('exists', field='notes') \
+                .source(['notes', 'pid'])
+            for hit in query.scan():
+                for note in hit.notes:
+                    yield note, record_cls, hit.pid
 
     def get_order_lines(self, output=None, includes=None):
         """Get order lines related to this order.
