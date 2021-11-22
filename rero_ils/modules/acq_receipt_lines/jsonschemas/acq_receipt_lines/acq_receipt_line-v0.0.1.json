@@ -9,7 +9,7 @@
     "notes",
     "quantiy",
     "amount",
-    "reception_date"
+    "receipt_date"
   ],
   "required": [
     "$schema",
