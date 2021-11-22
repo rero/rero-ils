@@ -9,7 +9,7 @@
     "document",
     "priority",
     "order_date",
-    "reception_date",
+    "receipt_date",
     "quantity",
     "amount",
     "exchange_rate",
@@ -181,7 +181,7 @@
         }
       }
     },
-    "reception_date": {
+    "receipt_date": {
       "title": "Receipt date",
       "type": "string",
       "format": "date",
