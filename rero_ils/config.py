@@ -2301,6 +2301,10 @@ RERO_ILS_QUERY_BOOSTING = {
 # sort options
 indexes = [
     'acq_accounts',
+    'acq_orders',
+    'acq_order_lines',
+    'acq_receipts',
+    'acq_receipt_lines',
     'budgets',
     'circ_policies',
     'collections',
@@ -2361,6 +2365,14 @@ RECORDS_REST_SORT_OPTIONS['acq_accounts']['depth'] = dict(
 RECORDS_REST_DEFAULT_SORT['acq_accounts'] = dict(
     query='bestmatch', noquery='name')
 
+# ------ ACQUISITION ORDERS SORT
+RECORDS_REST_SORT_OPTIONS['acq_orders']['receipt_date'] = dict(
+    fields=['-order_lines.receipt_date'], title='Receipt date',
+    default_order='desc'
+)
+RECORDS_REST_DEFAULT_SORT['acq_orders'] = dict(
+    query='bestmatch', noquery='receipt_date')
+
 # ------ ACQUISITION ORDER LINES SORT
 RECORDS_REST_SORT_OPTIONS['acq_order_lines'] = dict(
     pid=dict(
@@ -2375,6 +2387,22 @@ RECORDS_REST_SORT_OPTIONS['acq_order_lines'] = dict(
 )
 RECORDS_REST_DEFAULT_SORT['acq_order_lines'] = dict(
     query='bestmatch', noquery='priority')
+
+# ------ ACQUISITION RECEIPTS SORT
+RECORDS_REST_SORT_OPTIONS['acq_receipts']['receipt_date'] = dict(
+    fields=['-receipt_lines.receipt_date'], title='Receipt date',
+    default_order='desc'
+)
+RECORDS_REST_DEFAULT_SORT['acq_receipts'] = dict(
+    query='bestmatch', noquery='receipt_date')
+
+# ------ ACQUISITION RECEIPT LINES SORT
+RECORDS_REST_SORT_OPTIONS['acq_receipt_lines']['receipt_date'] = dict(
+    fields=['-receipt_date'], title='Receipt date',
+    default_order='desc'
+)
+RECORDS_REST_DEFAULT_SORT['acq_receipt_lines'] = dict(
+    query='bestmatch', noquery='receipt_date')
 
 # ------ BUDGETS SORT
 RECORDS_REST_SORT_OPTIONS['budgets']['name'] = dict(

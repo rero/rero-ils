@@ -72,7 +72,7 @@
           "order_date": {
             "type": "date"
           },
-          "reception_date": {
+          "receipt_date": {
             "type": "date"
           },
           "quantity": {
