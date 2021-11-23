@@ -292,7 +292,7 @@ def test_documents_organisation_facets(
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_documents_library_facets(
+def test_documents_library_location_facets(
     client, document, org_martigny, item_lib_martigny, rero_json_header
 ):
     """Test record retrieval."""
@@ -303,6 +303,10 @@ def test_documents_library_facets(
     aggs = data['aggregations']
 
     assert 'library' in aggs
+
+    # Test if location sub-buckets exists under each Library hit
+    for hit in aggs['library']['buckets']:
+        assert 'location' in hit
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',

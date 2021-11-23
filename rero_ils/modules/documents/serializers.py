@@ -41,6 +41,7 @@ from ..documents.utils import title_format_text_head
 from ..documents.views import create_title_alternate_graphic, \
     create_title_responsibilites, create_title_variants
 from ..libraries.api import LibrariesSearch
+from ..locations.api import LocationsSearch
 from ..organisations.api import OrganisationsSearch
 from ..serializers import JSONSerializer, RecordSchemaJSONV1
 
@@ -176,18 +177,54 @@ class DocumentJSONSerializer(JSONSerializer):
 
         :return processed buckets
         """
-        processed_buckets = []
+        lib_processed_buckets = []
         libraries = {}
+        # get the library names for a given organisation
         records = LibrariesSearch()\
             .get_libraries_by_organisation_pid(org, ['pid', 'name'])
         for record in records:
             libraries[record.pid] = record.name
-        for bucket in lib_buckets:
-            key = bucket.get('key')
-            if key in libraries:
-                bucket['name'] = libraries[key]
-                processed_buckets.append(bucket)
-        return processed_buckets
+        # for all library bucket for a given organisation
+        for lib_bucket in lib_buckets:
+            lib_key = lib_bucket.get('key')
+            # add the library name
+            if lib_key in libraries:
+                lib_bucket['name'] = libraries[lib_key]
+                # process locations if exists
+                if lib_bucket.get('location'):
+                    lib_bucket['location']['buckets'] = \
+                        cls._process_location_buckets(
+                            lib_key,
+                            lib_bucket.get('location', {}).get('buckets', []))
+                # library is filterd by organisation
+                lib_processed_buckets.append(lib_bucket)
+        return lib_processed_buckets
+
+    @classmethod
+    def _process_location_buckets(cls, lib, loc_buckets):
+        """Process location buckets.
+
+        Add location names
+        :param lib: current library pid
+        :param loc_buckets: location buckets
+
+        :return: processed buckets
+        """
+        # get the location names for a given library
+        locations = {}
+        for es_loc in LocationsSearch().source(['pid', 'name'])\
+                .filter('term', library__pid=lib).scan():
+            locations[es_loc.pid] = es_loc.name
+        loc_processed_buckets = []
+        # for all location bucket for a given library
+        for loc_bucket in loc_buckets:
+            loc_key = loc_bucket.get('key')
+            # add the location name
+            if loc_key in locations:
+                loc_bucket['name'] = locations.get(loc_key)
+                # location is filterd by library
+                loc_processed_buckets.append(loc_bucket)
+        return loc_processed_buckets
 
 
 class DocumentMARCXMLSerializer(JSONSerializer):

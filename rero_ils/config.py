@@ -1785,7 +1785,13 @@ RECORDS_REST_FACETS = dict(
                 aggs=dict(
                     library=dict(
                         terms=dict(field='holdings.organisation.library_pid',
-                                   size=DOCUMENTS_AGGREGATION_SIZE)
+                                   size=DOCUMENTS_AGGREGATION_SIZE),
+                        aggs=dict(
+                            location=dict(
+                                terms=dict(field='holdings.location.pid',
+                                       size=DOCUMENTS_AGGREGATION_SIZE)
+                            )
+                        )
                     )
                 )
             ),
@@ -1807,6 +1813,7 @@ RECORDS_REST_FACETS = dict(
                 'holdings.organisation.organisation_pid'
             ),
             _('library'): and_term_filter('holdings.organisation.library_pid'),
+            _('location'): and_term_filter('holdings.location.pid'),
             _('subject'): and_term_filter('facet_subjects'),
             _('status'): and_term_filter('holdings.items.status'),
             _('new_acquisition'): acquisition_filter(),
