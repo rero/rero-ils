@@ -198,6 +198,8 @@ class ReplaceMefIdentifiedByContribution(ReplaceMefIdentifiedBy):
             if changed:
                 doc['contribution'] = new_contributions
                 doc.update(data=doc, dbcommit=True, reindex=True)
+                if self.verbose:
+                    click.echo(f'  Changed document: {doc.pid}')
         return self.counts
 
 

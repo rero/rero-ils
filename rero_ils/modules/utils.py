@@ -1082,3 +1082,16 @@ def sorted_pids(query):
     except Exception as err:
         current_app.logger.info(f'Can not sort pids from query: {err}')
     return pids
+
+
+def progressbar(items, length=0, verbose=False):
+    """Verbose progress bar."""
+    if verbose:
+        with click.progressbar(
+                items, label=str(length), length=length
+        ) as progressbar_items:
+            for item in progressbar_items:
+                yield item
+    else:
+        for item in items:
+            yield item

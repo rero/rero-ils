@@ -41,3 +41,12 @@ class ContributionMetadata(db.Model, RecordMetadataBase):
     """Contribution record metadata."""
 
     __tablename__ = 'contribution_metadata'
+
+
+class ContributionUpdateStatus:
+    """Class holding all available update statuses."""
+
+    UP_TO_DATE = 'up_to_date'
+    UPDATED = 'updated'
+    REPLACED = 'replaced'
+    ERROR = 'error'

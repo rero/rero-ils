@@ -350,45 +350,53 @@ CELERY_BEAT_SCHEDULE = {
     },
     'claims-creation': {
         'task': 'rero_ils.modules.items.tasks.process_late_claimed_issues',
-        'schedule': crontab(minute=0, hour=6),  # Every day at 06:00 UTC,
+        'schedule': crontab(minute=0, hour=6),
+        # Every day at 06:00 UTC,
         'enabled': False
     },
     'clear_obsolete_temporary_item_types': {
         'task': ('rero_ils.modules.items.tasks'
                  '.clean_obsolete_temporary_item_types'),
-        'schedule': crontab(minute=15, hour=2),  # Every day at 02:15 UTC,
+        'schedule': crontab(minute=15, hour=2),
+        # Every day at 02:15 UTC,
         'enabled': False
     },
     'cancel-expired-request': {
         'task': 'rero_ils.modules.loans.tasks.cancel_expired_request_task',
-        'schedule': crontab(minute=15, hour=3),  # Every day at 03:15 UTC,
+        'schedule': crontab(minute=15, hour=3),
+        # Every day at 03:15 UTC,
         'enabled': False
     },
     'anonymize-loans': {
         'task': 'rero_ils.modules.loans.tasks.loan_anonymizer',
-        'schedule': crontab(minute=0, hour=7),  # Every day at 07:00 UTC,
+        'schedule': crontab(minute=0, hour=7),
+        # Every day at 07:00 UTC,
         'enabled': False
     },
     'clear_and_renew_subscriptions': {
         'task': ('rero_ils.modules.patrons.tasks'
                  '.task_clear_and_renew_subscriptions'),
-        'schedule': crontab(minute=2, hour=2),  # Every day at 02:02 UTC,
+        'schedule': crontab(minute=2, hour=2),
+        # Every day at 02:02 UTC,
         'enabled': False
     },
     'delete_standard_holdings_having_no_items': {
         'task': ('rero_ils.modules.holdings.tasks'
                  '.delete_standard_holdings_having_no_items'),
-        'schedule': crontab(minute=30, hour=4),  # Every day at 04:30 UTC,
+        'schedule': crontab(minute=30, hour=4),
+        # Every day at 04:30 UTC,
         'enabled': False
     },
     'collect-stats-billing': {
         'task': ('rero_ils.modules.stats.tasks.collect_stats_billing'),
-        'schedule': crontab(minute=0, hour=1),  # Every day at 01:00 UTC,
+        'schedule': crontab(minute=0, hour=1),
+        # Every day at 01:00 UTC,
         'enabled': False
     },
     'collect-stats-librarian': {
         'task': ('rero_ils.modules.stats.tasks.collect_stats_librarian'),
-        'schedule': crontab(minute=30, hour=1, day_of_month='1'),  # First day of the month at 01:30 UTC,
+        'schedule': crontab(minute=30, hour=1, day_of_month='1'),
+        # First day of the month at 01:30 UTC,
         'enabled': False
     },
     'replace-idby-contribution': {
@@ -402,9 +410,7 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(minute=22, hour=22, day_of_week=6),
         # Every week on Saturday at 22:22 UTC,
         'enabled': False
-    },
-
-    # 'mef-harvester': {
+    },    # 'mef-harvester': {
     #     'task': 'rero_ils.modules.apiharvester.tasks.harvest_records',
     #     'schedule': timedelta(minutes=60),
     #     'kwargs': {'name': 'mef', 'enabled': False),
@@ -2769,7 +2775,15 @@ RERO_ILS_UI_GIT_HASH = None
 # TODO: to be changed with new MEF version
 # RERO_ILS_MEF_AGENTS_URL = 'https://mef.rero.ch/api/agents'
 RERO_ILS_MEF_AGENTS_URL = 'https://mef.rero.ch/api'
-RERO_ILS_MEF_RESULT_SIZE = 100
+RERO_ILS_MEF_RESULT_SIZE = 1000
+
+# API harvester configuration.
+RERO_ILS_API_HARVESTER = dict(
+    agent_mef=dict(
+        url=f'{RERO_ILS_MEF_AGENTS_URL}/mef',
+        size=RERO_ILS_MEF_RESULT_SIZE
+    )
+)
 
 RERO_ILS_APP_HELP_PAGE = (
     'https://github.com/rero/rero-ils/wiki/Public-demo-help'

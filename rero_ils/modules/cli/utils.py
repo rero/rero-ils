@@ -30,6 +30,7 @@ import re
 import sys
 import traceback
 from collections import OrderedDict
+from copy import deepcopy
 from glob import glob
 from pprint import pprint
 from time import sleep
@@ -54,14 +55,14 @@ from lxml import etree
 from werkzeug.local import LocalProxy
 from werkzeug.security import gen_salt
 
+from rero_ils.modules.contributions.api import Contribution
+from rero_ils.modules.contributions.models import ContributionUpdateStatus
 from rero_ils.modules.locations.api import Location
 
 from ..documents.api import Document, DocumentsIndexer, DocumentsSearch
 from ..documents.dojson.contrib.marc21tojson import marc21
 from ..documents.tasks import \
     replace_idby_contribution as task_replace_idby_contribution
-from ..documents.tasks import \
-    replace_idby_subjects as task_replace_idby_subjects
 from ..documents.views import get_cover_art
 from ..items.api import Item
 from ..libraries.api import Library
@@ -70,7 +71,7 @@ from ..selfcheck.cli import create_terminal, list_terminal, update_terminal
 from ..tasks import process_bulk_queue
 from ..utils import JsonWriter, extracted_data_from_ref, \
     get_record_class_from_schema_or_pid_type, get_schema_for_resource, \
-    read_json_record, read_xml_record
+    progressbar, read_json_record, read_xml_record
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 _records_state = LocalProxy(lambda: current_app.extensions['invenio-records'])
@@ -1402,20 +1403,83 @@ def add_cover_urls(verbose):
 def replace_idby_contribution(verbose, details):
     """Find and replace identifiedBy contributions."""
     click.secho('Find and replace identifiedBy contribution.', fg='green')
-    found, exists, no_data, no_mef = task_replace_idby_contribution(
+    replace_contribution = task_replace_idby_contribution(
         verbose=verbose, details=details)
-    click.echo(f'Found: {found} | Exists: {exists} | '
-               f'No IdRef: {no_data} | No MEF: {no_mef}')
+    if verbose:
+        replace_contribution.print_details()
+    else:
+        replace_contribution.print_counts()
 
 
 @utils.command()
-@click.option('-v', '--verbose', is_flag=True, default=False)
-@click.option('-d', '--details', is_flag=True, default=False)
+@click.option('-v', '--verbose', is_flag=True, default=False, help='Verbose')
+@click.option('-d', '--debug', is_flag=True, default=False, help='Debug')
+@click.option('-R', '--replace', is_flag=True, default=False,
+              help='Replace deleted contributions')
+@click.option('-C', '--commit', is_flag=True, default=False,
+              help='Commit changes and reindex.')
+@click.option('-s', '--save_file', default=None,
+              help='Save changed contributions to this file')
+@click.option('-r', '--replace_file', default=None,
+              help='Save replaced contributions to this file')
+@click.option('-e', '--error_file', default=None,
+              help='Save contributions with errors to this file')
 @with_appcontext
-def replace_idby_subjects(verbose, details):
-    """Find and replace identifiedBy subjects."""
-    click.secho('Find and replace identifiedBy subjects.', fg='green')
-    found, exists, no_data, no_mef = task_replace_idby_subjects(
-        verbose=verbose, details=details)
-    click.echo(f'Found: {found} | Exists: {exists} | '
-               f'No Data: {no_data} | No MEF: {no_mef}')
+def contribution_update(verbose, debug, replace, commit, save_file,
+                        replace_file, error_file):
+    """Update all contributions.
+
+    :param verbose: Verbose.
+    :param debug: Debug print.
+    :param replace: Replace deleted contributions.
+    :param commit: Commit changes.
+    :param save_file: Save changed contributions to file.
+    :param save_file: Save replaced contributions to this file.
+    :param error_file: Save contributions with errors to file.
+    """
+    click.secho(f'Update contributions commit:{commit}.', fg='green')
+    if save_file:
+        file_save = JsonWriter(save_file)
+        click.secho(f'  Save changed contributions: {save_file}.', fg='green')
+    if replace_file:
+        file_replace = JsonWriter(replace_file)
+        click.secho(
+            f'  Save replaced contributions: {replace_file}.', fg='green')
+    if error_file:
+        file_error = JsonWriter(error_file)
+        click.secho(
+            f'  Save contributions with problems: {error_file}.', fg='green')
+    count = Contribution.count()
+    counts = {}
+    progress = progressbar(
+        items=Contribution.get_all_pids(),
+        length=count,
+        verbose=not verbose
+    )
+    for pid in progress:
+        contribution = Contribution.get_record_by_pid(pid)
+        cont = deepcopy(dict(contribution))
+        _, status, doc_count, msg = contribution.update_online(
+            dbcommit=commit, reindex=commit, replace=replace, debug=debug)
+        counts.setdefault(status, 0)
+        counts[status] += 1
+        pid_msg = f'\r{pid:>10}'
+        if verbose:
+            message = f'{pid:>10} {status}'
+            if doc_count:
+                message += f' documents: {doc_count}'
+            click.secho(message)
+            pid_msg = f'{"":>10}'
+        if status == ContributionUpdateStatus.ERROR:
+            click.secho(f'{pid_msg} {msg.ljust(70)}', fg='red')
+            if file_error:
+                file_error.write(contribution)
+        elif status == ContributionUpdateStatus.REPLACED:
+            click.secho(f'{pid_msg} {msg.ljust(70)}', fg='yellow')
+            if replace_file:
+                file_replace.write(contribution)
+        elif status == ContributionUpdateStatus.UPDATED and save_file:
+            file_save.write(contribution)
+
+    counts_msg = [f'{key}: {value}' for key, value in counts.items()]
+    click.echo(f'Contributions: {count} | {", ".join(counts_msg)}')

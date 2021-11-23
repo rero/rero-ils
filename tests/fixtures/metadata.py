@@ -249,7 +249,8 @@ def contribution_person_response_data(contribution_person_data):
                     'id': contribution_person_data['pid'],
                     'metadata': contribution_person_data
                 }
-            ]
+            ],
+            'total': 1
         }
     }
     return json_data

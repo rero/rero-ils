@@ -38,11 +38,9 @@ from .acq_order_lines.listener import enrich_acq_order_line_data
 from .acq_orders.listener import enrich_acq_order_data
 from .acq_receipt_lines.listener import enrich_acq_receipt_line_data
 from .acq_receipts.listener import enrich_acq_receipt_data
-from .apiharvester.signals import apiharvest_part
 from .budgets.listener import budget_is_active_changed
 from .collections.listener import enrich_collection_data
 from .contributions.listener import enrich_contributions_data
-from .contributions.receivers import publish_api_harvested_records
 from .documents.listener import enrich_document_data
 from .ebooks.receivers import publish_harvested_records
 from .holdings.listener import enrich_holding_data
@@ -224,8 +222,6 @@ class REROILSAPP(object):
         loan_state_changed.connect(listener_loan_state_changed, weak=False)
 
         oaiharvest_finished.connect(publish_harvested_records, weak=False)
-
-        apiharvest_part.connect(publish_api_harvested_records, weak=False)
 
         # invenio-userprofiles signal
         after_profile_update.connect(update_from_profile)

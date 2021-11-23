@@ -20,17 +20,25 @@
 from __future__ import absolute_import, print_function
 
 import click
-import yaml
 from flask import current_app
 from flask.cli import with_appcontext
 from werkzeug.local import LocalProxy
 
-from rero_ils.modules.apiharvester.tasks import harvest_records
-
-from .models import ApiHarvestConfig
-from .utils import api_source
+from .api import ApiHarvester
+from .tasks import harvest_records
 
 datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
+
+
+def print_info(config, exists=False):
+    """Print config info."""
+    if exists:
+        click.secho(f'{config.name} exists in DB', fg='yellow')
+    else:
+        click.echo(f'{config.name}')
+    click.echo(f'  lastrun : {config.lastrun}')
+    click.echo(f'  url     : {config.url}')
+    click.echo(f'  size    : {config.size}')
 
 
 @click.group()
@@ -38,98 +46,108 @@ def apiharvester():
     """Api harvester commands."""
 
 
-@apiharvester.command('source')
+@apiharvester.command()
 @click.argument('name')
-@click.option('-U', '--url', default='', help='Url')
-@click.option('-m', '--mimetype', default='', help='Mimetype')
-@click.option('-s', '--size', default=-1, type=int, help='Size')
-@click.option('-c', '--comment', default='', help='Comment')
-@click.option(
-    '-u', '--update', is_flag=True, default=False, help='Update config'
-)
-@with_appcontext
-def api_source_config(name, url, mimetype, size, comment, update):
-    """Add or Update ApiHarvestConfig."""
-    click.echo(f'ApiHarvesterConfig: {name} ', nl=False)
-    msg = api_source(
-        name=name,
-        url=url,
-        mimetype=mimetype,
-        size=size,
-        comment=comment,
-        update=update
-    )
-    click.echo(msg)
-
-
-@apiharvester.command('sources')
-@click.argument('configfile', type=click.File('rb'))
-@click.option(
-    '-u', '--update', is_flag=True, default=False, help='Update config'
-)
-@with_appcontext
-def api_source_config_from_file(configfile, update):
-    """Add or update ApiHarvestConfigs from file."""
-    configs = yaml.load(configfile, Loader=yaml.FullLoader)
-    for name, values in sorted(configs.items()):
-        url = values.get('url', '')
-        mimetype = values.get('mimetype', '')
-        size = values.get('size', 100)
-        comment = values.get('comment', '')
-        click.echo(f'ApiHarvesterConfig: {name} {url} ', nl=False)
-        msg = api_source(
-            name=name,
-            url=url,
-            mimetype=mimetype,
-            size=size,
-            comment=comment,
-            update=update
-        )
-        click.echo(msg)
-
-
-@apiharvester.command('harvest')
-@click.option('-n', '--name', default=None,
-              help='Name of persistent configuration to use.')
 @click.option('-f', '--from-date', default=None,
               help='The lower bound date for the harvesting (optional).')
-@click.option('-u', '--url', default=None,
-              help='The upper bound date for the harvesting (optional).')
 @click.option('-k', '--enqueue', is_flag=True, default=False,
               help='Enqueue harvesting and return immediately.')
-@click.option('--signals/--no-signals', default=True,
-              help='Signals sent with Api harvesting results.')
-@click.option('-s', '--size', type=int, default=0,
-              help='Size of chunks (optional).')
 @click.option('-m', '--max', type=int, default=0,
               help='maximum of records to harvest (optional).')
-@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+@click.option('-v', '--verbose', is_flag=True, default=False)
 @with_appcontext
-def harvest(name, from_date, url, enqueue, signals, size, max, verbose):
-    """Harvest api."""
+def harvest(name, from_date, enqueue, max, verbose):
+    """API harvester run."""
     if name:
-        click.secho(f'Harvest api: {name}', fg='green')
-    elif url:
-        click.secho(f'Harvest api: {url}', fg='green')
+        click.secho(f'API harvester harvest: {name}', fg='green')
     if enqueue:
-        harvest_records.delay(url=url, name=name, from_date=from_date,
-                              signals=signals, size=size, max=max,
-                              verbose=verbose)
+        process_id = harvest_records.delay(name=name, from_date=from_date,
+                                           max=max, verbose=verbose)
+        click.echo(f'Harvest started: {process_id}')
     else:
-        harvest_records(url=url, name=name, from_date=from_date,
-                        signals=signals, size=size, max=max,
-                        verbose=verbose)
+        count = harvest_records(name=name, from_date=from_date, max=max,
+                                verbose=verbose)
+        click.echo(f'Harvested: {count}')
 
 
-@apiharvester.command('info')
+@apiharvester.command()
 @with_appcontext
 def info():
-    """List infos for tasks."""
-    apis = ApiHarvestConfig.query.all()
-    for api in apis:
-        click.echo(api.name)
-        click.echo(f'\tlastrun  : {api.lastrun}')
-        click.echo(f'\turl      : {api.url}')
-        click.echo(f'\tmimetype : {api.mimetype}')
-        click.echo(f'\tsize     : {api.size}')
-        click.echo(f'\tcomment  : {api.comment}')
+    """API harvester configurations."""
+    click.secho(f'API harvester configurations:', fg='green')
+    for config in ApiHarvester.get_all_configs():
+        print_info(config)
+
+
+@apiharvester.command()
+@click.option('-v', '--verbose', is_flag=True, default=False)
+@with_appcontext
+def init(verbose):
+    """Api harvester configuration init."""
+    click.secho(f'API harvester init', fg='green')
+    configs = current_app.config.get('RERO_ILS_API_HARVESTER', {})
+    for name, data in configs.items():
+        db_config = ApiHarvester(name)
+        exists = True
+        if not db_config:
+            exists = False
+            db_config = ApiHarvester.create(name=name, url=data['url'],
+                                            size=data['size'])
+        if verbose:
+            print_info(db_config, exists=exists)
+
+
+@apiharvester.command()
+@click.argument('name')
+@click.option('-v', '--verbose', is_flag=True, default=False)
+@with_appcontext
+def delete(name, verbose):
+    """Api harvester configuration delete."""
+    click.secho(f'API harvester delete: {name}', fg='red')
+    db_config = ApiHarvester(name)
+    if db_config:
+        if verbose:
+            print_info(db_config)
+        db_config.delete()
+    else:
+        click.secho(f'Config not found!', fg='yellow')
+
+
+@apiharvester.command()
+@click.argument('name')
+@click.option('-l', '--lastrun', default=None,
+              type=click.DateTime(formats=['%Y-%m-%d', '%Y-%m-%d %H:%M:%S']))
+@click.option('-v', '--verbose', is_flag=True, default=False)
+@with_appcontext
+def set_lastrun(name, lastrun, verbose):
+    """Api harvester set config."""
+    click.secho(
+        f'API harvester set lastrun: {name} {lastrun if lastrun else ""}',
+        fg='green'
+    )
+    config = ApiHarvester(name)
+    if config:
+        config.update_lastrun(new_date=lastrun)
+        if verbose:
+            print_info(config)
+    else:
+        click.secho(f'Config not found!', fg='yellow')
+
+
+@apiharvester.command()
+@click.argument('name')
+@click.option('-n', '--newname', default=None)
+@click.option('-u', '--url', default=None)
+@click.option('-s', '--size', type=int, default=None)
+@click.option('-v', '--verbose', is_flag=True, default=False)
+@with_appcontext
+def update(name, newname, url, size, verbose):
+    """Api harvester set size."""
+    click.secho(f'API harvester update: {name}', fg='green')
+    config = ApiHarvester(name)
+    if config:
+        config.update(name=newname, url=url, size=size)
+        if verbose:
+            print_info(config)
+    else:
+        click.secho(f'Config not found!', fg='yellow')

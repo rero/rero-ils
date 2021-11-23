@@ -20,27 +20,23 @@
 from __future__ import absolute_import, print_function
 
 from celery import shared_task
+from flask.globals import current_app
 
-from .models import ApiHarvestConfig
-from .utils import get_records
+from .api import ApiHarvester
 
 
 @shared_task(ignore_result=True)
-def harvest_records(url=None, name=None, from_date=None, signals=True, size=0,
-                    max=0, verbose=False):
+def harvest_records(name, from_date=None, max=0, verbose=False):
     """Harvest records."""
-    config = ApiHarvestConfig.query.filter_by(name=name).first()
+    count = 0
+    process_count = {}
+    config = ApiHarvester(name)
     if config:
-        if not url:
-            url = config.url
         if not from_date:
             from_date = config.lastrun
-            config.update_lastrun()
-        if size == 0:
-            size = config.size
 
-    for next, records in get_records(
-        url=url, name=name, from_date=from_date, size=size, max=max,
-        signals=signals, verbose=verbose
-    ):
-        pass
+        count, process_count = config.get_records(from_date=from_date, max=max,
+                                                  verbose=verbose)
+    else:
+        current_app.logger.warning(f'API Harvester name not found: {name}')
+    return count, process_count

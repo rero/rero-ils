@@ -33,7 +33,7 @@ from rero_ils.modules.documents.utils_mef import \
 
 
 @mock.patch('requests.get')
-def test_replace_idby_contribution(mock_contributions_mef_get, app,
+def test_replace_idby_contribution(mock_contributions_mef_get, app, capsys,
                                    document_data,
                                    contribution_person_response_data):
     """Test replace identifiedBy in contribution."""
@@ -44,6 +44,12 @@ def test_replace_idby_contribution(mock_contributions_mef_get, app,
     replace = ReplaceMefIdentifiedByContribution()
     replace.process()
     assert replace.counts_len == (0, 0, 0, 1)
+    replace.print_counts()
+    out, err = capsys.readouterr()
+    assert err == ''
+    assert out.strip() == 'Found  : 0 Exists : 0 No Data: 0 No MEF : 1'
+    replace.print_details()
+    out, err = capsys.readouterr()
 
     without_idref_gnd = deepcopy(contribution_person_response_data)
     without_idref_gnd['hits']['hits'][0]['metadata'].pop('idref')
