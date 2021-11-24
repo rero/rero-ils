@@ -29,6 +29,7 @@ from invenio_records_rest.errors import InvalidQueryRESTError
 from werkzeug.datastructures import ImmutableMultiDict
 
 from .facets import i18n_facets_factory
+from .modules.items.models import TypeOfItem
 from .modules.organisations.api import Organisation
 from .modules.patrons.api import current_librarian, current_patrons
 from .modules.templates.api import TemplateVisibility
@@ -206,6 +207,14 @@ def search_factory_for_holdings_and_items(view, search):
             search = search.filter('term', organisation__pid=org['pid'])
         # masked records are hidden for all public interfaces
         search = search.filter('bool', must_not=[Q('term', _masked=True)])
+        # PROVISIONAL records are hidden for all public interfaces
+        search = search.filter(
+            'bool', must_not=[Q('term', type=TypeOfItem.PROVISIONAL)])
+    # Logic for admin interface
+    elif current_librarian:
+        search = search.filter(
+            'term', organisation__pid=current_librarian.organisation_pid
+        )
     return search
 
 

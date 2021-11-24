@@ -48,7 +48,7 @@ class TypeOfItem:
 
     STANDARD = 'standard'
     ISSUE = 'issue'
-    TEMPORARY = 'temporary'
+    PROVISIONAL = 'provisional'
 
 
 class ItemStatus:

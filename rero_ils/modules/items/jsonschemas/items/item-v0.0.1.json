@@ -287,7 +287,7 @@
       "enum": [
         "standard",
         "issue",
-        "temporary"
+        "provisional"
       ],
       "default": "standard",
       "form": {
