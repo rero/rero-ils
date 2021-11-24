@@ -17,7 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Utilities functions for notifications."""
-
+import ciso8601
 from elasticsearch_dsl import Q
 
 from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE, \
@@ -73,16 +73,20 @@ def get_notifications(notification_type, processed=False, not_sent=False):
         yield hit.pid
 
 
-def number_of_reminders_sent(loan, notification_type=NotificationType.OVERDUE):
+def number_of_notifications_sent(loan,
+                                 notification_type=NotificationType.OVERDUE):
     """Get the number of notifications sent for the given loan.
 
     :param loan: the parent loan.
     :param notification_type: the type of notification to find.
     :return notification counter.
     """
+    trans_date = ciso8601.parse_datetime(loan.get('transaction_date'))
     return NotificationsSearch()\
         .filter('term', context__loan__pid=loan.pid)\
         .filter('term', notification_type=notification_type) \
+        .filter('term', notification_sent=True) \
+        .filter('range', creation_date={'gt': trans_date}) \
         .source().count()
 
 
@@ -122,7 +126,7 @@ def calculate_notification_amount(notification):
     # to use for this notification. To know that, we firstly need to know how
     # many notification are already sent for the parent loan for the same
     # notification type.
-    reminders_count = number_of_reminders_sent(
+    reminders_count = number_of_notifications_sent(
         notification.loan, notification_type=notif_type)
     reminder = cipo.get_reminder(
         reminder_type=reminder_type,

@@ -36,7 +36,7 @@ from rero_ils.modules.loans.models import LoanAction, LoanState
 from rero_ils.modules.notifications.api import NotificationsSearch
 from rero_ils.modules.notifications.dispatcher import Dispatcher
 from rero_ils.modules.notifications.models import NotificationType
-from rero_ils.modules.notifications.utils import number_of_reminders_sent
+from rero_ils.modules.notifications.utils import number_of_notifications_sent
 
 
 def test_loans_permissions(client, loan_pending_martigny, json_header):
@@ -353,14 +353,14 @@ def test_overdue_loans(client, librarian_martigny,
 
     overdue_loans = list(get_overdue_loans(patron_pid=patron_pid))
     assert overdue_loans[0].get('pid') == loan_pid
-    assert number_of_reminders_sent(loan) == 0
+    assert number_of_notifications_sent(loan) == 0
 
     notification = loan.create_notification(
         _type=NotificationType.OVERDUE).pop()
     Dispatcher.dispatch_notifications([notification.get('pid')])
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
-    assert number_of_reminders_sent(loan) == 1
+    assert number_of_notifications_sent(loan) == 1
 
     # Try a checkout for a blocked user :: It should be blocked
     res, data = postdata(

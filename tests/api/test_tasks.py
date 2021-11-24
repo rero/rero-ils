@@ -35,7 +35,7 @@ from rero_ils.modules.notifications.api import NotificationsSearch
 from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.notifications.tasks import create_notifications
 from rero_ils.modules.notifications.utils import get_notification, \
-    number_of_reminders_sent
+    number_of_notifications_sent
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.patrons.listener import \
     create_subscription_patron_transaction
@@ -116,7 +116,7 @@ def test_notifications_task(
     # Should not be created
     assert not loan.is_notified(NotificationType.OVERDUE, 1)
     # Should not be sent
-    assert number_of_reminders_sent(
+    assert number_of_notifications_sent(
         loan, notification_type=NotificationType.OVERDUE) == 0
 
     #   For this test, we will update the loan to simulate an overdue of 12
@@ -139,7 +139,7 @@ def test_notifications_task(
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
     assert loan.is_notified(NotificationType.OVERDUE, 0)
-    assert number_of_reminders_sent(
+    assert number_of_notifications_sent(
         loan, notification_type=NotificationType.OVERDUE) == 1
 
     # test overdue notification#2
@@ -149,7 +149,7 @@ def test_notifications_task(
         NotificationType.DUE_SOON,
         NotificationType.OVERDUE
     ], tstamp=datetime.now(timezone.utc))
-    assert number_of_reminders_sent(
+    assert number_of_notifications_sent(
         loan, notification_type=NotificationType.OVERDUE) == 1
 
     # test overdue notification#3
@@ -169,7 +169,7 @@ def test_notifications_task(
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
     assert loan.is_notified(NotificationType.OVERDUE, 1)
-    assert number_of_reminders_sent(
+    assert number_of_notifications_sent(
         loan, notification_type=NotificationType.OVERDUE) == 2
 
     # checkin the item to put it back to it's original state
