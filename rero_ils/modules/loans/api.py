@@ -50,7 +50,7 @@ from ..locations.api import Location, LocationsSearch
 from ..notifications.api import Notification, NotificationsSearch
 from ..notifications.dispatcher import Dispatcher as NotificationDispatcher
 from ..notifications.models import NotificationType
-from ..notifications.utils import number_of_reminders_sent
+from ..notifications.utils import number_of_notifications_sent
 from ..patron_transactions.api import PatronTransactionsSearch
 from ..patrons.api import Patron, PatronsSearch
 from ..utils import date_string_to_utc, get_ref_for_pid
@@ -746,7 +746,7 @@ class Loan(IlsRecord):
 
     def is_notified(self, notification_type=None, counter=0):
         """Check if a notification already exists for a loan by type."""
-        return number_of_reminders_sent(
+        return number_of_notifications_sent(
             self, notification_type=notification_type) > counter
 
     def get_notification_candidates(self, trigger):
@@ -840,24 +840,20 @@ class Loan(IlsRecord):
             }
             # overdue + due_soon
             if n_type in NotificationType.REMINDERS_NOTIFICATIONS:
-                # Do not recreate if an existing notification already exists.
-                if loan.is_notified(n_type, counter):
+                # We only need to create a notification if a corresponding
+                # reminder exists into the linked cipo (we can't create a
+                # OVERDUE_NOTIFICATION#4 if the related cipo only define
+                # two overdue reminders.
+                cipo = get_circ_policy(loan)
+                reminder_type = DUE_SOON_REMINDER_TYPE
+                if n_type != NotificationType.DUE_SOON:
+                    reminder_type = OVERDUE_REMINDER_TYPE
+                reminder = cipo.get_reminder(reminder_type, counter)
+                # Reminder does not exists on the circulation policy.
+                if not reminder:
                     create = False
                 else:
-                    # We only need to create a notification if a corresponding
-                    # reminder exists into the linked cipo (we can't create a
-                    # OVERDUE_NOTIFICATION#4 if the related cipo only define
-                    # two overdue reminders.
-                    cipo = get_circ_policy(loan)
-                    reminder_type = DUE_SOON_REMINDER_TYPE
-                    if n_type != NotificationType.DUE_SOON:
-                        reminder_type = OVERDUE_REMINDER_TYPE
-                    reminder = cipo.get_reminder(reminder_type, counter)
-                    # Reminder does not exists on the circulation policy.
-                    if not reminder:
-                        create = False
-                    else:
-                        record['context']['reminder_counter'] = counter
+                    record['context']['reminder_counter'] = counter
 
             # create the notification and enqueue it.
             if create:

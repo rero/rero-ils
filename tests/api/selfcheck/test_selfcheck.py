@@ -33,7 +33,7 @@ from rero_ils.modules.loans.models import LoanAction, LoanState
 from rero_ils.modules.notifications.api import NotificationsSearch
 from rero_ils.modules.notifications.dispatcher import Dispatcher
 from rero_ils.modules.notifications.models import NotificationType
-from rero_ils.modules.notifications.utils import number_of_reminders_sent
+from rero_ils.modules.notifications.utils import number_of_notifications_sent
 from rero_ils.modules.selfcheck.api import authorize_patron, enable_patron, \
     item_information, patron_information, patron_status, selfcheck_checkin, \
     selfcheck_checkout, selfcheck_login, selfcheck_renew, system_status, \
@@ -156,7 +156,7 @@ def test_patron_information(client, librarian_martigny,
     Dispatcher.dispatch_notifications([notification.get('pid')])
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
-    assert number_of_reminders_sent(loan) == 1
+    assert number_of_notifications_sent(loan) == 1
     # create request
     res, data = postdata(
         client,
@@ -239,7 +239,7 @@ def test_item_information(client, librarian_martigny,
     Dispatcher.dispatch_notifications([notification.get('pid')])
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
-    assert number_of_reminders_sent(loan) == 1
+    assert number_of_notifications_sent(loan) == 1
 
     patron_barcode = selfcheck_patron_martigny\
         .get('patron', {}).get('barcode')[0]

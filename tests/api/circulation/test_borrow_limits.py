@@ -31,7 +31,7 @@ from rero_ils.modules.loans.models import LoanAction
 from rero_ils.modules.notifications.api import NotificationsSearch
 from rero_ils.modules.notifications.dispatcher import Dispatcher
 from rero_ils.modules.notifications.models import NotificationType
-from rero_ils.modules.notifications.utils import number_of_reminders_sent
+from rero_ils.modules.notifications.utils import get_notification
 from rero_ils.modules.patron_types.api import PatronType
 from rero_ils.modules.utils import get_ref_for_pid
 
@@ -289,14 +289,14 @@ def test_overdue_limit(
     assert loan.is_loan_overdue()
     assert loan.end_date == end_date.isoformat()
     assert overdue_loans[0].get('pid') == loan_pid
-    assert number_of_reminders_sent(loan) == 0
+    assert not get_notification(loan, NotificationType.OVERDUE)
 
     notification = loan.create_notification(
         _type=NotificationType.OVERDUE).pop()
     Dispatcher.dispatch_notifications([notification.get('pid')])
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
-    assert number_of_reminders_sent(loan) == 1
+    assert get_notification(loan, NotificationType.OVERDUE)
 
     # Try a second checkout - limit should be reached
     res, data = postdata(

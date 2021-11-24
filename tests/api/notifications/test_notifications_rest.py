@@ -19,14 +19,15 @@
 
 import json
 from copy import deepcopy
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import mock
 import pytest
+import pytz
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
-    postdata, to_relative_url
+    item_record_to_a_specific_loan_state, postdata, to_relative_url
 
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.items.models import ItemStatus
@@ -36,7 +37,8 @@ from rero_ils.modules.loans.models import LoanAction, LoanState
 from rero_ils.modules.notifications.api import Notification, \
     NotificationsSearch
 from rero_ils.modules.notifications.dispatcher import Dispatcher
-from rero_ils.modules.notifications.models import NotificationType
+from rero_ils.modules.notifications.models import NotificationStatus, \
+    NotificationType
 from rero_ils.modules.notifications.tasks import process_notifications
 from rero_ils.modules.notifications.utils import get_notification
 from rero_ils.modules.utils import get_ref_for_pid
@@ -48,24 +50,17 @@ def test_availability_notification(
     """Test availability notification created from a loan."""
     mailbox.clear()
     loan = loan_validated_martigny
-    assert loan.is_notified(notification_type=NotificationType.AVAILABILITY)
-    notification = get_notification(
-        loan_validated_martigny,
-        notification_type=NotificationType.AVAILABILITY
-    )
+    notification = get_notification(loan, NotificationType.AVAILABILITY)
+    assert notification  # ensure a notification exists (possibly not yet sent)
     assert notification.loan_pid == loan_validated_martigny.get('pid')
     assert notification.item_pid == item2_lib_martigny.pid
     assert notification.patron_pid == patron_martigny.pid
 
-    assert not loan_validated_martigny.is_notified(
-        notification_type=NotificationType.RECALL)
-    assert not get_notification(
-        loan_validated_martigny,
-        notification_type=NotificationType.RECALL
-    )
+    assert not get_notification(loan, NotificationType.RECALL)
     for notification_type in NotificationType.ALL_NOTIFICATIONS:
         process_notifications(notification_type)
     assert len(mailbox)
+    assert loan.is_notified(notification_type=NotificationType.AVAILABILITY)
     mailbox.clear()
 
 
@@ -356,7 +351,7 @@ def test_recall_notification(client, patron_sion, lib_sion,
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
     loan = Loan.get_record_by_pid(loan_pid)
 
-    assert not loan.is_notified(notification_type=NotificationType.RECALL)
+    assert not get_notification(loan, NotificationType.RECALL)
     # test notification permissions
     res, data = postdata(
         client,
@@ -374,31 +369,19 @@ def test_recall_notification(client, patron_sion, lib_sion,
     request_loan_pid = data.get(
         'action_applied')[LoanAction.REQUEST].get('pid')
     request_loan = Loan.get_record_by_pid(request_loan_pid)
-
     flush_index(NotificationsSearch.Meta.index)
 
-    assert loan.is_notified(notification_type=NotificationType.RECALL)
-    notification = get_notification(
-        loan, notification_type=NotificationType.RECALL)
-    assert notification.loan_pid == loan.pid
-
-    assert not loan.is_notified(
-        notification_type=NotificationType.AVAILABILITY)
-    assert not get_notification(
-        loan, notification_type=NotificationType.AVAILABILITY)
-
-    assert not get_notification(
-        request_loan, notification_type=NotificationType.REQUEST)
-    assert not request_loan.is_notified(
-        notification_type=NotificationType.REQUEST)
-
+    notification = get_notification(loan, NotificationType.RECALL)
+    assert notification and notification.loan_pid == loan.pid
+    assert not get_notification(loan, NotificationType.AVAILABILITY)
+    assert not get_notification(request_loan, NotificationType.REQUEST)
     assert not len(mailbox)
 
     for notification_type in NotificationType.ALL_NOTIFICATIONS:
         process_notifications(notification_type)
     # one new email for the patron
     assert mailbox[-1].recipients == [patron_sion.dumps()['email']]
-
+    assert loan.is_notified(notification_type=NotificationType.RECALL)
     mailbox.clear()
 
     # cancel request
@@ -427,22 +410,16 @@ def test_recall_notification(client, patron_sion, lib_sion,
         )
     )
     assert res.status_code == 200
-
     flush_index(NotificationsSearch.Meta.index)
 
     assert not loan.is_notified(
         notification_type=NotificationType.RECALL, counter=1)
-
     assert not loan.is_notified(
         notification_type=NotificationType.AVAILABILITY)
-    assert not get_notification(
-        loan, notification_type=NotificationType.AVAILABILITY)
-
-    assert not get_notification(
-        request_loan, notification_type=NotificationType.REQUEST)
+    assert not get_notification(loan, NotificationType.AVAILABILITY)
+    assert not get_notification(request_loan, NotificationType.REQUEST)
     assert not request_loan.is_notified(
         notification_type=NotificationType.REQUEST)
-
     assert len(mailbox) == 0
 
 
@@ -469,8 +446,7 @@ def test_recall_notification_without_email(
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
     loan = Loan.get_record_by_pid(loan_pid)
 
-    assert not loan.is_notified(
-        notification_type=NotificationType.RECALL)
+    assert not get_notification(loan, NotificationType.RECALL)
     # test notification
     res, data = postdata(
         client,
@@ -488,14 +464,9 @@ def test_recall_notification_without_email(
     assert res.status_code == 200
     flush_index(NotificationsSearch.Meta.index)
 
-    assert loan.is_notified(notification_type=NotificationType.RECALL)
-    notification = get_notification(
-        loan, notification_type=NotificationType.RECALL)
-    assert notification.loan_pid == loan.pid
-    assert not loan.is_notified(
-        notification_type=NotificationType.AVAILABILITY)
-    assert not get_notification(
-        loan, notification_type=NotificationType.AVAILABILITY)
+    notification = get_notification(loan, NotificationType.RECALL)
+    assert notification and notification.loan_pid == loan.pid
+    assert not get_notification(loan, NotificationType.AVAILABILITY)
 
     for notification_type in NotificationType.ALL_NOTIFICATIONS:
         process_notifications(notification_type)
@@ -549,8 +520,7 @@ def test_recall_notification_with_patron_additional_email_only(
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
     loan = Loan.get_record_by_pid(loan_pid)
 
-    assert not loan.is_notified(
-        notification_type=NotificationType.RECALL)
+    assert not get_notification(loan, NotificationType.RECALL)
     # test notification
     res, data = postdata(
         client,
@@ -568,16 +538,6 @@ def test_recall_notification_with_patron_additional_email_only(
 
     request_loan_pid = data.get(
         'action_applied')[LoanAction.REQUEST].get('pid')
-
-    assert loan.is_notified(
-        notification_type=NotificationType.RECALL)
-    notification = get_notification(
-        loan, notification_type=NotificationType.RECALL)
-    assert notification.loan_pid == loan.pid
-    assert not loan.is_notified(
-        notification_type=NotificationType.AVAILABILITY)
-    assert not get_notification(
-        loan, notification_type=NotificationType.AVAILABILITY)
 
     for notification_type in NotificationType.ALL_NOTIFICATIONS:
         process_notifications(notification_type)
@@ -944,7 +904,7 @@ def test_cancel_notifications(
 ):
     """Test cancel notifications."""
     login_user_via_session(client, librarian_martigny.user)
-
+    # CREATE and VALIDATE a request ...
     res, data = postdata(
         client,
         'api_item.librarian_request',
@@ -957,11 +917,10 @@ def test_cancel_notifications(
         )
     )
     assert res.status_code == 200
-
     request_loan_pid = data.get(
         'action_applied')[LoanAction.REQUEST].get('pid')
 
-    # flush_index(NotificationsSearch.Meta.index)
+    flush_index(NotificationsSearch.Meta.index)
     res, data = postdata(
         client,
         'api_item.validate_request',
@@ -972,7 +931,14 @@ def test_cancel_notifications(
         )
     )
     assert res.status_code == 200
-    mailbox.clear()
+    # At this time, an AVAILABILITY notification should be create but not yet
+    # dispatched
+    loan = Loan.get_record_by_pid(request_loan_pid)
+    notification = get_notification(loan, NotificationType.AVAILABILITY)
+    assert notification \
+           and notification['status'] == NotificationStatus.CREATED
+
+    # BORROW the requested item
     res, data = postdata(
         client,
         'api_item.checkout',
@@ -987,11 +953,18 @@ def test_cancel_notifications(
     loan_pid = data.get(
         'action_applied')[LoanAction.CHECKOUT].get('pid')
     loan = Loan.get_record_by_pid(loan_pid)
+
+    # Try to dispatch pending availability notifications.
+    # As the item is now checkout, then the availability notification is not
+    # yet relevant.
     mailbox.clear()
     process_notifications(NotificationType.AVAILABILITY)
+
     notification = get_notification(loan, NotificationType.AVAILABILITY)
-    assert notification['status'] == 'canceled'
+    assert notification and \
+           notification['status'] == NotificationStatus.CANCELED
     assert len(mailbox) == 0
+
     # restore to initial state
     res, data = postdata(
         client,
@@ -1015,7 +988,7 @@ def test_cancel_notifications(
     assert not can_cancel
     process_notifications(NotificationType.DUE_SOON)
     notification = Notification.get_record_by_pid(notification.pid)
-    assert notification['status'] == 'done'
+    assert notification['status'] == NotificationStatus.DONE
     flush_index(NotificationsSearch.Meta.index)
 
     # try to create a new DUE_SOON notification for the same loan
@@ -1091,11 +1064,7 @@ def test_delete_pickup_location(
     """Test delete pickup location."""
     mailbox.clear()
     loan = loan2_validated_martigny
-    assert loan.is_notified(notification_type=NotificationType.AVAILABILITY)
-    notification = get_notification(
-        loan,
-        notification_type=NotificationType.AVAILABILITY
-    )
+    notification = get_notification(loan, NotificationType.AVAILABILITY)
     assert notification.pickup_location.pid == loc_restricted_martigny.pid
     # We can not delete location used as transaction or pickup location
     # # any more.
@@ -1103,3 +1072,58 @@ def test_delete_pickup_location(
     assert reasons_not_to_delete == {'links': {'loans': 1}}
     with pytest.raises(IlsRecordError.NotDeleted):
         loc_restricted_martigny.delete(dbcommit=True, delindex=True)
+
+
+def test_overdue_notifications_after_extend(
+    item_lib_martigny, patron_martigny, loc_public_martigny,
+    librarian_martigny, circulation_policies
+):
+    """Test if overdue notifications could be resend after loan extension."""
+
+    # STEP 1 - CREATE BASIC RESOURCES FOR THE TEST
+    #   * Create a loan and update it to be considerate as overdue after
+    #     a first loan extension
+    #   * Create a fake overdue notification for this loan.
+    params = {
+        'patron_pid': patron_martigny.pid,
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny.pid,
+        'pickup_location_pid': loc_public_martigny.pid
+    }
+    item, loan = item_record_to_a_specific_loan_state(
+        item=item_lib_martigny,
+        loan_state=LoanState.ITEM_ON_LOAN,
+        params=params, copy_item=True)
+    overdue_date = datetime.now() - timedelta(days=30)
+    loan['end_date'] = overdue_date.astimezone(pytz.utc).isoformat()
+    loan['trigger'] = 'extend'
+    loan = loan.update(loan, dbcommit=True, reindex=True)
+    assert loan.is_loan_overdue()
+
+    creation_date = datetime.now() - timedelta(days=15)
+    data = {
+        'context': {
+            'loan': {'$ref': get_ref_for_pid('loans', loan.pid)},
+            'reminder_counter': 0
+        },
+        'creation_date': creation_date.astimezone(pytz.utc).isoformat(),
+        'notification_sent': True,
+        'notification_type': NotificationType.OVERDUE,
+        'process_date': creation_date.astimezone(pytz.utc).isoformat(),
+        'status': NotificationStatus.DONE
+    }
+    fake_notification = Notification.create(data, dbcommit=True, reindex=True)
+    assert fake_notification
+    counter = NotificationsSearch()\
+        .filter('term', context__loan__pid=loan.pid)\
+        .filter('term', notification_type=NotificationType.OVERDUE)\
+        .count()
+    assert counter == 1
+
+    # STEP 2 - CREATE NEW OVERDUE NOTIFICATIONS
+    notification = loan.create_notification(_type=NotificationType.OVERDUE)[0]
+    can_cancel, _ = notification.can_be_cancelled()
+    assert not can_cancel
+    process_notifications(NotificationType.OVERDUE)
+    notification = Notification.get_record_by_pid(notification.pid)
+    assert notification['status'] == NotificationStatus.DONE
