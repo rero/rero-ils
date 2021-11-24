@@ -38,8 +38,7 @@ from rero_ils.modules.items.models import ItemCirculationAction
 from rero_ils.modules.items.utils import item_pid_to_object
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.api import Loan
-from rero_ils.modules.patrons.api import Patron, current_librarian, \
-    current_patrons
+from rero_ils.modules.patrons.api import Patron, current_librarian
 from rero_ils.modules.views import check_authentication
 from rero_ils.permissions import request_item_permission
 
@@ -168,12 +167,7 @@ def patron_request(item, data):
         pickup_location_pid
     """
     # get the patron account of the same org of the location pid
-    def get_patron(item):
-        for ptrn in current_patrons:
-            if ptrn.organisation_pid == item.organisation_pid:
-                return ptrn
-
-    patron_pid = get_patron(item).pid
+    patron_pid = Patron.get_current_patron(item).pid
     data['patron_pid'] = patron_pid
     data['transaction_user_pid'] = patron_pid
     data['transaction_location_pid'] = data['pickup_location_pid']
