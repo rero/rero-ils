@@ -769,6 +769,16 @@ class Patron(IlsRecord):
                 self.reindex()
                 PatronsSearch.flush_and_refresh()
 
+    def get_current_patron(record):
+        """Return the patron account belongs to record's organisation.
+
+        :param record - a valid rero_ils resource/object.
+        :returns: The patron record linked to the organisation.
+        """
+        for ptrn in current_patrons:
+            if ptrn.organisation_pid == record.organisation_pid:
+                return ptrn
+
 
 class PatronsIndexer(IlsRecordsIndexer):
     """Holdings indexing class."""
