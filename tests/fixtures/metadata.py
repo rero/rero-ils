@@ -418,8 +418,8 @@ def item_lib_martigny_bourg_data(data):
 
 
 @pytest.fixture(scope="module")
-def temporary_item_lib_martigny_data(data):
-    """Load temporary item of martigny library."""
+def provisional_item_lib_martigny_data(data):
+    """Load provisional item of martigny library."""
     return deepcopy(data.get('item11'))
 
 
