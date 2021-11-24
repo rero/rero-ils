@@ -22,12 +22,22 @@ from __future__ import absolute_import, print_function
 
 from functools import wraps
 
+from elasticsearch import exceptions
 from flask import Blueprint, abort, current_app, jsonify
 from flask import request as flask_request
+from invenio_circulation.errors import CirculationException, \
+    MissingRequiredParameterError
 from invenio_db import db
 from jinja2.exceptions import TemplateSyntaxError, UndefinedError
 from werkzeug.exceptions import NotFound, Unauthorized
 
+from rero_ils.modules.errors import NoCirculationActionIsPermitted
+from rero_ils.modules.items.api import Item
+from rero_ils.modules.items.models import ItemStatus
+from rero_ils.modules.items.views.api_views import \
+    check_authentication_for_request, check_logged_user_authentication
+from rero_ils.modules.patrons.api import Patron
+from rero_ils.modules.utils import get_ref_for_pid
 from rero_ils.modules.views import check_authentication
 
 from .api import Holding
@@ -139,3 +149,99 @@ def receive_regular_issue(holding_pid):
         abort(400)
     # the created item of type issue is returned
     return jsonify({'issue': issue})
+
+
+def do_holding_jsonify_action(func):
+    """Jsonify loan actions for holdings methods.
+
+    This method for the circulation actions that required access to the holding
+    object before executing the invenio-circulation logic.
+    """
+    @wraps(func)
+    def decorated_view(*args, **kwargs):
+        try:
+            data = flask_request.get_json()
+            description = data.pop('description')
+        except KeyError:
+            # The description parameter is missing.
+            abort(400, str('missing description parameter.'))
+
+        try:
+            holding_pid = data.pop('holding_pid', None)
+            holding = Holding.get_record_by_pid(holding_pid)
+            if not holding:
+                abort(404, 'Holding not found')
+            # create a provisional item
+            item_metadata = {
+                'type': 'provisional',
+                'document': {
+                    '$ref': get_ref_for_pid('doc', holding.document_pid)},
+                'location': {
+                    '$ref': get_ref_for_pid('loc', holding.location_pid)},
+                'item_type': {'$ref': get_ref_for_pid(
+                    'itty', holding.circulation_category_pid)},
+                'enumerationAndChronology': description,
+                'status': ItemStatus.ON_SHELF,
+                'holding': {'$ref': get_ref_for_pid('hold', holding.pid)}
+            }
+            item = Item.create(item_metadata, dbcommit=True, reindex=True)
+
+            _, action_applied = func(holding, item, data, *args, **kwargs)
+            return jsonify({
+                'action_applied': action_applied
+            })
+        except NoCirculationActionIsPermitted:
+            # The circulation specs do not allow updates on some loan states.
+            return jsonify({'status': 'error: Forbidden'}), 403
+        except MissingRequiredParameterError as error:
+            # Return error 400 when there is a missing required parameter
+            abort(400, str(error))
+        except CirculationException as error:
+            abort(403, error.description or str(error))
+        except NotFound as error:
+            raise error
+        except exceptions.RequestError as error:
+            # missing required parameters
+            return jsonify({'status': f'error: {error}'}), 400
+        except Exception as error:
+            # TODO: need to know what type of exception and document there.
+            # raise error
+            current_app.logger.error(str(error))
+            return jsonify({'status': f'error: {error}'}), 400
+    return decorated_view
+
+
+@api_blueprint.route('/patron_request', methods=['POST'])
+@check_logged_user_authentication
+@check_authentication_for_request
+@do_holding_jsonify_action
+def patron_request(holding, item, data):
+    """HTTP POST request for Holding request action by a patron.
+
+    required_parameters:
+        holding_pid,
+        pickup_location_pid,
+        description
+    """
+    patron_pid = Patron.get_current_patron(holding).pid
+    data['patron_pid'] = patron_pid
+    data['transaction_user_pid'] = patron_pid
+    data['transaction_location_pid'] = data['pickup_location_pid']
+    return item.request(**data)
+
+
+@api_blueprint.route('/request', methods=['POST'])
+@check_authentication
+@do_holding_jsonify_action
+def librarian_request(holding, item, data):
+    """HTTP POST request for Holding request action.
+
+    required_parameters:
+        holding_pid,
+        pickup_location_pid,
+        description,
+        patron_pid,
+        transaction_location_pid or transaction_library_pid,
+        transaction_user_pid
+    """
+    return item.request(**data)
