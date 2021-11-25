@@ -97,6 +97,74 @@ def test_pids_exists_in_data(app, org_martigny, lib_martigny):
     )
     assert ok == ['test: Pid does not exist: org org2']
 
+    ok = pids_exists_in_data(
+        info='partOf',
+        data={
+            'partOf': [{
+                '$ref': 'https://bib.rero.ch/api/documents/doc1'
+            }, {
+                '$ref': 'https://bib.rero.ch/api/documents/doc2'
+            }]
+        },
+        not_required={'doc': 'partOf'}
+    )
+    assert ok == [
+        'partOf: Pid does not exist: doc doc1',
+        'partOf: Pid does not exist: doc doc2'
+    ]
+
+    ok = pids_exists_in_data(
+        info='other',
+        data={
+            "supplement": [{
+                "$ref": "https://bib.rero.ch/api/documents/supplement"
+            }],
+            "supplementTo": [{
+                "$ref": "https://bib.rero.ch/api/documents/supplementTo"
+            }],
+            "otherEdition": [{
+                "$ref": "https://bib.rero.ch/api/documents/otherEdition"
+            }],
+            "otherPhysicalFormat": [{
+                "$ref": "https://bib.rero.ch/api/documents/otherPhysicalFormat"
+            }],
+            "issuedWith": [{
+                "$ref": "https://bib.rero.ch/api/documents/issuedWith"
+            }],
+            "precededBy": [{
+                "$ref": "https://bib.rero.ch/api/documents/precededBy"
+            }],
+            "succeededBy": [{
+                "$ref": "https://bib.rero.ch/api/documents/succeededBy"
+            }],
+            "relatedTo": [{
+                "$ref": "https://bib.rero.ch/api/documents/relatedTo"
+            }],
+            "hasReproduction": [{
+                "label": "Ed. sur microfilm: La Chaux-de-Fonds"
+            }],
+            "reproductionOf": [{
+                 "label": "Reprod. de l'\u00e9d. de: Leipzig, 1834-1853"
+            }]
+        },
+        not_required={'doc': [
+            'supplement', 'supplementTo', 'otherEdition',
+            'otherPhysicalFormat', 'issuedWith', 'precededBy',
+            'succeededBy', 'relatedTo', 'hasReproduction',
+            'reproductionOf'
+        ]}
+    )
+    assert ok == [
+        'other: Pid does not exist: doc supplement',
+        'other: Pid does not exist: doc supplementTo',
+        'other: Pid does not exist: doc otherEdition',
+        'other: Pid does not exist: doc otherPhysicalFormat',
+        'other: Pid does not exist: doc issuedWith',
+        'other: Pid does not exist: doc precededBy',
+        'other: Pid does not exist: doc succeededBy',
+        'other: Pid does not exist: doc relatedTo',
+    ]
+
 
 def test_get_language(app):
     """Test get the current language of the application."""

@@ -103,12 +103,16 @@ class Document(IlsRecord):
             ) or True
             if validation_message is True:
                 # also test partOf
-                validation_message = pids_exists_in_data(
-                    info=f'{self.provider.pid_type} ({self.pid})',
-                    data=self.get('partOf', {}),
-                    required={},
-                    not_required={'doc': 'document'}
-                ) or True
+                part_of = self.get('partOf', [])
+                if part_of:
+                    # make a list of refs for easier testing
+                    part_of_documents = [doc['document'] for doc in part_of]
+                    validation_message = pids_exists_in_data(
+                        info=f'{self.provider.pid_type} ({self.pid})',
+                        data={'partOf': part_of_documents},
+                        required={},
+                        not_required={'doc': 'partOf'}
+                    ) or True
             if validation_message is not True:
                 raise ValidationError(validation_message)
         return json
