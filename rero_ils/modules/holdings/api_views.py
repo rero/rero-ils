@@ -32,10 +32,12 @@ from jinja2.exceptions import TemplateSyntaxError, UndefinedError
 from werkzeug.exceptions import NotFound, Unauthorized
 
 from rero_ils.modules.errors import NoCirculationActionIsPermitted
+from rero_ils.modules.holdings.models import HoldingCirculationAction
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.items.views.api_views import \
     check_authentication_for_request, check_logged_user_authentication
+from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.utils import get_ref_for_pid
 from rero_ils.modules.views import check_authentication
@@ -245,3 +247,50 @@ def librarian_request(holding, item, data):
         transaction_user_pid
     """
     return item.request(**data)
+
+
+@api_blueprint.route('/<holding_pid>/can_request', methods=['GET'])
+@check_logged_user_authentication
+@jsonify_error
+def can_request(holding_pid):
+    """HTTP request to check if an holding can be requested.
+
+    Depending of query string argument, check if either configuration
+    allows the request of the holding or if a librarian can request an
+    holding for a patron.
+
+    `api/holding/<holding_pid>/can_request` :
+         --> only check config
+    `api/holding/<holding_pid>/can_request?library_pid=<library_pid>&patron_barcode=<barcode>`:
+         --> check if the patron can request an holding (check the cipo)
+    """
+    kwargs = {}
+
+    holding = Holding.get_record_by_pid(holding_pid)
+    if not holding:
+        abort(404, 'Holding not found')
+
+    patron_barcode = flask_request.args.get('patron_barcode')
+    if patron_barcode:
+        kwargs['patron'] = Patron.get_patron_by_barcode(
+            patron_barcode, holding.organisation_pid)
+        if not kwargs['patron']:
+            abort(404, 'Patron not found')
+
+    library_pid = flask_request.args.get('library_pid')
+    if library_pid:
+        kwargs['library'] = Library.get_record_by_pid(library_pid)
+        if not kwargs['library']:
+            abort(404, 'Library not found')
+
+    can, reasons = holding.can(HoldingCirculationAction.REQUEST, **kwargs)
+
+    # check the `reasons_not_request` array. If it's empty, the request is
+    # allowed, otherwise the request is not allowed and we need to return the
+    # reasons why
+    response = {'can': can}
+    if reasons:
+        response['reasons'] = {
+            'others': {reason: True for reason in reasons}
+        }
+    return jsonify(response)
