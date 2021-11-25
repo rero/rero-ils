@@ -310,3 +310,68 @@ def test_holdings_post_put_delete(client, holding_lib_martigny_data_tmp,
 
     res = client.get(item_url)
     assert res.status_code == 410
+
+
+def test_holding_request(client, librarian_martigny, patron_martigny,
+                         holding_lib_martigny, holding_lib_martigny_w_patterns,
+                         lib_martigny, circ_policy_short_martigny):
+    """Test holding can be requested"""
+    # test patron can request holding
+    login_user_via_session(client, patron_martigny.user)
+    patron = patron_martigny
+
+    res = client.get(
+        url_for(
+            'api_holding.can_request',
+            holding_pid=holding_lib_martigny_w_patterns.pid,
+            library_pid=lib_martigny.pid,
+            patron_barcode=patron.patron.get('barcode')
+        )
+    )
+    response = json.loads(res.data)
+    assert response['can']
+
+    # test librarian can request holding
+    login_user_via_session(client, librarian_martigny.user)
+    patron = librarian_martigny
+
+    res = client.get(
+        url_for(
+            'api_holding.can_request',
+            holding_pid=holding_lib_martigny_w_patterns.pid,
+            library_pid=lib_martigny.pid,
+            patron_barcode=patron.patron.get('barcode')
+        )
+    )
+    response = json.loads(res.data)
+    assert response['can']
+
+    # test patron cannot request holding
+    login_user_via_session(client, patron_martigny.user)
+    patron = patron_martigny
+
+    res = client.get(
+        url_for(
+            'api_holding.can_request',
+            holding_pid=holding_lib_martigny.pid,
+            library_pid=lib_martigny.pid,
+            patron_barcode=patron.patron.get('barcode')
+        )
+    )
+    response = json.loads(res.data)
+    assert not response['can']
+
+    # test librarian cannot request holding
+    login_user_via_session(client, librarian_martigny.user)
+    patron = librarian_martigny
+
+    res = client.get(
+        url_for(
+            'api_holding.can_request',
+            holding_pid=holding_lib_martigny.pid,
+            library_pid=lib_martigny.pid,
+            patron_barcode=patron.patron.get('barcode')
+        )
+    )
+    response = json.loads(res.data)
+    assert not response['can']

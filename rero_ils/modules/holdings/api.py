@@ -28,6 +28,7 @@ from dateutil.relativedelta import relativedelta
 from elasticsearch_dsl import Q
 from flask import current_app
 from flask_babelex import gettext as _
+from invenio_records_rest.utils import obj_or_import_string
 from jinja2 import Environment
 
 from rero_ils.modules.items.models import ItemIssueStatus
@@ -450,6 +451,41 @@ class Holding(IlsRecord):
         """Display the text of the next predicted issue."""
         if self.patterns:
             return self._get_next_issue_display_text(self.patterns)[0]
+
+    def get_location(self):
+        """Shortcut to the location of holding."""
+        return Location.get_record_by_pid(self.location_pid)
+
+    def can(self, action, **kwargs):
+        """Check if a specific action is allowed on this holding.
+
+        :param action : the action to check as HoldingCirculationAction part
+        :param kwargs : all others named arguments useful to check
+        :return a tuple with True|False to know if the action is possible and
+                a list of reasons to disallow if False.
+        """
+        can, reasons = True, []
+        actions = current_app.config\
+            .get('HOLDING_CIRCULATION_ACTIONS_VALIDATION', {})
+        for func_name in actions['request']:
+            class_name = func_name.__self__.__name__
+            func_callback = obj_or_import_string(func_name)
+            func_can, func_reasons = func_callback(self, **kwargs)
+            reasons += func_reasons
+            can = can and func_can
+        return can, reasons
+
+    @classmethod
+    def can_request(cls, holding, **kwargs):
+        """Check if holding can be requested depending on type.
+
+        :param holding : the holding to check
+        :param kwargs : addition arguments
+        :return a tuple with True|False and reasons to disallow if False.
+        """
+        if holding and not holding.is_serial:
+            return False, [_('Only serial holdings can be requested.')]
+        return True, []
 
     @classmethod
     def _get_next_issue_display_text(cls, patterns):
