@@ -378,12 +378,19 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(minute=0, hour=1),  # Every day at 01:00 UTC,
         'enabled': False
     },
-    'find-contribution': {
-        'task': ('rero_ils.modules.documents.tasks.find_contribution'),
+    'replace-idby-contribution': {
+        'task': ('rero_ils.modules.documents.tasks.replace-idby-contribution'),
         'schedule': crontab(minute=22, hour=22, day_of_week=6),
         # Every week on Saturday at 22:22 UTC,
         'enabled': False
     },
+    'replace_idby-subjects': {
+        'task': ('rero_ils.modules.documents.tasks.replace_idby-subjects'),
+        'schedule': crontab(minute=22, hour=22, day_of_week=6),
+        # Every week on Saturday at 22:22 UTC,
+        'enabled': False
+    },
+
     # 'mef-harvester': {
     #     'task': 'rero_ils.modules.apiharvester.tasks.harvest_records',
     #     'schedule': timedelta(minutes=60),

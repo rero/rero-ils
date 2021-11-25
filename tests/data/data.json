@@ -1678,6 +1678,24 @@
         ]
       }
     ],
+    "subjects": [
+      {
+        "type": "bf:Topic",
+        "term": "thriller"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "suspense"
+      },
+      {
+        "preferred_name": "Nebehay, Christian Michael",
+        "type": "bf:Person",
+        "identifiedBy": {
+          "type": "RERO",
+          "value": "A003633163"
+        }
+      }
+    ],
     "dimensions": [
       "18 cm"
     ],
