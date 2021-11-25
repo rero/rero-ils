@@ -249,13 +249,6 @@ class Patron(IlsRecord):
         """
         return _datastore.find_user(id=user_id)
 
-    @property
-    def profile_url(self):
-        """Get the link to the RERO_ILS patron profile URL."""
-        view_code = self.get_organisation().get('code')
-        base_url = current_app.config.get('RERO_ILS_APP_URL')
-        return f'{base_url}/{view_code}/patrons/profile'
-
     # TODO: use cached property one we found how to invalidate the cache when
     #       the user change
     @property

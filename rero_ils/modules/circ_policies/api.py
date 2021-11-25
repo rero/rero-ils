@@ -373,14 +373,17 @@ class CircPolicy(IlsRecord):
             return reminders[idx]
 
     @classmethod
-    def can_request(cls, item, **kwargs):
-        """Check if the cipo corresponding to item/patron allow request.
+    def can_request(cls, record, **kwargs):
+        """Check if the cipo corresponding to record/patron allow request.
 
-        :param item : the item to check
+        :param record : the record to check (Item or Holding)
         :param kwargs : To be relevant, additional arguments should contains
                         'patron' argument.
         :return a tuple with True|False and reasons to disallow if False.
         """
+        from ..holdings.api import Holding
+        from ..items.api import Item
+
         patron = get_patron_from_arguments(**kwargs)
         if not patron:
             # none patron get be load from kwargs argument. This check can't
@@ -391,13 +394,24 @@ class CircPolicy(IlsRecord):
             # can't find any corresponding cipo --> return False
             return False, ["Patron doesn't have the correct role"]
         library_pid = kwargs['library'].pid if kwargs.get('library') \
-            else item.library_pid
+            else record.library_pid
+
+        if isinstance(record, Item):
+            record_circulation_category_pid = \
+                record.item_type_circulation_category_pid
+        elif isinstance(record, Holding):
+            record_circulation_category_pid = \
+                record.circulation_category_pid
+        else:
+            raise Exception(f'This resource cannot be \
+                requested : {record.__class__.__name__}')
+
         cipo = cls.provide_circ_policy(
-            item.organisation_pid,
-            library_pid,
-            patron.patron_type_pid,
-            item.item_type_circulation_category_pid
-        )
+                record.organisation_pid,
+                library_pid,
+                patron.patron_type_pid,
+                record_circulation_category_pid
+            )
         if not cipo.get('allow_requests', False):
             return False, ["Circulation policy disallows the operation."]
         return True, []
