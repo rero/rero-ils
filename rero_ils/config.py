@@ -63,6 +63,7 @@ from .modules.contributions.permissions import ContributionPermission
 from .modules.documents.api import Document
 from .modules.documents.permissions import DocumentPermission
 from .modules.holdings.api import Holding
+from .modules.holdings.models import HoldingCirculationAction
 from .modules.holdings.permissions import HoldingPermission
 from .modules.ill_requests.api import ILLRequest
 from .modules.ill_requests.permissions import ILLRequestPermission
@@ -3048,6 +3049,15 @@ CIRCULATION_ACTIONS_VALIDATION = {
     ]
 }
 
+HOLDING_CIRCULATION_ACTIONS_VALIDATION = {
+    HoldingCirculationAction.REQUEST: [
+        Location.can_request,
+        Holding.can_request,
+        CircPolicy.can_request,
+        Patron.can_request,
+        PatronType.can_request
+    ]
+}
 # WIKI
 # ====
 WIKI_CONTENT_DIR = './wiki'

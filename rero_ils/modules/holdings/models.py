@@ -66,3 +66,9 @@ class HoldingNoteTypes:
     # to display them on the interface
     PUBLIC = [
     ]
+
+
+class HoldingCirculationAction:
+    """Enum class to list all possible action about an holding."""
+
+    REQUEST = 'request'

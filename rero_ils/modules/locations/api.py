@@ -176,15 +176,15 @@ class Location(IlsRecord):
         return location_pids
 
     @classmethod
-    def can_request(cls, item, **kwargs):
-        """Check if an item can be requested regarding its location.
+    def can_request(cls, record, **kwargs):
+        """Check if an record can be requested regarding its location.
 
-        :param item : the item to check
+        :param record : the record to check
         :param kwargs : addition arguments
         :return a tuple with True|False and reasons to disallow if False.
         """
-        if item and not item.get_location().get('allow_request', False):
-            return False, [_('Item location disallows request.')]
+        if record and not record.get_location().get('allow_request', False):
+            return False, [_('Record location disallows request.')]
         return True, []
 
     def transaction_location_validator(self, location_pid):
