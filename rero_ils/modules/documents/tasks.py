@@ -19,110 +19,88 @@
 
 from __future__ import absolute_import, print_function
 
-import click
 from celery import shared_task
-# from celery.task.control import inspect
-from flask import current_app
 
-from .api import Document, DocumentsSearch
+from .utils_mef import ReplaceMefIdentifiedByContribution, \
+    ReplaceMefIdentifiedBySubjects
 from ..contributions.api import Contribution
 
 
+def get_contribution_or_create(ref_pid, ref_type, count_found, count_exists,
+                               count_no_data, count_no_mef):
+    """Get existing contribution or greate new one."""
+    ref = f'{ref_type}/{ref_pid}'
+    if ref_type and ref_pid:
+        # Try to get existing contribution
+        cont = Contribution.get_contribution(ref_type, ref_pid)
+        if cont:
+            # contribution exist allready
+            count_exists.setdefault(ref, 0)
+            count_exists[ref] += 1
+        else:
+            # contribution does not exist
+            try:
+                # try to get the contribution online
+                data = Contribution._get_mef_data_by_type(
+                    ref_pid, ref_type)
+                metadata = data['metadata']
+                if (
+                    metadata.get('idref') or
+                    metadata.get('gnd') or
+                    metadata.get('rero')
+                ):
+                    count_found.setdefault(
+                        ref,
+                        {'count': 0, 'mef': metadata.get('pid')}
+                    )
+                    count_found[ref]['count'] += 1
+                    # delete mef $schema
+                    metadata.pop('$schema', None)
+                    # create local contribution
+                    cont = Contribution.create(
+                        data=metadata, dbcommit=True, reindex=True)
+                else:
+                    # online contribution has no IdREf, GND or RERO
+                    count_no_data.setdefault(ref, 0)
+                    count_no_data[ref] += 1
+            except Exception:
+                # no online contribution found
+                count_no_mef.setdefault(ref, 0)
+                count_no_mef[ref] += 1
+    return cont, count_found, count_exists, count_no_data, count_no_mef
+
+
 @shared_task(ignore_result=True)
-def find_contribution(verbose=False):
-    """Records creation and indexing.
+def replace_idby_contribution(verbose=False, details=False, timestamp=True):
+    """Replace identifiedBy contributions with $ref.
 
     :param verbose: Verbose print.
-    :returns: cont_found cunt, cont_exists count,
-              IdRef not cont_found count, MEF not cont_found count
+    :param details: Details print.
+    :returns: count found, count exists,
+              count Idref, GND not found, count MEF not found
     """
-    query = DocumentsSearch() \
-        .filter('exists', field='contribution.agent.identifiedBy') \
-        .source(['pid']) \
-        .scan()
-    cont_found = {}
-    cont_exists = {}
-    cont_no_idref = {}
-    cont_no_mef = {}
-    mef_url = current_app.config.get('RERO_ILS_MEF_AGENTS_URL')
-    for hit in query:
-        doc = Document.get_record_by_id(hit.meta.id)
-        new_contributions = []
-        changed = False
-        for contribution in doc.get('contribution', []):
-            cont = None
-            new_contributions.append(contribution)
-            ref_type = contribution['agent'].get(
-                'identifiedBy', {}).get('type', '').lower()
-            ref_pid = contribution['agent'].get(
-                'identifiedBy', {}).get('value')
-            ref = f'{ref_type}/{ref_pid}'
-            if ref_type and ref_pid:
-                # Try to get existing contribution
-                cont = Contribution.get_contribution(ref_type, ref_pid)
-                if not cont:
-                    # contribution does not exist
-                    try:
-                        # try to get the contribution online
-                        data = Contribution._get_mef_data_by_type(
-                            ref_pid, ref_type)
-                        metadata = data['metadata']
-                        if metadata.get('idref'):
-                            cont_found.setdefault(
-                                ref,
-                                {'count': 0, 'mef': metadata.get('pid')}
-                            )
-                            cont_found[ref]['count'] += 1
-                            # create local contribution
-                            metadata.pop('$schema', None)
-                            cont = Contribution.create(
-                                data=metadata, dbcommit=True, reindex=True)
-                        else:
-                            # online contribution has no IdREf
-                            cont_no_idref.setdefault(ref, 0)
-                            cont_no_idref[ref] += 1
-                    except Exception:
-                        # no online contribution found
-                        cont_no_mef.setdefault(ref, 0)
-                        cont_no_mef[ref] += 1
-                else:
-                    # contribution exist allready
-                    cont_exists.setdefault(ref, 0)
-                    cont_exists[ref] += 1
-            if cont:
-                # change the contribution to linked contribution
-                if cont.get('idref'):
-                    changed = True
-                    url = f'{mef_url}/idref/{cont["idref"]["pid"]}'
-                    new_contributions[-1]['agent'] = {
-                        '$ref': url,
-                        'type': contribution['agent']['type']
-                    }
-                else:
-                    # contribution has no IdREf
-                    cont_no_idref.setdefault(ref, 0)
-                    cont_no_idref[ref] += 1
-        if changed:
-            doc['contribution'] = new_contributions
-            doc.update(data=doc, dbcommit=True, reindex=True)
-    if verbose:
-        if cont_found:
-            click.secho('Found:', fg='green')
-            for key, value in cont_found.items():
-                click.echo(f'\t{key}  MEF pid: {value["mef"]} '
-                           f'count: {value["count"]}')
-        for msg, data in {
-            'Exist:': cont_exists,
-            'No IdRef:': cont_no_idref,
-            'No Mef:': cont_no_mef
-        }.items():
-            if data:
-                click.secho(msg, fg='yellow')
-                for key, value in data.items():
-                    click.echo(f'\t{key}  count: {value}')
-    return (
-        len(cont_found),
-        len(cont_exists),
-        len(cont_no_idref),
-        len(cont_no_mef)
-    )
+    replace_contribution = ReplaceMefIdentifiedByContribution(verbose=verbose)
+    replace_contribution.process()
+    if timestamp:
+        replace_contribution.set_timestamp()
+    if details:
+        replace_contribution.print_details()
+    return replace_contribution.counts_len
+
+
+@shared_task(ignore_result=True)
+def replace_idby_subjects(verbose=False, details=False, timestamp=True):
+    """Replace identifiedBy subjects with $ref.
+
+    :param verbose: Verbose print.
+    :param details: Details print.
+    :returns: count found, count exists,
+              count Idref, GND not found, count MEF not found
+    """
+    replace_subjects = ReplaceMefIdentifiedBySubjects(verbose=verbose)
+    replace_subjects.process()
+    if timestamp:
+        replace_subjects.set_timestamp()
+    if details:
+        replace_subjects.print_details()
+    return replace_subjects.counts_len

@@ -25,6 +25,7 @@ from elasticsearch_dsl import A
 from flask import current_app
 from invenio_db import db
 from requests import codes as requests_codes
+from requests.exceptions import RequestException
 
 from .models import ContributionIdentifier, ContributionMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
@@ -152,6 +153,7 @@ class Contribution(IlsRecord):
             else:
                 mef_url = f'{url}/mef/?q={pid_type}.pid:{pid}'
         request = requests.get(url=mef_url, params=dict(resolve=1, sources=1))
+        status = request.status_code
         if request.status_code == requests_codes.ok:
             try:
                 data = request.json().get('hits', {}).get('hits', [None])
@@ -159,13 +161,13 @@ class Contribution(IlsRecord):
             except Exception as err:
                 msg = f'MEF resolver no metadata: {mef_url}'
                 if verbose:
-                    current_app.logger.error(msg)
-                raise Exception(msg)
+                    current_app.logger.warning(msg)
+                raise ValueError(msg)
         else:
-            msg = f'Mef http error: {request.status_code} {mef_url}'
+            msg = f'Mef http error: {status} {mef_url}'
             if verbose:
                 current_app.logger.error(msg)
-            raise Exception(msg)
+            raise RequestException(msg)
 
     def get_first(self, key, default=None):
         """Get the first value for given key among MEF source list."""
