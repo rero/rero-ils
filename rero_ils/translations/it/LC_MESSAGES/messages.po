@@ -19,15 +19,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-10-25 10:54+0200\n"
-"PO-Revision-Date: 2021-09-30 05:46+0000\n"
+"PO-Revision-Date: 2021-11-19 21:49+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/it/>\n"
 "Language: it\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/it/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.9.1\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: rero_ils/accounts_views.py:46 rero_ils/accounts_views.py:69
@@ -10333,15 +10334,15 @@ msgstr "Attuale conteggio dei richiami"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:61
 msgid "Recipient email addresses"
-msgstr ""
+msgstr "Indirizzi e-mail dei destinatari"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:65
 msgid "Recipient"
-msgstr ""
+msgstr "Destinatario"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:74
 msgid "Recipient type"
-msgstr ""
+msgstr "Tipo di destinatario"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:96
 msgid "Schema to validate notifications records against."
@@ -13075,4 +13076,3 @@ msgstr "La tua parola d'ordine è stata reimposta con successo."
 
 #~ msgid "Articles"
 #~ msgstr "articolo"
-
