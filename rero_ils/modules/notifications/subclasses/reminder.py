@@ -25,7 +25,7 @@ from num2words import num2words
 
 from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE, \
     OVERDUE_REMINDER_TYPE
-from rero_ils.modules.documents.dumpers import DocumentNotificationDumper
+from rero_ils.modules.documents.dumpers import DocumentGenericDumper
 from rero_ils.modules.libraries.dumpers import \
     LibraryCirculationNotificationDumper
 from rero_ils.modules.loans.utils import get_circ_policy
@@ -162,7 +162,7 @@ class ReminderCirculationNotification(CirculationNotification):
             'loans': []
         })
         # Add metadata for any ``notification.loan`` of the notifications list
-        doc_dumper = DocumentNotificationDumper()
+        doc_dumper = DocumentGenericDumper()
         item_dumper = ItemNotificationDumper()
         language = language_iso639_2to1(notifications[0].get_language_to_use())
         for notification in notifications:

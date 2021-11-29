@@ -22,7 +22,7 @@ from __future__ import absolute_import, print_function
 
 import ciso8601
 
-from rero_ils.modules.documents.dumpers import DocumentNotificationDumper
+from rero_ils.modules.documents.dumpers import DocumentGenericDumper
 from rero_ils.modules.libraries.dumpers import \
     LibraryCirculationNotificationDumper
 from rero_ils.modules.patrons.dumpers import PatronNotificationDumper
@@ -96,7 +96,7 @@ class AvailabilityCirculationNotification(CirculationNotification):
             if setting['type'] == NotificationType.AVAILABILITY:
                 context.update({'delay': setting.get('delay', 0)})
         # Add metadata for any ``notification.loan`` of the notifications list
-        doc_dumper = DocumentNotificationDumper()
+        doc_dumper = DocumentGenericDumper()
         for notification in notifications:
             loc = lib = None
             keep_until = notification.loan.get('request_expire_date')

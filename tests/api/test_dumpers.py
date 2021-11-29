@@ -18,6 +18,8 @@
 
 """Tests dumpers from RERO-ILS projects."""
 from rero_ils.modules.acq_orders.dumpers import AcqOrderNotificationDumper
+from rero_ils.modules.documents.dumpers import DocumentAcquisitionDumper, \
+    DocumentGenericDumper
 from rero_ils.modules.libraries.dumpers import \
     LibraryAcquisitionNotificationDumper
 
@@ -52,3 +54,19 @@ def test_library_dumpers(lib_martigny, lib_saxon):
         dumper=LibraryAcquisitionNotificationDumper())
     assert dump_data['shipping_informations']
     assert 'billing_informations' not in dump_data
+
+
+def test_document_dumpers(document):
+    """Test document dumpers."""
+    dump_data = document.dumps(
+        dumper=DocumentGenericDumper()
+    )
+    assert dump_data['pid']
+    assert dump_data['title_text']
+
+    dump_data = document.dumps(
+        dumper=DocumentAcquisitionDumper()
+    )
+    assert dump_data['pid']
+    assert dump_data['title_text']
+    assert dump_data['identifiers']

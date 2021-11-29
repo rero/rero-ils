@@ -35,6 +35,7 @@ def test_order_line_properties(
     """Test order line properties."""
     order_line = acq_order_line_fiction_martigny
     assert order_line.account.pid == acq_account_fiction_martigny.pid
+    assert order_line.order_pid == acq_order_fiction_martigny.pid
     assert order_line.order.pid == acq_order_fiction_martigny.pid
     assert order_line.document.pid == document.pid
     assert order_line.unreceived_quantity == order_line.get('quantity')

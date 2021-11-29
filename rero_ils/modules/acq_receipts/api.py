@@ -24,7 +24,8 @@ from functools import partial
 from rero_ils.modules.acq_receipt_lines.api import AcqReceiptLine, \
     AcqReceiptLinesSearch
 
-from .extensions import AcqReceiptExtension
+from .extensions import AcqReceiptExtension, \
+    AcquisitionReceiptCompleteDataExtension
 from .models import AcqReceiptIdentifier, AcqReceiptLineCreationStatus, \
     AcqReceiptMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
@@ -69,6 +70,7 @@ class AcqReceipt(IlsRecord):
 
     _extensions = [
         AcqReceiptExtension(),
+        AcquisitionReceiptCompleteDataExtension()
     ]
 
     @classmethod
@@ -307,8 +309,15 @@ class AcqReceiptsIndexer(IlsRecordsIndexer):
 
     record_cls = AcqReceipt
 
+    def index(self, record):
+        """Index an AcqReceiptLine line record."""
+        return_value = super().index(record)
+        record.order.reindex()
+        return return_value
+
     def delete(self, record):
         """Delete a AcqReceipt from indexer."""
         super().delete(record)
+        record.order.reindex()
         for account in record.get_adjustment_accounts():
             account.reindex()

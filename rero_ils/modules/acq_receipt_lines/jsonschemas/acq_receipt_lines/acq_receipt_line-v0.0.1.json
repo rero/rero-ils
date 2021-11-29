@@ -5,11 +5,10 @@
   "description": "JSON schema for Acquisition Receipt Line.",
   "additionalProperties": false,
   "propertiesOrder": [
-    "acq_order_lines",
-    "notes",
-    "quantiy",
+    "quantity",
     "amount",
-    "receipt_date"
+    "receipt_date",
+    "notes"
   ],
   "required": [
     "$schema",
@@ -65,7 +64,12 @@
       "title": "Quantity",
       "type": "integer",
       "default": 1,
-      "minimum": 1
+      "minimum": 1,
+      "form": {
+        "navigation": {
+          "essential": true
+        }
+      }
     },
     "amount": {
       "title": "Amount",
@@ -73,7 +77,10 @@
       "default": 0,
       "minimum": 0,
       "form": {
-        "fieldMap": "amount"
+        "fieldMap": "amount",
+        "navigation": {
+          "essential": true
+        }
       }
     },
     "receipt_date": {
@@ -88,6 +95,9 @@
           "messages": {
             "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
           }
+        },
+        "navigation": {
+          "essential": true
         }
       }
     },
@@ -146,6 +156,10 @@
         }
       },
       "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        },
         "templateOptions": {
           "wrappers": [
             "card"

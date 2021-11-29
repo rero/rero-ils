@@ -189,13 +189,17 @@ class AcqReceiptLinesIndexer(IlsRecordsIndexer):
     def index(self, record):
         """Index an AcqReceiptLine line record."""
         return_value = super().index(record)
-        # The reindexing of the parent order_line will also fired the
+        # The reindexing of the parent receipt will also fired the
         # indexing of the parent order and related account
+        # TODO :: try to find a way to not reindex multiple times the order,
+        #         then the account
+        record.receipt.reindex()
         record.order_line.reindex()
         return return_value
 
     def delete(self, record):
         """Delete an AcqReceiptLine record from indexer."""
         return_value = super().delete(record)
+        record.receipt.reindex()
         record.order_line.reindex()
         return return_value

@@ -1672,6 +1672,13 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_search'
             ),
+            'application/rero+json': (
+                'rero_ils.modules.acq_receipt_lines.serializers:json_acrl_search'
+            )
+        },
+        search_serializers_aliases={
+            'json': 'application/json',
+            'rero': 'application/rero+json'
         },
         record_loaders={
             'application/json': lambda: AcqReceiptLine(request.get_json()),
@@ -2107,6 +2114,13 @@ RECORDS_REST_FACETS = dict(
                     format='yyyy-MM-dd'
                 )
             ),
+            receipt_date=dict(
+                date_histogram=dict(
+                    field='receipts.receipt_date',
+                    calendar_interval='1d',
+                    format='yyyy-MM-dd'
+                )
+            ),
             account=dict(
                 terms=dict(
                     field='order_lines.account.pid',
@@ -2123,6 +2137,12 @@ RECORDS_REST_FACETS = dict(
             _('account'): and_term_filter('order_lines.account.pid'),
             _('order_date'): range_filter(
                 'order_lines.order_date',
+                format='epoch_millis',
+                start_date_math='/d',
+                end_date_math='/d'
+            ),
+            _('receipt_date'): range_filter(
+                'receipts.receipt_date',
                 format='epoch_millis',
                 start_date_math='/d',
                 end_date_math='/d'
@@ -2362,7 +2382,7 @@ RECORDS_REST_DEFAULT_SORT['acq_accounts'] = dict(
 
 # ------ ACQUISITION ORDERS SORT
 RECORDS_REST_SORT_OPTIONS['acq_orders']['receipt_date'] = dict(
-    fields=['-order_lines.receipt_date'], title='Receipt date',
+    fields=['-receipts.receipt_date'], title='Receipt date',
     default_order='desc'
 )
 RECORDS_REST_DEFAULT_SORT['acq_orders'] = dict(
