@@ -419,7 +419,7 @@ def get_contribution_link(bibid, reroid, id, key):
     if match and len(match.groups()) == 2 and key[:3] in _CONTRIBUTION_TAGS:
         match_type = match.group(1).lower()
         match_value = match.group(2)
-        match_type.replace('de-588', 'gnd')
+        match_type = match_type.replace('de-588', 'gnd')
         # if we have a viafid, look for the contributor in MEF
         if match_type == "viaf":
             url = f'{mef_url}/mef/?q=viaf_pid:{match_value}'
