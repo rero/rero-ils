@@ -36,9 +36,14 @@ def enrich_acq_receipt_line_data(sender, json=None, record=None, index=None,
         if not isinstance(record, AcqReceiptLine):
             record = AcqReceiptLine.get_record_by_pid(record.get('pid'))
         # other dynamic keys
-        json['acq_account'] = dict(
-            pid=record.order_line.account_pid,
-            type='acac'
-        )
-
-        json['total_amount'] = record.total_amount
+        json.update({
+            'acq_account': {
+                'pid': record.order_line.account_pid,
+                'type': 'acac'
+            },
+            'document': {
+                'pid': record.order_line.document_pid,
+                'type': 'doc'
+            },
+            'total_amount': record.total_amount
+        })

@@ -5,6 +5,7 @@
   "description": "JSON schema for Acquisition Receipt.",
   "additionalProperties": false,
   "propertiesOrder": [
+    "reference",
     "exchange_rate",
     "amount_adjustments",
     "notes"
@@ -40,6 +41,16 @@
           "title": "Order",
           "type": "string",
           "pattern": "^https://bib.rero.ch/api/acq_orders/.*?$"
+        }
+      }
+    },
+    "reference": {
+      "title": "Reference",
+      "type": "string",
+      "minLength": 3,
+      "form": {
+        "navigation": {
+          "essential": "true"
         }
       }
     },

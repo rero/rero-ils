@@ -33,12 +33,9 @@ class AcquisitionOrderExtension(RecordExtension):
         """
         if record.order_date:
             record['order_date'] = record.order_date
-        record['total_amount'] = record.get_order_total_amount()
+        record['account_statement'] = \
+            record.get_account_statement()
         record['status'] = record.status
-        record['item_quantity'] = {
-            'ordered': record.item_quantity,
-            'received': record.item_received_quantity
-        }
 
     def pre_load(self, data, loader=None):
         """Called before a record is loaded.
@@ -46,10 +43,9 @@ class AcquisitionOrderExtension(RecordExtension):
         :param data: the data to load.
         :param loader: the record loader.
         """
-        data.pop('total_amount', None)
+        data.pop('account_statement', None)
         data.pop('status', None)
         data.pop('order_date', None)
-        data.pop('item_quantity', None)
 
     def pre_delete(self, record, force=False):
         """Called before a record is deleted.
@@ -57,7 +53,7 @@ class AcquisitionOrderExtension(RecordExtension):
         :param record: the record metadata.
         """
         # For pending orders, we are allowed to delete all of its
-        # line orders without futher checks.
+        # line orders without further checks.
         # there is no need to check if it is a pending order or not because
         # the can_delete is already execute in the method self.delete
         for line in record.get_order_lines():

@@ -38,13 +38,15 @@ class AcqOrderJSONSerializer(JSONSerializer):
         JSONSerializer.complete_bucket_with_attribute(
             results, 'account', AcqAccount, 'name')
 
-        # Add configuration for order_date bucket
-        aggr = results['aggregations'].get('order_date')
-        if aggr:
+        # Add configuration for order_date and receipt_date buckets
+        for bucket in ['order_date', 'receipt_date']:
+            aggr = results['aggregations'].get(bucket)
+            if not aggr:
+                continue
             bucket_values = [term['key'] for term in aggr.get('buckets', [])]
             if bucket_values:
-                results['aggregations']['order_date']['type'] = 'date-range'
-                results['aggregations']['order_date']['config'] = {
+                results['aggregations'][bucket]['type'] = 'date-range'
+                results['aggregations'][bucket]['config'] = {
                     'min': min(bucket_values),
                     'max': max(bucket_values),
                     'step': 86400000  # 1 day in millis

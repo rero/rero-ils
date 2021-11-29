@@ -23,11 +23,11 @@ from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 from rero_ils.modules.documents.utils import title_format_text_head
 
 
-class DocumentNotificationDumper(InvenioRecordsDumper):
-    """Document dumper class for notification."""
+class DocumentGenericDumper(InvenioRecordsDumper):
+    """Document generic dumper class."""
 
     def dump(self, record, data):
-        """Dump a document instance for notification.
+        """Dump a document instance with basic document informations.
 
         :param record: The record to dump.
         :param data: The initial dump data passed in by ``record.dumps()``.
@@ -39,6 +39,23 @@ class DocumentNotificationDumper(InvenioRecordsDumper):
         data.update({
             'pid': record.get('pid'),
             'title_text': title_text
+        })
+        data = {k: v for k, v in data.items() if v}
+        return data
+
+
+class DocumentAcquisitionDumper(DocumentGenericDumper):
+    """Document dumper class for acquisition resources."""
+
+    def dump(self, record, data):
+        """Dump a document instance for acquisition.
+
+        :param record: The record to dump.
+        :param data: The initial dump data passed in by ``record.dumps()``.
+        """
+        data = super().dump(record, data)
+        data.update({
+            'identifiers': record.get_identifier_values(filters=['bf:Isbn'])
         })
         data = {k: v for k, v in data.items() if v}
         return data
