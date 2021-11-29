@@ -962,7 +962,7 @@ def test_cancel_notifications(
 
     notification = get_notification(loan, NotificationType.AVAILABILITY)
     assert notification and \
-           notification['status'] == NotificationStatus.CANCELED
+           notification['status'] == NotificationStatus.CANCELLED
     assert len(mailbox) == 0
 
     # restore to initial state

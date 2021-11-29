@@ -44,10 +44,11 @@ def test_order_properties(
 
     # TOTAL AMOUNT ------------------------------------------------------------
     total_amount = acol1.get('total_amount') + acol2.get('total_amount')
-    assert acor.get_order_total_amount() == total_amount
+    assert acor.get_order_provisional_total_amount() == total_amount
     acol1['is_cancelled'] = True
     acol1.update(acol1, dbcommit=True, reindex=True)
-    assert acor.get_order_total_amount() == acol2.get('total_amount')
+    assert acor.get_order_provisional_total_amount() == \
+           acol2.get('total_amount')
 
     # RESET CHANGES
     acol1['is_cancelled'] = False

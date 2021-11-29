@@ -149,7 +149,7 @@ def test_acquisition_reception_workflow(
     }
     order = _make_resource(client, 'acor', data)
     assert order['reference'] == f'ORDER-{order.pid}'
-    assert order.get_order_total_amount() == 0
+    assert order.get_order_provisional_total_amount() == 0
     assert order.status == AcqOrderStatus.PENDING
     assert order.can_delete
 
@@ -250,7 +250,7 @@ def test_acquisition_reception_workflow(
     assert order_line_6.status == AcqOrderLineStatus.APPROVED
 
     # test order after adding lines
-    assert order.get_order_total_amount() == 715
+    assert order.get_order_provisional_total_amount() == 715
     assert order.status == AcqOrderStatus.PENDING
     # TODO: fix links to me for the order resource, this should fail
     assert order.can_delete
@@ -616,6 +616,15 @@ def test_acquisition_reception_workflow(
     #     lines. The order status must remain to PARTIALLY_RECEIVED.
     #   * Delete the first receipt. The order status should remain to ORDERED
     #     and account amount should be the same than STEP#3.
+
+    # Check links between object
+    #   * check some order lines (cancelled or not); not need to test all lines
+    #   * check receipt links
+    links = order.get_links_to_me(get_pids=True)
+    for pid in [order_line_3.pid, order_line_4.pid, order_line_5.pid]:
+        assert pid in links['order_lines']
+    for pid in [receipt_1.pid, receipt_2.pid]:
+        assert pid in links['receipts']
 
     # DELETE `RECEIPT_2` ----------
     receipt_line_pids = receipt_2.get_receipt_lines(output='pids')

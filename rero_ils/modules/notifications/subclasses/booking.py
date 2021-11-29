@@ -23,7 +23,7 @@ from __future__ import absolute_import, print_function
 import hashlib
 
 from rero_ils.filter import format_date_filter
-from rero_ils.modules.documents.dumpers import DocumentNotificationDumper
+from rero_ils.modules.documents.dumpers import DocumentGenericDumper
 from rero_ils.modules.items.dumpers import ItemNotificationDumper
 from rero_ils.modules.libraries.api import email_notification_type
 from rero_ils.modules.loans.api import LoanState
@@ -84,7 +84,7 @@ class BookingCirculationNotification(CirculationNotification):
         context = {'loans': []}
         notifications = notifications or []
 
-        doc_dumper = DocumentNotificationDumper()
+        doc_dumper = DocumentGenericDumper()
         item_dumper = ItemNotificationDumper()
         patron_dumper = PatronNotificationDumper()
         for notification in notifications:

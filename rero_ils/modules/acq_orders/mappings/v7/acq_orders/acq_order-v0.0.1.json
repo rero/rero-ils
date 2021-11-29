@@ -51,9 +51,6 @@
       "currency": {
         "type": "keyword"
       },
-      "total_amount": {
-        "type": "float"
-      },
       "notes": {
         "properties": {
           "type": {
@@ -74,15 +71,22 @@
           }
         }
       },
+      "receipts": {
+        "properties": {
+          "reference": {
+            "type": "keyword"
+          },
+          "receipt_date": {
+            "type": "date"
+          }
+        }
+      },
       "order_lines": {
         "properties": {
           "pid": {
             "type": "keyword"
           },
           "order_date": {
-            "type": "date"
-          },
-          "receipt_date": {
             "type": "date"
           },
           "quantity": {
@@ -119,13 +123,27 @@
           }
         }
       },
-      "item_quantity": {
+      "account_statement": {
         "properties": {
-          "ordered": {
-            "type": "integer"
+          "provisional": {
+            "properties": {
+              "total_amount": {
+                "type": "float"
+              },
+              "quantity": {
+                "type": "integer"
+              }
+            }
           },
-          "received": {
-            "type": "integer"
+          "expenditure": {
+            "properties": {
+              "total_amount": {
+                "type": "float"
+              },
+              "quantity": {
+                "type": "integer"
+              }
+            }
           }
         }
       },

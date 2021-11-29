@@ -28,7 +28,7 @@ from .extensions import AcquisitionOrderCompleteDataExtension, \
 from .models import AcqOrderIdentifier, AcqOrderMetadata, AcqOrderStatus
 from ..acq_order_lines.api import AcqOrderLine, AcqOrderLinesSearch
 from ..acq_order_lines.models import AcqOrderLineStatus
-from ..acq_receipts.api import AcqReceiptsSearch
+from ..acq_receipts.api import AcqReceipt, AcqReceiptsSearch
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
@@ -226,6 +226,20 @@ class AcqOrder(IlsRecord):
         ]
         return next(iter(note), None)
 
+    def get_receipts(self, output=None):
+        """Get AcqReceipts related to this AcqOrder.
+
+        :param output: output method. 'count', 'query' or None.
+        :return a generator of related AcqReceipts.
+        """
+        query = AcqReceiptsSearch().filter('term', acq_order__pid=self.pid)
+        if output == 'count':
+            return query.count()
+        elif output == 'query':
+            return query
+        else:
+            return self._list_object_by_id(AcqReceipt, query)
+
     def get_related_notes(self, resource_filters=None):
         """Get all notes from resource relates to this `AcqOrder`.
 
@@ -261,21 +275,23 @@ class AcqOrder(IlsRecord):
     def get_order_lines(self, output=None, includes=None):
         """Get order lines related to this order.
 
-        :param output: output method. 'count' or None.
+        :param output: output method. 'count', 'query' or None.
         :param includes: a list of statuses to include order lines.
         :return a generator of related order lines (or length).
         """
-        query = AcqOrderLinesSearch()\
-            .filter('term', acq_order__pid=self.pid)
+        query = AcqOrderLinesSearch().filter('term', acq_order__pid=self.pid)
         if includes:
             query = query.filter('terms', status=includes)
 
         if output == 'count':
             return query.count()
-        return self._list_object_by_id(AcqOrderLine, query)
+        elif output == 'query':
+            return query
+        else:
+            return self._list_object_by_id(AcqOrderLine, query)
 
-    def get_order_total_amount(self):
-        """Get total amount of order."""
+    def get_order_provisional_total_amount(self):
+        """Get provisional total amount of this order."""
         search = AcqOrderLinesSearch()\
             .filter('term', acq_order__pid=self.pid) \
             .exclude('term', status=AcqOrderLineStatus.CANCELLED)
@@ -283,47 +299,67 @@ class AcqOrder(IlsRecord):
             'order_total_amount',
             'sum',
             field='total_amount',
-            script={
-                'source': 'Math.round(_value*100)/100.00'
-            }
+            script={'source': 'Math.round(_value*100)/100.00'}
         )
         results = search.execute()
-        return results.aggregations.order_total_amount.value
+        return round(results.aggregations.order_total_amount.value, 2)
+
+    def get_order_expenditure_total_amount(self):
+        """Get total amount of known expenditures of this order."""
+        search = AcqReceiptsSearch().filter('term', acq_order__pid=self.pid)
+        search.aggs.metric(
+            'receipt_total_amount',
+            'sum',
+            field='total_amount',
+            script={'source': 'Math.round(_value*100)/100.00'}
+        )
+        results = search.execute()
+        return round(results.aggregations.receipt_total_amount.value, 2)
+
+    def get_account_statement(self):
+        """Get account statement for this order.
+
+        Accounting informations contains data about encumbrance and
+        expenditure. For each section, we can find the total amount and the
+        related item quantity.
+        """
+        return {
+            'provisional': {
+                'total_amount': self.get_order_provisional_total_amount(),
+                'quantity': self.item_quantity,
+            },
+            'expenditure': {
+                'total_amount': self.get_order_expenditure_total_amount(),
+                'quantity': self.item_received_quantity
+            }
+        }
 
     def get_links_to_me(self, get_pids=False):
-        """Record links.
+        """Get related record links.
 
-        :param get_pids: if True list of linked pids
-                         if False count of linked records
+        :param get_pids: if True list of related record pids, if False count
+                         of related records.
         """
         links = {}
-        order_lines_query = AcqOrderLinesSearch()\
-            .filter('term', acq_order__pid=self.pid)
-        receipts_query = AcqReceiptsSearch()\
-            .filter('term', acq_order__pid=self.pid)
-
         if get_pids:
-            order_lines = sorted_pids(order_lines_query)
-            receipts = sorted_pids(receipts_query)
+            links['order_lines'] = sorted_pids(
+                self.get_order_lines(output='query'))
+            links['receipts'] = sorted_pids(self.get_receipts(output='query'))
         else:
-            order_lines = order_lines_query.count()
-            receipts = receipts_query.count()
-
-        if order_lines:
-            links['acq_order_lines'] = order_lines
-        if receipts:
-            links['acq_receipts'] = receipts
+            links['order_lines'] = self.get_order_lines(output='count')
+            links['receipts'] = self.get_receipts(output='count')
+        links = {k: v for k, v in links.items() if v}
         return links
 
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
         cannot_delete = {}
         links = self.get_links_to_me()
-        # The link with AcqOrderLine ressources isn't a reason to not delete
+        # The link with AcqOrderLine resources isn't a reason to not delete
         # an AcqOrder. Indeed, when we delete an AcqOrder, we also delete all
         # related AcqOrderLines (cascade delete). Check the extension
         # ``pre_delete`` hook.
-        links.pop('acq_order_lines', None)
+        links.pop('order_lines', None)
         if self.status != AcqOrderStatus.PENDING:
             cannot_delete['others'] = {
                 _(f'Order status is {self.status}'): True

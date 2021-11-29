@@ -9,6 +9,9 @@
       "pid": {
         "type": "keyword"
       },
+      "reference": {
+        "type": "keyword"
+      },
       "acq_order": {
         "properties": {
           "pid": {

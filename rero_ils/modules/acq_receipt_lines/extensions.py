@@ -21,6 +21,7 @@ from datetime import datetime
 from flask_babelex import gettext as _
 from invenio_records.extensions import RecordExtension
 from jsonschema import ValidationError
+from sqlalchemy.orm.exc import NoResultFound
 
 
 class AcquisitionReceiptLineCompleteDataExtension(RecordExtension):
@@ -47,12 +48,25 @@ class AcqReceiptLineValidationExtension(RecordExtension):
 
         The total received quantity should not exceed the order_line.quantity.
         """
-        received_quantity = record.order_line.received_quantity
-        if record.quantity:
-            total_received = record.quantity + received_quantity
-            if total_received > record.order_line.quantity:
-                msg = _('Received quantity is grower than ordered quantity')
-                raise ValidationError(msg)
+        if not record.quantity:
+            return
+
+        original_quantity = 0
+        try:
+            original_record = record.__class__.get_record_by_id(record.id)
+            original_quantity = original_record.quantity
+        except NoResultFound:
+            # it's probably because the record isn't yet into DB (but `id`
+            # field is already populated for very next integration)
+            # As the record isn't yet into DB, the original_quantity keep 0
+            pass
+
+        quantity_to_check = record.quantity - original_quantity
+        already_received_quantity = record.order_line.received_quantity
+        new_total_quantity = quantity_to_check + already_received_quantity
+        if new_total_quantity > record.order_line.quantity:
+            msg = _('Received quantity is grower than ordered quantity')
+            raise ValidationError(msg)
 
     # INVENIO EXTENSION HOOKS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     def pre_commit(self, record):
