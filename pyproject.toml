@@ -30,7 +30,7 @@ uwsgitop = ">=0.11"
 
 ## Third party invenio modules used by RERO ILS
 invenio-oaiharvester = {tag = "v1.0.0a4", git = "https://github.com/inveniosoftware/invenio-oaiharvester.git"}
-invenio-circulation = {tag = "v1.0.0a34", git = "https://github.com/inveniosoftware/invenio-circulation.git"}
+invenio-circulation = {git = "https://github.com/inveniosoftware/invenio-circulation.git", rev = "v1.0.0a34"}
 
 ## Invenio 3.4 base modules used by RERO ILS
 # same as invenio metadata extras without invenio-search-ui
