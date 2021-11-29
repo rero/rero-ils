@@ -21,7 +21,7 @@
 from __future__ import absolute_import, print_function
 
 from rero_ils.filter import format_date_filter
-from rero_ils.modules.documents.dumpers import DocumentNotificationDumper
+from rero_ils.modules.documents.dumpers import DocumentGenericDumper
 from rero_ils.modules.items.dumpers import ItemNotificationDumper
 from rero_ils.modules.libraries.api import email_notification_type
 from rero_ils.modules.libraries.dumpers import \
@@ -62,7 +62,7 @@ class TransitCirculationNotification(InternalCirculationNotification):
         context = {'loans': []}
         notifications = notifications or []
 
-        doc_dumper = DocumentNotificationDumper()
+        doc_dumper = DocumentGenericDumper()
         item_dumper = ItemNotificationDumper()
         lib_dumper = LibraryCirculationNotificationDumper()
         for notification in notifications:

@@ -396,7 +396,7 @@ def test_acquisition_order(
     }
     order = _make_resource(client, 'acor', order_data)
     assert order['reference'] == f'ORDER-{order.pid}'
-    assert order.get_order_total_amount() == 0
+    assert order.get_order_provisional_total_amount() == 0
     assert order.status == AcqOrderStatus.PENDING
     assert order.can_delete
 

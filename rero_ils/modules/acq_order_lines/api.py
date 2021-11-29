@@ -19,9 +19,11 @@
 """API for manipulating Acquisition Order Line."""
 
 from copy import deepcopy
+from datetime import datetime
 from functools import partial
 
 from flask_babelex import gettext as _
+from werkzeug.utils import cached_property
 
 from .extensions import AcqOrderLineValidationExtension
 from .models import AcqOrderLineIdentifier, AcqOrderLineMetadata, \
@@ -179,6 +181,11 @@ class AcqOrderLine(IlsRecord):
         return extracted_data_from_ref(self.get('acq_account'), data='record')
 
     @property
+    def document_pid(self):
+        """Shortcut to the document pid related to this order line."""
+        return extracted_data_from_ref(self.get('document'))
+
+    @property
     def document(self):
         """Shortcut to the document object related to this order line."""
         return extracted_data_from_ref(self.get('document'), data='record')
@@ -199,10 +206,10 @@ class AcqOrderLine(IlsRecord):
 
     @property
     def received_quantity(self):
-        """Get quantity of received ordered_items for a line order.
+        """Get quantity of received ordered_items for a order line.
 
-        The received quantitiy is number of quantity received for the resource
-        acq_receipt_line and for the correspoding acq_line_order.
+        The received quantity is number of quantity received for the resource
+        acq_receipt_line and for the corresponding acq_line_order.
         """
         from rero_ils.modules.acq_receipt_lines.api import \
             AcqReceiptLinesSearch
@@ -216,6 +223,18 @@ class AcqOrderLine(IlsRecord):
     def unreceived_quantity(self):
         """Get quantity of unreceived ordered_items for a line order."""
         return self.quantity - self.received_quantity
+
+    @cached_property
+    def receipt_date(self):
+        """Get the first reception date for one item of this order line."""
+        from rero_ils.modules.acq_receipt_lines.api import \
+            AcqReceiptLinesSearch
+        search = AcqReceiptLinesSearch() \
+            .filter('term', acq_order_line__pid=self.pid)
+        search.aggs.metric('min_receipt_date', 'min', field='receipt_date')
+        results = search.execute()
+        epoch = results.aggregations.min_receipt_date.value / 1000
+        return datetime.fromtimestamp(epoch)
 
     @property
     def status(self):

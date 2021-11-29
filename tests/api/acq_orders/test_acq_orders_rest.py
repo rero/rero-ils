@@ -94,8 +94,8 @@ def test_acq_order_get(client, acq_order_fiction_martigny):
     assert data == get_json(res)
     assert acq_order.dumps() == data['metadata']
 
-    assert acq_order.get_order_total_amount() == \
-        data['metadata']['total_amount']
+    assert acq_order.get_account_statement() == \
+           data['metadata']['account_statement']
 
     list_url = url_for('invenio_records_rest.acor_list', pid='acor1')
     res = client.get(list_url)
@@ -106,6 +106,7 @@ def test_acq_order_get(client, acq_order_fiction_martigny):
     # remove dynamically added fields
     del metadata['organisation']
     del metadata['order_lines']
+    del metadata['receipts']
     assert data['hits']['hits'][0]['metadata'] == acq_order.replace_refs()
 
 
@@ -128,24 +129,34 @@ def test_acq_orders_post_put_delete(client, org_martigny, vendor2_martigny,
     assert res.status_code == 201
 
     # Check that the returned record matches the given data
-    assert data['metadata'].pop('total_amount') == 0.0
-    assert data['metadata'].pop('status') == AcqOrderStatus.PENDING
-    assert data['metadata'].pop('item_quantity') == {
-        'ordered': 0,
-        'received': 0
+    assert data['metadata'].pop('account_statement') == {
+        'provisional': {
+            'total_amount': 0,
+            'quantity': 0
+        },
+        'expenditure': {
+            'total_amount': 0,
+            'quantity': 0
+        }
     }
+    assert data['metadata'].pop('status') == AcqOrderStatus.PENDING
     assert not data['metadata'].pop('order_date', None)
     assert data['metadata'] == acq_order_fiction_saxon
 
     res = client.get(item_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['metadata'].pop('total_amount') == 0.0
-    assert data['metadata'].pop('status') == AcqOrderStatus.PENDING
-    assert data['metadata'].pop('item_quantity') == {
-        'ordered': 0,
-        'received': 0
+    assert data['metadata'].pop('account_statement') == {
+        'provisional': {
+            'total_amount': 0,
+            'quantity': 0
+        },
+        'expenditure': {
+            'total_amount': 0,
+            'quantity': 0
+        }
     }
+    assert data['metadata'].pop('status') == AcqOrderStatus.PENDING
     assert not data['metadata'].pop('order_date', None)
     assert acq_order_fiction_saxon == data['metadata']
 
@@ -189,7 +200,7 @@ def test_acq_orders_can_delete(
     """Test can delete an acq order."""
     can, reasons = acq_order_fiction_martigny.can_delete
     assert not can
-    assert reasons['links']['acq_receipts']
+    assert reasons['links']['receipts']
 
 
 def test_filtered_acq_orders_get(

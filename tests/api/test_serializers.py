@@ -301,11 +301,21 @@ def test_acq_receipts_serializers(
     acq_receipt_line_1_fiction_martigny, acq_receipt_line_2_fiction_martigny,
     lib_martigny
 ):
-    """Test serializers for ills requests."""
+    """Test serializers for acq_receipt/acq_receipt_lines requests."""
     acre = acq_receipt_fiction_martigny
-    list_url = url_for('invenio_records_rest.acre_item', pid_value=acre.pid)
-    response = client.get(list_url, headers=rero_json_header)
+    item_url = url_for('invenio_records_rest.acre_item', pid_value=acre.pid)
+    response = client.get(item_url, headers=rero_json_header)
     assert response.status_code == 200
     data = get_json(response)
     for attr in ['currency', 'quantity', 'total_amount', 'receipt_lines']:
         assert attr in data['metadata']
+
+    list_url = url_for(
+        'invenio_records_rest.acrl_list',
+        q=f'acq_receipt.pid:{acre.pid}'
+    )
+    response = client.get(list_url, headers=rero_json_header)
+    assert response.status_code == 200
+    data = get_json(response)
+    for hit in data['hits']['hits']:
+        assert 'document' in hit['metadata']

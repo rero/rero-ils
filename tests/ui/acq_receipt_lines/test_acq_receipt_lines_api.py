@@ -37,3 +37,7 @@ def test_receipt_lines_properties(acq_receipt_fiction_martigny,
     assert acrl1.get_note(AcqReceiptLineNoteType.STAFF)
     # ACQ ACCOUNT -------------------------------------------------------------
     assert acq_account_fiction_martigny.expenditure_amount == (1001.0, 0.0)
+
+    # TEST order_line.reception_date
+    acol = acq_order_line_fiction_martigny
+    assert acol.receipt_date.strftime('%Y-%m-%d') == acrl1.get('receipt_date')
