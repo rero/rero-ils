@@ -168,7 +168,7 @@
                 }
               },
               "form": {
-                "hideExpression": "field.parent.model.library_limit == 0 || !field.parent.model.library_limit"
+                "hideExpression": "!field.parent.model || !field.parent.model.library_limit || field.parent.model.library_limit == 0"
               }
             }
           },
