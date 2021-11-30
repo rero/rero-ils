@@ -378,6 +378,7 @@ def email_notification_type(libray, notification_type):
     :return: the email corresponding to the notification type.
     :rtype: string
     """
-    for setting in libray['notification_settings']:
+    # notification_settings is not a required field.
+    for setting in libray.get('notification_settings', []):
         if setting['type'] == notification_type:
             return setting['email']
