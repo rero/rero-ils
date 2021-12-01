@@ -20,14 +20,20 @@
 
 from __future__ import absolute_import, print_function
 
+from datetime import datetime, timezone
+
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus, TypeOfItem
+from rero_ils.modules.items.tasks import delete_provisional_items
+from rero_ils.modules.items.utils import \
+    get_provisional_items_pids_candidate_to_delete
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.models import LoanAction, LoanState
+from rero_ils.modules.patron_transactions.api import PatronTransaction
 from rero_ils.modules.utils import get_ref_for_pid
 
 
@@ -102,7 +108,8 @@ def test_provisional_items_creation(client, document, org_martigny,
 
 def test_holding_requests(client, patron_martigny, loc_public_martigny,
                           circulation_policies, librarian_martigny,
-                          holding_lib_martigny_w_patterns, lib_martigny):
+                          holding_lib_martigny_w_patterns, lib_martigny,
+                          item_lib_martigny, org_martigny):
     """Test holding patron request."""
     login_user_via_session(client, patron_martigny.user)
     holding = holding_lib_martigny_w_patterns
@@ -171,8 +178,6 @@ def test_holding_requests(client, patron_martigny, loc_public_martigny,
     assert res.status_code == 200
     item = Item.get_record_by_pid(item.pid)
     assert item.status == ItemStatus.ON_SHELF
-    # TODO: add additional tests for the task to delete provisional items with
-    # no active loans.
 
     # test requests made by a librarian
     # test fails when there are missing parameters
@@ -235,3 +240,34 @@ def test_holding_requests(client, patron_martigny, loc_public_martigny,
     assert item_2.holding_pid == holding.pid
     assert item_2.get('enumerationAndChronology') == description
     assert item_2.pid != item.pid
+
+    all_item_pids = [pid for pid in Item.get_all_pids()]
+    assert all_item_pids
+
+    # test delete provisional items with no active fees/loans
+    report = delete_provisional_items()
+    assert report.get('numner_of_deleted_items')
+    assert report.get('number_of_candidate_items_to_delete')
+    # assert that not deleted items are either having loans/fees or not
+    # provisional items
+    left_item_pids = [pid for pid in Item.get_all_pids()]
+    assert left_item_pids
+    for pid in left_item_pids:
+        record = Item.get_record_by_pid(pid)
+        can, _ = record.can_delete
+        assert not can or record.get('type') != TypeOfItem.PROVISIONAL
+    # item_2 has pending loans then it should not be removed
+    assert item_2.pid in left_item_pids
+    assert item_2.pid in get_provisional_items_pids_candidate_to_delete()
+    # add fee to item_2 and make sure it will not be candidate at the deletion.
+    data = {
+        'loan': {'$ref': get_ref_for_pid('loanid', loan_2.pid)},
+        'patron': {'$ref': get_ref_for_pid('patrons', patron_martigny.pid)},
+        'organisation': {'$ref': get_ref_for_pid('org', org_martigny.pid)},
+        'status': 'open',
+        'total_amount': 0.6,
+        'type': 'overdue',
+        'creation_date': datetime.now(timezone.utc).isoformat()
+    }
+    PatronTransaction.create(data, dbcommit=True, reindex=True)
+    assert item_2.pid not in get_provisional_items_pids_candidate_to_delete()
