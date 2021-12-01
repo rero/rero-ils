@@ -17,7 +17,10 @@
 
 """Item utils."""
 
+
+from rero_ils.modules.items.models import ItemStatus, TypeOfItem
 from rero_ils.modules.locations.api import LocationsSearch
+from rero_ils.modules.patron_transactions.api import PatronTransactionsSearch
 
 
 def item_pid_to_object(item_pid):
@@ -85,3 +88,29 @@ def exists_available_item(items=[]):
         if item.available:
             return True
     return False
+
+
+def get_provisional_items_pids_candidate_to_delete():
+    """Returns checked-in provisional items pids.
+
+    Returns list of candidate provisional items pids to delete, based on the
+    status of the item. Filtering by the status `ItemStatus.ON_SHELF` removes
+    items with active loans. in addition, remove items with active fees.
+    :return an item pid generator.
+    """
+    from rero_ils.modules.items.api import ItemsSearch
+
+    # query ES index for open fees
+    query_fees = PatronTransactionsSearch()\
+        .filter('term', status='open')\
+        .filter('range', total_amount={'gt': 0})\
+        .source('item')
+    # list of item pids with open fees
+    item_pids_with_fees = [hit.item.pid for hit in query_fees.scan()]
+    query = ItemsSearch()\
+        .filter('term', type=TypeOfItem.PROVISIONAL) \
+        .filter('terms', status=[ItemStatus.ON_SHELF]) \
+        .exclude('terms', pid=item_pids_with_fees)\
+        .source('pid')
+    for hit in query.scan():
+        yield hit.pid
