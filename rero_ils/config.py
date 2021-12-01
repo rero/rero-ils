@@ -416,7 +416,11 @@ CELERY_BEAT_SCHEDULE = {
         # Every week on Saturday at 22:22 UTC,
         'enabled': False
     },
-
+    'delete-provisional-items': {
+        'task': 'rero_ils.modules.items.tasks.delete_provisional_items',
+        'schedule': crontab(minute=0, hour=3),  # Every day at 03:00 UTC,
+        'enabled': False,
+    },
     # 'mef-harvester': {
     #     'task': 'rero_ils.modules.apiharvester.tasks.harvest_records',
     #     'schedule': timedelta(minutes=60),
