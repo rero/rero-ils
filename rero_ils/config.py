@@ -171,6 +171,10 @@ SETTINGS_TEMPLATE = 'rero_ils/page_settings.html'
 #: Admin base template
 # ADMIN_BASE_TEMPLATE = BASE_TEMPLATE
 
+# Google
+# =======================
+# THEME_GOOGLE_SITE_VERIFICATION = []
+
 # Miscellaneous variable around templates
 # =======================
 #: Template for security pages.
@@ -1727,6 +1731,7 @@ RECORDS_REST_ENDPOINTS = dict(
 # Default view code for all organisations view
 # TODO: Should be taken into angular
 RERO_ILS_SEARCH_GLOBAL_VIEW_CODE = 'global'
+RERO_ILS_SEARCH_GLOBAL_NAME = _('Global catalog')
 
 # Default number of results in facet
 RERO_ILS_DEFAULT_AGGREGATION_SIZE = 30

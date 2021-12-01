@@ -28,9 +28,8 @@ from flask import Blueprint, abort, current_app, jsonify, redirect, \
 from invenio_jsonschemas import current_jsonschemas
 from invenio_jsonschemas.errors import JSONSchemaNotFound
 
-from rero_ils.modules.organisations.api import Organisation
-
 from .menus import init_menu_lang, init_menu_profile, init_menu_tools
+from ..modules.organisations.api import Organisation
 from ..permissions import can_access_professional_view
 
 blueprint = Blueprint(
@@ -149,6 +148,16 @@ def url_active(string, target):
                 )
             )
     return string
+
+
+@blueprint.app_template_filter('viewOrganisationName')
+def view_organisation_name(viewcode):
+    """Get view name."""
+    if viewcode != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
+        org = Organisation.get_record_by_viewcode(viewcode)
+        if org:
+            return org['name']
+    return current_app.config.get('RERO_ILS_SEARCH_GLOBAL_NAME', '')
 
 
 def prepare_jsonschema(schema):

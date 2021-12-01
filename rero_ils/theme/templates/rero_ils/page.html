@@ -48,7 +48,8 @@
     {%- endblock head_meta %}
     {%- block head_title %}
     {%- set title = title or _(config.THEME_SITENAME) or _('Invenio') %}
-    <title>{{title}}</title>
+    {%- set org_name = _(viewcode | viewOrganisationName) -%}
+    <title>{{ title }}: {{ org_name }}</title>
     {%- endblock head_title %}
     {%- block head_links %}
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
