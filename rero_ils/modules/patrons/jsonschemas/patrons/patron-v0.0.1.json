@@ -80,8 +80,10 @@
           "type": "string",
           "minLength": 1,
           "form": {
+            "type": "textarea",
             "templateOptions": {
-              "itemCssClass": "col-lg-12"
+              "itemCssClass": "col-lg-12",
+              "rows": 2
             }
           }
         },
