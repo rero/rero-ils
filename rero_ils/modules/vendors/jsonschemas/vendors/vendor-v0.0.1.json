@@ -133,7 +133,13 @@
           "title": "Street",
           "description": "Street and number of the address, separated by a coma.",
           "type": "string",
-          "minLength": 4
+          "minLength": 4,
+          "form": {
+            "type": "textarea",
+            "templateOptions": {
+              "rows": 2
+            }
+          }
         },
         "postal_code": {
           "title": "Postal code",
