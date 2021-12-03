@@ -36,7 +36,9 @@ def get_notification(loan, notification_type):
     from .api import Notification
     results = NotificationsSearch()\
         .filter('term', context__loan__pid=loan.pid)\
-        .filter('term', notification_type=notification_type)\
+        .filter('term', notification_type=notification_type) \
+        .params(preserve_order=True) \
+        .sort({'creation_date': {"order": "desc"}}) \
         .source().scan()
     try:
         pid = next(results).pid

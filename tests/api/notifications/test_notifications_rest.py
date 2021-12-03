@@ -21,6 +21,7 @@ import json
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 
+import ciso8601
 import mock
 import pytest
 import pytz
@@ -30,16 +31,19 @@ from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
     item_record_to_a_specific_loan_state, postdata, to_relative_url
 
 from rero_ils.modules.api import IlsRecordError
+from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.libraries.api import email_notification_type
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.models import LoanAction, LoanState
+from rero_ils.modules.loans.utils import get_circ_policy
 from rero_ils.modules.notifications.api import Notification, \
     NotificationsSearch
 from rero_ils.modules.notifications.dispatcher import Dispatcher
 from rero_ils.modules.notifications.models import NotificationStatus, \
     NotificationType
-from rero_ils.modules.notifications.tasks import process_notifications
+from rero_ils.modules.notifications.tasks import create_notifications, \
+    process_notifications
 from rero_ils.modules.notifications.utils import get_notification
 from rero_ils.modules.utils import get_ref_for_pid
 
@@ -1074,16 +1078,16 @@ def test_delete_pickup_location(
         loc_restricted_martigny.delete(dbcommit=True, delindex=True)
 
 
-def test_overdue_notifications_after_extend(
+def test_reminder_notifications_after_extend(
     item_lib_martigny, patron_martigny, loc_public_martigny,
-    librarian_martigny, circulation_policies
+    librarian_martigny, circulation_policies, mailbox, client
 ):
-    """Test if overdue notifications could be resend after loan extension."""
+    """Test any reminder notification could be resend after loan extension."""
 
     # STEP 1 - CREATE BASIC RESOURCES FOR THE TEST
-    #   * Create a loan and update it to be considerate as overdue after
-    #     a first loan extension
-    #   * Create a fake overdue notification for this loan.
+    #   * Create a loan and update it to be considerate as "due soon".
+    #   * Run the `notification-creation` task to create a DUE_SOON
+    #     notification
     params = {
         'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
@@ -1094,36 +1098,83 @@ def test_overdue_notifications_after_extend(
         item=item_lib_martigny,
         loan_state=LoanState.ITEM_ON_LOAN,
         params=params, copy_item=True)
-    overdue_date = datetime.now() - timedelta(days=30)
-    loan['end_date'] = overdue_date.astimezone(pytz.utc).isoformat()
-    loan['trigger'] = 'extend'
-    loan = loan.update(loan, dbcommit=True, reindex=True)
-    assert loan.is_loan_overdue()
 
-    creation_date = datetime.now() - timedelta(days=15)
-    data = {
-        'context': {
-            'loan': {'$ref': get_ref_for_pid('loans', loan.pid)},
-            'reminder_counter': 0
-        },
-        'creation_date': creation_date.astimezone(pytz.utc).isoformat(),
-        'notification_sent': True,
-        'notification_type': NotificationType.OVERDUE,
-        'process_date': creation_date.astimezone(pytz.utc).isoformat(),
-        'status': NotificationStatus.DONE
-    }
-    fake_notification = Notification.create(data, dbcommit=True, reindex=True)
-    assert fake_notification
+    # get the related cipo and check than an due_soon reminder exists
+    cipo = get_circ_policy(loan)
+    due_soon_reminder = cipo.get_reminder(DUE_SOON_REMINDER_TYPE)
+    assert due_soon_reminder
+
+    # Update the loan
+    delay = due_soon_reminder.get('days_delay') - 1
+    due_soon_date = datetime.now() - timedelta(days=delay)
+    end_date = datetime.now() + timedelta(days=1)
+    loan['due_soon_date'] = due_soon_date.astimezone(pytz.utc).isoformat()
+    loan['end_date'] = end_date.astimezone(pytz.utc).isoformat()
+    loan = loan.update(loan, dbcommit=True, reindex=True)
+    assert loan.is_loan_due_soon()
+
+    # run the create notification task and process notification.
+    mailbox.clear()
+    create_notifications(types=[NotificationType.DUE_SOON])
+    process_notifications(NotificationType.DUE_SOON)
+
+    first_notification = get_notification(loan, NotificationType.DUE_SOON)
+    assert first_notification \
+           and first_notification['status'] == NotificationStatus.DONE
+    assert len(mailbox) == 1
     counter = NotificationsSearch()\
         .filter('term', context__loan__pid=loan.pid)\
-        .filter('term', notification_type=NotificationType.OVERDUE)\
+        .filter('term', notification_type=NotificationType.DUE_SOON)\
         .count()
     assert counter == 1
 
-    # STEP 2 - CREATE NEW OVERDUE NOTIFICATIONS
-    notification = loan.create_notification(_type=NotificationType.OVERDUE)[0]
-    can_cancel, _ = notification.can_be_cancelled()
-    assert not can_cancel
-    process_notifications(NotificationType.OVERDUE)
-    notification = Notification.get_record_by_pid(notification.pid)
-    assert notification['status'] == NotificationStatus.DONE
+    # STEP 2 - CHECK NOTIFICATIONS CREATION
+    #   Run the `create_notification` task for DUE_SOON notification type.
+    #   As a notification already exists, no new DUE_SOON#1 notifications
+    #   should be created
+    create_notifications(types=[NotificationType.DUE_SOON])
+    query = NotificationsSearch() \
+        .filter('term', context__loan__pid=loan.pid) \
+        .filter('term', notification_type=NotificationType.DUE_SOON) \
+        .source('pid').scan()
+    notification_pids = [hit.pid for hit in query]
+    assert len(notification_pids) == 1
+    assert notification_pids[0] == first_notification.pid
+
+    # STEP 3 - EXTEND THE LOAN
+    #   * User has received the DUE_SOON message and extend the loan.
+    #   * Get the new 'due_soon_date' it will be used later to create
+    #     notifications
+    login_user_via_session(client, librarian_martigny.user)
+    params = dict(
+        item_pid=item.pid,
+        transaction_user_pid=librarian_martigny.pid,
+        transaction_location_pid=loc_public_martigny.pid
+    )
+    res, _ = postdata(client, 'api_item.extend_loan', params)
+    assert res.status_code == 200
+    loan = Loan.get_record_by_pid(loan.pid)
+    due_soon_date = ciso8601.parse_datetime(loan.get('due_soon_date'))
+
+    # STEP 4 - CHECK NOTIFICATIONS CREATION
+    #    Run again the `create_notification` task, again for DUE_SOON
+    #    notification type. As the loan is extended, a new DUE_SOON
+    #    notification should be created about this loan.
+    #    Process the notification, check that this new notification isn't
+    #    cancelled and well processed.
+    process_date = due_soon_date + timedelta(days=1)
+    create_notifications(
+        types=[NotificationType.DUE_SOON],
+        tstamp=process_date
+    )
+    counter = NotificationsSearch() \
+        .filter('term', context__loan__pid=loan.pid) \
+        .filter('term', notification_type=NotificationType.DUE_SOON) \
+        .count()
+    assert counter == 2
+    process_notifications(NotificationType.DUE_SOON)
+    assert len(mailbox) == 2
+    second_notification = get_notification(loan, NotificationType.DUE_SOON)
+    assert second_notification \
+           and second_notification['status'] == NotificationStatus.DONE
+    assert second_notification.pid != first_notification
