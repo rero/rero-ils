@@ -28,7 +28,7 @@ from utils import VerifyRecordPermissionPatch, get_json, mock_response, \
 
 from rero_ils.modules.documents.utils import clean_text, get_remote_cover
 from rero_ils.modules.documents.views import can_request, \
-    item_library_pickup_locations
+    record_library_pickup_locations
 from rero_ils.modules.utils import get_ref_for_pid
 
 
@@ -534,10 +534,10 @@ def test_document_can_request_view(
         can, _ = can_request(item_lib_fully)
         assert not can
 
-    picks = item_library_pickup_locations(item_lib_fully)
+    picks = record_library_pickup_locations(item_lib_fully)
     assert len(picks) == 3
 
-    picks = item_library_pickup_locations(item_lib_martigny)
+    picks = record_library_pickup_locations(item_lib_martigny)
     assert len(picks) == 3
 
 

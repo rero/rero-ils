@@ -31,7 +31,7 @@ from invenio_circulation.errors import CirculationException, \
 from werkzeug.exceptions import NotFound
 
 from rero_ils.modules.circ_policies.api import CircPolicy
-from rero_ils.modules.documents.views import item_library_pickup_locations
+from rero_ils.modules.documents.views import record_library_pickup_locations
 from rero_ils.modules.errors import NoCirculationActionIsPermitted
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemCirculationAction
@@ -458,7 +458,7 @@ def get_pickup_locations(item_pid):
     item = Item.get_record_by_pid(item_pid)
     if not item:
         abort(404, 'Item not found')
-    locations = item_library_pickup_locations(item)
+    locations = record_library_pickup_locations(item)
     return jsonify({
         'locations': locations
     })
