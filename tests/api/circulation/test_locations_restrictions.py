@@ -71,3 +71,27 @@ def test_location_disallow_request(item_lib_martigny, loc_public_martigny,
 
     # reset the location to original data
     location.update(loc_public_martigny_data, dbcommit=True, reindex=True)
+
+
+def test_holding_pickup_location(
+        client, patron_martigny, holding_lib_martigny):
+    """Test get holding pickup locations for patron."""
+    login_user_via_session(client, patron_martigny.user)
+    # test with dummy data will return 404
+    res = client.get(
+        url_for(
+            'api_holding.get_pickup_locations',
+            holding_pid='dummy_pid'
+        )
+    )
+    assert res.status_code == 404
+    # test with an existing holding
+    res = client.get(
+        url_for(
+            'api_holding.get_pickup_locations',
+            holding_pid=holding_lib_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    assert 'locations' in data

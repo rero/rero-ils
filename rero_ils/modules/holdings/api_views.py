@@ -31,6 +31,7 @@ from invenio_db import db
 from jinja2.exceptions import TemplateSyntaxError, UndefinedError
 from werkzeug.exceptions import NotFound, Unauthorized
 
+from rero_ils.modules.documents.views import record_library_pickup_locations
 from rero_ils.modules.errors import NoCirculationActionIsPermitted
 from rero_ils.modules.holdings.models import HoldingCirculationAction
 from rero_ils.modules.items.api import Item
@@ -294,3 +295,20 @@ def can_request(holding_pid):
             'others': {reason: True for reason in reasons}
         }
     return jsonify(response)
+
+
+@api_blueprint.route('/<holding_pid>/pickup_locations', methods=['GET'])
+@check_logged_user_authentication
+@jsonify_error
+def get_pickup_locations(holding_pid):
+    """HTTP request to return the available pickup locations for an holding.
+
+    :param holding_pid: the holding_pid pid
+    """
+    holding = Holding.get_record_by_pid(holding_pid)
+    if not holding:
+        abort(404, 'Holding not found')
+    locations = record_library_pickup_locations(holding)
+    return jsonify({
+       'locations': locations
+    })

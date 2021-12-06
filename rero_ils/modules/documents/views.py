@@ -346,24 +346,25 @@ def part_of_format(part_of):
 
 
 @blueprint.app_template_filter()
-def item_library_pickup_locations(item):
-    """Get the pickup locations of the library of the given item."""
-    location_pid = extracted_data_from_ref(item.get('location'))
+def record_library_pickup_locations(record):
+    """Get the pickup locations of the library of the given item or holding."""
+    location_pid = extracted_data_from_ref(record.get('location'))
     location = Location.get_record_by_pid(location_pid)
     # Either the location defines some 'restrict_pickup_to' either not.
     # * If 'restrict_pickup_to' is defined, then only these locations are
     #   eligible as possible pickup_locations
-    # * Otherwise, get all organisation pickup locations of the item belongs to
+    # * Otherwise, get all organisation pickup locations
+    #   of the record belongs to
     if 'restrict_pickup_to' in location:
         # Get all pickup locations as Location objects and append it to the
-        # location item (removing possible None values)
+        # location record (removing possible None values)
         pickup_locations = [
             Location.get_record_by_pid(loc_pid)
             for loc_pid in location.restrict_pickup_to
         ]
     else:
         org = Organisation.get_record_by_pid(location.organisation_pid)
-        # Get the pickup location from each library of the item organisation
+        # Get the pickup location from each library of the record organisation
         # (removing possible None value)
         pickup_locations = []
         for library in org.get_libraries():
