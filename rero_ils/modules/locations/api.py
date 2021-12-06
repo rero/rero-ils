@@ -121,7 +121,10 @@ class Location(IlsRecord):
         from ..items.api import ItemsSearch
         from ..loans.api import LoansSearch
         item_query = ItemsSearch() \
-            .filter('term', location__pid=self.pid)
+            .filter('bool', should=[
+                Q('term', location__pid=self.pid),
+                Q('term', temporary_location__pid=self.pid)
+            ])
         exclude_states = [
             LoanState.CANCELLED, LoanState.ITEM_RETURNED, LoanState.CREATED]
         loan_query = LoansSearch() \
