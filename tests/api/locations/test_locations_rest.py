@@ -26,7 +26,7 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
     postdata, to_relative_url
 
-from rero_ils.modules.documents.views import item_library_pickup_locations
+from rero_ils.modules.documents.views import record_library_pickup_locations
 from rero_ils.modules.locations.api import Location, LocationsSearch
 
 
@@ -70,11 +70,11 @@ def test_location_pickup_locations(locations, patron_martigny,
         item_pid=item2_lib_martigny.pid)
     assert set(pickup_locations) == set([])
 
-    # check document.views::item_library_pickup_locations
+    # check document.views::record_library_pickup_locations
     #   As we limit pickup to two specific location, this tests will also
     #   return only these two records instead of all pickups for the
     #   organisation
-    picks = item_library_pickup_locations(item2_lib_martigny)
+    picks = record_library_pickup_locations(item2_lib_martigny)
     assert len(picks) == 2
 
     # reset the location to default value before leaving
