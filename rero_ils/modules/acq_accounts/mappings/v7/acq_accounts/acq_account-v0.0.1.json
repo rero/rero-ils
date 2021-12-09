@@ -11,17 +11,21 @@
       },
       "name": {
         "type": "text",
-        "copy_to": "name_sort"
-      },
-      "name_sort": {
-        "type": "keyword"
+        "fields": {
+          "raw": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
       },
       "number": {
         "type": "text",
-        "copy_to": "number_sort"
-      },
-      "number_sort": {
-        "type": "keyword"
+        "fields": {
+          "raw": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
       },
       "allocated_amount": {
         "type": "float"
