@@ -40,7 +40,13 @@
         }
       },
       "reference": {
-        "type": "keyword"
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
       },
       "type": {
         "type": "keyword"

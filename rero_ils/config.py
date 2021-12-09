@@ -2370,7 +2370,7 @@ for index in indexes:
 
 # ------ ACQUISITION ACCOUNTS SORT
 RECORDS_REST_SORT_OPTIONS['acq_accounts']['name'] = dict(
-    fields=['name_sort'], title='Account name',
+    fields=['name.raw'], title='Account name',
     default_order='asc'
 )
 RECORDS_REST_SORT_OPTIONS['acq_accounts']['depth'] = dict(
