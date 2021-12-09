@@ -20,12 +20,13 @@
 from flask import Blueprint, abort, jsonify
 from flask_login import login_required
 
+from rero_ils.modules.decorators import check_logged_as_librarian
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemCirculationAction
 from rero_ils.modules.items.views.api_views import \
     check_logged_user_authentication, jsonify_error
 from rero_ils.modules.loans.api import Loan
-from rero_ils.modules.loans.utils import sum_for_fees
+from rero_ils.modules.loans.utils import get_circ_policy, sum_for_fees
 
 api_blueprint = Blueprint(
     'api_loan',
@@ -34,13 +35,26 @@ api_blueprint = Blueprint(
 )
 
 
+@api_blueprint.route('/<loan_pid>/circulation_policy', methods=['GET'])
+@check_logged_as_librarian
+def dump_loan_current_circulation_policy(loan_pid):
+    """Search and dump the current circulation policy related to a loan."""
+    # NOTE : It's possible than the returned CIPO wasn't the same CIPO used
+    #        for a circulation operation on this loan because data could
+    #        changed (Patron.patron_type, Item.item_type, ...)
+    loan = Loan.get_record_by_pid(loan_pid)
+    if not loan:
+        abort(404, 'Loan not found')
+    return jsonify(get_circ_policy(loan))
+
+
 @api_blueprint.route('/<loan_pid>/overdue/preview', methods=['GET'])
 @login_required
 def preview_loan_overdue(loan_pid):
     """HTTP GET request for overdue preview about a loan."""
     loan = Loan.get_record_by_pid(loan_pid)
     if not loan:
-        abort(404)
+        abort(404, 'Loan not found')
     fees = loan.get_overdue_fees
     fees = [(fee[0], fee[1].isoformat()) for fee in fees]  # format date
     return jsonify({
