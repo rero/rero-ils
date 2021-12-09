@@ -41,7 +41,9 @@
         "focus": true,
         "validation": {
           "validators": {
-            "valueAlreadyExists": {}
+            "valueAlreadyExists": {
+              "term": "name.raw"
+            }
           },
           "messages": {
             "alreadyTakenMessage": "The name is already taken."
@@ -57,7 +59,9 @@
       "form": {
         "validation": {
           "validators": {
-            "valueAlreadyExists": {}
+            "valueAlreadyExists": {
+              "term": "number.raw"
+            }
           },
           "messages": {
             "alreadyTakenMessage": "The number is already taken."
