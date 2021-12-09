@@ -78,7 +78,7 @@
   {
     "pid": "6",
     "name": "Aoste-Cant monography",
-    "number": "AOSTE/2020.020.000",
+    "number": "AOSTE/2020.030.000",
     "allocated_amount": 17000,
     "budget": {
       "$ref": "https://bib.rero.ch/api/budgets/1"
@@ -90,7 +90,7 @@
   {
     "pid": "7",
     "name": "Aoste-Cant monography / Hard cover",
-    "number": "AOSTE/2020.020.001",
+    "number": "AOSTE/2020.030.001",
     "allocated_amount": 15000,
     "expenditure_exceedance": 5,
     "parent": {
@@ -106,7 +106,7 @@
   {
     "pid": "8",
     "name": "Aoste-Cant monography / Soft cover",
-    "number": "AOSTE/2020.020.002",
+    "number": "AOSTE/2020.030.002",
     "allocated_amount": 2000,
     "encumbrance_exceedance": 10,
     "expenditure_exceedance": 10,

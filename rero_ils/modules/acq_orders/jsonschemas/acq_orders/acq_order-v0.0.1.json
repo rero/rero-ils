@@ -38,7 +38,7 @@
         "validation": {
           "validators": {
             "valueAlreadyExists": {
-              "term": "reference"
+              "term": "reference.raw"
             }
           },
           "messages": {

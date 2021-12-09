@@ -81,8 +81,8 @@ class AcqAccount(IlsRecord):
     }
 
     unique_value_fields = [
-        ('name', 'name_sort'),
-        ('number', 'number_sort')
+        ('name', 'name.raw'),
+        ('number', 'number.raw')
     ]
 
     _extensions = [
