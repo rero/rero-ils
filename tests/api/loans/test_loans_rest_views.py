@@ -18,9 +18,12 @@
 """Tests REST API loans."""
 
 from flask import url_for
+from invenio_accounts.testutils import login_user_via_session
+from invenio_jsonschemas import current_jsonschemas
 from utils import get_json, item_record_to_a_specific_loan_state, login_user
 
 from rero_ils.modules.loans.models import LoanState
+from rero_ils.modules.utils import get_schema_for_resource
 
 
 def test_loan_can_extend(client, patron_martigny, item_lib_martigny,
@@ -46,3 +49,30 @@ def test_loan_can_extend(client, patron_martigny, item_lib_martigny,
         'can': False,
         'reasons': ['Circulation policies disallows the operation.']
     }
+
+
+def test_loan_circulation_policy(
+    client, patron_martigny, librarian_martigny,
+    item_on_loan_martigny_patron_and_loan_on_loan
+):
+    """Test dumping of circulation policy related to a loan."""
+    _, _, loan = item_on_loan_martigny_patron_and_loan_on_loan
+    base_url_for = 'api_loan.dump_loan_current_circulation_policy'
+    api_url = url_for(base_url_for, loan_pid=loan.pid)
+    dummy_url = url_for(base_url_for, loan_pid='dummy_pid')
+
+    # Patron user cannot access to this API
+    login_user_via_session(client, patron_martigny.user)
+    response = client.get(api_url)
+    assert response.status_code == 403
+
+    # Librarian user can access to this API
+    login_user_via_session(client, librarian_martigny.user)
+    response = client.get(api_url)
+    assert response.status_code == 200
+    data = get_json(response)
+    cipo_schema = get_schema_for_resource('cipo')
+    data['$schema'] = current_jsonschemas.path_to_url(cipo_schema)
+
+    response = client.get(dummy_url)
+    assert response.status_code == 404
