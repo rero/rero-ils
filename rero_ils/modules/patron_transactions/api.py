@@ -310,14 +310,13 @@ class PatronTransaction(IlsRecord):
                     'timestamp': fee[1].isoformat(),
                     'amount': fee[0]
                 })
-            record = cls.create(
+            return cls.create(
                 data,
                 dbcommit=dbcommit,
                 reindex=reindex,
                 delete_pid=delete_pid,
                 steps=steps
             )
-            return record
 
     @classmethod
     def create_patron_transaction_from_notification(
