@@ -673,7 +673,6 @@ class Loan(IlsRecord):
         # add 1 day to end_date because the first overdue_date is next day
         # after the due date
         end_date = date_string_to_utc(self.end_date) + timedelta(days=1)
-        end_date = end_date
         total = 0
         max_overdue = overdue_settings.get('maximum_total_amount', math.inf)
         intervals = cipo.get_overdue_intervals()
@@ -684,6 +683,11 @@ class Loan(IlsRecord):
         # due date ; `day` is the datetime of this day
 
         for day_idx, day in enumerate(loan_lib.get_open_days(end_date), 1):
+            # replace the hour to start of the day :: an overdue start at
+            # at the beginning of the day
+            day = day.replace(
+                hour=0, minute=0, second=0, microsecond=0, tzinfo=None)
+            day = loan_lib.get_timezone().localize(day)
             # a) find the correct interval.
             # b) check the index found exist into intervals
             # c) check the upper limit of this interval is grower or equal
@@ -697,8 +701,7 @@ class Loan(IlsRecord):
             # e) if maximum_overdue is reached, exit the loop
             fee_amount = intervals[interval_idx]['fee_amount']
             gap = round(max_overdue - total, 2)
-            if fee_amount > gap:
-                fee_amount = gap
+            fee_amount = min(fee_amount, gap)
             total = round(math.fsum([total, fee_amount]), 2)
             fees.append((fee_amount, day))
             if max_overdue <= total:
