@@ -174,7 +174,8 @@
           "city": "Martigny",
           "zip_code": "1920",
           "country": "sz"
-        }
+        },
+        "extra": "VAT number: 123456-78-90"
       },
       "billing_informations": {
         "name": "martigny billing dept",
