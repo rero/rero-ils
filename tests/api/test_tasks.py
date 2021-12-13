@@ -27,6 +27,7 @@ from utils import flush_index, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.tasks import clean_obsolete_temporary_item_types
+from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.api import Loan, LoansSearch, get_due_soon_loans, \
     get_overdue_loans
 from rero_ils.modules.loans.models import LoanAction, LoanState
@@ -126,7 +127,14 @@ def test_notifications_task(
     #          use an overdue of 12 days because the overdue is based on
     #          loan->item->library open days. Using 12 (5 days + 1 week) we
     #          ensure than the overdue notification will be sent.
-    end_date = datetime.now(timezone.utc) - timedelta(days=12)
+    loan_lib = Library.get_record_by_pid(loan.library_pid)
+    add_days = 12
+    open_days = []
+    while len(open_days) < 12:
+        end_date = datetime.now(timezone.utc) - timedelta(days=add_days)
+        open_days = loan_lib.get_open_days(end_date)
+        add_days += 1
+
     loan['end_date'] = end_date.isoformat()
     loan.update(loan, dbcommit=True, reindex=True)
     overdue_loans = list(get_overdue_loans())

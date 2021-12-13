@@ -55,9 +55,9 @@ among other things.
 
 .. code-block:: console
 
-    $ pyenv install 3.6.9
+    $ pyenv install 3.9.7
     $ cd rero-ils
-    $ pyenv local 3.6.9
+    $ pyenv local 3.9.7
     $ sudo pip install poetry
 
 Next, ``cd`` into the project directory and bootstrap the instance (this will install

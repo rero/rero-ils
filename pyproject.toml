@@ -6,7 +6,7 @@ authors = ["RERO <software@rero.ch>"]
 license = "GNU Affero General Public License v3.0"
 
 [tool.poetry.dependencies]
-python = ">= 3.6, <3.8"
+python = ">= 3.7, <3.10"
 ## Python packages dependencies (order matters)
 #------------------------------------------------------------------------------
 ## Note: poetry evaluates the package constraints from the top to the bottom
@@ -66,6 +66,7 @@ invenio-userprofiles = {git = "https://github.com/rero/invenio-userprofiles.git"
 ## Additionnal constraints on python modules
 flask-wiki = {git = "https://github.com/rero/flask-wiki.git"}
 markdown-captions = "*"
+zipp = "*"
 
 ## Deployment
 # sentry

@@ -4216,7 +4216,7 @@
     },
     "operation": "update",
     "user_name": "updated_user",
-    "date": "2021-01-21T09:51:52.879533+00:00"
+    "date": "2021-01-01T09:51:52.879533+00:00"
   },
   "user1": {
     "$schema": "https://bib.rero.ch/schemas/users/user-v0.0.1.json",

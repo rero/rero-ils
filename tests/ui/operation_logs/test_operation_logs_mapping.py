@@ -26,6 +26,5 @@ def test_operation_log_es_mapping(item_lib_sion, operation_log_data):
     """Test operation log elasticsearch mapping."""
     mapping = get_mapping(OperationLog.index_name)
     assert mapping
-    OperationLog.create(
-        operation_log_data)
+    OperationLog.create(operation_log_data)
     assert mapping == get_mapping(OperationLog.index_name)

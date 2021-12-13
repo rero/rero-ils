@@ -190,7 +190,13 @@ def test_anonymizer_job(
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
 
     # make the loan overdue and create related notifications
-    end_date = datetime.now(timezone.utc) - timedelta(days=10)
+    loan_lib = Library.get_record_by_pid(loan.library_pid)
+    add_days = 10
+    open_days = []
+    while len(open_days) < 10:
+        end_date = datetime.now(timezone.utc) - timedelta(days=add_days)
+        open_days = loan_lib.get_open_days(end_date)
+        add_days += 1
     loan['end_date'] = end_date.isoformat()
     loan.update(loan, dbcommit=True, reindex=True)
     create_notifications(types=[
