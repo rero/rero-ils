@@ -122,6 +122,9 @@
               "phone": {
                 "type": "text"
               },
+              "extra": {
+                "type": "text"
+              },
               "address": {
                 "properties": {
                   "street": {
@@ -155,6 +158,9 @@
                 }
               },
               "phone": {
+                "type": "text"
+              },
+              "extra": {
                 "type": "text"
               },
               "address": {
