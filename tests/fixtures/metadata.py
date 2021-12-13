@@ -19,6 +19,7 @@
 
 
 from copy import deepcopy
+from datetime import datetime
 from os.path import dirname, join
 
 import mock
@@ -1105,7 +1106,11 @@ def local_field_sion(app, org_martigny, document, local_field_sion_data):
 @pytest.fixture(scope="module")
 def operation_log_data(data):
     """Load operation log record."""
-    return deepcopy(data.get('oplg1'))
+    # change the date foe the right year
+    data = data.get('oplg1')
+    date = data['date']
+    data['date'] = f'{datetime.now().year}{date[4:]}'
+    return deepcopy(data)
 
 
 @pytest.fixture(scope="module")

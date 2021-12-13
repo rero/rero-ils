@@ -18,6 +18,7 @@
 """Operation logs Record tests."""
 
 from copy import deepcopy
+from datetime import datetime
 
 import pytest
 from invenio_search import current_search
@@ -40,7 +41,7 @@ def test_operation_create(client, es_clear, operation_log_data):
     oplg2 = OperationLog.create(tmp, index_refresh='wait_for')
     assert OperationLog.get_indices() == set((
         'operation_logs-2020',
-        'operation_logs-2021'
+        f'operation_logs-{datetime.now().year}'
     ))
     assert OperationLog.get_record(oplg.id)
     assert OperationLog.get_record(oplg2.id)
