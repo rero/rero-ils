@@ -67,13 +67,15 @@ def test_send_order(
     app, client, librarian_martigny, lib_martigny,
     acq_order_fiction_martigny,
     acq_order_line_fiction_martigny, vendor_martigny,
-    acq_order_line2_fiction_martigny, acq_order_line3_fiction_martigny
+    acq_order_line2_fiction_martigny, acq_order_line3_fiction_martigny,
+    mailbox
 ):
     """Test send order notification API."""
     login_user_via_session(client, librarian_martigny.user)
     acor = acq_order_fiction_martigny
     address = vendor_martigny.get('default_contact').get('email')
     emails = [{'type': 'cc', 'address': address}]
+    mailbox.clear()
     # test when parent order is not in database
     res, data = postdata(
         client,
@@ -156,3 +158,8 @@ def test_send_order(
     assert notif.get_language_to_use() == \
         vendor_martigny.get('communication_language')
     assert address in notif.get_recipients(RecipientType.TO)
+
+    # Check mail content
+    message = mailbox[-1]
+    shipping = lib_martigny['acquisition_settings']['shipping_informations']
+    assert shipping.get('extra') and shipping.get('extra') in message.body

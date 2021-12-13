@@ -439,6 +439,12 @@
             },
             "address": {
               "$ref": "#/definitions/address_block"
+            },
+            "extra": {
+              "title": "Extra information",
+              "description": "VAT number, note, ...",
+              "type": "string",
+              "minLength": 3
             }
           }
         },
@@ -470,6 +476,12 @@
             },
             "address": {
               "$ref": "#/definitions/address_block"
+            },
+            "extra": {
+              "title": "Extra information",
+              "description": "VAT number, note, ...",
+              "type": "string",
+              "minLength": 3
             }
           }
         }

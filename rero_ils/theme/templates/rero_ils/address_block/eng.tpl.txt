@@ -7,4 +7,7 @@ Email: {{ data.email }}
 {%- endif %}
 {%- if data.phone %}
 Phone: {{ data.phone }}
+{%- if data.extra %}
+{{ data.extra }}
+{%- endif %}
 {%- endif %}
