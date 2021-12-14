@@ -80,9 +80,8 @@ class AcqReceiptLine(IlsRecord):
         # TODO : should be used into `pre_create` hook extensions but seems not
         #        work as expected.
         cls._build_additional_refs(data)
-        record = super().create(
+        return super().create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
-        return record
 
     def update(self, data, commit=True, dbcommit=True, reindex=True):
         """Update Acquisition Receipt Line record."""
@@ -153,7 +152,9 @@ class AcqReceiptLine(IlsRecord):
     @property
     def total_amount(self):
         """Shortcut for related acquisition total_amount."""
-        total = self.amount * self.receipt.exchange_rate * self.quantity
+        vat_factor = (100 + self.get('vat_rate', 0)) / 100
+        total = self.amount * self.receipt.exchange_rate * self.quantity * \
+            vat_factor
         return round(total, 2)
 
     @property

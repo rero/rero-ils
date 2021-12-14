@@ -55,6 +55,9 @@
       "amount": {
         "type": "float"
       },
+      "vat_rate": {
+        "type": "float"
+      },
       "total_amount": {
         "type": "float"
       },
