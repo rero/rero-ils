@@ -63,14 +63,15 @@ def filter_document_type_buckets(buckets):
         for type_bucket in buckets:
             new_type_bucket = type_bucket
             main_type = type_bucket['key']
-            new_subtype_buckets = []
-            subtype_buckets = type_bucket['document_subtype']['buckets']
-            for subtype_bucket in subtype_buckets:
-                if doc_types.get(main_type, {}).get(subtype_bucket['key']):
-                    new_subtype_buckets.append(subtype_bucket)
-            new_type_bucket[
-                'document_subtype'
-            ]['buckets'] = new_subtype_buckets
+            new_subtype_buckets = [
+                subtype_bucket
+                for subtype_bucket in type_bucket['document_subtype'][
+                    'buckets'
+                ]
+                if doc_types.get(main_type, {}).get(subtype_bucket['key'])
+            ]
+            new_type_bucket['document_subtype']['buckets'] = \
+                new_subtype_buckets
             new_type_buckets.append(new_type_bucket)
     return new_type_buckets
 
@@ -78,17 +79,11 @@ def filter_document_type_buckets(buckets):
 def clean_text(data):
     """Delete all _text from data."""
     if isinstance(data, list):
-        new_val = []
-        for val in data:
-            new_val.append(clean_text(val))
-        data = new_val
+        data = [clean_text(val) for val in data]
     elif isinstance(data, dict):
         if '_text' in data:
             del data['_text']
-        new_data = {}
-        for key, val in data.items():
-            new_data[key] = clean_text(val)
-        data = new_data
+        data = {key: clean_text(val) for key, val in data.items()}
     return data
 
 
@@ -117,13 +112,12 @@ def publication_statement_text(provision_activity):
                     statement_with_language[language] += punctuation[
                         statement_type
                     ]
+                elif statement['type'] == 'bf:Place':
+                    statement_with_language[language] += ' ; '
+                elif statement['type'] == 'Date':
+                    statement_with_language[language] += ', '
                 else:
-                    if statement['type'] == 'bf:Place':
-                        statement_with_language[language] += ' ; '
-                    elif statement['type'] == 'Date':
-                        statement_with_language[language] += ', '
-                    else:
-                        statement_with_language[language] += ' : '
+                    statement_with_language[language] += ' : '
 
             statement_with_language[language] += label['value']
         statement_type = statement['type']
@@ -285,7 +279,7 @@ def title_format_text_head(titles, responsabilities=None, with_subtitle=True):
     output_value = '. '.join(head_titles)
     for parallel_title in parallel_titles:
         output_value += ' = ' + str(parallel_title)
-    responsabilities = responsabilities if responsabilities else []
+    responsabilities = responsabilities or []
     for responsibility in responsabilities:
         if len(responsibility) == 1:
             output_value += ' / ' + responsibility[0].get('value')
@@ -337,7 +331,7 @@ def title_format_text_alternate_graphic(titles, responsabilities=None):
                 #         parallel_title_text.get('value')
                 #     )
     responsibilities_text = {}
-    responsabilities = responsabilities if responsabilities else []
+    responsabilities = responsabilities or []
     for responsibility in responsabilities:
         for responsibility_language in responsibility:
             language = responsibility_language.get('language', 'default')
@@ -346,7 +340,7 @@ def title_format_text_alternate_graphic(titles, responsabilities=None):
             responsibilities_text[language] = responsibility_text
 
     output = []
-    for language in altgr_titles.keys():
+    for language in altgr_titles:
         altgr_text = '. '.join(altgr_titles[language])
         if language in parallel_titles:
             parallel_title_text = ' = '.join(parallel_titles[language])
@@ -449,11 +443,9 @@ def create_authorized_access_point(agent):
     authorized_access_point = agent.get('preferred_name')
     from ..contributions.api import ContributionType
     if agent.get('type') == ContributionType.PERSON:
-        date = ''
         date_of_birth = agent.get('date_of_birth')
         date_of_death = agent.get('date_of_death')
-        if date_of_birth:
-            date = date_of_birth
+        date = date_of_birth or ''
         if date_of_death:
             date += f'-{date_of_death}'
         numeration = agent.get('numeration')
@@ -506,9 +498,10 @@ def create_contributions(contributions):
                 contribution['agent'] = contrib.dumps_for_document()
         else:
             # transform local data for indexing
-            agent = {}
-            agent['type'] = contribution['agent']['type']
-            agent['preferred_name'] = contribution['agent']['preferred_name']
+            agent = {
+                'type': contribution['agent']['type'],
+                'preferred_name': contribution['agent']['preferred_name'],
+            }
             authorized_access_point = create_authorized_access_point(
                 contribution['agent']
             )
@@ -534,33 +527,28 @@ def create_contributions(contributions):
 
 def get_remote_cover(isbn):
     """Document cover service."""
-    if isbn:
-        cover_service = current_app.config.get(
-            'RERO_ILS_THUMBNAIL_SERVICE_URL'
-        )
-        url = f'{cover_service}' \
-            '?height=244px' \
-            '&width=244px' \
-            '&jsonpCallbackParam=callback' \
-            '&callback=thumb' \
-            '&type=isbn' \
-            f'&value={isbn}'
-        try:
-            host_url = flask_request.host_url
-        except Exception:
-            host_url = current_app.config.get('RERO_ILS_APP_URL', '??')
-            if host_url[-1] != '/':
-                host_url = f'{host_url}/'
-        response = requests.get(
-            url,
-            headers={'referer': host_url}
-        )
-        if response.status_code != 200:
-            current_app.logger.debug(
-                f'Unable to get cover for isbn: {isbn} {response.status_code}'
-            )
-            return None
-        result = json.loads(response.text[len('thumb('):-1])
-        if result['success']:
-            return result
-        current_app.logger.debug(f'Unable to get cover for isbn: {isbn}')
+    if not isbn:
+        return None
+    cover_service = current_app.config.get('RERO_ILS_THUMBNAIL_SERVICE_URL')
+    url = f'{cover_service}' \
+        '?height=244px' \
+        '&width=244px' \
+        '&jsonpCallbackParam=callback' \
+        '&callback=thumb' \
+        '&type=isbn' \
+        f'&value={isbn}'
+    try:
+        host_url = flask_request.host_url
+    except Exception:
+        host_url = current_app.config.get('RERO_ILS_APP_URL', '??')
+        if host_url[-1] != '/':
+            host_url = f'{host_url}/'
+    response = requests.get(url, headers={'referer': host_url})
+    if response.status_code != 200:
+        msg = f'Unable to get cover for isbn: {isbn} {response.status_code}'
+        current_app.logger.debug(msg)
+        return None
+    result = json.loads(response.text[len('thumb('):-1])
+    if result['success']:
+        return result
+    current_app.logger.debug(f'Unable to get cover for isbn: {isbn}')

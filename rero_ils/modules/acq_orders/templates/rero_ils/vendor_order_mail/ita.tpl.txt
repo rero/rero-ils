@@ -9,14 +9,24 @@ Vorremmo ordinare la seguente lista di libri:
 
 ------------------------------------------------------------
 {%- for line in order.order_lines %}
-Titolo : {{ line.document.title }}
-{%- if line.document.identifiers %}
-ISBN : {{ line.document.identifiers | join(', ') }}
-{%- endif %}
+Documento :
+  {{ line.document.title_text }}
+  {%- if line.document.provision_activity %}
+  Formulazione di pubblicazione : {{ line.document.provision_activity }}
+  {%- endif %}
+  {%- if line.document.serie_statement %}
+  Serie : {{ line.document.serie_statement }}
+  {%- endif %}
+  {%- if line.document.identifiers %}
+  ISBN : {{ line.document.identifiers | join(', ') }}
+  {%- endif %}
 {%- if line.note %}
 Nota : {{ line.note }}
 {%- endif %}
 Quantità : {{ line.quantity }}
+Conto locale : {{ line.account.name }} {% if line.account.number: -%}
+ [{{ line.account.number }}]
+{%- endif %}
 ------------------------------------------------------------
 {%- endfor -%}
 {%- if order.note %}
