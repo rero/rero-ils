@@ -9,14 +9,24 @@ Wir möchten die folgende Liste von Büchern bestellen:
 
 ------------------------------------------------------------
 {%- for line in order.order_lines %}
-Titel : {{ line.document.title }}
-{%- if line.document.identifiers %}
-ISBN : {{ line.document.identifiers | join(', ') }}
-{%- endif %}
+Dokument :
+  {{ line.document.title_text }}
+  {%- if line.document.provision_activity %}
+  Veröffentlichungsangabe : {{ line.document.provision_activity }}
+  {%- endif %}
+  {%- if line.document.serie_statement %}
+  Reihe : {{ line.document.serie_statement }}
+  {%- endif %}
+  {%- if line.document.identifiers %}
+  ISBN : {{ line.document.identifiers | join(', ') }}
+  {%- endif %}
 {%- if line.note %}
-Hinweis : {{ line.note }}
+Anmerkung : {{ line.note }}
 {%- endif %}
-Menge : {{ line.quantity }}
+Anzahl : {{ line.quantity }}
+Lokales Konto : {{ line.account.name }} {% if line.account.number: -%}
+ [{{ line.account.number }}]
+{%- endif %}
 ------------------------------------------------------------
 {%- endfor -%}
 {%- if order.note %}
