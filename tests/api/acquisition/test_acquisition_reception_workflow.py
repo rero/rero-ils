@@ -467,6 +467,7 @@ def test_acquisition_reception_workflow(
             'acq_order_line': {'$ref': order_line_1_ref},
             'amount': 10,
             'quantity': 2,
+            'vat_rate': 6,
             'receipt_date': '2021-11-01'
         }],
         url_data=dict(receipt_pid=receipt_1.pid)
@@ -508,8 +509,8 @@ def test_acquisition_reception_workflow(
     assert order.status == AcqOrderStatus.PARTIALLY_RECEIVED
 
     manual_controls = {
-        m_root_acc: ((5000, 9294), (0, 31), (0, 675)),
-        m_books_acc: ((1649, 1649), (21, 0), (330, 0)),
+        m_root_acc: ((5000, 9292.8), (0, 32.2), (0, 675)),
+        m_books_acc: ((1647.8, 1647.8), (22.2, 0), (330, 0)),
         m_serials_acc: ((2645, 2645), (10, 0), (345, 0)),
         s_root_acc: ((13500, 20000), (0, 0), (0, 0)),
         s_books_acc: ((2500, 2500), (0, 0), (0, 0)),
@@ -602,8 +603,8 @@ def test_acquisition_reception_workflow(
     assert order.status == AcqOrderStatus.RECEIVED
     # check account amounts
     manual_controls = {
-        m_root_acc: ((5000, 9294), (0, 706), (0, 0)),
-        m_books_acc: ((1649, 1649), (351, 0), (0, 0)),
+        m_root_acc: ((5000, 9292.8), (0, 707.2), (0, 0)),
+        m_books_acc: ((1647.8, 1647.8), (352.2, 0), (0, 0)),
         m_serials_acc: ((2645, 2645), (355, 0), (0, 0)),
         s_root_acc: ((13500, 20000), (0, 0), (0, 0)),
         s_books_acc: ((2500, 2500), (0, 0), (0, 0)),
