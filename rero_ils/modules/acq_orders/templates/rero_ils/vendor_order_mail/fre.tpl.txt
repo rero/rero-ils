@@ -9,14 +9,24 @@ Nous souhaitons vous commander la liste d'ouvrages suivants:
 
 ------------------------------------------------------------
 {%- for line in order.order_lines %}
-Titre : {{ line.document.title }}
-{%- if line.document.identifiers %}
-ISBN : {{ line.document.identifiers | join(', ') }}
-{%- endif %}
+Document :
+  {{ line.document.title_text }}
+  {%- if line.document.provision_activity %}
+  Mention de publication : {{ line.document.provision_activity }}
+  {%- endif %}
+  {%- if line.document.serie_statement %}
+  Collection : {{ line.document.serie_statement }}
+  {%- endif %}
+  {%- if line.document.identifiers %}
+  ISBN : {{ line.document.identifiers | join(', ') }}
+  {%- endif %}
 {%- if line.note %}
 Note : {{ line.note }}
 {%- endif %}
 Quantité : {{ line.quantity }}
+Compte local : {{ line.account.name }} {% if line.account.number: -%}
+ [{{ line.account.number }}]
+{%- endif %}
 ------------------------------------------------------------
 {%- endfor -%}
 {%- if order.note %}

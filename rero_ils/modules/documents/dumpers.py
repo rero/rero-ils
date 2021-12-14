@@ -17,10 +17,10 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Documents dumpers."""
-
 from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 
-from rero_ils.modules.documents.utils import title_format_text_head
+from rero_ils.modules.documents.utils import publication_statement_text, \
+    series_statement_format_text, title_format_text_head
 
 
 class DocumentGenericDumper(InvenioRecordsDumper):
@@ -54,8 +54,29 @@ class DocumentAcquisitionDumper(DocumentGenericDumper):
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
         data = super().dump(record, data)
+
+        # provision activity ------------------------
+        provision_activities = filter(None, [
+            publication_statement_text(activity)
+            for activity in record.get('provisionActivity', [])
+        ])
+        provision_activity = next(iter(provision_activities or []), None)
+        if provision_activity:
+            provision_activity = provision_activity[0]['value']
+
+        # series statement --------------------------
+        series_statements = filter(None, [
+            series_statement_format_text(statement)
+            for statement in record.get('seriesStatement', [])
+        ])
+        series_statement = next(iter(series_statements or []), None)
+        if series_statement:
+            series_statement = series_statement[0]['value']
+
         data.update({
-            'identifiers': record.get_identifier_values(filters=['bf:Isbn'])
+            'identifiers': record.get_identifier_values(filters=['bf:Isbn']),
+            'provision_activity': provision_activity,
+            'serie_statement': series_statement
         })
         data = {k: v for k, v in data.items() if v}
         return data
