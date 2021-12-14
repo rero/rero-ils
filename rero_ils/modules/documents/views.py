@@ -51,7 +51,7 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
     :param pid: PID object.
     :param record: Record object.
     :param template: Template to render.
-    :param \*\*kwargs: Additional view arguments based on URL rule.
+    :param **kwargs: Additional view arguments based on URL rule.
     :return: The rendered template.
     """
     record_viewed.send(
@@ -64,7 +64,7 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
 
     record['available'] = Document.is_available(record.pid, viewcode)
 
-    # build provisition activity
+    # build provision activity
     provision_activities = record.get('provisionActivity', [])
     for provision_activity in provision_activities:
         pub_state_text = publication_statement_text(provision_activity)
@@ -179,11 +179,11 @@ def provision_activity_not_publication(provisions):
 @blueprint.app_template_filter()
 def provision_activity_original_date(provisions):
     """Preprocess provision activity original date."""
-    activity = []
-    for provision in provisions:
-        if 'original_date' in provision:
-            activity.append(provision['original_date'])
-    return activity
+    return [
+        provision['original_date']
+        for provision in provisions
+        if 'original_date' in provision
+    ]
 
 
 @blueprint.app_template_filter()
@@ -279,9 +279,7 @@ def contribution_format(pid, language, viewcode, role=False):
             line = create_authorized_access_point(contribution['agent'])
 
         if role:
-            roles = []
-            for role in contribution.get('role', []):
-                roles.append(_(role))
+            roles = [_(role) for role in contribution.get('role', [])]
             if roles:
                 line += '<span class="text-secondary"> ({role})</span>'.format(
                     role=', '.join(roles)
@@ -309,9 +307,8 @@ def part_of_format(part_of):
     document_pid = extracted_data_from_ref(part_of.get('document'), data='pid')
     document = Document.get_record_by_pid(document_pid)
     nums = part_of.get('numbering')
-    output = {}
     # Set host document pid
-    output['document_pid'] = document_pid
+    output = {'document_pid': document_pid}
     # Set label
     subtype = document.get('issuance').get('subtype')
     if subtype == 'periodical':
@@ -491,10 +488,11 @@ def get_cover_art(record, save_cover_url=True, verbose=False):
         if e_content == 'coverImage' and e_type == 'relatedResource':
             return electronic_locator.get('url')
     # ISBN
-    isbns = []
-    for identified_by in record.get('identifiedBy', []):
-        if identified_by.get('type') == 'bf:Isbn':
-            isbns.append(identified_by.get('value'))
+    isbns = [
+        identified_by.get('value')
+        for identified_by in record.get('identifiedBy', [])
+        if identified_by.get('type') == 'bf:Isbn'
+    ]
     for isbn in sorted(isbns):
         isbn_cover = get_remote_cover(isbn)
         if isbn_cover and isbn_cover.get('success'):
@@ -670,16 +668,13 @@ def get_articles(record):
 
     :return: list of articles with title and pid-
     """
-    articles = []
     search = DocumentsSearch() \
         .filter('term', partOf__document__pid=record.get('pid')) \
         .source(['pid', 'title'])
-    for hit in search.scan():
-        articles.append({
-            'title': title_format_text_head(hit.title),
-            'pid': hit.pid
-        })
-    return articles
+    return [
+        {'title': title_format_text_head(hit.title), 'pid': hit.pid}
+        for hit in search.scan()
+    ]
 
 
 @blueprint.app_template_filter()
@@ -749,10 +744,7 @@ def subject_format(subject, language):
 @blueprint.app_template_filter()
 def series_statement_format(series):
     """Series statement format."""
-    output = []
-    for serie in series:
-        output.append(series_statement_format_text(serie))
-    return output
+    return [series_statement_format_text(serie) for serie in series]
 
 
 @blueprint.app_template_filter()

@@ -20,7 +20,9 @@
 
 from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 
+from rero_ils.modules.acq_accounts.dumpers import AcqAccountGenericDumper
 from rero_ils.modules.acq_order_lines.models import AcqOrderLineNoteType
+from rero_ils.modules.documents.dumpers import DocumentAcquisitionDumper
 from rero_ils.modules.documents.utils import title_format_text_head
 
 
@@ -78,15 +80,11 @@ class AcqOrderLineNotificationDumper(InvenioRecordsDumper):
         # Dumps AcqOrderLine acquisition
         data.update({
             'quantity': record.get('quantity'),
-            'note': record.get_note(AcqOrderLineNoteType.VENDOR)
+            'amount': record.get('amount'),
+            'note': record.get_note(AcqOrderLineNoteType.VENDOR),
+            'account': record.account.dumps(dumper=AcqAccountGenericDumper()),
+            'document': record.document.dumps(
+                dumper=DocumentAcquisitionDumper())
         })
         data = {k: v for k, v in data.items() if v}
-
-        # Add document informations: formatted title and ISBN identifiers.
-        document = record.document
-        data['document'] = {
-            'title': title_format_text_head(document.get('title', [])),
-            'identifiers': document.get_identifier_values(filters=['bf:Isbn'])
-        }
-        data['document'] = {k: v for k, v in data['document'].items() if v}
         return data
