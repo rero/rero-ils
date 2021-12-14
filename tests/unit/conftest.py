@@ -97,10 +97,20 @@ def acq_order_schema(monkeypatch):
 
 @pytest.fixture()
 def acq_order_line_schema(monkeypatch):
-    """Acq order Jsonschema for records."""
+    """Acq order line Jsonschema for records."""
     schema_in_bytes = resource_string(
         'rero_ils.modules.acq_order_lines.jsonschemas',
         '/acq_order_lines/acq_order_line-v0.0.1.json'
+    )
+    return get_schema(monkeypatch, schema_in_bytes)
+
+
+@pytest.fixture()
+def acq_receipt_line_schema(monkeypatch):
+    """Acq receipt line Jsonschema for records."""
+    schema_in_bytes = resource_string(
+        'rero_ils.modules.acq_receipt_lines.jsonschemas',
+        '/acq_receipt_lines/acq_receipt_line-v0.0.1.json'
     )
     return get_schema(monkeypatch, schema_in_bytes)
 

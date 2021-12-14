@@ -7,6 +7,7 @@
   "propertiesOrder": [
     "quantity",
     "amount",
+    "vat_rate",
     "receipt_date",
     "notes"
   ],
@@ -80,6 +81,24 @@
         "fieldMap": "amount",
         "navigation": {
           "essential": true
+        }
+      }
+    },
+    "vat_rate": {
+      "title": "VAT rate",
+      "type": "number",
+      "description": "percentage of VAT rate to apply on this receipt line",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0,
+      "form": {
+        "navigation": {
+          "essential": true
+        },
+        "templateOptions": {
+          "addonRight": {
+            "text": "%"
+          }
         }
       }
     },
