@@ -100,9 +100,8 @@ class PatronTransaction(IlsRecord):
     #       For PatronTransaction we have to set it to True for the tests.
     def update(self, data, commit=True, dbcommit=True, reindex=True):
         """Update data for record."""
-        record = super().update(
+        return super().update(
             data=data, commit=commit, dbcommit=dbcommit, reindex=reindex)
-        return record
 
     @classmethod
     def _build_transaction_query(cls, patron_pid, status=None, types=None):
@@ -304,12 +303,10 @@ class PatronTransaction(IlsRecord):
                 'total_amount': total_amount,
                 'creation_date': datetime.now(timezone.utc).isoformat(),
             }
-            steps = []
-            for fee in fees:
-                steps.append({
-                    'timestamp': fee[1].isoformat(),
-                    'amount': fee[0]
-                })
+            steps = [
+                {'timestamp': fee[1].isoformat(), 'amount': fee[0]}
+                for fee in fees
+            ]
             return cls.create(
                 data,
                 dbcommit=dbcommit,
@@ -324,7 +321,6 @@ class PatronTransaction(IlsRecord):
             delete_pid=None):
         """Create a patron transaction from notification."""
         from ..notifications.utils import calculate_notification_amount
-        record = {}
         total_amount = calculate_notification_amount(notification)
         if total_amount > 0:  # no need to create transaction if amount <= 0 !
             data = {
@@ -348,13 +344,12 @@ class PatronTransaction(IlsRecord):
                 'type': 'overdue',
                 'status': 'open'
             }
-            record = cls.create(
+            return cls.create(
                 data,
                 dbcommit=dbcommit,
                 reindex=reindex,
                 delete_pid=delete_pid
             )
-        return record
 
     @classmethod
     def create_subscription_for_patron(cls, patron, patron_type, start_date,
@@ -425,10 +420,7 @@ class PatronTransaction(IlsRecord):
         links = {}
         query = PatronTransactionEventsSearch() \
             .filter('term', parent__pid=self.pid)
-        if get_pids:
-            events = sorted_pids(query)
-        else:
-            events = query.count()
+        events = sorted_pids(query) if get_pids else query.count()
         if events:
             links['events'] = events
         return links

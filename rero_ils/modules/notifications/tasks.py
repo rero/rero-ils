@@ -69,10 +69,15 @@ def create_notifications(types=None, tstamp=None, verbose=True):
         notification_counter[NotificationType.DUE_SOON] = 0
         logger.debug("DUE_SOON_NOTIFICATION_CREATION -------------")
         for loan in get_due_soon_loans(tstamp=tstamp):
-            logger.debug(f"* Loan#{loan.pid} is considerate as 'due_soon'")
-            loan.create_notification(
-                _type=NotificationType.DUE_SOON)
-            notification_counter[NotificationType.DUE_SOON] += 1
+            try:
+                logger.debug(f"* Loan#{loan.pid} is considerate as 'due_soon'")
+                loan.create_notification(_type=NotificationType.DUE_SOON)
+                notification_counter[NotificationType.DUE_SOON] += 1
+            except Exception as error:
+                logger.error(
+                    f'Unable to create DUE_SOON notification :: {error}',
+                    exc_info=True, stack_info=True
+                )
         process_notifications(NotificationType.DUE_SOON)
     # OVERDUE NOTIFICATIONS
     if NotificationType.OVERDUE in types:
@@ -99,17 +104,25 @@ def create_notifications(types=None, tstamp=None, verbose=True):
             #   is already sent. If the notification has already sent, it will
             #   not be created again
             for idx, reminder in enumerate(reminders):
-                notification = loan.create_notification(
-                    _type=NotificationType.OVERDUE,
-                    counter=idx
-                )
-                if notification:
-                    logger.debug(f'  --> Overdue notification#{idx+1} created')
-                    notification_counter[NotificationType.OVERDUE] += 1
+                try:
+                    notification = loan.create_notification(
+                        _type=NotificationType.OVERDUE,
+                        counter=idx
+                    )
+                    if notification:
+                        msg = f'  --> Overdue notification#{idx+1} created'
+                        logger.debug(msg)
+                        notification_counter[NotificationType.OVERDUE] += 1
 
-                else:
-                    logger.debug(f'  --> Overdue notification#{idx+1} skipped '
-                                 f':: already sent')
+                    else:
+                        msg = f'  --> Overdue notification#{idx+1} skipped ' \
+                              ':: already sent'
+                        logger.debug(msg)
+                except Exception as error:
+                    logger.error(
+                        f'Unable to create OVERDUE notification :: {error}',
+                        exc_info=True, stack_info=True
+                    )
         process_notifications(NotificationType.OVERDUE)
     notification_sum = sum(notification_counter.values())
     counters = {k: v for k, v in notification_counter.items() if v > 0}

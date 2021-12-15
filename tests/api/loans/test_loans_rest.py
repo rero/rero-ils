@@ -16,7 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests REST API item_types."""
-
+from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 
 import ciso8601
@@ -29,7 +29,7 @@ from utils import check_timezone_date, flush_index, get_json, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.utils import item_pid_to_object
-from rero_ils.modules.libraries.api import Library
+from rero_ils.modules.libraries.api import LibrariesSearch, Library
 from rero_ils.modules.loans.api import Loan, get_due_soon_loans, \
     get_last_transaction_loc_for_item, get_overdue_loans
 from rero_ils.modules.loans.models import LoanAction, LoanState
@@ -239,10 +239,11 @@ def test_loan_access_permissions(client, librarian_martigny,
 
 
 def test_due_soon_loans(client, librarian_martigny,
+                        lib_martigny_data, lib_martigny,
                         patron_martigny, loc_public_martigny,
                         item_type_standard_martigny,
                         item_lib_martigny,
-                        circ_policy_short_martigny):
+                        circ_policy_short_martigny, yesterday):
     """Test overdue loans."""
     login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
@@ -265,6 +266,13 @@ def test_due_soon_loans(client, librarian_martigny,
     circ_policy['reminders'][0]['days_delay'] = 7
     circ_policy['checkout_duration'] = 3
     circ_policy.update(circ_policy, dbcommit=True, reindex=True)
+
+    # Remove library exception date to ensure to not been annoyed by
+    # closed dates.
+    custom_lib_data = deepcopy(lib_martigny_data)
+    custom_lib_data['exception_dates'] = []
+    lib_martigny.update(custom_lib_data, dbcommit=True, reindex=True)
+    flush_index(LibrariesSearch.Meta.index)
 
     # checkout
     res, data = postdata(
@@ -312,6 +320,9 @@ def test_due_soon_loans(client, librarian_martigny,
         )
     )
     assert res.status_code == 200
+
+    # reset lib
+    lib_martigny.update(lib_martigny_data, dbcommit=True, reindex=True)
 
 
 def test_overdue_loans(client, librarian_martigny,

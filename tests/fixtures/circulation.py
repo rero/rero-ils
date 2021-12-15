@@ -458,9 +458,8 @@ def loan_pending_martigny(
     )
     flush_index(ItemsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
-    loan = list(item_lib_fully.get_loans_by_item_pid(
+    return list(item_lib_fully.get_loans_by_item_pid(
         item_pid=item_lib_fully.pid))[0]
-    return loan
 
 
 @pytest.fixture(scope="module")
@@ -660,13 +659,58 @@ def notification_availability_sion2(loan_validated_sion2):
         loan_validated_sion2,
         notification_type=NotificationType.AVAILABILITY
     )
+
+
 # ------------ Notifications: dummy notification ----------
-
-
 @pytest.fixture(scope="function")
 def dummy_notification(data):
     """Notification data scope function."""
     return deepcopy(data.get('dummy_notif'))
+
+
+# ------------ Patron Transactions: Lib Martigny overdue scenario ----------
+@pytest.fixture(scope="module")
+def loan_due_soon_martigny(
+    app,
+    document,
+    item4_lib_martigny,
+    loc_public_martigny,
+    item_type_standard_martigny,
+    librarian_martigny,
+    patron_martigny,
+    circulation_policies,
+    tomorrow
+):
+    """Checkout an item to a patron ; item4_lib_martigny is due_soon."""
+    item = item4_lib_martigny
+    item.checkout(
+        patron_pid=patron_martigny.pid,
+        transaction_location_pid=loc_public_martigny.pid,
+        transaction_user_pid=librarian_martigny.pid,
+        transaction_date=datetime.now(timezone.utc).isoformat(),
+        document_pid=extracted_data_from_ref(item.get('document'))
+    )
+    flush_index(ItemsSearch.Meta.index)
+    flush_index(LoansSearch.Meta.index)
+    loan_pid = item.get_loan_pid_with_item_on_loan(item.pid)
+    loan = Loan.get_record_by_pid(loan_pid)
+
+    # Updating the end_date to a very soon date, will fired the extension hook
+    # to compute a valid due_soon date
+    loan['end_date'] = tomorrow.isoformat()
+    return loan.update(loan, dbcommit=True, reindex=True)
+
+
+@pytest.fixture(scope="module")
+def notification_due_soon_martigny(app, loan_due_soon_martigny):
+    """Create a due soon notification for an due_soon loan."""
+    notification = loan_due_soon_martigny.create_notification(
+        _type=NotificationType.DUE_SOON
+    ).pop()
+    flush_index(NotificationsSearch.Meta.index)
+    flush_index(LoansSearch.Meta.index)
+    flush_index(PatronTransactionsSearch.Meta.index)
+    return notification
 
 
 # ------------ Patron Transactions: Lib Martigny overdue scenario ----------
@@ -701,8 +745,7 @@ def loan_overdue_martigny(
             item4_lib_martigny.pid))
     end_date = datetime.now(timezone.utc) - timedelta(days=25)
     loan['end_date'] = end_date.isoformat()
-    loan = loan.update(loan, dbcommit=True, reindex=True)
-    return loan
+    return loan.update(loan, dbcommit=True, reindex=True)
 
 
 @pytest.fixture(scope="module")
