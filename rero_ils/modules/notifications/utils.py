@@ -124,14 +124,10 @@ def calculate_notification_amount(notification):
         notification.item.holding_circulation_category_pid
     )
 
-    # now we get the circulation policy, we need to find the right reminder
-    # to use for this notification. To know that, we firstly need to know how
-    # many notification are already sent for the parent loan for the same
-    # notification type.
-    reminders_count = number_of_notifications_sent(
-        notification.loan, notification_type=notif_type)
+    # now we get the circulation policy, search the correct reminder depending
+    # of the reminder_counter from the notification context.
     reminder = cipo.get_reminder(
         reminder_type=reminder_type,
-        idx=reminders_count-1
+        idx=notification.get('context', {}).get('reminder_counter', 0)
     )
     return reminder.get('fee_amount', 0) if reminder else 0

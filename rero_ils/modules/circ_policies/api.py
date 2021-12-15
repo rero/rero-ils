@@ -369,7 +369,7 @@ class CircPolicy(IlsRecord):
         :param idx: the reminder index to search. First reminder has 0 index.
         """
         reminders = list(self.get_reminders(reminder_type=reminder_type))
-        if idx < len(reminders):
+        if reminders and idx < len(reminders):
             return reminders[idx]
 
     @classmethod
