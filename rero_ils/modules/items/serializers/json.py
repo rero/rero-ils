@@ -21,14 +21,14 @@
 from rero_ils.modules.documents.api import search_document_by_pid
 from rero_ils.modules.documents.utils import filter_document_type_buckets, \
     title_format_text_head
-from rero_ils.modules.item_types.api import ItemType
+from rero_ils.modules.item_types.api import ItemTypesSearch
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
-from rero_ils.modules.libraries.api import Library
-from rero_ils.modules.locations.api import Location
+from rero_ils.modules.libraries.api import LibrariesSearch, Library
+from rero_ils.modules.locations.api import Location, LocationsSearch
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.serializers import JSONSerializer
-from rero_ils.modules.vendors.api import Vendor
+from rero_ils.modules.vendors.api import VendorsSearch
 
 
 class ItemsJSONSerializer(JSONSerializer):
@@ -44,6 +44,26 @@ class ItemsJSONSerializer(JSONSerializer):
         orgs = {}
         libs = {}
         locs = {}
+
+        # enrich library bucket
+        JSONSerializer.enrich_bucket_with_data(
+            results, 'library', LibrariesSearch, 'name')
+        # enrich location bucket
+        JSONSerializer.enrich_bucket_with_data(
+            results, 'location', LocationsSearch, 'name')
+        # enrich item type bucket
+        JSONSerializer.enrich_bucket_with_data(
+            results, 'item_type', ItemTypesSearch, 'name')
+        # enrich temporary item type bucket
+        JSONSerializer.enrich_bucket_with_data(
+            results, 'temporary_item_type', ItemTypesSearch, 'name')
+        # enrich temporary location bucket
+        JSONSerializer.enrich_bucket_with_data(
+            results, 'temporary_location', LocationsSearch, 'name')
+        # enrich vendor bucket
+        JSONSerializer.enrich_bucket_with_data(
+            results, 'vendor', VendorsSearch, 'name')
+
         for record in records:
             metadata = record.get('metadata', {})
             document = search_document_by_pid(
@@ -99,29 +119,6 @@ class ItemsJSONSerializer(JSONSerializer):
                 locs[location['pid']] = Location \
                     .get_record_by_pid(location['pid'])
             location['name'] = locs[location['pid']].get('name')
-
-        # Add library name
-        for lib_term in results.get('aggregations', {}).get(
-                'library', {}).get('buckets', []):
-            lib = Library.get_record_by_pid(lib_term.get('key'))
-            lib_term['name'] = lib.get('name')
-        # Add location name
-        for loc_term in results.get('aggregations', {}).get(
-                'location', {}).get('buckets', []):
-            loc = Location.get_record_by_pid(loc_term.get('key'))
-            loc_term['name'] = loc.get('name')
-
-        # Add item type name
-        for item_type_term in results.get('aggregations', {}).get(
-                'item_type', {}).get('buckets', []):
-            item_type = ItemType.get_record_by_pid(item_type_term.get('key'))
-            item_type_term['name'] = item_type.get('name')
-
-        # Add vendor name
-        for vendor_term in results.get('aggregations', {}).get(
-                'vendor', {}).get('buckets', []):
-            vendor = Vendor.get_record_by_pid(vendor_term.get('key'))
-            vendor_term['name'] = vendor.get('name')
 
         # Correct document type buckets
         if results.get('aggregations', {}).get('document_type'):

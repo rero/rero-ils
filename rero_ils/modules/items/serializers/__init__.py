@@ -48,6 +48,8 @@ csv_item = ItemCSVSerializer(
         'checkin_note',
         'checkout_note',
         'loans_count',
+        'checkout_date',
+        'due_date',
         'last_transaction_date',
         'status',
         'created',

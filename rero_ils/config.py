@@ -1974,6 +1974,16 @@ RECORDS_REST_FACETS = dict(
                     field='item_type.pid',
                     size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)
             ),
+            temporary_location=dict(
+                terms=dict(
+                    field='temporary_location.pid',
+                    size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+            ),
+            temporary_item_type=dict(
+                terms=dict(
+                    field='temporary_item_type.pid',
+                    size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+            ),
             status=dict(
                 terms=dict(
                     field='status',
@@ -1999,6 +2009,10 @@ RECORDS_REST_FACETS = dict(
             _('library'): and_term_filter('library.pid'),
             _('location'): and_term_filter('location.pid'),
             _('item_type'): and_term_filter('item_type.pid'),
+            _('temporary_item_type'):
+                and_term_filter('temporary_item_type.pid'),
+            _('temporary_location'):
+                and_term_filter('temporary_location.pid'),
             _('status'): and_term_filter('status'),
             _('issue_status'): and_term_filter('issue.status'),
             _('vendor'): and_term_filter('vendor.pid'),
