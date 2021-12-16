@@ -122,6 +122,40 @@ class JSONSerializer(_JSONSerializer):
                     if attr in resource:
                         term[attr] = resource.get(attr)
 
+    @staticmethod
+    def enrich_bucket_with_data(results, bucket_name, search_cls,
+                                attributes_name):
+        """Complete a bucket by adding new keys based on resource attributes.
+
+        :param results: the ES results data (containing aggregations).
+        :param bucket_name: the bucket name to perform.
+        :param search_cls: the related search class.
+        :param attributes_name: attributes to load from search data.
+        """
+        attributes_name = attributes_name or []
+        if not isinstance(attributes_name, list):
+            attributes_name = [attributes_name]
+        buckets = results.get('aggregations', {}) \
+            .get(bucket_name, {}).get('buckets', [])
+
+        # extract pids from buckets
+        bucket_pids = [term['key'] for term in buckets]
+
+        # search all pids with search class
+        query = search_cls() \
+            .filter('terms', pid=list(bucket_pids)) \
+            .source(['pid'] + attributes_name)
+
+        # preprocess results
+        search_data = {result.pid: result.to_dict() for result in
+                       query.scan()}
+
+        # complete bukets with data
+        for term in buckets:
+            for attr in attributes_name:
+                if attr in search_data[term['key']]:
+                    term[attr] = search_data[term['key']].get(attr)
+
 
 json_v1 = JSONSerializer(RecordSchemaJSONV1)
 """JSON v1 serializer."""

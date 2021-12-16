@@ -30,6 +30,7 @@ from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.item_types.api import ItemTypesSearch
 from rero_ils.modules.libraries.api import LibrariesSearch
 from rero_ils.modules.loans.api import LoansSearch
+from rero_ils.modules.loans.models import LoanState
 from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.utils import get_i18n_supported_languages
 
@@ -160,12 +161,13 @@ class ItemCSVSerializer(CSVSerializer):
 
             def get_loans_by_item_pids(item_pids):
                 """Get loans for the given item pid list."""
-                states = ['PENDING'] + \
+                states = \
                     current_app.config['CIRCULATION_STATES_LOAN_ACTIVE']
                 loan_search = LoansSearch() \
                     .filter('terms', state=states) \
                     .filter('terms', item_pid__value=item_pids) \
-                    .source(['pid', 'item_pid.value', '_created'])
+                    .source(['pid', 'item_pid.value', 'start_date',
+                            'end_date', 'state', '_created'])
                 agg = A('terms', field='item_pid.value', size=chunk_size)
                 loan_search.aggs.bucket('loans_count', agg)
 
@@ -179,8 +181,9 @@ class ItemCSVSerializer(CSVSerializer):
                         }
                     }
                 )
-
-                results = loan_search.execute()
+                # default results size for the execute method is 10.
+                # We need to set this to the chunk size"
+                results = loan_search[0:chunk_size].execute()
                 agg_buckets = {}
                 for result in results.aggregations.loans_count.buckets:
                     agg_buckets[result.key] = result.doc_count
@@ -195,6 +198,11 @@ class ItemCSVSerializer(CSVSerializer):
                         'last_transaction_date': ciso8601.parse_datetime(
                             loan_data['_created']).date()
                     }
+                    if loan_data.get('state') == LoanState.ITEM_ON_LOAN:
+                        loans[item_pid]['checkout_date'] = ciso8601.\
+                            parse_datetime(loan_data['start_date']).date()
+                        loans[item_pid]['due_date'] = ciso8601.\
+                            parse_datetime(loan_data['end_date']).date()
                 return loans
 
             headers = dict.fromkeys(self.csv_included_fields)

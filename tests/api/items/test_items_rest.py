@@ -1010,3 +1010,23 @@ def test_item_possible_actions(client, item_lib_martigny,
         reindex=True
     )
     assert circ_policy.can_checkout
+
+
+def test_items_facets(
+    client,
+    item_lib_martigny,  # on shelf
+    item_lib_fully,  # on loan
+    rero_json_header
+):
+    """Test record retrieval."""
+    list_url = url_for('invenio_records_rest.item_list')
+    response = client.get(list_url, headers=rero_json_header)
+    assert response.status_code == 200
+    data = get_json(response)
+    aggs = data['aggregations']
+    # check all facets are present
+    for facet in [
+        'document_type', 'issue_status', 'item_type', 'library', 'location',
+        'status', 'temporary_item_type', 'temporary_location', 'vendor'
+    ]:
+        assert aggs[facet]

@@ -158,10 +158,10 @@ def test_items_serializers(
            '"location_name","barcode","call_number","second_call_number",' \
            '"enumerationAndChronology","item_type","temporary_item_type",' \
            '"temporary_item_type_end_date","general_note","staff_note",' \
-           '"checkin_note","checkout_note","loans_count",' \
-           '"last_transaction_date","status","created","issue_status",' \
-           '"issue_status_date","issue_claims_count","issue_expected_date",' \
-           '"issue_regular"' in data
+           '"checkin_note","checkout_note","loans_count","checkout_date",' \
+           '"due_date","last_transaction_date","status","created",' \
+           '"issue_status","issue_status_date","issue_claims_count",' \
+           '"issue_expected_date","issue_regular"' in data
 
 
 def test_loans_serializers(
