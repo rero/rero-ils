@@ -67,7 +67,7 @@ fi
 # The real bootstrap script starts with app installation below ;-)
 flags=()
 deploy=false
-cmd="poetry install"
+cmd="pdm install"
 ci=false
 sip2=false
 tgz_file=""
@@ -98,10 +98,10 @@ do
 done
 
 
-# Poetry is a mandatory condition to launch this program!
-if [[ -z "${VIRTUAL_ENV}" ]]; then
-  error_msg+exit "Error - Launch this script via poetry command:\n\tpoetry run ${PROGRAM}"
-fi
+# pdm is a mandatory condition to launch this program!
+# if [[ -z "${VIRTUAL_ENV}" ]]; then
+#   error_msg+exit "Error - Launch this script via pdm command:\n\pdm run ${PROGRAM}"
+# fi
 
 if $deploy ; then
   if ! $ci ; then
@@ -111,7 +111,7 @@ fi
 
 if ! $deploy ; then
     if $ci ; then
-        cmd="poetry update"
+        cmd="pdm update"
     fi
 fi
 
@@ -121,7 +121,7 @@ fi
 
 # create virtualenv and upgrade pip
 info_msg "Upgrade pip"
-poetry run pip install --upgrade pip
+pdm run pip install --upgrade pip
 
 # BOOTSTRAP START
 # install the application and all the dependencies
@@ -131,7 +131,7 @@ ${cmd} ${flags[@]}
 # install the app itself
 if ! $deploy ; then
     if $ci ; then
-        poetry install
+        pdm install
     fi
 fi
 
@@ -139,7 +139,7 @@ fi
 # ------------------------------------------------
 # install the npm dependencies
 info_msg "Search static folder location"
-static_folder=$(poetry run invenio shell --no-term-title -c "print('static_folder:%s' % app.static_folder)"|grep static_folder| cut -d: -f2-)
+static_folder=$(pdm run invenio shell --no-term-title -c "print('static_folder:%s' % app.static_folder)"|grep static_folder| cut -d: -f2-)
 
 # install rero-ils-ui
 info_msg "Install static folder npm dependencies in: ${static_folder}"

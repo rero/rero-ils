@@ -73,11 +73,6 @@ INDEX_PARALLEL=0
 # Displays program name
 msg "PROGRAM: ${PROGRAM}"
 
-# POETRY is a mandatory condition to launch this program!
-if [[ -z "${VIRTUAL_ENV}" ]]; then
-  error_msg+exit "Error - Launch this script via poetry command:\n\tpoetry run ${PROGRAM}"
-fi
-
 # options may be followed by one colon to indicate they have a required argument
 if ! options=$(getopt -o dltD:C:i: -l deployment,lazy,time,data_path:,csv_path:,index_parallel: -- "$@")
 then

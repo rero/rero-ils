@@ -45,7 +45,7 @@ services:
     extends:
       file: docker-services.yml
       service: app
-    command: poetry run uwsgi /invenio/var/instance/uwsgi_ui.ini
+    command: pdm run uwsgi /invenio/var/instance/uwsgi_ui.ini
     image: rero-ils-web-ui
     ports:
       - "5000:5000"
@@ -61,7 +61,7 @@ services:
     extends:
       file: docker-services.yml
       service: app
-    command: poetry run uwsgi /invenio/var/instance/uwsgi_rest.ini
+    command: pdm run uwsgi /invenio/var/instance/uwsgi_rest.ini
     image: rero-ils-web-api
     ports:
       - "5001"
@@ -78,7 +78,7 @@ services:
       file: docker-services.yml
       service: app
     restart: "unless-stopped"
-    command: "poetry run celery --app rero_ils.celery worker --loglevel=INFO"
+    command: "pdm run celery --app rero_ils.celery worker --loglevel=INFO"
     image: rero-ils-worker
     links:
       - cache
@@ -91,7 +91,7 @@ services:
       file: docker-services.yml
       service: app
     restart: "unless-stopped"
-    command: "poetry run celery --app rero_ils.celery beat -S rero_ils.schedulers.RedisScheduler --loglevel=INFO"
+    command: "pdm run celery --app rero_ils.celery beat -S rero_ils.schedulers.RedisScheduler --loglevel=INFO"
     image: rero-ils-beat
     links:
       - cache

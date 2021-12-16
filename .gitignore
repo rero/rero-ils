@@ -97,3 +97,7 @@ tests/e2e/cypress/cypress/integration/test
 
 # Dependencies
 /node_modules
+
+# pdm
+.pdm.toml
+__pypackages__

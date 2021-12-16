@@ -61,11 +61,6 @@ success_msg+exit() {
 # Displays program name
 msg "PROGRAM: ${PROGRAM}"
 
-# Poetry is a mandatory condition to launch this program!
-if [[ -z "${VIRTUAL_ENV}" ]]; then
-  error_msg+exit "Error - Launch this script via poetry command:\n\tpoetry run ${PROGRAM}"
-fi
-
 function pretests () {
   info_msg "Check vulnerabilities:"
   # +============================+===========+==========================+==========+
@@ -87,10 +82,10 @@ function pretests () {
   info_msg "Test pydocstyle:"
   pydocstyle rero_ils tests docs
   info_msg "Test isort:"
-  isort --check-only --diff "${SCRIPT_PATH}"
+  isort --check-only --skip __pypackages__ --diff "${SCRIPT_PATH}"
   info_msg "Test useless imports:"
-  autoflake -c -r --remove-all-unused-imports --ignore-init-module-imports . &> /dev/null || {
-    autoflake --remove-all-unused-imports -r --ignore-init-module-imports .
+  autoflake -c -r --exclude __pypackages__ --remove-all-unused-imports --ignore-init-module-imports . &> /dev/null || {
+    autoflake  --exclude __pypackages__ --remove-all-unused-imports -r --ignore-init-module-imports .
     exit 1
   }
   # info_msg "Check-manifest:"
@@ -103,43 +98,43 @@ function pretests () {
 function tests () {
   info_msg "Tests All:"
   export PYTEST_ADDOPTS="--color=yes"
-  poetry run tests
+  pdm run tests
 }
 
 function tests_api () {
   info_msg "Tests API:"
   export PYTEST_ADDOPTS="--color=yes"
-  poetry run pytest ./tests/api
+  pdm run pytest ./tests/api
 }
 function tests_e2e () {
   info_msg "Tests E2E:"
   export PYTEST_ADDOPTS="--color=yes"
-  poetry run pytest ./tests/e2e
+  pdm run pytest ./tests/e2e
 }
 function tests_scheduler () {
   info_msg "Tests Scheduler:"
   export PYTEST_ADDOPTS="--color=yes"
-  poetry run pytest ./tests/scheduler
+  pdm run pytest ./tests/scheduler
 }
 function tests_ui () {
   info_msg "Tests UI:"
   export PYTEST_ADDOPTS="--color=yes"
-  poetry run pytest ./tests/ui
+  pdm run pytest ./tests/ui
 }
 function tests_unit () {
   info_msg "Tests Unit:"
   export PYTEST_ADDOPTS="--color=yes"
-  poetry run pytest ./tests/unit
+  pdm run pytest ./tests/unit
 }
 function tests_external () {
   info_msg "Tests External:"
   export PYTEST_ADDOPTS="--color=yes"
-  poetry run pytest tests/api/test_external_services.py
+  pdm run pytest tests/api/test_external_services.py
 }
 function tests_other () {
   info_msg "Tests Other:"
   export PYTEST_ADDOPTS="--color=yes"
-  poetry run pytest ./tests/conftest.py ./tests/test_version.py ./tests/utils.py
+  pdm run pytest ./tests/conftest.py ./tests/test_version.py ./tests/utils.py
 }
 
 if [ $# -eq 0 ]

@@ -66,11 +66,6 @@ PIDDEPENDENCIES=false
 # Displays program name
 msg "PROGRAM: ${PROGRAM}"
 
-# POETRY is a mandatory condition to launch this program!
-if [[ -z "${VIRTUAL_ENV}" ]]; then
-  error_msg+exit "Error - Launch this script via poetry command:\n\tpoetry run ${PROGRAM}"
-fi
-
 # options may be followed by one colon to indicate they have a required argument
 if ! options=$(getopt -o dcplvstio: -l deployment,create_contribution,pid_dependencies,lazy,verbose,schema,time,in_data_path:out_data_path: -- "$@")
 then

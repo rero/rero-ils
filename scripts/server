@@ -60,10 +60,6 @@ msg "PROGRAM: ${PROGRAM}"
 set -e
 
 SCRIPT_PATH=$(dirname "$0")
-# poetry is a mandatory condition to launch this program!
-if [[ -z "${VIRTUAL_ENV}" ]]; then
-  error_msg+exit "Error - Launch this script via poetry command:\n\tpoetry run ${PROGRAM}"
-fi
 
 if [[ -z "${FLASK_DEBUG}" ]]; then
   export FLASK_DEBUG=True

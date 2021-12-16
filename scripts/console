@@ -59,9 +59,4 @@ msg "PROGRAM: ${PROGRAM}"
 
 set -e
 
-# poetry is a mandatory condition to launch this program!
-if [[ -z "${VIRTUAL_ENV}" ]]; then
-  error_msg+exit "Error - Launch this script via poetry command:\n\tpoetry run ${PROGRAM}"
-fi
-
 invenio shell

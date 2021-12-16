@@ -38,7 +38,7 @@ Requirements
 - ``git``
 - ``docker``, ``docker-compose``
 - ``python``, ``pip``, ``pyenv``
-- ``poetry``
+- ``pdm``
 
 Installation
 ------------
@@ -49,7 +49,7 @@ First, create your working directory and ``cd`` into it. Clone the project into 
 
     $ git clone https://github.com/rero/rero-ils.git
 
-You need to install `poetry`, it will handle the virtual environment creation for the project
+You need to install `pdm`, it will handle the virtual environment creation for the project
 in order to sandbox our Python environment, as well as manage the dependency installation,
 among other things.
 
@@ -58,7 +58,7 @@ among other things.
     $ pyenv install 3.9.7
     $ cd rero-ils
     $ pyenv local 3.9.7
-    $ sudo pip install poetry
+    $ sudo pip install pdm
 
 Next, ``cd`` into the project directory and bootstrap the instance (this will install
 all Python dependencies and build all static assets):
@@ -66,7 +66,7 @@ all Python dependencies and build all static assets):
 .. code-block:: console
 
     $ cd rero-ils
-    $ poetry run bootstrap
+    $ pdm run bootstrap
 
 Start all dependent services using docker-compose (this will start PostgreSQL,
 Elasticsearch 6, RabbitMQ and Redis):
@@ -95,7 +95,7 @@ Next, create database tables, search indexes and message queues:
 
 .. code-block:: console
 
-    $ poetry run setup
+    $ pdm run setup
 
 Running
 -------
@@ -103,13 +103,13 @@ Start the webserver and the celery worker:
 
 .. code-block:: console
 
-    $ poetry run server
+    $ pdm run server
 
 Start a Python shell:
 
 .. code-block:: console
 
-    $ poetry run console
+    $ pdm run console
 
 Upgrading
 ---------
@@ -117,7 +117,7 @@ In order to upgrade an existing instance simply run:
 
 .. code-block:: console
 
-    $ poetry run update
+    $ pdm run update
 
 Testing
 -------
@@ -143,7 +143,7 @@ You can build the documentation with:
 
 .. code-block:: console
 
-    $ poetry run build_sphinx
+    $ pdm run build_sphinx
 
 Production environment
 ----------------------
