@@ -73,7 +73,7 @@ def vendor2_martigny_data(acquisition):
 
 
 @pytest.fixture(scope="module")
-def vendor2_martigny(app, vendor2_martigny_data):
+def vendor2_martigny(app, org_martigny, vendor2_martigny_data):
     """Load vendor record."""
     vendor = Vendor.create(
         data=vendor2_martigny_data,
@@ -91,7 +91,7 @@ def vendor3_martigny_data(acquisition):
 
 
 @pytest.fixture(scope="module")
-def vendor3_martigny(app, vendor3_martigny_data):
+def vendor3_martigny(app, org_martigny, vendor3_martigny_data):
     """Load vendor record."""
     vendor = Vendor.create(
         data=vendor3_martigny_data,
@@ -109,7 +109,7 @@ def vendor_sion_data(acquisition):
 
 
 @pytest.fixture(scope="module")
-def vendor_sion(app, vendor_sion_data):
+def vendor_sion(app, org_sion, vendor_sion_data):
     """Load vendor record."""
     vendor = Vendor.create(
         data=vendor_sion_data,
@@ -127,7 +127,7 @@ def vendor2_sion_data(acquisition):
 
 
 @pytest.fixture(scope="module")
-def vendor2_sion(app, vendor2_sion_data):
+def vendor2_sion(app, org_sion, vendor2_sion_data):
     """Load vendor record."""
     vendor = Vendor.create(
         data=vendor2_sion_data,

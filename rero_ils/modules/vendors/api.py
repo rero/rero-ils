@@ -20,6 +20,8 @@
 
 from functools import partial
 
+from flask_babelex import gettext as _
+
 from .models import VendorIdentifier, VendorMetadata
 from ..acq_invoices.api import AcquisitionInvoicesSearch
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
@@ -67,6 +69,19 @@ class Vendor(IlsRecord):
         }
     }
 
+    def extended_validation(self, **kwargs):
+        """Add additional record validation.
+
+        :return: False if
+            - notes array has multiple notes with same type
+        """
+        # NOTES fields testing
+        note_types = [note.get('type') for note in self.get('notes', [])]
+        if len(note_types) != len(set(note_types)):
+            return _('Can not have multiple notes of same type.')
+
+        return True
+
     @property
     def order_email(self):
         """Shortcut for vendor order email.
@@ -78,6 +93,19 @@ class Vendor(IlsRecord):
         return self\
             .get('order_contact', self.get('default_contact', {}))\
             .get('email')
+
+    def get_note(self, note_type):
+        """Get a specific type of note.
+
+        Only one note of each type could be created.
+        :param note_type: the note type to filter as `OrderLineNoteType` value.
+        :return the note content if exists, otherwise returns None.
+        """
+        note = [
+            note.get('content') for note in self.get('notes', [])
+            if note.get('type') == note_type
+        ]
+        return next(iter(note), None)
 
     def get_links_to_me(self, get_pids=False):
         """Record links.
