@@ -4,7 +4,16 @@
     "pid": "vndr1",
     "name": "Payot Aoste",
     "website": "http://www.payot.it",
-    "note": "Personne de contact litiges: Mme di Marzo",
+    "notes": [
+      {
+        "type": "claim_note",
+        "content": "Personne de contact litiges: Mme di Marzo"
+      },
+      {
+        "type": "staff_note",
+        "content": "note content only for staff"
+      }
+    ],
     "communication_language": "ita",
     "default_contact": {
       "city": "Aosta",
@@ -63,7 +72,12 @@
     "pid": "vndr4",
     "name": "Flourish and Blotts Bookseller",
     "website": "http://www.flourishandblotts.com",
-    "note": "Reduction 5%",
+    "notes": [
+      {
+        "type": "receipt_note",
+        "content": "Reduction 5%"
+      }
+    ],
     "communication_language": "eng",
     "default_contact": {
       "city": "London",

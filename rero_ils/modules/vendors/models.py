@@ -40,3 +40,17 @@ class VendorMetadata(db.Model, RecordMetadataBase):
     """Vendor record metadata."""
 
     __tablename__ = 'vendor_metadata'
+
+
+class VendorNoteType:
+    """Type of vendor note."""
+
+    ORDER = 'order_note'
+    CLAIM = 'claim_note'
+    RETURN = 'return_note'
+    INVOICE = 'invoice_note'
+    PAYMENT = 'payment_note'
+    RECEIPT = 'receipt_note'
+    CREDIT = 'credit_note'
+    STAFF = 'staff_note'
+    GENERAL = 'general_note'
