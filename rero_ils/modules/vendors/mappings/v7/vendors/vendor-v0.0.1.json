@@ -16,8 +16,15 @@
       "vendor_name": {
         "type": "keyword"
       },
-      "note": {
-        "type": "text"
+      "notes": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "content": {
+            "type": "text"
+          }
+        }
       },
       "website": {
         "type": "keyword"

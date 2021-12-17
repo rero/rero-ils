@@ -8,11 +8,11 @@
     "name",
     "website",
     "communication_language",
-    "note",
     "currency",
     "vat_rate",
     "default_contact",
-    "order_contact"
+    "order_contact",
+    "notes"
   ],
   "required": [
     "$schema",
@@ -66,10 +66,113 @@
         }
       }
     },
-    "note": {
-      "title": "Note",
-      "type": "string",
-      "minLength": 1
+    "notes": {
+      "title": "Notes",
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "Note",
+        "propertiesOrder": [
+          "type",
+          "content"
+        ],
+        "required": [
+          "type",
+          "content"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type",
+            "enum": [
+              "order_note",
+              "claim_note",
+              "return_note",
+              "invoice_note",
+              "payment_note",
+              "receipt_note",
+              "credit_note",
+              "staff_note",
+              "general_note"
+            ],
+            "default": "general_note",
+            "form": {
+              "type": "selectWithSort",
+              "options": [
+                {
+                  "label": "order_note",
+                  "value": "order_note"
+                },
+                {
+                  "label": "claim_note",
+                  "value": "claim_note"
+                },
+                {
+                  "label": "return_note",
+                  "value": "return_note"
+                },
+                {
+                  "label": "invoice_note",
+                  "value": "invoice_note"
+                },
+                {
+                  "label": "payment_note",
+                  "value": "payment_note"
+                },
+                {
+                  "label": "receipt_note",
+                  "value": "receipt_note"
+                },
+                {
+                  "label": "credit_note",
+                  "value": "credit_note"
+                },
+                {
+                  "label": "staff_note",
+                  "value": "staff_note"
+                },
+                {
+                  "label": "general_note",
+                  "value": "general_note"
+                }
+              ]
+            }
+          },
+          "content": {
+            "type": "string",
+            "title": "Content",
+            "maxLength": 2000,
+            "minLength": 1,
+            "form": {
+              "type": "textarea",
+              "templateOptions": {
+                "rows": 3
+              }
+            }
+          }
+        }
+      },
+      "form": {
+        "templateOptions": {
+          "wrappers": [
+            "card"
+          ]
+        },
+        "validation": {
+          "validators": {
+            "uniqueValueKeysInObject": {
+              "keys": [
+                "type"
+              ]
+            }
+          },
+          "messages": {
+            "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
+          }
+        }
+      }
     },
     "communication_language": {
       "title": "Communication language",

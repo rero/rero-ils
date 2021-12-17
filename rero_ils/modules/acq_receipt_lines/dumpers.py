@@ -37,7 +37,7 @@ class AcqReceiptLineESDumper(InvenioRecordsDumper):
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
         # Keep only some attributes from AcqReceiptLine object initial dump.
-        for attr in ['pid', 'receipt_date', 'amount', 'quantity']:
+        for attr in ['pid', 'receipt_date', 'amount', 'quantity', 'vat_rate']:
             value = record.get(attr)
             if value:
                 data.update({attr: value})
