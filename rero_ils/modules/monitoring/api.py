@@ -155,10 +155,10 @@ class Monitoring(object):
         if date:
             query = query.filter(PersistentIdentifier.created < date)
         if limit:
+            count = query.count()
             # slower, less memory
             query = query.order_by(text('pid_value')).limit(limit)
             offset = 0
-            count = query.count()
             while offset < count:
                 for identifier in query.offset(offset):
                     yield identifier.pid_value

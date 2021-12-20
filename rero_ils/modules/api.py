@@ -280,10 +280,10 @@ class IlsRecord(Record):
         """Get all records pids. Return a generator iterator."""
         query = cls._get_all(with_deleted=with_deleted)
         if limit:
+            count = query.count()
             # slower, less memory
             query = query.order_by(text('pid_value')).limit(limit)
             offset = 0
-            count = cls.count(with_deleted=with_deleted)
             while offset < count:
                 for identifier in query.offset(offset):
                     yield identifier.pid_value
