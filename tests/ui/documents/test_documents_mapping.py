@@ -44,6 +44,10 @@ def test_document_es_mapping(mock_contributions_mef_get, es, db, org_martigny,
         reindex=True,
         delete_pid=True
     )
+    print('------')
+    print(mapping)
+    print('------')
+    print(get_mapping(search.Meta.index)['mappings']['subjects'])
     assert mapping == get_mapping(search.Meta.index)
 
 

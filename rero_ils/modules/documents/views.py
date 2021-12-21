@@ -268,13 +268,8 @@ def contribution_format(pid, language, viewcode, role=False):
             contribution_type = 'persons'
             if contrib.get('type') == 'bf:Organisation':
                 contribution_type = 'corporate-bodies'
-            line = \
-                '<a href="/{viewcode}/{c_type}/{pid}">{text}</a>'.format(
-                    viewcode=viewcode,
-                    c_type=contribution_type,
-                    pid=cont_pid,
-                    text=authorized_access_point
-                )
+            line = (f'<a href="/{viewcode}/{contribution_type}/{cont_pid}">'
+                    f'{authorized_access_point}</a>')
         else:
             line = create_authorized_access_point(contribution['agent'])
 
@@ -287,6 +282,38 @@ def contribution_format(pid, language, viewcode, role=False):
 
         output.append(line)
     return '&#8239;; '.join(output)
+
+
+@blueprint.app_template_filter()
+def subject_format(subject, language):
+    """Format the subject according to the available keys.
+
+    :param subject: the record subject.
+    :param language: current language on interface.
+    :param viewcode: viewcode to use.
+    """
+    for key in ['$ref', 'term', 'preferred_name', 'title']:
+        value = subject.get(key)
+        # key does not exists try the next one
+        if not value:
+            continue
+        # resolve $ref and retrieve the name in the given language
+        if key == '$ref':
+            sub, _ = Contribution.get_record_by_ref(value)
+            contribution_type = 'persons'
+            if sub.get('type') == 'bf:Organisation':
+                contribution_type = 'corporate-bodies'
+            preferred_name = sub._get_mef_localized_value(
+                'preferred_name', language)
+            return preferred_name
+
+        # add the creator to the title
+        creator = subject.get('creator')
+        if key == 'title' and creator:
+            value = ' / '.join([value, creator])
+        # do nothing for term and preferred_name
+        if value:
+            return value
 
 
 @blueprint.app_template_filter()
@@ -713,32 +740,6 @@ def online_holdings(document_pid, viewcode='global'):
         library_holdings.append(record)
         holdings[library['name']] = library_holdings
     return holdings
-
-
-@blueprint.app_template_filter()
-def subject_format(subject, language):
-    """Format the subject according to the available keys.
-
-    :param subject: the record subject.
-    :param language: current language on interface.
-    """
-    for key in ['$ref', 'term', 'preferred_name', 'title']:
-        value = subject.get(key)
-        # key does not exists try the next one
-        if not value:
-            continue
-        # resolve $ref and retrieve the name in the given language
-        if key == '$ref':
-            sub, _ = Contribution.get_record_by_ref(value)
-            return sub._get_mef_localized_value(
-                'preferred_name', language)
-        # add the creator to the title
-        creator = subject.get('creator')
-        if key == 'title' and creator:
-            value = ' / '.join([value, creator])
-        # do nothing for term and preferred_name
-        if value:
-            return value
 
 
 @blueprint.app_template_filter()

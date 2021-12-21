@@ -20,7 +20,8 @@
 from flask.globals import current_app
 from isbnlib import is_isbn10, is_isbn13, to_isbn10, to_isbn13
 
-from .utils import create_contributions, title_format_text_head
+from .utils import create_contributions, create_subjects, \
+    title_format_text_head
 from ..documents.api import Document, DocumentsSearch
 from ..holdings.api import HoldingsSearch
 from ..items.api import ItemsSearch
@@ -122,8 +123,11 @@ def enrich_document_data(sender, json=None, record=None, index=None,
         # MEF contribution ES index update
         contributions = create_contributions(json.get('contribution', []))
         if contributions:
-            json.pop('contribution', None)
             json['contribution'] = contributions
+        subjects = create_subjects(json.get('subjects', []))
+        if subjects:
+            json['subjects'] = subjects
+
         # TODO: compare record with those in DB to check which authors have
         # to be deleted from index
         # Index host document title in child document (part of)

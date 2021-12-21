@@ -202,6 +202,10 @@ class Contribution(IlsRecord):
             value = self._get_mef_localized_value(
                 'authorized_access_point', language)
             agent[f'authorized_access_point_{language}'] = value
+            # Needed for subjects
+            value = self._get_mef_localized_value(
+                'preferred_name', language)
+            agent[f'preferred_name_{language}'] = value
         variant_access_points = []
         parallel_access_points = []
         for source in self.get('sources'):

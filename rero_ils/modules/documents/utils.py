@@ -525,6 +525,21 @@ def create_contributions(contributions):
     return calculated_contributions
 
 
+def create_subjects(subjects):
+    """Create subjects."""
+    from ..contributions.api import Contribution
+    calculated_subjects = []
+    for subject in subjects:
+        cont_pid = subject.get('pid')
+        if cont_pid:
+            contrib = Contribution.get_record_by_pid(cont_pid)
+            if contrib:
+                subject = contrib.dumps_for_document()
+
+        calculated_subjects.append(subject)
+    return calculated_subjects
+
+
 def get_remote_cover(isbn):
     """Document cover service."""
     if not isbn:
