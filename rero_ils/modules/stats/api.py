@@ -22,6 +22,7 @@ from functools import partial
 import arrow
 from dateutil.relativedelta import relativedelta
 from flask import current_app
+from flask_login import current_user
 from invenio_search.api import RecordsSearch
 
 from .models import StatIdentifier, StatMetadata
@@ -32,6 +33,7 @@ from ..fetchers import id_fetcher
 from ..items.api import ItemsSearch
 from ..libraries.api import LibrariesSearch
 from ..loans.logs.api import LoanOperationLog
+from ..locations.api import LocationsSearch
 from ..minters import id_minter
 from ..patrons.api import PatronsSearch
 from ..providers import Provider
@@ -73,7 +75,7 @@ class StatsForPricing:
         else:
             self.to_date = to_date
         self.months_delta = current_app.config.get(
-            'RERO_ILS_STATS_TIMEFRAME_IN_MONTHES'
+            'RERO_ILS_STATS_BILLING_TIMEFRAME_IN_MONTHES'
         )
         _from = (self.to_date - relativedelta(
             months=self.months_delta)).format(fmt='YYYY-MM-DDT00:00:00')
@@ -285,6 +287,202 @@ class StatsForPricing:
         return PatronsSearch()\
             .filter('term', roles='patron')\
             .filter('term', organisation__pid=organisation_pid)\
+            .count()
+
+
+class StatsForLibrarian(StatsForPricing):
+    """Statistics for librarian."""
+
+    def __init__(self, to_date=None):
+        """Constructor.
+
+        :param to_date: end date of the statistics date range
+        """
+        if not to_date:
+            # yesterday midnight
+            self.to_date = arrow.utcnow() - relativedelta(days=1)
+        else:
+            self.to_date = to_date
+        # Get statistics per month
+        _from = f'{self.to_date.year}-{self.to_date.month:02d}-01T00:00:00'
+        _to = self.to_date.format(fmt='YYYY-MM-DDT23:59:59')
+        self.date_range = {'gte': _from, 'lte': _to}
+
+    @classmethod
+    def get_librarian_library_pids(cls):
+        """Get libraries pids of librarian.
+
+        Note: for system_librarian includes libraries of organisation.
+        """
+        patron_search = PatronsSearch()\
+            .filter('term', user_id=current_user.id)\
+            .source(['libraries', 'roles', 'organisation']).scan()
+        patron_data = next(patron_search)
+
+        library_pids = set()
+        if 'librarian' in patron_data.roles:
+            for library_pid in patron_data.libraries:
+                library_pids.add(library_pid.pid)
+
+        # case system_librarian: add libraries of organisation
+        if 'system_librarian' in patron_data.roles:
+            organisation_libraries_pid = LibrariesSearch()\
+                .filter('term',
+                        organisation__pid=patron_data.organisation.pid)\
+                .source(['pid']).scan()
+            for s in organisation_libraries_pid:
+                library_pids.add(s.pid)
+        return list(library_pids)
+
+    @classmethod
+    def get_librarian_libraries(cls):
+        """Get libraries of librarian."""
+        library_pids = cls.get_librarian_library_pids()
+        return LibrariesSearch().filter('terms', pid=library_pids)\
+            .source(['pid', 'name', 'organisation']).scan()
+
+    def collect(self, **kwargs):
+        """Compute statistics for librarian."""
+        stats = []
+        if 'libraries' in kwargs:
+            libraries = kwargs.get("libraries")
+        else:
+            libraries = self.get_all_libraries()
+
+        for lib in libraries:
+            stats.append({
+                'library': {
+                    'pid': lib.pid,
+                    'name': lib.name
+                },
+                'number_of_loans_by_transaction_library':
+                    self.number_of_loans_by_transaction_library(lib.pid,
+                                                                ['checkout']),
+                'number_of_loans_for_items_in_library':
+                    self.number_of_loans_for_items_in_library(lib.pid,
+                                                              ['checkout']),
+                'number_of_patrons_by_postal_code':
+                    self.number_of_patrons_by_postal_code(lib.pid,
+                                                          ['request',
+                                                           'checkin',
+                                                           'checkout']),
+                'number_of_new_documents':
+                    self.number_of_new_documents(lib.pid),
+                'number_of_new_items':
+                    self.number_of_new_items(lib.pid)
+            })
+        return stats
+
+    def _get_locations_pid(self, library_pid):
+        """Locations pid for given library.
+
+        :param library_pid: string - the library to filter with
+        :return: list of pid locations
+        :rtype: list
+        """
+        locations = LocationsSearch()\
+            .filter('term', library__pid=library_pid).source('pid').scan()
+        locations_pid = []
+        for location in locations:
+            locations_pid.append(location.pid)
+        return locations_pid
+
+    def _get_location_code_name(self, location_pid):
+        """Location code and name.
+
+        :param location_pid: string - the location to filter with
+        :return: concatenated code and name of location
+        :rtype: string
+        """
+        location_search = LocationsSearch()\
+            .filter('term', pid=location_pid)\
+            .source(['code', 'name']).scan()
+        location = next(location_search)
+        return f'{location.code} - {location.name}'
+
+    def number_of_loans_by_transaction_library(self, library_pid, trigger):
+        """Number of circulation operation during the specified timeframe.
+
+        Number of loans of items when transaction location is equal to
+        any of the library locations
+        :param library_pid: string - the library to filter with
+        :param trigger: string - action name (checkout)
+        :return: the number of matched circulation operation
+        :rtype: integer
+        """
+        location_pids = self._get_locations_pid(library_pid)
+
+        return RecordsSearch(index=LoanOperationLog.index_name)\
+            .filter('range', date=self.date_range)\
+            .filter('terms', loan__trigger=trigger)\
+            .filter('terms', loan__transaction_location__pid=location_pids)\
+            .count()
+
+    def number_of_loans_for_items_in_library(self, library_pid, trigger):
+        """Number of circulation operation during the specified timeframe.
+
+        Number of loans of items per library when the item is owned by
+        the library
+        :param library_pid: string - the library to filter with
+        :param trigger: string - action name (checkout)
+        :return: the number of matched circulation operation
+        :rtype: integer
+        """
+        return RecordsSearch(index=LoanOperationLog.index_name)\
+            .filter('range', date=self.date_range)\
+            .filter('terms', loan__trigger=trigger)\
+            .filter('term', loan__item__library_pid=library_pid)\
+            .count()
+
+    def number_of_patrons_by_postal_code(self, library_pid, trigger):
+        """Number of circulation operation during the specified timeframe.
+
+        Number of patrons per library and CAP when transaction location
+        is equal to any of the library locations
+        :param library_pid: string - the library to filter with
+        :param trigger: string - action name (request, checkin, checkout)
+        :return: the number of matched circulation operation
+        :rtype: dict
+        """
+        location_pids = self._get_locations_pid(library_pid)
+
+        search = RecordsSearch(index=LoanOperationLog.index_name)\
+            .filter('range', date=self.date_range)\
+            .filter('terms', loan__trigger=trigger)\
+            .filter('terms', loan__transaction_location__pid=location_pids)\
+            .scan()
+
+        stats = {}
+        patron_pids = set()
+        # Main postal code from user profile
+        for s in search:
+            patron_pid = s.loan.patron.hashed_pid
+            if 'postal_code' not in s.loan.patron or\
+                    not s.loan.patron.postal_code:
+                postal_code = 'unknown'
+            else:
+                postal_code = s.loan.patron.postal_code
+
+            if postal_code not in stats:
+                stats[postal_code] = 1
+            else:
+                if patron_pid not in patron_pids:
+                    stats[postal_code] += 1
+            patron_pids.add(patron_pid)
+        return stats
+
+    def number_of_new_documents(self, library_pid):
+        """Number of new documents per library for given time interval.
+
+        :param library_pid: string - the library to filter with
+        :return: the number of matched documents
+        :rtype: integer
+        """
+        return RecordsSearch(index=LoanOperationLog.index_name)\
+            .filter('range', date=self.date_range)\
+            .filter('term', operation='create')\
+            .filter('term', record__type='doc')\
+            .filter('term', library__value=library_pid)\
             .count()
 
 

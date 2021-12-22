@@ -52,6 +52,12 @@ class StatCSVSerializer(CSVSerializer):
             value['library name'] = library['name']
             value['library id'] = library['pid']
             del value['library']
+            for v in value:
+                if isinstance(value[v], dict):
+                    dict_to_text = ''
+                    for k, m in value[v].items():
+                        dict_to_text += f'{k} :{m}\r\n'
+                    value[v] = dict_to_text
             writer.writerow(value)
             yield line.read()
 

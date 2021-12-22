@@ -19,11 +19,19 @@
 
 from __future__ import absolute_import, print_function
 
+import datetime
+
 import arrow
+import jinja2
+import pytz
+from elasticsearch_dsl import Q
 from flask import Blueprint, render_template
 
-from .api import StatsForPricing, StatsSearch
-from .permissions import check_logged_as_admin
+from .api import StatsForLibrarian, StatsForPricing, StatsSearch
+from .permissions import admin_permission, check_logged_as_admin, \
+    check_logged_as_librarian, monitoring_permission
+
+# from pytz import timezone
 
 blueprint = Blueprint(
     'stats',
@@ -36,20 +44,85 @@ blueprint = Blueprint(
 
 @blueprint.route('/', methods=['GET'])
 @check_logged_as_admin
-def stats():
-    """Show the list of the first 100 items on the stats list."""
-    s = StatsSearch().sort('-_created').source(['pid', '_created'])
-    hits = s[0:100].execute().to_dict()
+def stats_billing():
+    """Show the list of the first 100 items on the billing stats list.
+
+    Note: includes old statistics where the field type was absent.
+    """
+    f = ~Q('exists', field='type') | Q('term', type='billing')
+    search = StatsSearch().filter('bool', must=[f]).sort('-_created')\
+        .source(['pid', '_created'])
+    hits = search[0:100].execute().to_dict()
     return render_template(
-        'rero_ils/stats_list.html', records=hits['hits']['hits'])
+        'rero_ils/stats_list.html', records=hits['hits']['hits'],
+        type='billing')
 
 
 @blueprint.route('/live', methods=['GET'])
 @check_logged_as_admin
-def live_stats():
-    """Show the current stats values."""
+def live_stats_billing():
+    """Show the current billing stats values."""
     now = arrow.utcnow()
     stats = StatsForPricing(to_date=now).collect()
     return render_template(
         'rero_ils/detailed_view_stats.html',
         record=dict(created=now, values=stats))
+
+
+@blueprint.route('/librarian', methods=['GET'])
+@check_logged_as_librarian
+def stats_librarian():
+    """Show the list of the first 100 items on the librarian stats list."""
+    search = StatsSearch().filter('term', type='librarian').sort('-_created')\
+        .source(['pid', '_created', 'date_range'])
+    hits = search[0:100].execute().to_dict()
+    return render_template(
+        'rero_ils/stats_list.html', records=hits['hits']['hits'],
+        type='librarian')
+
+
+@blueprint.route('/librarian/live', methods=['GET'])
+@check_logged_as_librarian
+def live_stats_librarian():
+    """Show the current librarian stats values."""
+    now = arrow.utcnow()
+    _from = f'{now.year}-{now.month:02d}-01T00:00:00'
+    date_range = {'from': _from, 'to': str(now)}
+
+    libraries = StatsForLibrarian().get_all_libraries()
+    if not (admin_permission.require().can() or
+            monitoring_permission.require().can()):
+        libraries = StatsForLibrarian.get_librarian_libraries()
+    stats = StatsForLibrarian(to_date=now).collect(libraries=libraries)
+    return render_template(
+        'rero_ils/detailed_view_stats.html',
+        record=dict(created=now, date_range=date_range, values=stats))
+
+
+@jinja2.contextfilter
+@blueprint.app_template_filter()
+def yearmonthfilter(context, value, format="%Y-%m-%dT%H:%M:%S"):
+    """Convert datetime in local timezone.
+
+    value: datetime
+    returns: year and month of datetime
+    """
+    tz = pytz.timezone('Europe/Zurich')
+    utc = pytz.timezone('UTC')
+    value = datetime.datetime.strptime(value, format)
+    value = utc.localize(value, is_dst=None).astimezone(pytz.utc)
+    datetime_object = datetime.datetime.strptime(str(value.month), "%m")
+    month_name = datetime_object.strftime("%b")
+    return "{} {}".format(month_name, value.year)
+
+
+@jinja2.contextfilter
+@blueprint.app_template_filter()
+def stringtodatetime(context, value, format="%Y-%m-%dT%H:%M:%S"):
+    """Convert string to datetime.
+
+    value: string
+    returns: datetime object
+    """
+    datetime_object = datetime.datetime.strptime(value, format)
+    return datetime_object

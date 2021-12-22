@@ -381,9 +381,14 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(minute=30, hour=4),  # Every day at 04:30 UTC,
         'enabled': False
     },
-    'collect-stats': {
-        'task': ('rero_ils.modules.stats.tasks.collect_stats'),
+    'collect-stats-billing': {
+        'task': ('rero_ils.modules.stats.tasks.collect_stats_billing'),
         'schedule': crontab(minute=0, hour=1),  # Every day at 01:00 UTC,
+        'enabled': False
+    },
+    'collect-stats-librarian': {
+        'task': ('rero_ils.modules.stats.tasks.collect_stats_librarian'),
+        'schedule': crontab(minute=30, hour=1, day_of_month='1'),  # First day of the month at 01:30 UTC,
         'enabled': False
     },
     'replace-idby-contribution': {
@@ -2694,7 +2699,7 @@ RERO_ILS_ENABLE_OPERATION_LOG_VALIDATION = False
 # Statistics Configuration
 # ========================
 # Compute the stats with a timeframe given in monthes
-RERO_ILS_STATS_TIMEFRAME_IN_MONTHES = 3
+RERO_ILS_STATS_BILLING_TIMEFRAME_IN_MONTHES = 3
 
 # =============================================================================
 # NOTIFICATIONS MODULE SPECIFIC SETTINGS

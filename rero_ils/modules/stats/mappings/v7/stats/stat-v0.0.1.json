@@ -6,11 +6,18 @@
       "$schema": {
         "type": "keyword"
       },
+      "type": {
+        "type": "text"
+      },
+      "date_range": {
+        "type": "object"
+      },
       "pid": {
         "type": "keyword"
       },
       "values": {
-        "type": "object"
+        "type": "object",
+        "enabled": false
       },
       "_created": {
         "type": "date"
