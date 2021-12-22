@@ -24,8 +24,10 @@ from flask_login import current_user
 
 from rero_ils.modules.permissions import RecordPermission
 
+from .api import StatsForLibrarian
 from ..permissions import record_permission_factory
-from ...permissions import admin_permission, monitoring_permission
+from ...permissions import admin_permission, librarian_permission, \
+    monitoring_permission
 
 
 class StatPermission(RecordPermission):
@@ -39,9 +41,11 @@ class StatPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
-        # Operation allowed only for admin members
+        # Operation allowed only for admin, librarian and
+        # system librarian members
         return admin_permission.require().can() \
-            or monitoring_permission.require().can()
+            or monitoring_permission.require().can() \
+            or librarian_permission.require().can()
 
     @classmethod
     def read(cls, user, record):
@@ -51,8 +55,18 @@ class StatPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
+        # Case librarian: filter data by libraries of librarian and
+        # deny access to 'billing' statistics
+        if not (admin_permission.require().can() or
+                monitoring_permission.require().can()):
+            if librarian_permission.require().can():
+                if 'type' not in record or record['type'] != 'librarian':
+                    return False
+                record = filter_stat_by_librarian(current_user, record)
+
         return admin_permission.require().can() \
-            or monitoring_permission.require().can()
+            or monitoring_permission.require().can() \
+            or librarian_permission.require().can()
 
     @classmethod
     def create(cls, user, record=None):
@@ -91,6 +105,14 @@ def stats_ui_permission_factory(record, *args, **kwargs):
             action='read', record=record, cls=StatPermission)
 
 
+def filter_stat_by_librarian(current_user, record):
+    """Filter data for libraries of specific user."""
+    library_pids = StatsForLibrarian.get_librarian_library_pids()
+    record['values'] = list(filter(lambda l: l['library']['pid'] in
+                            library_pids, record['values']))
+    return record
+
+
 def check_logged_as_admin(fn):
     """Decorator to check if the current logged user is logged as an admin.
 
@@ -102,6 +124,22 @@ def check_logged_as_admin(fn):
         if not current_user.is_authenticated:
             abort(401)
         if not admin_permission.require().can():
+            abort(403)
+        return fn(*args, **kwargs)
+    return wrapper
+
+
+def check_logged_as_librarian(fn):
+    """Decorator to check if the current logged user is logged as an librarian.
+
+    If no user is connected: return 401 (unauthorized)
+    If current logged user has not the `librarian` role: return 403 (forbidden)
+    """
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        if not current_user.is_authenticated:
+            abort(401)
+        if not librarian_permission.require().can():
             abort(403)
         return fn(*args, **kwargs)
     return wrapper

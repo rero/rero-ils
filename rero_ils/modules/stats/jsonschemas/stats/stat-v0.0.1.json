@@ -17,6 +17,18 @@
       "minLength": 9,
       "default": "https://bib.rero.ch/schemas/stats/stat-v0.0.1.json"
     },
+    "type": {
+      "title": "Statistics type",
+      "type": "string",
+      "enum": [
+        "billing",
+        "librarian"
+      ]
+    },
+    "date_range": {
+      "title": "Statistics date range",
+      "type": "object"
+    },
     "pid": {
       "title": "Stat ID.",
       "type": "string",

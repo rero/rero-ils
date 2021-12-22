@@ -16,40 +16,63 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #}
-{%- extends 'rero_ils/page.html' %}
-{%- block body %}
-{%- block record_body %}
-{%- if record.pid %}
-<a class="btn btn-primary float-right" href="/api/stats/{{record.pid}}?format=csv" role="button"><i class="fa fa-download"></i></a>
-{%- endif %}
-<h2>{{record.created}}</h2>
-<div class="table-responsive">
-  <table class="table table-sm">
-    <thead>
-      <tr>
-        <th scope="col">library id</th>
-        <th scope="col">library name</th>
-        {%- for head in record['values'][0].keys() %}
-        {%- if head != 'library'%}
-        <th scope="col">{{head.replace('_', ' ')}}</th>
-        {%- endif %}
-        {%- endfor%}
-      </tr>
-    </thead>
-    <tbody>
-      {%- for val in record['values'] %}
-      <tr>
-        <th scope="row">{{val.library.pid}}</th>
-        <td scope="row">{{val.library.name}}</td>
-        {%- for head in record['values'][0].keys() %}
-        {%- if head != 'library'%}
-        <td scope="row">{{val[head]}}</td>
-        {%- endif %}
-        {%- endfor%}
-      </tr>
-      {%- endfor %}
-    </tbody>
-  </table>
-</div>
-{%- endblock record_body %}
-{%- endblock body %}
+  {%- extends 'rero_ils/page.html' %}
+  {%- block body %}
+  {%- block record_body %}
+  <div class="mt-2 mb-4">
+    {%- if record.pid %}
+      <a class="btn btn-primary float-right" href="/api/stats/{{record.pid}}?format=csv" role="button"><i class="fa fa-download"></i></a>
+    {%- endif %}
+    {%- if 'date_range' in record and 'from' in record.date_range %}
+      {% set stat_name = record.date_range.from|yearmonthfilter+
+      ' (from '+record.date_range.from.split('T')[0]+' to '+record.date_range.to.split('T')[0]+')'%}
+      <h2>{{_(stat_name)}}</h2>
+    {% else %}
+      <h2>{{record.created | string | format_date}}</h2>
+    {% endif %}
+    <div class="table-responsive">
+      <table class="table table-hover table-sm">
+        <thead>
+          <tr>
+            <th scope="col">{{_('Library id')}}</th>
+            <th scope="col">{{_('Library name')}}</th>
+            {%- for head in record['values'][0].keys() %}
+              {%- if head != 'library'%}
+                {%- if head == 'number_of_patrons_by_postal_code' %}
+                  <th scope="col">{{_('Postal code: number of patrons')}}</th>
+                {%- elif head == 'number_of_new_items_by_location' %}
+                  <th scope="col">{{_('Location: number of items')}}</th>
+                {%- else %}
+                  {% set other = head[0]|upper+head[1:].replace('_', ' ') %}
+                  <th scope="col">{{_(other)}}</th>
+                {%- endif %}
+              {%- endif %}
+            {%- endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {%- for val in record['values'] %}
+          <tr>
+            <th scope="row">{{val.library.pid}}</th>
+            <td scope="row">{{val.library.name}}</td>
+            {%- for head in record['values'][0].keys() %}
+              {%- if head != 'library'%}
+                {% if val[head] is mapping %}
+                  <td scope="row">
+                    {%- for k, v in val[head].items() %}
+                    <li class="list-unstyled">{{k}}: {{v}}</li>
+                    {%- endfor%}
+                  </td>
+                {%- else %}
+                  <td scope="row">{{val[head]}}</td>
+                {%- endif %}
+              {%- endif %}
+            {%- endfor%}
+          </tr>
+          {%- endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {%- endblock record_body %}
+  {%- endblock body %}

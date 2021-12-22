@@ -27,7 +27,7 @@ from invenio_i18n.ext import current_i18n
 
 from rero_ils.modules.patrons.api import current_librarian, current_patrons
 
-from ..permissions import admin_permission
+from ..permissions import admin_permission, librarian_permission
 
 
 # -------------- Utilities -----------------
@@ -137,17 +137,30 @@ def init_menu_tools():
         id='ill-request-menu'
     )
 
-    item = current_menu.submenu('main.tool.stats')
+    item = current_menu.submenu('main.tool.stats_billing')
     rero_register(
         item,
-        endpoint='stats.stats',
+        endpoint='stats.stats_billing',
         visible_when=lambda: admin_permission.require().can(),
         text=TextWithIcon(
             icon='<i class="fa fa-money"></i>',
+            text='Statistics billing'
+        ),
+        order=20,
+        id='stats-menu-billing'
+    )
+
+    item = current_menu.submenu('main.tool.stats_librarian')
+    rero_register(
+        item,
+        endpoint='stats.stats_librarian',
+        visible_when=lambda: librarian_permission.require().can(),
+        text=TextWithIcon(
+            icon='<i class="fa fa-bar-chart"></i>',
             text='Statistics'
         ),
         order=20,
-        id='stats-menu'
+        id='stats-menu-librarian'
     )
 
     item = current_menu.submenu('main.tool.collections')

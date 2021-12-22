@@ -19,13 +19,29 @@
 
 from celery import shared_task
 
-from .api import Stat, StatsForPricing
+from .api import Stat, StatsForLibrarian, StatsForPricing
 
 
 @shared_task()
-def collect_stats():
-    """Collect and store the current statistics."""
-    stats_for_pricing = StatsForPricing()
+def collect_stats_billing():
+    """Collect and store the statistics for billing."""
+    stats_pricing = StatsForPricing()
     stat = Stat.create(
-        dict(values=stats_for_pricing.collect()), dbcommit=True, reindex=True)
-    return f'New stat has been created with a pid of: {stat.pid}'
+        dict(type='billing', values=stats_pricing.collect()),
+        dbcommit=True, reindex=True)
+    return f'New statistics of type {stat["type"]} has\
+        been created with a pid of: {stat.pid}'
+
+
+@shared_task()
+def collect_stats_librarian():
+    """Collect and store the montly statistics for librarian."""
+    stats_librarian = StatsForLibrarian()
+    date_range = {'from': stats_librarian.date_range['gte'],
+                  'to': stats_librarian.date_range['lte']}
+    stat = Stat.create(
+        dict(type='librarian', date_range=date_range,
+             values=stats_librarian.collect()),
+        dbcommit=True, reindex=True)
+    return f'New statistics of type {stat["type"]} has\
+        been created with a pid of: {stat.pid}'
