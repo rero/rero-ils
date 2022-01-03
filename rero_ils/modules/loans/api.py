@@ -1193,8 +1193,11 @@ def get_overdue_loan_pids(patron_pid=None, tstamp=None):
         .params(preserve_order=True) \
         .sort({'_created': {'order': 'asc'}}) \
         .source(['pid']).scan()
-    for hit in results:
-        yield hit.pid
+    # We will return all pids here to prevent folowing error during long
+    # operations:
+    #  elasticsearch.helpers.errors.ScanError:
+    #  Scroll request has only succeeded on X (+0 skipped) shards out of Y.
+    return [hit.pid for hit in results]
 
 
 def get_overdue_loans(patron_pid=None, tstamp=None):
