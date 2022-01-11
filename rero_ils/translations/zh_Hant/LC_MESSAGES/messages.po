@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 1.5.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-11-29 12:10+0100\n"
-"PO-Revision-Date: 2021-11-26 09:50+0000\n"
+"PO-Revision-Date: 2021-12-25 09:52+0000\n"
 "Last-Translator: Sam Tse <codefzer@gmail.com>\n"
+"Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
+"rero_plus/rero-ils/zh_Hant/>\n"
 "Language: zh_Hant\n"
-"Language-Team: Chinese (Traditional) "
-"<https://hosted.weblate.org/projects/rero_plus/rero-ils/zh_Hant/>\n"
-"Plural-Forms: nplurals=1; plural=0\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.10.1\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: rero_ils/accounts_views.py:46 rero_ils/accounts_views.py:69
@@ -260,7 +261,7 @@ msgstr "日期不詳，自動設置為 2050年"
 
 #: rero_ils/manual_translations.txt:46
 msgid "ebibliomedia"
-msgstr ""
+msgstr "ebibliomedia"
 
 #: rero_ils/manual_translations.txt:47
 msgid "mv-cantook"
@@ -285,15 +286,15 @@ msgstr "續借"
 
 #: rero_ils/manual_translations.txt:54
 msgid "receive"
-msgstr ""
+msgstr "收到"
 
 #: rero_ils/manual_translations.txt:55
 msgid "request"
-msgstr ""
+msgstr "請求"
 
 #: rero_ils/manual_translations.txt:56
 msgid "validate_request"
-msgstr ""
+msgstr "有效请求"
 
 #: rero_ils/manual_translations.txt:59
 #, fuzzy
@@ -345,11 +346,12 @@ msgstr "登記"
 
 #: rero_ils/jsonschemas/common/cantons-v0.0.1.json:3
 msgid "Cantons"
-msgstr ""
+msgstr "州"
 
 #: rero_ils/jsonschemas/common/cantons-v0.0.1.json:36
+#, fuzzy
 msgid "canton_ag"
-msgstr ""
+msgstr "canton_ag"
 
 #: rero_ils/jsonschemas/common/cantons-v0.0.1.json:40
 msgid "canton_ai"
@@ -369,7 +371,7 @@ msgstr ""
 
 #: rero_ils/jsonschemas/common/cantons-v0.0.1.json:56
 msgid "canton_bs"
-msgstr ""
+msgstr "canton_bs"
 
 #: rero_ils/jsonschemas/common/cantons-v0.0.1.json:60
 msgid "canton_fr"
@@ -7562,7 +7564,7 @@ msgstr "2歲或以上"
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:446
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:458
 msgid "undefined"
-msgstr ""
+msgstr "未定義"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:3
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:528
@@ -7678,15 +7680,15 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_language-v0.0.1.json:3
 msgid "Languages"
-msgstr ""
+msgstr "語言"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_language-v0.0.1.json:36
 msgid "bf:Language"
-msgstr ""
+msgstr "bf:語言"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:4
 msgid "(MARC 500, 510, 530, 545, 555, 580)"
-msgstr ""
+msgstr "(Marc 500, 510, 530, 545, 555, 580)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:20
 msgid "Type of note"
@@ -7919,7 +7921,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:225
 msgid "Date 1"
-msgstr ""
+msgstr "日期 1"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:226
 msgid ""
@@ -7929,7 +7931,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:240
 msgid "Date 2"
-msgstr ""
+msgstr "日期 2"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:241
 msgid ""
@@ -7972,7 +7974,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:37
 msgid "Other"
-msgstr ""
+msgstr "其他"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:44
 msgid "Horizontal scale"
@@ -7985,7 +7987,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:49
 msgid "Example: 25000"
-msgstr ""
+msgstr "例如：25000"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:53
 msgid "Vertical scale"
@@ -7993,7 +7995,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:58
 msgid "Example: 250"
-msgstr ""
+msgstr "例如：250"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:63
 msgid "Scale designation (MARC 255$a)"
@@ -8015,7 +8017,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:106
 msgid "Longitude"
-msgstr ""
+msgstr "經度"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:107
 msgid ""
@@ -8029,7 +8031,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:115
 msgid "Latitude"
-msgstr ""
+msgstr "緯度"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:116
 msgid ""
@@ -8067,7 +8069,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:138
 msgid "Example: 021800"
-msgstr ""
+msgstr "例如：021800"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:144
 msgid "Projection"
@@ -8079,15 +8081,15 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:152
 msgid "Equinox"
-msgstr ""
+msgstr "Equinox"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:153
 msgid "Enter only a year (yyyy) or year and month (yyyy.mm)."
-msgstr ""
+msgstr "僅輸入年 (yyyy) 或年和月 (yyyy.mm)。"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:157
 msgid "Example: 1950"
-msgstr ""
+msgstr "例如：1950年"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_sequence_numbering-v0.0.1.json:3
 msgid "Numbering of sequence"
@@ -8126,7 +8128,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:4
 msgid "(MARC 6XX)"
-msgstr ""
+msgstr "(MARC 6XX)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:15
 msgid "Person (local)"
@@ -10090,44 +10092,45 @@ msgid "Parent URI"
 msgstr ""
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:75
+#, fuzzy
 msgid "Field 1"
-msgstr ""
+msgstr "欄位 1"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:84
 msgid "Field 2"
-msgstr ""
+msgstr "欄位 2"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:93
 msgid "Field 3"
-msgstr ""
+msgstr "欄位 3"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:102
 msgid "Field 4"
-msgstr ""
+msgstr "欄位 4"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:111
 msgid "Field 5"
-msgstr ""
+msgstr "欄位 5"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:120
 msgid "Field 6"
-msgstr ""
+msgstr "欄位 6"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:129
 msgid "Field 7"
-msgstr ""
+msgstr "欄位 7"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:138
 msgid "Field 8"
-msgstr ""
+msgstr "欄位 8"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:147
 msgid "Field 9"
-msgstr ""
+msgstr "欄位 9"
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:156
 msgid "Field 10"
-msgstr ""
+msgstr "欄位 10"
 
 #: rero_ils/modules/locations/api.py:83
 msgid "Another online location exists in this library"
@@ -10147,23 +10150,23 @@ msgstr ""
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:35
 msgid "Location ID"
-msgstr ""
+msgstr "位置 ID"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:40
 msgid "Code of the location."
-msgstr ""
+msgstr "位置編碼"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:48
 msgid "The code is already taken."
-msgstr ""
+msgstr "編碼已被使用"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:55
 msgid "Name of the location."
-msgstr ""
+msgstr "位置名稱"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:63
 msgid "Is pickup location"
-msgstr ""
+msgstr "是取件地點"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:66
 msgid "Qualify this location as a pickup location."
@@ -10183,27 +10186,29 @@ msgstr ""
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:90
 msgid "Pickup location name"
-msgstr ""
+msgstr "取件地點名稱"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:92
 msgid "Displayed pickup location name, if different from the location name."
-msgstr ""
+msgstr "顯示的取件地點名稱（如果與地點名稱不同）。"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:105
 msgid "The pickup location name is already taken."
-msgstr ""
+msgstr "取件地點名稱已被使用"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:122
+#, fuzzy
 msgid "Allow request"
-msgstr ""
+msgstr "允許請求"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:124
 msgid "If enabled, it allows requests for items linked to this location."
 msgstr ""
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:128
+#, fuzzy
 msgid "Send notification"
-msgstr ""
+msgstr "發送通知"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:129
 msgid "Send a email notification when an item of the location has been requested."
@@ -10211,7 +10216,7 @@ msgstr ""
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:140
 msgid "Notification email"
-msgstr ""
+msgstr "通知電郵"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:141
 msgid "Specify a generic email address used for notification."
@@ -10223,7 +10228,7 @@ msgstr ""
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:167
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:229
 msgid "The email is not valid."
-msgstr ""
+msgstr "電郵地址無效。"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:164
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:195
@@ -10242,8 +10247,9 @@ msgstr ""
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:4
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:109
+#, fuzzy
 msgid "Notification"
-msgstr ""
+msgstr "通知"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:5
 msgid "JSON schema for notifications."
@@ -10256,15 +10262,16 @@ msgstr ""
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:61
 msgid "Recipient email addresses"
-msgstr ""
+msgstr "收件人電郵地址"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:65
 msgid "Recipient"
-msgstr ""
+msgstr "收件人"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:74
+#, fuzzy
 msgid "Recipient type"
-msgstr ""
+msgstr "收件人類型"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:96
 msgid "Schema to validate notifications records against."
@@ -10288,7 +10295,7 @@ msgstr ""
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:135
 msgid "Notification type"
-msgstr ""
+msgstr "通知類型"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:136
 msgid "The type of the notification."
@@ -10316,11 +10323,11 @@ msgstr ""
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:54
 msgid "User"
-msgstr ""
+msgstr "用户"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:75
 msgid "User name"
-msgstr ""
+msgstr "用戶名稱"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:80
 msgid "Operation date"
@@ -10395,7 +10402,7 @@ msgstr ""
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:312
 msgid "Age"
-msgstr ""
+msgstr "年龄"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:317
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:89
@@ -10403,7 +10410,7 @@ msgstr ""
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:139
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:200
 msgid "Postal code"
-msgstr ""
+msgstr "郵政編碼"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:331
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:42
@@ -10434,11 +10441,11 @@ msgstr ""
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:427
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:39
 msgid "Creation date"
-msgstr ""
+msgstr "創建日期"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:432
 msgid "Modification date"
-msgstr ""
+msgstr "修改日期"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:5
 msgid "JSON schema for an organisation"
@@ -10519,7 +10526,7 @@ msgstr ""
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:50
 msgid "Steps"
-msgstr ""
+msgstr "步驟"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:98
 msgid "Operator"
@@ -10541,7 +10548,7 @@ msgstr ""
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:157
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:78
 msgid "lost"
-msgstr ""
+msgstr "遺失"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:182
 msgid "payment"
@@ -10812,8 +10819,9 @@ msgid "You have a pending subscription fee."
 msgstr ""
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:4
+#, fuzzy
 msgid "user"
-msgstr ""
+msgstr "用戶"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:5
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:5
@@ -10850,7 +10858,7 @@ msgstr ""
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:133
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:194
 msgid "Street"
-msgstr ""
+msgstr "街道"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:79
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:116
@@ -10862,15 +10870,15 @@ msgstr ""
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:144
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:205
 msgid "City"
-msgstr ""
+msgstr "城市"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:131
 msgid "Patron Information"
-msgstr ""
+msgstr "讀者資料"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:154
 msgid "Patron Type"
-msgstr ""
+msgstr "讀者類型"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:155
 msgid "Patron type in terms of circulation policy."
@@ -10908,12 +10916,14 @@ msgstr ""
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:250
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:41
+#, fuzzy
 msgid "email"
-msgstr ""
+msgstr "電子郵件"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:254
+#, fuzzy
 msgid "mail"
-msgstr ""
+msgstr "郵件"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:261
 msgid "Additional communication email"
@@ -10963,7 +10973,7 @@ msgstr ""
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:394
 msgid "libraries"
-msgstr ""
+msgstr "圖書館"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:395
 msgid "Library affiliations for the librarian."
@@ -10977,7 +10987,7 @@ msgstr ""
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:448
 msgid "patron"
-msgstr ""
+msgstr "讀者"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:456
 msgid "system_librarian"
@@ -11034,11 +11044,12 @@ msgstr ""
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:26
 msgid "Statistics"
-msgstr ""
+msgstr "統計"
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:30
+#, fuzzy
 msgid "Statistic"
-msgstr ""
+msgstr "統計"
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:5
 msgid "JSON schema for templates."
@@ -11104,11 +11115,11 @@ msgstr ""
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:51
 msgid "Last name"
-msgstr ""
+msgstr "姓"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:56
 msgid "Date of birth"
-msgstr ""
+msgstr "出生日期"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:68
 msgid "Example: 1985-12-29"
@@ -11116,11 +11127,11 @@ msgstr ""
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:83
 msgid "male"
-msgstr ""
+msgstr "男"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:87
 msgid "female"
-msgstr ""
+msgstr "女"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:98
 msgid "Username"
@@ -11167,7 +11178,7 @@ msgstr ""
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:152
 msgid "Business phone number"
-msgstr ""
+msgstr "公司電話號碼"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:153
 msgid "Business phone number with the international prefix, without spaces."
@@ -11175,7 +11186,7 @@ msgstr ""
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:170
 msgid "Mobile phone number"
-msgstr ""
+msgstr "手機號碼"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:171
 msgid "Mobile phone number with the international prefix, without spaces."
@@ -11183,7 +11194,7 @@ msgstr ""
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:188
 msgid "Other phone number"
-msgstr ""
+msgstr "其他電話號碼"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:189
 msgid "Other phone number with the international prefix, without spaces."
@@ -11205,7 +11216,7 @@ msgstr ""
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:229
 msgid "Password"
-msgstr ""
+msgstr "密碼"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:5
 msgid "JSON schema for a vendor"
@@ -11233,11 +11244,11 @@ msgstr ""
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:127
 msgid "Contact person"
-msgstr ""
+msgstr "聯絡人"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:128
 msgid "Vendor contact person."
-msgstr ""
+msgstr "供應商聯絡人。"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:134
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:195
@@ -11247,7 +11258,7 @@ msgstr ""
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:154
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:215
 msgid "Phone number"
-msgstr ""
+msgstr "電話號碼"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:155
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:216
@@ -11267,8 +11278,9 @@ msgid "Name of the vendor contact person."
 msgstr ""
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:237
+#, fuzzy
 msgid "Currency"
-msgstr ""
+msgstr "貨幣"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:254
 msgid "VAT rate"
@@ -11388,25 +11400,25 @@ msgstr ""
 #: rero_ils/theme/templates/rero_ils/register_user.html:51
 #: rero_ils/theme/templates/rero_ils/reset_password.html:46
 msgid "Log In"
-msgstr ""
+msgstr "登錄"
 
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:51
 #: rero_ils/theme/templates/rero_ils/reset_password.html:47
 msgid "or"
-msgstr ""
+msgstr "或"
 
 #: rero_ils/theme/templates/rero_ils/frontpage.html:41
 #: rero_ils/theme/templates/rero_ils/frontpage.html:50
 msgid "What are you looking for?"
-msgstr ""
+msgstr "你在找什麼？"
 
 #: rero_ils/theme/templates/rero_ils/header.html:38
 msgid "Search"
-msgstr ""
+msgstr "搜尋"
 
 #: rero_ils/theme/templates/rero_ils/login_user.html:25
 msgid "Log in to account"
-msgstr ""
+msgstr "登錄帳戶"
 
 #: rero_ils/theme/templates/rero_ils/login_user.html:41
 msgid "E-mail or username"
@@ -11449,12 +11461,12 @@ msgstr ""
 #: rero_ils/theme/templates/security/email/reset_instructions.html:22
 #: rero_ils/theme/templates/security/email/reset_notice.html:22
 msgid "Dear"
-msgstr ""
+msgstr "親愛的"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:24
 #: rero_ils/theme/templates/security/email/reset_notice.html:24
 msgid "Dear patron"
-msgstr ""
+msgstr "親愛的讀者"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:26
 msgid "Someone requested that the password for your RERO ID account be reset."
@@ -11478,12 +11490,11 @@ msgstr ""
 #: rero_ils/theme/templates/security/email/reset_instructions.html:30
 #: rero_ils/theme/templates/security/email/reset_notice.html:28
 msgid "Your library"
-msgstr ""
+msgstr "您的圖書館"
 
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
-msgstr ""
+msgstr "您的密碼已成功重置。"
 
 #~ msgid "Core leve"
 #~ msgstr ""
-
