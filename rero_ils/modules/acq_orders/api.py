@@ -362,7 +362,7 @@ class AcqOrder(IlsRecord):
         links.pop('order_lines', None)
         if self.status != AcqOrderStatus.PENDING:
             cannot_delete['others'] = {
-                _(f'Order status is {self.status}'): True
+                _(f'Order status is %s') % _(self.status): True
             }
         if links:
             cannot_delete['links'] = links
