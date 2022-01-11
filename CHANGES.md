@@ -1,5 +1,52 @@
 # Changelog
 
+## [v1.8.0](https://github.com/rero/rero-ils/tree/v1.8.0) (2022-01-20)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.7.0...v1.8.0)
+
+**Implemented enhancements:**
+
+- User account \(public\): filter by institution [\#2615](https://github.com/rero/rero-ils/issues/2615)
+- Access to circulation complex from patron detailed view [\#2533](https://github.com/rero/rero-ils/issues/2533)
+- Allow the librarian to see other organisations items and holdings [\#1945](https://github.com/rero/rero-ils/issues/1945)
+
+**Fixed bugs:**
+
+- circulation: unable to do a checkout in prof. interface [\#2626](https://github.com/rero/rero-ils/issues/2626)
+- Account number: the systems says it is already taken, but it is not [\#2618](https://github.com/rero/rero-ils/issues/2618)
+- circulation: problem to manage checkin operations when item/patron barcode are identical [\#2597](https://github.com/rero/rero-ils/issues/2597)
+- It should not be possible to remove a temporary location used in items [\#2578](https://github.com/rero/rero-ils/issues/2578)
+- Summary not displayed after clicking on 'show more' [\#2551](https://github.com/rero/rero-ils/issues/2551)
+- Dates are not displayed correctly \(delay of 1 day\) in the fee tab of the patron account [\#2550](https://github.com/rero/rero-ils/issues/2550)
+- "User editor" should be replaced by "Personal data" and translated [\#2538](https://github.com/rero/rero-ils/issues/2538)
+- Impossible de create a patron type [\#2479](https://github.com/rero/rero-ils/issues/2479)
+- Language code translation problem in the "Language of representative expression" [\#2416](https://github.com/rero/rero-ils/issues/2416)
+- Often the public and professional interface changes the language [\#2277](https://github.com/rero/rero-ils/issues/2277)
+- Removing a pick-up location creates bugs on the loans [\#2162](https://github.com/rero/rero-ils/issues/2162)
+
+**Merged pull requests:**
+
+- notification: fix `reply-to` recipient [\#2645](https://github.com/rero/rero-ils/pull/2645) ([zannkukai](https://github.com/zannkukai))
+- deployment: fix flask-wiki [\#2643](https://github.com/rero/rero-ils/pull/2643) ([rerowep](https://github.com/rerowep))
+- statistics: implement basic statistics for librarians [\#2632](https://github.com/rero/rero-ils/pull/2632) ([vgranata](https://github.com/vgranata))
+- notifications: fix creation [\#2624](https://github.com/rero/rero-ils/pull/2624) ([rerowep](https://github.com/rerowep))
+- modules: fix get\_all\_pids [\#2614](https://github.com/rero/rero-ils/pull/2614) ([rerowep](https://github.com/rerowep))
+- Merge `US\_acquisition` on `staging` [\#2613](https://github.com/rero/rero-ils/pull/2613) ([zannkukai](https://github.com/zannkukai))
+- notification: fix notification fee amount calculation [\#2600](https://github.com/rero/rero-ils/pull/2600) ([zannkukai](https://github.com/zannkukai))
+- dependencies: update the dependencies lock file [\#2596](https://github.com/rero/rero-ils/pull/2596) ([rerowep](https://github.com/rerowep))
+- circulation: fix overdue fees timestamp calculation [\#2593](https://github.com/rero/rero-ils/pull/2593) ([zannkukai](https://github.com/zannkukai))
+- loans: dumping related circulation policy [\#2589](https://github.com/rero/rero-ils/pull/2589) ([zannkukai](https://github.com/zannkukai))
+- documents: fix translation on original language field [\#2588](https://github.com/rero/rero-ils/pull/2588) ([Garfield-fr](https://github.com/Garfield-fr))
+- locations: fix temporary deletion [\#2586](https://github.com/rero/rero-ils/pull/2586) ([rerowep](https://github.com/rerowep))
+- jsonschema: introduce exclusiveMinimum for fields [\#2580](https://github.com/rero/rero-ils/pull/2580) ([BadrAly](https://github.com/BadrAly))
+- items: delete checked-in provisional items [\#2572](https://github.com/rero/rero-ils/pull/2572) ([BadrAly](https://github.com/BadrAly))
+- add organisation name on the title tag [\#2571](https://github.com/rero/rero-ils/pull/2571) ([Garfield-fr](https://github.com/Garfield-fr))
+- professional: fix patron type creation [\#2566](https://github.com/rero/rero-ils/pull/2566) ([jma](https://github.com/jma))
+- documents: replace identifiedBy subjects with $ref [\#2558](https://github.com/rero/rero-ils/pull/2558) ([rerowep](https://github.com/rerowep))
+- holdings/items: remove query filter and add a sort on the holdings [\#2528](https://github.com/rero/rero-ils/pull/2528) ([Garfield-fr](https://github.com/Garfield-fr))
+
+# Changelog
+
 ## [v1.7.0](https://github.com/rero/rero-ils/tree/v1.7.0) (2021-12-13)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.6.1...v1.7.0)
