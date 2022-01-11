@@ -12,24 +12,25 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2021-11-29 12:10+0100\n"
-"PO-Revision-Date: 2021-09-17 08:37+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2022-01-11 13:11+0000\n"
+"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/rero_plus/rero-ils/"
+"nl/>\n"
 "Language: nl\n"
-"Language-Team: Dutch <https://hosted.weblate.org/projects/rero_plus/rero-"
-"ils/nl/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.10.1\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: rero_ils/accounts_views.py:46 rero_ils/accounts_views.py:69
 msgid "USER_DOES_NOT_EXIST"
-msgstr ""
+msgstr "Deze gebruiker bestaat niet."
 
 #: rero_ils/config.py:128
 msgid "Test version"
-msgstr ""
+msgstr "Testversie"
 
 #: rero_ils/config.py:151
 msgid "French"
@@ -49,15 +50,15 @@ msgstr "rero-ils"
 
 #: rero_ils/config.py:241
 msgid "Welcome"
-msgstr ""
+msgstr "Welkom"
 
 #: rero_ils/config.py:243
 msgid "RERO ID password reset"
-msgstr ""
+msgstr "RERO ID wachtwoord opnieuw instellen"
 
 #: rero_ils/config.py:244
 msgid "Your RERO ID password has been reset"
-msgstr ""
+msgstr "Uw RERO ID-wachtwoord is opnieuw ingesteld"
 
 #: rero_ils/config.py:1808
 msgid "author"
@@ -286,27 +287,27 @@ msgstr "Annuleer"
 
 #: rero_ils/manual_translations.txt:51
 msgid "checkin"
-msgstr ""
+msgstr "checkin"
 
 #: rero_ils/manual_translations.txt:52
 msgid "checkout"
-msgstr ""
+msgstr "checkout"
 
 #: rero_ils/manual_translations.txt:53
 msgid "extend"
-msgstr ""
+msgstr "verlengen"
 
 #: rero_ils/manual_translations.txt:54
 msgid "receive"
-msgstr ""
+msgstr "ontvangen"
 
 #: rero_ils/manual_translations.txt:55
 msgid "request"
-msgstr ""
+msgstr "aanvragen"
 
 #: rero_ils/manual_translations.txt:56
 msgid "validate_request"
-msgstr ""
+msgstr "validatie van de aanvraag"
 
 #: rero_ils/manual_translations.txt:59
 #, fuzzy
@@ -337,7 +338,7 @@ msgstr "Uitloggen"
 
 #: rero_ils/manual_translations.txt:65
 msgid "Edit my profile"
-msgstr ""
+msgstr "Mijn profiel bewerken"
 
 #: rero_ils/manual_translations.txt:66
 #, fuzzy
@@ -4603,21 +4604,23 @@ msgid ""
 "Remove this field to disable the checkout. Enter 0 to allow the checkout "
 "until the end of the day."
 msgstr ""
+"Verwijder dit veld om de checkout uit te schakelen. Voer 0 in om de checkout "
+"tot het einde van de dag toe te staan."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:80
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:110
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:167
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:321
 msgid "day(s)"
-msgstr ""
+msgstr "dag(en)"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:87
 msgid "Allow checkout"
-msgstr ""
+msgstr "Checkout toestaan"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:88
 msgid "Checkouts are allowed or not."
-msgstr ""
+msgstr "Checkouts zijn toegestaan of niet."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:97
 msgid "Allow patron requests"
@@ -4633,6 +4636,8 @@ msgid ""
 "Number of day(s) after which a not-picked up validated request will be "
 "cancelled. Keep empty to specify infinite duration."
 msgstr ""
+"Aantal dag(en) waarna een niet opgehaald gevalideerd verzoek zal worden "
+"geannuleerd. Leeg laten om oneindige duur te specificeren."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:117
 msgid ""
@@ -13311,4 +13316,3 @@ msgstr ""
 
 #~ msgid "Core leve"
 #~ msgstr ""
-
