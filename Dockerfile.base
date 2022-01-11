@@ -20,7 +20,7 @@ FROM python:3.9-slim-buster
 # require debian packages
 RUN apt-get update -y && apt-get upgrade -y
 RUN apt-get install --no-install-recommends -y git vim-tiny curl gcc gnupg libc6-dev procps && rm -rf /var/lib/apt/lists/*
-RUN pip install --upgrade setuptools wheel pip "poetry<1.1.0"
+RUN pip install --upgrade setuptools wheel pip poetry
 
 # # uwsgi uwsgitop uwsgi-tools
 

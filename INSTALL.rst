@@ -66,7 +66,7 @@ all Python dependencies and build all static assets):
 .. code-block:: console
 
     $ cd rero-ils
-    $ poetry run bootstrap
+    $ poetry run ./scripts/bootstrap
 
 Start all dependent services using docker-compose (this will start PostgreSQL,
 Elasticsearch 6, RabbitMQ and Redis):
@@ -95,7 +95,7 @@ Next, create database tables, search indexes and message queues:
 
 .. code-block:: console
 
-    $ poetry run setup
+    $ poetry run poe setup
 
 Running
 -------
@@ -103,13 +103,13 @@ Start the webserver and the celery worker:
 
 .. code-block:: console
 
-    $ poetry run server
+    $ poetry run poe server
 
 Start a Python shell:
 
 .. code-block:: console
 
-    $ poetry run console
+    $ poetry run poe console
 
 Upgrading
 ---------
@@ -117,7 +117,7 @@ In order to upgrade an existing instance simply run:
 
 .. code-block:: console
 
-    $ poetry run update
+    $ poetry run poe update
 
 Testing
 -------

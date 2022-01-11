@@ -83,7 +83,7 @@ class ItemRecord(IlsRecord):
                          'for an issue item')
         note_types = [note.get('type') for note in self.get('notes', [])]
         if len(note_types) != len(set(note_types)):
-            return _('Can not have multiple notes of same type.')
+            return _('Can not have multiple notes of the same type.')
 
         # check temporary item type data
         tmp_itty = self.get('temporary_item_type')

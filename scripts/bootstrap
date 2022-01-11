@@ -123,6 +123,9 @@ fi
 info_msg "Upgrade pip"
 poetry run pip install --upgrade pip
 
+info_msg "Install poethepoet"
+poetry run pip install poethepoet
+
 # BOOTSTRAP START
 # install the application and all the dependencies
 info_msg "Install with command: ${cmd} ${flags[@]}"
@@ -170,6 +173,9 @@ if $deploy ; then
     pip cache purge
   fi
 fi
+
+info_msg "Compile translations"
+poetry run pybabel compile -d rero_ils/translations
 
 success_msg "${PROGRAM} finished!"
 exit 0

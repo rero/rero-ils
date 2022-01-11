@@ -104,43 +104,35 @@ function pretests () {
 
 function tests () {
   info_msg "Tests All:"
-  export PYTEST_ADDOPTS="--color=yes"
-  poetry run tests
+  poetry run pytest
 }
 
 function tests_api () {
   info_msg "Tests API:"
-  export PYTEST_ADDOPTS="--color=yes"
   poetry run pytest ./tests/api
 }
 function tests_e2e () {
   info_msg "Tests E2E:"
-  export PYTEST_ADDOPTS="--color=yes"
   poetry run pytest ./tests/e2e
 }
 function tests_scheduler () {
   info_msg "Tests Scheduler:"
-  export PYTEST_ADDOPTS="--color=yes"
   poetry run pytest ./tests/scheduler
 }
 function tests_ui () {
   info_msg "Tests UI:"
-  export PYTEST_ADDOPTS="--color=yes"
   poetry run pytest ./tests/ui
 }
 function tests_unit () {
   info_msg "Tests Unit:"
-  export PYTEST_ADDOPTS="--color=yes"
   poetry run pytest ./tests/unit
 }
 function tests_external () {
   info_msg "Tests External:"
-  export PYTEST_ADDOPTS="--color=yes"
   poetry run pytest tests/api/test_external_services.py
 }
 function tests_other () {
   info_msg "Tests Other:"
-  export PYTEST_ADDOPTS="--color=yes"
   poetry run pytest ./tests/conftest.py ./tests/test_version.py ./tests/utils.py
 }
 
