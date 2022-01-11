@@ -146,7 +146,7 @@
       "$ref": "https://bib.rero.ch/api/budgets/4"
     },
     "library": {
-      "$ref": "https://bib.rero.ch/api/libraries/2"
+      "$ref": "https://bib.rero.ch/api/libraries/6"
     }
   }
 ]
