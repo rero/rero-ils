@@ -95,7 +95,7 @@ class AcqOrderLine(IlsRecord):
         # NOTES fields testing
         note_types = [note.get('type') for note in self.get('notes', [])]
         if len(note_types) != len(set(note_types)):
-            return _('Can not have multiple notes of same type.')
+            return _('Can not have multiple notes of the same type.')
 
         return True
 

@@ -29,8 +29,8 @@ uwsgi-tools = ">=1.1.1"
 uwsgitop = ">=0.11"
 
 ## Third party invenio modules used by RERO ILS
-invenio-oaiharvester = {git = "https://github.com/inveniosoftware/invenio-oaiharvester.git", tag = "v1.0.0a4"}
-invenio-circulation = {version = ">=1.0.0a36", allow-prereleases = true}
+invenio-oaiharvester = { git = "https://github.com/inveniosoftware/invenio-oaiharvester.git", tag = "v1.0.0a4" }
+invenio-circulation = { git = "https://github.com/inveniosoftware/invenio-circulation.git", tag = "v1.0.0a36" }
 
 ## Invenio 3.4 base modules used by RERO ILS
 # same as invenio metadata extras without invenio-search-ui
@@ -39,14 +39,12 @@ invenio-jsonschemas = ">=1.1.1,<1.2.0"
 invenio-oaiserver = ">=1.2.0,<1.3.0"
 invenio-pidstore = ">=1.2.1,<1.3.0"
 invenio-records-rest = ">=1.8.0,<1.9.0"
-invenio-records-ui= ">=1.2.0,<1.3.0"
-invenio-records = {version = ">=1.4.0,<1.6.0", allow-prereleases = true}
+invenio-records-ui = ">=1.2.0,<1.3.0"
+invenio-records = ">=1.4.0,<1.7.0"
 
 ## Default from Invenio
 invenio = {version = ">=3.4.0,<3.5.0", extras = ["base", "postgresql", "auth", "elasticsearch7", "docs", "tests" ]}
 
-# TODO: jedi > 0.17 crashs the console
-jedi = "<0.18.0"
 # TODO: jsonschema 4.0.0 is not working with invenio because there is a new parameter type!
 jsonschema = "<4.0.0"
 
@@ -61,7 +59,7 @@ redisbeat = "*"
 jsonpickle = ">=1.4.1"
 ciso8601 = "*"
 # TODO: to be removed when the thumbnail will be refactored
-invenio-userprofiles = {git = "https://github.com/rero/invenio-userprofiles.git", rev = "41d2b471cde1a93f660ba7bf0037ee3fb80b65fc"}
+invenio-userprofiles = {git = "https://github.com/rero/invenio-userprofiles.git", tag = "v1.2.1-rero2.0"}
 
 ## Additionnal constraints on python modules
 flask-wiki = {git = "https://github.com/rero/flask-wiki.git", tag = "v0.0.1"}
@@ -74,7 +72,7 @@ invenio-logging = { version = ">=1.3.0,<1.4.0", extras = ["sentry-sdk", "sentry"
 python-dotenv = ">=0.13.0"
 
 ## Third party optional modules used by RERO ILS
-invenio-sip2 = {git = "https://github.com/inveniosoftware-contrib/invenio-sip2.git", optional = true}
+invenio-sip2 = { git = "https://github.com/inveniosoftware-contrib/invenio-sip2.git", optional = true }
 flask-cors = ">3.0.8"
 celery = ">=5.0.0"
 cryptography = ">3.3.1"
@@ -90,11 +88,10 @@ DeepDiff = "^5.5.0"
 docutils = "<0.18.0"
 wtforms = "<3.0.0"
 flask-wtf = "<1.0.0"
-# TODO: normaly not needed with invenio-records[postgresql]
-sqlalchemy-continuum = "^1.3.12"
-psycopg2-binary = "^2.9.3"
 # TODO: ImportError: cannot import name 'soft_unicode' from 'markupsafe'
 markupsafe = "<2.1.0"
+poethepoet = "^0.12.3"
+jedi = "<0.18.0"
 
 [tool.poetry.dev-dependencies]
 ## Python packages development dependencies (order matters)
@@ -116,17 +113,311 @@ appnope = { version = "*", optional = true }
 #------------------------------------
 sip2 = ["invenio-sip2"]
 
-[tool.poetry.scripts]
-bootstrap = "scripts:run('./scripts/bootstrap')"
-console = "scripts:run('./scripts/console')"
-cypress = "scripts:run('./scripts/cypress')"
-folding = "scripts:run('./scripts/russian_dolls')"
-run-tests = "scripts:run('./run-tests.sh')"
-tests = "scripts:run('pytest')"
-tests-debug = "scripts:run('pytest', '--no-cov', '-vv', '-s')"
-server = "scripts:run('./scripts/server')"
-setup = "scripts:run('./scripts/setup')"
-update = "scripts:run('./scripts/update')"
+[tool.poetry.plugins."console_scripts"]
+rero-ils = "invenio_app.cli:cli"
+
+[tool.poetry.plugins."babel.extractors"]
+json = "rero_ils.modules.babel_extractors:extract_json"
+
+[tool.poetry.plugins."dojson.cli"]
+head = "rero_ils.dojson.cli:head"
+reverse = "rero_ils.dojson.cli:reverse"
+
+[tool.poetry.plugins."dojson.cli.dump"]
+pjson = "rero_ils.dojson.cli:pretty_json_dump"
+
+[tool.poetry.plugins."dojson.cli.rule"]
+marc21toebooks = "rero_ils.modules.ebooks.dojson.contrib.marc21:marc21"
+marc21tojson = "rero_ils.modules.documents.dojson.contrib.marc21tojson:marc21tojson"
+unimarctojson = "rero_ils.modules.documents.dojson.contrib.unimarctojson:unimarc"
+
+[tool.poetry.plugins."flask.commands"]
+apiharvester = "rero_ils.modules.apiharvester.cli:apiharvester"
+contribution = "rero_ils.modules.contributions.cli:contribution"
+monitoring = "rero_ils.modules.monitoring.cli:monitoring"
+notifications = "rero_ils.modules.notifications.cli:notifications"
+oaiharvester = "rero_ils.modules.ebooks.cli:oaiharvester"
+reroils = "rero_ils.modules.cli.reroils:reroils"
+scheduler = "rero_ils.schedulers:scheduler"
+stats = "rero_ils.modules.stats.cli:stats"
+
+[tool.poetry.plugins."invenio_admin.views"]
+selfcheck_users_accounts = "rero_ils.modules.selfcheck.admin:selfcheck_terminal_adminview"
+
+[tool.poetry.plugins."invenio_assets.webpack"]
+reroils_theme = "rero_ils.theme.webpack:theme"
+
+[tool.poetry.plugins."invenio_base.api_apps"]
+invenio_i18n = "invenio_i18n:InvenioI18N"
+rero-ils = "rero_ils.modules.ext:REROILSAPP"
+
+[tool.poetry.plugins."invenio_base.api_blueprints"]
+acq_accounts = "rero_ils.modules.acq_accounts.views:api_blueprint"
+acq_orders = "rero_ils.modules.acq_orders.views:api_blueprint"
+acq_receipts = "rero_ils.modules.acq_receipts.views:api_blueprint"
+api_documents = "rero_ils.modules.documents.views:api_blueprint"
+circ_policies = "rero_ils.modules.circ_policies.views:blueprint"
+contributions = "rero_ils.modules.contributions.views:api_blueprint"
+documents = "rero_ils.modules.documents.views:api_blueprint"
+holdings = "rero_ils.modules.holdings.api_views:api_blueprint"
+imports = "rero_ils.modules.imports.views:api_blueprint"
+item_types = "rero_ils.modules.item_types.views:blueprint"
+items = "rero_ils.modules.items.views:api_blueprint"
+libraries = "rero_ils.modules.libraries.api_views:api_blueprint"
+loans = "rero_ils.modules.loans.api_views:api_blueprint"
+monitoring = "rero_ils.modules.monitoring.views:api_blueprint"
+notifications = "rero_ils.modules.notifications.views:blueprint"
+patron_types = "rero_ils.modules.patron_types.views:blueprint"
+patrons = "rero_ils.modules.patrons.views:api_blueprint"
+permissions ="rero_ils.modules.views:api_blueprint"
+rero_ils = "rero_ils.modules.views:api_blueprint"
+
+[tool.poetry.plugins."invenio_base.apps"]
+rero-ils = "rero_ils.modules.ext:REROILSAPP"
+
+[tool.poetry.plugins."invenio_base.blueprints"]
+circ_policies = "rero_ils.modules.circ_policies.views:blueprint"
+collections = "rero_ils.modules.collections.views:blueprint"
+contributions = "rero_ils.modules.contributions.views:blueprint"
+documents = "rero_ils.modules.documents.views:blueprint"
+holdings = "rero_ils.modules.holdings.views:blueprint"
+ill_requests = "rero_ils.modules.ill_requests.views:blueprint"
+item_types = "rero_ils.modules.item_types.views:blueprint"
+notifications = "rero_ils.modules.notifications.views:blueprint"
+patron_types = "rero_ils.modules.patron_types.views:blueprint"
+patrons = "rero_ils.modules.patrons.views:blueprint"
+rero_ils = "rero_ils.theme.views:blueprint"
+stats = "rero_ils.modules.stats.views:blueprint"
+templates = "rero_ils.modules.templates.views:blueprint"
+theme = "rero_ils.theme.views:blueprint"
+users = "rero_ils.modules.users.views:blueprint"
+
+[tool.poetry.plugins."invenio_celery.tasks"]
+apiharvester = "rero_ils.modules.apiharvester.tasks"
+collections = "rero_ils.modules.collections.tasks"
+documents = "rero_ils.modules.documents.tasks"
+ebooks = "rero_ils.modules.ebooks.tasks"
+holdings = "rero_ils.modules.holdings.tasks"
+items = "rero_ils.modules.items.tasks"
+loans = "rero_ils.modules.loans.tasks"
+modules = "rero_ils.modules.tasks"
+notifications = "rero_ils.modules.notifications.tasks"
+patrons = "rero_ils.modules.patrons.tasks"
+stats = "rero_ils.modules.stats.tasks"
+
+[tool.poetry.plugins."invenio_config.module"]
+rero_ils = "rero_ils.config"
+
+[tool.poetry.plugins."invenio_db.alembic"]
+rero_ils = "rero_ils:alembic"
+
+[tool.poetry.plugins."invenio_db.models"]
+acq_accounts = "rero_ils.modules.acq_accounts.models"
+acq_invoices = "rero_ils.modules.acq_invoices.models"
+acq_order_lines = "rero_ils.modules.acq_order_lines.models"
+acq_orders = "rero_ils.modules.acq_orders.models"
+acq_receipt_lines = "rero_ils.modules.acq_receipt_lines.models"
+acq_receipts = "rero_ils.modules.acq_receipts.models"
+apiharvester = "rero_ils.modules.apiharvester.models"
+budgets = "rero_ils.modules.budgets.models"
+circ_policies = "rero_ils.modules.circ_policies.models"
+collections = "rero_ils.modules.collections.models"
+documents = "rero_ils.modules.documents.models"
+holdings = "rero_ils.modules.holdings.models"
+ill_requests = "rero_ils.modules.ill_requests.models"
+item_types = "rero_ils.modules.item_types.models"
+items = "rero_ils.modules.items.models"
+libraries = "rero_ils.modules.libraries.models"
+local_fields = "rero_ils.modules.local_fields.models"
+locations = "rero_ils.modules.locations.models"
+mef = "rero_ils.modules.contributions.models"
+notifications = "rero_ils.modules.notifications.models"
+organisations = "rero_ils.modules.organisations.models"
+patron_transaction_events = "rero_ils.modules.patron_transaction_events.models"
+patron_transactions = "rero_ils.modules.patron_transactions.models"
+patron_types = "rero_ils.modules.patron_types.models"
+patrons = "rero_ils.modules.patrons.models"
+selfcheck = "rero_ils.modules.selfcheck.models"
+stats = "rero_ils.modules.stats.models"
+templates = "rero_ils.modules.templates.models"
+vendors = "rero_ils.modules.vendors.models"
+
+[tool.poetry.plugins."invenio_i18n.translations"]
+messages = "rero_ils"
+messages_wiki = "flask_wiki"
+
+[tool.poetry.plugins."invenio_jsonschemas.schemas"]
+acq_accounts = "rero_ils.modules.acq_accounts.jsonschemas"
+acq_invoices = "rero_ils.modules.acq_invoices.jsonschemas"
+acq_order_lines = "rero_ils.modules.acq_order_lines.jsonschemas"
+acq_orders = "rero_ils.modules.acq_orders.jsonschemas"
+acq_receipt_lines = "rero_ils.modules.acq_receipt_lines.jsonschemas"
+acq_receipts = "rero_ils.modules.acq_receipts.jsonschemas"
+budgets = "rero_ils.modules.budgets.jsonschemas"
+circ_policies = "rero_ils.modules.circ_policies.jsonschemas"
+collections = "rero_ils.modules.collections.jsonschemas"
+common = "rero_ils.jsonschemas"
+contributions = "rero_ils.modules.contributions.jsonschemas"
+documents = "rero_ils.modules.documents.jsonschemas"
+holdings = "rero_ils.modules.holdings.jsonschemas"
+ill_requests = "rero_ils.modules.ill_requests.jsonschemas"
+item_types = "rero_ils.modules.item_types.jsonschemas"
+items = "rero_ils.modules.items.jsonschemas"
+libraries = "rero_ils.modules.libraries.jsonschemas"
+loans = "rero_ils.modules.loans.jsonschemas"
+local_fields = "rero_ils.modules.local_fields.jsonschemas"
+locations = "rero_ils.modules.locations.jsonschemas"
+notifications = "rero_ils.modules.notifications.jsonschemas"
+operation_logs = "rero_ils.modules.operation_logs.jsonschemas"
+organisations = "rero_ils.modules.organisations.jsonschemas"
+patron_transaction_events = "rero_ils.modules.patron_transaction_events.jsonschemas"
+patron_transactions = "rero_ils.modules.patron_transactions.jsonschemas"
+patron_types = "rero_ils.modules.patron_types.jsonschemas"
+patrons = "rero_ils.modules.patrons.jsonschemas"
+stats = "rero_ils.modules.stats.jsonschemas"
+templates = "rero_ils.modules.templates.jsonschemas"
+users = "rero_ils.modules.users.jsonschemas"
+vendors = "rero_ils.modules.vendors.jsonschemas"
+
+[tool.poetry.plugins."invenio_oauth2server.scopes"]
+birthdate = "rero_ils.oauth.scopes:birthdate"
+expiration_date = "rero_ils.oauth.scopes:expiration_date"
+fullname = "rero_ils.oauth.scopes:fullname"
+institution = "rero_ils.oauth.scopes:institution"
+patron_type = "rero_ils.oauth.scopes:patron_type"
+patron_types = "rero_ils.oauth.scopes:patron_types"
+
+[tool.poetry.plugins."invenio_pidstore.fetchers"]
+acq_account_id = "rero_ils.modules.acq_accounts.api:acq_account_id_fetcher"
+acq_invoice_id = "rero_ils.modules.acq_invoices.api:acq_invoice_id_fetcher"
+acq_order_id = "rero_ils.modules.acq_orders.api:acq_order_id_fetcher"
+acq_order_line_id = "rero_ils.modules.acq_order_lines.api:acq_order_line_id_fetcher"
+acq_receipt_id = "rero_ils.modules.acq_receipts.api:acq_receipt_id_fetcher"
+acq_receipt_line_id = "rero_ils.modules.acq_receipt_lines.api:acq_receipt_line_id_fetcher"
+budget_id = "rero_ils.modules.budgets.api:budget_id_fetcher"
+circ_policy_id = "rero_ils.modules.circ_policies.api:circ_policy_id_fetcher"
+collection_id = "rero_ils.modules.collections.api:collection_id_fetcher"
+contribution_id = "rero_ils.modules.contributions.api:contribution_id_fetcher"
+document_id = "rero_ils.modules.documents.api:document_id_fetcher"
+holding_id = "rero_ils.modules.holdings.api:holding_id_fetcher"
+ill_request_id = "rero_ils.modules.ill_requests.api:ill_request_id_fetcher"
+item_id = "rero_ils.modules.items.api:item_id_fetcher"
+item_type_id = "rero_ils.modules.item_types.api:item_type_id_fetcher"
+library_id = "rero_ils.modules.libraries.api:library_id_fetcher"
+local_field_id = "rero_ils.modules.local_fields.api:local_field_id_fetcher"
+location_id = "rero_ils.modules.locations.api:location_id_fetcher"
+notification_id = "rero_ils.modules.notifications.api:notification_id_fetcher"
+operation_log_id = "rero_ils.modules.operation_logs.api:operation_log_id_fetcher"
+organisation_id = "rero_ils.modules.organisations.api:organisation_id_fetcher"
+patron_id = "rero_ils.modules.patrons.api:patron_id_fetcher"
+patron_transaction_event_id = "rero_ils.modules.patron_transaction_events.api:patron_transaction_event_id_fetcher"
+patron_transaction_id = "rero_ils.modules.patron_transactions.api:patron_transaction_id_fetcher"
+patron_type_id = "rero_ils.modules.patron_types.api:patron_type_id_fetcher"
+stat_id = "rero_ils.modules.stats.api:stat_id_fetcher"
+template_id = "rero_ils.modules.templates.api:template_id_minter"
+vendor_id = "rero_ils.modules.vendors.api:vendor_id_fetcher"
+
+[tool.poetry.plugins."invenio_pidstore.minters"]
+acq_account_id = "rero_ils.modules.acq_accounts.api:acq_account_id_minter"
+acq_invoice_id = "rero_ils.modules.acq_invoices.api:acq_invoice_id_minter"
+acq_order_id = "rero_ils.modules.acq_orders.api:acq_order_id_minter"
+acq_order_line_id = "rero_ils.modules.acq_order_lines.api:acq_order_line_id_minter"
+acq_receipt_id = "rero_ils.modules.acq_receipts.api:acq_receipt_id_minter"
+acq_receipt_line_id = "rero_ils.modules.acq_receipt_lines.api:acq_receipt_line_id_minter"
+budget_id = "rero_ils.modules.budgets.api:budget_id_minter"
+circ_policy_id = "rero_ils.modules.circ_policies.api:circ_policy_id_minter"
+collection_id = "rero_ils.modules.collections.api:collection_id_minter"
+contribution_id = "rero_ils.modules.contributions.api:contribution_id_minter"
+document_id = "rero_ils.modules.documents.api:document_id_minter"
+holding_id = "rero_ils.modules.holdings.api:holding_id_minter"
+ill_request_id = "rero_ils.modules.ill_requests.api:ill_request_id_minter"
+item_id = "rero_ils.modules.items.api:item_id_minter"
+item_type_id = "rero_ils.modules.item_types.api:item_type_id_minter"
+library_id = "rero_ils.modules.libraries.api:library_id_minter"
+local_field_id = "rero_ils.modules.local_fields.api:local_field_id_minter"
+location_id = "rero_ils.modules.locations.api:location_id_minter"
+notification_id = "rero_ils.modules.notifications.api:notification_id_minter"
+organisation_id = "rero_ils.modules.organisations.api:organisation_id_minter"
+patron_id = "rero_ils.modules.patrons.api:patron_id_minter"
+patron_transaction_event_id = "rero_ils.modules.patron_transaction_events.api:patron_transaction_event_id_minter"
+patron_transaction_id = "rero_ils.modules.patron_transactions.api:patron_transaction_id_minter"
+patron_type_id = "rero_ils.modules.patron_types.api:patron_type_id_minter"
+stat_id = "rero_ils.modules.stats.api:stat_id_minter"
+template_id = "rero_ils.modules.templates.api:template_id_minter"
+vendor_id = "rero_ils.modules.vendors.api:vendor_id_minter"
+
+[tool.poetry.plugins."invenio_records.jsonresolver"]
+acq_accounts = "rero_ils.modules.acq_accounts.jsonresolver"
+acq_invoices = "rero_ils.modules.acq_invoices.jsonresolver"
+acq_order_lines = "rero_ils.modules.acq_order_lines.jsonresolver"
+acq_orders = "rero_ils.modules.acq_orders.jsonresolver"
+acq_receipt_lines = "rero_ils.modules.acq_receipt_lines.jsonresolver"
+acq_receipts = "rero_ils.modules.acq_receipts.jsonresolver"
+budgets = "rero_ils.modules.budgets.jsonresolver"
+collections = "rero_ils.modules.collections.jsonresolver"
+contributions = "rero_ils.modules.contributions.jsonresolver"
+documents = "rero_ils.modules.documents.jsonresolver"
+holdings = "rero_ils.modules.holdings.jsonresolver"
+ill_requests = "rero_ils.modules.ill_requests.jsonresolver"
+item_types = "rero_ils.modules.item_types.jsonresolver"
+items = "rero_ils.modules.items.jsonresolver"
+libraries = "rero_ils.modules.libraries.jsonresolver"
+loans = "rero_ils.modules.loans.jsonresolver"
+local_fields = "rero_ils.modules.local_fields.jsonresolver"
+locations = "rero_ils.modules.locations.jsonresolver"
+notifications = "rero_ils.modules.notifications.jsonresolver"
+organisations = "rero_ils.modules.organisations.jsonresolver"
+patron_transaction_events = "rero_ils.modules.patron_transaction_events.jsonresolver"
+patron_transactions = "rero_ils.modules.patron_transactions.jsonresolver"
+patron_types = "rero_ils.modules.patron_types.jsonresolver"
+patrons = "rero_ils.modules.patrons.jsonresolver"
+templates = "rero_ils.modules.templates.jsonresolver"
+vendors = "rero_ils.modules.vendors.jsonresolver"
+
+[tool.poetry.plugins."invenio_search.mappings"]
+acq_accounts = "rero_ils.modules.acq_accounts.mappings"
+acq_invoices = "rero_ils.modules.acq_invoices.mappings"
+acq_order_lines = "rero_ils.modules.acq_order_lines.mappings"
+acq_orders = "rero_ils.modules.acq_orders.mappings"
+acq_receipt_lines = "rero_ils.modules.acq_receipt_lines.mappings"
+acq_receipts = "rero_ils.modules.acq_receipts.mappings"
+budgets = "rero_ils.modules.budgets.mappings"
+circ_policies = "rero_ils.modules.circ_policies.mappings"
+collections = "rero_ils.modules.collections.mappings"
+contributions = "rero_ils.modules.contributions.mappings"
+documents = "rero_ils.modules.documents.mappings"
+holdings = "rero_ils.modules.holdings.mappings"
+ill_requests = "rero_ils.modules.ill_requests.mappings"
+item_types = "rero_ils.modules.item_types.mappings"
+items = "rero_ils.modules.items.mappings"
+libraries = "rero_ils.modules.libraries.mappings"
+loans = "rero_ils.modules.loans.mappings"
+local_fields = "rero_ils.modules.local_fields.mappings"
+locations = "rero_ils.modules.locations.mappings"
+notifications = "rero_ils.modules.notifications.mappings"
+organisations = "rero_ils.modules.organisations.mappings"
+patron_transaction_events = "rero_ils.modules.patron_transaction_events.mappings"
+patron_transactions = "rero_ils.modules.patron_transactions.mappings"
+patron_types = "rero_ils.modules.patron_types.mappings"
+patrons = "rero_ils.modules.patrons.mappings"
+stats = "rero_ils.modules.stats.mappings"
+templates = "rero_ils.modules.templates.mappings"
+vendors = "rero_ils.modules.vendors.mappings"
+
+[tool.poetry.plugins."invenio_search.templates"]
+operation_logs = "rero_ils.modules.operation_logs.es_templates:list_es_templates"
+rero_ils = "rero_ils.es_templates:list_es_templates"
+
+[tool.poe.tasks]
+bootstrap = {cmd = "./scripts/bootstrap", help = "Runs bootstrap"}
+console = {cmd = "./scripts/console", help = "Opens invenio shell"}
+cypress = {cmd = "./scripts/cypress", help = "Runs Cypress tests"}
+run_tests = {cmd = "./run-tests.sh", help = "Runs all tests"}
+tests = {cmd = "pytest", help = "pytest"}
+tests_debug = {cmd = "./scripts/pytest -s --v --no-cov", help = "pytest -s --v --no-cov"}
+server = {cmd = "./scripts/server", help = "Starts the server "}
+setup = {cmd = "./scripts/setup", help = "Runs setup"}
+update = {cmd = "./scripts/update", help = "Runs update"}
 
 [build-system]
 requires = ["poetry>=0.12"]

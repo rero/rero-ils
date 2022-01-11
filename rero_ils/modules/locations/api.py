@@ -83,7 +83,7 @@ class Location(IlsRecord):
             return _('Another online location exists in this library')
         if self.get('is_pickup', False) and \
                 not self.get('pickup_name', '').strip():
-            return _('Pickup name field is required.')
+            return _('Pickup location name field is required.')
         return True
 
     @classmethod

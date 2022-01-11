@@ -36,5 +36,5 @@ ARG UI_TGZ=""
 
 ENV INVENIO_COLLECT_STORAGE='flask_collect.storage.file'
 
-RUN poetry run bootstrap --deploy ${UI_TGZ}
+RUN poetry run ./scripts/bootstrap --deploy ${UI_TGZ}
 RUN poetry install --no-root --extras sip2

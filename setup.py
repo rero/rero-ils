@@ -113,7 +113,7 @@ setup(
             'items = rero_ils.modules.items.views:api_blueprint',
             'libraries = rero_ils.modules.libraries.api_views:api_blueprint',
             'loans = rero_ils.modules.loans.api_views:api_blueprint',
-            'monitoring = rero_ils.modules.monitoring.view:api_blueprint',
+            'monitoring = rero_ils.modules.monitoring.views:api_blueprint',
             'notifications = rero_ils.modules.notifications.views:blueprint',
             'patron_types = rero_ils.modules.patron_types.views:blueprint',
             'patrons = rero_ils.modules.patrons.views:api_blueprint',

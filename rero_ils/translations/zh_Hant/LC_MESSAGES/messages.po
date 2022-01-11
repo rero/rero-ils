@@ -4473,7 +4473,7 @@ msgstr "選擇供應商"
 #: rero_ils/modules/acq_orders/api.py:100 rero_ils/modules/holdings/api.py:178
 #: rero_ils/modules/ill_requests/api.py:80
 #: rero_ils/modules/items/api/record.py:86 rero_ils/modules/vendors/api.py:81
-msgid "Can not have multiple notes of same type."
+msgid "Can not have multiple notes of the same type."
 msgstr ""
 
 #: rero_ils/modules/acq_order_lines/extensions.py:63
@@ -10466,7 +10466,7 @@ msgid "Another online location exists in this library"
 msgstr ""
 
 #: rero_ils/modules/locations/api.py:86
-msgid "Pickup name field is required."
+msgid "Pickup location name field is required."
 msgstr ""
 
 #: rero_ils/modules/locations/api.py:187
