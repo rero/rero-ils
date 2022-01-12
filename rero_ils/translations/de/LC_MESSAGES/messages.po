@@ -17,15 +17,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2022-01-11 14:54+0100\n"
-"PO-Revision-Date: 2021-12-03 22:50+0000\n"
+"PO-Revision-Date: 2022-01-12 09:31+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/de/>\n"
 "Language: de\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.10.1\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: rero_ils/accounts_views.py:46 rero_ils/accounts_views.py:69
@@ -147,15 +148,15 @@ msgstr "Typ"
 
 #: rero_ils/config.py:2142
 msgid "account"
-msgstr ""
+msgstr "Konto"
 
 #: rero_ils/config.py:2143
 msgid "order_date"
-msgstr ""
+msgstr "Bestellungsdatum"
 
 #: rero_ils/config.py:2149
 msgid "receipt_date"
-msgstr ""
+msgstr "Empfangsdatum"
 
 #: rero_ils/config.py:2179
 msgid "sources"
@@ -3997,20 +3998,20 @@ msgstr "Wert"
 
 #: rero_ils/modules/acq_accounts/api.py:319
 msgid "Cannot transfer fund to myself."
-msgstr ""
+msgstr "Geld kann nicht am selben Konto überwiesen werden."
 
 #: rero_ils/modules/acq_accounts/api.py:321
 msgid "Not enough available money from source account."
-msgstr ""
+msgstr "Nicht genügend Geld vom Ursprungskonto verfügbar."
 
 #: rero_ils/modules/acq_accounts/extensions.py:42
 #: rero_ils/modules/acq_order_lines/extensions.py:55
 msgid "Parent account available amount too low"
-msgstr ""
+msgstr "Verfügbarer Betrag des Elternkontos zu niedrig"
 
 #: rero_ils/modules/acq_accounts/extensions.py:51
 msgid "Remaining balance too low"
-msgstr ""
+msgstr "Verbleibender Saldo zu niedrig"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:4
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:41
@@ -4087,23 +4088,23 @@ msgstr "Name"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:37
 msgid "Common name of the acquisition account."
-msgstr ""
+msgstr "Allgemeiner Name des Kontos."
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:49
 msgid "The name is already taken."
-msgstr ""
+msgstr "Der Name ist bereits vergeben."
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:55
 msgid "Account number"
-msgstr ""
+msgstr "Kontonummer"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:56
 msgid "Reference account number in accounting system."
-msgstr ""
+msgstr "Referenznummer des Kontos im Buchhaltungssystem."
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:67
 msgid "The number is already taken."
-msgstr ""
+msgstr "Die Nummer ist bereits vergeben."
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:73
 msgid "Allocated amount"
@@ -4115,41 +4116,45 @@ msgstr "Zugewiesener Betrag."
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:83
 msgid "Encumbrance exceedance"
-msgstr ""
+msgstr "Überschreitung der Belastung"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:84
 msgid ""
 "The exceedance percentage of account amount that linked pending orders "
 "can reach."
 msgstr ""
+"Die Überschreitung des Kontobetrags (als Prozentsatz), die ausstehende "
+"Bestellungen erreichen dürfen."
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:92
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:107
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:100
 msgid "%"
-msgstr ""
+msgstr "%"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:98
 msgid "Expenditure exceedance"
-msgstr ""
+msgstr "Überschreitung der Ausgaben"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:99
 msgid ""
 "The exceedance percentage of account amount than linked paid invoices can"
 " reach."
 msgstr ""
+"Die Überschreitung des Kontobetrags (als Prozentsatz), die empfangene "
+"Bestellungen erreichen dürfen."
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:113
 msgid "Parent account"
-msgstr ""
+msgstr "Elternkonto"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:117
 msgid "Account URI"
-msgstr ""
+msgstr "Konto URI"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:121
 msgid "Choose a parent account\\u2026"
-msgstr ""
+msgstr "Elternkonto wählen"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:131
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:4
@@ -4463,7 +4468,7 @@ msgstr "Muss nicht mehrere Noten des gleichen Typen enthalten."
 
 #: rero_ils/modules/acq_order_lines/extensions.py:63
 msgid "Cannot link to an harvested document"
-msgstr ""
+msgstr "Kann nicht zu einem gesammelten Dokument verlinken"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:5
 msgid "JSON schema for acquisition order line."
@@ -4479,11 +4484,11 @@ msgstr "ID der Bestellzeile"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:42
 msgid "Priority"
-msgstr ""
+msgstr "Priorität"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:43
 msgid "The higher the number, the higher the priority."
-msgstr ""
+msgstr "Je höher die Zahl, desto höher die Priorität."
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:56
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:65
@@ -4582,7 +4587,7 @@ msgstr "Typ"
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:117
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:125
 msgid "vendor_note"
-msgstr ""
+msgstr "Anmerkung zum Lieferanten"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:121
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:129
@@ -4627,7 +4632,7 @@ msgstr "Bestelldatum"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:185
 msgid "Receipt date"
-msgstr ""
+msgstr "Empfangsdatum"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:217
 #: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:112
@@ -4653,16 +4658,17 @@ msgstr "Soll im folgenden Format sein: https://bib.rero.ch/api/documents/<PID>."
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:294
 msgid "Cancelled"
-msgstr ""
+msgstr "Storniert"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:295
 msgid "If checked this order line should be considerate as cancelled."
 msgstr ""
+"Falls angekreuzt ist diese Bestellungszeile als storniert zu betrachten."
 
 #: rero_ils/modules/acq_orders/api.py:365
 #, python-format
 msgid "Order status is %s"
-msgstr ""
+msgstr "Bestellstatus ist %s"
 
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:5
 msgid "JSON schema for Acquisition Order."
@@ -4679,11 +4685,11 @@ msgstr "ID der Bestellung"
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:34
 #: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:48
 msgid "Reference"
-msgstr ""
+msgstr "Referenz"
 
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:45
 msgid "This reference number already exists."
-msgstr ""
+msgstr "Diese Referenznummer ist bereits vergeben."
 
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:67
 msgid "monograph"
@@ -4711,33 +4717,33 @@ msgstr "mehrbändig"
 
 #: rero_ils/modules/acq_receipt_lines/extensions.py:68
 msgid "Received quantity is grower than ordered quantity"
-msgstr ""
+msgstr "Die erhaltene Menge ist grösser als die bestellte Menge"
 
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:4
 msgid "Acquisition receipt line"
-msgstr ""
+msgstr "Empfangszeile"
 
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:5
 msgid "JSON schema for Acquisition Receipt Line."
-msgstr ""
+msgstr "JSON Schema für eine Empfangszeile."
 
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:24
 msgid "Schema to validate Acquisition Receipt Line records against."
-msgstr ""
+msgstr "Schema zur Validierung von Empfangszeilen."
 
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:30
 msgid "Acquisition receipt line ID"
-msgstr ""
+msgstr "ID der Empfangszeile"
 
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:35
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:43
 msgid "Receipt"
-msgstr ""
+msgstr "Empfang"
 
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:50
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:58
 msgid "Order line"
-msgstr ""
+msgstr "Bestellzeile"
 
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:88
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:349
@@ -4746,45 +4752,45 @@ msgstr "Mehrwertsteuersatz"
 
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:90
 msgid "percentage of VAT rate to apply on this receipt line"
-msgstr ""
+msgstr "MWST (als Prozentsatz), die auf diese Bestellzeile anzuwenden ist"
 
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:106
 msgid "Receipt line date"
-msgstr ""
+msgstr "Datum der Empfangszeile"
 
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:157
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:125
 msgid "receipt_note"
-msgstr ""
+msgstr "Anmerkung zum Emfang"
 
 #: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:4
 msgid "Acquisition receipt"
-msgstr ""
+msgstr "Empfang"
 
 #: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:5
 msgid "JSON schema for Acquisition Receipt."
-msgstr ""
+msgstr "JSON Schema für einen Empfang."
 
 #: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:22
 msgid "Schema to validate Acquisition Receipt records against."
-msgstr ""
+msgstr "Schema zur Validierung von Empfängen."
 
 #: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:28
 msgid "Acquisition receipt ID"
-msgstr ""
+msgstr "ID des Empfangs"
 
 #: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:33
 #: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:41
 msgid "Order"
-msgstr ""
+msgstr "Bestellung"
 
 #: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:70
 msgid "Additional fees, discount and credit"
-msgstr ""
+msgstr "Zusätzliche Gebühren, Rabatte und Kredite"
 
 #: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:76
 msgid "Fee"
-msgstr ""
+msgstr "Gebühr"
 
 #: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:89
 #: rero_ils/modules/documents/jsonschemas/documents/document_dissertation-v0.0.1.json:8
@@ -10219,11 +10225,11 @@ msgstr "Strasse"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:85
 msgid "Street + number"
-msgstr ""
+msgstr "Strasse + Nummer"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:90
 msgid "Zip code"
-msgstr ""
+msgstr "Postleitzahl"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:95
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:101
@@ -10308,7 +10314,7 @@ msgstr "Kommunikationssprache"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:414
 msgid "Shipping informations"
-msgstr ""
+msgstr "Versandinformationen"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:424
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:461
@@ -10319,26 +10325,26 @@ msgstr "Kontaktperson"
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:429
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:466
 msgid "Contact email"
-msgstr ""
+msgstr "Kontakt-E-Mail"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:436
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:473
 msgid "Contact phone"
-msgstr ""
+msgstr "Kontakt-Telefon"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:444
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:481
 msgid "Extra information"
-msgstr ""
+msgstr "Zusätzliche Informationen"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:445
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:482
 msgid "VAT number, note, ..."
-msgstr ""
+msgstr "MWST, Anmerkung, ..."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:452
 msgid "Billing informations"
-msgstr ""
+msgstr "Informationen zur Rechnungsstellung"
 
 #: rero_ils/modules/loans/api.py:114
 msgid "The loan cannot be extended"
@@ -11277,7 +11283,7 @@ msgstr ""
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:54
 msgid "Personal informations"
-msgstr "Personendaten"
+msgstr "Persönliche Informationen"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:67
 msgid "Second address"
@@ -11413,7 +11419,7 @@ msgstr "Leser"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:459
 msgid "acquisition_librarian"
-msgstr ""
+msgstr "Erwerbungsbibliothekar"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:463
 msgid "system_librarian"
@@ -11678,23 +11684,23 @@ msgstr "Webseite"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:105
 msgid "order_note"
-msgstr ""
+msgstr "Anmerkung für die Bestellung"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:113
 msgid "return_note"
-msgstr ""
+msgstr "Anmerkung zum Rückkehr"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:117
 msgid "invoice_note"
-msgstr ""
+msgstr "Anmerkung zur Rechnungstellung"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:121
 msgid "payment_note"
-msgstr ""
+msgstr "Anmerkung zur Zahlung"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:129
 msgid "credit_note"
-msgstr ""
+msgstr "Anmerkung zum Kredit"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:214
 msgid "Default contact details"
@@ -13418,4 +13424,3 @@ msgstr "Ihr Passwort wurde erfolgreich zurückgesetzt."
 
 #~ msgid "Order currency"
 #~ msgstr "Bestellwährung"
-
