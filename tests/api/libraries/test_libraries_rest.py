@@ -140,10 +140,10 @@ def test_non_circulating_libraries(
         lib_sion, lib_martigny, lib_martigny_bourg, loc_public_martigny,
         loc_public_martigny_bourg):
     """Test pickup vs transaction locations."""
-    assert not lib_sion.get_pickup_location_pid()
-    assert not lib_martigny_bourg.get_pickup_location_pid()
-    assert lib_martigny.get_pickup_location_pid()
-    assert lib_martigny_bourg.get_transaction_location_pid()
+    assert not lib_sion.pickup_location_pid
+    assert not lib_martigny_bourg.pickup_location_pid
+    assert lib_martigny.pickup_location_pid
+    assert lib_martigny_bourg.transaction_location_pid
 
 
 def test_library_never_open(lib_sion):

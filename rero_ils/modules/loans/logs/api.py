@@ -19,11 +19,10 @@
 
 from invenio_search import RecordsSearch
 
+from rero_ils.modules.items.api import Item
 from rero_ils.modules.operation_logs.logs.api import \
     AbstractSpecificOperationLog
-
-from ...items.api import Item
-from ...patrons.api import Patron, current_librarian
+from rero_ils.modules.patrons.api import Patron, current_librarian
 
 
 class LoanOperationLog(AbstractSpecificOperationLog):
@@ -33,12 +32,12 @@ class LoanOperationLog(AbstractSpecificOperationLog):
     def create(cls, data, id_=None, index_refresh='false', **kwargs):
         """Create a new record instance and store it in elasticsearch.
 
-        :param loan_data: Dict with the loan metadata.
+        :param data: Dict with the loan metadata.
         :param id_: Specify a UUID to use for the new record, instead of
                     automatically generated.
-        :param refresh: If `true` then refresh the affected shards to make
-            this operation visible to search, if `wait_for` then wait for a
-            refresh to make this operation visible to search, if `false`
+        :param index_refresh: If `true` then refresh the affected shards to
+            make this operation visible to search, if `wait_for` then wait for
+            a refresh to make this operation visible to search, if `false`
             (the default) then do nothing with refreshes.
             Valid choices: true, false, wait_for
         :returns: A new :class:`Record` instance.

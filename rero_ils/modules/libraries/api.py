@@ -24,6 +24,7 @@ from functools import partial
 import pytz
 from dateutil import parser
 from dateutil.rrule import FREQNAMES, rrule
+from werkzeug.utils import cached_property
 
 from flask_babelex import gettext as _
 
@@ -100,7 +101,7 @@ class Library(IlsRecord):
         result = LocationsSearch()\
             .filter('term', is_online=True)\
             .filter('term', library__pid=self.pid)\
-            .source(['pid']).scan()
+            .source('pid').scan()
         try:
             return next(result).pid
         except StopIteration:
@@ -135,39 +136,33 @@ class Library(IlsRecord):
                 if setting['type'] == notification_type:
                     return setting['email']
 
-    def _pickup_location_query(self):
-        """Search the location index for pickup locations."""
-        return LocationsSearch() \
+    def location_pids(self):
+        """Return location pids related to this library."""
+        query = LocationsSearch() \
+            .filter('term', library__pid=self.pid) \
+            .source('pid')
+        return [hit.pid for hit in query.scan()]
+
+    @cached_property
+    def pickup_locations_pids(self):
+        """Returns pickup location pids related to the library."""
+        query = LocationsSearch() \
             .filter('term', library__pid=self.pid) \
             .filter('term', is_pickup=True) \
-            .source(['pid']) \
-            .scan()
+            .source('pid')
+        return [hit.pid for hit in query.scan()]
 
-    def location_pids(self):
-        """Return a generator of ES Hits of all pids of library locations."""
-        return LocationsSearch() \
-            .filter('term', library__pid=self.pid) \
-            .source(['pid']) \
-            .scan()
+    @property
+    def pickup_location_pid(self):
+        """Returns first pickup location pid for this library."""
+        return next(iter(self.pickup_locations_pids or []), None)
 
-    def get_pickup_locations_pids(self):
-        """Returns libraries all pickup locations pids."""
-        for location in self._pickup_location_query():
-            yield location.pid
-
-    def get_pickup_location_pid(self):
-        """Returns one picup location pid for a library."""
-        try:
-            return next(self._pickup_location_query()).pid
-        except StopIteration:
-            return None
-
-    def get_transaction_location_pid(self):
+    @property
+    def transaction_location_pid(self):
         """Returns one pickup or one transaction location pid for a library."""
-        try:
-            return next(self._pickup_location_query()).pid
-        except StopIteration:
-            return next(self.location_pids()).pid
+        if pickup_pid := self.pickup_location_pid:
+            return pickup_pid
+        return next(iter(self.location_pids() or []), None)
 
     def _is_betweentimes(self, time_to_test, times):
         """Test if time is between times."""

@@ -1,0 +1,186 @@
+{
+  "circ_log1": {
+    "record": {
+      "value": "loan1",
+      "type": "loan"
+    },
+    "operation": "create",
+    "date": "2023-02-14T15:53:12.000230+00:00",
+    "loan": {
+      "pid": "loan1",
+      "trigger": "request",
+      "override_flag": false,
+      "transaction_channel": "system",
+      "transaction_location": {
+        "pid": "loc2",
+        "name": "Martigny Library Restricted Space"
+      },
+      "pickup_location": {
+        "pid": "loc2",
+        "name": "Martigny Library Public Space"
+      },
+      "patron": {
+        "age": 22,
+        "gender": "female",
+        "hashed_pid": "f457c545a9ded88f18ecee47145a72c0",
+        "name": "Casalini, Simonetta",
+        "pid": "ptrn1",
+        "postal_code": "1920",
+        "type": "Default"
+      },
+      "item": {
+        "pid": "item1",
+        "call_number": "00001",
+        "category": "standard",
+        "library_pid": "lib1",
+        "document": {
+          "pid": "doc1",
+          "title": "document1 main title : with subtitle",
+          "type": "docmaintype_book"
+        },
+        "holding": {
+          "pid": "hold1",
+          "location_name": "Martigny Library Public Space"
+        }
+      }
+    }
+  },
+  "circ_log2": {
+    "record": {
+      "value": "loan1",
+      "type": "loan"
+    },
+    "operation": "create",
+    "date": "2023-02-14T15:56:20.190777+00:00",
+    "loan": {
+      "pid": "loan1",
+      "trigger": "checkout",
+      "override_flag": false,
+      "transaction_channel": "system",
+      "transaction_location": {
+        "pid": "loc2",
+        "name": "Martigny Library Restricted Space"
+      },
+      "pickup_location": {
+        "pid": "loc2",
+        "name": "Martigny Library Public Space"
+      },
+      "patron": {
+        "age": 22,
+        "gender": "female",
+        "hashed_pid": "f457c545a9ded88f18ecee47145a72c0",
+        "name": "Casalini, Simonetta",
+        "pid": "ptrn1",
+        "postal_code": "1920",
+        "type": "Default"
+      },
+      "item": {
+        "pid": "item1",
+        "call_number": "00001",
+        "category": "standard",
+        "library_pid": "lib1",
+        "document": {
+          "pid": "doc1",
+          "title": "document1 main title : with subtitle",
+          "type": "docmaintype_book"
+        },
+        "holding": {
+          "pid": "hold1",
+          "location_name": "Martigny Library Public Space"
+        }
+      }
+    }
+  },
+  "circ_log3": {
+    "record": {
+      "value": "loan1",
+      "type": "loan"
+    },
+    "operation": "create",
+    "date": "2023-02-14T17:22:37.122541+00:00",
+    "loan": {
+      "pid": "loan1",
+      "trigger": "extend",
+      "override_flag": false,
+      "transaction_channel": "system",
+      "transaction_location": {
+        "pid": "loc2",
+        "name": "Martigny Library Restricted Space"
+      },
+      "pickup_location": {
+        "pid": "loc2",
+        "name": "Martigny Library Public Space"
+      },
+      "patron": {
+        "age": 22,
+        "gender": "female",
+        "hashed_pid": "f457c545a9ded88f18ecee47145a72c0",
+        "name": "Casalini, Simonetta",
+        "pid": "ptrn1",
+        "postal_code": "1920",
+        "type": "Default"
+      },
+      "item": {
+        "pid": "item1",
+        "call_number": "00001",
+        "category": "standard",
+        "library_pid": "lib1",
+        "document": {
+          "pid": "doc1",
+          "title": "document1 main title : with subtitle",
+          "type": "docmaintype_book"
+        },
+        "holding": {
+          "pid": "hold1",
+          "location_name": "Martigny Library Public Space"
+        }
+      }
+    }
+  },
+  "circ_log4": {
+    "record": {
+      "value": "loan1",
+      "type": "loan"
+    },
+    "operation": "create",
+    "date": "2023-02-14T22:00:00.000000+01:00",
+    "loan": {
+      "pid": "loan1",
+      "trigger": "checkin",
+      "override_flag": false,
+      "transaction_channel": "system",
+      "transaction_location": {
+        "pid": "loc2",
+        "name": "Martigny Library Restricted Space"
+      },
+      "pickup_location": {
+        "pid": "loc2",
+        "name": "Martigny Library Public Space"
+      },
+      "patron": {
+        "age": 22,
+        "gender": "female",
+        "hashed_pid": "f457c545a9ded88f18ecee47145a72c0",
+        "name": "Casalini, Simonetta",
+        "pid": "ptrn1",
+        "postal_code": "1920",
+        "type": "Default"
+      },
+      "item": {
+        "pid": "item1",
+        "call_number": "00001",
+        "category": "standard",
+        "library_pid": "lib1",
+        "document": {
+          "pid": "doc1",
+          "title": "document1 main title : with subtitle",
+          "type": "docmaintype_book"
+        },
+        "holding": {
+          "pid": "hold1",
+          "location_name": "Martigny Library Public Space"
+        }
+      }
+    }
+  }
+}

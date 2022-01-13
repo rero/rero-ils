@@ -557,7 +557,7 @@ def get_random_librarian_and_transaction_location(patron):
     user = get_random_librarian(patron).replace_refs()
     library = Library.get_record_by_pid(
         random.choice(user['libraries'])['pid'])
-    return user.pid, library.get_pickup_location_pid()
+    return user.pid, library.pickup_location_pid
 
 
 def create_payment_record(patron_transaction, user_pid, user_library):

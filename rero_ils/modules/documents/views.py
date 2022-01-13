@@ -388,9 +388,8 @@ def record_library_pickup_locations(record):
         # (removing possible None value)
         pickup_locations = []
         for library in org.get_libraries():
-            for location_pid in list(library.get_pickup_locations_pids()):
-                pickup_locations.append(
-                    Location.get_record_by_pid(location_pid))
+            for pid in library.pickup_locations_pids:
+                pickup_locations.append(Location.get_record_by_pid(pid))
 
     return sorted(
         list(filter(None, pickup_locations)),

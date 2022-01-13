@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
-# Copyright (C) 2020 UCLOUVAIN
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -325,12 +325,9 @@ def templates_search_factory(self, search, query_parser=None):
     """
     search, urlkwargs = search_factory(self, search)
     if current_librarian:
-        if current_librarian.has_full_permissions:
-            search = search.filter(
-                'term', organisation__pid=current_librarian.organisation_pid)
-        else:
-            search = search.filter(
-                'term', organisation__pid=current_librarian.organisation_pid)
+        search = search.filter(
+            'term', organisation__pid=current_librarian.organisation_pid)
+        if not current_librarian.has_full_permissions:
             search = search.filter('bool', should=[
                 Q('bool', must=[
                     Q('match', creator__pid=current_librarian.pid),
