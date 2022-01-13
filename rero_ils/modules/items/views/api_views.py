@@ -395,17 +395,15 @@ def item(item_barcode):
     })
 
 
-@api_blueprint.route('/availabilty/<item_pid>', methods=['GET'])
+@api_blueprint.route('/<item_pid>/availability', methods=['GET'])
 @check_authentication
 @jsonify_error
 def item_availability(item_pid):
     """HTTP GET request for item availability."""
-    item = Item.get_record_by_pid(item_pid)
-    if not item:
+    record = Item.get_record_by_pid(item_pid)
+    if not record:
         abort(404)
-    return jsonify({
-        'availability': item.available
-    })
+    return jsonify({'availability': record.available})
 
 
 @api_blueprint.route('/<item_pid>/can_request', methods=['GET'])
