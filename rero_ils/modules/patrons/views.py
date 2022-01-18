@@ -70,9 +70,10 @@ def patron_circulation_informations(patron_pid):
     patron = Patron.get_record_by_pid(patron_pid)
     if not patron:
         abort(404, 'Patron not found')
-    preview_amount = 0
-    for loan in get_overdue_loans(patron.pid):
-        preview_amount += sum_for_fees(loan.get_overdue_fees)
+    preview_amount = sum(
+        sum_for_fees(loan.get_overdue_fees)
+        for loan in get_overdue_loans(patron.pid)
+    )
     engaged_amount = PatronTransaction\
         .get_transactions_total_amount_for_patron(patron.pid, status='open')
     return jsonify({
@@ -92,6 +93,7 @@ def patron_overdue_preview_api(patron_pid):
     data = []
     for loan in get_overdue_loans(patron_pid):
         fees = loan.get_overdue_fees
+        fees = [(fee[0], fee[1].isoformat()) for fee in fees]
         total_amount = sum_for_fees(fees)
         if total_amount > 0:
             data.append({
@@ -138,9 +140,7 @@ def logged_user():
 
     user = User.get_by_id(current_user.id).dumpsMetadata()
     user['id'] = current_user.id
-    data = {**data, **user}
-    data['patrons'] = []
-
+    data = {**data, **user, 'patrons': []}
     for patron in Patron.get_patrons_by_user(current_user):
         organisation = patron.get_organisation()
         # TODO: need to be fixed this causes errors in production only
