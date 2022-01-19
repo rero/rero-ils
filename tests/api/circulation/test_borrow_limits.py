@@ -32,7 +32,10 @@ from rero_ils.modules.notifications.api import NotificationsSearch
 from rero_ils.modules.notifications.dispatcher import Dispatcher
 from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.notifications.utils import get_notification
+from rero_ils.modules.patron_transaction_events.api import \
+    PatronTransactionEvent
 from rero_ils.modules.patron_types.api import PatronType
+from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.utils import get_ref_for_pid
 
 
@@ -414,3 +417,81 @@ def test_overdue_limit(
         )
     )
     assert res.status_code == 200
+
+
+def test_unpaid_subscription(
+    client, app, librarian_martigny, lib_martigny, item_lib_martigny,
+    patron_type_children_martigny, patron_type_children_martigny_data,
+    loc_public_martigny, patron_martigny, circ_policy_short_martigny
+):
+    """Test unpaid subscription restriction limit."""
+    item = item_lib_martigny
+    patron = patron_martigny
+    patron_type = patron_type_children_martigny
+
+    login_user_via_session(client, librarian_martigny.user)
+
+    # STEP#0 :: Prepare data for test
+    #   * Update the patron_type to set a unpaid_subscription limit rule to
+    #     False => Even if patron has unpaid subscription, any circulation
+    #     operation should be possible.
+    patron_type \
+        .setdefault('limits', {}) \
+        .setdefault('unpaid_subscription', True)
+    patron_type.setdefault('subscription_amount', 10)
+    patron_type = patron_type.update(patron_type, dbcommit=True, reindex=True)
+
+    # STEP#1 :: Create an unpaid subscription for patron
+    assert not patron.get_pending_subscriptions()
+    subscription_start = datetime.now()
+    subscription_end = subscription_start + timedelta(days=365)
+    patron.add_subscription(patron_type, subscription_start, subscription_end)
+    subscriptions = patron.get_pending_subscriptions()
+    assert len(subscriptions) == 1
+    subscription = subscriptions[0]
+
+    # STEP#2 :: Try a circulation operation
+    #   As patron doesn't yet paid the subscription and we set a limit at
+    #   STEP#0, any checkout operation should be denied.
+    res, data = postdata(client, 'api_item.checkout', dict(
+        item_pid=item.pid,
+        patron_pid=patron.pid,
+        transaction_location_pid=loc_public_martigny.pid,
+        transaction_user_pid=librarian_martigny.pid,
+    ))
+    assert res.status_code == 403
+    assert 'Checkout denied' in data['message'] and 'unpaid' in data['message']
+    # STEP#3 :: Pay the subscription and retry a circulation operation
+    #   As the subscription will be paid the checkout operation must be granted
+    data = {
+        'parent': subscription['patron_transaction'],
+        'creation_date': datetime.now().isoformat(),
+        'type': 'payment',
+        'subtype': 'cash',
+        'amount': patron_type['subscription_amount'],
+        'operator': {'$ref': get_ref_for_pid(Patron, librarian_martigny.pid)}
+    }
+    PatronTransactionEvent.create(data, dbcommit=True, reindex=True)
+    assert not patron.get_pending_subscriptions()
+
+    res, data = postdata(client, 'api_item.checkout', dict(
+        item_pid=item.pid,
+        patron_pid=patron.pid,
+        transaction_location_pid=loc_public_martigny.pid,
+        transaction_user_pid=librarian_martigny.pid,
+    ))
+    assert res.status_code == 200
+    loan_pid = data['action_applied']['checkout']['pid']
+
+    # RESET DATA
+    #   * check-in the item
+    #   * reset the patron_type
+    res, _ = postdata(client, 'api_item.checkin', dict(
+        item_pid=item.pid,
+        pid=loan_pid,
+        transaction_location_pid=loc_public_martigny.pid,
+        transaction_user_pid=librarian_martigny.pid,
+    ))
+    assert res == 200
+    patron_type.update(patron_type_children_martigny_data,
+                       dbcommit=True, reindex=True)

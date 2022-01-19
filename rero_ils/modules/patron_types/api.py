@@ -150,17 +150,18 @@ class PatronType(IlsRecord):
         if not patron_type.check_overdue_items_limit(patron):
             return False, [_('Checkout denied: the maximal number of overdue '
                              'items is reached')]
-
         # check checkout count limit
         valid, message = patron_type.check_checkout_count_limit(patron, item)
         if not valid:
             return False, [message]
-
         # check fee amount limit
         if not patron_type.check_fee_amount_limit(patron):
             return False, [_('Checkout denied: the maximal overdue fee amount '
                              'is reached')]
-
+        # check unpaid subscription
+        if not patron_type.check_unpaid_subscription(patron):
+            return False, \
+                   [_('Checkout denied: patron has unpaid subscription')]
         return True, []
 
     @classmethod
@@ -177,17 +178,18 @@ class PatronType(IlsRecord):
             # 'patron' argument are present into kwargs. This check can't
             # be relevant --> return True by default
             return True, []
-
         # check overdue items limits
         patron_type = PatronType.get_record_by_pid(patron.patron_type_pid)
         if not patron_type.check_overdue_items_limit(patron):
             return False, [_('Request denied: the maximal number of overdue '
                              'items is reached')]
-
         # check fee amount limit
         if not patron_type.check_fee_amount_limit(patron):
             return False, [_('Request denied: the maximal overdue fee amount '
                              'is reached')]
+        # check unpaid subscription
+        if not patron_type.check_unpaid_subscription(patron):
+            return False, [_('Request denied: patron has unpaid subscription')]
 
         return True, []
 
@@ -205,17 +207,18 @@ class PatronType(IlsRecord):
             # 'patron' argument are present into kwargs. This check can't
             # be relevant --> return True by default
             return True, []
-
         # check overdue items limit
         patron_type = PatronType.get_record_by_pid(patron.patron_type_pid)
         if not patron_type.check_overdue_items_limit(patron):
             return False, [_('Renewal denied: the maximal number of overdue '
                              'items is reached')]
-
         # check fee amount limit
         if not patron_type.check_fee_amount_limit(patron):
             return False, [_('Renewal denied: the maximal overdue fee amount '
                              'is reached')]
+        # check unpaid subscription
+        if not patron_type.check_unpaid_subscription(patron):
+            return False, [_('Renewal denied: patron has unpaid subscription')]
         return True, []
 
     def get_linked_patron(self):
@@ -320,11 +323,14 @@ class PatronType(IlsRecord):
                 if exception['library']['pid'] == item_lib_pid:
                     library_limit_value = exception['value']
                     break
-            if library_limit_value and item_lib_pid in patron_library_stats:
-                if patron_library_stats[item_lib_pid] >= library_limit_value:
-                    return False, _('Checkout denied: the maximal checkout '
-                                    'number of items for this library is '
-                                    'reached.')
+            if (
+                library_limit_value
+                and item_lib_pid in patron_library_stats
+                and patron_library_stats[item_lib_pid] >= library_limit_value
+            ):
+                return False, _('Checkout denied: the maximal checkout '
+                                'number of items for this library is '
+                                'reached.')
 
         # [4] no problem detected, checkout is allowed
         return True, None
@@ -334,10 +340,7 @@ class PatronType(IlsRecord):
 
         * check the fee amount limit (if exists).
         :param patron: the patron who tries to execute the checkout.
-        :param item: the item related to the loan.
-        :return a tuple of two values ::
-          - True|False : to know if the check is success or not.
-          - message(string) : the reason why the check fails.
+        :return boolean to know if the check is success or not.
         """
         # get fee amount limit
         fee_amount_limits = self.replace_refs().get('limits', {}) \
@@ -352,6 +355,24 @@ class PatronType(IlsRecord):
                     with_subscription=False)
             return patron_total_amount < default_limit
         return True
+
+    def check_unpaid_subscription(self, patron):
+        """Check if a patron as unpaid subscriptions.
+
+        The 'unpaid_subscription' limit should be enable to have a consistent
+        check.
+        :param patron: the patron who tried to execute a circulation operation.
+        :return boolean to know if the check is success or not.
+        """
+        unpaid_subscription_limit = self.get('limits', {})\
+            .get('unpaid_subscription', True)
+        if not unpaid_subscription_limit:
+            return True, None
+        unpaid_amount = PatronTransaction. \
+            get_transactions_total_amount_for_patron(
+                patron.pid, status='open', types=['subscription'],
+                with_subscription=True)
+        return unpaid_amount == 0
 
 
 class PatronTypesIndexer(IlsRecordsIndexer):

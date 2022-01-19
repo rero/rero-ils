@@ -6,7 +6,10 @@
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/1"
     },
-    "subscription_amount": 10
+    "subscription_amount": 10,
+    "limits": {
+      "unpaid_subscription": false
+    }
   },
   {
     "pid": "2",
@@ -14,6 +17,9 @@
     "description": "Patron with extended rights: staff, professors, supporting members.",
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/1"
+    },
+    "limits": {
+      "unpaid_subscription": false
     }
   },
   {
@@ -22,6 +28,9 @@
     "description": "Children and teenagers (< 16 years old).",
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/1"
+    },
+    "limits": {
+      "unpaid_subscription": false
     }
   },
   {
@@ -30,6 +39,9 @@
     "description": "Standard patron.",
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/2"
+    },
+    "limits": {
+      "unpaid_subscription": false
     }
   },
   {
@@ -38,6 +50,9 @@
     "description": "Default patron type",
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/3"
+    },
+    "limits": {
+      "unpaid_subscription": false
     }
   },
   {
@@ -46,6 +61,9 @@
     "description": "Children and teenagers (< 16 years old).",
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/2"
+    },
+    "limits": {
+      "unpaid_subscription": false
     }
   },
   {
@@ -54,6 +72,9 @@
     "description": "Standard patron.",
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/4"
+    },
+    "limits": {
+      "unpaid_subscription": false
     }
   },
   {
@@ -64,6 +85,7 @@
       "$ref": "https://bib.rero.ch/api/organisations/1"
     },
     "limits": {
+      "unpaid_subscription": false,
       "checkout_limits": {
         "global_limit": 10,
         "library_limit": 8,

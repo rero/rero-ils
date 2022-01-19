@@ -79,7 +79,7 @@
       "title": "Amount",
       "description": "Yearly amount due by patrons linked to this patron type.",
       "type": "number",
-      "minimum": 0,
+      "exclusiveMinimum": 0,
       "form": {
         "templateOptions": {
           "wrappers": [
@@ -97,6 +97,7 @@
       "title": "Limits",
       "type": "object",
       "propertiesOrder": [
+        "unpaid_subscription",
         "checkout_limits",
         "fee_amount_limits",
         "overdue_items_limits"
@@ -234,6 +235,14 @@
                 "label": "Limit by overdue items"
               }
             }
+          }
+        },
+        "unpaid_subscription": {
+          "type": "boolean",
+          "title": "Block the patron if the subscription is not paid",
+          "default": true,
+          "form": {
+            "hideExpression": "!field.parent.parent.model.hasOwnProperty('subscription_amount') || field.parent.parent.model.subscription_amount <= 0"
           }
         }
       }
