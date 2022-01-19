@@ -50,7 +50,7 @@ from rero_ils.modules.utils import get_ref_for_pid
 
 def test_availability_notification(
         loan_validated_martigny, item2_lib_martigny,
-        mailbox, patron_martigny):
+        mailbox, patron_martigny, lib_martigny):
     """Test availability notification created from a loan."""
     mailbox.clear()
     loan = loan_validated_martigny
@@ -65,6 +65,9 @@ def test_availability_notification(
         process_notifications(notification_type)
     assert len(mailbox)
     assert loan.is_notified(notification_type=NotificationType.AVAILABILITY)
+
+    message = mailbox[-1]
+    assert message.reply_to == lib_martigny.get('email')
     mailbox.clear()
 
 

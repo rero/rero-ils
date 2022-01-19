@@ -125,7 +125,7 @@ class CirculationNotification(Notification, ABC):
 
     def get_recipients_reply_to(self):
         """Get the notification email address for 'REPLY_TO' recipient type."""
-        return self.library.get('email')
+        return [self.library.get('email')]
 
     def get_recipients_to(self):
         """Get the notification email address for 'TO' recipient type."""

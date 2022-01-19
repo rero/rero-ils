@@ -155,7 +155,7 @@ class Dispatcher:
             template_body=template,
             sender=current_app.config.get('DEFAULT_SENDER_EMAIL',
                                           'noreply@rero.ch'),
-            reply_to=reply_to,
+            reply_to=','.join(reply_to),  # the client is unable to manage list
             recipients=recipients,
             ctx=ctx_data
         )
@@ -236,7 +236,7 @@ class Dispatcher:
         # 3. Send the message
         msg = Dispatcher._create_email(
             recipients=[recipient],
-            reply_to=reply_to,
+            reply_to=[reply_to],
             ctx_data=context,
             template=notification.get_template_path()
         )
@@ -255,7 +255,7 @@ class Dispatcher:
             return True
 
         notification = notifications[0]
-        reply_to = notification.get_recipients(RecipientType.REPLY_TO)[0]
+        reply_to = notification.get_recipients(RecipientType.REPLY_TO)
         recipients = notification.get_recipients(RecipientType.TO)
 
         error_reasons = []
