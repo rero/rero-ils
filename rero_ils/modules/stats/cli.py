@@ -23,6 +23,7 @@ from pprint import pprint
 import arrow
 import click
 from dateutil.relativedelta import relativedelta
+from flask import current_app
 from flask.cli import with_appcontext
 
 from rero_ils.modules.stats.api import Stat, StatsForLibrarian, StatsForPricing
@@ -66,25 +67,33 @@ def collect(type):
         _stats = StatsForLibrarian(to_date=to_date)
     else:
         return
-    stat = Stat.create(
-            dict(type=type, date_range=date_range, values=_stats.collect()),
-            dbcommit=True, reindex=True)
-    click.secho(
-        f'Statistics of type {stat["type"]} have been collected and created.\
-        New pid: {stat.pid}', fg='green')
+
+    stats_values = _stats.collect()
+    with current_app.app_context():
+        stat = Stat.create(
+                dict(type=type, date_range=date_range,
+                     values=stats_values),
+                dbcommit=True, reindex=True)
+        click.secho(
+            f'Statistics of type {stat["type"]}\
+            have been collected and created.\
+            New pid: {stat.pid}', fg='green')
 
 
 @stats.command('collect_year')
-@click.argument('type')
 @click.argument('year', type=int)
 @click.argument('timespan', default='yearly')
+@click.option('-f', '--force', is_flag=True, default=False)
 @with_appcontext
-def collect_year(type, year, timespan):
-    """Extract the stats values for one year and store them in db.
+def collect_year(year, timespan, force):
+    """Extract the stats librarian for one year and store them in db.
 
-    :param type: type of statistics can be 'billing' or 'librarian'
     :param year: year of statistics
+    :param timespan: time interval, can be 'montly' or 'yearly'
+    :param force: force update of stat.
     """
+    stat_pid = None
+    type = 'librarian'
     if year:
         if timespan == 'montly':
             for month in range(1, 13):
@@ -95,22 +104,40 @@ def collect_year(type, year, timespan):
                     - relativedelta(days=1)
                 _from = f'{to_date.year}-{to_date.month:02d}-01T00:00:00'
                 _to = to_date.format(fmt='YYYY-MM-DDT23:59:59')
+
                 date_range = {'from': _from, 'to': _to}
 
-                if type == 'billing':
-                    _stats = StatsForPricing(to_date=to_date)
-                elif type == 'librarian':
-                    _stats = StatsForLibrarian(to_date=to_date)
-                else:
+                _stats = StatsForLibrarian(to_date=to_date)
+
+                stat_pid = _stats.get_stat_pid(type, date_range)
+
+                if stat_pid and not force:
+                    click.secho(
+                            f'ERROR: statistics of type {type}\
+                                for time interval {_from} - {_to}\
+                                already exists. Pid: {stat_pid}', fg='red')
                     return
-                stat = Stat.create(
-                        dict(type=type, date_range=date_range,
-                             values=_stats
-                             .collect()), dbcommit=True, reindex=True)
-                click.secho(
-                    f'Statistics of type {stat["type"]} have been collected\
-                        and created for {year}-{month}.\
-                        New pid: {stat.pid}', fg='green')
+
+                stat_data = dict(type=type, date_range=date_range,
+                                 values=_stats.collect())
+
+                with current_app.app_context():
+                    if stat_pid:
+                        rec_stat = Stat.get_record_by_pid(stat_pid)
+                        stat = rec_stat.update(data=stat_data, commit=True,
+                                               dbcommit=True, reindex=True)
+                        click.secho(
+                            f'WARNING: statistics of type {type}\
+                                have been collected and updated\
+                                for {year}-{month}.\
+                                Pid: {stat.pid}', fg='yellow')
+                    else:
+                        stat = Stat.create(stat_data, dbcommit=True,
+                                           reindex=True)
+                        click.secho(
+                            f'Statistics of type {type} have been collected\
+                                and created for {year}-{month}.\
+                                New pid: {stat.pid}', fg='green')
         else:
             _from = arrow.get(f'{year}-01-01', 'YYYY-MM-DD')\
                          .format(fmt='YYYY-MM-DDT00:00:00')
@@ -118,20 +145,35 @@ def collect_year(type, year, timespan):
                        .format(fmt='YYYY-MM-DDT23:59:59')
             date_range = {'from': _from, 'to': _to}
 
-            if type == 'billing':
-                _stats = StatsForPricing()
-            elif type == 'librarian':
-                _stats = StatsForLibrarian()
-            else:
+            _stats = StatsForLibrarian()
+
+            _stats.date_range = {'gte': _from, 'lte': _to}
+
+            stat_pid = _stats.get_stat_pid(type, date_range)
+            if stat_pid and not force:
+                click.secho(
+                    f'ERROR: statistics of type {type}\
+                        for time interval {_from} - {_to}\
+                        already exists. Pid: {stat_pid}', fg='red')
                 return
 
-            _stats.date_range = date_range
-            stat = Stat.create(
-                    dict(type=type, date_range=date_range,
-                         values=_stats.collect()), dbcommit=True, reindex=True)
-            click.secho(
-                f'Statistics of type {stat["type"]} have been collected and\
-                    created for {year}.\
-                    New pid: {stat.pid}', fg='green')
+            stat_data = dict(type=type, date_range=date_range,
+                             values=_stats.collect())
+
+            with current_app.app_context():
+                if stat_pid:
+                    rec_stat = Stat.get_record_by_pid(stat_pid)
+                    stat = rec_stat.update(data=stat_data, commit=True,
+                                           dbcommit=True, reindex=True)
+                    click.secho(
+                        f'WARNING: statistics of type {type}\
+                            have been collected and updated for {year}.\
+                            Pid: {stat.pid}', fg='yellow')
+                else:
+                    stat = Stat.create(stat_data, dbcommit=True, reindex=True)
+                    click.secho(
+                        f'Statistics of type {type} have been collected and\
+                            created for {year}.\
+                            New pid: {stat.pid}', fg='green')
 
         return

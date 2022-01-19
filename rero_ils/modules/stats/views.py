@@ -27,9 +27,8 @@ import pytz
 from elasticsearch_dsl import Q
 from flask import Blueprint, render_template
 
-from .api import StatsForLibrarian, StatsForPricing, StatsSearch
-from .permissions import admin_permission, check_logged_as_admin, \
-    check_logged_as_librarian, monitoring_permission
+from .api import StatsForPricing, StatsSearch
+from .permissions import check_logged_as_admin, check_logged_as_librarian
 
 # from pytz import timezone
 
@@ -79,24 +78,6 @@ def stats_librarian():
     return render_template(
         'rero_ils/stats_list.html', records=hits['hits']['hits'],
         type='librarian')
-
-
-@blueprint.route('/librarian/live', methods=['GET'])
-@check_logged_as_librarian
-def live_stats_librarian():
-    """Show the current librarian stats values."""
-    now = arrow.utcnow()
-    _from = f'{now.year}-{now.month:02d}-01T00:00:00'
-    date_range = {'from': _from, 'to': str(now)}
-
-    libraries = StatsForLibrarian().get_all_libraries()
-    if not (admin_permission.require().can() or
-            monitoring_permission.require().can()):
-        libraries = StatsForLibrarian.get_librarian_libraries()
-    stats = StatsForLibrarian(to_date=now).collect(libraries=libraries)
-    return render_template(
-        'rero_ils/detailed_view_stats.html',
-        record=dict(created=now, date_range=date_range, values=stats))
 
 
 @jinja2.contextfilter
