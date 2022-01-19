@@ -18,6 +18,7 @@
 """Celery tasks for stats records."""
 
 from celery import shared_task
+from flask import current_app
 
 from .api import Stat, StatsForLibrarian, StatsForPricing
 
@@ -25,12 +26,13 @@ from .api import Stat, StatsForLibrarian, StatsForPricing
 @shared_task()
 def collect_stats_billing():
     """Collect and store the statistics for billing."""
-    stats_pricing = StatsForPricing()
-    stat = Stat.create(
-        dict(type='billing', values=stats_pricing.collect()),
-        dbcommit=True, reindex=True)
-    return f'New statistics of type {stat["type"]} has\
-        been created with a pid of: {stat.pid}'
+    stats_pricing = StatsForPricing().collect()
+    with current_app.app_context():
+        stat = Stat.create(
+            dict(type='billing', values=stats_pricing),
+            dbcommit=True, reindex=True)
+        return f'New statistics of type {stat["type"]} has\
+            been created with a pid of: {stat.pid}'
 
 
 @shared_task()
@@ -39,9 +41,11 @@ def collect_stats_librarian():
     stats_librarian = StatsForLibrarian()
     date_range = {'from': stats_librarian.date_range['gte'],
                   'to': stats_librarian.date_range['lte']}
-    stat = Stat.create(
-        dict(type='librarian', date_range=date_range,
-             values=stats_librarian.collect()),
-        dbcommit=True, reindex=True)
-    return f'New statistics of type {stat["type"]} has\
-        been created with a pid of: {stat.pid}'
+    stats_values = stats_librarian.collect()
+    with current_app.app_context():
+        stat = Stat.create(
+            dict(type='librarian', date_range=date_range,
+                 values=stats_values),
+            dbcommit=True, reindex=True)
+        return f'New statistics of type {stat["type"]} has\
+            been created with a pid of: {stat.pid}'
