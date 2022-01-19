@@ -1192,6 +1192,9 @@
     "description": "children patrons",
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "limits": {
+      "unpaid_subscription": false
     }
   },
   "ptty2": {
@@ -1201,6 +1204,9 @@
     "description": "adult patrons",
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "limits": {
+      "unpaid_subscription": false
     }
   },
   "ptty3": {
@@ -1211,7 +1217,10 @@
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/org2"
     },
-    "subscription_amount": 25
+    "subscription_amount": 25,
+    "limits": {
+      "unpaid_subscription": false
+    }
   },
   "ptty4": {
     "$schema": "https://bib.rero.ch/schemas/patron_types/patron_type-v0.0.1.json",
@@ -1221,7 +1230,10 @@
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/org2"
     },
-    "subscription_amount": 15
+    "subscription_amount": 15,
+    "limits": {
+      "unpaid_subscription": false
+    }
   },
   "cipo1": {
     "$schema": "https://bib.rero.ch/schemas/circ_policies/circ_policy-v0.0.1.json",

@@ -37,6 +37,9 @@
       },
       "limits": {
         "properties": {
+          "unpaid_subscription": {
+            "type": "boolean"
+          },
           "fee_amount_limits": {
             "properties": {
               "default_value": {

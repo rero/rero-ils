@@ -379,10 +379,11 @@ def item(item_barcode):
         if circ_policy.can_checkout:
             for action in item_dumps.get('actions', []):
                 if action == 'checkout':
-                    if item.number_of_requests() > 0:
-                        if item.patron_request_rank(patron) == 1:
-                            new_actions.append(action)
-                    else:
+                    if (
+                        item.number_of_requests() > 0
+                        and item.patron_request_rank(patron) == 1
+                        or item.number_of_requests() <= 0
+                    ):
                         new_actions.append(action)
                 elif action == 'receive' and item.number_of_requests() == 0:
                     new_actions.append('checkout')

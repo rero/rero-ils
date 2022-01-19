@@ -273,9 +273,7 @@ class Patron(IlsRecord):
     def get_patrons_roles(self, exclude_self=False):
         """Get the list of roles for all accounts of the related user."""
         patrons = self.get_patrons_by_user(self.user)
-        roles = set()
-        if not exclude_self:
-            roles = set(self.get('roles'))
+        roles = set(self.get('roles')) if not exclude_self else set()
         for patron in patrons:
             # already there
             if patron == self:
@@ -328,7 +326,7 @@ class Patron(IlsRecord):
         librarians = list(filter(lambda ptrn: ptrn.is_librarian, patrons))
         if len(librarians) > 1:
             raise Exception(f'more than one librarian account for {user}')
-        if len(librarians) == 0:
+        if not librarians:
             return None
         return librarians[0]
 
@@ -490,35 +488,36 @@ class Patron(IlsRecord):
         :param get_pids: if True list of linked pids
                          if False count of linked records
         """
-        if self.pid:
-            links = {}
-            exclude_states = [
-                LoanState.CANCELLED,
-                LoanState.ITEM_RETURNED,
-                LoanState.CREATED
-            ]
-            loan_query = current_circulation.loan_search_cls()\
-                .filter('term', patron_pid=self.pid)\
-                .exclude('terms', state=exclude_states)
-            template_query = TemplatesSearch()\
-                .filter('term', creator__pid=self.pid)
-            if get_pids:
-                loans = sorted_pids(loan_query)
-                transactions = PatronTransaction \
-                    .get_transactions_pids_for_patron(self.pid, status='open')
-                templates = sorted_pids(template_query)
-            else:
-                loans = loan_query.count()
-                transactions = PatronTransaction \
-                    .get_transactions_count_for_patron(self.pid, status='open')
-                templates = template_query.count()
-            if loans:
-                links['loans'] = loans
-            if transactions:
-                links['transactions'] = transactions
-            if templates:
-                links['templates'] = templates
-            return links
+        if not self.pid:
+            return
+        links = {}
+        exclude_states = [
+            LoanState.CANCELLED,
+            LoanState.ITEM_RETURNED,
+            LoanState.CREATED
+        ]
+        loan_query = current_circulation.loan_search_cls()\
+            .filter('term', patron_pid=self.pid)\
+            .exclude('terms', state=exclude_states)
+        template_query = TemplatesSearch()\
+            .filter('term', creator__pid=self.pid)
+        if get_pids:
+            loans = sorted_pids(loan_query)
+            transactions = PatronTransaction \
+                .get_transactions_pids_for_patron(self.pid, status='open')
+            templates = sorted_pids(template_query)
+        else:
+            loans = loan_query.count()
+            transactions = PatronTransaction \
+                .get_transactions_count_for_patron(self.pid, status='open')
+            templates = template_query.count()
+        if loans:
+            links['loans'] = loans
+        if transactions:
+            links['transactions'] = transactions
+        if templates:
+            links['templates'] = templates
+        return links
 
     def reasons_to_keep(self):
         """Reasons aside from record_links to keep a user.
@@ -526,10 +525,12 @@ class Patron(IlsRecord):
         prevent users with role librarian to delete a system_librarian.
         """
         others = {}
-        if current_librarian:
-            if not current_librarian.is_system_librarian and \
-               self.is_system_librarian:
-                others['permission denied'] = True
+        if (
+            current_librarian
+            and not current_librarian.is_system_librarian
+            and self.is_system_librarian
+        ):
+            others['permission denied'] = True
         return others
 
     def reasons_not_to_delete(self):
@@ -557,10 +558,10 @@ class Patron(IlsRecord):
     def library_pids(self):
         """Shortcut for patron libraries pid."""
         if self.is_librarian:
-            pids = []
-            for library in self.get('libraries', []):
-                pids.append(extracted_data_from_ref(library))
-            return pids
+            return [
+                extracted_data_from_ref(library)
+                for library in self.get('libraries', [])
+            ]
 
     @property
     def is_system_librarian(self):
