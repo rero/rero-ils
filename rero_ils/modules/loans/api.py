@@ -108,8 +108,8 @@ class Loan(IlsRecord):
         loan = kwargs.get('loan')
         if loan is None:  # try to load the loan from kwargs
             loan, _unused_data = item.prior_extend_loan_actions(**kwargs)
-            if loan is None:  # not relevant method :: return True
-                return True, []
+        if loan is None:  # not relevant method :: return True
+            return True, []
         if loan.get('state') != LoanState.ITEM_ON_LOAN:
             return False, [_('The loan cannot be extended')]
         # The parameters for the renewal is calculated based on the transaction
@@ -226,10 +226,9 @@ class Loan(IlsRecord):
 
         if not data.get('state'):
             data['state'] = LoanState.CREATED
-        record = super(Loan, cls).create(
+        return super(Loan, cls).create(
             data=data, id_=id_, delete_pid=delete_pid, dbcommit=dbcommit,
             reindex=reindex, **kwargs)
-        return record
 
     def update(self, data, commit=False, dbcommit=False, reindex=False):
         """Update loan record."""
@@ -300,7 +299,7 @@ class Loan(IlsRecord):
                 .sort({'_created': {"order": 'asc'}})\
                 .source(includes=[
                     'pid', 'transaction_date', 'item_pid', 'patron_pid',
-                    'document_pid', 'library_pid', 'state',
+                    'document_pid', 'library_pid', 'state', '_created',
                     'transaction_location_pid', 'pickup_location_pid'
                 ])\
                 .scan()
@@ -427,6 +426,7 @@ class Loan(IlsRecord):
                     item_pids.append(item_pid)
                     item_data = item.to_dict()
                     loan_data = loan.to_dict()
+                    loan_data['creation_date'] = loan_data.pop('_created')
                     if 'call_number' not in item_data:
                         holding = holding_by_pid(
                             item['holding']['pid'],
@@ -493,9 +493,8 @@ class Loan(IlsRecord):
         now = datetime.now(timezone.utc)
         due_date = ciso8601.parse_datetime(self.end_date)
         days_after = circ_policy.initial_overdue_days
-        if days_after and now > due_date + timedelta(days=days_after-1):
-            return True
-        return False
+        return bool(days_after and
+                    now > due_date + timedelta(days=days_after-1))
 
     def is_loan_due_soon(self, tstamp=None):
         """Check if the loan is due soon.
@@ -585,9 +584,7 @@ class Loan(IlsRecord):
     def is_active(self):
         """Shortcut to check of loan is active."""
         states = current_app.config['CIRCULATION_STATES_LOAN_ACTIVE']
-        if self.get('state') in states:
-            return True
-        return False
+        return self.get('state') in states
 
     @property
     def organisation_pid(self):
@@ -713,6 +710,7 @@ class Loan(IlsRecord):
         from ..items.api import Item
         loan = self.replace_refs()
         data = loan.dumps()
+        data['creation_date'] = self.created
         patron = Patron.get_record_by_pid(loan['patron_pid'])
 
         # Add patron informations
@@ -1077,10 +1075,10 @@ def get_loans_stats_by_patron_pid(patron_pid):
     search.aggs.bucket('state', agg)
     search = search[0:0]
     results = search.execute()
-    stats = {}
-    for result in results.aggregations.state.buckets:
-        stats[result.key] = result.doc_count
-    return stats
+    return {
+        result.key: result.doc_count
+        for result in results.aggregations.state.buckets
+    }
 
 
 def get_loans_by_patron_pid(patron_pid, filter_states=None,
@@ -1136,10 +1134,10 @@ def get_loans_count_by_library_for_patron_pid(patron_pid, filter_states=None):
     search.aggs.bucket('library', agg)
     search = search[0:0]
     results = search.execute()
-    stats = {}
-    for result in results.aggregations.library.buckets:
-        stats[result.key] = result.doc_count
-    return stats
+    return {
+        result.key: result.doc_count
+        for result in results.aggregations.library.buckets
+    }
 
 
 def get_due_soon_loans(tstamp=None):
