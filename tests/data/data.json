@@ -135,32 +135,32 @@
     "notification_settings": [
       {
         "type": "due_soon",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+martigny+due_soon@gmail.com"
       },
       {
         "type": "overdue",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+martigny+overdue@gmail.com"
       },
       {
         "type": "recall",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+martigny+recall@gmail.com"
       },
       {
         "type": "availability",
-        "email": "reroilstest+martigny@gmail.com",
+        "email": "reroilstest+martigny+availability@gmail.com",
         "delay": 0
       },
       {
         "type": "request",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+martigny+request@gmail.com"
       },
       {
         "type": "transit_notice",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+martigny+transit@gmail.com"
       },
       {
         "type": "booking",
-        "email": "reroilstest+martigny@gmail.com"
+        "email": "reroilstest+martigny+booking@gmail.com"
       }
     ],
     "communication_language": "fre",

@@ -19,7 +19,6 @@
 
 from __future__ import absolute_import, print_function
 
-from rero_ils.modules.libraries.api import email_notification_type
 from rero_ils.modules.notifications.dispatcher import Dispatcher
 from rero_ils.modules.notifications.models import NotificationType
 
@@ -42,8 +41,8 @@ def test_notification_mail(notification_late_martigny, lib_martigny, mailbox):
     """
     mailbox.clear()
     Dispatcher.dispatch_notifications(notification_late_martigny['pid'])
-    recipient = email_notification_type(
-            lib_martigny, notification_late_martigny['notification_type'])
+    recipient = lib_martigny.get_email(
+        notification_late_martigny['notification_type'])
     assert recipient
     assert mailbox[0].recipients == [recipient]
 

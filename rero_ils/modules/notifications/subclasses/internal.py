@@ -23,8 +23,6 @@ from __future__ import absolute_import, print_function
 import hashlib
 from abc import ABC
 
-from rero_ils.modules.libraries.api import email_notification_type
-
 from .circulation import CirculationNotification
 from ..models import NotificationChannel
 
@@ -92,6 +90,6 @@ class InternalCirculationNotification(CirculationNotification, ABC):
         """Get notification recipient email addresses."""
         # Internal notification will be sent to the library, not to the
         # patron related to the loan.
-        recipient = email_notification_type(self.library, self.type)
+        recipient = self.library.get_email(self.type)
         if recipient:
             return [recipient]

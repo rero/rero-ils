@@ -64,8 +64,7 @@ class LibrariesSearch(IlsRecordsSearch):
         query = self.filter('term', organisation__pid=org_pid)
         if fields:
             query = query.source(includes=fields)
-        for result in query.scan():
-            yield result
+        yield from query.scan()
 
 
 class Library(IlsRecord):
@@ -109,6 +108,19 @@ class Library(IlsRecord):
         else:
             return self.get('acquisition_settings', {}) \
                 .get(f'{address_type}_informations', {}).get('address')
+
+    def get_email(self, notification_type):
+        """Get the email corresponding to the given notification type.
+
+        :param notification_type: the notification type.
+        :return: the email corresponding to the notification type if found
+        :rtype: string | None
+        """
+        # notification_settings is not a required field.
+        if notification_type:
+            for setting in self.get('notification_settings', []):
+                if setting['type'] == notification_type:
+                    return setting['email']
 
     def _pickup_location_query(self):
         """Search the location index for pickup locations."""
@@ -278,9 +290,7 @@ class Library(IlsRecord):
             raise LibraryNeverOpen
         if isinstance(date, str):
             date = parser.parse(date)
-        add_day = 1
-        if previous:
-            add_day = -1
+        add_day = -1 if previous else 1
         date += timedelta(days=add_day)
         while not self.is_open(date=date, day_only=True):
             date += timedelta(days=add_day)
@@ -373,8 +383,7 @@ class Library(IlsRecord):
         """Get library timezone."""
         # TODO: get timezone regarding Library address.
         # TODO: Use BABEL_DEFAULT_TIMEZONE by default
-        default = pytz.timezone('Europe/Zurich')
-        return default
+        return pytz.timezone('Europe/Zurich')
 
 
 class LibrariesIndexer(IlsRecordsIndexer):
@@ -388,16 +397,3 @@ class LibrariesIndexer(IlsRecordsIndexer):
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
         super().bulk_index(record_id_iterator, doc_type='lib')
-
-
-def email_notification_type(libray, notification_type):
-    """Get the email corresponding to the given notification type.
-
-    :param notification_type: the notification type.
-    :return: the email corresponding to the notification type.
-    :rtype: string
-    """
-    # notification_settings is not a required field.
-    for setting in libray.get('notification_settings', []):
-        if setting['type'] == notification_type:
-            return setting['email']

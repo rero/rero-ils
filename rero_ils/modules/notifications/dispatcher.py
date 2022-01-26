@@ -23,8 +23,6 @@ from flask import current_app
 from invenio_mail.api import TemplatedMessage
 from invenio_mail.tasks import send_email as task_send_email
 
-from rero_ils.modules.libraries.api import email_notification_type
-
 from .api import Notification
 from .models import NotificationType, RecipientType
 
@@ -202,7 +200,7 @@ class Dispatcher:
             library = notification.transaction_library
         elif notification.type == NotificationType.AVAILABILITY:
             library = notification.pickup_library
-        recipient = email_notification_type(library, notification.type)
+        recipient = library.get_email(notification.type)
 
         # 2. For a REQUEST notification we mainly need to use the email define
         #    on the location. If the location email isn't defined, then use the

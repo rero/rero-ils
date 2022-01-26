@@ -25,7 +25,6 @@ import hashlib
 from rero_ils.filter import format_date_filter
 from rero_ils.modules.documents.dumpers import DocumentGenericDumper
 from rero_ils.modules.items.dumpers import ItemNotificationDumper
-from rero_ils.modules.libraries.api import email_notification_type
 from rero_ils.modules.loans.api import LoanState
 from rero_ils.modules.locations.api import Location
 from rero_ils.modules.patrons.api import Patron
@@ -73,8 +72,7 @@ class BookingCirculationNotification(CirculationNotification):
     def get_recipients_to(self):
         """Get notification email addresses for 'TO' recipient type."""
         # Booking notification will be sent to the loan transaction library.
-        recipient = email_notification_type(
-            self.transaction_library, self.type)
+        recipient = self.transaction_library.get_email(self.type)
         if recipient:
             return [recipient]
 
