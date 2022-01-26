@@ -33,7 +33,6 @@ from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE
 from rero_ils.modules.items.models import ItemStatus
-from rero_ils.modules.libraries.api import email_notification_type
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.models import LoanAction, LoanState
 from rero_ils.modules.loans.utils import get_circ_policy
@@ -478,8 +477,7 @@ def test_recall_notification_without_email(
     for notification_type in NotificationType.ALL_NOTIFICATIONS:
         process_notifications(notification_type)
     # one new email for the librarian
-    recipient = email_notification_type(
-        lib_martigny, notification['notification_type'])
+    recipient = lib_martigny.get_email(notification['notification_type'])
     assert recipient
     assert mailbox[0].recipients == [recipient]
     # check the address block
