@@ -62,7 +62,7 @@ class StatPermission(RecordPermission):
             if librarian_permission.require().can():
                 if 'type' not in record or record['type'] != 'librarian':
                     return False
-                record = filter_stat_by_librarian(current_user, record)
+                record = filter_stat_by_librarian(record)
 
         return admin_permission.require().can() \
             or monitoring_permission.require().can() \
@@ -105,8 +105,12 @@ def stats_ui_permission_factory(record, *args, **kwargs):
             action='read', record=record, cls=StatPermission)
 
 
-def filter_stat_by_librarian(current_user, record):
-    """Filter data for libraries of specific user."""
+def filter_stat_by_librarian(record):
+    """Filter data for libraries of specific librarian/system_librarian.
+
+    :param record: Record to check.
+    :return: Record filtered by libraries.
+    """
     library_pids = StatsForLibrarian.get_librarian_library_pids()
     record['values'] = list(filter(lambda l: l['library']['pid'] in
                             library_pids, record['values']))

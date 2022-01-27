@@ -28,7 +28,6 @@ from utils import VerifyRecordPermissionPatch, get_csv, get_json, postdata, \
 def test_stats_permissions(client, stats):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.stat_item', pid_value=stats.pid)
-
     res = client.get(item_url)
     assert res.status_code == 401
 
@@ -126,3 +125,101 @@ def test_stats_get_post_put_delete(client, librarian_martigny):
     # Delete record/DELETE
     res = client.delete(item_url)
     assert res.status_code == 403
+
+
+def test_stats_librarian_permissions(client, stats_librarian):
+    """Test record retrieval for statistics librarian."""
+    item_url = url_for('invenio_records_rest.stat_item',
+                       pid_value=stats_librarian.pid)
+    res = client.get(item_url)
+    assert res.status_code == 401
+
+    res, _ = postdata(
+        client,
+        'invenio_records_rest.stat_list',
+        {}
+    )
+    assert res.status_code == 401
+
+    res = client.put(
+        url_for('invenio_records_rest.stat_item',
+                pid_value=stats_librarian.pid),
+        data={}
+    )
+    assert res.status_code == 401
+
+    res = client.delete(item_url)
+    assert res.status_code == 401
+
+
+def test_stats_librarian_get_post_put_delete(client, stats_librarian,
+                                             librarian_martigny,
+                                             librarian_sion,
+                                             patron_martigny):
+    """Test CRUD operations for statistics librarian."""
+    # patron: role librarian
+    login_user_via_session(client, librarian_martigny.user)
+    item_url = url_for('invenio_records_rest.stat_item',
+                       pid_value=stats_librarian.pid)
+
+    # GET is allowed for a librarian or system librarian
+    res = client.get(item_url)
+    assert res.status_code == 200
+
+    # POST / Create record
+    res, data = postdata(
+        client,
+        'invenio_records_rest.stat_list',
+        {}
+    )
+    assert res.status_code == 403
+
+    # PUT / Update record
+    res = client.put(
+        item_url,
+        data={}
+    )
+    assert res.status_code == 403
+
+    # DELETE / Delete record
+    res = client.delete(item_url)
+    assert res.status_code == 403
+
+    # patron: role patron
+    login_user_via_session(client, patron_martigny.user)
+
+    # GET is not allowed for a patron
+    res = client.get(item_url)
+    assert res.status_code == 403
+
+    # POST / Create record
+    res, data = postdata(
+        client,
+        'invenio_records_rest.stat_list',
+        {}
+    )
+    assert res.status_code == 403
+
+    # PUT / Update record
+    res = client.put(
+        item_url,
+        data={}
+    )
+    assert res.status_code == 403
+
+    # DELETE / Delete record
+    res = client.delete(item_url)
+    assert res.status_code == 403
+
+
+def test_stats_librarian_data(client, stats_librarian, librarian_martigny):
+    """Check data include date_range and type librarian."""
+    login_user_via_session(client, librarian_martigny.user)
+
+    item_url = url_for('invenio_records_rest.stat_item',
+                       pid_value=stats_librarian.pid)
+    res = client.get(item_url)
+    data = res.get_json()
+
+    assert data['metadata']['date_range']
+    assert data['metadata']['type'] == 'librarian'
