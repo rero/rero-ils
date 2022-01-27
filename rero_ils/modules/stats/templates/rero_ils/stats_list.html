@@ -26,25 +26,61 @@
     <h2>{{_('Statistics')}}</h2>
   {% endif %}
 </div>
-<div class="list-group">
-  {%- for rec in records %}
-  <span class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-    <a href="{{url_for('invenio_records_ui.stats', pid_value=rec._source.pid)}}">
-      {%- if 'date_range' in rec._source and 'from' in rec._source.date_range  %}
-        {%- if (rec._source.date_range.to|stringtodatetime).month - (rec._source.date_range.from|stringtodatetime).month == 11  %}
-          {% set stat_name = (rec._source.date_range.from|stringtodatetime).year|string+
-          ' (from '+rec._source.date_range.from.split('T')[0]+' to '+rec._source.date_range.to.split('T')[0]+')'%}
-        {%- else %}
-          {% set stat_name = rec._source.date_range.from|yearmonthfilter+
-          ' (from '+rec._source.date_range.from.split('T')[0]+' to '+rec._source.date_range.to.split('T')[0]+')'%}
-        {%- endif %}
-        {{_(stat_name)}}
-      {% else %}
-        {{rec._source._created | format_date}}
-      {% endif %}
-    </a>
-    <a class="btn btn-outline-secondary" href="/api/stats/{{rec._source.pid}}?format=csv" role="button"><i class="fa fa-download"></i></a>
-  </span>
-  {%- endfor %}
-</div>
+{% if type=="billing" %}
+  <div class="list-group">
+    {%- for rec in records %}
+    <span class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      <a href="{{url_for('invenio_records_ui.stats', pid_value=rec._source.pid)}}">
+        {%- if 'date_range' in rec._source and 'from' in rec._source.date_range  %}
+          {%- if (rec._source.date_range.to|stringtodatetime).month - (rec._source.date_range.from|stringtodatetime).month == 11  %}
+            {% set stat_name = (rec._source.date_range.from|stringtodatetime).year|string+
+            ' (from '+rec._source.date_range.from.split('T')[0]+' to '+rec._source.date_range.to.split('T')[0]+')'%}
+          {%- else %}
+            {% set stat_name = rec._source.date_range.from|yearmonthfilter+
+            ' (from '+rec._source.date_range.from.split('T')[0]+' to '+rec._source.date_range.to.split('T')[0]+')'%}
+          {%- endif %}
+          {{_(stat_name)}}
+        {% else %}
+          {{rec._source._created | format_date}}
+        {% endif %}
+      </a>
+      <a class="btn btn-outline-secondary" href="/api/stats/{{rec._source.pid}}?format=csv" role="button"><i class="fa fa-download"></i></a>
+    </span>
+    {%- endfor %}
+  </div>
+{% elif type=="librarian" %}
+  <table class="table table-hover border">
+    <tbody>
+    {%- for rec in records %}
+    <tr class="border bg-dark text-white">
+      <td class="col-xs-12">
+        {%- if 'date_range' in rec._source and 'from' in rec._source.date_range  %}
+          {%- if (rec._source.date_range.to|stringtodatetime).month - (rec._source.date_range.from|stringtodatetime).month == 11  %}
+            {% set stat_name = (rec._source.date_range.from|stringtodatetime).year|string+
+            ' (from '+rec._source.date_range.from.split('T')[0]+' to '+rec._source.date_range.to.split('T')[0]+')'%}
+          {%- else %}
+            {% set stat_name = rec._source.date_range.from|yearmonthfilter+
+            ' (from '+rec._source.date_range.from.split('T')[0]+' to '+rec._source.date_range.to.split('T')[0]+')'%}
+          {%- endif %}
+          {{_(stat_name)}}
+        {% else %}
+          {{rec._source._created | format_date}}
+        {% endif %}
+      </td>
+    </tr>
+    <tr>
+      <td class="col-xs-12">
+        <a href="{{url_for('invenio_records_ui.stats', pid_value=rec._source.pid)}}">View statistics</a>
+        <a class="btn btn-outline-secondary float-right" href="/api/stats/{{rec._source.pid}}?format=csv" role="button"><i class="fa fa-download"></i></a>
+      </td>
+    </tr>
+    <tr>
+      <td>Number of transactions by library and item location
+        <a class="btn btn-outline-secondary float-right" href="/stats/librarian/{{rec._source.pid}}/csv?query_id=1" role="button"><i class="fa fa-download"></i></a>
+      </td>
+    </tr>
+    {%- endfor %}
+    </tbody>
+  </table>
+{% endif %}
 {%- endblock body %}

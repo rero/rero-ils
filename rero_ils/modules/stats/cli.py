@@ -115,7 +115,7 @@ def collect_year(year, timespan, force):
                     click.secho(
                             f'ERROR: statistics of type {type}\
                                 for time interval {_from} - {_to}\
-                                already exists. Pid: {stat_pid}', fg='red')
+                                already exist. Pid: {stat_pid}', fg='red')
                     return
 
                 stat_data = dict(type=type, date_range=date_range,
@@ -154,7 +154,7 @@ def collect_year(year, timespan, force):
                 click.secho(
                     f'ERROR: statistics of type {type}\
                         for time interval {_from} - {_to}\
-                        already exists. Pid: {stat_pid}', fg='red')
+                        already exist. Pid: {stat_pid}', fg='red')
                 return
 
             stat_data = dict(type=type, date_range=date_range,

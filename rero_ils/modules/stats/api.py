@@ -23,7 +23,6 @@ from functools import partial
 import arrow
 from dateutil.relativedelta import relativedelta
 from flask import current_app
-from flask_login import current_user
 from invenio_search.api import RecordsSearch
 
 from .models import StatIdentifier, StatMetadata
@@ -36,8 +35,9 @@ from ..libraries.api import LibrariesSearch
 from ..loans.logs.api import LoanOperationLog
 from ..locations.api import LocationsSearch
 from ..minters import id_minter
-from ..patrons.api import PatronsSearch
+from ..patrons.api import PatronsSearch, current_librarian
 from ..providers import Provider
+from ..utils import extracted_data_from_ref
 
 # provider
 StatProvider = type(
@@ -340,40 +340,27 @@ class StatsForLibrarian(StatsForPricing):
 
         Note: for system_librarian includes libraries of organisation.
         """
-        patron_search = PatronsSearch()\
-            .filter('term', user_id=current_user.id)\
-            .source(['libraries', 'roles', 'organisation']).scan()
-        patron_data = next(patron_search)
-
         library_pids = set()
-        if 'librarian' in patron_data.roles:
-            for library_pid in patron_data.libraries:
-                library_pids.add(library_pid.pid)
+        if 'librarian' in current_librarian["roles"]:
+            for library in current_librarian.get('libraries', []):
+                library_pids.add(extracted_data_from_ref(library))
 
         # case system_librarian: add libraries of organisation
-        if 'system_librarian' in patron_data.roles:
-            organisation_libraries_pid = LibrariesSearch()\
-                .filter('term',
-                        organisation__pid=patron_data.organisation.pid)\
+        if 'system_librarian' in current_librarian["roles"]:
+            patron_organisation = current_librarian.get_organisation()
+            libraries_search = LibrariesSearch()\
+                .filter(
+                    'term',
+                    organisation__pid=patron_organisation.pid)\
                 .source(['pid']).scan()
-            for s in organisation_libraries_pid:
+            for s in libraries_search:
                 library_pids.add(s.pid)
         return list(library_pids)
 
-    @classmethod
-    def get_librarian_libraries(cls):
-        """Get libraries of librarian."""
-        library_pids = cls.get_librarian_library_pids()
-        return LibrariesSearch().filter('terms', pid=library_pids)\
-            .source(['pid', 'name', 'organisation']).scan()
-
-    def collect(self, **kwargs):
+    def collect(self):
         """Compute statistics for librarian."""
         stats = []
-        if 'libraries' in kwargs:
-            libraries = kwargs.get("libraries")
-        else:
-            libraries = self.get_all_libraries()
+        libraries = self.get_all_libraries()
 
         for lib in libraries:
             stats.append({
@@ -408,7 +395,11 @@ class StatsForLibrarian(StatsForPricing):
                 'number_of_items_by_document_type_and_subtype':
                     self.number_of_items_by_document_type_subtype(lib.pid),
                 'number_of_new_items_by_location':
-                    self.number_of_new_items_by_location(lib.pid)
+                    self.number_of_new_items_by_location(lib.pid),
+                'number_of_loans_by_item_location':
+                    self.number_of_loans_by_item_location(lib.pid,
+                                                          ['checkin',
+                                                           'checkout'])
             })
         return stats
 
@@ -648,6 +639,30 @@ class StatsForLibrarian(StatsForPricing):
             stats[bucket.key] = bucket.doc_count
         for bucket in res.aggregations.subtype.buckets:
             stats[bucket.key] = bucket.doc_count
+        return stats
+
+    def number_of_loans_by_item_location(self, library_pid, trigger):
+        """Number of circulation operation during the specified timeframe.
+
+        Number of loans of items by location when transaction location
+        is equal to any of the library locations
+        :param library_pid: string - the library to filter with
+        :param trigger: string - action name (checkin, checkout)
+        :return: the number of matched circulation operation
+        :rtype: dict
+        """
+        location_pids = self._get_locations_pid(library_pid)
+        search = RecordsSearch(index=LoanOperationLog.index_name)\
+            .filter('range', date=self.date_range)\
+            .filter('terms', loan__trigger=trigger)\
+            .filter('terms', loan__transaction_location__pid=location_pids)\
+            .source('loan').scan()
+
+        stats = {}
+        for s in search:
+            location_name = s.loan.item.holding.location_name
+            stats.setdefault(location_name, {'checkin': 0, 'checkout': 0})
+            stats[location_name][s.loan.trigger] += 1
         return stats
 
 
