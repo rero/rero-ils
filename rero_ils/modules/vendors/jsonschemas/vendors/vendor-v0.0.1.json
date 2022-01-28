@@ -323,8 +323,7 @@
         "phone": {
           "title": "Phone number",
           "description": "Phone number with the international prefix, without spaces.",
-          "type": "string",
-          "pattern": "^\\+[0-9]*$"
+          "type": "string"
         },
         "email": {
           "title": "Email",
