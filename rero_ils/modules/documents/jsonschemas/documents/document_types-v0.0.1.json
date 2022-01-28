@@ -904,6 +904,78 @@
               "containerCssClass": "row"
             }
           }
+        },
+        {
+          "title": "docmaintype_teaching_material",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "main_type",
+            "subtype"
+          ],
+          "required": [
+            "main_type",
+            "subtype"
+          ],
+          "properties": {
+            "main_type": {
+              "title": "Main type",
+              "type": "string",
+              "readOnly": true,
+              "default": "docmaintype_teaching_material",
+              "const": "docmaintype_teaching_material",
+              "form": {
+                "templateOptions": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
+              }
+            },
+            "subtype": {
+              "title": "Subtype",
+              "type": "string",
+              "default": "docsubtype_reading_kit",
+              "enum": [
+                "docsubtype_reading_kit",
+                "docsubtype_experimentation_kit",
+                "docsubtype_thematic_kit",
+                "docsubtype_official_material",
+                "docsubtype_guided_reading"
+              ],
+              "form": {
+                "options": [
+                  {
+                    "label": "docsubtype_reading_kit",
+                    "value": "docsubtype_reading_kit"
+                  },
+                  {
+                    "label": "docsubtype_experimentation_kit",
+                    "value": "docsubtype_experimentation_kit"
+                  },
+                  {
+                    "label": "docsubtype_thematic_kit",
+                    "value": "docsubtype_thematic_kit"
+                  },
+                  {
+                    "label": "docsubtype_official_material",
+                    "value": "docsubtype_official_material"
+                  },
+                  {
+                    "label": "docsubtype_guided_reading",
+                    "value": "docsubtype_guided_reading"
+                  }
+                ],
+                "templateOptions": {
+                  "itemCssClass": "col-lg-6"
+                }
+              }
+            }
+          },
+          "form": {
+            "templateOptions": {
+              "containerCssClass": "row"
+            }
+          }
         }
       ]
     },
