@@ -191,7 +191,7 @@ RERO_ILS_SEARCH_TEMPLATE = 'rero_ils/search.html'
 # Theme configuration
 # ===================
 #: Brand logo.
-THEME_LOGO = 'images/logo_rero_ils.png'
+THEME_LOGO = 'images/logo-rero-plus.svg'
 #: Site name
 THEME_SITENAME = _('rero-ils')
 #: Use default frontpage.
