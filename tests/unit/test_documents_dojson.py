@@ -1964,7 +1964,7 @@ def test_marc21_to_provisionActivity_unknown_place_2_agents():
         }
     ]
     assert create_publication_statement(data.get('provisionActivity')[0]) == [
-        '[Lieu de publication non identifié] : Labor, Nathan, 1968'
+        '[Lieu de publication non identifié] : Labor ; Nathan, 1968'
     ]
 
 
