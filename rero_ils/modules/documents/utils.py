@@ -42,15 +42,19 @@ def get_document_types_from_schema(schema='doc'):
     path = current_jsonschemas.url_to_path(get_schema_for_resource(schema))
     schema = current_jsonschemas.get_schema(path=path)
     schema = _records_state.replace_refs(schema)
-    schema_types = schema.get(
-        'properties', {}).get('type', {}).get('items', {}).get('oneOf', [])
+    schema_types = schema\
+        .get('properties', {})\
+        .get('type', {})\
+        .get('items', {})\
+        .get('oneOf', [])
     doc_types = {}
     for schema_type in schema_types:
-        doc_types[schema_type['title']] = {}
-        sub_types = schema_type.get(
-            'properties', {}).get('subtype', {}).get('enum', [])
-        for sub_type in sub_types:
-            doc_types[schema_type['title']][sub_type] = True
+        schema_title = schema_type['title']
+        sub_types = schema_type\
+            .get('properties', {})\
+            .get('subtype', {})\
+            .get('enum', [])
+        doc_types[schema_title] = {sub_type: True for sub_type in sub_types}
     return doc_types
 
 
@@ -91,26 +95,20 @@ def publication_statement_text(provision_activity):
     """Create publication statement from place, agent and date values."""
     punctuation = {
         'bf:Place': ' ; ',
-        'bf:Agent': ', ',
+        'bf:Agent': ' ; ',
         'Date': ', '
     }
-
     statement_with_language = {'default': ''}
-    statement_type = None
-
+    last_statement_type = None
+    # Perform each statement entries to build the best possible string
     for statement in provision_activity.get('statement', []):
-        labels = statement['label']
-
-        for label in labels:
+        for label in statement['label']:
             language = label.get('language', 'default')
-
-            if not statement_with_language.get(language):
-                statement_with_language[language] = ''
-
+            statement_with_language.setdefault(language, '')
             if statement_with_language[language]:
-                if statement_type == statement['type']:
+                if last_statement_type == statement['type']:
                     statement_with_language[language] += punctuation[
-                        statement_type
+                        last_statement_type
                     ]
                 elif statement['type'] == 'bf:Place':
                     statement_with_language[language] += ' ; '
@@ -120,8 +118,7 @@ def publication_statement_text(provision_activity):
                     statement_with_language[language] += ' : '
 
             statement_with_language[language] += label['value']
-        statement_type = statement['type']
-
+        last_statement_type = statement['type']
     # date field: remove ';' and append
     statement_text = []
     for key, value in statement_with_language.items():
