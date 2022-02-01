@@ -8,6 +8,9 @@ Standort: {{ loan.document.library_name }} / {{ loan.document.location_name }}
 {%- if loan.document.call_numbers %}
 Signatur: {{ loan.document.call_numbers | join(' / ') }}
 {%- endif %}
+{%- if loan.document.enumerationAndChronology %}
+Aufzählung und Chronologie: {{ loan.document.enumerationAndChronology }}
+{%- endif %}
 
 Abholort: {{ loan.pickup_name }}
 Leser: {{ loan.patron.first_name }} {{ loan.patron.last_name }}

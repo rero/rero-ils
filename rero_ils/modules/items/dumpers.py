@@ -37,7 +37,8 @@ class ItemNotificationDumper(InvenioRecordsDumper):
             'barcode': record.get('barcode'),
             'call_numbers': record.call_numbers,
             'location_name': location.get('name'),
-            'library_name': location.get_library().get('name')
+            'library_name': location.get_library().get('name'),
+            'enumerationAndChronology': record.get('enumerationAndChronology')
         }
         data = {k: v for k, v in data.items() if v}
         return data
