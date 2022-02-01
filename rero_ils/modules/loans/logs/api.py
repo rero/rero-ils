@@ -122,7 +122,8 @@ class LoanOperationLog(OperationLog):
                 extracted_data_from_ref(item['document']['$ref'])),
             'holding':
             cls._get_holding_data(
-                extracted_data_from_ref(item['holding']['$ref']))
+                extracted_data_from_ref(item['holding']['$ref'])),
+            'enumerationAndChronology': item.enumerationAndChronology
         }
         if item.get('call_number'):
             data['call_number'] = item.get('call_number')
