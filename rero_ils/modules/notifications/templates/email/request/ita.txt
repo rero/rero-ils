@@ -8,6 +8,9 @@ Localizzazione: {{ loan.document.library_name }} / {{ loan.document.location_nam
 {%- if loan.document.call_numbers %}
 Segnatura: {{ loan.document.call_numbers | join(' / ') }}
 {%- endif %}
+{%- if loan.document.enumerationAndChronology %}
+Unità: {{ loan.document.enumerationAndChronology }}
+{%- endif %}
 
 Punto di ritiro: {{ loan.pickup_name }}
 Lettore: {{ loan.patron.first_name }} {{ loan.patron.last_name }}

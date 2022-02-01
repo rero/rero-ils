@@ -386,7 +386,8 @@ class Loan(IlsRecord):
             """
             fields = ['pid', 'barcode', 'call_number',
                       'second_call_number', 'library', 'location',
-                      'temporary_item_type', 'holding']
+                      'temporary_item_type', 'holding',
+                      'enumerationAndChronology']
             if pid not in known_items:
                 results = ItemsSearch()\
                     .filter('term', pid=pid)\
