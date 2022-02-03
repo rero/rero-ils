@@ -29,6 +29,31 @@ from rero_ils.modules.libraries.exceptions import LibraryNeverOpen
 from rero_ils.modules.loans.models import LoanState
 
 
+class CheckoutLocationExtension(RecordExtension):
+    """Manage checkout location for a loan."""
+
+    @staticmethod
+    def _add_checkout_location(record):
+        """Add the checkout location as a new loan field.
+
+        During the laon life cycle, the transaction location could be update.
+        By example, when a loan is extended, the transaction location pid is
+        updated with the location pid where the extend operation is done. In
+        this case, it's impossible to retrieve the checkout location pid
+        without using heavy versioning behavior or external `OperationLog`
+        module.
+
+        :param record: the record metadata.
+        """
+        transaction_pid = record.get('transaction_location_pid')
+        if record.get('trigger') == 'checkout' and transaction_pid:
+            record['checkout_location_pid'] = transaction_pid
+
+    def pre_commit(self, record):
+        """Called before a record is committed."""
+        CheckoutLocationExtension._add_checkout_location(record)
+
+
 class CirculationDatesExtension(RecordExtension):
     """Add some dates to manage circulation operation."""
 

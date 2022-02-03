@@ -30,10 +30,21 @@ from ..patrons.api import Patron
 from ..utils import get_ref_for_pid
 
 
-def get_circ_policy(loan):
-    """Return a circ policy for loan."""
+def get_circ_policy(loan, checkout_location=False):
+    """Return a circulation policy for loan.
+
+    :param loan: the loan to analyze
+    :param checkout_location: if True, return the cipo related to the
+               `checkout_location_pid`, otherwise return the cipo related to
+               the `transaction_location_pid`.
+    :return the cipo related to the loan
+    """
     item = Item.get_record_by_pid(loan.item_pid)
-    library_pid = loan.library_pid
+    library_pid = None
+    if checkout_location:
+        library_pid = loan.checkout_library_pid
+    if not library_pid:
+        library_pid = loan.library_pid
     patron = Patron.get_record_by_pid(loan.get('patron_pid'))
     patron_type_pid = patron.patron_type_pid
 
@@ -171,11 +182,7 @@ def can_be_requested(loan):
 
     # 4) Check if circulation_policy allows request
     policy = get_circ_policy(loan)
-    if not policy.get('allow_requests'):
-        return False
-
-    # All checks are successful, the request is allowed
-    return True
+    return bool(policy.get('allow_requests'))
 
 
 def loan_build_item_ref(loan_pid, loan):
