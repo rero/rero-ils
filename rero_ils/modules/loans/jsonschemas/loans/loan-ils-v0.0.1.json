@@ -90,6 +90,10 @@
       "type": "string",
       "title": "Transaction location PID"
     },
+    "checkout_location_pid": {
+      "type": "string",
+      "title": "Checkout location PID"
+    },
     "pickup_location_pid": {
       "type": "string",
       "title": "Request pickup location PID"

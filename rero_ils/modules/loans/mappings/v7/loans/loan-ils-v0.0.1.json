@@ -80,6 +80,9 @@
       "transaction_location_pid": {
         "type": "keyword"
       },
+      "checkout_location_pid": {
+        "type": "keyword"
+      },
       "transaction_user_pid": {
         "type": "keyword"
       },

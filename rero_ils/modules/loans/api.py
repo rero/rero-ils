@@ -38,7 +38,7 @@ from invenio_jsonschemas import current_jsonschemas
 from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE, \
     OVERDUE_REMINDER_TYPE, CircPolicy
 
-from .extensions import CirculationDatesExtension
+from .extensions import CheckoutLocationExtension, CirculationDatesExtension
 from .models import LoanAction, LoanState
 from ..api import IlsRecord, IlsRecordError, IlsRecordsIndexer, \
     IlsRecordsSearch
@@ -94,6 +94,7 @@ class Loan(IlsRecord):
     ]
     # Invenio Records extensions
     _extensions = [
+        CheckoutLocationExtension(),
         CirculationDatesExtension()
     ]
 
@@ -606,6 +607,14 @@ class Loan(IlsRecord):
         return Location.get_record_by_pid(self.location_pid).library_pid
 
     @property
+    def checkout_library_pid(self):
+        """Get the checkout library pid."""
+        checkout_location = Location.get_record_by_pid(
+            self.get('checkout_location_pid'))
+        if checkout_location:
+            return checkout_location.library_pid
+
+    @property
     def location_pid(self):
         """Get loan transaction_location PID or item owning location."""
         from ..items.api import Item
@@ -642,6 +651,11 @@ class Loan(IlsRecord):
     def get_overdue_fees(self):
         """Get all overdue fees based based on incremental fees setting.
 
+        The fees are ALWAYS calculated based on checkout location. If a
+        loan is extend from an other location than checkout location, and this
+        loan is overdue, the circulation policy used will be related to the
+        checkout location, not the extend location.
+
         :return An array of tuple. Each tuple are composed with two values :
                 the fee amount and a related timestamp.
                 Ex: [
@@ -653,20 +667,29 @@ class Loan(IlsRecord):
         """
         from .utils import get_circ_policy
         fees = []
-        # if the loan isn't overdue, no need to continue.
-        if not self.is_loan_overdue():
+        # if the loan isn't "late", no need to continue.
+        #   !!! there is a difference between "is_late" and "is_overdue" :
+        #   * 'is_late' only check the loan end_date
+        #   * 'is_overdue' check that the current date is grower than loan
+        #      end_date + cipo.initial_overdue_days.
+        #   It means that a cipo doesn't defining any overdue settings, never
+        #   consider any loan as "overdue". But as we use the checkout location
+        #   to compute the fees, we need only need to know if loan is late.
+        if not self.is_loan_late():
             return fees
 
         # find the circulation policy corresponding to the loan and check if
         # some 'overdue_fees' settings exists. If not, no need to continue.
-        cipo = get_circ_policy(self)
+        # The circulation policy used will be related to the checkout location,
+        # not the transaction location
+        cipo = get_circ_policy(self, checkout_location=True)
         overdue_settings = cipo.get('overdue_fees')
         if overdue_settings is None:
             return fees
 
         # At this point, we know that we need to compute an overdue amount.
         # Initialize some useful variables to perform the job.
-        loan_lib = Library.get_record_by_pid(self.library_pid)
+        loan_lib = Library.get_record_by_pid(self.checkout_library_pid)
         # add 1 day to end_date because the first overdue_date is next day
         # after the due date
         end_date = date_string_to_utc(self.end_date) + timedelta(days=1)

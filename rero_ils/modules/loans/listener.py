@@ -20,6 +20,7 @@
 from flask import current_app
 from invenio_circulation.proxies import current_circulation
 
+from .models import LoanAction
 from ..items.api import Item
 from ..loans.logs.api import LoanOperationLog
 from ..patron_transactions.utils import \
@@ -47,18 +48,22 @@ def enrich_loan_data(sender, json=None, record=None, index=None,
 
 def listener_loan_state_changed(
         _, initial_loan, loan, trigger, **transition_kwargs):
-    """Create notification based on loan state changes.
+    """Listener when a loan state changed.
 
-    :param initial_loan: The inital loan.
+    :param initial_loan: The initial loan.
     :param loan: The new loan.
     :param trigger: action trigger.
     :param transition_kwargs: An additional kwargs to transition.
     """
-    # Create patron a librarian notifications
+    # Create patron a librarian notifications if needed
+    #   This is the `create_notification` method that determine if notification
+    #   must be created or not.
     loan.create_notification(trigger)
-
-    # Create fees for checkin or extend operations
-    if trigger in ['checkin', 'extend']:
-        create_patron_transaction_from_overdue_loan(initial_loan)
-
+    # Create operation log for this loan
     LoanOperationLog.create(loan)
+    # Create fees for check-in/extend operations
+    #   This is the `create_patron_transaction_from_overdue_loan' that
+    #   determine if the loan is overdue and if some fee must be created.
+    if trigger in [LoanAction.CHECKIN, LoanAction.EXTEND]:
+        create_patron_transaction_from_overdue_loan(
+            initial_loan)
