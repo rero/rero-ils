@@ -148,7 +148,8 @@ def test_users_search_api(client, librarian_martigny, patron_martigny):
     )
     assert res.status_code == 200
     hits = get_json(res)
-    assert hits['hits']['hits'][0]['id'] == patron_martigny['user_id']
+    assert hits['hits']['hits'][0]['metadata']['username'] == \
+        patron_martigny['username']
     assert hits['hits']['total']['value'] == 1
 
     # all by email
@@ -160,7 +161,8 @@ def test_users_search_api(client, librarian_martigny, patron_martigny):
     )
     assert res.status_code == 200
     hits = get_json(res)
-    assert hits['hits']['hits'][0]['id'] == patron_martigny['user_id']
+    assert hits['hits']['hits'][0]['metadata']['username'] == \
+        patron_martigny['username']
     assert hits['hits']['total']['value'] == 1
 
     # by username
@@ -172,7 +174,8 @@ def test_users_search_api(client, librarian_martigny, patron_martigny):
     )
     assert res.status_code == 200
     hits = get_json(res)
-    assert hits['hits']['hits'][0]['id'] == patron_martigny['user_id']
+    assert hits['hits']['hits'][0]['metadata']['username'] == \
+        patron_martigny['username']
     assert hits['hits']['total']['value'] == 1
 
     # by email
@@ -184,7 +187,8 @@ def test_users_search_api(client, librarian_martigny, patron_martigny):
     )
     assert res.status_code == 200
     hits = get_json(res)
-    assert hits['hits']['hits'][0]['id'] == patron_martigny['user_id']
+    assert hits['hits']['hits'][0]['metadata']['username'] == \
+        patron_martigny['username']
     assert hits['hits']['total']['value'] == 1
 
     # by uppercase email
@@ -196,5 +200,44 @@ def test_users_search_api(client, librarian_martigny, patron_martigny):
     )
     assert res.status_code == 200
     hits = get_json(res)
-    assert hits['hits']['hits'][0]['id'] == patron_martigny['user_id']
+    assert hits['hits']['hits'][0]['metadata']['username'] == \
+        patron_martigny['username']
     assert hits['hits']['total']['value'] == 1
+
+    # Login with patron role
+    login_user_via_session(client, p_martigny.user)
+    res = client.get(
+        url_for(
+            'api_users.users_list',
+            q=patron_martigny['username']
+        )
+    )
+    assert res.status_code == 200
+    hits = get_json(res)
+    assert 'metadata' not in hits['hits']['hits'][0]
+    assert hits['hits']['hits'][0]['id'] == patron_martigny['user_id']
+
+    res = client.get(
+        url_for(
+            'api_users.users_item',
+            id=p_martigny.user.id
+        )
+    )
+    assert res.status_code == 200
+    record = get_json(res)
+    assert patron_martigny['username'] == record.get('metadata', [])\
+        .get('username')
+
+    # Login with librarian role
+    login_user_via_session(client, l_martigny.user)
+    res = client.get(
+        url_for(
+            'api_users.users_list',
+            q=patron_martigny['username']
+        )
+    )
+    assert res.status_code == 200
+    hits = get_json(res)
+    assert 'metadata' in hits['hits']['hits'][0]
+    assert hits['hits']['hits'][0]['metadata']['username'] == \
+        patron_martigny['username']

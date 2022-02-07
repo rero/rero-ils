@@ -61,7 +61,7 @@ redisbeat = "*"
 jsonpickle = ">=1.4.1"
 ciso8601 = "*"
 # TODO: to be removed when the thumbnail will be refactored
-invenio-userprofiles = {git = "https://github.com/rero/invenio-userprofiles.git", rev = "v1.2.1-rero1.0"}
+invenio-userprofiles = {git = "https://github.com/rero/invenio-userprofiles.git", rev = "41d2b471cde1a93f660ba7bf0037ee3fb80b65fc"}
 
 ## Additionnal constraints on python modules
 flask-wiki = {git = "https://github.com/rero/flask-wiki.git", tag = "v0.0.1"}

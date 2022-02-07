@@ -98,6 +98,7 @@ setup(
             'rero_ils = rero_ils.theme.views:blueprint',
             'stats = rero_ils.modules.stats.views:blueprint',
             'templates = rero_ils.modules.templates.views:blueprint',
+            'users = rero_ils.modules.users.views:blueprint',
         ],
         'invenio_base.api_blueprints': [
             'acq_accounts = rero_ils.modules.acq_accounts.views:api_blueprint',

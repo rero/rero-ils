@@ -134,7 +134,13 @@ def logged_user():
             ),
             'librarianRoles': current_app.config.get(
                 'RERO_ILS_LIBRARIAN_ROLES', []
-            )
+            ),
+            'userProfile': {
+                'readOnly': current_app.config.get(
+                    'RERO_PUBLIC_USERPROFILES_READONLY', False),
+                'readOnlyFields': current_app.config.get(
+                    'RERO_PUBLIC_USERPROFILES_READONLY_FIELDS', []),
+            }
         }
     }
     if not current_user.is_authenticated:
@@ -170,9 +176,7 @@ def logged_user():
     return jsonify(data)
 
 
-@blueprint.route('/global/patrons/profile', defaults={'viewcode': 'global'},
-                 methods=['GET', 'POST'])
-@blueprint.route('/<string:viewcode>/patrons/profile')
+@blueprint.route('/<string:viewcode>/patrons/profile', methods=['GET', 'POST'])
 @check_logged_as_patron
 @register_menu(
     blueprint,
@@ -187,7 +191,7 @@ def logged_user():
 )
 def profile(viewcode):
     """Patron Profile Page."""
-    return render_template('rero_ils/patron_profile.html')
+    return render_template('rero_ils/patron_profile.html', viewcode=viewcode)
 
 
 @blueprint.app_template_filter('format_currency')

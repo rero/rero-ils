@@ -69,6 +69,11 @@ class User(object):
         """User class initializer."""
         self.user = user
 
+    @property
+    def id(self):
+        """Get user id."""
+        return self.user.id
+
     @classmethod
     def create(cls, data, **kwargs):
         """User record creation.

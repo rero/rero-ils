@@ -35,16 +35,16 @@ from ...permissions import check_user_is_authenticated
 blueprint = Blueprint(
     'ill_requests',
     __name__,
-    url_prefix='/ill_requests',
+    url_prefix='/<string:viewcode>',
     template_folder='templates',
     static_folder='static',
 )
 
 
-@blueprint.route('/create/', methods=['GET', 'POST'])
+@blueprint.route('/ill_requests/new', methods=['GET', 'POST'])
 @check_user_is_authenticated(redirect_to='security.login')
 @check_logged_as_patron
-def ill_request_form():
+def ill_request_form(viewcode):
     """Return professional view."""
     form = ILLRequestForm(request.form)
     # pickup locations selection are based on app context then the choices
@@ -58,7 +58,7 @@ def ill_request_form():
             ill_request_data['pickup_location'])
 
         # get the patron account of the same org of the location pid
-        def get_patron(location_pid):
+        def get_patron(loc_pid):
             loc = Location.get_record_by_pid(loc_pid)
             for ptrn in current_patrons:
                 if ptrn.organisation_pid == loc.organisation_pid:
@@ -73,6 +73,7 @@ def ill_request_form():
             _('The request has been transmitted to your library.'),
             'success'
         )
-        return redirect(url_for('patrons.profile', tab='ill_request'))
+        return redirect(url_for('patrons.profile', viewcode=viewcode))
 
-    return render_template('rero_ils/ill_request_form.html', form=form)
+    return render_template('rero_ils/ill_request_form.html',
+                           form=form, viewcode=viewcode)

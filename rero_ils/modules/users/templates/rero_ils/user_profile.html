@@ -1,7 +1,7 @@
 {# -*- coding: utf-8 -*-
 
   RERO ILS
-  Copyright (C) 2019 RERO
+  Copyright (C) 2022 RERO
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU Affero General Public License as published by
@@ -18,17 +18,13 @@
 #}
 {% extends 'rero_ils/page.html' %}
 
-{%- block css %}
-{{ super() }}
-{{ node_assets('@rero/rero-ils-ui/dist/public-patron-profile', ['styles.*css'], 'css') }}
-{%- endblock css %}
-
 {%- block body %}
-<public-patron-profile language="{{ current_i18n.locale.language[:2] }}" viewcode="{{ viewcode }}"></public-patron-profile>
+<h1 class="mt-2">{{ _('Profile') }}</h1>
+<public-user-profile-edit referer="{{ request.referrer }}"></public-user-profile-edit>
 {%- endblock body %}
 
 {%- block javascript %}
 {{ webpack['reroils_public.js']}}
-{{ node_assets('@rero/rero-ils-ui/dist/public-patron-profile', patterns=['polyfills-es5*.js','main-es5*.js'], tags='nomodule defer') }}
-{{ node_assets('@rero/rero-ils-ui/dist/public-patron-profile', patterns=['polyfills-es2015*.js','main-es2015*.js'], tags='type="module"') }}
+{{ node_assets('@rero/rero-ils-ui/dist/public-user-profile-edit', patterns=['polyfills-es5*.js','main-es5*.js'], tags='nomodule defer') }}
+{{ node_assets('@rero/rero-ils-ui/dist/public-user-profile-edit', patterns=['polyfills-es2015*.js','main-es2015*.js'], tags='type="module"') }}
 {%- endblock javascript %}

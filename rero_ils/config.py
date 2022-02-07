@@ -257,6 +257,18 @@ ACCOUNTS_SESSION_REDIS_URL = 'redis://localhost:6379/1'
 #: proxies) removes these headers again before sending the response to the
 #: client. Set to False, in case of doubt.
 ACCOUNTS_USERINFO_HEADERS = False
+
+#: User profile
+RERO_PUBLIC_USERPROFILES_READONLY = False
+RERO_PUBLIC_USERPROFILES_READONLY_FIELDS = [
+    'first_name',
+    'last_name',
+    'birth_date'
+]
+
+#: USER PROFILES
+USERPROFILES_READ_ONLY = False;
+
 # Disable User Profiles
 USERPROFILES = True
 USERPROFILES_COUNTRIES = get_profile_countries
