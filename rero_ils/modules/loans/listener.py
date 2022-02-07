@@ -22,7 +22,8 @@ from invenio_circulation.proxies import current_circulation
 
 from ..items.api import Item
 from ..loans.logs.api import LoanOperationLog
-from ..patron_transactions.api import PatronTransaction
+from ..patron_transactions.utils import \
+    create_patron_transaction_from_overdue_loan
 
 
 def enrich_loan_data(sender, json=None, record=None, index=None,
@@ -58,8 +59,6 @@ def listener_loan_state_changed(
 
     # Create fees for checkin or extend operations
     if trigger in ['checkin', 'extend']:
-        PatronTransaction.create_patron_transaction_from_overdue_loan(
-            initial_loan
-        )
+        create_patron_transaction_from_overdue_loan(initial_loan)
 
     LoanOperationLog.create(loan)

@@ -40,3 +40,12 @@ class PatronTransactionEventMetadata(db.Model, RecordMetadataBase):
     """PatronTransactionEvent record metadata."""
 
     __tablename__ = 'patron_transaction_event_metadata'
+
+
+class PatronTransactionEventType:
+    """Type of PatronTransactionEvent."""
+
+    FEE = 'fee'
+    PAYMENT = 'payment'
+    DISPUTE = 'dispute'
+    CANCEL = 'cancel'

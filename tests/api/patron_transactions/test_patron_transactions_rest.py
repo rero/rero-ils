@@ -27,7 +27,8 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
 
-from rero_ils.modules.patron_transactions.api import PatronTransaction
+from rero_ils.modules.patron_transactions.utils import \
+    create_subscription_for_patron, get_transactions_pids_for_patron
 from rero_ils.modules.utils import add_years
 
 
@@ -470,7 +471,7 @@ def test_patron_subscription_transaction(
     assert subscription_end_date.month == subscription_start_date.month
     assert subscription_end_date.day == subscription_start_date.day
 
-    subscription = PatronTransaction.create_subscription_for_patron(
+    subscription = create_subscription_for_patron(
         patron_sion,
         patron_type_youngsters_sion,
         subscription_start_date,
@@ -489,12 +490,9 @@ def test_patron_subscription_transaction(
 
 def test_get_transactions_pids_for_patron(patron_sion):
     """Test function get_transactions_pids_for_patron."""
-    assert PatronTransaction.get_transactions_count_for_patron(
-        patron_sion.pid
-    ) == 2
-    assert len(list(PatronTransaction.get_transactions_pids_for_patron(
+    assert len(list(get_transactions_pids_for_patron(
         patron_sion.pid, status='open'
     ))) == 2
-    assert len(list(PatronTransaction.get_transactions_pids_for_patron(
+    assert len(list(get_transactions_pids_for_patron(
         patron_sion.pid, status='closed'
     ))) == 0

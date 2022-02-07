@@ -43,7 +43,8 @@ from ..items.utils import item_pid_to_object
 from ..loans.api import get_loans_stats_by_patron_pid, get_overdue_loans
 from ..loans.utils import sum_for_fees
 from ..locations.api import Location
-from ..patron_transactions.api import PatronTransaction
+from ..patron_transactions.utils import \
+    get_transactions_total_amount_for_patron
 from ..patron_types.api import PatronType, PatronTypesSearch
 from ..users.api import User
 from ..utils import extracted_data_from_ref, get_base_url
@@ -74,8 +75,8 @@ def patron_circulation_informations(patron_pid):
         sum_for_fees(loan.get_overdue_fees)
         for loan in get_overdue_loans(patron.pid)
     )
-    engaged_amount = PatronTransaction\
-        .get_transactions_total_amount_for_patron(patron.pid, status='open')
+    engaged_amount = get_transactions_total_amount_for_patron(
+        patron.pid, status='open')
     return jsonify({
         'fees': {
           'engaged': engaged_amount,
