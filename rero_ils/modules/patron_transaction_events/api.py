@@ -23,8 +23,9 @@ from functools import partial
 
 from flask_babelex import gettext as _
 
+from .extentions import DecimalAmountExtension
 from .models import PatronTransactionEventIdentifier, \
-    PatronTransactionEventMetadata
+    PatronTransactionEventMetadata, PatronTransactionEventType
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
@@ -76,19 +77,20 @@ class PatronTransactionEvent(IlsRecord):
         }
     }
 
+    _extensions = [
+        DecimalAmountExtension('amount')
+    ]
+
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,
                dbcommit=False, reindex=False, update_parent=True, **kwargs):
         """Create patron transaction event record."""
         if 'creation_date' not in data:
             data['creation_date'] = datetime.now(timezone.utc).isoformat()
-        if 'amount' in data:
-            # ensure multiple of 0.01
-            data['amount'] = round(data['amount'], 2)
         record = super().create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
-        if update_parent:
-            cls.update_parent_patron_transaction(record)
+        if update_parent and record:
+            record.update_parent_patron_transaction()
         return record
 
     # TODO: do we have to set dbcommit and reindex to True so the
@@ -149,18 +151,20 @@ class PatronTransactionEvent(IlsRecord):
         #   digits, we can multiply amounts by 100, cast result as integer,
         #   do operation with these values, and (at the end) divide the result
         #   by 100.
-        patron_transaction = self.patron_transaction()
-        total_amount = int(patron_transaction.get('total_amount') * 100)
-        if self.event_type == 'fee':
-            total_amount += int(self.amount * 100)
-        elif self.event_type in ('payment', 'cancel'):
-            total_amount -= int(self.amount * 100)
-        patron_transaction['total_amount'] = total_amount / 100
+        pttr = self.patron_transaction
+        total_amount = int(pttr.get('total_amount') * 100)
+        amount = int(self.amount * 100)
+        if self.event_type == PatronTransactionEventType.FEE:
+            total_amount += amount
+        elif self.event_type in [PatronTransactionEventType.PAYMENT,
+                                 PatronTransactionEventType.CANCEL]:
+            total_amount -= amount
+        pttr['total_amount'] = total_amount / 100
         if total_amount == 0:
-            patron_transaction['status'] = 'closed'
-        patron_transaction.update(
-            patron_transaction, dbcommit=True, reindex=True)
+            pttr['status'] = 'closed'
+        pttr.update(pttr, dbcommit=True, reindex=True)
 
+    @property
     def patron_transaction(self):
         """Return the parent patron transaction of the event."""
         from ..patron_transactions.api import PatronTransaction

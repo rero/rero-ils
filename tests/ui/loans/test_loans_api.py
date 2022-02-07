@@ -42,6 +42,8 @@ from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.notifications.tasks import create_notifications, \
     process_notifications
 from rero_ils.modules.patron_transactions.api import PatronTransaction
+from rero_ils.modules.patron_transactions.utils import \
+    get_transactions_pids_for_patron
 
 
 def test_loan_es_mapping(es_clear, db):
@@ -237,9 +239,8 @@ def test_anonymizer_job(
     loan['transaction_date'] = one_year_ago.isoformat()
     loan = loan.update(loan, dbcommit=True, reindex=True)
     # close open transactions and notifications
-    for hit in PatronTransaction.get_transactions_by_patron_pid(
-                patron.get('pid'), 'open'):
-        transaction = PatronTransaction.get_record_by_pid(hit.pid)
+    for pid in get_transactions_pids_for_patron(patron.get('pid'), 'open'):
+        transaction = PatronTransaction.get_record_by_pid(pid)
         transaction['status'] = 'closed'
         transaction.update(transaction, dbcommit=True, reindex=True)
 

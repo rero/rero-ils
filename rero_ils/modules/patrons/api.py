@@ -38,6 +38,8 @@ from ..loans.models import LoanState
 from ..minters import id_minter
 from ..organisations.api import Organisation
 from ..patron_transactions.api import PatronTransaction
+from ..patron_transactions.utils import create_subscription_for_patron, \
+    get_transactions_count_for_patron, get_transactions_pids_for_patron
 from ..providers import Provider
 from ..templates.api import TemplatesSearch
 from ..users.api import User
@@ -503,13 +505,13 @@ class Patron(IlsRecord):
             .filter('term', creator__pid=self.pid)
         if get_pids:
             loans = sorted_pids(loan_query)
-            transactions = PatronTransaction \
-                .get_transactions_pids_for_patron(self.pid, status='open')
+            transactions = get_transactions_pids_for_patron(
+                self.pid, status='open')
             templates = sorted_pids(template_query)
         else:
             loans = loan_query.count()
-            transactions = PatronTransaction \
-                .get_transactions_count_for_patron(self.pid, status='open')
+            transactions = get_transactions_count_for_patron(
+                self.pid, status='open')
             templates = template_query.count()
         if loans:
             links['loans'] = loans
@@ -655,7 +657,7 @@ class Patron(IlsRecord):
         :param start_date: As `datetime`, the subscription start date
         :param end_date: As `datetime`, the subscription end date (excluded)
         """
-        transaction = PatronTransaction.create_subscription_for_patron(
+        transaction = create_subscription_for_patron(
             self, patron_type, start_date, end_date,
             dbcommit=dbcommit, reindex=reindex, delete_pid=delete_pids)
         if transaction:

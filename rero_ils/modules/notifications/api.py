@@ -32,6 +32,8 @@ from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..patron_transactions.api import PatronTransaction, \
     PatronTransactionsSearch
+from ..patron_transactions.utils import \
+    create_patron_transaction_from_notification
 from ..providers import Provider
 
 # notification provider
@@ -102,7 +104,7 @@ class Notification(IlsRecord, ABC):
         data.setdefault('status', NotificationStatus.CREATED)
         record = super().create(data, id_, delete_pid, dbcommit, reindex,
                                 **kwargs)
-        PatronTransaction.create_patron_transaction_from_notification(
+        create_patron_transaction_from_notification(
             notification=record, dbcommit=dbcommit, reindex=reindex,
             delete_pid=delete_pid
         )

@@ -33,7 +33,8 @@ from ..loans.api import get_loans_count_by_library_for_patron_pid, \
     get_overdue_loan_pids
 from ..loans.models import LoanState
 from ..minters import id_minter
-from ..patron_transactions.api import PatronTransaction
+from ..patron_transactions.utils import \
+    get_transactions_total_amount_for_patron
 from ..patrons.api import Patron, PatronsSearch
 from ..providers import Provider
 from ..utils import get_patron_from_arguments, sorted_pids
@@ -349,8 +350,7 @@ class PatronType(IlsRecord):
         if default_limit:
             # get total amount for open transactions on overdue and without
             # subscription fee
-            patron_total_amount = PatronTransaction. \
-                get_transactions_total_amount_for_patron(
+            patron_total_amount = get_transactions_total_amount_for_patron(
                     patron.pid, status='open', types=['overdue'],
                     with_subscription=False)
             return patron_total_amount < default_limit
@@ -368,8 +368,7 @@ class PatronType(IlsRecord):
             .get('unpaid_subscription', True)
         if not unpaid_subscription_limit:
             return True, None
-        unpaid_amount = PatronTransaction. \
-            get_transactions_total_amount_for_patron(
+        unpaid_amount = get_transactions_total_amount_for_patron(
                 patron.pid, status='open', types=['subscription'],
                 with_subscription=True)
         return unpaid_amount == 0

@@ -39,6 +39,9 @@ from ..loans.api import Loan, get_loans_by_item_pid_by_patron_pid, \
     get_loans_by_patron_pid
 from ..loans.models import LoanAction, LoanState
 from ..patron_transactions.api import PatronTransaction
+from ..patron_transactions.utils import get_last_transaction_by_loan_pid, \
+    get_transactions_pids_for_patron, \
+    get_transactions_total_amount_for_patron
 from ..patrons.api import Patron
 
 
@@ -162,8 +165,7 @@ def patron_status(barcode, **kwargs):
                 valid_patron=patron.is_patron
             )
 
-            fee_amount = PatronTransaction \
-                .get_transactions_total_amount_for_patron(
+            fee_amount = get_transactions_total_amount_for_patron(
                     patron.pid, status='open', with_subscription=False)
             patron_status_response['fee_amount'] = '%.2f' % fee_amount
             return patron_status_response
@@ -231,15 +233,13 @@ def patron_information(barcode, **kwargs):
                         item.get('barcode')
                     )
 
-            fee_amount = PatronTransaction \
-                .get_transactions_total_amount_for_patron(
+            fee_amount = get_transactions_total_amount_for_patron(
                     patron.pid, status='open', with_subscription=False)
             patron_account_information['fee_amount'] = '%.2f' % fee_amount
             # check for fine items
             if fee_amount > 0:
                 # Check if fine items exist
-                transaction_pids = PatronTransaction \
-                    .get_transactions_pids_for_patron(
+                transaction_pids = get_transactions_pids_for_patron(
                         patron.pid, status='open')
                 for transaction_pid in transaction_pids:
                     # TODO: return screen message to notify patron if there are
@@ -307,8 +307,7 @@ def item_information(item_barcode, **kwargs):
                     if loan:
                         # format the end date according selfcheck language
                         item_information['due_date'] = loan['end_date']
-                        transaction = PatronTransaction. \
-                            get_last_transaction_by_loan_pid(
+                        transaction = get_last_transaction_by_loan_pid(
                                 loan_pid=loan.pid, status='open')
                         if transaction:
                             item_information['fee_amount'] = \
@@ -523,8 +522,7 @@ def selfcheck_renew(transaction_user_pid, item_barcode, **kwargs):
                         renew['renewal'] = True
                         renew['desensitize'] = True
                         renew['due_date'] = loan['end_date']
-                        transaction = PatronTransaction. \
-                            get_last_transaction_by_loan_pid(
+                        transaction = get_last_transaction_by_loan_pid(
                                 loan_pid=loan.pid, status='open')
                         if transaction:
                             # TODO: map transaction type

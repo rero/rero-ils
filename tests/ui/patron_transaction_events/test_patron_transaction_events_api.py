@@ -43,7 +43,7 @@ def test_patron_transaction_event_create(
 
     next_pid = PatronTransactionEvent.provider.identifier.next()
     patron_event['type'] = 'fee'
-    patron_event['amount'] = 2.1999999999999997
+    patron_event['amount'] = 2.2
     record = PatronTransactionEvent.create(patron_event, delete_pid=True)
     next_pid += 1
     assert record == patron_event

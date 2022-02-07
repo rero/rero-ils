@@ -25,7 +25,8 @@ from utils import get_json, postdata
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.utils import get_circ_policy, sum_for_fees
-from rero_ils.modules.patron_transactions.api import PatronTransaction
+from rero_ils.modules.patron_transactions.utils import \
+    get_last_transaction_by_loan_pid
 
 
 def test_checkin_an_item(
@@ -185,7 +186,7 @@ def test_checkin_overdue_item(
     assert item.status == ItemStatus.ON_SHELF
 
     # check if overdue transaction are created
-    trans = PatronTransaction.get_last_transaction_by_loan_pid(loan.pid)
+    trans = get_last_transaction_by_loan_pid(loan.pid)
     assert trans.total_amount == total_fees
     events = list(trans.events)
     assert len(events) == 1
