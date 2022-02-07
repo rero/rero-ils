@@ -1116,4 +1116,4 @@ def operation_log_data(data):
 @pytest.fixture(scope="module")
 def operation_log(operation_log_data, item_lib_sion):
     """Load operation log record."""
-    return OperationLog.create(operation_log_data)
+    return OperationLog.create(operation_log_data, index_refresh=True)

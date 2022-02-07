@@ -29,7 +29,8 @@ def test_ill_request_create_request_form(client, app,
                                          loc_public_martigny,
                                          patron_martigny):
     """ test ill request create form."""
-    request_form_url = url_for('ill_requests.ill_request_form')
+    request_form_url = url_for(
+        'ill_requests.ill_request_form', viewcode='global')
 
     # Not logged user don't have access to request_form. It is redirected to
     # login form

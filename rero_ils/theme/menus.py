@@ -128,6 +128,10 @@ def init_menu_tools():
     rero_register(
         item,
         endpoint='ill_requests.ill_request_form',
+        endpoint_arguments_constructor=lambda: dict(
+            viewcode=request.view_args.get(
+                'viewcode', current_app.config.get(
+                    'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))),
         visible_when=lambda: bool(current_patrons),
         text=TextWithIcon(
             icon='<i class="fa fa-shopping-basket"></i>',
@@ -246,6 +250,13 @@ def init_menu_lang():
 
 def init_menu_profile():
     """Create the profile header menu."""
+
+    def is_not_read_only():
+        """Hide element menu if the flag is ready only."""
+        return not current_app.config.get(
+            'RERO_PUBLIC_USERPROFILES_READONLY', False) and \
+            current_user.is_authenticated
+
     item = current_menu.submenu('main.profile')
     rero_register(
         item,
@@ -309,6 +320,10 @@ def init_menu_profile():
     rero_register(
         item,
         endpoint=profile_endpoint,
+        endpoint_arguments_constructor=lambda: dict(
+            viewcode=request.view_args.get(
+                'viewcode', current_app.config.get(
+                    'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))),
         visible_when=lambda: len(current_patrons) > 0,
         text=TextWithIcon(
             icon='<i class="fa fa-book"></i>',
@@ -321,8 +336,12 @@ def init_menu_profile():
     item = current_menu.submenu('main.profile.edit_profile')
     rero_register(
         item,
-        endpoint='invenio_userprofiles.profile',
-        visible_when=lambda: current_user.is_authenticated,
+        endpoint='users.profile',
+        endpoint_arguments_constructor=lambda: dict(
+            viewcode=request.view_args.get(
+                'viewcode', current_app.config.get(
+                    'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))),
+        visible_when=lambda: is_not_read_only(),
         text=TextWithIcon(
             icon='<i class="fa fa-user"></i>',
             text='Edit my profile'
@@ -334,8 +353,12 @@ def init_menu_profile():
     item = current_menu.submenu('main.profile.change_password')
     rero_register(
         item,
-        endpoint='security.change_password',
-        visible_when=lambda: current_user.is_authenticated,
+        endpoint='users.password',
+        endpoint_arguments_constructor=lambda: dict(
+            viewcode=request.view_args.get(
+                'viewcode', current_app.config.get(
+                    'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))),
+        visible_when=lambda: is_not_read_only(),
         text=TextWithIcon(
             icon='<i class="fa fa-lock"></i>',
             text='Change password'
@@ -347,12 +370,13 @@ def init_menu_profile():
     # Endpoint for:
     # Application: invenio_oauth2server_settings.index
     # Security: invenio_accounts.security
-
     item = current_menu.submenu('main.profile.signup')
     rero_register(
         item,
         endpoint='security.register',
-        visible_when=lambda: not current_user.is_authenticated,
+        visible_when=lambda: not current_app.config.get(
+            'RERO_PUBLIC_USERPROFILES_READONLY', False) and
+        not current_user.is_authenticated,
         text=TextWithIcon(
             icon='<i class="fa fa-user-plus"></i>',
             text='Sign Up'

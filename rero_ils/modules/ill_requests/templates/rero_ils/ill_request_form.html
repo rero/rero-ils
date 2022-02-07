@@ -27,7 +27,7 @@
     <p class="mb-0">{{ _('A well detailed request is more likely to be satisfied') }}</p>
   </div>
 
-  <form id="ill-public-form" action="{{ url_for('ill_requests.ill_request_form') }}" method="POST" class="form" role="form" novalidate>
+  <form id="ill-public-form" action="{{ url_for('ill_requests.ill_request_form', viewcode=viewcode) }}" method="POST" class="form" role="form" novalidate>
     {{ form.hidden_tag() }}
     {%- if form.csrf_token and form.csrf_token.errors %}
       <div class="alert alert-danger" role="alert">
