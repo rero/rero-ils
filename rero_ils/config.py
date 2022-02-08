@@ -2705,6 +2705,10 @@ RERO_ILS_STATS_BILLING_TIMEFRAME_IN_MONTHES = 3
 # NOTIFICATIONS MODULE SPECIFIC SETTINGS
 # =============================================================================
 
+# Define which notification types must be disabled. If system try to create a
+# notification with this type, the notification will not be created.
+RERO_ILS_DISABLED_NOTIFICATION_TYPE = []
+
 # Define which files should be considered as a template file. Each full_path
 # file matching one of the specific regular expression will be considered.
 RERO_ILS_NOTIFICATIONS_ALLOWED_TEMPLATE_FILES = [
