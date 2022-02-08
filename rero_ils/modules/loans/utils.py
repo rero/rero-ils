@@ -20,6 +20,7 @@ import math
 from datetime import datetime, timedelta, timezone
 
 import ciso8601
+from flask import current_app
 
 from .api import get_any_loans_by_item_pid_by_patron_pid
 from ..circ_policies.api import CircPolicy
@@ -103,11 +104,17 @@ def get_extension_params(loan=None, initial_loan=None, parameter_name=None):
         'duration_default': policy.get('renewal_duration')
     }
 
-    # Get library (to check opening hours)
+    # Get settings/records used to compute the duration:
+    #   * 'CIRCULATION_POLICIES' from app configuration.
+    #   * library (to check opening hours)
+    config_settings = current_app.config['CIRCULATION_POLICIES']['extension']
     library = Library.get_record_by_pid(loan.library_pid)
 
-    now_in_utc = datetime.now(timezone.utc)
-    now_in_library_timezone = now_in_utc.astimezone(tz=library.get_timezone())
+    if config_settings['from_end_date']:
+        trans_date_tz = end_date
+    else:
+        now_in_utc = datetime.now(timezone.utc)
+        trans_date_tz = now_in_utc.astimezone(tz=library.get_timezone())
 
     # Due date should be defined differently from checkout_duration
     # For that we use:
@@ -121,27 +128,19 @@ def get_extension_params(loan=None, initial_loan=None, parameter_name=None):
     #        This check is now done previously by `CircPolicies.allow_checkout`
     #        method. This was not the place for this ; this function should
     #        only return the loan duration.
-    due_date_eve = now_in_library_timezone \
+    due_date_eve = trans_date_tz \
         + timedelta(days=policy.get('renewal_duration')) \
         - timedelta(days=1)
-
     next_open_date = library.next_open(date=due_date_eve)
 
     if next_open_date.date() < end_date.date():
         params['max_count'] = 0
 
-    # all libraries are closed at 23h59
-    # the next_open returns UTC.
-    end_date_in_library_timezone = next_open_date.astimezone(
-        library.get_timezone()).replace(
-            hour=23,
-            minute=59,
-            second=0,
-            microsecond=0
-        )
-    params['duration_default'] = \
-        end_date_in_library_timezone - now_in_library_timezone
-
+    # all libraries are closed at 23h59 --> the `next_open` returns UTC.
+    end_date_in_library_timezone = next_open_date\
+        .astimezone(library.get_timezone())\
+        .replace(hour=23, minute=59, second=0, microsecond=0)
+    params['duration_default'] = end_date_in_library_timezone - trans_date_tz
     return params.get(parameter_name)
 
 

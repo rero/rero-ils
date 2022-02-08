@@ -19,6 +19,7 @@
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 
+import ciso8601
 import pytest
 from invenio_circulation.errors import CirculationException
 from utils import item_record_to_a_specific_loan_state
@@ -27,6 +28,7 @@ from rero_ils.modules.circ_policies.api import CircPolicy
 from rero_ils.modules.errors import NoCirculationAction
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.libraries.api import Library
+from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.models import LoanAction, LoanState
 from rero_ils.modules.loans.utils import get_circ_policy
 from rero_ils.modules.patron_transactions.utils import \
@@ -175,24 +177,78 @@ def test_extend_on_item_at_desk(
 
 
 def test_extend_on_item_on_loan_with_no_requests(
-        item_on_loan_martigny_patron_and_loan_on_loan,
-        loc_public_martigny, librarian_martigny,
+        app, item_on_loan_martigny_patron_and_loan_on_loan,
+        loc_public_martigny, librarian_martigny, lib_martigny,
         circulation_policies):
     """Test extend an on_loan item."""
     # the following tests the circulation action EXTEND_3_1
     # for an on_loan item with no requests, the extend action is possible.
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
+    settings = deepcopy(app.config['CIRCULATION_POLICIES']['extension'])
+    cipo = get_circ_policy(loan)
 
+    # FIRST TEST :: Extends expected from loan 'end_date'
+    #   The loan will be extended by 'extension_duration' days from related
+    #   circulation policies excepting if some closed date exist for the
+    #   related library. As the checkout already set the 'end_date' to the end
+    #   of day, no timedelta should appears on hour/min/sec new end_date
+    app.config['CIRCULATION_POLICIES']['extension']['from_end_date'] = True
     # Update loan `end_date` to play with "extend" function without problem
-    loan['end_date'] = loan['start_date']
-    loan.update(loan, dbcommit=True, reindex=True)
-
+    end_date = ciso8601.parse_datetime(str(loan.get('end_date')))
+    start_date = ciso8601.parse_datetime(str(loan.get('start_date')))
+    end_date = end_date.replace(
+        year=start_date.year,
+        month=start_date.month,
+        day=start_date.day
+    )
+    loan['end_date'] = end_date.isoformat()
+    start_date = datetime.now() - timedelta(days=cipo['checkout_duration'])
+    loan['start_date'] = start_date.isoformat()
+    loan['transaction_date'] = start_date.isoformat()
+    initial_loan_data = deepcopy(loan)
+    initial_loan = loan.update(loan, dbcommit=True, reindex=True)
+    # Extend the loan
     params = {
         'transaction_location_pid': loc_public_martigny.pid,
         'transaction_user_pid': librarian_martigny.pid
     }
     item, actions = item.extend_loan(**params)
     assert item.status == ItemStatus.ON_LOAN
+    extended_loan = Loan.get_record_by_pid(initial_loan.pid)
+
+    init_end_date = ciso8601.parse_datetime(str(initial_loan.end_date))
+    expected_date = init_end_date + timedelta(days=cipo['renewal_duration'])
+    expected_date_eve = expected_date - timedelta(days=1)
+    expected_date = lib_martigny.next_open(expected_date_eve)
+
+    ext_end_date = ciso8601.parse_datetime(str(extended_loan.end_date))
+    assert expected_date.strftime('%Y%m%d') == ext_end_date.strftime('%Y%m%d')
+
+    # SECOND TEST :: Extends expected from loan `transaction_date`
+    #   The loan will also be extended from 'extension_duration' days excepting
+    #   library possible closed dates. But new end_date time should always
+    #   match end_of_the_day regardless the transaction_date.
+
+    app.config['CIRCULATION_POLICIES']['extension']['from_end_date'] = False
+    initial_loan = loan.update(initial_loan_data, dbcommit=True, reindex=True)
+    # Extend the loan
+    params = {
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny.pid
+    }
+    item, actions = item.extend_loan(**params)
+    assert item.status == ItemStatus.ON_LOAN
+    extended_loan = Loan.get_record_by_pid(initial_loan.pid)
+
+    expected_date = datetime.now() + timedelta(days=cipo['renewal_duration'])
+    expected_date_eve = expected_date - timedelta(days=1)
+    expected_date = lib_martigny.next_open(expected_date_eve)
+
+    ext_end_date = ciso8601.parse_datetime(str(extended_loan.end_date))
+    assert expected_date.strftime('%Y%m%d') == ext_end_date.strftime('%Y%m%d')
+
+    # Reset the application configuration
+    app.config['CIRCULATION_POLICIES']['extension'] = settings
 
 
 def test_extend_on_item_on_loan_with_requests(
