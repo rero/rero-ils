@@ -429,6 +429,70 @@ def test_recall_notification(client, patron_sion, lib_sion,
     assert len(mailbox) == 0
 
 
+def test_recall_notification_with_disabled_config(
+    app, client, librarian_martigny, item3_lib_martigny,
+    patron_sion, loc_public_martigny, patron2_martigny, lib_martigny,
+    circulation_policies, mailbox
+):
+    """Test the recall notification if app config disable it."""
+    initial_config = deepcopy(
+        app.config.get('RERO_ILS_DISABLED_NOTIFICATION_TYPE', []))
+    app.config.setdefault('RERO_ILS_DISABLED_NOTIFICATION_TYPE', []).append(
+        NotificationType.RECALL)
+
+    # STEP#0 :: INIT
+    #   Create a checkout
+    mailbox.clear()
+    login_user_via_session(client, librarian_martigny.user)
+    res, data = postdata(client, 'api_item.checkout', dict(
+        item_pid=item3_lib_martigny.pid,
+        patron_pid=patron_sion.pid,
+        transaction_location_pid=loc_public_martigny.pid,
+        transaction_user_pid=librarian_martigny.pid,
+    ))
+    assert res.status_code == 200
+    loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
+    loan = Loan.get_record_by_pid(loan_pid)
+    assert not get_notification(loan, NotificationType.RECALL)
+
+    # STEP#1 :: CREATE A REQUEST ON THIS ITEM
+    #    A request on a checkout item should be create a 'recall' notification.
+    #    But as 'recall' type is disabled from app config, no notification
+    #    must be created/sent.
+    res, data = postdata(client, 'api_item.librarian_request', dict(
+        item_pid=item3_lib_martigny.pid,
+        pickup_location_pid=loc_public_martigny.pid,
+        patron_pid=patron2_martigny.pid,
+        transaction_library_pid=lib_martigny.pid,
+        transaction_user_pid=librarian_martigny.pid
+    ))
+    request_loan_pid = data.get(
+        'action_applied')[LoanAction.REQUEST].get('pid')
+    assert res.status_code == 200
+    flush_index(NotificationsSearch.Meta.index)
+
+    notification = get_notification(loan, NotificationType.RECALL)
+    assert not notification
+    assert len(mailbox) == 0
+
+    # RESET
+    #  * Reset application configuration
+    #  * Cancel the request, checkin the item
+    app.config['RERO_ILS_DISABLED_NOTIFICATION_TYPE'] = initial_config
+    res, _ = postdata(client, 'api_item.cancel_item_request', dict(
+        item_pid=item3_lib_martigny.pid,
+        pid=request_loan_pid,
+        transaction_user_pid=librarian_martigny.pid,
+        transaction_library_pid=lib_martigny.pid
+    ))
+    assert res.status_code == 200
+    params = {
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny.pid
+    }
+    _, actions = item3_lib_martigny.checkin(**params)
+
+
 def test_recall_notification_without_email(
         client, patron_sion_without_email1, lib_martigny,
         json_header, patron2_martigny,

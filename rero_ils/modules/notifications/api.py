@@ -24,6 +24,8 @@ from abc import ABC, abstractmethod
 from datetime import datetime
 from functools import partial
 
+from flask import current_app
+
 from .extensions import NotificationSubclassExtension
 from .models import NotificationIdentifier, NotificationMetadata, \
     NotificationStatus
@@ -101,6 +103,11 @@ class Notification(IlsRecord, ABC):
     def create(cls, data, id_=None, delete_pid=False, dbcommit=False,
                reindex=False, **kwargs):
         """Create notification record."""
+        # Check if the notification_type is disabled by app configuration
+        if data.get('notification_type') in current_app.config.get(
+                'RERO_ILS_DISABLED_NOTIFICATION_TYPE', []):
+            return
+
         data.setdefault('status', NotificationStatus.CREATED)
         record = super().create(data, id_, delete_pid, dbcommit, reindex,
                                 **kwargs)

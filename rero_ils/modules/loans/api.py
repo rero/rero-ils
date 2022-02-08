@@ -889,10 +889,10 @@ class Loan(IlsRecord):
 
             # create the notification and enqueue it.
             if create:
-                notifications.append(self._create_notification_resource(
-                    record,
-                    dispatch=dispatch
-                ))
+                notification = self._create_notification_resource(
+                    record, dispatch=dispatch)
+                if notification:
+                    notifications.append(notification)
         return notifications
 
     @classmethod
@@ -905,7 +905,7 @@ class Loan(IlsRecord):
         """
         notification = Notification.create(
             data=record, dbcommit=True, reindex=True)
-        if dispatch:
+        if dispatch and notification:
             NotificationDispatcher.dispatch_notifications(
                 notification_pids=[notification.get('pid')]
             )
