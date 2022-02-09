@@ -106,7 +106,13 @@ def get_provisional_items_pids_candidate_to_delete():
         .filter('range', total_amount={'gt': 0})\
         .source('item')
     # list of item pids with open fees
-    item_pids_with_fees = [hit.item.pid for hit in query_fees.scan()]
+    item_pids_with_fees = []
+    try:
+        for hit in query_fees.scan():
+            if hit.item:
+                item_pids_with_fees.append(hit.item.pid)
+    except AttributeError:
+        pass
     query = ItemsSearch()\
         .filter('term', type=TypeOfItem.PROVISIONAL) \
         .filter('terms', status=[ItemStatus.ON_SHELF]) \
