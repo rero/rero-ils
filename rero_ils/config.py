@@ -392,13 +392,13 @@ CELERY_BEAT_SCHEDULE = {
         'enabled': False
     },
     'replace-idby-contribution': {
-        'task': ('rero_ils.modules.documents.tasks.replace-idby-contribution'),
+        'task': ('rero_ils.modules.documents.tasks.replace_idby_contribution'),
         'schedule': crontab(minute=22, hour=22, day_of_week=6),
         # Every week on Saturday at 22:22 UTC,
         'enabled': False
     },
     'replace_idby-subjects': {
-        'task': ('rero_ils.modules.documents.tasks.replace_idby-subjects'),
+        'task': ('rero_ils.modules.documents.tasks.replace_idby_subjects'),
         'schedule': crontab(minute=22, hour=22, day_of_week=6),
         # Every week on Saturday at 22:22 UTC,
         'enabled': False
