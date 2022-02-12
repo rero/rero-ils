@@ -311,20 +311,20 @@ setup(
         ],
         'invenio_search.templates': [
             'rero_ils = rero_ils.es_templates:list_es_templates',
-            'operation_logs = rero_ils.modules.operation_logs'
-                              '.es_templates:list_es_templates',
+            'operation_logs = rero_ils.modules.operation_logs.es_templates:list_es_templates',
         ],
         'invenio_celery.tasks': [
             'apiharvester = rero_ils.modules.apiharvester.tasks',
+            'collections = rero_ils.modules.collections.tasks',
+            'documents = rero_ils.modules.documents.tasks',
             'ebooks = rero_ils.modules.ebooks.tasks',
+            'holdings = rero_ils.modules.holdings.tasks',
+            'items = rero_ils.modules.items.tasks',
+            'loans = rero_ils.modules.loans.tasks',
             'modules = rero_ils.modules.tasks',
             'notifications = rero_ils.modules.notifications.tasks',
             'patrons = rero_ils.modules.patrons.tasks',
-            'rero_ils_collections = rero_ils.modules.collections.tasks',
-            'claims = rero_ils.modules.items.tasks',
-            'loans = rero_ils.modules.loans.tasks',
             'stats = rero_ils.modules.stats.tasks',
-            'holdings = rero_ils.modules.holdings.tasks',
         ],
         'invenio_records.jsonresolver': [
             'acq_accounts = rero_ils.modules.acq_accounts.jsonresolver',
