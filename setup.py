@@ -145,13 +145,14 @@ setup(
             '.contrib.unimarctojson:unimarc',
         ],
         'flask.commands': [
-            'reroils = rero_ils.modules.cli.reroils:reroils',
             'apiharvester = rero_ils.modules.apiharvester.cli:apiharvester',
+            'contribution = rero_ils.modules.contributions.cli:contribution',
             'monitoring = rero_ils.modules.monitoring.cli:monitoring',
             'notifications = rero_ils.modules.notifications.cli:notifications',
-            'stats = rero_ils.modules.stats.cli:stats',
             'oaiharvester = rero_ils.modules.ebooks.cli:oaiharvester',
+            'reroils = rero_ils.modules.cli.reroils:reroils',
             'scheduler = rero_ils.schedulers:scheduler',
+            'stats = rero_ils.modules.stats.cli:stats',
         ],
         'invenio_db.alembic': [
             'rero_ils = rero_ils:alembic',

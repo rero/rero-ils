@@ -23,7 +23,7 @@
 from flask import url_for
 from utils import get_json, postdata, to_relative_url
 
-from rero_ils.modules.contributions.api import ContributionType
+from rero_ils.modules.contributions.models import ContributionType
 
 
 def test_contributions_permissions(client, contribution_person, json_header):

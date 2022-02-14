@@ -441,7 +441,7 @@ def create_authorized_access_point(agent):
     if not agent:
         return None
     authorized_access_point = agent.get('preferred_name')
-    from ..contributions.api import ContributionType
+    from ..contributions.models import ContributionType
     if agent.get('type') == ContributionType.PERSON:
         date_of_birth = agent.get('date_of_birth')
         date_of_death = agent.get('date_of_death')
