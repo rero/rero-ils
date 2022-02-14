@@ -22,14 +22,16 @@ from functools import partial
 
 import requests
 from elasticsearch_dsl import A
+from elasticsearch_dsl.query import Q
 from flask import current_app
 from invenio_db import db
 from requests import codes as requests_codes
 from requests.exceptions import RequestException
 
-from .models import ContributionIdentifier, ContributionMetadata
+from .models import ContributionIdentifier, ContributionMetadata, \
+    ContributionUpdateAction
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from ..documents.api import DocumentsSearch
+from ..documents.api import DocumentsIndexer, DocumentsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
@@ -45,13 +47,6 @@ ContributionProvider = type(
 contribution_id_minter = partial(id_minter, provider=ContributionProvider)
 # fetcher
 contribution_id_fetcher = partial(id_fetcher, provider=ContributionProvider)
-
-
-class ContributionType:
-    """Class holding all availabe contribution types."""
-
-    ORGANISATION = 'bf:Organisation'
-    PERSON = 'bf:Person'
 
 
 class ContributionsSearch(IlsRecordsSearch):
@@ -244,28 +239,56 @@ class Contribution(IlsRecord):
             language=language
         )
 
-    def update_online(self, dbcommit=False, reindex=False):
+    def documents_pids(self, with_subjects=True):
+        """Get documents pids."""
+        search_filters = Q("term", contribution__agent__pid=self.pid)
+        if with_subjects:
+            subject_filters = Q("term", subjects__pid=self.pid) & \
+                Q("terms", subjects__type=['bf:Person', 'bf:Organisation'])
+            search_filters = search_filters | subject_filters
+
+        search = DocumentsSearch() \
+            .query('bool', filter=[search_filters]) \
+            .source('pid')
+
+        return [hit.pid for hit in search.scan()]
+
+    def update_online(self, dbcommit=False, reindex=False, verbose=False):
         """Update record online.
 
         :param reindex: reindex record by record
         :param dbcommit: commit record to database
+        :param verbose: verbose print
         :return: updated record status and updated record
         """
-        updated = False
-        viaf_pid = self.get('viaf_pid')
-        if viaf_pid:
-            try:
-                data = self._get_mef_data_by_type(viaf_pid, 'viaf')
-                if data:
-                    metadata = data['metadata']
-                    metadata['$schema'] = self['$schema']
-                    if dict(self) != metadata:
-                        updated = True
-                        self.replace(data=metadata, dbcommit=dbcommit,
-                                     reindex=reindex)
-            except Exception as err:
-                pass
-        return updated, self
+        action = ContributionUpdateAction.UPTODATE
+        pid = self.get('pid')
+        try:
+            data = self._get_mef_data_by_type(
+                pid=pid, pid_type='mef', verbose=verbose)
+            if data:
+                metadata = data['metadata']
+                metadata['$schema'] = self['$schema']
+                if metadata.get('deleted'):
+                    current_app.logger.warning(
+                        f'UPDATE ONLINE {pid}: was deleted')
+                    action = ContributionUpdateAction.ERROR
+                elif not metadata['sources']:
+                    current_app.logger.warning(
+                        f'UPDATE ONLINE {pid}: has no sources')
+                    action = ContributionUpdateAction.ERROR
+                elif dict(self) != metadata:
+                    action = ContributionUpdateAction.REPLACE
+                    self.replace(data=metadata, dbcommit=dbcommit,
+                                 reindex=reindex)
+                    if reindex:
+                        DocumentsIndexer.bulk_index(self.documents_pids())
+                        DocumentsIndexer.process_bulk_queue()
+        except Exception as err:
+            action = ContributionUpdateAction.ERROR
+            current_app.logger.warning(f'UPDATE ONLINE {pid}: {err}')
+            # TODO: find new MEF record
+        return action, self
 
 
 class ContributionsIndexer(IlsRecordsIndexer):

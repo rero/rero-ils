@@ -26,7 +26,8 @@ from flask_babelex import gettext as translate
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records_ui.signals import record_viewed
 
-from .api import Contribution, ContributionType
+from .api import Contribution
+from .models import ContributionType
 from ..documents.api import DocumentsSearch
 from ..organisations.api import Organisation
 from ...theme.views import url_active

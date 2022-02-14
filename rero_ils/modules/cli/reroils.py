@@ -27,6 +27,7 @@ from .index import index
 from .users import users
 from .utils import utils
 from ..apiharvester.cli import apiharvester
+from ..contributions.cli import contribution
 from ..ebooks.cli import oaiharvester
 from ..monitoring.cli import monitoring
 from ..notifications.cli import notifications
@@ -39,13 +40,14 @@ def reroils():
     """Reroils management commands."""
 
 
+reroils.add_command(apiharvester)
+reroils.add_command(contribution)
 reroils.add_command(fixtures)
 reroils.add_command(index)
-reroils.add_command(users)
-reroils.add_command(utils)
-reroils.add_command(apiharvester)
 reroils.add_command(monitoring)
 reroils.add_command(notifications)
-reroils.add_command(stats)
 reroils.add_command(oaiharvester)
 reroils.add_command(scheduler)
+reroils.add_command(stats)
+reroils.add_command(users)
+reroils.add_command(utils)

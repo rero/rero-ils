@@ -41,3 +41,18 @@ class ContributionMetadata(db.Model, RecordMetadataBase):
     """Contribution record metadata."""
 
     __tablename__ = 'contribution_metadata'
+
+
+class ContributionType:
+    """Class holding all availabe contribution types."""
+
+    ORGANISATION = 'bf:Organisation'
+    PERSON = 'bf:Person'
+
+
+class ContributionUpdateAction:
+    """Class holding all availabe agent record creation actions."""
+
+    REPLACE = 'replace'
+    UPTODATE = 'uptodate'
+    ERROR = 'error'

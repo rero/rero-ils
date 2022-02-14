@@ -23,7 +23,8 @@ import click
 from celery import shared_task
 from flask import current_app
 
-from .api import Contribution
+from .api import Contribution, ContributionUpdateAction
+from ..utils import set_timestamp
 
 
 @shared_task(ignore_result=True)
@@ -83,3 +84,32 @@ def create_mef_record_online(ref):
     if contribution:
         pid = contribution.get('pid')
     return pid, online
+
+
+@shared_task(ignore_result=True)
+def update_contributions(pids=None, dbcommit=True, reindex=True, verbose=False,
+                         timestamp=True):
+    """Update contributions.
+
+    :param pids: contribution pids to update, default ALL.
+    :param dbcommit: if True call dbcommit, make the change effective in db.
+    :param reindex: reindex the record.
+    :param verbose: verbose print.
+    :param timestamp: create timestamp.
+    """
+    pids = pids or Contribution.get_all_pids()
+    log = {}
+    error_pids = []
+    for pid in pids:
+        cont = Contribution.get_record_by_pid(pid)
+        msg, _ = cont.update_online(dbcommit=dbcommit, reindex=reindex,
+                                    verbose=verbose)
+        log.setdefault(msg, 0)
+        if verbose and msg != ContributionUpdateAction.UPTODATE:
+            click.echo(f'{pid:>10}: {msg}')
+        if ContributionUpdateAction.ERROR:
+            error_pids.append(pid)
+        log[msg] += 1
+    if timestamp:
+        set_timestamp('update_contributions', msg=log)
+    return log, error_pids
