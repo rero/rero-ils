@@ -1,5 +1,67 @@
 # Changelog
 
+## [v1.9.0](https://github.com/rero/rero-ils/tree/v1.9.0) (2022-02-17)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.8.0...v1.9.0)
+
+**Implemented enhancements:**
+
+- Public interface: redirect directly to the patron profile after loging in [\#2701](https://github.com/rero/rero-ils/issues/2701)
+- Scanning a patron barcode in the circulation interface gives the following error: "Patron or item not found" [\#2677](https://github.com/rero/rero-ils/issues/2677)
+- Document editor: field Type : add a new main type with subtypes [\#2666](https://github.com/rero/rero-ils/issues/2666)
+- Allow to enable/disable notification creation by `config` settings [\#2665](https://github.com/rero/rero-ils/issues/2665)
+- Convert steps dates in iso format for patron overdue preview [\#2629](https://github.com/rero/rero-ils/issues/2629)
+- Inventory : Add a checkout and due date to the export [\#2611](https://github.com/rero/rero-ils/issues/2611)
+- Library holidays: add an open option for a period [\#2577](https://github.com/rero/rero-ils/issues/2577)
+- Improve the Holdings detail view \(Issue's section\) [\#2554](https://github.com/rero/rero-ils/issues/2554)
+- RERO+ logo on login page [\#2544](https://github.com/rero/rero-ils/issues/2544)
+- Add the edition statements in the search result \(document brief views\) [\#2429](https://github.com/rero/rero-ils/issues/2429)
+- Creation date mentioned in patron account [\#2377](https://github.com/rero/rero-ils/issues/2377)
+- Inventory list: add a facet for the temporary circulation category and temporary location [\#2364](https://github.com/rero/rero-ils/issues/2364)
+- Document : Display subtitle in brief view \(public and professional\) [\#2335](https://github.com/rero/rero-ils/issues/2335)
+- `responsibilityStatement` should be a quick access field [\#2324](https://github.com/rero/rero-ils/issues/2324)
+
+**Fixed bugs:**
+
+- Item availability is not displayed in 3 situations [\#2170](https://github.com/rero/rero-ils/issues/2170)
+- Calculation of fees based on the library of the renewal or checkin, instead of the library of the checkout [\#2683](https://github.com/rero/rero-ils/issues/2683)
+- `request` notification not sent if library settings is incomplete [\#2656](https://github.com/rero/rero-ils/issues/2656)
+- `educationalSheet` is not translated in the public interface [\#2654](https://github.com/rero/rero-ils/issues/2654)
+- Incremental overdue fees should always be calculated according to the checkout library's opening days [\#2640](https://github.com/rero/rero-ils/issues/2640)
+- Document editor : missing value "bul-latn"and "bul-cyrl" in language drop down menu [\#2628](https://github.com/rero/rero-ils/issues/2628)
+- Error when deleting a fine  [\#2602](https://github.com/rero/rero-ils/issues/2602)
+- Translation: Some strings not extracted [\#2601](https://github.com/rero/rero-ils/issues/2601)
+- Search gives no result after applying a sort [\#2562](https://github.com/rero/rero-ils/issues/2562)
+- Search parameter `bestmatch` should not be required [\#2527](https://github.com/rero/rero-ils/issues/2527)
+- Some `availability` and `overdue` notifications are not sent [\#2495](https://github.com/rero/rero-ils/issues/2495)
+- Circ policies: overdue fees not displayed if the reminders are not configured [\#2325](https://github.com/rero/rero-ils/issues/2325)
+- Holdings detailed view: masked items \(issues\) are displayed with an icon "not masked". [\#2240](https://github.com/rero/rero-ils/issues/2240)
+
+**Closed issues:**
+
+- Availability of serials \(at the document level\) should be "See collections and items" if a serial holding is attached [\#2502](https://github.com/rero/rero-ils/issues/2502)
+
+**Merged pull requests:**
+
+- document: fix invenio\_celery.tasks endpoints. [\#2696](https://github.com/rero/rero-ils/pull/2696) ([rerowep](https://github.com/rerowep))
+- notification: disable notifications creation by config [\#2690](https://github.com/rero/rero-ils/pull/2690) ([zannkukai](https://github.com/zannkukai))
+- patron transaction event: fix decimal amount [\#2682](https://github.com/rero/rero-ils/pull/2682) ([zannkukai](https://github.com/zannkukai))
+- circulation: compute fees on checkout location [\#2678](https://github.com/rero/rero-ils/pull/2678) ([zannkukai](https://github.com/zannkukai))
+- vendor: allow more flexibility on phone number. [\#2671](https://github.com/rero/rero-ils/pull/2671) ([zannkukai](https://github.com/zannkukai))
+- general: fix RERO logo for sign-in sign-up page. [\#2669](https://github.com/rero/rero-ils/pull/2669) ([zannkukai](https://github.com/zannkukai))
+- document: add `teaching material` document type [\#2668](https://github.com/rero/rero-ils/pull/2668) ([zannkukai](https://github.com/zannkukai))
+- holdings: serial issue isn't new acquisition [\#2667](https://github.com/rero/rero-ils/pull/2667) ([zannkukai](https://github.com/zannkukai))
+- document: fix `educationalSheet` translation [\#2664](https://github.com/rero/rero-ils/pull/2664) ([zannkukai](https://github.com/zannkukai))
+- notifications: refactoring email getter function [\#2657](https://github.com/rero/rero-ils/pull/2657) ([zannkukai](https://github.com/zannkukai))
+- dependencies: update the dependencies lock file [\#2655](https://github.com/rero/rero-ils/pull/2655) ([jma](https://github.com/jma))
+- items: dump `request date` for any loan request [\#2646](https://github.com/rero/rero-ils/pull/2646) ([zannkukai](https://github.com/zannkukai))
+- patron\_types: add a limit for unpaid subscription [\#2644](https://github.com/rero/rero-ils/pull/2644) ([zannkukai](https://github.com/zannkukai))
+- patrons: use ISO format for dates into API [\#2642](https://github.com/rero/rero-ils/pull/2642) ([zannkukai](https://github.com/zannkukai))
+- document: set `responsibilities` as essential field [\#2641](https://github.com/rero/rero-ils/pull/2641) ([zannkukai](https://github.com/zannkukai))
+- document: add Bulgarian script languages [\#2638](https://github.com/rero/rero-ils/pull/2638) ([zannkukai](https://github.com/zannkukai))
+- item: fix item availability API. [\#2634](https://github.com/rero/rero-ils/pull/2634) ([zannkukai](https://github.com/zannkukai))
+- search: add facets for inventory list [\#2612](https://github.com/rero/rero-ils/pull/2612) ([lauren-d](https://github.com/lauren-d))
+
 ## [v1.8.0](https://github.com/rero/rero-ils/tree/v1.8.0) (2022-01-20)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.7.0...v1.8.0)
@@ -44,8 +106,6 @@
 - professional: fix patron type creation [\#2566](https://github.com/rero/rero-ils/pull/2566) ([jma](https://github.com/jma))
 - documents: replace identifiedBy subjects with $ref [\#2558](https://github.com/rero/rero-ils/pull/2558) ([rerowep](https://github.com/rerowep))
 - holdings/items: remove query filter and add a sort on the holdings [\#2528](https://github.com/rero/rero-ils/pull/2528) ([Garfield-fr](https://github.com/Garfield-fr))
-
-# Changelog
 
 ## [v1.7.0](https://github.com/rero/rero-ils/tree/v1.7.0) (2021-12-13)
 
