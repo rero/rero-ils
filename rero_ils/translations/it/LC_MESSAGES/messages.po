@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2022-01-11 14:54+0100\n"
-"PO-Revision-Date: 2022-01-12 09:32+0000\n"
+"PO-Revision-Date: 2022-02-14 10:45+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/it/>\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 4.11-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: rero_ils/accounts_views.py:46 rero_ils/accounts_views.py:69
@@ -74,7 +74,7 @@ msgstr "Catalogo globale"
 
 #: rero_ils/config.py:1931
 msgid "author"
-msgstr "Autore"
+msgstr "autore"
 
 #: rero_ils/config.py:1932 rero_ils/config.py:1990
 msgid "document_type"
@@ -319,7 +319,7 @@ msgstr "richiesta"
 
 #: rero_ils/manual_translations.txt:56
 msgid "validate_request"
-msgstr "validazione della richiesta"
+msgstr "validare la richiesta"
 
 #: rero_ils/manual_translations.txt:59
 msgid "Tools"
@@ -4470,7 +4470,7 @@ msgstr "Non può avere più note dello stesso tipo."
 
 #: rero_ils/modules/acq_order_lines/extensions.py:63
 msgid "Cannot link to an harvested document"
-msgstr ""
+msgstr "Non può collegare ad un documento raccolto"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:5
 msgid "JSON schema for acquisition order line."
@@ -4490,7 +4490,7 @@ msgstr "Priorità"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:43
 msgid "The higher the number, the higher the priority."
-msgstr ""
+msgstr "Più alto è il numero, più alta è la priorità."
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:56
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:65
@@ -4589,7 +4589,7 @@ msgstr "Tipo"
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:117
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:125
 msgid "vendor_note"
-msgstr ""
+msgstr "nota per il fornitore"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:121
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:129
@@ -4634,7 +4634,7 @@ msgstr "Data dell'ordine"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:185
 msgid "Receipt date"
-msgstr ""
+msgstr "Data di ricezione"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:217
 #: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:112
@@ -4664,12 +4664,12 @@ msgstr "Annullato"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:295
 msgid "If checked this order line should be considerate as cancelled."
-msgstr ""
+msgstr "Se abilitato, questa riga d'ordine è considerata come cancellata."
 
 #: rero_ils/modules/acq_orders/api.py:365
 #, python-format
 msgid "Order status is %s"
-msgstr ""
+msgstr "Il statuto dell'ordine è %s"
 
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:5
 msgid "JSON schema for Acquisition Order."
@@ -4690,7 +4690,7 @@ msgstr "Riferimento"
 
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:45
 msgid "This reference number already exists."
-msgstr ""
+msgstr "Questo numero di riferimento esiste già."
 
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:67
 msgid "monograph"
@@ -4718,7 +4718,7 @@ msgstr "multiparte"
 
 #: rero_ils/modules/acq_receipt_lines/extensions.py:68
 msgid "Received quantity is grower than ordered quantity"
-msgstr ""
+msgstr "La quantità ricevuta è maggiore della quantità ordinata"
 
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:4
 msgid "Acquisition receipt line"
