@@ -183,7 +183,7 @@ class Holding(IlsRecord):
         if can:
             if self.is_serial:
                 # Delete all attached items
-                for item in self.get_items:
+                for item in self.get_all_items():
                     item.delete(
                         force=force, dbcommit=dbcommit, delindex=False)
             return super().delete(
@@ -371,6 +371,12 @@ class Holding(IlsRecord):
                     if issue_call_number:
                         item['call_number'] = issue_call_number
                     yield item
+
+    def get_all_items(self):
+        """Return all items a holding record."""
+        for item_pid in Item.get_items_pid_by_holding_pid(self.pid):
+            item = Item.get_record_by_pid(item_pid)
+            yield item
 
     def get_links_to_me(self, get_pids=False):
         """Record links.
