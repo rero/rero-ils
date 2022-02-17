@@ -171,7 +171,7 @@ class Patron(IlsRecord):
                     break
         self._validate_emails()
         if validation_message is not True:
-            raise ValidationError(validation_message)
+            raise ValidationError(';'.join(validation_message))
         return json
 
     def _validate_emails(self):

@@ -188,11 +188,19 @@ class IlsRecord(Record):
                     )
         if not id_:
             id_ = uuid4()
-        cls.minter(id_, data)
+        persistent_identifier = cls.minter(id_, data)
         cls.pid_check = pidcheck
-        record = super().create(data=data, id_=id_, **kwargs)
-        if dbcommit:
-            record.dbcommit(reindex)
+        try:
+            record = super().create(data=data, id_=id_, **kwargs)
+            if dbcommit:
+                record.dbcommit(reindex)
+        except Exception as err:
+            # delete the created persistent identifier
+            db.session.delete(persistent_identifier)
+            db.session.commit()
+            current_app.logger.error(
+                f'{cls.__name__} data:{data} err:{err}')
+            raise
         return record
 
     @classmethod

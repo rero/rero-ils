@@ -114,7 +114,7 @@ class Document(IlsRecord):
                         not_required={'doc': 'partOf'}
                     ) or True
             if validation_message is not True:
-                raise ValidationError(validation_message)
+                raise ValidationError(';'.join(validation_message))
         return json
 
     @classmethod
