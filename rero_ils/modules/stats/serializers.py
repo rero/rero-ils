@@ -22,44 +22,104 @@ from flask import current_app
 from invenio_records_rest.serializers.csv import CSVSerializer, Line
 from invenio_records_rest.serializers.response import add_link_header
 
-# from invenio_records_rest.serializers.response import record_responsify
+from ..patrons.api import Patron
 
 
 class StatCSVSerializer(CSVSerializer):
-    """Mixin serializing records as JSON."""
+    """Process data to write in csv file."""
+
+    ordered_keys = [
+        'library id',
+        'library name',
+        'checkouts_for_transaction_library',
+        'checkouts_for_owning_library',
+        'renewals',
+        'validated_requests',
+        'active_patrons_by_postal_code',
+        'new_active_patrons_by_postal_code',
+        'items_by_document_type_and_subtype',
+        'new_items',
+        'new_items_by_location',
+        'new_documents',
+        'loans_of_transaction_library_by_item_location'
+    ]
 
     def _format_csv(self, records):
         """Return the list of records as a CSV string."""
         # build a unique list of all records keys as CSV headers
         assert len(records) == 1
         record = records[0]
-        headers = set(('library name', 'library id'))
-        for value in record['metadata']['values']:
-            headers.update([v for v in value.keys() if v != 'library'])
 
-        # write the CSV output in memory
-        line = Line()
-        writer = csv.DictWriter(line, fieldnames=sorted(headers))
-        writer.writeheader()
-        yield line.read()
-        # sort by library name
-        values = sorted(
-            record['metadata']['values'],
-            key=lambda v: v['library']['name']
-        )
-        for value in values:
-            library = value['library']
-            value['library name'] = library['name']
-            value['library id'] = library['pid']
-            del value['library']
-            for v in value:
-                if isinstance(value[v], dict):
-                    dict_to_text = ''
-                    for k, m in value[v].items():
-                        dict_to_text += f'{k} :{m}\r\n'
-                    value[v] = dict_to_text
-            writer.writerow(value)
+        if record['metadata'].get('type') == Patron.ROLE_LIBRARIAN:
+            # statistics of type librarian
+            headers = [key.capitalize().replace('_', ' ')
+                       for key in self.ordered_keys]
+            line = Line()
+            writer = csv.writer(line)
+            writer.writerow(headers)
             yield line.read()
+            values = sorted(
+                record['metadata']['values'],
+                key=lambda v: v['library']['name']
+            )
+
+            for value in values:
+                library = value['library']
+                value['library name'] = library['name']
+                value['library id'] = library['pid']
+                del value['library']
+                for v in value:
+                    if isinstance(value[v], dict):
+                        dict_to_text = ''
+                        for k, m in value[v].items():
+                            dict_to_text += f'{k} :{m}\r\n'
+                        value[v] = dict_to_text
+                value = StatCSVSerializer.sort_dict_by_key(value)[1]
+                writer.writerow(value)
+                yield line.read()
+        else:
+            # statistics of type billing
+            headers = set(('library name', 'library id'))
+            for value in record['metadata']['values']:
+                headers.update([v for v in value.keys() if v != 'library'])
+
+            # write the CSV output in memory
+            line = Line()
+            writer = csv.DictWriter(line, fieldnames=sorted(headers))
+            writer.writeheader()
+            yield line.read()
+            # sort by library name
+            values = sorted(
+                record['metadata']['values'],
+                key=lambda v: v['library']['name']
+            )
+
+            for value in values:
+                library = value['library']
+                value['library name'] = library['name']
+                value['library id'] = library['pid']
+                del value['library']
+                for v in value:
+                    if isinstance(value[v], dict):
+                        dict_to_text = ''
+                        for k, m in value[v].items():
+                            dict_to_text += f'{k} :{m}\r\n'
+                        value[v] = dict_to_text
+                writer.writerow(value)
+                yield line.read()
+
+    @classmethod
+    def sort_dict_by_key(cls, dictionary):
+        """Sort dict by dict of keys.
+
+        :param dictionary: dict - an input dictionary
+        :param ordered_keys: list - the ordered list keys
+        :returns: a list of tuples
+        :rtype: list
+        """
+        tuple_list = sorted(dictionary.items(),
+                            key=lambda x: cls.ordered_keys.index(x[0]))
+        return list(zip(*tuple_list))
 
     def process_dict(self, dictionary):
         """Transform record dict with nested keys to a flat dict.

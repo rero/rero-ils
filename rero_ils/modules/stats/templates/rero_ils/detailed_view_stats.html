@@ -19,25 +19,73 @@
   {%- extends 'rero_ils/page.html' %}
   {%- block page_body %}
   {%- block record_body %}
-  <div class="ml-5 mr-5 mt-2 mb-4">
-    {%- if record.pid %}
-      <a class="btn btn-primary float-right" href="/api/stats/{{record.pid}}?format=csv" role="button"><i class="fa fa-download"></i></a>
-    {%- endif %}
-    {%- if 'date_range' in record and 'from' in record.date_range %}
-      {% set stat_name = record.date_range.to|yearmonthfilter+
-      ' (from '+record.date_range.from.split('T')[0]+' to '+record.date_range.to.split('T')[0]+')'%}
-      <h2>{{_(stat_name)}}</h2>
-    {% else %}
-      <h2>{{record.created | string | format_date}}</h2>
-    {% endif %}
-    <div class="table-responsive">
-      <table class="table table-hover table-sm">
-        <thead>
-          <tr>
-            <th scope="col">{{_('Library id')}}</th>
-            <th scope="col">{{_('Library name')}}</th>
-            {%- for head in record['values'][0].keys() %}
-              {%- if head != 'library'%}
+  {%- if record.type == 'librarian' %}
+    {% set values = record['values']|sort_dict_by_library %}
+    <div class="ml-5 mr-5 mt-2 mb-4">
+      {%- if record.pid %}
+        <a class="btn btn-primary float-right" href="/api/stats/{{record.pid}}?format=csv" role="button"><i class="fa fa-download"></i></a>
+      {%- endif %}
+      {%- if 'date_range' in record and 'from' in record.date_range %}
+        {% set stat_name = record.date_range.to|yearmonthfilter+
+        ' (from '+record.date_range.from.split('T')[0]+' to '+record.date_range.to.split('T')[0]+')'%}
+        <h2>{{_(stat_name)}}</h2>
+      {% else %}
+        <h2>{{record.created | string | format_date}}</h2>
+      {% endif %}
+      <div class="table-responsive">
+        <table class="table table-hover table-sm">
+          <thead>
+            <tr>
+              {% set value = values[0] %}
+              {% set value = value|process_data %}
+              {% set value = value|sort_dict_by_key %}
+              {%- for head in value[0] %}
+                {% set formatted_head = head[0]|upper+head[1:].replace('_', ' ') %}
+                <th scope="col">{{_(formatted_head)}}</th>
+              {%- endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {%- for value in values %}
+              {% set value = value|process_data %}
+              {% set value = value|sort_dict_by_key %}
+              <tr>
+                {%- for val in value[1] %}
+                  {% if val is mapping %}
+                    <td scope="row">
+                      {%- for k in val %}
+                      <li class="list-unstyled"><small>{{k}}: {{val[k]}}</small></li>
+                      {%- endfor%}
+                    </td>
+                  {%- else %}
+                    <td scope="row"><small>{{val}}</small></td>
+                  {%- endif %}
+                {%- endfor%}
+              </tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  {%- else %}
+    <div class="ml-5 mr-5 mt-2 mb-4">
+      {%- if record.pid %}
+        <a class="btn btn-primary float-right" href="/api/stats/{{record.pid}}?format=csv" role="button"><i class="fa fa-download"></i></a>
+      {%- endif %}
+      {%- if 'date_range' in record and 'from' in record.date_range %}
+        {% set stat_name = record.date_range.to|yearmonthfilter+
+        ' (from '+record.date_range.from.split('T')[0]+' to '+record.date_range.to.split('T')[0]+')'%}
+        <h2>{{_(stat_name)}}</h2>
+      {% else %}
+        <h2>{{record.created | string | format_date}}</h2>
+      {% endif %}
+      {% set values = record['values'] %}
+      <div class="table-responsive">
+        <table class="table table-hover table-sm">
+          <thead>
+            <tr>
+              {% set val = values[0]|process_data %}
+              {%- for head in val.keys() %}
                 {%- if head == 'number_of_patrons_by_postal_code' %}
                   <th scope="col">{{_('Postal code: number of patrons')}}</th>
                 {%- elif head == 'number_of_new_items_by_location' %}
@@ -48,17 +96,14 @@
                   {% set other = head[0]|upper+head[1:].replace('_', ' ') %}
                   <th scope="col">{{_(other)}}</th>
                 {%- endif %}
-              {%- endif %}
-            {%- endfor %}
-          </tr>
-        </thead>
-        <tbody>
-          {%- for val in record['values'] %}
-          <tr>
-            <th scope="row"><small>{{val.library.pid}}</small></th>
-            <td scope="row"><small>{{val.library.name}}</small></td>
-            {%- for head in record['values'][0].keys() %}
-              {%- if head != 'library'%}
+              {%- endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {%- for val in values %}
+            {% set val = val|process_data %}
+            <tr>
+              {%- for head in val.keys() %}
                 {% if val[head] is mapping %}
                   <td scope="row">
                     {%- for k, v in val[head].items() %}
@@ -68,13 +113,13 @@
                 {%- else %}
                   <td scope="row"><small>{{val[head]}}</small></td>
                 {%- endif %}
-              {%- endif %}
-            {%- endfor%}
-          </tr>
-          {%- endfor %}
-        </tbody>
-      </table>
+              {%- endfor%}
+            </tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
+  {%- endif%}
   {%- endblock record_body %}
   {%- endblock page_body %}

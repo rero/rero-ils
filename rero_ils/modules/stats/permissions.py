@@ -108,8 +108,8 @@ def stats_ui_permission_factory(record, *args, **kwargs):
 def filter_stat_by_librarian(record):
     """Filter data for libraries of specific librarian/system_librarian.
 
-    :param record: Record to check.
-    :return: Record filtered by libraries.
+    :param record: statistics to check.
+    :return: statistics filtered by libraries.
     """
     library_pids = StatsForLibrarian.get_librarian_library_pids()
     record['values'] = list(filter(lambda l: l['library']['pid'] in
