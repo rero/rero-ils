@@ -70,13 +70,15 @@
     </tr>
     <tr>
       <td class="col-xs-12">
-        <a href="{{url_for('invenio_records_ui.stats', pid_value=rec._source.pid)}}">View statistics</a>
+        <a href="{{url_for('invenio_records_ui.stats', pid_value=rec._source.pid)}}">{{_('View statistics')}}</a>
         <a class="btn btn-outline-secondary float-right" href="/api/stats/{{rec._source.pid}}?format=csv" role="button"><i class="fa fa-download"></i></a>
       </td>
     </tr>
     <tr>
-      <td>Number of transactions by library and item location
-        <a class="btn btn-outline-secondary float-right" href="/stats/librarian/{{rec._source.pid}}/csv?query_id=1" role="button"><i class="fa fa-download"></i></a>
+      <td>{{_('Loans of the transaction library by item location')}}
+        <a class="btn btn-outline-secondary float-right"
+        href="{{url_for('stats.stats_librarian_queries', record_pid=rec._source.pid, query_id='loans_of_transaction_library_by_item_location')}}"
+        role="button"><i class="fa fa-download"></i></a>
       </td>
     </tr>
     {%- endfor %}

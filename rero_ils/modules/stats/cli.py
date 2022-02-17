@@ -83,12 +83,14 @@ def collect(type):
 @stats.command('collect_year')
 @click.argument('year', type=int)
 @click.argument('timespan', default='yearly')
+@click.option('--n_months', default=12)
 @click.option('-f', '--force', is_flag=True, default=False)
 @with_appcontext
-def collect_year(year, timespan, force):
+def collect_year(year, timespan, n_months, force):
     """Extract the stats librarian for one year and store them in db.
 
     :param year: year of statistics
+    :param n_months: month up to which the statistics are calculated
     :param timespan: time interval, can be 'montly' or 'yearly'
     :param force: force update of stat.
     """
@@ -96,7 +98,12 @@ def collect_year(year, timespan, force):
     type = 'librarian'
     if year:
         if timespan == 'montly':
-            for month in range(1, 13):
+            if n_months not in range(1, 13):
+                click.secho(f'ERROR: not a valid month', fg='red')
+                raise click.Abort()
+            n_months += 1
+
+            for month in range(1, n_months):
                 first_day = f'{year}-{month:02d}-01T23:59:59'\
                             .format(fmt='YYYY-MM-DDT23:59:59')
                 first_day = arrow.get(first_day, 'YYYY-MM-DDTHH:mm:ss')

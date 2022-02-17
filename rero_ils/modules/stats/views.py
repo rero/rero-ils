@@ -33,6 +33,7 @@ from flask_login import current_user
 from .api import Stat, StatsForPricing, StatsSearch
 from .permissions import StatPermission, check_logged_as_admin, \
     check_logged_as_librarian
+from .serializers import StatCSVSerializer
 
 blueprint = Blueprint(
     'stats',
@@ -85,42 +86,47 @@ def stats_librarian():
 @blueprint.route('/librarian/<record_pid>/csv')
 @check_logged_as_librarian
 def stats_librarian_queries(record_pid):
-    """Download specific statistic query into csv file."""
-    queries = {'1': 'number_of_loans_by_item_location'}
+    """Download specific statistic query into csv file.
+
+    :param record_pid: statistics pid
+    :return: response object, the csv file
+    """
+    queries = ['loans_of_transaction_library_by_item_location']
     query_id = request.args.get('query_id', None)
     if query_id not in queries:
         abort(404)
-
-    q = queries[query_id]
-    filename = f'{q}.csv'
 
     record = Stat.get_record_by_pid(record_pid)
     if not record:
         abort(404)
     StatPermission.read(current_user, record)
 
+    date_range = '{}_{}'.format(record['date_range']['from'].split('T')[0],
+                                record['date_range']['to'].split('T')[0])
+    filename = f'{query_id}_{date_range}.csv'
+
     data = StringIO()
     w = csv.writer(data)
 
-    if query_id == '1':
-        fieldnames = ['Item library', 'Item location',
-                      'Checkins', 'Checkouts']
+    if query_id == 'loans_of_transaction_library_by_item_location':
+        fieldnames = ['Transaction library', 'Item library',
+                      'Item location', 'Checkins', 'Checkouts']
         w.writerow(fieldnames)
         for result in record['values']:
-            library = '{}: {}'\
+            transaction_library = '{}: {}'\
                       .format(result['library']['pid'],
                               result['library']['name'])
-            if not result[q]:
-                w.writerow((library, '-', 0, 0))
+            if not result[query_id]:
+                w.writerow((transaction_library, '-', '-', 0, 0))
             else:
-                for location_name in result[q]:
-                    result_loc = result[q][location_name]
-                    if 'checkin' not in result_loc:
-                        result_loc['checkin'] = 0
-                    if 'checkout' not in result_loc:
-                        result_loc['checkout'] = 0
+                for location in result[query_id]:
+                    result_loc = result[query_id][location]
+                    location_name = result_loc['location_name']
+                    item_library =\
+                        location.replace(f' - {location_name}', '')
                     w.writerow((
-                        library,
+                        transaction_library,
+                        item_library,
                         location_name,
                         result_loc['checkin'],
                         result_loc['checkout']))
@@ -158,3 +164,45 @@ def stringtodatetime(context, value, format="%Y-%m-%dT%H:%M:%S"):
     """
     datetime_object = datetime.datetime.strptime(value, format)
     return datetime_object
+
+
+@jinja2.contextfilter
+@blueprint.app_template_filter()
+def sort_dict_by_key(context, dictionary):
+    """Sort dict by dict of keys.
+
+    dictionary: dict to sort
+    returns: list of tuples
+    :rtype: list
+    """
+    return StatCSVSerializer.sort_dict_by_key(dictionary)
+
+
+@jinja2.contextfilter
+@blueprint.app_template_filter()
+def sort_dict_by_library(context, dictionary):
+    """Sort dict by library name.
+
+    dictionary: dict to sort
+    returns: sorted dict
+    :rtype: dict
+    """
+    return sorted(dictionary, key=lambda v: v['library']['name'])
+
+
+@jinja2.contextfilter
+@blueprint.app_template_filter()
+def process_data(context, value):
+    """Process data.
+
+    Create key library name and library id, delete key library.
+    value: dict to process
+    returns: processed dict
+    :rtype: dict
+    """
+    if 'library' in value:
+        updated_dict = {'library id': value['library']['pid'],
+                        'library name': value['library']['name']}
+        updated_dict.update(value)
+        updated_dict.pop('library')
+    return updated_dict

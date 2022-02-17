@@ -35,7 +35,7 @@ from ..libraries.api import LibrariesSearch
 from ..loans.logs.api import LoanOperationLog
 from ..locations.api import LocationsSearch
 from ..minters import id_minter
-from ..patrons.api import PatronsSearch, current_librarian
+from ..patrons.api import Patron, PatronsSearch, current_librarian
 from ..providers import Provider
 from ..utils import extracted_data_from_ref
 
@@ -340,27 +340,26 @@ class StatsForLibrarian(StatsForPricing):
 
         Note: for system_librarian includes libraries of organisation.
         """
-        library_pids = set()
-        if 'librarian' in current_librarian["roles"]:
-            for library in current_librarian.get('libraries', []):
-                library_pids.add(extracted_data_from_ref(library))
-
+        if Patron.ROLE_LIBRARIAN in current_librarian["roles"]:
+            library_pids = set([extracted_data_from_ref(lib)
+                                for lib in current_librarian
+                                .get('libraries', [])])
         # case system_librarian: add libraries of organisation
-        if 'system_librarian' in current_librarian["roles"]:
+        if Patron.ROLE_SYSTEM_LIBRARIAN in current_librarian["roles"]:
             patron_organisation = current_librarian.get_organisation()
             libraries_search = LibrariesSearch()\
-                .filter(
-                    'term',
-                    organisation__pid=patron_organisation.pid)\
+                .filter('term', organisation__pid=patron_organisation.pid)\
                 .source(['pid']).scan()
-            for s in libraries_search:
-                library_pids.add(s.pid)
+            library_pids = library_pids.union(
+                            set([s.pid for s in libraries_search])
+                            )
         return list(library_pids)
 
     def collect(self):
         """Compute statistics for librarian."""
         stats = []
         libraries = self.get_all_libraries()
+        libraries_map = {lib.pid: lib.name for lib in libraries}
 
         for lib in libraries:
             stats.append({
@@ -368,38 +367,40 @@ class StatsForLibrarian(StatsForPricing):
                     'pid': lib.pid,
                     'name': lib.name
                 },
-                'number_of_loans_by_transaction_library':
-                    self.number_of_loans_by_transaction_library(lib.pid,
-                                                                ['checkout']),
-                'number_of_loans_for_items_in_library':
-                    self.number_of_loans_for_items_in_library(lib.pid,
-                                                              ['checkout']),
-                'number_of_patrons_by_postal_code':
-                    self.number_of_patrons_by_postal_code(lib.pid,
-                                                          ['request',
-                                                           'checkin',
-                                                           'checkout']),
-                'number_of_new_patrons_by_postal_code':
-                    self.number_of_new_patrons_by_postal_code(lib.pid,
-                                                              ['request',
-                                                               'checkin',
-                                                               'checkout']),
-                'number_of_new_documents':
-                    self.number_of_new_documents(lib.pid),
-                'number_of_new_items':
+                'checkouts_for_transaction_library':
+                    self.checkouts_for_transaction_library(lib.pid,
+                                                           ['checkout']),
+                'checkouts_for_owning_library':
+                    self.checkouts_for_owning_library(lib.pid,
+                                                      ['checkout']),
+                'active_patrons_by_postal_code':
+                    self.active_patrons_by_postal_code(lib.pid,
+                                                       ['request',
+                                                        'checkin',
+                                                        'checkout']),
+                'new_active_patrons_by_postal_code':
+                    self.new_active_patrons_by_postal_code(lib.pid,
+                                                           ['request',
+                                                            'checkin',
+                                                            'checkout']),
+                'new_documents':
+                    self.new_documents(lib.pid),
+                'new_items':
                     self.number_of_new_items(lib.pid),
-                'number_of_extended_items':
-                    self.number_of_extended_items(lib.pid, ['extend']),
-                'number_of_validated_requests':
-                    self.number_of_validated_requests(lib.pid, ['validate']),
-                'number_of_items_by_document_type_and_subtype':
-                    self.number_of_items_by_document_type_subtype(lib.pid),
-                'number_of_new_items_by_location':
-                    self.number_of_new_items_by_location(lib.pid),
-                'number_of_loans_by_item_location':
-                    self.number_of_loans_by_item_location(lib.pid,
-                                                          ['checkin',
-                                                           'checkout'])
+                'renewals':
+                    self.renewals(lib.pid, ['extend']),
+                'validated_requests':
+                    self.validated_requests(lib.pid, ['validate']),
+                'items_by_document_type_and_subtype':
+                    self.items_by_document_type_and_subtype(lib.pid),
+                'new_items_by_location':
+                    self.new_items_by_location(lib.pid),
+                'loans_of_transaction_library_by_item_location':
+                    self.loans_of_transaction_library_by_item_location(
+                        libraries_map,
+                        lib.pid,
+                        ['checkin',
+                         'checkout'])
             })
         return stats
 
@@ -427,7 +428,7 @@ class StatsForLibrarian(StatsForPricing):
         location = next(location_search)
         return f'{location.code} - {location.name}'
 
-    def number_of_loans_by_transaction_library(self, library_pid, trigger):
+    def checkouts_for_transaction_library(self, library_pid, trigger):
         """Number of circulation operation during the specified timeframe.
 
         Number of loans of items when transaction location is equal to
@@ -445,7 +446,7 @@ class StatsForLibrarian(StatsForPricing):
             .filter('terms', loan__transaction_location__pid=location_pids)\
             .count()
 
-    def number_of_loans_for_items_in_library(self, library_pid, trigger):
+    def checkouts_for_owning_library(self, library_pid, trigger):
         """Number of circulation operation during the specified timeframe.
 
         Number of loans of items per library when the item is owned by
@@ -461,7 +462,7 @@ class StatsForLibrarian(StatsForPricing):
             .filter('term', loan__item__library_pid=library_pid)\
             .count()
 
-    def number_of_patrons_by_postal_code(self, library_pid, trigger):
+    def active_patrons_by_postal_code(self, library_pid, trigger):
         """Number of circulation operation during the specified timeframe.
 
         Number of patrons per library and CAP when transaction location
@@ -498,7 +499,7 @@ class StatsForLibrarian(StatsForPricing):
             patron_pids.add(patron_pid)
         return stats
 
-    def number_of_new_patrons_by_postal_code(self, library_pid, trigger):
+    def new_active_patrons_by_postal_code(self, library_pid, trigger):
         """Number of circulation operation during the specified timeframe.
 
         Number of new patrons per library and CAP when transaction location
@@ -546,7 +547,7 @@ class StatsForLibrarian(StatsForPricing):
 
         return stats
 
-    def number_of_new_documents(self, library_pid):
+    def new_documents(self, library_pid):
         """Number of new documents per library for given time interval.
 
         :param library_pid: string - the library to filter with
@@ -560,7 +561,7 @@ class StatsForLibrarian(StatsForPricing):
             .filter('term', library__value=library_pid)\
             .count()
 
-    def number_of_extended_items(self, library_pid, trigger):
+    def renewals(self, library_pid, trigger):
         """Number of items with loan extended.
 
         Number of items with loan extended per library for given time interval
@@ -575,7 +576,7 @@ class StatsForLibrarian(StatsForPricing):
             .filter('term', loan__item__library_pid=library_pid)\
             .count()
 
-    def number_of_validated_requests(self, library_pid, trigger):
+    def validated_requests(self, library_pid, trigger):
         """Number of validated requests.
 
         Number of validated requests per library for given time interval
@@ -592,7 +593,7 @@ class StatsForLibrarian(StatsForPricing):
             .filter('term', library__value=library_pid)\
             .count()
 
-    def number_of_new_items_by_location(self, library_pid):
+    def new_items_by_location(self, library_pid):
         """Number of new items per library by location.
 
         Note: items created and then deleted during the time interval
@@ -614,7 +615,7 @@ class StatsForLibrarian(StatsForPricing):
             stats[location_code_name] = bucket.doc_count
         return stats
 
-    def number_of_items_by_document_type_subtype(self, library_pid):
+    def items_by_document_type_and_subtype(self, library_pid):
         """Number of items per library by document type and sub-type.
 
         Note: if item has more than one doc type/subtype the item is counted
@@ -641,11 +642,15 @@ class StatsForLibrarian(StatsForPricing):
             stats[bucket.key] = bucket.doc_count
         return stats
 
-    def number_of_loans_by_item_location(self, library_pid, trigger):
+    def loans_of_transaction_library_by_item_location(self,
+                                                      libraries_map,
+                                                      library_pid,
+                                                      trigger):
         """Number of circulation operation during the specified timeframe.
 
         Number of loans of items by location when transaction location
         is equal to any of the library locations
+        :param libraries_map: dict - map of library pid and name
         :param library_pid: string - the library to filter with
         :param trigger: string - action name (checkin, checkout)
         :return: the number of matched circulation operation
@@ -660,9 +665,15 @@ class StatsForLibrarian(StatsForPricing):
 
         stats = {}
         for s in search:
+            item_library_pid = s.loan.item.library_pid
+            item_library_name = libraries_map[item_library_pid]
             location_name = s.loan.item.holding.location_name
-            stats.setdefault(location_name, {'checkin': 0, 'checkout': 0})
-            stats[location_name][s.loan.trigger] += 1
+
+            key = f'{item_library_pid}: {item_library_name} - {location_name}'
+            stats.setdefault(key, {'location_name': location_name,
+                                   'checkin': 0, 'checkout': 0})
+            stats[key][s.loan.trigger] += 1
+
         return stats
 
 
