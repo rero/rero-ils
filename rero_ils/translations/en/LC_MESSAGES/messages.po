@@ -18,15 +18,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2022-02-17 08:13+0100\n"
-"PO-Revision-Date: 2022-02-04 16:55+0000\n"
+"PO-Revision-Date: 2022-02-18 17:57+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/en/>\n"
 "Language: en\n"
-"Language-Team: English <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/en/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.11-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: rero_ils/accounts_views.py:46 rero_ils/accounts_views.py:69
@@ -118,12 +119,10 @@ msgid "item_type"
 msgstr "Item type"
 
 #: rero_ils/config.py:2012
-#, fuzzy
 msgid "temporary_item_type"
-msgstr "Item type"
+msgstr "Temporary circulation category"
 
 #: rero_ils/config.py:2014
-#, fuzzy
 msgid "temporary_location"
 msgstr "Temporary location"
 
@@ -7182,7 +7181,6 @@ msgid "extract"
 msgstr "extract"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:154
-#, fuzzy
 msgid "educationalSheet"
 msgstr "educational sheet"
 
@@ -8896,34 +8894,28 @@ msgid "docmaintype_series"
 msgstr "editiorial series"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:909
-#, fuzzy
 msgid "docmaintype_teaching_material"
-msgstr "serial"
+msgstr "teaching material"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:948
-#, fuzzy
 msgid "docsubtype_reading_kit"
-msgstr "audio book"
+msgstr "reading kit"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:952
-#, fuzzy
 msgid "docsubtype_experimentation_kit"
-msgstr "large print book"
+msgstr "experimentation kit"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:956
-#, fuzzy
 msgid "docsubtype_thematic_kit"
-msgstr "thesis"
+msgstr "thematic kit"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:960
-#, fuzzy
 msgid "docsubtype_official_material"
-msgstr "calendar"
+msgstr "official teaching material"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:964
-#, fuzzy
 msgid "docsubtype_guided_reading"
-msgstr "video game"
+msgstr "guided reading"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:3
 msgid "Usage and access policies"
@@ -10392,9 +10384,8 @@ msgid "Transaction location PID"
 msgstr "Transaction location PID"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:95
-#, fuzzy
 msgid "Checkout location PID"
-msgstr "Checkout duration"
+msgstr "Checkout location PID"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:99
 msgid "Request pickup location PID"
@@ -11050,7 +11041,7 @@ msgstr "Checkout denied: the maximal overdue fee amount is reached"
 
 #: rero_ils/modules/patron_types/api.py:165
 msgid "Checkout denied: patron has unpaid subscription"
-msgstr ""
+msgstr "Checkout denied: the patron has an unpaid subscription"
 
 #: rero_ils/modules/patron_types/api.py:185
 msgid "Request denied: the maximal number of overdue items is reached"
@@ -11062,7 +11053,7 @@ msgstr "Request denied: the maximal overdue fee amount is reached"
 
 #: rero_ils/modules/patron_types/api.py:193
 msgid "Request denied: patron has unpaid subscription"
-msgstr ""
+msgstr "Request denied: the patron has an unpaid subscription"
 
 #: rero_ils/modules/patron_types/api.py:214
 msgid "Renewal denied: the maximal number of overdue items is reached"
@@ -11074,7 +11065,7 @@ msgstr "Renewal denied: the maximal overdue fee amount is reached"
 
 #: rero_ils/modules/patron_types/api.py:222
 msgid "Renewal denied: patron has unpaid subscription"
-msgstr ""
+msgstr "Renewal denied: the patron has an unpaid subscription"
 
 #: rero_ils/modules/patron_types/api.py:315
 msgid "Checkout denied: the maximal checkout number is reached."
@@ -11212,7 +11203,7 @@ msgstr "Limit by overdue items"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:242
 msgid "Block the patron if the subscription is not paid"
-msgstr ""
+msgstr "Block the patron if the subscription is not paid"
 
 #: rero_ils/modules/patrons/api.py:402 rero_ils/modules/patrons/api.py:730
 msgid "Patron rights expired."
@@ -11459,13 +11450,12 @@ msgid "Schema to validate stats records against."
 msgstr "Schema to validate stats records against."
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:21
-#, fuzzy
 msgid "Statistics type"
-msgstr "Statistics"
+msgstr "Statistic type"
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:29
 msgid "Statistics date range"
-msgstr ""
+msgstr "Statistics date range"
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:33
 msgid "Stat ID."
@@ -11481,37 +11471,32 @@ msgid "Statistic"
 msgstr "Statistic"
 
 #: rero_ils/modules/stats/templates/rero_ils/detailed_view_stats.html:37
-#, fuzzy
 msgid "Library id"
-msgstr "library"
+msgstr "Library PID"
 
 #: rero_ils/modules/stats/templates/rero_ils/detailed_view_stats.html:38
-#, fuzzy
 msgid "Library name"
-msgstr "library"
+msgstr "Library name"
 
 #: rero_ils/modules/stats/templates/rero_ils/detailed_view_stats.html:42
 msgid "Postal code: number of patrons"
-msgstr ""
+msgstr "Postal code: number of patrons"
 
 #: rero_ils/modules/stats/templates/rero_ils/detailed_view_stats.html:44
-#, fuzzy
 msgid "Location: number of new items"
-msgstr "Maximum number of renewals"
+msgstr "Location: number of new items"
 
 #: rero_ils/modules/stats/templates/rero_ils/detailed_view_stats.html:46
 msgid "Postal code: number of new patrons"
-msgstr ""
+msgstr "Postal code: number of new patrons"
 
 #: rero_ils/modules/stats/templates/rero_ils/stats_list.html:23
-#, fuzzy
 msgid "Live values"
-msgstr "value"
+msgstr "Live values"
 
 #: rero_ils/modules/stats/templates/rero_ils/stats_list.html:24
-#, fuzzy
 msgid "Statistics - billing"
-msgstr "Statistics"
+msgstr "Statistics - billing"
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:5
 msgid "JSON schema for templates."
@@ -13468,4 +13453,3 @@ msgstr "Your password has been successfully reset."
 
 #~ msgid "Order currency"
 #~ msgstr "Order currency"
-

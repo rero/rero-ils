@@ -19,15 +19,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2022-02-17 08:13+0100\n"
-"PO-Revision-Date: 2022-02-14 10:45+0000\n"
+"PO-Revision-Date: 2022-02-17 17:20+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/it/>\n"
 "Language: it\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/it/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.11-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: rero_ils/accounts_views.py:46 rero_ils/accounts_views.py:69
@@ -119,12 +120,10 @@ msgid "item_type"
 msgstr "Tipo di esemplare"
 
 #: rero_ils/config.py:2012
-#, fuzzy
 msgid "temporary_item_type"
-msgstr "Tipo di esemplare"
+msgstr "Categoria di prestito temporanea"
 
 #: rero_ils/config.py:2014
-#, fuzzy
 msgid "temporary_location"
 msgstr "Localizzazione temporanea"
 
@@ -4686,7 +4685,7 @@ msgstr "JSON schema per un ordine."
 
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:23
 msgid "Schema to validate Acquisition Order records against."
-msgstr "Schema di convalida per ordine."
+msgstr "Schema di convalida per ordini."
 
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:29
 msgid "AcqOrder ID"
@@ -4735,15 +4734,15 @@ msgstr "Riga di ricezione"
 
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:5
 msgid "JSON schema for Acquisition Receipt Line."
-msgstr ""
+msgstr "JSON schema per una riga di ricezione."
 
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:24
 msgid "Schema to validate Acquisition Receipt Line records against."
-msgstr ""
+msgstr "Schema di convalida per rigue di ricezione."
 
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:30
 msgid "Acquisition receipt line ID"
-msgstr ""
+msgstr "ID della riga di ricezione"
 
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:35
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:43
@@ -4762,16 +4761,16 @@ msgstr "Aliquota IVA"
 
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:90
 msgid "percentage of VAT rate to apply on this receipt line"
-msgstr ""
+msgstr "percentuale dell'aliquota IVA da applicare su questa riga di ricezione"
 
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:106
 msgid "Receipt line date"
-msgstr ""
+msgstr "Data della riga di ricezione"
 
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:157
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:125
 msgid "receipt_note"
-msgstr ""
+msgstr "nota di ricezione"
 
 #: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:4
 msgid "Acquisition receipt"
@@ -4779,28 +4778,28 @@ msgstr "Ricezione"
 
 #: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:5
 msgid "JSON schema for Acquisition Receipt."
-msgstr ""
+msgstr "JSON schema per una ricezione."
 
 #: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:22
 msgid "Schema to validate Acquisition Receipt records against."
-msgstr ""
+msgstr "Schema di convalida per ricezioni."
 
 #: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:28
 msgid "Acquisition receipt ID"
-msgstr ""
+msgstr "ID della ricezione"
 
 #: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:33
 #: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:41
 msgid "Order"
-msgstr ""
+msgstr "Ordine"
 
 #: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:70
 msgid "Additional fees, discount and credit"
-msgstr ""
+msgstr "Costi aggiuntivi, sconti e crediti"
 
 #: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:76
 msgid "Fee"
-msgstr ""
+msgstr "Tassa"
 
 #: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:89
 #: rero_ils/modules/documents/jsonschemas/documents/document_dissertation-v0.0.1.json:8
@@ -7193,7 +7192,6 @@ msgid "extract"
 msgstr "estratto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:154
-#, fuzzy
 msgid "educationalSheet"
 msgstr "scheda pedagogica"
 
@@ -8915,34 +8913,28 @@ msgid "docmaintype_series"
 msgstr "serie editoriale"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:909
-#, fuzzy
 msgid "docmaintype_teaching_material"
-msgstr "seriale"
+msgstr "materiale di insegnamento"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:948
-#, fuzzy
 msgid "docsubtype_reading_kit"
-msgstr "audiolibro"
+msgstr "kit di lettura"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:952
-#, fuzzy
 msgid "docsubtype_experimentation_kit"
-msgstr "libro a grandi caratteri"
+msgstr "kit di sperimentazione"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:956
-#, fuzzy
 msgid "docsubtype_thematic_kit"
-msgstr "tesi, dissertazione"
+msgstr "kit tematico"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:960
-#, fuzzy
 msgid "docsubtype_official_material"
-msgstr "calendario"
+msgstr "mezzo d'insegnamento ufficiale"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:964
-#, fuzzy
 msgid "docsubtype_guided_reading"
-msgstr "videogioco"
+msgstr "lettura di classe"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:3
 msgid "Usage and access policies"
@@ -10259,11 +10251,11 @@ msgstr "Via"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:85
 msgid "Street + number"
-msgstr ""
+msgstr "Via + numero"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:90
 msgid "Zip code"
-msgstr ""
+msgstr "Codice postale"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:95
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:101
@@ -10348,7 +10340,7 @@ msgstr "Lingua di comunicazione"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:414
 msgid "Shipping informations"
-msgstr ""
+msgstr "Informazioni sulla spedizione"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:424
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:461
@@ -10359,26 +10351,26 @@ msgstr "Persona di contatto"
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:429
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:466
 msgid "Contact email"
-msgstr ""
+msgstr "E-mail di contatto"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:436
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:473
 msgid "Contact phone"
-msgstr ""
+msgstr "Telefono di contatto"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:444
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:481
 msgid "Extra information"
-msgstr ""
+msgstr "Informazioni aggiuntive"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:445
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:482
 msgid "VAT number, note, ..."
-msgstr ""
+msgstr "Numero IVA, nota, ..."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:452
 msgid "Billing informations"
-msgstr ""
+msgstr "Informazioni di fatturazione"
 
 #: rero_ils/modules/loans/api.py:115
 msgid "The loan cannot be extended"
@@ -10428,9 +10420,8 @@ msgid "Transaction location PID"
 msgstr "PID della localizzazione della transazione"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:95
-#, fuzzy
 msgid "Checkout location PID"
-msgstr "Durata di prestito"
+msgstr "PID della localizzazione del prestito"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:99
 msgid "Request pickup location PID"
@@ -11098,7 +11089,7 @@ msgstr ""
 
 #: rero_ils/modules/patron_types/api.py:165
 msgid "Checkout denied: patron has unpaid subscription"
-msgstr ""
+msgstr "Prestito rifiutato: il lettore ha un abbonamento non pagato"
 
 #: rero_ils/modules/patron_types/api.py:185
 msgid "Request denied: the maximal number of overdue items is reached"
@@ -11114,7 +11105,7 @@ msgstr ""
 
 #: rero_ils/modules/patron_types/api.py:193
 msgid "Request denied: patron has unpaid subscription"
-msgstr ""
+msgstr "Richiesta rifiutata: il lettore ha un abbonamento non pagato"
 
 #: rero_ils/modules/patron_types/api.py:214
 msgid "Renewal denied: the maximal number of overdue items is reached"
@@ -11130,7 +11121,7 @@ msgstr ""
 
 #: rero_ils/modules/patron_types/api.py:222
 msgid "Renewal denied: patron has unpaid subscription"
-msgstr ""
+msgstr "Proroga rifiutata: il lettore ha un abbonamento non pagato"
 
 #: rero_ils/modules/patron_types/api.py:315
 msgid "Checkout denied: the maximal checkout number is reached."
@@ -11270,7 +11261,7 @@ msgstr "Limite per esemplare in ritardo"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:242
 msgid "Block the patron if the subscription is not paid"
-msgstr ""
+msgstr "Bloccare il lettore se l’abbonamento non è pagato"
 
 #: rero_ils/modules/patrons/api.py:402 rero_ils/modules/patrons/api.py:730
 msgid "Patron rights expired."
@@ -11467,7 +11458,7 @@ msgstr "lettore"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:459
 msgid "acquisition_librarian"
-msgstr ""
+msgstr "bibliotecario che fa acquisizioni"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:463
 msgid "system_librarian"
@@ -11521,13 +11512,12 @@ msgid "Schema to validate stats records against."
 msgstr "Schema di convalida per statistiche."
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:21
-#, fuzzy
 msgid "Statistics type"
-msgstr "Statistiche"
+msgstr "Tipo di statistiche"
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:29
 msgid "Statistics date range"
-msgstr ""
+msgstr "Intervallo di date delle statistiche"
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:33
 msgid "Stat ID."
@@ -11543,37 +11533,32 @@ msgid "Statistic"
 msgstr "Statistica"
 
 #: rero_ils/modules/stats/templates/rero_ils/detailed_view_stats.html:37
-#, fuzzy
 msgid "Library id"
-msgstr "biblioteca"
+msgstr "PID della biblioteca"
 
 #: rero_ils/modules/stats/templates/rero_ils/detailed_view_stats.html:38
-#, fuzzy
 msgid "Library name"
-msgstr "biblioteca"
+msgstr "Nome della biblioteca"
 
 #: rero_ils/modules/stats/templates/rero_ils/detailed_view_stats.html:42
 msgid "Postal code: number of patrons"
-msgstr ""
+msgstr "Codice postale: numero di lettori"
 
 #: rero_ils/modules/stats/templates/rero_ils/detailed_view_stats.html:44
-#, fuzzy
 msgid "Location: number of new items"
-msgstr "Numero massimo di proroghe"
+msgstr "Localizzazione: numero di nuovi esemplari"
 
 #: rero_ils/modules/stats/templates/rero_ils/detailed_view_stats.html:46
 msgid "Postal code: number of new patrons"
-msgstr ""
+msgstr "Codice postale: numero di nuovi lettori"
 
 #: rero_ils/modules/stats/templates/rero_ils/stats_list.html:23
-#, fuzzy
 msgid "Live values"
-msgstr "valore"
+msgstr "Valori dal vivo"
 
 #: rero_ils/modules/stats/templates/rero_ils/stats_list.html:24
-#, fuzzy
 msgid "Statistics - billing"
-msgstr "Statistiche"
+msgstr "Statistiche - fatturazione"
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:5
 msgid "JSON schema for templates."
@@ -11775,23 +11760,23 @@ msgstr "Sito web"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:105
 msgid "order_note"
-msgstr ""
+msgstr "nota per l'ordine"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:113
 msgid "return_note"
-msgstr ""
+msgstr "nota per il ritorno"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:117
 msgid "invoice_note"
-msgstr ""
+msgstr "nota per la fatturazione"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:121
 msgid "payment_note"
-msgstr ""
+msgstr "nota per il pagamento"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:129
 msgid "credit_note"
-msgstr ""
+msgstr "nota per il credito"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:214
 msgid "Default contact details"
@@ -13526,4 +13511,3 @@ msgstr "La tua parola d'ordine è stata reimposta con successo."
 
 #~ msgid "Order currency"
 #~ msgstr "Valuta dell'ordine"
-
