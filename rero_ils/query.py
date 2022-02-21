@@ -189,6 +189,9 @@ def items_search_factory(self, search, query_parser=None):
     """Search factory for item records."""
     search, urlkwargs = search_factory(self, search)
     view = request.args.get('view')
+    org_pid = request.args.get('organisation')
+    if org_pid:
+        search = search.filter('term', organisation__pid=org_pid)
     search = search_factory_for_holdings_and_items(view, search)
     return search, urlkwargs
 
