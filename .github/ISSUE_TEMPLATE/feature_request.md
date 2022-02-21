@@ -2,39 +2,26 @@
 name: Feature request
 about: Suggest an idea for this project
 title: ''
-labels: triage, feature_request
+labels: new feature
 assignees: ''
 
 ---
 
-<!--
-    Please, fill the bug report as precisely as possible.
-    Write a full sentence in the issue title.
-    Thanks a lot for helping us!
- -->
+<!-- Please, fill the report as precisely as possible.
+Be clear and concise. Write a full sentence in the issue title.
+Thanks for your help! -->
 
-**Is your feature request related to a problem? Please describe.**
+### Problem description
+<!-- A clear and concise description of what the problem is.
+Example: I'm always frustrated when [...] -->
 
-<!--
-    A clear and concise description of what the problem is.
-    Ex. I'm always frustrated when [...]
--->
+### Missing feature
+<!-- A concise description of a feature 
+that could solve this problem? -->
 
-**Describe the solution you'd like**
+### Alternative solutions
+<!-- Any alternative solutions
+or features you've considered for this. -->
 
-<!--
-    A clear and concise description of what you want to happen.
--->
-
-**Describe alternatives you've considered**
-
-<!--
-    A clear and concise description of any alternative solutions
-    or features you've considered.
--->
-
-**Additional context**
-
-<!--
-    Add any other context or screenshots about the feature request here.
--->
+### Anything else?
+<!-- Any other context or screenshots about the feature request -->
