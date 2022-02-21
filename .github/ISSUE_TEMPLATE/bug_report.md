@@ -2,61 +2,49 @@
 name: Bug report
 about: Create a report to help us improve
 title: ''
-labels: bug, triage
+labels: bug
 assignees: ''
 
 ---
 
-<!--
-    Please, fill the bug report as precisely as possible.
-    Write a full sentence in the issue title.
-    Thanks a lot for helping us!
--->
+<!-- Please, fill the report as precisely as possible.
+Be clear and concise. Write a full sentence in the issue title.
+Thanks for your help! -->
 
-**Describe the bug**
+### Bug description:
+<!-- A concise description of the bug you are experiencing -->
 
-<!--
-    A clear and concise description of what the bug is.
--->
+### Expected behavior:
+<!-- A concise description of what you expected to happen -->
 
-**To Reproduce**
+### Steps to Reproduce:
+<!-- Example: Steps to reproduce the problem:
+1. Go to...
+2. Click on...
+3. Scroll down to...
+4. See error -->
 
-<!--
-    Steps to reproduce the behavior:
--->
+### Context
+<!-- In which environment did the problem occur? -->
 
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+**Server:**
+* [ ] production: [bib.rero.ch](https://bib.rero.ch) or [ils.bib.uclouvain.be](https://ils.bib.uclouvain.be)
+* [ ] test: [bib.test.rero.ch](https://bib.test.rero.ch)
+* [ ] dev: [ilsdev.test.rero.ch](https://ilsdev.test.rero.ch)
+* [ ] dev test : [ils.test.rero.ch](https://ils.test.rero.ch)
 
-**Expected behavior**
+**Version:**
+<!-- In which version of RERO ILS did this problem happen? -->
 
-<!--
-    A clear and concise description of what you expected to happen.
--->
+`v1.9.0` ; commit hash : `XXXX`
 
-**Context**
+**Browser:**
+<!-- If relevant -->
 
-<!--
-    Tell us on what server did you spotted the issue, using which browser:
--->
+Chrome, Safari, Firefox; version XX
 
-* server: [ils.test.rero.ch][1] or [ilsdev.test.rero.ch][2]?
-* version: `v0.14.0` or the commit hash (see frontpage).
-* browser: [if relevant, e.g. chrome, safari, version 78].
+### Screenshots
+<!-- If relevant, screenshots to help ilustrate the problem -->
 
-[1]: https://ils.test.rero.ch
-[2]: https://ilsdev.test.rero.ch
-
-**Screenshots**
-
-<!--
-    If applicable, add screenshots to help explain your problem.
--->
-
-**Additional context**
-
-<!--
-    Add any other context about the problem here.
--->
+### Anything else?
+<!-- Any other useful information about the problem -->

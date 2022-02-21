@@ -1,5 +1,5 @@
 # Add documentation label to the following files and folders
-documentation:
+"dev: documentation":
   - Authors.rst
   - CHANGES.md
   - CONTRIBUTING.rst
@@ -19,8 +19,9 @@ translations:
   - rero_ils/translations/**/*
 
 # Add data label to any changes in document and item jsonschemas folders,
-# in DOJSON folders, and templates folders
-data:
+# in DOJSON folders, templates folders, dojson, json to dublin core or to
+# MARC21 folders and in the SRU module:
+"f: data":
   - rero_ils/jsonschemas/**/*
   - rero_ils/modules/documents/jsonschemas/**/*
   - rero_ils/modules/documents/utils.py
@@ -30,31 +31,27 @@ data:
   - rero_ils/dojson/**/*
   - rero_ils/modules/**/dojson/**/*
   - rero_ils/modules/templates/**/*
+  - rero_ils/modules/documents/dojson/contrib/jsontodc/**/*
+  - rero_ils/modules/documents/dojson/contrib/jsontomarc21/**/*
+  - rero_ils/modules/sru/**/*
 
 # Add data-migration label to any changes that may need migration effort for
 # deployment of a new release
-"data-migration":
+"f: data migration":
   - rero_ils/es_templates/**
   - rero_ils/jsonschemas/**
   - rero_ils/**/jsonschemas/**
   - rero_ils/**/mappings/**
   - rero_ils/**/models.py
 
-# Add data-export label to any changes in dojson json to dublin core or to
-# MARC21 folders and in the SRU module:
-data-export:
-  - rero_ils/modules/documents/dojson/contrib/jsontodc/**/*
-  - rero_ils/modules/documents/dojson/contrib/jsontomarc21/**/*
-  - rero_ils/modules/sru/**/*
-
 # Add search label to any changes in mappings files
-search:
+"f: search":
   - rero_ils/**/mappings/**/*json
   - rero_ils/es_templates/v7/record.json
 
 # Add circulation label to any changes in circulation API, circulation
 # policies, item types and loans folders and subfolders
-circulation:
+"f: circulation":
   - rero_ils/modules/items/api/circulation.py
   - rero_ils/modules/circ_policies/**/*
   - rero_ils/modules/item_types/**/*
@@ -66,14 +63,14 @@ circulation:
 
 # Add 'user management' label to any changes in users or patrons folders and
 # subfolders
-"user management":
+"f: user management":
   - rero_ils/modules/users/**/*
   - rero_ils/modules/patrons/**/*
   - rero_ils/modules/patron_types/**/*
 
 # Add acquisition label to any changes in acquisition related folders and
 # subfolders
-acquisitions:
+"f: acquisitions":
   - rero_ils/acquisition/**/*
   - rero_ils/modules/acq_accounts/**/*
   - rero_ils/modules/acq_invoices/**/*
@@ -81,40 +78,36 @@ acquisitions:
   - rero_ils/modules/acq_orders/**/*
   - rero_ils/modules/budgets/**/*
 
-# Add deployment label to any changes in the following files or folders
-deployment:
-  - Dockerfile*
-
 # Add permissions label to any changes in a permissions.py files
-permissions:
+"f: permissions":
   - rero_ils/**/*/permissions.py
 
 # Add fixtures label to any changes in data folder or subfolders
-fixtures:
+"dev: fixtures":
   - data/**/*
 
 # Add serials label to any changes in the following files or folders
-serials:
+"f: serials":
   - rero_ils/modules/items/api/issue.py
 
-activity-logs:
+"f: activity-logs":
   - rero_ils/modules/loans/logs/api.py
   - rero_ils/modules/operation_logs/**/*
 
 developers:
   - scripts/**/*
 
-monitoring:
+"dev: monitoring":
   - rero_ils/modules/monitoring.py
 
-notifications:
+"f: notifications":
   - rero_ils/modules/notifications/**/*
 
-"public ui":
+"f: public ui":
   - any: ['rero_ils/**/templates/**/*', 'rero_ils/theme/**/*', 'rero_ils/**/views.py', '!rero_ils/modules/templates/**/*']
 
-"statistics":
+"f: statistics":
   - rero_ils/modules/stats/**/*
 
-DB:
+"dev: DB":
   - rero_ils/**/models.py
