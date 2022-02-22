@@ -301,7 +301,6 @@
       "title": "Issue",
       "type": "object",
       "required": [
-        "received_date",
         "expected_date",
         "regular",
         "status"
@@ -364,6 +363,10 @@
           "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
           "form": {
             "type": "datepicker",
+            "expressionProperties": {
+              "templateOptions.required": "field.parent.model && field.parent.model.status === 'received'"
+            },
+            "hideExpression": "field.parent.model && field.parent.model.status !== 'received'",
             "templateOptions": {
               "wrappers": [
                 "form-field"
