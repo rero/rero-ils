@@ -103,6 +103,7 @@ def get_provisional_items_pids_candidate_to_delete():
     # query ES index for open fees
     query_fees = PatronTransactionsSearch()\
         .filter('term', status='open')\
+        .filter('exists', field='item')\
         .filter('range', total_amount={'gt': 0})\
         .source('item')
     # list of item pids with open fees
