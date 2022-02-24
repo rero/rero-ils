@@ -229,8 +229,8 @@ def test_anonymizer_job(
 
     # So a this time, if we run the `loan_anonymizer` task, none loan cannot
     # be anonymized --> return should be 0
-    msg = loan_anonymizer(dbcommit=True, reindex=True)
-    assert msg == 'number_of_loans_anonymized: 0'
+    count = loan_anonymizer(dbcommit=True, reindex=True)
+    assert count == 0
 
     # We will now update the loan `transaction_date` to 1 year ago and close
     # all open transactions about it.
@@ -251,7 +251,7 @@ def test_anonymizer_job(
     # should be anonymize.
     count = len(list(Loan.get_anonymized_candidates()))
     msg = loan_anonymizer(dbcommit=True, reindex=True)
-    assert msg == f'number_of_loans_anonymized: {count}'
+    assert msg == count
 
 
 @mock.patch.object(Loan, 'can_anonymize', mock.MagicMock(return_value=False))

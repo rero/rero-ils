@@ -74,10 +74,9 @@ def clean_obsolete_temporary_item_types():
     clean the temporary item_type informations. Update item into database to
     commit change
     """
-    current_app.logger.debug("Starting clean_obsolete_temporary_item_types()"
-                             " tasks ...")
-    msg = 'Nothing to do'
+    counter = 0
     for item in Item.get_items_with_obsolete_temporary_item_type():
+        counter += 1
         # logger information
         tmp_itty_data = item['temporary_item_type']
         tmp_itty = extracted_data_from_ref(tmp_itty_data['$ref'], 'record')
@@ -95,8 +94,9 @@ def clean_obsolete_temporary_item_types():
         # remove the obsolete data
         del item['temporary_item_type']
         item.replace(data=item, dbcommit=True, reindex=True)
-    set_timestamp('clean_obsolete_temporary_item_types', msg=msg)
-    current_app.logger.debug("Ending clean_obsolete_temporary_item_types()")
+    count = {'deleted': counter}
+    set_timestamp('clean_obsolete_temporary_item_types', **count)
+    return count
 
 
 @shared_task

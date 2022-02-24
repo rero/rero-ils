@@ -25,7 +25,7 @@ from flask import current_app
 
 from .utils import create_document_holding, update_document_holding
 from ..documents.api import Document, DocumentsSearch
-from ..utils import do_bulk_index, get_schema_for_resource
+from ..utils import do_bulk_index, get_schema_for_resource, set_timestamp
 
 
 @shared_task(ignore_result=True)
@@ -76,6 +76,8 @@ def create_records(records):
     current_app.logger.info(
         f'create_records: {n_updated} updated, {n_created} new'
     )
+    set_timestamp('ebooks_create_records', created=n_created,
+                  updated=n_updated)
     return n_created, n_updated
 
 
@@ -106,4 +108,5 @@ def delete_records(records):
         except Exception as err:
             current_app.logger.error(f'EBOOKS DELETE RECORDS: {err} {record}')
     current_app.logger.info(f'delete_records: {count}')
+    set_timestamp('ebooks_delete_records', deleted=count)
     return count
