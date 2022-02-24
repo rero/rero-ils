@@ -21,6 +21,8 @@ from __future__ import absolute_import, print_function
 
 from celery import shared_task
 
+from rero_ils.modules.utils import set_timestamp
+
 from .utils_mef import ReplaceMefIdentifiedByContribution, \
     ReplaceMefIdentifiedBySubjects
 from ..contributions.api import Contribution
@@ -85,6 +87,8 @@ def replace_idby_contribution(verbose=False, details=False, timestamp=True):
         replace_contribution.set_timestamp()
     if details:
         replace_contribution.print_details()
+    set_timestamp('replace_idby_contribution',
+                  count=replace_contribution.counts_len)
     return replace_contribution.counts_len
 
 
@@ -103,4 +107,5 @@ def replace_idby_subjects(verbose=False, details=False, timestamp=True):
         replace_subjects.set_timestamp()
     if details:
         replace_subjects.print_details()
+    set_timestamp('replace_idby_subjects', count=replace_subjects.counts_len)
     return replace_subjects.counts_len

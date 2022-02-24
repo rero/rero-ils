@@ -40,9 +40,8 @@ def loan_anonymizer(dbcommit=True, reindex=True):
             loan.anonymize(loan, dbcommit=dbcommit, reindex=reindex)
             counter += 1
 
-    msg = f'number_of_loans_anonymized: {counter}'
-    set_timestamp('anonymize-loans', msg=msg)
-    return msg
+    set_timestamp('anonymize-loans', count=counter)
+    return counter
 
 
 @shared_task(ignore_result=True)
@@ -65,4 +64,6 @@ def cancel_expired_request_task(tstamp=None):
         )
         if actions.get('cancel', {}).get('pid') == loan.pid:
             total_cancelled_loans += 1
+    set_timestamp('cancel-expired-request-task', total=total_loans_counter,
+                  cancelled=total_cancelled_loans)
     return total_loans_counter, total_cancelled_loans

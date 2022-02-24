@@ -111,5 +111,5 @@ def update_contributions(pids=None, dbcommit=True, reindex=True, verbose=False,
             error_pids.append(pid)
         log[msg] += 1
     if timestamp:
-        set_timestamp('update_contributions', msg=log)
+        set_timestamp('update_contributions', **log)
     return log, error_pids

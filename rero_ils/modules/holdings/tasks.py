@@ -36,11 +36,13 @@ def delete_standard_holdings_having_no_items():
         .filter('term', items_count=0) \
         .source('pid')
 
+    deleted = 0
     for hit in es_query.scan():
         record = Holding.get_record_by_pid(hit.pid)
         record.delete(force=False, dbcommit=True, delindex=True)
+        deleted += 1
 
     current_app.logger.debug("Ending delete_standard_holdings_having_no_items")
     msg = f'Number of removed holdings: {es_query.count()}'
-    set_timestamp('holdings-deletion', msg=msg)
+    set_timestamp('holdings-deletion', deleted=deleted)
     return msg
