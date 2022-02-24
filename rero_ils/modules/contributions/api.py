@@ -282,8 +282,9 @@ class Contribution(IlsRecord):
                     self.replace(data=metadata, dbcommit=dbcommit,
                                  reindex=reindex)
                     if reindex:
-                        DocumentsIndexer.bulk_index(self.documents_pids())
-                        DocumentsIndexer.process_bulk_queue()
+                        indexer = DocumentsIndexer()
+                        indexer.bulk_index(self.documents_pids())
+                        indexer.process_bulk_queue()
         except Exception as err:
             action = ContributionUpdateAction.ERROR
             current_app.logger.warning(f'UPDATE ONLINE {pid}: {err}')

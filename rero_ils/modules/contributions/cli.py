@@ -48,9 +48,9 @@ def update_contributions(pid, dbcommit, reindex, timestamp, verbose):
     :param timestamp: create timestamp.
     """
     click.secho('Update contributions', fg='green')
-    msg = task_update_contributions(pids=pid, dbcommit=dbcommit,
-                                    reindex=reindex, timestamp=timestamp,
-                                    verbose=verbose)
+    logs, _ = task_update_contributions(pids=pid, dbcommit=dbcommit,
+                                        reindex=reindex, timestamp=timestamp,
+                                        verbose=verbose)
     if verbose:
-        for action, count in msg.items():
+        for action, count in logs.items():
             click.echo(f'{action}: {count}')
