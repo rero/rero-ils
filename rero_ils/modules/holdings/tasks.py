@@ -29,20 +29,21 @@ from ..utils import set_timestamp
 @shared_task(ignore_result=True)
 def delete_standard_holdings_having_no_items():
     """Removes standard holdings records with no attached items."""
-    current_app.logger.debug(
-        "Starting delete_standard_holdings_having_no_items task ...")
     es_query = HoldingsSearch() \
         .filter('term', holdings_type='standard') \
         .filter('term', items_count=0) \
         .source('pid')
-
-    deleted = 0
+    errors = 0
     for hit in es_query.scan():
         record = Holding.get_record_by_pid(hit.pid)
-        record.delete(force=False, dbcommit=True, delindex=True)
-        deleted += 1
+        try:
+            record.delete(force=False, dbcommit=True, delindex=True)
+        except Exception as err:
+            errors += 1
+            reasons = record.reasons_not_to_delete()
+            current_app.logger.error(
+                f'Can not delete standard holding: {hit.pid} {reasons} {err}')
 
-    current_app.logger.debug("Ending delete_standard_holdings_having_no_items")
-    msg = f'Number of removed holdings: {es_query.count()}'
-    set_timestamp('holdings-deletion', deleted=deleted)
-    return msg
+    counts = {'count': es_query.count(), 'errors': errors}
+    set_timestamp('delete_standard_holdings_having_no_items', **counts)
+    return counts
