@@ -115,18 +115,17 @@ class LoanOperationLog(OperationLog):
         data = {
             'pid': item.pid,
             'library_pid': item.library_pid,
-            'category':
-            item['type'],
-            'document':
-            cls._get_document_data(
+            'category': item['type'],
+            'document': cls._get_document_data(
                 extracted_data_from_ref(item['document']['$ref'])),
-            'holding':
-            cls._get_holding_data(
-                extracted_data_from_ref(item['holding']['$ref'])),
-            'enumerationAndChronology': item.enumerationAndChronology
+            'holding': cls._get_holding_data(
+                extracted_data_from_ref(item['holding']['$ref']))
         }
         if item.get('call_number'):
             data['call_number'] = item.get('call_number')
+        if item.get('enumerationAndChronology'):
+            data['enumerationAndChronology'] =\
+                item.get('enumerationAndChronology')
         return data
 
     @classmethod
