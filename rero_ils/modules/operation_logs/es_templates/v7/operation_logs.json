@@ -184,6 +184,9 @@
                     "type": "keyword"
                   }
                 }
+              },
+              "enumerationAndChronology": {
+                "type": "keyword"
               }
             }
           }
