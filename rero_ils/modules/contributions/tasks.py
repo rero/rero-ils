@@ -100,16 +100,18 @@ def update_contributions(pids=None, dbcommit=True, reindex=True, verbose=False,
     pids = pids or Contribution.get_all_pids()
     log = {}
     error_pids = []
-    for pid in pids:
+    if verbose:
+        click.echo(f'Contribution update: {len(pids)}')
+    for idx, pid in enumerate(pids):
         cont = Contribution.get_record_by_pid(pid)
         msg, _ = cont.update_online(dbcommit=dbcommit, reindex=reindex,
                                     verbose=verbose)
         log.setdefault(msg, 0)
+        log[msg] += 1
         if verbose and msg != ContributionUpdateAction.UPTODATE:
-            click.echo(f'{pid:>10}: {msg}')
+            click.echo(f'{idx:>10} mef:{pid:>10} {msg} {cont.source_pids()}')
         if ContributionUpdateAction.ERROR:
             error_pids.append(pid)
-        log[msg] += 1
     if timestamp:
         set_timestamp('update_contributions', **log)
     return log, error_pids

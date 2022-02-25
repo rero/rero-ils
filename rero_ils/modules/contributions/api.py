@@ -239,7 +239,7 @@ class Contribution(IlsRecord):
             language=language
         )
 
-    def documents_pids(self, with_subjects=True):
+    def _search_documents(self, with_subjects=True):
         """Get documents pids."""
         search_filters = Q("term", contribution__agent__pid=self.pid)
         if with_subjects:
@@ -247,11 +247,20 @@ class Contribution(IlsRecord):
                 Q("terms", subjects__type=['bf:Person', 'bf:Organisation'])
             search_filters = search_filters | subject_filters
 
-        search = DocumentsSearch() \
-            .query('bool', filter=[search_filters]) \
-            .source('pid')
+        return DocumentsSearch() \
+            .query('bool', filter=[search_filters])
 
+    def documents_pids(self, with_subjects=True):
+        """Get documents pids."""
+        search = self._search_documents(
+            with_subjects=with_subjects).source('pid')
         return [hit.pid for hit in search.scan()]
+
+    def documents_ids(self, with_subjects=True):
+        """Get documents ids."""
+        search = self._search_documents(
+            with_subjects=with_subjects).source('pid')
+        return [hit.meta.id for hit in search.scan()]
 
     def update_online(self, dbcommit=False, reindex=False, verbose=False):
         """Update record online.
@@ -273,9 +282,13 @@ class Contribution(IlsRecord):
                     current_app.logger.warning(
                         f'UPDATE ONLINE {pid}: was deleted')
                     action = ContributionUpdateAction.ERROR
-                elif not metadata['sources']:
+                elif not metadata.get('sources'):
                     current_app.logger.warning(
                         f'UPDATE ONLINE {pid}: has no sources')
+                    action = ContributionUpdateAction.ERROR
+                elif not metadata.get('type'):
+                    current_app.logger.warning(
+                        f'UPDATE ONLINE {pid}: has no type')
                     action = ContributionUpdateAction.ERROR
                 elif dict(self) != metadata:
                     action = ContributionUpdateAction.REPLACE
@@ -283,13 +296,22 @@ class Contribution(IlsRecord):
                                  reindex=reindex)
                     if reindex:
                         indexer = DocumentsIndexer()
-                        indexer.bulk_index(self.documents_pids())
+                        indexer.bulk_index(self.documents_ids())
                         indexer.process_bulk_queue()
         except Exception as err:
             action = ContributionUpdateAction.ERROR
             current_app.logger.warning(f'UPDATE ONLINE {pid}: {err}')
             # TODO: find new MEF record
         return action, self
+
+    def source_pids(self):
+        """Get agents pids."""
+        sources = current_app.config.get('RERO_ILS_CONTRIBUTIONS_SOURCES', [])
+        pids = {}
+        for source in sources:
+            if source in self:
+                pids[source] = self[source]['pid']
+        return pids
 
 
 class ContributionsIndexer(IlsRecordsIndexer):
