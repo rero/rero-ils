@@ -34,6 +34,8 @@ from flask_menu import register_menu
 from flask_security import utils as security_utils
 from invenio_i18n.ext import current_i18n
 
+from rero_ils.permissions import check_logged_user_api
+
 from .api import Patron, PatronsSearch, current_librarian, current_patrons
 from .permissions import get_allowed_roles_management
 from .utils import user_has_patron
@@ -320,7 +322,7 @@ def patron_authenticate():
 
 
 @api_blueprint.route('/info', methods=['GET'])
-@check_logged_as_patron
+@check_logged_user_api
 def info():
     """Get patron info."""
     token_scopes = flask_request.oauth.access_token.scopes

@@ -586,6 +586,11 @@ def test_patron_info(client, patron_martigny, monkeypatch):
 
     monkeypatch.setattr('rero_ils.modules.patrons.views.flask_request',
                         MockRequest)
+
+    url = url_for('api_patrons.info')
+    res = client.get(url)
+    assert res.status_code == 401
+
     login_user_via_session(client, patron_martigny.user)
     url = url_for('api_patrons.info')
 

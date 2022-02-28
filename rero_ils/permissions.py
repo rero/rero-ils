@@ -19,7 +19,7 @@
 
 from functools import wraps
 
-from flask import abort, current_app, redirect, request, url_for
+from flask import abort, current_app, jsonify, redirect, request, url_for
 from flask_login import current_user
 from flask_principal import RoleNeed
 from flask_security import login_required, roles_required
@@ -53,6 +53,17 @@ def librarian_delete_permission_factory(
     if credentials_only or record.can_delete[0]:
         return librarian_permission
     return type('Check', (), {'can': lambda x: False})()
+
+
+def check_logged_user_api(func):
+    """Decorator to check authentication for user HTTP API."""
+    @wraps(func)
+    def decorated_view(*args, **kwargs):
+        if not current_user.is_authenticated:
+            return jsonify({'status': 'error: Unauthorized'}), 401
+        return func(*args, **kwargs)
+
+    return decorated_view
 
 
 def login_and_librarian():
