@@ -210,11 +210,6 @@ def search_factory_for_holdings_and_items(view, search):
         # PROVISIONAL records are hidden for all public interfaces
         search = search.filter(
             'bool', must_not=[Q('term', type=TypeOfItem.PROVISIONAL)])
-    # Logic for admin interface
-    elif current_librarian:
-        search = search.filter(
-            'term', organisation__pid=current_librarian.organisation_pid
-        )
     return search
 
 
