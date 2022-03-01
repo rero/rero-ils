@@ -4,48 +4,34 @@
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.8.0...v1.9.0)
 
-**Closed issues:**
+**Implemented enhancements:**
 
-- Users management [\#2713](https://github.com/rero/rero-ils/issues/2713)
-- Public interface: redirect directly to the patron profile after loging in [\#2701](https://github.com/rero/rero-ils/issues/2701)
-- Calculation of fees based on the library of the renewal or checkin, instead of the library of the checkout [\#2683](https://github.com/rero/rero-ils/issues/2683)
-- Scanning a patron barcode in the circulation interface gives the following error: "Patron or item not found" [\#2677](https://github.com/rero/rero-ils/issues/2677)
-- Document editor: field Type : add a new main type with subtypes [\#2666](https://github.com/rero/rero-ils/issues/2666)
-- Allow to enable/disable notification creation by `config` settings [\#2665](https://github.com/rero/rero-ils/issues/2665)
-- `request` notification not sent if library settings is incomplete [\#2656](https://github.com/rero/rero-ils/issues/2656)
-- `educationalSheet` is not translated in the public interface [\#2654](https://github.com/rero/rero-ils/issues/2654)
-- Problem with the first search of a document on the pro interface [\#2652](https://github.com/rero/rero-ils/issues/2652)
-- Incremental overdue fees should always be calculated according to the checkout library's opening days [\#2640](https://github.com/rero/rero-ils/issues/2640)
+- Scanning a patron barcode in the circulation interface gives the following error: "Patron or item not found" [\#2677](https://github.com/rero/rero-ils/issues/2677) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)]
+- Document editor: field Type : add a new main type with subtypes [\#2666](https://github.com/rero/rero-ils/issues/2666) [[f: editor](https://github.com/rero/rero-ils/labels/f:%20editor)]
+- Allow to enable/disable notification creation by `config` settings [\#2665](https://github.com/rero/rero-ils/issues/2665) [[f: notifications](https://github.com/rero/rero-ils/labels/f:%20notifications)]
 - Convert steps dates in iso format for patron overdue preview [\#2629](https://github.com/rero/rero-ils/issues/2629)
-- Document editor : missing value "bul-latn"and "bul-cyrl" in language drop down menu [\#2628](https://github.com/rero/rero-ils/issues/2628)
-- Inventory : Add a checkout and due date to the export [\#2611](https://github.com/rero/rero-ils/issues/2611)
-- Error when deleting a fine  [\#2602](https://github.com/rero/rero-ils/issues/2602)
-- Translation: Some strings not extracted [\#2601](https://github.com/rero/rero-ils/issues/2601)
-- Library holidays: add an open option for a period [\#2577](https://github.com/rero/rero-ils/issues/2577)
-- Search gives no result after applying a sort [\#2562](https://github.com/rero/rero-ils/issues/2562)
-- Improve the Holdings detail view \(Issue's section\) [\#2554](https://github.com/rero/rero-ils/issues/2554)
+- Inventory : Add a checkout and due date to the export [\#2611](https://github.com/rero/rero-ils/issues/2611) [[f: professional ui](https://github.com/rero/rero-ils/labels/f:%20professional%20ui)]
+- Library holidays: add an open option for a period [\#2577](https://github.com/rero/rero-ils/issues/2577) [[f: professional ui](https://github.com/rero/rero-ils/labels/f:%20professional%20ui)]
+- Improve the Holdings detail view \(Issue's section\) [\#2554](https://github.com/rero/rero-ils/issues/2554) [[f: professional ui](https://github.com/rero/rero-ils/labels/f:%20professional%20ui)] [[f: serials](https://github.com/rero/rero-ils/labels/f:%20serials)]
 - RERO+ logo on login page [\#2544](https://github.com/rero/rero-ils/issues/2544)
-- Search parameter `bestmatch` should not be required [\#2527](https://github.com/rero/rero-ils/issues/2527)
-- Availability of serials \(at the document level\) should be "See collections and items" if a serial holding is attached [\#2502](https://github.com/rero/rero-ils/issues/2502)
-- Add the edition statements in the search result \(document brief views\) [\#2429](https://github.com/rero/rero-ils/issues/2429)
-- Creation date mentioned in patron account [\#2377](https://github.com/rero/rero-ils/issues/2377)
-- Inventory list: add a facet for the temporary circulation category and temporary location [\#2364](https://github.com/rero/rero-ils/issues/2364)
-- Document : Display subtitle in brief view \(public and professional\) [\#2335](https://github.com/rero/rero-ils/issues/2335)
-- Circ policies: overdue fees not displayed if the reminders are not configured [\#2325](https://github.com/rero/rero-ils/issues/2325)
-- `responsibilityStatement` should be a quick access field [\#2324](https://github.com/rero/rero-ils/issues/2324)
-- Often the public and professional interface changes the language [\#2277](https://github.com/rero/rero-ils/issues/2277)
-- The item or the loan has not been indexed after a checkin. [\#2252](https://github.com/rero/rero-ils/issues/2252)
-- Holdings detailed view: masked items \(issues\) are displayed with an icon "not masked". [\#2240](https://github.com/rero/rero-ils/issues/2240)
-- Failed checkouts are saved in the circulation history of the concerned item [\#2173](https://github.com/rero/rero-ils/issues/2173)
-- Cannot read property `default_currency` when displaying items in pro interface [\#2135](https://github.com/rero/rero-ils/issues/2135)
-- Translations are wrong or not shown for field `originalLanguage` in the editor [\#2089](https://github.com/rero/rero-ils/issues/2089)
-- Extra parenthesis on the display of an ILL request detailed view [\#2062](https://github.com/rero/rero-ils/issues/2062)
-- data.rero.ch/01-\[RERO nr.\] should be redirected to RERO ILS for the go-live [\#1802](https://github.com/rero/rero-ils/issues/1802)
-- Library exceptions should be displayed in chronological order [\#1782](https://github.com/rero/rero-ils/issues/1782)
-- Items of type "issue" should not be integrated to the new acquisitions by default. [\#1718](https://github.com/rero/rero-ils/issues/1718)
-- Request date shouldn't be updated after validation [\#1704](https://github.com/rero/rero-ils/issues/1704)
-- Opening exception periods are not displayed in library detail view [\#1690](https://github.com/rero/rero-ils/issues/1690)
-- circulation: block checkout/renew/request when patron has unpaid subscription [\#1530](https://github.com/rero/rero-ils/issues/1530)
+- Add the edition statements in the search result \(document brief views\) [\#2429](https://github.com/rero/rero-ils/issues/2429) [[f: search](https://github.com/rero/rero-ils/labels/f:%20search)] [[f: professional ui](https://github.com/rero/rero-ils/labels/f:%20professional%20ui)] [[f: public ui](https://github.com/rero/rero-ils/labels/f:%20public%20ui)]
+- Creation date mentioned in patron account [\#2377](https://github.com/rero/rero-ils/issues/2377) [[f: professional ui](https://github.com/rero/rero-ils/labels/f:%20professional%20ui)] [[f: user management](https://github.com/rero/rero-ils/labels/f:%20user%20management)]
+- Inventory list: add a facet for the temporary circulation category and temporary location [\#2364](https://github.com/rero/rero-ils/issues/2364) [[f: data](https://github.com/rero/rero-ils/labels/f:%20data)] [[f: professional ui](https://github.com/rero/rero-ils/labels/f:%20professional%20ui)]
+- Document : Display subtitle in brief view \(public and professional\) [\#2335](https://github.com/rero/rero-ils/issues/2335) [[f: data](https://github.com/rero/rero-ils/labels/f:%20data)] [[f: professional ui](https://github.com/rero/rero-ils/labels/f:%20professional%20ui)] [[f: public ui](https://github.com/rero/rero-ils/labels/f:%20public%20ui)]
+- `responsibilityStatement` should be a quick access field [\#2324](https://github.com/rero/rero-ils/issues/2324) [[f: data](https://github.com/rero/rero-ils/labels/f:%20data)]
+
+**Fixed bugs:**
+
+- Calculation of fees based on the library of the renewal or checkin, instead of the library of the checkout [\#2683](https://github.com/rero/rero-ils/issues/2683) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)]
+- `request` notification not sent if library settings is incomplete [\#2656](https://github.com/rero/rero-ils/issues/2656) [[f: notifications](https://github.com/rero/rero-ils/labels/f:%20notifications)]
+- Problem with the first search of a document on the pro interface [\#2652](https://github.com/rero/rero-ils/issues/2652) [[f: search](https://github.com/rero/rero-ils/labels/f:%20search)] [[f: professional ui](https://github.com/rero/rero-ils/labels/f:%20professional%20ui)]
+- Incremental overdue fees should always be calculated according to the checkout library's opening days [\#2640](https://github.com/rero/rero-ils/issues/2640) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)]
+- Document editor : missing value "bul-latn"and "bul-cyrl" in language drop down menu [\#2628](https://github.com/rero/rero-ils/issues/2628) [[f: editor](https://github.com/rero/rero-ils/labels/f:%20editor)]
+- Error when deleting a fine  [\#2602](https://github.com/rero/rero-ils/issues/2602) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)]
+- Search gives no result after applying a sort [\#2562](https://github.com/rero/rero-ils/issues/2562) [[f: search](https://github.com/rero/rero-ils/labels/f:%20search)]
+- Search parameter `bestmatch` should not be required [\#2527](https://github.com/rero/rero-ils/issues/2527) [[f: search](https://github.com/rero/rero-ils/labels/f:%20search)] [[f: public ui](https://github.com/rero/rero-ils/labels/f:%20public%20ui)]
+- Availability of serials \(at the document level\) should be "See collections and items" if a serial holding is attached [\#2502](https://github.com/rero/rero-ils/issues/2502) [[f: professional ui](https://github.com/rero/rero-ils/labels/f:%20professional%20ui)] [[f: public ui](https://github.com/rero/rero-ils/labels/f:%20public%20ui)] [[f: serials](https://github.com/rero/rero-ils/labels/f:%20serials)]
+- Circ policies: overdue fees not displayed if the reminders are not configured [\#2325](https://github.com/rero/rero-ils/issues/2325) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)]
 
 **Merged pull requests:**
 
@@ -55,7 +41,7 @@
 - dependencies: fix [\#2711](https://github.com/rero/rero-ils/pull/2711) ([rerowep](https://github.com/rerowep))
 - modules: add logging to create [\#2709](https://github.com/rero/rero-ils/pull/2709) ([rerowep](https://github.com/rerowep))
 - holding: fix delete all items for issue [\#2706](https://github.com/rero/rero-ils/pull/2706) ([rerowep](https://github.com/rerowep))
-- menu: fix bad caret alignment in mobile menu [\#2702](https://github.com/rero/rero-ils/pull/2702) ([lauren-d](https://github.com/lauren-d))
+- menu: fix bad caret alignment in mobile menu [\#2702](https://github.com/rero/rero-ils/pull/2702) [[f: public ui](https://github.com/rero/rero-ils/labels/f:%20public%20ui)] ([lauren-d](https://github.com/lauren-d))
 - contribution: online update [\#2699](https://github.com/rero/rero-ils/pull/2699) ([rerowep](https://github.com/rerowep))
 - document: fix invenio\_celery.tasks endpoints. [\#2696](https://github.com/rero/rero-ils/pull/2696) ([rerowep](https://github.com/rerowep))
 - notification: disable notifications creation by config [\#2690](https://github.com/rero/rero-ils/pull/2690) ([zannkukai](https://github.com/zannkukai))
@@ -68,11 +54,11 @@
 - document: fix `educationalSheet` translation [\#2664](https://github.com/rero/rero-ils/pull/2664) ([zannkukai](https://github.com/zannkukai))
 - notifications: refactoring email getter function [\#2657](https://github.com/rero/rero-ils/pull/2657) ([zannkukai](https://github.com/zannkukai))
 - dependencies: update the dependencies lock file [\#2655](https://github.com/rero/rero-ils/pull/2655) ([jma](https://github.com/jma))
-- items: dump `request date` for any loan request [\#2646](https://github.com/rero/rero-ils/pull/2646) ([zannkukai](https://github.com/zannkukai))
-- patron\_types: add a limit for unpaid subscription [\#2644](https://github.com/rero/rero-ils/pull/2644) ([zannkukai](https://github.com/zannkukai))
-- patrons: use ISO format for dates into API [\#2642](https://github.com/rero/rero-ils/pull/2642) ([zannkukai](https://github.com/zannkukai))
-- document: set `responsibilities` as essential field [\#2641](https://github.com/rero/rero-ils/pull/2641) ([zannkukai](https://github.com/zannkukai))
-- document: add Bulgarian script languages [\#2638](https://github.com/rero/rero-ils/pull/2638) ([zannkukai](https://github.com/zannkukai))
+- items: dump `request date` for any loan request [\#2646](https://github.com/rero/rero-ils/pull/2646) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)] ([zannkukai](https://github.com/zannkukai))
+- patron\_types: add a limit for unpaid subscription [\#2644](https://github.com/rero/rero-ils/pull/2644) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)] [[f: search](https://github.com/rero/rero-ils/labels/f:%20search)] [[f: user management](https://github.com/rero/rero-ils/labels/f:%20user%20management)] [[f: data migration](https://github.com/rero/rero-ils/labels/f:%20data%20migration)] ([zannkukai](https://github.com/zannkukai))
+- patrons: use ISO format for dates into API [\#2642](https://github.com/rero/rero-ils/pull/2642) [[f: user management](https://github.com/rero/rero-ils/labels/f:%20user%20management)] ([zannkukai](https://github.com/zannkukai))
+- document: set `responsibilities` as essential field [\#2641](https://github.com/rero/rero-ils/pull/2641) [[f: data](https://github.com/rero/rero-ils/labels/f:%20data)] [[f: data migration](https://github.com/rero/rero-ils/labels/f:%20data%20migration)] ([zannkukai](https://github.com/zannkukai))
+- document: add Bulgarian script languages [\#2638](https://github.com/rero/rero-ils/pull/2638) [[f: data](https://github.com/rero/rero-ils/labels/f:%20data)] [[f: data migration](https://github.com/rero/rero-ils/labels/f:%20data%20migration)] ([zannkukai](https://github.com/zannkukai))
 - item: fix item availability API. [\#2634](https://github.com/rero/rero-ils/pull/2634) ([zannkukai](https://github.com/zannkukai))
 - search: add facets for inventory list [\#2612](https://github.com/rero/rero-ils/pull/2612) ([lauren-d](https://github.com/lauren-d))
 
