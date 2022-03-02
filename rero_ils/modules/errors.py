@@ -48,3 +48,7 @@ class NoCirculationAction(RecordsError):
 
 class NoCirculationActionIsPermitted(RecordsError):
     """Exception raised when the circulation action is not forbidden."""
+
+
+class ItemBarcodeNotFound(RecordsError):
+    """Exception raised when an item barcode is not found."""
