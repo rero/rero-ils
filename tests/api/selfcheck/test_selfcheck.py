@@ -293,6 +293,17 @@ def test_selfcheck_circulation(client, selfcheck_librarian_martigny, document,
         .get('patron', {}).get('barcode')[0]
     item_barcode = item_lib_martigny.get('barcode')
 
+    # selfcheck checkout with wrong item barcode
+    checkout = selfcheck_checkout(
+        transaction_user_pid=librarian_martigny.pid,
+        item_barcode='wrong_barcode', patron_barcode=patron_barcode,
+        terminal=selfcheck_librarian_martigny.name
+    )
+    assert checkout
+    assert not checkout.is_success
+    assert 'Error encountered: item not found' in \
+           checkout.get('screen_messages')
+
     # selfcheck checkout
     checkout = selfcheck_checkout(
         transaction_user_pid=librarian_martigny.pid,
@@ -318,6 +329,16 @@ def test_selfcheck_circulation(client, selfcheck_librarian_martigny, document,
     loan['end_date'] = loan['start_date']
     loan.update(loan, dbcommit=True, reindex=True)
 
+    # selfcheck renew with wrong item barcode
+    renew = selfcheck_renew(
+        transaction_user_pid=librarian_martigny.pid,
+        item_barcode='wrong_barcode', patron_barcode=patron_barcode,
+        terminal=selfcheck_librarian_martigny.name
+    )
+    assert renew
+    assert not renew.is_success
+    assert 'Error encountered: item not found' in renew.get('screen_messages')
+
     # selfcheck renew
     renew = selfcheck_renew(
         transaction_user_pid=librarian_martigny.pid,
@@ -327,6 +348,18 @@ def test_selfcheck_circulation(client, selfcheck_librarian_martigny, document,
     assert renew
     assert renew.is_success
     assert renew.due_date
+
+    # selfcheck checkin wrong item barcode
+    checkin = selfcheck_checkin(
+        transaction_user_pid=librarian_martigny.pid,
+        item_barcode='wrong_barcode',
+        patron_barcode=patron_barcode,
+        terminal=selfcheck_librarian_martigny.name
+    )
+    assert checkin
+    assert not checkin.is_success
+    assert 'Error encountered: item not found' in \
+           checkin.get('screen_messages')
 
     # selfcheck checkin
     checkin = selfcheck_checkin(
