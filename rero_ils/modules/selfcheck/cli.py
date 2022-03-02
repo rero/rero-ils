@@ -44,9 +44,12 @@ from .models import SelfcheckTerminal
 @click.option(
     '-t', '--access_token', 'access_token', required=False,
     help='personalized access_token.')
+@click.option(
+    '-c', '--comments', 'comments', required=False,
+    help='comments for selfcheck terminal.')
 @with_appcontext
 def create_terminal(name, user, location_pid, scopes, internal,
-                    access_token):
+                    access_token, comments):
     """Create a personal OAuth token."""
     # avoid circular import
     from rero_ils.modules.cli.utils import create_personal
@@ -83,7 +86,8 @@ def create_terminal(name, user, location_pid, scopes, internal,
                 access_token=access_token,
                 organisation_pid=location.organisation['pid'],
                 library_pid=location.library['pid'],
-                location_pid=location_pid
+                location_pid=location_pid,
+                comments=comments
             )
             db.session.add(selfcheck_terminal)
             db.session.commit()
@@ -104,6 +108,7 @@ def list_terminal():
         click.echo(f'\tlocation_pid     : {terminal.location_pid}')
         click.echo(f'\tactive           : {terminal.active}')
         click.echo(f'\tlast login       : {terminal.last_login_at}')
+        click.echo(f'\tcomments         : {terminal.comments}')
 
 
 @click.command('update_terminal')
@@ -112,8 +117,10 @@ def list_terminal():
 @click.option('-d', '--disable', 'disable', is_flag=True, default=False)
 @click.option('-l', '--loc-pid', 'location_pid')
 @click.option('-t', '--access-token', 'access_token')
+@click.option('-c', '--comments', 'comments')
 @with_appcontext
-def update_terminal(name, enable, disable, location_pid, access_token):
+def update_terminal(name, enable, disable, location_pid, access_token,
+                    comments):
     """Update the given terminal."""
     terminal = SelfcheckTerminal.find_terminal(name=name)
     if terminal:
@@ -137,6 +144,8 @@ def update_terminal(name, enable, disable, location_pid, access_token):
                     f'{access_token}',
                     fg='yellow'
                 )
+        if comments:
+            terminal.comments = comments
         db.session.merge(terminal)
         db.session.commit()
         click.secho(f'{name} updated', fg='green')

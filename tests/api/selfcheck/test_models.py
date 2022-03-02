@@ -36,6 +36,7 @@ def test_selfcheckuser(app):
         organisation_pid='org1',
         library_pid='lib1',
         location_pid='loc1',
+        comments='a new comment',
     )
     # 1. test create selfcheck user
     assert not selfcheck_terminal.active
@@ -54,6 +55,7 @@ def test_selfcheckuser(app):
         organisation_pid='org1',
         library_pid='lib1',
         location_pid='loc1',
+        comments='an updated comment',
     )
     db.session.merge(selfcheck_terminal_patch)
     db.session.commit()
@@ -65,6 +67,7 @@ def test_selfcheckuser(app):
         organisation_pid='org1',
         library_pid='lib1',
         location_pid='loc2',
+        comments='a third comment',
     )
     db.session.add(selfcheck_terminal)
     pytest.raises(IntegrityError, db.session.commit)

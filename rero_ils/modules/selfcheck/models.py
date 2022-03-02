@@ -42,6 +42,7 @@ class SelfcheckTerminal(db.Model):
     active = db.Column(db.Boolean(name='active'), default=True)
     last_login_at = db.Column(db.DateTime)
     last_login_ip = db.Column(IPAddressType, nullable=True)
+    comments = db.Column(db.Text, nullable=True)
 
     @classmethod
     def find_terminal(cls, **kwargs):
