@@ -5,7 +5,7 @@ Date: {{ loan.creation_date }}
 Titre: {{ loan.document.title_text }}
 Code-barre: {{ loan.document.barcode }}
 {%- if loan.document.call_numbers %}
-Cote: {{ loan.document.call_numbers | join(' / ') }}
+Cote: {{ loan.document.call_numbers | join(' | ') }}
 {%- endif %}
 Origine: {{ loan.transaction_library.name }}
 Destination: {{ loan.document.library_name }}: {{ loan.document.location_name }}

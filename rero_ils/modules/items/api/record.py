@@ -437,8 +437,25 @@ class ItemRecord(IlsRecord):
 
     @property
     def call_numbers(self):
-        """Return an array with all known item call_numbers."""
-        data = [self.get(key) for key in ['call_number', 'second_call_number']]
+        """Return an array with item call_numbers.
+
+        Inherit call numbers where applicable.
+        """
+        from ...holdings.api import Holding
+        if self.get('type') == 'standard':
+            data = [self.get(key) for key in ['call_number',
+                                              'second_call_number']]
+        else:
+            data = []
+            holding = Holding.get_record_by_pid(
+                extracted_data_from_ref(self.get('holding')))
+
+            for key in ['call_number', 'second_call_number']:
+                if self.get(key):
+                    data.append(self.get(key))
+                else:
+                    if holding.get(key):
+                        data.append(holding.get(key))
         return [call_number for call_number in data if call_number]
 
     @property
