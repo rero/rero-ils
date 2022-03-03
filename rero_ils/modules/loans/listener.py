@@ -64,6 +64,6 @@ def listener_loan_state_changed(
     # Create fees for check-in/extend operations
     #   This is the `create_patron_transaction_from_overdue_loan' that
     #   determine if the loan is overdue and if some fee must be created.
-    if trigger in [LoanAction.CHECKIN, LoanAction.EXTEND]:
+    if trigger in [LoanAction.CHECKIN, 'extend']:
         create_patron_transaction_from_overdue_loan(
             initial_loan)
