@@ -6,7 +6,7 @@ Titolo: {{ loan.document.title_text }}
 Codice a barre: {{ loan.document.barcode }}
 Localizzazione: {{ loan.document.library_name }} / {{ loan.document.location_name }}
 {%- if loan.document.call_numbers %}
-Segnatura: {{ loan.document.call_numbers | join(' / ') }}
+Segnatura: {{ loan.document.call_numbers | join(' | ') }}
 {%- endif %}
 
 Punto di ritiro: {{ loan.pickup_name }}

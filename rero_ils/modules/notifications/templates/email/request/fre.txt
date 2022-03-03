@@ -6,7 +6,7 @@ Titre: {{ loan.document.title_text }}
 Code-barre: {{ loan.document.barcode }}
 Localisation: {{ loan.document.library_name }} / {{ loan.document.location_name }}
 {%- if loan.document.call_numbers %}
-Cote: {{ loan.document.call_numbers | join(' / ') }}
+Cote: {{ loan.document.call_numbers | join(' | ') }}
 {%- endif %}
 {%- if loan.document.enumerationAndChronology %}
 Unité: {{ loan.document.enumerationAndChronology }}

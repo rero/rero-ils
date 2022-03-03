@@ -6,7 +6,7 @@ Title: {{ loan.document.title_text }}
 Barcode: {{ loan.document.barcode }}
 Location: {{ loan.document.library_name }} / {{ loan.document.location_name }}
 {%- if loan.document.call_numbers %}
-Call number: {{ loan.document.call_numbers | join(' / ') }}
+Call number: {{ loan.document.call_numbers | join(' | ') }}
 {%- endif %}
 {%- if loan.document.enumerationAndChronology %}
 Unit: {{ loan.document.enumerationAndChronology }}
