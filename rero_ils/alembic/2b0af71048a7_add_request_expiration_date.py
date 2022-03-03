@@ -43,10 +43,11 @@ def upgrade():
     query = current_circulation.loan_search_cls() \
         .filter('term', state=LoanState.ITEM_AT_DESK) \
         .filter('bool', must_not=[Q('exists', field='request_expire_date')]) \
-        .source('pid').scan()
+        .source('pid')
+    loan_pids = [hit.pid for hit in query.scan()]
     ids = []
-    for hit in query:
-        loan = Loan.get_record_by_pid(hit.pid)
+    for pid in loan_pids:
+        loan = Loan.get_record_by_pid(pid)
         trans_date = ciso8601.parse_datetime(loan.transaction_date)
         expire_date = trans_date + timedelta(days=10)
         expire_date = expire_date.replace(

@@ -41,9 +41,10 @@ def upgrade():
     query = PatronTypesSearch()\
         .exclude('exists', field='limits.unpaid_subscription')\
         .source('pid')
+    patron_type_pids = [hit.pid for hit in query.scan()]
     ids = []
-    for hit in query.scan():
-        record = PatronType.get_record_by_pid(hit.pid)
+    for pid in patron_type_pids:
+        record = PatronType.get_record_by_pid(pid)
         record\
             .setdefault('limits', {})\
             .setdefault('unpaid_subscription', False)
@@ -59,9 +60,10 @@ def downgrade():
     query = PatronTypesSearch()\
         .filter('exists', field='limits.unpaid_subscription')\
         .source('pid')
+    patron_type_pids = [hit.pid for hit in query.scan()]
     ids = []
-    for hit in query.scan():
-        record = PatronType.get_record_by_pid(hit.pid)
+    for pid in patron_type_pids:
+        record = PatronType.get_record_by_pid(pid)
         del record['limits']['unpaid_subscription']
         record.update(record, dbcommit=True, reindex=False)
         LOGGER.info(f'  * Updated PatronType#{record.pid}')
