@@ -24,9 +24,11 @@ from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 
 from rero_ils.modules.holdings.api import Holding
+from rero_ils.modules.holdings.models import HoldingTypes
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemIssueStatus
 from rero_ils.modules.items.tasks import process_late_claimed_issues
+from rero_ils.modules.utils import get_ref_for_pid
 
 
 def test_late_expected_and_claimed_issues(
@@ -124,3 +126,36 @@ def test_late_expected_and_claimed_issues(
     assert count_issues(martigny) == [1, 1]
     late_issue = Item.get_record_by_pid(late_issue.pid)
     assert late_issue.claims_count == 2
+
+
+def test_items_after_holdings_update(
+        holding_lib_martigny_w_patterns, item_type_on_site_martigny,
+        loc_restricted_martigny):
+    """Test location and item type after holdings of type serials changes."""
+    martigny = holding_lib_martigny_w_patterns
+    assert martigny.get('holdings_type') == HoldingTypes.SERIAL
+    # ensure that all attached items of holdings record has the same location
+    # and item type.
+    item_pids = Item.get_items_pid_by_holding_pid(
+        martigny.pid)
+    for pid in item_pids:
+        item = Item.get_record_by_pid(pid)
+        assert item.location_pid == martigny.location_pid
+        assert item.item_type_pid == martigny.circulation_category_pid
+
+    assert martigny.location_pid != loc_restricted_martigny.pid
+    assert martigny.circulation_category_pid != item_type_on_site_martigny.pid
+    # change the holdings circulation_category and location.
+    martigny['circulation_category'] = {'$ref': get_ref_for_pid(
+        'item_types', item_type_on_site_martigny.pid)}
+    martigny['location'] = {'$ref': get_ref_for_pid(
+        'locations', loc_restricted_martigny.pid)}
+    martigny = martigny.update(martigny, dbcommit=True, reindex=True)
+    assert martigny.location_pid == loc_restricted_martigny.pid
+    assert martigny.circulation_category_pid == item_type_on_site_martigny.pid
+    # ensure that all attached items of holdings record has the same location
+    # and item type after holdings changes.
+    for pid in item_pids:
+        item = Item.get_record_by_pid(pid)
+        assert item.location_pid == martigny.location_pid
+        assert item.item_type_pid == martigny.circulation_category_pid
