@@ -6,7 +6,7 @@ Titel: {{ loan.document.title_text }}
 Strichcode: {{ loan.document.barcode }}
 Standort: {{ loan.document.library_name }} / {{ loan.document.location_name }}
 {%- if loan.document.call_numbers %}
-Signatur: {{ loan.document.call_numbers | join(' / ') }}
+Signatur: {{ loan.document.call_numbers | join(' | ') }}
 {%- endif %}
 {%- if loan.document.enumerationAndChronology %}
 Einheit: {{ loan.document.enumerationAndChronology }}
