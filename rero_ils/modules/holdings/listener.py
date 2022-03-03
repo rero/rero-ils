@@ -18,8 +18,16 @@
 """Signals connector for Holding."""
 
 
-from .api import HoldingsSearch
-from ..items.api import ItemsSearch
+from elasticsearch_dsl.query import Q
+from invenio_db import db
+
+from rero_ils.modules.holdings.models import HoldingTypes
+from rero_ils.modules.tasks import process_bulk_queue
+from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid, \
+    get_schema_for_resource
+
+from .api import Holding, HoldingsSearch
+from ..items.api import Item, ItemsIndexer, ItemsSearch
 
 
 def enrich_holding_data(sender, json=None, record=None, index=None,
@@ -50,3 +58,73 @@ def enrich_holding_data(sender, json=None, record=None, index=None,
                 break
         json['public_items_count'] = \
             json['items_count'] - number_of_masked_items
+
+
+def update_items_locations_and_types(sender, record=None, **kwargs):
+    """This method checks if the items of the parent record needs an update.
+
+    This method checks the location and item_type of each item attached to the
+    holding record and update the item record accordingly.
+    This method should be connect with 'after_record_update'.
+    :param record: the holding record.
+    """
+    if record.get('$schema') != get_schema_for_resource(Holding):
+        return
+    if record.get('holdings_type') == HoldingTypes.SERIAL:
+        # identify all items records attached to this serials holdings record
+        # with different location and item_type.
+        hold_circ_pid = record.circulation_category_pid
+        hold_loc_pid = record.location_pid
+        search = ItemsSearch().filter('term', holding__pid=record.pid)
+        item_hits = search.\
+            filter('bool', should=[
+                        Q('bool', must_not=[
+                            Q('match', item_type__pid=hold_circ_pid)]),
+                        Q('bool', must_not=[
+                            Q('match', location__pid=hold_loc_pid)])])\
+            .source(['pid'])
+        items = [hit.meta.id for hit in item_hits.scan()]
+        items_to_index = []
+        # update these items and make sure they have the same location/category
+        # as the parent holdings record.
+        for id in items:
+            try:
+                item = Item.get_record_by_id(id)
+                if not item:
+                    continue
+                items_to_index.append(id)
+                item_temp_loc_pid, item_temp_type_pid = None, None
+                # remove the item temporary_location if it is equal to the
+                # new item location.
+                temporary_location = item.get('temporary_location', {})
+                if temporary_location:
+                    item_temp_loc_pid = extracted_data_from_ref(
+                        temporary_location.get('$ref'))
+                if hold_loc_pid != item.location_pid:
+                    if item_temp_loc_pid == hold_loc_pid:
+                        item.pop('temporary_location', None)
+                    item['location'] = {'$ref': get_ref_for_pid(
+                        'locations', hold_loc_pid)}
+                # remove the item temporary_item_type if it is equal to the
+                # new item item_type.
+                temporary_type = item.get('temporary_item_type', {})
+                if temporary_type:
+                    item_temp_type_pid = extracted_data_from_ref(
+                        temporary_type.get('$ref'))
+                if hold_circ_pid != item.item_type_pid:
+                    if item_temp_type_pid == hold_circ_pid:
+                        item.pop('temporary_item_type', None)
+                    item['item_type'] = {'$ref': get_ref_for_pid(
+                        'item_types', hold_circ_pid)}
+                # update directly in database.
+                db.session.query(item.model_cls).filter_by(id=item.id).update(
+                    {item.model_cls.json: item})
+            except Exception as err:
+                pass
+        if items_to_index:
+            # commit session
+            db.session.commit()
+            # bulk indexing of item records.
+            indexer = ItemsIndexer()
+            indexer.bulk_index(items_to_index)
+            process_bulk_queue.apply_async()

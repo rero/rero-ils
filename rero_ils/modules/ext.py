@@ -45,7 +45,8 @@ from .contributions.listener import enrich_contributions_data
 from .contributions.receivers import publish_api_harvested_records
 from .documents.listener import enrich_document_data
 from .ebooks.receivers import publish_harvested_records
-from .holdings.listener import enrich_holding_data
+from .holdings.listener import enrich_holding_data, \
+    update_items_locations_and_types
 from .ill_requests.listener import enrich_ill_request_data
 from .imports.views import ImportsListResource, ImportsResource, \
     ResultNotFoundOnTheRemoteServer
@@ -217,6 +218,7 @@ class REROILSAPP(object):
 
         after_record_insert.connect(create_subscription_patron_transaction)
         after_record_update.connect(create_subscription_patron_transaction)
+        after_record_update.connect(update_items_locations_and_types)
 
         before_record_update.connect(budget_is_active_changed)
         before_record_update.connect(negative_availability_changes)
