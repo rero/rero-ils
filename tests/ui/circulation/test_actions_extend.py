@@ -68,11 +68,22 @@ def test_fees_after_extend(
     checkout_cipo = checkout_cipo.update(
         checkout_cipo, dbcommit=True, reindex=True)
 
+    # the the end date to now
+    loan['end_date'] = datetime.now(timezone.utc).isoformat()
+    loan.update(loan, dbcommit=True, reindex=True)
+
+    # UPDATE LOAN TO BE OVERDUE
+    interval = 10
+    while not loan.is_loan_overdue():
+        new_end_date = datetime.now(timezone.utc) - timedelta(days=interval)
+        loan['end_date'] = new_end_date.isoformat()
+        interval += 1
+    loan.update(loan, dbcommit=True, reindex=True)
+
     # STEP#2 :: EXTEND THE LOAN FOR SAXON LIBRARY.
     #   The loan should use the new created circulation policy
     #   Update loan `end_date` to play with "extend" function without problem
-    loan['end_date'] = datetime.now().isoformat()
-    loan.update(loan, dbcommit=True, reindex=True)
+
     params = {
         'transaction_location_pid': loc_public_saxon.pid,
         'transaction_user_pid': librarian_martigny.pid
@@ -84,7 +95,11 @@ def test_fees_after_extend(
     assert loan.get('checkout_location_pid') == loc_public_martigny.pid
     assert loan.get('transaction_location_pid') == loc_public_saxon.pid
 
-    # STEP#3 :: UPDATE LOAN TO BE OVERDUE
+    # The patron should have fees.
+    pttr = get_last_transaction_by_loan_pid(loan.pid)
+    assert pttr.total_amount >= checkout_fee_amount
+
+    # UPDATE LOAN TO BE OVERDUE
     interval = 10
     while not loan.is_loan_overdue():
         new_end_date = datetime.now(timezone.utc) - timedelta(days=interval)
@@ -92,7 +107,7 @@ def test_fees_after_extend(
         interval += 1
     loan.update(loan, dbcommit=True, reindex=True)
 
-    # STEP#4 :: CHECK-IN THE LOAN
+    # STEP#3 :: CHECK-IN THE LOAN
     #   Execute the check-in circulation operation
     #   Check that a fee has been created and this fees is related to the
     #   checkout circulation.
