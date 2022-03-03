@@ -300,5 +300,5 @@
 
 {%- block javascript %}
 {{ super() }}
-{{ node_assets('@rero/rero-ils-ui/dist/public-holdings-items', tags='defer') }}
+{{ node_assets('@rero/rero-ils-ui/dist/public-holdings-items', patterns=['runtime.*.js', 'polyfills.*.js', 'main.*.js'], tags='type="module"') }}
 {% endblock javascript %}

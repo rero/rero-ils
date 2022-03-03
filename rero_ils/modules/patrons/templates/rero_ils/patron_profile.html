@@ -29,5 +29,5 @@
 
 {%- block javascript %}
 {{ super() }}
-{{ node_assets('@rero/rero-ils-ui/dist/public-patron-profile', tags='defer') }}
+{{ node_assets('@rero/rero-ils-ui/dist/public-patron-profile', patterns=['runtime.*.js', 'polyfills.*.js', 'main.*.js'], tags='type="module"') }}
 {%- endblock javascript %}
