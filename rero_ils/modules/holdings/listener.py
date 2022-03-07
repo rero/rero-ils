@@ -42,9 +42,19 @@ def enrich_holding_data(sender, json=None, record=None, index=None,
     if index.split('-')[0] == HoldingsSearch.Meta.index:
         library_pid = None
         organisation_pid = None
+
+        holding = next(HoldingsSearch()
+                       .filter('term', pid=record.pid)
+                       .source('holdings_type').scan(), None)
         # get the number of items for ui paging
-        item_search = ItemsSearch()[0:0].filter(
-            'term', holding__pid=record.pid)
+        item_search = ItemsSearch()[0:0]\
+            .filter('term', holding__pid=record.pid)
+
+        if holding is not None and holding["holdings_type"] == 'serial':
+            item_search = ItemsSearch()[0:0]\
+                .filter('term', holding__pid=record.pid)\
+                .filter('term', issue__status="received")
+
         # to compute the number of masked item
         item_search.aggs.bucket('public_items', 'terms', field='_masked')
         results = item_search.source(['organisation', 'library']).execute()
