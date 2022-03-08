@@ -38,7 +38,7 @@ class EggInfoWithCompile(egg_info):
         super().run()
 
 
-readme = open('README.rst').read()
+readme = open('README.md').read()
 
 INVENIO_VERSION = "3.1.1"
 
@@ -59,6 +59,7 @@ setup(
     version=version,
     description=__doc__,
     long_description=readme,
+    long_description_content_type='text/markdown',
     keywords='rero-ils Invenio',
     license='GPL',
     author='RERO',
