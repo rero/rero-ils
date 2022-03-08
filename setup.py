@@ -59,6 +59,7 @@ setup(
     version=version,
     description=__doc__,
     long_description=readme,
+    long_description_content_type='text/markdown',
     keywords='rero-ils Invenio',
     license='GPL',
     author='RERO',
