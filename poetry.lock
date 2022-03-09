@@ -73,6 +73,19 @@ version = "1.10"
 
 [[package]]
 category = "main"
+description = "Timeout context manager for asyncio programs"
+name = "async-timeout"
+optional = false
+python-versions = ">=3.6"
+version = "4.0.2"
+
+[package.dependencies]
+[package.dependencies.typing-extensions]
+python = "<3.8"
+version = ">=3.6.5"
+
+[[package]]
+category = "main"
 description = "Atomic file writes."
 marker = "sys_platform == \"win32\""
 name = "atomicwrites"
@@ -1471,14 +1484,6 @@ importlib-metadata = ">=4.4"
 importlib-resources = ">=5.0"
 invenio-base = ">=1.2.3"
 
-[package.dependencies.SQLAlchemy-Continuum]
-optional = true
-version = ">=1.3.11"
-
-[package.dependencies.psycopg2-binary]
-optional = true
-version = ">=2.8.6"
-
 [package.extras]
 all = ["Sphinx (4.2.0)", "pymysql (>=0.10.1)", "psycopg2-binary (>=2.8.6)", "SQLAlchemy-Continuum (>=1.3.11)", "pytest-invenio (>=1.4.0)", "cryptography (>=2.1.4)", "mock (>=4.0.0)"]
 docs = ["Sphinx (4.2.0)"]
@@ -2750,7 +2755,7 @@ description = "Pytest fixtures for Invenio."
 name = "pytest-invenio"
 optional = false
 python-versions = "*"
-version = "1.4.3"
+version = "1.4.5"
 
 [package.dependencies]
 check-manifest = ">=0.42"
@@ -2916,11 +2921,13 @@ description = "Python client for Redis database and key-value store"
 name = "redis"
 optional = false
 python-versions = ">=3.6"
-version = "4.1.4"
+version = "4.2.0"
 
 [package.dependencies]
+async-timeout = ">=4.0.2"
 deprecated = ">=1.2.3"
 packaging = ">=20.4"
+typing-extensions = "*"
 
 [package.dependencies.importlib-metadata]
 python = "<3.8"
@@ -3013,7 +3020,7 @@ trio = ">=0.17,<1.0"
 trio-websocket = ">=0.9,<1.0"
 
 [package.dependencies.urllib3]
-extras = ["secure", "socks"]
+extras = ["socks", "secure"]
 version = ">=1.26,<2.0"
 
 [[package]]
@@ -3354,7 +3361,6 @@ wsproto = ">=0.14"
 [[package]]
 category = "main"
 description = "Backported and Experimental Type Hints for Python 3.6+"
-marker = "python_version < \"3.8\""
 name = "typing-extensions"
 optional = false
 python-versions = ">=3.6"
@@ -3645,6 +3651,10 @@ arrow = [
 async-generator = [
     {file = "async_generator-1.10-py3-none-any.whl", hash = "sha256:01c7bf666359b4967d2cda0000cc2e4af16a0ae098cbffcb8472fb9e8ad6585b"},
     {file = "async_generator-1.10.tar.gz", hash = "sha256:6ebb3d106c12920aaae42ccb6f787ef5eefdcdd166ea3d628fa8476abe712144"},
+]
+async-timeout = [
+    {file = "async-timeout-4.0.2.tar.gz", hash = "sha256:2163e1640ddb52b7a8c80d0a67a08587e5d245cc9c553a74a847056bc2976b15"},
+    {file = "async_timeout-4.0.2-py3-none-any.whl", hash = "sha256:8ca1e4fcf50d07413d66d1a5e416e42cfdf5851c981d679a09851a6853383b3c"},
 ]
 atomicwrites = [
     {file = "atomicwrites-1.4.0-py2.py3-none-any.whl", hash = "sha256:6d1784dea7c0c8d4a5172b6c620f40b6e4cbfdf96d783691f2e1302a7b88e197"},
@@ -4680,8 +4690,8 @@ pytest-flask = [
     {file = "pytest_flask-1.2.0-py3-none-any.whl", hash = "sha256:fe25b39ad0db09c3d1fe728edecf97ced85e774c775db259a6d25f0270a4e7c9"},
 ]
 pytest-invenio = [
-    {file = "pytest-invenio-1.4.3.tar.gz", hash = "sha256:c41f7a3eeeb05f727eb9b8896241b93113435e1544106ddc762034e122f00548"},
-    {file = "pytest_invenio-1.4.3-py2.py3-none-any.whl", hash = "sha256:9f1704d17a71edc4805a376a294e8cc08b5585b8c5335afdaaffd61f332e3f46"},
+    {file = "pytest-invenio-1.4.5.tar.gz", hash = "sha256:dffeb40f809c53c534d2b4a1df5cc71ea311090a54cc9a0409ae8c231b7706ff"},
+    {file = "pytest_invenio-1.4.5-py2.py3-none-any.whl", hash = "sha256:6ed5160e7d9ba19438464144d820d930b30f88caff07e58c42f50e9c0c13ea01"},
 ]
 pytest-isort = [
     {file = "pytest-isort-3.0.0.tar.gz", hash = "sha256:4fe4b26ead2af776730ec23f5870d7421f35aace22a41c4e938586ef4d8787cb"},
@@ -4753,8 +4763,8 @@ raven = [
     {file = "raven-6.10.0.tar.gz", hash = "sha256:3fa6de6efa2493a7c827472e984ce9b020797d0da16f1db67197bcc23c8fae54"},
 ]
 redis = [
-    {file = "redis-4.1.4-py3-none-any.whl", hash = "sha256:04629f8e42be942c4f7d1812f2094568f04c612865ad19ad3ace3005da70631a"},
-    {file = "redis-4.1.4.tar.gz", hash = "sha256:1d9a0cdf89fdd93f84261733e24f55a7bbd413a9b219fdaf56e3e728ca9a2306"},
+    {file = "redis-4.2.0-py3-none-any.whl", hash = "sha256:3cbe235cea80b9c9991b397567aa2d65eb4e6fb09787f61d227ae82eb4eb50b4"},
+    {file = "redis-4.2.0.tar.gz", hash = "sha256:6758d01dec81af191b98a35cce3402675d115456584c39b500ab485a5e386bbb"},
 ]
 redisbeat = [
     {file = "redisbeat-1.2.2.tar.gz", hash = "sha256:59b7e9984cb9cde9eaea21093ca2b953f83995a64b6c240e4c36f1b2e9ed1e38"},

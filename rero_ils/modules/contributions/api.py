@@ -141,12 +141,12 @@ class Contribution(IlsRecord):
         """Request MEF REST API in JSON format."""
         url = current_app.config.get('RERO_ILS_MEF_AGENTS_URL')
         if pid_type == 'mef':
-            mef_url = f'{url}/mef/?q=pid:{pid}'
+            mef_url = f'{url}/mef/?q=pid:"{pid}"'
         else:
             if pid_type == 'viaf':
-                mef_url = f'{url}/mef/?q=viaf_pid:{pid}'
+                mef_url = f'{url}/mef/?q=viaf_pid:"{pid}"'
             else:
-                mef_url = f'{url}/mef/?q={pid_type}.pid:{pid}'
+                mef_url = f'{url}/mef/?q={pid_type}.pid:"{pid}"'
         request = requests.get(url=mef_url, params=dict(resolve=1, sources=1))
         status = request.status_code
         if request.status_code == requests_codes.ok:

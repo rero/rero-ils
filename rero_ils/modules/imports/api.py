@@ -31,12 +31,8 @@ from lxml import etree
 from redis import Redis
 from six import BytesIO
 
-from ..documents.dojson.contrib.marc21tojson_dnb import marc21 as marc21_dnb
-from ..documents.dojson.contrib.marc21tojson_kul import marc21 as marc21_kul
-from ..documents.dojson.contrib.marc21tojson_loc import marc21 as marc21_loc
-from ..documents.dojson.contrib.marc21tojson_slsp import marc21 as marc21_slsp
-from ..documents.dojson.contrib.marc21tojson_ugent import \
-    marc21 as marc21_ugent
+from ..documents.dojson.contrib.marc21tojson import marc21_dnb, marc21_kul, \
+    marc21_loc, marc21_slsp, marc21_ugent
 from ..documents.dojson.contrib.unimarctojson import unimarc
 
 

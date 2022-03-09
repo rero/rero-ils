@@ -69,7 +69,7 @@ class OperationLog(RecordBase):
 
     @classmethod
     def create(cls, data, id_=None, index_refresh='false', **kwargs):
-        r"""Create a new record instance and store it in elasticsearch.
+        """Create a new record instance and store it in elasticsearch.
 
         :param data: Dict with the record metadata.
         :param id_: Specify a UUID to use for the new record, instead of

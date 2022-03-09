@@ -21,7 +21,7 @@ from dojson.contrib.marc21.utils import create_record, split_stream
 from flask import abort, request
 from six import BytesIO
 
-from rero_ils.modules.documents.dojson.contrib.marc21tojson import marc21
+from rero_ils.modules.documents.dojson.contrib.marc21tojson.rero import marc21
 
 
 def marcxml_marshmallow_loader():

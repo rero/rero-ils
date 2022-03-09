@@ -24,10 +24,10 @@ import traceback
 from copy import deepcopy
 
 import click
+import jsonref
 import requests
 from dojson import Overdo, utils
-
-from rero_ils.modules.utils import requests_retry_session
+from pkg_resources import resource_string
 
 _UNIMARC_LANGUAGES_SCRIPTS = {
     'ba': 'latn',  # Latin
@@ -291,7 +291,21 @@ _ENCODING_LEVEL_MAPPING = {
 }
 
 _CONTRIBUTION_TAGS = ['100', '600', '610', '611', '630', '650', '651',
-                             '655', '700', '710', '711']
+                      '655', '700', '710', '711']
+
+schema_in_bytes = resource_string(
+    'rero_ils.jsonschemas',
+    'common/languages-v0.0.1.json'
+)
+schema = jsonref.loads(schema_in_bytes.decode('utf8'))
+_LANGUAGES = schema['language']['enum']
+
+schema_in_bytes = resource_string(
+    'rero_ils.jsonschemas',
+    'common/countries-v0.0.1.json'
+)
+schema = jsonref.loads(schema_in_bytes.decode('utf8'))
+_COUNTRIES = schema['country']['enum']
 
 re_identified = re.compile(r'\((.*)\)(.*)')
 
@@ -408,10 +422,13 @@ def get_contribution_link(bibid, reroid, id, key):
     :params key: Tag from the marc field.
     :returns: MEF url.
     """
-    # https://mef.test.rero.ch/api/mef/?q=rero.rero_pid:A012327677
-    prod_host = 'mef.rero.ch'
-    test_host = os.environ.get('RERO_ILS_MEF_HOST', 'mef.rero.ch')
-    mef_url = f'https://{test_host}/api/'
+    from rero_ils.modules.utils import requests_retry_session
+
+    # In dojson we dont have app. mef_url should be the same as
+    # RERO_ILS_MEF_AGENTS_URL in config.py
+    # https://mef.test.rero.ch/api/mef/?q=rero.rero_pid:"A012327677"
+    mef_host = os.environ.get('RERO_ILS_MEF_HOST', 'mef.rero.ch')
+    mef_url = f'https://{mef_host}/api'
     if type(id) is str:
         match = re_identified.search(id)
     else:
@@ -422,7 +439,7 @@ def get_contribution_link(bibid, reroid, id, key):
         match_type = match_type.replace('de-588', 'gnd')
         # if we have a viafid, look for the contributor in MEF
         if match_type == "viaf":
-            url = f'{mef_url}/mef/?q=viaf_pid:{match_value}'
+            url = f'{mef_url}/mef/?q=viaf_pid:"{match_value}"'
             response = requests_retry_session().get(url)
             status_code = response.status_code
             if status_code == requests.codes.ok:
@@ -437,13 +454,16 @@ def get_contribution_link(bibid, reroid, id, key):
                 except (IndexError, KeyError):
                     pass
         if match_type in ['idref', 'gnd']:
-            url = f'{mef_url}{match_type}/{match_value}'
+            url = f'{mef_url}/mef/?q={match_type}.pid:"{match_value}"'
             response = requests_retry_session().get(url)
             status_code = response.status_code
+            total = 0
             if status_code == requests.codes.ok:
-                return url.replace(test_host, prod_host)
+                total = response.json().get('hits', {}).get('total', 0)
+                if total > 0:
+                    return f'{mef_url}/{match_type}/{match_value}'
             error_print('WARNING GET MEF CONTRIBUTION:',
-                        bibid, reroid, key, id, url, status_code)
+                        bibid, reroid, key, id, url, status_code, total)
     else:
         error_print('ERROR GET MEF CONTRIBUTION:', bibid, reroid, key, id)
 
@@ -456,25 +476,12 @@ def add_note(new_note, data):
     :param data: the object data on which the new note will be added
     :type data: object
     """
-    def note_key(note):
-        """Generate a note key by concataning the noteType and the label.
-
-        :param note: the note objet for which the key is to be generated
-        :type note: object
-        :return: the note key (concatenation of the noteType and the label)
-        :rtype: str
-        """
-        return '|'.join((note['noteType'], note['label']))
-
-    notes = data.get('note', [])
-    note_set = set()
-    for existing_note in notes:
-        note_set.add(note_key(existing_note))
     if new_note and new_note.get('label') and new_note.get('noteType'):
-        new_note_key = note_key(new_note)
-        if new_note_key not in note_set:
-            notes.append(new_note)
-        data['note'] = notes
+        notes = data.get('note', [])
+        if new_note not in notes:
+            if new_note not in notes:
+                notes.append(new_note)
+            data['note'] = notes
 
 
 def add_data_and_sort_list(key, new_data, data):
@@ -633,7 +640,74 @@ class ReroIlsOverdo(Overdo):
             ignore_missing=ignore_missing,
             exception_handlers=exception_handlers
         )
+        if not result.get('provisionActivity'):
+            self.default_provision_activity(result)
+            error_print('ERROR PROVISION ACTIVITY:', self.bib_id, self.rero_id)
+
         return result
+
+    def build_place(self):
+        """Build place data for provisionActivity."""
+        place = {}
+        if self.cantons:
+            place['canton'] = self.cantons[0]
+        if self.country:
+            place['country'] = self.country
+        if place:
+            place['type'] = 'bf:Place'
+        if self.links_from_752:
+            place['identifyBy'] = self.links_from_752[0]
+        return place
+
+    def default_provision_activity(self, result):
+        """Create default provisionActivity."""
+        places = []
+        publication = {
+            'type': 'bf:Publication'
+        }
+        place = self.build_place()
+        if place:
+            places.append(place)
+        # parce le link skipping the fist (already used by build_place)
+        for i in range(1, len(self.links_from_752)):
+            place = {
+                'country': 'xx',
+                'type': 'bf:Place',
+                'identifyBy': self.links_from_752[i]
+            }
+            places.append(place)
+
+        if places:
+            publication['place'] = places
+        result['provisionActivity'] = [publication]
+
+        if (self.date_type_from_008 == 'q' or
+                self.date_type_from_008 == 'n'):
+            result['provisionActivity'][0][
+                'note'
+            ] = 'Date(s) uncertain or unknown'
+        start_date = make_year(self.date1_from_008)
+        if not start_date or start_date > 2050:
+            error_print('WARNING START DATE 008:', self.bib_id,
+                        self.rero_id, self.date1_from_008)
+            start_date = 2050
+            result['provisionActivity'][0]['note'] = \
+                'Date not available and automatically set to 2050'
+        result['provisionActivity'][0]['startDate'] = start_date
+        end_date = make_year(self.date2_from_008)
+        if end_date:
+            if end_date > 2050:
+                error_print('WARNING END DATE 008:', self.bib_id,
+                            self.rero_id, self.date1_from_008)
+            else:
+                result['provisionActivity'][0]['endDate'] = end_date
+        original_date = make_year(self.original_date_from_008)
+        if original_date:
+            if original_date > 2050:
+                error_print('WARNING ORIGINAL DATE 008:', self.bib_id,
+                            self.rero_id, self.original_date_from_008)
+            else:
+                result['provisionActivity'][0]['original_date'] = original_date
 
     def get_fields(self, tag=None):
         """Get all fields having the given tag value."""
@@ -720,10 +794,12 @@ class ReroIlsOverdo(Overdo):
         try:
             alt_gr = self.alternate_graphic[tag][link]
             subfield = self.get_subfields(alt_gr['field'])[index]
-            data.append({
-                'value': clean_punctuation(subfield, punct, spaced_punct),
-                'language': self.get_language_script(alt_gr['script'])
-            })
+            value = clean_punctuation(subfield, punct, spaced_punct)
+            if value:
+                data.append({
+                    'value': value,
+                    'language': self.get_language_script(alt_gr['script'])
+                })
         except Exception as err:
             pass
         return data or None
@@ -763,6 +839,8 @@ class ReroIlsOverdo(Overdo):
                 punctuation=':;',
                 spaced_punctuation=':;'
             )
+            if not data['extent']:
+                data.pop('extent')
             # extract the duration
             regexp = re.compile(
                 r'(\((\[?{circa_env}\]?\s*{hour_min}.*?)\))|'
@@ -775,8 +853,6 @@ class ReroIlsOverdo(Overdo):
                 duration = match.group(1).strip('()')
                 add_data_and_sort_list('duration', [duration], data)
 
-        # note_list = data.get('note', [])
-        # intital_note_count = len(note_list)
         subfield_code = self.extract_description_subfield['physical_detail']
         for physical_detail in utils.force_list(value.get(subfield_code, [])):
             physical_detail = remove_trailing_punctuation(
@@ -1042,7 +1118,11 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
             if fields_008:
                 self.field_008_data = self.get_control_field_data(
                     fields_008[0]).rstrip()
-                self.serial_type = self.field_008_data[21]
+                try:
+                    self.serial_type = self.field_008_data[21]
+                except Exception as err:
+                    error_print('ERROR SERIAL TYPE:', self.bib_id,
+                                self.rero_id, err)
                 self.date1_from_008 = self.field_008_data[7:11]
                 self.date2_from_008 = self.field_008_data[11:15]
                 self.date_type_from_008 = self.field_008_data[6]
@@ -1098,7 +1178,16 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                 for subfield_a in self.get_subfields(field_040, 'a'):
                     self.admin_meta_data['source'] = subfield_a
                 for subfield_b in self.get_subfields(field_040, 'b'):
-                    self.admin_meta_data['descriptionLanguage'] = subfield_b
+                    if subfield_b in _LANGUAGES:
+                        self.admin_meta_data[
+                            'descriptionLanguage'] = subfield_b
+                    else:
+                        error_print(
+                            'WARNING NOT A LANGUAGE 040:',
+                            self.bib_id,
+                            self.rero_id,
+                            subfield_b
+                        )
                 description_modifier = []
                 for subfield_d in self.get_subfields(field_040, 'd'):
                     description_modifier.append(subfield_d)
@@ -1131,8 +1220,10 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                 exception_handlers=exception_handlers
             )
         except Exception as err:
-            error_print('ERROR:', self.bib_id, self.rero_id, self.count, err)
+            error_print('ERROR DO:', self.bib_id, self.rero_id, self.count,
+                        f'{err} {traceback.format_exception_only}')
             traceback.print_exc()
+            raise Exception(err)
         return result
 
     def get_link_data(self, subfields_6_data):
@@ -1159,29 +1250,31 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
         fields_044 = self.get_fields(tag='044')
         if fields_044:
             field_044 = fields_044[0]
-            cantons_codes = self.get_subfields(field_044, 'c')
-            for cantons_codes in self.get_subfields(field_044, 'c'):
+            for cantons_code in self.get_subfields(field_044, 'c'):
                 try:
-                    canton = cantons_codes.split('-')[1].strip()
+                    canton = cantons_code.split('-')[1].strip()
                     if canton:
                         if canton in _CANTON:
                             self.cantons.append(canton)
                         else:
                             error_print('WARNING INIT CANTONS:', self.bib_id,
-                                        self.rero_id, cantons_codes)
+                                        self.rero_id, cantons_code)
                 except Exception as err:
                     error_print('WARNING INIT CANTONS:', self.bib_id,
-                                self.rero_id, cantons_codes)
+                                self.rero_id, cantons_code)
             if self.cantons:
                 self.country = 'sz'
-            if not self.country:
-                self.country = self.field_008_data[15:18].rstrip()
-        else:
+        # We did not find a country in 044 trying 008.
+        if not self.country:
             try:
                 self.country = self.field_008_data[15:18].rstrip()
-
             except Exception as err:
                 pass
+        # We did not find a country set it to 'xx'
+        if self.country not in _COUNTRIES:
+            error_print('WARNING NOT A COUNTRY:', self.bib_id, self.rero_id,
+                        self.country)
+            self.country = 'xx'
 
     def init_lang(self):
         """Initialization languages (008 and 041)."""
@@ -1192,7 +1285,15 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                 lang_codes = self.get_subfields(field_041, code)
                 for lang_from_041 in lang_codes:
                     if lang_from_041 not in langs_from_041:
-                        langs_from_041.append(lang_from_041)
+                        if lang_from_041 in _LANGUAGES:
+                            langs_from_041.append(lang_from_041)
+                        else:
+                            error_print(
+                                'WARNING NOT A LANGUAGE 041:',
+                                self.bib_id,
+                                self.rero_id,
+                                lang_from_041
+                            )
             return langs_from_041
 
         self.lang_from_008 = None
@@ -1200,6 +1301,14 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
         self.langs_from_041_h = []
         try:
             self.lang_from_008 = self.field_008_data[35:38]
+            if self.lang_from_008 not in _LANGUAGES:
+                error_print(
+                    'WARNING NOT A LANGUAGE 008:',
+                    self.bib_id,
+                    self.rero_id,
+                    self.lang_from_008
+                )
+                self.lang_from_008 = 'und'
         except Exception as err:
             self.lang_from_008 = 'und'
             error_print("WARNING: set 008 language to 'und'", self.bib_id,
@@ -1331,10 +1440,8 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
         :rtype: str
         """
         if script_code in _LANGUAGES_SCRIPTS:
-            languages = (
-                [self.lang_from_008] +
-                self.langs_from_041_a +
-                self.langs_from_041_h)
+            languages = ([self.lang_from_008] + self.langs_from_041_a +
+                         self.langs_from_041_h)
             for lang in languages:
                 if lang in _LANGUAGES_SCRIPTS[script_code]:
                     return '-'.join([lang, script_code])
@@ -1573,6 +1680,34 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
             traceback.print_exc()
         return result
 
+    def default_provision_activity(self, result):
+        """Default provision activity."""
+
+    def get_language_script(self, unimarc_script_code):
+        """Build the `language-script` code.
+
+        This code is built according to the format
+        <lang_code>-<script_code> for example: chi-hani;
+        the <lang_code> is retrived from field 101
+        the <script_code> is build from the given <unimarc_script_code>
+
+        :param unimarc_script_code: the unimarc script code
+        :param unimarc_script_code: str
+        :return: language script code in the format `<lang_code>-<script_code>`
+        :rtype: str
+        """
+        if unimarc_script_code in _UNIMARC_LANGUAGES_SCRIPTS:
+            script_code = _UNIMARC_LANGUAGES_SCRIPTS[unimarc_script_code]
+            lang = self.lang_from_101
+            if script_code in _LANGUAGES_SCRIPTS:
+                if lang in _LANGUAGES_SCRIPTS[script_code]:
+                    return '-'.join([self.lang_from_101, script_code])
+                error_print('WARNING LANGUAGE SCRIPTS:', self.bib_id,
+                            self.rero_id, script_code, '101:',
+                            self.lang_from_101, '101$a or $g:',
+                            self.lang_from_101)
+        return '-'.join(['und', script_code])
+
     def get_alt_graphic_fields(self, tag=None):
         """Get all alternate graphic fields having the given tag value.
 
@@ -1607,30 +1742,6 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
                 else:
                     fields.append(field_data)
         return fields
-
-    def get_language_script(self, unimarc_script_code):
-        """Build the `language-script` code.
-
-        This code is built according to the format
-        <lang_code>-<script_code> for example: chi-hani;
-        the <lang_code> is retrived from field 101
-        the <script_code> is build from the given <unimarc_script_code>
-
-        :param unimarc_script_code: the unimarc script code
-        :param unimarc_script_code: str
-        :return: language script code in the format `<lang_code>-<script_code>`
-        :rtype: str
-        """
-        if unimarc_script_code in _UNIMARC_LANGUAGES_SCRIPTS:
-            script_code = _UNIMARC_LANGUAGES_SCRIPTS[unimarc_script_code]
-            if script_code in _LANGUAGES_SCRIPTS:
-                if self.lang_from_101 in _LANGUAGES_SCRIPTS[script_code]:
-                    return '-'.join([self.lang_from_101, script_code])
-                error_print('WARNING LANGUAGE SCRIPTS:', self.bib_id,
-                            self.rero_id, script_code, '101:',
-                            self.lang_from_101, '101$aor$g:',
-                            self.lang_from_101)
-        return '-'.join(['und', script_code])
 
 
 class TitlePartList(object):
@@ -1896,14 +2007,14 @@ def build_identifier(data):
     data_0 = utils.force_list(data.get('0'))
     if data_0:
         match = re_identified.match(data_0[0])
-        try:
-            result['value'] = match.group(2)
-            identifier_type = sources.get(match.group(1).upper())
-            if identifier_type:
-                result['type'] = identifier_type
-            else:
-                result['type'] = 'bf:Local'
-                result['source'] = match.group(1)
-        except IndexError:
-            click.echo(f'WARNING creating identifier: {data_0}')
+        if match:
+            try:
+                result['value'] = match.group(2)
+                source = match.group(1)
+                identifier_type = sources.get(source.upper())
+                if identifier_type:
+                    result['type'] = identifier_type
+            except IndexError:
+                result = {}
+                click.echo(f'WARNING creating identifier: {data_0}')
     return result or None

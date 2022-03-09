@@ -45,7 +45,7 @@ from ..utils import cached, extracted_data_from_ref
 
 
 def doc_item_view_method(pid, record, template=None, **kwargs):
-    r"""Display default view.
+    """Display default view.
 
     Sends record_viewed signal and renders template.
     :param pid: PID object.
@@ -383,7 +383,7 @@ def work_access_point(work_access_point):
     """Process work access point data."""
     wap = []
     for work in work_access_point:
-        agentFormatted = ''
+        agent_formatted = ''
         if 'agent' in work:
             agent = work['agent']
             if agent['type'] == 'bf:Person':
@@ -396,51 +396,51 @@ def work_access_point(work_access_point):
                 elif 'fuller_form_of_name' in agent:
                     name.append(f"({agent['fuller_form_of_name']})")
                 if len(name):
-                    agentFormatted += f"{', '.join(name)}, "
+                    agent_formatted += f"{', '.join(name)}, "
                 if 'numeration' in agent and 'qualifier' in agent:
-                    agentFormatted += f"{agent['qualifier']}, "
+                    agent_formatted += f"{agent['qualifier']}, "
                 dates = []
                 for key in ['date_of_birth', 'date_of_death']:
                     if key in agent:
                         dates.append(agent[key])
                 if len(dates):
-                    agentFormatted += f"{'-'.join(dates)}. "
+                    agent_formatted += f"{'-'.join(dates)}. "
                 if 'numeration' not in agent and 'qualifier' in agent:
-                    agentFormatted += f"{agent['qualifier']}. "
+                    agent_formatted += f"{agent['qualifier']}. "
             else:
                 # Organisation
                 if 'preferred_name' in agent:
-                    agentFormatted += agent['preferred_name'] + '. '
+                    agent_formatted += agent['preferred_name'] + '. '
                 if 'subordinate_unit' in agent:
                     for unit in agent['subordinate_unit']:
-                        agentFormatted += unit + '. '
+                        agent_formatted += unit + '. '
                 if 'numbering' in agent or 'conference_date' in agent or \
                    'place' in agent:
                     conf = []
                     for key in ['numbering', 'conference_date', 'place']:
                         conf.append(agent[key])
                     if len(conf):
-                        agentFormatted += f"({' : '.join(conf)}) "
-        agentFormatted += f"{work['title']}. "
+                        agent_formatted += f"({' : '.join(conf)}) "
+        agent_formatted += f"{work['title']}. "
         if 'part' in work:
             for part in work['part']:
                 for key in ['partNumber', 'partName']:
                     if key in part:
-                        agentFormatted += f"{part[key]}. "
+                        agent_formatted += f"{part[key]}. "
         if 'miscellaneous_information' in work:
-            agentFormatted += f"{work['miscellaneous_information']}. "
+            agent_formatted += f"{work['miscellaneous_information']}. "
         if 'language' in work:
-            agentFormatted += f"{_('lang_'+work['language'])}. "
+            agent_formatted += f"{_('lang_'+work['language'])}. "
         if 'medium_of_performance_for_music' in work:
-            agentFormatted += \
+            agent_formatted += \
                 f"{'. '.join(work['medium_of_performance_for_music'])}. "
         if 'key_for_music' in work:
-            agentFormatted += f"{work['key_for_music']}. "
+            agent_formatted += f"{work['key_for_music']}. "
         if 'arranged_statement_for_music' in work:
-            agentFormatted += f"{work['arranged_statement_for_music']}. "
+            agent_formatted += f"{work['arranged_statement_for_music']}. "
         if 'date_of_work' in work:
-            agentFormatted += f"{work['date_of_work']}. "
-        wap.append(agentFormatted.strip())
+            agent_formatted += f"{work['date_of_work']}. "
+        wap.append(agent_formatted.strip())
     return wap
 
 

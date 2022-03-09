@@ -26,8 +26,8 @@ from dojson.contrib.marc21.utils import create_record
 from utils import mock_response
 
 from rero_ils.dojson.utils import not_repetitive
-from rero_ils.modules.documents.dojson.contrib.marc21tojson import marc21
-from rero_ils.modules.documents.dojson.contrib.marc21tojson.model import \
+from rero_ils.modules.documents.dojson.contrib.marc21tojson.rero import marc21
+from rero_ils.modules.documents.dojson.contrib.marc21tojson.rero.model import \
     get_contribution_link
 from rero_ils.modules.documents.views import create_publication_statement, \
     get_cover_art, get_other_accesses
@@ -1421,7 +1421,8 @@ def test_marc21_to_contribution(mock_get):
                     'type': 'bf:Person',
                     'rero': {'pid': 'XXXXXXXX'}
                 }
-            }]
+            }],
+            'total': 1
         }
     })
     marc21json = create_record(marc21xml)
@@ -1487,7 +1488,7 @@ def test_marc21copyrightdate():
     assert data.get('copyrightDate') == ['© 1971 [extra 1973]']
 
 
-def test_marc21_to_provisionActivity_manufacture_date():
+def test_marc21_to_provision_activity_manufacture_date():
     """Test dojson publication statement.
     - 1 manufacture place and 1 agent, 1 manufacture date
     """
@@ -1611,7 +1612,7 @@ def test_marc21_provisionActivity_with_original_date():
     }]
 
 
-def test_marc21_to_provisionActivity_canton():
+def test_marc21_to_provision_activity_canton():
     """Test dojson publication statement.
     - get canton from field 044
     - 3 publication places and 3 agents from one field 264
@@ -1735,7 +1736,7 @@ def test_marc21_to_provisionActivity_canton():
     ]
 
 
-def test_marc21_to_provisionActivity_1_place_2_agents():
+def test_marc21_to_provision_activity_1_place_2_agents():
     """Test dojson publication statement.
     - 1 publication place and 2 agents from one field 264
     """
@@ -1784,7 +1785,7 @@ def test_marc21_to_provisionActivity_1_place_2_agents():
     ]
 
 
-def test_marc21_to_provisionActivity_1_place_2_agents_with_one_752():
+def test_marc21_to_provision_activity_1_place_2_agents_with_one_752():
     """Test dojson publication statement.
     - 1 publication place and 2 agents from one field 264
     - 1 field 752
@@ -1843,7 +1844,7 @@ def test_marc21_to_provisionActivity_1_place_2_agents_with_one_752():
     ]
 
 
-def test_marc21_to_provisionActivity_1_place_2_agents_with_two_752():
+def test_marc21_to_provision_activity_1_place_2_agents_with_two_752():
     """Test dojson publication statement.
     - 1 publication place and 2 agents from one field 264
     - 2 field 752
@@ -1915,7 +1916,7 @@ def test_marc21_to_provisionActivity_1_place_2_agents_with_two_752():
     ]
 
 
-def test_marc21_to_provisionActivity_unknown_place_2_agents():
+def test_marc21_to_provision_activity_unknown_place_2_agents():
     """Test dojson publication statement.
     - unknown place and 2 agents from one field 264
     """
@@ -1968,7 +1969,7 @@ def test_marc21_to_provisionActivity_unknown_place_2_agents():
     ]
 
 
-def test_marc21_to_provisionActivity_3_places_dann_2_agents():
+def test_marc21_to_provision_activity_3_places_dann_2_agents():
     """Test dojson publication statement.
     - 3 places and 2 agents from one field 264
     - 2 places with [dann] prefix
@@ -2025,7 +2026,7 @@ def test_marc21_to_provisionActivity_3_places_dann_2_agents():
     ]
 
 
-def test_marc21_to_provisionActivity_2_places_1_agent():
+def test_marc21_to_provision_activity_2_places_1_agent():
     """Test dojson publication statement.
     - 2 publication places and 1 agents from one field 264
     """
@@ -2077,7 +2078,7 @@ def test_marc21_to_provisionActivity_2_places_1_agent():
     ]
 
 
-def test_marc21_to_provisionActivity_1_place_1_agent_reprint_date():
+def test_marc21_to_provision_activity_1_place_1_agent_reprint_date():
     """Test dojson publication statement.
     - 1 place and 1 agent from one field 264
     - reprint date in 008
@@ -2126,7 +2127,7 @@ def test_marc21_to_provisionActivity_1_place_1_agent_reprint_date():
     ]
 
 
-def test_marc21_to_provisionActivity_1_place_1_agent_uncertain_date():
+def test_marc21_to_provision_activity_1_place_1_agent_uncertain_date():
     """Test dojson publication statement.
     - 1 place and 1 agent from one field 264
     - uncertain date
@@ -2174,7 +2175,7 @@ def test_marc21_to_provisionActivity_1_place_1_agent_uncertain_date():
     ]
 
 
-def test_marc21_to_provisionActivity_1_place_1_agent_chi_hani():
+def test_marc21_to_provision_activity_1_place_1_agent_chi_hani():
     """Test dojson publication statement.
     - 1 place and 1 agent from one field 264
     - extract data from the linked 880 from 3 fields 880
@@ -2525,7 +2526,7 @@ def test_marc21_to_edition_statement_with_one_bad_field_250():
      }]
 
 
-def test_marc21_to_provisionActivity_1_place_1_agent_ara_arab():
+def test_marc21_to_provision_activity_1_place_1_agent_ara_arab():
     """Test dojson publication statement.
     - 1 place and 1 agent from one field 264
     - extract data from the linked 880
@@ -2591,7 +2592,7 @@ def test_marc21_to_provisionActivity_1_place_1_agent_ara_arab():
     ]
 
 
-def test_marc21_to_provisionActivity_2_places_2_agents_rus_cyrl():
+def test_marc21_to_provision_activity_2_places_2_agents_rus_cyrl():
     """Test dojson publication statement.
     - 2 places and 2 agents from one field 264
     - extract data from the linked 880 from 3 fields 880
@@ -2691,7 +2692,7 @@ def test_marc21_to_provisionActivity_2_places_2_agents_rus_cyrl():
     ]
 
 
-def test_marc21_to_provisionActivity_exceptions(capsys):
+def test_marc21_to_provision_activity_exceptions(capsys):
     """Test dojson publication statement.
     - exceptions
     """
@@ -2732,8 +2733,13 @@ def test_marc21_to_provisionActivity_exceptions(capsys):
             'startDate': 2017
         }
     ]
-    assert out.strip() == ('WARNING LANGUAGE SCRIPTS:\t???\t???\tcyrl\t008:'
-                           '\t\t041$a:\t[]\t041$h:\t[]')
+    assert out.strip().replace('\n', '') == (
+      'WARNING NOT A LANGUAGE 008:\t???\t???\t\t'
+      'WARNING LANGUAGE SCRIPTS:'
+      '\t???\t???\tcyrl\t008:\tund\t041$a:\t[]\t041$h:\t[]\t'
+      'WARNING LANGUAGE SCRIPTS:'
+      '\t???\t???\tcyrl\t008:\tund\t041$a:\t[]\t041$h:\t[]'
+    )
 
     marc21xml = """
       <record>
@@ -2745,8 +2751,12 @@ def test_marc21_to_provisionActivity_exceptions(capsys):
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     out, err = capsys.readouterr()
-    assert out.strip() == ('WARNING INIT CANTONS:\t???\t???\tchbe\t\n'
-                           'WARNING START DATE 264:\t???\t???\tNone')
+    assert out.strip() == ('WARNING NOT A LANGUAGE 008:\t???\t???\t\t\n'
+                           'WARNING INIT CANTONS:\t???\t???\tchbe\t\n'
+                           'WARNING NOT A COUNTRY:\t???\t???\t\t\n'
+                           'WARNING START DATE 264:\t???\t???\tNone\t\n'
+                           'WARNING START DATE 008:\t???\t???\tNone\t\n'
+                           'ERROR PROVISION ACTIVITY:\t???\t???')
 
 
 # 300 [$a repetitive]: extent, duration:
@@ -4020,7 +4030,17 @@ def test_marc21_to_specific_document_relation():
             '$ref': 'https://bib.rero.ch/api/documents/2000056',
         }
     ]
-
+    marc21xml = """
+    <record>
+      <datafield tag="770" ind1="1" ind2=" ">
+        <subfield code="t">Télé-top-Matin</subfield>
+        <subfield code="w">2000055</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('supplement') == [{'label': 'Télé-top-Matin 2000055'}]
     marc21xml = """
     <record>
       <datafield tag="533" ind1=" " ind2=" ">
@@ -4297,7 +4317,7 @@ def test_marc21_to_part_of_with_multiple_800():
     ]
 
 
-def test_marc21_to_identifiedBy_from_020():
+def test_marc21_to_identified_by_from_020():
     """Test dojson identifiedBy from 020."""
 
     marc21xml = """
@@ -4336,7 +4356,7 @@ def test_marc21_to_identifiedBy_from_020():
     ]
 
 
-def test_marc21_to_identifiedBy_from_022():
+def test_marc21_to_identified_by_from_022():
     """Test dojson identifiedBy from 022."""
 
     marc21xml = """
@@ -4382,7 +4402,7 @@ def test_marc21_to_identifiedBy_from_022():
     ]
 
 
-def test_marc21_to_identifiedBy_from_024_snl_bnf():
+def test_marc21_to_identified_by_from_024_snl_bnf():
     """Test dojson identifiedBy from 024 field snl and bnf."""
     marc21xml = """
     <record>
@@ -4429,7 +4449,7 @@ def test_marc21_to_identifiedBy_from_024_snl_bnf():
     ]
 
 
-def test_marc21_to_identifiedBy_from_024_with_subfield_2():
+def test_marc21_to_identified_by_from_024_with_subfield_2():
     """Test dojson identifiedBy from 024 field with subfield 2."""
 
     marc21xml = """
@@ -4496,7 +4516,7 @@ def test_marc21_to_identifiedBy_from_024_with_subfield_2():
     ]
 
 
-def test_marc21_to_identifiedBy_from_024_without_subfield_2():
+def test_marc21_to_identified_by_from_024_without_subfield_2():
     """Test dojson identifiedBy from 024 field without subfield 2."""
 
     marc21xml = """
@@ -4619,7 +4639,7 @@ def test_marc21_to_identifiedBy_from_024_without_subfield_2():
     ]
 
 
-def test_marc21_to_identifiedBy_from_028():
+def test_marc21_to_identified_by_from_028():
     """Test dojson identifiedBy from 035."""
 
     marc21xml = """
@@ -4721,7 +4741,8 @@ def test_marc21_to_subjects(mock_get):
                     'type': 'bf:Person',
                     'rero': {'pid': 'XXXXXXXX'}
                 }
-            }]
+            }],
+            'total': 1
         }
     })
     marc21json = create_record(marc21xml)
@@ -4976,7 +4997,14 @@ def test_marc21_to_subjects_imported():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data == {}
+    assert data == {
+        'provisionActivity': [{
+            'note': 'Date not available and automatically set to 2050',
+            'place': [{'country': 'xx', 'type': 'bf:Place'}],
+            'startDate': 2050,
+            'type': 'bf:Publication'
+        }]
+      }
 
     # field 919 with $2 chrero and without $v
     marc21xml = """
@@ -4991,7 +5019,14 @@ def test_marc21_to_subjects_imported():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data == {}
+    assert data == {
+        'provisionActivity': [{
+            'note': 'Date not available and automatically set to 2050',
+            'place': [{'country': 'xx', 'type': 'bf:Place'}],
+            'startDate': 2050,
+            'type': 'bf:Publication'
+        }]
+      }
 
     # field 919 with $2 ram|rameau|gnd|rerovoc
     marc21xml = """
@@ -5123,7 +5158,7 @@ def test_marc21_to_genreForm_imported():
     }]
 
 
-def test_marc21_to_identifiedBy_from_035():
+def test_marc21_to_identified_by_from_035():
     """Test dojson identifiedBy from 035."""
 
     marc21xml = """
@@ -5156,7 +5191,7 @@ def test_marc21_to_identifiedBy_from_035():
         {
             'type': 'bf:Local',
             'source': 'OCoLC',
-            'value': '(OCoLC)ocm72868858'
+            'value': 'ocm72868858'
         }
     ]
 
@@ -5272,14 +5307,14 @@ def test_marc21_to_electronicLocator_from_856(mock_cover_get):
     ]
 
 
-def test_marc21_to_identifiedBy_from_930():
+def test_marc21_to_identified_by_from_930():
     """Test dojson identifiedBy from 930."""
 
     # identifier with source in parenthesis
     marc21xml = """
     <record>
       <datafield tag="930" ind1=" " ind2=" ">
-        <subfield code="a">(OCoLC) ocm11113722</subfield>
+        <subfield code="a">(OCoLC)ocm11113722</subfield>
       </datafield>
     </record>
     """
@@ -5315,14 +5350,24 @@ def test_get_contribution_link(mock_get, capsys):
     """Test get mef contribution link"""
     os.environ['RERO_ILS_MEF_HOST'] = 'mef.xxx.rero.ch'
 
-    mock_get.return_value = mock_response(json_data={})
+    mock_get.return_value = mock_response(json_data={
+        'hits': {
+            'hits': [{
+                'metadata': {
+                    'type': 'bf:Person',
+                    'idref': {'pid': '003945843'}
+                }
+            }],
+            'total': 1
+        }
+    })
     mef_url = get_contribution_link(
         bibid='1',
         reroid='1',
         id='(IdRef)003945843',
         key='100..'
     )
-    assert mef_url == 'https://mef.rero.ch/api/idref/003945843'
+    assert mef_url == 'https://mef.xxx.rero.ch/api/idref/003945843'
 
     mock_get.return_value = mock_response(status=404)
     mef_url = get_contribution_link(
@@ -5333,9 +5378,10 @@ def test_get_contribution_link(mock_get, capsys):
     )
     assert not mef_url
     out, err = capsys.readouterr()
-    assert out == 'WARNING GET MEF CONTRIBUTION:\t1\t1\t100..\t' \
-                  '(IdRef)123456789\t' \
-                  'https://mef.xxx.rero.ch/api/idref/123456789\t404\t\n'
+    assert out == (
+        'WARNING GET MEF CONTRIBUTION:\t1\t1\t100..\t(IdRef)123456789\t'
+        'https://mef.xxx.rero.ch/api/mef/?q=idref.pid:"123456789"\t404\t0\t\n'
+    )
 
     mock_get.return_value = mock_response(status=400)
     mef_url = get_contribution_link(

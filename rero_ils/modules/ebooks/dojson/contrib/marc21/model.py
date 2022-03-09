@@ -26,6 +26,8 @@ from rero_ils.dojson.utils import ReroIlsMarc21Overdo, TitlePartList, \
     add_note, extract_subtitle_and_parallel_titles_from_field_245_b, \
     get_field_items, get_field_link_data, make_year, \
     remove_trailing_punctuation
+from rero_ils.modules.documents.dojson.contrib.marc21tojson.utils import \
+    do_language
 
 marc21 = ReroIlsMarc21Overdo()
 
@@ -49,10 +51,7 @@ def marc21_to_language_from_008(self, key, value):
 
     languages: 008 and 041 [$a, repetitive]
     """
-    language = self.get('language', [])
-
-    # put 008 language in first place
-    language.insert(0, {'type': 'bf:Language', 'value': value.strip()[35:38]})
+    language = do_language(self, marc21)
     return language
 
 
@@ -125,7 +124,7 @@ def marc21_to_translated_from(self, key, value):
     return languages
 
 
-@marc21.over('contribution', '[17][01][01]..')
+@marc21.over('contribution', '(^100|^700|^710|^711)..')
 @utils.for_each_value
 @utils.ignore_value
 def marc21_to_contribution(self, key, value):
@@ -391,7 +390,7 @@ def marc21_to_provision_activity(self, key, value):
                     statement.append(place_or_agent_data)
         return statement or None
 
-    def build_place():
+    def build_place(marc21):
         place = {}
         if marc21.country:
             place['country'] = marc21.country
@@ -399,10 +398,11 @@ def marc21_to_provision_activity(self, key, value):
             place['type'] = 'bf:Place'
         return place
 
-    # the function marc21_to_provisionActivity start here
+    # the function marc21_to_provision_activity start here
     ind2 = key[4]
     type_per_ind2 = {
         ' ': 'bf:Publication',
+        '_': 'bf:Publication',
         '0': 'bf:Production',
         '1': 'bf:Publication',
         '2': 'bf:Distribution',
@@ -438,8 +438,8 @@ def marc21_to_provision_activity(self, key, value):
                     publication['endDate'] = end_date
             except Exception:
                 pass
-            place = build_place()
-            if place:
+            place = build_place(marc21)
+            if place and place.get('country') != 'xx':
                 publication['place'] = [place]
 
     return publication or None

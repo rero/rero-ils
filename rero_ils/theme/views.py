@@ -130,7 +130,7 @@ def search(viewcode, recordType):
 
 @blueprint.app_template_filter()
 def nl2br(string):
-    r"""Replace \n to <br>."""
+    """Replace return to <br>."""
     return string.replace("\n", "<br>")
 
 

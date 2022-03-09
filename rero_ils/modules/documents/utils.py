@@ -29,7 +29,8 @@ from flask import request as flask_request
 from invenio_jsonschemas.proxies import current_jsonschemas
 from werkzeug.local import LocalProxy
 
-from .dojson.contrib.marc21tojson.model import remove_trailing_punctuation
+from rero_ils.dojson.utils import remove_trailing_punctuation
+
 from ..utils import get_schema_for_resource, memoized
 from ...utils import get_i18n_supported_languages
 

@@ -332,7 +332,7 @@
     "preferred_name": {
       "title": "Preferred name",
       "type": "string",
-      "minLength": 2
+      "minLength": 1
     },
     "source": {
       "title": "Source",

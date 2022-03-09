@@ -990,7 +990,7 @@ def number_records_in_file(json_file, type):
     return count
 
 
-def requests_retry_session(retries=3, backoff_factor=0.3,
+def requests_retry_session(retries=5, backoff_factor=0.5,
                            status_forcelist=(500, 502, 504), session=None):
     """Request retry session.
 

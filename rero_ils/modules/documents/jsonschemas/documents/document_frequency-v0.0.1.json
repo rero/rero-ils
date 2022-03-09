@@ -28,7 +28,7 @@
           "title": "Date",
           "description": "Required if a former frequency is indicated",
           "type": "string",
-          "minLength": 4,
+          "minLength": 1,
           "form": {
             "placeholder": "Example: 1953-1988"
           }
