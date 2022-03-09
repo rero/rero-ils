@@ -961,11 +961,11 @@ def marc21_to_summary(self, key, value):
 def unimarc_identifier_isbn(self, key, value):
     """Get identifier isbn.
 
-    identifiedBy.type = 'bf:Isbn'
+    identified_by.type = 'bf:Isbn'
         * value = 010$a - (repeatable, remove hyphen)
         * qualifier = 010$b
 
-    identifiedBy.type = 'bf:Isbn'
+    identified_by.type = 'bf:Isbn'
         * value = 010$z - (repeatable, remove hyphen)
         * status = 'invalid or cancelled'
     """
@@ -996,22 +996,22 @@ def unimarc_identifier_isbn(self, key, value):
 def unimarc_identifier_isbn_tag011(self, key, value):
     """Get identifier isbn.
 
-    identifiedBy.type = bf:Issn
+    identified_by.type = bf:Issn
         * value: 011$a
         * qualifier: 011$b
 
-    identifiedBy.type = bf:Issn
+    identified_by.type = bf:Issn
         * value: 011$z (repeatable)
         * status: 'invalid'
 
-    identifiedBy.type = bf:Issn
+    identified_by.type = bf:Issn
         * value: 011$y
         * status: 'cancelled'
 
-    identifiedBy.type = bf:IssnL
+    identified_by.type = bf:IssnL
         * value: 011$f
 
-    identifiedBy.type = bf:IssnL
+    identified_by.type = bf:IssnL
         * value: 011$g" (repeatable)
         * status: 'cancelled'
     """
@@ -1068,7 +1068,7 @@ def unimarc_identifier_isbn_tag073(self, key, value):
     """Get identifier isbn.
 
     identifiers:isbn: 010$a
-    identifiedBy.type = bf:Ean = UNIMARC 073
+    identified_by.type = bf:Ean = UNIMARC 073
     * value = 073$a
     * qualifier = 073$b
     * ""status"":""invalid or cancelled"" = 073$z

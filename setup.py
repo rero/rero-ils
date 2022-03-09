@@ -138,13 +138,14 @@ setup(
             'pjson = rero_ils.dojson.cli:pretty_json_dump'
         ],
         'dojson.cli.rule': [
-            'marc21tojson = rero_ils.modules.documents.dojson'
-            '.contrib.marc21tojson:marc21tojson',
-            'marc21toebooks = \
-                rero_ils.modules.ebooks.dojson.contrib.marc21:marc21',
-            'unimarctojson = '
-            'rero_ils.modules.documents.dojson'
-            '.contrib.unimarctojson:unimarc',
+            'marc21tojson_rero = rero_ils.modules.documents.dojson.contrib.marc21tojson:marc21_rero',
+            'marc21tojson_dnb = rero_ils.modules.documents.dojson.contrib.marc21tojson:marc21_dnb',
+            'marc21tojson_kul = rero_ils.modules.documents.dojson.contrib.marc21tojson:marc21_kul',
+            'marc21tojson_loc = rero_ils.modules.documents.dojson.contrib.marc21tojson:marc21_loc',
+            'marc21tojson_slsp = rero_ils.modules.documents.dojson.contrib.marc21tojson:marc21_slsp',
+            'marc21tojson_ugent = rero_ils.modules.documents.dojson.contrib.marc21tojson:marc21_ugent',
+            'marc21toebooks = rero_ils.modules.ebooks.dojson.contrib.marc21:marc21',
+            'unimarctojson = rero_ils.modules.documents.dojson.contrib.unimarctojson:unimarc',
         ],
         'flask.commands': [
             'apiharvester = rero_ils.modules.apiharvester.cli:apiharvester',

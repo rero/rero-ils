@@ -230,7 +230,7 @@ def missing_pids(doc_type):
         data = {'DB': [], 'ES': [], 'ES duplicate': []}
         for pid in res.get('DB'):
             if api_url:
-                data['DB'].append(f'{api_url}?q=pid:{pid}')
+                data['DB'].append(f'{api_url}?q=pid:"{pid}"')
             else:
                 data['DB'].append(pid)
         for pid in res.get('ES'):
@@ -240,7 +240,7 @@ def missing_pids(doc_type):
                 data['ES'].append(pid)
         for pid in res.get('ES duplicate'):
             if api_url:
-                data['ES duplicate'].append(f'{api_url}?q=pid:{pid}')
+                data['ES duplicate'].append(f'{api_url}?q=pid:"{pid}"')
             else:
                 data['ES duplicate'].append(pid)
         return jsonify({'data': data})

@@ -22,13 +22,13 @@ import re
 
 from dojson import utils
 from dojson.utils import GroupableOrderedDict
+from iso639 import find
 
-from rero_ils.dojson.utils import ReroIlsMarc21Overdo, TitlePartList, \
-    add_note, build_identifier, build_responsibility_data, \
-    build_string_from_subfields, error_print, \
-    extract_subtitle_and_parallel_titles_from_field_245_b, \
-    get_contribution_link, get_field_items, get_field_link_data, make_year, \
-    not_repetitive, remove_trailing_punctuation
+from rero_ils.dojson.utils import _LANGUAGES, TitlePartList, add_note, \
+    build_identifier, build_responsibility_data, build_string_from_subfields, \
+    error_print, extract_subtitle_and_parallel_titles_from_field_245_b, \
+    get_contribution_link, get_field_items, get_field_link_data, \
+    not_repetitive, re_identified, remove_trailing_punctuation
 
 _DOCUMENT_RELATION_PER_TAG = {
     '770': 'supplement',
@@ -225,36 +225,18 @@ _INTENDED_AUDIENCE_TYPE_REGEXP = {
     'filmage_ch': re.compile(r'^from the age of')
 }
 
-_IDREF_REF_REGEX = re.compile(r'^(?i)\(IdRef\)(.*)?')
-_RERO_REF_REGEX = re.compile(r'^(?i)\(RERO\)(.*)?')
-
-marc21 = ReroIlsMarc21Overdo()
+re_reroils = re.compile(r'(^REROILS:)(.*)')
+re_electonic_locator = re.compile(r'^(ftps?|https?)://.*$')
 
 
-def build_place():
-    """Build place data for provisionActivity."""
-    place = {}
-    if marc21.cantons:
-        place['canton'] = marc21.cantons[0]
-    if marc21.country:
-        place['country'] = marc21.country
-    if place:
-        place['type'] = 'bf:Place'
-    if marc21.links_from_752:
-        place['identifyBy'] = marc21.links_from_752[0]
-    return place
-
-
-@marc21.over('issuance', 'leader')
-@utils.ignore_value
-def marc21_to_type_and_issuance(self, key, value):
-    """Get document type, content/Media/Carrier type and mode of issuance."""
+def do_issuance(data, marc21):
+    """Get document content/Media/Carrier type and mode of issuance."""
     if marc21.content_media_carrier_type:
-        self['contentMediaCarrier'] = marc21.content_media_carrier_type
+        data['contentMediaCarrier'] = marc21.content_media_carrier_type
     if marc21.langs_from_041_h:
-        self['originalLanguage'] = marc21.langs_from_041_h
+        data['originalLanguage'] = marc21.langs_from_041_h
     if marc21.admin_meta_data:
-        self['adminMetadata'] = marc21.admin_meta_data
+        data['adminMetadata'] = marc21.admin_meta_data
     main_type = _ISSUANCE_MAIN_TYPE_PER_BIB_LEVEL.get(
         marc21.bib_level, 'rdami:1001')
     sub_type = 'NOT_DEFINED'
@@ -295,38 +277,68 @@ def marc21_to_type_and_issuance(self, key, value):
     if error:
         error_print('WARNING ISSUANCE:', marc21.bib_id, marc21.rero_id,
                     main_type, sub_type, marc21.bib_level, marc21.serial_type)
-    self['issuance'] = {'main_type': main_type, 'subtype': sub_type}
+    data['issuance'] = {'main_type': main_type, 'subtype': sub_type}
 
 
-@marc21.over('pid', '^001')
-@utils.ignore_value
-def marc21_to_pid(self, key, value):
-    """Get pid.
+def do_type(data, marc21):
+    """Get document type."""
+    type = [{"main_type": "docmaintype_other"}]
+    if marc21.record_type == 'a':
+        if marc21.bib_level == 'm':
+            type = [{
+                "main_type": "docmaintype_book",
+                "subtype": "docsubtype_other_book"
+            }]
 
-    If 001 starts with 'REROILS:' save as pid.
-    """
-    pid = None
-    value = value.strip().split(':')
-    if value[0] == 'REROILS':
-        pid = value[1]
-    return pid
+            field_008 = None
+            field_008 = marc21.get_fields(tag='008')
+            # if it's an electronic book
+            if field_008[0]['data'][23] in ('o', 's'):
+                type = [{
+                    "main_type": "docmaintype_book",
+                    "subtype": "docsubtype_e-book"
+                 }]
+        elif marc21.bib_level == 's':
+            type = [{
+                "main_type": "docmaintype_serial"
+            }]
+        elif marc21.bib_level == 'a':
+            type = [{
+                "main_type": "docmaintype_article",
+            }]
+        elif marc21.record_type in ['c', 'd']:
+            type = [{
+                "main_type": "docmaintype_score",
+                "subtype": "docsubtype_printed_score"
+            }]
+        elif marc21.record_type in ['i', 'j']:
+            type = [{
+                "main_type": "docmaintype_audio",
+                "subtype": "docsubtype_music"
+            }]
+        elif marc21.record_type == 'g':
+            type = [{
+                "main_type": "docmaintype_movie_series",
+                "subtype": "docsubtype_movie"
+            }]
+    data['type'] = type
 
 
-@marc21.over('language', '^008')
-@utils.ignore_value
-def marc21_to_language(self, key, value):
+def do_language(data, marc21):
     """Get languages.
 
     languages: 008 and 041 [$a, repetitive]
     """
-    lang_codes = []
-    language = self.get('language', [])
+    language = data.get('language', [])
+    lang_codes = [v.get('value') for v in language]
     if marc21.lang_from_008:
-        language.append({
-            'value': marc21.lang_from_008,
-            'type': 'bf:Language'
-        })
-        lang_codes.append(marc21.lang_from_008)
+        lang_value = marc21.lang_from_008
+        if lang_value != '|||' and lang_value not in lang_codes:
+            language.append({
+                'value': lang_value,
+                'type': 'bf:Language'
+            })
+            lang_codes.append(marc21.lang_from_008)
     for lang_value in marc21.langs_from_041_a:
         if lang_value not in lang_codes:
             language.append({
@@ -338,74 +350,57 @@ def marc21_to_language(self, key, value):
     fields_546 = marc21.get_fields(tag='546')
     if fields_546:
         subfields_546_a = marc21.get_subfields(fields_546[0], 'a')
-        if subfields_546_a:
+        if subfields_546_a and language:
             language[0]['note'] = subfields_546_a[0]
-    # default provisionActivity if we have no 264
-    fields_264 = marc21.get_fields(tag='264')
-    valid_264 = False
-    for field_264 in fields_264:
-        valid_264 = valid_264 or field_264['ind2'] in ['0', '1', '2', '3']
-    if not valid_264:
-        if fields_264:
-            error_print('WARNING INVALID 264', marc21.bib_id, marc21.rero_id,
-                        fields_264)
-        places = []
-        publication = {
-            'type': 'bf:Publication'
-        }
-        place = build_place()
-        if place:
-            places.append(place)
-        # parce le link skipping the fist (already used by build_place)
-        for i in range(1, len(marc21.links_from_752)):
-            place = {
-                'country': 'xx',
-                'type': 'bf:Place',
-                'identifyBy': marc21.links_from_752[i]
-            }
-            places.append(place)
 
-        if places:
-            publication['place'] = places
-        self['provisionActivity'] = [publication]
-
-        if (marc21.date_type_from_008 == 'q' or
-                marc21.date_type_from_008 == 'n'):
-            self['provisionActivity'][0][
-                'note'
-            ] = 'Date(s) uncertain or unknown'
-        start_date = make_year(marc21.date1_from_008)
-        if not start_date or start_date > 2050:
-            error_print('WARNING START DATE 008:', marc21.bib_id,
-                        marc21.rero_id, marc21.date1_from_008)
-            start_date = 2050
-            self['provisionActivity'][0][
-                'note'
-            ] = 'Date not available and automatically set to 2050'
-        self['provisionActivity'][0]['startDate'] = start_date
-        end_date = make_year(marc21.date2_from_008)
-        if end_date:
-            if end_date > 2050:
-                error_print('WARNING END DATE 008:', marc21.bib_id,
-                            marc21.rero_id, marc21.date1_from_008)
-            else:
-                self['provisionActivity'][0]['endDate'] = end_date
-        original_date = make_year(marc21.original_date_from_008)
-        if original_date:
-            if original_date > 2050:
-                error_print('WARNING ORIGINAL DATE 008:', marc21.bib_id,
-                            marc21.rero_id, marc21.original_date_from_008)
-            else:
-                self['provisionActivity'][0]['original_date'] = original_date
-    # if not language:
-    #     error_print('ERROR LANGUAGE:', marc21.bib_id, 'set to "und"')
-    #     language = [{'value': 'und', 'type': 'bf:Language'}]
+    if not language:
+        error_print(
+            'ERROR LANGUAGE:', marc21.bib_id, f'f{language} set to "und"')
+        language = [{'value': 'und', 'type': 'bf:Language'}]
     return language or None
 
 
-@marc21.over('title', '^245..')
-@utils.ignore_value
-def marc21_to_title(self, key, value):
+def do_abbreviated_title(data, marc21, key, value):
+    """Get abbreviated title data.
+
+    * bf:Title = 210|222
+    * mainTitle = $a
+    * subtitle = $e
+    * responsibilityStatement = $f|$g
+    * language = voir $7
+    * partNumber = $h
+    * partName = $i
+    """
+    title_list = data.get('title', [])
+    title = {}
+    if value.get('a'):
+        main_title = not_repetitive(
+            marc21.bib_id, marc21.bib_id, key, value, 'a')
+        title = {
+            'type': 'bf:AbbreviatedTitle',
+            'mainTitle': [{'value': main_title}]
+        }
+        if value.get('b'):
+            subtitle = not_repetitive(
+                marc21.bib_id, marc21.bib_id, key, value, 'b')
+            title['subtitle'] = [{'value': subtitle}]
+        for resp_tag in ['f', 'g']:
+            datas = utils.force_list(value.get(resp_tag))
+            if datas:
+                for data in datas:
+                    responsibility = build_responsibility_data(data)
+                    if responsibility:
+                        new_responsibility = data.get(
+                            'responsibilityStatement', [])
+                        for resp in responsibility:
+                            new_responsibility.append(resp)
+                        data['responsibilityStatement'] = new_responsibility
+    if title:
+        title_list.append(title)
+    return title_list or None
+
+
+def do_title(data, marc21, value):
     """Get title data.
 
     The title data are extracted from the following fields:
@@ -434,9 +429,6 @@ def marc21_to_title(self, key, value):
         if subfields_245_b:
             subfield_245_b = subfields_245_b[0]
     field_245_a_end_with_equal = re.search(r'\s*=\s*$', subfield_245_a)
-    field_245_a_end_with_colon = re.search(r'\s*:\s*$', subfield_245_a)
-    field_245_a_end_with_semicolon = re.search(r'\s*;\s*$', subfield_245_a)
-    field_245_b_contains_equal = re.search(r'=', subfield_245_b)
 
     fields_246 = marc21.get_fields(tag='246')
     subfield_246_a = ''
@@ -445,17 +437,13 @@ def marc21_to_title(self, key, value):
         if subfields_246_a:
             subfield_246_a = subfields_246_a[0]
 
-    tag_link, link = get_field_link_data(value)
+    _, link = get_field_link_data(value)
     items = get_field_items(value)
     index = 1
-    title_list = []
+    title_list = data.get('title', [])
     title_data = {}
-    part_list = TitlePartList(
-                    part_number_code='n',
-                    part_name_code='p'
-                )
+    part_list = TitlePartList(part_number_code='n', part_name_code='p')
     parallel_titles = []
-    pararalel_title_data_list = []
     pararalel_title_string_set = set()
     responsibility = {}
 
@@ -470,6 +458,10 @@ def marc21_to_title(self, key, value):
                 subfield_selection.remove(blob_key)
             if blob_key == 'a':
                 if value_data:
+                    # if title contains << >>, remove it
+                    # Ex: <<Les>> beaux dégâts
+                    value_data[0]['value'] = value_data[0]['value']\
+                        .replace('<<', '').replace('>>', '')
                     title_data['mainTitle'] = value_data
             elif blob_key == 'b':
                 if subfield_246_a:
@@ -504,164 +496,158 @@ def marc21_to_title(self, key, value):
 
     # extract responsibilities
     if responsibility:
-        new_responsibility = self.get('responsibilityStatement', [])
+        new_responsibility = data.get('responsibilityStatement', [])
         for resp in responsibility:
             new_responsibility.append(resp)
-        self['responsibilityStatement'] = new_responsibility
+        data['responsibilityStatement'] = new_responsibility
     return title_list or None
 
 
-@marc21.over('contribution', '[17][01][01]..')
-@utils.for_each_value
-@utils.ignore_value
-def marc21_to_contribution(self, key, value):
+def do_contribution(data, marc21, key, value):
     """Get contribution."""
-    if not key[4] == '2' and key[:3] in ['100', '700', '710', '711']:
-        agent = {}
-        subfields_0 = utils.force_list(value.get('0'))
-        if subfields_0:
-            ref = get_contribution_link(marc21.bib_id, marc21.rero_id,
-                                        subfields_0[0], key)
-            if ref:
-                agent['$ref'] = ref
-                if key[:3] in ['100', '700']:
-                    agent['type'] = 'bf:Person'
-                elif key[:3] in ['710', '711']:
-                    agent['type'] = 'bf:Organisation'
 
-        # we do not have a $ref
-        if not agent.get('$ref') and value.get('a'):
-            agent = {'type': 'bf:Person'}
+    def build_agent():
+        agent_data = {}
+        if value.get('a'):
+            name = not_repetitive(
+                marc21.bib_id, marc21.bib_id, key, value, 'a')
+            agent_data['preferred_name'] = remove_trailing_punctuation(
+                name)
+        # 100|700 Person
+        if key[:3] in ['100', '700']:
+            agent_data['type'] = 'bf:Person'
             if value.get('a'):
                 name = not_repetitive(
-                    marc21.bib_id, marc21.rero_id, key, value, 'a').rstrip('.')
-                if name:
-                    agent['preferred_name'] = name
+                    marc21.bib_id, marc21.bib_id, key, value, 'a')
+                agent_data['preferred_name'] = remove_trailing_punctuation(
+                    name)  # name.rstrip('.')
+            if value.get('b'):
+                numeration = not_repetitive(
+                    marc21.bib_id, marc21.bib_id, key, value, 'b')
+                agent_data['numeration'] = remove_trailing_punctuation(
+                    numeration)
+            if value.get('c'):
+                qualifier = not_repetitive(
+                    marc21.bib_id, marc21.bib_id, key, value, 'c')
+                agent_data['qualifier'] = remove_trailing_punctuation(
+                    qualifier)
+            if value.get('d'):
+                date = not_repetitive(
+                    marc21.bib_id, marc21.bib_id, key, value, 'd')
+                date = date.rstrip(',')
+                dates = remove_trailing_punctuation(date).split('-')
+                try:
+                    date_of_birth = dates[0].strip()
+                    if date_of_birth:
+                        agent_data['date_of_birth'] = date_of_birth
+                except Exception:
+                    pass
+                try:
+                    date_of_death = dates[1].strip()
+                    if date_of_death:
+                        agent_data['date_of_death'] = date_of_death
+                except Exception:
+                    pass
+            if value.get('q'):
+                fuller_form_of_name = not_repetitive(
+                    marc21.bib_id, marc21.bib_id, key, value, 'q')
+                agent_data[
+                    'fuller_form_of_name'] = remove_trailing_punctuation(
+                    fuller_form_of_name
+                ).lstrip('(').rstrip(')')
 
-            # 100|700 Person
+        # 710|711 Organisation
+        if key[:3] in ['710', '711']:
+            agent_data['type'] = 'bf:Organisation'
+            if key[:3] == '711':
+                agent_data['conference'] = True
+            else:
+                agent_data['conference'] = False
+            if value.get('b'):
+                subordinate_units = []
+                for subordinate_unit in utils.force_list(
+                        value.get('b')):
+                    subordinate_units.append(
+                        subordinate_unit.rstrip('.'))
+                agent_data['subordinate_unit'] = subordinate_units
+            if value.get('n'):
+                numbering = not_repetitive(
+                    marc21.bib_id, marc21.bib_id, key, value, 'n')
+
+                numbering = remove_trailing_punctuation(
+                    numbering).lstrip('(').rstrip(')')
+                if numbering:
+                    agent_data['numbering'] = numbering
+            if value.get('d'):
+                conference_date = not_repetitive(
+                    marc21.bib_id, marc21.bib_id, key, value, 'd')
+                agent_data['conference_date'] = remove_trailing_punctuation(
+                    conference_date
+                ).lstrip('(').rstrip(')')
+            if value.get('c'):
+                place = not_repetitive(
+                    marc21.bib_id, marc21.bib_id, key, value, 'c')
+                agent_data['place'] = remove_trailing_punctuation(
+                    place
+                ).lstrip('(').rstrip(')')
+
+        return agent_data
+
+    # exclude work access points
+    if key[:3] in ['700', '710'] and value.get('t'):
+        return None
+
+    agent = {}
+
+    if value.get('0'):
+        ref = get_contribution_link(marc21.bib_id, marc21.rero_id,
+                                    value.get('0'), key)
+        if ref:
+            agent['$ref'] = ref
             if key[:3] in ['100', '700']:
                 agent['type'] = 'bf:Person'
-                if value.get('b'):
-                    numeration = not_repetitive(
-                        marc21.bib_id, marc21.rero_id, key, value, 'b')
-                    numeration = remove_trailing_punctuation(numeration)
-                    if numeration:
-                        agent['numeration'] = numeration
-                if value.get('c'):
-                    qualifier = not_repetitive(
-                        marc21.bib_id, marc21.rero_id, key, value, 'c')
-                    agent['qualifier'] = remove_trailing_punctuation(qualifier)
-                if value.get('d'):
-                    date = not_repetitive(
-                        marc21.bib_id, marc21.rero_id, key, value, 'd')
-                    date = date.rstrip(',')
-                    dates = remove_trailing_punctuation(date).split('-')
-                    try:
-                        date_of_birth = dates[0].strip()
-                        if date_of_birth:
-                            agent['date_of_birth'] = date_of_birth
-                    except Exception:
-                        pass
-                    try:
-                        date_of_death = dates[1].strip()
-                        if date_of_death:
-                            agent['date_of_death'] = date_of_death
-                    except Exception:
-                        pass
-                if value.get('q'):
-                    fuller_form_of_name = not_repetitive(
-                        marc21.bib_id, marc21.rero_id, key, value, 'q')
-                    fuller_form_of_name = remove_trailing_punctuation(
-                        fuller_form_of_name
-                    ).lstrip('(').rstrip(')')
-                    if fuller_form_of_name:
-                        agent['fuller_form_of_name'] = fuller_form_of_name
-                identifier = build_identifier(value)
-                if identifier:
-                    agent['identifiedBy'] = identifier
-
-            # 710|711 Organisation
             elif key[:3] in ['710', '711']:
                 agent['type'] = 'bf:Organisation'
-                if key[:3] == '711':
-                    agent['conference'] = True
-                else:
-                    agent['conference'] = False
-                if value.get('b'):
-                    subordinate_units = []
-                    for subordinate_unit in utils.force_list(value.get('b')):
-                        subordinate_units.append(subordinate_unit.rstrip('.'))
-                    agent['subordinate_unit'] = subordinate_units
-                if value.get('e'):
-                    subordinate_units = agent.get('subordinate_unit', [])
-                    for subordinate_unit in utils.force_list(value.get('e')):
-                        subordinate_units.append(subordinate_unit.rstrip('.'))
-                    agent['subordinate_unit'] = subordinate_units
-                if value.get('n'):
-                    numbering = not_repetitive(
-                        marc21.bib_id, marc21.rero_id, key, value, 'n')
-                    numbering = remove_trailing_punctuation(
-                        numbering
-                    ).lstrip('(').rstrip(')')
-                    if numbering:
-                        agent['numbering'] = numbering
-                if value.get('d'):
-                    conference_date = not_repetitive(
-                        marc21.bib_id, marc21.rero_id, key, value, 'd')
-                    conference_date = remove_trailing_punctuation(
-                        conference_date
-                    ).lstrip('(').rstrip(')')
-                    if conference_date:
-                        agent['conference_date'] = conference_date
-                if value.get('c'):
-                    place = not_repetitive(
-                        marc21.bib_id, marc21.rero_id, key, value, 'c')
-                    place = remove_trailing_punctuation(
-                        place
-                    ).lstrip('(').rstrip(')')
-                    if place:
-                        agent['place'] = place
-                identifier = build_identifier(value)
-                if identifier:
-                    agent['identifiedBy'] = identifier
 
-        if value.get('4'):
-            roles = []
-            for role in utils.force_list(value.get('4')):
-                if len(role) != 3:
-                    error_print('WARNING CONTRIBUTION ROLE LENGTH:',
-                                marc21.bib_id, marc21.rero_id, role)
-                    role = role[:3]
-                if role == 'sce':
-                    error_print('WARNING CONTRIBUTION ROLE SCE:',
-                                marc21.bib_id, marc21.rero_id,
-                                'sce --> aus')
-                    role = 'aus'
-                role = role.lower()
-                if role not in _CONTRIBUTION_ROLE:
-                    error_print('WARNING CONTRIBUTION ROLE DEFINITION:',
-                                marc21.bib_id, marc21.rero_id, role)
-                    role = 'ctb'
-                roles.append(role)
+    # we do not have a $ref
+    if not agent.get('$ref') and value.get('a'):
+        agent = build_agent()
+
+    if value.get('4'):
+        roles = []
+        for role in utils.force_list(value.get('4')):
+            if len(role) != 3 and 'http' not in role:
+                error_print('WARNING CONTRIBUTION ROLE LENGTH:',
+                            marc21.bib_id, marc21.rero_id, role)
+                role = role[:3]
+            if role == 'sce':
+                error_print('WARNING CONTRIBUTION ROLE SCE:',
+                            marc21.bib_id, marc21.rero_id,
+                            'sce --> aus')
+                role = 'aus'
+            role = role.lower()
+            if role not in _CONTRIBUTION_ROLE and 'http' not in role:
+                error_print('WARNING CONTRIBUTION ROLE DEFINITION:',
+                            marc21.bib_id, marc21.rero_id, role)
+                role = 'ctb'
+            roles.append(role)
+    else:
+        if key[:3] == '100':
+            roles = ['cre']
+        elif key[:3] == '711':
+            roles = ['aut']
         else:
-            if key[:3] == '100':
-                roles = ['cre']
-            elif key[:3] == '711':
-                roles = ['aut']
-            else:
-                roles = ['ctb']
-        if agent:
-            return {
-                'agent': agent,
-                'role': list(set(roles))
-            }
+            roles = ['ctb']
+    if agent:
+        return {
+            'agent': agent,
+            'role': list(set(roles))
+        }
+    return None
 
 
-@marc21.over('relation', '(770|772|775|776|777|780|785|787|533|534)..')
-@utils.for_each_value
-@utils.ignore_value
-def marc21_to_specific_document_relation(self, key, value):
-    """Get contribution."""
+def do_specific_document_relation(data, marc21, key, value):
+    """Get document relation."""
     tag = key[:3]
     relation = None
     if tag in ['533', '534']:
@@ -674,21 +660,28 @@ def marc21_to_specific_document_relation(self, key, value):
         subfield_w = not_repetitive(marc21.bib_id,  marc21.rero_id,
                                     key, value, 'w', default='').strip()
         if subfield_w:
-            match = re.compile(r'^REROILS:')
-            pid = match.sub('', subfield_w)
-            ref = f'https://bib.rero.ch/api/documents/{pid}'
-            relation = {'$ref': ref}
-    if relation:
-        relation_list = self.get(_DOCUMENT_RELATION_PER_TAG[tag], [])
+            pid = None
+            match = re_reroils.match(subfield_w)
+            if match:
+                source = match.group(1)
+                pid = match.group(2)
+            if pid and source == ('REROILS:'):
+                # TODO: find a way to use a parameter for ref
+                ref = f'https://bib.rero.ch/api/documents/{pid}'
+                relation = {'$ref': ref}
+            else:
+                label = build_string_from_subfields(value, 'ctw')
+                relation = {'label': label}
+    if relation and (relation.get('label') or relation.get('$ref')):
+        relation_tag = _DOCUMENT_RELATION_PER_TAG[tag]
+        relation_list = data.get(relation_tag, [])
         relation_list.append(relation)
-        self[_DOCUMENT_RELATION_PER_TAG[tag]] = relation_list
+        data[relation_tag] = relation_list
 
 
-@marc21.over('copyrightDate', '^264.4')
-@utils.ignore_value
-def marc21_to_copyright_date(self, key, value):
+def do_copyright_date(data, value):
     """Get Copyright Date."""
-    copyright_dates = self.get('copyrightDate', [])
+    copyright_dates = data.get('copyrightDate', [])
     for copyright_date in utils.force_list(value.get('c', [])):
         match = re.search(r'^([©℗])+\s*(\d{4}.*)', copyright_date)
         if match:
@@ -702,10 +695,7 @@ def marc21_to_copyright_date(self, key, value):
     return copyright_dates or None
 
 
-@marc21.over('editionStatement', '^250..')
-@utils.for_each_value
-@utils.ignore_value
-def marc21_to_edition_statement(self, key, value):
+def do_edition_statement(marc21, value):
     """Get edition statement data.
 
     editionDesignation: 250 [$a non repetitive] (without trailing /)
@@ -733,16 +723,14 @@ def marc21_to_edition_statement(self, key, value):
     return edition_data or None
 
 
-@marc21.over('provisionActivity', '^264.[ 0-3]')
-@utils.for_each_value
-@utils.ignore_value
-def marc21_to_provisionActivity(self, key, value):
+def do_provision_activity(data, marc21, key, value):
     """Get publisher data.
 
     publisher.name: 264 [$b repetitive] (without the , but keep the ;)
     publisher.place: 264 [$a repetitive] (without the : but keep the ;)
     publicationDate: 264 [$c repetitive] (but take only the first one)
     """
+    tag = key[:3]
 
     def build_statement(field_value, ind2):
 
@@ -751,25 +739,35 @@ def marc21_to_provisionActivity(self, key, value):
                 'a': 'bf:Place',
                 'b': 'bf:Agent'
             }
+            label = remove_trailing_punctuation(label)
+            if not label:
+                return None
             agent_data = {
                 'type': type_per_code[code],
-                'label': [{'value': remove_trailing_punctuation(label)}]
+                'label': [{'value': label}]
             }
             try:
-                alt_gr = marc21.alternate_graphic['264'][link]
+                alt_gr = marc21.alternate_graphic[tag][link]
                 subfield = \
                     marc21.get_subfields(alt_gr['field'])[index]
-                agent_data['label'].append({
-                    'value': remove_trailing_punctuation(subfield),
-                    'language': marc21.get_language_script(
-                        alt_gr['script'])
-                })
+                subfield = remove_trailing_punctuation(subfield)
+                if subfield:
+                    agent_data['label'].append({
+                        'value': subfield,
+                        'language': marc21.get_language_script(
+                            alt_gr['script'])
+                    })
             except Exception as err:
                 pass
+
+            identifier = build_identifier(value)
+            if identifier:
+                agent_data['identifiedBy'] = identifier
+
             return agent_data
 
         # function build_statement start here
-        tag_link, link = get_field_link_data(field_value)
+        _, link = get_field_link_data(field_value)
         items = get_field_items(field_value)
         statement = []
         index = 1
@@ -777,36 +775,35 @@ def marc21_to_provisionActivity(self, key, value):
             if blob_key in ('a', 'b'):
                 agent_data = build_agent_data(
                     blob_key, blob_value, index, link)
-                statement.append(agent_data)
+                if agent_data:
+                    statement.append(agent_data)
             if blob_key != '__order__':
                 index += 1
-        return statement
+        return statement or None
 
-    # the function marc21_to_provisionActivity start here
+    # the function marc21_to_provision_activity start here
     ind2 = key[4]
     type_per_ind2 = {
         ' ': 'bf:Publication',
+        '_': 'bf:Publication',
         '0': 'bf:Production',
         '1': 'bf:Publication',
         '2': 'bf:Distribution',
         '3': 'bf:Manufacture'
     }
-    publication = {
-        'type': type_per_ind2[ind2],
-        'statement': [],
-    }
+    publication = {'type': type_per_ind2[ind2]}
 
-    subfields_c = utils.force_list(value.get('c', []))
-    if ind2 in (' ', '1'):
+    if ind2 in ('_', ' ', '1'):
         publication['startDate'] = marc21.date['start_date']
         if 'end_date' in marc21.date:
             publication['endDate'] = marc21.date['end_date']
         if 'note' in marc21.date:
             publication['note'] = marc21.date['note']
+        publication['startDate'] = marc21.date['start_date']
 
         places = []
-        place = build_place()
-        if place:
+        place = marc21.build_place()
+        if place and place.get('country') != 'xx':
             places.append(place)
         # parce le link skipping the fist (already used by build_place)
         for i in range(1, len(marc21.links_from_752)):
@@ -818,8 +815,22 @@ def marc21_to_provisionActivity(self, key, value):
             places.append(place)
         if places:
             publication['place'] = places
+    subfield_3 = not_repetitive(marc21.bib_id, marc21.rero_id,
+                                key, value, '3')
+    if subfield_3:
+        notes = publication.get('note')
+        if notes:
+            notes = [notes]
+        else:
+            notes = []
+        notes.append(subfield_3)
+        publication['note'] = ', '.join(notes)
 
-    publication['statement'] = build_statement(value, ind2)
+    statement = build_statement(value, ind2)
+    if statement:
+        publication['statement'] = build_statement(value, ind2)
+
+    subfields_c = utils.force_list(value.get('c', []))
     if subfields_c:
         subfield_c = subfields_c[0]
         date = {
@@ -827,7 +838,7 @@ def marc21_to_provisionActivity(self, key, value):
             'type': 'Date'
         }
 
-        tag_link, link = get_field_link_data(value)
+        _, link = get_field_link_data(value)
         try:
             alt_gr = marc21.alternate_graphic['264'][link]
             subfield = \
@@ -839,97 +850,31 @@ def marc21_to_provisionActivity(self, key, value):
             })
         except Exception as err:
             pass
-
+        publication.setdefault('statement', [])
         publication['statement'].append(date)
-
-    identifier = build_identifier(value)
-    if identifier:
-        publication['identifiedBy'] = identifier
-
     return publication or None
 
 
-@marc21.over('extent', '^300..')
-@utils.ignore_value
-def marc21_to_description(self, key, value):
-    """Get physical description.
-
-    Extract:
-        - extent
-        - duration
-        - colorContent
-        - productionMethod
-        - illustrativeContent
-        - note of type otherPhysicalDetails and accompanyingMaterial
-        - book_formats
-        - dimensions
-
-    300 [$a repetitive]: extent, duration:
-    300 [$a non repetitive]: colorContent, productionMethod,
-        illustrativeContent, note of type otherPhysicalDetails
-    300 [$c repetitive]: dimensions, book_formats
-    """
-    marc21.extract_description_from_marc_field(key, value, self)
-
-
-@marc21.over('type', '^339..')
-@utils.for_each_value
-@utils.ignore_value
-def marc21_to_type(self, key, value):
-    """Get document type."""
-    document_type = {}
-    main_type = value.get('a')
-    if main_type:
-        document_type["main_type"] = main_type
-    sub_type = value.get('b')
-    if sub_type:
-        document_type["subtype"] = sub_type
-    return document_type or None
-
-
-@marc21.over('seriesStatement', '^490..')
-@utils.for_each_value
-@utils.ignore_value
-def marc21_to_series_statement(self, key, value):
-    """Get seriesStatement.
-
-    series.name: [490$a repetitive]
-    series.number: [490$v repetitive]
-    """
-    marc21.extract_series_statement_from_marc_field(key, value, self)
-
-
-@marc21.over('tableOfContents', '^505..')
-@utils.for_each_value
-@utils.ignore_value
-def marc21_to_summary(self, key, value):
+def do_table_of_contents(data, value):
     """Get tableOfContents from repetitive field 505."""
     table_of_contents = build_string_from_subfields(value, 'agtr')
     if table_of_contents:
-        table_of_contents_list = self.get('tableOfContents', [])
+        table_of_contents_list = data.get('tableOfContents', [])
         table_of_contents_list.append(table_of_contents)
-        self['tableOfContents'] = table_of_contents_list
+        data['tableOfContents'] = table_of_contents_list
 
 
-@marc21.over('usageAndAccessPolicy', '^(506|540)..')
-@utils.ignore_value
-def marc21_to_usage_and_access_policy_from_field_506_540(self, key, value):
+def do_usage_and_access_policy_from_field_506_540(marc21, key, value):
     """Get usageAndAccessPolicy from fields: 506, 540."""
     subfield_a = not_repetitive(marc21.bib_id, marc21.rero_id,
                                 key, value, 'a', default='').strip()
     if subfield_a:
-        policy = {
-            'type': 'bf:UsageAndAccessPolicy',
-            'label': subfield_a
-        }
-        usage_and_access_policy = self.get('usageAndAccessPolicy', [])
-        usage_and_access_policy.append(policy)
-    return usage_and_access_policy or None
+        policy = {'type': 'bf:UsageAndAccessPolicy',
+                  'label': subfield_a}
+        return policy
 
 
-@marc21.over('frequency', '^(310|321)..')
-@utils.ignore_value
-def marc21_to_frequency_field_310_321(self, key, value):
+def do_frequency_field_310_321(marc21, key, value):
     """Get frequency from fields: 310, 321."""
     subfield_a = not_repetitive(
         marc21.bib_id, marc21.rero_id,
@@ -947,18 +892,13 @@ def marc21_to_frequency_field_310_321(self, key, value):
         }
     if subfield_b:
         frequency['date'] = subfield_b
-    frequency_list = self.get('frequency', [])
-    frequency_list.append(frequency)
-    return frequency_list or None
+    return frequency
 
 
-@marc21.over('dissertation', '^502..')
-@utils.for_each_value
-@utils.ignore_value
-def marc21_to_summary(self, key, value):
+def do_dissertation(marc21, value):
     """Get dissertation from repetitive field 502."""
     # parse field 502 subfields for extracting dissertation
-    tag_link, link = get_field_link_data(value)
+    _, link = get_field_link_data(value)
     items = get_field_items(value)
     index = 1
     dissertation = {}
@@ -975,16 +915,10 @@ def marc21_to_summary(self, key, value):
                 dissertation['label'] = dissertation_data
         if blob_key != '__order__':
             index += 1
-    if dissertation:
-        dissertation_list = self.get('dissertation', [])
-        dissertation_list.append(dissertation)
-        self['dissertation'] = dissertation_list
+    return dissertation or None
 
 
-@marc21.over('summary', '^520..')
-@utils.for_each_value
-@utils.ignore_value
-def marc21_to_summary(self, key, value):
+def do_summary(marc21, value):
     """Get summary from repetitive field 520."""
     key_per_code = {
         'a': 'label',
@@ -1012,14 +946,10 @@ def marc21_to_summary(self, key, value):
     return summary or None
 
 
-@marc21.over('intendedAudience', '^521..')
-@utils.for_each_value
-@utils.ignore_value
-def marc21_to_subjects(self, key, value):
+def do_intended_audience(data, value):
     """Get intendedAudience from field 521."""
     intended_audience_set = set()
-    subfields_a = utils.force_list(value.get('a'))
-    for subfield_a in subfields_a:
+    for subfield_a in utils.force_list(value.get('a')):
         audiance_found = False
         for audiance in _INTENDED_AUDIENCE_REGEXP:
             regexp = _INTENDED_AUDIENCE_REGEXP[audiance]
@@ -1029,7 +959,7 @@ def marc21_to_subjects(self, key, value):
         if not audiance_found:
             intended_audience_set.add(subfield_a)
 
-    intended_audience_list = self.get('intendedAudience', [])
+    intended_audience_list = data.get('intendedAudience', [])
     for intended_audience_str in intended_audience_set:
         intended_audience = {}
         # get the audiance_type
@@ -1041,22 +971,33 @@ def marc21_to_subjects(self, key, value):
             intended_audience['audienceType'] = 'undefined'
         intended_audience['value'] = intended_audience_str
         intended_audience_list.append(intended_audience)
-        self['intendedAudience'] = intended_audience_list
+        data['intendedAudience'] = intended_audience_list
 
 
-@marc21.over('identifiedBy', '^020..')
-@utils.ignore_value
-def marc21_to_identifiedBy_from_field_020(self, key, value):
-    """Get identifier from field 020."""
-    def build_identifier_from(subfield_data, status=None):
+def do_identified_by_from_field_010(data, marc21, key, value):
+    """Get identifier from field 010."""
+    def build_identifier_from(subfield_data, identified_by):
         subfield_data = subfield_data.strip()
         identifier = {'value': subfield_data}
-        subfield_c = not_repetitive(marc21.bib_id, marc21.rero_id,
-                                    key, value, 'c', default='').strip()
-        if subfield_c:
-            acquisition_terms = self.get('acquisitionTerms', [])
-            acquisition_terms.append(subfield_c)
-            self['acquisitionTerms'] = acquisition_terms
+        subfield_a = not_repetitive(marc21.bib_id, marc21.rero_id,
+                                    key, value, 'a', default='').strip()
+        if subfield_a:
+            identifier['type'] = 'bf:Lccn'
+            identified_by.append(identifier)
+        return identified_by
+
+    identified_by = data.get('identifiedBy', [])
+    subfield_a = not_repetitive(marc21.bib_id, marc21.rero_id, key, value, 'a')
+    if subfield_a:
+        identified_by = build_identifier_from(subfield_a, identified_by)
+        data['identifiedBy'] = identified_by
+
+
+def do_identified_by_from_field_020(data, marc21, key, value):
+    """Get identifier from field 020."""
+    def build_identifier_from(subfield_data, identified_by, status=None):
+        subfield_data = subfield_data.strip()
+        identifier = {'value': subfield_data}
         if value.get('q'):  # $q is repetitive
             identifier['qualifier'] = \
                 ', '.join(utils.force_list(value.get('q')))
@@ -1075,20 +1016,27 @@ def marc21_to_identifiedBy_from_field_020(self, key, value):
         if status:
             identifier['status'] = status
         identifier['type'] = 'bf:Isbn'
-        identifiedBy.append(identifier)
+        identified_by.append(identifier)
+        return identified_by
 
-    identifiedBy = self.get('identifiedBy', [])
+    identified_by = data.get('identifiedBy', [])
     subfield_a = not_repetitive(marc21.bib_id, marc21.rero_id, key, value, 'a')
     if subfield_a:
-        build_identifier_from(subfield_a)
+        build_identifier_from(subfield_a, identified_by)
+    subfield_c = not_repetitive(marc21.bib_id, marc21.rero_id,
+                                key, value, 'c', default='').strip()
+    if subfield_c:
+        acquisition_terms = data.get('acquisitionTerms', [])
+        acquisition_terms.append(subfield_c)
+        data['acquisitionTerms'] = acquisition_terms
     for subfield_z in utils.force_list(value.get('z', [])):
-        build_identifier_from(subfield_z, status='invalid or cancelled')
-    return identifiedBy or None
+        identified_by = build_identifier_from(
+            subfield_z, identified_by, status='invalid or cancelled')
+    if identified_by:
+        data['identifiedBy'] = identified_by
 
 
-@marc21.over('identifiedBy', '^022..')
-@utils.ignore_value
-def marc21_to_identifiedBy_from_field_022(self, key, value):
+def do_identified_by_from_field_022(data, value):
     """Get identifier from field 022."""
     status_for = {
         'm': 'cancelled',
@@ -1101,7 +1049,7 @@ def marc21_to_identifiedBy_from_field_022(self, key, value):
         'y': 'bf:Issn'
     }
 
-    identifiedBy = self.get('identifiedBy', [])
+    identified_by = data.get('identifiedBy', [])
     for subfield_code in ['a', 'l', 'm', 'y']:
         subfields_data = value.get(subfield_code)
         if subfields_data:
@@ -1114,21 +1062,20 @@ def marc21_to_identifiedBy_from_field_022(self, key, value):
                 identifier['value'] = subfield_data
                 if subfield_code in status_for:
                     identifier['status'] = status_for[subfield_code]
-                identifiedBy.append(identifier)
-    return identifiedBy or None
+                identified_by.append(identifier)
+    if identified_by:
+        data['identifiedBy'] = identified_by
 
 
-@marc21.over('identifiedBy', '^024..')
-@utils.ignore_value
-def marc21_to_identifiedBy_from_field_024(self, key, value):
+def do_identified_by_from_field_024(data, marc21, key, value):
     """Get identifier from field 024."""
     def populate_acquisitionTerms_note_qualifier(identifier):
         subfield_c = not_repetitive(marc21.bib_id,  marc21.rero_id,
                                     key, value, 'c', default='').strip()
         if subfield_c:
-            acquisition_terms = self.get('acquisitionTerms', [])
+            acquisition_terms = data.get('acquisitionTerms', [])
             acquisition_terms.append(subfield_c)
-            self['acquisitionTerms'] = acquisition_terms
+            data['acquisitionTerms'] = acquisition_terms
         subfield_d = not_repetitive(marc21.bib_id, marc21.rero_id,
                                     key, value, 'd', default='').strip()
         if subfield_d:
@@ -1180,7 +1127,6 @@ def marc21_to_identifiedBy_from_field_024(self, key, value):
     }
 
     identifier = {}
-    identifiedBy = None
     subfield_a = not_repetitive(marc21.bib_id,  marc21.rero_id,
                                 key, value, 'a', default='').strip()
     subfield_2 = not_repetitive(marc21.bib_id, marc21.rero_id,
@@ -1211,23 +1157,22 @@ def marc21_to_identifiedBy_from_field_024(self, key, value):
                 match = re.search(r'^(.+?)\s*\((.*)\)$', subfield_a)
                 if match:
                     # match.group(2) : parentheses content
-                    identifier['qualifier'] = ', '.join(
-                        filter(
-                            None,
-                            [match.group(2), identifier.get('qualifier', '')]
-                        )
-                    )
+                    identifier['qualifier'] = ', '.join(filter(
+                        None,
+                        [match.group(2), identifier.get('qualifier', '')]
+                    ))
                     # value without parenthesis and parentheses content
                     identifier['value'] = match.group(1)
                 else:
                     identifier['value'] = subfield_a
                 if 'type' in type_for_ind1[ind1]:  # ind1 0,1
                     identifier['type'] = type_for_ind1[ind1]['type']
+
                 else:  # ind1 in (2, 3, 8)
-                    data = subfield_a
+                    tmp = subfield_a
                     if ind1 == '8':
-                        data = identifier['value']
-                    if re.search(type_for_ind1[ind1]['pattern'], data):
+                        tmp = identifier['value']
+                    if re.search(type_for_ind1[ind1]['pattern'], tmp):
                         identifier['type'] = \
                             type_for_ind1[ind1]['matching_type']
                     else:
@@ -1237,16 +1182,14 @@ def marc21_to_identifiedBy_from_field_024(self, key, value):
                     'value': subfield_a,
                     'type': 'bf:Identifier'
                 })
-        identifiedBy = self.get('identifiedBy', [])
         if not identifier.get('type'):
             identifier['type'] = 'bf:Identifier'
-        identifiedBy.append(identifier)
-    return identifiedBy or None
+        identified_by = data.get('identifiedBy', [])
+        identified_by.append(identifier)
+        data['identifiedBy'] = identified_by
 
 
-@marc21.over('identifiedBy', '^028..')
-@utils.ignore_value
-def marc21_to_identifiedBy_from_field_028(self, key, value):
+def do_identified_by_from_field_028(data, marc21, key, value):
     """Get identifier from field 028."""
     type_for_ind1 = {
         '0': 'bf:AudioIssueNumber',
@@ -1259,6 +1202,7 @@ def marc21_to_identifiedBy_from_field_028(self, key, value):
     }
 
     identifier = {}
+    identified_by = data.get('identifiedBy', [])
     subfield_a = not_repetitive(marc21.bib_id, marc21.rero_id,
                                 key, value, 'a', default='').strip()
     if subfield_a:
@@ -1272,50 +1216,45 @@ def marc21_to_identifiedBy_from_field_028(self, key, value):
             identifier['source'] = subfield_b
         # key[3] is the indicateur_1
         identifier['type'] = type_for_ind1.get(key[3], 'bf:Identifier')
-        identifiedBy = self.get('identifiedBy', [])
-        identifiedBy.append(identifier)
-    return identifiedBy or None
+        identified_by.append(identifier)
+        data['identifiedBy'] = identified_by
 
 
-@marc21.over('identifiedBy', '^035..')
-@utils.ignore_value
-def marc21_to_identifiedBy_from_field_035(self, key, value):
+def do_identified_by_from_field_035(data, marc21, key, value, source=None):
     """Get identifier from field 035."""
+    identified_by = data.get('identifiedBy', [])
     subfield_a = not_repetitive(marc21.bib_id, marc21.rero_id,
                                 key, value, 'a', default='').strip()
-    identifiedBy = self.get('identifiedBy', [])
     if subfield_a:
-        source = 'RERO'
+        value = subfield_a
         # search source between parenthesis
-        match = re.search(r'\(([^()]+)\)', subfield_a)
+        match = re_identified.match(subfield_a)
         if match:
             source = match.group(1)
-        identifier = {
-            'value': subfield_a,
-            'type': 'bf:Local',
-            'source': source,
-        }
-        identifiedBy.append(identifier)
-    return identifiedBy or None
+            value = match.group(2)
+        if source and value:
+            identifier = {
+                'value': value,
+                'source': source,
+                'type': 'bf:Local',
+            }
+            identified_by.append(identifier)
+            data['identifiedBy'] = identified_by
 
 
-@marc21.over('acquisitionTerms', '^037..')
-@utils.ignore_value
-def marc21_to_acquisition_terms_from_field_037(self, key, value):
+def do_acquisition_terms_from_field_037(data, value):
     """Get acquisition terms field 037."""
-    acquisition_terms = self.get('acquisitionTerms', [])
+    acquisition_terms = data.get('acquisitionTerms', [])
     subfields_c = utils.force_list(value.get('c'))
     if subfields_c:
         for subfield_c in subfields_c:
             acquisition_terms.append(subfield_c.strip())
-        self['acquisitionTerms'] = acquisition_terms
-    return None
+        data['acquisitionTerms'] = acquisition_terms
 
 
-@marc21.over('electronicLocator', '^856..')
-@utils.ignore_value
-def marc21_to_electronicLocator_from_field_856(self, key, value):
+def do_electronic_locator_from_field_856(data, marc21, key, value):
     """Get electronicLocator from field 856."""
+    electronic_locators = data.get('electronicLocator', [])
     if value.get('u'):
         electronic_locator_type = {
             '0': 'resource',
@@ -1354,7 +1293,6 @@ def marc21_to_electronicLocator_from_field_856(self, key, value):
             "fullText",
             "video"
         ]
-        electronic_locators = self.get('electronicLocator', [])
         indicator2 = key[4]
         content = None
         if value.get('3'):
@@ -1362,6 +1300,9 @@ def marc21_to_electronicLocator_from_field_856(self, key, value):
         public_note = []
         if content and content not in electronic_locator_content:
             public_note.append(content)
+        if value.get('y'):
+            for subfield_y in utils.force_list(value.get('y')):
+                public_note.append(subfield_y)
         if value.get('z'):
             for subfield_z in utils.force_list(value.get('z')):
                 public_note.append(subfield_z)
@@ -1376,40 +1317,16 @@ def marc21_to_electronicLocator_from_field_856(self, key, value):
                     electronic_locator['content'] = content
             if public_note:
                 electronic_locator['publicNote'] = public_note
-            if len(electronic_locator['url']) >= 7:
+            validate_url = re_electonic_locator.match(url)
+            if validate_url:
                 electronic_locators.append(electronic_locator)
             else:
                 error_print('WARNING ELECTRONICLOCATOR:', marc21.bib_id,
-                            marc21.rero_id, electronic_locator['url'])
-        return electronic_locators or None
+                            marc21.rero_id, url)
+    return electronic_locators or None
 
 
-@marc21.over('identifiedBy', '^930..')
-@utils.ignore_value
-def marc21_to_identifiedBy_from_field_930(self, key, value):
-    """Get identifier from field 930."""
-    subfield_a = not_repetitive(marc21.bib_id, marc21.rero_id,
-                                key, value, 'a', default='').strip()
-    if subfield_a:
-        identifier = {}
-        match = re.search(r'^\((.+?)\)\s*(.*)$', subfield_a)
-        if match:
-            # match.group(1) : parentheses content
-            identifier['source'] = match.group(1)
-            # value without parenthesis and parentheses content
-            identifier['value'] = match.group(2)
-        else:
-            identifier['value'] = subfield_a
-        identifier['type'] = 'bf:Local'
-        identifiedBy = self.get('identifiedBy', [])
-        identifiedBy.append(identifier)
-    return identifiedBy or None
-
-
-@marc21.over('note', '^(500|510|530|545|555|580)..')
-@utils.for_each_value
-@utils.ignore_value
-def marc21_to_notes_and_original_title(self, key, value):
+def do_notes_and_original_title(data, key, value):
     """Get notes and original title."""
     subfield_a = None
     if value.get('a'):
@@ -1424,11 +1341,9 @@ def marc21_to_notes_and_original_title(self, key, value):
                 if blob_key in subfield_selection:
                     note_str += blob_value + ' '
             add_note(
-                dict(
-                    noteType='cited_by',
-                    label=note_str.strip()
-                ),
-                self)
+                dict(noteType='cited_by', label=note_str.strip()),
+                data
+            )
         elif key[:3] == '500':
             # extract the original title
             regexp = re.compile(
@@ -1438,9 +1353,9 @@ def marc21_to_notes_and_original_title(self, key, value):
             match = regexp.search(subfield_a)
             if match and match.group(2):
                 original_title = match.group(2).strip()
-                original_titles = self.get('originalTitle', [])
+                original_titles = data.get('originalTitle', [])
                 original_titles.append(original_title)
-                self['originalTitle'] = original_titles
+                data['originalTitle'] = original_titles
             else:
                 is_general_note_to_add = True
         else:
@@ -1448,282 +1363,33 @@ def marc21_to_notes_and_original_title(self, key, value):
 
         if is_general_note_to_add:
             add_note(
-                dict(
-                    noteType='general',
-                    label=subfield_a
-                ),
-                self)
+                dict(noteType='general', label=subfield_a),
+                data
+            )
 
 
-@marc21.over('credits', '^(508|511)..')
-@utils.for_each_value
-@utils.ignore_value
-def marc21_to_notes_and_original_title(self, key, value):
+def do_credits(key, value):
     """Get notes and original title."""
-    subfield_a = None
     if value.get('a'):
         subfield_a = utils.force_list(value.get('a'))[0]
         if key[:3] == '511':
             subfield_a = 'Participants ou interprètes: ' + subfield_a
-        credits = self.get('credits', [])
-        credits.append(subfield_a)
-        self['credits'] = credits
+        return subfield_a
 
 
-@marc21.over('supplementaryContent', '^504..')
-@utils.for_each_value
-@utils.ignore_value
-def marc21_to_notes_and_original_title(self, key, value):
+def do_sequence_numbering(data, value):
     """Get notes and original title."""
     if value.get('a'):
         subfield_a = utils.force_list(value.get('a'))[0]
-        supplementary_content = self.get('supplementaryContent', [])
-        supplementary_content.append(subfield_a)
-        self['supplementaryContent'] = supplementary_content
-
-
-@marc21.over('subjects', '^(600|610|611|630|650|651|655)..')
-@utils.for_each_value
-@utils.ignore_value
-def marc21_to_subjects(self, key, value):
-    """Get subjects.
-
-    - create an object :
-        genreForm : for the field 655
-        subjects :  for 6xx with $2 rero
-        subjects_imported : for 6xx having indicator 2 '0' or '2'
-    """
-    type_per_tag = {
-        '600': 'bf:Person',
-        '610': 'bf:Organization',
-        '611': 'bf:Organization',
-        '600t': 'bf:Work',
-        '610t': 'bf:Work',
-        '611t': 'bf:Work',
-        '630': 'bf:Work',
-        '650': 'bf:Topic',  # or bf:Temporal, changed by code
-        '651': 'bf:Place',
-        '655': 'bf:Topic'
-    }
-
-    ref_link_per_tag = {
-        '600': 'IdRef agent',
-        '610': 'IdRef agent',
-        '611': 'IdRef agent',
-        '600t': 'IdRef work',
-        '610t': 'IdRef work',
-        '611t': 'IdRef work',
-        '630': 'IdRef work',
-        '650': 'RERO RAMEAU concept',
-        '651': 'Idref place',
-        '655': 'RERO RAMEAU concept'
-    }
-
-    field_data_per_tag = {
-        '600': 'preferred_name',
-        '610': 'preferred_name',
-        '611': 'preferred_name',
-        '600t': 'title',
-        '610t': 'title',
-        '611t': 'title',
-        '630': 'title',
-        '650': 'term',
-        '651': 'preferred_name',
-        '655': 'term'
-    }
-
-    subfield_code_per_tag = {
-        '600': 'abcd',
-        '610': 'ab',
-        '611': 'acden',
-        '600t': 'tpn',
-        '610t': 'tpn',
-        '611t': 't',
-        '630': 'apn',
-        '650': 'a',
-        '651': 'a',
-        '655': 'a'
-    }
-
-    conference_per_tag = {
-        '610': False,
-        '611': True
-    }
-    source_per_indicator_2 = {
-        '0': 'LCSH',
-        '2': 'MeSH'
-    }
-
-    indicator_2 = key[4]
-    tag_key = key[:3]
-    subfields_2 = utils.force_list(value.get('2'))
-    subfield_2 = None
-    if subfields_2:
-        subfield_2 = subfields_2[0]
-    subfields_a = utils.force_list(value.get('a', []))
-
-    if subfield_2 == 'rero':
-        has_dollar_t = value.get('t')
-
-        if tag_key in ('600', '610', '611') and has_dollar_t:
-            tag_key += 't'
-        data_type = type_per_tag[tag_key]
-
-        start_with_digit = False
-        if tag_key == '650':
-            for subfield_a in subfields_a:
-                start_with_digit_regexp = re.compile(r'^\d')
-                match = start_with_digit_regexp.search(subfield_a)
-                if match:
-                    data_type = 'bf:Temporal'
-                    break
-
-        subject = {
-            'type': data_type,
-        }
-
-        string_build = build_string_from_subfields(
-            value,
-            subfield_code_per_tag[tag_key])
-        if (tag_key == '655'):
-            # remove the square brackets
-            string_build = re.sub(r'^\[(.*)\]$', r'\1', string_build)
-        subject[field_data_per_tag[tag_key]] = string_build
-
-        if tag_key in ('610', '611'):
-            subject['conference'] = conference_per_tag[tag_key]
-
-        if tag_key in ('600t', '610t', '611t'):
-            creator_tag_key = tag_key[:3]  # to keep only tag:  600, 610, 611
-            subject['creator'] = remove_trailing_punctuation(
-                build_string_from_subfields(
-                    value,
-                    subfield_code_per_tag[creator_tag_key]),
-                '.', '.'
-            )
-        field_key = 'subjects'
-        if tag_key == '655':
-            field_key = 'genreForm'
-
-        subfields_0 = utils.force_list(value.get('0'))
-        if data_type in ['bf:Person', 'bf:Organisation'] and subfields_0:
-            ref = get_contribution_link(marc21.bib_id, marc21.rero_id,
-                                        subfields_0[0], key)
-            if ref:
-                subject = {
-                    '$ref': ref,
-                    'type': data_type,
-                }
-        if not subject.get('$ref'):
-            identifier = build_identifier(value)
-            if identifier:
-                subject['identifiedBy'] = identifier
-
-        if subject.get('$ref') or subject.get(field_data_per_tag[tag_key]):
-            subjects = self.get(field_key, [])
-            subjects.append(subject)
-            self[field_key] = subjects
-    elif subfield_2 == 'rerovoc' or indicator_2 in ['0', '2']:
-        term_string = build_string_from_subfields(
-            value,
-            'abcdefghijklmnopqrstuvwxyz', ' - ')
-        if term_string:
-            if subfield_2 == 'rerovoc':
-                source = 'rerovoc'
-            else:
-                source = source_per_indicator_2[indicator_2]
-            subject_imported = {
-                'type': type_per_tag[tag_key],
-                'source': source
-            }
-            subject_imported[field_data_per_tag[tag_key]] = term_string
-            if tag_key in ('610', '611'):
-                subject_imported['conference'] = conference_per_tag[tag_key]
-            subjects_imported = self.get('subjects_imported', [])
-            if subject_imported:
-                subjects_imported.append(subject_imported)
-                self['subjects_imported'] = subjects_imported
-
-
-@marc21.over('subjects_imported', '^919..')
-@utils.for_each_value
-@utils.ignore_value
-def marc21_to_subjects_imported(self, key, value):
-    """Get subject and genreForm_imported imported from 919 (L53, L54)."""
-    specific_contains_regexp = \
-        re.compile(r'\[(carte postale|affiche|document photographique)\]')
-    contains_specific_voc_regexp = re.compile(
-            r'^(chrero|rerovoc|ram|rameau|gnd|rerovoc|gatbegr|gnd-content)$')
-
-    subfields_2 = utils.force_list(value.get('2'))
-    term_string = ''
-    data_imported = None
-    field_key = 'subjects_imported'
-    if subfields_2:
-        subfield_2 = subfields_2[0]
-        match = contains_specific_voc_regexp.search(subfield_2)
-        if match:
-            add_data_imported = False
-            if subfield_2 == 'chrero':
-                subfields_9 = utils.force_list(value.get('9'))
-                subfield_9 = subfields_9[0]
-                subfields_v = utils.force_list(value.get('v'))
-                if subfields_v:
-                    subfield_v = subfields_v[0]
-                    match = specific_contains_regexp.search(subfield_v)
-                    if match:
-                        contains_655_regexp = re.compile(r'655')
-                        match = contains_655_regexp.search(subfield_9)
-                        add_data_imported = True
-                        if match:
-                            field_key = 'genreForm_imported'
-            else:
-                add_data_imported = True
-                if subfield_2 == 'gatbegr' or subfield_2 == 'gnd-content':
-                    field_key = 'genreForm_imported'
-            if add_data_imported:
-                term_string = build_string_from_subfields(
-                    value,
-                    'abcdefghijklmnopqrstuvwxyz', ' - ')
-                data_imported = {
-                    'type': 'bf:Topic',
-                    'source': subfield_2,
-                    'term': term_string
-                }
-    else:
-        term_string = build_string_from_subfields(
-            value,
-            'abcdefghijklmnopqrstuvwxyz', ' - ')
-        if term_string:
-            data_imported = {
-                'type': 'bf:Topic',
-                'term': term_string
-            }
-    if data_imported:
-        subjects_or_genre_form_imported_imported = self.get(field_key, [])
-        subjects_or_genre_form_imported_imported.append(data_imported)
-        self[field_key] = subjects_or_genre_form_imported_imported
-
-
-@marc21.over('sequence_numbering', '^362..')
-@utils.for_each_value
-@utils.ignore_value
-def marc21_to_notes_and_original_title(self, key, value):
-    """Get notes and original title."""
-    if value.get('a'):
-        subfield_a = utils.force_list(value.get('a'))[0]
-        sequence_numbering = self.get('sequence_numbering', '')
+        sequence_numbering = data.get('sequence_numbering', '')
         if sequence_numbering:
             sequence_numbering += ' ; ' + subfield_a
         else:
             sequence_numbering = subfield_a
-        self['sequence_numbering'] = sequence_numbering
+        data['sequence_numbering'] = sequence_numbering
 
 
-@marc21.over('classification', '^(050|060|080|082|980)..')
-@utils.for_each_value
-@utils.ignore_value
-def marc21_to_classification(self, key, value):
+def do_classification(data, key, value):
     """Get classification and subject from 980."""
     classification_type_per_tag = {
         '050': 'bf:ClassificationLcc',
@@ -1731,30 +1397,6 @@ def marc21_to_classification(self, key, value):
         '080': 'bf:ClassificationUdc',
         '082': 'bf:ClassificationDdc',
     }
-
-    def get_classif_type_and_subdivision_codes_from_980_2(subfield_2):
-
-        classification_type_per_tag_980_2 = {
-            'brp': 'classification_brunetparguez',
-            'dr-sys': 'classification_droit',
-            'musi': 'classification_musicale_instruments',
-            'musg': 'classification_musicale_genres'
-        }
-        subdivision_subfield_codes_per_tag_980_2 = {
-            'brp': {'d'},
-            'musg': {'d', 'e'}
-        }
-        classification_type = None
-        subdivision_subfield_codes = None
-        for key in classification_type_per_tag_980_2:
-            regexp = re.compile(r'{key}'.format(key=key), re.IGNORECASE)
-            if regexp.search(subfield_2):
-                classification_type = classification_type_per_tag_980_2[key]
-                if key in subdivision_subfield_codes_per_tag_980_2:
-                    subdivision_subfield_codes = \
-                        subdivision_subfield_codes_per_tag_980_2[key]
-                break
-        return classification_type, subdivision_subfield_codes
 
     tag = key[:3]
     indicator1 = key[3]
@@ -1767,89 +1409,57 @@ def marc21_to_classification(self, key, value):
     for subfield_a in subfields_a:
         classification = {}
         classification['classificationPortion'] = subfield_a
-        if tag == '980':
-            contains_factum_regexp = re.compile(r'factum')
-            match = contains_factum_regexp.search(subfield_2)
-            if match:
-                subject = {
-                    'type': 'bf:Person',
-                    'preferred_name': subfield_a,
-                    'source': 'Factum'
-                }
-                subjects = self.get('subjects', [])
-                subjects.append(subject)
-                self['subjects'] = subjects
-
-            classif_type, subdivision_subfield_codes = \
-                get_classif_type_and_subdivision_codes_from_980_2(subfield_2)
-            if classif_type:
-                classification['type'] = classif_type
-                if subdivision_subfield_codes:
-                    items = get_field_items(value)
-                    subdivision = []
-                    for blob_key, blob_value in items:
-                        if blob_key in subdivision_subfield_codes:
-                            subdivision.append(blob_value)
-                    if subdivision:
-                        classification['subdivision'] = subdivision
-            else:  # avoid classification if type not found
-                classification = None
-
-        else:
-            classification['type'] = classification_type_per_tag[tag]
-            if tag == '050' and indicator2 == '0':
+        classification['type'] = classification_type_per_tag[tag]
+        if tag == '050' and indicator2 == '0':
+            classification['assigner'] = 'LOC'
+        if tag == '060' and indicator2 == '0':
+            classification['assigner'] = 'NLM'
+        if tag == '080':
+            subfields_x = utils.force_list(value.get('x'))
+            if subfields_x:
+                classification['subdivision'] = []
+                for subfield_x in subfields_x:
+                    classification['subdivision'].append(subfield_x)
+            edition = None
+            if indicator1 == '0':
+                edition = 'Full edition'
+            elif indicator1 == '1':
+                edition = 'Abridged edition'
+            if subfield_2:
+                if edition:
+                    edition += ', ' + subfield_2
+                else:
+                    edition = subfield_2
+            if edition:
+                classification['edition'] = edition
+        elif tag == '082':
+            subfields_q = utils.force_list(value.get('q'))
+            subfield_q = None
+            edition = None
+            if subfields_q:
+                subfield_q = subfields_q[0]
+            if indicator2 == '0':
                 classification['assigner'] = 'LOC'
-            if tag == '060' and indicator2 == '0':
-                classification['assigner'] = 'NLM'
-            if tag == '080':
-                subfields_x = utils.force_list(value.get('x'))
-                if subfields_x:
-                    classification['subdivision'] = []
-                    for subfield_x in subfields_x:
-                        classification['subdivision'].append(subfield_x)
-                edition = None
-                if indicator1 == '0':
-                    edition = 'Full edition'
-                elif indicator1 == '1':
-                    edition = 'Abridged edition'
-                if subfield_2:
-                    if edition:
-                        edition += ', ' + subfield_2
-                    else:
-                        edition = subfield_2
+            elif subfield_q:
+                classification['assigner'] = subfield_q
+            if indicator1 == '0':
+                edition = 'Full edition'
+            elif indicator1 == '1':
+                edition = 'Abridged edition'
+            if subfield_2:
                 if edition:
-                    classification['edition'] = edition
-            elif tag == '082':
-                subfields_q = utils.force_list(value.get('q'))
-                subfield_q = None
-                edition = None
-                if subfields_q:
-                    subfield_q = subfields_q[0]
-                if indicator2 == '0':
-                    classification['assigner'] = 'LOC'
-                elif subfield_q:
-                    classification['assigner'] = subfield_q
-                if indicator1 == '0':
-                    edition = 'Full edition'
-                elif indicator1 == '1':
-                    edition = 'Abridged edition'
-                if subfield_2:
-                    if edition:
-                        edition += ', ' + subfield_2
-                    else:
-                        edition = subfield_2
-                if edition:
-                    classification['edition'] = edition
-        classification_list = self.get('classification', [])
+                    edition += ', ' + subfield_2
+                else:
+                    edition = subfield_2
+            if edition:
+                classification['edition'] = edition
+        classification_list = data.get('classification', [])
         if classification:
             classification_list.append(classification)
-            self['classification'] = classification_list
+            data['classification'] = classification_list
 
 
-@marc21.over('part_of', '^(773|800|830)..')
-@utils.for_each_value
-@utils.ignore_value
-def marc21_to_part_of(self, key, value):
+def do_part_of(data, marc21, key, value):
     r"""Get part_of.
 
     The 773 $g can have multiple pattern, most important is to find the year
@@ -1959,90 +1569,170 @@ def marc21_to_part_of(self, key, value):
             new_data.append(('v', v_value))
         return GroupableOrderedDict(tuple(new_data))
 
-    part_of = {}
-    numbering_list = []
-    subfield_w = not_repetitive(marc21.bib_id,  marc21.rero_id,
-                                key, value, 'w', default='').strip()
-    if subfield_w:
-        match = re.compile(r'^REROILS:')
-        pid = match.sub('', subfield_w)
-        part_of['document'] = {
-            '$ref': f'https://bib.rero.ch/api/documents/{pid}'
-        }
-        if key[:3] == '773':
-            discard_numbering = False
-            for subfield_g in utils.force_list(value.get('g', [])):
-                numbering = Numbering()
-                values = subfield_g.strip().split('/')
-                numbering.add_numbering_value('year', values[0][:4])
-                if len(values) == 1 and not numbering.has_year():
-                    if values[0]:
-                        numbering.add_numbering_value('pages', values[0])
-                elif len(values) == 2:
-                    if numbering.has_year():
-                        if values[1]:
-                            numbering.add_numbering_value('pages', values[1])
-                    else:
-                        if values[0]:
-                            numbering.add_numbering_value('volume', values[0])
-                        if values[1]:
-                            numbering.add_numbering_value('issue', values[1])
-                elif len(values) == 3:
-                    if not numbering.has_year() and values[0]:
-                        numbering.add_numbering_value('volume', values[0])
-                    if values[1]:
-                        numbering.add_numbering_value('issue', values[1])
-                    if values[2]:
-                        numbering.add_numbering_value('pages', values[2])
-                elif len(values) == 4:
-                    if numbering.has_year():
-                        if values[1]:
-                            numbering.add_numbering_value('volume', values[1])
-                        if values[2]:
-                            numbering.add_numbering_value('issue', values[2])
-                        if values[3]:
-                            numbering.add_numbering_value('pages', values[3])
-                    else:
-                        discard_numbering = True
-                if not discard_numbering and numbering.is_valid():
-                    numbering_list.append(numbering.get())
-        else:  # 800, 830
-            for subfield_v in utils.force_list(value.get('v', [])):
-                numbering = Numbering()
-                if subfield_v:
-                    numbering.add_numbering_value('volume', subfield_v)
-                if numbering.is_valid():
-                    numbering_list.append(numbering.get())
-        if 'document' in part_of:
-            if numbering_list:
-                part_of['numbering'] = numbering_list
-            self['partOf'] = self.get('partOf', [])
-            if part_of not in self['partOf']:
-                self['partOf'].append(part_of)
-    else:  # no link found
-        if key[:3] == '773':
-            if not marc21.has_field_580:
+    if key[:3] == '773' and marc21.bib_level == 'm':
+        if not marc21.has_field_580:
+            # the author in subfield $a is appended to subfield $t
+            value = add_author_to_subfield_t(value)
+            # create a seriesStatement instead of a partOf
+            marc21.extract_series_statement_from_marc_field(
+                key, value, data
+            )
+    else:  # 800, 830
+        if not marc21.has_field_490:
+            # create a seriesStatement instead of a partOf
+            if key[:3] == '800':
                 # the author in subfield $a is appended to subfield $t
                 value = add_author_to_subfield_t(value)
-                # create a seriesStatement instead of a partOf
-                marc21.extract_series_statement_from_marc_field(
-                    key, value, self
-                )
-        else:  # 800, 830
-            if not marc21.has_field_490:
-                # create a seriesStatement instead of a partOf
-                if key[:3] == '800':
-                    # the author in subfield $a is appended to subfield $t
-                    value = add_author_to_subfield_t(value)
-                marc21.extract_series_statement_from_marc_field(
-                    key, value, self
-                )
+            marc21.extract_series_statement_from_marc_field(
+                key, value, data
+            )
 
 
-@marc21.over('_masked', '^099..')
-def marc21_to_masked(self, key, value):
-    """Get masked.
-
-    masked: [099$a masked]
+def do_work_access_point(marc21, key, value):
+    """Get work access point."""
     """
-    return value.get('a') == 'masked'
+    * "agent": {
+    *   "type": "bf:Person", (700.2)
+    *   "preferred_name": "700.2$a",
+    *   "numeration": "700.2$b",
+    *   "date_of_birth": "700.2$d - 1ère date",
+    *   "date_of_death": "700.2$d - 2e date",
+    *   "qualifier": ["700.2$c"]
+    *   "type": "bf:Organization", (710.2)
+    *   "conference": false, (710.2)
+    *   "preferred_name": "710.2$a",
+    *   "subordinate_unit": ["710.2$b"]
+    * }
+    * "title": "130|700$t|730$a",
+    * "date_of_work": "130|730$f",
+    * "miscellaneous_information": "130|730$g",
+    * "language": "130|730$l",
+    * "part": [{
+    *   "partNumber": "130|730$n",
+    *   "partName": "130|730$p"
+    * }],
+    * "form_subdivision": ["130|730$k"],
+    * "medium_of_performance_for_music": ["130|730$m"],
+    * "arranged_statement_for_music": "130|730$o",
+    * "key_for_music": "130|730$r",
+    * "identifiedBy": {
+    *   "type": "RERO",
+    *   "value": "[ID autorité RERO]"
+    * }
+   """
+    tag = key[:3]
+    title_tag = 'a'
+    agent = {}
+    work_access_point = {}
+    # subfield_0 = not_repetitive(
+    #     marc21.bib_id, marc21.bib_id, key, value, '0')
+    # if subfield_0:
+    #     ref = get_contribution_link(marc21.bib_id, marc21.rero_id,
+    #                                 subfield_0, key)
+    # if ref:
+    #     agent['$ref'] = ref
+    #     if tag == '700':
+    #         agent['type'] = 'bf:Person'
+    #     elif tag == '710':
+    #         agent['type'] = 'bf:Organisation'
+    # else:
+    if tag == '700' and value.get('t'):
+        title_tag = 't'
+        agent['type'] = 'bf:Person'
+        if value.get('a'):
+            agent['preferred_name'] = remove_trailing_punctuation(
+                not_repetitive(marc21.bib_id, marc21.bib_id, key, value, 'a'))
+        if value.get('b'):
+            agent['numeration'] = remove_trailing_punctuation(
+                not_repetitive(marc21.bib_id, marc21.bib_id, key, value, 'b'))
+        dates = not_repetitive(marc21.bib_id, marc21.bib_id, key, value, 'd')
+        if dates:
+            dates = dates.rstrip(',')
+            dates = remove_trailing_punctuation(dates).split('-')
+            try:
+                date_of_birth = dates[0].strip()
+                if date_of_birth:
+                    agent['date_of_birth'] = date_of_birth
+            except Exception:
+                pass
+            try:
+                date_of_death = dates[1].strip()
+                if date_of_death:
+                    agent['date_of_death'] = date_of_death
+            except Exception:
+                pass
+        if value.get('c'):
+            agent['qualifier'] = remove_trailing_punctuation(
+                not_repetitive(marc21.bib_id, marc21.bib_id, key, value, 'c'))
+    elif tag == '710':
+        title_tag = 't'
+        agent['type'] = 'bf:Organisation'
+        agent['conference'] = False
+        if value.get('a'):
+            agent['preferred_name'] = not_repetitive(
+                marc21.bib_id, marc21.bib_id, key, value, 'a')
+        if value.get('b'):
+            agent['subordinate_unit'] = not_repetitive(
+                marc21.bib_id, marc21.bib_id, key, value, 'b')
+    if agent:
+        work_access_point['agent'] = agent
+    if value.get(title_tag):
+        work_access_point['title'] = not_repetitive(
+            marc21.bib_id, marc21.bib_id, key, value, title_tag)
+    if value.get('f'):
+        work_access_point['date_of_work'] = not_repetitive(
+            marc21.bib_id, marc21.bib_id, key, value, 'f')
+    if value.get('g'):
+        work_access_point['miscellaneous_information'] = not_repetitive(
+            marc21.bib_id, marc21.bib_id, key, value, 'g')
+    if value.get('l'):
+        language = not_repetitive(
+            marc21.bib_id, marc21.bib_id, key, value, 'l')
+        lang = language
+        if lang not in _LANGUAGES:
+            # try to get alpha3 language:
+            iso_language = find(language)
+            if iso_language:
+                lang = iso_language.get('iso639_2_b')
+        if lang in _LANGUAGES:
+            work_access_point['language'] = lang
+        else:
+            error_print('WARNING WORK ACCESS POINT LANGUAGE:', marc21.bib_id,
+                        marc21.rero_id, language)
+    part_list = TitlePartList(part_number_code='n', part_name_code='p')
+    items = get_field_items(value)
+    index = 1
+    for blob_key, blob_value in items:
+        if blob_key in ['n', 'p']:
+            part_list.update_part(blob_value, blob_key, blob_value)
+        if blob_key != '__order__':
+            index += 1
+    the_part_list = part_list.get_part_list()
+    if the_part_list:
+        work_access_point['part'] = the_part_list
+    if value.get('k'):
+        work_access_point['form_subdivision'] = list(
+            utils.force_list(value.get('k')))
+    if value.get('m'):
+        work_access_point['medium_of_performance_for_music'] = list(
+            utils.force_list(value.get('m')))
+    if value.get('o'):
+        work_access_point['arranged_statement_for_music'] = not_repetitive(
+            marc21.bib_id, marc21.bib_id, key, value, 'o')
+    if value.get('r'):
+        work_access_point['key_for_music'] = not_repetitive(
+            marc21.bib_id, marc21.bib_id, key, value, 'r')
+    identifier = build_identifier(value)
+    if identifier:
+        agent['identifiedBy'] = identifier
+
+    if not work_access_point.get('title'):
+        error_print('WARNING WORK ACCESS POINT:', marc21.bib_id,
+                    marc21.rero_id, 'no title')
+        return None
+    agent = work_access_point.get('agent', {})
+    if agent and not agent.get('preferred_name'):
+        error_print('WARNING WORK ACCESS POINT:', marc21.bib_id,
+                    marc21.rero_id, 'no agent preferred_name')
+        return None
+    return work_access_point or None

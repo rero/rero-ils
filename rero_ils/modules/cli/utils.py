@@ -30,6 +30,7 @@ import re
 import sys
 import traceback
 from collections import OrderedDict
+from datetime import datetime
 from glob import glob
 from pprint import pprint
 from time import sleep
@@ -47,6 +48,7 @@ from invenio_oauth2server.cli import process_scopes, process_user
 from invenio_oauth2server.models import Client, Token
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_records.api import Record
+from invenio_records_rest.utils import obj_or_import_string
 from invenio_search.proxies import current_search
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
@@ -57,7 +59,7 @@ from werkzeug.security import gen_salt
 from rero_ils.modules.locations.api import Location
 
 from ..documents.api import Document, DocumentsIndexer, DocumentsSearch
-from ..documents.dojson.contrib.marc21tojson import marc21
+from ..documents.dojson.contrib.marc21tojson.rero import marc21
 from ..documents.tasks import \
     replace_idby_contribution as task_replace_idby_contribution
 from ..documents.tasks import \
@@ -680,14 +682,58 @@ def check_validate(jsonfile, type, verbose, debug, error_file_name,
                 pprint(data)
 
 
-def do_worker(marc21records, results, pid_required, debug, schema=None):
+def error_record(pid, record, notes):
+    """Error record."""
+    error_rec = {
+        "adminMetadata": {
+            "encodingLevel": "Full level",
+            "note": notes
+        },
+        "issuance": {
+            "main_type": "rdami:1001",
+            "subtype": "materialUnit"
+        },
+        "language": [{
+            "type": "bf:Language",
+            "value": "und"
+        }],
+        "pid": pid,
+        "provisionActivity": [{
+            "startDate": int(datetime.now().year),
+            "type": "bf:Publication"}
+        ],
+        "title": [{
+            "mainTitle": [{"value": f"ERROR DOCUMENT {pid}"}],
+            "type": "bf:Title"
+        }],
+        "type": [{"main_type": "docmaintype_other"}],
+        "_masked": True
+        }
+    if record:
+        schema = record.get('$schema')
+        if schema and schema != 'dummy':
+            error_rec['$schema'] = schema
+        identified_by = record.get('identifiedBy')
+        if identified_by:
+            error_rec['identifiedBy'] = identified_by
+    return error_rec
+
+
+def do_worker(marc21records, results, pid_required, debug, dojson,
+              schema=None):
     """Worker for marc21 to json transformation."""
+    if dojson:
+        dojson = obj_or_import_string(
+            f'rero_ils.modules.documents.dojson.'
+            f'contrib.marc21tojson.{dojson}:marc21')
+    else:
+        dojson = marc21
     for data in marc21records:
         data_json = data['json']
         pid = data_json.get('001', '???')
         record = {}
         try:
-            record = marc21.do(data_json)
+            record = dojson.do(data_json)
             if not record.get("$schema"):
                 # create dummy schema in data
                 record["$schema"] = 'dummy'
@@ -704,23 +750,34 @@ def do_worker(marc21records, results, pid_required, debug, schema=None):
                     del record["pid"]
             results.append({
                 'status': True,
-                'data': record
+                'record': record
             })
         except ValidationError as err:
             if debug:
                 pprint(record)
             trace_lines = traceback.format_exc(1).split('\n')
             trace = trace_lines[5].strip()
-            rero_pid = data_json.get('035__', {}).get('a'),
+            field_035 = data_json.get('035__', {})
+            if isinstance(field_035, tuple):
+                field_035 = field_035[0]
+            rero_pid = field_035.get('a', 'UNKNOWN'),
             msg = f'ERROR:\t{pid}\t{rero_pid}\t{err.args[0]}\t-\t{trace}'
             click.secho(msg, fg='red')
             results.append({
                 'pid': pid,
                 'status': False,
-                'data': data['xml']
+                'data': data['xml'],
+                'record': error_record(
+                    pid,
+                    record,
+                    [f'{err.args[0]}', f'{trace}']
+                )
             })
         except Exception as err:
-            rero_pid = data_json.get('035__', {}).get('a'),
+            field_035 = data_json.get('035__', {})
+            if isinstance(field_035, tuple):
+                field_035 = field_035[0]
+            rero_pid = field_035.get('a', 'UNKNOWN'),
             msg = f'ERROR:\t{pid}\t{rero_pid}\t{err.args[0]}'
             click.secho(msg, fg='red')
             if debug:
@@ -728,7 +785,12 @@ def do_worker(marc21records, results, pid_required, debug, schema=None):
             results.append({
                 'pid': pid,
                 'status': False,
-                'data': data['xml']
+                'data': data['xml'],
+                'record': error_record(
+                    pid,
+                    record,
+                    [f'{err.args[0]}']
+                )
             })
 
 
@@ -736,14 +798,15 @@ class Marc21toJson():
     """Class for Marc21 recorts to Json transformation."""
 
     __slots__ = ['xml_file', 'json_file_ok', 'xml_file_error', 'parallel',
-                 'chunk', 'verbose', 'debug', 'pid_required',
+                 'chunk', 'dojson', 'verbose', 'debug', 'pid_required',
                  'count', 'count_ok', 'count_ko', 'ctx',
-                 'results', 'active_buffer', 'buffer', 'first_result',
-                 'schema']
+                 'results', 'active_buffer', 'buffer',
+                 'schema', 'pid_mapping', 'pids', 'error_records']
 
     def __init__(self, xml_file, json_file_ok, xml_file_error,
-                 parallel=8, chunk=10000,
-                 verbose=False, debug=False, pid_required=False, schema=None):
+                 parallel=8, chunk=10000, dojson=None,
+                 verbose=False, debug=False, pid_required=False, schema=None,
+                 pid_mapping=None, error_records=False):
         """Constructor."""
         self.count = 0
         self.count_ok = 0
@@ -755,14 +818,22 @@ class Marc21toJson():
         self.chunk = chunk
         self.verbose = verbose
         self.schema = schema
-        self.first_result = True
+        self.dojson = dojson
         if verbose:
             click.echo(
                 f'Main process pid: {multiprocessing.current_process().pid}')
         self.debug = debug
         if debug:
             multiprocessing.log_to_stderr(logging.DEBUG)
+        self.error_records = error_records
         self.pid_required = pid_required
+        self.pids = {}
+        if pid_mapping:
+            click.echo(f'Read pid mapping: {pid_mapping.name}')
+            datas = read_json_record(pid_mapping)
+            self.pids = {
+                data['bib_id']: data['document_pid'] for data in datas}
+            click.echo(f'  Found pids: {len(self.pids)}')
         self.ctx = multiprocessing.get_context("spawn")
         manager = self.ctx.Manager()
         self.results = manager.list()
@@ -782,17 +853,14 @@ class Marc21toJson():
             value = self.results.pop(0)
             status = value.get('status')
             data = value.get('data')
+            record = value.get('record')
             if status:
                 self.count_ok += 1
-                if self.first_result:
-                    self.first_result = False
-                else:
-                    self.json_file_ok.write(',')
-                for line in json.dumps(data, indent=2).split('\n'):
-                    self.json_file_ok.write('\n  ' + line)
             else:
                 self.count_ko += 1
                 self.xml_file_error.write(data)
+            if status or self.error_records:
+                self.json_file_ok.write(record)
 
     def wait_free_process(self):
         """Wait for next process to finish."""
@@ -823,7 +891,7 @@ class Marc21toJson():
         new_process = self.ctx.Process(
             target=do_worker,
             args=(self.active_records, self.results, self.pid_required,
-                  self.debug, self.schema)
+                  self.debug, self.dojson, self.schema)
         )
         self.wait_free_process()
         new_process.start()
@@ -839,7 +907,6 @@ class Marc21toJson():
 
     def write_start(self):
         """Write initial lines to files."""
-        self.json_file_ok.write('[')
         self.xml_file_error.write(b'<?xml version="1.0" encoding="UTF-8"?>\n')
         self.xml_file_error.write(
             b'<collection xmlns="http://www.loc.gov/MARC21/slim">\n\n'
@@ -847,13 +914,26 @@ class Marc21toJson():
 
     def write_stop(self):
         """Write finishing lines to files."""
-        self.json_file_ok.write('\n]')
         self.xml_file_error.write(b'\n</collection>')
 
     def start(self):
         """Start the transformation."""
+        click.echo('Start processing ...')
         self.write_start()
         for marc21xml in read_xml_record(self.xml_file):
+            # change 001 to REROILS:pid if we have a mapping.
+            if self.pids:
+                for child in marc21xml:
+                    if child.attrib.get('tag') == '001':
+                        old_pid = child.text
+                        pid = self.pids.get(old_pid)
+                        if pid:
+                            new_pid = f'REROILS:{pid}'
+                            child.text = new_pid
+                        else:
+                            click.echo(
+                                f'ERROR: No pid mapping for {old_pid}')
+                        break
             marc21json_record = create_record(marc21xml)
             self.active_records.append({
                 'json': marc21json_record,
@@ -895,28 +975,36 @@ class Marc21toJson():
 
 @utils.command('marc21tojson')
 @click.argument('xml_file', type=click.File('r'))
-@click.argument('json_file_ok', type=click.File('w'))
+@click.argument('json_file_ok')
 @click.argument('xml_file_error', type=click.File('wb'))
 @click.option('-p', '--parallel', 'parallel', default=8)
 @click.option('-c', '--chunk', 'chunk', default=10000)
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
 @click.option('-d', '--debug', 'debug', is_flag=True, default=False)
-@click.option('-r', '--pidrequired', 'pid_required', is_flag=True,
+@click.option('-r', '--pid_required', 'pid_required', is_flag=True,
+              default=False)
+@click.option('-t', '--transformation', 'transformation', default=None)
+@click.option('-P', '--pid_mapping', 'pid_mapping', type=click.File('r'),
+              default=None)
+@click.option('-e', '--error_records', 'error_records', is_flag=True,
               default=False)
 @with_appcontext
 def marc21json(xml_file, json_file_ok, xml_file_error, parallel, chunk,
-               verbose, debug, pid_required):
+               verbose, debug, pid_required, transformation, pid_mapping,
+               error_records):
     """Convert xml file to json with dojson."""
     click.secho('Marc21 to Json transform: ', fg='green', nl=False)
     if pid_required and verbose:
         click.secho(' (validation tests pid) ', nl=False)
     click.secho(xml_file.name)
+    json_file_ok = JsonWriter(json_file_ok)
 
     path = current_jsonschemas.url_to_path(get_schema_for_resource('doc'))
     schema = current_jsonschemas.get_schema(path=path)
     schema = _records_state.replace_refs(schema)
     transform = Marc21toJson(xml_file, json_file_ok, xml_file_error, parallel,
-                             chunk, verbose, debug, pid_required, schema)
+                             chunk, transformation, verbose, debug,
+                             pid_required, schema, pid_mapping, error_records)
 
     count, count_ok, count_ko = transform.counts()
 

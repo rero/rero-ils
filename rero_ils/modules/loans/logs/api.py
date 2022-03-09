@@ -37,7 +37,7 @@ class LoanOperationLog(OperationLog):
 
     @classmethod
     def create(cls, data, id_=None, index_refresh='false', **kwargs):
-        r"""Create a new record instance and store it in elasticsearch.
+        """Create a new record instance and store it in elasticsearch.
 
         :param loan_data: Dict with the loan metadata.
         :param id_: Specify a UUID to use for the new record, instead of

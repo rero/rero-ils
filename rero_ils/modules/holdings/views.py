@@ -32,13 +32,13 @@ from ..utils import extracted_data_from_ref
 
 
 def holding_view_method(pid, record, template=None, **kwargs):
-    r"""Display default view.
+    """Display default view.
 
     Sends record_viewed signal and renders template.
     :param pid: PID object.
     :param record: Record object.
     :param template: Template to render.
-    :param \*\*kwargs: Additional view arguments based on URL rule.
+    :param **kwargs: Additional view arguments based on URL rule.
     :return: The rendered template.
     """
     record_viewed.send(

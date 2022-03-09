@@ -15,9 +15,9 @@ omit =
     rero_ils/modules/items/cli.py
     rero_ils/modules/loans/cli.py
     rero_ils/modules/patrons/cli.py
-    rero_ils/modules/documents/dojson/contrib/marc21tojson_bnf/model.py
-    rero_ils/modules/documents/dojson/contrib/marc21tojson_dnb/model.py
-    rero_ils/modules/documents/dojson/contrib/marc21tojson_slsp/model.py
-    rero_ils/modules/documents/dojson/contrib/marc21tojson_loc/model.py
-    rero_ils/modules/documents/dojson/contrib/marc21tojson_ugent/model.py
-    rero_ils/modules/documents/dojson/contrib/marc21tojson_kul/model.py
+    rero_ils/modules/documents/dojson/contrib/marc21tojson/utils.py
+    rero_ils/modules/documents/dojson/contrib/marc21tojson/dnb/model.py
+    rero_ils/modules/documents/dojson/contrib/marc21tojson/kul/model.py
+    rero_ils/modules/documents/dojson/contrib/marc21tojson/loc/model.py
+    rero_ils/modules/documents/dojson/contrib/marc21tojson/slsp/model.py
+    rero_ils/modules/documents/dojson/contrib/marc21tojson/ugent/model.py

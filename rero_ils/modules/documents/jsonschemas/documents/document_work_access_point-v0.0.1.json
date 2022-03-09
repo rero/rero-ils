@@ -70,17 +70,17 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "minLength": 3
+              "minLength": 1
             },
             "date_of_work": {
               "title": "Date of work",
               "type": "string",
-              "minLength": 3
+              "minLength": 1
             },
             "miscellaneous_information": {
               "title": "Miscellaneous information",
               "type": "string",
-              "minLength": 3
+              "minLength": 1
             },
             "language": {
               "$ref": "https://bib.rero.ch/schemas/common/languages-v0.0.1.json#/language"

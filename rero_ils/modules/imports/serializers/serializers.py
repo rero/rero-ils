@@ -24,7 +24,7 @@ from jsonref import JsonRef
 from marshmallow import fields
 
 from rero_ils.modules.documents.api import Document
-from rero_ils.modules.documents.dojson.contrib.marc21tojson import marc21
+from rero_ils.modules.documents.dojson.contrib.marc21tojson.rero import marc21
 from rero_ils.modules.documents.utils import create_contributions, \
     title_format_text_head
 

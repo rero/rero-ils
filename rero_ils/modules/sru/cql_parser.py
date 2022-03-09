@@ -87,7 +87,7 @@ ES_INDEX_MAPPINGS = {
                     'provisionActivity.statement.label.value',
     'dc.type': 'type.main_type',
     'dc.subtype': 'type.subtype',
-    'dc.identifier': 'identifiedBy.value',
+    'dc.identifier': 'identified_by.value',
     # TODO: relation search in: issuedWith, otherEdition, otherPhysicalFormat,
     # precededBy, relatedTo, succeededBy, supplement and supplementTo
     # 'dc.relation': '',

@@ -149,7 +149,7 @@
         "items": {
           "title": " Description conventions",
           "type": "string",
-          "minLength": 2
+          "minLength": 1
         },
         "form": {
           "templateOptions": {
