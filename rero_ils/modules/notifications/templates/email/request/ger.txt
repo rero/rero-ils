@@ -12,5 +12,8 @@ Signatur: {{ loan.document.call_numbers | join(' / ') }}
 Abholort: {{ loan.pickup_name }}
 Leser: {{ loan.patron.first_name }} {{ loan.patron.last_name }}
 {%- if loan.patron.barcode %} - {{ loan.patron.barcode | join(', ') }}{%- endif %}
+{%- if loan.request_expire_date %}
+Ablauf der Bestellung: {{ loan.request_expire_date }}
+{%- endif %}
 
 {% endfor %}

@@ -12,5 +12,8 @@ Segnatura: {{ loan.document.call_numbers | join(' / ') }}
 Punto di ritiro: {{ loan.pickup_name }}
 Lettore: {{ loan.patron.first_name }} {{ loan.patron.last_name }}
 {%- if loan.patron.barcode %} - {{ loan.patron.barcode | join(', ') }}{%- endif %}
+{%- if loan.request_expire_date %}
+Scadenza della richiesta: {{ loan.request_expire_date }}
+{%- endif %}
 
 {% endfor %}

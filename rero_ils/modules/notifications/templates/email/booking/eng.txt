@@ -12,5 +12,8 @@ Call number: {{ loan.document.call_numbers | join(' / ') }}
 Pick up location: {{ loan.pickup_name }}
 Patron: {{ loan.patron.first_name }} {{ loan.patron.last_name }}
 {%- if loan.patron.barcode %} - {{ loan.patron.barcode | join(', ') }}{%- endif %}
+{%- if loan.request_expire_date %}
+Request expiration: {{ loan.request_expire_date }}
+{%- endif %}
 
 {% endfor %}

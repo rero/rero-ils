@@ -12,5 +12,8 @@ Cote: {{ loan.document.call_numbers | join(' / ') }}
 Lieu de retrait: {{ loan.pickup_name }}
 Lecteur: {{ loan.patron.first_name }} {{ loan.patron.last_name }}
 {%- if loan.patron.barcode %} - {{ loan.patron.barcode | join(', ') }}{%- endif %}
+{%- if loan.request_expire_date %}
+Expiration de la demande: {{ loan.request_expire_date }}
+{%- endif %}
 
 {% endfor %}
