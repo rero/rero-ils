@@ -33,6 +33,7 @@ from flask_login import current_user, login_required
 from flask_menu import register_menu
 from flask_security import utils as security_utils
 from invenio_i18n.ext import current_i18n
+from invenio_oauth2server.decorators import require_api_auth
 
 from .api import Patron, PatronsSearch, current_librarian, current_patrons
 from .permissions import get_allowed_roles_management
@@ -320,7 +321,7 @@ def patron_authenticate():
 
 
 @api_blueprint.route('/info', methods=['GET'])
-@check_logged_as_patron
+@require_api_auth()
 def info():
     """Get patron info."""
     token_scopes = flask_request.oauth.access_token.scopes
@@ -342,6 +343,7 @@ def info():
         :param institution: Institution object.
         :returns: Code for the institution.
         """
+        # TODO: make this non rero specific using a configuration
         return institution['code'] if institution['code'] != 'nj' else 'rbnj'
 
     # Process for all patrons
@@ -357,7 +359,7 @@ def info():
     data = {}
 
     # Barcode
-    if patron['patron'].get('barcode'):
+    if patron.get('patron', {}).get('barcode'):
         data['barcode'] = patron['patron']['barcode'][0]
 
     # Full name
@@ -372,15 +374,21 @@ def info():
     if 'patron_types' in token_scopes:
         patron_types = []
         for patron in patrons:
-            patron_types.append({
-                'patron_type':
-                patron['patron']['type']['code'],
-                'institution':
-                get_institution_code(patron['institution']),
-                'expiration_date':
-                datetime.datetime.strptime(patron['patron']['expiration_date'],
-                                           '%Y-%m-%d').isoformat()
-            })
-        data['patron_types'] = patron_types
+            info = {}
+            patron_type_code = patron.get(
+                'patron', {}).get('type', {}).get('code')
+            if patron_type_code:
+                info['patron_type'] = patron_type_code
+            if patron.get('institution'):
+                info['institution'] = get_institution_code(
+                    patron['institution'])
+            if patron.get('patron', {}).get('expiration_date'):
+                info['expiration_date'] = datetime.datetime.strptime(
+                    patron['patron']['expiration_date'],
+                    '%Y-%m-%d').isoformat()
+            if info:
+                patron_types.append(info)
+        if patron_types:
+            data['patron_types'] = patron_types
 
     return jsonify(data)
