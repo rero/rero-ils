@@ -320,9 +320,9 @@ def test_cancel_item_request_on_item_in_transit_for_pickup_with_requests(
     item = Item.get_record_by_pid(item.pid)
     loan = Loan.get_record_by_pid(loan.pid)
     requested_loan = Loan.get_record_by_pid(requested_loan.pid)
-    assert item.status == ItemStatus.AT_DESK
+    assert item.status == ItemStatus.IN_TRANSIT
     assert loan['state'] == LoanState.CANCELLED
-    assert requested_loan['state'] == LoanState.ITEM_AT_DESK
+    assert requested_loan['state'] == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
 
 
 def test_cancel_pending_loan_on_item_in_transit_for_pickup_with_requests(

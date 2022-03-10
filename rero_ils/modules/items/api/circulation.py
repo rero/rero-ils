@@ -482,7 +482,21 @@ class ItemCirculation(ItemRecord):
             item = self
         elif actions_to_execute.get('validate_first_pending'):
             pending = self.get_first_loan_by_state(state=LoanState.PENDING)
+            # When the loan to cancel is ITEM_IN_TRANSIT_FOR_PICKUP, we need
+            # virtually to undo the last transaction and restart from the last
+            # location and validate the first pending request.
+            # to achieve this, we pass the cancelled loan pickup_location_pid
+            # as a transaction_location_pid for the validation of the next
+            # pending loan. This way the validation logic is not modified.
+            cancelled_loan_pickup_pid = None
+            if loan.get('state') == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP:
+                cancelled_loan_pickup_pid = loan.get('pickup_location_pid')
             item, actions = self.cancel_loan(pid=loan.pid, **kwargs)
+            if cancelled_loan_pickup_pid:
+                if pending['pickup_location_pid'] != cancelled_loan_pickup_pid:
+                    kwargs['transaction_location_pid'] = \
+                        cancelled_loan_pickup_pid
+                    kwargs.pop('transaction_library_pid', None)
             item, validate_actions = self.validate_request(
                 pid=pending.pid, **kwargs)
             actions.update(validate_actions)
