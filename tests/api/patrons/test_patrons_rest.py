@@ -24,6 +24,8 @@ from datetime import datetime, timedelta
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
+from invenio_db import db
+from invenio_oauth2server.models import Client, Token
 from utils import VerifyRecordPermissionPatch, create_patron, get_json, \
     postdata, to_relative_url
 
@@ -569,37 +571,68 @@ def test_patron_messages(client, patron_martigny):
         'Will be back in february.'
 
 
-def test_patron_info(client, patron_martigny, monkeypatch):
+def test_patron_info(app, client, patron_martigny, librarian_martigny):
     """Test patron info."""
 
-    class MockToken:
-        """Mock token class."""
-        scopes = []
-
-    class MockOAuth:
-        """Mock OAuth class."""
-        access_token = MockToken()
-
-    class MockRequest:
-        """Mock request class."""
-        oauth = MockOAuth()
-
-    monkeypatch.setattr('rero_ils.modules.patrons.views.flask_request',
-                        MockRequest)
-    login_user_via_session(client, patron_martigny.user)
-    url = url_for('api_patrons.info')
-
-    # No scope
-    res = client.get(url)
-    assert res.status_code == 200
-    assert res.json == {'barcode': '4098124352'}
-
     # All scopes
-    MockToken.scopes = [
+    scopes = [
         'fullname', 'birthdate', 'institution', 'expiration_date',
         'patron_type', 'patron_types'
     ]
-    res = client.get(url)
+
+    # create a oauth client liked to the librarian account
+    oauth_client = Client(
+        client_id='dev',
+        client_secret='dev',
+        name='Test name',
+        description='Test description',
+        is_confidential=False,
+        user=librarian_martigny.user,
+        website='http://foo.org',
+        _redirect_uris='')
+
+    # token with all scopes
+    token = Token(
+        client=oauth_client,
+        user=patron_martigny.user,
+        token_type='bearer',
+        access_token='test_access_1',
+        expires=None,
+        is_personal=False,
+        is_internal=False,
+        _scopes=' '.join(scopes))
+
+    # token without scope
+    no_scope_token = Token(
+        client=oauth_client,
+        user=patron_martigny.user,
+        token_type='bearer',
+        access_token='test_access_2',
+        expires=None,
+        is_personal=False,
+        is_internal=False)
+
+    db.session.add(oauth_client)
+    db.session.add(token)
+    db.session.commit()
+
+    # denied with a wrong token
+    res = client.get(url_for('api_patrons.info', access_token='wrong'))
+    assert res.status_code == 401
+
+    # denied without token
+    res = client.get(url_for('api_patrons.info'))
+    assert res.status_code == 401
+
+    # minimal information without scope
+    res = client.get(
+        url_for('api_patrons.info', access_token=no_scope_token.access_token))
+    assert res.status_code == 200
+    assert res.json == {'barcode': patron_martigny['patron']['barcode'].pop()}
+
+    # full information with all scopes
+    res = client.get(
+        url_for('api_patrons.info', access_token=token.access_token))
     assert res.status_code == 200
     assert res.json == {
         'barcode':
