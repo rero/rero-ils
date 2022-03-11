@@ -31,34 +31,31 @@ from rero_ils.modules.items.utils import item_location_retriever, \
 from rero_ils.modules.utils import get_ref_for_pid
 
 
-def test_obsolete_temporary_item_types(item_lib_martigny,
-                                       item_type_on_site_martigny):
-    """Test obsolete temporary_item_types."""
+def test_obsolete_temporary_item_types_and_locations(
+        item_lib_martigny, item_type_on_site_martigny):
+    """Test obsolete temporary_item_types and temporary_locations."""
     item = item_lib_martigny
-
     # First test - No items has temporary_item_type
-    items = Item.get_items_with_obsolete_temporary_item_type()
-    assert len(list(items)) == 0
-
+    items = Item.get_items_with_obsolete_temporary_item_type_or_location()
+    assert not len(list(items))
     # Second test - add an infinite temporary_item_type to an item
     item['temporary_item_type'] = {
         '$ref': get_ref_for_pid('itty', item_type_on_site_martigny.pid)
     }
     item.update(item, dbcommit=True, reindex=True)
-    items = Item.get_items_with_obsolete_temporary_item_type()
-    assert len(list(items)) == 0
-
+    items = Item.get_items_with_obsolete_temporary_item_type_or_location()
+    assert not len(list(items))
     # Third test - add an expiration date in the future for the temporary
     # item_type
     over_2_days = datetime.now() + timedelta(days=2)
     item['temporary_item_type']['end_date'] = over_2_days.strftime('%Y-%m-%d')
     item.update(data=item, dbcommit=True, reindex=True)
-    items = Item.get_items_with_obsolete_temporary_item_type()
-    assert len(list(items)) == 0
+    items = Item.get_items_with_obsolete_temporary_item_type_or_location()
+    assert not len(list(items))
 
     # Fourth test - check obsolete with for a specified date in the future
     over_3_days = datetime.now() + timedelta(days=3)
-    items = Item.get_items_with_obsolete_temporary_item_type(
+    items = Item.get_items_with_obsolete_temporary_item_type_or_location(
         end_date=over_3_days)
     assert len(list(items)) == 1
 

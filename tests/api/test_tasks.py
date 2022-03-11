@@ -26,7 +26,8 @@ from invenio_records.signals import after_record_update
 from utils import flush_index, postdata
 
 from rero_ils.modules.items.api import Item
-from rero_ils.modules.items.tasks import clean_obsolete_temporary_item_types
+from rero_ils.modules.items.tasks import \
+    clean_obsolete_temporary_item_types_and_locations
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.api import Loan, LoansSearch, get_due_soon_loans, \
     get_overdue_loans
@@ -251,29 +252,51 @@ def test_clear_and_renew_subscription(patron_type_grown_sion,
     after_record_update.connect(create_subscription_patron_transaction)
 
 
-def test_clear_obsolete_temporary_item_type(item_lib_martigny,
-                                            item_type_on_site_martigny):
-    """test task clear_obsolete_temporary_item_type"""
+def test_clear_obsolete_temporary_item_type_and_location(
+        item_lib_martigny, item_type_on_site_martigny,
+        loc_restricted_martigny, item2_lib_martigny):
+    """test task test_clear_obsolete_temporary_item_type_and_location"""
     item = item_lib_martigny
     end_date = datetime.now() + timedelta(days=2)
     item['temporary_item_type'] = {
         '$ref': get_ref_for_pid('itty', item_type_on_site_martigny.pid),
         'end_date': end_date.strftime('%Y-%m-%d')
     }
-    item.update(item, dbcommit=True, reindex=True)
-    assert item.item_type_circulation_category_pid == \
-        item_type_on_site_martigny.pid
+    item['temporary_location'] = {
+        '$ref': get_ref_for_pid('loc', loc_restricted_martigny.pid),
+        'end_date': end_date.strftime('%Y-%m-%d')
+    }
+    item = item.update(item, dbcommit=True, reindex=True)
+    assert item.get('temporary_item_type', {}).get('end_date')
+    assert item.get('temporary_location', {}).get('end_date')
+
+    end_date = datetime.now() + timedelta(days=25)
+    item2_lib_martigny['temporary_item_type'] = {
+        '$ref': get_ref_for_pid('itty', item_type_on_site_martigny.pid),
+        'end_date': end_date.strftime('%Y-%m-%d')
+    }
+    item2_lib_martigny['temporary_location'] = {
+        '$ref': get_ref_for_pid('loc', loc_restricted_martigny.pid),
+        'end_date': end_date.strftime('%Y-%m-%d')
+    }
+    item2_lib_martigny = item2_lib_martigny.update(
+        item2_lib_martigny, dbcommit=True, reindex=True)
+    assert item2_lib_martigny.get('temporary_item_type', {}).get('end_date')
+    assert item2_lib_martigny.get('temporary_location', {}).get('end_date')
 
     over_4_days = datetime.now() + timedelta(days=4)
     with freeze_time(over_4_days.strftime('%Y-%m-%d')):
-        items = Item.get_items_with_obsolete_temporary_item_type()
-        assert len(list(items)) == 1
+        items = Item.get_items_with_obsolete_temporary_item_type_or_location()
+        assert len(list(items))
         # run the tasks
-        clean_obsolete_temporary_item_types()
+        msg = clean_obsolete_temporary_item_types_and_locations()
+        assert msg['deleted fields'] == 2
         # check after task was ran
-        items = Item.get_items_with_obsolete_temporary_item_type()
+        items = Item.get_items_with_obsolete_temporary_item_type_or_location()
         assert len(list(items)) == 0
-        assert item.item_type_circulation_category_pid == item.item_type_pid
+        item = Item.get_record_by_pid(item.pid)
+        assert not item.get('temporary_item_type')
+        assert not item.get('temporary_location')
 
 
 def test_expired_request_task(
