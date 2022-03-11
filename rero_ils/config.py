@@ -365,9 +365,9 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(minute=0, hour=6),  # Every day at 06:00 UTC,
         'enabled': False
     },
-    'clear_obsolete_temporary_item_types': {
+    'clean_obsolete_temporary_item_types_and_locations': {
         'task': ('rero_ils.modules.items.tasks'
-                 '.clean_obsolete_temporary_item_types'),
+                 '.clean_obsolete_temporary_item_types_and_locations'),
         'schedule': crontab(minute=15, hour=2),  # Every day at 02:15 UTC,
         'enabled': False
     },

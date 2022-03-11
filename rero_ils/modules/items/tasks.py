@@ -101,7 +101,7 @@ def process_late_claimed_issues(
 
 
 @shared_task
-def clean_obsolete_temporary_item_types():
+def clean_obsolete_temporary_item_types_and_locations():
     """Clean obsoletes temporary item_type for items.
 
     Search for all item with obsolete temporary item_type. For each found item,
@@ -109,27 +109,27 @@ def clean_obsolete_temporary_item_types():
     commit change
     """
     counter = 0
-    for item in Item.get_items_with_obsolete_temporary_item_type():
+    for item, field_type in \
+            Item.get_items_with_obsolete_temporary_item_type_or_location():
         counter += 1
-        # logger information
-        tmp_itty_data = item['temporary_item_type']
-        tmp_itty = extracted_data_from_ref(tmp_itty_data['$ref'], 'record')
-        tmp_itty_enddate = tmp_itty_data['end_date']
-        default_itty = extracted_data_from_ref(item['item_type']['$ref'],
-                                               'record')
-        msg = 'Removing temporary itty on item#{item_pid} :: [{tmp_itty}](' \
-            '{tmp_date}) --> [{default_itty}]'.format(
-                item_pid=item.pid,
-                tmp_itty=tmp_itty.get('name'),
-                tmp_date=tmp_itty_enddate,
-                default_itty=default_itty.get('name')
-            )
+        if field_type == 'itty':
+            tmp_itty_data = item.pop('temporary_item_type', {})
+            tmp_itty_name = extracted_data_from_ref(
+                tmp_itty_data['$ref'], 'record').get('name')
+            tmp_itty_enddate = tmp_itty_data['end_date']
+            msg = f'Removed obsolete temporary_item_type {tmp_itty_name} \
+                    {tmp_itty_enddate} from item pid {item.pid}'
+        elif field_type == 'loc':
+            tmp_loc_data = item.pop('temporary_location', {})
+            tmp_loc_name = extracted_data_from_ref(
+                tmp_loc_data['$ref'], 'record').get('name')
+            tmp_loc_enddate = tmp_loc_data['end_date']
+            msg = f'Removed obsolete temporary_location {tmp_loc_name} \
+                    {tmp_loc_enddate} from item pid {item.pid}'
         current_app.logger.info(msg)
-        # remove the obsolete data
-        del item['temporary_item_type']
-        item.replace(data=item, dbcommit=True, reindex=True)
-    count = {'deleted': counter}
-    set_timestamp('clean_obsolete_temporary_item_types', **count)
+        item.update(item, dbcommit=True, reindex=True)
+    count = {'deleted fields': counter}
+    set_timestamp('clean_obsolete_temporary_item_types_and_locations', **count)
     return count
 
 

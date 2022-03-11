@@ -17,7 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating items."""
-from datetime import datetime
+from datetime import datetime, timezone
 from functools import partial
 
 from elasticsearch.exceptions import NotFoundError
@@ -125,9 +125,12 @@ class Item(ItemCirculation, ItemIssue):
     def replace_refs(self):
         """Replace $ref with real data."""
         tmp_itty_end_date = self.get('temporary_item_type', {}).get('end_date')
+        tmp_loc_end_date = self.get('temporary_location', {}).get('end_date')
         data = super().replace_refs()
         if tmp_itty_end_date:
             data['temporary_item_type']['end_date'] = tmp_itty_end_date
+        if tmp_loc_end_date:
+            data['temporary_location']['end_date'] = tmp_loc_end_date
         return data
 
     @classmethod
@@ -157,25 +160,41 @@ class Item(ItemCirculation, ItemIssue):
         return item
 
     @classmethod
-    def get_items_with_obsolete_temporary_item_type(cls, end_date=None):
-        """Get all items with an obsolete temporary item_type.
+    def format_end_date(cls, end_date):
+        """Return a formatted end date."""
+        # (`datetime.now(timezone.utc)` by default)
+        if end_date is None:
+            end_date = datetime.now(timezone.utc)
+        end_date = end_date.strftime('%Y-%m-%d')
+        return end_date
 
-        An end_date could be attached to the item temporary item_type. If this
-        date is less or equal to sysdate, then the temporary_item_type must be
-        considered as obsolete.
+    @classmethod
+    def get_items_with_obsolete_temporary_item_type_or_location(
+            cls, end_date=None):
+        """Get all items with an obsolete temporary item_type or location.
 
-        :param end_date: the end_date to check (`datetime.now()` by default)
+        An end_date could be attached to the item temporary item_type or
+        temporary location. If this date is less or equal to sysdate, then the
+        temporary_item_type or temorary_location must be considered as obsolete
+        and the field must be removed.
+
+        :param end_date: the end_date to check.
         :return A generator of `ItemRecord` object.
         """
-        if end_date is None:
-            end_date = datetime.utcnow()
-        end_date = end_date.strftime('%Y-%m-%d')
-        results = ItemsSearch() \
-            .filter('range', temporary_item_type__end_date={'lte': end_date}) \
-            .source('pid') \
-            .scan()
-        for result in results:
-            yield Item.get_record_by_pid(result.pid)
+        end_date = cls.format_end_date(end_date)
+        items_query = ItemsSearch()
+        loc_es_quey = items_query.filter(
+                    'range', temporary_location__end_date={'lte': end_date})
+        locs = [
+            (hit.meta.id, 'loc') for hit in loc_es_quey.source('pid').scan()]
+
+        itty_es_query = items_query.filter(
+                'range', temporary_item_type__end_date={'lte': end_date})
+        itty = [(hit.meta.id, 'itty') for hit in itty_es_query.source(
+            'pid').scan()]
+        hits = itty + locs
+        for id, field_type in hits:
+            yield Item.get_record_by_id(id), field_type
 
 
 class ItemsIndexer(IlsRecordsIndexer):
