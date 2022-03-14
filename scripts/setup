@@ -324,7 +324,7 @@ eval ${PREFIX} invenio reroils index reindex -t illr --yes-i-know
 #: don't forget to recreat the documents json schema files:
 # SIZE=big # SIZE=small
 # export RERO_ILS_MEF_HOST=mef.rero.ch
-# invenio reroils utils marc21tojson_rero ${DATA_PATH}/documents_${SIZE}.xml ${DATA_PATH}/documents_${SIZE}.json ${DATA_PATH}/documents_${SIZE}_errors.xml -v -r
+# invenio reroils utils marc21tojson -t rero ${DATA_PATH}/documents_${SIZE}.xml ${DATA_PATH}/documents_${SIZE}.json ${DATA_PATH}/documents_${SIZE}_errors.xml -v -r
 # Save the contribution after setup for later use.
 # invenio reroils utils export -t cont -o ${DATA_PATH}/contributions_${SIZE}.json -v
 

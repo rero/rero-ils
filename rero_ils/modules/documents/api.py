@@ -321,6 +321,7 @@ class Document(IlsRecord):
                 if agent:
                     contribution['agent'] = agent
         subjects = self.get('subjects', [])
+        resolved_subjects = []
         for subject in subjects:
             subject_ref = subject.get('$ref')
             subject_type = subject.get('type')
@@ -329,6 +330,15 @@ class Document(IlsRecord):
                 subject, _ = Contribution.get_record_by_ref(subject_ref)
                 if subject:
                     subject.update({'type': subject_type})
+                    resolved_subjects.append(subject)
+                else:
+                    current_app.logger.error(
+                        'NO SUBJECT CONTRIBUTION REF FOUND:'
+                        f' {self.pid} {subject_ref}')
+            else:
+                resolved_subjects.append(subject)
+        if resolved_subjects:
+            self['subjects'] = resolved_subjects
 
         return super().replace_refs()
 

@@ -1436,7 +1436,7 @@ def test_marc21_to_contribution(mock_get):
     assert contribution == [{
         'agent': {
             'type': 'bf:Person',
-            '$ref': 'https://mef.rero.ch/api/idref/XXXXXXXX'
+            '$ref': 'https://mef.rero.ch/api/agents/idref/XXXXXXXX'
         },
         'role': ['cre']
     }]
@@ -4754,7 +4754,7 @@ def test_marc21_to_subjects(mock_get):
     data = marc21.do(marc21json)
     assert data.get('subjects') == [{
           'type': 'bf:Person',
-          '$ref': 'https://mef.rero.ch/api/idref/XXXXXXXX'
+          '$ref': 'https://mef.rero.ch/api/agents/idref/XXXXXXXX'
     }]
 
     # field 600 without $t
@@ -5372,7 +5372,7 @@ def test_get_contribution_link(mock_get, capsys):
         id='(IdRef)003945843',
         key='100..'
     )
-    assert mef_url == 'https://mef.xxx.rero.ch/api/idref/003945843'
+    assert mef_url == 'https://mef.xxx.rero.ch/api/agents/idref/003945843'
 
     mock_get.return_value = mock_response(status=404)
     mef_url = get_contribution_link(
@@ -5385,7 +5385,8 @@ def test_get_contribution_link(mock_get, capsys):
     out, err = capsys.readouterr()
     assert out == (
         'WARNING GET MEF CONTRIBUTION:\t1\t1\t100..\t(IdRef)123456789\t'
-        'https://mef.xxx.rero.ch/api/mef/?q=idref.pid:"123456789"\t404\t0\t\n'
+        'https://mef.xxx.rero.ch/api/agents/mef/'
+        '?q=idref.pid:"123456789"\t404\t0\t\n'
     )
 
     mock_get.return_value = mock_response(status=400)

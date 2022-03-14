@@ -109,7 +109,8 @@ class Contribution(IlsRecord):
             # We dit not find the record in DB get it from MEF and create it.
             metadata = None
             try:
-                data = cls._get_mef_data_by_type(ref_pid, ref_type)
+                data = cls._get_mef_data_by_type(ref_pid, ref_type,
+                                                 deleted=True)
                 metadata = data['metadata']
                 # Register MEF contribution
                 metadata.pop('$schema', None)
@@ -137,8 +138,11 @@ class Contribution(IlsRecord):
         return self._get_contribution_for_document()
 
     @classmethod
-    def _get_mef_data_by_type(cls, pid, pid_type, verbose=False):
+    def _get_mef_data_by_type(cls, pid, pid_type, verbose=False,
+                              deleted=False):
         """Request MEF REST API in JSON format."""
+        def get_mef(url):
+            """Get data from MEF."""
         url = current_app.config.get('RERO_ILS_MEF_AGENTS_URL')
         if pid_type == 'mef':
             mef_url = f'{url}/mef/?q=pid:"{pid}"'
@@ -149,11 +153,26 @@ class Contribution(IlsRecord):
                 mef_url = f'{url}/mef/?q={pid_type}.pid:"{pid}"'
         request = requests.get(url=mef_url, params=dict(resolve=1, sources=1))
         status = request.status_code
-        if request.status_code == requests_codes.ok:
+        if status == requests_codes.ok:
             try:
                 data = request.json().get('hits', {}).get('hits', [None])
-                return data[0]
+                if data[0]:
+                    return data[0]
             except Exception as err:
+                # try to get deleted records
+                if deleted:
+                    request = requests.get(
+                        url=mef_url,
+                        params=dict(resolve=1, sources=1, deleted=1))
+                    status = request.status_code
+                    if status == requests_codes.ok:
+                        try:
+                            data = request.json() \
+                                .get('hits', {}).get('hits', [None])
+                            if data[0]:
+                                return data[0]
+                        except Exception as err:
+                            pass
                 msg = f'MEF resolver no metadata: {mef_url}'
                 if verbose:
                     current_app.logger.warning(msg)
