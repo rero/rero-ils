@@ -60,9 +60,10 @@ def test_loans_create(loan_pending_martigny):
 
 def test_item_loans_default_duration(
         item_lib_martigny, librarian_martigny, patron_martigny,
-        loc_public_martigny, circulation_policies):
+        loc_public_martigny, circulation_policies, lib_martigny):
     """Test default loan duration."""
 
+    # create a loan with request is easy
     item, actions = item_lib_martigny.request(
         pickup_location_pid=loc_public_martigny.pid,
         patron_pid=patron_martigny.pid,
@@ -71,10 +72,68 @@ def test_item_loans_default_duration(
     )
     loan_pid = actions['request']['pid']
     loan = Loan.get_record_by_pid(loan_pid)
+    # a new loan without transaction location
     new_loan = deepcopy(loan)
     del new_loan['transaction_location_pid']
-    assert get_default_loan_duration(new_loan, None) == \
-        get_default_loan_duration(loan, None)
+    # should have the same duration
+    with freeze_time():
+        assert get_default_loan_duration(new_loan, None) == \
+            get_default_loan_duration(loan, None)
+
+    policy = get_circ_policy(loan)
+    # the checkout duration should be enougth long
+    assert policy.get('checkout_duration', 0) > 3
+    # now in UTC
+    for now_str in [
+        # winter time
+        '2021-12-28 06:00:00', '2022-12-28 20:00:00',
+        # winter to summer time
+        '2022-03-22 06:00:00', '2022-03-22 20:00:00',
+        # summer time
+        '2022-06-28 05:00:00', '2022-06-28 19:00:00',
+        # summer to winter time
+        '2022-10-25 05:00:00', '2022-10-25 19:00:00'
+    ]:
+        with freeze_time(now_str, tz_offset=0):
+            # get loan duration
+            duration = get_default_loan_duration(loan, None)
+            # now in datetime object
+            now = datetime.now(timezone.utc)
+            utc_end_date = now + duration
+            # computed end date at the library timezone
+            end_date = utc_end_date.astimezone(
+                tz=lib_martigny.get_timezone())
+            expected_utc_end_date = now + timedelta(
+                days=policy['checkout_duration'])
+            # expected end date at the library timezone
+            expected_end_date = expected_utc_end_date.astimezone(
+                lib_martigny.get_timezone())
+            assert end_date.strftime('%Y-%m-%d') == \
+                expected_end_date.strftime('%Y-%m-%d')
+            assert end_date.hour == 23
+            assert end_date.minute == 59
+
+    # test library closed days
+    now_str = '2022-02-04 14:00:00'
+    with freeze_time(now_str, tz_offset=0):
+        # get loan duration
+        duration = get_default_loan_duration(loan, None)
+        # now in datetime object
+        now = datetime.now(timezone.utc)
+
+        utc_end_date = now + duration
+        # computed end date at the library timezone
+        end_date = utc_end_date.astimezone(tz=lib_martigny.get_timezone())
+        # saturday and sunday is closed (+2)
+        expected_utc_end_date = now + timedelta(
+            days=(policy['checkout_duration'] + 2))
+        # expected end date at the library timezone
+        expected_end_date = expected_utc_end_date.astimezone(
+            lib_martigny.get_timezone())
+        assert end_date.strftime('%Y-%m-%d') == \
+            expected_end_date.strftime('%Y-%m-%d')
+        assert end_date.hour == 23
+        assert end_date.minute == 59
     item_lib_martigny.cancel_item_request(
         pid=loan.pid,
         transaction_location_pid=loc_public_martigny.pid,

@@ -58,23 +58,17 @@ def get_circ_policy(loan, checkout_location=False):
 
 def get_default_loan_duration(loan, initial_loan):
     """Return calculated checkout duration in number of days."""
-    # TODO: case when 'now' is not sysdate.
-    now = datetime.utcnow()
+    now_in_utc = datetime.now(timezone.utc)
 
     # Get library (to check opening hours and get timezone)
     library = Library.get_record_by_pid(loan.library_pid)
 
-    # Process difference between now and end of day in term of hours/minutes
-    #   - use hours and minutes from now
-    #   - check regarding end of day (eod), 23:59
-    #   - correct the hours/date regarding library timezone
-    eod = timedelta(hours=23, minutes=59, seconds=00, milliseconds=000)
-    aware_eod = eod - library.get_timezone().utcoffset(now, is_dst=True)
-    time_to_eod = aware_eod - timedelta(hours=now.hour, minutes=now.minute)
+    now_in_library_timezone = now_in_utc.astimezone(tz=library.get_timezone())
 
     # Due date should be defined differently from checkout_duration
     # For that we use:
     #   - expected due date (now + checkout_duration)
+    #   - we apply a -1 day correction because the next open day is not today
     #   - next library open date (the eve of expected due date is used)
     # We finally make the difference between next library open date and now.
     # We apply a correction for hour/minute to be 23:59 (end of day).
@@ -84,11 +78,20 @@ def get_default_loan_duration(loan, initial_loan):
     #        method. This was not the place for this ; this function should
     #        only return the loan duration.
     policy = get_circ_policy(loan)
-    due_date_eve = now \
+    due_date_eve = now_in_library_timezone \
         + timedelta(days=policy.get('checkout_duration', 0)) \
         - timedelta(days=1)
     next_open_date = library.next_open(date=due_date_eve)
-    return timedelta(days=(next_open_date - now).days) + time_to_eod
+    # all libraries are closed at 23h59
+    # the next_open returns UTC.
+    end_date_in_library_timezone = next_open_date.astimezone(
+        library.get_timezone()).replace(
+            hour=23,
+            minute=59,
+            second=0,
+            microsecond=0
+        )
+    return end_date_in_library_timezone - now_in_library_timezone
 
 
 def get_extension_params(loan=None, initial_loan=None, parameter_name=None):
