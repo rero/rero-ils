@@ -28,7 +28,7 @@
     "$ref": {
       "title": "Corporate body",
       "type": "string",
-      "pattern": "^https://mef.rero.ch/api/gnd|idref|rero/.*?$",
+      "pattern": "^https://mef.rero.ch/api/.*(agents/)?gnd|idref|rero/.*?$",
       "form": {
         "remoteTypeahead": {
           "type": "mef-organisations",

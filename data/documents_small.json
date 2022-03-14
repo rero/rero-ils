@@ -91,7 +91,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/030744245",
+          "$ref": "https://mef.rero.ch/api/agents/idref/030744245",
           "type": "bf:Organisation"
         },
         "role": [
@@ -510,7 +510,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/066924502",
+          "$ref": "https://mef.rero.ch/api/agents/idref/066924502",
           "type": "bf:Person"
         },
         "role": [
@@ -689,7 +689,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/095969314",
+          "$ref": "https://mef.rero.ch/api/agents/idref/095969314",
           "type": "bf:Person"
         },
         "role": [
@@ -698,7 +698,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/095969357",
+          "$ref": "https://mef.rero.ch/api/agents/idref/095969357",
           "type": "bf:Person"
         },
         "role": [
@@ -1492,7 +1492,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/093644701",
+          "$ref": "https://mef.rero.ch/api/agents/idref/093644701",
           "type": "bf:Person"
         },
         "role": [
@@ -1501,7 +1501,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/137401922",
+          "$ref": "https://mef.rero.ch/api/agents/idref/137401922",
           "type": "bf:Person"
         },
         "role": [
@@ -1772,7 +1772,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/050421204",
+          "$ref": "https://mef.rero.ch/api/agents/idref/050421204",
           "type": "bf:Person"
         },
         "role": [
@@ -2067,7 +2067,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/026815141",
+          "$ref": "https://mef.rero.ch/api/agents/idref/026815141",
           "type": "bf:Person"
         },
         "role": [
@@ -2382,7 +2382,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/20183152X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/20183152X",
           "type": "bf:Person"
         },
         "role": [
@@ -2585,7 +2585,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/235346756",
+          "$ref": "https://mef.rero.ch/api/agents/idref/235346756",
           "type": "bf:Organisation"
         },
         "role": [
@@ -2643,7 +2643,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/027337049",
+          "$ref": "https://mef.rero.ch/api/agents/idref/027337049",
           "type": "bf:Person"
         },
         "role": [
@@ -2943,7 +2943,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/027009211",
+          "$ref": "https://mef.rero.ch/api/agents/idref/027009211",
           "type": "bf:Person"
         },
         "role": [
@@ -3115,7 +3115,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/171084896",
+          "$ref": "https://mef.rero.ch/api/agents/idref/171084896",
           "type": "bf:Person"
         },
         "role": [
@@ -3297,7 +3297,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/034708138",
+          "$ref": "https://mef.rero.ch/api/agents/idref/034708138",
           "type": "bf:Person"
         },
         "role": [
@@ -3306,7 +3306,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/144600749",
+          "$ref": "https://mef.rero.ch/api/agents/idref/144600749",
           "type": "bf:Person"
         },
         "role": [
@@ -3937,7 +3937,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/029399939",
+          "$ref": "https://mef.rero.ch/api/agents/idref/029399939",
           "type": "bf:Person"
         },
         "role": [
@@ -4108,7 +4108,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/084565241",
+          "$ref": "https://mef.rero.ch/api/agents/idref/084565241",
           "type": "bf:Person"
         },
         "role": [
@@ -4368,7 +4368,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/074755978",
+          "$ref": "https://mef.rero.ch/api/agents/idref/074755978",
           "type": "bf:Person"
         },
         "role": [
@@ -4448,7 +4448,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/244025843",
+          "$ref": "https://mef.rero.ch/api/agents/idref/244025843",
           "type": "bf:Person"
         },
         "role": [
@@ -4583,7 +4583,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/027155811",
+          "$ref": "https://mef.rero.ch/api/agents/idref/027155811",
           "type": "bf:Person"
         },
         "role": [
@@ -4684,7 +4684,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/032441770",
+          "$ref": "https://mef.rero.ch/api/agents/idref/032441770",
           "type": "bf:Person"
         },
         "role": [
@@ -4931,7 +4931,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/103522026",
+          "$ref": "https://mef.rero.ch/api/agents/idref/103522026",
           "type": "bf:Person"
         },
         "role": [
@@ -4940,7 +4940,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/082330778",
+          "$ref": "https://mef.rero.ch/api/agents/idref/082330778",
           "type": "bf:Person"
         },
         "role": [
@@ -4949,7 +4949,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/072277742",
+          "$ref": "https://mef.rero.ch/api/agents/idref/072277742",
           "type": "bf:Person"
         },
         "role": [
@@ -5122,7 +5122,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/027088170",
+          "$ref": "https://mef.rero.ch/api/agents/idref/027088170",
           "type": "bf:Person"
         },
         "role": [
@@ -5131,7 +5131,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/026930595",
+          "$ref": "https://mef.rero.ch/api/agents/idref/026930595",
           "type": "bf:Person"
         },
         "role": [
@@ -5791,7 +5791,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/029383099",
+          "$ref": "https://mef.rero.ch/api/agents/idref/029383099",
           "type": "bf:Person"
         },
         "role": [
@@ -5800,7 +5800,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/031201547",
+          "$ref": "https://mef.rero.ch/api/agents/idref/031201547",
           "type": "bf:Person"
         },
         "role": [
@@ -5952,7 +5952,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/026817756",
+          "$ref": "https://mef.rero.ch/api/agents/idref/026817756",
           "type": "bf:Person"
         },
         "role": [
@@ -6437,7 +6437,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/030031966",
+          "$ref": "https://mef.rero.ch/api/agents/idref/030031966",
           "type": "bf:Person"
         },
         "role": [
@@ -6446,7 +6446,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/03003194X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/03003194X",
           "type": "bf:Person"
         },
         "role": [
@@ -6894,7 +6894,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/070427518",
+          "$ref": "https://mef.rero.ch/api/agents/idref/070427518",
           "type": "bf:Person"
         },
         "role": [
@@ -6903,7 +6903,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/030261163",
+          "$ref": "https://mef.rero.ch/api/agents/idref/030261163",
           "type": "bf:Person"
         },
         "role": [
@@ -6912,7 +6912,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/061128163",
+          "$ref": "https://mef.rero.ch/api/agents/idref/061128163",
           "type": "bf:Person"
         },
         "role": [
@@ -7414,7 +7414,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/060510714",
+          "$ref": "https://mef.rero.ch/api/agents/idref/060510714",
           "type": "bf:Person"
         },
         "role": [
@@ -7540,7 +7540,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/079963374",
+          "$ref": "https://mef.rero.ch/api/agents/idref/079963374",
           "type": "bf:Person"
         },
         "role": [
@@ -7661,15 +7661,15 @@
       },
       {
         "audienceType": "school_level",
+        "value": "target_school_harmos11"
+      },
+      {
+        "audienceType": "school_level",
         "value": "target_school_harmos9"
       },
       {
         "audienceType": "school_level",
         "value": "target_school_harmos10"
-      },
-      {
-        "audienceType": "school_level",
-        "value": "target_school_harmos11"
       }
     ],
     "partOf": [
@@ -7819,7 +7819,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/027771202",
+          "$ref": "https://mef.rero.ch/api/agents/idref/027771202",
           "type": "bf:Person"
         },
         "role": [
@@ -7889,7 +7889,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/035573139",
+          "$ref": "https://mef.rero.ch/api/agents/idref/035573139",
           "type": "bf:Person"
         },
         "role": [
@@ -8019,7 +8019,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/033963584",
+          "$ref": "https://mef.rero.ch/api/agents/idref/033963584",
           "type": "bf:Person"
         },
         "role": [
@@ -8028,7 +8028,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/050835750",
+          "$ref": "https://mef.rero.ch/api/agents/idref/050835750",
           "type": "bf:Person"
         },
         "role": [
@@ -8184,7 +8184,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/03346894X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/03346894X",
           "type": "bf:Person"
         },
         "role": [
@@ -8384,7 +8384,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/244017360",
+          "$ref": "https://mef.rero.ch/api/agents/idref/244017360",
           "type": "bf:Person"
         },
         "role": [
@@ -8729,7 +8729,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/064816125",
+          "$ref": "https://mef.rero.ch/api/agents/idref/064816125",
           "type": "bf:Person"
         },
         "role": [
@@ -8895,7 +8895,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/032444621",
+          "$ref": "https://mef.rero.ch/api/agents/idref/032444621",
           "type": "bf:Person"
         },
         "role": [
@@ -8904,7 +8904,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/028028856",
+          "$ref": "https://mef.rero.ch/api/agents/idref/028028856",
           "type": "bf:Person"
         },
         "role": [
@@ -8913,7 +8913,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/032583702",
+          "$ref": "https://mef.rero.ch/api/agents/idref/032583702",
           "type": "bf:Person"
         },
         "role": [
@@ -9353,7 +9353,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/028563700",
+          "$ref": "https://mef.rero.ch/api/agents/idref/028563700",
           "type": "bf:Person"
         },
         "role": [
@@ -9644,7 +9644,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/028710355",
+          "$ref": "https://mef.rero.ch/api/agents/idref/028710355",
           "type": "bf:Person"
         },
         "role": [
@@ -9804,7 +9804,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/028710355",
+          "$ref": "https://mef.rero.ch/api/agents/idref/028710355",
           "type": "bf:Person"
         },
         "role": [
@@ -10052,7 +10052,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/029768748",
+          "$ref": "https://mef.rero.ch/api/agents/idref/029768748",
           "type": "bf:Person"
         },
         "role": [
@@ -10107,7 +10107,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/029679400",
+          "$ref": "https://mef.rero.ch/api/agents/idref/029679400",
           "type": "bf:Person"
         },
         "role": [
@@ -10526,11 +10526,11 @@
     ],
     "subjects": [
       {
-        "$ref": "https://mef.rero.ch/api/idref/082686335",
+        "$ref": "https://mef.rero.ch/api/agents/idref/082686335",
         "type": "bf:Person"
       },
       {
-        "$ref": "https://mef.rero.ch/api/idref/026699656",
+        "$ref": "https://mef.rero.ch/api/agents/idref/026699656",
         "type": "bf:Person"
       },
       {
@@ -10553,7 +10553,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/186402163",
+          "$ref": "https://mef.rero.ch/api/agents/idref/186402163",
           "type": "bf:Person"
         },
         "role": [
@@ -10562,7 +10562,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/186402376",
+          "$ref": "https://mef.rero.ch/api/agents/idref/186402376",
           "type": "bf:Person"
         },
         "role": [
@@ -10571,7 +10571,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/186402627",
+          "$ref": "https://mef.rero.ch/api/agents/idref/186402627",
           "type": "bf:Person"
         },
         "role": [
@@ -10580,7 +10580,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/18640266X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/18640266X",
           "type": "bf:Person"
         },
         "role": [
@@ -10795,7 +10795,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/027152596",
+          "$ref": "https://mef.rero.ch/api/agents/idref/027152596",
           "type": "bf:Person"
         },
         "role": [
@@ -10813,7 +10813,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/026773252",
+          "$ref": "https://mef.rero.ch/api/agents/idref/026773252",
           "type": "bf:Person"
         },
         "role": [
@@ -10822,7 +10822,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/032410182",
+          "$ref": "https://mef.rero.ch/api/agents/idref/032410182",
           "type": "bf:Person"
         },
         "role": [
@@ -11109,7 +11109,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/060312149",
+          "$ref": "https://mef.rero.ch/api/agents/idref/060312149",
           "type": "bf:Person"
         },
         "role": [
@@ -11118,7 +11118,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/033405786",
+          "$ref": "https://mef.rero.ch/api/agents/idref/033405786",
           "type": "bf:Person"
         },
         "role": [
@@ -11176,7 +11176,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/035707119",
+          "$ref": "https://mef.rero.ch/api/agents/idref/035707119",
           "type": "bf:Person"
         },
         "role": [
@@ -11312,7 +11312,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/030260868",
+          "$ref": "https://mef.rero.ch/api/agents/idref/030260868",
           "type": "bf:Person"
         },
         "role": [
@@ -11321,7 +11321,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/172774004",
+          "$ref": "https://mef.rero.ch/api/agents/idref/172774004",
           "type": "bf:Person"
         },
         "role": [
@@ -11330,7 +11330,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/067022847",
+          "$ref": "https://mef.rero.ch/api/agents/idref/067022847",
           "type": "bf:Person"
         },
         "role": [
@@ -11766,7 +11766,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/028028945",
+          "$ref": "https://mef.rero.ch/api/agents/idref/028028945",
           "type": "bf:Person"
         },
         "role": [
@@ -12196,7 +12196,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/174111819",
+          "$ref": "https://mef.rero.ch/api/agents/idref/174111819",
           "type": "bf:Person"
         },
         "role": [
@@ -12466,7 +12466,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/057790981",
+          "$ref": "https://mef.rero.ch/api/agents/idref/057790981",
           "type": "bf:Person"
         },
         "role": [
@@ -12475,7 +12475,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/076020673",
+          "$ref": "https://mef.rero.ch/api/agents/idref/076020673",
           "type": "bf:Organisation"
         },
         "role": [
@@ -12535,7 +12535,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/055281729",
+          "$ref": "https://mef.rero.ch/api/agents/idref/055281729",
           "type": "bf:Person"
         },
         "role": [
@@ -12948,7 +12948,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/031598099",
+          "$ref": "https://mef.rero.ch/api/agents/idref/031598099",
           "type": "bf:Organisation"
         },
         "role": [
@@ -12997,7 +12997,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/035216999",
+          "$ref": "https://mef.rero.ch/api/agents/idref/035216999",
           "type": "bf:Person"
         },
         "role": [
@@ -13110,7 +13110,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/026806347",
+          "$ref": "https://mef.rero.ch/api/agents/idref/026806347",
           "type": "bf:Person"
         },
         "role": [
@@ -13405,7 +13405,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/026868024",
+          "$ref": "https://mef.rero.ch/api/agents/idref/026868024",
           "type": "bf:Person"
         },
         "role": [
@@ -13544,7 +13544,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/032104561",
+          "$ref": "https://mef.rero.ch/api/agents/idref/032104561",
           "type": "bf:Person"
         },
         "role": [
@@ -13949,7 +13949,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/030049814",
+          "$ref": "https://mef.rero.ch/api/agents/idref/030049814",
           "type": "bf:Organisation"
         },
         "role": [
@@ -14121,7 +14121,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/077007220",
+          "$ref": "https://mef.rero.ch/api/agents/idref/077007220",
           "type": "bf:Person"
         },
         "role": [
@@ -14332,7 +14332,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/080115942",
+          "$ref": "https://mef.rero.ch/api/agents/idref/080115942",
           "type": "bf:Person"
         },
         "role": [
@@ -14424,19 +14424,19 @@
     "intendedAudience": [
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos2"
-      },
-      {
-        "audienceType": "school_level",
         "value": "target_school_harmos1"
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos3"
+        "value": "target_school_harmos2"
       },
       {
         "audienceType": "school_level",
         "value": "target_school_harmos4"
+      },
+      {
+        "audienceType": "school_level",
+        "value": "target_school_harmos3"
       }
     ]
   },
@@ -14479,7 +14479,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/074180304",
+          "$ref": "https://mef.rero.ch/api/agents/idref/074180304",
           "type": "bf:Person"
         },
         "role": [
@@ -14789,7 +14789,7 @@
     ],
     "subjects": [
       {
-        "$ref": "https://mef.rero.ch/api/idref/027408183",
+        "$ref": "https://mef.rero.ch/api/agents/idref/027408183",
         "type": "bf:Person"
       },
       {
@@ -14827,8 +14827,13 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/092877575",
-          "type": "bf:Organisation"
+          "type": "bf:Organisation",
+          "preferred_name": "Gosudarstvenny\u012d muze\u012d izobrazitel\u02b9nykh iskusstv imeni A.S. Pushkina",
+          "conference": false,
+          "identifiedBy": {
+            "value": "092877575",
+            "type": "IdRef"
+          }
         },
         "role": [
           "ctb"
@@ -14956,7 +14961,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/059315156",
+          "$ref": "https://mef.rero.ch/api/agents/idref/059315156",
           "type": "bf:Person"
         },
         "role": [
@@ -15129,7 +15134,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/03545802X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/03545802X",
           "type": "bf:Organisation"
         },
         "role": [
@@ -15197,7 +15202,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/026687860",
+          "$ref": "https://mef.rero.ch/api/agents/idref/026687860",
           "type": "bf:Person"
         },
         "role": [
@@ -15206,7 +15211,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/032601786",
+          "$ref": "https://mef.rero.ch/api/agents/idref/032601786",
           "type": "bf:Person"
         },
         "role": [
@@ -15215,7 +15220,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/172453070",
+          "$ref": "https://mef.rero.ch/api/agents/idref/172453070",
           "type": "bf:Organisation"
         },
         "role": [
@@ -15224,7 +15229,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/05018959X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/05018959X",
           "type": "bf:Organisation"
         },
         "role": [
@@ -15439,7 +15444,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/030599296",
+          "$ref": "https://mef.rero.ch/api/agents/idref/030599296",
           "type": "bf:Person"
         },
         "role": [
@@ -15642,7 +15647,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/028836642",
+          "$ref": "https://mef.rero.ch/api/agents/idref/028836642",
           "type": "bf:Person"
         },
         "role": [
@@ -15651,7 +15656,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/07377233X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/07377233X",
           "type": "bf:Person"
         },
         "role": [
@@ -16049,7 +16054,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/056746512",
+          "$ref": "https://mef.rero.ch/api/agents/idref/056746512",
           "type": "bf:Person"
         },
         "role": [
@@ -16058,7 +16063,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/234848111",
+          "$ref": "https://mef.rero.ch/api/agents/idref/234848111",
           "type": "bf:Person"
         },
         "role": [
@@ -16067,8 +16072,13 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/086251392",
-          "type": "bf:Organisation"
+          "type": "bf:Organisation",
+          "preferred_name": "Organisation de coop\u00e9ration et de d\u00e9veloppement \u00e9conomiques (Paris)",
+          "conference": false,
+          "identifiedBy": {
+            "value": "086251392",
+            "type": "IdRef"
+          }
         },
         "role": [
           "ctb"
@@ -16220,7 +16230,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/026958775",
+          "$ref": "https://mef.rero.ch/api/agents/idref/026958775",
           "type": "bf:Person"
         },
         "role": [
@@ -16396,7 +16406,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/229507255",
+          "$ref": "https://mef.rero.ch/api/agents/idref/229507255",
           "type": "bf:Person"
         },
         "role": [
@@ -16553,7 +16563,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/030688361",
+          "$ref": "https://mef.rero.ch/api/agents/idref/030688361",
           "type": "bf:Person"
         },
         "role": [
@@ -16977,7 +16987,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/031568637",
+          "$ref": "https://mef.rero.ch/api/agents/idref/031568637",
           "type": "bf:Person"
         },
         "role": [
@@ -17021,7 +17031,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/148257054",
+          "$ref": "https://mef.rero.ch/api/agents/idref/148257054",
           "type": "bf:Person"
         },
         "role": [
@@ -17186,7 +17196,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/118198726",
+          "$ref": "https://mef.rero.ch/api/agents/idref/118198726",
           "type": "bf:Person"
         },
         "role": [
@@ -17195,7 +17205,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/152618333",
+          "$ref": "https://mef.rero.ch/api/agents/idref/152618333",
           "type": "bf:Person"
         },
         "role": [
@@ -18453,7 +18463,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/235616796",
+          "$ref": "https://mef.rero.ch/api/agents/idref/235616796",
           "type": "bf:Organisation"
         },
         "role": [
@@ -18866,7 +18876,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/176678980",
+          "$ref": "https://mef.rero.ch/api/agents/idref/176678980",
           "type": "bf:Person"
         },
         "role": [
@@ -19091,7 +19101,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/031771440",
+          "$ref": "https://mef.rero.ch/api/agents/idref/031771440",
           "type": "bf:Person"
         },
         "role": [
@@ -19100,7 +19110,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/077156072",
+          "$ref": "https://mef.rero.ch/api/agents/idref/077156072",
           "type": "bf:Organisation"
         },
         "role": [
@@ -19253,7 +19263,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/026727587",
+          "$ref": "https://mef.rero.ch/api/agents/idref/026727587",
           "type": "bf:Person"
         },
         "role": [
@@ -19425,7 +19435,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/031771440",
+          "$ref": "https://mef.rero.ch/api/agents/idref/031771440",
           "type": "bf:Person"
         },
         "role": [
@@ -19626,7 +19636,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/027000346",
+          "$ref": "https://mef.rero.ch/api/agents/idref/027000346",
           "type": "bf:Person"
         },
         "role": [
@@ -20120,7 +20130,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/028417232",
+          "$ref": "https://mef.rero.ch/api/agents/idref/028417232",
           "type": "bf:Person"
         },
         "role": [
@@ -20358,7 +20368,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/026932997",
+          "$ref": "https://mef.rero.ch/api/agents/idref/026932997",
           "type": "bf:Person"
         },
         "role": [
@@ -20513,7 +20523,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/050769561",
+          "$ref": "https://mef.rero.ch/api/agents/idref/050769561",
           "type": "bf:Person"
         },
         "role": [
@@ -20712,7 +20722,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/122516176",
+          "$ref": "https://mef.rero.ch/api/agents/idref/122516176",
           "type": "bf:Organisation"
         },
         "role": [
@@ -21074,7 +21084,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/078047285",
+          "$ref": "https://mef.rero.ch/api/agents/idref/078047285",
           "type": "bf:Person"
         },
         "role": [
@@ -21372,7 +21382,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/199829586",
+          "$ref": "https://mef.rero.ch/api/agents/idref/199829586",
           "type": "bf:Person"
         },
         "role": [
@@ -21532,7 +21542,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/030724392",
+          "$ref": "https://mef.rero.ch/api/agents/idref/030724392",
           "type": "bf:Person"
         },
         "role": [
@@ -21725,7 +21735,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/199473927",
+          "$ref": "https://mef.rero.ch/api/agents/idref/199473927",
           "type": "bf:Person"
         },
         "role": [
@@ -21734,7 +21744,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/057566860",
+          "$ref": "https://mef.rero.ch/api/agents/idref/057566860",
           "type": "bf:Person"
         },
         "role": [
@@ -21863,7 +21873,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/251298299",
+          "$ref": "https://mef.rero.ch/api/agents/idref/251298299",
           "type": "bf:Person"
         },
         "role": [
@@ -22626,7 +22636,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/031206999",
+          "$ref": "https://mef.rero.ch/api/agents/idref/031206999",
           "type": "bf:Person"
         },
         "role": [
@@ -22860,7 +22870,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/073942103",
+          "$ref": "https://mef.rero.ch/api/agents/idref/073942103",
           "type": "bf:Person"
         },
         "role": [
@@ -23085,7 +23095,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/034000038",
+          "$ref": "https://mef.rero.ch/api/agents/idref/034000038",
           "type": "bf:Person"
         },
         "role": [
@@ -23094,7 +23104,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/078122538",
+          "$ref": "https://mef.rero.ch/api/agents/idref/078122538",
           "type": "bf:Person"
         },
         "role": [
@@ -23451,7 +23461,7 @@
     ],
     "subjects": [
       {
-        "$ref": "https://mef.rero.ch/api/idref/139843418",
+        "$ref": "https://mef.rero.ch/api/agents/idref/139843418",
         "type": "bf:Person"
       }
     ],
@@ -23519,7 +23529,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/033893438",
+          "$ref": "https://mef.rero.ch/api/agents/idref/033893438",
           "type": "bf:Person"
         },
         "role": [
@@ -23801,7 +23811,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/075450844",
+          "$ref": "https://mef.rero.ch/api/agents/idref/075450844",
           "type": "bf:Person"
         },
         "role": [
@@ -23810,7 +23820,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/026784556",
+          "$ref": "https://mef.rero.ch/api/agents/idref/026784556",
           "type": "bf:Person"
         },
         "role": [
@@ -24569,7 +24579,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/028804430",
+          "$ref": "https://mef.rero.ch/api/agents/idref/028804430",
           "type": "bf:Person"
         },
         "role": [
@@ -24693,7 +24703,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/164099832",
+          "$ref": "https://mef.rero.ch/api/agents/idref/164099832",
           "type": "bf:Person"
         },
         "role": [
@@ -24702,7 +24712,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/164099859",
+          "$ref": "https://mef.rero.ch/api/agents/idref/164099859",
           "type": "bf:Person"
         },
         "role": [
@@ -25218,7 +25228,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/05765025X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/05765025X",
           "type": "bf:Person"
         },
         "role": [
@@ -25227,7 +25237,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/057223688",
+          "$ref": "https://mef.rero.ch/api/agents/idref/057223688",
           "type": "bf:Person"
         },
         "role": [
@@ -25407,7 +25417,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/234193093",
+          "$ref": "https://mef.rero.ch/api/agents/idref/234193093",
           "type": "bf:Person"
         },
         "role": [
@@ -25603,7 +25613,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/028965892",
+          "$ref": "https://mef.rero.ch/api/agents/idref/028965892",
           "type": "bf:Person"
         },
         "role": [
@@ -25853,7 +25863,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/029033616",
+          "$ref": "https://mef.rero.ch/api/agents/idref/029033616",
           "type": "bf:Organisation"
         },
         "role": [
@@ -25977,7 +25987,7 @@
     ],
     "subjects": [
       {
-        "$ref": "https://mef.rero.ch/api/idref/026667673",
+        "$ref": "https://mef.rero.ch/api/agents/idref/026667673",
         "type": "bf:Person"
       },
       {
@@ -26082,7 +26092,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/131203460",
+          "$ref": "https://mef.rero.ch/api/agents/idref/131203460",
           "type": "bf:Person"
         },
         "role": [
@@ -26488,7 +26498,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/199562202",
+          "$ref": "https://mef.rero.ch/api/agents/idref/199562202",
           "type": "bf:Organisation"
         },
         "role": [
@@ -26535,7 +26545,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/028188012",
+          "$ref": "https://mef.rero.ch/api/agents/idref/028188012",
           "type": "bf:Person"
         },
         "role": [
@@ -26544,7 +26554,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/094513627",
+          "$ref": "https://mef.rero.ch/api/agents/idref/094513627",
           "type": "bf:Person"
         },
         "role": [
@@ -27209,7 +27219,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/035155051",
+          "$ref": "https://mef.rero.ch/api/agents/idref/035155051",
           "type": "bf:Person"
         },
         "role": [
@@ -27336,7 +27346,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/026717948",
+          "$ref": "https://mef.rero.ch/api/agents/idref/026717948",
           "type": "bf:Person"
         },
         "role": [
@@ -27605,7 +27615,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/070192979",
+          "$ref": "https://mef.rero.ch/api/agents/idref/070192979",
           "type": "bf:Person"
         },
         "role": [
@@ -27614,7 +27624,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/05737841X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/05737841X",
           "type": "bf:Person"
         },
         "role": [
@@ -27623,7 +27633,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/052496767",
+          "$ref": "https://mef.rero.ch/api/agents/idref/052496767",
           "type": "bf:Person"
         },
         "role": [
@@ -27769,7 +27779,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/032014201",
+          "$ref": "https://mef.rero.ch/api/agents/idref/032014201",
           "type": "bf:Person"
         },
         "role": [
@@ -28263,7 +28273,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/030782805",
+          "$ref": "https://mef.rero.ch/api/agents/idref/030782805",
           "type": "bf:Person"
         },
         "role": [
@@ -28341,7 +28351,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/085939323",
+          "$ref": "https://mef.rero.ch/api/agents/idref/085939323",
           "type": "bf:Person"
         },
         "role": [
@@ -28773,7 +28783,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/085817627",
+          "$ref": "https://mef.rero.ch/api/agents/idref/085817627",
           "type": "bf:Person"
         },
         "role": [
@@ -28782,7 +28792,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/069761124",
+          "$ref": "https://mef.rero.ch/api/agents/idref/069761124",
           "type": "bf:Person"
         },
         "role": [
@@ -28791,7 +28801,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/06949665X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/06949665X",
           "type": "bf:Organisation"
         },
         "role": [
@@ -29364,7 +29374,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/028339819",
+          "$ref": "https://mef.rero.ch/api/agents/idref/028339819",
           "type": "bf:Person"
         },
         "role": [
@@ -29534,7 +29544,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/072752580",
+          "$ref": "https://mef.rero.ch/api/agents/idref/072752580",
           "type": "bf:Person"
         },
         "role": [
@@ -29652,7 +29662,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/029093147",
+          "$ref": "https://mef.rero.ch/api/agents/idref/029093147",
           "type": "bf:Person"
         },
         "role": [
@@ -29821,7 +29831,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/026723417",
+          "$ref": "https://mef.rero.ch/api/agents/idref/026723417",
           "type": "bf:Person"
         },
         "role": [
@@ -30116,7 +30126,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/031800084",
+          "$ref": "https://mef.rero.ch/api/agents/idref/031800084",
           "type": "bf:Person"
         },
         "role": [
@@ -30386,7 +30396,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/251273660",
+          "$ref": "https://mef.rero.ch/api/agents/idref/251273660",
           "type": "bf:Person"
         },
         "role": [
@@ -30491,7 +30501,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/07146073X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/07146073X",
           "type": "bf:Person"
         },
         "role": [
@@ -30511,7 +30521,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/031604005",
+          "$ref": "https://mef.rero.ch/api/agents/idref/031604005",
           "type": "bf:Person"
         },
         "role": [
@@ -30709,7 +30719,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/086144715",
+          "$ref": "https://mef.rero.ch/api/agents/idref/086144715",
           "type": "bf:Person"
         },
         "role": [
@@ -30978,7 +30988,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/029957281",
+          "$ref": "https://mef.rero.ch/api/agents/idref/029957281",
           "type": "bf:Person"
         },
         "role": [
@@ -30987,7 +30997,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/24393744X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/24393744X",
           "type": "bf:Person"
         },
         "role": [
@@ -31099,7 +31109,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/063805162",
+          "$ref": "https://mef.rero.ch/api/agents/idref/063805162",
           "type": "bf:Organisation"
         },
         "role": [
@@ -31256,7 +31266,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/031505910",
+          "$ref": "https://mef.rero.ch/api/agents/idref/031505910",
           "type": "bf:Person"
         },
         "role": [
@@ -31331,7 +31341,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/194824799",
+          "$ref": "https://mef.rero.ch/api/agents/idref/194824799",
           "type": "bf:Person"
         },
         "role": [
@@ -31865,7 +31875,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/02911344X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/02911344X",
           "type": "bf:Person"
         },
         "role": [
@@ -31874,7 +31884,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/028845870",
+          "$ref": "https://mef.rero.ch/api/agents/idref/028845870",
           "type": "bf:Person"
         },
         "role": [
@@ -31883,7 +31893,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/026464462",
+          "$ref": "https://mef.rero.ch/api/agents/idref/026464462",
           "type": "bf:Organisation"
         },
         "role": [
@@ -31927,7 +31937,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/194447421",
+          "$ref": "https://mef.rero.ch/api/agents/idref/194447421",
           "type": "bf:Person"
         },
         "role": [
@@ -32265,7 +32275,7 @@
     ],
     "subjects": [
       {
-        "$ref": "https://mef.rero.ch/api/idref/027525457",
+        "$ref": "https://mef.rero.ch/api/agents/idref/027525457",
         "type": "bf:Person"
       },
       {
@@ -32277,7 +32287,7 @@
         "preferred_name": "Clark, Lygia"
       },
       {
-        "$ref": "https://mef.rero.ch/api/idref/027930408",
+        "$ref": "https://mef.rero.ch/api/agents/idref/027930408",
         "type": "bf:Person"
       }
     ],
@@ -32290,7 +32300,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/118427369",
+          "$ref": "https://mef.rero.ch/api/agents/idref/118427369",
           "type": "bf:Organisation"
         },
         "role": [
@@ -32367,7 +32377,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/251463028",
+          "$ref": "https://mef.rero.ch/api/agents/idref/251463028",
           "type": "bf:Person"
         },
         "role": [
@@ -32544,7 +32554,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/056792948",
+          "$ref": "https://mef.rero.ch/api/agents/idref/056792948",
           "type": "bf:Person"
         },
         "role": [
@@ -32989,7 +32999,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/130950041",
+          "$ref": "https://mef.rero.ch/api/agents/idref/130950041",
           "type": "bf:Person"
         },
         "role": [
@@ -33244,7 +33254,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/127839852",
+          "$ref": "https://mef.rero.ch/api/agents/idref/127839852",
           "type": "bf:Person"
         },
         "role": [
@@ -33385,7 +33395,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/035713801",
+          "$ref": "https://mef.rero.ch/api/agents/idref/035713801",
           "type": "bf:Person"
         },
         "role": [
@@ -33656,7 +33666,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/122152603",
+          "$ref": "https://mef.rero.ch/api/agents/idref/122152603",
           "type": "bf:Person"
         },
         "role": [
@@ -33785,7 +33795,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/080514294",
+          "$ref": "https://mef.rero.ch/api/agents/idref/080514294",
           "type": "bf:Person"
         },
         "role": [
@@ -33947,7 +33957,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/086136151",
+          "$ref": "https://mef.rero.ch/api/agents/idref/086136151",
           "type": "bf:Person"
         },
         "role": [
@@ -34093,7 +34103,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/03020027X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/03020027X",
           "type": "bf:Person"
         },
         "role": [
@@ -34102,7 +34112,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/031386725",
+          "$ref": "https://mef.rero.ch/api/agents/idref/031386725",
           "type": "bf:Person"
         },
         "role": [
@@ -34484,7 +34494,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/055053149",
+          "$ref": "https://mef.rero.ch/api/agents/idref/055053149",
           "type": "bf:Organisation"
         },
         "role": [
@@ -34645,7 +34655,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/028597907",
+          "$ref": "https://mef.rero.ch/api/agents/idref/028597907",
           "type": "bf:Person"
         },
         "role": [
@@ -34654,7 +34664,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/027116344",
+          "$ref": "https://mef.rero.ch/api/agents/idref/027116344",
           "type": "bf:Person"
         },
         "role": [
@@ -34923,7 +34933,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/03098064X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/03098064X",
           "type": "bf:Person"
         },
         "role": [
@@ -34932,7 +34942,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/026934574",
+          "$ref": "https://mef.rero.ch/api/agents/idref/026934574",
           "type": "bf:Person"
         },
         "role": [
@@ -35083,7 +35093,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/031301134",
+          "$ref": "https://mef.rero.ch/api/agents/idref/031301134",
           "type": "bf:Person"
         },
         "role": [
@@ -35218,7 +35228,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/171084896",
+          "$ref": "https://mef.rero.ch/api/agents/idref/171084896",
           "type": "bf:Person"
         },
         "role": [
@@ -35636,7 +35646,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/153235217",
+          "$ref": "https://mef.rero.ch/api/agents/idref/153235217",
           "type": "bf:Person"
         },
         "role": [
@@ -35944,7 +35954,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/032910150",
+          "$ref": "https://mef.rero.ch/api/agents/idref/032910150",
           "type": "bf:Organisation"
         },
         "role": [
@@ -36001,7 +36011,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/061061689",
+          "$ref": "https://mef.rero.ch/api/agents/idref/061061689",
           "type": "bf:Person"
         },
         "role": [
@@ -36019,7 +36029,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/061062162",
+          "$ref": "https://mef.rero.ch/api/agents/idref/061062162",
           "type": "bf:Person"
         },
         "role": [
@@ -37039,7 +37049,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/068867735",
+          "$ref": "https://mef.rero.ch/api/agents/idref/068867735",
           "type": "bf:Person"
         },
         "role": [
@@ -37225,7 +37235,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/23529182X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/23529182X",
           "type": "bf:Person"
         },
         "role": [
@@ -37234,7 +37244,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/235279471",
+          "$ref": "https://mef.rero.ch/api/agents/idref/235279471",
           "type": "bf:Person"
         },
         "role": [
@@ -37579,7 +37589,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/243986998",
+          "$ref": "https://mef.rero.ch/api/agents/idref/243986998",
           "type": "bf:Person"
         },
         "role": [
@@ -37743,7 +37753,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/121408515",
+          "$ref": "https://mef.rero.ch/api/agents/idref/121408515",
           "type": "bf:Person"
         },
         "role": [
@@ -37752,7 +37762,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/12431600X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/12431600X",
           "type": "bf:Person"
         },
         "role": [
@@ -37920,7 +37930,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/031605753",
+          "$ref": "https://mef.rero.ch/api/agents/idref/031605753",
           "type": "bf:Person"
         },
         "role": [
@@ -38320,7 +38330,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/066861322",
+          "$ref": "https://mef.rero.ch/api/agents/idref/066861322",
           "type": "bf:Person"
         },
         "role": [
@@ -38779,7 +38789,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/033053413",
+          "$ref": "https://mef.rero.ch/api/agents/idref/033053413",
           "type": "bf:Person"
         },
         "role": [
@@ -39153,7 +39163,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/029100291",
+          "$ref": "https://mef.rero.ch/api/agents/idref/029100291",
           "type": "bf:Person"
         },
         "role": [
@@ -39162,7 +39172,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/028432266",
+          "$ref": "https://mef.rero.ch/api/agents/idref/028432266",
           "type": "bf:Person"
         },
         "role": [
@@ -39221,7 +39231,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/027128660",
+          "$ref": "https://mef.rero.ch/api/agents/idref/027128660",
           "type": "bf:Person"
         },
         "role": [
@@ -39392,7 +39402,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/055280536",
+          "$ref": "https://mef.rero.ch/api/agents/idref/055280536",
           "type": "bf:Person"
         },
         "role": [
@@ -39524,7 +39534,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/030260868",
+          "$ref": "https://mef.rero.ch/api/agents/idref/030260868",
           "type": "bf:Person"
         },
         "role": [
@@ -39533,7 +39543,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/078617960",
+          "$ref": "https://mef.rero.ch/api/agents/idref/078617960",
           "type": "bf:Person"
         },
         "role": [
@@ -39542,7 +39552,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/080493394",
+          "$ref": "https://mef.rero.ch/api/agents/idref/080493394",
           "type": "bf:Organisation"
         },
         "role": [
@@ -39662,7 +39672,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/10924785X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/10924785X",
           "type": "bf:Person"
         },
         "role": [
@@ -39671,7 +39681,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/185544207",
+          "$ref": "https://mef.rero.ch/api/agents/idref/185544207",
           "type": "bf:Person"
         },
         "role": [
@@ -39868,7 +39878,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/111661315",
+          "$ref": "https://mef.rero.ch/api/agents/idref/111661315",
           "type": "bf:Person"
         },
         "role": [
@@ -39886,7 +39896,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/194090493",
+          "$ref": "https://mef.rero.ch/api/agents/idref/194090493",
           "type": "bf:Person"
         },
         "role": [
@@ -39973,7 +39983,7 @@
       "illustrations"
     ],
     "dimensions": [
-      "24 x 16 cm."
+      "24 x 16 cm"
     ],
     "type": [
       {
@@ -40034,7 +40044,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/145790274",
+          "$ref": "https://mef.rero.ch/api/agents/idref/145790274",
           "type": "bf:Person"
         },
         "role": [
@@ -40130,7 +40140,7 @@
     ],
     "subjects": [
       {
-        "$ref": "https://mef.rero.ch/api/idref/027437469",
+        "$ref": "https://mef.rero.ch/api/agents/idref/027437469",
         "type": "bf:Person"
       },
       {
@@ -40444,7 +40454,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/074120956",
+          "$ref": "https://mef.rero.ch/api/agents/idref/074120956",
           "type": "bf:Person"
         },
         "role": [
@@ -40831,7 +40841,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/135988489",
+          "$ref": "https://mef.rero.ch/api/agents/idref/135988489",
           "type": "bf:Person"
         },
         "role": [
@@ -40980,7 +40990,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/033607028",
+          "$ref": "https://mef.rero.ch/api/agents/idref/033607028",
           "type": "bf:Person"
         },
         "role": [
@@ -41333,7 +41343,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/026725428",
+          "$ref": "https://mef.rero.ch/api/agents/idref/026725428",
           "type": "bf:Person"
         },
         "role": [
@@ -41389,7 +41399,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/02827850X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/02827850X",
           "type": "bf:Person"
         },
         "role": [
@@ -41658,7 +41668,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/028927761",
+          "$ref": "https://mef.rero.ch/api/agents/idref/028927761",
           "type": "bf:Person"
         },
         "role": [
@@ -41836,7 +41846,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/026745151",
+          "$ref": "https://mef.rero.ch/api/agents/idref/026745151",
           "type": "bf:Person"
         },
         "role": [
@@ -41845,7 +41855,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/034460608",
+          "$ref": "https://mef.rero.ch/api/agents/idref/034460608",
           "type": "bf:Person"
         },
         "role": [
@@ -41928,7 +41938,7 @@
     ],
     "subjects": [
       {
-        "$ref": "https://mef.rero.ch/api/idref/026745151",
+        "$ref": "https://mef.rero.ch/api/agents/idref/026745151",
         "type": "bf:Person"
       },
       {
@@ -41976,7 +41986,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/028817257",
+          "$ref": "https://mef.rero.ch/api/agents/idref/028817257",
           "type": "bf:Person"
         },
         "role": [
@@ -42123,7 +42133,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/028275055",
+          "$ref": "https://mef.rero.ch/api/agents/idref/028275055",
           "type": "bf:Person"
         },
         "role": [
@@ -42276,7 +42286,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/243997876",
+          "$ref": "https://mef.rero.ch/api/agents/idref/243997876",
           "type": "bf:Person"
         },
         "role": [
@@ -42444,7 +42454,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/029314100",
+          "$ref": "https://mef.rero.ch/api/agents/idref/029314100",
           "type": "bf:Person"
         },
         "role": [
@@ -42453,7 +42463,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/182639096",
+          "$ref": "https://mef.rero.ch/api/agents/idref/182639096",
           "type": "bf:Person"
         },
         "role": [
@@ -42606,7 +42616,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/027329453",
+          "$ref": "https://mef.rero.ch/api/agents/idref/027329453",
           "type": "bf:Person"
         },
         "role": [
@@ -42615,7 +42625,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/143311867",
+          "$ref": "https://mef.rero.ch/api/agents/idref/143311867",
           "type": "bf:Person"
         },
         "role": [
@@ -42882,7 +42892,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/029065216",
+          "$ref": "https://mef.rero.ch/api/agents/idref/029065216",
           "type": "bf:Person"
         },
         "role": [
@@ -42973,7 +42983,7 @@
     ],
     "subjects": [
       {
-        "$ref": "https://mef.rero.ch/api/idref/026934612",
+        "$ref": "https://mef.rero.ch/api/agents/idref/026934612",
         "type": "bf:Person"
       },
       {
@@ -43159,7 +43169,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/235679704",
+          "$ref": "https://mef.rero.ch/api/agents/idref/235679704",
           "type": "bf:Person"
         },
         "role": [
@@ -43168,7 +43178,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/056779348",
+          "$ref": "https://mef.rero.ch/api/agents/idref/056779348",
           "type": "bf:Person"
         },
         "role": [
@@ -43228,7 +43238,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/18609809X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/18609809X",
           "type": "bf:Person"
         },
         "role": [
@@ -43564,7 +43574,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/13370744X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/13370744X",
           "type": "bf:Person"
         },
         "role": [
@@ -43574,7 +43584,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/158025555",
+          "$ref": "https://mef.rero.ch/api/agents/idref/158025555",
           "type": "bf:Person"
         },
         "role": [
@@ -43583,7 +43593,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/251561240",
+          "$ref": "https://mef.rero.ch/api/agents/idref/251561240",
           "type": "bf:Person"
         },
         "role": [
@@ -43592,7 +43602,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/251561623",
+          "$ref": "https://mef.rero.ch/api/agents/idref/251561623",
           "type": "bf:Person"
         },
         "role": [
@@ -43873,7 +43883,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/111364388",
+          "$ref": "https://mef.rero.ch/api/agents/idref/111364388",
           "type": "bf:Person"
         },
         "role": [
@@ -44039,7 +44049,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/028320549",
+          "$ref": "https://mef.rero.ch/api/agents/idref/028320549",
           "type": "bf:Person"
         },
         "role": [
@@ -44058,7 +44068,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/07950535X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/07950535X",
           "type": "bf:Person"
         },
         "role": [
@@ -44067,7 +44077,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/190059915",
+          "$ref": "https://mef.rero.ch/api/agents/idref/190059915",
           "type": "bf:Person"
         },
         "role": [
@@ -44076,7 +44086,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/060995254",
+          "$ref": "https://mef.rero.ch/api/agents/idref/060995254",
           "type": "bf:Person"
         },
         "role": [
@@ -44085,7 +44095,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/079505341",
+          "$ref": "https://mef.rero.ch/api/agents/idref/079505341",
           "type": "bf:Person"
         },
         "role": [
@@ -44094,7 +44104,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/080667198",
+          "$ref": "https://mef.rero.ch/api/agents/idref/080667198",
           "type": "bf:Organisation"
         },
         "role": [
@@ -44220,7 +44230,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/092363830",
+          "$ref": "https://mef.rero.ch/api/agents/idref/092363830",
           "type": "bf:Person"
         },
         "role": [
@@ -44414,7 +44424,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/032910150",
+          "$ref": "https://mef.rero.ch/api/agents/idref/032910150",
           "type": "bf:Organisation"
         },
         "role": [
@@ -44832,7 +44842,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/027925218",
+          "$ref": "https://mef.rero.ch/api/agents/idref/027925218",
           "type": "bf:Organisation"
         },
         "role": [
@@ -45141,7 +45151,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/035000457",
+          "$ref": "https://mef.rero.ch/api/agents/idref/035000457",
           "type": "bf:Person"
         },
         "role": [
@@ -45245,7 +45255,7 @@
     ],
     "subjects": [
       {
-        "$ref": "https://mef.rero.ch/api/idref/035000457",
+        "$ref": "https://mef.rero.ch/api/agents/idref/035000457",
         "type": "bf:Person"
       }
     ]
@@ -46320,7 +46330,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/033492115",
+          "$ref": "https://mef.rero.ch/api/agents/idref/033492115",
           "type": "bf:Organisation"
         },
         "role": [
@@ -46864,7 +46874,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/029973198",
+          "$ref": "https://mef.rero.ch/api/agents/idref/029973198",
           "type": "bf:Organisation"
         },
         "role": [
@@ -47197,7 +47207,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/069522316",
+          "$ref": "https://mef.rero.ch/api/agents/idref/069522316",
           "type": "bf:Organisation"
         },
         "role": [
@@ -47621,7 +47631,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/251298523",
+          "$ref": "https://mef.rero.ch/api/agents/idref/251298523",
           "type": "bf:Person"
         },
         "role": [
@@ -47881,7 +47891,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/028432266",
+          "$ref": "https://mef.rero.ch/api/agents/idref/028432266",
           "type": "bf:Person"
         },
         "role": [
@@ -47890,7 +47900,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/026639122",
+          "$ref": "https://mef.rero.ch/api/agents/idref/026639122",
           "type": "bf:Organisation"
         },
         "role": [
@@ -47992,7 +48002,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/029493641",
+          "$ref": "https://mef.rero.ch/api/agents/idref/029493641",
           "type": "bf:Organisation"
         },
         "role": [
@@ -48206,7 +48216,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/080514294",
+          "$ref": "https://mef.rero.ch/api/agents/idref/080514294",
           "type": "bf:Person"
         },
         "role": [
@@ -48422,7 +48432,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/176157158",
+          "$ref": "https://mef.rero.ch/api/agents/idref/176157158",
           "type": "bf:Organisation"
         },
         "role": [
@@ -49377,7 +49387,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/068666918",
+          "$ref": "https://mef.rero.ch/api/agents/idref/068666918",
           "type": "bf:Organisation"
         },
         "role": [
@@ -49509,7 +49519,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/118427369",
+          "$ref": "https://mef.rero.ch/api/agents/idref/118427369",
           "type": "bf:Organisation"
         },
         "role": [
@@ -50022,7 +50032,7 @@
     ],
     "subjects": [
       {
-        "$ref": "https://mef.rero.ch/api/idref/067025501",
+        "$ref": "https://mef.rero.ch/api/agents/idref/067025501",
         "type": "bf:Person"
       },
       {
@@ -50043,7 +50053,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/144302691",
+          "$ref": "https://mef.rero.ch/api/agents/idref/144302691",
           "type": "bf:Person"
         },
         "role": [
@@ -50052,7 +50062,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/147817110",
+          "$ref": "https://mef.rero.ch/api/agents/idref/147817110",
           "type": "bf:Person"
         },
         "role": [
@@ -50061,7 +50071,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/251309835",
+          "$ref": "https://mef.rero.ch/api/agents/idref/251309835",
           "type": "bf:Person"
         },
         "role": [
@@ -50070,7 +50080,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/067025501",
+          "$ref": "https://mef.rero.ch/api/agents/idref/067025501",
           "type": "bf:Person"
         },
         "role": [
@@ -50343,7 +50353,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/08859176X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/08859176X",
           "type": "bf:Organisation"
         },
         "role": [
@@ -50462,7 +50472,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/08859176X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/08859176X",
           "type": "bf:Organisation"
         },
         "role": [
@@ -50624,7 +50634,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/11964603X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/11964603X",
           "type": "bf:Person"
         },
         "role": [
@@ -50642,7 +50652,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/026798212",
+          "$ref": "https://mef.rero.ch/api/agents/idref/026798212",
           "type": "bf:Person"
         },
         "role": [
@@ -50706,7 +50716,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/033963584",
+          "$ref": "https://mef.rero.ch/api/agents/idref/033963584",
           "type": "bf:Person"
         },
         "role": [
@@ -51639,7 +51649,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/235593176",
+          "$ref": "https://mef.rero.ch/api/agents/idref/235593176",
           "type": "bf:Organisation"
         },
         "role": [
@@ -53445,7 +53455,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/230233384",
+          "$ref": "https://mef.rero.ch/api/agents/idref/230233384",
           "type": "bf:Organisation"
         },
         "role": [
@@ -53683,7 +53693,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/029033616",
+          "$ref": "https://mef.rero.ch/api/agents/idref/029033616",
           "type": "bf:Organisation"
         },
         "role": [
@@ -54207,7 +54217,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/028033078",
+          "$ref": "https://mef.rero.ch/api/agents/idref/028033078",
           "type": "bf:Organisation"
         },
         "role": [
@@ -54216,7 +54226,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/030089980",
+          "$ref": "https://mef.rero.ch/api/agents/idref/030089980",
           "type": "bf:Organisation"
         },
         "role": [
@@ -55264,7 +55274,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/030363624",
+          "$ref": "https://mef.rero.ch/api/agents/idref/030363624",
           "type": "bf:Person"
         },
         "role": [
@@ -55273,7 +55283,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/055053149",
+          "$ref": "https://mef.rero.ch/api/agents/idref/055053149",
           "type": "bf:Organisation"
         },
         "role": [
@@ -56052,7 +56062,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/032910150",
+          "$ref": "https://mef.rero.ch/api/agents/idref/032910150",
           "type": "bf:Organisation"
         },
         "role": [
@@ -57050,7 +57060,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/027925218",
+          "$ref": "https://mef.rero.ch/api/agents/idref/027925218",
           "type": "bf:Organisation"
         },
         "role": [
@@ -57546,7 +57556,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/069522316",
+          "$ref": "https://mef.rero.ch/api/agents/idref/069522316",
           "type": "bf:Organisation"
         },
         "role": [
@@ -57669,7 +57679,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/032910150",
+          "$ref": "https://mef.rero.ch/api/agents/idref/032910150",
           "type": "bf:Organisation"
         },
         "role": [
@@ -58082,7 +58092,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/069522316",
+          "$ref": "https://mef.rero.ch/api/agents/idref/069522316",
           "type": "bf:Organisation"
         },
         "role": [
@@ -58628,7 +58638,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/029493641",
+          "$ref": "https://mef.rero.ch/api/agents/idref/029493641",
           "type": "bf:Organisation"
         },
         "role": [
@@ -59039,7 +59049,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/02794980X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/02794980X",
           "type": "bf:Organisation"
         },
         "role": [
@@ -59146,7 +59156,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/026389916",
+          "$ref": "https://mef.rero.ch/api/agents/idref/026389916",
           "type": "bf:Organisation"
         },
         "role": [
@@ -59913,7 +59923,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/033492115",
+          "$ref": "https://mef.rero.ch/api/agents/idref/033492115",
           "type": "bf:Organisation"
         },
         "role": [
@@ -60194,7 +60204,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/235593176",
+          "$ref": "https://mef.rero.ch/api/agents/idref/235593176",
           "type": "bf:Organisation"
         },
         "role": [
@@ -60352,7 +60362,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/029033616",
+          "$ref": "https://mef.rero.ch/api/agents/idref/029033616",
           "type": "bf:Organisation"
         },
         "role": [
@@ -61045,7 +61055,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/07653023X",
+          "$ref": "https://mef.rero.ch/api/agents/idref/07653023X",
           "type": "bf:Organisation"
         },
         "role": [
@@ -61155,7 +61165,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/033492115",
+          "$ref": "https://mef.rero.ch/api/agents/idref/033492115",
           "type": "bf:Organisation"
         },
         "role": [
@@ -61750,7 +61760,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/026372193",
+          "$ref": "https://mef.rero.ch/api/agents/idref/026372193",
           "type": "bf:Organisation"
         },
         "role": [
@@ -62141,7 +62151,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/069522316",
+          "$ref": "https://mef.rero.ch/api/agents/idref/069522316",
           "type": "bf:Organisation"
         },
         "role": [
@@ -62545,7 +62555,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/033492115",
+          "$ref": "https://mef.rero.ch/api/agents/idref/033492115",
           "type": "bf:Organisation"
         },
         "role": [
@@ -62721,7 +62731,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/069522316",
+          "$ref": "https://mef.rero.ch/api/agents/idref/069522316",
           "type": "bf:Organisation"
         },
         "role": [
@@ -62730,7 +62740,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/028165861",
+          "$ref": "https://mef.rero.ch/api/agents/idref/028165861",
           "type": "bf:Organisation"
         },
         "role": [
@@ -62739,7 +62749,7 @@
       },
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/030671639",
+          "$ref": "https://mef.rero.ch/api/agents/idref/030671639",
           "type": "bf:Organisation"
         },
         "role": [
@@ -63209,7 +63219,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/184282624",
+          "$ref": "https://mef.rero.ch/api/agents/idref/184282624",
           "type": "bf:Organisation"
         },
         "role": [
@@ -64334,7 +64344,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/184282624",
+          "$ref": "https://mef.rero.ch/api/agents/idref/184282624",
           "type": "bf:Organisation"
         },
         "role": [
@@ -65228,7 +65238,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/184282624",
+          "$ref": "https://mef.rero.ch/api/agents/idref/184282624",
           "type": "bf:Organisation"
         },
         "role": [
