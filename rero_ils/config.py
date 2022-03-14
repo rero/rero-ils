@@ -2785,8 +2785,7 @@ RERO_ILS_UI_GIT_HASH = None
 
 #: RERO_ILS MEF specific configurations.
 # TODO: to be changed with new MEF version
-# RERO_ILS_MEF_AGENTS_URL = 'https://mef.rero.ch/api/agents'
-RERO_ILS_MEF_AGENTS_URL = 'https://mef.rero.ch/api'
+RERO_ILS_MEF_AGENTS_URL = 'https://mef.rero.ch/api/agents'
 RERO_ILS_MEF_RESULT_SIZE = 100
 
 RERO_ILS_APP_HELP_PAGE = (

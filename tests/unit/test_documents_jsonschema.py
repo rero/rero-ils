@@ -87,25 +87,34 @@ def test_languages(document_schema, document_data_tmp):
 
 def test_contribution(document_schema, document_data_tmp):
     """Test contribution for jsonschemas."""
-    document_data_tmp['contribution'] = [
-        {
-            'agent': {
-                'type': 'bf:Person',
-                'preferred_name': 'Dumont, Jean',
-                'date_of_birth': '1954',
-                'qualifier': 'Développeur'
-            },
-            'role': ['aut']
+    document_data_tmp['contribution'] = [{
+        'agent': {
+            'type': 'bf:Person',
+            'preferred_name': 'Dumont, Jean',
+            'date_of_birth': '1954',
+            'qualifier': 'Développeur'
         },
-        {
-            'agent': {
-                'type': 'bf:Organisation',
-                'preferred_name': 'RERO',
-                'conference': False
-            },
-            'role': ['aut']
-        }
-    ]
+        'role': ['aut']
+    }, {
+        'agent': {
+            'type': 'bf:Organisation',
+            'preferred_name': 'RERO',
+            'conference': False
+        },
+        'role': ['aut']
+    }, {
+        'agent': {
+            'type': 'bf:Person',
+            '$ref': 'https://mef.rero.ch/api/gnd/XXXXXXX'
+        },
+        'role': ['aut']
+    }, {
+        'agent': {
+            'type': 'bf:Person',
+            '$ref': 'https://mef.rero.ch/api/agents/gnd/XXXXXXX'
+        },
+        'role': ['aut']
+    }]
     validate(document_data_tmp, document_schema)
 
     with pytest.raises(ValidationError):

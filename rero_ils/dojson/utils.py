@@ -408,10 +408,11 @@ def get_contribution_link(bibid, reroid, id, key):
     :params key: Tag from the marc field.
     :returns: MEF url.
     """
-    # https://mef.test.rero.ch/api/mef/?q=rero.rero_pid:A012327677
-    prod_host = 'mef.rero.ch'
-    test_host = os.environ.get('RERO_ILS_MEF_HOST', 'mef.rero.ch')
-    mef_url = f'https://{test_host}/api/'
+    # In dojson we dont have app. mef_url should be the same as
+    # RERO_ILS_MEF_AGENTS_URL in config.py
+    # https://mef.test.rero.ch/api/agents/mef/?q=rero.rero_pid:A012327677
+    mef_host = os.environ.get('RERO_ILS_MEF_HOST', 'mef.rero.ch')
+    mef_url = f'https://{mef_host}/api/agents'
     if type(id) is str:
         match = re_identified.search(id)
     else:
@@ -422,7 +423,7 @@ def get_contribution_link(bibid, reroid, id, key):
         match_type = match_type.replace('de-588', 'gnd')
         # if we have a viafid, look for the contributor in MEF
         if match_type == "viaf":
-            url = f'{mef_url}/mef/?q=viaf_pid:{match_value}'
+            url = f'{mef_url}/mef/agents/?q=viaf_pid:{match_value}'
             response = requests_retry_session().get(url)
             status_code = response.status_code
             if status_code == requests.codes.ok:
@@ -437,13 +438,16 @@ def get_contribution_link(bibid, reroid, id, key):
                 except (IndexError, KeyError):
                     pass
         if match_type in ['idref', 'gnd']:
-            url = f'{mef_url}{match_type}/{match_value}'
+            url = f'{mef_url}/mef/?q={match_type}.pid:{match_value}'
             response = requests_retry_session().get(url)
             status_code = response.status_code
+            total = 0
             if status_code == requests.codes.ok:
-                return url.replace(test_host, prod_host)
+                total = response.json().get('hits', {}).get('total', 0)
+                if total > 0:
+                    return f'{mef_url}/{match_type}/{match_value}'
             error_print('WARNING GET MEF CONTRIBUTION:',
-                        bibid, reroid, key, id, url, status_code)
+                        bibid, reroid, key, id, url, status_code, total)
     else:
         error_print('ERROR GET MEF CONTRIBUTION:', bibid, reroid, key, id)
 
