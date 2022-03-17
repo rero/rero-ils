@@ -106,24 +106,41 @@ def get_extension_params(loan=None, initial_loan=None, parameter_name=None):
     # Get library (to check opening hours)
     library = Library.get_record_by_pid(loan.library_pid)
 
-    now = datetime.utcnow()
-    # Fix end of day regarding Library timezone
-    eod = timedelta(hours=23, minutes=59)
-    aware_eod = eod - library.get_timezone().utcoffset(now, is_dst=True)
-    time_to_eod = aware_eod - timedelta(hours=now.hour, minutes=now.minute)
+    now_in_utc = datetime.now(timezone.utc)
+    now_in_library_timezone = now_in_utc.astimezone(tz=library.get_timezone())
 
-    calculated_due_date = now + timedelta(
-        days=policy.get('renewal_duration'))
+    # Due date should be defined differently from checkout_duration
+    # For that we use:
+    #   - expected due date (now + checkout_duration)
+    #   - we apply a -1 day correction because the next open day is not today
+    #   - next library open date (the eve of expected due date is used)
+    # We finally make the difference between next library open date and now.
+    # We apply a correction for hour/minute to be 23:59 (end of day).
 
-    first_open_date = library.next_open(
-        date=calculated_due_date - timedelta(days=1))
+    # NOTE : Previously this function checks than the cipo allows checkout.
+    #        This check is now done previously by `CircPolicies.allow_checkout`
+    #        method. This was not the place for this ; this function should
+    #        only return the loan duration.
+    due_date_eve = now_in_library_timezone \
+        + timedelta(days=policy.get('renewal_duration')) \
+        - timedelta(days=1)
 
-    if first_open_date.date() < end_date.date():
+    next_open_date = library.next_open(date=due_date_eve)
+
+    if next_open_date.date() < end_date.date():
         params['max_count'] = 0
 
-    new_duration = first_open_date - now
+    # all libraries are closed at 23h59
+    # the next_open returns UTC.
+    end_date_in_library_timezone = next_open_date.astimezone(
+        library.get_timezone()).replace(
+            hour=23,
+            minute=59,
+            second=0,
+            microsecond=0
+        )
     params['duration_default'] = \
-        timedelta(days=new_duration.days) + time_to_eod
+        end_date_in_library_timezone - now_in_library_timezone
 
     return params.get(parameter_name)
 
