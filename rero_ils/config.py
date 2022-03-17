@@ -304,7 +304,6 @@ SECURITY_LOGOUT_URL = '/signout/'
 # Celery configuration
 # ====================
 
-BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 #: URL of message broker for Celery (default is RabbitMQ).
 CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 #: URL of backend for result storage (default is Redis).

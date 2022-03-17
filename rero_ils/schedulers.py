@@ -25,6 +25,7 @@ import jsonpickle
 from celery import current_app as current_celery
 from celery.utils.log import get_logger
 from flask.cli import with_appcontext
+from flask_celeryext._mapping import FLASK_TO_CELERY_MAPPING
 from redisbeat.scheduler import RedisScheduler as OriginalRedisScheduler
 from werkzeug.local import LocalProxy
 
@@ -110,7 +111,8 @@ class RedisScheduler(OriginalRedisScheduler):
 
     def setup_schedule(self):
         """Init entries from CELERY_BEAT_SCHEDULE."""
-        config = deepcopy(self.app.conf.CELERY_BEAT_SCHEDULE)
+        beat_schedule = FLASK_TO_CELERY_MAPPING['CELERY_BEAT_SCHEDULE']
+        config = deepcopy(self.app.conf.get(beat_schedule))
         self.merge_inplace(config)
         msg = 'Current schedule:\n{tasks}'.format(
             tasks='\n'.join(self.display_all(prefix='- Tasks: '))
