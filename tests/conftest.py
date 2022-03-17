@@ -150,7 +150,6 @@ def can_delete_json_header():
 @pytest.fixture(scope='module')
 def app_config(app_config):
     """Create temporary instance dir for each test."""
-    app_config['BROKER_URL'] = 'memory://'
     app_config['CELERY_BROKER_URL'] = 'memory://'
     app_config['RATELIMIT_STORAGE_URL'] = 'memory://'
     app_config['CACHE_TYPE'] = 'simple'
