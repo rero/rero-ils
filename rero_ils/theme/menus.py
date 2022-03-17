@@ -49,11 +49,17 @@ class UserName():
 
     def __html__(self):
         """Jinja call this method during the rendering."""
-        account = session.get(
-            'user_name', _('My Account')
-        ) if current_user.is_authenticated else _('My Account')
+        if current_user.is_authenticated:
+            account = session.get(
+                'user_name', _('My Account')
+            )
+            # Check if user_name is None
+            if not account:
+                account =  _('My Account')
+        else:
+            account =  _('My Account')
         if len(account) > 30:
-            account = f'{account[0:30]}...'
+            account = f'{account[:30]}...'
         # TODO: fix the unclosed span tag
         return f'''
 <span class="btn btn-sm btn-success">
