@@ -1061,6 +1061,8 @@ def set_user_name(sender, user):
     """Set the username in the current flask session."""
     from .patrons.api import current_librarian, current_patrons
     user_name = None
+    remove_user_name(sender, user)
+
     if current_librarian:
         user_name = current_librarian.formatted_name
     elif current_patrons:
@@ -1071,7 +1073,14 @@ def set_user_name(sender, user):
         # AnonymousUser
         except AttributeError:
             pass
-    session['user_name'] = user_name
+    if user_name:
+        session['user_name'] = user_name
+
+
+def remove_user_name(sender, user):
+    """Remove the username in the current flask session."""
+    if session.get('user_name'):
+        del session['user_name']
 
 
 def sorted_pids(query):

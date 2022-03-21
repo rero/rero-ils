@@ -22,7 +22,8 @@ from __future__ import absolute_import, print_function
 import jinja2
 from flask import Blueprint
 from flask_bootstrap import Bootstrap
-from flask_login.signals import user_loaded_from_cookie, user_logged_in
+from flask_login.signals import user_loaded_from_cookie, user_logged_in, \
+    user_logged_out
 from flask_wiki import Wiki
 from invenio_circulation.signals import loan_state_changed
 from invenio_indexer.signals import before_record_index
@@ -64,7 +65,7 @@ from .patrons.listener import create_subscription_patron_transaction, \
 from .sru.views import SRUDocumentsSearch
 from .templates.listener import prepare_template_data
 from .users.views import UsersCreateResource, UsersResource
-from .utils import set_user_name
+from .utils import remove_user_name, set_user_name
 from ..filter import address_block, empty_data, format_date_filter, \
     get_record_by_ref, jsondumps, node_assets, text_to_id, to_pretty_json
 from ..version import __version__
@@ -234,4 +235,5 @@ class REROILSAPP(object):
 
         # store the username in the session
         user_logged_in.connect(set_user_name)
+        user_logged_out.connect(remove_user_name)
         user_loaded_from_cookie.connect(set_user_name)
