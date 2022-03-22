@@ -1169,7 +1169,7 @@ def get_due_soon_loans(tstamp=None):
 
     :param tstamp: a limit timestamp. Default is `datetime.now()`.
     """
-    end_date = tstamp or datetime.now()
+    end_date = tstamp or datetime.now(timezone.utc)
     end_date = end_date.strftime('%Y-%m-%dT%H:%M:%S.000Z')
     query = current_circulation.loan_search_cls() \
         .filter('term', state=LoanState.ITEM_ON_LOAN) \
@@ -1186,7 +1186,7 @@ def get_expired_request(tstamp=None):
 
     :param tstamp: a limit timestamp. Default is `datetime.now()`.
     """
-    end_date = tstamp or datetime.now()
+    end_date = tstamp or datetime.now(timezone.utc)
     end_date = end_date.strftime('%Y-%m-%dT%H:%M:%S.000Z')
     query = current_circulation.loan_search_cls() \
         .filter('term', state=LoanState.ITEM_AT_DESK) \
@@ -1204,7 +1204,7 @@ def get_overdue_loan_pids(patron_pid=None, tstamp=None):
                    Default to `datetime.now()`.
     :return a generator of loan pid
     """
-    end_date = tstamp or datetime.now()
+    end_date = tstamp or datetime.now(timezone.utc)
     end_date = end_date.strftime('%Y-%m-%dT%H:%M:%S.000Z')
     query = current_circulation.loan_search_cls() \
         .filter('term', state=LoanState.ITEM_ON_LOAN) \

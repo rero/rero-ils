@@ -82,33 +82,26 @@ class CirculationDatesExtension(RecordExtension):
                 # library calendar
                 trans_date = ciso8601.parse_datetime(record.transaction_date)
                 try:
-                    expire_date = trans_date + timedelta(days=duration)
-                    expire_date = expire_date.replace(
-                        hour=23, minute=59, second=00, microsecond=000,
-                        tzinfo=None)
-                    expire_date = library.next_open(expire_date)
+                    # Ask `duration-1` to get eve to safely use `next_open`
+                    expire_date = trans_date + timedelta(days=duration - 1)
+                    expire_date = library \
+                        .next_open(expire_date) \
+                        .astimezone(library.get_timezone()) \
+                        .replace(hour=23, minute=59, second=0, microsecond=0)
                 except LibraryNeverOpen:
                     # 10 days by default ... it's better than place a random
                     # date value
                     default_duration = current_app.config.get(
                         'RERO_ILS_DEFAULT_PICKUP_HOLD_DURATION', 10)
                     expire_date = trans_date + timedelta(days=default_duration)
-                    expire_date = expire_date.replace(
-                        hour=23, minute=59, second=00, microsecond=000,
-                        tzinfo=None)
-                # localize the date on the library timezone
-                # NOTE: if we create a datetime using `tzinfo`, the conversion
-                # to iso format return very precise timestamp (+00:34 for
-                # Zurich). But using `localize` method we keep rational +01:00
-                # value. This value is well interpreted by browser (+00:34) is
-                # not.
-                #
-                # https://coderedirect.com/questions/421775/python-pytz-
-                # timezone-conversion-returns-values-that-differ-from-
-                # timezone-offset (Search into response with ~45 points)
-                expire_date = library.get_timezone().localize(expire_date)
+                    expire_date = expire_date \
+                        .astimezone(library.get_timezone()) \
+                        .replace(hour=23, minute=59, second=0, microsecond=0)
+
                 record['request_expire_date'] = expire_date.isoformat()
-                record['request_start_date'] = datetime.now().isoformat()
+                record['request_start_date'] = datetime \
+                    .now(library.get_timezone()) \
+                    .isoformat()
 
     @staticmethod
     def _add_due_soon_date(record):

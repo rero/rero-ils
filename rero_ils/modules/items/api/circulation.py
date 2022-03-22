@@ -79,11 +79,11 @@ class ItemCirculation(ItemRecord):
         loan_pid = kwargs.get('pid')
         if loan_pid:
             # no item validation is possible when an item has an active loan.
-            loans = self.get_loans_states_by_item_pid_exclude_loan_pid(
+            states = self.get_loans_states_by_item_pid_exclude_loan_pid(
                 self.pid, loan_pid)
             active_states = current_app.config[
                 'CIRCULATION_STATES_LOAN_ACTIVE']
-            if set(active_states).intersection(loans):
+            if set(active_states).intersection(states):
                 raise NoValidTransitionAvailableError()
         else:
             # no validation is possible when loan is not found/given
@@ -102,13 +102,9 @@ class ItemCirculation(ItemRecord):
             loan = Loan.get_record_by_pid(loan_pid)
 
         # Check extend is allowed
-        have_request = False
-        if LoanState.PENDING in self.get_loan_states_for_an_item():
-            # we have pending requests
-            have_request = True
-        # It's not allowed to extend an item that:
-        # 1/ is not checked out
-        # 2/ have requests
+        #   It's not allowed to extend an item that if it is not checked out
+        #   and if some pending requests already placed on it
+        have_request = LoanState.PENDING in self.get_loan_states_for_an_item()
         if not checked_out or have_request:
             raise NoCirculationAction('No circulation action is possible')
 
@@ -117,28 +113,28 @@ class ItemCirculation(ItemRecord):
     def prior_checkin_actions(self, **kwargs):
         """Actions to execute before a smart checkin."""
         # TODO: find a better way to manage the different cases here.
-        loans_list = self.get_loan_states_for_an_item()
-        if not loans_list:
+        states = self.get_loan_states_for_an_item()
+        if not states:
             # CHECKIN_1_1: item on_shelf, no pending loans.
-            self.checkin_item_on_shelf(loans_list, **kwargs)
-        elif (LoanState.ITEM_AT_DESK not in loans_list and
-                LoanState.ITEM_ON_LOAN not in loans_list):
-            if LoanState.ITEM_IN_TRANSIT_FOR_PICKUP in loans_list:
+            self.checkin_item_on_shelf(states, **kwargs)
+        elif (LoanState.ITEM_AT_DESK not in states and
+                LoanState.ITEM_ON_LOAN not in states):
+            if LoanState.ITEM_IN_TRANSIT_FOR_PICKUP in states:
                 # CHECKIN_4: item in_transit (IN_TRANSIT_FOR_PICKUP)
                 loan, kwargs = self.checkin_item_in_transit_for_pickup(
                     **kwargs)
-            elif LoanState.ITEM_IN_TRANSIT_TO_HOUSE in loans_list:
+            elif LoanState.ITEM_IN_TRANSIT_TO_HOUSE in states:
                 # CHECKIN_5: item in_transit (IN_TRANSIT_TO_HOUSE)
                 loan, kwargs = self.checkin_item_in_transit_to_house(
-                    loans_list, **kwargs)
-            elif LoanState.PENDING in loans_list:
+                    states, **kwargs)
+            elif LoanState.PENDING in states:
                 # CHECKIN_1_2_1: item on_shelf, with pending loans.
                 loan, kwargs = self.validate_item_first_pending_request(
                     **kwargs)
-        elif LoanState.ITEM_AT_DESK in loans_list:
+        elif LoanState.ITEM_AT_DESK in states:
             # CHECKIN_2: item at_desk
             self.checkin_item_at_desk(**kwargs)
-        elif LoanState.ITEM_ON_LOAN in loans_list:
+        elif LoanState.ITEM_ON_LOAN in states:
             # CHECKIN_3: item on_loan, will be checked-in normally.
             loan = self.get_first_loan_by_state(state=LoanState.ITEM_ON_LOAN)
         return loan, kwargs
@@ -189,11 +185,7 @@ class ItemCirculation(ItemRecord):
         # set the pickup_location_pid field if not found for loans that are
         # ready for checkout.
         if not kwargs.get('pickup_location_pid') and \
-            loan.get('state') in \
-                [
-                    LoanState.CREATED,
-                    LoanState.ITEM_AT_DESK
-                ]:
+           loan.get('state') in [LoanState.CREATED, LoanState.ITEM_AT_DESK]:
             kwargs['pickup_location_pid'] = \
                 kwargs.get('transaction_location_pid')
         return loan, kwargs
@@ -245,18 +237,15 @@ class ItemCirculation(ItemRecord):
             # (no action, item is: at_desk (ITEM_AT_DESK))
             raise NoCirculationAction(
                 'No circulation action performed')
-        else:
-            # CHECKIN_2_2: pickup location != transaction library
-            # item is: in_transit
-            at_desk_loan['state'] = LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
-            at_desk_loan.update(
-                at_desk_loan, dbcommit=True, reindex=True)
-            self['status'] = ItemStatus.IN_TRANSIT
-            self.status_update(
-                self, on_shelf=False, dbcommit=True, reindex=True,
-                forceindex=True)
-            raise NoCirculationAction(
-                'in_transit status added')
+
+        # CHECKIN_2_2: pickup location != transaction library
+        # item is: in_transit
+        at_desk_loan['state'] = LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
+        at_desk_loan.update(at_desk_loan, dbcommit=True, reindex=True)
+        self['status'] = ItemStatus.IN_TRANSIT
+        self.status_update(
+            self, on_shelf=False, dbcommit=True, reindex=True, forceindex=True)
+        raise NoCirculationAction('in_transit status added')
 
     def checkin_item_in_transit_for_pickup(self, **kwargs):
         """Checkin actions for item in_transit for pickup.
@@ -282,8 +271,7 @@ class ItemCirculation(ItemRecord):
             raise NoCirculationAction(
                 'No circulation action performed')
 
-    def checkin_item_in_transit_to_house(
-            self, loans_list, **kwargs):
+    def checkin_item_in_transit_to_house(self, loans_list, **kwargs):
         """Checkin actions for an item in IN_TRANSIT_TO_HOUSE with no requests.
 
         :param item : the item record
@@ -297,16 +285,15 @@ class ItemCirculation(ItemRecord):
             state=LoanState.ITEM_IN_TRANSIT_TO_HOUSE)
         if LoanState.PENDING not in loans_list:
             # CHECKIN_5_1: item has no pending loans
-            if transaction_item_libraries:
-                # CHECKIN_5_1_1: item location = transaction library
-                # (house_receive current loan, item is: on_shelf)
-                kwargs['receive_in_transit_request'] = True
-                loan = in_transit_loan
-            else:
+            if not transaction_item_libraries:
                 # CHECKIN_5_1_2: item location != transaction library
                 # (no action, item is: in_transit (IN_TRANSIT_TO_HOUSE))
                 raise NoCirculationAction(
                     'No circulation action performed')
+            # CHECKIN_5_1_1: item location = transaction library
+            # (house_receive current loan, item is: on_shelf)
+            kwargs['receive_in_transit_request'] = True
+            loan = in_transit_loan
         else:
             # CHECKIN_5_2: item has pending requests.
             loan, kwargs = self.checkin_item_in_transit_to_house_with_requests(
@@ -376,41 +363,32 @@ class ItemCirculation(ItemRecord):
         """Compare item library, pickup and transaction libraries.
 
         :param kwargs : all others named arguments
-        :return a dict comparison with the following True or False keys
-            transaction_item_libraries: between transaction and item
-            transaction_pickup_libraries: between transaction and pickup
-            item_pickup_libraries: between item and pickup
+        :return a dict comparison with the following boolean keys
+            `transaction_item_libraries`: between transaction and item
+            `transaction_pickup_libraries`: between transaction and pickup
+            `item_pickup_libraries`: between item and pickup
         """
-        data = {
-            'transaction_item_libraries': False,
-            'transaction_pickup_libraries': False,
-            'item_pickup_libraries': False
-        }
-        # TODO: better coding needed here, some lines will be merged
-        transaction_location_pid = kwargs.pop('transaction_location_pid', None)
-        transaction_library_pid = kwargs.pop('transaction_library_pid', None)
+        trans_loc_pid = kwargs.pop('transaction_location_pid', None)
+        trans_lib_pid = kwargs.pop('transaction_library_pid', None)
+        if not trans_lib_pid:
+            trans_lib_pid = Location.get_record_by_pid(trans_loc_pid)\
+                .library_pid
 
-        if not transaction_library_pid:
-            transaction_library_pid = Location.get_record_by_pid(
-                transaction_location_pid).library_pid
-
-        pickup_location_pid = kwargs.pop('pickup_location_pid', None)
-        pickup_library_pid = kwargs.pop(
-            'pickup_library_pid', None)
-        if not pickup_library_pid:
-            if not pickup_location_pid:
-                pickup_library_pid = transaction_library_pid
+        pickup_loc_pid = kwargs.pop('pickup_location_pid', None)
+        pickup_lib_pid = kwargs.pop('pickup_library_pid', None)
+        if not pickup_lib_pid:
+            if not pickup_loc_pid:
+                pickup_lib_pid = trans_lib_pid
             else:
-                pickup_library_pid = Location.get_record_by_pid(
-                    pickup_location_pid).library_pid
+                pickup_lib_pid = Location\
+                    .get_record_by_pid(pickup_loc_pid)\
+                    .library_pid
 
-        if self.library_pid == pickup_library_pid:
-            data['item_pickup_libraries'] = True
-        if self.library_pid == transaction_library_pid:
-            data['transaction_item_libraries'] = True
-        if pickup_library_pid == transaction_library_pid:
-            data['transaction_pickup_libraries'] = True
-        return data
+        return {
+            'transaction_item_libraries': self.library_pid == trans_lib_pid,
+            'transaction_pickup_libraries': pickup_lib_pid == trans_lib_pid,
+            'item_pickup_libraries': self.library_pid == pickup_lib_pid
+        }
 
     @check_operation_allowed(ItemCirculationAction.CHECKOUT)
     @add_action_parameters_and_flush_indexes
@@ -473,7 +451,7 @@ class ItemCirculation(ItemRecord):
         # execute the actions
         if actions_to_execute.get('cancel_loan'):
             item, actions = self.cancel_loan(pid=loan.pid, **kwargs)
-        elif actions_to_execute.get('loan_update', {}).get('state'):
+        if actions_to_execute.get('loan_update', {}).get('state'):
             loan['state'] = actions_to_execute['loan_update']['state']
             loan.update(loan, dbcommit=True, reindex=True)
             self.status_update(
@@ -492,11 +470,10 @@ class ItemCirculation(ItemRecord):
             if loan.get('state') == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP:
                 cancelled_loan_pickup_pid = loan.get('pickup_location_pid')
             item, actions = self.cancel_loan(pid=loan.pid, **kwargs)
-            if cancelled_loan_pickup_pid:
-                if pending['pickup_location_pid'] != cancelled_loan_pickup_pid:
-                    kwargs['transaction_location_pid'] = \
-                        cancelled_loan_pickup_pid
-                    kwargs.pop('transaction_library_pid', None)
+            if cancelled_loan_pickup_pid and \
+               pending['pickup_location_pid'] != cancelled_loan_pickup_pid:
+                kwargs['transaction_location_pid'] = cancelled_loan_pickup_pid
+                kwargs.pop('transaction_library_pid', None)
             item, validate_actions = self.validate_request(
                 pid=pending.pid, **kwargs)
             actions.update(validate_actions)
@@ -515,19 +492,18 @@ class ItemCirculation(ItemRecord):
             'cancel_loan': False,
             'loan_update': {},
             'validate_first_pending': False
-
         }
         libraries = self.compare_item_pickup_transaction_libraries(**kwargs)
         # List all loan states attached to this item except the loan to cancel.
-        loans_list = self.get_loans_states_by_item_pid_exclude_loan_pid(
+        # If the list is empty, no pending request/loan are linked to this item
+        states = self.get_loans_states_by_item_pid_exclude_loan_pid(
             self.pid, loan.pid)
-        if not loans_list:
+        if not states:
             if loan['state'] in \
                     [LoanState.PENDING, LoanState.ITEM_IN_TRANSIT_TO_HOUSE]:
                 # CANCEL_REQUEST_1_2, CANCEL_REQUEST_5_1_1:
                 # cancel the current loan is the only action
                 actions_to_execute['cancel_loan'] = True
-                # item, actions = self.cancel_loan(pid=loan.pid, **kwargs)
             elif loan['state'] == LoanState.ITEM_ON_LOAN:
                 # CANCEL_REQUEST_3_1: no cancel action is possible on the loan
                 # of a checked-in item.
@@ -544,29 +520,27 @@ class ItemCirculation(ItemRecord):
                     # CANCEL_REQUEST_2_1_1_1: when item library and pickup
                     # pickup library arent equal, update loan to go in_transit.
                     actions_to_execute['loan_update']['state'] = \
-                        LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
-                elif libraries['item_pickup_libraries']:
-                    # CANCEL_REQUEST_2_1_1_2: when item library and pickup
-                    # pickup library are equal, cancel loan to go on_shelf.
-                    # item, actions = self.cancel_loan(pid=loan.pid, **kwargs)
-                    actions_to_execute['cancel_loan'] = True
+                        LoanState.ITEM_IN_TRANSIT_TO_HOUSE
+                # Always mark the loan to be cancelled to create an
+                # OperationLog about this cancellation.
+                actions_to_execute['cancel_loan'] = True
         elif loan['state'] == LoanState.ITEM_AT_DESK and \
-                LoanState.PENDING in loans_list:
+                LoanState.PENDING in states:
             # CANCEL_REQUEST_2_1_2: when item at desk with pending loan, cancel
             # the loan triggers an automatic validation of first pending loan.
             actions_to_execute['validate_first_pending'] = True
         elif loan['state'] == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP and \
-                LoanState.PENDING in loans_list:
+                LoanState.PENDING in states:
             # CANCEL_REQUEST_4_1_2: when item in_transit with pending loan,
             # cancel the loan triggers an automatic validation of 1st loan.
             actions_to_execute['validate_first_pending'] = True
         elif loan['state'] == LoanState.ITEM_IN_TRANSIT_TO_HOUSE and \
-                LoanState.PENDING in loans_list:
+                LoanState.PENDING in states:
             # CANCEL_REQUEST_5_1_2: when item at desk with pending loan, cancel
             # the loan triggers an automatic validation of first pending loan.
             actions_to_execute['validate_first_pending'] = True
         elif loan['state'] == LoanState.PENDING and \
-                any(state in loans_list for state in [
+            any(state in states for state in [
                 LoanState.ITEM_AT_DESK,
                 LoanState.ITEM_ON_LOAN,
                 LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
@@ -664,8 +638,7 @@ class ItemCirculation(ItemRecord):
             actions.update(validate_actions)
             validate_loan = validate_actions[LoanAction.VALIDATE]
             # receive the request if it is requested at transaction library
-            if validate_loan['state'] == \
-                    LoanState.ITEM_IN_TRANSIT_FOR_PICKUP:
+            if validate_loan['state'] == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP:
                 trans_loc = Location.get_record_by_pid(transaction_loc_pid)
                 req_loc = Location.get_record_by_pid(
                     request.get('pickup_location_pid'))
@@ -725,7 +698,7 @@ class ItemCirculation(ItemRecord):
                 validate_loan = validate_actions[LoanAction.VALIDATE]
                 # receive request if it is requested at transaction library
                 if validate_loan['state'] == \
-                        LoanState.ITEM_IN_TRANSIT_FOR_PICKUP:
+                   LoanState.ITEM_IN_TRANSIT_FOR_PICKUP:
                     trans_loc = Location.get_record_by_pid(
                         transaction_loc_pid)
                     req_loc = Location.get_record_by_pid(
@@ -767,7 +740,7 @@ class ItemCirculation(ItemRecord):
                 validate_loan = validate_actions[LoanAction.VALIDATE]
                 # receive request if it is requested at transaction library
                 if validate_loan['state'] == \
-                        LoanState.ITEM_IN_TRANSIT_FOR_PICKUP:
+                   LoanState.ITEM_IN_TRANSIT_FOR_PICKUP:
                     trans_loc = Location.get_record_by_pid(
                         transaction_loc_pid)
                     req_loc = Location.get_record_by_pid(
@@ -817,11 +790,8 @@ class ItemCirculation(ItemRecord):
         actions = {}
         if action_params.get('pid'):
             loan = Loan.get_record_by_pid(action_params.get('pid'))
-            if (
-                loan['state'] ==
-                    LoanState.ITEM_IN_TRANSIT_FOR_PICKUP and
-                    loan.get('patron_pid') == action_params.get('patron_pid')
-            ):
+            if loan['state'] == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP and\
+               loan.get('patron_pid') == action_params.get('patron_pid'):
                 item, receive_actions = self.receive(**action_params)
                 actions.update(receive_actions)
             elif loan['state'] == LoanState.ITEM_IN_TRANSIT_TO_HOUSE:
@@ -836,7 +806,7 @@ class ItemCirculation(ItemRecord):
                 # a checkout is done on the item (it becomes ON_LOAN)
         else:
             loan = get_loan_for_item(item_pid_to_object(self.pid))
-            if (loan and loan['state'] != LoanState.ITEM_AT_DESK):
+            if loan and loan['state'] != LoanState.ITEM_AT_DESK:
                 item, cancel_actions = self.cancel_loan(pid=loan.get('pid'))
                 actions.update(cancel_actions)
         # CHECKOUT_1_2_2: checkout denied if some pending loan are linked to it
@@ -845,7 +815,7 @@ class ItemCirculation(ItemRecord):
         # the loan is cancelled and then came up in ON_SHELF to be checkout
         # by the second patron.
         if self.status == ItemStatus.ON_SHELF and \
-                loan['state'] != LoanState.ITEM_IN_TRANSIT_TO_HOUSE:
+           loan['state'] != LoanState.ITEM_IN_TRANSIT_TO_HOUSE:
             for res in self.get_item_loans_by_state(state=LoanState.PENDING):
                 if res.patron_pid != loan.get('patron_pid'):
                     item_pid = item_pid_to_object(self.pid)
@@ -1069,18 +1039,15 @@ class ItemCirculation(ItemRecord):
             can, reasons = self.can(ItemCirculationAction.EXTEND, loan=loan)
             if not can:
                 data['action_validated'] = False
-        if action == 'checkout':
-            if not circ_policy.can_checkout:
-                data['action_validated'] = False
-        if action == 'receive':
-            if (
-                    circ_policy.can_checkout and
-                    loan['state'] ==
-                    LoanState.ITEM_IN_TRANSIT_FOR_PICKUP and
-                    loan.get('patron_pid') == patron_pid
-            ):
-                data['action_validated'] = False
-                data['new_action'] = 'checkout'
+        if action == 'checkout' and not circ_policy.can_checkout:
+            data['action_validated'] = False
+        elif (
+            action == 'receive' and circ_policy.can_checkout and
+            loan['state'] == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP and
+            loan.get('patron_pid') == patron_pid
+        ):
+            data['action_validated'] = False
+            data['new_action'] = 'checkout'
         return data
 
     @property
@@ -1155,9 +1122,8 @@ class ItemCirculation(ItemRecord):
         loan = get_loan_for_item(item_pid_to_object(item.pid))
         if loan:
             item['status'] = cls.statuses[loan['state']]
-        else:
-            if item['status'] != ItemStatus.MISSING and on_shelf:
-                item['status'] = ItemStatus.ON_SHELF
+        elif item['status'] != ItemStatus.MISSING and on_shelf:
+            item['status'] = ItemStatus.ON_SHELF
         item.commit()
         if dbcommit:
             item.dbcommit(reindex=True, forceindex=True)
@@ -1379,10 +1345,8 @@ class ItemCirculation(ItemRecord):
     def patron_request_rank(self, patron):
         """Get the rank of patron in list of requests on this item."""
         if patron:
-            rank = 0
             requests = self.get_requests()
-            for request in requests:
-                rank += 1
+            for rank, request in enumerate(requests, start=1):
                 if request['patron_pid'] == patron.pid:
                     return rank
         return False
