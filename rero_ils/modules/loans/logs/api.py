@@ -100,7 +100,6 @@ class LoanOperationLog(OperationLog):
                 'name': cls._get_patron_data(
                     data['transaction_user_pid'])['name']
             }
-
         return super().create(log, index_refresh=index_refresh)
 
     @classmethod

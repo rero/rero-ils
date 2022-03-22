@@ -76,7 +76,7 @@ def test_cancel_request_on_item_at_desk_no_requests_externally(
     # the following tests the circulation action CANCEL_REQUEST_2_1_1_1
     # an item at_desk with no other pending loans.
     # if the item library != pickup location, update the at_desk loan.
-    # loan ITEM_IN_TRANSIT_FOR_PICKUP and item is: in_transit
+    # loan ITEM_IN_TRANSIT_TO_HOUSE and item is: in_transit
     params = {
         'pid': loan.pid,
         'transaction_location_pid': loc_public_fully.pid,
@@ -86,7 +86,7 @@ def test_cancel_request_on_item_at_desk_no_requests_externally(
     item = Item.get_record_by_pid(item.pid)
     loan = Loan.get_record_by_pid(loan.pid)
     assert item.status == ItemStatus.IN_TRANSIT
-    assert loan['state'] == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
+    assert loan['state'] == LoanState.ITEM_IN_TRANSIT_TO_HOUSE
 
 
 def test_cancel_request_on_item_at_desk_no_requests_at_home(
