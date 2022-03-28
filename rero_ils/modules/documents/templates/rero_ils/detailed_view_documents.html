@@ -184,7 +184,7 @@
               </span>
             {% endif %} -->
             {% if data.value | length > 400 %}
-              <span data-show-more="{{ data.value | nl2br | safe }}">
+              <span data-show-more="{{ data.value | escape | nl2br | safe }}">
                 {{ data.value | nl2br | safe | truncate(400) }}
               </span>
               <a href="#" class="show-more">{{ _('Show more') }}&hellip;</a>
