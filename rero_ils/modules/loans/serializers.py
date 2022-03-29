@@ -27,6 +27,7 @@ from .api import Loan
 from .models import LoanState
 from ..documents.api import DocumentsSearch
 from ..items.api import Item
+from ..items.dumpers import ItemCirculationDumper
 from ..libraries.api import Library
 
 
@@ -63,7 +64,8 @@ class LoanJSONSerializer(JSONSerializer):
                 item = Item.get_record_by_pid(item_pid)
                 # check if the item still exists
                 if item:
-                    metadata['item'] = item.replace_refs().dumps()
+                    metadata['item'] = \
+                        item.dumps(dumper=ItemCirculationDumper())
                 # Item loan
                 if metadata['state'] == LoanState.ITEM_ON_LOAN:
                     metadata['overdue'] = loan.is_loan_overdue()

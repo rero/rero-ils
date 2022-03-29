@@ -20,6 +20,8 @@
 
 from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 
+from rero_ils.modules.holdings.api import Holding
+
 
 class ItemNotificationDumper(InvenioRecordsDumper):
     """Item dumper class for notification."""
@@ -41,4 +43,29 @@ class ItemNotificationDumper(InvenioRecordsDumper):
             'enumerationAndChronology': record.get('enumerationAndChronology')
         }
         data = {k: v for k, v in data.items() if v}
+        return data
+
+
+class ItemCirculationDumper(InvenioRecordsDumper):
+    """Item dumper class for circulation."""
+
+    def dump(self, record, data):
+        """Dump an item instance for circulation.
+
+        :param record: the record to dump.
+        :param data: the initial dump data passed in by ``record.dumps()``.
+        :return a dict with dumped data.
+        """
+        # Dump all information about the item
+        data.update(record.replace_refs().dumps())
+        data = {k: v for k, v in data.items() if v}
+
+        # Add the inherited call numbers from parent holding record if item
+        # call numbers is empty.
+        if all(k not in data for k in ['call_number', 'second_call_number']):
+            holding = Holding.get_record_by_pid(record.holding_pid)
+            data['call_number'] = holding.get('call_number')
+            data['second_call_number'] = holding.get('second_call_number')
+            data = {k: v for k, v in data.items() if v}
+
         return data
