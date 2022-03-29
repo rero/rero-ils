@@ -140,8 +140,9 @@ class LoanOperationLog(OperationLog):
         document = document.dumps()
         return {
             'pid': document['pid'],
-            'title':
-            document['title'][0]['_text'],
+            'title': next(filter(lambda x: x.get('type') == 'bf:Title',
+                                 document.get('title'))
+                          ).get('_text'),
             'type':
             document['type'][0].get('subtype',
                                     document['type'][0]['main_type'])
