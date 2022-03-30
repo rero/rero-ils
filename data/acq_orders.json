@@ -1,0 +1,122 @@
+[
+  {
+    "pid": "1",
+    "reference": "AOSTE-CANT1-POL-1",
+    "type": "monograph",
+    "currency": "EUR",
+    "notes": [
+      {
+        "type": "vendor_note",
+        "content": "ISBN 9782915741800"
+      }
+    ],
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/1"
+    },
+    "vendor": {
+      "$ref": "https://bib.rero.ch/api/vendors/7"
+    },
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/1"
+    }
+  },
+  {
+    "pid": "2",
+    "reference": "AOSTE-CANT1-POL-2",
+    "type": "monograph",
+    "currency": "EUR",
+    "notes": [
+      {
+        "type": "vendor_note",
+        "content": "ISBN 9782915741801"
+      }
+    ],
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/1"
+    },
+    "vendor": {
+      "$ref": "https://bib.rero.ch/api/vendors/4"
+    },
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/1"
+    }
+  },
+  {
+    "pid": "3",
+    "reference": "AOSTE-CANT2-POL-1",
+    "type": "monograph",
+    "currency": "EUR",
+    "notes": [
+      {
+        "type": "vendor_note",
+        "content": "ISBN 9782915741891"
+      }
+    ],
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/2"
+    },
+    "vendor": {
+      "$ref": "https://bib.rero.ch/api/vendors/10"
+    },
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/1"
+    }
+  },
+  {
+    "pid": "4",
+    "reference": "AOSTE-AVISE-POL-1",
+    "type": "monograph",
+    "currency": "EUR",
+    "notes": [
+      {
+        "type": "vendor_note",
+        "content": "ISBN 9782915741001"
+      }
+    ],
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/3"
+    },
+    "vendor": {
+      "$ref": "https://bib.rero.ch/api/vendors/1"
+    },
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/1"
+    }
+  },
+  {
+    "pid": "5",
+    "reference": "AOSTE-LYCEE-POL-1",
+    "type": "monograph",
+    "currency": "EUR",
+    "notes": [
+      {
+        "type": "vendor_note",
+        "content": "ISBN 9782915743011"
+      }
+    ],
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/4"
+    },
+    "vendor": {
+      "$ref": "https://bib.rero.ch/api/vendors/16"
+    },
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/1"
+    }
+  },
+  {
+    "pid": "6",
+    "reference": "AOSTE-CANT1-POL-6",
+    "type": "monograph",
+    "currency": "EUR",
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/1"
+    },
+    "vendor": {
+      "$ref": "https://bib.rero.ch/api/vendors/7"
+    },
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/1"
+    }
+  }
+]

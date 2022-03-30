@@ -1,9 +1,11 @@
 [
   {
     "pid": "1",
-    "name": "Aoste monography",
-    "number": "AOSTE/2020.010.000",
-    "allocated_amount": 30000,
+    "name": "AOSTE-CANT1-Collections",
+    "number": "AOSTE-CANT1.Col.01.000",
+    "allocated_amount": 50000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
     "budget": {
       "$ref": "https://bib.rero.ch/api/budgets/1"
     },
@@ -13,9 +15,9 @@
   },
   {
     "pid": "2",
-    "name": "Aoste monography / Hard cover",
-    "number": "AOSTE/2020.010.001",
-    "allocated_amount": 15000,
+    "name": "AOSTE-CANT1-Religions",
+    "number": "AOSTE-CANT1.Col.01.001",
+    "allocated_amount": 20000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -30,11 +32,11 @@
   },
   {
     "pid": "3",
-    "name": "Aoste monography / Soft cover",
-    "number": "AOSTE/2020.010.002",
-    "allocated_amount": 5000,
-    "encumbrance_exceedance": 2,
-    "expenditure_exceedance": 10,
+    "name": "AOSTE-CANT1-Arts",
+    "number": "AOSTE-CANT1.Col.01.002",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
     "parent": {
       "$ref": "https://bib.rero.ch/api/acq_accounts/1"
     },
@@ -47,13 +49,13 @@
   },
   {
     "pid": "4",
-    "name": "Aoste Multimedia",
-    "number": "AOSTE/2020.020.000",
-    "allocated_amount": 5000,
+    "name": "AOSTE-CANT1-Periodicals",
+    "number": "AOSTE-CANT1.Per.02.000",
+    "allocated_amount": 80000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
-      "$ref": "https://bib.rero.ch/api/budgets/3"
+      "$ref": "https://bib.rero.ch/api/budgets/1"
     },
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/1"
@@ -61,10 +63,11 @@
   },
   {
     "pid": "5",
-    "name": "Aoste Multimedia / DVD",
-    "number": "AOSTE/2020.020.001",
-    "allocated_amount": 1000,
-    "encumbrance_exceedance": 15,
+    "name": "AOSTE-CANT1-Newspapers",
+    "number": "AOSTE-CANT1.Per.02.001",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
     "parent": {
       "$ref": "https://bib.rero.ch/api/acq_accounts/4"
     },
@@ -77,25 +80,28 @@
   },
   {
     "pid": "6",
-    "name": "Aoste-Cant monography",
-    "number": "AOSTE/2020.030.000",
-    "allocated_amount": 17000,
+    "name": "AOSTE-CANT1-Online references",
+    "number": "AOSTE-CANT1.Per.02.002",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/4"
+    },
     "budget": {
       "$ref": "https://bib.rero.ch/api/budgets/1"
     },
     "library": {
-      "$ref": "https://bib.rero.ch/api/libraries/2"
+      "$ref": "https://bib.rero.ch/api/libraries/1"
     }
   },
   {
     "pid": "7",
-    "name": "Aoste-Cant monography / Hard cover",
-    "number": "AOSTE/2020.030.001",
-    "allocated_amount": 15000,
+    "name": "AOSTE-CANT2-Collections",
+    "number": "AOSTE-CANT2.Col.01.000",
+    "allocated_amount": 50000,
+    "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
-    "parent": {
-      "$ref": "https://bib.rero.ch/api/acq_accounts/6"
-    },
     "budget": {
       "$ref": "https://bib.rero.ch/api/budgets/1"
     },
@@ -105,13 +111,13 @@
   },
   {
     "pid": "8",
-    "name": "Aoste-Cant monography / Soft cover",
-    "number": "AOSTE/2020.030.002",
-    "allocated_amount": 2000,
-    "encumbrance_exceedance": 10,
-    "expenditure_exceedance": 10,
+    "name": "AOSTE-CANT2-Religions",
+    "number": "AOSTE-CANT2.Col.01.001",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
     "parent": {
-      "$ref": "https://bib.rero.ch/api/acq_accounts/6"
+      "$ref": "https://bib.rero.ch/api/acq_accounts/7"
     },
     "budget": {
       "$ref": "https://bib.rero.ch/api/budgets/1"
@@ -122,31 +128,259 @@
   },
   {
     "pid": "9",
-    "name": "SF monography",
-    "number": "2020/1",
-    "allocated_amount": 100000,
+    "name": "AOSTE-CANT2-Arts",
+    "number": "AOSTE-CANT2.Col.01.002",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/7"
+    },
     "budget": {
-      "$ref": "https://bib.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/1"
     },
     "library": {
-      "$ref": "https://bib.rero.ch/api/libraries/6"
+      "$ref": "https://bib.rero.ch/api/libraries/2"
     }
   },
   {
     "pid": "10",
-    "name": "SF monography / Soft cover",
-    "number": "2020/1/001",
-    "allocated_amount": 90000,
-    "encumbrance_exceedance": 2,
-    "expenditure_exceedance": 2,
-    "parent": {
-      "$ref": "https://bib.rero.ch/api/acq_accounts/9"
-    },
+    "name": "AOSTE-CANT2-Periodicals",
+    "number": "AOSTE-CANT2.Per.02.000",
+    "allocated_amount": 80000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
     "budget": {
-      "$ref": "https://bib.rero.ch/api/budgets/4"
+      "$ref": "https://bib.rero.ch/api/budgets/1"
     },
     "library": {
-      "$ref": "https://bib.rero.ch/api/libraries/6"
+      "$ref": "https://bib.rero.ch/api/libraries/2"
+    }
+  },
+  {
+    "pid": "11",
+    "name": "AOSTE-CANT2-Newspapers",
+    "number": "AOSTE-CANT2.Per.02.001",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/10"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/1"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/2"
+    }
+  },
+  {
+    "pid": "12",
+    "name": "AOSTE-CANT2-Online references",
+    "number": "AOSTE-CANT2.Per.02.002",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/10"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/1"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/2"
+    }
+  },
+  {
+    "pid": "13",
+    "name": "AOSTE-AVISE-Collections",
+    "number": "AOSTE-AVISE.Col.01.000",
+    "allocated_amount": 50000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/1"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/3"
+    }
+  },
+  {
+    "pid": "14",
+    "name": "AOSTE-AVISE-Religions",
+    "number": "AOSTE-AVISE.Col.01.001",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/13"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/1"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/3"
+    }
+  },
+  {
+    "pid": "15",
+    "name": "AOSTE-AVISE-Arts",
+    "number": "AOSTE-AVISE.Col.01.002",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/13"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/1"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/3"
+    }
+  },
+  {
+    "pid": "16",
+    "name": "AOSTE-AVISE-Periodicals",
+    "number": "AOSTE-AVISE.Per.02.000",
+    "allocated_amount": 80000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/1"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/3"
+    }
+  },
+  {
+    "pid": "17",
+    "name": "AOSTE-AVISE-Newspapers",
+    "number": "AOSTE-AVISE.Per.02.001",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/16"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/1"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/3"
+    }
+  },
+  {
+    "pid": "18",
+    "name": "AOSTE-AVISE-Online references",
+    "number": "AOSTE-AVISE.Per.02.002",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/16"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/1"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/3"
+    }
+  },
+  {
+    "pid": "19",
+    "name": "AOSTE-LYCEE-Collections",
+    "number": "AOSTE-LYCEE.Col.01.000",
+    "allocated_amount": 50000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/1"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/4"
+    }
+  },
+  {
+    "pid": "20",
+    "name": "AOSTE-LYCEE-Religions",
+    "number": "AOSTE-LYCEE.Col.01.001",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/19"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/1"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/4"
+    }
+  },
+  {
+    "pid": "21",
+    "name": "AOSTE-LYCEE-Arts",
+    "number": "AOSTE-LYCEE.Col.01.002",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/19"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/1"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/4"
+    }
+  },
+  {
+    "pid": "22",
+    "name": "AOSTE-LYCEE-Periodicals",
+    "number": "AOSTE-LYCEE.Per.02.000",
+    "allocated_amount": 80000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/1"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/4"
+    }
+  },
+  {
+    "pid": "23",
+    "name": "AOSTE-LYCEE-Newspapers",
+    "number": "AOSTE-LYCEE.Per.02.001",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/22"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/1"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/4"
+    }
+  },
+  {
+    "pid": "24",
+    "name": "AOSTE-LYCEE-Online references",
+    "number": "AOSTE-LYCEE.Per.02.002",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/22"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/1"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/4"
     }
   }
 ]

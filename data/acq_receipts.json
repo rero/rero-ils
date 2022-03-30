@@ -1,0 +1,22 @@
+[
+  {
+    "pid": "1",
+    "acq_order": {
+      "$ref": "https://bib.rero.ch/api/acq_orders/1"
+    },
+    "reference": "AOSTE-CANT1-POL-1",
+    "exchange_rate": 1,
+    "notes": [
+      {
+        "type": "staff_note",
+        "content": "ISBN 9782915741800"
+      }
+    ],
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/1"
+    },
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/1"
+    }
+  }
+]

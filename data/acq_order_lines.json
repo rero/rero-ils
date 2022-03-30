@@ -1,0 +1,214 @@
+[
+  {
+    "pid": "1",
+    "priority": 0,
+    "quantity": 3,
+    "amount": 25,
+    "exchange_rate": 1,
+    "notes": [
+      {
+        "type": "staff_note",
+        "content": "see patron_request: 1"
+      }
+    ],
+    "acq_account": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/2"
+    },
+    "acq_order": {
+      "$ref": "https://bib.rero.ch/api/acq_orders/1"
+    },
+    "document": {
+      "$ref": "https://bib.rero.ch/api/documents/15"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/1"
+    },
+    "is_cancelled": false,
+    "send_now": true
+  },
+  {
+    "pid": "2",
+    "priority": 0,
+    "quantity": 15,
+    "amount": 5,
+    "exchange_rate": 1,
+    "notes": [
+      {
+        "type": "staff_note",
+        "content": "document requested very often"
+      }
+    ],
+    "acq_account": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/2"
+    },
+    "acq_order": {
+      "$ref": "https://bib.rero.ch/api/acq_orders/1"
+    },
+    "document": {
+      "$ref": "https://bib.rero.ch/api/documents/282"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/1"
+    },
+    "is_cancelled": false,
+    "send_now": true
+  },
+  {
+    "pid": "3",
+    "priority": 0,
+    "quantity": 2,
+    "amount": 100,
+    "exchange_rate": 1,
+    "notes": [
+      {
+        "type": "staff_note",
+        "content": "Roger Federer"
+      }
+    ],
+    "acq_account": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/2"
+    },
+    "acq_order": {
+      "$ref": "https://bib.rero.ch/api/acq_orders/1"
+    },
+    "document": {
+      "$ref": "https://bib.rero.ch/api/documents/96"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/1"
+    },
+    "is_cancelled": false,
+    "send_now": true
+  },
+  {
+    "pid": "4",
+    "priority": 0,
+    "quantity": 5,
+    "amount": 10,
+    "exchange_rate": 1,
+    "acq_account": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/7"
+    },
+    "acq_order": {
+      "$ref": "https://bib.rero.ch/api/acq_orders/3"
+    },
+    "document": {
+      "$ref": "https://bib.rero.ch/api/documents/32"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/2"
+    },
+    "is_cancelled": false,
+    "send_now": true
+  },
+  {
+    "pid": "5",
+    "priority": 5,
+    "quantity": 1,
+    "amount": 100,
+    "exchange_rate": 1,
+    "notes": [
+      {
+        "type": "staff_note",
+        "content": "Rush order"
+      }
+    ],
+    "acq_account": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/7"
+    },
+    "acq_order": {
+      "$ref": "https://bib.rero.ch/api/acq_orders/3"
+    },
+    "document": {
+      "$ref": "https://bib.rero.ch/api/documents/228"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/2"
+    },
+    "is_cancelled": false,
+    "send_now": true
+  },
+  {
+    "pid": "6",
+    "priority": 1,
+    "quantity": 5,
+    "amount": 7,
+    "exchange_rate": 1,
+    "acq_account": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/14"
+    },
+    "acq_order": {
+      "$ref": "https://bib.rero.ch/api/acq_orders/4"
+    },
+    "document": {
+      "$ref": "https://bib.rero.ch/api/documents/208"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/3"
+    },
+    "is_cancelled": false,
+    "send_now": true
+  },
+  {
+    "pid": "7",
+    "priority": 1,
+    "quantity": 15,
+    "amount": 12,
+    "exchange_rate": 1,
+    "acq_account": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/20"
+    },
+    "acq_order": {
+      "$ref": "https://bib.rero.ch/api/acq_orders/5"
+    },
+    "document": {
+      "$ref": "https://bib.rero.ch/api/documents/88"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/4"
+    },
+    "is_cancelled": false,
+    "send_now": true
+  },
+  {
+    "pid": "8",
+    "priority": 1,
+    "quantity": 10,
+    "amount": 20,
+    "exchange_rate": 1,
+    "acq_account": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/4"
+    },
+    "acq_order": {
+      "$ref": "https://bib.rero.ch/api/acq_orders/2"
+    },
+    "document": {
+      "$ref": "https://bib.rero.ch/api/documents/136"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/1"
+    },
+    "is_cancelled": false,
+    "send_now": true
+  },
+  {
+    "pid": "9",
+    "priority": 0,
+    "quantity": 3,
+    "amount": 22,
+    "exchange_rate": 1,
+    "acq_account": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/2"
+    },
+    "acq_order": {
+      "$ref": "https://bib.rero.ch/api/acq_orders/1"
+    },
+    "document": {
+      "$ref": "https://bib.rero.ch/api/documents/15"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/1"
+    },
+    "is_cancelled": false
+  }
+]

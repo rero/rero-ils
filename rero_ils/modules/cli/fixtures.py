@@ -24,7 +24,7 @@ import json
 import os
 import sys
 import traceback
-from datetime import datetime
+from datetime import datetime, timezone
 from uuid import uuid4
 
 import click
@@ -133,7 +133,21 @@ def create(infile, create_or_update, append, reindex, dbcommit, commit,
         # load everything in memory (faster, bad memory management)
         records = json.load(infile)
     count = 0
+    now = datetime.now(timezone.utc)
+    order_date = now.strftime('%Y-%m-%d')
+    year = str(now.year)
     for count, record in enumerate(records, 1):
+        if pid_type == 'budg' and not record.get('name'):
+            # ensure a budget is created for the current year
+            record['name'] = year
+            record['start_date'] = f'{year}-01-01'
+            record['end_date'] = f'{year}-12-31'
+        elif pid_type == 'acol' and record.pop('send_now', None):
+            # ensure all orders are sent
+            record['order_date'] = f'{order_date}'
+        elif pid_type == 'acrl' and record.pop('receive_now', None):
+            # ensure all receipt lines are received
+            record['receipt_date'] = f'{order_date}'
         if schema:
             record['$schema'] = schema
         try:

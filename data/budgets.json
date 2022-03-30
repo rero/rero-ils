@@ -1,9 +1,6 @@
 [
   {
     "pid": "1",
-    "name": "2020",
-    "start_date": "2020-01-01",
-    "end_date": "2020-12-31",
     "is_active": true,
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/1"
@@ -11,39 +8,13 @@
   },
   {
     "pid": "2",
-    "name": "2019",
-    "start_date": "2019-01-01",
-    "end_date": "2019-12-31",
-    "is_active": false,
-    "organisation": {
-      "$ref": "https://bib.rero.ch/api/organisations/1"
-    }
-  },
-  {
-    "pid": "3",
-    "name": "2018",
-    "start_date": "2018-01-01",
-    "end_date": "2018-12-31",
-    "is_active": false,
-    "organisation": {
-      "$ref": "https://bib.rero.ch/api/organisations/1"
-    }
-  },
-  {
-    "pid": "4",
-    "name": "2020",
-    "start_date": "2020-01-01",
-    "end_date": "2020-12-31",
     "is_active": true,
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/2"
     }
   },
   {
-    "pid": "5",
-    "name": "2020",
-    "start_date": "2020-01-01",
-    "end_date": "2020-12-31",
+    "pid": "3",
     "is_active": true,
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/3"
