@@ -155,6 +155,17 @@
           "city": "Aosta",
           "country": "sz"
         }
+      },
+      "billing_informations": {
+        "name": "Doe, John",
+        "email": "reroilstest+shippingaoste1@gmail.com",
+        "phone": "+4134567890",
+        "address": {
+          "street": "Via Challand 133 bte/1",
+          "zip_code": "11100",
+          "city": "Aosta",
+          "country": "sz"
+        }
       }
     }
   },
@@ -452,7 +463,31 @@
         "email": "reroilstest+aoste3@gmail.com"
       }
     ],
-    "communication_language": "ita"
+    "communication_language": "ita",
+    "acquisition_settings": {
+      "shipping_informations": {
+        "name": "Smith, John",
+        "email": "reroilstest+shippingaoste3@gmail.com",
+        "phone": "+4134567890",
+        "address": {
+          "street": "Avise 345",
+          "zip_code": "11010",
+          "city": "Aosta",
+          "country": "sz"
+        }
+      },
+      "billing_informations": {
+        "name": "Smith, John",
+        "email": "reroilstest+shippingaoste3@gmail.com",
+        "phone": "+4134567890",
+        "address": {
+          "street": "Avise 345",
+          "zip_code": "11010",
+          "city": "Aosta",
+          "country": "sz"
+        }
+      }
+    }
   },
   {
     "pid": "4",
@@ -573,7 +608,31 @@
         "email": "reroilstest+aoste4@gmail.com"
       }
     ],
-    "communication_language": "ita"
+    "communication_language": "ita",
+    "acquisition_settings": {
+      "shipping_informations": {
+        "name": "Gomez, Selena",
+        "email": "reroilstest+shippingaoste4@gmail.com",
+        "phone": "+4134567890",
+        "address": {
+          "street": "Via Piave 3",
+          "zip_code": "11027",
+          "city": "Saint-Vincent",
+          "country": "sz"
+        }
+      },
+      "billing_informations": {
+        "name": "Gomez, Selena",
+        "email": "reroilstest+shippingaoste4@gmail.com",
+        "phone": "+4134567890",
+        "address": {
+          "street": "Via Piave 3",
+          "zip_code": "11027",
+          "city": "Saint-Vincent",
+          "country": "sz"
+        }
+      }
+    }
   },
   {
     "pid": "5",

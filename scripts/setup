@@ -88,6 +88,7 @@ PREFIX=""
 ES_MAPPING=false
 ENQUEUE=""
 INDEX_PARALLEL=0
+LOADEXTRAFILES=false
 # Permit user to set it with system var. Default is true.
 ENABLE_WARNINGS=${ENABLE_WARNINGS:=true}
 
@@ -111,6 +112,9 @@ do
     case $1 in
     -d|--deployment)
       DEPLOYMENT=true
+      ;;
+    -L|--load_extra_files)
+      LOADEXTRAFILES=true
       ;;
     -C|--contributions)
       LOADCONTRIBUTIONS=true
@@ -458,9 +462,17 @@ fi
 info_msg "Acquisition accounts: ${DATA_PATH}/acq_accounts.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type acac ${DATA_PATH}/acq_accounts.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} invenio reroils index reindex -t acac --yes-i-know
-if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio reroils index reindex_missing -t acac -v
-fi
+
+# create acquisition orders
+info_msg "Acquisition orders: ${DATA_PATH}/acq_orders.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio reroils fixtures create --pid_type acor ${DATA_PATH}/acq_orders.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils index reindex -t acor --yes-i-know
+
+# create acquisition order lines
+info_msg "Acquisition order lines: ${DATA_PATH}/acq_order_lines.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio reroils fixtures create --pid_type acol ${DATA_PATH}/acq_order_lines.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils index reindex -t acol --yes-i-know
+
 
 # create resource templates
 info_msg "Resource templates:"
@@ -472,8 +484,50 @@ if [ ${INDEX_PARALLEL} -gt 0 ]; then
 fi
 eval ${PREFIX} invenio reroils index run --raise-on-error
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio reroils index reindex_missing -t lofi -t coll -t acac -t tmpl -v
+    eval ${PREFIX} invenio reroils index reindex_missing -t lofi -t coll -t acac -t acol -t tmpl -v
 fi
+
+# reindex acquisition orders
+eval ${PREFIX} invenio reroils index reindex -t acor --yes-i-know
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
+fi
+eval ${PREFIX} invenio reroils index run --raise-on-error
+
+if ${LOADEXTRAFILES}
+  then
+      # create acquisition receipts
+      info_msg "Acquisition receipts: ${DATA_PATH}/acq_receipts.json ${CREATE_LAZY} ${DONT_STOP}"
+      eval ${PREFIX} invenio reroils fixtures create --pid_type acre ${DATA_PATH}/acq_receipts.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
+      eval ${PREFIX} invenio reroils index reindex -t acre --yes-i-know
+
+      # create acquisition receipt lines
+      info_msg "Acquisition receipt lines: ${DATA_PATH}/acq_receipt_lines.json ${CREATE_LAZY} ${DONT_STOP}"
+      eval ${PREFIX} invenio reroils fixtures create --pid_type acrl ${DATA_PATH}/acq_receipt_lines.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
+      eval ${PREFIX} invenio reroils index reindex -t acrl --yes-i-know
+
+      # create acquisition invoices
+      info_msg "Acquisition invoices: ${DATA_PATH}/acq_invoices.json ${CREATE_LAZY} ${DONT_STOP}"
+      eval ${PREFIX} invenio reroils fixtures create --pid_type acin ${DATA_PATH}/acq_invoices.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
+      eval ${PREFIX} invenio reroils index reindex -t acin --yes-i-know
+
+
+      if [ ${INDEX_PARALLEL} -gt 0 ]; then
+          eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
+      fi
+      eval ${PREFIX} invenio reroils index run --raise-on-error
+      if [ ${INDEX_PARALLEL} -gt 0 ]; then
+          eval ${PREFIX} invenio reroils index reindex_missing -t acre -t acrl -t acin -v
+      fi
+
+      # reindex acquisition receipts
+      eval ${PREFIX} invenio reroils index reindex -t acre --yes-i-know
+      if [ ${INDEX_PARALLEL} -gt 0 ]; then
+          eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
+      fi
+      eval ${PREFIX} invenio reroils index run --raise-on-error
+  fi
+
 
 # create circulation transactions
 info_msg "Circulation transactions: ${DATA_PATH}/loans.json ${CREATE_LAZY} ${DONT_STOP}"
@@ -550,18 +604,21 @@ then
     diff --suppress-common-lines --side-by-side tmp/mapping_before_setup.txt tmp/mapping_after_setup.txt
 fi
 
-info_msg "- Load Virtua operation logs: ${DATA_PATH}/operation_logs.json"
-eval ${PREFIX} invenio reroils fixtures create_operation_logs ${DATA_PATH}/operation_logs.json  ${CREATE_LAZY} ${DONT_STOP}
+if ${LOADEXTRAFILES}
+  then
+    info_msg "- Load Virtua operation logs: ${DATA_PATH}/operation_logs.json"
+    eval ${PREFIX} invenio reroils fixtures create_operation_logs ${DATA_PATH}/operation_logs.json  ${CREATE_LAZY} ${DONT_STOP}
 
-# load legacy circulation transactions from Virtua
-info_msg "Checkout transactions: ${DATA_PATH}/checkouts.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures load_virtua_transactions ${DATA_PATH}/checkouts.json -t checkout
+    # load legacy circulation transactions from Virtua
+    info_msg "Checkout transactions: ${DATA_PATH}/checkouts.json ${CREATE_LAZY} ${DONT_STOP}"
+    eval ${PREFIX} invenio reroils fixtures load_virtua_transactions ${DATA_PATH}/checkouts.json -t checkout
 
-info_msg "Request transactions: ${DATA_PATH}/requests.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures load_virtua_transactions ${DATA_PATH}/requests.json -t request
+    info_msg "Request transactions: ${DATA_PATH}/requests.json ${CREATE_LAZY} ${DONT_STOP}"
+    eval ${PREFIX} invenio reroils fixtures load_virtua_transactions ${DATA_PATH}/requests.json -t request
 
-info_msg "Fine transactions: ${DATA_PATH}/fines.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures load_virtua_transactions ${DATA_PATH}/fines.json -t fine
+    info_msg "Fine transactions: ${DATA_PATH}/fines.json ${CREATE_LAZY} ${DONT_STOP}"
+    eval ${PREFIX} invenio reroils fixtures load_virtua_transactions ${DATA_PATH}/fines.json -t fine
+fi
 
 info_msg "Collect statistics"
 eval ${PREFIX} invenio reroils stats collect billing
