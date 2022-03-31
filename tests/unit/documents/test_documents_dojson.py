@@ -4938,6 +4938,12 @@ def test_marc21_to_subjects(mock_get):
     <record>
     <datafield ind1=" " ind2="7" tag="655">
         <subfield code="a">[Bases de données]</subfield>
+        <subfield code="v">genre1</subfield>
+        <subfield code="v">genre2</subfield>
+        <subfield code="x">topic1</subfield>
+        <subfield code="y">temporal1</subfield>
+        <subfield code="y">temporal2</subfield>
+        <subfield code="z">place1</subfield>
         <subfield code="2">rero</subfield>
     </datafield>
     </record>
@@ -4945,8 +4951,12 @@ def test_marc21_to_subjects(mock_get):
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('genreForm') == [{
-          'type': 'bf:Topic',
-          'term': 'Bases de données',
+        'type': 'bf:Topic',
+        'term': 'Bases de données',
+        'genreForm_subdivisions': ['genre1', 'genre2'],
+        'temporal_subdivisions': ['temporal1', 'temporal2'],
+        'topic_subdivisions': ['topic1'],
+        'place_subdivisions': ['place1'],
     }]
 
 
@@ -5114,10 +5124,14 @@ def test_marc21_to_subjects_imported():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('subjects_imported') == [{
-          'type': 'bf:Organisation',
-          'preferred_name': 'Catholic Church - Relations - Eastern churches',
-          'source': 'LCSH',
-          'conference': False
+        'type': 'bf:Organisation',
+        'preferred_name': 'Catholic Church',
+        'source': 'LCSH',
+        'conference': False,
+        'topic_subdivisions': [
+            'Relations',
+            'Eastern churches'
+        ]
     }]
 
 

@@ -199,13 +199,13 @@
 
     <!-- SUBJECTS TERM -->
     {% if record.subjects %}
-    <div class="pt-2">
-    {% for subject in record.subjects %}
-      <span class="badge badge-secondary my-0" title="{{ _(subject.type) }}">
-        <i class="fa fa-tag"></i> {{ subject | subject_format(current_i18n.language) }}
-      </span>
-    {% endfor %}
-    </div>
+      <div class="pt-2">
+      {% for subject in record.subjects %}
+        <span class="badge badge-secondary my-0" title="{{ _(subject.type) }}">
+          <i class="fa fa-tag"></i> {{ subject | subject_format(current_i18n.language) }}
+        </span>
+      {% endfor %}
+      </div>
     {% endif %}
   </div>
 </div>

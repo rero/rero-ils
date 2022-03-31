@@ -18,14 +18,11 @@
 
 """rero-ils MARC21 model definition."""
 
-import re
-
 from dojson import utils
 
-from rero_ils.dojson.utils import ReroIlsMarc21Overdo, build_identifier, \
-    build_string_from_subfields, get_contribution_link, \
-    remove_trailing_punctuation
+from rero_ils.dojson.utils import ReroIlsMarc21Overdo
 
+from ..loc import marc21_to_subjects_6XX as marc21_to_subjects_6XX_loc
 from ..utils import do_abbreviated_title, \
     do_acquisition_terms_from_field_037, do_classification, do_contribution, \
     do_copyright_date, do_credits, do_dissertation, do_edition_statement, \
@@ -299,163 +296,8 @@ def marc21_to_supplementary_content(self, key, value):
 @utils.for_each_value
 @utils.ignore_value
 def marc21_to_subjects_6XX(self, key, value):
-    """Get subjects.
-
-    - create an object :
-        genreForm : for the field 655
-        subjects :  for 6xx with $2 rero
-        subjects_imported : for 6xx having indicator 2 '0' or '2'
-    """
-    type_per_tag = {
-        '600': 'bf:Person',
-        '610': 'bf:Organisation',
-        '611': 'bf:Organisation',
-        '600t': 'bf:Work',
-        '610t': 'bf:Work',
-        '611t': 'bf:Work',
-        '630': 'bf:Work',
-        '650': 'bf:Topic',  # or bf:Temporal, changed by code
-        '651': 'bf:Place',
-        '655': 'bf:Topic'
-    }
-
-    ref_link_per_tag = {
-        '600': 'IdRef agent',
-        '610': 'IdRef agent',
-        '611': 'IdRef agent',
-        '600t': 'IdRef work',
-        '610t': 'IdRef work',
-        '611t': 'IdRef work',
-        '630': 'IdRef work',
-        '650': 'RERO RAMEAU concept',
-        '651': 'Idref place',
-        '655': 'RERO RAMEAU concept'
-    }
-
-    field_data_per_tag = {
-        '600': 'preferred_name',
-        '610': 'preferred_name',
-        '611': 'preferred_name',
-        '600t': 'title',
-        '610t': 'title',
-        '611t': 'title',
-        '630': 'title',
-        '650': 'term',
-        '651': 'preferred_name',
-        '655': 'term'
-    }
-
-    subfield_code_per_tag = {
-        '600': 'abcd',
-        '610': 'ab',
-        '611': 'acden',
-        '600t': 'tpn',
-        '610t': 'tpn',
-        '611t': 't',
-        '630': 'apn',
-        '650': 'a',
-        '651': 'a',
-        '655': 'a'
-    }
-
-    conference_per_tag = {
-        '610': False,
-        '611': True
-    }
-    source_per_indicator_2 = {
-        '0': 'LCSH',
-        '2': 'MeSH'
-    }
-
-    indicator_2 = key[4]
-    tag_key = key[:3]
-    subfields_2 = utils.force_list(value.get('2'))
-    subfield_2 = None
-    if subfields_2:
-        subfield_2 = subfields_2[0]
-    subfields_a = utils.force_list(value.get('a', []))
-
-    if subfield_2 in ('rero', 'gnd', 'idref'):
-        has_dollar_t = value.get('t')
-
-        if tag_key in ('600', '610', '611') and has_dollar_t:
-            tag_key += 't'
-        data_type = type_per_tag[tag_key]
-
-        if tag_key == '650':
-            for subfield_a in subfields_a:
-                start_with_digit_regexp = re.compile(r'^\d')
-                match = start_with_digit_regexp.search(subfield_a)
-                if match:
-                    data_type = 'bf:Temporal'
-                    break
-
-        subject = {
-            'type': data_type,
-        }
-
-        string_build = build_string_from_subfields(
-            value,
-            subfield_code_per_tag[tag_key])
-        if (tag_key == '655'):
-            # remove the square brackets
-            string_build = re.sub(r'^\[(.*)\]$', r'\1', string_build)
-        subject[field_data_per_tag[tag_key]] = string_build
-
-        if tag_key in ('610', '611'):
-            subject['conference'] = conference_per_tag[tag_key]
-
-        if tag_key in ('600t', '610t', '611t'):
-            creator_tag_key = tag_key[:3]  # to keep only tag:  600, 610, 611
-            subject['creator'] = remove_trailing_punctuation(
-                build_string_from_subfields(
-                    value,
-                    subfield_code_per_tag[creator_tag_key]),
-                '.', '.'
-            )
-        field_key = 'subjects'
-        if tag_key == '655':
-            field_key = 'genreForm'
-
-        subfields_0 = utils.force_list(value.get('0'))
-        if data_type in ['bf:Person', 'bf:Organisation'] and subfields_0:
-            ref = get_contribution_link(marc21.bib_id, marc21.rero_id,
-                                        subfields_0[0], key)
-            if ref:
-                subject = {
-                    '$ref': ref,
-                    'type': data_type,
-                }
-        if not subject.get('$ref'):
-            identifier = build_identifier(value)
-            if identifier:
-                subject['identifiedBy'] = identifier
-
-        if subject.get('$ref') or subject.get(field_data_per_tag[tag_key]):
-            subjects = self.get(field_key, [])
-            subjects.append(subject)
-            self[field_key] = subjects
-    elif subfield_2 == 'rerovoc' or indicator_2 in ['0', '2']:
-        term_string = build_string_from_subfields(
-            value,
-            'abcdefghijklmnopqrstuvwxyz', ' - ')
-        if term_string:
-            if subfield_2 == 'rerovoc':
-                source = 'rerovoc'
-            else:
-                source = source_per_indicator_2[indicator_2]
-            subject_imported = {
-                'type': type_per_tag[tag_key],
-                'source': source
-            }
-            subject_imported[field_data_per_tag[tag_key]] = \
-                term_string.rstrip('.')
-            if tag_key in ('610', '611'):
-                subject_imported['conference'] = conference_per_tag[tag_key]
-            subjects_imported = self.get('subjects_imported', [])
-            if subject_imported:
-                subjects_imported.append(subject_imported)
-                self['subjects_imported'] = subjects_imported
+    """Get subjects."""
+    return marc21_to_subjects_6XX_loc(self, key, value)
 
 
 @marc21.over('sequence_numbering', '^362..')

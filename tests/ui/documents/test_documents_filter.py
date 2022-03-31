@@ -17,13 +17,14 @@
 
 """Document filters tests."""
 
-
 from rero_ils.modules.documents.api import Document
+from rero_ils.modules.documents.models import DocumentSubjectType
 from rero_ils.modules.documents.views import cartographic_attributes, \
     contribution_format, identified_by, main_title_text, note_general, \
     notes_except_general, part_of_format, provision_activity, \
     provision_activity_not_publication, provision_activity_original_date, \
-    provision_activity_publication, title_variants, work_access_point
+    provision_activity_publication, subject_format, title_variants, \
+    work_access_point
 
 
 def test_note_general():
@@ -518,3 +519,14 @@ def test_main_title_text():
     extract = main_title_text(title)
     assert len(extract) == 1
     assert extract[0].get('_text') is not None
+
+
+def test_subject_format():
+    """Test subject format filter."""
+    data = {
+        'term': 'subject topic',
+        'type': DocumentSubjectType.TOPIC
+    }
+    assert subject_format(data, None) == 'subject topic'
+    data['type'] = DocumentSubjectType.ORGANISATION
+    assert subject_format(data, None) == 'Subject parsing error !'

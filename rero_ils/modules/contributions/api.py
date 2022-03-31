@@ -239,7 +239,7 @@ class Contribution(IlsRecord):
         """Get localized authorized_access_point.
 
         :param language: language for authorized access point.
-        :returns: authorized access point in given lamguage.
+        :returns: authorized access point in given language.
         """
         return self._get_mef_localized_value(
             key='authorized_access_point',
