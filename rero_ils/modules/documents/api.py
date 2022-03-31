@@ -25,7 +25,7 @@ from flask import current_app
 from invenio_circulation.search.api import search_by_pid
 from jsonschema.exceptions import ValidationError
 
-from .models import DocumentIdentifier, DocumentMetadata
+from .models import DocumentIdentifier, DocumentMetadata, DocumentSubjectType
 from .utils import edition_format_text, publication_statement_text, \
     series_statement_format_text, title_format_text_head
 from ..acq_order_lines.api import AcqOrderLinesSearch
@@ -321,24 +321,14 @@ class Document(IlsRecord):
                 if agent:
                     contribution['agent'] = agent
         subjects = self.get('subjects', [])
-        resolved_subjects = []
         for subject in subjects:
-            subject_ref = subject.get('$ref')
-            subject_type = subject.get('type')
-            if subject_ref and \
-                    subject_type in ['bf:Person', 'bf:Organisation']:
-                subject, _ = Contribution.get_record_by_ref(subject_ref)
-                if subject:
-                    subject.update({'type': subject_type})
-                    resolved_subjects.append(subject)
-                else:
-                    current_app.logger.error(
-                        'NO SUBJECT CONTRIBUTION REF FOUND:'
-                        f' {self.pid} {subject_ref}')
-            else:
-                resolved_subjects.append(subject)
-        if resolved_subjects:
-            self['subjects'] = resolved_subjects
+            ref = subject.get('$ref')
+            type = subject.get('type')
+            if ref and type in [DocumentSubjectType.PERSON,
+                                DocumentSubjectType.ORGANISATION]:
+                data, _ = Contribution.get_record_by_ref(ref)
+                del subject['$ref']
+                subject.update(data)
 
         return super().replace_refs()
 

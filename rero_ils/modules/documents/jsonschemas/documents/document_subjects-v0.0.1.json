@@ -19,7 +19,11 @@
             "type",
             "preferred_name",
             "identifiedBy",
-            "source"
+            "source",
+            "genreForm_subdivisions",
+            "topic_subdivisions",
+            "temporal_subdivisions",
+            "place_subdivisions"
           ],
           "required": [
             "type",
@@ -53,6 +57,18 @@
             },
             "source": {
               "$ref": "#/definitions/source"
+            },
+            "genreForm_subdivisions": {
+              "$ref": "#/definitions/genreForm_subdivisions"
+            },
+            "topic_subdivisions": {
+              "$ref": "#/definitions/topic_subdivisions"
+            },
+            "temporal_subdivisions": {
+              "$ref": "#/definitions/temporal_subdivisions"
+            },
+            "place_subdivisions": {
+              "$ref": "#/definitions/place_subdivisions"
             }
           }
         },
@@ -68,7 +84,11 @@
             "preferred_name",
             "conference",
             "identifiedBy",
-            "source"
+            "source",
+            "genreForm_subdivisions",
+            "topic_subdivisions",
+            "temporal_subdivisions",
+            "place_subdivisions"
           ],
           "required": [
             "type",
@@ -109,6 +129,18 @@
             },
             "source": {
               "$ref": "#/definitions/source"
+            },
+            "genreForm_subdivisions": {
+              "$ref": "#/definitions/genreForm_subdivisions"
+            },
+            "topic_subdivisions": {
+              "$ref": "#/definitions/topic_subdivisions"
+            },
+            "temporal_subdivisions": {
+              "$ref": "#/definitions/temporal_subdivisions"
+            },
+            "place_subdivisions": {
+              "$ref": "#/definitions/place_subdivisions"
             }
           }
         },
@@ -124,7 +156,11 @@
             "title",
             "creator",
             "identifiedBy",
-            "source"
+            "source",
+            "genreForm_subdivisions",
+            "topic_subdivisions",
+            "temporal_subdivisions",
+            "place_subdivisions"
           ],
           "required": [
             "type",
@@ -168,6 +204,18 @@
             },
             "source": {
               "$ref": "#/definitions/source"
+            },
+            "genreForm_subdivisions": {
+              "$ref": "#/definitions/genreForm_subdivisions"
+            },
+            "topic_subdivisions": {
+              "$ref": "#/definitions/topic_subdivisions"
+            },
+            "temporal_subdivisions": {
+              "$ref": "#/definitions/temporal_subdivisions"
+            },
+            "place_subdivisions": {
+              "$ref": "#/definitions/place_subdivisions"
             }
           }
         },
@@ -182,7 +230,11 @@
             "type",
             "term",
             "identifiedBy",
-            "source"
+            "source",
+            "genreForm_subdivisions",
+            "topic_subdivisions",
+            "temporal_subdivisions",
+            "place_subdivisions"
           ],
           "required": [
             "type",
@@ -218,6 +270,18 @@
             },
             "source": {
               "$ref": "#/definitions/source"
+            },
+            "genreForm_subdivisions": {
+              "$ref": "#/definitions/genreForm_subdivisions"
+            },
+            "topic_subdivisions": {
+              "$ref": "#/definitions/topic_subdivisions"
+            },
+            "temporal_subdivisions": {
+              "$ref": "#/definitions/temporal_subdivisions"
+            },
+            "place_subdivisions": {
+              "$ref": "#/definitions/place_subdivisions"
             }
           }
         },
@@ -232,7 +296,11 @@
             "type",
             "preferred_name",
             "identifiedBy",
-            "source"
+            "source",
+            "genreForm_subdivisions",
+            "topic_subdivisions",
+            "temporal_subdivisions",
+            "place_subdivisions"
           ],
           "required": [
             "type",
@@ -266,6 +334,18 @@
             },
             "source": {
               "$ref": "#/definitions/source"
+            },
+            "genreForm_subdivisions": {
+              "$ref": "#/definitions/genreForm_subdivisions"
+            },
+            "topic_subdivisions": {
+              "$ref": "#/definitions/topic_subdivisions"
+            },
+            "temporal_subdivisions": {
+              "$ref": "#/definitions/temporal_subdivisions"
+            },
+            "place_subdivisions": {
+              "$ref": "#/definitions/place_subdivisions"
             }
           }
         },
@@ -280,7 +360,11 @@
             "type",
             "term",
             "identifiedBy",
-            "source"
+            "source",
+            "genreForm_subdivisions",
+            "topic_subdivisions",
+            "temporal_subdivisions",
+            "place_subdivisions"
           ],
           "required": [
             "type",
@@ -316,6 +400,18 @@
             },
             "source": {
               "$ref": "#/definitions/source"
+            },
+            "genreForm_subdivisions": {
+              "$ref": "#/definitions/genreForm_subdivisions"
+            },
+            "topic_subdivisions": {
+              "$ref": "#/definitions/topic_subdivisions"
+            },
+            "temporal_subdivisions": {
+              "$ref": "#/definitions/temporal_subdivisions"
+            },
+            "place_subdivisions": {
+              "$ref": "#/definitions/place_subdivisions"
             }
           }
         }
@@ -352,6 +448,74 @@
         "templateOptions": {
           "itemCssClass": "col-lg-6"
         },
+        "hide": true
+      }
+    },
+    "genreForm_subdivisions": {
+      "title": "Form subdivisions",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Form subdivision",
+        "description": "Subject subdivision for a specific kind or genre of material (MARC 6XX$v)",
+        "type": "string",
+        "minLength": 2,
+        "form": {
+          "placeholder": "Example: Periodicals"
+        }
+      },
+      "form": {
+        "hide": true
+      }
+    },
+    "topic_subdivisions": {
+      "title": "Concept subdivisions",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Concept subdivision",
+        "description": "Subject subdivision for a concept (MARC 6XX$x)",
+        "type": "string",
+        "minLength": 2,
+        "form": {
+          "placeholder": "Example: History"
+        }
+      },
+      "form": {
+        "hide": true
+      }
+    },
+    "temporal_subdivisions": {
+      "title": "Time-span subdivisions",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Time-span subdivision",
+        "description": "Subject subdivision for a period of time (MARC 6XX$y)",
+        "type": "string",
+        "minLength": 2,
+        "form": {
+          "placeholder": "Example: 500-1400"
+        }
+      },
+      "form": {
+        "hide": true
+      }
+    },
+    "place_subdivisions": {
+      "title": "Place subdivisions",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Place subdivision",
+        "description": "Subject subdivision for a place (MARC 6XX$z)",
+        "type": "string",
+        "minLength": 2,
+        "form": {
+          "placeholder": "Example: Mississippi"
+        }
+      },
+      "form": {
         "hide": true
       }
     }

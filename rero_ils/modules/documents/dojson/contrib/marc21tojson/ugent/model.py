@@ -301,6 +301,19 @@ def marc21_to_subjects_imported(self, key, value):
         subjects :  for 6xx with $2 rero
         subjects_imported : for 6xx having indicator 2 '0' or '2'
     """
+
+    def perform_subdivisions(field):
+        """Perform subject subdivisions from MARC field."""
+        subdivisions = {
+            'v': 'genreForm_subdivisions',
+            'x': 'topic_subdivisions',
+            'y': 'temporal_subdivisions',
+            'z': 'place_subdivisions'
+        }
+        for code, subdivision in subdivisions.items():
+            for subfield_value in utils.force_list(value.get(code, [])):
+                field.setdefault(subdivision, []).append(subfield_value)
+
     type_per_tag = {
         '600': 'bf:Person',
         '610': 'bf:Organisation',
@@ -312,19 +325,6 @@ def marc21_to_subjects_imported(self, key, value):
         '650': 'bf:Topic',  # or bf:Temporal, changed by code
         '651': 'bf:Place',
         '655': 'bf:Topic'
-    }
-
-    ref_link_per_tag = {
-        '600': 'IdRef agent',
-        '610': 'IdRef agent',
-        '611': 'IdRef agent',
-        '600t': 'IdRef work',
-        '610t': 'IdRef work',
-        '611t': 'IdRef work',
-        '630': 'IdRef work',
-        '650': 'RERO RAMEAU concept',
-        '651': 'Idref place',
-        '655': 'RERO RAMEAU concept'
     }
 
     field_data_per_tag = {
@@ -340,19 +340,6 @@ def marc21_to_subjects_imported(self, key, value):
         '655': 'term'
     }
 
-    subfield_code_per_tag = {
-        '600': 'abcd',
-        '610': 'ab',
-        '611': 'acden',
-        '600t': 'tpn',
-        '610t': 'tpn',
-        '611t': 't',
-        '630': 'apn',
-        '650': 'a',
-        '651': 'a',
-        '655': 'a'
-    }
-
     conference_per_tag = {
         '610': False,
         '611': True
@@ -365,27 +352,21 @@ def marc21_to_subjects_imported(self, key, value):
     indicator_2 = key[4]
     tag_key = key[:3]
     subfields_2 = utils.force_list(value.get('2'))
-    subfield_2 = None
-    if subfields_2:
-        subfield_2 = subfields_2[0]
-    subfields_a = utils.force_list(value.get('a', []))
+    subfield_2 = subfields_2[0] if subfields_2 else None
 
     if subfield_2 == 'lcsh' or indicator_2 in ['0', '2', '7']:
         term_string = build_string_from_subfields(
-            value,
-            'abcdefghijklmnopqrstuvwxyz', ' - ')
+            value, 'abcdefghijklmnopqrstuw', ' - ')
         if term_string:
-            if subfield_2 == 'lcsh':
-                source = 'LCSH'
-            else:
-                source = source_per_indicator_2[indicator_2]
+            source = 'LCSH' if subfield_2 == 'lcsh' else \
+                source_per_indicator_2[indicator_2]
             subject_imported = {
                 'type': type_per_tag[tag_key],
-                'source': source
+                'source': source,
+                field_data_per_tag[tag_key]: term_string.rstrip('.')
             }
-            subject_imported[field_data_per_tag[tag_key]] = \
-                term_string.rstrip('.')
-            if tag_key in ('610', '611'):
+            perform_subdivisions(subject_imported)
+            if tag_key in ['610', '611']:
                 subject_imported['conference'] = conference_per_tag[tag_key]
             subjects_imported = self.get('subjects_imported', [])
             if subject_imported:

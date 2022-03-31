@@ -39,7 +39,7 @@ from ..contributions.api import ContributionsSearch
 from ..documents.api import Document
 from ..documents.utils import title_format_text_head
 from ..documents.views import create_title_alternate_graphic, \
-    create_title_responsibilites, create_title_variants
+    create_title_responsibilites, create_title_variants, subject_format
 from ..libraries.api import LibrariesSearch
 from ..locations.api import LocationsSearch
 from ..organisations.api import OrganisationsSearch
@@ -55,6 +55,16 @@ class DocumentJSONSerializer(JSONSerializer):
         """Prepare a record and persistent identifier for serialization."""
         rec = record
         titles = rec.get('title', [])
+
+        # build subjects text for display purpose
+        #   Subject formatting must be done before `replace_refs` otherwise the
+        #   referenced object couldn't be performed
+        # TODO :: Find a way to get language to use to render subject using
+        #         `Accepted-language` header.
+        language = None
+        for subject in record.get('subjects', []):
+            subject['_text'] = subject_format(subject, language)
+
         # build responsibility data for display purpose
         responsibility_statement = rec.get('responsibilityStatement', [])
         responsibilities = \
@@ -85,6 +95,7 @@ class DocumentJSONSerializer(JSONSerializer):
             )
             if contributions:
                 rec['contribution'] = contributions
+
         return super().preprocess_record(
             pid=pid, record=rec, links_factory=links_factory, kwargs=kwargs)
 
@@ -114,14 +125,10 @@ class DocumentJSONSerializer(JSONSerializer):
                 metadata['ui_title_text_responsibility'] = text_title
 
             if viewcode != global_view_code:
-                items = metadata.get('items', [])
-                if items:
-                    output = []
-                    for item in items:
-                        if item.get('organisation')\
-                                .get('organisation_pid') == view_id:
-                            output.append(item)
-                    record['metadata']['items'] = output
+                record['metadata']['items'] = [
+                    item for item in metadata.get('items', [])
+                    if item['organisation'].get('organisation_pid') == view_id
+                ]
 
         # Aggregations process
         if viewcode == global_view_code:
@@ -178,12 +185,10 @@ class DocumentJSONSerializer(JSONSerializer):
         :return processed buckets
         """
         lib_processed_buckets = []
-        libraries = {}
         # get the library names for a given organisation
         records = LibrariesSearch()\
             .get_libraries_by_organisation_pid(org, ['pid', 'name'])
-        for record in records:
-            libraries[record.pid] = record.name
+        libraries = {record.pid: record.name for record in records}
         # for all library bucket for a given organisation
         for lib_bucket in lib_buckets:
             lib_key = lib_bucket.get('key')
@@ -211,10 +216,11 @@ class DocumentJSONSerializer(JSONSerializer):
         :return: processed buckets
         """
         # get the location names for a given library
-        locations = {}
-        for es_loc in LocationsSearch().source(['pid', 'name'])\
-                .filter('term', library__pid=lib).scan():
-            locations[es_loc.pid] = es_loc.name
+        query = LocationsSearch() \
+            .filter('term', library__pid=lib) \
+            .source(['pid', 'name'])
+        locations = {hit.pid: hit.name for hit in query.scan()}
+
         loc_processed_buckets = []
         # for all location bucket for a given library
         for loc_bucket in loc_buckets:
@@ -530,9 +536,7 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
         :returns: The objects serialized.
         """
         language = request.args.get('ln', DEFAULT_LANGUAGE)
-        with_holdings_items = True
-        if request.args.get('without_items', False):
-            with_holdings_items = False
+        with_holdings_items = not request.args.get('without_items', False)
         sru = search_result['hits'].get('sru', {})
         query_es = sru.get('query_es', '')
         organisation_pids = re.findall(

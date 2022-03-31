@@ -57,11 +57,8 @@ def marc21_to_pid(self, key, value):
 
     If 001 starts with 'REROILS:' save as pid.
     """
-    pid = None
     value = value.strip().split(':')
-    if value[0] == 'REROILS':
-        pid = value[1]
-    return pid
+    return value[1] if value[0] == 'REROILS' else None
 
 
 @marc21.over('language', '^008')
@@ -518,6 +515,19 @@ def marc21_to_subjects(self, key, value):
         subjects :  for 6xx with $2 rero
         subjects_imported : for 6xx having indicator 2 '0' or '2'
     """
+
+    def perform_subdivisions(field):
+        """Perform subject subdivisions from MARC field."""
+        subdivisions = {
+            'v': 'genreForm_subdivisions',
+            'x': 'topic_subdivisions',
+            'y': 'temporal_subdivisions',
+            'z': 'place_subdivisions'
+        }
+        for code, subdivision in subdivisions.items():
+            for subfield_value in utils.force_list(value.get(code, [])):
+                field.setdefault(subdivision, []).append(subfield_value)
+
     type_per_tag = {
         '600': 'bf:Person',
         '610': 'bf:Organisation',
@@ -529,19 +539,6 @@ def marc21_to_subjects(self, key, value):
         '650': 'bf:Topic',  # or bf:Temporal, changed by code
         '651': 'bf:Place',
         '655': 'bf:Topic'
-    }
-
-    ref_link_per_tag = {
-        '600': 'IdRef agent',
-        '610': 'IdRef agent',
-        '611': 'IdRef agent',
-        '600t': 'IdRef work',
-        '610t': 'IdRef work',
-        '611t': 'IdRef work',
-        '630': 'IdRef work',
-        '650': 'RERO RAMEAU concept',
-        '651': 'Idref place',
-        '655': 'RERO RAMEAU concept'
     }
 
     field_data_per_tag = {
@@ -557,19 +554,6 @@ def marc21_to_subjects(self, key, value):
         '655': 'term'
     }
 
-    subfield_code_per_tag = {
-        '600': 'abcd',
-        '610': 'ab',
-        '611': 'acden',
-        '600t': 'tpn',
-        '610t': 'tpn',
-        '611t': 't',
-        '630': 'apn',
-        '650': 'a',
-        '651': 'a',
-        '655': 'a'
-    }
-
     conference_per_tag = {
         '610': False,
         '611': True
@@ -582,24 +566,18 @@ def marc21_to_subjects(self, key, value):
     indicator_2 = key[4]
     tag_key = key[:3]
     subfields_2 = utils.force_list(value.get('2'))
-    subfield_2 = None
-    if subfields_2:
-        subfield_2 = subfields_2[0]
+    subfield_2 = subfields_2[0] if subfields_2 else None
     subfields_a = utils.force_list(value.get('a', []))
 
     if subfield_2 == 'rero':
-        has_dollar_t = value.get('t')
-
-        if tag_key in ('600', '610', '611') and has_dollar_t:
+        if tag_key in ['600', '610', '611'] and value.get('t'):
             tag_key += 't'
         data_type = type_per_tag[tag_key]
 
-        start_with_digit = False
+        # `data_type` is Temporal if tag is 650 and a $a start with digit.
         if tag_key == '650':
             for subfield_a in subfields_a:
-                start_with_digit_regexp = re.compile(r'^\d')
-                match = start_with_digit_regexp.search(subfield_a)
-                if match:
+                if subfield_a[0].isdigit():
                     data_type = 'bf:Temporal'
                     break
 
@@ -607,18 +585,29 @@ def marc21_to_subjects(self, key, value):
             'type': data_type,
         }
 
+        subfield_code_per_tag = {
+            '600': 'abcd',
+            '610': 'ab',
+            '611': 'acden',
+            '600t': 'tpn',
+            '610t': 'tpn',
+            '611t': 't',
+            '630': 'apn',
+            '650': 'a',
+            '651': 'a',
+            '655': 'a'
+        }
+
         string_build = build_string_from_subfields(
-            value,
-            subfield_code_per_tag[tag_key])
-        if (tag_key == '655'):
+            value, subfield_code_per_tag[tag_key])
+        if tag_key == '655':
             # remove the square brackets
             string_build = re.sub(r'^\[(.*)\]$', r'\1', string_build)
         subject[field_data_per_tag[tag_key]] = string_build
 
-        if tag_key in ('610', '611'):
+        if tag_key in ['610', '611']:
             subject['conference'] = conference_per_tag[tag_key]
-
-        if tag_key in ('600t', '610t', '611t'):
+        elif tag_key in ['600t', '610t', '611t']:
             creator_tag_key = tag_key[:3]  # to keep only tag:  600, 610, 611
             subject['creator'] = remove_trailing_punctuation(
                 build_string_from_subfields(
@@ -626,10 +615,7 @@ def marc21_to_subjects(self, key, value):
                     subfield_code_per_tag[creator_tag_key]),
                 '.', '.'
             )
-        field_key = 'subjects'
-        if tag_key == '655':
-            field_key = 'genreForm'
-
+        field_key = 'genreForm' if tag_key == '655' else 'subjects'
         subfields_0 = utils.force_list(value.get('0'))
         if data_type in ['bf:Person', 'bf:Organisation'] and subfields_0:
             ref = get_contribution_link(marc21.bib_id, marc21.rero_id,
@@ -643,26 +629,27 @@ def marc21_to_subjects(self, key, value):
             identifier = build_identifier(value)
             if identifier:
                 subject['identifiedBy'] = identifier
+            perform_subdivisions(subject)
 
         if subject.get('$ref') or subject.get(field_data_per_tag[tag_key]):
             subjects = self.get(field_key, [])
             subjects.append(subject)
             self[field_key] = subjects
+
     elif subfield_2 == 'rerovoc' or indicator_2 in ['0', '2']:
         term_string = build_string_from_subfields(
-            value,
-            'abcdefghijklmnopqrstuvwxyz', ' - ')
+            value, 'abcdefghijklmnopqrstuw', ' - ')
         if term_string:
-            if subfield_2 == 'rerovoc':
-                source = 'rerovoc'
-            else:
-                source = source_per_indicator_2[indicator_2]
+            source = 'rerovoc' if subfield_2 == 'rerovoc' \
+                else source_per_indicator_2[indicator_2]
             subject_imported = {
                 'type': type_per_tag[tag_key],
-                'source': source
+                'source': source,
+                field_data_per_tag[tag_key]: term_string
             }
-            subject_imported[field_data_per_tag[tag_key]] = term_string
-            if tag_key in ('610', '611'):
+            perform_subdivisions(subject_imported)
+
+            if tag_key in ['610', '611']:
                 subject_imported['conference'] = conference_per_tag[tag_key]
             subjects_imported = self.get('subjects_imported', [])
             if subject_imported:

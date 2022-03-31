@@ -30,6 +30,7 @@ from flask_login import current_user
 from invenio_records_ui.signals import record_viewed
 
 from .api import Document, DocumentsSearch
+from .commons import SubjectFactory
 from .utils import create_authorized_access_point, \
     display_alternate_graphic_first, edition_format_text, get_remote_cover, \
     publication_statement_text, series_statement_format_text, \
@@ -718,29 +719,19 @@ def online_holdings(document_pid, viewcode='global'):
 
 
 @blueprint.app_template_filter()
-def subject_format(subject, language):
+def subject_format(subject_data, language):
     """Format the subject according to the available keys.
 
-    :param subject: the record subject.
+    :param subject_data: the record subject.
     :param language: current language on interface.
     """
-    for key in ['$ref', 'term', 'preferred_name', 'title']:
-        value = subject.get(key)
-        # key does not exists try the next one
-        if not value:
-            continue
-        # resolve $ref and retrieve the name in the given language
-        if key == '$ref':
-            sub, _ = Contribution.get_record_by_ref(value)
-            return sub._get_mef_localized_value(
-                'preferred_name', language)
-        # add the creator to the title
-        creator = subject.get('creator')
-        if key == 'title' and creator:
-            value = ' / '.join([value, creator])
-        # do nothing for term and preferred_name
-        if value:
-            return value
+    try:
+        return SubjectFactory \
+            .create_subject(subject_data) \
+            .render(language=language)
+    except (AttributeError, TypeError) as err:
+        # print(str(err))
+        return 'Subject parsing error !'
 
 
 @blueprint.app_template_filter()

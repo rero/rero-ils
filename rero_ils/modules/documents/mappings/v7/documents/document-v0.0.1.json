@@ -715,7 +715,8 @@
             "type": "keyword"
           },
           "preferred_name": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "facet_subjects"
           },
           "term": {
             "type": "text",
@@ -740,7 +741,8 @@
             }
           },
           "title": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "facet_subjects"
           },
           "creator": {
             "type": "text"
@@ -764,6 +766,22 @@
           },
           "source": {
             "type": "keyword"
+          },
+          "genreForm_subdivisions": {
+            "type": "keyword",
+            "copy_to": "facet_subjects"
+          },
+          "topic_subdivisions": {
+            "type": "keyword",
+            "copy_to": "facet_subjects"
+          },
+          "temporal_subdivisions": {
+            "type": "keyword",
+            "copy_to": "facet_subjects"
+          },
+          "place_subdivisions": {
+            "type": "keyword",
+            "copy_to": "facet_subjects"
           }
         }
       },
