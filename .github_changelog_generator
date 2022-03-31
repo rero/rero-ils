@@ -9,7 +9,7 @@ release-branch=staging
 # Limit issues fetched so as to not reach secondary API limit
 max-issues=300
 # Exclude labels from changelog
-exclude-labels=stale,duplicate,wontfix,translations
+exclude-labels=stale,duplicate,wontfix,translations,task
 
 bug-labels=bug,Bug,bug (critical),correction
 security-labels=dev: security
