@@ -591,7 +591,7 @@ def do_contribution(data, marc21, key, value):
                     place
                 ).lstrip('(').rstrip(')')
 
-        return agent_data
+        return agent_data or None
 
     # exclude work access points
     if key[:3] in ['700', '710'] and value.get('t'):
