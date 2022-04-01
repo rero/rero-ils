@@ -22,7 +22,7 @@ from datetime import datetime, timedelta, timezone
 import ciso8601
 import pytest
 from invenio_circulation.errors import CirculationException
-from utils import item_record_to_a_specific_loan_state
+from utils import flush_index, item_record_to_a_specific_loan_state
 
 from rero_ils.modules.circ_policies.api import CircPolicy
 from rero_ils.modules.errors import NoCirculationAction
@@ -31,6 +31,7 @@ from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.models import LoanAction, LoanState
 from rero_ils.modules.loans.utils import get_circ_policy
+from rero_ils.modules.patron_transactions.api import PatronTransactionsSearch
 from rero_ils.modules.patron_transactions.utils import \
     get_last_transaction_by_loan_pid
 from rero_ils.modules.utils import get_ref_for_pid
@@ -70,10 +71,6 @@ def test_fees_after_extend(
     checkout_cipo = checkout_cipo.update(
         checkout_cipo, dbcommit=True, reindex=True)
 
-    # the the end date to now
-    loan['end_date'] = datetime.now(timezone.utc).isoformat()
-    loan.update(loan, dbcommit=True, reindex=True)
-
     # UPDATE LOAN TO BE OVERDUE
     interval = 10
     while not loan.is_loan_overdue():
@@ -85,7 +82,6 @@ def test_fees_after_extend(
     # STEP#2 :: EXTEND THE LOAN FOR SAXON LIBRARY.
     #   The loan should use the new created circulation policy
     #   Update loan `end_date` to play with "extend" function without problem
-
     params = {
         'transaction_location_pid': loc_public_saxon.pid,
         'transaction_user_pid': librarian_martigny.pid
@@ -98,6 +94,7 @@ def test_fees_after_extend(
     assert loan.get('transaction_location_pid') == loc_public_saxon.pid
 
     # The patron should have fees.
+    flush_index(PatronTransactionsSearch.Meta.index)
     pttr = get_last_transaction_by_loan_pid(loan.pid)
     assert pttr.total_amount >= checkout_fee_amount
 
