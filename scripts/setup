@@ -352,7 +352,7 @@ then
     fi
 else
     info_msg "- Contributions from MEF: ${DOCUMENTS} ${CREATE_LAZY} ${ENQUEUE}"
-    eval ${PREFIX} invenio reroils fixtures get_all_mef_records ${DOCUMENTS} ${CREATE_LAZY} ${ENQUEUE}
+    eval ${PREFIX} invenio reroils fixtures get_all_mef_records ${DOCUMENTS} ${CREATE_LAZY} ${ENQUEUE} -v
 fi
 
 info_msg "- Documents: ${DOCUMENTS} ${CREATE_LAZY} ${DONT_STOP}"

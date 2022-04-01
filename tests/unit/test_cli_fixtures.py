@@ -62,7 +62,7 @@ def test_get_all_mef_records(mock_contributions_mef_get, app, script_info,
     runner = CliRunner()
     result = runner.invoke(
         get_all_mef_records,
-        [json_file_name],
+        [json_file_name, '-v'],
         obj=script_info
     )
     assert result.exit_code == 0

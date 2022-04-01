@@ -82,8 +82,7 @@ def marc21_to_title(self, key, value):
 @utils.ignore_value
 def marc21_to_contribution(self, key, value):
     """Get contribution."""
-    do_contribution(self, marc21, key, value)
-    return None
+    return do_contribution(self, marc21, key, value)
 
 
 @marc21.over('relation', '(770|772|775|776|777|780|785|787|533|534)..')
