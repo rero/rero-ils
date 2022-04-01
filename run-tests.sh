@@ -72,16 +72,16 @@ function pretests () {
   # | package                    | installed | affected                 | ID       |
   # +============================+===========+==========================+==========+
   # | wtforms                    | 2.3.3     | <3.0.0a1                 | 42852    |
-  # | werkzeug                   | 1.0.1     | <2.0.2                   | 42050    |
   # | sqlalchemy-utils           | 0.35.0    | >=0.27.0                 | 42194    |
   # | flask-security             | 3.0.0     | <3.1.0                   | 45183    |
   # | flask-security             | 3.0.0     | >0                       | 44501    |
   # | flask-caching              | 1.10.1    | <=1.10.1                 | 40459    |
+  # | click                      | 7.1.2     | <8.0.0                   | 47833    |
   # | celery                     | 5.1.2     | <5.2.0                   | 42498    |
   # | celery                     | 5.1.2     | <5.2.2                   | 43738    |
   # | click                      | 7.1.2     | <8.0.0                   | 47833    |
   # +==============================================================================+
-  safety check -i 42852 -i 42050 -i 42194 -i 45183 -i 44501 -i 40459 -i 42498 -i 43738 -i 47833
+  safety check -i 42852 -i 42194 -i 45183 -i 44501 -i 40459 -i 47833 -i 42498 -i 43738
   info_msg "Check json:"
   invenio reroils utils check_json tests/data rero_ils/modules data
   info_msg "Check license:"

@@ -46,7 +46,7 @@ description = "Disable App Nap on macOS >= 10.9"
 name = "appnope"
 optional = false
 python-versions = "*"
-version = "0.1.2"
+version = "0.1.3"
 
 [[package]]
 category = "main"
@@ -178,13 +178,16 @@ category = "main"
 description = "An easy safelist-based HTML-sanitizing tool."
 name = "bleach"
 optional = false
-python-versions = ">=3.6"
-version = "4.1.0"
+python-versions = ">=3.7"
+version = "5.0.0"
 
 [package.dependencies]
-packaging = "*"
 six = ">=1.9.0"
 webencodings = "*"
+
+[package.extras]
+css = ["tinycss2 (>=1.1.0)"]
+dev = ["pip-tools (6.5.1)", "pytest (7.1.1)", "flake8 (4.0.1)", "tox (3.24.5)", "sphinx (4.3.2)", "twine (4.0.0)", "wheel (0.37.1)", "hashin (0.17.0)", "black (22.3.0)", "mypy (0.942)"]
 
 [[package]]
 category = "main"
@@ -488,10 +491,10 @@ description = "Deep Difference and Search of any Python object/data."
 name = "deepdiff"
 optional = false
 python-versions = ">=3.6"
-version = "5.7.0"
+version = "5.8.0"
 
 [package.dependencies]
-ordered-set = "4.0.2"
+ordered-set = ">=4.1.0,<4.2.0"
 
 [package.extras]
 cli = ["click (8.0.3)", "pyyaml (5.4.1)", "toml (0.10.2)", "clevercsv (0.7.1)"]
@@ -528,19 +531,17 @@ wmi = ["wmi (>=1.5.1,<2.0.0)"]
 
 [[package]]
 category = "main"
-description = "Python module to ease the creation and management of external services."
+description = "\"Python module to ease the creation and management of external services.\""
 name = "docker-services-cli"
 optional = false
-python-versions = "*"
-version = "0.4.0"
+python-versions = ">=3.6"
+version = "0.4.1"
 
 [package.dependencies]
-click = ">=7.0,<8.0"
+click = ">=7.0"
 
 [package.extras]
-all = ["Sphinx (>=2.4)", "pytest-cov (>=2.10.1)", "check-manifest (>=0.42)", "pytest-isort (>=1.2.0)", "pytest-pycodestyle (>=2.2.0)", "pytest-pydocstyle (>=2.2.0)", "pytest (>=6,<7)"]
-docs = ["Sphinx (>=2.4)"]
-tests = ["pytest-cov (>=2.10.1)", "check-manifest (>=0.42)", "pytest-isort (>=1.2.0)", "pytest-pycodestyle (>=2.2.0)", "pytest-pydocstyle (>=2.2.0)", "pytest (>=6,<7)"]
+tests = ["check-manifest (>=0.42)", "pytest-cov (>=2.10.1)", "pytest-isort (>=1.2.0)", "pytest-pycodestyle (>=2.2.0)", "pytest-pydocstyle (>=2.2.0)", "pytest (>=6,<7)", "Sphinx (>=4.4.0,<5)"]
 
 [[package]]
 category = "main"
@@ -796,8 +797,8 @@ category = "dev"
 description = "A toolbar overlay for debugging Flask applications."
 name = "flask-debugtoolbar"
 optional = false
-python-versions = "*"
-version = "0.11.0"
+python-versions = ">=2.7"
+version = "0.13.1"
 
 [package.dependencies]
 Blinker = "*"
@@ -942,7 +943,7 @@ description = "Adds SQLAlchemy support to your Flask application."
 name = "flask-sqlalchemy"
 optional = false
 python-versions = ">= 2.7, != 3.0.*, != 3.1.*, != 3.2.*, != 3.3.*"
-version = "2.4.4"
+version = "2.5.1"
 
 [package.dependencies]
 Flask = ">=0.10"
@@ -1097,8 +1098,8 @@ category = "main"
 description = "Read resources from Python packages"
 name = "importlib-resources"
 optional = false
-python-versions = ">=3.6"
-version = "5.4.0"
+python-versions = ">=3.7"
+version = "5.7.0"
 
 [package.dependencies]
 [package.dependencies.zipp]
@@ -1106,8 +1107,8 @@ python = "<3.10"
 version = ">=3.1.0"
 
 [package.extras]
-docs = ["sphinx", "jaraco.packaging (>=8.2)", "rst.linker (>=1.9)"]
-testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-cov", "pytest-enabler (>=1.0.1)", "pytest-black (>=0.3.7)", "pytest-mypy"]
+docs = ["sphinx", "jaraco.packaging (>=9)", "rst.linker (>=1.9)"]
+testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-cov", "pytest-enabler (>=1.0.1)", "pytest-black (>=0.3.7)", "pytest-mypy (>=0.9.1)"]
 
 [[package]]
 category = "main"
@@ -1179,7 +1180,7 @@ optional = true
 version = ">=1.2.5,<1.3.0"
 
 [package.dependencies.invenio-db]
-extras = ["postgresql", "versioning"]
+extras = ["versioning", "postgresql"]
 optional = true
 version = ">=1.0.8,<1.1.0"
 
@@ -1327,24 +1328,21 @@ category = "main"
 description = "WSGI, Celery and CLI applications for Invenio flavours."
 name = "invenio-app"
 optional = false
-python-versions = "*"
-version = "1.3.3"
+python-versions = ">=3.6"
+version = "1.3.4"
 
 [package.dependencies]
-flask-celeryext = ">=0.3.4"
 flask-limiter = ">=1.0.1,<1.2.0"
 flask-shell-ipython = ">=0.3.1"
 flask-talisman = ">=0.3.2,<1.0"
-invenio-base = ">=1.2.3"
-invenio-cache = ">=1.0.0"
+invenio-cache = ">=1.1.0"
+invenio-celery = ">=1.2.4"
 invenio-config = ">=1.0.0"
 limits = ">=1.5.1,<2.0"
 uritools = ">=1.0.1"
 
 [package.extras]
-all = ["Sphinx (4.2.0)", "pytest-invenio (>=1.4.2)", "redis (>=2.10.5)"]
-docs = ["Sphinx (4.2.0)"]
-tests = ["pytest-invenio (>=1.4.2)", "redis (>=2.10.5)"]
+tests = ["pytest-invenio (>=1.4.7)", "sphinx (>=4.2.0,<5)"]
 
 [[package]]
 category = "main"
@@ -1371,11 +1369,11 @@ description = "\"Base package for building Invenio application factories.\""
 name = "invenio-base"
 optional = false
 python-versions = ">=3.6"
-version = "1.2.9"
+version = "1.2.11"
 
 [package.dependencies]
 Flask = ">=1.1.4,<3.0.0"
-MarkupSafe = ">=2.0"
+MarkupSafe = ">=0.23"
 Werkzeug = ">=1.0.1,<3.0"
 blinker = ">=1.4"
 importlib-metadata = ">=4.4"
@@ -1469,28 +1467,24 @@ tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "mock
 
 [[package]]
 category = "main"
-description = "Database management for Invenio."
+description = "\"Database management for Invenio.\""
 name = "invenio-db"
 optional = false
-python-versions = "*"
-version = "1.0.13"
+python-versions = ">=3.6"
+version = "1.0.14"
 
 [package.dependencies]
 Flask-Alembic = ">=2.0.1"
-Flask-SQLAlchemy = ">=2.1,<2.5.0"
-SQLAlchemy = ">=1.2.18,<1.4.0"
-SQLAlchemy-Utils = ">=0.33.1,<0.36"
-importlib-metadata = ">=4.4"
-importlib-resources = ">=5.0"
-invenio-base = ">=1.2.3"
+Flask-SQLAlchemy = ">=2.1,<3.0.0"
+SQLAlchemy = ">=1.2.18,<1.5.0"
+SQLAlchemy-Continuum = ">=1.3.12"
+SQLAlchemy-Utils = ">=0.33.1,<0.39"
+invenio-base = ">=1.2.10"
 
 [package.extras]
-all = ["Sphinx (4.2.0)", "pymysql (>=0.10.1)", "psycopg2-binary (>=2.8.6)", "SQLAlchemy-Continuum (>=1.3.11)", "pytest-invenio (>=1.4.0)", "cryptography (>=2.1.4)", "mock (>=4.0.0)"]
-docs = ["Sphinx (4.2.0)"]
 mysql = ["pymysql (>=0.10.1)"]
 postgresql = ["psycopg2-binary (>=2.8.6)"]
-tests = ["pytest-invenio (>=1.4.0)", "cryptography (>=2.1.4)", "mock (>=4.0.0)"]
-versioning = ["SQLAlchemy-Continuum (>=1.3.11)"]
+tests = ["cryptography (>=2.1.4)", "pytest-invenio (>=1.4.5)", "Sphinx (4.2.0)"]
 
 [[package]]
 category = "main"
@@ -1515,20 +1509,19 @@ tests = ["pytest-invenio (>=1.4.1,<1.5.0)", "mock (>=4.0.3)"]
 
 [[package]]
 category = "main"
-description = "Invenio internationalization module."
+description = "\"Invenio internationalization (I18N) module.\""
 name = "invenio-i18n"
 optional = false
-python-versions = "*"
-version = "1.3.1"
+python-versions = ">=3.7"
+version = "1.3.2"
 
 [package.dependencies]
+Babel = ">=2.8"
 Flask-BabelEx = ">=0.9.4"
-invenio-base = ">=1.2.4"
+invenio-base = ">=1.2.5"
 
 [package.extras]
-all = ["Sphinx (>=4.2.0)", "invenio-accounts (>=1.3.0)", "invenio-assets (>=1.2.0)", "invenio-db (>=1.0.8)", "pytest-invenio (>=1.4.0)"]
-docs = ["Sphinx (>=4.2.0)"]
-tests = ["invenio-accounts (>=1.3.0)", "invenio-assets (>=1.2.0)", "invenio-db (>=1.0.8)", "pytest-invenio (>=1.4.0)"]
+tests = ["invenio-accounts (>=1.3.0)", "invenio-assets (>=1.2.0)", "invenio-db (>=1.0.8)", "pytest-invenio (>=1.4.2)", "Sphinx (>=4.2.0)"]
 
 [[package]]
 category = "main"
@@ -1536,23 +1529,20 @@ description = "Record indexer for Invenio."
 name = "invenio-indexer"
 optional = false
 python-versions = "*"
-version = "1.2.1"
+version = "1.2.3"
 
 [package.dependencies]
-Flask = ">=0.11.1"
-Flask-CeleryExt = ">=0.3.0"
-invenio-pidstore = ">=1.0.0"
-invenio-records = ">=1.0.0"
+invenio-db = ">=1.0.14"
+invenio-pidstore = ">=1.2.0"
+invenio-records = ">=1.4.0"
 pytz = ">=2016.4"
 
 [package.extras]
-all = ["Sphinx (>=3)", "attrs (>=17.4.0)", "invenio-db (>=1.0.0)", "mock (>=1.3.0)", "pytest-invenio (>=1.3.2)", "redis (>=3.2.0)", "pytest-invenio (>=1.4.0)"]
-docs = ["Sphinx (>=3)"]
-elasticsearch2 = ["invenio-search (>=1.2.0)"]
-elasticsearch5 = ["invenio-search (>=1.2.0)"]
-elasticsearch6 = ["invenio-search (>=1.2.0)"]
-elasticsearch7 = ["invenio-search (>=1.2.0)"]
-tests = ["attrs (>=17.4.0)", "invenio-db (>=1.0.0)", "mock (>=1.3.0)", "pytest-invenio (>=1.3.2)", "redis (>=3.2.0)", "pytest-invenio (>=1.4.0)"]
+all = ["Sphinx (>=4.2.0,<5)", "attrs (>=17.4.0)", "pytest-invenio (>=1.4.6)", "redis (>=3.4.0)"]
+docs = ["Sphinx (>=4.2.0,<5)"]
+elasticsearch6 = ["invenio-search (>=1.4.0)"]
+elasticsearch7 = ["invenio-search (>=1.4.0)"]
+tests = ["attrs (>=17.4.0)", "pytest-invenio (>=1.4.6)", "redis (>=3.4.0)"]
 
 [[package]]
 category = "main"
@@ -1937,7 +1927,7 @@ description = "Invenio standard theme."
 name = "invenio-theme"
 optional = false
 python-versions = "*"
-version = "1.3.20"
+version = "1.3.21"
 
 [package.dependencies]
 Flask-Breadcrumbs = ">=0.4.0"
@@ -2137,7 +2127,7 @@ description = "Identify specific nodes in a JSON document (RFC 6901)"
 name = "jsonpointer"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "2.2"
+version = "2.3"
 
 [[package]]
 category = "main"
@@ -2422,11 +2412,14 @@ test = ["nose", "unittest2", "cryptography", "mock", "pyjwt (>=1.0.0)", "blinker
 
 [[package]]
 category = "main"
-description = "A set that remembers its order, and allows looking up its items by their index in that order."
+description = "An OrderedSet is a custom MutableSet that remembers its order, so that every"
 name = "ordered-set"
 optional = false
-python-versions = ">=3.5"
-version = "4.0.2"
+python-versions = ">=3.7"
+version = "4.1.0"
+
+[package.extras]
+dev = ["pytest", "black", "mypy"]
 
 [[package]]
 category = "main"
@@ -2546,7 +2539,7 @@ description = "Library for building powerful interactive command lines in Python
 name = "prompt-toolkit"
 optional = false
 python-versions = ">=3.6.2"
-version = "3.0.28"
+version = "3.0.29"
 
 [package.dependencies]
 wcwidth = "*"
@@ -2673,14 +2666,14 @@ tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "pydo
 
 [[package]]
 category = "main"
-description = "Python parsing module"
+description = "pyparsing module - Classes and methods to define and execute parsing grammars"
 name = "pyparsing"
 optional = false
-python-versions = ">=3.6"
-version = "3.0.7"
+python-versions = ">=3.6.8"
+version = "3.0.8"
 
 [package.extras]
-diagrams = ["jinja2", "railroad-diagrams"]
+diagrams = ["railroad-diagrams", "jinja2"]
 
 [[package]]
 category = "main"
@@ -2755,7 +2748,7 @@ description = "Pytest fixtures for Invenio."
 name = "pytest-invenio"
 optional = false
 python-versions = "*"
-version = "1.4.5"
+version = "1.4.7"
 
 [package.dependencies]
 check-manifest = ">=0.42"
@@ -2839,7 +2832,7 @@ description = "Read key-value pairs from a .env file and set them as environment
 name = "python-dotenv"
 optional = false
 python-versions = ">=3.5"
-version = "0.19.2"
+version = "0.20.0"
 
 [package.extras]
 cli = ["click (>=5.0)"]
@@ -2921,17 +2914,20 @@ description = "Python client for Redis database and key-value store"
 name = "redis"
 optional = false
 python-versions = ">=3.6"
-version = "4.2.0"
+version = "4.2.2"
 
 [package.dependencies]
 async-timeout = ">=4.0.2"
 deprecated = ">=1.2.3"
 packaging = ">=20.4"
-typing-extensions = "*"
 
 [package.dependencies.importlib-metadata]
 python = "<3.8"
 version = ">=1.0"
+
+[package.dependencies.typing-extensions]
+python = "<3.8"
+version = "*"
 
 [package.extras]
 hiredis = ["hiredis (>=1.0.0)"]
@@ -3029,7 +3025,7 @@ description = "Python client for Sentry (https://sentry.io)"
 name = "sentry-sdk"
 optional = false
 python-versions = "*"
-version = "1.5.8"
+version = "1.5.9"
 
 [package.dependencies]
 certifi = "*"
@@ -3041,7 +3037,7 @@ version = ">=1.1"
 
 [package.dependencies.flask]
 optional = true
-version = ">=0.11"
+version = ">=0.11,<2.1.0"
 
 [package.extras]
 aiohttp = ["aiohttp (>=3.5)"]
@@ -3051,7 +3047,7 @@ celery = ["celery (>=3)"]
 chalice = ["chalice (>=1.16.0)"]
 django = ["django (>=1.8)"]
 falcon = ["falcon (>=1.4)"]
-flask = ["flask (>=0.11)", "blinker (>=1.1)"]
+flask = ["flask (>=0.11,<2.1.0)", "blinker (>=1.1)"]
 httpx = ["httpx (>=0.16.0)"]
 pure_eval = ["pure-eval", "executing", "asttokens"]
 pyspark = ["pyspark (>=2.4.4)"]
@@ -3361,6 +3357,7 @@ wsproto = ">=0.14"
 [[package]]
 category = "main"
 description = "Backported and Experimental Type Hints for Python 3.6+"
+marker = "python_version < \"3.8\""
 name = "typing-extensions"
 optional = false
 python-versions = ">=3.6"
@@ -3381,7 +3378,7 @@ description = "tzinfo object for the local timezone"
 name = "tzlocal"
 optional = false
 python-versions = ">=3.6"
-version = "4.1"
+version = "4.2"
 
 [package.dependencies]
 pytz-deprecation-shim = "*"
@@ -3613,11 +3610,11 @@ description = "Backport of pathlib-compatible object wrapper for zip files"
 name = "zipp"
 optional = false
 python-versions = ">=3.7"
-version = "3.7.0"
+version = "3.8.0"
 
 [package.extras]
-docs = ["sphinx", "jaraco.packaging (>=8.2)", "rst.linker (>=1.9)"]
-testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-cov", "pytest-enabler (>=1.0.1)", "jaraco.itertools", "func-timeout", "pytest-black (>=0.3.7)", "pytest-mypy"]
+docs = ["sphinx", "jaraco.packaging (>=9)", "rst.linker (>=1.9)"]
+testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-cov", "pytest-enabler (>=1.0.1)", "jaraco.itertools", "func-timeout", "pytest-black (>=0.3.7)", "pytest-mypy (>=0.9.1)"]
 
 [extras]
 sip2 = ["invenio-sip2"]
@@ -3641,8 +3638,8 @@ amqp = [
     {file = "amqp-5.1.0.tar.gz", hash = "sha256:446b3e8a8ebc2ceafd424ffcaab1c353830d48161256578ed7a65448e601ebed"},
 ]
 appnope = [
-    {file = "appnope-0.1.2-py2.py3-none-any.whl", hash = "sha256:93aa393e9d6c54c5cd570ccadd8edad61ea0c4b9ea7a01409020c9aa019eb442"},
-    {file = "appnope-0.1.2.tar.gz", hash = "sha256:dd83cd4b5b460958838f6eb3000c660b1f9caf2a5b1de4264e941512f603258a"},
+    {file = "appnope-0.1.3-py2.py3-none-any.whl", hash = "sha256:265a455292d0bd8a72453494fa24df5a11eb18373a60c7c0430889f22548605e"},
+    {file = "appnope-0.1.3.tar.gz", hash = "sha256:02bd91c4de869fbb1e1c50aafc4098827a7a54ab2f39d9dcba6c9547ed920e24"},
 ]
 arrow = [
     {file = "arrow-1.2.2-py3-none-any.whl", hash = "sha256:d622c46ca681b5b3e3574fcb60a04e5cc81b9625112d5fb2b44220c36c892177"},
@@ -3702,8 +3699,8 @@ billiard = [
     {file = "billiard-3.6.4.0.tar.gz", hash = "sha256:299de5a8da28a783d51b197d496bef4f1595dd023a93a4f59dde1886ae905547"},
 ]
 bleach = [
-    {file = "bleach-4.1.0-py2.py3-none-any.whl", hash = "sha256:4d2651ab93271d1129ac9cbc679f524565cc8a1b791909c4a51eac4446a15994"},
-    {file = "bleach-4.1.0.tar.gz", hash = "sha256:0900d8b37eba61a802ee40ac0061f8c2b5dee29c1927dd1d233e075ebf5a71da"},
+    {file = "bleach-5.0.0-py3-none-any.whl", hash = "sha256:08a1fe86d253b5c88c92cc3d810fd8048a16d15762e1e5b74d502256e5926aa1"},
+    {file = "bleach-5.0.0.tar.gz", hash = "sha256:c6d6cc054bdc9c83b48b8083e236e5f00f238428666d2ce2e083eaa5fd568565"},
 ]
 blinker = [
     {file = "blinker-1.4.tar.gz", hash = "sha256:471aee25f3992bd325afa3772f1063dbdbbca947a041b8b89466dc00d606f8b6"},
@@ -3904,8 +3901,8 @@ decorator = [
     {file = "decorator-5.1.1.tar.gz", hash = "sha256:637996211036b6385ef91435e4fae22989472f9d571faba8927ba8253acbc330"},
 ]
 deepdiff = [
-    {file = "deepdiff-5.7.0-py3-none-any.whl", hash = "sha256:1ffb38c3b5d9174eb2df95850c93aee55ec00e19396925036a2e680f725079e0"},
-    {file = "deepdiff-5.7.0.tar.gz", hash = "sha256:838766484e323dcd9dec6955926a893a83767dc3f3f94542773e6aa096efe5d4"},
+    {file = "deepdiff-5.8.0-py3-none-any.whl", hash = "sha256:6b71714a6a5fb4cd6ab74c97f53303029118f96128082422342a9129a5f25c8f"},
+    {file = "deepdiff-5.8.0.tar.gz", hash = "sha256:7e641c0cd6429c9e1b64a07b8f7713382a5626afe18c72bcafa8a4343c05c701"},
 ]
 deprecated = [
     {file = "Deprecated-1.2.13-py2.py3-none-any.whl", hash = "sha256:64756e3e14c8c5eea9795d93c524551432a0be75629f8f29e67ab8caf076c76d"},
@@ -3916,8 +3913,8 @@ dnspython = [
     {file = "dnspython-2.2.1.tar.gz", hash = "sha256:0f7569a4a6ff151958b64304071d370daa3243d15941a7beedf0c9fe5105603e"},
 ]
 docker-services-cli = [
-    {file = "Docker-Services-CLI-0.4.0.tar.gz", hash = "sha256:c732be89984858014e683c88ed3d26c8f813aa47ba1dca75a3cf2f05221a50f9"},
-    {file = "Docker_Services_CLI-0.4.0-py2.py3-none-any.whl", hash = "sha256:7657f01444d7fe72cfde95d82261eef1b3ea93fad65b4617731b129281a952d3"},
+    {file = "Docker-Services-CLI-0.4.1.tar.gz", hash = "sha256:fbb1a9fe004b4ad569f269de89fe54e73ab0ec59976922f5911feb5981b7ce05"},
+    {file = "Docker_Services_CLI-0.4.1-py2.py3-none-any.whl", hash = "sha256:60730b2272be68f8c31813782320cd9b7f2a5008d0e1bf7f7ee06e47ea1083f7"},
 ]
 docopt = [
     {file = "docopt-0.6.2.tar.gz", hash = "sha256:49b3a825280bd66b3aa83585ef59c4a8c82f2c8a522dbe754a8bc8d08c85c491"},
@@ -3986,8 +3983,8 @@ flask-cors = [
     {file = "Flask_Cors-3.0.10-py2.py3-none-any.whl", hash = "sha256:74efc975af1194fc7891ff5cd85b0f7478be4f7f59fe158102e91abb72bb4438"},
 ]
 flask-debugtoolbar = [
-    {file = "Flask-DebugToolbar-0.11.0.tar.gz", hash = "sha256:3c4e79d354ede014e6657c545a536d4fb273cc89e3fd6b4835b02e346dd3aab4"},
-    {file = "Flask_DebugToolbar-0.11.0-py2.py3-none-any.whl", hash = "sha256:0e9a80d4c599233c68376e81cc99976200b5ac5248cfb24f18935cc5b69ac5b3"},
+    {file = "Flask-DebugToolbar-0.13.1.tar.gz", hash = "sha256:0c26aa013a9813b8886857bf0ec24d28ab494114a264baf06c951cadc4dd0dae"},
+    {file = "Flask_DebugToolbar-0.13.1-py3-none-any.whl", hash = "sha256:491c737f321830c06a2835784acf1fc8488fd257a0ef318810b3b6bed5f600d5"},
 ]
 flask-kvsession-invenio = [
     {file = "Flask-KVSession-Invenio-0.6.3.tar.gz", hash = "sha256:fe24405403fff9e3ab2c5a34d93362d63ada4c9e5e7afab850ea4f80efb92a85"},
@@ -4023,8 +4020,8 @@ flask-shell-ipython = [
     {file = "flask_shell_ipython-0.4.1-py2.py3-none-any.whl", hash = "sha256:f212b4fad6831edf652799c719cd05fd0716edfaa5506eb41ff9ef09109890d3"},
 ]
 flask-sqlalchemy = [
-    {file = "Flask-SQLAlchemy-2.4.4.tar.gz", hash = "sha256:bfc7150eaf809b1c283879302f04c42791136060c6eeb12c0c6674fb1291fae5"},
-    {file = "Flask_SQLAlchemy-2.4.4-py2.py3-none-any.whl", hash = "sha256:05b31d2034dd3f2a685cbbae4cfc4ed906b2a733cff7964ada450fd5e462b84e"},
+    {file = "Flask-SQLAlchemy-2.5.1.tar.gz", hash = "sha256:2bda44b43e7cacb15d4e05ff3cc1f8bc97936cc464623424102bfc2c35e95912"},
+    {file = "Flask_SQLAlchemy-2.5.1-py2.py3-none-any.whl", hash = "sha256:f12c3d4cc5cc7fdcc148b9527ea05671718c3ea45d50c7e732cceb33f574b390"},
 ]
 flask-talisman = [
     {file = "flask-talisman-0.8.1.tar.gz", hash = "sha256:5d502ec0c51bf1755a797b8cffbe4e94f8684af712ba0b56f3d80b79277ef285"},
@@ -4067,8 +4064,8 @@ importlib-metadata = [
     {file = "importlib_metadata-4.11.3.tar.gz", hash = "sha256:ea4c597ebf37142f827b8f39299579e31685c31d3a438b59f469406afd0f2539"},
 ]
 importlib-resources = [
-    {file = "importlib_resources-5.4.0-py3-none-any.whl", hash = "sha256:33a95faed5fc19b4bc16b29a6eeae248a3fe69dd55d4d229d2b480e23eeaad45"},
-    {file = "importlib_resources-5.4.0.tar.gz", hash = "sha256:d756e2f85dd4de2ba89be0b21dba2a3bbec2e871a42a3a16719258a11f87506b"},
+    {file = "importlib_resources-5.7.0-py3-none-any.whl", hash = "sha256:9c4c12f9ef4329a00c1f72f30bddb4f10e582766b8705980bb76356b3ba8bc91"},
+    {file = "importlib_resources-5.7.0.tar.gz", hash = "sha256:f6a4a9949f36ae289facec8dac1a899a54cbaf6a135cc8552d2c8b69209c06a3"},
 ]
 infinity = [
     {file = "infinity-1.5.tar.gz", hash = "sha256:8daa7c15ce2100fdccfde212337e0cd5cf085869f54dc2634b6c30d61461ecda"},
@@ -4098,16 +4095,16 @@ invenio-admin = [
     {file = "invenio_admin-1.3.2-py2.py3-none-any.whl", hash = "sha256:d4bd634d7c12d567429fdba9eecdf6202e9a8da7abfee3da311aee43ec9f0f2c"},
 ]
 invenio-app = [
-    {file = "invenio-app-1.3.3.tar.gz", hash = "sha256:3e811dcc5f873ae63e2ea6be7086d118d3732a83847c4783f63076678278d776"},
-    {file = "invenio_app-1.3.3-py2.py3-none-any.whl", hash = "sha256:0bca343edf807896a47bd0f8e3bc61cd7f6b381f6cd720a2b6547e0d11c32853"},
+    {file = "invenio-app-1.3.4.tar.gz", hash = "sha256:4c839a949bb647e949b92322adb9756879b44f3d64744f7201bcd46909f24ede"},
+    {file = "invenio_app-1.3.4-py2.py3-none-any.whl", hash = "sha256:a903e8dc5bfbaee9091f5ff2b3aa0f6e1e58b4766656eff7aef6f0a79f164532"},
 ]
 invenio-assets = [
     {file = "invenio-assets-1.2.7.tar.gz", hash = "sha256:2d1f49136a5705e7521686b642e03ba7d44703288d496ec93312fe887a5daeeb"},
     {file = "invenio_assets-1.2.7-py2.py3-none-any.whl", hash = "sha256:1ba8d88ad740375996086bb0096def3cff86bdaf3567368c8d86f45e1d4cd218"},
 ]
 invenio-base = [
-    {file = "invenio-base-1.2.9.tar.gz", hash = "sha256:b541faec0cb6313e7a87065ceb10b3fd7ceb393d76a55ab761cf0b55af7c3161"},
-    {file = "invenio_base-1.2.9-py2.py3-none-any.whl", hash = "sha256:adfd5b5c9b14ef618ccf32e9dcd4ce154fbee8723009da24bd78bd9bcd1ee97f"},
+    {file = "invenio-base-1.2.11.tar.gz", hash = "sha256:425d89fb6bd2a9094eca0c7acfabe9ff07860635ff935a7be42d6434eec54d4d"},
+    {file = "invenio_base-1.2.11-py2.py3-none-any.whl", hash = "sha256:f575422a542a3024b938a5759415f18f302c48e03e2211dc310d25bcdb7c2d76"},
 ]
 invenio-cache = [
     {file = "invenio-cache-1.1.0.tar.gz", hash = "sha256:1212a83f98fbe29a936587f7c5b2f838f7f934b0b2a9d9a993e377e5a8ab0cf5"},
@@ -4126,20 +4123,20 @@ invenio-config = [
     {file = "invenio_config-1.0.3-py2.py3-none-any.whl", hash = "sha256:238ab074991e7f0d6ee7ebc6eb2f5e41658749dd977ab6e86476e862c0efaf28"},
 ]
 invenio-db = [
-    {file = "invenio-db-1.0.13.tar.gz", hash = "sha256:e77d0d4f8d16461ebe35ed9376e47d583243bb0a3519f37bf1a7826b545675f8"},
-    {file = "invenio_db-1.0.13-py2.py3-none-any.whl", hash = "sha256:9db8599d9f40c540c020cfd749192482a30baacd7d6ca351c3ff5f452fc749de"},
+    {file = "invenio-db-1.0.14.tar.gz", hash = "sha256:40b2f4f2a4f080c802fad9c4ede1b04eb5d0db7a89d842a9816c0a29e8f4f846"},
+    {file = "invenio_db-1.0.14-py2.py3-none-any.whl", hash = "sha256:11276056623d049c362858c48dbafde0b3402eff8a1b18289c4c49d7abd7f4bf"},
 ]
 invenio-formatter = [
     {file = "invenio-formatter-1.1.3.tar.gz", hash = "sha256:5912ce6c73da894b120f41acebd7d5866fab8274dc37ab265647770bf54b1465"},
     {file = "invenio_formatter-1.1.3-py2.py3-none-any.whl", hash = "sha256:b73af2d04d75469608adbb4e757af23feac1376d6007456d751a9958826660b1"},
 ]
 invenio-i18n = [
-    {file = "invenio-i18n-1.3.1.tar.gz", hash = "sha256:02534002f3bf63706a4c3d3b15c32ce4cce0c341217d4204c7c29486fabece22"},
-    {file = "invenio_i18n-1.3.1-py2.py3-none-any.whl", hash = "sha256:67b22098900f4fa79a4db47cd189d3fb993223c26e560fd1c87f69b7cc2c5bc8"},
+    {file = "invenio-i18n-1.3.2.tar.gz", hash = "sha256:7e04c7b17fda9202f916a0f5a86e90b505730834f93b92cf02f72d8e034bebea"},
+    {file = "invenio_i18n-1.3.2-py2.py3-none-any.whl", hash = "sha256:4e1bbd76202a693dab08798ffabc7a3086898fc0595faa453515d5d5144c2160"},
 ]
 invenio-indexer = [
-    {file = "invenio-indexer-1.2.1.tar.gz", hash = "sha256:7dc350c5dd607984082a80553407516ba817e3c3dd26a864507d23a83f3fcf94"},
-    {file = "invenio_indexer-1.2.1-py2.py3-none-any.whl", hash = "sha256:a7b9d3de1269d81f2d8be4b5d1f19748e9f560f6489800dcf2999eaa00d413dc"},
+    {file = "invenio-indexer-1.2.3.tar.gz", hash = "sha256:85d83b13a8c8049d7252300dd5e35f505afe49ead30abfa553d17df957bc13f1"},
+    {file = "invenio_indexer-1.2.3-py2.py3-none-any.whl", hash = "sha256:dd1d30287c33880a05034cd36b83ea6c581bdab62eb92609fdbbf6999cecb4cd"},
 ]
 invenio-jsonschemas = [
     {file = "invenio-jsonschemas-1.1.4.tar.gz", hash = "sha256:99e406e1032812cabbd6c033645eb16739b275b91e8108061a4e98a896572d26"},
@@ -4192,8 +4189,8 @@ invenio-search = [
 ]
 invenio-sip2 = []
 invenio-theme = [
-    {file = "invenio-theme-1.3.20.tar.gz", hash = "sha256:b3895108905b2ded88fb07c4b5b8ceb690cb3b33428f192b8d1ee38e4101f82d"},
-    {file = "invenio_theme-1.3.20-py2.py3-none-any.whl", hash = "sha256:a5a0b09f48b11a224022aa84b1dc8a66a936320bb68d8461512f2e09237ef15d"},
+    {file = "invenio-theme-1.3.21.tar.gz", hash = "sha256:1cf89546776fff13fbbc1214746638204fc289d700a17a3d4c3423e3df3e7972"},
+    {file = "invenio_theme-1.3.21-py2.py3-none-any.whl", hash = "sha256:96badd71a578434e9263f6a9fc50948b6775bd72245ee8f4515042f5af7aef0e"},
 ]
 invenio-userprofiles = []
 ipython = [
@@ -4238,8 +4235,8 @@ jsonpickle = [
     {file = "jsonpickle-2.1.0.tar.gz", hash = "sha256:84684cfc5338a534173c8dd69809e40f2865d0be1f8a2b7af8465e5b968dcfa9"},
 ]
 jsonpointer = [
-    {file = "jsonpointer-2.2-py2.py3-none-any.whl", hash = "sha256:26d9a47a72d4dc3e3ae72c4c6cd432afd73c680164cd2540772eab53cb3823b6"},
-    {file = "jsonpointer-2.2.tar.gz", hash = "sha256:f09f8deecaaa5aea65b5eb4f67ca4e54e1a61f7a11c75085e360fe6feb6a48bf"},
+    {file = "jsonpointer-2.3-py2.py3-none-any.whl", hash = "sha256:51801e558539b4e9cd268638c078c6c5746c9ac96bc38152d443400e4f3793e9"},
+    {file = "jsonpointer-2.3.tar.gz", hash = "sha256:97cba51526c829282218feb99dab1b1e6bdf8efd1c43dc9d57be093c0d69c99a"},
 ]
 jsonref = [
     {file = "jsonref-0.2-py3-none-any.whl", hash = "sha256:b1e82fa0b62e2c2796a13e5401fe51790b248f6d9bf9d7212a3e31a3501b291f"},
@@ -4477,7 +4474,8 @@ oauthlib = [
     {file = "oauthlib-2.1.0.tar.gz", hash = "sha256:ac35665a61c1685c56336bda97d5eefa246f1202618a1d6f34fccb1bdd404162"},
 ]
 ordered-set = [
-    {file = "ordered-set-4.0.2.tar.gz", hash = "sha256:ba93b2df055bca202116ec44b9bead3df33ea63a7d5827ff8e16738b97f33a95"},
+    {file = "ordered-set-4.1.0.tar.gz", hash = "sha256:694a8e44c87657c59292ede72891eb91d34131f6531463aab3009191c77364a8"},
+    {file = "ordered_set-4.1.0-py3-none-any.whl", hash = "sha256:046e1132c71fcf3330438a539928932caf51ddbc582496833e23de611de14562"},
 ]
 outcome = [
     {file = "outcome-1.1.0-py2.py3-none-any.whl", hash = "sha256:c7dd9375cfd3c12db9801d080a3b63d4b0a261aa996c4c13152380587288d958"},
@@ -4516,8 +4514,8 @@ polib = [
     {file = "polib-1.1.1.tar.gz", hash = "sha256:e02c355ae5e054912e3b0d16febc56510eff7e49d60bf22aecb463bd2f2a2dfa"},
 ]
 prompt-toolkit = [
-    {file = "prompt_toolkit-3.0.28-py3-none-any.whl", hash = "sha256:30129d870dcb0b3b6a53efdc9d0a83ea96162ffd28ffe077e94215b233dc670c"},
-    {file = "prompt_toolkit-3.0.28.tar.gz", hash = "sha256:9f1cd16b1e86c2968f2519d7fb31dd9d669916f515612c269d14e9ed52b51650"},
+    {file = "prompt_toolkit-3.0.29-py3-none-any.whl", hash = "sha256:62291dad495e665fca0bda814e342c69952086afb0f4094d0893d357e5c78752"},
+    {file = "prompt_toolkit-3.0.29.tar.gz", hash = "sha256:bd640f60e8cecd74f0dc249713d433ace2ddc62b65ee07f96d358e0b152b6ea7"},
 ]
 psutil = [
     {file = "psutil-5.9.0-cp27-cp27m-manylinux2010_i686.whl", hash = "sha256:55ce319452e3d139e25d6c3f85a1acf12d1607ddedea5e35fb47a552c051161b"},
@@ -4651,8 +4649,8 @@ pynpm = [
     {file = "pynpm-0.1.2.tar.gz", hash = "sha256:8a6d3f9423760cf3c142db3bf9bda5a075e8a91837e7d2e2b0a3de5be5e26da2"},
 ]
 pyparsing = [
-    {file = "pyparsing-3.0.7-py3-none-any.whl", hash = "sha256:a6c06a88f252e6c322f65faf8f418b16213b51bdfaece0524c1c1bc30c63c484"},
-    {file = "pyparsing-3.0.7.tar.gz", hash = "sha256:18ee9022775d270c55187733956460083db60b37d0d0fb357445f3094eed3eea"},
+    {file = "pyparsing-3.0.8-py3-none-any.whl", hash = "sha256:ef7b523f6356f763771559412c0d7134753f037822dad1b16945b7b846f7ad06"},
+    {file = "pyparsing-3.0.8.tar.gz", hash = "sha256:7bf433498c016c4314268d95df76c81b842a4cb2b276fa3312cfb1e1d85f6954"},
 ]
 pyrsistent = [
     {file = "pyrsistent-0.18.1-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:df46c854f490f81210870e509818b729db4488e1f30f2a1ce1698b2295a878d1"},
@@ -4690,8 +4688,8 @@ pytest-flask = [
     {file = "pytest_flask-1.2.0-py3-none-any.whl", hash = "sha256:fe25b39ad0db09c3d1fe728edecf97ced85e774c775db259a6d25f0270a4e7c9"},
 ]
 pytest-invenio = [
-    {file = "pytest-invenio-1.4.5.tar.gz", hash = "sha256:dffeb40f809c53c534d2b4a1df5cc71ea311090a54cc9a0409ae8c231b7706ff"},
-    {file = "pytest_invenio-1.4.5-py2.py3-none-any.whl", hash = "sha256:6ed5160e7d9ba19438464144d820d930b30f88caff07e58c42f50e9c0c13ea01"},
+    {file = "pytest-invenio-1.4.7.tar.gz", hash = "sha256:986c7dcb862799abbeff7ec85e3c05ca90bb19338a0bd7a3b26d3d7c571ee099"},
+    {file = "pytest_invenio-1.4.7-py2.py3-none-any.whl", hash = "sha256:f27dd50d2ccdf31cad44034eb14c7a58343618e1a53b2b9a5785261990bd265f"},
 ]
 pytest-isort = [
     {file = "pytest-isort-3.0.0.tar.gz", hash = "sha256:4fe4b26ead2af776730ec23f5870d7421f35aace22a41c4e938586ef4d8787cb"},
@@ -4708,8 +4706,8 @@ python-dateutil = [
     {file = "python_dateutil-2.8.2-py2.py3-none-any.whl", hash = "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"},
 ]
 python-dotenv = [
-    {file = "python-dotenv-0.19.2.tar.gz", hash = "sha256:a5de49a31e953b45ff2d2fd434bbc2670e8db5273606c1e737cc6b93eff3655f"},
-    {file = "python_dotenv-0.19.2-py2.py3-none-any.whl", hash = "sha256:32b2bdc1873fd3a3c346da1c6db83d0053c3c62f28f1f38516070c4c8971b1d3"},
+    {file = "python-dotenv-0.20.0.tar.gz", hash = "sha256:b7e3b04a59693c42c36f9ab1cc2acc46fa5df8c78e178fc33a8d4cd05c8d498f"},
+    {file = "python_dotenv-0.20.0-py3-none-any.whl", hash = "sha256:d92a187be61fe482e4fd675b6d52200e7be63a12b724abbf931a40ce4fa92938"},
 ]
 pytz = [
     {file = "pytz-2022.1-py2.py3-none-any.whl", hash = "sha256:e68985985296d9a66a881eb3193b0906246245294a881e7c8afe623866ac6a5c"},
@@ -4763,8 +4761,8 @@ raven = [
     {file = "raven-6.10.0.tar.gz", hash = "sha256:3fa6de6efa2493a7c827472e984ce9b020797d0da16f1db67197bcc23c8fae54"},
 ]
 redis = [
-    {file = "redis-4.2.0-py3-none-any.whl", hash = "sha256:3cbe235cea80b9c9991b397567aa2d65eb4e6fb09787f61d227ae82eb4eb50b4"},
-    {file = "redis-4.2.0.tar.gz", hash = "sha256:6758d01dec81af191b98a35cce3402675d115456584c39b500ab485a5e386bbb"},
+    {file = "redis-4.2.2-py3-none-any.whl", hash = "sha256:4e95f4ec5f49e636efcf20061a5a9110c20852f607cfca6865c07aaa8a739ee2"},
+    {file = "redis-4.2.2.tar.gz", hash = "sha256:0107dc8e98a4f1d1d4aa00100e044287f77121a1e6d2085545c4b7fa94a7a27f"},
 ]
 redisbeat = [
     {file = "redisbeat-1.2.2.tar.gz", hash = "sha256:59b7e9984cb9cde9eaea21093ca2b953f83995a64b6c240e4c36f1b2e9ed1e38"},
@@ -4862,8 +4860,8 @@ selenium = [
     {file = "selenium-4.1.3-py3-none-any.whl", hash = "sha256:14d28a628c831c105d38305c881c9c7847199bfd728ec84240c5e86fa1c9bd5a"},
 ]
 sentry-sdk = [
-    {file = "sentry-sdk-1.5.8.tar.gz", hash = "sha256:38fd16a92b5ef94203db3ece10e03bdaa291481dd7e00e77a148aa0302267d47"},
-    {file = "sentry_sdk-1.5.8-py2.py3-none-any.whl", hash = "sha256:32af1a57954576709242beb8c373b3dbde346ac6bd616921def29d68846fb8c3"},
+    {file = "sentry-sdk-1.5.9.tar.gz", hash = "sha256:afd9f92711556739172f3bc845a02fc921ca1560bee974ae65072ef6a30e3921"},
+    {file = "sentry_sdk-1.5.9-py2.py3-none-any.whl", hash = "sha256:02c0f79941964297341c14d53e4df09a81c949707bd91e2d5e66b565aad75c8b"},
 ]
 sickle = [
     {file = "Sickle-0.7.0-py3-none-any.whl", hash = "sha256:6ace7b1d1fc76571fe0dbfefc2c49e5e6c026e2d0dcaae521f4da21e98d4bc85"},
@@ -5056,8 +5054,8 @@ tzdata = [
     {file = "tzdata-2022.1.tar.gz", hash = "sha256:8b536a8ec63dc0751342b3984193a3118f8fca2afe25752bb9b7fffd398552d3"},
 ]
 tzlocal = [
-    {file = "tzlocal-4.1-py3-none-any.whl", hash = "sha256:28ba8d9fcb6c9a782d6e0078b4f6627af1ea26aeaa32b4eab5324abc7df4149f"},
-    {file = "tzlocal-4.1.tar.gz", hash = "sha256:0f28015ac68a5c067210400a9197fc5d36ba9bc3f8eaf1da3cbd59acdfed9e09"},
+    {file = "tzlocal-4.2-py3-none-any.whl", hash = "sha256:89885494684c929d9191c57aa27502afc87a579be5cdd3225c77c463ea043745"},
+    {file = "tzlocal-4.2.tar.gz", hash = "sha256:ee5842fa3a795f023514ac2d801c4a81d1743bbe642e3940143326b3a00addd7"},
 ]
 ua-parser = [
     {file = "ua-parser-0.10.0.tar.gz", hash = "sha256:47b1782ed130d890018d983fac37c2a80799d9e0b9c532e734c67cf70f185033"},
@@ -5192,6 +5190,6 @@ xmltodict = [
     {file = "xmltodict-0.12.0.tar.gz", hash = "sha256:50d8c638ed7ecb88d90561beedbf720c9b4e851a9fa6c47ebd64e99d166d8a21"},
 ]
 zipp = [
-    {file = "zipp-3.7.0-py3-none-any.whl", hash = "sha256:b47250dd24f92b7dd6a0a8fc5244da14608f3ca90a5efcd37a3b1642fac9a375"},
-    {file = "zipp-3.7.0.tar.gz", hash = "sha256:9f50f446828eb9d45b267433fd3e9da8d801f614129124863f9c51ebceafb87d"},
+    {file = "zipp-3.8.0-py3-none-any.whl", hash = "sha256:c4f6e5bbf48e74f7a38e7cc5b0480ff42b0ae5178957d564d18932525d5cf099"},
+    {file = "zipp-3.8.0.tar.gz", hash = "sha256:56bf8aadb83c24db6c4b577e13de374ccfb67da2078beba1d037c17980bf43ad"},
 ]
