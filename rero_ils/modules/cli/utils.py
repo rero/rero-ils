@@ -1020,7 +1020,7 @@ def marc21json(xml_file, json_file_ok, xml_file_error, parallel, chunk,
         click.secho(str(count_ko))
 
 
-@utils.command('extract_from_xml')
+@utils.command()
 @click.argument('pid_file', type=click.File('r'))
 @click.argument('xml_file_in', type=click.File('r'))
 @click.argument('xml_file_out', type=click.File('wb'))
@@ -1046,16 +1046,14 @@ def extract_from_xml(pid_file, xml_file_in, xml_file_out, tag, progress,
         b'<collection xmlns="http://www.loc.gov/MARC21/slim">\n\n'
     )
     found = 0
-    for idx, xml in enumerate(read_xml_record(xml_file_in)):
+    for idx, xml in enumerate(read_xml_record(xml_file_in), 1):
         for child in xml:
             is_controlfield = child.tag == 'controlfield'
             is_tag = child.get('tag') == tag
             if is_controlfield and is_tag:
                 if progress:
                     click.secho(
-                        f'{idx} {repr(child.text)}',
-                        nl='\r'
-                    )
+                        f'{idx:>10} {repr(child.text):>20}\r', nl=False)
                 if pids.get(child.text, -1) >= 0:
                     found += 1
                     pids[child.text] += 1
@@ -1071,6 +1069,46 @@ def extract_from_xml(pid_file, xml_file_in, xml_file_out, tag, progress,
                         click.secho(f'Found: {child.text} on position: {idx}')
                     break
     xml_file_out.write(b'\n</collection>')
+    if count != found:
+        click.secho(f'Count: {count} Found: {found}', fg='red')
+        for key, value in pids.items():
+            if value == 0:
+                click.secho(key)
+
+
+@utils.command()
+@click.argument('pid_file', type=click.File('r'))
+@click.argument('json_file_in', type=click.File('r'))
+@click.argument('json_file_out')
+@click.option('-t', '--tag', 'tag', default='pid')
+@click.option('-p', '--progress', 'progress', is_flag=True, default=False)
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+def extract_from_json(pid_file, json_file_in, json_file_out, tag, progress,
+                      verbose):
+    """Extracts json records with pids."""
+    click.secho('Extract pids from json: ', fg='green')
+    click.secho(f'PID file     : {pid_file.name}')
+    click.secho(f'JSON file in : {json_file_in.name}')
+    click.secho(f'JSON file out: {json_file_out}')
+
+    pids = {}
+    found_pids = {}
+    for line in pid_file:
+        pids[line.strip()] = 0
+    count = len(pids)
+    click.secho(f'Search pids count: {count}')
+    out = JsonWriter(json_file_out)
+    found = 0
+    for idx, data in enumerate(read_json_record(json_file_in), 1):
+        pid = data.get(tag)
+        if progress:
+            click.secho(f'{idx:>10} {pid:>20}\r', nl=False)
+        if pid in pids:
+            found += 1
+            pids[pid] += 1
+            out.write(data)
+            if verbose:
+                click.secho(f'Found: {pid} on position: {idx}')
     if count != found:
         click.secho(f'Count: {count} Found: {found}', fg='red')
         for key, value in pids.items():
