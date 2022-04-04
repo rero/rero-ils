@@ -1,4 +1,4 @@
-Réservation{%- if loans[0].in_transit %} (avec transit){%- endif %}
+Exemplaire au bureau de prêt
 
 {% for loan in loans -%}
 Date: {{ loan.creation_date }}
@@ -12,5 +12,6 @@ Cote: {{ loan.document.call_numbers | join(' | ') }}
 Lieu de retrait: {{ loan.pickup_name }}
 Lecteur: {{ loan.patron.first_name }} {{ loan.patron.last_name }}
 {%- if loan.patron.barcode %} - {{ loan.patron.barcode | join(', ') }}{%- endif %}
+Expiration de la demande: {{ loan.request_expire_date }}
 
 {% endfor %}

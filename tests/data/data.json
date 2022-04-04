@@ -151,6 +151,10 @@
         "delay": 0
       },
       {
+        "type": "at_desk",
+        "email": "reroilstest+martigny+atdesk@gmail.com"
+      },
+      {
         "type": "request",
         "email": "reroilstest+martigny+request@gmail.com"
       },
@@ -563,6 +567,10 @@
         "delay": 5
       },
       {
+        "type": "at_desk",
+        "email": "reroilstest+sion+atdesk@gmail.com"
+      },
+      {
         "type": "due_soon",
         "email": "reroilstest+sion@gmail.com"
       },
@@ -872,6 +880,10 @@
         "type": "availability",
         "email": "reroilstest+martignybourg@gmail.com",
         "delay": 0
+      },
+      {
+        "type": "at_desk",
+        "email": "reroilstest+martignybourg@gmail.com"
       },
       {
         "type": "request",

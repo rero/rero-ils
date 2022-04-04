@@ -3,7 +3,7 @@ Avis de transit
 {% for loan in loans %}
 Date: {{ loan.creation_date }}
 Titre: {{ loan.document.title_text }}
-Code-barre: {{ loan.document.barcode }}
+Code-barres: {{ loan.document.barcode }}
 {%- if loan.document.call_numbers %}
 Cote: {{ loan.document.call_numbers | join(' | ') }}
 {%- endif %}

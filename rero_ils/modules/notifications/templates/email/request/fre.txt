@@ -3,7 +3,7 @@ Demande{%- if loans[0].in_transit %} (avec transit){%- endif %}
 {% for loan in loans -%}
 Date: {{ loan.creation_date }}
 Titre: {{ loan.document.title_text }}
-Code-barre: {{ loan.document.barcode }}
+Code-barres: {{ loan.document.barcode }}
 Localisation: {{ loan.document.library_name }} / {{ loan.document.location_name }}
 {%- if loan.document.call_numbers %}
 Cote: {{ loan.document.call_numbers | join(' | ') }}

@@ -23,6 +23,7 @@
         "type": {
           "type": "string",
           "enum": [
+            "at_desk",
             "due_soon",
             "overdue",
             "recall",
@@ -41,7 +42,7 @@
         }
       }
     },
-    "availability_notification_setting": {
+    "delayed_notification_setting": {
       "additionalProperties": false,
       "required": [
         "type",
@@ -51,7 +52,9 @@
       "properties": {
         "type": {
           "type": "string",
-          "const": "availability"
+          "enum": [
+            "availability"
+          ]
         },
         "email": {
           "title": "E-mail",
@@ -367,7 +370,7 @@
             "$ref": "#/definitions/default_notification_setting"
           },
           {
-            "$ref": "#/definitions/availability_notification_setting"
+            "$ref": "#/definitions/delayed_notification_setting"
           }
         ]
       }

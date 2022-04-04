@@ -1,0 +1,18 @@
+Esemplare al banco prestiti
+
+{% for loan in loans %}
+Data: {{ loan.creation_date }}
+Titolo: {{ loan.document.title_text }}
+Codice a barre: {{ loan.document.barcode }}
+Localizzazione: {{ loan.document.library_name }} / {{ loan.document.location_name }}
+{%- if loan.document.call_numbers %}
+Segnatura: {{ loan.document.call_numbers | join(' | ') }}
+{%- endif %}
+
+Punto di ritiro: {{ loan.pickup_name }}
+Lettore: {{ loan.patron.first_name }} {{ loan.patron.last_name }}
+{%- if loan.patron.barcode %} - {{ loan.patron.barcode | join(', ') }}{%- endif %}
+Scadenza della richiesta: {{ loan.request_expire_date }}
+
+
+{% endfor %}

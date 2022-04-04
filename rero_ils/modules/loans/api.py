@@ -800,10 +800,12 @@ class Loan(IlsRecord):
         requests = [loan_pid for loan_pid in requests if loan_pid != self.pid]
         has_request = len(requests) > 0
 
-        # AVAILABILITY NOTIFICATION
+        # AVAILABILITY & AT_DESK NOTIFICATION
         #   If loan (items) just arrived at the library desk we can create
-        #   an AVAILABILITY notification
+        #   an AVAILABILITY and AT_DESK notifications. AVAILABILITY is sent to
+        #   the patron, AT_DESK is sent to transaction library.
         if self.state == LoanState.ITEM_AT_DESK:
+            candidates.append((self, NotificationType.AT_DESK))
             candidates.append((self, NotificationType.AVAILABILITY))
 
         # REQUEST & RECALL NOTIFICATION
@@ -857,7 +859,8 @@ class Loan(IlsRecord):
             create = True  # Should the notification actually be created.
             # Internal notification (library destination) should be directly
             # dispatched. Other notifications types could be asynchronously
-            # processed (to save server response time).
+            # processed (to save server response time) except for AT_DESK
+            # notification where a delay could be configured
             dispatch = n_type in NotificationType.INTERNAL_NOTIFICATIONS
 
             record = {

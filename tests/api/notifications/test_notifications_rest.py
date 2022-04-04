@@ -47,26 +47,36 @@ from rero_ils.modules.notifications.utils import get_notification
 from rero_ils.modules.utils import get_ref_for_pid
 
 
-def test_availability_notification(
+def test_delayed_notifications(
         loan_validated_martigny, item2_lib_martigny,
         mailbox, patron_martigny, lib_martigny):
     """Test availability notification created from a loan."""
     mailbox.clear()
     loan = loan_validated_martigny
+    # ensure an availability notification exists (possibly not yet sent)
     notification = get_notification(loan, NotificationType.AVAILABILITY)
-    assert notification  # ensure a notification exists (possibly not yet sent)
+    assert notification
     assert notification.loan_pid == loan_validated_martigny.get('pid')
     assert notification.item_pid == item2_lib_martigny.pid
     assert notification.patron_pid == patron_martigny.pid
 
+    # ensure an at_desk notification exists (possibly not yet sent)
+    notification = get_notification(loan, NotificationType.AT_DESK)
+    assert notification
+    assert notification.loan_pid == loan_validated_martigny.get('pid')
+    assert notification.item_pid == item2_lib_martigny.pid
+    flush_index(NotificationsSearch.Meta.index)
+
     assert not get_notification(loan, NotificationType.RECALL)
     for notification_type in NotificationType.ALL_NOTIFICATIONS:
         process_notifications(notification_type)
-    assert len(mailbox)
     assert loan.is_notified(notification_type=NotificationType.AVAILABILITY)
+    assert loan.is_notified(notification_type=NotificationType.AT_DESK)
 
-    message = mailbox[-1]
-    assert message.reply_to == lib_martigny.get('email')
+    # One notification will be sent : AVAILABILITY (sent to patron).
+    # Get the last message from mailbox and check it.
+    availability_msg = mailbox[-1]
+    assert availability_msg.reply_to == lib_martigny.get('email')
     mailbox.clear()
 
 
@@ -110,7 +120,7 @@ def test_filtered_notifications_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total']['value'] == 2
+    assert data['hits']['total']['value'] > 0
 
     # Sion
     login_user_via_session(client, librarian_sion.user)
@@ -683,7 +693,7 @@ def test_multiple_notifications(client, patron_martigny, patron_sion,
     loan = Loan.get_record_by_pid(request_loan_pid)
     assert loan.state == LoanState.PENDING
     assert mailbox[-1].recipients == [
-        lib_martigny.get('notification_settings')[4].get('email')]
+        lib_martigny.get('notification_settings')[5].get('email')]
     mailbox.clear()
 
     # validate request
@@ -705,7 +715,7 @@ def test_multiple_notifications(client, patron_martigny, patron_sion,
     loan = Loan.get_record_by_pid(request_loan_pid)
     assert loan.state == LoanState.ITEM_IN_TRANSIT_TO_HOUSE
     assert mailbox[-1].recipients == [
-        lib_fully.get('notification_settings')[4].get('email')]
+        lib_fully.get('notification_settings')[5].get('email')]
     mailbox.clear()
 
     # back on shelf: required to restore the initial stat for other tests
@@ -796,7 +806,7 @@ def test_request_notifications(client, patron_martigny, patron_sion,
     flush_index(NotificationsSearch.Meta.index)
     assert len(mailbox) == 1
     assert mailbox[-1].recipients == [
-        lib_martigny.get('notification_settings')[4].get('email')]
+        lib_martigny.get('notification_settings')[5].get('email')]
     # cancel request
     res, _ = postdata(
         client,
@@ -1122,7 +1132,7 @@ def test_booking_notifications(client, patron_martigny, patron_sion,
     loan = Loan.get_record_by_pid(request_loan_pid)
     assert loan.state == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
     assert mailbox[0].recipients == [
-        lib_fully.get('notification_settings')[4].get('email')]
+        lib_fully.get('notification_settings')[5].get('email')]
     # the patron information is the patron request
     assert patron_martigny['patron']['barcode'][0] in mailbox[0].body
     mailbox.clear()

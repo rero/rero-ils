@@ -140,6 +140,7 @@
         "due_soon",
         "overdue",
         "availability",
+        "at_desk",
         "recall",
         "transit_notice",
         "request",
