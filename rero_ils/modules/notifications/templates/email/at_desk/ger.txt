@@ -1,0 +1,17 @@
+Exemplar an der Ausleihtheke
+
+{% for loan in loans %}
+Datum: {{ loan.creation_date }}
+Titel: {{ loan.document.title_text }}
+Strichcode: {{ loan.document.barcode }}
+Standort: {{ loan.document.library_name }} / {{ loan.document.location_name }}
+{%- if loan.document.call_numbers %}
+Signatur: {{ loan.document.call_numbers | join(' | ') }}
+{%- endif %}
+
+Abholort: {{ loan.pickup_name }}
+Leser: {{ loan.patron.first_name }} {{ loan.patron.last_name }}
+{%- if loan.patron.barcode %} - {{ loan.patron.barcode | join(', ') }}{%- endif %}
+Ablauf der bestellung: {{ loan.request_expire_date }}
+
+{% endfor %}

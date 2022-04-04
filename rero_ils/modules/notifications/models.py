@@ -45,16 +45,18 @@ class NotificationMetadata(db.Model, RecordMetadataBase):
 class NotificationType:
     """Types of notifications.
 
-    - RECALL         : when a new request is done on a loaned item.
-    - AVAILABILITY   : when a requested item arrives at desk.
-    - REQUEST        : created when the item is at desk and a request occurs.
-                       Note: can have a delay.
-    - BOOKING        : when the item is checked in and have a request.
-    - TRANSIT_NOTICE : when an item is sent to the owning location/library
-    - DUE_SOON       : when the loaned item is about to expire.
-    - OVERDUE        : when the loaned item is expired.
-    - ACQUISITION_ORDER
-                     : when an acquisition order is send to a vendor.
+    - RECALL            : when a new request is done on a loaned item.
+    - AT_DESK           : when a requested item arrives at desk ; sent to the
+                          transaction library. (possible configurable delay)
+    - AVAILABILITY      : when a requested item arrives at desk  sent to the
+                          patron. (possible configurable delay)
+    - REQUEST           : created when the item is at desk and a request
+                          occurs.
+    - BOOKING           : when the item is checked in and have a request.
+    - TRANSIT_NOTICE    : when an item is sent to the owning location/library
+    - DUE_SOON          : when the loaned item is about to expire.
+    - OVERDUE           : when the loaned item is expired.
+    - ACQUISITION_ORDER : when an acquisition order is send to a vendor.
     """
 
     RECALL = 'recall'
@@ -65,9 +67,11 @@ class NotificationType:
     REQUEST = 'request'
     BOOKING = 'booking'
     ACQUISITION_ORDER = 'acquisition_order'
+    AT_DESK = 'at_desk'
 
     # All notification types
     ALL_NOTIFICATIONS = [
+        AT_DESK,
         AVAILABILITY,
         DUE_SOON,
         OVERDUE,
@@ -83,6 +87,7 @@ class NotificationType:
     ]
     # Notification to send to a library (not to a patron)
     INTERNAL_NOTIFICATIONS = [
+        AT_DESK,
         BOOKING,
         REQUEST,
         TRANSIT_NOTICE
@@ -90,6 +95,7 @@ class NotificationType:
 
     # Notification related to circulation modules
     CIRCULATION_NOTIFICATIONS = [
+        AT_DESK,
         AVAILABILITY,
         DUE_SOON,
         OVERDUE,

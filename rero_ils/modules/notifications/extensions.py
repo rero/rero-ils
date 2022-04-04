@@ -36,6 +36,7 @@ class NotificationSubclassExtension(RecordExtension):
         """Get the Notification subclass to use based on record data."""
         from .api import Notification
         from .subclasses.acq_order import AcquisitionOrderNotification
+        from .subclasses.at_desk import AtDeskCirculationNotification
         from .subclasses.availability import \
             AvailabilityCirculationNotification
         from .subclasses.booking import BookingCirculationNotification
@@ -45,6 +46,7 @@ class NotificationSubclassExtension(RecordExtension):
         from .subclasses.transit import TransitCirculationNotification
         mapping = {
             NotificationType.AVAILABILITY: AvailabilityCirculationNotification,
+            NotificationType.AT_DESK: AtDeskCirculationNotification,
             NotificationType.BOOKING: BookingCirculationNotification,
             NotificationType.DUE_SOON: ReminderCirculationNotification,
             NotificationType.OVERDUE: ReminderCirculationNotification,
