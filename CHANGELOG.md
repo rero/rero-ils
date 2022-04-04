@@ -1,5 +1,74 @@
 # Changelog
 
+## [v1.10.0](https://github.com/rero/rero-ils/tree/v1.10.0) (2022-04-04)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.9.0...v1.10.0)
+
+**New feature:**
+
+- Holdings request [\#2651](https://github.com/rero/rero-ils/pull/2651) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)] [[f: data](https://github.com/rero/rero-ils/labels/f:%20data)] [[f: notifications](https://github.com/rero/rero-ils/labels/f:%20notifications)] [[f: user management](https://github.com/rero/rero-ils/labels/f:%20user%20management)] [[f: data migration](https://github.com/rero/rero-ils/labels/f:%20data%20migration)] [[f: activity-logs](https://github.com/rero/rero-ils/labels/f:%20activity-logs)] ([vgranata](https://github.com/vgranata))
+
+**Implemented enhancements:**
+
+- Display 20 loans instead of 10 loans in the public patron account [\#2750](https://github.com/rero/rero-ils/issues/2750) [[f: public ui](https://github.com/rero/rero-ils/labels/f:%20public%20ui)]
+- The first document title should be of type `bf:Title` [\#2581](https://github.com/rero/rero-ils/issues/2581) [[f: editor](https://github.com/rero/rero-ils/labels/f:%20editor)] [[f: activity-logs](https://github.com/rero/rero-ils/labels/f:%20activity-logs)]
+- Loans should be sorted in ascending order on due date [\#2263](https://github.com/rero/rero-ils/issues/2263) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)] [[f: public ui](https://github.com/rero/rero-ils/labels/f:%20public%20ui)] [[f: user management](https://github.com/rero/rero-ils/labels/f:%20user%20management)]
+- The organisation view is lost after a patron edited his/her profile or account [\#2195](https://github.com/rero/rero-ils/issues/2195) [[f: public ui](https://github.com/rero/rero-ils/labels/f:%20public%20ui)]
+- Edit profile for a patron: descriptions missing [\#2101](https://github.com/rero/rero-ils/issues/2101) [[f: public ui](https://github.com/rero/rero-ils/labels/f:%20public%20ui)] [[f: user management](https://github.com/rero/rero-ils/labels/f:%20user%20management)]
+- selfcheck: add column for comments [\#2744](https://github.com/rero/rero-ils/pull/2744) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)] [[f: data migration](https://github.com/rero/rero-ils/labels/f:%20data%20migration)] ([lauren-d](https://github.com/lauren-d))
+
+**Fixed bugs:**
+
+- Field ` reproductionOf` has wrong label in the document public view [\#2801](https://github.com/rero/rero-ils/issues/2801) [[f: public ui](https://github.com/rero/rero-ils/labels/f:%20public%20ui)]
+- The due date of a loan is displayed with a delay of one day in the UI [\#2748](https://github.com/rero/rero-ils/issues/2748) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)] [[f: professional ui](https://github.com/rero/rero-ils/labels/f:%20professional%20ui)] [[f: public ui](https://github.com/rero/rero-ils/labels/f:%20public%20ui)]
+- A late renewal does not effectively generate the overdue preview fees [\#2741](https://github.com/rero/rero-ils/issues/2741) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)]
+- Item tasks: temporary locations are not cleaned correctly [\#2694](https://github.com/rero/rero-ils/issues/2694) [[f: activity-logs](https://github.com/rero/rero-ils/labels/f:%20activity-logs)]
+- "Show more" button doesn't work in public interface [\#2691](https://github.com/rero/rero-ils/issues/2691) [[f: public ui](https://github.com/rero/rero-ils/labels/f:%20public%20ui)]
+- Add fixtures: accounts, library acquisition settings, order and order lines [\#2687](https://github.com/rero/rero-ils/issues/2687)
+- ProvisionActivity field : wrong separator for agents  [\#2670](https://github.com/rero/rero-ils/issues/2670) [[f: editor](https://github.com/rero/rero-ils/labels/f:%20editor)]
+- Item number displayed on holdings for serial and standard items [\#2494](https://github.com/rero/rero-ils/issues/2494) [[f: public ui](https://github.com/rero/rero-ils/labels/f:%20public%20ui)] [[f: serials](https://github.com/rero/rero-ils/labels/f:%20serials)]
+- Cancellation of a request leads in some cases to the wrong item status [\#2454](https://github.com/rero/rero-ils/issues/2454) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)]
+- In the notification "Prêt impossible car l’exemplaire est déjà prêté" precise the document is on loan to another patron [\#2401](https://github.com/rero/rero-ils/issues/2401) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)] [[f: professional ui](https://github.com/rero/rero-ils/labels/f:%20professional%20ui)]
+- Item location and category update when parents holdings is changed. [\#1436](https://github.com/rero/rero-ils/issues/1436) [[f: data](https://github.com/rero/rero-ils/labels/f:%20data)] [[f: serials](https://github.com/rero/rero-ils/labels/f:%20serials)]
+- dojson: fix work access point and title [\#2824](https://github.com/rero/rero-ils/pull/2824) ([rerowep](https://github.com/rerowep))
+- tests: fix acquisition translation problem [\#2823](https://github.com/rero/rero-ils/pull/2823) ([zannkukai](https://github.com/zannkukai))
+- items: delete obsolete temporary locations [\#2790](https://github.com/rero/rero-ils/pull/2790) [[f: data migration](https://github.com/rero/rero-ils/labels/f:%20data%20migration)] ([BadrAly](https://github.com/BadrAly))
+- operation log: fix document title for loan [\#2788](https://github.com/rero/rero-ils/pull/2788) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)] [[f: activity-logs](https://github.com/rero/rero-ils/labels/f:%20activity-logs)] ([lauren-d](https://github.com/lauren-d))
+- oauth: make some information optional [\#2757](https://github.com/rero/rero-ils/pull/2757) [[f: user management](https://github.com/rero/rero-ils/labels/f:%20user%20management)] ([jma](https://github.com/jma))
+- Some strings of the user profile editor (public interface) are not translated [\#2000](https://github.com/rero/rero-ils/issues/2000)
+- Add fixtures: accounts, library acquisition settings, order and order lines [\#2687](https://github.com/rero/rero-ils/issues/2687)
+- circulation: cancel intransit request with loans [\#2756](https://github.com/rero/rero-ils/pull/2756) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)] ([BadrAly](https://github.com/BadrAly))
+- items: update location and type after parents changes [\#2747](https://github.com/rero/rero-ils/pull/2747) ([BadrAly](https://github.com/BadrAly))
+- alembic: fix elasticsearch timeout [\#2743](https://github.com/rero/rero-ils/pull/2743) ([lauren-d](https://github.com/lauren-d))
+- selfcheck: fix item not found. [\#2740](https://github.com/rero/rero-ils/pull/2740) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)] ([lauren-d](https://github.com/lauren-d))
+
+**Merged pull requests:**
+
+- tests: fix `test_fees_after_extend` uni test [\#2807](https://github.com/rero/rero-ils/pull/2807) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)] ([zannkukai](https://github.com/zannkukai))
+- dojson: fix contribution [\#2806](https://github.com/rero/rero-ils/pull/2806) [[f: data](https://github.com/rero/rero-ils/labels/f:%20data)] ([rerowep](https://github.com/rerowep))
+- public ui: fix wrong label for ReproductionOf [\#2804](https://github.com/rero/rero-ils/pull/2804) ([PascalRepond](https://github.com/PascalRepond))
+- acquisition: complete fixtures for some resources [\#2802](https://github.com/rero/rero-ils/pull/2802) ([BadrAly](https://github.com/BadrAly))
+- documentation: update changelog parameters [\#2797](https://github.com/rero/rero-ils/pull/2797) ([PascalRepond](https://github.com/PascalRepond))
+- item: fix item serialization [\#2789](https://github.com/rero/rero-ils/pull/2789) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)] ([zannkukai](https://github.com/zannkukai))
+- documents: escape double quotes in summary [\#2787](https://github.com/rero/rero-ils/pull/2787) ([vgranata](https://github.com/vgranata))
+- documentation: rework and improve readme [\#2785](https://github.com/rero/rero-ils/pull/2785) ([PascalRepond](https://github.com/PascalRepond))
+- UI: fix the profile menu name [\#2776](https://github.com/rero/rero-ils/pull/2776) ([jma](https://github.com/jma))
+- circulation: fix extend end date [\#2771](https://github.com/rero/rero-ils/pull/2771) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)] ([jma](https://github.com/jma))
+- dependencies: update the dependencies lock file [\#2770](https://github.com/rero/rero-ils/pull/2770) ([rerowep](https://github.com/rerowep))
+- circulation: fix checkout end date [\#2760](https://github.com/rero/rero-ils/pull/2760) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)] ([jma](https://github.com/jma))
+- dojson: fix BN [\#2754](https://github.com/rero/rero-ils/pull/2754) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)] [[f: data](https://github.com/rero/rero-ils/labels/f:%20data)] [[f: data migration](https://github.com/rero/rero-ils/labels/f:%20data%20migration)] [[f: activity-logs](https://github.com/rero/rero-ils/labels/f:%20activity-logs)] ([rerowep](https://github.com/rerowep))
+- circulation: create patron fees on extend [\#2745](https://github.com/rero/rero-ils/pull/2745) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)] ([jma](https://github.com/jma))
+- documentation: improve changelog generation [\#2738](https://github.com/rero/rero-ils/pull/2738) ([PascalRepond](https://github.com/PascalRepond))
+- dependencies: update python packages [\#2736](https://github.com/rero/rero-ils/pull/2736) ([jma](https://github.com/jma))
+- contributions: better update\_contributions [\#2728](https://github.com/rero/rero-ils/pull/2728) ([rerowep](https://github.com/rerowep))
+- monitoring: better time stamps [\#2725](https://github.com/rero/rero-ils/pull/2725) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)] ([rerowep](https://github.com/rerowep))
+- holding: better delete\_standard\_holdings\_having\_no\_items [\#2724](https://github.com/rero/rero-ils/pull/2724) ([rerowep](https://github.com/rerowep))
+- documentation: update PR labeler to new Github label list [\#2719](https://github.com/rero/rero-ils/pull/2719) ([PascalRepond](https://github.com/PascalRepond))
+- circulation: fix extension duration calculation. [\#2686](https://github.com/rero/rero-ils/pull/2686) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)] ([zannkukai](https://github.com/zannkukai))
+- interface: keep the viewcode in the urls [\#2681](https://github.com/rero/rero-ils/pull/2681) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)] [[f: user management](https://github.com/rero/rero-ils/labels/f:%20user%20management)] ([Garfield-fr](https://github.com/Garfield-fr))
+- statistics: add tests, query and csv download button for librarian statistics [\#2661](https://github.com/rero/rero-ils/pull/2661) [[f: statistics](https://github.com/rero/rero-ils/labels/f:%20statistics)] ([vgranata](https://github.com/vgranata))
+- acquisition: complete fixtures for some resources [\#2802](https://github.com/rero/rero-ils/pull/2802) ([BadrAly](https://github.com/BadrAly))
+
 ## [v1.9.0](https://github.com/rero/rero-ils/tree/v1.9.0) (2022-02-24)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.8.0...v1.9.0)
