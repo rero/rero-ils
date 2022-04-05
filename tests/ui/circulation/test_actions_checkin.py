@@ -16,16 +16,18 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Test item circulation checkin actions."""
+from datetime import timedelta
 
-
+import ciso8601
 import pytest
+from freezegun import freeze_time
 from utils import item_record_to_a_specific_loan_state
 
 from rero_ils.modules.errors import NoCirculationAction
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.api import Loan
-from rero_ils.modules.loans.models import LoanState
+from rero_ils.modules.loans.models import LoanAction, LoanState
 
 
 def test_checkin_on_item_on_shelf_no_requests(
@@ -222,30 +224,54 @@ def test_checkin_on_item_on_loan_with_requests(
         loc_public_martigny, librarian_martigny,
         patron2_martigny):
     """Test checkin on an on_loan item with requests at local library."""
-    item, patron, loan = item3_on_loan_martigny_patron_and_loan_on_loan
     # the following tests the circulation action CHECKIN_3_2_1
     # for an item on_loan, with pending requests. when the pickup library of
     # the first pending request equal to the transaction library,
     # checkin the item and item becomes at_desk.
     # the on_loan is returned and validating the first pending loan request.
-    params = {
-        'patron_pid': patron2_martigny.pid,
-        'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny.pid,
-        'pickup_location_pid': loc_public_martigny.pid
-    }
+    #
+    # In this test, we will also ensure that the request expiration date of the
+    # automatic validated request is correct
+    item, patron, loan = item3_on_loan_martigny_patron_and_loan_on_loan
 
-    item, requested_loan = item_record_to_a_specific_loan_state(
-        item=item, loan_state=LoanState.PENDING, params=params,
-        copy_item=False)
+    # create a request on the same item one day after the first loan
+    tomorrow = ciso8601.parse_datetime(loan['start_date']) + timedelta(days=10)
+    with freeze_time(tomorrow.isoformat()):
+        item, actions = item.request(
+            pickup_location_pid=loc_public_martigny.pid,
+            patron_pid=patron2_martigny.pid,
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny.pid
+        )
+        requested_loan_pid = actions[LoanAction.REQUEST].get('pid')
+        requested_loan = Loan.get_record_by_pid(requested_loan_pid)
 
-    item, actions = item.checkin(**params)
+    # Check-in the item
+    #  * reload item, loan and requested_loan
+    #  * ensure the item is still AT_DESK (because the first pending request
+    #    has been automatically validate and pickup location is the same than
+    #    previous loan location)
+    #  * ensure first loan is concluded
+    #  * ensure the requested loan is now "AT_DESK" with a valid request
+    #    expiration date
+    next_day = tomorrow + timedelta(days=10)
+    with freeze_time(next_day.isoformat()):
+        item, actions = item.checkin(
+            patron_pid=patron2_martigny.pid,
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny.pid,
+            pickup_location_pid=loc_public_martigny.pid
+        )
+
     item = Item.get_record_by_pid(item.pid)
     loan = Loan.get_record_by_pid(loan.pid)
     requested_loan = Loan.get_record_by_pid(requested_loan.pid)
+
     assert item.status == ItemStatus.AT_DESK
     assert loan['state'] == LoanState.ITEM_RETURNED
     assert requested_loan['state'] == LoanState.ITEM_AT_DESK
+    trans_date = ciso8601.parse_datetime(requested_loan['transaction_date'])
+    assert trans_date.strftime('%Y%m%d') == next_day.strftime('%Y%m%d')
 
 
 def test_checkin_on_item_on_loan_with_requests_externally(
