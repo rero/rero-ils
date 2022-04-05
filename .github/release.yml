@@ -1,0 +1,24 @@
+changelog:
+  exclude:
+    labels:
+      - stale
+      - duplicate
+      - wontfix
+      - translations
+      - task
+  categories:
+    - title: New features
+      labels:
+        - new feature
+        - user story
+    - title: Enhancements
+      labels:
+        - enhancement
+    - title: Bug fixes
+      labels:
+        - bug
+        - bug (critical)
+        - correction
+    - title: Other changes
+      labels:
+        - '*'
