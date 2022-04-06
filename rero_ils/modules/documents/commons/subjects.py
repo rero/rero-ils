@@ -41,6 +41,8 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 
 from rero_ils.modules.contributions.api import Contribution
+from rero_ils.modules.contributions.utils import \
+    get_contribution_localized_value
 from rero_ils.modules.documents.models import DocumentSubjectType
 
 
@@ -67,7 +69,7 @@ class Subject(ABC):
 
 
 @dataclass
-class ReferenceSubject(Subject, ABC):
+class ReferenceSubject(Subject):
     """Document subject related to a reference URI."""
 
     reference: str = field(init=False)
@@ -87,6 +89,28 @@ class ReferenceSubject(Subject, ABC):
         """
         sub, _ = Contribution.get_record_by_ref(self.reference)
         return sub.get_authorized_access_point(language=language)
+
+
+@dataclass
+class ResolvedReferenceSubject(Subject):
+    """Document subject related to a resolved reference URI."""
+
+    def __post_init__(self):
+        """Post initialization dataclass magic function."""
+        super().__post_init__()
+        if 'sources' not in self.data:
+            raise AttributeError('"sources" attribute is required')
+
+    def render(self, language=None, **kwargs) -> str:
+        """Render the subject as a string.
+
+        :param language: preferred language for the subject.
+        :return the string representation of this subject.
+        """
+        return get_contribution_localized_value(
+            contribution=self.data,
+            key='authorized_access_point',
+            language=language)
 
 
 @dataclass
@@ -174,6 +198,8 @@ class SubjectFactory:
         factory_class = LocalSubjectFactory
         if '$ref' in data:
             factory_class = ReferenceSubjectFactory
+        if 'sources' in data:
+            factory_class = ResolvedReferenceSubjectFactory
         return factory_class()._build_subject(data)
 
     @abstractmethod
@@ -196,6 +222,18 @@ class ReferenceSubjectFactory(SubjectFactory):
         :return the built subject.
         """
         return ReferenceSubject(data=data)
+
+
+class ResolvedReferenceSubjectFactory(SubjectFactory):
+    """Document referenced subject factory."""
+
+    def _build_subject(self, data) -> ResolvedReferenceSubject:
+        """Build a subject from data.
+
+        :param data: the dictionary representing the subject.
+        :return the built subject.
+        """
+        return ResolvedReferenceSubject(data=data)
 
 
 class LocalSubjectFactory(SubjectFactory):
