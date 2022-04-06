@@ -642,11 +642,10 @@ def document_types(record, translate=True):
     :param translate: translate document type
     :return: dictonary list of document types
     """
-    doc_types = record.document_types
-    if translate:
-        for idx, doc_type in enumerate(doc_types):
-            doc_types[idx] = _(doc_type)
-    return doc_types
+    if 'type' not in record:
+        return None
+    doc_type = record['type'][0]['main_type']
+    return _(doc_type) if translate else doc_type
 
 
 @blueprint.app_template_filter()
@@ -657,10 +656,11 @@ def document_main_type(record, translate=True):
     :param translate: translate document type
     :return: document main type
     """
-    doc_type = record['type'][0]['main_type']
-    if translate:
-        doc_type = _(doc_type)
-    return doc_type
+    if 'type' in record:
+        doc_type = record['type'][0]['main_type']
+        if translate:
+            doc_type = _(doc_type)
+        return doc_type
 
 
 @blueprint.app_template_filter()
