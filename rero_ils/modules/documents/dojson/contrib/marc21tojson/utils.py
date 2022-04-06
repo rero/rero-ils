@@ -363,7 +363,8 @@ def do_language(data, marc21):
 def do_abbreviated_title(data, marc21, key, value):
     """Get abbreviated title data.
 
-    * bf:Title = 210|222
+    * bf:AbbreviatedTitle = 210
+    * bf:KeyTitle = 222
     * mainTitle = $a
     * subtitle = $e
     * responsibilityStatement = $f|$g
@@ -376,8 +377,11 @@ def do_abbreviated_title(data, marc21, key, value):
     if value.get('a'):
         main_title = not_repetitive(
             marc21.bib_id, marc21.bib_id, key, value, 'a')
+        title_type = 'bf:AbbreviatedTitle'
+        if key[:3] == '222':
+            title_type = 'bf:KeyTitle'
         title = {
-            'type': 'bf:AbbreviatedTitle',
+            'type': title_type,
             'mainTitle': [{'value': main_title}]
         }
         if value.get('b'):
@@ -595,6 +599,10 @@ def do_contribution(data, marc21, key, value):
 
     # exclude work access points
     if key[:3] in ['700', '710'] and value.get('t'):
+        work_access_point = do_work_access_point(marc21, key, value)
+        if work_access_point:
+            data.setdefault('work_access_point', [])
+            data['work_access_point'].append(work_access_point)
         return None
 
     agent = {}
@@ -614,23 +622,22 @@ def do_contribution(data, marc21, key, value):
         agent = build_agent()
 
     if value.get('4'):
-        roles = []
+        roles = set()
         for role in utils.force_list(value.get('4')):
-            if len(role) != 3 and 'http' not in role:
+            role = role.split('/')[-1].lower()
+            if len(role) != 3:
                 error_print('WARNING CONTRIBUTION ROLE LENGTH:',
                             marc21.bib_id, marc21.rero_id, role)
-                role = role[:3]
             if role == 'sce':
                 error_print('WARNING CONTRIBUTION ROLE SCE:',
                             marc21.bib_id, marc21.rero_id,
                             'sce --> aus')
                 role = 'aus'
-            role = role.lower()
-            if role not in _CONTRIBUTION_ROLE and 'http' not in role:
+            if role not in _CONTRIBUTION_ROLE:
                 error_print('WARNING CONTRIBUTION ROLE DEFINITION:',
                             marc21.bib_id, marc21.rero_id, role)
                 role = 'ctb'
-            roles.append(role)
+            roles.add(role)
     else:
         if key[:3] == '100':
             roles = ['cre']
@@ -641,7 +648,7 @@ def do_contribution(data, marc21, key, value):
     if agent:
         return {
             'agent': agent,
-            'role': list(set(roles))
+            'role': list(roles)
         }
     return None
 
@@ -1647,20 +1654,17 @@ def do_work_access_point(marc21, key, value):
                 not_repetitive(marc21.bib_id, marc21.bib_id, key, value, 'b'))
         dates = not_repetitive(marc21.bib_id, marc21.bib_id, key, value, 'd')
         if dates:
-            dates = dates.rstrip(',')
-            dates = remove_trailing_punctuation(dates).split('-')
+            split_dates = dates.split('-')
+            date_of_birth = split_dates[0].strip()
+            if date_of_birth:
+                agent['date_of_birth'] = date_of_birth
             try:
-                date_of_birth = dates[0].strip()
-                if date_of_birth:
-                    agent['date_of_birth'] = date_of_birth
-            except Exception:
-                pass
-            try:
-                date_of_death = dates[1].strip()
+                date_of_death = split_dates[1].strip()
                 if date_of_death:
                     agent['date_of_death'] = date_of_death
             except Exception:
                 pass
+
         if value.get('c'):
             agent['qualifier'] = remove_trailing_punctuation(
                 not_repetitive(marc21.bib_id, marc21.bib_id, key, value, 'c'))
@@ -1672,8 +1676,7 @@ def do_work_access_point(marc21, key, value):
             agent['preferred_name'] = not_repetitive(
                 marc21.bib_id, marc21.bib_id, key, value, 'a')
         if value.get('b'):
-            agent['subordinate_unit'] = not_repetitive(
-                marc21.bib_id, marc21.bib_id, key, value, 'b')
+            agent['subordinate_unit'] = list(utils.force_list(value.get('b')))
     if agent:
         work_access_point['agent'] = agent
     if value.get(title_tag):

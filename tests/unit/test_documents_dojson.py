@@ -1349,6 +1349,11 @@ def test_marc21_to_contribution(mock_get):
         <subfield code="d">1921-2014</subfield>
         <subfield code="4">edt</subfield>
       </datafield>
+      <datafield tag="700" ind1="1" ind2=" ">
+        <subfield code="a">Santamaría, Germán</subfield>
+        <subfield code="t">No morirás</subfield>
+        <subfield code="l">français</subfield>
+      </datafield>
       <datafield tag="710" ind1=" " ind2=" ">
         <subfield code="a">RERO</subfield>
       </datafield>
@@ -5602,3 +5607,26 @@ def test_marc21_to_original_language():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('originalLanguage') == ['eng']
+
+
+def test_abbreviated_title(app, marc21_record):
+    """Test abbreviated title to MARC21 transformation."""
+    marc21xml = """
+    <record>
+      <datafield tag="210" ind1="0" ind2=" ">
+        <subfield code="a">Günter Gianni Piontek Skulpt.</subfield>
+      </datafield>
+      <datafield tag="222" ind1=" " ind2="0">
+        <subfield code="a">Günter Gianni Piontek, Skulpturen</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('title') == [{
+        'type': 'bf:AbbreviatedTitle',
+        'mainTitle': [{'value': 'Günter Gianni Piontek Skulpt.'}]
+    }, {
+        'type': 'bf:KeyTitle',
+        'mainTitle': [{'value': 'Günter Gianni Piontek, Skulpturen'}]
+    }]

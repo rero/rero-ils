@@ -502,7 +502,7 @@ def marc21_to_part_of(self, key, value):
     do_part_of(self, marc21, key, value)
 
 
-@marc21.over('work_access_point', '(^130..|^700.2|^710.2|^730..)')
+@marc21.over('work_access_point', '(^130..|^730..)')
 @utils.for_each_value
 @utils.ignore_value
 def marc21_to_work_access_point(self, key, value):

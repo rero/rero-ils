@@ -108,7 +108,7 @@
                     "title": "Title",
                     "description": "Title of the part, section, or supplement",
                     "type": "string",
-                    "minLength": 3
+                    "minLength": 1
                   }
                 }
               }
@@ -130,13 +130,13 @@
               "items": {
                 "title": "Medium of performance (music)",
                 "type": "string",
-                "minLength": 3
+                "minLength": 1
               }
             },
             "arranged_statement_for_music": {
               "title": "Arranged statement (music)",
               "type": "string",
-              "minLength": 3
+              "minLength": 1
             },
             "key_for_music": {
               "title": "Key (music)",

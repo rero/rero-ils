@@ -28,8 +28,9 @@ from rero_ils.dojson.utils import ReroIlsMarc21Overdo, build_identifier, \
     get_field_items, not_repetitive, re_identified, \
     remove_trailing_punctuation
 
-from ..utils import _CONTRIBUTION_ROLE, do_acquisition_terms_from_field_037, \
-    do_copyright_date, do_credits, do_dissertation, do_edition_statement, \
+from ..utils import _CONTRIBUTION_ROLE, do_abbreviated_title, \
+    do_acquisition_terms_from_field_037, do_copyright_date, do_credits, \
+    do_dissertation, do_edition_statement, \
     do_electronic_locator_from_field_856, do_frequency_field_310_321, \
     do_identified_by_from_field_020, do_identified_by_from_field_022, \
     do_identified_by_from_field_024, do_identified_by_from_field_028, \
@@ -111,6 +112,13 @@ def marc21_to_title(self, key, value):
 @utils.ignore_value
 def marc21_to_contribution(self, key, value):
     """Get contribution."""
+    # exclude work access points
+    if key[:3] in ['700', '710'] and value.get('t'):
+        work_access_point = do_work_access_point(marc21, key, value)
+        if work_access_point:
+            self.setdefault('work_access_point', [])
+            self['work_access_point'].append(work_access_point)
+        return None
     agent = {}
     subfields_0 = utils.force_list(value.get('0'))
     if subfields_0:
@@ -265,6 +273,14 @@ def marc21_to_copyright_date(self, key, value):
     """Get Copyright Date."""
     copyright_dates = do_copyright_date(self, value)
     return copyright_dates or None
+
+
+@marc21.over('title', '(^210|^222)..')
+@utils.ignore_value
+def marc21_to_abbreviated_title(self, key, value):
+    """Get abbreviated title data."""
+    title_list = do_abbreviated_title(self, marc21, key, value)
+    return title_list or None
 
 
 @marc21.over('editionStatement', '^250..')
@@ -1050,7 +1066,7 @@ def marc21_to_masked(self, key, value):
     return value.get('a') == 'masked'
 
 
-@marc21.over('work_access_point', '(^130..|^700.2|^710.2|^730..)')
+@marc21.over('work_access_point', '(^130..|^730..)')
 @utils.for_each_value
 @utils.ignore_value
 def marc21_to_work_access_point(self, key, value):
