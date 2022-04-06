@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2022-04-01 09:05+0200\n"
-"PO-Revision-Date: 2022-04-02 15:11+0000\n"
+"PO-Revision-Date: 2022-04-06 09:08+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/it/>\n"
@@ -11328,7 +11328,7 @@ msgstr "Codici usati per classificare gli utenti, per esempio per le statistiche
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:54
 msgid "Personal informations"
-msgstr "Dati personali"
+msgstr "Informazioni personali"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:67
 msgid "Second address"

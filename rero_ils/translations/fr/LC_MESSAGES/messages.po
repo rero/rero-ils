@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2022-04-01 09:05+0200\n"
-"PO-Revision-Date: 2022-04-02 15:11+0000\n"
-"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"PO-Revision-Date: 2022-04-06 09:08+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
 "Language: fr\n"
@@ -10586,7 +10586,6 @@ msgid "Pickup name field is required."
 msgstr "Le champ du nom du lieu de retrait est obligatoire."
 
 #: rero_ils/modules/locations/api.py:187
-#, fuzzy
 msgid "Record location disallows request."
 msgstr "La localisation de l'exemplaire ne permet pas les demandes."
 
@@ -11569,9 +11568,8 @@ msgid "Statistics - billing"
 msgstr "Statistiques - facturation"
 
 #: rero_ils/modules/stats/templates/rero_ils/stats_list.html:73
-#, fuzzy
 msgid "View statistics"
-msgstr "Statistiques"
+msgstr "Voir les statistiques"
 
 #: rero_ils/modules/stats/templates/rero_ils/stats_list.html:78
 msgid "Loans of the transaction library by item location"
@@ -11758,9 +11756,8 @@ msgid "Password"
 msgstr "Mot de passe"
 
 #: rero_ils/modules/users/templates/rero_ils/user_profile.html:22
-#, fuzzy
 msgid "Profile"
-msgstr "rôles"
+msgstr "Profil"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:5
 msgid "JSON schema for a vendor"
