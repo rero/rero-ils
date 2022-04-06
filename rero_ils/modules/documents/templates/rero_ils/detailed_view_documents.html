@@ -284,7 +284,7 @@
   <h5 class="d-inline-block">{{ _('Export Formats') }}:</h5>
   <ul class="list-inline d-inline-block">
     {%- for slug, fmt in formats %}
-    <li>
+    <li class="list-inline-item">
       <a
         href="{{ url_for('invenio_records_ui.doc_export', viewcode=viewcode, pid_value=pid.pid_value, format=slug, prettyprint=True) }}">
         {{ fmt.title }}

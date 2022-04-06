@@ -112,6 +112,15 @@ def csv_header():
 
 
 @pytest.fixture(scope="session")
+def ris_header():
+    """Load json headers."""
+    return [
+        ('Accept', 'application/x-research-info-systems'),
+        ('Content-Type', 'application/json')
+    ]
+
+
+@pytest.fixture(scope="session")
 def json_header():
     """Load json headers."""
     return [

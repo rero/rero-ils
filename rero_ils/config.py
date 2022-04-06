@@ -607,11 +607,15 @@ RECORDS_REST_ENDPOINTS = dict(
             ),
             'application/rero+json': (
                 'rero_ils.modules.documents.serializers:json_doc_response'
+            ),
+            'application/x-research-info-systems': (
+                'rero_ils.modules.documents.serializers:ris_doc_response'
             )
         },
         record_serializers_aliases={
             'json': 'application/json',
-            'rero': 'application/rero+json'
+            'rero': 'application/rero+json',
+            'ris': 'application/x-research-info-systems'
         },
         search_serializers={
             'application/json': (
@@ -619,11 +623,15 @@ RECORDS_REST_ENDPOINTS = dict(
             ),
             'application/rero+json': (
                 'rero_ils.modules.documents.serializers:json_doc_search'
+            ),
+            'application/x-research-info-systems': (
+                'rero_ils.modules.documents.serializers:ris_doc_search'
             )
         },
         search_serializers_aliases={
             'json': 'application/json',
-            'rero': 'application/rero+json'
+            'rero': 'application/rero+json',
+            'ris': 'application/x-research-info-systems'
         },
         record_loaders={
             'application/marcxml+xml':
@@ -2679,9 +2687,14 @@ RECORDS_UI_EXPORT_FORMATS = {
     'doc': {
         'json': dict(
             title='JSON',
-            serializer='invenio_records_rest.serializers' ':json_v1',
+            serializer='invenio_records_rest.serializers:json_v1',
             order=1,
-        )
+        ),
+        'ris': dict(
+            title='RIS',
+            serializer='rero_ils.modules.documents.serializers:ris_v1',
+            order=2,
+        ),
     }
 }
 
@@ -3270,4 +3283,41 @@ RERO_ILS_STOP_WORDS = {
 # ================
 RERO_ILS_LANGUAGE_MAPPING = {
     'dum': 'dut'  # neerlandais
+}
+
+# EXPORT MAPPING
+# ================
+RERO_ILS_EXPORT_MAPPER = {
+    'ris': {
+        'doctype_mapping': {
+            'BOOK': lambda m, s: (m == 'docmaintype_book'
+                                  and s not in ['docsubtype_manuscript',
+                                                'docsubtype_thesis',
+                                                'docsubtype_e-book']
+                                  ) or m in ['docmaintype_children',
+                                             'docmaintype_comic',
+                                             'docmaintype_leaf'],
+            'ART': lambda m, s: m == 'docmaintype_image'
+                                or s == 'docsubtype_kamishibai',
+            'JOUR': lambda m, s: m == 'docmaintype_article',
+            'MUSIC': lambda m, s: m == 'docmaintype_audio'
+                                  and s == 'docsubtype_music',
+            'EBOOK': lambda m, s: m == 'docmaintype_book'
+                                  and s == 'docsubtype_e-book',
+            'MANSCPT': lambda m, s: m == 'docmaintype_book'
+                                    and s == 'docsubtype_manuscript',
+            'THES': lambda m, s: m == 'docmaintype_book'
+                                 and s == 'docsubtype_thesis',
+            'SOUND': lambda m, s: m == 'docmaintype_audio'
+                                  and not s == 'docsubtype_music',
+            'MAP': lambda m, s: m == 'docmaintype_map',
+            'VIDEO': lambda m, s: m == 'docmaintype_movie_series',
+            'JFULL': lambda m, s: m == 'docmaintype_serial',
+            'SER': lambda m, s: m == 'docmaintype_series',
+        },
+        'export_fields': [
+            'TY', 'ID', 'TI', 'T2', 'AU', 'A2', 'DA', 'SP', 'EP', 'CY', 'LA',
+            'PB', 'SN', 'UR', 'KW', 'ET', 'DO', 'VL', 'IS', 'PP', 'Y1', 'PY'
+        ]
+    }
 }

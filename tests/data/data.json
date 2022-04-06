@@ -1266,7 +1266,7 @@
       {
         "type": "overdue",
         "days_delay": 5,
-        "fee_amount": 2.0,
+        "fee_amount": 2,
         "communication_channel": "patron_setting",
         "template": "email/overdue"
       }
@@ -1299,14 +1299,14 @@
       {
         "type": "overdue",
         "days_delay": 5,
-        "fee_amount": 2.0,
+        "fee_amount": 2,
         "communication_channel": "patron_setting",
         "template": "email/overdue"
       },
       {
         "type": "overdue",
         "days_delay": 12,
-        "fee_amount": 2.0,
+        "fee_amount": 2,
         "communication_channel": "mail",
         "template": "email/overdue"
       }
@@ -1355,7 +1355,7 @@
       {
         "type": "overdue",
         "days_delay": 5,
-        "fee_amount": 2.0,
+        "fee_amount": 2,
         "communication_channel": "patron_setting",
         "template": "email/overdue"
       }
@@ -1399,7 +1399,7 @@
       {
         "type": "overdue",
         "days_delay": 5,
-        "fee_amount": 2.0,
+        "fee_amount": 2,
         "communication_channel": "patron_setting",
         "template": "email/overdue"
       }
@@ -2716,6 +2716,311 @@
       "encodingLevel": "Minimal level"
     }
   },
+  "doc8": {
+    "pid": "doc8",
+    "adminMetadata": {
+      "encodingLevel": "Minimal level"
+    },
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
+    "type": [
+      {
+        "main_type": "docmaintype_audio",
+        "subtype": "docsubtype_music"
+      },
+      {
+        "main_type": "docmaintype_audio",
+        "subtype": "docsubtype_sound"
+      }
+    ],
+    "language": [
+      {
+        "type": "bf:Language",
+        "value": "fre"
+      },
+      {
+        "type": "bf:Language",
+        "value": "ita"
+      }
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "Immigration"
+          }
+        ],
+        "subtitle": [
+          {
+            "value": "quelle int\u00e9gration ? Quels droits politiques ?"
+          }
+        ],
+        "type": "bf:Title"
+      },
+      {
+        "mainTitle": [
+          {
+            "value": "Immigrazione"
+          }
+        ],
+        "subtitle": [
+          {
+            "value": "quale integrazione? Quali diritti politichi?"
+          }
+        ],
+        "type": "bf:ParallelTitle"
+      }
+    ],
+    "contribution": [
+      {
+        "agent": {
+          "date_of_birth": "1921",
+          "date_of_death": "1987",
+          "numeration": "XXII",
+          "preferred_name": "Yourcenar, Marguerite",
+          "qualifier": "autrice",
+          "type": "bf:Person"
+        },
+        "role": [
+          "abr"
+        ]
+      },
+      {
+        "agent": {
+          "conference": false,
+          "preferred_name": "Universit\u00e9 de Gen\u00e8ve",
+          "subordinate_unit": [
+            "Facult\u00e9 des sciences"
+          ],
+          "type": "bf:Organisation"
+        },
+        "role": [
+          "aut"
+        ]
+      },
+      {
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/agents/idref/027037061",
+          "type": "bf:Person"
+        },
+        "role": [
+          "cre"
+        ]
+      },
+      {
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/agents/idref/028401743",
+          "type": "bf:Person"
+        },
+        "role": [
+          "ctb"
+        ]
+      }
+    ],
+    "identifiedBy": [
+      {
+        "type": "bf:Doi",
+        "value": "10.1530/eje-20-0380e"
+      },
+      {
+        "type": "bf:Isbn",
+        "value": "9782755507171"
+      },
+      {
+        "type": "bf:Issn",
+        "value": "0254-6523"
+      },
+      {
+        "source": "RERO",
+        "type": "bf:Local",
+        "value": "R008128420"
+      }
+    ],
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "R\u00e9vis\u00e9, corrig\u00e9 et augment\u00e9"
+          }
+        ],
+        "responsibility": [
+          {
+            "value": "par Emile Chatelain"
+          }
+        ]
+      }
+    ],
+    "provisionActivity": [
+      {
+        "type": "bf:Publication",
+        "startDate": 1866,
+        "endDate": 1944,
+        "place": [
+          {
+            "country": "be",
+            "type": "bf:Place"
+          }
+        ],
+        "statement": [
+          {
+            "label": [
+              {
+                "value": "Neuch\u00e2tel, La Chaux-de-Fonds [ou] Colombier"
+              }
+            ],
+            "type": "bf:Place"
+          },
+          {
+            "label": [
+              {
+                "value": "Club jurassien, [puis] A. Mathey-Dupraz"
+              }
+            ],
+            "type": "bf:Agent"
+          },
+          {
+            "label": [
+              {
+                "value": "Place 2"
+              }
+            ],
+            "type": "bf:Place"
+          },
+          {
+            "label": [
+              {
+                "value": "Publisher 2"
+              }
+            ],
+            "type": "bf:Agent"
+          },
+          {
+            "label": [
+              {
+                "value": "1866-1944"
+              }
+            ],
+            "type": "Date"
+          }
+        ]
+      },
+      {
+        "statement": [
+          {
+            "label": [
+              {
+                "value": "58-Clamecy"
+              }
+            ],
+            "type": "bf:Place"
+          },
+          {
+            "label": [
+              {
+                "value": "Impr. Laballery"
+              }
+            ],
+            "type": "bf:Agent"
+          }
+        ],
+        "type": "bf:Manufacture"
+      }
+    ],
+    "extent": "17 p.",
+    "partOf": [
+      {
+        "document": {
+          "$ref": "https://bib.rero.ch/api/documents/doc1"
+        },
+        "numbering": [
+          {
+            "issue": 5,
+            "pages": "22-928",
+            "volume": 3,
+            "year": "1988"
+          },
+          {
+            "issue": 8,
+            "pages": "42",
+            "volume": 6,
+            "year": "1998"
+          }
+        ]
+      }
+    ],
+    "seriesStatement": [
+      {
+        "seriesTitle": [
+          {
+            "value": "Collection Savoir"
+          }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "content": "audio",
+        "type": "resource",
+        "url": "https://mediatheque.ch/html/lien1.pdf"
+      },
+      {
+        "type": "versionOfResource",
+        "url": "https://mediatheque.ch/html/lien2.pdf"
+      }
+    ],
+    "subjects": [
+      {
+        "type": "bf:Person",
+        "$ref": "https://mef.rero.ch/api/gnd/041288890"
+      },
+      {
+        "type": "bf:Person",
+        "$ref": "https://mef.rero.ch/api/idref/032106939"
+      },
+      {
+        "type": "bf:Person",
+        "preferred_name": "Athenagoras (patriarche oecum\u00e9nique ; 1)",
+        "identifiedBy": {
+          "value": "A009963344",
+          "source": "rero",
+          "type": "bf:Local"
+        },
+        "source": "rero"
+      },
+      {
+        "type": "bf:Place",
+        "preferred_name": "Europe occidentale",
+        "identifiedBy": {
+          "value": "A009975209",
+          "source": "rero",
+          "type": "bf:Local"
+        },
+        "source": "rero"
+      },
+      {
+        "type": "bf:Topic",
+        "term": "Bases de donn\u00e9es",
+        "identifiedBy": {
+          "value": "A001234567",
+          "source": "rero",
+          "type": "bf:Local"
+        },
+        "source": "rero"
+      },
+      {
+        "creator": "Voltenauer, Marc",
+        "identifiedBy": {
+          "type": "RERO",
+          "value": "A001234567"
+        },
+        "source": "rero",
+        "title": "Bases de donn\u00e9es",
+        "type": "bf:Work"
+      }
+    ]
+  },
   "ebook1": {
     "pid": "ebook1",
     "type": [
@@ -3926,7 +4231,7 @@
     "pid": "pttr1",
     "creation_date": "2019-01-09T08:18:22.576291+00:00",
     "type": "overdue",
-    "total_amount": 5.0,
+    "total_amount": 5,
     "notification": {
       "$ref": "https://bib.rero.ch/api/notifications/x"
     },
@@ -3947,7 +4252,7 @@
     "creation_date": "2019-01-09T08:18:22.576291+00:00",
     "type": "fee",
     "subtype": "overdue",
-    "amount": 5.0,
+    "amount": 5,
     "note": "event of the dummy_patron_transaction",
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/x"
@@ -3961,7 +4266,7 @@
     "pid": "pttr2",
     "creation_date": "2019-01-09T08:18:22.576291+00:00",
     "type": "overdue",
-    "total_amount": 5.0,
+    "total_amount": 5,
     "notification": {
       "$ref": "https://bib.rero.ch/api/notifications/x"
     },
@@ -3982,7 +4287,7 @@
     "creation_date": "2019-01-09T08:18:22.576291+00:00",
     "type": "fee",
     "subtype": "overdue",
-    "amount": 5.0,
+    "amount": 5,
     "note": "event of the dummy_patron_transaction",
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/x"
@@ -3996,7 +4301,7 @@
     "pid": "pttr3",
     "creation_date": "2019-01-09T08:18:22.576291+00:00",
     "type": "photocopy",
-    "total_amount": 5.0,
+    "total_amount": 5,
     "patron": {
       "$ref": "https://bib.rero.ch/api/patrons/ptrn1"
     },
