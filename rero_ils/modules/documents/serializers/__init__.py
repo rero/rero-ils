@@ -25,8 +25,12 @@ from rero_ils.modules.documents.serializers.dc import DublinCoreSerializer
 from rero_ils.modules.documents.serializers.json import DocumentJSONSerializer
 from rero_ils.modules.documents.serializers.marcxml import \
     DocumentMARCXMLSerializer, DocumentMARCXMLSRUSerializer
+from rero_ils.modules.documents.serializers.ris import RISSerializer
+from rero_ils.modules.response import search_responsify_file
 from rero_ils.modules.serializers import RecordSchemaJSONV1
 
+# Serializers
+# ===========
 json_doc = DocumentJSONSerializer(RecordSchemaJSONV1)
 """JSON v1 serializer."""
 xml_dc = DublinCoreSerializer(RecordSchemaJSONV1)
@@ -35,9 +39,18 @@ xml_marcxml = DocumentMARCXMLSerializer()
 """XML MARCXML v1 serializer."""
 xml_marcxmlsru = DocumentMARCXMLSRUSerializer()
 """XML MARCXML SRU v1 serializer."""
+ris_v1 = RISSerializer()
+"""RIS v1 serializer."""
 
+# Records-REST serializers
+# ========================
 json_doc_search = search_responsify(json_doc, 'application/rero+json')
 json_doc_response = record_responsify(json_doc, 'application/rero+json')
+ris_doc_search = \
+    search_responsify_file(ris_v1,
+                           'application/x-research-info-systems', 'ris')
+ris_doc_response = \
+    record_responsify(ris_v1, 'application/x-research-info-systems')
 xml_dc_search = search_responsify(xml_dc, 'application/xml')
 xml_dc_response = record_responsify(xml_dc, 'application/xml')
 xml_marcxml_search = search_responsify(xml_marcxml, 'application/xml')
