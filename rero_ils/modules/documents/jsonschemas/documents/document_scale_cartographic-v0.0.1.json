@@ -23,7 +23,7 @@
             "Other"
           ],
           "form": {
-            "Type": "selectWithSort",
+            "type": "selectWithSort",
             "options": [
               {
                 "label": "Linear scale",

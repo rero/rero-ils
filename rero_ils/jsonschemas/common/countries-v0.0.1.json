@@ -1917,10 +1917,7 @@
           "label": "country_za",
           "value": "za"
         }
-      ],
-      "templateOptions": {
-        "itemCssClass": "col-lg-4"
-      }
+      ]
     }
   }
 }

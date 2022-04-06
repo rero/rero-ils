@@ -278,6 +278,13 @@
             }
           }
         }
+      },
+      "form": {
+        "templateOptions": {
+          "wrappers": [
+            "card"
+          ]
+        }
       }
     },
     "order_contact": {
@@ -338,6 +345,13 @@
               }
             }
           }
+        }
+      },
+      "form": {
+        "templateOptions": {
+          "wrappers": [
+            "card"
+          ]
         }
       }
     },
