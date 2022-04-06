@@ -18,15 +18,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2022-04-01 09:05+0200\n"
-"PO-Revision-Date: 2022-02-18 17:57+0000\n"
+"PO-Revision-Date: 2022-04-06 09:05+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/en/>\n"
 "Language: en\n"
-"Language-Team: English <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/en/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.12-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: rero_ils/accounts_views.py:46 rero_ils/accounts_views.py:69
@@ -156,15 +157,15 @@ msgstr "type"
 
 #: rero_ils/config.py:2177
 msgid "account"
-msgstr ""
+msgstr "account"
 
 #: rero_ils/config.py:2178
 msgid "order_date"
-msgstr ""
+msgstr "order date"
 
 #: rero_ils/config.py:2184
 msgid "receipt_date"
-msgstr ""
+msgstr "receipt date"
 
 #: rero_ils/config.py:2214
 msgid "sources"
@@ -4007,20 +4008,20 @@ msgstr "Value"
 
 #: rero_ils/modules/acq_accounts/api.py:319
 msgid "Cannot transfer fund to myself."
-msgstr ""
+msgstr "Fund cannot be transferred to the same account."
 
 #: rero_ils/modules/acq_accounts/api.py:321
 msgid "Not enough available money from source account."
-msgstr ""
+msgstr "Not enough available money from the source account."
 
 #: rero_ils/modules/acq_accounts/extensions.py:42
 #: rero_ils/modules/acq_order_lines/extensions.py:55
 msgid "Parent account available amount too low"
-msgstr ""
+msgstr "Parent account available amount too low"
 
 #: rero_ils/modules/acq_accounts/extensions.py:51
 msgid "Remaining balance too low"
-msgstr ""
+msgstr "Remaining balance too low"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:4
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:41
@@ -4097,23 +4098,23 @@ msgstr "Name"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:37
 msgid "Common name of the acquisition account."
-msgstr ""
+msgstr "Common name of the account."
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:49
 msgid "The name is already taken."
-msgstr ""
+msgstr "The name is already taken."
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:55
 msgid "Account number"
-msgstr ""
+msgstr "Account number"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:56
 msgid "Reference account number in accounting system."
-msgstr ""
+msgstr "Reference account number in accounting system."
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:67
 msgid "The number is already taken."
-msgstr ""
+msgstr "The number is already taken."
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:73
 msgid "Allocated amount"
@@ -4125,41 +4126,43 @@ msgstr "Allocated amount."
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:83
 msgid "Encumbrance exceedance"
-msgstr ""
+msgstr "Encumbrance exceeding"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:84
 msgid ""
 "The exceedance percentage of account amount that linked pending orders "
 "can reach."
 msgstr ""
+"The exceeding percentage of the account amount authorised by pending orders."
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:92
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:107
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:100
 msgid "%"
-msgstr ""
+msgstr "%"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:98
 msgid "Expenditure exceedance"
-msgstr ""
+msgstr "Expenditure exceeding"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:99
 msgid ""
 "The exceedance percentage of account amount than linked paid invoices can"
 " reach."
 msgstr ""
+"The exceeding percentage of the account amount authorised by paid invoices."
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:113
 msgid "Parent account"
-msgstr ""
+msgstr "Parent account"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:117
 msgid "Account URI"
-msgstr ""
+msgstr "Account URI"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:121
 msgid "Choose a parent account\\u2026"
-msgstr ""
+msgstr "Choose a parent account"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:131
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:4
@@ -4473,7 +4476,7 @@ msgstr "Can not have multiple notes of the same type."
 
 #: rero_ils/modules/acq_order_lines/extensions.py:63
 msgid "Cannot link to an harvested document"
-msgstr ""
+msgstr "Cannot link to an harvested document"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:5
 msgid "JSON schema for acquisition order line."
@@ -4489,11 +4492,11 @@ msgstr "Acquisition order line ID"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:42
 msgid "Priority"
-msgstr ""
+msgstr "Priority"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:43
 msgid "The higher the number, the higher the priority."
-msgstr ""
+msgstr "The higher the number, the higher the priority."
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:56
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:65
@@ -4592,7 +4595,7 @@ msgstr "Type"
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:117
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:125
 msgid "vendor_note"
-msgstr ""
+msgstr "note to the vendor"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:121
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:129
@@ -4637,7 +4640,7 @@ msgstr "Order date"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:185
 msgid "Receipt date"
-msgstr ""
+msgstr "Receipt date"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:217
 #: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:112
@@ -4665,16 +4668,16 @@ msgstr ""
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:294
 msgid "Cancelled"
-msgstr ""
+msgstr "Cancelled"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:295
 msgid "If checked this order line should be considerate as cancelled."
-msgstr ""
+msgstr "If checked, this order line is considered as cancelled."
 
 #: rero_ils/modules/acq_orders/api.py:365
 #, python-format
 msgid "Order status is %s"
-msgstr ""
+msgstr "Order status is %s"
 
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:5
 msgid "JSON schema for Acquisition Order."
@@ -4691,11 +4694,11 @@ msgstr "Order ID"
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:34
 #: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:48
 msgid "Reference"
-msgstr ""
+msgstr "Reference"
 
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:45
 msgid "This reference number already exists."
-msgstr ""
+msgstr "This reference number already exists."
 
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:67
 msgid "monograph"
@@ -4723,28 +4726,28 @@ msgstr "multi-volume"
 
 #: rero_ils/modules/acq_receipt_lines/extensions.py:68
 msgid "Received quantity is grower than ordered quantity"
-msgstr ""
+msgstr "The quantity received is greater than the quantity ordered"
 
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:4
 msgid "Acquisition receipt line"
-msgstr ""
+msgstr "Receipt line"
 
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:5
 msgid "JSON schema for Acquisition Receipt Line."
-msgstr ""
+msgstr "JSON schema for an acquisition receipt line."
 
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:24
 msgid "Schema to validate Acquisition Receipt Line records against."
-msgstr ""
+msgstr "Schema to validate acquisition receipt line records against."
 
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:30
 msgid "Acquisition receipt line ID"
-msgstr ""
+msgstr "Receipt line ID"
 
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:35
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:43
 msgid "Receipt"
-msgstr ""
+msgstr "Receipt"
 
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:50
 #: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:58
@@ -10537,9 +10540,8 @@ msgid "Pickup name field is required."
 msgstr "Pickup location name field is required."
 
 #: rero_ils/modules/locations/api.py:187
-#, fuzzy
 msgid "Record location disallows request."
-msgstr "Item location does not allow for request."
+msgstr "The record location does not allow requests."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:5
 msgid "JSON schema for an location"
@@ -13473,4 +13475,3 @@ msgstr "Your password has been successfully reset."
 
 #~ msgid "Library name"
 #~ msgstr "Library name"
-
