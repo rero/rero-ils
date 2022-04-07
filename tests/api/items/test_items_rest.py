@@ -795,6 +795,29 @@ def test_filtered_items_get(
     assert data['hits']['total']['value'] == 1
 
 
+def test_local_fields_items_get(
+        client, librarian_martigny, item_lib_martigny,
+        item_lib_fully, local_field_3_martigny):
+    """Test items filter by local_fields."""
+    # Librarian Martigny
+    login_user_via_session(client, librarian_martigny.user)
+    list_url = url_for('invenio_records_rest.item_list',
+                       q='local_fields.fields.field_1:testfield1')
+
+    res = client.get(list_url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data['hits']['total']['value'] == 1
+
+    list_url = url_for('invenio_records_rest.item_list',
+                       q='local_fields.fields.field_1:testfield2')
+
+    res = client.get(list_url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data['hits']['total']['value'] == 0
+
+
 def test_items_notes(client, librarian_martigny, item_lib_martigny,
                      json_header):
     """Test items notes."""

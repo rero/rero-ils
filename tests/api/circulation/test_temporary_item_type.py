@@ -19,8 +19,9 @@
 from datetime import datetime, timedelta
 
 import ciso8601
+from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
+from utils import get_json, postdata
 
 from rero_ils.modules.circ_policies.api import CircPolicy
 from rero_ils.modules.items.models import ItemStatus
@@ -29,6 +30,7 @@ from rero_ils.modules.utils import get_ref_for_pid
 
 def test_checkout_temporary_item_type(
         client,
+        document,
         librarian_martigny,
         lib_martigny,
         loc_public_martigny,
@@ -58,6 +60,17 @@ def test_checkout_temporary_item_type(
         '$ref': get_ref_for_pid('itty', item_type_on_site_martigny.pid)
     }
     item = item.update(data=item, dbcommit=True, reindex=True)
+
+    # check temporary_circulation_category is indexed in document
+    doc_list = url_for(
+            'invenio_records_rest.doc_list',
+            q=f'holdings.circulation_category.pid\
+                :{item_type_on_site_martigny.pid}'
+        )
+    res = client.get(doc_list)
+    data = get_json(res)
+    assert len(data['hits']['hits']) == 1
+
     cipo_tmp_used = CircPolicy.provide_circ_policy(
         lib_martigny.organisation_pid,
         lib_martigny.pid,
