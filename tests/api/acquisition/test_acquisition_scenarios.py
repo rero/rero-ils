@@ -87,6 +87,11 @@ def test_create_accounts(client, rero_json_header, org_martigny, lib_martigny,
     _del_resource(client, 'acac', root_account.pid)
 
 
+# DEV NOTES : This mock will prevent any translations problems to occurs
+#             When a translation is done, then the input string will be return
+#             without any changes.
+@mock.patch('rero_ils.modules.acq_accounts.api._',
+            mock.MagicMock(side_effect=lambda v: v))
 def test_transfer_funds_api(client, rero_json_header, org_martigny,
                             lib_martigny, budget_2020_martigny,
                             librarian_martigny):
@@ -101,8 +106,8 @@ def test_transfer_funds_api(client, rero_json_header, org_martigny,
     # STEP 0 :: Create account tree
     #   Test structure account is described below. Each account are noted like
     #   A{x, y} where :
-    #     * 'A' is the accont name
-    #     * 'x' is the accont allocated amount
+    #     * 'A' is the account name
+    #     * 'x' is the account allocated amount
     #     * 'y' is the account remaining_balance
     #
     #   A{2000, 500}                E{200, 100}
@@ -178,7 +183,6 @@ def test_transfer_funds_api(client, rero_json_header, org_martigny,
     res = client.get(url_for('api_acq_account.transfer_funds'))
     assert res.status_code == 400
     assert 'argument is required' in res.get_data(as_text=True)
-
     cases_to_test = [{
         'source': 'dummy', 'target': 'dummy', 'amount': 'dummy',
         'error': 'Unable to load source account'
