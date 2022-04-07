@@ -53,9 +53,9 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                 'location': {
                     'pid': holding['location']['pid'],
                 },
-                'circulation_category': {
-                    'pid': holding['circulation_category']['pid'],
-                },
+                'circulation_category': [{
+                    'pid': holding['circulation_category']['pid']
+                }],
                 'organisation': {
                     'organisation_pid': holding['organisation']['pid'],
                     'library_pid': holding['library']['pid']
@@ -87,8 +87,14 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                     'status': item['status'],
                     'local_fields': item.get('local_fields'),
                     'call_number': item.get('call_number'),
-                    'second_call_number': item.get('second_call_number')
+                    'second_call_number': item.get('second_call_number'),
+                    'temporary_item_type': item.get('temporary_item_type')
                 }
+
+                if 'temporary_item_type' in item:
+                    hold_data['circulation_category'].append(
+                        {'pid': item['temporary_item_type']['pid']})
+
                 item_data = {k: v for k, v in item_data.items() if v}
 
                 # item acquisition part.

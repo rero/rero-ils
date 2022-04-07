@@ -1016,6 +1016,19 @@
                     }
                   }
                 }
+              },
+              "temporary_item_type": {
+                "properties": {
+                  "type": {
+                    "type": "keyword"
+                  },
+                  "pid": {
+                    "type": "keyword"
+                  },
+                  "end_date": {
+                    "type": "date"
+                  }
+                }
               }
             }
           }

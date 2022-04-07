@@ -19,6 +19,7 @@
 
 from .api import Item, ItemsSearch
 from ..documents.api import Document
+from ..local_fields.api import LocalField
 
 
 def enrich_item_data(sender, json=None, record=None, index=None,
@@ -40,6 +41,13 @@ def enrich_item_data(sender, json=None, record=None, index=None,
                 'pid': item.vendor_pid,
                 'type': 'vndr'
             }
+
+        # Local fields in JSON
+        local_fields = LocalField.get_local_fields_by_resource(
+            'item', item.pid)
+        if local_fields:
+            json['local_fields'] = local_fields
+
         # inherited_first_call_number to issue
         inherited_first_call_number = item.issue_inherited_first_call_number
         if inherited_first_call_number:

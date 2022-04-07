@@ -26,6 +26,7 @@ from .models import LocalFieldIdentifier, LocalFieldMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..documents.api import Document
 from ..fetchers import id_fetcher
+from ..items.api import Item
 from ..minters import id_minter
 from ..providers import Provider
 from ...modules.utils import extracted_data_from_ref
@@ -128,7 +129,7 @@ class LocalFieldsIndexer(IlsRecordsIndexer):
         """
         return_value = super().index(record)
         resource = extracted_data_from_ref(record['parent']['$ref'], 'record')
-        if isinstance(resource, Document):
+        if isinstance(resource, Document) or isinstance(resource, Item):
             resource.reindex()
         return return_value
 
@@ -139,7 +140,7 @@ class LocalFieldsIndexer(IlsRecordsIndexer):
         """
         return_value = super().delete(record)
         resource = extracted_data_from_ref(record['parent']['$ref'], 'record')
-        if isinstance(resource, Document):
+        if isinstance(resource, Document) or isinstance(resource, Item):
             resource.reindex()
         return return_value
 

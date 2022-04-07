@@ -32,5 +32,20 @@
         "Production by Hogwarts' students"
       ]
     }
+  },
+  "lofi3": {
+    "$schema": "https://bib.rero.ch/schemas/local_fields/local_field-v0.0.1.json",
+    "pid": "lofi3",
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/items/item1"
+    },
+    "fields": {
+      "field_1": [
+        "testfield1"
+      ]
+    }
   }
 }

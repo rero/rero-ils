@@ -1112,6 +1112,25 @@ def local_field_sion(app, org_martigny, document, local_field_sion_data):
     return local_field
 
 
+@pytest.fixture(scope="module")
+def local_field_3_martigny_data(local_fields):
+    """Load Local field 3 data."""
+    return deepcopy(local_fields.get('lofi3'))
+
+
+@pytest.fixture(scope="module")
+def local_field_3_martigny(app, org_martigny, document,
+                           local_field_3_martigny_data):
+    """Load local field."""
+    local_field = LocalField.create(
+        data=local_field_3_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LocalFieldsSearch.Meta.index)
+    return local_field
+
+
 # --- OPERATION LOGS
 @pytest.fixture(scope="module")
 def operation_log_data(data):
