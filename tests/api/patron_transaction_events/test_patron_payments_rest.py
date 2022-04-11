@@ -22,6 +22,8 @@ from copy import deepcopy
 from invenio_accounts.testutils import login_user_via_session
 from utils import postdata
 
+from rero_ils.modules.patron_transaction_events.models import \
+    PatronTransactionEventType
 from rero_ils.modules.patron_transactions.api import PatronTransaction
 from rero_ils.modules.utils import get_ref_for_pid
 
@@ -44,7 +46,7 @@ def test_patron_payment(
     #   Try to pay a part of the transaction amount, but according to
     #   event amount restriction, only 2 decimals are allowed.
     del payment['pid']
-    payment['type'] = 'payment'
+    payment['type'] = PatronTransactionEventType.PAYMENT
     payment['subtype'] = 'cash'
     payment['amount'] = 0.545
     payment['operator'] = {
@@ -70,7 +72,24 @@ def test_patron_payment(
     res, data = postdata(client, post_entrypoint, payment)
     assert res.status_code == 400
 
-    # STEP#4 :: PAY THE REST
+    # STEP34 :: ADD A DISPUTE
+    #   Just to test if a ptte without amount doesn't break the process.
+    dispute = deepcopy(ptre)
+    del dispute['pid']
+    del dispute['subtype']
+    del dispute['amount']
+    dispute['type'] = PatronTransactionEventType.DISPUTE
+    dispute['note'] = 'this is a dispute note'
+    dispute['operator'] = {
+        '$ref': get_ref_for_pid('patrons', librarian_martigny.pid)
+    }
+    res, data = postdata(client, post_entrypoint, dispute)
+    assert res.status_code == 201
+    transaction = PatronTransaction.get_record_by_pid(transaction.pid)
+    assert transaction.total_amount == 1.46
+    assert transaction.status == 'open'
+
+    # STEP#5 :: PAY THE REST
     #   Conclude the transaction by creation of a payment for the rest of the
     #   transaction
     payment['amount'] = transaction.total_amount

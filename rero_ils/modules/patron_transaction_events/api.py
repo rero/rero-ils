@@ -151,6 +151,8 @@ class PatronTransactionEvent(IlsRecord):
         #   digits, we can multiply amounts by 100, cast result as integer,
         #   do operation with these values, and (at the end) divide the result
         #   by 100.
+        if not self.amount:
+            return
         pttr = self.patron_transaction
         total_amount = int(pttr.get('total_amount') * 100)
         amount = int(self.amount * 100)
