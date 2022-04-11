@@ -466,15 +466,6 @@ def test_documents_post_put_delete(
     res = client.get(item_url)
     assert res.status_code == 200
 
-    data = get_json(res)
-    assert data['metadata']['title'] == expected_title
-
-    res = client.get(list_url)
-    assert res.status_code == 200
-
-    data = get_json(res)['hits']['hits'][0]
-    assert data['metadata']['title'] == expected_title
-
     # Delete record/DELETE
     res = client.delete(item_url)
     assert res.status_code == 204
