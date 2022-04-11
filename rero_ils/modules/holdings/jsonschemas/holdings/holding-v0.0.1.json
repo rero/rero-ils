@@ -610,7 +610,8 @@
               "claim_note",
               "routing_note",
               "binding_note",
-              "acquisition_note"
+              "acquisition_note",
+              "access_note"
             ],
             "form": {
               "type": "selectWithSort",
@@ -646,6 +647,10 @@
                 {
                   "label": "acquisition_note",
                   "value": "acquisition_note"
+                },
+                {
+                  "label": "access_note",
+                  "value": "access_note"
                 }
               ],
               "templateOptions": {
