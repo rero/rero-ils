@@ -23,7 +23,8 @@ from functools import partial
 
 from flask_babelex import gettext as _
 
-from .extentions import DecimalAmountExtension
+from rero_ils.modules.extensions import DecimalAmountExtension
+
 from .models import PatronTransactionEventIdentifier, \
     PatronTransactionEventMetadata, PatronTransactionEventType
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch

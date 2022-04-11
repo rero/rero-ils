@@ -17,9 +17,29 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Acquisition receipts API tests."""
+import pytest
+from jsonschema.exceptions import ValidationError
 
 from rero_ils.modules.acq_receipts.models import AcqReceiptNoteType
 from rero_ils.modules.utils import extracted_data_from_ref
+
+
+def test_receipts_custom_validation(
+    acq_order_fiction_martigny, acq_account_fiction_martigny,
+    acq_receipt_fiction_martigny, acq_receipt_fiction_martigny_data
+):
+    """test receipts custom validations."""
+    acre1 = acq_receipt_fiction_martigny
+    # TEST ADJUSTMENT AMOUNT WITH BAD DECIMALS --------------------------------
+    acre1['amount_adjustments'][0]['amount'] = 1.000003
+    with pytest.raises(ValidationError) as err:
+        acre1 = acre1.update(acre1, dbcommit=True, reindex=True)
+    assert 'must be multiple of 0.01' in str(err)
+
+    acre1['amount_adjustments'][0]['amount'] = -99999.990
+    acre1 = acre1.update(acre1, dbcommit=True, reindex=True)
+    acre1.update(
+        acq_receipt_fiction_martigny_data, dbcommit=True, reindex=True)
 
 
 def test_receipts_properties(
