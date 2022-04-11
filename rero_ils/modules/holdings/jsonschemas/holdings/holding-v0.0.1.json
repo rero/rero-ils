@@ -525,7 +525,7 @@
       }
     },
     "enumerationAndChronology": {
-      "title": "Available collection",
+      "title": "Collection",
       "description": "Textual description of the basic bibliographic unit of the holding.",
       "type": "string",
       "minLength": 1,
@@ -537,7 +537,7 @@
       }
     },
     "supplementaryContent": {
-      "title": "Supplementary content",
+      "title": "Supplements",
       "description": "Textual description of supplementary contents (special issues, etc.).",
       "type": "string",
       "minLength": 1,
