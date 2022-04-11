@@ -22,6 +22,7 @@ from __future__ import absolute_import, print_function
 from copy import deepcopy
 
 import pytest
+from jsonschema.exceptions import ValidationError
 
 from rero_ils.modules.patron_transaction_events.api import \
     PatronTransactionEvent
@@ -34,15 +35,18 @@ def test_patron_transaction_event_create(
     """Test patron transaction event creation."""
     patron_event = deepcopy(patron_transaction_overdue_event_martigny)
     patron_event['type'] = 'no_type'
-    import jsonschema
-    with pytest.raises(jsonschema.exceptions.ValidationError):
-        record = PatronTransactionEvent.create(
-            patron_event, delete_pid=True)
-
+    with pytest.raises(ValidationError):
+        PatronTransactionEvent.create(patron_event, delete_pid=True)
+    db.session.rollback()
+    # Check amount is multiple of 0.01
+    patron_event['type'] = 'fee'
+    patron_event['amount'] = 2.23333
+    with pytest.raises(ValidationError) as err:
+        PatronTransactionEvent.create(patron_event, delete_pid=True)
+    assert 'must be multiple of 0.01' in str(err)
     db.session.rollback()
 
     next_pid = PatronTransactionEvent.provider.identifier.next()
-    patron_event['type'] = 'fee'
     patron_event['amount'] = 2.2
     record = PatronTransactionEvent.create(patron_event, delete_pid=True)
     next_pid += 1

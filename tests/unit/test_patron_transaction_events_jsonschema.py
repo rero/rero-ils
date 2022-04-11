@@ -140,11 +140,6 @@ def test_patron_transaction_events_amount(
         data['amount'] = '25'
         validate(data, patron_transaction_event_schema)
 
-        with pytest.raises(ValidationError):
-            data = copy.deepcopy(patron_transaction_overdue_event_saxon_data)
-            data['amount'] = 2.1999999999999997
-            validate(data, patron_transaction_event_schema)
-
 
 def test_patron_transaction_steps(
         patron_transaction_event_schema,

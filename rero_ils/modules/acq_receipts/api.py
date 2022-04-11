@@ -29,6 +29,7 @@ from .extensions import AcqReceiptExtension, \
 from .models import AcqReceiptIdentifier, AcqReceiptLineCreationStatus, \
     AcqReceiptMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from ..extensions import DecimalAmountExtension
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
@@ -70,7 +71,11 @@ class AcqReceipt(IlsRecord):
 
     _extensions = [
         AcqReceiptExtension(),
-        AcquisitionReceiptCompleteDataExtension()
+        AcquisitionReceiptCompleteDataExtension(),
+        DecimalAmountExtension(
+            callback=lambda rec:
+                [adj['amount'] for adj in rec.get('amount_adjustments', [])]
+        ),
     ]
 
     @classmethod

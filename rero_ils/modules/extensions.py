@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Shared extensions about RERO-ILS resources."""
+import re
 
 from elasticsearch_dsl import Q
 from invenio_records.extensions import RecordExtension
@@ -87,10 +88,11 @@ class UniqueFieldsExtension(RecordExtension):
         # Create an `OR` query with all fields to check and exclude the current
         # record from the result. If one hit matches, raise a ValidationError,
         # otherwise, all should be fine. Enjoy !
-        terms = []
-        for attr, es_field in self.fields:  # each tuple field are unpacked
-            if attr in record:
-                terms.append(Q('term', **{es_field: record[attr]}))
+        terms = [
+            Q('term', **{es_field: record[attr]})
+            for attr, es_field in self.fields
+            if attr in record
+        ]
 
         es_query = self.search_class()\
             .query('bool', should=terms, minimum_should_match=1)\
@@ -107,3 +109,59 @@ class UniqueFieldsExtension(RecordExtension):
 
     pre_commit = _check_fields
     pre_create = _check_fields
+
+
+class DecimalAmountExtension(RecordExtension):
+    """Check and transform a decimal amount into integer representation."""
+
+    def __init__(self, field_name=None, decimals=2, callback=None):
+        """Extension initialization.
+
+        :param field_name: the field name where found the amount to analyze.
+        :param decimals: the number of decimal accepted.
+        :param callback: a callback function to find values to check.
+        """
+        self.amount_field = field_name
+        self.decimals = decimals
+        self.callback = callback
+        assert field_name or (callback and callable(callback))
+
+    def _check_amount(self, record):
+        """Check if the record has the correct decimal number.
+
+        :param record: the record to validate.
+        :raise ValidationError if the amount doesn't respect the decimal amount
+        """
+        # Get the values to check. Either the value must be found into the
+        # record regarding the 'field_name', either we will use the callback
+        # function to retrieve data to check.
+        if self.amount_field:
+            values_to_check = record.get(self.amount_field)
+        else:
+            values_to_check = self.callback(record)
+
+        # Ensure the values to check is a list and this list isn't empty. If
+        # the list is empty, we can return without any check
+        if type(values_to_check) is not list:
+            values_to_check = [values_to_check]
+        values_to_check = [v for v in values_to_check if v is not None]
+        if not values_to_check:
+            return
+
+        # Check that the amount field has the correct decimals. If not, a
+        # `ValidationError` error will be raised.
+        # NOTE:
+        #   an amount of "123,450" is true despite if we configure only 2
+        #   decimals. In same way "123,4" is also a valid value.
+        regexp = r'^-?(\d+(?:(,|.)\d{1,' + str(self.decimals) + r'})?)$'
+        regexp = re.compile(regexp)
+
+        for value in values_to_check:
+            print(f"Checking {value} :: ", regexp.match(str(value)))
+            if not regexp.match(str(value)):
+                decimal_string = 1 / pow(10, self.decimals)
+                msg = f'`{value}` must be multiple of {decimal_string}'
+                raise ValidationError(msg)
+
+    pre_commit = _check_amount
+    pre_create = _check_amount
