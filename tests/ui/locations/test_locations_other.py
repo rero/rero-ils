@@ -39,9 +39,14 @@ def test_location_get_links_to_me(
         loc_public_martigny, loc_public_sion, item_lib_martigny):
     """Test pickup locations retrieval."""
 
-    assert loc_public_martigny.get_links_to_me() == {'items': 1}
+    assert loc_public_martigny.get_links_to_me() == {
+        'items': 1,
+        'holdings': 1
+    }
     assert loc_public_martigny.get_links_to_me(get_pids=True) == {
-        'items': ['item1']}
+        'items': ['item1'],
+        'holdings': ['1']
+    }
 
     assert loc_public_sion.get_links_to_me() == {}
     item_lib_martigny['temporary_location'] = {
