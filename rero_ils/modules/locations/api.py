@@ -118,6 +118,7 @@ class Location(IlsRecord):
         :param get_pids: if True list of linked pids
                          if False count of linked records
         """
+        from ..holdings.api import HoldingsSearch
         from ..items.api import ItemsSearch
         from ..loans.api import LoansSearch
         item_query = ItemsSearch() \
@@ -133,18 +134,23 @@ class Location(IlsRecord):
                 Q('term', transaction_location_pid=self.pid)
             ]) \
             .exclude('terms', state=exclude_states)
+        holdings_query = HoldingsSearch() \
+            .filter('term', location__pid=self.pid)
         links = {}
         if get_pids:
             items = sorted_pids(item_query)
             loans = sorted_pids(loan_query)
+            holdings = sorted_pids(holdings_query)
         else:
             items = item_query.count()
             loans = loan_query.count()
-        if items:
-            links['items'] = items
-        if loans:
-            links['loans'] = loans
-        return links
+            holdings = holdings_query.count()
+        links = {
+            'items': items,
+            'loans': loans,
+            'holdings': holdings
+        }
+        return {k: v for k, v in links.items() if v}
 
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""

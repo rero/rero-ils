@@ -26,6 +26,16 @@ from rero_ils.modules.locations.api import Location, LocationsSearch
 from rero_ils.modules.locations.api import location_id_fetcher as fetcher
 
 
+def test_location_cannot_delete(item_lib_martigny):
+    """Test cannot delete."""
+    location_pid = item_lib_martigny.location_pid
+    location = Location.get_record_by_pid(location_pid)
+    can, reasons = location.can_delete
+    assert not can
+    assert reasons['links']['holdings'] == 1
+    assert reasons['links']['items'] == 1
+
+
 def test_location_create(db, es, loc_public_martigny_data, lib_martigny,
                          loc_online_martigny):
     """Test location creation."""
@@ -54,10 +64,3 @@ def test_location_organisation_pid(org_martigny, loc_public_martigny):
     search = LocationsSearch()
     location = next(search.filter('term', pid=loc_public_martigny.pid).scan())
     assert location.organisation.pid == org_martigny.pid
-
-
-def test_location_can_delete(loc_public_martigny):
-    """Test can delete."""
-    can, reasons = loc_public_martigny.can_delete
-    assert can
-    assert reasons == {}
