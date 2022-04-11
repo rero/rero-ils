@@ -56,13 +56,13 @@ def test_cli_access_token(app, script_info, patron_martigny):
 
 def test_cli_extract_from_xml(app, tmpdir, document_marcxml, script_info):
     """Test extract from xml cli."""
-    pids_file_name = join(dirname(__file__), '..', 'data', '001.pids')
-    xml_file_name = join(dirname(__file__), '..', 'data', 'documents.xml')
+    pids_path = join(dirname(__file__), '..', 'data', '001.pids')
+    xml_path = join(dirname(__file__), '..', 'data', 'xml', 'documents.xml')
     temp_file_name = join(tmpdir, 'temp.xml')
     runner = CliRunner()
     result = runner.invoke(
         extract_from_xml,
-        [pids_file_name, xml_file_name, temp_file_name, '-v'],
+        [pids_path, xml_path, temp_file_name, '-v'],
         obj=script_info
     )
     assert result.exit_code == 0

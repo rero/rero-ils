@@ -888,14 +888,16 @@ def pattern_bimonthly_every_two_months_two_levels_data(holdings):
 @pytest.fixture(scope='module')
 def ebooks_1_xml():
     """Load ebook1 xml file."""
-    with open(join(dirname(__file__), '..', 'data', 'ebook1.xml')) as fh:
+    filepath = join(dirname(__file__), '..', 'data', 'xml', 'ebook1.xml')
+    with open(filepath) as fh:
         return fh.read()
 
 
 @pytest.fixture(scope='module')
 def ebooks_2_xml():
     """Load ebook2 xml file."""
-    with open(join(dirname(__file__), '..', 'data', 'ebook2.xml')) as fh:
+    filepath = join(dirname(__file__), '..', 'data', 'xml', 'ebook2.xml')
+    with open(filepath) as fh:
         return fh.read()
 
 
@@ -911,14 +913,16 @@ def babel_filehandle():
 @pytest.fixture(scope='module')
 def documents_marcxml():
     """Load marc xml records in one file."""
-    with open(join(dirname(__file__), '..', 'data', 'documents.xml')) as fh:
+    filepath = join(dirname(__file__), '..', 'data', 'xml', 'documents.xml')
+    with open(filepath) as fh:
         return fh.read()
 
 
 @pytest.fixture(scope='module')
 def document_marcxml():
     """Load one marc xml record in one file."""
-    with open(join(dirname(__file__), '..', 'data', 'document.xml')) as fh:
+    filepath = join(dirname(__file__), '..', 'data', 'xml', 'document.xml')
+    with open(filepath) as fh:
         return fh.read()
 
 # --------- Template records -----------
