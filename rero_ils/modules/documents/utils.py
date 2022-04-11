@@ -377,12 +377,9 @@ def title_format_text(title, with_subtitle=True):
     :return: a list of titles in the display text form
     :rtype: list
     """
-    main_titles = title.get('mainTitle', [])
-    subtitles = title.get('subtitle', [])
-
     # build main_title string per language
     main_title_output = {}
-    for main_title in main_titles:
+    for main_title in title.get('mainTitle', []):
         language = main_title.get('language', 'default')
         value = main_title.get('value', '')
         main_title_output.setdefault(language, []).append(value)
@@ -397,36 +394,39 @@ def title_format_text(title, with_subtitle=True):
             subtitle_output.setdefault(language, []).append(value)
 
     # build part strings per language
-    parts = title.get('part', [])
     part_output = {}
+    parts = [
+        part_value
+        for part in title.get('part', [])
+        for part_type, part_values in part.items()
+        for part_value in part_values
+        if part_type in ['partNumber', 'partName']
+    ]
     for part in parts:
-        part_strings = {}
-        language = 'default'
-        for part_key in ('partNumber', 'partName'):
-            if part_key in part:
-                for part_data in part[part_key]:
-                    language = part_data.get('language', 'default')
-                    value = part_data.get('value', '')
-                    if value:
-                        if language not in part_strings:
-                            part_strings[language] = []
-                        part_strings[language].append(value)
-        for language in part_strings:
-            part_output[language] = ', '.join(part_strings[language])
+        language = part.get('language', 'default')
+        value = part.get('value')
+        if value:
+            part_output.setdefault(language, []).append(value)
+    part_output = {
+        key: ', '.join(values)
+        for key, values in part_output.items()
+    }
 
     # build title text strings lists,
     # if a vernacular title exists it will be place on top of the title list
     title_text = []
-    for key, value in main_title_output.items():
-        value = '. '.join(main_title_output.get(key))
-        if subtitle_output and with_subtitle and key in subtitle_output:
-            value = ' : '.join((value, ' : '.join(subtitle_output.get(key))))
-        if part_output and key in part_output and part_output.get(key):
-            value = '. '.join((value, part_output.get(key)))
-        if display_alternate_graphic_first(key):
-            title_text.insert(0, {'value': value, 'language': key})
+    for language, main_title in main_title_output.items():
+        text = '. '.join(main_title)
+        if language in subtitle_output:
+            subtitle_text = ' : '.join(subtitle_output[language])
+            text = f'{text} : {subtitle_text}'
+        if language in part_output:
+            text = f'{text}. {part_output[language]}'
+        data = {'value': text, 'language': language}
+        if display_alternate_graphic_first(language):
+            title_text.insert(0, data)
         else:
-            title_text.append({'value': value, 'language': key})
+            title_text.append(data)
     return title_text
 
 

@@ -25,53 +25,55 @@ from rero_ils.modules.documents.utils import title_format_text_head
 def test_title_format_text_head():
     """Test title format text head."""
     data = [{
-        "mainTitle": [
-            {
-                "value": "Dingding lixianji"
-            },
-            {
-                "value": "\u4e01\u4e01\u5386\u9669\u8bb0",
-                "language": "und-hani"
-            }
-        ],
-        "type": "bf:Title"
+        'mainTitle': [{
+            'value': 'Dingding lixianji'
+        }, {
+            'value': '\u4e01\u4e01\u5386\u9669\u8bb0',
+            'language': 'und-hani'
+        }],
+        'type': 'bf:Title'
     }]
-    assert "\u4e01\u4e01\u5386\u9669\u8bb0" == title_format_text_head(data)
+    assert '\u4e01\u4e01\u5386\u9669\u8bb0' == title_format_text_head(data)
 
     data = [{
-        "mainTitle": [
-            {
-                "value": "Die russischen orthodoxen Bischöfe von 1893",
-            }
-        ],
-        "subtitle": [
-            {
-                "value": "Bio-Bibliographie"
-            }
-        ],
-        "type": "bf:Title"
-      }
-    ]
-    assert "Die russischen orthodoxen Bischöfe von 1893 " \
-           ": Bio-Bibliographie" == title_format_text_head(data)
+        'mainTitle': [{
+            'value': 'Die russischen orthodoxen Bischöfe von 1893',
+        }],
+        'subtitle': [{
+            'value': 'Bio-Bibliographie'
+        }],
+        'type': 'bf:Title'
+    }]
+    assert 'Die russischen orthodoxen Bischöfe von 1893 ' \
+           ': Bio-Bibliographie' == title_format_text_head(data)
 
     data = [{
-        "mainTitle": [
-            {
-                "value": "Die russischen orthodoxen Bischöfe von 1893",
-            },
-            {
-                "value": "The Russian Orthodox Bishops of 1893",
-                "language": "eng"
-            }
-        ],
-        "subtitle": [
-            {
-                "value": "Bio-Bibliographie"
-            }
-        ],
-        "type": "bf:Title"
-      }
-    ]
-    assert "The Russian Orthodox Bishops of 1893" == \
+        'mainTitle': [{
+            'value': 'Die russischen orthodoxen Bischöfe von 1893',
+        }, {
+            'value': 'The Russian Orthodox Bishops of 1893',
+            'language': 'eng'
+        }],
+        'subtitle': [{
+            'value': 'Bio-Bibliographie'
+        }],
+        'type': 'bf:Title'
+    }]
+    assert 'The Russian Orthodox Bishops of 1893' == \
         title_format_text_head(data)
+
+    data = [{
+        'mainTitle': [{
+            'value': 'main_title_text',
+        }],
+        'subtitle': [{
+            'value': 'subtitle_text'
+        }],
+        'part': [
+            {'partName': [{'value': 'part1'}, {'value': 'part1.1'}]},
+            {'partName': [{'value': 'part2'}]}
+        ],
+        'type': 'bf:Title'
+    }]
+    assert 'main_title_text : subtitle_text. part1, part1.1, part2' == \
+           title_format_text_head(data)

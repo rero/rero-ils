@@ -234,7 +234,7 @@ class Document(IlsRecord):
         """Post process data after a dump.
 
         :param dump: a dictionary of a resulting Record dumps
-        "return: a modified dictionary
+        :return: a modified dictionary
         """
         provision_activities = dump.get('provisionActivity', [])
         for provision_activity in provision_activities:
