@@ -190,7 +190,10 @@
           "minLength": 1,
           "form": {
             "placeholder": "Examples: LCCN, PMID, DNB",
-            "hide": true,
+            "hideExpression": "field?.parent?.model && field.parent.model.type !== 'bf:Local'",
+            "expressionProperties": {
+              "templateOptions.required": "field?.parent?.model && field.parent.model.type === 'bf:Local'"
+            },
             "templateOptions": {
               "itemCssClass": "col-lg-6"
             }

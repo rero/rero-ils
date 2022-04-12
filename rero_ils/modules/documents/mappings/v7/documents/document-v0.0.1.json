@@ -647,7 +647,7 @@
                     "type": "keyword"
                   },
                   "status": {
-                    "type": "text"
+                    "type": "keyword"
                   }
                 }
               }
@@ -713,7 +713,7 @@
             "type": "keyword"
           },
           "status": {
-            "type": "text"
+            "type": "keyword"
           }
         }
       },
@@ -1102,7 +1102,7 @@
                 "type": "keyword"
               },
               "status": {
-                "type": "text"
+                "type": "keyword"
               }
             }
           }
@@ -1133,7 +1133,7 @@
                 "type": "keyword"
               },
               "status": {
-                "type": "text"
+                "type": "keyword"
               }
             }
           }
@@ -1164,7 +1164,7 @@
                 "type": "keyword"
               },
               "status": {
-                "type": "text"
+                "type": "keyword"
               }
             }
           }
@@ -1195,7 +1195,7 @@
                 "type": "keyword"
               },
               "status": {
-                "type": "text"
+                "type": "keyword"
               }
             }
           }
@@ -1226,7 +1226,7 @@
                 "type": "keyword"
               },
               "status": {
-                "type": "text"
+                "type": "keyword"
               }
             }
           }
@@ -1257,7 +1257,7 @@
                 "type": "keyword"
               },
               "status": {
-                "type": "text"
+                "type": "keyword"
               }
             }
           }
@@ -1288,7 +1288,7 @@
                 "type": "keyword"
               },
               "status": {
-                "type": "text"
+                "type": "keyword"
               }
             }
           }
@@ -1319,7 +1319,7 @@
                 "type": "keyword"
               },
               "status": {
-                "type": "text"
+                "type": "keyword"
               }
             }
           }
@@ -1350,7 +1350,7 @@
                 "type": "keyword"
               },
               "status": {
-                "type": "text"
+                "type": "keyword"
               }
             }
           }
@@ -1381,7 +1381,7 @@
                 "type": "keyword"
               },
               "status": {
-                "type": "text"
+                "type": "keyword"
               }
             }
           }
@@ -1694,10 +1694,10 @@
               "type": {
                 "type": "keyword"
               },
-              "source": {
+              "value": {
                 "type": "keyword"
               },
-              "value": {
+              "source": {
                 "type": "keyword"
               }
             }

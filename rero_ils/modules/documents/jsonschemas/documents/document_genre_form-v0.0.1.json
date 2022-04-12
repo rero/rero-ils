@@ -63,7 +63,7 @@
                 "bf:Topic"
               ],
               "form": {
-                "Type": "selectWithSort",
+                "type": "selectWithSort",
                 "options": [
                   {
                     "label": "bf:Topic",

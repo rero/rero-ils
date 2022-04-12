@@ -140,9 +140,9 @@
         }
       },
       "form": {
-        "hideExpression": "!field.parent.model.negative_availability",
+        "hideExpression": "field?.parent?.model && !field.parent.model.negative_availability",
         "expressionProperties": {
-          "templateOptions.required": "field.parent.model.negative_availability"
+          "templateOptions.required": "field?.parent?.model && field.parent.model.negative_availability"
         },
         "validation": {
           "validators": {

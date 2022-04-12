@@ -114,7 +114,7 @@
             },
             {
               "form": {
-                "hideExpression": "!(field.parent.model && field.parent.model.city)"
+                "hideExpression": "field?.parent?.model && !(field.parent.model && field.parent.model.city)"
               }
             }
           ]
@@ -264,7 +264,7 @@
           "type": "string",
           "format": "email",
           "form": {
-            "hideExpression": "field.parent.model && field.parent.model.communication_channel !== 'email'"
+            "hideExpression": "field?.parent?.model && field.parent.model.communication_channel !== 'email'"
           }
         },
         "communication_language": {
@@ -366,7 +366,7 @@
           "type": "string",
           "description": "The reason is displayed in the circulation module and is visible by the patron in his account.",
           "form": {
-            "hideExpression": "field.parent.model &&  field.parent.model.blocked !== true",
+            "hideExpression": "field?.parent?.model &&  field.parent.model.blocked !== true",
             "expressionProperties": {
               "templateOptions.required": "true"
             }
@@ -374,7 +374,7 @@
         }
       },
       "form": {
-        "hideExpression": "!field.parent.model.roles.some(v => v === 'patron')",
+        "hideExpression": "field?.parent?.model && !field.parent.model.roles.some(v => v === 'patron')",
         "expressionProperties": {
           "templateOptions.required": "true"
         },
@@ -413,9 +413,9 @@
         }
       },
       "form": {
-        "hideExpression": "!field.parent.model.roles.some(v => (v === 'librarian' || v === 'system_librarian'))",
+        "hideExpression": "field?.parent?.model && !field.parent.model.roles.some(v => (v === 'librarian' || v === 'system_librarian'))",
         "expressionProperties": {
-          "templateOptions.required": "field.parent.model.roles.some(v => (v === 'librarian' || v === 'system_librarian'))"
+          "templateOptions.required": "field?.parent?.model && field.parent.model.roles.some(v => (v === 'librarian' || v === 'system_librarian'))"
         }
       }
     },

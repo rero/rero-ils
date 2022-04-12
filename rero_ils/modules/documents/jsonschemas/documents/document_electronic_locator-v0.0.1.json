@@ -49,7 +49,7 @@
             "noInfo"
           ],
           "form": {
-            "Type": "selectWithSort",
+            "type": "selectWithSort",
             "options": [
               {
                 "label": "resource",

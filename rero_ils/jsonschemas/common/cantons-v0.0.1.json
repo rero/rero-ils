@@ -140,7 +140,7 @@
       "templateOptions": {
         "itemCssClass": "col-lg-4"
       },
-      "hideExpression": "field.parent.model.country !== 'sz'"
+      "hideExpression": "field?.parent?.model && field.parent.model.country !== 'sz'"
     }
   }
 }

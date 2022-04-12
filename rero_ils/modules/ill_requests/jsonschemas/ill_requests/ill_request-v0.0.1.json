@@ -203,9 +203,6 @@
         "source": {
           "type": "object",
           "title": "Source",
-          "required": [
-            "journal_title"
-          ],
           "propertiesOrder": [
             "journal_title",
             "volume",
@@ -215,12 +212,7 @@
             "journal_title": {
               "type": "string",
               "title": "Journal title",
-              "minLength": 3,
-              "form": {
-                "expressionProperties": {
-                  "templateOptions.required": "false"
-                }
-              }
+              "minLength": 3
             },
             "volume": {
               "type": "string",
@@ -250,9 +242,9 @@
       "type": "string",
       "title": "Pages",
       "form": {
-        "hideExpression": "model.copy === false",
+        "hideExpression": "model && model.copy === false",
         "expressionProperties": {
-          "templateOptions.required": "model.copy === true"
+          "templateOptions.required": "model && model.copy === true"
         }
       }
     },
@@ -274,7 +266,7 @@
           "minLength": 3,
           "form": {
             "expressionProperties": {
-              "templateOptions.required": "field.parent.model.url !== undefined && field.parent.model.url !== ''"
+              "templateOptions.required": "field?.parent?.model && (field.parent.model.url !== undefined && field.parent.model.url !== '')"
             }
           }
         },
@@ -287,7 +279,7 @@
           "minLength": 7,
           "form": {
             "expressionProperties": {
-              "templateOptions.required": "field.parent.model.source !== undefined && field.parent.model.source !== ''"
+              "templateOptions.required": "field?.parent?.model && (field.parent.model.source !== undefined && field.parent.model.source !== '')"
             },
             "validation": {
               "messages": {

@@ -169,7 +169,7 @@
                 }
               },
               "form": {
-                "hideExpression": "!field.parent.model || !field.parent.model.library_limit || field.parent.model.library_limit == 0"
+                "hideExpression": "!field?.parent?.model || !field.parent.model.library_limit || field.parent.model.library_limit == 0"
               }
             }
           },
@@ -242,7 +242,7 @@
           "title": "Block the patron if the subscription is not paid",
           "default": true,
           "form": {
-            "hideExpression": "!field.parent.parent.model.hasOwnProperty('subscription_amount') || field.parent.parent.model.subscription_amount <= 0"
+            "hideExpression": "field?.parent?.parent?.model && (!field.parent.parent.model.hasOwnProperty('subscription_amount') || field.parent.parent.model.subscription_amount <= 0)"
           }
         }
       }
