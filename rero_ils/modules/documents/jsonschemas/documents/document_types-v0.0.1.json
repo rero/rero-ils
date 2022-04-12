@@ -980,7 +980,6 @@
       ]
     },
     "form": {
-      "hide": true,
       "templateOptions": {
         "cssClass": "w-md-50"
       }

@@ -8,6 +8,10 @@
       "value",
       "source"
     ],
+    "required": [
+      "type",
+      "value"
+    ],
     "properties": {
       "type": {
         "$ref": "#/definitions/type_main"
@@ -34,6 +38,10 @@
       "type",
       "value",
       "source"
+    ],
+    "required": [
+      "type",
+      "value"
     ],
     "properties": {
       "type": {
@@ -88,10 +96,7 @@
           }
         ],
         "templateOptions": {
-          "itemCssClass": "col-lg-4"
-        },
-        "expressionProperties": {
-          "templateOptions.required": "true"
+          "itemCssClass": "col-lg-12"
         }
       }
     },
@@ -124,10 +129,7 @@
           }
         ],
         "templateOptions": {
-          "itemCssClass": "col-lg-4"
-        },
-        "expressionProperties": {
-          "templateOptions.required": "true"
+          "itemCssClass": "col-lg-12"
         }
       }
     },
@@ -137,10 +139,7 @@
       "minLength": 1,
       "form": {
         "templateOptions": {
-          "itemCssClass": "col-lg-4"
-        },
-        "expressionProperties": {
-          "templateOptions.required": "true"
+          "itemCssClass": "col-lg-12"
         }
       }
     },
@@ -151,12 +150,12 @@
       "minLength": 1,
       "form": {
         "templateOptions": {
-          "itemCssClass": "col-lg-4"
+          "itemCssClass": "col-lg-12"
         },
         "expressionProperties": {
           "templateOptions.required": "true"
         },
-        "hideExpression": "field.parent.model && field.parent.model.type !== 'bf:Local'"
+        "hideExpression": "!field?.parent?.model || (field.parent.model && field.parent.model.type !== 'bf:Local')"
       }
     }
   }

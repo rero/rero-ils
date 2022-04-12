@@ -68,7 +68,7 @@
                 "target_understanding_caregivers"
               ],
               "form": {
-                "Type": "selectWithSort",
+                "type": "selectWithSort",
                 "options": [
                   {
                     "label": "target_understanding_children",
@@ -230,7 +230,7 @@
                 "target_school_master"
               ],
               "form": {
-                "Type": "selectWithSort",
+                "type": "selectWithSort",
                 "options": [
                   {
                     "label": "target_school_harmos1",
@@ -335,7 +335,7 @@
                 "pegi_18"
               ],
               "form": {
-                "Type": "selectWithSort",
+                "type": "selectWithSort",
                 "options": [
                   {
                     "label": "pegi_3",
@@ -403,7 +403,7 @@
                 "from the age of 2"
               ],
               "form": {
-                "Type": "selectWithSort",
+                "type": "selectWithSort",
                 "options": [
                   {
                     "label": "from the age of 18",

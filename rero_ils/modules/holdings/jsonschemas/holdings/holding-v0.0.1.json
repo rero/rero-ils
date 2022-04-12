@@ -738,7 +738,7 @@
           }
         ],
         "expressionProperties": {
-          "templateOptions.required": "model.holdings_type === 'serial'"
+          "templateOptions.required": "model && model.holdings_type === 'serial'"
         }
       }
     },

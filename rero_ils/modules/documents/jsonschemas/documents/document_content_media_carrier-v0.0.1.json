@@ -8,7 +8,7 @@
       "type": "object",
       "oneOf": [
         {
-          "title": "contentType",
+          "title": "unknown media",
           "additionalProperties": false,
           "propertiesOrder": [
             "contentType"
@@ -69,7 +69,7 @@
                 "other"
               ],
               "form": {
-                "Type": "selectWithSort",
+                "type": "selectWithSort",
                 "options": [
                   {
                     "label": "rdact:1002",
@@ -160,7 +160,7 @@
                 "other"
               ],
               "form": {
-                "Type": "selectWithSort",
+                "type": "selectWithSort",
                 "options": [
                   {
                     "label": "rdact:1021",
@@ -254,7 +254,7 @@
                 "other"
               ],
               "form": {
-                "Type": "selectWithSort",
+                "type": "selectWithSort",
                 "options": [
                   {
                     "label": "rdact:1011",
@@ -337,7 +337,7 @@
                 "other"
               ],
               "form": {
-                "Type": "selectWithSort",
+                "type": "selectWithSort",
                 "options": [
                   {
                     "label": "rdact:1030",
@@ -400,7 +400,7 @@
                 "other"
               ],
               "form": {
-                "Type": "selectWithSort",
+                "type": "selectWithSort",
                 "options": [
                   {
                     "label": "rdact:1032",
@@ -488,7 +488,7 @@
                 "other"
               ],
               "form": {
-                "Type": "selectWithSort",
+                "type": "selectWithSort",
                 "options": [
                   {
                     "label": "rdact:1042",
@@ -552,7 +552,7 @@
                 "other"
               ],
               "form": {
-                "Type": "selectWithSort",
+                "type": "selectWithSort",
                 "options": [
                   {
                     "label": "rdact:1045",
@@ -630,7 +630,7 @@
                 "other"
               ],
               "form": {
-                "Type": "selectWithSort",
+                "type": "selectWithSort",
                 "options": [
                   {
                     "label": "rdact:1051",
@@ -696,7 +696,7 @@
                 "unspecified"
               ],
               "form": {
-                "Type": "selectWithSort",
+                "type": "selectWithSort",
                 "options": [
                   {
                     "label": "unspecified",
@@ -752,7 +752,7 @@
           "other"
         ],
         "form": {
-          "Type": "selectWithSort",
+          "type": "selectWithSort",
           "options": [
             {
               "label": "rdaco:1002",

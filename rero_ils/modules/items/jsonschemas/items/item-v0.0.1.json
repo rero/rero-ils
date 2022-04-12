@@ -67,9 +67,6 @@
           "messages": {
             "alreadyTakenMessage": "The barcode is already taken."
           }
-        },
-        "expressionProperties": {
-          "templateOptions.required": "false"
         }
       }
     },
@@ -112,7 +109,7 @@
         },
         "placeholder": "Example: Volume 1",
         "expressionProperties": {
-          "templateOptions.required": "model.type === 'issue'"
+          "templateOptions.required": "model && model.type === 'issue'"
         }
       }
     },
@@ -139,7 +136,7 @@
         "templateOptions": {
           "cssClass": "editor-title"
         },
-        "hideExpression": "field.parent.model.type === 'issue'"
+        "hideExpression": "field?.parent?.model && field.parent.model.type === 'issue'"
       }
     },
     "document": {
@@ -179,7 +176,7 @@
         "templateOptions": {
           "cssClass": "editor-title"
         },
-        "hideExpression": "field.parent.model.type === 'issue'"
+        "hideExpression": "field?.parent?.model && field.parent.model.type === 'issue'"
       }
     },
     "temporary_item_type": {
@@ -365,9 +362,9 @@
           "form": {
             "type": "datepicker",
             "expressionProperties": {
-              "templateOptions.required": "field.parent.model && field.parent.model.status === 'received'"
+              "templateOptions.required": "field?.parent?.model && field.parent.model.status === 'received'"
             },
-            "hideExpression": "field.parent.model && field.parent.model.status !== 'received'",
+            "hideExpression": "field?.parent?.model && field.parent.model.status !== 'received'",
             "templateOptions": {
               "wrappers": [
                 "form-field"
@@ -387,7 +384,7 @@
           "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
           "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
           "form": {
-            "hideExpression": "field.parent.model.regular",
+            "hideExpression": "field?.parent?.model && field.parent.model.regular",
             "type": "datepicker",
             "validation": {
               "messages": {
@@ -416,7 +413,7 @@
         }
       },
       "form": {
-        "hideExpression": "field.parent.model.type !== 'issue'"
+        "hideExpression": "field?.parent?.model && field.parent.model.type !== 'issue'"
       }
     },
     "status": {

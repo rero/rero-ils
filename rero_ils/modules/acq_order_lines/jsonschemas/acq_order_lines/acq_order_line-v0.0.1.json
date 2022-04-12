@@ -168,9 +168,9 @@
       "format": "date",
       "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
       "form": {
-        "hideExpression": "field.parent.model.status !== 'ordered' && field.parent.model.status !== 'received'",
+        "hideExpression": "field?.parent?.model && field.parent.model.status !== 'ordered' && field.parent.model.status !== 'received'",
         "expressionProperties": {
-          "templateOptions.required": "field.parent.model.status === 'ordered' || field.parent.model.status === 'received'"
+          "templateOptions.required": "field?.parent?.model && (field.parent.model.status === 'ordered' || field.parent.model.status === 'received')"
         },
         "type": "datepicker",
         "placeholder": "Select a date",
@@ -187,9 +187,9 @@
       "format": "date",
       "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
       "form": {
-        "hideExpression": "field.parent.model.status !== 'received'",
+        "hideExpression": "field?.parent?.model && field.parent.model.status !== 'received'",
         "expressionProperties": {
-          "templateOptions.required": "field.parent.model.status === 'received'"
+          "templateOptions.required": "field?.parent?.model && field.parent.model.status === 'received'"
         },
         "type": "datepicker",
         "placeholder": "Select a date",

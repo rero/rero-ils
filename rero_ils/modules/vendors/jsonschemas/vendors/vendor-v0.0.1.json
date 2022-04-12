@@ -269,6 +269,13 @@
           "type": "string",
           "format": "email"
         }
+      },
+      "form": {
+        "templateOptions": {
+          "wrappers": [
+            "card"
+          ]
+        }
       }
     },
     "order_contact": {
@@ -320,6 +327,13 @@
           "title": "Email",
           "type": "string",
           "format": "email"
+        }
+      },
+      "form": {
+        "templateOptions": {
+          "wrappers": [
+            "card"
+          ]
         }
       }
     },

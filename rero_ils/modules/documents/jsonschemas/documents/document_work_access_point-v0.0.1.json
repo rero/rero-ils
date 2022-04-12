@@ -49,7 +49,8 @@
             "form_subdivision",
             "medium_of_performance_for_music",
             "arranged_statement_for_music",
-            "key_for_music"
+            "key_for_music",
+            "identifiedBy"
           ],
           "required": [
             "title"
@@ -142,6 +143,9 @@
               "title": "Key (music)",
               "type": "string",
               "minLength": 1
+            },
+            "identifiedBy": {
+              "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier_contribution"
             }
           }
         }

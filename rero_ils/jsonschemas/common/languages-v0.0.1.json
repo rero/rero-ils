@@ -2541,7 +2541,7 @@
     ],
     "form": {
       "templateOptions": {
-        "itemCssClass": "col-lg-6"
+        "itemCssClass": "col-lg-12"
       },
       "hide": true
     }
@@ -2568,7 +2568,7 @@
         "minLength": 1,
         "form": {
           "templateOptions": {
-            "itemCssClass": "col-lg-6"
+            "itemCssClass": "col-lg-12"
           }
         }
       },

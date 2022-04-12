@@ -107,7 +107,7 @@
             "card"
           ]
         },
-        "hideExpression": "field.parent.model.collection_type !== 'course'",
+        "hideExpression": "field?.parent?.model && field.parent.model.collection_type !== 'course'",
         "expressionProperties": {
           "templateOptions.required": "true"
         }

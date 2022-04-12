@@ -56,7 +56,7 @@
               }
             ],
             "templateOptions": {
-              "itemcCssClass": "col-lg-4"
+              "itemcCssClass": "col"
             }
           }
         },
@@ -94,7 +94,18 @@
                 }
               },
               "country": {
-                "$ref": "https://bib.rero.ch/schemas/common/countries-v0.0.1.json#/country"
+                "allOf": [
+                  {
+                    "form": {
+                      "templateOptions": {
+                        "itemCssClass": "col-lg-12"
+                      }
+                    }
+                  },
+                  {
+                    "$ref": "https://bib.rero.ch/schemas/common/countries-v0.0.1.json#/country"
+                  }
+                ]
               },
               "canton": {
                 "$ref": "https://bib.rero.ch/schemas/common/cantons-v0.0.1.json#/canton"
@@ -104,6 +115,7 @@
                 "type": "string",
                 "pattern": "^https://mef.rero.ch/api/places/gnd|idref|rero/.*?$",
                 "form": {
+                  "hide": true,
                   "remoteTypeahead": {
                     "type": "mef-places",
                     "enableGroupField": true
@@ -114,12 +126,18 @@
                 }
               },
               "identifiedBy": {
-                "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier_contribution"
-              }
-            },
-            "form": {
-              "templateOptions": {
-                "containerCssClass": "row"
+                "allOf": [
+                  {
+                    "form": {
+                      "templateOptions": {
+                        "itemCssClass": "col-lg-12"
+                      }
+                    }
+                  },
+                  {
+                    "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier_contribution"
+                  }
+                ]
               }
             }
           },
@@ -128,7 +146,7 @@
               "itemCssClass": "col-lg-12"
             },
             "expressionProperties": {
-              "templateOptions.required": "field.parent.model.type === 'bf:Publication'"
+              "templateOptions.required": "field?.parent?.model && field.parent.model.type === 'bf:Publication'"
             }
           }
         },
@@ -190,11 +208,6 @@
                   "templateOptions": {
                     "itemCssClass": "col-lg-8"
                   }
-                }
-              },
-              "form": {
-                "templateOptions": {
-                  "itemCssClass": "col-lg-6"
                 }
               }
             },

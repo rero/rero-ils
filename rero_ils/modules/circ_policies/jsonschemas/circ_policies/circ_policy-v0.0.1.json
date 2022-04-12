@@ -43,7 +43,10 @@
     "name": {
       "title": "Name",
       "type": "string",
-      "minLength": 2
+      "minLength": 2,
+      "form": {
+        "focus": true
+      }
     },
     "description": {
       "title": "Description",
@@ -104,7 +107,7 @@
       "type": "integer",
       "minimum": 1,
       "form": {
-        "hideExpression": "!model.allow_requests",
+        "hideExpression": "model && !model.allow_requests",
         "templateOptions": {
           "addonRight": {
             "text": "day(s)"
@@ -223,6 +226,10 @@
       "required": [
         "intervals"
       ],
+      "propertiesOrder": [
+        "intervals",
+        "maximum_total_amount"
+      ],
       "properties": {
         "intervals": {
           "type": "array",
@@ -308,7 +315,7 @@
       "minimum": 0,
       "default": 0,
       "form": {
-        "hideExpression": "model.checkout_duration <= 0"
+        "hideExpression": "model && model.checkout_duration <= 0"
       }
     },
     "renewal_duration": {
@@ -316,7 +323,7 @@
       "type": "integer",
       "minimum": 1,
       "form": {
-        "hideExpression": "!model.hasOwnProperty('number_renewals') || model.number_renewals <= 0",
+        "hideExpression": "model && (!model.hasOwnProperty('number_renewals') || model.number_renewals <= 0)",
         "templateOptions": {
           "addonRight": {
             "text": "day(s)"
@@ -364,7 +371,7 @@
         }
       },
       "form": {
-        "hideExpression": "field.parent.model.policy_library_level !== true"
+        "hideExpression": "field?.parent?.model && field.parent.model.policy_library_level !== true"
       }
     },
     "settings": {
