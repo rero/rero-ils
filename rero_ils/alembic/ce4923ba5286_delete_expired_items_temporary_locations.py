@@ -34,19 +34,25 @@ def index_items_with_temporary_location():
     query = ItemsSearch() \
         .filter('exists', field='temporary_location').source(['pid'])
     ids = [(hit.meta.id, hit.pid) for hit in query.scan()]
-    for id, pid in ids:
-        item = Item.get_record_by_id(id)
-        item.reindex()
-        LOGGER.info(f'  * Reindexed item#{pid}')
+    errors = 0
+    for idx, (id, pid) in enumerate(ids):
+        LOGGER.info(f'{idx} * Reindex item: {pid}')
+        try:
+            item = Item.get_record_by_id(id)
+            item.reindex()
+        except Exception as err:
+            LOGGER.error(f'{idx} * Reindex item: {pid} {err}')
+            errors += 1
+    return errors
 
 
 def upgrade():
     """Index items with temporary location."""
-    index_items_with_temporary_location()
-    LOGGER.info(f'upgraded to version: {revision}')
+    errors = index_items_with_temporary_location()
+    LOGGER.info(f'upgraded to version: {revision} errors: {errors}')
 
 
 def downgrade():
     """Index items with temporary location."""
-    index_items_with_temporary_location()
-    LOGGER.info(f'downgraded to version: {down_revision}')
+    errors = index_items_with_temporary_location()
+    LOGGER.info(f'downgraded to version: {down_revision} errors: {errors}')
