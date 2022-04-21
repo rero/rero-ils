@@ -19,6 +19,8 @@
 
 from __future__ import absolute_import, print_function
 
+from typing import Optional
+
 import click
 from elasticsearch_dsl.query import Q
 from flask import Blueprint, abort, current_app, jsonify, render_template
@@ -137,13 +139,12 @@ def sort_by_type(notes):
 @blueprint.app_template_filter()
 def cartographic_attributes(attributes):
     """Preprocess cartographic attributes."""
-    content = []
-    for attribute in attributes:
-        if ('projection' in attribute) or \
-             (('coordinates' in attribute) and
-                ('label' in attribute['coordinates'])):
-            content.append(attribute)
-    return content
+    return [
+        attribute
+        for attribute in attributes
+        if 'projection' in attribute
+        or attribute.get('coordinates', {}).get('label')
+    ]
 
 
 @blueprint.app_template_filter()
@@ -399,10 +400,11 @@ def work_access_point(work_access_point):
                     agent_formatted += f"{', '.join(name)}, "
                 if 'numeration' in agent and 'qualifier' in agent:
                     agent_formatted += f"{agent['qualifier']}, "
-                dates = []
-                for key in ['date_of_birth', 'date_of_death']:
-                    if key in agent:
-                        dates.append(agent[key])
+                dates = [
+                    agent[key]
+                    for key in ['date_of_birth', 'date_of_death']
+                    if key in agent
+                ]
                 if len(dates):
                     agent_formatted += f"{'-'.join(dates)}. "
                 if 'numeration' not in agent and 'qualifier' in agent:
@@ -416,9 +418,10 @@ def work_access_point(work_access_point):
                         agent_formatted += unit + '. '
                 if 'numbering' in agent or 'conference_date' in agent or \
                    'place' in agent:
-                    conf = []
-                    for key in ['numbering', 'conference_date', 'place']:
-                        conf.append(agent[key])
+                    conf = [
+                        agent[key]
+                        for key in ['numbering', 'conference_date', 'place']
+                    ]
                     if len(conf):
                         agent_formatted += f"({' : '.join(conf)}) "
         agent_formatted += f"{work['title']}. "
@@ -635,32 +638,30 @@ def in_collection(item_pid):
 
 
 @blueprint.app_template_filter()
-def document_types(record, translate=True):
-    """Get docuement types.
+def document_types(record, translate: bool = True) -> list[str]:
+    """Get document types.
 
     :param record: record
-    :param translate: translate document type
-    :return: dictonary list of document types
+    :param translate: is document types should be localized
+    :return: list of document types
     """
-    if 'type' not in record:
-        return None
-    doc_type = record['type'][0]['main_type']
-    return _(doc_type) if translate else doc_type
+    doc_types = record.document_types  # always a not-empty list
+    if translate:
+        doc_types = [_(doc_type) for doc_type in doc_types]
+    return doc_types
 
 
 @blueprint.app_template_filter()
-def document_main_type(record, translate=True):
-    """Get first docuement main type.
+def document_main_type(record, translate: bool = True) -> Optional[str]:
+    """Get first document main type.
 
     :param record: record
-    :param translate: translate document type
-    :return: document main type
+    :param translate: is the response should be localized
+    :return: the document main type
     """
     if 'type' in record:
         doc_type = record['type'][0]['main_type']
-        if translate:
-            doc_type = _(doc_type)
-        return doc_type
+        return _(doc_type) if translate else doc_type
 
 
 @blueprint.app_template_filter()
