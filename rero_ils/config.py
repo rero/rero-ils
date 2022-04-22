@@ -2682,7 +2682,7 @@ RECORDS_UI_EXPORT_FORMATS = {
     }
 }
 
-RECORDS_JSON_SCHEMA = {
+RERO_ILS_DEFAULT_JSON_SCHEMA = {
     'acac': '/acq_accounts/acq_account-v0.0.1.json',
     'acol': '/acq_order_lines/acq_order_line-v0.0.1.json',
     'acor': '/acq_orders/acq_order-v0.0.1.json',
@@ -2711,6 +2711,7 @@ RECORDS_JSON_SCHEMA = {
     'tmpl': '/templates/template-v0.0.1.json',
     'oplg': '/operation_logs/operation_log-v0.0.1.json',
     'vndr': '/vendors/vendor-v0.0.1.json',
+    'user': '/users/user-v0.0.1.json'
 }
 
 # Operation Log Configuration

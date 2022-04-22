@@ -36,9 +36,7 @@
           "title": "E-mail",
           "description": "The notifications for patrons without e-mail are sent to this address. No notification is sent if the field is empty.",
           "type": "string",
-          "format": "email",
-          "pattern": "^.*@.*\\..+$",
-          "minLength": 6
+          "format": "email"
         }
       }
     },
@@ -60,9 +58,7 @@
           "title": "E-mail",
           "description": "The notifications for patrons without e-mail are sent to this address. No notification is sent if the field is empty.",
           "type": "string",
-          "format": "email",
-          "pattern": "^.*@.*\\..+$",
-          "minLength": 6
+          "format": "email"
         },
         "delay": {
           "title": "Delay in minutes",
@@ -153,9 +149,7 @@
       "title": "Email",
       "description": "Email of the library.",
       "type": "string",
-      "format": "email",
-      "pattern": "^.*?@.*.*$",
-      "minLength": 3
+      "format": "email"
     },
     "opening_hours": {
       "title": "Opening Hours",
@@ -431,9 +425,7 @@
             "email": {
               "title": "Contact email",
               "type": "string",
-              "format": "email",
-              "pattern": "^.*?@.*.*$",
-              "minLength": 6
+              "format": "email"
             },
             "phone": {
               "title": "Contact phone",
@@ -468,9 +460,7 @@
             "email": {
               "title": "Contact email",
               "type": "string",
-              "format": "email",
-              "pattern": "^.*?@.*.*$",
-              "minLength": 6
+              "format": "email"
             },
             "phone": {
               "title": "Contact phone",

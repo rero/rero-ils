@@ -17,7 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating records."""
-
+import re
 from copy import deepcopy
 from uuid import uuid4
 
@@ -39,12 +39,31 @@ from invenio_records.api import Record
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_search import current_search
 from invenio_search.api import RecordsSearch
+from jsonschema import FormatChecker
+from jsonschema.compat import str_types
 from jsonschema.exceptions import ValidationError
 from kombu.compat import Consumer
 from sqlalchemy import text
 from sqlalchemy.orm.exc import NoResultFound
 
 from .utils import extracted_data_from_ref
+
+"""Custom ILS record JSON schema format validator."""
+ils_record_format_checker = FormatChecker()
+
+
+@ils_record_format_checker.checks('email')
+@ils_record_format_checker.checks('idn-email')
+def _strong_email_validation(instance) -> bool:
+    """Allow to validate an email address (only email format, not DNS)."""
+    if not isinstance(instance, str_types):
+        return False
+    # DEV NOTE : If this regexp changes, you also need to alter the regexp
+    # into `email.validator.ts` file into @rero/ng-core. The best solution
+    # should be to use a configuration setting available through an API, but
+    # it should be a little overkill.
+    email_regexp = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+    return bool(re.fullmatch(email_regexp, instance))
 
 
 class IlsRecordError:
@@ -111,6 +130,8 @@ class IlsRecord(Record):
     pids_exist_check = None
     pid_check = True
 
+    format_checker = ils_record_format_checker
+
     @classmethod
     def get_indexer_class(cls):
         """Get the indexer from config."""
@@ -134,6 +155,7 @@ class IlsRecord(Record):
         if self.get('_draft'):
             # No validation is needed for draft records
             return self
+
         json = super()._validate(**kwargs)
         validation_message = self.extended_validation(**kwargs)
         # We only like to run pids_exist_check if validation_message is True
@@ -168,24 +190,22 @@ class IlsRecord(Record):
         assert cls.provider
         if '$schema' not in data:
             pid_type = cls.provider.pid_type
-            schemas = current_app.config.get('RECORDS_JSON_SCHEMA')
+            schemas = current_app.config.get('RERO_ILS_DEFAULT_JSON_SCHEMA')
             if pid_type in schemas:
                 from .utils import get_schema_for_resource
                 data['$schema'] = get_schema_for_resource(pid_type)
         pid = data.get('pid')
         if delete_pid and pid:
             del data['pid']
-        else:
-            if pid:
-                test_rec = cls.get_record_by_pid(pid)
-                if test_rec is not None:
-                    raise IlsRecordError.PidAlreadyUsed(
-                        'PidAlreadyUsed {pid_type} {pid} {uuid}'.format(
-                            pid_type=cls.provider.pid_type,
-                            pid=test_rec.pid,
-                            uuid=test_rec.id
-                        )
+        elif pid:
+            if test_rec := cls.get_record_by_pid(pid):
+                raise IlsRecordError.PidAlreadyUsed(
+                    'PidAlreadyUsed {pid_type} {pid} {uuid}'.format(
+                        pid_type=cls.provider.pid_type,
+                        pid=test_rec.pid,
+                        uuid=test_rec.id
                     )
+                )
         if not id_:
             id_ = uuid4()
         persistent_identifier = cls.minter(id_, data)
@@ -215,11 +235,10 @@ class IlsRecord(Record):
                     cls.provider.pid_type,
                     pid
                 )
-                record = super().get_record(
+                return super().get_record(
                     persistent_identifier.object_uuid,
                     with_deleted=with_deleted
                 )
-                return record
             # TODO: is it better to raise a error or to return None?
             except (NoResultFound, PIDDoesNotExistError):
                 return None
@@ -391,7 +410,7 @@ class IlsRecord(Record):
         schema = data.get('$schema')
         if not schema:
             pid_type = self.provider.pid_type
-            schemas = current_app.config.get('RECORDS_JSON_SCHEMA')
+            schemas = current_app.config.get('RERO_ILS_DEFAULT_JSON_SCHEMA')
             if pid_type in schemas:
                 from .utils import get_schema_for_resource
                 data['$schema'] = get_schema_for_resource(pid_type)
@@ -516,16 +535,14 @@ class IlsRecordsIndexer(RecordIndexer):
 
     def index(self, record):
         """Indexing a record."""
-        return_value = super().index(record, arguments=dict(refresh='true'))
-        return return_value
+        return super().index(record, arguments=dict(refresh='true'))
 
     def delete(self, record):
         """Delete a record.
 
         :param record: Record instance.
         """
-        return_value = super().delete(record, refresh='true')
-        return return_value
+        return super().delete(record, refresh='true')
 
     def bulk_index(self, record_id_iterator, doc_type=None, index=None):
         """Bulk index records.

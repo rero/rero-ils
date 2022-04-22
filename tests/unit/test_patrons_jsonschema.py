@@ -23,6 +23,8 @@ import pytest
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
+from rero_ils.modules.patrons.api import Patron
+
 
 def test_required(patron_schema, patron_martigny_data_tmp_with_id):
     """Test required for patron jsonschemas."""
@@ -89,11 +91,19 @@ def test_city(patron_schema, patron_martigny_data_tmp_with_id):
 
 def test_barcode(patron_schema, patron_martigny_data_tmp_with_id):
     """Test barcode for patron jsonschemas."""
-    validate(patron_martigny_data_tmp_with_id, patron_schema)
+    data = patron_martigny_data_tmp_with_id
+    validate(data, patron_schema)
 
+    # bad type for barcode (int instead of string)
     with pytest.raises(ValidationError):
-        patron_martigny_data_tmp_with_id['patron']['barcode'][0] = 25
-        validate(patron_martigny_data_tmp_with_id, patron_schema)
+        data['patron']['barcode'][0] = 25
+        validate(data, patron_schema)
+
+    # try to validate a patron without barcode
+    with pytest.raises(ValidationError) as e:
+        del data['patron']['barcode']
+        validate(data, patron_schema)
+    assert "'barcode' is a required property" in str(e)
 
 
 def test_birth_date(patron_schema, patron_martigny_data_tmp_with_id):
@@ -103,6 +113,22 @@ def test_birth_date(patron_schema, patron_martigny_data_tmp_with_id):
     with pytest.raises(ValidationError):
         patron_martigny_data_tmp_with_id['birth_date'] = 25
         validate(patron_martigny_data_tmp_with_id, patron_schema)
+
+
+def test_additional_email(app, patron_martigny):
+    """Test additional email for a patron."""
+    Patron.validate(patron_martigny)
+    user = patron_martigny.user
+
+    original_user_email = user.email
+    user.email = None
+    patron_martigny['patron']['communication_channel'] = 'email'
+    with pytest.raises(ValidationError) as e:
+        Patron.validate(patron_martigny)
+    assert 'At least one email should be defined for an email ' \
+           'communication channel' in str(e)
+
+    user.email = original_user_email
 
 
 def test_phone(patron_schema, patron_martigny_data_tmp_with_id):

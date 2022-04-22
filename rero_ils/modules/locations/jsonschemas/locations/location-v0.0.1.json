@@ -141,8 +141,6 @@
       "description": "Specify a generic email address used for notification.",
       "type": "string",
       "format": "email",
-      "pattern": "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,})+$",
-      "minLength": 6,
       "form": {
         "hideExpression": "model.allow_request === false || model.send_notification === false",
         "expressionProperties": {
@@ -151,11 +149,6 @@
         "templateOptions": {
           "addonLeft": {
             "class": "fa fa-at"
-          }
-        },
-        "validation": {
-          "messages": {
-            "patternMessage": "The email is not valid."
           }
         }
       }

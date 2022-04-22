@@ -263,15 +263,8 @@
           "title": "Additional communication email",
           "type": "string",
           "format": "email",
-          "pattern": "^.*@.*\\..+$",
-          "minLength": 6,
           "form": {
-            "hideExpression": "field.parent.model && field.parent.model.communication_channel !== 'email'",
-            "validation": {
-              "messages": {
-                "patternMessage": "The email is not valid."
-              }
-            }
+            "hideExpression": "field.parent.model && field.parent.model.communication_channel !== 'email'"
           }
         },
         "communication_language": {

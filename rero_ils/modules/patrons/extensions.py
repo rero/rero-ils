@@ -35,5 +35,5 @@ class UserDataExtension(RecordExtension):
         :return the future dumped data.
         """
         user = User.get_by_id(record.get('user_id'))
-        user_info = user.dumpsMetadata()
+        user_info = user.dumps_metadata()
         return data.update(user_info)

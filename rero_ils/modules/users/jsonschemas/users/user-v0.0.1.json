@@ -37,10 +37,15 @@
       "minLength": 9,
       "default": "https://bib.rero.ch/schemas/users/user-v0.0.1.json"
     },
+    "pid": {
+      "title": "User ID",
+      "type": "number"
+    },
     "first_name": {
       "title": "First name",
       "type": "string",
       "minLength": 1,
+      "maxLength": 255,
       "widget": {
         "formlyConfig": {
           "focus": true
@@ -50,7 +55,8 @@
     "last_name": {
       "title": "Last name",
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "maxLength": 255
     },
     "birth_date": {
       "title": "Date of birth",
@@ -100,6 +106,7 @@
       "type": "string",
       "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_]{2}[a-zA-Z0-9-_]*$",
       "minLength": 3,
+      "maxLength": 255,
       "widget": {
         "formlyConfig": {
           "validation": {
@@ -116,6 +123,7 @@
       "description": "Street and number of the address.",
       "type": "string",
       "minLength": 1,
+      "maxLength": 255,
       "form": {
         "type": "textarea",
         "templateOptions": {
@@ -126,12 +134,14 @@
     "postal_code": {
       "title": "Postal code",
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "maxLength": 16
     },
     "city": {
       "title": "City",
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "maxLength": 255
     },
     "country": {
       "$ref": "https://bib.rero.ch/schemas/common/countries-v0.0.1.json#/country"
@@ -141,6 +151,8 @@
       "description": "Home phone number with the international prefix, without spaces.",
       "type": "string",
       "pattern": "^\\+[0-9]*$",
+      "minLength": 1,
+      "maxLength": 255,
       "widget": {
         "formlyConfig": {
           "validation": {
@@ -159,6 +171,8 @@
       "description": "Business phone number with the international prefix, without spaces.",
       "type": "string",
       "pattern": "^\\+[0-9]*$",
+      "minLength": 1,
+      "maxLength": 255,
       "widget": {
         "formlyConfig": {
           "validation": {
@@ -177,6 +191,8 @@
       "description": "Mobile phone number with the international prefix, without spaces.",
       "type": "string",
       "pattern": "^\\+[0-9]*$",
+      "minLength": 1,
+      "maxLength": 255,
       "widget": {
         "formlyConfig": {
           "validation": {
@@ -195,6 +211,8 @@
       "description": "Other phone number with the international prefix, without spaces.",
       "type": "string",
       "pattern": "^\\+[0-9]*$",
+      "minLength": 1,
+      "maxLength": 255,
       "widget": {
         "formlyConfig": {
           "validation": {
@@ -218,13 +236,11 @@
       "title": "Email",
       "type": "string",
       "format": "email",
-      "pattern": "^.*@.*\\..+$",
-      "minLength": 6,
+      "maxLength": 255,
       "widget": {
         "formlyConfig": {
           "validation": {
             "messages": {
-              "patternMessage": "The email is not valid.",
               "uniqueEmailMessage": "This email is already taken."
             }
           }
@@ -235,6 +251,7 @@
       "title": "Password",
       "type": "string",
       "minLength": 6,
+      "maxLength": 255,
       "widget": {
         "templateOptions": {
           "type": "password"
