@@ -185,9 +185,9 @@ class Patron(IlsRecord):
         is email.
         """
         patron = self.get('patron')
-        user = self._get_user_by_user_id(self.get('user_id'))
         if patron and patron.get('communication_channel') == \
-                CommunicationChannel.EMAIL and user.email is None\
+            CommunicationChannel.EMAIL \
+                and self.user.email is None \
                 and patron.get('additional_communication_email') is None:
             raise ValidationError('At least one email should be defined '
                                   'for an email communication channel.')
@@ -246,12 +246,11 @@ class Patron(IlsRecord):
 
     @classmethod
     def _get_user_by_user_id(cls, user_id):
-        """Get the user using a dict representing a patron.
+        """Get the user by its ID.
 
-        Try to get an existing user by: user_id, email, username.
         :param cls: Class itself.
-        :param data: dict representing a patron.
-        :return: a patron object or None.
+        :param user_id: the user ID
+        :return: a User object or None.
         """
         return _datastore.find_user(id=user_id)
 

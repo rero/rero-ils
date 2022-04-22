@@ -30,11 +30,12 @@ from invenio_db import db
 from invenio_jsonschemas import current_jsonschemas
 from invenio_records.validators import PartialDraft4Validator
 from invenio_userprofiles.models import UserProfile
-from jsonschema import FormatChecker
 from sqlalchemy import func
 from sqlalchemy.orm.exc import NoResultFound
 from werkzeug.local import LocalProxy
 
+from ..api import ils_record_format_checker
+from ..utils import get_schema_for_resource
 from ...utils import remove_empties_from_dict
 
 _records_state = LocalProxy(lambda: current_app.extensions['invenio-records'])
@@ -49,8 +50,8 @@ def get_profile_countries():
     ]
 
 
-def get_readonly_profile_fields():
-    """Disalow to edit some fields for patrons."""
+def get_readonly_profile_fields() -> list[str]:
+    """Disallow to edit some fields for patrons."""
     if current_user.has_role('patron'):
         return ['first_name', 'last_name', 'birth_date']
     return ['keep_history']
@@ -83,7 +84,7 @@ class User(object):
         """
         with db.session.begin_nested():
             email = data.pop('email', None)
-            roles = data.pop('roles', None)
+            data.pop('roles', None)
             cls._validate(data=data)
             password = data.pop(
                 'password',
@@ -116,9 +117,9 @@ class User(object):
         :param data - dictionary representing a user record to update
         """
         from ..patrons.listener import update_from_profile
+        data.pop('roles', None)
         self._validate(data=data)
         email = data.pop('email', None)
-        roles = data.pop('roles', None)
         user = self.user
         with db.session.begin_nested():
             if user.profile is None:
@@ -149,12 +150,12 @@ class User(object):
     @classmethod
     def _validate(cls, data, **kwargs):
         """Validate user record against schema."""
-        format_checker = FormatChecker()
-        if schema := data.pop('$schema', None):
+        default_user_schema = get_schema_for_resource('user')
+        if schema := data.pop('$schema', default_user_schema):
             _records_state.validate(
                 data,
                 schema,
-                format_checker=format_checker,
+                format_checker=ils_record_format_checker,
                 cls=PartialDraft4Validator
             )
         return data
@@ -173,17 +174,23 @@ class User(object):
 
     def dumps(self):
         """Return pure Python dictionary with record metadata."""
+        url = url_for('api_users.users_item', _external=True, id=self.user.id)
         return {
             'id': self.user.id,
-            'links': {'self': url_for(
-                'api_users.users_item', _external=True, id=self.user.id)},
-            'metadata': self.dumpsMetadata(patronData=True)
+            'links': {'self': url},
+            'metadata': self.dumps_metadata(True)
         }
 
-    def dumpsMetadata(self, patronData=False):
-        """Dumps the profile, email, roles metadata."""
+    def dumps_metadata(self, dump_patron: bool = False) -> dict:
+        """Dumps the profile, email, roles metadata.
+
+        :param dump_patron: is the patron metadata should be dumped.
+        :return a dictionary with all dump user metadata.
+        """
         from ..patrons.api import Patron
-        metadata = {}
+        metadata = {
+            'roles': [r.name for r in self.user.roles]
+        }
         if self.user.profile:
             for field in self.profile_fields:
                 if value := getattr(self.user.profile, field):
@@ -192,8 +199,7 @@ class User(object):
                     metadata[field] = value
         if self.user.email:
             metadata['email'] = self.user.email
-        metadata['roles'] = [r.name for r in self.user.roles]
-        if (patronData):
+        if dump_patron:
             for patron in Patron.get_patrons_by_user(self.user):
                 metadata.setdefault('patrons', []).append({
                     'pid': patron.pid,
@@ -226,7 +232,6 @@ class User(object):
         """
         user = BaseUser.query.filter(
             func.lower(BaseUser.email) == func.lower(email)).first()
-        # user = BaseUser.query.filter_by(email=email.lower()).first()
         if not user:
             return None
         return cls(user)
@@ -239,6 +244,4 @@ class User(object):
         :return: the user record
         """
         user = cls.get_by_email(username_or_email)
-        if not user:
-            return cls.get_by_username(username_or_email)
-        return user
+        return user or cls.get_by_username(username_or_email)

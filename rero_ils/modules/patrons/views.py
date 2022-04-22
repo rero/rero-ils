@@ -146,7 +146,7 @@ def logged_user():
     if not current_user.is_authenticated:
         return jsonify(data)
 
-    user = User.get_by_id(current_user.id).dumpsMetadata()
+    user = User.get_by_id(current_user.id).dumps_metadata()
     user['id'] = current_user.id
     data = {**data, **user, 'patrons': []}
     for patron in Patron.get_patrons_by_user(current_user):

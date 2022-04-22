@@ -40,14 +40,12 @@ def test_user_profile_updates(
     login_user_via_session(client, patron_martigny.user)
     # mailbox is empty
     assert not (len(mailbox))
-    user_metadata = User.get_by_id(patron_martigny.user.id).dumpsMetadata()
+    user_metadata = User.get_by_id(patron_martigny.user.id).dumps_metadata()
     # changing the email by another does not send any reset_password
     # notification
     user_metadata['email'] = 'toto@toto.com'
     res = client.put(
-        url_for(
-            'api_users.users_item',
-            id=patron_martigny.user.id),
+        url_for('api_users.users_item', id=patron_martigny.user.id),
         data=json.dumps(user_metadata),
         headers=json_header
     )

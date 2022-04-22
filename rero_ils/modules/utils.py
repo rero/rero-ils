@@ -202,16 +202,15 @@ def lazyxml(file, opening_tag, closing_tag):
 
 
 def read_xml_record(xml_file):
-    """Read lasy xml records from file.
+    """Read lazy xml records from file.
 
     :return: record Generator
     """
-    for xml_record in lazyxml(
+    yield from lazyxml(
         file=xml_file,
         opening_tag='<record>',
         closing_tag='</record>'
-    ):
-        yield xml_record
+    )
 
 
 def get_record_class_and_permissions_from_route(route_name):
@@ -386,12 +385,12 @@ def get_schema_for_resource(resource):
                      Either a resource class (subclass of IlsRecord
 
     USAGE:
-      schema = get_schemas_for_resource('ptrn')
-      shcema = get_schemas_for_resource(Patron)
+      schema = get_schema_for_resource('ptrn')
+      shcema = get_schema_for_resource(Patron)
     """
     if not isinstance(resource, str):
         resource = resource.provider.pid_type
-    schemas = current_app.config.get('RECORDS_JSON_SCHEMA')
+    schemas = current_app.config.get('RERO_ILS_DEFAULT_JSON_SCHEMA')
     if resource in schemas:
         return '{scheme}://{url}{endpoint}{schema}'.format(
             scheme=current_app.config.get('JSONSCHEMAS_URL_SCHEME'),
@@ -409,18 +408,16 @@ def pid_exists(info, pid_type, pid, raise_on_error=False):
     :param raise_on_error: Raise PidDoesNotExist exception if enabled.
     :return: True if pid was found. Otherwise False.
     """
-    if PersistentIdentifier.query.filter_by(
-        pid_type=str(pid_type), pid_value=str(pid)
-    ).count() == 1:
+    if PersistentIdentifier.query\
+       .filter_by(pid_type=str(pid_type), pid_value=str(pid))\
+       .count() == 1:
         return True
-    else:
-        if raise_on_error:
-            from .api import IlsRecordError
-            raise IlsRecordError.PidDoesNotExist(info, pid_type, pid)
-        return False
+    if raise_on_error:
+        from .api import IlsRecordError
+        raise IlsRecordError.PidDoesNotExist(info, pid_type, pid)
 
 
-def pids_exists_in_data(info, data, required={}, not_required={}):
+def pids_exists_in_data(info, data, required=None, not_required=None):
     """Test pid or $ref has valid pid.
 
     :param info:  Info to add to errors description.
@@ -472,6 +469,9 @@ def pids_exists_in_data(info, data, required={}, not_required={}):
                         f'{info}: No data found: {key}')
         return return_value
 
+    required = required or {}
+    not_required = not_required or {}
+
     return_value_required = pids_exists_in_data_test(
         info=info,
         data=data,
@@ -489,11 +489,10 @@ def pids_exists_in_data(info, data, required={}, not_required={}):
 
 def get_base_url():
     """Get base url."""
-    base_url = '{scheme}://{host}'.format(
+    return '{scheme}://{host}'.format(
         scheme=current_app.config.get('RERO_ILS_APP_URL_SCHEME'),
         host=current_app.config.get('RERO_ILS_APP_HOST')
     )
-    return base_url
 
 
 def get_ref_for_pid(module, pid):
@@ -527,23 +526,22 @@ def get_record_class_from_schema_or_pid_type(schema=None, pid_type=None):
     if schema:
         try:
             pid_type_schema_value = schema.split('schemas')[1]
-            schemas = current_app.config.get('RECORDS_JSON_SCHEMA')
+            schemas = current_app.config.get('RERO_ILS_DEFAULT_JSON_SCHEMA')
             pid_type = [key for key, value in schemas.items()
                         if value == pid_type_schema_value][0]
         except IndexError:
             pass
-    record_class = obj_or_import_string(
+    return obj_or_import_string(
         current_app.config
         .get('RECORDS_REST_ENDPOINTS')
         .get(pid_type, {}).get('record_class'))
-    return record_class
 
 
 def get_patron_from_arguments(**kwargs):
     """Try to load a patron from potential arguments."""
     from .patrons.api import Patron
     required_arguments = ['patron', 'patron_barcode', 'patron_pid', 'loan']
-    if not any(k in required_arguments for k in kwargs):
+    if all(k not in required_arguments for k in kwargs):
         return None
     return kwargs.get('patron') \
         or Patron.get_record_by_pid(kwargs.get('patron_pid')) \
@@ -756,9 +754,7 @@ def bulk_load(pid_type, data, table, columns, bulk_count=0, verbose=False,
     count = 0
     buffer = StringIO()
     buffer_uuid = []
-    index = -1
-    if 'id' in columns:
-        index = columns.index('id')
+    index = columns.index('id') if 'id' in columns else -1
     start_time = datetime.now()
     with open(data, 'r', encoding='utf-8', buffering=1) as input_file:
         for line in input_file:
@@ -788,9 +784,8 @@ def bulk_load(pid_type, data, table, columns, bulk_count=0, verbose=False,
                     do_bulk_index(uuids=buffer_uuid, doc_type=pid_type,
                                   verbose=verbose)
                     buffer_uuid.clear()
-                else:
-                    if verbose:
-                        click.echo()
+                elif verbose:
+                    click.echo()
                 buffer = StringIO()
 
         if verbose:
@@ -812,9 +807,8 @@ def bulk_load(pid_type, data, table, columns, bulk_count=0, verbose=False,
             do_bulk_index(uuids=buffer_uuid, doc_type=pid_type,
                           verbose=verbose)
             buffer_uuid.clear()
-        else:
-            if verbose:
-                click.echo()
+        elif verbose:
+            click.echo()
 
 
 def bulk_load_metadata(pid_type, metadata, bulk_count=0, verbose=True,
@@ -982,10 +976,7 @@ def number_records_in_file(json_file, type):
     count = 0
     with open(json_file, 'r',  buffering=1) as file:
         for line in file:
-            if type == 'json':
-                if '"pid"' in line:
-                    count += 1
-            elif type == 'csv':
+            if (type == 'json' and '"pid"' in line) or type == 'csv':
                 count += 1
     return count
 

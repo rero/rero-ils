@@ -267,16 +267,7 @@
         "email": {
           "title": "Email",
           "type": "string",
-          "format": "email",
-          "pattern": "^.*@.*\\..+$",
-          "minLength": 6,
-          "form": {
-            "validation": {
-              "messages": {
-                "patternMessage": "The email is not valid."
-              }
-            }
-          }
+          "format": "email"
         }
       }
     },
@@ -328,16 +319,7 @@
         "email": {
           "title": "Email",
           "type": "string",
-          "format": "email",
-          "pattern": "^.*@.*\\..+$",
-          "minLength": 6,
-          "form": {
-            "validation": {
-              "messages": {
-                "patternMessage": "The email is not valid."
-              }
-            }
-          }
+          "format": "email"
         }
       }
     },
