@@ -61,10 +61,6 @@ from rero_ils.modules.locations.api import Location
 from ..contributions.api import Contribution
 from ..documents.api import Document, DocumentsIndexer, DocumentsSearch
 from ..documents.dojson.contrib.marc21tojson.rero import marc21
-from ..documents.tasks import \
-    replace_idby_contribution as task_replace_idby_contribution
-from ..documents.tasks import \
-    replace_idby_subjects as task_replace_idby_subjects
 from ..documents.views import get_cover_art
 from ..items.api import Item
 from ..libraries.api import Library
@@ -1510,29 +1506,3 @@ def add_cover_urls(verbose):
         url = get_cover_art(record=record, save_cover_url=True)
         if verbose:
             click.echo(f'{idx}:\tdocument: {pid}\t{url}')
-
-
-@utils.command()
-@click.option('-v', '--verbose', is_flag=True, default=False)
-@click.option('-d', '--details', is_flag=True, default=False)
-@with_appcontext
-def replace_idby_contribution(verbose, details):
-    """Find and replace identifiedBy contributions."""
-    click.secho('Find and replace identifiedBy contribution.', fg='green')
-    found, exists, no_data, no_mef = task_replace_idby_contribution(
-        verbose=verbose, details=details)
-    click.echo(f'Found: {found} | Exists: {exists} | '
-               f'No IdRef: {no_data} | No MEF: {no_mef}')
-
-
-@utils.command()
-@click.option('-v', '--verbose', is_flag=True, default=False)
-@click.option('-d', '--details', is_flag=True, default=False)
-@with_appcontext
-def replace_idby_subjects(verbose, details):
-    """Find and replace identifiedBy subjects."""
-    click.secho('Find and replace identifiedBy subjects.', fg='green')
-    found, exists, no_data, no_mef = task_replace_idby_subjects(
-        verbose=verbose, details=details)
-    click.echo(f'Found: {found} | Exists: {exists} | '
-               f'No Data: {no_data} | No MEF: {no_mef}')

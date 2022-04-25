@@ -18,6 +18,7 @@
 
 """API for manipulating documents."""
 
+import contextlib
 from functools import partial
 
 import requests
@@ -86,11 +87,9 @@ class Contribution(IlsRecord):
                 result = ContributionsSearch().filter(
                     {'term': {f'{ref_type}.pid': ref_pid}}
                 ).source('pid').scan()
-            try:
+            with contextlib.suppress(StopIteration):
                 pid = next(result).pid
                 contribution = cls.get_record_by_pid(pid)
-            except StopIteration:
-                pass
         return contribution
 
     @classmethod
@@ -155,10 +154,8 @@ class Contribution(IlsRecord):
         status = request.status_code
         if status == requests_codes.ok:
             try:
-                data = request.json().get('hits', {}).get('hits', [None])
-                if data[0]:
-                    return data[0]
-            except Exception as err:
+                return request.json().get('hits', {}).get('hits', [None])[0]
+            except Exception:
                 # try to get deleted records
                 if deleted:
                     request = requests.get(
@@ -167,11 +164,9 @@ class Contribution(IlsRecord):
                     status = request.status_code
                     if status == requests_codes.ok:
                         try:
-                            data = request.json() \
-                                .get('hits', {}).get('hits', [None])
-                            if data[0]:
-                                return data[0]
-                        except Exception as err:
+                            return request.json() \
+                                .get('hits', {}).get('hits', [None])[0]
+                        except Exception:
                             pass
                 msg = f'MEF resolver no metadata: {mef_url}'
                 if verbose:
@@ -189,8 +184,7 @@ class Contribution(IlsRecord):
         sources = current_app.config.get('RERO_ILS_CONTRIBUTIONS_SOURCES', [])
         for source in sources:
             if source in self:
-                value = self[source].get(key, default)
-                if value:
+                if value := self[source].get(key, default):
                     return value
 
     def _get_mef_localized_value(self, key, language):
@@ -199,8 +193,7 @@ class Contribution(IlsRecord):
             'RERO_ILS_CONTRIBUTIONS_LABEL_ORDER', [])
         source_order = order.get(language, order.get(order['fallback'], []))
         for source in source_order:
-            value = self.get(source, {}).get(key, None)
-            if value:
+            if value := self.get(source, {}).get(key, None):
                 return value
         return self.get(key, None)
 
@@ -232,7 +225,6 @@ class Contribution(IlsRecord):
     @property
     def organisation_pids(self):
         """Get organisations pids."""
-        organisations = set()
         search = DocumentsSearch().filter(
             'term', contribution__agent__pid=self.pid)
         size = current_app.config.get(
@@ -242,9 +234,11 @@ class Contribution(IlsRecord):
                 field='holdings.organisation.organisation_pid', size=size)
         search.aggs.bucket('organisation', agg)
         results = search.execute()
-        for result in results.aggregations.organisation.buckets:
-            if result.doc_count:
-                organisations.add(result.key)
+        organisations = {
+            result.key for result in results.aggregations.organisation.buckets
+            if result.doc_count
+        }
+
         return list(organisations)
 
     def get_authorized_access_point(self, language):
@@ -258,27 +252,36 @@ class Contribution(IlsRecord):
             language=language
         )
 
-    def _search_documents(self, with_subjects=True):
+    def _search_documents(self, with_subjects=True,
+                          with_subjects_imported=True):
         """Get documents pids."""
         search_filters = Q("term", contribution__agent__pid=self.pid)
         if with_subjects:
             subject_filters = Q("term", subjects__pid=self.pid) & \
                 Q("terms", subjects__type=['bf:Person', 'bf:Organisation'])
             search_filters = search_filters | subject_filters
+        if with_subjects_imported:
+            subject_filters = Q("term", subjects_imported__pid=self.pid) & \
+                Q("terms", subjects__type=['bf:Person', 'bf:Organisation'])
+            search_filters = search_filters | subject_filters
 
         return DocumentsSearch() \
             .query('bool', filter=[search_filters])
 
-    def documents_pids(self, with_subjects=True):
+    def documents_pids(self, with_subjects=True, with_subjects_imported=True):
         """Get documents pids."""
         search = self._search_documents(
-            with_subjects=with_subjects).source('pid')
+            with_subjects=with_subjects,
+            with_subjects_imported=with_subjects_imported
+        ).source('pid')
         return [hit.pid for hit in search.scan()]
 
-    def documents_ids(self, with_subjects=True):
+    def documents_ids(self, with_subjects=True, with_subjects_imported=True):
         """Get documents ids."""
         search = self._search_documents(
-            with_subjects=with_subjects).source('pid')
+            with_subjects=with_subjects,
+            with_subjects_imported=with_subjects_imported
+        ).source('pid')
         return [hit.meta.id for hit in search.scan()]
 
     def update_online(self, dbcommit=False, reindex=False, verbose=False):
@@ -292,9 +295,8 @@ class Contribution(IlsRecord):
         action = ContributionUpdateAction.UPTODATE
         pid = self.get('pid')
         try:
-            data = self._get_mef_data_by_type(
-                pid=pid, pid_type='mef', verbose=verbose)
-            if data:
+            if data := self._get_mef_data_by_type(
+                    pid=pid, pid_type='mef', verbose=verbose):
                 metadata = data['metadata']
                 metadata['$schema'] = self['$schema']
                 if metadata.get('deleted'):
@@ -326,11 +328,9 @@ class Contribution(IlsRecord):
     def source_pids(self):
         """Get agents pids."""
         sources = current_app.config.get('RERO_ILS_CONTRIBUTIONS_SOURCES', [])
-        pids = {}
-        for source in sources:
-            if source in self:
-                pids[source] = self[source]['pid']
-        return pids
+        return {
+            source: self[source]['pid'] for source in sources
+            if source in self}
 
 
 class ContributionsIndexer(IlsRecordsIndexer):

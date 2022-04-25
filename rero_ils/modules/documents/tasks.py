@@ -21,8 +21,6 @@ from __future__ import absolute_import, print_function
 
 from celery import shared_task
 
-from rero_ils.modules.utils import set_timestamp
-
 from .utils_mef import ReplaceMefIdentifiedByContribution, \
     ReplaceMefIdentifiedBySubjects
 from ..contributions.api import Contribution
@@ -73,39 +71,43 @@ def get_contribution_or_create(ref_pid, ref_type, count_found, count_exists,
 
 
 @shared_task(ignore_result=True)
-def replace_idby_contribution(verbose=False, details=False, timestamp=True):
+def replace_idby_contribution(verbose=False, details=False, debug=False,
+                              timestamp=True):
     """Replace identifiedBy contributions with $ref.
 
     :param verbose: Verbose print.
     :param details: Details print.
+    :param debug: Debug print.
     :returns: count found, count exists,
               count Idref, GND not found, count MEF not found
     """
-    replace_contribution = ReplaceMefIdentifiedByContribution(verbose=verbose)
+    replace_contribution = ReplaceMefIdentifiedByContribution(
+        verbose=verbose, debug=debug)
     replace_contribution.process()
     if timestamp:
         replace_contribution.set_timestamp()
     if details:
         replace_contribution.print_details()
-    set_timestamp('replace_idby_contribution',
-                  count=replace_contribution.counts_len)
     return replace_contribution.counts_len
 
 
 @shared_task(ignore_result=True)
-def replace_idby_subjects(verbose=False, details=False, timestamp=True):
+def replace_idby_subjects(verbose=False, details=False, debug=False,
+                          subjects='subjects', timestamp=True):
     """Replace identifiedBy subjects with $ref.
 
     :param verbose: Verbose print.
     :param details: Details print.
+    :param debug: Debug print.
+    ::param subjects: [subjects, subjects_imported].
     :returns: count found, count exists,
               count Idref, GND not found, count MEF not found
     """
-    replace_subjects = ReplaceMefIdentifiedBySubjects(verbose=verbose)
+    replace_subjects = ReplaceMefIdentifiedBySubjects(
+        verbose=verbose, debug=debug, subjects=subjects)
     replace_subjects.process()
     if timestamp:
         replace_subjects.set_timestamp()
     if details:
         replace_subjects.print_details()
-    set_timestamp('replace_idby_subjects', count=replace_subjects.counts_len)
     return replace_subjects.counts_len
