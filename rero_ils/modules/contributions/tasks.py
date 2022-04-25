@@ -80,35 +80,34 @@ def create_mef_record_online(ref):
     :return: contribution pid, online = True if contribution was loaded
     """
     contribution, online = Contribution.get_record_by_ref(ref)
-    pid = None
-    if contribution:
-        pid = contribution.get('pid')
+    pid = contribution.get('pid') if contribution else None
     return pid, online
 
 
 @shared_task(ignore_result=True)
 def update_contributions(pids=None, dbcommit=True, reindex=True, verbose=False,
-                         timestamp=True):
+                         debug=False, timestamp=True):
     """Update contributions.
 
     :param pids: contribution pids to update, default ALL.
     :param dbcommit: if True call dbcommit, make the change effective in db.
     :param reindex: reindex the record.
     :param verbose: verbose print.
+    :param debug: debug print.
     :param timestamp: create timestamp.
     """
-    pids = pids or Contribution.get_all_pids()
+    pids = pids or list(Contribution.get_all_pids())
     log = {}
     error_pids = []
     if verbose:
         click.echo(f'Contribution update: {len(pids)}')
-    for idx, pid in enumerate(pids):
+    for idx, pid in enumerate(pids, 1):
         cont = Contribution.get_record_by_pid(pid)
         msg, _ = cont.update_online(dbcommit=dbcommit, reindex=reindex,
                                     verbose=verbose)
         log.setdefault(msg, 0)
         log[msg] += 1
-        if verbose and msg != ContributionUpdateAction.UPTODATE:
+        if debug or (verbose and msg != ContributionUpdateAction.UPTODATE):
             click.echo(f'{idx:>10} mef:{pid:>10} {msg} {cont.source_pids()}')
         if ContributionUpdateAction.ERROR:
             error_pids.append(pid)

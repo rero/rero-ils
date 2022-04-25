@@ -24,6 +24,7 @@ from abc import ABC, abstractmethod
 import click
 from elasticsearch_dsl import Q
 from flask import current_app
+from webargs import ValidationError
 
 from .api import Document, DocumentsSearch
 from ..contributions.api import Contribution
@@ -33,14 +34,19 @@ from ..utils import set_timestamp
 class ReplaceMefIdentifiedBy(ABC):
     """Replace MEF identified by base class."""
 
-    def __init__(self, mef_url, run=False, verbose=False):
+    name = ''
+
+    def __init__(self, mef_url, run=False, verbose=False, debug=False):
         """Constructor."""
         self.mef_url = mef_url
         self.count_found = {}
         self.count_exists = {}
+        self.count_deleted = {}
         self.count_no_data = {}
         self.count_no_mef = {}
+        self.preferred_names = {}
         self.verbose = verbose
+        self.debug = debug
         if run:
             self.process()
 
@@ -64,32 +70,43 @@ class ReplaceMefIdentifiedBy(ABC):
         """Process replacement."""
         raise NotImplementedError()
 
-    def increment_count(self, count, ref):
+    def increment_count(self, count, ref, msg):
         """Increment count.
 
         :param count: count to use.
         :param ref: reference to increment.
         """
+        self.print_debug(f'{msg}: {ref}')
         count.setdefault(ref, 0)
         count[ref] += 1
+
+    def add_preferred_name(self, ref_type, ref_pid, preferred_name, type):
+        """Add preferred name."""
+        ref = f'{ref_type}/{ref_pid}'
+        self.preferred_names[ref] = {
+            'type': f'{type:<15}',
+            'preferred_name': f'"{preferred_name}"'
+        }
 
     @property
     def counts(self):
         """Counts."""
-        return (self.count_found, self.count_exists, self.count_no_data,
-                self.count_no_mef)
+        return (self.count_found, self.count_exists, self.count_deleted,
+                self.count_no_data, self.count_no_mef)
 
     @property
     def counts_len(self):
         """Counts."""
         return (len(self.count_found), len(self.count_exists),
-                len(self.count_no_data), len(self.count_no_mef))
+                len(self.count_deleted), len(self.count_no_data),
+                len(self.count_no_mef))
 
     def print_counts(self):
         """Print counts."""
         click.echo(
             f'Found  : {len(self.count_found)} '
             f'Exists : {len(self.count_exists)} '
+            f'Deleted: {len(self.count_deleted)} '
             f'No Data: {len(self.count_no_data)} '
             f'No MEF : {len(self.count_no_mef)}'
         )
@@ -104,14 +121,30 @@ class ReplaceMefIdentifiedBy(ABC):
             click.echo('Exists:')
             for key in sorted(self.count_exists.keys()):
                 click.echo(f'  {key:<20} : {self.count_exists[key]}')
+        if self.count_deleted:
+            click.echo('Delted:')
+            for key in sorted(self.count_deleted.keys()):
+                info = self.preferred_names.get(key, {}).values()
+                click.echo(f'  {key:<20} : {self.count_deleted[key]:>4}'
+                           f'\t{"    ".join(info)}')
         if self.count_no_data:
             click.echo('No Data:')
             for key in sorted(self.count_no_data.keys()):
-                click.echo(f'  {key:<20} : {self.count_no_data[key]}')
+                info = self.preferred_names.get(key, {}).values()
+                click.echo(f'  {key:<20} : {self.count_no_data[key]:>4}'
+                           f'\t{"    ".join(info)}')
         if self.count_no_mef:
             click.echo('No MEF:')
             for key in sorted(self.count_no_mef.keys()):
-                click.echo(f'  {key:<20} : {self.count_no_mef[key]}')
+                info = self.preferred_names.get(key, {}).values()
+                click.echo(f'  {key:<20}{self.count_no_mef[key]:>4}'
+                           f'\t{"    ".join(info)}')
+
+    def print_debug(self, *args, **kwargs):
+        """Print debug messages."""
+        if self.debug:
+            for arg in args:
+                click.secho(str(arg), fg='yellow')
 
     def set_timestamp(self):
         """Set timestamp."""
@@ -119,19 +152,31 @@ class ReplaceMefIdentifiedBy(ABC):
         counts = {
             'found': counts[0],
             'exists': counts[1],
-            'no_data': counts[2],
-            'no_mef': counts[3]
+            'deleted': counts[2],
+            'no_data': counts[3],
+            'no_mef': counts[4]
         }
-        set_timestamp(self.__class__.__name__, **counts)
+        set_timestamp(f'ReplaceMefIdentifiedBy_{self.name}', **counts)
+
+    def update_document(self, changed, document):
+        """Update document."""
+        if changed:
+            try:
+                document.update(data=document, dbcommit=True, reindex=True)
+            except ValidationError as err:
+                click.secho(f'{document.pid} {err} {document}', fg='red')
 
 
 class ReplaceMefIdentifiedByContribution(ReplaceMefIdentifiedBy):
     """Replace MEF identified by contribution class."""
 
-    def __init__(self, run=False, verbose=False):
+    name = 'contribution'
+
+    def __init__(self, run=False, verbose=False, debug=False):
         """Constructor."""
         mef_url = current_app.config.get('RERO_ILS_MEF_AGENTS_URL')
-        super().__init__(run=run, mef_url=mef_url, verbose=verbose)
+        super().__init__(
+            run=run, mef_url=mef_url, verbose=verbose, debug=debug)
         self.cont_types = ['idref', 'gnd']
 
     def _query_filter(self):
@@ -143,7 +188,7 @@ class ReplaceMefIdentifiedByContribution(ReplaceMefIdentifiedBy):
         """Get local MEF record."""
         return Contribution.get_contribution(ref_type, ref_pid)
 
-    def get_online(self, ref_type, ref_pid):
+    def get_online(self, doc_pid, ref_type, ref_pid):
         """Get online MEF record."""
         ref = f'{ref_type}/{ref_pid}'
         try:
@@ -151,99 +196,144 @@ class ReplaceMefIdentifiedByContribution(ReplaceMefIdentifiedBy):
             data = Contribution._get_mef_data_by_type(ref_pid, ref_type)
             metadata = data['metadata']
             if metadata.get('idref') or metadata.get('gnd'):
-                self.increment_count(self.count_found, ref)
-                # delete mef $schema
-                metadata.pop('$schema', None)
-                # create local contribution
-                return Contribution.create(data=metadata, dbcommit=True,
-                                           reindex=True)
+                if metadata.get('deleted'):
+                    self.increment_count(self.count_deleted, ref,
+                                         f'{doc_pid} Deleted')
+                else:
+                    self.increment_count(self.count_found, ref,
+                                         f'{doc_pid} Online found')
+                    # delete mef $schema
+                    metadata.pop('$schema', None)
+                    # create and return local contribution
+                    return Contribution.create(data=metadata, dbcommit=True,
+                                               reindex=True)
             else:
                 # online contribution has no IdREf, GND or RERO
-                self.increment_count(self.count_no_data, ref)
+                self.increment_count(self.count_no_data, ref,
+                                     f'{doc_pid} Online no data')
         except Exception as err:
             # no online contribution found
-            self.increment_count(self.count_no_mef, ref)
+            self.increment_count(self.count_no_mef, ref,
+                                 f'{doc_pid:>10}\tNo online MEF')
+
+    def get_contribution(self, doc_pid, ref_type, ref_pid):
+        """Get Contribution."""
+        if contribution := self.get_local(ref_type=ref_type, ref_pid=ref_pid):
+            self.increment_count(self.count_exists, f'{ref_type}/{ref_pid}',
+                                 f'{doc_pid} Exists')
+            return contribution
+        return self.get_online(doc_pid=doc_pid, ref_type=ref_type,
+                               ref_pid=ref_pid)
 
     def process(self):
         """Process replacement."""
         if self.verbose:
-            click.echo(f'Found: {self._query_filter().count()}')
-        for hit in self._query_filter().source('pid').scan():
+            click.echo(f'Found identifiedBy contributions: '
+                       f'{self._query_filter().count()}')
+        for hit in list(self._query_filter().source('pid').scan()):
             doc = Document.get_record_by_id(hit.meta.id)
-            new_contributions = []
             changed = False
             for contribution in doc.get('contribution', []):
-                new_contributions.append(contribution)
                 ref_type = contribution['agent'].get(
                     'identifiedBy', {}).get('type', '').lower()
                 if ref_type in self.cont_types + ['rero']:
                     ref_pid = contribution['agent'].get(
                         'identifiedBy', {}).get('value')
-                    cont = self.get_local(ref_type=ref_type, ref_pid=ref_pid)
-                    if not cont:
-                        cont = self.get_online(ref_type=ref_type,
-                                               ref_pid=ref_pid)
-                    if cont:
+                    if cont := self.get_contribution(hit.pid, ref_type,
+                                                     ref_pid):
                         # change the contribution to linked contribution
                         for cont_type in self.cont_types:
-                            if cont.get('cont_type'):
+                            if cont.get(cont_type):
                                 changed = True
                                 url = f'{self.mef_url}/{cont_type}/' \
                                     f'{cont[cont_type]["pid"]}'
-                                new_contributions[-1]['agent'] = {
+                                new_contribution = {
                                     '$ref': url,
                                     'type': contribution['agent']['type']
                                 }
+                                self.print_debug(
+                                    f'{hit.pid} Change:',
+                                    f'  {contribution["agent"]}',
+                                    f'  {new_contribution}'
+                                )
+                                contribution['agent'] = new_contribution
                                 break
-            if changed:
-                doc['contribution'] = new_contributions
-                doc.update(data=doc, dbcommit=True, reindex=True)
+                    else:
+                        self.add_preferred_name(
+                            ref_type=ref_type,
+                            ref_pid=ref_pid,
+                            preferred_name=contribution.get(
+                                'agent', {}).get('preferred_name', ''),
+                            type=contribution.get(
+                                'agent', {}).get('type', ''),
+                        )
+            self.update_document(changed=changed, document=doc)
         return self.counts
 
 
 class ReplaceMefIdentifiedBySubjects(ReplaceMefIdentifiedByContribution):
     """Replace MEF identified by subjects class."""
 
+    def __init__(self, run=False, verbose=False, debug=False,
+                 subjects='subjects'):
+        """Constructor."""
+        super().__init__(run=run, verbose=verbose, debug=debug)
+        assert subjects in ['subjects', 'subjects_imported']
+        self.name = subjects
+
     def _query_filter(self):
         """Query filter to find documents."""
         return DocumentsSearch() \
-            .filter('exists', field='subjects.identifiedBy') \
-            .filter('bool', should=[
-                Q('term', subjects__type='bf:Person'),
-                Q('term', subjects__type='bf:Organisation')
+            .filter('bool', must=[
+                Q('exists', field=f'{self.name}.identifiedBy'),
+                Q({'terms': {
+                    f'{self.name}.type': ['bf:Person', 'bf:Organisation']
+                }})
             ])
 
     def process(self):
         """Process replacement."""
         if self.verbose:
-            click.echo(f'Found: {self._query_filter().count()}')
-        for hit in self._query_filter().source('pid').scan():
+            click.echo(f'Found identifiedBy {self.name}: '
+                       f'{self._query_filter().count()}')
+        hits = list(self._query_filter().source('pid').scan())
+        for hit in list(self._query_filter().source('pid').scan()):
             doc = Document.get_record_by_id(hit.meta.id)
-            new_subjects = []
             changed = False
-            for subject in doc.get('subjects', []):
-                new_subjects.append(subject)
+            for subject in doc.get(self.name, []):
                 ref_type = subject.get(
                     'identifiedBy', {}).get('type', '').lower()
-                if ref_type in self.cont_types + ['rero']:
+                is_pers_org = subject.get('type') in [
+                    'bf:Person', 'bf:Organisation']
+                if ref_type in self.cont_types + ['rero'] and is_pers_org:
                     ref_pid = subject.get('identifiedBy', {}).get('value')
-                    cont = self.get_local(ref_type=ref_type, ref_pid=ref_pid)
-                    if not cont:
-                        cont = self.get_online(ref_type=ref_type,
-                                               ref_pid=ref_pid)
-                    if cont:
+                    if cont := self.get_contribution(hit.pid, ref_type,
+                                                     ref_pid):
                         # change the contribution to linked contribution
                         for cont_type in ['idref', 'gnd']:
-                            if cont.get('cont_type'):
+                            if cont.get(cont_type):
                                 changed = True
                                 url = f'{self.mef_url}/{cont_type}/' \
                                     f'{cont[cont_type]["pid"]}'
-                                new_subjects[-1]['agent'] = {
+                                new_subject = {
                                     '$ref': url,
+                                    # TOTO: we have to correct all wrong
+                                    # bf:Organisation
                                     'type': subject['type']
                                 }
+                                self.print_debug(
+                                    f'{hit.pid} Change:',
+                                    f'  {subject}',
+                                    f'  {new_subject}'
+                                )
+                                subject = new_subject
                                 break
-            if changed:
-                doc['subjects'] = new_subjects
-                doc.update(data=doc, dbcommit=True, reindex=True)
+                    else:
+                        self.add_preferred_name(
+                            ref_type=ref_type,
+                            ref_pid=ref_pid,
+                            preferred_name=subject.get('preferred_name'),
+                            type=subject.get('type')
+                        )
+            self.update_document(changed=changed, document=doc)
         return self.counts

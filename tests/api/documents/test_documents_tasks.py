@@ -37,13 +37,13 @@ def test_replace_idby_contribution(mock_contributions_mef_get, app,
                                    document_data,
                                    contribution_person_response_data):
     """Test replace identifiedBy in contribution."""
-    assert replace_idby_contribution() == (0, 0, 0, 0)
+    assert replace_idby_contribution() == (0, 0, 0, 0, 0)
 
     doc = Document.create(data=document_data, dbcommit=True, reindex=True)
     DocumentsSearch.flush_and_refresh()
     replace = ReplaceMefIdentifiedByContribution()
     replace.process()
-    assert replace.counts_len == (0, 0, 0, 1)
+    assert replace.counts_len == (0, 0, 0, 0, 1)
 
     without_idref_gnd = deepcopy(contribution_person_response_data)
     without_idref_gnd['hits']['hits'][0]['metadata'].pop('idref')
@@ -51,12 +51,20 @@ def test_replace_idby_contribution(mock_contributions_mef_get, app,
     mock_contributions_mef_get.return_value = mock_response(
         json_data=without_idref_gnd
     )
-    assert replace_idby_contribution() == (0, 0, 1, 0)
+    assert replace_idby_contribution() == (0, 0, 0, 1, 0)
+
+    without_idref_gnd = deepcopy(contribution_person_response_data)
+    without_idref_gnd['hits']['hits'][0]['metadata']['deleted'] = '2022'
+    mock_contributions_mef_get.return_value = mock_response(
+        json_data=without_idref_gnd
+    )
+    assert replace_idby_contribution() == (0, 0, 1, 0, 0)
 
     mock_contributions_mef_get.return_value = mock_response(
         json_data=contribution_person_response_data
     )
-    assert replace_idby_contribution() == (1, 0, 0, 0)
+    assert replace_idby_contribution() == (1, 0, 0, 0, 0)
+
     # clean up
     doc.delete(dbcommit=True, delindex=True, force=True)
     for id in Contribution.get_all_ids():
@@ -69,13 +77,13 @@ def test_replace_idby_subjects(mock_contributions_mef_get, app,
                                document_data,
                                contribution_person_response_data):
     """Test replace identifiedBy in subjects."""
-    assert replace_idby_subjects() == (0, 0, 0, 0)
+    assert replace_idby_subjects() == (0, 0, 0, 0, 0)
 
     doc = Document.create(data=document_data, dbcommit=True, reindex=True)
     DocumentsSearch.flush_and_refresh()
     replace = ReplaceMefIdentifiedBySubjects()
     replace.process()
-    assert replace.counts_len == (0, 0, 0, 1)
+    assert replace.counts_len == (0, 0, 0, 0, 1)
 
     without_idref_gnd = deepcopy(contribution_person_response_data)
     without_idref_gnd['hits']['hits'][0]['metadata'].pop('idref')
@@ -83,9 +91,22 @@ def test_replace_idby_subjects(mock_contributions_mef_get, app,
     mock_contributions_mef_get.return_value = mock_response(
         json_data=without_idref_gnd
     )
-    assert replace_idby_subjects() == (0, 0, 1, 0)
+    assert replace_idby_subjects() == (0, 0, 0, 1, 0)
+
+    without_idref_gnd = deepcopy(contribution_person_response_data)
+    without_idref_gnd['hits']['hits'][0]['metadata']['deleted'] = '2022'
+    mock_contributions_mef_get.return_value = mock_response(
+        json_data=without_idref_gnd
+    )
+    assert replace_idby_subjects() == (0, 0, 1, 0, 0)
 
     mock_contributions_mef_get.return_value = mock_response(
         json_data=contribution_person_response_data
     )
-    assert replace_idby_subjects() == (1, 0, 0, 0)
+    assert replace_idby_subjects() == (1, 0, 0, 0, 0)
+
+    # clean up
+    doc.delete(dbcommit=True, delindex=True, force=True)
+    for id in Contribution.get_all_ids():
+        cont = Contribution.get_record_by_id(id)
+        cont.delete(dbcommit=True, delindex=True, force=True)
