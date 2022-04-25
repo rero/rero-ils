@@ -194,6 +194,7 @@ class ReplaceMefIdentifiedByContribution(ReplaceMefIdentifiedBy):
                                     '$ref': url,
                                     'type': contribution['agent']['type']
                                 }
+                                self.increment_count(self.count_exists, url)
                                 break
             if changed:
                 doc['contribution'] = new_contributions
@@ -242,6 +243,7 @@ class ReplaceMefIdentifiedBySubjects(ReplaceMefIdentifiedByContribution):
                                     '$ref': url,
                                     'type': subject['type']
                                 }
+                                self.increment_count(self.count_exists, url)
                                 break
             if changed:
                 doc['subjects'] = new_subjects
