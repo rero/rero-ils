@@ -382,5 +382,594 @@
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/4"
     }
+  },
+  {
+    "pid": "25",
+    "name": "HOG-Newspapers",
+    "number": "HOG.Per.01",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/2"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/5"
+    }
+  },
+  {
+    "pid": "26",
+    "name": "HOG-Online references",
+    "number": "HOG.01.001",
+    "allocated_amount": 10000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/25"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/2"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/5"
+    }
+  },
+  {
+    "pid": "27",
+    "name": "JEDI-Newspapers",
+    "number": "JEDI.Per.01",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/6"
+    }
+  },
+  {
+    "pid": "28",
+    "name": "JEDI-Online references",
+    "number": "JEDI.01.001",
+    "allocated_amount": 10000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/27"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/6"
+    }
+  },
+  {
+    "pid": "29",
+    "name": "CITADELLE-Newspapers",
+    "number": "CITADELLE.Per.01",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/7"
+    }
+  },
+  {
+    "pid": "30",
+    "name": "CITADELLE-Online references",
+    "number": "CITADELLE.01.001",
+    "allocated_amount": 10000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/29"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/7"
+    }
+  },
+  {
+    "pid": "31",
+    "name": "BEAST-Newspapers",
+    "number": "BEAST.Per.01",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/8"
+    }
+  },
+  {
+    "pid": "32",
+    "name": "BEAST-Online references",
+    "number": "BEAST.01.001",
+    "allocated_amount": 10000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/31"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/8"
+    }
+  },
+  {
+    "pid": "33",
+    "name": "DREAM-Newspapers",
+    "number": "DREAM.Per.01",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/9"
+    }
+  },
+  {
+    "pid": "34",
+    "name": "DREAM-Online references",
+    "number": "DREAM.01.001",
+    "allocated_amount": 10000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/33"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/9"
+    }
+  },
+  {
+    "pid": "35",
+    "name": "WHO-Newspapers",
+    "number": "WHO.Per.01",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/10"
+    }
+  },
+  {
+    "pid": "36",
+    "name": "WHO-Online references",
+    "number": "WHO.01.001",
+    "allocated_amount": 10000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/35"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/10"
+    }
+  },
+  {
+    "pid": "37",
+    "name": "HOG-St-Newspapers",
+    "number": "HOG-St.Per.01",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/11"
+    }
+  },
+  {
+    "pid": "38",
+    "name": "HOG-St-Online references",
+    "number": "HOG-St.01.001",
+    "allocated_amount": 10000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/37"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/11"
+    }
+  },
+  {
+    "pid": "39",
+    "name": "BABEL-Newspapers",
+    "number": "BABEL.Per.01",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/12"
+    }
+  },
+  {
+    "pid": "40",
+    "name": "BABEL-Online references",
+    "number": "BABEL.01.001",
+    "allocated_amount": 10000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/39"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/12"
+    }
+  },
+  {
+    "pid": "41",
+    "name": "ROSE-Newspapers",
+    "number": "ROSE.Per.01",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/13"
+    }
+  },
+  {
+    "pid": "42",
+    "name": "ROSE-Online references",
+    "number": "ROSE.01.001",
+    "allocated_amount": 10000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/41"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/13"
+    }
+  },
+  {
+    "pid": "43",
+    "name": "UNI-Newspapers",
+    "number": "UNI.Per.01",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/14"
+    }
+  },
+  {
+    "pid": "44",
+    "name": "UNI-Online references",
+    "number": "UNI.01.001",
+    "allocated_amount": 10000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/43"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/14"
+    }
+  },
+  {
+    "pid": "45",
+    "name": "CEMETERY-Newspapers",
+    "number": "CEMETERY.Per.01",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/15"
+    }
+  },
+  {
+    "pid": "46",
+    "name": "CEMETERY-Online references",
+    "number": "CEMETERY.01.001",
+    "allocated_amount": 10000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/45"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/15"
+    }
+  },
+  {
+    "pid": "47",
+    "name": "TRUTH-Newspapers",
+    "number": "TRUTH.Per.01",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/16"
+    }
+  },
+  {
+    "pid": "48",
+    "name": "TRUTH-Online references",
+    "number": "TRUTH.01.001",
+    "allocated_amount": 10000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/47"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/16"
+    }
+  },
+  {
+    "pid": "49",
+    "name": "RIVE-Newspapers",
+    "number": "RIVE.Per.01",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/17"
+    }
+  },
+  {
+    "pid": "50",
+    "name": "RIVE-Online references",
+    "number": "RIVE.01.001",
+    "allocated_amount": 10000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/49"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/17"
+    }
+  },
+  {
+    "pid": "51",
+    "name": "MATILDA-Newspapers",
+    "number": "MATILDA.Per.01",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/18"
+    }
+  },
+  {
+    "pid": "52",
+    "name": "MATILDA-Online references",
+    "number": "MATILDA.01.001",
+    "allocated_amount": 10000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/51"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/18"
+    }
+  },
+  {
+    "pid": "53",
+    "name": "UNSEEN-Newspapers",
+    "number": "UNSEEN.Per.01",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/19"
+    }
+  },
+  {
+    "pid": "54",
+    "name": "UNSEEN-Online references",
+    "number": "UNSEEN.01.001",
+    "allocated_amount": 10000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/53"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/19"
+    }
+  },
+  {
+    "pid": "55",
+    "name": "WAN-Newspapers",
+    "number": "WAN.Per.01",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/20"
+    }
+  },
+  {
+    "pid": "56",
+    "name": "WAN-Online references",
+    "number": "WAN.01.001",
+    "allocated_amount": 10000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/55"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/20"
+    }
+  },
+  {
+    "pid": "57",
+    "name": "BUFFY-Newspapers",
+    "number": "BUFFY.Per.01",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/21"
+    }
+  },
+  {
+    "pid": "58",
+    "name": "BUFFY-Online references",
+    "number": "BUFFY.01.001",
+    "allocated_amount": 10000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/57"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/21"
+    }
+  },
+  {
+    "pid": "59",
+    "name": "ENTERPRISE-Newspapers",
+    "number": "ENTERPRISE.Per.01",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/4"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/22"
+    }
+  },
+  {
+    "pid": "60",
+    "name": "ENTERPRISE-Online references",
+    "number": "ENTERPRISE.01.001",
+    "allocated_amount": 10000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/59"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/4"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/22"
+    }
+  },
+  {
+    "pid": "61",
+    "name": "VULCAN-Newspapers",
+    "number": "VULCAN.Per.01",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/4"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/23"
+    }
+  },
+  {
+    "pid": "62",
+    "name": "VULCAN-Online references",
+    "number": "VULCAN.01.001",
+    "allocated_amount": 10000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/61"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/4"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/23"
+    }
   }
 ]

@@ -15,7 +15,7 @@
     "name": "Libraries of the British Ministry of Magic",
     "code": "highlands",
     "default_currency": "GBP",
-    "current_budget_pid": "4",
+    "current_budget_pid": "2",
     "online_harvested_source": "mv-cantook",
     "collection_enabled_on_public_view": false
   },
@@ -25,7 +25,7 @@
     "name": "Network of fictive libraries",
     "code": "fictive",
     "default_currency": "CHF",
-    "current_budget_pid": "5",
+    "current_budget_pid": "3",
     "collection_enabled_on_public_view": false
   },
   {
@@ -34,7 +34,7 @@
     "name": "Institute of user interface tests",
     "code": "cypress",
     "default_currency": "CHF",
-    "current_budget_pid": "6",
+    "current_budget_pid": "4",
     "collection_enabled_on_public_view": true
   }
 ]

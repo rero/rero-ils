@@ -767,7 +767,31 @@
         "email": "reroilstest+aoste5@gmail.com"
       }
     ],
-    "communication_language": "eng"
+    "communication_language": "eng",
+    "acquisition_settings": {
+      "shipping_informations": {
+        "name": "Highlander, John",
+        "email": "reroilstest+magic1@gmail.com",
+        "phone": "+4134567891",
+        "address": {
+          "street": "Highlands, Scotland, Great Britain",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      },
+      "billing_informations": {
+        "name": "Highlander, John",
+        "email": "reroilstest+magic1@gmail.com",
+        "phone": "+4134567891",
+        "address": {
+          "street": "Highlands, Scotland, Great Britain",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      }
+    }
   },
   {
     "pid": "6",
@@ -876,7 +900,31 @@
         "email": "reroilstest+jedi@gmail.com"
       }
     ],
-    "communication_language": "eng"
+    "communication_language": "eng",
+    "acquisition_settings": {
+      "shipping_informations": {
+        "name": "Jedi, John",
+        "email": "reroilstest+jedi@gmail.com",
+        "phone": "+4134567892",
+        "address": {
+          "street": "street of jedi",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      },
+      "billing_informations": {
+        "name": "Jedi, John",
+        "email": "reroilstest+jedi@gmail.com",
+        "phone": "+4134567892",
+        "address": {
+          "street": "street of jedi",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      }
+    }
   },
   {
     "pid": "7",
@@ -986,7 +1034,31 @@
         "email": "reroilstest+citadelle@gmail.com"
       }
     ],
-    "communication_language": "eng"
+    "communication_language": "eng",
+    "acquisition_settings": {
+      "shipping_informations": {
+        "name": "Citadelle, John",
+        "email": "reroilstest+citadelle@gmail.com",
+        "phone": "+4134567893",
+        "address": {
+          "street": "street of citadelle",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      },
+      "billing_informations": {
+        "name": "Citadelle, John",
+        "email": "reroilstest+citadelle@gmail.com",
+        "phone": "+4134567893",
+        "address": {
+          "street": "street of citadelle",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      }
+    }
   },
   {
     "pid": "8",
@@ -1096,7 +1168,31 @@
         "email": "reroilstest+beast@gmail.com"
       }
     ],
-    "communication_language": "eng"
+    "communication_language": "eng",
+    "acquisition_settings": {
+      "shipping_informations": {
+        "name": "Beast, John",
+        "email": "reroilstest+beast@gmail.com",
+        "phone": "+4134567894",
+        "address": {
+          "street": "street of beast",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      },
+      "billing_informations": {
+        "name": "Beast, John",
+        "email": "reroilstest+beast@gmail.com",
+        "phone": "+4134567894",
+        "address": {
+          "street": "street of beast",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      }
+    }
   },
   {
     "pid": "9",
@@ -1206,7 +1302,31 @@
         "email": "reroilstest+dream@gmail.com"
       }
     ],
-    "communication_language": "eng"
+    "communication_language": "eng",
+    "acquisition_settings": {
+      "shipping_informations": {
+        "name": "Dream, John",
+        "email": "reroilstest+dream@gmail.com",
+        "phone": "+4134567895",
+        "address": {
+          "street": "street of dream",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      },
+      "billing_informations": {
+        "name": "Dream, John",
+        "email": "reroilstest+dream@gmail.com",
+        "phone": "+4134567895",
+        "address": {
+          "street": "street of dream",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      }
+    }
   },
   {
     "pid": "10",
@@ -1320,7 +1440,31 @@
         "email": "reroilstest+who@gmail.com"
       }
     ],
-    "communication_language": "eng"
+    "communication_language": "eng",
+    "acquisition_settings": {
+      "shipping_informations": {
+        "name": "Who, John",
+        "email": "reroilstest+who@gmail.com",
+        "phone": "+4134567896",
+        "address": {
+          "street": "street of dream",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      },
+      "billing_informations": {
+        "name": "Who, John",
+        "email": "reroilstest+who@gmail.com",
+        "phone": "+4134567896",
+        "address": {
+          "street": "street of who",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      }
+    }
   },
   {
     "pid": "11",
@@ -1429,7 +1573,31 @@
         "email": "reroilstest+hog@gmail.com"
       }
     ],
-    "communication_language": "eng"
+    "communication_language": "eng",
+    "acquisition_settings": {
+      "shipping_informations": {
+        "name": "Hog, John",
+        "email": "reroilstest+hog@gmail.com",
+        "phone": "+4134567897",
+        "address": {
+          "street": "street of hog",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      },
+      "billing_informations": {
+        "name": "Hog, John",
+        "email": "reroilstest+hog@gmail.com",
+        "phone": "+4134567897",
+        "address": {
+          "street": "street of hog",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      }
+    }
   },
   {
     "pid": "12",
@@ -1539,7 +1707,31 @@
         "email": "reroilstest+babel@gmail.com"
       }
     ],
-    "communication_language": "fre"
+    "communication_language": "fre",
+    "acquisition_settings": {
+      "shipping_informations": {
+        "name": "babel, John",
+        "email": "reroilstest+babel@gmail.com",
+        "phone": "+4134567898",
+        "address": {
+          "street": "street of babel",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      },
+      "billing_informations": {
+        "name": "babel, John",
+        "email": "reroilstest+babel@gmail.com",
+        "phone": "+4134567898",
+        "address": {
+          "street": "street of babel",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      }
+    }
   },
   {
     "pid": "13",
@@ -1649,7 +1841,31 @@
         "email": "reroilstest+rose@gmail.com"
       }
     ],
-    "communication_language": "fre"
+    "communication_language": "fre",
+    "acquisition_settings": {
+      "shipping_informations": {
+        "name": "rose, John",
+        "email": "reroilstest+rose@gmail.com",
+        "phone": "+4134567899",
+        "address": {
+          "street": "street of rose",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      },
+      "billing_informations": {
+        "name": "rose, John",
+        "email": "reroilstest+rose@gmail.com",
+        "phone": "+4134567899",
+        "address": {
+          "street": "street of rose",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      }
+    }
   },
   {
     "pid": "14",
@@ -1759,7 +1975,31 @@
         "email": "reroilstest+uni@gmail.com"
       }
     ],
-    "communication_language": "eng"
+    "communication_language": "eng",
+    "acquisition_settings": {
+      "shipping_informations": {
+        "name": "uni, John",
+        "email": "reroilstest+uni@gmail.com",
+        "phone": "+4134567880",
+        "address": {
+          "street": "street of rose",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      },
+      "billing_informations": {
+        "name": "uni, John",
+        "email": "reroilstest+uni@gmail.com",
+        "phone": "+4134567880",
+        "address": {
+          "street": "street of uni",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      }
+    }
   },
   {
     "pid": "15",
@@ -1873,7 +2113,31 @@
         "email": "reroilstest+cemetery@gmail.com"
       }
     ],
-    "communication_language": "eng"
+    "communication_language": "eng",
+    "acquisition_settings": {
+      "shipping_informations": {
+        "name": "cemetery, John",
+        "email": "reroilstest+cemetery@gmail.com",
+        "phone": "+4134567881",
+        "address": {
+          "street": "street of cemetery",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      },
+      "billing_informations": {
+        "name": "cemetery, John",
+        "email": "reroilstest+cemetery@gmail.com",
+        "phone": "+4134567881",
+        "address": {
+          "street": "street of cemetery",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      }
+    }
   },
   {
     "pid": "16",
@@ -1982,7 +2246,31 @@
         "email": "reroilstest+truth@gmail.com"
       }
     ],
-    "communication_language": "eng"
+    "communication_language": "eng",
+    "acquisition_settings": {
+      "shipping_informations": {
+        "name": "truth, John",
+        "email": "reroilstest+truth@gmail.com",
+        "phone": "+4134567882",
+        "address": {
+          "street": "street of truth",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      },
+      "billing_informations": {
+        "name": "truth, John",
+        "email": "reroilstest+truth@gmail.com",
+        "phone": "+4134567882",
+        "address": {
+          "street": "street of truth",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      }
+    }
   },
   {
     "pid": "17",
@@ -2092,7 +2380,31 @@
         "email": "reroilstest+rive@gmail.com"
       }
     ],
-    "communication_language": "eng"
+    "communication_language": "eng",
+    "acquisition_settings": {
+      "shipping_informations": {
+        "name": "rive, John",
+        "email": "reroilstest+rive@gmail.com",
+        "phone": "+4134567883",
+        "address": {
+          "street": "street of rive",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      },
+      "billing_informations": {
+        "name": "rive, John",
+        "email": "reroilstest+rive@gmail.com",
+        "phone": "+4134567883",
+        "address": {
+          "street": "street of rive",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      }
+    }
   },
   {
     "pid": "18",
@@ -2202,7 +2514,31 @@
         "email": "reroilstest+matilda@gmail.com"
       }
     ],
-    "communication_language": "eng"
+    "communication_language": "eng",
+    "acquisition_settings": {
+      "shipping_informations": {
+        "name": "matilda, John",
+        "email": "reroilstest+matilda@gmail.com",
+        "phone": "+4134567884",
+        "address": {
+          "street": "street of matilda",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      },
+      "billing_informations": {
+        "name": "matilda, John",
+        "email": "reroilstest+matilda@gmail.com",
+        "phone": "+4134567884",
+        "address": {
+          "street": "street of matilda",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      }
+    }
   },
   {
     "pid": "19",
@@ -2312,7 +2648,31 @@
         "email": "reroilstest+unseen@gmail.com"
       }
     ],
-    "communication_language": "eng"
+    "communication_language": "eng",
+    "acquisition_settings": {
+      "shipping_informations": {
+        "name": "unseen, John",
+        "email": "reroilstest+unseen@gmail.com",
+        "phone": "+4134567885",
+        "address": {
+          "street": "street of unseen",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      },
+      "billing_informations": {
+        "name": "unseen, John",
+        "email": "reroilstest+unseen@gmail.com",
+        "phone": "+4134567885",
+        "address": {
+          "street": "street of unseen",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      }
+    }
   },
   {
     "pid": "20",
@@ -2426,7 +2786,31 @@
         "email": "reroilstest+wan@gmail.com"
       }
     ],
-    "communication_language": "eng"
+    "communication_language": "eng",
+    "acquisition_settings": {
+      "shipping_informations": {
+        "name": "wan, John",
+        "email": "reroilstest+wan@gmail.com",
+        "phone": "+4134567886",
+        "address": {
+          "street": "street of wan",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      },
+      "billing_informations": {
+        "name": "wan, John",
+        "email": "reroilstest+wan@gmail.com",
+        "phone": "+4134567886",
+        "address": {
+          "street": "street of wan",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      }
+    }
   },
   {
     "pid": "21",
@@ -2532,7 +2916,31 @@
         "email": "reroilstest+buffy@gmail.com"
       }
     ],
-    "communication_language": "eng"
+    "communication_language": "eng",
+    "acquisition_settings": {
+      "shipping_informations": {
+        "name": "buffy, John",
+        "email": "reroilstest+buffy@gmail.com",
+        "phone": "+4134567887",
+        "address": {
+          "street": "street of buffy",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      },
+      "billing_informations": {
+        "name": "buffy, John",
+        "email": "reroilstest+buffy@gmail.com",
+        "phone": "+4134567887",
+        "address": {
+          "street": "street of buffy",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      }
+    }
   },
   {
     "pid": "22",
@@ -2637,7 +3045,31 @@
         "email": "reroilstest+cypress1@gmail.com"
       }
     ],
-    "communication_language": "eng"
+    "communication_language": "eng",
+    "acquisition_settings": {
+      "shipping_informations": {
+        "name": "cypress1, John",
+        "email": "reroilstest+cypress1@gmail.com",
+        "phone": "+4134567888",
+        "address": {
+          "street": "street of cypress1",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      },
+      "billing_informations": {
+        "name": "cypress1, John",
+        "email": "reroilstest+cypress1@gmail.com",
+        "phone": "+4134567888",
+        "address": {
+          "street": "street of cypress1",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      }
+    }
   },
   {
     "pid": "23",
@@ -2751,6 +3183,30 @@
         "email": "reroilstest+cypress2@gmail.com"
       }
     ],
-    "communication_language": "eng"
+    "communication_language": "eng",
+    "acquisition_settings": {
+      "shipping_informations": {
+        "name": "cypress2, John",
+        "email": "reroilstest+cypress2@gmail.com",
+        "phone": "+4134567889",
+        "address": {
+          "street": "street of cypress2",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      },
+      "billing_informations": {
+        "name": "cypress2, John",
+        "email": "reroilstest+cypress2@gmail.com",
+        "phone": "+4134567889",
+        "address": {
+          "street": "street of cypress2",
+          "zip_code": "11026",
+          "city": "Pont-Saint-Martin",
+          "country": "sz"
+        }
+      }
+    }
   }
 ]
