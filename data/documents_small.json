@@ -3385,7 +3385,7 @@
     ],
     "subjects": [
       {
-        "type": "bf:Organization",
+        "type": "bf:Organisation",
         "preferred_name": "Allemagne. Gestapo",
         "conference": false
       },
@@ -14216,7 +14216,7 @@
     ],
     "subjects": [
       {
-        "type": "bf:Organization",
+        "type": "bf:Organisation",
         "preferred_name": "British Rail Pension Fund (Grande-Bretagne)",
         "conference": false,
         "identifiedBy": {
@@ -14529,7 +14529,7 @@
         "preferred_name": "Lubac, Henri de (cardinal) - influence exerc\u00e9e"
       },
       {
-        "type": "bf:Organization",
+        "type": "bf:Organisation",
         "preferred_name": "Concile de Vatican 2 (1962-1965) - influence re\u00e7ue",
         "conference": true
       },
@@ -14544,7 +14544,7 @@
     ],
     "subjects_imported": [
       {
-        "type": "bf:Organization",
+        "type": "bf:Organisation",
         "source": "LCSH",
         "preferred_name": "Vatican Council - (2nd : - 1962-1965)",
         "conference": true
@@ -45055,7 +45055,7 @@
     ],
     "subjects": [
       {
-        "type": "bf:Organization",
+        "type": "bf:Organisation",
         "preferred_name": "Bureau international du travail",
         "conference": false
       },
@@ -48117,7 +48117,7 @@
     ],
     "subjects": [
       {
-        "type": "bf:Organization",
+        "type": "bf:Organisation",
         "preferred_name": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale",
         "conference": false,
         "identifiedBy": {
@@ -53643,7 +53643,7 @@
     ],
     "subjects": [
       {
-        "type": "bf:Organization",
+        "type": "bf:Organisation",
         "preferred_name": "Soci\u00e9t\u00e9 suisse du th\u00e9\u00e2tre (Suisse)",
         "conference": false
       },
@@ -55249,12 +55249,12 @@
     ],
     "subjects": [
       {
-        "type": "bf:Organization",
+        "type": "bf:Organisation",
         "preferred_name": "Archivio di Stato di Genova (G\u00eanes)",
         "conference": false
       },
       {
-        "type": "bf:Organization",
+        "type": "bf:Organisation",
         "preferred_name": "Banco di San Giorgio (G\u00eanes)",
         "conference": false,
         "identifiedBy": {
@@ -58389,7 +58389,7 @@
     ],
     "subjects": [
       {
-        "type": "bf:Organization",
+        "type": "bf:Organisation",
         "preferred_name": "Bureau international du travail",
         "conference": false
       },
@@ -59034,7 +59034,7 @@
     ],
     "subjects": [
       {
-        "type": "bf:Organization",
+        "type": "bf:Organisation",
         "preferred_name": "Bureau international du travail",
         "conference": false
       },
@@ -60358,7 +60358,7 @@
     ],
     "subjects": [
       {
-        "type": "bf:Organization",
+        "type": "bf:Organisation",
         "preferred_name": "Soci\u00e9t\u00e9 suisse du th\u00e9\u00e2tre (Suisse)",
         "conference": false
       },
@@ -61176,7 +61176,7 @@
     ],
     "subjects": [
       {
-        "type": "bf:Organization",
+        "type": "bf:Organisation",
         "preferred_name": "Cin\u00e9math\u00e8que suisse (Lausanne)",
         "conference": false
       }

@@ -1605,7 +1605,7 @@ def do_work_access_point(marc21, key, value):
     *   "date_of_birth": "700.2$d - 1ère date",
     *   "date_of_death": "700.2$d - 2e date",
     *   "qualifier": ["700.2$c"]
-    *   "type": "bf:Organization", (710.2)
+    *   "type": "bf:Organisation", (710.2)
     *   "conference": false, (710.2)
     *   "preferred_name": "710.2$a",
     *   "subordinate_unit": ["710.2$b"]

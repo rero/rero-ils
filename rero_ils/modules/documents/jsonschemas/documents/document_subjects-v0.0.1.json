@@ -79,13 +79,13 @@
             "type": {
               "title": "Type",
               "type": "string",
-              "default": "bf:Organization",
-              "const": "bf:Organization",
+              "default": "bf:Organisation",
+              "const": "bf:Organisation",
               "form": {
                 "options": [
                   {
-                    "label": "bf:Organization",
-                    "value": "bf:Organization"
+                    "label": "bf:Organisation",
+                    "value": "bf:Organisation"
                   }
                 ],
                 "templateOptions": {
