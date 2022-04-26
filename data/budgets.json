@@ -19,5 +19,12 @@
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/3"
     }
+  },
+  {
+    "pid": "4",
+    "is_active": true,
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/4"
+    }
   }
 ]
