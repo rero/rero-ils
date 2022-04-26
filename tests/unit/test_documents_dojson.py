@@ -4794,7 +4794,7 @@ def test_marc21_to_subjects(mock_get):
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('subjects') == [{
-          'type': 'bf:Organization',
+          'type': 'bf:Organisation',
           'conference': True,
           'preferred_name': 'Belalp Hexe (Blatten)',
           'identifiedBy': {
@@ -5062,7 +5062,7 @@ def test_marc21_to_subjects_imported():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('subjects_imported') == [{
-          'type': 'bf:Organization',
+          'type': 'bf:Organisation',
           'conference': False,
           'preferred_name': 'Conference of European Churches',
           'source': 'LCSH'
@@ -5114,7 +5114,7 @@ def test_marc21_to_subjects_imported():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('subjects_imported') == [{
-          'type': 'bf:Organization',
+          'type': 'bf:Organisation',
           'preferred_name': 'Catholic Church - Relations - Eastern churches',
           'source': 'LCSH',
           'conference': False

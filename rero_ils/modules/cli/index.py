@@ -347,6 +347,7 @@ def update_mapping(aliases, settings):
         for index, f_mapping in iter(
             current_search.aliases.get(alias).items()
         ):
+            print('---->', index, f_mapping)
             mapping = json.load(open(f_mapping))
             try:
                 if mapping.get('settings') and settings:

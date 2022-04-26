@@ -535,8 +535,8 @@ def marc21_to_subjects_6XX(self, key, value):
     """
     type_per_tag = {
         '600': 'bf:Person',
-        '610': 'bf:Organization',
-        '611': 'bf:Organization',
+        '610': 'bf:Organisation',
+        '611': 'bf:Organisation',
         '600t': 'bf:Work',
         '610t': 'bf:Work',
         '611t': 'bf:Work',
