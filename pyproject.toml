@@ -132,14 +132,7 @@ marc21tojson = "rero_ils.modules.documents.dojson.contrib.marc21tojson:marc21toj
 unimarctojson = "rero_ils.modules.documents.dojson.contrib.unimarctojson:unimarc"
 
 [tool.poetry.plugins."flask.commands"]
-apiharvester = "rero_ils.modules.apiharvester.cli:apiharvester"
-contribution = "rero_ils.modules.contributions.cli:contribution"
-monitoring = "rero_ils.modules.monitoring.cli:monitoring"
-notifications = "rero_ils.modules.notifications.cli:notifications"
-oaiharvester = "rero_ils.modules.ebooks.cli:oaiharvester"
 reroils = "rero_ils.modules.cli.reroils:reroils"
-scheduler = "rero_ils.schedulers:scheduler"
-stats = "rero_ils.modules.stats.cli:stats"
 
 [tool.poetry.plugins."invenio_admin.views"]
 selfcheck_users_accounts = "rero_ils.modules.selfcheck.admin:selfcheck_terminal_adminview"
