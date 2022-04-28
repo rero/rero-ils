@@ -58,6 +58,7 @@ from werkzeug.security import gen_salt
 
 from rero_ils.modules.locations.api import Location
 
+from ..contributions.api import Contribution
 from ..documents.api import Document, DocumentsIndexer, DocumentsSearch
 from ..documents.dojson.contrib.marc21tojson.rero import marc21
 from ..documents.tasks import \
@@ -1401,31 +1402,21 @@ def export(verbose, pid_type, outfile_name, pidfile, indent, schema):
     else:
         pids = record_class.get_all_pids()
 
-    count = 0
-    output = '['
-    offset = '{character:{indent}}'.format(character=' ', indent=indent)
-    for pid in pids:
+    contributions_sources = current_app.config.get(
+        'RERO_ILS_CONTRIBUTIONS_SOURCES', [])
+
+    for count, pid in enumerate(pids, 1):
         try:
             rec = record_class.get_record_by_pid(pid)
-            count += 1
             if verbose:
                 click.echo(
                     f'{count: <8} {pid_type} export {rec.pid}:{rec.id}')
-
-            outfile.write(output)
             if not schema:
                 rec.pop('$schema', None)
-                contributions_sources = current_app.config.get(
-                    'RERO_ILS_CONTRIBUTIONS_SOURCES', [])
-                for contributions_source in contributions_sources:
-                    try:
-                        del rec[contributions_source]['$schema']
-                    except Exception:
-                        pass
-            output = ''
-            lines = json.dumps(rec, indent=indent).split('\n')
-            for line in lines:
-                output += f'\n{offset}{line}'
+                if isinstance(rec, Contribution):
+                    for contribution_source in contributions_sources:
+                        rec.get(contribution_source, {}).pop('$schema', None)
+            outfile.write(rec)
         except Exception as err:
             click.echo(err)
             click.echo(f'ERROR: Can not export pid:{pid}')
