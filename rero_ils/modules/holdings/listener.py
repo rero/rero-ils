@@ -23,8 +23,7 @@ from invenio_db import db
 
 from rero_ils.modules.holdings.models import HoldingTypes
 from rero_ils.modules.tasks import process_bulk_queue
-from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid, \
-    get_schema_for_resource
+from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid
 
 from .api import Holding, HoldingsSearch
 from ..items.api import Item, ItemsIndexer, ItemsSearch
@@ -78,9 +77,8 @@ def update_items_locations_and_types(sender, record=None, **kwargs):
     This method should be connect with 'after_record_update'.
     :param record: the holding record.
     """
-    if record.get('$schema') != get_schema_for_resource(Holding):
-        return
-    if record.get('holdings_type') == HoldingTypes.SERIAL:
+    if not isinstance(record, Holding) and \
+            record.get('holdings_type') == HoldingTypes.SERIAL:
         # identify all items records attached to this serials holdings record
         # with different location and item_type.
         hold_circ_pid = record.circulation_category_pid
