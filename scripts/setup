@@ -344,7 +344,7 @@ fi
 if ${LOADCONTRIBUTIONS}
 then
     info_msg "- CONTRIBUTIONS: ${CONTRIBUTIONS} ${CREATE_LAZY} ${DONT_STOP}"
-    eval ${PREFIX} invenio reroils fixtures create --pid_type cont --schema 'http://bib.rero.ch/schemas/contributions/contribution-v0.0.1.json' ${CONTRIBUTIONS} --append ${CREATE_LAZY} ${DONT_STOP}
+    eval ${PREFIX} invenio reroils fixtures create --pid_type cont --schema 'https://bib.rero.ch/schemas/contributions/contribution-v0.0.1.json' ${CONTRIBUTIONS} --append ${CREATE_LAZY} ${DONT_STOP}
     info_msg "Indexing Contributions:"
     eval ${PREFIX} invenio reroils index reindex -t cont --yes-i-know
     if [ ${INDEX_PARALLEL} -gt 0 ]; then
@@ -360,7 +360,7 @@ else
 fi
 
 info_msg "- Documents: ${DOCUMENTS} ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create --pid_type doc --schema 'http://bib.rero.ch/schemas/documents/document-v0.0.1.json' ${DOCUMENTS} --append ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils fixtures create --pid_type doc --schema 'https://bib.rero.ch/schemas/documents/document-v0.0.1.json' ${DOCUMENTS} --append ${CREATE_LAZY} ${DONT_STOP}
 
 if ${CREATE_ITEMS_HOLDINGS_SMALL}
 then
@@ -387,11 +387,11 @@ then
 fi
 
 info_msg "- Holdings: ${HOLDINGS} ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create --pid_type hold --schema 'http://bib.rero.ch/schemas/holdings/holding-v0.0.1.json' ${HOLDINGS} --append ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils fixtures create --pid_type hold --schema 'https://bib.rero.ch/schemas/holdings/holding-v0.0.1.json' ${HOLDINGS} --append ${CREATE_LAZY} ${DONT_STOP}
 
 
 info_msg "- Items: ${ITEMS} ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create --pid_type item --schema 'http://bib.rero.ch/schemas/items/item-v0.0.1.json' ${ITEMS} --append ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils fixtures create --pid_type item --schema 'https://bib.rero.ch/schemas/items/item-v0.0.1.json' ${ITEMS} --append ${CREATE_LAZY} ${DONT_STOP}
 
 # index items
 eval ${PREFIX} invenio reroils index reindex -t item --yes-i-know
