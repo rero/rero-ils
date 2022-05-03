@@ -154,11 +154,14 @@ class ILLRequestForm(FlaskForm):
     )
     pickup_location = SelectField(
         label=_('Pickup location'),
-        choices=[],  # Choices will be loaded dynamically because they should
-                     # be given inside app_context
-        validate_choice=False,
+        # Choices will be loaded dynamically because they should
+        # be given inside app_context
+        choices=[('', _('Select…'))],
         description=_('Select the location where this request will be '
-                      'operated')
+                      'operated'),
+        validators=[
+            validators.DataRequired()
+        ]
     )
 
     def validate(self):

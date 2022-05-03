@@ -28,4 +28,4 @@ def get_pickup_location_options():
         for pid in Location.get_pickup_location_pids(ptrn_pid):
             location = Location.get_record_by_pid(pid)
             location_name = location.get('pickup_name', location.get('name'))
-            yield tuple([location.pid, location_name])
+            yield (location.pid, location_name)
