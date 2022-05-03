@@ -132,10 +132,6 @@ class Contribution(IlsRecord):
         db.session.commit()
         return contribution, online
 
-    def dumps_for_document(self):
-        """Transform the record into document contribution format."""
-        return self._get_contribution_for_document()
-
     @classmethod
     def _get_mef_data_by_type(cls, pid, pid_type, verbose=False,
                               deleted=False):
@@ -197,14 +193,13 @@ class Contribution(IlsRecord):
                 return value
         return self.get(key, None)
 
-    def _get_contribution_for_document(self):
-        """Get contribution for document."""
-        agent = {
-            'pid': self.pid
-        }
+    def dumps_for_document(self):
+        """Transform the record into document contribution format."""
+        agent = {'pid': self.pid}
         for agency in current_app.config['RERO_ILS_CONTRIBUTIONS_SOURCES']:
             if self.get(agency):
                 agent['type'] = self[agency]['bf:Agent']
+                agent[f'id_{agency}'] = self[agency]['pid']
         for language in get_i18n_supported_languages():
             value = self._get_mef_localized_value(
                 'authorized_access_point', language)
@@ -238,7 +233,6 @@ class Contribution(IlsRecord):
             result.key for result in results.aggregations.organisation.buckets
             if result.doc_count
         }
-
         return list(organisations)
 
     def get_authorized_access_point(self, language):
@@ -322,7 +316,6 @@ class Contribution(IlsRecord):
         except Exception as err:
             action = ContributionUpdateAction.ERROR
             current_app.logger.warning(f'UPDATE ONLINE {pid}: {err}')
-            # TODO: find new MEF record
         return action, self
 
     def source_pids(self):
