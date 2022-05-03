@@ -23,7 +23,6 @@ from copy import deepcopy
 from datetime import datetime, timezone
 
 import jsonref
-import mock
 import requests
 import xmltodict
 from flask import url_for
@@ -33,6 +32,7 @@ from invenio_circulation.api import get_loan_for_item
 from invenio_db import db
 from invenio_oauth2server.models import Client, Token
 from invenio_search import current_search
+from mock import Mock
 from pkg_resources import resource_string
 from six.moves.urllib.parse import parse_qs, urlparse
 
@@ -180,9 +180,9 @@ def loaded_resources_report():
 def mock_response(status=200, content="CONTENT", json_data=None,
                   raise_for_status=None):
     """Mock a request response."""
-    mock_resp = mock.Mock()
+    mock_resp = Mock()
     # mock raise_for_status call w/optional error
-    mock_resp.raise_for_status = mock.Mock()
+    mock_resp.raise_for_status = Mock()
     if raise_for_status:
         mock_resp.raise_for_status.side_effect = raise_for_status
     # set status code and content
@@ -191,7 +191,7 @@ def mock_response(status=200, content="CONTENT", json_data=None,
     mock_resp.text = content
     # add json data if provided
     if json_data:
-        mock_resp.json = mock.Mock(return_value=json_data)
+        mock_resp.json = Mock(return_value=json_data)
         mock_resp.text = json.dumps(json_data)
     return mock_resp
 

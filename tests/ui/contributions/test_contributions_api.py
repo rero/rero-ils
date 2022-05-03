@@ -73,7 +73,7 @@ def test_contribution_mef_create(mock_contributions_mef_get, app,
         json_data=contribution_person_response_data
     )
     pers_mef, online = Contribution.get_record_by_ref(
-        'https://mef.rero.ch/api/rero/A017671081')
+        'https://mef.rero.ch/api/agents/rero/A017671081')
     flush_index(ContributionsSearch.Meta.index)
     assert pers_mef == contribution_person_data_tmp
     assert online
@@ -82,6 +82,6 @@ def test_contribution_mef_create(mock_contributions_mef_get, app,
     pers_mef['sources'] = ['gnd']
     pers_mef.replace(pers_mef, dbcommit=True)
     pers_db, online = Contribution.get_record_by_ref(
-        'https://mef.rero.ch/api/gnd/13343771X')
+        'https://mef.rero.ch/api/agents/gnd/13343771X')
     assert pers_db['sources'] == ['gnd']
     assert not online

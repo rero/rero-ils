@@ -105,7 +105,7 @@ def test_contribution(document_schema, document_data_tmp):
     }, {
         'agent': {
             'type': 'bf:Person',
-            '$ref': 'https://mef.rero.ch/api/gnd/XXXXXXX'
+            '$ref': 'https://mef.rero.ch/api/agents/gnd/XXXXXXX'
         },
         'role': ['aut']
     }, {

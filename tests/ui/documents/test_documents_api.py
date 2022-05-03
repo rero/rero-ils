@@ -158,7 +158,7 @@ def test_document_contribution_resolve_exception(es_clear, db,
                                                  document_data_ref):
     """Test document contribution resolve."""
     document_data_ref['contribution'] = [{
-        '$ref': 'https://mef.rero.ch/api/rero/XXXXXX'
+        '$ref': 'https://mef.rero.ch/api/agents/rero/XXXXXX'
     }],
     with pytest.raises(Exception):
         Document.create(

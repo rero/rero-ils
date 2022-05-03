@@ -403,7 +403,7 @@ def test_contribution_to_marc21(app, marc21_record,
             'role': ['ctb', 'aut']
         }, {
             'agent': {
-                '$ref': 'https://mef.rero.ch/api/idref/'
+                '$ref': 'https://mef.rero.ch/api/agents/idref/'
                         'mef_record_with_idref_rero',
                 'type': 'bf:Person'
             },
@@ -417,7 +417,7 @@ def test_contribution_to_marc21(app, marc21_record,
             'role': ['ctb']
         }, {
             'agent': {
-                '$ref': 'https://mef.rero.ch/api/gnd/'
+                '$ref': 'https://mef.rero.ch/agents/api/agents/gnd/'
                         'mef_record_with_idref_gnd',
                 'type': 'bf:Organisation'
             },
@@ -434,7 +434,7 @@ def test_contribution_to_marc21(app, marc21_record,
             'role': ['aut']
         }, {
             'agent': {
-                '$ref': 'https://mef.rero.ch/api/idref/'
+                '$ref': 'https://mef.rero.ch/api/agents/idref/'
                         'mef_record_with_idref_gnd_rero',
                 'type': 'bf:Organisation'
             },

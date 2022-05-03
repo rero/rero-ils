@@ -41,6 +41,9 @@ def test_replace_idby_contribution(mock_contributions_mef_get, app,
 
     doc = Document.create(data=document_data, dbcommit=True, reindex=True)
     DocumentsSearch.flush_and_refresh()
+    mock_contributions_mef_get.return_value = mock_response(
+        status=500
+    )
     replace = ReplaceMefIdentifiedByContribution()
     replace.process()
     assert replace.counts_len == (0, 0, 0, 0, 1)

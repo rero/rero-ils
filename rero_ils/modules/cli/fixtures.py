@@ -261,31 +261,30 @@ def get_all_mef_records(infile, lazy, verbose, enqueue, wait, outfile_name):
     """Get all contributions for given document file."""
     def get_ref(ref, refs, outfile_name):
         """Get the contribution."""
-        if ref and not refs.get(ref):
-            refs[ref] = 1
-            if outfile_name:
-                try:
-                    ref_split = ref.split('/')
-                    ref_type = ref_split[-2]
-                    ref_pid = ref_split[-1]
-                    data = Contribution._get_mef_data_by_type(
-                        pid=ref_pid,
-                        pid_type=ref_type
-                    )
-                    metadata = data['metadata']
-                    metadata['$schema'] = contribution_schema
-                    outfile.write(metadata)
-                    msg = 'ok'
-                except Exception as err:
-                    msg = err
-            else:
-                if enqueue:
-                    msg = create_mef_record_online.delay(ref)
-                else:
-                    pid, online = create_mef_record_online(ref)
-                    msg = f'contribution pid: {pid} {online}'
-            if verbose:
-                click.echo(f"{count:<10}ref: {ref}\t{msg}")
+        if not ref or refs.get(ref):
+            return
+        refs[ref] = 1
+        if outfile_name:
+            try:
+                ref_split = ref.split('/')
+                ref_type = ref_split[-2]
+                ref_pid = ref_split[-1]
+                data = Contribution._get_mef_data_by_type(
+                    pid=ref_pid,
+                    pid_type=ref_type
+                )
+                data['$schema'] = contribution_schema
+                outfile.write(data)
+                msg = 'ok'
+            except Exception as err:
+                msg = err
+        elif enqueue:
+            msg = create_mef_record_online.delay(ref)
+        else:
+            pid, online = create_mef_record_online(ref)
+            msg = f'contribution pid: {pid} {online}'
+        if verbose:
+            click.echo(f"{count:<10}ref: {ref}\t{msg}")
 
     click.secho(
         f'Get all contributions for {infile.name}.',
@@ -307,10 +306,11 @@ def get_all_mef_records(infile, lazy, verbose, enqueue, wait, outfile_name):
         for contribution in record.get('contribution', []):
             ref = contribution['agent'].get('$ref')
             get_ref(ref, refs, outfile_name)
-        for subject in record.get('subjects', []):
-            if subject.get('type') in ['bf:Person', 'bf:Organisation']:
-                ref = subject.get('$ref')
-                get_ref(ref, refs, outfile_name)
+        for subject_type in ['subjects', 'subjects_imported']:
+            for subject in record.get(subject_type, []):
+                if subject.get('type') in ['bf:Person', 'bf:Organisation']:
+                    ref = subject.get('$ref')
+                    get_ref(ref, refs, outfile_name)
     if enqueue and wait:
         wait_empty_tasks(delay=3, verbose=True)
     click.echo(f'Count refs: {count}')

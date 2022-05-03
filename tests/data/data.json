@@ -1915,7 +1915,7 @@
       {
         "agent": {
           "type": "bf:Person",
-          "$ref": "https://mef.rero.ch/api/rero/A017671081"
+          "$ref": "https://mef.rero.ch/api/agents/rero/A017671081"
         },
         "role": [
           "aut"
@@ -2622,7 +2622,7 @@
     "contribution": [
       {
         "agent": {
-          "$ref": "https://mef.rero.ch/api/idref/029314100",
+          "$ref": "https://mef.rero.ch/api/agents/idref/029314100",
           "type": "bf:Person"
         },
         "role": [
@@ -2983,11 +2983,11 @@
     "subjects": [
       {
         "type": "bf:Person",
-        "$ref": "https://mef.rero.ch/api/gnd/041288890"
+        "$ref": "https://mef.rero.ch/api/agents/gnd/041288890"
       },
       {
         "type": "bf:Person",
-        "$ref": "https://mef.rero.ch/api/idref/032106939"
+        "$ref": "https://mef.rero.ch/api/agents/idref/032106939"
       },
       {
         "type": "bf:Person",

@@ -106,36 +106,37 @@ class Contribution(IlsRecord):
         contribution = cls.get_contribution(ref_type, ref_pid)
         if not contribution:
             # We dit not find the record in DB get it from MEF and create it.
-            metadata = None
             try:
-                data = cls._get_mef_data_by_type(ref_pid, ref_type,
-                                                 deleted=True)
-                metadata = data['metadata']
-                # Register MEF contribution
-                metadata.pop('$schema', None)
-                # we have to commit because create
-                # uses db.session.begin_nested
-                contribution = cls.create(metadata, dbcommit=True,
-                                          reindex=True)
+                data = cls._get_mef_data_by_type(
+                    pid=ref_pid,
+                    pid_type=ref_type,
+                )
+                contribution = cls.create(
+                    data=data,
+                    dbcommit=True,
+                    reindex=True
+                )
                 online = True
             except Exception as err:
                 db.session.rollback()
-                if metadata:
-                    contribution = cls.get_record_by_pid(metadata.get('pid'))
-                if not contribution:
-                    current_app.logger.error(
-                        f'Get MEF record: {ref_type}:{ref_pid} >>{err}<<'
-                    )
-                    # import traceback
-                    # traceback.print_exc()
-                return contribution, online
+                current_app.logger.error(
+                    f'Get MEF record: {ref_type}:{ref_pid} >>{err}<<'
+                )
+                contribution = None
+                # import traceback
+                # traceback.print_exc()
         db.session.commit()
         return contribution, online
 
     @classmethod
     def _get_mef_data_by_type(cls, pid, pid_type, verbose=False,
-                              deleted=False):
-        """Request MEF REST API in JSON format."""
+                              with_deleted=True, resolve=True, sources=True):
+        """Request MEF REST API in JSON format.
+
+        :param language: language for authorized access point.
+        :returns: authorized access point in given language.
+        """
+
         def get_mef(url):
             """Get data from MEF."""
         url = current_app.config.get('RERO_ILS_MEF_AGENTS_URL')
@@ -146,24 +147,27 @@ class Contribution(IlsRecord):
                 mef_url = f'{url}/mef/?q=viaf_pid:"{pid}"'
             else:
                 mef_url = f'{url}/mef/?q={pid_type}.pid:"{pid}"'
-        request = requests.get(url=mef_url, params=dict(resolve=1, sources=1))
+        request = requests.get(
+            url=mef_url,
+            params=dict(
+                with_deleted=int(with_deleted),
+                resolve=int(resolve),
+                sources=int(sources)
+            )
+        )
         status = request.status_code
         if status == requests_codes.ok:
             try:
-                return request.json().get('hits', {}).get('hits', [None])[0]
+                data = request.json().get('hits', {}).get('hits', [None])[0]
+                metadata = data['metadata']
+                metadata.pop('$schema', None)
+                sources = current_app.config.get(
+                    'RERO_ILS_CONTRIBUTIONS_SOURCES', [])
+                for source in sources:
+                    if source in metadata:
+                        metadata[source].pop('$schema', None)
+                return metadata
             except Exception:
-                # try to get deleted records
-                if deleted:
-                    request = requests.get(
-                        url=mef_url,
-                        params=dict(resolve=1, sources=1, deleted=1))
-                    status = request.status_code
-                    if status == requests_codes.ok:
-                        try:
-                            return request.json() \
-                                .get('hits', {}).get('hits', [None])[0]
-                        except Exception:
-                            pass
                 msg = f'MEF resolver no metadata: {mef_url}'
                 if verbose:
                     current_app.logger.warning(msg)
@@ -291,24 +295,22 @@ class Contribution(IlsRecord):
         try:
             if data := self._get_mef_data_by_type(
                     pid=pid, pid_type='mef', verbose=verbose):
-                metadata = data['metadata']
-                metadata['$schema'] = self['$schema']
-                if metadata.get('deleted'):
+                data['$schema'] = self['$schema']
+                if data.get('deleted'):
                     current_app.logger.warning(
                         f'UPDATE ONLINE {pid}: was deleted')
                     action = ContributionUpdateAction.ERROR
-                elif not metadata.get('sources'):
+                elif not data.get('sources'):
                     current_app.logger.warning(
                         f'UPDATE ONLINE {pid}: has no sources')
                     action = ContributionUpdateAction.ERROR
-                elif not metadata.get('type'):
+                elif not data.get('type'):
                     current_app.logger.warning(
                         f'UPDATE ONLINE {pid}: has no type')
                     action = ContributionUpdateAction.ERROR
-                elif dict(self) != metadata:
+                elif dict(self) != data:
                     action = ContributionUpdateAction.REPLACE
-                    self.replace(data=metadata, dbcommit=dbcommit,
-                                 reindex=reindex)
+                    self.replace(data=data, dbcommit=dbcommit, reindex=reindex)
                     if reindex:
                         indexer = DocumentsIndexer()
                         indexer.bulk_index(self.documents_ids())
