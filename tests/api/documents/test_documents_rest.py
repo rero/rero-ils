@@ -568,7 +568,7 @@ def test_documents_resolve(
     ))
     assert res.json['metadata']['contribution'] == [{
         'agent': {
-            '$ref': 'https://mef.rero.ch/api/rero/A017671081',
+            '$ref': 'https://mef.rero.ch/api/agents/rero/A017671081',
             'type': 'bf:Person'
             },
         'role': ['aut']

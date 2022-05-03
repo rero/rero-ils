@@ -197,18 +197,15 @@ class ReplaceMefIdentifiedByContribution(ReplaceMefIdentifiedBy):
         try:
             # try to get the contribution online
             data = Contribution._get_mef_data_by_type(ref_pid, ref_type)
-            metadata = data['metadata']
-            if metadata.get('idref') or metadata.get('gnd'):
-                if metadata.get('deleted'):
+            if data.get('idref') or data.get('gnd'):
+                if data.get('deleted'):
                     self.increment_count(self.count_deleted, ref,
                                          f'{doc_pid} Deleted')
                 else:
                     self.increment_count(self.count_found, ref,
                                          f'{doc_pid} Online found')
-                    # delete mef $schema
-                    metadata.pop('$schema', None)
                     # create and return local contribution
-                    return Contribution.create(data=metadata, dbcommit=True,
+                    return Contribution.create(data=data, dbcommit=True,
                                                reindex=True)
             else:
                 # online contribution has no IdREf, GND or RERO

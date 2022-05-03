@@ -252,15 +252,20 @@ def contribution_person_data(data):
 
 
 @pytest.fixture(scope="function")
-def contribution_person_data_tmp(data):
+def contribution_person_data_tmp(app, data):
     """Load mef contribution data person scope function."""
-    return deepcopy(data.get('cont_pers'))
+    contribution_person = deepcopy(data.get('cont_pers'))
+    sources = app.config.get('RERO_ILS_CONTRIBUTIONS_SOURCES', [])
+    for source in sources:
+        if source in contribution_person:
+            contribution_person[source].pop('$schema', None)
+    return contribution_person
 
 
 @pytest.fixture(scope="module")
 def contribution_person_response_data(contribution_person_data):
     """Load mef contribution person response data."""
-    json_data = {
+    return {
         'hits': {
             'hits': [
                 {
@@ -270,7 +275,6 @@ def contribution_person_response_data(contribution_person_data):
             ]
         }
     }
-    return json_data
 
 
 @pytest.fixture(scope="module")

@@ -41,24 +41,22 @@ def get_contribution_or_create(ref_pid, ref_type, count_found, count_exists,
             # contribution does not exist
             try:
                 # try to get the contribution online
-                data = Contribution._get_mef_data_by_type(
-                    ref_pid, ref_type)
-                metadata = data['metadata']
+                data = Contribution._get_mef_data_by_type(ref_pid, ref_type)
                 if (
-                    metadata.get('idref') or
-                    metadata.get('gnd') or
-                    metadata.get('rero')
+                    data.get('idref') or
+                    data.get('gnd') or
+                    data.get('rero')
                 ):
                     count_found.setdefault(
                         ref,
-                        {'count': 0, 'mef': metadata.get('pid')}
+                        {'count': 0, 'mef': data.get('pid')}
                     )
                     count_found[ref]['count'] += 1
                     # delete mef $schema
-                    metadata.pop('$schema', None)
+                    data.pop('$schema', None)
                     # create local contribution
                     cont = Contribution.create(
-                        data=metadata, dbcommit=True, reindex=True)
+                        data=data, dbcommit=True, reindex=True)
                 else:
                     # online contribution has no IdREf, GND or RERO
                     count_no_data.setdefault(ref, 0)

@@ -111,7 +111,7 @@ def test_document_referenced_subject(
 
     # REFERENCED SUBJECTS - SUCCESS
     data = {
-        '$ref': get_ref_for_pid(Contribution, contribution_person.pid),
+        '$ref': 'https://mef.rero.ch/api/agents/idref/223977268',
         'type': DocumentSubjectType.PERSON
     }
     subject = SubjectFactory.create_subject(data)
