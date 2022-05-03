@@ -49,7 +49,8 @@ def ill_request_form(viewcode):
     form = ILLRequestForm(request.form)
     # pickup locations selection are based on app context then the choices
     # can't be "calculated" on the form creation (context free).
-    form.pickup_location.choices = list(get_pickup_location_options())
+    form.pickup_location.choices = [
+        *form.pickup_location.choices, *list(get_pickup_location_options())]
 
     if request.method == 'POST' and form.validate_on_submit():
         ill_request_data = form.get_data()
