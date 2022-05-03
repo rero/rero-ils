@@ -128,8 +128,7 @@ class UIImportsSearchSerializer(ImportsSearchSerializer):
                 agent['type'] = agent_type
             new_contributions.append({'agent': agent})
         if new_contributions:
-            new_contributions = create_contributions(new_contributions)
-            metadata['contribution'] = new_contributions
+            metadata['contribution'] = create_contributions(new_contributions)
         return metadata
 
 

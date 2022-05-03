@@ -261,6 +261,15 @@
               "pid": {
                 "type": "keyword"
               },
+              "id_gnd": {
+                "type": "keyword"
+              },
+              "id_idref": {
+                "type": "keyword"
+              },
+              "id_rero": {
+                "type": "keyword"
+              },
               "authorized_access_point_en": {
                 "type": "text",
                 "copy_to": [
