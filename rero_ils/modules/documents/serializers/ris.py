@@ -21,6 +21,8 @@
 from flask import current_app, request, stream_with_context
 from invenio_i18n.ext import current_i18n
 
+from rero_ils.modules.commons.identifiers import IdentifierFactory, \
+    IdentifierType
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.serializers.base import \
     BaseDocumentFormatterMixin
@@ -40,10 +42,21 @@ class RISSerializer:
         """
         Document.post_process(record)
         record = record.replace_refs()
-        if contributions := create_contributions(record.get('contribution',
-                                                            [])):
+        if contributions := create_contributions(
+                record.get('contribution', [])):
             record['contribution'] = contributions
 
+        # enrich record data with encoded identifier alternatives. The
+        # record identifiers list should contain only distinct identifier !
+        identifiers = set([
+            IdentifierFactory.create_identifier(identifier_data)
+            for identifier_data in record.get('identifiedBy', [])
+        ])
+
+        for identifier in list(identifiers):
+            identifiers.update(identifier.get_alternatives())
+        record['identifiedBy'] = \
+            [identifier.dump() for identifier in identifiers]
         return RISFormatter(record=record).format()
 
     def serialize_search(self, pid_fetcher, search_result, links=None,
@@ -65,6 +78,9 @@ class RISSerializer:
 class RISFormatter(BaseDocumentFormatterMixin):
     """RIS formatter class."""
 
+    # RIS separator between key and value
+    separator = '  - '
+
     def __init__(self, record, doctype_mapping=None, export_fields=None):
         """Initialize RIS formatter with the specific record."""
         super().__init__(record)
@@ -80,7 +96,7 @@ class RISFormatter(BaseDocumentFormatterMixin):
 
     def format(self):
         """Return RIS export for single record."""
-        return self._fetch_fields() + 'ER -\n'
+        return self._fetch_fields() + f'ER{self.separator}\n'
 
     def _doctype_mapper(self, main_type: str, sub_type: str = None):
         """Document type mapper.
@@ -90,7 +106,7 @@ class RISFormatter(BaseDocumentFormatterMixin):
         :return: mapped RIS reference type.
         """
         for ris_doc_type, func in self._doctype_mapping.items():
-            if ris_doc_type := func(main_type, sub_type):
+            if func(main_type, sub_type):
                 return ris_doc_type
         return 'GEN'
 
@@ -119,32 +135,35 @@ class RISFormatter(BaseDocumentFormatterMixin):
     def _fetch_fields(self):
         """Return formatted output based on export fields."""
         available_fields = {
-            'TY': self._get_document_types,
-            'ID': self._get_pid,
-            'TI': self._get_title,
-            'T2': self._get_secondary_title,
-            'AU': self._get_authors,
-            'A2': self._get_secondary_authors,
-            'DA': self._get_publication_year,
-            'ET': self._get_editions,
-            'SP': self._get_start_pages,
-            'EP': self._get_end_pages,
-            'CY': self._get_publication_places,
-            'LA': self._get_languages,
-            'PB': self._get_publisher,
-            'SN': self._get_isbn_or_issn,
-            'UR': self._get_electronic_locators,
-            'KW': self._get_subjects,
-            'DO': self._get_doi,
-            'VL': self._get_volume_numbers,
-            'IS': self._get_issue_numbers,
-            'PP': self._get_publication_places,
-            'Y1': self._get_publication_year,
-            'PY': self._get_publication_year
+            'TY': self._get_document_types(),
+            'ID': self._get_pid(),
+            'TI': self._get_title(),
+            'T2': self._get_secondary_title(),
+            'AU': self._get_authors(),
+            'A2': self._get_secondary_authors(),
+            'DA': self._get_publication_year(),
+            'ET': self._get_editions(),
+            'SP': self._get_start_pages(),
+            'EP': self._get_end_pages(),
+            'CY': self._get_publication_places(),
+            'LA': self._get_languages(),
+            'PB': self._get_publisher(),
+            'SN': self._get_identifiers([IdentifierType.ISBN,
+                                         IdentifierType.ISSN,
+                                         IdentifierType.L_ISSN]),
+            'UR': self._get_electronic_locators(),
+            'UR': self._get_permalink(),
+            'KW': self._get_subjects(),
+            'DO': self._get_identifiers([IdentifierType.DOI]),
+            'VL': self._get_volume_numbers(),
+            'IS': self._get_issue_numbers(),
+            'PP': self._get_publication_places(),
+            'Y1': self._get_publication_year(),
+            'PY': self._get_publication_year()
         }
         out = ''
         for field in self._export_fields:
-            if value := available_fields[field]():
+            if value := available_fields[field]:
                 out += self._format_output_row(field, value)
         return out
 
@@ -158,7 +177,7 @@ class RISFormatter(BaseDocumentFormatterMixin):
         out = ''
         if isinstance(value, list):
             for v in value:
-                out += f'{field} - {v}\n'
+                out += f'{field}{self.separator}{v}\n'
         else:
-            out += f'{field} - {value}\n'
+            out += f'{field}{self.separator}{value}\n'
         return out

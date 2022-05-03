@@ -608,6 +608,10 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/rero+json': (
                 'rero_ils.modules.documents.serializers:json_doc_response'
             ),
+            'application/export+json': (
+                'rero_ils.modules.documents.serializers:'
+                'json_export_doc_response'
+            ),
             'application/x-research-info-systems': (
                 'rero_ils.modules.documents.serializers:ris_doc_response'
             )
@@ -615,6 +619,7 @@ RECORDS_REST_ENDPOINTS = dict(
         record_serializers_aliases={
             'json': 'application/json',
             'rero': 'application/rero+json',
+            'raw': 'application/export+json',
             'ris': 'application/x-research-info-systems'
         },
         search_serializers={
@@ -624,6 +629,10 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/rero+json': (
                 'rero_ils.modules.documents.serializers:json_doc_search'
             ),
+            'application/export+json': (
+                'rero_ils.modules.documents.serializers:'
+                'json_export_doc_search'
+            ),
             'application/x-research-info-systems': (
                 'rero_ils.modules.documents.serializers:ris_doc_search'
             )
@@ -631,6 +640,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_serializers_aliases={
             'json': 'application/json',
             'rero': 'application/rero+json',
+            'raw': 'application/export+json',
             'ris': 'application/x-research-info-systems'
         },
         record_loaders={
@@ -2685,13 +2695,13 @@ RECORDS_UI_ENDPOINTS = {
 
 RECORDS_UI_EXPORT_FORMATS = {
     'doc': {
-        'json': dict(
+        'raw': dict(
             title='JSON',
             serializer='invenio_records_rest.serializers:json_v1',
             order=1,
         ),
         'ris': dict(
-            title='RIS',
+            title='RIS (Endnote, Zotero, ...)',
             serializer='rero_ils.modules.documents.serializers:ris_v1',
             order=2,
         ),

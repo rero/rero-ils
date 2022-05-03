@@ -59,3 +59,36 @@ def search_responsify_file(serializer, mimetype, file_extension):
         return response
 
     return view
+
+
+def record_responsify_file(serializer, mimetype, file_extension):
+    """Create a Records-REST search result response serializer.
+
+    :param serializer: Serializer instance.
+    :param mimetype: MIME type of response.
+    :param file_extension: File extension.
+    :returns: Function that generates a record HTTP response.
+    """
+    def view(pid, record, code=200, headers=None, links_factory=None):
+        response = current_app.response_class(
+            serializer.serialize(pid, record, links_factory=links_factory),
+            mimetype=mimetype)
+        response.status_code = code
+        response.cache_control.no_cache = True
+        response.set_etag(str(record.revision_id))
+        response.last_modified = record.updated
+        if headers is not None:
+            response.headers.extend(headers)
+        timezone = current_app.config.get('BABEL_DEFAULT_TIMEZONE')
+        date = datetime.now(tz=pytz.timezone(timezone)).strftime('%Y%m%d')
+        file_name = f'export-{date}.{file_extension}'
+        if not response.headers.get('Content-Disposition'):
+            response.headers['Content-Disposition'] = \
+                f'attachment; filename="{file_name}"'
+
+        if links_factory is not None:
+            add_link_header(response, links_factory(pid))
+
+        return response
+
+    return view
