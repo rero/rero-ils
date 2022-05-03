@@ -18,7 +18,7 @@
 
 """JSON Document serialization."""
 
-from flask import current_app, request
+from flask import current_app, json, request, stream_with_context
 
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.utils import create_contributions, \
@@ -214,3 +214,49 @@ class DocumentJSONSerializer(JSONSerializer):
                 # location is filterd by library
                 loc_processed_buckets.append(loc_bucket)
         return loc_processed_buckets
+
+
+class DocumentExportJSONSerializer(JSONSerializer):
+    """Mixin serializing records as JSON.
+
+    Compared to the default JSONSerializer, this serializes only document
+    metadata without any other information like aggregations, links...
+    The search serialization implements stream results with context.
+    """
+
+    @staticmethod
+    def _format_args():
+        """Get JSON dump indentation and separates."""
+        return dict(
+            indent=2,
+            separators=(', ', ': '),
+        )
+
+    def serialize(self, pid, record, links_factory=None, **kwargs):
+        """Serialize a single record.
+
+        :param pid: Persistent identifier instance.
+        :param record: Record instance.
+        :param links_factory: Factory function for record links.
+        """
+        Document.post_process(record)
+        record = record.replace_refs()
+        if contributions := create_contributions(record.get('contribution',
+                                                            [])):
+            record['contribution'] = contributions
+        return json.dumps(record, **self._format_args())
+
+    def serialize_search(self, pid_fetcher, search_result, links=None,
+                         item_links_factory=None, **kwargs):
+        """Serialize a search result.
+
+        :param pid_fetcher: Persistent identifier fetcher.
+        :param search_result: Elasticsearch search result.
+        :param links: Dictionary of links to add to response.
+        :param item_links_factory: Factory function for record links.
+        """
+        records = [
+            hit['_source']
+            for hit in search_result['hits']['hits']
+        ]
+        return stream_with_context(json.dumps(records, **self._format_args()))

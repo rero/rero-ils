@@ -20,7 +20,11 @@
 
 from abc import ABC, abstractmethod
 
+from rero_ils.modules.commons.identifiers import IdentifierFactory, \
+    IdentifierStatus
+from rero_ils.modules.documents.api import search_document_by_pid
 from rero_ils.modules.documents.commons.subjects import SubjectFactory
+from rero_ils.modules.utils import get_base_url
 
 CREATOR_ROLES = [
     'aut', 'cmp', 'cre', 'dub', 'pht', 'ape', 'aqt', 'arc', 'art', 'aus',
@@ -31,6 +35,9 @@ CREATOR_ROLES = [
 
 class BaseDocumentFormatterMixin(ABC):
     """Base formatter class."""
+
+    # language used to localize MEF contribution
+    _language = None
 
     def __init__(self, record):
         """Initialize RIS formatter with the specific record."""
@@ -74,13 +81,21 @@ class BaseDocumentFormatterMixin(ABC):
                 for data in serie.get('_text', [])
             ]
 
+        def _extract_part_of_title_callback(part_of):
+            """Extract title for the partOf document."""
+            pid = part_of.get('document', {}).get('pid')
+            if es_doc := search_document_by_pid(pid):
+                title = es_doc.to_dict().get('title', [])
+                return next(
+                    filter(lambda x: x.get('type') == 'bf:Title',
+                           title), {}
+                ).get('_text')
+
         # get partOf title
-        return [
-            part_of_title['value']
-            for title in self.record.get('title', [])
-            for part_of_title in title.get('partOfTitle', [])
-            if 'partOf' in title['type']
-        ]
+        return [title
+                for title in map(_extract_part_of_title_callback,
+                                 self.record.get('partOf', []))
+                if title]
 
     def _get_localized_contribution(self, agent) -> str:
         """Return localized contribution.
@@ -139,12 +154,11 @@ class BaseDocumentFormatterMixin(ABC):
     def _get_start_pages(self) -> list[str]:
         """Return start pages."""
         return [
-                   numbering['pages'].split('-')[0]
-                   for part_of in self.record.get('partOf', [])
-                   for numbering in part_of.get('numbering', [])
-                   if 'pages' in numbering
-               ] \
-            or [self.record['extent']] if self.record.get('extent') else []
+           numbering['pages'].split('-')[0]
+           for part_of in self.record.get('partOf', [])
+           for numbering in part_of.get('numbering', [])
+           if 'pages' in numbering
+        ] or ([self.record['extent']] if self.record.get('extent') else [])
 
     def _get_end_pages(self) -> list[str]:
         """Return end pages."""
@@ -182,12 +196,18 @@ class BaseDocumentFormatterMixin(ABC):
             and statement['type'] == 'bf:Agent'
         ]
 
-    def _get_isbn_or_issn(self) -> list[str]:
+    def _get_identifiers(self, types: list[str]) -> list[str]:
         """Return all isbn or issn."""
-        return [
-            identifier['value']
+        identifiers = [
+            IdentifierFactory.create_identifier(identifier)
             for identifier in self.record.get('identifiedBy', [])
-            if identifier['type'] in ['bf:Isbn', 'bf:Issn', 'bf:IssnL']
+            if identifier['type'] in types
+        ]
+
+        return [
+            identifier.normalize()
+            for identifier in identifiers
+            if identifier.status == IdentifierStatus.UNDEFINED
         ]
 
     def _get_electronic_locators(self) -> list[str]:
@@ -197,6 +217,11 @@ class BaseDocumentFormatterMixin(ABC):
             for locator in self.record.get('electronicLocator', [])
             if locator['type'] in ['resource', 'versionOfResource']
         ]
+
+    def _get_permalink(self) -> str:
+        """Return permalink."""
+        base_url = get_base_url()
+        return f"{base_url}/global/documents/{self.record['pid']}"
 
     def _get_subjects(self) -> list[str]:
         """Return keywords."""
@@ -212,14 +237,6 @@ class BaseDocumentFormatterMixin(ABC):
             edition.get('value')
             for edition_statement in self.record.get('editionStatement', [])
             for edition in edition_statement.get('_text', [])
-        ]
-
-    def _get_doi(self) -> list[str]:
-        """Return list of DOI."""
-        return [
-            identifier['value']
-            for identifier in self.record.get('identifiedBy', [])
-            if identifier['type'] == 'bf:Doi'
         ]
 
     def _get_volume_numbers(self) -> list[str]:

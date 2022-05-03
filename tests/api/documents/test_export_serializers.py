@@ -19,17 +19,42 @@
 """Tests Serializers."""
 
 from flask import url_for
+from utils import get_json
 
 
-def test_ris_formatter(client, ris_header, document, export_document):
+def test_json_export_serializers(client, export_json_header, document,
+                                 export_document):
+    """Test JSON export serializers for documents."""
+    item_url = url_for('invenio_records_rest.doc_item',
+                       pid_value=export_document.pid)
+    response = client.get(item_url, headers=export_json_header)
+    assert response.status_code == 200
+    # Get the first result.
+    data = get_json(response)
+    # Check if all desired keys not in data
+    for key in ['created', 'updated', 'id', 'links', 'metadata']:
+        assert key not in data
+
+    list_url = url_for(
+        'invenio_records_rest.doc_list', q=f'pid:{export_document.pid}'
+    )
+    response = client.get(list_url, headers=export_json_header)
+    assert response.status_code == 200
+    data = get_json(response)
+    for key in ['created', 'updated', 'id', 'links', 'metadata']:
+        assert key not in data
+
+
+def test_ris_serializer(client, ris_header, document, export_document):
     """Test RIS formatter"""
     ris_tag = [
-        'TY -', 'ID -', 'TI -', 'T2 -', 'AU -', 'A2 -', 'DA -', 'SP -', 'EP -',
-        'CY -', 'LA -', 'PB -', 'SN -', 'UR -', 'KW -', 'ET -', 'DO -', 'VL -',
-        'IS -', 'PP -', 'Y1 -', 'PY -', 'ER -'
+        'TY  -', 'ID  -', 'TI  -', 'T2  -', 'AU  -', 'A2  -', 'DA  -',
+        'SP  -', 'EP  -', 'CY  -', 'LA  -', 'PB  -', 'SN  -', 'UR  -',
+        'KW  -', 'ET  -', 'DO  -', 'VL  -', 'IS  -', 'PP  -', 'Y1  -',
+        'PY  -', 'ER  -'
     ]
     list_url = url_for('invenio_records_rest.doc_list',
-                       q='pid:doc8')
+                       q=f'pid:{export_document.pid}')
     response = client.get(list_url, headers=ris_header)
     assert response.status_code == 200
     ris_data = response.get_data(as_text=True)
