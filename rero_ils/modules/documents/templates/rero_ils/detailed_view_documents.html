@@ -23,6 +23,26 @@
 <header class="row py-2">
     <a href="javascript:history.back()" class="col-12"><i class="fa fa-arrow-left"></i> {{ _('Back') }}</a>
 </header>
+{%- set formats = export_formats(pid.pid_type) %}
+{%- if formats %}
+<div class="d-flex flex-row-reverse">
+  <div class="p-2 d-none d-sm-block">
+    <div class="dropdown">
+      <a class="btn btn-sm btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdown-export" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-download pr-1"></i>{{ _('Export as ...') }}
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdown-export">
+        {%- for slug, fmt in formats %}
+        <a class="dropdown-item"
+           href="/api/documents/{{ pid.pid_value }}?format={{ slug }}">
+          {{ fmt.title }}
+        </a>
+        {%- endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{%- endif %}
 <div class="row">
   {%- set icon_name = record | document_main_type(false) %}
   <figure id="thumbnail" class="figure-img col-sm-2 d-sm-block figure text-center">
@@ -56,7 +76,6 @@
         {{ alternate_graphic }}
       </h3>
     {% endfor %}
-
     <!-- CONTRIBUTION -->
     {% if record.contribution %}
     {{ div(record.pid | contribution_format(current_i18n.language, viewcode, true)) }}

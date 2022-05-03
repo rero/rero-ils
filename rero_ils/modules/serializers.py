@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Record serialization."""
+
 from flask import json, request, url_for
 from invenio_records_rest.schemas import \
     RecordSchemaJSONV1 as _RecordSchemaJSONV1
@@ -82,6 +83,7 @@ class JSONSerializer(_JSONSerializer):
         :param pid_fetcher: Persistent identifier fetcher.
         :param search_result: Elasticsearch search result.
         :param links: Dictionary of links to add to response.
+        :param item_links_factory: Factory function for record links.
         """
         results = dict(
             hits=dict(
