@@ -38,36 +38,14 @@
       "type": "string",
       "minLength": 1,
       "form": {
-        "focus": true,
-        "validation": {
-          "validators": {
-            "valueAlreadyExists": {
-              "term": "name.raw"
-            }
-          },
-          "messages": {
-            "alreadyTakenMessage": "The name is already taken."
-          }
-        }
+        "focus": true
       }
     },
     "number": {
       "title": "Account number",
       "description": "Reference account number in accounting system.",
       "type": "string",
-      "minLength": 1,
-      "form": {
-        "validation": {
-          "validators": {
-            "valueAlreadyExists": {
-              "term": "number.raw"
-            }
-          },
-          "messages": {
-            "alreadyTakenMessage": "The number is already taken."
-          }
-        }
-      }
+      "minLength": 1
     },
     "allocated_amount": {
       "title": "Allocated amount",

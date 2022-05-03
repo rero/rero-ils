@@ -32,7 +32,6 @@ from ..acq_order_lines.models import AcqOrderLineStatus
 from ..acq_receipt_lines.api import AcqReceiptLinesSearch
 from ..acq_receipts.api import AcqReceiptsSearch
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from ..extensions import UniqueFieldsExtension
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
@@ -80,14 +79,8 @@ class AcqAccount(IlsRecord):
         }
     }
 
-    unique_value_fields = [
-        ('name', 'name.raw'),
-        ('number', 'number.raw')
-    ]
-
     _extensions = [
-        ParentAccountDistributionCheck(),
-        UniqueFieldsExtension(unique_value_fields, AcqAccountsSearch)
+        ParentAccountDistributionCheck()
     ]
 
     @classmethod

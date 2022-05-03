@@ -304,36 +304,3 @@ def test_acq_account_secure_api_delete(client,
 
     res = client.delete(record_url)
     assert res.status_code == 403
-
-
-def test_acq_account_fields_uniqueness(
-    client, acq_account_fiction_martigny, acq_account_fiction_martigny_data,
-    librarian_martigny, json_header
-):
-    """Test fields uniqueness extensions."""
-    login_user_via_session(client, librarian_martigny.user)
-    acc_data = deepcopy(acq_account_fiction_martigny_data)
-    del acc_data['pid']
-
-    # TEST 1 :: Try to add but uniqueness values already exists
-    #   - `name` should be unique
-    #   - `number` should be unique
-    res, data = postdata(client, 'invenio_records_rest.acac_list', acc_data)
-    assert res == 400
-    assert 'already taken' in data['message']
-
-    acc_data['name'] = 'new_account_value'
-    res, data = postdata(client, 'invenio_records_rest.acac_list', acc_data)
-    assert res == 400
-    assert 'already taken' in data['message']
-
-    # TEST 2 :: I can update myself
-    #   Just try to update myself with same data. It will not raise any
-    #   ValidationError even if name and number already exists (for myself)
-    pid = acq_account_fiction_martigny.pid
-    res = client.put(
-        url_for('invenio_records_rest.acac_item', pid_value=pid),
-        data=json.dumps(acq_account_fiction_martigny),
-        headers=json_header
-    )
-    assert res == 200
