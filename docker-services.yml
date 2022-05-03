@@ -74,7 +74,7 @@ services:
       - "5672:5672"
   es:
     build: ./docker/elasticsearch/
-    image: elasticsearch-icu-7.10.2
+    image: elasticsearch-icu-7.17.3
     restart: "unless-stopped"
     environment:
       - bootstrap.memory_lock=true
@@ -90,7 +90,7 @@ services:
       - "9200:9200"
       - "9300:9300"
   kibana:
-    image: docker.elastic.co/kibana/kibana-oss:7.10.2
+    image: docker.elastic.co/kibana/kibana:7.17.3
     environment:
       - "ELASTICSEARCH_URL=http://es:9200"
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"

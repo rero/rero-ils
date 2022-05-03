@@ -92,7 +92,24 @@ def nested_identified_filter():
         #  * "(bf:Local)kw(2) --> id_type=bf:Local, id_value=kw(2)
         regexp = re.compile(r'^(\((?P<id_type>[\w\d:]+)\))?(?P<id_value>.*)$')
         matches = re.match(regexp, identifier)
-        criteria = Q('wildcard', nested_identifiers__value=matches['id_value'])
+
+        # DEV NOTES : Wildcard query on text fields referencing an analyzer
+        # failed since ES version 7.13.0.
+        # https://github.com/elastic/elasticsearch/issues/87728
+        #
+        # a work-around is to use a 'query-string' query and specify the
+        # analyzer to use and enable the wildcard characters analyze
+        #
+        # old smart criteria was:
+        # >>> Q('wildcard', nested_identifiers__value=matches['id_value'])
+        criteria = Q(
+            'query_string',
+            query=matches['id_value'],
+            fields=['nested_identifiers.value'],
+            analyzer="identifier-analyzer",
+            analyze_wildcard=True
+        )
+
         if matches['id_type']:
             criteria &= Q('match', nested_identifiers__type=matches['id_type'])
         return Q('nested', path='nested_identifiers', query=criteria)
