@@ -65,6 +65,8 @@ from ..documents.tasks import \
     replace_idby_contribution as task_replace_idby_contribution
 from ..documents.tasks import \
     replace_idby_subjects as task_replace_idby_subjects
+from ..documents.tasks import \
+    replace_idby_subjects_imported as task_replace_idby_subjects_imported
 from ..documents.views import get_cover_art
 from ..items.api import Item
 from ..libraries.api import Library
@@ -1511,6 +1513,15 @@ def add_cover_urls(verbose):
         if verbose:
             click.echo(f'{idx}:\tdocument: {pid}\t{url}')
 
+def do_replace_idby_contribution(verbose, details):
+    """Find and replace identifiedBy contributions."""
+    click.secho('Find and replace identifiedBy contribution.', fg='green')
+    found, exists, no_data, no_mef = task_replace_idby_contribution(
+        verbose=verbose, details=details)
+    click.echo(f'Found: {found} | Exists: {exists} | '
+               f'No IdRef: {no_data} | No MEF: {no_mef}')
+    return found, exists, no_data, no_mef
+
 
 @utils.command()
 @click.option('-v', '--verbose', is_flag=True, default=False)
@@ -1518,11 +1529,17 @@ def add_cover_urls(verbose):
 @with_appcontext
 def replace_idby_contribution(verbose, details):
     """Find and replace identifiedBy contributions."""
-    click.secho('Find and replace identifiedBy contribution.', fg='green')
-    found, exists, no_data, no_mef = task_replace_idby_contribution(
+    return do_replace_idby_contribution(verbose=verbose, details=details)
+
+
+def do_replace_idby_subjects(verbose, details):
+    """Find and replace identifiedBy subjects."""
+    click.secho('Find and replace identifiedBy subjects.', fg='green')
+    found, exists, no_data, no_mef = task_replace_idby_subjects(
         verbose=verbose, details=details)
     click.echo(f'Found: {found} | Exists: {exists} | '
-               f'No IdRef: {no_data} | No MEF: {no_mef}')
+               f'No Data: {no_data} | No MEF: {no_mef}')
+    return found, exists, no_data, no_mef
 
 
 @utils.command()
@@ -1531,8 +1548,46 @@ def replace_idby_contribution(verbose, details):
 @with_appcontext
 def replace_idby_subjects(verbose, details):
     """Find and replace identifiedBy subjects."""
+    return do_replace_idby_subjects(verbose=verbose, details=details)
+
+
+def do_replace_idby_subjects_imported(verbose, details):
+    """Find and replace identifiedBy subjects linked."""
     click.secho('Find and replace identifiedBy subjects.', fg='green')
-    found, exists, no_data, no_mef = task_replace_idby_subjects(
+    found, exists, no_data, no_mef = task_replace_idby_subjects_imported(
         verbose=verbose, details=details)
     click.echo(f'Found: {found} | Exists: {exists} | '
                f'No Data: {no_data} | No MEF: {no_mef}')
+    return found, exists, no_data, no_mef
+
+
+@utils.command()
+@click.option('-v', '--verbose', is_flag=True, default=False)
+@click.option('-d', '--details', is_flag=True, default=False)
+@with_appcontext
+def replace_idby_subjects_imported(verbose, details):
+    """Find and replace identifiedBy subjects linked."""
+    return do_replace_idby_subjects_imported(verbose=verbose, details=details)
+
+
+@utils.command()
+@click.option('-v', '--verbose', is_flag=True, default=False)
+@click.option('-d', '--details', is_flag=True, default=False)
+@with_appcontext
+def replace_contribution_idby(verbose, details):
+    """Find and replace all contribution identifiedBy."""
+    found, exists, no_data, no_mef = do_replace_idby_contribution(
+        verbose=verbose, details=details)
+    tmp_found, tmp_exists, tmp_no_data, tmp_no_mef = do_replace_idby_subjects(
+        verbose=verbose, details=details)
+    found += tmp_found
+    exists += tmp_exists
+    no_data += tmp_no_data
+    no_mef += tmp_no_mef
+    tmp_found, tmp_exists, tmp_no_data, tmp_no_mef = do_replace_idby_subjects_imported(
+        verbose=verbose, details=details)
+    found += tmp_found
+    exists += tmp_exists
+    no_data += tmp_no_data
+    no_mef += tmp_no_mef
+    return found, exists, no_data, no_mef

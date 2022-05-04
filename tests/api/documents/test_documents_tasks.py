@@ -27,9 +27,10 @@ from utils import mock_response
 from rero_ils.modules.contributions.api import Contribution
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.documents.tasks import replace_idby_contribution, \
-    replace_idby_subjects
+    replace_idby_subjects, replace_idby_subjects_imported
 from rero_ils.modules.documents.utils_mef import \
-    ReplaceMefIdentifiedByContribution, ReplaceMefIdentifiedBySubjects
+    ReplaceMefIdentifiedByContribution, ReplaceMefIdentifiedBySubjects, \
+    ReplaceMefIdentifiedBySubjectsImported
 
 
 @mock.patch('requests.get')
@@ -89,3 +90,35 @@ def test_replace_idby_subjects(mock_contributions_mef_get, app,
         json_data=contribution_person_response_data
     )
     assert replace_idby_subjects() == (1, 0, 0, 0)
+    # We have to delete document and contribution for next test to work!
+    doc.delete(dbcommit=True, delindex=True)
+    for pid in Contribution.get_all_pids():
+        cont = Contribution.get_record_by_pid(pid)
+        cont.delete(dbcommit=True, delindex=True)
+
+
+@mock.patch('requests.get')
+def test_replace_idby_subjects_imported(mock_contributions_mef_get, app,
+                                        document_data,
+                                        contribution_person_response_data):
+    """Test replace identifiedBy in subjects linked."""
+    assert replace_idby_subjects_imported() == (0, 0, 0, 0)
+
+    doc = Document.create(data=document_data, dbcommit=True, reindex=True)
+    DocumentsSearch.flush_and_refresh()
+    replace = ReplaceMefIdentifiedBySubjectsImported()
+    replace.process()
+    assert replace.counts_len == (0, 0, 0, 1)
+
+    without_idref_gnd = deepcopy(contribution_person_response_data)
+    without_idref_gnd['hits']['hits'][0]['metadata'].pop('idref')
+    without_idref_gnd['hits']['hits'][0]['metadata'].pop('gnd')
+    mock_contributions_mef_get.return_value = mock_response(
+        json_data=without_idref_gnd
+    )
+    assert replace_idby_subjects_imported() == (0, 0, 1, 0)
+
+    mock_contributions_mef_get.return_value = mock_response(
+        json_data=contribution_person_response_data
+    )
+    assert replace_idby_subjects_imported() == (1, 0, 0, 0)

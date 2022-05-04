@@ -5498,7 +5498,7 @@ def test_marc21_to_content_media_carrier():
     }]
 
 
-def test_marc21_to_content_media_carrier_with_linked_fields():
+def test_marc21_to_content_media_carrier_with_links_fields():
     """Test dojson contentMediaCarrier (L30)."""
 
     marc21xml = """

@@ -40,6 +40,7 @@ class ReplaceMefIdentifiedBy(ABC):
         self.count_exists = {}
         self.count_no_data = {}
         self.count_no_mef = {}
+        self.preferred_names = {}
         self.verbose = verbose
         if run:
             self.process()
@@ -72,6 +73,11 @@ class ReplaceMefIdentifiedBy(ABC):
         """
         count.setdefault(ref, 0)
         count[ref] += 1
+
+    def add_preferred_name(self, ref_type, ref_pid, preferred_name):
+        """Add preferred name."""
+        ref = f'{ref_type}/{ref_pid}'
+        self.preferred_names[ref] = preferred_name
 
     @property
     def counts(self):
@@ -107,11 +113,13 @@ class ReplaceMefIdentifiedBy(ABC):
         if self.count_no_data:
             click.echo('No Data:')
             for key in sorted(self.count_no_data.keys()):
-                click.echo(f'  {key:<20} : {self.count_no_data[key]}')
+                click.echo(f'  {key:<20} : {self.count_no_data[key]} '
+                           f'\t{self.preferred_names.get(key)}')
         if self.count_no_mef:
             click.echo('No MEF:')
             for key in sorted(self.count_no_mef.keys()):
-                click.echo(f'  {key:<20} : {self.count_no_mef[key]}')
+                click.echo(f'  {key:<20} : {self.count_no_mef[key]}'
+                           f'\t{self.preferred_names.get(key)}')
 
     def set_timestamp(self):
         """Set timestamp."""
@@ -179,8 +187,10 @@ class ReplaceMefIdentifiedByContribution(ReplaceMefIdentifiedBy):
                 if ref_type in self.cont_types + ['rero']:
                     ref_pid = contribution['agent'].get(
                         'identifiedBy', {}).get('value')
-                    cont = self.get_local(ref_type=ref_type, ref_pid=ref_pid)
-                    if not cont:
+                    if (
+                        cont := self.get_local(ref_type=ref_type,
+                                               ref_pid=ref_pid)
+                    ) is None:
                         cont = self.get_online(ref_type=ref_type,
                                                ref_pid=ref_pid)
                     if cont:
@@ -195,6 +205,13 @@ class ReplaceMefIdentifiedByContribution(ReplaceMefIdentifiedBy):
                                     'type': contribution['agent']['type']
                                 }
                                 break
+                    else:
+                        self.add_preferred_name(
+                            ref_type=ref_type,
+                            ref_pid=ref_pid,
+                            preferred_name=contribution.get(
+                                'agent', {}).get('preferred_name')
+                        )
             if changed:
                 doc['contribution'] = new_contributions
                 doc.update(data=doc, dbcommit=True, reindex=True)
@@ -227,8 +244,10 @@ class ReplaceMefIdentifiedBySubjects(ReplaceMefIdentifiedByContribution):
                     'identifiedBy', {}).get('type', '').lower()
                 if ref_type in self.cont_types + ['rero']:
                     ref_pid = subject.get('identifiedBy', {}).get('value')
-                    cont = self.get_local(ref_type=ref_type, ref_pid=ref_pid)
-                    if not cont:
+                    if (
+                        cont := self.get_local(ref_type=ref_type,
+                                               ref_pid=ref_pid)
+                    ) is None:
                         cont = self.get_online(ref_type=ref_type,
                                                ref_pid=ref_pid)
                     if cont:
@@ -243,7 +262,69 @@ class ReplaceMefIdentifiedBySubjects(ReplaceMefIdentifiedByContribution):
                                     'type': subject['type']
                                 }
                                 break
+                    else:
+                        self.add_preferred_name(
+                            ref_type=ref_type,
+                            ref_pid=ref_pid,
+                            preferred_name=subject.get('preferred_name')
+                        )
             if changed:
                 doc['subjects'] = new_subjects
+                doc.update(data=doc, dbcommit=True, reindex=True)
+        return self.counts
+
+
+class ReplaceMefIdentifiedBySubjectsImported(ReplaceMefIdentifiedByContribution):
+    """Replace MEF identified by subjects linked class."""
+
+    def _query_filter(self):
+        """Query filter to find documents."""
+        return DocumentsSearch() \
+            .filter('exists', field='subjects_imported.identifiedBy') \
+            .filter('bool', should=[
+                Q('term', subjects__type='bf:Person'),
+                Q('term', subjects__type='bf:Organisation')
+            ])
+
+    def process(self):
+        """Process replacement."""
+        if self.verbose:
+            click.echo(f'Found: {self._query_filter().count()}')
+        for hit in self._query_filter().source('pid').scan():
+            doc = Document.get_record_by_id(hit.meta.id)
+            new_subjects = []
+            changed = False
+            for subject in doc.get('subjects_imported', []):
+                new_subjects.append(subject)
+                ref_type = subject.get(
+                    'identifiedBy', {}).get('type', '').lower()
+                if ref_type in self.cont_types + ['rero']:
+                    ref_pid = subject.get('identifiedBy', {}).get('value')
+                    if (
+                        cont := self.get_local(ref_type=ref_type,
+                                               ref_pid=ref_pid)
+                    ) is None:
+                        cont = self.get_online(ref_type=ref_type,
+                                               ref_pid=ref_pid)
+                    if cont:
+                        # change the contribution to linked contribution
+                        for cont_type in ['idref', 'gnd']:
+                            if cont.get('cont_type'):
+                                changed = True
+                                url = f'{self.mef_url}/{cont_type}/' \
+                                    f'{cont[cont_type]["pid"]}'
+                                new_subjects[-1]['agent'] = {
+                                    '$ref': url,
+                                    'type': subject['type']
+                                }
+                                break
+                    else:
+                        self.add_preferred_name(
+                            ref_type=ref_type,
+                            ref_pid=ref_pid,
+                            preferred_name=subject.get('preferred_name')
+                        )
+            if changed:
+                doc['subjects_imported'] = new_subjects
                 doc.update(data=doc, dbcommit=True, reindex=True)
         return self.counts

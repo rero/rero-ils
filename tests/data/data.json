@@ -1735,11 +1735,21 @@
         "term": "suspense"
       },
       {
-        "preferred_name": "Nebehay, Christian Michael",
+        "preferred_name": "Loy, Georg",
         "type": "bf:Person",
         "identifiedBy": {
           "type": "RERO",
-          "value": "A003633163"
+          "value": "A017671081"
+        }
+      }
+    ],
+    "subjects_imported": [
+      {
+        "preferred_name": "Loy, Georg",
+        "type": "bf:Person",
+        "identifiedBy": {
+          "type": "RERO",
+          "value": "A017671081"
         }
       }
     ],

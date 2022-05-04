@@ -79,18 +79,14 @@ class Contribution(IlsRecord):
             contribution = cls.get_record_by_pid(ref_pid)
         else:
             if ref_type == 'viaf':
-                result = ContributionsSearch().filter(
-                    'term', viaf_pid=ref_pid
-                ).source('pid').scan()
+                query = ContributionsSearch() \
+                    .filter('term', viaf_pid=ref_pid)
             else:
-                result = ContributionsSearch().filter(
-                    {'term': {f'{ref_type}.pid': ref_pid}}
-                ).source('pid').scan()
-            try:
-                pid = next(result).pid
+                query = ContributionsSearch() \
+                    .filter({'term': {f'{ref_type}.pid': ref_pid}})
+            if query.count() > 0:
+                pid = next(query.source('pid').scan()).pid
                 contribution = cls.get_record_by_pid(pid)
-            except StopIteration:
-                pass
         return contribution
 
     @classmethod
@@ -232,7 +228,6 @@ class Contribution(IlsRecord):
     @property
     def organisation_pids(self):
         """Get organisations pids."""
-        organisations = set()
         search = DocumentsSearch().filter(
             'term', contribution__agent__pid=self.pid)
         size = current_app.config.get(
@@ -241,11 +236,11 @@ class Contribution(IlsRecord):
         agg = A('terms',
                 field='holdings.organisation.organisation_pid', size=size)
         search.aggs.bucket('organisation', agg)
-        results = search.execute()
-        for result in results.aggregations.organisation.buckets:
-            if result.doc_count:
-                organisations.add(result.key)
-        return list(organisations)
+        return list({
+            result.key for result in
+            search.execute().aggregations.organisation.buckets
+            if result.doc_count
+        })
 
     def get_authorized_access_point(self, language):
         """Get localized authorized_access_point.
@@ -258,27 +253,38 @@ class Contribution(IlsRecord):
             language=language
         )
 
-    def _search_documents(self, with_subjects=True):
+    def _search_documents(self, with_subjects=True, with_subjects_imported=True):
         """Get documents pids."""
         search_filters = Q("term", contribution__agent__pid=self.pid)
         if with_subjects:
             subject_filters = Q("term", subjects__pid=self.pid) & \
                 Q("terms", subjects__type=['bf:Person', 'bf:Organisation'])
             search_filters = search_filters | subject_filters
+        if with_subjects_imported:
+            subject_links_filters = Q(
+                "term", with_subjects_imported__pid=self.pid
+            ) & Q(
+                "terms", with_subjects_imported__type=[
+                    'bf:Person', 'bf:Organisation'])
+            search_filters = search_filters | subject_links_filters
 
         return DocumentsSearch() \
             .query('bool', filter=[search_filters])
 
-    def documents_pids(self, with_subjects=True):
+    def documents_pids(self, with_subjects=True, with_subjects_imported=True):
         """Get documents pids."""
         search = self._search_documents(
-            with_subjects=with_subjects).source('pid')
+            with_subjects=with_subjects,
+            with_subjects_imported=with_subjects_imported
+        ).source('pid')
         return [hit.pid for hit in search.scan()]
 
-    def documents_ids(self, with_subjects=True):
+    def documents_ids(self, with_subjects=True, with_subjects_imported=True):
         """Get documents ids."""
         search = self._search_documents(
-            with_subjects=with_subjects).source('pid')
+            with_subjects=with_subjects,
+            with_subjects_imported=with_subjects_imported
+        ).source('pid')
         return [hit.meta.id for hit in search.scan()]
 
     def update_online(self, dbcommit=False, reindex=False, verbose=False):
@@ -326,11 +332,7 @@ class Contribution(IlsRecord):
     def source_pids(self):
         """Get agents pids."""
         sources = current_app.config.get('RERO_ILS_CONTRIBUTIONS_SOURCES', [])
-        pids = {}
-        for source in sources:
-            if source in self:
-                pids[source] = self[source]['pid']
-        return pids
+        return {source:self[source] for source in sources if source in self}
 
 
 class ContributionsIndexer(IlsRecordsIndexer):

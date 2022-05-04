@@ -24,7 +24,7 @@ from celery import shared_task
 from rero_ils.modules.utils import set_timestamp
 
 from .utils_mef import ReplaceMefIdentifiedByContribution, \
-    ReplaceMefIdentifiedBySubjects
+    ReplaceMefIdentifiedBySubjects, ReplaceMefIdentifiedBySubjectsImported
 from ..contributions.api import Contribution
 
 
@@ -102,6 +102,25 @@ def replace_idby_subjects(verbose=False, details=False, timestamp=True):
               count Idref, GND not found, count MEF not found
     """
     replace_subjects = ReplaceMefIdentifiedBySubjects(verbose=verbose)
+    replace_subjects.process()
+    if timestamp:
+        replace_subjects.set_timestamp()
+    if details:
+        replace_subjects.print_details()
+    set_timestamp('replace_idby_subjects', count=replace_subjects.counts_len)
+    return replace_subjects.counts_len
+
+
+@shared_task(ignore_result=True)
+def replace_idby_subjects_imported(verbose=False, details=False, timestamp=True):
+    """Replace identifiedBy subjects linked with $ref.
+
+    :param verbose: Verbose print.
+    :param details: Details print.
+    :returns: count found, count exists,
+              count Idref, GND not found, count MEF not found
+    """
+    replace_subjects = ReplaceMefIdentifiedBySubjectsImported(verbose=verbose)
     replace_subjects.process()
     if timestamp:
         replace_subjects.set_timestamp()
