@@ -17,6 +17,8 @@
 
 """rero-ils MARC21 model definition."""
 
+
+import contextlib
 import re
 
 from dojson import utils
@@ -51,8 +53,7 @@ def marc21_to_language_from_008(self, key, value):
 
     languages: 008 and 041 [$a, repetitive]
     """
-    language = do_language(self, marc21)
-    return language
+    return do_language(self, marc21)
 
 
 @marc21.over('identifiedBy', '^020..')
@@ -62,8 +63,7 @@ def marc21_to_identifier_isbn(self, key, value):
 
     identifiers_isbn: 020 $a
     """
-    isbn13 = EAN13(value.get('a'))
-    if isbn13:
+    if isbn13 := EAN13(value.get('a')):
         identifiers = self.get('identifiedBy', [])
         identifier = {
             'type': 'bf:Isbn',
@@ -111,11 +111,8 @@ def marc21_to_translated_from(self, key, value):
     languages = self.get('language', [])
     unique_lang = []
     if languages != []:
-        for language in languages:
-            unique_lang.append(language['value'])
-
-    language = value.get('a')
-    if language:
+        unique_lang.extend(language['value'] for language in languages)
+    if language := value.get('a'):
         for lang in utils.force_list(language):
             if lang not in unique_lang:
                 unique_lang.append(lang)
@@ -129,92 +126,75 @@ def marc21_to_translated_from(self, key, value):
 @utils.ignore_value
 def marc21_to_contribution(self, key, value):
     """Get contribution."""
-    if not key[4] == '2' and key[:3] in ['100', '700', '710', '711']:
-        agent = {'type': 'bf:Person'}
-        if value.get('a'):
-            name = utils.force_list(value.get('a'))[0]
-            agent['preferred_name'] = remove_trailing_punctuation(name)
+    if key[4] == '2' or key[:3] not in ['100', '700', '710', '711']:
+        return None
+    agent = {'type': 'bf:Person'}
+    if value.get('a'):
+        name = utils.force_list(value.get('a'))[0]
+        agent['preferred_name'] = remove_trailing_punctuation(name)
 
         # 100|700 Person
-        if key[:3] in ['100', '700']:
-            if value.get('b'):
-                numeration = utils.force_list(value.get('b'))[0]
-                agent['numeration'] = remove_trailing_punctuation(
-                    numeration)
-            if value.get('c'):
-                qualifier = utils.force_list(value.get('c'))[0]
-                agent['qualifier'] = remove_trailing_punctuation(qualifier)
-            if value.get('d'):
-                date = utils.force_list(value.get('d'))[0]
-                date = date.rstrip(',')
-                dates = remove_trailing_punctuation(date).split('-')
-                try:
-                    date_of_birth = dates[0].strip()
-                    if date_of_birth:
-                        agent['date_of_birth'] = date_of_birth
-                except Exception:
-                    pass
-                try:
-                    date_of_death = dates[1].strip()
-                    if date_of_death:
-                        agent['date_of_death'] = date_of_death
-                except Exception:
-                    pass
-            if value.get('q'):
-                fuller_form_of_name = utils.force_list(value.get('q'))[0]
-                agent['fuller_form_of_name'] = remove_trailing_punctuation(
-                    fuller_form_of_name
-                ).lstrip('(').rstrip(')')
+    if key[:3] in ['100', '700']:
+        if value.get('b'):
+            numeration = utils.force_list(value.get('b'))[0]
+            agent['numeration'] = remove_trailing_punctuation(
+                numeration)
+        if value.get('c'):
+            qualifier = utils.force_list(value.get('c'))[0]
+            agent['qualifier'] = remove_trailing_punctuation(qualifier)
+        if value.get('d'):
+            date = utils.force_list(value.get('d'))[0]
+            date = date.rstrip(',')
+            dates = remove_trailing_punctuation(date).split('-')
+            with contextlib.suppress(Exception):
+                if date_of_birth := dates[0].strip():
+                    agent['date_of_birth'] = date_of_birth
+            with contextlib.suppress(Exception):
+                if date_of_death := dates[1].strip():
+                    agent['date_of_death'] = date_of_death
+        if value.get('q'):
+            fuller_form_of_name = utils.force_list(value.get('q'))[0]
+            agent['fuller_form_of_name'] = remove_trailing_punctuation(
+                fuller_form_of_name
+            ).lstrip('(').rstrip(')')
 
-        # 710|711 Organisation
-        elif key[:3] in ['710', '711']:
-            agent['type'] = 'bf:Organisation'
-            if key[:3] == '711':
-                agent['conference'] = True
-            else:
-                agent['conference'] = False
-            if value.get('e'):
-                subordinate_units = []
-                for subordinate_unit in utils.force_list(value.get('e')):
-                    subordinate_units.append(subordinate_unit.rstrip('.'))
-                agent['subordinate_unit'] = subordinate_units
-            if value.get('n'):
-                numbering = utils.force_list(value.get('n'))[0]
-                agent['numbering'] = remove_trailing_punctuation(
-                    numbering
-                ).lstrip('(').rstrip(')')
-            if value.get('d'):
-                conference_date = utils.force_list(value.get('d'))[0]
-                conference_date = remove_trailing_punctuation(
-                    conference_date
-                ).lstrip('(').rstrip(')')
-                if conference_date:
-                    agent['conference_date'] = conference_date
-            if value.get('c'):
-                place = utils.force_list(value.get('c'))[0]
-                place = remove_trailing_punctuation(
-                    place
-                ).lstrip('(').rstrip(')')
-                if place:
-                    agent['place'] = place
+    elif key[:3] in ['710', '711']:
+        agent['type'] = 'bf:Organisation'
+        agent['conference'] = key[:3] == '711'
+        if value.get('e'):
+            subordinate_units = [
+                subordinate_unit.rstrip('.') for subordinate_unit
+                in utils.force_list(value.get('e'))]
+
+            agent['subordinate_unit'] = subordinate_units
+        if value.get('n'):
+            numbering = utils.force_list(value.get('n'))[0]
+            agent['numbering'] = remove_trailing_punctuation(
+                numbering
+            ).lstrip('(').rstrip(')')
+        if value.get('d'):
+            conference_date = utils.force_list(value.get('d'))[0]
+            if conference_date := remove_trailing_punctuation(
+                    conference_date).lstrip('(').rstrip(')'):
+                agent['conference_date'] = conference_date
+        if value.get('c'):
+            place = utils.force_list(value.get('c'))[0]
+            if place := remove_trailing_punctuation(
+                    place).lstrip('(').rstrip(')'):
+                agent['place'] = place
+    roles = ['aut']
+    if value.get('4'):
+        roles = list(utils.force_list(value.get('4')))
+    elif key[:3] == '100':
+        roles = ['cre']
+    elif key[:3] == '711':
         roles = ['aut']
-        if value.get('4'):
-            roles = []
-            for role in utils.force_list(value.get('4')):
-                roles.append(role)
-        else:
-            if key[:3] == '100':
-                roles = ['cre']
-            elif key[:3] == '711':
-                roles = ['aut']
-            else:
-                roles = ['ctb']
-        return {
-            'agent': agent,
-            'role': roles
-        }
     else:
-        return None
+        roles = ['ctb']
+    return {
+        'agent': agent,
+        'role': roles
+    }
 
 
 @marc21.over('title', '^245..')
@@ -237,8 +217,7 @@ def marc21_to_title(self, key, value):
     """
     subfield_245_a = ''
     subfield_245_b = ''
-    fields_245 = marc21.get_fields(tag='245')
-    if fields_245:
+    if fields_245 := marc21.get_fields(tag='245'):
         subfields_245_a = marc21.get_subfields(fields_245[0], 'a')
         subfields_245_b = marc21.get_subfields(fields_245[0], 'b')
         if subfields_245_a:
@@ -253,8 +232,7 @@ def marc21_to_title(self, key, value):
     fields_246 = marc21.get_fields(tag='246')
     subfield_246_a = ''
     if fields_246:
-        subfields_246_a = marc21.get_subfields(fields_246[0], 'a')
-        if subfields_246_a:
+        if subfields_246_a := marc21.get_subfields(fields_246[0], 'a'):
             subfield_246_a = subfields_246_a[0]
 
     tag_link, link = get_field_link_data(value)
@@ -287,7 +265,7 @@ def marc21_to_title(self, key, value):
                             value_data, field_245_a_end_with_equal)
                     if subtitle:
                         title_data['subtitle'] = subtitle
-                elif not subfield_246_a and value_data:
+                elif value_data:
                     title_data['subtitle'] = value_data
             elif blob_key == 'c':
                 responsibility = marc21.build_responsibility_data(value_data)
@@ -296,18 +274,15 @@ def marc21_to_title(self, key, value):
         if blob_key != '__order__':
             index += 1
     title_data['type'] = 'bf:Title'
-    the_part_list = part_list.get_part_list()
-    if the_part_list:
+    if the_part_list := part_list.get_part_list():
         title_data['part'] = the_part_list
     if title_data:
         title_list.append(title_data)
     variant_title_list = \
         marc21.build_variant_title_data(pararalel_title_string_set)
 
-    for parallel_title in parallel_titles:
-        title_list.append(parallel_title)
-    for variant_title_data in variant_title_list:
-        title_list.append(variant_title_data)
+    title_list.extend(iter(parallel_titles))
+    title_list.extend(iter(variant_title_list))
     if responsibility:
         self['responsibilityStatement'] = responsibility
     return title_list or None
@@ -323,12 +298,10 @@ def marc21_to_edition_statement(self, key, value):
     responsibility: 250 [$b non repetitive]
     """
     edition_data = {}
-    subfields_a = utils.force_list(value.get('a'))
-    if subfields_a:
+    if subfields_a := utils.force_list(value.get('a')):
         subfield_a = remove_trailing_punctuation(subfields_a[0])
         edition_data['editionDesignation'] = [{'value': subfield_a}]
-    subfields_b = utils.force_list(value.get('b'))
-    if subfields_b:
+    if subfields_b := utils.force_list(value.get('b')):
         subfields_b = subfields_b[0]
         edition_data['responsibility'] = [{'value': subfields_b}]
     return edition_data or None
@@ -341,8 +314,7 @@ def marc21_to_copyright_date(self, key, value):
     copyright_dates = self.get('copyrightDate', [])
     copyright_date = value.get('c')
     if copyright_date:
-        match = re.search(r'^([©℗])+\s*(\d{4}.*)', copyright_date)
-        if match:
+        if match := re.search(r'^([©℗])+\s*(\d{4}.*)', copyright_date):
             copyright_date = ' '.join((
                 match.group(1),
                 match.group(2)
@@ -366,18 +338,12 @@ def marc21_to_provision_activity(self, key, value):
     def build_statement(field_value, ind2):
 
         def build_place_or_agent_data(code, label):
-            place_or_agent_data = None
             type_per_code = {
                 'a': 'bf:Place',
                 'b': 'bf:Agent'
             }
-            value = remove_trailing_punctuation(label)
-            if value:
-                place_or_agent_data = {
-                    'type': type_per_code[code],
-                    'label': [{'value': value}]
-                }
-            return place_or_agent_data
+            return {'type': type_per_code[code], 'label': [{'value': value}]} \
+                if (value := remove_trailing_punctuation(label)) else None
 
         # function build_statement start here
         statement = []
@@ -452,10 +418,9 @@ def marc21_to_description(self, key, value):
 
     extent: 300$a (the first one if many)
     """
-    if value.get('a'):
-        if not self.get('extent', None):
-            self['extent'] = remove_trailing_punctuation(
-                utils.force_list(value.get('a'))[0])
+    if value.get('a') and not self.get('extent', None):
+        self['extent'] = remove_trailing_punctuation(
+            utils.force_list(value.get('a'))[0])
     return None
 
 
@@ -519,11 +484,16 @@ def marc21_to_subjects(self, key, value):
         if possible deduplicate]
     """
     subjects = self.get('subjects', [])
+    seen = {}
     for subject in utils.force_list(value.get('a')):
-        subjects.append({
+        subject = {
             'type': "bf:Topic",
             'term': subject
-        })
+        }
+        str_subject = str(subject)
+        if str_subject not in seen:
+            subjects.append(subject)
+            seen[str_subject] = 1
     self['subjects'] = subjects
     return None
 
@@ -547,13 +517,10 @@ def marc21_electronicLocator(self, key, value):
                 'content': 'coverImage'
             }
     elif indicator2 == '0':
-        subfield_x = value.get('x')
-        if subfield_x:
+        if subfield_x := value.get('x'):
             electronic_locator = {
                 'url': url,
                 'type': 'resource',
                 'source': utils.force_list(subfield_x)[0]
             }
-            # if subfield_3 and subfield_3 == 'Texte intégral':
-            #     electronic_locator['content'] == subfield_3
     return electronic_locator or None

@@ -323,7 +323,7 @@ def marc21_to_description(self, key, value):
         - dimensions
 
     300 [$a repetitive]: extent, duration:
-    300 [$a non repetitive]: colorContent, productionMethod,
+    300 [$b non repetitive]: colorContent, productionMethod,
         illustrativeContent, note of type otherPhysicalDetails
     300 [$c repetitive]: dimensions, book_formats
     """
