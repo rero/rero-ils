@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Common classes used for documents.
+"""Common classes used for documents - subjects.
 
 Subjects class represent all possible subjects data from a document resource.
 It exists two kinds of subject: local subjects and references subjects.
