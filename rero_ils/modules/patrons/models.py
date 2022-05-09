@@ -41,3 +41,10 @@ class PatronMetadata(db.Model, RecordMetadataBase):
     """Patron record metadata."""
 
     __tablename__ = 'patron_metadata'
+
+
+class CommunicationChannel:
+    """Enum class to list all possible patron communication channels."""
+
+    EMAIL = 'email'
+    MAIL = 'mail'

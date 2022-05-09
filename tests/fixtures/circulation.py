@@ -33,6 +33,7 @@ from rero_ils.modules.notifications.api import NotificationsSearch
 from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.notifications.utils import get_notification
 from rero_ils.modules.patron_transactions.api import PatronTransactionsSearch
+from rero_ils.modules.patrons.models import CommunicationChannel
 from rero_ils.modules.utils import extracted_data_from_ref
 
 
@@ -413,7 +414,7 @@ def patron_sion_without_email1(
     del data['email']
     data['pid'] = 'ptrn10wthoutemail'
     data['username'] = 'withoutemail'
-    data['patron']['communication_channel'] = 'mail'
+    data['patron']['communication_channel'] = CommunicationChannel.MAIL
     yield create_patron(data)
 
 

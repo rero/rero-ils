@@ -21,6 +21,7 @@ from copy import deepcopy
 from datetime import datetime
 from functools import partial
 
+from elasticsearch_dsl import Q
 from flask import current_app
 from flask_babelex import gettext as _
 from flask_login import current_user
@@ -28,6 +29,9 @@ from invenio_circulation.proxies import current_circulation
 from invenio_db import db
 from jsonschema.exceptions import ValidationError
 from werkzeug.local import LocalProxy
+
+from rero_ils.modules.patrons.models import CommunicationChannel
+from rero_ils.modules.tasks import process_bulk_queue
 
 from .extensions import UserDataExtension
 from .models import PatronIdentifier, PatronMetadata
@@ -182,8 +186,8 @@ class Patron(IlsRecord):
         """
         patron = self.get('patron')
         user = self._get_user_by_user_id(self.get('user_id'))
-        if patron and patron.get('communication_channel') == 'email'\
-                and user.email is None\
+        if patron and patron.get('communication_channel') == \
+                CommunicationChannel.EMAIL and user.email is None\
                 and patron.get('additional_communication_email') is None:
             raise ValidationError('At least one email should be defined '
                                   'for an email communication channel.')
@@ -774,6 +778,52 @@ class Patron(IlsRecord):
         for ptrn in current_patrons:
             if ptrn.organisation_pid == record.organisation_pid:
                 return ptrn
+
+    @classmethod
+    def set_communication_channel(
+            cls, user=None, dbcommit=True, reindex=True):
+        """Set communication_channel for patrons according to patrons data.
+
+        :param user - user record
+        :param dbcommit - commit the changes
+        :param reindex - index the changes
+        """
+        def basic_query(channel):
+            """Returns basic ES query."""
+            return PatronsSearch()\
+                .filter('term', user_id=user.id)\
+                .filter('term', patron__communication_channel=channel)\
+                .source(includes='pid')
+
+        mail_query = basic_query(CommunicationChannel.EMAIL)\
+            .filter('bool', must_not=[
+                Q('exists', field='patron.additional_communication_email'),
+                Q('exists', field='email')
+            ])
+        to_mail_pids = [[hit['pid'], CommunicationChannel.MAIL, hit.meta.id]
+                        for hit in mail_query.scan()]
+        email_query = basic_query(CommunicationChannel.MAIL)\
+            .filter('bool', should=[
+                Q('exists', field='patron.additional_communication_email'),
+                Q('exists', field='email')
+            ])
+        to_email_pids = [[hit['pid'], CommunicationChannel.EMAIL, hit.meta.id]
+                         for hit in email_query.scan()]
+        pids = to_mail_pids + to_email_pids
+        ids = []
+        for pid, channel, id in pids:
+            ids.append(id)
+            if patron := Patron.get_record_by_pid(pid):
+                patron['patron']['communication_channel'] = channel
+                db.session.query(patron.model_cls).filter_by(
+                    id=patron.id).update({patron.model_cls.json: patron})
+        if ids:
+            # commit session
+            db.session.commit()
+            # bulk indexing of patron records.
+            indexer = PatronsIndexer()
+            indexer.bulk_index(ids)
+            process_bulk_queue.apply_async()
 
 
 class PatronsIndexer(IlsRecordsIndexer):

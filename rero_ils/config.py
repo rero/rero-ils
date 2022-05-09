@@ -105,6 +105,7 @@ from .modules.patron_transactions.permissions import \
 from .modules.patron_types.api import PatronType
 from .modules.patron_types.permissions import PatronTypePermission
 from .modules.patrons.api import Patron
+from .modules.patrons.models import CommunicationChannel
 from .modules.patrons.permissions import PatronPermission
 from .modules.permissions import record_permission_factory
 from .modules.selfcheck.permissions import seflcheck_permission_factory
@@ -2749,8 +2750,8 @@ RERO_ILS_NOTIFICATIONS_ALLOWED_TEMPLATE_FILES = [
 # the communication channel, value is the function to call. The used functions
 # should accept one positional argument.
 RERO_ILS_COMMUNICATION_DISPATCHER_FUNCTIONS = {
-    'email': NotificationDispatcher.send_notification_by_email,
-    'mail': NotificationDispatcher.send_mail_for_printing,
+    CommunicationChannel.EMAIL : NotificationDispatcher.send_notification_by_email,
+    CommunicationChannel.MAIL: NotificationDispatcher.send_mail_for_printing,
     #  'sms': not_yet_implemented
     #  'telepathy': self.madness_mind
     #  ...

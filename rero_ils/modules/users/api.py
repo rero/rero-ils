@@ -131,15 +131,12 @@ class User(object):
                         datetime.strptime(data.get(field), '%Y-%m-%d'))
                 else:
                     setattr(profile, field, data.get(field, ''))
-
             # change password
             if data.get('password'):
                 user.password = hash_password(data['password'])
 
-            # send reset password if email is changed
             if email and email != user.email:
                 user.email = email
-                send_reset_password_instructions(user)
             # remove the email from user data
             elif not email and user.email:
                 user.email = None
@@ -153,8 +150,7 @@ class User(object):
     def _validate(cls, data, **kwargs):
         """Validate user record against schema."""
         format_checker = FormatChecker()
-        schema = data.pop('$schema', None)
-        if schema:
+        if schema := data.pop('$schema', None):
             _records_state.validate(
                 data,
                 schema,
@@ -177,13 +173,12 @@ class User(object):
 
     def dumps(self):
         """Return pure Python dictionary with record metadata."""
-        data = {
+        return {
             'id': self.user.id,
             'links': {'self': url_for(
                 'api_users.users_item', _external=True, id=self.user.id)},
             'metadata': self.dumpsMetadata(patronData=True)
         }
-        return data
 
     def dumpsMetadata(self, patronData=False):
         """Dumps the profile, email, roles metadata."""
@@ -191,8 +186,7 @@ class User(object):
         metadata = {}
         if self.user.profile:
             for field in self.profile_fields:
-                value = getattr(self.user.profile, field)
-                if value:
+                if value := getattr(self.user.profile, field):
                     if field == 'birth_date':
                         value = datetime.strftime(value, '%Y-%m-%d')
                     metadata[field] = value

@@ -24,6 +24,7 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
+from rero_ils.modules.patrons.models import CommunicationChannel
 from rero_ils.utils import create_user_from_data
 
 
@@ -73,7 +74,7 @@ def test_system_librarian_permissions(
             'roles': ['patron'],
             'patron': {
                 'expiration_date': '2023-10-07',
-                'communication_channel': 'email',
+                'communication_channel': CommunicationChannel.EMAIL,
                 'communication_language': 'ita',
                 'additional_communication_email': 'test@test.com',
                 'type': {

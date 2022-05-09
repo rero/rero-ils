@@ -29,6 +29,7 @@ from jsonschema.exceptions import ValidationError
 
 from rero_ils.modules.patrons.api import Patron, PatronsSearch, \
     patron_id_fetcher
+from rero_ils.modules.patrons.models import CommunicationChannel
 from rero_ils.utils import create_user_from_data
 
 
@@ -70,7 +71,7 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
         'type': {
           '$ref': 'https://bib.rero.ch/api/patron_types/ptty2'
         },
-        'communication_channel': 'email',
+        'communication_channel': CommunicationChannel.EMAIL,
         'communication_language': 'ita'
     })
     wrong_librarian_martigny_data_tmp['patron']['subscriptions'] = [{
@@ -148,7 +149,7 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
             'type': {
               '$ref': 'https://bib.rero.ch/api/patron_types/ptty2'
             },
-            'communication_channel': 'email',
+            'communication_channel': CommunicationChannel.EMAIL,
             'communication_language': 'ita'
         }
     }
@@ -199,7 +200,8 @@ def test_patron_create_without_email(app, roles, patron_type_children_martigny,
         )
 
     # create a patron without email
-    patron_martigny_data_tmp['patron']['communication_channel'] = 'mail'
+    patron_martigny_data_tmp['patron']['communication_channel'] = \
+        CommunicationChannel.MAIL
     ptrn = Patron.create(
         patron_martigny_data_tmp,
         dbcommit=True,

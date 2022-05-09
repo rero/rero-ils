@@ -37,6 +37,8 @@ from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 from werkzeug.local import LocalProxy
 
+from rero_ils.modules.patrons.models import CommunicationChannel
+
 from .api import User, create_patron_from_data
 from ..patrons.api import Patron, PatronProvider
 from ..providers import append_fixtures_new_identifiers
@@ -215,8 +217,8 @@ def users_validate(jsonfile, verbose, debug):
         try:
             validate(data, schema)
             patron = data.get('patron', {})
-            if patron and patron.get('communication_channel') == 'email'\
-               and data.get('email') is None \
+            if patron and patron.get('communication_channel') == \
+                    CommunicationChannel.EMAIL and data.get('email') is None \
                and patron.get('additional_communication_email') is None:
                 raise ValidationError('At least one email should be defined '
                                       'for an email communication channel.')
