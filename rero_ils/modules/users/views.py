@@ -27,7 +27,7 @@ from flask_login import current_user
 from invenio_rest import ContentNegotiatedMethodView
 
 from .api import User
-from ...modules.patrons.api import current_librarian
+from ...modules.patrons.api import Patron, current_librarian
 from ...permissions import login_and_librarian
 
 
@@ -131,6 +131,13 @@ class UsersResource(ContentNegotiatedMethodView):
         """Implement the PUT."""
         user = User.get_by_id(id)
         user = user.update(request.get_json())
+        editing_own_public_profile = str(current_user.id) == id and \
+            not (
+                current_user.has_role('system_librarian') and
+                current_user.has_role('librarian')
+        )
+        if editing_own_public_profile:
+            Patron.set_communication_channel(user)
         return user.dumps()
 
 
@@ -195,6 +202,13 @@ class UsersCreateResource(ContentNegotiatedMethodView):
     def post(self):
         """Implement the POST."""
         user = User.create(request.get_json())
+        editing_own_public_profile = str(current_user.id) == user.id and \
+            not (
+                current_user.has_role('system_librarian') and
+                current_user.has_role('librarian')
+        )
+        if editing_own_public_profile:
+            Patron.set_communication_channel(user)
         return user.dumps()
 
 

@@ -31,6 +31,7 @@ from utils import VerifyRecordPermissionPatch, create_patron, get_json, \
 
 from rero_ils.modules.patron_transactions.api import PatronTransaction
 from rero_ils.modules.patrons.api import Patron
+from rero_ils.modules.patrons.models import CommunicationChannel
 from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid
 from rero_ils.utils import create_user_from_data
 
@@ -371,7 +372,7 @@ def test_patrons_post_without_email(app, client, lib_martigny,
     patron_data['username'] = 'post_without_email'
     del patron_data['pid']
     del patron_data['email']
-    patron_data['patron']['communication_channel'] = 'mail'
+    patron_data['patron']['communication_channel'] = CommunicationChannel.MAIL
     patron_data = create_user_from_data(patron_data)
 
     pids = Patron.count()
@@ -390,7 +391,8 @@ def test_patrons_post_without_email(app, client, lib_martigny,
 
     # Check that the returned record matches the given data
     data = get_json(res)
-    data['metadata']['patron']['communication_channel'] = 'mail'
+    data['metadata']['patron']['communication_channel'] = \
+        CommunicationChannel.MAIL
 
     ds = app.extensions['invenio-accounts'].datastore
     ds.delete_user(ds.find_user(id=patron_data['user_id']))
