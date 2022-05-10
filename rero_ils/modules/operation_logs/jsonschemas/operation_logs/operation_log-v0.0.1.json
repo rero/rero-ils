@@ -117,6 +117,11 @@
             "ITEM_ON_LOAN",
             "ITEM_RETURNED"
           ]
+        },
+        "library_pid": {
+          "title": "Library PID",
+          "type": "string",
+          "minLength": 1
         }
       }
     },

@@ -32,6 +32,7 @@ from rero_ils.modules.loans.models import LoanState
 from rero_ils.modules.notifications.api import NotificationsSearch
 from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.notifications.utils import get_notification
+from rero_ils.modules.operation_logs.api import OperationLogsSearch
 from rero_ils.modules.patron_transactions.api import PatronTransactionsSearch
 from rero_ils.modules.patrons.models import CommunicationChannel
 from rero_ils.modules.utils import extracted_data_from_ref
@@ -1547,6 +1548,7 @@ def ill_request_martigny(app, loc_public_martigny, patron_martigny,
         dbcommit=True,
         reindex=True)
     flush_index(ILLRequestsSearch.Meta.index)
+    flush_index(OperationLogsSearch.Meta.index)
     return illr
 
 

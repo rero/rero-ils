@@ -30,7 +30,9 @@ from ..acq_order_lines.api import AcqOrderLinesSearch
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..documents.api import DocumentsSearch
 from ..fetchers import id_fetcher
+from ..ill_requests.models import ILLRequestStatus
 from ..items.api import ItemsSearch
+from ..items.models import ItemCirculationAction
 from ..libraries.api import LibrariesSearch
 from ..loans.logs.api import LoanOperationLog
 from ..locations.api import LocationsSearch
@@ -70,11 +72,7 @@ class StatsForPricing:
 
     def __init__(self, to_date=None):
         """Constructor."""
-        if not to_date:
-            # yesterday midnight
-            self.to_date = arrow.utcnow() - relativedelta(days=1)
-        else:
-            self.to_date = to_date
+        self.to_date = to_date or arrow.utcnow() - relativedelta(days=1)
         self.months_delta = current_app.config.get(
             'RERO_ILS_STATS_BILLING_TIMEFRAME_IN_MONTHES'
         )
@@ -129,11 +127,16 @@ class StatsForPricing:
                     lib.pid),
                 'number_of_order_lines': self.number_of_order_lines(lib.pid),
                 'number_of_checkouts':
-                    self.number_of_circ_operations(lib.pid, 'checkout'),
+                    self.number_of_circ_operations(
+                        lib.pid, ItemCirculationAction.CHECKOUT),
                 'number_of_renewals':
-                    self.number_of_circ_operations(lib.pid, 'extend'),
+                    self.number_of_circ_operations(
+                        lib.pid, ItemCirculationAction.EXTEND),
                 'number_of_satisfied_ill_request':
-                    self.number_of_satisfied_ill_request(lib.pid),
+                    self.number_of_satisfied_ill_request(
+                        lib.pid,
+                        [ILLRequestStatus.PENDING, ILLRequestStatus.VALIDATED,
+                         ILLRequestStatus.CLOSED]),
                 'number_of_items': self.number_of_items(lib.pid),
                 'number_of_new_items': self.number_of_new_items(lib.pid),
                 'number_of_deleted_items': self.number_of_deleted_items(
@@ -143,9 +146,11 @@ class StatsForPricing:
                 'number_of_new_patrons': self.number_of_patrons(
                     lib.organisation.pid),
                 'number_of_checkins':
-                    self.number_of_circ_operations(lib.pid, 'checkin'),
+                    self.number_of_circ_operations(
+                        lib.pid,  ItemCirculationAction.CHECKIN),
                 'number_of_requests':
-                    self.number_of_circ_operations(lib.pid, 'request')
+                    self.number_of_circ_operations(
+                        lib.pid,  ItemCirculationAction.REQUEST)
             })
         return stats
 
@@ -181,7 +186,10 @@ class StatsForPricing:
         :rtype: integer
         """
         return PatronsSearch()\
-            .filter('term', roles='librarian')\
+            .filter(
+                'terms',
+                roles=[Patron.ROLE_LIBRARIAN, Patron.ROLE_SYSTEM_LIBRARIAN]
+            )\
             .filter('term', libraries__pid=library_pid)\
             .count()
 
@@ -199,7 +207,10 @@ class StatsForPricing:
         date_range = {'gte': _from, 'lte': _to}
         for res in RecordsSearch(index=LoanOperationLog.index_name)\
                 .filter('range', date=date_range)\
-                .filter('terms', loan__trigger=['checkout', 'extend'])\
+                .filter(
+                    'terms',
+                    loan__trigger=[ItemCirculationAction.CHECKOUT,
+                                   ItemCirculationAction.EXTEND])\
                 .filter('term', loan__item__library_pid=library_pid)\
                 .source(['loan'])\
                 .scan():
@@ -232,23 +243,21 @@ class StatsForPricing:
             .filter('term', loan__item__library_pid=library_pid)\
             .count()
 
-    def number_of_satisfied_ill_request(self, library_pid):
+    def number_of_satisfied_ill_request(self, library_pid, status):
         """Number of ILL requests created during the specified timeframe.
 
         :param library_pid: string - the library to filter with
+        :param status: list of status to filter with
         :return: the number of matched inter library loan request
         :rtype: integer
         """
-        requests = set()
-        for res in RecordsSearch(index=LoanOperationLog.index_name)\
-                .filter('range', date=self.date_range)\
-                .filter('term', record__type='illr')\
-                .filter('term', library__pid=library_pid)\
-                .filter('term', ill_request__status='validated')\
-                .source(['record'])\
-                .scan():
-            requests.add(res.record.pid)
-        return len(requests)
+        query = RecordsSearch(index=LoanOperationLog.index_name)\
+            .filter('term', record__type='illr')\
+            .filter('term', operation='create')\
+            .filter('range', _created=self.date_range)\
+            .filter('term', ill_request__library_pid=library_pid)\
+            .filter('terms', ill_request__status=status)
+        return query.count()
 
     # -------- optional -----------
     def number_of_items(self, library_pid):
@@ -324,11 +333,7 @@ class StatsForLibrarian(StatsForPricing):
 
         :param to_date: end date of the statistics date range
         """
-        if not to_date:
-            # yesterday midnight
-            self.to_date = arrow.utcnow() - relativedelta(days=1)
-        else:
-            self.to_date = to_date
+        self.to_date = to_date or arrow.utcnow() - relativedelta(days=1)
         # Get statistics per month
         _from = f'{self.to_date.year}-{self.to_date.month:02d}-01T00:00:00'
         _to = self.to_date.format(fmt='YYYY-MM-DDT23:59:59')
@@ -341,9 +346,10 @@ class StatsForLibrarian(StatsForPricing):
         Note: for system_librarian includes libraries of organisation.
         """
         if Patron.ROLE_LIBRARIAN in current_librarian["roles"]:
-            library_pids = set([extracted_data_from_ref(lib)
-                                for lib in current_librarian
-                                .get('libraries', [])])
+            library_pids = {
+                extracted_data_from_ref(lib) for lib in
+                current_librarian.get('libraries', [])}
+
         # case system_librarian: add libraries of organisation
         if Patron.ROLE_SYSTEM_LIBRARIAN in current_librarian["roles"]:
             patron_organisation = current_librarian.get_organisation()
@@ -351,8 +357,7 @@ class StatsForLibrarian(StatsForPricing):
                 .filter('term', organisation__pid=patron_organisation.pid)\
                 .source(['pid']).scan()
             library_pids = library_pids.union(
-                            set([s.pid for s in libraries_search])
-                            )
+                {s.pid for s in libraries_search})
         return list(library_pids)
 
     def collect(self):
@@ -368,27 +373,31 @@ class StatsForLibrarian(StatsForPricing):
                     'name': lib.name
                 },
                 'checkouts_for_transaction_library':
-                    self.checkouts_for_transaction_library(lib.pid,
-                                                           ['checkout']),
+                    self.checkouts_for_transaction_library(
+                        lib.pid,
+                        [ItemCirculationAction.CHECKOUT]),
                 'checkouts_for_owning_library':
-                    self.checkouts_for_owning_library(lib.pid,
-                                                      ['checkout']),
+                    self.checkouts_for_owning_library(
+                        lib.pid,
+                        [ItemCirculationAction.CHECKOUT]),
                 'active_patrons_by_postal_code':
-                    self.active_patrons_by_postal_code(lib.pid,
-                                                       ['request',
-                                                        'checkin',
-                                                        'checkout']),
+                    self.active_patrons_by_postal_code(
+                        lib.pid,
+                        [ItemCirculationAction.REQUEST,
+                         ItemCirculationAction.CHECKIN,
+                         ItemCirculationAction.CHECKOUT]),
                 'new_active_patrons_by_postal_code':
-                    self.new_active_patrons_by_postal_code(lib.pid,
-                                                           ['request',
-                                                            'checkin',
-                                                            'checkout']),
+                    self.new_active_patrons_by_postal_code(
+                        lib.pid,
+                        [ItemCirculationAction.REQUEST,
+                         ItemCirculationAction.CHECKIN,
+                         ItemCirculationAction.CHECKOUT]),
                 'new_documents':
                     self.new_documents(lib.pid),
                 'new_items':
                     self.number_of_new_items(lib.pid),
                 'renewals':
-                    self.renewals(lib.pid, ['extend']),
+                    self.renewals(lib.pid, [ItemCirculationAction.EXTEND]),
                 'validated_requests':
                     self.validated_requests(lib.pid, ['validate']),
                 'items_by_document_type_and_subtype':
@@ -399,8 +408,8 @@ class StatsForLibrarian(StatsForPricing):
                     self.loans_of_transaction_library_by_item_location(
                         libraries_map,
                         lib.pid,
-                        ['checkin',
-                         'checkout'])
+                        [ItemCirculationAction.CHECKIN,
+                         ItemCirculationAction.CHECKOUT])
             })
         return stats
 
@@ -493,9 +502,8 @@ class StatsForLibrarian(StatsForPricing):
 
             if postal_code not in stats:
                 stats[postal_code] = 1
-            else:
-                if patron_pid not in patron_pids:
-                    stats[postal_code] += 1
+            elif patron_pid not in patron_pids:
+                stats[postal_code] += 1
             patron_pids.add(patron_pid)
         return stats
 
@@ -540,9 +548,8 @@ class StatsForLibrarian(StatsForPricing):
 
                 if postal_code not in stats:
                     stats[postal_code] = 1
-                else:
-                    if patron_pid not in patron_pids:
-                        stats[postal_code] += 1
+                elif patron_pid not in patron_pids:
+                    stats[postal_code] += 1
                 patron_pids.add(patron_pid)
 
         return stats
@@ -670,10 +677,11 @@ class StatsForLibrarian(StatsForPricing):
             location_name = s.loan.item.holding.location_name
 
             key = f'{item_library_pid}: {item_library_name} - {location_name}'
-            stats.setdefault(key, {'location_name': location_name,
-                                   'checkin': 0, 'checkout': 0})
+            stats.setdefault(key, {
+                'location_name': location_name,
+                ItemCirculationAction.CHECKIN: 0,
+                ItemCirculationAction.CHECKOUT: 0})
             stats[key][s.loan.trigger] += 1
-
         return stats
 
 
