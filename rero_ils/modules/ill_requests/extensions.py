@@ -30,8 +30,10 @@ class IllRequestOperationLogObserverExtension(OperationLogObserverExtension):
         :param record: the observed record.
         :return a dict with additional informations.
         """
-        data = {'ill_request': {'status': record.get('status')}}
-        loan_status = record.get('loan_status')
-        if loan_status:
+        data = {'ill_request': {
+            'status': record.get('status'),
+            'library_pid': record.get_library().pid
+        }}
+        if loan_status := record.get('loan_status'):
             data['ill_request']['loan_status'] = loan_status
         return data

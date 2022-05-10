@@ -24,7 +24,8 @@ from rero_ils.modules.stats.api import Stat, StatsForLibrarian, StatsForPricing
 
 
 @pytest.fixture(scope='module')
-def stats(item_lib_martigny, item_lib_fully, item_lib_sion):
+def stats(item_lib_martigny, item_lib_fully, item_lib_sion,
+          ill_request_martigny):
     """Stats fixture."""
     stats = StatsForPricing(to_date=arrow.utcnow())
     yield Stat.create(
