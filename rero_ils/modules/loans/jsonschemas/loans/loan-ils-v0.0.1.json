@@ -112,6 +112,11 @@
       "format": "date-time",
       "title": "Transaction end datetime"
     },
+    "last_end_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Last end date of loan"
+    },
     "due_soon_date": {
       "type": "string",
       "format": "date-time",
