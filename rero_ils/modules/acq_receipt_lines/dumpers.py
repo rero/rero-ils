@@ -20,6 +20,7 @@
 
 from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 
+from rero_ils.modules.commons.identifiers import IdentifierType
 from rero_ils.modules.documents.utils import title_format_text_head
 
 
@@ -38,20 +39,23 @@ class AcqReceiptLineESDumper(InvenioRecordsDumper):
         """
         # Keep only some attributes from AcqReceiptLine object initial dump.
         for attr in ['pid', 'receipt_date', 'amount', 'quantity', 'vat_rate']:
-            value = record.get(attr)
-            if value:
+            if value := record.get(attr):
                 data.update({attr: value})
-        notes = record.get('notes', [])
-        if notes:
+        if notes := record.get('notes', []):
             data['notes'] = [note['content'] for note in notes]
 
-        # Add document informations: pid, formatted title and ISBN identifiers.
+        # Add document information's: pid, formatted title and ISBN identifiers
         # (remove None values from document metadata)
         document = record.order_line.document
+        identifiers = document.get_identifiers(
+            filters=[IdentifierType.ISBN],
+            with_alternatives=True
+        )
+        identifiers = [identifier.normalize() for identifier in identifiers]
         data['document'] = {
             'pid': document.pid,
             'title': title_format_text_head(document.get('title', [])),
-            'identifiers': document.get_identifier_values(filters=['bf:Isbn'])
+            'identifiers': identifiers
         }
         data['document'] = {k: v for k, v in data['document'].items() if v}
         return data

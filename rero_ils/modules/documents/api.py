@@ -21,6 +21,7 @@
 
 from functools import partial
 
+from elasticsearch_dsl import Q
 from flask import current_app
 from invenio_circulation.search.api import search_by_pid
 from jsonschema.exceptions import ValidationError
@@ -30,6 +31,7 @@ from .utils import edition_format_text, publication_statement_text, \
     series_statement_format_text, title_format_text_head
 from ..acq_order_lines.api import AcqOrderLinesSearch
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from ..commons.identifiers import IdentifierFactory, IdentifierType
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..operation_logs.extensions import OperationLogObserverExtension
@@ -203,7 +205,7 @@ class Document(IlsRecord):
             loans = loan_query.count()
             acq_order_lines = acq_order_lines_query.count()
             documents = 0
-            for relation, relation_es in relation_types.items():
+            for relation_es in relation_types.values():
                 doc_query = DocumentsSearch() \
                     .filter({'term': {relation_es: self.pid}})
                 documents += doc_query.count()
@@ -257,7 +259,7 @@ class Document(IlsRecord):
 
     def dumps(self, **kwargs):
         """Return pure Python dictionary with record metadata."""
-        return self.post_process(super().dumps(**kwargs))
+        return Document.post_process(super().dumps(**kwargs))
 
     def index_contributions(self, bulk=False):
         """Index all attached contributions."""
@@ -265,19 +267,14 @@ class Document(IlsRecord):
         from ..tasks import process_bulk_queue
         contributions_ids = []
         for contribution in self.get('contribution', []):
-            contrib = None
             ref = contribution['agent'].get('$ref')
-            if ref:
-                contrib, online = Contribution.get_record_by_ref(ref)
-            else:
-                cont_pid = contribution['agent'].get('pid')
-                if cont_pid:
-                    if bulk:
-                        uid = Contribution.get_id_by_pid(cont_pid)
-                        contributions_ids.append(uid)
-                    else:
-                        contrib = Contribution.get_record_by_pid(cont_pid)
-                        contrib.reindex()
+            if not ref and (cont_pid := contribution['agent'].get('pid')):
+                if bulk:
+                    uid = Contribution.get_id_by_pid(cont_pid)
+                    contributions_ids.append(uid)
+                else:
+                    contrib = Contribution.get_record_by_pid(cont_pid)
+                    contrib.reindex()
         if contributions_ids:
             ContributionsIndexer().bulk_index(contributions_ids)
             process_bulk_queue.apply_async()
@@ -295,18 +292,18 @@ class Document(IlsRecord):
             yield es_document.pid
 
     @classmethod
-    def get_document_pids_by_issn(cls, issn_number):
-        """Get pids of documents having the given issn.
+    def get_document_pids_by_issn(cls, issn_number: str):
+        """Get pids of documents having the given ISSN.
 
-        :param issn_number: the ISSN number
-        :param issn_number: str
+        :param issn_number: the ISSN to search
         :return: the pids of the record having the given ISSN
         :rtype: generator
         """
+        criteria = Q('term', nested_identifiers__type=IdentifierType.ISSN)
+        criteria &= Q('term', nested_identifiers__value__raw=issn_number)
         es_documents = DocumentsSearch()\
-            .filter('term', identifiedBy__type="bf:Issn")\
-            .filter('term', identifiedBy__value=issn_number)\
-            .source(['pid']).scan()
+            .filter('nested', path='nested_identifiers', query=criteria)\
+            .source('pid').scan()
         for es_document in es_documents:
             yield es_document.pid
 
@@ -315,45 +312,50 @@ class Document(IlsRecord):
         from ..contributions.api import Contribution
         contributions = self.get('contribution', [])
         for contribution in contributions:
-            ref = contribution['agent'].get('$ref')
-            if ref:
+            if ref := contribution['agent'].get('$ref'):
                 agent, _ = Contribution.get_record_by_ref(ref)
                 if agent:
                     contribution['agent'] = agent
         subjects = self.get('subjects', [])
         for subject in subjects:
-            ref = subject.get('$ref')
-            type = subject.get('type')
-            if ref and type in [DocumentSubjectType.PERSON,
-                                DocumentSubjectType.ORGANISATION]:
-                data, _ = Contribution.get_record_by_ref(ref)
+            subject_ref = subject.get('$ref')
+            subject_type = subject.get('type')
+            if subject_ref and subject_type in \
+               [DocumentSubjectType.PERSON, DocumentSubjectType.ORGANISATION]:
+                data, _ = Contribution.get_record_by_ref(subject_ref)
                 del subject['$ref']
                 subject.update(data)
 
         return super().replace_refs()
 
-    def get_identifier_values(self, filters=None):
-        """Get the document identifiers values filtered by identifier types.
+    def get_identifiers(self, filters=None, with_alternatives=False):
+        """Get the document identifier object filtered by identifier types.
 
         :param filters: an array of identifiers types. If None or empty,
                         return all identifiers.
-        :return an array of all identifier values corresponding to filters.
+        :param with_alternatives: is the returned list should also contains
+               the alternative identifiers of filtered original identifiers.
+               If true, the returned list will contain only unique values.
+        :return an array of `Identifiers` object corresponding to filters.
         """
         filters = [] or filters
-        return [
-            identifier['value'] for identifier in self.get('identifiedBy', [])
-            if not filters or identifier['type'] in filters
-        ]
+        identifiers = set([
+            IdentifierFactory.create_identifier(data)
+            for data in self.get('identifiedBy', [])
+            if not filters or data.get('type') in filters
+        ])
+        if with_alternatives:
+            for identifier in list(identifiers):
+                identifiers.update(identifier.get_alternatives())
+        return identifiers
 
     @property
     def document_type(self):
         """Get first document type of document."""
         document_type = 'docmaintype_other'
-        document_types = self.get('type', [])
-        if document_types:
+        if document_types := self.get('type', []):
             document_type = document_types[0]['main_type']
-            document_subtype = document_types[0].get('subtype')
-            if document_subtype:
+            if document_subtype := document_types[0].get('subtype'):
                 document_type = document_subtype
         return document_type
 
@@ -363,8 +365,7 @@ class Document(IlsRecord):
         document_types = []
         for document_type in self.get('type', []):
             main_type = document_type.get('main_type')
-            sub_type = document_type.get('subtype')
-            if sub_type:
+            if sub_type := document_type.get('subtype'):
                 main_type = sub_type
             document_types.append(main_type)
         return document_types or ['docmaintype_other']

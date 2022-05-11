@@ -2,18 +2,6 @@
   "settings": {
     "analysis": {
       "analyzer": {
-        "autocomplete": {
-          "type": "custom",
-          "tokenizer": "standard",
-          "filter": [
-            "lowercase",
-            "icu_normalizer",
-            "icu_folding",
-            "french_elision",
-            "italian_elision",
-            "edge_ngram_filter"
-          ]
-        },
         "search_autocomplete": {
           "type": "custom",
           "tokenizer": "standard",
@@ -701,7 +689,44 @@
             "type": "keyword"
           },
           "value": {
+            "type": "text",
+            "analyzer": "identifier-analyzer",
+            "fields": {
+              "raw": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "note": {
+            "type": "text"
+          },
+          "qualifier": {
             "type": "keyword"
+          },
+          "source": {
+            "type": "keyword"
+          },
+          "status": {
+            "type": "text"
+          }
+        }
+      },
+      "nested_identifiers": {
+        "type": "nested",
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "text",
+            "analyzer": "identifier-analyzer",
+            "fields": {
+              "raw": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
           },
           "note": {
             "type": "text"
@@ -1734,10 +1759,22 @@
         "type": "boolean"
       },
       "isbn": {
-        "type": "keyword",
+        "type": "text",
+        "analyzer": "identifier-analyzer",
         "fields": {
-          "text": {
-            "type": "text"
+          "raw": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "issn": {
+        "type": "text",
+        "analyzer": "identifier-analyzer",
+        "fields": {
+          "raw": {
+            "type": "keyword",
+            "ignore_above": 256
           }
         }
       },

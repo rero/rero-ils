@@ -22,6 +22,7 @@ from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 
 from rero_ils.modules.acq_accounts.dumpers import AcqAccountGenericDumper
 from rero_ils.modules.acq_order_lines.models import AcqOrderLineNoteType
+from rero_ils.modules.commons.identifiers import IdentifierType
 from rero_ils.modules.documents.dumpers import DocumentAcquisitionDumper
 from rero_ils.modules.documents.utils import title_format_text_head
 
@@ -42,11 +43,10 @@ class AcqOrderLineESDumper(InvenioRecordsDumper):
         """
         # Keep only some attributes from AcqOrderLine object initial dump.
         for attr in ['pid', 'status', 'order_date', 'quantity']:
-            value = record.get(attr)
-            if value:
+            if value := record.get(attr):
                 data.update({attr: value})
 
-        # Add account informations: pid, name and reference number.
+        # Add account information's: pid, name and reference number.
         # (remove None values from account metadata)
         account = record.account
         data['account'] = {
@@ -56,13 +56,19 @@ class AcqOrderLineESDumper(InvenioRecordsDumper):
         }
         data['account'] = {k: v for k, v in data['account'].items() if v}
 
-        # Add document informations: pid, formatted title and ISBN identifiers.
-        # (remove None values from document metadata)
+        # Add document information's: pid, formatted title and ISBN
+        # identifiers (remove None values from document metadata)
         document = record.document
+        identifiers = document.get_identifiers(
+            filters=[IdentifierType.ISBN],
+            with_alternatives=True
+        )
+        identifiers = [identifier.normalize() for identifier in identifiers]
+
         data['document'] = {
             'pid': document.pid,
             'title': title_format_text_head(document.get('title', [])),
-            'identifiers': document.get_identifier_values(filters=['bf:Isbn'])
+            'identifiers': identifiers
         }
         data['document'] = {k: v for k, v in data['document'].items() if v}
         return data

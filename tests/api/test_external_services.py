@@ -32,10 +32,10 @@ from rero_ils.modules.documents.api import Document
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_documents_get(client, document):
     """Test record retrieval."""
-    def clean_authorized_access_point(data):
+    def clean_es_metadata(metadata):
         """Clean contribution from authorized_access_point_"""
         contributions = []
-        for contribution in data.get('contribution', []):
+        for contribution in metadata.get('contribution', []):
             agent = {}
             for item in contribution['agent']:
                 if item == 'authorized_access_point':
@@ -44,37 +44,46 @@ def test_documents_get(client, document):
                     agent[item] = contribution['agent'][item]
             contribution['agent'] = agent
             contributions.append(contribution)
-
-        data.pop('sort_date_new', None)
-        data.pop('sort_date_old', None)
-        data.pop('sort_title', None)
-        data.pop('isbn', None)
-        return data
+        # REMOVE DYNAMICALLY ADDED ES KEYS (see listener.py)
+        metadata.pop('sort_date_new', None)
+        metadata.pop('sort_date_old', None)
+        metadata.pop('sort_title', None)
+        metadata.pop('isbn', None)
+        metadata.pop('issn', None)
+        metadata.pop('nested_identifiers', None)
+        metadata.pop('identifiedBy', None)
+        return metadata
 
     item_url = url_for('invenio_records_rest.doc_item', pid_value='doc1')
-
     res = client.get(item_url)
     assert res.status_code == 200
-
     assert res.headers['ETag'] == '"{}"'.format(document.revision_id)
-
     data = get_json(res)
-    assert document.dumps() == clean_authorized_access_point(data['metadata'])
+    # DEV NOTES : Why removing `identifiedBy` key
+    #   During the ES enrichment process, we complete the original identifiers
+    #   with alternate identifiers. So comparing ES data identifiers, to
+    #   original data identifiers doesn't make sense.
+    document_data = document.dumps()
+    document_data.pop('identifiedBy', None)
+    assert document_data == clean_es_metadata(data['metadata'])
 
     # Check self links
     res = client.get(to_relative_url(data['links']['self']))
     assert res.status_code == 200
-    assert data == get_json(res)
-    assert document.dumps() == clean_authorized_access_point(data['metadata'])
+    res_content = get_json(res)
+    res_content.get('metadata', {}).pop('identifiedBy', None)
+    assert data == res_content
+    document_data = document.dumps()
+    document_data.pop('identifiedBy', None)
+    assert document_data == clean_es_metadata(data['metadata'])
 
     list_url = url_for('invenio_records_rest.doc_list')
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    data_clean = clean_authorized_access_point(
-        data['hits']['hits'][0]['metadata']
-    )
+    data_clean = clean_es_metadata(data['hits']['hits'][0]['metadata'])
     document = document.replace_refs().dumps()
+    document.pop('identifiedBy', None)
     assert document == data_clean
 
     list_url = url_for('invenio_records_rest.doc_list', q="Vincent Berthe")
