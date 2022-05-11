@@ -28,10 +28,10 @@ Thanks for your help! -->
 <!-- In which environment did the problem occur? -->
 
 **Server:**
-* [ ] production: [bib.rero.ch](https://bib.rero.ch) or [ils.bib.uclouvain.be](https://ils.bib.uclouvain.be)
-* [ ] test: [bib.test.rero.ch](https://bib.test.rero.ch)
-* [ ] dev: [ilsdev.test.rero.ch](https://ilsdev.test.rero.ch)
-* [ ] dev test : [ils.test.rero.ch](https://ils.test.rero.ch)
+* production: [bib.rero.ch](https://bib.rero.ch) or [ils.bib.uclouvain.be](https://ils.bib.uclouvain.be)
+* test: [bib.test.rero.ch](https://bib.test.rero.ch)
+* dev: [ilsdev.test.rero.ch](https://ilsdev.test.rero.ch)
+* dev test : [ils.test.rero.ch](https://ils.test.rero.ch)
 
 **Version:**
 <!-- In which version of RERO ILS did this problem happen? -->

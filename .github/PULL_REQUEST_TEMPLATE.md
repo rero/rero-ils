@@ -13,13 +13,3 @@ My PR depends on the following `rero-ils-ui`'s PR(s):
 
 - What command should I have to run to test your PR?
 - What should I test through the UI?
-
-## Code review check list
-
-- [ ] Commit message template compliance.
-- [ ] Commit message without typos.
-- [ ] File names.
-- [ ] Functions names.
-- [ ] Functions docstrings.
-- [ ] Unnecessary commited files?
-- [ ] Cypress tests successful?
