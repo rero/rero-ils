@@ -121,7 +121,17 @@ class CirculationDatesExtension(RecordExtension):
                     hour=0, minute=0, second=0, microsecond=0)
                 record['due_soon_date'] = due_soon.isoformat()
 
+    @staticmethod
+    def _add_last_end_date(record):
+        """Set the last end date to end date.
+
+        :param record: the record metadata.
+        """
+        if record.state == LoanState.ITEM_ON_LOAN and record.get('end_date'):
+            record['last_end_date'] = record['end_date']
+
     def pre_commit(self, record):
         """Called before a record is committed."""
         CirculationDatesExtension._add_request_expiration_date(record)
         CirculationDatesExtension._add_due_soon_date(record)
+        CirculationDatesExtension._add_last_end_date(record)

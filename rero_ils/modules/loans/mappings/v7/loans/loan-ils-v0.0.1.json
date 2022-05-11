@@ -56,6 +56,9 @@
       "end_date": {
         "type": "date"
       },
+      "last_end_date": {
+        "type": "date"
+      },
       "due_soon_date": {
         "type": "date"
       },

@@ -87,6 +87,7 @@ class Loan(IlsRecord):
 
     DATETIME_FIELDS = [
         "end_date",
+        "last_end_date",
         "request_expire_date",
         "request_start_date",
         "start_date",

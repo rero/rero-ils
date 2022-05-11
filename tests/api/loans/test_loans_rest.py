@@ -401,6 +401,55 @@ def test_overdue_loans(client, librarian_martigny,
     assert res.status_code == 200
 
 
+def test_last_end_date_loans(client, librarian_martigny,
+                             patron_martigny, loc_public_martigny,
+                             item_lib_martigny,
+                             circ_policy_short_martigny):
+    """Test last_end_date of loan."""
+    login_user_via_session(client, librarian_martigny.user)
+    item = item_lib_martigny
+    item_pid = item.pid
+    patron_pid = patron_martigny.pid
+
+    # checkout the item
+    res, data = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item_pid,
+            patron_pid=patron_pid,
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny.pid,
+        )
+    )
+    assert res.status_code == 200
+
+    loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
+    loan = Loan.get_record_by_pid(loan_pid)
+    assert loan['end_date'] == loan['last_end_date']
+
+    end_date = loan['end_date']
+
+    # checkin the item
+    res, _ = postdata(
+        client,
+        'api_item.checkin',
+        dict(
+            item_pid=item_pid,
+            pid=loan_pid,
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny.pid,
+        )
+    )
+    assert res.status_code == 200
+
+    loan = Loan.get_record_by_pid(loan_pid)
+    # check last_end_date is the last end_date
+    assert loan['last_end_date'] == end_date
+    # check end_date is equal to transaction_date
+    assert loan['end_date'] == loan['transaction_date']
+
+
 def test_checkout_item_transit(client, mailbox, item2_lib_martigny,
                                librarian_martigny,
                                librarian_saxon,
