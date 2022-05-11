@@ -19,9 +19,9 @@
 """Tests identifier classes for documents."""
 import pytest
 
-from rero_ils.modules.commons import Identifier, IdentifierFactory, \
-    IdentifierStatus, IdentifierType, InvalidIdentifierException, \
-    QualifierIdentifierRenderer
+from rero_ils.modules.commons.identifiers import Identifier, \
+    IdentifierFactory, IdentifierStatus, IdentifierType, \
+    InvalidIdentifierException, QualifierIdentifierRenderer
 
 
 def test_identifiers_creation():

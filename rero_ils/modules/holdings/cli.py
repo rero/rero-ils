@@ -40,9 +40,9 @@ from ..utils import read_json_record
 def get_document_pid_by_rero_number(rero_control_number):
     """Get pid of document by rero control number."""
     es_documents = DocumentsSearch()\
-        .filter('term', identifiedBy__value=rero_control_number).source(
-            ['pid']).scan()
-    documents = [document.pid for document in es_documents]
+        .filter('term', identifiedBy__value__raw=rero_control_number)\
+        .source('pid')
+    documents = [document.pid for document in es_documents.scan()]
     return documents[0] if documents else None
 
 
@@ -52,20 +52,20 @@ def get_location(library_pid):
     :param library_pid: a valid library pid.
     :return: pid of location.
     """
-    results = LocationsSearch().source(['pid'])\
-        .filter('term', library__pid=library_pid)\
-        .scan()
-    locations = [location.pid for location in results]
+    results = LocationsSearch()\
+        .filter('term', library__pid=library_pid) \
+        .source('pid')
+    locations = [location.pid for location in results.scan()]
     return next(iter(locations or []), None)
 
 
 def get_circ_category(org_pid):
     """Get a random standard circulation category for an organisation pid."""
-    results = ItemTypesSearch().source(['pid'])\
+    results = ItemTypesSearch()\
         .filter('term', organisation__pid=org_pid)\
-        .filter('term', type='standard')\
-        .scan()
-    records = [record.pid for record in results]
+        .filter('term', type='standard') \
+        .source('pid')
+    records = [record.pid for record in results.scan()]
     return next(iter(records or []), None)
 
 

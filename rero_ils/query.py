@@ -45,9 +45,7 @@ def and_term_filter(field):
     :return: Function that returns a boolean AND query between term values.
     """
     def inner(values):
-        must = []
-        for value in values:
-            must.append(Q('term', **{field: value}))
+        must = [Q('term', **{field: value}) for value in values]
         return Q('bool', must=must)
     return inner
 
@@ -66,69 +64,8 @@ def and_i18n_term_filter(field):
             field=field,
             language=language
         )
-        must = []
-        for value in values:
-            must.append(Q('term', **{i18n_field: value}))
+        must = [Q('term', **{i18n_field: value}) for value in values]
         return Q('bool', must=must)
-    return inner
-
-
-def acquisition_filter():
-    """Create a nested filter for new acquisition.
-
-    :return: Function that returns a nested query to retrieve new acquisition
-    """
-    def inner(values):
-
-        # `values` params could contains one or two values. Values must be
-        # separate by a ':' character. Values are :
-        #   1) from_date (optional) : the lower limit range acquisition_date.
-        #        this date will be included into the search result ('<=').
-        #        if not specified the '*' value will be used
-        #   2) until_date (optional) : the upper limit range acquisition_date.
-        #        this date will be excluded from the search result ('>').
-        #        if not specified the current timestamp value will be used
-        #  !!! Other filters could be used to restrict data result : This
-        #      function will check for 'organisation' and/or 'library' and/or
-        #      'location' url parameter to limit query result.
-        #
-        #   SOME EXAMPLES :
-        #     * ?new_acquisition=2020-01-01&organisation=1
-        #       --> all new acq for org with pid=1 from 2020-01-01 to now
-        #     * ?library=3&new_acquisition=2020-01-01:2021-01-01
-        #       --> all new acq for library with pid=3 for the 2020 year
-        #     * ?location=17&library=2&new_acquisition=:2020-01-01
-        #       --> all new acq for (location with pid=17 and library with
-        #           pid=2) until Jan, 1 2020
-
-        # build acquisition date range query
-        values = dict(zip(['from', 'to'], values.pop().split(':')))
-        range_acquisition_dates = {'lt': values.get('to') or 'now/d'}
-        if values.get('from'):
-            range_acquisition_dates['gte'] = values.get('from')
-
-        # build general 'match' query (including acq date range query)
-        must_queries = [Q(
-            'range',
-            holdings__items__acquisition__date=range_acquisition_dates
-        )]
-
-        # Check others filters from command line and add them to the query if
-        # needed
-        for level in ['location', 'library', 'organisation']:
-            arg = request.args.get(level)
-            if arg:
-                field = 'holdings__items__acquisition__{0}_pid'.format(level)
-                must_queries.append(Q('match', **{field: arg}))
-
-        return Q(
-            'nested',
-            path='holdings.items.acquisition',
-            query=Q(
-                'bool',
-                must=must_queries
-            )
-        )
     return inner
 
 
@@ -162,9 +99,8 @@ def documents_search_factory(self, search, query_parser=None):
 def viewcode_patron_search_factory(self, search, query_parser=None):
     """Search factory with viewcode or current patron."""
     search, urlkwargs = search_factory(self, search)
-    view = request.args.get('view')
     # Public interface
-    if view:
+    if view := request.args.get('view'):
         if view != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
             org = Organisation.get_record_by_viewcode(view)
             search = search.filter('term', organisation__pid=org['pid'])
@@ -190,8 +126,7 @@ def items_search_factory(self, search, query_parser=None):
     """Search factory for item records."""
     search, urlkwargs = search_factory(self, search)
     view = request.args.get('view')
-    org_pid = request.args.get('organisation')
-    if org_pid:
+    if org_pid := request.args.get('organisation'):
         search = search.filter('term', organisation__pid=org_pid)
     search = search_factory_for_holdings_and_items(view, search)
     return search, urlkwargs
@@ -264,8 +199,7 @@ def view_search_collection_factory(self, search, query_parser=None):
         search = search.filter(
             'term', organisation__pid=org['pid']
         )
-    published = request.args.get('published')
-    if (published):
+    if published := request.args.get('published'):
         search = search.filter(
             'term', published=bool(int(published))
         )
@@ -437,8 +371,11 @@ def search_factory(self, search, query_parser=None):
         """Elasticsearch boosting fields parser."""
         boosting = []
         if search_index in query_boosting:
-            for field, boost in query_boosting[search_index].items():
-                boosting.append('{}^{}'.format(field, boost))
+            boosting.extend([
+                f'{field}^{boost}'
+                for field, boost in query_boosting[search_index].items()
+            ])
+
         return boosting
 
     from invenio_records_rest.facets import default_facets_factory

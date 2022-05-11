@@ -167,12 +167,3 @@ def test_document_contribution_resolve_exception(es_clear, db,
             dbcommit=True,
             reindex=True
         )
-
-
-def test_document_get_identifiers(document):
-    """Test document get identifiers."""
-    assert '9782844267788' in \
-           document.get_identifier_values(filters=['bf:Isbn'])
-    assert not document.get_identifier_values(filters=['dummy_type'])
-    assert len(document.get('identifiedBy', [])) == \
-           len(document.get_identifier_values())

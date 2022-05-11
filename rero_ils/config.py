@@ -62,6 +62,8 @@ from .modules.contributions.api import Contribution
 from .modules.contributions.permissions import ContributionPermission
 from .modules.documents.api import Document
 from .modules.documents.permissions import DocumentPermission
+from .modules.documents.query import acquisition_filter, \
+    nested_identified_filter
 from .modules.holdings.api import Holding
 from .modules.holdings.models import HoldingCirculationAction
 from .modules.holdings.permissions import HoldingPermission
@@ -120,7 +122,7 @@ from .modules.vendors.permissions import VendorPermission
 from .permissions import librarian_delete_permission_factory, \
     librarian_permission_factory, librarian_update_permission_factory, \
     wiki_edit_ui_permission, wiki_edit_view_permission
-from .query import acquisition_filter, and_i18n_term_filter, and_term_filter
+from .query import and_i18n_term_filter, and_term_filter
 from .utils import get_current_language
 
 
@@ -1958,6 +1960,7 @@ RECORDS_REST_FACETS = dict(
             _('subject'): and_term_filter('facet_subjects'),
             _('status'): and_term_filter('holdings.items.status'),
             _('new_acquisition'): acquisition_filter(),
+            _('identifiers'): nested_identified_filter()
         }
     ),
     items=dict(
