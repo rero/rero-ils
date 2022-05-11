@@ -108,6 +108,15 @@
             "italian_elision",
             "edge_ngram_filter"
           ]
+        },
+        "identifier-analyzer": {
+          "tokenizer": "keyword",
+          "char_filter": [
+            "hyphen-filter"
+          ],
+          "filter": [
+            "lowercase"
+          ]
         }
       },
       "normalizer": {
@@ -116,6 +125,13 @@
           "filter": [
             "lowercase"
           ]
+        }
+      },
+      "char_filter": {
+        "hyphen-filter": {
+          "type": "pattern_replace",
+          "pattern": "-",
+          "replacement": ""
         }
       }
     }

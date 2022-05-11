@@ -121,9 +121,15 @@ class Identifier:
         if not self.type:
             raise InvalidIdentifierException("'type' is a required property.")
 
-    def __hash__(self):
-        """Get an hash value for this identifier."""
+    def __hash__(self) -> int:
+        """Get a hash value for this identifier."""
         return hash(self.type + self.value)
+
+    def __eq__(self, other) -> bool:
+        """Check if an identifier equals to another identifier."""
+        self_hash = hash(self.type + self.normalize())
+        other_hash = hash(self.type + self.normalize())
+        return self_hash == other_hash
 
     def __str__(self) -> str:
         """Get simple string representation of the identifier."""
@@ -144,6 +150,18 @@ class Identifier:
         # valid
         if not self.is_valid():
             raise InvalidIdentifierException()
+
+    def dump(self) -> dict:
+        """Dump this identifier."""
+        data = {
+            'type': self.type,
+            'value': self.normalize(),
+            'note': self.note,
+            'qualifier': self.qualifier,
+            'source': self.source,
+            'status': self.status
+        }
+        return {k: v for k, v in data.items() if v}
 
     def render(self, **kwargs) -> str:
         """Render the identifier.
@@ -186,7 +204,7 @@ class ISBNIdentifier(Identifier):
     def get_alternatives(self) -> list[Identifier]:
         """Get a list of alternative for this identifiers."""
         alternatives = []
-        transform_func = to_isbn10 if is_isbn10(self.value) else to_isbn13
+        transform_func = to_isbn13 if is_isbn10(self.value) else to_isbn10
         if alternate_isbn := transform_func(self.value):
             alternatives.append(ISBNIdentifier(value=alternate_isbn))
         if ean_value := ean13(self.value):

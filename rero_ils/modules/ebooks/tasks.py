@@ -45,10 +45,9 @@ def create_records(records):
         for identifier in record.get('identifiedBy'):
             if identifier.get('source') == 'cantook':
                 harvested_id = identifier.get('value')
-                query = DocumentsSearch().filter(
-                    'term',
-                    identifiedBy__value=harvested_id
-                ).source(includes=['pid'])
+                query = DocumentsSearch()\
+                    .filter('term', identifiedBy__value__raw=harvested_id)\
+                    .source(includes=['pid'])
                 try:
                     pid = next(query.scan()).pid
                 except StopIteration:
@@ -91,10 +90,9 @@ def delete_records(records):
         for identifier in record.get('identifiedBy'):
             if identifier.get('source') == 'cantook':
                 harvested_id = identifier.get('value')
-                query = DocumentsSearch().filter(
-                    'term',
-                    identifiedBy__value=harvested_id
-                ).source(includes=['pid'])
+                query = DocumentsSearch()\
+                    .filter('term', identifiedBy__value__raw=harvested_id)\
+                    .source(includes=['pid'])
                 try:
                     pid = [r.pid for r in query.scan()].pop()
                 except IndexError:

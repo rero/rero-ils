@@ -641,3 +641,101 @@ def test_get_remote_cover(mock_get_cover, app):
         'success': True,
         'image': 'https://i.test.com/images/P/XXXXXXXXXX_.jpg'
     }
+
+
+def test_document_identifiers_search(client, document):
+    """Test search on `identifiedBy` document."""
+
+    def success(response_data):
+        data = response_data['hits']
+        return data['total']['value'] == 1 \
+            and data['hits'][0]['metadata']['pid'] == document.pid
+
+    def failure(response_data):
+        return response_data['hits']['total']['value'] == 0
+
+    # STEP#1 :: SEARCH FOR AN EXISTING IDENTIFIER
+    #   Search for an existing encoded document identifier. The ISBN-13 is
+    #   encoded into document data. Search on this specific value will return
+    #   a record.
+    params = {'identifiers': '(bf:Isbn)9782844267788'}
+    url = url_for('invenio_records_rest.doc_list', **params)
+    res = client.get(url)
+    assert success(get_json(res))
+
+    # STEP#2 :: SEARCH FOR AN ALTERNATIVE IDENTIFIER
+    #   Search for the alternative of the encoded ISBN-13 value. During the
+    #   document indexing process the corresponding ISBN-10 is appended to
+    #   identifier list. A search on this value should return the same
+    #   document. Additionally, search with hyphens to validate the specific
+    #   identifier analyzer used for this field.
+    params = {'identifiers': '(bf:Isbn)2-84426-778-5'}
+    url = url_for('invenio_records_rest.doc_list', **params)
+    res = client.get(url)
+    assert success(get_json(res))
+
+    # STEP#3 :: SEARCH WITH ONLY IDENTIFIER VALUE
+    #   Search only about an identifier value without specified any identifier
+    #   type.
+    params = {'identifiers': 'R008745599'}
+    url = url_for('invenio_records_rest.doc_list', **params)
+    res = client.get(url)
+    assert success(get_json(res))
+
+    # STEP#4 :: SEARCH ON UNKNOWN IDENTIFIERS
+    for id_value in ['dummy_identifiers', '(bf:Issn)9782844267788']:
+        params = {'identifiers': id_value}
+        url = url_for('invenio_records_rest.doc_list', **params)
+        res = client.get(url)
+        assert failure(get_json(res))
+
+    # STEP#5 :: GROUPED SEARCH
+    #   Use this filter in combination with other filter. In this test, the
+    #   document isn't an harvested document, but it contains the correct
+    #   specified identifier.
+    params = {
+        'identifiers': '(bf:Ean)9782844267788',
+        'q': 'harvested:true'
+    }
+    url = url_for('invenio_records_rest.doc_list', **params)
+    res = client.get(url)
+    assert failure(get_json(res))
+
+    params['q'] = 'harvested:false'
+    url = url_for('invenio_records_rest.doc_list', **params)
+    res = client.get(url)
+    assert success(get_json(res))
+
+    # STEP#6 :: SEARCH USING SHORTCUT ES KEYS
+    #   'isbn' and 'issn' keys are added to the ES stored document. These key
+    #   only contains the corresponding identifiers value ; but analyzer
+    #   allows search using hyphens or not.
+    url = url_for('invenio_records_rest.doc_list', q='isbn:2-84426-778-5')
+    res = client.get(url)
+    assert success(get_json(res))
+
+    # STEP#7 :: WILDCARD SEARCH
+    #    `identifiers` filter allow to search on a partial identifier string
+    #    (only for the identifier value part).
+    params = {'identifiers': 'R0087455*'}
+    url = url_for('invenio_records_rest.doc_list', **params)
+    res = client.get(url)
+    assert success(get_json(res))
+
+    params = {'identifiers': '(bf:Local)*87455*'}
+    url = url_for('invenio_records_rest.doc_list', **params)
+    res = client.get(url)
+    assert success(get_json(res))
+
+    params = {'identifiers': '*dummy_search*'}
+    url = url_for('invenio_records_rest.doc_list', **params)
+    res = client.get(url)
+    assert failure(get_json(res))
+
+    # STEP#8 :: SEARCH WITH MULTIPLE IDENTIFIERS
+    #    If we send multiple identifiers, an OR query will be used to search on
+    #    each of them.
+    params = {'identifiers': ['dummy', 'other_id', '(bf:Ean)9782844267788']}
+    url = url_for('invenio_records_rest.doc_list', **params)
+    res = client.get(url)
+    assert success(get_json(res))
