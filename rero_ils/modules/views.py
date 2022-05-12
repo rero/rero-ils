@@ -84,12 +84,10 @@ def translations(ln):
     po_file_name = f'{path}/{ln}/LC_MESSAGES/{domain.domain}.po'
     if not os.path.isfile(po_file_name):
         abort(404)
-    data = {}
     try:
         po = polib.pofile(po_file_name)
     except Exception:
         current_app.logger.error(f'unable to open po file: {po_file_name}')
         abort(404)
-    for entry in po:
-        data[entry.msgid] = entry.msgstr or entry.msgid
+    data = {entry.msgid: entry.msgstr or entry.msgid for entry in po}
     return jsonify(data)

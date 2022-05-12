@@ -128,11 +128,6 @@ def _(x):
     """Identity function used to trigger string extraction."""
     return x
 
-# Flag to determine the state of ILS
-# Show or hide message on red
-RERO_ILS_STATE_PRODUCTION = False
-RERO_ILS_STATE_MESSAGE=_('Test version')
-
 # Personalized homepage
 RERO_ILS_PERSONALIZED_CSS_BY_VIEW = True
 RERO_ILS_PERSONALIZED_HOMEPAGE_BY_VIEW = False
@@ -2794,6 +2789,15 @@ RERO_ILS_APP_URL = 'https://bib.rero.ch'
 
 RERO_ILS_PERMALINK_RERO_URL = 'http://data.rero.ch/01-{identifier}'
 
+# Flag to determine the state of ILS
+# Show or hide message on red
+RERO_ILS_STATE_PRODUCTION = False
+RERO_ILS_STATE_MESSAGE=_('This is a TEST VERSION.')
+RERO_ILS_STATE_LINK_MESSAGE=_('Go to the production site.')
+RERO_ILS_STATE_LINK=RERO_ILS_APP_URL
+
+# robots.txt response
+RERO_ILS_ROBOTS = 'User-Agent: *\nDisallow: /\n'
 #: Git commit hash. If set, a link to github commit page
 #: is displayed on RERO-ILS frontpage.
 RERO_ILS_APP_GIT_HASH = None

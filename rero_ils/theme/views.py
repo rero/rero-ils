@@ -23,10 +23,12 @@ import copy
 import re
 from functools import wraps
 
-from flask import Blueprint, abort, current_app, jsonify, redirect, \
+from flask import Blueprint, Response, abort, current_app, jsonify, redirect, \
     render_template, request, session, url_for
 from invenio_jsonschemas import current_jsonschemas
 from invenio_jsonschemas.errors import JSONSchemaNotFound
+
+from rero_ils.modules.utils import cached
 
 from .menus import init_menu_lang, init_menu_profile, init_menu_tools
 from ..modules.organisations.api import Organisation
@@ -56,7 +58,7 @@ def check_organisation_viewcode(fn):
         # Add default view code
         viewCodes.append(current_app.config.get(
             'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))
-        if not kwargs['viewcode'] in viewCodes:
+        if kwargs['viewcode'] not in viewCodes:
             abort(404)
         return fn(*args, **kwargs)
 
@@ -67,6 +69,18 @@ def check_organisation_viewcode(fn):
 def error():
     """Error to generate exception for test purposes."""
     raise Exception('this is an error for test purposes')
+
+
+@blueprint.route('/robots.txt')
+@cached()
+def robots(timeout=60*60):  # 1 hour timeout
+    """Robots.txt generate response."""
+    response = current_app.config['RERO_ILS_ROBOTS']
+    response = Response(
+        response=response,
+        status=200, mimetype="text/plain")
+    response.headers["Content-Type"] = "text/plain; charset=utf-8"
+    return response
 
 
 @blueprint.route('/')
@@ -154,8 +168,7 @@ def url_active(string, target):
 def view_organisation_name(viewcode):
     """Get view name."""
     if viewcode != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
-        org = Organisation.get_record_by_viewcode(viewcode)
-        if org:
+        if org := Organisation.get_record_by_viewcode(viewcode):
             return org['name']
     return current_app.config.get('RERO_ILS_SEARCH_GLOBAL_NAME', '')
 
@@ -190,7 +203,7 @@ def schemaform(document_type):
     try:
         if current_app.debug:
             current_jsonschemas.get_schema.cache_clear()
-        schema_name = '{}/{}-v0.0.1.json'.format(document_type, doc_type)
+        schema_name = f'{document_type}/{doc_type}-v0.0.1.json'
         schema = current_jsonschemas.get_schema(schema_name, with_refs=True)
         data['schema'] = prepare_jsonschema(schema)
     except JSONSchemaNotFound:
