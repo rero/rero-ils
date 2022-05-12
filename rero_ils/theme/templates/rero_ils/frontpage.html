@@ -62,9 +62,12 @@
 
   <!-- Info message (not in production) -->
   {% if not config.RERO_ILS_STATE_PRODUCTION %}
-    <p class="text-center bg-danger text-white py-2 mb-0">
+    <h5 class="text-center bg-danger text-white py-2 mb-0">
       {{ config.RERO_ILS_STATE_MESSAGE }}
-    </p>
+      {% if config.RERO_ILS_STATE_LINK_MESSAGE %}
+        <a href={{ config.RERO_ILS_STATE_LINK}} class="rero-ils-external-link text-white">{{config.RERO_ILS_STATE_LINK_MESSAGE }}</a>
+      {% endif %}
+    </h5>
   {% endif %}
 
   <!-- Block links -->
