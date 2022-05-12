@@ -427,6 +427,16 @@ def marc21_to_subjects_6XX(self, key, value):
             identifier = build_identifier(value)
             if identifier:
                 subject['identifiedBy'] = identifier
+            subfields_2 = utils.force_list(value.get('2'))
+
+            if identifier \
+                    and data_type == 'bf:Topic' \
+                    and len(subfields_2) > 0 \
+                    and subfields_2[0].lower() == 'rero':
+                identifier['type'] = 'RERO-RAMEAU'
+            if identifier:
+                subject['identifiedBy'] = identifier
+
             perform_subdivisions(subject)
 
         if subject.get('$ref') or subject.get(field_data_per_tag[tag_key]):
