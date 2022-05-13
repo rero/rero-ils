@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2022-04-01 09:05+0200\n"
-"PO-Revision-Date: 2022-04-02 15:11+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2022-05-13 06:20+0000\n"
+"Last-Translator: Ambros Gattlen <ambros.gattlen@admin.vs.ch>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/de/>\n"
 "Language: de\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.12-dev\n"
+"X-Generator: Weblate 4.13-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: rero_ils/accounts_views.py:46 rero_ils/accounts_views.py:69
@@ -143,7 +143,7 @@ msgstr "Stadt"
 
 #: rero_ils/config.py:2073
 msgid "patron_type"
-msgstr "Lesertyp"
+msgstr "Kundentyp"
 
 #: rero_ils/config.py:2095
 msgid "budget"
@@ -4973,7 +4973,7 @@ msgstr "Kommunikationskanal"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:192
 msgid "According to the patron's settings"
-msgstr "Je nach den Einstellungen des Lesers"
+msgstr "Je nach den Einstellungen des Kunden"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:196
 msgid "Always per mail"
@@ -5047,24 +5047,24 @@ msgstr "Liste der Bibliotheken"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:371
 msgid "Patron + Item types links"
-msgstr "Links Lesertypen + Exemplartypen"
+msgstr "Links Kundentypen + Exemplartypen"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:372
 msgid ""
 "This defines which item categories and patron types this circulation "
 "policy applies to."
 msgstr ""
-"Dies definiert für welche Exemplartypen und Lesertypen diese "
-"Ausleihpolitik zutrifft."
+"Dies definiert für welche Exemplartypen und Kundentypen diese Ausleihpolitik "
+"zutrifft."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:383
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:337
 msgid "Patron type"
-msgstr "Lesertyp"
+msgstr "Kundentyp"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:391
 msgid "Patron type URI"
-msgstr "URI des Lesertypen"
+msgstr "URI des Kundentypen"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:398
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:285
@@ -9790,13 +9790,13 @@ msgstr "Wollen Sie das Dokument zur Ausleihe oder als Kopie."
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:278
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:98
 msgid "Patron"
-msgstr "Leser"
+msgstr "Kunde"
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:86
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:33
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:102
 msgid "Patron URI"
-msgstr "Leser URI"
+msgstr "Kunden URI"
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:94
 msgid "Should be in the following format: https://bib.rero.ch/api/patrons/<PID>."
@@ -9986,12 +9986,12 @@ msgstr "Der Exemplarstatus verbietet die Operation."
 
 #: rero_ils/modules/items/api/circulation.py:1046
 msgid "Item and patron are not in the same organisation."
-msgstr "Exemplar und Leser sind nicht in der gleichen Organisation."
+msgstr "Exemplar und Kunde sind nicht in der gleichen Organisation."
 
 #: rero_ils/modules/items/api/circulation.py:1051
 #: rero_ils/modules/selfcheck/api.py:416
 msgid "Item is already checked-out or requested by patron."
-msgstr "Das Exemplar ist bereits von diesem Leser ausgeliehen oder bestellt."
+msgstr "Das Exemplar ist bereits von diesem Kunden ausgeliehen oder bestellt."
 
 #: rero_ils/modules/items/api/record.py:73
 msgid "Holding does not exist: {pid}."
@@ -10243,7 +10243,7 @@ msgid ""
 "The notifications for patrons without e-mail are sent to this address. No"
 " notification is sent if the field is empty."
 msgstr ""
-"Die Benachrichtigungen für Leser ohne E-Mail werden an diese Adresse "
+"Die Benachrichtigungen für Kunden ohne E-Mail werden an diese Adresse "
 "gesendet. Wenn das Feld leer ist, wird keine Benachrichtigung gesendet."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:65
@@ -10422,11 +10422,11 @@ msgstr "Datum des Loans"
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:224
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:292
 msgid "Patron PID"
-msgstr "PID des Lesers"
+msgstr "PID des Kunden"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:87
 msgid "Transaction user PID"
-msgstr "PID des Transaktionslesers"
+msgstr "PID des Transaktionskunden"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:91
 msgid "Transaction location PID"
@@ -10819,7 +10819,7 @@ msgstr "Benutzer der Transaktion"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:229
 msgid "Patron name"
-msgstr "Lesername"
+msgstr "Kundenname"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:236
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:257
@@ -10842,7 +10842,7 @@ msgstr "Standortname"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:297
 msgid "Hashed Patron PID"
-msgstr "Hash-PID des Lesers"
+msgstr "Hash-PID des Kunden"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:312
 msgid "Age"
@@ -10953,7 +10953,7 @@ msgstr "JSON Schema für eine Transaktion."
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:17
 msgid "Schema to validate patron transaction event records against."
-msgstr "Schema zur Validierung von Leser Transaktions Datensätzen."
+msgstr "Schema zur Validierung von Kunden Transaktions Datensätzen."
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:23
 msgid "Patron transaction event ID"
@@ -10978,7 +10978,7 @@ msgstr "Ausführender"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:100
 msgid "Operator patron URI"
-msgstr "URI des Leserbetreibers"
+msgstr "URI des Kundenbetreibers"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:131
 msgid "fee"
@@ -11024,31 +11024,31 @@ msgstr "Abonnement für '{Name}' von {Beginn} bis {Ende}"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:4
 msgid "Patron Transaction"
-msgstr "Leser Transaktion"
+msgstr "Kunden Transaktion"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:5
 msgid "JSON schema for Patron Transaction."
-msgstr "JSON-Schema für Leser Transaktion."
+msgstr "JSON-Schema für Kunden Transaktion."
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:18
 msgid "Schema to validate patron transaction records against."
-msgstr "Schema zur Validierung von Leser Transaktions Datensätzen."
+msgstr "Schema zur Validierung von Kunden Transaktions Datensätzen."
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:24
 msgid "Patron transaction ID"
-msgstr "Leser Transaktion ID"
+msgstr "Kunden Transaktion ID"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:31
 msgid "Patron transaction creation date"
-msgstr "Leser Transaktion Erstellungsdatum"
+msgstr "Kunden Transaktion Erstellungsdatum"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:34
 msgid "Patron transaction note"
-msgstr "Leser Transaktion Anmerkung"
+msgstr "Kunden Transaktion Anmerkung"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:51
 msgid "Patron transaction type"
-msgstr "Leser Transaktion Typ"
+msgstr "Kunden Transaktion Typ"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:70
 msgid "photocopy"
@@ -11072,7 +11072,7 @@ msgstr "URI des Loans"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:148
 msgid "Total calculated amount of the patron transaction"
-msgstr "Berechneter Gesamtbetrag der Leser Transaktion"
+msgstr "Berechneter Gesamtbetrag der Kunden Transaktion"
 
 #: rero_ils/modules/patron_types/api.py:96
 msgid "Library limit cannot be higher than global limit."
@@ -11104,7 +11104,7 @@ msgstr ""
 
 #: rero_ils/modules/patron_types/api.py:165
 msgid "Checkout denied: patron has unpaid subscription"
-msgstr "Ausleihe verweigert: der Leser hat ein unbezahltes Abonnement"
+msgstr "Ausleihe verweigert: der Kunde hat ein unbezahltes Abonnement"
 
 #: rero_ils/modules/patron_types/api.py:185
 msgid "Request denied: the maximal number of overdue items is reached"
@@ -11120,7 +11120,7 @@ msgstr ""
 
 #: rero_ils/modules/patron_types/api.py:193
 msgid "Request denied: patron has unpaid subscription"
-msgstr "Bestellung verweigert: der Leser hat ein unbezahltes Abonnement"
+msgstr "Bestellung verweigert: der Kunde hat ein unbezahltes Abonnement"
 
 #: rero_ils/modules/patron_types/api.py:214
 msgid "Renewal denied: the maximal number of overdue items is reached"
@@ -11136,7 +11136,7 @@ msgstr ""
 
 #: rero_ils/modules/patron_types/api.py:222
 msgid "Renewal denied: patron has unpaid subscription"
-msgstr "Verlängerung verweigert: der Leser hat ein unbezahltes Abonnement"
+msgstr "Verlängerung verweigert: der Kunde hat ein unbezahltes Abonnement"
 
 #: rero_ils/modules/patron_types/api.py:315
 msgid "Checkout denied: the maximal checkout number is reached."
@@ -11152,41 +11152,40 @@ msgstr ""
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:4
 msgid "PatronType"
-msgstr "Lesertyp"
+msgstr "Kundentyp"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:5
 msgid "JSON schema for patron_types."
-msgstr "JSON Schema für einen Lesertypen."
+msgstr "JSON Schema für einen Kundentypen."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:23
 msgid "Schema to validate patron_types records against."
-msgstr "Schema zur Validierung von Lesertypen."
+msgstr "Schema zur Validierung von Kundentypen."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:29
 msgid "Patron type ID"
-msgstr "ID des Lesertypen"
+msgstr "ID des Kundentypen"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:35
 msgid "The name of the patron type"
-msgstr "Der Name des Lesertypen"
+msgstr "Der Name des Kundentypen"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:47
 msgid "The patron type name is already taken."
-msgstr "Der Name des Lesertypen ist bereits vergeben."
+msgstr "Der Name des Kundentyps ist bereits vergeben."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:54
 msgid "The description of the patron type."
-msgstr "Die Beschreibung des Lesertypen."
+msgstr "Die Beschreibung des Kundentyps."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:59
 msgid "Code to identify the patron type."
-msgstr "Code zur Identifizierung des Lesertyps."
+msgstr "Code zur Identifizierung des Kundentyps."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:80
 msgid "Yearly amount due by patrons linked to this patron type."
 msgstr ""
-"Jährlich fälliger Betrag für Leser, die mit diesem Type von Leser "
-"verbunden sind."
+"Jährlich fälliger Betrag für Kunden, die mit diesem Kundentyp verbunden sind."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:90
 msgid "Yearly subscription"
@@ -11195,8 +11194,8 @@ msgstr "Jährliches Abonnement"
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:91
 msgid "Activation of subscription fees for patrons linked to this type."
 msgstr ""
-"Aktivierung der Abonnementsgebühren für Leser, die mit diesem Typ "
-"verbunden sind."
+"Aktivierung der Abonnementsgebühren für Kunden, die mit diesem Typ verbunden "
+"sind."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:97
 msgid "Limits"
@@ -11279,11 +11278,11 @@ msgstr "Begrenzung nach überfälligen Exemplaren"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:242
 msgid "Block the patron if the subscription is not paid"
-msgstr "Leser sperren, wenn das Abonnement nicht bezahlt ist"
+msgstr "Kunde sperren, wenn das Abonnement nicht bezahlt ist"
 
 #: rero_ils/modules/patrons/api.py:395 rero_ils/modules/patrons/api.py:723
 msgid "Patron rights expired."
-msgstr "Die Leserrechte sind abgelaufen."
+msgstr "Die Kundenrechte sind abgelaufen."
 
 #: rero_ils/modules/patrons/api.py:587
 msgid "Your account is currently blocked."
@@ -11291,7 +11290,7 @@ msgstr "Ihr Konto ist derzeit gesperrt."
 
 #: rero_ils/modules/patrons/api.py:588
 msgid "This patron is currently blocked."
-msgstr "Dieser Leser ist zurzeit gesperrt."
+msgstr "Dieser Kunde ist zurzeit gesperrt."
 
 #: rero_ils/modules/patrons/api.py:592
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:372
@@ -11306,7 +11305,7 @@ msgstr ""
 
 #: rero_ils/modules/patrons/views.py:190
 msgid "Patron Profile"
-msgstr "Leserprofil"
+msgstr "Kundenprofil"
 
 #: rero_ils/modules/patrons/views.py:249
 msgid "You have a pending subscription fee."
@@ -11328,7 +11327,7 @@ msgstr "Schema zur Validierung von Benutzern."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:32
 msgid "Patron ID"
-msgstr "Leser ID"
+msgstr "Kunden ID"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:37
 msgid "Source if the record has been loaded in a batch."
@@ -11355,23 +11354,23 @@ msgstr "Strasse und Hausnummer."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:133
 msgid "Patron Information"
-msgstr "Leserinformationen"
+msgstr "Kundeninformationen"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:156
 msgid "Patron Type"
-msgstr "Lesertyp"
+msgstr "Kundentyp"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:157
 msgid "Patron type in terms of circulation policy."
-msgstr "Lesertyp in Bezug auf Ausleihpolitik."
+msgstr "Kundentyp in Bezug auf Ausleihpolitik."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:175
 msgid "Patron's barcodes or cards number"
-msgstr "Leserkartennummer"
+msgstr "Kundenkartennummer"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:181
 msgid "Patron's barcode or card number"
-msgstr "Leserkartennummer"
+msgstr "Kundenkartennummer"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:202
 msgid "Affiliation libraries"
@@ -11379,7 +11378,7 @@ msgstr "Zugehörige Bibliotheken"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:203
 msgid "Library affiliation of the patron."
-msgstr "Bibliothekszugehörigkeit des Lesers."
+msgstr "Bibliothekszugehörigkeit des Kunden."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:208
 msgid "Affiliation library"
@@ -11387,7 +11386,7 @@ msgstr "Zugehörige Bibliothek"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:226
 msgid "Patron's expiration date"
-msgstr "Ablaufdatum des Lesers"
+msgstr "Ablaufdatum des Kunden"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:242
 msgid ""
@@ -11436,7 +11435,7 @@ msgstr "Das Enddatum des Abonnements (ausgewähltes Datum ausgeschlossen)."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:350
 msgid "Patron transaction"
-msgstr "Leser-Transaktion"
+msgstr "Gebühren"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:367
 msgid "Blocking"
@@ -11445,15 +11444,15 @@ msgstr "Sperrung"
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:368
 msgid "A patron with a blocked account cannot extend, request and borrow items."
 msgstr ""
-"Ein Leser mit gesperrtem Konto kann keine Exemplare ausleihen, verlängern"
-" oder bestellen."
+"Ein Kunde mit gesperrtem Konto kann keine Exemplare ausleihen, verlängern "
+"oder bestellen."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:374
 msgid ""
 "The reason is displayed in the circulation module and is visible by the "
 "patron in his account."
 msgstr ""
-"Der Grund wird im Ausleihmodul angezeigt und ist für den Leser in seinem "
+"Der Grund wird im Ausleihmodul angezeigt und ist für den Kunden in seinem "
 "Konto sichtbar."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:396
@@ -11474,7 +11473,7 @@ msgstr ""
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:451
 msgid "patron"
-msgstr "Leser"
+msgstr "Kunde"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:459
 msgid "acquisition_librarian"
@@ -11504,7 +11503,7 @@ msgstr "Verwaltung der Selbstverbuchungsautomaten"
 #: rero_ils/modules/selfcheck/api.py:139 rero_ils/modules/selfcheck/api.py:176
 #: rero_ils/modules/selfcheck/api.py:259
 msgid "Error encountered: patron not found"
-msgstr "Fehler aufgetreten: Leser nicht gefunden"
+msgstr "Fehler aufgetreten: Kunde nicht gefunden"
 
 #: rero_ils/modules/selfcheck/api.py:329 rero_ils/modules/selfcheck/api.py:398
 #: rero_ils/modules/selfcheck/api.py:489 rero_ils/modules/selfcheck/api.py:565
@@ -11557,7 +11556,7 @@ msgstr "Statistik"
 
 #: rero_ils/modules/stats/templates/rero_ils/detailed_view_stats.html:90
 msgid "Postal code: number of patrons"
-msgstr "Postleitzahl: Anzahl der Leser"
+msgstr "Postleitzahl: Anzahl der Kunden"
 
 #: rero_ils/modules/stats/templates/rero_ils/detailed_view_stats.html:92
 msgid "Location: number of new items"
@@ -11565,7 +11564,7 @@ msgstr "Standort: Anzahl der neuen Exemplare"
 
 #: rero_ils/modules/stats/templates/rero_ils/detailed_view_stats.html:94
 msgid "Postal code: number of new patrons"
-msgstr "Postleitzahl: Anzahl der neuen Leser"
+msgstr "Postleitzahl: Anzahl der neuen Kunden"
 
 #: rero_ils/modules/stats/templates/rero_ils/stats_list.html:23
 msgid "Live values"
@@ -12019,7 +12018,7 @@ msgstr "Sehr geehrte(r)"
 #: rero_ils/theme/templates/security/email/reset_instructions.html:24
 #: rero_ils/theme/templates/security/email/reset_notice.html:24
 msgid "Dear patron"
-msgstr "Liebe(r) Leser(in)"
+msgstr "Liebe(r) Kunde(in)"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:26
 msgid "Someone requested that the password for your RERO ID account be reset."
