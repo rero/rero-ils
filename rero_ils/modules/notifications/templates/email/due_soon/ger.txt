@@ -1,6 +1,6 @@
 Ablauf der Ausleihfrist
 {%- include('email/_patron_address.txt') %}
-Sehr geehrte Leserin, sehr geehrter Leser,
+Sehr geehrte Kundin, sehr geehrter Kunde,
 
 Die Ausleihfrist der folgenden Dokumente läuft ab:
 

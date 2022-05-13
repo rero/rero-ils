@@ -1,6 +1,6 @@
 Nicht verlängerbares Dokument
 {%- include('email/_patron_address.txt') %}
-Sehr geehrte Leserin, sehr geehrter Leser,
+Sehr geehrte Kundin, sehr geehrter Kunde,
 
 Das von Ihnen ausgeliehene Dokument ist von einer anderen Person reserviert worden. Eine Verlängerung der Ausleihfrist ist deshalb nicht mehr möglich und wir bitten Sie, das Dokument spätestens bis zum Rückgabedatum zurückzugeben.
 
