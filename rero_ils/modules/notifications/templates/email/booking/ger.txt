@@ -10,7 +10,7 @@ Signatur: {{ loan.document.call_numbers | join(' | ') }}
 {%- endif %}
 
 Abholort: {{ loan.pickup_name }}
-Leser: {{ loan.patron.first_name }} {{ loan.patron.last_name }}
+Kunde: {{ loan.patron.first_name }} {{ loan.patron.last_name }}
 {%- if loan.patron.barcode %} - {{ loan.patron.barcode | join(', ') }}{%- endif %}
 
 {% endfor %}
