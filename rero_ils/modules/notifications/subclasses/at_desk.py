@@ -45,6 +45,28 @@ class AtDeskCirculationNotification(InternalCirculationNotification):
     never be aggregated.
     """
 
+    def can_be_cancelled(self):
+        """Check if a notification can be canceled.
+
+        An AT_DESK notification can be sent only if a request is done on the
+        related item.
+
+        :return: a tuple with two values: a boolean to know if the notification
+                 can be cancelled; the reason why the notification can be
+                 cancelled (only present if tuple first value is True).
+        """
+        # Check if parent class would cancel the notification. If yes other
+        # check could be skipped.
+        can, reason = super().can_be_cancelled()
+        if can:
+            return can, reason
+        # Cancel if no request has been done on corresponding loan.
+        if not self.request_loan:
+            msg = "No previous request found, none AT_DESK should be sent."
+            return True, msg
+        # we don't find any reasons to cancel this notification
+        return False, None
+
     def get_template_path(self):
         """Get the template to use to render the notification."""
         return f'email/at_desk/{self.get_language_to_use()}.txt'
@@ -52,8 +74,7 @@ class AtDeskCirculationNotification(InternalCirculationNotification):
     def get_recipients_to(self):
         """Get notification recipient email addresses."""
         # At desk notification will be sent to the loan transaction library.
-        recipient = self.transaction_library.get_email(self.type)
-        if recipient:
+        if recipient := self.transaction_library.get_email(self.type):
             return [recipient]
 
     @classmethod
@@ -64,7 +85,7 @@ class AtDeskCirculationNotification(InternalCirculationNotification):
         if not notifications:
             return context
 
-        context.update({'loans': []})
+        context['loans'] = []
         doc_dumper = DocumentGenericDumper()
         item_dumper = ItemNotificationDumper()
         patron_dumper = PatronNotificationDumper()
