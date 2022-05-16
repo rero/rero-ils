@@ -1314,7 +1314,12 @@
     "number_renewals": 1,
     "renewal_duration": 15,
     "is_default": false,
-    "policy_library_level": false,
+    "policy_library_level": true,
+    "libraries": [
+      {
+        "$ref": "https://bib.rero.ch/api/libraries/lib1"
+      }
+    ],
     "settings": [
       {
         "patron_type": {

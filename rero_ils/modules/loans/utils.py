@@ -97,7 +97,9 @@ def get_default_loan_duration(loan, initial_loan):
 
 def get_extension_params(loan=None, initial_loan=None, parameter_name=None):
     """Return extension parameters."""
-    policy = get_circ_policy(loan)
+    # find the correct policy based on the checkout location for the extend
+    # action.
+    policy = get_circ_policy(loan, checkout_location=True)
     end_date = ciso8601.parse_datetime(str(loan.get('end_date')))
     params = {
         'max_count': policy.get('number_renewals'),

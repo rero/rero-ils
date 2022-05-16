@@ -67,7 +67,7 @@ def test_circ_policies_permissions_api(client, librarian_martigny,
     assert data['list']['can']
     assert data['read']['can']
     assert not data['create']['can']
-    assert not data['update']['can']
+    assert data['update']['can']
     assert not data['delete']['can']
     res = client.get(cipo_tmp_martigny_permissions_url)
     assert res.status_code == 200
@@ -128,7 +128,7 @@ def test_circ_policies_permissions(patron_martigny,
         assert CirculationPolicyPermission.list(None, cipo)
         assert CirculationPolicyPermission.read(None, cipo)
         assert not CirculationPolicyPermission.create(None, cipo)
-        assert not CirculationPolicyPermission.update(None, cipo)
+        assert CirculationPolicyPermission.update(None, cipo)
         assert not CirculationPolicyPermission.delete(None, cipo)
         assert CirculationPolicyPermission.update(None, cipo_tmp)
 

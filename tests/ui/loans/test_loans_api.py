@@ -191,7 +191,7 @@ def test_item_loans_extend_duration(
             # assert loan_pid
             loan = Loan.get_record_by_pid(loan_pid)
             end_date = ciso8601.parse_datetime(loan.get('end_date'))
-            policy = get_circ_policy(loan)
+            policy = get_circ_policy(loan, checkout_location=True)
             # do the extend one day before the end date at 3pm
             extend_action_date = (
                 end_date - timedelta(days=1)).replace(hour=15)

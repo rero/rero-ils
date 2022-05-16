@@ -841,7 +841,8 @@ def circ_policy_short_martigny(
         patron_type_adults_martigny,
         item_type_standard_martigny,
         item_type_specific_martigny,
-        circ_policy_short_martigny_data):
+        circ_policy_short_martigny_data,
+        lib_martigny, lib_fully):
     """Create short circ policy for organisation martigny."""
     cipo = CircPolicy.create(
         data=circ_policy_short_martigny_data,

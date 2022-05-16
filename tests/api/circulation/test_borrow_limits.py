@@ -204,7 +204,7 @@ def test_overdue_limit(
      item2_lib_martigny, patron_type_children_martigny,
      item3_lib_martigny, item_lib_martigny_data, item2_lib_martigny_data,
      item3_lib_martigny_data, loc_public_martigny, patron_martigny,
-     circ_policy_short_martigny, lib_saxon, loc_public_saxon):
+     circulation_policies, lib_saxon, loc_public_saxon):
     """Test overdue limit."""
 
     item = item_lib_martigny
