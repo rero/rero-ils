@@ -918,8 +918,10 @@ def test_multiple_request_booking_notifications(
         )
     )
     assert res.status_code == 200
+    mailbox.clear()
 
-    # checkout for patron1
+    # CHECKOUT FOR REQUEST#1
+    #     After the checkout, no new notification will be sent.
     params = {
         'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
@@ -927,19 +929,22 @@ def test_multiple_request_booking_notifications(
     }
     loan, actions = item_lib_martigny.checkout(**params)
     assert actions.get(LoanAction.CHECKOUT)
-    assert f'Lieu de retrait: {loc_public_martigny.get("code")}'\
-        in mailbox[-1].body
+
+    # CHECKIN AT THE REQUEST PICKUP OF PATRON#2.
+    #    After this checkin, two notifications will be sent :
+    #      - BOOKING notification --> sent to library
+    #      - AT_DESK notification --> sent to library too
     params = {
         'transaction_location_pid': loc_public_sion.pid,
         'transaction_user_pid': librarian_sion.pid
     }
-    # checkin at the request pickup of patron2
     _, actions = item_lib_martigny.checkin(**params)
     assert actions.get(LoanAction.CHECKIN)
-    assert f'Lieu de retrait: {loc_public_sion.get("code")}'\
-        in mailbox[-1].body
+    search_string = f'Lieu de retrait: {loc_public_sion.get("code")}'
+    assert any(search_string in message.body for message in mailbox)
 
-    # checkout for patron2
+    # CHECKOUT & CHECKIN FOR PATRON#2
+    mailbox.clear()
     params = {
         'patron_pid': patron2_martigny.pid,
         'transaction_location_pid': loc_public_sion.pid,
@@ -952,12 +957,13 @@ def test_multiple_request_booking_notifications(
         'transaction_user_pid': librarian_saxon.pid
     }
     # checkin at the request pickup of patron3
-    _, actions = item_lib_martigny.checkin(**params)
+    loan, actions = item_lib_martigny.checkin(**params)
     assert actions.get(LoanAction.CHECKIN)
-    assert f'Lieu de retrait: {loc_public_saxon.get("code")}'\
-        in mailbox[-1].body
+    search_string = f'Lieu de retrait: {loc_public_saxon.get("code")}'
+    assert any(search_string in message.body for message in mailbox)
 
     # checkout for patron3
+    mailbox.clear()
     params = {
         'patron_pid': patron4_martigny.pid,
         'transaction_location_pid': loc_public_saxon.pid,
