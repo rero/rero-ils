@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2022-05-16 08:15+0200\n"
 "PO-Revision-Date: 2022-05-17 06:04+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/de/>\n"
 "Language: de\n"
@@ -9546,9 +9546,8 @@ msgid "acquisition_note"
 msgstr "Anmerkung zum Erwerb"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:652
-#, fuzzy
 msgid "access_note"
-msgstr "Anmerkung zum Kredit"
+msgstr "Zugang"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:697
 msgid "Acquisition status"
@@ -9794,7 +9793,7 @@ msgstr "Abholort"
 
 #: rero_ils/modules/ill_requests/forms.py:159
 msgid "Select…"
-msgstr ""
+msgstr "Wählen…"
 
 #: rero_ils/modules/ill_requests/forms.py:160
 msgid "Select the location where this request will be operated"
