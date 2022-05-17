@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2022-05-16 08:15+0200\n"
-"PO-Revision-Date: 2022-05-16 07:55+0000\n"
-"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"PO-Revision-Date: 2022-05-17 06:04+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/it/>\n"
 "Language: it\n"
@@ -8425,7 +8425,7 @@ msgstr "Ente (locale)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:107
 msgid "bf:Organisation"
-msgstr "bf:Organisation"
+msgstr "Ente"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:151
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:39
@@ -8486,7 +8486,7 @@ msgstr "Suddivisione formale"
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:460
 msgid "Subject subdivision for a specific kind or genre of material (MARC 6XX$v)"
 msgstr ""
-"Sottodivisione del soggetto per uno specifico tipo o genere di materiale ("
+"Suddivisione del soggetto per uno specifico genere o forma di materiale ("
 "MARC 6XX$v)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:464
@@ -8511,15 +8511,15 @@ msgstr "Esempio: Storia"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:489
 msgid "Time-span subdivisions"
-msgstr "Suddivisioni di periodo di tempo"
+msgstr "Suddivisioni cronologiche"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:493
 msgid "Time-span subdivision"
-msgstr "Suddivisione di periodo di tempo"
+msgstr "Suddivisione cronologica"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:494
 msgid "Subject subdivision for a period of time (MARC 6XX$y)"
-msgstr "Suddivisione del soggetto per un periodo di tempo (MARC 6XX$y)"
+msgstr "Suddivisione del soggetto per un arco di tempo (MARC 6XX$y)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:498
 msgid "Example: 500-1400"
@@ -8527,11 +8527,11 @@ msgstr "Esempio: 500-1400"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:506
 msgid "Place subdivisions"
-msgstr "Suddivisioni di luogo"
+msgstr "Suddivisioni geografiche"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:510
 msgid "Place subdivision"
-msgstr "Suddivisione di luogo"
+msgstr "Suddivisione geografica"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:511
 msgid "Subject subdivision for a place (MARC 6XX$z)"
