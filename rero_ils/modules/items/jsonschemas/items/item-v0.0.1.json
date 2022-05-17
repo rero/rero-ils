@@ -637,7 +637,7 @@
       "type": "string",
       "title": "URL",
       "format": "uri",
-      "pattern": "^(ftp?|http[s]?)://.*$",
+      "pattern": "^(rtsp?|ftp?|http[s]?)://.*$",
       "minLength": 7,
       "form": {
         "validation": {
