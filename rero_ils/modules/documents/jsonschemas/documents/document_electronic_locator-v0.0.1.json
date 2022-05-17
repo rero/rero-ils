@@ -23,7 +23,7 @@
           "description": "Record a unique URL here.",
           "type": "string",
           "format": "uri",
-          "pattern": "^(ftps?|https?)://.*$",
+          "pattern": "^(rtsp?|ftps?|https?)://.*$",
           "minLength": 7,
           "form": {
             "placeholder": "Example: https://www.rero.ch/",
