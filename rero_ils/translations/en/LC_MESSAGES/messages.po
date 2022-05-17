@@ -18,15 +18,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2022-05-16 08:15+0200\n"
-"PO-Revision-Date: 2022-05-14 16:17+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2022-05-16 07:49+0000\n"
+"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/en/>\n"
 "Language: en\n"
-"Language-Team: English <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/en/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.13-dev\n"
 "Generated-By: Babel 2.10.1\n"
 
 #: rero_ils/accounts_views.py:46 rero_ils/accounts_views.py:69
@@ -8409,9 +8410,8 @@ msgid "Corporate body (local)"
 msgstr "Corporate body (local)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:107
-#, fuzzy
 msgid "bf:Organisation"
-msgstr "organisation"
+msgstr "bf:Organisation"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:151
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:39
@@ -8472,67 +8472,59 @@ msgstr "Form subdivision"
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:460
 msgid "Subject subdivision for a specific kind or genre of material (MARC 6XX$v)"
 msgstr ""
+"Subject subdivision for a specific kind or genre of material (MARC 6XX$v)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:464
-#, fuzzy
 msgid "Example: Periodicals"
-msgstr "Periodical"
+msgstr "Example: Periodicals"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:472
-#, fuzzy
 msgid "Concept subdivisions"
-msgstr "Form subdivisions"
+msgstr "Concept subdivisions"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:476
-#, fuzzy
 msgid "Concept subdivision"
-msgstr "Form subdivision"
+msgstr "Concept subdivision"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:477
 msgid "Subject subdivision for a concept (MARC 6XX$x)"
-msgstr ""
+msgstr "Subject subdivision for a concept (MARC 6XX$x)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:481
-#, fuzzy
 msgid "Example: History"
-msgstr "Keep history"
+msgstr "Example: History"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:489
-#, fuzzy
 msgid "Time-span subdivisions"
-msgstr "Form subdivisions"
+msgstr "Time-span subdivisions"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:493
-#, fuzzy
 msgid "Time-span subdivision"
-msgstr "Form subdivision"
+msgstr "Time-span subdivision"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:494
 msgid "Subject subdivision for a period of time (MARC 6XX$y)"
-msgstr ""
+msgstr "Subject subdivision for a period of time (MARC 6XX$y)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:498
-#, fuzzy
 msgid "Example: 500-1400"
-msgstr "Example: 25000"
+msgstr "Example: 500-1400"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:506
-#, fuzzy
 msgid "Place subdivisions"
-msgstr "Form subdivisions"
+msgstr "Place subdivisions"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:510
-#, fuzzy
 msgid "Place subdivision"
-msgstr "Form subdivision"
+msgstr "Place subdivision"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:511
 msgid "Subject subdivision for a place (MARC 6XX$z)"
-msgstr ""
+msgstr "Subject subdivision for a place (MARC 6XX$z)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:515
 msgid "Example: Mississippi"
-msgstr ""
+msgstr "Example: Mississippi"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:3
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:12
@@ -9455,9 +9447,8 @@ msgstr ""
 "last claim date after which it is claimed again."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:528
-#, fuzzy
 msgid "Collection"
-msgstr "Collection ID"
+msgstr "Collection"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:529
 msgid "Textual description of the basic bibliographic unit of the holding."
@@ -9521,9 +9512,8 @@ msgid "acquisition_note"
 msgstr "Acquisition"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:652
-#, fuzzy
 msgid "access_note"
-msgstr "credit note"
+msgstr "Access"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:697
 msgid "Acquisition status"
@@ -9767,7 +9757,7 @@ msgstr "Pickup location"
 
 #: rero_ils/modules/ill_requests/forms.py:159
 msgid "Select…"
-msgstr ""
+msgstr "Select…"
 
 #: rero_ils/modules/ill_requests/forms.py:160
 msgid "Select the location where this request will be operated"
@@ -13556,4 +13546,3 @@ msgstr "Your password has been successfully reset."
 
 #~ msgid "Available collection"
 #~ msgstr "Available collection"
-
