@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "rero-ils"
-version = "1.10.0"
+version = "1.11.0"
 description = "Invenio digital library framework."
 authors = ["RERO <software@rero.ch>"]
 license = "GNU Affero General Public License v3.0"
 
 [tool.poetry.dependencies]
-python = ">= 3.7, <3.10"
+python = ">= 3.9, <3.10"
 ## Python packages dependencies (order matters)
 #------------------------------------------------------------------------------
 ## Note: poetry evaluates the package constraints from the top to the bottom
