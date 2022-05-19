@@ -112,6 +112,7 @@ class DocumentJSONSerializer(JSONSerializer):
             with_subtitle=False
         ):
             metadata['ui_title_text_responsibility'] = text_title
+
         if view_code != GLOBAL_VIEW_CODE:
             metadata['items'] = [
                 item for item in metadata.get('items', [])
@@ -122,6 +123,25 @@ class DocumentJSONSerializer(JSONSerializer):
     def _postprocess_search_aggregations(self, aggregations: dict) -> None:
         """Post-process aggregations from a search result."""
         view_id, view_code = DocumentJSONSerializer._get_view_information()
+
+        # to display the results of nested aggregations
+        # (nested aggregations are created to apply facet filters),
+        # put the value of the nested 'aggs_facet' aggregation
+        # one level up.
+        for key, agg in aggregations.items():
+            if agg and ('aggs_facet' in agg):
+                aggregations[key] = aggregations[key]['aggs_facet']
+
+        # format the results of the facet 'year' to be displayed
+        # as range
+        if aggregations.get('year'):
+            aggregations['year']['type'] = 'range'
+            aggregations['year']['config'] = {
+                'min': -9999,
+                'max': 9999,
+                'step': 1
+            }
+
         if aggr_org := aggregations.get('organisation', {}).get('buckets', []):
             # For a "local view", we only need the facet on the location
             # organisation. We can filter the organisation aggregation to keep
@@ -130,23 +150,58 @@ class DocumentJSONSerializer(JSONSerializer):
                 aggr_org = list(
                     filter(lambda term: term['key'] == view_id, aggr_org)
                 )
-            # Complete Organisation/library/location aggregation information
+                aggregations['organisation']['buckets'] = aggr_org
+
+            for org in aggr_org:
+                # filter libraries by organisation
+                records = LibrariesSearch() \
+                            .get_libraries_by_organisation_pid(
+                                org['key'], ['pid', 'name'])
+                org_library = [{record.pid: record.name}
+                               for record in records]
+                org_library_pids = list(set().union(*(lib.keys()
+                                                    for lib in org_library)))
+
+                org['library']['buckets'] = [library for library
+                                             in org['library']['buckets']
+                                             if library['key'] in
+                                             org_library_pids]
+
+                for library in org['library']['buckets']:
+                    for lib in org_library:
+                        if library['key'] in lib:
+                            library['name'] = lib[library['key']]
+                            break
+
+                # filter locations by library
+                for library in org['library']['buckets']:
+                    locations = LocationsSearch() \
+                        .filter('term', library__pid=library['key'])\
+                        .source(['pid', 'name']).scan()
+                    library_location = [{location.pid: location.name}
+                                        for location in locations]
+                    library_location_pids = \
+                        list(set()
+                             .union(*(loc.keys()
+                                      for loc in library_location)))
+                    library['location']['buckets'] = \
+                        [location for location
+                         in library['location']['buckets']
+                         if location['key'] in library_location_pids]
+
+                    for location in library['location']['buckets']:
+                        for loc in library_location:
+                            if location['key'] in loc:
+                                location['name'] = loc[location['key']]
+                                break
+
+            # Complete Organisation aggregation information
             # with corresponding resource name
             JSONSerializer.enrich_bucket_with_data(
                 aggr_org,
                 OrganisationsSearch, 'name'
             )
-            for term in aggr_org:
-                aggr_lib = term.get('library', {}).get('buckets', [])
-                JSONSerializer.enrich_bucket_with_data(
-                    aggr_lib,
-                    LibrariesSearch, 'name'
-                )
-                for lib_term in aggr_lib:
-                    JSONSerializer.enrich_bucket_with_data(
-                        lib_term.get('location', {}).get('buckets', []),
-                        LocationsSearch, 'name'
-                    )
+
             # For a "local view", we replace the organisation aggregation by
             # a library aggregation containing only for the local organisation
             if view_code != GLOBAL_VIEW_CODE:

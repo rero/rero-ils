@@ -476,8 +476,7 @@
             }
           },
           "startDate": {
-            "type": "integer",
-            "index": false
+            "type": "integer"
           },
           "endDate": {
             "type": "integer",
@@ -565,8 +564,7 @@
             "type": "object",
             "properties": {
               "value": {
-                "type": "text",
-                "index": false
+                "type": "keyword"
               },
               "language": {
                 "type": "keyword",
@@ -900,6 +898,9 @@
                 "type": "keyword"
               }
             }
+          },
+          "holdings_type": {
+            "type": "text"
           },
           "local_fields": {
             "properties": {
@@ -1551,7 +1552,7 @@
             "type": "keyword"
           },
           "term": {
-            "type": "text",
+            "type": "keyword",
             "copy_to": "facet_genre_form"
           },
           "identifiedBy": {

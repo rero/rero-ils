@@ -170,7 +170,11 @@ def test_documents_facets(
     url = url_for('invenio_records_rest.doc_list', view='global')
     res = client.get(url, headers=rero_json_header)
     data = get_json(res)
-    facet_keys = ['document_type', 'author', 'language', 'subject', 'status']
+    facet_keys = [
+        'document_type', 'author', 'language', 'subject_no_fiction',
+        'subject_fiction', 'genreForm', 'intendedAudience',
+        'year', 'status'
+    ]
     assert all(key in data['aggregations'] for key in facet_keys)
 
     params = {'view': 'global', 'facets': ''}
@@ -197,7 +201,8 @@ def test_documents_facets(
     res = client.get(url, headers=rero_json_header)
     data = get_json(res)
     aggs = data['aggregations']
-    assert set(aggs.keys()) == {'document_type', 'library', 'author'}
+    assert set(aggs.keys()) == {'document_type',
+                                'library', 'author'}
 
     # TEST FILTERS
     #   Each filter checks is a tuple. First tuple element is argument used to

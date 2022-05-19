@@ -20,9 +20,13 @@
 
 from __future__ import absolute_import, print_function
 
+from elasticsearch_dsl import Q, Search
 from flask import current_app, request
 from invenio_i18n.ext import current_i18n
+from invenio_records_rest.facets import _aggregations, _query_filter
 from invenio_records_rest.utils import make_comma_list_a_list
+from six import text_type
+from werkzeug.datastructures import MultiDict
 
 
 def i18n_facets_factory(search, index):
@@ -51,4 +55,206 @@ def i18n_facets_factory(search, index):
             )
             search.aggs[name] = i18n_agg if not callable(i18n_agg) \
                 else i18n_agg()
+
     return search
+
+
+def default_facets_factory(search, index):
+    """Add a default facets to query.
+
+    It's possible to select facets which should be added to query
+    by passing their name in `facets` parameter.
+    :param search: Basic search object.
+    :param index: Index name.
+    :returns: A tuple containing the new search object and a dictionary with
+        all fields and values used.
+    """
+    urlkwargs = MultiDict()
+
+    facets = current_app.config['RECORDS_REST_FACETS'].get(index)
+
+    if facets is not None:
+        # Aggregations.
+        # First get requested facets, also split by ',' to get facets names
+        # if they were provided as list separated by comma.
+        selected_facets = make_comma_list_a_list(
+            request.args.getlist('facets', None)
+        )
+
+        all_aggs = facets.get("aggs", {})
+
+        # Add 'author' to all_aggs
+        i18n_aggs = facets.get("i18n_aggs", {})
+        for facet_name, facet_body in i18n_aggs.items():
+            i18n_agg = facet_body.get(
+                request.args.get("lang", current_i18n.language),
+                facet_body.get(current_app.config.
+                               get('BABEL_DEFAULT_LANGUAGE'))
+            )
+            all_aggs[facet_name] = i18n_agg
+
+        # If no facets were requested, assume default behaviour - Take all.
+        if not selected_facets:
+            search = _aggregations(search, all_aggs)
+        # otherwise, check if there are facets to chose
+        elif selected_facets and all_aggs:
+            aggs = {}
+            # Go through all available facets and check if they were requested.
+            for facet_name, facet_body in all_aggs.items():
+                if facet_name in selected_facets:
+                    # create facet_filter from post_filters
+                    # and inject the facet_filter into the
+                    # aggregation facet query
+                    if 'terms' in facet_body:
+                        facet_field = facet_body.get('terms')['field']
+                    elif 'date_histogram' in facet_body:
+                        facet_field = facet_body.get('date_histogram')['field']
+
+                    # get DSL expression of post_filters,
+                    # both single post filters and group of post filters
+                    filters, filters_group, urlkwargs = \
+                        _create_filter_dsl(urlkwargs,
+                                           facets.get('post_filters', {}))
+
+                    # create the filter to inject in the facet
+                    facet_filter = _facet_filter(
+                                    index, filters, filters_group,
+                                    facet_name, facet_field)
+
+                    # add a nested aggs_facet in the facet aggs
+                    # and add the facet_filter to the aggregation
+                    if facet_filter:
+                        facet_body = dict(aggs=dict(aggs_facet=facet_body))
+                        facet_body['filter'] = facet_filter
+
+                    aggs.update({facet_name: facet_body})
+            search = _aggregations(search, aggs)
+
+        # Query filter
+        search, urlkwargs = _query_filter(
+            search, urlkwargs, facets.get("filters", {}))
+
+        # Post filter
+        search, urlkwargs = _post_filter(
+            search, urlkwargs, facets.get("post_filters", {}))
+
+    return (search, urlkwargs)
+
+
+def _create_filter_dsl(urlkwargs, definitions):
+    """Create a filter DSL expression.
+
+    Adapt the same function defined in invenio-records-rest
+    in file facets.py to the case of a dict of filters (group of
+    filters).
+
+    :param urlkwargs: MultiDict of the url paramenters (facet_field,
+    facet_value)
+    :param definitions: the filters dictionary
+    :returns: DSL expression of the filters dictionary
+    """
+    # simple filters
+    filters = []
+    # group of filters
+    filters_group = {}
+    for name, filter_factory in definitions.items():
+        # create a filter DSL expression for a group of filters
+        if isinstance(filter_factory, dict):
+            filters_group[name] = []
+            for f_name, f_filter_factory in filter_factory.items():
+                # the url parameters values for the facet f_name of the group
+                values = request.values.getlist(f_name, type=text_type)
+                if values:
+                    # pass the values to f_filter_factory to obtain the
+                    # DSL expression and append it to filters_group
+                    filters_group[name].append(f_filter_factory(values))
+                    for v in values:
+                        if v not in urlkwargs.getlist(f_name):
+                            urlkwargs.add(f_name, v)
+        # create a filter DSL expression for single filters
+        else:
+            # the url parameters values for the single facet name
+            values = request.values.getlist(name, type=text_type)
+            if values:
+                # pass the values to the filter_factory to obtain the
+                # DSL expression and append it to filters
+                filters.append(filter_factory(values))
+                for v in values:
+                    if v not in urlkwargs.getlist(name):
+                        urlkwargs.add(name, v)
+    return filters, filters_group, urlkwargs
+
+
+def _post_filter(search, urlkwargs, definitions):
+    """Ingest post filter in query.
+
+    Adapt the same function defined in invenio-records-rest
+    in file facets.py to the case of a dict of filters.
+
+    :param search: the DocumentsSearch object
+    :param urlkwargs:MultiDict of the url paramenters (facet_field,
+    facet_value)
+    :param definitions: the filters dictionary
+    :returns:
+    """
+    filters, filters_group, urlkwargs = \
+        _create_filter_dsl(urlkwargs, definitions)
+
+    for filter_ in filters:
+        search = search.post_filter(filter_)
+
+    for name_group, filter_ in filters_group.items():
+        q = Q('bool', should=filter_)
+        search = search.post_filter(q)
+
+    return (search, urlkwargs)
+
+
+def _facet_filter(index, filters, filters_group, facet_name, facet_field):
+    """Ingest filter in facet.
+
+    To take into account the selection made for other facets,
+    dynamically create a filter to inject into the facet.
+    This is necessary for the OR filters which are defined in the post_filters
+    of the config.py file.
+
+    :param index: the resource (ex: documents)
+    :param filters: the DSL expression of the single filters defined
+    in post_filters (in file config.py)
+    :param filters_group: the DSL expression of a dict of filters defined
+    in post_filters (in file config.py)
+    :param face_name: the facet name
+    :parame facet_field: the facet field
+    :returns: the filter to inject in the facet
+    """
+    s = Search(index=index)
+
+    for filter_ in filters:
+        for k, v in filter_.to_dict().items():
+            filter_field = list(v.keys())[0]
+            if filter_field != facet_field:
+                s = s.query(filter_)
+
+    for name_group, filter_ in filters_group.items():
+        if facet_name != name_group:
+            q = Q('bool', should=filter_)
+            s = s.query(q)
+
+    # Add filter for facets subject_fiction
+    # and subject_no_fiction
+    # TODO: if possible move these filters in config.py
+    if facet_name == 'subject_fiction':
+        q = Q("terms", **{'genreForm.identifiedBy.value': ['A027757308',
+                                                           'A021097366']})
+        s = s.query(q.to_dict())
+    elif facet_name == 'subject_no_fiction':
+        q = Q('bool',
+              must_not=[Q("term",
+                        **{'genreForm.identifiedBy.value': 'A027757308'}),
+                        Q("term",
+                        **{'genreForm.identifiedBy.value': 'A021097366'})])
+        s = s.query(q.to_dict())
+
+    s = s.to_dict()
+    return s.get('query') \
+        if s.get('query') != {'bool': {}} else None
