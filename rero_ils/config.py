@@ -122,7 +122,8 @@ from .modules.vendors.permissions import VendorPermission
 from .permissions import librarian_delete_permission_factory, \
     librarian_permission_factory, librarian_update_permission_factory, \
     wiki_edit_ui_permission, wiki_edit_view_permission
-from .query import and_i18n_term_filter, and_term_filter
+from .query import and_i18n_term_filter, and_term_filter, \
+    or_terms_filter_by_criteria
 from .utils import get_current_language
 
 
@@ -1777,6 +1778,7 @@ RECORDS_REST_FACETS = dict(
         aggs=dict(
             # The organisation or library facet is defined
             # dynamically during the query (query.py)
+
             document_type=dict(
                 terms=dict(field='type.main_type',
                            size=DOCUMENTS_AGGREGATION_SIZE),
@@ -1793,44 +1795,81 @@ RECORDS_REST_FACETS = dict(
             ),
             organisation=dict(
                 terms=dict(field='holdings.organisation.organisation_pid',
-                           size=DOCUMENTS_AGGREGATION_SIZE),
+                           size=DOCUMENTS_AGGREGATION_SIZE, min_doc_count=0),
                 aggs=dict(
                     library=dict(
                         terms=dict(field='holdings.organisation.library_pid',
-                                   size=DOCUMENTS_AGGREGATION_SIZE),
+                                   size=DOCUMENTS_AGGREGATION_SIZE, min_doc_count=0),
                         aggs=dict(
                             location=dict(
                                 terms=dict(field='holdings.location.pid',
-                                       size=DOCUMENTS_AGGREGATION_SIZE)
+                                       size=DOCUMENTS_AGGREGATION_SIZE, min_doc_count=0)
                             )
                         )
                     )
                 )
             ),
-            subject=dict(
+            # The subject_fiction and subject_no_fiction facets filters
+            # are defined dynamically in facets.py
+            subject_fiction=dict(
+                terms=dict(field='facet_subjects',
+                           size=DOCUMENTS_AGGREGATION_SIZE)
+            ),
+            subject_no_fiction=dict(
                 terms=dict(field='facet_subjects',
                            size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             status=dict(
                 terms=dict(field='holdings.items.status',
                            size=DOCUMENTS_AGGREGATION_SIZE)
+            ),
+            genreForm=dict(
+                terms=dict(field='genreForm.term',
+                           size=DOCUMENTS_AGGREGATION_SIZE)
+            ),
+            intendedAudience=dict(
+                terms=dict(field='intendedAudience.value',
+                           size=DOCUMENTS_AGGREGATION_SIZE)
+            ),
+            year=dict(date_histogram=dict(
+                           field='provisionActivity.startDate',
+                           interval='year',
+                           format='yyyy')
             )
         ),
         filters={
+            _('online'): or_terms_filter_by_criteria({
+                'electronicLocator.type': ['versionOfResource', 'resource'],
+                'holdings.holdings_type': ['electronic']
+            }),
+            _('not_online'): or_terms_filter_by_criteria({
+                'holdings.holdings_type': ['standard', 'serial']
+            }),
             _('author'): and_i18n_term_filter('facet_contribution'),
-            _('document_type'): and_term_filter('type.main_type'),
-            _('document_subtype'): and_term_filter('type.subtype'),
-            _('language'): and_term_filter('language.value'),
-            _('organisation'): and_term_filter(
-                'holdings.organisation.organisation_pid'
-            ),
-            _('library'): and_term_filter('holdings.organisation.library_pid'),
-            _('location'): and_term_filter('holdings.location.pid'),
-            _('subject'): and_term_filter('facet_subjects'),
-            _('status'): and_term_filter('holdings.items.status'),
+            _('subject_fiction'): and_term_filter('facet_subjects'),
+            _('subject_no_fiction'): and_term_filter('facet_subjects'),
             _('new_acquisition'): acquisition_filter(),
             _('identifiers'): nested_identified_filter()
+        },
+        post_filters={
+            _('document_type'): {
+                _('document_type'): terms_filter('type.main_type'),
+                _('document_subtype'): terms_filter('type.subtype')
+            },
+            _('language'): terms_filter('language.value'),
+            _('organisation'): {
+                _('organisation'): terms_filter(
+                    'holdings.organisation.organisation_pid'
+                ),
+                _('library'): terms_filter('holdings.organisation.library_pid'),
+                _('location'): terms_filter('holdings.location.pid')
+            },
+            _('status'): terms_filter('holdings.items.status'),
+            _('genreForm'): terms_filter('genreForm.term'),
+            _('intendedAudience'): terms_filter('intendedAudience.value'),
+            _('year'): range_filter('provisionActivity.startDate')
         }
+
     ),
     items=dict(
         aggs=dict(

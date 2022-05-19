@@ -66746,5 +66746,356 @@
         "$ref": "https://bib.rero.ch/api/documents/2000148"
       }
     ]
+  },
+  {
+    "contentMediaCarrier": [
+      {
+        "carrierType": "rdact:1049",
+        "contentType": [
+          "rdaco:1020",
+          "rdaco:1014"
+        ],
+        "mediaType": "rdamt:1007"
+      }
+    ],
+    "adminMetadata": {
+      "encodingLevel": "Full level",
+      "source": "RERO necfbv"
+    },
+    "contribution": [
+      {
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
+      }
+    ],
+    "extent": "1 volume",
+    "genreForm": [
+      {
+        "identifiedBy": {
+          "type": "RERO-RAMEAU",
+          "value": "A021100103"
+        },
+        "term": "Ouvrages pour la jeunesse",
+        "type": "bf:Topic"
+      },
+      {
+        "identifiedBy": {
+          "type": "RERO-RAMEAU",
+          "value": "A027757308"
+        },
+        "term": "Fictions",
+        "type": "bf:Topic"
+      },
+      {
+        "identifiedBy": {
+          "type": "RERO-RAMEAU",
+          "value": "A021013611"
+        },
+        "term": "Livres d'images",
+        "type": "bf:Topic"
+      },
+      {
+        "identifiedBy": {
+          "type": "RERO-RAMEAU",
+          "value": "A021121588"
+        },
+        "term": "Livres anim\u00e9s",
+        "type": "bf:Topic"
+      },
+      {
+        "identifiedBy": {
+          "type": "RERO-RAMEAU",
+          "value": "A021144168"
+        },
+        "term": "Livres tactiles",
+        "type": "bf:Topic"
+      }
+    ],
+    "identifiedBy": [
+      {
+        "type": "bf:Isbn",
+        "value": "9782075160728"
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
+    "language": [
+      {
+        "type": "bf:Language",
+        "value": "fre"
+      }
+    ],
+    "pid": "2093138",
+    "provisionActivity": [
+      {
+        "place": [
+          {
+            "country": "fr",
+            "type": "bf:Place"
+          }
+        ],
+        "startDate": 2021,
+        "statement": [
+          {
+            "label": [
+              {
+                "value": "Paris"
+              }
+            ],
+            "type": "bf:Place"
+          },
+          {
+            "label": [
+              {
+                "value": "Gallimard Jeunesse"
+              }
+            ],
+            "type": "bf:Agent"
+          },
+          {
+            "label": [
+              {
+                "value": "2021"
+              }
+            ],
+            "type": "Date"
+          }
+        ],
+        "type": "bf:Publication"
+      }
+    ],
+    "responsibilityStatement": [
+      [
+        {
+          "value": "Camille Chincholle"
+        }
+      ]
+    ],
+    "seriesStatement": [
+      {
+        "seriesTitle": [
+          {
+            "value": "Les petits coquins"
+          }
+        ]
+      },
+      {
+        "seriesTitle": [
+          {
+            "value": "Mes tout premiers livres"
+          }
+        ]
+      }
+    ],
+    "subjects": [
+      {
+        "identifiedBy": {
+          "type": "RERO-RAMEAU",
+          "value": "A021002444"
+        },
+        "term": "Animaux",
+        "type": "bf:Topic"
+      }
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "O\u00f9 es-tu, petit coquin ?"
+          }
+        ],
+        "type": "bf:Title"
+      }
+    ],
+    "type": [
+      {
+        "main_type": "docmaintype_children"
+      }
+    ]
+  },
+  {
+    "adminMetadata": {
+      "encodingLevel": "Full level",
+      "source": "RERO necfbv"
+    },
+    "colorContent": [
+      "rdacc:1003"
+    ],
+    "contentMediaCarrier": [
+      {
+        "carrierType": "rdact:1060",
+        "contentType": [
+          "rdaco:1023"
+        ],
+        "mediaType": "rdamt:1008"
+      }
+    ],
+    "contribution": [
+      {
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
+      }
+    ],
+    "copyrightDate": [
+      "\u00a9 2021"
+    ],
+    "credits": [
+      "Interpr\u00e8tes: Alex Lutz ; Ana Girardot ; Kristin Scott Thomas"
+    ],
+    "duration": [
+      "1h48"
+    ],
+    "extent": "1 DVD-vid\u00e9o",
+    "genreForm": [
+      {
+        "identifiedBy": {
+          "type": "RERO-RAMEAU",
+          "value": "A021097366"
+        },
+        "source": "rero",
+        "term": "Films de fiction",
+        "type": "bf:Topic"
+      },
+      {
+        "identifiedBy": {
+          "type": "RERO-RAMEAU",
+          "value": "A021121517"
+        },
+        "term": "Films dramatiques",
+        "type": "bf:Topic"
+      }
+    ],
+    "identifiedBy": [
+      {
+        "type": "bf:VideoRecordingNumber",
+        "value": "5053083237080"
+      },
+      {
+        "type": "bf:VideoRecordingNumber",
+        "value": "832 370-8"
+      }
+    ],
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
+    "language": [
+      {
+        "type": "bf:Language",
+        "value": "fre"
+      }
+    ],
+    "note": [
+      {
+        "label": "Une prod.: 22h22 - Apollo Films - Studiocanal - Praesens film, 2020",
+        "noteType": "general"
+      },
+      {
+        "label": "Langues: Fran\u00e7ais. Sous-titres: Fran\u00e7ais pour sourds et malentendants.",
+        "noteType": "general"
+      }
+    ],
+    "pid": "2078628",
+    "provisionActivity": [
+      {
+        "place": [
+          {
+            "country": "xx",
+            "type": "bf:Place"
+          }
+        ],
+        "startDate": 2021,
+        "statement": [
+          {
+            "label": [
+              {
+                "value": "[Lieu de publication non identifi\u00e9]"
+              }
+            ],
+            "type": "bf:Place"
+          },
+          {
+            "label": [
+              {
+                "value": "Studiocanal"
+              }
+            ],
+            "type": "bf:Agent"
+          },
+          {
+            "label": [
+              {
+                "value": "[2021]"
+              }
+            ],
+            "type": "Date"
+          }
+        ],
+        "type": "bf:Publication"
+      }
+    ],
+    "responsibilityStatement": [
+      [
+        {
+          "value": "un film de Quentin Reynaud"
+        }
+      ],
+      [
+        {
+          "value": "musique originale Delphine Malauss\u00e9na"
+        }
+      ]
+    ],
+    "summary": [
+      {
+        "label": [
+          {
+            "value": "\u00c0 presque 38 ans, Thomas est un tennisman qui n\u2019a jamais brill\u00e9\u0301. Pourtant, il y a 17 ans, il \u00e9tait l\u2019un des plus grands espoirs du tennis. Mais une d\u00e9faite en demi-finale l\u2019a traumatis\u00e9 et depuis, il est rest\u00e9 dans les profondeurs du classement. Aujourd\u2019hui, il se pr\u00e9pare \u00e0 ce qui devrait \u00eatre son dernier tournoi. Mais il refuse d\u2019abdiquer. Subitement enivr\u00e9 par un d\u00e9sir de sauver son honneur, il se lance dans un combat hom\u00e9rique improbable au r\u00e9sultat incertain..."
+          }
+        ],
+        "source": "Allocine.fr"
+      }
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "5\u00e8me set"
+          }
+        ],
+        "type": "bf:Title"
+      },
+      {
+        "mainTitle": [
+          {
+            "value": "Cinqui\u00e8me set"
+          }
+        ],
+        "type": "bf:VariantTitle"
+      }
+    ],
+    "type": [
+      {
+        "main_type": "docmaintype_movie_series",
+        "subtype": "docsubtype_movie"
+      }
+    ]
   }
 ]

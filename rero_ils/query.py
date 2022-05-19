@@ -26,9 +26,9 @@ from elasticsearch_dsl.query import Q
 from flask import current_app, request
 from invenio_i18n.ext import current_i18n
 from invenio_records_rest.errors import InvalidQueryRESTError
-from werkzeug.datastructures import ImmutableMultiDict
+from werkzeug.datastructures import ImmutableMultiDict, MultiDict
 
-from .facets import i18n_facets_factory
+from .facets import default_facets_factory
 from .modules.items.models import TypeOfItem
 from .modules.organisations.api import Organisation
 from .modules.patrons.api import current_librarian, current_patrons
@@ -69,30 +69,44 @@ def and_i18n_term_filter(field):
     return inner
 
 
+def or_terms_filter_by_criteria(criteria):
+    """Create filter for documents based on specific criteria.
+
+    :param criteria: filter criteria.
+    :return: Function that returns a boolean OR query between term values.
+    """
+    def inner(values):
+        should = []
+        if values and values[0] == 'true':
+            for key in criteria:
+                should.append(Q("terms", **{key: criteria[key]}))
+        return Q('bool', should=should)
+    return inner
+
+
 def documents_search_factory(self, search, query_parser=None):
     """Search factory with view code parameter."""
     view = request.args.get('view')
-    # force to have organisation aggs if library is set
     facets = request.args.get('facets', [])
     if facets:
         facets = facets.split(',')
+    # force to have organisation facet if library is set
     if 'library' in facets and 'organisation' not in facets:
-        args = request.args.to_dict()
-        facets.append('organisation')
-        args['facets'] = ','.join(facets)
+        args = MultiDict(request.args)
+        args.add('facets', 'organisation')
         request.args = ImmutableMultiDict(args)
     search, urlkwargs = search_factory(self, search)
-    # public interface
     if view:
+        # organisation public view
         if view != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
             org = Organisation.get_record_by_viewcode(view)
             search = search.filter(
                 'term', holdings__organisation__organisation_pid=org['pid']
             )
+        # exclude masked documents
         search = search.filter('bool', must_not=[Q('term', _masked=True)])
-    # exclude draft records
+    # exclude draft documents
     search = search.filter('bool', must_not=[Q('term', _draft=True)])
-
     return search, urlkwargs
 
 
@@ -378,7 +392,6 @@ def search_factory(self, search, query_parser=None):
 
         return boosting
 
-    from invenio_records_rest.facets import default_facets_factory
     from invenio_records_rest.sorter import default_sorter_factory
 
     query_string = request.values.get('q')
@@ -403,9 +416,9 @@ def search_factory(self, search, query_parser=None):
         raise InvalidQueryRESTError()
 
     search, urlkwargs = default_facets_factory(search, search_index)
-    # i18n translated facets
-    search = i18n_facets_factory(search, search_index)
+
     search, sortkwargs = default_sorter_factory(search, search_index)
+
     for key, value in sortkwargs.items():
         urlkwargs.add(key, value)
     urlkwargs.add('q', query_string)
