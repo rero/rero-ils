@@ -22,6 +22,8 @@
 {{ super() }}
 <link href="{{ url_for('wiki.static', filename='css/wiki.css') }}" rel="stylesheet" />
 <link href="{{ url_for('static', filename='css/rero_ils/wiki.css') }}" rel="stylesheet" />
+<!-- EasyMDE -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde@2.16.1/dist/easymde.min.css">
 {%- endblock %}
 
 
@@ -37,7 +39,10 @@
 
 {%- block javascript %}
 {{ super() }}
-<script type="text/javascript" src="{{ url_for('wiki.static', filename='js/wiki.js') }}"></script>
+<!-- EasyMDE -->
+<script src="https://cdn.jsdelivr.net/npm/easymde@2.16.1/src/js/easymde.min.js"></script>
+<script type="text/javascript" src="{{ url_for('wiki.static', filename='js/wiki.js') }}">
+</script>
 {%- endblock javascript %}
 </body>
 

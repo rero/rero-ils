@@ -62,7 +62,6 @@ ciso8601 = "*"
 invenio-userprofiles = {git = "https://github.com/rero/invenio-userprofiles.git", tag = "v1.2.1-rero2.0"}
 
 ## Additionnal constraints on python modules
-flask-wiki = {git = "https://github.com/rero/flask-wiki.git", tag = "v0.0.1"}
 markdown-captions = "*"
 zipp = "*"
 
@@ -92,6 +91,7 @@ flask-wtf = "<1.0.0"
 markupsafe = "<2.1.0"
 poethepoet = "^0.12.3"
 jedi = "<0.18.0"
+flask-wiki = {git = "https://github.com/rero/flask-wiki.git", rev = "v0.1.0"}
 
 [tool.poetry.dev-dependencies]
 ## Python packages development dependencies (order matters)
