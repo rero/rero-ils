@@ -111,11 +111,11 @@ class CirculationDatesExtension(RecordExtension):
         """
         from .utils import get_circ_policy
         if record.state == LoanState.ITEM_ON_LOAN and record.get('end_date'):
-            circ_policy = get_circ_policy(record)
+            # find the correct policy based on the checkout location.
+            circ_policy = get_circ_policy(record, checkout_location=True)
             due_date = ciso8601.parse_datetime(record.end_date).replace(
                 tzinfo=timezone.utc)
-            days_before = circ_policy.due_soon_interval_days
-            if days_before:
+            if days_before := circ_policy.due_soon_interval_days:
                 due_soon = due_date - timedelta(days=days_before)
                 due_soon = due_soon.replace(
                     hour=0, minute=0, second=0, microsecond=0)
