@@ -36,7 +36,7 @@ from rero_ils.modules.loans.api import Loan, get_expired_request
 from rero_ils.modules.loans.models import LoanAction, LoanState
 from rero_ils.modules.loans.tasks import loan_anonymizer
 from rero_ils.modules.loans.utils import get_circ_policy, \
-    get_default_loan_duration, get_extension_params, sum_for_fees
+    get_default_loan_duration, sum_for_fees
 from rero_ils.modules.notifications.api import NotificationsSearch
 from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.notifications.tasks import create_notifications, \
@@ -163,61 +163,6 @@ def test_is_due_soon_is_late(
     mock_date = due_date + timedelta(seconds=2)
     with freeze_time(mock_date):
         assert loan.is_loan_late()
-
-
-def test_item_loans_extend_duration(
-        item_lib_martigny, librarian_martigny, patron_martigny,
-        loc_public_martigny, circulation_policies, lib_martigny):
-    """Test loan extend duration."""
-
-    for now_str in [
-        # winter time
-        '2021-12-13 06:00:00', '2022-12-13 20:00:00',
-        # winter to summer time
-        '2022-03-07 06:00:00', '2022-03-07 20:00:00',
-        # summer time
-        '2022-06-13 05:00:00', '2022-06-13 19:00:00',
-        # summer to winter time
-        '2022-10-10 05:00:00', '2022-10-10 19:00:00'
-    ]:
-        with freeze_time(now_str, tz_offset=0):
-            # do a checkout
-            item, actions = item_lib_martigny.checkout(
-                patron_pid=patron_martigny.pid,
-                transaction_location_pid=loc_public_martigny.pid,
-                transaction_user_pid=librarian_martigny.pid
-            )
-            loan_pid = actions['checkout']['pid']
-            # assert loan_pid
-            loan = Loan.get_record_by_pid(loan_pid)
-            end_date = ciso8601.parse_datetime(loan.get('end_date'))
-            policy = get_circ_policy(loan)
-            # do the extend one day before the end date at 3pm
-            extend_action_date = (
-                end_date - timedelta(days=1)).replace(hour=15)
-            with freeze_time(extend_action_date.isoformat()):
-                duration = get_extension_params(
-                    loan, parameter_name='duration_default')
-                now = datetime.now(timezone.utc)
-                utc_end_date = now + duration
-                # computed end date at the library timezone
-                end_date = utc_end_date.astimezone(
-                    tz=lib_martigny.get_timezone())
-                expected_utc_end_date = now + timedelta(
-                    days=policy['renewal_duration'])
-                # expected end date at the library timezone
-                expected_end_date = expected_utc_end_date.astimezone(
-                    lib_martigny.get_timezone())
-                assert end_date.strftime('%Y-%m-%d') == \
-                    expected_end_date.strftime('%Y-%m-%d')
-                assert end_date.hour == 23
-                assert end_date.minute == 59
-            # checkin the item for the next tests
-            item_lib_martigny.checkin(
-                patron_pid=patron_martigny.pid,
-                transaction_location_pid=loc_public_martigny.pid,
-                transaction_user_pid=librarian_martigny.pid
-            )
 
 
 def test_loan_keep_and_to_anonymize(
