@@ -20,8 +20,10 @@
 
 from abc import ABC, abstractmethod
 
+from flask import current_app
+
 from rero_ils.modules.commons.identifiers import IdentifierFactory, \
-    IdentifierStatus
+    IdentifierStatus, IdentifierType
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.documents.commons.subjects import SubjectFactory
 from rero_ils.modules.utils import get_base_url
@@ -39,7 +41,7 @@ class BaseDocumentFormatterMixin(ABC):
     # language used to localize MEF contribution
     _language = None
 
-    def __init__(self, record):
+    def __init__(self, record, **kwargs):
         """Initialize RIS formatter with the specific record."""
         self.record = record
 
@@ -64,6 +66,10 @@ class BaseDocumentFormatterMixin(ABC):
         """Return reference id."""
         return self.record['pid']
 
+    def _is_masked(self) -> str:
+        """Return masked information."""
+        return 'Yes' if self.record.get('_masked') else 'No'
+
     def _get_title(self) -> str:
         """Return first title."""
         return next(
@@ -71,15 +77,19 @@ class BaseDocumentFormatterMixin(ABC):
                    self.record.get('title')), {}
         ).get('_text')
 
+    def _get_series_statement(self) -> list[str]:
+        """Return series statement title."""
+        return [
+            data['value']
+            for statement in self.record.get('seriesStatement', [])
+            for data in statement.get('_text', [])
+        ]
+
     def _get_secondary_title(self) -> list[str]:
         """Return secondary title."""
         # return series title if exist
         if 'seriesStatement' in self.record:
-            return [
-                data['value']
-                for serie in self.record.get('seriesStatement', [])
-                for data in serie.get('_text', [])
-            ]
+            return self._get_series_statement()
 
         def _extract_part_of_title_callback(part_of):
             """Extract title for the partOf document."""
@@ -130,7 +140,7 @@ class BaseDocumentFormatterMixin(ABC):
             """Extract value for the given contribution."""
             agent = contribution.get('agent', {})
             role = contribution.get('role', [])
-            if not any(r in role for r in CREATOR_ROLES):
+            if all(r not in role for r in CREATOR_ROLES):
                 return self._get_localized_contribution(agent) \
                        or agent.get('preferred_name')
 
@@ -210,6 +220,19 @@ class BaseDocumentFormatterMixin(ABC):
             if identifier.status == IdentifierStatus.UNDEFINED
         ]
 
+    def _get_isbn(self) -> list[str]:
+        """Return ISBN identifiers."""
+        return self._get_identifiers([IdentifierType.ISBN])
+
+    def _get_issn(self) -> list[str]:
+        """Return ISSN identifiers."""
+        return self._get_identifiers([IdentifierType.ISSN,
+                                      IdentifierType.L_ISSN])
+
+    def _get_doi(self) -> list[str]:
+        """Return DOI identifiers."""
+        return self._get_identifiers([IdentifierType.DOI])
+
     def _get_electronic_locators(self) -> list[str]:
         """Return electronic locators."""
         return [
@@ -256,3 +279,67 @@ class BaseDocumentFormatterMixin(ABC):
             for numbering in part_of.get('numbering', [])
             if 'issue' in numbering
         ]
+
+
+class DocumentFormatter(BaseDocumentFormatterMixin):
+    """Document formatter class."""
+
+    def __init__(self, record, language=None, include_fields=None):
+        """Initialize RIS formatter with the specific record."""
+        super().__init__(record)
+        self._language = language or current_app \
+            .config.get('BABEL_DEFAULT_LANGUAGE', 'en')
+        self._include_fields = include_fields or [
+            'document_pid', 'document_type', 'document_title',
+            'document_secondary_title', 'document_creator', 'document_masked',
+            'document_secondary_authors', 'document_publisher',
+            'document_publication_year', 'document_publication_place',
+            'document_edition_statement', 'document_series_statement',
+            'document_start_page', 'document_end_page', 'document_language',
+            'document_isbn', 'document_issn', 'document_electronic_locator',
+            'document_permalink', 'document_subjects', 'document_doi',
+            'document_volume_number', 'document_issue_number',
+        ]
+
+    def format(self):
+        """Return RIS export for single record."""
+        return self._fetch_fields()
+
+    @property
+    def available_fields(self):
+        """All available fields for document."""
+        return {
+            'document_pid': self._get_pid,
+            'document_type': self._get_document_types,
+            'document_masked': self._is_masked,
+            'document_title': self._get_title,
+            'document_secondary_title': self._get_secondary_title,
+            'document_creator': self._get_authors,
+            'document_secondary_authors': self._get_secondary_authors,
+            'document_publisher': self._get_publisher,
+            'document_publication_year': self._get_publication_year,
+            'document_publication_place': self._get_publication_places,
+            'document_edition_statement': self._get_editions,
+            'document_series_statement': self._get_series_statement,
+            'document_start_page': self._get_start_pages,
+            'document_end_page': self._get_end_pages,
+            'document_language': self._get_languages,
+            'document_isbn': self._get_isbn,
+            'document_issn': self._get_issn,
+            'document_electronic_locator': self._get_electronic_locators,
+            'document_permalink': self._get_permalink,
+            'document_subjects': self._get_subjects,
+            'document_doi': self._get_doi,
+            'document_volume_number': self._get_volume_numbers,
+            'document_issue_number': self._get_issue_numbers,
+        }
+
+    def _fetch_fields(self):
+        """Return formatted output based on export fields."""
+        return {
+            field: self.post_process(self.available_fields[field]())
+            for field in self._include_fields
+        }
+
+    def post_process(self, data):
+        """Post process data."""

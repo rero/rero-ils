@@ -36,7 +36,6 @@ def test_create_csv(app, tmpdir, script_info):
         ['doc', json_file_name, tmp_dir_name, '-l', '-v'],
         obj=script_info
     )
-    print(result.output)
     assert result.exit_code == 0
     file_name_pidstore = join(tmp_dir_name, 'doc_pidstore.csv')
     file_name_metadata = join(tmp_dir_name, 'doc_metadata.csv')
