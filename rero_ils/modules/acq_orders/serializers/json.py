@@ -17,12 +17,9 @@
 
 """Acquisition order serialization."""
 
-from invenio_records_rest.serializers.response import record_responsify
-
 from rero_ils.modules.acq_accounts.api import AcqAccountsSearch
 from rero_ils.modules.libraries.api import LibrariesSearch
-from rero_ils.modules.serializers import ACQJSONSerializer, JSONSerializer, \
-    RecordSchemaJSONV1, search_responsify
+from rero_ils.modules.serializers import ACQJSONSerializer, JSONSerializer
 from rero_ils.modules.vendors.api import VendorsSearch
 
 
@@ -49,8 +46,3 @@ class AcqOrderJSONSerializer(ACQJSONSerializer):
             JSONSerializer.add_date_range_configuration(aggr)
 
         super()._postprocess_search_aggregations(aggregations)
-
-
-_json = AcqOrderJSONSerializer(RecordSchemaJSONV1)
-json_acor_search = search_responsify(_json, 'application/rero+json')
-json_acor_record = record_responsify(_json, 'application/rero+json')
