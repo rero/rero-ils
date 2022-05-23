@@ -119,6 +119,29 @@ class IlsRecordsSearch(RecordsSearch):
             raise NotFoundError(f'Record not found pid: {pid}')
         return response.hits.hits[0]._source
 
+    def get_records_by_terms(self, terms, key='pid', fields=None,
+                             as_dict=False):
+        """Search records by terms.
+
+        :param terms: list of term to search
+        :param key: key used for search terms
+        :param fields: list of field to get
+        :param as_dict: if true the search result will be converted to dict
+        :return: dictionary if as_dict is true else return generator
+        :rtype: dictionary or generator
+        """
+        fields = fields or '*'
+        params = {key: terms}
+        query = self.filter('terms', **params).source(includes=fields)
+
+        if as_dict:
+            return {
+                result.pid: result.to_dict()
+                for result in query.scan()
+            }
+
+        return query.scan()
+
 
 class IlsRecord(Record):
     """ILS Record class."""

@@ -157,7 +157,6 @@ class DecimalAmountExtension(RecordExtension):
         regexp = re.compile(regexp)
 
         for value in values_to_check:
-            print(f"Checking {value} :: ", regexp.match(str(value)))
             if not regexp.match(str(value)):
                 decimal_string = 1 / pow(10, self.decimals)
                 msg = f'`{value}` must be multiple of {decimal_string}'

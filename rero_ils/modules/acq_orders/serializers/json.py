@@ -17,12 +17,10 @@
 
 """Acquisition order serialization."""
 
-from invenio_records_rest.serializers.response import search_responsify
-
-from ..acq_accounts.api import AcqAccount
-from ..libraries.api import Library
-from ..serializers import JSONSerializer, RecordSchemaJSONV1
-from ..vendors.api import Vendor
+from rero_ils.modules.acq_accounts.api import AcqAccount
+from rero_ils.modules.libraries.api import Library
+from rero_ils.modules.serializers import JSONSerializer
+from rero_ils.modules.vendors.api import Vendor
 
 
 class AcqOrderJSONSerializer(JSONSerializer):
@@ -53,9 +51,3 @@ class AcqOrderJSONSerializer(JSONSerializer):
                 }
 
         return super().post_process_serialize_search(results, pid_fetcher)
-
-
-json_acq_order = AcqOrderJSONSerializer(RecordSchemaJSONV1)
-"""JSON v1 serializer."""
-
-json_acor_search = search_responsify(json_acq_order, 'application/rero+json')
