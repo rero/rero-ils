@@ -1589,6 +1589,13 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/rero+json': (
                 'rero_ils.modules.acq_orders.serializers:json_acor_search'
             ),
+            'text/csv': (
+                'rero_ils.modules.acq_orders.serializers:csv_acor_search'
+            ),
+        },
+        search_serializers_aliases={
+            'json': 'application/json',
+            'csv': 'text/csv'
         },
         record_loaders={
             'application/json': lambda: AcqOrder(request.get_json()),
