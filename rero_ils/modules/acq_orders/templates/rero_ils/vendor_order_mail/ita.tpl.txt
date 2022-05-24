@@ -3,7 +3,7 @@
 Il nostro riferimento: {{ order.reference }}
 Data : {{ order.order_date }}
 
-Caro signore,
+Signora, signore,
 
 Vorremmo ordinare la seguente lista di libri:
 
@@ -18,15 +18,15 @@ Documento :
   Serie : {{ line.document.serie_statement }}
   {%- endif %}
   {%- if line.document.identifiers %}
-  ISBN : {{ line.document.identifiers | join(', ') }}
+  ISBN : {{ line.document.identifiers | join(' ; ') }}
   {%- endif %}
-{%- if line.note %}
-Nota : {{ line.note }}
-{%- endif %}
-Quantità : {{ line.quantity }}
-Conto locale : {{ line.account.name }} {% if line.account.number: -%}
- [{{ line.account.number }}]
-{%- endif %}
+  {%- if line.note %}
+  Nota : {{ line.note }}
+  {%- endif %}
+  Quantità : {{ line.quantity }}
+  Conto locale : {{ line.account.name }} {% if line.account.number: -%}
+  [{{ line.account.number }}]
+  {%- endif %}
 ------------------------------------------------------------
 {%- endfor -%}
 {%- if order.note %}
@@ -43,7 +43,7 @@ Cordiali saluti,
 Indirizzo di spedizione:
 {{ order.library.shipping_informations | address_block(language=order.vendor.language) }}
 
-{% if order.billing_informations -%}
+{% if order.library.billing_informations -%}
 Indirizzo di fatturazione:
 {{ order.library.billing_informations | address_block(language=order.vendor.language) }}
 {%- endif %}

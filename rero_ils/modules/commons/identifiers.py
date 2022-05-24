@@ -153,13 +153,14 @@ class Identifier:
 
     def dump(self) -> dict:
         """Dump this identifier."""
+        status = self.status if self.is_valid() else IdentifierStatus.INVALID
         data = {
             'type': self.type,
             'value': self.normalize(),
             'note': self.note,
             'qualifier': self.qualifier,
             'source': self.source,
-            'status': self.status
+            'status': status
         }
         return {k: v for k, v in data.items() if v}
 
