@@ -362,7 +362,7 @@ class AcqOrder(IlsRecord):
         links.pop('order_lines', None)
         if self.status != AcqOrderStatus.PENDING:
             cannot_delete['others'] = {
-                _(f'Order status is %s') % _(self.status): True
+                _('Order status is %s') % _(self.status): True
             }
         if links:
             cannot_delete['links'] = links
@@ -381,10 +381,10 @@ class AcqOrder(IlsRecord):
         """
         # Create the notification and dispatch it synchronously.
         record = {
-            "notification_type": NotificationType.ACQUISITION_ORDER,
-            "context": {
-                "order": {'$ref': get_ref_for_pid('acor', self.pid)},
-                "recipients": emails
+            'notification_type': NotificationType.ACQUISITION_ORDER,
+            'context': {
+                'order': {'$ref': get_ref_for_pid('acor', self.pid)},
+                'recipients': emails
             }
         }
         notif = Notification.create(data=record, dbcommit=True, reindex=True)

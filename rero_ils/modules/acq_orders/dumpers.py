@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Acquisition order dumpers."""
+from datetime import date
 
 from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 
@@ -41,9 +42,10 @@ class AcqOrderNotificationDumper(InvenioRecordsDumper):
         :param record: The record to dump.
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
+        today = date.today().strftime('%Y-%m-%d')
         data.update({
             'reference': record.get('reference'),
-            'order_date': record.order_date,
+            'order_date': record.order_date or today,
             'note': record.get_note(AcqOrderNoteType.VENDOR),
         })
         library = Library.get_record_by_pid(record.library_pid)

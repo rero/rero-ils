@@ -19,7 +19,8 @@
 """Documents dumpers."""
 from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 
-from rero_ils.modules.commons.identifiers import IdentifierType
+from rero_ils.modules.commons.identifiers import IdentifierType, \
+    QualifierIdentifierRenderer
 from rero_ils.modules.documents.utils import publication_statement_text, \
     series_statement_format_text, title_format_text_head
 
@@ -77,9 +78,13 @@ class DocumentAcquisitionDumper(DocumentGenericDumper):
         # identifiers -------------------------------
         identifiers = record.get_identifiers(
             filters=[IdentifierType.ISBN],
-            with_alternatives=True
+            with_alternatives=False
         )
-        identifiers = [identifier.normalize() for identifier in identifiers]
+        render_class = QualifierIdentifierRenderer()
+        identifiers = [
+            identifier.render(render_class=render_class)
+            for identifier in identifiers
+        ]
 
         data.update({
             'identifiers': identifiers,
