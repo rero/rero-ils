@@ -17,7 +17,7 @@
   </datafield>
   <datafield ind1=" " ind2=" " tag="099">
     <subfield code="a">masked</subfield>
-  </datafield> 
+  </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
     <subfield code="a">Killer Game</subfield>
   </datafield>
@@ -81,7 +81,7 @@
   <datafield tag="856" ind1="4" ind2="0">
     <subfield code="q">epub</subfield>
     <subfield code="u">
-        http://test1/resources/5ccd26d523579476a9ac9f3
+        https://test1/resources/5ccd26d523579476a9ac9f3
     <subfield>
     <subfield code="3">Texte intégral</subfield>
     <subfield code="x">mv-cantook</subfield>

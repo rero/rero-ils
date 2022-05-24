@@ -20,7 +20,6 @@
 from __future__ import absolute_import, print_function
 
 from celery import shared_task
-# from celery.task.control import inspect
 from flask import current_app
 
 from .utils import create_document_holding, update_document_holding
@@ -62,12 +61,9 @@ def create_records(records):
                 existing_record = update_document_holding(record, pid)
                 n_updated += 1
                 uuids.append(existing_record.id)
-            else:
-                # create new holding and document
-                new_record = create_document_holding(record)
-                if new_record:
-                    n_created += 1
-                    uuids.append(new_record.id)
+            elif new_record := create_document_holding(record):
+                n_created += 1
+                uuids.append(new_record.id)
         except Exception as err:
             current_app.logger.error(f'EBOOKS CREATE RECORDS: {err} {record}')
     do_bulk_index(uuids, doc_type='doc', process=True)

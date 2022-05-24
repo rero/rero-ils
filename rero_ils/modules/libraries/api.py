@@ -174,13 +174,11 @@ class Library(IlsRecord):
 
     def _has_is_open(self):
         """Test if library has opening days."""
-        opening_hours = self.get('opening_hours')
-        if opening_hours:
+        if opening_hours := self.get('opening_hours'):
             for opening_hour in opening_hours:
                 if opening_hour['is_open']:
                     return True
-        exception_dates = self.get('exception_dates')
-        if exception_dates:
+        if exception_dates := self.get('exception_dates'):
             for exception_date in exception_dates:
                 if exception_date['is_open']:
                     return True
@@ -374,8 +372,7 @@ class Library(IlsRecord):
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
         cannot_delete = {}
-        links = self.get_links_to_me()
-        if links:
+        if links := self.get_links_to_me():
             cannot_delete['links'] = links
         return cannot_delete
 
@@ -384,6 +381,12 @@ class Library(IlsRecord):
         # TODO: get timezone regarding Library address.
         # TODO: Use BABEL_DEFAULT_TIMEZONE by default
         return pytz.timezone('Europe/Zurich')
+
+    def get_online_harvested_source_url(self, source):
+        """Get online harvested source url."""
+        for harvested_source in self.get('online_harvested_source', []):
+            if harvested_source.get('source') == source:
+                return harvested_source['url']
 
 
 class LibrariesIndexer(IlsRecordsIndexer):
