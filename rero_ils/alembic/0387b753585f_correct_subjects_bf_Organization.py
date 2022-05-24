@@ -38,7 +38,7 @@ def upgrade():
     """Change subjects bf:Organization to bf:Organisation."""
     query = DocumentsSearch().filter('bool', should=[
         Q('term', subjects__type='bf:Organization'),
-        Q('term', subjects_imported='bf:Organization')
+        Q('term', subjects_imported__type='bf:Organization')
     ])
 
     LOGGER.info(f'Upgrade to {revision}')
