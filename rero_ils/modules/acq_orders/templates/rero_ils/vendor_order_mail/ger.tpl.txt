@@ -3,7 +3,7 @@
 Unsere Referenz: {{ order.reference }}
 Datum : {{ order.order_date }}
 
-Sehr geehrter Herr,
+Sehr geehrte/r Frau/Herr,
 
 Wir möchten die folgende Liste von Büchern bestellen:
 
@@ -18,15 +18,15 @@ Dokument :
   Reihe : {{ line.document.serie_statement }}
   {%- endif %}
   {%- if line.document.identifiers %}
-  ISBN : {{ line.document.identifiers | join(', ') }}
+  ISBN : {{ line.document.identifiers | join(' ; ') }}
   {%- endif %}
-{%- if line.note %}
-Anmerkung : {{ line.note }}
-{%- endif %}
-Anzahl : {{ line.quantity }}
-Lokales Konto : {{ line.account.name }} {% if line.account.number: -%}
- [{{ line.account.number }}]
-{%- endif %}
+  {%- if line.note %}
+  Anmerkung : {{ line.note }}
+  {%- endif %}
+  Anzahl : {{ line.quantity }}
+  Lokales Konto : {{ line.account.name }} {% if line.account.number: -%}
+  [{{ line.account.number }}]
+  {%- endif %}
 ------------------------------------------------------------
 {%- endfor -%}
 {%- if order.note %}
@@ -43,7 +43,7 @@ Mit freundlichen Grüßen,
 Lieferadresse:
 {{ order.library.shipping_informations | address_block(language=order.vendor.language) }}
 
-{% if order.billing_informations -%}
+{% if order.library.billing_informations -%}
 Rechnungsadresse:
 {{ order.library.billing_informations | address_block(language=order.vendor.language) }}
 {%- endif %}
