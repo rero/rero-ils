@@ -7,7 +7,9 @@
     "code": "org1",
     "default_currency": "CHF",
     "current_budget_pid": "budg1",
-    "online_harvested_source": "ebibliomedia"
+    "online_harvested_source": [
+      "ebibliomedia"
+    ]
   },
   "org2": {
     "$schema": "https://bib.rero.ch/schemas/organisations/organisation-v0.0.1.json",
@@ -17,7 +19,9 @@
     "code": "org2",
     "default_currency": "EUR",
     "current_budget_pid": "budg2",
-    "online_harvested_source": "mv-cantook"
+    "online_harvested_source": [
+      "mv-cantook"
+    ]
   },
   "lib1": {
     "$schema": "https://bib.rero.ch/schemas/libraries/library-v0.0.1.json",
@@ -190,7 +194,13 @@
           "country": "be"
         }
       }
-    }
+    },
+    "online_harvested_source": [
+      {
+        "source": "ebibliomedia",
+        "url": "https://test.ebibliomedia.ch"
+      }
+    ]
   },
   "lib2": {
     "$schema": "https://bib.rero.ch/schemas/libraries/library-v0.0.1.json",

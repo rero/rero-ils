@@ -167,7 +167,13 @@
           "country": "sz"
         }
       }
-    }
+    },
+    "online_harvested_source": [
+      {
+        "source": "ebibliomedia",
+        "url": "https://la-chaux-de-fonds.ebibliomedia.ch"
+      }
+    ]
   },
   {
     "pid": "2",
@@ -328,7 +334,13 @@
           "country": "sz"
         }
       }
-    }
+    },
+    "online_harvested_source": [
+      {
+        "source": "ebibliomedia",
+        "url": "https://bv-lelocle.ebibliomedia.ch/"
+      }
+    ]
   },
   {
     "pid": "3",
@@ -487,7 +499,13 @@
           "country": "sz"
         }
       }
-    }
+    },
+    "online_harvested_source": [
+      {
+        "source": "ebibliomedia",
+        "url": "https://bpu-neuchatel.ebibliomedia.ch"
+      }
+    ]
   },
   {
     "pid": "4",

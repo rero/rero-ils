@@ -31,13 +31,12 @@ def test_publish_harvested_records(app, ebooks_1_xml, ebooks_2_xml,
                                    org_martigny, loc_online_martigny,
                                    item_type_online_martigny,
                                    org_sion, loc_online_sion,
-                                   item_type_online_sion, capsys):
+                                   item_type_online_sion):
     """Test publish harvested records."""
     Identifier = namedtuple('Identifier', 'identifier')
     Record = namedtuple('Record', 'xml deleted header')
-    records = []
-    records.append(Record(xml=ebooks_1_xml, deleted=False,
-                          header=Identifier(identifier='record1')))
+    records = [Record(xml=ebooks_1_xml, deleted=False,
+                      header=Identifier(identifier='record1'))]
     records.append(Record(xml=ebooks_2_xml, deleted=False,
                           header=Identifier(identifier='record2')))
     records.append(Record(xml=ebooks_2_xml, deleted=True,
@@ -87,7 +86,7 @@ def test_publish_harvested_records(app, ebooks_1_xml, ebooks_2_xml,
     create_records(records=records)
     flush_index(DocumentsSearch.Meta.index)
     flush_index(HoldingsSearch.Meta.index)
-    assert len(list(Holding.get_holdings_pid_by_document_pid(doc1.pid))) == 0
-    assert len(list(Holding.get_holdings_pid_by_document_pid(doc2.pid))) == 0
+    assert not list(Holding.get_holdings_pid_by_document_pid(doc1.pid))
+    assert not list(Holding.get_holdings_pid_by_document_pid(doc2.pid))
 
     assert 2 == delete_records(records=records)

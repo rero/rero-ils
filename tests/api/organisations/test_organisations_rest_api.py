@@ -37,7 +37,7 @@ def test_get_record_by_viewcode(org_martigny):
 
 def test_get_record_by_online_harvested_source(org_martigny):
     """Test get_record_by_online_harvested_source."""
-    source = org_martigny.get('online_harvested_source')
+    source = org_martigny.get('online_harvested_source')[0]
     org = Organisation.get_record_by_online_harvested_source(source)
     assert org.pid == org_martigny.pid
     assert Organisation.get_record_by_online_harvested_source('dummy') is None

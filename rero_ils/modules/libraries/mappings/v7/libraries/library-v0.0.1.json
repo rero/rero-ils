@@ -196,6 +196,16 @@
       "communication_language": {
         "type": "keyword"
       },
+      "online_harvested_source": {
+        "properties": {
+          "source": {
+            "type": "keyword"
+          },
+          "url": {
+            "type": "text"
+          }
+        }
+      },
       "_created": {
         "type": "date"
       },

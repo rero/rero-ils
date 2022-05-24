@@ -21,6 +21,8 @@ from flask import current_app
 from invenio_db import db
 from invenio_oaiharvester.models import OAIHarvestConfig
 
+from rero_ils.modules.locations.api import Location
+
 from ..documents.api import Document
 from ..holdings.api import Holding, create_holding, \
     get_holding_pid_by_doc_location_item_type
@@ -62,8 +64,7 @@ def get_harvested_sources(record):
     new_electronic_locators = []
     electronic_locators = record.get('electronicLocator', [])
     for electronic_locator in electronic_locators:
-        source = electronic_locator.get('source')
-        if source:
+        if source := electronic_locator.get('source'):
             harvested_sources.append({
                 'source': source,
                 'uri': electronic_locator.get('url')
@@ -81,9 +82,8 @@ def create_document_holding(record):
     new_record = None
     doc_created = False
     for harvested_source in harvested_sources:
-        org = Organisation.get_record_by_online_harvested_source(
-            source=harvested_source['source'])
-        if org:
+        if org := Organisation.get_record_by_online_harvested_source(
+                source=harvested_source['source']):
             if not doc_created:
                 new_record = Document.create(
                     record,
@@ -93,12 +93,18 @@ def create_document_holding(record):
             if new_record:
                 doc_created = True
                 item_type_pid = org.online_circulation_category()
-                locations = org.get_online_locations()
-                for location in locations:
-
-                    create_holding(
+                location_pids = org.get_online_locations()
+                for location_pid in location_pids:
+                    location = Location.get_record_by_pid(location_pid)
+                    library = location.get_library()
+                    if url := library.get_online_harvested_source_url(
+                            source=harvested_source['source']):
+                        uri_split = harvested_source['uri'].split('/')[3:]
+                        uri_split.insert(0, url.rstrip('/'))
+                        harvested_source['uri'] = '/'.join(uri_split)
+                    hold = create_holding(
                         document_pid=new_record.pid,
-                        location_pid=location,
+                        location_pid=location_pid,
                         item_type_pid=item_type_pid,
                         electronic_location=harvested_source,
                         holdings_type='electronic')
@@ -120,12 +126,18 @@ def update_document_holding(record, pid):
         reindex=True
     )
     for harvested_source in harvested_sources:
-        org = Organisation.get_record_by_online_harvested_source(
-            source=harvested_source['source'])
-        if org:
+        if org := Organisation.get_record_by_online_harvested_source(
+                source=harvested_source['source']):
             item_type_pid = org.online_circulation_category()
-            locations = org.get_online_locations()
-            for location_pid in locations:
+            location_pids = org.get_online_locations()
+            for location_pid in location_pids:
+                location = Location.get_record_by_pid(location_pid)
+                library = location.get_library()
+                if url := library.get_online_harvested_source_url(
+                        source=harvested_source['source']):
+                    uri_split = harvested_source['uri'].split('/')[3:]
+                    uri_split.insert(0, url.rstrip('/'))
+                    harvested_source['uri'] = '/'.join(uri_split)
                 if not get_holding_pid_by_doc_location_item_type(
                     new_record.pid, location_pid, item_type_pid, 'electronic'
                 ):

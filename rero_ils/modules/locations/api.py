@@ -155,8 +155,7 @@ class Location(IlsRecord):
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
         cannot_delete = {}
-        links = self.get_links_to_me()
-        if links:
+        if links := self.get_links_to_me():
             cannot_delete['links'] = links
         return cannot_delete
 
@@ -176,10 +175,8 @@ class Location(IlsRecord):
     @property
     def restrict_pickup_to(self):
         """Get restriction pickup location pid of location."""
-        location_pids = []
-        for restrict_pickup_to in self.get('restrict_pickup_to', []):
-            location_pids.append(extracted_data_from_ref(restrict_pickup_to))
-        return location_pids
+        return [extracted_data_from_ref(restrict_pickup_to)
+                for restrict_pickup_to in self.get('restrict_pickup_to', [])]
 
     @classmethod
     def can_request(cls, record, **kwargs):

@@ -6,7 +6,9 @@
     "code": "aoste",
     "default_currency": "EUR",
     "current_budget_pid": "1",
-    "online_harvested_source": "ebibliomedia",
+    "online_harvested_source": [
+      "ebibliomedia"
+    ],
     "collection_enabled_on_public_view": true
   },
   {
@@ -16,7 +18,9 @@
     "code": "highlands",
     "default_currency": "GBP",
     "current_budget_pid": "2",
-    "online_harvested_source": "mv-cantook",
+    "online_harvested_source": [
+      "mv-cantook"
+    ],
     "collection_enabled_on_public_view": false
   },
   {

@@ -53,9 +53,15 @@
       "pattern": "^[A-Z]{3}$"
     },
     "online_harvested_source": {
-      "title": "Online harvested source",
-      "description": "Online harvested source as configured in ebooks server.",
-      "type": "string"
+      "title": "Online harvested sources",
+      "description": "Online harvested sources as configured in ebooks server.",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
     },
     "collection_enabled_on_public_view": {
       "title": "Collection enabled on public view",
