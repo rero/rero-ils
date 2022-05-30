@@ -63,8 +63,8 @@ def test_cli_reindex_missing(app, script_info, org_sion_data):
         obj=script_info
     )
     assert res.output.strip().split('\n') == [
-        'Sending org to indexing queue : 1',
-        'Execute "invenio reroils run" command to process the queue!'
+        'Sending org to indexing queue (indexer): 1',
+        'Execute "invenio reroils index run" command to process the queue!'
     ]
 
     runner = CliRunner()
@@ -110,7 +110,7 @@ def test_cli_reindex_missing(app, script_info, org_sion_data):
     )
     assert res.output.strip().split('\n') == [
         'Sending org to indexing queue (test_queue): 1',
-        f'Execute "invenio reroils run -q {queue_name}" '
+        f'Execute "invenio reroils index run -q {queue_name}" '
         'command to process the queue!'
     ]
 
