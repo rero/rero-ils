@@ -134,7 +134,7 @@ def run(delayed, concurrency, with_stats, version_type=None, queue=None,
 @click.option('-u', '--until_date', 'until_date')
 @click.option('-d', '--direct', 'direct', is_flag=True, default=False)
 @click.option('-i', '--index', 'index')
-@click.option('-q', '--queue', 'queue', default=None)
+@click.option('-q', '--queue', 'queue', default='indexer')
 @with_appcontext
 def reindex(pid_types, from_date, until_date, direct, index, queue):
     """Reindex records.
@@ -148,14 +148,11 @@ def reindex(pid_types, from_date, until_date, direct, index, queue):
     """
     endpoints = current_app.config.get('RECORDS_REST_ENDPOINTS')
     if not pid_types:
-        pid_types = [endpoint for endpoint in endpoints]
+        pid_types = list(endpoints)
     for pid_type in pid_types:
         if pid_type in endpoints:
             msg = f'Sending {pid_type} to indexing queue '
-            if queue:
-                msg += f'({queue}): '
-            else:
-                msg += ': '
+            msg += f'({queue}): ' if queue else ': '
             if direct:
                 msg = f'Indexing {pid_type}: '
             click.secho(msg, fg='green', nl=False)
@@ -205,10 +202,10 @@ def reindex(pid_types, from_date, until_date, direct, index, queue):
         else:
             click.secho(f'ERROR type does not exist: {pid_type}', fg='red')
         if not direct:
-            msg = 'Execute "invenio reroils run" command to process the queue!'
-            if queue:
-                msg = f'Execute "invenio reroils run -q {queue}" ' \
-                    'command to process the queue!'
+            msg = 'Execute "invenio reroils index run'
+            if queue != 'indexer':
+                msg = f'{msg} -q {queue}'
+            msg = f'{msg}" command to process the queue!'
             click.secho(msg, fg='yellow')
 
 
@@ -347,7 +344,6 @@ def update_mapping(aliases, settings):
         for index, f_mapping in iter(
             current_search.aliases.get(alias).items()
         ):
-            print('---->', index, f_mapping)
             mapping = json.load(open(f_mapping))
             try:
                 if mapping.get('settings') and settings:

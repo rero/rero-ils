@@ -21,7 +21,7 @@ from __future__ import absolute_import, print_function
 
 import jinja2
 from flask import Blueprint
-from flask_bootstrap import Bootstrap
+from flask_bootstrap import Bootstrap4
 from flask_login.signals import user_loaded_from_cookie, user_logged_in, \
     user_logged_out
 from flask_wiki import Wiki
@@ -103,7 +103,7 @@ class REROILSAPP(object):
 
     def init_app(self, app):
         """Flask application initialization."""
-        Bootstrap(app)
+        Bootstrap4(app)
         Wiki(app)
         NormalizerStopWords(app)
         self.init_config(app)
