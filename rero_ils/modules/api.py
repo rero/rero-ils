@@ -392,17 +392,12 @@ class IlsRecord(Record):
         :param redindex: reindex the record.
         :returns: the modified record
         """
-        pid = data.get('pid')
-        if pid:
+        if pid := data.get('pid'):
             db_record = self.get_record_by_id(self.id)
             if pid != db_record.pid:
                 raise IlsRecordError.PidChange(
-                    '{class_n} changed pid from {old_pid} to {new_pid}'.format(
-                        class_n=self.__class__.__name__,
-                        old_pid=db_record.pid,
-                        new_pid=pid
-                    )
-                )
+                    f'{self.__class__.__name__} changed pid from '
+                    f'{db_record.pid} to {pid}')
         record = self
 
         # TODO: find a way to make extended validations.
@@ -478,11 +473,8 @@ class IlsRecord(Record):
             indexer().delete(self)
         except NotFoundError:
             current_app.logger.warning(
-                'Can not delete from index {class_name}: {pid}'.format(
-                    class_name=self.__class__.__name__,
-                    pid=self.pid
-                )
-            )
+                f'Can not delete from index {self.__class__.__name__}'
+                f': {self.pid}')
 
     @property
     def pid(self):
@@ -615,7 +607,7 @@ class IlsRecordsIndexer(RecordIndexer):
             except Exception:
                 message.reject()
                 current_app.logger.error(
-                    "Failed to index record {id}".format(id=payload.get('id')),
+                    f"Failed to index record {payload.get('id')}",
                     exc_info=True)
 
     def _index_action(self, payload):

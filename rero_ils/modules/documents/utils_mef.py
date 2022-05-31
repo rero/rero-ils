@@ -17,13 +17,16 @@
 
 """Celery tasks to documents."""
 
+
 from __future__ import absolute_import, print_function
 
+import contextlib
 from abc import ABC, abstractmethod
 
 import click
 from elasticsearch_dsl import Q
 from flask import current_app
+from sqlalchemy.orm.exc import NoResultFound
 from webargs import ValidationError
 
 from .api import Document, DocumentsSearch
@@ -231,43 +234,44 @@ class ReplaceMefIdentifiedByContribution(ReplaceMefIdentifiedBy):
             click.echo(f'Found identifiedBy contributions: '
                        f'{self._query_filter().count()}')
         for hit in list(self._query_filter().source('pid').scan()):
-            doc = Document.get_record_by_id(hit.meta.id)
-            changed = False
-            for contribution in doc.get('contribution', []):
-                ref_type = contribution['agent'].get(
-                    'identifiedBy', {}).get('type', '').lower()
-                if ref_type in self.cont_types + ['rero']:
-                    ref_pid = contribution['agent'].get(
-                        'identifiedBy', {}).get('value')
-                    if cont := self.get_contribution(hit.pid, ref_type,
-                                                     ref_pid):
-                        # change the contribution to linked contribution
-                        for cont_type in self.cont_types:
-                            if cont.get(cont_type):
-                                changed = True
-                                url = f'{self.mef_url}/{cont_type}/' \
-                                    f'{cont[cont_type]["pid"]}'
-                                new_contribution = {
-                                    '$ref': url,
-                                    'type': contribution['agent']['type']
-                                }
-                                self.print_debug(
-                                    f'{hit.pid} Change:',
-                                    f'  {contribution["agent"]}',
-                                    f'  {new_contribution}'
-                                )
-                                contribution['agent'] = new_contribution
-                                break
-                    else:
-                        self.add_preferred_name(
-                            ref_type=ref_type,
-                            ref_pid=ref_pid,
-                            preferred_name=contribution.get(
-                                'agent', {}).get('preferred_name', ''),
-                            type=contribution.get(
-                                'agent', {}).get('type', ''),
-                        )
-            self.update_document(changed=changed, document=doc)
+            with contextlib.suppress(NoResultFound):
+                doc = Document.get_record_by_id(hit.meta.id)
+                changed = False
+                for contribution in doc.get('contribution', []):
+                    ref_type = contribution['agent'].get(
+                        'identifiedBy', {}).get('type', '').lower()
+                    if ref_type in self.cont_types + ['rero']:
+                        ref_pid = contribution['agent'].get(
+                            'identifiedBy', {}).get('value')
+                        if cont := self.get_contribution(hit.pid, ref_type,
+                                                         ref_pid):
+                            # change the contribution to linked contribution
+                            for cont_type in self.cont_types:
+                                if cont.get(cont_type):
+                                    changed = True
+                                    url = f'{self.mef_url}/{cont_type}/' \
+                                        f'{cont[cont_type]["pid"]}'
+                                    new_contribution = {
+                                        '$ref': url,
+                                        'type': contribution['agent']['type']
+                                    }
+                                    self.print_debug(
+                                        f'{hit.pid} Change:',
+                                        f'  {contribution["agent"]}',
+                                        f'  {new_contribution}'
+                                    )
+                                    contribution['agent'] = new_contribution
+                                    break
+                        else:
+                            self.add_preferred_name(
+                                ref_type=ref_type,
+                                ref_pid=ref_pid,
+                                preferred_name=contribution.get(
+                                    'agent', {}).get('preferred_name', ''),
+                                type=contribution.get(
+                                    'agent', {}).get('type', ''),
+                            )
+                self.update_document(changed=changed, document=doc)
         return self.counts
 
 
@@ -298,42 +302,43 @@ class ReplaceMefIdentifiedBySubjects(ReplaceMefIdentifiedByContribution):
                        f'{self._query_filter().count()}')
         hits = list(self._query_filter().source('pid').scan())
         for hit in list(self._query_filter().source('pid').scan()):
-            doc = Document.get_record_by_id(hit.meta.id)
-            changed = False
-            for subject in doc.get(self.name, []):
-                ref_type = subject.get(
-                    'identifiedBy', {}).get('type', '').lower()
-                is_pers_org = subject.get('type') in [
-                    'bf:Person', 'bf:Organisation']
-                if ref_type in self.cont_types + ['rero'] and is_pers_org:
-                    ref_pid = subject.get('identifiedBy', {}).get('value')
-                    if cont := self.get_contribution(hit.pid, ref_type,
-                                                     ref_pid):
-                        # change the contribution to linked contribution
-                        for cont_type in ['idref', 'gnd']:
-                            if cont.get(cont_type):
-                                changed = True
-                                url = f'{self.mef_url}/{cont_type}/' \
-                                    f'{cont[cont_type]["pid"]}'
-                                new_subject = {
-                                    '$ref': url,
-                                    # TOTO: we have to correct all wrong
-                                    # bf:Organisation
-                                    'type': subject['type']
-                                }
-                                self.print_debug(
-                                    f'{hit.pid} Change:',
-                                    f'  {subject}',
-                                    f'  {new_subject}'
-                                )
-                                subject = new_subject
-                                break
-                    else:
-                        self.add_preferred_name(
-                            ref_type=ref_type,
-                            ref_pid=ref_pid,
-                            preferred_name=subject.get('preferred_name'),
-                            type=subject.get('type')
-                        )
-            self.update_document(changed=changed, document=doc)
+            with contextlib.suppress(NoResultFound):
+                doc = Document.get_record_by_id(hit.meta.id)
+                changed = False
+                for subject in doc.get(self.name, []):
+                    ref_type = subject.get(
+                        'identifiedBy', {}).get('type', '').lower()
+                    is_pers_org = subject.get('type') in [
+                        'bf:Person', 'bf:Organisation']
+                    if ref_type in self.cont_types + ['rero'] and is_pers_org:
+                        ref_pid = subject.get('identifiedBy', {}).get('value')
+                        if cont := self.get_contribution(hit.pid, ref_type,
+                                                         ref_pid):
+                            # change the contribution to linked contribution
+                            for cont_type in ['idref', 'gnd']:
+                                if cont.get(cont_type):
+                                    changed = True
+                                    url = f'{self.mef_url}/{cont_type}/' \
+                                        f'{cont[cont_type]["pid"]}'
+                                    new_subject = {
+                                        '$ref': url,
+                                        # TOTO: we have to correct all wrong
+                                        # bf:Organisation
+                                        'type': subject['type']
+                                    }
+                                    self.print_debug(
+                                        f'{hit.pid} Change:',
+                                        f'  {subject}',
+                                        f'  {new_subject}'
+                                    )
+                                    subject = new_subject
+                                    break
+                        else:
+                            self.add_preferred_name(
+                                ref_type=ref_type,
+                                ref_pid=ref_pid,
+                                preferred_name=subject.get('preferred_name'),
+                                type=subject.get('type')
+                            )
+                self.update_document(changed=changed, document=doc)
         return self.counts
