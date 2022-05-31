@@ -68,10 +68,7 @@ class RedisScheduler(OriginalRedisScheduler):
         lazy = kwargs.get('lazy', False)
         url = app.conf.get("CELERY_REDIS_SCHEDULER_URL",
                            "redis://localhost:6379")
-        logger.info('Connect: {url} lazy:{lazy}'.format(
-            url=url,
-            lazy=lazy
-        ))
+        logger.info(f'Connect: {url} lazy:{lazy}')
         kwargs['app'] = app
         kwargs['lazy'] = lazy
         super().__init__(*args, **kwargs)
@@ -83,12 +80,10 @@ class RedisScheduler(OriginalRedisScheduler):
         :return: scheduled task
         """
         tasks = self.rdb.zrange(self.key, 0, -1) or []
-        for idx, task in enumerate(tasks):
+        for task in tasks:
             entry = jsonpickle.decode(task)
             if entry.name == name:
                 return entry
-        else:
-            return None
 
     def enabled_name(self, name):
         """Name for enabled value in REDIS DB.
@@ -96,7 +91,7 @@ class RedisScheduler(OriginalRedisScheduler):
         :param name: name of entry in task scheduler
         :return: name of the enable key in REDIS DB
         """
-        return '{key}:{name}'.format(key=self.key, name=name)
+        return f'{self.key}:{name}'
 
     def merge_inplace(self, tasks):
         """Merge entries from CELERY_BEAT_SCHEDULE.
@@ -114,9 +109,8 @@ class RedisScheduler(OriginalRedisScheduler):
         beat_schedule = FLASK_TO_CELERY_MAPPING['CELERY_BEAT_SCHEDULE']
         config = deepcopy(self.app.conf.get(beat_schedule))
         self.merge_inplace(config)
-        msg = 'Current schedule:\n{tasks}'.format(
-            tasks='\n'.join(self.display_all(prefix='- Tasks: '))
-        )
+        current_schedule = "\n".join(self.display_all(prefix="- Tasks: "))
+        msg = f'Current schedule:\n {current_schedule}'
         logger.info(msg)
 
     def is_due(self, entry):
@@ -136,17 +130,11 @@ class RedisScheduler(OriginalRedisScheduler):
         :return: the state of the entry as schedstate
         """
         if self.get_entry_enabled(entry.name):
-            state = entry.is_due()
-        else:
-            msg = ('Not enabled: {name} = {task} {each} {kwargs}'.format(
-                name=entry.name,
-                task=entry.task,
-                each=repr(entry.schedule),
-                kwargs=entry.kwargs,
-            ))
-            logger.info(msg)
-            state = schedstate(is_due=False, next=entry.is_due().next)
-        return state
+            return entry.is_due()
+        msg = f'Not enabled: {entry.name} = {entry.task} ' \
+              f'{repr(entry.schedule)} {entry.kwargs}'
+        logger.info(msg)
+        return schedstate(is_due=False, next=entry.is_due().next)
 
     def set(self, entry, enable=True):
         """Sets an entry.
@@ -206,30 +194,14 @@ class RedisScheduler(OriginalRedisScheduler):
         :param prefix: prefix to add to returned info
         :return: entry as string representative
         """
-        entry_as_text = 'Not found entry: {name}'.format(name=name)
-        entry = self.get(name)
-        if entry:
+        entry_as_text = f'Not found entry: {name}'
+        if entry := self.get(name):
             entry_as_text = (
-                '{txt}{name} = {task} {each} {kwargs}'
-                ' {options} {enabled}'
-                ).format(
-                    txt=prefix,
-                    name=entry.name,
-                    task=entry.task,
-                    each=repr(entry.schedule),
-                    kwargs='{txt}{data}'.format(
-                        txt='kwargs:',
-                        data=entry.kwargs
-                    ),
-                    options='{txt}{data}'.format(
-                        txt='options:',
-                        data=entry.options
-                    ),
-                    enabled='{txt}{data}'.format(
-                        txt='enabled:',
-                        data=self.get_entry_enabled(name)
-                    )
-                )
+                f'{prefix}{entry.name} = {entry.task} {repr(entry.schedule)} '
+                f'kwargs:{entry.kwargs} '
+                f'options:{entry.options} '
+                f'enabled:{self.get_entry_enabled(name)}'
+            )
         return entry_as_text
 
     def display_all(self, prefix='- '):
@@ -270,7 +242,7 @@ class RedisScheduler(OriginalRedisScheduler):
         :param enable: enable or disable scheduling
         """
         if self.get(name):
-            enabled_name = '{key}:{name}'.format(key=self.key, name=name)
+            enabled_name = f'{self.key}:{name}'
             self.rdb[enabled_name] = int(enable)
 
     def set_enable_all(self, enable=True):
@@ -336,7 +308,7 @@ def enable_tasks(all, names, disable, verbose):
         if verbose:
             click.echo('\n'.join(current_scheduler.display_all()))
     else:
-        names = names if names else []
+        names = names or []
         for name in names:
             name = name.strip()
             current_scheduler.set_entry_enabled(name=name, enable=not disable)

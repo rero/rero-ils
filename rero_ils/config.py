@@ -403,14 +403,23 @@ CELERY_BEAT_SCHEDULE = {
     },
     'replace-idby-contribution': {
         'task': ('rero_ils.modules.documents.tasks.replace_idby_contribution'),
-        'schedule': crontab(minute=22, hour=22, day_of_week=6),
+        'schedule': crontab(minute=5, hour=2, day_of_week=6),
         # Every week on Saturday at 22:22 UTC,
         'enabled': False
     },
     'replace-idby-subjects': {
         'task': ('rero_ils.modules.documents.tasks.replace_idby_subjects'),
-        'schedule': crontab(minute=21, hour=22, day_of_week=6),
+        'schedule': crontab(minute=10, hour=2, day_of_week=6),
         # Every week on Saturday at 22:22 UTC,
+        'enabled': False
+    },
+    'replace-idby-subjects-imported': {
+        'task': ('rero_ils.modules.documents.tasks.replace_idby_subjects'),
+        'kwargs': {
+            'subjects': 'subjects_imported'
+        },
+        'schedule': crontab(minute=15, hour=2, day_of_week=6),
+        # Every week on Saturday at 22:20 UTC,
         'enabled': False
     },
     'delete-provisional-items': {
