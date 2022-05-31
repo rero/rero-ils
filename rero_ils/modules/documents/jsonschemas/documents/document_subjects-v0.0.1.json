@@ -454,7 +454,7 @@
     "genreForm_subdivisions": {
       "title": "Form subdivisions",
       "type": "array",
-      "minItems": 1,
+      "minItems": 0,
       "items": {
         "title": "Form subdivision",
         "description": "Subject subdivision for a specific kind or genre of material (MARC 6XX$v)",
@@ -471,7 +471,7 @@
     "topic_subdivisions": {
       "title": "Concept subdivisions",
       "type": "array",
-      "minItems": 1,
+      "minItems": 0,
       "items": {
         "title": "Concept subdivision",
         "description": "Subject subdivision for a concept (MARC 6XX$x)",
@@ -488,7 +488,7 @@
     "temporal_subdivisions": {
       "title": "Time-span subdivisions",
       "type": "array",
-      "minItems": 1,
+      "minItems": 0,
       "items": {
         "title": "Time-span subdivision",
         "description": "Subject subdivision for a period of time (MARC 6XX$y)",
@@ -505,7 +505,7 @@
     "place_subdivisions": {
       "title": "Place subdivisions",
       "type": "array",
-      "minItems": 1,
+      "minItems": 0,
       "items": {
         "title": "Place subdivision",
         "description": "Subject subdivision for a place (MARC 6XX$z)",
