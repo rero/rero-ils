@@ -37,6 +37,9 @@ def test_marc21_to_contribution(mock_get):
         <subfield code="d">1954-</subfield>
         <subfield code="4">aut</subfield>
       </datafield>
+      <datafield tag="240" ind1=" " ind2=" ">
+        <subfield code="a">Treaties, etc.</subfield>
+      </datafield>
       <datafield tag="700" ind1=" " ind2=" ">
         <subfield code="a">Dumont, Jean</subfield>
         <subfield code="c">Historien</subfield>
@@ -65,52 +68,54 @@ def test_marc21_to_contribution(mock_get):
       </datafield>
     </record>
     """
-
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('contribution') == [
-        {
-            'agent': {
-                'type': 'bf:Person',
-                'preferred_name': 'Jean-Paul',
-                'numeration': 'II',
-                'date_of_birth': '1954',
-                'qualifier': 'Pape'
-            },
-            'role': ['aut']
+    assert data.get('contribution') == [{
+        'agent': {
+            'type': 'bf:Person',
+            'preferred_name': 'Jean-Paul',
+            'numeration': 'II',
+            'date_of_birth': '1954',
+            'qualifier': 'Pape'
         },
-        {
-            'agent': {
-                'type': 'bf:Person',
-                'preferred_name': 'Dumont, Jean',
-                'date_of_birth': '1921',
-                'date_of_death': '2014',
-                'qualifier': 'Historien'
-            },
-            'role': ['edt']
+        'role': ['aut']
+    }, {
+        'agent': {
+            'type': 'bf:Person',
+            'preferred_name': 'Dumont, Jean',
+            'date_of_birth': '1921',
+            'date_of_death': '2014',
+            'qualifier': 'Historien'
         },
-        {
-            'agent': {
-                'type': 'bf:Organisation',
-                'preferred_name': 'RERO',
-                'conference': False
-            },
-            'role': ['ctb']
+        'role': ['edt']
+    }, {
+        'agent': {
+            'type': 'bf:Organisation',
+            'preferred_name': 'RERO',
+            'conference': False
         },
-        {
-            'agent': {
-                'type': 'bf:Organisation',
-                'preferred_name': 'Biennale de céramique contemporaine',
-                'conference_date': '2003',
-                'numbering': '17',
-                'place': 'Châteauroux',
-                'conference': True
-            },
-            'role': ['aut']
-        }
-    ]
-
+        'role': ['ctb']
+    }, {
+        'agent': {
+            'type': 'bf:Organisation',
+            'preferred_name': 'Biennale de céramique contemporaine',
+            'conference_date': '2003',
+            'numbering': '17',
+            'place': 'Châteauroux',
+            'conference': True
+        },
+        'role': ['aut']
+    }]
     assert data.get('work_access_point') == [{
+        'agent': {
+            'date_of_birth': '1954',
+            'numeration': 'II',
+            'preferred_name': 'Jean-Paul',
+            'qualifier': 'Pape',
+            'type': 'bf:Person'
+        },
+        'title': 'Treaties, etc.'
+    }, {
         'agent': {
             'preferred_name': 'Santamaría, Germán',
             'type': 'bf:Person'
@@ -139,7 +144,6 @@ def test_marc21_to_contribution(mock_get):
       </datafield>
     </record>
     """
-
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('work_access_point') == [{

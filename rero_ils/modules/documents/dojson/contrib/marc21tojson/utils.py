@@ -21,6 +21,7 @@
 
 import contextlib
 import re
+import sys
 
 from dojson import utils
 from dojson.utils import GroupableOrderedDict
@@ -227,6 +228,12 @@ _INTENDED_AUDIENCE_TYPE_REGEXP = {
     'filmage_ch': re.compile(r'^from the age of')
 }
 
+_SCALE_TYPE = {
+    'a': 'Linear scale',
+    'b': 'Angular scale',
+    'z': 'Other'
+}
+
 re_reroils = re.compile(r'(^REROILS:)(.*)')
 re_electonic_locator = re.compile(r'^(ftps?|https?)://.*$')
 
@@ -283,10 +290,10 @@ def do_issuance(data, marc21):
 
 def do_type(data, marc21):
     """Get document type."""
-    rec_type = [{"main_type": "docmaintype_other"}]
+    doc_type = [{"main_type": "docmaintype_other"}]
     if marc21.record_type == 'a':
         if marc21.bib_level == 'm':
-            rec_type = [{
+            doc_type = [{
                 "main_type": "docmaintype_book",
                 "subtype": "docsubtype_other_book"
             }]
@@ -295,34 +302,34 @@ def do_type(data, marc21):
             field_008 = marc21.get_fields('008')
             # if it's an electronic book
             if field_008[0]['data'][23] in ('o', 's'):
-                rec_type = [{
+                doc_type = [{
                     "main_type": "docmaintype_book",
                     "subtype": "docsubtype_e-book"
                  }]
         elif marc21.bib_level == 's':
-            rec_type = [{
+            doc_type = [{
                 "main_type": "docmaintype_serial"
             }]
         elif marc21.bib_level == 'a':
-            rec_type = [{
+            doc_type = [{
                 "main_type": "docmaintype_article",
             }]
         elif marc21.record_type in ['c', 'd']:
-            rec_type = [{
+            doc_type = [{
                 "main_type": "docmaintype_score",
                 "subtype": "docsubtype_printed_score"
             }]
         elif marc21.record_type in ['i', 'j']:
-            rec_type = [{
+            doc_type = [{
                 "main_type": "docmaintype_audio",
                 "subtype": "docsubtype_music"
             }]
         elif marc21.record_type == 'g':
-            rec_type = [{
+            doc_type = [{
                 "main_type": "docmaintype_movie_series",
                 "subtype": "docsubtype_movie"
             }]
-    data['type'] = rec_type
+    data['type'] = doc_type
 
 
 def do_language(data, marc21):
@@ -348,7 +355,7 @@ def do_language(data, marc21):
             })
             lang_codes.append(lang_value)
     # language note
-    if fields_546 := marc21.get_fields('546'):
+    if fields_546 := marc21.get_fields(tag='546'):
         subfields_546_a = marc21.get_subfields(fields_546[0], 'a')
         if subfields_546_a and language:
             language[0]['note'] = subfields_546_a[0]
@@ -421,7 +428,7 @@ def do_title(data, marc21, value):
     # extraction and initialization of data for further processing
     subfield_245_a = ''
     subfield_245_b = ''
-    if fields_245 := marc21.get_fields('245'):
+    if fields_245 := marc21.get_fields(tag='245'):
         subfields_245_a = marc21.get_subfields(fields_245[0], 'a')
         subfields_245_b = marc21.get_subfields(fields_245[0], 'b')
         if subfields_245_a:
@@ -501,100 +508,90 @@ def do_title(data, marc21, value):
     return title_list or None
 
 
-def do_contribution(data, marc21, key, value):
-    """Get contribution."""
-
-    def build_agent():
-        agent_data = {}
+def build_agent(marc21, key, value):
+    """Build agent."""
+    agent_data = {}
+    if value.get('a'):
+        name = not_repetitive(
+            marc21.bib_id, marc21.bib_id, key, value, 'a')
+        agent_data['preferred_name'] = remove_trailing_punctuation(
+            name)
+    # 100|700|240 Person
+    if key[:3] in ['100', '700']:
+        agent_data['type'] = 'bf:Person'
         if value.get('a'):
             name = not_repetitive(
                 marc21.bib_id, marc21.bib_id, key, value, 'a')
             agent_data['preferred_name'] = remove_trailing_punctuation(
-                name)
-        # 100|700 Person
-        if key[:3] in ['100', '700']:
-            agent_data['type'] = 'bf:Person'
-            if value.get('a'):
-                name = not_repetitive(
-                    marc21.bib_id, marc21.bib_id, key, value, 'a')
-                agent_data['preferred_name'] = remove_trailing_punctuation(
-                    name)  # name.rstrip('.')
-            if value.get('b'):
-                numeration = not_repetitive(
-                    marc21.bib_id, marc21.bib_id, key, value, 'b')
-                agent_data['numeration'] = remove_trailing_punctuation(
-                    numeration)
-            if value.get('c'):
-                qualifier = not_repetitive(
-                    marc21.bib_id, marc21.bib_id, key, value, 'c')
-                agent_data['qualifier'] = remove_trailing_punctuation(
-                    qualifier)
-            if value.get('d'):
-                date = not_repetitive(
-                    marc21.bib_id, marc21.bib_id, key, value, 'd')
-                date = date.rstrip(',')
-                dates = remove_trailing_punctuation(date).split('-')
-                try:
-                    date_of_birth = dates[0].strip()
-                    if date_of_birth:
-                        agent_data['date_of_birth'] = date_of_birth
-                except Exception:
-                    pass
-                try:
-                    date_of_death = dates[1].strip()
-                    if date_of_death:
-                        agent_data['date_of_death'] = date_of_death
-                except Exception:
-                    pass
-            if value.get('q'):
-                fuller_form_of_name = not_repetitive(
-                    marc21.bib_id, marc21.bib_id, key, value, 'q')
-                agent_data[
-                    'fuller_form_of_name'] = remove_trailing_punctuation(
-                    fuller_form_of_name
-                ).lstrip('(').rstrip(')')
+                name)  # name.rstrip('.')
+        if value.get('b'):
+            numeration = not_repetitive(
+                marc21.bib_id, marc21.bib_id, key, value, 'b')
+            agent_data['numeration'] = remove_trailing_punctuation(
+                numeration)
+        if value.get('c'):
+            qualifier = not_repetitive(
+                marc21.bib_id, marc21.bib_id, key, value, 'c')
+            agent_data['qualifier'] = remove_trailing_punctuation(
+                qualifier)
+        if value.get('d'):
+            date = not_repetitive(
+                marc21.bib_id, marc21.bib_id, key, value, 'd')
+            date = date.rstrip(',')
+            dates = remove_trailing_punctuation(date).split('-')
+            with contextlib.suppress(Exception):
+                if date_of_birth := dates[0].strip():
+                    agent_data['date_of_birth'] = date_of_birth
+            with contextlib.suppress(Exception):
+                if date_of_death := dates[1].strip():
+                    agent_data['date_of_death'] = date_of_death
+        if value.get('q'):
+            fuller_form_of_name = not_repetitive(
+                marc21.bib_id, marc21.bib_id, key, value, 'q')
+            agent_data[
+                'fuller_form_of_name'] = remove_trailing_punctuation(
+                fuller_form_of_name
+            ).lstrip('(').rstrip(')')
 
-        # 710|711 Organisation
-        if key[:3] in ['710', '711']:
-            agent_data['type'] = 'bf:Organisation'
-            if key[:3] == '711':
-                agent_data['conference'] = True
-            else:
-                agent_data['conference'] = False
-            if value.get('b'):
-                subordinate_units = []
-                for subordinate_unit in utils.force_list(
-                        value.get('b')):
-                    subordinate_units.append(
-                        subordinate_unit.rstrip('.'))
-                agent_data['subordinate_unit'] = subordinate_units
-            if value.get('n'):
-                numbering = not_repetitive(
-                    marc21.bib_id, marc21.bib_id, key, value, 'n')
+    # 710|711 Organisation
+    if key[:3] in ['710', '711']:
+        agent_data['type'] = 'bf:Organisation'
+        agent_data['conference'] = key[:3] == '711'
+        if value.get('b'):
+            subordinate_units = [
+                subordinate_unit.rstrip('.')
+                for subordinate_unit in utils.force_list(value.get('b'))
+            ]
 
-                numbering = remove_trailing_punctuation(
-                    numbering).lstrip('(').rstrip(')')
-                if numbering:
-                    agent_data['numbering'] = numbering
-            if value.get('d'):
-                conference_date = not_repetitive(
-                    marc21.bib_id, marc21.bib_id, key, value, 'd')
-                agent_data['conference_date'] = remove_trailing_punctuation(
-                    conference_date
-                ).lstrip('(').rstrip(')')
-            if value.get('c'):
-                place = not_repetitive(
-                    marc21.bib_id, marc21.bib_id, key, value, 'c')
-                agent_data['place'] = remove_trailing_punctuation(
-                    place
-                ).lstrip('(').rstrip(')')
+            agent_data['subordinate_unit'] = subordinate_units
+        if value.get('n'):
+            numbering = not_repetitive(
+                marc21.bib_id, marc21.bib_id, key, value, 'n')
 
-        return agent_data or None
+            if numbering := remove_trailing_punctuation(
+                    numbering).lstrip('(').rstrip(')'):
+                agent_data['numbering'] = numbering
+        if value.get('d'):
+            conference_date = not_repetitive(
+                marc21.bib_id, marc21.bib_id, key, value, 'd')
+            agent_data['conference_date'] = remove_trailing_punctuation(
+                conference_date
+            ).lstrip('(').rstrip(')')
+        if value.get('c'):
+            place = not_repetitive(
+                marc21.bib_id, marc21.bib_id, key, value, 'c')
+            agent_data['place'] = remove_trailing_punctuation(
+                place
+            ).lstrip('(').rstrip(')')
 
+    return agent_data or None
+
+
+def do_contribution(data, marc21, key, value):
+    """Get contribution."""
     # exclude work access points
     if key[:3] in ['700', '710'] and value.get('t'):
-        work_access_point = do_work_access_point(marc21, key, value)
-        if work_access_point:
+        if work_access_point := do_work_access_point(marc21, key, value):
             data.setdefault('work_access_point', [])
             data['work_access_point'].append(work_access_point)
         return None
@@ -602,9 +599,8 @@ def do_contribution(data, marc21, key, value):
     agent = {}
 
     if value.get('0'):
-        ref = get_contribution_link(marc21.bib_id, marc21.rero_id,
-                                    value.get('0'), key)
-        if ref:
+        if ref := get_contribution_link(marc21.bib_id, marc21.rero_id,
+                                        value.get('0'), key):
             agent['$ref'] = ref
             if key[:3] in ['100', '700']:
                 agent['type'] = 'bf:Person'
@@ -613,7 +609,7 @@ def do_contribution(data, marc21, key, value):
 
     # we do not have a $ref
     if not agent.get('$ref') and value.get('a'):
-        agent = build_agent()
+        agent = build_agent(marc21=marc21, key=key, value=value)
 
     if value.get('4'):
         roles = set()
@@ -632,13 +628,12 @@ def do_contribution(data, marc21, key, value):
                             marc21.bib_id, marc21.rero_id, role)
                 role = 'ctb'
             roles.add(role)
+    elif key[:3] == '100':
+        roles = ['cre']
+    elif key[:3] == '711':
+        roles = ['aut']
     else:
-        if key[:3] == '100':
-            roles = ['cre']
-        elif key[:3] == '711':
-            roles = ['aut']
-        else:
-            roles = ['ctb']
+        roles = ['ctb']
     if agent:
         return {
             'agent': agent,
@@ -658,8 +653,8 @@ def do_specific_document_relation(data, marc21, key, value):
         )
         relation = {'label': label}
     elif subfield_w := not_repetitive(
-                marc21.bib_id, marc21.rero_id, key, value, 'w', default=''
-            ).strip():
+            marc21.bib_id, marc21.rero_id,
+            key, value, 'w', default='').strip():
         pid = None
         if match := re_reroils.match(subfield_w):
             source = match.group(1)
@@ -829,8 +824,8 @@ def do_provision_activity(data, marc21, key, value):
             places.append(place)
         if places:
             publication['place'] = places
-    subfield_3 = not_repetitive(marc21.bib_id, marc21.rero_id,
-                                key, value, '3')
+    subfield_3 = not_repetitive(
+        marc21.bib_id, marc21.rero_id, key, value, '3')
     if subfield_3:
         notes = publication.get('note')
         if notes:
@@ -899,8 +894,8 @@ def do_table_of_contents(data, value):
 def do_usage_and_access_policy_from_field_506_540(marc21, key, value):
     """Get usageAndAccessPolicy from fields: 506, 540."""
     if subfield_a := not_repetitive(
-        marc21.bib_id, marc21.rero_id, key, value, 'a', default=''
-    ).strip():
+            marc21.bib_id, marc21.rero_id,
+            key, value, 'a', default='').strip():
         return {'type': 'bf:UsageAndAccessPolicy', 'label': subfield_a}
 
 
@@ -1009,9 +1004,8 @@ def do_identified_by_from_field_010(data, marc21, key, value):
     def build_identifier_from(subfield_data, identified_by):
         subfield_data = subfield_data.strip()
         identifier = {'value': subfield_data}
-        if subfield_a := not_repetitive(
-            marc21.bib_id, marc21.rero_id, key, value, 'a', default=''
-        ).strip():
+        if not_repetitive(marc21.bib_id, marc21.rero_id,
+                          key, value, 'a', default='').strip():
             identifier['type'] = 'bf:Lccn'
             identified_by.append(identifier)
         return identified_by
@@ -1086,9 +1080,7 @@ def do_identified_by_from_field_022(data, value):
             for subfield_data in subfields_data:
                 subfield_data = subfield_data.strip()
                 identifier = {
-                    'type': type_for[subfield_code],
-                    'value': subfield_data
-                }
+                    'type': type_for[subfield_code], 'value': subfield_data}
                 if subfield_code in status_for:
                     identifier['status'] = status_for[subfield_code]
                 identified_by.append(identifier)
@@ -1100,14 +1092,15 @@ def do_identified_by_from_field_024(data, marc21, key, value):
     """Get identifier from field 024."""
     def populate_acquisitionTerms_note_qualifier(identifier):
         if subfield_c := not_repetitive(
-            marc21.bib_id, marc21.rero_id, key, value, 'c', default=''
-        ).strip():
+                marc21.bib_id,
+                marc21.rero_id,
+                key, value, 'c', default='').strip():
             acquisition_terms = data.get('acquisitionTerms', [])
             acquisition_terms.append(subfield_c)
             data['acquisitionTerms'] = acquisition_terms
         if subfield_d := not_repetitive(
-                    marc21.bib_id, marc21.rero_id, key, value, 'd', default=''
-                ).strip():
+                marc21.bib_id, marc21.rero_id,
+                key, value, 'd', default='').strip():
             identifier['note'] = subfield_d
         if value.get('q'):  # $q is repetitive
             identifier['qualifier'] = \
@@ -1222,15 +1215,15 @@ def do_identified_by_from_field_028(data, marc21, key, value):
     """Get identifier from field 028."""
     identified_by = data.get('identifiedBy', [])
     if subfield_a := not_repetitive(
-        marc21.bib_id, marc21.rero_id, key, value, 'a', default=''
-    ).strip():
+            marc21.bib_id, marc21.rero_id,
+            key, value, 'a', default='').strip():
         identifier = {'value': subfield_a}
         if value.get('q'):  # $q is repetitive
             identifier['qualifier'] = \
                 ', '.join(utils.force_list(value.get('q')))
         if subfield_b := not_repetitive(
-            marc21.bib_id, marc21.rero_id, key, value, 'b', default=''
-        ).strip():
+                marc21.bib_id, marc21.rero_id,
+                key, value, 'b', default='').strip():
             identifier['source'] = subfield_b
         type_for_ind1 = {
             '0': 'bf:AudioIssueNumber',
@@ -1252,8 +1245,8 @@ def do_identified_by_from_field_035(data, marc21, key, value, source=None):
     """Get identifier from field 035."""
     identified_by = data.get('identifiedBy', [])
     if subfield_a := not_repetitive(
-        marc21.bib_id, marc21.rero_id, key, value, 'a', default=''
-    ).strip():
+            marc21.bib_id, marc21.rero_id,
+            key, value, 'a', default='').strip():
         value = subfield_a
         # search source between parenthesis
         if match := re_identified.match(subfield_a):
@@ -1320,31 +1313,25 @@ def do_electronic_locator_from_field_856(data, marc21, key, value):
             "video"
         ]
         indicator2 = key[4]
-        content = None
-        if value.get('3'):
-            content = utils.force_list(value.get('3'))[0]
+        content = utils.force_list(value.get('3'))[0] if value.get('3') else \
+            None
         public_note = []
         if content and content not in electronic_locator_content:
             public_note.append(content)
         if value.get('y'):
-            for subfield_y in utils.force_list(value.get('y')):
-                public_note.append(subfield_y)
+            public_note.extend(iter(utils.force_list(value.get('y'))))
         if value.get('z'):
-            for subfield_z in utils.force_list(value.get('z')):
-                public_note.append(subfield_z)
-
+            public_note.extend(iter(utils.force_list(value.get('z'))))
         for url in utils.force_list(value.get('u')):
             electronic_locator = {
                 'url': url,
                 'type': electronic_locator_type.get(indicator2, 'noInfo')
             }
-            if content:
-                if content in electronic_locator_content:
-                    electronic_locator['content'] = content
+            if content and content in electronic_locator_content:
+                electronic_locator['content'] = content
             if public_note:
                 electronic_locator['publicNote'] = public_note
-            validate_url = re_electonic_locator.match(url)
-            if validate_url:
+            if re_electonic_locator.match(url):
                 electronic_locators.append(electronic_locator)
             else:
                 error_print('WARNING ELECTRONICLOCATOR:', marc21.bib_id,
@@ -1361,11 +1348,10 @@ def do_notes_and_original_title(data, key, value):
         is_general_note_to_add = False
         if key[:3] == '510':
             items = get_field_items(value)
-            note_str = ''
             subfield_selection = {'a', 'c', 'x'}
-            for blob_key, blob_value in items:
-                if blob_key in subfield_selection:
-                    note_str += blob_value + ' '
+            note_str = ''.join(f'{blob_value} ' for blob_key, blob_value
+                               in items if blob_key in subfield_selection)
+
             add_note(
                 dict(noteType='cited_by', label=note_str.strip()),
                 data
@@ -1399,7 +1385,7 @@ def do_credits(key, value):
     if value.get('a'):
         subfield_a = utils.force_list(value.get('a'))[0]
         if key[:3] == '511':
-            subfield_a = 'Participants ou interprètes: ' + subfield_a
+            subfield_a = f'Participants ou interprètes: {subfield_a}'
         return subfield_a
 
 
@@ -1409,7 +1395,7 @@ def do_sequence_numbering(data, value):
         subfield_a = utils.force_list(value.get('a'))[0]
         sequence_numbering = data.get('sequence_numbering', '')
         if sequence_numbering:
-            sequence_numbering += ' ; ' + subfield_a
+            sequence_numbering += f' ; {subfield_a}'
         else:
             sequence_numbering = subfield_a
         data['sequence_numbering'] = sequence_numbering
@@ -1428,24 +1414,21 @@ def do_classification(data, key, value):
     indicator1 = key[3]
     indicator2 = key[4]
     subfields_a = utils.force_list(value.get('a', []))
-    subfields_2 = utils.force_list(value.get('2'))
     subfield_2 = None
-    if subfields_2:
+    if subfields_2 := utils.force_list(value.get('2')):
         subfield_2 = subfields_2[0]
     for subfield_a in subfields_a:
-        classification = {}
-        classification['classificationPortion'] = subfield_a
-        classification['type'] = classification_type_per_tag[tag]
+        classification = {
+            'classificationPortion': subfield_a,
+            'type': classification_type_per_tag[tag]}
+
         if tag == '050' and indicator2 == '0':
             classification['assigner'] = 'LOC'
         if tag == '060' and indicator2 == '0':
             classification['assigner'] = 'NLM'
         if tag == '080':
-            subfields_x = utils.force_list(value.get('x'))
-            if subfields_x:
-                classification['subdivision'] = []
-                for subfield_x in subfields_x:
-                    classification['subdivision'].append(subfield_x)
+            if subfields_x := utils.force_list(value.get('x')):
+                classification['subdivision'] = list(subfields_x)
             edition = None
             if indicator1 == '0':
                 edition = 'Full edition'
@@ -1453,7 +1436,7 @@ def do_classification(data, key, value):
                 edition = 'Abridged edition'
             if subfield_2:
                 if edition:
-                    edition += ', ' + subfield_2
+                    edition += f', {subfield_2}'
                 else:
                     edition = subfield_2
             if edition:
@@ -1474,7 +1457,7 @@ def do_classification(data, key, value):
                 edition = 'Abridged edition'
             if subfield_2:
                 if edition:
-                    edition += ', ' + subfield_2
+                    edition += f', {subfield_2}'
                 else:
                     edition = subfield_2
             if edition:
@@ -1583,16 +1566,14 @@ def do_part_of(data, marc21, key, value):
                 elif blob_key == 't':
                     subfield_t = blob_value
                     if author:
-                        subfield_t += ' / ' + author
+                        subfield_t += f' / {author}'
                     new_data.append(('t', subfield_t))
                 elif blob_key == 'g':
                     pending_g_values.append(blob_value)
                 elif blob_key == 'v':
                     pending_v_values.append(blob_value)
-        for g_value in pending_g_values:
-            new_data.append(('g', g_value))
-        for v_value in pending_v_values:
-            new_data.append(('v', v_value))
+        new_data.extend(('g', g_value) for g_value in pending_g_values)
+        new_data.extend(('v', v_value) for v_value in pending_v_values)
         return GroupableOrderedDict(tuple(new_data))
 
     if key[:3] == '773' and marc21.bib_level == 'm':
@@ -1609,9 +1590,7 @@ def do_part_of(data, marc21, key, value):
             if key[:3] == '800':
                 # the author in subfield $a is appended to subfield $t
                 value = add_author_to_subfield_t(value)
-            marc21.extract_series_statement_from_marc_field(
-                key, value, data
-            )
+            marc21.extract_series_statement_from_marc_field(key, value, data)
 
 
 def do_work_access_point(marc21, key, value):
@@ -1650,19 +1629,7 @@ def do_work_access_point(marc21, key, value):
     title_tag = 'a'
     agent = {}
     work_access_point = {}
-    # subfield_0 = not_repetitive(
-    #     marc21.bib_id, marc21.bib_id, key, value, '0')
-    # if subfield_0:
-    #     ref = get_contribution_link(marc21.bib_id, marc21.rero_id,
-    #                                 subfield_0, key)
-    # if ref:
-    #     agent['$ref'] = ref
-    #     if tag == '700':
-    #         agent['type'] = 'bf:Person'
-    #     elif tag == '710':
-    #         agent['type'] = 'bf:Organisation'
-    # else:
-    if tag == '700' and value.get('t'):
+    if tag in ['700', '800'] and value.get('t'):
         title_tag = 't'
         agent['type'] = 'bf:Person'
         if value.get('a'):
@@ -1671,19 +1638,14 @@ def do_work_access_point(marc21, key, value):
         if value.get('b'):
             agent['numeration'] = remove_trailing_punctuation(
                 not_repetitive(marc21.bib_id, marc21.bib_id, key, value, 'b'))
-        dates = not_repetitive(marc21.bib_id, marc21.bib_id, key, value, 'd')
-        if dates:
+        if dates := not_repetitive(
+                marc21.bib_id, marc21.bib_id, key, value, 'd'):
             split_dates = dates.split('-')
-            date_of_birth = split_dates[0].strip()
-            if date_of_birth:
+            if date_of_birth := split_dates[0].strip():
                 agent['date_of_birth'] = date_of_birth
-            try:
-                date_of_death = split_dates[1].strip()
-                if date_of_death:
+            with contextlib.suppress(Exception):
+                if date_of_death := split_dates[1].strip():
                     agent['date_of_death'] = date_of_death
-            except Exception:
-                pass
-
         if value.get('c'):
             agent['qualifier'] = remove_trailing_punctuation(
                 not_repetitive(marc21.bib_id, marc21.bib_id, key, value, 'c'))
@@ -1713,8 +1675,7 @@ def do_work_access_point(marc21, key, value):
         lang = language
         if lang not in _LANGUAGES:
             # try to get alpha3 language:
-            iso_language = find(language)
-            if iso_language:
+            if iso_language := find(language):
                 lang = iso_language.get('iso639_2_b')
         if lang in _LANGUAGES:
             work_access_point['language'] = lang
@@ -1729,8 +1690,7 @@ def do_work_access_point(marc21, key, value):
             part_list.update_part(blob_value, blob_key, blob_value)
         if blob_key != '__order__':
             index += 1
-    the_part_list = part_list.get_part_list()
-    if the_part_list:
+    if the_part_list := part_list.get_part_list():
         work_access_point['part'] = the_part_list
     if value.get('k'):
         work_access_point['form_subdivision'] = list(
@@ -1744,8 +1704,7 @@ def do_work_access_point(marc21, key, value):
     if value.get('r'):
         work_access_point['key_for_music'] = not_repetitive(
             marc21.bib_id, marc21.bib_id, key, value, 'r')
-    identifier = build_identifier(value)
-    if identifier:
+    if identifier := build_identifier(value):
         agent['identifiedBy'] = identifier
 
     if not work_access_point.get('title'):
@@ -1754,7 +1713,237 @@ def do_work_access_point(marc21, key, value):
         return None
     agent = work_access_point.get('agent', {})
     if agent and not agent.get('preferred_name'):
-        error_print('WARNING WORK ACCESS POINT:', marc21.bib_id,
-                    marc21.rero_id, 'no agent preferred_name')
-        return None
+        work_access_point.pop('agent')
     return work_access_point or None
+
+
+def do_work_access_point_240(marc21, key, value):
+    """Get work access point from 240."""
+    work_access_points = {}
+    part_list = TitlePartList(
+        part_number_code='n',
+        part_name_code='p'
+    )
+    part_selection = {'n', 'p'}
+    for blob_key, blob_value in get_field_items(value):
+        if blob_key in {'a'}:
+            work_access_points['title'] = blob_value
+
+        if blob_key in part_selection:
+            part_list.update_part(blob_value, blob_key, blob_value)
+
+    if field_100 := marc21.get_fields('100'):
+        if agent := build_agent(marc21, '100', field_100[0]['subfields']):
+            work_access_points['agent'] = agent
+
+    if the_part_list := part_list.get_part_list():
+        work_access_points['part'] = the_part_list
+
+    if work_access_points:
+        return work_access_points
+
+
+def do_scale_and_cartographic(data, marc21, key, value):
+    """Get scal and cartographic data.
+
+    Si 255$a, créer la propriété "scale"
+        * créer un objet de "scale" pour chaque 255
+          * "label": "255$a" - retirer le ";" en fin de zone
+          * "type": "034$a" [1]
+          * "ratio_linear_horizontal":"034$b"
+            (si $b répétitf, créer plusieurs valeurs)
+          * "ratio_linear_vertical":"034$c"
+            (si $c répétitif, créer plusieurs valeurs)
+    Si 255 (l'un des sous-champs bc), créer la propriété
+    "cartographicAttributes"
+    * créer un objet de "cartographicAttributes" pour chaque 255
+      * créer la propriété "coordinates"
+        * "label": "255$c" - retirer les parenthèses en début et fin de zone
+          et le point final  ;
+        * "longitude": "034$d 034$e" - concaténer les valeurs et les séparer
+          si nécessaire d'un espace
+        * "latitude": "034$f 034$g" - concaténer les valeurs et les séparer
+          si nécessaire d'un espace
+      * "projection": "255$b"
+    [1]
+    a > Linear scale
+    b > Angular scale
+    z > Other
+    """
+    fields_034 = marc21.get_fields(tag='034')
+
+    if value.get('a'):
+        scales = data.get('scale', [])
+        index = len(scales)
+        scale = {
+            'label': remove_trailing_punctuation(value.get('a'))
+        }
+        if fields_034 and len(fields_034) >= index:
+            subfields_034_a = marc21.get_subfields(fields_034[index], 'a')
+            subfields_034_b = marc21.get_subfields(fields_034[index], 'b')
+            subfields_034_c = marc21.get_subfields(fields_034[index], 'c')
+
+            if subfields_034_a:
+                scale['type'] = _SCALE_TYPE.get(subfields_034_a[0].strip())
+            if subfields_034_b:
+                ratio_linear_horizontal = subfields_034_b[0]
+                try:
+                    scale['ratio_linear_horizontal'] = \
+                        int(ratio_linear_horizontal)
+                except Exception:
+                    error_print(
+                        f'WARNING ratio_linear_horizontal is not an integer '
+                        f'for [{marc21.bib_id}]: {ratio_linear_horizontal}'
+                    )
+            if subfields_034_c:
+                ratio_linear_vertical = subfields_034_c[0]
+                try:
+                    scale['ratio_linear_vertical'] = \
+                        int(ratio_linear_vertical)
+                except Exception:
+                    error_print(
+                        f'WARNING ratio_linear_vertical is not an integer '
+                        f'for [{marc21.bib_id}]: {ratio_linear_vertical}',
+                    )
+
+        scales.append(scale)
+        data['scale'] = scales
+
+    cartographic_attributes = data.get('cartographicAttributes', [])
+    subfield_b = value.get('b')
+    subfield_c = value.get('c')
+    cartographic_attribute = {}
+    if subfield_b:
+        cartographic_attribute['projection'] = subfield_b
+    coordinates = {'label': subfield_c} if subfield_c else {}
+
+    if fields_034 and len(fields_034) >= index:
+        """
+        * "longitude": "034$d 034$e" - concaténer les valeurs et les séparer
+          si nécessaire d'un espace
+        * "latitude": "034$f 034$g" - concaténer les valeurs et les séparer
+          si nécessaire d'un espace
+        """
+        subfields_034_d = marc21.get_subfields(fields_034[index], 'd')
+        subfields_034_e = marc21.get_subfields(fields_034[index], 'e')
+        subfields_034_f = marc21.get_subfields(fields_034[index], 'f')
+        subfields_034_g = marc21.get_subfields(fields_034[index], 'g')
+
+        longitude_parts = []
+        latitude_parts = []
+        if subfields_034_d:
+            longitude_parts.append(subfields_034_d[0])
+        if subfields_034_e:
+            longitude_parts.append(subfields_034_e[0])
+        if subfields_034_f:
+            latitude_parts.append(subfields_034_f[0])
+        if subfields_034_g:
+            latitude_parts.append(subfields_034_g[0])
+        if longitude_parts:
+            coordinates['longitude'] = ' '.join(longitude_parts)
+            coordinates['latitude'] = ' '.join(latitude_parts)
+    if coordinates:
+        cartographic_attribute['coordinates'] = coordinates
+    if cartographic_attribute:
+        cartographic_attributes.append(cartographic_attribute)
+        data['cartographicAttributes'] = cartographic_attributes
+
+
+def do_temporal_coverage(marc21, key, value):
+    """Get temporal coverage.
+
+    Plusieurs dates simples
+    Si 045 ind1=0 ou ind1=1, créer la propriété "temporalCoverage"
+    * créer un objet *date simple* de "temporalCoverage" pour chaque
+       paire 045$b et chaque 045$c
+    * "type": "time"
+    * "date": "045$b|045$c"
+    * "period_code": ["045$a"] - si répétés, récupérer tous les codes comme
+       valeurs séparées de "period_code"
+
+    Si 045 ind1=2
+    * "type": "period"
+    * "start_date": "045$b|045$c" - prendre le 1er sous-champ
+    * "end_date": "045$b|045$c" - prendre le 2e sous-champ
+    * "period_code": ["045$a"] - si répétés, récupérer tous les codes comme
+      valeurs séparées de "period_code"
+
+    Sinon (045 ind1=vide ou autre)
+    * "type": "period"
+    * "period_code": ["045$a"] - si répétés, récupérer tous les codes comme
+      valeurs séparées de "period_code"
+
+    [1] Convertir la date dans le format suivant:
+    (+/-)yyyyyyyyyyy-mm-ddTHH-MM-SS La saisie des mm, dd, HH est facultative.
+    Si HH est saisi, MM et SS doivent être saisis. Voir regex dans colonne M.
+    Les dates dans $b suivent le format (c|d)yyyymmddhh. "c" est avant JC,
+    devient -. "d" est après JC, devient +.
+    Les dates dans $c suivent le format yyyyy...
+    (autant de chiffres que nécessaires). Ces dates sont toutes négatives
+    (à convertir avec un -).
+    """
+    def test_min_max(data, minimum, maximum):
+        with contextlib.suppress(ValueError):
+            number = int(data)
+            return minimum <= number <= maximum
+        return False
+
+    def format_date_b(date):
+        if date[0] == 'c':
+            date = f'-{date[1:]}'
+        elif date[0] == 'd':
+            date = f'+{date[1:]}'
+        else:
+            date = f'-{date}'
+        date_str = date[0]
+        year = date[1:5]
+        if test_min_max(year, 0, 9999):
+            date_str = f'{date_str}{year}'
+            month = date[5:7]
+            if test_min_max(month, 1, 12):
+                date_str = f'{date_str}-{month}'
+                day = date[7:9]
+                if test_min_max(day, 1, 31):
+                    date_str = f'{date_str}-{day}'
+                    hour = date[9:11]
+                    if test_min_max(hour, 0, 23):
+                        minute = date[11:13] if \
+                            test_min_max(date[11:13], 0, 59) else '00'
+                        second = date[13:15] if \
+                            test_min_max(date[13:15], 0, 59) else '00'
+                        date_str = f'{date_str}T{hour}:{minute}:{second}'
+        if len(date_str) > 1:
+            return date_str
+
+    def format_date_c(date):
+        if test_min_max(date, 0, sys.maxsize):
+            return f'-{date}'
+
+    ind1 = key[3]
+    coverage_type = 'time' if ind1 in ['0', '1'] else 'period'
+    temporal_coverage = {}
+    if subfields_a := utils.force_list(value.get('a')):
+        temporal_coverage['period_code'] = list(subfields_a)
+    if coverage_type == 'time':
+        if subfield_b := not_repetitive(marc21.bib_id, marc21.bib_id, key,
+                                        value, 'b'):
+            temporal_coverage['date'] = format_date_b(subfield_b)
+        elif subfield_c := not_repetitive(marc21.bib_id, marc21.bib_id, key,
+                                          value, 'c'):
+            temporal_coverage['date'] = format_date_c(subfield_c)
+    else:
+        if subfields_b := utils.force_list(value.get('b')):
+            if start_date := format_date_b(subfields_b[0]):
+                temporal_coverage['start_date'] = start_date
+                if len(subfields_b) > 1:
+                    if end_date := format_date_b(subfields_b[1]):
+                        temporal_coverage['end_date'] = end_date
+        elif subfields_c := utils.force_list(value.get('c')):
+            if start_date := format_date_c(subfields_c[0]):
+                temporal_coverage['start_date'] = start_date
+                if len(subfields_c) > 1:
+                    if end_date := format_date_c(subfields_c[1]):
+                        temporal_coverage['end_date'] = end_date
+    if temporal_coverage:
+        temporal_coverage['type'] = coverage_type
+        return temporal_coverage

@@ -18,6 +18,8 @@
 
 """rero-ils MARC21 model definition."""
 
+
+import contextlib
 import re
 
 from dojson import utils
@@ -36,8 +38,9 @@ from ..utils import _CONTRIBUTION_ROLE, do_abbreviated_title, \
     do_identified_by_from_field_024, do_identified_by_from_field_028, \
     do_identified_by_from_field_035, do_intended_audience, do_issuance, \
     do_notes_and_original_title, do_provision_activity, \
-    do_sequence_numbering, do_specific_document_relation, do_summary, \
-    do_table_of_contents, do_title, \
+    do_scale_and_cartographic, do_sequence_numbering, \
+    do_specific_document_relation, do_summary, do_table_of_contents, \
+    do_temporal_coverage, do_title, \
     do_usage_and_access_policy_from_field_506_540, do_work_access_point
 
 marc21 = ReroIlsMarc21Overdo()
@@ -84,8 +87,7 @@ def marc21_to_language(self, key, value):
             })
             lang_codes.append(lang_value)
     # language note
-    fields_546 = marc21.get_fields('546')
-    if fields_546:
+    if fields_546 := marc21.get_fields(tag='546'):
         subfields_546_a = marc21.get_subfields(fields_546[0], 'a')
         if subfields_546_a and language:
             language[0]['note'] = subfields_546_a[0]
@@ -111,17 +113,14 @@ def marc21_to_contribution(self, key, value):
     """Get contribution."""
     # exclude work access points
     if key[:3] in ['700', '710'] and value.get('t'):
-        work_access_point = do_work_access_point(marc21, key, value)
-        if work_access_point:
+        if work_access_point := do_work_access_point(marc21, key, value):
             self.setdefault('work_access_point', [])
             self['work_access_point'].append(work_access_point)
         return None
     agent = {}
-    subfields_0 = utils.force_list(value.get('0'))
-    if subfields_0:
-        ref = get_contribution_link(marc21.bib_id, marc21.rero_id,
-                                    subfields_0[0], key)
-        if ref:
+    if subfields_0 := utils.force_list(value.get('0')):
+        if ref := get_contribution_link(
+                marc21.bib_id, marc21.rero_id, subfields_0[0], key):
             agent['$ref'] = ref
             if key[:3] in ['100', '700']:
                 agent['type'] = 'bf:Person'
@@ -132,9 +131,10 @@ def marc21_to_contribution(self, key, value):
     if not agent.get('$ref') and value.get('a'):
         agent = {'type': 'bf:Person'}
         if value.get('a'):
-            name = not_repetitive(
-                marc21.bib_id, marc21.rero_id, key, value, 'a').rstrip('.')
-            if name:
+            if name := not_repetitive(
+                    marc21.bib_id,
+                    marc21.rero_id,
+                    key, value, 'a').rstrip('.'):
                 agent['preferred_name'] = name
 
         # 100|700 Person
@@ -143,8 +143,7 @@ def marc21_to_contribution(self, key, value):
             if value.get('b'):
                 numeration = not_repetitive(
                     marc21.bib_id, marc21.rero_id, key, value, 'b')
-                numeration = remove_trailing_punctuation(numeration)
-                if numeration:
+                if numeration := remove_trailing_punctuation(numeration):
                     agent['numeration'] = numeration
             if value.get('c'):
                 qualifier = not_repetitive(
@@ -155,41 +154,30 @@ def marc21_to_contribution(self, key, value):
                     marc21.bib_id, marc21.rero_id, key, value, 'd')
                 date = date.rstrip(',')
                 dates = remove_trailing_punctuation(date).split('-')
-                try:
-                    date_of_birth = dates[0].strip()
-                    if date_of_birth:
+                with contextlib.suppress(Exception):
+                    if date_of_birth := dates[0].strip():
                         agent['date_of_birth'] = date_of_birth
-                except Exception:
-                    pass
-                try:
-                    date_of_death = dates[1].strip()
-                    if date_of_death:
+                with contextlib.suppress(Exception):
+                    if date_of_death := dates[1].strip():
                         agent['date_of_death'] = date_of_death
-                except Exception:
-                    pass
             if value.get('q'):
                 fuller_form_of_name = not_repetitive(
                     marc21.bib_id, marc21.rero_id, key, value, 'q')
-                fuller_form_of_name = remove_trailing_punctuation(
-                    fuller_form_of_name
-                ).lstrip('(').rstrip(')')
-                if fuller_form_of_name:
+                if fuller_form_of_name := remove_trailing_punctuation(
+                        fuller_form_of_name).lstrip('(').rstrip(')'):
                     agent['fuller_form_of_name'] = fuller_form_of_name
-            identifier = build_identifier(value)
-            if identifier:
+            if identifier := build_identifier(value):
                 agent['identifiedBy'] = identifier
 
-        # 710|711 Organisation
         elif key[:3] in ['710', '711']:
             agent['type'] = 'bf:Organisation'
-            if key[:3] == '711':
-                agent['conference'] = True
-            else:
-                agent['conference'] = False
+            agent['conference'] = key[:3] == '711'
             if value.get('b'):
-                subordinate_units = []
-                for subordinate_unit in utils.force_list(value.get('b')):
-                    subordinate_units.append(subordinate_unit.rstrip('.'))
+                subordinate_units = [
+                    subordinate_unit.rstrip('.') for subordinate_unit
+                    in utils.force_list(value.get('b'))
+                ]
+
                 agent['subordinate_unit'] = subordinate_units
             if value.get('e'):
                 subordinate_units = agent.get('subordinate_unit', [])
@@ -199,29 +187,22 @@ def marc21_to_contribution(self, key, value):
             if value.get('n'):
                 numbering = not_repetitive(
                     marc21.bib_id, marc21.rero_id, key, value, 'n')
-                numbering = remove_trailing_punctuation(
-                    numbering
-                ).lstrip('(').rstrip(')')
-                if numbering:
+                if numbering := remove_trailing_punctuation(
+                        numbering).lstrip('(').rstrip(')'):
                     agent['numbering'] = numbering
             if value.get('d'):
                 conference_date = not_repetitive(
                     marc21.bib_id, marc21.rero_id, key, value, 'd')
-                conference_date = remove_trailing_punctuation(
-                    conference_date
-                ).lstrip('(').rstrip(')')
-                if conference_date:
+                if conference_date := remove_trailing_punctuation(
+                        conference_date).lstrip('(').rstrip(')'):
                     agent['conference_date'] = conference_date
             if value.get('c'):
                 place = not_repetitive(
                     marc21.bib_id, marc21.rero_id, key, value, 'c')
-                place = remove_trailing_punctuation(
-                    place
-                ).lstrip('(').rstrip(')')
-                if place:
+                if place := remove_trailing_punctuation(
+                        place).lstrip('(').rstrip(')'):
                     agent['place'] = place
-            identifier = build_identifier(value)
-            if identifier:
+            if identifier := build_identifier(value):
                 agent['identifiedBy'] = identifier
 
     if value.get('4'):
@@ -242,13 +223,12 @@ def marc21_to_contribution(self, key, value):
                             marc21.bib_id, marc21.rero_id, role)
                 role = 'ctb'
             roles.append(role)
+    elif key[:3] == '100':
+        roles = ['cre']
+    elif key[:3] == '711':
+        roles = ['aut']
     else:
-        if key[:3] == '100':
-            roles = ['cre']
-        elif key[:3] == '711':
-            roles = ['aut']
-        else:
-            roles = ['ctb']
+        roles = ['ctb']
     if agent:
         return {
             'agent': agent,
@@ -336,11 +316,9 @@ def marc21_to_description(self, key, value):
 def marc21_to_type(self, key, value):
     """Get document type."""
     document_type = {}
-    main_type = value.get('a')
-    if main_type:
+    if main_type := value.get('a'):
         document_type["main_type"] = main_type
-    sub_type = value.get('b')
-    if sub_type:
+    if sub_type := value.get('b'):
         document_type["subtype"] = sub_type
     return document_type or None
 
@@ -445,12 +423,10 @@ def marc21_to_identified_by_from_field_035(self, key, value):
 @utils.ignore_value
 def marc21_to_identified_by_from_field_930(self, key, value):
     """Get identifier from field 930."""
-    subfield_a = not_repetitive(marc21.bib_id, marc21.rero_id,
-                                key, value, 'a', default='').strip()
-    if subfield_a:
+    if subfield_a := not_repetitive(marc21.bib_id, marc21.rero_id, key, value,
+                                    'a', default='').strip():
         identifier = {}
-        match = re_identified.match(subfield_a)
-        if match:
+        if match := re_identified.match(subfield_a):
             # match.group(1) : parentheses content
             identifier['source'] = match.group(1)
             # value without parenthesis and parentheses content
@@ -673,25 +649,23 @@ def marc21_to_subjects_imported(self, key, value):
     field_key = 'subjects_imported'
     if subfields_2:
         subfield_2 = subfields_2[0]
-        match = contains_specific_voc_regexp.search(subfield_2)
-        if match:
+        if match := contains_specific_voc_regexp.search(subfield_2):
             add_data_imported = False
             if subfield_2 == 'chrero':
                 subfields_9 = utils.force_list(value.get('9'))
                 subfield_9 = subfields_9[0]
-                subfields_v = utils.force_list(value.get('v'))
-                if subfields_v:
+                if subfields_v := utils.force_list(value.get('v')):
                     subfield_v = subfields_v[0]
                     match = specific_contains_regexp.search(subfield_v)
                     if match:
                         contains_655_regexp = re.compile(r'655')
                         match = contains_655_regexp.search(subfield_9)
                         add_data_imported = True
-                        if match:
-                            field_key = 'genreForm_imported'
+                    if match:
+                        field_key = 'genreForm_imported'
             else:
                 add_data_imported = True
-                if subfield_2 == 'gatbegr' or subfield_2 == 'gnd-content':
+                if subfield_2 in ['gatbegr', 'gnd-content']:
                     field_key = 'genreForm_imported'
             if add_data_imported:
                 term_string = build_string_from_subfields(
@@ -702,15 +676,12 @@ def marc21_to_subjects_imported(self, key, value):
                     'source': subfield_2,
                     'term': term_string
                 }
-    else:
-        term_string = build_string_from_subfields(
-            value,
-            'abcdefghijklmnopqrstuvwxyz', ' - ')
-        if term_string:
-            data_imported = {
-                'type': 'bf:Topic',
-                'term': term_string
-            }
+    elif term_string := build_string_from_subfields(
+            value, 'abcdefghijklmnopqrstuvwxyz', ' - '):
+        data_imported = {
+            'type': 'bf:Topic',
+            'term': term_string
+        }
     if data_imported:
         subjects_or_genre_form_imported_imported = self.get(field_key, [])
         subjects_or_genre_form_imported_imported.append(data_imported)
@@ -952,17 +923,20 @@ def marc21_to_part_of(self, key, value):
                 elif blob_key == 't':
                     subfield_t = blob_value
                     if author:
-                        subfield_t += ' / ' + author
+                        subfield_t += f' / {author}'
                     new_data.append(('t', subfield_t))
                 elif blob_key == 'g':
                     pending_g_values.append(blob_value)
                 elif blob_key == 'v':
                     pending_v_values.append(blob_value)
-        for g_value in pending_g_values:
-            new_data.append(('g', g_value))
-        for v_value in pending_v_values:
-            new_data.append(('v', v_value))
+        new_data.extend(('g', g_value) for g_value in pending_g_values)
+        new_data.extend(('v', v_value) for v_value in pending_v_values)
         return GroupableOrderedDict(tuple(new_data))
+
+    if key[:3] == '800' and value.get('t'):
+        if work_access_point := do_work_access_point(marc21, key, value):
+            self.setdefault('work_access_point', [])
+            self['work_access_point'].append(work_access_point)
 
     part_of = {}
     numbering_list = []
@@ -1059,3 +1033,19 @@ def marc21_to_masked(self, key, value):
 def marc21_to_work_access_point(self, key, value):
     """Get work access point."""
     return do_work_access_point(marc21, key, value)
+
+
+@marc21.over('scale_cartographicAttributes', '^255..')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_scale_cartographic_attributes(self, key, value):
+    """Get scale and/or cartographicAttributes."""
+    do_scale_and_cartographic(self, marc21, key, value)
+
+
+@marc21.over('temporalCoverage', '^045..')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_temporal_coverage(self, key, value):
+    """Get temporal coverage."""
+    return do_temporal_coverage(marc21, key, value)

@@ -18,6 +18,8 @@
 
 """rero-ils MARC21 model definition."""
 
+
+import contextlib
 import re
 
 from dojson import utils
@@ -36,8 +38,9 @@ from ..utils import do_abbreviated_title, \
     do_identified_by_from_field_028, do_identified_by_from_field_035, \
     do_intended_audience, do_issuance, do_language, \
     do_notes_and_original_title, do_part_of, do_provision_activity, \
-    do_sequence_numbering, do_specific_document_relation, do_summary, \
-    do_table_of_contents, do_title, do_type, \
+    do_scale_and_cartographic, do_sequence_numbering, \
+    do_specific_document_relation, do_summary, do_table_of_contents, \
+    do_temporal_coverage, do_title, do_type, \
     do_usage_and_access_policy_from_field_506_540
 
 marc21 = ReroIlsMarc21Overdo()
@@ -61,7 +64,7 @@ _WORK_ACCESS_POINT = {
 
 def remove_punctuation(data, with_dot=False):
     """Remove punctuation from data."""
-    try:
+    with contextlib.suppress(Exception):
         if data[-1:] == ',':
             data = data[:-1]
         if data[-1:] == '.' and with_dot:
@@ -78,8 +81,6 @@ def remove_punctuation(data, with_dot=False):
             data = data[:-2]
         if data[-2:] == ' -':
             data = data[:-2]
-    except Exception:
-        pass
     return data
 
 
@@ -163,8 +164,7 @@ def marc21_to_work_access_point(self, key, value):
             if blob_key in part_selection:
                 part_list.update_part(blob_value, blob_key, blob_value)
 
-        field_100 = marc21.get_fields('100')
-        if field_100:
+        if field_100 := marc21.get_fields('100'):
             agent = {}
             for blob_key, blob_value in field_100[0].get('subfields').items():
                 agent['type'] = 'bf:Person'
@@ -189,18 +189,12 @@ def marc21_to_work_access_point(self, key, value):
                     date = blob_value.rstrip(',')
                     dates = remove_trailing_punctuation(date).split(
                         '-')
-                    try:
-                        date_of_birth = dates[0].strip()
-                        if date_of_birth:
+                    with contextlib.suppress(Exception):
+                        if date_of_birth := dates[0].strip():
                             agent['date_of_birth'] = date_of_birth
-                    except Exception:
-                        pass
-                    try:
-                        date_of_death = dates[1].strip()
-                        if date_of_death:
+                    with contextlib.suppress(Exception):
+                        if date_of_death := dates[1].strip():
                             agent['date_of_death'] = date_of_death
-                    except Exception:
-                        pass
                 if blob_key == 'q':
                     # fuller_form_of_name = not_repetitive(
                     # marc21.bib_id, marc21.bib_id, blob_key, blob_value, 'q')
@@ -209,8 +203,7 @@ def marc21_to_work_access_point(self, key, value):
                     ).lstrip('(').rstrip(')')
             work['agent'] = agent
 
-    the_part_list = part_list.get_part_list()
-    if the_part_list:
+    if the_part_list := part_list.get_part_list():
         work['part'] = the_part_list
 
     if work:
@@ -333,15 +326,13 @@ def marc21_to_series(self, key, value):
         remove final punctuation "." or "," or ";" in seriesTitle
         """
         if value.get('a'):
-            series = {}
             subseriesStatement = {}
             subfield_a = remove_punctuation(
                 utils.force_list(value.get('a'))[0],
                 with_dot=True
             )
-            series['seriesTitle'] = [{
-                'value': subfield_a
-            }]
+            series = {'seriesTitle': [{'value': subfield_a}]}
+
             if value.get('p'):
                 """
                 440$n$p = subseriesTitle
@@ -353,39 +344,38 @@ def marc21_to_series(self, key, value):
                                                 with_dot=True).rstrip()
                 }]
                 if value.get('v'):
-                    parts = []
-                    for subfield_v in utils.force_list(value.get('v')):
-                        parts.append(remove_punctuation(subfield_v))
+                    parts = [
+                        remove_punctuation(subfield_v) for subfield_v
+                        in utils.force_list(value.get('v'))
+                    ]
+
                     subseriesStatement['subseriesEnumeration'] = [{
                         'value': '/'.join(parts)
                     }]
                 series['subseriesStatement'] = [subseriesStatement]
-            else:
-                if value.get('n'):
-                    if value.get('v'):
-                        string_build = build_string_from_subfields(
-                            value, 'nv')
-                        series['seriesEnumeration'] = [{
-                            'value': remove_punctuation(string_build,
-                                                        with_dot=True).rstrip()
-                        }]
-                    else:
-                        if value.get('n'):
-                            subseriesStatement['subseriesTitle'] = [{
-                                'value': ''.join(
-                                    utils.force_list(value.get('n')))
-                            }]
-                            series['subseriesStatement'] = [subseriesStatement]
-                elif value.get('v'):
-                    parts = []
-                    for subfield_v in utils.force_list(value.get('v')):
-                        parts.append(remove_punctuation(subfield_v))
-
+            elif value.get('n'):
+                if value.get('v'):
+                    string_build = build_string_from_subfields(
+                        value, 'nv')
                     series['seriesEnumeration'] = [{
-                        'value': '/'.join(parts)
+                        'value': remove_punctuation(string_build,
+                                                    with_dot=True).rstrip()
                     }]
-                # marc21.extract_series_statement_from_440_field(value, self)
+                else:
+                    subseriesStatement['subseriesTitle'] = [{
+                        'value': ''.join(
+                            utils.force_list(value.get('n')))
+                    }]
+                    series['subseriesStatement'] = [subseriesStatement]
+            elif value.get('v'):
+                parts = [
+                    remove_punctuation(subfield_v) for subfield_v in
+                    utils.force_list(value.get('v'))
+                ]
 
+                series['seriesEnumeration'] = [{
+                    'value': '/'.join(parts)
+                }]
             self['seriesStatement'] = self.get('seriesStatement', [])
             self['seriesStatement'].append(series)
     return None
@@ -713,3 +703,19 @@ def marc21_to_part_of(self, key, value):
     and for the fields 800 and 830 if a field 490 exists
     """
     do_part_of(self, marc21, key, value)
+
+
+@marc21.over('scale_cartographicAttributes', '^255..')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_scale_cartographic_attributes(self, key, value):
+    """Get scale and/or cartographicAttributes."""
+    do_scale_and_cartographic(self, marc21, key, value)
+
+
+@marc21.over('temporalCoverage', '^045..')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_temporal_coverage(self, key, value):
+    """Get temporal coverage."""
+    return do_temporal_coverage(marc21, key, value)

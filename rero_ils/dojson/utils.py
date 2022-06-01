@@ -17,6 +17,8 @@
 
 """Dojson utils."""
 
+
+import contextlib
 import os
 import re
 import sys
@@ -312,9 +314,7 @@ re_identified = re.compile(r'\((.*)\)(.*)')
 
 def error_print(*args):
     """Error printing to sdtout."""
-    msg = ''
-    for arg in args:
-        msg += str(arg) + '\t'
+    msg = ''.join(str(arg) + '\t' for arg in args)
     msg.strip()
     click.echo(msg)
     sys.stdout.flush()
@@ -322,21 +322,17 @@ def error_print(*args):
 
 def make_year(date):
     """Test if string is integer and between 1000 to 9999."""
-    try:
+    with contextlib.suppress(Exception):
         int_date = int(date)
         if int_date >= 1000 and int_date < 9999:
             return int_date
-    except Exception:
-        pass
     return None
 
 
 def not_repetitive(bibid, reroid, key, value, subfield, default=None):
     """Get the first value if the value is a list or tuple."""
-    if default is None:
-        data = value.get(subfield)
-    else:
-        data = value.get(subfield, default)
+    data = value.get(
+        subfield) if default is None else value.get(subfield, default)
     if isinstance(data, (list, tuple)):
         error_print('WARNING NOT REPETITIVE:', bibid, reroid, key, subfield,
                     value)
@@ -348,9 +344,7 @@ def get_field_link_data(value):
     """Get field link data from subfield $6."""
     subfield_6 = value.get('6', '')
     tag_link = subfield_6.split('-')
-    link = ''
-    if len(tag_link) == 2:
-        link = tag_link[1]
+    link = tag_link[1] if len(tag_link) == 2 else ''
     return tag_link, link
 
 
@@ -445,15 +439,13 @@ def get_contribution_link(bibid, reroid, id, key):
             status_code = response.status_code
             if status_code == requests.codes.ok:
                 resp = response.json()
-                try:
+                with contextlib.suppress(IndexError, KeyError):
                     mdata = resp['hits']['hits'][0]['metadata']
                     for source in ['idref', 'gnd']:
                         match_value = mdata.get(source, {}).get('pid')
                         if match_value:
                             match_type = source
                             break
-                except (IndexError, KeyError):
-                    pass
         if match_type in ['idref', 'gnd']:
             url = f'{mef_url}/mef/?q={match_type}.pid:"{match_value}"'
             response = requests_retry_session().get(url)
@@ -480,8 +472,7 @@ def add_note(new_note, data):
     if new_note and new_note.get('label') and new_note.get('noteType'):
         notes = data.get('note', [])
         if new_note not in notes:
-            if new_note not in notes:
-                notes.append(new_note)
+            notes.append(new_note)
             data['note'] = notes
 
 
@@ -521,13 +512,10 @@ def join_alternate_graphic_data(alt_gr_1, alt_gr_2, join_str):
     new_alt_gr_data = []
     for idx, data in enumerate(alt_gr_1):
         new_data = deepcopy(data)
-        try:
-            str_to_join = alt_gr_2[idx]['value']
-            if str_to_join:
+        with contextlib.suppress(Exception):
+            if str_to_join := alt_gr_2[idx]['value']:
                 new_data['value'] = \
                     join_str.join((new_data['value'], str_to_join))
-        except Exception as err:
-            pass
         new_alt_gr_data.append(new_data)
     return new_alt_gr_data
 
@@ -666,8 +654,7 @@ class ReroIlsOverdo(Overdo):
         publication = {
             'type': 'bf:Publication'
         }
-        place = self.build_place()
-        if place:
+        if place := self.build_place():
             places.append(place)
         # parce le link skipping the fist (already used by build_place)
         for i in range(1, len(self.links_from_752)):
@@ -682,8 +669,7 @@ class ReroIlsOverdo(Overdo):
             publication['place'] = places
         result['provisionActivity'] = [publication]
 
-        if (self.date_type_from_008 == 'q' or
-                self.date_type_from_008 == 'n'):
+        if self.date_type_from_008 in ['q', 'n']:
             result['provisionActivity'][0][
                 'note'
             ] = 'Date(s) uncertain or unknown'
@@ -695,15 +681,13 @@ class ReroIlsOverdo(Overdo):
             result['provisionActivity'][0]['note'] = \
                 'Date not available and automatically set to 2050'
         result['provisionActivity'][0]['startDate'] = start_date
-        end_date = make_year(self.date2_from_008)
-        if end_date:
+        if end_date := make_year(self.date2_from_008):
             if end_date > 2050:
                 error_print('WARNING END DATE 008:', self.bib_id,
                             self.rero_id, self.date1_from_008)
             else:
                 result['provisionActivity'][0]['endDate'] = end_date
-        original_date = make_year(self.original_date_from_008)
-        if original_date:
+        if original_date := make_year(self.original_date_from_008):
             if original_date > 2050:
                 error_print('WARNING ORIGINAL DATE 008:', self.bib_id,
                             self.rero_id, self.original_date_from_008)
@@ -739,15 +723,11 @@ class ReroIlsOverdo(Overdo):
 
     def get_subfields(self, field, code=None):
         """Get all subfields having the given subfield code value."""
-        subfields = []
-        if int(field['tag']) >= 10:
-            items = get_field_items(field['subfields'])
-            for subfield_code, subfield_data in items:
-                if (subfield_code == code) or not code:
-                    subfields.append(subfield_data)
-        else:
+        if int(field['tag']) < 10:
             raise ValueError('data field expected (tag >= 01x)')
-        return subfields
+        items = get_field_items(field['subfields'])
+        return [subfield_data for subfield_code, subfield_data in items
+                if (subfield_code == code) or not code]
 
     def build_value_with_alternate_graphic(
             self, tag, code, label, index, link,

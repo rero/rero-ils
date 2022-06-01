@@ -4168,6 +4168,13 @@ def test_marc21_to_part_of_without_link():
         'seriesEnumeration': [{'value': '1'}],
         }
     ]
+    assert data.get('work_access_point') == [{
+        'agent': {
+            'preferred_name': 'Jacq, Christian.',
+            'type': 'bf:Person'
+        },
+        'title': 'Ramsès'
+    }]
 
     marc21xml = """
     <record>
@@ -4185,6 +4192,9 @@ def test_marc21_to_part_of_without_link():
         'seriesEnumeration': [{'value': '411'}],
         }
     ]
+    assert data.get('work_access_point') == [{
+         'title': 'Stuart Hall : critical dialogues'
+    }]
 
     marc21xml = """
     <record>
@@ -4312,12 +4322,27 @@ def test_marc21_to_part_of_with_multiple_800():
         }]
     # the seriesStatement is generated form 490 and not from the 800
     assert data.get('seriesStatement') == [{
-        'seriesTitle': [{'value': 'A la recherche de la Licorne / Mirallès'}],
-        'seriesEnumeration': [{'value': '3'}],
-        }, {
-        'seriesTitle': [{'value': 'Collection "Vécu"'}],
-        }
+          'seriesTitle': [{
+              'value': 'A la recherche de la Licorne / Mirallès'
+          }],
+          'seriesEnumeration': [{'value': '3'}],
+      }, {
+          'seriesTitle': [{'value': 'Collection "Vécu"'}],
+      }
     ]
+    assert data.get('work_access_point') == [{
+        'agent': {
+            'preferred_name': 'Mirallés, Ana.',
+            'type': 'bf:Person'
+        },
+        'title': 'A la recherche de la Licorne'
+    }, {
+        'agent': {
+            'preferred_name': 'Ruiz, Emilio.',
+            'type': 'bf:Person'
+        },
+        'title': 'A la recherche de la Licorne'
+    }]
 
 
 def test_marc21_to_identified_by_from_020():
@@ -5623,7 +5648,7 @@ def test_marc21_to_original_language():
 
 
 def test_abbreviated_title(app, marc21_record):
-    """Test abbreviated title to MARC21 transformation."""
+    """Test dojson abbreviated title."""
     marc21xml = """
     <record>
       <datafield tag="210" ind1="0" ind2=" ">
@@ -5642,4 +5667,151 @@ def test_abbreviated_title(app, marc21_record):
     }, {
         'type': 'bf:KeyTitle',
         'mainTitle': [{'value': 'Günter Gianni Piontek, Skulpturen'}]
+    }]
+
+
+def test_scale_and_cartographic(app, marc21_record):
+    """Test dojson scale and cartographic."""
+    marc21xml = """
+    <record>
+      <datafield tag="034" ind1="1" ind2=" ">
+        <subfield code="a">a</subfield>
+        <subfield code="b">25000</subfield>
+      </datafield>
+      <datafield tag="255" ind1=" " ind2=" ">
+        <subfield code="a">1:25 000</subfield>
+      </datafield>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('scale') == [{
+        'label': '1:25 000',
+        'ratio_linear_horizontal': 25000,
+        'type': 'Linear scale'
+    }]
+    assert data.get('cartographicAttributes') is None
+
+    marc21xml = """
+    <record>
+      <datafield tag="034" ind1="1" ind2=" ">
+        <subfield code="a">a</subfield>
+        <subfield code="b">1000000</subfield>
+        <subfield code="d">E1103000</subfield>
+        <subfield code="e">E1203000</subfield>
+        <subfield code="f">N0251500</subfield>
+        <subfield code="g">N0221000</subfield>
+      </datafield>
+      <datafield tag="034" ind1="1" ind2=" ">
+        <subfield code="a">a</subfield>
+        <subfield code="b">500000</subfield>
+        <subfield code="c">70000</subfield>
+        <subfield code="c">165000</subfield>
+        <subfield code="d">E0033800</subfield>
+        <subfield code="e">E0080300</subfield>
+      </datafield>
+      <datafield tag="255" ind1=" " ind2=" ">
+        <subfield code="a">Echelle 1:50 000 ;</subfield>
+        <subfield code="b">projection conforme cylindrique</subfield>
+        <subfield code="c">(E 6º50'-E 7º15'/N 46º10'-N 46º20')</subfield>
+      </datafield>
+      <datafield tag="255" ind1=" " ind2=" ">
+        <subfield code="a">[Echelles diverses]</subfield>
+      </datafield>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('scale') == [{
+        'label': 'Echelle 1:50 000',
+        'ratio_linear_horizontal': 1000000,
+        'type': 'Linear scale'
+      }, {
+        'label': '[Echelles diverses]',
+        'ratio_linear_horizontal': 500000,
+        'ratio_linear_vertical': 70000,
+        'type': 'Linear scale'
+      }]
+    assert data.get('cartographicAttributes') == [{
+        'coordinates': {
+            'label': "(E 6º50'-E 7º15'/N 46º10'-N 46º20')",
+            'latitude': 'N0251500 N0221000',
+            'longitude': 'E1103000 E1203000'
+        },
+        'projection': 'projection conforme cylindrique'
+    }, {
+        'coordinates': {
+            'latitude': '', 'longitude': 'E0033800 E0080300'
+        }
+    }]
+
+
+def test_temporal_coverage(app, marc21_record):
+    """Test dojson temporal coverage."""
+    marc21xml = """
+    <record>
+      <datafield tag="045" ind1="2" ind2=" ">
+        <subfield code="c">205000000</subfield>
+        <subfield code="c">130000000</subfield>
+      </datafield>
+      <datafield tag="045" ind1="0" ind2=" ">
+        <subfield code="a">d9</subfield>
+        <subfield code="b">c00440315</subfield>
+      </datafield>
+      <datafield tag="045" ind1="0" ind2=" ">
+        <subfield code="a">v6w3</subfield>
+        <subfield code="b">d1767</subfield>
+        <subfield code="b">d1830</subfield>
+      </datafield>
+      <datafield tag="045" ind1="0" ind2=" ">
+        <subfield code="a">v9w0</subfield>
+        <subfield code="b">d17980826</subfield>
+        <subfield code="b">d18050131</subfield>
+      </datafield>
+      <datafield tag="045" ind1="0" ind2=" ">
+        <subfield code="a">w1</subfield>
+        <subfield code="b">w1</subfield>
+      </datafield>
+      <datafield tag="045" ind1="0" ind2=" ">
+        <subfield code="a">x1</subfield>
+        <subfield code="b">x1</subfield>
+      </datafield>
+      <datafield tag="045" ind1=" " ind2=" ">
+        <subfield code="a">x6x6</subfield>
+      </datafield>
+      <datafield tag="045" ind1="1" ind2=" ">
+        <subfield code="b">d1972</subfield>
+        <subfield code="b">d1972</subfield>
+      </datafield>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('temporalCoverage') == [{
+        'end_date': '-130000000',
+        'start_date': '-205000000',
+        'type': 'period'
+    }, {
+        'date': '-0044-03-15',
+        'period_code': ['d9'],
+        'type': 'time'
+    }, {
+        'date': '+1767',
+        'period_code': ['v6w3'],
+        'type': 'time'
+    }, {
+        'date': '+1798-08-26',
+        'period_code': ['v9w0'],
+        'type': 'time'
+    }, {
+        'date': None,
+        'period_code': ['w1'],
+        'type': 'time'
+    }, {
+        'date': None,
+        'period_code': ['x1'],
+        'type': 'time'
+    }, {
+        'period_code': ['x6x6'],
+        'type': 'period'
+    }, {
+        'date': '+1972',
+        'type': 'time'
     }]
