@@ -31,10 +31,11 @@ from ..utils import do_abbreviated_title, \
     do_identified_by_from_field_024, do_identified_by_from_field_028, \
     do_identified_by_from_field_035, do_intended_audience, do_issuance, \
     do_language, do_notes_and_original_title, do_part_of, \
-    do_provision_activity, do_sequence_numbering, \
+    do_provision_activity, do_scale_and_cartographic, do_sequence_numbering, \
     do_specific_document_relation, do_summary, do_table_of_contents, \
-    do_title, do_type, do_usage_and_access_policy_from_field_506_540, \
-    do_work_access_point
+    do_temporal_coverage, do_title, do_type, \
+    do_usage_and_access_policy_from_field_506_540, do_work_access_point, \
+    do_work_access_point_240
 
 marc21 = ReroIlsMarc21Overdo()
 
@@ -343,3 +344,27 @@ def marc21_to_part_of(self, key, value):
 def marc21_to_work_access_point(self, key, value):
     """Get work access point."""
     return do_work_access_point(marc21, key, value)
+
+
+@marc21.over('work_access_point', '(^240..)')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_work_access_point_240(self, key, value):
+    """Get work access point for 240 tag."""
+    return do_work_access_point_240(marc21, key, value)
+
+
+@marc21.over('scale_cartographicAttributes', '^255..')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_scale_cartographic_attributes(self, key, value):
+    """Get scale and/or cartographicAttributes."""
+    do_scale_and_cartographic(self, marc21, key, value)
+
+
+@marc21.over('temporalCoverage', '^045..')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_temporal_coverage(self, key, value):
+    """Get temporal coverage."""
+    return do_temporal_coverage(marc21, key, value)
