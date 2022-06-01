@@ -249,9 +249,7 @@ class CirculationNotification(Notification, ABC):
     @cached_property
     def request_loan(self):
         """Get the request loan related to this notification."""
-        for state in [LoanState.ITEM_AT_DESK,
-                      LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
-                      LoanState.PENDING]:
-            loan = self.item.get_first_loan_by_state(state)
-            if loan:
-                return loan
+        return self.item.get_first_loan_by_state(LoanState.ITEM_AT_DESK) \
+            or self.item.get_first_loan_by_state(
+                LoanState.ITEM_IN_TRANSIT_FOR_PICKUP) \
+            or self.item.get_first_loan_by_state(LoanState.PENDING)

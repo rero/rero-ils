@@ -23,6 +23,7 @@ from __future__ import absolute_import, print_function
 from rero_ils.filter import format_date_filter
 from rero_ils.modules.documents.dumpers import DocumentGenericDumper
 from rero_ils.modules.items.dumpers import ItemNotificationDumper
+from rero_ils.modules.loans.models import LoanState
 from rero_ils.modules.locations.api import Location
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.patrons.dumpers import PatronNotificationDumper
@@ -49,7 +50,7 @@ class AtDeskCirculationNotification(InternalCirculationNotification):
         """Check if a notification can be canceled.
 
         An AT_DESK notification can be sent only if a request is done on the
-        related item.
+        related item and this request is now in state ITEM_AT_DESK.
 
         :return: a tuple with two values: a boolean to know if the notification
                  can be cancelled; the reason why the notification can be
@@ -61,11 +62,14 @@ class AtDeskCirculationNotification(InternalCirculationNotification):
         if can:
             return can, reason
         # Cancel if no request has been done on corresponding loan.
-        if not self.request_loan:
-            msg = "No previous request found, none AT_DESK should be sent."
-            return True, msg
+        request_loan = self.request_loan
+        msg = None
+        if not request_loan:
+            msg = 'No previous request found, none AT_DESK should be sent.'
+        elif request_loan.get('state') is not LoanState.ITEM_AT_DESK:
+            msg = "The first found request isn\'t AT_DESK"
         # we don't find any reasons to cancel this notification
-        return False, None
+        return msg is not None, msg
 
     def get_template_path(self):
         """Get the template to use to render the notification."""
