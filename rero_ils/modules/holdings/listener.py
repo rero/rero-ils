@@ -77,7 +77,7 @@ def update_items_locations_and_types(sender, record=None, **kwargs):
     This method should be connect with 'after_record_update'.
     :param record: the holding record.
     """
-    if not isinstance(record, Holding) and \
+    if isinstance(record, Holding) and \
             record.get('holdings_type') == HoldingTypes.SERIAL:
         # identify all items records attached to this serials holdings record
         # with different location and item_type.
