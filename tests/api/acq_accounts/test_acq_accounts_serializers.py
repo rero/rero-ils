@@ -33,19 +33,14 @@ def test_csv_serializer(client, csv_header, librarian_martigny,
                         acq_receipt_line_2_fiction_martigny):
     """Test CSV formatter"""
     login_user_via_session(client, librarian_martigny.user)
-    list_url = url_for('api_exports.acq_order_export',
-                       q=f'pid:{acq_order_fiction_martigny.pid}')
+    list_url = url_for('api_exports.acq_account_export',
+                       q=f'pid:{acq_account_fiction_martigny.pid}')
     response = client.get(list_url, headers=csv_header)
     assert response.status_code == 200
     data = get_csv(response)
     assert data
-    assert '"order_pid","order_reference","order_date","order_staff_note",' \
-           '"order_vendor_note","order_type","order_status","vendor_name",' \
-           '"document_pid","document_creator","document_title",' \
-           '"document_publisher","document_publication_year",' \
-           '"document_edition_statement","document_series_statement",' \
-           '"document_isbn","account_name","account_number",' \
-           '"order_lines_priority","order_lines_notes","order_lines_status",' \
-           '"ordered_quantity","ordered_unit_price","ordered_amount",' \
-           '"receipt_reference","received_quantity","received_amount",' \
-           '"receipt_date"' in data
+    assert '"account_pid","account_name","account_number",' \
+           '"account_allocated_amount","account_available_amount",' \
+           '"account_current_encumbrance","account_current_expenditure",' \
+           '"account_available_balance"' \
+           in data

@@ -90,6 +90,13 @@ class IdentifierStatus:
     CANCELLED = 'cancelled'
     INVALID_OR_CANCELLED = 'invalid or cancelled'
 
+    ALL = [
+        UNDEFINED,
+        INVALID,
+        CANCELLED,
+        INVALID_OR_CANCELLED
+    ]
+
 
 # =============================================================================
 #     IDENTIFIER
