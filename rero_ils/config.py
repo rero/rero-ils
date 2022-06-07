@@ -1384,6 +1384,9 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': 'rero_ils.modules.serializers:json_v1_search',
             'application/rero+json': 'rero_ils.modules.acq_accounts.serializers:json_acq_account_search'
         },
+        search_serializers_aliases={
+            'json': 'application/json'
+        },
         record_loaders={
             'application/json': lambda: AcqAccount(request.get_json()),
         },
@@ -1464,12 +1467,10 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         search_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_search',
-            'application/rero+json': 'rero_ils.modules.acq_orders.serializers:json_acor_search',
-            'text/csv': 'rero_ils.modules.acq_orders.serializers:csv_acor_search'
+            'application/rero+json': 'rero_ils.modules.acq_orders.serializers:json_acor_search'
         },
         search_serializers_aliases={
-            'json': 'application/json',
-            'csv': 'text/csv'
+            'json': 'application/json'
         },
         record_loaders={
             'application/json': lambda: AcqOrder(request.get_json()),
@@ -3176,6 +3177,26 @@ RERO_INVENIO_BASE_EXPORT_REST_ENDPOINTS = dict(
         default_media_type='text/csv',
         search_serializers={
             'text/csv': 'rero_ils.modules.loans.serializers:csv_stream_search',
+        },
+        search_serializers_aliases={
+            'csv': 'text/csv'
+        }
+    ),
+    acq_account=dict(
+        resource=RECORDS_REST_ENDPOINTS.get('acac'),
+        default_media_type='text/csv',
+        search_serializers={
+            'text/csv': 'rero_ils.modules.acq_accounts.serializers:csv_acq_account_search',
+        },
+        search_serializers_aliases={
+            'csv': 'text/csv'
+        }
+    ),
+    acq_order=dict(
+        resource=RECORDS_REST_ENDPOINTS.get('acor'),
+        default_media_type='text/csv',
+        search_serializers={
+            'text/csv': 'rero_ils.modules.acq_orders.serializers:csv_acor_search',
         },
         search_serializers_aliases={
             'csv': 'text/csv'

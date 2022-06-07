@@ -24,9 +24,10 @@ from flask import current_app
 
 from rero_ils.modules.commons.identifiers import IdentifierFactory, \
     IdentifierStatus, IdentifierType
-from rero_ils.modules.documents.api import DocumentsSearch
-from rero_ils.modules.documents.commons.subjects import SubjectFactory
 from rero_ils.modules.utils import get_base_url
+
+from ..api import DocumentsSearch
+from ..commons.subjects import SubjectFactory
 
 CREATOR_ROLES = [
     'aut', 'cmp', 'cre', 'dub', 'pht', 'ape', 'aqt', 'arc', 'art', 'aus',
@@ -50,7 +51,7 @@ class BaseDocumentFormatterMixin(ABC):
         """Return formatted record."""
         raise NotImplementedError
 
-    def _get_document_types(self) -> list[str]:
+    def _get_document_types(self):
         """Return document types."""
         doc_types = []
         for main_type, subtype in [
@@ -62,22 +63,22 @@ class BaseDocumentFormatterMixin(ABC):
 
         return doc_types
 
-    def _get_pid(self) -> str:
+    def _get_pid(self):
         """Return reference id."""
         return self.record['pid']
 
-    def _is_masked(self) -> str:
+    def _is_masked(self):
         """Return masked information."""
         return 'Yes' if self.record.get('_masked') else 'No'
 
-    def _get_title(self) -> str:
+    def _get_title(self):
         """Return first title."""
         return next(
             filter(lambda x: x.get('type') == 'bf:Title',
                    self.record.get('title')), {}
         ).get('_text')
 
-    def _get_series_statement(self) -> list[str]:
+    def _get_series_statement(self):
         """Return series statement title."""
         return [
             data['value']
@@ -85,7 +86,7 @@ class BaseDocumentFormatterMixin(ABC):
             for data in statement.get('_text', [])
         ]
 
-    def _get_secondary_title(self) -> list[str]:
+    def _get_secondary_title(self):
         """Return secondary title."""
         # return series title if exist
         if 'seriesStatement' in self.record:
@@ -107,7 +108,7 @@ class BaseDocumentFormatterMixin(ABC):
                                  self.record.get('partOf', []))
                 if title]
 
-    def _get_localized_contribution(self, agent) -> str:
+    def _get_localized_contribution(self, agent):
         """Return localized contribution.
 
         :param agent: contribution agent data.
@@ -116,7 +117,7 @@ class BaseDocumentFormatterMixin(ABC):
         key = f'authorized_access_point_{self._language}'
         return agent.get(key)
 
-    def _get_authors(self) -> list[str]:
+    def _get_authors(self):
         """Return authors."""
 
         def _extract_contribution_callback(contribution) -> str:
@@ -133,7 +134,7 @@ class BaseDocumentFormatterMixin(ABC):
                                         )
                 if contribution]
 
-    def _get_secondary_authors(self) -> list[str]:
+    def _get_secondary_authors(self):
         """Return other authors."""
 
         def _extract_contribution_callback(contribution) -> str:
@@ -150,7 +151,7 @@ class BaseDocumentFormatterMixin(ABC):
                                         )
                 if contribution]
 
-    def _get_publication_year(self) -> str:
+    def _get_publication_year(self):
         """Return date."""
         for start_date, end_date in [
             (provision.get('startDate', ''), provision.get('endDate'))
@@ -161,7 +162,7 @@ class BaseDocumentFormatterMixin(ABC):
             # return only the first date
             return f'{start_date} - {end_date}' if end_date else start_date
 
-    def _get_start_pages(self) -> list[str]:
+    def _get_start_pages(self):
         """Return start pages."""
         return [
            numbering['pages'].split('-')[0]
@@ -170,7 +171,7 @@ class BaseDocumentFormatterMixin(ABC):
            if 'pages' in numbering
         ] or ([self.record['extent']] if self.record.get('extent') else [])
 
-    def _get_end_pages(self) -> list[str]:
+    def _get_end_pages(self):
         """Return end pages."""
         return [
             numbering['pages'].split('-')[1]
@@ -180,7 +181,7 @@ class BaseDocumentFormatterMixin(ABC):
                and '-' in numbering['pages']
         ]
 
-    def _get_publication_places(self) -> list[str]:
+    def _get_publication_places(self):
         """Return publication places."""
         return [
             data['value']
@@ -191,11 +192,11 @@ class BaseDocumentFormatterMixin(ABC):
             and statement['type'] == 'bf:Place'
         ]
 
-    def _get_languages(self) -> list[str]:
+    def _get_languages(self):
         """Return languages."""
         return [lang.get('value') for lang in self.record.get('language', [])]
 
-    def _get_publisher(self) -> list[str]:
+    def _get_publisher(self):
         """Return publishers."""
         return [
             data['value']
@@ -206,34 +207,46 @@ class BaseDocumentFormatterMixin(ABC):
             and statement['type'] == 'bf:Agent'
         ]
 
-    def _get_identifiers(self, types: list[str]) -> list[str]:
-        """Return all isbn or issn."""
+    def _get_identifiers(self, types, states=None):
+        """Return all identifier for the given types and states.
+
+        :param types: list of identifier types
+        :param states: list of identifier status. Default state is undefined.
+        :returns: all identifiers matching arguments.
+        """
         identifiers = [
             IdentifierFactory.create_identifier(identifier)
             for identifier in self.record.get('identifiedBy', [])
             if identifier['type'] in types
         ]
-
+        states = states or [IdentifierStatus.UNDEFINED]
         return [
             identifier.normalize()
             for identifier in identifiers
-            if identifier.status == IdentifierStatus.UNDEFINED
+            if identifier.status in states
         ]
 
-    def _get_isbn(self) -> list[str]:
-        """Return ISBN identifiers."""
-        return self._get_identifiers([IdentifierType.ISBN])
+    def _get_isbn(self, states=None):
+        """Return ISBN identifiers.
 
-    def _get_issn(self) -> list[str]:
-        """Return ISSN identifiers."""
+        :param states: list of identifier status.
+        """
+        states = states or [IdentifierStatus.UNDEFINED]
+        return self._get_identifiers([IdentifierType.ISBN], states)
+
+    def _get_issn(self, states=None):
+        """Return ISSN identifiers.
+
+        :param states: list of identifier status.
+        """
         return self._get_identifiers([IdentifierType.ISSN,
-                                      IdentifierType.L_ISSN])
+                                      IdentifierType.L_ISSN], states)
 
-    def _get_doi(self) -> list[str]:
+    def _get_doi(self):
         """Return DOI identifiers."""
         return self._get_identifiers([IdentifierType.DOI])
 
-    def _get_electronic_locators(self) -> list[str]:
+    def _get_electronic_locators(self):
         """Return electronic locators."""
         return [
             locator['url']
@@ -241,12 +254,12 @@ class BaseDocumentFormatterMixin(ABC):
             if locator['type'] in ['resource', 'versionOfResource']
         ]
 
-    def _get_permalink(self) -> str:
+    def _get_permalink(self):
         """Return permalink."""
         base_url = get_base_url()
         return f"{base_url}/global/documents/{self.record['pid']}"
 
-    def _get_subjects(self) -> list[str]:
+    def _get_subjects(self):
         """Return keywords."""
         return [
             SubjectFactory.create_subject(subject).render(
@@ -254,7 +267,7 @@ class BaseDocumentFormatterMixin(ABC):
             for subject in self.record.get('subjects', [])
         ]
 
-    def _get_editions(self) -> list[str]:
+    def _get_editions(self):
         """Return editions."""
         return [
             edition.get('value')
@@ -262,7 +275,7 @@ class BaseDocumentFormatterMixin(ABC):
             for edition in edition_statement.get('_text', [])
         ]
 
-    def _get_volume_numbers(self) -> list[str]:
+    def _get_volume_numbers(self):
         """Return volume numbers."""
         return [
             numbering['volume']
@@ -271,7 +284,7 @@ class BaseDocumentFormatterMixin(ABC):
             if 'volume' in numbering
         ]
 
-    def _get_issue_numbers(self) -> list[str]:
+    def _get_issue_numbers(self):
         """Return issue numbers."""
         return [
             numbering['issue']
