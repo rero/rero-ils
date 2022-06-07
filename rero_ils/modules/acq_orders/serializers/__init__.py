@@ -23,6 +23,7 @@ from invenio_records_rest.serializers.response import search_responsify
 from rero_ils.modules.acq_orders.serializers.csv import AcqOrderCSVSerializer
 from rero_ils.modules.acq_orders.serializers.json import AcqOrderJSONSerializer
 from rero_ils.modules.items.serializers import search_responsify_csv
+from rero_ils.modules.response import search_responsify_file
 from rero_ils.modules.serializers import JSONSerializer, RecordSchemaJSONV1
 
 json_acq_order = AcqOrderJSONSerializer(RecordSchemaJSONV1)
@@ -35,15 +36,16 @@ csv_acor = AcqOrderCSVSerializer(
     csv_included_fields=[
         'order_pid', 'order_reference', 'order_date', 'order_staff_note',
         'order_vendor_note', 'order_type', 'order_status', 'vendor_name',
-        'document_creator', 'document_title', 'document_publisher',
-        'document_publication_year', 'document_edition_statement',
-        'document_series_statement', 'document_isbn', 'account_name',
-        'account_number', 'order_lines_priority', 'order_lines_notes',
-        'order_lines_status', 'ordered_quantity', 'ordered_unit_price',
-        'ordered_amount', 'receipt_reference', 'received_quantity',
-        'received_amount', 'receipt_date'
+        'document_pid', 'document_creator', 'document_title',
+        'document_publisher', 'document_publication_year',
+        'document_edition_statement', 'document_series_statement',
+        'document_isbn', 'account_name', 'account_number',
+        'order_lines_priority', 'order_lines_notes', 'order_lines_status',
+        'ordered_quantity', 'ordered_unit_price', 'ordered_amount',
+        'receipt_reference', 'received_quantity', 'received_amount',
+        'receipt_date'
     ]
 )
 
-csv_acor_search = search_responsify(csv_acor, "text/csv")
+csv_acor_search = search_responsify_file(csv_acor, 'text/csv',  'csv')
 """CSV search serializer."""

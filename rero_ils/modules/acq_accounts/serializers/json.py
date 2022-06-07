@@ -17,12 +17,10 @@
 
 """Acquisition account serialization."""
 
-from invenio_records_rest.serializers.response import record_responsify, \
-    search_responsify
+from rero_ils.modules.libraries.api import Library
+from rero_ils.modules.serializers import JSONSerializer
 
-from .api import AcqAccountsSearch
-from ..libraries.api import Library
-from ..serializers import JSONSerializer, RecordSchemaJSONV1
+from ..api import AcqAccountsSearch
 
 
 class AcqAccountJSONSerializer(JSONSerializer):
@@ -62,12 +60,3 @@ class AcqAccountJSONSerializer(JSONSerializer):
             pid = lib_term.get('key')
             lib_term['name'] = Library.get_record_by_pid(pid).get('name')
         return super().post_process_serialize_search(results, pid_fetcher)
-
-
-json_acq_account = AcqAccountJSONSerializer(RecordSchemaJSONV1)
-"""JSON v1 serializer."""
-
-json_acq_account_search = search_responsify(
-    json_acq_account, 'application/rero+json')
-json_acq_account_response = record_responsify(
-    json_acq_account, 'application/rero+json')

@@ -1501,6 +1501,14 @@ RECORDS_REST_ENDPOINTS = dict(
                 'rero_ils.modules.acq_accounts.serializers:'
                 'json_acq_account_search'
             ),
+            'text/csv': (
+                'rero_ils.modules.acq_accounts.serializers:'
+                'csv_acq_account_search'
+            ),
+        },
+        search_serializers_aliases={
+            'json': 'application/json',
+            'csv': 'text/csv'
         },
         record_loaders={
             'application/json': lambda: AcqAccount(request.get_json()),

@@ -28,6 +28,7 @@ from rero_ils.modules.acq_accounts.api import AcqAccountsSearch
 from rero_ils.modules.acq_order_lines.api import AcqOrderLinesSearch
 from rero_ils.modules.acq_receipt_lines.api import AcqReceiptLinesSearch
 from rero_ils.modules.acq_receipts.api import AcqReceiptsSearch
+from rero_ils.modules.commons.identifiers import IdentifierStatus
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.documents.serializers.base import DocumentFormatter
 from rero_ils.modules.vendors.api import VendorsSearch
@@ -272,9 +273,10 @@ class OrderDocumentFormatter(DocumentFormatter):
         self._language = language or current_app\
             .config.get('BABEL_DEFAULT_LANGUAGE', 'en')
         self._include_fields = _include_fields or [
-            'document_creator', 'document_title', 'document_publisher',
-            'document_publication_year', 'document_edition_statement',
-            'document_series_statement', 'document_isbn'
+            'document_pid', 'document_creator', 'document_title',
+            'document_publisher', 'document_publication_year',
+            'document_edition_statement', 'document_series_statement',
+            'document_isbn'
         ]
 
     def post_process(self, data):
@@ -282,3 +284,7 @@ class OrderDocumentFormatter(DocumentFormatter):
         # join multiple values in data if needed."""
         return self._separator.join(map(str, data)) \
             if isinstance(data, list) else data
+
+    def _get_isbn(self, states=None):
+        """Return ISBN identifiers for the given states."""
+        return super()._get_isbn(states=IdentifierStatus.ALL)
