@@ -673,7 +673,7 @@ def unimarc_publishers_provision_activity_publication(self, key, value):
     def build_place():
         # country from 102
         place = {}
-        field_102 = unimarc.get_fields(tag='102')
+        field_102 = unimarc.get_fields('102')
         if field_102:
             field_102 = field_102[0]
             country_codes = unimarc.get_subfields(field_102, 'a')
@@ -719,7 +719,7 @@ def unimarc_publishers_provision_activity_publication(self, key, value):
                 end_date = make_year(subfield_a[14:17])
 
         if key[:3] == '210':
-            if not unimarc.get_fields(tag='214'):
+            if not unimarc.get_fields('214'):
                 publications = self.setdefault('provisionActivity', [])
                 items = get_field_items(value)
                 index = 1
