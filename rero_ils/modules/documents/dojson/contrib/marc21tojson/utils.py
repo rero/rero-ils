@@ -18,6 +18,8 @@
 
 """rero-ils MARC21 model definition."""
 
+
+import contextlib
 import re
 
 from dojson import utils
@@ -247,11 +249,10 @@ def do_issuance(data, marc21):
             sub_type = 'set'
         else:
             sub_type = 'materialUnit'
-    else:
-        if marc21.bib_level in _ISSUANCE_SUBTYPE_PER_BIB_LEVEL:
-            sub_type = _ISSUANCE_SUBTYPE_PER_BIB_LEVEL[marc21.bib_level]
-        elif marc21.serial_type in _ISSUANCE_SUBTYPE_PER_SERIAL_TYPE:
-            sub_type = _ISSUANCE_SUBTYPE_PER_SERIAL_TYPE[marc21.serial_type]
+    elif marc21.bib_level in _ISSUANCE_SUBTYPE_PER_BIB_LEVEL:
+        sub_type = _ISSUANCE_SUBTYPE_PER_BIB_LEVEL[marc21.bib_level]
+    elif marc21.serial_type in _ISSUANCE_SUBTYPE_PER_SERIAL_TYPE:
+        sub_type = _ISSUANCE_SUBTYPE_PER_SERIAL_TYPE[marc21.serial_type]
     if main_type == 'rdami:1001':
         if sub_type not in [
                 'article', 'materialUnit', 'privateFile', 'privateSubfile'
@@ -282,46 +283,46 @@ def do_issuance(data, marc21):
 
 def do_type(data, marc21):
     """Get document type."""
-    type = [{"main_type": "docmaintype_other"}]
+    rec_type = [{"main_type": "docmaintype_other"}]
     if marc21.record_type == 'a':
         if marc21.bib_level == 'm':
-            type = [{
+            rec_type = [{
                 "main_type": "docmaintype_book",
                 "subtype": "docsubtype_other_book"
             }]
 
             field_008 = None
-            field_008 = marc21.get_fields(tag='008')
+            field_008 = marc21.get_fields('008')
             # if it's an electronic book
             if field_008[0]['data'][23] in ('o', 's'):
-                type = [{
+                rec_type = [{
                     "main_type": "docmaintype_book",
                     "subtype": "docsubtype_e-book"
                  }]
         elif marc21.bib_level == 's':
-            type = [{
+            rec_type = [{
                 "main_type": "docmaintype_serial"
             }]
         elif marc21.bib_level == 'a':
-            type = [{
+            rec_type = [{
                 "main_type": "docmaintype_article",
             }]
         elif marc21.record_type in ['c', 'd']:
-            type = [{
+            rec_type = [{
                 "main_type": "docmaintype_score",
                 "subtype": "docsubtype_printed_score"
             }]
         elif marc21.record_type in ['i', 'j']:
-            type = [{
+            rec_type = [{
                 "main_type": "docmaintype_audio",
                 "subtype": "docsubtype_music"
             }]
         elif marc21.record_type == 'g':
-            type = [{
+            rec_type = [{
                 "main_type": "docmaintype_movie_series",
                 "subtype": "docsubtype_movie"
             }]
-    data['type'] = type
+    data['type'] = rec_type
 
 
 def do_language(data, marc21):
@@ -347,8 +348,7 @@ def do_language(data, marc21):
             })
             lang_codes.append(lang_value)
     # language note
-    fields_546 = marc21.get_fields(tag='546')
-    if fields_546:
+    if fields_546 := marc21.get_fields('546'):
         subfields_546_a = marc21.get_subfields(fields_546[0], 'a')
         if subfields_546_a and language:
             language[0]['note'] = subfields_546_a[0]
@@ -377,9 +377,8 @@ def do_abbreviated_title(data, marc21, key, value):
     if value.get('a'):
         main_title = not_repetitive(
             marc21.bib_id, marc21.bib_id, key, value, 'a')
-        title_type = 'bf:AbbreviatedTitle'
-        if key[:3] == '222':
-            title_type = 'bf:KeyTitle'
+        title_type = 'bf:KeyTitle' if key[:3] == '222' \
+            else 'bf:AbbreviatedTitle'
         title = {
             'type': title_type,
             'mainTitle': [{'value': main_title}]
@@ -389,11 +388,9 @@ def do_abbreviated_title(data, marc21, key, value):
                 marc21.bib_id, marc21.bib_id, key, value, 'b')
             title['subtitle'] = [{'value': subtitle}]
         for resp_tag in ['f', 'g']:
-            datas = utils.force_list(value.get(resp_tag))
-            if datas:
+            if datas := utils.force_list(value.get(resp_tag)):
                 for data in datas:
-                    responsibility = build_responsibility_data(data)
-                    if responsibility:
+                    if responsibility := build_responsibility_data(data):
                         new_responsibility = data.get(
                             'responsibilityStatement', [])
                         for resp in responsibility:
@@ -424,8 +421,7 @@ def do_title(data, marc21, value):
     # extraction and initialization of data for further processing
     subfield_245_a = ''
     subfield_245_b = ''
-    fields_245 = marc21.get_fields(tag='245')
-    if fields_245:
+    if fields_245 := marc21.get_fields('245'):
         subfields_245_a = marc21.get_subfields(fields_245[0], 'a')
         subfields_245_b = marc21.get_subfields(fields_245[0], 'b')
         if subfields_245_a:
@@ -434,11 +430,10 @@ def do_title(data, marc21, value):
             subfield_245_b = subfields_245_b[0]
     field_245_a_end_with_equal = re.search(r'\s*=\s*$', subfield_245_a)
 
-    fields_246 = marc21.get_fields(tag='246')
+    fields_246 = marc21.get_fields('246')
     subfield_246_a = ''
     if fields_246:
-        subfields_246_a = marc21.get_subfields(fields_246[0], 'a')
-        if subfields_246_a:
+        if subfields_246_a := marc21.get_subfields(fields_246[0], 'a'):
             subfield_246_a = subfields_246_a[0]
 
     _, link = get_field_link_data(value)
@@ -474,7 +469,7 @@ def do_title(data, marc21, value):
                             value_data, field_245_a_end_with_equal)
                     if subtitle:
                         title_data['subtitle'] = subtitle
-                elif not subfield_246_a and value_data:
+                elif value_data:
                     title_data['subtitle'] = value_data
             elif blob_key == 'c':
                 responsibility = build_responsibility_data(value_data)
@@ -484,8 +479,7 @@ def do_title(data, marc21, value):
         if blob_key != '__order__':
             index += 1
     title_data['type'] = 'bf:Title'
-    the_part_list = part_list.get_part_list()
-    if the_part_list:
+    if the_part_list := part_list.get_part_list():
         title_data['part'] = the_part_list
     if title_data:
         title_list.append(title_data)
@@ -663,22 +657,20 @@ def do_specific_document_relation(data, marc21, key, value):
             _REPRODUCTION_SUBFIELDS_PER_TAG[tag]
         )
         relation = {'label': label}
-    else:
-        subfield_w = not_repetitive(marc21.bib_id,  marc21.rero_id,
-                                    key, value, 'w', default='').strip()
-        if subfield_w:
-            pid = None
-            match = re_reroils.match(subfield_w)
-            if match:
-                source = match.group(1)
-                pid = match.group(2)
-            if pid and source == ('REROILS:'):
-                # TODO: find a way to use a parameter for ref
-                ref = f'https://bib.rero.ch/api/documents/{pid}'
-                relation = {'$ref': ref}
-            else:
-                label = build_string_from_subfields(value, 'ctw')
-                relation = {'label': label}
+    elif subfield_w := not_repetitive(
+                marc21.bib_id, marc21.rero_id, key, value, 'w', default=''
+            ).strip():
+        pid = None
+        if match := re_reroils.match(subfield_w):
+            source = match.group(1)
+            pid = match.group(2)
+        if pid and source == ('REROILS:'):
+            # TODO: find a way to use a parameter for ref
+            ref = f'https://bib.rero.ch/api/documents/{pid}'
+            relation = {'$ref': ref}
+        else:
+            label = build_string_from_subfields(value, 'ctw')
+            relation = {'label': label}
     if relation and (relation.get('label') or relation.get('$ref')):
         relation_tag = _DOCUMENT_RELATION_PER_TAG[tag]
         relation_list = data.get(relation_tag, [])
@@ -690,15 +682,14 @@ def do_copyright_date(data, value):
     """Get Copyright Date."""
     copyright_dates = data.get('copyrightDate', [])
     for copyright_date in utils.force_list(value.get('c', [])):
-        match = re.search(r'^([©℗])+\s*(\d{4}.*)', copyright_date)
-        if match:
+        if match := re.search(r'^([©℗])+\s*(\d{4}.*)', copyright_date):
             copyright_date = ' '.join((
                 match.group(1),
                 match.group(2)
             ))
             copyright_dates.append(copyright_date)
-        # else:
-        #     raise ValueError('Bad format of copyright date')
+            # else:
+            #     raise ValueError('Bad format of copyright date')
     return copyright_dates or None
 
 
@@ -739,36 +730,49 @@ def do_provision_activity(data, marc21, key, value):
     """
     tag = key[:3]
 
-    def build_statement(field_value, ind2):
+    def correct_b_after_e(field_value):
+        """Corrects wrong $b after $e."""
+        new_field_values = []
+        last_key = ''
+        for blob_key, blob_value in get_field_items(field_value):
+            if last_key == 'e' and blob_key == 'b':
+                blob_key = 'f'
+            new_field_values.append((blob_key, blob_value))
+            last_key = blob_key
+        return GroupableOrderedDict(new_field_values)
+
+    def build_statement(field_value, subtags=('a', 'b')):
 
         def build_agent_data(code, label, index, link):
             type_per_code = {
                 'a': 'bf:Place',
-                'b': 'bf:Agent'
+                'b': 'bf:Agent',
+                'e': 'bf:Place',
+                'f': 'bf:Agent'
             }
             label = remove_trailing_punctuation(label)
+            if label and code == 'e':
+                label = label.lstrip('(')
+            if label and code == 'f':
+                label = label.rstrip(')')
+
             if not label:
                 return None
             agent_data = {
                 'type': type_per_code[code],
                 'label': [{'value': label}]
             }
-            try:
+            with contextlib.suppress(Exception):
                 alt_gr = marc21.alternate_graphic[tag][link]
                 subfield = \
                     marc21.get_subfields(alt_gr['field'])[index]
-                subfield = remove_trailing_punctuation(subfield)
-                if subfield:
+                if subfield := remove_trailing_punctuation(subfield):
                     agent_data['label'].append({
                         'value': subfield,
                         'language': marc21.get_language_script(
                             alt_gr['script'])
                     })
-            except Exception as err:
-                pass
-
-            identifier = build_identifier(value)
-            if identifier:
+            if identifier := build_identifier(value):
                 agent_data['identifiedBy'] = identifier
 
             return agent_data
@@ -779,7 +783,7 @@ def do_provision_activity(data, marc21, key, value):
         statement = []
         index = 1
         for blob_key, blob_value in items:
-            if blob_key in ('a', 'b'):
+            if blob_key in subtags:
                 agent_data = build_agent_data(
                     blob_key, blob_value, index, link)
                 if agent_data:
@@ -798,6 +802,9 @@ def do_provision_activity(data, marc21, key, value):
         '2': 'bf:Distribution',
         '3': 'bf:Manufacture'
     }
+    if tag == '260':
+        ind2 = '1'
+        value = correct_b_after_e(value)
     publication = {'type': type_per_ind2[ind2]}
 
     if ind2 in ('_', ' ', '1'):
@@ -812,7 +819,7 @@ def do_provision_activity(data, marc21, key, value):
         place = marc21.build_place()
         if place and place.get('country') != 'xx':
             places.append(place)
-        # parce le link skipping the fist (already used by build_place)
+        # parce the link skipping the fist (already used by build_place)
         for i in range(1, len(marc21.links_from_752)):
             place = {
                 'country': 'xx',
@@ -833,12 +840,10 @@ def do_provision_activity(data, marc21, key, value):
         notes.append(subfield_3)
         publication['note'] = ', '.join(notes)
 
-    statement = build_statement(value, ind2)
-    if statement:
-        publication['statement'] = build_statement(value, ind2)
+    if statement := build_statement(value):
+        publication['statement'] = statement
 
-    subfields_c = utils.force_list(value.get('c', []))
-    if subfields_c:
+    if subfields_c := utils.force_list(value.get('c', [])):
         subfield_c = subfields_c[0]
         date = {
             'label': [{'value': subfield_c}],
@@ -859,13 +864,33 @@ def do_provision_activity(data, marc21, key, value):
             pass
         publication.setdefault('statement', [])
         publication['statement'].append(date)
+    # make second provision activity for 260 $ e $f $g
+    if tag == '260':
+        publication_260 = {'type': 'bf:Manufacture'}
+        if statement := build_statement(value, ('e', 'f')):
+            publication_260['statement'] = statement
+        if subfields_g := utils.force_list(value.get('g', [])):
+            subfield_g = subfields_g[0]
+            date = {
+                'label': [{'value': subfield_g}],
+                'type': 'Date'
+            }
+            publication_260.setdefault('statement', [])
+            publication_260['statement'].append(date)
+        if statement or subfields_g:
+            publications = data.setdefault('provisionActivity', [])
+            if publication:
+                publications.append(publication)
+                publication = None
+            publications.append(publication_260)
+            data['provisionActivity'] = publications
+
     return publication or None
 
 
 def do_table_of_contents(data, value):
     """Get tableOfContents from repetitive field 505."""
-    table_of_contents = build_string_from_subfields(value, 'agtr')
-    if table_of_contents:
+    if table_of_contents := build_string_from_subfields(value, 'agtr'):
         table_of_contents_list = data.get('tableOfContents', [])
         table_of_contents_list.append(table_of_contents)
         data['tableOfContents'] = table_of_contents_list
@@ -873,12 +898,10 @@ def do_table_of_contents(data, value):
 
 def do_usage_and_access_policy_from_field_506_540(marc21, key, value):
     """Get usageAndAccessPolicy from fields: 506, 540."""
-    subfield_a = not_repetitive(marc21.bib_id, marc21.rero_id,
-                                key, value, 'a', default='').strip()
-    if subfield_a:
-        policy = {'type': 'bf:UsageAndAccessPolicy',
-                  'label': subfield_a}
-        return policy
+    if subfield_a := not_repetitive(
+        marc21.bib_id, marc21.rero_id, key, value, 'a', default=''
+    ).strip():
+        return {'type': 'bf:UsageAndAccessPolicy', 'label': subfield_a}
 
 
 def do_frequency_field_310_321(marc21, key, value):
@@ -986,9 +1009,9 @@ def do_identified_by_from_field_010(data, marc21, key, value):
     def build_identifier_from(subfield_data, identified_by):
         subfield_data = subfield_data.strip()
         identifier = {'value': subfield_data}
-        subfield_a = not_repetitive(marc21.bib_id, marc21.rero_id,
-                                    key, value, 'a', default='').strip()
-        if subfield_a:
+        if subfield_a := not_repetitive(
+            marc21.bib_id, marc21.rero_id, key, value, 'a', default=''
+        ).strip():
             identifier['type'] = 'bf:Lccn'
             identified_by.append(identifier)
         return identified_by
@@ -1009,8 +1032,7 @@ def do_identified_by_from_field_020(data, marc21, key, value):
             identifier['qualifier'] = \
                 ', '.join(utils.force_list(value.get('q')))
 
-        match = re.search(r'^(.+?)\s*\((.+)\)$', subfield_data)
-        if match:
+        if match := re.search(r'^(.+?)\s*\((.+)\)$', subfield_data):
             # match.group(2) : parentheses content
             identifier['qualifier'] = ', '.join(
                 filter(
@@ -1058,15 +1080,15 @@ def do_identified_by_from_field_022(data, value):
 
     identified_by = data.get('identifiedBy', [])
     for subfield_code in ['a', 'l', 'm', 'y']:
-        subfields_data = value.get(subfield_code)
-        if subfields_data:
+        if subfields_data := value.get(subfield_code):
             if isinstance(subfields_data, str):
                 subfields_data = [subfields_data]
             for subfield_data in subfields_data:
                 subfield_data = subfield_data.strip()
-                identifier = {}
-                identifier['type'] = type_for[subfield_code]
-                identifier['value'] = subfield_data
+                identifier = {
+                    'type': type_for[subfield_code],
+                    'value': subfield_data
+                }
                 if subfield_code in status_for:
                     identifier['status'] = status_for[subfield_code]
                 identified_by.append(identifier)
@@ -1077,15 +1099,15 @@ def do_identified_by_from_field_022(data, value):
 def do_identified_by_from_field_024(data, marc21, key, value):
     """Get identifier from field 024."""
     def populate_acquisitionTerms_note_qualifier(identifier):
-        subfield_c = not_repetitive(marc21.bib_id,  marc21.rero_id,
-                                    key, value, 'c', default='').strip()
-        if subfield_c:
+        if subfield_c := not_repetitive(
+            marc21.bib_id, marc21.rero_id, key, value, 'c', default=''
+        ).strip():
             acquisition_terms = data.get('acquisitionTerms', [])
             acquisition_terms.append(subfield_c)
             data['acquisitionTerms'] = acquisition_terms
-        subfield_d = not_repetitive(marc21.bib_id, marc21.rero_id,
-                                    key, value, 'd', default='').strip()
-        if subfield_d:
+        if subfield_d := not_repetitive(
+                    marc21.bib_id, marc21.rero_id, key, value, 'd', default=''
+                ).strip():
             identifier['note'] = subfield_d
         if value.get('q'):  # $q is repetitive
             identifier['qualifier'] = \
@@ -1198,29 +1220,28 @@ def do_identified_by_from_field_024(data, marc21, key, value):
 
 def do_identified_by_from_field_028(data, marc21, key, value):
     """Get identifier from field 028."""
-    type_for_ind1 = {
-        '0': 'bf:AudioIssueNumber',
-        '1': 'bf:MatrixNumber',
-        '2': 'bf:MusicPlate',
-        '3': 'bf:MusicPublisherNumber',
-        '4': 'bf:VideoRecordingNumber',
-        '5': 'bf:PublisherNumber',
-        '6': 'bf:MusicDistributorNumber'
-    }
-
-    identifier = {}
     identified_by = data.get('identifiedBy', [])
-    subfield_a = not_repetitive(marc21.bib_id, marc21.rero_id,
-                                key, value, 'a', default='').strip()
-    if subfield_a:
-        identifier['value'] = subfield_a
+    if subfield_a := not_repetitive(
+        marc21.bib_id, marc21.rero_id, key, value, 'a', default=''
+    ).strip():
+        identifier = {'value': subfield_a}
         if value.get('q'):  # $q is repetitive
             identifier['qualifier'] = \
                 ', '.join(utils.force_list(value.get('q')))
-        subfield_b = not_repetitive(marc21.bib_id, marc21.rero_id,
-                                    key, value, 'b', default='').strip()
-        if subfield_b:
+        if subfield_b := not_repetitive(
+            marc21.bib_id, marc21.rero_id, key, value, 'b', default=''
+        ).strip():
             identifier['source'] = subfield_b
+        type_for_ind1 = {
+            '0': 'bf:AudioIssueNumber',
+            '1': 'bf:MatrixNumber',
+            '2': 'bf:MusicPlate',
+            '3': 'bf:MusicPublisherNumber',
+            '4': 'bf:VideoRecordingNumber',
+            '5': 'bf:PublisherNumber',
+            '6': 'bf:MusicDistributorNumber'
+        }
+
         # key[3] is the indicateur_1
         identifier['type'] = type_for_ind1.get(key[3], 'bf:Identifier')
         identified_by.append(identifier)
@@ -1230,13 +1251,12 @@ def do_identified_by_from_field_028(data, marc21, key, value):
 def do_identified_by_from_field_035(data, marc21, key, value, source=None):
     """Get identifier from field 035."""
     identified_by = data.get('identifiedBy', [])
-    subfield_a = not_repetitive(marc21.bib_id, marc21.rero_id,
-                                key, value, 'a', default='').strip()
-    if subfield_a:
+    if subfield_a := not_repetitive(
+        marc21.bib_id, marc21.rero_id, key, value, 'a', default=''
+    ).strip():
         value = subfield_a
         # search source between parenthesis
-        match = re_identified.match(subfield_a)
-        if match:
+        if match := re_identified.match(subfield_a):
             source = match.group(1)
             value = match.group(2)
         if source and value:
@@ -1252,8 +1272,7 @@ def do_identified_by_from_field_035(data, marc21, key, value, source=None):
 def do_acquisition_terms_from_field_037(data, value):
     """Get acquisition terms field 037."""
     acquisition_terms = data.get('acquisitionTerms', [])
-    subfields_c = utils.force_list(value.get('c'))
-    if subfields_c:
+    if subfields_c := utils.force_list(value.get('c')):
         for subfield_c in subfields_c:
             acquisition_terms.append(subfield_c.strip())
         data['acquisitionTerms'] = acquisition_terms

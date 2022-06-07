@@ -84,7 +84,7 @@ def marc21_to_language(self, key, value):
             })
             lang_codes.append(lang_value)
     # language note
-    fields_546 = marc21.get_fields(tag='546')
+    fields_546 = marc21.get_fields('546')
     if fields_546:
         subfields_546_a = marc21.get_subfields(fields_546[0], 'a')
         if subfields_546_a and language:
@@ -293,7 +293,7 @@ def marc21_to_edition_statement(self, key, value):
     return edition_data or None
 
 
-@marc21.over('provisionActivity', '^264.[ 0-3]')
+@marc21.over('provisionActivity', '^(260..|264.[ 0-3])')
 @utils.for_each_value
 @utils.ignore_value
 def marc21_to_provision_activity(self, key, value):

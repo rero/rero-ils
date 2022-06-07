@@ -2741,8 +2741,6 @@ def test_marc21_to_provision_activity_exceptions(capsys):
     assert out.strip().replace('\n', '') == (
       'WARNING NOT A LANGUAGE 008:\t???\t???\t\t'
       'WARNING LANGUAGE SCRIPTS:'
-      '\t???\t???\tcyrl\t008:\tund\t041$a:\t[]\t041$h:\t[]\t'
-      'WARNING LANGUAGE SCRIPTS:'
       '\t???\t???\tcyrl\t008:\tund\t041$a:\t[]\t041$h:\t[]'
     )
 

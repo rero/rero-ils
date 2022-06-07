@@ -217,7 +217,7 @@ def marc21_to_title(self, key, value):
     """
     subfield_245_a = ''
     subfield_245_b = ''
-    if fields_245 := marc21.get_fields(tag='245'):
+    if fields_245 := marc21.get_fields('245'):
         subfields_245_a = marc21.get_subfields(fields_245[0], 'a')
         subfields_245_b = marc21.get_subfields(fields_245[0], 'b')
         if subfields_245_a:
@@ -229,7 +229,7 @@ def marc21_to_title(self, key, value):
     field_245_a_end_with_semicolon = re.search(r'\s*;\s*$', subfield_245_a)
     field_245_b_contains_equal = re.search(r'=', subfield_245_b)
 
-    fields_246 = marc21.get_fields(tag='246')
+    fields_246 = marc21.get_fields('246')
     subfield_246_a = ''
     if fields_246:
         if subfields_246_a := marc21.get_subfields(fields_246[0], 'a'):
