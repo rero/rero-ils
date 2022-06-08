@@ -19,43 +19,43 @@
 
 from invenio_records_rest.serializers.response import search_responsify
 
-from ..acq_accounts.api import AcqAccount
-from ..libraries.api import Library
-from ..serializers import JSONSerializer, RecordSchemaJSONV1
-from ..vendors.api import Vendor
+from rero_ils.modules.acq_accounts.api import AcqAccountsSearch
+from rero_ils.modules.libraries.api import LibrariesSearch
+from rero_ils.modules.serializers import JSONSerializer, RecordSchemaJSONV1
+from rero_ils.modules.vendors.api import VendorsSearch
 
 
 class AcqOrderJSONSerializer(JSONSerializer):
     """Mixin serializing records as JSON."""
 
-    def post_process_serialize_search(self, results, pid_fetcher):
-        """Post process the search results."""
-        # Adding info into buckets
-        JSONSerializer.complete_bucket_with_attribute(
-            results, 'library', Library, 'name')
-        JSONSerializer.complete_bucket_with_attribute(
-            results, 'vendor', Vendor, 'name')
-        JSONSerializer.complete_bucket_with_attribute(
-            results, 'account', AcqAccount, 'name')
-
+    def _postprocess_search_aggregations(self, aggregations: dict) -> None:
+        """Post-process aggregations from a search result."""
+        JSONSerializer.enrich_bucket_with_data(
+            aggregations.get('library', {}).get('buckets', []),
+            LibrariesSearch, 'name'
+        )
+        JSONSerializer.enrich_bucket_with_data(
+            aggregations.get('vendor', {}).get('buckets', []),
+            VendorsSearch, 'name'
+        )
+        JSONSerializer.enrich_bucket_with_data(
+            aggregations.get('account', {}).get('buckets', []),
+            AcqAccountsSearch, 'name'
+        )
         # Add configuration for order_date and receipt_date buckets
-        for bucket in ['order_date', 'receipt_date']:
-            aggr = results['aggregations'].get(bucket)
+        for aggr_name in ['order_date', 'receipt_date']:
+            aggr = aggregations.get(aggr_name)
             if not aggr:
                 continue
-            bucket_values = [term['key'] for term in aggr.get('buckets', [])]
-            if bucket_values:
-                results['aggregations'][bucket]['type'] = 'date-range'
-                results['aggregations'][bucket]['config'] = {
-                    'min': min(bucket_values),
-                    'max': max(bucket_values),
+            if values := [term['key'] for term in aggr.get('buckets', [])]:
+                aggregations[aggr_name]['type'] = 'date-range'
+                aggregations[aggr_name]['config'] = {
+                    'min': min(values),
+                    'max': max(values),
                     'step': 86400000  # 1 day in millis
                 }
+        super()._postprocess_search_aggregations(aggregations)
 
-        return super().post_process_serialize_search(results, pid_fetcher)
 
-
-json_acq_order = AcqOrderJSONSerializer(RecordSchemaJSONV1)
-"""JSON v1 serializer."""
-
-json_acor_search = search_responsify(json_acq_order, 'application/rero+json')
+_json = AcqOrderJSONSerializer(RecordSchemaJSONV1)
+json_acor_search = search_responsify(_json, 'application/rero+json')

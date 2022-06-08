@@ -60,25 +60,16 @@ def get_document_types_from_schema(schema='doc'):
 
 
 def filter_document_type_buckets(buckets):
-    """Removes unwanted sub types from buckets."""
-    doc_types = get_document_types_from_schema()
-    new_type_buckets = buckets
-    if doc_types:
-        new_type_buckets = []
-        for type_bucket in buckets:
-            new_type_bucket = type_bucket
-            main_type = type_bucket['key']
-            new_subtype_buckets = [
+    """Removes unwanted subtypes from `document_type` buckets."""
+    # TODO :: write an unitest
+    if doc_types := get_document_types_from_schema():
+        for term in buckets:
+            main_type = term['key']
+            term['document_subtype']['buckets'] = [
                 subtype_bucket
-                for subtype_bucket in type_bucket['document_subtype'][
-                    'buckets'
-                ]
+                for subtype_bucket in term['document_subtype']['buckets']
                 if doc_types.get(main_type, {}).get(subtype_bucket['key'])
             ]
-            new_type_bucket['document_subtype']['buckets'] = \
-                new_subtype_buckets
-            new_type_buckets.append(new_type_bucket)
-    return new_type_buckets
 
 
 def clean_text(data):

@@ -65,15 +65,6 @@ class DocumentsSearch(IlsRecordsSearch):
         default_filter = None
 
 
-def search_document_by_pid(pid):
-    """Retrieve document by pid from index."""
-    query = DocumentsSearch().filter('term', pid=pid)
-    try:
-        return next(query.scan())
-    except StopIteration:
-        return None
-
-
 class Document(IlsRecord):
     """Document class."""
 

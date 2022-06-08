@@ -19,49 +19,44 @@
 
 from invenio_records_rest.serializers.response import search_responsify
 
-from rero_ils.modules.serializers import JSONSerializer, RecordSchemaJSONV1
+from rero_ils.modules.item_types.api import ItemType
+from rero_ils.modules.libraries.api import LibrariesSearch
+from rero_ils.modules.locations.api import LocationsSearch
+from rero_ils.modules.serializers import CachedDataSerializerMixin, \
+    JSONSerializer, RecordSchemaJSONV1
 
 from .api import Holding
-from ..item_types.api import ItemType
-from ..libraries.api import Library
-from ..locations.api import Location
 
 
-class HoldingsJSONSerializer(JSONSerializer):
-    """Mixin serializing records as JSON."""
+class HoldingsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
+    """Serializer for RERO-ILS `Holdings` records as JSON."""
 
-    def post_process_serialize_search(self, results, pid_fetcher):
-        """Post process the search results."""
-        records = results.get('hits', {}).get('hits', {})
-        for record in records:
-            metadata = record.get('metadata', {})
-            holding = Holding.get_record_by_pid(metadata.get('pid'))
-            # available
-            metadata['available'] = holding.available
-            # Location name
-            self._populate_data(metadata, Location, 'location')
-            # Library name
-            self._populate_data(metadata, Library, 'library')
-            # Circulation category
-            circ_category_pid = metadata['circulation_category']['pid']
-            circ_category = ItemType.get_record_by_pid(circ_category_pid)
-            metadata['circulation_category'] = circ_category.dumps()
+    def _postprocess_search_hit(self, hit: dict) -> None:
+        """Post-process a search result hit.
 
-        return super(HoldingsJSONSerializer, self)\
-            .post_process_serialize_search(results, pid_fetcher)
-
-    @classmethod
-    def _populate_data(cls, metadata, resource, field):
-        """Populate the current object with the name of resource."""
-        field_data = metadata.get(field, {})
-        field_pid = field_data.get('pid')
-        if field_pid:
-            data = resource.get_record_by_pid(field_pid)
-            field_data['name'] = data.get('name')
+        When serializing a holding record, we need to add some keys to the
+        search hit :
+          * dump related circulation category (itty) information.
+          * holdings availability
+          * location and library name.
+        """
+        metadata = hit.get('metadata', {})
+        record = Holding.get_record_by_pid(metadata.get('pid'))
+        # available
+        metadata['available'] = record.available
+        # Circulation category
+        circ_category_pid = metadata['circulation_category']['pid']
+        circ_category = self.get_resource(ItemType, circ_category_pid)
+        metadata['circulation_category'] = circ_category.dumps()
+        # Library & location
+        if pid := metadata.get('location', {}).get('pid'):
+            loc_name = self.get_resource(LocationsSearch(), pid)['name']
+            metadata['location']['name'] = loc_name
+        if pid := metadata.get('library', {}).get('pid'):
+            lib_name = self.get_resource(LibrariesSearch(), pid)['name']
+            metadata['library']['name'] = lib_name
+        super()._postprocess_search_hit(hit)
 
 
-json_holdings = HoldingsJSONSerializer(RecordSchemaJSONV1)
-"""JSON v1 serializer."""
-
-json_holdings_search = search_responsify(
-    json_holdings, 'application/rero+json')
+_json = HoldingsJSONSerializer(RecordSchemaJSONV1)
+json_holdings_search = search_responsify(_json, 'application/rero+json')

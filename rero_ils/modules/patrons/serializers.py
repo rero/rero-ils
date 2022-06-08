@@ -19,28 +19,21 @@
 
 from invenio_records_rest.serializers.response import search_responsify
 
-from ..patron_types.api import PatronType
-from ..serializers import JSONSerializer, RecordSchemaJSONV1
+from rero_ils.modules.patron_types.api import PatronTypesSearch
+from rero_ils.modules.serializers import JSONSerializer, RecordSchemaJSONV1
 
 
 class PatronJSONSerializer(JSONSerializer):
-    """Mixin serializing records as JSON."""
+    """Serializer for RERO-ILS `Patron` records as JSON."""
 
-    def post_process_serialize_search(self, results, pid_fetcher):
-        """Post process the search results."""
-        # Add patron type name
-        for type_term in results.get('aggregations', {}).get(
-                'patron_type', {}).get('buckets', []):
-            pid = type_term.get('key')
-            name = PatronType.get_record_by_pid(pid).get('name')
-            type_term['key'] = pid
-            type_term['name'] = name
-
-        return super().post_process_serialize_search(results, pid_fetcher)
+    def _postprocess_search_aggregations(self, aggregations: dict) -> None:
+        """Post-process aggregations from a search result."""
+        JSONSerializer.enrich_bucket_with_data(
+            aggregations.get('patron_type', {}).get('buckets', []),
+            PatronTypesSearch, 'name'
+        )
+        super()._postprocess_search_aggregations(aggregations)
 
 
-json_patron = PatronJSONSerializer(RecordSchemaJSONV1)
-"""JSON v1 serializer."""
-
-json_patron_search = search_responsify(
-    json_patron, 'application/rero+json')
+_json = PatronJSONSerializer(RecordSchemaJSONV1)
+json_patron_search = search_responsify(_json, 'application/rero+json')

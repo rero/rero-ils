@@ -34,7 +34,8 @@ from ..libraries.api import Library
 class LoanJSONSerializer(JSONSerializer):
     """Mixin serializing records as JSON."""
 
-    def post_process_serialize_search(self, results, pid_fetcher):
+    # TODO :: will be refactored in next PR
+    def postprocess_serialize_search(self, results, pid_fetcher):
         """Post process the search results."""
         records = results.get('hits', {}).get('hits', [])
         for record in records:
@@ -87,7 +88,7 @@ class LoanJSONSerializer(JSONSerializer):
                         metadata, loan)
                 del metadata['item_pid']
         return super(LoanJSONSerializer, self)\
-            .post_process_serialize_search(results, pid_fetcher)
+            .postprocess_serialize_search(results, pid_fetcher)
 
     def _process_loan_pending_at_desk_in_transit_for_pickup(
             self, metadata, item_pid):
@@ -119,7 +120,5 @@ class LoanJSONSerializer(JSONSerializer):
             .get_library().get('name')
 
 
-json_loan = LoanJSONSerializer(RecordSchemaJSONV1)
-"""JSON v1 serializer."""
-
-json_loan_search = search_responsify(json_loan, 'application/rero+json')
+_json = LoanJSONSerializer(RecordSchemaJSONV1)
+json_loan_search = search_responsify(_json, 'application/rero+json')
