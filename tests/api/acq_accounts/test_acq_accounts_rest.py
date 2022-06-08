@@ -33,12 +33,12 @@ def test_acq_accounts_library_facets(
     client, org_martigny, acq_account_fiction_martigny, rero_json_header
 ):
     """Test record retrieval."""
-    list_url = url_for('invenio_records_rest.acac_list', view='org1')
-
-    res = client.get(list_url, headers=rero_json_header)
+    url = url_for('invenio_records_rest.acac_list', view='org1')
+    res = client.get(url, headers=rero_json_header)
     data = get_json(res)
     aggs = data['aggregations']
     assert 'library' in aggs
+    assert all('name' in term for term in aggs['library']['buckets'])
 
 
 def test_acq_accounts_permissions(client, acq_account_fiction_martigny,

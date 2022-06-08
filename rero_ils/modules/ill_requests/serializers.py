@@ -17,35 +17,36 @@
 
 """ILL Request serialization."""
 
-from invenio_records_rest.serializers.response import search_responsify
+from invenio_records_rest.serializers.response import record_responsify, \
+    search_responsify
 
-from ..libraries.api import Library
-from ..locations.api import Location
-from ..serializers import JSONSerializer, RecordSchemaJSONV1
+from rero_ils.modules.libraries.api import LibrariesSearch
+from rero_ils.modules.locations.api import LocationsSearch
+from rero_ils.modules.serializers import CachedDataSerializerMixin, \
+    JSONSerializer, RecordSchemaJSONV1
 
 
-class ILLRequestJSONSerializer(JSONSerializer):
-    """Mixin serializing records as JSON."""
+class ILLRequestJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
+    """Serializer for RERO-ILS `ILLRequest` records as JSON."""
 
-    def post_process_serialize_search(self, results, pid_fetcher):
-        """Post process the search results."""
-        aggrs = results.get('aggregations', {})
-        # replace the library pid by the library name for faceting
-        for lib_term in aggrs.get('library', {}).get('buckets', []):
-            pid = lib_term.get('key')
-            lib_term['name'] = Library.get_record_by_pid(pid).get('name')
-        # Populate record
-        records = results.get('hits', {}).get('hits', {})
-        for record in records:
-            metadata = record.get('metadata', {})
-            location_pid = metadata.get('pickup_location', {}).get('pid')
-            location = Location.get_record_by_pid(location_pid)
+    def _postprocess_search_hit(self, hit: dict) -> None:
+        """Post-process each hit of a search result."""
+        metadata = hit.get('metadata', {})
+        if pid := metadata.get('pickup_location', {}).get('pid'):
+            location = self.get_resource(LocationsSearch(), pid)
             pickup_name = location.get('pickup_name', location.get('name'))
             metadata['pickup_location']['name'] = pickup_name
+        super()._postprocess_search_hit(hit)
 
-        return super().post_process_serialize_search(results, pid_fetcher)
+    def _postprocess_search_aggregations(self, aggregations: dict) -> None:
+        """Post-process aggregations from a search result."""
+        JSONSerializer.enrich_bucket_with_data(
+            aggregations.get('library', {}).get('buckets', []),
+            LibrariesSearch, 'name'
+        )
+        super()._postprocess_search_aggregations(aggregations)
 
 
-json_ill_request = ILLRequestJSONSerializer(RecordSchemaJSONV1)
-json_ill_request_search = search_responsify(json_ill_request,
-                                            'application/rero+json')
+_json = ILLRequestJSONSerializer(RecordSchemaJSONV1)
+json_ill_request_search = search_responsify(_json, 'application/rero+json')
+json_ill_request_response = record_responsify(_json, 'application/rero+json')

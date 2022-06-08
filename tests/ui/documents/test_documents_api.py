@@ -167,3 +167,13 @@ def test_document_contribution_resolve_exception(es_clear, db,
             dbcommit=True,
             reindex=True
         )
+
+
+def test_document_get_links_to_me(document, export_document):
+    """Test document links."""
+    assert document.get_links_to_me() == {'documents': 1}
+    assert document.get_links_to_me(get_pids=True) == {
+        'documents': {
+            'partOf': [export_document.pid]
+        }
+    }

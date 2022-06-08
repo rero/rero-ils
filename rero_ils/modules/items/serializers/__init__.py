@@ -25,7 +25,7 @@ from rero_ils.modules.serializers import JSONSerializer, RecordSchemaJSONV1
 from .csv import ItemCSVSerializer
 from .json import ItemsJSONSerializer
 
-csv_item = ItemCSVSerializer(
+_csv = ItemCSVSerializer(
     JSONSerializer,
     csv_included_fields=[
         'pid',
@@ -60,12 +60,9 @@ csv_item = ItemCSVSerializer(
         'issue_regular'
     ]
 )
-csv_item_response = record_responsify(csv_item, "text/csv")
-csv_item_search = search_responsify_csv(csv_item, "text/csv")
-"""CSV serializer."""
+csv_item_response = record_responsify(_csv, "text/csv")
+csv_item_search = search_responsify_csv(_csv, "text/csv")
 
-json_item = ItemsJSONSerializer(RecordSchemaJSONV1)
-"""JSON serializer."""
-
-json_item_search = search_responsify(json_item, 'application/rero+json')
-json_item_response = record_responsify(json_item, 'application/rero+json')
+_json = ItemsJSONSerializer(RecordSchemaJSONV1)
+json_item_search = search_responsify(_json, 'application/rero+json')
+json_item_response = record_responsify(_json, 'application/rero+json')

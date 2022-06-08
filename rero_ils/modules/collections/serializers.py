@@ -19,29 +19,21 @@
 
 from invenio_records_rest.serializers.response import search_responsify
 
-from ..libraries.api import Library
-from ..serializers import JSONSerializer, RecordSchemaJSONV1
+from rero_ils.modules.libraries.api import LibrariesSearch
+from rero_ils.modules.serializers import JSONSerializer, RecordSchemaJSONV1
 
 
 class CollectionJSONSerializer(JSONSerializer):
-    """Mixin serializing records as JSON."""
+    """Serializer for RERO-ILS `Collection` records as JSON."""
 
-    def post_process_serialize_search(self, results, pid_fetcher):
-        """Post process the search results."""
-        lib_buckets = []
-        # Add organisation name
-        for lib_term in results.get('aggregations', {}).get(
-                'library', {}).get('buckets', []):
-            pid = lib_term.get('key')
-            lib = Library.get_record_by_pid(pid)
-            name = lib.get('name')
-            lib_term['name'] = name
-            lib_buckets.append(lib_term)
-
-        return super().post_process_serialize_search(results, pid_fetcher)
+    def _postprocess_search_aggregations(self, aggregations: dict) -> None:
+        """Post-process aggregations from a search result."""
+        JSONSerializer.enrich_bucket_with_data(
+            aggregations.get('library', {}).get('buckets', []),
+            LibrariesSearch, 'name'
+        )
+        super()._postprocess_search_aggregations(aggregations)
 
 
-json_coll = CollectionJSONSerializer(RecordSchemaJSONV1)
-"""JSON v1 serializer."""
-
-json_coll_search = search_responsify(json_coll, 'application/rero+json')
+_json = CollectionJSONSerializer(RecordSchemaJSONV1)
+json_coll_search = search_responsify(_json, 'application/rero+json')

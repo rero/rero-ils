@@ -16,21 +16,25 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""DublinCore Document serialization."""
+"""RERO Document JSON DublinCore serialization."""
 
 from dcxml import simpledc
 from flask import current_app, request
 from invenio_records_rest.serializers.dc import \
-    DublinCoreSerializer as BaseDublinCoreSerializer
+    DublinCoreSerializer as _DublinCoreSerializer
 from lxml import etree
 from lxml.builder import ElementMaker
+from werkzeug.local import LocalProxy
 
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.dojson.contrib.jsontodc import dublincore
 from rero_ils.modules.documents.utils import create_contributions
 
+DEFAULT_LANGUAGE = LocalProxy(
+    lambda: current_app.config.get('BABEL_DEFAULT_LANGUAGE'))
 
-class DublinCoreSerializer(BaseDublinCoreSerializer):
+
+class DublinCoreSerializer(_DublinCoreSerializer):
     """Dublin Core serializer for records.
 
     Note: This serializer is not suitable for serializing large number of
@@ -53,9 +57,8 @@ class DublinCoreSerializer(BaseDublinCoreSerializer):
     container_element = 'record'
 
     def transform_record(self, pid, record, links_factory=None,
-                         language=None, **kwargs):
+                         language=DEFAULT_LANGUAGE, **kwargs):
         """Transform record into an intermediate representation."""
-        language = language or current_app.config['BABEL_DEFAULT_LANGUAGE']
         record = record.replace_refs()
         contributions = create_contributions(
             record.get('contribution', [])
@@ -66,9 +69,8 @@ class DublinCoreSerializer(BaseDublinCoreSerializer):
         return record
 
     def transform_search_hit(self, pid, record, links_factory=None,
-                             language=None, **kwargs):
+                             language=DEFAULT_LANGUAGE, **kwargs):
         """Transform search result hit into an intermediate representation."""
-        language = language or current_app.config['BABEL_DEFAULT_LANGUAGE']
         record = Document.get_record_by_pid(pid)
         return self.transform_record(
             pid=pid,
@@ -102,6 +104,7 @@ class DublinCoreSerializer(BaseDublinCoreSerializer):
         xml_root.append(element.numberOfRecords(str(total)))
         xml_records = element.records()
 
+        language = request.args.get('ln', DEFAULT_LANGUAGE)
         for hit in search_result['hits']['hits']:
             record = hit['_source']
             pid = record['pid']
@@ -109,7 +112,7 @@ class DublinCoreSerializer(BaseDublinCoreSerializer):
                 pid=pid,
                 record=record,
                 links_factory=item_links_factory,
-                language=request.args.get('ln'),
+                language=language,
                 **kwargs
             )
             element_record = simpledc.dump_etree(
